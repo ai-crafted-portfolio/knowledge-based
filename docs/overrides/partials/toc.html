@@ -1,0 +1,42 @@
+{#
+  右 sidebar (secondary nav) override.
+  Material 標準の TOC の下に「関連」と「役に立った？」を追加。
+#}
+
+{% if "toc.integrate" not in features %}
+  <label class="md-nav__title" for="__toc">
+    <span class="md-nav__icon md-icon"></span>
+    このページの内容
+  </label>
+{% endif %}
+
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+  {% for toc_item in page.toc %}
+    {% include "partials/toc-item.html" %}
+  {% endfor %}
+</ul>
+
+{# 関連リンク (記事 front-matter で related を指定可能、未指定なら静的 3 件) #}
+<div class="md-nav__title" style="margin-top:1.2rem">関連</div>
+<ul class="related-list">
+  {% if page.meta and page.meta.related %}
+    {% for item in page.meta.related %}
+      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  {% else %}
+    <li><a href="{{ '/categories/' | url }}">カテゴリ一覧</a></li>
+    <li><a href="{{ '/faq/' | url }}">FAQ</a></li>
+    <li><a href="{{ '/articles/' | url }}">記事一覧</a></li>
+  {% endif %}
+</ul>
+
+{# 「役に立った？」フィードバック #}
+<div class="feedback-box">
+  <div class="feedback-box__title">この記事は役に立ちましたか？</div>
+  <div class="feedback-box__btns">
+    <button class="feedback-box__btn feedback-box__btn--primary"
+            onclick="alert('フィードバックありがとうございます');">はい</button>
+    <button class="feedback-box__btn"
+            onclick="alert('改善の参考にいたします');">いいえ</button>
+  </div>
+</div>
