@@ -1,0 +1,2819 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="z/OS と関連製品の技術項目・確認問題・検証手順をカテゴリ別に検索・閲覧できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c06/part-06/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>DFSMS / IDCAMS / VSAM — 詳細 (6/6) - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dfsms-idcams-vsam-66" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DFSMS / IDCAMS / VSAM — 詳細 (6/6)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切替"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切替" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切替"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切替" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  カテゴリ別 対応状況
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c01/" class="md-tabs__link">
+          
+  
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../articles/" class="md-tabs__link">
+          
+  
+  
+  技術記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  このサイトについて
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../search/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  検索
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ別 対応状況
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIX 7.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anthropic Claude Support / Console Administration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembler / システム・プログラミング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS Transaction Server for z/OS 6.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comm Server / VTAM / TCP/IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFSMS / IDCAMS / VSAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Db2 for z/OS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESS REC / REC NEAO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GDPS 災害対策・サイトスイッチ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Guardium Data Protection 12.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM IIDR 11.4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM MQ メッセージング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Personal Communications 15.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Spectrum Protect 8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Workload Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IMS 15.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL DD 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL EXEC 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL JOB 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL PROC / 制御
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JES2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVS オペレータコマンド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Netcool/OMNIbus V8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSF for z/OS 4.7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerHA SystemMirror 7.2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF SETROPTS/RDEFINE/RACDCERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF USER/GROUP/DATASET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMP/E / SMF / WLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sysplex / XCF / GRS / CF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO / ISPF / SDSF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli Log File Agent 6.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli NetView z/OS 自動化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UNIX System Services (USS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VIOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Server 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z System Automation (TSA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS 3.1 Core Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS System Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プログラミング言語 (COBOL / PL/I / LE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユーティリティ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    診断 (IPCS / Trace / ABEND)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技術記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/jcl-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/racf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/tso-ispf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO/ISPF/SDSF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/uss-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    USS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/cics-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの内容">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの内容
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dfsms-idcams-vsam-vsam_concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFSMS / IDCAMS / VSAM &gt; VSAM_CONCEPTS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DFSMS / IDCAMS / VSAM &gt; VSAM_CONCEPTS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c06-i0249" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VSAM RLS (Record Level Sharing)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c06-i0250" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VSAM TVS (Transactional VSAM)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="その他">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c06-other" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他（特定項目に紐づかないQA・手順）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="dfsms-idcams-vsam-66">DFSMS / IDCAMS / VSAM — 詳細 (6/6)<a class="headerlink" href="#dfsms-idcams-vsam-66" title="Permanent link">&para;</a></h1>
+<p><a href="../">← DFSMS / IDCAMS / VSAM の概要へ戻る</a></p>
+<h2 id="dfsms-idcams-vsam-vsam_concepts">DFSMS / IDCAMS / VSAM &gt; VSAM_CONCEPTS<a class="headerlink" href="#dfsms-idcams-vsam-vsam_concepts" title="Permanent link">&para;</a></h2>
+<h3 id="c06-i0249">VSAM RLS (Record Level Sharing)<a class="headerlink" href="#c06-i0249" title="Permanent link">&para;</a></h3>
+<p><em>分類: VSAM_CONCEPTS</em>  ・  難易度: 上級</p>
+<p>Coupling Facility 上のロック構造体を使った VSAM 共有更新方式。CICS/IMS/バッチ間の本格的データ共有を提供</p>
+<p><strong>出典:</strong> z / OS DFSMS Using Data Sets / OS DFSMS Access Method Services Commands</p>
+<p>??? question "確認問題（1問）"
+    <strong>問題.</strong> 探索追跡再のストレージ管理で VSAM RLS 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p>
+<pre class="highlight"><code>- A. VSAM RLS 属性の出力を取らず探索追跡再のストレージ管理の説明文と承認印だけを残す。
+- B. 机上確認でも実出力の見出しに合わせ、探索追跡再の確認値として扱う。 ✅
+- C. LISTCAT ENTRIES(OSKBVSAMCASE) ALL を省略して探索追跡再のストレージ管理の記録番号と時刻だけを残す。
+- D. 隣接項目の結果を探索追跡再のストレージ管理へ転記して同じ結果として扱う。
+
+正解: **B** ／ 難易度: 上級
+
+**解説:** 探索追跡再正解では選択記号 B を採用し、正解名は探索追跡再正解です。探索追跡再根拠では VSAM RLS 属性 は「探索追跡再のストレージ管理に関係する定義値と表示行を照合する探索追跡再項目」と LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL または該当パネルの出力を照合し、根拠名は探索追跡再根拠です。探索追跡再追跡では VSAM RLS 属性の属性行と IDC0001I を合わせ、追跡名は探索追跡再追跡です。誤答側の問題点を分けます。 A: 探索追跡再不足は名称や説明だけに寄り、判定名は探索追跡再不足です。 B: 探索追跡再正答は対象出力と項目説明を結び、根拠名は探索追跡再正答です。 C: 探索追跡再欠落は戻り値や記録番号に寄り、欠落名は探索追跡再欠落です。 D: 探索追跡再流用は別カテゴリの確認であり、排除名は探索追跡再流用です。探索追跡再初出では VSAM RLS 属性を DFSMS / IDCAMS / VSAM の運用手順で確認し、初出名は探索追跡再初出です。
+
+**出典:** zOS31_idak100 / zOS31_ieav200 / zOS31_f54u200</code></pre>
+<p>??? note "検証手順（2件）"
+    <strong>VSAM RLS (Record Level Sharing)</strong></p>
+<pre class="highlight"><code>- 検証目的: 区切追跡のストレージ管理について、Coupling Facility 上のロック構造体を使った VSAM 共有更新方式。CICS/IMS/ バッチ間の本格的データ共有を提供に関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB030050の検証用出力を記録できる。
+- セッション環境: IDCAMSでLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLを実行し、IDC0001Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL を入力し、区切追跡のストレージ管理の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+```
+
+COMMAND INPUTにLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLが表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にVSAM RLS (Record Lを指定し、OSKB030050の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND VSAM RLS (Record L
+CASE OSKB030050
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM VSAM RLS (Record L
+CASE OSKB030050
+SOURCE DFSMS
+```
+
+VSAM RLS (Record LとOSKB030050が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC0001IとOSKB030050を同じ出力で読み、区切追跡のストレージ管理の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CASE OSKB030050
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CLUSTER ------- OSKB030050.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC0001IとOSKB030050が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL が画面・出力に表示されること
+② ステップ2 の VSAM RLS (Record L と OSKB030050 が画面・出力に表示されること
+③ ステップ3 の IDC0001I と OSKB030050 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMS Using Data Sets / OS DFSMS Access Method Services Commands
+
+---
+
+**VSAM RLS (Record Level Sharing)**
+
+- 検証目的: 構文記録のストレージ管理について、Coupling Facility 上のロック構造体を使った VSAM 共有更新方式。CICS/IMS/ バッチ間の本格的データ共有を提供に関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB020121の検証用出力を記録できる。
+- セッション環境: IDCAMSでLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLを実行し、IDC0001Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL を入力し、構文記録のストレージ管理の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+```
+
+COMMAND INPUTにLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLが表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にVSAM RLS (Record Lを指定し、OSKB020121の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND VSAM RLS (Record L
+CASE OSKB020121
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM VSAM RLS (Record L
+CASE OSKB020121
+SOURCE DFSMS
+```
+
+VSAM RLS (Record LとOSKB020121が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC0001IとOSKB020121を同じ出力で読み、構文記録のストレージ管理の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CASE OSKB020121
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CLUSTER ------- OSKB020121.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC0001IとOSKB020121が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL が画面・出力に表示されること
+② ステップ2 の VSAM RLS (Record L と OSKB020121 が画面・出力に表示されること
+③ ステップ3 の IDC0001I と OSKB020121 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMS Using Data Sets / OS DFSMS Access Method Services Commands</code></pre>
+<h3 id="c06-i0250">VSAM TVS (Transactional VSAM)<a class="headerlink" href="#c06-i0250" title="Permanent link">&para;</a></h3>
+<p><em>分類: VSAM_CONCEPTS</em>  ・  難易度: 上級</p>
+<p>VSAM TVS (Transactional VSAM)は、DFSMS / IDCAMS / VSAMのVSAM_CONCEPTSで機能名、見出し、または確認対象として参照する項目です。RLS にトランザクション (UR) 整合性を加える機構。バッチでも RRS 連携でコミット/ロールバックが可能になる。「VSAM TVS (Transactional VSAM)」を読むと、DEFINE、ALTER、DELETE、LISTCAT などの操作がカタログ項目と実データのどちらに作用するかを確認しやすい</p>
+<p><strong>出典:</strong> z / OS DFSMS Using Data Sets / OS DFSMS Access Method Services Commands</p>
+<p>??? question "確認問題（1問）"
+    <strong>問題.</strong> 上書追跡再のストレージ管理でストレージ管理の運用確認を行います。VSAM TVS 属性の根拠にできる作業はどれですか。</p>
+<pre class="highlight"><code>- A. DFSMS と無関係な一覧で上書追跡再のストレージ管理を確認した扱いにする。
+- B. IDC3009I の有無を確認せず上書追跡再のストレージ管理を正常終了として記録する。
+- C. 参照資料名、表示行、メッセージをそろえて上書追跡再の根拠を固定する。 ✅
+- D. VSAM TVS 属性の属性行を読まず上書追跡再のストレージ管理の画面名と利用者名だけを保存する。
+
+正解: **C** ／ 難易度: 上級
+
+**解説:** 上書追跡再正解では選択記号 C を採用し、正解名は上書追跡再正解です。上書追跡再根拠では VSAM TVS 属性 は「DFSMS で VSAM TVS 属性の扱いを記録する上書追跡再項目」と DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))または該当パネルの出力を照合し、根拠名は上書追跡再根拠です。上書追跡再受渡では VSAM TVS 属性の表示結果と IDC3009I を同じ確認単位にし、受渡名は上書追跡再受渡です。不適切な選択肢を整理します。 A: 上書追跡再流用は別カテゴリの確認であり、排除名は上書追跡再流用です。 B: 上書追跡再欠落は戻り値や記録番号に寄り、欠落名は上書追跡再欠落です。 C: 上書追跡再正答は対象出力と項目説明を結び、根拠名は上書追跡再正答です。 D: 上書追跡再不足は名称や説明だけに寄り、判定名は上書追跡再不足です。上書追跡再資料では VSAM TVS 属性の使い方を出典欄から追跡し、資料名は上書追跡再資料です。
+
+**出典:** zOS31_idak100 / zOS31_ieav200 / zOS31_f54u200</code></pre>
+<p>??? note "検証手順（1件）"
+    <strong>VSAM TVS (Transactional VSAM)</strong></p>
+<pre class="highlight"><code>- 検証目的: 展開記録のストレージ管理について、VSAM TVS (Transactional VSAM)は、DFSMS / IDCAMS / VSAM の VSAM_CONCEPTS で機能名、見出し、または確認対象として参に関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB020122の検証用出力を記録できる。
+- セッション環境: IDCAMSでDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))を実行し、IDC3009Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) を入力し、展開記録のストレージ管理の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+```
+
+COMMAND INPUTにDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))が表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にVSAM TVS (Transactを指定し、OSKB020122の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND VSAM TVS (Transact
+CASE OSKB020122
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM VSAM TVS (Transact
+CASE OSKB020122
+SOURCE DFSMS
+```
+
+VSAM TVS (TransactとOSKB020122が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC3009IとOSKB020122を同じ出力で読み、展開記録のストレージ管理の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CASE OSKB020122
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CLUSTER ------- OSKB020122.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC3009I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC3009IとOSKB020122が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) が画面・出力に表示されること
+② ステップ2 の VSAM TVS (Transact と OSKB020122 が画面・出力に表示されること
+③ ステップ3 の IDC3009I と OSKB020122 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMS Using Data Sets / OS DFSMS Access Method Services Commands</code></pre>
+<h2 id="_1">その他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="c06-other">その他（特定項目に紐づかないQA・手順）<a class="headerlink" href="#c06-other" title="Permanent link">&para;</a></h3>
+<p>このカテゴリで項目名が個別の技術項目に一致しなかったQA・手順です。</p>
+<p>??? question "確認問題（1問）"
+    <strong>問題.</strong> 出力照合のなどに関する VOLUMES(volser など)の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p>
+<pre class="highlight"><code>- A. DEFINE CLUSTER(NAME(OSKBVSAMCASE))の結果を残さず出力照合のなどの担当者名と日時だけを記録する。
+- B. 別製品のメッセージを出力照合のなどの証跡として保存して根拠にする。
+- C. VOLUMES(volser など)の変更点を出力本文から切り離して出力照合のなどの承認欄だけ残す。
+- D. DFSMS の表示形式に沿って根拠行を採り、出力照合の点検結果を残す。 ✅
+
+正解: **D** ／ 難易度: 上級
+
+**解説:** 出力照合正解では選択記号 D を採用し、正解名は出力照合正解です。出力照合根拠では VOLUMES(volser など) は「VOLUMES(volser など)の状態と出力メッセージを結び付ける出力照合項目」と DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))または該当パネルの出力を照合し、根拠名は出力照合根拠です。出力照合保存では VOLUMES(volser など)の出力行と IDC3009I を一緒に残し、保存名は出力照合保存です。選択肢ごとの違いを示します。 A: 出力照合欠落は戻り値や記録番号に寄り、欠落名は出力照合欠落です。 B: 出力照合流用は別カテゴリの確認であり、排除名は出力照合流用です。 C: 出力照合不足は名称や説明だけに寄り、判定名は出力照合不足です。 D: 出力照合正答は対象出力と項目説明を結び、根拠名は出力照合正答です。出力照合対象では VOLUMES(volser など)を DFSMS の確認記録に残し、対象名は出力照合対象です。
+
+**出典:** zOS31_idak100 / zOS31_ieav200 / zOS31_f54u200</code></pre>
+<p>??? note "検証手順（6件）"
+    <strong>VOLUMES(volser など)</strong></p>
+<pre class="highlight"><code>- 検証目的: 呼出照合のなどについて、DFSMS IDCAMS VSAM の DEFINE_CLUSTER では、データセット定義、属性、AMS 出力を対応付けて確認します。DEFINE_CLUSTER は、DFSMSに関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB010023の検証用出力を記録できる。
+- セッション環境: IDCAMSでDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))を実行し、IDC3009Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) を入力し、呼出照合のなどの確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+```
+
+COMMAND INPUTにDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))が表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にVOLUMES(volser など)を指定し、OSKB010023の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND VOLUMES(volser など)
+CASE OSKB010023
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM VOLUMES(volser など)
+CASE OSKB010023
+SOURCE DFSMS
+```
+
+VOLUMES(volser など)とOSKB010023が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC3009IとOSKB010023を同じ出力で読み、呼出照合のなどの根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CASE OSKB010023
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CLUSTER ------- OSKB010023.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC3009I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC3009IとOSKB010023が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) が画面・出力に表示されること
+② ステップ2 の VOLUMES(volser など) と OSKB010023 が画面・出力に表示されること
+③ ステップ3 の IDC3009I と OSKB010023 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMS Access Method Services Commands
+
+---
+
+**CONTROLPW ・ MASTERPW ・ UPDATEPW ・**
+
+- 検証目的: 比較照合の・ ・について、CONTROLPW / MASTERPW / UPDATEPW / READPW は、DFSMS / IDCAMS / VSAM の DEFINE_CLUSTER で確認する項目でに関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB010034の検証用出力を記録できる。
+- セッション環境: IDCAMSでDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))を実行し、IDC3009Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) を入力し、比較照合の・ ・の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+```
+
+COMMAND INPUTにDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))が表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にCONTROLPW ・ MASTERを指定し、OSKB010034の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND CONTROLPW ・ MASTER
+CASE OSKB010034
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM CONTROLPW ・ MASTER
+CASE OSKB010034
+SOURCE DFSMS
+```
+
+CONTROLPW ・ MASTERとOSKB010034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC3009IとOSKB010034を同じ出力で読み、比較照合の・ ・の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CASE OSKB010034
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CLUSTER ------- OSKB010034.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC3009I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC3009IとOSKB010034が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) が画面・出力に表示されること
+② ステップ2 の CONTROLPW ・ MASTER と OSKB010034 が画面・出力に表示されること
+③ ステップ3 の IDC3009I と OSKB010034 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMS Access Method Services Commands
+
+---
+
+**CLUSTER ・ AIX ・ PATH ・ GDG ・ NONVS**
+
+- 検証目的: 優先判定の・ ・ ・について、CLUSTER / AIX / PATH / GDG / NONVSAM / USERCATALOG / PAGESPACE / ALIAS は、DFSMS / IDCAMSに関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB010092の検証用出力を記録できる。
+- セッション環境: IDCAMSでDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))を実行し、IDC3009Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) を入力し、優先判定の・ ・ ・の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+```
+
+COMMAND INPUTにDEFINE CLUSTER(NAME(OSKB.VSAM.CASE))が表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にCLUSTER ・ AIX ・ PAを指定し、OSKB010092の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND CLUSTER ・ AIX ・ PA
+CASE OSKB010092
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM CLUSTER ・ AIX ・ PA
+CASE OSKB010092
+SOURCE DFSMS
+```
+
+CLUSTER ・ AIX ・ PAとOSKB010092が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC3009IとOSKB010092を同じ出力で読み、優先判定の・ ・ ・の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CASE OSKB010092
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   DEFINE CLUSTER(NAME(OSKB.VSAM.CASE))
+CLUSTER ------- OSKB010092.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC3009I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC3009IとOSKB010092が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; DEFINE CLUSTER(NAME(OSKB.VSAM.CASE)) が画面・出力に表示されること
+② ステップ2 の CLUSTER ・ AIX ・ PA と OSKB010092 が画面・出力に表示されること
+③ ステップ3 の IDC3009I と OSKB010092 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMS Access Method Services Commands
+
+---
+
+**Space Allocation (Avg ・ Primary ・**
+
+- 検証目的: 条件追跡の・について、Space Allocation (Avg / Primary / Secondary)は、DFSMS / IDCAMS / VSAM の SMS_DATACLAS で機能名、見に関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB020049の検証用出力を記録できる。
+- セッション環境: IDCAMSでLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLを実行し、IDC0001Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL を入力し、条件追跡の・の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+```
+
+COMMAND INPUTにLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLが表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にSpace Allocation (を指定し、OSKB020049の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND Space Allocation (
+CASE OSKB020049
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM Space Allocation (
+CASE OSKB020049
+SOURCE DFSMS
+```
+
+Space Allocation (とOSKB020049が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC0001IとOSKB020049を同じ出力で読み、条件追跡の・の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CASE OSKB020049
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CLUSTER ------- OSKB020049.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC0001IとOSKB020049が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL が画面・出力に表示されること
+② ステップ2 の Space Allocation ( と OSKB020049 が画面・出力に表示されること
+③ ステップ3 の IDC0001I と OSKB020049 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMSdfp Storage Administration
+
+---
+
+**VSAM CISZ ・ KEYS ・ FREESPACE ・ SHA**
+
+- 検証目的: 比較追跡の・ ・について、VSAM CISZ / KEYS / FREESPACE / SHAREOPTIONS は、DFSMS / IDCAMS / VSAM の SMS_DATACLAS で構成値やオプに関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB020054の検証用出力を記録できる。
+- セッション環境: IDCAMSでLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLを実行し、IDC0001Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL を入力し、比較追跡の・ ・の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+```
+
+COMMAND INPUTにLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLが表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にVSAM CISZ ・ KEYS ・を指定し、OSKB020054の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND VSAM CISZ ・ KEYS ・
+CASE OSKB020054
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM VSAM CISZ ・ KEYS ・
+CASE OSKB020054
+SOURCE DFSMS
+```
+
+VSAM CISZ ・ KEYS ・とOSKB020054が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC0001IとOSKB020054を同じ出力で読み、比較追跡の・ ・の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CASE OSKB020054
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CLUSTER ------- OSKB020054.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC0001IとOSKB020054が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL が画面・出力に表示されること
+② ステップ2 の VSAM CISZ ・ KEYS ・ と OSKB020054 が画面・出力に表示されること
+③ ステップ3 の IDC0001I と OSKB020054 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMSdfp Storage Administration
+
+---
+
+**Auto Migrate ・ Auto Backup ・ Auto**
+
+- 検証目的: 呼出検査の・について、Auto Migrate / Auto Backup / Auto Dumpは、DFSMS / IDCAMS / VSAM の SMS_STORGRP で機能名、見出し、または確に関わる状態・定義・メッセージを机上で照合する。
+- 前提条件: IDCAMSまたは関連TSO/コンソールを参照でき、OSKB020063の検証用出力を記録できる。
+- セッション環境: IDCAMSでLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLを実行し、IDC0001Iを含む表示を確認する。
+
+**ステップ 1**
+現在の画面はIDCAMSのコマンド入力画面です。COMMAND INPUT ===&gt; に LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL を入力し、呼出検査の・の確認表示へ進みます。
+操作（入力）:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+```
+
+COMMAND INPUTにLISTCAT ENTRIES(OSKB.VSAM.CASE) ALLが表示され、対象コマンドを実行する準備ができています。
+
+**ステップ 2**
+現在の画面はIDCAMSの表示結果です。FIND欄にAuto Migrate ・ Autを指定し、OSKB020063の対象行を見つけます。
+操作（入力）:
+```text
+(IDCAMS Result)
+COMMAND INPUT ===&gt; FIND Auto Migrate ・ Aut
+CASE OSKB020063
+→ Enter を押す
+```
+
+画面・出力:
+```text
+(IDCAMS Result)
+ITEM Auto Migrate ・ Aut
+CASE OSKB020063
+SOURCE DFSMS
+```
+
+Auto Migrate ・ AutとOSKB020063が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+**ステップ 3**
+現在の画面はIDCAMSの詳細表示です。IDC0001IとOSKB020063を同じ出力で読み、呼出検査の・の根拠を記録します。
+操作（入力）:
+```text
+(IDCAMS Detail)
+COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CASE OSKB020063
+→ Enter を押す
+```
+
+画面・出力:
+```text
+IDCAMS  SYSTEM SERVICES
+/* IDCAMS COMMAND */
+   LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL
+CLUSTER ------- OSKB020063.CLUSTER
+IN-CAT --- SYS1.MASTER.CATALOG
+IDC0001I FUNCTION COMPLETED, HIGHEST CONDITION CODE WAS 0
+```
+
+IDC0001IとOSKB020063が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+- 合格条件: ① ステップ1 の COMMAND INPUT ===&gt; LISTCAT ENTRIES(OSKB.VSAM.CASE) ALL が画面・出力に表示されること
+② ステップ2 の Auto Migrate ・ Aut と OSKB020063 が画面・出力に表示されること
+③ ステップ3 の IDC0001I と OSKB020063 が画面・出力に表示されること
+- 検証状態: 机上
+- 出典: z / OS DFSMSdfp Storage Administration</code></pre>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

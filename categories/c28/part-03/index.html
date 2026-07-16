@@ -1,0 +1,2509 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="z/OS と関連製品の技術項目・確認問題・検証手順をカテゴリ別に検索・閲覧できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c28/part-03/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SMP/E / SMF / WLM — 詳細 (3/3) - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#smpe-smf-wlm-33" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SMP/E / SMF / WLM — 詳細 (3/3)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切替"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切替" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切替"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切替" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  カテゴリ別 対応状況
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c01/" class="md-tabs__link">
+          
+  
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../articles/" class="md-tabs__link">
+          
+  
+  
+  技術記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  このサイトについて
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../search/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  検索
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ別 対応状況
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIX 7.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anthropic Claude Support / Console Administration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembler / システム・プログラミング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS Transaction Server for z/OS 6.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comm Server / VTAM / TCP/IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFSMS / IDCAMS / VSAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Db2 for z/OS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESS REC / REC NEAO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GDPS 災害対策・サイトスイッチ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Guardium Data Protection 12.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM IIDR 11.4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM MQ メッセージング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Personal Communications 15.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Spectrum Protect 8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Workload Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IMS 15.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL DD 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL EXEC 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL JOB 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL PROC / 制御
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JES2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVS オペレータコマンド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Netcool/OMNIbus V8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSF for z/OS 4.7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerHA SystemMirror 7.2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF SETROPTS/RDEFINE/RACDCERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF USER/GROUP/DATASET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMP/E / SMF / WLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sysplex / XCF / GRS / CF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO / ISPF / SDSF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli Log File Agent 6.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli NetView z/OS 自動化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UNIX System Services (USS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VIOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Server 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z System Automation (TSA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS 3.1 Core Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS System Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プログラミング言語 (COBOL / PL/I / LE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユーティリティ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    診断 (IPCS / Trace / ABEND)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技術記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/jcl-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/racf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/tso-ispf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO/ISPF/SDSF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/uss-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    USS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/cics-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの内容">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの内容
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="smpe-smf-wlm-33">SMP/E / SMF / WLM — 詳細 (3/3)<a class="headerlink" href="#smpe-smf-wlm-33" title="Permanent link">&para;</a></h1>
+<p><a href="../">← SMP/E / SMF / WLM の概要へ戻る</a></p>
+<h2 id="_1">その他<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c28-other"><h3>その他（特定項目に紐づかないQA・手順）</h3><p class="kb-meta">項目名が個別の技術項目に一致しなかったQA・手順です。</p><details class="kb-block"><summary>確認問題（90問）</summary><div class="kb-q"><p><strong>問題.</strong> 探索確認のなどで APPLY BYPASS 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. APPLY BYPASS 属性の出力を取らず探索確認のなどの説明文と承認印のみを残す。</li><li>B. 資料上の説明と画面上の表示行を突き合わせ、探索確認として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索確認のなどの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索確認のなどへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索確認のなどにおいて選択記号 B を採用し、識別名は探索確認です。探索確認のなどにおいて APPLY BYPASS 属性 は説明欄の「探索確認のなどに関係する定義値と表示行を照合する探索確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認のなどの証跡を読む担当者は、APPLY BYPASS 属性の属性行と IWM025I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認のなどは対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索確認ではありません。 D: 探索確認のなどは別カテゴリの確認を流用しており、APPLY BYPASS 属性の根拠にならないため探索確認ではありません。探索確認のなどに出る APPLY BYPASS 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 監査確認のとはで保守管理の運用確認を行います。CSI とはの根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で監査確認のとはを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず監査確認のとはを正常終了として記録する。</li><li>C. SMP/E SMF WLM の表示形式に沿って根拠行を採り、監査確認の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>D. CSI とはの属性行を読まず監査確認のとはの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査確認のとはにおいて選択記号 C を採用し、識別名は監査確認です。監査確認のとはにおいて CSI とは は説明欄の「SMP/E SMF WLM で CSI とはの扱いを記録する監査確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認のとはを受け取る担当者は、CSI とはの表示結果と IWM025I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認のとはは別カテゴリの確認を流用しており、CSI とはの根拠にならないため監査確認ではありません。 B: 監査確認のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査確認ではありません。 C: 監査確認のとはは対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認のとはが示す CSI とはは出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 出力照合のとはに関する DDDEF とはの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力照合のとはの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力照合のとはの証跡として保存して根拠にする。</li><li>C. DDDEF とはの変更点を出力本文から切り離して出力照合のとはの承認欄のみ残す。</li><li>D. D WLM,SYSTEMS で得た表示本文を使い、出力照合の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力照合のとはにおいて選択記号 D を採用し、識別名は出力照合です。出力照合のとはにおいて DDDEF とは は説明欄の「DDDEF とはの状態と出力メッセージを結び付ける出力照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力照合です。出力照合のとはに関する記録は、DDDEF とはの出力行と IWM025I を一緒に保存し、背景名は出力照合です。選択肢ごとの違いを示します。 A: 出力照合のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力照合ではありません。 B: 出力照合のとはは別カテゴリの確認を流用しており、DDDEF とはの根拠にならないため出力照合ではありません。 C: 出力照合のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため出力照合ではありません。 D: 出力照合のとはは対象出力と項目説明を結び、根拠を残すので出力照合です。出力照合のとはで記録する DDDEF とはは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 復旧確認のとはで SOURCEID とはの点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. SOURCEID とはの出力を取らず復旧確認のとはの説明文と承認印のみを残す。</li><li>B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、復旧確認の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して復旧確認のとはの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を復旧確認のとはへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧確認のとはにおいて選択記号 B を採用し、識別名は復旧確認です。復旧確認のとはにおいて SOURCEID とは は説明欄の「復旧確認のとはに関係する定義値と表示行を照合する復旧確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧確認です。復旧確認のとはの証跡を読む担当者は、SOURCEID とはの属性行と IWM025I を合わせて追跡し、背景名は復旧確認です。誤答側の問題点を分けます。 A: 復旧確認のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため復旧確認ではありません。 B: 復旧確認のとはは対象出力と項目説明を結び、根拠を残すので復旧確認です。 C: 復旧確認のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧確認ではありません。 D: 復旧確認のとはは別カテゴリの確認を流用しており、SOURCEID とはの根拠にならないため復旧確認ではありません。復旧確認のとはに出る SOURCEID とはは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 範囲照合のなどで保守管理の運用確認を行います。LSNAME(など)の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲照合のなどを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲照合のなどを正常終了として記録する。</li><li>C. 対象の出力行とメッセージ接頭辞を同時に記録し、範囲照合で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li><li>D. LSNAME(など)の属性行を読まず範囲照合のなどの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲照合のなどにおいて選択記号 C を採用し、識別名は範囲照合です。範囲照合のなどにおいて LSNAME(など) は説明欄の「SMP/E SMF WLM で LSNAME(など)の扱いを記録する範囲照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合のなどを受け取る担当者は、LSNAME(など)の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合のなどは別カテゴリの確認を流用しており、LSNAME(など)の根拠にならないため範囲照合ではありません。 B: 範囲照合のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合のなどは対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合のなどが示す LSNAME(など)は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 探索追跡のなどで EXITS 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. EXITS 属性の出力を取らず探索追跡のなどの説明文と承認印のみを残す。</li><li>B. IWM025I を含む表示を保存し、説明欄との差分を探索追跡で確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索追跡のなどの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索追跡のなどへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索追跡のなどにおいて選択記号 B を採用し、識別名は探索追跡です。探索追跡のなどにおいて EXITS 属性 は説明欄の「探索追跡のなどに関係する定義値と表示行を照合する探索追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索追跡です。探索追跡のなどの証跡を読む担当者は、EXITS 属性の属性行と IWM025I を合わせて追跡し、背景名は探索追跡です。誤答側の問題点を分けます。 A: 探索追跡のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため探索追跡ではありません。 B: 探索追跡のなどは対象出力と項目説明を結び、根拠を残すので探索追跡です。 C: 探索追跡のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索追跡ではありません。 D: 探索追跡のなどは別カテゴリの確認を流用しており、EXITS 属性の根拠にならないため探索追跡ではありません。探索追跡のなどに出る EXITS 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 呼出確認のなどで保守管理の運用確認を行います。IFASMFDP DATE 属性の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出確認のなどを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出確認のなどを正常終了として記録する。</li><li>C. SMP/E SMF WLM の表示形式に沿って根拠行を採り、呼出確認の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>D. IFASMFDP DATE 属性の属性行を読まず呼出確認のなどの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出確認のなどにおいて選択記号 C を採用し、識別名は呼出確認です。呼出確認のなどにおいて IFASMFDP DATE 属性 は説明欄の「SMP/E SMF WLM で IFASMFDP DATE 属性の扱いを記録する呼出確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出確認です。呼出確認のなどを受け取る担当者は、IFASMFDP DATE 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出確認です。不適切な選択肢を整理します。 A: 呼出確認のなどは別カテゴリの確認を流用しており、IFASMFDP DATE 属性の根拠にならないため呼出確認ではありません。 B: 呼出確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出確認ではありません。 C: 呼出確認のなどは対象出力と項目説明を結び、根拠を残すので呼出確認です。 D: 呼出確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため呼出確認ではありません。呼出確認のなどが示す IFASMFDP DATE 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 終端確認のなどに関係する IFASMFDP SID(など)の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 机上確認でも実出力の見出しに合わせ、終端確認の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>B. IFASMFDP SID(など)の名称と担当者名のみを残して終端確認のなどの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で終端確認のなどを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず終端確認のなどの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 終端確認のなどにおいて選択記号 A を採用し、識別名は終端確認です。終端確認のなどにおいて IFASMFDP SID(など) は説明欄の「IFASMFDP SID(など)の用途を保守管理の表示で確認する終端確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端確認です。終端確認のなどに関連して、SMP/E SMF WLM では IFASMFDP SID(など)の表示属性と IWM025I を同じ証跡に残し、背景名は終端確認です。他の選択肢を確認します。 A: 終端確認のなどは対象出力と項目説明を結び、根拠を残すので終端確認です。 B: 終端確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため終端確認ではありません。 C: 終端確認のなどは別カテゴリの確認を流用しており、IFASMFDP SID(など)の根拠にならないため終端確認ではありません。 D: 終端確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端確認ではありません。終端確認のなどで使う IFASMFDP SID(など)という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 探索確認のなどで IFASMFDP USER(など)の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDP USER(など)の出力を取らず探索確認のなどの説明文と承認印のみを残す。</li><li>B. 参照資料名、表示行、メッセージをそろえて探索確認の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索確認のなどの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索確認のなどへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索確認のなどにおいて選択記号 B を採用し、識別名は探索確認です。探索確認のなどにおいて IFASMFDP USER(など) は説明欄の「探索確認のなどに関係する定義値と表示行を照合する探索確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認のなどの証跡を読む担当者は、IFASMFDP USER(など)の属性行と IWM025I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認のなどは対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索確認ではありません。 D: 探索確認のなどは別カテゴリの確認を流用しており、IFASMFDP USER(など)の根拠にならないため探索確認ではありません。探索確認のなどに出る IFASMFDP USER(など)は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 優先確認のなどに関する IFASMFDL LSNAME 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先確認のなどの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先確認のなどの証跡として保存して根拠にする。</li><li>C. IFASMFDL LSNAME 属性の変更点を出力本文から切り離して優先確認のなどの承認欄のみ残す。</li><li>D. D WLM,SYSTEMS で得た表示本文を使い、優先確認の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先確認のなどにおいて選択記号 D を採用し、識別名は優先確認です。優先確認のなどにおいて IFASMFDL LSNAME 属性 は説明欄の「IFASMFDL LSNAME 属性の状態と出力メッセージを結び付ける優先確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先確認です。優先確認のなどに関する記録は、IFASMFDL LSNAME 属性の出力行と IWM025I を一緒に保存し、背景名は優先確認です。選択肢ごとの違いを示します。 A: 優先確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先確認ではありません。 B: 優先確認のなどは別カテゴリの確認を流用しており、IFASMFDL LSNAME 属性の根拠にならないため優先確認ではありません。 C: 優先確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため優先確認ではありません。 D: 優先確認のなどは対象出力と項目説明を結び、根拠を残すので優先確認です。優先確認のなどで記録する IFASMFDL LSNAME 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 順序照合のとはで保守管理の運用確認を行います。Service Definition とはの根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で順序照合のとはを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず順序照合のとはを正常終了として記録する。</li><li>C. 同じ画面で対象行と IWM025I を読み、順序照合の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>D. Service Definition とはの属性行を読まず順序照合のとはの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 順序照合のとはにおいて選択記号 C を採用し、識別名は順序照合です。順序照合のとはにおいて Service Definition とは は説明欄の「SMP/E SMF WLM で Service Definition とはの扱いを記録する順序照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序照合です。順序照合のとはを受け取る担当者は、Service Definition とはの表示結果と IWM025I を同じ確認単位として扱い、背景名は順序照合です。不適切な選択肢を整理します。 A: 順序照合のとはは別カテゴリの確認を流用しており、Service Definition とはの根拠にならないため順序照合ではありません。 B: 順序照合のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序照合ではありません。 C: 順序照合のとはは対象出力と項目説明を結び、根拠を残すので順序照合です。 D: 順序照合のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため順序照合ではありません。順序照合のとはが示す Service Definition とはは出典欄の資料で使い方を追跡できる項目であり、用語名は順序照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 出力追跡のとはに関する AE とはの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力追跡のとはの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力追跡のとはの証跡として保存して根拠にする。</li><li>C. AE とはの変更点を出力本文から切り離して出力追跡のとはの承認欄のみ残す。</li><li>D. 資料上の説明と画面上の表示行を突き合わせ、出力追跡として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力追跡のとはにおいて選択記号 D を採用し、識別名は出力追跡です。出力追跡のとはにおいて AE とは は説明欄の「AE とはの状態と出力メッセージを結び付ける出力追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力追跡です。出力追跡のとはに関する記録は、AE とはの出力行と IWM025I を一緒に保存し、背景名は出力追跡です。選択肢ごとの違いを示します。 A: 出力追跡のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力追跡ではありません。 B: 出力追跡のとはは別カテゴリの確認を流用しており、AE とはの根拠にならないため出力追跡ではありません。 C: 出力追跡のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため出力追跡ではありません。 D: 出力追跡のとはは対象出力と項目説明を結び、根拠を残すので出力追跡です。出力追跡のとはで記録する AE とはは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 優先追跡のとはに関する SE とはの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先追跡のとはの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先追跡のとはの証跡として保存して根拠にする。</li><li>C. SE とはの変更点を出力本文から切り離して優先追跡のとはの承認欄のみ残す。</li><li>D. 机上確認でも実出力の見出しに合わせ、優先追跡の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先追跡のとはにおいて選択記号 D を採用し、識別名は優先追跡です。優先追跡のとはにおいて SE とは は説明欄の「SE とはの状態と出力メッセージを結び付ける優先追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先追跡です。優先追跡のとはに関する記録は、SE とはの出力行と IWM025I を一緒に保存し、背景名は優先追跡です。選択肢ごとの違いを示します。 A: 優先追跡のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先追跡ではありません。 B: 優先追跡のとはは別カテゴリの確認を流用しており、SE とはの根拠にならないため優先追跡ではありません。 C: 優先追跡のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため優先追跡ではありません。 D: 優先追跡のとはは対象出力と項目説明を結び、根拠を残すので優先追跡です。優先追跡のとはで記録する SE とはは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 構文検査の大なりに関係する PI 大なり 1.0の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 操作結果の本文、対象行、時刻を同じ証跡に入れ、構文検査の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>B. PI 大なり 1.0の名称と担当者名のみを残して構文検査の大なりの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文検査の大なりを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文検査の大なりの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文検査の大なりにおいて選択記号 A を採用し、識別名は構文検査です。構文検査の大なりにおいて PI 大なり 1.0 は説明欄の「PI 大なり 1.0の用途を保守管理の表示で確認する構文検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文検査です。構文検査の大なりに関連して、SMP/E SMF WLM では PI 大なり 1.0の表示属性と IWM025I を同じ証跡に残し、背景名は構文検査です。他の選択肢を確認します。 A: 構文検査の大なりは対象出力と項目説明を結び、根拠を残すので構文検査です。 B: 構文検査の大なりは名称や説明のみに寄り、状態を示す出力本文が不足するため構文検査ではありません。 C: 構文検査の大なりは別カテゴリの確認を流用しており、PI 大なり 1.0の根拠にならないため構文検査ではありません。 D: 構文検査の大なりは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文検査ではありません。構文検査の大なりで使う PI 大なり 1.0という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文検査です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 展開検査の小なりで PI 小なり 1.0の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. PI 小なり 1.0の出力を取らず展開検査の小なりの説明文と承認印のみを残す。</li><li>B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、展開検査の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開検査の小なりの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開検査の小なりへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開検査の小なりにおいて選択記号 B を採用し、識別名は展開検査です。展開検査の小なりにおいて PI 小なり 1.0 は説明欄の「展開検査の小なりに関係する定義値と表示行を照合する展開検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開検査です。展開検査の小なりの証跡を読む担当者は、PI 小なり 1.0の属性行と IWM025I を合わせて追跡し、背景名は展開検査です。誤答側の問題点を分けます。 A: 展開検査の小なりは名称や説明のみに寄り、状態を示す出力本文が不足するため展開検査ではありません。 B: 展開検査の小なりは対象出力と項目説明を結び、根拠を残すので展開検査です。 C: 展開検査の小なりは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開検査ではありません。 D: 展開検査の小なりは別カテゴリの確認を流用しており、PI 小なり 1.0の根拠にならないため展開検査ではありません。展開検査の小なりに出る PI 小なり 1.0は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開検査です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 範囲検査のなどで保守管理の運用確認を行います。F WLM,APPLENV= など,REFRESH の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲検査のなどを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲検査のなどを正常終了として記録する。</li><li>C. D WLM,SYSTEMS で得た表示本文を使い、範囲検査の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>D. F WLM,APPLENV= など,REFRESH の属性行を読まず範囲検査のなどの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲検査のなどにおいて選択記号 C を採用し、識別名は範囲検査です。範囲検査のなどにおいて F WLM,APPLENV= など,REFRESH は説明欄の「SMP/E SMF WLM で F WLM,APPLENV= など,REFRESH の扱いを記録する範囲検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲検査です。範囲検査のなどを受け取る担当者は、F WLM,APPLENV= など,REFRESH の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲検査です。不適切な選択肢を整理します。 A: 範囲検査のなどは別カテゴリの確認を流用しており、F WLM,APPLENV= など,REFRESH の根拠にならないため範囲検査ではありません。 B: 範囲検査のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲検査ではありません。 C: 範囲検査のなどは対象出力と項目説明を結び、根拠を残すので範囲検査です。 D: 範囲検査のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため範囲検査ではありません。範囲検査のなどが示す F WLM,APPLENV= など,REFRESH は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲検査です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 照合面のターゲットゾーン選択を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO ターゲット ZONEとゾーン名を確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. RESTORE SYSMOD</li><li>B. SET BDY(TARGET) <span class="kb-ok">✅ 正解</span></li><li>C. SET SMF=xx</li><li>D. IFASMFDL DATE START END</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 報告面観点の資料照合としてターゲットゾーン選択読取を選び、答えはBで、記録焦点はターゲットゾーン選択状態です。反映面観点のターゲットゾーン選択定義は、適用処理や報告で保守対象のターゲットゾーンを選ぶことを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン選択定義です。確認面観点から見るターゲットゾーン選択根拠は、NOW SET TO ターゲット ZONEとゾーン名をメッセージ形式と対応させるターゲットゾーン選択根拠です。照合面観点のターゲットゾーン選択応答は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン選択応答です。A: 構成面観点の参照先は適用済み保守要素復元状態で、作業記録で追跡する対象はターゲットゾーン選択棚卸です。B: 保守面観点のターゲットゾーン選択定義は、入力名と報告内のNOW SET TO ターゲット ZONEとゾーン名を結ぶターゲットゾーン選択照合です。C: 方針面観点の照合先はシステム管理機能パラメータxx切替根拠で、中心はターゲットゾーン選択監査です。D: 復旧面観点の処理段階は期間指定ダンプ応答で、入力と出力を結ぶ対象はターゲットゾーン選択引継ぎです。選択面観点の用語定義として、ターゲットゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン選択復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command</p></div><div class="kb-q"><p><strong>問題.</strong> 選択面の保守要素受信を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って受信処理 summary reportと保守要素 statusを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,RESOURCE</li><li>B. IWMPQRY active policy</li><li>C. RECEIVE SYSMOD <span class="kb-ok">✅ 正解</span></li><li>D. APPLY CHECK</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 復旧面観点の出力確認として保守要素受信状態を読み、答えはCで、照合焦点は保守要素受信定義です。照合面観点の保守要素受信根拠は、SMPPTFINの保守データをPTSとグローバルゾーンへ登録することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素受信根拠です。反映面観点で残す保守要素受信応答は、受信処理 summary reportと保守要素 statusをコマンド形式と照合する保守要素受信応答です。選択面観点の保守要素受信保守は、保守管理保守投入の入力要求と戻った報告を結び、運用状態を説明する保守要素受信保守です。A: 保守面観点の比較先は資源状態表示定義で、要求対象は保守要素受信監査です。B: 方針面観点の照合先は有効方針照会根拠で、中心は保守要素受信引継ぎです。C: 表示面観点の保守要素受信応答は、入力名と報告内の受信処理 summary reportと保守要素 statusを結ぶ保守要素受信報告です。D: 監査面観点の参照先は適用事前検査保守で、作業記録で追跡する対象は保守要素受信復旧です。管理面観点の用語定義として、保守要素受信とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素受信照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RECEIVE command</p></div><div class="kb-q"><p><strong>問題.</strong> 記録面の保守要素配布反映を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って配布反映 processing reportとdistribution zoneを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT SYSMOD <span class="kb-ok">✅ 正解</span></li><li>B. DISPLAY SMFLIM</li><li>C. DISPLAY WLM</li><li>D. DISPLAY WLM,SCHENV</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 反映面観点で読む保守要素配布反映引継ぎは正答位置Aで、記録する焦点は配布反映 保守要素棚卸です。保守面観点の保守要素配布反映復旧は、適用済み保守要素を配布ライブラリーへ反映することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素配布反映復旧です。抽出面観点の保守要素配布反映照合は、配布反映 processing reportとdistribution zoneを入力記録と合わせて処理対象を見分ける保守要素配布反映照合です。記録面観点の保守要素配布反映報告は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する保守要素配布反映報告です。A: 復旧面観点の保守要素配布反映棚卸は、入力名と報告内の配布反映 processing reportとdistribution zoneを結ぶ保守要素配布反映状態です。B: 管理面観点の参照先はシステム管理機能リミット表示復旧で、作業記録で追跡する対象は保守要素配布反映証跡です。C: 確認面観点の比較先は有効サービス方針表示照合で、要求対象は保守要素配布反映選択です。D: 照合面観点の照合先はスケジューリング環境表示報告で、中心は保守要素配布反映反映です。表示面観点の用語定義として、保守要素配布反映とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素配布反映読取です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT command</p></div><div class="kb-q"><p><strong>問題.</strong> 表示面の保守要素全ゾーン表示を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って表示 Summary reportと全ゾーン表示を確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT SYSMOD</li><li>B. LIST SYSMOD ALLZONES <span class="kb-ok">✅ 正解</span></li><li>C. RESTORE SYSMOD</li><li>D. SETSMF LSNAME</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 選択面観点の資料照合として保守要素全ゾーン表示棚卸を選び、答えはBで、記録焦点は保守要素全ゾーン表示復旧です。記録面観点の保守要素全ゾーン表示照合は、保守要素の受信、適用、配布状態を複数ゾーンで確認することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素全ゾーン表示照合です。制御面観点から見る保守要素全ゾーン表示報告は、表示 Summary reportと全ゾーン表示をメッセージ形式と対応させる保守要素全ゾーン表示報告です。表示面観点の保守要素全ゾーン表示選択は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保守要素全ゾーン表示選択です。A: 管理面観点の参照先は保守要素配布反映復旧で、作業記録で追跡する対象は保守要素全ゾーン表示読取です。B: 確認面観点の保守要素全ゾーン表示照合は、入力名と報告内の表示 Summary reportと全ゾーン表示を結ぶ保守要素全ゾーン表示定義です。C: 照合面観点の照合先は適用済み保守要素復元報告で、中心は保守要素全ゾーン表示観点です。D: 抽出面観点の処理段階は一時ログストリーム変更選択で、入力と出力を結ぶ対象は保守要素全ゾーン表示証跡です。方針面観点の用語定義として、保守要素全ゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素全ゾーン表示状態です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST SYSMOD</p></div><div class="kb-q"><p><strong>問題.</strong> 方針面の保留情報表示を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って保留情報 entryとreason idを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. DISPLAY SMF,S</li><li>B. IFASMFDL SID</li><li>C. LIST HOLDDATA <span class="kb-ok">✅ 正解</span></li><li>D. VARY WLM,APPLENV,REFRESH</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 抽出面観点の出力確認として保留情報表示復旧を読み、答えはCで、照合焦点は保留情報表示照合です。表示面観点の保留情報表示報告は、HOLDERRORやシステム保留の保留情報を一覧で確認することを満たす入力、報告、状態表示を同じ証跡で確認する保留情報表示報告です。記録面観点で残す保留情報表示選択は、保留情報 entryとreason idをコマンド形式と照合する保留情報表示選択です。方針面観点の保留情報表示反映は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保留情報表示反映です。A: 確認面観点の比較先はシステム管理機能状態表示照合で、要求対象は保留情報表示観点です。B: 照合面観点の照合先はシステムID選択報告で、中心は保留情報表示証跡です。C: 反映面観点の保留情報表示選択は、入力名と報告内の保留情報 entryとreason idを結ぶ保留情報表示根拠です。D: 保守面観点の参照先はアプリ環境再読込反映で、作業記録で追跡する対象は保留情報表示状態です。報告面観点の用語定義として、保留情報表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保留情報表示定義です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST HOLDDATA</p></div><div class="kb-q"><p><strong>問題.</strong> 報告面のターゲットゾーン表示を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってターゲットZONE entryとDD定義参照を確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. SET BDY(GLOBAL)</li><li>B. ACCEPT CHECK</li><li>C. RESTORE SYSMOD</li><li>D. LIST TARGETZONE <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 選択面観点のターゲットゾーン表示照合は正答Dで、表記上の手掛かりは表示 ターゲットZONE報告です。方針面観点のターゲットゾーン表示選択は、ターゲットゾーンのDD定義やOPTIONSを確認することを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン表示選択です。制御面観点で読むターゲットゾーン表示反映は、ターゲットZONE entryとDD定義参照を資料のコマンド形式やメッセージ形式と照合するターゲットゾーン表示反映です。報告面観点のターゲットゾーン表示観点は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン表示観点です。A: 照合面観点の照合先はグローバルゾーン選択報告で、中心はターゲットゾーン表示読取です。B: 抽出面観点の処理段階は配布反映事前検査選択で、入力と出力を結ぶ対象はターゲットゾーン表示状態です。C: 保守面観点の参照先は適用済み保守要素復元反映で、作業記録で追跡する対象はターゲットゾーン表示定義です。D: 選択面観点のターゲットゾーン表示観点は、入力名と報告内のターゲットZONE entryとDD定義参照を結ぶターゲットゾーン表示応答です。構成面観点の用語定義として、ターゲットゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン表示根拠です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST TARGETZONE</p></div><div class="kb-q"><p><strong>問題.</strong> 確認面の未採用保守要素除去を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って除去 return codeと保守要素 statusを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. VARY WLM,APPLENV,RESUME</li><li>B. WLM couple data set</li><li>C. ACCEPT CHECK</li><li>D. REJECT SYSMOD <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 制御面観点の未採用保守要素除去観点は正答Dで、表記上の手掛かりは除去 保守要素証跡です。運用面観点の未採用保守要素除去読取は、不要な未適用保守要素をグローバルゾーンやPTSから整理することを満たす入力、報告、状態表示を同じ証跡で確認する未採用保守要素除去読取です。方針面観点で読む未採用保守要素除去状態は、除去 return codeと保守要素 statusを資料のコマンド形式やメッセージ形式と照合する未採用保守要素除去状態です。確認面観点の未採用保守要素除去定義は、保守管理保守整理の入力要求と戻った報告を結び、運用状態を説明する未採用保守要素除去定義です。A: 分類面観点の照合先はアプリ環境再開証跡で、中心は未採用保守要素除去応答です。B: 記録面観点の処理段階はワークロード管理カップルデータセット読取で、入力と出力を結ぶ対象は未採用保守要素除去保守です。C: 報告面観点の参照先は配布反映事前検査状態で、作業記録で追跡する対象は未採用保守要素除去監査です。D: 制御面観点の未採用保守要素除去定義は、入力名と報告内の除去 return codeと保守要素 statusを結ぶ未採用保守要素除去棚卸です。監査面観点の用語定義として、未採用保守要素除去とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む未採用保守要素除去引継ぎです。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands REJECT command</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面の適用済み保守要素復元を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って復元 reportとtarget zoneを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. RESTORE SYSMOD <span class="kb-ok">✅ 正解</span></li><li>B. CSI ZONEINDEX</li><li>C. SETSMF LSNAME</li><li>D. IFASMFDL SID</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録面観点で読む適用済み保守要素復元証跡は正答位置Aで、記録する焦点は復元 保守要素読取です。確認面観点の適用済み保守要素復元状態は、ターゲットライブラリーを適用前の状態へ戻すことを満たす入力、報告、状態表示を同じ証跡で確認する適用済み保守要素復元状態です。構成面観点の適用済み保守要素復元定義は、復元 reportとtarget zoneを入力記録と合わせて処理対象を見分ける適用済み保守要素復元定義です。監査面観点の適用済み保守要素復元根拠は、保守管理復旧の入力要求と戻った報告を結び、運用状態を説明する適用済み保守要素復元根拠です。A: 抽出面観点の適用済み保守要素復元読取は、入力名と報告内の復元 reportとtarget zoneを結ぶ適用済み保守要素復元復旧です。B: 報告面観点の参照先はCSI台帳ゾーン索引状態で、作業記録で追跡する対象は適用済み保守要素復元引継ぎです。C: 制御面観点の比較先は一時ログストリーム変更定義で、要求対象は適用済み保守要素復元応答です。D: 表示面観点の照合先はシステムID選択根拠で、中心は適用済み保守要素復元保守です。反映面観点の用語定義として、適用済み保守要素復元とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用済み保守要素復元棚卸です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RESTORE command</p></div><div class="kb-q"><p><strong>問題.</strong> 反映面のCSI台帳ゾーン索引を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってゾーン索引 entryとzone nameを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,APPLENV</li><li>B. CSI ZONEINDEX <span class="kb-ok">✅ 正解</span></li><li>C. IWMPACT activate policy</li><li>D. APPLY CHECK</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 方針面観点の資料照合としてCSI台帳ゾーン索引読取を選び、答えはBで、記録焦点はCSI台帳ゾーン索引状態です。監査面観点のCSI台帳ゾーン索引定義は、SMPCSI台帳内のゾーン構成と参照先を把握することを満たす入力、報告、状態表示を同じ証跡で確認するCSI台帳ゾーン索引定義です。運用面観点から見るCSI台帳ゾーン索引根拠は、ゾーン索引 entryとzone nameをメッセージ形式と対応させるCSI台帳ゾーン索引根拠です。反映面観点のCSI台帳ゾーン索引応答は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するCSI台帳ゾーン索引応答です。A: 報告面観点の参照先はアプリケーション環境表示状態で、作業記録で追跡する対象はCSI台帳ゾーン索引棚卸です。B: 制御面観点のCSI台帳ゾーン索引定義は、入力名と報告内のゾーン索引 entryとzone nameを結ぶCSI台帳ゾーン索引照合です。C: 表示面観点の照合先はサービス方針有効化根拠で、中心はCSI台帳ゾーン索引監査です。D: 構成面観点の処理段階は適用事前検査応答で、入力と出力を結ぶ対象はCSI台帳ゾーン索引引継ぎです。照合面観点の用語定義として、CSI台帳ゾーン索引とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むCSI台帳ゾーン索引復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference CSI entries</p></div><div class="kb-q"><p><strong>問題.</strong> 照合面のDD定義定義を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってDD定義 entryとdata set nameを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. APPLY CHECK</li><li>B. LIST TARGETZONE</li><li>C. DDDEF <span class="kb-ok">✅ 正解</span></li><li>D. SMFPRMxx RECORDING(LOGSTREAM)</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 構成面観点の出力確認としてDD定義定義状態を読み、答えはCで、照合焦点はDD定義定義定義です。反映面観点のDD定義定義根拠は、保守管理処理で使うデータセット割り当てをゾーン内に登録することを満たす入力、報告、状態表示を同じ証跡で確認するDD定義定義根拠です。監査面観点で残すDD定義定義応答は、DD定義 entryとdata set nameをコマンド形式と照合するDD定義定義応答です。照合面観点のDD定義定義保守は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するDD定義定義保守です。A: 制御面観点の比較先は適用事前検査定義で、要求対象はDD定義定義監査です。B: 表示面観点の照合先はターゲットゾーン表示根拠で、中心はDD定義定義引継ぎです。C: 記録面観点のDD定義定義応答は、入力名と報告内のDD定義 entryとdata set nameを結ぶDD定義定義報告です。D: 確認面観点の参照先はログストリーム記録保守で、作業記録で追跡する対象はDD定義定義復旧です。選択面観点の用語定義として、DD定義定義とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むDD定義定義照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference DDDEF entry</p></div><div class="kb-q"><p><strong>問題.</strong> 選択面のログと報告出力を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってSMPログ、SMPログA、SMP報告、SMPOUTを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,SYSTEM</li><li>B. DISPLAY WLM,SCHENV</li><li>C. SET BDY(TARGET)</li><li>D. SMPLOG SMPRPT <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 方針面観点のログと報告出力定義は正答Dで、表記上の手掛かりはSMPログ SMP報告根拠です。照合面観点のログと報告出力応答は、保守管理処理のログと報告を分けて保存することを満たす入力、報告、状態表示を同じ証跡で確認するログと報告出力応答です。運用面観点で読むログと報告出力保守は、SMPログ、SMPログA、SMP報告、SMPOUTを資料のコマンド形式やメッセージ形式と照合するログと報告出力保守です。選択面観点のログと報告出力監査は、保守管理証跡の入力要求と戻った報告を結び、運用状態を説明するログと報告出力監査です。A: 表示面観点の照合先はシステム別ワークロード管理表示根拠で、中心はログと報告出力棚卸です。B: 構成面観点の処理段階はスケジューリング環境表示応答で、入力と出力を結ぶ対象はログと報告出力復旧です。C: 確認面観点の参照先はターゲットゾーン選択保守で、作業記録で追跡する対象はログと報告出力照合です。D: 方針面観点のログと報告出力監査は、入力名と報告内のSMPログ、SMPログA、SMP報告、SMPOUTを結ぶログと報告出力選択です。管理面観点の用語定義として、ログと報告出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログと報告出力報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands data sets</p></div><div class="kb-q"><p><strong>問題.</strong> 分類面の種別別ログストリームを障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってログストリーム名とレコード種別範囲を確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. APPLY CHECK</li><li>B. LIST TARGETZONE</li><li>C. LSNAME TYPE <span class="kb-ok">✅ 正解</span></li><li>D. SMPLOG SMPRPT</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査面観点の出力確認として種別別ログストリーム保守を読み、答えはCで、照合焦点は種別別ログストリーム監査です。抽出面観点の種別別ログストリーム引継ぎは、特定のシステム管理機能レコード種別を専用ログストリームへ振り分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別ログストリーム引継ぎです。管理面観点で残す種別別ログストリーム棚卸は、ログストリーム名とレコード種別範囲をコマンド形式と照合する種別別ログストリーム棚卸です。分類面観点の種別別ログストリーム復旧は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する種別別ログストリーム復旧です。A: 方針面観点の比較先は適用事前検査監査で、要求対象は種別別ログストリーム照合です。B: 復旧面観点の照合先はターゲットゾーン表示引継ぎで、中心は種別別ログストリーム報告です。C: 構成面観点の種別別ログストリーム棚卸は、入力名と報告内のログストリーム名とレコード種別範囲を結ぶ種別別ログストリーム証跡です。D: 選択面観点の参照先はログと報告出力復旧で、作業記録で追跡する対象は種別別ログストリーム反映です。制御面観点の用語定義として、種別別ログストリームとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別ログストリーム観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities LSNAME</p></div><div class="kb-q"><p><strong>問題.</strong> 運用面の期間指定ダンプを変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って日付、開始時刻、終了時刻のSYSPRINT表示を確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY SMF,M</li><li>B. DISPLAY WLM</li><li>C. DISPLAY WLM,SCHENV</li><li>D. IFASMFDL DATE START END <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 分類面観点の期間指定ダンプ観点は正答Dで、表記上の手掛かりはシステム管理機能ログストリームダンプ 日付 開始時刻 終了時刻証跡です。復旧面観点の期間指定ダンプ読取は、日付と時刻の範囲でシステム管理機能レコードを抽出することを満たす入力、報告、状態表示を同じ証跡で確認する期間指定ダンプ読取です。表示面観点で読む期間指定ダンプ状態は、日付、開始時刻、終了時刻のSYSPRINT表示を資料のコマンド形式やメッセージ形式と照合する期間指定ダンプ状態です。運用面観点の期間指定ダンプ定義は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する期間指定ダンプ定義です。A: 抽出面観点の照合先はシステム管理機能メンバー表示証跡で、中心は期間指定ダンプ応答です。B: 保守面観点の処理段階は有効サービス方針表示読取で、入力と出力を結ぶ対象は期間指定ダンプ保守です。C: 方針面観点の参照先はスケジューリング環境表示状態で、作業記録で追跡する対象は期間指定ダンプ監査です。D: 分類面観点の期間指定ダンプ定義は、入力名と報告内の日付、開始時刻、終了時刻のSYSPRINT表示を結ぶ期間指定ダンプ棚卸です。確認面観点の用語定義として、期間指定ダンプとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む期間指定ダンプ引継ぎです。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL parameters</p></div><div class="kb-q"><p><strong>問題.</strong> 確認面のシステムID選択を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってシステムID parameterとSYSPRINT表示を確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL SID <span class="kb-ok">✅ 正解</span></li><li>B. VARY WLM,APPLENV,REFRESH</li><li>C. Service class goal</li><li>D. APPLY GROUPEXTEND</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 保守面観点で読むシステムID選択証跡は正答位置Aで、記録する焦点はシステム管理機能ログストリームダンプ システムID読取です。運用面観点のシステムID選択状態は、特定システムIDのシステム管理機能レコードだけを抽出することを満たす入力、報告、状態表示を同じ証跡で確認するシステムID選択状態です。報告面観点のシステムID選択定義は、システムID parameterとSYSPRINT表示を入力記録と合わせて処理対象を見分けるシステムID選択定義です。確認面観点のシステムID選択根拠は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明するシステムID選択根拠です。A: 管理面観点のシステムID選択読取は、入力名と報告内のシステムID parameterとSYSPRINT表示を結ぶシステムID選択復旧です。B: 方針面観点の参照先はアプリ環境再読込状態で、作業記録で追跡する対象はシステムID選択引継ぎです。C: 分類面観点の比較先はサービスクラス目標定義で、要求対象はシステムID選択応答です。D: 記録面観点の照合先は関連保守要素展開根拠で、中心はシステムID選択保守です。監査面観点の用語定義として、システムID選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むシステムID選択棚卸です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL SID</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面の種別別出力を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って出力DDとレコード種別範囲を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. SMFPRMxx RECORDING(LOGSTREAM)</li><li>B. IFASMFDL OUTDD TYPE <span class="kb-ok">✅ 正解</span></li><li>C. DISPLAY SMF,M</li><li>D. DISPLAY WLM,SYSTEM</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 表示面観点の資料照合として種別別出力読取を選び、答えはBで、記録焦点は種別別出力状態です。確認面観点の種別別出力定義は、システム管理機能レコード種別ごとに出力DDを分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別出力定義です。復旧面観点から見る種別別出力根拠は、出力DDとレコード種別範囲をメッセージ形式と対応させる種別別出力根拠です。監査面観点の種別別出力応答は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する種別別出力応答です。A: 方針面観点の参照先はログストリーム記録状態で、作業記録で追跡する対象は種別別出力棚卸です。B: 分類面観点の種別別出力定義は、入力名と報告内の出力DDとレコード種別範囲を結ぶ種別別出力照合です。C: 記録面観点の照合先はシステム管理機能メンバー表示根拠で、中心は種別別出力監査です。D: 報告面観点の処理段階はシステム別ワークロード管理表示応答で、入力と出力を結ぶ対象は種別別出力引継ぎです。反映面観点の用語定義として、種別別出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別出力復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL OUTDD</p></div><div class="kb-q"><p><strong>問題.</strong> 反映面の空入力検知を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って空入力メッセージまたはIFA841Iメッセージを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. IWMCQRY classification rules</li><li>B. SET BDY(TARGET)</li><li>C. IFA023I empty input <span class="kb-ok">✅ 正解</span></li><li>D. LIST SYSMOD ALLZONES</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 報告面観点の出力確認として空入力検知状態を読み、答えはCで、照合焦点は空入力検知定義です。監査面観点の空入力検知根拠は、指定範囲にダンプ対象システム管理機能データがない状態を判定することを満たす入力、報告、状態表示を同じ証跡で確認する空入力検知根拠です。確認面観点で残す空入力検知応答は、空入力メッセージまたはIFA841Iメッセージをコマンド形式と照合する空入力検知応答です。反映面観点の空入力検知保守は、システム管理機能メッセージの入力要求と戻った報告を結び、運用状態を説明する空入力検知保守です。A: 分類面観点の比較先は分類規則照会定義で、要求対象は空入力検知監査です。B: 記録面観点の照合先はターゲットゾーン選択根拠で、中心は空入力検知引継ぎです。C: 保守面観点の空入力検知応答は、入力名と報告内の空入力メッセージまたはIFA841Iメッセージを結ぶ空入力検知報告です。D: 運用面観点の参照先は保守要素全ゾーン表示保守で、作業記録で追跡する対象は空入力検知復旧です。照合面観点の用語定義として、空入力検知とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む空入力検知照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IFA023I</p></div><div class="kb-q"><p><strong>問題.</strong> 抽出面の資源状態表示を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってIWM038I 資源 and STATEを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,APPLENV</li><li>B. IWMPACT activate policy</li><li>C. DISPLAY WLM,RESOURCE <span class="kb-ok">✅ 正解</span></li><li>D. APPLY CHECK</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 確認面観点の出力確認として資源状態表示保守を読み、答えはCで、照合焦点は資源状態表示監査です。管理面観点の資源状態表示引継ぎは、ワークロード管理が管理する資源の状態を表示することを満たす入力、報告、状態表示を同じ証跡で確認する資源状態表示引継ぎです。選択面観点で残す資源状態表示棚卸は、IWM038I 資源 and STATEをコマンド形式と照合する資源状態表示棚卸です。抽出面観点の資源状態表示復旧は、ワークロード管理資源の入力要求と戻った報告を結び、運用状態を説明する資源状態表示復旧です。A: 表示面観点の比較先はアプリケーション環境表示監査で、要求対象は資源状態表示照合です。B: 構成面観点の照合先はサービス方針有効化引継ぎで、中心は資源状態表示報告です。C: 報告面観点の資源状態表示棚卸は、入力名と報告内のIWM038I 資源 and STATEを結ぶ資源状態表示証跡です。D: 照合面観点の参照先は適用事前検査復旧で、作業記録で追跡する対象は資源状態表示反映です。分類面観点の用語定義として、資源状態表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む資源状態表示観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IWM038I</p></div><div class="kb-q"><p><strong>問題.</strong> 制御面のアプリ環境再読込を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再読込 completedを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. VARY WLM,APPLENV,REFRESH <span class="kb-ok">✅ 正解</span></li><li>B. DISPLAY WLM,APPLENV</li><li>C. Service class goal</li><li>D. APPLY GROUPEXTEND</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 確認面観点で読むアプリ環境再読込引継ぎは正答位置Aで、記録する焦点は変更指示 ワークロード管理,アプリ環境,再読込棚卸です。分類面観点のアプリ環境再読込復旧は、サーバーアドレス空間を再起動してアプリ環境を反映することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再読込復旧です。選択面観点のアプリ環境再読込照合は、IWM032I 再読込 completedを入力記録と合わせて処理対象を見分けるアプリ環境再読込照合です。制御面観点のアプリ環境再読込報告は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再読込報告です。A: 報告面観点のアプリ環境再読込棚卸は、入力名と報告内のIWM032I 再読込 completedを結ぶアプリ環境再読込状態です。B: 照合面観点の参照先はアプリケーション環境表示復旧で、作業記録で追跡する対象はアプリ環境再読込証跡です。C: 復旧面観点の比較先はサービスクラス目標照合で、要求対象はアプリ環境再読込選択です。D: 監査面観点の照合先は関連保守要素展開報告で、中心はアプリ環境再読込反映です。保守面観点の用語定義として、アプリ環境再読込とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再読込読取です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 保守面のアプリ環境停止を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 静止 completedを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. SMPPUNCH output</li><li>B. VARY WLM,APPLENV,QUIESCE <span class="kb-ok">✅ 正解</span></li><li>C. SMFPRMxx RECORDING(LOGSTREAM)</li><li>D. DISPLAY SMFLIM</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 反映面観点の資料照合としてアプリ環境停止棚卸を選び、答えはBで、記録焦点はアプリ環境停止復旧です。制御面観点のアプリ環境停止照合は、ワークロード管理アプリケーション環境のサーバー起動を静止することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境停止照合です。抽出面観点から見るアプリ環境停止報告は、IWM032I 静止 completedをメッセージ形式と対応させるアプリ環境停止報告です。保守面観点のアプリ環境停止選択は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境停止選択です。A: 照合面観点の参照先は生成コマンドコマンド出力復旧で、作業記録で追跡する対象はアプリ環境停止読取です。B: 復旧面観点のアプリ環境停止照合は、入力名と報告内のIWM032I 静止 completedを結ぶアプリ環境停止定義です。C: 監査面観点の照合先はログストリーム記録報告で、中心はアプリ環境停止観点です。D: 選択面観点の処理段階はシステム管理機能リミット表示選択で、入力と出力を結ぶ対象はアプリ環境停止証跡です。記録面観点の用語定義として、アプリ環境停止とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境停止状態です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 記録面のアプリ環境再開を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再開 completedを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM</li><li>B. DISPLAY WLM,SCHENV</li><li>C. VARY WLM,APPLENV,RESUME <span class="kb-ok">✅ 正解</span></li><li>D. SET BDY(TARGET)</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 選択面観点の出力確認としてアプリ環境再開復旧を読み、答えはCで、照合焦点はアプリ環境再開照合です。保守面観点のアプリ環境再開報告は、静止したアプリケーション環境のサーバー起動を再開することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再開報告です。制御面観点で残すアプリ環境再開選択は、IWM032I 再開 completedをコマンド形式と照合するアプリ環境再開選択です。記録面観点のアプリ環境再開反映は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再開反映です。A: 復旧面観点の比較先は有効サービス方針表示照合で、要求対象はアプリ環境再開観点です。B: 監査面観点の照合先はスケジューリング環境表示報告で、中心はアプリ環境再開証跡です。C: 確認面観点のアプリ環境再開選択は、入力名と報告内のIWM032I 再開 completedを結ぶアプリ環境再開根拠です。D: 分類面観点の参照先はターゲットゾーン選択反映で、作業記録で追跡する対象はアプリ環境再開状態です。表示面観点の用語定義として、アプリ環境再開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再開定義です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 方針面の分類規則照会を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って分類規則照会 returned rules and service classを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. IWMCQRY classification rules <span class="kb-ok">✅ 正解</span></li><li>B. IWM001I policy activation</li><li>C. IWMPQRY active policy</li><li>D. RECEIVE HOLDDATA</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 選択面観点で読む分類規則照会報告は正答位置Aで、記録する焦点は分類規則照会 classification rules選択です。表示面観点の分類規則照会反映は、有効方針の分類規則をプログラムから照会することを満たす入力、報告、状態表示を同じ証跡で確認する分類規則照会反映です。制御面観点の分類規則照会観点は、分類規則照会 returned rules and service classを入力記録と合わせて処理対象を見分ける分類規則照会観点です。方針面観点の分類規則照会証跡は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する分類規則照会証跡です。A: 確認面観点の分類規則照会選択は、入力名と報告内の分類規則照会 returned rules and service classを結ぶ分類規則照会保守です。B: 分類面観点の参照先は方針有効化メッセージ反映で、作業記録で追跡する対象は分類規則照会根拠です。C: 反映面観点の比較先は有効方針照会観点で、要求対象は分類規則照会読取です。D: 管理面観点の照合先は保留情報受信証跡で、中心は分類規則照会状態です。報告面観点の用語定義として、分類規則照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む分類規則照会応答です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMCQRY</p></div><div class="kb-q"><p><strong>問題.</strong> 報告面の有効方針照会を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って方針照会 service policy mappingを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. APPLY CHECK</li><li>B. IWMPQRY active policy <span class="kb-ok">✅ 正解</span></li><li>C. LIST TARGETZONE</li><li>D. SMPLOG SMPRPT</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 抽出面観点の資料照合として有効方針照会選択を選び、答えはBで、記録焦点は有効方針照会反映です。方針面観点の有効方針照会観点は、有効なサービス方針とサービスクラス情報をAPIで照会することを満たす入力、報告、状態表示を同じ証跡で確認する有効方針照会観点です。記録面観点から見る有効方針照会証跡は、方針照会 service policy mappingをメッセージ形式と対応させる有効方針照会証跡です。報告面観点の有効方針照会読取は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する有効方針照会読取です。A: 分類面観点の参照先は適用事前検査反映で、作業記録で追跡する対象は有効方針照会応答です。B: 反映面観点の有効方針照会観点は、入力名と報告内の方針照会 service policy mappingを結ぶ有効方針照会監査です。C: 管理面観点の照合先はターゲットゾーン表示証跡で、中心は有効方針照会定義です。D: 制御面観点の処理段階はログと報告出力読取で、入力と出力を結ぶ対象は有効方針照会根拠です。構成面観点の用語定義として、有効方針照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む有効方針照会保守です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPQRY</p></div><div class="kb-q"><p><strong>問題.</strong> 構成面のサービス方針有効化を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って方針有効化API return and 方針有効化メッセージを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL log stream dump</li><li>B. DISPLAY WLM,SYSTEM</li><li>C. IWMPACT activate policy <span class="kb-ok">✅ 正解</span></li><li>D. IWMCQRY classification rules</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 制御面観点の出力確認としてサービス方針有効化反映を読み、答えはCで、照合焦点はサービス方針有効化観点です。報告面観点のサービス方針有効化証跡は、プログラムからワークロード管理サービス方針を有効化することを満たす入力、報告、状態表示を同じ証跡で確認するサービス方針有効化証跡です。方針面観点で残すサービス方針有効化読取は、方針有効化API return and 方針有効化メッセージをコマンド形式と照合するサービス方針有効化読取です。構成面観点のサービス方針有効化状態は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明するサービス方針有効化状態です。A: 反映面観点の比較先はログストリームダンプ観点で、要求対象はサービス方針有効化定義です。B: 管理面観点の照合先はシステム別ワークロード管理表示証跡で、中心はサービス方針有効化根拠です。C: 選択面観点のサービス方針有効化読取は、入力名と報告内の方針有効化API return and 方針有効化メッセージを結ぶサービス方針有効化引継ぎです。D: 表示面観点の参照先は分類規則照会状態で、作業記録で追跡する対象はサービス方針有効化保守です。復旧面観点の用語定義として、サービス方針有効化とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービス方針有効化監査です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPACT</p></div><div class="kb-q"><p><strong>問題.</strong> 復旧面のサービスクラス目標を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってservice class goal and importanceを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. Report class</li><li>B. APPLY GROUPEXTEND</li><li>C. SMPPUNCH output</li><li>D. Service class goal <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 抽出面観点のサービスクラス目標観点は正答Dで、表記上の手掛かりはサービスクラス goal証跡です。構成面観点のサービスクラス目標読取は、作業を応答時間、速度、または裁量目標で管理することを満たす入力、報告、状態表示を同じ証跡で確認するサービスクラス目標読取です。記録面観点で読むサービスクラス目標状態は、service class goal and importanceを資料のコマンド形式やメッセージ形式と照合するサービスクラス目標状態です。復旧面観点のサービスクラス目標定義は、ワークロード管理方針の入力要求と戻った報告を結び、運用状態を説明するサービスクラス目標定義です。A: 管理面観点の照合先は報告クラス証跡で、中心はサービスクラス目標応答です。B: 制御面観点の処理段階は関連保守要素展開読取で、入力と出力を結ぶ対象はサービスクラス目標保守です。C: 表示面観点の参照先は生成コマンドコマンド出力状態で、作業記録で追跡する対象はサービスクラス目標監査です。D: 抽出面観点のサービスクラス目標定義は、入力名と報告内のservice class goal and importanceを結ぶサービスクラス目標棚卸です。運用面観点の用語定義として、サービスクラス目標とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービスクラス目標引継ぎです。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / WLM service definition service class</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面のグローバルゾーン選択を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO グローバル ZONEとSMPCSI台帳指定を確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. RECEIVE HOLDDATA</li><li>B. LIST HOLDDATA</li><li>C. SET BDY(GLOBAL) <span class="kb-ok">✅ 正解</span></li><li>D. DDDEF</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 方針面観点の出力確認としてグローバルゾーン選択状態を読み、答えはCで、照合焦点はグローバルゾーン選択定義です。確認面観点のグローバルゾーン選択根拠は、受信処理や表示の処理境界をグローバルゾーンへ切り替えることを満たす入力、報告、状態表示を同じ証跡で確認するグローバルゾーン選択根拠です。運用面観点で残すグローバルゾーン選択応答は、NOW SET TO グローバル ZONEとSMPCSI台帳指定をコマンド形式と照合するグローバルゾーン選択応答です。監査面観点のグローバルゾーン選択保守は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するグローバルゾーン選択保守です。A: 抽出面観点の比較先は保留情報受信定義で、要求対象はグローバルゾーン選択監査です。B: 保守面観点の照合先は保留情報表示根拠で、中心はグローバルゾーン選択引継ぎです。C: 制御面観点のグローバルゾーン選択応答は、入力名と報告内のNOW SET TO グローバル ZONEとSMPCSI台帳指定を結ぶグローバルゾーン選択報告です。D: 復旧面観点の参照先はDD定義定義保守で、作業記録で追跡する対象はグローバルゾーン選択復旧です。反映面観点の用語定義として、グローバルゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むグローバルゾーン選択照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command</p></div><div class="kb-q"><p><strong>問題.</strong> 反映面のターゲットゾーン選択を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO ターゲット ZONEとゾーン名を確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY SMF,O</li><li>B. IFASMFDL OUTDD TYPE</li><li>C. VARY WLM,APPLENV,QUIESCE</li><li>D. SET BDY(TARGET) <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 記録面観点のターゲットゾーン選択定義は正答Dで、表記上の手掛かりは境界設定(ターゲット)根拠です。監査面観点のターゲットゾーン選択応答は、適用処理や報告で保守対象のターゲットゾーンを選ぶことを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン選択応答です。構成面観点で読むターゲットゾーン選択保守は、NOW SET TO ターゲット ZONEとゾーン名を資料のコマンド形式やメッセージ形式と照合するターゲットゾーン選択保守です。反映面観点のターゲットゾーン選択監査は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン選択監査です。A: 保守面観点の照合先はシステム管理機能オプション表示根拠で、中心はターゲットゾーン選択棚卸です。B: 方針面観点の処理段階は種別別出力応答で、入力と出力を結ぶ対象はターゲットゾーン選択復旧です。C: 復旧面観点の参照先はアプリ環境停止保守で、作業記録で追跡する対象はターゲットゾーン選択照合です。D: 記録面観点のターゲットゾーン選択監査は、入力名と報告内のNOW SET TO ターゲット ZONEとゾーン名を結ぶターゲットゾーン選択選択です。照合面観点の用語定義として、ターゲットゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン選択報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command</p></div><div class="kb-q"><p><strong>問題.</strong> 照合面の保守要素受信を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って受信処理 summary reportと保守要素 statusを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. RECEIVE SYSMOD <span class="kb-ok">✅ 正解</span></li><li>B. Report class</li><li>C. APPLY BYPASS(HOLDSYSTEM)</li><li>D. REPORT ERRSYSMODS</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 方針面観点で読む保守要素受信根拠は正答位置Aで、記録する焦点は受信処理 保守要素応答です。反映面観点の保守要素受信保守は、SMPPTFINの保守データをPTSとグローバルゾーンへ登録することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素受信保守です。運用面観点の保守要素受信監査は、受信処理 summary reportと保守要素 statusを入力記録と合わせて処理対象を見分ける保守要素受信監査です。照合面観点の保守要素受信引継ぎは、保守管理保守投入の入力要求と戻った報告を結び、運用状態を説明する保守要素受信引継ぎです。A: 制御面観点の保守要素受信応答は、入力名と報告内の受信処理 summary reportと保守要素 statusを結ぶ保守要素受信反映です。B: 復旧面観点の参照先は報告クラス保守で、作業記録で追跡する対象は保守要素受信報告です。C: 記録面観点の比較先はSYSTEM HOLD迂回監査で、要求対象は保守要素受信棚卸です。D: 報告面観点の照合先はエラーHOLD影響報告引継ぎで、中心は保守要素受信復旧です。選択面観点の用語定義として、保守要素受信とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素受信選択です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RECEIVE command</p></div><div class="kb-q"><p><strong>問題.</strong> 保守面の保守要素配布反映を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って配布反映 processing reportとdistribution zoneを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,RESOURCE</li><li>B. IWMPQRY active policy</li><li>C. ACCEPT SYSMOD <span class="kb-ok">✅ 正解</span></li><li>D. RECEIVE HOLDDATA</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 照合面観点の出力確認として保守要素配布反映復旧を読み、答えはCで、照合焦点は保守要素配布反映照合です。制御面観点の保守要素配布反映報告は、適用済み保守要素を配布ライブラリーへ反映することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素配布反映報告です。分類面観点で残す保守要素配布反映選択は、配布反映 processing reportとdistribution zoneをコマンド形式と照合する保守要素配布反映選択です。保守面観点の保守要素配布反映反映は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する保守要素配布反映反映です。A: 構成面観点の比較先は資源状態表示照合で、要求対象は保守要素配布反映観点です。B: 確認面観点の照合先は有効方針照会報告で、中心は保守要素配布反映証跡です。C: 運用面観点の保守要素配布反映選択は、入力名と報告内の配布反映 processing reportとdistribution zoneを結ぶ保守要素配布反映根拠です。D: 抽出面観点の参照先は保留情報受信反映で、作業記録で追跡する対象は保守要素配布反映状態です。記録面観点の用語定義として、保守要素配布反映とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素配布反映定義です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT command</p></div><div class="kb-q"><p><strong>問題.</strong> 記録面の保守要素全ゾーン表示を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って表示 Summary reportと全ゾーン表示を確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. SMPLOG SMPRPT</li><li>B. DISPLAY SMF,O</li><li>C. IFA023I empty input</li><li>D. LIST SYSMOD ALLZONES <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 監査面観点の保守要素全ゾーン表示照合は正答Dで、表記上の手掛かりは表示 保守要素 全ゾーン報告です。保守面観点の保守要素全ゾーン表示選択は、保守要素の受信、適用、配布状態を複数ゾーンで確認することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素全ゾーン表示選択です。管理面観点で読む保守要素全ゾーン表示反映は、表示 Summary reportと全ゾーン表示を資料のコマンド形式やメッセージ形式と照合する保守要素全ゾーン表示反映です。記録面観点の保守要素全ゾーン表示観点は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保守要素全ゾーン表示観点です。A: 確認面観点の照合先はログと報告出力報告で、中心は保守要素全ゾーン表示読取です。B: 照合面観点の処理段階はシステム管理機能オプション表示選択で、入力と出力を結ぶ対象は保守要素全ゾーン表示状態です。C: 抽出面観点の参照先は空入力検知反映で、作業記録で追跡する対象は保守要素全ゾーン表示定義です。D: 監査面観点の保守要素全ゾーン表示観点は、入力名と報告内の表示 Summary reportと全ゾーン表示を結ぶ保守要素全ゾーン表示応答です。表示面観点の用語定義として、保守要素全ゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素全ゾーン表示根拠です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST SYSMOD</p></div><div class="kb-q"><p><strong>問題.</strong> 表示面の保留情報表示を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って保留情報 entryとreason idを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. LIST HOLDDATA <span class="kb-ok">✅ 正解</span></li><li>B. DISPLAY WLM</li><li>C. VARY WLM,APPLENV,RESUME</li><li>D. SET BDY(GLOBAL)</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 照合面観点で読む保留情報表示報告は正答位置Aで、記録する焦点は表示 保留情報選択です。記録面観点の保留情報表示反映は、HOLDERRORやシステム保留の保留情報を一覧で確認することを満たす入力、報告、状態表示を同じ証跡で確認する保留情報表示反映です。分類面観点の保留情報表示観点は、保留情報 entryとreason idを入力記録と合わせて処理対象を見分ける保留情報表示観点です。表示面観点の保留情報表示証跡は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保留情報表示証跡です。A: 運用面観点の保留情報表示選択は、入力名と報告内の保留情報 entryとreason idを結ぶ保留情報表示保守です。B: 抽出面観点の参照先は有効サービス方針表示反映で、作業記録で追跡する対象は保留情報表示根拠です。C: 監査面観点の比較先はアプリ環境再開観点で、要求対象は保留情報表示読取です。D: 選択面観点の照合先はグローバルゾーン選択証跡で、中心は保留情報表示状態です。方針面観点の用語定義として、保留情報表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保留情報表示応答です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST HOLDDATA</p></div><div class="kb-q"><p><strong>問題.</strong> 方針面のターゲットゾーン表示を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってターゲットZONE entryとDD定義参照を確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. LIST HOLDDATA</li><li>B. LIST TARGETZONE <span class="kb-ok">✅ 正解</span></li><li>C. DDDEF</li><li>D. DISPLAY SMF,O</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 管理面観点の資料照合としてターゲットゾーン表示選択を選び、答えはBで、記録焦点はターゲットゾーン表示反映です。表示面観点のターゲットゾーン表示観点は、ターゲットゾーンのDD定義やOPTIONSを確認することを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン表示観点です。保守面観点から見るターゲットゾーン表示証跡は、ターゲットZONE entryとDD定義参照をメッセージ形式と対応させるターゲットゾーン表示証跡です。方針面観点のターゲットゾーン表示読取は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン表示読取です。A: 抽出面観点の参照先は保留情報表示反映で、作業記録で追跡する対象はターゲットゾーン表示応答です。B: 監査面観点のターゲットゾーン表示観点は、入力名と報告内のターゲットZONE entryとDD定義参照を結ぶターゲットゾーン表示監査です。C: 選択面観点の照合先はDD定義定義証跡で、中心はターゲットゾーン表示定義です。D: 分類面観点の処理段階はシステム管理機能オプション表示読取で、入力と出力を結ぶ対象はターゲットゾーン表示根拠です。報告面観点の用語定義として、ターゲットゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン表示保守です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST TARGETZONE</p></div><div class="kb-q"><p><strong>問題.</strong> 運用面の未採用保守要素除去を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って除去 return codeと保守要素 statusを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. RECEIVE SYSMOD</li><li>B. REJECT SYSMOD <span class="kb-ok">✅ 正解</span></li><li>C. LIST SYSMOD ALLZONES</li><li>D. DDDEF</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 保守面観点の資料照合として未採用保守要素除去読取を選び、答えはBで、記録焦点は未採用保守要素除去状態です。復旧面観点の未採用保守要素除去定義は、不要な未適用保守要素をグローバルゾーンやPTSから整理することを満たす入力、報告、状態表示を同じ証跡で確認する未採用保守要素除去定義です。報告面観点から見る未採用保守要素除去根拠は、除去 return codeと保守要素 statusをメッセージ形式と対応させる未採用保守要素除去根拠です。運用面観点の未採用保守要素除去応答は、保守管理保守整理の入力要求と戻った報告を結び、運用状態を説明する未採用保守要素除去応答です。A: 記録面観点の参照先は保守要素受信状態で、作業記録で追跡する対象は未採用保守要素除去棚卸です。B: 管理面観点の未採用保守要素除去定義は、入力名と報告内の除去 return codeと保守要素 statusを結ぶ未採用保守要素除去照合です。C: 制御面観点の照合先は保守要素全ゾーン表示根拠で、中心は未採用保守要素除去監査です。D: 表示面観点の処理段階はDD定義定義応答で、入力と出力を結ぶ対象は未採用保守要素除去引継ぎです。確認面観点の用語定義として、未採用保守要素除去とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む未採用保守要素除去復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands REJECT command</p></div><div class="kb-q"><p><strong>問題.</strong> 確認面の適用済み保守要素復元を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って復元 reportとtarget zoneを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY SMF,M</li><li>B. IFA023I empty input</li><li>C. RESTORE SYSMOD <span class="kb-ok">✅ 正解</span></li><li>D. VARY WLM,APPLENV,RESUME</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 表示面観点の出力確認として適用済み保守要素復元状態を読み、答えはCで、照合焦点は適用済み保守要素復元定義です。運用面観点の適用済み保守要素復元根拠は、ターゲットライブラリーを適用前の状態へ戻すことを満たす入力、報告、状態表示を同じ証跡で確認する適用済み保守要素復元根拠です。復旧面観点で残す適用済み保守要素復元応答は、復元 reportとtarget zoneをコマンド形式と照合する適用済み保守要素復元応答です。確認面観点の適用済み保守要素復元保守は、保守管理復旧の入力要求と戻った報告を結び、運用状態を説明する適用済み保守要素復元保守です。A: 管理面観点の比較先はシステム管理機能メンバー表示定義で、要求対象は適用済み保守要素復元監査です。B: 制御面観点の照合先は空入力検知根拠で、中心は適用済み保守要素復元引継ぎです。C: 分類面観点の適用済み保守要素復元応答は、入力名と報告内の復元 reportとtarget zoneを結ぶ適用済み保守要素復元報告です。D: 構成面観点の参照先はアプリ環境再開保守で、作業記録で追跡する対象は適用済み保守要素復元復旧です。監査面観点の用語定義として、適用済み保守要素復元とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用済み保守要素復元照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RESTORE command</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面のCSI台帳ゾーン索引を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってゾーン索引 entryとzone nameを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. WLM couple data set</li><li>B. APPLY BYPASS(HOLDSYSTEM)</li><li>C. REPORT ERRSYSMODS</li><li>D. CSI ZONEINDEX <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 保守面観点のCSI台帳ゾーン索引定義は正答Dで、表記上の手掛かりはCSI台帳 ゾーン索引根拠です。確認面観点のCSI台帳ゾーン索引応答は、SMPCSI台帳内のゾーン構成と参照先を把握することを満たす入力、報告、状態表示を同じ証跡で確認するCSI台帳ゾーン索引応答です。報告面観点で読むCSI台帳ゾーン索引保守は、ゾーン索引 entryとzone nameを資料のコマンド形式やメッセージ形式と照合するCSI台帳ゾーン索引保守です。監査面観点のCSI台帳ゾーン索引監査は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するCSI台帳ゾーン索引監査です。A: 制御面観点の照合先はワークロード管理カップルデータセット根拠で、中心はCSI台帳ゾーン索引棚卸です。B: 表示面観点の処理段階はSYSTEM HOLD迂回応答で、入力と出力を結ぶ対象はCSI台帳ゾーン索引復旧です。C: 構成面観点の参照先はエラーHOLD影響報告保守で、作業記録で追跡する対象はCSI台帳ゾーン索引照合です。D: 保守面観点のCSI台帳ゾーン索引監査は、入力名と報告内のゾーン索引 entryとzone nameを結ぶCSI台帳ゾーン索引選択です。反映面観点の用語定義として、CSI台帳ゾーン索引とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むCSI台帳ゾーン索引報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference CSI entries</p></div><div class="kb-q"><p><strong>問題.</strong> 反映面のDD定義定義を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってDD定義 entryとdata set nameを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. DDDEF <span class="kb-ok">✅ 正解</span></li><li>B. REPORT ERRSYSMODS</li><li>C. LSNAME TYPE</li><li>D. IFASMFDP data set dump</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 表示面観点で読むDD定義定義根拠は正答位置Aで、記録する焦点はDD定義応答です。監査面観点のDD定義定義保守は、保守管理処理で使うデータセット割り当てをゾーン内に登録することを満たす入力、報告、状態表示を同じ証跡で確認するDD定義定義保守です。復旧面観点のDD定義定義監査は、DD定義 entryとdata set nameを入力記録と合わせて処理対象を見分けるDD定義定義監査です。反映面観点のDD定義定義引継ぎは、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するDD定義定義引継ぎです。A: 分類面観点のDD定義定義応答は、入力名と報告内のDD定義 entryとdata set nameを結ぶDD定義定義反映です。B: 構成面観点の参照先はエラーHOLD影響報告保守で、作業記録で追跡する対象はDD定義定義報告です。C: 保守面観点の比較先は種別別ログストリーム監査で、要求対象はDD定義定義棚卸です。D: 方針面観点の照合先はMANデータセットダンプ引継ぎで、中心はDD定義定義復旧です。照合面観点の用語定義として、DD定義定義とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むDD定義定義選択です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference DDDEF entry</p></div><div class="kb-q"><p><strong>問題.</strong> 照合面のログと報告出力を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってSMPログ、SMPログA、SMP報告、SMPOUTを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. IWMPACT activate policy</li><li>B. SMPLOG SMPRPT <span class="kb-ok">✅ 正解</span></li><li>C. RECEIVE HOLDDATA</li><li>D. LIST TARGETZONE</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 報告面観点の資料照合としてログと報告出力応答を選び、答えはBで、記録焦点はログと報告出力保守です。反映面観点のログと報告出力監査は、保守管理処理のログと報告を分けて保存することを満たす入力、報告、状態表示を同じ証跡で確認するログと報告出力監査です。確認面観点から見るログと報告出力引継ぎは、SMPログ、SMPログA、SMP報告、SMPOUTをメッセージ形式と対応させるログと報告出力引継ぎです。照合面観点のログと報告出力棚卸は、保守管理証跡の入力要求と戻った報告を結び、運用状態を説明するログと報告出力棚卸です。A: 構成面観点の参照先はサービス方針有効化保守で、作業記録で追跡する対象はログと報告出力選択です。B: 保守面観点のログと報告出力監査は、入力名と報告内のSMPログ、SMPログA、SMP報告、SMPOUTを結ぶログと報告出力観点です。C: 方針面観点の照合先は保留情報受信引継ぎで、中心はログと報告出力照合です。D: 復旧面観点の処理段階はターゲットゾーン表示棚卸で、入力と出力を結ぶ対象はログと報告出力報告です。選択面観点の用語定義として、ログと報告出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログと報告出力反映です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands data sets</p></div><div class="kb-q"><p><strong>問題.</strong> 選択面のログストリーム記録を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って記録方式(ログストリーム)とシステム管理機能パラメータxxを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,SYSTEM</li><li>B. DISPLAY WLM,SCHENV</li><li>C. SMFPRMxx RECORDING(LOGSTREAM) <span class="kb-ok">✅ 正解</span></li><li>D. SET BDY(TARGET)</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 復旧面観点の出力確認としてログストリーム記録保守を読み、答えはCで、照合焦点はログストリーム記録監査です。照合面観点のログストリーム記録引継ぎは、システム管理機能をMANデータセットではなくログストリームへ記録することを満たす入力、報告、状態表示を同じ証跡で確認するログストリーム記録引継ぎです。反映面観点で残すログストリーム記録棚卸は、記録方式(ログストリーム)とシステム管理機能パラメータxxをコマンド形式と照合するログストリーム記録棚卸です。選択面観点のログストリーム記録復旧は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明するログストリーム記録復旧です。A: 保守面観点の比較先はシステム別ワークロード管理表示監査で、要求対象はログストリーム記録照合です。B: 方針面観点の照合先はスケジューリング環境表示引継ぎで、中心はログストリーム記録報告です。C: 表示面観点のログストリーム記録棚卸は、入力名と報告内の記録方式(ログストリーム)とシステム管理機能パラメータxxを結ぶログストリーム記録証跡です。D: 監査面観点の参照先はターゲットゾーン選択復旧で、作業記録で追跡する対象はログストリーム記録反映です。管理面観点の用語定義として、ログストリーム記録とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログストリーム記録観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities SMFPRMxx</p></div><div class="kb-q"><p><strong>問題.</strong> 抽出面の種別別ログストリームを証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってログストリーム名とレコード種別範囲を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. LSNAME TYPE <span class="kb-ok">✅ 正解</span></li><li>B. REPORT ERRSYSMODS</li><li>C. DEFAULTLSNAME</li><li>D. IFASMFDP data set dump</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧面観点で読む種別別ログストリーム引継ぎは正答位置Aで、記録する焦点はログストリーム名 レコード種別棚卸です。管理面観点の種別別ログストリーム復旧は、特定のシステム管理機能レコード種別を専用ログストリームへ振り分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別ログストリーム復旧です。反映面観点の種別別ログストリーム照合は、ログストリーム名とレコード種別範囲を入力記録と合わせて処理対象を見分ける種別別ログストリーム照合です。抽出面観点の種別別ログストリーム報告は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する種別別ログストリーム報告です。A: 表示面観点の種別別ログストリーム棚卸は、入力名と報告内のログストリーム名とレコード種別範囲を結ぶ種別別ログストリーム状態です。B: 監査面観点の参照先はエラーHOLD影響報告復旧で、作業記録で追跡する対象は種別別ログストリーム証跡です。C: 報告面観点の比較先は既定ログストリーム名照合で、要求対象は種別別ログストリーム選択です。D: 運用面観点の照合先はMANデータセットダンプ報告で、中心は種別別ログストリーム反映です。分類面観点の用語定義として、種別別ログストリームとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別ログストリーム読取です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities LSNAME</p></div><div class="kb-q"><p><strong>問題.</strong> 復旧面の期間指定ダンプを障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って日付、開始時刻、終了時刻のSYSPRINT表示を確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,RESOURCE</li><li>B. IFASMFDL DATE START END <span class="kb-ok">✅ 正解</span></li><li>C. IWMPQRY active policy</li><li>D. RECEIVE HOLDDATA</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 制御面観点の資料照合として期間指定ダンプ読取を選び、答えはBで、記録焦点は期間指定ダンプ状態です。構成面観点の期間指定ダンプ定義は、日付と時刻の範囲でシステム管理機能レコードを抽出することを満たす入力、報告、状態表示を同じ証跡で確認する期間指定ダンプ定義です。方針面観点から見る期間指定ダンプ根拠は、日付、開始時刻、終了時刻のSYSPRINT表示をメッセージ形式と対応させる期間指定ダンプ根拠です。復旧面観点の期間指定ダンプ応答は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する期間指定ダンプ応答です。A: 保守面観点の参照先は資源状態表示状態で、作業記録で追跡する対象は期間指定ダンプ棚卸です。B: 選択面観点の期間指定ダンプ定義は、入力名と報告内の日付、開始時刻、終了時刻のSYSPRINT表示を結ぶ期間指定ダンプ照合です。C: 分類面観点の照合先は有効方針照会根拠で、中心は期間指定ダンプ監査です。D: 記録面観点の処理段階は保留情報受信応答で、入力と出力を結ぶ対象は期間指定ダンプ引継ぎです。運用面観点の用語定義として、期間指定ダンプとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む期間指定ダンプ復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL parameters</p></div><div class="kb-q"><p><strong>問題.</strong> 運用面のシステムID選択を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってシステムID parameterとSYSPRINT表示を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. SET BDY(GLOBAL)</li><li>B. ACCEPT CHECK</li><li>C. IFASMFDL SID <span class="kb-ok">✅ 正解</span></li><li>D. REJECT SYSMOD</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 記録面観点の出力確認としてシステムID選択状態を読み、答えはCで、照合焦点はシステムID選択定義です。復旧面観点のシステムID選択根拠は、特定システムIDのシステム管理機能レコードだけを抽出することを満たす入力、報告、状態表示を同じ証跡で確認するシステムID選択根拠です。構成面観点で残すシステムID選択応答は、システムID parameterとSYSPRINT表示をコマンド形式と照合するシステムID選択応答です。運用面観点のシステムID選択保守は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明するシステムID選択保守です。A: 選択面観点の比較先はグローバルゾーン選択定義で、要求対象はシステムID選択監査です。B: 分類面観点の照合先は配布反映事前検査根拠で、中心はシステムID選択引継ぎです。C: 抽出面観点のシステムID選択応答は、入力名と報告内のシステムID parameterとSYSPRINT表示を結ぶシステムID選択報告です。D: 報告面観点の参照先は未採用保守要素除去保守で、作業記録で追跡する対象はシステムID選択復旧です。確認面観点の用語定義として、システムID選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むシステムID選択照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL SID</p></div><div class="kb-q"><p><strong>問題.</strong> 確認面の種別別出力を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って出力DDとレコード種別範囲を確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDP data set dump</li><li>B. DISPLAY WLM,RESOURCE</li><li>C. IWMPACT activate policy</li><li>D. IFASMFDL OUTDD TYPE <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 制御面観点の種別別出力定義は正答Dで、表記上の手掛かりはシステム管理機能ログストリームダンプ 出力DD レコード種別根拠です。運用面観点の種別別出力応答は、システム管理機能レコード種別ごとに出力DDを分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別出力応答です。方針面観点で読む種別別出力保守は、出力DDとレコード種別範囲を資料のコマンド形式やメッセージ形式と照合する種別別出力保守です。確認面観点の種別別出力監査は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する種別別出力監査です。A: 分類面観点の照合先はMANデータセットダンプ根拠で、中心は種別別出力棚卸です。B: 記録面観点の処理段階は資源状態表示応答で、入力と出力を結ぶ対象は種別別出力復旧です。C: 報告面観点の参照先はサービス方針有効化保守で、作業記録で追跡する対象は種別別出力照合です。D: 制御面観点の種別別出力監査は、入力名と報告内の出力DDとレコード種別範囲を結ぶ種別別出力選択です。監査面観点の用語定義として、種別別出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別出力報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL OUTDD</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面の空入力検知を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って空入力メッセージまたはIFA841Iメッセージを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. IFA023I empty input <span class="kb-ok">✅ 正解</span></li><li>B. APPLY CHECK</li><li>C. LIST TARGETZONE</li><li>D. SMPLOG SMPRPT</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 記録面観点で読む空入力検知根拠は正答位置Aで、記録する焦点は空入力メッセージ empty input応答です。確認面観点の空入力検知保守は、指定範囲にダンプ対象システム管理機能データがない状態を判定することを満たす入力、報告、状態表示を同じ証跡で確認する空入力検知保守です。構成面観点の空入力検知監査は、空入力メッセージまたはIFA841Iメッセージを入力記録と合わせて処理対象を見分ける空入力検知監査です。監査面観点の空入力検知引継ぎは、システム管理機能メッセージの入力要求と戻った報告を結び、運用状態を説明する空入力検知引継ぎです。A: 抽出面観点の空入力検知応答は、入力名と報告内の空入力メッセージまたはIFA841Iメッセージを結ぶ空入力検知反映です。B: 報告面観点の参照先は適用事前検査保守で、作業記録で追跡する対象は空入力検知報告です。C: 制御面観点の比較先はターゲットゾーン表示監査で、要求対象は空入力検知棚卸です。D: 表示面観点の照合先はログと報告出力引継ぎで、中心は空入力検知復旧です。反映面観点の用語定義として、空入力検知とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む空入力検知選択です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IFA023I</p></div><div class="kb-q"><p><strong>問題.</strong> 管理面の資源状態表示を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってIWM038I 資源 and STATEを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,RESOURCE <span class="kb-ok">✅ 正解</span></li><li>B. WLM couple data set</li><li>C. APPLY BYPASS(HOLDSYSTEM)</li><li>D. REPORT ERRSYSMODS</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 構成面観点で読む資源状態表示引継ぎは正答位置Aで、記録する焦点は表示 ワークロード管理,資源棚卸です。選択面観点の資源状態表示復旧は、ワークロード管理が管理する資源の状態を表示することを満たす入力、報告、状態表示を同じ証跡で確認する資源状態表示復旧です。監査面観点の資源状態表示照合は、IWM038I 資源 and STATEを入力記録と合わせて処理対象を見分ける資源状態表示照合です。管理面観点の資源状態表示報告は、ワークロード管理資源の入力要求と戻った報告を結び、運用状態を説明する資源状態表示報告です。A: 記録面観点の資源状態表示棚卸は、入力名と報告内のIWM038I 資源 and STATEを結ぶ資源状態表示状態です。B: 確認面観点の参照先はワークロード管理カップルデータセット復旧で、作業記録で追跡する対象は資源状態表示証跡です。C: 方針面観点の比較先はSYSTEM HOLD迂回照合で、要求対象は資源状態表示選択です。D: 復旧面観点の照合先はエラーHOLD影響報告報告で、中心は資源状態表示反映です。抽出面観点の用語定義として、資源状態表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む資源状態表示読取です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IWM038I</p></div><div class="kb-q"><p><strong>問題.</strong> 分類面のアプリ環境再読込を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再読込 completedを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. SET BDY(GLOBAL)</li><li>B. ACCEPT CHECK</li><li>C. VARY WLM,APPLENV,REFRESH <span class="kb-ok">✅ 正解</span></li><li>D. REJECT SYSMOD</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査面観点の出力確認としてアプリ環境再読込復旧を読み、答えはCで、照合焦点はアプリ環境再読込照合です。抽出面観点のアプリ環境再読込報告は、サーバーアドレス空間を再起動してアプリ環境を反映することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再読込報告です。管理面観点で残すアプリ環境再読込選択は、IWM032I 再読込 completedをコマンド形式と照合するアプリ環境再読込選択です。分類面観点のアプリ環境再読込反映は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再読込反映です。A: 方針面観点の比較先はグローバルゾーン選択照合で、要求対象はアプリ環境再読込観点です。B: 復旧面観点の照合先は配布反映事前検査報告で、中心はアプリ環境再読込証跡です。C: 構成面観点のアプリ環境再読込選択は、入力名と報告内のIWM032I 再読込 completedを結ぶアプリ環境再読込根拠です。D: 選択面観点の参照先は未採用保守要素除去反映で、作業記録で追跡する対象はアプリ環境再読込状態です。制御面観点の用語定義として、アプリ環境再読込とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再読込定義です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 制御面のアプリ環境停止を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 静止 completedを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. SET SMF=xx</li><li>B. IFASMFDP data set dump</li><li>C. DISPLAY WLM,RESOURCE</li><li>D. VARY WLM,APPLENV,QUIESCE <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 運用面観点のアプリ環境停止照合は正答Dで、表記上の手掛かりは変更指示 ワークロード管理,アプリ環境,静止報告です。分類面観点のアプリ環境停止選択は、ワークロード管理アプリケーション環境のサーバー起動を静止することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境停止選択です。照合面観点で読むアプリ環境停止反映は、IWM032I 静止 completedを資料のコマンド形式やメッセージ形式と照合するアプリ環境停止反映です。制御面観点のアプリ環境停止観点は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境停止観点です。A: 復旧面観点の照合先はシステム管理機能パラメータxx切替報告で、中心はアプリ環境停止読取です。B: 監査面観点の処理段階はMANデータセットダンプ選択で、入力と出力を結ぶ対象はアプリ環境停止状態です。C: 選択面観点の参照先は資源状態表示反映で、作業記録で追跡する対象はアプリ環境停止定義です。D: 運用面観点のアプリ環境停止観点は、入力名と報告内のIWM032I 静止 completedを結ぶアプリ環境停止応答です。保守面観点の用語定義として、アプリ環境停止とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境停止根拠です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 保守面のアプリ環境再開を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再開 completedを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. VARY WLM,APPLENV,RESUME <span class="kb-ok">✅ 正解</span></li><li>B. IWMPACT activate policy</li><li>C. RECEIVE HOLDDATA</li><li>D. LIST TARGETZONE</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査面観点で読むアプリ環境再開報告は正答位置Aで、記録する焦点は変更指示 ワークロード管理,アプリ環境,再開選択です。制御面観点のアプリ環境再開反映は、静止したアプリケーション環境のサーバー起動を再開することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再開反映です。管理面観点のアプリ環境再開観点は、IWM032I 再開 completedを入力記録と合わせて処理対象を見分けるアプリ環境再開観点です。保守面観点のアプリ環境再開証跡は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再開証跡です。A: 構成面観点のアプリ環境再開選択は、入力名と報告内のIWM032I 再開 completedを結ぶアプリ環境再開保守です。B: 選択面観点の参照先はサービス方針有効化反映で、作業記録で追跡する対象はアプリ環境再開根拠です。C: 運用面観点の比較先は保留情報受信観点で、要求対象はアプリ環境再開読取です。D: 反映面観点の照合先はターゲットゾーン表示証跡で、中心はアプリ環境再開状態です。記録面観点の用語定義として、アプリ環境再開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再開応答です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 表示面の分類規則照会を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って分類規則照会 returned rules and service classを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. Report class</li><li>B. APPLY GROUPEXTEND</li><li>C. IWMCQRY classification rules <span class="kb-ok">✅ 正解</span></li><li>D. SMPPUNCH output</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 管理面観点の出力確認として分類規則照会反映を読み、答えはCで、照合焦点は分類規則照会観点です。記録面観点の分類規則照会証跡は、有効方針の分類規則をプログラムから照会することを満たす入力、報告、状態表示を同じ証跡で確認する分類規則照会証跡です。保守面観点で残す分類規則照会読取は、分類規則照会 returned rules and service classをコマンド形式と照合する分類規則照会読取です。表示面観点の分類規則照会状態は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する分類規則照会状態です。A: 運用面観点の比較先は報告クラス観点で、要求対象は分類規則照会定義です。B: 反映面観点の照合先は関連保守要素展開証跡で、中心は分類規則照会根拠です。C: 監査面観点の分類規則照会読取は、入力名と報告内の分類規則照会 returned rules and service classを結ぶ分類規則照会引継ぎです。D: 制御面観点の参照先は生成コマンドコマンド出力状態で、作業記録で追跡する対象は分類規則照会保守です。方針面観点の用語定義として、分類規則照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む分類規則照会監査です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMCQRY</p></div><div class="kb-q"><p><strong>問題.</strong> 方針面の有効方針照会を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って方針照会 service policy mappingを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. REPORT ERRSYSMODS</li><li>B. DEFAULTLSNAME</li><li>C. IFASMFDL log stream dump</li><li>D. IWMPQRY active policy <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 照合面観点の有効方針照会観点は正答Dで、表記上の手掛かりは方針照会 active policy証跡です。表示面観点の有効方針照会読取は、有効なサービス方針とサービスクラス情報をAPIで照会することを満たす入力、報告、状態表示を同じ証跡で確認する有効方針照会読取です。分類面観点で読む有効方針照会状態は、方針照会 service policy mappingを資料のコマンド形式やメッセージ形式と照合する有効方針照会状態です。方針面観点の有効方針照会定義は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する有効方針照会定義です。A: 反映面観点の照合先はエラーHOLD影響報告証跡で、中心は有効方針照会応答です。B: 管理面観点の処理段階は既定ログストリーム名読取で、入力と出力を結ぶ対象は有効方針照会保守です。C: 制御面観点の参照先はログストリームダンプ状態で、作業記録で追跡する対象は有効方針照会監査です。D: 照合面観点の有効方針照会定義は、入力名と報告内の方針照会 service policy mappingを結ぶ有効方針照会棚卸です。報告面観点の用語定義として、有効方針照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む有効方針照会引継ぎです。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPQRY</p></div><div class="kb-q"><p><strong>問題.</strong> 報告面のサービス方針有効化を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って方針有効化API return and 方針有効化メッセージを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. IWMPACT activate policy <span class="kb-ok">✅ 正解</span></li><li>B. DISPLAY WLM,APPLENV</li><li>C. Service class goal</li><li>D. APPLY GROUPEXTEND</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 管理面観点で読むサービス方針有効化証跡は正答位置Aで、記録する焦点は方針有効化API activate policy読取です。方針面観点のサービス方針有効化状態は、プログラムからワークロード管理サービス方針を有効化することを満たす入力、報告、状態表示を同じ証跡で確認するサービス方針有効化状態です。保守面観点のサービス方針有効化定義は、方針有効化API return and 方針有効化メッセージを入力記録と合わせて処理対象を見分けるサービス方針有効化定義です。報告面観点のサービス方針有効化根拠は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明するサービス方針有効化根拠です。A: 監査面観点のサービス方針有効化読取は、入力名と報告内の方針有効化API return and 方針有効化メッセージを結ぶサービス方針有効化復旧です。B: 制御面観点の参照先はアプリケーション環境表示状態で、作業記録で追跡する対象はサービス方針有効化引継ぎです。C: 照合面観点の比較先はサービスクラス目標定義で、要求対象はサービス方針有効化応答です。D: 抽出面観点の照合先は関連保守要素展開根拠で、中心はサービス方針有効化保守です。構成面観点の用語定義として、サービス方針有効化とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービス方針有効化棚卸です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPACT</p></div><div class="kb-q"><p><strong>問題.</strong> 構成面のサービスクラス目標を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってservice class goal and importanceを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT SYSMOD</li><li>B. Service class goal <span class="kb-ok">✅ 正解</span></li><li>C. REJECT SYSMOD</li><li>D. SET SMF=xx</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 分類面観点の資料照合としてサービスクラス目標読取を選び、答えはBで、記録焦点はサービスクラス目標状態です。報告面観点のサービスクラス目標定義は、作業を応答時間、速度、または裁量目標で管理することを満たす入力、報告、状態表示を同じ証跡で確認するサービスクラス目標定義です。表示面観点から見るサービスクラス目標根拠は、service class goal and importanceをメッセージ形式と対応させるサービスクラス目標根拠です。構成面観点のサービスクラス目標応答は、ワークロード管理方針の入力要求と戻った報告を結び、運用状態を説明するサービスクラス目標応答です。A: 制御面観点の参照先は保守要素配布反映状態で、作業記録で追跡する対象はサービスクラス目標棚卸です。B: 照合面観点のサービスクラス目標定義は、入力名と報告内のservice class goal and importanceを結ぶサービスクラス目標照合です。C: 抽出面観点の照合先は未採用保守要素除去根拠で、中心はサービスクラス目標監査です。D: 保守面観点の処理段階はシステム管理機能パラメータxx切替応答で、入力と出力を結ぶ対象はサービスクラス目標引継ぎです。復旧面観点の用語定義として、サービスクラス目標とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービスクラス目標復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / WLM service definition service class</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面のターゲットゾーン選択を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO ターゲット ZONEとゾーン名を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,SYSTEM</li><li>B. SET BDY(TARGET) <span class="kb-ok">✅ 正解</span></li><li>C. DISPLAY WLM,SCHENV</li><li>D. RECEIVE SYSMOD</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 表示面観点の資料照合としてターゲットゾーン選択応答を選び、答えはBで、記録焦点はターゲットゾーン選択保守です。確認面観点のターゲットゾーン選択監査は、適用処理や報告で保守対象のターゲットゾーンを選ぶことを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン選択監査です。復旧面観点から見るターゲットゾーン選択引継ぎは、NOW SET TO ターゲット ZONEとゾーン名をメッセージ形式と対応させるターゲットゾーン選択引継ぎです。監査面観点のターゲットゾーン選択棚卸は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン選択棚卸です。A: 方針面観点の参照先はシステム別ワークロード管理表示保守で、作業記録で追跡する対象はターゲットゾーン選択選択です。B: 分類面観点のターゲットゾーン選択監査は、入力名と報告内のNOW SET TO ターゲット ZONEとゾーン名を結ぶターゲットゾーン選択観点です。C: 記録面観点の照合先はスケジューリング環境表示引継ぎで、中心はターゲットゾーン選択照合です。D: 報告面観点の処理段階は保守要素受信棚卸で、入力と出力を結ぶ対象はターゲットゾーン選択報告です。反映面観点の用語定義として、ターゲットゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン選択反映です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command</p></div><div class="kb-q"><p><strong>問題.</strong> 反映面の保守要素受信を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って受信処理 summary reportと保守要素 statusを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. LIST SYSMOD ALLZONES</li><li>B. RESTORE SYSMOD</li><li>C. RECEIVE SYSMOD <span class="kb-ok">✅ 正解</span></li><li>D. SETSMF LSNAME</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 報告面観点の出力確認として保守要素受信保守を読み、答えはCで、照合焦点は保守要素受信監査です。監査面観点の保守要素受信引継ぎは、SMPPTFINの保守データをPTSとグローバルゾーンへ登録することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素受信引継ぎです。確認面観点で残す保守要素受信棚卸は、受信処理 summary reportと保守要素 statusをコマンド形式と照合する保守要素受信棚卸です。反映面観点の保守要素受信復旧は、保守管理保守投入の入力要求と戻った報告を結び、運用状態を説明する保守要素受信復旧です。A: 分類面観点の比較先は保守要素全ゾーン表示監査で、要求対象は保守要素受信照合です。B: 記録面観点の照合先は適用済み保守要素復元引継ぎで、中心は保守要素受信報告です。C: 保守面観点の保守要素受信棚卸は、入力名と報告内の受信処理 summary reportと保守要素 statusを結ぶ保守要素受信証跡です。D: 運用面観点の参照先は一時ログストリーム変更復旧で、作業記録で追跡する対象は保守要素受信反映です。照合面観点の用語定義として、保守要素受信とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素受信観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RECEIVE command</p></div><div class="kb-q"><p><strong>問題.</strong> 制御面の保守要素配布反映を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って配布反映 processing reportとdistribution zoneを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. ACCEPT SYSMOD <span class="kb-ok">✅ 正解</span></li><li>B. Report class</li><li>C. APPLY GROUPEXTEND</li><li>D. REPORT ERRSYSMODS</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 確認面観点で読む保守要素配布反映報告は正答位置Aで、記録する焦点は配布反映 保守要素選択です。分類面観点の保守要素配布反映反映は、適用済み保守要素を配布ライブラリーへ反映することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素配布反映反映です。選択面観点の保守要素配布反映観点は、配布反映 processing reportとdistribution zoneを入力記録と合わせて処理対象を見分ける保守要素配布反映観点です。制御面観点の保守要素配布反映証跡は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する保守要素配布反映証跡です。A: 報告面観点の保守要素配布反映選択は、入力名と報告内の配布反映 processing reportとdistribution zoneを結ぶ保守要素配布反映保守です。B: 照合面観点の参照先は報告クラス反映で、作業記録で追跡する対象は保守要素配布反映根拠です。C: 復旧面観点の比較先は関連保守要素展開観点で、要求対象は保守要素配布反映読取です。D: 監査面観点の照合先はエラーHOLD影響報告証跡で、中心は保守要素配布反映状態です。保守面観点の用語定義として、保守要素配布反映とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素配布反映応答です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT command</p></div><div class="kb-q"><p><strong>問題.</strong> 保守面の保守要素全ゾーン表示を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って表示 Summary reportと全ゾーン表示を確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL log stream dump</li><li>B. LIST SYSMOD ALLZONES <span class="kb-ok">✅ 正解</span></li><li>C. DISPLAY WLM,SYSTEM</li><li>D. IWMCQRY classification rules</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 反映面観点の資料照合として保守要素全ゾーン表示選択を選び、答えはBで、記録焦点は保守要素全ゾーン表示反映です。制御面観点の保守要素全ゾーン表示観点は、保守要素の受信、適用、配布状態を複数ゾーンで確認することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素全ゾーン表示観点です。抽出面観点から見る保守要素全ゾーン表示証跡は、表示 Summary reportと全ゾーン表示をメッセージ形式と対応させる保守要素全ゾーン表示証跡です。保守面観点の保守要素全ゾーン表示読取は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保守要素全ゾーン表示読取です。A: 照合面観点の参照先はログストリームダンプ反映で、作業記録で追跡する対象は保守要素全ゾーン表示応答です。B: 復旧面観点の保守要素全ゾーン表示観点は、入力名と報告内の表示 Summary reportと全ゾーン表示を結ぶ保守要素全ゾーン表示監査です。C: 監査面観点の照合先はシステム別ワークロード管理表示証跡で、中心は保守要素全ゾーン表示定義です。D: 選択面観点の処理段階は分類規則照会読取で、入力と出力を結ぶ対象は保守要素全ゾーン表示根拠です。記録面観点の用語定義として、保守要素全ゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素全ゾーン表示保守です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST SYSMOD</p></div><div class="kb-q"><p><strong>問題.</strong> 記録面の保留情報表示を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って保留情報 entryとreason idを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. IWMPQRY active policy</li><li>B. RECEIVE SYSMOD</li><li>C. LIST HOLDDATA <span class="kb-ok">✅ 正解</span></li><li>D. LIST TARGETZONE</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 選択面観点の出力確認として保留情報表示反映を読み、答えはCで、照合焦点は保留情報表示観点です。保守面観点の保留情報表示証跡は、HOLDERRORやシステム保留の保留情報を一覧で確認することを満たす入力、報告、状態表示を同じ証跡で確認する保留情報表示証跡です。制御面観点で残す保留情報表示読取は、保留情報 entryとreason idをコマンド形式と照合する保留情報表示読取です。記録面観点の保留情報表示状態は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保留情報表示状態です。A: 復旧面観点の比較先は有効方針照会観点で、要求対象は保留情報表示定義です。B: 監査面観点の照合先は保守要素受信証跡で、中心は保留情報表示根拠です。C: 確認面観点の保留情報表示読取は、入力名と報告内の保留情報 entryとreason idを結ぶ保留情報表示引継ぎです。D: 分類面観点の参照先はターゲットゾーン表示状態で、作業記録で追跡する対象は保留情報表示保守です。表示面観点の用語定義として、保留情報表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保留情報表示監査です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST HOLDDATA</p></div><div class="kb-q"><p><strong>問題.</strong> 表示面のターゲットゾーン表示を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってターゲットZONE entryとDD定義参照を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. DEFAULTLSNAME</li><li>B. DISPLAY SMFLIM</li><li>C. DISPLAY WLM,SYSTEM</li><li>D. LIST TARGETZONE <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 反映面観点のターゲットゾーン表示観点は正答Dで、表記上の手掛かりは表示 ターゲットZONE証跡です。記録面観点のターゲットゾーン表示読取は、ターゲットゾーンのDD定義やOPTIONSを確認することを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン表示読取です。抽出面観点で読むターゲットゾーン表示状態は、ターゲットZONE entryとDD定義参照を資料のコマンド形式やメッセージ形式と照合するターゲットゾーン表示状態です。表示面観点のターゲットゾーン表示定義は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン表示定義です。A: 監査面観点の照合先は既定ログストリーム名証跡で、中心はターゲットゾーン表示応答です。B: 選択面観点の処理段階はシステム管理機能リミット表示読取で、入力と出力を結ぶ対象はターゲットゾーン表示保守です。C: 分類面観点の参照先はシステム別ワークロード管理表示状態で、作業記録で追跡する対象はターゲットゾーン表示監査です。D: 反映面観点のターゲットゾーン表示定義は、入力名と報告内のターゲットZONE entryとDD定義参照を結ぶターゲットゾーン表示棚卸です。方針面観点の用語定義として、ターゲットゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン表示引継ぎです。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST TARGETZONE</p></div><div class="kb-q"><p><strong>問題.</strong> 復旧面の未採用保守要素除去を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って除去 return codeと保守要素 statusを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. REPORT MISSINGFIX FIXCAT</li><li>B. SMFPRMxx RECORDING(LOGSTREAM)</li><li>C. DISPLAY SMFLIM</li><li>D. REJECT SYSMOD <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 抽出面観点の未採用保守要素除去定義は正答Dで、表記上の手掛かりは除去 保守要素根拠です。構成面観点の未採用保守要素除去応答は、不要な未適用保守要素をグローバルゾーンやPTSから整理することを満たす入力、報告、状態表示を同じ証跡で確認する未採用保守要素除去応答です。記録面観点で読む未採用保守要素除去保守は、除去 return codeと保守要素 statusを資料のコマンド形式やメッセージ形式と照合する未採用保守要素除去保守です。復旧面観点の未採用保守要素除去監査は、保守管理保守整理の入力要求と戻った報告を結び、運用状態を説明する未採用保守要素除去監査です。A: 管理面観点の照合先は修正カテゴリー不足報告根拠で、中心は未採用保守要素除去棚卸です。B: 制御面観点の処理段階はログストリーム記録応答で、入力と出力を結ぶ対象は未採用保守要素除去復旧です。C: 表示面観点の参照先はシステム管理機能リミット表示保守で、作業記録で追跡する対象は未採用保守要素除去照合です。D: 抽出面観点の未採用保守要素除去監査は、入力名と報告内の除去 return codeと保守要素 statusを結ぶ未採用保守要素除去選択です。運用面観点の用語定義として、未採用保守要素除去とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む未採用保守要素除去報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands REJECT command</p></div><div class="kb-q"><p><strong>問題.</strong> 運用面の適用済み保守要素復元を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って復元 reportとtarget zoneを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. RESTORE SYSMOD <span class="kb-ok">✅ 正解</span></li><li>B. IWM001I policy activation</li><li>C. IWMCQRY classification rules</li><li>D. RECEIVE SYSMOD</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 制御面観点で読む適用済み保守要素復元根拠は正答位置Aで、記録する焦点は復元 保守要素応答です。復旧面観点の適用済み保守要素復元保守は、ターゲットライブラリーを適用前の状態へ戻すことを満たす入力、報告、状態表示を同じ証跡で確認する適用済み保守要素復元保守です。方針面観点の適用済み保守要素復元監査は、復元 reportとtarget zoneを入力記録と合わせて処理対象を見分ける適用済み保守要素復元監査です。運用面観点の適用済み保守要素復元引継ぎは、保守管理復旧の入力要求と戻った報告を結び、運用状態を説明する適用済み保守要素復元引継ぎです。A: 選択面観点の適用済み保守要素復元応答は、入力名と報告内の復元 reportとtarget zoneを結ぶ適用済み保守要素復元反映です。B: 表示面観点の参照先は方針有効化メッセージ保守で、作業記録で追跡する対象は適用済み保守要素復元報告です。C: 抽出面観点の比較先は分類規則照会監査で、要求対象は適用済み保守要素復元棚卸です。D: 保守面観点の照合先は保守要素受信引継ぎで、中心は適用済み保守要素復元復旧です。確認面観点の用語定義として、適用済み保守要素復元とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用済み保守要素復元選択です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RESTORE command</p></div><div class="kb-q"><p><strong>問題.</strong> 確認面のCSI台帳ゾーン索引を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってゾーン索引 entryとzone nameを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. LIST SYSMOD ALLZONES</li><li>B. CSI ZONEINDEX <span class="kb-ok">✅ 正解</span></li><li>C. RESTORE SYSMOD</li><li>D. DISPLAY SMF,S</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 記録面観点の資料照合としてCSI台帳ゾーン索引応答を選び、答えはBで、記録焦点はCSI台帳ゾーン索引保守です。運用面観点のCSI台帳ゾーン索引監査は、SMPCSI台帳内のゾーン構成と参照先を把握することを満たす入力、報告、状態表示を同じ証跡で確認するCSI台帳ゾーン索引監査です。構成面観点から見るCSI台帳ゾーン索引引継ぎは、ゾーン索引 entryとzone nameをメッセージ形式と対応させるCSI台帳ゾーン索引引継ぎです。確認面観点のCSI台帳ゾーン索引棚卸は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するCSI台帳ゾーン索引棚卸です。A: 表示面観点の参照先は保守要素全ゾーン表示保守で、作業記録で追跡する対象はCSI台帳ゾーン索引選択です。B: 抽出面観点のCSI台帳ゾーン索引監査は、入力名と報告内のゾーン索引 entryとzone nameを結ぶCSI台帳ゾーン索引観点です。C: 保守面観点の照合先は適用済み保守要素復元引継ぎで、中心はCSI台帳ゾーン索引照合です。D: 方針面観点の処理段階はシステム管理機能状態表示棚卸で、入力と出力を結ぶ対象はCSI台帳ゾーン索引報告です。監査面観点の用語定義として、CSI台帳ゾーン索引とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むCSI台帳ゾーン索引反映です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference CSI entries</p></div><div class="kb-q"><p><strong>問題.</strong> 監査面のDD定義定義を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってDD定義 entryとdata set nameを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. DISPLAY SMF,S</li><li>B. IFASMFDL SID</li><li>C. DDDEF <span class="kb-ok">✅ 正解</span></li><li>D. VARY WLM,APPLENV,REFRESH</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 方針面観点の出力確認としてDD定義定義保守を読み、答えはCで、照合焦点はDD定義定義監査です。確認面観点のDD定義定義引継ぎは、保守管理処理で使うデータセット割り当てをゾーン内に登録することを満たす入力、報告、状態表示を同じ証跡で確認するDD定義定義引継ぎです。運用面観点で残すDD定義定義棚卸は、DD定義 entryとdata set nameをコマンド形式と照合するDD定義定義棚卸です。監査面観点のDD定義定義復旧は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するDD定義定義復旧です。A: 抽出面観点の比較先はシステム管理機能状態表示監査で、要求対象はDD定義定義照合です。B: 保守面観点の照合先はシステムID選択引継ぎで、中心はDD定義定義報告です。C: 制御面観点のDD定義定義棚卸は、入力名と報告内のDD定義 entryとdata set nameを結ぶDD定義定義証跡です。D: 復旧面観点の参照先はアプリ環境再読込復旧で、作業記録で追跡する対象はDD定義定義反映です。反映面観点の用語定義として、DD定義定義とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むDD定義定義観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference DDDEF entry</p></div><div class="kb-q"><p><strong>問題.</strong> 反映面のログと報告出力を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってSMPログ、SMPログA、SMP報告、SMPOUTを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. APPLY BYPASS(HOLDSYSTEM)</li><li>B. SMPPUNCH output</li><li>C. LSNAME TYPE</li><li>D. SMPLOG SMPRPT <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 記録面観点のログと報告出力監査は正答Dで、表記上の手掛かりはSMPログ SMP報告引継ぎです。監査面観点のログと報告出力棚卸は、保守管理処理のログと報告を分けて保存することを満たす入力、報告、状態表示を同じ証跡で確認するログと報告出力棚卸です。構成面観点で読むログと報告出力復旧は、SMPログ、SMPログA、SMP報告、SMPOUTを資料のコマンド形式やメッセージ形式と照合するログと報告出力復旧です。反映面観点のログと報告出力照合は、保守管理証跡の入力要求と戻った報告を結び、運用状態を説明するログと報告出力照合です。A: 保守面観点の照合先はSYSTEM HOLD迂回引継ぎで、中心はログと報告出力選択です。B: 方針面観点の処理段階は生成コマンドコマンド出力棚卸で、入力と出力を結ぶ対象はログと報告出力反映です。C: 復旧面観点の参照先は種別別ログストリーム復旧で、作業記録で追跡する対象はログと報告出力観点です。D: 記録面観点のログと報告出力照合は、入力名と報告内のSMPログ、SMPログA、SMP報告、SMPOUTを結ぶログと報告出力読取です。照合面観点の用語定義として、ログと報告出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログと報告出力証跡です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands data sets</p></div><div class="kb-q"><p><strong>問題.</strong> 管理面の種別別ログストリームを運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってログストリーム名とレコード種別範囲を確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY SMF,S</li><li>B. IFASMFDL SID</li><li>C. LSNAME TYPE <span class="kb-ok">✅ 正解</span></li><li>D. VARY WLM,APPLENV,REFRESH</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 運用面観点の出力確認として種別別ログストリーム復旧を読み、答えはCで、照合焦点は種別別ログストリーム照合です。選択面観点の種別別ログストリーム報告は、特定のシステム管理機能レコード種別を専用ログストリームへ振り分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別ログストリーム報告です。照合面観点で残す種別別ログストリーム選択は、ログストリーム名とレコード種別範囲をコマンド形式と照合する種別別ログストリーム選択です。管理面観点の種別別ログストリーム反映は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する種別別ログストリーム反映です。A: 記録面観点の比較先はシステム管理機能状態表示照合で、要求対象は種別別ログストリーム観点です。B: 報告面観点の照合先はシステムID選択報告で、中心は種別別ログストリーム証跡です。C: 方針面観点の種別別ログストリーム選択は、入力名と報告内のログストリーム名とレコード種別範囲を結ぶ種別別ログストリーム根拠です。D: 反映面観点の参照先はアプリ環境再読込反映で、作業記録で追跡する対象は種別別ログストリーム状態です。抽出面観点の用語定義として、種別別ログストリームとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別ログストリーム定義です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities LSNAME</p></div><div class="kb-q"><p><strong>問題.</strong> 構成面の期間指定ダンプを証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って日付、開始時刻、終了時刻のSYSPRINT表示を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. Report class</li><li>B. APPLY GROUPEXTEND</li><li>C. SMPPUNCH output</li><li>D. IFASMFDL DATE START END <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 管理面観点の期間指定ダンプ定義は正答Dで、表記上の手掛かりはシステム管理機能ログストリームダンプ 日付 開始時刻 終了時刻根拠です。報告面観点の期間指定ダンプ応答は、日付と時刻の範囲でシステム管理機能レコードを抽出することを満たす入力、報告、状態表示を同じ証跡で確認する期間指定ダンプ応答です。保守面観点で読む期間指定ダンプ保守は、日付、開始時刻、終了時刻のSYSPRINT表示を資料のコマンド形式やメッセージ形式と照合する期間指定ダンプ保守です。構成面観点の期間指定ダンプ監査は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する期間指定ダンプ監査です。A: 選択面観点の照合先は報告クラス根拠で、中心は期間指定ダンプ棚卸です。B: 分類面観点の処理段階は関連保守要素展開応答で、入力と出力を結ぶ対象は期間指定ダンプ復旧です。C: 記録面観点の参照先は生成コマンドコマンド出力保守で、作業記録で追跡する対象は期間指定ダンプ照合です。D: 管理面観点の期間指定ダンプ監査は、入力名と報告内の日付、開始時刻、終了時刻のSYSPRINT表示を結ぶ期間指定ダンプ選択です。復旧面観点の用語定義として、期間指定ダンプとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む期間指定ダンプ報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL parameters</p></div><div class="kb-q"><p><strong>問題.</strong> 復旧面のシステムID選択を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってシステムID parameterとSYSPRINT表示を確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL SID <span class="kb-ok">✅ 正解</span></li><li>B. LIST HOLDDATA</li><li>C. CSI ZONEINDEX</li><li>D. DISPLAY SMF,S</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 分類面観点で読むシステムID選択根拠は正答位置Aで、記録する焦点はシステム管理機能ログストリームダンプ システムID応答です。構成面観点のシステムID選択保守は、特定システムIDのシステム管理機能レコードだけを抽出することを満たす入力、報告、状態表示を同じ証跡で確認するシステムID選択保守です。表示面観点のシステムID選択監査は、システムID parameterとSYSPRINT表示を入力記録と合わせて処理対象を見分けるシステムID選択監査です。復旧面観点のシステムID選択引継ぎは、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明するシステムID選択引継ぎです。A: 照合面観点のシステムID選択応答は、入力名と報告内のシステムID parameterとSYSPRINT表示を結ぶシステムID選択反映です。B: 記録面観点の参照先は保留情報表示保守で、作業記録で追跡する対象はシステムID選択報告です。C: 管理面観点の比較先はCSI台帳ゾーン索引監査で、要求対象はシステムID選択棚卸です。D: 制御面観点の照合先はシステム管理機能状態表示引継ぎで、中心はシステムID選択復旧です。運用面観点の用語定義として、システムID選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むシステムID選択選択です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL SID</p></div><div class="kb-q"><p><strong>問題.</strong> 運用面の種別別出力を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って出力DDとレコード種別範囲を確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. VARY WLM,APPLENV,QUIESCE</li><li>B. IFASMFDL OUTDD TYPE <span class="kb-ok">✅ 正解</span></li><li>C. Report class</li><li>D. APPLY BYPASS(HOLDSYSTEM)</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 保守面観点の資料照合として種別別出力応答を選び、答えはBで、記録焦点は種別別出力保守です。復旧面観点の種別別出力監査は、システム管理機能レコード種別ごとに出力DDを分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別出力監査です。報告面観点から見る種別別出力引継ぎは、出力DDとレコード種別範囲をメッセージ形式と対応させる種別別出力引継ぎです。運用面観点の種別別出力棚卸は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する種別別出力棚卸です。A: 記録面観点の参照先はアプリ環境停止保守で、作業記録で追跡する対象は種別別出力選択です。B: 管理面観点の種別別出力監査は、入力名と報告内の出力DDとレコード種別範囲を結ぶ種別別出力観点です。C: 制御面観点の照合先は報告クラス引継ぎで、中心は種別別出力照合です。D: 表示面観点の処理段階はSYSTEM HOLD迂回棚卸で、入力と出力を結ぶ対象は種別別出力報告です。確認面観点の用語定義として、種別別出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別出力反映です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL OUTDD</p></div><div class="kb-q"><p><strong>問題.</strong> 確認面の空入力検知を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って空入力メッセージまたはIFA841Iメッセージを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. REPORT ERRSYSMODS</li><li>B. DEFAULTLSNAME</li><li>C. IFA023I empty input <span class="kb-ok">✅ 正解</span></li><li>D. IFASMFDL log stream dump</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 表示面観点の出力確認として空入力検知保守を読み、答えはCで、照合焦点は空入力検知監査です。運用面観点の空入力検知引継ぎは、指定範囲にダンプ対象システム管理機能データがない状態を判定することを満たす入力、報告、状態表示を同じ証跡で確認する空入力検知引継ぎです。復旧面観点で残す空入力検知棚卸は、空入力メッセージまたはIFA841Iメッセージをコマンド形式と照合する空入力検知棚卸です。確認面観点の空入力検知復旧は、システム管理機能メッセージの入力要求と戻った報告を結び、運用状態を説明する空入力検知復旧です。A: 管理面観点の比較先はエラーHOLD影響報告監査で、要求対象は空入力検知照合です。B: 制御面観点の照合先は既定ログストリーム名引継ぎで、中心は空入力検知報告です。C: 分類面観点の空入力検知棚卸は、入力名と報告内の空入力メッセージまたはIFA841Iメッセージを結ぶ空入力検知証跡です。D: 構成面観点の参照先はログストリームダンプ復旧で、作業記録で追跡する対象は空入力検知反映です。監査面観点の用語定義として、空入力検知とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む空入力検知観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IFA023I</p></div><div class="kb-q"><p><strong>問題.</strong> 選択面の資源状態表示を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってIWM038I 資源 and STATEを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. LIST SYSMOD ALLZONES</li><li>B. RESTORE SYSMOD</li><li>C. DISPLAY WLM,RESOURCE <span class="kb-ok">✅ 正解</span></li><li>D. SETSMF LSNAME</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 復旧面観点の出力確認として資源状態表示復旧を読み、答えはCで、照合焦点は資源状態表示照合です。照合面観点の資源状態表示報告は、ワークロード管理が管理する資源の状態を表示することを満たす入力、報告、状態表示を同じ証跡で確認する資源状態表示報告です。反映面観点で残す資源状態表示選択は、IWM038I 資源 and STATEをコマンド形式と照合する資源状態表示選択です。選択面観点の資源状態表示反映は、ワークロード管理資源の入力要求と戻った報告を結び、運用状態を説明する資源状態表示反映です。A: 保守面観点の比較先は保守要素全ゾーン表示照合で、要求対象は資源状態表示観点です。B: 方針面観点の照合先は適用済み保守要素復元報告で、中心は資源状態表示証跡です。C: 表示面観点の資源状態表示選択は、入力名と報告内のIWM038I 資源 and STATEを結ぶ資源状態表示根拠です。D: 監査面観点の参照先は一時ログストリーム変更反映で、作業記録で追跡する対象は資源状態表示状態です。管理面観点の用語定義として、資源状態表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む資源状態表示定義です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IWM038I</p></div><div class="kb-q"><p><strong>問題.</strong> 抽出面のアプリ環境再読込を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再読込 completedを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. VARY WLM,APPLENV,REFRESH <span class="kb-ok">✅ 正解</span></li><li>B. LIST HOLDDATA</li><li>C. CSI ZONEINDEX</li><li>D. DISPLAY SMF,S</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧面観点で読むアプリ環境再読込報告は正答位置Aで、記録する焦点は変更指示 ワークロード管理,アプリ環境,再読込選択です。管理面観点のアプリ環境再読込反映は、サーバーアドレス空間を再起動してアプリ環境を反映することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再読込反映です。反映面観点のアプリ環境再読込観点は、IWM032I 再読込 completedを入力記録と合わせて処理対象を見分けるアプリ環境再読込観点です。抽出面観点のアプリ環境再読込証跡は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再読込証跡です。A: 表示面観点のアプリ環境再読込選択は、入力名と報告内のIWM032I 再読込 completedを結ぶアプリ環境再読込保守です。B: 監査面観点の参照先は保留情報表示反映で、作業記録で追跡する対象はアプリ環境再読込根拠です。C: 報告面観点の比較先はCSI台帳ゾーン索引観点で、要求対象はアプリ環境再読込読取です。D: 運用面観点の照合先はシステム管理機能状態表示証跡で、中心はアプリ環境再読込状態です。分類面観点の用語定義として、アプリ環境再読込とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再読込応答です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 分類面のアプリ環境停止を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 静止 completedを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL OUTDD TYPE</li><li>B. VARY WLM,APPLENV,QUIESCE <span class="kb-ok">✅ 正解</span></li><li>C. VARY WLM,APPLENV,REFRESH</li><li>D. WLM couple data set</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 確認面観点の資料照合としてアプリ環境停止選択を選び、答えはBで、記録焦点はアプリ環境停止反映です。抽出面観点のアプリ環境停止観点は、ワークロード管理アプリケーション環境のサーバー起動を静止することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境停止観点です。選択面観点から見るアプリ環境停止証跡は、IWM032I 静止 completedをメッセージ形式と対応させるアプリ環境停止証跡です。分類面観点のアプリ環境停止読取は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境停止読取です。A: 監査面観点の参照先は種別別出力反映で、作業記録で追跡する対象はアプリ環境停止応答です。B: 報告面観点のアプリ環境停止観点は、入力名と報告内のIWM032I 静止 completedを結ぶアプリ環境停止監査です。C: 運用面観点の照合先はアプリ環境再読込証跡で、中心はアプリ環境停止定義です。D: 反映面観点の処理段階はワークロード管理カップルデータセット読取で、入力と出力を結ぶ対象はアプリ環境停止根拠です。制御面観点の用語定義として、アプリ環境停止とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境停止保守です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 制御面のアプリ環境再開を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再開 completedを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. APPLY BYPASS(HOLDSYSTEM)</li><li>B. SMPPUNCH output</li><li>C. VARY WLM,APPLENV,RESUME <span class="kb-ok">✅ 正解</span></li><li>D. DEFAULTLSNAME</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 反映面観点の出力確認としてアプリ環境再開反映を読み、答えはCで、照合焦点はアプリ環境再開観点です。分類面観点のアプリ環境再開証跡は、静止したアプリケーション環境のサーバー起動を再開することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再開証跡です。抽出面観点で残すアプリ環境再開読取は、IWM032I 再開 completedをコマンド形式と照合するアプリ環境再開読取です。制御面観点のアプリ環境再開状態は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再開状態です。A: 報告面観点の比較先はSYSTEM HOLD迂回観点で、要求対象はアプリ環境再開定義です。B: 運用面観点の照合先は生成コマンドコマンド出力証跡で、中心はアプリ環境再開根拠です。C: 復旧面観点のアプリ環境再開読取は、入力名と報告内のIWM032I 再開 completedを結ぶアプリ環境再開引継ぎです。D: 管理面観点の参照先は既定ログストリーム名状態で、作業記録で追跡する対象はアプリ環境再開保守です。保守面観点の用語定義として、アプリ環境再開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再開監査です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV</p></div><div class="kb-q"><p><strong>問題.</strong> 記録面の分類規則照会を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って分類規則照会 returned rules and service classを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. IWMCQRY classification rules <span class="kb-ok">✅ 正解</span></li><li>B. ACCEPT SYSMOD</li><li>C. REJECT SYSMOD</li><li>D. SET SMF=xx</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 反映面観点で読む分類規則照会証跡は正答位置Aで、記録する焦点は分類規則照会 classification rules読取です。保守面観点の分類規則照会状態は、有効方針の分類規則をプログラムから照会することを満たす入力、報告、状態表示を同じ証跡で確認する分類規則照会状態です。抽出面観点の分類規則照会定義は、分類規則照会 returned rules and service classを入力記録と合わせて処理対象を見分ける分類規則照会定義です。記録面観点の分類規則照会根拠は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する分類規則照会根拠です。A: 復旧面観点の分類規則照会読取は、入力名と報告内の分類規則照会 returned rules and service classを結ぶ分類規則照会復旧です。B: 管理面観点の参照先は保守要素配布反映状態で、作業記録で追跡する対象は分類規則照会引継ぎです。C: 確認面観点の比較先は未採用保守要素除去定義で、要求対象は分類規則照会応答です。D: 照合面観点の照合先はシステム管理機能パラメータxx切替根拠で、中心は分類規則照会保守です。表示面観点の用語定義として、分類規則照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む分類規則照会棚卸です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMCQRY</p></div><div class="kb-q"><p><strong>問題.</strong> 表示面の有効方針照会を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って方針照会 service policy mappingを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. SETSMF LSNAME</li><li>B. IWMPQRY active policy <span class="kb-ok">✅ 正解</span></li><li>C. IFASMFDL DATE START END</li><li>D. DISPLAY WLM,APPLENV</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 選択面観点の資料照合として有効方針照会読取を選び、答えはBで、記録焦点は有効方針照会状態です。記録面観点の有効方針照会定義は、有効なサービス方針とサービスクラス情報をAPIで照会することを満たす入力、報告、状態表示を同じ証跡で確認する有効方針照会定義です。制御面観点から見る有効方針照会根拠は、方針照会 service policy mappingをメッセージ形式と対応させる有効方針照会根拠です。表示面観点の有効方針照会応答は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する有効方針照会応答です。A: 管理面観点の参照先は一時ログストリーム変更状態で、作業記録で追跡する対象は有効方針照会棚卸です。B: 確認面観点の有効方針照会定義は、入力名と報告内の方針照会 service policy mappingを結ぶ有効方針照会照合です。C: 照合面観点の照合先は期間指定ダンプ根拠で、中心は有効方針照会監査です。D: 抽出面観点の処理段階はアプリケーション環境表示応答で、入力と出力を結ぶ対象は有効方針照会引継ぎです。方針面観点の用語定義として、有効方針照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む有効方針照会復旧です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPQRY</p></div><div class="kb-q"><p><strong>問題.</strong> 方針面のサービス方針有効化を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って方針有効化API return and 方針有効化メッセージを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. SET BDY(GLOBAL)</li><li>B. ACCEPT CHECK</li><li>C. IWMPACT activate policy <span class="kb-ok">✅ 正解</span></li><li>D. REJECT SYSMOD</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 抽出面観点の出力確認としてサービス方針有効化状態を読み、答えはCで、照合焦点はサービス方針有効化定義です。表示面観点のサービス方針有効化根拠は、プログラムからワークロード管理サービス方針を有効化することを満たす入力、報告、状態表示を同じ証跡で確認するサービス方針有効化根拠です。記録面観点で残すサービス方針有効化応答は、方針有効化API return and 方針有効化メッセージをコマンド形式と照合するサービス方針有効化応答です。方針面観点のサービス方針有効化保守は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明するサービス方針有効化保守です。A: 確認面観点の比較先はグローバルゾーン選択定義で、要求対象はサービス方針有効化監査です。B: 照合面観点の照合先は配布反映事前検査根拠で、中心はサービス方針有効化引継ぎです。C: 反映面観点のサービス方針有効化応答は、入力名と報告内の方針有効化API return and 方針有効化メッセージを結ぶサービス方針有効化報告です。D: 保守面観点の参照先は未採用保守要素除去保守で、作業記録で追跡する対象はサービス方針有効化復旧です。報告面観点の用語定義として、サービス方針有効化とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービス方針有効化照合です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPACT</p></div><div class="kb-q"><p><strong>問題.</strong> 報告面のサービスクラス目標を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってservice class goal and importanceを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. DDDEF</li><li>B. DISPLAY SMF,S</li><li>C. IFASMFDL OUTDD TYPE</li><li>D. Service class goal <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 選択面観点のサービスクラス目標定義は正答Dで、表記上の手掛かりはサービスクラス goal根拠です。方針面観点のサービスクラス目標応答は、作業を応答時間、速度、または裁量目標で管理することを満たす入力、報告、状態表示を同じ証跡で確認するサービスクラス目標応答です。制御面観点で読むサービスクラス目標保守は、service class goal and importanceを資料のコマンド形式やメッセージ形式と照合するサービスクラス目標保守です。報告面観点のサービスクラス目標監査は、ワークロード管理方針の入力要求と戻った報告を結び、運用状態を説明するサービスクラス目標監査です。A: 照合面観点の照合先はDD定義定義根拠で、中心はサービスクラス目標棚卸です。B: 抽出面観点の処理段階はシステム管理機能状態表示応答で、入力と出力を結ぶ対象はサービスクラス目標復旧です。C: 保守面観点の参照先は種別別出力保守で、作業記録で追跡する対象はサービスクラス目標照合です。D: 選択面観点のサービスクラス目標監査は、入力名と報告内のservice class goal and importanceを結ぶサービスクラス目標選択です。構成面観点の用語定義として、サービスクラス目標とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービスクラス目標報告です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / WLM service definition service class</p></div></details><details class="kb-block"><summary>検証手順（11件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY BYPASS(ID(など))</strong></p><p>検証目的: 監査確認のなどについて、APPLY BYPASS(ID(など))は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010019の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査確認のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(ID(などを指定し、OSKB010019の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY BYPASS(ID(など
+CASE OSKB010019
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY BYPASS(ID(など
+CASE OSKB010019
+SOURCE SMP/E SMF WLM
+APPLY BYPASS(ID(などとOSKB010019が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010019を同じ出力で読み、監査確認のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010019
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010019
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY BYPASS(ID(など)) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010019が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY BYPASS(ID(など と OSKB010019 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010019 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div><div class="kb-p"><p class="kb-pname"><strong>LSNAME(など)</strong></p><p>検証目的: 置換照合のなどについて、SMP E SMF WLM の SMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLM の運用に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020024の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換照合のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にLSNAME(など)を指定し、OSKB020024の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND LSNAME(など)
+CASE OSKB020024
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM LSNAME(など)
+CASE OSKB020024
+SOURCE SMP/E SMF WLM
+LSNAME(など)とOSKB020024が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020024を同じ出力で読み、置換照合のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020024
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020024
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I LSNAME(など) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020024が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の LSNAME(など) と OSKB020024 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020024 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>SUBSYS(STC,など) ・ SUBSYS(TSO,など)</strong></p><p>検証目的: 探索照合のなど ・について、SMP E SMF WLM の SMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLM の運用に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020026の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索照合のなど ・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSUBSYS(STC,など) ・ Sを指定し、OSKB020026の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SUBSYS(STC,など) ・ S
+CASE OSKB020026
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SUBSYS(STC,など) ・ S
+CASE OSKB020026
+SOURCE SMP/E SMF WLM
+SUBSYS(STC,など) ・ SとOSKB020026が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020026を同じ出力で読み、探索照合のなど ・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020026
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020026
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SUBSYS(STC,など) ・ SUBSYS( REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020026が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SUBSYS(STC,など) ・ S と OSKB020026 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020026 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>EXITS(IEFU83,IEFU84,など)</strong></p><p>検証目的: 監査照合のなどについて、SMP E SMF WLM の SMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLM の運用に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020039の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査照合のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にEXITS(IEFU83,IEFU8を指定し、OSKB020039の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND EXITS(IEFU83,IEFU8
+CASE OSKB020039
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM EXITS(IEFU83,IEFU8
+CASE OSKB020039
+SOURCE SMP/E SMF WLM
+EXITS(IEFU83,IEFU8とOSKB020039が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020039を同じ出力で読み、監査照合のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020039
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020039
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I EXITS(IEFU83,IEFU84,など) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020039が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の EXITS(IEFU83,IEFU8 と OSKB020039 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020039 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP DATE(yyyyddd,など)</strong></p><p>検証目的: 探索照合のなどについて、IFASMFDP DATE(yyyyddd,など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030026の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索照合のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP DATE(yyyyを指定し、OSKB030026の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP DATE(yyyy
+CASE OSKB030026
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP DATE(yyyy
+CASE OSKB030026
+SOURCE SMP/E SMF WLM
+IFASMFDP DATE(yyyyとOSKB030026が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030026を同じ出力で読み、探索照合のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030026
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030026
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP DATE(yyyyddd,など REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030026が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP DATE(yyyy と OSKB030026 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030026 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP SID(など)</strong></p><p>検証目的: 出力照合のなどについて、IFASMFDP SID(など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030028の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力照合のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP SID(など)を指定し、OSKB030028の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP SID(など)
+CASE OSKB030028
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP SID(など)
+CASE OSKB030028
+SOURCE SMP/E SMF WLM
+IFASMFDP SID(など)とOSKB030028が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030028を同じ出力で読み、出力照合のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030028
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030028
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP SID(など) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030028が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP SID(など) と OSKB030028 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030028 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP USER(など)</strong></p><p>検証目的: 条件照合のなどについて、IFASMFDP USER(など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030029の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件照合のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP USER(など)を指定し、OSKB030029の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP USER(など)
+CASE OSKB030029
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP USER(など)
+CASE OSKB030029
+SOURCE SMP/E SMF WLM
+IFASMFDP USER(など)とOSKB030029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030029を同じ出力で読み、条件照合のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030029
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030029
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP USER(など) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030029が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP USER(など) と OSKB030029 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030029 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>IFASMFDL LSNAME(など)</strong></p><p>検証目的: 順序照合のなどについて、IFASMFDL LSNAME(など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030035の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序照合のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDL LSNAME(などを指定し、OSKB030035の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDL LSNAME(など
+CASE OSKB030035
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDL LSNAME(など
+CASE OSKB030035
+SOURCE SMP/E SMF WLM
+IFASMFDL LSNAME(などとOSKB030035が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030035を同じ出力で読み、順序照合のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030035
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030035
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDL LSNAME(など) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030035が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDL LSNAME(など と OSKB030035 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030035 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div><div class="kb-p"><p class="kb-pname"><strong>PI 大なり 1.0</strong></p><p>検証目的: 比較記録の大なりについて、PI 1 超.0は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030134の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較記録の大なりの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にPI 大なり 1.0を指定し、OSKB030134の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND PI 大なり 1.0
+CASE OSKB030134
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM PI 大なり 1.0
+CASE OSKB030134
+SOURCE SMP/E SMF WLM
+PI 大なり 1.0とOSKB030134が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030134を同じ出力で読み、比較記録の大なりの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030134
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030134
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I PI 大なり 1.0 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030134が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の PI 大なり 1.0 と OSKB030134 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030134 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)</p></div><div class="kb-p"><p class="kb-pname"><strong>PI 小なり 1.0</strong></p><p>検証目的: 順序記録の小なりについて、PI &lt; 1.0は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030135の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序記録の小なりの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にPI 小なり 1.0を指定し、OSKB030135の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND PI 小なり 1.0
+CASE OSKB030135
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM PI 小なり 1.0
+CASE OSKB030135
+SOURCE SMP/E SMF WLM
+PI 小なり 1.0とOSKB030135が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030135を同じ出力で読み、順序記録の小なりの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030135
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030135
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I PI 小なり 1.0 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030135が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の PI 小なり 1.0 と OSKB030135 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030135 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)</p></div><div class="kb-p"><p class="kb-pname"><strong>F WLM,APPLENV= など,REFRESH</strong></p><p>検証目的: 置換分離のなどについて、F WLM,APPLENV= など,REFRESH は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030144の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換分離のなどの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にF WLM,APPLENV= など,を指定し、OSKB030144の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND F WLM,APPLENV= など,
+CASE OSKB030144
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM F WLM,APPLENV= など,
+CASE OSKB030144
+SOURCE SMP/E SMF WLM
+F WLM,APPLENV= など,とOSKB030144が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030144を同じ出力で読み、置換分離のなどの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030144
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030144
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I F WLM,APPLENV= など,REFRESH REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030144が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の F WLM,APPLENV= など, と OSKB030144 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030144 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)</p></div></details></section>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

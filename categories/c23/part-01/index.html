@@ -1,0 +1,4015 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="z/OS と関連製品の技術項目・確認問題・検証手順をカテゴリ別に検索・閲覧できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c23/part-01/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Netcool/OMNIbus V8.1 — 詳細 (1/1) - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#netcoolomnibus-v81-11" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Netcool/OMNIbus V8.1 — 詳細 (1/1)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切替"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切替" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切替"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切替" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  カテゴリ別 対応状況
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../c01/" class="md-tabs__link">
+          
+  
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../articles/" class="md-tabs__link">
+          
+  
+  
+  技術記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  このサイトについて
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../search/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  検索
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ別 対応状況
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIX 7.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anthropic Claude Support / Console Administration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembler / システム・プログラミング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS Transaction Server for z/OS 6.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comm Server / VTAM / TCP/IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFSMS / IDCAMS / VSAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Db2 for z/OS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESS REC / REC NEAO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GDPS 災害対策・サイトスイッチ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Guardium Data Protection 12.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM IIDR 11.4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM MQ メッセージング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Personal Communications 15.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Spectrum Protect 8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Workload Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IMS 15.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL DD 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL EXEC 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL JOB 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL PROC / 制御
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JES2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVS オペレータコマンド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Netcool/OMNIbus V8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSF for z/OS 4.7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerHA SystemMirror 7.2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF SETROPTS/RDEFINE/RACDCERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF USER/GROUP/DATASET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMP/E / SMF / WLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sysplex / XCF / GRS / CF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO / ISPF / SDSF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli Log File Agent 6.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli NetView z/OS 自動化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UNIX System Services (USS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VIOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Server 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z System Automation (TSA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS 3.1 Core Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS System Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c39/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プログラミング言語 (COBOL / PL/I / LE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユーティリティ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../c41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    診断 (IPCS / Trace / ABEND)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技術記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/jcl-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/racf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/tso-ispf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO/ISPF/SDSF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/uss-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    USS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../articles/zos/cics-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの内容">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの内容
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#event-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event List
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gateway
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objectserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ObjectServer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Probe
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alerts-status-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        alerts status table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="netcoolomnibus-v81-11">Netcool/OMNIbus V8.1 — 詳細 (1/1)<a class="headerlink" href="#netcoolomnibus-v81-11" title="Permanent link">&para;</a></h1>
+<p><a href="../">← Netcool/OMNIbus V8.1 の概要へ戻る</a></p>
+<h2 id="event-list">Event List<a class="headerlink" href="#event-list" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c23-i0001"><h3>accelerated events channel フィールド照合 統計値</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「accelerated events channel フィールド照合 統計値」は、特定の問題アラートを階層間で速く伝搬する仕組みをフィールド照合の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 030を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>accelerated events channel フィールド照合 統計値</strong></p><p>検証目的: Event Listのaccelerated events channel フィールド照合 統計値について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE030:LINKDOWN    5         NODE030
+NODE030:RECOVER     2         NODE030
+画面・出力には Identifier が含まれ、accelerated events channel フィールド照合 統計値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0002"><h3>accelerated events channel ルール確認 管理クラス</h3><p class="kb-meta">分類: Event List ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「accelerated events channel ルール確認 管理クラス」は、特定の問題アラートを階層間で速く伝搬する仕組みをルール確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 050を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>accelerated events channel ルール確認 管理クラス</strong></p><p>検証目的: Event Listのaccelerated events channel ルール確認 管理クラスについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE050:LINKDOWN    5         NODE050
+NODE050:RECOVER     2         NODE050
+画面・出力には Identifier が含まれ、accelerated events channel ルール確認 管理クラスの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0003"><h3>accelerated events channel 伝搬確認 監査証跡</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「accelerated events channel 伝搬確認 監査証跡」は、特定の問題アラートを階層間で速く伝搬する仕組みを伝搬確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 010を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>accelerated events channel 伝搬確認 監査証跡</strong></p><p>検証目的: Event Listのaccelerated events channel 伝搬確認 監査証跡について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE010:LINKDOWN    5         NODE010
+NODE010:RECOVER     2         NODE010
+画面・出力には Identifier が含まれ、accelerated events channel 伝搬確認 監査証跡の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0004"><h3>accelerated events channel 状態確認 識別列</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「accelerated events channel 状態確認 識別列」は、特定の問題アラートを階層間で速く伝搬する仕組みを状態確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 020を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>accelerated events channel 状態確認 識別列</strong></p><p>検証目的: Event Listのaccelerated events channel 状態確認 識別列について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE020:LINKDOWN    5         NODE020
+NODE020:RECOVER     2         NODE020
+画面・出力には Identifier が含まれ、accelerated events channel 状態確認 識別列の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0005"><h3>accelerated events channel 重複排除確認 キュー状態</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「accelerated events channel 重複排除確認 キュー状態」は、特定の問題アラートを階層間で速く伝搬する仕組みを重複排除確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 040を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>accelerated events channel 重複排除確認 キュー状態</strong></p><p>検証目的: Event Listのaccelerated events channel 重複排除確認 キュー状態について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE040:LINKDOWN    5         NODE040
+NODE040:RECOVER     2         NODE040
+画面・出力には Identifier が含まれ、accelerated events channel 重複排除確認 キュー状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0006"><h3>gateway フィールド照合 キーマップ</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「gateway フィールド照合 キーマップ」は、ObjectServer 間または外部システムへイベントを受け渡す連携機能をフィールド照合の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 025を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>gateway フィールド照合 キーマップ</strong></p><p>検証目的: Event Listのgateway フィールド照合 キーマップについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE025:LINKDOWN    5         NODE025
+NODE025:RECOVER     2         NODE025
+画面・出力には Identifier が含まれ、gateway フィールド照合 キーマップの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0007"><h3>gateway ルール確認 スケジュール</h3><p class="kb-meta">分類: Event List ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「gateway ルール確認 スケジュール」は、ObjectServer 間または外部システムへイベントを受け渡す連携機能をルール確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 045を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>gateway ルール確認 スケジュール</strong></p><p>検証目的: Event Listのgateway ルール確認 スケジュールについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE045:LINKDOWN    5         NODE045
+NODE045:RECOVER     2         NODE045
+画面・出力には Identifier が含まれ、gateway ルール確認 スケジュールの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0008"><h3>gateway 伝搬確認 警告行</h3><p class="kb-meta">分類: Event List ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「gateway 伝搬確認 警告行」は、ObjectServer 間または外部システムへイベントを受け渡す連携機能を伝搬確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 005を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>gateway 伝搬確認 警告行</strong></p><p>検証目的: Event Listのgateway 伝搬確認 警告行について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE005:LINKDOWN    5         NODE005
+NODE005:RECOVER     2         NODE005
+画面・出力には Identifier が含まれ、gateway 伝搬確認 警告行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0009"><h3>gateway 状態確認 接続状態</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「gateway 状態確認 接続状態」は、ObjectServer 間または外部システムへイベントを受け渡す連携機能を状態確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 015を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>gateway 状態確認 接続状態</strong></p><p>検証目的: Event Listのgateway 状態確認 接続状態について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE015:LINKDOWN    5         NODE015
+NODE015:RECOVER     2         NODE015
+画面・出力には Identifier が含まれ、gateway 状態確認 接続状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0010"><h3>gateway 重複排除確認 取得間隔</h3><p class="kb-meta">分類: Event List ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Event List で扱う「gateway 重複排除確認 取得間隔」は、ObjectServer 間または外部システムへイベントを受け渡す連携機能を重複排除確認の観点で確認する技術項目です。accelerated_inserts triggerとalerts.status row 035を同じ記録で見比べることで、Identifier 生成不備を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>gateway 重複排除確認 取得間隔</strong></p><p>検証目的: Event Listのgateway 重複排除確認 取得間隔について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Event Listの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。accelerated_inserts triggerを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE035:LINKDOWN    5         NODE035
+NODE035:RECOVER     2         NODE035
+画面・出力には Identifier が含まれ、gateway 重複排除確認 取得間隔の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Identifier 生成不備を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<h2 id="gateway">Gateway<a class="headerlink" href="#gateway" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c23-i0011"><h3>Identifier フィールド照合 復元前提</h3><p class="kb-meta">分類: Gateway ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「Identifier フィールド照合 復元前提」は、問題発生源を一意に示し重複排除に使われるフィールドをフィールド照合の観点で確認する技術項目です。probe rules fileとNode NODE043を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Identifier フィールド照合 復元前提</strong></p><p>検証目的: GatewayのIdentifier フィールド照合 復元前提について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE043:LINKDOWN    5         NODE043
+NODE043:RECOVER     2         NODE043
+画面・出力には Identifier が含まれ、Identifier フィールド照合 復元前提の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0012"><h3>Identifier ルール確認 承認履歴</h3><p class="kb-meta">分類: Gateway ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「Identifier ルール確認 承認履歴」は、問題発生源を一意に示し重複排除に使われるフィールドをルール確認の観点で確認する技術項目です。probe rules fileとNode NODE013を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Identifier ルール確認 承認履歴</strong></p><p>検証目的: GatewayのIdentifier ルール確認 承認履歴について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE013:LINKDOWN    5         NODE013
+NODE013:RECOVER     2         NODE013
+画面・出力には Identifier が含まれ、Identifier ルール確認 承認履歴の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0013"><h3>Identifier 伝搬確認 文字変換</h3><p class="kb-meta">分類: Gateway ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「Identifier 伝搬確認 文字変換」は、問題発生源を一意に示し重複排除に使われるフィールドを伝搬確認の観点で確認する技術項目です。probe rules fileとNode NODE023を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Identifier 伝搬確認 文字変換</strong></p><p>検証目的: GatewayのIdentifier 伝搬確認 文字変換について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE023:LINKDOWN    5         NODE023
+NODE023:RECOVER     2         NODE023
+画面・出力には Identifier が含まれ、Identifier 伝搬確認 文字変換の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0014"><h3>Identifier 状態確認 再同期判断</h3><p class="kb-meta">分類: Gateway ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「Identifier 状態確認 再同期判断」は、問題発生源を一意に示し重複排除に使われるフィールドを状態確認の観点で確認する技術項目です。probe rules fileとNode NODE033を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Identifier 状態確認 再同期判断</strong></p><p>検証目的: GatewayのIdentifier 状態確認 再同期判断について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE033:LINKDOWN    5         NODE033
+NODE033:RECOVER     2         NODE033
+画面・出力には Identifier が含まれ、Identifier 状態確認 再同期判断の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0015"><h3>Identifier 重複排除確認 接続先</h3><p class="kb-meta">分類: Gateway ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「Identifier 重複排除確認 接続先」は、問題発生源を一意に示し重複排除に使われるフィールドを重複排除確認の観点で確認する技術項目です。probe rules fileとNode NODE003を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Identifier 重複排除確認 接続先</strong></p><p>検証目的: GatewayのIdentifier 重複排除確認 接続先について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE003:LINKDOWN    5         NODE003
+NODE003:RECOVER     2         NODE003
+画面・出力には Identifier が含まれ、Identifier 重複排除確認 接続先の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0016"><h3>event list フィールド照合 プール宛先</h3><p class="kb-meta">分類: Gateway ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「event list フィールド照合 プール宛先」は、運用者がアラートを確認し詳細や履歴を追うクライアント画面をフィールド照合の観点で確認する技術項目です。probe rules fileとNode NODE048を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>event list フィールド照合 プール宛先</strong></p><p>検証目的: Gatewayのevent list フィールド照合 プール宛先について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE048:LINKDOWN    5         NODE048
+NODE048:RECOVER     2         NODE048
+画面・出力には Identifier が含まれ、event list フィールド照合 プール宛先の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0017"><h3>event list ルール確認 集約結果</h3><p class="kb-meta">分類: Gateway ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「event list ルール確認 集約結果」は、運用者がアラートを確認し詳細や履歴を追うクライアント画面をルール確認の観点で確認する技術項目です。probe rules fileとNode NODE018を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>event list ルール確認 集約結果</strong></p><p>検証目的: Gatewayのevent list ルール確認 集約結果について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE018:LINKDOWN    5         NODE018
+NODE018:RECOVER     2         NODE018
+画面・出力には Identifier が含まれ、event list ルール確認 集約結果の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0018"><h3>event list 伝搬確認 出力見出し</h3><p class="kb-meta">分類: Gateway ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「event list 伝搬確認 出力見出し」は、運用者がアラートを確認し詳細や履歴を追うクライアント画面を伝搬確認の観点で確認する技術項目です。probe rules fileとNode NODE028を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>event list 伝搬確認 出力見出し</strong></p><p>検証目的: Gatewayのevent list 伝搬確認 出力見出しについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE028:LINKDOWN    5         NODE028
+NODE028:RECOVER     2         NODE028
+画面・出力には Identifier が含まれ、event list 伝搬確認 出力見出しの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0019"><h3>event list 状態確認 承認待ち</h3><p class="kb-meta">分類: Gateway ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「event list 状態確認 承認待ち」は、運用者がアラートを確認し詳細や履歴を追うクライアント画面を状態確認の観点で確認する技術項目です。probe rules fileとNode NODE038を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>event list 状態確認 承認待ち</strong></p><p>検証目的: Gatewayのevent list 状態確認 承認待ちについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE038:LINKDOWN    5         NODE038
+NODE038:RECOVER     2         NODE038
+画面・出力には Identifier が含まれ、event list 状態確認 承認待ちの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0020"><h3>event list 重複排除確認 差分確認</h3><p class="kb-meta">分類: Gateway ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の Gateway で扱う「event list 重複排除確認 差分確認」は、運用者がアラートを確認し詳細や履歴を追うクライアント画面を重複排除確認の観点で確認する技術項目です。probe rules fileとNode NODE008を同じ記録で見比べることで、probe rules file の誤変換を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>event list 重複排除確認 差分確認</strong></p><p>検証目的: Gatewayのevent list 重複排除確認 差分確認について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Gatewayの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。probe rules fileを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE008:LINKDOWN    5         NODE008
+NODE008:RECOVER     2         NODE008
+画面・出力には Identifier が含まれ、event list 重複排除確認 差分確認の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、probe rules file の誤変換を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<h2 id="objectserver">ObjectServer<a class="headerlink" href="#objectserver" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c23-i0021"><h3>IDUC フィールド照合 構成配布</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「IDUC フィールド照合 構成配布」は、デスクトップクライアントへ更新を配布する ObjectServer の更新機構をフィールド照合の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE016を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IDUC フィールド照合 構成配布</strong></p><p>検証目的: ObjectServerのIDUC フィールド照合 構成配布について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE016:LINKDOWN    5         NODE016
+NODE016:RECOVER     2         NODE016
+画面・出力には Identifier が含まれ、IDUC フィールド照合 構成配布の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0022"><h3>IDUC ルール確認 例外記録</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「IDUC ルール確認 例外記録」は、デスクトップクライアントへ更新を配布する ObjectServer の更新機構をルール確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE036を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IDUC ルール確認 例外記録</strong></p><p>検証目的: ObjectServerのIDUC ルール確認 例外記録について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE036:LINKDOWN    5         NODE036
+NODE036:RECOVER     2         NODE036
+画面・出力には Identifier が含まれ、IDUC ルール確認 例外記録の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0023"><h3>IDUC 伝搬確認 活動ログ</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「IDUC 伝搬確認 活動ログ」は、デスクトップクライアントへ更新を配布する ObjectServer の更新機構を伝搬確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE046を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IDUC 伝搬確認 活動ログ</strong></p><p>検証目的: ObjectServerのIDUC 伝搬確認 活動ログについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE046:LINKDOWN    5         NODE046
+NODE046:RECOVER     2         NODE046
+画面・出力には Identifier が含まれ、IDUC 伝搬確認 活動ログの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0024"><h3>IDUC 状態確認 応答行</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「IDUC 状態確認 応答行」は、デスクトップクライアントへ更新を配布する ObjectServer の更新機構を状態確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE006を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IDUC 状態確認 応答行</strong></p><p>検証目的: ObjectServerのIDUC 状態確認 応答行について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE006:LINKDOWN    5         NODE006
+NODE006:RECOVER     2         NODE006
+画面・出力には Identifier が含まれ、IDUC 状態確認 応答行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0025"><h3>IDUC 重複排除確認 保存場所</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「IDUC 重複排除確認 保存場所」は、デスクトップクライアントへ更新を配布する ObjectServer の更新機構を重複排除確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE026を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IDUC 重複排除確認 保存場所</strong></p><p>検証目的: ObjectServerのIDUC 重複排除確認 保存場所について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE026:LINKDOWN    5         NODE026
+NODE026:RECOVER     2         NODE026
+画面・出力には Identifier が含まれ、IDUC 重複排除確認 保存場所の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0026"><h3>ObjectServer フィールド照合 保持期間</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「ObjectServer フィールド照合 保持期間」は、アラート情報を保存し管理する Netcool/OMNIbus の中核サーバーをフィールド照合の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE011を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ObjectServer フィールド照合 保持期間</strong></p><p>検証目的: ObjectServerのObjectServer フィールド照合 保持期間について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE011:LINKDOWN    5         NODE011
+NODE011:RECOVER     2         NODE011
+画面・出力には Identifier が含まれ、ObjectServer フィールド照合 保持期間の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0027"><h3>ObjectServer ルール確認 遅延表示</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「ObjectServer ルール確認 遅延表示」は、アラート情報を保存し管理する Netcool/OMNIbus の中核サーバーをルール確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE031を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ObjectServer ルール確認 遅延表示</strong></p><p>検証目的: ObjectServerのObjectServer ルール確認 遅延表示について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE031:LINKDOWN    5         NODE031
+NODE031:RECOVER     2         NODE031
+画面・出力には Identifier が含まれ、ObjectServer ルール確認 遅延表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0028"><h3>ObjectServer 伝搬確認 容量表示</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「ObjectServer 伝搬確認 容量表示」は、アラート情報を保存し管理する Netcool/OMNIbus の中核サーバーを伝搬確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE041を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ObjectServer 伝搬確認 容量表示</strong></p><p>検証目的: ObjectServerのObjectServer 伝搬確認 容量表示について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE041:LINKDOWN    5         NODE041
+NODE041:RECOVER     2         NODE041
+画面・出力には Identifier が含まれ、ObjectServer 伝搬確認 容量表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0029"><h3>ObjectServer 状態確認 開始時刻</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「ObjectServer 状態確認 開始時刻」は、アラート情報を保存し管理する Netcool/OMNIbus の中核サーバーを状態確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE001を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ObjectServer 状態確認 開始時刻</strong></p><p>検証目的: ObjectServerのObjectServer 状態確認 開始時刻について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE001:LINKDOWN    5         NODE001
+NODE001:RECOVER     2         NODE001
+画面・出力には Identifier が含まれ、ObjectServer 状態確認 開始時刻の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0030"><h3>ObjectServer 重複排除確認 保護設定</h3><p class="kb-meta">分類: ObjectServer ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の ObjectServer で扱う「ObjectServer 重複排除確認 保護設定」は、アラート情報を保存し管理する Netcool/OMNIbus の中核サーバーを重複排除確認の観点で確認する技術項目です。alerts.status の IdentifierとIdentifier NODE021を同じ記録で見比べることで、Severity 変換漏れを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ObjectServer 重複排除確認 保護設定</strong></p><p>検証目的: ObjectServerのObjectServer 重複排除確認 保護設定について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、ObjectServerの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。alerts.status の Identifierを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE021:LINKDOWN    5         NODE021
+NODE021:RECOVER     2         NODE021
+画面・出力には Identifier が含まれ、ObjectServer 重複排除確認 保護設定の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、Severity 変換漏れを切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<h2 id="probe">Probe<a class="headerlink" href="#probe" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c23-i0031"><h3>alerts.status フィールド照合 停止時刻</h3><p class="kb-meta">分類: Probe ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「alerts.status フィールド照合 停止時刻」は、各アラートを行として保持する ObjectServer の主要テーブルをフィールド照合の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>alerts.status フィールド照合 停止時刻</strong></p><p>検証目的: Probeのalerts.status フィールド照合 停止時刻について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE002:LINKDOWN    5         NODE002
+NODE002:RECOVER     2         NODE002
+画面・出力には Identifier が含まれ、alerts.status フィールド照合 停止時刻の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0032"><h3>alerts.status ルール確認 転送条件</h3><p class="kb-meta">分類: Probe ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「alerts.status ルール確認 転送条件」は、各アラートを行として保持する ObjectServer の主要テーブルをルール確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>alerts.status ルール確認 転送条件</strong></p><p>検証目的: Probeのalerts.status ルール確認 転送条件について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE022:LINKDOWN    5         NODE022
+NODE022:RECOVER     2         NODE022
+画面・出力には Identifier が含まれ、alerts.status ルール確認 転送条件の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0033"><h3>alerts.status 伝搬確認 初期同期</h3><p class="kb-meta">分類: Probe ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「alerts.status 伝搬確認 初期同期」は、各アラートを行として保持する ObjectServer の主要テーブルを伝搬確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>alerts.status 伝搬確認 初期同期</strong></p><p>検証目的: Probeのalerts.status 伝搬確認 初期同期について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE032:LINKDOWN    5         NODE032
+NODE032:RECOVER     2         NODE032
+画面・出力には Identifier が含まれ、alerts.status 伝搬確認 初期同期の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0034"><h3>alerts.status 状態確認 期限切れ</h3><p class="kb-meta">分類: Probe ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「alerts.status 状態確認 期限切れ」は、各アラートを行として保持する ObjectServer の主要テーブルを状態確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>alerts.status 状態確認 期限切れ</strong></p><p>検証目的: Probeのalerts.status 状態確認 期限切れについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE042:LINKDOWN    5         NODE042
+NODE042:RECOVER     2         NODE042
+画面・出力には Identifier が含まれ、alerts.status 状態確認 期限切れの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0035"><h3>alerts.status 重複排除確認 宛先定義</h3><p class="kb-meta">分類: Probe ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「alerts.status 重複排除確認 宛先定義」は、各アラートを行として保持する ObjectServer の主要テーブルを重複排除確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>alerts.status 重複排除確認 宛先定義</strong></p><p>検証目的: Probeのalerts.status 重複排除確認 宛先定義について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE012:LINKDOWN    5         NODE012
+NODE012:RECOVER     2         NODE012
+画面・出力には Identifier が含まれ、alerts.status 重複排除確認 宛先定義の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0036"><h3>trigger フィールド照合 詳細表示</h3><p class="kb-meta">分類: Probe ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「trigger フィールド照合 詳細表示」は、ObjectServer 内でイベントに応じて実行される自動処理をフィールド照合の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>trigger フィールド照合 詳細表示</strong></p><p>検証目的: Probeのtrigger フィールド照合 詳細表示について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE007:LINKDOWN    5         NODE007
+NODE007:RECOVER     2         NODE007
+画面・出力には Identifier が含まれ、trigger フィールド照合 詳細表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0037"><h3>trigger ルール確認 入力欄</h3><p class="kb-meta">分類: Probe ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「trigger ルール確認 入力欄」は、ObjectServer 内でイベントに応じて実行される自動処理をルール確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>trigger ルール確認 入力欄</strong></p><p>検証目的: Probeのtrigger ルール確認 入力欄について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE027:LINKDOWN    5         NODE027
+NODE027:RECOVER     2         NODE027
+画面・出力には Identifier が含まれ、trigger ルール確認 入力欄の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0038"><h3>trigger 伝搬確認 サインオフ</h3><p class="kb-meta">分類: Probe ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「trigger 伝搬確認 サインオフ」は、ObjectServer 内でイベントに応じて実行される自動処理を伝搬確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>trigger 伝搬確認 サインオフ</strong></p><p>検証目的: Probeのtrigger 伝搬確認 サインオフについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE037:LINKDOWN    5         NODE037
+NODE037:RECOVER     2         NODE037
+画面・出力には Identifier が含まれ、trigger 伝搬確認 サインオフの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0039"><h3>trigger 状態確認 ノード割当</h3><p class="kb-meta">分類: Probe ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「trigger 状態確認 ノード割当」は、ObjectServer 内でイベントに応じて実行される自動処理を状態確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>trigger 状態確認 ノード割当</strong></p><p>検証目的: Probeのtrigger 状態確認 ノード割当について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE047:LINKDOWN    5         NODE047
+NODE047:RECOVER     2         NODE047
+画面・出力には Identifier が含まれ、trigger 状態確認 ノード割当の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0040"><h3>trigger 重複排除確認 同期範囲</h3><p class="kb-meta">分類: Probe ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の Probe で扱う「trigger 重複排除確認 同期範囲」は、ObjectServer 内でイベントに応じて実行される自動処理を重複排除確認の観点で確認する技術項目です。Severity フィールドとSeverity 2を同じ記録で見比べることで、gateway 伝搬遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>trigger 重複排除確認 同期範囲</strong></p><p>検証目的: Probeのtrigger 重複排除確認 同期範囲について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、Probeの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。Severity フィールドを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE017:LINKDOWN    5         NODE017
+NODE017:RECOVER     2         NODE017
+画面・出力には Identifier が含まれ、trigger 重複排除確認 同期範囲の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、gateway 伝搬遅延を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<h2 id="alerts-status-table">alerts status table<a class="headerlink" href="#alerts-status-table" title="Permanent link">&para;</a></h2>
+<section class="kb-item" id="c23-i0041"><h3>probe rules file フィールド照合 適用位置</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「probe rules file フィールド照合 適用位置」は、イベント要素を alert fields へ変換するプローブの規則ファイルをフィールド照合の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 034を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>probe rules file フィールド照合 適用位置</strong></p><p>検証目的: alerts status tableのprobe rules file フィールド照合 適用位置について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE034:LINKDOWN    5         NODE034
+NODE034:RECOVER     2         NODE034
+画面・出力には Identifier が含まれ、probe rules file フィールド照合 適用位置の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0042"><h3>probe rules file ルール確認 対象表</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「probe rules file ルール確認 対象表」は、イベント要素を alert fields へ変換するプローブの規則ファイルをルール確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 004を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>probe rules file ルール確認 対象表</strong></p><p>検証目的: alerts status tableのprobe rules file ルール確認 対象表について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE004:LINKDOWN    5         NODE004
+NODE004:RECOVER     2         NODE004
+画面・出力には Identifier が含まれ、probe rules file ルール確認 対象表の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0043"><h3>probe rules file 伝搬確認 実行結果</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「probe rules file 伝搬確認 実行結果」は、イベント要素を alert fields へ変換するプローブの規則ファイルを伝搬確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 014を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>probe rules file 伝搬確認 実行結果</strong></p><p>検証目的: alerts status tableのprobe rules file 伝搬確認 実行結果について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE014:LINKDOWN    5         NODE014
+NODE014:RECOVER     2         NODE014
+画面・出力には Identifier が含まれ、probe rules file 伝搬確認 実行結果の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0044"><h3>probe rules file 状態確認 証明書検査</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「probe rules file 状態確認 証明書検査」は、イベント要素を alert fields へ変換するプローブの規則ファイルを状態確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 024を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>probe rules file 状態確認 証明書検査</strong></p><p>検証目的: alerts status tableのprobe rules file 状態確認 証明書検査について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE024:LINKDOWN    5         NODE024
+NODE024:RECOVER     2         NODE024
+画面・出力には Identifier が含まれ、probe rules file 状態確認 証明書検査の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0045"><h3>probe rules file 重複排除確認 回収対象</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「probe rules file 重複排除確認 回収対象」は、イベント要素を alert fields へ変換するプローブの規則ファイルを重複排除確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 044を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>probe rules file 重複排除確認 回収対象</strong></p><p>検証目的: alerts status tableのprobe rules file 重複排除確認 回収対象について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE044:LINKDOWN    5         NODE044
+NODE044:RECOVER     2         NODE044
+画面・出力には Identifier が含まれ、probe rules file 重複排除確認 回収対象の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0046"><h3>secure mode フィールド照合 レビュー結果</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「secure mode フィールド照合 レビュー結果」は、probe や gateway の接続にユーザー名とパスワードを要求する動作をフィールド照合の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 039を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>secure mode フィールド照合 レビュー結果</strong></p><p>検証目的: alerts status tableのsecure mode フィールド照合 レビュー結果について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE039:LINKDOWN    5         NODE039
+NODE039:RECOVER     2         NODE039
+画面・出力には Identifier が含まれ、secure mode フィールド照合 レビュー結果の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0047"><h3>secure mode ルール確認 復旧手掛かり</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 初級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「secure mode ルール確認 復旧手掛かり」は、probe や gateway の接続にユーザー名とパスワードを要求する動作をルール確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 009を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>secure mode ルール確認 復旧手掛かり</strong></p><p>検証目的: alerts status tableのsecure mode ルール確認 復旧手掛かりについて、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE009:LINKDOWN    5         NODE009
+NODE009:RECOVER     2         NODE009
+画面・出力には Identifier が含まれ、secure mode ルール確認 復旧手掛かりの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0048"><h3>secure mode 伝搬確認 変換規則</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「secure mode 伝搬確認 変換規則」は、probe や gateway の接続にユーザー名とパスワードを要求する動作を伝搬確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 019を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>secure mode 伝搬確認 変換規則</strong></p><p>検証目的: alerts status tableのsecure mode 伝搬確認 変換規則について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE019:LINKDOWN    5         NODE019
+NODE019:RECOVER     2         NODE019
+画面・出力には Identifier が含まれ、secure mode 伝搬確認 変換規則の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0049"><h3>secure mode 状態確認 履歴行</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 中級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「secure mode 状態確認 履歴行」は、probe や gateway の接続にユーザー名とパスワードを要求する動作を状態確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 029を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>secure mode 状態確認 履歴行</strong></p><p>検証目的: alerts status tableのsecure mode 状態確認 履歴行について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE029:LINKDOWN    5         NODE029
+NODE029:RECOVER     2         NODE029
+画面・出力には Identifier が含まれ、secure mode 状態確認 履歴行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+<section class="kb-item" id="c23-i0050"><h3>secure mode 重複排除確認 ドメイン値</h3><p class="kb-meta">分類: alerts status table ・ 難易度: 上級</p><p>Netcool/OMNIbus V8.1 の alerts status table で扱う「secure mode 重複排除確認 ドメイン値」は、probe や gateway の接続にユーザー名とパスワードを要求する動作を重複排除確認の観点で確認する技術項目です。ObjectServer propertiesとNCOMS 049を同じ記録で見比べることで、secure mode の接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>secure mode 重複排除確認 ドメイン値</strong></p><p>検証目的: alerts status tableのsecure mode 重複排除確認 ドメイン値について、Netcool/OMNIbus V8.1の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: Netcool/OMNIbus V8.1の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はNetcool/OMNIbus V8.1の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、alerts status tableの対象へ進みます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+COMMAND ===&gt; nco_sql -server NCOMS -user root
+→ Enter を押す
+［画面・出力］
+nco_sql session connected to ObjectServer NCOMS.
+画面・出力には session が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はNetcool/OMNIbus V8.1の確認画面です。ObjectServer propertiesを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; select Identifier, Severity, Node from alerts.status;
+→ Enter を押す
+［画面・出力］
+Identifier        Severity  Node
+NODE049:LINKDOWN    5         NODE049
+NODE049:RECOVER     2         NODE049
+画面・出力には Identifier が含まれ、secure mode 重複排除確認 ドメイン値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はNetcool/OMNIbus V8.1の詳細確認画面です。表示名とメッセージ形式を照合し、secure mode の接続失敗を切り分けます。
+［操作（入力）］
+Netcool/OMNIbus V8.1 操作画面
+SQL ===&gt; describe alerts.status;
+→ Enter を押す
+［画面・出力］
+Table alerts.status
+Column Identifier
+Column Severity
+Column Node
+画面・出力には Table が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の session が画面・出力に表示されること
+② ステップ2 の Identifier が画面・出力に表示されること
+③ ステップ3 の Table が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: Netcool_OMNIbus_BestPractices_v1.3 / Netcool OMNIbus V8.1 Administration Guide / Command Reference</p></div></details></section>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

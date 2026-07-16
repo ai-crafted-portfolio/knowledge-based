@@ -1,0 +1,3113 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="z/OS と関連製品の技術項目・確認問題・検証手順をカテゴリ別に検索・閲覧できるナレッジベース">
+      
+      
+        <meta name="author" content="Knowledge Base">
+      
+      
+        <link rel="canonical" href="https://ai-crafted-portfolio.github.io/knowledge-based/categories/c39/">
+      
+      
+        <link rel="prev" href="../c38/">
+      
+      
+        <link rel="next" href="../c40/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>プログラミング言語 (COBOL / PL/I / LE) - z/OS 技術ナレッジベース</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Segoe+UI:300,300i,400,400i,700,700i%7CCascadia+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Segoe UI";--md-code-font:"Cascadia Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/ms-style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cobol-pli-le" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-header__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            z/OS 技術ナレッジベース
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              プログラミング言語 (COBOL / PL/I / LE)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ダークモードに切替"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="ダークモードに切替" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="ライトモードに切替"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="ライトモードに切替" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  カテゴリ別 対応状況
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../c01/" class="md-tabs__link">
+          
+  
+  
+  カテゴリ
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../articles/" class="md-tabs__link">
+          
+  
+  
+  技術記事
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  このサイトについて
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../search/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  検索
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="z/OS 技術ナレッジベース" class="md-nav__button md-logo" aria-label="z/OS 技術ナレッジベース" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    z/OS 技術ナレッジベース
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ホーム
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ別 対応状況
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    カテゴリ
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    カテゴリ
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIX 7.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anthropic Claude Support / Console Administration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembler / システム・プログラミング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c04/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS Transaction Server for z/OS 6.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comm Server / VTAM / TCP/IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DFSMS / IDCAMS / VSAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Db2 for z/OS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESS REC / REC NEAO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GDPS 災害対策・サイトスイッチ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Guardium Data Protection 12.x
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM IIDR 11.4
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM MQ メッセージング
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Personal Communications 15.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c14/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Spectrum Protect 8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c15/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IBM Workload Automation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c16/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IMS 15.5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c17/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL DD 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c18/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL EXEC 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c19/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL JOB 文
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c20/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL PROC / 制御
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c21/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JES2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c22/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MVS オペレータコマンド
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c23/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Netcool/OMNIbus V8.1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c24/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PSF for z/OS 4.7
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c25/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerHA SystemMirror 7.2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c26/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF SETROPTS/RDEFINE/RACDCERT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c27/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF USER/GROUP/DATASET
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c28/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SMP/E / SMF / WLM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sysplex / XCF / GRS / CF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c30/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO / ISPF / SDSF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c31/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli Log File Agent 6.3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c32/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tivoli NetView z/OS 自動化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c33/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UNIX System Services (USS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c34/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VIOS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c35/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Server 2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c36/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Z System Automation (TSA)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c37/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS 3.1 Core Operations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c38/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    z/OS System Programming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プログラミング言語 (COBOL / PL/I / LE)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    プログラミング言語 (COBOL / PL/I / LE)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの内容">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの内容
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        収録項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="収録項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C/C++/言語
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol4-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/4 DIVISION 構造
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolcics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/CICS 内蔵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolconfiguration-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/CONFIGURATION SECTION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolcopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/COPY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coboldata-division-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/DATA DIVISION の SECTION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolevaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/EVALUATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolidentification-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/IDENTIFICATION DIVISION 段落
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolinput-output-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/INPUT-OUTPUT SECTION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolperform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/PERFORM 形式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolpic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/PIC 句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolprocedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/PROCEDURE 文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolselect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/SELECT 句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolsql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/SQL 内蔵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolusage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/USAGE 句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/データ定義句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/ファイル I/O 文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/ファイル記述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/レベル番号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/文字列操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leassembler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LE/Assembler 接続
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leruntime-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LE/Runtime Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LE/ランタイム
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pliputget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/PUT・GET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/データ型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pli_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/条件ハンドリング
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pli_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/言語構造
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c40/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ユーティリティ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../c41/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    診断 (IPCS / Trace / ABEND)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    技術記事
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    技術記事
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/zos/jcl-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    JCL 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/zos/racf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RACF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/zos/tso-ispf-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TSO/ISPF/SDSF 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/zos/uss-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    USS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../articles/zos/cics-fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CICS 入門
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    このサイトについて
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    検索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="このページの内容">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      このページの内容
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        収録項目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="収録項目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C/C++/言語
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol4-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/4 DIVISION 構造
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolcics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/CICS 内蔵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolconfiguration-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/CONFIGURATION SECTION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolcopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/COPY
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coboldata-division-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/DATA DIVISION の SECTION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolevaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/EVALUATE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolidentification-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/IDENTIFICATION DIVISION 段落
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolinput-output-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/INPUT-OUTPUT SECTION
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolperform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/PERFORM 形式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolpic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/PIC 句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolprocedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/PROCEDURE 文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolselect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/SELECT 句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolsql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/SQL 内蔵
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobolusage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/USAGE 句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/データ定義句
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/ファイル I/O 文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/ファイル記述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/レベル番号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cobol_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        COBOL/文字列操作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leassembler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LE/Assembler 接続
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#leruntime-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LE/Runtime Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LE/ランタイム
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pliputget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/PUT・GET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/データ型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pli_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/条件ハンドリング
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pli_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PL/I/言語構造
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        その他
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cobol-pli-le">プログラミング言語 (COBOL / PL/I / LE)<a class="headerlink" href="#cobol-pli-le" title="Permanent link">&para;</a></h1>
+<div class="kb-cov">
+<p><strong>技術項目 220 件</strong>  ／  QA対応 0（0.0%・不足 220）  ／  手順対応 215（97.73%・不足 5）</p>
+</div>
+<p>このカテゴリでは技術項目 220 件を掲載し、確認問題 0 問・検証手順 215 件を項目ごとに紐づけています。対応率は技術項目に明示的に対応付けられた件数で算出しています（増補継続中）。</p>
+<blockquote>
+<p>最終更新: 2026-07-16</p>
+</blockquote>
+<h2 id="_1">収録項目<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="cc">C/C++/言語<a class="headerlink" href="#cc" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0001">#pragma</a></li>
+<li><a href="part-01/#c39-i0002">AMODE 64</a></li>
+<li><a href="part-01/#c39-i0003">ASCII/EBCDIC 変換</a></li>
+<li><a href="part-01/#c39-i0004">BPX (USS) API 関数</a></li>
+<li><a href="part-01/#c39-i0005">IBM Open XL C/C++</a></li>
+<li><a href="part-01/#c39-i0006">IEEE/Hex 浮動小数</a></li>
+<li><a href="part-01/#c39-i0007">Metal C</a></li>
+<li><a href="part-01/#c39-i0008">XPLINK 規約</a></li>
+<li><a href="part-01/#c39-i0009">__asm</a></li>
+<li><a href="part-01/#c39-i0010">z/OS C 標準ライブラリ</a></li>
+<li><a href="part-01/#c39-i0011">z/OS XL C/C++</a></li>
+</ul>
+<h3 id="cobol4-division">COBOL/4 DIVISION 構造<a class="headerlink" href="#cobol4-division" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0012">DATA DIVISION</a></li>
+<li><a href="part-01/#c39-i0013">ENVIRONMENT DIVISION</a></li>
+<li><a href="part-01/#c39-i0014">IDENTIFICATION DIVISION</a></li>
+<li><a href="part-01/#c39-i0015">PROCEDURE DIVISION</a></li>
+</ul>
+<h3 id="cobolcics">COBOL/CICS 内蔵<a class="headerlink" href="#cobolcics" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0016">CICS トランスレータ</a></li>
+<li><a href="part-01/#c39-i0017">DFHCOMMAREA</a></li>
+<li><a href="part-01/#c39-i0018">EIB (Execute Interface Block)</a></li>
+<li><a href="part-01/#c39-i0019">EXEC CICS ... END-EXEC</a></li>
+</ul>
+<h3 id="cobolconfiguration-section">COBOL/CONFIGURATION SECTION<a class="headerlink" href="#cobolconfiguration-section" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0020">OBJECT-COMPUTER</a></li>
+<li><a href="part-01/#c39-i0021">SOURCE-COMPUTER</a></li>
+<li><a href="part-01/#c39-i0022">SPECIAL-NAMES</a></li>
+</ul>
+<h3 id="cobolcopy">COBOL/COPY<a class="headerlink" href="#cobolcopy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0023">COPY 文</a></li>
+<li><a href="part-01/#c39-i0024">REPLACING 句</a></li>
+<li><a href="part-01/#c39-i0025">SUPPRESS 句</a></li>
+</ul>
+<h3 id="coboldata-division-section">COBOL/DATA DIVISION の SECTION<a class="headerlink" href="#coboldata-division-section" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0026">FILE SECTION</a></li>
+<li><a href="part-01/#c39-i0027">LINKAGE SECTION</a></li>
+<li><a href="part-01/#c39-i0028">LOCAL-STORAGE SECTION</a></li>
+<li><a href="part-01/#c39-i0029">WORKING-STORAGE SECTION</a></li>
+</ul>
+<h3 id="cobolevaluate">COBOL/EVALUATE<a class="headerlink" href="#cobolevaluate" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0030">EVALUATE (基本)</a></li>
+<li><a href="part-01/#c39-i0031">EVALUATE ALSO (複数式)</a></li>
+<li><a href="part-01/#c39-i0032">EVALUATE TRUE</a></li>
+<li><a href="part-01/#c39-i0033">WHEN (単一値・範囲)</a></li>
+<li><a href="part-01/#c39-i0034">WHEN OTHER</a></li>
+</ul>
+<h3 id="cobolidentification-division">COBOL/IDENTIFICATION DIVISION 段落<a class="headerlink" href="#cobolidentification-division" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0035">AUTHOR</a></li>
+<li><a href="part-01/#c39-i0036">DATE-WRITTEN</a></li>
+<li><a href="part-01/#c39-i0037">INSTALLATION</a></li>
+<li><a href="part-01/#c39-i0038">PROGRAM-ID</a></li>
+<li><a href="part-01/#c39-i0039">REMARKS</a></li>
+<li><a href="part-01/#c39-i0040">SECURITY</a></li>
+</ul>
+<h3 id="cobolinput-output-section">COBOL/INPUT-OUTPUT SECTION<a class="headerlink" href="#cobolinput-output-section" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0041">FILE-CONTROL</a></li>
+<li><a href="part-01/#c39-i0042">I-O-CONTROL</a></li>
+</ul>
+<h3 id="cobolperform">COBOL/PERFORM 形式<a class="headerlink" href="#cobolperform" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0043">PERFORM (単純)</a></li>
+<li><a href="part-01/#c39-i0044">PERFORM INLINE</a></li>
+<li><a href="part-01/#c39-i0045">PERFORM THRU (THROUGH)</a></li>
+<li><a href="part-01/#c39-i0046">PERFORM TIMES</a></li>
+<li><a href="part-01/#c39-i0047">PERFORM UNTIL</a></li>
+<li><a href="part-01/#c39-i0048">PERFORM VARYING</a></li>
+</ul>
+<h3 id="cobolpic">COBOL/PIC 句<a class="headerlink" href="#cobolpic" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0049">PIC $</a></li>
+<li><a href="part-01/#c39-i0050">PIC *</a></li>
+<li><a href="part-01/#c39-i0051">PIC + / PIC -</a></li>
+<li><a href="part-01/#c39-i0052">PIC 0</a></li>
+<li><a href="part-01/#c39-i0053">PIC 9</a></li>
+<li><a href="part-01/#c39-i0054">PIC A</a></li>
+<li><a href="part-01/#c39-i0055">PIC B</a></li>
+<li><a href="part-01/#c39-i0056">PIC CR / PIC DB</a></li>
+<li><a href="part-01/#c39-i0057">PIC P</a></li>
+<li><a href="part-01/#c39-i0058">PIC S</a></li>
+<li><a href="part-01/#c39-i0059">PIC V</a></li>
+<li><a href="part-01/#c39-i0060">PIC X</a></li>
+<li><a href="part-01/#c39-i0061">PIC Z</a></li>
+</ul>
+<h3 id="cobolprocedure">COBOL/PROCEDURE 文<a class="headerlink" href="#cobolprocedure" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0062">ACCEPT</a></li>
+<li><a href="part-01/#c39-i0063">ADD</a></li>
+<li><a href="part-01/#c39-i0064">CALL</a></li>
+<li><a href="part-01/#c39-i0065">CANCEL</a></li>
+<li><a href="part-01/#c39-i0066">COMPUTE</a></li>
+<li><a href="part-01/#c39-i0067">CONTINUE</a></li>
+<li><a href="part-01/#c39-i0068">DISPLAY</a></li>
+<li><a href="part-01/#c39-i0069">DIVIDE</a></li>
+<li><a href="part-01/#c39-i0070">EXIT</a></li>
+<li><a href="part-01/#c39-i0071">GO TO</a></li>
+<li><a href="part-01/#c39-i0072">IF / ELSE / END-IF</a></li>
+<li><a href="part-01/#c39-i0073">INITIALIZE</a></li>
+<li><a href="part-01/#c39-i0074">MOVE</a></li>
+<li><a href="part-01/#c39-i0075">MULTIPLY</a></li>
+<li><a href="part-01/#c39-i0076">SEARCH</a></li>
+<li><a href="part-01/#c39-i0077">SET</a></li>
+<li><a href="part-01/#c39-i0078">SORT</a></li>
+<li><a href="part-01/#c39-i0079">STOP RUN</a></li>
+<li><a href="part-01/#c39-i0080">SUBTRACT</a></li>
+</ul>
+<h3 id="cobolselect">COBOL/SELECT 句<a class="headerlink" href="#cobolselect" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0081">ACCESS MODE DYNAMIC</a></li>
+<li><a href="part-01/#c39-i0082">ACCESS MODE RANDOM</a></li>
+<li><a href="part-01/#c39-i0083">ACCESS MODE SEQUENTIAL</a></li>
+<li><a href="part-01/#c39-i0084">ALTERNATE RECORD KEY</a></li>
+<li><a href="part-01/#c39-i0085">ASSIGN</a></li>
+<li><a href="part-01/#c39-i0086">FILE STATUS</a></li>
+<li><a href="part-01/#c39-i0087">ORGANIZATION INDEXED</a></li>
+<li><a href="part-01/#c39-i0088">ORGANIZATION RELATIVE</a></li>
+<li><a href="part-01/#c39-i0089">ORGANIZATION SEQUENTIAL</a></li>
+<li><a href="part-01/#c39-i0090">PASSWORD</a></li>
+<li><a href="part-01/#c39-i0091">RECORD KEY</a></li>
+<li><a href="part-01/#c39-i0092">RELATIVE KEY</a></li>
+</ul>
+<h3 id="cobolsql">COBOL/SQL 内蔵<a class="headerlink" href="#cobolsql" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0093">DB2 プリコンパイラ</a></li>
+<li><a href="part-01/#c39-i0094">EXEC SQL ... END-EXEC</a></li>
+<li><a href="part-01/#c39-i0095">SQLCA</a></li>
+<li><a href="part-01/#c39-i0096">SQLDA</a></li>
+<li><a href="part-01/#c39-i0097">ホスト変数</a></li>
+</ul>
+<h3 id="cobolusage">COBOL/USAGE 句<a class="headerlink" href="#cobolusage" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0098">USAGE BINARY</a></li>
+<li><a href="part-01/#c39-i0099">USAGE COMP-1</a></li>
+<li><a href="part-01/#c39-i0100">USAGE COMP-2</a></li>
+<li><a href="part-01/#c39-i0101">USAGE COMP-3 (PACKED-DECIMAL)</a></li>
+<li><a href="part-01/#c39-i0102">USAGE COMP-4</a></li>
+<li><a href="part-01/#c39-i0103">USAGE COMP-5</a></li>
+<li><a href="part-01/#c39-i0104">USAGE COMPUTATIONAL (COMP)</a></li>
+<li><a href="part-01/#c39-i0105">USAGE DISPLAY</a></li>
+<li><a href="part-01/#c39-i0106">USAGE FUNCTION-POINTER</a></li>
+<li><a href="part-01/#c39-i0107">USAGE INDEX</a></li>
+<li><a href="part-01/#c39-i0108">USAGE NATIONAL</a></li>
+<li><a href="part-01/#c39-i0109">USAGE OBJECT REFERENCE</a></li>
+<li><a href="part-01/#c39-i0110">USAGE POINTER</a></li>
+<li><a href="part-01/#c39-i0111">USAGE PROCEDURE-POINTER</a></li>
+</ul>
+<h3 id="cobol">COBOL/データ定義句<a class="headerlink" href="#cobol" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0112">88 条件名</a></li>
+<li><a href="part-01/#c39-i0113">OCCURS (固定回数)</a></li>
+<li><a href="part-01/#c39-i0114">OCCURS DEPENDING ON (可変回数)</a></li>
+<li><a href="part-01/#c39-i0115">REDEFINES</a></li>
+<li><a href="part-01/#c39-i0116">VALUE</a></li>
+<li><a href="part-01/#c39-i0117">VALUE ALL</a></li>
+</ul>
+<h3 id="cobol-io">COBOL/ファイル I/O 文<a class="headerlink" href="#cobol-io" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0118">CLOSE</a></li>
+<li><a href="part-01/#c39-i0119">DELETE</a></li>
+<li><a href="part-01/#c39-i0120">OPEN</a></li>
+<li><a href="part-01/#c39-i0121">READ</a></li>
+<li><a href="part-01/#c39-i0122">READ NEXT</a></li>
+<li><a href="part-01/#c39-i0123">REWRITE</a></li>
+<li><a href="part-01/#c39-i0124">START</a></li>
+<li><a href="part-01/#c39-i0125">WRITE</a></li>
+</ul>
+<h3 id="cobol_1">COBOL/ファイル記述<a class="headerlink" href="#cobol_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0126">FD (File Description)</a></li>
+<li><a href="part-01/#c39-i0127">RECORD CONTAINS</a></li>
+<li><a href="part-01/#c39-i0128">SD (Sort Description)</a></li>
+</ul>
+<h3 id="cobol_2">COBOL/レベル番号<a class="headerlink" href="#cobol_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0129">01 レベル</a></li>
+<li><a href="part-01/#c39-i0130">02-49 レベル (基本/グループ項目)</a></li>
+<li><a href="part-01/#c39-i0131">66 RENAMES</a></li>
+<li><a href="part-01/#c39-i0132">77 独立項目</a></li>
+<li><a href="part-01/#c39-i0133">88 条件名</a></li>
+</ul>
+<h3 id="cobol_3">COBOL/文字列操作<a class="headerlink" href="#cobol_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0134">INSPECT CONVERTING</a></li>
+<li><a href="part-01/#c39-i0135">INSPECT REPLACING</a></li>
+<li><a href="part-01/#c39-i0136">INSPECT TALLYING</a></li>
+<li><a href="part-01/#c39-i0137">STRING</a></li>
+<li><a href="part-01/#c39-i0138">UNSTRING</a></li>
+</ul>
+<h3 id="leassembler">LE/Assembler 接続<a class="headerlink" href="#leassembler" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0139">CEE3GRC</a></li>
+<li><a href="part-01/#c39-i0140">CEE3SPMI</a></li>
+<li><a href="part-01/#c39-i0141">CEEFETCH</a></li>
+<li><a href="part-01/#c39-i0142">CEEHDLR / CEEHDLU</a></li>
+<li><a href="part-01/#c39-i0143">CEERELEASE</a></li>
+</ul>
+<h3 id="leruntime-options">LE/Runtime Options<a class="headerlink" href="#leruntime-options" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0144">ALL31</a></li>
+<li><a href="part-01/#c39-i0145">ANYHEAP</a></li>
+<li><a href="part-01/#c39-i0146">BELOWHEAP</a></li>
+<li><a href="part-01/#c39-i0147">CHECK</a></li>
+<li><a href="part-01/#c39-i0148">DEBUG</a></li>
+<li><a href="part-01/#c39-i0149">ENVAR</a></li>
+<li><a href="part-01/#c39-i0150">ERRCOUNT</a></li>
+<li><a href="part-01/#c39-i0151">HEAP</a></li>
+<li><a href="part-01/#c39-i0152">INFOMSGFILTER</a></li>
+<li><a href="part-01/#c39-i0153">LIBSTACK</a></li>
+<li><a href="part-01/#c39-i0154">MSGFILE</a></li>
+<li><a href="part-01/#c39-i0155">MSGQ</a></li>
+<li><a href="part-01/#c39-i0156">NATLANG</a></li>
+<li><a href="part-01/#c39-i0157">POSIX</a></li>
+<li><a href="part-01/#c39-i0158">PUNCH</a></li>
+<li><a href="part-01/#c39-i0159">RPTOPTS</a></li>
+<li><a href="part-01/#c39-i0160">RPTSTG</a></li>
+<li><a href="part-01/#c39-i0161">STACK</a></li>
+<li><a href="part-01/#c39-i0162">STORAGE</a></li>
+<li><a href="part-01/#c39-i0163">TERMTHDACT</a></li>
+<li><a href="part-01/#c39-i0164">THREADHEAP</a></li>
+<li><a href="part-01/#c39-i0165">THREADSTACK</a></li>
+<li><a href="part-01/#c39-i0166">TRACE</a></li>
+<li><a href="part-01/#c39-i0167">TRAP</a></li>
+<li><a href="part-01/#c39-i0168">USRHDLR</a></li>
+<li><a href="part-01/#c39-i0169">VCTRSAVE</a></li>
+<li><a href="part-01/#c39-i0170">XPLINK</a></li>
+</ul>
+<h3 id="le">LE/ランタイム<a class="headerlink" href="#le" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0171">CEEDUMP</a></li>
+<li><a href="part-01/#c39-i0172">CEEPIPI (Preinitialized Programs Interface)</a></li>
+<li><a href="part-01/#c39-i0173">CEESTART</a></li>
+<li><a href="part-01/#c39-i0174">LE (Language Environment) 概要</a></li>
+<li><a href="part-01/#c39-i0175">LE 共通領域 (LE/370)</a></li>
+</ul>
+<h3 id="pliputget">PL/I/PUT・GET<a class="headerlink" href="#pliputget" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0176">GET DATA</a></li>
+<li><a href="part-01/#c39-i0177">GET EDIT</a></li>
+<li><a href="part-01/#c39-i0178">GET FILE</a></li>
+<li><a href="part-01/#c39-i0179">GET LIST</a></li>
+<li><a href="part-01/#c39-i0180">GET STRING</a></li>
+<li><a href="part-01/#c39-i0181">PUT DATA</a></li>
+<li><a href="part-01/#c39-i0182">PUT EDIT</a></li>
+<li><a href="part-01/#c39-i0183">PUT FILE</a></li>
+<li><a href="part-01/#c39-i0184">PUT LIST</a></li>
+<li><a href="part-01/#c39-i0185">PUT STRING</a></li>
+</ul>
+<h3 id="pli">PL/I/データ型<a class="headerlink" href="#pli" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0186">AREA</a></li>
+<li><a href="part-01/#c39-i0187">BIT</a></li>
+<li><a href="part-01/#c39-i0188">CHARACTER (CHAR)</a></li>
+<li><a href="part-01/#c39-i0189">ENTRY</a></li>
+<li><a href="part-01/#c39-i0190">EVENT</a></li>
+<li><a href="part-01/#c39-i0191">FILE</a></li>
+<li><a href="part-01/#c39-i0192">FIXED BIN(p,q)</a></li>
+<li><a href="part-01/#c39-i0193">FIXED DEC(p,q)</a></li>
+<li><a href="part-01/#c39-i0194">FLOAT BIN</a></li>
+<li><a href="part-01/#c39-i0195">FLOAT DEC</a></li>
+<li><a href="part-01/#c39-i0196">LABEL</a></li>
+<li><a href="part-01/#c39-i0197">OFFSET</a></li>
+<li><a href="part-01/#c39-i0198">PICTURE (PIC)</a></li>
+<li><a href="part-01/#c39-i0199">POINTER (PTR)</a></li>
+<li><a href="part-01/#c39-i0200">TASK</a></li>
+</ul>
+<h3 id="pli_1">PL/I/条件ハンドリング<a class="headerlink" href="#pli_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0201">CONVERSION 条件</a></li>
+<li><a href="part-01/#c39-i0202">ENDFILE 条件</a></li>
+<li><a href="part-01/#c39-i0203">ENDPAGE 条件</a></li>
+<li><a href="part-01/#c39-i0204">ERROR 条件</a></li>
+<li><a href="part-01/#c39-i0205">FIXEDOVERFLOW (FOFL) 条件</a></li>
+<li><a href="part-01/#c39-i0206">ON ステートメント</a></li>
+<li><a href="part-01/#c39-i0207">OVERFLOW 条件</a></li>
+<li><a href="part-01/#c39-i0208">REVERT</a></li>
+<li><a href="part-01/#c39-i0209">SIGNAL</a></li>
+<li><a href="part-01/#c39-i0210">TRANSMIT / KEY / RECORD 条件</a></li>
+<li><a href="part-01/#c39-i0211">UNDERFLOW 条件</a></li>
+<li><a href="part-01/#c39-i0212">ZERODIVIDE 条件</a></li>
+</ul>
+<h3 id="pli_2">PL/I/言語構造<a class="headerlink" href="#pli_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-i0213">BEGIN</a></li>
+<li><a href="part-01/#c39-i0214">CALL</a></li>
+<li><a href="part-01/#c39-i0215">DO</a></li>
+<li><a href="part-01/#c39-i0216">IF / THEN / ELSE</a></li>
+<li><a href="part-01/#c39-i0217">ON ステートメント</a></li>
+<li><a href="part-01/#c39-i0218">PROCEDURE</a></li>
+<li><a href="part-01/#c39-i0219">RETURN</a></li>
+<li><a href="part-01/#c39-i0220">SELECT / WHEN / OTHERWISE</a></li>
+</ul>
+<h3 id="_2">その他<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="part-01/#c39-other">その他</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  ページトップへ戻る
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="フッター" >
+        
+          
+          <a href="../c38/" class="md-footer__link md-footer__link--prev" aria-label="前: z/OS System Programming">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                前
+              </span>
+              <div class="md-ellipsis">
+                z/OS System Programming
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../c40/" class="md-footer__link md-footer__link--next" aria-label="次: ユーティリティ">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                次
+              </span>
+              <div class="md-ellipsis">
+                ユーティリティ
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
