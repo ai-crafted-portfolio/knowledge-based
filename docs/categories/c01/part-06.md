@@ -1,0 +1,4053 @@
+---
+search:
+  exclude: true
+---
+
+# AIX 7.3 — 詳細 (6/6)
+
+[← AIX 7.3 の概要へ戻る](index.md)
+
+
+## 性能管理
+
+
+<section class="kb-item" id="c01-i0823"><h3>lparstat -i 容量確認 pi 0127</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>夕凪採取ではAIX 7.3の性能管理で lparstat -i を確認します。夕凪採取の性能管理では pi とsvmon全体表示を点検票へ整理します。夕凪採取は対象名と取得時刻を残し、出力見出しを資料名へ戻せる履歴にします。夕凪採取の注意点として 区画CPU権利値の見落とし を避けるため svmon -G も併記します。性能監視の作業票として、夕凪採取を調査記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 容量確認 pi 0127の設定や表示を読む前に役割を確認します。usrck -n ALL 性能確認 enhanced_RBAC 0128ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはセキュリティでusrck -n ALLを用い・enhanced_RBAC とユーザー属性を確認する。</li><li>B. 対象資源に対する働きはJFS2でsnapを用い・lff とマウントオプションを確認する。</li><li>C. 対象資源に対する働きは性能管理でlparstat -iを用い・pi とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはセキュリティでchuserを用い・authorizations とユーザー属性を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「性能管理でlparstat -iを用い、pi とsvmon全体表示を確認する」に対応する項目は容量確認 pi（容量・lpar）です。容量に関する性能管理の仕様は「性能管理でlparstat -iを用い、pi」で、確認対象はlp・容量です。性能・usrcのA:は「セキュリティでusrck -n ALLを用い」を述べ、対象は性能確認 enhanced_RBAC（性能・usrc）です。障害切・snapのB:は「JFS2でsnapを用い、lff とマウントオプションを確認する」を述べ、対象は障害切り分け lff（障害・snap）です。変更前・chusのD:は「セキュリティでchuserを用い、authorizations」を述べ、対象は変更前確認 authorizatio（変更・chus）です。「lparstat -i」は「性能管理でlparstat -iを用い、pi」を指し、容量確認 piではlp・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 容量確認 pi 0127</strong></p><p>検証目的: 性能管理のlparstat -i 容量確認 pi 0127について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認007-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0127A
+画面・出力には AIX0127A が表示され、lparstat -i 容量確認 pi 0127 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0127B
+画面・出力には AIX0127B が表示され、lparstat -i 容量確認 pi 0127 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0127C
+画面・出力には AIX0127C が表示され、lparstat -i 容量確認 pi 0127 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0127A が画面・出力に表示されること
+② ステップ2 の AIX0127B が画面・出力に表示されること
+③ ステップ3 の AIX0127C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0824"><h3>lparstat -i 状態確認 avm 0762</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>春分復旧ではAIX 7.3の性能管理で lparstat -i を確認します。春分復旧の性能管理では avm とvmstat表示を変更票へ記録します。春分復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。春分復旧の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、春分復旧を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 状態確認 avm 0762の役割を調べています。usrck -n ALL 構成照合 audit class 0763の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては性能管理でlparstat -iを用い・avm とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはセキュリティでusrck -n ALLを用い・audit class とロール一覧を確認する。</li><li>C. 機能の説明としては導入と起動でnimadmを用い・bootlist と代替ディスク状態を確認する。</li><li>D. 機能の説明としてはLVMでvaryonvgを用い・PP SIZE とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でlparstat -iを用い、avm とvmstat表示を確認する」に対応する項目は状態確認 avm（状態・lpar）です。状態に関する性能管理の仕様は「性能管理でlparstat -iを用い、avm」で、確認対象はlp・状態です。構成・usrcのB:は「セキュリティでusrck -n ALLを用い、audit」を述べ、対象はaudit class（構成・usrc）です。バック・nimaのC:は「導入と起動でnimadmを用い、bootlist」を述べ、対象はバックアウト確認 bootlist（バッ・nima）です。変更前・varyのD:は「LVMでvaryonvgを用い、PP SIZE」を述べ、対象はPP SIZE（変更・vary）です。「lparstat -i」は「性能管理でlparstat -iを用い、avm」を指し、状態確認 avmではlp・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 状態確認 avm 0762</strong></p><p>検証目的: 性能管理のlparstat -i 状態確認 avm 0762について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認042-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0762A
+画面・出力には AIX0762A が表示され、lparstat -i 状態確認 avm 0762 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0762B
+画面・出力には AIX0762B が表示され、lparstat -i 状態確認 avm 0762 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0762C
+画面・出力には AIX0762C が表示され、lparstat -i 状態確認 avm 0762 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0762A が画面・出力に表示されること
+② ステップ2 の AIX0762B が画面・出力に表示されること
+③ ステップ3 の AIX0762C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0825"><h3>lparstat -i 状態確認 csz 0346</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>陽炎変更ではAIX 7.3の性能管理で lparstat -i を確認します。陽炎変更の性能管理では csz とvmstat表示を保守票へ記録します。陽炎変更は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。陽炎変更の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、陽炎変更を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 状態確認 csz 0346の役割を調べています。usrck -n ALL 構成照合 authorizations 0347の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は性能管理でlparstat -iを用い・csz とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はセキュリティでusrck -n ALLを用い・authorizations とロール一覧を確認する。</li><li>C. 表示や設定で扱う内容はJFS2でsplitcopyを用い・agblksize とログデバイス設定を確認する。</li><li>D. 表示や設定で扱う内容はLVMでchvgを用い・LV STATE とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Aの記述「性能管理でlparstat -iを用い、csz とvmstat表示を確認する」に対応する項目は状態確認 csz（状態・lpar）です。状態に関する性能管理の仕様は「性能管理でlparstat -iを用い、csz」で、確認対象はlp・状態です。構成・usrcのB:は「セキュリティでusrck -n ALLを用い」を述べ、対象は構成照合 authorization（構成・usrc）です。性能・spliのC:は「JFS2でsplitcopyを用い、agblksize」を述べ、対象は性能確認 agblksize（性能・spli）です。変更後・chvgのD:は「LVMでchvgを用い、LV STATE」を述べ、対象はLV STATE（変更・chvg）です。「lparstat -i」は「性能管理でlparstat -iを用い、csz」を指し、状態確認 cszではlp・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 状態確認 csz 0346</strong></p><p>検証目的: 性能管理のlparstat -i 状態確認 csz 0346について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認106-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0346A
+画面・出力には AIX0346A が表示され、lparstat -i 状態確認 csz 0346 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0346B
+画面・出力には AIX0346B が表示され、lparstat -i 状態確認 csz 0346 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0346C
+画面・出力には AIX0346C が表示され、lparstat -i 状態確認 csz 0346 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0346A が画面・出力に表示されること
+② ステップ2 の AIX0346B が画面・出力に表示されること
+③ ステップ3 の AIX0346C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0826"><h3>lparstat -i 状態確認 fre 0286</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>朝凪復旧ではAIX 7.3の性能管理で lparstat -i を確認します。朝凪復旧の性能管理では fre とvmstat表示を保守票へ記録します。朝凪復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。朝凪復旧の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、朝凪復旧を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 状態確認 fre 0286に関する障害切り分けの前提を確認しています。usrck -n ALL 構成照合 authorizations 0287の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は性能管理でlparstat -iを用い・fre とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はセキュリティでusrck -n ALLを用い・authorizations とロール一覧を確認する。</li><li>C. 表示や設定で扱う内容はJFS2でsnapを用い・log=INLINE とログデバイス設定を確認する。</li><li>D. 表示や設定で扱う内容はCPU・メモリー・ページング・AME 統計を表示する性能コマンドである。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でlparstat -iを用い、fre とvmstat表示を確認する」に対応する項目は状態確認 fre（状態・lpar）です。状態に関する性能管理の仕様は「性能管理でlparstat -iを用い、fre」で、確認対象はlp・状態です。構成・usrcのB:は「セキュリティでusrck -n ALLを用い」を述べ、対象は構成照合 authorization（構成・usrc）です。容量・snapのC:は「JFS2でsnapを用い、log=INLINE」を述べ、対象は容量確認 log=INLINE（容量・snap）です。復旧前・vmstのD:は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」を述べ、対象は復旧前確認 出力見出し（復旧・vmst）です。「lparstat -i」は「性能管理でlparstat -iを用い、fre」を指し、状態確認 freではlp・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 状態確認 fre 0286</strong></p><p>検証目的: 性能管理のlparstat -i 状態確認 fre 0286について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認046-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0286A
+画面・出力には AIX0286A が表示され、lparstat -i 状態確認 fre 0286 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0286B
+画面・出力には AIX0286B が表示され、lparstat -i 状態確認 fre 0286 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0286C
+画面・出力には AIX0286C が表示され、lparstat -i 状態確認 fre 0286 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0286A が画面・出力に表示されること
+② ステップ2 の AIX0286B が画面・出力に表示されること
+③ ステップ3 の AIX0286C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0827"><h3>lparstat -i 状態確認 po 0822</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>紅葉変更ではAIX 7.3の性能管理で lparstat -i を確認します。紅葉変更の性能管理では po とvmstat表示を変更票へ記録します。紅葉変更は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。紅葉変更の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、紅葉変更を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 状態確認 po 0822に関する障害切り分けの前提を確認しています。lsvg 詳細確認 詳細表示の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては性能管理でlparstat -iを用い・po とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはボリュームグループの構成・状態・論理ボリューム一覧を表示するコマンドである。</li><li>C. 機能の説明としては性能管理でtopas -Dを用い・fre とAME統計を確認する。</li><li>D. 機能の説明としてはセキュリティでsetsecattrを用い・enhanced_RBAC と監査設定を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 状態・lparでAの記述「性能管理でlparstat -iを用い、po」に対応する項目は状態確認 po（状態・lpar）です。状態に関する性能管理の仕様は「性能管理でlparstat -iを用い、po」で、確認対象はlp・状態です。詳細・詳細・lsvgのB:は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」を述べ、対象は詳細確認 詳細表示（詳細・lsvg）です。監査・topaのC:は「性能管理でtopas -Dを用い、fre とAME統計を確認する」を述べ、対象は監査記録 fre（監査・topa）です。性能・setsのD:は「セキュリティでsetsecattrを用い」を述べ、対象は性能確認 enhanced_RBAC（性能・sets）です。「lparstat -i」は「性能管理でlparstat -iを用い、po」を指し、状態確認 poではlp・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 状態確認 po 0822</strong></p><p>検証目的: 性能管理のlparstat -i 状態確認 po 0822について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認102-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0822A
+画面・出力には AIX0822A が表示され、lparstat -i 状態確認 po 0822 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0822B
+画面・出力には AIX0822B が表示され、lparstat -i 状態確認 po 0822 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0822C
+画面・出力には AIX0822C が表示され、lparstat -i 状態確認 po 0822 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0822A が画面・出力に表示されること
+② ステップ2 の AIX0822B が画面・出力に表示されること
+③ ステップ3 の AIX0822C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0828"><h3>lparstat -i 監査記録 Busy% 0792</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>夕映復旧ではAIX 7.3の性能管理で lparstat -i を確認します。夕映復旧の性能管理では Busy% とtopasディスク表示を同じ証跡に残します。夕映復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる証跡にします。夕映復旧の注意点として 初回サンプルだけの誤判定 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、夕映復旧を変更判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 監査記録 Busy% 0792を同一分類のlsvg 詳細確認 詳細表示と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は性能管理でlparstat -iを用い・Busy% とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 構成を確認する際の意味はボリュームグループの構成・状態・論理ボリューム一覧を表示するコマンドである。</li><li>C. 構成を確認する際の意味はLVMでlsvg -lを用い・STALE PARTITIONS とミラーコピー状態を確認する。</li><li>D. 構成を確認する際の意味は導入と起動でoslevel -sを用い・bootlist とOSレベル表示を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 監査・lparでAの記述「性能管理でlparstat -iを用い、Busy%」に対応する項目は監査記録 Busy%（監査・lpar）です。監査に関する性能管理の仕様は「性能管理でlparstat -iを用い、Busy%」で、確認対象はlp・監査です。詳細・詳細・lsvgのB:は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」を述べ、対象は詳細確認 詳細表示（詳細・lsvg）です。監査・lsvgのC:は「LVMでlsvg -lを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（監査・lsvg）です。変更前・osleのD:は「導入と起動でoslevel -sを用い、bootlist」を述べ、対象は変更前確認 bootlist（変更・osle）です。「lparstat -i」は「性能管理でlparstat -iを用い、Busy%」を指し、監査記録 Busy%ではlp・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 監査記録 Busy% 0792</strong></p><p>検証目的: 性能管理のlparstat -i 監査記録 Busy% 0792について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録072-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0792A
+画面・出力には AIX0792A が表示され、lparstat -i 監査記録 Busy% 0792 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0792B
+画面・出力には AIX0792B が表示され、lparstat -i 監査記録 Busy% 0792 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0792C
+画面・出力には AIX0792C が表示され、lparstat -i 監査記録 Busy% 0792 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0792A が画面・出力に表示されること
+② ステップ2 の AIX0792B が画面・出力に表示されること
+③ ステップ3 の AIX0792C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0829"><h3>lparstat -i 監査記録 PhysB 0316</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>若潮復旧ではAIX 7.3の性能管理で lparstat -i を確認します。若潮復旧の性能管理では PhysB とtopasディスク表示を監査票へ転記します。若潮復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。若潮復旧の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、若潮復旧を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 監査記録 PhysB 0316の技術的な意味を資料で確認するとき、usrck -n ALL 運用引継ぎ authorizations 0317との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はセキュリティでusrck -n ALLを用い・authorizations と監査設定を確認する。</li><li>B. 管理対象との関係を表す説明はJFS2でsplitcopyを用い・lff とファイルシステム属性を確認する。</li><li>C. 管理対象との関係を表す説明は性能管理でlparstat -iを用い・PhysB とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明はLVMでchvgを用い・MIRROR WRITE CONSISTENCY とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でlparstat -iを用い、PhysB」に対応する項目は監査記録 PhysB（監査・lpar）です。監査に関する性能管理の仕様は「性能管理でlparstat -iを用い、PhysB」で、確認対象はlp・監査です。運用引・usrcのA:は「セキュリティでusrck -n ALLを用い」を述べ、対象は運用引継ぎ authorizatio（運用・usrc）です。変更後・spliのB:は「JFS2でsplitcopyを用い、lff」を述べ、対象は変更後確認 lff（変更・spli）です。性能・chvgのD:は「LVMでchvgを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（性能・chvg）です。「lparstat -i」は「性能管理でlparstat -iを用い、PhysB」を指し、監査記録 PhysBではlp・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 監査記録 PhysB 0316</strong></p><p>検証目的: 性能管理のlparstat -i 監査記録 PhysB 0316について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録076-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0316A
+画面・出力には AIX0316A が表示され、lparstat -i 監査記録 PhysB 0316 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0316B
+画面・出力には AIX0316B が表示され、lparstat -i 監査記録 PhysB 0316 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0316C
+画面・出力には AIX0316C が表示され、lparstat -i 監査記録 PhysB 0316 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0316A が画面・出力に表示されること
+② ステップ2 の AIX0316B が画面・出力に表示されること
+③ ステップ3 の AIX0316C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0830"><h3>lparstat -i 起動確認 PhysB 0475</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>青磁整理ではAIX 7.3の性能管理で lparstat -i を確認します。青磁整理の性能管理では PhysB とsvmon全体表示を点検票へ整理します。青磁整理は対象名と取得時刻を残し、出力見出しを資料名へ戻せる履歴にします。青磁整理の注意点として 区画CPU権利値の見落とし を避けるため svmon -G も併記します。性能監視の作業票として、青磁整理を調査記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat -i 起動確認 PhysB 0475について構成や状態を確認します。usrck -n ALL 属性確認 authorizations 0476ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはセキュリティでusrck -n ALLを用い・authorizations とユーザー属性を確認する。</li><li>B. 対象資源に対する働きはJFS2でsplitcopyを用い・agblksize とマウントオプションを確認する。</li><li>C. 対象資源に対する働きは性能管理でlparstat -iを用い・PhysB とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはLVMでchvgを用い・VG STATE と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Cの記述「性能管理でlparstat -iを用い、PhysB とsvmon全体表示を確認する」に対応する項目は起動確認 PhysB（起動・lpar）です。起動に関する性能管理の仕様は「性能管理でlparstat -iを用い、PhysB」で、確認対象はlp・起動です。属性・usrcのA:は「セキュリティでusrck -n ALLを用い」を述べ、対象は属性確認 authorization（属性・usrc）です。運用引・spliのB:は「JFS2でsplitcopyを用い、agblksize」を述べ、対象は運用引継ぎ agblksize（運用・spli）です。構成・chvgのD:は「LVMでchvgを用い、VG STATE」を述べ、対象はVG STATE（構成・chvg）です。「lparstat -i」は「性能管理でlparstat -iを用い、PhysB」を指し、起動確認 PhysBではlp・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat -i 起動確認 PhysB 0475</strong></p><p>検証目的: 性能管理のlparstat -i 起動確認 PhysB 0475について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認115-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; lparstat -i
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0475A
+画面・出力には AIX0475A が表示され、lparstat -i 起動確認 PhysB 0475 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0475B
+画面・出力には AIX0475B が表示され、lparstat -i 起動確認 PhysB 0475 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0475C
+画面・出力には AIX0475C が表示され、lparstat -i 起動確認 PhysB 0475 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0475A が画面・出力に表示されること
+② ステップ2 の AIX0475B が画面・出力に表示されること
+③ ステップ3 の AIX0475C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0831"><h3>nmon 容量確認 Entitled Capacity 0354</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>銀嶺変更ではAIX 7.3の性能管理で nmon を確認します。銀嶺変更の性能管理では Entitled Capacity とvmstat表示を変更票へ記録します。銀嶺変更は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。銀嶺変更の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、銀嶺変更を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 容量確認 Entitled Capacity 0354の役割を調べています。lsuser 性能確認 enhanced_RBAC 0355の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはセキュリティでlsuserを用い・enhanced_RBAC とロール一覧を確認する。</li><li>B. 機能の説明としてはJFS2でdf -gを用い・ファイルシステム使用率 とログデバイス設定を確認する。</li><li>C. 機能の説明としてはLVMでmigratepvを用い・PVID とボリュームグループ属性を確認する。migratepv 属性確認 PVID 0047固有の属性も確認対象に含める。</li><li>D. 機能の説明としては性能管理でnmonを用い・Entitled Capacity とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でnmonを用い、Entitled Capacity」に対応する項目はEntitled Capacity（容量・nmon）です。容量に関する性能管理の仕様は「性能管理でnmonを用い、Entitled Capacity」で、確認対象はnm・容量です。性能・lsusのA:は「セキュリティでlsuserを用い、enhanced_RBAC」を述べ、対象は性能確認 enhanced_RBAC（性能・lsus）です。バック・dfのB:は「JFS2でdf -gを用い、ファイルシステム使用率」を述べ、対象はバックアウト確認 ファイルシステム使（バッ・df）です。属性・migrのC:は「LVMでmigratepvを用い、PVID」を述べ、対象は属性確認 PVID（属性・migr）です。「nmon」は「性能管理でnmonを用い、Entitled Capacity」を指し、Entitled Capacityではnm・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 容量確認 Entitled Capacity 0354</strong></p><p>検証目的: 性能管理のnmon 容量確認 Entitled Capacity 0354について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認114-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0354A
+画面・出力には AIX0354A が表示され、nmon 容量確認 Entitled Capacity 0354 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0354B
+画面・出力には AIX0354B が表示され、nmon 容量確認 Entitled Capacity 0354 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0354C
+画面・出力には AIX0354C が表示され、nmon 容量確認 Entitled Capacity 0354 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0354A が画面・出力に表示されること
+② ステップ2 の AIX0354B が画面・出力に表示されること
+③ ステップ3 の AIX0354C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0832"><h3>nmon 容量確認 PhysB 0830</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>早苗変更ではAIX 7.3の性能管理で nmon を確認します。早苗変更の性能管理では PhysB とvmstat表示を確認票へ整理します。早苗変更は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。早苗変更の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、早苗変更を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 容量確認 PhysB 0830に関する障害切り分けの前提を確認しています。lscfg 障害切り分け ページング状態の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は構成済みデバイスと VPD を表示するコマンドである。</li><li>B. 障害切り分けに用いる役割はデバイス管理でdiag -d ent0を用い・microcode level とODM属性を確認する。</li><li>C. 障害切り分けに用いる役割はネットワークでroute -n getを用い・Gateway と経路表を確認する。</li><li>D. 障害切り分けに用いる役割は性能管理でnmonを用い・PhysB とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 容量・nmonでDの記述「性能管理でnmonを用い、PhysB とvmstat表示を確認する」に対応する項目は容量確認 PhysB（容量・nmon）です。容量に関する性能管理の仕様は「性能管理でnmonを用い、PhysB とvmstat表示を確認する」で、確認対象はnm・容量です。障害切・lscfのA:は「構成済みデバイスと VPD を表示するコマンド」を述べ、対象は障害切り分け ページング状態（障害・lscf）です。容量・diagのB:は「デバイス管理でdiag -d ent0を用い、microcode」を述べ、対象はmicrocode level（容量・diag）です。障害切・routのC:は「ネットワークでroute -n getを用い、Gateway」を述べ、対象は障害切り分け Gateway（障害・rout）です。「nmon」は「性能管理でnmonを用い、PhysB とvmstat表示を確認する」を指し、容量確認 PhysBではnm・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 容量確認 PhysB 0830</strong></p><p>検証目的: 性能管理のnmon 容量確認 PhysB 0830について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認110-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0830A
+画面・出力には AIX0830A が表示され、nmon 容量確認 PhysB 0830 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0830B
+画面・出力には AIX0830B が表示され、nmon 容量確認 PhysB 0830 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0830C
+画面・出力には AIX0830C が表示され、nmon 容量確認 PhysB 0830 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0830A が画面・出力に表示されること
+② ステップ2 の AIX0830B が画面・出力に表示されること
+③ ステップ3 の AIX0830C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0833"><h3>nmon 状態確認 Entitled Capacity 0512</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>夕映確認ではAIX 7.3の性能管理で nmon を確認します。夕映確認の性能管理では Entitled Capacity とtopasディスク表示を引継ぎ票へ保管します。夕映確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。夕映確認の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、夕映確認を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 状態確認 Entitled Capacity 0512を同一分類のlsuser 構成照合 authorizations 0513と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は性能管理でnmonを用い・Entitled Capacity とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はセキュリティでlsuserを用い・authorizations と監査設定を確認する。</li><li>C. コマンドまたは機能の用途はJFS2でfsckを用い・agblksize とファイルシステム属性を確認する。</li><li>D. コマンドまたは機能の用途はLVMでmirrorvgを用い・LV STATE とミラーコピー状態を確認する。mirrorvg 変更前確認 LV STATE 0205固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でnmonを用い、Entitled Capacity」に対応する項目はEntitled Capacity（状態・nmon）です。状態に関する性能管理の仕様は「性能管理でnmonを用い、Entitled Capacity」で、確認対象はnm・状態です。構成・lsusのB:は「セキュリティでlsuserを用い、authorizations」を述べ、対象は構成照合 authorization（構成・lsus）です。容量・fsckのC:は「JFS2でfsckを用い、agblksize」を述べ、対象は容量確認 agblksize（容量・fsck）です。変更前・mirrのD:は「LVMでmirrorvgを用い、LV STATE」を述べ、対象はLV STATE（変更・mirr）です。「nmon」は「性能管理でnmonを用い、Entitled Capacity」を指し、Entitled Capacityではnm・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 状態確認 Entitled Capacity 0512</strong></p><p>検証目的: 性能管理のnmon 状態確認 Entitled Capacity 0512について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認032-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0512A
+画面・出力には AIX0512A が表示され、nmon 状態確認 Entitled Capacity 0512 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0512B
+画面・出力には AIX0512B が表示され、nmon 状態確認 Entitled Capacity 0512 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0512C
+画面・出力には AIX0512C が表示され、nmon 状態確認 Entitled Capacity 0512 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0512A が画面・出力に表示されること
+② ステップ2 の AIX0512B が画面・出力に表示されること
+③ ステップ3 の AIX0512C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0834"><h3>nmon 状態確認 avm 0036</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>若潮確認ではAIX 7.3の性能管理で nmon を確認します。若潮確認の性能管理では avm とtopasディスク表示を同じ証跡に残します。若潮確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる証跡にします。若潮確認の注意点として 初回サンプルだけの誤判定 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、若潮確認を変更判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 状態確認 avm 0036の技術的な意味を資料で確認するとき、lsuser 構成照合 user attributes 0037との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はセキュリティでlsuserを用い・user attributes と監査設定を確認する。</li><li>B. 構成を確認する際の意味はJFS2でfsckを用い・ファイルシステム使用率 とファイルシステム属性を確認する。</li><li>C. 構成を確認する際の意味は性能管理でnmonを用い・avm とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 構成を確認する際の意味はセキュリティでlssecattr -cを用い・enhanced_RBAC と監査設定を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でnmonを用い、avm とtopasディスク表示を確認する」に対応する項目は状態確認 avm（状態・nmon）です。性能管理の仕様は「性能管理でnmonを用い、avm とtopasディスク表示を確認する」で、確認対象はnm・状態です。構成・lsusのA:は「セキュリティでlsuserを用い、user attributes」を述べ、対象はuser attributes（構成・lsus）です。容量・ファ・fsckのB:は「JFS2でfsckを用い、ファイルシステム使用率」を述べ、対象は容量確認 ファイルシステム使用率（容量・fsck）です。監査・lsseのD:は「セキュリティでlssecattr -cを用い」を述べ、対象は監査記録 enhanced_RBAC（監査・lsse）です。「nmon」は「性能管理でnmonを用い、avm とtopasディスク表示を確認する」を指し、状態確認 avmではnm・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 状態確認 avm 0036</strong></p><p>検証目的: 性能管理のnmon 状態確認 avm 0036について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認036-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0036A
+画面・出力には AIX0036A が表示され、nmon 状態確認 avm 0036 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0036B
+画面・出力には AIX0036B が表示され、nmon 状態確認 avm 0036 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0036C
+画面・出力には AIX0036C が表示され、nmon 状態確認 avm 0036 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0036A が画面・出力に表示されること
+② ステップ2 の AIX0036B が画面・出力に表示されること
+③ ステップ3 の AIX0036C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0835"><h3>nmon 監査記録 pi 0482</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>春分確認ではAIX 7.3の性能管理で nmon を確認します。春分確認の性能管理では pi とvmstat表示を確認票へ整理します。春分確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。春分確認の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、春分確認を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 監査記録 pi 0482の役割を調べています。lsuser 運用引継ぎ authorizations 0483の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでlsuserを用い・authorizations とロール一覧を確認する。</li><li>B. 障害切り分けに用いる役割はJFS2でfsckを用い・lff とログデバイス設定を確認する。</li><li>C. 障害切り分けに用いる役割は性能管理でnmonを用い・pi とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割はLVMでmirrorvgを用い・MIRROR WRITE CONSISTENCYである。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「性能管理でnmonを用い、pi とvmstat表示を確認する」に対応する項目は監査記録 pi（監査・nmon）です。監査に関する性能管理の仕様は「性能管理でnmonを用い、pi とvmstat表示を確認する」で、確認対象はnm・監査です。運用引・lsusのA:は「セキュリティでlsuserを用い、authorizations」を述べ、対象は運用引継ぎ authorizatio（運用・lsus）です。変更前・fsckのB:は「JFS2でfsckを用い、lff とログデバイス設定を確認する」を述べ、対象は変更前確認 lff（変更・fsck）です。容量・mirrのD:は「LVMでmirrorvgを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（容量・mirr）です。「nmon」は「性能管理でnmonを用い、pi とvmstat表示を確認する」を指し、監査記録 piではnm・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 監査記録 pi 0482</strong></p><p>検証目的: 性能管理のnmon 監査記録 pi 0482について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録002-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0482A
+画面・出力には AIX0482A が表示され、nmon 監査記録 pi 0482 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0482B
+画面・出力には AIX0482B が表示され、nmon 監査記録 pi 0482 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0482C
+画面・出力には AIX0482C が表示され、nmon 監査記録 pi 0482 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0482A が画面・出力に表示されること
+② ステップ2 の AIX0482B が画面・出力に表示されること
+③ ステップ3 の AIX0482C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0836"><h3>nmon 監査記録 po 0006</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>朝凪確認ではAIX 7.3の性能管理で nmon を確認します。朝凪確認の性能管理では po とvmstat表示を変更票へ記録します。朝凪確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。朝凪確認の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、朝凪確認を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 監査記録 po 0006に関する障害切り分けの前提を確認しています。lsuser 運用引継ぎ user attributes 0007の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはセキュリティでlsuserを用い・user attributes とロール一覧を確認する。</li><li>B. 機能の説明としてはJFS2でfsckを用い・isnapshot とログデバイス設定を確認する。</li><li>C. 機能の説明としてはセキュリティでlssecattr -cを用い・enhanced_RBAC とロール一覧を確認する。</li><li>D. 機能の説明としては性能管理でnmonを用い・po とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Dの記述「性能管理でnmonを用い、po とvmstat表示を確認する」に対応する項目は監査記録 po（監査・nmon）です。性能管理の仕様は「性能管理でnmonを用い、po とvmstat表示を確認する」で、確認対象はnm・監査です。運用引・lsusのA:は「セキュリティでlsuserを用い、user attributes」を述べ、対象はuser attributes（運用・lsus）です。変更前・fsckのB:は「JFS2でfsckを用い、isnapshot」を述べ、対象は変更前確認 isnapshot（変更・fsck）です。状態・lsseのC:は「セキュリティでlssecattr -cを用い」を述べ、対象は状態確認 enhanced_RBAC（状態・lsse）です。「nmon」は「性能管理でnmonを用い、po とvmstat表示を確認する」を指し、監査記録 poではnm・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 監査記録 po 0006</strong></p><p>検証目的: 性能管理のnmon 監査記録 po 0006について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録006-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0006A
+画面・出力には AIX0006A が表示され、nmon 監査記録 po 0006 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0006B
+画面・出力には AIX0006B が表示され、nmon 監査記録 po 0006 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0006C
+画面・出力には AIX0006C が表示され、nmon 監査記録 po 0006 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0006A が画面・出力に表示されること
+② ステップ2 の AIX0006B が画面・出力に表示されること
+③ ステップ3 の AIX0006C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0837"><h3>nmon 起動確認 Busy% 0225</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>花冷保守ではAIX 7.3の性能管理で nmon を確認します。花冷保守の性能管理では Busy% とAME統計を判定票へ残します。花冷保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる判定結果にします。花冷保守の注意点として 圧縮メモリー統計の読み落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、花冷保守を引継ぎ材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「nmon 起動確認 Busy% 0225」を「lsuser 属性確認 user attributes 0226」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はセキュリティでlsuserを用い・user attributes とRBAC属性を確認する。</li><li>B. 運用時に利用する技術的役割はJFS2でdf -gを用い・log=INLINE と内部スナップショットを確認する。</li><li>C. 運用時に利用する技術的役割はセキュリティでlssecattr -cを用い・enhanced_RBAC とRBAC属性を確認する。</li><li>D. 運用時に利用する技術的役割は性能管理でnmonを用い・Busy% とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でnmonを用い、Busy% とAME統計を確認する」に対応する項目は起動確認 Busy%（起動・nmon）です。起動に関する性能管理の仕様は「性能管理でnmonを用い、Busy% とAME統計を確認する」で、確認対象はnm・起動です。属性・lsusのA:は「セキュリティでlsuserを用い、user attributes」を述べ、対象はuser attributes（属性・lsus）です。運用引・dfのB:は「JFS2でdf -gを用い、log=INLINE」を述べ、対象は運用引継ぎ log=INLINE（運用・df）です。障害切・lsseのC:は「セキュリティでlssecattr -cを用い」を述べ、対象は障害切り分け enhanced_RB（障害・lsse）です。「nmon」は「性能管理でnmonを用い、Busy% とAME統計を確認する」を指し、起動確認 Busy%ではnm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 起動確認 Busy% 0225</strong></p><p>検証目的: 性能管理のnmon 起動確認 Busy% 0225について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認105-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0225A
+画面・出力には AIX0225A が表示され、nmon 起動確認 Busy% 0225 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0225B
+画面・出力には AIX0225B が表示され、nmon 起動確認 Busy% 0225 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0225C
+画面・出力には AIX0225C が表示され、nmon 起動確認 Busy% 0225 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0225A が画面・出力に表示されること
+② ステップ2 の AIX0225B が画面・出力に表示されること
+③ ステップ3 の AIX0225C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0838"><h3>nmon 起動確認 dxm 0701</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>群青保守ではAIX 7.3の性能管理で nmon を確認します。群青保守の性能管理では dxm とAME統計を復旧票へ残します。群青保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。群青保守の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、群青保守を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 起動確認 dxm 0701を保守記録に説明する必要があります。lsuser 属性確認 authorizations 0702と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでlsuserを用い・authorizations とRBAC属性を確認する。</li><li>B. 仕様上の役割は導入と起動でbosboot -a -dを用い・EFIX LABEL とfileset一覧を確認する。</li><li>C. 仕様上の役割は性能管理でnmonを用い・dxm とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はLVMでmigratepvを用い・LV STATE と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Cの記述「性能管理でnmonを用い、dxm とAME統計を確認する」に対応する項目は起動確認 dxm（起動・nmon）です。起動に関する性能管理の仕様は「性能管理でnmonを用い、dxm とAME統計を確認する」で、確認対象はnm・起動です。属性・lsusのA:は「セキュリティでlsuserを用い、authorizations」を述べ、対象は属性確認 authorization（属性・lsus）です。変更後・bosbのB:は「導入と起動でbosboot -a -dを用い、EFIX LABEL」を述べ、対象はEFIX LABEL（変更・bosb）です。構成・migrのD:は「LVMでmigratepvを用い、LV STATE」を述べ、対象はLV STATE（構成・migr）です。「nmon」は「性能管理でnmonを用い、dxm とAME統計を確認する」を指し、起動確認 dxmではnm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 起動確認 dxm 0701</strong></p><p>検証目的: 性能管理のnmon 起動確認 dxm 0701について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認101-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0701A
+画面・出力には AIX0701A が表示され、nmon 起動確認 dxm 0701 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0701B
+画面・出力には AIX0701B が表示され、nmon 起動確認 dxm 0701 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0701C
+画面・出力には AIX0701C が表示され、nmon 起動確認 dxm 0701 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0701A が画面・出力に表示されること
+② ステップ2 の AIX0701B が画面・出力に表示されること
+③ ステップ3 の AIX0701C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0839"><h3>nmon 起動確認 pi 0641</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>白露判定ではAIX 7.3の性能管理で nmon を確認します。白露判定の性能管理では pi とAME統計を復旧票へ残します。白露判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。白露判定の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、白露判定を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「nmon 起動確認 pi 0641」を「lsuser 属性確認 authorizations 0642」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は性能管理でnmonを用い・pi とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割はセキュリティでlsuserを用い・authorizations とRBAC属性を確認する。</li><li>C. 仕様上の役割は導入と起動でbosboot -a -dを用い・EFIX LABEL とfileset一覧を確認する。</li><li>D. 仕様上の役割はLVMでmirrorvgを用い・VG STATE と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でnmonを用い、pi とAME統計を確認する」に対応する項目は起動確認 pi（起動・nmon）です。起動に関する性能管理の仕様は「性能管理でnmonを用い、pi とAME統計を確認する」で、確認対象はnm・起動です。属性・lsusのB:は「セキュリティでlsuserを用い、authorizations」を述べ、対象は属性確認 authorization（属性・lsus）です。変更後・bosbのC:は「導入と起動でbosboot -a -dを用い、EFIX LABEL」を述べ、対象はEFIX LABEL（変更・bosb）です。状態・mirrのD:は「LVMでmirrorvgを用い、VG STATE」を述べ、対象はVG STATE（状態・mirr）です。「nmon」は「性能管理でnmonを用い、pi とAME統計を確認する」を指し、起動確認 piではnm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 起動確認 pi 0641</strong></p><p>検証目的: 性能管理のnmon 起動確認 pi 0641について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認041-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0641A
+画面・出力には AIX0641A が表示され、nmon 起動確認 pi 0641 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0641B
+画面・出力には AIX0641B が表示され、nmon 起動確認 pi 0641 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0641C
+画面・出力には AIX0641C が表示され、nmon 起動確認 pi 0641 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0641A が画面・出力に表示されること
+② ステップ2 の AIX0641B が画面・出力に表示されること
+③ ステップ3 の AIX0641C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0840"><h3>nmon 起動確認 po 0165</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>深雪判定ではAIX 7.3の性能管理で nmon を確認します。深雪判定の性能管理では po とAME統計を判定票へ残します。深雪判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる判定結果にします。深雪判定の注意点として 圧縮メモリー統計の読み落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、深雪判定を引継ぎ材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 起動確認 po 0165を保守記録に説明する必要があります。lsuser 属性確認 user attributes 0166と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はセキュリティでlsuserを用い・user attributes とRBAC属性を確認する。</li><li>B. 運用時に利用する技術的役割は性能管理でnmonを用い・po とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割はJFS2でfsckを用い・ファイルシステム使用率 と内部スナップショットを確認する。</li><li>D. 運用時に利用する技術的役割はセキュリティでlssecattr -cを用い・enhanced_RBAC とRBAC属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でnmonを用い、po とAME統計を確認する」に対応する項目は起動確認 po（起動・nmon）です。起動に関する性能管理の仕様は「性能管理でnmonを用い、po とAME統計を確認する」で、確認対象はnm・起動です。属性・lsusのA:は「セキュリティでlsuserを用い、user attributes」を述べ、対象はuser attributes（属性・lsus）です。監査・ファ・fsckのC:は「JFS2でfsckを用い、ファイルシステム使用率」を述べ、対象は監査記録 ファイルシステム使用率（監査・fsck）です。障害切・lsseのD:は「セキュリティでlssecattr -cを用い」を述べ、対象は障害切り分け enhanced_RB（障害・lsse）です。「nmon」は「性能管理でnmonを用い、po とAME統計を確認する」を指し、起動確認 poではnm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 起動確認 po 0165</strong></p><p>検証目的: 性能管理のnmon 起動確認 po 0165について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認045-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0165A
+画面・出力には AIX0165A が表示され、nmon 起動確認 po 0165 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0165B
+画面・出力には AIX0165B が表示され、nmon 起動確認 po 0165 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0165C
+画面・出力には AIX0165C が表示され、nmon 起動確認 po 0165 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0165A が画面・出力に表示されること
+② ステップ2 の AIX0165B が画面・出力に表示されること
+③ ステップ3 の AIX0165C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0841"><h3>nmon 障害切り分け Busy% 0135</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>岩清水採取ではAIX 7.3の性能管理で nmon を確認します。岩清水採取の性能管理では Busy% とsvmon全体表示を作業票へ保管します。岩清水採取は対象名と取得時刻を残し、出力見出しを資料名へ戻せる材料にします。岩清水採取の注意点として 区画CPU権利値の見落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、岩清水採取を照合結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 障害切り分け Busy% 0135の設定や表示を読む前に役割を確認します。lsuser バックアウト確認 user attributes 0136ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは性能管理でnmonを用い・Busy% とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きはセキュリティでlsuserを用い・user attributes とユーザー属性を確認する。</li><li>C. 状態を読み取るための働きはJFS2でfsckを用い・isnapshot とマウントオプションを確認する。</li><li>D. 状態を読み取るための働きはセキュリティでlssecattr -cを用い・enhanced_RBAC とユーザー属性を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でnmonを用い、Busy% とsvmon全体表示を確認する」に対応する項目は障害切り分け Busy%（障害・nmon）です。障害切に関する性能管理の仕様は「性能管理でnmonを用い、Busy% とsvmon全体表示を確認する」で、確認対象はnm・障害切です。バック・lsusのB:は「セキュリティでlsuserを用い、user attributes」を述べ、対象はuser attributes（バッ・lsus）です。状態・fsckのC:は「JFS2でfsckを用い、isnapshot」を述べ、対象は状態確認 isnapshot（状態・fsck）です。起動・lsseのD:は「セキュリティでlssecattr -cを用い」を述べ、対象は起動確認 enhanced_RBAC（起動・lsse）です。「nmon」は「性能管理でnmonを用い、Busy% とsvmon全体表示を確認する」を指し、障害切り分け Busy%ではnm・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 障害切り分け Busy% 0135</strong></p><p>検証目的: 性能管理のnmon 障害切り分け Busy% 0135について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け015-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0135A
+画面・出力には AIX0135A が表示され、nmon 障害切り分け Busy% 0135 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0135B
+画面・出力には AIX0135B が表示され、nmon 障害切り分け Busy% 0135 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0135C
+画面・出力には AIX0135C が表示され、nmon 障害切り分け Busy% 0135 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0135A が画面・出力に表示されること
+② ステップ2 の AIX0135B が画面・出力に表示されること
+③ ステップ3 の AIX0135C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0842"><h3>nmon 障害切り分け Entitled Capacity 0671</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>遠雷判定ではAIX 7.3の性能管理で nmon を確認します。遠雷判定の性能管理では Entitled Capacity とsvmon全体表示を照合票へ整理します。遠雷判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。遠雷判定の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、遠雷判定を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 障害切り分け Entitled Capacity 0671の設定や表示を読む前に役割を確認します。lsuser バックアウト確認 authorizations 0672ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はセキュリティでlsuserを用い・authorizations とユーザー属性を確認する。</li><li>B. 一次資料が示す主目的は性能管理でnmonを用い・Entitled Capacity とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は導入と起動でbosboot -a -dを用い・mksysb image と起動デバイス設定を確認する。</li><li>D. 一次資料が示す主目的はLVMでmigratepvを用い・MIRROR WRITE CONSISTENCYである。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でnmonを用い、Entitled Capacity」に対応する項目はEntitled Capacity（障害・nmon）です。障害切に関する性能管理の仕様は「性能管理でnmonを用い、Entitled Capacity」で、確認対象はnm・障害切です。バック・lsusのA:は「セキュリティでlsuserを用い、authorizations」を述べ、対象はバックアウト確認 authoriza（バッ・lsus）です。性能・bosbのC:は「導入と起動でbosboot -a -dを用い、mksysb」を述べ、対象はmksysb image（性能・bosb）です。運用引・migrのD:は「LVMでmigratepvを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（運用・migr）です。「nmon」は「性能管理でnmonを用い、Entitled Capacity」を指し、Entitled Capacityではnm・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 障害切り分け Entitled Capacity 0671</strong></p><p>検証目的: 性能管理のnmon 障害切り分け Entitled Capacity 0671について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け071-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0671A
+画面・出力には AIX0671A が表示され、nmon 障害切り分け Entitled Capacity 0671 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0671B
+画面・出力には AIX0671B が表示され、nmon 障害切り分け Entitled Capacity 0671 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0671C
+画面・出力には AIX0671C が表示され、nmon 障害切り分け Entitled Capacity 0671 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0671A が画面・出力に表示されること
+② ステップ2 の AIX0671B が画面・出力に表示されること
+③ ステップ3 の AIX0671C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0843"><h3>nmon 障害切り分け avm 0195</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>青磁判定ではAIX 7.3の性能管理で nmon を確認します。青磁判定の性能管理では avm とsvmon全体表示を作業票へ保管します。青磁判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる材料にします。青磁判定の注意点として 区画CPU権利値の見落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、青磁判定を照合結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 障害切り分け avm 0195について構成や状態を確認します。lsuser バックアウト確認 user attributes 0196ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはセキュリティでlsuserを用い・user attributes とユーザー属性を確認する。</li><li>B. 状態を読み取るための働きは性能管理でnmonを用い・avm とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きはJFS2でdf -gを用い・mountguard とマウントオプションを確認する。</li><li>D. 状態を読み取るための働きはセキュリティでlssecattr -cを用い・enhanced_RBAC とユーザー属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でnmonを用い、avm とsvmon全体表示を確認する」に対応する項目は障害切り分け avm（障害・nmon）です。障害切に関する性能管理の仕様は「性能管理でnmonを用い、avm とsvmon全体表示を確認する」で、確認対象はnm・障害切です。バック・lsusのA:は「セキュリティでlsuserを用い、user attributes」を述べ、対象はuser attributes（バッ・lsus）です。構成・dfのC:は「JFS2でdf -gを用い、mountguard」を述べ、対象は構成照合 mountguard（構成・df）です。起動・lsseのD:は「セキュリティでlssecattr -cを用い」を述べ、対象は起動確認 enhanced_RBAC（起動・lsse）です。「nmon」は「性能管理でnmonを用い、avm とsvmon全体表示を確認する」を指し、障害切り分け avmではnm・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 障害切り分け avm 0195</strong></p><p>検証目的: 性能管理のnmon 障害切り分け avm 0195について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け075-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0195A
+画面・出力には AIX0195A が表示され、nmon 障害切り分け avm 0195 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0195B
+画面・出力には AIX0195B が表示され、nmon 障害切り分け avm 0195 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0195C
+画面・出力には AIX0195C が表示され、nmon 障害切り分け avm 0195 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0195A が画面・出力に表示されること
+② ステップ2 の AIX0195B が画面・出力に表示されること
+③ ステップ3 の AIX0195C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0844"><h3>nmon 障害切り分け dxm 0611</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>松風採取ではAIX 7.3の性能管理で nmon を確認します。松風採取の性能管理では dxm とsvmon全体表示を照合票へ整理します。松風採取は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。松風採取の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、松風採取を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> nmon 障害切り分け dxm 0611について構成や状態を確認します。lsuser バックアウト確認 authorizations 0612ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はセキュリティでlsuserを用い・authorizations とユーザー属性を確認する。</li><li>B. 一次資料が示す主目的はデバイス属性を変更する管理コマンドである。</li><li>C. 一次資料が示す主目的はLVMでmirrorvgを用い・STALE PARTITIONS と論理ボリューム配置を確認する。</li><li>D. 一次資料が示す主目的は性能管理でnmonを用い・dxm とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Dの記述「性能管理でnmonを用い、dxm とsvmon全体表示を確認する」に対応する項目は障害切り分け dxm（障害・nmon）です。障害切に関する性能管理の仕様は「性能管理でnmonを用い、dxm とsvmon全体表示を確認する」で、確認対象はnm・障害切です。バック・lsusのA:は「セキュリティでlsuserを用い、authorizations」を述べ、対象はバックアウト確認 authoriza（バッ・lsus）です。属性・ボリ・chdeのB:は「デバイス属性を変更する管理コマンド」を述べ、対象は属性照合 ボリューム状態（属性・chde）です。監査・mirrのC:は「LVMでmirrorvgを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（監査・mirr）です。「nmon」は「性能管理でnmonを用い、dxm とsvmon全体表示を確認する」を指し、障害切り分け dxmではnm・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>nmon 障害切り分け dxm 0611</strong></p><p>検証目的: 性能管理のnmon 障害切り分け dxm 0611について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け011-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; nmon
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0611A
+画面・出力には AIX0611A が表示され、nmon 障害切り分け dxm 0611 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0611B
+画面・出力には AIX0611B が表示され、nmon 障害切り分け dxm 0611 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0611C
+画面・出力には AIX0611C が表示され、nmon 障害切り分け dxm 0611 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0611A が画面・出力に表示されること
+② ステップ2 の AIX0611B が画面・出力に表示されること
+③ ステップ3 の AIX0611C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0845"><h3>svmon -G 状態確認 Entitled Capacity 0369</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>銀砂記録ではAIX 7.3の性能管理で svmon -G を確認します。銀砂記録の性能管理では Entitled Capacity とAME統計を判定票へ残します。銀砂記録は対象名と取得時刻を残し、出力見出しを資料名へ戻せる判定結果にします。銀砂記録の注意点として 圧縮メモリー統計の読み落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、銀砂記録を引継ぎ材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「svmon -G 状態確認 Entitled Capacity 0369」を「rbacqry -u user1 -T 構成照合 audit class 0370」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は性能管理でsvmon -Gを用い・Entitled Capacity とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割はセキュリティでrbacqry -u user1 -Tを用い・audit class とRBAC属性を確認する。</li><li>C. 運用時に利用する技術的役割はJFS2でcrfsを用い・agblksize と内部スナップショットを確認する。</li><li>D. 運用時に利用する技術的役割はLVMでlsvg -lを用い・VG STATE と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でsvmon -Gを用い、Entitled Capacity」に対応する項目はEntitled Capacity（状態・svmo）です。状態に関する性能管理の仕様は「性能管理でsvmon -Gを用い、Entitled」で、確認対象はsv・状態です。構成・rbacのB:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はaudit class（構成・rbac）です。容量・crfsのC:は「JFS2でcrfsを用い、agblksize」を述べ、対象は容量確認 agblksize（容量・crfs）です。変更前・lsvgのD:は「LVMでlsvg -lを用い、VG STATE」を述べ、対象はVG STATE（変更・lsvg）です。「svmon -G」は「性能管理でsvmon -Gを用い、Entitled」を指し、Entitled Capacityではsv・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 状態確認 Entitled Capacity 0369</strong></p><p>検証目的: 性能管理のsvmon -G 状態確認 Entitled Capacity 0369について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認009-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0369A
+画面・出力には AIX0369A が表示され、svmon -G 状態確認 Entitled Capacity 0369 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0369B
+画面・出力には AIX0369B が表示され、svmon -G 状態確認 Entitled Capacity 0369 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0369C
+画面・出力には AIX0369C が表示され、svmon -G 状態確認 Entitled Capacity 0369 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0369A が画面・出力に表示されること
+② ステップ2 の AIX0369B が画面・出力に表示されること
+③ ステップ3 の AIX0369C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0846"><h3>svmon -G 状態確認 pi 0429</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>梅雨晴評価ではAIX 7.3の性能管理で svmon -G を確認します。梅雨晴評価の性能管理では pi とAME統計を判定票へ残します。梅雨晴評価は対象名と取得時刻を残し、出力見出しを資料名へ戻せる判定結果にします。梅雨晴評価の注意点として 圧縮メモリー統計の読み落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、梅雨晴評価を引継ぎ材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> svmon -G 状態確認 pi 0429を保守記録に説明する必要があります。rbacqry -u user1 -T 構成照合 audit class 0430と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はセキュリティでrbacqry -u user1 -Tを用い・audit class とRBAC属性を確認する。</li><li>B. 運用時に利用する技術的役割は性能管理でsvmon -Gを用い・pi とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割はJFS2でchfsを用い・isnapshot と内部スナップショットを確認する。</li><li>D. 運用時に利用する技術的役割はLVMでlslvを用い・LV STATE と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でsvmon -Gを用い、pi とAME統計を確認する」に対応する項目は状態確認 pi（状態・svmo）です。状態に関する性能管理の仕様は「性能管理でsvmon -Gを用い、pi とAME統計を確認する」で、確認対象はsv・状態です。構成・rbacのA:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はaudit class（構成・rbac）です。性能・chfsのC:は「JFS2でchfsを用い、isnapshot」を述べ、対象は性能確認 isnapshot（性能・chfs）です。変更後・lslvのD:は「LVMでlslvを用い、LV STATE」を述べ、対象はLV STATE（変更・lslv）です。「svmon -G」は「性能管理でsvmon -Gを用い、pi とAME統計を確認する」を指し、状態確認 piではsv・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 状態確認 pi 0429</strong></p><p>検証目的: 性能管理のsvmon -G 状態確認 pi 0429について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認069-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0429A
+画面・出力には AIX0429A が表示され、svmon -G 状態確認 pi 0429 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0429B
+画面・出力には AIX0429B が表示され、svmon -G 状態確認 pi 0429 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0429C
+画面・出力には AIX0429C が表示され、svmon -G 状態確認 pi 0429 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0429A が画面・出力に表示されること
+② ステップ2 の AIX0429B が画面・出力に表示されること
+③ ステップ3 の AIX0429C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0847"><h3>svmon -G 監査記録 dxm 0399</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>秋桜記録ではAIX 7.3の性能管理で svmon -G を確認します。秋桜記録の性能管理では dxm とsvmon全体表示を作業票へ保管します。秋桜記録は対象名と取得時刻を残し、出力見出しを資料名へ戻せる材料にします。秋桜記録の注意点として 区画CPU権利値の見落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、秋桜記録を照合結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> svmon -G 監査記録 dxm 0399の設定や表示を読む前に役割を確認します。rbacqry -u user1 -T 運用引継ぎ audit class 0400ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは性能管理でsvmon -Gを用い・dxm とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きはセキュリティでrbacqry -u user1 -Tを用い・audit class とユーザー属性を確認する。</li><li>C. 状態を読み取るための働きはJFS2でcrfsを用い・lff とマウントオプションを確認する。</li><li>D. 状態を読み取るための働きはLVMでlsvg -lを用い・STALE PARTITIONS と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でsvmon -Gを用い、dxm とsvmon全体表示を確認する」に対応する項目は監査記録 dxm（監査・svmo）です。監査に関する性能管理の仕様は「性能管理でsvmon -Gを用い、dxm」で、確認対象はsv・監査です。運用引・rbacのB:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はaudit class（運用・rbac）です。変更前・crfsのC:は「JFS2でcrfsを用い、lff とマウントオプションを確認する」を述べ、対象は変更前確認 lff（変更・crfs）です。容量・lsvgのD:は「LVMでlsvg -lを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（容量・lsvg）です。「svmon -G」は「性能管理でsvmon -Gを用い、dxm」を指し、監査記録 dxmではsv・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 監査記録 dxm 0399</strong></p><p>検証目的: 性能管理のsvmon -G 監査記録 dxm 0399について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録039-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0399A
+画面・出力には AIX0399A が表示され、svmon -G 監査記録 dxm 0399 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0399B
+画面・出力には AIX0399B が表示され、svmon -G 監査記録 dxm 0399 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0399C
+画面・出力には AIX0399C が表示され、svmon -G 監査記録 dxm 0399 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0399A が画面・出力に表示されること
+② ステップ2 の AIX0399B が画面・出力に表示されること
+③ ステップ3 の AIX0399C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0848"><h3>svmon -G 起動確認 csz 0558</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>春霞照合ではAIX 7.3の性能管理で svmon -G を確認します。春霞照合の性能管理では csz とvmstat表示を変更票へ記録します。春霞照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。春霞照合の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、春霞照合を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> svmon -G 起動確認 csz 0558に関する障害切り分けの前提を確認しています。rbacqry -u user1 -T 属性確認 user attributesの機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはセキュリティでrbacqry -u user1 -Tを用い・user attributesである。</li><li>B. 機能の説明としては性能管理でsvmon -Gを用い・csz とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としてはページングスペースの名前・サイズ・使用率・活動状態を表示するコマンドである。</li><li>D. 機能の説明としてはLVMでlslvを用い・LV STATE とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でsvmon -Gを用い、csz とvmstat表示を確認する」に対応する項目は起動確認 csz（起動・svmo）です。起動に関する性能管理の仕様は「性能管理でsvmon -Gを用い、csz」で、確認対象はsv・起動です。属性・rbacのA:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はuser attributes（属性・rbac）です。詳細・メッ・lspsのC:は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」を述べ、対象は詳細確認 メッセージ行（詳細・lsps）です。構成・lslvのD:は「LVMでlslvを用い、LV STATE」を述べ、対象はLV STATE（構成・lslv）です。「svmon -G」は「性能管理でsvmon -Gを用い、csz」を指し、起動確認 cszではsv・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 起動確認 csz 0558</strong></p><p>検証目的: 性能管理のsvmon -G 起動確認 csz 0558について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認078-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0558A
+画面・出力には AIX0558A が表示され、svmon -G 起動確認 csz 0558 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0558B
+画面・出力には AIX0558B が表示され、svmon -G 起動確認 csz 0558 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0558C
+画面・出力には AIX0558C が表示され、svmon -G 起動確認 csz 0558 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0558A が画面・出力に表示されること
+② ステップ2 の AIX0558B が画面・出力に表示されること
+③ ステップ3 の AIX0558C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0849"><h3>svmon -G 起動確認 dxm 0082</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>春分点検ではAIX 7.3の性能管理で svmon -G を確認します。春分点検の性能管理では dxm とvmstat表示を保守票へ記録します。春分点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。春分点検の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、春分点検を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> svmon -G 起動確認 dxm 0082の役割を調べています。rbacqry -u user1 -T 属性確認 roles 0083の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は性能管理でsvmon -Gを用い・dxm とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はセキュリティでrbacqry -u user1 -Tを用い・roles とロール一覧を確認する。</li><li>C. 表示や設定で扱う内容はJFS2でchfsを用い・ファイルシステム使用率 とログデバイス設定を確認する。</li><li>D. 表示や設定で扱う内容はセキュリティでlsattr -E -l sys0 -aを用い・audit class とロール一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でsvmon -Gを用い、dxm とvmstat表示を確認する」に対応する項目は起動確認 dxm（起動・svmo）です。起動に関する性能管理の仕様は「性能管理でsvmon -Gを用い、dxm」で、確認対象はsv・起動です。属性・rbacのB:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象は属性確認 roles（属性・rbac）です。運用引・chfsのC:は「JFS2でchfsを用い、ファイルシステム使用率」を述べ、対象は運用引継ぎ ファイルシステム使用率（運用・chfs）です。障害切・lsatのD:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象はaudit class（障害・lsat）です。「svmon -G」は「性能管理でsvmon -Gを用い、dxm」を指し、起動確認 dxmではsv・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 起動確認 dxm 0082</strong></p><p>検証目的: 性能管理のsvmon -G 起動確認 dxm 0082について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認082-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0082A
+画面・出力には AIX0082A が表示され、svmon -G 起動確認 dxm 0082 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0082B
+画面・出力には AIX0082B が表示され、svmon -G 起動確認 dxm 0082 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0082C
+画面・出力には AIX0082C が表示され、svmon -G 起動確認 dxm 0082 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0082A が画面・出力に表示されること
+② ステップ2 の AIX0082B が画面・出力に表示されること
+③ ステップ3 の AIX0082C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0850"><h3>svmon -G 障害切り分け fre 0588</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>雪解点検ではAIX 7.3の性能管理で svmon -G を確認します。雪解点検の性能管理では fre とtopasディスク表示を同じ証跡に残します。雪解点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる証跡にします。雪解点検の注意点として 初回サンプルだけの誤判定 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、雪解点検を変更判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> svmon -G 障害切り分け fre 0588の技術的な意味を資料で確認するとき、rbacqry -u user1 -T バックアウト確認 userとの境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はセキュリティでrbacqry -u user1 -Tを用い・user attributesである。</li><li>B. 構成を確認する際の意味はページングスペースの名前・サイズ・使用率・活動状態を表示するコマンドである。</li><li>C. 構成を確認する際の意味は性能管理でsvmon -Gを用い・fre とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 構成を確認する際の意味はLVMでlslvを用い・MIRROR WRITE CONSISTENCY とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Cの記述「性能管理でsvmon -Gを用い、fre とtopasディスク表示を確認する」に対応する項目は障害切り分け fre（障害・svmo）です。障害切に関する性能管理の仕様は「性能管理でsvmon -Gを用い、fre」で、確認対象はsv・障害切です。バック・rbacのA:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はuser attributes（バッ・rbac）です。状態・属性・lspsのB:は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」を述べ、対象は状態判定 属性確認（状態・lsps）です。運用引・lslvのD:は「LVMでlslvを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（運用・lslv）です。「svmon -G」は「性能管理でsvmon -Gを用い、fre」を指し、障害切り分け freではsv・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 障害切り分け fre 0588</strong></p><p>検証目的: 性能管理のsvmon -G 障害切り分け fre 0588について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け108-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0588A
+画面・出力には AIX0588A が表示され、svmon -G 障害切り分け fre 0588 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0588B
+画面・出力には AIX0588B が表示され、svmon -G 障害切り分け fre 0588 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0588C
+画面・出力には AIX0588C が表示され、svmon -G 障害切り分け fre 0588 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0588A が画面・出力に表示されること
+② ステップ2 の AIX0588B が画面・出力に表示されること
+③ ステップ3 の AIX0588C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0851"><h3>svmon -G 障害切り分け pi 0112</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>夕映点検ではAIX 7.3の性能管理で svmon -G を確認します。夕映点検の性能管理では pi とtopasディスク表示を監査票へ転記します。夕映点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。夕映点検の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、夕映点検を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> svmon -G 障害切り分け pi 0112を同一分類のrbacqry -u user1 -T バックアウト確認 roles 0113と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はセキュリティでrbacqry -u user1 -Tを用い・roles と監査設定を確認する。</li><li>B. 管理対象との関係を表す説明はJFS2でchfsを用い・isnapshot とファイルシステム属性を確認する。</li><li>C. 管理対象との関係を表す説明はセキュリティでlsroleを用い・user attributes と監査設定を確認する。</li><li>D. 管理対象との関係を表す説明は性能管理でsvmon -Gを用い・pi とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でsvmon -Gを用い、pi とtopasディスク表示を確認する」に対応する項目は障害切り分け pi（障害・svmo）です。障害切に関する性能管理の仕様は「性能管理でsvmon -Gを用い、pi とtopasディスク表示を確」で、確認対象はsv・障害切です。バック・rbacのA:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はバックアウト確認 roles（バッ・rbac）です。構成・chfsのB:は「JFS2でchfsを用い、isnapshot」を述べ、対象は構成照合 isnapshot（構成・chfs）です。属性・lsroのC:は「セキュリティでlsroleを用い、user attributes」を述べ、対象はuser attributes（属性・lsro）です。「svmon -G」は「性能管理でsvmon -Gを用い、pi とtopasディスク表示を確」を指し、障害切り分け piではsv・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>svmon -G 障害切り分け pi 0112</strong></p><p>検証目的: 性能管理のsvmon -G 障害切り分け pi 0112について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け112-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0112A
+画面・出力には AIX0112A が表示され、svmon -G 障害切り分け pi 0112 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0112B
+画面・出力には AIX0112B が表示され、svmon -G 障害切り分け pi 0112 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0112C
+画面・出力には AIX0112C が表示され、svmon -G 障害切り分け pi 0112 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0112A が画面・出力に表示されること
+② ステップ2 の AIX0112B が画面・出力に表示されること
+③ ステップ3 の AIX0112C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0852"><h3>topas -C バックアウト確認 PhysB 0422</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>紅葉評価ではAIX 7.3の性能管理で topas -C を確認します。紅葉評価の性能管理では PhysB とvmstat表示を確認票へ整理します。紅葉評価は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。紅葉評価の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、紅葉評価を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -C バックアウト確認 PhysB 0422に関する障害切り分けの前提を確認しています。chuser 監査記録 enhanced_RBAC 0423の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでchuserを用い・enhanced_RBAC とロール一覧を確認する。</li><li>B. 障害切り分けに用いる役割はJFS2でfsckを用い・lff とログデバイス設定を確認する。</li><li>C. 障害切り分けに用いる役割はLVMでchlvを用い・STALE PARTITIONS とボリュームグループ属性を確認する。</li><li>D. 障害切り分けに用いる役割は性能管理でtopas -Cを用い・PhysB とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Cを用い、PhysB とvmstat表示を確認する」に対応する項目はバックアウト確認 PhysB（バッ・topa）です。バックに関する性能管理の仕様は「性能管理でtopas -Cを用い、PhysB」で、確認対象はto・バックです。監査・chusのA:は「セキュリティでchuserを用い、enhanced_RBAC」を述べ、対象は監査記録 enhanced_RBAC（監査・chus）です。変更前・fsckのB:は「JFS2でfsckを用い、lff とログデバイス設定を確認する」を述べ、対象は変更前確認 lff（変更・fsck）です。運用引・chlvのC:は「LVMでchlvを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（運用・chlv）です。「topas -C」は「性能管理でtopas -Cを用い、PhysB」を指し、バックアウト確認 PhysBではto・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -C バックアウト確認 PhysB 0422</strong></p><p>検証目的: 性能管理のtopas -C バックアウト確認 PhysB 0422について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認062-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -C
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0422A
+画面・出力には AIX0422A が表示され、topas -C バックアウト確認 PhysB 0422 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0422B
+画面・出力には AIX0422B が表示され、topas -C バックアウト確認 PhysB 0422 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0422C
+画面・出力には AIX0422C が表示され、topas -C バックアウト確認 PhysB 0422 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0422A が画面・出力に表示されること
+② ステップ2 の AIX0422B が画面・出力に表示されること
+③ ステップ3 の AIX0422C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0853"><h3>topas -C 属性確認 csz 0452</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>水音整理ではAIX 7.3の性能管理で topas -C を確認します。水音整理の性能管理では csz とtopasディスク表示を引継ぎ票へ保管します。水音整理は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。水音整理の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、水音整理を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -C 属性確認 csz 0452の技術的な意味を資料で確認するとき、chuser 状態確認 enhanced_RBAC 0453との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はセキュリティでchuserを用い・enhanced_RBAC と監査設定を確認する。</li><li>B. コマンドまたは機能の用途はJFS2でfsckを用い・agblksize とファイルシステム属性を確認する。</li><li>C. コマンドまたは機能の用途は性能管理でtopas -Cを用い・csz とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はLVMでmirrorvgを用い・LV STATE とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でtopas -Cを用い、csz とtopasディスク表示を確認する」に対応する項目は属性確認 csz（属性・topa）です。属性に関する性能管理の仕様は「性能管理でtopas -Cを用い、csz」で、確認対象はto・属性です。状態・chusのA:は「セキュリティでchuserを用い、enhanced_RBAC」を述べ、対象は状態確認 enhanced_RBAC（状態・chus）です。容量・fsckのB:は「JFS2でfsckを用い、agblksize」を述べ、対象は容量確認 agblksize（容量・fsck）です。変更前・mirrのD:は「LVMでmirrorvgを用い、LV STATE」を述べ、対象はLV STATE（変更・mirr）です。「topas -C」は「性能管理でtopas -Cを用い、csz」を指し、属性確認 cszではto・属性に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -C 属性確認 csz 0452</strong></p><p>検証目的: 性能管理のtopas -C 属性確認 csz 0452について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理属性確認092-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -C
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0452A
+画面・出力には AIX0452A が表示され、topas -C 属性確認 csz 0452 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0452B
+画面・出力には AIX0452B が表示され、topas -C 属性確認 csz 0452 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0452C
+画面・出力には AIX0452C が表示され、topas -C 属性確認 csz 0452 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0452A が画面・出力に表示されること
+② ステップ2 の AIX0452B が画面・出力に表示されること
+③ ステップ3 の AIX0452C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0854"><h3>topas -C 構成照合 Entitled Capacity 0263</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>新緑監査ではAIX 7.3の性能管理で topas -C を確認します。新緑監査の性能管理では Entitled Capacity とsvmon全体表示を照合票へ整理します。新緑監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。新緑監査の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、新緑監査を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -C 構成照合 Entitled Capacity 0263の設定や表示を読む前に役割を確認します。chuser 変更前確認 user attributes 0264ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は性能管理でtopas -Cを用い・Entitled Capacity とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はセキュリティでchuserを用い・user attributes とユーザー属性を確認する。</li><li>C. 一次資料が示す主目的はJFS2でmount -o remountを用い・agblksize とマウントオプションを確認する。mount -o remount 性能確認 agblksize 0569固有の属性も確認対象に含める。</li><li>D. 一次資料が示す主目的はデバイスや sys0 などの属性値を表示するコマンドである。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Cを用い、Entitled Capacity」に対応する項目はEntitled Capacity（構成・topa）です。構成に関する性能管理の仕様は「性能管理でtopas -Cを用い、Entitled」で、確認対象はto・構成です。変更前・chusのB:は「セキュリティでchuserを用い、user attributes」を述べ、対象はuser attributes（変更・chus）です。性能・mounのC:は「JFS2でmount -o remountを用い」を述べ、対象は性能確認 agblksize（性能・moun）です。変更前・lsatのD:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は変更前確認 パス状態（変更・lsat）です。「topas -C」は「性能管理でtopas -Cを用い、Entitled」を指し、Entitled Capacityではto・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -C 構成照合 Entitled Capacity 0263</strong></p><p>検証目的: 性能管理のtopas -C 構成照合 Entitled Capacity 0263について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理構成照合023-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -C
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0263A
+画面・出力には AIX0263A が表示され、topas -C 構成照合 Entitled Capacity 0263 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0263B
+画面・出力には AIX0263B が表示され、topas -C 構成照合 Entitled Capacity 0263 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0263C
+画面・出力には AIX0263C が表示され、topas -C 構成照合 Entitled Capacity 0263 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0263A が画面・出力に表示されること
+② ステップ2 の AIX0263B が画面・出力に表示されること
+③ ステップ3 の AIX0263C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0855"><h3>topas -C 構成照合 PhysB 0739</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>山吹監査ではAIX 7.3の性能管理で topas -C を確認します。山吹監査の性能管理では PhysB とsvmon全体表示を点検票へ整理します。山吹監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる履歴にします。山吹監査の注意点として 区画CPU権利値の見落とし を避けるため svmon -G も併記します。性能監視の作業票として、山吹監査を調査記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -C 構成照合 PhysB 0739について構成や状態を確認します。chuser 変更前確認 authorizations 0740ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは性能管理でtopas -Cを用い・PhysB とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはセキュリティでchuserを用い・authorizations とユーザー属性を確認する。</li><li>C. 対象資源に対する働きは導入と起動でmksysbを用い・altinst_rootvg と起動デバイス設定を確認する。</li><li>D. 対象資源に対する働きはLVMでchlvを用い・PP SIZE と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Cを用い、PhysB とsvmon全体表示を確認する」に対応する項目は構成照合 PhysB（構成・topa）です。構成に関する性能管理の仕様は「性能管理でtopas -Cを用い、PhysB」で、確認対象はto・構成です。変更前・chusのB:は「セキュリティでchuserを用い、authorizations」を述べ、対象は変更前確認 authorizatio（変更・chus）です。監査・mksyのC:は「導入と起動でmksysbを用い、altinst_rootvg」を述べ、対象は監査記録 altinst_rootv（監査・mksy）です。変更後・chlvのD:は「LVMでchlvを用い、PP SIZE と論理ボリューム配置を確認す」を述べ、対象はPP SIZE（変更・chlv）です。「topas -C」は「性能管理でtopas -Cを用い、PhysB」を指し、構成照合 PhysBではto・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -C 構成照合 PhysB 0739</strong></p><p>検証目的: 性能管理のtopas -C 構成照合 PhysB 0739について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理構成照合019-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -C
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0739A
+画面・出力には AIX0739A が表示され、topas -C 構成照合 PhysB 0739 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0739B
+画面・出力には AIX0739B が表示され、topas -C 構成照合 PhysB 0739 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0739C
+画面・出力には AIX0739C が表示され、topas -C 構成照合 PhysB 0739 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0739A が画面・出力に表示されること
+② ステップ2 の AIX0739B が画面・出力に表示されること
+③ ステップ3 の AIX0739C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0856"><h3>topas -C 運用引継ぎ csz 0769</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>銀砂復旧ではAIX 7.3の性能管理で topas -C を確認します。銀砂復旧の性能管理では csz とAME統計を採取票へ記録します。銀砂復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる票にします。銀砂復旧の注意点として 圧縮メモリー統計の読み落とし を避けるため svmon -G も併記します。性能監視の作業票として、銀砂復旧を保守判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「topas -C 運用引継ぎ csz 0769」を「chuser 容量確認 authorizations 0770」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は性能管理でtopas -Cを用い・csz とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能はセキュリティでchuserを用い・authorizations とRBAC属性を確認する。</li><li>C. 保守作業で参照する機能は導入と起動でmksysbを用い・fileset level とfileset一覧を確認する。</li><li>D. 保守作業で参照する機能はLVMでchlvを用い・PVID と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Cを用い、csz とAME統計を確認する」に対応する項目は運用引継ぎ csz（運用・topa）です。運用引に関する性能管理の仕様は「性能管理でtopas -Cを用い、csz とAME統計を確認する」で、確認対象はto・運用引です。容量・chusのB:は「セキュリティでchuserを用い、authorizations」を述べ、対象は容量確認 authorization（容量・chus）です。状態・mksyのC:は「導入と起動でmksysbを用い、fileset level」を述べ、対象はfileset level（状態・mksy）です。性能・chlvのD:は「LVMでchlvを用い、PVID と物理ボリューム一覧を確認する」を述べ、対象は性能確認 PVID（性能・chlv）です。「topas -C」は「性能管理でtopas -Cを用い、csz とAME統計を確認する」を指し、運用引継ぎ cszではto・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -C 運用引継ぎ csz 0769</strong></p><p>検証目的: 性能管理のtopas -C 運用引継ぎ csz 0769について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ049-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -C
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0769A
+画面・出力には AIX0769A が表示され、topas -C 運用引継ぎ csz 0769 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0769B
+画面・出力には AIX0769B が表示され、topas -C 運用引継ぎ csz 0769 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0769C
+画面・出力には AIX0769C が表示され、topas -C 運用引継ぎ csz 0769 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0769A が画面・出力に表示されること
+② ステップ2 の AIX0769B が画面・出力に表示されること
+③ ステップ3 の AIX0769C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0857"><h3>topas -C 運用引継ぎ dxm 0293</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>月影復旧ではAIX 7.3の性能管理で topas -C を確認します。月影復旧の性能管理では dxm とAME統計を復旧票へ残します。月影復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。月影復旧の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、月影復旧を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -C 運用引継ぎ dxm 0293を保守記録に説明する必要があります。chuser 容量確認 user attributes 0294と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでchuserを用い・user attributes とRBAC属性を確認する。</li><li>B. 仕様上の役割はJFS2でmount -o remountを用い・lff と内部スナップショットを確認する。</li><li>C. 仕様上の役割はデバイスや sys0 などの属性値を表示するコマンドである。</li><li>D. 仕様上の役割は性能管理でtopas -Cを用い・dxm とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Cを用い、dxm とAME統計を確認する」に対応する項目は運用引継ぎ dxm（運用・topa）です。運用引に関する性能管理の仕様は「性能管理でtopas -Cを用い、dxm とAME統計を確認する」で、確認対象はto・運用引です。容量・chusのA:は「セキュリティでchuserを用い、user attributes」を述べ、対象はuser attributes（容量・chus）です。変更後・mounのB:は「JFS2でmount -o remountを用い、lff」を述べ、対象は変更後確認 lff（変更・moun）です。復旧前・lsatのC:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は復旧前確認 対象ファイル（復旧・lsat）です。「topas -C」は「性能管理でtopas -Cを用い、dxm とAME統計を確認する」を指し、運用引継ぎ dxmではto・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -C 運用引継ぎ dxm 0293</strong></p><p>検証目的: 性能管理のtopas -C 運用引継ぎ dxm 0293について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ053-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -C
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0293A
+画面・出力には AIX0293A が表示され、topas -C 運用引継ぎ dxm 0293 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0293B
+画面・出力には AIX0293B が表示され、topas -C 運用引継ぎ dxm 0293 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0293C
+画面・出力には AIX0293C が表示され、topas -C 運用引継ぎ dxm 0293 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0293A が画面・出力に表示されること
+② ステップ2 の AIX0293B が画面・出力に表示されること
+③ ステップ3 の AIX0293C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0858"><h3>topas -D 変更前確認 Busy% 0490</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>桜雲確認ではAIX 7.3の性能管理で topas -D を確認します。桜雲確認の性能管理では Busy% とvmstat表示を保守票へ記録します。桜雲確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。桜雲確認の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、桜雲確認を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 変更前確認 Busy% 0490の役割を調べています。setsecattr 変更後確認 enhanced_RBAC 0491の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は性能管理でtopas -Dを用い・Busy% とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はセキュリティでsetsecattrを用い・enhanced_RBAC とロール一覧を確認する。</li><li>C. 表示や設定で扱う内容はJFS2でlsfs -qを用い・isnapshot とログデバイス設定を確認する。</li><li>D. 表示や設定で扱う内容はLVMでmklvを用い・PP SIZE とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、Busy% とvmstat表示を確認する」に対応する項目は変更前確認 Busy%（変更・topa）です。変更前に関する性能管理の仕様は「性能管理でtopas -Dを用い、Busy%」で、確認対象はto・変更前です。変更後・setsのB:は「セキュリティでsetsecattrを用い」を述べ、対象は変更後確認 enhanced_RBA（変更・sets）です。起動・lsfsのC:は「JFS2でlsfs -qを用い、isnapshot」を述べ、対象は起動確認 isnapshot（起動・lsfs）です。障害切・mklvのD:は「LVMでmklvを用い、PP SIZE とボリュームグループ属性を確」を述べ、対象はPP SIZE（障害・mklv）です。「topas -D」は「性能管理でtopas -Dを用い、Busy%」を指し、変更前確認 Busy%ではto・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 変更前確認 Busy% 0490</strong></p><p>検証目的: 性能管理のtopas -D 変更前確認 Busy% 0490について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更前確認010-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0490A
+画面・出力には AIX0490A が表示され、topas -D 変更前確認 Busy% 0490 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0490B
+画面・出力には AIX0490B が表示され、topas -D 変更前確認 Busy% 0490 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0490C
+画面・出力には AIX0490C が表示され、topas -D 変更前確認 Busy% 0490 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0490A が画面・出力に表示されること
+② ステップ2 の AIX0490B が画面・出力に表示されること
+③ ステップ3 の AIX0490C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0859"><h3>topas -D 変更前確認 PhysB 0014</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>星霜確認ではAIX 7.3の性能管理で topas -D を確認します。星霜確認の性能管理では PhysB とvmstat表示を確認票へ整理します。星霜確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。星霜確認の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、星霜確認を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 変更前確認 PhysB 0014に関する障害切り分けの前提を確認しています。setsecattr 変更後確認 audit class 0015の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は性能管理でtopas -Dを用い・PhysB とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割はセキュリティでsetsecattrを用い・audit class とロール一覧を確認する。</li><li>C. 障害切り分けに用いる役割はJFS2でlsfs -qを用い・log=INLINE とログデバイス設定を確認する。</li><li>D. 障害切り分けに用いる役割はセキュリティでrolelist -u user1を用い・user attributesである。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、PhysB とvmstat表示を確認する」に対応する項目は変更前確認 PhysB（変更・topa）です。性能管理の仕様は「性能管理でtopas -Dを用い、PhysB」で、確認対象はto・変更前です。変更後・setsのB:は「セキュリティでsetsecattrを用い、audit class」を述べ、対象はaudit class（変更・sets）です。起動・lsfsのC:は「JFS2でlsfs -qを用い、log=INLINE」を述べ、対象は起動確認 log=INLINE（起動・lsfs）です。容量・roleのD:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（容量・role）です。「topas -D」は「性能管理でtopas -Dを用い、PhysB」を指し、変更前確認 PhysBではto・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 変更前確認 PhysB 0014</strong></p><p>検証目的: 性能管理のtopas -D 変更前確認 PhysB 0014について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更前確認014-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0014A
+画面・出力には AIX0014A が表示され、topas -D 変更前確認 PhysB 0014 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0014B
+画面・出力には AIX0014B が表示され、topas -D 変更前確認 PhysB 0014 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0014C
+画面・出力には AIX0014C が表示され、topas -D 変更前確認 PhysB 0014 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0014A が画面・出力に表示されること
+② ステップ2 の AIX0014B が画面・出力に表示されること
+③ ステップ3 の AIX0014C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0860"><h3>topas -D 変更前確認 avm 0550</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>早苗照合ではAIX 7.3の性能管理で topas -D を確認します。早苗照合の性能管理では avm とvmstat表示を保守票へ記録します。早苗照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。早苗照合の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、早苗照合を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 変更前確認 avm 0550に関する障害切り分けの前提を確認しています。setsecattr 変更後確認 enhanced_RBAC 0551の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はセキュリティでsetsecattrを用い・enhanced_RBAC とロール一覧を確認する。</li><li>B. 表示や設定で扱う内容はデバイスや sys0 などの属性値を表示するコマンドである。</li><li>C. 表示や設定で扱う内容はLVMでchlvを用い・STALE PARTITIONS とボリュームグループ属性を確認する。</li><li>D. 表示や設定で扱う内容は性能管理でtopas -Dを用い・avm とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Dを用い、avm とvmstat表示を確認する」に対応する項目は変更前確認 avm（変更・topa）です。変更前に関する性能管理の仕様は「性能管理でtopas -Dを用い、avm」で、確認対象はto・変更前です。変更後・setsのA:は「セキュリティでsetsecattrを用い」を述べ、対象は変更後確認 enhanced_RBA（変更・sets）です。一覧・対象・lsatのB:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は一覧確認 対象ファイル（一覧・lsat）です。バック・chlvのC:は「LVMでchlvを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（バッ・chlv）です。「topas -D」は「性能管理でtopas -Dを用い、avm」を指し、変更前確認 avmではto・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 変更前確認 avm 0550</strong></p><p>検証目的: 性能管理のtopas -D 変更前確認 avm 0550について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更前確認070-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0550A
+画面・出力には AIX0550A が表示され、topas -D 変更前確認 avm 0550 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0550B
+画面・出力には AIX0550B が表示され、topas -D 変更前確認 avm 0550 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0550C
+画面・出力には AIX0550C が表示され、topas -D 変更前確認 avm 0550 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0550A が画面・出力に表示されること
+② ステップ2 の AIX0550B が画面・出力に表示されること
+③ ステップ3 の AIX0550C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0861"><h3>topas -D 変更前確認 fre 0074</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>銀嶺照合ではAIX 7.3の性能管理で topas -D を確認します。銀嶺照合の性能管理では fre とvmstat表示を確認票へ整理します。銀嶺照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。銀嶺照合の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、銀嶺照合を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 変更前確認 fre 0074の役割を調べています。setsecattr 変更後確認 audit class 0075の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでsetsecattrを用い・audit class とロール一覧を確認する。</li><li>B. 障害切り分けに用いる役割はJFS2でmount -o remountを用い・agblksize とログデバイス設定を確認する。</li><li>C. 障害切り分けに用いる役割はセキュリティでrolelist -u user1を用い・user attributesである。</li><li>D. 障害切り分けに用いる役割は性能管理でtopas -Dを用い・fre とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Dを用い、fre とvmstat表示を確認する」に対応する項目は変更前確認 fre（変更・topa）です。変更前に関する性能管理の仕様は「性能管理でtopas -Dを用い、fre」で、確認対象はto・変更前です。変更後・setsのA:は「セキュリティでsetsecattrを用い、audit class」を述べ、対象はaudit class（変更・sets）です。属性・mounのB:は「JFS2でmount -o remountを用い」を述べ、対象は属性確認 agblksize（属性・moun）です。容量・roleのC:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（容量・role）です。「topas -D」は「性能管理でtopas -Dを用い、fre」を指し、変更前確認 freではto・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 変更前確認 fre 0074</strong></p><p>検証目的: 性能管理のtopas -D 変更前確認 fre 0074について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更前確認074-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0074A
+画面・出力には AIX0074A が表示され、topas -D 変更前確認 fre 0074 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0074B
+画面・出力には AIX0074B が表示され、topas -D 変更前確認 fre 0074 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0074C
+画面・出力には AIX0074C が表示され、topas -D 変更前確認 fre 0074 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0074A が画面・出力に表示されること
+② ステップ2 の AIX0074B が画面・出力に表示されること
+③ ステップ3 の AIX0074C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0862"><h3>topas -D 容量確認 Busy% 0580</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>薄明点検ではAIX 7.3の性能管理で topas -D を確認します。薄明点検の性能管理では Busy% とtopasディスク表示を監査票へ転記します。薄明点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。薄明点検の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、薄明点検を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 容量確認 Busy% 0580の技術的な意味を資料で確認するとき、setsecattr 性能確認 enhanced_RBAC 0581との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はセキュリティでsetsecattrを用い・enhanced_RBAC と監査設定を確認する。</li><li>B. 管理対象との関係を表す説明はデバイスや sys0 などの属性値を表示するコマンドである。</li><li>C. 管理対象との関係を表す説明はLVMでchlvを用い・VG STATE とミラーコピー状態を確認する。</li><li>D. 管理対象との関係を表す説明は性能管理でtopas -Dを用い・Busy% とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Dを用い、Busy% とtopasディスク表示を確認する」に対応する項目は容量確認 Busy%（容量・topa）です。容量に関する性能管理の仕様は「性能管理でtopas -Dを用い、Busy%」で、確認対象はto・容量です。性能・setsのA:は「セキュリティでsetsecattrを用い」を述べ、対象は性能確認 enhanced_RBAC（性能・sets）です。詳細・確認・lsatのB:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は詳細確認 確認範囲（詳細・lsat）です。属性・chlvのC:は「LVMでchlvを用い、VG STATE」を述べ、対象はVG STATE（属性・chlv）です。「topas -D」は「性能管理でtopas -Dを用い、Busy%」を指し、容量確認 Busy%ではto・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 容量確認 Busy% 0580</strong></p><p>検証目的: 性能管理のtopas -D 容量確認 Busy% 0580について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認100-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0580A
+画面・出力には AIX0580A が表示され、topas -D 容量確認 Busy% 0580 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0580B
+画面・出力には AIX0580B が表示され、topas -D 容量確認 Busy% 0580 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0580C
+画面・出力には AIX0580C が表示され、topas -D 容量確認 Busy% 0580 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0580A が画面・出力に表示されること
+② ステップ2 の AIX0580B が画面・出力に表示されること
+③ ステップ3 の AIX0580C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0863"><h3>topas -D 容量確認 PhysB 0104</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>霜月点検ではAIX 7.3の性能管理で topas -D を確認します。霜月点検の性能管理では PhysB とtopasディスク表示を引継ぎ票へ保管します。霜月点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。霜月点検の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、霜月点検を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 容量確認 PhysB 0104を同一分類のsetsecattr 性能確認 audit class 0105と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はセキュリティでsetsecattrを用い・audit class と監査設定を確認する。</li><li>B. コマンドまたは機能の用途はJFS2でmount -o remountを用い・lff とファイルシステム属性を確認する。</li><li>C. コマンドまたは機能の用途はセキュリティでrolelist -u user1を用い・user attributes と監査設定を確認する。</li><li>D. コマンドまたは機能の用途は性能管理でtopas -Dを用い・PhysB とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Dを用い、PhysB とtopasディスク表示を確認する」に対応する項目は容量確認 PhysB（容量・topa）です。容量に関する性能管理の仕様は「性能管理でtopas -Dを用い、PhysB」で、確認対象はto・容量です。性能・setsのA:は「セキュリティでsetsecattrを用い、audit class」を述べ、対象はaudit class（性能・sets）です。バック・mounのB:は「JFS2でmount -o remountを用い、lff」を述べ、対象はバックアウト確認 lff（バッ・moun）です。変更前・roleのC:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（変更・role）です。「topas -D」は「性能管理でtopas -Dを用い、PhysB」を指し、容量確認 PhysBではto・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 容量確認 PhysB 0104</strong></p><p>検証目的: 性能管理のtopas -D 容量確認 PhysB 0104について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認104-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0104A
+画面・出力には AIX0104A が表示され、topas -D 容量確認 PhysB 0104 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0104B
+画面・出力には AIX0104B が表示され、topas -D 容量確認 PhysB 0104 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0104C
+画面・出力には AIX0104C が表示され、topas -D 容量確認 PhysB 0104 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0104A が画面・出力に表示されること
+② ステップ2 の AIX0104B が画面・出力に表示されること
+③ ステップ3 の AIX0104C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0864"><h3>topas -D 容量確認 csz 0044</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>若草照合ではAIX 7.3の性能管理で topas -D を確認します。若草照合の性能管理では csz とtopasディスク表示を引継ぎ票へ保管します。若草照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。若草照合の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、若草照合を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 容量確認 csz 0044の技術的な意味を資料で確認するとき、setsecattr 性能確認 audit class 0045との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は性能管理でtopas -Dを用い・csz とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はセキュリティでsetsecattrを用い・audit class と監査設定を確認する。</li><li>C. コマンドまたは機能の用途はJFS2でlsfs -qを用い・mountguard とファイルシステム属性を確認する。</li><li>D. コマンドまたは機能の用途はセキュリティでrolelist -u user1を用い・user attributes と監査設定を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、csz とtopasディスク表示を確認する」に対応する項目は容量確認 csz（容量・topa）です。性能管理の仕様は「性能管理でtopas -Dを用い、csz とtopasディスク表示を確認」で、確認対象はto・容量です。性能・setsのB:は「セキュリティでsetsecattrを用い、audit class」を述べ、対象はaudit class（性能・sets）です。障害切・lsfsのC:は「JFS2でlsfs -qを用い、mountguard」を述べ、対象は障害切り分け mountguard（障害・lsfs）です。変更前・roleのD:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（変更・role）です。「topas -D」は「性能管理でtopas -Dを用い、csz」を指し、容量確認 cszではto・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 容量確認 csz 0044</strong></p><p>検証目的: 性能管理のtopas -D 容量確認 csz 0044について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認044-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0044A
+画面・出力には AIX0044A が表示され、topas -D 容量確認 csz 0044 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0044B
+画面・出力には AIX0044B が表示され、topas -D 容量確認 csz 0044 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0044C
+画面・出力には AIX0044C が表示され、topas -D 容量確認 csz 0044 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0044A が画面・出力に表示されること
+② ステップ2 の AIX0044B が画面・出力に表示されること
+③ ステップ3 の AIX0044C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0865"><h3>topas -D 容量確認 po 0520</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>青葉照合ではAIX 7.3の性能管理で topas -D を確認します。青葉照合の性能管理では po とtopasディスク表示を監査票へ転記します。青葉照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。青葉照合の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、青葉照合を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 容量確認 po 0520を同一分類のsetsecattr 性能確認 enhanced_RBAC 0521と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は性能管理でtopas -Dを用い・po とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明はセキュリティでsetsecattrを用い・enhanced_RBAC と監査設定を確認する。</li><li>C. 管理対象との関係を表す説明はJFS2でlsfs -qを用い・ファイルシステム使用率 とファイルシステム属性を確認する。</li><li>D. 管理対象との関係を表す説明はLVMでmklvを用い・PVID とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、po とtopasディスク表示を確認する」に対応する項目は容量確認 po（容量・topa）です。容量に関する性能管理の仕様は「性能管理でtopas -Dを用い、po とtopasディスク表示を確」で、確認対象はto・容量です。性能・setsのB:は「セキュリティでsetsecattrを用い」を述べ、対象は性能確認 enhanced_RBAC（性能・sets）です。障害切・lsfsのC:は「JFS2でlsfs -qを用い、ファイルシステム使用率」を述べ、対象は障害切り分け ファイルシステム使用率（障害・lsfs）です。起動・mklvのD:は「LVMでmklvを用い、PVID とミラーコピー状態を確認する」を述べ、対象は起動確認 PVID（起動・mklv）です。「topas -D」は「性能管理でtopas -Dを用い、po とtopasディスク表示を確」を指し、容量確認 poではto・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 容量確認 po 0520</strong></p><p>検証目的: 性能管理のtopas -D 容量確認 po 0520について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認040-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0520A
+画面・出力には AIX0520A が表示され、topas -D 容量確認 po 0520 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0520B
+画面・出力には AIX0520B が表示され、topas -D 容量確認 po 0520 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0520C
+画面・出力には AIX0520C が表示され、topas -D 容量確認 po 0520 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0520A が画面・出力に表示されること
+② ステップ2 の AIX0520B が画面・出力に表示されること
+③ ステップ3 の AIX0520C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0866"><h3>topas -D 状態確認 csz 0203</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>秋声保守ではAIX 7.3の性能管理で topas -D を確認します。秋声保守の性能管理では csz とsvmon全体表示を照合票へ整理します。秋声保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。秋声保守の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、秋声保守を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 状態確認 csz 0203について構成や状態を確認します。setsecattr 構成照合 audit class 0204ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は性能管理でtopas -Dを用い・csz とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はセキュリティでsetsecattrを用い・audit class とユーザー属性を確認する。</li><li>C. 一次資料が示す主目的はJFS2でmount -o remountを用い・agblksize とマウントオプションを確認する。</li><li>D. 一次資料が示す主目的はセキュリティでrolelist -u user1を用い・user attributesである。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、csz とsvmon全体表示を確認する」に対応する項目は状態確認 csz（状態・topa）です。状態に関する性能管理の仕様は「性能管理でtopas -Dを用い、csz」で、確認対象はto・状態です。構成・setsのB:は「セキュリティでsetsecattrを用い、audit class」を述べ、対象はaudit class（構成・sets）です。性能・mounのC:は「JFS2でmount -o remountを用い」を述べ、対象は性能確認 agblksize（性能・moun）です。監査・roleのD:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（監査・role）です。「topas -D」は「性能管理でtopas -Dを用い、csz」を指し、状態確認 cszではto・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 状態確認 csz 0203</strong></p><p>検証目的: 性能管理のtopas -D 状態確認 csz 0203について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認083-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0203A
+画面・出力には AIX0203A が表示され、topas -D 状態確認 csz 0203 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0203B
+画面・出力には AIX0203B が表示され、topas -D 状態確認 csz 0203 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0203C
+画面・出力には AIX0203C が表示され、topas -D 状態確認 csz 0203 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0203A が画面・出力に表示されること
+② ステップ2 の AIX0203B が画面・出力に表示されること
+③ ステップ3 の AIX0203C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0867"><h3>topas -D 状態確認 po 0679</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>秋桜判定ではAIX 7.3の性能管理で topas -D を確認します。秋桜判定の性能管理では po とsvmon全体表示を点検票へ整理します。秋桜判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる履歴にします。秋桜判定の注意点として 区画CPU権利値の見落とし を避けるため svmon -G も併記します。性能監視の作業票として、秋桜判定を調査記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 状態確認 po 0679の設定や表示を読む前に役割を確認します。setsecattr 構成照合 enhanced_RBAC 0680ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは性能管理でtopas -Dを用い・po とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはセキュリティでsetsecattrを用い・enhanced_RBAC とユーザー属性を確認する。</li><li>C. 対象資源に対する働きは導入と起動でalt_disk_mksysbを用い・bootlist と起動デバイス設定を確認する。</li><li>D. 対象資源に対する働きはLVMでchlvを用い・PP SIZE と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、po とsvmon全体表示を確認する」に対応する項目は状態確認 po（状態・topa）です。状態に関する性能管理の仕様は「性能管理でtopas -Dを用い、po とsvmon全体表示を確認す」で、確認対象はto・状態です。構成・setsのB:は「セキュリティでsetsecattrを用い」を述べ、対象は構成照合 enhanced_RBAC（構成・sets）です。バック・alt_のC:は「導入と起動でalt_disk_mksysbを用い、bootlist」を述べ、対象はバックアウト確認 bootlist（バッ・alt_）です。変更後・chlvのD:は「LVMでchlvを用い、PP SIZE と論理ボリューム配置を確認す」を述べ、対象はPP SIZE（変更・chlv）です。「topas -D」は「性能管理でtopas -Dを用い、po とsvmon全体表示を確認す」を指し、状態確認 poではto・状態に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 状態確認 po 0679</strong></p><p>検証目的: 性能管理のtopas -D 状態確認 po 0679について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理状態確認079-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0679A
+画面・出力には AIX0679A が表示され、topas -D 状態確認 po 0679 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0679B
+画面・出力には AIX0679B が表示され、topas -D 状態確認 po 0679 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0679C
+画面・出力には AIX0679C が表示され、topas -D 状態確認 po 0679 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0679A が画面・出力に表示されること
+② ステップ2 の AIX0679B が画面・出力に表示されること
+③ ステップ3 の AIX0679C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0868"><h3>topas -D 監査記録 avm 0709</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>梅雨晴保守ではAIX 7.3の性能管理で topas -D を確認します。梅雨晴保守の性能管理では avm とAME統計を採取票へ記録します。梅雨晴保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる票にします。梅雨晴保守の注意点として 圧縮メモリー統計の読み落とし を避けるため svmon -G も併記します。性能監視の作業票として、梅雨晴保守を保守判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> topas -D 監査記録 avm 0709を保守記録に説明する必要があります。setsecattr 運用引継ぎ enhanced_RBAC 0710と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はセキュリティでsetsecattrを用い・enhanced_RBAC とRBAC属性を確認する。</li><li>B. 保守作業で参照する機能は導入と起動でalt_disk_mksysbを用い・Technology Levelである。</li><li>C. 保守作業で参照する機能はLVMでchlvを用い・PVID と物理ボリューム一覧を確認する。</li><li>D. 保守作業で参照する機能は性能管理でtopas -Dを用い・avm とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でtopas -Dを用い、avm とAME統計を確認する」に対応する項目は監査記録 avm（監査・topa）です。監査に関する性能管理の仕様は「性能管理でtopas -Dを用い、avm とAME統計を確認する」で、確認対象はto・監査です。運用引・setsのA:は「セキュリティでsetsecattrを用い」を述べ、対象は運用引継ぎ enhanced_RBA（運用・sets）です。属性・alt_のB:は「導入と起動でalt_disk_mksysbを用い」を述べ、対象はTechnology Level（属性・alt_）です。性能・chlvのC:は「LVMでchlvを用い、PVID と物理ボリューム一覧を確認する」を述べ、対象は性能確認 PVID（性能・chlv）です。「topas -D」は「性能管理でtopas -Dを用い、avm とAME統計を確認する」を指し、監査記録 avmではto・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 監査記録 avm 0709</strong></p><p>検証目的: 性能管理のtopas -D 監査記録 avm 0709について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録109-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0709A
+画面・出力には AIX0709A が表示され、topas -D 監査記録 avm 0709 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0709B
+画面・出力には AIX0709B が表示され、topas -D 監査記録 avm 0709 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0709C
+画面・出力には AIX0709C が表示され、topas -D 監査記録 avm 0709 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0709A が画面・出力に表示されること
+② ステップ2 の AIX0709B が画面・出力に表示されること
+③ ステップ3 の AIX0709C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0869"><h3>topas -D 監査記録 fre 0233</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>朝霧保守ではAIX 7.3の性能管理で topas -D を確認します。朝霧保守の性能管理では fre とAME統計を復旧票へ残します。朝霧保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。朝霧保守の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、朝霧保守を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「topas -D 監査記録 fre 0233」を「setsecattr 運用引継ぎ audit class 0234」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでsetsecattrを用い・audit class とRBAC属性を確認する。</li><li>B. 仕様上の役割は性能管理でtopas -Dを用い・fre とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割はJFS2でmount -o remountを用い・lff と内部スナップショットを確認する。</li><li>D. 仕様上の役割はデバイスや sys0 などの属性値を表示するコマンドである。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Bの記述「性能管理でtopas -Dを用い、fre とAME統計を確認する」に対応する項目は監査記録 fre（監査・topa）です。監査に関する性能管理の仕様は「性能管理でtopas -Dを用い、fre とAME統計を確認する」で、確認対象はto・監査です。運用引・setsのA:は「セキュリティでsetsecattrを用い、audit class」を述べ、対象はaudit class（運用・sets）です。変更後・mounのC:は「JFS2でmount -o remountを用い、lff」を述べ、対象は変更後確認 lff（変更・moun）です。性能・実行・lsatのD:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は性能確認 実行結果（性能・lsat）です。「topas -D」は「性能管理でtopas -Dを用い、fre とAME統計を確認する」を指し、監査記録 freではto・監査に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 監査記録 fre 0233</strong></p><p>検証目的: 性能管理のtopas -D 監査記録 fre 0233について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理監査記録113-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0233A
+画面・出力には AIX0233A が表示され、topas -D 監査記録 fre 0233 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0233B
+画面・出力には AIX0233B が表示され、topas -D 監査記録 fre 0233 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0233C
+画面・出力には AIX0233C が表示され、topas -D 監査記録 fre 0233 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0233A が画面・出力に表示されること
+② ステップ2 の AIX0233B が画面・出力に表示されること
+③ ステップ3 の AIX0233C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0870"><h3>topas -D 障害切り分け csz 0361</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>白露記録ではAIX 7.3の性能管理で topas -D を確認します。白露記録の性能管理では csz とAME統計を採取票へ記録します。白露記録は対象名と取得時刻を残し、出力見出しを資料名へ戻せる票にします。白露記録の注意点として 圧縮メモリー統計の読み落とし を避けるため svmon -G も併記します。性能監視の作業票として、白露記録を保守判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「topas -D 障害切り分け csz 0361」を「setsecattr バックアウト確認 user attributes 0362」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は性能管理でtopas -Dを用い・csz とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能はセキュリティでsetsecattrを用い・user attributes とRBAC属性を確認する。</li><li>C. 保守作業で参照する機能はJFS2でlsfs -qを用い・mountguard と内部スナップショットを確認する。</li><li>D. 保守作業で参照する機能はLVMでmklvを用い・PP SIZE と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でtopas -Dを用い、csz とAME統計を確認する」に対応する項目は障害切り分け csz（障害・topa）です。障害切に関する性能管理の仕様は「性能管理でtopas -Dを用い、csz とAME統計を確認する」で、確認対象はto・障害切です。バック・setsのB:は「セキュリティでsetsecattrを用い、user」を述べ、対象はuser attributes（バッ・sets）です。状態・lsfsのC:は「JFS2でlsfs -qを用い、mountguard」を述べ、対象は状態確認 mountguard（状態・lsfs）です。監査・mklvのD:は「LVMでmklvを用い、PP SIZE と物理ボリューム一覧を確認す」を述べ、対象はPP SIZE（監査・mklv）です。「topas -D」は「性能管理でtopas -Dを用い、csz とAME統計を確認する」を指し、障害切り分け cszではto・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>topas -D 障害切り分け csz 0361</strong></p><p>検証目的: 性能管理のtopas -D 障害切り分け csz 0361について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け001-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0361A
+画面・出力には AIX0361A が表示され、topas -D 障害切り分け csz 0361 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0361B
+画面・出力には AIX0361B が表示され、topas -D 障害切り分け csz 0361 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0361C
+画面・出力には AIX0361C が表示され、topas -D 障害切り分け csz 0361 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0361A が画面・出力に表示されること
+② ステップ2 の AIX0361B が画面・出力に表示されること
+③ ステップ3 の AIX0361C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0871"><h3>vmo -a バックアウト確認 Busy% 0029</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>梅雨晴確認ではAIX 7.3の性能管理で vmo -a を確認します。梅雨晴確認の性能管理では Busy% とAME統計を復旧票へ残します。梅雨晴確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。梅雨晴確認の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、梅雨晴確認を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a バックアウト確認 Busy% 0029を保守記録に説明する必要があります。lsattr -E -l sys0 -a enhanced_RBAC 監査記録と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでlsattr -E -l sys0 -aを用い・enhanced_RBACである。</li><li>B. 仕様上の役割はJFS2でsplitcopyを用い・isnapshot と内部スナップショットを確認する。</li><li>C. 仕様上の役割はセキュリティでlsuserを用い・authorizations とRBAC属性を確認する。</li><li>D. 仕様上の役割は性能管理でvmo -aを用い・Busy% とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でvmo -aを用い、Busy% とAME統計を確認する」に対応する項目はバックアウト確認 Busy%（バッ・vmo）です。性能管理の仕様は「性能管理でvmo -aを用い、Busy% とAME統計を確認する」で、確認対象はvm・バックです。監査・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は監査記録 enhanced_RBAC（監査・lsat）です。構成・spliのB:は「JFS2でsplitcopyを用い、isnapshot」を述べ、対象は構成照合 isnapshot（構成・spli）です。属性・lsusのC:は「セキュリティでlsuserを用い、authorizations」を述べ、対象は属性確認 authorization（属性・lsus）です。「vmo -a」は「性能管理でvmo -aを用い、Busy% とAME統計を確認する」を指し、バックアウト確認 Busy%ではvm・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a バックアウト確認 Busy% 0029</strong></p><p>検証目的: 性能管理のvmo -a バックアウト確認 Busy% 0029について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認029-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0029A
+画面・出力には AIX0029A が表示され、vmo -a バックアウト確認 Busy% 0029 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0029B
+画面・出力には AIX0029B が表示され、vmo -a バックアウト確認 Busy% 0029 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0029C
+画面・出力には AIX0029C が表示され、vmo -a バックアウト確認 Busy% 0029 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0029A が画面・出力に表示されること
+② ステップ2 の AIX0029B が画面・出力に表示されること
+③ ステップ3 の AIX0029C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0872"><h3>vmo -a バックアウト確認 Entitled Capacity 0565</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>深雪点検ではAIX 7.3の性能管理で vmo -a を確認します。深雪点検の性能管理では Entitled Capacity とAME統計を採取票へ記録します。深雪点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる票にします。深雪点検の注意点として 圧縮メモリー統計の読み落とし を避けるため svmon -G も併記します。性能監視の作業票として、深雪点検を保守判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a バックアウト確認 Entitled Capacity 0565を保守記録に説明する必要があります。lsattr -E -l sys0 -a enhanced_RBAC 監査記録と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はセキュリティでlsattr -E -l sys0 -aを用い・roles とRBAC属性を確認する。</li><li>B. 保守作業で参照する機能は物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li><li>C. 保守作業で参照する機能は性能管理でvmo -aを用い・Entitled Capacity とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能はLVMでlspvを用い・MIRROR WRITE CONSISTENCY と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でvmo -aを用い、Entitled Capacity」に対応する項目はEntitled Capacity（バッ・vmo）です。バックに関する性能管理の仕様は「性能管理でvmo -aを用い、Entitled Capacity」で、確認対象はvm・バックです。監査・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は監査記録 roles（監査・lsat）です。詳細・装置・lspvのB:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は詳細確認 装置一覧（詳細・lspv）です。容量・lspvのD:は「LVMでlspvを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（容量・lspv）です。「vmo -a」は「性能管理でvmo -aを用い、Entitled Capacity」を指し、Entitled Capacityではvm・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a バックアウト確認 Entitled Capacity 0565</strong></p><p>検証目的: 性能管理のvmo -a バックアウト確認 Entitled Capacity 0565について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認085-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0565A
+画面・出力には AIX0565A が表示され、vmo -a バックアウト確認 Entitled Capacity 0565 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0565B
+画面・出力には AIX0565B が表示され、vmo -a バックアウト確認 Entitled Capacity 0565 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0565C
+画面・出力には AIX0565C が表示され、vmo -a バックアウト確認 Entitled Capacity 0565 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0565A が画面・出力に表示されること
+② ステップ2 の AIX0565B が画面・出力に表示されること
+③ ステップ3 の AIX0565C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0873"><h3>vmo -a バックアウト確認 avm 0089</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>銀砂点検ではAIX 7.3の性能管理で vmo -a を確認します。銀砂点検の性能管理では avm とAME統計を復旧票へ残します。銀砂点検は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。銀砂点検の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、銀砂点検を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「vmo -a バックアウト確認 avm 0089」を「lsattr -E -l sys0 -a enhanced_RBAC 監査記録」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでlsattr -E -l sys0 -aを用い・enhanced_RBACである。</li><li>B. 仕様上の役割はJFS2でlogformを用い・mountguard と内部スナップショットを確認する。</li><li>C. 仕様上の役割は性能管理でvmo -aを用い・avm とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はセキュリティでlsuserを用い・authorizations とRBAC属性を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でvmo -aを用い、avm とAME統計を確認する」に対応する項目はバックアウト確認 avm（バッ・vmo）です。バックに関する性能管理の仕様は「性能管理でvmo -aを用い、avm とAME統計を確認する」で、確認対象はvm・バックです。監査・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は監査記録 enhanced_RBAC（監査・lsat）です。変更前・logfのB:は「JFS2でlogformを用い、mountguard」を述べ、対象は変更前確認 mountguard（変更・logf）です。属性・lsusのD:は「セキュリティでlsuserを用い、authorizations」を述べ、対象は属性確認 authorization（属性・lsus）です。「vmo -a」は「性能管理でvmo -aを用い、avm とAME統計を確認する」を指し、バックアウト確認 avmではvm・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a バックアウト確認 avm 0089</strong></p><p>検証目的: 性能管理のvmo -a バックアウト確認 avm 0089について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認089-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0089A
+画面・出力には AIX0089A が表示され、vmo -a バックアウト確認 avm 0089 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0089B
+画面・出力には AIX0089B が表示され、vmo -a バックアウト確認 avm 0089 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0089C
+画面・出力には AIX0089C が表示され、vmo -a バックアウト確認 avm 0089 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0089A が画面・出力に表示されること
+② ステップ2 の AIX0089B が画面・出力に表示されること
+③ ステップ3 の AIX0089C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0874"><h3>vmo -a バックアウト確認 dxm 0505</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>花冷確認ではAIX 7.3の性能管理で vmo -a を確認します。花冷確認の性能管理では dxm とAME統計を採取票へ記録します。花冷確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる票にします。花冷確認の注意点として 圧縮メモリー統計の読み落とし を避けるため svmon -G も併記します。性能監視の作業票として、花冷確認を保守判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「vmo -a バックアウト確認 dxm 0505」を「lsattr -E -l sys0 -a enhanced_RBAC 監査記録」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はセキュリティでlsattr -E -l sys0 -aを用い・roles とRBAC属性を確認する。</li><li>B. 保守作業で参照する機能はJFS2でsplitcopyを用い・lff と内部スナップショットを確認する。</li><li>C. 保守作業で参照する機能は性能管理でvmo -aを用い・dxm とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能はLVMでchvgを用い・STALE PARTITIONS と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でvmo -aを用い、dxm とAME統計を確認する」に対応する項目はバックアウト確認 dxm（バッ・vmo）です。バックに関する性能管理の仕様は「性能管理でvmo -aを用い、dxm とAME統計を確認する」で、確認対象はvm・バックです。監査・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は監査記録 roles（監査・lsat）です。構成・spliのB:は「JFS2でsplitcopyを用い、lff」を述べ、対象は構成照合 lff（構成・spli）です。運用引・chvgのD:は「LVMでchvgを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（運用・chvg）です。「vmo -a」は「性能管理でvmo -aを用い、dxm とAME統計を確認する」を指し、バックアウト確認 dxmではvm・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a バックアウト確認 dxm 0505</strong></p><p>検証目的: 性能管理のvmo -a バックアウト確認 dxm 0505について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認025-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0505A
+画面・出力には AIX0505A が表示され、vmo -a バックアウト確認 dxm 0505 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0505B
+画面・出力には AIX0505B が表示され、vmo -a バックアウト確認 dxm 0505 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0505C
+画面・出力には AIX0505C が表示され、vmo -a バックアウト確認 dxm 0505 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0505A が画面・出力に表示されること
+② ステップ2 の AIX0505B が画面・出力に表示されること
+③ ステップ3 の AIX0505C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0875"><h3>vmo -a 変更後確認 fre 0694</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>星霜保守ではAIX 7.3の性能管理で vmo -a を確認します。星霜保守の性能管理では fre とvmstat表示を保守票へ記録します。星霜保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。星霜保守の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、星霜保守を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a 変更後確認 fre 0694に関する障害切り分けの前提を確認しています。lsattr -E -l sys0 -a enhanced_RBAC 障害切り分けの機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はセキュリティでlsattr -E -l sys0 -aを用い・audit class とロール一覧を確認する。</li><li>B. 表示や設定で扱う内容は導入と起動でoslevel -sを用い・altinst_rootvg と代替ディスク状態を確認する。</li><li>C. 表示や設定で扱う内容はLVMでlspvを用い・MIRROR WRITE CONSISTENCY とボリュームグループ属性を確認する。</li><li>D. 表示や設定で扱う内容は性能管理でvmo -aを用い・fre とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でvmo -aを用い、fre とvmstat表示を確認する」に対応する項目は変更後確認 fre（変更・vmo）です。変更後に関する性能管理の仕様は「性能管理でvmo -aを用い、fre とvmstat表示を確認する」で、確認対象はvm・変更後です。障害切・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象はaudit class（障害・lsat）です。容量・osleのB:は「導入と起動でoslevel -sを用い、altinst_rootvg」を述べ、対象は容量確認 altinst_rootv（容量・osle）です。監査・lspvのC:は「LVMでlspvを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（監査・lspv）です。「vmo -a」は「性能管理でvmo -aを用い、fre とvmstat表示を確認する」を指し、変更後確認 freではvm・変更後に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a 変更後確認 fre 0694</strong></p><p>検証目的: 性能管理のvmo -a 変更後確認 fre 0694について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更後確認094-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0694A
+画面・出力には AIX0694A が表示され、vmo -a 変更後確認 fre 0694 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0694B
+画面・出力には AIX0694B が表示され、vmo -a 変更後確認 fre 0694 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0694C
+画面・出力には AIX0694C が表示され、vmo -a 変更後確認 fre 0694 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0694A が画面・出力に表示されること
+② ステップ2 の AIX0694B が画面・出力に表示されること
+③ ステップ3 の AIX0694C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0876"><h3>vmo -a 変更後確認 pi 0218</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>潮騒保守ではAIX 7.3の性能管理で vmo -a を確認します。潮騒保守の性能管理では pi とvmstat表示を確認票へ整理します。潮騒保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。潮騒保守の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、潮騒保守を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a 変更後確認 pi 0218の役割を調べています。lsattr -E -l sys0 -a enhanced_RBAC 障害切り分けの説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでlsattr -E -l sys0 -aを用い・authorizationsである。</li><li>B. 障害切り分けに用いる役割は性能管理でvmo -aを用い・pi とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割はJFS2でlogformを用い・isnapshot とログデバイス設定を確認する。</li><li>D. 障害切り分けに用いる役割はセキュリティでlsuserを用い・roles とロール一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でvmo -aを用い、pi とvmstat表示を確認する」に対応する項目は変更後確認 pi（変更・vmo）です。変更後に関する性能管理の仕様は「性能管理でvmo -aを用い、pi とvmstat表示を確認する」で、確認対象はvm・変更後です。障害切・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は障害切り分け authorizati（障害・lsat）です。状態・logfのC:は「JFS2でlogformを用い、isnapshot」を述べ、対象は状態確認 isnapshot（状態・logf）です。性能・lsusのD:は「セキュリティでlsuserを用い、roles とロール一覧を確認する」を述べ、対象は性能確認 roles（性能・lsus）です。「vmo -a」は「性能管理でvmo -aを用い、pi とvmstat表示を確認する」を指し、変更後確認 piではvm・変更後に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a 変更後確認 pi 0218</strong></p><p>検証目的: 性能管理のvmo -a 変更後確認 pi 0218について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更後確認098-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0218A
+画面・出力には AIX0218A が表示され、vmo -a 変更後確認 pi 0218 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0218B
+画面・出力には AIX0218B が表示され、vmo -a 変更後確認 pi 0218 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0218C
+画面・出力には AIX0218C が表示され、vmo -a 変更後確認 pi 0218 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0218A が画面・出力に表示されること
+② ステップ2 の AIX0218B が画面・出力に表示されること
+③ ステップ3 の AIX0218C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0877"><h3>vmo -a 属性確認 pi 0535</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>岩清水照合ではAIX 7.3の性能管理で vmo -a を確認します。岩清水照合の性能管理では pi とsvmon全体表示を点検票へ整理します。岩清水照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる履歴にします。岩清水照合の注意点として 区画CPU権利値の見落とし を避けるため svmon -G も併記します。性能監視の作業票として、岩清水照合を調査記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a 属性確認 pi 0535の設定や表示を読む前に役割を確認します。lsattr -E -l sys0 -a enhanced_RBAC 状態確認ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはセキュリティでlsattr -E -l sys0 -aを用い・roles とユーザー属性を確認する。</li><li>B. 対象資源に対する働きは物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li><li>C. 対象資源に対する働きは性能管理でvmo -aを用い・pi とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはLVMでchvgを用い・VG STATE と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でvmo -aを用い、pi とsvmon全体表示を確認する」に対応する項目は属性確認 pi（属性・vmo）です。属性に関する性能管理の仕様は「性能管理でvmo -aを用い、pi とsvmon全体表示を確認する」で、確認対象はvm・属性です。状態・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は状態確認 roles（状態・lsat）です。一覧・状態・lspvのB:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は一覧確認 状態確認（一覧・lspv）です。構成・chvgのD:は「LVMでchvgを用い、VG STATE」を述べ、対象はVG STATE（構成・chvg）です。「vmo -a」は「性能管理でvmo -aを用い、pi とsvmon全体表示を確認する」を指し、属性確認 piではvm・属性に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a 属性確認 pi 0535</strong></p><p>検証目的: 性能管理のvmo -a 属性確認 pi 0535について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理属性確認055-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0535A
+画面・出力には AIX0535A が表示され、vmo -a 属性確認 pi 0535 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0535B
+画面・出力には AIX0535B が表示され、vmo -a 属性確認 pi 0535 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0535C
+画面・出力には AIX0535C が表示され、vmo -a 属性確認 pi 0535 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0535A が画面・出力に表示されること
+② ステップ2 の AIX0535B が画面・出力に表示されること
+③ ステップ3 の AIX0535C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0878"><h3>vmo -a 属性確認 po 0059</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>山吹照合ではAIX 7.3の性能管理で vmo -a を確認します。山吹照合の性能管理では po とsvmon全体表示を照合票へ整理します。山吹照合は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。山吹照合の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、山吹照合を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a 属性確認 po 0059について構成や状態を確認します。lsattr -E -l sys0 -a enhanced_RBAC 状態確認ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はセキュリティでlsattr -E -l sys0 -aを用い・enhanced_RBACである。</li><li>B. 一次資料が示す主目的は性能管理でvmo -aを用い・po とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はJFS2でlogformを用い・log=INLINE とマウントオプションを確認する。</li><li>D. 一次資料が示す主目的はセキュリティでlsuserを用い・authorizations とユーザー属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でvmo -aを用い、po とsvmon全体表示を確認する」に対応する項目は属性確認 po（属性・vmo）です。性能管理の仕様は「性能管理でvmo -aを用い、po とsvmon全体表示を確認する」で、確認対象はvm・属性です。状態・lsatのA:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は状態確認 enhanced_RBAC（状態・lsat）です。容量・logfのC:は「JFS2でlogformを用い、log=INLINE」を述べ、対象は容量確認 log=INLINE（容量・logf）です。バック・lsusのD:は「セキュリティでlsuserを用い、authorizations」を述べ、対象はバックアウト確認 authoriza（バッ・lsus）です。「vmo -a」は「性能管理でvmo -aを用い、po とsvmon全体表示を確認する」を指し、属性確認 poではvm・属性に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a 属性確認 po 0059</strong></p><p>検証目的: 性能管理のvmo -a 属性確認 po 0059について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理属性確認059-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0059A
+画面・出力には AIX0059A が表示され、vmo -a 属性確認 po 0059 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0059B
+画面・出力には AIX0059B が表示され、vmo -a 属性確認 po 0059 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0059C
+画面・出力には AIX0059C が表示され、vmo -a 属性確認 po 0059 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0059A が画面・出力に表示されること
+② ステップ2 の AIX0059B が画面・出力に表示されること
+③ ステップ3 の AIX0059C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0879"><h3>vmo -a 運用引継ぎ pi 0376</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>若竹記録ではAIX 7.3の性能管理で vmo -a を確認します。若竹記録の性能管理では pi とtopasディスク表示を監査票へ転記します。若竹記録は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。若竹記録の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、若竹記録を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmo -a 運用引継ぎ pi 0376を同一分類のlsattr -E -l sys0 -a enhanced_RBAC 容量確認と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は性能管理でvmo -aを用い・pi とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明はセキュリティでlsattr -E -l sys0 -aを用い・roles と監査設定を確認する。</li><li>C. 管理対象との関係を表す説明はJFS2でsplitcopyを用い・lff とファイルシステム属性を確認する。</li><li>D. 管理対象との関係を表す説明はLVMでchvgを用い・MIRROR WRITE CONSISTENCY とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でvmo -aを用い、pi とtopasディスク表示を確認する」に対応する項目は運用引継ぎ pi（運用・vmo）です。運用引に関する性能管理の仕様は「性能管理でvmo -aを用い、pi とtopasディスク表示を確認す」で、確認対象はvm・運用引です。容量・lsatのB:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は容量確認 roles（容量・lsat）です。変更後・spliのC:は「JFS2でsplitcopyを用い、lff」を述べ、対象は変更後確認 lff（変更・spli）です。性能・chvgのD:は「LVMでchvgを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（性能・chvg）です。「vmo -a」は「性能管理でvmo -aを用い、pi とtopasディスク表示を確認す」を指し、運用引継ぎ piではvm・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmo -a 運用引継ぎ pi 0376</strong></p><p>検証目的: 性能管理のvmo -a 運用引継ぎ pi 0376について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ016-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmo -a
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0376A
+画面・出力には AIX0376A が表示され、vmo -a 運用引継ぎ pi 0376 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0376B
+画面・出力には AIX0376B が表示され、vmo -a 運用引継ぎ pi 0376 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0376C
+画面・出力には AIX0376C が表示され、vmo -a 運用引継ぎ pi 0376 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0376A が画面・出力に表示されること
+② ステップ2 の AIX0376B が画面・出力に表示されること
+③ ステップ3 の AIX0376C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0880"><h3>vmstat -c 2 1 バックアウト確認 avm 0815</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>岩清水変更ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。岩清水変更の性能管理では avm とsvmon全体表示を照合票へ整理します。岩清水変更は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。岩清水変更の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、岩清水変更を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 バックアウト確認 avm 0815の設定や表示を読む前に役割を確認します。lspv 障害切り分け 出力比較ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li><li>B. 一次資料が示す主目的は性能管理でvmstat -c 2 1を用い・avm とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はセキュリティでlsroleを用い・roles とロール一覧を確認する。</li><li>D. 一次資料が示す主目的はデバイス管理でcfgmgrを用い・microcode level と診断対象表示を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> バック・vmstでBの記述「性能管理でvmstat -c 2 1を用い、avm」に対応する項目はバックアウト確認 avm（バッ・vmst）です。バックに関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、avm」で、確認対象はvm・バックです。障害切・lspvのA:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は障害切り分け 出力比較（障害・lspv）です。バック・lsroのC:は「セキュリティでlsroleを用い、roles とロール一覧を確認する」を述べ、対象はバックアウト確認 roles（バッ・lsro）です。バック・cfgmのD:は「デバイス管理でcfgmgrを用い、microcode level」を述べ、対象はmicrocode level（バッ・cfgm）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、avm」を指し、バックアウト確認 avmではvm・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 バックアウト確認 avm 0815</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 バックアウト確認 avm 0815について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認095-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0815A
+画面・出力には AIX0815A が表示され、vmstat -c 2 1 バックアウト確認 avm 0815 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0815B
+画面・出力には AIX0815B が表示され、vmstat -c 2 1 バックアウト確認 avm 0815 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0815C
+画面・出力には AIX0815C が表示され、vmstat -c 2 1 バックアウト確認 avm 0815 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0815A が画面・出力に表示されること
+② ステップ2 の AIX0815B が画面・出力に表示されること
+③ ステップ3 の AIX0815C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0881"><h3>vmstat -c 2 1 バックアウト確認 fre 0339</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>山吹変更ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。山吹変更の性能管理では fre とsvmon全体表示を作業票へ保管します。山吹変更は対象名と取得時刻を残し、出力見出しを資料名へ戻せる材料にします。山吹変更の注意点として 区画CPU権利値の見落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、山吹変更を照合結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 バックアウト確認 fre 0339について構成や状態を確認します。rolelist -u user1 監査記録 roles 0340ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはセキュリティでrolelist -u user1を用い・roles とユーザー属性を確認する。</li><li>B. 状態を読み取るための働きは性能管理でvmstat -c 2 1を用い・fre とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きはJFS2でcrfsを用い・lff とマウントオプションを確認する。</li><li>D. 状態を読み取るための働きはLVMでlsvg -lを用い・STALE PARTITIONS と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でvmstat -c 2 1を用い、fre とsvmon全体表示を確認する」に対応する項目はバックアウト確認 fre（バッ・vmst）です。バックに関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、fre」で、確認対象はvm・バックです。監査・roleのA:は「セキュリティでrolelist -u user1を用い、roles」を述べ、対象は監査記録 roles（監査・role）です。変更前・crfsのC:は「JFS2でcrfsを用い、lff とマウントオプションを確認する」を述べ、対象は変更前確認 lff（変更・crfs）です。容量・lsvgのD:は「LVMでlsvg -lを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（容量・lsvg）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、fre」を指し、バックアウト確認 freではvm・バックに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 バックアウト確認 fre 0339</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 バックアウト確認 fre 0339について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理バックアウト確認099-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0339A
+画面・出力には AIX0339A が表示され、vmstat -c 2 1 バックアウト確認 fre 0339 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0339B
+画面・出力には AIX0339B が表示され、vmstat -c 2 1 バックアウト確認 fre 0339 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0339C
+画面・出力には AIX0339C が表示され、vmstat -c 2 1 バックアウト確認 fre 0339 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0339A が画面・出力に表示されること
+② ステップ2 の AIX0339B が画面・出力に表示されること
+③ ステップ3 の AIX0339C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0882"><h3>vmstat -c 2 1 性能確認 fre 0497</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>初霜確認ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。初霜確認の性能管理では fre とAME統計を復旧票へ残します。初霜確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。初霜確認の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、初霜確認を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「vmstat -c 2 1 性能確認 fre 0497」を「rolelist -u user1 起動確認 audit class 0498」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでrolelist -u user1を用い・audit class とRBAC属性を確認する。</li><li>B. 仕様上の役割はJFS2でdefragfsを用い・log=INLINE と内部スナップショットを確認する。</li><li>C. 仕様上の役割は性能管理でvmstat -c 2 1を用い・fre とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はLVMでlsvgを用い・PVID と物理ボリューム一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「性能管理でvmstat -c 2 1を用い、fre とAME統計を確認する」に対応する項目は性能確認 fre（性能・vmst）です。性能に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、fre」で、確認対象はvm・性能です。起動・roleのA:は「セキュリティでrolelist -u user1を用い、audit」を述べ、対象はaudit class（起動・role）です。バック・defrのB:は「JFS2でdefragfsを用い、log=INLINE」を述べ、対象はバックアウト確認 log=INLIN（バッ・defr）です。属性・lsvgのD:は「LVMでlsvgを用い、PVID と物理ボリューム一覧を確認する」を述べ、対象は属性確認 PVID（属性・lsvg）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、fre」を指し、性能確認 freではvm・性能に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 性能確認 fre 0497</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 性能確認 fre 0497について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理性能確認017-05</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0497A
+画面・出力には AIX0497A が表示され、vmstat -c 2 1 性能確認 fre 0497 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0497B
+画面・出力には AIX0497B が表示され、vmstat -c 2 1 性能確認 fre 0497 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0497C
+画面・出力には AIX0497C が表示され、vmstat -c 2 1 性能確認 fre 0497 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0497A が画面・出力に表示されること
+② ステップ2 の AIX0497B が画面・出力に表示されること
+③ ステップ3 の AIX0497C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0883"><h3>vmstat -c 2 1 性能確認 pi 0021</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>群青確認ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。群青確認の性能管理では pi とAME統計を判定票へ残します。群青確認は対象名と取得時刻を残し、出力見出しを資料名へ戻せる判定結果にします。群青確認の注意点として 圧縮メモリー統計の読み落とし を避けるため vmstat 2 2 も併記します。性能監視の作業票として、群青確認を引継ぎ材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 性能確認 pi 0021を保守記録に説明する必要があります。rolelist -u user1 起動確認 authorizations 0022と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は性能管理でvmstat -c 2 1を用い・pi とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割はセキュリティでrolelist -u user1を用い・authorizationsである。</li><li>C. 運用時に利用する技術的役割はJFS2でdefragfsを用い・lff と内部スナップショットを確認する。</li><li>D. 運用時に利用する技術的役割はセキュリティでusrck -n ALLを用い・roles とRBAC属性を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat -c 2 1を用い、pi とAME統計を確認する」に対応する項目は性能確認 pi（性能・vmst）です。性能管理の仕様は「性能管理でvmstat -c 2 1を用い、pi とAME統計を確認する」で、確認対象はvm・性能です。起動・roleのB:は「セキュリティでrolelist -u user1を用い」を述べ、対象は起動確認 authorization（起動・role）です。バック・defrのC:は「JFS2でdefragfsを用い、lff」を述べ、対象はバックアウト確認 lff（バッ・defr）です。変更後・usrcのD:は「セキュリティでusrck -n ALLを用い、roles」を述べ、対象は変更後確認 roles（変更・usrc）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、pi」を指し、性能確認 piではvm・性能に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 性能確認 pi 0021</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 性能確認 pi 0021について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理性能確認021-01</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0021A
+画面・出力には AIX0021A が表示され、vmstat -c 2 1 性能確認 pi 0021 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0021B
+画面・出力には AIX0021B が表示され、vmstat -c 2 1 性能確認 pi 0021 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0021C
+画面・出力には AIX0021C が表示され、vmstat -c 2 1 性能確認 pi 0021 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0021A が画面・出力に表示されること
+② ステップ2 の AIX0021B が画面・出力に表示されること
+③ ステップ3 の AIX0021C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0884"><h3>vmstat -c 2 1 構成照合 avm 0656</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>若竹判定ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。若竹判定の性能管理では avm とtopasディスク表示を引継ぎ票へ保管します。若竹判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。若竹判定の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、若竹判定を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 構成照合 avm 0656を同一分類のrolelist -u user1 変更前確認 user attributesと比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は性能管理でvmstat -c 2 1を用い・avm とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はセキュリティでrolelist -u user1を用い・user attributes と監査設定を確認する。</li><li>C. コマンドまたは機能の用途は導入と起動でinstallp -Cを用い・bootlist とOSレベル表示を確認する。</li><li>D. コマンドまたは機能の用途はLVMでlsvgを用い・PP SIZE とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat -c 2 1を用い、avm」に対応する項目は構成照合 avm（構成・vmst）です。構成に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、avm」で、確認対象はvm・構成です。変更前・roleのB:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（変更・role）です。監査・instのC:は「導入と起動でinstallp -Cを用い、bootlist」を述べ、対象は監査記録 bootlist（監査・inst）です。変更後・lsvgのD:は「LVMでlsvgを用い、PP SIZE とミラーコピー状態を確認する」を述べ、対象はPP SIZE（変更・lsvg）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、avm」を指し、構成照合 avmではvm・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 構成照合 avm 0656</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 構成照合 avm 0656について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理構成照合056-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0656A
+画面・出力には AIX0656A が表示され、vmstat -c 2 1 構成照合 avm 0656 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0656B
+画面・出力には AIX0656B が表示され、vmstat -c 2 1 構成照合 avm 0656 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0656C
+画面・出力には AIX0656C が表示され、vmstat -c 2 1 構成照合 avm 0656 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0656A が画面・出力に表示されること
+② ステップ2 の AIX0656B が画面・出力に表示されること
+③ ステップ3 の AIX0656C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0885"><h3>vmstat -c 2 1 構成照合 csz 0240</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>青葉監査ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。青葉監査の性能管理では csz とtopasディスク表示を同じ証跡に残します。青葉監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる証跡にします。青葉監査の注意点として 初回サンプルだけの誤判定 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、青葉監査を変更判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 構成照合 csz 0240を同一分類のrbacqry -u user1 -T 変更後確認 audit class 0241と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はセキュリティでrbacqry -u user1 -Tを用い・audit class と監査設定を確認する。</li><li>B. 構成を確認する際の意味はJFS2でcrfsを用い・agblksize とファイルシステム属性を確認する。</li><li>C. 構成を確認する際の意味は論理ボリュームの属性と割り当て情報を表示するコマンドである。</li><li>D. 構成を確認する際の意味は性能管理でvmstat -c 2 1を用い・csz とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「性能管理でvmstat -c 2 1を用い、csz」に対応する項目は構成照合 csz（構成・vmst）です。構成に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、csz」で、確認対象はvm・構成です。変更後・rbacのA:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はaudit class（変更・rbac）です。起動・crfsのB:は「JFS2でcrfsを用い、agblksize」を述べ、対象は起動確認 agblksize（起動・crfs）です。性能・起動・lslvのC:は「論理ボリュームの属性と割り当て情報を表示するコマンド」を述べ、対象は性能確認 起動確認（性能・lslv）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、csz」を指し、構成照合 cszではvm・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 構成照合 csz 0240</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 構成照合 csz 0240について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理構成照合120-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0240A
+画面・出力には AIX0240A が表示され、vmstat -c 2 1 構成照合 csz 0240 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0240B
+画面・出力には AIX0240B が表示され、vmstat -c 2 1 構成照合 csz 0240 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0240C
+画面・出力には AIX0240C が表示され、vmstat -c 2 1 構成照合 csz 0240 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0240A が画面・出力に表示されること
+② ステップ2 の AIX0240B が画面・出力に表示されること
+③ ステップ3 の AIX0240C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0886"><h3>vmstat -c 2 1 構成照合 fre 0180</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>薄明判定ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。薄明判定の性能管理では fre とtopasディスク表示を同じ証跡に残します。薄明判定は対象名と取得時刻を残し、出力見出しを資料名へ戻せる証跡にします。薄明判定の注意点として 初回サンプルだけの誤判定 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、薄明判定を変更判断にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 構成照合 fre 0180の技術的な意味を資料で確認するとき、rolelist -u user1 変更前確認 roles 0181との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はセキュリティでrolelist -u user1を用い・roles と監査設定を確認する。</li><li>B. 構成を確認する際の意味はJFS2でcrfsを用い・agblksize とファイルシステム属性を確認する。</li><li>C. 構成を確認する際の意味は性能管理でvmstat -c 2 1を用い・fre とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 構成を確認する際の意味はセキュリティでusrck -n ALLを用い・audit class と監査設定を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でvmstat -c 2 1を用い、fre」に対応する項目は構成照合 fre（構成・vmst）です。構成に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、fre」で、確認対象はvm・構成です。変更前・roleのA:は「セキュリティでrolelist -u user1を用い、roles」を述べ、対象は変更前確認 roles（変更・role）です。起動・crfsのB:は「JFS2でcrfsを用い、agblksize」を述べ、対象は起動確認 agblksize（起動・crfs）です。運用引・usrcのD:は「セキュリティでusrck -n ALLを用い、audit」を述べ、対象はaudit class（運用・usrc）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、fre」を指し、構成照合 freではvm・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 構成照合 fre 0180</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 構成照合 fre 0180について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理構成照合060-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0180A
+画面・出力には AIX0180A が表示され、vmstat -c 2 1 構成照合 fre 0180 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0180B
+画面・出力には AIX0180B が表示され、vmstat -c 2 1 構成照合 fre 0180 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。fre を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0180C
+画面・出力には AIX0180C が表示され、vmstat -c 2 1 構成照合 fre 0180 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0180A が画面・出力に表示されること
+② ステップ2 の AIX0180B が画面・出力に表示されること
+③ ステップ3 の AIX0180C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0887"><h3>vmstat -c 2 1 構成照合 po 0716</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>若潮保守ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。若潮保守の性能管理では po とtopasディスク表示を引継ぎ票へ保管します。若潮保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。若潮保守の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、若潮保守を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 構成照合 po 0716の技術的な意味を資料で確認するとき、rolelist -u user1 変更前確認 user attributesとの境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は性能管理でvmstat -c 2 1を用い・po とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はセキュリティでrolelist -u user1を用い・user attributes と監査設定を確認する。</li><li>C. コマンドまたは機能の用途はSRCとログでrefresh -s syslogdを用い・IDENTIFIERである。</li><li>D. コマンドまたは機能の用途はLVMでlsvg -lを用い・STALE PARTITIONS とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat -c 2 1を用い、po とtopasディスク表示を確認する」に対応する項目は構成照合 po（構成・vmst）です。構成に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、po」で、確認対象はvm・構成です。変更前・roleのB:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（変更・role）です。監査・refrのC:は「SRCとログでrefresh -s syslogdを用い」を述べ、対象は監査記録 IDENTIFIER（監査・refr）です。障害切・lsvgのD:は「LVMでlsvg -lを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（障害・lsvg）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、po」を指し、構成照合 poではvm・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 構成照合 po 0716</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 構成照合 po 0716について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理構成照合116-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0716A
+画面・出力には AIX0716A が表示され、vmstat -c 2 1 構成照合 po 0716 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0716B
+画面・出力には AIX0716B が表示され、vmstat -c 2 1 構成照合 po 0716 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0716C
+画面・出力には AIX0716C が表示され、vmstat -c 2 1 構成照合 po 0716 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0716A が画面・出力に表示されること
+② ステップ2 の AIX0716B が画面・出力に表示されること
+③ ステップ3 の AIX0716C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0888"><h3>vmstat -c 2 1 運用引継ぎ Busy% 0686</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>朝凪保守ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。朝凪保守の性能管理では Busy% とvmstat表示を確認票へ整理します。朝凪保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。朝凪保守の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、朝凪保守を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 運用引継ぎ Busy% 0686に関する障害切り分けの前提を確認しています。rolelist -u user1 容量確認 user attributesの機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでrolelist -u user1を用い・user attributesである。</li><li>B. 障害切り分けに用いる役割は導入と起動でinstallp -Cを用い・Technology Level と代替ディスク状態を確認する。</li><li>C. 障害切り分けに用いる役割はLVMでlsvg -lを用い・VG STATE とボリュームグループ属性を確認する。</li><li>D. 障害切り分けに用いる役割は性能管理でvmstat -c 2 1を用い・Busy% とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でvmstat -c 2 1を用い、Busy% とvmstat表示を確認する」に対応する項目は運用引継ぎ Busy%（運用・vmst）です。運用引に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、Busy%」で、確認対象はvm・運用引です。容量・roleのA:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（容量・role）です。状態・instのB:は「導入と起動でinstallp -Cを用い、Technology」を述べ、対象はTechnology Level（状態・inst）です。起動・lsvgのC:は「LVMでlsvg -lを用い、VG STATE」を述べ、対象はVG STATE（起動・lsvg）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、Busy%」を指し、運用引継ぎ Busy%ではvm・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 運用引継ぎ Busy% 0686</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 運用引継ぎ Busy% 0686について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ086-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0686A
+画面・出力には AIX0686A が表示され、vmstat -c 2 1 運用引継ぎ Busy% 0686 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0686B
+画面・出力には AIX0686B が表示され、vmstat -c 2 1 運用引継ぎ Busy% 0686 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0686C
+画面・出力には AIX0686C が表示され、vmstat -c 2 1 運用引継ぎ Busy% 0686 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0686A が画面・出力に表示されること
+② ステップ2 の AIX0686B が画面・出力に表示されること
+③ ステップ3 の AIX0686C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0889"><h3>vmstat -c 2 1 運用引継ぎ PhysB 0210</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>桜雲保守ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。桜雲保守の性能管理では PhysB とvmstat表示を変更票へ記録します。桜雲保守は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。桜雲保守の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、桜雲保守を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 運用引継ぎ PhysB 0210の役割を調べています。rolelist -u user1 容量確認 roles 0211の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては性能管理でvmstat -c 2 1を用い・PhysB とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはセキュリティでrolelist -u user1を用い・roles とロール一覧を確認する。</li><li>C. 機能の説明としてはJFS2でcrfsを用い・lff とログデバイス設定を確認する。</li><li>D. 機能の説明としてはセキュリティでusrck -n ALLを用い・audit class とロール一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat -c 2 1を用い、PhysB とvmstat表示を確認する」に対応する項目は運用引継ぎ PhysB（運用・vmst）です。運用引に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、PhysB」で、確認対象はvm・運用引です。容量・roleのB:は「セキュリティでrolelist -u user1を用い、roles」を述べ、対象は容量確認 roles（容量・role）です。障害切・crfsのC:は「JFS2でcrfsを用い、lff とログデバイス設定を確認する」を述べ、対象は障害切り分け lff（障害・crfs）です。構成・usrcのD:は「セキュリティでusrck -n ALLを用い、audit」を述べ、対象はaudit class（構成・usrc）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、PhysB」を指し、運用引継ぎ PhysBではvm・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 運用引継ぎ PhysB 0210</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 運用引継ぎ PhysB 0210について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ090-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0210A
+画面・出力には AIX0210A が表示され、vmstat -c 2 1 運用引継ぎ PhysB 0210 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0210B
+画面・出力には AIX0210B が表示され、vmstat -c 2 1 運用引継ぎ PhysB 0210 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。PhysB を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0210C
+画面・出力には AIX0210C が表示され、vmstat -c 2 1 運用引継ぎ PhysB 0210 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0210A が画面・出力に表示されること
+② ステップ2 の AIX0210B が画面・出力に表示されること
+③ ステップ3 の AIX0210C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0890"><h3>vmstat -c 2 1 運用引継ぎ csz 0150</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>早苗採取ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。早苗採取の性能管理では csz とvmstat表示を変更票へ記録します。早苗採取は対象名と取得時刻を残し、出力見出しを資料名へ戻せる台帳にします。早苗採取の注意点として ディスクBusyと待ち時間の混同 を避けるため vmstat 2 2 も併記します。性能監視の作業票として、早苗採取を運用記録にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 運用引継ぎ csz 0150に関する障害切り分けの前提を確認しています。rolelist -u user1 容量確認 roles 0151の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては性能管理でvmstat -c 2 1を用い・csz とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはセキュリティでrolelist -u user1を用い・roles とロール一覧を確認する。</li><li>C. 機能の説明としてはJFS2でdefragfsを用い・mountguard とログデバイス設定を確認する。</li><li>D. 機能の説明としてはセキュリティでusrck -n ALLを用い・audit class とロール一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat -c 2 1を用い、csz とvmstat表示を確認する」に対応する項目は運用引継ぎ csz（運用・vmst）です。運用引に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、csz」で、確認対象はvm・運用引です。容量・roleのB:は「セキュリティでrolelist -u user1を用い、roles」を述べ、対象は容量確認 roles（容量・role）です。変更後・defrのC:は「JFS2でdefragfsを用い、mountguard」を述べ、対象は変更後確認 mountguard（変更・defr）です。構成・usrcのD:は「セキュリティでusrck -n ALLを用い、audit」を述べ、対象はaudit class（構成・usrc）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、csz」を指し、運用引継ぎ cszではvm・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 運用引継ぎ csz 0150</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 運用引継ぎ csz 0150について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ030-02</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0150A
+画面・出力には AIX0150A が表示され、vmstat -c 2 1 運用引継ぎ csz 0150 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0150B
+画面・出力には AIX0150B が表示され、vmstat -c 2 1 運用引継ぎ csz 0150 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。csz を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0150C
+画面・出力には AIX0150C が表示され、vmstat -c 2 1 運用引継ぎ csz 0150 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0150A が画面・出力に表示されること
+② ステップ2 の AIX0150B が画面・出力に表示されること
+③ ステップ3 の AIX0150C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0891"><h3>vmstat -c 2 1 運用引継ぎ po 0626</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>陽炎採取ではAIX 7.3の性能管理で vmstat -c 2 1 を確認します。陽炎採取の性能管理では po とvmstat表示を確認票へ整理します。陽炎採取は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。陽炎採取の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、陽炎採取を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat -c 2 1 運用引継ぎ po 0626の役割を調べています。rolelist -u user1 容量確認 user attributesの説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでrolelist -u user1を用い・user attributesである。</li><li>B. 障害切り分けに用いる役割は導入と起動でinstallp -Cを用い・Technology Level と代替ディスク状態を確認する。</li><li>C. 障害切り分けに用いる役割は性能管理でvmstat -c 2 1を用い・po とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割はLVMでlsvgを用い・PVID とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「性能管理でvmstat -c 2 1を用い、po とvmstat表示を確認する」に対応する項目は運用引継ぎ po（運用・vmst）です。運用引に関する性能管理の仕様は「性能管理でvmstat -c 2 1を用い、po」で、確認対象はvm・運用引です。容量・roleのA:は「セキュリティでrolelist -u user1を用い、user」を述べ、対象はuser attributes（容量・role）です。状態・instのB:は「導入と起動でinstallp -Cを用い、Technology」を述べ、対象はTechnology Level（状態・inst）です。性能・lsvgのD:は「LVMでlsvgを用い、PVID とボリュームグループ属性を確認する」を述べ、対象は性能確認 PVID（性能・lsvg）です。「vmstat -c 2 1」は「性能管理でvmstat -c 2 1を用い、po」を指し、運用引継ぎ poではvm・運用引に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat -c 2 1 運用引継ぎ po 0626</strong></p><p>検証目的: 性能管理のvmstat -c 2 1 運用引継ぎ po 0626について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理運用引継ぎ026-06</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0626A
+画面・出力には AIX0626A が表示され、vmstat -c 2 1 運用引継ぎ po 0626 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0626B
+画面・出力には AIX0626B が表示され、vmstat -c 2 1 運用引継ぎ po 0626 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0626C
+画面・出力には AIX0626C が表示され、vmstat -c 2 1 運用引継ぎ po 0626 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0626A が画面・出力に表示されること
+② ステップ2 の AIX0626B が画面・出力に表示されること
+③ ステップ3 の AIX0626C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0892"><h3>vmstat 2 2 変更前確認 avm 0407</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>夕凪評価ではAIX 7.3の性能管理で vmstat 2 2 を確認します。夕凪評価の性能管理では avm とsvmon全体表示を照合票へ整理します。夕凪評価は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。夕凪評価の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、夕凪評価を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 変更前確認 avm 0407の設定や表示を読む前に役割を確認します。lsrole 変更後確認 roles 0408ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はセキュリティでlsroleを用い・roles とユーザー属性を確認する。</li><li>B. 一次資料が示す主目的は性能管理でvmstat 2 2を用い・avm とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はJFS2でlogformを用い・isnapshot とマウントオプションを確認する。</li><li>D. 一次資料が示す主目的はLVMでlspvを用い・LV STATE と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でvmstat 2 2を用い、avm とsvmon全体表示を確認する」に対応する項目は変更前確認 avm（変更・vmst）です。変更前に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、avm」で、確認対象はvm・変更前です。変更後・lsroのA:は「セキュリティでlsroleを用い、roles」を述べ、対象は変更後確認 roles（変更・lsro）です。起動・logfのC:は「JFS2でlogformを用い、isnapshot」を述べ、対象は起動確認 isnapshot（起動・logf）です。障害切・lspvのD:は「LVMでlspvを用い、LV STATE」を述べ、対象はLV STATE（障害・lspv）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、avm」を指し、変更前確認 avmではvm・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 変更前確認 avm 0407</strong></p><p>検証目的: 性能管理のvmstat 2 2 変更前確認 avm 0407について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更前確認047-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0407A
+画面・出力には AIX0407A が表示され、vmstat 2 2 変更前確認 avm 0407 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0407B
+画面・出力には AIX0407B が表示され、vmstat 2 2 変更前確認 avm 0407 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0407C
+画面・出力には AIX0407C が表示され、vmstat 2 2 変更前確認 avm 0407 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0407A が画面・出力に表示されること
+② ステップ2 の AIX0407B が画面・出力に表示されること
+③ ステップ3 の AIX0407C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0893"><h3>vmstat 2 2 変更前確認 po 0467</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 上級</p><p>風花整理ではAIX 7.3の性能管理で vmstat 2 2 を確認します。風花整理の性能管理では po とsvmon全体表示を照合票へ整理します。風花整理は対象名と取得時刻を残し、出力見出しを資料名へ戻せる控えにします。風花整理の注意点として 区画CPU権利値の見落とし を避けるため topas -D も併記します。性能監視の作業票として、風花整理を復旧材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 変更前確認 po 0467について構成や状態を確認します。lsrole 変更後確認 roles 0468ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は性能管理でvmstat 2 2を用い・po とsvmon全体表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はセキュリティでlsroleを用い・roles とユーザー属性を確認する。</li><li>C. 一次資料が示す主目的はJFS2でdefragfsを用い・mountguard とマウントオプションを確認する。</li><li>D. 一次資料が示す主目的はLVMでlsvgを用い・PP SIZE と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat 2 2を用い、po とsvmon全体表示を確認する」に対応する項目は変更前確認 po（変更・vmst）です。変更前に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、po」で、確認対象はvm・変更前です。変更後・lsroのB:は「セキュリティでlsroleを用い、roles」を述べ、対象は変更後確認 roles（変更・lsro）です。属性・defrのC:は「JFS2でdefragfsを用い、mountguard」を述べ、対象は属性確認 mountguard（属性・defr）です。バック・lsvgのD:は「LVMでlsvgを用い、PP SIZE と論理ボリューム配置を確認す」を述べ、対象はPP SIZE（バッ・lsvg）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、po」を指し、変更前確認 poではvm・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 変更前確認 po 0467</strong></p><p>検証目的: 性能管理のvmstat 2 2 変更前確認 po 0467について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理変更前確認107-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0467A
+画面・出力には AIX0467A が表示され、vmstat 2 2 変更前確認 po 0467 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0467B
+画面・出力には AIX0467B が表示され、vmstat 2 2 変更前確認 po 0467 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0467C
+画面・出力には AIX0467C が表示され、vmstat 2 2 変更前確認 po 0467 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0467A が画面・出力に表示されること
+② ステップ2 の AIX0467B が画面・出力に表示されること
+③ ステップ3 の AIX0467C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0894"><h3>vmstat 2 2 容量確認 Busy% 0437</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>冬晴評価ではAIX 7.3の性能管理で vmstat 2 2 を確認します。冬晴評価の性能管理では Busy% とAME統計を復旧票へ残します。冬晴評価は対象名と取得時刻を残し、出力見出しを資料名へ戻せる欄にします。冬晴評価の注意点として 圧縮メモリー統計の読み落とし を避けるため topas -D も併記します。性能監視の作業票として、冬晴評価を判定結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 容量確認 Busy% 0437を保守記録に説明する必要があります。lsrole 性能確認 roles 0438と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はセキュリティでlsroleを用い・roles とRBAC属性を確認する。</li><li>B. 仕様上の役割はJFS2でdefragfsを用い・log=INLINE と内部スナップショットを確認する。</li><li>C. 仕様上の役割はLVMでlsvgを用い・PVID と物理ボリューム一覧を確認する。</li><li>D. 仕様上の役割は性能管理でvmstat 2 2を用い・Busy% とAME統計を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でvmstat 2 2を用い、Busy% とAME統計を確認する」に対応する項目は容量確認 Busy%（容量・vmst）です。容量に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、Busy%」で、確認対象はvm・容量です。性能・lsroのA:は「セキュリティでlsroleを用い、roles」を述べ、対象は性能確認 roles（性能・lsro）です。バック・defrのB:は「JFS2でdefragfsを用い、log=INLINE」を述べ、対象はバックアウト確認 log=INLIN（バッ・defr）です。属性・lsvgのC:は「LVMでlsvgを用い、PVID と物理ボリューム一覧を確認する」を述べ、対象は属性確認 PVID（属性・lsvg）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、Busy%」を指し、容量確認 Busy%ではvm・容量に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 容量確認 Busy% 0437</strong></p><p>検証目的: 性能管理のvmstat 2 2 容量確認 Busy% 0437について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理容量確認077-04</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0437A
+画面・出力には AIX0437A が表示され、vmstat 2 2 容量確認 Busy% 0437 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0437B
+画面・出力には AIX0437B が表示され、vmstat 2 2 容量確認 Busy% 0437 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0437C
+画面・出力には AIX0437C が表示され、vmstat 2 2 容量確認 Busy% 0437 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0437A が画面・出力に表示されること
+② ステップ2 の AIX0437B が画面・出力に表示されること
+③ ステップ3 の AIX0437C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0895"><h3>vmstat 2 2 起動確認 Entitled Capacity 0724</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>若草監査ではAIX 7.3の性能管理で vmstat 2 2 を確認します。若草監査の性能管理では Entitled Capacity とtopasディスク表示を監査票へ転記します。若草監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。若草監査の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、若草監査を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 起動確認 Entitled Capacity 0724の技術的な意味を資料で確認するとき、lsrole 属性確認 user attributes 0725との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は性能管理でvmstat 2 2を用い・Entitled Capacity とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明はセキュリティでlsroleを用い・user attributes と監査設定を確認する。</li><li>C. 管理対象との関係を表す説明は導入と起動でoslevel -sを用い・fileset level とOSレベル表示を確認する。oslevel -s 変更前確認 fileset level 0110固有の属性も確認対象に含める。</li><li>D. 管理対象との関係を表す説明はLVMでlspvを用い・LV STATE とミラーコピー状態を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Aの記述「性能管理でvmstat 2 2を用い、Entitled Capacity」に対応する項目はEntitled Capacity（起動・vmst）です。起動に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、Entitled」で、確認対象はvm・起動です。属性・lsroのB:は「セキュリティでlsroleを用い、user attributes」を述べ、対象はuser attributes（属性・lsro）です。変更前・osleのC:は「導入と起動でoslevel -sを用い、fileset level」を述べ、対象はfileset level（変更・osle）です。状態・lspvのD:は「LVMでlspvを用い、LV STATE」を述べ、対象はLV STATE（状態・lspv）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、Entitled」を指し、Entitled Capacityではvm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 起動確認 Entitled Capacity 0724</strong></p><p>検証目的: 性能管理のvmstat 2 2 起動確認 Entitled Capacity 0724について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認004-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0724A
+画面・出力には AIX0724A が表示され、vmstat 2 2 起動確認 Entitled Capacity 0724 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0724B
+画面・出力には AIX0724B が表示され、vmstat 2 2 起動確認 Entitled Capacity 0724 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Entitled Capacity を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0724C
+画面・出力には AIX0724C が表示され、vmstat 2 2 起動確認 Entitled Capacity 0724 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0724A が画面・出力に表示されること
+② ステップ2 の AIX0724B が画面・出力に表示されること
+③ ステップ3 の AIX0724C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0896"><h3>vmstat 2 2 起動確認 avm 0248</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 初級</p><p>翠風監査ではAIX 7.3の性能管理で vmstat 2 2 を確認します。翠風監査の性能管理では avm とtopasディスク表示を引継ぎ票へ保管します。翠風監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。翠風監査の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、翠風監査を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 起動確認 avm 0248を同一分類のlsrole 属性確認 roles 0249と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はセキュリティでlsroleを用い・roles と監査設定を確認する。</li><li>B. コマンドまたは機能の用途はJFS2でlogformを用い・ファイルシステム使用率 とファイルシステム属性を確認する。</li><li>C. コマンドまたは機能の用途は性能管理でvmstat 2 2を用い・avm とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「性能管理でvmstat 2 2を用い、avm とtopasディスク表示を確認する」に対応する項目は起動確認 avm（起動・vmst）です。起動に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、avm」で、確認対象はvm・起動です。属性・lsroのA:は「セキュリティでlsroleを用い、roles と監査設定を確認する」を述べ、対象は属性確認 roles（属性・lsro）です。監査・ファ・logfのB:は「JFS2でlogformを用い、ファイルシステム使用率」を述べ、対象は監査記録 ファイルシステム使用率（監査・logf）です。変更前・lspvのD:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は変更前確認 保持設定（変更・lspv）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、avm」を指し、起動確認 avmではvm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 起動確認 avm 0248</strong></p><p>検証目的: 性能管理のvmstat 2 2 起動確認 avm 0248について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認008-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0248A
+画面・出力には AIX0248A が表示され、vmstat 2 2 起動確認 avm 0248 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0248B
+画面・出力には AIX0248B が表示され、vmstat 2 2 起動確認 avm 0248 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。avm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0248C
+画面・出力には AIX0248C が表示され、vmstat 2 2 起動確認 avm 0248 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0248A が画面・出力に表示されること
+② ステップ2 の AIX0248B が画面・出力に表示されること
+③ ステップ3 の AIX0248C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0897"><h3>vmstat 2 2 起動確認 pi 0784</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>霜月復旧ではAIX 7.3の性能管理で vmstat 2 2 を確認します。霜月復旧の性能管理では pi とtopasディスク表示を監査票へ転記します。霜月復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる項目にします。霜月復旧の注意点として 初回サンプルだけの誤判定 を避けるため svmon -G も併記します。性能監視の作業票として、霜月復旧を採取結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 起動確認 pi 0784を同一分類のsplitcopy 構成照合 lff 0811と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はJFS2でsplitcopyを用い・lff と内部スナップショットを確認する。</li><li>B. 管理対象との関係を表す説明は性能管理でvmstat 2 2を用い・pi とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は導入と起動でbootlist -m normalを用い・mksysb image とOSレベル表示を確認する。</li><li>D. 管理対象との関係を表す説明はLVMでchvgを用い・STALE PARTITIONS とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 起動・vmstでBの記述「性能管理でvmstat 2 2を用い、pi」に対応する項目は起動確認 pi（起動・vmst）です。起動に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、pi」で、確認対象はvm・起動です。構成・spliのA:は「JFS2でsplitcopyを用い、lff」を述べ、対象は構成照合 lff（構成・spli）です。容量・bootのC:は「導入と起動でbootlist -m normalを用い」を述べ、対象はmksysb image（容量・boot）です。変更後・chvgのD:は「LVMでchvgを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（変更・chvg）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、pi」を指し、起動確認 piではvm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 起動確認 pi 0784</strong></p><p>検証目的: 性能管理のvmstat 2 2 起動確認 pi 0784について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認064-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0784A
+画面・出力には AIX0784A が表示され、vmstat 2 2 起動確認 pi 0784 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0784B
+画面・出力には AIX0784B が表示され、vmstat 2 2 起動確認 pi 0784 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。pi を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0784C
+画面・出力には AIX0784C が表示され、vmstat 2 2 起動確認 pi 0784 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0784A が画面・出力に表示されること
+② ステップ2 の AIX0784B が画面・出力に表示されること
+③ ステップ3 の AIX0784C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0898"><h3>vmstat 2 2 起動確認 po 0308</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>雪解復旧ではAIX 7.3の性能管理で vmstat 2 2 を確認します。雪解復旧の性能管理では po とtopasディスク表示を引継ぎ票へ保管します。雪解復旧は対象名と取得時刻を残し、出力見出しを資料名へ戻せる確認結果にします。雪解復旧の注意点として 初回サンプルだけの誤判定 を避けるため topas -D も併記します。性能監視の作業票として、雪解復旧を再確認材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 起動確認 po 0308の技術的な意味を資料で確認するとき、lsrole 属性確認 roles 0309との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はセキュリティでlsroleを用い・roles と監査設定を確認する。</li><li>B. コマンドまたは機能の用途はJFS2でdefragfsを用い・log=INLINE とファイルシステム属性を確認する。</li><li>C. コマンドまたは機能の用途はLVMでlsvgを用い・VG STATE とミラーコピー状態を確認する。</li><li>D. コマンドまたは機能の用途は性能管理でvmstat 2 2を用い・po とtopasディスク表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でvmstat 2 2を用い、po とtopasディスク表示を確認する」に対応する項目は起動確認 po（起動・vmst）です。起動に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、po」で、確認対象はvm・起動です。属性・lsroのA:は「セキュリティでlsroleを用い、roles と監査設定を確認する」を述べ、対象は属性確認 roles（属性・lsro）です。運用引・defrのB:は「JFS2でdefragfsを用い、log=INLINE」を述べ、対象は運用引継ぎ log=INLINE（運用・defr）です。構成・lsvgのC:は「LVMでlsvgを用い、VG STATE」を述べ、対象はVG STATE（構成・lsvg）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、po」を指し、起動確認 poではvm・起動に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 起動確認 po 0308</strong></p><p>検証目的: 性能管理のvmstat 2 2 起動確認 po 0308について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理起動確認068-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0308A
+画面・出力には AIX0308A が表示され、vmstat 2 2 起動確認 po 0308 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0308B
+画面・出力には AIX0308B が表示され、vmstat 2 2 起動確認 po 0308 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。po を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0308C
+画面・出力には AIX0308C が表示され、vmstat 2 2 起動確認 po 0308 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0308A が画面・出力に表示されること
+② ステップ2 の AIX0308B が画面・出力に表示されること
+③ ステップ3 の AIX0308C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0899"><h3>vmstat 2 2 障害切り分け Busy% 0278</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>春霞監査ではAIX 7.3の性能管理で vmstat 2 2 を確認します。春霞監査の性能管理では Busy% とvmstat表示を確認票へ整理します。春霞監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる根拠にします。春霞監査の注意点として ディスクBusyと待ち時間の混同 を避けるため topas -D も併記します。性能監視の作業票として、春霞監査を点検結果にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 障害切り分け Busy% 0278に関する障害切り分けの前提を確認しています。lsrole バックアウト確認 roles 0279の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はセキュリティでlsroleを用い・roles とロール一覧を確認する。</li><li>B. 障害切り分けに用いる役割はJFS2でlogformを用い・isnapshot とログデバイス設定を確認する。</li><li>C. 障害切り分けに用いる役割は物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li><li>D. 障害切り分けに用いる役割は性能管理でvmstat 2 2を用い・Busy% とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「性能管理でvmstat 2 2を用い、Busy% とvmstat表示を確認する」に対応する項目は障害切り分け Busy%（障害・vmst）です。障害切に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、Busy%」で、確認対象はvm・障害切です。バック・lsroのA:は「セキュリティでlsroleを用い、roles とロール一覧を確認する」を述べ、対象はバックアウト確認 roles（バッ・lsro）です。状態・logfのB:は「JFS2でlogformを用い、isnapshot」を述べ、対象は状態確認 isnapshot（状態・logf）です。復旧前・lspvのC:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は復旧前確認 状態確認（復旧・lspv）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、Busy%」を指し、障害切り分け Busy%ではvm・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 障害切り分け Busy% 0278</strong></p><p>検証目的: 性能管理のvmstat 2 2 障害切り分け Busy% 0278について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け038-03</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0278A
+画面・出力には AIX0278A が表示され、vmstat 2 2 障害切り分け Busy% 0278 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0278B
+画面・出力には AIX0278B が表示され、vmstat 2 2 障害切り分け Busy% 0278 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。Busy% を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; svmon -G
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0278C
+画面・出力には AIX0278C が表示され、vmstat 2 2 障害切り分け Busy% 0278 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0278A が画面・出力に表示されること
+② ステップ2 の AIX0278B が画面・出力に表示されること
+③ ステップ3 の AIX0278C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0900"><h3>vmstat 2 2 障害切り分け dxm 0754</h3><p class="kb-meta">分類: 性能管理 ・ 難易度: 中級</p><p>銀嶺監査ではAIX 7.3の性能管理で vmstat 2 2 を確認します。銀嶺監査の性能管理では dxm とvmstat表示を保守票へ記録します。銀嶺監査は対象名と取得時刻を残し、出力見出しを資料名へ戻せる記録にします。銀嶺監査の注意点として ディスクBusyと待ち時間の混同 を避けるため svmon -G も併記します。性能監視の作業票として、銀嶺監査を監査材料にします。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 2 2 障害切り分け dxm 0754の役割を調べています。lsrole バックアウト確認 user attributes 0755の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はセキュリティでlsroleを用い・user attributes とロール一覧を確認する。</li><li>B. 表示や設定で扱う内容は性能管理でvmstat 2 2を用い・dxm とvmstat表示を確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は導入と起動でlslpp -Lを用い・mksysb image と代替ディスク状態を確認する。</li><li>D. 表示や設定で扱う内容はLVMでlspvを用い・MIRROR WRITE CONSISTENCY とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「性能管理でvmstat 2 2を用い、dxm とvmstat表示を確認する」に対応する項目は障害切り分け dxm（障害・vmst）です。障害切に関する性能管理の仕様は「性能管理でvmstat 2 2を用い、dxm」で、確認対象はvm・障害切です。バック・lsroのA:は「セキュリティでlsroleを用い、user attributes」を述べ、対象はuser attributes（バッ・lsro）です。性能・lslpのC:は「導入と起動でlslpp -Lを用い、mksysb image」を述べ、対象はmksysb image（性能・lslp）です。監査・lspvのD:は「LVMでlspvを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（監査・lspv）です。「vmstat 2 2」は「性能管理でvmstat 2 2を用い、dxm」を指し、障害切り分け dxmではvm・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 2 2 障害切り分け dxm 0754</strong></p><p>検証目的: 性能管理のvmstat 2 2 障害切り分け dxm 0754について、AIX 7.3資料で確認できる実在コマンドと出力形式を机上で照合する。</p><p>前提条件: 対象環境のAIX 7.3資料を確認済み。対象=性能管理障害切り分け034-07</p><p>セッション環境: 机上検証。AIXコマンド、構成ファイル、表見出し、エラーログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+kthr     memory             page              faults        cpu
+ r  b   avm   fre  re  pi  po  fr   sr  cy  in   sy  cs us sy id wa
+ 1  0 205031 631304 0   0   0   0    0   0 1331 2202 528  2  3 95  0
+確認コード AIX0754A
+画面・出力には AIX0754A が表示され、vmstat 2 2 障害切り分け dxm 0754 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; topas -D
+→ Enter を押す
+［画面・出力］
+size      inuse       free        pin    virtual
+memory      1048576     417374     631202      66533     151468
+pg space     262144      31993
+確認コード AIX0754B
+画面・出力には AIX0754B が表示され、vmstat 2 2 障害切り分け dxm 0754 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3のシェルまたはSMIT相当の確認画面です。dxm を読むため、性能管理 の対象値を表示します。
+［操作（入力）］
+AIX 7.3 シェル
+COMMAND ===&gt; vmstat 2 2
+→ Enter を押す
+［画面・出力］
+Disk     Busy%  KBPS     TPS   KB-R   ART   MRT   KB-W   AWT
+hdisk0     3.0  56.0     3.5   0.0   0.0   5.4   56.0   5.8
+確認コード AIX0754C
+画面・出力には AIX0754C が表示され、vmstat 2 2 障害切り分け dxm 0754 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の AIX0754A が画面・出力に表示されること
+② ステップ2 の AIX0754B が画面・出力に表示されること
+③ ステップ3 の AIX0754C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_commands3_en / AIX73_devicemanagement_en / AIX73_network_en / AIX73_performance_en / AIX73_osmanagement_en / AIX73_security_en / AIX73_install_en</p></div></details></section>
+
+
+## 物理ボリューム
+
+
+<section class="kb-item" id="c01-i0901"><h3>lparstat 性能確認 警告行</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lparstat 性能確認 警告行」は、LPAR の CPU 使用率、物理CPU消費、AME 関連値を表示するコマンドを性能確認の観点で確認する技術項目です。VG STATE 欄とpaging050を同じ記録で見比べることで、ボリュームグループの取り違えを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat 性能確認 警告行の役割を調べています。lspv 復旧前確認 状態確認の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはLPAR の CPU 使用率・物理CPU消費・AME 関連値を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としては物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li><li>C. 機能の説明としては導入と起動でbootlist -m normalを用い・EFIX LABEL と代替ディスク状態を確認する。</li><li>D. 機能の説明としてはLVMでmigratepvを用い・LV STATE とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「LPAR の CPU 使用率、物理CPU消費、AME 関連値を表示するコマンドである」に対応する項目は性能確認 警告行（性能・lpar）です。物理ボリュームの仕様は「LPAR の CPU 使用率、物理CPU消費、AME」で、確認対象はlp・性能・警告です。復旧前・lspvのB:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は復旧前確認 状態確認（復旧・lspv）です。変更前・bootのC:は「導入と起動でbootlist -m normalを用い、EFIX」を述べ、対象はEFIX LABEL（変更・boot）です。属性・migrのD:は「LVMでmigratepvを用い、LV STATE」を述べ、対象はLV STATE（属性・migr）です。「lparstat」は「LPAR の CPU 使用率、物理CPU消費、AME」を指し、性能確認 警告行ではlp・性能・警告に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat 性能確認 警告行</strong></p><p>検証目的: 物理ボリュームのlparstat 性能確認 警告行について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: lcpu=2 mem=1024MB tmem=512MB ent=0.40 mmode=dedicated-E
+ r b avm fre csz cfr dxm ci co pi po in sy cs
+画面・出力には System が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lparstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: type=Shared mode=Uncapped mmode=Ded-E smt=On
+%user %sys %wait %idle physc %entc lbusy app vcsw phint %xcpu dxm
+画面・出力には System が含まれ、lparstat 性能確認 警告行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ボリュームグループの取り違えを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; topas
+→ Enter を押す
+［画面・出力］
+Topas Monitor for host: aixhost
+CPU User% Kern% Wait% Idle%
+AME TMEM,MB 512 CMEM,MB 114 EF[T/A] 2.0/1.5
+画面・出力には Topas が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の System が画面・出力に表示されること
+② ステップ2 の System が画面・出力に表示されること
+③ ステップ3 の Topas が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0902"><h3>lparstat 詳細確認 保存場所</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 初級</p><p>AIX 7.3 の 物理ボリューム で扱う「lparstat 詳細確認 保存場所」は、LPAR の CPU 使用率、物理CPU消費、AME 関連値を表示するコマンドを詳細確認の観点で確認する技術項目です。VG STATE 欄とpaging010を同じ記録で見比べることで、ボリュームグループの取り違えを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lparstat 詳細確認 保存場所の役割を調べています。lspv 属性照合 照合単位の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。</li><li>B. 障害切り分けに用いる役割はLVMでmigratepvを用い・MIRROR WRITE CONSISTENCYである。</li><li>C. 障害切り分けに用いる役割は性能管理でfilemonを用い・Busy% とsvmon全体表示を確認する。</li><li>D. 障害切り分けに用いる役割はLPAR の CPU 使用率・物理CPU消費・AME 関連値を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Dの記述「LPAR の CPU 使用率、物理CPU消費、AME 関連値を表示するコマンドである」に対応する項目は詳細確認 保存場所（詳細・lpar）です。物理ボリュームの仕様は「LPAR の CPU 使用率、物理CPU消費、AME」で、確認対象はlp・詳細・保存です。属性・照合・lspvのA:は「物理ボリュームの PVID、所属ボリュームグループ」を述べ、対象は属性照合 照合単位（属性・lspv）です。性能・migrのB:は「LVMでmigratepvを用い、MIRROR WRITE」を述べ、対象はWRITE CONSISTENCY（性能・migr）です。運用引・fileのC:は「性能管理でfilemonを用い、Busy%」を述べ、対象は運用引継ぎ Busy%（運用・file）です。「lparstat」は「LPAR の CPU 使用率、物理CPU消費、AME」を指し、詳細確認 保存場所ではlp・詳細・保存に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lparstat 詳細確認 保存場所</strong></p><p>検証目的: 物理ボリュームのlparstat 詳細確認 保存場所について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: lcpu=2 mem=1024MB tmem=512MB ent=0.40 mmode=dedicated-E
+ r b avm fre csz cfr dxm ci co pi po in sy cs
+画面・出力には System が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lparstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: type=Shared mode=Uncapped mmode=Ded-E smt=On
+%user %sys %wait %idle physc %entc lbusy app vcsw phint %xcpu dxm
+画面・出力には System が含まれ、lparstat 詳細確認 保存場所の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ボリュームグループの取り違えを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; topas
+→ Enter を押す
+［画面・出力］
+Topas Monitor for host: aixhost
+CPU User% Kern% Wait% Idle%
+AME TMEM,MB 512 CMEM,MB 114 EF[T/A] 2.0/1.5
+画面・出力には Topas が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の System が画面・出力に表示されること
+② ステップ2 の System が画面・出力に表示されること
+③ ステップ3 の Topas が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0903"><h3>lsattr 属性照合 ディスク状態</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lsattr 属性照合 ディスク状態」は、デバイスや sys0 などの属性値を表示するコマンドを属性照合の観点で確認する技術項目です。VG STATE 欄とpaging026を同じ記録で見比べることで、PVID の誤読を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsattr 属性照合 ディスク状態の役割を調べています。chdev 障害切り分け ボリューム状態の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはデバイスや sys0 などの属性値を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはデバイス属性を変更する管理コマンドである。</li><li>C. 機能の説明としてはJFS2でfsckを用い・isnapshot とログデバイス設定を確認する。</li><li>D. 機能の説明としてはセキュリティでrbacqry -u user1 -Tを用い・user attributesである。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「デバイスや sys0 などの属性値を表示するコマンドである」に対応する項目は属性照合 ディスク状態（属性・lsat）です。物理ボリュームの仕様は「デバイスや sys0 などの属性値を表示するコマンド」で、確認対象はls・属性・ディです。障害切・chdeのB:は「デバイス属性を変更する管理コマンド」を述べ、対象は障害切り分け ボリューム状態（障害・chde）です。変更前・fsckのC:は「JFS2でfsckを用い、isnapshot」を述べ、対象は変更前確認 isnapshot（変更・fsck）です。属性・rbacのD:は「セキュリティでrbacqry -u user1 -Tを用い」を述べ、対象はuser attributes（属性・rbac）です。「lsattr」は「デバイスや sys0 などの属性値を表示するコマンド」を指し、属性照合 ディスク状態ではls・属性・ディに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsattr 属性照合 ディスク状態</strong></p><p>検証目的: 物理ボリュームのlsattr 属性照合 ディスク状態について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lspv
+→ Enter を押す
+［画面・出力］
+hdisk0          00f6a1b2c3d4e26        rootvg          active
+hdisk1          00f6a1b2c3d5e26        datavg          active
+画面・出力には hdisk0 が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg rootvg
+→ Enter を押す
+［画面・出力］
+VOLUME GROUP: rootvg
+VG STATE: active
+PP SIZE: 128 megabyte(s)
+TOTAL PPs: 1092
+画面・出力には VOLUME が含まれ、lsattr 属性照合 ディスク状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、PVID の誤読を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg -l rootvg
+→ Enter を押す
+［画面・出力］
+LV NAME             TYPE       LPs   PPs   LV STATE      MOUNT POINT
+hd4                 jfs2       1     1     open/syncd    /
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の hdisk0 が画面・出力に表示されること
+② ステップ2 の VOLUME が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0904"><h3>lsattr 復旧前確認 対象ファイル</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lsattr 復旧前確認 対象ファイル」は、デバイスや sys0 などの属性値を表示するコマンドを復旧前確認の観点で確認する技術項目です。VG STATE 欄とpaging066を同じ記録で見比べることで、PVID の誤読を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsattr 復旧前確認 対象ファイルの役割を調べています。chdev 一覧確認 一致条件の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はデバイス属性を変更する管理コマンドである。</li><li>B. 表示や設定で扱う内容はネットワークでnetstat -rnを用い・Gateway と経路表を確認する。</li><li>C. 表示や設定で扱う内容はデバイスや sys0 などの属性値を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容はJFS2でmount -o remountを用い・lff と内部スナップショットを確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Cの記述「デバイスや sys0 などの属性値を表示するコマンドである」に対応する項目は復旧前確認 対象ファイル（復旧・lsat）です。物理ボリュームの仕様は「デバイスや sys0 などの属性値を表示するコマンド」で、確認対象はls・復旧前です。一覧・一致・chdeのA:は「デバイス属性を変更する管理コマンド」を述べ、対象は一覧確認 一致条件（一覧・chde）です。監査・netsのB:は「ネットワークでnetstat -rnを用い、Gateway」を述べ、対象は監査記録 Gateway（監査・nets）です。変更後・mounのD:は「JFS2でmount -o remountを用い、lff」を述べ、対象は変更後確認 lff（変更・moun）です。「lsattr」は「デバイスや sys0 などの属性値を表示するコマンド」を指し、復旧前確認 対象ファイルではls・復旧前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsattr 復旧前確認 対象ファイル</strong></p><p>検証目的: 物理ボリュームのlsattr 復旧前確認 対象ファイルについて、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lspv
+→ Enter を押す
+［画面・出力］
+hdisk0          00f6a1b2c3d4e66        rootvg          active
+hdisk1          00f6a1b2c3d5e66        datavg          active
+画面・出力には hdisk0 が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg rootvg
+→ Enter を押す
+［画面・出力］
+VOLUME GROUP: rootvg
+VG STATE: active
+PP SIZE: 128 megabyte(s)
+TOTAL PPs: 1092
+画面・出力には VOLUME が含まれ、lsattr 復旧前確認 対象ファイルの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、PVID の誤読を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg -l rootvg
+→ Enter を押す
+［画面・出力］
+LV NAME             TYPE       LPs   PPs   LV STATE      MOUNT POINT
+hd4                 jfs2       1     1     open/syncd    /
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の hdisk0 が画面・出力に表示されること
+② ステップ2 の VOLUME が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0905"><h3>lscfg 変更前確認 障害記録</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lscfg 変更前確認 障害記録」は、構成済みデバイスと VPD を表示するコマンドを変更前確認の観点で確認する技術項目です。VG STATE 欄とpaging058を同じ記録で見比べることで、ページング使用率の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lscfg 変更前確認 障害記録の役割を調べています。vmstat 復旧前確認 出力見出しの説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はCPU・メモリー・ページング・AME 統計を表示する性能コマンドである。</li><li>B. 障害切り分けに用いる役割は構成済みデバイスと VPD を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は導入と起動でmksysbを用い・Technology Level と代替ディスク状態を確認する。</li><li>D. 障害切り分けに用いる役割はLVMでchlvを用い・PVID とボリュームグループ属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「構成済みデバイスと VPD を表示するコマンドである」に対応する項目は変更前確認 障害記録（変更・lscf）です。物理ボリュームの仕様は「構成済みデバイスと VPD を表示するコマンド」で、確認対象はls・変更前です。復旧前・vmstのA:は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」を述べ、対象は復旧前確認 出力見出し（復旧・vmst）です。起動・mksyのC:は「導入と起動でmksysbを用い、Technology Level」を述べ、対象はTechnology Level（起動・mksy）です。運用引・chlvのD:は「LVMでchlvを用い、PVID とボリュームグループ属性を確認する」を述べ、対象は運用引継ぎ PVID（運用・chlv）です。「lscfg」は「構成済みデバイスと VPD を表示するコマンド」を指し、変更前確認 障害記録ではls・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lscfg 変更前確認 障害記録</strong></p><p>検証目的: 物理ボリュームのlscfg 変更前確認 障害記録について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt
+→ Enter を押す
+［画面・出力］
+ERROR_IDENTIFIER TIMESTAMP  T C RESOURCE_NAME  ERROR_DESCRIPTION
+0E017ED1         0405131090 P H mem2           Memory failure
+画面・出力には ERROR が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt -a -N hdisk1
+→ Enter を押す
+［画面・出力］
+LABEL: DISK_ERR4
+RESOURCE NAME: hdisk1
+Description
+DISK OPERATION ERROR
+画面・出力には LABEL が含まれ、lscfg 変更前確認 障害記録の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ページング使用率の見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; /usr/lib/errdemon -l
+→ Enter を押す
+［画面・出力］
+/var/adm/ras/errlog
+画面・出力には errlog が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の LABEL が画面・出力に表示されること
+③ ステップ3 の errlog が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0906"><h3>lscfg 状態判定 除外条件</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lscfg 状態判定 除外条件」は、構成済みデバイスと VPD を表示するコマンドを状態判定の観点で確認する技術項目です。VG STATE 欄とpaging018を同じ記録で見比べることで、ページング使用率の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lscfg 状態判定 除外条件の役割を調べています。vmstat 属性照合 イベント転送の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は構成済みデバイスと VPD を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はCPU・メモリー・ページング・AME 統計を表示する性能コマンドである。</li><li>C. 表示や設定で扱う内容はJFS2でsnapを用い・lff とログデバイス設定を確認する。</li><li>D. 表示や設定で扱う内容はセキュリティでsetsecattrを用い・enhanced_RBAC とロール一覧を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「構成済みデバイスと VPD を表示するコマンドである」に対応する項目は状態判定 除外条件（状態・lscf）です。物理ボリュームの仕様は「構成済みデバイスと VPD を表示するコマンド」で、確認対象はls・状態・除外です。属性・イベ・vmstのB:は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」を述べ、対象は属性照合 イベント転送（属性・vmst）です。監査・snapのC:は「JFS2でsnapを用い、lff とログデバイス設定を確認する」を述べ、対象は監査記録 lff（監査・snap）です。変更後・setsのD:は「セキュリティでsetsecattrを用い」を述べ、対象は変更後確認 enhanced_RBA（変更・sets）です。「lscfg」は「構成済みデバイスと VPD を表示するコマンド」を指し、状態判定 除外条件ではls・状態・除外に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lscfg 状態判定 除外条件</strong></p><p>検証目的: 物理ボリュームのlscfg 状態判定 除外条件について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt
+→ Enter を押す
+［画面・出力］
+ERROR_IDENTIFIER TIMESTAMP  T C RESOURCE_NAME  ERROR_DESCRIPTION
+0E017ED1         0405131090 P H mem2           Memory failure
+画面・出力には ERROR が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt -a -N hdisk1
+→ Enter を押す
+［画面・出力］
+LABEL: DISK_ERR4
+RESOURCE NAME: hdisk1
+Description
+DISK OPERATION ERROR
+画面・出力には LABEL が含まれ、lscfg 状態判定 除外条件の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ページング使用率の見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; /usr/lib/errdemon -l
+→ Enter を押す
+［画面・出力］
+/var/adm/ras/errlog
+画面・出力には errlog が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の LABEL が画面・出力に表示されること
+③ ステップ3 の errlog が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0907"><h3>lsps 一覧確認 メッセージ行</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 上級</p><p>AIX 7.3 の 物理ボリューム で扱う「lsps 一覧確認 メッセージ行」は、ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンドを一覧確認の観点で確認する技術項目です。VG STATE 欄とpaging074を同じ記録で見比べることで、資源名の誤指定を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsps 一覧確認 メッセージ行の役割を調べています。errpt 詳細確認 表形式の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはAIX エラーログから要約または詳細レポートを生成するコマンドである。</li><li>B. 機能の説明としてはネットワークでchdev -l en0 -aを用い・MTU と経路表を確認する。</li><li>C. 機能の説明としてはページングスペースの名前・サイズ・使用率・活動状態を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としてはJFS2でlsfs -qを用い・mountguard と内部スナップショットを確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Cの記述「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンドである」に対応する項目は一覧確認 メッセージ行（一覧・lsps）です。物理ボリュームの仕様は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」で、確認対象はls・一覧・メッです。詳細・表形・errpのA:は「AIX エラーログから要約または詳細レポートを生成するコマンド」を述べ、対象は詳細確認 表形式（詳細・errp）です。変更前・chdeのB:は「ネットワークでchdev -l en0 -aを用い、MTU」を述べ、対象は変更前確認 MTU（変更・chde）です。状態・lsfsのD:は「JFS2でlsfs -qを用い、mountguard」を述べ、対象は状態確認 mountguard（状態・lsfs）です。「lsps」は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」を指し、一覧確認 メッセージ行ではls・一覧・メッに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsps 一覧確認 メッセージ行</strong></p><p>検証目的: 物理ボリュームのlsps 一覧確認 メッセージ行について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsattr -E -l sys0 -a iostat
+→ Enter を押す
+［画面・出力］
+iostat true Continuously maintain disk I/O history True
+画面・出力には iostat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; chdev -l sys0 -a iostat=true
+→ Enter を押す
+［画面・出力］
+sys0 changed
+画面・出力には sys0 が含まれ、lsps 一覧確認 メッセージ行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、資源名の誤指定を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lscfg -l sysplanar0
+→ Enter を押す
+［画面・出力］
+DEVICE          LOCATION     DESCRIPTION
+sysplanar0      00-00        CPU Planar
+画面・出力には DEVICE が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の iostat が画面・出力に表示されること
+② ステップ2 の sys0 が画面・出力に表示されること
+③ ステップ3 の DEVICE が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0908"><h3>lsps 障害切り分け ファイルセット</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lsps 障害切り分け ファイルセット」は、ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンドを障害切り分けの観点で確認する技術項目です。VG STATE 欄とpaging034を同じ記録で見比べることで、資源名の誤指定を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsps 障害切り分け ファイルセットの役割を調べています。errpt 性能確認 チューニング値の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はAIX エラーログから要約または詳細レポートを生成するコマンドである。</li><li>B. 障害切り分けに用いる役割はSRCとログでrefresh -s syslogdを用い・Subsystemである。</li><li>C. 障害切り分けに用いる役割はデバイス管理でlsattr -El hdisk0を用い・Available とODM属性を確認する。</li><li>D. 障害切り分けに用いる役割はページングスペースの名前・サイズ・使用率・活動状態を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンドである」に対応する項目は障害切り分け ファイルセット（障害・lsps）です。物理ボリュームの仕様は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」で、確認対象はls・障害切です。性能・チュ・errpのA:は「AIX エラーログから要約または詳細レポートを生成するコマンド」を述べ、対象は性能確認 チューニング値（性能・errp）です。起動・refrのB:は「SRCとログでrefresh -s syslogdを用い」を述べ、対象は起動確認 Subsystem（起動・refr）です。運用引・lsatのC:は「デバイス管理でlsattr -El hdisk0を用い」を述べ、対象は運用引継ぎ Available（運用・lsat）です。「lsps」は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」を指し、障害切り分け ファイルセットではls・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsps 障害切り分け ファイルセット</strong></p><p>検証目的: 物理ボリュームのlsps 障害切り分け ファイルセットについて、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsattr -E -l sys0 -a iostat
+→ Enter を押す
+［画面・出力］
+iostat true Continuously maintain disk I/O history True
+画面・出力には iostat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; chdev -l sys0 -a iostat=true
+→ Enter を押す
+［画面・出力］
+sys0 changed
+画面・出力には sys0 が含まれ、lsps 障害切り分け ファイルセットの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、資源名の誤指定を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lscfg -l sysplanar0
+→ Enter を押す
+［画面・出力］
+DEVICE          LOCATION     DESCRIPTION
+sysplanar0      00-00        CPU Planar
+画面・出力には DEVICE が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の iostat が画面・出力に表示されること
+② ステップ2 の sys0 が画面・出力に表示されること
+③ ステップ3 の DEVICE が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0909"><h3>lsvg 性能確認 資料見出し</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 物理ボリューム で扱う「lsvg 性能確認 資料見出し」は、ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンドを性能確認の観点で確認する技術項目です。VG STATE 欄とpaging042を同じ記録で見比べることで、停止中の論理ボリューム見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsvg 性能確認 資料見出しの役割を調べています。lslv 変更前確認 運用記録の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は論理ボリュームの属性と割り当て情報を表示するコマンドである。</li><li>B. 表示や設定で扱う内容はボリュームグループの構成・状態・論理ボリューム一覧を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容はSRCとログでlssrc -s syslogdを用い・TIMESTAMP とsyslog設定変換を確認する。</li><li>D. 表示や設定で扱う内容はデバイス管理でlsmpio -l hdisk0を用い・path status とODM属性を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンドである」に対応する項目は性能確認 資料見出し（性能・lsvg）です。物理ボリュームの仕様は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」で、確認対象はls・性能・資料です。変更前・lslvのA:は「論理ボリュームの属性と割り当て情報を表示するコマンド」を述べ、対象は変更前確認 運用記録（変更・lslv）です。監査・lssrのC:は「SRCとログでlssrc -s syslogdを用い」を述べ、対象は監査記録 TIMESTAMP（監査・lssr）です。変更後・lsmpのD:は「デバイス管理でlsmpio -l hdisk0を用い、path」を述べ、対象はpath status（変更・lsmp）です。「lsvg」は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」を指し、性能確認 資料見出しではls・性能・資料に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsvg 性能確認 資料見出し</strong></p><p>検証目的: 物理ボリュームのlsvg 性能確認 資料見出しについて、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lslv hd4
+→ Enter を押す
+［画面・出力］
+LOGICAL VOLUME: hd4
+VOLUME GROUP: rootvg
+LV STATE: opened/syncd
+TYPE: jfs2
+画面・出力には LOGICAL が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsps -a
+→ Enter を押す
+［画面・出力］
+Page Space      Physical Volume   Volume Group    Size   %Used Active Auto Type
+hd6             hdisk0            rootvg          1024MB 1     yes    yes  lv
+画面・出力には Page が含まれ、lsvg 性能確認 資料見出しの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、停止中の論理ボリューム見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; smit lsps
+→ Enter を押す
+［画面・出力］
+SMIT fast path: lsps
+Command to run: lsps -a
+Paging space list displayed
+画面・出力には SMIT が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の LOGICAL が画面・出力に表示されること
+② ステップ2 の Page が画面・出力に表示されること
+③ ステップ3 の SMIT が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0910"><h3>lsvg 詳細確認 詳細表示</h3><p class="kb-meta">分類: 物理ボリューム ・ 難易度: 初級</p><p>AIX 7.3 の 物理ボリューム で扱う「lsvg 詳細確認 詳細表示」は、ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンドを詳細確認の観点で確認する技術項目です。VG STATE 欄とpaging002を同じ記録で見比べることで、停止中の論理ボリューム見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lsvg 詳細確認 詳細表示の役割を調べています。lslv 状態判定 構成照合の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては論理ボリュームの属性と割り当て情報を表示するコマンドである。</li><li>B. 機能の説明としてはLVMでchvgを用い・VG STATE と論理ボリューム配置を確認する。chvg 構成照合 VG STATE 0228固有の属性も確認対象に含める。</li><li>C. 機能の説明としてはボリュームグループの構成・状態・論理ボリューム一覧を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としては性能管理でvmo -aを用い・pi とsvmon全体表示を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンドである」に対応する項目は詳細確認 詳細表示（詳細・lsvg）です。物理ボリュームの仕様は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」で、確認対象はls・詳細・詳細です。状態・構成・lslvのA:は「論理ボリュームの属性と割り当て情報を表示するコマンド」を述べ、対象は状態判定 構成照合（状態・lslv）です。構成・chvgのB:は「LVMでchvgを用い、VG STATE」を述べ、対象はVG STATE（構成・chvg）です。属性・vmoのD:は「性能管理でvmo -aを用い、pi とsvmon全体表示を確認する」を述べ、対象は属性確認 pi（属性・vmo）です。「lsvg」は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」を指し、詳細確認 詳細表示ではls・詳細・詳細に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lsvg 詳細確認 詳細表示</strong></p><p>検証目的: 物理ボリュームのlsvg 詳細確認 詳細表示について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、物理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lslv hd4
+→ Enter を押す
+［画面・出力］
+LOGICAL VOLUME: hd4
+VOLUME GROUP: rootvg
+LV STATE: opened/syncd
+TYPE: jfs2
+画面・出力には LOGICAL が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。VG STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsps -a
+→ Enter を押す
+［画面・出力］
+Page Space      Physical Volume   Volume Group    Size   %Used Active Auto Type
+hd6             hdisk0            rootvg          1024MB 1     yes    yes  lv
+画面・出力には Page が含まれ、lsvg 詳細確認 詳細表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、停止中の論理ボリューム見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; smit lsps
+→ Enter を押す
+［画面・出力］
+SMIT fast path: lsps
+Command to run: lsps -a
+Paging space list displayed
+画面・出力には SMIT が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の LOGICAL が画面・出力に表示されること
+② ステップ2 の Page が画面・出力に表示されること
+③ ステップ3 の SMIT が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+## 論理ボリューム
+
+
+<section class="kb-item" id="c01-i0911"><h3>chdev 一覧確認 一致条件</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 上級</p><p>AIX 7.3 の 論理ボリューム で扱う「chdev 一覧確認 一致条件」は、デバイス属性を変更する管理コマンドを一覧確認の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 067を同じ記録で見比べることで、停止中の論理ボリューム見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> chdev 一覧確認 一致条件について構成や状態を確認します。lscfg 詳細確認 除外条件ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は構成済みデバイスと VPD を表示するコマンドである。</li><li>B. 一次資料が示す主目的は性能管理でtopas -Cを用い・dxm とAME統計を確認する。</li><li>C. 一次資料が示す主目的はデバイス属性を変更する管理コマンドである。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的はSRCとログでsyslog_ssw -rを用い・TIMESTAMP とsyslog設定変換を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Cの記述「デバイス属性を変更する管理コマンドである」に対応する項目は一覧確認 一致条件（一覧・chde）です。論理ボリュームの仕様は「デバイス属性を変更する管理コマンド」で、確認対象はch・一覧・一致です。詳細・除外・lscfのA:は「構成済みデバイスと VPD を表示するコマンド」を述べ、対象は詳細確認 除外条件（詳細・lscf）です。運用引・topaのB:は「性能管理でtopas -Cを用い、dxm とAME統計を確認する」を述べ、対象は運用引継ぎ dxm（運用・topa）です。障害切・syslのD:は「SRCとログでsyslog_ssw -rを用い、TIMESTAMP」を述べ、対象は障害切り分け TIMESTAMP（障害・sysl）です。「chdev」は「デバイス属性を変更する管理コマンド」を指し、一覧確認 一致条件ではch・一覧・一致に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>chdev 一覧確認 一致条件</strong></p><p>検証目的: 論理ボリュームのchdev 一覧確認 一致条件について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lslv hd4
+→ Enter を押す
+［画面・出力］
+LOGICAL VOLUME: hd4
+VOLUME GROUP: rootvg
+LV STATE: opened/syncd
+TYPE: jfs2
+画面・出力には LOGICAL が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsps -a
+→ Enter を押す
+［画面・出力］
+Page Space      Physical Volume   Volume Group    Size   %Used Active Auto Type
+hd6             hdisk0            rootvg          1024MB 1     yes    yes  lv
+画面・出力には Page が含まれ、chdev 一覧確認 一致条件の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、停止中の論理ボリューム見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; smit lsps
+→ Enter を押す
+［画面・出力］
+SMIT fast path: lsps
+Command to run: lsps -a
+Paging space list displayed
+画面・出力には SMIT が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の LOGICAL が画面・出力に表示されること
+② ステップ2 の Page が画面・出力に表示されること
+③ ステップ3 の SMIT が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0912"><h3>chdev 障害切り分け ボリューム状態</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 論理ボリューム で扱う「chdev 障害切り分け ボリューム状態」は、デバイス属性を変更する管理コマンドを障害切り分けの観点で確認する技術項目です。LV STATE 欄とerrpt sequence 027を同じ記録で見比べることで、停止中の論理ボリューム見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> chdev 障害切り分け ボリューム状態について構成や状態を確認します。lscfg 性能確認 ページング状態ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは構成済みデバイスと VPD を表示するコマンドである。</li><li>B. 対象資源に対する働きはSRCとログでerrptを用い・IDENTIFIER とinetdデバッグ出力を確認する。</li><li>C. 対象資源に対する働きはデバイス管理でodmget CuDvを用い・attribute と構成マネージャー結果を確認する。</li><li>D. 対象資源に対する働きはデバイス属性を変更する管理コマンドである。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「デバイス属性を変更する管理コマンドである」に対応する項目は障害切り分け ボリューム状態（障害・chde）です。論理ボリュームの仕様は「デバイス属性を変更する管理コマンド」で、確認対象はch・障害切です。性能・ペー・lscfのA:は「構成済みデバイスと VPD を表示するコマンド」を述べ、対象は性能確認 ページング状態（性能・lscf）です。変更後・errpのB:は「SRCとログでerrptを用い、IDENTIFIER」を述べ、対象は変更後確認 IDENTIFIER（変更・errp）です。状態・odmgのC:は「デバイス管理でodmget CuDvを用い、attribute」を述べ、対象は状態確認 attribute（状態・odmg）です。「chdev」は「デバイス属性を変更する管理コマンド」を指し、障害切り分け ボリューム状態ではch・障害切に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>chdev 障害切り分け ボリューム状態</strong></p><p>検証目的: 論理ボリュームのchdev 障害切り分け ボリューム状態について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lslv hd4
+→ Enter を押す
+［画面・出力］
+LOGICAL VOLUME: hd4
+VOLUME GROUP: rootvg
+LV STATE: opened/syncd
+TYPE: jfs2
+画面・出力には LOGICAL が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsps -a
+→ Enter を押す
+［画面・出力］
+Page Space      Physical Volume   Volume Group    Size   %Used Active Auto Type
+hd6             hdisk0            rootvg          1024MB 1     yes    yes  lv
+画面・出力には Page が含まれ、chdev 障害切り分け ボリューム状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、停止中の論理ボリューム見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; smit lsps
+→ Enter を押す
+［画面・出力］
+SMIT fast path: lsps
+Command to run: lsps -a
+Paging space list displayed
+画面・出力には SMIT が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の LOGICAL が画面・出力に表示されること
+② ステップ2 の Page が画面・出力に表示されること
+③ ステップ3 の SMIT が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0913"><h3>errpt 性能確認 チューニング値</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 論理ボリューム で扱う「errpt 性能確認 チューニング値」は、AIX エラーログから要約または詳細レポートを生成するコマンドを性能確認の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 035を同じ記録で見比べることで、ボリュームグループの取り違えを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> errpt 性能確認 チューニング値について構成や状態を確認します。lsattr 変更前確認 パス状態ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはAIX エラーログから要約または詳細レポートを生成するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きはデバイスや sys0 などの属性値を表示するコマンドである。</li><li>C. 状態を読み取るための働きは導入と起動でemgr -lを用い・fileset level と起動デバイス設定を確認する。</li><li>D. 状態を読み取るための働きはLVMでlsvg -lを用い・PVID と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Aの記述「AIX エラーログから要約または詳細レポートを生成するコマンドである」に対応する項目は性能確認 チューニング値（性能・errp）です。論理ボリュームの仕様は「AIX エラーログから要約または詳細レポートを生成するコマンド」で、確認対象はer・性能・チュです。変更前・lsatのB:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は変更前確認 パス状態（変更・lsat）です。属性・emgrのC:は「導入と起動でemgr -lを用い、fileset level」を述べ、対象はfileset level（属性・emgr）です。容量・lsvgのD:は「LVMでlsvg -lを用い、PVID と論理ボリューム配置を確認す」を述べ、対象は容量確認 PVID（容量・lsvg）です。「errpt」は「AIX エラーログから要約または詳細レポートを生成するコマンド」を指し、性能確認 チューニング値ではer・性能・チュに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>errpt 性能確認 チューニング値</strong></p><p>検証目的: 論理ボリュームのerrpt 性能確認 チューニング値について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: lcpu=2 mem=1024MB tmem=512MB ent=0.40 mmode=dedicated-E
+ r b avm fre csz cfr dxm ci co pi po in sy cs
+画面・出力には System が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lparstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: type=Shared mode=Uncapped mmode=Ded-E smt=On
+%user %sys %wait %idle physc %entc lbusy app vcsw phint %xcpu dxm
+画面・出力には System が含まれ、errpt 性能確認 チューニング値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ボリュームグループの取り違えを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; topas
+→ Enter を押す
+［画面・出力］
+Topas Monitor for host: aixhost
+CPU User% Kern% Wait% Idle%
+AME TMEM,MB 512 CMEM,MB 114 EF[T/A] 2.0/1.5
+画面・出力には Topas が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の System が画面・出力に表示されること
+② ステップ2 の System が画面・出力に表示されること
+③ ステップ3 の Topas が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0914"><h3>errpt 詳細確認 表形式</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 上級</p><p>AIX 7.3 の 論理ボリューム で扱う「errpt 詳細確認 表形式」は、AIX エラーログから要約または詳細レポートを生成するコマンドを詳細確認の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 075を同じ記録で見比べることで、ボリュームグループの取り違えを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> errpt 詳細確認 表形式について構成や状態を確認します。lsattr 状態判定 ディスク状態ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはデバイスや sys0 などの属性値を表示するコマンドである。</li><li>B. 対象資源に対する働きは性能管理でiostat -Dl 2 2を用い・avm とAME統計を確認する。</li><li>C. 対象資源に対する働きはSRCとログでsyslog_ssw -cを用い・IDENTIFIER とsyslog設定変換を確認する。</li><li>D. 対象資源に対する働きはAIX エラーログから要約または詳細レポートを生成するコマンドである。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> Dの記述「AIX エラーログから要約または詳細レポートを生成するコマンドである」に対応する項目は詳細確認 表形式（詳細・errp）です。論理ボリュームの仕様は「AIX エラーログから要約または詳細レポートを生成するコマンド」で、確認対象はer・詳細・表形です。状態・ディ・lsatのA:は「デバイスや sys0 などの属性値を表示するコマンド」を述べ、対象は状態判定 ディスク状態（状態・lsat）です。変更後・iostのB:は「性能管理でiostat -Dl 2 2を用い、avm」を述べ、対象は変更後確認 avm（変更・iost）です。構成・syslのC:は「SRCとログでsyslog_ssw -cを用い」を述べ、対象は構成照合 IDENTIFIER（構成・sysl）です。「errpt」は「AIX エラーログから要約または詳細レポートを生成するコマンド」を指し、詳細確認 表形式ではer・詳細・表形に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>errpt 詳細確認 表形式</strong></p><p>検証目的: 論理ボリュームのerrpt 詳細確認 表形式について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; vmstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: lcpu=2 mem=1024MB tmem=512MB ent=0.40 mmode=dedicated-E
+ r b avm fre csz cfr dxm ci co pi po in sy cs
+画面・出力には System が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lparstat -c 2 1
+→ Enter を押す
+［画面・出力］
+System configuration: type=Shared mode=Uncapped mmode=Ded-E smt=On
+%user %sys %wait %idle physc %entc lbusy app vcsw phint %xcpu dxm
+画面・出力には System が含まれ、errpt 詳細確認 表形式の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ボリュームグループの取り違えを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; topas
+→ Enter を押す
+［画面・出力］
+Topas Monitor for host: aixhost
+CPU User% Kern% Wait% Idle%
+AME TMEM,MB 512 CMEM,MB 114 EF[T/A] 2.0/1.5
+画面・出力には Topas が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の System が画面・出力に表示されること
+② ステップ2 の System が画面・出力に表示されること
+③ ステップ3 の Topas が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0915"><h3>lslv 変更前確認 運用記録</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 論理ボリューム で扱う「lslv 変更前確認 運用記録」は、論理ボリュームの属性と割り当て情報を表示するコマンドを変更前確認の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 043を同じ記録で見比べることで、ページング使用率の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lslv 変更前確認 運用記録について構成や状態を確認します。lsps 復旧前確認 復旧手掛かりではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はページングスペースの名前・サイズ・使用率・活動状態を表示するコマンドである。</li><li>B. 一次資料が示す主目的は論理ボリュームの属性と割り当て情報を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は導入と起動でlslpp -Lを用い・mksysb image と起動デバイス設定を確認する。</li><li>D. 一次資料が示す主目的はLVMでlspvを用い・STALE PARTITIONS と論理ボリューム配置を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「論理ボリュームの属性と割り当て情報を表示するコマンドである」に対応する項目は変更前確認 運用記録（変更・lslv）です。論理ボリュームの仕様は「論理ボリュームの属性と割り当て情報を表示するコマンド」で、確認対象はls・変更前です。復旧前・lspsのA:は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」を述べ、対象は復旧前確認 復旧手掛かり（復旧・lsps）です。運用引・lslpのC:は「導入と起動でlslpp -Lを用い、mksysb image」を述べ、対象はmksysb image（運用・lslp）です。障害切・lspvのD:は「LVMでlspvを用い、STALE PARTITIONS」を述べ、対象はSTALE PARTITIONS（障害・lspv）です。「lslv」は「論理ボリュームの属性と割り当て情報を表示するコマンド」を指し、変更前確認 運用記録ではls・変更前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lslv 変更前確認 運用記録</strong></p><p>検証目的: 論理ボリュームのlslv 変更前確認 運用記録について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt
+→ Enter を押す
+［画面・出力］
+ERROR_IDENTIFIER TIMESTAMP  T C RESOURCE_NAME  ERROR_DESCRIPTION
+0E017ED1         0405131090 P H mem2           Memory failure
+画面・出力には ERROR が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt -a -N hdisk1
+→ Enter を押す
+［画面・出力］
+LABEL: DISK_ERR4
+RESOURCE NAME: hdisk1
+Description
+DISK OPERATION ERROR
+画面・出力には LABEL が含まれ、lslv 変更前確認 運用記録の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ページング使用率の見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; /usr/lib/errdemon -l
+→ Enter を押す
+［画面・出力］
+/var/adm/ras/errlog
+画面・出力には errlog が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の LABEL が画面・出力に表示されること
+③ ステップ3 の errlog が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0916"><h3>lslv 状態判定 構成照合</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 初級</p><p>AIX 7.3 の 論理ボリューム で扱う「lslv 状態判定 構成照合」は、論理ボリュームの属性と割り当て情報を表示するコマンドを状態判定の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 003を同じ記録で見比べることで、ページング使用率の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lslv 状態判定 構成照合について構成や状態を確認します。lsps 属性照合 属性確認ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはページングスペースの名前・サイズ・使用率・活動状態を表示するコマンドである。</li><li>B. 対象資源に対する働きはJFS2でcrfsを用い・isnapshot とマウントオプションを確認する。</li><li>C. 対象資源に対する働きは論理ボリュームの属性と割り当て情報を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはセキュリティでlsattr -E -l sys0 -aを用い・roles とユーザー属性を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「論理ボリュームの属性と割り当て情報を表示するコマンドである」に対応する項目は状態判定 構成照合（状態・lslv）です。論理ボリュームの仕様は「論理ボリュームの属性と割り当て情報を表示するコマンド」で、確認対象はls・状態・構成です。属性・属性・lspsのA:は「ページングスペースの名前、サイズ、使用率、活動状態を表示するコマンド」を述べ、対象は属性照合 属性確認（属性・lsps）です。変更前・crfsのB:は「JFS2でcrfsを用い、isnapshot」を述べ、対象は変更前確認 isnapshot（変更・crfs）です。状態・lsatのD:は「セキュリティでlsattr -E -l sys0 -aを用い」を述べ、対象は状態確認 roles（状態・lsat）です。「lslv」は「論理ボリュームの属性と割り当て情報を表示するコマンド」を指し、状態判定 構成照合ではls・状態・構成に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lslv 状態判定 構成照合</strong></p><p>検証目的: 論理ボリュームのlslv 状態判定 構成照合について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt
+→ Enter を押す
+［画面・出力］
+ERROR_IDENTIFIER TIMESTAMP  T C RESOURCE_NAME  ERROR_DESCRIPTION
+0E017ED1         0405131090 P H mem2           Memory failure
+画面・出力には ERROR が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; errpt -a -N hdisk1
+→ Enter を押す
+［画面・出力］
+LABEL: DISK_ERR4
+RESOURCE NAME: hdisk1
+Description
+DISK OPERATION ERROR
+画面・出力には LABEL が含まれ、lslv 状態判定 構成照合の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、ページング使用率の見落としを切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; /usr/lib/errdemon -l
+→ Enter を押す
+［画面・出力］
+/var/adm/ras/errlog
+画面・出力には errlog が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の LABEL が画面・出力に表示されること
+③ ステップ3 の errlog が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0917"><h3>lspv 属性照合 照合単位</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 初級</p><p>AIX 7.3 の 論理ボリューム で扱う「lspv 属性照合 照合単位」は、物理ボリュームの PVID、所属ボリュームグループ、状態を表示するコマンドを属性照合の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 011を同じ記録で見比べることで、PVID の誤読を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lspv 属性照合 照合単位について構成や状態を確認します。lsvg 障害切り分け 設定値ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはボリュームグループの構成・状態・論理ボリューム一覧を表示するコマンドである。</li><li>B. 状態を読み取るための働きはJFS2でlogformを用い・log=INLINE とマウントオプションを確認する。</li><li>C. 状態を読み取るための働きは物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きはセキュリティでpwdck -n ALLを用い・authorizations とユーザー属性を確認する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> Cの記述「物理ボリュームの PVID、所属ボリュームグループ、状態を表示するコマンドである」に対応する項目は属性照合 照合単位（属性・lspv）です。論理ボリュームの仕様は「物理ボリュームの PVID、所属ボリュームグループ」で、確認対象はls・属性・照合です。障害切・lsvgのA:は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」を述べ、対象は障害切り分け 設定値（障害・lsvg）です。起動・logfのB:は「JFS2でlogformを用い、log=INLINE」を述べ、対象は起動確認 log=INLINE（起動・logf）です。容量・pwdcのD:は「セキュリティでpwdck -n ALLを用い」を述べ、対象は容量確認 authorization（容量・pwdc）です。「lspv」は「物理ボリュームの PVID、所属ボリュームグループ」を指し、属性照合 照合単位ではls・属性・照合に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lspv 属性照合 照合単位</strong></p><p>検証目的: 論理ボリュームのlspv 属性照合 照合単位について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lspv
+→ Enter を押す
+［画面・出力］
+hdisk0          00f6a1b2c3d4e11        rootvg          active
+hdisk1          00f6a1b2c3d5e11        datavg          active
+画面・出力には hdisk0 が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg rootvg
+→ Enter を押す
+［画面・出力］
+VOLUME GROUP: rootvg
+VG STATE: active
+PP SIZE: 128 megabyte(s)
+TOTAL PPs: 1092
+画面・出力には VOLUME が含まれ、lspv 属性照合 照合単位の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、PVID の誤読を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg -l rootvg
+→ Enter を押す
+［画面・出力］
+LV NAME             TYPE       LPs   PPs   LV STATE      MOUNT POINT
+hd4                 jfs2       1     1     open/syncd    /
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の hdisk0 が画面・出力に表示されること
+② ステップ2 の VOLUME が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0918"><h3>lspv 復旧前確認 状態確認</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 論理ボリューム で扱う「lspv 復旧前確認 状態確認」は、物理ボリュームの PVID、所属ボリュームグループ、状態を表示するコマンドを復旧前確認の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 051を同じ記録で見比べることで、PVID の誤読を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lspv 復旧前確認 状態確認について構成や状態を確認します。lsvg 一覧確認 詳細表示ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはボリュームグループの構成・状態・論理ボリューム一覧を表示するコマンドである。</li><li>B. 対象資源に対する働きは物理ボリュームの PVID・所属ボリュームグループ・状態を表示するコマンドである。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きはネットワークでcfgmgrを用い・Destination とMTU属性を確認する。cfgmgr 変更後確認 Destination 0277固有の属性も確認対象に含める。</li><li>D. 対象資源に対する働きはJFS2でlogformを用い・isnapshot とログデバイス設定を確認する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Bの記述「物理ボリュームの PVID、所属ボリュームグループ、状態を表示するコマンドである」に対応する項目は復旧前確認 状態確認（復旧・lspv）です。論理ボリュームの仕様は「物理ボリュームの PVID、所属ボリュームグループ」で、確認対象はls・復旧前です。一覧・詳細・lsvgのA:は「ボリュームグループの構成、状態、論理ボリューム一覧を表示するコマンド」を述べ、対象は一覧確認 詳細表示（一覧・lsvg）です。変更後・cfgmのC:は「ネットワークでcfgmgrを用い、Destination」を述べ、対象は変更後確認 Destination（変更・cfgm）です。状態・logfのD:は「JFS2でlogformを用い、isnapshot」を述べ、対象は状態確認 isnapshot（状態・logf）です。「lspv」は「物理ボリュームの PVID、所属ボリュームグループ」を指し、復旧前確認 状態確認ではls・復旧前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lspv 復旧前確認 状態確認</strong></p><p>検証目的: 論理ボリュームのlspv 復旧前確認 状態確認について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lspv
+→ Enter を押す
+［画面・出力］
+hdisk0          00f6a1b2c3d4e51        rootvg          active
+hdisk1          00f6a1b2c3d5e51        datavg          active
+画面・出力には hdisk0 が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg rootvg
+→ Enter を押す
+［画面・出力］
+VOLUME GROUP: rootvg
+VG STATE: active
+PP SIZE: 128 megabyte(s)
+TOTAL PPs: 1092
+画面・出力には VOLUME が含まれ、lspv 復旧前確認 状態確認の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、PVID の誤読を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsvg -l rootvg
+→ Enter を押す
+［画面・出力］
+LV NAME             TYPE       LPs   PPs   LV STATE      MOUNT POINT
+hd4                 jfs2       1     1     open/syncd    /
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の hdisk0 が画面・出力に表示されること
+② ステップ2 の VOLUME が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0919"><h3>vmstat 属性照合 イベント転送</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 論理ボリューム で扱う「vmstat 属性照合 イベント転送」は、CPU、メモリー、ページング、AME 統計を表示する性能コマンドを属性照合の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 019を同じ記録で見比べることで、資源名の誤指定を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 属性照合 イベント転送について構成や状態を確認します。lparstat 障害切り分け 受信先ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はLPAR の CPU 使用率・物理CPU消費・AME 関連値を表示するコマンドである。</li><li>B. 一次資料が示す主目的はSRCとログでerrclearを用い・syslog.conf とinetdデバッグ出力を確認する。</li><li>C. 一次資料が示す主目的はデバイス管理でdiag -d ent0を用い・path status と構成マネージャー結果を確認する。</li><li>D. 一次資料が示す主目的はCPU・メモリー・ページング・AME 統計を表示する性能コマンドである。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「CPU、メモリー、ページング、AME 統計を表示する性能コマンドである」に対応する項目は属性照合 イベント転送（属性・vmst）です。論理ボリュームの仕様は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」で、確認対象はvm・属性・イベです。障害切・lparのA:は「LPAR の CPU 使用率、物理CPU消費、AME」を述べ、対象は障害切り分け 受信先（障害・lpar）です。運用引・errcのB:は「SRCとログでerrclearを用い、syslog.conf」を述べ、対象は運用引継ぎ syslog.conf（運用・errc）です。障害切・diagのC:は「デバイス管理でdiag -d ent0を用い、path」を述べ、対象はpath status（障害・diag）です。「vmstat」は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」を指し、属性照合 イベント転送ではvm・属性・イベに対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 属性照合 イベント転送</strong></p><p>検証目的: 論理ボリュームのvmstat 属性照合 イベント転送について、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsattr -E -l sys0 -a iostat
+→ Enter を押す
+［画面・出力］
+iostat true Continuously maintain disk I/O history True
+画面・出力には iostat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; chdev -l sys0 -a iostat=true
+→ Enter を押す
+［画面・出力］
+sys0 changed
+画面・出力には sys0 が含まれ、vmstat 属性照合 イベント転送の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、資源名の誤指定を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lscfg -l sysplanar0
+→ Enter を押す
+［画面・出力］
+DEVICE          LOCATION     DESCRIPTION
+sysplanar0      00-00        CPU Planar
+画面・出力には DEVICE が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の iostat が画面・出力に表示されること
+② ステップ2 の sys0 が画面・出力に表示されること
+③ ステップ3 の DEVICE が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>
+
+
+<section class="kb-item" id="c01-i0920"><h3>vmstat 復旧前確認 出力見出し</h3><p class="kb-meta">分類: 論理ボリューム ・ 難易度: 中級</p><p>AIX 7.3 の 論理ボリューム で扱う「vmstat 復旧前確認 出力見出し」は、CPU、メモリー、ページング、AME 統計を表示する性能コマンドを復旧前確認の観点で確認する技術項目です。LV STATE 欄とerrpt sequence 059を同じ記録で見比べることで、資源名の誤指定を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> vmstat 復旧前確認 出力見出しについて構成や状態を確認します。lparstat 一覧確認 保存場所ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはLPAR の CPU 使用率・物理CPU消費・AME 関連値を表示するコマンドである。</li><li>B. 状態を読み取るための働きはネットワークでno -aを用い・Media Speed Running とMTU属性を確認する。</li><li>C. 状態を読み取るための働きはJFS2でsnapを用い・log=INLINE とログデバイス設定を確認する。</li><li>D. 状態を読み取るための働きはCPU・メモリー・ページング・AME 統計を表示する性能コマンドである。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> Dの記述「CPU、メモリー、ページング、AME 統計を表示する性能コマンドである」に対応する項目は復旧前確認 出力見出し（復旧・vmst）です。論理ボリュームの仕様は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」で、確認対象はvm・復旧前です。一覧・保存・lparのA:は「LPAR の CPU 使用率、物理CPU消費、AME」を述べ、対象は一覧確認 保存場所（一覧・lpar）です。属性・noのB:は「ネットワークでno -aを用い、Media Speed」を述べ、対象はSpeed Running（属性・no）です。容量・snapのC:は「JFS2でsnapを用い、log=INLINE」を述べ、対象は容量確認 log=INLINE（容量・snap）です。「vmstat」は「CPU、メモリー、ページング、AME 統計を表示する性能コマンド」を指し、復旧前確認 出力見出しではvm・復旧前に対応します。</p><p class="kb-src"><strong>出典:</strong> AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>vmstat 復旧前確認 出力見出し</strong></p><p>検証目的: 論理ボリュームのvmstat 復旧前確認 出力見出しについて、AIX 7.3の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: AIX 7.3の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はAIX 7.3の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、論理ボリュームの対象へ進みます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lsattr -E -l sys0 -a iostat
+→ Enter を押す
+［画面・出力］
+iostat true Continuously maintain disk I/O history True
+画面・出力には iostat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はAIX 7.3の確認画面です。LV STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; chdev -l sys0 -a iostat=true
+→ Enter を押す
+［画面・出力］
+sys0 changed
+画面・出力には sys0 が含まれ、vmstat 復旧前確認 出力見出しの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はAIX 7.3の詳細確認画面です。表示名とメッセージ形式を照合し、資源名の誤指定を切り分けます。
+［操作（入力）］
+AIX 7.3 操作画面
+COMMAND ===&gt; lscfg -l sysplanar0
+→ Enter を押す
+［画面・出力］
+DEVICE          LOCATION     DESCRIPTION
+sysplanar0      00-00        CPU Planar
+画面・出力には DEVICE が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の iostat が画面・出力に表示されること
+② ステップ2 の sys0 が画面・出力に表示されること
+③ ステップ3 の DEVICE が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: AIX73_commands1_en / AIX73_commands2_en / AIX73_devicemanagement_en / AIX73_performance_en / AIX73_osmanagement_en</p></div></details></section>

@@ -1,0 +1,4339 @@
+---
+search:
+  exclude: true
+---
+
+# z/OS 3.1 Core Operations — 詳細 (6/7)
+
+[← z/OS 3.1 Core Operations の概要へ戻る](index.md)
+
+
+## z/OS 3.1 Core Operations > システムログ
+
+### PROGxx更新 状態確認 運用確認010 {#c37-i0242}
+*分類: システムログ*  ・  難易度: 初級
+
+第十観点 PROGxx更新 は z/OS 3.1 の システムログ で扱う管理項目です（第十観点）。第十観点 LNKLST、APF、LPAなどの動的プログラム管理指定を保持する更という説明を操作結果と照合します（第十観点）。第十観点 CNZ4100I、DISPLAY LOGGER のログストリーム表示、定義メンバーを照合し、移行前parmlib差分の記録を確認します（第十観点）。第十観点 証跡には資料IDと確認値を併記し、zOS31記録010として保存します（第十観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第十証跡です。PROGxx更新 の表示とメッセージIDを比べます。確認観点は PROGxx更新、状態確認、運用確認 です。移行前parmlib差分の記録のために、DISPLAY LOGGER のログストリーム表示 を使った運用記録として最も適切な扱いはどれか。
+
+    - A. 作業票010では DISPLAY LOGGER のログストリーム表示 と CNZ4100I と時刻を並べる。後続確認で PROGxx更新 の今回値を同じ対象として再確認できる。 ✅
+    - B. z/OSMF管理 の参考情報だけを作業票010へ先に書く。CNZ4100I とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - C. PROGxx更新 の名称欄だけを作業票010で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - D. 前回の正常出力を作業票010の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY LOGGER のログストリーム表示 と CNZ4100I を照合できない形にする。
+
+    正解: **A** ／ 難易度: 初級
+
+    **解説:** 第十観点 正答根拠: Aは DISPLAY LOGGER のログストリーム表示 と CNZ4100I を結び付けるため、対象システムの取り違えを防げます（第十観点）。第十観点 診断背景: DISPLAY GRS、DISPLAY TRACE、DISPLAY LOGGERは直列化、トレース、ログの状態確認に使います（第十観点）。第十観点 誤答点検: Bはシステム名欠落、Cは定義未確認、Dは時刻差の欠落が理由です（第十観点）。第十観点 用語説明: zHPFはHigh Performance FICONです（第十観点）。第十観点 IOSは入出力監視の表示対象です（第十観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **PROGxx更新 状態確認 運用確認010**
+
+    - 検証目的: PROGxx更新 の 状態確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: ISPF / parmlib review
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により PROGxx更新 の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(IEASYS31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEASYS31
+    PROG=31
+    SMF=31
+    GRSRNL=31
+    CON=31
+    SCHED=31
+    ```
+
+    画面・出力には IEASYS31 が含まれる。IEASYS31 を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により PROGxx更新 の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(SMFPRM31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMFPRM31
+    SYS(TYPE(0:255))
+    DSNAME(SMF.MAN1,SMF.MAN2)
+    ACTIVE
+    JWT(0030)
+    ```
+
+    画面・出力には SMFPRM31 が含まれる。SMFPRM31 を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により PROGxx更新 の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I 10.010.00 PARMLIB DISPLAY 729
+    DATA SET NAME
+    SYS1.PARMLIB
+    SYS1.PARMLIB(IEASYS31)
+    ```
+
+    画面・出力には IEE251I が含まれる。IEE251I を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEASYS31 が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: SMFPRM31 が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IEE251I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### RMF DISPLAY 直列化確認 運用確認026 {#c37-i0243}
+*分類: システムログ*  ・  難易度: 中級
+
+第二十六観点 RMF DISPLAY は z/OS 3.1 の システムログ で扱う管理項目です（第二十六観点）。第二十六観点 RMFまたはz/OS Data Gathererの現在オプションをコという説明を操作結果と照合します（第二十六観点）。第二十六観点 SYS1.IPLPARM(LOAD31)、IEA011A のNIP応答要求、定義メンバーを照合し、オペレーター応答漏れの防止を確認します（第二十六観点）。第二十六観点 証跡には資料IDと確認値を併記し、zOS31記録026として保存します（第二十六観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第二十六証跡です。運用確認026 の確認で RMF DISPLAY を見直します。確認観点は RMF DISPLAY、直列化確認、運用確認 です。メッセージID、定義メンバー、表示出力を同じ確認票に置く対応として適切なものはどれか。
+
+    - A. 結合機構確認 の参考情報だけを作業票026へ先に書く。SYS1.IPLPARM(LOAD31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. RMF DISPLAY の名称欄だけを作業票026で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 作業票026では IEA011A のNIP応答要求 と SYS1.IPLPARM(LOAD31) と時刻を並べる。後続確認で RMF DISPLAY の今回値を同じ対象として再確認できる。 ✅
+    - D. 前回の正常出力を作業票026の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の IEA011A のNIP応答要求 と SYS1.IPLPARM(LOAD31) を照合できない形にする。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 第二十六観点 正答根拠: Cは IEA011A のNIP応答要求 と SYS1.IPLPARM(LOAD31) を結び付けるため、対象システムの取り違えを防げます（第二十六観点）。第二十六観点 操作背景: CNZ4100IやIEE254IなどのメッセージIDは表示結果を後から照合する鍵になります（第二十六観点）。第二十六観点 誤答点検: Aはシステム名欠落、Bは定義未確認、Dは時刻差の欠落が理由です（第二十六観点）。第二十六観点 用語補足: IEASYSxxはシステムパラメーター集合です（第二十六観点）。第二十六観点 SMFPRMxxはSMF記録指定です（第二十六観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **RMF DISPLAY 直列化確認 運用確認026**
+
+    - 検証目的: RMF DISPLAY の 直列化確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: ISPF / parmlib review
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により RMF DISPLAY の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(IEASYS31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEASYS31
+    PROG=31
+    SMF=31
+    GRSRNL=31
+    CON=31
+    SCHED=31
+    ```
+
+    画面・出力には IEASYS31 が含まれる。IEASYS31 を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により RMF DISPLAY の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(SMFPRM31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMFPRM31
+    SYS(TYPE(0:255))
+    DSNAME(SMF.MAN1,SMF.MAN2)
+    ACTIVE
+    JWT(0030)
+    ```
+
+    画面・出力には SMFPRM31 が含まれる。SMFPRM31 を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により RMF DISPLAY の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I 10.002.00 PARMLIB DISPLAY 745
+    DATA SET NAME
+    SYS1.PARMLIB
+    SYS1.PARMLIB(IEASYS31)
+    ```
+
+    画面・出力には IEE251I が含まれる。IEE251I を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEASYS31 が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: SMFPRM31 が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IEE251I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### WRITELOG 直列化確認 運用確認076 {#c37-i0244}
+*分類: システムログ*  ・  難易度: 中級
+
+第七十六観点 z/OS 3.1 Core Operations の システムログ では WRITELOG を障害調査で照合します（第七十六観点）。第七十六観点 資料上は システムログやOPERLOGへ運用コメントを記録するためのコマンドとして扱います（第七十六観点）。第七十六観点 SMFPRM00 を起点に表示値を戻し、オペレーター応答漏れの防止を点検します（第七十六観点）。第七十六観点 記録ではコマンド、メッセージID、対象名、時刻を zOS31記録076へ書きます（第七十六観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第七十六証跡です。運用確認076 の確認で WRITELOG を見直します。確認観点は WRITELOG、直列化確認、運用確認 です。オペレーター応答漏れの防止のために、D IOS,ZHPF のIOS630I表示 を使った運用記録として最も適切な扱いはどれか。
+
+    - A. IEASYMxx管理 の参考情報だけを作業票076へ先に書く。SMFPRM00 とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. WRITELOG の名称欄だけを作業票076で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票076の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IOS,ZHPF のIOS630I表示 と SMFPRM00 を照合できない形にする。
+    - D. 作業票076では D IOS,ZHPF のIOS630I表示 と SMFPRM00 と時刻を並べる。後続確認で WRITELOG の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 第七十六観点 照合結果: Dは SMFPRM00 をメッセージIDや時刻と一緒に残すため、再確認時にも根拠を追えます（第七十六観点）。第七十六観点 診断背景: DISPLAY GRS、DISPLAY TRACE、DISPLAY LOGGERは直列化、トレース、ログの状態確認に使います（第七十六観点）。第七十六観点 誤答確認: Aは SMFPRM00 未追跡、Bはコマンド確認不足、Cは別システム混同が理由です（第七十六観点）。第七十六観点 用語説明: zHPFはHigh Performance FICONです（第七十六観点）。第七十六観点 IOSは入出力監視の表示対象です（第七十六観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **WRITELOG 直列化確認 運用確認076**
+
+    - 検証目的: WRITELOG の 直列化確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / SMF
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により WRITELOG の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D SMF,O
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE974I 11.01.04 SMF DATA SET STATUS
+    NAME       VOLSER  STATUS
+    SMF.MAN1   SMS001  ACTIVE
+    SMF.MAN2   SMS002  EMPTY
+    ```
+
+    画面・出力には SMF DATA SET STATUS が含まれる。SMF DATA SET STATUS を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により WRITELOG の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> SWITCH SMF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE362A SMF ENTER DUMP FOR DATA SET SMF.MAN1
+    IEE360I SMF NOW RECORDING ON SMF.MAN2
+    ```
+
+    画面・出力には IEE360I が含まれる。IEE360I を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により WRITELOG の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    JES2 SDSF ST
+    COMMAND ===> S IFASMFD04
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEF403I IFASMFD04 - STARTED
+    IFASMFDP SYSPRINT
+    INDD(DUMPIN,OPTIONS(ALL)) OUTDD(DUMPALL,TYPE(000:255))
+    ```
+
+    画面・出力には IFASMFDP が含まれる。IFASMFDP を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: SMF DATA SET STATUS が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEE360I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IFASMFDP が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### システムログ SYSLOGとOPERLOG ログとの照合 LOG07 {#c37-i0245}
+*分類: システムログ*  ・  難易度: 中級
+
+ログとの照合では システムログ の SYSLOG表示 を主操作として LOG07 を判定します。時刻と対象識別子への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG07 に残します。ログとの照合を補助する OPERLOG状態 では IXG601I を補助値として LOG07 へ保存します。主判定のログとの照合ではシステムログの SYSLOG表示 から SYSLOG を読み LOG07 へ残します。証跡照合のログとの照合ではシステムログの SYSLOG と IXG601I を LOG07 に保存します。記録対応のログとの照合ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG07 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** ログとの照合で システムログ の SYSLOG表示 と OPERLOG状態 を使い 操作とログを対応 します。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。SYSLOG を読み対象 LOG07 を切り分ける確認方法はどれですか。
+
+    - A. SDSF LOG PREFIX SYSAが応答を返した時点で正常とする。応答中のSYSLOGの値は記録しない。IEE254IをSYSLOGと同じ判定値とみなし対象LOG07の主証跡にする。SYSLOGとOPERLOGの時刻と対象識別子は確認済みとして扱う。さらにSDSF LOG FIND IEE254IのIEE254IをSYSLOGと同種の値として併記する。
+    - B. SDSF LOG PREFIX SYSAのコマンド文字列だけを記録する。SYSLOGを含む応答行は保存しない。
+    - C. SYSLOGを含むSYSLOG表示の応答行を保存する。その応答を得るためSDSF LOG PREFIX SYSAを使用する。対象LOG07のSYSTEMとTIMESTAMPとして記録する。 ✅
+    - D. SYSLOGとOPERLOGの停止または再定義を実施する。その後にSDSF LOG PREFIX SYSAでSYSLOGを採取する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 適切な判定: CはSYSLOG表示で SYSLOG を読みSYSTEMとTIMESTAMPの主値として操作とログを対応しLOG07に残します。
+    機能の仕組み: ログとの照合ではOPERLOG状態を補助操作としSYSLOGとOPERLOGの時刻と対象識別子をIXG601Iと対象LOG07で照合します。
+    各候補の評価: SYSLOG表示とOPERLOG状態の役割を分けるとA: 応答の有無だけではSYSTEMとTIMESTAMPを判定できないうえに追加前提も不正な点で時刻と対象識別子を示せません、B: 入力記録だけではSYSTEMとTIMESTAMPを証明できない点で一次資料と一致しません、C: SYSLOGの実値を対象別に残す点でLOG07を判定できます、D: 変更前のSYSTEMとTIMESTAMPを失う点でOPERLOG状態の範囲を越えます。結論としてログとの照合のシステムログで判定する対象は LOG07 です。
+    用語の定義: ログとの照合で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG07へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG ログとの照合 LOG07**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて操作とログを対応し、LOG07のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG07と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG07のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG07のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG07のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSLOG が画面・出力に表示されること
+    ② ステップ2 の IXG601I が画面・出力に表示されること
+    ③ ステップ3 の IEE254I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 代替経路の確認 LOG10 {#c37-i0246}
+*分類: システムログ*  ・  難易度: 中級
+
+代替経路の確認では システムログ の SYSLOG表示 を主操作として LOG10 を判定します。主経路との役割差への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG10 に残します。代替経路の確認を補助する OPERLOG状態 では IXG601I を補助値として LOG10 へ保存します。主判定の代替経路の確認ではシステムログの SYSLOG表示 から SYSLOG を読み LOG10 へ残します。証跡照合の代替経路の確認ではシステムログの SYSLOG と IXG601I を LOG10 に保存します。記録対応の代替経路の確認ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG10 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 代替経路の確認で システムログ の SYSLOG表示 と OPERLOG状態 を照合し 主経路との役割差 を確かめます。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。SYSLOG を読む前に対象 LOG10 へ行う確認はどれですか。
+
+    - A. SDSF LOG PREFIX SYSAのコマンド文字列だけを記録する。SYSLOGを含む応答行は保存しない。
+    - B. SDSF LOG PREFIX SYSAとD LOGGER,L,LSN=SYSPLEX.OPERLOGの対象名をそろえる。前者のSYSLOGをSYSTEMとTIMESTAMPの判定値として採用する。 ✅
+    - C. SYSLOGとOPERLOGの停止または再定義を実施する。その後にSDSF LOG PREFIX SYSAでSYSLOGを採取する。
+    - D. 結合機構確認のSTRUCTUREとCONNECTIONを確認する。その値をシステムログのLOG10にも適用する。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 正しい判定結果: BはSYSLOG表示で SYSLOG を読みSYSTEMとTIMESTAMPの主値として代替手段の成立を確認しLOG10に残します。
+    運用上の背景: 代替経路の確認ではOPERLOG状態を補助操作としSYSLOGとOPERLOGの主経路との役割差をIXG601Iと対象LOG10で照合します。
+    候補別の検討: SYSLOG表示とOPERLOG状態の役割を分けるとA: 入力記録だけではSYSTEMとTIMESTAMPを証明できない点で一次資料と一致しません、B: 同じ対象名のSYSLOGを採用する点でLOG10を判定できます、C: 変更前のSYSTEMとTIMESTAMPを失う点でOPERLOG状態の範囲を越えます、D: 結合機構確認の値ではSYSLOGを確認できない点でLOG10の値を示しません。結論として代替経路の確認のシステムログで判定する対象は LOG10 です。
+    重要用語の定義: 代替経路の確認で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG10へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 代替経路の確認 LOG10**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて代替手段の成立を確認し、LOG10のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG10と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG10のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG10のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG10のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSLOG が画面・出力に表示されること
+    ② ステップ2 の IXG601I が画面・出力に表示されること
+    ③ ステップ3 の IEE254I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 変更前の確認 LOG02 {#c37-i0247}
+*分類: システムログ*  ・  難易度: 中級
+
+変更前の確認では システムログ の OPERLOG状態 を主操作として LOG02 を判定します。変更対象と非対象の境界への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG02 に残します。変更前の確認を補助する メッセージ検索 では IEE254I を補助値として LOG02 へ保存します。主判定の変更前の確認ではシステムログの OPERLOG状態 から IXG601I を読み LOG02 へ残します。証跡照合の変更前の確認ではシステムログの IXG601I と IEE254I を LOG02 に保存します。記録対応の変更前の確認ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG02 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 変更前の確認で システムログ の OPERLOG状態 と メッセージ検索 を実施し SYSLOGとOPERLOG の役割を確認します。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。対象 LOG02 の証跡を取る方法はどれですか。
+
+    - A. D LOGGER,L,LSN=SYSPLEX.OPERLOGを対象名なしで実行する。一覧の先頭行をLOG02の結果として記録する。
+    - B. 対象LOG02についてD LOGGER,L,LSN=SYSPLEX.OPERLOGの応答からIXG601Iを確認する。SDSF LOG FIND IEE254Iは補助証跡として時刻をそろえて保存する。 ✅
+    - C. 前回保存したD LOGGER,L,LSN=SYSPLEX.OPERLOGの結果を使う。今回のSDSF LOG FIND IEE254Iの結果と同一時点の証跡として比較する。
+    - D. 保存済みのLOG02の出力を再利用する。今回のD LOGGER,L,LSN=SYSPLEX.OPERLOGとSDSF LOG FIND IEE254Iは実行済みとして扱う。前回値との採取時刻の差も無視できるものとする。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 採用理由: BはOPERLOG状態で IXG601I を読みSYSTEMとTIMESTAMPの主値として変更前の証跡を保存しLOG02に残します。
+    動作の背景: 変更前の確認ではメッセージ検索を補助操作としSYSLOGとOPERLOGの変更対象と非対象の境界をIEE254Iと対象LOG02で照合します。
+    各選択肢の検討: OPERLOG状態とメッセージ検索の役割を分けるとA: 先頭行はLOG02と確定できない点で変更前の確認に合いません、B: IXG601Iと補助証跡の時刻を合わせる点でOPERLOG状態に合います、C: 採取時刻が異なる点でシステムログに使いません、D: 過去出力では今回の変更前の確認を示せないうえに追加前提も不正な点でSYSLOGとOPERLOGに使えません。結論として変更前の確認のシステムログで判定する対象は LOG02 です。
+    初出用語の定義: 変更前の確認で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG02へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 変更前の確認 LOG02**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて変更前の証跡を保存し、LOG02のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG02と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG02のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG02のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG02のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IXG601I が画面・出力に表示されること
+    ② ステップ2 の IEE254I が画面・出力に表示されること
+    ③ ステップ3 の SYSLOG が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 変更後の確認 LOG03 {#c37-i0248}
+*分類: システムログ*  ・  難易度: 中級
+
+変更後の確認では システムログ の メッセージ検索 を主操作として LOG03 を判定します。反映値と残存値への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG03 に残します。変更後の確認を補助する SYSLOG表示 では SYSLOG を補助値として LOG03 へ保存します。主判定の変更後の確認ではシステムログの メッセージ検索 から IEE254I を読み LOG03 へ残します。証跡照合の変更後の確認ではシステムログの IEE254I と SYSLOG を LOG03 に保存します。記録対応の変更後の確認ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG03 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 変更後の確認で システムログ の メッセージ検索 と SYSLOG表示 を用い 変更結果を検証 します。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。IEE254I で対象 LOG03 の SYSTEMとTIMESTAMP を再現できる記録はどれですか。
+
+    - A. SYSLOGとOPERLOGの停止または再定義を実施する。その後にSDSF LOG FIND IEE254IでIEE254Iを採取する。
+    - B. IEASYMxx管理のSYMBOL名と展開値を確認する。その値をシステムログのLOG03にも適用する。同じ製品内の表示なら確認項目の違いはないものとする。SYSLOGとOPERLOGの反映値と残存値は確認済みとして扱う。さらにD LOGGER,L,LSN=SYSPLEX.OPERLOGのIXG601IをIEE254Iと同種の値として併記する。
+    - C. SDSF LOG PREFIX SYSAで周辺状態を押さえる。その後にSDSF LOG FIND IEE254IでIEE254Iを確認して変更結果を検証する。 ✅
+    - D. SDSF LOG PREFIX SYSAが成功したためSDSF LOG FIND IEE254IのIEE254Iも正常だと推定する。主出力は保存しない。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 正答の根拠: Cはメッセージ検索で IEE254I を読みSYSTEMとTIMESTAMPの主値として変更結果を検証しLOG03に残します。
+    内部の仕組み: 変更後の確認ではSYSLOG表示を補助操作としSYSLOGとOPERLOGの反映値と残存値をSYSLOGと対象LOG03で照合します。
+    誤答を含む比較: メッセージ検索とSYSLOG表示の役割を分けるとA: 変更前のSYSTEMとTIMESTAMPを失う点でSYSTEMとTIMESTAMPを確認できません、B: IEASYMxx管理の値ではIEE254Iを確認できないうえに追加前提も不正な点でSYSLOG表示の範囲を越えます、C: 周辺状態の後にIEE254Iを確認する点で現在値を示します、D: 補助操作の成功ではIEE254Iを確定できない点で変更後の確認に合いません。結論として変更後の確認のシステムログで判定する対象は LOG03 です。
+    用語定義: 変更後の確認で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG03へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 変更後の確認 LOG03**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて変更結果を検証し、LOG03のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG03と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG03のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG03のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG03のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE254I が画面・出力に表示されること
+    ② ステップ2 の SYSLOG が画面・出力に表示されること
+    ③ ステップ3 の IXG601I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 引継ぎ記録 LOG09 {#c37-i0249}
+*分類: システムログ*  ・  難易度: 中級
+
+引継ぎ記録では システムログ の メッセージ検索 を主操作として LOG09 を判定します。次担当者が追跡できる証跡への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG09 に残します。引継ぎ記録を補助する SYSLOG表示 では SYSLOG を補助値として LOG09 へ保存します。主判定の引継ぎ記録ではシステムログの メッセージ検索 から IEE254I を読み LOG09 へ残します。証跡照合の引継ぎ記録ではシステムログの IEE254I と SYSLOG を LOG09 に保存します。記録対応の引継ぎ記録ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG09 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 引継ぎ記録で システムログ の メッセージ検索 と SYSLOG表示 を用い 再現可能な記録を作成 します。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。IEE254I で対象 LOG09 の SYSTEMとTIMESTAMP を再現できる記録はどれですか。
+
+    - A. 対象名LOG09を指定してSDSF LOG FIND IEE254Iを実行する。応答中のIEE254Iと時刻を保存する。SDSF LOG PREFIX SYSAで周辺状態を補完する。 ✅
+    - B. SDSF LOG PREFIX SYSAが成功したためSDSF LOG FIND IEE254IのIEE254Iも正常だと推定する。主出力は保存しない。
+    - C. SDSF LOG FIND IEE254Iを対象名なしで実行する。一覧の先頭行をLOG09の結果として記録する。
+    - D. 前回保存したSDSF LOG FIND IEE254Iの結果を使う。今回のSDSF LOG PREFIX SYSAの結果と同一時点の証跡として比較する。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 採用操作の理由: Aはメッセージ検索で IEE254I を読みSYSTEMとTIMESTAMPの主値として再現可能な記録を作成しLOG09に残します。
+    製品内の仕組み: 引継ぎ記録ではSYSLOG表示を補助操作としSYSLOGとOPERLOGの次担当者が追跡できる証跡をSYSLOGと対象LOG09で照合します。
+    選択肢別の説明: メッセージ検索とSYSLOG表示の役割を分けるとA: IEE254Iと時刻を保存する点で現在値を示します、B: 補助操作の成功ではIEE254Iを確定できない点で引継ぎ記録に合いません、C: 先頭行はLOG09と確定できない点でメッセージ検索を代替しません、D: 採取時刻が異なる点でシステムログに使いません。結論として引継ぎ記録のシステムログで判定する対象は LOG09 です。
+    用語を初めて使う際の定義: 引継ぎ記録で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG09へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 引継ぎ記録 LOG09**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて再現可能な記録を作成し、LOG09のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG09と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG09のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG09のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG09のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE254I が画面・出力に表示されること
+    ② ステップ2 の SYSLOG が画面・出力に表示されること
+    ③ ステップ3 の IXG601I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 復旧後の確認 LOG06 {#c37-i0250}
+*分類: システムログ*  ・  難易度: 中級
+
+復旧後の確認では システムログ の メッセージ検索 を主操作として LOG06 を判定します。再発していないことを示す値への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG06 に残します。復旧後の確認を補助する SYSLOG表示 では SYSLOG を補助値として LOG06 へ保存します。主判定の復旧後の確認ではシステムログの メッセージ検索 から IEE254I を読み LOG06 へ残します。証跡照合の復旧後の確認ではシステムログの IEE254I と SYSLOG を LOG06 に保存します。記録対応の復旧後の確認ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG06 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 復旧後の確認で システムログ の メッセージ検索 と SYSLOG表示 の役割を分け 再発していないことを示す値 を調べます。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。対象 LOG06 を誤判定しない進め方はどれですか。
+
+    - A. SMF管理のRECORDINGとMEMBERを確認する。その値をシステムログのLOG06にも適用する。
+    - B. SDSF LOG FIND IEE254IでIEE254Iを取得してからD LOGGER,L,LSN=SYSPLEX.OPERLOGでIXG601Iを照合する。LOG06のSYSTEMとTIMESTAMPを両出力から確定する。 ✅
+    - C. SDSF LOG PREFIX SYSAが成功したためSDSF LOG FIND IEE254IのIEE254Iも正常だと推定する。主出力は保存しない。別資源で得た状態を対象LOG06へ引き継げるものとする。SYSLOGとOPERLOGの再発していないことを示す値は確認済みとして扱う。さらにD LOGGER,L,LSN=SYSPLEX.OPERLOGのIXG601IをIEE254Iと同種の値として併記する。
+    - D. SDSF LOG FIND IEE254Iを対象名なしで実行する。一覧の先頭行をLOG06の結果として記録する。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 正答内容: Bはメッセージ検索で IEE254I を読みSYSTEMとTIMESTAMPの主値として復旧後の安定性を確認しLOG06に残します。
+    構成上の背景: 復旧後の確認ではSYSLOG表示を補助操作としSYSLOGとOPERLOGの再発していないことを示す値をSYSLOGと対象LOG06で照合します。
+    候補ごとの理由: メッセージ検索とSYSLOG表示の役割を分けるとA: SMF管理の値ではIEE254Iを確認できない点でSYSLOG表示の範囲を越えます、B: IEE254IとIXG601Iを順に照合する点で現在値を示します、C: 補助操作の成功ではIEE254Iを確定できないうえに追加前提も不正な点で復旧後の確認に合いません、D: 先頭行はLOG06と確定できない点でメッセージ検索を代替しません。結論として復旧後の確認のシステムログで判定する対象は LOG06 です。
+    初出用語: 復旧後の確認で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG06へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 復旧後の確認 LOG06**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて復旧後の安定性を確認し、LOG06のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG06と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG06のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG06のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG06のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE254I が画面・出力に表示されること
+    ② ステップ2 の SYSLOG が画面・出力に表示されること
+    ③ ステップ3 の IXG601I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 復旧準備 LOG05 {#c37-i0251}
+*分類: システムログ*  ・  難易度: 中級
+
+復旧準備では システムログ の OPERLOG状態 を主操作として LOG05 を判定します。再開前に必要な整合性への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG05 に残します。復旧準備を補助する メッセージ検索 では IEE254I を補助値として LOG05 へ保存します。主判定の復旧準備ではシステムログの OPERLOG状態 から IXG601I を読み LOG05 へ残します。証跡照合の復旧準備ではシステムログの IXG601I と IEE254I を LOG05 に保存します。記録対応の復旧準備ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG05 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 復旧準備で システムログ の OPERLOG状態 と メッセージ検索 を組み合わせる際は SYSLOGとOPERLOG がコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログという仕組みを前提にします。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。IXG601I と SYSTEMとTIMESTAMP を対象 LOG05 で確認する組合せはどれですか。
+
+    - A. 変更を加えずD LOGGER,L,LSN=SYSPLEX.OPERLOGを実行する。IXG601Iを保存する。差分はSDSF LOG FIND IEE254Iの結果と対象名で対応させる。 ✅
+    - B. 前回保存したD LOGGER,L,LSN=SYSPLEX.OPERLOGの結果を使う。今回のSDSF LOG FIND IEE254Iの結果と同一時点の証跡として比較する。
+    - C. 保存済みのLOG05の出力を再利用する。今回のD LOGGER,L,LSN=SYSPLEX.OPERLOGとSDSF LOG FIND IEE254Iは実行済みとして扱う。
+    - D. SDSF LOG FIND IEE254IのIEE254IをSYSTEMとTIMESTAMPの主判定に採用する。D LOGGER,L,LSN=SYSPLEX.OPERLOGの応答は採取対象から外す。変更後の値を変更前の基準として記録してよいものとする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 選定理由: AはOPERLOG状態で IXG601I を読みSYSTEMとTIMESTAMPの主値として復旧条件を確認しLOG05に残します。
+    処理の仕組み: 復旧準備ではメッセージ検索を補助操作としSYSLOGとOPERLOGの再開前に必要な整合性をIEE254Iと対象LOG05で照合します。
+    選択結果の内訳: OPERLOG状態とメッセージ検索の役割を分けるとA: 変更前のIXG601Iを保存する点でOPERLOG状態に合います、B: 採取時刻が異なる点でシステムログに使いません、C: 過去出力では今回の復旧準備を示せない点でSYSLOGとOPERLOGに使えません、D: IEE254IはIXG601Iを代替しないうえに追加前提も不正な点でLOG05を採用できません。結論として復旧準備のシステムログで判定する対象は LOG05 です。
+    用語の説明: 復旧準備で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG05へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 復旧準備 LOG05**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて復旧条件を確認し、LOG05のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG05と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG05のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG05のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG05のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IXG601I が画面・出力に表示されること
+    ② ステップ2 の IEE254I が画面・出力に表示されること
+    ③ ステップ3 の SYSLOG が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 構成監査 LOG08 {#c37-i0252}
+*分類: システムログ*  ・  難易度: 中級
+
+構成監査では システムログ の OPERLOG状態 を主操作として LOG08 を判定します。定義値と稼働値の一致への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG08 に残します。構成監査を補助する メッセージ検索 では IEE254I を補助値として LOG08 へ保存します。主判定の構成監査ではシステムログの OPERLOG状態 から IXG601I を読み LOG08 へ残します。証跡照合の構成監査ではシステムログの IXG601I と IEE254I を LOG08 に保存します。記録対応の構成監査ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG08 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 構成監査で システムログ の OPERLOG状態 と メッセージ検索 を実施し SYSLOGとOPERLOG の役割を確認します。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。対象 LOG08 の証跡を取る方法はどれですか。
+
+    - A. 保存済みのLOG08の出力を再利用する。今回のD LOGGER,L,LSN=SYSPLEX.OPERLOGとSDSF LOG FIND IEE254Iは実行済みとして扱う。
+    - B. SDSF LOG FIND IEE254IのIEE254IをSYSTEMとTIMESTAMPの主判定に採用する。D LOGGER,L,LSN=SYSPLEX.OPERLOGの応答は採取対象から外す。
+    - C. SDSF LOG PREFIX SYSAのSYSLOGをIXG601Iと同義の成功表示として扱う。D LOGGER,L,LSN=SYSPLEX.OPERLOGは実行しない。
+    - D. SDSF LOG FIND IEE254Iの結果だけでは確定しない。D LOGGER,L,LSN=SYSPLEX.OPERLOGのIXG601Iを主証跡として構成差分を監査する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 技術上の正答: DはOPERLOG状態で IXG601I を読みSYSTEMとTIMESTAMPの主値として構成差分を監査しLOG08に残します。
+    実行時の背景: 構成監査ではメッセージ検索を補助操作としSYSLOGとOPERLOGの定義値と稼働値の一致をIEE254Iと対象LOG08で照合します。
+    四つの候補の理由: OPERLOG状態とメッセージ検索の役割を分けるとA: 過去出力では今回の構成監査を示せない点でシステムログに使いません、B: IEE254IはIXG601Iを代替しない点でSYSLOGとOPERLOGに使えません、C: SYSLOGとIXG601Iは確認項目が異なる点でLOG08を採用できません、D: IXG601Iを主証跡として区別する点で主証跡になります。結論として構成監査のシステムログで判定する対象は LOG08 です。
+    初出語定義: 構成監査で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG08へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 構成監査 LOG08**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて構成差分を監査し、LOG08のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG08と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG08のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG08のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG08のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IXG601I が画面・出力に表示されること
+    ② ステップ2 の IEE254I が画面・出力に表示されること
+    ③ ステップ3 の SYSLOG が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 通常状態の確認 LOG01 {#c37-i0253}
+*分類: システムログ*  ・  難易度: 中級
+
+通常状態の確認では システムログ の SYSLOG表示 を主操作として LOG01 を判定します。基準値と現在値の差への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG01 に残します。通常状態の確認を補助する OPERLOG状態 では IXG601I を補助値として LOG01 へ保存します。主判定の通常状態の確認ではシステムログの SYSLOG表示 から SYSLOG を読み LOG01 へ残します。証跡照合の通常状態の確認ではシステムログの SYSLOG と IXG601I を LOG01 に保存します。記録対応の通常状態の確認ではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG01 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 通常状態の確認で システムログ の SYSLOG表示 と OPERLOG状態 を使い 通常状態を確定 します。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。SYSLOG を読み対象 LOG01 を切り分ける確認方法はどれですか。
+
+    - A. SDSF LOG PREFIX SYSAを先に実行する。対象LOG01のSYSLOGをSYSTEMとTIMESTAMPとして記録する。続いてD LOGGER,L,LSN=SYSPLEX.OPERLOGで同一対象を照合する。 ✅
+    - B. D LOGGER,L,LSN=SYSPLEX.OPERLOGのIXG601IをSYSTEMとTIMESTAMPの主判定に採用する。SDSF LOG PREFIX SYSAの応答は採取対象から外す。対象名の差は判定へ影響しないものとする。
+    - C. SDSF LOG FIND IEE254IのIEE254IをSYSLOGと同義の成功表示として扱う。SDSF LOG PREFIX SYSAは実行しない。
+    - D. SDSF LOG PREFIX SYSAが応答を返した時点で正常とする。応答中のSYSLOGの値は記録しない。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 正解の説明: AはSYSLOG表示で SYSLOG を読みSYSTEMとTIMESTAMPの主値として通常状態を確定しLOG01に残します。
+    背景・仕組み: 通常状態の確認ではOPERLOG状態を補助操作としSYSLOGとOPERLOGの基準値と現在値の差をIXG601Iと対象LOG01で照合します。
+    選択肢の理由: SYSLOG表示とOPERLOG状態の役割を分けるとA: SYSLOGを主値として補助結果と照合する点で正答です、B: IXG601IはSYSLOGを代替しないうえに追加前提も不正な点でLOG01を採用できません、C: IEE254IとSYSLOGは確認項目が異なる点で基準値と現在値の差を示せません、D: 応答の有無だけではSYSTEMとTIMESTAMPを判定できない点で一次資料と一致しません。結論として通常状態の確認のシステムログで判定する対象は LOG01 です。
+    用語の初出定義: 通常状態の確認で使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG01へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 通常状態の確認 LOG01**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて通常状態を確定し、LOG01のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG01と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG01のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG01のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG01のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSLOG が画面・出力に表示されること
+    ② ステップ2 の IXG601I が画面・出力に表示されること
+    ③ ステップ3 の IEE254I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### システムログ SYSLOGとOPERLOG 障害切り分け LOG04 {#c37-i0254}
+*分類: システムログ*  ・  難易度: 中級
+
+障害切り分けでは システムログ の SYSLOG表示 を主操作として LOG04 を判定します。最初に失敗した処理への注意として「別システムや別時刻のメッセージを現在障害へ結び付ける危険があります」を LOG04 に残します。障害切り分けを補助する OPERLOG状態 では IXG601I を補助値として LOG04 へ保存します。主判定の障害切り分けではシステムログの SYSLOG表示 から SYSLOG を読み LOG04 へ残します。証跡照合の障害切り分けではシステムログの SYSLOG と IXG601I を LOG04 に保存します。記録対応の障害切り分けではシステムログの SYSTEMとTIMESTAMP の証跡へ LOG04 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 障害切り分けで システムログ の SYSLOG表示 と OPERLOG状態 を照合し 最初に失敗した処理 を確かめます。SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログです。別システムや別時刻のメッセージを現在障害へ結び付ける危険があります。SYSLOG を読む前に対象 LOG04 へ行う確認はどれですか。
+
+    - A. SDSF LOG FIND IEE254IのIEE254IをSYSLOGと同義の成功表示として扱う。SDSF LOG PREFIX SYSAは実行しない。補助出力があれば主出力の未採取を補えるものとする。
+    - B. SDSF LOG PREFIX SYSAが応答を返した時点で正常とする。応答中のSYSLOGの値は記録しない。
+    - C. SDSF LOG PREFIX SYSAのコマンド文字列だけを記録する。SYSLOGを含む応答行は保存しない。
+    - D. SDSF LOG PREFIX SYSAの出力でLOG04とSYSLOGが同じ応答にあることを確認する。SYSTEMとTIMESTAMPをその応答から採取する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 正しい操作の説明: DはSYSLOG表示で SYSLOG を読みSYSTEMとTIMESTAMPの主値として障害範囲を限定しLOG04に残します。
+    技術的背景: 障害切り分けではOPERLOG状態を補助操作としSYSLOGとOPERLOGの最初に失敗した処理をIXG601Iと対象LOG04で照合します。
+    四択の評価: SYSLOG表示とOPERLOG状態の役割を分けるとA: IEE254IとSYSLOGは確認項目が異なるうえに追加前提も不正な点でLOG04を採用できません、B: 応答の有無だけではSYSTEMとTIMESTAMPを判定できない点で最初に失敗した処理を示せません、C: 入力記録だけではSYSTEMとTIMESTAMPを証明できない点で一次資料と一致しません、D: LOG04とSYSLOGを同じ応答で結ぶ点でLOG04を判定できます。結論として障害切り分けのシステムログで判定する対象は LOG04 です。
+    初出語の意味: 障害切り分けで使う SYSLOGとOPERLOG はコンソールメッセージとコマンド応答をJESスプールまたはLoggerログストリームへ時系列で保存する運用ログを表しSYSTEMとTIMESTAMPを判定する際にLOG04へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **システムログ SYSLOGとOPERLOG 障害切り分け LOG04**
+
+    - 検証目的: システムログのSYSLOGとOPERLOGについて障害範囲を限定し、LOG04のSYSTEMとTIMESTAMPを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象LOG04と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG PREFIX SYSAを指定し、LOG04のSYSLOG表示を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG PREFIX SYSA
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF SYSLOG SYSTEM SYSA DATE 2026-07-15 TIME 12:33:00
+    ```
+
+    画面・出力にあるSYSLOGを読み、SYSTEMとTIMESTAMPと対象LOG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へD LOGGER,L,LSN=SYSPLEX.OPERLOGを指定し、LOG04のOPERLOG状態を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D LOGGER,L,LSN=SYSPLEX.OPERLOG
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXG601I LOG STREAM SYSPLEX.OPERLOG CONNECTION STATUS CONNECTED
+    ```
+
+    画面・出力にあるIXG601Iを読み、SYSTEMとTIMESTAMPと対象LOG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシステムログを確認する入力画面です。COMMAND入力口へSDSF LOG FIND IEE254Iを指定し、LOG04のメッセージ検索を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> SDSF LOG FIND IEE254I
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 12.30.00 IPLINFO DISPLAY 111
+    ```
+
+    画面・出力にあるIEE254Iを読み、SYSTEMとTIMESTAMPと対象LOG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSLOG が画面・出力に表示されること
+    ② ステップ2 の IXG601I が画面・出力に表示されること
+    ③ ステップ3 の IEE254I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+
+## z/OS 3.1 Core Operations > シンボル確認
+
+### DISPLAY A,L 表示確認 運用確認033 {#c37-i0255}
+*分類: シンボル確認*  ・  難易度: 中級
+
+第三十三観点 シンボル確認 で DISPLAY A,L は 表示確認 の対象です（第三十三観点）。第三十三観点 確認時には アクティブジョブ、開始タスク、ASIDなどを一覧表示するコマンドという性質を前提にします（第三十三観点）。第三十三観点 DISPLAY GRS のISG343I表示 と IEE974I を同じ証跡に置き、IPL情報の取り違え防止を管理します（第三十三観点）。第三十三観点 後続確認ではシステム名、ASID、メンバー名、メッセージIDを zOS31記録033から再現します（第三十三観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第三十三証跡です。zOS31記録033として IEE974I の証跡を残します。確認観点は D A,L、表示確認、運用確認 です。DISPLAY GRS のISG343I表示 と IEE974I を合わせて読む時の採用方針として正しいものはどれか。
+
+    - A. 移行前確認 の参考情報だけを作業票033へ先に書く。IEE974I とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. 作業票033では DISPLAY GRS のISG343I表示 と IEE974I と時刻を並べる。後続確認で DISPLAY A,L の今回値を同じ対象として再確認できる。 ✅
+    - C. DISPLAY A,L の名称欄だけを作業票033で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - D. 前回の正常出力を作業票033の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY GRS のISG343I表示 と IEE974I を照合できない形にする。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 第三十三観点 正解確認: Bは D A,L と IEE974I を同じ証跡で扱うため、後続の照合に使えます（第三十三観点）。第三十三観点 実行背景: D IOS,ZHPFとD IOS,ZHPFOPTSはHigh Performance FICONの状態とオプションを確認します（第三十三観点）。第三十三観点 誤答比較: Aは対象名不足、Cは表示差分不足、Dは前回証跡の混入が理由です（第三十三観点）。第三十三観点 用語整理: IODFは入出力定義ファイルです（第三十三観点）。第三十三観点 IPL装置は起動に使った装置です（第三十三観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY A,L 表示確認 運用確認033**
+
+    - 検証目的: DISPLAY A,L の 表示確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / IPL display
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY A,L の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 09.109.00 IPLINFO DISPLAY 732
+    RELEASE z/OS 03.01.00
+    LOAD PARAMETER 0A82 LOAD31
+    IEASYS LIST=(31,OP) IEASYM LIST=(31)
+    ```
+
+    画面・出力には IEE254I が含まれる。IEE254I を読み取り、IPL情報の取り違え防止のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY A,L の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEA007I STATIC SYSTEM SYMBOL VALUES
+    &SYSNAME. = SY109
+    &SYSPLEX. = PLEX31
+    &SYSR1. = Z31RES
+    ```
+
+    画面・出力には IEA007I が含まれる。IEA007I を読み取り、IPL情報の取り違え防止のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY A,L の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(LOAD31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    LOAD31
+    SYSPLEX(PLEX31)
+    IEASYM(31)
+    IODF(31)
+    ARCHLVL=2
+    ```
+
+    画面・出力には LOAD31 が含まれる。LOAD31 を読み取り、IPL情報の取り違え防止のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEE254I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEA007I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: LOAD31 が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### DISPLAY C,K 直列化確認 運用確認016 {#c37-i0256}
+*分類: シンボル確認*  ・  難易度: 初級
+
+第十六観点 z/OS 3.1 Core Operations の シンボル確認 では DISPLAY C,K を障害調査で照合します（第十六観点）。第十六観点 資料上は CONTROLコマンドのオペランドや概要を指定表示領域へ表示するコマとして扱います（第十六観点）。第十六観点 SMFPRM00 を起点に表示値を戻し、SMF記録欠落の早期検出を点検します（第十六観点）。第十六観点 記録ではコマンド、メッセージID、対象名、時刻を zOS31記録016へ書きます（第十六観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第十六証跡です。運用確認016 の確認で DISPLAY C,K を見直します。確認観点は DISPLAY C,K、直列化確認、運用確認 です。SMF記録欠落の早期検出のために、D IOS,ZHPF のIOS630I表示 を使った運用記録として最も適切な扱いはどれか。
+
+    - A. IEASYMxx管理 の参考情報だけを作業票016へ先に書く。SMFPRM00 とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. DISPLAY C,K の名称欄だけを作業票016で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票016の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IOS,ZHPF のIOS630I表示 と SMFPRM00 を照合できない形にする。
+    - D. 作業票016では D IOS,ZHPF のIOS630I表示 と SMFPRM00 と時刻を並べる。後続確認で DISPLAY C,K の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 第十六観点 照合結果: Dは SMFPRM00 をメッセージIDや時刻と一緒に残すため、再確認時にも根拠を追えます（第十六観点）。第十六観点 診断背景: DISPLAY GRS、DISPLAY TRACE、DISPLAY LOGGERは直列化、トレース、ログの状態確認に使います（第十六観点）。第十六観点 誤答確認: Aは SMFPRM00 未追跡、Bはコマンド確認不足、Cは別システム混同が理由です（第十六観点）。第十六観点 用語説明: zHPFはHigh Performance FICONです（第十六観点）。第十六観点 IOSは入出力監視の表示対象です（第十六観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY C,K 直列化確認 運用確認016**
+
+    - 検証目的: DISPLAY C,K の 直列化確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: z/OSMF / parmlib validation
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY C,K の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    z/OSMF Parmlib Management
+    COMMAND ===> VALIDATE IEASYS31
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IZUPRM31 PARMLIB SERVICE
+    MEMBER IEASYS31 VALIDATION COMPLETED
+    RETURN CODE 0000
+    ```
+
+    画面・出力には IEASYS31 が含まれる。IEASYS31 を読み取り、SMF記録欠落の早期検出のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY C,K の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    z/OSMF Parmlib Management
+    COMMAND ===> VALIDATE IZUPRM31
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IZUPRM31 PARMLIB SERVICE
+    MEMBER IZUPRM31 VALIDATION COMPLETED
+    RETURN CODE 0000
+    ```
+
+    画面・出力には IZUPRM31 が含まれる。IZUPRM31 を読み取り、SMF記録欠落の早期検出のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY C,K の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> F IZUSVR1,DISPLAY
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    CWWKB0005I COMMAND RESPONSES COMPLETED SUCCESSFULLY FROM DISPLAY IZU
+    CWWKB0002I MODIFY COMMAND DISPLAY IZU COMPLETED SUCCESSFULLY
+    ```
+
+    画面・出力には CWWKB0005I が含まれる。CWWKB0005I を読み取り、SMF記録欠落の早期検出のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEASYS31 が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IZUPRM31 が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: CWWKB0005I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### DISPLAY CF 直列化確認 運用確認066 {#c37-i0257}
+*分類: シンボル確認*  ・  難易度: 中級
+
+第六十六観点 DISPLAY CF は z/OS 3.1 の シンボル確認 で扱う管理項目です（第六十六観点）。第六十六観点 接続されたカップリングファシリティの情報を表示するコマンドという説明を操作結果と照合します（第六十六観点）。第六十六観点 SYS1.IPLPARM(LOAD31)、DISPLAY SMF の記録状態表示、定義メンバーを照合し、SMF記録欠落の早期検出を確認します（第六十六観点）。第六十六観点 証跡には資料IDと確認値を併記し、zOS31記録066として保存します（第六十六観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第六十六証跡です。運用確認066 の確認で DISPLAY CF を見直します。確認観点は DISPLAY CF、直列化確認、運用確認 です。SMF記録欠落の早期検出を満たす記録方法として、表示値と定義を結ぶものはどれか。
+
+    - A. 結合機構確認 の参考情報だけを作業票066へ先に書く。SYS1.IPLPARM(LOAD31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. DISPLAY CF の名称欄だけを作業票066で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票066の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY SMF の記録状態表示 と SYS1.IPLPARM(LOAD31) を照合できない形にする。
+    - D. 作業票066では DISPLAY SMF の記録状態表示 と SYS1.IPLPARM(LOAD31) と時刻を並べる。後続確認で DISPLAY CF の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 第六十六観点 正答根拠: Dは DISPLAY SMF の記録状態表示 と SYS1.IPLPARM(LOAD31) を結び付けるため、対象システムの取り違えを防げます（第六十六観点）。第六十六観点 仕組み要点: LOADxxはIPL時のSYSPLEX値やIEASYMxx一覧などを指定します（第六十六観点）。第六十六観点 誤答点検: Aはシステム名欠落、Bは定義未確認、Cは時刻差の欠落が理由です（第六十六観点）。第六十六観点 初出定義: WTORは応答要求メッセージです（第六十六観点）。第六十六観点 OPERLOGはオペレーター関連ログです（第六十六観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY CF 直列化確認 運用確認066**
+
+    - 検証目的: DISPLAY CF の 直列化確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: ISPF / parmlib review
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY CF の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(IEASYS31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEASYS31
+    PROG=31
+    SMF=31
+    GRSRNL=31
+    CON=31
+    SCHED=31
+    ```
+
+    画面・出力には IEASYS31 が含まれる。IEASYS31 を読み取り、SMF記録欠落の早期検出のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY CF の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(SMFPRM31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMFPRM31
+    SYS(TYPE(0:255))
+    DSNAME(SMF.MAN1,SMF.MAN2)
+    ACTIVE
+    JWT(0030)
+    ```
+
+    画面・出力には SMFPRM31 が含まれる。SMFPRM31 を読み取り、SMF記録欠落の早期検出のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY CF の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I 10.018.00 PARMLIB DISPLAY 725
+    DATA SET NAME
+    SYS1.PARMLIB
+    SYS1.PARMLIB(IEASYS31)
+    ```
+
+    画面・出力には IEE251I が含まれる。IEE251I を読み取り、SMF記録欠落の早期検出のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEASYS31 が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: SMFPRM31 が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IEE251I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### DISPLAY IPLINFO 状態確認 運用確認050 {#c37-i0258}
+*分類: シンボル確認*  ・  難易度: 中級
+
+第五十観点 DISPLAY IPLINFO は z/OS 3.1 の シンボル確認 で扱う管理項目です（第五十観点）。第五十観点 IPL日時、リリース、IEASYSxx、IEASYMxx、LOADxという説明を操作結果と照合します（第五十観点）。第五十観点 CNZ4100I、IEA011A のNIP応答要求、定義メンバーを照合し、zHPF設定値の確認を確認します（第五十観点）。第五十観点 証跡には資料IDと確認値を併記し、zOS31記録050として保存します（第五十観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第五十証跡です。DISPLAY IPLINFO の表示とメッセージIDを比べます。確認観点は D IPLINFO、状態確認、運用確認 です。メッセージID、定義メンバー、表示出力を同じ確認票に置く対応として適切なものはどれか。
+
+    - A. z/OSMF管理 の参考情報だけを作業票050へ先に書く。CNZ4100I とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. DISPLAY IPLINFO の名称欄だけを作業票050で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 作業票050では IEA011A のNIP応答要求 と CNZ4100I と時刻を並べる。後続確認で DISPLAY IPLINFO の今回値を同じ対象として再確認できる。 ✅
+    - D. 前回の正常出力を作業票050の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の IEA011A のNIP応答要求 と CNZ4100I を照合できない形にする。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 第五十観点 正答根拠: Cは IEA011A のNIP応答要求 と CNZ4100I を結び付けるため、対象システムの取り違えを防げます（第五十観点）。第五十観点 操作背景: CNZ4100IやIEE254IなどのメッセージIDは表示結果を後から照合する鍵になります（第五十観点）。第五十観点 誤答点検: Aはシステム名欠落、Bは定義未確認、Dは時刻差の欠落が理由です（第五十観点）。第五十観点 用語補足: IEASYSxxはシステムパラメーター集合です（第五十観点）。第五十観点 SMFPRMxxはSMF記録指定です（第五十観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY IPLINFO 状態確認 運用確認050**
+
+    - 検証目的: DISPLAY IPLINFO の 状態確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: ISPF / parmlib review
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY IPLINFO の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(IEASYS31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEASYS31
+    PROG=31
+    SMF=31
+    GRSRNL=31
+    CON=31
+    SCHED=31
+    ```
+
+    画面・出力には IEASYS31 が含まれる。IEASYS31 を読み取り、zHPF設定値の確認のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY IPLINFO の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(SMFPRM31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMFPRM31
+    SYS(TYPE(0:255))
+    DSNAME(SMF.MAN1,SMF.MAN2)
+    ACTIVE
+    JWT(0030)
+    ```
+
+    画面・出力には SMFPRM31 が含まれる。SMFPRM31 を読み取り、zHPF設定値の確認のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY IPLINFO の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I 10.002.00 PARMLIB DISPLAY 769
+    DATA SET NAME
+    SYS1.PARMLIB
+    SYS1.PARMLIB(IEASYS31)
+    ```
+
+    画面・出力には IEE251I が含まれる。IEE251I を読み取り、zHPF設定値の確認のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEASYS31 が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: SMFPRM31 が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IEE251I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### DISPLAY TRACE 表示確認 運用確認083 {#c37-i0259}
+*分類: シンボル確認*  ・  難易度: 上級
+
+第八十三観点 シンボル確認 の運用では DISPLAY TRACE を表示、定義、証跡で確認します（第八十三観点）。第八十三観点 役割は システムトレースやコンポーネントトレースの状態を表示するコマンドという範囲です（第八十三観点）。第八十三観点 D IPLINFO のIEE254I表示 の値を SYS1.PARMLIB(PROG31) と合わせ、IPL情報の取り違え防止を記録します（第八十三観点）。第八十三観点 確認経路は SDSF、コンソールログ、parmlib、z/OSMF の別を zOS31記録083に残します（第八十三観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第八十三証跡です。zOS31記録083として SYS1.PARMLIB(PROG31) の証跡を残します。確認観点は DISPLAY TRACE、表示確認、運用確認 です。D IPLINFO のIEE254I表示 を証跡に残す判断として、あとから再確認しやすいものはどれか。
+
+    - A. GRS確認 の参考情報だけを作業票083へ先に書く。SYS1.PARMLIB(PROG31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. DISPLAY TRACE の名称欄だけを作業票083で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票083の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IPLINFO のIEE254I表示 と SYS1.PARMLIB(PROG31) を照合できない形にする。
+    - D. 作業票083では D IPLINFO のIEE254I表示 と SYS1.PARMLIB(PROG31) と時刻を並べる。後続確認で DISPLAY TRACE の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 第八十三観点 採用理由: Dは DISPLAY TRACE の状態を表示値と定義の両方から確認するため、記録として妥当です（第八十三観点）。第八十三観点 背景確認: DISPLAY IPLINFOはIPL日時、LOADxx、IEASYSxx、IEASYMxx、IODF、IPL装置をまとめて示します（第八十三観点）。第八十三観点 誤答整理: Aは一般メモ偏重、Bはジョブログ除外、Cは再現性不足が理由です（第八十三観点）。第八十三観点 用語メモ: GRSは資源直列化です（第八十三観点）。第八十三観点 RNLは資源名リストです（第八十三観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY TRACE 表示確認 運用確認083**
+
+    - 検証目的: DISPLAY TRACE の 表示確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / GRS
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY TRACE の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY GRS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    ISG343I 10.27.11 GRS STATUS 832
+    SYSTEM    STATE               SYSTEM    STATE
+    SC65      CONNECTED           SC63      CONNECTED
+    GRS STAR MODE INFORMATION
+    ```
+
+    画面・出力には ISG343I が含まれる。ISG343I を読み取り、IPL情報の取り違え防止のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY TRACE の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY GRS,RNL=INCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    ISG343I 10.28.11 GRS STATUS 842
+    RNL=INCL
+    QNAME=SYSDSN  RNAME=SYS1.PARMLIB  SCOPE=SYSTEMS
+    ```
+
+    画面・出力には RNL=INCL が含まれる。RNL=INCL を読み取り、IPL情報の取り違え防止のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY TRACE の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D XCF,STR,STRNAME=ISGLOCK
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXC360I 10.29.11 DISPLAY XCF 852
+    STRUCTURE NAME: ISGLOCK
+    STATUS: ALLOCATED IN CFRM POLICY
+    ```
+
+    画面・出力には ISGLOCK が含まれる。ISGLOCK を読み取り、IPL情報の取り違え防止のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: ISG343I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: RNL=INCL が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: ISGLOCK が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### IEE254I 状態確認 運用確認100 {#c37-i0260}
+*分類: シンボル確認*  ・  難易度: 上級
+
+第百観点 z/OS 3.1 Core Operations の シンボル確認 では IEE254I を障害調査で照合します（第百観点）。第百観点 資料上は DISPLAY IPLINFOの出力としてIPL情報をまとめて示すメとして扱います（第百観点）。第百観点 SYS1.PARMLIB(IEASYM31) を起点に表示値を戻し、zHPF設定値の確認を点検します（第百観点）。第百観点 記録ではコマンド、メッセージID、対象名、時刻を zOS31記録100へ書きます（第百観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第百証跡です。IEE254I の表示とメッセージIDを比べます。確認観点は IEE254I、状態確認、運用確認 です。zHPF設定値の確認のために、D IOS,ZHPF のIOS630I表示 を使った運用記録として最も適切な扱いはどれか。
+
+    - A. DISPLAY操作 の参考情報だけを作業票100へ先に書く。SYS1.PARMLIB(IEASYM31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. IEE254I の名称欄だけを作業票100で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票100の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IOS,ZHPF のIOS630I表示 と SYS1.PARMLIB(IEASYM31) を照合できない形にする。
+    - D. 作業票100では D IOS,ZHPF のIOS630I表示 と SYS1.PARMLIB(IEASYM31) と時刻を並べる。後続確認で IEE254I の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 第百観点 照合結果: Dは SYS1.PARMLIB(IEASYM31) をメッセージIDや時刻と一緒に残すため、再確認時にも根拠を追えます（第百観点）。第百観点 診断背景: DISPLAY GRS、DISPLAY TRACE、DISPLAY LOGGERは直列化、トレース、ログの状態確認に使います（第百観点）。第百観点 誤答確認: Aは SYS1.PARMLIB(IEASYM31) 未追跡、Bはコマンド確認不足、Cは別システム混同が理由です（第百観点）。第百観点 用語説明: zHPFはHigh Performance FICONです（第百観点）。第百観点 IOSは入出力監視の表示対象です（第百観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **IEE254I 状態確認 運用確認100**
+
+    - 検証目的: IEE254I の 状態確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / SMF
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により IEE254I の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D SMF,O
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE974I 11.01.04 SMF DATA SET STATUS
+    NAME       VOLSER  STATUS
+    SMF.MAN1   SMS001  ACTIVE
+    SMF.MAN2   SMS002  EMPTY
+    ```
+
+    画面・出力には SMF DATA SET STATUS が含まれる。SMF DATA SET STATUS を読み取り、zHPF設定値の確認のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により IEE254I の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> SWITCH SMF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE362A SMF ENTER DUMP FOR DATA SET SMF.MAN1
+    IEE360I SMF NOW RECORDING ON SMF.MAN2
+    ```
+
+    画面・出力には IEE360I が含まれる。IEE360I を読み取り、zHPF設定値の確認のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により IEE254I の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    JES2 SDSF ST
+    COMMAND ===> S IFASMFD04
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEF403I IFASMFD04 - STARTED
+    IFASMFDP SYSPRINT
+    INDD(DUMPIN,OPTIONS(ALL)) OUTDD(DUMPALL,TYPE(000:255))
+    ```
+
+    画面・出力には IFASMFDP が含まれる。IFASMFDP を読み取り、zHPF設定値の確認のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: SMF DATA SET STATUS が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEE360I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IFASMFDP が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### シンボル確認 動的システムシンボル ログとの照合 DSYM07 {#c37-i0261}
+*分類: シンボル確認*  ・  難易度: 上級
+
+ログとの照合では シンボル確認 の 全シンボル を主操作として DSYM07 を判定します。時刻と対象識別子への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM07 に残します。ログとの照合を補助する IPL対応 では IEASYM00 を補助値として DSYM07 へ保存します。主判定のログとの照合ではシンボル確認・動的システムシンボルの 全シンボル から &SYSR2. を読み DSYM07 へ残します。証跡照合のログとの照合ではシンボル確認・動的システムシンボルの &SYSR2. と IEASYM00 を DSYM07 に保存します。記録対応のログとの照合ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM07 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** ログとの照合で シンボル確認 の 全シンボル と IPL対応 を用い 操作とログを対応 します。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。&SYSR2. で対象 DSYM07 の SYMBOLとVALUE を再現できる記録はどれですか。
+
+    - A. &SYSR2.を含む全シンボルの応答行を保存する。その応答を得るためD SYMBOLSを使用する。対象DSYM07のSYMBOLとVALUEとして記録する。 ✅
+    - B. D SYMBOLSが応答を返した時点で正常とする。応答中の&SYSR2.の値は記録しない。IEE252Iを&SYSR2.と同じ判定値とみなし対象DSYM07の主証跡にする。
+    - C. D SYMBOLSのコマンド文字列だけを記録する。&SYSR2.を含む応答行は保存しない。
+    - D. 動的システムシンボルの停止または再定義を実施する。その後にD SYMBOLSで&SYSR2.を採取する。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 適切な判定: Aは全シンボルで &SYSR2. を読みSYMBOLとVALUEの主値として操作とログを対応しDSYM07に残します。
+    機能の仕組み: ログとの照合ではIPL対応を補助操作とし動的システムシンボルの時刻と対象識別子をIEASYM00と対象DSYM07で照合します。
+    各候補の評価: 全シンボルとIPL対応の役割を分けるとA: &SYSR2.の実値を対象別に残す点で主証跡になります、B: 応答の有無だけではSYMBOLとVALUEを判定できないうえに追加前提も不正な点で一次資料と一致しません、C: 入力記録だけではSYMBOLとVALUEを証明できない点でSYMBOLとVALUEを確認できません、D: 変更前のSYMBOLとVALUEを失う点でIPL対応の範囲を越えます。結論としてログとの照合のシンボル確認・動的システムシンボルで判定する対象は DSYM07 です。
+    用語の定義: ログとの照合で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM07へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル ログとの照合 DSYM07**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて操作とログを対応し、DSYM07のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM07と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM07の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM07のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM07のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSNAME.=SYSA が画面・出力に表示されること
+    ② ステップ2 の IEASYM00 が画面・出力に表示されること
+    ③ ステップ3 の IEE252I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 代替経路の確認 DSYM10 {#c37-i0262}
+*分類: シンボル確認*  ・  難易度: 上級
+
+代替経路の確認では シンボル確認 の 全シンボル を主操作として DSYM10 を判定します。主経路との役割差への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM10 に残します。代替経路の確認を補助する IPL対応 では IEASYM00 を補助値として DSYM10 へ保存します。主判定の代替経路の確認ではシンボル確認・動的システムシンボルの 全シンボル から &SYSR2. を読み DSYM10 へ残します。証跡照合の代替経路の確認ではシンボル確認・動的システムシンボルの &SYSR2. と IEASYM00 を DSYM10 に保存します。記録対応の代替経路の確認ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM10 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 代替経路の確認で シンボル確認 の 全シンボル と IPL対応 の役割を分け 主経路との役割差 を調べます。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。対象 DSYM10 を誤判定しない進め方はどれですか。
+
+    - A. D SYMBOLSのコマンド文字列だけを記録する。&SYSR2.を含む応答行は保存しない。
+    - B. 動的システムシンボルの停止または再定義を実施する。その後にD SYMBOLSで&SYSR2.を採取する。
+    - C. IPL情報のLOADxxとIODFを確認する。その値をシンボル確認のDSYM10にも適用する。
+    - D. D SYMBOLSとD IPLINFOの対象名をそろえる。前者の&SYSR2.をSYMBOLとVALUEの判定値として採用する。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 正しい判定結果: Dは全シンボルで &SYSR2. を読みSYMBOLとVALUEの主値として代替手段の成立を確認しDSYM10に残します。
+    運用上の背景: 代替経路の確認ではIPL対応を補助操作とし動的システムシンボルの主経路との役割差をIEASYM00と対象DSYM10で照合します。
+    候補別の検討: 全シンボルとIPL対応の役割を分けるとA: 入力記録だけではSYMBOLとVALUEを証明できない点で一次資料と一致しません、B: 変更前のSYMBOLとVALUEを失う点でSYMBOLとVALUEを確認できません、C: IPL情報の値では&SYSR2.を確認できない点でIPL対応の範囲を越えます、D: 同じ対象名の&SYSR2.を採用する点で現在値を示します。結論として代替経路の確認のシンボル確認・動的システムシンボルで判定する対象は DSYM10 です。
+    重要用語の定義: 代替経路の確認で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM10へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 代替経路の確認 DSYM10**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて代替手段の成立を確認し、DSYM10のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM10と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM10の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM10のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM10のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSNAME.=SYSA が画面・出力に表示されること
+    ② ステップ2 の IEASYM00 が画面・出力に表示されること
+    ③ ステップ3 の IEE252I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 変更前の確認 DSYM02 {#c37-i0263}
+*分類: シンボル確認*  ・  難易度: 上級
+
+変更前の確認では シンボル確認 の IPL対応 を主操作として DSYM02 を判定します。変更対象と非対象の境界への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM02 に残します。変更前の確認を補助する メンバー所在 では IEE252I を補助値として DSYM02 へ保存します。主判定の変更前の確認ではシンボル確認・動的システムシンボルの IPL対応 から IEASYM00 を読み DSYM02 へ残します。証跡照合の変更前の確認ではシンボル確認・動的システムシンボルの IEASYM00 と IEE252I を DSYM02 に保存します。記録対応の変更前の確認ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM02 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 変更前の確認で シンボル確認 の IPL対応 と メンバー所在 を照合し 変更対象と非対象の境界 を確かめます。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。IEASYM00 を読む前に対象 DSYM02 へ行う確認はどれですか。
+
+    - A. D IPLINFOを対象名なしで実行する。一覧の先頭行をDSYM02の結果として記録する。
+    - B. 前回保存したD IPLINFOの結果を使う。今回のD PARMLIB(IEASYM00)の結果と同一時点の証跡として比較する。
+    - C. 保存済みのDSYM02の出力を再利用する。今回のD IPLINFOとD PARMLIB(IEASYM00)は実行済みとして扱う。前回値との採取時刻の差も無視できるものとする。
+    - D. 対象DSYM02についてD IPLINFOの応答からIEASYM00を確認する。D PARMLIB(IEASYM00)は補助証跡として時刻をそろえて保存する。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 採用理由: DはIPL対応で IEASYM00 を読みSYMBOLとVALUEの主値として変更前の証跡を保存しDSYM02に残します。
+    動作の背景: 変更前の確認ではメンバー所在を補助操作とし動的システムシンボルの変更対象と非対象の境界をIEE252Iと対象DSYM02で照合します。
+    各選択肢の検討: IPL対応とメンバー所在の役割を分けるとA: 先頭行はDSYM02と確定できない点で変更前の確認に合いません、B: 採取時刻が異なる点でIPL対応を代替しません、C: 過去出力では今回の変更前の確認を示せないうえに追加前提も不正な点でシンボル確認に使いません、D: IEASYM00と補助証跡の時刻を合わせる点で正答です。結論として変更前の確認のシンボル確認・動的システムシンボルで判定する対象は DSYM02 です。
+    初出用語の定義: 変更前の確認で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM02へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 変更前の確認 DSYM02**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて変更前の証跡を保存し、DSYM02のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM02と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM02のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM02のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM02の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEASYM00 が画面・出力に表示されること
+    ② ステップ2 の IEE252I が画面・出力に表示されること
+    ③ ステップ3 の SYSNAME.=SYSA が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 変更後の確認 DSYM03 {#c37-i0264}
+*分類: シンボル確認*  ・  難易度: 上級
+
+変更後の確認では シンボル確認 の メンバー所在 を主操作として DSYM03 を判定します。反映値と残存値への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM03 に残します。変更後の確認を補助する 全シンボル では &SYSR2. を補助値として DSYM03 へ保存します。主判定の変更後の確認ではシンボル確認・動的システムシンボルの メンバー所在 から IEE252I を読み DSYM03 へ残します。証跡照合の変更後の確認ではシンボル確認・動的システムシンボルの IEE252I と &SYSR2. を DSYM03 に保存します。記録対応の変更後の確認ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM03 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 変更後の確認で シンボル確認 の メンバー所在 と 全シンボル を組み合わせる際は 動的システムシンボル がSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能という仕組みを前提にします。シンボル未展開文字列を実データセット名として扱う危険があります。IEE252I と SYMBOLとVALUE を対象 DSYM03 で確認する組合せはどれですか。
+
+    - A. D SYMBOLSで周辺状態を押さえる。その後にD PARMLIB(IEASYM00)でIEE252Iを確認して変更結果を検証する。 ✅
+    - B. 動的システムシンボルの停止または再定義を実施する。その後にD PARMLIB(IEASYM00)でIEE252Iを採取する。
+    - C. z/OSMF管理のSERVICE STATUSとHOME URIを確認する。その値をシンボル確認のDSYM03にも適用する。同じ製品内の表示なら確認項目の違いはないものとする。
+    - D. D SYMBOLSが成功したためD PARMLIB(IEASYM00)のIEE252Iも正常だと推定する。主出力は保存しない。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 正答の根拠: Aはメンバー所在で IEE252I を読みSYMBOLとVALUEの主値として変更結果を検証しDSYM03に残します。
+    内部の仕組み: 変更後の確認では全シンボルを補助操作とし動的システムシンボルの反映値と残存値を&SYSR2.と対象DSYM03で照合します。
+    誤答を含む比較: メンバー所在と全シンボルの役割を分けるとA: 周辺状態の後にIEE252Iを確認する点でDSYM03を判定できます、B: 変更前のSYMBOLとVALUEを失う点で全シンボルの範囲を越えます、C: z/OSMF管理の値ではIEE252Iを確認できないうえに追加前提も不正な点でDSYM03の値を示しません、D: 補助操作の成功ではIEE252Iを確定できない点で変更後の確認に合いません。結論として変更後の確認のシンボル確認・動的システムシンボルで判定する対象は DSYM03 です。
+    用語定義: 変更後の確認で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM03へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 変更後の確認 DSYM03**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて変更結果を検証し、DSYM03のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM03と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM03のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM03の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM03のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE252I が画面・出力に表示されること
+    ② ステップ2 の SYSNAME.=SYSA が画面・出力に表示されること
+    ③ ステップ3 の IEASYM00 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 引継ぎ記録 DSYM09 {#c37-i0265}
+*分類: シンボル確認*  ・  難易度: 上級
+
+引継ぎ記録では シンボル確認 の メンバー所在 を主操作として DSYM09 を判定します。次担当者が追跡できる証跡への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM09 に残します。引継ぎ記録を補助する 全シンボル では &SYSR2. を補助値として DSYM09 へ保存します。主判定の引継ぎ記録ではシンボル確認・動的システムシンボルの メンバー所在 から IEE252I を読み DSYM09 へ残します。証跡照合の引継ぎ記録ではシンボル確認・動的システムシンボルの IEE252I と &SYSR2. を DSYM09 に保存します。記録対応の引継ぎ記録ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM09 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 引継ぎ記録で シンボル確認 の メンバー所在 と 全シンボル を組み合わせる際は 動的システムシンボル がSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能という仕組みを前提にします。シンボル未展開文字列を実データセット名として扱う危険があります。IEE252I と SYMBOLとVALUE を対象 DSYM09 で確認する組合せはどれですか。
+
+    - A. D SYMBOLSが成功したためD PARMLIB(IEASYM00)のIEE252Iも正常だと推定する。主出力は保存しない。
+    - B. D PARMLIB(IEASYM00)を対象名なしで実行する。一覧の先頭行をDSYM09の結果として記録する。
+    - C. 対象名DSYM09を指定してD PARMLIB(IEASYM00)を実行する。応答中のIEE252Iと時刻を保存する。D SYMBOLSで周辺状態を補完する。 ✅
+    - D. 前回保存したD PARMLIB(IEASYM00)の結果を使う。今回のD SYMBOLSの結果と同一時点の証跡として比較する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 採用操作の理由: Cはメンバー所在で IEE252I を読みSYMBOLとVALUEの主値として再現可能な記録を作成しDSYM09に残します。
+    製品内の仕組み: 引継ぎ記録では全シンボルを補助操作とし動的システムシンボルの次担当者が追跡できる証跡を&SYSR2.と対象DSYM09で照合します。
+    選択肢別の説明: メンバー所在と全シンボルの役割を分けるとA: 補助操作の成功ではIEE252Iを確定できない点でDSYM09の値を示しません、B: 先頭行はDSYM09と確定できない点で引継ぎ記録に合いません、C: IEE252Iと時刻を保存する点でメンバー所在に合います、D: 採取時刻が異なる点でシンボル確認に使いません。結論として引継ぎ記録のシンボル確認・動的システムシンボルで判定する対象は DSYM09 です。
+    用語を初めて使う際の定義: 引継ぎ記録で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM09へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 引継ぎ記録 DSYM09**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて再現可能な記録を作成し、DSYM09のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM09と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM09のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM09の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM09のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE252I が画面・出力に表示されること
+    ② ステップ2 の SYSNAME.=SYSA が画面・出力に表示されること
+    ③ ステップ3 の IEASYM00 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 復旧後の確認 DSYM06 {#c37-i0266}
+*分類: シンボル確認*  ・  難易度: 上級
+
+復旧後の確認では シンボル確認 の メンバー所在 を主操作として DSYM06 を判定します。再発していないことを示す値への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM06 に残します。復旧後の確認を補助する 全シンボル では &SYSR2. を補助値として DSYM06 へ保存します。主判定の復旧後の確認ではシンボル確認・動的システムシンボルの メンバー所在 から IEE252I を読み DSYM06 へ残します。証跡照合の復旧後の確認ではシンボル確認・動的システムシンボルの IEE252I と &SYSR2. を DSYM06 に保存します。記録対応の復旧後の確認ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM06 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 復旧後の確認で シンボル確認 の メンバー所在 と 全シンボル を実施し 動的システムシンボル の役割を確認します。シンボル未展開文字列を実データセット名として扱う危険があります。対象 DSYM06 の証跡を取る方法はどれですか。
+
+    - A. コンソール管理のCONSOLE NAMEとAUTHを確認する。その値をシンボル確認のDSYM06にも適用する。
+    - B. D SYMBOLSが成功したためD PARMLIB(IEASYM00)のIEE252Iも正常だと推定する。主出力は保存しない。別資源で得た状態を対象DSYM06へ引き継げるものとする。
+    - C. D PARMLIB(IEASYM00)を対象名なしで実行する。一覧の先頭行をDSYM06の結果として記録する。
+    - D. D PARMLIB(IEASYM00)でIEE252Iを取得してからD IPLINFOでIEASYM00を照合する。DSYM06のSYMBOLとVALUEを両出力から確定する。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 正答内容: Dはメンバー所在で IEE252I を読みSYMBOLとVALUEの主値として復旧後の安定性を確認しDSYM06に残します。
+    構成上の背景: 復旧後の確認では全シンボルを補助操作とし動的システムシンボルの再発していないことを示す値を&SYSR2.と対象DSYM06で照合します。
+    候補ごとの理由: メンバー所在と全シンボルの役割を分けるとA: コンソール管理の値ではIEE252Iを確認できない点で全シンボルの範囲を越えます、B: 補助操作の成功ではIEE252Iを確定できないうえに追加前提も不正な点でDSYM06の値を示しません、C: 先頭行はDSYM06と確定できない点で復旧後の確認に合いません、D: IEE252IとIEASYM00を順に照合する点でメンバー所在に合います。結論として復旧後の確認のシンボル確認・動的システムシンボルで判定する対象は DSYM06 です。
+    初出用語: 復旧後の確認で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM06へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 復旧後の確認 DSYM06**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて復旧後の安定性を確認し、DSYM06のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM06と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM06のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM06の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM06のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE252I が画面・出力に表示されること
+    ② ステップ2 の SYSNAME.=SYSA が画面・出力に表示されること
+    ③ ステップ3 の IEASYM00 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 復旧準備 DSYM05 {#c37-i0267}
+*分類: シンボル確認*  ・  難易度: 上級
+
+復旧準備では シンボル確認 の IPL対応 を主操作として DSYM05 を判定します。再開前に必要な整合性への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM05 に残します。復旧準備を補助する メンバー所在 では IEE252I を補助値として DSYM05 へ保存します。主判定の復旧準備ではシンボル確認・動的システムシンボルの IPL対応 から IEASYM00 を読み DSYM05 へ残します。証跡照合の復旧準備ではシンボル確認・動的システムシンボルの IEASYM00 と IEE252I を DSYM05 に保存します。記録対応の復旧準備ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM05 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 復旧準備で シンボル確認 の IPL対応 と メンバー所在 を使い 復旧条件を確認 します。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。IEASYM00 を読み対象 DSYM05 を切り分ける確認方法はどれですか。
+
+    - A. 前回保存したD IPLINFOの結果を使う。今回のD PARMLIB(IEASYM00)の結果と同一時点の証跡として比較する。
+    - B. 保存済みのDSYM05の出力を再利用する。今回のD IPLINFOとD PARMLIB(IEASYM00)は実行済みとして扱う。
+    - C. 変更を加えずD IPLINFOを実行する。IEASYM00を保存する。差分はD PARMLIB(IEASYM00)の結果と対象名で対応させる。 ✅
+    - D. D PARMLIB(IEASYM00)のIEE252IをSYMBOLとVALUEの主判定に採用する。D IPLINFOの応答は採取対象から外す。変更後の値を変更前の基準として記録してよいものとする。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 選定理由: CはIPL対応で IEASYM00 を読みSYMBOLとVALUEの主値として復旧条件を確認しDSYM05に残します。
+    処理の仕組み: 復旧準備ではメンバー所在を補助操作とし動的システムシンボルの再開前に必要な整合性をIEE252Iと対象DSYM05で照合します。
+    選択結果の内訳: IPL対応とメンバー所在の役割を分けるとA: 採取時刻が異なる点でIPL対応を代替しません、B: 過去出力では今回の復旧準備を示せない点でシンボル確認に使いません、C: 変更前のIEASYM00を保存する点で正答です、D: IEE252IはIEASYM00を代替しないうえに追加前提も不正な点でDSYM05を採用できません。結論として復旧準備のシンボル確認・動的システムシンボルで判定する対象は DSYM05 です。
+    用語の説明: 復旧準備で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM05へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 復旧準備 DSYM05**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて復旧条件を確認し、DSYM05のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM05と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM05のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM05のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM05の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEASYM00 が画面・出力に表示されること
+    ② ステップ2 の IEE252I が画面・出力に表示されること
+    ③ ステップ3 の SYSNAME.=SYSA が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 構成監査 DSYM08 {#c37-i0268}
+*分類: シンボル確認*  ・  難易度: 上級
+
+構成監査では シンボル確認 の IPL対応 を主操作として DSYM08 を判定します。定義値と稼働値の一致への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM08 に残します。構成監査を補助する メンバー所在 では IEE252I を補助値として DSYM08 へ保存します。主判定の構成監査ではシンボル確認・動的システムシンボルの IPL対応 から IEASYM00 を読み DSYM08 へ残します。証跡照合の構成監査ではシンボル確認・動的システムシンボルの IEASYM00 と IEE252I を DSYM08 に保存します。記録対応の構成監査ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM08 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 構成監査で シンボル確認 の IPL対応 と メンバー所在 を照合し 定義値と稼働値の一致 を確かめます。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。IEASYM00 を読む前に対象 DSYM08 へ行う確認はどれですか。
+
+    - A. 保存済みのDSYM08の出力を再利用する。今回のD IPLINFOとD PARMLIB(IEASYM00)は実行済みとして扱う。
+    - B. D PARMLIB(IEASYM00)の結果だけでは確定しない。D IPLINFOのIEASYM00を主証跡として構成差分を監査する。 ✅
+    - C. D PARMLIB(IEASYM00)のIEE252IをSYMBOLとVALUEの主判定に採用する。D IPLINFOの応答は採取対象から外す。
+    - D. D SYMBOLSの&SYSR2.をIEASYM00と同義の成功表示として扱う。D IPLINFOは実行しない。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 技術上の正答: BはIPL対応で IEASYM00 を読みSYMBOLとVALUEの主値として構成差分を監査しDSYM08に残します。
+    実行時の背景: 構成監査ではメンバー所在を補助操作とし動的システムシンボルの定義値と稼働値の一致をIEE252Iと対象DSYM08で照合します。
+    四つの候補の理由: IPL対応とメンバー所在の役割を分けるとA: 過去出力では今回の構成監査を示せない点でシンボル確認に使いません、B: IEASYM00を主証跡として区別する点で正答です、C: IEE252IはIEASYM00を代替しない点でDSYM08を採用できません、D: &SYSR2.とIEASYM00は確認項目が異なる点で定義値と稼働値の一致を示せません。結論として構成監査のシンボル確認・動的システムシンボルで判定する対象は DSYM08 です。
+    初出語定義: 構成監査で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM08へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 構成監査 DSYM08**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて構成差分を監査し、DSYM08のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM08と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM08のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM08のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM08の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEASYM00 が画面・出力に表示されること
+    ② ステップ2 の IEE252I が画面・出力に表示されること
+    ③ ステップ3 の SYSNAME.=SYSA が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 通常状態の確認 DSYM01 {#c37-i0269}
+*分類: シンボル確認*  ・  難易度: 上級
+
+通常状態の確認では シンボル確認 の 全シンボル を主操作として DSYM01 を判定します。基準値と現在値の差への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM01 に残します。通常状態の確認を補助する IPL対応 では IEASYM00 を補助値として DSYM01 へ保存します。主判定の通常状態の確認ではシンボル確認・動的システムシンボルの 全シンボル から &SYSR2. を読み DSYM01 へ残します。証跡照合の通常状態の確認ではシンボル確認・動的システムシンボルの &SYSR2. と IEASYM00 を DSYM01 に保存します。記録対応の通常状態の確認ではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM01 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 通常状態の確認で シンボル確認 の 全シンボル と IPL対応 を用い 通常状態を確定 します。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。&SYSR2. で対象 DSYM01 の SYMBOLとVALUE を再現できる記録はどれですか。
+
+    - A. D IPLINFOのIEASYM00をSYMBOLとVALUEの主判定に採用する。D SYMBOLSの応答は採取対象から外す。対象名の差は判定へ影響しないものとする。
+    - B. D PARMLIB(IEASYM00)のIEE252Iを&SYSR2.と同義の成功表示として扱う。D SYMBOLSは実行しない。
+    - C. D SYMBOLSを先に実行する。対象DSYM01の&SYSR2.をSYMBOLとVALUEとして記録する。続いてD IPLINFOで同一対象を照合する。 ✅
+    - D. D SYMBOLSが応答を返した時点で正常とする。応答中の&SYSR2.の値は記録しない。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 正解の説明: Cは全シンボルで &SYSR2. を読みSYMBOLとVALUEの主値として通常状態を確定しDSYM01に残します。
+    背景・仕組み: 通常状態の確認ではIPL対応を補助操作とし動的システムシンボルの基準値と現在値の差をIEASYM00と対象DSYM01で照合します。
+    選択肢の理由: 全シンボルとIPL対応の役割を分けるとA: IEASYM00は&SYSR2.を代替しないうえに追加前提も不正な点で動的システムシンボルに使えません、B: IEE252Iと&SYSR2.は確認項目が異なる点でDSYM01を採用できません、C: &SYSR2.を主値として補助結果と照合する点で主証跡になります、D: 応答の有無だけではSYMBOLとVALUEを判定できない点で一次資料と一致しません。結論として通常状態の確認のシンボル確認・動的システムシンボルで判定する対象は DSYM01 です。
+    用語の初出定義: 通常状態の確認で使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM01へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 通常状態の確認 DSYM01**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて通常状態を確定し、DSYM01のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM01と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM01の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM01のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM01のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSNAME.=SYSA が画面・出力に表示されること
+    ② ステップ2 の IEASYM00 が画面・出力に表示されること
+    ③ ステップ3 の IEE252I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### シンボル確認 動的システムシンボル 障害切り分け DSYM04 {#c37-i0270}
+*分類: シンボル確認*  ・  難易度: 上級
+
+障害切り分けでは シンボル確認 の 全シンボル を主操作として DSYM04 を判定します。最初に失敗した処理への注意として「シンボル未展開文字列を実データセット名として扱う危険があります」を DSYM04 に残します。障害切り分けを補助する IPL対応 では IEASYM00 を補助値として DSYM04 へ保存します。主判定の障害切り分けではシンボル確認・動的システムシンボルの 全シンボル から &SYSR2. を読み DSYM04 へ残します。証跡照合の障害切り分けではシンボル確認・動的システムシンボルの &SYSR2. と IEASYM00 を DSYM04 に保存します。記録対応の障害切り分けではシンボル確認・動的システムシンボルの SYMBOLとVALUE の証跡へ DSYM04 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 障害切り分けで シンボル確認 の 全シンボル と IPL対応 の役割を分け 最初に失敗した処理 を調べます。動的システムシンボル はSETLOADやSETSSIなどの運用時に展開されるシステム固有値を表示し、parmlib定義の共通化を支える機能です。シンボル未展開文字列を実データセット名として扱う危険があります。対象 DSYM04 を誤判定しない進め方はどれですか。
+
+    - A. D PARMLIB(IEASYM00)のIEE252Iを&SYSR2.と同義の成功表示として扱う。D SYMBOLSは実行しない。補助出力があれば主出力の未採取を補えるものとする。
+    - B. D SYMBOLSの出力でDSYM04と&SYSR2.が同じ応答にあることを確認する。SYMBOLとVALUEをその応答から採取する。 ✅
+    - C. D SYMBOLSが応答を返した時点で正常とする。応答中の&SYSR2.の値は記録しない。
+    - D. D SYMBOLSのコマンド文字列だけを記録する。&SYSR2.を含む応答行は保存しない。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 正しい操作の説明: Bは全シンボルで &SYSR2. を読みSYMBOLとVALUEの主値として障害範囲を限定しDSYM04に残します。
+    技術的背景: 障害切り分けではIPL対応を補助操作とし動的システムシンボルの最初に失敗した処理をIEASYM00と対象DSYM04で照合します。
+    四択の評価: 全シンボルとIPL対応の役割を分けるとA: IEE252Iと&SYSR2.は確認項目が異なるうえに追加前提も不正な点でDSYM04を採用できません、B: DSYM04と&SYSR2.を同じ応答で結ぶ点で主証跡になります、C: 応答の有無だけではSYMBOLとVALUEを判定できない点で一次資料と一致しません、D: 入力記録だけではSYMBOLとVALUEを証明できない点でSYMBOLとVALUEを確認できません。結論として障害切り分けのシンボル確認・動的システムシンボルで判定する対象は DSYM04 です。
+    初出語の意味: 障害切り分けで使う 動的システムシンボル はシンボル確認でSYMBOLとVALUEを扱う機能を表しSYMBOLとVALUEを判定する際にDSYM04へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **シンボル確認 動的システムシンボル 障害切り分け DSYM04**
+
+    - 検証目的: シンボル確認の動的システムシンボルについて障害範囲を限定し、DSYM04のSYMBOLとVALUEを実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象DSYM04と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD SYMBOLSを指定し、DSYM04の全シンボルを表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    &SYSNAME.=SYSA &SYSPLEX.=PLEX1 &SYSR2.=SYS2
+    ```
+
+    画面・出力にあるSYSNAME.=SYSAを読み、SYMBOLとVALUEと対象DSYM04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、DSYM04のIPL対応を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I USED IEASYM00 SYSTEM SYMBOLS FOR SYSA
+    ```
+
+    画面・出力にあるIEASYM00を読み、SYMBOLとVALUEと対象DSYM04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsのシンボル確認を確認する入力画面です。COMMAND入力口へD PARMLIB(IEASYM00)を指定し、DSYM04のメンバー所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB(IEASYM00)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE252I MEMBER IEASYM00 FOUND IN SYS1.PARMLIB
+    ```
+
+    画面・出力にあるIEE252Iを読み、SYMBOLとVALUEと対象DSYM04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の SYSNAME.=SYSA が画面・出力に表示されること
+    ② ステップ2 の IEASYM00 が画面・出力に表示されること
+    ③ ステップ3 の IEE252I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+
+## z/OS 3.1 Core Operations > 移行前確認
+
+### DISPLAY CF 割り込み確認 運用確認017 {#c37-i0271}
+*分類: 移行前確認*  ・  難易度: 初級
+
+第十七観点 移行前確認 で DISPLAY CF は 割り込み確認 の対象です（第十七観点）。第十七観点 確認時には 接続されたカップリングファシリティの情報を表示するコマンドという性質を前提にします（第十七観点）。第十七観点 D IOS,ZHPFOPTS のMAXDATA表示 と SMFPRM31 を同じ証跡に置き、オペレーター応答漏れの防止を管理します（第十七観点）。第十七観点 後続確認ではシステム名、ASID、メンバー名、メッセージIDを zOS31記録017から再現します（第十七観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第十七証跡です。移行前確認 の当日作業で SMFPRM31 を追跡します。確認観点は DISPLAY CF、割り込み確認、運用確認 です。D IOS,ZHPFOPTS のMAXDATA表示 を証跡に残す判断として、あとから再確認しやすいものはどれか。
+
+    - A. 作業票017では D IOS,ZHPFOPTS のMAXDATA表示 と SMFPRM31 と時刻を並べる。後続確認で DISPLAY CF の今回値を同じ対象として再確認できる。 ✅
+    - B. IEASYSxx管理 の参考情報だけを作業票017へ先に書く。SMFPRM31 とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - C. DISPLAY CF の名称欄だけを作業票017で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - D. 前回の正常出力を作業票017の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IOS,ZHPFOPTS のMAXDATA表示 と SMFPRM31 を照合できない形にする。
+
+    正解: **A** ／ 難易度: 初級
+
+    **解説:** 第十七観点 正解確認: Aは DISPLAY CF と SMFPRM31 を同じ証跡で扱うため、後続の照合に使えます（第十七観点）。第十七観点 背景確認: DISPLAY IPLINFOはIPL日時、LOADxx、IEASYSxx、IEASYMxx、IODF、IPL装置をまとめて示します（第十七観点）。第十七観点 誤答比較: Bは対象名不足、Cは表示差分不足、Dは前回証跡の混入が理由です（第十七観点）。第十七観点 用語メモ: GRSは資源直列化です（第十七観点）。第十七観点 RNLは資源名リストです（第十七観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY CF 割り込み確認 運用確認017**
+
+    - 検証目的: DISPLAY CF の 割り込み確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / IPL display
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY CF の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I 09.117.00 IPLINFO DISPLAY 716
+    RELEASE z/OS 03.01.00
+    LOAD PARAMETER 0A82 LOAD31
+    IEASYS LIST=(31,OP) IEASYM LIST=(31)
+    ```
+
+    画面・出力には IEE254I が含まれる。IEE254I を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY CF の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D SYMBOLS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEA007I STATIC SYSTEM SYMBOL VALUES
+    &SYSNAME. = SY117
+    &SYSPLEX. = PLEX31
+    &SYSR1. = Z31RES
+    ```
+
+    画面・出力には IEA007I が含まれる。IEA007I を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY CF の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(LOAD31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    LOAD31
+    SYSPLEX(PLEX31)
+    IEASYM(31)
+    IODF(31)
+    ARCHLVL=2
+    ```
+
+    画面・出力には LOAD31 が含まれる。LOAD31 を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEE254I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEA007I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: LOAD31 が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### DISPLAY IOS,ZHPF 割り込み確認 運用確認067 {#c37-i0272}
+*分類: 移行前確認*  ・  難易度: 中級
+
+第六十七観点 移行前確認 の運用では DISPLAY IOS,ZHPF を表示、定義、証跡で確認します（第六十七観点）。第六十七観点 役割は High Performance FICONの有効または無効状態を表という範囲です（第六十七観点）。第六十七観点 DISPLAY C のCNZ4100I表示 の値を IODF31 と合わせ、オペレーター応答漏れの防止を記録します（第六十七観点）。第六十七観点 確認経路は SDSF、コンソールログ、parmlib、z/OSMF の別を zOS31記録067に残します（第六十七観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第六十七証跡です。移行前確認 の当日作業で IODF31 を追跡します。確認観点は D IOS,ZHPF、割り込み確認、運用確認 です。IODF31 を根拠として残す時、対象の取り違えを抑える対応はどれか。
+
+    - A. IOS確認 の参考情報だけを作業票067へ先に書く。IODF31 とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. DISPLAY IOS,ZHPF の名称欄だけを作業票067で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 作業票067では DISPLAY C のCNZ4100I表示 と IODF31 と時刻を並べる。後続確認で DISPLAY IOS,ZHPF の今回値を同じ対象として再確認できる。 ✅
+    - D. 前回の正常出力を作業票067の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY C のCNZ4100I表示 と IODF31 を照合できない形にする。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 第六十七観点 採用理由: Cは D IOS,ZHPF の状態を表示値と定義の両方から確認するため、記録として妥当です（第六十七観点）。第六十七観点 記録背景: SMFはSMFPRMxx、SMF=xx、SMFPRM00で記録方針を管理します（第六十七観点）。第六十七観点 誤答整理: Aは一般メモ偏重、Bはジョブログ除外、Dは再現性不足が理由です（第六十七観点）。第六十七観点 用語確認: LOADxxはIPL制御メンバーです（第六十七観点）。第六十七観点 IEASYMxxはシステムシンボル定義です（第六十七観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY IOS,ZHPF 割り込み確認 運用確認067**
+
+    - 検証目的: DISPLAY IOS,ZHPF の 割り込み確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / GRS
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY IOS,ZHPF の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY GRS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    ISG343I 10.27.19 GRS STATUS 886
+    SYSTEM    STATE               SYSTEM    STATE
+    SC65      CONNECTED           SC63      CONNECTED
+    GRS STAR MODE INFORMATION
+    ```
+
+    画面・出力には ISG343I が含まれる。ISG343I を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY IOS,ZHPF の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY GRS,RNL=INCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    ISG343I 10.28.19 GRS STATUS 896
+    RNL=INCL
+    QNAME=SYSDSN  RNAME=SYS1.PARMLIB  SCOPE=SYSTEMS
+    ```
+
+    画面・出力には RNL=INCL が含まれる。RNL=INCL を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY IOS,ZHPF の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D XCF,STR,STRNAME=ISGLOCK
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXC360I 10.29.19 DISPLAY XCF 906
+    STRUCTURE NAME: ISGLOCK
+    STATUS: ALLOCATED IN CFRM POLICY
+    ```
+
+    画面・出力には ISGLOCK が含まれる。ISGLOCK を読み取り、オペレーター応答漏れの防止のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: ISG343I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: RNL=INCL が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: ISGLOCK が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### DISPLAY TRACE ログ確認 運用確認034 {#c37-i0273}
+*分類: 移行前確認*  ・  難易度: 中級
+
+第三十四観点 DISPLAY TRACE は z/OS 3.1 の 移行前確認 で扱う管理項目です（第三十四観点）。第三十四観点 システムトレースやコンポーネントトレースの状態を表示するコマンドという説明を操作結果と照合します（第三十四観点）。第三十四観点 IEE843I、DISPLAY LOGGER のログストリーム表示、定義メンバーを照合し、IEASYMxx反映漏れの検出を確認します（第三十四観点）。第三十四観点 証跡には資料IDと確認値を併記し、zOS31記録034として保存します（第三十四観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第三十四証跡です。z/OS 3.1 の 移行前確認 で切分けを行います。確認観点は DISPLAY TRACE、ログ確認、運用確認 です。IEASYMxx反映漏れの検出のために、DISPLAY LOGGER のログストリーム表示 を使った運用記録として最も適切な扱いはどれか。
+
+    - A. 作業票034では DISPLAY LOGGER のログストリーム表示 と IEE843I と時刻を並べる。後続確認で DISPLAY TRACE の今回値を同じ対象として再確認できる。 ✅
+    - B. IPL情報 の参考情報だけを作業票034へ先に書く。IEE843I とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - C. DISPLAY TRACE の名称欄だけを作業票034で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - D. 前回の正常出力を作業票034の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY LOGGER のログストリーム表示 と IEE843I を照合できない形にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 第三十四観点 正答根拠: Aは DISPLAY LOGGER のログストリーム表示 と IEE843I を結び付けるため、対象システムの取り違えを防げます（第三十四観点）。第三十四観点 診断背景: DISPLAY GRS、DISPLAY TRACE、DISPLAY LOGGERは直列化、トレース、ログの状態確認に使います（第三十四観点）。第三十四観点 誤答点検: Bはシステム名欠落、Cは定義未確認、Dは時刻差の欠落が理由です（第三十四観点）。第三十四観点 用語説明: zHPFはHigh Performance FICONです（第三十四観点）。第三十四観点 IOSは入出力監視の表示対象です（第三十四観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **DISPLAY TRACE ログ確認 運用確認034**
+
+    - 検証目的: DISPLAY TRACE の ログ確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: ISPF / parmlib review
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により DISPLAY TRACE の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(IEASYS31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEASYS31
+    PROG=31
+    SMF=31
+    GRSRNL=31
+    CON=31
+    SCHED=31
+    ```
+
+    画面・出力には IEASYS31 が含まれる。IEASYS31 を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により DISPLAY TRACE の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    ISPF browse
+    COMMAND ===> BROWSE SYS1.PARMLIB(SMFPRM31)
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMFPRM31
+    SYS(TYPE(0:255))
+    DSNAME(SMF.MAN1,SMF.MAN2)
+    ACTIVE
+    JWT(0030)
+    ```
+
+    画面・出力には SMFPRM31 が含まれる。SMFPRM31 を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により DISPLAY TRACE の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I 10.010.00 PARMLIB DISPLAY 753
+    DATA SET NAME
+    SYS1.PARMLIB
+    SYS1.PARMLIB(IEASYS31)
+    ```
+
+    画面・出力には IEE251I が含まれる。IEE251I を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IEASYS31 が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: SMFPRM31 が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IEE251I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### SLIP表示 ログ確認 運用確認084 {#c37-i0274}
+*分類: 移行前確認*  ・  難易度: 上級
+
+第八十四観点 z/OS 3.1 Core Operations の 移行前確認 では SLIP表示 を障害調査で照合します（第八十四観点）。第八十四観点 資料上は SLIPトラップや診断条件の定義状態を確認する表示対象として扱います（第八十四観点）。第八十四観点 SYS1.PARMLIB(GRSRNL31) を起点に表示値を戻し、IEASYMxx反映漏れの検出を点検します（第八十四観点）。第八十四観点 記録ではコマンド、メッセージID、対象名、時刻を zOS31記録084へ書きます（第八十四観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第八十四証跡です。z/OS 3.1 の 移行前確認 で切分けを行います。確認観点は SLIP表示、ログ確認、運用確認 です。IEASYMxx反映漏れの検出を満たす記録方法として、表示値と定義を結ぶものはどれか。
+
+    - A. システムログ の参考情報だけを作業票084へ先に書く。SYS1.PARMLIB(GRSRNL31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. SLIP表示 の名称欄だけを作業票084で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 作業票084では DISPLAY PARMLIB のIEE251I表示 と SYS1.PARMLIB(GRSRNL31) と時刻を並べる。後続確認で SLIP表示 の今回値を同じ対象として再確認できる。 ✅
+    - D. 前回の正常出力を作業票084の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY PARMLIB のIEE251I表示 と SYS1.PARMLIB(GRSRNL31) を照合できない形にする。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 第八十四観点 照合結果: Cは SYS1.PARMLIB(GRSRNL31) をメッセージIDや時刻と一緒に残すため、再確認時にも根拠を追えます（第八十四観点）。第八十四観点 仕組み要点: LOADxxはIPL時のSYSPLEX値やIEASYMxx一覧などを指定します（第八十四観点）。第八十四観点 誤答確認: Aは SYS1.PARMLIB(GRSRNL31) 未追跡、Bはコマンド確認不足、Dは別システム混同が理由です（第八十四観点）。第八十四観点 初出定義: WTORは応答要求メッセージです（第八十四観点）。第八十四観点 OPERLOGはオペレーター関連ログです（第八十四観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **SLIP表示 ログ確認 運用確認084**
+
+    - 検証目的: SLIP表示 の ログ確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / SMF
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により SLIP表示 の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D SMF,O
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE974I 11.01.12 SMF DATA SET STATUS
+    NAME       VOLSER  STATUS
+    SMF.MAN1   SMS001  ACTIVE
+    SMF.MAN2   SMS002  EMPTY
+    ```
+
+    画面・出力には SMF DATA SET STATUS が含まれる。SMF DATA SET STATUS を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により SLIP表示 の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> SWITCH SMF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE362A SMF ENTER DUMP FOR DATA SET SMF.MAN1
+    IEE360I SMF NOW RECORDING ON SMF.MAN2
+    ```
+
+    画面・出力には IEE360I が含まれる。IEE360I を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により SLIP表示 の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    JES2 SDSF ST
+    COMMAND ===> S IFASMFD12
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEF403I IFASMFD12 - STARTED
+    IFASMFDP SYSPRINT
+    INDD(DUMPIN,OPTIONS(ALL)) OUTDD(DUMPALL,TYPE(000:255))
+    ```
+
+    画面・出力には IFASMFDP が含まれる。IFASMFDP を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: SMF DATA SET STATUS が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEE360I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IFASMFDP が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### 移行前確認 z/OS 3.1移行検査 ログとの照合 MIG07 {#c37-i0275}
+*分類: 移行前確認*  ・  難易度: 中級
+
+ログとの照合では 移行前確認 の リリース確認 を主操作として MIG07 を判定します。時刻と対象識別子への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG07 に残します。ログとの照合を補助する parmlib所在 では IEE251I を補助値として MIG07 へ保存します。主判定のログとの照合では移行前確認・移行検査の リリース確認 から RELEASE を読み MIG07 へ残します。証跡照合のログとの照合では移行前確認・移行検査の RELEASE と IEE251I を MIG07 に保存します。記録対応のログとの照合では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG07 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** ログとの照合で 移行前確認 の リリース確認 と parmlib所在 を組み合わせる際は z/OS 3.1移行検査 が旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備という仕組みを前提にします。旧構成の非互換値を次回IPLへ持ち込む危険があります。RELEASE と RELEASEとMEMBER差分 を対象 MIG07 で確認する組合せはどれですか。
+
+    - A. RELEASEを含むリリース確認の応答行を保存する。その応答を得るためD IPLINFOを使用する。対象MIG07のRELEASEとMEMBER差分として記録する。 ✅
+    - B. D IPLINFOが応答を返した時点で正常とする。応答中のRELEASEの値は記録しない。IEE250IをRELEASEと同じ判定値とみなし対象MIG07の主証跡にする。
+    - C. D IPLINFOのコマンド文字列だけを記録する。RELEASEを含む応答行は保存しない。
+    - D. z/OS 3.1移行検査の停止または再定義を実施する。その後にD IPLINFOでRELEASEを採取する。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 適切な判定: Aはリリース確認で RELEASE を読みRELEASEとMEMBER差分の主値として操作とログを対応しMIG07に残します。
+    機能の仕組み: ログとの照合ではparmlib所在を補助操作としz/OS 3.1移行検査の時刻と対象識別子をIEE251Iと対象MIG07で照合します。
+    各候補の評価: リリース確認とparmlib所在の役割を分けるとA: RELEASEの実値を対象別に残す点で主証跡になります、B: 応答の有無だけではRELEASEとMEMBER差分を判定できないうえに追加前提も不正な点で一次資料と一致しません、C: 入力記録だけではRELEASEとMEMBER差分を証明できない点でRELEASEとMEMBER差分を確認できません、D: 変更前のRELEASEとMEMBER差分を失う点でparmlib所在の範囲を越えます。結論としてログとの照合の移行前確認・移行検査で判定する対象は MIG07 です。
+    用語の定義: ログとの照合で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG07へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 ログとの照合 MIG07**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について操作とログを対応し、MIG07のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG07と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG07のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG07のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG07のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の RELEASE が画面・出力に表示されること
+    ② ステップ2 の IEE251I が画面・出力に表示されること
+    ③ ステップ3 の IEE250I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 代替経路の確認 MIG10 {#c37-i0276}
+*分類: 移行前確認*  ・  難易度: 中級
+
+代替経路の確認では 移行前確認 の リリース確認 を主操作として MIG10 を判定します。主経路との役割差への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG10 に残します。代替経路の確認を補助する parmlib所在 では IEE251I を補助値として MIG10 へ保存します。主判定の代替経路の確認では移行前確認・移行検査の リリース確認 から RELEASE を読み MIG10 へ残します。証跡照合の代替経路の確認では移行前確認・移行検査の RELEASE と IEE251I を MIG10 に保存します。記録対応の代替経路の確認では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG10 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 代替経路の確認で 移行前確認 の リリース確認 と parmlib所在 を実施し z/OS 3.1移行検査 の役割を確認します。旧構成の非互換値を次回IPLへ持ち込む危険があります。対象 MIG10 の証跡を取る方法はどれですか。
+
+    - A. D IPLINFOのコマンド文字列だけを記録する。RELEASEを含む応答行は保存しない。
+    - B. z/OS 3.1移行検査の停止または再定義を実施する。その後にD IPLINFOでRELEASEを採取する。
+    - C. IPL情報のLOADxxとIODFを確認する。その値を移行前確認のMIG10にも適用する。
+    - D. D IPLINFOとD PARMLIBの対象名をそろえる。前者のRELEASEをRELEASEとMEMBER差分の判定値として採用する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 正しい判定結果: Dはリリース確認で RELEASE を読みRELEASEとMEMBER差分の主値として代替手段の成立を確認しMIG10に残します。
+    運用上の背景: 代替経路の確認ではparmlib所在を補助操作としz/OS 3.1移行検査の主経路との役割差をIEE251Iと対象MIG10で照合します。
+    候補別の検討: リリース確認とparmlib所在の役割を分けるとA: 入力記録だけではRELEASEとMEMBER差分を証明できない点で一次資料と一致しません、B: 変更前のRELEASEとMEMBER差分を失う点でRELEASEとMEMBER差分を確認できません、C: IPL情報の値ではRELEASEを確認できない点でparmlib所在の範囲を越えます、D: 同じ対象名のRELEASEを採用する点で現在値を示します。結論として代替経路の確認の移行前確認・移行検査で判定する対象は MIG10 です。
+    重要用語の定義: 代替経路の確認で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG10へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 代替経路の確認 MIG10**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について代替手段の成立を確認し、MIG10のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG10と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG10のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG10のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG10のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の RELEASE が画面・出力に表示されること
+    ② ステップ2 の IEE251I が画面・出力に表示されること
+    ③ ステップ3 の IEE250I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 変更前の確認 MIG02 {#c37-i0277}
+*分類: 移行前確認*  ・  難易度: 中級
+
+変更前の確認では 移行前確認 の parmlib所在 を主操作として MIG02 を判定します。変更対象と非対象の境界への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG02 に残します。変更前の確認を補助する APF確認 では IEE250I を補助値として MIG02 へ保存します。主判定の変更前の確認では移行前確認・移行検査の parmlib所在 から IEE251I を読み MIG02 へ残します。証跡照合の変更前の確認では移行前確認・移行検査の IEE251I と IEE250I を MIG02 に保存します。記録対応の変更前の確認では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG02 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 変更前の確認で 移行前確認 の parmlib所在 と APF確認 の役割を分け 変更対象と非対象の境界 を調べます。z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備です。旧構成の非互換値を次回IPLへ持ち込む危険があります。対象 MIG02 を誤判定しない進め方はどれですか。
+
+    - A. D PARMLIBを対象名なしで実行する。一覧の先頭行をMIG02の結果として記録する。
+    - B. 前回保存したD PARMLIBの結果を使う。今回のD PROG,APFの結果と同一時点の証跡として比較する。
+    - C. 保存済みのMIG02の出力を再利用する。今回のD PARMLIBとD PROG,APFは実行済みとして扱う。前回値との採取時刻の差も無視できるものとする。
+    - D. 対象MIG02についてD PARMLIBの応答からIEE251Iを確認する。D PROG,APFは補助証跡として時刻をそろえて保存する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 採用理由: Dはparmlib所在で IEE251I を読みRELEASEとMEMBER差分の主値として変更前の証跡を保存しMIG02に残します。
+    動作の背景: 変更前の確認ではAPF確認を補助操作としz/OS 3.1移行検査の変更対象と非対象の境界をIEE250Iと対象MIG02で照合します。
+    各選択肢の検討: parmlib所在とAPF確認の役割を分けるとA: 先頭行はMIG02と確定できない点で変更前の確認に合いません、B: 採取時刻が異なる点でparmlib所在を代替しません、C: 過去出力では今回の変更前の確認を示せないうえに追加前提も不正な点で移行前確認に使いません、D: IEE251Iと補助証跡の時刻を合わせる点で正答です。結論として変更前の確認の移行前確認・移行検査で判定する対象は MIG02 です。
+    初出用語の定義: 変更前の確認で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG02へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 変更前の確認 MIG02**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について変更前の証跡を保存し、MIG02のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG02と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG02のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG02のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG02のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE251I が画面・出力に表示されること
+    ② ステップ2 の IEE250I が画面・出力に表示されること
+    ③ ステップ3 の RELEASE が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 変更後の確認 MIG03 {#c37-i0278}
+*分類: 移行前確認*  ・  難易度: 中級
+
+変更後の確認では 移行前確認 の APF確認 を主操作として MIG03 を判定します。反映値と残存値への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG03 に残します。変更後の確認を補助する リリース確認 では RELEASE を補助値として MIG03 へ保存します。主判定の変更後の確認では移行前確認・移行検査の APF確認 から IEE250I を読み MIG03 へ残します。証跡照合の変更後の確認では移行前確認・移行検査の IEE250I と RELEASE を MIG03 に保存します。記録対応の変更後の確認では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG03 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 変更後の確認で 移行前確認 の APF確認 と リリース確認 を使い 変更結果を検証 します。z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備です。旧構成の非互換値を次回IPLへ持ち込む危険があります。IEE250I を読み対象 MIG03 を切り分ける確認方法はどれですか。
+
+    - A. D IPLINFOで周辺状態を押さえる。その後にD PROG,APFでIEE250Iを確認して変更結果を検証する。 ✅
+    - B. z/OS 3.1移行検査の停止または再定義を実施する。その後にD PROG,APFでIEE250Iを採取する。
+    - C. z/OSMF管理のSERVICE STATUSとHOME URIを確認する。その値を移行前確認のMIG03にも適用する。同じ製品内の表示なら確認項目の違いはないものとする。
+    - D. D IPLINFOが成功したためD PROG,APFのIEE250Iも正常だと推定する。主出力は保存しない。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 正答の根拠: AはAPF確認で IEE250I を読みRELEASEとMEMBER差分の主値として変更結果を検証しMIG03に残します。
+    内部の仕組み: 変更後の確認ではリリース確認を補助操作としz/OS 3.1移行検査の反映値と残存値をRELEASEと対象MIG03で照合します。
+    誤答を含む比較: APF確認とリリース確認の役割を分けるとA: 周辺状態の後にIEE250Iを確認する点でMIG03を判定できます、B: 変更前のRELEASEとMEMBER差分を失う点でリリース確認の範囲を越えます、C: z/OSMF管理の値ではIEE250Iを確認できないうえに追加前提も不正な点でMIG03の値を示しません、D: 補助操作の成功ではIEE250Iを確定できない点で変更後の確認に合いません。結論として変更後の確認の移行前確認・移行検査で判定する対象は MIG03 です。
+    用語定義: 変更後の確認で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG03へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 変更後の確認 MIG03**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について変更結果を検証し、MIG03のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG03と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG03のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG03のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG03のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE250I が画面・出力に表示されること
+    ② ステップ2 の RELEASE が画面・出力に表示されること
+    ③ ステップ3 の IEE251I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 引継ぎ記録 MIG09 {#c37-i0279}
+*分類: 移行前確認*  ・  難易度: 中級
+
+引継ぎ記録では 移行前確認 の APF確認 を主操作として MIG09 を判定します。次担当者が追跡できる証跡への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG09 に残します。引継ぎ記録を補助する リリース確認 では RELEASE を補助値として MIG09 へ保存します。主判定の引継ぎ記録では移行前確認・移行検査の APF確認 から IEE250I を読み MIG09 へ残します。証跡照合の引継ぎ記録では移行前確認・移行検査の IEE250I と RELEASE を MIG09 に保存します。記録対応の引継ぎ記録では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG09 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 引継ぎ記録で 移行前確認 の APF確認 と リリース確認 を使い 再現可能な記録を作成 します。z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備です。旧構成の非互換値を次回IPLへ持ち込む危険があります。IEE250I を読み対象 MIG09 を切り分ける確認方法はどれですか。
+
+    - A. D IPLINFOが成功したためD PROG,APFのIEE250Iも正常だと推定する。主出力は保存しない。
+    - B. D PROG,APFを対象名なしで実行する。一覧の先頭行をMIG09の結果として記録する。
+    - C. 対象名MIG09を指定してD PROG,APFを実行する。応答中のIEE250Iと時刻を保存する。D IPLINFOで周辺状態を補完する。 ✅
+    - D. 前回保存したD PROG,APFの結果を使う。今回のD IPLINFOの結果と同一時点の証跡として比較する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 採用操作の理由: CはAPF確認で IEE250I を読みRELEASEとMEMBER差分の主値として再現可能な記録を作成しMIG09に残します。
+    製品内の仕組み: 引継ぎ記録ではリリース確認を補助操作としz/OS 3.1移行検査の次担当者が追跡できる証跡をRELEASEと対象MIG09で照合します。
+    選択肢別の説明: APF確認とリリース確認の役割を分けるとA: 補助操作の成功ではIEE250Iを確定できない点でMIG09の値を示しません、B: 先頭行はMIG09と確定できない点で引継ぎ記録に合いません、C: IEE250Iと時刻を保存する点でAPF確認に合います、D: 採取時刻が異なる点で移行前確認に使いません。結論として引継ぎ記録の移行前確認・移行検査で判定する対象は MIG09 です。
+    用語を初めて使う際の定義: 引継ぎ記録で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG09へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 引継ぎ記録 MIG09**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について再現可能な記録を作成し、MIG09のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG09と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG09のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG09のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG09のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE250I が画面・出力に表示されること
+    ② ステップ2 の RELEASE が画面・出力に表示されること
+    ③ ステップ3 の IEE251I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 復旧後の確認 MIG06 {#c37-i0280}
+*分類: 移行前確認*  ・  難易度: 中級
+
+復旧後の確認では 移行前確認 の APF確認 を主操作として MIG06 を判定します。再発していないことを示す値への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG06 に残します。復旧後の確認を補助する リリース確認 では RELEASE を補助値として MIG06 へ保存します。主判定の復旧後の確認では移行前確認・移行検査の APF確認 から IEE250I を読み MIG06 へ残します。証跡照合の復旧後の確認では移行前確認・移行検査の IEE250I と RELEASE を MIG06 に保存します。記録対応の復旧後の確認では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG06 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 復旧後の確認で 移行前確認 の APF確認 と リリース確認 を照合し 再発していないことを示す値 を確かめます。z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備です。旧構成の非互換値を次回IPLへ持ち込む危険があります。IEE250I を読む前に対象 MIG06 へ行う確認はどれですか。
+
+    - A. コンソール管理のCONSOLE NAMEとAUTHを確認する。その値を移行前確認のMIG06にも適用する。
+    - B. D IPLINFOが成功したためD PROG,APFのIEE250Iも正常だと推定する。主出力は保存しない。別資源で得た状態を対象MIG06へ引き継げるものとする。
+    - C. D PROG,APFを対象名なしで実行する。一覧の先頭行をMIG06の結果として記録する。
+    - D. D PROG,APFでIEE250Iを取得してからD PARMLIBでIEE251Iを照合する。MIG06のRELEASEとMEMBER差分を両出力から確定する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 正答内容: DはAPF確認で IEE250I を読みRELEASEとMEMBER差分の主値として復旧後の安定性を確認しMIG06に残します。
+    構成上の背景: 復旧後の確認ではリリース確認を補助操作としz/OS 3.1移行検査の再発していないことを示す値をRELEASEと対象MIG06で照合します。
+    候補ごとの理由: APF確認とリリース確認の役割を分けるとA: コンソール管理の値ではIEE250Iを確認できない点でリリース確認の範囲を越えます、B: 補助操作の成功ではIEE250Iを確定できないうえに追加前提も不正な点でMIG06の値を示しません、C: 先頭行はMIG06と確定できない点で復旧後の確認に合いません、D: IEE250IとIEE251Iを順に照合する点でAPF確認に合います。結論として復旧後の確認の移行前確認・移行検査で判定する対象は MIG06 です。
+    初出用語: 復旧後の確認で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG06へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 復旧後の確認 MIG06**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について復旧後の安定性を確認し、MIG06のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG06と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG06のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG06のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG06のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE250I が画面・出力に表示されること
+    ② ステップ2 の RELEASE が画面・出力に表示されること
+    ③ ステップ3 の IEE251I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 復旧準備 MIG05 {#c37-i0281}
+*分類: 移行前確認*  ・  難易度: 中級
+
+復旧準備では 移行前確認 の parmlib所在 を主操作として MIG05 を判定します。再開前に必要な整合性への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG05 に残します。復旧準備を補助する APF確認 では IEE250I を補助値として MIG05 へ保存します。主判定の復旧準備では移行前確認・移行検査の parmlib所在 から IEE251I を読み MIG05 へ残します。証跡照合の復旧準備では移行前確認・移行検査の IEE251I と IEE250I を MIG05 に保存します。記録対応の復旧準備では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG05 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 復旧準備で 移行前確認 の parmlib所在 と APF確認 を用い 復旧条件を確認 します。z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備です。旧構成の非互換値を次回IPLへ持ち込む危険があります。IEE251I で対象 MIG05 の RELEASEとMEMBER差分 を再現できる記録はどれですか。
+
+    - A. 前回保存したD PARMLIBの結果を使う。今回のD PROG,APFの結果と同一時点の証跡として比較する。
+    - B. 保存済みのMIG05の出力を再利用する。今回のD PARMLIBとD PROG,APFは実行済みとして扱う。
+    - C. 変更を加えずD PARMLIBを実行する。IEE251Iを保存する。差分はD PROG,APFの結果と対象名で対応させる。 ✅
+    - D. D PROG,APFのIEE250IをRELEASEとMEMBER差分の主判定に採用する。D PARMLIBの応答は採取対象から外す。変更後の値を変更前の基準として記録してよいものとする。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 選定理由: Cはparmlib所在で IEE251I を読みRELEASEとMEMBER差分の主値として復旧条件を確認しMIG05に残します。
+    処理の仕組み: 復旧準備ではAPF確認を補助操作としz/OS 3.1移行検査の再開前に必要な整合性をIEE250Iと対象MIG05で照合します。
+    選択結果の内訳: parmlib所在とAPF確認の役割を分けるとA: 採取時刻が異なる点でparmlib所在を代替しません、B: 過去出力では今回の復旧準備を示せない点で移行前確認に使いません、C: 変更前のIEE251Iを保存する点で正答です、D: IEE250IはIEE251Iを代替しないうえに追加前提も不正な点でMIG05を採用できません。結論として復旧準備の移行前確認・移行検査で判定する対象は MIG05 です。
+    用語の説明: 復旧準備で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG05へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 復旧準備 MIG05**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について復旧条件を確認し、MIG05のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG05と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG05のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG05のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG05のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE251I が画面・出力に表示されること
+    ② ステップ2 の IEE250I が画面・出力に表示されること
+    ③ ステップ3 の RELEASE が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 構成監査 MIG08 {#c37-i0282}
+*分類: 移行前確認*  ・  難易度: 中級
+
+構成監査では 移行前確認 の parmlib所在 を主操作として MIG08 を判定します。定義値と稼働値の一致への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG08 に残します。構成監査を補助する APF確認 では IEE250I を補助値として MIG08 へ保存します。主判定の構成監査では移行前確認・移行検査の parmlib所在 から IEE251I を読み MIG08 へ残します。証跡照合の構成監査では移行前確認・移行検査の IEE251I と IEE250I を MIG08 に保存します。記録対応の構成監査では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG08 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 構成監査で 移行前確認 の parmlib所在 と APF確認 の役割を分け 定義値と稼働値の一致 を調べます。z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備です。旧構成の非互換値を次回IPLへ持ち込む危険があります。対象 MIG08 を誤判定しない進め方はどれですか。
+
+    - A. 保存済みのMIG08の出力を再利用する。今回のD PARMLIBとD PROG,APFは実行済みとして扱う。
+    - B. D PROG,APFの結果だけでは確定しない。D PARMLIBのIEE251Iを主証跡として構成差分を監査する。 ✅
+    - C. D PROG,APFのIEE250IをRELEASEとMEMBER差分の主判定に採用する。D PARMLIBの応答は採取対象から外す。
+    - D. D IPLINFOのRELEASEをIEE251Iと同義の成功表示として扱う。D PARMLIBは実行しない。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 技術上の正答: Bはparmlib所在で IEE251I を読みRELEASEとMEMBER差分の主値として構成差分を監査しMIG08に残します。
+    実行時の背景: 構成監査ではAPF確認を補助操作としz/OS 3.1移行検査の定義値と稼働値の一致をIEE250Iと対象MIG08で照合します。
+    四つの候補の理由: parmlib所在とAPF確認の役割を分けるとA: 過去出力では今回の構成監査を示せない点で移行前確認に使いません、B: IEE251Iを主証跡として区別する点で正答です、C: IEE250IはIEE251Iを代替しない点でMIG08を採用できません、D: RELEASEとIEE251Iは確認項目が異なる点で定義値と稼働値の一致を示せません。結論として構成監査の移行前確認・移行検査で判定する対象は MIG08 です。
+    初出語定義: 構成監査で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG08へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 構成監査 MIG08**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について構成差分を監査し、MIG08のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG08と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG08のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG08のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG08のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の IEE251I が画面・出力に表示されること
+    ② ステップ2 の IEE250I が画面・出力に表示されること
+    ③ ステップ3 の RELEASE が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 通常状態の確認 MIG01 {#c37-i0283}
+*分類: 移行前確認*  ・  難易度: 中級
+
+通常状態の確認では 移行前確認 の リリース確認 を主操作として MIG01 を判定します。基準値と現在値の差への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG01 に残します。通常状態の確認を補助する parmlib所在 では IEE251I を補助値として MIG01 へ保存します。主判定の通常状態の確認では移行前確認・移行検査の リリース確認 から RELEASE を読み MIG01 へ残します。証跡照合の通常状態の確認では移行前確認・移行検査の RELEASE と IEE251I を MIG01 に保存します。記録対応の通常状態の確認では移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG01 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 通常状態の確認で 移行前確認 の リリース確認 と parmlib所在 を組み合わせる際は z/OS 3.1移行検査 が旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備という仕組みを前提にします。旧構成の非互換値を次回IPLへ持ち込む危険があります。RELEASE と RELEASEとMEMBER差分 を対象 MIG01 で確認する組合せはどれですか。
+
+    - A. D PARMLIBのIEE251IをRELEASEとMEMBER差分の主判定に採用する。D IPLINFOの応答は採取対象から外す。対象名の差は判定へ影響しないものとする。
+    - B. D PROG,APFのIEE250IをRELEASEと同義の成功表示として扱う。D IPLINFOは実行しない。
+    - C. D IPLINFOを先に実行する。対象MIG01のRELEASEをRELEASEとMEMBER差分として記録する。続いてD PARMLIBで同一対象を照合する。 ✅
+    - D. D IPLINFOが応答を返した時点で正常とする。応答中のRELEASEの値は記録しない。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 正解の説明: Cはリリース確認で RELEASE を読みRELEASEとMEMBER差分の主値として通常状態を確定しMIG01に残します。
+    背景・仕組み: 通常状態の確認ではparmlib所在を補助操作としz/OS 3.1移行検査の基準値と現在値の差をIEE251Iと対象MIG01で照合します。
+    選択肢の理由: リリース確認とparmlib所在の役割を分けるとA: IEE251IはRELEASEを代替しないうえに追加前提も不正な点でz/OS 3.1移行検査に使えません、B: IEE250IとRELEASEは確認項目が異なる点でMIG01を採用できません、C: RELEASEを主値として補助結果と照合する点で主証跡になります、D: 応答の有無だけではRELEASEとMEMBER差分を判定できない点で一次資料と一致しません。結論として通常状態の確認の移行前確認・移行検査で判定する対象は MIG01 です。
+    用語の初出定義: 通常状態の確認で使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG01へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 通常状態の確認 MIG01**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について通常状態を確定し、MIG01のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG01と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG01のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG01のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG01のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の RELEASE が画面・出力に表示されること
+    ② ステップ2 の IEE251I が画面・出力に表示されること
+    ③ ステップ3 の IEE250I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+### 移行前確認 z/OS 3.1移行検査 障害切り分け MIG04 {#c37-i0284}
+*分類: 移行前確認*  ・  難易度: 中級
+
+障害切り分けでは 移行前確認 の リリース確認 を主操作として MIG04 を判定します。最初に失敗した処理への注意として「旧構成の非互換値を次回IPLへ持ち込む危険があります」を MIG04 に残します。障害切り分けを補助する parmlib所在 では IEE251I を補助値として MIG04 へ保存します。主判定の障害切り分けでは移行前確認・移行検査の リリース確認 から RELEASE を読み MIG04 へ残します。証跡照合の障害切り分けでは移行前確認・移行検査の RELEASE と IEE251I を MIG04 に保存します。記録対応の障害切り分けでは移行前確認・移行検査の RELEASEとMEMBER差分 の証跡へ MIG04 を結びます。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+??? question "確認問題（1問）"
+    **問題.** 障害切り分けで 移行前確認 の リリース確認 と parmlib所在 を実施し z/OS 3.1移行検査 の役割を確認します。旧構成の非互換値を次回IPLへ持ち込む危険があります。対象 MIG04 の証跡を取る方法はどれですか。
+
+    - A. D PROG,APFのIEE250IをRELEASEと同義の成功表示として扱う。D IPLINFOは実行しない。補助出力があれば主出力の未採取を補えるものとする。
+    - B. D IPLINFOの出力でMIG04とRELEASEが同じ応答にあることを確認する。RELEASEとMEMBER差分をその応答から採取する。 ✅
+    - C. D IPLINFOが応答を返した時点で正常とする。応答中のRELEASEの値は記録しない。
+    - D. D IPLINFOのコマンド文字列だけを記録する。RELEASEを含む応答行は保存しない。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 正しい操作の説明: Bはリリース確認で RELEASE を読みRELEASEとMEMBER差分の主値として障害範囲を限定しMIG04に残します。
+    技術的背景: 障害切り分けではparmlib所在を補助操作としz/OS 3.1移行検査の最初に失敗した処理をIEE251Iと対象MIG04で照合します。
+    四択の評価: リリース確認とparmlib所在の役割を分けるとA: IEE250IとRELEASEは確認項目が異なるうえに追加前提も不正な点でMIG04を採用できません、B: MIG04とRELEASEを同じ応答で結ぶ点で主証跡になります、C: 応答の有無だけではRELEASEとMEMBER差分を判定できない点で一次資料と一致しません、D: 入力記録だけではRELEASEとMEMBER差分を証明できない点でRELEASEとMEMBER差分を確認できません。結論として障害切り分けの移行前確認・移行検査で判定する対象は MIG04 です。
+    初出語の意味: 障害切り分けで使う z/OS 3.1移行検査 は旧リリースの設定、削除機能、必要保守、parmlib差分をIPL前に確認する移行準備を表しRELEASEとMEMBER差分を判定する際にMIG04へ適用します。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+??? note "検証手順（1件）"
+    **移行前確認 z/OS 3.1移行検査 障害切り分け MIG04**
+
+    - 検証目的: 移行前確認のz/OS 3.1移行検査について障害範囲を限定し、MIG04のRELEASEとMEMBER差分を実出力で確認する。
+    - 前提条件: z/OS 3.1 Core Operationsの参照権限を持ち、対象MIG04と実行時刻を記録できること。変更操作は実施せず机上で確認する。
+    - セッション環境: z/OS 3.1 Core Operationsの運用画面またはコマンド入力画面
+
+    **ステップ 1**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD IPLINFOを指定し、MIG04のリリース確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D IPLINFO
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE254I RELEASE z/OS 03.01.00 LICENSE z/OS
+    ```
+
+    画面・出力にあるRELEASEを読み、RELEASEとMEMBER差分と対象MIG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    **ステップ 2**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PARMLIBを指定し、MIG04のparmlib所在を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PARMLIB
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE251I ACTIVE PARMLIB DATA SETS 1 SYS1.PARMLIB 2 SYS1.PARMLIB.SITE
+    ```
+
+    画面・出力にあるIEE251Iを読み、RELEASEとMEMBER差分と対象MIG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    **ステップ 3**
+    現在の画面はz/OS 3.1 Core Operationsの移行前確認を確認する入力画面です。COMMAND入力口へD PROG,APFを指定し、MIG04のAPF確認を表示します。
+    操作（入力）:
+    ```text
+    z/OS 3.1 Core Operations 操作画面
+    COMMAND ===> D PROG,APF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE250I DISPLAY PROG,APF FORMAT=DYNAMIC ENTRIES 0042
+    ```
+
+    画面・出力にあるIEE250Iを読み、RELEASEとMEMBER差分と対象MIG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+
+    - 合格条件: ① ステップ1 の RELEASE が画面・出力に表示されること
+    ② ステップ2 の IEE251I が画面・出力に表示されること
+    ③ ステップ3 の IEE250I が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300
+
+
+
+
+## z/OS 3.1 Core Operations > 結合機構確認
+
+### ISFPRMxx 定義照合 運用確認061 {#c37-i0285}
+*分類: 結合機構確認*  ・  難易度: 中級
+
+第六十一観点 結合機構確認 で ISFPRMxx は 定義照合 の対象です（第六十一観点）。第六十一観点 確認時には z/OS 3.1でSDSF設定に使用されるparmlib形式の設定メという性質を前提にします（第六十一観点）。第六十一観点 DISPLAY SYMBOLS のシンボル一覧 と SYS1.PARMLIB(SMFPRM31) を同じ証跡に置き、IEASYMxx反映漏れの検出を管理します（第六十一観点）。第六十一観点 後続確認ではシステム名、ASID、メンバー名、メッセージIDを zOS31記録061から再現します（第六十一観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第六十一証跡です。結合機構確認 の運用で ISFPRMxx を点検します。確認観点は ISFPRMxx、定義照合、運用確認 です。SYS1.PARMLIB(SMFPRM31) を根拠として残す時、対象の取り違えを抑える対応はどれか。
+
+    - A. 作業票061では DISPLAY SYMBOLS のシンボル一覧 と SYS1.PARMLIB(SMFPRM31) と時刻を並べる。後続確認で ISFPRMxx の今回値を同じ対象として再確認できる。 ✅
+    - B. SMF管理 の参考情報だけを作業票061へ先に書く。SYS1.PARMLIB(SMFPRM31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - C. ISFPRMxx の名称欄だけを作業票061で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - D. 前回の正常出力を作業票061の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY SYMBOLS のシンボル一覧 と SYS1.PARMLIB(SMFPRM31) を照合できない形にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 第六十一観点 正解確認: Aは ISFPRMxx と SYS1.PARMLIB(SMFPRM31) を同じ証跡で扱うため、後続の照合に使えます（第六十一観点）。第六十一観点 記録背景: SMFはSMFPRMxx、SMF=xx、SMFPRM00で記録方針を管理します（第六十一観点）。第六十一観点 誤答比較: Bは対象名不足、Cは表示差分不足、Dは前回証跡の混入が理由です（第六十一観点）。第六十一観点 用語確認: LOADxxはIPL制御メンバーです（第六十一観点）。第六十一観点 IEASYMxxはシステムシンボル定義です（第六十一観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **ISFPRMxx 定義照合 運用確認061**
+
+    - 検証目的: ISFPRMxx の 定義照合 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / console operations
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により ISFPRMxx の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D C,ROUT=5
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    CNZ4100I 15.03.13 CONSOLE DISPLAY FRAME 1 SYS=SY1
+    CONSOLES MATCHING COMMAND: D C,ROUT=5
+    MSG:CURR=1356 LIM=1500 RPLY:CURR=1 LIM=10
+    FRED TYPE=MCS STATUS=ACT-SY2 AUTH=(MASTER) AREA=(Z,A)
+    ```
+
+    画面・出力には CNZ4100I が含まれる。CNZ4100I を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により ISFPRMxx の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY R,ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE112I 11.15.13 DISPLAY R 760
+    REPLY ID   MESSAGE TEXT
+    005        IEA011A RESPECIFY ENTIRE IEASYMXX SUFFIX LIST OR U TO BYPASS
+    ```
+
+    画面・出力には IEE112I が含まれる。IEE112I を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により ISFPRMxx の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> LOG 'ZOS31 CHECK 061 COMPLETE'
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE600I LOG COMMAND ACCEPTED
+    OPERLOG ENTRY: ZOS31 CHECK 061 COMPLETE
+    ```
+
+    画面・出力には OPERLOG が含まれる。OPERLOG を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: CNZ4100I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEE112I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: OPERLOG が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### IZUPRMxx 出口確認 運用確認045 {#c37-i0286}
+*分類: 結合機構確認*  ・  難易度: 中級
+
+第四十五観点 結合機構確認 で IZUPRMxx は 出口確認 の対象です（第四十五観点）。第四十五観点 確認時には z/OSMFサーバーやサービス構成を定義するparmlibメンバーという性質を前提にします（第四十五観点）。第四十五観点 DISPLAY GRS のISG343I表示 と SYS1.PARMLIB(IZUPRM31) を同じ証跡に置き、IODF参照値の説明性確保を管理します（第四十五観点）。第四十五観点 後続確認ではシステム名、ASID、メンバー名、メッセージIDを zOS31記録045から再現します（第四十五観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第四十五証跡です。DISPLAY GRS のISG343I表示 を採取した後の扱いを選びます。確認観点は IZUPRMxx、出口確認、運用確認 です。DISPLAY GRS のISG343I表示 と SYS1.PARMLIB(IZUPRM31) を合わせて読む時の採用方針として正しいものはどれか。
+
+    - A. IODF確認 の参考情報だけを作業票045へ先に書く。SYS1.PARMLIB(IZUPRM31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. 作業票045では DISPLAY GRS のISG343I表示 と SYS1.PARMLIB(IZUPRM31) と時刻を並べる。後続確認で IZUPRMxx の今回値を同じ対象として再確認できる。 ✅
+    - C. IZUPRMxx の名称欄だけを作業票045で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - D. 前回の正常出力を作業票045の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY GRS のISG343I表示 と SYS1.PARMLIB(IZUPRM31) を照合できない形にする。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 第四十五観点 正解確認: Bは IZUPRMxx と SYS1.PARMLIB(IZUPRM31) を同じ証跡で扱うため、後続の照合に使えます（第四十五観点）。第四十五観点 実行背景: D IOS,ZHPFとD IOS,ZHPFOPTSはHigh Performance FICONの状態とオプションを確認します（第四十五観点）。第四十五観点 誤答比較: Aは対象名不足、Cは表示差分不足、Dは前回証跡の混入が理由です（第四十五観点）。第四十五観点 用語整理: IODFは入出力定義ファイルです（第四十五観点）。第四十五観点 IPL装置は起動に使った装置です（第四十五観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **IZUPRMxx 出口確認 運用確認045**
+
+    - 検証目的: IZUPRMxx の 出口確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / console operations
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により IZUPRMxx の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D C,ROUT=5
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    CNZ4100I 15.03.21 CONSOLE DISPLAY FRAME 1 SYS=SY1
+    CONSOLES MATCHING COMMAND: D C,ROUT=5
+    MSG:CURR=1356 LIM=1500 RPLY:CURR=1 LIM=10
+    FRED TYPE=MCS STATUS=ACT-SY2 AUTH=(MASTER) AREA=(Z,A)
+    ```
+
+    画面・出力には CNZ4100I が含まれる。CNZ4100I を読み取り、IODF参照値の説明性確保のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により IZUPRMxx の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY R,ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE112I 11.15.21 DISPLAY R 744
+    REPLY ID   MESSAGE TEXT
+    005        IEA011A RESPECIFY ENTIRE IEASYMXX SUFFIX LIST OR U TO BYPASS
+    ```
+
+    画面・出力には IEE112I が含まれる。IEE112I を読み取り、IODF参照値の説明性確保のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により IZUPRMxx の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> LOG 'ZOS31 CHECK 045 COMPLETE'
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE600I LOG COMMAND ACCEPTED
+    OPERLOG ENTRY: ZOS31 CHECK 045 COMPLETE
+    ```
+
+    画面・出力には OPERLOG が含まれる。OPERLOG を読み取り、IODF参照値の説明性確保のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: CNZ4100I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEE112I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: OPERLOG が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### LNKLSTxx更新 定義照合 運用確認011 {#c37-i0287}
+*分類: 結合機構確認*  ・  難易度: 初級
+
+第十一観点 結合機構確認 の運用では LNKLSTxx更新 を表示、定義、証跡で確認します（第十一観点）。第十一観点 役割は リンクリストへ追加するライブラリーを移行時に確認する更新対象という範囲です（第十一観点）。第十一観点 D IPLINFO のIEE254I表示 の値を IEE254I と合わせ、IEASYMxx反映漏れの検出を記録します（第十一観点）。第十一観点 確認経路は SDSF、コンソールログ、parmlib、z/OSMF の別を zOS31記録011に残します（第十一観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第十一証跡です。結合機構確認 の運用で LNKLSTxx更新 を点検します。確認観点は LNKLSTxx更新、定義照合、運用確認 です。D IPLINFO のIEE254I表示 を証跡に残す判断として、あとから再確認しやすいものはどれか。
+
+    - A. SLIP/DUMP の参考情報だけを作業票011へ先に書く。IEE254I とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. LNKLSTxx更新 の名称欄だけを作業票011で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票011の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IPLINFO のIEE254I表示 と IEE254I を照合できない形にする。
+    - D. 作業票011では D IPLINFO のIEE254I表示 と IEE254I と時刻を並べる。後続確認で LNKLSTxx更新 の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 第十一観点 採用理由: Dは LNKLSTxx更新 の状態を表示値と定義の両方から確認するため、記録として妥当です（第十一観点）。第十一観点 背景確認: DISPLAY IPLINFOはIPL日時、LOADxx、IEASYSxx、IEASYMxx、IODF、IPL装置をまとめて示します（第十一観点）。第十一観点 誤答整理: Aは一般メモ偏重、Bはジョブログ除外、Cは再現性不足が理由です（第十一観点）。第十一観点 用語メモ: GRSは資源直列化です（第十一観点）。第十一観点 RNLは資源名リストです（第十一観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **LNKLSTxx更新 定義照合 運用確認011**
+
+    - 検証目的: LNKLSTxx更新 の 定義照合 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / GRS
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により LNKLSTxx更新 の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY GRS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    ISG343I 10.27.11 GRS STATUS 830
+    SYSTEM    STATE               SYSTEM    STATE
+    SC65      CONNECTED           SC63      CONNECTED
+    GRS STAR MODE INFORMATION
+    ```
+
+    画面・出力には ISG343I が含まれる。ISG343I を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により LNKLSTxx更新 の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> DISPLAY GRS,RNL=INCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    ISG343I 10.28.11 GRS STATUS 840
+    RNL=INCL
+    QNAME=SYSDSN  RNAME=SYS1.PARMLIB  SCOPE=SYSTEMS
+    ```
+
+    画面・出力には RNL=INCL が含まれる。RNL=INCL を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により LNKLSTxx更新 の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D XCF,STR,STRNAME=ISGLOCK
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IXC360I 10.29.11 DISPLAY XCF 850
+    STRUCTURE NAME: ISGLOCK
+    STATUS: ALLOCATED IN CFRM POLICY
+    ```
+
+    画面・出力には ISGLOCK が含まれる。ISGLOCK を読み取り、IEASYMxx反映漏れの検出のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: ISG343I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: RNL=INCL が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: ISGLOCK が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### LOGコマンド ストレージ確認 運用確認028 {#c37-i0288}
+*分類: 結合機構確認*  ・  難易度: 中級
+
+第二十八観点 z/OS 3.1 Core Operations の 結合機構確認 では LOGコマンド を障害調査で照合します（第二十八観点）。第二十八観点 資料上は オペレーターがシステムログまたはOPERLOGへ任意の記録を残すコマとして扱います（第二十八観点）。第二十八観点 IPLDEV=0A82 を起点に表示値を戻し、移行前parmlib差分の記録を点検します（第二十八観点）。第二十八観点 記録ではコマンド、メッセージID、対象名、時刻を zOS31記録028へ書きます（第二十八観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第二十八証跡です。LOGコマンド の記録を監査用に整えます。確認観点は LOGコマンド、ストレージ確認、運用確認 です。移行前parmlib差分の記録のために、D IOS,ZHPF のIOS630I表示 を使った運用記録として最も適切な扱いはどれか。
+
+    - A. zHPF確認 の参考情報だけを作業票028へ先に書く。IPLDEV=0A82 とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. LOGコマンド の名称欄だけを作業票028で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票028の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の D IOS,ZHPF のIOS630I表示 と IPLDEV=0A82 を照合できない形にする。
+    - D. 作業票028では D IOS,ZHPF のIOS630I表示 と IPLDEV=0A82 と時刻を並べる。後続確認で LOGコマンド の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 第二十八観点 照合結果: Dは IPLDEV=0A82 をメッセージIDや時刻と一緒に残すため、再確認時にも根拠を追えます（第二十八観点）。第二十八観点 診断背景: DISPLAY GRS、DISPLAY TRACE、DISPLAY LOGGERは直列化、トレース、ログの状態確認に使います（第二十八観点）。第二十八観点 誤答確認: Aは IPLDEV=0A82 未追跡、Bはコマンド確認不足、Cは別システム混同が理由です（第二十八観点）。第二十八観点 用語説明: zHPFはHigh Performance FICONです（第二十八観点）。第二十八観点 IOSは入出力監視の表示対象です（第二十八観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **LOGコマンド ストレージ確認 運用確認028**
+
+    - 検証目的: LOGコマンド の ストレージ確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / SMF
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により LOGコマンド の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D SMF,O
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE974I 11.01.04 SMF DATA SET STATUS
+    NAME       VOLSER  STATUS
+    SMF.MAN1   SMS001  ACTIVE
+    SMF.MAN2   SMS002  EMPTY
+    ```
+
+    画面・出力には SMF DATA SET STATUS が含まれる。SMF DATA SET STATUS を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により LOGコマンド の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> SWITCH SMF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE362A SMF ENTER DUMP FOR DATA SET SMF.MAN1
+    IEE360I SMF NOW RECORDING ON SMF.MAN2
+    ```
+
+    画面・出力には IEE360I が含まれる。IEE360I を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により LOGコマンド の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    JES2 SDSF ST
+    COMMAND ===> S IFASMFD04
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEF403I IFASMFD04 - STARTED
+    IFASMFDP SYSPRINT
+    INDD(DUMPIN,OPTIONS(ALL)) OUTDD(DUMPALL,TYPE(000:255))
+    ```
+
+    画面・出力には IFASMFDP が含まれる。IFASMFDP を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: SMF DATA SET STATUS が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: IEE360I が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IFASMFDP が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+
+### OPERLOG ストレージ確認 運用確認078 {#c37-i0289}
+*分類: 結合機構確認*  ・  難易度: 中級
+
+第七十八観点 OPERLOG は z/OS 3.1 の 結合機構確認 で扱う管理項目です（第七十八観点）。第七十八観点 複数システムのオペレーター関連メッセージを収集して確認できるログという説明を操作結果と照合します（第七十八観点）。第七十八観点 SYS1.PARMLIB(IEASYS31)、DISPLAY SMF の記録状態表示、定義メンバーを照合し、移行前parmlib差分の記録を確認します（第七十八観点）。第七十八観点 証跡には資料IDと確認値を併記し、zOS31記録078として保存します（第七十八観点）。
+
+**出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+??? question "確認問題（1問）"
+    **問題.** 運用第七十八証跡です。OPERLOG の記録を監査用に整えます。確認観点は OPERLOG、ストレージ確認、運用確認 です。移行前parmlib差分の記録を満たす記録方法として、表示値と定義を結ぶものはどれか。
+
+    - A. PARMLIB更新 の参考情報だけを作業票078へ先に書く。SYS1.PARMLIB(IEASYS31) とメッセージIDと時刻の対応を別紙扱いにして対象確認を後続者が再現できない形にする。
+    - B. OPERLOG の名称欄だけを作業票078で確定する。表示出力とparmlibとジョブログの差分確認を翌日の口頭確認へ回して採取値の根拠を分離する。
+    - C. 前回の正常出力を作業票078の今回値として転記する。システム名とASIDとメンバー名とメッセージIDと時刻差を記録しないため今回の DISPLAY SMF の記録状態表示 と SYS1.PARMLIB(IEASYS31) を照合できない形にする。
+    - D. 作業票078では DISPLAY SMF の記録状態表示 と SYS1.PARMLIB(IEASYS31) と時刻を並べる。後続確認で OPERLOG の今回値を同じ対象として再確認できる。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 第七十八観点 正答根拠: Dは DISPLAY SMF の記録状態表示 と SYS1.PARMLIB(IEASYS31) を結び付けるため、対象システムの取り違えを防げます（第七十八観点）。第七十八観点 仕組み要点: LOADxxはIPL時のSYSPLEX値やIEASYMxx一覧などを指定します（第七十八観点）。第七十八観点 誤答点検: Aはシステム名欠落、Bは定義未確認、Cは時刻差の欠落が理由です（第七十八観点）。第七十八観点 初出定義: WTORは応答要求メッセージです（第七十八観点）。第七十八観点 OPERLOGはオペレーター関連ログです（第七十八観点）。
+
+    **出典:** OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+
+??? note "検証手順（1件）"
+    **OPERLOG ストレージ確認 運用確認078**
+
+    - 検証目的: OPERLOG の ストレージ確認 を、一次資料で確認した操作・表示形式に基づいて机上検証する。
+    - 前提条件: z/OS 3.1 の対象LPARで、SDSF、MVSコンソール、ISPF、IPCSのいずれかを利用できること。
+    - セッション環境: MVS console / IOS and trace
+
+    **ステップ 1**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。状態表示により OPERLOG の値を確認し、対象の現在値を固定する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D IOS,ZHPF
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IOS630I 13.10.06 ZHPF DISPLAY 317
+    ZHPF FACILITY STATUS: ENABLED
+    SYSTEM=SY106
+    ```
+
+    画面・出力には IOS630I が含まれる。IOS630I を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    **ステップ 2**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。定義照合により OPERLOG の値を確認し、定義と資料上の項目を照合する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D IOS,ZHPFOPTS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IOS631I 13.11.06 ZHPF OPTIONS DISPLAY
+    MAXDATA=2048K
+    PAV=SUPPORTED
+    HPF=ENABLED
+    ```
+
+    画面・出力には MAXDATA=2048K が含まれる。MAXDATA=2048K を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    **ステップ 3**
+    現在の画面は z/OS のコンソール、SDSF、ISPF、IPCS のいずれかである。ログ確認により OPERLOG の値を確認し、同じ対象として記録できることを確認する。
+    操作（入力）:
+    ```text
+    MVS console
+    COMMAND ===> D TRACE
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    IEE843I 19.30.06 TRACE DISPLAY 177
+    SYSTEM STATUS INFORMATION
+    ST=(ON,0256K,03584K) AS=ON BR=OFF EX=ON MT=(ON,024K)
+    ```
+
+    画面・出力には IEE843I が含まれる。IEE843I を読み取り、移行前parmlib差分の記録のため対象の現在値を記録する。
+
+    - 合格条件: ステップ1: IOS630I が画面または出力に表示され、対象システムやメンバーが取り違えられていないこと。
+    ステップ2: MAXDATA=2048K が画面または出力に表示され、定義、コマンド、ログの対応が確認できること。
+    ステップ3: IEE843I が画面または出力に表示され、記録に残す値と出典が一致すること。
+    - 検証状態: 机上
+    - 出典: OS MVS System Commands（zOS31_ieag100） / OS MVS System Management Facilities SMF（zOS31_ieag200） / zOS31_ieam600 / zOS31_ieah700 / zOS31_e0zpdz00 / zOS31_e0zh300 / zOS31_erba200 / zOS31_izua300 / zOS31_ieag100 DISPLAY IPLINFO / zOS31_ieag100 CNZ4100I / zOS31_ieag200 SMFPRMxx / zOS31_ieam600 IEA011A / zOS31_ieah700 wait state LOADxx
+
+

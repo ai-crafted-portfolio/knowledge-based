@@ -1,0 +1,6985 @@
+---
+search:
+  exclude: true
+---
+
+# IBM IIDR 11.4 — 詳細 (1/4)
+
+[← IBM IIDR 11.4 の概要へ戻る](index.md)
+
+
+## DDL変更対応
+
+
+<section class="kb-item" id="c11-i0001"><h3>DDL後の表定義更新 Head of Log 0011</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>白L巡回0012ではIBM IIDR 11.4 の DDL変更対応を扱う採取票白L巡回0012です。白L巡回0012は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録白L巡回0012です。白L巡回0012ではサブスクリプション記述と取得時刻を採取票白L巡回0012へ残します。白L巡回0012ではRefresh中の再開を避けるため補助資料も照合する判断白L巡回0012です。白L巡回0012の用語整理では表定義変更対応の対象値を実在出力で照合する記録白L巡回0012です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0011について構成や状態を確認します。CDCミラーリング Subscription 0106ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてイベントログを照合する。</li><li>B. 一次資料が示す主目的はRefresh中の再開を避けるため・表示操作で対象欄を追跡するしてサブスクリプを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するしてサブスクリプを照合する。</li><li>D. 一次資料が示す主目的は休止購読を見落として必要ログを削を避けるため・購読確認からInactiveを読むして購読確認を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 巡回・サブス・RefrでBの記述「DDLのサブスクリプション記述と取得時刻を記録し」に対応する項目はof Log（後の表・サブス・Refr・巡回）です。巡回時のサブスクリに関するDDL変更対応の仕様は「DDLのサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・Refr・巡回です。ミラ・移行・イベントのA:は「CDCのイベントログと取得時刻を記録し、遅延ゼロ確認の欠落を防ぐ」を述べ、対象はCDCミラーリング Subscrip（ミラー・イベン・遅延ゼロ・移行）です。保護時のサブスクリのC:は「Localeのサブスクリプション名と取得時刻を記録し」を述べ、対象は複製位置管理 Locale（Loc・サブス・対象イン・保護）です。購読確認を停止確認のD:は「Log Dependencyで購読確認からInactiveを読み」を述べ、対象は停止前の確認 LOG14（Log・購読確・休止購読・停止確）です。サブスクリを巡回という用語は「DDLのサブスクリプション記述と取得時刻を記録し」を指し、of Log（後の表・サブス・Refr・巡回）で照合する値はサブスクリプです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0011</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0011について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_011
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0011A
+画面・出力には IIDR114DD0011A が表示され、DDL後の表定義更新 Head of Log 0011 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_011
+Table definition refreshed
+確認コード IIDR114DD0011B
+画面・出力には IIDR114DD0011B が表示され、DDL後の表定義更新 Head of Log 0011 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE011
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0011C
+画面・出力には IIDR114DD0011C が表示され、DDL後の表定義更新 Head of Log 0011 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0011A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0011B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0011C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0002"><h3>DDL後の表定義更新 Head of Log 0026</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紫G棚卸0027ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紫G棚卸0027です。紫G棚卸0027は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紫G棚卸0027です。紫G棚卸0027ではサブスクリプション記述と取得時刻を採取票紫G棚卸0027へ残します。紫G棚卸0027では表定義未更新を避けるため補助資料も照合する判断紫G棚卸0027です。紫G棚卸0027の用語整理では表定義変更対応の対象値を実在出力で保管する記録紫G棚卸0027です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0026の役割を調べています。CDCミラーリング Replication Method 0043の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は復旧でサブスクリプを証跡に残し・ミラーリングの項目のサブスクリプション状態と取得時刻を記録し。</li><li>B. 障害切り分けに用いる役割は棚卸でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は確認で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割はリフレッシュで方式表示を証跡に残し・CDC Refreshで方式表示から初期ロードingを読み。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・表定義でBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・棚卸）です。照合サブス・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・表定義です。比較後の表・棚卸でA:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は後の表・表定義・棚卸です。項目後の表・表定義でC:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は表定義・後の表・サブスです。仕様後の表・サブスでD:の障害切り分け REF04は「CDC Refreshで方式表示から初期ロー」を述べるため、正答側の照合軸は棚卸・表定義・サブスです。用語サブス・棚卸という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・表定義・棚卸です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0026</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0026について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_026
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0026A
+画面・出力には IIDR114DD0026A が表示され、DDL後の表定義更新 Head of Log 0026 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_026
+Table definition refreshed
+確認コード IIDR114DD0026B
+画面・出力には IIDR114DD0026B が表示され、DDL後の表定義更新 Head of Log 0026 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE026
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0026C
+画面・出力には IIDR114DD0026C が表示され、DDL後の表定義更新 Head of Log 0026 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0026A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0026B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0026C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0003"><h3>DDL後の表定義更新 Head of Log 0041</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>橙B復旧0042ではIBM IIDR 11.4 の DDL変更対応を扱う採取票橙B復旧0042です。橙B復旧0042は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録橙B復旧0042です。橙B復旧0042ではサブスクリプション記述と取得時刻を採取票橙B復旧0042へ残します。橙B復旧0042ではDDL対象表の漏れを避けるため補助資料も照合する判断橙B復旧0042です。橙B復旧0042の用語整理では表定義変更対応の対象値を実在出力で点検する記録橙B復旧0042です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Head of Log 0041」を「DDL後の表定義更新 Subscription 0077」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。DDL後の表定義更新 Subscription 0077固有の属性も確認対象に含める。</li><li>B. 仕様上の役割はミラーリングの項目のミラー開始と取得時刻を記録し・イベント重大度の誤読を防ぐである。採取操作で照合欄を点検するときはイベント重大度の誤読を防ぐ。</li><li>C. 仕様上の役割は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はLog Dependencyで購読確認からInactiveを読みである。購読確認からInactiveを読むときは休止購読を見落として必要ログを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・データでCの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・復旧）です。照合サブス・データに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・データです。比較後の表・復旧でA:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は後の表・データ・復旧です。運用復旧・後の表でB:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はサブス・後の表・復旧です。仕様後の表・サブスでD:の復旧準備 LOG05は「Log Dependencyで購読確認からI」を述べるため、正答側の照合軸は復旧・データ・サブスです。用語サブス・復旧という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・データ・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0041</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0041について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_041
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0041A
+画面・出力には IIDR114DD0041A が表示され、DDL後の表定義更新 Head of Log 0041 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_041
+Table definition refreshed
+確認コード IIDR114DD0041B
+画面・出力には IIDR114DD0041B が表示され、DDL後の表定義更新 Head of Log 0041 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE041
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0041C
+画面・出力には IIDR114DD0041C が表示され、DDL後の表定義更新 Head of Log 0041 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0041A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0041B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0041C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0004"><h3>DDL後の表定義更新 Head of Log 0056</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>青Q復旧0057ではIBM IIDR 11.4 の DDL変更対応を扱う採取票青Q復旧0057です。青Q復旧0057は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録青Q復旧0057です。青Q復旧0057ではサブスクリプション記述と取得時刻を採取票青Q復旧0057へ残します。青Q復旧0057ではログ先頭未到達の見落としを避けるため補助資料も照合する判断青Q復旧0057です。青Q復旧0057の用語整理では表定義変更対応の対象値を実在出力で整理する記録青Q復旧0057です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0056を同一分類のCDCミラーリング Table Status 0100と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は移行で初期ロード状を証跡に残し・ミラーリングの項目の初期ロード状態と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は解析でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>C. コマンドまたは機能の用途は復旧でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は再始動確認でサポート収集を証跡に残し・CDC Event Logでサポート収集からSupportを。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・ログ先でCの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・復旧）です。照合サブス・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・ログ先です。比較後の表・復旧でA:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は後の表・ログ先・復旧です。運用復旧・後の表でB:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸はサブス・後の表・復旧です。仕様後の表・サブスでD:の再始動後の確認 ERR15は「CDC Event Logでサポート収集から」を述べるため、正答側の照合軸は復旧・ログ先・サブスです。用語サブス・復旧という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0056</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0056について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_056
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0056A
+画面・出力には IIDR114DD0056A が表示され、DDL後の表定義更新 Head of Log 0056 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_056
+Table definition refreshed
+確認コード IIDR114DD0056B
+画面・出力には IIDR114DD0056B が表示され、DDL後の表定義更新 Head of Log 0056 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE056
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0056C
+画面・出力には IIDR114DD0056C が表示され、DDL後の表定義更新 Head of Log 0056 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0056A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0056B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0056C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0005"><h3>DDL後の表定義更新 Head of Log 0071</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>白L監査0072ではIBM IIDR 11.4 の DDL変更対応を扱う採取票白L監査0072です。白L監査0072は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録白L監査0072です。白L監査0072ではサブスクリプション記述と取得時刻を採取票白L監査0072へ残します。白L監査0072ではRefresh中の再開を避けるため補助資料も照合する判断白L監査0072です。白L監査0072の用語整理では表定義変更対応の対象値を実在出力で照合する記録白L監査0072です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0071の設定や表示を読む前に役割を確認します。複製位置管理 Subscription 0105ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は移行で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。</li><li>B. 一次資料が示す主目的は照合で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li><li>C. 一次資料が示す主目的は状態確認で承認待ちを証跡に残し・サブスクリプションやデータストアの処理量と遅延を測る情報。</li><li>D. 一次資料が示す主目的は監査でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・初期ロでDの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・監査）です。照合サブス・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・初期ロです。比較後の表・監査でA:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は後の表・初期ロ・監査です。運用監査・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はサブス・後の表・監査です。項目後の表・初期ロでC:の状態確認 承認待ちは「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は初期ロ・後の表・サブスです。用語サブス・監査という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・監査です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0071</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0071について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_071
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0071A
+画面・出力には IIDR114DD0071A が表示され、DDL後の表定義更新 Head of Log 0071 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_071
+Table definition refreshed
+確認コード IIDR114DD0071B
+画面・出力には IIDR114DD0071B が表示され、DDL後の表定義更新 Head of Log 0071 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE071
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0071C
+画面・出力には IIDR114DD0071C が表示され、DDL後の表定義更新 Head of Log 0071 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0071A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0071B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0071C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0006"><h3>DDL後の表定義更新 Head of Log 0086</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紫G変更0087ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紫G変更0087です。紫G変更0087は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紫G変更0087です。紫G変更0087ではサブスクリプション記述と取得時刻を採取票紫G変更0087へ残します。紫G変更0087では表定義未更新を避けるため補助資料も照合する判断紫G変更0087です。紫G変更0087の用語整理では表定義変更対応の対象値を実在出力で保管する記録紫G変更0087です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0086に関する障害切り分けの前提を確認しています。CDCミラーリング Table Status 0175の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は変更でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は切替で初期ロード状を証跡に残し・ミラーリングの項目の初期ロード状態と取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は通常状態確認で定義表示を証跡に残し・CDC Subscriptionで定義表示からSubscri。</li><li>D. 障害切り分けに用いる役割はサブスクリプで翻訳表を証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理を失敗時切り。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・表定義でAの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・変更）です。照合サブス・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・表定義です。運用変更・後の表でB:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸はサブス・後の表・変更です。項目後の表・表定義でC:の通常状態の確認 SUB01は「CDC Subscriptionで定義表示か」を述べるため、正答側の照合軸は表定義・後の表・サブスです。仕様後の表・サブスでD:の失敗時切り分け 翻訳表は「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は変更・表定義・サブスです。用語サブス・変更という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・表定義・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0086</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0086について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_086
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0086A
+画面・出力には IIDR114DD0086A が表示され、DDL後の表定義更新 Head of Log 0086 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_086
+Table definition refreshed
+確認コード IIDR114DD0086B
+画面・出力には IIDR114DD0086B が表示され、DDL後の表定義更新 Head of Log 0086 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE086
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0086C
+画面・出力には IIDR114DD0086C が表示され、DDL後の表定義更新 Head of Log 0086 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0086A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0086B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0086C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0007"><h3>DDL後の表定義更新 Head of Log 0101</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>橙B移行0102ではIBM IIDR 11.4 の DDL変更対応を扱う採取票橙B移行0102です。橙B移行0102は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録橙B移行0102です。橙B移行0102ではサブスクリプション記述と取得時刻を採取票橙B移行0102へ残します。橙B移行0102ではDDL対象表の漏れを避けるため補助資料も照合する判断橙B移行0102です。橙B移行0102の用語整理では表定義変更対応の対象値を実在出力で点検する記録橙B移行0102です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0101を保守記録に説明する必要があります。CDCミラーリング Subscription 0181と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は記録操作で証跡欄を照合することでイベントログを確認し・初期ロード未完了の見落としを防ぐ。</li><li>B. 仕様上の役割は記録操作で証跡欄を照合することでミラー開始を確認し・初期ロード未完了の見落としを防ぐ。</li><li>C. 仕様上の役割は復旧操作で点検欄を確認することでサブスクリプを確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は調査操作で保守欄を引き継ぎすることで再開条件を確認し・ログ先頭未到達の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サブス・データでCの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・移行）です。照合サブス・データに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・データです。比較後の表・移行でA:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は後の表・データ・移行です。運用移行・後の表でB:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はサブス・後の表・移行です。仕様後の表・サブスでD:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は移行・データ・サブスです。用語サブス・移行という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・データ・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0101</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0101について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_101
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0101A
+画面・出力には IIDR114DD0101A が表示され、DDL後の表定義更新 Head of Log 0101 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_101
+Table definition refreshed
+確認コード IIDR114DD0101B
+画面・出力には IIDR114DD0101B が表示され、DDL後の表定義更新 Head of Log 0101 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE101
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0101C
+画面・出力には IIDR114DD0101C が表示され、DDL後の表定義更新 Head of Log 0101 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0101A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0101B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0101C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0008"><h3>DDL後の表定義更新 Head of Log 0116</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>青Q移行0117ではIBM IIDR 11.4 の DDL変更対応を扱う採取票青Q移行0117です。青Q移行0117は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録青Q移行0117です。青Q移行0117ではサブスクリプション記述と取得時刻を採取票青Q移行0117へ残します。青Q移行0117ではログ先頭未到達の見落としを避けるため補助資料も照合する判断青Q移行0117です。青Q移行0117の用語整理では表定義変更対応の対象値を実在出力で整理する記録青Q移行0117です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0116の技術的な意味を資料で確認するとき、複製位置管理 Instance 0138との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は診断で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・重複反映を防ぐ。</li><li>B. コマンドまたは機能の用途は停止確認でイベント表示を証跡に残し・CDC Subscriptionでイベント表示からSever。</li><li>C. コマンドまたは機能の用途は巡回で遅延確認を証跡に残し・ミラーリングの項目の遅延確認と取得時刻を記録し。</li><li>D. コマンドまたは機能の用途は移行でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サブス・ログ先でDの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・移行）です。照合サブス・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・ログ先です。比較後の表・移行でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・ログ先・移行です。運用移行・後の表でB:の停止前の確認 SUB14は「CDC Subscriptionでイベント表」を述べるため、正答側の照合軸はサブス・後の表・移行です。項目後の表・ログ先でC:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸はログ先・後の表・サブスです。用語サブス・移行という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0116</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0116について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_116
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0116A
+画面・出力には IIDR114DD0116A が表示され、DDL後の表定義更新 Head of Log 0116 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_116
+Table definition refreshed
+確認コード IIDR114DD0116B
+画面・出力には IIDR114DD0116B が表示され、DDL後の表定義更新 Head of Log 0116 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE116
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0116C
+画面・出力には IIDR114DD0116C が表示され、DDL後の表定義更新 Head of Log 0116 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0116A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0116B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0116C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0009"><h3>DDL後の表定義更新 Head of Log 0131</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>白L診断0132ではIBM IIDR 11.4 の DDL変更対応を扱う採取票白L診断0132です。白L診断0132は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録白L診断0132です。白L診断0132ではサブスクリプション記述と取得時刻を採取票白L診断0132へ残します。白L診断0132ではRefresh中の再開を避けるため補助資料も照合する判断白L診断0132です。白L診断0132の用語整理では表定義変更対応の対象値を実在出力で照合する記録白L診断0132です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0131について構成や状態を確認します。複製位置管理 Locale 0132ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はLocaleのサブスクリプション名と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li><li>B. 一次資料が示す主目的は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はTable Mappingで購読再記述からMappedTableを読みである。購読再記述からMappedTableときはデータ定義変更後に古い列定義を防ぐ。</li><li>D. 一次資料が示す主目的はサブスクリプションやデータストアの処理量と遅延を測る情報をマッピング検査として確認する。ブックマークでプール宛先を確認するときはプール宛先の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能サブス・初期ロでBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・診断）です。照合サブス・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・初期ロです。比較後の表・診断でA:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は後の表・初期ロ・診断です。項目後の表・初期ロでC:の再始動後の確認 MAP15は「Table Mappingで購読再記述からM」を述べるため、正答側の照合軸は初期ロ・後の表・サブスです。仕様後の表・サブスでD:のマッピング検査 プール宛先は「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は診断・初期ロ・サブスです。用語サブス・診断という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・診断です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0131</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0131について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_011
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0131A
+画面・出力には IIDR114DD0131A が表示され、DDL後の表定義更新 Head of Log 0131 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_011
+Table definition refreshed
+確認コード IIDR114DD0131B
+画面・出力には IIDR114DD0131B が表示され、DDL後の表定義更新 Head of Log 0131 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE011
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0131C
+画面・出力には IIDR114DD0131C が表示され、DDL後の表定義更新 Head of Log 0131 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0131A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0131B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0131C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0010"><h3>DDL後の表定義更新 Head of Log 0146</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紫G保守0147ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紫G保守0147です。紫G保守0147は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紫G保守0147です。紫G保守0147ではサブスクリプション記述と取得時刻を採取票紫G保守0147へ残します。紫G保守0147では表定義未更新を避けるため補助資料も照合する判断紫G保守0147です。紫G保守0147の用語整理では表定義変更対応の対象値を実在出力で保管する記録紫G保守0147です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0146の役割を調べています。複製位置管理 Locale 0222の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・表定義未更新を防ぐである。点検操作で判定欄を記録するときは表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割はLocaleのサブスクリプション名と取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。</li><li>C. 障害切り分けに用いる役割はMirror Statusでイベント表示からheadoflogを読みである。イベント表示からheadoflogをときは初期ロード中の表をMirroを防ぐ。</li><li>D. 障害切り分けに用いる役割はミラーリングの項目の遅延確認と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・表定義でAの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・保守）です。照合サブス・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・表定義です。運用保守・後の表でB:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸はサブス・後の表・保守です。項目後の表・表定義でC:の停止前の確認 MIR14は「Mirror Statusでイベント表示から」を述べるため、正答側の照合軸は表定義・後の表・サブスです。仕様後の表・サブスでD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は保守・表定義・サブスです。用語サブス・保守という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・表定義・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0146</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0146について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_026
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0146A
+画面・出力には IIDR114DD0146A が表示され、DDL後の表定義更新 Head of Log 0146 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_026
+Table definition refreshed
+確認コード IIDR114DD0146B
+画面・出力には IIDR114DD0146B が表示され、DDL後の表定義更新 Head of Log 0146 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE026
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0146C
+画面・出力には IIDR114DD0146C が表示され、DDL後の表定義更新 Head of Log 0146 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0146A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0146B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0146C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0011"><h3>DDL後の表定義更新 Head of Log 0161</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>橙B切替0162ではIBM IIDR 11.4 の DDL変更対応を扱う採取票橙B切替0162です。橙B切替0162は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録橙B切替0162です。橙B切替0162ではサブスクリプション記述と取得時刻を採取票橙B切替0162へ残します。橙B切替0162ではDDL対象表の漏れを避けるため補助資料も照合する判断橙B切替0162です。橙B切替0162の用語整理では表定義変更対応の対象値を実在出力で点検する記録橙B切替0162です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Head of Log 0161」を「DDL後の表定義更新 Refresh Table 0248」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は調査操作で保守欄を引き継ぎすることで再開条件を確認し・ログ先頭未到達の見落としを防ぐ。</li><li>B. 仕様上の役割は定義表示からSubscriptionを読ことで定義表示を確認し・別サブスクリプションを停止まを防ぐ。</li><li>C. 仕様上の役割は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。</li><li>D. 仕様上の役割は復旧操作で点検欄を確認することでサブスクリプを確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・データでDの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・切替）です。照合サブス・データに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・データです。比較後の表・切替でA:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は後の表・データ・切替です。運用切替・後の表でB:の依存関係の確認 SUB13は「CDC Subscriptionで定義表示か」を述べるため、正答側の照合軸はサブス・後の表・切替です。項目後の表・データでC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸はデータ・後の表・サブスです。用語サブス・切替という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・データ・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0161</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0161について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_041
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0161A
+画面・出力には IIDR114DD0161A が表示され、DDL後の表定義更新 Head of Log 0161 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_041
+Table definition refreshed
+確認コード IIDR114DD0161B
+画面・出力には IIDR114DD0161B が表示され、DDL後の表定義更新 Head of Log 0161 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE041
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0161C
+画面・出力には IIDR114DD0161C が表示され、DDL後の表定義更新 Head of Log 0161 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0161A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0161B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0161C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0012"><h3>DDL後の表定義更新 Head of Log 0176</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>青Q切替0177ではIBM IIDR 11.4 の DDL変更対応を扱う採取票青Q切替0177です。青Q切替0177は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録青Q切替0177です。青Q切替0177ではサブスクリプション記述と取得時刻を採取票青Q切替0177へ残します。青Q切替0177ではログ先頭未到達の見落としを避けるため補助資料も照合する判断青Q切替0177です。青Q切替0177の用語整理では表定義変更対応の対象値を実在出力で整理する記録青Q切替0177です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0176を同一分類のDDL後の表定義更新 Refresh Table 0233と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は復旧操作で点検欄を確認することで再開条件を確認し・データ定義対象表の漏れを防ぐ。</li><li>B. コマンドまたは機能の用途は通信活動からCHC9788Iを読むことで通信活動を確認し・ホスト名変更後の購読構成を更を防ぐ。</li><li>C. コマンドまたは機能の用途は採取操作で照合欄を点検することでミラー開始を確認し・イベント重大度の誤読を防ぐ。</li><li>D. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでサブスクリプを確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・ログ先でDの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・切替）です。照合サブス・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・ログ先です。比較後の表・切替でA:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は後の表・ログ先・切替です。運用切替・後の表でB:の復旧準備 STORE05は「CDC Datastoreで通信活動からCH」を述べるため、正答側の照合軸はサブス・後の表・切替です。項目後の表・ログ先でC:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はログ先・後の表・サブスです。用語サブス・切替という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0176</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0176について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_056
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0176A
+画面・出力には IIDR114DD0176A が表示され、DDL後の表定義更新 Head of Log 0176 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_056
+Table definition refreshed
+確認コード IIDR114DD0176B
+画面・出力には IIDR114DD0176B が表示され、DDL後の表定義更新 Head of Log 0176 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE056
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0176C
+画面・出力には IIDR114DD0176C が表示され、DDL後の表定義更新 Head of Log 0176 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0176A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0176B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0176C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0013"><h3>DDL後の表定義更新 Head of Log 0191</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>白L収集0192ではIBM IIDR 11.4 の DDL変更対応を扱う採取票白L収集0192です。白L収集0192は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録白L収集0192です。白L収集0192ではサブスクリプション記述と取得時刻を採取票白L収集0192へ残します。白L収集0192ではRefresh中の再開を避けるため補助資料も照合する判断白L収集0192です。白L収集0192の用語整理では表定義変更対応の対象値を実在出力で照合する記録白L収集0192です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0191の設定や表示を読む前に役割を確認します。CDCミラーリング Latency 0247ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてサブスクリプを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして遅延確認を照合する。</li><li>C. 一次資料が示す主目的はデータ定義変更後に古い列定義で複を避けるため・表再読込から初期ロードedを読むして表再読込を照合する。</li><li>D. 一次資料が示す主目的は初期ロード未完了の見落としを避けるため・記録操作で証跡欄を照合するしてサブスクリプを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・初期ロでAの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・収集）です。照合サブス・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・初期ロです。運用収集・後の表でB:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸はサブス・後の表・収集です。項目後の表・初期ロでC:の停止前の確認 MAP14は「Table Mappingで表再読込から初期」を述べるため、正答側の照合軸は初期ロ・後の表・サブスです。仕様後の表・サブスでD:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は収集・初期ロ・サブスです。用語サブス・収集という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・収集です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0191</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0191について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_071
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0191A
+画面・出力には IIDR114DD0191A が表示され、DDL後の表定義更新 Head of Log 0191 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_071
+Table definition refreshed
+確認コード IIDR114DD0191B
+画面・出力には IIDR114DD0191B が表示され、DDL後の表定義更新 Head of Log 0191 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE071
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0191C
+画面・出力には IIDR114DD0191C が表示され、DDL後の表定義更新 Head of Log 0191 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0191A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0191B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0191C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0014"><h3>DDL後の表定義更新 Head of Log 0206</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紫G登録0207ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紫G登録0207です。紫G登録0207は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紫G登録0207です。紫G登録0207ではサブスクリプション記述と取得時刻を採取票紫G登録0207へ残します。紫G登録0207では表定義未更新を避けるため補助資料も照合する判断紫G登録0207です。紫G登録0207の用語整理では表定義変更対応の対象値を実在出力で保管する記録紫G登録0207です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0206に関する障害切り分けの前提を確認しています。DDL後の表定義更新 Refresh Table 0233の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は復旧操作で点検欄を確認することで再開条件を確認し・データ定義対象表の漏れを防ぐ。</li><li>B. 障害切り分けに用いる役割は点検操作で判定欄を記録することでサブスクリプを確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は方式表示から初期ロードingを読むことで方式表示を確認し・初期ロード未完了でMirroを防ぐ。</li><li>D. 障害切り分けに用いる役割は照合操作で確認欄を採取することでインスタンスを確認し・対象インスタンスの取り違えを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・表定義でBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・登録）です。照合サブス・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・表定義です。比較後の表・登録でA:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は後の表・表定義・登録です。項目後の表・表定義でC:の代替経路の確認 REF10は「CDC Refreshで方式表示から初期ロー」を述べるため、正答側の照合軸は表定義・後の表・サブスです。仕様後の表・サブスでD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は登録・表定義・サブスです。用語サブス・登録という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・表定義・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0206</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0206について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_086
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0206A
+画面・出力には IIDR114DD0206A が表示され、DDL後の表定義更新 Head of Log 0206 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_086
+Table definition refreshed
+確認コード IIDR114DD0206B
+画面・出力には IIDR114DD0206B が表示され、DDL後の表定義更新 Head of Log 0206 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE086
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0206C
+画面・出力には IIDR114DD0206C が表示され、DDL後の表定義更新 Head of Log 0206 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0206A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0206B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0206C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0015"><h3>DDL後の表定義更新 Head of Log 0221</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>橙B確認0222ではIBM IIDR 11.4 の DDL変更対応を扱う採取票橙B確認0222です。橙B確認0222は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録橙B確認0222です。橙B確認0222ではサブスクリプション記述と取得時刻を採取票橙B確認0222へ残します。橙B確認0222ではDDL対象表の漏れを避けるため補助資料も照合する判断橙B確認0222です。橙B確認0222の用語整理では表定義変更対応の対象値を実在出力で点検する記録橙B確認0222です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0221を保守記録に説明する必要があります。CDCミラーリング Latency 0292と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は保守操作で監査欄を保存することで遅延確認を確認し・対象サブスクリプションの取りを防ぐ。</li><li>B. 仕様上の役割は復旧操作で点検欄を確認することでサブスクリプを確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は状態表示からLatencyを読むことで状態表示を確認し・初期ロード中の表をMirroを防ぐ。</li><li>D. 仕様上の役割は変更確認操作で採取欄を棚卸することでインスタンスを確認し・重複反映を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サブス・データでBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・確認）です。照合サブス・データに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・データです。比較後の表・確認でA:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は後の表・データ・確認です。項目後の表・データでC:の障害切り分け MIR04は「Mirror Statusで状態表示からLa」を述べるため、正答側の照合軸はデータ・後の表・サブスです。仕様後の表・サブスでD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は確認・データ・サブスです。用語サブス・確認という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・データ・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0221</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0221について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_101
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0221A
+画面・出力には IIDR114DD0221A が表示され、DDL後の表定義更新 Head of Log 0221 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_101
+Table definition refreshed
+確認コード IIDR114DD0221B
+画面・出力には IIDR114DD0221B が表示され、DDL後の表定義更新 Head of Log 0221 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE101
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0221C
+画面・出力には IIDR114DD0221C が表示され、DDL後の表定義更新 Head of Log 0221 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0221A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0221B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0221C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0016"><h3>DDL後の表定義更新 Head of Log 0236</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>青Q確認0237ではIBM IIDR 11.4 の DDL変更対応を扱う採取票青Q確認0237です。青Q確認0237は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録青Q確認0237です。青Q確認0237ではサブスクリプション記述と取得時刻を採取票青Q確認0237へ残します。青Q確認0237ではログ先頭未到達の見落としを避けるため補助資料も照合する判断青Q確認0237です。青Q確認0237の用語整理では表定義変更対応の対象値を実在出力で整理する記録青Q確認0237です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0236の技術的な意味を資料で確認するとき、複製位置管理 Locale 0312との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するしてサブスクリプを照合する。</li><li>B. コマンドまたは機能の用途は初期ロード未完了でMirrorへを避けるため・完了確認からRowsappliedを読むして完了確認を照合する。</li><li>C. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてサブスクリプを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するしてインスタンスを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サブス・ログ先でCの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・確認）です。照合サブス・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・ログ先です。比較後の表・確認でA:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は後の表・ログ先・確認です。運用確認・後の表でB:の変更後の確認 REF03は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸はサブス・後の表・確認です。仕様後の表・サブスでD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は確認・ログ先・サブスです。用語サブス・確認という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0236</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0236について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_116
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0236A
+画面・出力には IIDR114DD0236A が表示され、DDL後の表定義更新 Head of Log 0236 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_116
+Table definition refreshed
+確認コード IIDR114DD0236B
+画面・出力には IIDR114DD0236B が表示され、DDL後の表定義更新 Head of Log 0236 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE116
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0236C
+画面・出力には IIDR114DD0236C が表示され、DDL後の表定義更新 Head of Log 0236 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0236A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0236B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0236C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0017"><h3>DDL後の表定義更新 Head of Log 0251</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>白L保護0252ではIBM IIDR 11.4 の DDL変更対応を扱う採取票白L保護0252です。白L保護0252は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録白L保護0252です。白L保護0252ではサブスクリプション記述と取得時刻を採取票白L保護0252へ残します。白L保護0252ではRefresh中の再開を避けるため補助資料も照合する判断白L保護0252です。白L保護0252の用語整理では表定義変更対応の対象値を実在出力で照合する記録白L保護0252です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0251について構成や状態を確認します。CDCミラーリング Subscription 0346ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は確認操作で状態欄を整理することでイベントログを確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>B. 一次資料が示す主目的は表示操作で対象欄を追跡することでサブスクリプを確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はサポート収集からSupportを読むことでサポート収集を確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>D. 一次資料が示す主目的は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能サブス・初期ロでBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・保護）です。照合サブス・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・初期ロです。比較後の表・保護でA:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は後の表・初期ロ・保護です。項目後の表・初期ロでC:の変更後の確認 ERR03は「CDC Event Logでサポート収集から」を述べるため、正答側の照合軸は初期ロ・後の表・サブスです。仕様後の表・サブスでD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は保護・初期ロ・サブスです。用語サブス・保護という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・保護です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0251</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0251について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_011
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0251A
+画面・出力には IIDR114DD0251A が表示され、DDL後の表定義更新 Head of Log 0251 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_011
+Table definition refreshed
+確認コード IIDR114DD0251B
+画面・出力には IIDR114DD0251B が表示され、DDL後の表定義更新 Head of Log 0251 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE011
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0251C
+画面・出力には IIDR114DD0251C が表示され、DDL後の表定義更新 Head of Log 0251 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0251A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0251B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0251C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0018"><h3>DDL後の表定義更新 Head of Log 0266</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紫G照合0267ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紫G照合0267です。紫G照合0267は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紫G照合0267です。紫G照合0267ではサブスクリプション記述と取得時刻を採取票紫G照合0267へ残します。紫G照合0267では表定義未更新を避けるため補助資料も照合する判断紫G照合0267です。紫G照合0267の用語整理では表定義変更対応の対象値を実在出力で保管する記録紫G照合0267です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0266の役割を調べています。CDCミラーリング Replication Method 0283の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するしてサブスクリプを照合する。</li><li>B. 障害切り分けに用いる役割は入力欄の誤読を避けるため・マッピングで入力欄を確認するして入力欄を照合する。</li><li>C. 障害切り分けに用いる役割はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するして16進ブックを照合する。</li><li>D. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてサブスクリプを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・表定義でDの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・照合）です。照合サブス・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・表定義です。比較後の表・照合でA:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は後の表・表定義・照合です。運用照合・後の表でB:の遅延監視 入力欄は「対象表を初期同期または再同期する複製操作を遅」を述べるため、正答側の照合軸はサブス・後の表・照合です。項目後の表・表定義でC:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は表定義・後の表・サブスです。用語サブス・照合という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・表定義・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0266</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0266について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_026
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0266A
+画面・出力には IIDR114DD0266A が表示され、DDL後の表定義更新 Head of Log 0266 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_026
+Table definition refreshed
+確認コード IIDR114DD0266B
+画面・出力には IIDR114DD0266B が表示され、DDL後の表定義更新 Head of Log 0266 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE026
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0266C
+画面・出力には IIDR114DD0266C が表示され、DDL後の表定義更新 Head of Log 0266 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0266A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0266B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0266C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0019"><h3>DDL後の表定義更新 Head of Log 0281</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>橙B抑止0282ではIBM IIDR 11.4 の DDL変更対応を扱う採取票橙B抑止0282です。橙B抑止0282は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録橙B抑止0282です。橙B抑止0282ではサブスクリプション記述と取得時刻を採取票橙B抑止0282へ残します。橙B抑止0282ではDDL対象表の漏れを避けるため補助資料も照合する判断橙B抑止0282です。橙B抑止0282の用語整理では表定義変更対応の対象値を実在出力で点検する記録橙B抑止0282です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Head of Log 0281」を「CDCミラーリング Table Status 0340」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割はミラーリングの項目の初期ロード状態と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li><li>C. 仕様上の役割はLog Dependencyで依存表示からOldestrequiredを読みである。依存表示からOldestrequirときは休止購読を見落として必要ログを防ぐ。</li><li>D. 仕様上の役割はミラーリングの項目のイベントログと取得時刻を記録し・イベント重大度の誤読を防ぐである。採取操作で照合欄を点検するときはイベント重大度の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・データでAの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・抑止）です。照合サブス・データに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・データです。運用抑止・後の表でB:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸はサブス・後の表・抑止です。項目後の表・データでC:のログとの照合 LOG07は「Log Dependencyで依存表示からO」を述べるため、正答側の照合軸はデータ・後の表・サブスです。仕様後の表・サブスでD:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は抑止・データ・サブスです。用語サブス・抑止という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・データ・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0281</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0281について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_041
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0281A
+画面・出力には IIDR114DD0281A が表示され、DDL後の表定義更新 Head of Log 0281 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_041
+Table definition refreshed
+確認コード IIDR114DD0281B
+画面・出力には IIDR114DD0281B が表示され、DDL後の表定義更新 Head of Log 0281 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE041
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0281C
+画面・出力には IIDR114DD0281C が表示され、DDL後の表定義更新 Head of Log 0281 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0281A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0281B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0281C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0020"><h3>DDL後の表定義更新 Head of Log 0296</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>青Q抑止0297ではIBM IIDR 11.4 の DDL変更対応を扱う採取票青Q抑止0297です。青Q抑止0297は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録青Q抑止0297です。青Q抑止0297ではサブスクリプション記述と取得時刻を採取票青Q抑止0297へ残します。青Q抑止0297ではログ先頭未到達の見落としを避けるため補助資料も照合する判断青Q抑止0297です。青Q抑止0297の用語整理では表定義変更対応の対象値を実在出力で整理する記録青Q抑止0297です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0296を同一分類の複製位置管理 Bookmark 0324と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は照合操作で確認欄を採取することで複製位置を確認し・対象インスタンスの取り違えを防ぐ。複製位置管理 Bookmark 0324固有の属性も確認対象に含める。</li><li>B. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでサブスクリプを確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. コマンドまたは機能の用途はオンライン表でオンライン表を確認することでオンライン表を確認し・オンライン表の誤読を防ぐ。</li><li>D. コマンドまたは機能の用途は採取操作で照合欄を点検することで遅延確認を確認し・イベント重大度の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・ログ先でBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・抑止）です。照合サブス・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・ログ先です。比較後の表・抑止でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・ログ先・抑止です。項目後の表・ログ先でC:のマッピング検査 オンライン表示は「CDC Replication」を述べるため、正答側の照合軸はログ先・後の表・サブスです。仕様後の表・サブスでD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は抑止・ログ先・サブスです。用語サブス・抑止という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0296</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0296について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_056
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0296A
+画面・出力には IIDR114DD0296A が表示され、DDL後の表定義更新 Head of Log 0296 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_056
+Table definition refreshed
+確認コード IIDR114DD0296B
+画面・出力には IIDR114DD0296B が表示され、DDL後の表定義更新 Head of Log 0296 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE056
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0296C
+画面・出力には IIDR114DD0296C が表示され、DDL後の表定義更新 Head of Log 0296 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0296A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0296B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0296C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0021"><h3>DDL後の表定義更新 Head of Log 0311</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>白L解析0312ではIBM IIDR 11.4 の DDL変更対応を扱う採取票白L解析0312です。白L解析0312は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録白L解析0312です。白L解析0312ではサブスクリプション記述と取得時刻を採取票白L解析0312へ残します。白L解析0312ではRefresh中の再開を避けるため補助資料も照合する判断白L解析0312です。白L解析0312の用語整理では表定義変更対応の対象値を実在出力で照合する記録白L解析0312です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0311の設定や表示を読む前に役割を確認します。複製位置管理 Subscription 0345ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてサブスクリプを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するして16進ブックを照合する。</li><li>C. 一次資料が示す主目的は高速伝搬の誤読を避けるため・状態確認で高速伝搬を確認するして高速伝搬を照合する。</li><li>D. 一次資料が示す主目的はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして遅延確認を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・初期ロでAの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・解析）です。照合サブス・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象は後の表・サブス・初期ロです。運用解析・後の表でB:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸はサブス・後の表・解析です。項目後の表・初期ロでC:の状態確認 高速伝搬は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は初期ロ・後の表・サブスです。仕様後の表・サブスでD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は解析・初期ロ・サブスです。用語サブス・解析という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・解析です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0311</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0311について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_071
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0311A
+画面・出力には IIDR114DD0311A が表示され、DDL後の表定義更新 Head of Log 0311 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_071
+Table definition refreshed
+確認コード IIDR114DD0311B
+画面・出力には IIDR114DD0311B が表示され、DDL後の表定義更新 Head of Log 0311 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE071
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0311C
+画面・出力には IIDR114DD0311C が表示され、DDL後の表定義更新 Head of Log 0311 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0311A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0311B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0311C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0022"><h3>DDL後の表定義更新 Head of Log 0326</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紫G計画0327ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紫G計画0327です。紫G計画0327は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紫G計画0327です。紫G計画0327ではサブスクリプション記述と取得時刻を採取票紫G計画0327へ残します。紫G計画0327では表定義未更新を避けるため補助資料も照合する判断紫G計画0327です。紫G計画0327の用語整理では表定義変更対応の対象値を実在出力で保管する記録紫G計画0327です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0326に関する障害切り分けの前提を確認しています。データストア接続 CDC Datastore 依存関係の確認 STORE13の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は依存関係確認で接続表示を証跡に残し・CDC Datastoreで接続表示からDatastoreを。</li><li>B. 障害切り分けに用いる役割は計画でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は統計採取で詳細タブを証跡に残し・CDC Replication のスクリプト操作に使うコマン。</li><li>D. 障害切り分けに用いる役割は収集でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サブス・表定義でBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・計画）です。照合サブス・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象はサブス・計画・表定義です。比較後の表・計画でA:の依存関係の確認 STORE13は「CDC Datastoreで接続表示からDa」を述べるため、正答側の照合軸は後の表・計画・サブスです。項目後の表・表定義でC:の統計採取 詳細タブは「CDC Replication」を述べるため、正答側の照合軸は表定義・後の表・サブスです。仕様後の表・サブスでD:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は計画・表定義・サブスです。用語サブス・計画という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・サブス・表定義です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0326</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0326について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_086
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0326A
+画面・出力には IIDR114DD0326A が表示され、DDL後の表定義更新 Head of Log 0326 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_086
+Table definition refreshed
+確認コード IIDR114DD0326B
+画面・出力には IIDR114DD0326B が表示され、DDL後の表定義更新 Head of Log 0326 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE086
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0326C
+画面・出力には IIDR114DD0326C が表示され、DDL後の表定義更新 Head of Log 0326 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0326A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0326B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0326C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0023"><h3>DDL後の表定義更新 Head of Log 0341</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>橙B解除0342ではIBM IIDR 11.4 の DDL変更対応を扱う採取票橙B解除0342です。橙B解除0342は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録橙B解除0342です。橙B解除0342ではサブスクリプション記述と取得時刻を採取票橙B解除0342へ残します。橙B解除0342ではDDL対象表の漏れを避けるため補助資料も照合する判断橙B解除0342です。橙B解除0342の用語整理では表定義変更対応の対象値を実在出力で点検する記録橙B解除0342です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0341を保守記録に説明する必要があります。データストア接続 CDC Datastore 権限境界の確認 STORE12と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はCDC Datastoreでイベント確認からcommunicationを読みである。イベント確認からcommunicatときはホスト名変更後の購読構成を更を防ぐ。</li><li>B. 仕様上の役割はミラーリングの項目のミラー開始と取得時刻を記録し・遅延ゼロ確認の欠落を防ぐである。確認操作で状態欄を整理するときは遅延ゼロ確認の欠落を防ぐ。</li><li>C. 仕様上の役割は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はLocaleのサブスクリプション名と取得時刻を記録し・ベンダー指示なしの位置変更を防ぐである。主操作で出力欄を評価するときはベンダー指示なしの位置変更を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サブス・データでCの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・解除）です。照合サブス・データに関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象はサブス・解除・データです。比較後の表・解除でA:の権限境界の確認 STORE12は「CDC Datastoreでイベント確認から」を述べるため、正答側の照合軸は後の表・解除・サブスです。運用解除・後の表でB:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はサブス・後の表・解除です。仕様後の表・サブスでD:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は解除・データ・サブスです。用語サブス・解除という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・サブス・データです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0341</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0341について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_101
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0341A
+画面・出力には IIDR114DD0341A が表示され、DDL後の表定義更新 Head of Log 0341 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_101
+Table definition refreshed
+確認コード IIDR114DD0341B
+画面・出力には IIDR114DD0341B が表示され、DDL後の表定義更新 Head of Log 0341 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE101
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0341C
+画面・出力には IIDR114DD0341C が表示され、DDL後の表定義更新 Head of Log 0341 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0341A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0341B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0341C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0024"><h3>DDL後の表定義更新 Head of Log 0356</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>青Q解除0357ではIBM IIDR 11.4 の DDL変更対応を扱う採取票青Q解除0357です。青Q解除0357は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録青Q解除0357です。青Q解除0357ではサブスクリプション記述と取得時刻を採取票青Q解除0357へ残します。青Q解除0357ではログ先頭未到達の見落としを避けるため補助資料も照合する判断青Q解除0357です。青Q解除0357の用語整理では表定義変更対応の対象値を実在出力で整理する記録青Q解除0357です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Head of Log 0356の技術的な意味を資料で確認するとき、エラー処理 CDC Event Log 変更後の確認 ERR03との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はサポート収集からSupportを読むことでサポート収集を確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>B. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでサブスクリプを確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. コマンドまたは機能の用途は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。</li><li>D. コマンドまたは機能の用途は点検操作で判定欄を記録することでデータ定義対を確認し・表定義未更新を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サブス・ログ先でBの記述「後の表定義更新の項目のサブスクリプション記述と取得時刻を」に対応する項目はof Log（後の表・サブス・解除）です。照合サブス・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し」で、確認対象はサブス・解除・ログ先です。比較後の表・解除でA:の変更後の確認 ERR03は「CDC Event Logでサポート収集から」を述べるため、正答側の照合軸は後の表・解除・サブスです。項目後の表・ログ先でC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸はログ先・後の表・サブスです。仕様後の表・サブスでD:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は解除・ログ先・サブスです。用語サブス・解除という用語は「後の表定義更新の項目のサブスクリプション記述と取得時」を指し、照合する値と誤認リスクの組合せは後の表・サブス・ログ先です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Head of Log 0356</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Head of Log 0356について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Head of Log と サブスクリプション記述</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmendreplication
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_116
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0356A
+画面・出力には IIDR114DD0356A が表示され、DDL後の表定義更新 Head of Log 0356 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_116
+Table definition refreshed
+確認コード IIDR114DD0356B
+画面・出力には IIDR114DD0356B が表示され、DDL後の表定義更新 Head of Log 0356 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Head of Log を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE116
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0356C
+画面・出力には IIDR114DD0356C が表示され、DDL後の表定義更新 Head of Log 0356 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0356A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0356B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0356C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0025"><h3>DDL後の表定義更新 Refresh Table 0008</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>黄I巡回0009ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黄I巡回0009です。黄I巡回0009は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録黄I巡回0009です。黄I巡回0009では再開条件と取得時刻を採取票黄I巡回0009へ残します。黄I巡回0009ではログ先頭未到達の見落としを避けるため補助資料も照合する判断黄I巡回0009です。黄I巡回0009の用語整理では表定義変更対応の対象値を実在出力で整理する記録黄I巡回0009です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0008を同一分類のCDCミラーリング Table Status 0070と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は監査でRefresを証跡に残し・CDCのRefresh状態と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は保護でサブスクリプを証跡に残し・DDLのサブスクリプション記述と取得時刻を記録し。</li><li>C. コマンドまたは機能の用途は巡回で再開条件を証跡に残し・DDLの再開条件と取得時刻を記録し・ログ先頭未到達の見落とし。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は変更確認でログ依存を証跡に残し・CDC Communicationsでログ依存からOldes。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 巡回・再開条・ログ先頭でCの記述「DDLの再開条件と取得時刻を記録し、ログ先頭未到達の見落としを防ぐで」に対応する項目はRefresh Table（後の表・再開条・ログ先頭・巡回）です。巡回時の再開条件に関するDDL変更対応の仕様は「DDLの再開条件と取得時刻を記録し、ログ先頭未到達の見落としを防ぐ」で、確認対象は後の表・再開条・ログ先頭・巡回です。ミラ・監査・RefrのA:は「CDCのRefresh状態と取得時刻を記録し」を述べ、対象はTable Status（ミラー・Ref・遅延ゼロ・監査）です。保護・サブス・RefrのB:は「DDLのサブスクリプション記述と取得時刻を記録し」を述べ、対象はof Log（後の表・サブス・Refr・保護）です。ログ依存を変更確認のD:は「CDC Communicationsでログ依存からOldestdep」を述べ、対象は変更後の確認 STAT03（CDC・ログ依・送信回数・変更確）です。再開条件を巡回という用語は「DDLの再開条件と取得時刻を記録し」を指し、Refresh Table（後の表・再開条・ログ先頭・巡回）で照合する値は再開条件です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0008</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0008について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_008
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0008A
+画面・出力には IIDR114DD0008A が表示され、DDL後の表定義更新 Refresh Table 0008 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_008
+Table definition refreshed
+確認コード IIDR114DD0008B
+画面・出力には IIDR114DD0008B が表示され、DDL後の表定義更新 Refresh Table 0008 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE008
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0008C
+画面・出力には IIDR114DD0008C が表示され、DDL後の表定義更新 Refresh Table 0008 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0008A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0008B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0008C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0026"><h3>DDL後の表定義更新 Refresh Table 0023</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藍D棚卸0024ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藍D棚卸0024です。藍D棚卸0024は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録藍D棚卸0024です。藍D棚卸0024では再開条件と取得時刻を採取票藍D棚卸0024へ残します。藍D棚卸0024ではRefresh中の再開を避けるため補助資料も照合する判断藍D棚卸0024です。藍D棚卸0024の用語整理では表定義変更対応の対象値を実在出力で照合する記録藍D棚卸0024です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0023の設定や表示を読む前に役割を確認します。DDL後の表定義更新 Table Definition 0104ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてデータ定義対を照合する。</li><li>B. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてイベントログを照合する。</li><li>D. 一次資料が示す主目的は送信回数だけでターゲット適用完了を避けるため・通信統計からSendsを読むして通信統計を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・初期ロでBの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・棚卸）です。照合再開条・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・初期ロです。比較後の表・棚卸でA:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は後の表・初期ロ・棚卸です。項目後の表・初期ロでC:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は初期ロ・後の表・再開条です。仕様後の表・再開条でD:の障害切り分け STAT04は「CDC Communicationsで通信統」を述べるため、正答側の照合軸は棚卸・初期ロ・再開条です。用語再開条・棚卸という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・棚卸です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0023</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0023について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_023
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0023A
+画面・出力には IIDR114DD0023A が表示され、DDL後の表定義更新 Refresh Table 0023 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_023
+Table definition refreshed
+確認コード IIDR114DD0023B
+画面・出力には IIDR114DD0023B が表示され、DDL後の表定義更新 Refresh Table 0023 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE023
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0023C
+画面・出力には IIDR114DD0023C が表示され、DDL後の表定義更新 Refresh Table 0023 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0023A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0023B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0023C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0027"><h3>DDL後の表定義更新 Refresh Table 0038</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黒S棚卸0039ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黒S棚卸0039です。黒S棚卸0039は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録黒S棚卸0039です。黒S棚卸0039では再開条件と取得時刻を採取票黒S棚卸0039へ残します。黒S棚卸0039では表定義未更新を避けるため補助資料も照合する判断黒S棚卸0039です。黒S棚卸0039の用語整理では表定義変更対応の対象値を実在出力で保管する記録黒S棚卸0039です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0038に関する障害切り分けの前提を確認しています。CDCミラーリング Event Severity 0079の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するしてミラー開始を照合する。</li><li>B. 障害切り分けに用いる役割は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてサブスクリプを照合する。</li><li>C. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は初期ロード中の表をMirror完を避けるため・イベント表示からheadoflogを読むしてイベント表示を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・表定義でCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・棚卸）です。照合再開条・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・再開条・表定義です。比較後の表・棚卸でA:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は後の表・表定義・棚卸です。運用棚卸・後の表でB:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は再開条・後の表・棚卸です。仕様後の表・再開条でD:の構成監査 MIR08は「Mirror Statusでイベント表示から」を述べるため、正答側の照合軸は棚卸・表定義・再開条です。用語再開条・棚卸という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・棚卸です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0038</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0038について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_038
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0038A
+画面・出力には IIDR114DD0038A が表示され、DDL後の表定義更新 Refresh Table 0038 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_038
+Table definition refreshed
+確認コード IIDR114DD0038B
+画面・出力には IIDR114DD0038B が表示され、DDL後の表定義更新 Refresh Table 0038 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE038
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0038C
+画面・出力には IIDR114DD0038C が表示され、DDL後の表定義更新 Refresh Table 0038 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0038A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0038B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0038C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0028"><h3>DDL後の表定義更新 Refresh Table 0053</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>灰N復旧0054ではIBM IIDR 11.4 の DDL変更対応を扱う採取票灰N復旧0054です。灰N復旧0054は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録灰N復旧0054です。灰N復旧0054では再開条件と取得時刻を採取票灰N復旧0054へ残します。灰N復旧0054ではDDL対象表の漏れを避けるため補助資料も照合する判断灰N復旧0054です。灰N復旧0054の用語整理では表定義変更対応の対象値を実在出力で点検する記録灰N復旧0054です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0053を保守記録に説明する必要があります。CDCミラーリング Latency 0067と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は監査で遅延確認を証跡に残し・ミラーリングの項目の遅延確認と取得時刻を記録し。</li><li>B. 仕様上の役割は抑止でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li><li>C. 仕様上の役割はサブスクリプで再同期判断を証跡に残し・ソース表とターゲット表の対応および列変換を示す定義をマッピン。</li><li>D. 仕様上の役割は復旧で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・データでDの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・復旧）です。照合再開条・データに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・データです。比較後の表・復旧でA:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は後の表・データ・復旧です。運用復旧・後の表でB:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は再開条・後の表・復旧です。項目後の表・データでC:のマッピング検査 再同期判断は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸はデータ・後の表・再開条です。用語再開条・復旧という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0053</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0053について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_053
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0053A
+画面・出力には IIDR114DD0053A が表示され、DDL後の表定義更新 Refresh Table 0053 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_053
+Table definition refreshed
+確認コード IIDR114DD0053B
+画面・出力には IIDR114DD0053B が表示され、DDL後の表定義更新 Refresh Table 0053 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE053
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0053C
+画面・出力には IIDR114DD0053C が表示され、DDL後の表定義更新 Refresh Table 0053 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0053A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0053B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0053C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0029"><h3>DDL後の表定義更新 Refresh Table 0068</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黄I監査0069ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黄I監査0069です。黄I監査0069は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録黄I監査0069です。黄I監査0069では再開条件と取得時刻を採取票黄I監査0069へ残します。黄I監査0069ではログ先頭未到達の見落としを避けるため補助資料も照合する判断黄I監査0069です。黄I監査0069の用語整理では表定義変更対応の対象値を実在出力で整理する記録黄I監査0069です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0068の技術的な意味を資料で確認するとき、CDCミラーリング Replication Method 0088との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることで再開条件を確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は保守操作で監査欄を保存することでサブスクリプを確認し・対象サブスクリプションの取りを防ぐ。</li><li>C. コマンドまたは機能の用途は監査操作で記録欄を比較することで複製位置を確認し・データ欠落を防ぐ。</li><li>D. コマンドまたは機能の用途は状態確認で文字変換を確認することで文字変換を確認し・文字変換の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・ログ先でAの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・監査）です。照合再開条・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・ログ先です。運用監査・後の表でB:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は再開条・後の表・監査です。項目後の表・ログ先でC:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はログ先・後の表・再開条です。仕様後の表・再開条でD:の状態確認 文字変換は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸は監査・ログ先・再開条です。用語再開条・監査という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・監査です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0068</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0068について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_068
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0068A
+画面・出力には IIDR114DD0068A が表示され、DDL後の表定義更新 Refresh Table 0068 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_068
+Table definition refreshed
+確認コード IIDR114DD0068B
+画面・出力には IIDR114DD0068B が表示され、DDL後の表定義更新 Refresh Table 0068 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE068
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0068C
+画面・出力には IIDR114DD0068C が表示され、DDL後の表定義更新 Refresh Table 0068 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0068A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0068B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0068C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0030"><h3>DDL後の表定義更新 Refresh Table 0083</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藍D変更0084ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藍D変更0084です。藍D変更0084は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録藍D変更0084です。藍D変更0084では再開条件と取得時刻を採取票藍D変更0084へ残します。藍D変更0084ではRefresh中の再開を避けるため補助資料も照合する判断藍D変更0084です。藍D変更0084の用語整理では表定義変更対応の対象値を実在出力で照合する記録藍D変更0084です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0083について構成や状態を確認します。複製位置管理 Bookmark 0114ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は移行で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し・重複反映を防ぐ。</li><li>B. 一次資料が示す主目的は照合でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。</li><li>C. 一次資料が示す主目的は変更で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は権限境界確認で支援情報を証跡に残し・Log Dependencyで支援情報からReturnval。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・初期ロでCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・変更）です。照合再開条・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・初期ロです。比較後の表・変更でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・初期ロ・変更です。運用変更・後の表でB:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は再開条・後の表・変更です。仕様後の表・再開条でD:の権限境界の確認 LOG12は「Log Dependencyで支援情報からR」を述べるため、正答側の照合軸は変更・初期ロ・再開条です。用語再開条・変更という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0083</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0083について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_083
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0083A
+画面・出力には IIDR114DD0083A が表示され、DDL後の表定義更新 Refresh Table 0083 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_083
+Table definition refreshed
+確認コード IIDR114DD0083B
+画面・出力には IIDR114DD0083B が表示され、DDL後の表定義更新 Refresh Table 0083 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE083
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0083C
+画面・出力には IIDR114DD0083C が表示され、DDL後の表定義更新 Refresh Table 0083 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0083A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0083B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0083C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0031"><h3>DDL後の表定義更新 Refresh Table 0098</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黒S変更0099ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黒S変更0099です。黒S変更0099は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録黒S変更0099です。黒S変更0099では再開条件と取得時刻を採取票黒S変更0099へ残します。黒S変更0099では表定義未更新を避けるため補助資料も照合する判断黒S変更0099です。黒S変更0099の用語整理では表定義変更対応の対象値を実在出力で保管する記録黒S変更0099です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0098の役割を調べています。複製位置管理 Hex Position 0156の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は保守でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li><li>B. 障害切り分けに用いる役割は抑止で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は変更で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は代替経路確認で依存表示を証跡に残し・Log Dependencyで依存表示からOldestreq。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・表定義でCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・変更）です。照合再開条・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・再開条・表定義です。比較後の表・変更でA:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は後の表・表定義・変更です。運用変更・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は再開条・後の表・変更です。仕様後の表・再開条でD:の代替経路の確認 LOG10は「Log Dependencyで依存表示からO」を述べるため、正答側の照合軸は変更・表定義・再開条です。用語再開条・変更という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0098</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0098について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_098
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0098A
+画面・出力には IIDR114DD0098A が表示され、DDL後の表定義更新 Refresh Table 0098 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_098
+Table definition refreshed
+確認コード IIDR114DD0098B
+画面・出力には IIDR114DD0098B が表示され、DDL後の表定義更新 Refresh Table 0098 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE098
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0098C
+画面・出力には IIDR114DD0098C が表示され、DDL後の表定義更新 Refresh Table 0098 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0098A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0098B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0098C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0032"><h3>DDL後の表定義更新 Refresh Table 0113</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>灰N移行0114ではIBM IIDR 11.4 の DDL変更対応を扱う採取票灰N移行0114です。灰N移行0114は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録灰N移行0114です。灰N移行0114では再開条件と取得時刻を採取票灰N移行0114へ残します。灰N移行0114ではDDL対象表の漏れを避けるため補助資料も照合する判断灰N移行0114です。灰N移行0114の用語整理では表定義変更対応の対象値を実在出力で点検する記録灰N移行0114です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Refresh Table 0113」を「DDL後の表定義更新 Head of Log 0146」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は保守でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li><li>B. 仕様上の役割は計画でイベントログを証跡に残し・ミラーリングの項目のイベントログと取得時刻を記録し。</li><li>C. 仕様上の役割は移行で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はブックマークで証明書検査を証跡に残し・ログ上の適用位置と時刻を追跡する複製の進行点。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能再開条・データでCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・移行）です。照合再開条・データに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・データです。比較後の表・移行でA:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は後の表・データ・移行です。運用移行・後の表でB:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は再開条・後の表・移行です。仕様後の表・再開条でD:の開始位置指定 証明書検査は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は移行・データ・再開条です。用語再開条・移行という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0113</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0113について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_113
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0113A
+画面・出力には IIDR114DD0113A が表示され、DDL後の表定義更新 Refresh Table 0113 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_113
+Table definition refreshed
+確認コード IIDR114DD0113B
+画面・出力には IIDR114DD0113B が表示され、DDL後の表定義更新 Refresh Table 0113 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE113
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0113C
+画面・出力には IIDR114DD0113C が表示され、DDL後の表定義更新 Refresh Table 0113 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0113A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0113B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0113C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0033"><h3>DDL後の表定義更新 Refresh Table 0128</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>黄I診断0129ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黄I診断0129です。黄I診断0129は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録黄I診断0129です。黄I診断0129では再開条件と取得時刻を採取票黄I診断0129へ残します。黄I診断0129ではログ先頭未到達の見落としを避けるため補助資料も照合する判断黄I診断0129です。黄I診断0129の用語整理では表定義変更対応の対象値を実在出力で整理する記録黄I診断0129です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0128を同一分類のDDL後の表定義更新 Source Table 0155と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして表定義再読込を照合する。</li><li>B. コマンドまたは機能の用途はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するして16進ブックを照合する。</li><li>C. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するしてイベントログを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能再開条・ログ先でCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・診断）です。照合再開条・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・ログ先です。比較後の表・診断でA:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は後の表・ログ先・診断です。運用診断・後の表でB:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は再開条・後の表・診断です。仕様後の表・再開条でD:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は診断・ログ先・再開条です。用語再開条・診断という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・診断です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0128</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0128について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_008
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0128A
+画面・出力には IIDR114DD0128A が表示され、DDL後の表定義更新 Refresh Table 0128 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_008
+Table definition refreshed
+確認コード IIDR114DD0128B
+画面・出力には IIDR114DD0128B が表示され、DDL後の表定義更新 Refresh Table 0128 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE008
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0128C
+画面・出力には IIDR114DD0128C が表示され、DDL後の表定義更新 Refresh Table 0128 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0128A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0128B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0128C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0034"><h3>DDL後の表定義更新 Refresh Table 0143</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藍D保守0144ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藍D保守0144です。藍D保守0144は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録藍D保守0144です。藍D保守0144では再開条件と取得時刻を採取票藍D保守0144へ残します。藍D保守0144ではRefresh中の再開を避けるため補助資料も照合する判断藍D保守0144です。藍D保守0144の用語整理では表定義変更対応の対象値を実在出力で照合する記録藍D保守0144です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0143の設定や表示を読む前に役割を確認します。DDL後の表定義更新 Subscription 0227ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は表示操作で対象欄を追跡することで再開条件を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は表示操作で対象欄を追跡することでログ先頭到達を確認し・初期ロード中の再開を防ぐ。</li><li>C. 一次資料が示す主目的は接続表示からDatastoreを読むことで接続表示を確認し・ホスト名変更後の購読構成を更を防ぐ。</li><li>D. 一次資料が示す主目的は記録操作で証跡欄を照合することで初期ロード状を確認し・初期ロード未完了の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・初期ロでAの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・保守）です。照合再開条・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・初期ロです。運用保守・後の表でB:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は再開条・後の表・保守です。項目後の表・初期ロでC:のログとの照合 STORE07は「CDC Datastoreで接続表示からDa」を述べるため、正答側の照合軸は初期ロ・後の表・再開条です。仕様後の表・再開条でD:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は保守・初期ロ・再開条です。用語再開条・保守という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0143</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0143について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_023
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0143A
+画面・出力には IIDR114DD0143A が表示され、DDL後の表定義更新 Refresh Table 0143 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_023
+Table definition refreshed
+確認コード IIDR114DD0143B
+画面・出力には IIDR114DD0143B が表示され、DDL後の表定義更新 Refresh Table 0143 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE023
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0143C
+画面・出力には IIDR114DD0143C が表示され、DDL後の表定義更新 Refresh Table 0143 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0143A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0143B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0143C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0035"><h3>DDL後の表定義更新 Refresh Table 0158</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黒S保守0159ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黒S保守0159です。黒S保守0159は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録黒S保守0159です。黒S保守0159では再開条件と取得時刻を採取票黒S保守0159へ残します。黒S保守0159では表定義未更新を避けるため補助資料も照合する判断黒S保守0159です。黒S保守0159の用語整理では表定義変更対応の対象値を実在出力で保管する記録黒S保守0159です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0158に関する障害切り分けの前提を確認しています。複製位置管理 Instance 0243の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は監査操作で記録欄を比較することで戻り値を確認し・データ欠落を防ぐ。</li><li>B. 障害切り分けに用いる役割はイベント確認からcommunicatioことでイベント確認を確認し・ホスト名変更後の購読構成を更を防ぐ。</li><li>C. 障害切り分けに用いる役割は復旧操作で点検欄を確認することでログ先頭到達を確認し・データ定義対象表の漏れを防ぐ。</li><li>D. 障害切り分けに用いる役割は点検操作で判定欄を記録することで再開条件を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・表定義でDの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・保守）です。照合再開条・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・再開条・表定義です。比較後の表・保守でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・表定義・保守です。運用保守・後の表でB:の変更後の確認 STORE03は「CDC Datastoreでイベント確認から」を述べるため、正答側の照合軸は再開条・後の表・保守です。項目後の表・表定義でC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は表定義・後の表・再開条です。用語再開条・保守という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0158</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0158について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_038
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0158A
+画面・出力には IIDR114DD0158A が表示され、DDL後の表定義更新 Refresh Table 0158 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_038
+Table definition refreshed
+確認コード IIDR114DD0158B
+画面・出力には IIDR114DD0158B が表示され、DDL後の表定義更新 Refresh Table 0158 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE038
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0158C
+画面・出力には IIDR114DD0158C が表示され、DDL後の表定義更新 Refresh Table 0158 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0158A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0158B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0158C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0036"><h3>DDL後の表定義更新 Refresh Table 0173</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>灰N切替0174ではIBM IIDR 11.4 の DDL変更対応を扱う採取票灰N切替0174です。灰N切替0174は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録灰N切替0174です。灰N切替0174では再開条件と取得時刻を採取票灰N切替0174へ残します。灰N切替0174ではDDL対象表の漏れを避けるため補助資料も照合する判断灰N切替0174です。灰N切替0174の用語整理では表定義変更対応の対象値を実在出力で点検する記録灰N切替0174です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0173を保守記録に説明する必要があります。DDL後の表定義更新 Head of Log 0266と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてサブスクリプを照合する。</li><li>B. 仕様上の役割は送信回数だけでターゲット適用完了を避けるため・ログ依存からOldestdependenしてログ依存を照合する。</li><li>C. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして16進ブックを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・データでCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・切替）です。照合再開条・データに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・データです。比較後の表・切替でA:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は後の表・データ・切替です。運用切替・後の表でB:の変更後の確認 STAT03は「CDC Communicationsでログ依」を述べるため、正答側の照合軸は再開条・後の表・切替です。仕様後の表・再開条でD:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は切替・データ・再開条です。用語再開条・切替という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0173</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0173について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_053
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0173A
+画面・出力には IIDR114DD0173A が表示され、DDL後の表定義更新 Refresh Table 0173 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_053
+Table definition refreshed
+確認コード IIDR114DD0173B
+画面・出力には IIDR114DD0173B が表示され、DDL後の表定義更新 Refresh Table 0173 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE053
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0173C
+画面・出力には IIDR114DD0173C が表示され、DDL後の表定義更新 Refresh Table 0173 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0173A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0173B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0173C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0037"><h3>DDL後の表定義更新 Refresh Table 0188</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黄I収集0189ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黄I収集0189です。黄I収集0189は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録黄I収集0189です。黄I収集0189では再開条件と取得時刻を採取票黄I収集0189へ残します。黄I収集0189ではログ先頭未到達の見落としを避けるため補助資料も照合する判断黄I収集0189です。黄I収集0189の用語整理では表定義変更対応の対象値を実在出力で整理する記録黄I収集0189です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0188の技術的な意味を資料で確認するとき、DDL後の表定義更新 Table Definition 0254との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は表定義未更新を避けるため・点検操作で判定欄を記録するしてデータ定義対を照合する。</li><li>B. コマンドまたは機能の用途は初期ロード中の表をMirror完を避けるため・イベント表示からheadoflogを読むしてイベント表示を照合する。</li><li>C. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は初期ロード未完了の見落としを避けるため・記録操作で証跡欄を照合するしてサブスクリプを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・ログ先でCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・収集）です。照合再開条・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・ログ先です。比較後の表・収集でA:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は後の表・ログ先・収集です。運用収集・後の表でB:の構成監査 MIR08は「Mirror Statusでイベント表示から」を述べるため、正答側の照合軸は再開条・後の表・収集です。仕様後の表・再開条でD:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は収集・ログ先・再開条です。用語再開条・収集という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・収集です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0188</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0188について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_068
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0188A
+画面・出力には IIDR114DD0188A が表示され、DDL後の表定義更新 Refresh Table 0188 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_068
+Table definition refreshed
+確認コード IIDR114DD0188B
+画面・出力には IIDR114DD0188B が表示され、DDL後の表定義更新 Refresh Table 0188 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE068
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0188C
+画面・出力には IIDR114DD0188C が表示され、DDL後の表定義更新 Refresh Table 0188 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0188A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0188B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0188C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0038"><h3>DDL後の表定義更新 Refresh Table 0203</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藍D登録0204ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藍D登録0204です。藍D登録0204は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録藍D登録0204です。藍D登録0204では再開条件と取得時刻を採取票藍D登録0204へ残します。藍D登録0204ではRefresh中の再開を避けるため補助資料も照合する判断藍D登録0204です。藍D登録0204の用語整理では表定義変更対応の対象値を実在出力で照合する記録藍D登録0204です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0203について構成や状態を確認します。CDCミラーリング Latency 0232ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして遅延確認を照合する。</li><li>B. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は情報イベントと停止を伴うエラーをを避けるため・サポート収集からSupportを読むしてサポート収集を照合する。</li><li>D. 一次資料が示す主目的は初期ロード未完了の見落としを避けるため・記録操作で証跡欄を照合するしてミラー開始を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・初期ロでBの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・登録）です。照合再開条・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・初期ロです。比較後の表・登録でA:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は後の表・初期ロ・登録です。項目後の表・初期ロでC:の権限境界の確認 ERR12は「CDC Event Logでサポート収集から」を述べるため、正答側の照合軸は初期ロ・後の表・再開条です。仕様後の表・再開条でD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は登録・初期ロ・再開条です。用語再開条・登録という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0203</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0203について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_083
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0203A
+画面・出力には IIDR114DD0203A が表示され、DDL後の表定義更新 Refresh Table 0203 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_083
+Table definition refreshed
+確認コード IIDR114DD0203B
+画面・出力には IIDR114DD0203B が表示され、DDL後の表定義更新 Refresh Table 0203 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE083
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0203C
+画面・出力には IIDR114DD0203C が表示され、DDL後の表定義更新 Refresh Table 0203 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0203A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0203B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0203C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0039"><h3>DDL後の表定義更新 Refresh Table 0218</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黒S登録0219ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黒S登録0219です。黒S登録0219は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録黒S登録0219です。黒S登録0219では再開条件と取得時刻を採取票黒S登録0219へ残します。黒S登録0219では表定義未更新を避けるため補助資料も照合する判断黒S登録0219です。黒S登録0219の用語整理では表定義変更対応の対象値を実在出力で保管する記録黒S登録0219です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0218の役割を調べています。CDCミラーリング Subscription 0241の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は後の表定義更新の項目の再開条件と取得時刻を記録し・表定義未更新を防ぐである。点検操作で判定欄を記録するときは表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割はミラーリングの項目のイベントログと取得時刻を記録し・初期ロード未完了の見落としを防ぐである。記録操作で証跡欄を照合するときは初期ロード未完了の見落としを防ぐ。</li><li>C. 障害切り分けに用いる役割はbookmark まで適用したことを示す CDC Replication メッセージである。監査証跡で監査証跡を確認するときは監査証跡の誤読を防ぐ。</li><li>D. 障害切り分けに用いる役割はミラーリングの項目のミラー開始と取得時刻を記録し・遅延ゼロ確認の欠落を防ぐである。確認操作で状態欄を整理するときは遅延ゼロ確認の欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・表定義でAの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・登録）です。照合再開条・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・再開条・表定義です。運用登録・後の表でB:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は再開条・後の表・登録です。項目後の表・表定義でC:の開始位置指定 監査証跡は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は表定義・後の表・再開条です。仕様後の表・再開条でD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は登録・表定義・再開条です。用語再開条・登録という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0218</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0218について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_098
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0218A
+画面・出力には IIDR114DD0218A が表示され、DDL後の表定義更新 Refresh Table 0218 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_098
+Table definition refreshed
+確認コード IIDR114DD0218B
+画面・出力には IIDR114DD0218B が表示され、DDL後の表定義更新 Refresh Table 0218 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE098
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0218C
+画面・出力には IIDR114DD0218C が表示され、DDL後の表定義更新 Refresh Table 0218 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0218A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0218B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0218C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0040"><h3>DDL後の表定義更新 Refresh Table 0233</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>灰N確認0234ではIBM IIDR 11.4 の DDL変更対応を扱う採取票灰N確認0234です。灰N確認0234は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録灰N確認0234です。灰N確認0234では再開条件と取得時刻を採取票灰N確認0234へ残します。灰N確認0234ではDDL対象表の漏れを避けるため補助資料も照合する判断灰N確認0234です。灰N確認0234の用語整理では表定義変更対応の対象値を実在出力で点検する記録灰N確認0234です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Refresh Table 0233」を「DDL後の表定義更新 Subscription 0257」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は保護でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。</li><li>B. 仕様上の役割は確認で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は監査証跡で監査証跡を証跡に残し・bookmark まで適用したことを示す CDC。</li><li>D. 仕様上の役割は監査で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能再開条・データでBの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・確認）です。照合再開条・データに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・データです。比較後の表・確認でA:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は後の表・データ・確認です。項目後の表・データでC:の開始位置指定 監査証跡は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸はデータ・後の表・再開条です。仕様後の表・再開条でD:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は確認・データ・再開条です。用語再開条・確認という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0233</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0233について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_113
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0233A
+画面・出力には IIDR114DD0233A が表示され、DDL後の表定義更新 Refresh Table 0233 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_113
+Table definition refreshed
+確認コード IIDR114DD0233B
+画面・出力には IIDR114DD0233B が表示され、DDL後の表定義更新 Refresh Table 0233 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE113
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0233C
+画面・出力には IIDR114DD0233C が表示され、DDL後の表定義更新 Refresh Table 0233 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0233A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0233B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0233C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0041"><h3>DDL後の表定義更新 Refresh Table 0248</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>黄I保護0249ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黄I保護0249です。黄I保護0249は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録黄I保護0249です。黄I保護0249では再開条件と取得時刻を採取票黄I保護0249へ残します。黄I保護0249ではログ先頭未到達の見落としを避けるため補助資料も照合する判断黄I保護0249です。黄I保護0249の用語整理では表定義変更対応の対象値を実在出力で整理する記録黄I保護0249です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0248を同一分類のCDCミラーリング Latency 0307と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は後の表定義更新の項目の再開条件と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はミラーリングの項目の遅延確認と取得時刻を記録し・イベント重大度の誤読を防ぐである。採取操作で照合欄を点検するときはイベント重大度の誤読を防ぐ。</li><li>C. コマンドまたは機能の用途はCDC Communicationsで遅延表示からBytespersecondを読みである。遅延表示からBytespersecoときは送信回数だけでターゲット適用を防ぐ。</li><li>D. コマンドまたは機能の用途は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能再開条・ログ先でAの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・保護）です。照合再開条・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・ログ先です。運用保護・後の表でB:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は再開条・後の表・保護です。項目後の表・ログ先でC:の復旧準備 STAT05は「CDC Communicationsで遅延表」を述べるため、正答側の照合軸はログ先・後の表・再開条です。仕様後の表・再開条でD:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は保護・ログ先・再開条です。用語再開条・保護という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・保護です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0248</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0248について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_008
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0248A
+画面・出力には IIDR114DD0248A が表示され、DDL後の表定義更新 Refresh Table 0248 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_008
+Table definition refreshed
+確認コード IIDR114DD0248B
+画面・出力には IIDR114DD0248B が表示され、DDL後の表定義更新 Refresh Table 0248 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE008
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0248C
+画面・出力には IIDR114DD0248C が表示され、DDL後の表定義更新 Refresh Table 0248 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0248A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0248B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0248C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0042"><h3>DDL後の表定義更新 Refresh Table 0263</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藍D照合0264ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藍D照合0264です。藍D照合0264は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録藍D照合0264です。藍D照合0264では再開条件と取得時刻を採取票藍D照合0264へ残します。藍D照合0264ではRefresh中の再開を避けるため補助資料も照合する判断藍D照合0264です。藍D照合0264の用語整理では表定義変更対応の対象値を実在出力で照合する記録藍D照合0264です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0263の設定や表示を読む前に役割を確認します。DDL後の表定義更新 Table Definition 0344ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は調査操作で保守欄を引き継ぎすることでデータ定義対を確認し・ログ先頭未到達の見落としを防ぐ。</li><li>B. 一次資料が示す主目的は統計採取で接続状態を確認することで接続状態を確認し・接続状態の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は表示操作で対象欄を追跡することで再開条件を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は変更確認操作で採取欄を棚卸することで複製位置を確認し・重複反映を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・初期ロでCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・照合）です。照合再開条・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・初期ロです。比較後の表・照合でA:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は後の表・初期ロ・照合です。運用照合・後の表でB:の統計採取 接続状態は「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は再開条・後の表・照合です。仕様後の表・再開条でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は照合・初期ロ・再開条です。用語再開条・照合という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0263</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0263について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_023
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0263A
+画面・出力には IIDR114DD0263A が表示され、DDL後の表定義更新 Refresh Table 0263 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_023
+Table definition refreshed
+確認コード IIDR114DD0263B
+画面・出力には IIDR114DD0263B が表示され、DDL後の表定義更新 Refresh Table 0263 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE023
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0263C
+画面・出力には IIDR114DD0263C が表示され、DDL後の表定義更新 Refresh Table 0263 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0263A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0263B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0263C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0043"><h3>DDL後の表定義更新 Refresh Table 0278</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黒S照合0279ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黒S照合0279です。黒S照合0279は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録黒S照合0279です。黒S照合0279では再開条件と取得時刻を採取票黒S照合0279へ残します。黒S照合0279では表定義未更新を避けるため補助資料も照合する判断黒S照合0279です。黒S照合0279の用語整理では表定義変更対応の対象値を実在出力で保管する記録黒S照合0279です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0278に関する障害切り分けの前提を確認しています。サブスクリプション管理 CDC Subscription 復旧後の確認 SUB06の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は別サブスクリプションを停止またはを避けるため・版数表示からReplicationを読むして版数表示を照合する。</li><li>B. 障害切り分けに用いる役割はキュー状態の誤読を避けるため・ログ位置照合でキュー状態を確認するしてキュー状態を照合する。</li><li>C. 障害切り分けに用いる役割は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして初期ロード状を照合する。</li><li>D. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・表定義でDの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・照合）です。照合再開条・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・再開条・表定義です。比較後の表・照合でA:の復旧後の確認 SUB06は「CDC Subscriptionで版数表示か」を述べるため、正答側の照合軸は後の表・表定義・照合です。運用照合・後の表でB:のログ位置照合 キュー状態は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は再開条・後の表・照合です。項目後の表・表定義でC:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は表定義・後の表・再開条です。用語再開条・照合という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0278</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0278について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_038
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0278A
+画面・出力には IIDR114DD0278A が表示され、DDL後の表定義更新 Refresh Table 0278 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_038
+Table definition refreshed
+確認コード IIDR114DD0278B
+画面・出力には IIDR114DD0278B が表示され、DDL後の表定義更新 Refresh Table 0278 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE038
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0278C
+画面・出力には IIDR114DD0278C が表示され、DDL後の表定義更新 Refresh Table 0278 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0278A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0278B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0278C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0044"><h3>DDL後の表定義更新 Refresh Table 0293</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>灰N抑止0294ではIBM IIDR 11.4 の DDL変更対応を扱う採取票灰N抑止0294です。灰N抑止0294は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録灰N抑止0294です。灰N抑止0294では再開条件と取得時刻を採取票灰N抑止0294へ残します。灰N抑止0294ではDDL対象表の漏れを避けるため補助資料も照合する判断灰N抑止0294です。灰N抑止0294の用語整理では表定義変更対応の対象値を実在出力で点検する記録灰N抑止0294です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0293を保守記録に説明する必要があります。DDL後の表定義更新 Table Definition 0344と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は調査操作で保守欄を引き継ぎすることでデータ定義対を確認し・ログ先頭未到達の見落としを防ぐ。</li><li>B. 仕様上の役割は復旧操作で点検欄を確認することで再開条件を確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は復旧操作で点検欄を確認することで表定義再読込を確認し・データ定義対象表の漏れを防ぐ。</li><li>D. 仕様上の役割は採取操作で照合欄を点検することでサブスクリプを確認し・イベント重大度の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・データでBの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・抑止）です。照合再開条・データに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・データです。比較後の表・抑止でA:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は後の表・データ・抑止です。項目後の表・データでC:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸はデータ・後の表・再開条です。仕様後の表・再開条でD:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は抑止・データ・再開条です。用語再開条・抑止という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0293</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0293について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_053
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0293A
+画面・出力には IIDR114DD0293A が表示され、DDL後の表定義更新 Refresh Table 0293 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_053
+Table definition refreshed
+確認コード IIDR114DD0293B
+画面・出力には IIDR114DD0293B が表示され、DDL後の表定義更新 Refresh Table 0293 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE053
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0293C
+画面・出力には IIDR114DD0293C が表示され、DDL後の表定義更新 Refresh Table 0293 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0293A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0293B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0293C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0045"><h3>DDL後の表定義更新 Refresh Table 0308</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黄I解析0309ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黄I解析0309です。黄I解析0309は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録黄I解析0309です。黄I解析0309では再開条件と取得時刻を採取票黄I解析0309へ残します。黄I解析0309ではログ先頭未到達の見落としを避けるため補助資料も照合する判断黄I解析0309です。黄I解析0309の用語整理では表定義変更対応の対象値を実在出力で整理する記録黄I解析0309です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0308の技術的な意味を資料で確認するとき、マッピング管理 Table Mapping 通常状態の確認 MAP01との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は通常状態確認で購読記述を証跡に残し・Table Mappingで購読記述からSourceTabl。</li><li>B. コマンドまたは機能の用途はサブスクリプでドメイン値を証跡に残し・CDC Replication のスクリプト操作に使うコマン。</li><li>C. コマンドまたは機能の用途は診断でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>D. コマンドまたは機能の用途は解析で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・ログ先でDの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・解析）です。照合再開条・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は後の表・再開条・ログ先です。比較後の表・解析でA:の通常状態の確認 MAP01は「Table Mappingで購読記述からSo」を述べるため、正答側の照合軸は後の表・ログ先・解析です。運用解析・後の表でB:の遅延監視 ドメイン値は「CDC Replication」を述べるため、正答側の照合軸は再開条・後の表・解析です。項目後の表・ログ先でC:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸はログ先・後の表・再開条です。用語再開条・解析という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・解析です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0308</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0308について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_068
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0308A
+画面・出力には IIDR114DD0308A が表示され、DDL後の表定義更新 Refresh Table 0308 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_068
+Table definition refreshed
+確認コード IIDR114DD0308B
+画面・出力には IIDR114DD0308B が表示され、DDL後の表定義更新 Refresh Table 0308 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE068
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0308C
+画面・出力には IIDR114DD0308C が表示され、DDL後の表定義更新 Refresh Table 0308 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0308A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0308B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0308C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0046"><h3>DDL後の表定義更新 Refresh Table 0323</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藍D計画0324ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藍D計画0324です。藍D計画0324は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録藍D計画0324です。藍D計画0324では再開条件と取得時刻を採取票藍D計画0324へ残します。藍D計画0324ではRefresh中の再開を避けるため補助資料も照合する判断藍D計画0324です。藍D計画0324の用語整理では表定義変更対応の対象値を実在出力で照合する記録藍D計画0324です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0323について構成や状態を確認します。CDCミラーリング Event Severity 0334ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてミラー開始を照合する。</li><li>C. 一次資料が示す主目的は重複反映を避けるため・変更確認操作で採取欄を棚卸するして戻り値を照合する。</li><li>D. 一次資料が示す主目的は重複反映を避けるため・変更確認操作で採取欄を棚卸するしてサブスクリプを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・初期ロでAの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・計画）です。照合再開条・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は再開条・計画・初期ロです。運用計画・後の表でB:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は再開条・後の表・計画です。項目後の表・初期ロでC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は初期ロ・後の表・再開条です。仕様後の表・再開条でD:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は計画・初期ロ・再開条です。用語再開条・計画という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・再開条・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0323</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0323について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_083
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0323A
+画面・出力には IIDR114DD0323A が表示され、DDL後の表定義更新 Refresh Table 0323 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_083
+Table definition refreshed
+確認コード IIDR114DD0323B
+画面・出力には IIDR114DD0323B が表示され、DDL後の表定義更新 Refresh Table 0323 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE083
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0323C
+画面・出力には IIDR114DD0323C が表示され、DDL後の表定義更新 Refresh Table 0323 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0323A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0323B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0323C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0047"><h3>DDL後の表定義更新 Refresh Table 0338</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>黒S計画0339ではIBM IIDR 11.4 の DDL変更対応を扱う採取票黒S計画0339です。黒S計画0339は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録黒S計画0339です。黒S計画0339では再開条件と取得時刻を採取票黒S計画0339へ残します。黒S計画0339では表定義未更新を避けるため補助資料も照合する判断黒S計画0339です。黒S計画0339の用語整理では表定義変更対応の対象値を実在出力で保管する記録黒S計画0339です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Refresh Table 0338の役割を調べています。複製状態監視 Mirror Status 代替経路の確認 MIR10の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は代替経路確認で状態表示を証跡に残し・Mirror Statusで状態表示からLatencyを読み。</li><li>B. 障害切り分けに用いる役割は初期同期判定で送信操作を証跡に残し・ログ上の適用位置と時刻を追跡する複製の進行点を初期同期判定と。</li><li>C. 障害切り分けに用いる役割は計画で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は保守でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再開条・表定義でCの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・計画）です。照合再開条・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は再開条・計画・表定義です。比較後の表・計画でA:の代替経路の確認 MIR10は「Mirror Statusで状態表示からLa」を述べるため、正答側の照合軸は後の表・計画・再開条です。運用計画・後の表でB:の初期同期判定 送信操作は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は再開条・後の表・計画です。仕様後の表・再開条でD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は計画・表定義・再開条です。用語再開条・計画という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・再開条・表定義です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0338</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0338について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_098
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0338A
+画面・出力には IIDR114DD0338A が表示され、DDL後の表定義更新 Refresh Table 0338 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_098
+Table definition refreshed
+確認コード IIDR114DD0338B
+画面・出力には IIDR114DD0338B が表示され、DDL後の表定義更新 Refresh Table 0338 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE098
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0338C
+画面・出力には IIDR114DD0338C が表示され、DDL後の表定義更新 Refresh Table 0338 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0338A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0338B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0338C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0048"><h3>DDL後の表定義更新 Refresh Table 0353</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>灰N解除0354ではIBM IIDR 11.4 の DDL変更対応を扱う採取票灰N解除0354です。灰N解除0354は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録灰N解除0354です。灰N解除0354では再開条件と取得時刻を採取票灰N解除0354へ残します。灰N解除0354ではDDL対象表の漏れを避けるため補助資料も照合する判断灰N解除0354です。灰N解除0354の用語整理では表定義変更対応の対象値を実在出力で点検する記録灰N解除0354です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Refresh Table 0353」を「複製状態監視 Mirror Status 権限境界の確認 MIR12」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は解除で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は権限境界確認で通信活動を証跡に残し・Mirror Statusで通信活動からCHC9788Iを読。</li><li>C. 仕様上の役割は監査でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>D. 仕様上の役割は収集で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能再開条・データでAの記述「後の表定義更新の項目の再開条件と取得時刻を記録し」に対応する項目はRefresh Table（後の表・再開条・解除）です。照合再開条・データに関するDDL変更対応の仕様は「後の表定義更新の項目の再開条件と取得時刻を記録し」で、確認対象は再開条・解除・データです。運用解除・後の表でB:の権限境界の確認 MIR12は「Mirror Statusで通信活動からCH」を述べるため、正答側の照合軸は再開条・後の表・解除です。項目後の表・データでC:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸はデータ・後の表・再開条です。仕様後の表・再開条でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は解除・データ・再開条です。用語再開条・解除という用語は「後の表定義更新の項目の再開条件と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・再開条・データです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Refresh Table 0353</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Refresh Table 0353について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Refresh Table と 再開条件</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmstartmirror
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_113
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0353A
+画面・出力には IIDR114DD0353A が表示され、DDL後の表定義更新 Refresh Table 0353 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_113
+Table definition refreshed
+確認コード IIDR114DD0353B
+画面・出力には IIDR114DD0353B が表示され、DDL後の表定義更新 Refresh Table 0353 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Refresh Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE113
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0353C
+画面・出力には IIDR114DD0353C が表示され、DDL後の表定義更新 Refresh Table 0353 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0353A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0353B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0353C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0049"><h3>DDL後の表定義更新 Source Table 0005</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>銀F巡回0006ではIBM IIDR 11.4 の DDL変更対応を扱う採取票銀F巡回0006です。銀F巡回0006は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録銀F巡回0006です。銀F巡回0006では表定義再読込と取得時刻を採取票銀F巡回0006へ残します。銀F巡回0006ではDDL対象表の漏れを避けるため補助資料も照合する判断銀F巡回0006です。銀F巡回0006の用語整理では表定義変更対応の対象値を実在出力で点検する記録銀F巡回0006です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0005を保守記録に説明する必要があります。DDL後の表定義更新 Subscription 0077と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はDDL対象表の漏れを避けるため・復旧操作で点検欄を確認するしてログ先頭到達を照合する。</li><li>B. 仕様上の役割はDDL対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割はデータ欠落を避けるため・監査操作で記録欄を比較するして複製位置を照合する。</li><li>D. 仕様上の役割は送信回数だけでターゲット適用完了を避けるため・ログ依存からOldestdependenしてログ依存を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 巡回・表定義・DDL対でBの記述「DDLの表定義再読込と取得時刻を記録し、DDL対象表の漏れを防ぐであ」に対応する項目はSource Table（後の表・表定義・DDL対・巡回）です。巡回時の表定義再読に関するDDL変更対応の仕様は「DDLの表定義再読込と取得時刻を記録し、DDL対象表の漏れを防ぐ」で、確認対象は後の表・表定義・DDL対・巡回です。後の・監査・ログ先頭のA:は「DDLのログ先頭到達と取得時刻を記録し、DDL対象表の漏れを防ぐ」を述べ、対象はDDL後の表定義更新（後の表・ログ先・DDL対・監査）です。照合時の複製位置のC:は「Bookmarkの複製位置と取得時刻を記録し、データ欠落を防ぐ」を述べ、対象は複製位置管理 Bookmark（Boo・複製位・データ欠・照合）です。ログ依存を権限境界確のD:は「CDC Communicationsでログ依存からOldestdep」を述べ、対象は権限境界の確認 STAT12（CDC・ログ依・送信回数・権限境）です。表定義再読を巡回という用語は「DDLの表定義再読込と取得時刻を記録し」を指し、Source Table（後の表・表定義・DDL対・巡回）で照合する値は表定義再読込です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0005</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0005について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_005
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0005A
+画面・出力には IIDR114DD0005A が表示され、DDL後の表定義更新 Source Table 0005 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_005
+Table definition refreshed
+確認コード IIDR114DD0005B
+画面・出力には IIDR114DD0005B が表示され、DDL後の表定義更新 Source Table 0005 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE005
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0005C
+画面・出力には IIDR114DD0005C が表示され、DDL後の表定義更新 Source Table 0005 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0005A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0005B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0005C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0050"><h3>DDL後の表定義更新 Source Table 0020</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>蒼A棚卸0021ではIBM IIDR 11.4 の DDL変更対応を扱う採取票蒼A棚卸0021です。蒼A棚卸0021は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録蒼A棚卸0021です。蒼A棚卸0021では表定義再読込と取得時刻を採取票蒼A棚卸0021へ残します。蒼A棚卸0021ではログ先頭未到達の見落としを避けるため補助資料も照合する判断蒼A棚卸0021です。蒼A棚卸0021の用語整理では表定義変更対応の対象値を実在出力で整理する記録蒼A棚卸0021です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0020の技術的な意味を資料で確認するとき、複製位置管理 Instance 0063との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はInstanceの戻り値と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。</li><li>B. コマンドまたは機能の用途はHex Positionのインスタンス名と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li><li>C. コマンドまたは機能の用途はMirror Statusで通信活動からCHC9788Iを読み・CHC9788IとLatencyを照合する。通信活動からCHC9788Iを読むときはRefresh中の表をMirを防ぐ。</li><li>D. コマンドまたは機能の用途はDDLの表定義再読込と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 棚卸・表定義・ログ先頭でDの記述「DDLの表定義再読込と取得時刻を記録し、ログ先頭未到達の見落としを防」に対応する項目はSource Table（後の表・表定義・ログ先頭・棚卸）です。棚卸時の表定義再読に関するDDL変更対応の仕様は「DDLの表定義再読込と取得時刻を記録し、ログ先頭未到達の見落としを防」で、確認対象は後の表・表定義・ログ先頭・棚卸です。In・監査・戻り値のA:は「Instanceの戻り値と取得時刻を記録し、データ欠落を防ぐ」を述べ、対象は複製位置管理 Instance（Ins・戻り値・データ欠・監査）です。登録・インス・対象インのB:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・インス・対象イン・登録）です。複製状態時の通信活動のC:は「Mirror Statusで通信活動からCHC9788Iを読み」を述べ、対象は引継ぎ記録 MIR09（Mir・通信活・Refr・複製状）です。表定義再読を棚卸という用語は「DDLの表定義再読込と取得時刻を記録し」を指し、Source Table（後の表・表定義・ログ先頭・棚卸）で照合する値は表定義再読込です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0020</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0020について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_020
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0020A
+画面・出力には IIDR114DD0020A が表示され、DDL後の表定義更新 Source Table 0020 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_020
+Table definition refreshed
+確認コード IIDR114DD0020B
+画面・出力には IIDR114DD0020B が表示され、DDL後の表定義更新 Source Table 0020 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE020
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0020C
+画面・出力には IIDR114DD0020C が表示され、DDL後の表定義更新 Source Table 0020 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0020A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0020B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0020C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0051"><h3>DDL後の表定義更新 Source Table 0035</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>金P棚卸0036ではIBM IIDR 11.4 の DDL変更対応を扱う採取票金P棚卸0036です。金P棚卸0036は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録金P棚卸0036です。金P棚卸0036では表定義再読込と取得時刻を採取票金P棚卸0036へ残します。金P棚卸0036ではRefresh中の再開を避けるため補助資料も照合する判断金P棚卸0036です。金P棚卸0036の用語整理では表定義変更対応の対象値を実在出力で照合する記録金P棚卸0036です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0035について構成や状態を確認します。CDCミラーリング Replication Method 0073ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はミラーリングの項目のサブスクリプション状態と取得時刻を記録し・初期ロード未完了の見落としを防ぐである。記録操作で証跡欄を照合するときは初期ロード未完了の見落としを防ぐ。</li><li>B. 一次資料が示す主目的は後の表定義更新の項目の表定義再読込と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はHex Positionのインスタンス名と取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。</li><li>D. 一次資料が示す主目的はログ上の適用位置と時刻を追跡する複製の進行点を失敗時切り分けとして確認する。性能統計で実行結果を確認するときは実行結果の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・初期ロでBの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・棚卸）です。照合表定義・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・初期ロです。比較後の表・棚卸でA:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は後の表・初期ロ・棚卸です。項目後の表・初期ロでC:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は初期ロ・後の表・表定義です。仕様後の表・表定義でD:の失敗時切り分け 実行結果は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は棚卸・初期ロ・表定義です。用語表定義・棚卸という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・棚卸です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0035</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0035について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_035
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0035A
+画面・出力には IIDR114DD0035A が表示され、DDL後の表定義更新 Source Table 0035 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_035
+Table definition refreshed
+確認コード IIDR114DD0035B
+画面・出力には IIDR114DD0035B が表示され、DDL後の表定義更新 Source Table 0035 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE035
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0035C
+画面・出力には IIDR114DD0035C が表示され、DDL後の表定義更新 Source Table 0035 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0035A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0035B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0035C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0052"><h3>DDL後の表定義更新 Source Table 0050</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紺K復旧0051ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紺K復旧0051です。紺K復旧0051は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紺K復旧0051です。紺K復旧0051では表定義再読込と取得時刻を採取票紺K復旧0051へ残します。紺K復旧0051では表定義未更新を避けるため補助資料も照合する判断紺K復旧0051です。紺K復旧0051の用語整理では表定義変更対応の対象値を実在出力で保管する記録紺K復旧0051です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0050の役割を調べています。CDCミラーリング Subscription 0061の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は監査でイベントログを証跡に残し・ミラーリングの項目のイベントログと取得時刻を記録し。</li><li>B. 障害切り分けに用いる役割は解析で初期ロード状を証跡に残し・ミラーリングの項目の初期ロード状態と取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は復旧で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割はログ位置照合で接続先を証跡に残し・ソース表とターゲット表の対応および列変換を示す定義。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・表定義でCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・復旧）です。照合表定義・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・表定義です。比較後の表・復旧でA:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は後の表・表定義・復旧です。運用復旧・後の表でB:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は表定義・後の表・復旧です。仕様後の表・表定義でD:のログ位置照合 接続先は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸は復旧・表定義・表定義です。用語表定義・復旧という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0050</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0050について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_050
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0050A
+画面・出力には IIDR114DD0050A が表示され、DDL後の表定義更新 Source Table 0050 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_050
+Table definition refreshed
+確認コード IIDR114DD0050B
+画面・出力には IIDR114DD0050B が表示され、DDL後の表定義更新 Source Table 0050 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE050
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0050C
+画面・出力には IIDR114DD0050C が表示され、DDL後の表定義更新 Source Table 0050 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0050A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0050B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0050C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0053"><h3>DDL後の表定義更新 Source Table 0065</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>銀F監査0066ではIBM IIDR 11.4 の DDL変更対応を扱う採取票銀F監査0066です。銀F監査0066は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録銀F監査0066です。銀F監査0066では表定義再読込と取得時刻を採取票銀F監査0066へ残します。銀F監査0066ではDDL対象表の漏れを避けるため補助資料も照合する判断銀F監査0066です。銀F監査0066の用語整理では表定義変更対応の対象値を実在出力で点検する記録銀F監査0066です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Source Table 0065」を「複製位置管理 Bookmark 0114」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は重複反映を避けるため・変更確認操作で採取欄を棚卸するして複製位置を照合する。</li><li>C. 仕様上の役割は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして初期ロード状を照合する。</li><li>D. 仕様上の役割は復元前提の誤読を避けるため・マッピングで復元前提を確認するして復元前提を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・データでAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・監査）です。照合表定義・データに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・データです。運用監査・後の表でB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は表定義・後の表・監査です。項目後の表・データでC:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸はデータ・後の表・表定義です。仕様後の表・表定義でD:の失敗時切り分け 復元前提は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸は監査・データ・表定義です。用語表定義・監査という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・監査です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0065</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0065について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_065
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0065A
+画面・出力には IIDR114DD0065A が表示され、DDL後の表定義更新 Source Table 0065 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_065
+Table definition refreshed
+確認コード IIDR114DD0065B
+画面・出力には IIDR114DD0065B が表示され、DDL後の表定義更新 Source Table 0065 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE065
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0065C
+画面・出力には IIDR114DD0065C が表示され、DDL後の表定義更新 Source Table 0065 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0065A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0065B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0065C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0054"><h3>DDL後の表定義更新 Source Table 0080</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>蒼A変更0081ではIBM IIDR 11.4 の DDL変更対応を扱う採取票蒼A変更0081です。蒼A変更0081は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録蒼A変更0081です。蒼A変更0081では表定義再読込と取得時刻を採取票蒼A変更0081へ残します。蒼A変更0081ではログ先頭未到達の見落としを避けるため補助資料も照合する判断蒼A変更0081です。蒼A変更0081の用語整理では表定義変更対応の対象値を実在出力で整理する記録蒼A変更0081です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0080を同一分類の複製位置管理 Bookmark 0129と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は診断で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は解除で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li><li>C. コマンドまたは機能の用途は変更で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はマッピングで復元前提を証跡に残し・ソース表とターゲット表の対応および列変換を示す定義を失敗時切。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・ログ先でCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・変更）です。照合表定義・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・ログ先です。比較後の表・変更でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・ログ先・変更です。運用変更・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は表定義・後の表・変更です。仕様後の表・表定義でD:の失敗時切り分け 復元前提は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸は変更・ログ先・表定義です。用語表定義・変更という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0080</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0080について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_080
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0080A
+画面・出力には IIDR114DD0080A が表示され、DDL後の表定義更新 Source Table 0080 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_080
+Table definition refreshed
+確認コード IIDR114DD0080B
+画面・出力には IIDR114DD0080B が表示され、DDL後の表定義更新 Source Table 0080 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE080
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0080C
+画面・出力には IIDR114DD0080C が表示され、DDL後の表定義更新 Source Table 0080 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0080A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0080B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0080C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0055"><h3>DDL後の表定義更新 Source Table 0095</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>金P変更0096ではIBM IIDR 11.4 の DDL変更対応を扱う採取票金P変更0096です。金P変更0096は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録金P変更0096です。金P変更0096では表定義再読込と取得時刻を採取票金P変更0096へ残します。金P変更0096ではRefresh中の再開を避けるため補助資料も照合する判断金P変更0096です。金P変更0096の用語整理では表定義変更対応の対象値を実在出力で照合する記録金P変更0096です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0095の設定や表示を読む前に役割を確認します。CDCミラーリング Table Status 0115ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして初期ロード状を照合する。</li><li>C. 一次資料が示す主目的は別サブスクリプションを停止またはを避けるため・定義表示からSubscriptionを読して定義表示を照合する。</li><li>D. 一次資料が示す主目的は転送条件の誤読を避けるため・統計採取で転送条件を確認するして転送条件を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・初期ロでAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・変更）です。照合表定義・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・初期ロです。運用変更・後の表でB:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は表定義・後の表・変更です。項目後の表・初期ロでC:の代替経路の確認 SUB10は「CDC Subscriptionで定義表示か」を述べるため、正答側の照合軸は初期ロ・後の表・表定義です。仕様後の表・表定義でD:の統計採取 転送条件は「CDC Replication」を述べるため、正答側の照合軸は変更・初期ロ・表定義です。用語表定義・変更という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0095</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0095について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_095
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0095A
+画面・出力には IIDR114DD0095A が表示され、DDL後の表定義更新 Source Table 0095 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_095
+Table definition refreshed
+確認コード IIDR114DD0095B
+画面・出力には IIDR114DD0095B が表示され、DDL後の表定義更新 Source Table 0095 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE095
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0095C
+画面・出力には IIDR114DD0095C が表示され、DDL後の表定義更新 Source Table 0095 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0095A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0095B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0095C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0056"><h3>DDL後の表定義更新 Source Table 0110</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>紺K移行0111ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紺K移行0111です。紺K移行0111は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紺K移行0111です。紺K移行0111では表定義再読込と取得時刻を採取票紺K移行0111へ残します。紺K移行0111では表定義未更新を避けるため補助資料も照合する判断紺K移行0111です。紺K移行0111の用語整理では表定義変更対応の対象値を実在出力で保管する記録紺K移行0111です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0110に関する障害切り分けの前提を確認しています。DDL後の表定義更新 Head of Log 0131の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は表示操作で対象欄を追跡することでサブスクリプを確認し・初期ロード中の再開を防ぐ。</li><li>B. 障害切り分けに用いる役割は記録操作で証跡欄を照合することでサブスクリプを確認し・初期ロード未完了の見落としを防ぐ。</li><li>C. 障害切り分けに用いる役割は性能統計でセッション上を確認することでセッション上を確認し・セッション上の誤読を防ぐ。</li><li>D. 障害切り分けに用いる役割は点検操作で判定欄を記録することで表定義再読込を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能表定義・表定義でDの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・移行）です。照合表定義・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・表定義です。比較後の表・移行でA:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は後の表・表定義・移行です。運用移行・後の表でB:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は表定義・後の表・移行です。項目後の表・表定義でC:のマッピング検査 セッション上限は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は表定義・後の表・表定義です。用語表定義・移行という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0110</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0110について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_110
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0110A
+画面・出力には IIDR114DD0110A が表示され、DDL後の表定義更新 Source Table 0110 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_110
+Table definition refreshed
+確認コード IIDR114DD0110B
+画面・出力には IIDR114DD0110B が表示され、DDL後の表定義更新 Source Table 0110 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE110
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0110C
+画面・出力には IIDR114DD0110C が表示され、DDL後の表定義更新 Source Table 0110 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0110A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0110B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0110C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0057"><h3>DDL後の表定義更新 Source Table 0125</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>銀F診断0126ではIBM IIDR 11.4 の DDL変更対応を扱う採取票銀F診断0126です。銀F診断0126は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録銀F診断0126です。銀F診断0126では表定義再読込と取得時刻を採取票銀F診断0126へ残します。銀F診断0126ではDDL対象表の漏れを避けるため補助資料も照合する判断銀F診断0126です。銀F診断0126の用語整理では表定義変更対応の対象値を実在出力で点検する記録銀F診断0126です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0125を保守記録に説明する必要があります。DDL後の表定義更新 Head of Log 0176と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてサブスクリプを照合する。</li><li>B. 仕様上の役割はデータ欠落を避けるため・監査操作で記録欄を比較するして16進ブックを照合する。</li><li>C. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は活動ログの誤読を避けるため・性能統計で活動ログを確認するして活動ログを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能表定義・データでCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・診断）です。照合表定義・データに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・データです。比較後の表・診断でA:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は後の表・データ・診断です。運用診断・後の表でB:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は表定義・後の表・診断です。仕様後の表・表定義でD:の開始位置指定 活動ログは「ターゲットへ変更を反映し適用済み位置を記録す」を述べるため、正答側の照合軸は診断・データ・表定義です。用語表定義・診断という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・診断です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0125</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0125について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_005
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0125A
+画面・出力には IIDR114DD0125A が表示され、DDL後の表定義更新 Source Table 0125 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_005
+Table definition refreshed
+確認コード IIDR114DD0125B
+画面・出力には IIDR114DD0125B が表示され、DDL後の表定義更新 Source Table 0125 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE005
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0125C
+画面・出力には IIDR114DD0125C が表示され、DDL後の表定義更新 Source Table 0125 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0125A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0125B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0125C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0058"><h3>DDL後の表定義更新 Source Table 0140</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>蒼A保守0141ではIBM IIDR 11.4 の DDL変更対応を扱う採取票蒼A保守0141です。蒼A保守0141は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録蒼A保守0141です。蒼A保守0141では表定義再読込と取得時刻を採取票蒼A保守0141へ残します。蒼A保守0141ではログ先頭未到達の見落としを避けるため補助資料も照合する判断蒼A保守0141です。蒼A保守0141の用語整理では表定義変更対応の対象値を実在出力で整理する記録蒼A保守0141です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0140の技術的な意味を資料で確認するとき、複製位置管理 Hex Position 0186との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は収集でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は計画で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。</li><li>C. コマンドまたは機能の用途は巡回で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・重複反映を防ぐ。</li><li>D. コマンドまたは機能の用途は保守で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能表定義・ログ先でDの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・保守）です。照合表定義・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・ログ先です。比較後の表・保守でA:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は後の表・ログ先・保守です。運用保守・後の表でB:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は表定義・後の表・保守です。項目後の表・ログ先でC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はログ先・後の表・表定義です。用語表定義・保守という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0140</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0140について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_020
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0140A
+画面・出力には IIDR114DD0140A が表示され、DDL後の表定義更新 Source Table 0140 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_020
+Table definition refreshed
+確認コード IIDR114DD0140B
+画面・出力には IIDR114DD0140B が表示され、DDL後の表定義更新 Source Table 0140 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE020
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0140C
+画面・出力には IIDR114DD0140C が表示され、DDL後の表定義更新 Source Table 0140 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0140A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0140B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0140C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0059"><h3>DDL後の表定義更新 Source Table 0155</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>金P保守0156ではIBM IIDR 11.4 の DDL変更対応を扱う採取票金P保守0156です。金P保守0156は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録金P保守0156です。金P保守0156では表定義再読込と取得時刻を採取票金P保守0156へ残します。金P保守0156ではRefresh中の再開を避けるため補助資料も照合する判断金P保守0156です。金P保守0156の用語整理では表定義変更対応の対象値を実在出力で照合する記録金P保守0156です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0155について構成や状態を確認します。CDCミラーリング Subscription 0181ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は保守で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は収集でイベントログを証跡に残し・ミラーリングの項目のイベントログと取得時刻を記録し。</li><li>C. 一次資料が示す主目的は解除で初期ロード状を証跡に残し・ミラーリングの項目の初期ロード状態と取得時刻を記録し。</li><li>D. 一次資料が示す主目的は復旧でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・初期ロでAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・保守）です。照合表定義・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・初期ロです。運用保守・後の表でB:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は表定義・後の表・保守です。項目後の表・初期ロでC:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は初期ロ・後の表・表定義です。仕様後の表・表定義でD:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は保守・初期ロ・表定義です。用語表定義・保守という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0155</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0155について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_035
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0155A
+画面・出力には IIDR114DD0155A が表示され、DDL後の表定義更新 Source Table 0155 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_035
+Table definition refreshed
+確認コード IIDR114DD0155B
+画面・出力には IIDR114DD0155B が表示され、DDL後の表定義更新 Source Table 0155 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE035
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0155C
+画面・出力には IIDR114DD0155C が表示され、DDL後の表定義更新 Source Table 0155 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0155A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0155B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0155C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0060"><h3>DDL後の表定義更新 Source Table 0170</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紺K切替0171ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紺K切替0171です。紺K切替0171は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紺K切替0171です。紺K切替0171では表定義再読込と取得時刻を採取票紺K切替0171へ残します。紺K切替0171では表定義未更新を避けるため補助資料も照合する判断紺K切替0171です。紺K切替0171の用語整理では表定義変更対応の対象値を実在出力で保管する記録紺K切替0171です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0170の役割を調べています。複製位置管理 Hex Position 0171の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は点検操作で判定欄を記録することで表定義再読込を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は監査操作で記録欄を比較することでインスタンスを確認し・データ欠落を防ぐ。</li><li>C. 障害切り分けに用いる役割は方式変更からReturnvalueを読むことで方式変更を確認し・初期ロード未完了でMirroを防ぐ。</li><li>D. 障害切り分けに用いる役割は保守操作で監査欄を保存することでミラー開始を確認し・対象サブスクリプションの取りを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・表定義でAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・切替）です。照合表定義・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・表定義です。運用切替・後の表でB:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は表定義・後の表・切替です。項目後の表・表定義でC:の性能影響の確認 REF11は「CDC Refreshで方式変更からRetu」を述べるため、正答側の照合軸は表定義・後の表・表定義です。仕様後の表・表定義でD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は切替・表定義・表定義です。用語表定義・切替という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0170</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0170について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_050
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0170A
+画面・出力には IIDR114DD0170A が表示され、DDL後の表定義更新 Source Table 0170 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_050
+Table definition refreshed
+確認コード IIDR114DD0170B
+画面・出力には IIDR114DD0170B が表示され、DDL後の表定義更新 Source Table 0170 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE050
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0170C
+画面・出力には IIDR114DD0170C が表示され、DDL後の表定義更新 Source Table 0170 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0170A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0170B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0170C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0061"><h3>DDL後の表定義更新 Source Table 0185</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>銀F収集0186ではIBM IIDR 11.4 の DDL変更対応を扱う採取票銀F収集0186です。銀F収集0186は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録銀F収集0186です。銀F収集0186では表定義再読込と取得時刻を採取票銀F収集0186へ残します。銀F収集0186ではDDL対象表の漏れを避けるため補助資料も照合する判断銀F収集0186です。銀F収集0186の用語整理では表定義変更対応の対象値を実在出力で点検する記録銀F収集0186です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Source Table 0185」を「複製位置管理 Subscription 0225」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は主操作で出力欄を評価することで16進ブックを確認し・ベンダー指示なしの位置変更を防ぐ。</li><li>B. 仕様上の役割は購読記述からSourceTableを読むことで購読記述を確認し・データ定義変更後に古い列定義を防ぐ。</li><li>C. 仕様上の役割は照合操作で確認欄を採取することで複製位置を確認し・対象インスタンスの取り違えを防ぐ。</li><li>D. 仕様上の役割は復旧操作で点検欄を確認することで表定義再読込を確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・データでDの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・収集）です。照合表定義・データに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・データです。比較後の表・収集でA:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は後の表・データ・収集です。運用収集・後の表でB:の代替経路の確認 MAP10は「Table Mappingで購読記述からSo」を述べるため、正答側の照合軸は表定義・後の表・収集です。項目後の表・データでC:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はデータ・後の表・表定義です。用語表定義・収集という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・収集です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0185</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0185について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_065
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0185A
+画面・出力には IIDR114DD0185A が表示され、DDL後の表定義更新 Source Table 0185 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_065
+Table definition refreshed
+確認コード IIDR114DD0185B
+画面・出力には IIDR114DD0185B が表示され、DDL後の表定義更新 Source Table 0185 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE065
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0185C
+画面・出力には IIDR114DD0185C が表示され、DDL後の表定義更新 Source Table 0185 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0185A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0185B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0185C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0062"><h3>DDL後の表定義更新 Source Table 0200</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>蒼A登録0201ではIBM IIDR 11.4 の DDL変更対応を扱う採取票蒼A登録0201です。蒼A登録0201は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録蒼A登録0201です。蒼A登録0201では表定義再読込と取得時刻を採取票蒼A登録0201へ残します。蒼A登録0201ではログ先頭未到達の見落としを避けるため補助資料も照合する判断蒼A登録0201です。蒼A登録0201の用語整理では表定義変更対応の対象値を実在出力で整理する記録蒼A登録0201です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0200を同一分類のDDL後の表定義更新 Subscription 0227と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。</li><li>B. コマンドまたは機能の用途はCDC Event Logで通信エラーからERRORを読み・ERRORとSupportを照合する。通信エラーからERRORを読むときは情報イベントと停止を伴うエラを防ぐ。</li><li>C. コマンドまたは機能の用途は後の表定義更新の項目の表定義再読込と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はInstanceの戻り値と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・ログ先でCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・登録）です。照合表定義・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・ログ先です。比較後の表・登録でA:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は後の表・ログ先・登録です。運用登録・後の表でB:の停止前の確認 ERR14は「CDC Event Logで通信エラーからE」を述べるため、正答側の照合軸は表定義・後の表・登録です。仕様後の表・表定義でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は登録・ログ先・表定義です。用語表定義・登録という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0200</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0200について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_080
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0200A
+画面・出力には IIDR114DD0200A が表示され、DDL後の表定義更新 Source Table 0200 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_080
+Table definition refreshed
+確認コード IIDR114DD0200B
+画面・出力には IIDR114DD0200B が表示され、DDL後の表定義更新 Source Table 0200 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE080
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0200C
+画面・出力には IIDR114DD0200C が表示され、DDL後の表定義更新 Source Table 0200 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0200A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0200B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0200C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0063"><h3>DDL後の表定義更新 Source Table 0215</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>金P登録0216ではIBM IIDR 11.4 の DDL変更対応を扱う採取票金P登録0216です。金P登録0216は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録金P登録0216です。金P登録0216では表定義再読込と取得時刻を採取票金P登録0216へ残します。金P登録0216ではRefresh中の再開を避けるため補助資料も照合する判断金P登録0216です。金P登録0216の用語整理では表定義変更対応の対象値を実在出力で照合する記録金P登録0216です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0215の設定や表示を読む前に役割を確認します。CDCミラーリング Subscription 0301ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は記録操作で証跡欄を照合することでイベントログを確認し・初期ロード未完了の見落としを防ぐ。</li><li>B. 一次資料が示す主目的は差分確認で差分確認を確認することで差分確認を確認し・差分確認の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は表示操作で対象欄を追跡することで表定義再読込を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・初期ロでCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・登録）です。照合表定義・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・初期ロです。比較後の表・登録でA:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は後の表・初期ロ・登録です。運用登録・後の表でB:の統計採取 差分確認は「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は表定義・後の表・登録です。仕様後の表・表定義でD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は登録・初期ロ・表定義です。用語表定義・登録という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0215</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0215について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_095
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0215A
+画面・出力には IIDR114DD0215A が表示され、DDL後の表定義更新 Source Table 0215 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_095
+Table definition refreshed
+確認コード IIDR114DD0215B
+画面・出力には IIDR114DD0215B が表示され、DDL後の表定義更新 Source Table 0215 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE095
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0215C
+画面・出力には IIDR114DD0215C が表示され、DDL後の表定義更新 Source Table 0215 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0215A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0215B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0215C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0064"><h3>DDL後の表定義更新 Source Table 0230</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>紺K確認0231ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紺K確認0231です。紺K確認0231は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紺K確認0231です。紺K確認0231では表定義再読込と取得時刻を採取票紺K確認0231へ残します。紺K確認0231では表定義未更新を避けるため補助資料も照合する判断紺K確認0231です。紺K確認0231の用語整理では表定義変更対応の対象値を実在出力で保管する記録紺K確認0231です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0230に関する障害切り分けの前提を確認しています。CDCミラーリング Latency 0277の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は点検操作で判定欄を記録することで表定義再読込を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は記録操作で証跡欄を照合することで遅延確認を確認し・初期ロード未完了の見落としを防ぐ。</li><li>C. 障害切り分けに用いる役割は通信エラーからERRORを読むことで通信エラーを確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>D. 障害切り分けに用いる役割は確認操作で状態欄を整理することでサブスクリプを確認し・遅延ゼロ確認の欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能表定義・表定義でAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・確認）です。照合表定義・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・表定義です。運用確認・後の表でB:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は表定義・後の表・確認です。項目後の表・表定義でC:の変更前の確認 ERR02は「CDC Event Logで通信エラーからE」を述べるため、正答側の照合軸は表定義・後の表・表定義です。仕様後の表・表定義でD:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は確認・表定義・表定義です。用語表定義・確認という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0230</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0230について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_110
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0230A
+画面・出力には IIDR114DD0230A が表示され、DDL後の表定義更新 Source Table 0230 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_110
+Table definition refreshed
+確認コード IIDR114DD0230B
+画面・出力には IIDR114DD0230B が表示され、DDL後の表定義更新 Source Table 0230 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE110
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0230C
+画面・出力には IIDR114DD0230C が表示され、DDL後の表定義更新 Source Table 0230 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0230A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0230B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0230C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0065"><h3>DDL後の表定義更新 Source Table 0245</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>銀F保護0246ではIBM IIDR 11.4 の DDL変更対応を扱う採取票銀F保護0246です。銀F保護0246は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録銀F保護0246です。銀F保護0246では表定義再読込と取得時刻を採取票銀F保護0246へ残します。銀F保護0246ではDDL対象表の漏れを避けるため補助資料も照合する判断銀F保護0246です。銀F保護0246の用語整理では表定義変更対応の対象値を実在出力で点検する記録銀F保護0246です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0245を保守記録に説明する必要があります。複製位置管理 Hex Position 0291と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は抑止でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li><li>B. 仕様上の役割は変更確認で通信エラーを証跡に残し・CDC Event Logで通信エラーからERRORを読み。</li><li>C. 仕様上の役割は保護で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は変更でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能表定義・データでCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・保護）です。照合表定義・データに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・データです。比較後の表・保護でA:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は後の表・データ・保護です。運用保護・後の表でB:の変更前の確認 ERR02は「CDC Event Logで通信エラーからE」を述べるため、正答側の照合軸は表定義・後の表・保護です。仕様後の表・表定義でD:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は保護・データ・表定義です。用語表定義・保護という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・保護です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0245</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0245について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_005
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0245A
+画面・出力には IIDR114DD0245A が表示され、DDL後の表定義更新 Source Table 0245 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_005
+Table definition refreshed
+確認コード IIDR114DD0245B
+画面・出力には IIDR114DD0245B が表示され、DDL後の表定義更新 Source Table 0245 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE005
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0245C
+画面・出力には IIDR114DD0245C が表示され、DDL後の表定義更新 Source Table 0245 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0245A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0245B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0245C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0066"><h3>DDL後の表定義更新 Source Table 0260</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>蒼A照合0261ではIBM IIDR 11.4 の DDL変更対応を扱う採取票蒼A照合0261です。蒼A照合0261は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録蒼A照合0261です。蒼A照合0261では表定義再読込と取得時刻を採取票蒼A照合0261へ残します。蒼A照合0261ではログ先頭未到達の見落としを避けるため補助資料も照合する判断蒼A照合0261です。蒼A照合0261の用語整理では表定義変更対応の対象値を実在出力で整理する記録蒼A照合0261です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0260の技術的な意味を資料で確認するとき、複製位置管理 Hex Position 0321との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するしてインスタンスを照合する。</li><li>C. コマンドまたは機能の用途は接続先の誤読を避けるため・ログ位置照合で接続先を確認するして接続先を照合する。</li><li>D. コマンドまたは機能の用途は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして複製位置を照合する。複製位置管理 Bookmark 0084固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能表定義・ログ先でAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・照合）です。照合表定義・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・ログ先です。運用照合・後の表でB:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は表定義・後の表・照合です。項目後の表・ログ先でC:のログ位置照合 接続先は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸はログ先・後の表・表定義です。仕様後の表・表定義でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は照合・ログ先・表定義です。用語表定義・照合という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0260</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0260について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_020
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0260A
+画面・出力には IIDR114DD0260A が表示され、DDL後の表定義更新 Source Table 0260 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_020
+Table definition refreshed
+確認コード IIDR114DD0260B
+画面・出力には IIDR114DD0260B が表示され、DDL後の表定義更新 Source Table 0260 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE020
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0260C
+画面・出力には IIDR114DD0260C が表示され、DDL後の表定義更新 Source Table 0260 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0260A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0260B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0260C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0067"><h3>DDL後の表定義更新 Source Table 0275</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>金P照合0276ではIBM IIDR 11.4 の DDL変更対応を扱う採取票金P照合0276です。金P照合0276は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録金P照合0276です。金P照合0276では表定義再読込と取得時刻を採取票金P照合0276へ残します。金P照合0276ではRefresh中の再開を避けるため補助資料も照合する判断金P照合0276です。金P照合0276の用語整理では表定義変更対応の対象値を実在出力で照合する記録金P照合0276です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0275について構成や状態を確認します。複製位置管理 Bookmark 0309ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は解析で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は複製状態監視で識別列を証跡に残し・bookmark まで適用したことを示す CDC。</li><li>C. 一次資料が示す主目的は保守でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li><li>D. 一次資料が示す主目的は照合で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・初期ロでDの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・照合）です。照合表定義・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・初期ロです。比較後の表・照合でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・初期ロ・照合です。運用照合・後の表でB:の遅延監視 識別列は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は表定義・後の表・照合です。項目後の表・初期ロでC:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は初期ロ・後の表・表定義です。用語表定義・照合という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0275</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0275について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_035
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0275A
+画面・出力には IIDR114DD0275A が表示され、DDL後の表定義更新 Source Table 0275 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_035
+Table definition refreshed
+確認コード IIDR114DD0275B
+画面・出力には IIDR114DD0275B が表示され、DDL後の表定義更新 Source Table 0275 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE035
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0275C
+画面・出力には IIDR114DD0275C が表示され、DDL後の表定義更新 Source Table 0275 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0275A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0275B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0275C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0068"><h3>DDL後の表定義更新 Source Table 0290</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紺K抑止0291ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紺K抑止0291です。紺K抑止0291は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紺K抑止0291です。紺K抑止0291では表定義再読込と取得時刻を採取票紺K抑止0291へ残します。紺K抑止0291では表定義未更新を避けるため補助資料も照合する判断紺K抑止0291です。紺K抑止0291の用語整理では表定義変更対応の対象値を実在出力で保管する記録紺K抑止0291です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0290の役割を調べています。複製位置管理 Locale 0357の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は主操作で出力欄を評価することでサブスクリプを確認し・ベンダー指示なしの位置変更を防ぐ。</li><li>B. 障害切り分けに用いる役割は初期同期判定で統合管理を確認することで統合管理を確認し・統合管理の誤読を防ぐ。</li><li>C. 障害切り分けに用いる役割は復旧操作で点検欄を確認することでログ先頭到達を確認し・データ定義対象表の漏れを防ぐ。</li><li>D. 障害切り分けに用いる役割は点検操作で判定欄を記録することで表定義再読込を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・表定義でDの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・抑止）です。照合表定義・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・表定義です。比較後の表・抑止でA:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は後の表・表定義・抑止です。運用抑止・後の表でB:の初期同期判定 統合管理は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸は表定義・後の表・抑止です。項目後の表・表定義でC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は表定義・後の表・表定義です。用語表定義・抑止という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0290</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0290について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_050
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0290A
+画面・出力には IIDR114DD0290A が表示され、DDL後の表定義更新 Source Table 0290 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_050
+Table definition refreshed
+確認コード IIDR114DD0290B
+画面・出力には IIDR114DD0290B が表示され、DDL後の表定義更新 Source Table 0290 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE050
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0290C
+画面・出力には IIDR114DD0290C が表示され、DDL後の表定義更新 Source Table 0290 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0290A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0290B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0290C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0069"><h3>DDL後の表定義更新 Source Table 0305</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>銀F解析0306ではIBM IIDR 11.4 の DDL変更対応を扱う採取票銀F解析0306です。銀F解析0306は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録銀F解析0306です。銀F解析0306では表定義再読込と取得時刻を採取票銀F解析0306へ残します。銀F解析0306ではDDL対象表の漏れを避けるため補助資料も照合する判断銀F解析0306です。銀F解析0306の用語整理では表定義変更対応の対象値を実在出力で点検する記録銀F解析0306です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Source Table 0305」を「データストア接続 CDC Datastore 復旧準備 STORE05」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はホスト名変更後の購読構成を更新せを避けるため・通信活動からCHC9788Iを読むして通信活動を照合する。</li><li>B. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は重大度の誤読を避けるため・統計採取で重大度を確認するして重大度を照合する。</li><li>D. 仕様上の役割は重複反映を避けるため・変更確認操作で採取欄を棚卸するして複製位置を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・データでBの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・解析）です。照合表定義・データに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・データです。比較後の表・解析でA:の復旧準備 STORE05は「CDC Datastoreで通信活動からCH」を述べるため、正答側の照合軸は後の表・データ・解析です。項目後の表・データでC:の統計採取 重大度は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸はデータ・後の表・表定義です。仕様後の表・表定義でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は解析・データ・表定義です。用語表定義・解析という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・解析です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0305</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0305について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_065
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0305A
+画面・出力には IIDR114DD0305A が表示され、DDL後の表定義更新 Source Table 0305 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_065
+Table definition refreshed
+確認コード IIDR114DD0305B
+画面・出力には IIDR114DD0305B が表示され、DDL後の表定義更新 Source Table 0305 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE065
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0305C
+画面・出力には IIDR114DD0305C が表示され、DDL後の表定義更新 Source Table 0305 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0305A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0305B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0305C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0070"><h3>DDL後の表定義更新 Source Table 0320</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>蒼A計画0321ではIBM IIDR 11.4 の DDL変更対応を扱う採取票蒼A計画0321です。蒼A計画0321は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録蒼A計画0321です。蒼A計画0321では表定義再読込と取得時刻を採取票蒼A計画0321へ残します。蒼A計画0321ではログ先頭未到達の見落としを避けるため補助資料も照合する判断蒼A計画0321です。蒼A計画0321の用語整理では表定義変更対応の対象値を実在出力で整理する記録蒼A計画0321です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0320を同一分類のデータストア接続 CDC Datastore 引継ぎ記録 STORE09と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするして表定義再読込を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はホスト名変更後の購読構成を更新せを避けるため・イベント確認からcommunicatioしてイベント確認を照合する。</li><li>C. コマンドまたは機能の用途はノード割当の誤読を避けるため・ログ位置照合でノード割当を確認するしてノード割当を照合する。</li><li>D. コマンドまたは機能の用途は表定義未更新を避けるため・点検操作で判定欄を記録するしてデータ定義対を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・ログ先でAの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・計画）です。照合表定義・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は後の表・表定義・ログ先です。運用計画・後の表でB:の引継ぎ記録 STORE09は「CDC Datastoreでイベント確認から」を述べるため、正答側の照合軸は表定義・後の表・計画です。項目後の表・ログ先でC:のログ位置照合 ノード割当は「対象表を初期同期または再同期する複製操作」を述べるため、正答側の照合軸はログ先・後の表・表定義です。仕様後の表・表定義でD:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は計画・ログ先・表定義です。用語表定義・計画という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・計画です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0320</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0320について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_080
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0320A
+画面・出力には IIDR114DD0320A が表示され、DDL後の表定義更新 Source Table 0320 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_080
+Table definition refreshed
+確認コード IIDR114DD0320B
+画面・出力には IIDR114DD0320B が表示され、DDL後の表定義更新 Source Table 0320 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE080
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0320C
+画面・出力には IIDR114DD0320C が表示され、DDL後の表定義更新 Source Table 0320 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0320A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0320B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0320C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0071"><h3>DDL後の表定義更新 Source Table 0335</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>金P計画0336ではIBM IIDR 11.4 の DDL変更対応を扱う採取票金P計画0336です。金P計画0336は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録金P計画0336です。金P計画0336では表定義再読込と取得時刻を採取票金P計画0336へ残します。金P計画0336ではRefresh中の再開を避けるため補助資料も照合する判断金P計画0336です。金P計画0336の用語整理では表定義変更対応の対象値を実在出力で照合する記録金P計画0336です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0335の設定や表示を読む前に役割を確認します。リフレッシュ制御 CDC Refresh ログとの照合 REF07ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は方式表示から初期ロードingを読むことで方式表示を確認し・初期ロード未完了でMirroを防ぐ。</li><li>B. 一次資料が示す主目的は変更確認操作で採取欄を棚卸することで複製位置を確認し・重複反映を防ぐ。</li><li>C. 一次資料が示す主目的は表示操作で対象欄を追跡することで表定義再読込を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は復旧操作で点検欄を確認することで再開条件を確認し・データ定義対象表の漏れを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能表定義・初期ロでCの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・計画）です。照合表定義・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は表定義・計画・初期ロです。比較後の表・計画でA:のログとの照合 REF07は「CDC Refreshで方式表示から初期ロー」を述べるため、正答側の照合軸は後の表・計画・表定義です。運用計画・後の表でB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は表定義・後の表・計画です。仕様後の表・表定義でD:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は計画・初期ロ・表定義です。用語表定義・計画という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0335</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0335について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_095
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0335A
+画面・出力には IIDR114DD0335A が表示され、DDL後の表定義更新 Source Table 0335 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_095
+Table definition refreshed
+確認コード IIDR114DD0335B
+画面・出力には IIDR114DD0335B が表示され、DDL後の表定義更新 Source Table 0335 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE095
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0335C
+画面・出力には IIDR114DD0335C が表示され、DDL後の表定義更新 Source Table 0335 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0335A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0335B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0335C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0072"><h3>DDL後の表定義更新 Source Table 0350</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>紺K解除0351ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紺K解除0351です。紺K解除0351は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録紺K解除0351です。紺K解除0351では表定義再読込と取得時刻を採取票紺K解除0351へ残します。紺K解除0351では表定義未更新を避けるため補助資料も照合する判断紺K解除0351です。紺K解除0351の用語整理では表定義変更対応の対象値を実在出力で保管する記録紺K解除0351です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Source Table 0350に関する障害切り分けの前提を確認しています。サブスクリプション管理 CDC Subscription 構成監査 SUB08の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は構成監査でイベント表示を証跡に残し・CDC Subscriptionでイベント表示からSever。</li><li>B. 障害切り分けに用いる役割は監査で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・データ欠落を防ぐ。</li><li>C. 障害切り分けに用いる役割は登録でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は解除で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能表定義・表定義でDの記述「後の表定義更新の項目の表定義再読込と取得時刻を記録し」に対応する項目はSource Table（後の表・表定義・解除）です。照合表定義・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」で、確認対象は表定義・解除・表定義です。比較後の表・解除でA:の構成監査 SUB08は「CDC Subscriptionでイベント表」を述べるため、正答側の照合軸は後の表・解除・表定義です。運用解除・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は表定義・後の表・解除です。項目後の表・表定義でC:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は表定義・後の表・表定義です。用語表定義・解除という用語は「後の表定義更新の項目の表定義再読込と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・表定義です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Source Table 0350</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Source Table 0350について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Source Table と 表定義再読込</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_110
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0350A
+画面・出力には IIDR114DD0350A が表示され、DDL後の表定義更新 Source Table 0350 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_110
+Table definition refreshed
+確認コード IIDR114DD0350B
+画面・出力には IIDR114DD0350B が表示され、DDL後の表定義更新 Source Table 0350 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Source Table を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE110
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0350C
+画面・出力には IIDR114DD0350C が表示され、DDL後の表定義更新 Source Table 0350 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0350A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0350B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0350C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0073"><h3>DDL後の表定義更新 Subscription 0002</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>緑C巡回0003ではIBM IIDR 11.4 の DDL変更対応を扱う採取票緑C巡回0003です。緑C巡回0003は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録緑C巡回0003です。緑C巡回0003ではログ先頭到達と取得時刻を採取票緑C巡回0003へ残します。緑C巡回0003では表定義未更新を避けるため補助資料も照合する判断緑C巡回0003です。緑C巡回0003の用語整理では表定義変更対応の対象値を実在出力で保管する記録緑C巡回0003です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0002の役割を調べています。CDCミラーリング Subscription 0031の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は採取操作で照合欄を点検することでイベントログを確認し・イベント重大度の誤読を防ぐ。</li><li>B. 障害切り分けに用いる役割は復旧操作で点検欄を確認することでサブスクリプを確認し・DDL対象表の漏れを防ぐ。</li><li>C. 障害切り分けに用いる役割はイベント一覧から2931を読むことでイベント一覧を確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>D. 障害切り分けに用いる役割は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 巡回・ログ先・表定義未でDの記述「DDLのログ先頭到達と取得時刻を記録し、表定義未更新を防ぐである」に対応する項目はDDL後の表定義更新（後の表・ログ先・表定義未・巡回）です。巡回時のログ先頭到に関するDDL変更対応の仕様は「DDLのログ先頭到達と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・ログ先・表定義未・巡回です。ミラ・棚卸・イベントのA:は「CDCのイベントログと取得時刻を記録し、イベント重大度の誤読を防ぐ」を述べ、対象はCDCミラーリング Subscrip（ミラー・イベン・イベント・棚卸）です。確認・サブス・DDL対のB:は「DDLのサブスクリプション記述と取得時刻を記録し」を述べ、対象はof Log（後の表・サブス・DDL対・確認）です。ログとの時のイベント一のC:は「CDC Event Logでイベント一覧から2931を読み」を述べ、対象はログとの照合 ERR07（CDC・イベン・情報イベ・ログと）です。ログ先頭到を巡回という用語は「DDLのログ先頭到達と取得時刻を記録し」を指し、DDL後の表定義更新（後の表・ログ先・表定義未・巡回）で照合する値はログ先頭到達です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0002</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0002について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_002
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0002A
+画面・出力には IIDR114DD0002A が表示され、DDL後の表定義更新 Subscription 0002 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_002
+Table definition refreshed
+確認コード IIDR114DD0002B
+画面・出力には IIDR114DD0002B が表示され、DDL後の表定義更新 Subscription 0002 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE002
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0002C
+画面・出力には IIDR114DD0002C が表示され、DDL後の表定義更新 Subscription 0002 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0002A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0002B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0002C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0074"><h3>DDL後の表定義更新 Subscription 0017</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>藤R巡回0018ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藤R巡回0018です。藤R巡回0018は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録藤R巡回0018です。藤R巡回0018ではログ先頭到達と取得時刻を採取票藤R巡回0018へ残します。藤R巡回0018ではDDL対象表の漏れを避けるため補助資料も照合する判断藤R巡回0018です。藤R巡回0018の用語整理では表定義変更対応の対象値を実在出力で点検する記録藤R巡回0018です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Subscription 0017」を「CDCミラーリング Event Severity 0094」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は確認操作で状態欄を整理することでミラー開始を確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>B. 仕様上の役割は保守操作で監査欄を保存することでサブスクリプを確認し・対象サブスクリプションの取りを防ぐ。</li><li>C. 仕様上の役割は通信エラーからERRORを読むことで通信エラーを確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>D. 仕様上の役割は復旧操作で点検欄を確認することでログ先頭到達を確認し・DDL対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 巡回・ログ先・DDL対でDの記述「DDLのログ先頭到達と取得時刻を記録し、DDL対象表の漏れを防ぐであ」に対応する項目はDDL後の表定義更新（後の表・ログ先・DDL対・巡回）です。巡回時のログ先頭到に関するDDL変更対応の仕様は「DDLのログ先頭到達と取得時刻を記録し、DDL対象表の漏れを防ぐ」で、確認対象は後の表・ログ先・DDL対・巡回です。ミラ・変更・ミラー開のA:は「CDCのミラー開始と取得時刻を記録し、遅延ゼロ確認の欠落を防ぐ」を述べ、対象はEvent Severity（ミラー・ミラー・遅延ゼロ・変更）です。登録・サブス・対象サブのB:は「CDCのサブスクリプション状態と取得時刻を記録し」を述べ、対象はReplication Method（ミラー・サブス・対象サブ・登録）です。復旧準備時の通信エラーのC:は「CDC Event Logで通信エラーからERRORを読み」を述べ、対象は復旧準備 ERR05（CDC・通信エ・情報イベ・復旧準）です。ログ先頭到を巡回という用語は「DDLのログ先頭到達と取得時刻を記録し」を指し、DDL後の表定義更新（後の表・ログ先・DDL対・巡回）で照合する値はログ先頭到達です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0017</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0017について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_017
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0017A
+画面・出力には IIDR114DD0017A が表示され、DDL後の表定義更新 Subscription 0017 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_017
+Table definition refreshed
+確認コード IIDR114DD0017B
+画面・出力には IIDR114DD0017B が表示され、DDL後の表定義更新 Subscription 0017 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE017
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0017C
+画面・出力には IIDR114DD0017C が表示され、DDL後の表定義更新 Subscription 0017 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0017A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0017B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0017C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0075"><h3>DDL後の表定義更新 Subscription 0032</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>桃M棚卸0033ではIBM IIDR 11.4 の DDL変更対応を扱う採取票桃M棚卸0033です。桃M棚卸0033は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録桃M棚卸0033です。桃M棚卸0033ではログ先頭到達と取得時刻を採取票桃M棚卸0033へ残します。桃M棚卸0033ではログ先頭未到達の見落としを避けるため補助資料も照合する判断桃M棚卸0033です。桃M棚卸0033の用語整理では表定義変更対応の対象値を実在出力で整理する記録桃M棚卸0033です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0032を同一分類のCDCミラーリング Event Severity 0034と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は確認操作で状態欄を整理することでミラー開始を確認し・遅延ゼロ確認の欠落を防ぐ。CDCミラーリング Event Severity 0034固有の属性も確認対象に含める。</li><li>B. コマンドまたは機能の用途は点検操作で判定欄を記録することでサブスクリプを確認し・表定義未更新を防ぐ。</li><li>C. コマンドまたは機能の用途は通信統計からSendsを読むことで通信統計を確認し・送信回数だけでターゲット適用を防ぐ。</li><li>D. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでログ先頭到達を確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・ログ先でDの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・棚卸）です。照合ログ先・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・ログ先です。比較後の表・棚卸でA:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は後の表・ログ先・棚卸です。運用棚卸・後の表でB:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸はログ先・後の表・棚卸です。項目後の表・ログ先でC:の代替経路の確認 STAT10は「CDC Communicationsで通信統」を述べるため、正答側の照合軸はログ先・後の表・ログ先です。用語ログ先・棚卸という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・棚卸です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0032</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0032について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_032
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0032A
+画面・出力には IIDR114DD0032A が表示され、DDL後の表定義更新 Subscription 0032 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_032
+Table definition refreshed
+確認コード IIDR114DD0032B
+画面・出力には IIDR114DD0032B が表示され、DDL後の表定義更新 Subscription 0032 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE032
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0032C
+画面・出力には IIDR114DD0032C が表示され、DDL後の表定義更新 Subscription 0032 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0032A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0032B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0032C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0076"><h3>DDL後の表定義更新 Subscription 0047</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>茶H復旧0048ではIBM IIDR 11.4 の DDL変更対応を扱う採取票茶H復旧0048です。茶H復旧0048は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録茶H復旧0048です。茶H復旧0048ではログ先頭到達と取得時刻を採取票茶H復旧0048へ残します。茶H復旧0048ではRefresh中の再開を避けるため補助資料も照合する判断茶H復旧0048です。茶H復旧0048の用語整理では表定義変更対応の対象値を実在出力で照合する記録茶H復旧0048です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0047の設定や表示を読む前に役割を確認します。DDL後の表定義更新 Head of Log 0086ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は表定義未更新を避けるため・点検操作で判定欄を記録するしてサブスクリプを照合する。</li><li>B. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は初期ロード未完了の見落としを避けるため・記録操作で証跡欄を照合するして初期ロード状を照合する。</li><li>D. 一次資料が示す主目的は初期ロード未完了でMirrorへを避けるため・完了確認からRowsappliedを読むして完了確認を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・初期ロでBの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・復旧）です。照合ログ先・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・初期ロです。比較後の表・復旧でA:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は後の表・初期ロ・復旧です。項目後の表・初期ロでC:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は初期ロ・後の表・ログ先です。仕様後の表・ログ先でD:の権限境界の確認 REF12は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸は復旧・初期ロ・ログ先です。用語ログ先・復旧という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0047</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0047について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_047
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0047A
+画面・出力には IIDR114DD0047A が表示され、DDL後の表定義更新 Subscription 0047 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_047
+Table definition refreshed
+確認コード IIDR114DD0047B
+画面・出力には IIDR114DD0047B が表示され、DDL後の表定義更新 Subscription 0047 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE047
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0047C
+画面・出力には IIDR114DD0047C が表示され、DDL後の表定義更新 Subscription 0047 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0047A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0047B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0047C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0077"><h3>DDL後の表定義更新 Subscription 0062</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>緑C監査0063ではIBM IIDR 11.4 の DDL変更対応を扱う採取票緑C監査0063です。緑C監査0063は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録緑C監査0063です。緑C監査0063ではログ先頭到達と取得時刻を採取票緑C監査0063へ残します。緑C監査0063では表定義未更新を避けるため補助資料も照合する判断緑C監査0063です。緑C監査0063の用語整理では表定義変更対応の対象値を実在出力で保管する記録緑C監査0063です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0062に関する障害切り分けの前提を確認しています。複製位置管理 Instance 0108の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして戻り値を照合する。</li><li>B. 障害切り分けに用いる役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。</li><li>C. 障害切り分けに用いる役割は情報イベントと停止を伴うエラーをを避けるため・通信エラーからERRORを読むして通信エラーを照合する。</li><li>D. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・表定義でDの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・監査）です。照合ログ先・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・表定義です。比較後の表・監査でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・表定義・監査です。運用監査・後の表でB:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸はログ先・後の表・監査です。項目後の表・表定義でC:の復旧準備 ERR05は「CDC Event Logで通信エラーからE」を述べるため、正答側の照合軸は表定義・後の表・ログ先です。用語ログ先・監査という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・監査です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0062</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0062について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_062
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0062A
+画面・出力には IIDR114DD0062A が表示され、DDL後の表定義更新 Subscription 0062 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_062
+Table definition refreshed
+確認コード IIDR114DD0062B
+画面・出力には IIDR114DD0062B が表示され、DDL後の表定義更新 Subscription 0062 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE062
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0062C
+画面・出力には IIDR114DD0062C が表示され、DDL後の表定義更新 Subscription 0062 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0062A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0062B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0062C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0078"><h3>DDL後の表定義更新 Subscription 0077</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藤R監査0078ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藤R監査0078です。藤R監査0078は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録藤R監査0078です。藤R監査0078ではログ先頭到達と取得時刻を採取票藤R監査0078へ残します。藤R監査0078ではDDL対象表の漏れを避けるため補助資料も照合する判断藤R監査0078です。藤R監査0078の用語整理では表定義変更対応の対象値を実在出力で点検する記録藤R監査0078です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0077を保守記録に説明する必要があります。複製位置管理 Subscription 0120と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして16進ブックを照合する。</li><li>B. 仕様上の役割は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。</li><li>C. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は情報イベントと停止を伴うエラーをを避けるため・イベント一覧から2931を読むしてイベント一覧を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・データでCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・監査）です。照合ログ先・データに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・データです。比較後の表・監査でA:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は後の表・データ・監査です。運用監査・後の表でB:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸はログ先・後の表・監査です。仕様後の表・ログ先でD:の依存関係の確認 ERR13は「CDC Event Logでイベント一覧から」を述べるため、正答側の照合軸は監査・データ・ログ先です。用語ログ先・監査という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・監査です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0077</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0077について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_077
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0077A
+画面・出力には IIDR114DD0077A が表示され、DDL後の表定義更新 Subscription 0077 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_077
+Table definition refreshed
+確認コード IIDR114DD0077B
+画面・出力には IIDR114DD0077B が表示され、DDL後の表定義更新 Subscription 0077 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE077
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0077C
+画面・出力には IIDR114DD0077C が表示され、DDL後の表定義更新 Subscription 0077 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0077A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0077B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0077C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0079"><h3>DDL後の表定義更新 Subscription 0092</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>桃M変更0093ではIBM IIDR 11.4 の DDL変更対応を扱う採取票桃M変更0093です。桃M変更0093は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録桃M変更0093です。桃M変更0093ではログ先頭到達と取得時刻を採取票桃M変更0093へ残します。桃M変更0093ではログ先頭未到達の見落としを避けるため補助資料も照合する判断桃M変更0093です。桃M変更0093の用語整理では表定義変更対応の対象値を実在出力で整理する記録桃M変更0093です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0092の技術的な意味を資料で確認するとき、複製位置管理 Subscription 0135との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はデータ欠落を避けるため・監査操作で記録欄を比較するして16進ブックを照合する。</li><li>C. コマンドまたは機能の用途は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてサブスクリプを照合する。</li><li>D. コマンドまたは機能の用途はキュー状態の誤読を避けるため・ログ位置照合でキュー状態を確認するしてキュー状態を照合する。CHC0368I ログ位置照合 キュー状態固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・ログ先でAの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・変更）です。照合ログ先・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・ログ先です。運用変更・後の表でB:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸はログ先・後の表・変更です。項目後の表・ログ先でC:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸はログ先・後の表・ログ先です。仕様後の表・ログ先でD:のログ位置照合 キュー状態は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は変更・ログ先・ログ先です。用語ログ先・変更という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0092</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0092について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_092
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0092A
+画面・出力には IIDR114DD0092A が表示され、DDL後の表定義更新 Subscription 0092 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_092
+Table definition refreshed
+確認コード IIDR114DD0092B
+画面・出力には IIDR114DD0092B が表示され、DDL後の表定義更新 Subscription 0092 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE092
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0092C
+画面・出力には IIDR114DD0092C が表示され、DDL後の表定義更新 Subscription 0092 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0092A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0092B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0092C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0080"><h3>DDL後の表定義更新 Subscription 0107</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>茶H移行0108ではIBM IIDR 11.4 の DDL変更対応を扱う採取票茶H移行0108です。茶H移行0108は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録茶H移行0108です。茶H移行0108ではログ先頭到達と取得時刻を採取票茶H移行0108へ残します。茶H移行0108ではRefresh中の再開を避けるため補助資料も照合する判断茶H移行0108です。茶H移行0108の用語整理では表定義変更対応の対象値を実在出力で照合する記録茶H移行0108です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0107について構成や状態を確認します。複製位置管理 Instance 0123ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は監査操作で記録欄を比較することで戻り値を確認し・データ欠落を防ぐ。</li><li>B. 一次資料が示す主目的は照合操作で確認欄を採取することでサブスクリプを確認し・対象インスタンスの取り違えを防ぐ。</li><li>C. 一次資料が示す主目的は表示操作で対象欄を追跡することでログ先頭到達を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は状態確認で集約装置を確認することで集約装置を確認し・集約装置の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能ログ先・初期ロでCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・移行）です。照合ログ先・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・初期ロです。比較後の表・移行でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・初期ロ・移行です。運用移行・後の表でB:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸はログ先・後の表・移行です。仕様後の表・ログ先でD:の状態確認 集約装置は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は移行・初期ロ・ログ先です。用語ログ先・移行という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0107</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0107について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_107
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0107A
+画面・出力には IIDR114DD0107A が表示され、DDL後の表定義更新 Subscription 0107 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_107
+Table definition refreshed
+確認コード IIDR114DD0107B
+画面・出力には IIDR114DD0107B が表示され、DDL後の表定義更新 Subscription 0107 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE107
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0107C
+画面・出力には IIDR114DD0107C が表示され、DDL後の表定義更新 Subscription 0107 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0107A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0107B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0107C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0081"><h3>DDL後の表定義更新 Subscription 0122</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>緑C診断0123ではIBM IIDR 11.4 の DDL変更対応を扱う採取票緑C診断0123です。緑C診断0123は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録緑C診断0123です。緑C診断0123ではログ先頭到達と取得時刻を採取票緑C診断0123へ残します。緑C診断0123では表定義未更新を避けるため補助資料も照合する判断緑C診断0123です。緑C診断0123の用語整理では表定義変更対応の対象値を実在出力で保管する記録緑C診断0123です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0122の役割を調べています。複製位置管理 Locale 0207の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は登録でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>B. 障害切り分けに用いる役割は再始動確認で版数表示を証跡に残し・CDC Subscriptionで版数表示からReplica。</li><li>C. 障害切り分けに用いる役割は巡回でサブスクリプを証跡に残し・ミラーリングの項目のサブスクリプション状態と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は診断でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能ログ先・表定義でDの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・診断）です。照合ログ先・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・表定義です。比較後の表・診断でA:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は後の表・表定義・診断です。運用診断・後の表でB:の再始動後の確認 SUB15は「CDC Subscriptionで版数表示か」を述べるため、正答側の照合軸はログ先・後の表・診断です。項目後の表・表定義でC:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は表定義・後の表・ログ先です。用語ログ先・診断という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・診断です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0122</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0122について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_002
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0122A
+画面・出力には IIDR114DD0122A が表示され、DDL後の表定義更新 Subscription 0122 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_002
+Table definition refreshed
+確認コード IIDR114DD0122B
+画面・出力には IIDR114DD0122B が表示され、DDL後の表定義更新 Subscription 0122 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE002
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0122C
+画面・出力には IIDR114DD0122C が表示され、DDL後の表定義更新 Subscription 0122 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0122A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0122B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0122C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0082"><h3>DDL後の表定義更新 Subscription 0137</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>藤R診断0138ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藤R診断0138です。藤R診断0138は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録藤R診断0138です。藤R診断0138ではログ先頭到達と取得時刻を採取票藤R診断0138へ残します。藤R診断0138ではDDL対象表の漏れを避けるため補助資料も照合する判断藤R診断0138です。藤R診断0138の用語整理では表定義変更対応の対象値を実在出力で点検する記録藤R診断0138です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Subscription 0137」を「DDL後の表定義更新 Source Table 0185」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。</li><li>B. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は初期ロード中の表をMirror完を避けるため・通信活動からCHC9788Iを読むして通信活動を照合する。</li><li>D. 仕様上の役割はプール宛先の誤読を避けるため・ブックマークでプール宛先を確認するしてプール宛先を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能ログ先・データでBの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・診断）です。照合ログ先・データに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・データです。比較後の表・診断でA:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は後の表・データ・診断です。項目後の表・データでC:の権限境界の確認 MIR12は「Mirror Statusで通信活動からCH」を述べるため、正答側の照合軸はデータ・後の表・ログ先です。仕様後の表・ログ先でD:のマッピング検査 プール宛先は「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は診断・データ・ログ先です。用語ログ先・診断という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・診断です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0137</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0137について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_017
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0137A
+画面・出力には IIDR114DD0137A が表示され、DDL後の表定義更新 Subscription 0137 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_017
+Table definition refreshed
+確認コード IIDR114DD0137B
+画面・出力には IIDR114DD0137B が表示され、DDL後の表定義更新 Subscription 0137 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE017
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0137C
+画面・出力には IIDR114DD0137C が表示され、DDL後の表定義更新 Subscription 0137 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0137A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0137B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0137C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0083"><h3>DDL後の表定義更新 Subscription 0152</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>桃M保守0153ではIBM IIDR 11.4 の DDL変更対応を扱う採取票桃M保守0153です。桃M保守0153は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録桃M保守0153です。桃M保守0153ではログ先頭到達と取得時刻を採取票桃M保守0153へ残します。桃M保守0153ではログ先頭未到達の見落としを避けるため補助資料も照合する判断桃M保守0153です。桃M保守0153の用語整理では表定義変更対応の対象値を実在出力で整理する記録桃M保守0153です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0152を同一分類のCDCミラーリング Latency 0202と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は登録で遅延確認を証跡に残し・ミラーリングの項目の遅延確認と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は保守でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. コマンドまたは機能の用途は構成監査で表再読込を証跡に残し・Table Mappingで表再読込から初期ロードedを読み。</li><li>D. コマンドまたは機能の用途は棚卸でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・ログ先でBの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・保守）です。照合ログ先・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・ログ先です。比較後の表・保守でA:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は後の表・ログ先・保守です。項目後の表・ログ先でC:の構成監査 MAP08は「Table Mappingで表再読込から初期」を述べるため、正答側の照合軸はログ先・後の表・ログ先です。仕様後の表・ログ先でD:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は保守・ログ先・ログ先です。用語ログ先・保守という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0152</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0152について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_032
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0152A
+画面・出力には IIDR114DD0152A が表示され、DDL後の表定義更新 Subscription 0152 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_032
+Table definition refreshed
+確認コード IIDR114DD0152B
+画面・出力には IIDR114DD0152B が表示され、DDL後の表定義更新 Subscription 0152 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE032
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0152C
+画面・出力には IIDR114DD0152C が表示され、DDL後の表定義更新 Subscription 0152 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0152A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0152B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0152C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0084"><h3>DDL後の表定義更新 Subscription 0167</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>茶H切替0168ではIBM IIDR 11.4 の DDL変更対応を扱う採取票茶H切替0168です。茶H切替0168は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録茶H切替0168です。茶H切替0168ではログ先頭到達と取得時刻を採取票茶H切替0168へ残します。茶H切替0168ではRefresh中の再開を避けるため補助資料も照合する判断茶H切替0168です。茶H切替0168の用語整理では表定義変更対応の対象値を実在出力で照合する記録茶H切替0168です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0167の設定や表示を読む前に役割を確認します。複製位置管理 Instance 0258ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は表示操作で対象欄を追跡することでログ先頭到達を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は変更確認操作で採取欄を棚卸することで戻り値を確認し・重複反映を防ぐ。</li><li>C. 一次資料が示す主目的は版数表示からReplicationを読むことで版数表示を確認し・別サブスクリプションを停止まを防ぐ。</li><li>D. 一次資料が示す主目的は確認操作で状態欄を整理することで遅延確認を確認し・遅延ゼロ確認の欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・初期ロでAの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・切替）です。照合ログ先・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・初期ロです。運用切替・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はログ先・後の表・切替です。項目後の表・初期ロでC:の再始動後の確認 SUB15は「CDC Subscriptionで版数表示か」を述べるため、正答側の照合軸は初期ロ・後の表・ログ先です。仕様後の表・ログ先でD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は切替・初期ロ・ログ先です。用語ログ先・切替という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0167</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0167について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_047
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0167A
+画面・出力には IIDR114DD0167A が表示され、DDL後の表定義更新 Subscription 0167 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_047
+Table definition refreshed
+確認コード IIDR114DD0167B
+画面・出力には IIDR114DD0167B が表示され、DDL後の表定義更新 Subscription 0167 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE047
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0167C
+画面・出力には IIDR114DD0167C が表示され、DDL後の表定義更新 Subscription 0167 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0167A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0167B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0167C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0085"><h3>DDL後の表定義更新 Subscription 0182</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>緑C収集0183ではIBM IIDR 11.4 の DDL変更対応を扱う採取票緑C収集0183です。緑C収集0183は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録緑C収集0183です。緑C収集0183ではログ先頭到達と取得時刻を採取票緑C収集0183へ残します。緑C収集0183では表定義未更新を避けるため補助資料も照合する判断緑C収集0183です。緑C収集0183の用語整理では表定義変更対応の対象値を実在出力で保管する記録緑C収集0183です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0182に関する障害切り分けの前提を確認しています。DDL後の表定義更新 Refresh Table 0278の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は照合で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。</li><li>B. 障害切り分けに用いる役割は収集でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は変更確認で完了確認を証跡に残し・CDC Refreshで完了確認からRowsappliedを。</li><li>D. 障害切り分けに用いる役割は棚卸で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・表定義でBの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・収集）です。照合ログ先・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・表定義です。比較後の表・収集でA:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は後の表・表定義・収集です。項目後の表・表定義でC:の変更後の確認 REF03は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸は表定義・後の表・ログ先です。仕様後の表・ログ先でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は収集・表定義・ログ先です。用語ログ先・収集という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・収集です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0182</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0182について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_062
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0182A
+画面・出力には IIDR114DD0182A が表示され、DDL後の表定義更新 Subscription 0182 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_062
+Table definition refreshed
+確認コード IIDR114DD0182B
+画面・出力には IIDR114DD0182B が表示され、DDL後の表定義更新 Subscription 0182 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE062
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0182C
+画面・出力には IIDR114DD0182C が表示され、DDL後の表定義更新 Subscription 0182 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0182A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0182B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0182C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0086"><h3>DDL後の表定義更新 Subscription 0197</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藤R収集0198ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藤R収集0198です。藤R収集0198は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録藤R収集0198です。藤R収集0198ではログ先頭到達と取得時刻を採取票藤R収集0198へ残します。藤R収集0198ではDDL対象表の漏れを避けるため補助資料も照合する判断藤R収集0198です。藤R収集0198の用語整理では表定義変更対応の対象値を実在出力で点検する記録藤R収集0198です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0197を保守記録に説明する必要があります。DDL後の表定義更新 Head of Log 0266と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・表定義未更新を防ぐである。点検操作で判定欄を記録するときは表定義未更新を防ぐ。</li><li>C. 仕様上の役割はMirror Statusで状態表示からLatencyを読み・Latencyとheadoflogを照合する。状態表示からLatencyを読むときは初期ロード中の表をMirroを防ぐ。</li><li>D. 仕様上の役割はミラーリングの項目の初期ロード状態と取得時刻を記録し・初期ロード未完了の見落としを防ぐである。記録操作で証跡欄を照合するときは初期ロード未完了の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・データでAの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・収集）です。照合ログ先・データに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・データです。運用収集・後の表でB:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸はログ先・後の表・収集です。項目後の表・データでC:のログとの照合 MIR07は「Mirror Statusで状態表示からLa」を述べるため、正答側の照合軸はデータ・後の表・ログ先です。仕様後の表・ログ先でD:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は収集・データ・ログ先です。用語ログ先・収集という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・収集です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0197</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0197について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_077
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0197A
+画面・出力には IIDR114DD0197A が表示され、DDL後の表定義更新 Subscription 0197 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_077
+Table definition refreshed
+確認コード IIDR114DD0197B
+画面・出力には IIDR114DD0197B が表示され、DDL後の表定義更新 Subscription 0197 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE077
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0197C
+画面・出力には IIDR114DD0197C が表示され、DDL後の表定義更新 Subscription 0197 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0197A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0197B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0197C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0087"><h3>DDL後の表定義更新 Subscription 0212</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>桃M登録0213ではIBM IIDR 11.4 の DDL変更対応を扱う採取票桃M登録0213です。桃M登録0213は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録桃M登録0213です。桃M登録0213ではログ先頭到達と取得時刻を採取票桃M登録0213へ残します。桃M登録0213ではログ先頭未到達の見落としを避けるため補助資料も照合する判断桃M登録0213です。桃M登録0213の用語整理では表定義変更対応の対象値を実在出力で整理する記録桃M登録0213です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0212の技術的な意味を資料で確認するとき、CDCミラーリング Subscription 0271との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでログ先頭到達を確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は採取操作で照合欄を点検することでイベントログを確認し・イベント重大度の誤読を防ぐ。</li><li>C. コマンドまたは機能の用途は遅延表示からBytespersecondことで遅延表示を確認し・送信回数だけでターゲット適用を防ぐ。</li><li>D. コマンドまたは機能の用途は採取操作で照合欄を点検することでサブスクリプを確認し・イベント重大度の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・ログ先でAの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・登録）です。照合ログ先・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・ログ先です。運用登録・後の表でB:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸はログ先・後の表・登録です。項目後の表・ログ先でC:の性能影響の確認 STAT11は「CDC Communicationsで遅延表」を述べるため、正答側の照合軸はログ先・後の表・ログ先です。仕様後の表・ログ先でD:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は登録・ログ先・ログ先です。用語ログ先・登録という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0212</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0212について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_092
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0212A
+画面・出力には IIDR114DD0212A が表示され、DDL後の表定義更新 Subscription 0212 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_092
+Table definition refreshed
+確認コード IIDR114DD0212B
+画面・出力には IIDR114DD0212B が表示され、DDL後の表定義更新 Subscription 0212 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE092
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0212C
+画面・出力には IIDR114DD0212C が表示され、DDL後の表定義更新 Subscription 0212 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0212A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0212B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0212C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0088"><h3>DDL後の表定義更新 Subscription 0227</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>茶H確認0228ではIBM IIDR 11.4 の DDL変更対応を扱う採取票茶H確認0228です。茶H確認0228は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録茶H確認0228です。茶H確認0228ではログ先頭到達と取得時刻を採取票茶H確認0228へ残します。茶H確認0228ではRefresh中の再開を避けるため補助資料も照合する判断茶H確認0228です。茶H確認0228の用語整理では表定義変更対応の対象値を実在出力で照合する記録茶H確認0228です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0227について構成や状態を確認します。複製位置管理 Hex Position 0306ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は表示操作で対象欄を追跡することでログ先頭到達を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は変更確認操作で採取欄を棚卸することでインスタンスを確認し・重複反映を防ぐ。</li><li>C. 一次資料が示す主目的は完了確認からRowsappliedを読むことで完了確認を確認し・初期ロード未完了でMirroを防ぐ。</li><li>D. 一次資料が示す主目的は監査操作で記録欄を比較することで戻り値を確認し・データ欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能ログ先・初期ロでAの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・確認）です。照合ログ先・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・初期ロです。運用確認・後の表でB:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸はログ先・後の表・確認です。項目後の表・初期ロでC:の変更後の確認 REF03は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸は初期ロ・後の表・ログ先です。仕様後の表・ログ先でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は確認・初期ロ・ログ先です。用語ログ先・確認という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0227</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0227について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_107
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0227A
+画面・出力には IIDR114DD0227A が表示され、DDL後の表定義更新 Subscription 0227 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_107
+Table definition refreshed
+確認コード IIDR114DD0227B
+画面・出力には IIDR114DD0227B が表示され、DDL後の表定義更新 Subscription 0227 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE107
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0227C
+画面・出力には IIDR114DD0227C が表示され、DDL後の表定義更新 Subscription 0227 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0227A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0227B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0227C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0089"><h3>DDL後の表定義更新 Subscription 0242</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>緑C保護0243ではIBM IIDR 11.4 の DDL変更対応を扱う採取票緑C保護0243です。緑C保護0243は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録緑C保護0243です。緑C保護0243ではログ先頭到達と取得時刻を採取票緑C保護0243へ残します。緑C保護0243では表定義未更新を避けるため補助資料も照合する判断緑C保護0243です。緑C保護0243の用語整理では表定義変更対応の対象値を実在出力で保管する記録緑C保護0243です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0242の役割を調べています。複製位置管理 Bookmark 0339の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は監査操作で記録欄を比較することで複製位置を確認し・データ欠落を防ぐ。</li><li>B. 障害切り分けに用いる役割は遅延表示で遅延表示を確認することで遅延表示を確認し・遅延表示の誤読を防ぐ。</li><li>C. 障害切り分けに用いる役割は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は確認操作で状態欄を整理することでミラー開始を確認し・遅延ゼロ確認の欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能ログ先・表定義でCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・保護）です。照合ログ先・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・表定義です。比較後の表・保護でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・表定義・保護です。運用保護・後の表でB:の開始位置指定 遅延表示は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸はログ先・後の表・保護です。仕様後の表・ログ先でD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は保護・表定義・ログ先です。用語ログ先・保護という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・保護です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0242</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0242について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_002
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0242A
+画面・出力には IIDR114DD0242A が表示され、DDL後の表定義更新 Subscription 0242 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_002
+Table definition refreshed
+確認コード IIDR114DD0242B
+画面・出力には IIDR114DD0242B が表示され、DDL後の表定義更新 Subscription 0242 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE002
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0242C
+画面・出力には IIDR114DD0242C が表示され、DDL後の表定義更新 Subscription 0242 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0242A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0242B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0242C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0090"><h3>DDL後の表定義更新 Subscription 0257</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>藤R保護0258ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藤R保護0258です。藤R保護0258は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録藤R保護0258です。藤R保護0258ではログ先頭到達と取得時刻を採取票藤R保護0258へ残します。藤R保護0258ではDDL対象表の漏れを避けるため補助資料も照合する判断藤R保護0258です。藤R保護0258の用語整理では表定義変更対応の対象値を実在出力で点検する記録藤R保護0258です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Subscription 0257」を「DDL後の表定義更新 Refresh Table 0323」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。</li><li>B. 仕様上の役割は入力欄の誤読を避けるため・マッピングで入力欄を確認するして入力欄を照合する。</li><li>C. 仕様上の役割は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するしてミラー開始を照合する。</li><li>D. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能ログ先・データでDの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・保護）です。照合ログ先・データに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・データです。比較後の表・保護でA:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は後の表・データ・保護です。運用保護・後の表でB:の遅延監視 入力欄は「対象表を初期同期または再同期する複製操作を遅」を述べるため、正答側の照合軸はログ先・後の表・保護です。項目後の表・データでC:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はデータ・後の表・ログ先です。用語ログ先・保護という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・保護です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0257</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0257について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_017
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0257A
+画面・出力には IIDR114DD0257A が表示され、DDL後の表定義更新 Subscription 0257 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_017
+Table definition refreshed
+確認コード IIDR114DD0257B
+画面・出力には IIDR114DD0257B が表示され、DDL後の表定義更新 Subscription 0257 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE017
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0257C
+画面・出力には IIDR114DD0257C が表示され、DDL後の表定義更新 Subscription 0257 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0257A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0257B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0257C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0091"><h3>DDL後の表定義更新 Subscription 0272</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>桃M照合0273ではIBM IIDR 11.4 の DDL変更対応を扱う採取票桃M照合0273です。桃M照合0273は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録桃M照合0273です。桃M照合0273ではログ先頭到達と取得時刻を採取票桃M照合0273へ残します。桃M照合0273ではログ先頭未到達の見落としを避けるため補助資料も照合する判断桃M照合0273です。桃M照合0273の用語整理では表定義変更対応の対象値を実在出力で整理する記録桃M照合0273です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0272を同一分類の複製位置管理 Hex Position 0306と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はHex Positionのインスタンス名と取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。複製位置管理 Hex Position 0306固有の属性も確認対象に含める。</li><li>B. コマンドまたは機能の用途はLog Dependencyで支援情報からReturnvalueを読みである。支援情報からReturnvalueをときは休止購読を見落として必要ログを防ぐ。</li><li>C. コマンドまたは機能の用途は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はミラーリングの項目のイベントログと取得時刻を記録し・イベント重大度の誤読を防ぐである。採取操作で照合欄を点検するときはイベント重大度の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・ログ先でCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・照合）です。照合ログ先・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・ログ先です。比較後の表・照合でA:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は後の表・ログ先・照合です。運用照合・後の表でB:の変更後の確認 LOG03は「Log Dependencyで支援情報からR」を述べるため、正答側の照合軸はログ先・後の表・照合です。仕様後の表・ログ先でD:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は照合・ログ先・ログ先です。用語ログ先・照合という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0272</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0272について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_032
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0272A
+画面・出力には IIDR114DD0272A が表示され、DDL後の表定義更新 Subscription 0272 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_032
+Table definition refreshed
+確認コード IIDR114DD0272B
+画面・出力には IIDR114DD0272B が表示され、DDL後の表定義更新 Subscription 0272 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE032
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0272C
+画面・出力には IIDR114DD0272C が表示され、DDL後の表定義更新 Subscription 0272 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0272A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0272B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0272C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0092"><h3>DDL後の表定義更新 Subscription 0287</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>茶H抑止0288ではIBM IIDR 11.4 の DDL変更対応を扱う採取票茶H抑止0288です。茶H抑止0288は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録茶H抑止0288です。茶H抑止0288ではログ先頭到達と取得時刻を採取票茶H抑止0288へ残します。茶H抑止0288ではRefresh中の再開を避けるため補助資料も照合する判断茶H抑止0288です。茶H抑止0288の用語整理では表定義変更対応の対象値を実在出力で照合する記録茶H抑止0288です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0287の設定や表示を読む前に役割を確認します。複製位置管理 Bookmark 0339ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はBookmarkの複製位置と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。</li><li>B. 一次資料が示す主目的はログ上の適用位置と時刻を追跡する複製の進行点を失敗時切り分けとして確認する。性能統計で実行結果を確認するときは実行結果の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的はミラーリングの項目のミラー開始と取得時刻を記録し・初期ロード未完了の見落としを防ぐである。記録操作で証跡欄を照合するときは初期ロード未完了の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・初期ロでCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・抑止）です。照合ログ先・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・初期ロです。比較後の表・抑止でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・初期ロ・抑止です。運用抑止・後の表でB:の失敗時切り分け 実行結果は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸はログ先・後の表・抑止です。仕様後の表・ログ先でD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は抑止・初期ロ・ログ先です。用語ログ先・抑止という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0287</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0287について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_047
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0287A
+画面・出力には IIDR114DD0287A が表示され、DDL後の表定義更新 Subscription 0287 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_047
+Table definition refreshed
+確認コード IIDR114DD0287B
+画面・出力には IIDR114DD0287B が表示され、DDL後の表定義更新 Subscription 0287 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE047
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0287C
+画面・出力には IIDR114DD0287C が表示され、DDL後の表定義更新 Subscription 0287 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0287A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0287B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0287C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0093"><h3>DDL後の表定義更新 Subscription 0302</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>緑C解析0303ではIBM IIDR 11.4 の DDL変更対応を扱う採取票緑C解析0303です。緑C解析0303は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録緑C解析0303です。緑C解析0303ではログ先頭到達と取得時刻を採取票緑C解析0303へ残します。緑C解析0303では表定義未更新を避けるため補助資料も照合する判断緑C解析0303です。緑C解析0303の用語整理では表定義変更対応の対象値を実在出力で保管する記録緑C解析0303です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0302に関する障害切り分けの前提を確認しています。サブスクリプション管理 CDC Subscription 構成監査 SUB08の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は別サブスクリプションを停止またはを避けるため・イベント表示からSeverityを読むしてイベント表示を照合する。</li><li>B. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてログ先頭到達を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は高速伝搬の誤読を避けるため・状態確認で高速伝搬を確認するして高速伝搬を照合する。</li><li>D. 障害切り分けに用いる役割はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして遅延確認を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・表定義でBの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・解析）です。照合ログ先・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・表定義です。比較後の表・解析でA:の構成監査 SUB08は「CDC Subscriptionでイベント表」を述べるため、正答側の照合軸は後の表・表定義・解析です。項目後の表・表定義でC:の状態確認 高速伝搬は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は表定義・後の表・ログ先です。仕様後の表・ログ先でD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は解析・表定義・ログ先です。用語ログ先・解析という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・表定義・解析です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0302</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0302について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_062
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0302A
+画面・出力には IIDR114DD0302A が表示され、DDL後の表定義更新 Subscription 0302 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_062
+Table definition refreshed
+確認コード IIDR114DD0302B
+画面・出力には IIDR114DD0302B が表示され、DDL後の表定義更新 Subscription 0302 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE062
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0302C
+画面・出力には IIDR114DD0302C が表示され、DDL後の表定義更新 Subscription 0302 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0302A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0302B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0302C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0094"><h3>DDL後の表定義更新 Subscription 0317</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>藤R解析0318ではIBM IIDR 11.4 の DDL変更対応を扱う採取票藤R解析0318です。藤R解析0318は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録藤R解析0318です。藤R解析0318ではログ先頭到達と取得時刻を採取票藤R解析0318へ残します。藤R解析0318ではDDL対象表の漏れを避けるため補助資料も照合する判断藤R解析0318です。藤R解析0318の用語整理では表定義変更対応の対象値を実在出力で点検する記録藤R解析0318です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0317を保守記録に説明する必要があります。CDCミラーリング Table Status 0340と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は解除で初期ロード状を証跡に残し・ミラーリングの項目の初期ロード状態と取得時刻を記録し。</li><li>B. 仕様上の役割は遅延表示で遅延表示を証跡に残し・複製対象の表対応と開始位置をまとめる管理単位。</li><li>C. 仕様上の役割は解析でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は収集で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・データ欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・データでCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・解析）です。照合ログ先・データに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象は後の表・ログ先・データです。比較後の表・解析でA:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は後の表・データ・解析です。運用解析・後の表でB:の開始位置指定 遅延表示は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸はログ先・後の表・解析です。仕様後の表・ログ先でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は解析・データ・ログ先です。用語ログ先・解析という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・データ・解析です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0317</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0317について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_077
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0317A
+画面・出力には IIDR114DD0317A が表示され、DDL後の表定義更新 Subscription 0317 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_077
+Table definition refreshed
+確認コード IIDR114DD0317B
+画面・出力には IIDR114DD0317B が表示され、DDL後の表定義更新 Subscription 0317 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE077
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0317C
+画面・出力には IIDR114DD0317C が表示され、DDL後の表定義更新 Subscription 0317 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0317A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0317B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0317C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0095"><h3>DDL後の表定義更新 Subscription 0332</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>桃M計画0333ではIBM IIDR 11.4 の DDL変更対応を扱う採取票桃M計画0333です。桃M計画0333は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録桃M計画0333です。桃M計画0333ではログ先頭到達と取得時刻を採取票桃M計画0333へ残します。桃M計画0333ではログ先頭未到達の見落としを避けるため補助資料も照合する判断桃M計画0333です。桃M計画0333の用語整理では表定義変更対応の対象値を実在出力で整理する記録桃M計画0333です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0332の技術的な意味を資料で確認するとき、複製位置管理 Bookmark 0339との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は計画で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は状態確認で承認待ちを証跡に残し・サブスクリプションやデータストアの処理量と遅延を測る情報。</li><li>C. コマンドまたは機能の用途は計画でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は収集で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ先・ログ先でCの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・計画）です。照合ログ先・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象はログ先・計画・ログ先です。比較後の表・計画でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・計画・ログ先です。運用計画・後の表でB:の状態確認 承認待ちは「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸はログ先・後の表・計画です。仕様後の表・ログ先でD:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は計画・ログ先・ログ先です。用語ログ先・計画という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・ログ先です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0332</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0332について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_092
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0332A
+画面・出力には IIDR114DD0332A が表示され、DDL後の表定義更新 Subscription 0332 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_092
+Table definition refreshed
+確認コード IIDR114DD0332B
+画面・出力には IIDR114DD0332B が表示され、DDL後の表定義更新 Subscription 0332 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE092
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0332C
+画面・出力には IIDR114DD0332C が表示され、DDL後の表定義更新 Subscription 0332 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0332A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0332B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0332C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0096"><h3>DDL後の表定義更新 Subscription 0347</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>茶H解除0348ではIBM IIDR 11.4 の DDL変更対応を扱う採取票茶H解除0348です。茶H解除0348は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録茶H解除0348です。茶H解除0348ではログ先頭到達と取得時刻を採取票茶H解除0348へ残します。茶H解除0348ではRefresh中の再開を避けるため補助資料も照合する判断茶H解除0348です。茶H解除0348の用語整理では表定義変更対応の対象値を実在出力で照合する記録茶H解除0348です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Subscription 0347について構成や状態を確認します。複製位置管理 Instance 0348ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は解除で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は解除でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は棚卸でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li><li>D. 一次資料が示す主目的は保護で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能ログ先・初期ロでBの記述「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」に対応する項目はDDL後の表定義更新（後の表・ログ先・解除）です。照合ログ先・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」で、確認対象はログ先・解除・初期ロです。比較後の表・解除でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・解除・ログ先です。項目後の表・初期ロでC:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は初期ロ・後の表・ログ先です。仕様後の表・ログ先でD:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は解除・初期ロ・ログ先です。用語ログ先・解除という用語は「後の表定義更新の項目のログ先頭到達と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Subscription 0347</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Subscription 0347について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Subscription と ログ先頭到達</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_107
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0347A
+画面・出力には IIDR114DD0347A が表示され、DDL後の表定義更新 Subscription 0347 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_107
+Table definition refreshed
+確認コード IIDR114DD0347B
+画面・出力には IIDR114DD0347B が表示され、DDL後の表定義更新 Subscription 0347 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Subscription を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE107
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0347C
+画面・出力には IIDR114DD0347C が表示され、DDL後の表定義更新 Subscription 0347 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0347A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0347B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0347C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0097"><h3>DDL後の表定義更新 Table Definition 0014</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>翠O巡回0015ではIBM IIDR 11.4 の DDL変更対応を扱う採取票翠O巡回0015です。翠O巡回0015は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録翠O巡回0015です。翠O巡回0015ではDDL対象表と取得時刻を採取票翠O巡回0015へ残します。翠O巡回0015では表定義未更新を避けるため補助資料も照合する判断翠O巡回0015です。翠O巡回0015の用語整理では表定義変更対応の対象値を実在出力で保管する記録翠O巡回0015です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0014に関する障害切り分けの前提を確認しています。複製位置管理 Hex Position 0111の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてDDL対象表を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割はデータ欠落を避けるため・監査操作で記録欄を比較するしてインスタンスを照合する。</li><li>C. 障害切り分けに用いる役割はRefresh未完了の見落としを避けるため・記録操作で証跡欄を照合するしてミラー開始を照合する。</li><li>D. 障害切り分けに用いる役割は送信回数だけでターゲット適用完了を避けるため・ログ依存からOldestdependenしてログ依存を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 巡回・DDL・表定義未でAの記述「DDLのDDL対象表と取得時刻を記録し、表定義未更新を防ぐである」に対応する項目はTable Definition（後の表・DDL・表定義未・巡回）です。巡回時のDDL対象に関するDDL変更対応の仕様は「DDLのDDL対象表と取得時刻を記録し、表定義未更新を防ぐ」で、確認対象は後の表・DDL・表定義未・巡回です。移行・インス・データ欠のB:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・インス・データ欠・移行）です。確認時のミラー開始のC:は「CDCのミラー開始と取得時刻を記録し、Refresh未完了の見落とし」を述べ、対象はEvent Severity（ミラー・ミラー・Refr・確認）です。ログ依存を再始動確認のD:は「CDC Communicationsでログ依存からOldestdep」を述べ、対象は再始動後の確認 STAT15（CDC・ログ依・送信回数・再始動）です。DDL対象を巡回という用語は「DDLのDDL対象表と取得時刻を記録し」を指し、Table Definition（後の表・DDL・表定義未・巡回）で照合する値はDDL対象表です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0014</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0014について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_014
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0014A
+画面・出力には IIDR114DD0014A が表示され、DDL後の表定義更新 Table Definition 0014 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_014
+Table definition refreshed
+確認コード IIDR114DD0014B
+画面・出力には IIDR114DD0014B が表示され、DDL後の表定義更新 Table Definition 0014 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE014
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0014C
+画面・出力には IIDR114DD0014C が表示され、DDL後の表定義更新 Table Definition 0014 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0014A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0014B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0014C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0098"><h3>DDL後の表定義更新 Table Definition 0029</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>朱J棚卸0030ではIBM IIDR 11.4 の DDL変更対応を扱う採取票朱J棚卸0030です。朱J棚卸0030は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録朱J棚卸0030です。朱J棚卸0030ではDDL対象表と取得時刻を採取票朱J棚卸0030へ残します。朱J棚卸0030ではDDL対象表の漏れを避けるため補助資料も照合する判断朱J棚卸0030です。朱J棚卸0030の用語整理では表定義変更対応の対象値を実在出力で点検する記録朱J棚卸0030です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0029を保守記録に説明する必要があります。DDL後の表定義更新 Head of Log 0101と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は復旧操作で点検欄を確認することでデータ定義対を確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は復旧操作で点検欄を確認することでサブスクリプを確認し・データ定義対象表の漏れを防ぐ。</li><li>C. 仕様上の役割は確認操作で状態欄を整理することでイベントログを確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>D. 仕様上の役割は完了確認からRowsappliedを読むことで完了確認を確認し・初期ロード未完了でMirroを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・データでAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・棚卸）です。照合データ・データに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・データです。運用棚卸・後の表でB:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸はデータ・後の表・棚卸です。項目後の表・データでC:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸はデータ・後の表・データです。仕様後の表・データでD:の再始動後の確認 REF15は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸は棚卸・データ・データです。用語データ・棚卸という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・棚卸です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0029</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0029について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_029
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0029A
+画面・出力には IIDR114DD0029A が表示され、DDL後の表定義更新 Table Definition 0029 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_029
+Table definition refreshed
+確認コード IIDR114DD0029B
+画面・出力には IIDR114DD0029B が表示され、DDL後の表定義更新 Table Definition 0029 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE029
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0029C
+画面・出力には IIDR114DD0029C が表示され、DDL後の表定義更新 Table Definition 0029 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0029A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0029B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0029C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0099"><h3>DDL後の表定義更新 Table Definition 0044</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紅E復旧0045ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紅E復旧0045です。紅E復旧0045は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録紅E復旧0045です。紅E復旧0045ではDDL対象表と取得時刻を採取票紅E復旧0045へ残します。紅E復旧0045ではログ先頭未到達の見落としを避けるため補助資料も照合する判断紅E復旧0045です。紅E復旧0045の用語整理では表定義変更対応の対象値を実在出力で整理する記録紅E復旧0045です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0044の技術的な意味を資料で確認するとき、複製位置管理 Instance 0093との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでデータ定義対を確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は主操作で出力欄を評価することで戻り値を確認し・ベンダー指示なしの位置変更を防ぐ。複製位置管理 Instance 0093固有の属性も確認対象に含める。</li><li>C. コマンドまたは機能の用途は復旧操作で点検欄を確認することで表定義再読込を確認し・データ定義対象表の漏れを防ぐ。</li><li>D. コマンドまたは機能の用途は遅延表示で遅延表示を確認することで遅延表示を確認し・遅延表示の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・ログ先でAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・復旧）です。照合データ・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・ログ先です。運用復旧・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はデータ・後の表・復旧です。項目後の表・ログ先でC:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸はログ先・後の表・データです。仕様後の表・データでD:の開始位置指定 遅延表示は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸は復旧・ログ先・データです。用語データ・復旧という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0044</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0044について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_044
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0044A
+画面・出力には IIDR114DD0044A が表示され、DDL後の表定義更新 Table Definition 0044 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_044
+Table definition refreshed
+確認コード IIDR114DD0044B
+画面・出力には IIDR114DD0044B が表示され、DDL後の表定義更新 Table Definition 0044 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE044
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0044C
+画面・出力には IIDR114DD0044C が表示され、DDL後の表定義更新 Table Definition 0044 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0044A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0044B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0044C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0100"><h3>DDL後の表定義更新 Table Definition 0059</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>空T復旧0060ではIBM IIDR 11.4 の DDL変更対応を扱う採取票空T復旧0060です。空T復旧0060は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録空T復旧0060です。空T復旧0060ではDDL対象表と取得時刻を採取票空T復旧0060へ残します。空T復旧0060ではRefresh中の再開を避けるため補助資料も照合する判断空T復旧0060です。空T復旧0060の用語整理では表定義変更対応の対象値を実在出力で照合する記録空T復旧0060です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0059について構成や状態を確認します。CDCミラーリング Table Status 0070ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はミラーリングの項目の初期ロード状態と取得時刻を記録し・遅延ゼロ確認の欠落を防ぐである。確認操作で状態欄を整理するときは遅延ゼロ確認の欠落を防ぐ。</li><li>B. 一次資料が示す主目的はミラーリングの項目のミラー開始と取得時刻を記録し・初期ロード未完了の見落としを防ぐである。記録操作で証跡欄を照合するときは初期ロード未完了の見落としを防ぐ。</li><li>C. 一次資料が示す主目的はソース変更を読み取りサブスクリプションへ渡す処理である。ログ位置照合でキーマップを確認するときはキーマップの誤読を防ぐ。</li><li>D. 一次資料が示す主目的は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・初期ロでDの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・復旧）です。照合データ・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・初期ロです。比較後の表・復旧でA:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸は後の表・初期ロ・復旧です。運用復旧・後の表でB:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はデータ・後の表・復旧です。項目後の表・初期ロでC:のログ位置照合 キーマップは「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は初期ロ・後の表・データです。用語データ・復旧という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・復旧です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0059</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0059について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_059
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0059A
+画面・出力には IIDR114DD0059A が表示され、DDL後の表定義更新 Table Definition 0059 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_059
+Table definition refreshed
+確認コード IIDR114DD0059B
+画面・出力には IIDR114DD0059B が表示され、DDL後の表定義更新 Table Definition 0059 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE059
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0059C
+画面・出力には IIDR114DD0059C が表示され、DDL後の表定義更新 Table Definition 0059 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0059A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0059B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0059C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0101"><h3>DDL後の表定義更新 Table Definition 0074</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>翠O監査0075ではIBM IIDR 11.4 の DDL変更対応を扱う採取票翠O監査0075です。翠O監査0075は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録翠O監査0075です。翠O監査0075ではDDL対象表と取得時刻を採取票翠O監査0075へ残します。翠O監査0075では表定義未更新を避けるため補助資料も照合する判断翠O監査0075です。翠O監査0075の用語整理では表定義変更対応の対象値を実在出力で保管する記録翠O監査0075です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0074の役割を調べています。複製位置管理 Locale 0162の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は変更確認操作で採取欄を棚卸することでサブスクリプを確認し・重複反映を防ぐ。</li><li>B. 障害切り分けに用いる役割は点検操作で判定欄を記録することでデータ定義対を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は点検操作で判定欄を記録することで再開条件を確認し・表定義未更新を防ぐ。</li><li>D. 障害切り分けに用いる役割は通信エラーからERRORを読むことで通信エラーを確認し・情報イベントと停止を伴うエラを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・表定義でBの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・監査）です。照合データ・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・表定義です。比較後の表・監査でA:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は後の表・表定義・監査です。項目後の表・表定義でC:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は表定義・後の表・データです。仕様後の表・データでD:の構成監査 ERR08は「CDC Event Logで通信エラーからE」を述べるため、正答側の照合軸は監査・表定義・データです。用語データ・監査という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・表定義・監査です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0074</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0074について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_074
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0074A
+画面・出力には IIDR114DD0074A が表示され、DDL後の表定義更新 Table Definition 0074 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_074
+Table definition refreshed
+確認コード IIDR114DD0074B
+画面・出力には IIDR114DD0074B が表示され、DDL後の表定義更新 Table Definition 0074 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE074
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0074C
+画面・出力には IIDR114DD0074C が表示され、DDL後の表定義更新 Table Definition 0074 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0074A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0074B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0074C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0102"><h3>DDL後の表定義更新 Table Definition 0089</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>朱J変更0090ではIBM IIDR 11.4 の DDL変更対応を扱う採取票朱J変更0090です。朱J変更0090は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録朱J変更0090です。朱J変更0090ではDDL対象表と取得時刻を採取票朱J変更0090へ残します。朱J変更0090ではDDL対象表の漏れを避けるため補助資料も照合する判断朱J変更0090です。朱J変更0090の用語整理では表定義変更対応の対象値を実在出力で点検する記録朱J変更0090です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Table Definition 0089」を「CDCミラーリング Latency 0112」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は変更でデータ定義対を証跡に残し・後の表定義更新の項目のデータ定義対象表と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は移行で遅延確認を証跡に残し・ミラーリングの項目の遅延確認と取得時刻を記録し。</li><li>C. 仕様上の役割は復旧準備でイベント表示を証跡に残し・CDC Subscriptionでイベント表示からSever。</li><li>D. 仕様上の役割は複製状態監視で対象表を証跡に残し・ログ上の適用位置と時刻を追跡する複製の進行点をマッピング検査。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・データでAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・変更）です。照合データ・データに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・データです。運用変更・後の表でB:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸はデータ・後の表・変更です。項目後の表・データでC:の復旧準備 SUB05は「CDC Subscriptionでイベント表」を述べるため、正答側の照合軸はデータ・後の表・データです。仕様後の表・データでD:のマッピング検査 対象表は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は変更・データ・データです。用語データ・変更という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・変更です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0089</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0089について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_089
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0089A
+画面・出力には IIDR114DD0089A が表示され、DDL後の表定義更新 Table Definition 0089 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_089
+Table definition refreshed
+確認コード IIDR114DD0089B
+画面・出力には IIDR114DD0089B が表示され、DDL後の表定義更新 Table Definition 0089 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE089
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0089C
+画面・出力には IIDR114DD0089C が表示され、DDL後の表定義更新 Table Definition 0089 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0089A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0089B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0089C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0103"><h3>DDL後の表定義更新 Table Definition 0104</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>紅E移行0105ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紅E移行0105です。紅E移行0105は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録紅E移行0105です。紅E移行0105ではDDL対象表と取得時刻を採取票紅E移行0105へ残します。紅E移行0105ではログ先頭未到達の見落としを避けるため補助資料も照合する判断紅E移行0105です。紅E移行0105の用語整理では表定義変更対応の対象値を実在出力で整理する記録紅E移行0105です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0104を同一分類の複製位置管理 Instance 0108と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして戻り値を照合する。</li><li>B. コマンドまたは機能の用途は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして初期ロード状を照合する。</li><li>C. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するして表定義再読込を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能データ・ログ先でCの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・移行）です。照合データ・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・ログ先です。比較後の表・移行でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・ログ先・移行です。運用移行・後の表でB:のTable Statusは「ミラーリングの項目の初期ロード状態と取得時刻」を述べるため、正答側の照合軸はデータ・後の表・移行です。仕様後の表・データでD:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は移行・ログ先・データです。用語データ・移行という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0104</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0104について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_104
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0104A
+画面・出力には IIDR114DD0104A が表示され、DDL後の表定義更新 Table Definition 0104 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_104
+Table definition refreshed
+確認コード IIDR114DD0104B
+画面・出力には IIDR114DD0104B が表示され、DDL後の表定義更新 Table Definition 0104 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE104
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0104C
+画面・出力には IIDR114DD0104C が表示され、DDL後の表定義更新 Table Definition 0104 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0104A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0104B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0104C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0104"><h3>DDL後の表定義更新 Table Definition 0119</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>空T移行0120ではIBM IIDR 11.4 の DDL変更対応を扱う採取票空T移行0120です。空T移行0120は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録空T移行0120です。空T移行0120ではDDL対象表と取得時刻を採取票空T移行0120へ残します。空T移行0120ではRefresh中の再開を避けるため補助資料も照合する判断空T移行0120です。空T移行0120の用語整理では表定義変更対応の対象値を実在出力で照合する記録空T移行0120です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0119の設定や表示を読む前に役割を確認します。複製位置管理 Subscription 0195ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はデータ欠落を避けるため・監査操作で記録欄を比較するして16進ブックを照合する。</li><li>C. 一次資料が示す主目的はホスト名変更後の購読構成を更新せを避けるため・イベント確認からcommunicatioしてイベント確認を照合する。</li><li>D. 一次資料が示す主目的はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするして表定義再読込を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能データ・初期ロでAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・移行）です。照合データ・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・初期ロです。運用移行・後の表でB:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸はデータ・後の表・移行です。項目後の表・初期ロでC:の復旧後の確認 STORE06は「CDC Datastoreでイベント確認から」を述べるため、正答側の照合軸は初期ロ・後の表・データです。仕様後の表・データでD:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は移行・初期ロ・データです。用語データ・移行という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・移行です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0119</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0119について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_119
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0119A
+画面・出力には IIDR114DD0119A が表示され、DDL後の表定義更新 Table Definition 0119 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_119
+Table definition refreshed
+確認コード IIDR114DD0119B
+画面・出力には IIDR114DD0119B が表示され、DDL後の表定義更新 Table Definition 0119 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE119
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0119C
+画面・出力には IIDR114DD0119C が表示され、DDL後の表定義更新 Table Definition 0119 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0119A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0119B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0119C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0105"><h3>DDL後の表定義更新 Table Definition 0134</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>翠O診断0135ではIBM IIDR 11.4 の DDL変更対応を扱う採取票翠O診断0135です。翠O診断0135は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録翠O診断0135です。翠O診断0135ではDDL対象表と取得時刻を採取票翠O診断0135へ残します。翠O診断0135では表定義未更新を避けるため補助資料も照合する判断翠O診断0135です。翠O診断0135の用語整理では表定義変更対応の対象値を実在出力で保管する記録翠O診断0135です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0134に関する障害切り分けの前提を確認しています。複製位置管理 Subscription 0135の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は診断で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。</li><li>B. 障害切り分けに用いる役割は診断でデータ定義対を証跡に残し・後の表定義更新の項目のデータ定義対象表と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は解除で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は状態確認で承認待ちを証跡に残し・サブスクリプションやデータストアの処理量と遅延を測る情報。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能データ・表定義でBの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・診断）です。照合データ・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・表定義です。比較後の表・診断でA:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は後の表・表定義・診断です。項目後の表・表定義でC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は表定義・後の表・データです。仕様後の表・データでD:の状態確認 承認待ちは「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は診断・表定義・データです。用語データ・診断という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・表定義・診断です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0134</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0134について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_014
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0134A
+画面・出力には IIDR114DD0134A が表示され、DDL後の表定義更新 Table Definition 0134 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_014
+Table definition refreshed
+確認コード IIDR114DD0134B
+画面・出力には IIDR114DD0134B が表示され、DDL後の表定義更新 Table Definition 0134 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE014
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0134C
+画面・出力には IIDR114DD0134C が表示され、DDL後の表定義更新 Table Definition 0134 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0134A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0134B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0134C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0106"><h3>DDL後の表定義更新 Table Definition 0149</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>朱J保守0150ではIBM IIDR 11.4 の DDL変更対応を扱う採取票朱J保守0150です。朱J保守0150は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録朱J保守0150です。朱J保守0150ではDDL対象表と取得時刻を採取票朱J保守0150へ残します。朱J保守0150ではDDL対象表の漏れを避けるため補助資料も照合する判断朱J保守0150です。朱J保守0150の用語整理では表定義変更対応の対象値を実在出力で点検する記録朱J保守0150です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0149を保守記録に説明する必要があります。DDL後の表定義更新 Head of Log 0191と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてサブスクリプを照合する。</li><li>B. 仕様上の役割は初期ロード未完了でMirrorへを避けるため・方式変更からReturnvalueを読むして方式変更を照合する。</li><li>C. 仕様上の役割は高速伝搬の誤読を避けるため・状態確認で高速伝搬を確認するして高速伝搬を照合する。</li><li>D. 仕様上の役割はデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・データでDの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・保守）です。照合データ・データに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・データです。比較後の表・保守でA:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は後の表・データ・保守です。運用保守・後の表でB:の変更前の確認 REF02は「CDC Refreshで方式変更からRetu」を述べるため、正答側の照合軸はデータ・後の表・保守です。項目後の表・データでC:の状態確認 高速伝搬は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸はデータ・後の表・データです。用語データ・保守という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・保守です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0149</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0149について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_029
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0149A
+画面・出力には IIDR114DD0149A が表示され、DDL後の表定義更新 Table Definition 0149 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_029
+Table definition refreshed
+確認コード IIDR114DD0149B
+画面・出力には IIDR114DD0149B が表示され、DDL後の表定義更新 Table Definition 0149 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE029
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0149C
+画面・出力には IIDR114DD0149C が表示され、DDL後の表定義更新 Table Definition 0149 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0149A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0149B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0149C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0107"><h3>DDL後の表定義更新 Table Definition 0164</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紅E切替0165ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紅E切替0165です。紅E切替0165は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録紅E切替0165です。紅E切替0165ではDDL対象表と取得時刻を採取票紅E切替0165へ残します。紅E切替0165ではログ先頭未到達の見落としを避けるため補助資料も照合する判断紅E切替0165です。紅E切替0165の用語整理では表定義変更対応の対象値を実在出力で整理する記録紅E切替0165です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0164の技術的な意味を資料で確認するとき、複製位置管理 Bookmark 0204との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は照合操作で確認欄を採取することで複製位置を確認し・対象インスタンスの取り違えを防ぐ。</li><li>B. コマンドまたは機能の用途は通信活動からCHC9788Iを読むことで通信活動を確認し・初期ロード中の表をMirroを防ぐ。</li><li>C. コマンドまたは機能の用途は統計採取で収集装置を確認することで収集装置を確認し・収集装置の誤読を防ぐ。</li><li>D. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることでデータ定義対を確認し・ログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・ログ先でDの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・切替）です。照合データ・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・ログ先です。比較後の表・切替でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・ログ先・切替です。運用切替・後の表でB:の変更後の確認 MIR03は「Mirror Statusで通信活動からCH」を述べるため、正答側の照合軸はデータ・後の表・切替です。項目後の表・ログ先でC:の統計採取 収集装置は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸はログ先・後の表・データです。用語データ・切替という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0164</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0164について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_044
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0164A
+画面・出力には IIDR114DD0164A が表示され、DDL後の表定義更新 Table Definition 0164 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_044
+Table definition refreshed
+確認コード IIDR114DD0164B
+画面・出力には IIDR114DD0164B が表示され、DDL後の表定義更新 Table Definition 0164 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE044
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0164C
+画面・出力には IIDR114DD0164C が表示され、DDL後の表定義更新 Table Definition 0164 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0164A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0164B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0164C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0108"><h3>DDL後の表定義更新 Table Definition 0179</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>空T切替0180ではIBM IIDR 11.4 の DDL変更対応を扱う採取票空T切替0180です。空T切替0180は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録空T切替0180です。空T切替0180ではDDL対象表と取得時刻を採取票空T切替0180へ残します。空T切替0180ではRefresh中の再開を避けるため補助資料も照合する判断空T切替0180です。空T切替0180の用語整理では表定義変更対応の対象値を実在出力で照合する記録空T切替0180です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0179について構成や状態を確認します。DDL後の表定義更新 Refresh Table 0263ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は照合で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は切替でデータ定義対を証跡に残し・後の表定義更新の項目のデータ定義対象表と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は変更確認でサポート収集を証跡に残し・CDC Event Logでサポート収集からSupportを。</li><li>D. 一次資料が示す主目的は監査で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・初期ロでBの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・切替）です。照合データ・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・初期ロです。比較後の表・切替でA:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は後の表・初期ロ・切替です。項目後の表・初期ロでC:の変更後の確認 ERR03は「CDC Event Logでサポート収集から」を述べるため、正答側の照合軸は初期ロ・後の表・データです。仕様後の表・データでD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は切替・初期ロ・データです。用語データ・切替という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・切替です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0179</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0179について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_059
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0179A
+画面・出力には IIDR114DD0179A が表示され、DDL後の表定義更新 Table Definition 0179 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_059
+Table definition refreshed
+確認コード IIDR114DD0179B
+画面・出力には IIDR114DD0179B が表示され、DDL後の表定義更新 Table Definition 0179 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE059
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0179C
+画面・出力には IIDR114DD0179C が表示され、DDL後の表定義更新 Table Definition 0179 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0179A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0179B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0179C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0109"><h3>DDL後の表定義更新 Table Definition 0194</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>翠O収集0195ではIBM IIDR 11.4 の DDL変更対応を扱う採取票翠O収集0195です。翠O収集0195は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録翠O収集0195です。翠O収集0195ではDDL対象表と取得時刻を採取票翠O収集0195へ残します。翠O収集0195では表定義未更新を避けるため補助資料も照合する判断翠O収集0195です。翠O収集0195の用語整理では表定義変更対応の対象値を実在出力で保管する記録翠O収集0195です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0194の役割を調べています。複製位置管理 Instance 0258の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は変更確認操作で採取欄を棚卸することで戻り値を確認し・重複反映を防ぐ。</li><li>B. 障害切り分けに用いる役割は方式表示から初期ロードingを読むことで方式表示を確認し・初期ロード未完了でMirroを防ぐ。</li><li>C. 障害切り分けに用いる役割は監査操作で記録欄を比較することで16進ブックを確認し・データ欠落を防ぐ。</li><li>D. 障害切り分けに用いる役割は点検操作で判定欄を記録することでデータ定義対を確認し・表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・表定義でDの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・収集）です。照合データ・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・表定義です。比較後の表・収集でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・表定義・収集です。運用収集・後の表でB:の障害切り分け REF04は「CDC Refreshで方式表示から初期ロー」を述べるため、正答側の照合軸はデータ・後の表・収集です。項目後の表・表定義でC:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は表定義・後の表・データです。用語データ・収集という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・表定義・収集です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0194</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0194について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_074
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0194A
+画面・出力には IIDR114DD0194A が表示され、DDL後の表定義更新 Table Definition 0194 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_074
+Table definition refreshed
+確認コード IIDR114DD0194B
+画面・出力には IIDR114DD0194B が表示され、DDL後の表定義更新 Table Definition 0194 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE074
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0194C
+画面・出力には IIDR114DD0194C が表示され、DDL後の表定義更新 Table Definition 0194 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0194A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0194B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0194C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0110"><h3>DDL後の表定義更新 Table Definition 0209</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>朱J登録0210ではIBM IIDR 11.4 の DDL変更対応を扱う採取票朱J登録0210です。朱J登録0210は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録朱J登録0210です。朱J登録0210ではDDL対象表と取得時刻を採取票朱J登録0210へ残します。朱J登録0210ではDDL対象表の漏れを避けるため補助資料も照合する判断朱J登録0210です。朱J登録0210の用語整理では表定義変更対応の対象値を実在出力で点検する記録朱J登録0210です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Table Definition 0209」を「複製位置管理 Bookmark 0234」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割はBookmarkの複製位置と取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。複製位置管理 Bookmark 0234固有の属性も確認対象に含める。</li><li>C. 仕様上の役割はCDC Refreshで完了確認からRowsappliedを読みである。完了確認からRowsappliedをときは初期ロード未完了でMirroを防ぐ。</li><li>D. 仕様上の役割はミラーリングの項目の遅延確認と取得時刻を記録し・初期ロード未完了の見落としを防ぐである。記録操作で証跡欄を照合するときは初期ロード未完了の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・データでAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・登録）です。照合データ・データに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・データです。運用登録・後の表でB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はデータ・後の表・登録です。項目後の表・データでC:の変更後の確認 REF03は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸はデータ・後の表・データです。仕様後の表・データでD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は登録・データ・データです。用語データ・登録という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・登録です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0209</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0209について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_089
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0209A
+画面・出力には IIDR114DD0209A が表示され、DDL後の表定義更新 Table Definition 0209 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_089
+Table definition refreshed
+確認コード IIDR114DD0209B
+画面・出力には IIDR114DD0209B が表示され、DDL後の表定義更新 Table Definition 0209 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE089
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0209C
+画面・出力には IIDR114DD0209C が表示され、DDL後の表定義更新 Table Definition 0209 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0209A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0209B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0209C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0111"><h3>DDL後の表定義更新 Table Definition 0224</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>紅E確認0225ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紅E確認0225です。紅E確認0225は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録紅E確認0225です。紅E確認0225ではDDL対象表と取得時刻を採取票紅E確認0225へ残します。紅E確認0225ではログ先頭未到達の見落としを避けるため補助資料も照合する判断紅E確認0225です。紅E確認0225の用語整理では表定義変更対応の対象値を実在出力で整理する記録紅E確認0225です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0224を同一分類のCDCミラーリング Latency 0292と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして遅延確認を照合する。</li><li>C. コマンドまたは機能の用途は送信回数だけでターゲット適用完了を避けるため・遅延表示からBytespersecondして遅延表示を照合する。</li><li>D. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてログ先頭到達を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能データ・ログ先でAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・確認）です。照合データ・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・ログ先です。運用確認・後の表でB:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸はデータ・後の表・確認です。項目後の表・ログ先でC:の性能影響の確認 STAT11は「CDC Communicationsで遅延表」を述べるため、正答側の照合軸はログ先・後の表・データです。仕様後の表・データでD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は確認・ログ先・データです。用語データ・確認という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0224</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0224について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_104
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0224A
+画面・出力には IIDR114DD0224A が表示され、DDL後の表定義更新 Table Definition 0224 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_104
+Table definition refreshed
+確認コード IIDR114DD0224B
+画面・出力には IIDR114DD0224B が表示され、DDL後の表定義更新 Table Definition 0224 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE104
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0224C
+画面・出力には IIDR114DD0224C が表示され、DDL後の表定義更新 Table Definition 0224 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0224A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0224B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0224C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0112"><h3>DDL後の表定義更新 Table Definition 0239</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>空T確認0240ではIBM IIDR 11.4 の DDL変更対応を扱う採取票空T確認0240です。空T確認0240は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録空T確認0240です。空T確認0240ではDDL対象表と取得時刻を採取票空T確認0240へ残します。空T確認0240ではRefresh中の再開を避けるため補助資料も照合する判断空T確認0240です。空T確認0240の用語整理では表定義変更対応の対象値を実在出力で照合する記録空T確認0240です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0239の設定や表示を読む前に役割を確認します。複製位置管理 Subscription 0315ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はデータ欠落を避けるため・監査操作で記録欄を比較するして16進ブックを照合する。</li><li>B. 一次資料が示す主目的は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は初期ロード未完了でMirrorへを避けるため・完了確認からRowsappliedを読むして完了確認を照合する。</li><li>D. 一次資料が示す主目的は表定義未更新を避けるため・点検操作で判定欄を記録するして再開条件を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能データ・初期ロでBの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・確認）です。照合データ・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・初期ロです。比較後の表・確認でA:の複製位置管理 Subscriptは「Subscriptionの16進ブックマーク」を述べるため、正答側の照合軸は後の表・初期ロ・確認です。項目後の表・初期ロでC:の引継ぎ記録 REF09は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸は初期ロ・後の表・データです。仕様後の表・データでD:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は確認・初期ロ・データです。用語データ・確認という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・確認です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0239</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0239について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_119
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0239A
+画面・出力には IIDR114DD0239A が表示され、DDL後の表定義更新 Table Definition 0239 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_119
+Table definition refreshed
+確認コード IIDR114DD0239B
+画面・出力には IIDR114DD0239B が表示され、DDL後の表定義更新 Table Definition 0239 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE119
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0239C
+画面・出力には IIDR114DD0239C が表示され、DDL後の表定義更新 Table Definition 0239 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0239A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0239B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0239C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0113"><h3>DDL後の表定義更新 Table Definition 0254</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 初級</p><p>翠O保護0255ではIBM IIDR 11.4 の DDL変更対応を扱う採取票翠O保護0255です。翠O保護0255は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録翠O保護0255です。翠O保護0255ではDDL対象表と取得時刻を採取票翠O保護0255へ残します。翠O保護0255では表定義未更新を避けるため補助資料も照合する判断翠O保護0255です。翠O保護0255の用語整理では表定義変更対応の対象値を実在出力で保管する記録翠O保護0255です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0254に関する障害切り分けの前提を確認しています。複製位置管理 Bookmark 0339の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・表定義未更新を防ぐである。点検操作で判定欄を記録するときは表定義未更新を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割はBookmarkの複製位置と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。</li><li>C. 障害切り分けに用いる役割はCDC Event Logでサポート収集からSupportを読み・Supportと2931を照合する。サポート収集からSupportを読むときは情報イベントと停止を伴うエラを防ぐ。</li><li>D. 障害切り分けに用いる役割はミラーリングの項目のサブスクリプション状態と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能データ・表定義でAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・保護）です。照合データ・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・表定義です。運用保護・後の表でB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はデータ・後の表・保護です。項目後の表・表定義でC:の権限境界の確認 ERR12は「CDC Event Logでサポート収集から」を述べるため、正答側の照合軸は表定義・後の表・データです。仕様後の表・データでD:のReplicationは「ミラーリングの項目のサブスクリプション状態と」を述べるため、正答側の照合軸は保護・表定義・データです。用語データ・保護という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・表定義・保護です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0254</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0254について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_014
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0254A
+画面・出力には IIDR114DD0254A が表示され、DDL後の表定義更新 Table Definition 0254 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_014
+Table definition refreshed
+確認コード IIDR114DD0254B
+画面・出力には IIDR114DD0254B が表示され、DDL後の表定義更新 Table Definition 0254 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE014
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0254C
+画面・出力には IIDR114DD0254C が表示され、DDL後の表定義更新 Table Definition 0254 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0254A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0254B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0254C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0114"><h3>DDL後の表定義更新 Table Definition 0269</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>朱J照合0270ではIBM IIDR 11.4 の DDL変更対応を扱う採取票朱J照合0270です。朱J照合0270は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録朱J照合0270です。朱J照合0270ではDDL対象表と取得時刻を採取票朱J照合0270へ残します。朱J照合0270ではDDL対象表の漏れを避けるため補助資料も照合する判断朱J照合0270です。朱J照合0270の用語整理では表定義変更対応の対象値を実在出力で点検する記録朱J照合0270です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0269を保守記録に説明する必要があります。複製位置管理 Instance 0348と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は照合操作で確認欄を採取することで戻り値を確認し・対象インスタンスの取り違えを防ぐ。</li><li>B. 仕様上の役割は復旧操作で点検欄を確認することでデータ定義対を確認し・データ定義対象表の漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は通信エラーからERRORを読むことで通信エラーを確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>D. 仕様上の役割は復旧操作で点検欄を確認することで表定義再読込を確認し・データ定義対象表の漏れを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・データでBの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・照合）です。照合データ・データに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・データです。比較後の表・照合でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・データ・照合です。項目後の表・データでC:の性能影響の確認 ERR11は「CDC Event Logで通信エラーからE」を述べるため、正答側の照合軸はデータ・後の表・データです。仕様後の表・データでD:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は照合・データ・データです。用語データ・照合という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・照合です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0269</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0269について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_029
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0269A
+画面・出力には IIDR114DD0269A が表示され、DDL後の表定義更新 Table Definition 0269 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_029
+Table definition refreshed
+確認コード IIDR114DD0269B
+画面・出力には IIDR114DD0269B が表示され、DDL後の表定義更新 Table Definition 0269 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE029
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0269C
+画面・出力には IIDR114DD0269C が表示され、DDL後の表定義更新 Table Definition 0269 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0269A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0269B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0269C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0115"><h3>DDL後の表定義更新 Table Definition 0284</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>紅E抑止0285ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紅E抑止0285です。紅E抑止0285は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録紅E抑止0285です。紅E抑止0285ではDDL対象表と取得時刻を採取票紅E抑止0285へ残します。紅E抑止0285ではログ先頭未到達の見落としを避けるため補助資料も照合する判断紅E抑止0285です。紅E抑止0285の用語整理では表定義変更対応の対象値を実在出力で整理する記録紅E抑止0285です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0284の技術的な意味を資料で確認するとき、サブスクリプション管理 CDC Subscription 性能影響の確認 SUB11との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は別サブスクリプションを停止またはを避けるため・イベント表示からSeverityを読むしてイベント表示を照合する。</li><li>C. コマンドまたは機能の用途は回収対象の誤読を避けるため・統計採取で回収対象を確認するして回収対象を照合する。</li><li>D. コマンドまたは機能の用途はデータ欠落を避けるため・監査操作で記録欄を比較するしてインスタンスを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・ログ先でAの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・抑止）です。照合データ・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・ログ先です。運用抑止・後の表でB:の性能影響の確認 SUB11は「CDC Subscriptionでイベント表」を述べるため、正答側の照合軸はデータ・後の表・抑止です。項目後の表・ログ先でC:の統計採取 回収対象は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸はログ先・後の表・データです。仕様後の表・データでD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は抑止・ログ先・データです。用語データ・抑止という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・ログ先・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0284</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0284について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_044
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0284A
+画面・出力には IIDR114DD0284A が表示され、DDL後の表定義更新 Table Definition 0284 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_044
+Table definition refreshed
+確認コード IIDR114DD0284B
+画面・出力には IIDR114DD0284B が表示され、DDL後の表定義更新 Table Definition 0284 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE044
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0284C
+画面・出力には IIDR114DD0284C が表示され、DDL後の表定義更新 Table Definition 0284 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0284A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0284B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0284C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0116"><h3>DDL後の表定義更新 Table Definition 0299</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>空T抑止0300ではIBM IIDR 11.4 の DDL変更対応を扱う採取票空T抑止0300です。空T抑止0300は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録空T抑止0300です。空T抑止0300ではDDL対象表と取得時刻を採取票空T抑止0300へ残します。空T抑止0300ではRefresh中の再開を避けるため補助資料も照合する判断空T抑止0300です。空T抑止0300の用語整理では表定義変更対応の対象値を実在出力で照合する記録空T抑止0300です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0299について構成や状態を確認します。複製位置管理 Bookmark 0339ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は監査操作で記録欄を比較することで複製位置を確認し・データ欠落を防ぐ。</li><li>B. 一次資料が示す主目的は監査操作で記録欄を比較することで戻り値を確認し・データ欠落を防ぐ。</li><li>C. 一次資料が示す主目的は保守操作で監査欄を保存することでイベントログを確認し・対象サブスクリプションの取りを防ぐ。</li><li>D. 一次資料が示す主目的は表示操作で対象欄を追跡することでデータ定義対を確認し・初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・初期ロでDの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・抑止）です。照合データ・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・初期ロです。比較後の表・抑止でA:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は後の表・初期ロ・抑止です。運用抑止・後の表でB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はデータ・後の表・抑止です。項目後の表・初期ロでC:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸は初期ロ・後の表・データです。用語データ・抑止という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・初期ロ・抑止です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0299</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0299について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_059
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0299A
+画面・出力には IIDR114DD0299A が表示され、DDL後の表定義更新 Table Definition 0299 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_059
+Table definition refreshed
+確認コード IIDR114DD0299B
+画面・出力には IIDR114DD0299B が表示され、DDL後の表定義更新 Table Definition 0299 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE059
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0299C
+画面・出力には IIDR114DD0299C が表示され、DDL後の表定義更新 Table Definition 0299 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0299A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0299B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0299C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0117"><h3>DDL後の表定義更新 Table Definition 0314</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>翠O解析0315ではIBM IIDR 11.4 の DDL変更対応を扱う採取票翠O解析0315です。翠O解析0315は表定義変更対応の点検操作で表定義変更対応の判定欄を記録する記録翠O解析0315です。翠O解析0315ではDDL対象表と取得時刻を採取票翠O解析0315へ残します。翠O解析0315では表定義未更新を避けるため補助資料も照合する判断翠O解析0315です。翠O解析0315の用語整理では表定義変更対応の対象値を実在出力で保管する記録翠O解析0315です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0314の役割を調べています。DDL後の表定義更新 Source Table 0350の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するして表定義再読込を照合する。</li><li>B. 障害切り分けに用いる役割は管理クラスの誤読を避けるため・初期同期判定で管理クラスを確認するして管理クラスを照合する。</li><li>C. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてデータ定義対を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割はデータ欠落を避けるため・監査操作で記録欄を比較するしてインスタンスを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・表定義でCの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・解析）です。照合データ・表定義に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象は後の表・データ・表定義です。比較後の表・解析でA:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は後の表・表定義・解析です。運用解析・後の表でB:の初期同期判定 管理クラスは「bookmark まで適用したことを示す」を述べるため、正答側の照合軸はデータ・後の表・解析です。仕様後の表・データでD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は解析・表定義・データです。用語データ・解析という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・表定義・解析です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0314</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0314について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_074
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0314A
+画面・出力には IIDR114DD0314A が表示され、DDL後の表定義更新 Table Definition 0314 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC02
+Table APP.TABLE_074
+Table definition refreshed
+確認コード IIDR114DD0314B
+画面・出力には IIDR114DD0314B が表示され、DDL後の表定義更新 Table Definition 0314 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE074
+Mapped table count 5
+Describe output recorded
+確認コード IIDR114DD0314C
+画面・出力には IIDR114DD0314C が表示され、DDL後の表定義更新 Table Definition 0314 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0314A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0314B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0314C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0118"><h3>DDL後の表定義更新 Table Definition 0329</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 中級</p><p>朱J計画0330ではIBM IIDR 11.4 の DDL変更対応を扱う採取票朱J計画0330です。朱J計画0330は表定義変更対応の復旧操作で表定義変更対応の点検欄を確認する記録朱J計画0330です。朱J計画0330ではDDL対象表と取得時刻を採取票朱J計画0330へ残します。朱J計画0330ではDDL対象表の漏れを避けるため補助資料も照合する判断朱J計画0330です。朱J計画0330の用語整理では表定義変更対応の対象値を実在出力で点検する記録朱J計画0330です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「DDL後の表定義更新 Table Definition 0329」を「データストア接続 CDC Datastore 停止前の確認 STORE14」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は停止確認で通信活動を証跡に残し・CDC Datastoreで通信活動からCHC9788Iを読。</li><li>B. 仕様上の役割は計画でデータ定義対を証跡に残し・後の表定義更新の項目のデータ定義対象表と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は状態確認でスケジュールを証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理。</li><li>D. 仕様上の役割は確認でミラー開始を証跡に残し・ミラーリングの項目のミラー開始と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能データ・データでBの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・計画）です。照合データ・データに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象はデータ・計画・データです。比較後の表・計画でA:の停止前の確認 STORE14は「CDC Datastoreで通信活動からCH」を述べるため、正答側の照合軸は後の表・計画・データです。項目後の表・データでC:の状態確認 スケジュールは「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸はデータ・後の表・データです。仕様後の表・データでD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は計画・データ・データです。用語データ・計画という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・データです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0329</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0329について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_089
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0329A
+画面・出力には IIDR114DD0329A が表示され、DDL後の表定義更新 Table Definition 0329 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC01
+Table APP.TABLE_089
+Table definition refreshed
+確認コード IIDR114DD0329B
+画面・出力には IIDR114DD0329B が表示され、DDL後の表定義更新 Table Definition 0329 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE089
+Mapped table count 8
+Describe output recorded
+確認コード IIDR114DD0329C
+画面・出力には IIDR114DD0329C が表示され、DDL後の表定義更新 Table Definition 0329 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0329A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0329B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0329C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0119"><h3>DDL後の表定義更新 Table Definition 0344</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>紅E解除0345ではIBM IIDR 11.4 の DDL変更対応を扱う採取票紅E解除0345です。紅E解除0345は表定義変更対応の調査操作で表定義変更対応の保守欄を引き継ぎする記録紅E解除0345です。紅E解除0345ではDDL対象表と取得時刻を採取票紅E解除0345へ残します。紅E解除0345ではログ先頭未到達の見落としを避けるため補助資料も照合する判断紅E解除0345です。紅E解除0345の用語整理では表定義変更対応の対象値を実在出力で整理する記録紅E解除0345です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0344を同一分類のサブスクリプション管理 CDC Subscription 権限境界の確認 SUB12と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はCDC Subscriptionで版数表示からReplicationを読みである。版数表示からReplicationをときは別サブスクリプションを停止まを防ぐ。</li><li>B. コマンドまたは機能の用途はミラーリングの項目の遅延確認と取得時刻を記録し・イベント重大度の誤読を防ぐである。採取操作で照合欄を点検するときはイベント重大度の誤読を防ぐ。</li><li>C. コマンドまたは機能の用途はミラーリングの項目のイベントログと取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li><li>D. コマンドまたは機能の用途は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能データ・ログ先でDの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・解除）です。照合データ・ログ先に関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象はデータ・解除・ログ先です。比較後の表・解除でA:の権限境界の確認 SUB12は「CDC Subscriptionで版数表示か」を述べるため、正答側の照合軸は後の表・解除・データです。運用解除・後の表でB:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸はデータ・後の表・解除です。項目後の表・ログ先でC:のCDCミラーリングは「ミラーリングの項目のイベントログと取得時刻を」を述べるため、正答側の照合軸はログ先・後の表・データです。用語データ・解除という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・ログ先です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0344</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0344について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_104
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0344A
+画面・出力には IIDR114DD0344A が表示され、DDL後の表定義更新 Table Definition 0344 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC00
+Table APP.TABLE_104
+Table definition refreshed
+確認コード IIDR114DD0344B
+画面・出力には IIDR114DD0344B が表示され、DDL後の表定義更新 Table Definition 0344 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE104
+Mapped table count 11
+Describe output recorded
+確認コード IIDR114DD0344C
+画面・出力には IIDR114DD0344C が表示され、DDL後の表定義更新 Table Definition 0344 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0344A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0344B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0344C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0120"><h3>DDL後の表定義更新 Table Definition 0359</h3><p class="kb-meta">分類: DDL変更対応 ・ 難易度: 上級</p><p>空T解除0360ではIBM IIDR 11.4 の DDL変更対応を扱う採取票空T解除0360です。空T解除0360は表定義変更対応の表示操作で表定義変更対応の対象欄を追跡する記録空T解除0360です。空T解除0360ではDDL対象表と取得時刻を採取票空T解除0360へ残します。空T解除0360ではRefresh中の再開を避けるため補助資料も照合する判断空T解除0360です。空T解除0360の用語整理では表定義変更対応の対象値を実在出力で照合する記録空T解除0360です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> DDL後の表定義更新 Table Definition 0359の設定や表示を読む前に役割を確認します。複製状態監視 Mirror Status 再始動後の確認 MIR15ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はMirror Statusで通信活動からCHC9788Iを読み・CHC9788IとLatencyを照合する。通信活動からCHC9788Iを読むときは初期ロード中の表をMirroを防ぐ。</li><li>B. 一次資料が示す主目的はサブスクリプションやデータストアの処理量と遅延を測る情報を遅延監視として確認する。診断採取で診断採取を確認するときは診断採取の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能データ・初期ロでCの記述「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」に対応する項目はTable Definition（後の表・データ・解除）です。照合データ・初期ロに関するDDL変更対応の仕様は「後の表定義更新の項目のデータ定義対象表と取得時刻を記録し」で、確認対象はデータ・解除・初期ロです。比較後の表・解除でA:の再始動後の確認 MIR15は「Mirror Statusで通信活動からCH」を述べるため、正答側の照合軸は後の表・解除・データです。運用解除・後の表でB:の遅延監視 診断採取は「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸はデータ・後の表・解除です。仕様後の表・データでD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は解除・初期ロ・データです。用語データ・解除という用語は「後の表定義更新の項目のデータ定義対象表と取得時刻を記」を指し、照合する値と誤認リスクの組合せは後の表・データ・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDL後の表定義更新 Table Definition 0359</strong></p><p>検証目的: DDL後の表定義更新のDDL後の表定義更新 Table Definition 0359について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Table Definition と DDL対象表</p><p>セッション環境: 机上検証。IBM IIDR 11.4のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmshowevents
+→ Enter を押す
+［画面・出力］
+Source Table APP.TABLE_119
+DDL change reviewed
+Logging configured yes
+Head of log reached
+確認コード IIDR114DD0359A
+画面・出力には IIDR114DD0359A が表示され、DDL後の表定義更新 Table Definition 0359 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmreaddtable -I instance -t table -a
+→ Enter を押す
+［画面・出力］
+dmreaddtable instance CDC03
+Table APP.TABLE_119
+Table definition refreshed
+確認コード IIDR114DD0359B
+画面・出力には IIDR114DD0359B が表示され、DDL後の表定義更新 Table Definition 0359 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の確認画面またはコマンド結果です。Table Definition を読むため、DDL後の表定義更新 の対象値を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面またはコマンド環境
+COMMAND ===&gt; dmdescribe -I instance -s subscription
+→ Enter を押す
+［画面・出力］
+dmdescribe subscription FINANCE119
+Mapped table count 14
+Describe output recorded
+確認コード IIDR114DD0359C
+画面・出力には IIDR114DD0359C が表示され、DDL後の表定義更新 Table Definition 0359 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の IIDR114DD0359A が画面・出力に表示されること
+② ステップ2 の IIDR114DD0359B が画面・出力に表示されること
+③ ステップ3 の IIDR114DD0359C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+## エラー処理
+
+
+<section class="kb-item" id="c11-i0121"><h3>CHCCLP 初期同期判定 時刻合わせ</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「CHCCLP 初期同期判定 時刻合わせ」は、CDC Replication のスクリプト操作に使うコマンドライン機能を初期同期判定の観点で確認する技術項目です。target datastore の統計とSUB079を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> CHCCLP 初期同期判定 時刻合わせの設定や表示を読む前に役割を確認します。CDCミラーリング Latency 0067ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は監査で遅延確認を証跡に残し・CDCの遅延確認と取得時刻を記録し・イベント重大度の誤読を防。</li><li>B. 一次資料が示す主目的は照合でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。複製位置管理 Hex Position 0276固有の属性も確認対象に含める。</li><li>C. 一次資料が示す主目的は初期同期判定で時刻合わせを証跡に残し・CDC Replication のスクリプト操作に使うコマン。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は依存関係確認で方式表示を証跡に残し・CDC Refreshで方式表示からRefreshingを読。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 初期・時刻合・時刻合わでCの記述「CDC Replication のスクリプト操作に使うコマンドライン」に対応する項目は初期同期判定 時刻合わせ（初期同・時刻合・時刻合わ・初期同）です。初期同期時の時刻合わせに関するエラー処理の仕様は「CDC Replication のスクリプト操作に使うコマンドライン」で、確認対象は初期同・時刻合・時刻合わ・初期同です。ミラ・監査・遅延確認のA:は「CDCの遅延確認と取得時刻を記録し、イベント重大度の誤読を防ぐ」を述べ、対象はCDCミラーリング Latency（ミラー・遅延確・イベント・監査）です。照合・インス・対象インのB:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・インス・対象イン・照合）です。方式表示を依存関係確のD:は「CDC Refreshで方式表示からRefreshingを読み」を述べ、対象は依存関係の確認 REF13（CDC・方式表・Refr・依存関）です。時刻合わせを初期同期判という用語は「CDC Replication」を指し、初期同期判定 時刻合わせ（初期同・時刻合・時刻合わ・初期同）で照合する値は時刻合わせです。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHCCLP 初期同期判定 時刻合わせ</strong></p><p>検証目的: エラー処理のCHCCLP 初期同期判定 時刻合わせについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB079           DS079          Mirroring   BMK079
+画面・出力には Subscription が含まれ、CHCCLP 初期同期判定 時刻合わせの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB079           DS079          BMK079
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0122"><h3>CHCCLP 開始位置指定 レビュー結果</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「CHCCLP 開始位置指定 レビュー結果」は、CDC Replication のスクリプト操作に使うコマンドライン機能を開始位置指定の観点で確認する技術項目です。target datastore の統計とSUB039を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> CHCCLP 開始位置指定 レビュー結果の設定や表示を読む前に役割を確認します。apply task 開始位置指定 活動ログではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはCDC Replication のスクリプト操作に使うコマンドライン機能である。エラー処理でレビュー結果を確認するときはレビュー結果の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはターゲットへ変更を反映し適用済み位置を記録する処理である。性能統計で活動ログを確認するときは活動ログの誤読を防ぐ。</li><li>C. 対象資源に対する働きはDDLのDDL対象表と取得時刻を記録し・Refresh中の再開を防ぐである。表示操作で対象欄を追跡するときはRefresh中の再開を防ぐ。</li><li>D. 対象資源に対する働きはCDC Datastoreで復旧後の確認ではデータストア接続の イベント確認からcommunicationをである。復旧確認で復旧後の確認を確認するときはホスト名変更後の購読構成を更を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> エラー処対象開始位置指でAの記述「CDC Replication のスクリプト操作に使うコマンドライン」に対応する項目は開始位置指定 レビュー結果（開始位置指・エラー・レビュ・レビュー）です。エラー処時の開始位置指に関するエラー処理の仕様は「CDC Replication のスクリプト操作に使うコマンドライン」で、確認対象は開始位置・エラー・レビュ・レビューです。性能統計対象applyのB:は「ターゲットへ変更を反映し適用済み位置を記録する処理」を述べ、対象は開始位置指定 活動ログ（apply・性能統・活動ロ・活動ログ）です。確認時の後の表定義のC:は「DDLのDDL対象表と取得時刻を記録し、Refresh中の再開を防ぐ」を述べ、対象はTable Definition（後の表定義・確認・DDL・Refr）です。復旧後の確を復旧確認のD:は「CDC Datastoreで復旧後の確認ではデータストア接続の」を述べ、対象は復旧後の確認 STORE06（CDC・復旧確・復旧後・ホスト名）です。開始位置をエラー処理という用語は「CDC Replication」を指し、開始位置指定 レビュー結果（開始位置指・エラー・レビュ・レビュー）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHCCLP 開始位置指定 レビュー結果</strong></p><p>検証目的: エラー処理のCHCCLP 開始位置指定 レビュー結果について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB039           DS039          Mirroring   BMK039
+画面・出力には Subscription が含まれ、CHCCLP 開始位置指定 レビュー結果の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB039           DS039          BMK039
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0123"><h3>capture service マッピング検査 接続認証</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「capture service マッピング検査 接続認証」は、ソース変更を読み取りサブスクリプションへ渡す処理をマッピング検査の観点で確認する技術項目です。replication mapping 名とDS055を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> capture service マッピング検査 接続認証の設定や表示を読む前に役割を確認します。refresh 初期同期判定 自動処理ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は対象表を初期同期または再同期する複製操作を初期同期判定として確認する。初期同期判定で自動処理を確認するときは自動処理の誤読を防ぐ。</li><li>B. 一次資料が示す主目的はソース変更を読み取りサブスクリプションへ渡す処理をマッピング検査として確認する。エラー処理で接続認証を確認するときは接続認証の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はCDCのイベントログと取得時刻を記録し・Refresh未完了の見落としを防ぐである。記録操作で証跡欄を照合するときはRefresh未完了の見落とを防ぐ。</li><li>D. 一次資料が示す主目的はCDCの遅延確認と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> エラ・接続認・接続認証でBの記述「ソース変更を読み取りサブスクリプションへ渡す処理をマッピング検査とし」に対応する項目はマッピング検査 接続認証（cap・接続認・接続認証・エラー）です。エラー処時の接続認証に関するエラー処理の仕様は「ソース変更を読み取りサブスクリプションへ渡す処理をマッピング検査とし」で、確認対象はcap・接続認・接続認証・エラーです。re・初期・自動処理のA:は「対象表を初期同期または再同期する複製操作を初期同期判定として確認する」を述べ、対象は初期同期判定 自動処理（ref・自動処・自動処理・初期同）です。保護時のイベントロのC:は「CDCのイベントログと取得時刻を記録し、Refresh未完了の見落と」を述べ、対象はCDCミラーリング Subscrip（ミラー・イベン・Refr・保護）です。遅延確認を解除のD:は「CDCの遅延確認と取得時刻を記録し、対象サブスクリプションの取り違え」を述べ、対象はCDCミラーリング Latency（ミラー・遅延確・対象サブ・解除）です。接続認証をエラー処理という用語は「ソース変更を読み取りサブスクリプションへ渡す処理をマ」を指し、マッピング検査 接続認証（cap・接続認・接続認証・エラー）で照合する値は接続認証です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>capture service マッピング検査 接続認証</strong></p><p>検証目的: エラー処理のcapture service マッピング検査 接続認証について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB055           DS055          Mirroring   BMK055
+画面・出力には Subscription が含まれ、capture service マッピング検査 接続認証の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB055           DS055          BMK055
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0124"><h3>capture service 統計採取 接続状態</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「capture service 統計採取 接続状態」は、ソース変更を読み取りサブスクリプションへ渡す処理を統計採取の観点で確認する技術項目です。replication mapping 名とDS015を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> capture service 統計採取 接続状態の設定や表示を読む前に役割を確認します。複製位置管理 Instance 0018ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは重複反映を避けるため・変更確認操作で採取欄を棚卸するして戻り値を照合する。</li><li>B. 対象資源に対する働きはRefresh未完了の見落としを避けるため・記録操作で証跡欄を照合するしてイベントログを照合する。</li><li>C. 対象資源に対する働きはホスト名変更後の購読構成を更新せを避けるため・ログとの照合でログとの照合を確認するしてログとの照合を照合する。</li><li>D. 対象資源に対する働きは接続状態の誤読を避けるため・統計採取で接続状態を確認するして接続状態を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 統計採取対象captuでDの記述「ソース変更を読み取りサブスクリプションへ渡す処理を統計採取として確認」に対応する項目は統計採取 接続状態（captu・統計採・接続状・接続状態）です。統計採取時のcaptuに関するエラー処理の仕様は「ソース変更を読み取りサブスクリプションへ渡す処理を統計採取として確認」で、確認対象はcapt・統計採・接続状・接続状態です。Insta・巡回のA:は「Instanceの戻り値と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Instance（Insta・巡回・戻り値・重複反映）です。診断対象ミラーリンのB:は「CDCのイベントログと取得時刻を記録し、Refresh未完了の見落と」を述べ、対象はCDCミラーリング Subscrip（ミラーリン・診断・イベン・Refr）です。ログとの時のCDCのC:は「CDC Datastoreでログとの照合ではデータストア接続の」を述べ、対象はログとの照合 STORE07（CDC・ログと・ログと・ホスト名）です。captを統計採取という用語は「ソース変更を読み取りサブスクリプションへ渡す処理を統」を指し、統計採取 接続状態（captu・統計採・接続状・接続状態）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>capture service 統計採取 接続状態</strong></p><p>検証目的: エラー処理のcapture service 統計採取 接続状態について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB015           DS015          Mirroring   BMK015
+画面・出力には Subscription が含まれ、capture service 統計採取 接続状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB015           DS015          BMK015
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0125"><h3>refresh ログ位置照合 ノード割当</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「refresh ログ位置照合 ノード割当」は、対象表を初期同期または再同期する複製操作をログ位置照合の観点で確認する技術項目です。bookmark valueとLOG047を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> refresh ログ位置照合 ノード割当の設定や表示を読む前に役割を確認します。subscription ログ位置照合 プロファイルではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはログ位置照合でプロファイルを確認することでプロファイルを確認し・プロファイルの誤読を防ぐ。</li><li>B. 状態を読み取るための働きは照合操作で確認欄を採取することで16進ブックを確認し・対象インスタンスの取り違えを防ぐ。</li><li>C. 状態を読み取るための働きはログ位置照合でノード割当を確認することでノード割当を確認し・ノード割当の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは停止確認で確認ではサブを確認することで確認ではサブを確認し・別サブスクリプションを停止まを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ログ位置対象refreでCの記述「対象表を初期同期または再同期する複製操作である」に対応する項目はログ位置照合 ノード割当（refre・ログ位・ノード・ノード割）です。ログ位置時のrefreに関するエラー処理の仕様は「対象表を初期同期または再同期する複製操作」で、確認対象はrefr・ログ位・ノード・ノード割です。subsc・ログ位置照のA:は「複製対象の表対応と開始位置をまとめる管理単位」を述べ、対象はログ位置照合 プロファイル（subsc・ログ位・プロフ・プロファ）です。収集対象SubscのB:は「Subscriptionの16進ブックマークと取得時刻を記録し」を述べ、対象は複製位置管理 Subscriptio（Subsc・収集・16進・対象イン）です。確認ではサを停止確認のD:は「CDC Subscriptionで停止前の確認ではサブスクリプション」を述べ、対象は停止前の確認 SUB14（CDC・停止確・確認で・別サブス）です。refrをログ位置照という用語は「対象表を初期同期または再同期する複製操作」を指し、ログ位置照合 ノード割当（refre・ログ位・ノード・ノード割）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>refresh ログ位置照合 ノード割当</strong></p><p>検証目的: エラー処理のrefresh ログ位置照合 ノード割当について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB047           DS047          Mirroring   BMK047
+画面・出力には Subscription が含まれ、refresh ログ位置照合 ノード割当の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB047           DS047          BMK047
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0126"><h3>refresh 失敗時切り分け 詳細表示</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「refresh 失敗時切り分け 詳細表示」は、対象表を初期同期または再同期する複製操作を失敗時切り分けの観点で確認する技術項目です。bookmark valueとLOG007を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> refresh 失敗時切り分け 詳細表示の設定や表示を読む前に役割を確認します。capture service 開始位置指定 検査エンジンではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はマッピングで検査エンジンを証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理。capture service 開始位置指定 検査エンジン固有の属性も確認対象に含める。</li><li>B. 一次資料が示す主目的は診断で再開条件を証跡に残し・DDLの再開条件と取得時刻を記録し・ログ先頭未到達の見落とし。</li><li>C. 一次資料が示す主目的は解析でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li><li>D. 一次資料が示す主目的は詳細表示で詳細表示を証跡に残し・対象表を初期同期または再同期する複製操作を失敗時切り分けとし。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 詳細表示対象refreでDの記述「対象表を初期同期または再同期する複製操作を失敗時切り分けとして確認す」に対応する項目は失敗時切り分け 詳細表示（refre・詳細表・詳細表・詳細表示）です。詳細表示時のrefreに関するエラー処理の仕様は「対象表を初期同期または再同期する複製操作を失敗時切り分けとして確認す」で、確認対象はrefr・詳細表・詳細表・詳細表示です。captu・マッピングのA:は「ソース変更を読み取りサブスクリプションへ渡す処理」を述べ、対象は開始位置指定 検査エンジン（captu・マッピ・検査エ・検査エン）です。診断対象後の表定義のB:は「DDLの再開条件と取得時刻を記録し、ログ先頭未到達の見落としを防ぐ」を述べ、対象はRefresh Table（後の表定義・診断・再開条・ログ先頭）です。解析時のHexのC:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・解析・インス・重複反映）です。refrを詳細表示という用語は「対象表を初期同期または再同期する複製操作を失敗時切り」を指し、失敗時切り分け 詳細表示（refre・詳細表・詳細表・詳細表示）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>refresh 失敗時切り分け 詳細表示</strong></p><p>検証目的: エラー処理のrefresh 失敗時切り分け 詳細表示について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB007           DS007          Mirroring   BMK007
+画面・出力には Subscription が含まれ、refresh 失敗時切り分け 詳細表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB007           DS007          BMK007
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0127"><h3>replication mapping 状態確認 文字変換</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「replication mapping 状態確認 文字変換」は、ソース表とターゲット表の対応および列変換を示す定義を状態確認の観点で確認する技術項目です。CHC0368I メッセージとMAP023を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> replication mapping 状態確認 文字変換の設定や表示を読む前に役割を確認します。capture service マッピング検査 接続認証ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはエラー処理で接続認証を証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理をマッピング。</li><li>B. 状態を読み取るための働きは状態確認で文字変換を証跡に残し・ソース表とターゲット表の対応および列変換を示す定義。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きは切替でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>D. 状態を読み取るための働きは変更確認で変更後の確認を証跡に残し・Table Mappingで変更後の確認ではマッピング管理の。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 状態確認対象repliでBの記述「ソース表とターゲット表の対応および列変換を示す定義である」に対応する項目は状態確認 文字変換（repli・状態確・文字変・文字変換）です。状態確認時のrepliに関するエラー処理の仕様は「ソース表とターゲット表の対応および列変換を示す定義」で、確認対象はrepl・状態確・文字変・文字変換です。captu・エラー処理のA:は「ソース変更を読み取りサブスクリプションへ渡す処理をマッピング検査とし」を述べ、対象はマッピング検査 接続認証（captu・エラー・接続認・接続認証）です。切替時のLocalのC:は「Localeのサブスクリプション名と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Locale（Local・切替・サブス・重複反映）です。Tablを変更確認のD:は「Table Mappingで変更後の確認ではマッピング管理の」を述べ、対象は変更後の確認 MAP03（Table・変更確・変更後・DDL変）です。replを状態確認という用語は「ソース表とターゲット表の対応および列変換を示す定義」を指し、状態確認 文字変換（repli・状態確・文字変・文字変換）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>replication mapping 状態確認 文字変換</strong></p><p>検証目的: エラー処理のreplication mapping 状態確認 文字変換について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB023           DS023          Mirroring   BMK023
+画面・出力には Subscription が含まれ、replication mapping 状態確認 文字変換の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB023           DS023          BMK023
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0128"><h3>replication mapping 遅延監視 受信操作</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「replication mapping 遅延監視 受信操作」は、ソース表とターゲット表の対応および列変換を示す定義を遅延監視の観点で確認する技術項目です。CHC0368I メッセージとMAP063を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> replication mapping 遅延監視 受信操作の設定や表示を読む前に役割を確認します。CDCミラーリング Subscription 0046ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはCDCのイベントログと取得時刻を記録し・遅延ゼロ確認の欠落を防ぐである。確認操作で状態欄を整理するときは遅延ゼロ確認の欠落を防ぐ。</li><li>B. 対象資源に対する働きはソース表とターゲット表の対応および列変換を示す定義を遅延監視として確認する。エラー処理で受信操作を確認するときは受信操作の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きはBookmarkの複製位置と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li><li>D. 対象資源に対する働きはCDC Communicationsで通信統計からSendsを読みである。通信統計からSendsを読むときは送信回数だけでターゲット適用を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> エラ・受信操・受信操作でBの記述「ソース表とターゲット表の対応および列変換を示す定義を遅延監視として確」に対応する項目は遅延監視 受信操作（rep・受信操・受信操作・エラー）です。エラー処時の受信操作に関するエラー処理の仕様は「ソース表とターゲット表の対応および列変換を示す定義を遅延監視として確」で、確認対象はrep・受信操・受信操作・エラーです。ミラ・復旧・イベントのA:は「CDCのイベントログと取得時刻を記録し、遅延ゼロ確認の欠落を防ぐ」を述べ、対象はCDCミラーリング Subscrip（ミラー・イベン・遅延ゼロ・復旧）です。登録時の複製位置のC:は「Bookmarkの複製位置と取得時刻を記録し」を述べ、対象は複製位置管理 Bookmark（Boo・複製位・対象イン・登録）です。通信統計を代替経路確のD:は「CDC Communicationsで通信統計からSendsを読み」を述べ、対象は代替経路の確認 STAT10（CDC・通信統・送信回数・代替経）です。受信操作をエラー処理という用語は「ソース表とターゲット表の対応および列変換を示す定義を」を指し、遅延監視 受信操作（rep・受信操・受信操作・エラー）で照合する値は受信操作です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>replication mapping 遅延監視 受信操作</strong></p><p>検証目的: エラー処理のreplication mapping 遅延監視 受信操作について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB063           DS063          Mirroring   BMK063
+画面・出力には Subscription が含まれ、replication mapping 遅延監視 受信操作の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB063           DS063          BMK063
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0129"><h3>subscription 初期同期判定 統合管理</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「subscription 初期同期判定 統合管理」は、複製対象の表対応と開始位置をまとめる管理単位を初期同期判定の観点で確認する技術項目です。list subscriptions の表とBMK071を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> subscription 初期同期判定 統合管理の設定や表示を読む前に役割を確認します。DDL後の表定義更新 Head of Log 0011ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはRefresh中の再開を避けるため・表示操作で対象欄を追跡するしてサブスクリプを照合する。</li><li>B. 状態を読み取るための働きは重複反映を避けるため・変更確認操作で採取欄を棚卸するしてインスタンスを照合する。</li><li>C. 状態を読み取るための働きは統合管理の誤読を避けるため・初期同期判定で統合管理を確認するして統合管理を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは送信回数だけでターゲット適用完了を避けるため・通信統計からSendsを読むして通信統計を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 初期・統合管・統合管理でCの記述「複製対象の表対応と開始位置をまとめる管理単位を初期同期判定として確認」に対応する項目は初期同期判定 統合管理（sub・統合管・統合管理・初期同）です。初期同期時の統合管理に関するエラー処理の仕様は「複製対象の表対応と開始位置をまとめる管理単位を初期同期判定として確認」で、確認対象はsub・統合管・統合管理・初期同です。後の・巡回・サブスクのA:は「DDLのサブスクリプション記述と取得時刻を記録し」を述べ、対象はof Log（後の表・サブス・Refr・巡回）です。収集・インス・重複反映のB:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・インス・重複反映・収集）です。通信統計をログとの照のD:は「CDC Communicationsで通信統計からSendsを読み」を述べ、対象はログとの照合 STAT07（CDC・通信統・送信回数・ログと）です。統合管理を初期同期判という用語は「複製対象の表対応と開始位置をまとめる管理単位を初期同」を指し、初期同期判定 統合管理（sub・統合管・統合管理・初期同）で照合する値は統合管理です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>subscription 初期同期判定 統合管理</strong></p><p>検証目的: エラー処理のsubscription 初期同期判定 統合管理について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB071           DS071          Mirroring   BMK071
+画面・出力には Subscription が含まれ、subscription 初期同期判定 統合管理の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB071           DS071          BMK071
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0130"><h3>subscription 開始位置指定 遅延表示</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の エラー処理 で扱う「subscription 開始位置指定 遅延表示」は、複製対象の表対応と開始位置をまとめる管理単位を開始位置指定の観点で確認する技術項目です。list subscriptions の表とBMK031を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> subscription 開始位置指定 遅延表示の設定や表示を読む前に役割を確認します。capture service 初期同期判定 取得間隔ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は初期同期判定で取得間隔を証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理を初期同期判。</li><li>B. 一次資料が示す主目的は保守でRefresを証跡に残し・CDCのRefresh状態と取得時刻を記録し。</li><li>C. 一次資料が示す主目的はログとの照合で照合ではサブを証跡に残し・CDC Subscriptionでログとの照合ではサブスクリ。</li><li>D. 一次資料が示す主目的は遅延表示で遅延表示を証跡に残し・複製対象の表対応と開始位置をまとめる管理単位。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 遅延表示対象subscでDの記述「複製対象の表対応と開始位置をまとめる管理単位である」に対応する項目は開始位置指定 遅延表示（subsc・遅延表・遅延表・遅延表示）です。遅延表示時のsubscに関するエラー処理の仕様は「複製対象の表対応と開始位置をまとめる管理単位」で、確認対象はsubs・遅延表・遅延表・遅延表示です。captu・初期同期判のA:は「ソース変更を読み取りサブスクリプションへ渡す処理を初期同期判定として」を述べ、対象は初期同期判定 取得間隔（captu・初期同・取得間・取得間隔）です。保守対象ミラーリンのB:は「CDCのRefresh状態と取得時刻を記録し」を述べ、対象はTable Status（ミラーリン・保守・Ref・Refr）です。ログとの時のCDCのC:は「CDC Subscriptionでログとの照合ではサブスクリプション」を述べ、対象はログとの照合 SUB07（CDC・ログと・照合で・別サブス）です。subsを遅延表示という用語は「複製対象の表対応と開始位置をまとめる管理単位」を指し、開始位置指定 遅延表示（subsc・遅延表・遅延表・遅延表示）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>subscription 開始位置指定 遅延表示</strong></p><p>検証目的: エラー処理のsubscription 開始位置指定 遅延表示について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、エラー処理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB031           DS031          Mirroring   BMK031
+画面・出力には Subscription が含まれ、subscription 開始位置指定 遅延表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB031           DS031          BMK031
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0131"><h3>エラー処理 CDC Event Log ログとの照合 ERR07</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>ログとの照合では エラー処理 の イベント一覧 を主操作として ERR07 を判定します。時刻と対象識別子への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR07 に残します。ログとの照合を補助する 通信エラー では ERROR を補助値として ERR07 へ保存します。主判定のログとの照合ではエラー処理の イベント一覧 から 2931 を読み ERR07 へ残します。証跡照合のログとの照合ではエラー処理の 2931 と ERROR を ERR07 に保存します。記録対応のログとの照合ではエラー処理の Event NumberとSeverity の証跡へ ERR07 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「エラー処理 CDC Event Log ログとの照合 ERR07」を「CHCCLP 開始位置指定 レビュー結果」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はレビュー結果の誤読を避けるため・エラー処理でレビュー結果を確認するしてレビュー結果を照合する。CHCCLP 開始位置指定 レビュー結果固有の属性も確認対象に含める。</li><li>B. 保守作業で参照する機能は重複反映を避けるため・変更確認操作で採取欄を棚卸するして16進ブックを照合する。</li><li>C. 保守作業で参照する機能は情報イベントと停止を伴うエラーをを避けるため・イベント一覧から2931を読むしてイベント一覧を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして初期ロード状を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能イベン・情報イでCの記述「変更データ取得 イベントログでイベント一覧から」に対応する項目はログとの照合 ERR07（変更デ・イベン・ログと）です。照合イベン・ログとに関するエラー処理の仕様は「変更データ取得 イベントログでイベント一覧から 2931 を読み」で、確認対象はイベン・ログと・情報イです。比較エラー・ログとでA:の開始位置指定 レビュー結果は「CDC Replication」を述べるため、正答側の照合軸は変更デ・ログと・イベンです。運用ログと・変更デでB:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸はイベン・エラー・ログとです。仕様イベン・ログとでD:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸はログと・情報イ・イベンです。用語イベン・ログとという用語は「変更データ取得 イベントログでイベント一覧から」を指し、照合する値と誤認リスクの組合せはエラー・イベン・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log ログとの照合 ERR07</strong></p><p>検証目的: エラー処理のCDC Event Logについて操作とログを対応し、ERR07のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB07を指定し、ERR07のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB07
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR07の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB07.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR07.zipを指定し、ERR07のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR07.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR07.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の ERROR が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0132"><h3>エラー処理 CDC Event Log 代替経路の確認 ERR10</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>代替経路の確認では エラー処理 の イベント一覧 を主操作として ERR10 を判定します。主経路との役割差への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR10 に残します。代替経路の確認を補助する 通信エラー では ERROR を補助値として ERR10 へ保存します。主判定の代替経路の確認ではエラー処理の イベント一覧 から 2931 を読み ERR10 へ残します。証跡照合の代替経路の確認ではエラー処理の 2931 と ERROR を ERR10 に保存します。記録対応の代替経路の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR10 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 代替経路の確認 ERR10の技術的な意味を資料で確認するとき、エラー処理 CDC Event Log 停止前の確認 ERR14との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は変更データ取得 イベントログで通信エラーから ERROR を読み・ERROR と Support を照合する。通信エラーからERRORを読むときは情報イベントと停止を伴うエラを防ぐ。</li><li>B. 管理対象との関係を表す説明は変更データ取得のイベントログと取得時刻を記録し・遅延ゼロ確認の欠落を防ぐである。確認操作で状態欄を整理するときは遅延ゼロ確認の欠落を防ぐ。</li><li>C. 管理対象との関係を表す説明は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・データ定義対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはデータ定義対象表の漏れを防ぐ。</li><li>D. 管理対象との関係を表す説明は変更データ取得 イベントログでイベント一覧から 2931 を読み・2931 と ERROR を照合する。イベント一覧から2931を読むときは情報イベントと停止を伴うエラを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能イベン・情報イでDの記述「変更データ取得 イベントログでイベント一覧から」に対応する項目は代替経路の確認 ERR10（変更デ・イベン・代替経）です。照合イベン・代替経に関するエラー処理の仕様は「変更データ取得 イベントログでイベント一覧から 2931 を読み」で、確認対象はイベン・代替経・情報イです。比較エラー・代替経でA:の停止前の確認 ERR14は「変更データ取得 イベントログで通信エラーから」を述べるため、正答側の照合軸は変更デ・代替経・イベンです。運用代替経・変更デでB:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸はイベン・エラー・代替経です。項目イベン・代替経でC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は情報イ・エラー・イベンです。用語イベン・代替経という用語は「変更データ取得 イベントログでイベント一覧から」を指し、照合する値と誤認リスクの組合せはエラー・イベン・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 代替経路の確認 ERR10</strong></p><p>検証目的: エラー処理のCDC Event Logについて代替手段の成立を確認し、ERR10のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB10を指定し、ERR10のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB10
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR10の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB10.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR10.zipを指定し、ERR10のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR10.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR10.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の ERROR が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0133"><h3>エラー処理 CDC Event Log 依存関係の確認 ERR13</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>依存関係の確認では エラー処理 の イベント一覧 を主操作として ERR13 を判定します。前提資源と後続処理の順序への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR13 に残します。依存関係の確認を補助する 通信エラー では ERROR を補助値として ERR13 へ保存します。主判定の依存関係の確認ではエラー処理の イベント一覧 から 2931 を読み ERR13 へ残します。証跡照合の依存関係の確認ではエラー処理の 2931 と ERROR を ERR13 に保存します。記録対応の依存関係の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR13 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 依存関係の確認 ERR13の設定や表示を読む前に役割を確認します。エラー処理 CDC Event Log 再始動後の確認 ERR15ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは再始動確認でサポート収集を証跡に残し・変更データ取得 イベントログでサポート収集から。</li><li>B. 対象資源に対する働きは依存関係確認でイベント一覧を証跡に残し・変更データ取得 イベントログでイベント一覧から 2931。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは保守で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。複製位置管理 Bookmark 0144固有の属性も確認対象に含める。</li><li>D. 対象資源に対する働きは解除で16進ブックを証跡に残し・サブスクリプションの16進ブックマークと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能イベン・情報イでBの記述「変更データ取得 イベントログでイベント一覧から」に対応する項目は依存関係の確認 ERR13（変更デ・イベン・依存関）です。照合イベン・依存関に関するエラー処理の仕様は「変更データ取得 イベントログでイベント一覧から 2931 を読み」で、確認対象はイベン・依存関・情報イです。比較エラー・依存関でA:の再始動後の確認 ERR15は「変更データ取得 イベントログでサポート収集か」を述べるため、正答側の照合軸は変更デ・依存関・イベンです。項目イベン・依存関でC:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は情報イ・エラー・イベンです。仕様イベン・依存関でD:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は依存関・情報イ・イベンです。用語イベン・依存関という用語は「変更データ取得 イベントログでイベント一覧から」を指し、照合する値と誤認リスクの組合せはエラー・イベン・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 依存関係の確認 ERR13</strong></p><p>検証目的: エラー処理のCDC Event Logについて依存資源を点検し、ERR13のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB13を指定し、ERR13のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB13
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR13の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB13.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR13.zipを指定し、ERR13のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR13.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR13.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の ERROR が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0134"><h3>エラー処理 CDC Event Log 停止前の確認 ERR14</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>停止前の確認では エラー処理 の 通信エラー を主操作として ERR14 を判定します。処理中資源と未完了要求への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR14 に残します。停止前の確認を補助する サポート収集 では Support を補助値として ERR14 へ保存します。主判定の停止前の確認ではエラー処理の 通信エラー から ERROR を読み ERR14 へ残します。証跡照合の停止前の確認ではエラー処理の ERROR と Support を ERR14 に保存します。記録対応の停止前の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR14 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 停止前の確認 ERR14を同一分類のCHC0368I 状態確認 高速伝搬と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は情報イベントと停止を伴うエラーをを避けるため・通信エラーからERRORを読むして通信エラーを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は高速伝搬の誤読を避けるため・状態確認で高速伝搬を確認するして高速伝搬を照合する。CHC0368I 状態確認 高速伝搬固有の属性も確認対象に含める。</li><li>C. コマンドまたは機能の用途は表定義未更新を避けるため・点検操作で判定欄を記録するしてサブスクリプを照合する。</li><li>D. コマンドまたは機能の用途はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するして戻り値を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能通信エ・情報イでAの記述「変更データ取得 イベントログで通信エラーから」に対応する項目は停止前の確認 ERR14（変更デ・通信エ・停止確）です。照合通信エ・停止確に関するエラー処理の仕様は「変更データ取得 イベントログで通信エラーから ERROR を読み」で、確認対象は通信エ・停止確・情報イです。運用停止確・変更デでB:の状態確認 高速伝搬は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は通信エ・エラー・停止確です。項目通信エ・停止確でC:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は情報イ・エラー・通信エです。仕様通信エ・停止確でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は停止確・情報イ・通信エです。用語通信エ・停止確という用語は「変更データ取得 イベントログで通信エラーから」を指し、照合する値と誤認リスクの組合せはエラー・通信エ・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 停止前の確認 ERR14</strong></p><p>検証目的: エラー処理のCDC Event Logについて安全な停止条件を確認し、ERR14のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR14の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB14.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR14.zipを指定し、ERR14のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR14.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR14.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB14を指定し、ERR14のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB14
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0135"><h3>エラー処理 CDC Event Log 再始動後の確認 ERR15</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>再始動後の確認では エラー処理 の サポート収集 を主操作として ERR15 を判定します。再開点と未処理データへの注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR15 に残します。再始動後の確認を補助する イベント一覧 では 2931 を補助値として ERR15 へ保存します。主判定の再始動後の確認ではエラー処理の サポート収集 から Support を読み ERR15 へ残します。証跡照合の再始動後の確認ではエラー処理の Support と 2931 を ERR15 に保存します。記録対応の再始動後の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR15 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「エラー処理 CDC Event Log 再始動後の確認 ERR15」を「CHC0368I 開始位置指定 監査証跡」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は監査証跡で監査証跡を証跡に残し・bookmark まで適用したことを示す CDC。</li><li>B. 運用時に利用する技術的役割は再始動確認でサポート収集を証跡に残し・変更データ取得 イベントログでサポート収集から。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割は移行で16進ブックを証跡に残し・サブスクリプションの16進ブックマークと取得時刻を記録し。</li><li>D. 運用時に利用する技術的役割は変更確認でイベント表示を証跡に残し・変更データ取得 サブスクリプションでイベント表示から。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サポー・情報イでBの記述「変更データ取得 イベントログでサポート収集から」に対応する項目は再始動後の確認 ERR15（変更デ・サポー・再始動）です。照合サポー・再始動に関するエラー処理の仕様は「変更データ取得 イベントログでサポート収集から Support」で、確認対象はサポー・再始動・情報イです。比較エラー・再始動でA:の開始位置指定 監査証跡は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は変更デ・再始動・サポーです。項目サポー・再始動でC:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は情報イ・エラー・サポーです。仕様サポー・再始動でD:の変更前の確認 SUB02は「変更データ取得 サブスクリプションでイベント」を述べるため、正答側の照合軸は再始動・情報イ・サポーです。用語サポー・再始動という用語は「変更データ取得 イベントログでサポート収集から」を指し、照合する値と誤認リスクの組合せはエラー・サポー・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 再始動後の確認 ERR15</strong></p><p>検証目的: エラー処理のCDC Event Logについて再始動結果を検証し、ERR15のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR15.zipを指定し、ERR15のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR15.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR15.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB15を指定し、ERR15のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB15
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR15の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB15.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の ERROR が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0136"><h3>エラー処理 CDC Event Log 変更前の確認 ERR02</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>変更前の確認では エラー処理 の 通信エラー を主操作として ERR02 を判定します。変更対象と非対象の境界への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR02 に残します。変更前の確認を補助する サポート収集 では Support を補助値として ERR02 へ保存します。主判定の変更前の確認ではエラー処理の 通信エラー から ERROR を読み ERR02 へ残します。証跡照合の変更前の確認ではエラー処理の ERROR と Support を ERR02 に保存します。記録対応の変更前の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR02 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 変更前の確認 ERR02の技術的な意味を資料で確認するとき、bookmark 遅延監視 適用位置との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は通信エラーからERRORを読むことで通信エラーを確認し・情報イベントと停止を伴うエラを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はデータストアで適用位置を確認することで適用位置を確認し・適用位置の誤読を防ぐ。bookmark 遅延監視 適用位置固有の属性も確認対象に含める。</li><li>C. コマンドまたは機能の用途は保守操作で監査欄を保存することでイベントログを確認し・対象サブスクリプションの取りを防ぐ。</li><li>D. コマンドまたは機能の用途は点検操作で判定欄を記録することで再開条件を確認し・表定義未更新を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信エ・情報イでAの記述「変更データ取得 イベントログで通信エラーから」に対応する項目は変更前の確認 ERR02（変更デ・通信エ・変更確）です。照合通信エ・変更確に関するエラー処理の仕様は「変更データ取得 イベントログで通信エラーから ERROR を読み」で、確認対象は通信エ・変更確・情報イです。運用変更確・変更デでB:の遅延監視 適用位置は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は通信エ・エラー・変更確です。項目通信エ・変更確でC:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は情報イ・エラー・通信エです。仕様通信エ・変更確でD:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は変更確・情報イ・通信エです。用語通信エ・変更確という用語は「変更データ取得 イベントログで通信エラーから」を指し、照合する値と誤認リスクの組合せはエラー・通信エ・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 変更前の確認 ERR02</strong></p><p>検証目的: エラー処理のCDC Event Logについて変更前の証跡を保存し、ERR02のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR02の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB02.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR02.zipを指定し、ERR02のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR02.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR02.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB02を指定し、ERR02のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB02
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0137"><h3>エラー処理 CDC Event Log 変更後の確認 ERR03</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>変更後の確認では エラー処理 の サポート収集 を主操作として ERR03 を判定します。反映値と残存値への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR03 に残します。変更後の確認を補助する イベント一覧 では 2931 を補助値として ERR03 へ保存します。主判定の変更後の確認ではエラー処理の サポート収集 から Support を読み ERR03 へ残します。証跡照合の変更後の確認ではエラー処理の Support と 2931 を ERR03 に保存します。記録対応の変更後の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR03 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 変更後の確認 ERR03を保守記録に説明する必要があります。datastore マッピング検査 オンライン表示と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はオンライン表の誤読を避けるため・オンライン表でオンライン表を確認するしてオンライン表を照合する。datastore マッピング検査 オンライン表示固有の属性も確認対象に含める。</li><li>B. 運用時に利用する技術的役割は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして戻り値を照合する。</li><li>C. 運用時に利用する技術的役割は情報イベントと停止を伴うエラーをを避けるため・サポート収集からSupportを読むしてサポート収集を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 運用時に利用する技術的役割は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてイベントログを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サポー・情報イでCの記述「変更データ取得 イベントログでサポート収集から」に対応する項目は変更後の確認 ERR03（変更デ・サポー・変更確）です。照合サポー・変更確に関するエラー処理の仕様は「変更データ取得 イベントログでサポート収集から Support」で、確認対象はサポー・変更確・情報イです。比較エラー・変更確でA:のマッピング検査 オンライン表示は「CDC Replication」を述べるため、正答側の照合軸は変更デ・変更確・サポーです。運用変更確・変更デでB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はサポー・エラー・変更確です。仕様サポー・変更確でD:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は変更確・情報イ・サポーです。用語サポー・変更確という用語は「変更データ取得 イベントログでサポート収集から」を指し、照合する値と誤認リスクの組合せはエラー・サポー・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 変更後の確認 ERR03</strong></p><p>検証目的: エラー処理のCDC Event Logについて変更結果を検証し、ERR03のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR03.zipを指定し、ERR03のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR03.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR03.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB03を指定し、ERR03のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB03
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR03の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB03.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の ERROR が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0138"><h3>エラー処理 CDC Event Log 引継ぎ記録 ERR09</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>引継ぎ記録では エラー処理 の サポート収集 を主操作として ERR09 を判定します。次担当者が追跡できる証跡への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR09 に残します。引継ぎ記録を補助する イベント一覧 では 2931 を補助値として ERR09 へ保存します。主判定の引継ぎ記録ではエラー処理の サポート収集 から Support を読み ERR09 へ残します。証跡照合の引継ぎ記録ではエラー処理の Support と 2931 を ERR09 に保存します。記録対応の引継ぎ記録ではエラー処理の Event NumberとSeverity の証跡へ ERR09 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 引継ぎ記録 ERR09について構成や状態を確認します。datastore 遅延監視 宛先定義ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは複製状態監視で宛先定義を確認することで宛先定義を確認し・宛先定義の誤読を防ぐ。</li><li>B. 状態を読み取るための働きはサポート収集からSupportを読むことでサポート収集を確認し・情報イベントと停止を伴うエラを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きは変更確認操作で採取欄を棚卸することでサブスクリプを確認し・重複反映を防ぐ。複製位置管理 Locale 0102固有の属性も確認対象に含める。</li><li>D. 状態を読み取るための働きは照合操作で確認欄を採取することでインスタンスを確認し・対象インスタンスの取り違えを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サポー・情報イでBの記述「変更データ取得 イベントログでサポート収集から」に対応する項目は引継ぎ記録 ERR09（変更デ・サポー・エラー）です。照合サポー・エラーに関するエラー処理の仕様は「変更データ取得 イベントログでサポート収集から Support」で、確認対象はサポー・エラー・情報イです。比較エラー・エラーでA:の遅延監視 宛先定義は「CDC Replication」を述べるため、正答側の照合軸は変更デ・エラー・サポーです。項目サポー・エラーでC:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は情報イ・エラー・サポーです。仕様サポー・エラーでD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸はエラー・情報イ・サポーです。用語サポー・エラーという用語は「変更データ取得 イベントログでサポート収集から」を指し、照合する値と誤認リスクの組合せはエラー・サポー・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 引継ぎ記録 ERR09</strong></p><p>検証目的: エラー処理のCDC Event Logについて再現可能な記録を作成し、ERR09のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR09.zipを指定し、ERR09のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR09.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR09.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB09を指定し、ERR09のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB09
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR09の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB09.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の ERROR が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0139"><h3>エラー処理 CDC Event Log 復旧後の確認 ERR06</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>復旧後の確認では エラー処理 の サポート収集 を主操作として ERR06 を判定します。再発していないことを示す値への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR06 に残します。復旧後の確認を補助する イベント一覧 では 2931 を補助値として ERR06 へ保存します。主判定の復旧後の確認ではエラー処理の サポート収集 から Support を読み ERR06 へ残します。証跡照合の復旧後の確認ではエラー処理の Support と 2931 を ERR06 に保存します。記録対応の復旧後の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR06 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 復旧後の確認 ERR06を同一分類のbookmark 初期同期判定 送信操作と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は初期同期判定で送信操作を確認することで送信操作を確認し・送信操作の誤読を防ぐ。</li><li>B. 構成を確認する際の意味はサポート収集からSupportを読むことでサポート収集を確認し・情報イベントと停止を伴うエラを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 構成を確認する際の意味は照合操作で確認欄を採取することでサブスクリプを確認し・対象インスタンスの取り違えを防ぐ。複製位置管理 Locale 0132固有の属性も確認対象に含める。</li><li>D. 構成を確認する際の意味は照合操作で確認欄を採取することで16進ブックを確認し・対象インスタンスの取り違えを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サポー・情報イでBの記述「変更データ取得 イベントログでサポート収集から」に対応する項目は復旧後の確認 ERR06（変更デ・サポー・復旧確）です。照合サポー・復旧確に関するエラー処理の仕様は「変更データ取得 イベントログでサポート収集から Support」で、確認対象はサポー・復旧確・情報イです。比較エラー・復旧確でA:の初期同期判定 送信操作は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は変更デ・復旧確・サポーです。項目サポー・復旧確でC:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は情報イ・エラー・サポーです。仕様サポー・復旧確でD:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は復旧確・情報イ・サポーです。用語サポー・復旧確という用語は「変更データ取得 イベントログでサポート収集から」を指し、照合する値と誤認リスクの組合せはエラー・サポー・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 復旧後の確認 ERR06</strong></p><p>検証目的: エラー処理のCDC Event Logについて復旧後の安定性を確認し、ERR06のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR06.zipを指定し、ERR06のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR06.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR06.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB06を指定し、ERR06のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB06
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR06の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB06.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の ERROR が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0140"><h3>エラー処理 CDC Event Log 復旧準備 ERR05</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>復旧準備では エラー処理 の 通信エラー を主操作として ERR05 を判定します。再開前に必要な整合性への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR05 に残します。復旧準備を補助する サポート収集 では Support を補助値として ERR05 へ保存します。主判定の復旧準備ではエラー処理の 通信エラー から ERROR を読み ERR05 へ残します。証跡照合の復旧準備ではエラー処理の ERROR と Support を ERR05 に保存します。記録対応の復旧準備ではエラー処理の Event NumberとSeverity の証跡へ ERR05 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 復旧準備 ERR05の設定や表示を読む前に役割を確認します。エラー処理 CDC Event Log 再始動後の確認 ERR15ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は情報イベントと停止を伴うエラーをを避けるため・通信エラーからERRORを読むして通信エラーを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は情報イベントと停止を伴うエラーをを避けるため・サポート収集からSupportを読むしてサポート収集を照合する。</li><li>C. 一次資料が示す主目的は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてイベントログを照合する。</li><li>D. 一次資料が示す主目的は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして初期ロード状を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信エ・情報イでAの記述「変更データ取得 イベントログで通信エラーから」に対応する項目は復旧準備 ERR05（変更デ・通信エ・復旧準）です。照合通信エ・復旧準に関するエラー処理の仕様は「変更データ取得 イベントログで通信エラーから ERROR を読み」で、確認対象は通信エ・復旧準・情報イです。運用復旧準・変更デでB:の再始動後の確認 ERR15は「変更データ取得 イベントログでサポート収集か」を述べるため、正答側の照合軸は通信エ・エラー・復旧準です。項目通信エ・復旧準でC:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は情報イ・エラー・通信エです。仕様通信エ・復旧準でD:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は復旧準・情報イ・通信エです。用語通信エ・復旧準という用語は「変更データ取得 イベントログで通信エラーから」を指し、照合する値と誤認リスクの組合せはエラー・通信エ・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 復旧準備 ERR05</strong></p><p>検証目的: エラー処理のCDC Event Logについて復旧条件を確認し、ERR05のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR05の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB05.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR05.zipを指定し、ERR05のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR05.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR05.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB05を指定し、ERR05のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB05
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0141"><h3>エラー処理 CDC Event Log 性能影響の確認 ERR11</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>性能影響の確認では エラー処理 の 通信エラー を主操作として ERR11 を判定します。処理時間と滞留箇所への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR11 に残します。性能影響の確認を補助する サポート収集 では Support を補助値として ERR11 へ保存します。主判定の性能影響の確認ではエラー処理の 通信エラー から ERROR を読み ERR11 へ残します。証跡照合の性能影響の確認ではエラー処理の ERROR と Support を ERR11 に保存します。記録対応の性能影響の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR11 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 性能影響の確認 ERR11を保守記録に説明する必要があります。subscription 初期同期判定 統合管理と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は性能影響確認で通信エラーを証跡に残し・変更データ取得 イベントログで通信エラーから ERROR。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は初期同期判定で統合管理を証跡に残し・複製対象の表対応と開始位置をまとめる管理単位を初期同期判定と。</li><li>C. 仕様上の役割は保守で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し。</li><li>D. 仕様上の役割は抑止でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能通信エ・情報イでAの記述「変更データ取得 イベントログで通信エラーから」に対応する項目は性能影響の確認 ERR11（変更デ・通信エ・性能影）です。照合通信エ・性能影に関するエラー処理の仕様は「変更データ取得 イベントログで通信エラーから ERROR を読み」で、確認対象は通信エ・性能影・情報イです。運用性能影・変更デでB:の初期同期判定 統合管理は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸は通信エ・エラー・性能影です。項目通信エ・性能影でC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は情報イ・エラー・通信エです。仕様通信エ・性能影でD:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は性能影・情報イ・通信エです。用語通信エ・性能影という用語は「変更データ取得 イベントログで通信エラーから」を指し、照合する値と誤認リスクの組合せはエラー・通信エ・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 性能影響の確認 ERR11</strong></p><p>検証目的: エラー処理のCDC Event Logについて負荷と待ちを確認し、ERR11のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR11の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB11.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR11.zipを指定し、ERR11のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR11.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR11.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB11を指定し、ERR11のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB11
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0142"><h3>エラー処理 CDC Event Log 構成監査 ERR08</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>構成監査では エラー処理 の 通信エラー を主操作として ERR08 を判定します。定義値と稼働値の一致への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR08 に残します。構成監査を補助する サポート収集 では Support を補助値として ERR08 へ保存します。主判定の構成監査ではエラー処理の 通信エラー から ERROR を読み ERR08 へ残します。証跡照合の構成監査ではエラー処理の ERROR と Support を ERR08 に保存します。記録対応の構成監査ではエラー処理の Event NumberとSeverity の証跡へ ERR08 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 構成監査 ERR08の役割を調べています。bookmark 失敗時切り分け 実行結果の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は情報イベントと停止を伴うエラーをを避けるため・通信エラーからERRORを読むして通信エラーを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は実行結果の誤読を避けるため・性能統計で実行結果を確認するして実行結果を照合する。</li><li>C. 障害切り分けに用いる役割は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてイベントログを照合する。CDCミラーリング Subscription 0166固有の属性も確認対象に含める。</li><li>D. 障害切り分けに用いる役割はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして初期ロード状を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能通信エ・情報イでAの記述「変更データ取得 イベントログで通信エラーから」に対応する項目は構成監査 ERR08（変更デ・通信エ・構成監）です。照合通信エ・構成監に関するエラー処理の仕様は「変更データ取得 イベントログで通信エラーから ERROR を読み」で、確認対象は通信エ・構成監・情報イです。運用構成監・変更デでB:の失敗時切り分け 実行結果は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は通信エ・エラー・構成監です。項目通信エ・構成監でC:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は情報イ・エラー・通信エです。仕様通信エ・構成監でD:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は構成監・情報イ・通信エです。用語通信エ・構成監という用語は「変更データ取得 イベントログで通信エラーから」を指し、照合する値と誤認リスクの組合せはエラー・通信エ・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 構成監査 ERR08</strong></p><p>検証目的: エラー処理のCDC Event Logについて構成差分を監査し、ERR08のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR08と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR08の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB08.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR08.zipを指定し、ERR08のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR08.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR08.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB08を指定し、ERR08のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB08
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ERROR が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0143"><h3>エラー処理 CDC Event Log 権限境界の確認 ERR12</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 上級</p><p>権限境界の確認では エラー処理 の サポート収集 を主操作として ERR12 を判定します。参照操作と変更操作の分離への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR12 に残します。権限境界の確認を補助する イベント一覧 では 2931 を補助値として ERR12 へ保存します。主判定の権限境界の確認ではエラー処理の サポート収集 から Support を読み ERR12 へ残します。証跡照合の権限境界の確認ではエラー処理の Support と 2931 を ERR12 に保存します。記録対応の権限境界の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR12 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 権限境界の確認 ERR12に関する障害切り分けの前提を確認しています。performance statistics ログ位置照合 集約結果の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはサブスクリプションやデータストアの処理量と遅延を測る情報である。ログ位置照合で集約結果を確認するときは集約結果の誤読を防ぐ。</li><li>B. 機能の説明としては変更データ取得 イベントログでサポート収集から Support を読み・Support と 2931である。サポート収集からSupportを読むときは情報イベントと停止を伴うエラを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としてはLocaleのサブスクリプション名と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。複製位置管理 Locale 0147固有の属性も確認対象に含める。</li><li>D. 機能の説明としては後の表定義更新の項目のログ先頭到達と取得時刻を記録し・表定義未更新を防ぐである。点検操作で判定欄を記録するときは表定義未更新を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能サポー・情報イでBの記述「変更データ取得 イベントログでサポート収集から」に対応する項目は権限境界の確認 ERR12（変更デ・サポー・権限境）です。照合サポー・権限境に関するエラー処理の仕様は「変更データ取得 イベントログでサポート収集から Support」で、確認対象はサポー・権限境・情報イです。比較エラー・権限境でA:のログ位置照合 集約結果は「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は変更デ・権限境・サポーです。項目サポー・権限境でC:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は情報イ・エラー・サポーです。仕様サポー・権限境でD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は権限境・情報イ・サポーです。用語サポー・権限境という用語は「変更データ取得 イベントログでサポート収集から」を指し、照合する値と誤認リスクの組合せはエラー・サポー・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 権限境界の確認 ERR12</strong></p><p>検証目的: エラー処理のCDC Event Logについて実行権限を点検し、ERR12のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR12と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR12.zipを指定し、ERR12のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR12.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR12.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB12を指定し、ERR12のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB12
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR12の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB12.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の ERROR が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0144"><h3>エラー処理 CDC Event Log 通常状態の確認 ERR01</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>通常状態の確認では エラー処理 の イベント一覧 を主操作として ERR01 を判定します。基準値と現在値の差への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR01 に残します。通常状態の確認を補助する 通信エラー では ERROR を補助値として ERR01 へ保存します。主判定の通常状態の確認ではエラー処理の イベント一覧 から 2931 を読み ERR01 へ残します。証跡照合の通常状態の確認ではエラー処理の 2931 と ERROR を ERR01 に保存します。記録対応の通常状態の確認ではエラー処理の Event NumberとSeverity の証跡へ ERR01 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 通常状態の確認 ERR01について構成や状態を確認します。refresh 開始位置指定 同期範囲ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはサブスクリプで同期範囲を証跡に残し・対象表を初期同期または再同期する複製操作。</li><li>B. 対象資源に対する働きは通常状態確認でイベント一覧を証跡に残し・変更データ取得 イベントログでイベント一覧から 2931。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは変更で再開条件を証跡に残し・後の表定義更新の項目の再開条件と取得時刻を記録し。DDL後の表定義更新 Refresh Table 0098固有の属性も確認対象に含める。</li><li>D. 対象資源に対する働きは計画でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・情報イでBの記述「変更データ取得 イベントログでイベント一覧から」に対応する項目は通常状態の確認 ERR01（変更デ・イベン・通常状）です。照合イベン・通常状に関するエラー処理の仕様は「変更データ取得 イベントログでイベント一覧から 2931 を読み」で、確認対象はイベン・通常状・情報イです。比較エラー・通常状でA:の開始位置指定 同期範囲は「対象表を初期同期または再同期する複製操作」を述べるため、正答側の照合軸は変更デ・通常状・イベンです。項目イベン・通常状でC:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は情報イ・エラー・イベンです。仕様イベン・通常状でD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は通常状・情報イ・イベンです。用語イベン・通常状という用語は「変更データ取得 イベントログでイベント一覧から」を指し、照合する値と誤認リスクの組合せはエラー・イベン・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 通常状態の確認 ERR01</strong></p><p>検証目的: エラー処理のCDC Event Logについて通常状態を確定し、ERR01のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR01と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB01を指定し、ERR01のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB01
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR01の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB01.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR01.zipを指定し、ERR01のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR01.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR01.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の ERROR が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0145"><h3>エラー処理 CDC Event Log 障害切り分け ERR04</h3><p class="kb-meta">分類: エラー処理 ・ 難易度: 中級</p><p>障害切り分けでは エラー処理 の イベント一覧 を主操作として ERR04 を判定します。最初に失敗した処理への注意として「情報イベントと停止を伴うエラーを同じ優先度で扱う危険があります」を ERR04 に残します。障害切り分けを補助する 通信エラー では ERROR を補助値として ERR04 へ保存します。主判定の障害切り分けではエラー処理の イベント一覧 から 2931 を読み ERR04 へ残します。証跡照合の障害切り分けではエラー処理の 2931 と ERROR を ERR04 に保存します。記録対応の障害切り分けではエラー処理の Event NumberとSeverity の証跡へ ERR04 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> エラー処理 CDC Event Log 障害切り分け ERR04に関する障害切り分けの前提を確認しています。ログ依存・サポート Log Dependency 代替経路の確認 LOG10の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は代替経路確認で依存表示を証跡に残し・ログ依存で依存表示から Oldestrequired。ログ依存・サポート Log Dependency 代替経路の確認固有の属性も確認対象に含める。</li><li>B. 表示や設定で扱う内容は診断で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・データ欠落を防ぐ。</li><li>C. 表示や設定で扱う内容はエラー処理でイベント一覧を証跡に残し・変更データ取得 イベントログでイベント一覧から 2931。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は解除でサブスクリプを証跡に残し・変更データ取得のサブスクリプション状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・情報イでCの記述「変更データ取得 イベントログでイベント一覧から」に対応する項目は障害切り分け ERR04（変更デ・イベン・エラー）です。照合イベン・エラーに関するエラー処理の仕様は「変更データ取得 イベントログでイベント一覧から 2931 を読み」で、確認対象はイベン・エラー・情報イです。比較エラー・エラーでA:の代替経路の確認 LOG10は「ログ依存で依存表示から Oldestrequ」を述べるため、正答側の照合軸は変更デ・エラー・イベンです。運用エラー・変更デでB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はイベン・エラー・エラーです。仕様イベン・エラーでD:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸はエラー・情報イ・イベンです。用語イベン・エラーという用語は「変更データ取得 イベントログでイベント一覧から」を指し、照合する値と誤認リスクの組合せはエラー・イベン・情報イです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>エラー処理 CDC Event Log 障害切り分け ERR04</strong></p><p>検証目的: エラー処理のCDC Event Logについて障害範囲を限定し、ERR04のEvent NumberとSeverityを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象ERR04と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB04を指定し、ERR04のイベント一覧を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB04
+→ Enter を押す
+［画面・出力］
+Event 2931 Severity ERROR Single scrape staging store cannot be cleared while subscriptions are mirroring.
+画面・出力にあるEventを読み、Event NumberとSeverityと対象ERR04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1を指定し、ERR04の通信エラーを表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1
+→ Enter を押す
+［画面・出力］
+Severity ERROR An error occurred during communication initialization for subscription SUB04.
+画面・出力にあるERRORを読み、Event NumberとSeverityと対象ERR04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のエラー処理を確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/ERR04.zipを指定し、ERR04のサポート収集を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/ERR04.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/ERR04.zip Return value 0.
+画面・出力にあるSupportを読み、Event NumberとSeverityと対象ERR04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の ERROR が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+## サブスクリプション管理
+
+
+<section class="kb-item" id="c11-i0146"><h3>CHCCLP 状態確認 復旧手掛かり</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「CHCCLP 状態確認 復旧手掛かり」は、CDC Replication のスクリプト操作に使うコマンドライン機能を状態確認の観点で確認する技術項目です。target datastore の統計とSUB009を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「CHCCLP 状態確認 復旧手掛かり」を「refresh 状態確認 外部連携」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は状態確認で外部連携を証跡に残し・対象表を初期同期または再同期する複製操作。</li><li>B. 保守作業で参照する機能は収集で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・重複反映を防ぐ。</li><li>C. 保守作業で参照する機能は復旧手掛かりで復旧手掛かりを証跡に残し・CDC Replication のスクリプト操作に使うコマン。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は復旧確認で確認ではサブを証跡に残し・CDC Subscriptionで復旧後の確認ではサブスクリ。サブスクリプション管理 CDC Subscription 復旧後の確認固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 復旧手掛対象状態確認でCの記述「CDC Replication のスクリプト操作に使うコマンドライン」に対応する項目は状態確認 復旧手掛かり（状態確認・復旧手・復旧手・復旧手掛）です。復旧手掛時の状態確認に関するサブスクリプション管理の仕様は「CDC Replication のスクリプト操作に使うコマンドライン」で、確認対象は状態確認・復旧手・復旧手・復旧手掛です。refre・状態確認のA:は「対象表を初期同期または再同期する複製操作」を述べ、対象は状態確認 外部連携（refre・状態確・外部連・外部連携）です。収集対象InstaのB:は「Instanceの戻り値と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Instance（Insta・収集・戻り値・重複反映）です。確認ではサを復旧確認のD:は「CDC Subscriptionで復旧後の確認ではサブスクリプション」を述べ、対象は復旧後の確認 SUB06（CDC・復旧確・確認で・別サブス）です。状態確認を復旧手掛かという用語は「CDC Replication」を指し、状態確認 復旧手掛かり（状態確認・復旧手・復旧手・復旧手掛）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHCCLP 状態確認 復旧手掛かり</strong></p><p>検証目的: サブスクリプション管理のCHCCLP 状態確認 復旧手掛かりについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB009           DS009          Mirroring   BMK009
+画面・出力には Subscription が含まれ、CHCCLP 状態確認 復旧手掛かりの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB009           DS009          BMK009
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0147"><h3>CHCCLP 遅延監視 ドメイン値</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「CHCCLP 遅延監視 ドメイン値」は、CDC Replication のスクリプト操作に使うコマンドライン機能を遅延監視の観点で確認する技術項目です。target datastore の統計とSUB049を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「CHCCLP 遅延監視 ドメイン値」を「複製位置管理 Subscription 0030」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は棚卸で16進ブックを証跡に残し・Subscriptionの16進ブックマークと取得時刻を記録。複製位置管理 Subscription 0030固有の属性も確認対象に含める。</li><li>B. 仕様上の役割は確認で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し・重複反映を防ぐ。</li><li>C. 仕様上の役割はサブスクリプでドメイン値を証跡に残し・CDC Replication のスクリプト操作に使うコマン。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は解除でミラー開始を証跡に残し・CDCのミラー開始と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> サブスク対象遅延監視でCの記述「CDC Replication のスクリプト操作に使うコマンドライン」に対応する項目は遅延監視 ドメイン値（遅延監視・サブス・ドメイ・ドメイン）です。サブスク時の遅延監視に関するサブスクリプション管理の仕様は「CDC Replication のスクリプト操作に使うコマンドライン」で、確認対象は遅延監視・サブス・ドメイ・ドメインです。Subsc・棚卸のA:は「Subscriptionの16進ブックマークと取得時刻を記録し」を述べ、対象は複製位置管理 Subscriptio（Subsc・棚卸・16進・重複反映）です。確認対象BookmのB:は「Bookmarkの複製位置と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Bookmark（Bookm・確認・複製位・重複反映）です。ミラーリを解除のD:は「CDCのミラー開始と取得時刻を記録し、Refresh未完了の見落とし」を述べ、対象はEvent Severity（ミラーリン・解除・ミラー・Refr）です。遅延監視をサブスクリという用語は「CDC Replication」を指し、遅延監視 ドメイン値（遅延監視・サブス・ドメイ・ドメイン）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHCCLP 遅延監視 ドメイン値</strong></p><p>検証目的: サブスクリプション管理のCHCCLP 遅延監視 ドメイン値について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB049           DS049          Mirroring   BMK049
+画面・出力には Subscription が含まれ、CHCCLP 遅延監視 ドメイン値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB049           DS049          BMK049
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0148"><h3>capture service ログ位置照合 キーマップ</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「capture service ログ位置照合 キーマップ」は、ソース変更を読み取りサブスクリプションへ渡す処理をログ位置照合の観点で確認する技術項目です。replication mapping 名とDS025を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「capture service ログ位置照合 キーマップ」を「subscription 統計採取 重大度」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は複製対象の表対応と開始位置をまとめる管理単位を統計採取として確認する。統計採取で重大度を確認するときは重大度の誤読を防ぐ。</li><li>B. 仕様上の役割はBookmarkの複製位置と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。</li><li>C. 仕様上の役割はCDC Datastoreで停止前の確認ではデータストア接続の 通信活動からCHC9788Iを読みである。停止確認で停止前の確認を確認するときはホスト名変更後の購読構成を更を防ぐ。</li><li>D. 仕様上の役割はソース変更を読み取りサブスクリプションへ渡す処理である。ログ位置照合でキーマップを確認するときはキーマップの誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ログ位置対象captuでDの記述「ソース変更を読み取りサブスクリプションへ渡す処理である」に対応する項目はログ位置照合 キーマップ（captu・ログ位・キーマ・キーマッ）です。ログ位置時のcaptuに関するサブスクリプション管理の仕様は「ソース変更を読み取りサブスクリプションへ渡す処理」で、確認対象はcapt・ログ位・キーマ・キーマッです。subsc・統計採取のA:は「複製対象の表対応と開始位置をまとめる管理単位を統計採取として確認する」を述べ、対象は統計採取 重大度（subsc・統計採・重大度・重大度の）です。保守対象BookmのB:は「Bookmarkの複製位置と取得時刻を記録し、データ欠落を防ぐ」を述べ、対象は複製位置管理 Bookmark（Bookm・保守・複製位・データ欠）です。停止確認時のCDCのC:は「CDC Datastoreで停止前の確認ではデータストア接続の」を述べ、対象は停止前の確認 STORE14（CDC・停止確・停止前・ホスト名）です。captをログ位置照という用語は「ソース変更を読み取りサブスクリプションへ渡す処理」を指し、ログ位置照合 キーマップ（captu・ログ位・キーマ・キーマッ）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>capture service ログ位置照合 キーマップ</strong></p><p>検証目的: サブスクリプション管理のcapture service ログ位置照合 キーマップについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB025           DS025          Mirroring   BMK025
+画面・出力には Subscription が含まれ、capture service ログ位置照合 キーマップの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB025           DS025          BMK025
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0149"><h3>capture service 失敗時切り分け 翻訳表</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「capture service 失敗時切り分け 翻訳表」は、ソース変更を読み取りサブスクリプションへ渡す処理を失敗時切り分けの観点で確認する技術項目です。replication mapping 名とDS065を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「capture service 失敗時切り分け 翻訳表」を「performance statistics 開始位置指定 画面タグ」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はサブスクリプで翻訳表を証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理を失敗時切り。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割は複製状態監視で画面タグを証跡に残し・サブスクリプションやデータストアの処理量と遅延を測る情報。</li><li>C. 運用時に利用する技術的役割は登録でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>D. 運用時に利用する技術的役割は依存関係確認で通信統計を証跡に残し・CDC Communicationsで通信統計からSends。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> サブ・翻訳表・翻訳表のでAの記述「ソース変更を読み取りサブスクリプションへ渡す処理を失敗時切り分けとし」に対応する項目は失敗時切り分け 翻訳表（cap・翻訳表・翻訳表の・サブス）です。サブスク時の翻訳表に関するサブスクリプション管理の仕様は「ソース変更を読み取りサブスクリプションへ渡す処理を失敗時切り分けとし」で、確認対象はcap・翻訳表・翻訳表の・サブスです。複製・画面タ・画面タグのB:は「サブスクリプションやデータストアの処理量と遅延を測る情報」を述べ、対象は開始位置指定 画面タグ（per・画面タ・画面タグ・複製状）です。登録時のサブスクリのC:は「Localeのサブスクリプション名と取得時刻を記録し」を述べ、対象は複製位置管理 Locale（Loc・サブス・データ欠・登録）です。通信統計を依存関係確のD:は「CDC Communicationsで通信統計からSendsを読み」を述べ、対象は依存関係の確認 STAT13（CDC・通信統・送信回数・依存関）です。翻訳表をサブスクリという用語は「ソース変更を読み取りサブスクリプションへ渡す処理を失」を指し、失敗時切り分け 翻訳表（cap・翻訳表・翻訳表の・サブス）で照合する値は翻訳表です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>capture service 失敗時切り分け 翻訳表</strong></p><p>検証目的: サブスクリプション管理のcapture service 失敗時切り分け 翻訳表について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB065           DS065          Mirroring   BMK065
+画面・出力には Subscription が含まれ、capture service 失敗時切り分け 翻訳表の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB065           DS065          BMK065
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0150"><h3>refresh 初期同期判定 自動処理</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「refresh 初期同期判定 自動処理」は、対象表を初期同期または再同期する複製操作を初期同期判定の観点で確認する技術項目です。bookmark valueとLOG057を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「refresh 初期同期判定 自動処理」を「CDCミラーリング Replication Method 0058」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は自動処理の誤読を避けるため・初期同期判定で自動処理を確認するして自動処理を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてサブスクリプを照合する。</li><li>C. 保守作業で参照する機能は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するして遅延確認を照合する。</li><li>D. 保守作業で参照する機能は送信回数だけでターゲット適用完了を避けるため・通信統計からSendsを読むして通信統計を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 初期・自動処・自動処理でAの記述「対象表を初期同期または再同期する複製操作を初期同期判定として確認する」に対応する項目は初期同期判定 自動処理（ref・自動処・自動処理・初期同）です。初期同期時の自動処理に関するサブスクリプション管理の仕様は「対象表を初期同期または再同期する複製操作を初期同期判定として確認する」で、確認対象はref・自動処・自動処理・初期同です。復旧・サブス・遅延ゼロのB:は「CDCのサブスクリプション状態と取得時刻を記録し」を述べ、対象はReplication Method（ミラー・サブス・遅延ゼロ・復旧）です。確認時の遅延確認のC:は「CDCの遅延確認と取得時刻を記録し、対象サブスクリプションの取り違え」を述べ、対象はCDCミラーリング Latency（ミラー・遅延確・対象サブ・確認）です。通信統計を通常状態確のD:は「CDC Communicationsで通信統計からSendsを読み」を述べ、対象は通常状態の確認 STAT01（CDC・通信統・送信回数・通常状）です。自動処理を初期同期判という用語は「対象表を初期同期または再同期する複製操作を初期同期判」を指し、初期同期判定 自動処理（ref・自動処・自動処理・初期同）で照合する値は自動処理です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>refresh 初期同期判定 自動処理</strong></p><p>検証目的: サブスクリプション管理のrefresh 初期同期判定 自動処理について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB057           DS057          Mirroring   BMK057
+画面・出力には Subscription が含まれ、refresh 初期同期判定 自動処理の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB057           DS057          BMK057
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0151"><h3>refresh 開始位置指定 同期範囲</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「refresh 開始位置指定 同期範囲」は、対象表を初期同期または再同期する複製操作を開始位置指定の観点で確認する技術項目です。bookmark valueとLOG017を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「refresh 開始位置指定 同期範囲」を「capture service 初期同期判定 取得間隔」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はソース変更を読み取りサブスクリプションへ渡す処理を初期同期判定として確認する。初期同期判定で取得間隔を確認するときは取得間隔の誤読を防ぐ。</li><li>B. 運用時に利用する技術的役割は対象表を初期同期または再同期する複製操作である。サブスクリプで同期範囲を確認するときは同期範囲の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割はDDLの表定義再読込と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。</li><li>D. 運用時に利用する技術的役割はTable Mappingで変更後の確認ではマッピング管理の 購読再記述からMappedTableを読みである。変更確認で変更後の確認を確認するときはDDL変更後に古い列定義で複を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> サブスク対象refreでBの記述「対象表を初期同期または再同期する複製操作である」に対応する項目は開始位置指定 同期範囲（refre・サブス・同期範・同期範囲）です。サブスク時のrefreに関するサブスクリプション管理の仕様は「対象表を初期同期または再同期する複製操作」で、確認対象はrefr・サブス・同期範・同期範囲です。captu・初期同期判のA:は「ソース変更を読み取りサブスクリプションへ渡す処理を初期同期判定として」を述べ、対象は初期同期判定 取得間隔（captu・初期同・取得間・取得間隔）です。登録時の後の表定義のC:は「DDLの表定義再読込と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はSource Table（後の表定義・登録・表定義・ログ先頭）です。Tablを変更確認のD:は「Table Mappingで変更後の確認ではマッピング管理の」を述べ、対象は変更後の確認 MAP03（Table・変更確・変更後・DDL変）です。refrをサブスクリという用語は「対象表を初期同期または再同期する複製操作」を指し、開始位置指定 同期範囲（refre・サブス・同期範・同期範囲）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>refresh 開始位置指定 同期範囲</strong></p><p>検証目的: サブスクリプション管理のrefresh 開始位置指定 同期範囲について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB017           DS017          Mirroring   BMK017
+画面・出力には Subscription が含まれ、refresh 開始位置指定 同期範囲の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB017           DS017          BMK017
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0152"><h3>replication mapping マッピング検査 再同期判断</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「replication mapping マッピング検査 再同期判断」は、ソース表とターゲット表の対応および列変換を示す定義をマッピング検査の観点で確認する技術項目です。CHC0368I メッセージとMAP033を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「replication mapping マッピング検査 再同期判断」を「DDL後の表定義更新 Table Definition 0044」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はDDLのDDL対象表と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。</li><li>B. 保守作業で参照する機能はHex Positionのインスタンス名と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li><li>C. 保守作業で参照する機能はSubscriptionの16進ブックマークと取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li><li>D. 保守作業で参照する機能はソース表とターゲット表の対応および列変換を示す定義をマッピング検査として確認する。サブスクリプで再同期判断を確認するときは再同期判断の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> サブスク対象repliでDの記述「ソース表とターゲット表の対応および列変換を示す定義をマッピング検査と」に対応する項目はマッピング検査 再同期判断（repli・サブス・再同期・再同期判）です。サブスク時のrepliに関するサブスクリプション管理の仕様は「ソース表とターゲット表の対応および列変換を示す定義をマッピング検査と」で、確認対象はrepl・サブス・再同期・再同期判です。後の表定義・復旧のA:は「DDLのDDL対象表と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はTable Definition（後の表定義・復旧・DDL・ログ先頭）です。登録対象HexのB:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・登録・インス・対象イン）です。承認時のSubscのC:は「Subscriptionの16進ブックマークと取得時刻を記録し」を述べ、対象は複製位置管理 Subscriptio（Subsc・承認・16進・対象イン）です。replをサブスクリという用語は「ソース表とターゲット表の対応および列変換を示す定義を」を指し、マッピング検査 再同期判断（repli・サブス・再同期・再同期判）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>replication mapping マッピング検査 再同期判断</strong></p><p>検証目的: サブスクリプション管理のreplication mapping マッピング検査 再同期判断について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB033           DS033          Mirroring   BMK033
+画面・出力には Subscription が含まれ、replication mapping マッピング検査 再同期判断の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB033           DS033          BMK033
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0153"><h3>replication mapping 統計採取 収集装置</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「replication mapping 統計採取 収集装置」は、ソース表とターゲット表の対応および列変換を示す定義を統計採取の観点で確認する技術項目です。CHC0368I メッセージとMAP073を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「replication mapping 統計採取 収集装置」を「CDCミラーリング Latency 0082」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は確認操作で状態欄を整理することで遅延確認を確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>B. 仕様上の役割は主操作で出力欄を評価することでサブスクリプを確認し・IBM指示なしの位置変更を防ぐ。</li><li>C. 仕様上の役割はログ依存からOldestdependenことでログ依存を確認し・送信回数だけでターゲット適用を防ぐ。</li><li>D. 仕様上の役割は統計採取で収集装置を確認することで収集装置を確認し・収集装置の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 統計・収集装・収集装置でDの記述「ソース表とターゲット表の対応および列変換を示す定義を統計採取として確」に対応する項目は統計採取 収集装置（rep・収集装・収集装置・統計採）です。統計採取時の収集装置に関するサブスクリプション管理の仕様は「ソース表とターゲット表の対応および列変換を示す定義を統計採取として確」で、確認対象はrep・収集装・収集装置・統計採です。ミラ・変更・遅延確認のA:は「CDCの遅延確認と取得時刻を記録し、遅延ゼロ確認の欠落を防ぐ」を述べ、対象はCDCミラーリング Latency（ミラー・遅延確・遅延ゼロ・変更）です。確認・サブス・IBM指のB:は「Localeのサブスクリプション名と取得時刻を記録し」を述べ、対象は複製位置管理 Locale（Loc・サブス・IBM指・確認）です。再始動確時のログ依存のC:は「CDC Communicationsでログ依存からOldestdep」を述べ、対象は再始動後の確認 STAT15（CDC・ログ依・送信回数・再始動）です。収集装置を統計採取という用語は「ソース表とターゲット表の対応および列変換を示す定義を」を指し、統計採取 収集装置（rep・収集装・収集装置・統計採）で照合する値は収集装置です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>replication mapping 統計採取 収集装置</strong></p><p>検証目的: サブスクリプション管理のreplication mapping 統計採取 収集装置について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB073           DS073          Mirroring   BMK073
+画面・出力には Subscription が含まれ、replication mapping 統計採取 収集装置の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB073           DS073          BMK073
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0154"><h3>subscription 状態確認 開始時刻</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「subscription 状態確認 開始時刻」は、複製対象の表対応と開始位置をまとめる管理単位を状態確認の観点で確認する技術項目です。list subscriptions の表とBMK001を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「subscription 状態確認 開始時刻」を「datastore 失敗時切り分け 分散定義」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はブックマークで分散定義を確認することで分散定義を確認し・分散定義の誤読を防ぐ。</li><li>B. 仕様上の役割は変更確認操作で採取欄を棚卸することで複製位置を確認し・重複反映を防ぐ。</li><li>C. 仕様上の役割は採取操作で照合欄を点検することでRefresを確認し・イベント重大度の誤読を防ぐ。</li><li>D. 仕様上の役割は状態確認で開始時刻を確認することで開始時刻を確認し・開始時刻の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 状態確認対象subscでDの記述「複製対象の表対応と開始位置をまとめる管理単位である」に対応する項目は状態確認 開始時刻（subsc・状態確・開始時・開始時刻）です。状態確認時のsubscに関するサブスクリプション管理の仕様は「複製対象の表対応と開始位置をまとめる管理単位」で、確認対象はsubs・状態確・開始時・開始時刻です。datas・ブックマーのA:は「CDC Replication が接続するソースまたはターゲットの接」を述べ、対象は失敗時切り分け 分散定義（datas・ブック・分散定・分散定義）です。切替対象BookmのB:は「Bookmarkの複製位置と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Bookmark（Bookm・切替・複製位・重複反映）です。抑止時のミラーリンのC:は「CDCのRefresh状態と取得時刻を記録し」を述べ、対象はTable Status（ミラーリン・抑止・Ref・イベント）です。subsを状態確認という用語は「複製対象の表対応と開始位置をまとめる管理単位」を指し、状態確認 開始時刻（subsc・状態確・開始時・開始時刻）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>subscription 状態確認 開始時刻</strong></p><p>検証目的: サブスクリプション管理のsubscription 状態確認 開始時刻について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB001           DS001          Mirroring   BMK001
+画面・出力には Subscription が含まれ、subscription 状態確認 開始時刻の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB001           DS001          BMK001
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0155"><h3>subscription 遅延監視 容量表示</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の サブスクリプション管理 で扱う「subscription 遅延監視 容量表示」は、複製対象の表対応と開始位置をまとめる管理単位を遅延監視の観点で確認する技術項目です。list subscriptions の表とBMK041を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「subscription 遅延監視 容量表示」を「DDL後の表定義更新 Refresh Table 0053」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は容量表示で容量表示を確認することで容量表示を確認し・容量表示の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割は復旧操作で点検欄を確認することで再開条件を確認し・DDL対象表の漏れを防ぐ。</li><li>C. 運用時に利用する技術的役割は記録操作で証跡欄を照合することでミラー開始を確認し・Refresh未完了の見落とを防ぐ。</li><li>D. 運用時に利用する技術的役割は構成監査で構成監査ではを確認することで構成監査ではを確認し・DDL変更後に古い列定義で複を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 容量表示対象subscでAの記述「複製対象の表対応と開始位置をまとめる管理単位を遅延監視として確認する」に対応する項目は遅延監視 容量表示（subsc・容量表・容量表・容量表示）です。容量表示時のsubscに関するサブスクリプション管理の仕様は「複製対象の表対応と開始位置をまとめる管理単位を遅延監視として確認する」で、確認対象はsubs・容量表・容量表・容量表示です。復旧対象後の表定義のB:は「DDLの再開条件と取得時刻を記録し、DDL対象表の漏れを防ぐ」を述べ、対象はRefresh Table（後の表定義・復旧・再開条・DDL対）です。確認時のミラーリンのC:は「CDCのミラー開始と取得時刻を記録し、Refresh未完了の見落とし」を述べ、対象はEvent Severity（ミラーリン・確認・ミラー・Refr）です。Tablを構成監査のD:は「Table Mappingで構成監査ではマッピング管理の」を述べ、対象は構成監査 MAP08（Table・構成監・構成監・DDL変）です。subsを容量表示という用語は「複製対象の表対応と開始位置をまとめる管理単位を遅延監」を指し、遅延監視 容量表示（subsc・容量表・容量表・容量表示）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>subscription 遅延監視 容量表示</strong></p><p>検証目的: サブスクリプション管理のsubscription 遅延監視 容量表示について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、サブスクリプション管理の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB041           DS041          Mirroring   BMK041
+画面・出力には Subscription が含まれ、subscription 遅延監視 容量表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB041           DS041          BMK041
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0156"><h3>サブスクリプション管理 CDC Subscription ログとの照合 SUB07</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>ログとの照合では サブスクリプション管理 の 定義表示 を主操作として SUB07 を判定します。時刻と対象識別子への注意として「別サブスクリプションを停止または開始する危険があります」を SUB07 に残します。ログとの照合を補助する イベント表示 では Severity を補助値として SUB07 へ保存します。主判定のログとの照合ではサブスクリプション管理の 定義表示 から Subscription を読み SUB07 へ残します。証跡照合のログとの照合ではサブスクリプション管理の Subscription と Severity を SUB07 に保存します。記録対応のログとの照合ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB07 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription ログとの照合 SUB07の設定や表示を読む前に役割を確認します。マッピング管理 Table Mapping 停止前の確認 MAP14ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは定義表示からSubscriptionを読ことで定義表示を確認し・別サブスクリプションを停止まを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きは表再読込から初期ロードedを読むことで表再読込を確認し・データ定義変更後に古い列定義を防ぐ。</li><li>C. 対象資源に対する働きは調査操作で保守欄を引き継ぎすることで表定義再読込を確認し・ログ先頭未到達の見落としを防ぐ。DDL後の表定義更新 Source Table 0080固有の属性も確認対象に含める。</li><li>D. 対象資源に対する働きは採取操作で照合欄を点検することでミラー開始を確認し・イベント重大度の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能定義表・別サブでAの記述「CDC Subscriptionで定義表示からSubsc」に対応する項目はログとの照合 SUB07（CDC・定義表・ログと）です。照合定義表・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionで定義表示からSubscriptio」で、確認対象は定義表・ログと・別サブです。運用ログと・CDCでB:の停止前の確認 MAP14は「Table Mappingで表再読込から初期」を述べるため、正答側の照合軸は定義表・サブス・ログとです。項目CDC・別サブでC:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は別サブ・サブス・定義表です。仕様サブス・定義表でD:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸はログと・別サブ・定義表です。用語定義表・ログとという用語は「CDC Subscriptionで定義表示からSub」を指し、照合する値と誤認リスクの組合せはサブス・定義表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription ログとの照合 SUB07</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて操作とログを対応し、SUB07のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB07を指定し、SUB07の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB07
+→ Enter を押す
+［画面・出力］
+Subscription: SUB07
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB07を指定し、SUB07のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB07
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB07 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB07の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Severity が画面・出力に表示されること
+③ ステップ3 の Replication が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0157"><h3>サブスクリプション管理 CDC Subscription 代替経路の確認 SUB10</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>代替経路の確認では サブスクリプション管理 の 定義表示 を主操作として SUB10 を判定します。主経路との役割差への注意として「別サブスクリプションを停止または開始する危険があります」を SUB10 に残します。代替経路の確認を補助する イベント表示 では Severity を補助値として SUB10 へ保存します。主判定の代替経路の確認ではサブスクリプション管理の 定義表示 から Subscription を読み SUB10 へ残します。証跡照合の代替経路の確認ではサブスクリプション管理の Subscription と Severity を SUB10 に保存します。記録対応の代替経路の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB10 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 代替経路の確認 SUB10の役割を調べています。リフレッシュ制御 CDC Refresh 権限境界の確認 REF12の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は初期ロード未完了でMirrorへを避けるため・完了確認からRowsappliedを読むして完了確認を照合する。</li><li>B. 表示や設定で扱う内容はデータ欠落を避けるため・監査操作で記録欄を比較するして複製位置を照合する。</li><li>C. 表示や設定で扱う内容は別サブスクリプションを停止またはを避けるため・定義表示からSubscriptionを読して定義表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は表定義未更新を避けるため・点検操作で判定欄を記録するして表定義再読込を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能定義表・別サブでCの記述「CDC Subscriptionで定義表示からSubsc」に対応する項目は代替経路の確認 SUB10（CDC・定義表・代替経）です。照合定義表・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionで定義表示からSubscriptio」で、確認対象は定義表・代替経・別サブです。比較サブス・代替経でA:の権限境界の確認 REF12は「CDC Refreshで完了確認からRows」を述べるため、正答側の照合軸はCDC・代替経・定義表です。運用代替経・CDCでB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は定義表・サブス・代替経です。仕様サブス・定義表でD:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は代替経・別サブ・定義表です。用語定義表・代替経という用語は「CDC Subscriptionで定義表示からSub」を指し、照合する値と誤認リスクの組合せはサブス・定義表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 代替経路の確認 SUB10</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて代替手段の成立を確認し、SUB10のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB10を指定し、SUB10の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB10
+→ Enter を押す
+［画面・出力］
+Subscription: SUB10
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB10を指定し、SUB10のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB10
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB10 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB10の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Severity が画面・出力に表示されること
+③ ステップ3 の Replication が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0158"><h3>サブスクリプション管理 CDC Subscription 依存関係の確認 SUB13</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>依存関係の確認では サブスクリプション管理 の 定義表示 を主操作として SUB13 を判定します。前提資源と後続処理の順序への注意として「別サブスクリプションを停止または開始する危険があります」を SUB13 に残します。依存関係の確認を補助する イベント表示 では Severity を補助値として SUB13 へ保存します。主判定の依存関係の確認ではサブスクリプション管理の 定義表示 から Subscription を読み SUB13 へ残します。証跡照合の依存関係の確認ではサブスクリプション管理の Subscription と Severity を SUB13 に保存します。記録対応の依存関係の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB13 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 依存関係の確認 SUB13を保守記録に説明する必要があります。性能統計 CDC Communications Activity 停止前の確認と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は送信回数だけでターゲット適用完了を避けるため・遅延表示からBytespersecondして遅延表示を照合する。</li><li>B. 保守作業で参照する機能は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するして初期ロード状を照合する。</li><li>C. 保守作業で参照する機能は別サブスクリプションを停止またはを避けるため・定義表示からSubscriptionを読して定義表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするして表定義再読込を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能定義表・別サブでCの記述「変更データ取得 サブスクリプションで定義表示から」に対応する項目は依存関係の確認 SUB13（変更デ・定義表・依存関）です。照合定義表・依存関に関するサブスクリプション管理の仕様は「変更データ取得 サブスクリプションで定義表示から」で、確認対象は定義表・依存関・別サブです。比較サブス・依存関でA:の停止前の確認 STAT14は「変更データ取得 通信で遅延表示から」を述べるため、正答側の照合軸は変更デ・依存関・定義表です。運用依存関・変更デでB:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は定義表・サブス・依存関です。仕様定義表・依存関でD:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は依存関・別サブ・定義表です。用語定義表・依存関という用語は「変更データ取得 サブスクリプションで定義表示から」を指し、照合する値と誤認リスクの組合せはサブス・定義表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 依存関係の確認 SUB13</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて依存資源を点検し、SUB13のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB13を指定し、SUB13の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB13
+→ Enter を押す
+［画面・出力］
+Subscription: SUB13
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB13を指定し、SUB13のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB13
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB13 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB13の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Severity が画面・出力に表示されること
+③ ステップ3 の Replication が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0159"><h3>サブスクリプション管理 CDC Subscription 停止前の確認 SUB14</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>停止前の確認では サブスクリプション管理 の イベント表示 を主操作として SUB14 を判定します。処理中資源と未完了要求への注意として「別サブスクリプションを停止または開始する危険があります」を SUB14 に残します。停止前の確認を補助する 版数表示 では Replication を補助値として SUB14 へ保存します。主判定の停止前の確認ではサブスクリプション管理の イベント表示 から Severity を読み SUB14 へ残します。証跡照合の停止前の確認ではサブスクリプション管理の Severity と Replication を SUB14 に保存します。記録対応の停止前の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB14 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 停止前の確認 SUB14に関する障害切り分けの前提を確認しています。データストア接続 CDC Datastore 代替経路の確認 STORE10の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はホスト名変更後の購読構成を更新せを避けるため・接続表示からDatastoreを読むして接続表示を照合する。</li><li>B. 障害切り分けに用いる役割は別サブスクリプションを停止またはを避けるため・イベント表示からSeverityを読むしてイベント表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は重複反映を避けるため・変更確認操作で採取欄を棚卸するして16進ブックを照合する。複製位置管理 Subscription 0030固有の属性も確認対象に含める。</li><li>D. 障害切り分けに用いる役割は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能イベン・別サブでBの記述「変更データ取得 サブスクリプションでイベント表示から」に対応する項目は停止前の確認 SUB14（変更デ・イベン・停止確）です。照合イベン・停止確に関するサブスクリプション管理の仕様は「変更データ取得 サブスクリプションでイベント表示から」で、確認対象はイベン・停止確・別サブです。比較サブス・停止確でA:の代替経路の確認 STORE10は「変更データ取得 データストアで接続表示から」を述べるため、正答側の照合軸は変更デ・停止確・イベンです。項目イベン・停止確でC:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は別サブ・サブス・イベンです。仕様イベン・停止確でD:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は停止確・別サブ・イベンです。用語イベン・停止確という用語は「変更データ取得 サブスクリプションでイベント表示から」を指し、照合する値と誤認リスクの組合せはサブス・イベン・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 停止前の確認 SUB14</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて安全な停止条件を確認し、SUB14のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB14を指定し、SUB14のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB14
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB14 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB14の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB14を指定し、SUB14の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB14
+→ Enter を押す
+［画面・出力］
+Subscription: SUB14
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Severity が画面・出力に表示されること
+② ステップ2 の Replication が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0160"><h3>サブスクリプション管理 CDC Subscription 再始動後の確認 SUB15</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>再始動後の確認では サブスクリプション管理 の 版数表示 を主操作として SUB15 を判定します。再開点と未処理データへの注意として「別サブスクリプションを停止または開始する危険があります」を SUB15 に残します。再始動後の確認を補助する 定義表示 では Subscription を補助値として SUB15 へ保存します。主判定の再始動後の確認ではサブスクリプション管理の 版数表示 から Replication を読み SUB15 へ残します。証跡照合の再始動後の確認ではサブスクリプション管理の Replication と Subscription を SUB15 に保存します。記録対応の再始動後の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB15 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 再始動後の確認 SUB15の設定や表示を読む前に役割を確認します。リフレッシュ制御 CDC Refresh 停止前の確認 REF14ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは初期ロード未完了でMirrorへを避けるため・方式変更からReturnvalueを読むして方式変更を照合する。</li><li>B. 状態を読み取るための働きはデータ定義対象表の漏れを避けるため・復旧操作で点検欄を確認するしてログ先頭到達を照合する。</li><li>C. 状態を読み取るための働きは別サブスクリプションを停止またはを避けるため・版数表示からReplicationを読むして版数表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きはベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するしてインスタンスを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能版数表・別サブでCの記述「変更データ取得 サブスクリプションで版数表示から」に対応する項目は再始動後の確認 SUB15（変更デ・版数表・再始動）です。照合版数表・再始動に関するサブスクリプション管理の仕様は「変更データ取得 サブスクリプションで版数表示から」で、確認対象は版数表・再始動・別サブです。比較サブス・再始動でA:の停止前の確認 REF14は「変更データ取得 初期ロードで方式変更から」を述べるため、正答側の照合軸は変更デ・再始動・版数表です。運用再始動・変更デでB:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は版数表・サブス・再始動です。仕様版数表・再始動でD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は再始動・別サブ・版数表です。用語版数表・再始動という用語は「変更データ取得 サブスクリプションで版数表示から」を指し、照合する値と誤認リスクの組合せはサブス・版数表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 再始動後の確認 SUB15</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて再始動結果を検証し、SUB15のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB15の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB15を指定し、SUB15の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB15
+→ Enter を押す
+［画面・出力］
+Subscription: SUB15
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB15を指定し、SUB15のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB15
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB15 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Replication が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Severity が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0161"><h3>サブスクリプション管理 CDC Subscription 変更前の確認 SUB02</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>変更前の確認では サブスクリプション管理 の イベント表示 を主操作として SUB02 を判定します。変更対象と非対象の境界への注意として「別サブスクリプションを停止または開始する危険があります」を SUB02 に残します。変更前の確認を補助する 版数表示 では Replication を補助値として SUB02 へ保存します。主判定の変更前の確認ではサブスクリプション管理の イベント表示 から Severity を読み SUB02 へ残します。証跡照合の変更前の確認ではサブスクリプション管理の Severity と Replication を SUB02 に保存します。記録対応の変更前の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB02 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 変更前の確認 SUB02の役割を調べています。性能統計 CDC Communications Activity 障害切り分けの説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は送信回数だけでターゲット適用完了を避けるため・通信統計からSendsを読むして通信統計を照合する。性能統計 CDC Communications Activity固有の属性も確認対象に含める。</li><li>B. 障害切り分けに用いる役割は画面タグの誤読を避けるため・複製状態監視で画面タグを確認するして画面タグを照合する。</li><li>C. 障害切り分けに用いる役割は別サブスクリプションを停止またはを避けるため・イベント表示からSeverityを読むしてイベント表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして戻り値を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能イベン・別サブでCの記述「CDC Subscriptionでイベント表示からSev」に対応する項目は変更前の確認 SUB02（CDC・イベン・変更確）です。照合イベン・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionでイベント表示からSeverityを」で、確認対象はイベン・変更確・別サブです。比較サブス・変更確でA:の障害切り分け STAT04は「CDC Communicationsで通信統」を述べるため、正答側の照合軸はCDC・変更確・イベンです。運用変更確・CDCでB:の開始位置指定 画面タグは「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸はイベン・サブス・変更確です。仕様サブス・イベンでD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は変更確・別サブ・イベンです。用語イベン・変更確という用語は「CDC Subscriptionでイベント表示からS」を指し、照合する値と誤認リスクの組合せはサブス・イベン・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 変更前の確認 SUB02</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて変更前の証跡を保存し、SUB02のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB02を指定し、SUB02のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB02
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB02 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB02の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB02を指定し、SUB02の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB02
+→ Enter を押す
+［画面・出力］
+Subscription: SUB02
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Severity が画面・出力に表示されること
+② ステップ2 の Replication が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0162"><h3>サブスクリプション管理 CDC Subscription 変更後の確認 SUB03</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>変更後の確認では サブスクリプション管理 の 版数表示 を主操作として SUB03 を判定します。反映値と残存値への注意として「別サブスクリプションを停止または開始する危険があります」を SUB03 に残します。変更後の確認を補助する 定義表示 では Subscription を補助値として SUB03 へ保存します。主判定の変更後の確認ではサブスクリプション管理の 版数表示 から Replication を読み SUB03 へ残します。証跡照合の変更後の確認ではサブスクリプション管理の Replication と Subscription を SUB03 に保存します。記録対応の変更後の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB03 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 変更後の確認 SUB03について構成や状態を確認します。複製状態監視 Mirror Status 通常状態の確認 MIR01ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは状態表示からLatencyを読むことで状態表示を確認し・初期ロード中の表をMirroを防ぐ。複製状態監視 Mirror Status 通常状態の確認 MIR01固有の属性も確認対象に含める。</li><li>B. 状態を読み取るための働きは変更確認操作で採取欄を棚卸することで戻り値を確認し・重複反映を防ぐ。</li><li>C. 状態を読み取るための働きは版数表示からReplicationを読むことで版数表示を確認し・別サブスクリプションを停止まを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは記録操作で証跡欄を照合することで遅延確認を確認し・初期ロード未完了の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能版数表・別サブでCの記述「CDC Subscriptionで版数表示からRepli」に対応する項目は変更後の確認 SUB03（CDC・版数表・変更確）です。照合版数表・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionで版数表示からReplication」で、確認対象は版数表・変更確・別サブです。比較サブス・変更確でA:の通常状態の確認 MIR01は「Mirror Statusで状態表示からLa」を述べるため、正答側の照合軸はCDC・変更確・版数表です。運用変更確・CDCでB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は版数表・サブス・変更確です。仕様サブス・版数表でD:のCDCミラーリングは「ミラーリングの項目の遅延確認と取得時刻を記録」を述べるため、正答側の照合軸は変更確・別サブ・版数表です。用語版数表・変更確という用語は「CDC Subscriptionで版数表示からRep」を指し、照合する値と誤認リスクの組合せはサブス・版数表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 変更後の確認 SUB03</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて変更結果を検証し、SUB03のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB03の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB03を指定し、SUB03の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB03
+→ Enter を押す
+［画面・出力］
+Subscription: SUB03
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB03を指定し、SUB03のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB03
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB03 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Replication が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Severity が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0163"><h3>サブスクリプション管理 CDC Subscription 引継ぎ記録 SUB09</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>引継ぎ記録では サブスクリプション管理 の 版数表示 を主操作として SUB09 を判定します。次担当者が追跡できる証跡への注意として「別サブスクリプションを停止または開始する危険があります」を SUB09 に残します。引継ぎ記録を補助する 定義表示 では Subscription を補助値として SUB09 へ保存します。主判定の引継ぎ記録ではサブスクリプション管理の 版数表示 から Replication を読み SUB09 へ残します。証跡照合の引継ぎ記録ではサブスクリプション管理の Replication と Subscription を SUB09 に保存します。記録対応の引継ぎ記録ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB09 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「サブスクリプション管理 CDC Subscription 引継ぎ記録 SUB09」を「複製状態監視 Mirror Status 復旧後の確認 MIR06」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は初期ロード中の表をMirror完を避けるため・通信活動からCHC9788Iを読むして通信活動を照合する。</li><li>B. 運用時に利用する技術的役割は別サブスクリプションを停止またはを避けるため・版数表示からReplicationを読むして版数表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するして戻り値を照合する。</li><li>D. 運用時に利用する技術的役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてデータ定義対を照合する。DDL後の表定義更新 Table Definition 0194固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能版数表・別サブでBの記述「CDC Subscriptionで版数表示からRepli」に対応する項目は引継ぎ記録 SUB09（CDC・版数表・サブス）です。照合版数表・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionで版数表示からReplication」で、確認対象は版数表・サブス・別サブです。比較サブス・サブスでA:の復旧後の確認 MIR06は「Mirror Statusで通信活動からCH」を述べるため、正答側の照合軸はCDC・サブス・版数表です。項目CDC・別サブでC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は別サブ・サブス・版数表です。仕様サブス・版数表でD:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸はサブス・別サブ・版数表です。用語版数表・サブスという用語は「CDC Subscriptionで版数表示からRep」を指し、照合する値と誤認リスクの組合せはサブス・版数表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 引継ぎ記録 SUB09</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて再現可能な記録を作成し、SUB09のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB09の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB09を指定し、SUB09の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB09
+→ Enter を押す
+［画面・出力］
+Subscription: SUB09
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB09を指定し、SUB09のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB09
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB09 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Replication が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Severity が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0164"><h3>サブスクリプション管理 CDC Subscription 復旧後の確認 SUB06</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>復旧後の確認では サブスクリプション管理 の 版数表示 を主操作として SUB06 を判定します。再発していないことを示す値への注意として「別サブスクリプションを停止または開始する危険があります」を SUB06 に残します。復旧後の確認を補助する 定義表示 では Subscription を補助値として SUB06 へ保存します。主判定の復旧後の確認ではサブスクリプション管理の 版数表示 から Replication を読み SUB06 へ残します。証跡照合の復旧後の確認ではサブスクリプション管理の Replication と Subscription を SUB06 に保存します。記録対応の復旧後の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB06 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 復旧後の確認 SUB06に関する障害切り分けの前提を確認しています。複製状態監視 Mirror Status 権限境界の確認 MIR12の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはMirror Statusで通信活動からCHC9788Iを読み・CHC9788IとLatencyを照合する。通信活動からCHC9788Iを読むときは初期ロード中の表をMirroを防ぐ。</li><li>B. 機能の説明としてはミラーリングの項目のミラー開始と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li><li>C. 機能の説明としてはInstanceの戻り値と取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。</li><li>D. 機能の説明としてはCDC Subscriptionで版数表示からReplicationを読みである。版数表示からReplicationをときは別サブスクリプションを停止まを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能版数表・別サブでDの記述「CDC Subscriptionで版数表示からRepli」に対応する項目は復旧後の確認 SUB06（CDC・版数表・復旧確）です。照合版数表・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionで版数表示からReplication」で、確認対象は版数表・復旧確・別サブです。比較サブス・復旧確でA:の権限境界の確認 MIR12は「Mirror Statusで通信活動からCH」を述べるため、正答側の照合軸はCDC・復旧確・版数表です。運用復旧確・CDCでB:のEvent Severityは「ミラーリングの項目のミラー開始と取得時刻を記」を述べるため、正答側の照合軸は版数表・サブス・復旧確です。項目CDC・別サブでC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は別サブ・サブス・版数表です。用語版数表・復旧確という用語は「CDC Subscriptionで版数表示からRep」を指し、照合する値と誤認リスクの組合せはサブス・版数表・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 復旧後の確認 SUB06</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて復旧後の安定性を確認し、SUB06のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB06の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB06を指定し、SUB06の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB06
+→ Enter を押す
+［画面・出力］
+Subscription: SUB06
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB06を指定し、SUB06のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB06
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB06 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Replication が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Severity が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0165"><h3>サブスクリプション管理 CDC Subscription 復旧準備 SUB05</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>復旧準備では サブスクリプション管理 の イベント表示 を主操作として SUB05 を判定します。再開前に必要な整合性への注意として「別サブスクリプションを停止または開始する危険があります」を SUB05 に残します。復旧準備を補助する 版数表示 では Replication を補助値として SUB05 へ保存します。主判定の復旧準備ではサブスクリプション管理の イベント表示 から Severity を読み SUB05 へ残します。証跡照合の復旧準備ではサブスクリプション管理の Severity と Replication を SUB05 に保存します。記録対応の復旧準備ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB05 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 復旧準備 SUB05を保守記録に説明する必要があります。マッピング管理 Table Mapping 変更前の確認 MAP02と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は表再読込から初期ロードedを読むことで表再読込を確認し・データ定義変更後に古い列定義を防ぐ。マッピング管理 Table Mapping 変更前の確認 MAP02固有の属性も確認対象に含める。</li><li>B. 仕様上の役割はイベント表示からSeverityを読むことでイベント表示を確認し・別サブスクリプションを停止まを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は表示操作で対象欄を追跡することでデータ定義対を確認し・初期ロード中の再開を防ぐ。</li><li>D. 仕様上の役割は復旧操作で点検欄を確認することで表定義再読込を確認し・データ定義対象表の漏れを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能イベン・別サブでBの記述「CDC Subscriptionでイベント表示からSev」に対応する項目は復旧準備 SUB05（CDC・イベン・復旧準）です。照合イベン・別サブに関するサブスクリプション管理の仕様は「CDC Subscriptionでイベント表示からSeverityを」で、確認対象はイベン・復旧準・別サブです。比較サブス・復旧準でA:の変更前の確認 MAP02は「Table Mappingで表再読込から初期」を述べるため、正答側の照合軸はCDC・復旧準・イベンです。項目CDC・別サブでC:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は別サブ・サブス・イベンです。仕様サブス・イベンでD:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は復旧準・別サブ・イベンです。用語イベン・復旧準という用語は「CDC Subscriptionでイベント表示からS」を指し、照合する値と誤認リスクの組合せはサブス・イベン・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 復旧準備 SUB05</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて復旧条件を確認し、SUB05のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB05を指定し、SUB05のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB05
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB05 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB05の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB05を指定し、SUB05の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB05
+→ Enter を押す
+［画面・出力］
+Subscription: SUB05
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Severity が画面・出力に表示されること
+② ステップ2 の Replication が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0166"><h3>サブスクリプション管理 CDC Subscription 性能影響の確認 SUB11</h3><p class="kb-meta">分類: サブスクリプション管理 ・ 難易度: 初級</p><p>性能影響の確認では サブスクリプション管理 の イベント表示 を主操作として SUB11 を判定します。処理時間と滞留箇所への注意として「別サブスクリプションを停止または開始する危険があります」を SUB11 に残します。性能影響の確認を補助する 版数表示 では Replication を補助値として SUB11 へ保存します。主判定の性能影響の確認ではサブスクリプション管理の イベント表示 から Severity を読み SUB11 へ残します。証跡照合の性能影響の確認ではサブスクリプション管理の Severity と Replication を SUB11 に保存します。記録対応の性能影響の確認ではサブスクリプション管理の SubscriptionとReplication Method の証跡へ SUB11 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> サブスクリプション管理 CDC Subscription 性能影響の確認 SUB11について構成や状態を確認します。マッピング管理 Table Mapping 停止前の確認 MAP14ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は表再読込から初期ロードedを読むことで表再読込を確認し・データ定義変更後に古い列定義を防ぐ。</li><li>B. 一次資料が示す主目的は復旧操作で点検欄を確認することで再開条件を確認し・データ定義対象表の漏れを防ぐ。DDL後の表定義更新 Refresh Table 0053固有の属性も確認対象に含める。</li><li>C. 一次資料が示す主目的はイベント表示からSeverityを読むことでイベント表示を確認し・別サブスクリプションを停止まを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は主操作で出力欄を評価することでインスタンスを確認し・ベンダー指示なしの位置変更を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能イベン・別サブでCの記述「変更データ取得 サブスクリプションでイベント表示から」に対応する項目は性能影響の確認 SUB11（変更デ・イベン・性能影）です。照合イベン・性能影に関するサブスクリプション管理の仕様は「変更データ取得 サブスクリプションでイベント表示から」で、確認対象はイベン・性能影・別サブです。比較サブス・性能影でA:の停止前の確認 MAP14は「表対応で表再読込から 初期ロードed」を述べるため、正答側の照合軸は変更デ・性能影・イベンです。運用性能影・変更デでB:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸はイベン・サブス・性能影です。仕様イベン・性能影でD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は性能影・別サブ・イベンです。用語イベン・性能影という用語は「変更データ取得 サブスクリプションでイベント表示から」を指し、照合する値と誤認リスクの組合せはサブス・イベン・別サブです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブスクリプション管理 CDC Subscription 性能影響の確認 SUB11</strong></p><p>検証目的: サブスクリプション管理のCDC Subscriptionについて負荷と待ちを確認し、SUB11のSubscriptionとReplication Methodを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象SUB11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB11を指定し、SUB11のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB11
+→ Enter を押す
+［画面・出力］
+Event 1201 Severity INFO Subscription SUB11 Mirroring started at 2026-07-15 14:00
+画面・出力にあるSeverityを読み、SubscriptionとReplication Methodと対象SUB11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmshowversion -I SRC1を指定し、SUB11の版数表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowversion -I SRC1
+→ Enter を押す
+［画面・出力］
+CDC Replication version 11.4 Instance SRC1 Locale ja_JP
+画面・出力にあるReplicationを読み、SubscriptionとReplication Methodと対象SUB11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のサブスクリプション管理を確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB11を指定し、SUB11の定義表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB11
+→ Enter を押す
+［画面・出力］
+Subscription: SUB11
+Source datastore: SRC1
+Target datastore: TGT1
+Replication method: Mirror
+Mapped tables: 24
+画面・出力にあるSubscriptionを読み、SubscriptionとReplication Methodと対象SUB11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Severity が画面・出力に表示されること
+② ステップ2 の Replication が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>

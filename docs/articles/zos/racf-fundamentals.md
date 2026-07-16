@@ -57,8 +57,8 @@ RACF (Resource Access Control Facility) は z/OS のセキュリティ製品で�
 
 ## 前提知識
 
-- データセット概念 ([データセット入門](../dataset/fundamentals.md))
-- SMF ([SMF 入門](../smf/fundamentals.md))
+- データセット概念 (データセット入門)
+- SMF (SMF 入門)
 - ACL モデル、認証と認可の区別
 
 ## サンプル

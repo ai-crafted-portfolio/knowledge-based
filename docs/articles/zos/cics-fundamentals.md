@@ -55,7 +55,7 @@ Tranid を起動するたびに新規 **Task** が作られ、Task は SYNCPOINT
 
 ## 前提知識
 
-- VSAM ([VSAM 入門](../vsam/fundamentals.md)) — CICS のリソース DB
+- VSAM (VSAM 入門) — CICS のリソース DB
 - [RACF Security 基本](./racf-fundamentals.md) — トランザクション認可
 - データセット概念 + JCL (CICS 起動 JCL)
 - トランザクション概念 (COMMIT / ROLLBACK)、3270 プロトコル

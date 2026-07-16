@@ -53,7 +53,7 @@ ISPF は **panel / skeleton / table / message** の 4 リソースタイプを I
 
 ## 前提知識
 
-- [データセット入門](../dataset/fundamentals.md)
+- データセット入門
 - [JCL 入門](./jcl-fundamentals.md)
 - シェルとエディタの分離 (Unix の bash + vi) が ISPF では融合している点を理解する
 

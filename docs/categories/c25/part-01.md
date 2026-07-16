@@ -1,0 +1,6776 @@
+---
+search:
+  exclude: true
+---
+
+# PowerHA SystemMirror 7.2 — 詳細 (1/4)
+
+[← PowerHA SystemMirror 7.2 の概要へ戻る](index.md)
+
+
+## GLVM
+
+
+<section class="kb-item" id="c25-i0001"><h3>GLVM地理的ミラー Mirror Pool 0015</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>金P巡回0016ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票金P巡回0016です。金P巡回0016は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録金P巡回0016です。金P巡回0016ではVG vary状態と取得時刻を採取票金P巡回0016へ残します。金P巡回0016ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断金P巡回0016です。金P巡回0016の用語整理では地理的ミラーの対象値を実在出力で確認する記録金P巡回0016です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0015の設定や表示を読む前に役割を確認します。クラスタ構成検証 SMIT Command Status 0019ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはシステム管理コマンドの検証進行率と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>B. 対象資源に対する働きはclverify.logの検証報告ROHAレポートと取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。クラスタ構成検証 clverify.log 0232固有の属性も確認対象に含める。</li><li>C. 対象資源に対する働きは地理的ミラーの項目のVG vary状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはクラスタ名・状態・バージョンなどのクラスタ属性を表示するコマンドを版数確認する。版数確認で再開位置を確認するときは再開位置の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・地理的・VGでCの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・巡回）です。照合巡回・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・巡回・sysです。比較地理的・巡回でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・巡回・VGです。運用巡回・地理的でB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はVG・地理的・巡回です。仕様巡回・地理的・VGでD:の版数確認 再開位置は「クラスタ名、状態、バージョンなどのクラスタ属」を述べるため、正答側の照合軸は巡回・sys・VGです。用語巡回・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0015</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0015について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg15
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0015A
+画面・出力には PHA72DD0015A が表示され、GLVM地理的ミラー Mirror Pool 0015 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0015B
+画面・出力には PHA72DD0015B が表示され、GLVM地理的ミラー Mirror Pool 0015 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0015
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0015C
+画面・出力には PHA72DD0015C が表示され、GLVM地理的ミラー Mirror Pool 0015 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0015A が画面・出力に表示されること
+② ステップ2 の PHA72DD0015B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0015C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0002"><h3>GLVM地理的ミラー Mirror Pool 0030</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紺K棚卸0031ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紺K棚卸0031です。紺K棚卸0031は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紺K棚卸0031です。紺K棚卸0031ではVG vary状態と取得時刻を採取票紺K棚卸0031へ残します。紺K棚卸0031ではRPV経路断の見落としを避けるため補助資料も照合する判断紺K棚卸0031です。紺K棚卸0031の用語整理では地理的ミラーの対象値を実在出力で説明する記録紺K棚卸0031です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0030に関する障害切り分けの前提を確認しています。リソースグループ制御 Acquisition Failure 0041の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして獲得イベントを照合する。</li><li>B. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして優先ノード一を照合する。</li><li>D. 表示や設定で扱う内容は復旧手掛かりの誤読を避けるため・復旧手掛かりで復旧手掛かりを確認するして復旧手掛かりを照合する。clmgr start cluster 版数確認 復旧手掛かり固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・地理的・VGでBの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・棚卸）です。照合棚卸・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・棚卸・遠隔ボです。比較地理的・棚卸でA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・棚卸・VGです。項目棚卸・地理的・VGでC:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は遠隔ボ・地理的・VGです。仕様棚卸・地理的・VGでD:の版数確認 復旧手掛かりは「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は棚卸・遠隔ボ・VGです。用語棚卸・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0030</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0030について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg30
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0030A
+画面・出力には PHA72DD0030A が表示され、GLVM地理的ミラー Mirror Pool 0030 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0030B
+画面・出力には PHA72DD0030B が表示され、GLVM地理的ミラー Mirror Pool 0030 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0030
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0030C
+画面・出力には PHA72DD0030C が表示され、GLVM地理的ミラー Mirror Pool 0030 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0030A が画面・出力に表示されること
+② ステップ2 の PHA72DD0030B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0030C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0003"><h3>GLVM地理的ミラー Mirror Pool 0045</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>銀F復旧0046ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票銀F復旧0046です。銀F復旧0046は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録銀F復旧0046です。銀F復旧0046ではVG vary状態と取得時刻を採取票銀F復旧0046へ残します。銀F復旧0046では片側VGのvaryon誤操作を避けるため補助資料も照合する判断銀F復旧0046です。銀F復旧0046の用語整理では地理的ミラーの対象値を実在出力で追跡する記録銀F復旧0046です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0045を保守記録に説明する必要があります。クラスタ構成検証 SMIT Command Status 0094と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は確認操作で状態欄を整理することで検証進行率を確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 保守作業で参照する機能は主操作で出力欄を評価することでVG varを確認し・片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は確認操作で状態欄を整理することで検証報告ROを確認し・ノード間構成データODM差分を防ぐ。</li><li>D. 保守作業で参照する機能はIP資源照会からアドレスを読むことでサービスアドを確認し・永続アドレスとサービスアドレを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・地理的・VGでBの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・復旧）です。照合復旧・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・復旧・片側Vです。比較地理的・復旧でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・復旧・VGです。項目復旧・地理的・VGでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は片側V・地理的・VGです。仕様復旧・地理的・VGでD:の障害切り分け SVCIP04は「IP Service IPでサービスアドレス」を述べるため、正答側の照合軸は復旧・片側V・VGです。用語復旧・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0045</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0045について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg45
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0045A
+画面・出力には PHA72DD0045A が表示され、GLVM地理的ミラー Mirror Pool 0045 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0045B
+画面・出力には PHA72DD0045B が表示され、GLVM地理的ミラー Mirror Pool 0045 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0045
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0045C
+画面・出力には PHA72DD0045C が表示され、GLVM地理的ミラー Mirror Pool 0045 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0045A が画面・出力に表示されること
+② ステップ2 の PHA72DD0045B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0045C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0004"><h3>GLVM地理的ミラー Mirror Pool 0060</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>蒼A監査0061ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票蒼A監査0061です。蒼A監査0061は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録蒼A監査0061です。蒼A監査0061ではVG vary状態と取得時刻を採取票蒼A監査0061へ残します。蒼A監査0061ではミラー再同期条件の誤読を避けるため補助資料も照合する判断蒼A監査0061です。蒼A監査0061の用語整理では地理的ミラーの対象値を実在出力で記録する記録蒼A監査0061です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0060の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Client 0099との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は監査でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は変更で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>C. 管理対象との関係を表す説明は解析で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>D. 管理対象との関係を表す説明は復旧確認でインターフェを証跡に残し・IP Service IPでインターフェースから。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・監査）です。照合監査・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・監査・ミラーです。運用監査・地理的でB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はVG・地理的・監査です。項目監査・地理的・VGでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はミラー・地理的・VGです。仕様監査・地理的・VGでD:の復旧後の確認 SVCIP06は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は監査・ミラー・VGです。用語監査・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0060</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0060について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg60
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0060A
+画面・出力には PHA72DD0060A が表示され、GLVM地理的ミラー Mirror Pool 0060 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0060B
+画面・出力には PHA72DD0060B が表示され、GLVM地理的ミラー Mirror Pool 0060 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0060
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0060C
+画面・出力には PHA72DD0060C が表示され、GLVM地理的ミラー Mirror Pool 0060 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0060A が画面・出力に表示されること
+② ステップ2 の PHA72DD0060B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0060C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0005"><h3>GLVM地理的ミラー Mirror Pool 0075</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>金P監査0076ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票金P監査0076です。金P監査0076は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録金P監査0076です。金P監査0076ではVG vary状態と取得時刻を採取票金P監査0076へ残します。金P監査0076ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断金P監査0076です。金P監査0076の用語整理では地理的ミラーの対象値を実在出力で確認する記録金P監査0076です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0075について構成や状態を確認します。クラスタ構成検証 SMIT Command Status 0169ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは切替で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。クラスタ構成検証 SMIT Command Status 0169固有の属性も確認対象に含める。</li><li>B. 対象資源に対する働きは照合で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>C. 対象資源に対する働きは復旧準備でネットワークを証跡に残し・クラスタートポロジーでネットワーク照会から。</li><li>D. 対象資源に対する働きは監査でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・監査）です。照合監査・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・監査・sysです。比較地理的・監査でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・監査・VGです。運用監査・地理的でB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はVG・地理的・監査です。項目監査・地理的・VGでC:の復旧準備 TOPO05は「クラスタートポロジーでネットワーク照会から」を述べるため、正答側の照合軸はsys・地理的・VGです。用語監査・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0075</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0075について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg75
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0075A
+画面・出力には PHA72DD0075A が表示され、GLVM地理的ミラー Mirror Pool 0075 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0075B
+画面・出力には PHA72DD0075B が表示され、GLVM地理的ミラー Mirror Pool 0075 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0075
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0075C
+画面・出力には PHA72DD0075C が表示され、GLVM地理的ミラー Mirror Pool 0075 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0075A が画面・出力に表示されること
+② ステップ2 の PHA72DD0075B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0075C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0006"><h3>GLVM地理的ミラー Mirror Pool 0090</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紺K変更0091ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紺K変更0091です。紺K変更0091は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紺K変更0091です。紺K変更0091ではVG vary状態と取得時刻を採取票紺K変更0091へ残します。紺K変更0091ではRPV経路断の見落としを避けるため補助資料も照合する判断紺K変更0091です。紺K変更0091の用語整理では地理的ミラーの対象値を実在出力で説明する記録紺K変更0091です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0090の役割を調べています。クラスタ構成検証 Cluster Resources 0160の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてトポロジ要約を照合する。</li><li>B. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして失敗ラベルを照合する。</li><li>D. 表示や設定で扱う内容はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。GLVM地理的ミラー VG STATE 0003固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・VGでBの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・変更）です。照合変更・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・変更・遠隔ボです。比較地理的・変更でA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は地理的・変更・VGです。項目変更・地理的・VGでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・VGです。仕様変更・地理的・VGでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は変更・遠隔ボ・VGです。用語変更・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0090</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0090について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg90
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0090A
+画面・出力には PHA72DD0090A が表示され、GLVM地理的ミラー Mirror Pool 0090 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0090B
+画面・出力には PHA72DD0090B が表示され、GLVM地理的ミラー Mirror Pool 0090 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0090
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0090C
+画面・出力には PHA72DD0090C が表示され、GLVM地理的ミラー Mirror Pool 0090 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0090A が画面・出力に表示されること
+② ステップ2 の PHA72DD0090B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0090C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0007"><h3>GLVM地理的ミラー Mirror Pool 0105</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>銀F移行0106ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票銀F移行0106です。銀F移行0106は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録銀F移行0106です。銀F移行0106ではVG vary状態と取得時刻を採取票銀F移行0106へ残します。銀F移行0106では片側VGのvaryon誤操作を避けるため補助資料も照合する判断銀F移行0106です。銀F移行0106の用語整理では地理的ミラーの対象値を実在出力で追跡する記録銀F移行0106です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー Mirror Pool 0105」を「クラスタ構成検証 Verification Progress 0136」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。</li><li>C. 保守作業で参照する機能は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして構成データOを照合する。</li><li>D. 保守作業で参照する機能は監視通信SNMP情報の残留を実ノを避けるため・clinfoES状態からclinfoESしてclinfoを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・移行）です。照合移行・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・移行・片側Vです。運用移行・地理的でB:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸はVG・地理的・移行です。項目移行・地理的・VGでC:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は片側V・地理的・VGです。仕様移行・地理的・VGでD:の代替経路の確認 CLSTAT10は「clstatでclinfoES状態から」を述べるため、正答側の照合軸は移行・片側V・VGです。用語移行・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0105</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0105について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg105
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0105A
+画面・出力には PHA72DD0105A が表示され、GLVM地理的ミラー Mirror Pool 0105 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0105B
+画面・出力には PHA72DD0105B が表示され、GLVM地理的ミラー Mirror Pool 0105 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0105
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0105C
+画面・出力には PHA72DD0105C が表示され、GLVM地理的ミラー Mirror Pool 0105 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0105A が画面・出力に表示されること
+② ステップ2 の PHA72DD0105B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0105C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0008"><h3>GLVM地理的ミラー Mirror Pool 0120</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>蒼A診断0121ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票蒼A診断0121です。蒼A診断0121は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録蒼A診断0121です。蒼A診断0121ではVG vary状態と取得時刻を採取票蒼A診断0121へ残します。蒼A診断0121ではミラー再同期条件の誤読を避けるため補助資料も照合する判断蒼A診断0121です。蒼A診断0121の用語整理では地理的ミラーの対象値を実在出力で記録する記録蒼A診断0121です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0120を同一分類のGLVM地理的ミラー RPV Client 0189と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は収集で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>B. 管理対象との関係を表す説明は解除で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>C. 管理対象との関係を表す説明は診断でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は資源依存関係で依存照会を証跡に残し・資源グループで依存照会から START_AFTER を読み。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能診断・地理的・VGでCの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・診断）です。照合診断・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・診断・ミラーです。比較地理的・診断でA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は地理的・診断・VGです。運用診断・地理的でB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はVG・地理的・診断です。仕様診断・地理的・VGでD:の障害切り分け DEP04は「資源グループで依存照会から」を述べるため、正答側の照合軸は診断・ミラー・VGです。用語診断・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0120</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0120について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg120
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0120A
+画面・出力には PHA72DD0120A が表示され、GLVM地理的ミラー Mirror Pool 0120 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0120B
+画面・出力には PHA72DD0120B が表示され、GLVM地理的ミラー Mirror Pool 0120 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0120
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0120C
+画面・出力には PHA72DD0120C が表示され、GLVM地理的ミラー Mirror Pool 0120 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0120A が画面・出力に表示されること
+② ステップ2 の PHA72DD0120B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0120C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0009"><h3>GLVM地理的ミラー Mirror Pool 0135</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>金P診断0136ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票金P診断0136です。金P診断0136は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録金P診断0136です。金P診断0136ではVG vary状態と取得時刻を採取票金P診断0136へ残します。金P診断0136ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断金P診断0136です。金P診断0136の用語整理では地理的ミラーの対象値を実在出力で確認する記録金P診断0136です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0135の設定や表示を読む前に役割を確認します。クラスタ構成検証 Cluster Topology 0148ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きは検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして構成データOを照合する。</li><li>C. 対象資源に対する働きは停止確認の誤読を避けるため・停止確認で停止確認を確認するして停止確認を照合する。</li><li>D. 対象資源に対する働きは遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてミラー更新状を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・診断）です。照合診断・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・診断・sysです。運用診断・地理的でB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はVG・地理的・診断です。項目診断・地理的・VGでC:の障害切り分け 停止確認は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はsys・地理的・VGです。仕様診断・地理的・VGでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は診断・sys・VGです。用語診断・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0135</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0135について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg15
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0135A
+画面・出力には PHA72DD0135A が表示され、GLVM地理的ミラー Mirror Pool 0135 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0135B
+画面・出力には PHA72DD0135B が表示され、GLVM地理的ミラー Mirror Pool 0135 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0135
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0135C
+画面・出力には PHA72DD0135C が表示され、GLVM地理的ミラー Mirror Pool 0135 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0135A が画面・出力に表示されること
+② ステップ2 の PHA72DD0135B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0135C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0010"><h3>GLVM地理的ミラー Mirror Pool 0150</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紺K保守0151ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紺K保守0151です。紺K保守0151は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紺K保守0151です。紺K保守0151ではVG vary状態と取得時刻を採取票紺K保守0151へ残します。紺K保守0151ではRPV経路断の見落としを避けるため補助資料も照合する判断紺K保守0151です。紺K保守0151の用語整理では地理的ミラーの対象値を実在出力で説明する記録紺K保守0151です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0150に関する障害切り分けの前提を確認しています。リソースグループ制御 Acquisition Failure 0191の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は保守でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は収集で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 表示や設定で扱う内容は計画で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li><li>D. 表示や設定で扱う内容は巡回で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・保守）です。照合保守・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・保守・遠隔ボです。運用保守・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はVG・地理的・保守です。項目保守・地理的・VGでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・VGです。仕様保守・地理的・VGでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は保守・遠隔ボ・VGです。用語保守・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0150</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0150について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg30
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0150A
+画面・出力には PHA72DD0150A が表示され、GLVM地理的ミラー Mirror Pool 0150 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0150B
+画面・出力には PHA72DD0150B が表示され、GLVM地理的ミラー Mirror Pool 0150 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0150
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0150C
+画面・出力には PHA72DD0150C が表示され、GLVM地理的ミラー Mirror Pool 0150 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0150A が画面・出力に表示されること
+② ステップ2 の PHA72DD0150B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0150C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0011"><h3>GLVM地理的ミラー Mirror Pool 0165</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>銀F切替0166ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票銀F切替0166です。銀F切替0166は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録銀F切替0166です。銀F切替0166ではVG vary状態と取得時刻を採取票銀F切替0166へ残します。銀F切替0166では片側VGのvaryon誤操作を避けるため補助資料も照合する判断銀F切替0166です。銀F切替0166の用語整理では地理的ミラーの対象値を実在出力で追跡する記録銀F切替0166です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0165を保守記録に説明する必要があります。クラスタ構成検証 clverify.log 0202と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は主操作で出力欄を評価することでVG varを確認し・片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は確認操作で状態欄を整理することで検証報告ROを確認し・ノード間構成データODM差分を防ぐ。</li><li>C. 保守作業で参照する機能は照合操作で確認欄を採取することで基本ソフトAを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>D. 保守作業で参照する機能は変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・切替）です。照合切替・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・切替・片側Vです。運用切替・地理的でB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はVG・地理的・切替です。項目切替・地理的・VGでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は片側V・地理的・VGです。仕様切替・地理的・VGでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は切替・片側V・VGです。用語切替・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0165</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0165について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg45
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0165A
+画面・出力には PHA72DD0165A が表示され、GLVM地理的ミラー Mirror Pool 0165 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0165B
+画面・出力には PHA72DD0165B が表示され、GLVM地理的ミラー Mirror Pool 0165 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0165
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0165C
+画面・出力には PHA72DD0165C が表示され、GLVM地理的ミラー Mirror Pool 0165 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0165A が画面・出力に表示されること
+② ステップ2 の PHA72DD0165B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0165C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0012"><h3>GLVM地理的ミラー Mirror Pool 0180</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>蒼A収集0181ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票蒼A収集0181です。蒼A収集0181は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録蒼A収集0181です。蒼A収集0181ではVG vary状態と取得時刻を採取票蒼A収集0181へ残します。蒼A収集0181ではミラー再同期条件の誤読を避けるため補助資料も照合する判断蒼A収集0181です。蒼A収集0181の用語整理では地理的ミラーの対象値を実在出力で記録する記録蒼A収集0181です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0180の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Server 0201との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は主操作で出力欄を評価することでミラー更新状を確認し・片側VGのvaryon誤操作を防ぐ。</li><li>B. 管理対象との関係を表す説明はトポロジー確でページング状を確認することでページング状を確認し・ページング状の誤読を防ぐ。</li><li>C. 管理対象との関係を表す説明は復旧操作で点検欄を確認することで資源グループを確認し・資源グループ位置の誤認を防ぐ。</li><li>D. 管理対象との関係を表す説明は照合操作で確認欄を採取することでVG varを確認し・ミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・収集）です。照合収集・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・収集・ミラーです。比較収集・地理的・VG・ミラーでA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は地理的・収集・VGです。運用収集・地理的でB:のトポロジー確認 ページング状態は「Cluster Manager の状態」を述べるため、正答側の照合軸はVG・地理的・収集です。項目収集・地理的・VGでC:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はミラー・地理的・VGです。用語収集・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0180</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0180について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg60
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0180A
+画面・出力には PHA72DD0180A が表示され、GLVM地理的ミラー Mirror Pool 0180 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0180B
+画面・出力には PHA72DD0180B が表示され、GLVM地理的ミラー Mirror Pool 0180 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0180
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0180C
+画面・出力には PHA72DD0180C が表示され、GLVM地理的ミラー Mirror Pool 0180 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0180A が画面・出力に表示されること
+② ステップ2 の PHA72DD0180B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0180C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0013"><h3>GLVM地理的ミラー Mirror Pool 0195</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>金P収集0196ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票金P収集0196です。金P収集0196は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録金P収集0196です。金P収集0196ではVG vary状態と取得時刻を採取票金P収集0196へ残します。金P収集0196ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断金P収集0196です。金P収集0196の用語整理では地理的ミラーの対象値を実在出力で確認する記録金P収集0196です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0195について構成や状態を確認します。クラスタ構成検証 SMIT Command Status 0289ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは記録操作で証跡欄を照合することで検証進行率を確認し・未同期構成の見落としを防ぐ。</li><li>B. 対象資源に対する働きはインターフェースから192.0.2.50ことでインターフェを確認し・永続アドレスとサービスアドレを防ぐ。</li><li>C. 対象資源に対する働きは監査操作で記録欄を比較することでsyslogを確認し・syslogとhacmp.oを防ぐ。</li><li>D. 対象資源に対する働きは監査操作で記録欄を比較することでVG varを確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・収集）です。照合収集・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・収集・sysです。比較収集・地理的・VG・sysでA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・収集・VGです。運用収集・地理的でB:の権限境界の確認 SVCIP12は「IP Service IPでインターフェース」を述べるため、正答側の照合軸はVG・地理的・収集です。項目収集・地理的・VGでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はsys・地理的・VGです。用語収集・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0195</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0195について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg75
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0195A
+画面・出力には PHA72DD0195A が表示され、GLVM地理的ミラー Mirror Pool 0195 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0195B
+画面・出力には PHA72DD0195B が表示され、GLVM地理的ミラー Mirror Pool 0195 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0195
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0195C
+画面・出力には PHA72DD0195C が表示され、GLVM地理的ミラー Mirror Pool 0195 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0195A が画面・出力に表示されること
+② ステップ2 の PHA72DD0195B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0195C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0014"><h3>GLVM地理的ミラー Mirror Pool 0210</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紺K登録0211ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紺K登録0211です。紺K登録0211は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紺K登録0211です。紺K登録0211ではVG vary状態と取得時刻を採取票紺K登録0211へ残します。紺K登録0211ではRPV経路断の見落としを避けるため補助資料も照合する判断紺K登録0211です。紺K登録0211の用語整理では地理的ミラーの対象値を実在出力で説明する記録紺K登録0211です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0210の役割を調べています。クラスタ構成検証 Verification Progress 0301の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は解析でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>B. 表示や設定で扱う内容は確認範囲で確認範囲を証跡に残し・クラスタトポロジー・ネットワーク・サービスIP。cltopinfo 整合確認 確認範囲固有の属性も確認対象に含める。</li><li>C. 表示や設定で扱う内容は登録でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は棚卸で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・VGでCの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・登録）です。照合登録・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・登録・遠隔ボです。比較登録・地理的・VG・遠隔ボでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・登録・VGです。運用登録・地理的でB:の整合確認 確認範囲は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸はVG・地理的・登録です。仕様登録・地理的・VGでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は登録・遠隔ボ・VGです。用語登録・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0210</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0210について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg90
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0210A
+画面・出力には PHA72DD0210A が表示され、GLVM地理的ミラー Mirror Pool 0210 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0210B
+画面・出力には PHA72DD0210B が表示され、GLVM地理的ミラー Mirror Pool 0210 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0210
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0210C
+画面・出力には PHA72DD0210C が表示され、GLVM地理的ミラー Mirror Pool 0210 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0210A が画面・出力に表示されること
+② ステップ2 の PHA72DD0210B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0210C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0015"><h3>GLVM地理的ミラー Mirror Pool 0225</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>銀F確認0226ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票銀F確認0226です。銀F確認0226は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録銀F確認0226です。銀F確認0226ではVG vary状態と取得時刻を採取票銀F確認0226へ残します。銀F確認0226では片側VGのvaryon誤操作を避けるため補助資料も照合する判断銀F確認0226です。銀F確認0226の用語整理では地理的ミラーの対象値を実在出力で追跡する記録銀F確認0226です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー Mirror Pool 0225」を「リソースグループ制御 Event Summary 0233」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして失敗ラベルを照合する。</li><li>B. 保守作業で参照する機能は対象ノードの誤読を避けるため・所有先確認で対象ノードを確認するして対象ノードを照合する。</li><li>C. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。クラスタ構成検証 Verification Progress 0076固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・地理的・VGでCの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・確認）です。照合確認・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・確認・片側Vです。比較確認・地理的・VG・片側VでA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・確認・VGです。運用確認・地理的でB:の所有先確認 対象ノードは「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸はVG・地理的・確認です。仕様確認・地理的・VGでD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は確認・片側V・VGです。用語確認・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0225</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0225について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg105
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0225A
+画面・出力には PHA72DD0225A が表示され、GLVM地理的ミラー Mirror Pool 0225 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0225B
+画面・出力には PHA72DD0225B が表示され、GLVM地理的ミラー Mirror Pool 0225 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0225
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0225C
+画面・出力には PHA72DD0225C が表示され、GLVM地理的ミラー Mirror Pool 0225 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0225A が画面・出力に表示されること
+② ステップ2 の PHA72DD0225B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0225C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0016"><h3>GLVM地理的ミラー Mirror Pool 0240</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>蒼A保護0241ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票蒼A保護0241です。蒼A保護0241は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録蒼A保護0241です。蒼A保護0241ではVG vary状態と取得時刻を採取票蒼A保護0241へ残します。蒼A保護0241ではミラー再同期条件の誤読を避けるため補助資料も照合する判断蒼A保護0241です。蒼A保護0241の用語整理では地理的ミラーの対象値を実在出力で記録する記録蒼A保護0241です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0240を同一分類のリソースグループ制御 Online Node 0254と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は点検操作で判定欄を記録することで資源グループを確認し・依存リソース順序の見落としを防ぐ。</li><li>B. 管理対象との関係を表す説明は同期実行からclsnapshotを読むことで同期実行を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li><li>C. 管理対象との関係を表す説明は採取操作で照合欄を点検することで検証報告ROを確認し・警告と致命エラーの混同を防ぐ。</li><li>D. 管理対象との関係を表す説明は照合操作で確認欄を採取することでVG varを確認し・ミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能保護・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・保護）です。照合保護・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・保護・ミラーです。比較保護・地理的・VG・ミラーでA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は地理的・保護・VGです。運用保護・地理的でB:の停止前の確認 SYNC14は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸はVG・地理的・保護です。項目保護・地理的・VGでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はミラー・地理的・VGです。用語保護・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0240</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0240について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg120
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0240A
+画面・出力には PHA72DD0240A が表示され、GLVM地理的ミラー Mirror Pool 0240 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0240B
+画面・出力には PHA72DD0240B が表示され、GLVM地理的ミラー Mirror Pool 0240 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0240
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0240C
+画面・出力には PHA72DD0240C が表示され、GLVM地理的ミラー Mirror Pool 0240 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0240A が画面・出力に表示されること
+② ステップ2 の PHA72DD0240B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0240C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0017"><h3>GLVM地理的ミラー Mirror Pool 0255</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>金P保護0256ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票金P保護0256です。金P保護0256は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録金P保護0256です。金P保護0256ではVG vary状態と取得時刻を採取票金P保護0256へ残します。金P保護0256ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断金P保護0256です。金P保護0256の用語整理では地理的ミラーの対象値を実在出力で確認する記録金P保護0256です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0255の設定や表示を読む前に役割を確認します。GLVM地理的ミラー RPV Client 0264ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するして遠隔ボリューを照合する。</li><li>C. 対象資源に対する働きは同期元を誤ると古い定義を全ノードを避けるため・未同期確認からUNSYNCED_CHANして未同期確認を照合する。</li><li>D. 対象資源に対する働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・保護）です。照合保護・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・保護・sysです。運用保護・地理的でB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はVG・地理的・保護です。項目保護・地理的・VGでC:の依存関係の確認 SYNC13は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸はsys・地理的・VGです。仕様保護・地理的・VGでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は保護・sys・VGです。用語保護・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0255</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0255について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg15
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0255A
+画面・出力には PHA72DD0255A が表示され、GLVM地理的ミラー Mirror Pool 0255 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0255B
+画面・出力には PHA72DD0255B が表示され、GLVM地理的ミラー Mirror Pool 0255 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0255
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0255C
+画面・出力には PHA72DD0255C が表示され、GLVM地理的ミラー Mirror Pool 0255 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0255A が画面・出力に表示されること
+② ステップ2 の PHA72DD0255B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0255C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0018"><h3>GLVM地理的ミラー Mirror Pool 0270</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紺K照合0271ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紺K照合0271です。紺K照合0271は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紺K照合0271です。紺K照合0271ではVG vary状態と取得時刻を採取票紺K照合0271へ残します。紺K照合0271ではRPV経路断の見落としを避けるため補助資料も照合する判断紺K照合0271です。紺K照合0271の用語整理では地理的ミラーの対象値を実在出力で説明する記録紺K照合0271です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0270に関する障害切り分けの前提を確認しています。リソースグループ制御 Acquisition Failure 0296の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は獲得処理の獲得イベントと取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li><li>B. 表示や設定で扱う内容はCluster Synchronizで再確認から false を読み・false とである。再確認からfalseを読むときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>C. 表示や設定で扱う内容は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。GLVM地理的ミラー RPV Client 0114固有の属性も確認対象に含める。</li><li>D. 表示や設定で扱う内容は地理的ミラーの項目のVG vary状態と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・照合）です。照合照合・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・照合・遠隔ボです。比較照合・地理的・VG・遠隔ボでA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・照合・VGです。運用照合・地理的でB:の変更後の確認 SYNC03は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸はVG・地理的・照合です。項目照合・地理的・VGでC:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は遠隔ボ・地理的・VGです。用語照合・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0270</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0270について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg30
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0270A
+画面・出力には PHA72DD0270A が表示され、GLVM地理的ミラー Mirror Pool 0270 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0270B
+画面・出力には PHA72DD0270B が表示され、GLVM地理的ミラー Mirror Pool 0270 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0270
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0270C
+画面・出力には PHA72DD0270C が表示され、GLVM地理的ミラー Mirror Pool 0270 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0270A が画面・出力に表示されること
+② ステップ2 の PHA72DD0270B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0270C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0019"><h3>GLVM地理的ミラー Mirror Pool 0285</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>銀F抑止0286ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票銀F抑止0286です。銀F抑止0286は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録銀F抑止0286です。銀F抑止0286ではVG vary状態と取得時刻を採取票銀F抑止0286へ残します。銀F抑止0286では片側VGのvaryon誤操作を避けるため補助資料も照合する判断銀F抑止0286です。銀F抑止0286の用語整理では地理的ミラーの対象値を実在出力で追跡する記録銀F抑止0286です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0285を保守記録に説明する必要があります。クラスタ構成検証 SMIT Command Status 0304と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は抑止でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は解析で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>C. 保守作業で参照する機能は巡回でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。クラスタ構成検証 Verification Progress 0001固有の属性も確認対象に含める。</li><li>D. 保守作業で参照する機能は切替で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・抑止）です。照合抑止・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・抑止・片側Vです。運用抑止・地理的でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はVG・地理的・抑止です。項目抑止・地理的・VGでC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は片側V・地理的・VGです。仕様抑止・地理的・VGでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は抑止・片側V・VGです。用語抑止・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0285</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0285について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg45
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0285A
+画面・出力には PHA72DD0285A が表示され、GLVM地理的ミラー Mirror Pool 0285 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0285B
+画面・出力には PHA72DD0285B が表示され、GLVM地理的ミラー Mirror Pool 0285 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0285
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0285C
+画面・出力には PHA72DD0285C が表示され、GLVM地理的ミラー Mirror Pool 0285 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0285A が画面・出力に表示されること
+② ステップ2 の PHA72DD0285B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0285C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0020"><h3>GLVM地理的ミラー Mirror Pool 0300</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>蒼A解析0301ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票蒼A解析0301です。蒼A解析0301は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録蒼A解析0301です。蒼A解析0301ではVG vary状態と取得時刻を採取票蒼A解析0301へ残します。蒼A解析0301ではミラー再同期条件の誤読を避けるため補助資料も照合する判断蒼A解析0301です。蒼A解析0301の用語整理では地理的ミラーの対象値を実在出力で記録する記録蒼A解析0301です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0300の技術的な意味を資料で確認するとき、clRGinfo 版数確認 仮想化表示との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は解析でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は仮想化表示で仮想化表示を証跡に残し・リソースグループの状態と所有ノードを表示するコマンドを版数確。</li><li>C. 管理対象との関係を表す説明は変更確認でイベント順序を証跡に残し・資源グループでイベント順序から completed を読み。</li><li>D. 管理対象との関係を表す説明は切替で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・VGでAの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・解析）です。照合解析・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・解析・ミラーです。運用解析・地理的でB:の版数確認 仮想化表示は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸はVG・地理的・解析です。項目解析・地理的・VGでC:の変更後の確認 DEP03は「資源グループでイベント順序から」を述べるため、正答側の照合軸はミラー・地理的・VGです。仕様解析・地理的・VGでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は解析・ミラー・VGです。用語解析・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0300</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0300について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg60
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0300A
+画面・出力には PHA72DD0300A が表示され、GLVM地理的ミラー Mirror Pool 0300 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0300B
+画面・出力には PHA72DD0300B が表示され、GLVM地理的ミラー Mirror Pool 0300 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0300
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0300C
+画面・出力には PHA72DD0300C が表示され、GLVM地理的ミラー Mirror Pool 0300 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0300A が画面・出力に表示されること
+② ステップ2 の PHA72DD0300B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0300C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0021"><h3>GLVM地理的ミラー Mirror Pool 0315</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>金P解析0316ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票金P解析0316です。金P解析0316は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録金P解析0316です。金P解析0316ではVG vary状態と取得時刻を採取票金P解析0316へ残します。金P解析0316ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断金P解析0316です。金P解析0316の用語整理では地理的ミラーの対象値を実在出力で確認する記録金P解析0316です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0315について構成や状態を確認します。クラスタ構成検証 Verification Progress 0346ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは確認操作で状態欄を整理することでリソース要約を確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 対象資源に対する働きは監査操作で記録欄を比較することでVG varを確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは主要ログからACQUISITIONを読むことで主要ログを確認し・cluster historを防ぐ。</li><li>D. 対象資源に対する働きは点検操作で判定欄を記録することで獲得イベントを確認し・依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・VGでBの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・解析）です。照合解析・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・解析・sysです。比較解析・地理的・VG・sysでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・解析・VGです。項目解析・地理的・VGでC:の代替経路の確認 FAIL10は「hacmp.out Eventで主要ログから」を述べるため、正答側の照合軸はsys・地理的・VGです。仕様解析・地理的・VGでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は解析・sys・VGです。用語解析・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0315</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0315について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg75
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0315A
+画面・出力には PHA72DD0315A が表示され、GLVM地理的ミラー Mirror Pool 0315 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0315B
+画面・出力には PHA72DD0315B が表示され、GLVM地理的ミラー Mirror Pool 0315 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0315
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0315C
+画面・出力には PHA72DD0315C が表示され、GLVM地理的ミラー Mirror Pool 0315 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0315A が画面・出力に表示されること
+② ステップ2 の PHA72DD0315B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0315C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0022"><h3>GLVM地理的ミラー Mirror Pool 0330</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紺K計画0331ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紺K計画0331です。紺K計画0331は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紺K計画0331です。紺K計画0331ではVG vary状態と取得時刻を採取票紺K計画0331へ残します。紺K計画0331ではRPV経路断の見落としを避けるため補助資料も照合する判断紺K計画0331です。紺K計画0331の用語整理では地理的ミラーの対象値を実在出力で説明する記録紺K計画0331です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0330の役割を調べています。cltopinfo 障害切り分け パス状態の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はパス状態の誤読を避けるため・サービスIPでパス状態を確認するしてパス状態を照合する。cltopinfo 障害切り分け パス状態固有の属性も確認対象に含める。</li><li>B. 表示や設定で扱う内容はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。</li><li>C. 表示や設定で扱う内容は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして移動履歴を照合する。</li><li>D. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてVG varを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・計画）です。照合計画・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・計画・遠隔ボです。比較計画・地理的・VG・遠隔ボでA:の障害切り分け パス状態は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は地理的・計画・VGです。運用計画・地理的でB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はVG・地理的・計画です。項目計画・地理的・VGでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・VGです。用語計画・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0330</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0330について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg90
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0330A
+画面・出力には PHA72DD0330A が表示され、GLVM地理的ミラー Mirror Pool 0330 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0330B
+画面・出力には PHA72DD0330B が表示され、GLVM地理的ミラー Mirror Pool 0330 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0330
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0330C
+画面・出力には PHA72DD0330C が表示され、GLVM地理的ミラー Mirror Pool 0330 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0330A が画面・出力に表示されること
+② ステップ2 の PHA72DD0330B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0330C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0023"><h3>GLVM地理的ミラー Mirror Pool 0345</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>銀F解除0346ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票銀F解除0346です。銀F解除0346は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録銀F解除0346です。銀F解除0346ではVG vary状態と取得時刻を採取票銀F解除0346へ残します。銀F解除0346では片側VGのvaryon誤操作を避けるため補助資料も照合する判断銀F解除0346です。銀F解除0346の用語整理では地理的ミラーの対象値を実在出力で追跡する記録銀F解除0346です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー Mirror Pool 0345」を「サービスIP Service IP Label ログとの照合 SVCIP07」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はログとの照合でサービスアドを証跡に残し・IP Service IPでサービスアドレス照会から。</li><li>B. 保守作業で参照する機能は棚卸で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 保守作業で参照する機能は解除でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は収集でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・地理的・VGでCの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・解除）です。照合解除・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・解除・片側Vです。比較解除・地理的・VG・片側VでA:のログとの照合 SVCIP07は「IP Service IPでサービスアドレス」を述べるため、正答側の照合軸は地理的・解除・VGです。運用解除・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はVG・地理的・解除です。仕様解除・地理的・VGでD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は解除・片側V・VGです。用語解除・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0345</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0345について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg105
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0345A
+画面・出力には PHA72DD0345A が表示され、GLVM地理的ミラー Mirror Pool 0345 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0345B
+画面・出力には PHA72DD0345B が表示され、GLVM地理的ミラー Mirror Pool 0345 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0345
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0345C
+画面・出力には PHA72DD0345C が表示され、GLVM地理的ミラー Mirror Pool 0345 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0345A が画面・出力に表示されること
+② ステップ2 の PHA72DD0345B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0345C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0024"><h3>GLVM地理的ミラー Mirror Pool 0360</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>蒼A承認0361ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票蒼A承認0361です。蒼A承認0361は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録蒼A承認0361です。蒼A承認0361ではVG vary状態と取得時刻を採取票蒼A承認0361へ残します。蒼A承認0361ではミラー再同期条件の誤読を避けるため補助資料も照合する判断蒼A承認0361です。蒼A承認0361の用語整理では地理的ミラーの対象値を実在出力で記録する記録蒼A承認0361です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー Mirror Pool 0360を同一分類のclmgr query node 起動確認 エラー詳細と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は起動確認でエラー詳細を証跡に残し・ノードの状態と raw_state を確認するコマンドを起動。</li><li>B. 管理対象との関係を表す説明は復旧で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 管理対象との関係を表す説明は保護でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>D. 管理対象との関係を表す説明は承認でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能承認・地理的・VGでDの記述「地理的ミラーの項目のVG vary状態と取得時刻を記録し」に対応する項目はMirror Pool（地理的・VG・承認）です。照合承認・地理的・VGに関するGLVMの仕様は「地理的ミラーの項目のVG vary状態と取得時刻を記録し」で、確認対象はVG・承認・ミラーです。比較承認・地理的・VG・ミラーでA:の起動確認 エラー詳細は「ノードの状態と raw_state」を述べるため、正答側の照合軸は地理的・承認・VGです。運用承認・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はVG・地理的・承認です。項目承認・地理的・VGでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はミラー・地理的・VGです。用語承認・地理的・VGという用語は「地理的ミラーの項目のVG vary状態と取得時刻を記」を指し、照合する値と誤認リスクの組合せは地理的・VG・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー Mirror Pool 0360</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー Mirror Pool 0360について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Mirror Pool と VG vary状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; errpt -a
+→ Enter を押す
+［画面・出力］
+Volume group datavg120
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0360A
+画面・出力には PHA72DD0360A が表示され、GLVM地理的ミラー Mirror Pool 0360 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0360B
+画面・出力には PHA72DD0360B が表示され、GLVM地理的ミラー Mirror Pool 0360 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Mirror Pool を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0360
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0360C
+画面・出力には PHA72DD0360C が表示され、GLVM地理的ミラー Mirror Pool 0360 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0360A が画面・出力に表示されること
+② ステップ2 の PHA72DD0360B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0360C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0025"><h3>GLVM地理的ミラー RPV Client 0009</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>朱J巡回0010ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票朱J巡回0010です。朱J巡回0010は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録朱J巡回0010です。朱J巡回0010ではRPV通信ペアと取得時刻を採取票朱J巡回0010へ残します。朱J巡回0010では片側VGのvaryon誤操作を避けるため補助資料も照合する判断朱J巡回0010です。朱J巡回0010の用語整理では地理的ミラーの対象値を実在出力で追跡する記録朱J巡回0010です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー RPV Client 0009」を「リソースグループ制御 Node List 0062」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はノード一覧の移動履歴と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>B. 保守作業で参照する機能は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。クラスタ構成検証 Cluster Topology 0208固有の属性も確認対象に含める。</li><li>D. 保守作業で参照する機能はPowerHA Node Stateでサブシステム状態から クラスター管理プロセス を読みである。SRC状態からクラスター管理プロセスときは基本ソフト稼働とクラスタ稼働を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・巡回）です。照合巡回・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・巡回・片側Vです。比較地理的・巡回でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・巡回・遠隔ボです。項目巡回・地理的・遠隔ボでC:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は片側V・地理的・遠隔ボです。仕様巡回・地理的・遠隔ボでD:の構成監査 NODE08は「PowerHA Node Stateでサブシ」を述べるため、正答側の照合軸は巡回・片側V・遠隔ボです。用語巡回・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0009</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0009について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg09
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0009A
+画面・出力には PHA72DD0009A が表示され、GLVM地理的ミラー RPV Client 0009 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0009B
+画面・出力には PHA72DD0009B が表示され、GLVM地理的ミラー RPV Client 0009 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0009
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0009C
+画面・出力には PHA72DD0009C が表示され、GLVM地理的ミラー RPV Client 0009 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0009A が画面・出力に表示されること
+② ステップ2 の PHA72DD0009B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0009C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0026"><h3>GLVM地理的ミラー RPV Client 0024</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紅E棚卸0025ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紅E棚卸0025です。紅E棚卸0025は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録紅E棚卸0025です。紅E棚卸0025ではRPV通信ペアと取得時刻を採取票紅E棚卸0025へ残します。紅E棚卸0025ではミラー再同期条件の誤読を避けるため補助資料も照合する判断紅E棚卸0025です。紅E棚卸0025の用語整理では地理的ミラーの対象値を実在出力で記録する記録紅E棚卸0025です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0024を同一分類のリソースグループ制御 Resource Group Name 0050と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は復旧で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>B. 管理対象との関係を表す説明は棚卸で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は確認で検証報告ROを証跡に残し・clverify.logの検証報告ROHAレポートと取得時刻。</li><li>D. 管理対象との関係を表す説明は系切替確認で系切替確認を証跡に残し・クラスタトポロジーとリソースの整合性を検査するコマンドを版数。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・棚卸）です。照合棚卸・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・棚卸・ミラーです。比較地理的・棚卸でA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は地理的・棚卸・遠隔ボです。項目棚卸・地理的・遠隔ボでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はミラー・地理的・遠隔ボです。仕様棚卸・地理的・遠隔ボでD:の版数確認 系切替確認は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸は棚卸・ミラー・遠隔ボです。用語棚卸・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0024</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0024について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg24
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0024A
+画面・出力には PHA72DD0024A が表示され、GLVM地理的ミラー RPV Client 0024 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0024B
+画面・出力には PHA72DD0024B が表示され、GLVM地理的ミラー RPV Client 0024 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0024
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0024C
+画面・出力には PHA72DD0024C が表示され、GLVM地理的ミラー RPV Client 0024 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0024A が画面・出力に表示されること
+② ステップ2 の PHA72DD0024B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0024C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0027"><h3>GLVM地理的ミラー RPV Client 0039</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>空T棚卸0040ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票空T棚卸0040です。空T棚卸0040は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録空T棚卸0040です。空T棚卸0040ではRPV通信ペアと取得時刻を採取票空T棚卸0040へ残します。空T棚卸0040ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断空T棚卸0040です。空T棚卸0040の用語整理では地理的ミラーの対象値を実在出力で確認する記録空T棚卸0040です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0039の設定や表示を読む前に役割を確認します。GLVM地理的ミラー RPV Server 0051ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは監査操作で記録欄を比較することで遠隔ボリューを確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きは監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。</li><li>C. 対象資源に対する働きは復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。</li><li>D. 対象資源に対する働きは再確認からfalseを読むことで再確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。同期処理 Cluster Synchronization 引継ぎ記録固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・地理的・遠隔ボでAの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・棚卸）です。照合棚卸・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・棚卸・sysです。運用棚卸・地理的でB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は遠隔ボ・地理的・棚卸です。項目棚卸・地理的・遠隔ボでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・遠隔ボです。仕様棚卸・地理的・遠隔ボでD:の引継ぎ記録 SYNC09は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は棚卸・sys・遠隔ボです。用語棚卸・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0039</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0039について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg39
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0039A
+画面・出力には PHA72DD0039A が表示され、GLVM地理的ミラー RPV Client 0039 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0039B
+画面・出力には PHA72DD0039B が表示され、GLVM地理的ミラー RPV Client 0039 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0039
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0039C
+画面・出力には PHA72DD0039C が表示され、GLVM地理的ミラー RPV Client 0039 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0039A が画面・出力に表示されること
+② ステップ2 の PHA72DD0039B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0039C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0028"><h3>GLVM地理的ミラー RPV Client 0054</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>翠O復旧0055ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票翠O復旧0055です。翠O復旧0055は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録翠O復旧0055です。翠O復旧0055ではRPV通信ペアと取得時刻を採取票翠O復旧0055へ残します。翠O復旧0055ではRPV経路断の見落としを避けるため補助資料も照合する判断翠O復旧0055です。翠O復旧0055の用語整理では地理的ミラーの対象値を実在出力で説明する記録翠O復旧0055です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0054に関する障害切り分けの前提を確認しています。GLVM地理的ミラー Mirror Pool 0120の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li><li>B. 表示や設定で扱う内容は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして構成データOを照合する。クラスタ構成検証 Cluster Topology 0268固有の属性も確認対象に含める。</li><li>C. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は基本ソフト稼働とクラスタ稼働の混を避けるため・イベント確認から終了状態を読むしてイベント確認を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・復旧）です。照合復旧・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・復旧・遠隔ボです。比較地理的・復旧でA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は地理的・復旧・遠隔ボです。運用復旧・地理的でB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は遠隔ボ・地理的・復旧です。仕様復旧・地理的・遠隔ボでD:の復旧後の確認 NODE06は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は復旧・遠隔ボ・遠隔ボです。用語復旧・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0054</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0054について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg54
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0054A
+画面・出力には PHA72DD0054A が表示され、GLVM地理的ミラー RPV Client 0054 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0054B
+画面・出力には PHA72DD0054B が表示され、GLVM地理的ミラー RPV Client 0054 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0054
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0054C
+画面・出力には PHA72DD0054C が表示され、GLVM地理的ミラー RPV Client 0054 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0054A が画面・出力に表示されること
+② ステップ2 の PHA72DD0054B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0054C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0029"><h3>GLVM地理的ミラー RPV Client 0069</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>朱J監査0070ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票朱J監査0070です。朱J監査0070は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録朱J監査0070です。朱J監査0070ではRPV通信ペアと取得時刻を採取票朱J監査0070へ残します。朱J監査0070では片側VGのvaryon誤操作を避けるため補助資料も照合する判断朱J監査0070です。朱J監査0070の用語整理では地理的ミラーの対象値を実在出力で追跡する記録朱J監査0070です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0069を保守記録に説明する必要があります。クラスタ構成検証 Verification Progress 0136と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。</li><li>B. 保守作業で参照する機能は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして獲得イベントを照合する。</li><li>C. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして遠隔ボリューを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は基本ソフト稼働とクラスタ稼働の混を避けるため・イベント確認から終了状態を読むしてイベント確認を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・監査）です。照合監査・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・監査・片側Vです。比較地理的・監査でA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・監査・遠隔ボです。運用監査・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・監査です。仕様監査・地理的・遠隔ボでD:の権限境界の確認 NODE12は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は監査・片側V・遠隔ボです。用語監査・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0069</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0069について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg69
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0069A
+画面・出力には PHA72DD0069A が表示され、GLVM地理的ミラー RPV Client 0069 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0069B
+画面・出力には PHA72DD0069B が表示され、GLVM地理的ミラー RPV Client 0069 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0069
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0069C
+画面・出力には PHA72DD0069C が表示され、GLVM地理的ミラー RPV Client 0069 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0069A が画面・出力に表示されること
+② ステップ2 の PHA72DD0069B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0069C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0030"><h3>GLVM地理的ミラー RPV Client 0084</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紅E変更0085ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紅E変更0085です。紅E変更0085は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録紅E変更0085です。紅E変更0085ではRPV通信ペアと取得時刻を採取票紅E変更0085へ残します。紅E変更0085ではミラー再同期条件の誤読を避けるため補助資料も照合する判断紅E変更0085です。紅E変更0085の用語整理では地理的ミラーの対象値を実在出力で記録する記録紅E変更0085です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0084の技術的な意味を資料で確認するとき、クラスタ構成検証 SMIT Command Status 0109との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。</li><li>B. 管理対象との関係を表す説明は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてsyslogを照合する。</li><li>C. 管理対象との関係を表す説明はcluster historyだを避けるため・エラー記録からIDENTIFIERを読むしてエラー記録を照合する。</li><li>D. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するして遠隔ボリューを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・遠隔ボでDの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・変更）です。照合変更・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・変更・ミラーです。比較地理的・変更でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・変更・遠隔ボです。運用変更・地理的でB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は遠隔ボ・地理的・変更です。項目変更・地理的・遠隔ボでC:の引継ぎ記録 FAIL09は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸はミラー・地理的・遠隔ボです。用語変更・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0084</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0084について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg84
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0084A
+画面・出力には PHA72DD0084A が表示され、GLVM地理的ミラー RPV Client 0084 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0084B
+画面・出力には PHA72DD0084B が表示され、GLVM地理的ミラー RPV Client 0084 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0084
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0084C
+画面・出力には PHA72DD0084C が表示され、GLVM地理的ミラー RPV Client 0084 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0084A が画面・出力に表示されること
+② ステップ2 の PHA72DD0084B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0084C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0031"><h3>GLVM地理的ミラー RPV Client 0099</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>空T変更0100ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票空T変更0100です。空T変更0100は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録空T変更0100です。空T変更0100ではRPV通信ペアと取得時刻を採取票空T変更0100へ残します。空T変更0100ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断空T変更0100です。空T変更0100の用語整理では地理的ミラーの対象値を実在出力で確認する記録空T変更0100です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0099について構成や状態を確認します。リソースグループ制御 Online Node 0164ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはオンラインノードの資源グループRG現在位置と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li><li>C. 対象資源に対する働きは獲得処理の獲得イベントと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li><li>D. 対象資源に対する働きはCluster Servicesで開始から 終了状態 を読み・終了状態 と ST_STABLE を照合する。開始から終了状態を読むときは管理設定と資源状態の混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・遠隔ボでAの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・変更）です。照合変更・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・変更・sysです。運用変更・地理的でB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は遠隔ボ・地理的・変更です。項目変更・地理的・遠隔ボでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・遠隔ボです。仕様変更・地理的・遠隔ボでD:の障害切り分け START04は「Cluster Servicesで開始から」を述べるため、正答側の照合軸は変更・sys・遠隔ボです。用語変更・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0099</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0099について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg99
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0099A
+画面・出力には PHA72DD0099A が表示され、GLVM地理的ミラー RPV Client 0099 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0099B
+画面・出力には PHA72DD0099B が表示され、GLVM地理的ミラー RPV Client 0099 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0099
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0099C
+画面・出力には PHA72DD0099C が表示され、GLVM地理的ミラー RPV Client 0099 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0099A が画面・出力に表示されること
+② ステップ2 の PHA72DD0099B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0099C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0032"><h3>GLVM地理的ミラー RPV Client 0114</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>翠O移行0115ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票翠O移行0115です。翠O移行0115は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録翠O移行0115です。翠O移行0115ではRPV通信ペアと取得時刻を採取票翠O移行0115へ残します。翠O移行0115ではRPV経路断の見落としを避けるため補助資料も照合する判断翠O移行0115です。翠O移行0115の用語整理では地理的ミラーの対象値を実在出力で説明する記録翠O移行0115です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0114の役割を調べています。クラスタ構成検証 clverify.log 0142の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するして検証報告ROを照合する。</li><li>B. 表示や設定で扱う内容は出力見出しの誤読を避けるため・状態確認で出力見出しを確認するして出力見出しを照合する。clstat -o 状態確認 出力見出し固有の属性も確認対象に含める。</li><li>C. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は同期元を誤ると古い定義を全ノードを避けるため・再確認からfalseを読むして再確認を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・移行）です。照合移行・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・移行・遠隔ボです。比較地理的・移行でA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は地理的・移行・遠隔ボです。運用移行・地理的でB:の状態確認 出力見出しは「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸は遠隔ボ・地理的・移行です。仕様移行・地理的・遠隔ボでD:の復旧後の確認 SYNC06は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は移行・遠隔ボ・遠隔ボです。用語移行・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0114</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0114について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg114
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0114A
+画面・出力には PHA72DD0114A が表示され、GLVM地理的ミラー RPV Client 0114 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0114B
+画面・出力には PHA72DD0114B が表示され、GLVM地理的ミラー RPV Client 0114 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0114
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0114C
+画面・出力には PHA72DD0114C が表示され、GLVM地理的ミラー RPV Client 0114 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0114A が画面・出力に表示されること
+② ステップ2 の PHA72DD0114B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0114C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0033"><h3>GLVM地理的ミラー RPV Client 0129</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>朱J診断0130ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票朱J診断0130です。朱J診断0130は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録朱J診断0130です。朱J診断0130ではRPV通信ペアと取得時刻を採取票朱J診断0130へ残します。朱J診断0130では片側VGのvaryon誤操作を避けるため補助資料も照合する判断朱J診断0130です。朱J診断0130の用語整理では地理的ミラーの対象値を実在出力で追跡する記録朱J診断0130です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー RPV Client 0129」を「クラスタ構成検証 clverify.log 0202」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は登録で検証報告ROを証跡に残し・clverify.logの検証報告ROHAレポートと取得時刻。</li><li>B. 保守作業で参照する機能は承認でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li><li>C. 保守作業で参照する機能は診断で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は権限境界確認でエラー記録を証跡に残し・hacmp.out Eventでエラー記録から。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・診断）です。照合診断・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・診断・片側Vです。比較地理的・診断でA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は地理的・診断・遠隔ボです。運用診断・地理的でB:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は遠隔ボ・地理的・診断です。仕様診断・地理的・遠隔ボでD:の権限境界の確認 FAIL12は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は診断・片側V・遠隔ボです。用語診断・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0129</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0129について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg09
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0129A
+画面・出力には PHA72DD0129A が表示され、GLVM地理的ミラー RPV Client 0129 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0129B
+画面・出力には PHA72DD0129B が表示され、GLVM地理的ミラー RPV Client 0129 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0129
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0129C
+画面・出力には PHA72DD0129C が表示され、GLVM地理的ミラー RPV Client 0129 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0129A が画面・出力に表示されること
+② ステップ2 の PHA72DD0129B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0129C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0034"><h3>GLVM地理的ミラー RPV Client 0144</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紅E保守0145ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紅E保守0145です。紅E保守0145は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録紅E保守0145です。紅E保守0145ではRPV通信ペアと取得時刻を採取票紅E保守0145へ残します。紅E保守0145ではミラー再同期条件の誤読を避けるため補助資料も照合する判断紅E保守0145です。紅E保守0145の用語整理では地理的ミラーの対象値を実在出力で記録する記録紅E保守0145です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0144を同一分類のGLVM地理的ミラー Mirror Pool 0165と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は切替でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li><li>B. 管理対象との関係を表す説明は保守で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は解除で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。リソースグループ制御 Resource Group Name 0350固有の属性も確認対象に含める。</li><li>D. 管理対象との関係を表す説明は復旧でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・保守）です。照合保守・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・保守・ミラーです。比較保守・地理的・遠隔ボ・ミラーでA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は地理的・保守・遠隔ボです。項目保守・地理的・遠隔ボでC:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はミラー・地理的・遠隔ボです。仕様保守・地理的・遠隔ボでD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は保守・ミラー・遠隔ボです。用語保守・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0144</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0144について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg24
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0144A
+画面・出力には PHA72DD0144A が表示され、GLVM地理的ミラー RPV Client 0144 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0144B
+画面・出力には PHA72DD0144B が表示され、GLVM地理的ミラー RPV Client 0144 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0144
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0144C
+画面・出力には PHA72DD0144C が表示され、GLVM地理的ミラー RPV Client 0144 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0144A が画面・出力に表示されること
+② ステップ2 の PHA72DD0144B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0144C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0035"><h3>GLVM地理的ミラー RPV Client 0159</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>空T保守0160ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票空T保守0160です。空T保守0160は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録空T保守0160です。空T保守0160ではRPV通信ペアと取得時刻を採取票空T保守0160へ残します。空T保守0160ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断空T保守0160です。空T保守0160の用語整理では地理的ミラーの対象値を実在出力で確認する記録空T保守0160です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0159の設定や表示を読む前に役割を確認します。クラスタ構成検証 Cluster Topology 0193ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは監査操作で記録欄を比較することで遠隔ボリューを確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きは記録操作で証跡欄を照合することで構成データOを確認し・未同期構成の見落としを防ぐ。クラスタ構成検証 Cluster Topology 0193固有の属性も確認対象に含める。</li><li>C. 対象資源に対する働きは変更証跡で変更証跡を確認することで変更証跡を確認し・変更証跡の誤読を防ぐ。</li><li>D. 対象資源に対する働きは照合操作で確認欄を採取することでsyslogを確認し・ミラー再同期条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・地理的・遠隔ボでAの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・保守）です。照合保守・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・保守・sysです。運用保守・地理的でB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は遠隔ボ・地理的・保守です。項目保守・地理的・遠隔ボでC:の所有先確認 変更証跡は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸はsys・地理的・遠隔ボです。仕様保守・地理的・遠隔ボでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は保守・sys・遠隔ボです。用語保守・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0159</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0159について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg39
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0159A
+画面・出力には PHA72DD0159A が表示され、GLVM地理的ミラー RPV Client 0159 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0159B
+画面・出力には PHA72DD0159B が表示され、GLVM地理的ミラー RPV Client 0159 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0159
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0159C
+画面・出力には PHA72DD0159C が表示され、GLVM地理的ミラー RPV Client 0159 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0159A が画面・出力に表示されること
+② ステップ2 の PHA72DD0159B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0159C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0036"><h3>GLVM地理的ミラー RPV Client 0174</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>翠O切替0175ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票翠O切替0175です。翠O切替0175は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録翠O切替0175です。翠O切替0175ではRPV通信ペアと取得時刻を採取票翠O切替0175へ残します。翠O切替0175ではRPV経路断の見落としを避けるため補助資料も照合する判断翠O切替0175です。翠O切替0175の用語整理では地理的ミラーの対象値を実在出力で説明する記録翠O切替0175です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0174に関する障害切り分けの前提を確認しています。クラスタ構成検証 Cluster Resources 0190の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は確認操作で状態欄を整理することでトポロジ要約を確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで遠隔ボリューを確認し・遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は所有先確認で表形式を確認することで表形式を確認し・表形式の誤読を防ぐ。clmgr sync cluster 所有先確認 表形式固有の属性も確認対象に含める。</li><li>D. 表示や設定で扱う内容は主操作で出力欄を評価することでsyslogを確認し・片側VGのvaryon誤操作を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・切替）です。照合切替・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・切替・遠隔ボです。比較切替・地理的・遠隔ボ・遠隔ボでA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は地理的・切替・遠隔ボです。項目切替・地理的・遠隔ボでC:の所有先確認 表形式は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸は遠隔ボ・地理的・遠隔ボです。仕様切替・地理的・遠隔ボでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は切替・遠隔ボ・遠隔ボです。用語切替・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0174</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0174について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg54
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0174A
+画面・出力には PHA72DD0174A が表示され、GLVM地理的ミラー RPV Client 0174 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0174B
+画面・出力には PHA72DD0174B が表示され、GLVM地理的ミラー RPV Client 0174 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0174
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0174C
+画面・出力には PHA72DD0174C が表示され、GLVM地理的ミラー RPV Client 0174 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0174A が画面・出力に表示されること
+② ステップ2 の PHA72DD0174B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0174C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0037"><h3>GLVM地理的ミラー RPV Client 0189</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>朱J収集0190ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票朱J収集0190です。朱J収集0190は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録朱J収集0190です。朱J収集0190ではRPV通信ペアと取得時刻を採取票朱J収集0190へ残します。朱J収集0190では片側VGのvaryon誤操作を避けるため補助資料も照合する判断朱J収集0190です。朱J収集0190の用語整理では地理的ミラーの対象値を実在出力で追跡する記録朱J収集0190です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0189を保守記録に説明する必要があります。リソースグループ制御 Event Summary 0278と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は照合で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>B. 保守作業で参照する機能は通常状態確認でノード一覧を証跡に残し・PowerHA Node Stateでノード一覧から。</li><li>C. 保守作業で参照する機能は移行でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。クラスタ構成検証 Cluster Resources 0100固有の属性も確認対象に含める。</li><li>D. 保守作業で参照する機能は収集で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・遠隔ボでDの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・収集）です。照合収集・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・収集・片側Vです。比較収集・地理的・遠隔ボ・片側VでA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・収集・遠隔ボです。運用収集・地理的でB:の通常状態の確認 NODE01は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は遠隔ボ・地理的・収集です。項目収集・地理的・遠隔ボでC:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は片側V・地理的・遠隔ボです。用語収集・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0189</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0189について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg69
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0189A
+画面・出力には PHA72DD0189A が表示され、GLVM地理的ミラー RPV Client 0189 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0189B
+画面・出力には PHA72DD0189B が表示され、GLVM地理的ミラー RPV Client 0189 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0189
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0189C
+画面・出力には PHA72DD0189C が表示され、GLVM地理的ミラー RPV Client 0189 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0189A が画面・出力に表示されること
+② ステップ2 の PHA72DD0189B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0189C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0038"><h3>GLVM地理的ミラー RPV Client 0204</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紅E登録0205ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紅E登録0205です。紅E登録0205は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録紅E登録0205です。紅E登録0205ではRPV通信ペアと取得時刻を採取票紅E登録0205へ残します。紅E登録0205ではミラー再同期条件の誤読を避けるため補助資料も照合する判断紅E登録0205です。紅E登録0205の用語整理では地理的ミラーの対象値を実在出力で記録する記録紅E登録0205です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0204の技術的な意味を資料で確認するとき、クラスタ構成検証 Cluster Resources 0205との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はクラスター資源のトポロジ要約と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li><li>B. 管理対象との関係を表す説明はCluster Servicesで状態確認から ST_STABLE を読み・ST_STABLE とである。状態確認からST_STABLEを読むときは管理設定と資源状態の混同を防ぐ。</li><li>C. 管理対象との関係を表す説明は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は獲得処理の獲得イベントと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・登録）です。照合登録・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・登録・ミラーです。比較登録・地理的・遠隔ボ・ミラーでA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は地理的・登録・遠隔ボです。運用登録・地理的でB:の復旧準備 START05は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸は遠隔ボ・地理的・登録です。仕様登録・地理的・遠隔ボでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は登録・ミラー・遠隔ボです。用語登録・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0204</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0204について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg84
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0204A
+画面・出力には PHA72DD0204A が表示され、GLVM地理的ミラー RPV Client 0204 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0204B
+画面・出力には PHA72DD0204B が表示され、GLVM地理的ミラー RPV Client 0204 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0204
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0204C
+画面・出力には PHA72DD0204C が表示され、GLVM地理的ミラー RPV Client 0204 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0204A が画面・出力に表示されること
+② ステップ2 の PHA72DD0204B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0204C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0039"><h3>GLVM地理的ミラー RPV Client 0219</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>空T登録0220ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票空T登録0220です。空T登録0220は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録空T登録0220です。空T登録0220ではRPV通信ペアと取得時刻を採取票空T登録0220へ残します。空T登録0220ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断空T登録0220です。空T登録0220の用語整理では地理的ミラーの対象値を実在出力で確認する記録空T登録0220です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0219について構成や状態を確認します。GLVM地理的ミラー syslog entry 0252ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは保護でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>B. 対象資源に対する働きは登録で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは依存関係確認でクラスタ照会を証跡に残し・クラスタートポロジーでクラスタ照会から。トポロジー Cluster Topology 依存関係の確認固有の属性も確認対象に含める。</li><li>D. 対象資源に対する働きは変更で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・登録）です。照合登録・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・登録・sysです。比較登録・地理的・遠隔ボ・sysでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は地理的・登録・遠隔ボです。項目登録・地理的・遠隔ボでC:の依存関係の確認 TOPO13は「クラスタートポロジーでクラスタ照会から」を述べるため、正答側の照合軸はsys・地理的・遠隔ボです。仕様登録・地理的・遠隔ボでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は登録・sys・遠隔ボです。用語登録・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0219</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0219について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg99
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0219A
+画面・出力には PHA72DD0219A が表示され、GLVM地理的ミラー RPV Client 0219 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0219B
+画面・出力には PHA72DD0219B が表示され、GLVM地理的ミラー RPV Client 0219 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0219
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0219C
+画面・出力には PHA72DD0219C が表示され、GLVM地理的ミラー RPV Client 0219 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0219A が画面・出力に表示されること
+② ステップ2 の PHA72DD0219B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0219C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0040"><h3>GLVM地理的ミラー RPV Client 0234</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>翠O確認0235ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票翠O確認0235です。翠O確認0235は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録翠O確認0235です。翠O確認0235ではRPV通信ペアと取得時刻を採取票翠O確認0235へ残します。翠O確認0235ではRPV経路断の見落としを避けるため補助資料も照合する判断翠O確認0235です。翠O確認0235の用語整理では地理的ミラーの対象値を実在出力で説明する記録翠O確認0235です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0234の役割を調べています。GLVM地理的ミラー VG STATE 0288の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は抑止で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>B. 表示や設定で扱う内容は権限境界確認でイベント確認を証跡に残し・PowerHA Node Stateでイベント確認から。</li><li>C. 表示や設定で扱う内容は確認で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は保守で検証報告ROを証跡に残し・clverify.logの検証報告ROHAレポートと取得時刻。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・確認）です。照合確認・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・確認・遠隔ボです。比較確認・地理的・遠隔ボ・遠隔ボでA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は地理的・確認・遠隔ボです。運用確認・地理的でB:の権限境界の確認 NODE12は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は遠隔ボ・地理的・確認です。仕様確認・地理的・遠隔ボでD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は確認・遠隔ボ・遠隔ボです。用語確認・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0234</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0234について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg114
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0234A
+画面・出力には PHA72DD0234A が表示され、GLVM地理的ミラー RPV Client 0234 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0234B
+画面・出力には PHA72DD0234B が表示され、GLVM地理的ミラー RPV Client 0234 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0234
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0234C
+画面・出力には PHA72DD0234C が表示され、GLVM地理的ミラー RPV Client 0234 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0234A が画面・出力に表示されること
+② ステップ2 の PHA72DD0234B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0234C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0041"><h3>GLVM地理的ミラー RPV Client 0249</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>朱J保護0250ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票朱J保護0250です。朱J保護0250は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録朱J保護0250です。朱J保護0250ではRPV通信ペアと取得時刻を採取票朱J保護0250へ残します。朱J保護0250では片側VGのvaryon誤操作を避けるため補助資料も照合する判断朱J保護0250です。朱J保護0250の用語整理では地理的ミラーの対象値を実在出力で追跡する記録朱J保護0250です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー RPV Client 0249」を「クラスタ構成検証 Cluster Resources 0295」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてトポロジ要約を照合する。</li><li>B. 保守作業で参照する機能は永続アドレスとサービスアドレスのを避けるため・インターフェースから192.0.2.50してインターフェを照合する。</li><li>C. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして遠隔ボリューを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・保護）です。照合保護・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・保護・片側Vです。比較保護・地理的・遠隔ボ・片側VでA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は地理的・保護・遠隔ボです。運用保護・地理的でB:の権限境界の確認 SVCIP12は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は遠隔ボ・地理的・保護です。仕様保護・地理的・遠隔ボでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は保護・片側V・遠隔ボです。用語保護・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0249</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0249について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg09
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0249A
+画面・出力には PHA72DD0249A が表示され、GLVM地理的ミラー RPV Client 0249 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0249B
+画面・出力には PHA72DD0249B が表示され、GLVM地理的ミラー RPV Client 0249 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0249
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0249C
+画面・出力には PHA72DD0249C が表示され、GLVM地理的ミラー RPV Client 0249 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0249A が画面・出力に表示されること
+② ステップ2 の PHA72DD0249B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0249C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0042"><h3>GLVM地理的ミラー RPV Client 0264</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紅E照合0265ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紅E照合0265です。紅E照合0265は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録紅E照合0265です。紅E照合0265ではRPV通信ペアと取得時刻を採取票紅E照合0265へ残します。紅E照合0265ではミラー再同期条件の誤読を避けるため補助資料も照合する判断紅E照合0265です。紅E照合0265の用語整理では地理的ミラーの対象値を実在出力で記録する記録紅E照合0265です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0264を同一分類のクラスタ構成検証 SMIT Command Status 0274と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明はシステム管理コマンドの検証進行率と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li><li>C. 管理対象との関係を表す説明はCluster Synchronizで同期実行から clsnapshot を読み・clsnapshot とである。同期実行からclsnapshotを読ときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>D. 管理対象との関係を表す説明は獲得処理の獲得イベントと取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・地理的・遠隔ボでAの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・照合）です。照合照合・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・照合・ミラーです。運用照合・地理的でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は遠隔ボ・地理的・照合です。項目照合・地理的・遠隔ボでC:の構成監査 SYNC08は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸はミラー・地理的・遠隔ボです。仕様照合・地理的・遠隔ボでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は照合・ミラー・遠隔ボです。用語照合・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0264</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0264について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg24
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0264A
+画面・出力には PHA72DD0264A が表示され、GLVM地理的ミラー RPV Client 0264 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0264B
+画面・出力には PHA72DD0264B が表示され、GLVM地理的ミラー RPV Client 0264 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0264
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0264C
+画面・出力には PHA72DD0264C が表示され、GLVM地理的ミラー RPV Client 0264 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0264A が画面・出力に表示されること
+② ステップ2 の PHA72DD0264B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0264C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0043"><h3>GLVM地理的ミラー RPV Client 0279</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>空T照合0280ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票空T照合0280です。空T照合0280は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録空T照合0280です。空T照合0280ではRPV通信ペアと取得時刻を採取票空T照合0280へ残します。空T照合0280ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断空T照合0280です。空T照合0280の用語整理では地理的ミラーの対象値を実在出力で確認する記録空T照合0280です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0279の設定や表示を読む前に役割を確認します。クラスタ構成検証 Verification Progress 0316ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは構成検証のリソース要約と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。</li><li>B. 対象資源に対する働きは地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは資源グループで依存照会から START_AFTER を読み・START_AFTER とである。依存照会からSTART_AFTERをときは依存順を無視して子資源を先にを防ぐ。</li><li>D. 対象資源に対する働きはオンラインノードの資源グループRG現在位置と取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・照合）です。照合照合・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・照合・sysです。比較照合・地理的・遠隔ボ・sysでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・照合・遠隔ボです。項目照合・地理的・遠隔ボでC:の代替経路の確認 DEP10は「資源グループで依存照会から」を述べるため、正答側の照合軸はsys・地理的・遠隔ボです。仕様照合・地理的・遠隔ボでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は照合・sys・遠隔ボです。用語照合・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0279</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0279について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg39
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0279A
+画面・出力には PHA72DD0279A が表示され、GLVM地理的ミラー RPV Client 0279 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0279B
+画面・出力には PHA72DD0279B が表示され、GLVM地理的ミラー RPV Client 0279 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0279
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0279C
+画面・出力には PHA72DD0279C が表示され、GLVM地理的ミラー RPV Client 0279 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0279A が画面・出力に表示されること
+② ステップ2 の PHA72DD0279B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0279C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0044"><h3>GLVM地理的ミラー RPV Client 0294</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>翠O抑止0295ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票翠O抑止0295です。翠O抑止0295は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録翠O抑止0295です。翠O抑止0295ではRPV通信ペアと取得時刻を採取票翠O抑止0295へ残します。翠O抑止0295ではRPV経路断の見落としを避けるため補助資料も照合する判断翠O抑止0295です。翠O抑止0295の用語整理では地理的ミラーの対象値を実在出力で説明する記録翠O抑止0295です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0294に関する障害切り分けの前提を確認しています。cltopinfo トポロジー確認 実行結果の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はクラスタトポロジー・ネットワーク・サービスIP・リソースグループを表示するコマンドをトポロジー確認する。トポロジー確で実行結果を確認するときは実行結果の誤読を防ぐ。</li><li>B. 表示や設定で扱う内容は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は資源グループで依存照会から START_AFTER を読み・START_AFTER とである。依存照会からSTART_AFTERをときは依存順を無視して子資源を先にを防ぐ。</li><li>D. 表示や設定で扱う内容は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・地理的・遠隔ボでBの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・抑止）です。照合抑止・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・抑止・遠隔ボです。比較抑止・地理的・遠隔ボ・遠隔ボでA:のトポロジー確認 実行結果は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は地理的・抑止・遠隔ボです。項目抑止・地理的・遠隔ボでC:の代替経路の確認 DEP10は「資源グループで依存照会から」を述べるため、正答側の照合軸は遠隔ボ・地理的・遠隔ボです。仕様抑止・地理的・遠隔ボでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は抑止・遠隔ボ・遠隔ボです。用語抑止・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0294</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0294について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg54
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0294A
+画面・出力には PHA72DD0294A が表示され、GLVM地理的ミラー RPV Client 0294 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0294B
+画面・出力には PHA72DD0294B が表示され、GLVM地理的ミラー RPV Client 0294 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0294
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0294C
+画面・出力には PHA72DD0294C が表示され、GLVM地理的ミラー RPV Client 0294 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0294A が画面・出力に表示されること
+② ステップ2 の PHA72DD0294B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0294C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0045"><h3>GLVM地理的ミラー RPV Client 0309</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>朱J解析0310ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票朱J解析0310です。朱J解析0310は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録朱J解析0310です。朱J解析0310ではRPV通信ペアと取得時刻を採取票朱J解析0310へ残します。朱J解析0310では片側VGのvaryon誤操作を避けるため補助資料も照合する判断朱J解析0310です。朱J解析0310の用語整理では地理的ミラーの対象値を実在出力で追跡する記録朱J解析0310です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0309を保守記録に説明する必要があります。cldump 版数確認 キュー状態と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は主操作で出力欄を評価することで遠隔ボリューを確認し・片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は版数確認でキュー状態を確認することでキュー状態を確認し・キュー状態の誤読を防ぐ。</li><li>C. 保守作業で参照する機能はエラー記録からIDENTIFIERを読むことでエラー記録を確認し・cluster historを防ぐ。</li><li>D. 保守作業で参照する機能は調査操作で保守欄を引き継ぎすることで資源グループを確認し・自動戻し条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・遠隔ボでAの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・解析）です。照合解析・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・解析・片側Vです。運用解析・地理的でB:の版数確認 キュー状態は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は遠隔ボ・地理的・解析です。項目解析・地理的・遠隔ボでC:の変更後の確認 FAIL03は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は片側V・地理的・遠隔ボです。仕様解析・地理的・遠隔ボでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は解析・片側V・遠隔ボです。用語解析・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0309</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0309について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg69
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0309A
+画面・出力には PHA72DD0309A が表示され、GLVM地理的ミラー RPV Client 0309 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0309B
+画面・出力には PHA72DD0309B が表示され、GLVM地理的ミラー RPV Client 0309 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0309
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0309C
+画面・出力には PHA72DD0309C が表示され、GLVM地理的ミラー RPV Client 0309 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0309A が画面・出力に表示されること
+② ステップ2 の PHA72DD0309B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0309C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0046"><h3>GLVM地理的ミラー RPV Client 0324</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紅E計画0325ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紅E計画0325です。紅E計画0325は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録紅E計画0325です。紅E計画0325ではRPV通信ペアと取得時刻を採取票紅E計画0325へ残します。紅E計画0325ではミラー再同期条件の誤読を避けるため補助資料も照合する判断紅E計画0325です。紅E計画0325の用語整理では地理的ミラーの対象値を実在出力で記録する記録紅E計画0325です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0324の技術的な意味を資料で確認するとき、cldump 所有先確認 変更証跡との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は変更証跡で変更証跡を確認することで変更証跡を確認し・変更証跡の誤読を防ぐ。</li><li>B. 管理対象との関係を表す説明はイベント順序からcompletedを読むことでイベント順序を確認し・依存順を無視して子資源を先にを防ぐ。</li><li>C. 管理対象との関係を表す説明は照合操作で確認欄を採取することで遠隔ボリューを確認し・ミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は点検操作で判定欄を記録することで移動履歴を確認し・依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・計画）です。照合計画・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・計画・ミラーです。比較計画・地理的・遠隔ボ・ミラーでA:の所有先確認 変更証跡は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は地理的・計画・遠隔ボです。運用計画・地理的でB:の変更後の確認 DEP03は「資源グループでイベント順序から」を述べるため、正答側の照合軸は遠隔ボ・地理的・計画です。仕様計画・地理的・遠隔ボでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は計画・ミラー・遠隔ボです。用語計画・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0324</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0324について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg84
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0324A
+画面・出力には PHA72DD0324A が表示され、GLVM地理的ミラー RPV Client 0324 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0324B
+画面・出力には PHA72DD0324B が表示され、GLVM地理的ミラー RPV Client 0324 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0324
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0324C
+画面・出力には PHA72DD0324C が表示され、GLVM地理的ミラー RPV Client 0324 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0324A が画面・出力に表示されること
+② ステップ2 の PHA72DD0324B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0324C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0047"><h3>GLVM地理的ミラー RPV Client 0339</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>空T計画0340ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票空T計画0340です。空T計画0340は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録空T計画0340です。空T計画0340ではRPV通信ペアと取得時刻を採取票空T計画0340へ残します。空T計画0340ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断空T計画0340です。空T計画0340の用語整理では地理的ミラーの対象値を実在出力で確認する記録空T計画0340です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0339について構成や状態を確認します。cldump 所有先確認 変更証跡ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはクラスタ構成と状態をスナップショットとして表示するコマンドを所有先確認する。変更証跡で変更証跡を確認するときは変更証跡の誤読を防ぐ。</li><li>B. 対象資源に対する働きは資源グループで依存照会から START_AFTER を読み・START_AFTER とである。依存照会からSTART_AFTERをときは依存順を無視して子資源を先にを防ぐ。</li><li>C. 対象資源に対する働きは地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きは獲得処理の獲得イベントと取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・遠隔ボでCの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・計画）です。照合計画・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・計画・sysです。比較計画・地理的・遠隔ボ・sysでA:の所有先確認 変更証跡は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は地理的・計画・遠隔ボです。運用計画・地理的でB:のログとの照合 DEP07は「資源グループで依存照会から」を述べるため、正答側の照合軸は遠隔ボ・地理的・計画です。仕様計画・地理的・遠隔ボでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は計画・sys・遠隔ボです。用語計画・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0339</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0339について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg99
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0339A
+画面・出力には PHA72DD0339A が表示され、GLVM地理的ミラー RPV Client 0339 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0339B
+画面・出力には PHA72DD0339B が表示され、GLVM地理的ミラー RPV Client 0339 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0339
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0339C
+画面・出力には PHA72DD0339C が表示され、GLVM地理的ミラー RPV Client 0339 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0339A が画面・出力に表示されること
+② ステップ2 の PHA72DD0339B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0339C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0048"><h3>GLVM地理的ミラー RPV Client 0354</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>翠O解除0355ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票翠O解除0355です。翠O解除0355は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録翠O解除0355です。翠O解除0355ではRPV通信ペアと取得時刻を採取票翠O解除0355へ残します。翠O解除0355ではRPV経路断の見落としを避けるため補助資料も照合する判断翠O解除0355です。翠O解除0355の用語整理では地理的ミラーの対象値を実在出力で説明する記録翠O解除0355です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Client 0354の役割を調べています。clmgr verify cluster 版数確認 系切替確認の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は系切替確認の誤読を避けるため・系切替確認で系切替確認を確認するして系切替確認を照合する。clmgr verify cluster 版数確認 系切替確認固有の属性も確認対象に含める。</li><li>B. 表示や設定で扱う内容は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして獲得イベントを照合する。</li><li>C. 表示や設定で扱う内容は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するしてトポロジ要約を照合する。</li><li>D. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・地理的・遠隔ボでDの記述「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時」に対応する項目はRPV Client（地理的・遠隔ボ・解除）です。照合解除・地理的・遠隔ボに関するGLVMの仕様は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し」で、確認対象は遠隔ボ・解除・遠隔ボです。比較解除・地理的・遠隔ボ・遠隔ボでA:の版数確認 系切替確認は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸は地理的・解除・遠隔ボです。運用解除・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・解除です。項目解除・地理的・遠隔ボでC:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は遠隔ボ・地理的・遠隔ボです。用語解除・地理的・遠隔ボという用語は「地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取」を指し、照合する値と誤認リスクの組合せは地理的・遠隔ボ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Client 0354</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Client 0354について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Client と RPV通信ペア</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+Volume group datavg114
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0354A
+画面・出力には PHA72DD0354A が表示され、GLVM地理的ミラー RPV Client 0354 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0354B
+画面・出力には PHA72DD0354B が表示され、GLVM地理的ミラー RPV Client 0354 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Client を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0354
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0354C
+画面・出力には PHA72DD0354C が表示され、GLVM地理的ミラー RPV Client 0354 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0354A が画面・出力に表示されること
+② ステップ2 の PHA72DD0354B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0354C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0049"><h3>GLVM地理的ミラー RPV Server 0006</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>紫G巡回0007ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紫G巡回0007です。紫G巡回0007は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紫G巡回0007です。紫G巡回0007ではミラー更新状態と取得時刻を採取票紫G巡回0007へ残します。紫G巡回0007ではRPV経路断の見落としを避けるため補助資料も照合する判断紫G巡回0007です。紫G巡回0007の用語整理では地理的ミラーの対象値を実在出力で説明する記録紫G巡回0007です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0006に関する障害切り分けの前提を確認しています。GLVM地理的ミラー RPV Client 0084の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は変更で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>B. 表示や設定で扱う内容は保護でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>C. 表示や設定で扱う内容は巡回でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は性能影響確認でサブシステムを証跡に残し・PowerHA Node Stateでサブシステム状態から。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・巡回）です。照合巡回・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・巡回・遠隔ボです。比較地理的・巡回でA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は地理的・巡回・ミラーです。運用巡回・地理的でB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はミラー・地理的・巡回です。仕様巡回・地理的・ミラーでD:の性能影響の確認 NODE11は「PowerHA Node Stateでサブシ」を述べるため、正答側の照合軸は巡回・遠隔ボ・ミラーです。用語巡回・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0006</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0006について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg06
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0006A
+画面・出力には PHA72DD0006A が表示され、GLVM地理的ミラー RPV Server 0006 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0006B
+画面・出力には PHA72DD0006B が表示され、GLVM地理的ミラー RPV Server 0006 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0006
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0006C
+画面・出力には PHA72DD0006C が表示され、GLVM地理的ミラー RPV Server 0006 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0006A が画面・出力に表示されること
+② ステップ2 の PHA72DD0006B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0006C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0050"><h3>GLVM地理的ミラー RPV Server 0021</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>橙B棚卸0022ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票橙B棚卸0022です。橙B棚卸0022は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録橙B棚卸0022です。橙B棚卸0022ではミラー更新状態と取得時刻を採取票橙B棚卸0022へ残します。橙B棚卸0022では片側VGのvaryon誤操作を避けるため補助資料も照合する判断橙B棚卸0022です。橙B棚卸0022の用語整理では地理的ミラーの対象値を実在出力で追跡する記録橙B棚卸0022です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0021を保守記録に説明する必要があります。GLVM地理的ミラー syslog entry 0087と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は地理的ミラーの項目のsyslog記録と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>B. 保守作業で参照する機能は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能はオンラインノードの資源グループRG現在位置と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>D. 保守作業で参照する機能はPowerHA Node Stateでイベント確認から 終了状態 を読み・終了状態 と 実状態値 を照合する。イベント確認から終了状態を読むときは基本ソフト稼働とクラスタ稼働を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能棚卸・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・棚卸）です。照合棚卸・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・棚卸・片側Vです。比較地理的・棚卸でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は地理的・棚卸・ミラーです。項目棚卸・地理的・ミラーでC:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は片側V・地理的・ミラーです。仕様棚卸・地理的・ミラーでD:の引継ぎ記録 NODE09は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は棚卸・片側V・ミラーです。用語棚卸・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0021</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0021について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg21
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0021A
+画面・出力には PHA72DD0021A が表示され、GLVM地理的ミラー RPV Server 0021 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0021B
+画面・出力には PHA72DD0021B が表示され、GLVM地理的ミラー RPV Server 0021 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0021
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0021C
+画面・出力には PHA72DD0021C が表示され、GLVM地理的ミラー RPV Server 0021 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0021A が画面・出力に表示されること
+② ステップ2 の PHA72DD0021B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0021C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0051"><h3>GLVM地理的ミラー RPV Server 0036</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>青Q棚卸0037ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票青Q棚卸0037です。青Q棚卸0037は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録青Q棚卸0037です。青Q棚卸0037ではミラー更新状態と取得時刻を採取票青Q棚卸0037へ残します。青Q棚卸0037ではミラー再同期条件の誤読を避けるため補助資料も照合する判断青Q棚卸0037です。青Q棚卸0037の用語整理では地理的ミラーの対象値を実在出力で記録する記録青Q棚卸0037です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0036の技術的な意味を資料で確認するとき、リソースグループ制御 Node List 0107との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はノード一覧の移動履歴と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li><li>B. 管理対象との関係を表す説明は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li><li>D. 管理対象との関係を表す説明はCluster Servicesで資源グループRG確認から app_rg を読み・app_rg とである。RG確認からapp_rgを読むときは管理設定と資源状態の混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・棚卸）です。照合棚卸・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・棚卸・ミラーです。比較地理的・棚卸でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・棚卸・ミラーです。項目棚卸・地理的・ミラーでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はミラー・地理的・ミラーです。仕様棚卸・地理的・ミラーでD:の再始動後の確認 START15は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は棚卸・ミラー・ミラーです。用語棚卸・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0036</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0036について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg36
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0036A
+画面・出力には PHA72DD0036A が表示され、GLVM地理的ミラー RPV Server 0036 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0036B
+画面・出力には PHA72DD0036B が表示され、GLVM地理的ミラー RPV Server 0036 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0036
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0036C
+画面・出力には PHA72DD0036C が表示され、GLVM地理的ミラー RPV Server 0036 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0036A が画面・出力に表示されること
+② ステップ2 の PHA72DD0036B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0036C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0052"><h3>GLVM地理的ミラー RPV Server 0051</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>白L復旧0052ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票白L復旧0052です。白L復旧0052は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録白L復旧0052です。白L復旧0052ではミラー更新状態と取得時刻を採取票白L復旧0052へ残します。白L復旧0052ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断白L復旧0052です。白L復旧0052の用語整理では地理的ミラーの対象値を実在出力で確認する記録白L復旧0052です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0051について構成や状態を確認します。クラスタ構成検証 Cluster Topology 0133ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは記録操作で証跡欄を照合することで構成データOを確認し・未同期構成の見落としを防ぐ。</li><li>B. 対象資源に対する働きは点検操作で判定欄を記録することで移動履歴を確認し・依存リソース順序の見落としを防ぐ。</li><li>C. 対象資源に対する働きは監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはノード一覧から実状態値を読むことでノード一覧を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。ノード状態 PowerHA Node State 依存関係の確認固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・復旧）です。照合復旧・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・復旧・sysです。比較地理的・復旧でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・復旧・ミラーです。運用復旧・地理的でB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はミラー・地理的・復旧です。仕様復旧・地理的・ミラーでD:の依存関係の確認 NODE13は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は復旧・sys・ミラーです。用語復旧・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0051</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0051について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg51
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0051A
+画面・出力には PHA72DD0051A が表示され、GLVM地理的ミラー RPV Server 0051 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0051B
+画面・出力には PHA72DD0051B が表示され、GLVM地理的ミラー RPV Server 0051 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0051
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0051C
+画面・出力には PHA72DD0051C が表示され、GLVM地理的ミラー RPV Server 0051 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0051A が画面・出力に表示されること
+② ステップ2 の PHA72DD0051B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0051C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0053"><h3>GLVM地理的ミラー RPV Server 0066</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紫G監査0067ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紫G監査0067です。紫G監査0067は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紫G監査0067です。紫G監査0067ではミラー更新状態と取得時刻を採取票紫G監査0067へ残します。紫G監査0067ではRPV経路断の見落としを避けるため補助資料も照合する判断紫G監査0067です。紫G監査0067の用語整理では地理的ミラーの対象値を実在出力で説明する記録紫G監査0067です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0066の役割を調べています。リソースグループ制御 Acquisition Failure 0146の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は監査でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は保守で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。リソースグループ制御 Acquisition Failure 0146固有の属性も確認対象に含める。</li><li>C. 表示や設定で扱う内容は保護でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>D. 表示や設定で扱う内容は性能影響確認で状態確認を証跡に残し・Cluster Servicesで状態確認から。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・ミラーでAの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・監査）です。照合監査・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・監査・遠隔ボです。運用監査・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はミラー・地理的・監査です。項目監査・地理的・ミラーでC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・ミラーです。仕様監査・地理的・ミラーでD:の性能影響の確認 START11は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸は監査・遠隔ボ・ミラーです。用語監査・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0066</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0066について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg66
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0066A
+画面・出力には PHA72DD0066A が表示され、GLVM地理的ミラー RPV Server 0066 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0066B
+画面・出力には PHA72DD0066B が表示され、GLVM地理的ミラー RPV Server 0066 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0066
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0066C
+画面・出力には PHA72DD0066C が表示され、GLVM地理的ミラー RPV Server 0066 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0066A が画面・出力に表示されること
+② ステップ2 の PHA72DD0066B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0066C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0054"><h3>GLVM地理的ミラー RPV Server 0081</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>橙B変更0082ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票橙B変更0082です。橙B変更0082は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録橙B変更0082です。橙B変更0082ではミラー更新状態と取得時刻を採取票橙B変更0082へ残します。橙B変更0082では片側VGのvaryon誤操作を避けるため補助資料も照合する判断橙B変更0082です。橙B変更0082の用語整理では地理的ミラーの対象値を実在出力で追跡する記録橙B変更0082です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー RPV Server 0081」を「リソースグループ制御 Node List 0122」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は診断で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li><li>B. 保守作業で参照する機能は変更でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は解除で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>D. 保守作業で参照する機能は依存関係確認で未同期確認を証跡に残し・Cluster Synchronizで未同期確認から。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・変更）です。照合変更・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・変更・片側Vです。比較地理的・変更でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・変更・ミラーです。項目変更・地理的・ミラーでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は片側V・地理的・ミラーです。仕様変更・地理的・ミラーでD:の依存関係の確認 SYNC13は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸は変更・片側V・ミラーです。用語変更・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0081</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0081について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg81
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0081A
+画面・出力には PHA72DD0081A が表示され、GLVM地理的ミラー RPV Server 0081 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0081B
+画面・出力には PHA72DD0081B が表示され、GLVM地理的ミラー RPV Server 0081 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0081
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0081C
+画面・出力には PHA72DD0081C が表示され、GLVM地理的ミラー RPV Server 0081 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0081A が画面・出力に表示されること
+② ステップ2 の PHA72DD0081B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0081C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0055"><h3>GLVM地理的ミラー RPV Server 0096</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>青Q変更0097ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票青Q変更0097です。青Q変更0097は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録青Q変更0097です。青Q変更0097ではミラー更新状態と取得時刻を採取票青Q変更0097へ残します。青Q変更0097ではミラー再同期条件の誤読を避けるため補助資料も照合する判断青Q変更0097です。青Q変更0097の用語整理では地理的ミラーの対象値を実在出力で記録する記録青Q変更0097です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0096を同一分類のリソースグループ制御 Event Summary 0158と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明はイベント要約の失敗ラベルと取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>C. 管理対象との関係を表す説明は獲得処理の獲得イベントと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li><li>D. 管理対象との関係を表す説明はhacmp.out Eventでマネージャーログから クラスター管理プロセス を読みである。マネージャーログからクラスター管理プときはcluster historを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・ミラーでAの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・変更）です。照合変更・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・変更・ミラーです。運用変更・地理的でB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はミラー・地理的・変更です。項目変更・地理的・ミラーでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はミラー・地理的・ミラーです。仕様変更・地理的・ミラーでD:の性能影響の確認 FAIL11は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は変更・ミラー・ミラーです。用語変更・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0096</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0096について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg96
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0096A
+画面・出力には PHA72DD0096A が表示され、GLVM地理的ミラー RPV Server 0096 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0096B
+画面・出力には PHA72DD0096B が表示され、GLVM地理的ミラー RPV Server 0096 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0096
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0096C
+画面・出力には PHA72DD0096C が表示され、GLVM地理的ミラー RPV Server 0096 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0096A が画面・出力に表示されること
+② ステップ2 の PHA72DD0096B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0096C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0056"><h3>GLVM地理的ミラー RPV Server 0111</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>白L移行0112ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票白L移行0112です。白L移行0112は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録白L移行0112です。白L移行0112ではミラー更新状態と取得時刻を採取票白L移行0112へ残します。白L移行0112ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断白L移行0112です。白L移行0112の用語整理では地理的ミラーの対象値を実在出力で確認する記録白L移行0112です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0111の設定や表示を読む前に役割を確認します。クラスタ構成検証 Cluster Topology 0118ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは確認操作で状態欄を整理することで構成データOを確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 対象資源に対する働きは監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。</li><li>D. 対象資源に対する働きは復旧操作で点検欄を確認することで優先ノード一を確認し・資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・移行）です。照合移行・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・移行・sysです。比較地理的・移行でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・移行・ミラーです。項目移行・地理的・ミラーでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・ミラーです。仕様移行・地理的・ミラーでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は移行・sys・ミラーです。用語移行・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0111</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0111について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg111
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0111A
+画面・出力には PHA72DD0111A が表示され、GLVM地理的ミラー RPV Server 0111 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0111B
+画面・出力には PHA72DD0111B が表示され、GLVM地理的ミラー RPV Server 0111 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0111
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0111C
+画面・出力には PHA72DD0111C が表示され、GLVM地理的ミラー RPV Server 0111 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0111A が画面・出力に表示されること
+② ステップ2 の PHA72DD0111B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0111C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0057"><h3>GLVM地理的ミラー RPV Server 0126</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>紫G診断0127ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紫G診断0127です。紫G診断0127は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紫G診断0127です。紫G診断0127ではミラー更新状態と取得時刻を採取票紫G診断0127へ残します。紫G診断0127ではRPV経路断の見落としを避けるため補助資料も照合する判断紫G診断0127です。紫G診断0127の用語整理では地理的ミラーの対象値を実在出力で説明する記録紫G診断0127です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0126に関する障害切り分けの前提を確認しています。クラスタ構成検証 clverify.log 0202の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は確認操作で状態欄を整理することで検証報告ROを確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 表示や設定で扱う内容は照合単位で照合単位を確認することで照合単位を確認し・照合単位の誤読を防ぐ。</li><li>C. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は未同期確認からUNSYNCED_CHANことで未同期確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・診断）です。照合診断・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・診断・遠隔ボです。比較地理的・診断でA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は地理的・診断・ミラーです。運用診断・地理的でB:の起動確認 照合単位は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸はミラー・地理的・診断です。仕様診断・地理的・ミラーでD:の代替経路の確認 SYNC10は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸は診断・遠隔ボ・ミラーです。用語診断・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0126</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0126について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg06
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0126A
+画面・出力には PHA72DD0126A が表示され、GLVM地理的ミラー RPV Server 0126 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0126B
+画面・出力には PHA72DD0126B が表示され、GLVM地理的ミラー RPV Server 0126 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0126
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0126C
+画面・出力には PHA72DD0126C が表示され、GLVM地理的ミラー RPV Server 0126 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0126A が画面・出力に表示されること
+② ステップ2 の PHA72DD0126B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0126C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0058"><h3>GLVM地理的ミラー RPV Server 0141</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>橙B保守0142ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票橙B保守0142です。橙B保守0142は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録橙B保守0142です。橙B保守0142ではミラー更新状態と取得時刻を採取票橙B保守0142へ残します。橙B保守0142では片側VGのvaryon誤操作を避けるため補助資料も照合する判断橙B保守0142です。橙B保守0142の用語整理では地理的ミラーの対象値を実在出力で追跡する記録橙B保守0142です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0141を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0223と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>B. 保守作業で参照する機能は地理的ミラーの項目のsyslog記録と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. 保守作業で参照する機能は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能はclstatで管理通信SMUX接続から ESTABLISHED を読み・ESTABLISHED とである。SMUX接続からESTABLISHEときは監視通信SNMP情報の残留をを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保守・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・保守）です。照合保守・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・保守・片側Vです。比較保守・地理的・ミラー・片側VでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・保守・ミラーです。運用保守・地理的でB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はミラー・地理的・保守です。仕様保守・地理的・ミラーでD:の構成監査 CLSTAT08は「clstatで管理通信SMUX接続から」を述べるため、正答側の照合軸は保守・片側V・ミラーです。用語保守・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0141</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0141について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg21
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0141A
+画面・出力には PHA72DD0141A が表示され、GLVM地理的ミラー RPV Server 0141 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0141B
+画面・出力には PHA72DD0141B が表示され、GLVM地理的ミラー RPV Server 0141 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0141
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0141C
+画面・出力には PHA72DD0141C が表示され、GLVM地理的ミラー RPV Server 0141 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0141A が画面・出力に表示されること
+② ステップ2 の PHA72DD0141B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0141C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0059"><h3>GLVM地理的ミラー RPV Server 0156</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>青Q保守0157ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票青Q保守0157です。青Q保守0157は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録青Q保守0157です。青Q保守0157ではミラー更新状態と取得時刻を採取票青Q保守0157へ残します。青Q保守0157ではミラー再同期条件の誤読を避けるため補助資料も照合する判断青Q保守0157です。青Q保守0157の用語整理では地理的ミラーの対象値を実在出力で記録する記録青Q保守0157です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0156の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Client 0249との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は保護で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>B. 管理対象との関係を表す説明は解除で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li><li>C. 管理対象との関係を表す説明は棚卸で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li><li>D. 管理対象との関係を表す説明は保守でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・地理的・ミラーでDの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・保守）です。照合保守・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・保守・ミラーです。比較保守・地理的・ミラー・ミラーでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は地理的・保守・ミラーです。運用保守・地理的でB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はミラー・地理的・保守です。項目保守・地理的・ミラーでC:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はミラー・地理的・ミラーです。用語保守・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0156</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0156について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg36
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0156A
+画面・出力には PHA72DD0156A が表示され、GLVM地理的ミラー RPV Server 0156 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0156B
+画面・出力には PHA72DD0156B が表示され、GLVM地理的ミラー RPV Server 0156 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0156
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0156C
+画面・出力には PHA72DD0156C が表示され、GLVM地理的ミラー RPV Server 0156 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0156A が画面・出力に表示されること
+② ステップ2 の PHA72DD0156B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0156C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0060"><h3>GLVM地理的ミラー RPV Server 0171</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>白L切替0172ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票白L切替0172です。白L切替0172は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録白L切替0172です。白L切替0172ではミラー更新状態と取得時刻を採取票白L切替0172へ残します。白L切替0172ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断白L切替0172です。白L切替0172の用語整理では地理的ミラーの対象値を実在出力で確認する記録白L切替0172です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0171について構成や状態を確認します。クラスタ構成検証 Verification Progress 0196ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。</li><li>B. 対象資源に対する働きは変更証跡の誤読を避けるため・変更証跡で変更証跡を確認するして変更証跡を照合する。</li><li>C. 対象資源に対する働きは依存順を無視して子資源を先にオンを避けるため・イベント順序からcompletedを読むしてイベント順序を照合する。</li><li>D. 対象資源に対する働きはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・地理的・ミラーでDの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・切替）です。照合切替・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・切替・sysです。比較切替・地理的・ミラー・sysでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・切替・ミラーです。運用切替・地理的でB:の所有先確認 変更証跡は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸はミラー・地理的・切替です。項目切替・地理的・ミラーでC:の引継ぎ記録 DEP09は「資源グループでイベント順序から」を述べるため、正答側の照合軸はsys・地理的・ミラーです。用語切替・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0171</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0171について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg51
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0171A
+画面・出力には PHA72DD0171A が表示され、GLVM地理的ミラー RPV Server 0171 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0171B
+画面・出力には PHA72DD0171B が表示され、GLVM地理的ミラー RPV Server 0171 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0171
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0171C
+画面・出力には PHA72DD0171C が表示され、GLVM地理的ミラー RPV Server 0171 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0171A が画面・出力に表示されること
+② ステップ2 の PHA72DD0171B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0171C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0061"><h3>GLVM地理的ミラー RPV Server 0186</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紫G収集0187ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紫G収集0187です。紫G収集0187は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紫G収集0187です。紫G収集0187ではミラー更新状態と取得時刻を採取票紫G収集0187へ残します。紫G収集0187ではRPV経路断の見落としを避けるため補助資料も照合する判断紫G収集0187です。紫G収集0187の用語整理では地理的ミラーの対象値を実在出力で説明する記録紫G収集0187です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0186の役割を調べています。リソースグループ制御 Resource Group Name 0245の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして優先ノード一を照合する。</li><li>C. 表示や設定で扱う内容は基本ソフト稼働とクラスタ稼働の混を避けるため・SRC状態からクラスター管理プロセスを読してサブシステムを照合する。</li><li>D. 表示や設定で扱う内容はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するしてトポロジ要約を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・ミラーでAの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・収集）です。照合収集・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・収集・遠隔ボです。運用収集・地理的でB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はミラー・地理的・収集です。項目収集・地理的・ミラーでC:の性能影響の確認 NODE11は「PowerHA Node Stateでサブシ」を述べるため、正答側の照合軸は遠隔ボ・地理的・ミラーです。仕様収集・地理的・ミラーでD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は収集・遠隔ボ・ミラーです。用語収集・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0186</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0186について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg66
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0186A
+画面・出力には PHA72DD0186A が表示され、GLVM地理的ミラー RPV Server 0186 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0186B
+画面・出力には PHA72DD0186B が表示され、GLVM地理的ミラー RPV Server 0186 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0186
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0186C
+画面・出力には PHA72DD0186C が表示され、GLVM地理的ミラー RPV Server 0186 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0186A が画面・出力に表示されること
+② ステップ2 の PHA72DD0186B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0186C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0062"><h3>GLVM地理的ミラー RPV Server 0201</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>橙B登録0202ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票橙B登録0202です。橙B登録0202は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録橙B登録0202です。橙B登録0202ではミラー更新状態と取得時刻を採取票橙B登録0202へ残します。橙B登録0202では片側VGのvaryon誤操作を避けるため補助資料も照合する判断橙B登録0202です。橙B登録0202の用語整理では地理的ミラーの対象値を実在出力で追跡する記録橙B登録0202です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー RPV Server 0201」を「GLVM地理的ミラー Mirror Pool 0270」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてVG varを照合する。</li><li>B. 保守作業で参照する機能は永続アドレスとサービスアドレスのを避けるため・RG位置からオンライン表示を読むして資源グループを照合する。</li><li>C. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・登録）です。照合登録・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・登録・片側Vです。比較登録・地理的・ミラー・片側VでA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は地理的・登録・ミラーです。運用登録・地理的でB:の復旧準備 SVCIP05は「IP Service IPで資源グループ位置」を述べるため、正答側の照合軸はミラー・地理的・登録です。仕様登録・地理的・ミラーでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は登録・片側V・ミラーです。用語登録・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0201</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0201について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg81
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0201A
+画面・出力には PHA72DD0201A が表示され、GLVM地理的ミラー RPV Server 0201 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0201B
+画面・出力には PHA72DD0201B が表示され、GLVM地理的ミラー RPV Server 0201 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0201
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0201C
+画面・出力には PHA72DD0201C が表示され、GLVM地理的ミラー RPV Server 0201 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0201A が画面・出力に表示されること
+② ステップ2 の PHA72DD0201B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0201C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0063"><h3>GLVM地理的ミラー RPV Server 0216</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>青Q登録0217ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票青Q登録0217です。青Q登録0217は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録青Q登録0217です。青Q登録0217ではミラー更新状態と取得時刻を採取票青Q登録0217へ残します。青Q登録0217ではミラー再同期条件の誤読を避けるため補助資料も照合する判断青Q登録0217です。青Q登録0217の用語整理では地理的ミラーの対象値を実在出力で記録する記録青Q登録0217です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0216を同一分類のクラスタ構成検証 clverify.log 0247と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証報告ROを照合する。</li><li>B. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li><li>D. 管理対象との関係を表す説明は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして失敗ラベルを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・登録）です。照合登録・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・登録・ミラーです。比較登録・地理的・ミラー・ミラーでA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は地理的・登録・ミラーです。項目登録・地理的・ミラーでC:の障害切り分け NODE04は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸はミラー・地理的・ミラーです。仕様登録・地理的・ミラーでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は登録・ミラー・ミラーです。用語登録・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0216</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0216について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg96
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0216A
+画面・出力には PHA72DD0216A が表示され、GLVM地理的ミラー RPV Server 0216 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0216B
+画面・出力には PHA72DD0216B が表示され、GLVM地理的ミラー RPV Server 0216 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0216
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0216C
+画面・出力には PHA72DD0216C が表示され、GLVM地理的ミラー RPV Server 0216 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0216A が画面・出力に表示されること
+② ステップ2 の PHA72DD0216B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0216C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0064"><h3>GLVM地理的ミラー RPV Server 0231</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>白L確認0232ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票白L確認0232です。白L確認0232は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録白L確認0232です。白L確認0232ではミラー更新状態と取得時刻を採取票白L確認0232へ残します。白L確認0232ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断白L確認0232です。白L確認0232の用語整理では地理的ミラーの対象値を実在出力で確認する記録白L確認0232です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0231の設定や表示を読む前に役割を確認します。リソースグループ制御 Resource Group Name 0260ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして優先ノード一を照合する。リソースグループ制御 Resource Group Name 0260固有の属性も確認対象に含める。</li><li>B. 対象資源に対する働きは冗長性確認の誤読を避けるため・冗長性確認で冗長性確認を確認するして冗長性確認を照合する。</li><li>C. 対象資源に対する働きはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きは依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして移動履歴を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・確認）です。照合確認・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・確認・sysです。比較確認・地理的・ミラー・sysでA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は地理的・確認・ミラーです。運用確認・地理的でB:のトポロジー確認 冗長性確認は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸はミラー・地理的・確認です。仕様確認・地理的・ミラーでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は確認・sys・ミラーです。用語確認・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0231</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0231について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg111
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0231A
+画面・出力には PHA72DD0231A が表示され、GLVM地理的ミラー RPV Server 0231 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0231B
+画面・出力には PHA72DD0231B が表示され、GLVM地理的ミラー RPV Server 0231 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0231
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0231C
+画面・出力には PHA72DD0231C が表示され、GLVM地理的ミラー RPV Server 0231 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0231A が画面・出力に表示されること
+② ステップ2 の PHA72DD0231B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0231C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0065"><h3>GLVM地理的ミラー RPV Server 0246</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>紫G保護0247ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紫G保護0247です。紫G保護0247は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紫G保護0247です。紫G保護0247ではミラー更新状態と取得時刻を採取票紫G保護0247へ残します。紫G保護0247ではRPV経路断の見落としを避けるため補助資料も照合する判断紫G保護0247です。紫G保護0247の用語整理では地理的ミラーの対象値を実在出力で説明する記録紫G保護0247です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0246に関する障害切り分けの前提を確認しています。リソースグループ制御 Event Summary 0263の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして失敗ラベルを照合する。</li><li>B. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容はcluster historyだを避けるため・マネージャーログからクラスター管理プロセしてマネージャーを照合する。</li><li>D. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてsyslogを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・保護）です。照合保護・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・保護・遠隔ボです。比較保護・地理的・ミラー・遠隔ボでA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・保護・ミラーです。項目保護・地理的・ミラーでC:の停止前の確認 FAIL14は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は遠隔ボ・地理的・ミラーです。仕様保護・地理的・ミラーでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は保護・遠隔ボ・ミラーです。用語保護・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0246</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0246について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg06
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0246A
+画面・出力には PHA72DD0246A が表示され、GLVM地理的ミラー RPV Server 0246 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0246B
+画面・出力には PHA72DD0246B が表示され、GLVM地理的ミラー RPV Server 0246 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0246
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0246C
+画面・出力には PHA72DD0246C が表示され、GLVM地理的ミラー RPV Server 0246 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0246A が画面・出力に表示されること
+② ステップ2 の PHA72DD0246B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0246C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0066"><h3>GLVM地理的ミラー RPV Server 0261</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>橙B照合0262ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票橙B照合0262です。橙B照合0262は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録橙B照合0262です。橙B照合0262ではミラー更新状態と取得時刻を採取票橙B照合0262へ残します。橙B照合0262では片側VGのvaryon誤操作を避けるため補助資料も照合する判断橙B照合0262です。橙B照合0262の用語整理では地理的ミラーの対象値を実在出力で追跡する記録橙B照合0262です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0261を保守記録に説明する必要があります。GLVM地理的ミラー RPV Client 0294と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. 保守作業で参照する機能はhacmp.out Eventで主要ログから ACQUISITION を読み・ACQUISITION とである。主要ログからACQUISITIONをときはcluster historを防ぐ。</li><li>D. 保守作業で参照する機能はイベント要約の失敗ラベルと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能照合・地理的・ミラーでAの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・照合）です。照合照合・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・照合・片側Vです。運用照合・地理的でB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はミラー・地理的・照合です。項目照合・地理的・ミラーでC:の依存関係の確認 FAIL13は「hacmp.out Eventで主要ログから」を述べるため、正答側の照合軸は片側V・地理的・ミラーです。仕様照合・地理的・ミラーでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は照合・片側V・ミラーです。用語照合・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0261</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0261について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg21
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0261A
+画面・出力には PHA72DD0261A が表示され、GLVM地理的ミラー RPV Server 0261 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0261B
+画面・出力には PHA72DD0261B が表示され、GLVM地理的ミラー RPV Server 0261 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0261
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0261C
+画面・出力には PHA72DD0261C が表示され、GLVM地理的ミラー RPV Server 0261 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0261A が画面・出力に表示されること
+② ステップ2 の PHA72DD0261B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0261C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0067"><h3>GLVM地理的ミラー RPV Server 0276</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>青Q照合0277ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票青Q照合0277です。青Q照合0277は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録青Q照合0277です。青Q照合0277ではミラー更新状態と取得時刻を採取票青Q照合0277へ残します。青Q照合0277ではミラー再同期条件の誤読を避けるため補助資料も照合する判断青Q照合0277です。青Q照合0277の用語整理では地理的ミラーの対象値を実在出力で記録する記録青Q照合0277です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0276の技術的な意味を資料で確認するとき、GLVM地理的ミラー Mirror Pool 0345との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてVG varを照合する。</li><li>C. 管理対象との関係を表す説明は依存順を無視して子資源を先にオンを避けるため・依存照会からSTART_AFTERを読むして依存照会を照合する。</li><li>D. 管理対象との関係を表す説明は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・地理的・ミラーでAの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・照合）です。照合照合・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・照合・ミラーです。運用照合・地理的でB:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸はミラー・地理的・照合です。項目照合・地理的・ミラーでC:の障害切り分け DEP04は「資源グループで依存照会から」を述べるため、正答側の照合軸はミラー・地理的・ミラーです。仕様照合・地理的・ミラーでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は照合・ミラー・ミラーです。用語照合・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0276</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0276について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg36
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0276A
+画面・出力には PHA72DD0276A が表示され、GLVM地理的ミラー RPV Server 0276 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0276B
+画面・出力には PHA72DD0276B が表示され、GLVM地理的ミラー RPV Server 0276 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0276
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0276C
+画面・出力には PHA72DD0276C が表示され、GLVM地理的ミラー RPV Server 0276 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0276A が画面・出力に表示されること
+② ステップ2 の PHA72DD0276B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0276C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0068"><h3>GLVM地理的ミラー RPV Server 0291</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>白L抑止0292ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票白L抑止0292です。白L抑止0292は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録白L抑止0292です。白L抑止0292ではミラー更新状態と取得時刻を採取票白L抑止0292へ残します。白L抑止0292ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断白L抑止0292です。白L抑止0292の用語整理では地理的ミラーの対象値を実在出力で確認する記録白L抑止0292です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0291について構成や状態を確認します。クラスタ構成検証 Cluster Topology 0298ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはクラスタートポロジーの構成データODM登録値と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li><li>B. 対象資源に対する働きはhacmp.out Eventでマネージャーログから クラスター管理プロセス を読みである。マネージャーログからクラスター管理プときはcluster historを防ぐ。</li><li>C. 対象資源に対する働きはノード一覧の移動履歴と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li><li>D. 対象資源に対する働きは地理的ミラーの項目のミラー更新状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・地理的・ミラーでDの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・抑止）です。照合抑止・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・抑止・sysです。比較抑止・地理的・ミラー・sysでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・抑止・ミラーです。運用抑止・地理的でB:の構成監査 FAIL08は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸はミラー・地理的・抑止です。項目抑止・地理的・ミラーでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・ミラーです。用語抑止・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0291</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0291について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg51
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0291A
+画面・出力には PHA72DD0291A が表示され、GLVM地理的ミラー RPV Server 0291 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0291B
+画面・出力には PHA72DD0291B が表示され、GLVM地理的ミラー RPV Server 0291 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0291
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0291C
+画面・出力には PHA72DD0291C が表示され、GLVM地理的ミラー RPV Server 0291 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0291A が画面・出力に表示されること
+② ステップ2 の PHA72DD0291B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0291C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0069"><h3>GLVM地理的ミラー RPV Server 0306</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>紫G解析0307ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票紫G解析0307です。紫G解析0307は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録紫G解析0307です。紫G解析0307ではミラー更新状態と取得時刻を採取票紫G解析0307へ残します。紫G解析0307ではRPV経路断の見落としを避けるため補助資料も照合する判断紫G解析0307です。紫G解析0307の用語整理では地理的ミラーの対象値を実在出力で説明する記録紫G解析0307です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0306の役割を調べています。GLVM地理的ミラー Mirror Pool 0360の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li><li>B. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてミラー更新状を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は依存順を無視して子資源を先にオンを避けるため・依存照会からSTART_AFTERを読むして依存照会を照合する。</li><li>D. 表示や設定で扱う内容は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証報告ROを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・解析）です。照合解析・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・解析・遠隔ボです。比較解析・地理的・ミラー・遠隔ボでA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は地理的・解析・ミラーです。項目解析・地理的・ミラーでC:の依存関係の確認 DEP13は「資源グループで依存照会から」を述べるため、正答側の照合軸は遠隔ボ・地理的・ミラーです。仕様解析・地理的・ミラーでD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は解析・遠隔ボ・ミラーです。用語解析・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0306</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0306について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg66
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0306A
+画面・出力には PHA72DD0306A が表示され、GLVM地理的ミラー RPV Server 0306 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0306B
+画面・出力には PHA72DD0306B が表示され、GLVM地理的ミラー RPV Server 0306 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0306
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0306C
+画面・出力には PHA72DD0306C が表示され、GLVM地理的ミラー RPV Server 0306 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0306A が画面・出力に表示されること
+② ステップ2 の PHA72DD0306B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0306C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0070"><h3>GLVM地理的ミラー RPV Server 0321</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>橙B計画0322ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票橙B計画0322です。橙B計画0322は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録橙B計画0322です。橙B計画0322ではミラー更新状態と取得時刻を採取票橙B計画0322へ残します。橙B計画0322では片側VGのvaryon誤操作を避けるため補助資料も照合する判断橙B計画0322です。橙B計画0322の用語整理では地理的ミラーの対象値を実在出力で追跡する記録橙B計画0322です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー RPV Server 0321」を「GLVM地理的ミラー syslog entry 0327」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は計画でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>B. 保守作業で参照する機能は復旧で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 保守作業で参照する機能は計画でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は切替で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・ミラーでCの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・計画）です。照合計画・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・計画・片側Vです。比較計画・地理的・ミラー・片側VでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は地理的・計画・ミラーです。運用計画・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はミラー・地理的・計画です。仕様計画・地理的・ミラーでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は計画・片側V・ミラーです。用語計画・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0321</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0321について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg81
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0321A
+画面・出力には PHA72DD0321A が表示され、GLVM地理的ミラー RPV Server 0321 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0321B
+画面・出力には PHA72DD0321B が表示され、GLVM地理的ミラー RPV Server 0321 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0321
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0321C
+画面・出力には PHA72DD0321C が表示され、GLVM地理的ミラー RPV Server 0321 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0321A が画面・出力に表示されること
+② ステップ2 の PHA72DD0321B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0321C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0071"><h3>GLVM地理的ミラー RPV Server 0336</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>青Q計画0337ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票青Q計画0337です。青Q計画0337は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録青Q計画0337です。青Q計画0337ではミラー更新状態と取得時刻を採取票青Q計画0337へ残します。青Q計画0337ではミラー再同期条件の誤読を避けるため補助資料も照合する判断青Q計画0337です。青Q計画0337の用語整理では地理的ミラーの対象値を実在出力で記録する記録青Q計画0337です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0336を同一分類のGLVM地理的ミラー Mirror Pool 0345と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は地理的ミラーの項目のVG vary状態と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>B. 管理対象との関係を表す説明は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は資源グループで資源グループRG一覧から database_rg を読み・database_rg とである。RG一覧からdatabase_rgをときは依存順を無視して子資源を先にを防ぐ。</li><li>D. 管理対象との関係を表す説明はイベント要約の失敗ラベルと取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・ミラーでBの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・計画）です。照合計画・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・計画・ミラーです。比較計画・地理的・ミラー・ミラーでA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は地理的・計画・ミラーです。項目計画・地理的・ミラーでC:の性能影響の確認 DEP11は「資源グループで資源グループRG一覧から」を述べるため、正答側の照合軸はミラー・地理的・ミラーです。仕様計画・地理的・ミラーでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は計画・ミラー・ミラーです。用語計画・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0336</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0336について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg96
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0336A
+画面・出力には PHA72DD0336A が表示され、GLVM地理的ミラー RPV Server 0336 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0336B
+画面・出力には PHA72DD0336B が表示され、GLVM地理的ミラー RPV Server 0336 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0336
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0336C
+画面・出力には PHA72DD0336C が表示され、GLVM地理的ミラー RPV Server 0336 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0336A が画面・出力に表示されること
+② ステップ2 の PHA72DD0336B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0336C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0072"><h3>GLVM地理的ミラー RPV Server 0351</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>白L解除0352ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票白L解除0352です。白L解除0352は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録白L解除0352です。白L解除0352ではミラー更新状態と取得時刻を採取票白L解除0352へ残します。白L解除0352ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断白L解除0352です。白L解除0352の用語整理では地理的ミラーの対象値を実在出力で確認する記録白L解除0352です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー RPV Server 0351の設定や表示を読む前に役割を確認します。ノード状態 PowerHA Node State 障害切り分け NODE04ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはノード一覧から実状態値を読むことでノード一覧を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>B. 対象資源に対する働きは主操作で出力欄を評価することで基本ソフトAを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>C. 対象資源に対する働きは保守操作で監査欄を保存することで検証報告ROを確認し・検証ログの採取漏れを防ぐ。</li><li>D. 対象資源に対する働きは監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・地理的・ミラーでDの記述「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」に対応する項目はRPV Server（地理的・ミラー・解除）です。照合解除・地理的・ミラーに関するGLVMの仕様は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」で、確認対象はミラー・解除・sysです。比較解除・地理的・ミラー・sysでA:の障害切り分け NODE04は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は地理的・解除・ミラーです。運用解除・地理的でB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はミラー・地理的・解除です。項目解除・地理的・ミラーでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はsys・地理的・ミラーです。用語解除・地理的・ミラーという用語は「地理的ミラーの項目のミラー更新状態と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは地理的・ミラー・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー RPV Server 0351</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー RPV Server 0351について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=RPV Server と ミラー更新状態</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg -l
+→ Enter を押す
+［画面・出力］
+Volume group datavg111
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0351A
+画面・出力には PHA72DD0351A が表示され、GLVM地理的ミラー RPV Server 0351 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0351B
+画面・出力には PHA72DD0351B が表示され、GLVM地理的ミラー RPV Server 0351 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。RPV Server を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0351
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0351C
+画面・出力には PHA72DD0351C が表示され、GLVM地理的ミラー RPV Server 0351 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0351A が画面・出力に表示されること
+② ステップ2 の PHA72DD0351B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0351C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0073"><h3>GLVM地理的ミラー VG STATE 0003</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>藍D巡回0004ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藍D巡回0004です。藍D巡回0004は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録藍D巡回0004です。藍D巡回0004ではAIXエラー識別子と取得時刻を採取票藍D巡回0004へ残します。藍D巡回0004ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断藍D巡回0004です。藍D巡回0004の用語整理では地理的ミラーの対象値を実在出力で確認する記録藍D巡回0004です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0003について構成や状態を確認します。クラスタ構成検証 Cluster Topology 0073ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして構成データOを照合する。</li><li>B. 対象資源に対する働きは資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして移動履歴を照合する。リソースグループ制御 Node List 0257固有の属性も確認対象に含める。</li><li>C. 対象資源に対する働きは復旧手掛かりの誤読を避けるため・復旧手掛かりで復旧手掛かりを確認するして復旧手掛かりを照合する。</li><li>D. 対象資源に対する働きはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・巡回）です。照合巡回・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・巡回・sysです。比較地理的・巡回でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・巡回・基本ソです。運用巡回・地理的でB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は基本ソ・地理的・巡回です。項目巡回・地理的・基本ソでC:の版数確認 復旧手掛かりは「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はsys・地理的・基本ソです。用語巡回・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0003</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0003について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg03
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0003A
+画面・出力には PHA72DD0003A が表示され、GLVM地理的ミラー VG STATE 0003 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0003B
+画面・出力には PHA72DD0003B が表示され、GLVM地理的ミラー VG STATE 0003 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0003
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0003C
+画面・出力には PHA72DD0003C が表示され、GLVM地理的ミラー VG STATE 0003 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0003A が画面・出力に表示されること
+② ステップ2 の PHA72DD0003B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0003C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0074"><h3>GLVM地理的ミラー VG STATE 0018</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>黒S巡回0019ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黒S巡回0019です。黒S巡回0019は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録黒S巡回0019です。黒S巡回0019ではAIXエラー識別子と取得時刻を採取票黒S巡回0019へ残します。黒S巡回0019ではRPV経路断の見落としを避けるため補助資料も照合する判断黒S巡回0019です。黒S巡回0019の用語整理では地理的ミラーの対象値を実在出力で説明する記録黒S巡回0019です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0018の役割を調べています。リソースグループ制御 Event Summary 0113の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は復旧操作で点検欄を確認することで失敗ラベルを確認し・資源グループ位置の誤認を防ぐ。リソースグループ制御 Event Summary 0113固有の属性も確認対象に含める。</li><li>B. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで基本ソフトAを確認し・遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は照合操作で確認欄を採取することでVG varを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>D. 表示や設定で扱う内容はイベント確認から終了状態を読むことでイベント確認を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・巡回）です。照合巡回・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・巡回・遠隔ボです。比較地理的・巡回でA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・巡回・基本ソです。項目巡回・地理的・基本ソでC:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は遠隔ボ・地理的・基本ソです。仕様巡回・地理的・基本ソでD:の変更後の確認 NODE03は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は巡回・遠隔ボ・基本ソです。用語巡回・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0018</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0018について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg18
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0018A
+画面・出力には PHA72DD0018A が表示され、GLVM地理的ミラー VG STATE 0018 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0018B
+画面・出力には PHA72DD0018B が表示され、GLVM地理的ミラー VG STATE 0018 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0018
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0018C
+画面・出力には PHA72DD0018C が表示され、GLVM地理的ミラー VG STATE 0018 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0018A が画面・出力に表示されること
+② ステップ2 の PHA72DD0018B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0018C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0075"><h3>GLVM地理的ミラー VG STATE 0033</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>灰N棚卸0034ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票灰N棚卸0034です。灰N棚卸0034は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録灰N棚卸0034です。灰N棚卸0034ではAIXエラー識別子と取得時刻を採取票灰N棚卸0034へ残します。灰N棚卸0034では片側VGのvaryon誤操作を避けるため補助資料も照合する判断灰N棚卸0034です。灰N棚卸0034の用語整理では地理的ミラーの対象値を実在出力で追跡する記録灰N棚卸0034です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー VG STATE 0033」を「リソースグループ制御 Resource Group Name 0050」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして優先ノード一を照合する。</li><li>B. 保守作業で参照する機能は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証報告ROを照合する。</li><li>C. 保守作業で参照する機能は依存関係の誤読を避けるため・所有先確認で依存関係を確認するして依存関係を照合する。</li><li>D. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・棚卸）です。照合棚卸・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・棚卸・片側Vです。比較地理的・棚卸でA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は地理的・棚卸・基本ソです。運用棚卸・地理的でB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は基本ソ・地理的・棚卸です。項目棚卸・地理的・基本ソでC:の所有先確認 依存関係は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は片側V・地理的・基本ソです。用語棚卸・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0033</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0033について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg33
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0033A
+画面・出力には PHA72DD0033A が表示され、GLVM地理的ミラー VG STATE 0033 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0033B
+画面・出力には PHA72DD0033B が表示され、GLVM地理的ミラー VG STATE 0033 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0033
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0033C
+画面・出力には PHA72DD0033C が表示され、GLVM地理的ミラー VG STATE 0033 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0033A が画面・出力に表示されること
+② ステップ2 の PHA72DD0033B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0033C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0076"><h3>GLVM地理的ミラー VG STATE 0048</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>黄I復旧0049ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黄I復旧0049です。黄I復旧0049は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録黄I復旧0049です。黄I復旧0049ではAIXエラー識別子と取得時刻を採取票黄I復旧0049へ残します。黄I復旧0049ではミラー再同期条件の誤読を避けるため補助資料も照合する判断黄I復旧0049です。黄I復旧0049の用語整理では地理的ミラーの対象値を実在出力で記録する記録黄I復旧0049です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0048を同一分類のGLVM地理的ミラー RPV Server 0141と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は保守でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li><li>B. 管理対象との関係を表す説明は抑止で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。リソースグループ制御 Event Summary 0293固有の属性も確認対象に含める。</li><li>C. 管理対象との関係を表す説明は退避確認で退避確認を証跡に残し・Cluster Manager の状態・クラスタ版数。</li><li>D. 管理対象との関係を表す説明は復旧で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・復旧）です。照合復旧・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・復旧・ミラーです。比較地理的・復旧でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は地理的・復旧・基本ソです。運用復旧・地理的でB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は基本ソ・地理的・復旧です。項目復旧・地理的・基本ソでC:の障害切り分け 退避確認は「Cluster Manager の状態」を述べるため、正答側の照合軸はミラー・地理的・基本ソです。用語復旧・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0048</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0048について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg48
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0048A
+画面・出力には PHA72DD0048A が表示され、GLVM地理的ミラー VG STATE 0048 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0048B
+画面・出力には PHA72DD0048B が表示され、GLVM地理的ミラー VG STATE 0048 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0048
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0048C
+画面・出力には PHA72DD0048C が表示され、GLVM地理的ミラー VG STATE 0048 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0048A が画面・出力に表示されること
+② ステップ2 の PHA72DD0048B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0048C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0077"><h3>GLVM地理的ミラー VG STATE 0063</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>藍D監査0064ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藍D監査0064です。藍D監査0064は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録藍D監査0064です。藍D監査0064ではAIXエラー識別子と取得時刻を採取票藍D監査0064へ残します。藍D監査0064ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断藍D監査0064です。藍D監査0064の用語整理では地理的ミラーの対象値を実在出力で確認する記録藍D監査0064です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0063の設定や表示を読む前に役割を確認します。リソースグループ制御 Acquisition Failure 0071ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは獲得処理の獲得イベントと取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li><li>B. 対象資源に対する働きはシステム管理コマンドの検証進行率と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li><li>C. 対象資源に対する働きはCluster Synchronizで再確認から false を読み・false とである。再確認からfalseを読むときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>D. 対象資源に対する働きは地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・監査）です。照合監査・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・監査・sysです。比較地理的・監査でA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・監査・基本ソです。運用監査・地理的でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は基本ソ・地理的・監査です。項目監査・地理的・基本ソでC:の変更後の確認 SYNC03は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸はsys・地理的・基本ソです。用語監査・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0063</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0063について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg63
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0063A
+画面・出力には PHA72DD0063A が表示され、GLVM地理的ミラー VG STATE 0063 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0063B
+画面・出力には PHA72DD0063B が表示され、GLVM地理的ミラー VG STATE 0063 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0063
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0063C
+画面・出力には PHA72DD0063C が表示され、GLVM地理的ミラー VG STATE 0063 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0063A が画面・出力に表示されること
+② ステップ2 の PHA72DD0063B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0063C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0078"><h3>GLVM地理的ミラー VG STATE 0078</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>黒S監査0079ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黒S監査0079です。黒S監査0079は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録黒S監査0079です。黒S監査0079ではAIXエラー識別子と取得時刻を採取票黒S監査0079へ残します。黒S監査0079ではRPV経路断の見落としを避けるため補助資料も照合する判断黒S監査0079です。黒S監査0079の用語整理では地理的ミラーの対象値を実在出力で説明する記録黒S監査0079です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0078に関する障害切り分けの前提を確認しています。クラスタ構成検証 SMIT Command Status 0109の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は記録操作で証跡欄を照合することで検証進行率を確認し・未同期構成の見落としを防ぐ。</li><li>B. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで基本ソフトAを確認し・遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は表示操作で対象欄を追跡することで優先ノード一を確認し・獲得失敗ログの未採取を防ぐ。</li><li>D. 表示や設定で扱う内容はエラー記録からIDENTIFIERを読むことでエラー記録を確認し・cluster historを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・監査）です。照合監査・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・監査・遠隔ボです。比較地理的・監査でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・監査・基本ソです。項目監査・地理的・基本ソでC:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は遠隔ボ・地理的・基本ソです。仕様監査・地理的・基本ソでD:の再始動後の確認 FAIL15は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は監査・遠隔ボ・基本ソです。用語監査・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0078</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0078について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg78
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0078A
+画面・出力には PHA72DD0078A が表示され、GLVM地理的ミラー VG STATE 0078 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0078B
+画面・出力には PHA72DD0078B が表示され、GLVM地理的ミラー VG STATE 0078 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0078
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0078C
+画面・出力には PHA72DD0078C が表示され、GLVM地理的ミラー VG STATE 0078 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0078A が画面・出力に表示されること
+② ステップ2 の PHA72DD0078B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0078C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0079"><h3>GLVM地理的ミラー VG STATE 0093</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>灰N変更0094ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票灰N変更0094です。灰N変更0094は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録灰N変更0094です。灰N変更0094ではAIXエラー識別子と取得時刻を採取票灰N変更0094へ残します。灰N変更0094では片側VGのvaryon誤操作を避けるため補助資料も照合する判断灰N変更0094です。灰N変更0094の用語整理では地理的ミラーの対象値を実在出力で追跡する記録灰N変更0094です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0093を保守記録に説明する必要があります。リソースグループ制御 Online Node 0179と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は切替で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。</li><li>B. 保守作業で参照する機能は変更で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は解析でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>D. 保守作業で参照する機能は変更確認でクラスタ表示を証跡に残し・clstatでクラスタ表示から Cluster を読み。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・変更）です。照合変更・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・変更・片側Vです。比較地理的・変更でA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は地理的・変更・基本ソです。項目変更・地理的・基本ソでC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は片側V・地理的・基本ソです。仕様変更・地理的・基本ソでD:の変更後の確認 CLSTAT03は「clstatでクラスタ表示から」を述べるため、正答側の照合軸は変更・片側V・基本ソです。用語変更・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0093</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0093について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg93
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0093A
+画面・出力には PHA72DD0093A が表示され、GLVM地理的ミラー VG STATE 0093 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0093B
+画面・出力には PHA72DD0093B が表示され、GLVM地理的ミラー VG STATE 0093 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0093
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0093C
+画面・出力には PHA72DD0093C が表示され、GLVM地理的ミラー VG STATE 0093 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0093A が画面・出力に表示されること
+② ステップ2 の PHA72DD0093B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0093C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0080"><h3>GLVM地理的ミラー VG STATE 0108</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>黄I移行0109ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黄I移行0109です。黄I移行0109は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録黄I移行0109です。黄I移行0109ではAIXエラー識別子と取得時刻を採取票黄I移行0109へ残します。黄I移行0109ではミラー再同期条件の誤読を避けるため補助資料も照合する判断黄I移行0109です。黄I移行0109の用語整理では地理的ミラーの対象値を実在出力で記録する記録黄I移行0109です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0108の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Client 0144との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するして遠隔ボリューを照合する。</li><li>B. 管理対象との関係を表す説明は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証進行率を照合する。</li><li>C. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するして基本ソフトAを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は同期元を誤ると古い定義を全ノードを避けるため・未同期確認からUNSYNCED_CHANして未同期確認を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・移行）です。照合移行・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・移行・ミラーです。比較地理的・移行でA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は地理的・移行・基本ソです。運用移行・地理的でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は基本ソ・地理的・移行です。仕様移行・地理的・基本ソでD:のログとの照合 SYNC07は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸は移行・ミラー・基本ソです。用語移行・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0108</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0108について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg108
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0108A
+画面・出力には PHA72DD0108A が表示され、GLVM地理的ミラー VG STATE 0108 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0108B
+画面・出力には PHA72DD0108B が表示され、GLVM地理的ミラー VG STATE 0108 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0108
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0108C
+画面・出力には PHA72DD0108C が表示され、GLVM地理的ミラー VG STATE 0108 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0108A が画面・出力に表示されること
+② ステップ2 の PHA72DD0108B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0108C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0081"><h3>GLVM地理的ミラー VG STATE 0123</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>藍D診断0124ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藍D診断0124です。藍D診断0124は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録藍D診断0124です。藍D診断0124ではAIXエラー識別子と取得時刻を採取票藍D診断0124へ残します。藍D診断0124ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断藍D診断0124です。藍D診断0124の用語整理では地理的ミラーの対象値を実在出力で確認する記録藍D診断0124です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0123について構成や状態を確認します。GLVM地理的ミラー Mirror Pool 0150ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは地理的ミラーの項目のVG vary状態と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 対象資源に対する働きはノードの状態と raw_state を確認するコマンドをトポロジー確認する。起動確認で起動確認を確認するときは起動確認の誤読を防ぐ。</li><li>C. 対象資源に対する働きは地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはhacmp.out Eventでエラー記録から IDENTIFIER を読み・IDENTIFIER とである。エラー記録からIDENTIFIERをときはcluster historを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・診断）です。照合診断・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・診断・sysです。比較地理的・診断でA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は地理的・診断・基本ソです。運用診断・地理的でB:のトポロジー確認 起動確認は「ノードの状態と raw_state」を述べるため、正答側の照合軸は基本ソ・地理的・診断です。仕様診断・地理的・基本ソでD:の権限境界の確認 FAIL12は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は診断・sys・基本ソです。用語診断・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0123</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0123について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg03
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0123A
+画面・出力には PHA72DD0123A が表示され、GLVM地理的ミラー VG STATE 0123 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0123B
+画面・出力には PHA72DD0123B が表示され、GLVM地理的ミラー VG STATE 0123 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0123
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0123C
+画面・出力には PHA72DD0123C が表示され、GLVM地理的ミラー VG STATE 0123 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0123A が画面・出力に表示されること
+② ステップ2 の PHA72DD0123B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0123C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0082"><h3>GLVM地理的ミラー VG STATE 0138</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>黒S診断0139ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黒S診断0139です。黒S診断0139は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録黒S診断0139です。黒S診断0139ではAIXエラー識別子と取得時刻を採取票黒S診断0139へ残します。黒S診断0139ではRPV経路断の見落としを避けるため補助資料も照合する判断黒S診断0139です。黒S診断0139の用語整理では地理的ミラーの対象値を実在出力で説明する記録黒S診断0139です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0138の役割を調べています。GLVM地理的ミラー syslog entry 0147の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は監査操作で記録欄を比較することでsyslogを確認し・syslogとhacmp.oを防ぐ。</li><li>B. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで基本ソフトAを確認し・遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は確認操作で状態欄を整理することで構成データOを確認し・ノード間構成データODM差分を防ぐ。</li><li>D. 表示や設定で扱う内容はイベント順序からcompletedを読むことでイベント順序を確認し・依存順を無視して子資源を先にを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・診断）です。照合診断・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・診断・遠隔ボです。比較診断・地理的・基本ソ・遠隔ボでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は地理的・診断・基本ソです。項目診断・地理的・基本ソでC:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は遠隔ボ・地理的・基本ソです。仕様診断・地理的・基本ソでD:の復旧後の確認 DEP06は「資源グループでイベント順序から」を述べるため、正答側の照合軸は診断・遠隔ボ・基本ソです。用語診断・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0138</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0138について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg18
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0138A
+画面・出力には PHA72DD0138A が表示され、GLVM地理的ミラー VG STATE 0138 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0138B
+画面・出力には PHA72DD0138B が表示され、GLVM地理的ミラー VG STATE 0138 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0138
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0138C
+画面・出力には PHA72DD0138C が表示され、GLVM地理的ミラー VG STATE 0138 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0138A が画面・出力に表示されること
+② ステップ2 の PHA72DD0138B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0138C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0083"><h3>GLVM地理的ミラー VG STATE 0153</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>灰N保守0154ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票灰N保守0154です。灰N保守0154は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録灰N保守0154です。灰N保守0154ではAIXエラー識別子と取得時刻を採取票灰N保守0154へ残します。灰N保守0154では片側VGのvaryon誤操作を避けるため補助資料も照合する判断灰N保守0154です。灰N保守0154の用語整理では地理的ミラーの対象値を実在出力で追跡する記録灰N保守0154です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー VG STATE 0153」を「リソースグループ制御 Online Node 0239」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は確認で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。</li><li>B. 保守作業で参照する機能は整合確認で起動順序を証跡に残し・ノードの状態と raw_state を確認するコマンドを整合。</li><li>C. 保守作業で参照する機能は保守で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は復旧で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・保守）です。照合保守・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・保守・片側Vです。比較保守・地理的・基本ソ・片側VでA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は地理的・保守・基本ソです。運用保守・地理的でB:の整合確認 起動順序は「ノードの状態と raw_state」を述べるため、正答側の照合軸は基本ソ・地理的・保守です。仕様保守・地理的・基本ソでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は保守・片側V・基本ソです。用語保守・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0153</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0153について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg33
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0153A
+画面・出力には PHA72DD0153A が表示され、GLVM地理的ミラー VG STATE 0153 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0153B
+画面・出力には PHA72DD0153B が表示され、GLVM地理的ミラー VG STATE 0153 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0153
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0153C
+画面・出力には PHA72DD0153C が表示され、GLVM地理的ミラー VG STATE 0153 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0153A が画面・出力に表示されること
+② ステップ2 の PHA72DD0153B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0153C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0084"><h3>GLVM地理的ミラー VG STATE 0168</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>黄I切替0169ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黄I切替0169です。黄I切替0169は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録黄I切替0169です。黄I切替0169ではAIXエラー識別子と取得時刻を採取票黄I切替0169へ残します。黄I切替0169ではミラー再同期条件の誤読を避けるため補助資料も照合する判断黄I切替0169です。黄I切替0169の用語整理では地理的ミラーの対象値を実在出力で記録する記録黄I切替0169です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0168を同一分類のリソースグループ制御 Resource Group Name 0185と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は復旧操作で点検欄を確認することで優先ノード一を確認し・資源グループ位置の誤認を防ぐ。</li><li>B. 管理対象との関係を表す説明はインターフェースから192.0.2.50ことでインターフェを確認し・永続アドレスとサービスアドレを防ぐ。</li><li>C. 管理対象との関係を表す説明は照合操作で確認欄を採取することで基本ソフトAを確認し・ミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は監査操作で記録欄を比較することで遠隔ボリューを確認し・syslogとhacmp.oを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・切替）です。照合切替・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・切替・ミラーです。比較切替・地理的・基本ソ・ミラーでA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は地理的・切替・基本ソです。運用切替・地理的でB:の変更後の確認 SVCIP03は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は基本ソ・地理的・切替です。仕様切替・地理的・基本ソでD:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は切替・ミラー・基本ソです。用語切替・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0168</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0168について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg48
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0168A
+画面・出力には PHA72DD0168A が表示され、GLVM地理的ミラー VG STATE 0168 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0168B
+画面・出力には PHA72DD0168B が表示され、GLVM地理的ミラー VG STATE 0168 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0168
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0168C
+画面・出力には PHA72DD0168C が表示され、GLVM地理的ミラー VG STATE 0168 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0168A が画面・出力に表示されること
+② ステップ2 の PHA72DD0168B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0168C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0085"><h3>GLVM地理的ミラー VG STATE 0183</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>藍D収集0184ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藍D収集0184です。藍D収集0184は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録藍D収集0184です。藍D収集0184ではAIXエラー識別子と取得時刻を採取票藍D収集0184へ残します。藍D収集0184ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断藍D収集0184です。藍D収集0184の用語整理では地理的ミラーの対象値を実在出力で確認する記録藍D収集0184です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0183の設定や表示を読む前に役割を確認します。クラスタ構成検証 Verification Progress 0226ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは確認でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>B. 対象資源に対する働きはサービスIPでパス状態を証跡に残し・クラスタトポロジー・ネットワーク・サービスIP。</li><li>C. 対象資源に対する働きは巡回で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。クラスタ構成検証 SMIT Command Status 0004固有の属性も確認対象に含める。</li><li>D. 対象資源に対する働きは収集で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・収集）です。照合収集・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・収集・sysです。比較収集・地理的・基本ソ・sysでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・収集・基本ソです。運用収集・地理的でB:の障害切り分け パス状態は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は基本ソ・地理的・収集です。項目収集・地理的・基本ソでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はsys・地理的・基本ソです。用語収集・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0183</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0183について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg63
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0183A
+画面・出力には PHA72DD0183A が表示され、GLVM地理的ミラー VG STATE 0183 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0183B
+画面・出力には PHA72DD0183B が表示され、GLVM地理的ミラー VG STATE 0183 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0183
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0183C
+画面・出力には PHA72DD0183C が表示され、GLVM地理的ミラー VG STATE 0183 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0183A が画面・出力に表示されること
+② ステップ2 の PHA72DD0183B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0183C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0086"><h3>GLVM地理的ミラー VG STATE 0198</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>黒S収集0199ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黒S収集0199です。黒S収集0199は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録黒S収集0199です。黒S収集0199ではAIXエラー識別子と取得時刻を採取票黒S収集0199へ残します。黒S収集0199ではRPV経路断の見落としを避けるため補助資料も照合する判断黒S収集0199です。黒S収集0199の用語整理では地理的ミラーの対象値を実在出力で説明する記録黒S収集0199です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0198に関する障害切り分けの前提を確認しています。GLVM地理的ミラー syslog entry 0237の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は確認でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>B. 表示や設定で扱う内容は復旧手掛かりで復旧手掛かりを証跡に残し・クラスタサービスを開始し・リソースグループをオンライン化する。</li><li>C. 表示や設定で扱う内容は監査でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>D. 表示や設定で扱う内容は収集で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・収集）です。照合収集・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・収集・遠隔ボです。比較収集・地理的・基本ソ・遠隔ボでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は地理的・収集・基本ソです。運用収集・地理的でB:の版数確認 復旧手掛かりは「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は基本ソ・地理的・収集です。項目収集・地理的・基本ソでC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・基本ソです。用語収集・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0198</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0198について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg78
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0198A
+画面・出力には PHA72DD0198A が表示され、GLVM地理的ミラー VG STATE 0198 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0198B
+画面・出力には PHA72DD0198B が表示され、GLVM地理的ミラー VG STATE 0198 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0198
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0198C
+画面・出力には PHA72DD0198C が表示され、GLVM地理的ミラー VG STATE 0198 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0198A が画面・出力に表示されること
+② ステップ2 の PHA72DD0198B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0198C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0087"><h3>GLVM地理的ミラー VG STATE 0213</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>灰N登録0214ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票灰N登録0214です。灰N登録0214は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録灰N登録0214です。灰N登録0214ではAIXエラー識別子と取得時刻を採取票灰N登録0214へ残します。灰N登録0214では片側VGのvaryon誤操作を避けるため補助資料も照合する判断灰N登録0214です。灰N登録0214の用語整理では地理的ミラーの対象値を実在出力で追跡する記録灰N登録0214です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0213を保守記録に説明する必要があります。リソースグループ制御 Online Node 0239と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして資源グループを照合する。</li><li>B. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は片系定義を全体正本とする誤認を避けるため・ネットワーク照会からnet_ether_してネットワークを照合する。</li><li>D. 保守作業で参照する機能はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・登録）です。照合登録・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・登録・片側Vです。比較登録・地理的・基本ソ・片側VでA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は地理的・登録・基本ソです。項目登録・地理的・基本ソでC:の構成監査 TOPO08は「クラスタートポロジーでネットワーク照会から」を述べるため、正答側の照合軸は片側V・地理的・基本ソです。仕様登録・地理的・基本ソでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は登録・片側V・基本ソです。用語登録・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0213</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0213について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg93
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0213A
+画面・出力には PHA72DD0213A が表示され、GLVM地理的ミラー VG STATE 0213 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0213B
+画面・出力には PHA72DD0213B が表示され、GLVM地理的ミラー VG STATE 0213 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0213
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0213C
+画面・出力には PHA72DD0213C が表示され、GLVM地理的ミラー VG STATE 0213 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0213A が画面・出力に表示されること
+② ステップ2 の PHA72DD0213B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0213C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0088"><h3>GLVM地理的ミラー VG STATE 0228</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>黄I確認0229ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黄I確認0229です。黄I確認0229は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録黄I確認0229です。黄I確認0229ではAIXエラー識別子と取得時刻を採取票黄I確認0229へ残します。黄I確認0229ではミラー再同期条件の誤読を避けるため補助資料も照合する判断黄I確認0229です。黄I確認0229の用語整理では地理的ミラーの対象値を実在出力で記録する記録黄I確認0229です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0228の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Server 0246との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 管理対象との関係を表す説明は開始から終了状態を読むことで開始を確認し・管理設定と資源状態の混同を防ぐ。</li><li>C. 管理対象との関係を表す説明は照合操作で確認欄を採取することで基本ソフトAを確認し・ミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は採取操作で照合欄を点検することで検証報告ROを確認し・警告と致命エラーの混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・確認）です。照合確認・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・確認・ミラーです。比較確認・地理的・基本ソ・ミラーでA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は地理的・確認・基本ソです。運用確認・地理的でB:の代替経路の確認 START10は「Cluster Servicesで開始から」を述べるため、正答側の照合軸は基本ソ・地理的・確認です。仕様確認・地理的・基本ソでD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は確認・ミラー・基本ソです。用語確認・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0228</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0228について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg108
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0228A
+画面・出力には PHA72DD0228A が表示され、GLVM地理的ミラー VG STATE 0228 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0228B
+画面・出力には PHA72DD0228B が表示され、GLVM地理的ミラー VG STATE 0228 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0228
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0228C
+画面・出力には PHA72DD0228C が表示され、GLVM地理的ミラー VG STATE 0228 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0228A が画面・出力に表示されること
+② ステップ2 の PHA72DD0228B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0228C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0089"><h3>GLVM地理的ミラー VG STATE 0243</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>藍D保護0244ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藍D保護0244です。藍D保護0244は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録藍D保護0244です。藍D保護0244ではAIXエラー識別子と取得時刻を採取票藍D保護0244へ残します。藍D保護0244ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断藍D保護0244です。藍D保護0244の用語整理では地理的ミラーの対象値を実在出力で確認する記録藍D保護0244です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0243について構成や状態を確認します。リソースグループ制御 Acquisition Failure 0281ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは獲得処理の獲得イベントと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li><li>B. 対象資源に対する働きはCluster Synchronizで再確認から false を読み・false とである。再確認からfalseを読むときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>C. 対象資源に対する働きは地理的ミラーの項目のミラー更新状態と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>D. 対象資源に対する働きは地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・保護）です。照合保護・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・保護・sysです。比較保護・地理的・基本ソ・sysでA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・保護・基本ソです。運用保護・地理的でB:の再始動後の確認 SYNC15は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は基本ソ・地理的・保護です。項目保護・地理的・基本ソでC:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はsys・地理的・基本ソです。用語保護・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0243</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0243について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg03
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0243A
+画面・出力には PHA72DD0243A が表示され、GLVM地理的ミラー VG STATE 0243 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0243B
+画面・出力には PHA72DD0243B が表示され、GLVM地理的ミラー VG STATE 0243 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0243
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0243C
+画面・出力には PHA72DD0243C が表示され、GLVM地理的ミラー VG STATE 0243 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0243A が画面・出力に表示されること
+② ステップ2 の PHA72DD0243B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0243C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0090"><h3>GLVM地理的ミラー VG STATE 0258</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>黒S保護0259ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黒S保護0259です。黒S保護0259は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録黒S保護0259です。黒S保護0259ではAIXエラー識別子と取得時刻を採取票黒S保護0259へ残します。黒S保護0259ではRPV経路断の見落としを避けるため補助資料も照合する判断黒S保護0259です。黒S保護0259の用語整理では地理的ミラーの対象値を実在出力で説明する記録黒S保護0259です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0258の役割を調べています。リソースグループ制御 Acquisition Failure 0341の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は解除で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>B. 表示や設定で扱う内容は変更確認でインターフェを証跡に残し・IP Service IPでインターフェースから。</li><li>C. 表示や設定で扱う内容は保護で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は診断でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。GLVM地理的ミラー Mirror Pool 0120固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・保護）です。照合保護・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・保護・遠隔ボです。比較保護・地理的・基本ソ・遠隔ボでA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・保護・基本ソです。運用保護・地理的でB:の変更後の確認 SVCIP03は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は基本ソ・地理的・保護です。仕様保護・地理的・基本ソでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は保護・遠隔ボ・基本ソです。用語保護・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0258</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0258について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg18
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0258A
+画面・出力には PHA72DD0258A が表示され、GLVM地理的ミラー VG STATE 0258 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0258B
+画面・出力には PHA72DD0258B が表示され、GLVM地理的ミラー VG STATE 0258 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0258
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0258C
+画面・出力には PHA72DD0258C が表示され、GLVM地理的ミラー VG STATE 0258 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0258A が画面・出力に表示されること
+② ステップ2 の PHA72DD0258B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0258C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0091"><h3>GLVM地理的ミラー VG STATE 0273</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>灰N照合0274ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票灰N照合0274です。灰N照合0274は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録灰N照合0274です。灰N照合0274ではAIXエラー識別子と取得時刻を採取票灰N照合0274へ残します。灰N照合0274では片側VGのvaryon誤操作を避けるため補助資料も照合する判断灰N照合0274です。灰N照合0274の用語整理では地理的ミラーの対象値を実在出力で追跡する記録灰N照合0274です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー VG STATE 0273」を「クラスタ構成検証 SMIT Command Status 0304」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は解析で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>B. 保守作業で参照する機能は照合で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は再始動確認で検証を証跡に残し・クラスタートポロジーで検証から Verification。</li><li>D. 保守作業で参照する機能は保守で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。リソースグループ制御 Event Summary 0143固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・照合）です。照合照合・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・照合・片側Vです。比較照合・地理的・基本ソ・片側VでA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は地理的・照合・基本ソです。項目照合・地理的・基本ソでC:の再始動後の確認 TOPO15は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸は片側V・地理的・基本ソです。仕様照合・地理的・基本ソでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は照合・片側V・基本ソです。用語照合・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0273</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0273について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg33
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0273A
+画面・出力には PHA72DD0273A が表示され、GLVM地理的ミラー VG STATE 0273 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0273B
+画面・出力には PHA72DD0273B が表示され、GLVM地理的ミラー VG STATE 0273 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0273
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0273C
+画面・出力には PHA72DD0273C が表示され、GLVM地理的ミラー VG STATE 0273 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0273A が画面・出力に表示されること
+② ステップ2 の PHA72DD0273B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0273C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0092"><h3>GLVM地理的ミラー VG STATE 0288</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>黄I抑止0289ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黄I抑止0289です。黄I抑止0289は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録黄I抑止0289です。黄I抑止0289ではAIXエラー識別子と取得時刻を採取票黄I抑止0289へ残します。黄I抑止0289ではミラー再同期条件の誤読を避けるため補助資料も照合する判断黄I抑止0289です。黄I抑止0289の用語整理では地理的ミラーの対象値を実在出力で記録する記録黄I抑止0289です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0288を同一分類のclmgr verify cluster 状態確認 状態確認と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は抑止で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は状態確認で状態確認を証跡に残し・クラスタトポロジーとリソースの整合性を検査するコマンド。</li><li>C. 管理対象との関係を表す説明は復旧確認でイベント順序を証跡に残し・資源グループでイベント順序から completed を読み。</li><li>D. 管理対象との関係を表す説明は診断で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・地理的・基本ソでAの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・抑止）です。照合抑止・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・抑止・ミラーです。運用抑止・地理的でB:の状態確認 状態確認は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸は基本ソ・地理的・抑止です。項目抑止・地理的・基本ソでC:の復旧後の確認 DEP06は「資源グループでイベント順序から」を述べるため、正答側の照合軸はミラー・地理的・基本ソです。仕様抑止・地理的・基本ソでD:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は抑止・ミラー・基本ソです。用語抑止・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0288</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0288について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg48
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0288A
+画面・出力には PHA72DD0288A が表示され、GLVM地理的ミラー VG STATE 0288 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0288B
+画面・出力には PHA72DD0288B が表示され、GLVM地理的ミラー VG STATE 0288 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0288
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0288C
+画面・出力には PHA72DD0288C が表示され、GLVM地理的ミラー VG STATE 0288 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0288A が画面・出力に表示されること
+② ステップ2 の PHA72DD0288B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0288C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0093"><h3>GLVM地理的ミラー VG STATE 0303</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>藍D解析0304ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藍D解析0304です。藍D解析0304は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録藍D解析0304です。藍D解析0304ではAIXエラー識別子と取得時刻を採取票藍D解析0304へ残します。藍D解析0304ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断藍D解析0304です。藍D解析0304の用語整理では地理的ミラーの対象値を実在出力で確認する記録藍D解析0304です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0303の設定や表示を読む前に役割を確認します。リソースグループ制御 Acquisition Failure 0311ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは解析で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>B. 対象資源に対する働きは代替経路確認で依存照会を証跡に残し・資源グループで依存照会から START_AFTER を読み。</li><li>C. 対象資源に対する働きは診断で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li><li>D. 対象資源に対する働きは解析で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・基本ソでDの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・解析）です。照合解析・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・解析・sysです。比較解析・地理的・基本ソ・sysでA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は地理的・解析・基本ソです。運用解析・地理的でB:の代替経路の確認 DEP10は「資源グループで依存照会から」を述べるため、正答側の照合軸は基本ソ・地理的・解析です。項目解析・地理的・基本ソでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・基本ソです。用語解析・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0303</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0303について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg63
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0303A
+画面・出力には PHA72DD0303A が表示され、GLVM地理的ミラー VG STATE 0303 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0303B
+画面・出力には PHA72DD0303B が表示され、GLVM地理的ミラー VG STATE 0303 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0303
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0303C
+画面・出力には PHA72DD0303C が表示され、GLVM地理的ミラー VG STATE 0303 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0303A が画面・出力に表示されること
+② ステップ2 の PHA72DD0303B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0303C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0094"><h3>GLVM地理的ミラー VG STATE 0318</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>黒S解析0319ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黒S解析0319です。黒S解析0319は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録黒S解析0319です。黒S解析0319ではAIXエラー識別子と取得時刻を採取票黒S解析0319へ残します。黒S解析0319ではRPV経路断の見落としを避けるため補助資料も照合する判断黒S解析0319です。黒S解析0319の用語整理では地理的ミラーの対象値を実在出力で説明する記録黒S解析0319です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0318に関する障害切り分けの前提を確認しています。GLVM地理的ミラー RPV Client 0354の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで基本ソフトAを確認し・遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで遠隔ボリューを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. 表示や設定で扱う内容は表示操作で対象欄を追跡することで失敗ラベルを確認し・獲得失敗ログの未採取を防ぐ。リソースグループ制御 Event Summary 0023固有の属性も確認対象に含める。</li><li>D. 表示や設定で扱う内容は保守操作で監査欄を保存することで構成データOを確認し・検証ログの採取漏れを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・基本ソでAの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・解析）です。照合解析・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・解析・遠隔ボです。運用解析・地理的でB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は基本ソ・地理的・解析です。項目解析・地理的・基本ソでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は遠隔ボ・地理的・基本ソです。仕様解析・地理的・基本ソでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は解析・遠隔ボ・基本ソです。用語解析・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0318</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0318について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg78
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0318A
+画面・出力には PHA72DD0318A が表示され、GLVM地理的ミラー VG STATE 0318 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0318B
+画面・出力には PHA72DD0318B が表示され、GLVM地理的ミラー VG STATE 0318 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0318
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0318C
+画面・出力には PHA72DD0318C が表示され、GLVM地理的ミラー VG STATE 0318 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0318A が画面・出力に表示されること
+② ステップ2 の PHA72DD0318B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0318C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0095"><h3>GLVM地理的ミラー VG STATE 0333</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>灰N計画0334ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票灰N計画0334です。灰N計画0334は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録灰N計画0334です。灰N計画0334ではAIXエラー識別子と取得時刻を採取票灰N計画0334へ残します。灰N計画0334では片側VGのvaryon誤操作を避けるため補助資料も照合する判断灰N計画0334です。灰N計画0334の用語整理では地理的ミラーの対象値を実在出力で追跡する記録灰N計画0334です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0333を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0358と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するして構成データOを照合する。</li><li>B. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証報告ROを照合する。</li><li>D. 保守作業で参照する機能は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・基本ソでBの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・計画）です。照合計画・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・計画・片側Vです。比較計画・地理的・基本ソ・片側VでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・計画・基本ソです。項目計画・地理的・基本ソでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は片側V・地理的・基本ソです。仕様計画・地理的・基本ソでD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は計画・片側V・基本ソです。用語計画・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0333</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0333について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg93
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0333A
+画面・出力には PHA72DD0333A が表示され、GLVM地理的ミラー VG STATE 0333 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0333B
+画面・出力には PHA72DD0333B が表示され、GLVM地理的ミラー VG STATE 0333 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0333
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0333C
+画面・出力には PHA72DD0333C が表示され、GLVM地理的ミラー VG STATE 0333 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0333A が画面・出力に表示されること
+② ステップ2 の PHA72DD0333B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0333C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0096"><h3>GLVM地理的ミラー VG STATE 0348</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>黄I解除0349ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票黄I解除0349です。黄I解除0349は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録黄I解除0349です。黄I解除0349ではAIXエラー識別子と取得時刻を採取票黄I解除0349へ残します。黄I解除0349ではミラー再同期条件の誤読を避けるため補助資料も照合する判断黄I解除0349です。黄I解除0349の用語整理では地理的ミラーの対象値を実在出力で記録する記録黄I解除0349です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー VG STATE 0348の技術的な意味を資料で確認するとき、cltopinfo トポロジー確認 実行結果との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はトポロジー確で実行結果を証跡に残し・クラスタトポロジー・ネットワーク・サービスIP。</li><li>B. 管理対象との関係を表す説明は監査で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>C. 管理対象との関係を表す説明は解除で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は確認で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。クラスタ構成検証 Cluster Topology 0223固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・地理的・基本ソでCの記述「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時」に対応する項目はVG STATE（地理的・基本ソ・解除）です。照合解除・地理的・基本ソに関するGLVMの仕様は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録し」で、確認対象は基本ソ・解除・ミラーです。比較解除・地理的・基本ソ・ミラーでA:のトポロジー確認 実行結果は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は地理的・解除・基本ソです。運用解除・地理的でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は基本ソ・地理的・解除です。仕様解除・地理的・基本ソでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は解除・ミラー・基本ソです。用語解除・地理的・基本ソという用語は「地理的ミラーの項目の基本ソフトAIXエラー識別子と取」を指し、照合する値と誤認リスクの組合せは地理的・基本ソ・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー VG STATE 0348</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー VG STATE 0348について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=VG STATE と AIXエラー識別子</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; lsvg
+→ Enter を押す
+［画面・出力］
+Volume group datavg108
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0348A
+画面・出力には PHA72DD0348A が表示され、GLVM地理的ミラー VG STATE 0348 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0348B
+画面・出力には PHA72DD0348B が表示され、GLVM地理的ミラー VG STATE 0348 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。VG STATE を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0348
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0348C
+画面・出力には PHA72DD0348C が表示され、GLVM地理的ミラー VG STATE 0348 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0348A が画面・出力に表示されること
+② ステップ2 の PHA72DD0348B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0348C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0097"><h3>GLVM地理的ミラー syslog entry 0012</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>桃M巡回0013ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票桃M巡回0013です。桃M巡回0013は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録桃M巡回0013です。桃M巡回0013ではsyslog記録と取得時刻を採取票桃M巡回0013へ残します。桃M巡回0013ではミラー再同期条件の誤読を避けるため補助資料も照合する判断桃M巡回0013です。桃M巡回0013の用語整理では地理的ミラーの対象値を実在出力で記録する記録桃M巡回0013です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0012の技術的な意味を資料で確認するとき、GLVM地理的ミラー VG STATE 0078との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして基本ソフトAを照合する。</li><li>B. 管理対象との関係を表す説明は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。</li><li>C. 管理対象との関係を表す説明は永続アドレスとサービスアドレスのを避けるため・IP資源照会からアドレスを読むしてサービスアドを照合する。</li><li>D. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてsyslogを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・巡回）です。照合巡回・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・巡回・ミラーです。比較地理的・巡回でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は地理的・巡回・sysです。運用巡回・地理的でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はsys・地理的・巡回です。項目巡回・地理的・sysでC:のログとの照合 SVCIP07は「IP Service IPでサービスアドレス」を述べるため、正答側の照合軸はミラー・地理的・sysです。用語巡回・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0012</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0012について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg12
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0012A
+画面・出力には PHA72DD0012A が表示され、GLVM地理的ミラー syslog entry 0012 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0012B
+画面・出力には PHA72DD0012B が表示され、GLVM地理的ミラー syslog entry 0012 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0012
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0012C
+画面・出力には PHA72DD0012C が表示され、GLVM地理的ミラー syslog entry 0012 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0012A が画面・出力に表示されること
+② ステップ2 の PHA72DD0012B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0012C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0098"><h3>GLVM地理的ミラー syslog entry 0027</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>茶H棚卸0028ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票茶H棚卸0028です。茶H棚卸0028は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録茶H棚卸0028です。茶H棚卸0028ではsyslog記録と取得時刻を採取票茶H棚卸0028へ残します。茶H棚卸0028ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断茶H棚卸0028です。茶H棚卸0028の用語整理では地理的ミラーの対象値を実在出力で確認する記録茶H棚卸0028です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0027について構成や状態を確認します。クラスタ構成検証 Cluster Topology 0103ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。</li><li>B. 対象資源に対する働きはノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するしてトポロジ要約を照合する。</li><li>C. 対象資源に対する働きは永続アドレスとサービスアドレスのを避けるため・RG位置からオンライン表示を読むして資源グループを照合する。</li><li>D. 対象資源に対する働きはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてsyslogを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・棚卸）です。照合棚卸・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・棚卸・sysです。比較地理的・棚卸でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・棚卸・sysです。運用棚卸・地理的でB:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸はsys・地理的・棚卸です。項目棚卸・地理的・sysでC:の性能影響の確認 SVCIP11は「IP Service IPで資源グループ位置」を述べるため、正答側の照合軸はsys・地理的・sysです。用語棚卸・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0027</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0027について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg27
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0027A
+画面・出力には PHA72DD0027A が表示され、GLVM地理的ミラー syslog entry 0027 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0027B
+画面・出力には PHA72DD0027B が表示され、GLVM地理的ミラー syslog entry 0027 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0027
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0027C
+画面・出力には PHA72DD0027C が表示され、GLVM地理的ミラー syslog entry 0027 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0027A が画面・出力に表示されること
+② ステップ2 の PHA72DD0027B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0027C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0099"><h3>GLVM地理的ミラー syslog entry 0042</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>緑C復旧0043ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票緑C復旧0043です。緑C復旧0043は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録緑C復旧0043です。緑C復旧0043ではsyslog記録と取得時刻を採取票緑C復旧0043へ残します。緑C復旧0043ではRPV経路断の見落としを避けるため補助資料も照合する判断緑C復旧0043です。緑C復旧0043の用語整理では地理的ミラーの対象値を実在出力で説明する記録緑C復旧0043です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0042の役割を調べています。GLVM地理的ミラー RPV Server 0096の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li><li>B. 表示や設定で扱う内容はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li><li>C. 表示や設定で扱う内容はCluster Synchronizで同期実行から clsnapshot を読み・clsnapshot とである。同期実行からclsnapshotを読ときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>D. 表示や設定で扱う内容は地理的ミラーの項目のsyslog記録と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・復旧）です。照合復旧・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・復旧・遠隔ボです。比較地理的・復旧でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は地理的・復旧・sysです。運用復旧・地理的でB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はsys・地理的・復旧です。項目復旧・地理的・sysでC:の性能影響の確認 SYNC11は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸は遠隔ボ・地理的・sysです。用語復旧・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0042</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0042について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg42
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0042A
+画面・出力には PHA72DD0042A が表示され、GLVM地理的ミラー syslog entry 0042 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0042B
+画面・出力には PHA72DD0042B が表示され、GLVM地理的ミラー syslog entry 0042 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0042
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0042C
+画面・出力には PHA72DD0042C が表示され、GLVM地理的ミラー syslog entry 0042 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0042A が画面・出力に表示されること
+② ステップ2 の PHA72DD0042B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0042C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0100"><h3>GLVM地理的ミラー syslog entry 0057</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>藤R復旧0058ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藤R復旧0058です。藤R復旧0058は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録藤R復旧0058です。藤R復旧0058ではsyslog記録と取得時刻を採取票藤R復旧0058へ残します。藤R復旧0058では片側VGのvaryon誤操作を避けるため補助資料も照合する判断藤R復旧0058です。藤R復旧0058の用語整理では地理的ミラーの対象値を実在出力で追跡する記録藤R復旧0058です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー syslog entry 0057」を「リソースグループ制御 Acquisition Failure 0101」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は復旧でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は移行で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 保守作業で参照する機能は解析でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。クラスタ構成検証 Verification Progress 0301固有の属性も確認対象に含める。</li><li>D. 保守作業で参照する機能は権限境界確認で再確認を証跡に残し・Cluster Synchronizで再確認から。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・復旧）です。照合復旧・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・復旧・片側Vです。運用復旧・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・復旧です。項目復旧・地理的・sysでC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は片側V・地理的・sysです。仕様復旧・地理的・sysでD:の権限境界の確認 SYNC12は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は復旧・片側V・sysです。用語復旧・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0057</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0057について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg57
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0057A
+画面・出力には PHA72DD0057A が表示され、GLVM地理的ミラー syslog entry 0057 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0057B
+画面・出力には PHA72DD0057B が表示され、GLVM地理的ミラー syslog entry 0057 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0057
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0057C
+画面・出力には PHA72DD0057C が表示され、GLVM地理的ミラー syslog entry 0057 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0057A が画面・出力に表示されること
+② ステップ2 の PHA72DD0057B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0057C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0101"><h3>GLVM地理的ミラー syslog entry 0072</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>桃M監査0073ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票桃M監査0073です。桃M監査0073は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録桃M監査0073です。桃M監査0073ではsyslog記録と取得時刻を採取票桃M監査0073へ残します。桃M監査0073ではミラー再同期条件の誤読を避けるため補助資料も照合する判断桃M監査0073です。桃M監査0073の用語整理では地理的ミラーの対象値を実在出力で記録する記録桃M監査0073です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0072を同一分類のリソースグループ制御 Online Node 0164と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はオンラインノードの資源グループRG現在位置と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li><li>B. 管理対象との関係を表す説明は獲得処理の獲得イベントと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li><li>C. 管理対象との関係を表す説明は地理的ミラーの項目のsyslog記録と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明はclstatでクラスタ表示から Cluster を読み・Cluster と clinfoES を照合する。クラスタ表示からClusterを読むときは監視通信SNMP情報の残留をを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・地理的・sysでCの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・監査）です。照合監査・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・監査・ミラーです。比較地理的・監査でA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は地理的・監査・sysです。運用監査・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・監査です。仕様監査・地理的・sysでD:の再始動後の確認 CLSTAT15は「clstatでクラスタ表示から」を述べるため、正答側の照合軸は監査・ミラー・sysです。用語監査・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0072</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0072について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg72
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0072A
+画面・出力には PHA72DD0072A が表示され、GLVM地理的ミラー syslog entry 0072 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0072B
+画面・出力には PHA72DD0072B が表示され、GLVM地理的ミラー syslog entry 0072 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0072
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0072C
+画面・出力には PHA72DD0072C が表示され、GLVM地理的ミラー syslog entry 0072 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0072A が画面・出力に表示されること
+② ステップ2 の PHA72DD0072B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0072C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0102"><h3>GLVM地理的ミラー syslog entry 0087</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>茶H変更0088ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票茶H変更0088です。茶H変更0088は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録茶H変更0088です。茶H変更0088ではsyslog記録と取得時刻を採取票茶H変更0088へ残します。茶H変更0088ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断茶H変更0088です。茶H変更0088の用語整理では地理的ミラーの対象値を実在出力で確認する記録茶H変更0088です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0087の設定や表示を読む前に役割を確認します。クラスタ構成検証 Cluster Topology 0088ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは地理的ミラーの項目のsyslog記録と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはクラスタートポロジーの構成データODM登録値と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。クラスタ構成検証 Cluster Topology 0088固有の属性も確認対象に含める。</li><li>C. 対象資源に対する働きは地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>D. 対象資源に対する働きはCluster Synchronizで未同期確認から UNSYNCED_CHANGES を読みである。未同期確認からUNSYNCED_CHときは同期元を誤ると古い定義を全ノを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・変更）です。照合変更・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・変更・sysです。運用変更・地理的でB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はsys・地理的・変更です。項目変更・地理的・sysでC:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はsys・地理的・sysです。仕様変更・地理的・sysでD:の依存関係の確認 SYNC13は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸は変更・sys・sysです。用語変更・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0087</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0087について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg87
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0087A
+画面・出力には PHA72DD0087A が表示され、GLVM地理的ミラー syslog entry 0087 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0087B
+画面・出力には PHA72DD0087B が表示され、GLVM地理的ミラー syslog entry 0087 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0087
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0087C
+画面・出力には PHA72DD0087C が表示され、GLVM地理的ミラー syslog entry 0087 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0087A が画面・出力に表示されること
+② ステップ2 の PHA72DD0087B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0087C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0103"><h3>GLVM地理的ミラー syslog entry 0102</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>緑C移行0103ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票緑C移行0103です。緑C移行0103は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録緑C移行0103です。緑C移行0103ではsyslog記録と取得時刻を採取票緑C移行0103へ残します。緑C移行0103ではRPV経路断の見落としを避けるため補助資料も照合する判断緑C移行0103です。緑C移行0103の用語整理では地理的ミラーの対象値を実在出力で説明する記録緑C移行0103です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0102に関する障害切り分けの前提を確認しています。GLVM地理的ミラー RPV Server 0156の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてsyslogを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてミラー更新状を照合する。</li><li>C. 表示や設定で扱う内容は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして優先ノード一を照合する。</li><li>D. 表示や設定で扱う内容は同期元を誤ると古い定義を全ノードを避けるため・同期実行からclsnapshotを読むして同期実行を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・移行）です。照合移行・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・移行・遠隔ボです。運用移行・地理的でB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はsys・地理的・移行です。項目移行・地理的・sysでC:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は遠隔ボ・地理的・sysです。仕様移行・地理的・sysでD:の停止前の確認 SYNC14は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸は移行・遠隔ボ・sysです。用語移行・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0102</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0102について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg102
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0102A
+画面・出力には PHA72DD0102A が表示され、GLVM地理的ミラー syslog entry 0102 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0102B
+画面・出力には PHA72DD0102B が表示され、GLVM地理的ミラー syslog entry 0102 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0102
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0102C
+画面・出力には PHA72DD0102C が表示され、GLVM地理的ミラー syslog entry 0102 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0102A が画面・出力に表示されること
+② ステップ2 の PHA72DD0102B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0102C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0104"><h3>GLVM地理的ミラー syslog entry 0117</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>藤R移行0118ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藤R移行0118です。藤R移行0118は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録藤R移行0118です。藤R移行0118ではsyslog記録と取得時刻を採取票藤R移行0118へ残します。藤R移行0118では片側VGのvaryon誤操作を避けるため補助資料も照合する判断藤R移行0118です。藤R移行0118の用語整理では地理的ミラーの対象値を実在出力で追跡する記録藤R移行0118です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0117を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0133と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li><li>B. 保守作業で参照する機能はオンラインノードの資源グループRG現在位置と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。リソースグループ制御 Online Node 0359固有の属性も確認対象に含める。</li><li>C. 保守作業で参照する機能はノード一覧の移動履歴と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>D. 保守作業で参照する機能は地理的ミラーの項目のsyslog記録と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・移行）です。照合移行・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・移行・片側Vです。比較地理的・移行でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・移行・sysです。運用移行・地理的でB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はsys・地理的・移行です。項目移行・地理的・sysでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は片側V・地理的・sysです。用語移行・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0117</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0117について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg117
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0117A
+画面・出力には PHA72DD0117A が表示され、GLVM地理的ミラー syslog entry 0117 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0117B
+画面・出力には PHA72DD0117B が表示され、GLVM地理的ミラー syslog entry 0117 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0117
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0117C
+画面・出力には PHA72DD0117C が表示され、GLVM地理的ミラー syslog entry 0117 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0117A が画面・出力に表示されること
+② ステップ2 の PHA72DD0117B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0117C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0105"><h3>GLVM地理的ミラー syslog entry 0132</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>桃M診断0133ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票桃M診断0133です。桃M診断0133は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録桃M診断0133です。桃M診断0133ではsyslog記録と取得時刻を採取票桃M診断0133へ残します。桃M診断0133ではミラー再同期条件の誤読を避けるため補助資料も照合する判断桃M診断0133です。桃M診断0133の用語整理では地理的ミラーの対象値を実在出力で記録する記録桃M診断0133です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0132の技術的な意味を資料で確認するとき、クラスタ構成検証 Verification Progress 0226との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するしてリソース要約を照合する。</li><li>B. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてsyslogを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。</li><li>D. 管理対象との関係を表す説明はcluster historyだを避けるため・エラー記録からIDENTIFIERを読むしてエラー記録を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・地理的・sysでBの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・診断）です。照合診断・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・診断・ミラーです。比較診断・地理的・sys・ミラーでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・診断・sysです。項目診断・地理的・sysでC:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はミラー・地理的・sysです。仕様診断・地理的・sysでD:の復旧後の確認 FAIL06は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は診断・ミラー・sysです。用語診断・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0132</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0132について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg12
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0132A
+画面・出力には PHA72DD0132A が表示され、GLVM地理的ミラー syslog entry 0132 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0132B
+画面・出力には PHA72DD0132B が表示され、GLVM地理的ミラー syslog entry 0132 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0132
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0132C
+画面・出力には PHA72DD0132C が表示され、GLVM地理的ミラー syslog entry 0132 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0132A が画面・出力に表示されること
+② ステップ2 の PHA72DD0132B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0132C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0106"><h3>GLVM地理的ミラー syslog entry 0147</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>茶H保守0148ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票茶H保守0148です。茶H保守0148は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録茶H保守0148です。茶H保守0148ではsyslog記録と取得時刻を採取票茶H保守0148へ残します。茶H保守0148ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断茶H保守0148です。茶H保守0148の用語整理では地理的ミラーの対象値を実在出力で確認する記録茶H保守0148です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0147について構成や状態を確認します。リソースグループ制御 Online Node 0239ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは保守でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きは確認で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。</li><li>C. 対象資源に対する働きは構成照合で構成照合を証跡に残し・ノードの状態と raw_state を確認するコマンドを所有。</li><li>D. 対象資源に対する働きは復旧で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・保守）です。照合保守・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・保守・sysです。運用保守・地理的でB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はsys・地理的・保守です。項目保守・地理的・sysでC:の所有先確認 構成照合は「ノードの状態と raw_state」を述べるため、正答側の照合軸はsys・地理的・sysです。仕様保守・地理的・sysでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は保守・sys・sysです。用語保守・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0147</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0147について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg27
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0147A
+画面・出力には PHA72DD0147A が表示され、GLVM地理的ミラー syslog entry 0147 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0147B
+画面・出力には PHA72DD0147B が表示され、GLVM地理的ミラー syslog entry 0147 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0147
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0147C
+画面・出力には PHA72DD0147C が表示され、GLVM地理的ミラー syslog entry 0147 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0147A が画面・出力に表示されること
+② ステップ2 の PHA72DD0147B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0147C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0107"><h3>GLVM地理的ミラー syslog entry 0162</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>緑C切替0163ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票緑C切替0163です。緑C切替0163は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録緑C切替0163です。緑C切替0163ではsyslog記録と取得時刻を採取票緑C切替0163へ残します。緑C切替0163ではRPV経路断の見落としを避けるため補助資料も照合する判断緑C切替0163です。緑C切替0163の用語整理では地理的ミラーの対象値を実在出力で説明する記録緑C切替0163です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0162の役割を調べています。クラスタ構成検証 Cluster Resources 0175の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は切替でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は切替でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。</li><li>C. 表示や設定で扱う内容は同期確認で受信先を証跡に残し・クラスタ構成と状態をスナップショットとして表示するコマンドを。</li><li>D. 表示や設定で扱う内容は監査でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・切替）です。照合切替・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・切替・遠隔ボです。運用切替・地理的でB:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸はsys・地理的・切替です。項目切替・地理的・sysでC:の同期確認 受信先は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は遠隔ボ・地理的・sysです。仕様切替・地理的・sysでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は切替・遠隔ボ・sysです。用語切替・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0162</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0162について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg42
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0162A
+画面・出力には PHA72DD0162A が表示され、GLVM地理的ミラー syslog entry 0162 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0162B
+画面・出力には PHA72DD0162B が表示され、GLVM地理的ミラー syslog entry 0162 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0162
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0162C
+画面・出力には PHA72DD0162C が表示され、GLVM地理的ミラー syslog entry 0162 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0162A が画面・出力に表示されること
+② ステップ2 の PHA72DD0162B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0162C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0108"><h3>GLVM地理的ミラー syslog entry 0177</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>藤R切替0178ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藤R切替0178です。藤R切替0178は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録藤R切替0178です。藤R切替0178ではsyslog記録と取得時刻を採取票藤R切替0178へ残します。藤R切替0178では片側VGのvaryon誤操作を避けるため補助資料も照合する判断藤R切替0178です。藤R切替0178の用語整理では地理的ミラーの対象値を実在出力で追跡する記録藤R切替0178です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー syslog entry 0177」を「GLVM地理的ミラー VG STATE 0258」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。GLVM地理的ミラー VG STATE 0258固有の属性も確認対象に含める。</li><li>B. 保守作業で参照する機能はCluster Manager の状態・クラスタ版数・ノード版数を表示するコマンドを所有先確認する。所有先確認で除外条件を確認するときは除外条件の誤読を防ぐ。</li><li>C. 保守作業で参照する機能は地理的ミラーの項目のsyslog記録と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能はノード一覧の移動履歴と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・地理的・sysでCの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・切替）です。照合切替・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・切替・片側Vです。比較切替・地理的・sys・片側VでA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は地理的・切替・sysです。運用切替・地理的でB:の所有先確認 除外条件は「Cluster Manager の状態」を述べるため、正答側の照合軸はsys・地理的・切替です。仕様切替・地理的・sysでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は切替・片側V・sysです。用語切替・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0177</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0177について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg57
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0177A
+画面・出力には PHA72DD0177A が表示され、GLVM地理的ミラー syslog entry 0177 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0177B
+画面・出力には PHA72DD0177B が表示され、GLVM地理的ミラー syslog entry 0177 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0177
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0177C
+画面・出力には PHA72DD0177C が表示され、GLVM地理的ミラー syslog entry 0177 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0177A が画面・出力に表示されること
+② ステップ2 の PHA72DD0177B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0177C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0109"><h3>GLVM地理的ミラー syslog entry 0192</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>桃M収集0193ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票桃M収集0193です。桃M収集0193は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録桃M収集0193です。桃M収集0193ではsyslog記録と取得時刻を採取票桃M収集0193へ残します。桃M収集0193ではミラー再同期条件の誤読を避けるため補助資料も照合する判断桃M収集0193です。桃M収集0193の用語整理では地理的ミラーの対象値を実在出力で記録する記録桃M収集0193です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0192を同一分類のクラスタ構成検証 Cluster Topology 0208と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。</li><li>B. 管理対象との関係を表す説明はクラスタ・ノード・インターフェース・リソースグループの状態を表示する監視コマンドを起動確認する。起動確認でイベント転送を確認するときはイベント転送の誤読を防ぐ。</li><li>C. 管理対象との関係を表す説明は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>D. 管理対象との関係を表す説明は地理的ミラーの項目のsyslog記録と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・収集）です。照合収集・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・収集・ミラーです。比較収集・地理的・sys・ミラーでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・収集・sysです。運用収集・地理的でB:の起動確認 イベント転送は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸はsys・地理的・収集です。項目収集・地理的・sysでC:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はミラー・地理的・sysです。用語収集・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0192</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0192について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg72
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0192A
+画面・出力には PHA72DD0192A が表示され、GLVM地理的ミラー syslog entry 0192 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0192B
+画面・出力には PHA72DD0192B が表示され、GLVM地理的ミラー syslog entry 0192 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0192
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0192C
+画面・出力には PHA72DD0192C が表示され、GLVM地理的ミラー syslog entry 0192 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0192A が画面・出力に表示されること
+② ステップ2 の PHA72DD0192B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0192C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0110"><h3>GLVM地理的ミラー syslog entry 0207</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>茶H登録0208ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票茶H登録0208です。茶H登録0208は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録茶H登録0208です。茶H登録0208ではsyslog記録と取得時刻を採取票茶H登録0208へ残します。茶H登録0208ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断茶H登録0208です。茶H登録0208の用語整理では地理的ミラーの対象値を実在出力で確認する記録茶H登録0208です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0207の設定や表示を読む前に役割を確認します。クラスタ構成検証 Cluster Topology 0268ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは保守操作で監査欄を保存することで構成データOを確認し・検証ログの採取漏れを防ぐ。</li><li>B. 対象資源に対する働きは監査操作で記録欄を比較することでsyslogを確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 対象資源に対する働きは所有先確認で対象ノードを確認することで対象ノードを確認し・対象ノードの誤読を防ぐ。</li><li>D. 対象資源に対する働きは監査操作で記録欄を比較することで基本ソフトAを確認し・syslogとhacmp.oを防ぐ。GLVM地理的ミラー VG STATE 0063固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・地理的・sysでBの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・登録）です。照合登録・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・登録・sysです。比較登録・地理的・sys・sysでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は地理的・登録・sysです。項目登録・地理的・sysでC:の所有先確認 対象ノードは「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸はsys・地理的・sysです。仕様登録・地理的・sysでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は登録・sys・sysです。用語登録・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0207</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0207について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg87
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0207A
+画面・出力には PHA72DD0207A が表示され、GLVM地理的ミラー syslog entry 0207 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0207B
+画面・出力には PHA72DD0207B が表示され、GLVM地理的ミラー syslog entry 0207 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0207
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0207C
+画面・出力には PHA72DD0207C が表示され、GLVM地理的ミラー syslog entry 0207 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0207A が画面・出力に表示されること
+② ステップ2 の PHA72DD0207B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0207C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0111"><h3>GLVM地理的ミラー syslog entry 0222</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>緑C確認0223ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票緑C確認0223です。緑C確認0223は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録緑C確認0223です。緑C確認0223ではsyslog記録と取得時刻を採取票緑C確認0223へ残します。緑C確認0223ではRPV経路断の見落としを避けるため補助資料も照合する判断緑C確認0223です。緑C確認0223の用語整理では地理的ミラーの対象値を実在出力で説明する記録緑C確認0223です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0222に関する障害切り分けの前提を確認しています。リソースグループ制御 Acquisition Failure 0266の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてsyslogを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして獲得イベントを照合する。</li><li>C. 表示や設定で扱う内容は同期元を誤ると古い定義を全ノードを避けるため・再確認からfalseを読むして再確認を照合する。同期処理 Cluster Synchronization 復旧後の確認固有の属性も確認対象に含める。</li><li>D. 表示や設定で扱う内容は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして失敗ラベルを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・確認）です。照合確認・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・確認・遠隔ボです。運用確認・地理的でB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はsys・地理的・確認です。項目確認・地理的・sysでC:の復旧後の確認 SYNC06は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は遠隔ボ・地理的・sysです。仕様確認・地理的・sysでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は確認・遠隔ボ・sysです。用語確認・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0222</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0222について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg102
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0222A
+画面・出力には PHA72DD0222A が表示され、GLVM地理的ミラー syslog entry 0222 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0222B
+画面・出力には PHA72DD0222B が表示され、GLVM地理的ミラー syslog entry 0222 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0222
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0222C
+画面・出力には PHA72DD0222C が表示され、GLVM地理的ミラー syslog entry 0222 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0222A が画面・出力に表示されること
+② ステップ2 の PHA72DD0222B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0222C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0112"><h3>GLVM地理的ミラー syslog entry 0237</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>藤R確認0238ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藤R確認0238です。藤R確認0238は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録藤R確認0238です。藤R確認0238ではsyslog記録と取得時刻を採取票藤R確認0238へ残します。藤R確認0238では片側VGのvaryon誤操作を避けるため補助資料も照合する判断藤R確認0238です。藤R確認0238の用語整理では地理的ミラーの対象値を実在出力で追跡する記録藤R確認0238です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0237を保守記録に説明する必要があります。GLVM地理的ミラー RPV Client 0279と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は監査操作で記録欄を比較することで遠隔ボリューを確認し・syslogとhacmp.oを防ぐ。</li><li>B. 保守作業で参照する機能はネットワーク照会からnet_ether_ことでネットワークを確認し・片系定義を全体正本とする誤認を防ぐ。</li><li>C. 保守作業で参照する機能は主操作で出力欄を評価することでsyslogを確認し・片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は表示操作で対象欄を追跡することで獲得イベントを確認し・獲得失敗ログの未採取を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・地理的・sysでCの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・確認）です。照合確認・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・確認・片側Vです。比較確認・地理的・sys・片側VでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は地理的・確認・sysです。運用確認・地理的でB:の性能影響の確認 TOPO11は「クラスタートポロジーでネットワーク照会から」を述べるため、正答側の照合軸はsys・地理的・確認です。仕様確認・地理的・sysでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は確認・片側V・sysです。用語確認・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0237</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0237について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg117
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0237A
+画面・出力には PHA72DD0237A が表示され、GLVM地理的ミラー syslog entry 0237 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0237B
+画面・出力には PHA72DD0237B が表示され、GLVM地理的ミラー syslog entry 0237 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0237
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0237C
+画面・出力には PHA72DD0237C が表示され、GLVM地理的ミラー syslog entry 0237 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0237A が画面・出力に表示されること
+② ステップ2 の PHA72DD0237B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0237C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0113"><h3>GLVM地理的ミラー syslog entry 0252</h3><p class="kb-meta">分類: GLVM ・ 難易度: 初級</p><p>桃M保護0253ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票桃M保護0253です。桃M保護0253は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録桃M保護0253です。桃M保護0253ではsyslog記録と取得時刻を採取票桃M保護0253へ残します。桃M保護0253ではミラー再同期条件の誤読を避けるため補助資料も照合する判断桃M保護0253です。桃M保護0253の用語整理では地理的ミラーの対象値を実在出力で記録する記録桃M保護0253です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0252の技術的な意味を資料で確認するとき、リソースグループ制御 Resource Group Name 0275との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は地理的ミラーの項目のsyslog記録と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は資源グループの優先ノード一覧と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li><li>C. 管理対象との関係を表す説明は資源グループでイベント順序から completed を読み・completed と START_AFTERである。イベント順序からcompletedをときは依存順を無視して子資源を先にを防ぐ。</li><li>D. 管理対象との関係を表す説明はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・地理的・sysでAの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・保護）です。照合保護・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・保護・ミラーです。運用保護・地理的でB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はsys・地理的・保護です。項目保護・地理的・sysでC:の変更後の確認 DEP03は「資源グループでイベント順序から」を述べるため、正答側の照合軸はミラー・地理的・sysです。仕様保護・地理的・sysでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は保護・ミラー・sysです。用語保護・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0252</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0252について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg12
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0252A
+画面・出力には PHA72DD0252A が表示され、GLVM地理的ミラー syslog entry 0252 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0252B
+画面・出力には PHA72DD0252B が表示され、GLVM地理的ミラー syslog entry 0252 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0252
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0252C
+画面・出力には PHA72DD0252C が表示され、GLVM地理的ミラー syslog entry 0252 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0252A が画面・出力に表示されること
+② ステップ2 の PHA72DD0252B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0252C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0114"><h3>GLVM地理的ミラー syslog entry 0267</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>茶H照合0268ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票茶H照合0268です。茶H照合0268は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録茶H照合0268です。茶H照合0268ではsyslog記録と取得時刻を採取票茶H照合0268へ残します。茶H照合0268ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断茶H照合0268です。茶H照合0268の用語整理では地理的ミラーの対象値を実在出力で確認する記録茶H照合0268です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0267について構成や状態を確認します。リソースグループ制御 Resource Group Name 0290ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは資源グループの優先ノード一覧と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>B. 対象資源に対する働きはclstatで管理通信SMUX接続から ESTABLISHED を読み・ESTABLISHED とである。SMUX接続からESTABLISHEときは監視通信SNMP情報の残留をを防ぐ。</li><li>C. 対象資源に対する働きは地理的ミラーの項目のsyslog記録と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きはクラスタートポロジーの構成データODM登録値と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・地理的・sysでCの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・照合）です。照合照合・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・照合・sysです。比較照合・地理的・sys・sysでA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は地理的・照合・sysです。運用照合・地理的でB:の性能影響の確認 CLSTAT11は「clstatで管理通信SMUX接続から」を述べるため、正答側の照合軸はsys・地理的・照合です。仕様照合・地理的・sysでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は照合・sys・sysです。用語照合・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0267</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0267について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg27
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0267A
+画面・出力には PHA72DD0267A が表示され、GLVM地理的ミラー syslog entry 0267 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0267B
+画面・出力には PHA72DD0267B が表示され、GLVM地理的ミラー syslog entry 0267 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0267
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0267C
+画面・出力には PHA72DD0267C が表示され、GLVM地理的ミラー syslog entry 0267 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0267A が画面・出力に表示されること
+② ステップ2 の PHA72DD0267B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0267C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0115"><h3>GLVM地理的ミラー syslog entry 0282</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>緑C抑止0283ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票緑C抑止0283です。緑C抑止0283は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録緑C抑止0283です。緑C抑止0283ではsyslog記録と取得時刻を採取票緑C抑止0283へ残します。緑C抑止0283ではRPV経路断の見落としを避けるため補助資料も照合する判断緑C抑止0283です。緑C抑止0283の用語整理では地理的ミラーの対象値を実在出力で説明する記録緑C抑止0283です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0282の役割を調べています。リソースグループ制御 Node List 0332の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして移動履歴を照合する。</li><li>B. 表示や設定で扱う内容は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてsyslogを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は依存順を無視して子資源を先にオンを避けるため・イベント順序からcompletedを読むしてイベント順序を照合する。</li><li>D. 表示や設定で扱う内容は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証報告ROを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・地理的・sysでBの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・抑止）です。照合抑止・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・抑止・遠隔ボです。比較抑止・地理的・sys・遠隔ボでA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は地理的・抑止・sysです。項目抑止・地理的・sysでC:の変更後の確認 DEP03は「資源グループでイベント順序から」を述べるため、正答側の照合軸は遠隔ボ・地理的・sysです。仕様抑止・地理的・sysでD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は抑止・遠隔ボ・sysです。用語抑止・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0282</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0282について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg42
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0282A
+画面・出力には PHA72DD0282A が表示され、GLVM地理的ミラー syslog entry 0282 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0282B
+画面・出力には PHA72DD0282B が表示され、GLVM地理的ミラー syslog entry 0282 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0282
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0282C
+画面・出力には PHA72DD0282C が表示され、GLVM地理的ミラー syslog entry 0282 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0282A が画面・出力に表示されること
+② ステップ2 の PHA72DD0282B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0282C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0116"><h3>GLVM地理的ミラー syslog entry 0297</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>藤R抑止0298ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藤R抑止0298です。藤R抑止0298は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録藤R抑止0298です。藤R抑止0298ではsyslog記録と取得時刻を採取票藤R抑止0298へ残します。藤R抑止0298では片側VGのvaryon誤操作を避けるため補助資料も照合する判断藤R抑止0298です。藤R抑止0298の用語整理では地理的ミラーの対象値を実在出力で追跡する記録藤R抑止0298です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「GLVM地理的ミラー syslog entry 0297」を「clRGinfo 整合確認 一致条件」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は整合確認で一致条件を確認することで一致条件を確認し・一致条件の誤読を防ぐ。</li><li>B. 保守作業で参照する機能は変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. 保守作業で参照する機能は主操作で出力欄を評価することでsyslogを確認し・片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は点検操作で判定欄を記録することで優先ノード一を確認し・依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・地理的・sysでCの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・抑止）です。照合抑止・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・抑止・片側Vです。比較抑止・地理的・sys・片側VでA:の整合確認 一致条件は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は地理的・抑止・sysです。運用抑止・地理的でB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はsys・地理的・抑止です。仕様抑止・地理的・sysでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は抑止・片側V・sysです。用語抑止・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0297</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0297について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg57
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0297A
+画面・出力には PHA72DD0297A が表示され、GLVM地理的ミラー syslog entry 0297 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0297B
+画面・出力には PHA72DD0297B が表示され、GLVM地理的ミラー syslog entry 0297 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0297
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0297C
+画面・出力には PHA72DD0297C が表示され、GLVM地理的ミラー syslog entry 0297 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0297A が画面・出力に表示されること
+② ステップ2 の PHA72DD0297B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0297C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0117"><h3>GLVM地理的ミラー syslog entry 0312</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>桃M解析0313ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票桃M解析0313です。桃M解析0313は地理的ミラーの照合操作で地理的ミラーの確認欄を採取する記録桃M解析0313です。桃M解析0313ではsyslog記録と取得時刻を採取票桃M解析0313へ残します。桃M解析0313ではミラー再同期条件の誤読を避けるため補助資料も照合する判断桃M解析0313です。桃M解析0313の用語整理では地理的ミラーの対象値を実在出力で記録する記録桃M解析0313です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0312を同一分類のGLVM地理的ミラー RPV Server 0351と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。</li><li>B. 管理対象との関係を表す説明は監査操作で記録欄を比較することで遠隔ボリューを確認し・syslogとhacmp.oを防ぐ。</li><li>C. 管理対象との関係を表す説明は保守操作で監査欄を保存することで検証報告ROを確認し・検証ログの採取漏れを防ぐ。</li><li>D. 管理対象との関係を表す説明は照合操作で確認欄を採取することでsyslogを確認し・ミラー再同期条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・解析）です。照合解析・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・解析・ミラーです。比較解析・地理的・sys・ミラーでA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は地理的・解析・sysです。運用解析・地理的でB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はsys・地理的・解析です。項目解析・地理的・sysでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はミラー・地理的・sysです。用語解析・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・ミラーです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0312</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0312について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg72
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0312A
+画面・出力には PHA72DD0312A が表示され、GLVM地理的ミラー syslog entry 0312 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0312B
+画面・出力には PHA72DD0312B が表示され、GLVM地理的ミラー syslog entry 0312 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0312
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0312C
+画面・出力には PHA72DD0312C が表示され、GLVM地理的ミラー syslog entry 0312 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0312A が画面・出力に表示されること
+② ステップ2 の PHA72DD0312B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0312C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0118"><h3>GLVM地理的ミラー syslog entry 0327</h3><p class="kb-meta">分類: GLVM ・ 難易度: 中級</p><p>茶H計画0328ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票茶H計画0328です。茶H計画0328は地理的ミラーの監査操作で地理的ミラーの記録欄を比較する記録茶H計画0328です。茶H計画0328ではsyslog記録と取得時刻を採取票茶H計画0328へ残します。茶H計画0328ではsyslogとhacmp.outの突合漏れを避けるため補助資料も照合する判断茶H計画0328です。茶H計画0328の用語整理では地理的ミラーの対象値を実在出力で確認する記録茶H計画0328です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0327の設定や表示を読む前に役割を確認します。clmgr query cluster 所有先確認 製品レベルではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは所有先確認で製品レベルを確認することで製品レベルを確認し・製品レベルの誤読を防ぐ。</li><li>B. 対象資源に対する働きは調査操作で保守欄を引き継ぎすることで優先ノード一を確認し・自動戻し条件の誤読を防ぐ。</li><li>C. 対象資源に対する働きは監査操作で記録欄を比較することで基本ソフトAを確認し・syslogとhacmp.oを防ぐ。</li><li>D. 対象資源に対する働きは監査操作で記録欄を比較することでsyslogを確認し・syslogとhacmp.oを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・地理的・sysでDの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・計画）です。照合計画・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・計画・sysです。比較計画・地理的・sys・sysでA:の所有先確認 製品レベルは「クラスタ名、状態、バージョンなどのクラスタ属」を述べるため、正答側の照合軸は地理的・計画・sysです。運用計画・地理的でB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はsys・地理的・計画です。項目計画・地理的・sysでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はsys・地理的・sysです。用語計画・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・sysです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0327</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0327について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg87
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0327A
+画面・出力には PHA72DD0327A が表示され、GLVM地理的ミラー syslog entry 0327 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0327B
+画面・出力には PHA72DD0327B が表示され、GLVM地理的ミラー syslog entry 0327 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0327
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0327C
+画面・出力には PHA72DD0327C が表示され、GLVM地理的ミラー syslog entry 0327 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0327A が画面・出力に表示されること
+② ステップ2 の PHA72DD0327B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0327C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0119"><h3>GLVM地理的ミラー syslog entry 0342</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>緑C解除0343ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票緑C解除0343です。緑C解除0343は地理的ミラーの変更確認操作で地理的ミラーの採取欄を棚卸する記録緑C解除0343です。緑C解除0343ではsyslog記録と取得時刻を採取票緑C解除0343へ残します。緑C解除0343ではRPV経路断の見落としを避けるため補助資料も照合する判断緑C解除0343です。緑C解除0343の用語整理では地理的ミラーの対象値を実在出力で説明する記録緑C解除0343です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0342に関する障害切り分けの前提を確認しています。cldump 状態確認 整合確認の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は整合確認で整合確認を証跡に残し・クラスタ構成と状態をスナップショットとして表示するコマンド。</li><li>B. 表示や設定で扱う内容は棚卸で検証報告ROを証跡に残し・clverify.logの検証報告ROHAレポートと取得時刻。</li><li>C. 表示や設定で扱う内容は解除でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は切替で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・地理的・sysでCの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・解除）です。照合解除・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・解除・遠隔ボです。比較解除・地理的・sys・遠隔ボでA:の状態確認 整合確認は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は地理的・解除・sysです。運用解除・地理的でB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はsys・地理的・解除です。仕様解除・地理的・sysでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は解除・遠隔ボ・sysです。用語解除・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・遠隔ボです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0342</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0342について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg102
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0342A
+画面・出力には PHA72DD0342A が表示され、GLVM地理的ミラー syslog entry 0342 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0342B
+画面・出力には PHA72DD0342B が表示され、GLVM地理的ミラー syslog entry 0342 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0342
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0342C
+画面・出力には PHA72DD0342C が表示され、GLVM地理的ミラー syslog entry 0342 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0342A が画面・出力に表示されること
+② ステップ2 の PHA72DD0342B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0342C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0120"><h3>GLVM地理的ミラー syslog entry 0357</h3><p class="kb-meta">分類: GLVM ・ 難易度: 上級</p><p>藤R解除0358ではPowerHA SystemMirror 7.2 の GLVMを扱う採取票藤R解除0358です。藤R解除0358は地理的ミラーの主操作で地理的ミラーの出力欄を評価する記録藤R解除0358です。藤R解除0358ではsyslog記録と取得時刻を採取票藤R解除0358へ残します。藤R解除0358では片側VGのvaryon誤操作を避けるため補助資料も照合する判断藤R解除0358です。藤R解除0358の用語整理では地理的ミラーの対象値を実在出力で追跡する記録藤R解除0358です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> GLVM地理的ミラー syslog entry 0357を保守記録に説明する必要があります。clstat -o 整合確認 サービス状態と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は整合確認でサービス状態を確認することでサービス状態を確認し・サービス状態の誤読を防ぐ。clstat -o 整合確認 サービス状態固有の属性も確認対象に含める。</li><li>B. 保守作業で参照する機能は主操作で出力欄を評価することでsyslogを確認し・片側VGのvaryon誤操作を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は主操作で出力欄を評価することでVG varを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>D. 保守作業で参照する機能は調査操作で保守欄を引き継ぎすることで優先ノード一を確認し・自動戻し条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・地理的・sysでBの記述「地理的ミラーの項目のsyslog記録と取得時刻を記録し」に対応する項目はsyslog entry（地理的・sys・解除）です。照合解除・地理的・sysに関するGLVMの仕様は「地理的ミラーの項目のsyslog記録と取得時刻を記録し」で、確認対象はsys・解除・片側Vです。比較解除・地理的・sys・片側VでA:の整合確認 サービス状態は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸は地理的・解除・sysです。項目解除・地理的・sysでC:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は片側V・地理的・sysです。仕様解除・地理的・sysでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は解除・片側V・sysです。用語解除・地理的・sysという用語は「地理的ミラーの項目のsyslog記録と取得時刻を記録」を指し、照合する値と誤認リスクの組合せは地理的・sys・片側Vです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLVM地理的ミラー syslog entry 0357</strong></p><p>検証目的: GLVM地理的ミラーのGLVM地理的ミラー syslog entry 0357について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=syslog entry と syslog記録</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i rpv /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+Volume group datavg117
+VG STATE active
+Mirror pool siteA siteB
+確認コード PHA72DD0357A
+画面・出力には PHA72DD0357A が表示され、GLVM地理的ミラー syslog entry 0357 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query rpv
+→ Enter を押す
+［画面・出力］
+RPV client nodeA
+RPV server nodeB
+Remote physical volume pair checked
+確認コード PHA72DD0357B
+画面・出力には PHA72DD0357B が表示され、GLVM地理的ミラー syslog entry 0357 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。syslog entry を読むため、GLVM地理的ミラー の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i glvm /var/hacmp/log/hacmp.out
+→ Enter を押す
+［画面・出力］
+syslog PHA0357
+GLVM communication review completed
+hacmp.out remote mirror event recorded
+確認コード PHA72DD0357C
+画面・出力には PHA72DD0357C が表示され、GLVM地理的ミラー syslog entry 0357 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0357A が画面・出力に表示されること
+② ステップ2 の PHA72DD0357B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0357C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+## clstat・SNMP
+
+
+<section class="kb-item" id="c25-i0121"><h3>clstat・SNMP clinfoES Status Path ログとの照合 CLSTAT07</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>ログとの照合では clstat・SNMP（クラスタ状態監視） の clinfoES状態 を主操作として CLSTAT07 を判定します。時刻と対象識別子への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT07 に残します。ログとの照合を補助する SMUX接続 では ESTABLISHED を補助値として CLSTAT07 へ保存します。主判定のログとの照合ではクラスタ状態監視の clinfoES状態 から clinfoES を読み CLSTAT07 へ残します。証跡照合のログとの照合ではクラスタ状態監視の clinfoES と ESTABLISHED を CLSTAT07 に保存します。記録対応のログとの照合ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT07 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clstat・SNMP clinfoES Status Path ログとの照合 CLSTAT07」を「資源依存関係 Resource Group Dependency 停止前の確認」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はRG一覧からdatabase_rgを読むことでRG一覧を確認し・依存順を無視して子資源を先にを防ぐ。</li><li>B. 仕様上の役割は主操作で出力欄を評価することでRPV通信ペを確認し・片側VGのvaryon誤操作を防ぐ。GLVM地理的ミラー RPV Client 0249固有の属性も確認対象に含める。</li><li>C. 仕様上の役割はclinfoES状態からclinfoESことでclinfoを確認し・SNMP情報の残留を実ノードを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はノード一覧から実状態値を読むことでノード一覧を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能cli・SNMでCの記述「clstatでclinfoES状態から」に対応する項目はログとの照合 CLSTAT07（cls・cli・ログと）です。照合cli・ログとに関するclstat・SNMPの仕様は「clstatでclinfoES状態から clinfoES を読み」で、確認対象はcli・ログと・SNMです。比較ログと・ログとでA:の停止前の確認 DEP14は「Resource GroupでRG一覧から」を述べるため、正答側の照合軸はcls・ログと・cliです。運用ログと・clsでB:のRPV Clientは「地理的ミラーの項目のRPV通信ペアと取得時刻」を述べるため、正答側の照合軸はcli・ログと・ログとです。仕様cli・ログとでD:のログとの照合 NODE07は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸はログと・SNM・cliです。用語cli・ログとという用語は「clstatでclinfoES状態から」を指し、照合する値と誤認リスクの組合せはログと・cli・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path ログとの照合 CLSTAT07</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて操作とログを対応し、CLSTAT07のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT07のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT07のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT07のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clinfoES が画面・出力に表示されること
+② ステップ2 の ESTABLISHED が画面・出力に表示されること
+③ ステップ3 の Cluster が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0122"><h3>clstat・SNMP clinfoES Status Path 代替経路の確認 CLSTAT10</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>代替経路の確認では clstat・SNMP（クラスタ状態監視） の clinfoES状態 を主操作として CLSTAT10 を判定します。主経路との役割差への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT10 に残します。代替経路の確認を補助する SMUX接続 では ESTABLISHED を補助値として CLSTAT10 へ保存します。主判定の代替経路の確認ではクラスタ状態監視の clinfoES状態 から clinfoES を読み CLSTAT10 へ残します。証跡照合の代替経路の確認ではクラスタ状態監視の clinfoES と ESTABLISHED を CLSTAT10 に保存します。記録対応の代替経路の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT10 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 代替経路の確認 CLSTAT10の技術的な意味を資料で確認するとき、リソースグループ制御 Acquisition Failure 0056との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はclstatでclinfoES状態から clinfoES を読み・clinfoES とである。clinfoES状態からclinfoときはSNMP情報の残留を実ノードを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はAcquisitionの獲得イベントと取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。リソースグループ制御 Acquisition Failure 0056固有の属性も確認対象に含める。</li><li>C. コマンドまたは機能の用途はclverify.logのROHAレポートと取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。</li><li>D. コマンドまたは機能の用途はノードの状態と raw_state を確認するコマンドを整合確認する。整合確認で起動順序を確認するときは起動順序の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能cli・SNMでAの記述「clstatでclinfoES状態から」に対応する項目は代替経路の確認 CLSTAT10（cls・cli・代替経）です。照合cli・代替経に関するclstat・SNMPの仕様は「clstatでclinfoES状態から clinfoES を読み」で、確認対象はcli・代替経・SNMです。運用代替経・clsでB:のAcquisitionは「Acquisitionの獲得イベントと取得時」を述べるため、正答側の照合軸はcli・代替経・代替経です。項目cli・代替経でC:のクラスタ構成検証 clverifは「clverify.logのROHAレポートと」を述べるため、正答側の照合軸はSNM・代替経・cliです。仕様cli・代替経でD:の整合確認 起動順序は「ノードの状態と raw_state」を述べるため、正答側の照合軸は代替経・SNM・cliです。用語cli・代替経という用語は「clstatでclinfoES状態から」を指し、照合する値と誤認リスクの組合せは代替経・cli・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 代替経路の確認 CLSTAT10</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて代替手段の成立を確認し、CLSTAT10のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT10のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT10のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT10のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clinfoES が画面・出力に表示されること
+② ステップ2 の ESTABLISHED が画面・出力に表示されること
+③ ステップ3 の Cluster が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0123"><h3>clstat・SNMP clinfoES Status Path 依存関係の確認 CLSTAT13</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>依存関係の確認では clstat・SNMP（クラスタ状態監視） の clinfoES状態 を主操作として CLSTAT13 を判定します。前提資源と後続処理の順序への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT13 に残します。依存関係の確認を補助する SMUX接続 では ESTABLISHED を補助値として CLSTAT13 へ保存します。主判定の依存関係の確認ではクラスタ状態監視の clinfoES状態 から clinfoES を読み CLSTAT13 へ残します。証跡照合の依存関係の確認ではクラスタ状態監視の clinfoES と ESTABLISHED を CLSTAT13 に保存します。記録対応の依存関係の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT13 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 依存関係の確認 CLSTAT13の設定や表示を読む前に役割を確認します。リソースグループ制御 Acquisition Failure 0026ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして獲得イベントを照合する。リソースグループ制御 Acquisition Failure 0026固有の属性も確認対象に含める。</li><li>B. 一次資料が示す主目的は監視通信SNMP情報の残留を実ノを避けるため・clinfoES状態からclinfoESしてclinfoを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてミラー更新状を照合する。</li><li>D. 一次資料が示す主目的はボリューム状の誤読を避けるため・同期確認でボリューム状を確認するしてボリューム状を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能依存関・依存関・cliでBの記述「clstatでclinfoES状態から」に対応する項目は依存関係の確認 CLSTAT13（cls・cli・依存関）です。照合依存関・依存関・cliに関するclstat・SNMPの仕様は「clstatでclinfoES状態から clinfoES を読み」で、確認対象はcli・依存関・監視通です。比較依存関・依存関でA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はcls・依存関・cliです。項目依存関・依存関・cliでC:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は監視通・依存関・cliです。仕様依存関・依存関・cliでD:の同期確認 ボリューム状態は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は依存関・監視通・cliです。用語依存関・依存関・cliという用語は「clstatでclinfoES状態から」を指し、照合する値と誤認リスクの組合せは依存関・cli・監視通です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 依存関係の確認 CLSTAT13</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて依存資源を点検し、CLSTAT13のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT13のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT13のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT13のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clinfoES が画面・出力に表示されること
+② ステップ2 の ESTABLISHED が画面・出力に表示されること
+③ ステップ3 の Cluster が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0124"><h3>clstat・SNMP clinfoES Status Path 停止前の確認 CLSTAT14</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>停止前の確認では clstat・SNMP（クラスタ状態監視） の SMUX接続 を主操作として CLSTAT14 を判定します。処理中資源と未完了要求への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT14 に残します。停止前の確認を補助する クラスタ表示 では Cluster を補助値として CLSTAT14 へ保存します。主判定の停止前の確認ではクラスタ状態監視の SMUX接続 から ESTABLISHED を読み CLSTAT14 へ残します。証跡照合の停止前の確認ではクラスタ状態監視の ESTABLISHED と Cluster を CLSTAT14 に保存します。記録対応の停止前の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT14 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 停止前の確認 CLSTAT14を同一分類のクラスタ構成検証 Cluster Topology 0058と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li><li>B. 構成を確認する際の意味は地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>C. 構成を確認する際の意味はクラスタトポロジーとリソースの整合性を検査するコマンドを版数確認する。系切替確認で系切替確認を確認するときは系切替確認の誤読を防ぐ。clmgr verify cluster 版数確認 系切替確認固有の属性も確認対象に含める。</li><li>D. 構成を確認する際の意味はclstatで管理通信SMUX接続から ESTABLISHED を読み・ESTABLISHED とである。SMUX接続からESTABLISHEときは監視通信SNMP情報の残留をを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能停止確・停止前・管理通でDの記述「clstatで管理通信SMUX接続から」に対応する項目は停止前の確認 CLSTAT14（cls・管理通・停止確）です。照合停止確・停止前・管理通に関するclstat・SNMPの仕様は「clstatで管理通信SMUX接続から ESTABLISHED」で、確認対象は管理通・停止確・監視通です。比較停止前・停止確でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はcls・停止確・管理通です。運用停止確・clsでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は管理通・停止前・停止確です。項目停止確・停止前・管理通でC:の版数確認 系切替確認は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸は監視通・停止前・管理通です。用語停止確・停止前・管理通という用語は「clstatで管理通信SMUX接続から」を指し、照合する値と誤認リスクの組合せは停止前・管理通・監視通です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 停止前の確認 CLSTAT14</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて安全な停止条件を確認し、CLSTAT14のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT14のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT14のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT14のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ESTABLISHED が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の clinfoES が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0125"><h3>clstat・SNMP clinfoES Status Path 再始動後の確認 CLSTAT15</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>再始動後の確認では clstat・SNMP（クラスタ状態監視） の クラスタ表示 を主操作として CLSTAT15 を判定します。再開点と未処理データへの注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT15 に残します。再始動後の確認を補助する clinfoES状態 では clinfoES を補助値として CLSTAT15 へ保存します。主判定の再始動後の確認ではクラスタ状態監視の クラスタ表示 から Cluster を読み CLSTAT15 へ残します。証跡照合の再始動後の確認ではクラスタ状態監視の Cluster と clinfoES を CLSTAT15 に保存します。記録対応の再始動後の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT15 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clstat・SNMP clinfoES Status Path 再始動後の確認 CLSTAT15」を「リソースグループ制御 Acquisition Failure 0071」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は表示操作で対象欄を追跡することで獲得イベントを確認し・獲得失敗ログの未採取を防ぐ。</li><li>B. 保守作業で参照する機能はクラスタ表示からClusterを読むことでクラスタ表示を確認し・監視通信SNMP情報の残留をを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は主操作で出力欄を評価することで基本ソフトAを確認し・片側VGのvaryon誤操作を防ぐ。GLVM地理的ミラー VG STATE 0213固有の属性も確認対象に含める。</li><li>D. 保守作業で参照する機能は整合確認でメッセージ行を確認することでメッセージ行を確認し・メッセージ行の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能再始動・再始動・クラスでBの記述「clstatでクラスタ表示から Cluster を読み」に対応する項目は再始動後の確認 CLSTAT15（cls・クラス・再始動）です。照合再始動・再始動・クラスに関するclstat・SNMPの仕様は「clstatでクラスタ表示から Cluster を読み」で、確認対象はクラス・再始動・監視通です。比較再始動・再始動でA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はcls・再始動・クラスです。項目再始動・再始動・クラスでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は監視通・再始動・クラスです。仕様再始動・再始動・クラスでD:の整合確認 メッセージ行は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は再始動・監視通・クラスです。用語再始動・再始動・クラスという用語は「clstatでクラスタ表示から Cluster」を指し、照合する値と誤認リスクの組合せは再始動・クラス・監視通です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 再始動後の確認 CLSTAT15</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて再始動結果を検証し、CLSTAT15のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT15のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT15のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT15のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の clinfoES が画面・出力に表示されること
+③ ステップ3 の ESTABLISHED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0126"><h3>clstat・SNMP clinfoES Status Path 変更前の確認 CLSTAT02</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 中級</p><p>変更前の確認では clstat・SNMP（クラスタ状態監視） の SMUX接続 を主操作として CLSTAT02 を判定します。変更対象と非対象の境界への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT02 に残します。変更前の確認を補助する クラスタ表示 では Cluster を補助値として CLSTAT02 へ保存します。主判定の変更前の確認ではクラスタ状態監視の SMUX接続 から ESTABLISHED を読み CLSTAT02 へ残します。証跡照合の変更前の確認ではクラスタ状態監視の ESTABLISHED と Cluster を CLSTAT02 に保存します。記録対応の変更前の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT02 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 変更前の確認 CLSTAT02の技術的な意味を資料で確認するとき、リソースグループ制御 Node List 0062との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はNode Listの移動履歴と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>B. 構成を確認する際の意味は地理的ミラーの項目のAIXエラー識別子と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。GLVM地理的ミラー VG STATE 0168固有の属性も確認対象に含める。</li><li>C. 構成を確認する際の意味はclstatでSMUX接続から ESTABLISHED を読み・ESTABLISHED と Clusterである。SMUX接続からESTABLISHEときはSNMP情報の残留を実ノードを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 構成を確認する際の意味はSMIT Commandの検証進行率と取得時刻を記録し・ノード間ODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間ODM差分の残存を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能SMU・SNMでCの記述「clstatでSMUX接続から ESTABLISHED」に対応する項目は変更前の確認 CLSTAT02（cls・SMU・変更確）です。照合SMU・変更確に関するclstat・SNMPの仕様は「clstatでSMUX接続から ESTABLISHED を読み」で、確認対象はSMU・変更確・SNMです。比較変更前・変更確でA:のNode Listは「Node Listの移動履歴と取得時刻を記録」を述べるため、正答側の照合軸はcls・変更確・SMUです。運用変更確・clsでB:のVG STATEは「地理的ミラーの項目のAIXエラー識別子と取得」を述べるため、正答側の照合軸はSMU・変更前・変更確です。仕様SMU・変更確でD:のCommand Statusは「SMIT Commandの検証進行率と取得時」を述べるため、正答側の照合軸は変更確・SNM・SMUです。用語SMU・変更確という用語は「clstatでSMUX接続から」を指し、照合する値と誤認リスクの組合せは変更前・SMU・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 変更前の確認 CLSTAT02</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて変更前の証跡を保存し、CLSTAT02のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT02のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT02のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT02のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ESTABLISHED が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の clinfoES が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0127"><h3>clstat・SNMP clinfoES Status Path 変更後の確認 CLSTAT03</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 中級</p><p>変更後の確認では clstat・SNMP（クラスタ状態監視） の クラスタ表示 を主操作として CLSTAT03 を判定します。反映値と残存値への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT03 に残します。変更後の確認を補助する clinfoES状態 では clinfoES を補助値として CLSTAT03 へ保存します。主判定の変更後の確認ではクラスタ状態監視の クラスタ表示 から Cluster を読み CLSTAT03 へ残します。証跡照合の変更後の確認ではクラスタ状態監視の Cluster と clinfoES を CLSTAT03 に保存します。記録対応の変更後の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT03 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 変更後の確認 CLSTAT03を保守記録に説明する必要があります。clstat・SNMP clinfoES Status Path 復旧後の確認と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はクラスタ表示からClusterを読むことでクラスタ表示を確認し・SNMP情報の残留を実ノードを防ぐ。</li><li>B. 保守作業で参照する機能は表示操作で対象欄を追跡することで移動履歴を確認し・獲得失敗ログの未採取を防ぐ。</li><li>C. 保守作業で参照する機能はクラスタ表示からClusterを読むことでクラスタ表示を確認し・SNMP情報の残留を実ノードを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 保守作業で参照する機能は所有先確認で所有先確認を確認することで所有先確認を確認し・所有先確認の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能クラス・SNMでCの記述「clstatでクラスタ表示から Cluster を読み」に対応する項目は変更後の確認 CLSTAT03（cls・クラス・変更確）です。照合クラス・変更確に関するclstat・SNMPの仕様は「clstatでクラスタ表示から Cluster を読み」で、確認対象はクラス・変更確・SNMです。比較変更後・変更確でA:の復旧後の確認 CLSTAT06は「clstatでクラスタ表示から」を述べるため、正答側の照合軸はcls・変更確・クラスです。運用変更確・clsでB:のNode Listは「Node Listの移動履歴と取得時刻を記録」を述べるため、正答側の照合軸はクラス・変更後・変更確です。仕様クラス・変更確でD:の状態確認 所有先確認は「クラスタ名、状態、バージョンなどのクラスタ属」を述べるため、正答側の照合軸は変更確・SNM・クラスです。用語クラス・変更確という用語は「clstatでクラスタ表示から Cluster」を指し、照合する値と誤認リスクの組合せは変更後・クラス・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 変更後の確認 CLSTAT03</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて変更結果を検証し、CLSTAT03のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT03のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT03のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT03のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の clinfoES が画面・出力に表示されること
+③ ステップ3 の ESTABLISHED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0128"><h3>clstat・SNMP clinfoES Status Path 引継ぎ記録 CLSTAT09</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>引継ぎ記録では clstat・SNMP（クラスタ状態監視） の クラスタ表示 を主操作として CLSTAT09 を判定します。次担当者が追跡できる証跡への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT09 に残します。引継ぎ記録を補助する clinfoES状態 では clinfoES を補助値として CLSTAT09 へ保存します。主判定の引継ぎ記録ではクラスタ状態監視の クラスタ表示 から Cluster を読み CLSTAT09 へ残します。証跡照合の引継ぎ記録ではクラスタ状態監視の Cluster と clinfoES を CLSTAT09 に保存します。記録対応の引継ぎ記録ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT09 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 引継ぎ記録 CLSTAT09について構成や状態を確認します。リソースグループ制御 Online Node 0014ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはclstatでクラスタ表示から Cluster を読み・Cluster と clinfoES を照合する。クラスタ表示からClusterを読むときはSNMP情報の残留を実ノードを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはOnline NodeのRG現在位置と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>C. 対象資源に対する働きはCluster Resourcesのトポロジ要約と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。</li><li>D. 対象資源に対する働きはResource Groupの優先ノード一覧と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。リソースグループ制御 Resource Group Name 0350固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能クラス・SNMでAの記述「clstatでクラスタ表示から Cluster を読み」に対応する項目は引継ぎ記録 CLSTAT09（cls・クラス・cls）です。照合クラス・clsに関するclstat・SNMPの仕様は「clstatでクラスタ表示から Cluster を読み」で、確認対象はクラス・cls・SNMです。運用cls・clsでB:のOnline Nodeは「Online NodeのRG現在位置と取得時」を述べるため、正答側の照合軸はクラス・引継ぎ・clsです。項目クラス・clsでC:のCluster Resourceは「Cluster Resourcesのトポロジ」を述べるため、正答側の照合軸はSNM・引継ぎ・クラスです。仕様クラス・clsでD:のGroup Nameは「Resource Groupの優先ノード一覧」を述べるため、正答側の照合軸はcls・SNM・クラスです。用語クラス・clsという用語は「clstatでクラスタ表示から Cluster」を指し、照合する値と誤認リスクの組合せは引継ぎ・クラス・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 引継ぎ記録 CLSTAT09</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて再現可能な記録を作成し、CLSTAT09のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT09のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT09のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT09のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の clinfoES が画面・出力に表示されること
+③ ステップ3 の ESTABLISHED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0129"><h3>clstat・SNMP clinfoES Status Path 復旧後の確認 CLSTAT06</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 中級</p><p>復旧後の確認では clstat・SNMP（クラスタ状態監視） の クラスタ表示 を主操作として CLSTAT06 を判定します。再発していないことを示す値への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT06 に残します。復旧後の確認を補助する clinfoES状態 では clinfoES を補助値として CLSTAT06 へ保存します。主判定の復旧後の確認ではクラスタ状態監視の クラスタ表示 から Cluster を読み CLSTAT06 へ残します。証跡照合の復旧後の確認ではクラスタ状態監視の Cluster と clinfoES を CLSTAT06 に保存します。記録対応の復旧後の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT06 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 復旧後の確認 CLSTAT06を同一分類のGLVM地理的ミラー RPV Server 0051と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はSNMP情報の残留を実ノード状態を避けるため・クラスタ表示からClusterを読むしてクラスタ表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてミラー更新状を照合する。GLVM地理的ミラー RPV Server 0051固有の属性も確認対象に含める。</li><li>C. 管理対象との関係を表す説明は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてリソース要約を照合する。</li><li>D. 管理対象との関係を表す説明はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてRPV通信ペを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能クラス・SNMでAの記述「clstatでクラスタ表示から Cluster を読み」に対応する項目は復旧後の確認 CLSTAT06（cls・クラス・復旧確）です。照合クラス・復旧確に関するclstat・SNMPの仕様は「clstatでクラスタ表示から Cluster を読み」で、確認対象はクラス・復旧確・SNMです。運用復旧確・clsでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はクラス・復旧後・復旧確です。項目クラス・復旧確でC:のVerificationは「Verificationのリソース要約と取得」を述べるため、正答側の照合軸はSNM・復旧後・クラスです。仕様クラス・復旧確でD:のRPV Clientは「地理的ミラーの項目のRPV通信ペアと取得時刻」を述べるため、正答側の照合軸は復旧確・SNM・クラスです。用語クラス・復旧確という用語は「clstatでクラスタ表示から Cluster」を指し、照合する値と誤認リスクの組合せは復旧後・クラス・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 復旧後の確認 CLSTAT06</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて復旧後の安定性を確認し、CLSTAT06のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT06のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT06のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT06のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の clinfoES が画面・出力に表示されること
+③ ステップ3 の ESTABLISHED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0130"><h3>clstat・SNMP clinfoES Status Path 復旧準備 CLSTAT05</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 中級</p><p>復旧準備では clstat・SNMP（クラスタ状態監視） の SMUX接続 を主操作として CLSTAT05 を判定します。再開前に必要な整合性への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT05 に残します。復旧準備を補助する クラスタ表示 では Cluster を補助値として CLSTAT05 へ保存します。主判定の復旧準備ではクラスタ状態監視の SMUX接続 から ESTABLISHED を読み CLSTAT05 へ残します。証跡照合の復旧準備ではクラスタ状態監視の ESTABLISHED と Cluster を CLSTAT05 に保存します。記録対応の復旧準備ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT05 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 復旧準備 CLSTAT05の設定や表示を読む前に役割を確認します。リソースグループ制御 Acquisition Failure 0056ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはAcquisitionの獲得イベントと取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。リソースグループ制御 Acquisition Failure 0056固有の属性も確認対象に含める。</li><li>B. 状態を読み取るための働きは地理的ミラーの項目のミラー更新状態と取得時刻を記録し・RPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときはRPV経路断の見落としを防ぐ。</li><li>C. 状態を読み取るための働きはクラスタ構成と状態をスナップショットとして表示するコマンドを整合確認する。整合確認で保存場所を確認するときは保存場所の誤読を防ぐ。</li><li>D. 状態を読み取るための働きはclstatでSMUX接続から ESTABLISHED を読み・ESTABLISHED と Clusterである。SMUX接続からESTABLISHEときはSNMP情報の残留を実ノードを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能SMU・SNMでDの記述「clstatでSMUX接続から ESTABLISHED」に対応する項目は復旧準備 CLSTAT05（cls・SMU・復旧準）です。照合SMU・復旧準に関するclstat・SNMPの仕様は「clstatでSMUX接続から ESTABLISHED を読み」で、確認対象はSMU・復旧準・SNMです。比較復旧準・復旧準でA:のAcquisitionは「Acquisitionの獲得イベントと取得時」を述べるため、正答側の照合軸はcls・復旧準・SMUです。運用復旧準・clsでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はSMU・復旧準・復旧準です。項目SMU・復旧準でC:の整合確認 保存場所は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸はSNM・復旧準・SMUです。用語SMU・復旧準という用語は「clstatでSMUX接続から」を指し、照合する値と誤認リスクの組合せは復旧準・SMU・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 復旧準備 CLSTAT05</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて復旧条件を確認し、CLSTAT05のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT05のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT05のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT05のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ESTABLISHED が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の clinfoES が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0131"><h3>clstat・SNMP clinfoES Status Path 性能影響の確認 CLSTAT11</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>性能影響の確認では clstat・SNMP（クラスタ状態監視） の SMUX接続 を主操作として CLSTAT11 を判定します。処理時間と滞留箇所への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT11 に残します。性能影響の確認を補助する クラスタ表示 では Cluster を補助値として CLSTAT11 へ保存します。主判定の性能影響の確認ではクラスタ状態監視の SMUX接続 から ESTABLISHED を読み CLSTAT11 へ残します。証跡照合の性能影響の確認ではクラスタ状態監視の ESTABLISHED と Cluster を CLSTAT11 に保存します。記録対応の性能影響の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT11 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 性能影響の確認 CLSTAT11を保守記録に説明する必要があります。GLVM地理的ミラー RPV Client 0039と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は監視通信SNMP情報の残留を実ノを避けるため・SMUX接続からESTABLISHEDをして管理通信SMを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして遠隔ボリューを照合する。</li><li>C. 運用時に利用する技術的役割はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。</li><li>D. 運用時に利用する技術的役割はログ採取の誤読を避けるため・ログ採取でログ採取を確認するしてログ採取を照合する。clmgr sync cluster 同期確認 ログ採取固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能性能影・性能影・管理通でAの記述「clstatで管理通信SMUX接続から」に対応する項目は性能影響の確認 CLSTAT11（cls・管理通・性能影）です。照合性能影・性能影・管理通に関するclstat・SNMPの仕様は「clstatで管理通信SMUX接続から ESTABLISHED」で、確認対象は管理通・性能影・監視通です。運用性能影・clsでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は管理通・性能影・性能影です。項目性能影・性能影・管理通でC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は監視通・性能影・管理通です。仕様性能影・性能影・管理通でD:の同期確認 ログ採取は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸は性能影・監視通・管理通です。用語性能影・性能影・管理通という用語は「clstatで管理通信SMUX接続から」を指し、照合する値と誤認リスクの組合せは性能影・管理通・監視通です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 性能影響の確認 CLSTAT11</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて負荷と待ちを確認し、CLSTAT11のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT11のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT11のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT11のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ESTABLISHED が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の clinfoES が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0132"><h3>clstat・SNMP clinfoES Status Path 構成監査 CLSTAT08</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>構成監査では clstat・SNMP（クラスタ状態監視） の SMUX接続 を主操作として CLSTAT08 を判定します。定義値と稼働値の一致への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT08 に残します。構成監査を補助する クラスタ表示 では Cluster を補助値として CLSTAT08 へ保存します。主判定の構成監査ではクラスタ状態監視の SMUX接続 から ESTABLISHED を読み CLSTAT08 へ残します。証跡照合の構成監査ではクラスタ状態監視の ESTABLISHED と Cluster を CLSTAT08 に保存します。記録対応の構成監査ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT08 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 構成監査 CLSTAT08の役割を調べています。リソースグループ制御 Resource Group Name 0020の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては棚卸で優先ノード一を証跡に残し・Resource Groupの優先ノード一覧と取得時刻を記録。</li><li>B. 機能の説明としては構成監査でSMUX接続を証跡に残し・clstatでSMUX接続から ESTABLISHED。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としては切替で獲得イベントを証跡に残し・Acquisitionの獲得イベントと取得時刻を記録し。</li><li>D. 機能の説明としては計画で失敗ラベルを証跡に残し・Event Summaryの失敗ラベルと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能SMU・SNMでBの記述「clstatでSMUX接続から ESTABLISHED」に対応する項目は構成監査 CLSTAT08（cls・SMU・構成監）です。照合SMU・構成監に関するclstat・SNMPの仕様は「clstatでSMUX接続から ESTABLISHED を読み」で、確認対象はSMU・構成監・SNMです。比較構成監・構成監でA:のGroup Nameは「Resource Groupの優先ノード一覧」を述べるため、正答側の照合軸はcls・構成監・SMUです。項目SMU・構成監でC:のAcquisitionは「Acquisitionの獲得イベントと取得時」を述べるため、正答側の照合軸はSNM・構成監・SMUです。仕様SMU・構成監でD:のEvent Summaryは「Event Summaryの失敗ラベルと取得」を述べるため、正答側の照合軸は構成監・SNM・SMUです。用語SMU・構成監という用語は「clstatでSMUX接続から」を指し、照合する値と誤認リスクの組合せは構成監・SMU・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 構成監査 CLSTAT08</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて構成差分を監査し、CLSTAT08のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT08と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT08のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT08のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT08のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の ESTABLISHED が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の clinfoES が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0133"><h3>clstat・SNMP clinfoES Status Path 権限境界の確認 CLSTAT12</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 上級</p><p>権限境界の確認では clstat・SNMP（クラスタ状態監視） の クラスタ表示 を主操作として CLSTAT12 を判定します。参照操作と変更操作の分離への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT12 に残します。権限境界の確認を補助する clinfoES状態 では clinfoES を補助値として CLSTAT12 へ保存します。主判定の権限境界の確認ではクラスタ状態監視の クラスタ表示 から Cluster を読み CLSTAT12 へ残します。証跡照合の権限境界の確認ではクラスタ状態監視の Cluster と clinfoES を CLSTAT12 に保存します。記録対応の権限境界の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT12 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 権限境界の確認 CLSTAT12に関する障害切り分けの前提を確認しています。クラスタ構成検証 Cluster Resources 0010の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は巡回でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。</li><li>B. 表示や設定で扱う内容は収集で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 表示や設定で扱う内容は権限境界確認でクラスタ表示を証跡に残し・clstatでクラスタ表示から Cluster を読み。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は同期確認で出力比較を証跡に残し・クラスタトポロジーとリソースの整合性を検査するコマンドを同期。clmgr verify cluster 同期確認 出力比較固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能権限境・権限境・クラスでCの記述「clstatでクラスタ表示から Cluster を読み」に対応する項目は権限境界の確認 CLSTAT12（cls・クラス・権限境）です。照合権限境・権限境・クラスに関するclstat・SNMPの仕様は「clstatでクラスタ表示から Cluster を読み」で、確認対象はクラス・権限境・監視通です。比較権限境・権限境でA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸はcls・権限境・クラスです。運用権限境・clsでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はクラス・権限境・権限境です。仕様権限境・権限境・クラスでD:の同期確認 出力比較は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸は権限境・監視通・クラスです。用語権限境・権限境・クラスという用語は「clstatでクラスタ表示から Cluster」を指し、照合する値と誤認リスクの組合せは権限境・クラス・監視通です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 権限境界の確認 CLSTAT12</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて実行権限を点検し、CLSTAT12のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT12と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT12のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT12のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT12のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の clinfoES が画面・出力に表示されること
+③ ステップ3 の ESTABLISHED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0134"><h3>clstat・SNMP clinfoES Status Path 通常状態の確認 CLSTAT01</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 中級</p><p>通常状態の確認では clstat・SNMP（クラスタ状態監視） の clinfoES状態 を主操作として CLSTAT01 を判定します。基準値と現在値の差への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT01 に残します。通常状態の確認を補助する SMUX接続 では ESTABLISHED を補助値として CLSTAT01 へ保存します。主判定の通常状態の確認ではクラスタ状態監視の clinfoES状態 から clinfoES を読み CLSTAT01 へ残します。証跡照合の通常状態の確認ではクラスタ状態監視の clinfoES と ESTABLISHED を CLSTAT01 に保存します。記録対応の通常状態の確認ではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT01 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 通常状態の確認 CLSTAT01について構成や状態を確認します。clstat・SNMP clinfoES Status Path 性能影響の確認ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はSNMP情報の残留を実ノード状態を避けるため・clinfoES状態からclinfoESしてclinfoを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はSNMP情報の残留を実ノード状態を避けるため・SMUX接続からESTABLISHEDをしてSMUX接続を照合する。</li><li>C. 一次資料が示す主目的はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてRPV通信ペを照合する。GLVM地理的ミラー RPV Client 0159固有の属性も確認対象に含める。</li><li>D. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして失敗ラベルを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能cli・SNMでAの記述「clstatでclinfoES状態から」に対応する項目は通常状態の確認 CLSTAT01（cls・cli・通常状）です。照合cli・通常状に関するclstat・SNMPの仕様は「clstatでclinfoES状態から clinfoES を読み」で、確認対象はcli・通常状・SNMです。運用通常状・clsでB:の性能影響の確認 CLSTAT11は「clstatでSMUX接続から」を述べるため、正答側の照合軸はcli・通常状・通常状です。項目cli・通常状でC:のRPV Clientは「地理的ミラーの項目のRPV通信ペアと取得時刻」を述べるため、正答側の照合軸はSNM・通常状・cliです。仕様cli・通常状でD:のEvent Summaryは「Event Summaryの失敗ラベルと取得」を述べるため、正答側の照合軸は通常状・SNM・cliです。用語cli・通常状という用語は「clstatでclinfoES状態から」を指し、照合する値と誤認リスクの組合せは通常状・cli・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 通常状態の確認 CLSTAT01</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて通常状態を確定し、CLSTAT01のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT01と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT01のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT01のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT01のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clinfoES が画面・出力に表示されること
+② ステップ2 の ESTABLISHED が画面・出力に表示されること
+③ ステップ3 の Cluster が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0135"><h3>clstat・SNMP clinfoES Status Path 障害切り分け CLSTAT04</h3><p class="kb-meta">分類: clstat・SNMP ・ 難易度: 中級</p><p>障害切り分けでは clstat・SNMP（クラスタ状態監視） の clinfoES状態 を主操作として CLSTAT04 を判定します。最初に失敗した処理への注意として「SNMP情報の残留を実ノード状態と誤認する危険があります」を CLSTAT04 に残します。障害切り分けを補助する SMUX接続 では ESTABLISHED を補助値として CLSTAT04 へ保存します。主判定の障害切り分けではクラスタ状態監視の clinfoES状態 から clinfoES を読み CLSTAT04 へ残します。証跡照合の障害切り分けではクラスタ状態監視の clinfoES と ESTABLISHED を CLSTAT04 に保存します。記録対応の障害切り分けではクラスタ状態監視の clhostsとSMUX Socket の証跡へ CLSTAT04 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat・SNMP clinfoES Status Path 障害切り分け CLSTAT04に関する障害切り分けの前提を確認しています。資源依存関係 Resource Group Dependency 停止前の確認の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は依存順を無視して子資源を先にオンを避けるため・RG一覧からdatabase_rgを読むしてRG一覧を照合する。</li><li>B. 障害切り分けに用いる役割はSNMP情報の残留を実ノード状態を避けるため・clinfoES状態からclinfoESしてclinfoを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するしてRG現在位置を照合する。</li><li>D. 障害切り分けに用いる役割は依存関係の誤読を避けるため・所有先確認で依存関係を確認するして依存関係を照合する。clmgr start cluster 所有先確認 依存関係固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能cli・SNMでBの記述「clstatでclinfoES状態から」に対応する項目は障害切り分け CLSTAT04（cls・cli・cls）です。照合cli・clsに関するclstat・SNMPの仕様は「clstatでclinfoES状態から clinfoES を読み」で、確認対象はcli・cls・SNMです。比較障害切・clsでA:の停止前の確認 DEP14は「Resource GroupでRG一覧から」を述べるため、正答側の照合軸はcls・cls・cliです。項目cli・clsでC:のOnline Nodeは「Online NodeのRG現在位置と取得時」を述べるため、正答側の照合軸はSNM・障害切・cliです。仕様cli・clsでD:の所有先確認 依存関係は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はcls・SNM・cliです。用語cli・clsという用語は「clstatでclinfoES状態から」を指し、照合する値と誤認リスクの組合せは障害切・cli・SNMです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat・SNMP clinfoES Status Path 障害切り分け CLSTAT04</strong></p><p>検証目的: clstat・SNMPのclinfoES Status Pathについて障害範囲を限定し、CLSTAT04のclhostsとSMUX Socketを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象CLSTAT04と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へlssrc -s clinfoESを指定し、CLSTAT04のclinfoES状態を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -s clinfoES
+→ Enter を押す
+［画面・出力］
+Subsystem Group PID Status
+clinfoES cluster 4063356 active
+画面・出力にあるclinfoESを読み、clhostsとSMUX Socketと対象CLSTAT04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へnetstat -Aa | grep smuxを指定し、CLSTAT04のSMUX接続を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; netstat -Aa | grep smux
+→ Enter を押す
+［画面・出力］
+f1000e0002988bb8 tcp 0 *.smux *.* LISTEN
+f1000e0001b86bb8 tcp4 0 0 loopback.smux loopback.34266 ESTABLISHED
+画面・出力にあるESTABLISHEDを読み、clhostsとSMUX Socketと対象CLSTAT04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のclstat・SNMPを確認する入力画面です。COMMAND入力口へclstat -oを指定し、CLSTAT04のクラスタ表示を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+Cluster: prod_cluster
+Node: node1 State: UP
+Node: node2 State: UP
+Resource Group app_rg ONLINE node1
+画面・出力にあるClusterを読み、clhostsとSMUX Socketと対象CLSTAT04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clinfoES が画面・出力に表示されること
+② ステップ2 の ESTABLISHED が画面・出力に表示されること
+③ ステップ3 の Cluster が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+## クラスタ検証
+
+
+<section class="kb-item" id="c25-i0136"><h3>clRGinfo トポロジー確認 冗長性確認</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 上級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clRGinfo トポロジー確認 冗長性確認」は、リソースグループの状態と所有ノードを表示するコマンドをトポロジー確認の観点で確認する技術項目です。STATE 欄とcltopinfo 057を同じ記録で見比べることで、サービスIP定義の不一致を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clRGinfo トポロジー確認 冗長性確認」を「クラスタ起動・停止 Cluster Services Lifecycle」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は管理設定と資源状態の混同を避けるため・状態確認からST_STABLEを読むして状態確認を照合する。</li><li>B. 保守作業で参照する機能は冗長性確認の誤読を避けるため・冗長性確認で冗長性確認を確認するして冗長性確認を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li><li>D. 保守作業で参照する機能はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能冗長性・トポロ・冗長性でBの記述「リソースグループの状態と所有ノードを表示するコマンドをト」に対応する項目はトポロジー確認 冗長性確認（clR・冗長性・冗長性）です。照合冗長性・トポロ・冗長性に関するクラスタ検証の仕様は「リソースグループの状態と所有ノードを表示するコマンドをトポロジー確認」で、確認対象は冗長性・冗長性・冗長性です。比較冗長性・トポロ・冗長性・冗長性でA:の性能影響の確認 START11は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸はclR・冗長性・冗長性です。項目冗長性・トポロ・冗長性でC:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は冗長性・トポロ・冗長性です。仕様冗長性・トポロ・冗長性でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は冗長性・冗長性・冗長性です。用語冗長性・トポロ・冗長性という用語は「リソースグループの状態と所有ノードを表示するコマンド」を指し、照合する値と誤認リスクの組合せはトポロ・冗長性・冗長性です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clRGinfo トポロジー確認 冗長性確認</strong></p><p>検証目的: クラスタ検証のclRGinfo トポロジー確認 冗長性確認について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cltopinfo
+→ Enter を押す
+［画面・出力］
+Cluster Name:    prodcluster057
+Heartbeat Type:  Unicast
+Repository Disk: hdisk2
+Resource Group rg_app_057
+Service IP Label clst_svcIP_057
+画面・出力には Cluster が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name     Group State                  Node
+rg_app_057     ONLINE                       clnode_1
+               OFFLINE                      clnode_2
+画面・出力には Group が含まれ、clRGinfo トポロジー確認 冗長性確認の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、サービスIP定義の不一致を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query resource_group rg_app_057
+→ Enter を押す
+［画面・出力］
+NAME=&quot;rg_app_057&quot;
+STATE=&quot;ONLINE&quot;
+PARTICIPATING_NODES=&quot;clnode_1 clnode_2&quot;
+画面・出力には NAME= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の NAME= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0137"><h3>clRGinfo 整合確認 一致条件</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clRGinfo 整合確認 一致条件」は、リソースグループの状態と所有ノードを表示するコマンドを整合確認の観点で確認する技術項目です。STATE 欄とclnode_1を同じ記録で見比べることで、サービスIP定義の不一致を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clRGinfo 整合確認 一致条件」を「サービスIP Service IP Label 通常状態の確認 SVCIP01」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はIP Service IPでサービスアドレス照会から アドレス を読み・アドレス と オンライン表示である。IP資源照会からアドレスを読むときは永続アドレスとサービスアドレを防ぐ。</li><li>B. 運用時に利用する技術的役割は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>C. 運用時に利用する技術的役割は構成検証のリソース要約と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li><li>D. 運用時に利用する技術的役割はリソースグループの状態と所有ノードを表示するコマンドを整合確認する。整合確認で一致条件を確認するときは一致条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能整合確・整合・一致条でDの記述「リソースグループの状態と所有ノードを表示するコマンドを整」に対応する項目は整合確認 一致条件（clR・一致条・整合確）です。照合整合確・整合・一致条に関するクラスタ検証の仕様は「リソースグループの状態と所有ノードを表示するコマンドを整合確認する」で、確認対象は一致条・整合確・一致条です。比較整合確・整合・一致条・一致条でA:の通常状態の確認 SVCIP01は「IP Service IPでサービスアドレス」を述べるため、正答側の照合軸はclR・整合確・一致条です。運用整合確・clRでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は一致条・整合・整合確です。項目整合確・整合・一致条でC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は一致条・整合・一致条です。用語整合確・整合・一致条という用語は「リソースグループの状態と所有ノードを表示するコマンド」を指し、照合する値と誤認リスクの組合せは整合・一致条・一致条です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clRGinfo 整合確認 一致条件</strong></p><p>検証目的: クラスタ検証のclRGinfo 整合確認 一致条件について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cltopinfo
+→ Enter を押す
+［画面・出力］
+Cluster Name:    prodcluster017
+Heartbeat Type:  Unicast
+Repository Disk: hdisk2
+Resource Group rg_app_017
+Service IP Label clst_svcIP_017
+画面・出力には Cluster が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name     Group State                  Node
+rg_app_017     ONLINE                       clnode_1
+               OFFLINE                      clnode_2
+画面・出力には Group が含まれ、clRGinfo 整合確認 一致条件の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、サービスIP定義の不一致を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query resource_group rg_app_017
+→ Enter を押す
+［画面・出力］
+NAME=&quot;rg_app_017&quot;
+STATE=&quot;ONLINE&quot;
+PARTICIPATING_NODES=&quot;clnode_1 clnode_2&quot;
+画面・出力には NAME= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の NAME= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0138"><h3>clmgr query node 起動確認 エラー詳細</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clmgr query node 起動確認 エラー詳細」は、ノードの状態と raw_state を確認するコマンドを起動確認の観点で確認する技術項目です。STATE 欄とcltopinfo 033を同じ記録で見比べることで、検証警告の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clmgr query node 起動確認 エラー詳細」を「クラスタ起動・停止 Cluster Services Lifecycle」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はRG確認からapp_rgを読むことで資源グループを確認し・管理設定と資源状態の混同を防ぐ。</li><li>B. 保守作業で参照する機能は記録操作で証跡欄を照合することで検証進行率を確認し・未同期構成の見落としを防ぐ。</li><li>C. 保守作業で参照する機能は主操作で出力欄を評価することで基本ソフトAを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>D. 保守作業で参照する機能は起動確認でエラー詳細を確認することでエラー詳細を確認し・エラー詳細の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能起動確・起動・エラーでDの記述「ノードの状態と raw_state」に対応する項目は起動確認 エラー詳細（clm・エラー・起動確）です。照合起動確・起動・エラーに関するクラスタ検証の仕様は「ノードの状態と raw_state を確認するコマンドを起動確認する」で、確認対象はエラー・起動確・エラーです。比較起動確・起動・エラー・エラーでA:の引継ぎ記録 START09は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸はclm・起動確・エラーです。運用起動確・clmでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はエラー・起動・起動確です。項目起動確・起動・エラーでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はエラー・起動・エラーです。用語起動確・起動・エラーという用語は「ノードの状態と raw_state」を指し、照合する値と誤認リスクの組合せは起動・エラー・エラーです。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr query node 起動確認 エラー詳細</strong></p><p>検証目的: クラスタ検証のclmgr query node 起動確認 エラー詳細について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -ls clstrmgrES
+→ Enter を押す
+［画面・出力］
+Current state: ST_STABLE
+CLversion: 16
+local node vrmf is 7200
+cluster fix level is &quot;0&quot;
+画面・出力には Current が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; ps -ef | grep clstrmgrES
+→ Enter を押す
+［画面・出力］
+root 18363 3346 3 11:02:05 - 10:20 /usr/es/sbin/cluster/clstrmgrES
+画面・出力には root が含まれ、clmgr query node 起動確認 エラー詳細の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、検証警告の見落としを切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -g cluster
+→ Enter を押す
+［画面・出力］
+Subsystem         Group            PID          Status
+clstrmgrES        cluster          544802       active
+clcomdES          clcomdES         204920       active
+画面・出力には Subsystem が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Current が画面・出力に表示されること
+② ステップ2 の root が画面・出力に表示されること
+③ ステップ3 の Subsystem が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0139"><h3>clmgr sync cluster 所有先確認 表形式</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clmgr sync cluster 所有先確認 表形式」は、検証後に構成を同期し、クラスタスナップショットを作成する操作を所有先確認の観点で確認する技術項目です。STATE 欄とclst_svcIP_025を同じ記録で見比べることで、所有ノードの誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clmgr sync cluster 所有先確認 表形式」を「clmgr query cluster 所有先確認 製品レベル」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は所有先確認で製品レベルを証跡に残し・クラスタ名・状態・バージョンなどのクラスタ属性を表示するコマ。</li><li>B. 仕様上の役割は移行で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>C. 仕様上の役割は所有先確認で表形式を証跡に残し・検証後に構成を同期し・クラスタスナップショットを作成する操作。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は登録でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能所有先・所有先・表形式でCの記述「検証後に構成を同期し、クラスタスナップショットを作成する」に対応する項目は所有先確認 表形式（clm・表形式・所有先）です。照合所有先・所有先・表形式に関するクラスタ検証の仕様は「検証後に構成を同期し、クラスタスナップショットを作成する操作を所有先」で、確認対象は表形式・所有先・表形式です。比較所有先・所有先・表形式・表形式でA:の所有先確認 製品レベルは「クラスタ名、状態、バージョンなどのクラスタ属」を述べるため、正答側の照合軸はclm・所有先・表形式です。運用所有先・clmでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は表形式・所有先・所有先です。仕様所有先・所有先・表形式でD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は所有先・表形式・表形式です。用語所有先・所有先・表形式という用語は「検証後に構成を同期し、クラスタスナップショットを作成」を指し、照合する値と誤認リスクの組合せは所有先・表形式・表形式です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr sync cluster 所有先確認 表形式</strong></p><p>検証目的: クラスタ検証のclmgr sync cluster 所有先確認 表形式について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+clstat - Cluster Status Monitor
+Cluster: prodcluster025
+State: UP
+SubState: STABLE
+Resource Group: rg_app_025
+State: Online
+画面・出力には clstat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; /usr/es/sbin/cluster/utilities/cldump
+→ Enter を押す
+［画面・出力］
+Cluster prodcluster025
+Node clnode_1 State UP
+Network net_ether_01
+Resource Group rg_app_025 Online
+画面・出力には Cluster が含まれ、clmgr sync cluster 所有先確認 表形式の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、所有ノードの誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a state query cluster
+→ Enter を押す
+［画面・出力］
+STATE=&quot;ONLINE&quot;
+画面・出力には STATE= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の clstat が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の STATE= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0140"><h3>clmgr verify cluster 同期確認 出力比較</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clmgr verify cluster 同期確認 出力比較」は、クラスタトポロジーとリソースの整合性を検査するコマンドを同期確認の観点で確認する技術項目です。STATE 欄とclnode_1を同じ記録で見比べることで、同期前構成の採用を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clmgr verify cluster 同期確認 出力比較」を「同期処理 Cluster Synchronization 性能影響の確認」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はクラスタトポロジーとリソースの整合性を検査するコマンドを同期確認する。同期確認で出力比較を確認するときは出力比較の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割はCluster Synchronizで同期実行から clsnapshot を読み・clsnapshot とである。同期実行からclsnapshotを読ときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>C. 運用時に利用する技術的役割は構成検証のリソース要約と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li><li>D. 運用時に利用する技術的役割は地理的ミラーの項目のsyslog記録と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期確・同期・出力比でAの記述「クラスタトポロジーとリソースの整合性を検査するコマンドを」に対応する項目は同期確認 出力比較（clm・出力比・同期確）です。照合同期確・同期・出力比に関するクラスタ検証の仕様は「クラスタトポロジーとリソースの整合性を検査するコマンドを同期確認する」で、確認対象は出力比・同期確・出力比です。運用同期確・clmでB:の性能影響の確認 SYNC11は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸は出力比・同期・同期確です。項目同期確・同期・出力比でC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は出力比・同期・出力比です。仕様同期確・同期・出力比でD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は同期確・出力比・出力比です。用語同期確・同期・出力比という用語は「クラスタトポロジーとリソースの整合性を検査するコマン」を指し、照合する値と誤認リスクの組合せは同期・出力比・出力比です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr verify cluster 同期確認 出力比較</strong></p><p>検証目的: クラスタ検証のclmgr verify cluster 同期確認 出力比較について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr verify cluster
+→ Enter を押す
+［画面・出力］
+Verification to be performed on the following:
+        Cluster Topology
+        Cluster Resources
+Completed 100 percent of the verification checks
+Verification exiting with error count: 0
+画面・出力には Verification が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query cluster
+→ Enter を押す
+［画面・出力］
+CLUSTER_NAME=&quot;prodcluster041&quot;
+STATE=&quot;ONLINE&quot;
+VERSION=&quot;7.2.2.1&quot;
+画面・出力には CLUSTER が含まれ、clmgr verify cluster 同期確認 出力比較の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、同期前構成の採用を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cv -a name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+clnode_1:NORMAL:ST_STABLE
+clnode_2:NORMAL:ST_STABLE
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Verification が画面・出力に表示されること
+② ステップ2 の CLUSTER が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0141"><h3>clmgr verify cluster 状態確認 状態確認</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 初級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clmgr verify cluster 状態確認 状態確認」は、クラスタトポロジーとリソースの整合性を検査するコマンドを状態確認の観点で確認する技術項目です。STATE 欄とclst_svcIP_001を同じ記録で見比べることで、同期前構成の採用を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clmgr verify cluster 状態確認 状態確認」を「トポロジー Cluster Topology 復旧後の確認 TOPO06」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は検証からVerificationを読むことで検証を確認し・片系定義を全体正本とする誤認を防ぐ。</li><li>B. 仕様上の役割は状態確認で状態確認を確認することで状態確認を確認し・状態確認の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>D. 仕様上の役割は点検操作で判定欄を記録することで獲得イベントを確認し・依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能状態確・状態・状態確でBの記述「クラスタトポロジーとリソースの整合性を検査するコマンドで」に対応する項目は状態確認 状態確認（clm・状態確・状態確）です。照合状態確・状態・状態確に関するクラスタ検証の仕様は「クラスタトポロジーとリソースの整合性を検査するコマンド」で、確認対象は状態確・状態確・状態確です。比較状態確・状態・状態確・状態確でA:の復旧後の確認 TOPO06は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸はclm・状態確・状態確です。項目状態確・状態・状態確でC:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は状態確・状態・状態確です。仕様状態確・状態・状態確でD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は状態確・状態確・状態確です。用語状態確・状態・状態確という用語は「クラスタトポロジーとリソースの整合性を検査するコマン」を指し、照合する値と誤認リスクの組合せは状態・状態確・状態確です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr verify cluster 状態確認 状態確認</strong></p><p>検証目的: クラスタ検証のclmgr verify cluster 状態確認 状態確認について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr verify cluster
+→ Enter を押す
+［画面・出力］
+Verification to be performed on the following:
+        Cluster Topology
+        Cluster Resources
+Completed 100 percent of the verification checks
+Verification exiting with error count: 0
+画面・出力には Verification が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query cluster
+→ Enter を押す
+［画面・出力］
+CLUSTER_NAME=&quot;prodcluster001&quot;
+STATE=&quot;ONLINE&quot;
+VERSION=&quot;7.2.2.1&quot;
+画面・出力には CLUSTER が含まれ、clmgr verify cluster 状態確認 状態確認の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、同期前構成の採用を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cv -a name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+clnode_1:NORMAL:ST_STABLE
+clnode_2:NORMAL:ST_STABLE
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Verification が画面・出力に表示されること
+② ステップ2 の CLUSTER が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0142"><h3>clstat -o 同期確認 統計値</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clstat -o 同期確認 統計値」は、クラスタ、ノード、インターフェース、リソースグループの状態を表示する監視コマンドを同期確認の観点で確認する技術項目です。STATE 欄とclst_svcIP_049を同じ記録で見比べることで、クラスタ版数混在の誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clstat -o 同期確認 統計値」を「同期処理 Cluster Synchronization 引継ぎ記録 SYNC09」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は同期処理で再確認を証跡に残し・Cluster Synchronizで再確認から。</li><li>B. 仕様上の役割は診断で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>C. 仕様上の役割は同期確認で統計値を証跡に残し・クラスタ・ノード・インターフェース・リソースグループの状態を。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は抑止で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期確・同期・統計値でCの記述「クラスタ、ノード、インターフェース」に対応する項目は同期確認 統計値（cls・統計値・同期確）です。照合同期確・同期・統計値に関するクラスタ検証の仕様は「クラスタ、ノード、インターフェース、リソースグループの状態を表示する」で、確認対象は統計値・同期確・統計値です。比較同期確・同期・統計値・統計値でA:の引継ぎ記録 SYNC09は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸はcls・同期確・統計値です。運用同期確・clsでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は統計値・同期・同期確です。仕様同期確・同期・統計値でD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は同期確・統計値・統計値です。用語同期確・同期・統計値という用語は「クラスタ、ノード、インターフェース」を指し、照合する値と誤認リスクの組合せは同期・統計値・統計値です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat -o 同期確認 統計値</strong></p><p>検証目的: クラスタ検証のclstat -o 同期確認 統計値について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start cluster
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: clnode_1
+clnode_1: Exit status = 0
+The cluster is now online.
+画面・出力には Starting が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Verifying additional prerequisites for Dynamic Reconfiguration...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: active.0
+画面・出力には Verifying が含まれ、clstat -o 同期確認 統計値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、クラスタ版数混在の誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cat /usr/es/sbin/cluster/netmon.cf
+→ Enter を押す
+［画面・出力］
+!REQD en0 192.168.100.1
+画面・出力には REQD が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の Verifying が画面・出力に表示されること
+③ ステップ3 の REQD が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0143"><h3>clstat -o 状態確認 出力見出し</h3><p class="kb-meta">分類: クラスタ検証 ・ 難易度: 初級</p><p>PowerHA SystemMirror 7.2 の クラスタ検証 で扱う「clstat -o 状態確認 出力見出し」は、クラスタ、ノード、インターフェース、リソースグループの状態を表示する監視コマンドを状態確認の観点で確認する技術項目です。STATE 欄とcltopinfo 009を同じ記録で見比べることで、クラスタ版数混在の誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「clstat -o 状態確認 出力見出し」を「ノード状態 PowerHA Node State 依存関係の確認 NODE13」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はノード一覧から実状態値を読むことでノード一覧を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>B. 保守作業で参照する機能は調査操作で保守欄を引き継ぎすることで獲得イベントを確認し・自動戻し条件の誤読を防ぐ。</li><li>C. 保守作業で参照する機能は復旧操作で点検欄を確認することで移動履歴を確認し・資源グループ位置の誤認を防ぐ。</li><li>D. 保守作業で参照する機能は状態確認で出力見出しを確認することで出力見出しを確認し・出力見出しの誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能状態確・状態・出力見でDの記述「クラスタ、ノード、インターフェース」に対応する項目は状態確認 出力見出し（cls・出力見・状態確）です。照合状態確・状態・出力見に関するクラスタ検証の仕様は「クラスタ、ノード、インターフェース、リソースグループの状態を表示する」で、確認対象は出力見・状態確・出力見です。比較状態確・状態・出力見・出力見でA:の依存関係の確認 NODE13は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸はcls・状態確・出力見です。運用状態確・clsでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は出力見・状態・状態確です。項目状態確・状態・出力見でC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は出力見・状態・出力見です。用語状態確・状態・出力見という用語は「クラスタ、ノード、インターフェース」を指し、照合する値と誤認リスクの組合せは状態・出力見・出力見です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat -o 状態確認 出力見出し</strong></p><p>検証目的: クラスタ検証のclstat -o 状態確認 出力見出しについて、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ検証の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start cluster
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: clnode_1
+clnode_1: Exit status = 0
+The cluster is now online.
+画面・出力には Starting が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。STATE 欄を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Verifying additional prerequisites for Dynamic Reconfiguration...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: active.0
+画面・出力には Verifying が含まれ、clstat -o 状態確認 出力見出しの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、クラスタ版数混在の誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cat /usr/es/sbin/cluster/netmon.cf
+→ Enter を押す
+［画面・出力］
+!REQD en0 192.168.100.1
+画面・出力には REQD が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の Verifying が画面・出力に表示されること
+③ ステップ3 の REQD が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+## クラスタ起動
+
+
+<section class="kb-item" id="c25-i0144"><h3>cldump 版数確認 キュー状態</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「cldump 版数確認 キュー状態」は、クラスタ構成と状態をスナップショットとして表示するコマンドを版数確認の観点で確認する技術項目です。Current state 行とrg_app_030を同じ記録で見比べることで、所有ノードの誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> cldump 版数確認 キュー状態に関する障害切り分けの前提を確認しています。ノード状態 PowerHA Node State 通常状態の確認 NODE01の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li><li>B. 表示や設定で扱う内容は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証進行率を照合する。</li><li>C. 表示や設定で扱う内容はキュー状態の誤読を避けるため・版数確認でキュー状態を確認するしてキュー状態を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてsyslogを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能版数確・版数・キューでCの記述「クラスタ構成と状態をスナップショットとして表示するコマン」に対応する項目は版数確認 キュー状態（cld・キュー・版数確）です。照合版数確・版数・キューに関するクラスタ起動の仕様は「クラスタ構成と状態をスナップショットとして表示するコマンドを版数確認」で、確認対象はキュー・版数確・キューです。比較版数確・版数・キュー・キューでA:の通常状態の確認 NODE01は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸はcld・版数確・キューです。運用版数確・cldでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はキュー・版数・版数確です。仕様版数確・版数・キューでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は版数確・キュー・キューです。用語版数確・版数・キューという用語は「クラスタ構成と状態をスナップショットとして表示するコ」を指し、照合する値と誤認リスクの組合せは版数・キュー・キューです。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>cldump 版数確認 キュー状態</strong></p><p>検証目的: クラスタ起動のcldump 版数確認 キュー状態について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+clstat - Cluster Status Monitor
+Cluster: prodcluster030
+State: UP
+SubState: STABLE
+Resource Group: rg_app_030
+State: Online
+画面・出力には clstat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; /usr/es/sbin/cluster/utilities/cldump
+→ Enter を押す
+［画面・出力］
+Cluster prodcluster030
+Node clnode_1 State UP
+Network net_ether_01
+Resource Group rg_app_030 Online
+画面・出力には Cluster が含まれ、cldump 版数確認 キュー状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、所有ノードの誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a state query cluster
+→ Enter を押す
+［画面・出力］
+STATE=&quot;ONLINE&quot;
+画面・出力には STATE= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の clstat が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の STATE= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0145"><h3>clmgr query cluster 版数確認 再開位置</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「clmgr query cluster 版数確認 再開位置」は、クラスタ名、状態、バージョンなどのクラスタ属性を表示するコマンドを版数確認の観点で確認する技術項目です。Current state 行とcldump 022を同じ記録で見比べることで、サービスIP定義の不一致を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr query cluster 版数確認 再開位置に関する障害切り分けの前提を確認しています。cldump 版数確認 キュー状態の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は版数確認で再開位置を証跡に残し・クラスタ名・状態・バージョンなどのクラスタ属性を表示するコマ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は版数確認でキュー状態を証跡に残し・クラスタ構成と状態をスナップショットとして表示するコマンドを。</li><li>C. 障害切り分けに用いる役割は監査でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は抑止でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能版数確・版数・再開位でAの記述「クラスタ名、状態、バージョンなどのクラスタ属性を表示する」に対応する項目は版数確認 再開位置（clm・再開位・版数確）です。照合版数確・版数・再開位に関するクラスタ起動の仕様は「クラスタ名、状態、バージョンなどのクラスタ属性を表示するコマンドを版」で、確認対象は再開位・版数確・再開位です。運用版数確・clmでB:の版数確認 キュー状態は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は再開位・版数・版数確です。項目版数確・版数・再開位でC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は再開位・版数・再開位です。仕様版数確・版数・再開位でD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は版数確・再開位・再開位です。用語版数確・版数・再開位という用語は「クラスタ名、状態、バージョンなどのクラスタ属性を表示」を指し、照合する値と誤認リスクの組合せは版数・再開位・再開位です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr query cluster 版数確認 再開位置</strong></p><p>検証目的: クラスタ起動のclmgr query cluster 版数確認 再開位置について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cltopinfo
+→ Enter を押す
+［画面・出力］
+Cluster Name:    prodcluster022
+Heartbeat Type:  Unicast
+Repository Disk: hdisk2
+Resource Group rg_app_022
+Service IP Label clst_svcIP_022
+画面・出力には Cluster が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name     Group State                  Node
+rg_app_022     ONLINE                       clnode_1
+               OFFLINE                      clnode_2
+画面・出力には Group が含まれ、clmgr query cluster 版数確認 再開位置の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、サービスIP定義の不一致を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query resource_group rg_app_022
+→ Enter を押す
+［画面・出力］
+NAME=&quot;rg_app_022&quot;
+STATE=&quot;ONLINE&quot;
+PARTICIPATING_NODES=&quot;clnode_1 clnode_2&quot;
+画面・出力には NAME= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の NAME= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0146"><h3>clmgr start cluster 所有先確認 依存関係</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 上級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「clmgr start cluster 所有先確認 依存関係」は、クラスタサービスを開始し、リソースグループをオンライン化する操作を所有先確認の観点で確認する技術項目です。Current state 行とrg_app_054を同じ記録で見比べることで、クラスタ版数混在の誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr start cluster 所有先確認 依存関係に関する障害切り分けの前提を確認しています。同期処理 Cluster Synchronization 復旧準備 SYNC05の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は復旧準備で同期実行を証跡に残し・Cluster Synchronizで同期実行から。</li><li>B. 表示や設定で扱う内容は所有先確認で依存関係を証跡に残し・クラスタサービスを開始し・リソースグループをオンライン化する。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は移行で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>D. 表示や設定で扱う内容は解析でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。GLVM地理的ミラー syslog entry 0312固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能所有先・所有先・依存関でBの記述「クラスタサービスを開始し、リソースグループをオンライン化」に対応する項目は所有先確認 依存関係（clm・依存関・所有先）です。照合所有先・所有先・依存関に関するクラスタ起動の仕様は「クラスタサービスを開始し、リソースグループをオンライン化する操作を所」で、確認対象は依存関・所有先・依存関です。比較所有先・所有先・依存関・依存関でA:の復旧準備 SYNC05は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸はclm・所有先・依存関です。項目所有先・所有先・依存関でC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は依存関・所有先・依存関です。仕様所有先・所有先・依存関でD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は所有先・依存関・依存関です。用語所有先・所有先・依存関という用語は「クラスタサービスを開始し、リソースグループをオンライ」を指し、照合する値と誤認リスクの組合せは所有先・依存関・依存関です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr start cluster 所有先確認 依存関係</strong></p><p>検証目的: クラスタ起動のclmgr start cluster 所有先確認 依存関係について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start cluster
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: clnode_1
+clnode_1: Exit status = 0
+The cluster is now online.
+画面・出力には Starting が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Verifying additional prerequisites for Dynamic Reconfiguration...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: active.0
+画面・出力には Verifying が含まれ、clmgr start cluster 所有先確認 依存関係の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、クラスタ版数混在の誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cat /usr/es/sbin/cluster/netmon.cf
+→ Enter を押す
+［画面・出力］
+!REQD en0 192.168.100.1
+画面・出力には REQD が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の Verifying が画面・出力に表示されること
+③ ステップ3 の REQD が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0147"><h3>clmgr start cluster 障害切り分け 停止確認</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「clmgr start cluster 障害切り分け 停止確認」は、クラスタサービスを開始し、リソースグループをオンライン化する操作を障害切り分けの観点で確認する技術項目です。Current state 行とclstrmgrES 014を同じ記録で見比べることで、クラスタ版数混在の誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr start cluster 障害切り分け 停止確認に関する障害切り分けの前提を確認しています。clRGinfo 所有先確認 対象ノードの機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては停止確認で停止確認を証跡に残し・クラスタサービスを開始し・リソースグループをオンライン化する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としては所有先確認で対象ノードを証跡に残し・リソースグループの状態と所有ノードを表示するコマンドを所有先。</li><li>C. 機能の説明としては復旧で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>D. 機能の説明としては照合でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能停止確・障害切・停止確でAの記述「クラスタサービスを開始し、リソースグループをオンライン化」に対応する項目は障害切り分け 停止確認（clm・停止確・停止確）です。照合停止確・障害切・停止確に関するクラスタ起動の仕様は「クラスタサービスを開始し、リソースグループをオンライン化する操作」で、確認対象は停止確・停止確・停止確です。運用停止確・clmでB:の所有先確認 対象ノードは「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は停止確・障害切・停止確です。項目停止確・障害切・停止確でC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は停止確・障害切・停止確です。仕様停止確・障害切・停止確でD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は停止確・停止確・停止確です。用語停止確・障害切・停止確という用語は「クラスタサービスを開始し、リソースグループをオンライ」を指し、照合する値と誤認リスクの組合せは障害切・停止確・停止確です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr start cluster 障害切り分け 停止確認</strong></p><p>検証目的: クラスタ起動のclmgr start cluster 障害切り分け 停止確認について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start cluster
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: clnode_1
+clnode_1: Exit status = 0
+The cluster is now online.
+画面・出力には Starting が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Verifying additional prerequisites for Dynamic Reconfiguration...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: active.0
+画面・出力には Verifying が含まれ、clmgr start cluster 障害切り分け 停止確認の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、クラスタ版数混在の誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cat /usr/es/sbin/cluster/netmon.cf
+→ Enter を押す
+［画面・出力］
+!REQD en0 192.168.100.1
+画面・出力には REQD が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の Verifying が画面・出力に表示されること
+③ ステップ3 の REQD が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0148"><h3>cltopinfo トポロジー確認 実行結果</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 初級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「cltopinfo トポロジー確認 実行結果」は、クラスタトポロジー、ネットワーク、サービスIP、リソースグループを表示するコマンドをトポロジー確認の観点で確認する技術項目です。Current state 行とrg_app_006を同じ記録で見比べることで、同期前構成の採用を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> cltopinfo トポロジー確認 実行結果に関する障害切り分けの前提を確認しています。ノード状態 PowerHA Node State 変更後の確認 NODE03の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はイベント確認から終了状態を読むことでイベント確認を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>B. 表示や設定で扱う内容はトポロジー確で実行結果を確認することで実行結果を確認し・実行結果の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することでsyslogを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>D. 表示や設定で扱う内容は復旧操作で点検欄を確認することで資源グループを確認し・資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能トポロ・トポロ・実行結でBの記述「クラスタトポロジー、ネットワーク、サービスIP」に対応する項目はトポロジー確認 実行結果（clt・実行結・トポロ）です。照合トポロ・トポロ・実行結に関するクラスタ起動の仕様は「クラスタトポロジー、ネットワーク、サービスIP」で、確認対象は実行結・トポロ・実行結です。比較トポロ・トポロ・実行結・実行結でA:の変更後の確認 NODE03は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸はclt・トポロ・実行結です。項目トポロ・トポロ・実行結でC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は実行結・トポロ・実行結です。仕様トポロ・トポロ・実行結でD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はトポロ・実行結・実行結です。用語トポロ・トポロ・実行結という用語は「クラスタトポロジー、ネットワーク、サービスIP」を指し、照合する値と誤認リスクの組合せはトポロ・実行結・実行結です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>cltopinfo トポロジー確認 実行結果</strong></p><p>検証目的: クラスタ起動のcltopinfo トポロジー確認 実行結果について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr verify cluster
+→ Enter を押す
+［画面・出力］
+Verification to be performed on the following:
+        Cluster Topology
+        Cluster Resources
+Completed 100 percent of the verification checks
+Verification exiting with error count: 0
+画面・出力には Verification が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query cluster
+→ Enter を押す
+［画面・出力］
+CLUSTER_NAME=&quot;prodcluster006&quot;
+STATE=&quot;ONLINE&quot;
+VERSION=&quot;7.2.2.1&quot;
+画面・出力には CLUSTER が含まれ、cltopinfo トポロジー確認 実行結果の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、同期前構成の採用を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cv -a name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+clnode_1:NORMAL:ST_STABLE
+clnode_2:NORMAL:ST_STABLE
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Verification が画面・出力に表示されること
+② ステップ2 の CLUSTER が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0149"><h3>cltopinfo 整合確認 確認範囲</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「cltopinfo 整合確認 確認範囲」は、クラスタトポロジー、ネットワーク、サービスIP、リソースグループを表示するコマンドを整合確認の観点で確認する技術項目です。Current state 行とcldump 046を同じ記録で見比べることで、同期前構成の採用を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> cltopinfo 整合確認 確認範囲に関する障害切り分けの前提を確認しています。トポロジー Cluster Topology 復旧後の確認 TOPO06の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は片系定義を全体正本とする誤認を避けるため・検証からVerificationを読むして検証を照合する。</li><li>B. 障害切り分けに用いる役割は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてVG varを照合する。</li><li>C. 障害切り分けに用いる役割は確認範囲の誤読を避けるため・確認範囲で確認範囲を確認するして確認範囲を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてsyslogを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能確認範・整合・確認範でCの記述「クラスタトポロジー、ネットワーク、サービスIP」に対応する項目は整合確認 確認範囲（clt・確認範・確認範）です。照合確認範・整合・確認範に関するクラスタ起動の仕様は「クラスタトポロジー、ネットワーク、サービスIP」で、確認対象は確認範・確認範・確認範です。比較確認範・整合・確認範・確認範でA:の復旧後の確認 TOPO06は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸はclt・確認範・確認範です。運用確認範・cltでB:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は確認範・整合・確認範です。仕様確認範・整合・確認範でD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は確認範・確認範・確認範です。用語確認範・整合・確認範という用語は「クラスタトポロジー、ネットワーク、サービスIP」を指し、照合する値と誤認リスクの組合せは整合・確認範・確認範です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>cltopinfo 整合確認 確認範囲</strong></p><p>検証目的: クラスタ起動のcltopinfo 整合確認 確認範囲について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr verify cluster
+→ Enter を押す
+［画面・出力］
+Verification to be performed on the following:
+        Cluster Topology
+        Cluster Resources
+Completed 100 percent of the verification checks
+Verification exiting with error count: 0
+画面・出力には Verification が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query cluster
+→ Enter を押す
+［画面・出力］
+CLUSTER_NAME=&quot;prodcluster046&quot;
+STATE=&quot;ONLINE&quot;
+VERSION=&quot;7.2.2.1&quot;
+画面・出力には CLUSTER が含まれ、cltopinfo 整合確認 確認範囲の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、同期前構成の採用を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cv -a name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+clnode_1:NORMAL:ST_STABLE
+clnode_2:NORMAL:ST_STABLE
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Verification が画面・出力に表示されること
+② ステップ2 の CLUSTER が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0150"><h3>lssrc -ls clstrmgrES 状態確認 区画表示</h3><p class="kb-meta">分類: クラスタ起動 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の クラスタ起動 で扱う「lssrc -ls clstrmgrES 状態確認 区画表示」は、Cluster Manager の状態、クラスタ版数、ノード版数を表示するコマンドを状態確認の観点で確認する技術項目です。Current state 行とclstrmgrES 038を同じ記録で見比べることで、検証警告の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> lssrc -ls clstrmgrES 状態確認 区画表示に関する障害切り分けの前提を確認しています。同期処理 Cluster Synchronization 性能影響の確認の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては同期元を誤ると古い定義を全ノードを避けるため・同期実行からclsnapshotを読むして同期実行を照合する。</li><li>B. 機能の説明としては遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてsyslogを照合する。</li><li>C. 機能の説明としては区画表示の誤読を避けるため・区画表示で区画表示を確認するして区画表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としては依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして優先ノード一を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能区画表・状態・区画表でCの記述「Cluster Manager の状態、クラスタ版数」に対応する項目は状態確認 区画表示（lss・区画表・区画表）です。照合区画表・状態・区画表に関するクラスタ起動の仕様は「Cluster Manager の状態、クラスタ版数」で、確認対象は区画表・区画表・区画表です。比較区画表・状態・区画表・区画表でA:の性能影響の確認 SYNC11は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸はlss・区画表・区画表です。運用区画表・lssでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は区画表・状態・区画表です。仕様区画表・状態・区画表でD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は区画表・区画表・区画表です。用語区画表・状態・区画表という用語は「Cluster Manager の状態」を指し、照合する値と誤認リスクの組合せは状態・区画表・区画表です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>lssrc -ls clstrmgrES 状態確認 区画表示</strong></p><p>検証目的: クラスタ起動のlssrc -ls clstrmgrES 状態確認 区画表示について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、クラスタ起動の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -ls clstrmgrES
+→ Enter を押す
+［画面・出力］
+Current state: ST_STABLE
+CLversion: 16
+local node vrmf is 7200
+cluster fix level is &quot;0&quot;
+画面・出力には Current が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。Current state 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; ps -ef | grep clstrmgrES
+→ Enter を押す
+［画面・出力］
+root 18363 3346 3 11:02:05 - 10:20 /usr/es/sbin/cluster/clstrmgrES
+画面・出力には root が含まれ、lssrc -ls clstrmgrES 状態確認 区画表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、検証警告の見落としを切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -g cluster
+→ Enter を押す
+［画面・出力］
+Subsystem         Group            PID          Status
+clstrmgrES        cluster          544802       active
+clcomdES          clcomdES         204920       active
+画面・出力には Subsystem が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Current が画面・出力に表示されること
+② ステップ2 の root が画面・出力に表示されること
+③ ステップ3 の Subsystem が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+## クラスタ起動・停止
+
+
+<section class="kb-item" id="c25-i0151"><h3>クラスタ起動・停止 Cluster Services Lifecycle ログとの照合 START07</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>ログとの照合では クラスタ起動・停止 の 開始 を主操作として START07 を判定します。時刻と対象識別子への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START07 に残します。ログとの照合を補助する 状態確認 では ST_STABLE を補助値として START07 へ保存します。主判定のログとの照合ではクラスタ起動・停止の 開始 から Exitstatus を読み START07 へ残します。証跡照合のログとの照合ではクラスタ起動・停止の Exitstatus と ST_STABLE を START07 に保存します。記録対応のログとの照合ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START07 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle ログとの照合 START07の技術的な意味を資料で確認するとき、clstat・SNMP clinfoES Status Path 引継ぎ記録との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はクラスタ表示からClusterを読むことでクラスタ表示を確認し・SNMP情報の残留を実ノードを防ぐ。</li><li>B. コマンドまたは機能の用途は変更確認操作で採取欄を棚卸することでAIXエラーを確認し・RPV経路断の見落としを防ぐ。</li><li>C. コマンドまたは機能の用途は主操作で出力欄を評価することでsyslogを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>D. コマンドまたは機能の用途は開始から終了状態を読むことで開始を確認し・管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能開始・管理設でDの記述「Cluster Servicesで開始から 終了状態」に対応する項目はログとの照合 START07（Clu・開始・ログと）です。照合開始・ログとに関するクラスタ起動・停止の仕様は「Cluster Servicesで開始から 終了状態 を読み」で、確認対象は開始・ログと・管理設です。比較停止・ログとでA:の引継ぎ記録 CLSTAT09は「clstatでクラスタ表示から」を述べるため、正答側の照合軸はClu・ログと・開始です。運用ログと・CluでB:のVG STATEは「地理的ミラーの項目のAIXエラー識別子と取得」を述べるため、正答側の照合軸は開始・停止・ログとです。項目開始・ログとでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は管理設・停止・開始です。用語開始・ログとという用語は「Cluster Servicesで開始から」を指し、照合する値と誤認リスクの組合せは停止・開始・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle ログとの照合 START07</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて操作とログを対応し、START07のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START07の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START07の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START07のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の NAME が画面・出力に表示されること
+③ ステップ3 の Group が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0152"><h3>クラスタ起動・停止 Cluster Services Lifecycle 代替経路の確認 START10</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>代替経路の確認では クラスタ起動・停止 の 開始 を主操作として START10 を判定します。主経路との役割差への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START10 に残します。代替経路の確認を補助する 状態確認 では ST_STABLE を補助値として START10 へ保存します。主判定の代替経路の確認ではクラスタ起動・停止の 開始 から Exitstatus を読み START10 へ残します。証跡照合の代替経路の確認ではクラスタ起動・停止の Exitstatus と ST_STABLE を START10 に保存します。記録対応の代替経路の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START10 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 代替経路の確認 START10の設定や表示を読む前に役割を確認します。同期処理 Cluster Synchronization 復旧準備 SYNC05ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はCluster Synchronizで同期実行から clsnapshot を読み・clsnapshot とである。同期実行からclsnapshotを読ときは同期元を誤ると古い定義を全ノを防ぐ。</li><li>B. 一次資料が示す主目的はCluster TopologyのODM登録値と取得時刻を記録し・ノード間ODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間ODM差分の残存を防ぐ。</li><li>C. 一次資料が示す主目的は地理的ミラーの項目のVG vary状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li><li>D. 一次資料が示す主目的はCluster Servicesで開始から 終了状態 を読み・終了状態 と ST_STABLE を照合する。開始から終了状態を読むときは管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能開始・管理設でDの記述「Cluster Servicesで開始から 終了状態」に対応する項目は代替経路の確認 START10（Clu・開始・代替経）です。照合開始・代替経に関するクラスタ起動・停止の仕様は「Cluster Servicesで開始から 終了状態 を読み」で、確認対象は開始・代替経・管理設です。比較停止・代替経でA:の復旧準備 SYNC05は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸はClu・代替経・開始です。運用代替経・CluでB:のCluster Topologyは「Cluster TopologyのODM登録」を述べるため、正答側の照合軸は開始・停止・代替経です。項目開始・代替経でC:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は管理設・停止・開始です。用語開始・代替経という用語は「Cluster Servicesで開始から」を指し、照合する値と誤認リスクの組合せは停止・開始・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 代替経路の確認 START10</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて代替手段の成立を確認し、START10のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START10の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START10の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START10のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の NAME が画面・出力に表示されること
+③ ステップ3 の Group が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0153"><h3>クラスタ起動・停止 Cluster Services Lifecycle 依存関係の確認 START13</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>依存関係の確認では クラスタ起動・停止 の 開始 を主操作として START13 を判定します。前提資源と後続処理の順序への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START13 に残します。依存関係の確認を補助する 状態確認 では ST_STABLE を補助値として START13 へ保存します。主判定の依存関係の確認ではクラスタ起動・停止の 開始 から Exitstatus を読み START13 へ残します。証跡照合の依存関係の確認ではクラスタ起動・停止の Exitstatus と ST_STABLE を START13 に保存します。記録対応の依存関係の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START13 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 依存関係の確認 START13の役割を調べています。同期処理 Cluster Synchronization 復旧準備 SYNC05の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は同期元を誤ると古い定義を全ノードを避けるため・同期実行からclsnapshotを読むして同期実行を照合する。</li><li>B. 障害切り分けに用いる役割はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてAIXエラーを照合する。</li><li>C. 障害切り分けに用いる役割は管理設定と資源状態の混同を避けるため・開始から終了状態を読むして開始を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割はディスク状態の誤読を避けるため・起動確認でディスク状態を確認するしてディスク状態を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能開始・管理設でCの記述「Cluster Servicesで開始から 終了状態」に対応する項目は依存関係の確認 START13（Clu・開始・依存関）です。照合開始・依存関に関するクラスタ起動・停止の仕様は「Cluster Servicesで開始から 終了状態 を読み」で、確認対象は開始・依存関・管理設です。比較停止・依存関でA:の復旧準備 SYNC05は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸はClu・依存関・開始です。運用依存関・CluでB:のVG STATEは「地理的ミラーの項目のAIXエラー識別子と取得」を述べるため、正答側の照合軸は開始・停止・依存関です。仕様開始・依存関でD:の起動確認 ディスク状態は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は依存関・管理設・開始です。用語開始・依存関という用語は「Cluster Servicesで開始から」を指し、照合する値と誤認リスクの組合せは停止・開始・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 依存関係の確認 START13</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて依存資源を点検し、START13のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START13の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START13の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START13のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の NAME が画面・出力に表示されること
+③ ステップ3 の Group が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0154"><h3>クラスタ起動・停止 Cluster Services Lifecycle 停止前の確認 START14</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>停止前の確認では クラスタ起動・停止 の 状態確認 を主操作として START14 を判定します。処理中資源と未完了要求への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START14 に残します。停止前の確認を補助する RG確認 では app_rg を補助値として START14 へ保存します。主判定の停止前の確認ではクラスタ起動・停止の 状態確認 から ST_STABLE を読み START14 へ残します。証跡照合の停止前の確認ではクラスタ起動・停止の ST_STABLE と app_rg を START14 に保存します。記録対応の停止前の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START14 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 停止前の確認 START14について構成や状態を確認します。リソースグループ制御 Online Node 0014ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するしてRG現在位置を照合する。リソースグループ制御 Online Node 0014固有の属性も確認対象に含める。</li><li>B. 状態を読み取るための働きは管理設定と資源状態の混同を避けるため・状態確認からST_STABLEを読むして状態確認を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きは検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。</li><li>D. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして失敗ラベルを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能状態確・管理設でBの記述「Cluster Servicesで状態確認から」に対応する項目は停止前の確認 START14（Clu・状態確・停止確）です。照合状態確・停止確に関するクラスタ起動・停止の仕様は「Cluster Servicesで状態確認から ST_STABLE」で、確認対象は状態確・停止確・管理設です。比較停止・停止確でA:のOnline Nodeは「Online NodeのRG現在位置と取得時」を述べるため、正答側の照合軸はClu・停止確・状態確です。項目状態確・停止確でC:のVerificationは「Verificationのリソース要約と取得」を述べるため、正答側の照合軸は管理設・停止・状態確です。仕様状態確・停止確でD:のEvent Summaryは「Event Summaryの失敗ラベルと取得」を述べるため、正答側の照合軸は停止確・管理設・状態確です。用語状態確・停止確という用語は「Cluster Servicesで状態確認から」を指し、照合する値と誤認リスクの組合せは停止・状態確・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 停止前の確認 START14</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて安全な停止条件を確認し、START14のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START14の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START14のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START14の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の NAME が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の Starting が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0155"><h3>クラスタ起動・停止 Cluster Services Lifecycle 再始動後の確認 START15</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>再始動後の確認では クラスタ起動・停止 の RG確認 を主操作として START15 を判定します。再開点と未処理データへの注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START15 に残します。再始動後の確認を補助する 開始 では Exitstatus を補助値として START15 へ保存します。主判定の再始動後の確認ではクラスタ起動・停止の RG確認 から app_rg を読み START15 へ残します。証跡照合の再始動後の確認ではクラスタ起動・停止の app_rg と Exitstatus を START15 に保存します。記録対応の再始動後の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START15 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 再始動後の確認 START15の技術的な意味を資料で確認するとき、GLVM地理的ミラー Mirror Pool 0015との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は監査操作で記録欄を比較することでVG varを確認し・syslogとhacmp.oを防ぐ。</li><li>B. 管理対象との関係を表す説明は監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。</li><li>C. 管理対象との関係を表す説明はRG確認からapp_rgを読むことでRG確認を確認し・管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は記録操作で証跡欄を照合することで検証進行率を確認し・未同期構成の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能RG確・管理設でCの記述「Cluster ServicesでRG確認から」に対応する項目は再始動後の確認 START15（Clu・RG確・再始動）です。照合RG確・再始動に関するクラスタ起動・停止の仕様は「Cluster ServicesでRG確認から app_rg」で、確認対象はRG確・再始動・管理設です。比較停止・再始動でA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸はClu・再始動・RG確です。運用再始動・CluでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はRG確・停止・再始動です。仕様RG確・再始動でD:のCommand Statusは「SMIT Commandの検証進行率と取得時」を述べるため、正答側の照合軸は再始動・管理設・RG確です。用語RG確・再始動という用語は「Cluster ServicesでRG確認から」を指し、照合する値と誤認リスクの組合せは停止・RG確・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 再始動後の確認 START15</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて再始動結果を検証し、START15のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START15のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START15の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START15の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Group が画面・出力に表示されること
+② ステップ2 の Starting が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0156"><h3>クラスタ起動・停止 Cluster Services Lifecycle 変更前の確認 START02</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>変更前の確認では クラスタ起動・停止 の 状態確認 を主操作として START02 を判定します。変更対象と非対象の境界への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START02 に残します。変更前の確認を補助する RG確認 では app_rg を補助値として START02 へ保存します。主判定の変更前の確認ではクラスタ起動・停止の 状態確認 から ST_STABLE を読み START02 へ残します。証跡照合の変更前の確認ではクラスタ起動・停止の ST_STABLE と app_rg を START02 に保存します。記録対応の変更前の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START02 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 変更前の確認 START02の設定や表示を読む前に役割を確認します。同期処理 Cluster Synchronization 権限境界の確認ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは再確認からfalseを読むことで再確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li><li>B. 状態を読み取るための働きは照合操作で確認欄を採取することでAIXエラーを確認し・ミラー再同期条件の誤読を防ぐ。GLVM地理的ミラー VG STATE 0108固有の属性も確認対象に含める。</li><li>C. 状態を読み取るための働きは状態確認からST_STABLEを読むことで状態確認を確認し・管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは停止確認で停止確認を確認することで停止確認を確認し・停止確認の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 変更確認対象状態確認でCの記述「Cluster Servicesで状態確認からST_STABLEを読」に対応する項目は変更前の確認 START02（Clust・管理設・状態確・変更確認）です。変更確認時の状態確認に関するクラスタ起動・停止の仕様は「Cluster Servicesで状態確認からST_STABLEを読」で、確認対象はClus・管理設・状態確・変更確認です。Cl・権限・再確認のA:は「Cluster Synchronizで再確認からfalseを読み」を述べ、対象は権限境界の確認 SYNC12（Clust・同期元・再確認・権限境界）です。移行対象AIXエラのB:は「GLVMのAIXエラー識別子と取得時刻を記録し」を述べ、対象はVG STATE（地理的ミラ・ミラー・AIX・移行）です。停止確認を停止確認のD:は「クラスタサービスを開始し、リソースグループをオンライン化する操作」を述べ、対象は障害切り分け 停止確認（clmgr・停止確・停止確・停止確認）です。状態確認を変更確認という用語は「Cluster Servicesで状態確認からST_」を指し、変更前の確認 START02（Clust・管理設・状態確・変更確認）で照合する値は状態確認です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 変更前の確認 START02</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて変更前の証跡を保存し、START02のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START02の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START02のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START02の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の NAME が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の Starting が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0157"><h3>クラスタ起動・停止 Cluster Services Lifecycle 変更後の確認 START03</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>変更後の確認では クラスタ起動・停止 の RG確認 を主操作として START03 を判定します。反映値と残存値への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START03 に残します。変更後の確認を補助する 開始 では Exitstatus を補助値として START03 へ保存します。主判定の変更後の確認ではクラスタ起動・停止の RG確認 から app_rg を読み START03 へ残します。証跡照合の変更後の確認ではクラスタ起動・停止の app_rg と Exitstatus を START03 に保存します。記録対応の変更後の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START03 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 変更後の確認 START03を同一分類のclstat・SNMP clinfoES Status Path 依存関係の確認と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は依存関係確認でclinfoを証跡に残し・clstatでclinfoES状態からclinfoESを読み。</li><li>B. 管理対象との関係を表す説明は保守でミラー更新状を証跡に残し・GLVMのミラー更新状態と取得時刻を記録し。</li><li>C. 管理対象との関係を表す説明は変更確認でRG確認を証跡に残し・Cluster ServicesでRG確認からapp_rgを。 <span class="kb-ok">✅ 正解</span></li><li>D. 管理対象との関係を表す説明は解析でsyslogを証跡に残し・GLVMのsyslog記録と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 変更確認対象RG確認でCの記述「Cluster ServicesでRG確認からapp_rgを読みであ」に対応する項目は変更後の確認 START03（Clust・管理設・RG確・変更確認）です。変更確認時のRG確認に関するクラスタ起動・停止の仕様は「Cluster ServicesでRG確認からapp_rgを読み」で、確認対象はClus・管理設・RG確・変更確認です。cl・依存・clinのA:は「clstatでclinfoES状態からclinfoESを読み」を述べ、対象は依存関係の確認 CLSTAT13（clsta・SNM・cli・依存関係）です。保守対象ミラー更新のB:は「GLVMのミラー更新状態と取得時刻を記録し」を述べ、対象はRPV Server（地理的ミラ・片側V・ミラー・保守）です。sysloを解析のD:は「GLVMのsyslog記録と取得時刻を記録し」を述べ、対象はsyslog entry（地理的ミラ・ミラー・sys・解析）です。RG確認を変更確認という用語は「Cluster ServicesでRG確認からapp」を指し、変更後の確認 START03（Clust・管理設・RG確・変更確認）で照合する値はRG確認です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 変更後の確認 START03</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて変更結果を検証し、START03のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START03のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START03の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START03の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Group が画面・出力に表示されること
+② ステップ2 の Starting が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0158"><h3>クラスタ起動・停止 Cluster Services Lifecycle 引継ぎ記録 START09</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>引継ぎ記録では クラスタ起動・停止 の RG確認 を主操作として START09 を判定します。次担当者が追跡できる証跡への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START09 に残します。引継ぎ記録を補助する 開始 では Exitstatus を補助値として START09 へ保存します。主判定の引継ぎ記録ではクラスタ起動・停止の RG確認 から app_rg を読み START09 へ残します。証跡照合の引継ぎ記録ではクラスタ起動・停止の app_rg と Exitstatus を START09 に保存します。記録対応の引継ぎ記録ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START09 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 引継ぎ記録 START09に関する障害切り分けの前提を確認しています。資源依存関係 Resource Group Dependency 性能影響の確認の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はRG確認からapp_rgを読むことでRG確認を確認し・管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はRG一覧からdatabase_rgを読むことでRG一覧を確認し・依存順を無視して子資源を先にを防ぐ。</li><li>C. 表示や設定で扱う内容は主操作で出力欄を評価することでsyslogを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>D. 表示や設定で扱う内容はトポロジー確で実行結果を確認することで実行結果を確認し・実行結果の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能RG確・管理設でAの記述「Cluster ServicesでRG確認から」に対応する項目は引継ぎ記録 START09（Clu・RG確・クラス）です。照合RG確・クラスに関するクラスタ起動・停止の仕様は「Cluster ServicesでRG確認から app_rg」で、確認対象はRG確・クラス・管理設です。運用クラス・CluでB:の性能影響の確認 DEP11は「Resource GroupでRG一覧から」を述べるため、正答側の照合軸はRG確・停止・クラスです。項目RG確・クラスでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は管理設・停止・RG確です。仕様RG確・クラスでD:のトポロジー確認 実行結果は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸はクラス・管理設・RG確です。用語RG確・クラスという用語は「Cluster ServicesでRG確認から」を指し、照合する値と誤認リスクの組合せは停止・RG確・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 引継ぎ記録 START09</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて再現可能な記録を作成し、START09のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START09のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START09の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START09の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Group が画面・出力に表示されること
+② ステップ2 の Starting が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0159"><h3>クラスタ起動・停止 Cluster Services Lifecycle 復旧後の確認 START06</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>復旧後の確認では クラスタ起動・停止 の RG確認 を主操作として START06 を判定します。再発していないことを示す値への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START06 に残します。復旧後の確認を補助する 開始 では Exitstatus を補助値として START06 へ保存します。主判定の復旧後の確認ではクラスタ起動・停止の RG確認 から app_rg を読み START06 へ残します。証跡照合の復旧後の確認ではクラスタ起動・停止の app_rg と Exitstatus を START06 に保存します。記録対応の復旧後の確認ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START06 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 復旧後の確認 START06について構成や状態を確認します。資源依存関係 Resource Group Dependency 障害切り分けではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはResource Groupで依存照会から START_AFTER を読み・START_AFTER とである。依存照会からSTART_AFTERをときは依存順を無視して子資源を先にを防ぐ。</li><li>B. 対象資源に対する働きはResource Groupの優先ノード一覧と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li><li>C. 対象資源に対する働きはCluster TopologyのODM登録値と取得時刻を記録し・ノード間ODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間ODM差分の残存を防ぐ。</li><li>D. 対象資源に対する働きはCluster ServicesでRG確認から app_rg を読み・app_rg と 終了状態 を照合する。RG確認からapp_rgを読むときは管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能RG確・管理設でDの記述「Cluster ServicesでRG確認から」に対応する項目は復旧後の確認 START06（Clu・RG確・復旧確）です。照合RG確・復旧確に関するクラスタ起動・停止の仕様は「Cluster ServicesでRG確認から app_rg」で、確認対象はRG確・復旧確・管理設です。比較停止・復旧確でA:の障害切り分け DEP04は「Resource Groupで依存照会から」を述べるため、正答側の照合軸はClu・復旧確・RG確です。運用復旧確・CluでB:のGroup Nameは「Resource Groupの優先ノード一覧」を述べるため、正答側の照合軸はRG確・停止・復旧確です。項目RG確・復旧確でC:のCluster Topologyは「Cluster TopologyのODM登録」を述べるため、正答側の照合軸は管理設・停止・RG確です。用語RG確・復旧確という用語は「Cluster ServicesでRG確認から」を指し、照合する値と誤認リスクの組合せは停止・RG確・管理設です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 復旧後の確認 START06</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて復旧後の安定性を確認し、START06のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START06のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START06の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START06の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Group が画面・出力に表示されること
+② ステップ2 の Starting が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0160"><h3>クラスタ起動・停止 Cluster Services Lifecycle 復旧準備 START05</h3><p class="kb-meta">分類: クラスタ起動・停止 ・ 難易度: 中級</p><p>復旧準備では クラスタ起動・停止 の 状態確認 を主操作として START05 を判定します。再開前に必要な整合性への注意として「MANAGE=offlineとMANAGE=moveを取り違えてサービス停止を招く危険があります」を START05 に残します。復旧準備を補助する RG確認 では app_rg を補助値として START05 へ保存します。主判定の復旧準備ではクラスタ起動・停止の 状態確認 から ST_STABLE を読み START05 へ残します。証跡照合の復旧準備ではクラスタ起動・停止の ST_STABLE と app_rg を START05 に保存します。記録対応の復旧準備ではクラスタ起動・停止の Exit StatusとRG Handling の証跡へ START05 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ起動・停止 Cluster Services Lifecycle 復旧準備 START05の役割を調べています。同期処理 Cluster Synchronization 復旧準備 SYNC05の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては同期実行からclsnapshotを読むことで同期実行を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li><li>B. 機能の説明としては確認操作で状態欄を整理することでROHAレポを確認し・ノード間ODM差分の残存を防ぐ。</li><li>C. 機能の説明としては照合操作で確認欄を採取することでAIXエラーを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>D. 機能の説明としては状態確認からST_STABLEを読むことで状態確認を確認し・管理設定と資源状態の混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 復旧準備対象状態確認でDの記述「Cluster Servicesで状態確認からST_STABLEを読」に対応する項目は復旧準備 START05（Clust・管理設・状態確・復旧準備）です。復旧準備時の状態確認に関するクラスタ起動・停止の仕様は「Cluster Servicesで状態確認からST_STABLEを読」で、確認対象はClus・管理設・状態確・復旧準備です。Cl・復旧・同期実行のA:は「Cluster Synchronizで同期実行からclsnapsho」を述べ、対象は復旧準備 SYNC05（Clust・同期元・同期実・復旧準備）です。登録対象ROHAレのB:は「clverify.logのROHAレポートと取得時刻を記録し」を述べ、対象はクラスタ構成検証 clverify.（clver・ノード・ROH・登録）です。解除時のAIXエラのC:は「GLVMのAIXエラー識別子と取得時刻を記録し」を述べ、対象はVG STATE（地理的ミラ・ミラー・AIX・解除）です。状態確認を復旧準備という用語は「Cluster Servicesで状態確認からST_」を指し、復旧準備 START05（Clust・管理設・状態確・復旧準備）で照合する値は状態確認です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ起動・停止 Cluster Services Lifecycle 復旧準備 START05</strong></p><p>検証目的: クラスタ起動・停止のCluster Services Lifecycleについて復旧条件を確認し、START05のExit StatusとRG Handlingを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象START05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr -cva name,state,raw_state query nodeを指定し、START05の状態確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cva name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+node1:NORMAL:ST_STABLE
+node2:NORMAL:ST_STABLE
+画面・出力にあるNAMEを読み、Exit StatusとRG Handlingと対象START05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclRGinfoを指定し、START05のRG確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name Group State Node
+app_rg ONLINE node1
+app_rg OFFLINE node2
+画面・出力にあるGroupを読み、Exit StatusとRG Handlingと対象START05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2のクラスタ起動・停止を確認する入力画面です。COMMAND入力口へclmgr start node node2を指定し、START05の開始を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start node node2
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: node2
+/usr/es/sbin/cluster/etc/rc.cluster -boot -N -A -b -P cl_rc_cluster
+Exit status = 0
+画面・出力にあるStartingを読み、Exit StatusとRG Handlingと対象START05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の NAME が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の Starting が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>

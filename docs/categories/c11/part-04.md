@@ -1,0 +1,2310 @@
+---
+search:
+  exclude: true
+---
+
+# IBM IIDR 11.4 — 詳細 (4/4)
+
+[← IBM IIDR 11.4 の概要へ戻る](index.md)
+
+
+## ログ依存・サポート
+
+
+<section class="kb-item" id="c11-i0498"><h3>ログ依存・サポート Log Dependency 依存関係の確認 LOG13</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>依存関係の確認では ログ依存・サポート の 依存表示 を主操作として LOG13 を判定します。前提資源と後続処理の順序への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG13 に残します。依存関係の確認を補助する 購読確認 では Inactive を補助値として LOG13 へ保存します。主判定の依存関係の確認ではログ依存・サポートの 依存表示 から Oldestrequired を読み LOG13 へ残します。証跡照合の依存関係の確認ではログ依存・サポートの Oldestrequired と Inactive を LOG13 に保存します。記録対応の依存関係の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG13 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 依存関係の確認 LOG13に関する障害切り分けの前提を確認しています。performance statistics ログ位置照合 集約結果の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はサブスクリプションやデータストアの処理量と遅延を測る情報である。ログ位置照合で集約結果を確認するときは集約結果の誤読を防ぐ。</li><li>B. 表示や設定で扱う内容はサブスクリプションの16進ブックマークと取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。複製位置管理 Subscription 0120固有の属性も確認対象に含める。</li><li>C. 表示や設定で扱う内容は変更データ取得 データストアでイベント確認から communication を読みである。イベント確認からcommunicatときはホスト名変更後の購読構成を更を防ぐ。</li><li>D. 表示や設定で扱う内容はログ依存で依存表示から Oldestrequired を読み・Oldestrequired とである。依存表示からOldestrequirときは休止購読を見落として必要ログを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能依存表・休止購でDの記述「ログ依存で依存表示から Oldestrequired」に対応する項目は依存関係の確認 LOG13（ログ依・依存表・依存関）です。照合依存表・依存関に関するログ依存・サポートの仕様は「ログ依存で依存表示から Oldestrequired を読み」で、確認対象は依存表・依存関・休止購です。比較サポー・依存関でA:のログ位置照合 集約結果は「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸はログ依・依存関・依存表です。運用依存関・ログ依でB:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は依存表・サポー・依存関です。項目依存表・依存関でC:の変更後の確認 STORE03は「変更データ取得 データストアでイベント確認か」を述べるため、正答側の照合軸は休止購・サポー・依存表です。用語依存表・依存関という用語は「ログ依存で依存表示から Oldestrequired」を指し、照合する値と誤認リスクの組合せはサポー・依存表・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 依存関係の確認 LOG13</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて依存資源を点検し、LOG13のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG13の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB13 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB13を指定し、LOG13の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB13
+→ Enter を押す
+［画面・出力］
+Subscription SUB13 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG13.zipを指定し、LOG13の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG13.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG13.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Inactive が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0499"><h3>ログ依存・サポート Log Dependency 停止前の確認 LOG14</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>停止前の確認では ログ依存・サポート の 購読確認 を主操作として LOG14 を判定します。処理中資源と未完了要求への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG14 に残します。停止前の確認を補助する 支援情報 では Returnvalue を補助値として LOG14 へ保存します。主判定の停止前の確認ではログ依存・サポートの 購読確認 から Inactive を読み LOG14 へ残します。証跡照合の停止前の確認ではログ依存・サポートの Inactive と Returnvalue を LOG14 に保存します。記録対応の停止前の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG14 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 停止前の確認 LOG14の設定や表示を読む前に役割を確認します。replication mapping ログ位置照合 接続先ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はソース表とターゲット表の対応および列変換を示す定義である。ログ位置照合で接続先を確認するときは接続先の誤読を防ぐ。</li><li>B. 一次資料が示す主目的は変更データ取得のミラー開始と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。CDCミラーリング Event Severity 0124固有の属性も確認対象に含める。</li><li>C. 一次資料が示す主目的は後の表定義更新の項目の表定義再読込と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。</li><li>D. 一次資料が示す主目的はログ依存で購読確認から Inactive を読み・Inactive と Returnvalue を照合する。購読確認からInactiveを読むときは休止購読を見落として必要ログを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能購読確・休止購でDの記述「ログ依存で購読確認から Inactive を読み」に対応する項目は停止前の確認 LOG14（ログ依・購読確・停止確）です。照合購読確・停止確に関するログ依存・サポートの仕様は「ログ依存で購読確認から Inactive を読み、Inactive」で、確認対象は購読確・停止確・休止購です。比較サポー・停止確でA:のログ位置照合 接続先は「ソース表とターゲット表の対応および列変換を示」を述べるため、正答側の照合軸はログ依・停止確・購読確です。運用停止確・ログ依でB:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸は購読確・サポー・停止確です。項目購読確・停止確でC:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は休止購・サポー・購読確です。用語購読確・停止確という用語は「ログ依存で購読確認から Inactive を読み」を指し、照合する値と誤認リスクの組合せはサポー・購読確・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 停止前の確認 LOG14</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて安全な停止条件を確認し、LOG14のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB14を指定し、LOG14の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB14
+→ Enter を押す
+［画面・出力］
+Subscription SUB14 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG14.zipを指定し、LOG14の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG14.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG14.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG14の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB14 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Inactive が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0500"><h3>ログ依存・サポート Log Dependency 再始動後の確認 LOG15</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>再始動後の確認では ログ依存・サポート の 支援情報 を主操作として LOG15 を判定します。再開点と未処理データへの注意として「休止購読を見落として必要ログを削除する危険があります」を LOG15 に残します。再始動後の確認を補助する 依存表示 では Oldestrequired を補助値として LOG15 へ保存します。主判定の再始動後の確認ではログ依存・サポートの 支援情報 から Returnvalue を読み LOG15 へ残します。証跡照合の再始動後の確認ではログ依存・サポートの Returnvalue と Oldestrequired を LOG15 に保存します。記録対応の再始動後の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG15 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 再始動後の確認 LOG15を同一分類のcapture service 開始位置指定 検査エンジンと比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はログ依存で支援情報から Returnvalue を読み・Returnvalue とである。支援情報からReturnvalueをときは休止購読を見落として必要ログを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 構成を確認する際の意味はソース変更を読み取りサブスクリプションへ渡す処理である。マッピングで検査エンジンを確認するときは検査エンジンの誤読を防ぐ。</li><li>C. 構成を確認する際の意味は後の表定義更新の項目のサブスクリプション記述と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。</li><li>D. 構成を確認する際の意味は変更データ取得 データストアでイベント確認から communication を読みである。イベント確認からcommunicatときはホスト名変更後の購読構成を更を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能支援情・休止購でAの記述「ログ依存で支援情報から Returnvalue を読み」に対応する項目は再始動後の確認 LOG15（ログ依・支援情・再始動）です。照合支援情・再始動に関するログ依存・サポートの仕様は「ログ依存で支援情報から Returnvalue を読み」で、確認対象は支援情・再始動・休止購です。運用再始動・ログ依でB:の開始位置指定 検査エンジンは「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は支援情・サポー・再始動です。項目支援情・再始動でC:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は休止購・サポー・支援情です。仕様支援情・再始動でD:の引継ぎ記録 STORE09は「変更データ取得 データストアでイベント確認か」を述べるため、正答側の照合軸は再始動・休止購・支援情です。用語支援情・再始動という用語は「ログ依存で支援情報から Returnvalue」を指し、照合する値と誤認リスクの組合せはサポー・支援情・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 再始動後の確認 LOG15</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて再始動結果を検証し、LOG15のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG15.zipを指定し、LOG15の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG15.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG15.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG15の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB15 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB15を指定し、LOG15の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB15
+→ Enter を押す
+［画面・出力］
+Subscription SUB15 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Inactive が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0501"><h3>ログ依存・サポート Log Dependency 変更前の確認 LOG02</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>変更前の確認では ログ依存・サポート の 購読確認 を主操作として LOG02 を判定します。変更対象と非対象の境界への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG02 に残します。変更前の確認を補助する 支援情報 では Returnvalue を補助値として LOG02 へ保存します。主判定の変更前の確認ではログ依存・サポートの 購読確認 から Inactive を読み LOG02 へ残します。証跡照合の変更前の確認ではログ依存・サポートの Inactive と Returnvalue を LOG02 に保存します。記録対応の変更前の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG02 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 変更前の確認 LOG02について構成や状態を確認します。ログ依存・サポート Log Dependency 代替経路の確認 LOG10ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は代替経路確認で依存表示を証跡に残し・ログ依存で依存表示から Oldestrequired。</li><li>B. 一次資料が示す主目的は移行でサブスクリプを証跡に残し・変更データ取得のサブスクリプション状態と取得時刻を記録し。</li><li>C. 一次資料が示す主目的は変更確認で購読確認を証跡に残し・ログ依存で購読確認から Inactive を読み。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は解析で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・重複反映を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能購読確・休止購でCの記述「ログ依存で購読確認から Inactive を読み」に対応する項目は変更前の確認 LOG02（ログ依・購読確・変更確）です。照合購読確・変更確に関するログ依存・サポートの仕様は「ログ依存で購読確認から Inactive を読み、Inactive」で、確認対象は購読確・変更確・休止購です。比較サポー・変更確でA:の代替経路の確認 LOG10は「ログ依存で依存表示から Oldestrequ」を述べるため、正答側の照合軸はログ依・変更確・購読確です。運用変更確・ログ依でB:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸は購読確・サポー・変更確です。仕様購読確・変更確でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は変更確・休止購・購読確です。用語購読確・変更確という用語は「ログ依存で購読確認から Inactive を読み」を指し、照合する値と誤認リスクの組合せはサポー・購読確・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 変更前の確認 LOG02</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて変更前の証跡を保存し、LOG02のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB02を指定し、LOG02の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB02
+→ Enter を押す
+［画面・出力］
+Subscription SUB02 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG02.zipを指定し、LOG02の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG02.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG02.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG02の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB02 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Inactive が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0502"><h3>ログ依存・サポート Log Dependency 変更後の確認 LOG03</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>変更後の確認では ログ依存・サポート の 支援情報 を主操作として LOG03 を判定します。反映値と残存値への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG03 に残します。変更後の確認を補助する 依存表示 では Oldestrequired を補助値として LOG03 へ保存します。主判定の変更後の確認ではログ依存・サポートの 支援情報 から Returnvalue を読み LOG03 へ残します。証跡照合の変更後の確認ではログ依存・サポートの Returnvalue と Oldestrequired を LOG03 に保存します。記録対応の変更後の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG03 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 変更後の確認 LOG03の技術的な意味を資料で確認するとき、DDL後の表定義更新 Subscription 0002との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は点検操作で判定欄を記録することでログ先頭到達を確認し・表定義未更新を防ぐ。</li><li>B. 構成を確認する際の意味は主操作で出力欄を評価することで16進ブックを確認し・ベンダー指示なしの位置変更を防ぐ。複製位置管理 Subscription 0105固有の属性も確認対象に含める。</li><li>C. 構成を確認する際の意味は点検操作で判定欄を記録することでサブスクリプを確認し・表定義未更新を防ぐ。</li><li>D. 構成を確認する際の意味は支援情報からReturnvalueを読むことで支援情報を確認し・休止購読を見落として必要ログを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能支援情・休止購でDの記述「ログ依存で支援情報から Returnvalue を読み」に対応する項目は変更後の確認 LOG03（ログ依・支援情・変更確）です。照合支援情・変更確に関するログ依存・サポートの仕様は「ログ依存で支援情報から Returnvalue を読み」で、確認対象は支援情・変更確・休止購です。比較サポー・変更確でA:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸はログ依・変更確・支援情です。運用変更確・ログ依でB:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は支援情・サポー・変更確です。項目支援情・変更確でC:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は休止購・サポー・支援情です。用語支援情・変更確という用語は「ログ依存で支援情報から Returnvalue」を指し、照合する値と誤認リスクの組合せはサポー・支援情・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 変更後の確認 LOG03</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて変更結果を検証し、LOG03のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG03.zipを指定し、LOG03の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG03.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG03.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG03の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB03 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB03を指定し、LOG03の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB03
+→ Enter を押す
+［画面・出力］
+Subscription SUB03 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Inactive が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0503"><h3>ログ依存・サポート Log Dependency 引継ぎ記録 LOG09</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>引継ぎ記録では ログ依存・サポート の 支援情報 を主操作として LOG09 を判定します。次担当者が追跡できる証跡への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG09 に残します。引継ぎ記録を補助する 依存表示 では Oldestrequired を補助値として LOG09 へ保存します。主判定の引継ぎ記録ではログ依存・サポートの 支援情報 から Returnvalue を読み LOG09 へ残します。証跡照合の引継ぎ記録ではログ依存・サポートの Returnvalue と Oldestrequired を LOG09 に保存します。記録対応の引継ぎ記録ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG09 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 引継ぎ記録 LOG09の役割を調べています。refresh 遅延監視 入力欄の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては支援情報からReturnvalueを読むことで支援情報を確認し・休止購読を見落として必要ログを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはマッピングで入力欄を確認することで入力欄を確認し・入力欄の誤読を防ぐ。</li><li>C. 機能の説明としては復旧操作で点検欄を確認することで再開条件を確認し・データ定義対象表の漏れを防ぐ。</li><li>D. 機能の説明としては記録操作で証跡欄を照合することでイベントログを確認し・初期ロード未完了の見落としを防ぐ。CDCミラーリング Subscription 0301固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能支援情・休止購でAの記述「ログ依存で支援情報から Returnvalue を読み」に対応する項目は引継ぎ記録 LOG09（ログ依・支援情・ログ依）です。照合支援情・ログ依に関するログ依存・サポートの仕様は「ログ依存で支援情報から Returnvalue を読み」で、確認対象は支援情・ログ依・休止購です。運用ログ依・ログ依でB:の遅延監視 入力欄は「対象表を初期同期または再同期する複製操作を遅」を述べるため、正答側の照合軸は支援情・サポー・ログ依です。項目支援情・ログ依でC:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は休止購・サポー・支援情です。仕様支援情・ログ依でD:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸はログ依・休止購・支援情です。用語支援情・ログ依という用語は「ログ依存で支援情報から Returnvalue」を指し、照合する値と誤認リスクの組合せはサポー・支援情・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 引継ぎ記録 LOG09</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて再現可能な記録を作成し、LOG09のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG09.zipを指定し、LOG09の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG09.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG09.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG09の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB09 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB09を指定し、LOG09の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB09
+→ Enter を押す
+［画面・出力］
+Subscription SUB09 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Inactive が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0504"><h3>ログ依存・サポート Log Dependency 復旧後の確認 LOG06</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>復旧後の確認では ログ依存・サポート の 支援情報 を主操作として LOG06 を判定します。再発していないことを示す値への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG06 に残します。復旧後の確認を補助する 依存表示 では Oldestrequired を補助値として LOG06 へ保存します。主判定の復旧後の確認ではログ依存・サポートの 支援情報 から Returnvalue を読み LOG06 へ残します。証跡照合の復旧後の確認ではログ依存・サポートの Returnvalue と Oldestrequired を LOG06 に保存します。記録対応の復旧後の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG06 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 復旧後の確認 LOG06の設定や表示を読む前に役割を確認します。refresh マッピング検査 管理レポートではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは復旧確認で支援情報を証跡に残し・ログ依存で支援情報から Returnvalue を読み。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きはリフレッシュで管理レポートを証跡に残し・対象表を初期同期または再同期する複製操作をマッピング検査とし。</li><li>C. 状態を読み取るための働きは収集で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・データ欠落を防ぐ。</li><li>D. 状態を読み取るための働きは依存関係確認で定義表示を証跡に残し・変更データ取得 サブスクリプションで定義表示から。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能支援情・休止購でAの記述「ログ依存で支援情報から Returnvalue を読み」に対応する項目は復旧後の確認 LOG06（ログ依・支援情・復旧確）です。照合支援情・復旧確に関するログ依存・サポートの仕様は「ログ依存で支援情報から Returnvalue を読み」で、確認対象は支援情・復旧確・休止購です。運用復旧確・ログ依でB:のマッピング検査 管理レポートは「対象表を初期同期または再同期する複製操作をマ」を述べるため、正答側の照合軸は支援情・サポー・復旧確です。項目支援情・復旧確でC:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は休止購・サポー・支援情です。仕様支援情・復旧確でD:の依存関係の確認 SUB13は「変更データ取得 サブスクリプションで定義表示」を述べるため、正答側の照合軸は復旧確・休止購・支援情です。用語支援情・復旧確という用語は「ログ依存で支援情報から Returnvalue」を指し、照合する値と誤認リスクの組合せはサポー・支援情・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 復旧後の確認 LOG06</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて復旧後の安定性を確認し、LOG06のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG06.zipを指定し、LOG06の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG06.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG06.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG06の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB06 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB06を指定し、LOG06の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB06
+→ Enter を押す
+［画面・出力］
+Subscription SUB06 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Inactive が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0505"><h3>ログ依存・サポート Log Dependency 復旧準備 LOG05</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>復旧準備では ログ依存・サポート の 購読確認 を主操作として LOG05 を判定します。再開前に必要な整合性への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG05 に残します。復旧準備を補助する 支援情報 では Returnvalue を補助値として LOG05 へ保存します。主判定の復旧準備ではログ依存・サポートの 購読確認 から Inactive を読み LOG05 へ残します。証跡照合の復旧準備ではログ依存・サポートの Inactive と Returnvalue を LOG05 に保存します。記録対応の復旧準備ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG05 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 復旧準備 LOG05に関する障害切り分けの前提を確認しています。datastore マッピング検査 オンライン表示の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はオンライン表でオンライン表を証跡に残し・CDC Replication が接続するソースまたはターゲ。</li><li>B. 障害切り分けに用いる役割は保守でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は性能影響確認でイベント表示を証跡に残し・変更データ取得 サブスクリプションでイベント表示から。</li><li>D. 障害切り分けに用いる役割は復旧準備で購読確認を証跡に残し・ログ依存で購読確認から Inactive を読み。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能購読確・休止購でDの記述「ログ依存で購読確認から Inactive を読み」に対応する項目は復旧準備 LOG05（ログ依・購読確・復旧準）です。照合購読確・復旧準に関するログ依存・サポートの仕様は「ログ依存で購読確認から Inactive を読み、Inactive」で、確認対象は購読確・復旧準・休止購です。比較サポー・復旧準でA:のマッピング検査 オンライン表示は「CDC Replication」を述べるため、正答側の照合軸はログ依・復旧準・購読確です。運用復旧準・ログ依でB:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は購読確・サポー・復旧準です。項目購読確・復旧準でC:の性能影響の確認 SUB11は「変更データ取得 サブスクリプションでイベント」を述べるため、正答側の照合軸は休止購・サポー・購読確です。用語購読確・復旧準という用語は「ログ依存で購読確認から Inactive を読み」を指し、照合する値と誤認リスクの組合せはサポー・購読確・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 復旧準備 LOG05</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて復旧条件を確認し、LOG05のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB05を指定し、LOG05の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB05
+→ Enter を押す
+［画面・出力］
+Subscription SUB05 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG05.zipを指定し、LOG05の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG05.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG05.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG05の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB05 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Inactive が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0506"><h3>ログ依存・サポート Log Dependency 性能影響の確認 LOG11</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>性能影響の確認では ログ依存・サポート の 購読確認 を主操作として LOG11 を判定します。処理時間と滞留箇所への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG11 に残します。性能影響の確認を補助する 支援情報 では Returnvalue を補助値として LOG11 へ保存します。主判定の性能影響の確認ではログ依存・サポートの 購読確認 から Inactive を読み LOG11 へ残します。証跡照合の性能影響の確認ではログ依存・サポートの Inactive と Returnvalue を LOG11 に保存します。記録対応の性能影響の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG11 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 性能影響の確認 LOG11の技術的な意味を資料で確認するとき、datastore 状態確認 イベント識別との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は状態確認でイベント識別を証跡に残し・CDC Replication が接続するソースまたはターゲ。</li><li>B. コマンドまたは機能の用途は切替でサブスクリプを証跡に残し・後の表定義更新の項目のサブスクリプション記述と取得時刻を記録。</li><li>C. コマンドまたは機能の用途は性能影響確認で購読確認を証跡に残し・ログ依存で購読確認から Inactive を読み。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は変更確認でイベント表示を証跡に残し・変更データ取得 サブスクリプションでイベント表示から。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能購読確・休止購でCの記述「ログ依存で購読確認から Inactive を読み」に対応する項目は性能影響の確認 LOG11（ログ依・購読確・性能影）です。照合購読確・性能影に関するログ依存・サポートの仕様は「ログ依存で購読確認から Inactive を読み、Inactive」で、確認対象は購読確・性能影・休止購です。比較サポー・性能影でA:の状態確認 イベント識別は「CDC Replication」を述べるため、正答側の照合軸はログ依・性能影・購読確です。運用性能影・ログ依でB:のof Logは「後の表定義更新の項目のサブスクリプション記述」を述べるため、正答側の照合軸は購読確・サポー・性能影です。仕様購読確・性能影でD:の変更前の確認 SUB02は「変更データ取得 サブスクリプションでイベント」を述べるため、正答側の照合軸は性能影・休止購・購読確です。用語購読確・性能影という用語は「ログ依存で購読確認から Inactive を読み」を指し、照合する値と誤認リスクの組合せはサポー・購読確・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 性能影響の確認 LOG11</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて負荷と待ちを確認し、LOG11のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB11を指定し、LOG11の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB11
+→ Enter を押す
+［画面・出力］
+Subscription SUB11 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG11.zipを指定し、LOG11の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG11.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG11.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG11の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB11 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Inactive が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0507"><h3>ログ依存・サポート Log Dependency 構成監査 LOG08</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>構成監査では ログ依存・サポート の 購読確認 を主操作として LOG08 を判定します。定義値と稼働値の一致への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG08 に残します。構成監査を補助する 支援情報 では Returnvalue を補助値として LOG08 へ保存します。主判定の構成監査ではログ依存・サポートの 購読確認 から Inactive を読み LOG08 へ残します。証跡照合の構成監査ではログ依存・サポートの Inactive と Returnvalue を LOG08 に保存します。記録対応の構成監査ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG08 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「ログ依存・サポート Log Dependency 構成監査 LOG08」を「refresh 開始位置指定 同期範囲」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はサブスクリプで同期範囲を証跡に残し・対象表を初期同期または再同期する複製操作。</li><li>B. 仕様上の役割は構成監査で購読確認を証跡に残し・ログ依存で購読確認から Inactive を読み。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は診断でイベントログを証跡に残し・変更データ取得のイベントログと取得時刻を記録し。</li><li>D. 仕様上の役割は計画で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。複製位置管理 Bookmark 0339固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能購読確・休止購でBの記述「ログ依存で購読確認から Inactive を読み」に対応する項目は構成監査 LOG08（ログ依・購読確・構成監）です。照合購読確・構成監に関するログ依存・サポートの仕様は「ログ依存で購読確認から Inactive を読み、Inactive」で、確認対象は購読確・構成監・休止購です。比較サポー・構成監でA:の開始位置指定 同期範囲は「対象表を初期同期または再同期する複製操作」を述べるため、正答側の照合軸はログ依・構成監・購読確です。項目購読確・構成監でC:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は休止購・サポー・購読確です。仕様購読確・構成監でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は構成監・休止購・購読確です。用語購読確・構成監という用語は「ログ依存で購読確認から Inactive を読み」を指し、照合する値と誤認リスクの組合せはサポー・購読確・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 構成監査 LOG08</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて構成差分を監査し、LOG08のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG08と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB08を指定し、LOG08の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB08
+→ Enter を押す
+［画面・出力］
+Subscription SUB08 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG08.zipを指定し、LOG08の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG08.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG08.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG08の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB08 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Inactive が画面・出力に表示されること
+② ステップ2 の Support が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0508"><h3>ログ依存・サポート Log Dependency 権限境界の確認 LOG12</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>権限境界の確認では ログ依存・サポート の 支援情報 を主操作として LOG12 を判定します。参照操作と変更操作の分離への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG12 に残します。権限境界の確認を補助する 依存表示 では Oldestrequired を補助値として LOG12 へ保存します。主判定の権限境界の確認ではログ依存・サポートの 支援情報 から Returnvalue を読み LOG12 へ残します。証跡照合の権限境界の確認ではログ依存・サポートの Returnvalue と Oldestrequired を LOG12 に保存します。記録対応の権限境界の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG12 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 権限境界の確認 LOG12を保守記録に説明する必要があります。CDCミラーリング Event Severity 0004と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するしてミラー開始を照合する。</li><li>B. 運用時に利用する技術的役割は休止購読を見落として必要ログを削を避けるため・支援情報からReturnvalueを読むして支援情報を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてデータ定義対を照合する。</li><li>D. 運用時に利用する技術的役割は別サブスクリプションを停止またはを避けるため・イベント表示からSeverityを読むしてイベント表示を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能支援情・休止購でBの記述「ログ依存で支援情報から Returnvalue を読み」に対応する項目は権限境界の確認 LOG12（ログ依・支援情・権限境）です。照合支援情・権限境に関するログ依存・サポートの仕様は「ログ依存で支援情報から Returnvalue を読み」で、確認対象は支援情・権限境・休止購です。比較サポー・権限境でA:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸はログ依・権限境・支援情です。項目支援情・権限境でC:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は休止購・サポー・支援情です。仕様支援情・権限境でD:の変更前の確認 SUB02は「変更データ取得 サブスクリプションでイベント」を述べるため、正答側の照合軸は権限境・休止購・支援情です。用語支援情・権限境という用語は「ログ依存で支援情報から Returnvalue」を指し、照合する値と誤認リスクの組合せはサポー・支援情・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 権限境界の確認 LOG12</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて実行権限を点検し、LOG12のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG12と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG12.zipを指定し、LOG12の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG12.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG12.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG12の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB12 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB12を指定し、LOG12の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB12
+→ Enter を押す
+［画面・出力］
+Subscription SUB12 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Support が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Inactive が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0509"><h3>ログ依存・サポート Log Dependency 通常状態の確認 LOG01</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>通常状態の確認では ログ依存・サポート の 依存表示 を主操作として LOG01 を判定します。基準値と現在値の差への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG01 に残します。通常状態の確認を補助する 購読確認 では Inactive を補助値として LOG01 へ保存します。主判定の通常状態の確認ではログ依存・サポートの 依存表示 から Oldestrequired を読み LOG01 へ残します。証跡照合の通常状態の確認ではログ依存・サポートの Oldestrequired と Inactive を LOG01 に保存します。記録対応の通常状態の確認ではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG01 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 通常状態の確認 LOG01の役割を調べています。複製位置管理 Instance 0003の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はInstanceの戻り値と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。</li><li>B. 表示や設定で扱う内容はログ依存で依存表示から Oldestrequired を読み・Oldestrequired とである。依存表示からOldestrequirときは休止購読を見落として必要ログを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 表示や設定で扱う内容はBookmarkの複製位置と取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。</li><li>D. 表示や設定で扱う内容は変更データ取得 サブスクリプションで版数表示から Replication を読み・Replicationである。版数表示からReplicationをときは別サブスクリプションを停止まを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能依存表・休止購でBの記述「ログ依存で依存表示から Oldestrequired」に対応する項目は通常状態の確認 LOG01（ログ依・依存表・通常状）です。照合依存表・通常状に関するログ依存・サポートの仕様は「ログ依存で依存表示から Oldestrequired を読み」で、確認対象は依存表・通常状・休止購です。比較サポー・通常状でA:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸はログ依・通常状・依存表です。項目依存表・通常状でC:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は休止購・サポー・依存表です。仕様依存表・通常状でD:の再始動後の確認 SUB15は「変更データ取得 サブスクリプションで版数表示」を述べるため、正答側の照合軸は通常状・休止購・依存表です。用語依存表・通常状という用語は「ログ依存で依存表示から Oldestrequired」を指し、照合する値と誤認リスクの組合せはサポー・依存表・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 通常状態の確認 LOG01</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて通常状態を確定し、LOG01のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG01と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG01の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB01 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB01を指定し、LOG01の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB01
+→ Enter を押す
+［画面・出力］
+Subscription SUB01 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG01.zipを指定し、LOG01の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG01.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG01.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Inactive が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0510"><h3>ログ依存・サポート Log Dependency 障害切り分け LOG04</h3><p class="kb-meta">分類: ログ依存・サポート ・ 難易度: 上級</p><p>障害切り分けでは ログ依存・サポート の 依存表示 を主操作として LOG04 を判定します。最初に失敗した処理への注意として「休止購読を見落として必要ログを削除する危険があります」を LOG04 に残します。障害切り分けを補助する 購読確認 では Inactive を補助値として LOG04 へ保存します。主判定の障害切り分けではログ依存・サポートの 依存表示 から Oldestrequired を読み LOG04 へ残します。証跡照合の障害切り分けではログ依存・サポートの Oldestrequired と Inactive を LOG04 に保存します。記録対応の障害切り分けではログ依存・サポートの Oldest LogとSubscription の証跡へ LOG04 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> ログ依存・サポート Log Dependency 障害切り分け LOG04を保守記録に説明する必要があります。apply task 初期同期判定 応答行と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は応答行の誤読を避けるため・初期同期判定で応答行を確認するして応答行を照合する。</li><li>B. 保守作業で参照する機能は休止購読を見落として必要ログを削を避けるため・依存表示からOldestrequiredして依存表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてデータ定義対を照合する。</li><li>D. 保守作業で参照する機能は重複反映を避けるため・変更確認操作で採取欄を棚卸するして複製位置を照合する。複製位置管理 Bookmark 0354固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能依存表・休止購でBの記述「ログ依存で依存表示から Oldestrequired」に対応する項目は障害切り分け LOG04（ログ依・依存表・ログ依）です。照合依存表・ログ依に関するログ依存・サポートの仕様は「ログ依存で依存表示から Oldestrequired を読み」で、確認対象は依存表・ログ依・休止購です。比較サポー・ログ依でA:の初期同期判定 応答行は「ターゲットへ変更を反映し適用済み位置を記録す」を述べるため、正答側の照合軸はログ依・ログ依・依存表です。項目依存表・ログ依でC:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は休止購・サポー・依存表です。仕様依存表・ログ依でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はログ依・休止購・依存表です。用語依存表・ログ依という用語は「ログ依存で依存表示から Oldestrequired」を指し、照合する値と誤認リスクの組合せはサポー・依存表・休止購です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ログ依存・サポート Log Dependency 障害切り分け LOG04</strong></p><p>検証目的: ログ依存・サポートのLog Dependencyについて障害範囲を限定し、LOG04のOldest LogとSubscriptionを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象LOG04と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、LOG04の依存表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription | Oldest required log | Reason
+SUB04 | S0001842.LOG | Mirroring stopped
+TESTSUB | S0001720.LOG | Inactive subscription
+画面・出力にあるSubscriptionを読み、Oldest LogとSubscriptionと対象LOG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmdescribe -I SRC1 -s SUB04を指定し、LOG04の購読確認を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmdescribe -I SRC1 -s SUB04
+→ Enter を押す
+［画面・出力］
+Subscription SUB04 Replication method Mirror Status Inactive Mapped tables 24
+画面・出力にあるInactiveを読み、Oldest LogとSubscriptionと対象LOG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4のログ依存・サポートを確認する入力画面です。COMMAND入力口へdmsupportinfo -I SRC1 -o /tmp/LOG04.zipを指定し、LOG04の支援情報を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmsupportinfo -I SRC1 -o /tmp/LOG04.zip
+→ Enter を押す
+［画面・出力］
+Support information collection completed: /tmp/LOG04.zip Return value 0.
+画面・出力にあるSupportを読み、Oldest LogとSubscriptionと対象LOG04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Inactive が画面・出力に表示されること
+③ ステップ3 の Support が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+## 性能統計
+
+
+<section class="kb-item" id="c11-i0511"><h3>CHC0368I マッピング検査 セッション上限</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「CHC0368I マッピング検査 セッション上限」は、bookmark まで適用したことを示す CDC Replication メッセージをマッピング検査の観点で確認する技術項目です。replication mapping 名とDS070を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> CHC0368I マッピング検査 セッション上限に関する障害切り分けの前提を確認しています。複製位置管理 Instance 0048の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するして戻り値を照合する。</li><li>B. 障害切り分けに用いる役割は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてサブスクリプを照合する。</li><li>C. 障害切り分けに用いる役割は情報イベントと停止を伴うエラーをを避けるため・サポート収集からSupportを読むしてサポート収集を照合する。</li><li>D. 障害切り分けに用いる役割はセッション上の誤読を避けるため・性能統計でセッション上を確認するしてセッション上を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 性能・セッシ・セッショでDの記述「bookmark まで適用したことを示す CDC」に対応する項目はマッピング検査 セッション上限（マッピ・セッシ・セッショ・性能統）です。性能統計時のセッションに関する性能統計の仕様は「bookmark まで適用したことを示す CDC」で、確認対象はマッピ・セッシ・セッショ・性能統です。In・復旧・戻り値のA:は「Instanceの戻り値と取得時刻を記録し」を述べ、対象は複製位置管理 Instance（Ins・戻り値・対象イン・復旧）です。切替・サブス・遅延ゼロのB:は「CDCのサブスクリプション状態と取得時刻を記録し」を述べ、対象はReplication Method（ミラー・サブス・遅延ゼロ・切替）です。エラー処時のサポート収のC:は「CDC Event Logでサポート収集からSupportを読み」を述べ、対象は引継ぎ記録 ERR09（CDC・サポー・情報イベ・エラー）です。セッションを性能統計という用語は「bookmark まで適用したことを示す CDC」を指し、マッピング検査 セッション上限（マッピ・セッシ・セッショ・性能統）で照合する値はセッション上です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHC0368I マッピング検査 セッション上限</strong></p><p>検証目的: 性能統計のCHC0368I マッピング検査 セッション上限について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB070           DS070          Mirroring   BMK070
+画面・出力には Subscription が含まれ、CHC0368I マッピング検査 セッション上限の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB070           DS070          BMK070
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0512"><h3>CHC0368I 統計採取 統計値</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「CHC0368I 統計採取 統計値」は、bookmark まで適用したことを示す CDC Replication メッセージを統計採取の観点で確認する技術項目です。replication mapping 名とDS030を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> CHC0368I 統計採取 統計値に関する障害切り分けの前提を確認しています。apply task 失敗時切り分け 例外記録の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は複製状態監視で例外記録を確認することで例外記録を確認し・例外記録の誤読を防ぐ。</li><li>B. 表示や設定で扱う内容は調査操作で保守欄を引き継ぎすることで表定義再読込を確認し・ログ先頭未到達の見落としを防ぐ。</li><li>C. 表示や設定で扱う内容は変更確認で確認ではサブを確認することで確認ではサブを確認し・別サブスクリプションを停止まを防ぐ。</li><li>D. 表示や設定で扱う内容は統計採取で統計値を確認することで統計値を確認し・統計値の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 統計採取対象統計採取でDの記述「bookmark まで適用したことを示す CDC」に対応する項目は統計採取 統計値（統計採取・統計採・統計値・統計値の）です。統計採取時の統計採取に関する性能統計の仕様は「bookmark まで適用したことを示す CDC」で、確認対象は統計採取・統計採・統計値・統計値のです。apply・複製状態監のA:は「ターゲットへ変更を反映し適用済み位置を記録する処理を失敗時切り分けと」を述べ、対象は失敗時切り分け 例外記録（apply・複製状・例外記・例外記録）です。登録対象後の表定義のB:は「DDLの表定義再読込と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はSource Table（後の表定義・登録・表定義・ログ先頭）です。変更確認時のCDCのC:は「CDC Subscriptionで変更後の確認ではサブスクリプション」を述べ、対象は変更後の確認 SUB03（CDC・変更確・確認で・別サブス）です。統計採取を統計採取という用語は「bookmark まで適用したことを示す CDC」を指し、統計採取 統計値（統計採取・統計採・統計値・統計値の）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHC0368I 統計採取 統計値</strong></p><p>検証目的: 性能統計のCHC0368I 統計採取 統計値について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB030           DS030          Mirroring   BMK030
+画面・出力には Subscription が含まれ、CHC0368I 統計採取 統計値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB030           DS030          BMK030
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0513"><h3>apply task 初期同期判定 応答行</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「apply task 初期同期判定 応答行」は、ターゲットへ変更を反映し適用済み位置を記録する処理を初期同期判定の観点で確認する技術項目です。list subscriptions の表とBMK006を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> apply task 初期同期判定 応答行に関する障害切り分けの前提を確認しています。capture service ログ位置照合 キーマップの機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はキーマップの誤読を避けるため・ログ位置照合でキーマップを確認するしてキーマップを照合する。</li><li>B. 表示や設定で扱う内容はRefresh中の再開を避けるため・表示操作で対象欄を追跡するしてDDL対象表を照合する。</li><li>C. 表示や設定で扱う内容はIBM指示なしの位置変更を避けるため・主操作で出力欄を評価するして複製位置を照合する。</li><li>D. 表示や設定で扱う内容は応答行の誤読を避けるため・初期同期判定で応答行を確認するして応答行を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 初期同期対象applyでDの記述「ターゲットへ変更を反映し適用済み位置を記録する処理を初期同期判定とし」に対応する項目は初期同期判定 応答行（apply・初期同・応答行・応答行の）です。初期同期時のapplyに関する性能統計の仕様は「ターゲットへ変更を反映し適用済み位置を記録する処理を初期同期判定とし」で、確認対象はappl・初期同・応答行・応答行のです。captu・ログ位置照のA:は「ソース変更を読み取りサブスクリプションへ渡す処理」を述べ、対象はログ位置照合 キーマップ（captu・ログ位・キーマ・キーマッ）です。切替対象後の表定義のB:は「DDLのDDL対象表と取得時刻を記録し、Refresh中の再開を防ぐ」を述べ、対象はTable Definition（後の表定義・切替・DDL・Refr）です。解析時のBookmのC:は「Bookmarkの複製位置と取得時刻を記録し」を述べ、対象は複製位置管理 Bookmark（Bookm・解析・複製位・IBM指）です。applを初期同期判という用語は「ターゲットへ変更を反映し適用済み位置を記録する処理を」を指し、初期同期判定 応答行（apply・初期同・応答行・応答行の）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>apply task 初期同期判定 応答行</strong></p><p>検証目的: 性能統計のapply task 初期同期判定 応答行について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB006           DS006          Mirroring   BMK006
+画面・出力には Subscription が含まれ、apply task 初期同期判定 応答行の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB006           DS006          BMK006
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0514"><h3>apply task 開始位置指定 活動ログ</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「apply task 開始位置指定 活動ログ」は、ターゲットへ変更を反映し適用済み位置を記録する処理を開始位置指定の観点で確認する技術項目です。list subscriptions の表とBMK046を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> apply task 開始位置指定 活動ログに関する障害切り分けの前提を確認しています。DDL後の表定義更新 Subscription 0032の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は調査操作で保守欄を引き継ぎすることでログ先頭到達を確認し・ログ先頭未到達の見落としを防ぐ。</li><li>B. 障害切り分けに用いる役割は性能統計で活動ログを確認することで活動ログを確認し・活動ログの誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は調査操作で保守欄を引き継ぎすることで再開条件を確認し・ログ先頭未到達の見落としを防ぐ。</li><li>D. 障害切り分けに用いる役割は構成監査で構成監査ではを確認することで構成監査ではを確認し・Refresh未完了でMirを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 性能統計対象applyでBの記述「ターゲットへ変更を反映し適用済み位置を記録する処理である」に対応する項目は開始位置指定 活動ログ（apply・性能統・活動ロ・活動ログ）です。性能統計時のapplyに関する性能統計の仕様は「ターゲットへ変更を反映し適用済み位置を記録する処理」で、確認対象はappl・性能統・活動ロ・活動ログです。後の表定義・棚卸のA:は「DDLのログ先頭到達と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はDDL後の表定義更新（後の表定義・棚卸・ログ先・ログ先頭）です。収集時の後の表定義のC:は「DDLの再開条件と取得時刻を記録し、ログ先頭未到達の見落としを防ぐ」を述べ、対象はRefresh Table（後の表定義・収集・再開条・ログ先頭）です。構成監査でを構成監査のD:は「CDC Refreshで構成監査ではリフレッシュ制御の」を述べ、対象は構成監査 REF08（CDC・構成監・構成監・Refr）です。applを性能統計という用語は「ターゲットへ変更を反映し適用済み位置を記録する処理」を指し、開始位置指定 活動ログ（apply・性能統・活動ロ・活動ログ）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>apply task 開始位置指定 活動ログ</strong></p><p>検証目的: 性能統計のapply task 開始位置指定 活動ログについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB046           DS046          Mirroring   BMK046
+画面・出力には Subscription が含まれ、apply task 開始位置指定 活動ログの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB046           DS046          BMK046
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0515"><h3>bookmark ログ位置照合 伝搬経路</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「bookmark ログ位置照合 伝搬経路」は、ログ上の適用位置と時刻を追跡する複製の進行点をログ位置照合の観点で確認する技術項目です。target datastore の統計とSUB054を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> bookmark ログ位置照合 伝搬経路に関する障害切り分けの前提を確認しています。複製位置管理 Locale 0027の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はログ位置照合で伝搬経路を確認することで伝搬経路を確認し・伝搬経路の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は監査操作で記録欄を比較することでサブスクリプを確認し・データ欠落を防ぐ。</li><li>C. 表示や設定で扱う内容は確認操作で状態欄を整理することでサブスクリプを確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>D. 表示や設定で扱う内容は状態表示からLatencyを読むことで状態表示を確認し・Refresh中の表をMirを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> ログ・伝搬経・伝搬経路でAの記述「ログ上の適用位置と時刻を追跡する複製の進行点である」に対応する項目はログ位置照合 伝搬経路（boo・伝搬経・伝搬経路・ログ位）です。ログ位置時の伝搬経路に関する性能統計の仕様は「ログ上の適用位置と時刻を追跡する複製の進行点」で、確認対象はboo・伝搬経・伝搬経路・ログ位です。棚卸・サブス・データ欠のB:は「Localeのサブスクリプション名と取得時刻を記録し」を述べ、対象は複製位置管理 Locale（Loc・サブス・データ欠・棚卸）です。切替時のサブスクリのC:は「CDCのサブスクリプション状態と取得時刻を記録し」を述べ、対象はReplication Method（ミラー・サブス・遅延ゼロ・切替）です。状態表示を通常状態確のD:は「Mirror Statusで状態表示からLatencyを読み」を述べ、対象は通常状態の確認 MIR01（Mir・状態表・Refr・通常状）です。伝搬経路をログ位置照という用語は「ログ上の適用位置と時刻を追跡する複製の進行点」を指し、ログ位置照合 伝搬経路（boo・伝搬経・伝搬経路・ログ位）で照合する値は伝搬経路です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>bookmark ログ位置照合 伝搬経路</strong></p><p>検証目的: 性能統計のbookmark ログ位置照合 伝搬経路について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB054           DS054          Mirroring   BMK054
+画面・出力には Subscription が含まれ、bookmark ログ位置照合 伝搬経路の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB054           DS054          BMK054
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0516"><h3>bookmark 失敗時切り分け 実行結果</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「bookmark 失敗時切り分け 実行結果」は、ログ上の適用位置と時刻を追跡する複製の進行点を失敗時切り分けの観点で確認する技術項目です。target datastore の統計とSUB014を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> bookmark 失敗時切り分け 実行結果に関する障害切り分けの前提を確認しています。subscription 開始位置指定 遅延表示の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては遅延表示の誤読を避けるため・遅延表示で遅延表示を確認するして遅延表示を照合する。</li><li>B. 機能の説明としては対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するしてミラー開始を照合する。</li><li>C. 機能の説明としては実行結果の誤読を避けるため・性能統計で実行結果を確認するして実行結果を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としてはイベント重大度の誤読を避けるため・採取操作で照合欄を点検するしてサブスクリプを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 性能統計対象bookmでCの記述「ログ上の適用位置と時刻を追跡する複製の進行点を失敗時切り分けとして確」に対応する項目は失敗時切り分け 実行結果（bookm・性能統・実行結・実行結果）です。性能統計時のbookmに関する性能統計の仕様は「ログ上の適用位置と時刻を追跡する複製の進行点を失敗時切り分けとして確」で、確認対象はbook・性能統・実行結・実行結果です。subsc・遅延表示のA:は「複製対象の表対応と開始位置をまとめる管理単位」を述べ、対象は開始位置指定 遅延表示（subsc・遅延表・遅延表・遅延表示）です。収集対象ミラーリンのB:は「CDCのミラー開始と取得時刻を記録し、対象サブスクリプションの取り違」を述べ、対象はEvent Severity（ミラーリン・収集・ミラー・対象サブ）です。ミラーリを解除のD:は「CDCのサブスクリプション状態と取得時刻を記録し」を述べ、対象はReplication Method（ミラーリン・解除・サブス・イベント）です。bookを性能統計という用語は「ログ上の適用位置と時刻を追跡する複製の進行点を失敗時」を指し、失敗時切り分け 実行結果（bookm・性能統・実行結・実行結果）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>bookmark 失敗時切り分け 実行結果</strong></p><p>検証目的: 性能統計のbookmark 失敗時切り分け 実行結果について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB014           DS014          Mirroring   BMK014
+画面・出力には Subscription が含まれ、bookmark 失敗時切り分け 実行結果の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB014           DS014          BMK014
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0517"><h3>datastore マッピング検査 オンライン表示</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「datastore マッピング検査 オンライン表示」は、CDC Replication が接続するソースまたはターゲットの接続定義をマッピング検査の観点で確認する技術項目です。bookmark valueとLOG062を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> datastore マッピング検査 オンライン表示に関する障害切り分けの前提を確認しています。DDL後の表定義更新 Head of Log 0041の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはDDLのサブスクリプション記述と取得時刻を記録し・DDL対象表の漏れを防ぐである。復旧操作で点検欄を確認するときはDDL対象表の漏れを防ぐ。DDL後の表定義更新 Head of Log 0041固有の属性も確認対象に含める。</li><li>B. 機能の説明としてはInstanceの戻り値と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li><li>C. 機能の説明としてはCDC Replication が接続するソースまたはターゲットの接続定義をマッピング検査として確認する。オンライン表でオンライン表を確認するときはオンライン表の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としてはTable Mappingで表再読込からrefreshedを読みである。表再読込からrefreshedを読むときはDDL変更後に古い列定義で複を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> オン・オンラ・オンライでCの記述「CDC Replication が接続するソースまたはターゲットの接」に対応する項目はマッピング検査 オンライン表示（dat・オンラ・オンライ・オンラ）です。オンライ時のオンラインに関する性能統計の仕様は「CDC Replication が接続するソースまたはターゲットの接」で、確認対象はdat・オンラ・オンライ・オンラです。後の・復旧・サブスクのA:は「DDLのサブスクリプション記述と取得時刻を記録し」を述べ、対象はof Log（後の表・サブス・DDL対・復旧）です。切替・戻り値・対象インのB:は「Instanceの戻り値と取得時刻を記録し」を述べ、対象は複製位置管理 Instance（Ins・戻り値・対象イン・切替）です。表再読込を停止確認のD:は「Table Mappingで表再読込からrefreshedを読み」を述べ、対象は停止前の確認 MAP14（Tab・表再読・DDL変・停止確）です。オンラインをオンラインという用語は「CDC Replication」を指し、マッピング検査 オンライン表示（dat・オンラ・オンライ・オンラ）で照合する値はオンライン表です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>datastore マッピング検査 オンライン表示</strong></p><p>検証目的: 性能統計のdatastore マッピング検査 オンライン表示について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB062           DS062          Mirroring   BMK062
+画面・出力には Subscription が含まれ、datastore マッピング検査 オンライン表示の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB062           DS062          BMK062
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0518"><h3>datastore 統計採取 転送条件</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「datastore 統計採取 転送条件」は、CDC Replication が接続するソースまたはターゲットの接続定義を統計採取の観点で確認する技術項目です。bookmark valueとLOG022を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> datastore 統計採取 転送条件に関する障害切り分けの前提を確認しています。CHC0368I 失敗時切り分け アーカイブの機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はブックマークでアーカイブを確認することでアーカイブを確認し・アーカイブの誤読を防ぐ。</li><li>B. 障害切り分けに用いる役割は確認操作で状態欄を整理することでイベントログを確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>C. 障害切り分けに用いる役割は代替経路確認で代替経路の確を確認することで代替経路の確を確認し・ホスト名変更後の購読構成を更を防ぐ。</li><li>D. 障害切り分けに用いる役割は統計採取で転送条件を確認することで転送条件を確認し・転送条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 統計採取対象datasでDの記述「CDC Replication が接続するソースまたはターゲットの接」に対応する項目は統計採取 転送条件（datas・統計採・転送条・転送条件）です。統計採取時のdatasに関する性能統計の仕様は「CDC Replication が接続するソースまたはターゲットの接」で、確認対象はdata・統計採・転送条・転送条件です。失敗時切り・ブックマーのA:は「bookmark まで適用したことを示す CDC」を述べ、対象は失敗時切り分け アーカイブ（失敗時切り・ブック・アーカ・アーカイ）です。切替対象ミラーリンのB:は「CDCのイベントログと取得時刻を記録し、遅延ゼロ確認の欠落を防ぐ」を述べ、対象はCDCミラーリング Subscrip（ミラーリン・切替・イベン・遅延ゼロ）です。代替経路時のCDCのC:は「CDC Datastoreで代替経路の確認ではデータストア接続の」を述べ、対象は代替経路の確認 STORE10（CDC・代替経・代替経・ホスト名）です。dataを統計採取という用語は「CDC Replication」を指し、統計採取 転送条件（datas・統計採・転送条・転送条件）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>datastore 統計採取 転送条件</strong></p><p>検証目的: 性能統計のdatastore 統計採取 転送条件について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB022           DS022          Mirroring   BMK022
+画面・出力には Subscription が含まれ、datastore 統計採取 転送条件の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB022           DS022          BMK022
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0519"><h3>performance statistics 状態確認 承認待ち</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「performance statistics 状態確認 承認待ち」は、サブスクリプションやデータストアの処理量と遅延を測る情報を状態確認の観点で確認する技術項目です。CHC0368I メッセージとMAP038を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> performance statistics 状態確認 承認待ちに関する障害切り分けの前提を確認しています。subscription 初期同期判定 統合管理の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては初期同期判定で統合管理を確認することで統合管理を確認し・統合管理の誤読を防ぐ。</li><li>B. 機能の説明としては状態確認で承認待ちを確認することで承認待ちを確認し・承認待ちの誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としては記録操作で証跡欄を照合することで遅延確認を確認し・Refresh未完了の見落とを防ぐ。</li><li>D. 機能の説明としては復旧操作で点検欄を確認することでサブスクリプを確認し・DDL対象表の漏れを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 状態確認対象perfoでBの記述「サブスクリプションやデータストアの処理量と遅延を測る情報である」に対応する項目は状態確認 承認待ち（perfo・状態確・承認待・承認待ち）です。状態確認時のperfoに関する性能統計の仕様は「サブスクリプションやデータストアの処理量と遅延を測る情報」で、確認対象はperf・状態確・承認待・承認待ちです。subsc・初期同期判のA:は「複製対象の表対応と開始位置をまとめる管理単位を初期同期判定として確認」を述べ、対象は初期同期判定 統合管理（subsc・初期同・統合管・統合管理）です。登録時のミラーリンのC:は「CDCの遅延確認と取得時刻を記録し、Refresh未完了の見落としを」を述べ、対象はCDCミラーリング Latency（ミラーリン・登録・遅延確・Refr）です。後の表定を解除のD:は「DDLのサブスクリプション記述と取得時刻を記録し」を述べ、対象はof Log（後の表定義・解除・サブス・DDL対）です。perfを状態確認という用語は「サブスクリプションやデータストアの処理量と遅延を測る」を指し、状態確認 承認待ち（perfo・状態確・承認待・承認待ち）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>performance statistics 状態確認 承認待ち</strong></p><p>検証目的: 性能統計のperformance statistics 状態確認 承認待ちについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB038           DS038          Mirroring   BMK038
+画面・出力には Subscription が含まれ、performance statistics 状態確認 承認待ちの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB038           DS038          BMK038
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0520"><h3>performance statistics 遅延監視 診断採取</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の 性能統計 で扱う「performance statistics 遅延監視 診断採取」は、サブスクリプションやデータストアの処理量と遅延を測る情報を遅延監視の観点で確認する技術項目です。CHC0368I メッセージとMAP078を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> performance statistics 遅延監視 診断採取に関する障害切り分けの前提を確認しています。CDCミラーリング Event Severity 0004の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は対象サブスクリプションの取り違えを避けるため・保守操作で監査欄を保存するしてミラー開始を照合する。</li><li>B. 表示や設定で扱う内容はRefresh中の再開を避けるため・表示操作で対象欄を追跡するしてDDL対象表を照合する。</li><li>C. 表示や設定で扱う内容は診断採取の誤読を避けるため・診断採取で診断採取を確認するして診断採取を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は情報イベントと停止を伴うエラーをを避けるため・イベント一覧から2931を読むしてイベント一覧を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 診断・診断採・診断採取でCの記述「サブスクリプションやデータストアの処理量と遅延を測る情報を遅延監視と」に対応する項目は遅延監視 診断採取（per・診断採・診断採取・診断採）です。診断採取時の診断採取に関する性能統計の仕様は「サブスクリプションやデータストアの処理量と遅延を測る情報を遅延監視と」で、確認対象はper・診断採・診断採取・診断採です。ミラ・巡回・ミラー開のA:は「CDCのミラー開始と取得時刻を記録し、対象サブスクリプションの取り違」を述べ、対象はEvent Severity（ミラー・ミラー・対象サブ・巡回）です。確認・DDL・RefrのB:は「DDLのDDL対象表と取得時刻を記録し、Refresh中の再開を防ぐ」を述べ、対象はTable Definition（後の表・DDL・Refr・確認）です。イベント一をログとの照のD:は「CDC Event Logでイベント一覧から2931を読み」を述べ、対象はログとの照合 ERR07（CDC・イベン・情報イベ・ログと）です。診断採取を診断採取という用語は「サブスクリプションやデータストアの処理量と遅延を測る」を指し、遅延監視 診断採取（per・診断採・診断採取・診断採）で照合する値は診断採取です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>performance statistics 遅延監視 診断採取</strong></p><p>検証目的: 性能統計のperformance statistics 遅延監視 診断採取について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、性能統計の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB078           DS078          Mirroring   BMK078
+画面・出力には Subscription が含まれ、performance statistics 遅延監視 診断採取の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB078           DS078          BMK078
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0521"><h3>性能統計 CDC Communications Activity ログとの照合 STAT07</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>ログとの照合では 性能統計 の 通信統計 を主操作として STAT07 を判定します。時刻と対象識別子への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT07 に残します。ログとの照合を補助する 遅延表示 では Bytespersecond を補助値として STAT07 へ保存します。主判定のログとの照合では性能統計の 通信統計 から Sends を読み STAT07 へ残します。証跡照合のログとの照合では性能統計の Sends と Bytespersecond を STAT07 に保存します。記録対応のログとの照合では性能統計の SendsとRecvs の証跡へ STAT07 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity ログとの照合 STAT07の役割を調べています。エラー処理 CDC Event Log 障害切り分け ERR04の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は通信統計からSendsを読むことで通信統計を確認し・送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容はイベント一覧から2931を読むことでイベント一覧を確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>C. 表示や設定で扱う内容は変更確認操作で採取欄を棚卸することで16進ブックを確認し・重複反映を防ぐ。</li><li>D. 表示や設定で扱う内容は照合操作で確認欄を採取することで複製位置を確認し・対象インスタンスの取り違えを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信統・送信回でAの記述「変更データ取得 通信で通信統計から Sends を読み」に対応する項目はログとの照合 STAT07（変更デ・通信統・ログと）です。照合通信統・ログとに関する性能統計の仕様は「変更データ取得 通信で通信統計から Sends を読み、Sends」で、確認対象は通信統・ログと・送信回です。運用ログと・変更デでB:の障害切り分け ERR04は「変更データ取得 イベントログでイベント一覧か」を述べるため、正答側の照合軸は通信統・性能統・ログとです。項目通信統・ログとでC:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は送信回・性能統・通信統です。仕様通信統・ログとでD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はログと・送信回・通信統です。用語通信統・ログとという用語は「変更データ取得 通信で通信統計から Sends」を指し、照合する値と誤認リスクの組合せは性能統・通信統・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity ログとの照合 STAT07</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて操作とログを対応し、STAT07のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT07の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB07を指定し、STAT07の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB07
+→ Enter を押す
+［画面・出力］
+Subscription SUB07 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT07のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB07 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Sends が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0522"><h3>性能統計 CDC Communications Activity 代替経路の確認 STAT10</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>代替経路の確認では 性能統計 の 通信統計 を主操作として STAT10 を判定します。主経路との役割差への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT10 に残します。代替経路の確認を補助する 遅延表示 では Bytespersecond を補助値として STAT10 へ保存します。主判定の代替経路の確認では性能統計の 通信統計 から Sends を読み STAT10 へ残します。証跡照合の代替経路の確認では性能統計の Sends と Bytespersecond を STAT10 に保存します。記録対応の代替経路の確認では性能統計の SendsとRecvs の証跡へ STAT10 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 代替経路の確認 STAT10を保守記録に説明する必要があります。エラー処理 CDC Event Log 停止前の確認 ERR14と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は通信統計からSendsを読むことで通信統計を確認し・送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 保守作業で参照する機能は通信エラーからERRORを読むことで通信エラーを確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>C. 保守作業で参照する機能は記録操作で証跡欄を照合することで遅延確認を確認し・初期ロード未完了の見落としを防ぐ。</li><li>D. 保守作業で参照する機能は表示操作で対象欄を追跡することでログ先頭到達を確認し・初期ロード中の再開を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信統・送信回でAの記述「変更データ取得 通信で通信統計から Sends を読み」に対応する項目は代替経路の確認 STAT10（変更デ・通信統・代替経）です。照合通信統・代替経に関する性能統計の仕様は「変更データ取得 通信で通信統計から Sends を読み、Sends」で、確認対象は通信統・代替経・送信回です。運用代替経・変更デでB:の停止前の確認 ERR14は「変更データ取得 イベントログで通信エラーから」を述べるため、正答側の照合軸は通信統・性能統・代替経です。項目通信統・代替経でC:のCDCミラーリングは「変更データ取得の遅延確認と取得時刻を記録し」を述べるため、正答側の照合軸は送信回・性能統・通信統です。仕様通信統・代替経でD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は代替経・送信回・通信統です。用語通信統・代替経という用語は「変更データ取得 通信で通信統計から Sends」を指し、照合する値と誤認リスクの組合せは性能統・通信統・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 代替経路の確認 STAT10</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて代替手段の成立を確認し、STAT10のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT10の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB10を指定し、STAT10の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB10
+→ Enter を押す
+［画面・出力］
+Subscription SUB10 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT10のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB10 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Sends が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0523"><h3>性能統計 CDC Communications Activity 依存関係の確認 STAT13</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>依存関係の確認では 性能統計 の 通信統計 を主操作として STAT13 を判定します。前提資源と後続処理の順序への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT13 に残します。依存関係の確認を補助する 遅延表示 では Bytespersecond を補助値として STAT13 へ保存します。主判定の依存関係の確認では性能統計の 通信統計 から Sends を読み STAT13 へ残します。証跡照合の依存関係の確認では性能統計の Sends と Bytespersecond を STAT13 に保存します。記録対応の依存関係の確認では性能統計の SendsとRecvs の証跡へ STAT13 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 依存関係の確認 STAT13を同一分類のログ依存・サポート Log Dependency 通常状態の確認 LOG01と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は送信回数だけでターゲット適用完了を避けるため・通信統計からSendsを読むして通信統計を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は休止購読を見落として必要ログを削を避けるため・依存表示からOldestrequiredして依存表示を照合する。</li><li>C. 管理対象との関係を表す説明はベンダー指示なしの位置変更を避けるため・主操作で出力欄を評価するしてサブスクリプを照合する。</li><li>D. 管理対象との関係を表す説明は初期ロード未完了の見落としを避けるため・記録操作で証跡欄を照合するしてサブスクリプを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信統・送信回でAの記述「変更データ取得 通信で通信統計から Sends を読み」に対応する項目は依存関係の確認 STAT13（変更デ・通信統・依存関）です。照合通信統・依存関に関する性能統計の仕様は「変更データ取得 通信で通信統計から Sends を読み、Sends」で、確認対象は通信統・依存関・送信回です。運用依存関・変更デでB:の通常状態の確認 LOG01は「ログ依存で依存表示から Oldestrequ」を述べるため、正答側の照合軸は通信統・性能統・依存関です。項目通信統・依存関でC:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は送信回・性能統・通信統です。仕様通信統・依存関でD:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸は依存関・送信回・通信統です。用語通信統・依存関という用語は「変更データ取得 通信で通信統計から Sends」を指し、照合する値と誤認リスクの組合せは性能統・通信統・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 依存関係の確認 STAT13</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて依存資源を点検し、STAT13のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT13の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB13を指定し、STAT13の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB13
+→ Enter を押す
+［画面・出力］
+Subscription SUB13 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT13のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB13 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Sends が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0524"><h3>性能統計 CDC Communications Activity 停止前の確認 STAT14</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>停止前の確認では 性能統計 の 遅延表示 を主操作として STAT14 を判定します。処理中資源と未完了要求への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT14 に残します。停止前の確認を補助する ログ依存 では Oldestdependency を補助値として STAT14 へ保存します。主判定の停止前の確認では性能統計の 遅延表示 から Bytespersecond を読み STAT14 へ残します。証跡照合の停止前の確認では性能統計の Bytespersecond と Oldestdependency を STAT14 に保存します。記録対応の停止前の確認では性能統計の SendsとRecvs の証跡へ STAT14 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「性能統計 CDC Communications Activity 停止前の確認 STAT14」を「CHC0368I 統計採取 統計値」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は統計採取で統計値を証跡に残し・bookmark まで適用したことを示す CDC。CHC0368I 統計採取 統計値固有の属性も確認対象に含める。</li><li>B. 仕様上の役割は変更で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。</li><li>C. 仕様上の役割は計画でサブスクリプを証跡に残し・変更データ取得のサブスクリプション状態と取得時刻を記録し。</li><li>D. 仕様上の役割は停止確認で遅延表示を証跡に残し・変更データ取得 通信で遅延表示から Bytesperseco。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能遅延表・送信回でDの記述「変更データ取得 通信で遅延表示から」に対応する項目は停止前の確認 STAT14（変更デ・遅延表・停止確）です。照合遅延表・停止確に関する性能統計の仕様は「変更データ取得 通信で遅延表示から Bytespersecond」で、確認対象は遅延表・停止確・送信回です。比較性能統・停止確でA:の統計採取 統計値は「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は変更デ・停止確・遅延表です。運用停止確・変更デでB:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は遅延表・性能統・停止確です。項目遅延表・停止確でC:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸は送信回・性能統・遅延表です。用語遅延表・停止確という用語は「変更データ取得 通信で遅延表示から」を指し、照合する値と誤認リスクの組合せは性能統・遅延表・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 停止前の確認 STAT14</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて安全な停止条件を確認し、STAT14のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB14を指定し、STAT14の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB14
+→ Enter を押す
+［画面・出力］
+Subscription SUB14 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT14のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB14 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT14の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Sends が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0525"><h3>性能統計 CDC Communications Activity 再始動後の確認 STAT15</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>再始動後の確認では 性能統計 の ログ依存 を主操作として STAT15 を判定します。再開点と未処理データへの注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT15 に残します。再始動後の確認を補助する 通信統計 では Sends を補助値として STAT15 へ保存します。主判定の再始動後の確認では性能統計の ログ依存 から Oldestdependency を読み STAT15 へ残します。証跡照合の再始動後の確認では性能統計の Oldestdependency と Sends を STAT15 に保存します。記録対応の再始動後の確認では性能統計の SendsとRecvs の証跡へ STAT15 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 再始動後の確認 STAT15の役割を調べています。capture service 遅延監視 警告行の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては警告行の誤読を避けるため・リフレッシュで警告行を確認するして警告行を照合する。</li><li>B. 機能の説明としては送信回数だけでターゲット適用完了を避けるため・ログ依存からOldestdependenしてログ依存を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としては遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するして初期ロード状を照合する。CDCミラーリング Table Status 0130固有の属性も確認対象に含める。</li><li>D. 機能の説明としては遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてサブスクリプを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ依・送信回でBの記述「変更データ取得 通信でログ依存から」に対応する項目は再始動後の確認 STAT15（変更デ・ログ依・再始動）です。照合ログ依・再始動に関する性能統計の仕様は「変更データ取得 通信でログ依存から Oldestdependency」で、確認対象はログ依・再始動・送信回です。比較性能統・再始動でA:の遅延監視 警告行は「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は変更デ・再始動・ログ依です。項目ログ依・再始動でC:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は送信回・性能統・ログ依です。仕様ログ依・再始動でD:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸は再始動・送信回・ログ依です。用語ログ依・再始動という用語は「変更データ取得 通信でログ依存から」を指し、照合する値と誤認リスクの組合せは性能統・ログ依・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 再始動後の確認 STAT15</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて再始動結果を検証し、STAT15のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT15のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB15 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT15の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB15を指定し、STAT15の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB15
+→ Enter を押す
+［画面・出力］
+Subscription SUB15 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Sends が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0526"><h3>性能統計 CDC Communications Activity 変更前の確認 STAT02</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>変更前の確認では 性能統計 の 遅延表示 を主操作として STAT02 を判定します。変更対象と非対象の境界への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT02 に残します。変更前の確認を補助する ログ依存 では Oldestdependency を補助値として STAT02 へ保存します。主判定の変更前の確認では性能統計の 遅延表示 から Bytespersecond を読み STAT02 へ残します。証跡照合の変更前の確認では性能統計の Bytespersecond と Oldestdependency を STAT02 に保存します。記録対応の変更前の確認では性能統計の SendsとRecvs の証跡へ STAT02 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 変更前の確認 STAT02を保守記録に説明する必要があります。refresh 遅延監視 入力欄と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は入力欄の誤読を避けるため・マッピングで入力欄を確認するして入力欄を照合する。refresh 遅延監視 入力欄固有の属性も確認対象に含める。</li><li>B. 仕様上の役割は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてイベントログを照合する。</li><li>C. 仕様上の役割は送信回数だけでターゲット適用完了を避けるため・遅延表示からBytespersecondして遅延表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして初期ロード状を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能遅延表・送信回でCの記述「変更データ取得 通信で遅延表示から」に対応する項目は変更前の確認 STAT02（変更デ・遅延表・変更確）です。照合遅延表・変更確に関する性能統計の仕様は「変更データ取得 通信で遅延表示から Bytespersecond」で、確認対象は遅延表・変更確・送信回です。比較性能統・変更確でA:の遅延監視 入力欄は「対象表を初期同期または再同期する複製操作を遅」を述べるため、正答側の照合軸は変更デ・変更確・遅延表です。運用変更確・変更デでB:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は遅延表・性能統・変更確です。仕様遅延表・変更確でD:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は変更確・送信回・遅延表です。用語遅延表・変更確という用語は「変更データ取得 通信で遅延表示から」を指し、照合する値と誤認リスクの組合せは性能統・遅延表・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 変更前の確認 STAT02</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて変更前の証跡を保存し、STAT02のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB02を指定し、STAT02の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB02
+→ Enter を押す
+［画面・出力］
+Subscription SUB02 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT02のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB02 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT02の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Sends が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0527"><h3>性能統計 CDC Communications Activity 変更後の確認 STAT03</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>変更後の確認では 性能統計 の ログ依存 を主操作として STAT03 を判定します。反映値と残存値への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT03 に残します。変更後の確認を補助する 通信統計 では Sends を補助値として STAT03 へ保存します。主判定の変更後の確認では性能統計の ログ依存 から Oldestdependency を読み STAT03 へ残します。証跡照合の変更後の確認では性能統計の Oldestdependency と Sends を STAT03 に保存します。記録対応の変更後の確認では性能統計の SendsとRecvs の証跡へ STAT03 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 変更後の確認 STAT03に関する障害切り分けの前提を確認しています。エラー処理 CDC Event Log 変更後の確認 ERR03の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては送信回数だけでターゲット適用完了を避けるため・ログ依存からOldestdependenしてログ依存を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としては情報イベントと停止を伴うエラーをを避けるため・サポート収集からSupportを読むしてサポート収集を照合する。エラー処理 CDC Event Log 変更後の確認 ERR03固有の属性も確認対象に含める。</li><li>C. 機能の説明としては初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして表定義再読込を照合する。</li><li>D. 機能の説明としては対象インスタンスの取り違えを避けるため・照合操作で確認欄を採取するしてインスタンスを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ依・送信回でAの記述「変更データ取得 通信でログ依存から」に対応する項目は変更後の確認 STAT03（変更デ・ログ依・変更確）です。照合ログ依・変更確に関する性能統計の仕様は「変更データ取得 通信でログ依存から Oldestdependency」で、確認対象はログ依・変更確・送信回です。運用変更確・変更デでB:の変更後の確認 ERR03は「変更データ取得 イベントログでサポート収集か」を述べるため、正答側の照合軸はログ依・性能統・変更確です。項目ログ依・変更確でC:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は送信回・性能統・ログ依です。仕様ログ依・変更確でD:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は変更確・送信回・ログ依です。用語ログ依・変更確という用語は「変更データ取得 通信でログ依存から」を指し、照合する値と誤認リスクの組合せは性能統・ログ依・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 変更後の確認 STAT03</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて変更結果を検証し、STAT03のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT03のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB03 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT03の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB03を指定し、STAT03の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB03
+→ Enter を押す
+［画面・出力］
+Subscription SUB03 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Sends が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0528"><h3>性能統計 CDC Communications Activity 引継ぎ記録 STAT09</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>引継ぎ記録では 性能統計 の ログ依存 を主操作として STAT09 を判定します。次担当者が追跡できる証跡への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT09 に残します。引継ぎ記録を補助する 通信統計 では Sends を補助値として STAT09 へ保存します。主判定の引継ぎ記録では性能統計の ログ依存 から Oldestdependency を読み STAT09 へ残します。証跡照合の引継ぎ記録では性能統計の Oldestdependency と Sends を STAT09 に保存します。記録対応の引継ぎ記録では性能統計の SendsとRecvs の証跡へ STAT09 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 引継ぎ記録 STAT09の技術的な意味を資料で確認するとき、CHC0368I 初期同期判定 管理クラスとの境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は初期同期判定で管理クラスを確認することで管理クラスを確認し・管理クラスの誤読を防ぐ。</li><li>B. 構成を確認する際の意味は確認操作で状態欄を整理することでミラー開始を確認し・遅延ゼロ確認の欠落を防ぐ。CDCミラーリング Event Severity 0094固有の属性も確認対象に含める。</li><li>C. 構成を確認する際の意味は監査操作で記録欄を比較することでインスタンスを確認し・データ欠落を防ぐ。</li><li>D. 構成を確認する際の意味はログ依存からOldestdependenことでログ依存を確認し・送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ依・送信回でDの記述「変更データ取得 通信でログ依存から」に対応する項目は引継ぎ記録 STAT09（変更デ・ログ依・性能統）です。照合ログ依・性能統に関する性能統計の仕様は「変更データ取得 通信でログ依存から Oldestdependency」で、確認対象はログ依・性能統・送信回です。比較性能統・性能統でA:の初期同期判定 管理クラスは「bookmark まで適用したことを示す」を述べるため、正答側の照合軸は変更デ・性能統・ログ依です。運用性能統・変更デでB:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸はログ依・性能統・性能統です。項目ログ依・性能統でC:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は送信回・性能統・ログ依です。用語ログ依・性能統という用語は「変更データ取得 通信でログ依存から」を指し、照合する値と誤認リスクの組合せは性能統・ログ依・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 引継ぎ記録 STAT09</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて再現可能な記録を作成し、STAT09のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT09のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB09 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT09の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB09を指定し、STAT09の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB09
+→ Enter を押す
+［画面・出力］
+Subscription SUB09 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Sends が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0529"><h3>性能統計 CDC Communications Activity 復旧後の確認 STAT06</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>復旧後の確認では 性能統計 の ログ依存 を主操作として STAT06 を判定します。再発していないことを示す値への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT06 に残します。復旧後の確認を補助する 通信統計 では Sends を補助値として STAT06 へ保存します。主判定の復旧後の確認では性能統計の ログ依存 から Oldestdependency を読み STAT06 へ残します。証跡照合の復旧後の確認では性能統計の Oldestdependency と Sends を STAT06 に保存します。記録対応の復旧後の確認では性能統計の SendsとRecvs の証跡へ STAT06 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「性能統計 CDC Communications Activity 復旧後の確認 STAT06」を「ログ依存・サポート Log Dependency 権限境界の確認 LOG12」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はログ依存で支援情報から Returnvalue を読み・Returnvalue とである。支援情報からReturnvalueをときは休止購読を見落として必要ログを防ぐ。</li><li>B. 運用時に利用する技術的役割は変更データ取得 通信でログ依存から Oldestdependency を読みである。ログ依存からOldestdependときは送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。</li><li>D. 運用時に利用する技術的役割はInstanceの戻り値と取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ依・送信回でBの記述「変更データ取得 通信でログ依存から」に対応する項目は復旧後の確認 STAT06（変更デ・ログ依・復旧確）です。照合ログ依・復旧確に関する性能統計の仕様は「変更データ取得 通信でログ依存から Oldestdependency」で、確認対象はログ依・復旧確・送信回です。比較性能統・復旧確でA:の権限境界の確認 LOG12は「ログ依存で支援情報から Returnvalu」を述べるため、正答側の照合軸は変更デ・復旧確・ログ依です。項目ログ依・復旧確でC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は送信回・性能統・ログ依です。仕様ログ依・復旧確でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は復旧確・送信回・ログ依です。用語ログ依・復旧確という用語は「変更データ取得 通信でログ依存から」を指し、照合する値と誤認リスクの組合せは性能統・ログ依・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 復旧後の確認 STAT06</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて復旧後の安定性を確認し、STAT06のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT06のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB06 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT06の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB06を指定し、STAT06の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB06
+→ Enter を押す
+［画面・出力］
+Subscription SUB06 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Sends が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0530"><h3>性能統計 CDC Communications Activity 復旧準備 STAT05</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>復旧準備では 性能統計 の 遅延表示 を主操作として STAT05 を判定します。再開前に必要な整合性への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT05 に残します。復旧準備を補助する ログ依存 では Oldestdependency を補助値として STAT05 へ保存します。主判定の復旧準備では性能統計の 遅延表示 から Bytespersecond を読み STAT05 へ残します。証跡照合の復旧準備では性能統計の Bytespersecond と Oldestdependency を STAT05 に保存します。記録対応の復旧準備では性能統計の SendsとRecvs の証跡へ STAT05 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 復旧準備 STAT05を同一分類のcapture service 状態確認 スケジュールと比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は状態確認でスケジュールを証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理。capture service 状態確認 スケジュール固有の属性も確認対象に含める。</li><li>B. コマンドまたは機能の用途は監査で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・重複反映を防ぐ。</li><li>C. コマンドまたは機能の用途は計画で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li><li>D. コマンドまたは機能の用途は復旧準備で遅延表示を証跡に残し・変更データ取得 通信で遅延表示から Bytesperseco。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能遅延表・送信回でDの記述「変更データ取得 通信で遅延表示から」に対応する項目は復旧準備 STAT05（変更デ・遅延表・復旧準）です。照合遅延表・復旧準に関する性能統計の仕様は「変更データ取得 通信で遅延表示から Bytespersecond」で、確認対象は遅延表・復旧準・送信回です。比較性能統・復旧準でA:の状態確認 スケジュールは「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は変更デ・復旧準・遅延表です。運用復旧準・変更デでB:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は遅延表・性能統・復旧準です。項目遅延表・復旧準でC:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は送信回・性能統・遅延表です。用語遅延表・復旧準という用語は「変更データ取得 通信で遅延表示から」を指し、照合する値と誤認リスクの組合せは性能統・遅延表・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 復旧準備 STAT05</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて復旧条件を確認し、STAT05のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB05を指定し、STAT05の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB05
+→ Enter を押す
+［画面・出力］
+Subscription SUB05 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT05のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB05 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT05の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Sends が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0531"><h3>性能統計 CDC Communications Activity 性能影響の確認 STAT11</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>性能影響の確認では 性能統計 の 遅延表示 を主操作として STAT11 を判定します。処理時間と滞留箇所への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT11 に残します。性能影響の確認を補助する ログ依存 では Oldestdependency を補助値として STAT11 へ保存します。主判定の性能影響の確認では性能統計の 遅延表示 から Bytespersecond を読み STAT11 へ残します。証跡照合の性能影響の確認では性能統計の Bytespersecond と Oldestdependency を STAT11 に保存します。記録対応の性能影響の確認では性能統計の SendsとRecvs の証跡へ STAT11 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 性能影響の確認 STAT11に関する障害切り分けの前提を確認しています。CHCCLP 失敗時切り分け 履歴行の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は履歴行の誤読を避けるため・リフレッシュで履歴行を確認するして履歴行を照合する。</li><li>B. 障害切り分けに用いる役割は送信回数だけでターゲット適用完了を避けるため・遅延表示からBytespersecondして遅延表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は表定義未更新を避けるため・点検操作で判定欄を記録するしてログ先頭到達を照合する。</li><li>D. 障害切り分けに用いる役割は初期ロード中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。DDL後の表定義更新 Refresh Table 0263固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能遅延表・送信回でBの記述「変更データ取得 通信で遅延表示から」に対応する項目は性能影響の確認 STAT11（変更デ・遅延表・性能影）です。照合遅延表・性能影に関する性能統計の仕様は「変更データ取得 通信で遅延表示から Bytespersecond」で、確認対象は遅延表・性能影・送信回です。比較性能統・性能影でA:の失敗時切り分け 履歴行は「CDC Replication」を述べるため、正答側の照合軸は変更デ・性能影・遅延表です。項目遅延表・性能影でC:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は送信回・性能統・遅延表です。仕様遅延表・性能影でD:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は性能影・送信回・遅延表です。用語遅延表・性能影という用語は「変更データ取得 通信で遅延表示から」を指し、照合する値と誤認リスクの組合せは性能統・遅延表・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 性能影響の確認 STAT11</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて負荷と待ちを確認し、STAT11のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB11を指定し、STAT11の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB11
+→ Enter を押す
+［画面・出力］
+Subscription SUB11 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT11のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB11 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT11の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Sends が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0532"><h3>性能統計 CDC Communications Activity 構成監査 STAT08</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>構成監査では 性能統計 の 遅延表示 を主操作として STAT08 を判定します。定義値と稼働値の一致への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT08 に残します。構成監査を補助する ログ依存 では Oldestdependency を補助値として STAT08 へ保存します。主判定の構成監査では性能統計の 遅延表示 から Bytespersecond を読み STAT08 へ残します。証跡照合の構成監査では性能統計の Bytespersecond と Oldestdependency を STAT08 に保存します。記録対応の構成監査では性能統計の SendsとRecvs の証跡へ STAT08 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 構成監査 STAT08について構成や状態を確認します。エラー処理 CDC Event Log 構成監査 ERR08ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は構成監査で通信エラーを証跡に残し・変更データ取得 イベントログで通信エラーから ERROR。</li><li>B. 一次資料が示す主目的は保守でミラー開始を証跡に残し・変更データ取得のミラー開始と取得時刻を記録し。CDCミラーリング Event Severity 0154固有の属性も確認対象に含める。</li><li>C. 一次資料が示す主目的は構成監査で遅延表示を証跡に残し・変更データ取得 通信で遅延表示から Bytesperseco。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は解析で戻り値を証跡に残し・Instanceの戻り値と取得時刻を記録し・重複反映を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能遅延表・送信回でCの記述「変更データ取得 通信で遅延表示から」に対応する項目は構成監査 STAT08（変更デ・遅延表・構成監）です。照合遅延表・構成監に関する性能統計の仕様は「変更データ取得 通信で遅延表示から Bytespersecond」で、確認対象は遅延表・構成監・送信回です。比較性能統・構成監でA:の構成監査 ERR08は「変更データ取得 イベントログで通信エラーから」を述べるため、正答側の照合軸は変更デ・構成監・遅延表です。運用構成監・変更デでB:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸は遅延表・性能統・構成監です。仕様遅延表・構成監でD:の複製位置管理 Instanceは「Instanceの戻り値と取得時刻を記録し」を述べるため、正答側の照合軸は構成監・送信回・遅延表です。用語遅延表・構成監という用語は「変更データ取得 通信で遅延表示から」を指し、照合する値と誤認リスクの組合せは性能統・遅延表・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 構成監査 STAT08</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて構成差分を監査し、STAT08のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT08と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB08を指定し、STAT08の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB08
+→ Enter を押す
+［画面・出力］
+Subscription SUB08 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT08のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB08 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT08の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Sends が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0533"><h3>性能統計 CDC Communications Activity 権限境界の確認 STAT12</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>権限境界の確認では 性能統計 の ログ依存 を主操作として STAT12 を判定します。参照操作と変更操作の分離への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT12 に残します。権限境界の確認を補助する 通信統計 では Sends を補助値として STAT12 へ保存します。主判定の権限境界の確認では性能統計の ログ依存 から Oldestdependency を読み STAT12 へ残します。証跡照合の権限境界の確認では性能統計の Oldestdependency と Sends を STAT12 に保存します。記録対応の権限境界の確認では性能統計の SendsとRecvs の証跡へ STAT12 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 権限境界の確認 STAT12の設定や表示を読む前に役割を確認します。capture service 状態確認 スケジュールではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはソース変更を読み取りサブスクリプションへ渡す処理である。状態確認でスケジュールを確認するときはスケジュールの誤読を防ぐ。</li><li>B. 状態を読み取るための働きはサブスクリプションの16進ブックマークと取得時刻を記録し・ベンダー指示なしの位置変更を防ぐである。主操作で出力欄を評価するときはベンダー指示なしの位置変更を防ぐ。</li><li>C. 状態を読み取るための働きは変更データ取得のサブスクリプション状態と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li><li>D. 状態を読み取るための働きは変更データ取得 通信でログ依存から Oldestdependency を読みである。ログ依存からOldestdependときは送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能ログ依・送信回でDの記述「変更データ取得 通信でログ依存から」に対応する項目は権限境界の確認 STAT12（変更デ・ログ依・権限境）です。照合ログ依・権限境に関する性能統計の仕様は「変更データ取得 通信でログ依存から Oldestdependency」で、確認対象はログ依・権限境・送信回です。比較性能統・権限境でA:の状態確認 スケジュールは「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸は変更デ・権限境・ログ依です。運用権限境・変更デでB:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸はログ依・性能統・権限境です。項目ログ依・権限境でC:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸は送信回・性能統・ログ依です。用語ログ依・権限境という用語は「変更データ取得 通信でログ依存から」を指し、照合する値と誤認リスクの組合せは性能統・ログ依・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 権限境界の確認 STAT12</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて実行権限を点検し、STAT12のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT12と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT12のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB12 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT12の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB12を指定し、STAT12の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB12
+→ Enter を押す
+［画面・出力］
+Subscription SUB12 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Subscription が画面・出力に表示されること
+② ステップ2 の Sends が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0534"><h3>性能統計 CDC Communications Activity 通常状態の確認 STAT01</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>通常状態の確認では 性能統計 の 通信統計 を主操作として STAT01 を判定します。基準値と現在値の差への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT01 に残します。通常状態の確認を補助する 遅延表示 では Bytespersecond を補助値として STAT01 へ保存します。主判定の通常状態の確認では性能統計の 通信統計 から Sends を読み STAT01 へ残します。証跡照合の通常状態の確認では性能統計の Sends と Bytespersecond を STAT01 に保存します。記録対応の通常状態の確認では性能統計の SendsとRecvs の証跡へ STAT01 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 通常状態の確認 STAT01の技術的な意味を資料で確認するとき、apply task 失敗時切り分け 例外記録との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はターゲットへ変更を反映し適用済み位置を記録する処理を失敗時切り分けとして確認する。複製状態監視で例外記録を確認するときは例外記録の誤読を防ぐ。</li><li>B. 管理対象との関係を表す説明は後の表定義更新の項目のログ先頭到達と取得時刻を記録し・表定義未更新を防ぐである。点検操作で判定欄を記録するときは表定義未更新を防ぐ。</li><li>C. 管理対象との関係を表す説明は変更データ取得の遅延確認と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。CDCミラーリング Latency 0292固有の属性も確認対象に含める。</li><li>D. 管理対象との関係を表す説明は変更データ取得 通信で通信統計から Sends を読み・Sends と Bytespersecondである。通信統計からSendsを読むときは送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信統・送信回でDの記述「変更データ取得 通信で通信統計から Sends を読み」に対応する項目は通常状態の確認 STAT01（変更デ・通信統・通常状）です。照合通信統・通常状に関する性能統計の仕様は「変更データ取得 通信で通信統計から Sends を読み、Sends」で、確認対象は通信統・通常状・送信回です。比較性能統・通常状でA:の失敗時切り分け 例外記録は「ターゲットへ変更を反映し適用済み位置を記録す」を述べるため、正答側の照合軸は変更デ・通常状・通信統です。運用通常状・変更デでB:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は通信統・性能統・通常状です。項目通信統・通常状でC:のCDCミラーリングは「変更データ取得の遅延確認と取得時刻を記録し」を述べるため、正答側の照合軸は送信回・性能統・通信統です。用語通信統・通常状という用語は「変更データ取得 通信で通信統計から Sends」を指し、照合する値と誤認リスクの組合せは性能統・通信統・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 通常状態の確認 STAT01</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて通常状態を確定し、STAT01のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT01と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT01の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB01を指定し、STAT01の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB01
+→ Enter を押す
+［画面・出力］
+Subscription SUB01 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT01のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB01 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Sends が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0535"><h3>性能統計 CDC Communications Activity 障害切り分け STAT04</h3><p class="kb-meta">分類: 性能統計 ・ 難易度: 中級</p><p>障害切り分けでは 性能統計 の 通信統計 を主操作として STAT04 を判定します。最初に失敗した処理への注意として「送信回数だけでターゲット適用完了を判断する危険があります」を STAT04 に残します。障害切り分けを補助する 遅延表示 では Bytespersecond を補助値として STAT04 へ保存します。主判定の障害切り分けでは性能統計の 通信統計 から Sends を読み STAT04 へ残します。証跡照合の障害切り分けでは性能統計の Sends と Bytespersecond を STAT04 に保存します。記録対応の障害切り分けでは性能統計の SendsとRecvs の証跡へ STAT04 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 性能統計 CDC Communications Activity 障害切り分け STAT04の設定や表示を読む前に役割を確認します。ログ依存・サポート Log Dependency 依存関係の確認 LOG13ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはログ依存で依存表示から Oldestrequired を読み・Oldestrequired とである。依存表示からOldestrequirときは休止購読を見落として必要ログを防ぐ。</li><li>B. 対象資源に対する働きは後の表定義更新の項目の再開条件と取得時刻を記録し・初期ロード中の再開を防ぐである。表示操作で対象欄を追跡するときは初期ロード中の再開を防ぐ。</li><li>C. 対象資源に対する働きは変更データ取得の初期ロード状態と取得時刻を記録し・遅延ゼロ確認の欠落を防ぐである。確認操作で状態欄を整理するときは遅延ゼロ確認の欠落を防ぐ。</li><li>D. 対象資源に対する働きは変更データ取得 通信で通信統計から Sends を読み・Sends と Bytespersecondである。通信統計からSendsを読むときは送信回数だけでターゲット適用を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信統・送信回でDの記述「変更データ取得 通信で通信統計から Sends を読み」に対応する項目は障害切り分け STAT04（変更デ・通信統・性能統）です。照合通信統・性能統に関する性能統計の仕様は「変更データ取得 通信で通信統計から Sends を読み、Sends」で、確認対象は通信統・性能統・送信回です。比較性能統・性能統でA:の依存関係の確認 LOG13は「ログ依存で依存表示から Oldestrequ」を述べるため、正答側の照合軸は変更デ・性能統・通信統です。運用性能統・変更デでB:のRefresh Tableは「後の表定義更新の項目の再開条件と取得時刻を記」を述べるため、正答側の照合軸は通信統・性能統・性能統です。項目通信統・性能統でC:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は送信回・性能統・通信統です。用語通信統・性能統という用語は「変更データ取得 通信で通信統計から Sends」を指し、照合する値と誤認リスクの組合せは性能統・通信統・送信回です。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>性能統計 CDC Communications Activity 障害切り分け STAT04</strong></p><p>検証目的: 性能統計のCDC Communications Activityについて障害範囲を限定し、STAT04のSendsとRecvsを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象STAT04と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=COMMを指定し、STAT04の通信統計を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=COMM
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 18420, Recvs = 18398
+画面・出力にあるSendsを読み、SendsとRecvsと対象STAT04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB04を指定し、STAT04の遅延表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB04
+→ Enter を押す
+［画面・出力］
+Subscription SUB04 Status Mirroring Latency 3 seconds Bytes per second 842120
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の性能統計を確認する入力画面です。COMMAND入力口へdmshowlogdependency -I SRC1を指定し、STAT04のログ依存を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowlogdependency -I SRC1
+→ Enter を押す
+［画面・出力］
+Subscription SUB04 requires log file S0001842.LOG Oldest dependency 2026-07-15 13:55
+画面・出力にあるSubscriptionを読み、SendsとRecvsと対象STAT04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Sends が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の Subscription が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+## 複製状態監視
+
+
+<section class="kb-item" id="c11-i0536"><h3>CHC0368I 状態確認 高速伝搬</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「CHC0368I 状態確認 高速伝搬」は、bookmark まで適用したことを示す CDC Replication メッセージを状態確認の観点で確認する技術項目です。replication mapping 名とDS060を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> CHC0368I 状態確認 高速伝搬の技術的な意味を資料で確認するとき、複製位置管理 Instance 0018との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は変更確認操作で採取欄を棚卸することで戻り値を確認し・重複反映を防ぐ。</li><li>B. 管理対象との関係を表す説明は状態確認で高速伝搬を確認することで高速伝搬を確認し・高速伝搬の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は確認操作で状態欄を整理することでRefresを確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>D. 管理対象との関係を表す説明は方式変更からReturnvalueを読むことで方式変更を確認し・Refresh未完了でMirを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 状態・高速伝・高速伝搬でBの記述「bookmark まで適用したことを示す CDC」に対応する項目は状態確認 高速伝搬（状態確・高速伝・高速伝搬・状態確）です。状態確認時の高速伝搬に関する複製状態監視の仕様は「bookmark まで適用したことを示す CDC」で、確認対象は状態確・高速伝・高速伝搬・状態確です。In・巡回・戻り値のA:は「Instanceの戻り値と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Instance（Ins・戻り値・重複反映・巡回）です。収集時のRefreのC:は「CDCのRefresh状態と取得時刻を記録し」を述べ、対象はTable Status（ミラー・Ref・遅延ゼロ・収集）です。方式変更を変更確認のD:は「CDC Refreshで方式変更からReturnvalueを読み」を述べ、対象は変更前の確認 REF02（CDC・方式変・Refr・変更確）です。高速伝搬を状態確認という用語は「bookmark まで適用したことを示す CDC」を指し、状態確認 高速伝搬（状態確・高速伝・高速伝搬・状態確）で照合する値は高速伝搬です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHC0368I 状態確認 高速伝搬</strong></p><p>検証目的: 複製状態監視のCHC0368I 状態確認 高速伝搬について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB060           DS060          Mirroring   BMK060
+画面・出力には Subscription が含まれ、CHC0368I 状態確認 高速伝搬の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB060           DS060          BMK060
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0537"><h3>CHC0368I 遅延監視 識別列</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「CHC0368I 遅延監視 識別列」は、bookmark まで適用したことを示す CDC Replication メッセージを遅延監視の観点で確認する技術項目です。replication mapping 名とDS020を同じ記録で見比べることで、開始位置の取り違えを名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> CHC0368I 遅延監視 識別列の技術的な意味を資料で確認するとき、CHCCLP 開始位置指定 レビュー結果との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はエラー処理でレビュー結果を証跡に残し・CDC Replication のスクリプト操作に使うコマン。</li><li>B. 構成を確認する際の意味は登録で表定義再読込を証跡に残し・DDLの表定義再読込と取得時刻を記録し。</li><li>C. 構成を確認する際の意味は解除でログ先頭到達を証跡に残し・DDLのログ先頭到達と取得時刻を記録し。</li><li>D. 構成を確認する際の意味は複製状態監視で識別列を証跡に残し・bookmark まで適用したことを示す CDC。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 複製状態対象遅延監視でDの記述「bookmark まで適用したことを示す CDC」に対応する項目は遅延監視 識別列（遅延監視・複製状・識別列・識別列の）です。複製状態時の遅延監視に関する複製状態監視の仕様は「bookmark まで適用したことを示す CDC」で、確認対象は遅延監視・複製状・識別列・識別列のです。開始位置指・エラー処理のA:は「CDC Replication のスクリプト操作に使うコマンドライン」を述べ、対象は開始位置指定 レビュー結果（開始位置指・エラー・レビュ・レビュー）です。登録対象後の表定義のB:は「DDLの表定義再読込と取得時刻を記録し、Refresh中の再開を防ぐ」を述べ、対象はSource Table（後の表定義・登録・表定義・Refr）です。解除時の後の表定義のC:は「DDLのログ先頭到達と取得時刻を記録し、Refresh中の再開を防ぐ」を述べ、対象はDDL後の表定義更新（後の表定義・解除・ログ先・Refr）です。遅延監視を複製状態監という用語は「bookmark まで適用したことを示す CDC」を指し、遅延監視 識別列（遅延監視・複製状・識別列・識別列の）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CHC0368I 遅延監視 識別列</strong></p><p>検証目的: 複製状態監視のCHC0368I 遅延監視 識別列について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。replication mapping 名を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB020           DS020          Mirroring   BMK020
+画面・出力には Subscription が含まれ、CHC0368I 遅延監視 識別列の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、開始位置の取り違えを切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB020           DS020          BMK020
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0538"><h3>apply task ログ位置照合 データソース</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「apply task ログ位置照合 データソース」は、ターゲットへ変更を反映し適用済み位置を記録する処理をログ位置照合の観点で確認する技術項目です。list subscriptions の表とBMK076を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> apply task ログ位置照合 データソースの技術的な意味を資料で確認するとき、CDCミラーリング Event Severity 0049との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は復旧でミラー開始を証跡に残し・CDCのミラー開始と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は確認でDDL対象表を証跡に残し・DDLのDDL対象表と取得時刻を記録し。</li><li>C. コマンドまたは機能の用途はログ位置照合でデータソースを証跡に残し・ターゲットへ変更を反映し適用済み位置を記録する処理。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はログとの照合で通信統計を証跡に残し・CDC Communicationsで通信統計からSends。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> ログ・データ・データソでCの記述「ターゲットへ変更を反映し適用済み位置を記録する処理である」に対応する項目はログ位置照合 データソース（app・データ・データソ・ログ位）です。ログ位置時のデータソーに関する複製状態監視の仕様は「ターゲットへ変更を反映し適用済み位置を記録する処理」で、確認対象はapp・データ・データソ・ログ位です。ミラ・復旧・ミラー開のA:は「CDCのミラー開始と取得時刻を記録し、Refresh未完了の見落とし」を述べ、対象はEvent Severity（ミラー・ミラー・Refr・復旧）です。確認・DDL・ログ先頭のB:は「DDLのDDL対象表と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はTable Definition（後の表・DDL・ログ先頭・確認）です。通信統計をログとの照のD:は「CDC Communicationsで通信統計からSendsを読み」を述べ、対象はログとの照合 STAT07（CDC・通信統・送信回数・ログと）です。データソーをログ位置照という用語は「ターゲットへ変更を反映し適用済み位置を記録する処理」を指し、ログ位置照合 データソース（app・データ・データソ・ログ位）で照合する値はデータソースです。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>apply task ログ位置照合 データソース</strong></p><p>検証目的: 複製状態監視のapply task ログ位置照合 データソースについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB076           DS076          Mirroring   BMK076
+画面・出力には Subscription が含まれ、apply task ログ位置照合 データソースの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB076           DS076          BMK076
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0539"><h3>apply task 失敗時切り分け 例外記録</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「apply task 失敗時切り分け 例外記録」は、ターゲットへ変更を反映し適用済み位置を記録する処理を失敗時切り分けの観点で確認する技術項目です。list subscriptions の表とBMK036を同じ記録で見比べることで、適用遅延を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> apply task 失敗時切り分け 例外記録の技術的な意味を資料で確認するとき、複製位置管理 Locale 0027との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は複製状態監視で例外記録を確認することで例外記録を確認し・例外記録の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は監査操作で記録欄を比較することでサブスクリプを確認し・データ欠落を防ぐ。</li><li>C. 管理対象との関係を表す説明は監査操作で記録欄を比較することでインスタンスを確認し・データ欠落を防ぐ。</li><li>D. 管理対象との関係を表す説明はデータストアで障害切り分けを確認することで障害切り分けを確認し・ホスト名変更後の購読構成を更を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 複製状態対象applyでAの記述「ターゲットへ変更を反映し適用済み位置を記録する処理を失敗時切り分けと」に対応する項目は失敗時切り分け 例外記録（apply・複製状・例外記・例外記録）です。複製状態時のapplyに関する複製状態監視の仕様は「ターゲットへ変更を反映し適用済み位置を記録する処理を失敗時切り分けと」で、確認対象はappl・複製状・例外記・例外記録です。棚卸対象LocalのB:は「Localeのサブスクリプション名と取得時刻を記録し」を述べ、対象は複製位置管理 Locale（Local・棚卸・サブス・データ欠）です。確認時のHexのC:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・確認・インス・データ欠）です。障害切り分をデータスのD:は「CDC Datastoreで障害切り分けではデータストア接続の」を述べ、対象は障害切り分け STORE04（CDC・データ・障害切・ホスト名）です。applを複製状態監という用語は「ターゲットへ変更を反映し適用済み位置を記録する処理を」を指し、失敗時切り分け 例外記録（apply・複製状・例外記・例外記録）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>apply task 失敗時切り分け 例外記録</strong></p><p>検証目的: 複製状態監視のapply task 失敗時切り分け 例外記録について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。list subscriptions の表を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB036           DS036          Mirroring   BMK036
+画面・出力には Subscription が含まれ、apply task 失敗時切り分け 例外記録の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、適用遅延を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB036           DS036          BMK036
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0540"><h3>bookmark マッピング検査 対象表</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「bookmark マッピング検査 対象表」は、ログ上の適用位置と時刻を追跡する複製の進行点をマッピング検査の観点で確認する技術項目です。target datastore の統計とSUB004を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> bookmark マッピング検査 対象表の技術的な意味を資料で確認するとき、capture service 開始位置指定 検査エンジンとの境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ上の適用位置と時刻を追跡する複製の進行点をマッピング検査として確認する。複製状態監視で対象表を確認するときは対象表の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はソース変更を読み取りサブスクリプションへ渡す処理である。マッピングで検査エンジンを確認するときは検査エンジンの誤読を防ぐ。</li><li>C. コマンドまたは機能の用途はDDLの表定義再読込と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。</li><li>D. コマンドまたは機能の用途はCDC Subscriptionで引継ぎ記録ではサブスクリプション管理のである。サブスクリプで引継ぎ記録でを確認するときは別サブスクリプションを停止まを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 複製状態対象bookmでAの記述「ログ上の適用位置と時刻を追跡する複製の進行点をマッピング検査として確」に対応する項目はマッピング検査 対象表（bookm・複製状・対象表・対象表の）です。複製状態時のbookmに関する複製状態監視の仕様は「ログ上の適用位置と時刻を追跡する複製の進行点をマッピング検査として確」で、確認対象はbook・複製状・対象表・対象表のです。マッピン対象captuのB:は「ソース変更を読み取りサブスクリプションへ渡す処理」を述べ、対象は開始位置指定 検査エンジン（captu・マッピ・検査エ・検査エン）です。保守時の後の表定義のC:は「DDLの表定義再読込と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はSource Table（後の表定義・保守・表定義・ログ先頭）です。引継ぎ記録をサブスクのD:は「CDC Subscriptionで引継ぎ記録ではサブスクリプション管」を述べ、対象は引継ぎ記録 SUB09（CDC・サブス・引継ぎ・別サブス）です。bookを複製状態監という用語は「ログ上の適用位置と時刻を追跡する複製の進行点をマッピ」を指し、マッピング検査 対象表（bookm・複製状・対象表・対象表の）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>bookmark マッピング検査 対象表</strong></p><p>検証目的: 複製状態監視のbookmark マッピング検査 対象表について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB004           DS004          Mirroring   BMK004
+画面・出力には Subscription が含まれ、bookmark マッピング検査 対象表の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB004           DS004          BMK004
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0541"><h3>bookmark 統計採取 回収対象</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「bookmark 統計採取 回収対象」は、ログ上の適用位置と時刻を追跡する複製の進行点を統計採取の観点で確認する技術項目です。target datastore の統計とSUB044を同じ記録で見比べることで、再同期範囲の誤認を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> bookmark 統計採取 回収対象の技術的な意味を資料で確認するとき、CDCミラーリング Subscription 0061との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は監査でイベントログを証跡に残し・CDCのイベントログと取得時刻を記録し。</li><li>B. 構成を確認する際の意味は統計採取で回収対象を証跡に残し・ログ上の適用位置と時刻を追跡する複製の進行点を統計採取として。 <span class="kb-ok">✅ 正解</span></li><li>C. 構成を確認する際の意味は切替でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li><li>D. 構成を確認する際の意味は再始動確認で確認ではサブを証跡に残し・CDC Subscriptionで再始動後の確認ではサブスク。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 統計採取対象bookmでBの記述「ログ上の適用位置と時刻を追跡する複製の進行点を統計採取として確認する」に対応する項目は統計採取 回収対象（bookm・統計採・回収対・回収対象）です。統計採取時のbookmに関する複製状態監視の仕様は「ログ上の適用位置と時刻を追跡する複製の進行点を統計採取として確認する」で、確認対象はbook・統計採・回収対・回収対象です。ミラーリン・監査のA:は「CDCのイベントログと取得時刻を記録し、Refresh未完了の見落と」を述べ、対象はCDCミラーリング Subscrip（ミラーリン・監査・イベン・Refr）です。切替時のLocalのC:は「Localeのサブスクリプション名と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Locale（Local・切替・サブス・重複反映）です。確認ではサを再始動確のD:は「CDC Subscriptionで再始動後の確認ではサブスクリプショ」を述べ、対象は再始動後の確認 SUB15（CDC・再始動・確認で・別サブス）です。bookを統計採取という用語は「ログ上の適用位置と時刻を追跡する複製の進行点を統計採」を指し、統計採取 回収対象（bookm・統計採・回収対・回収対象）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>bookmark 統計採取 回収対象</strong></p><p>検証目的: 複製状態監視のbookmark 統計採取 回収対象について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。target datastore の統計を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB044           DS044          Mirroring   BMK044
+画面・出力には Subscription が含まれ、bookmark 統計採取 回収対象の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、再同期範囲の誤認を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB044           DS044          BMK044
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0542"><h3>datastore 状態確認 イベント識別</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「datastore 状態確認 イベント識別」は、CDC Replication が接続するソースまたはターゲットの接続定義を状態確認の観点で確認する技術項目です。bookmark valueとLOG052を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> datastore 状態確認 イベント識別の技術的な意味を資料で確認するとき、CHC0368I マッピング検査 セッション上限との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は性能統計でセッション上を確認することでセッション上を確認し・セッション上の誤読を防ぐ。</li><li>B. コマンドまたは機能の用途は復旧操作で点検欄を確認することでログ先頭到達を確認し・DDL対象表の漏れを防ぐ。</li><li>C. コマンドまたは機能の用途は状態確認でイベント識別を確認することでイベント識別を確認し・イベント識別の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は購読再記述からMappedTableを読ことで購読再記述を確認し・DDL変更後に古い列定義で複を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 状態・イベン・イベントでCの記述「CDC Replication が接続するソースまたはターゲットの接」に対応する項目は状態確認 イベント識別（dat・イベン・イベント・状態確）です。状態確認時のイベント識に関する複製状態監視の仕様は「CDC Replication が接続するソースまたはターゲットの接」で、確認対象はdat・イベン・イベント・状態確です。マッ・性能・セッショのA:は「bookmark まで適用したことを示す CDC」を述べ、対象はマッピング検査 セッション上限（マッピ・セッシ・セッショ・性能統）です。収集・ログ先・DDL対のB:は「DDLのログ先頭到達と取得時刻を記録し、DDL対象表の漏れを防ぐ」を述べ、対象はDDL後の表定義更新（後の表・ログ先・DDL対・収集）です。購読再記述をマッピングのD:は「Table Mappingで購読再記述からMappedTableを読」を述べ、対象は引継ぎ記録 MAP09（Tab・購読再・DDL変・マッピ）です。イベント識を状態確認という用語は「CDC Replication」を指し、状態確認 イベント識別（dat・イベン・イベント・状態確）で照合する値はイベント識別です。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>datastore 状態確認 イベント識別</strong></p><p>検証目的: 複製状態監視のdatastore 状態確認 イベント識別について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB052           DS052          Mirroring   BMK052
+画面・出力には Subscription が含まれ、datastore 状態確認 イベント識別の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB052           DS052          BMK052
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0543"><h3>datastore 遅延監視 宛先定義</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 初級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「datastore 遅延監視 宛先定義」は、CDC Replication が接続するソースまたはターゲットの接続定義を遅延監視の観点で確認する技術項目です。bookmark valueとLOG012を同じ記録で見比べることで、対象表の不一致を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> datastore 遅延監視 宛先定義の技術的な意味を資料で確認するとき、DDL後の表定義更新 Head of Log 0026との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は表定義未更新を避けるため・点検操作で判定欄を記録するしてサブスクリプを照合する。</li><li>B. 管理対象との関係を表す説明はDDL対象表の漏れを避けるため・復旧操作で点検欄を確認するしてログ先頭到達を照合する。</li><li>C. 管理対象との関係を表す説明はIBM指示なしの位置変更を避けるため・主操作で出力欄を評価するして戻り値を照合する。</li><li>D. 管理対象との関係を表す説明は宛先定義の誤読を避けるため・複製状態監視で宛先定義を確認するして宛先定義を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 複製状態対象datasでDの記述「CDC Replication が接続するソースまたはターゲットの接」に対応する項目は遅延監視 宛先定義（datas・複製状・宛先定・宛先定義）です。複製状態時のdatasに関する複製状態監視の仕様は「CDC Replication が接続するソースまたはターゲットの接」で、確認対象はdata・複製状・宛先定・宛先定義です。後の表定義・棚卸のA:は「DDLのサブスクリプション記述と取得時刻を記録し、表定義未更新を防ぐ」を述べ、対象はof Log（後の表定義・棚卸・サブス・表定義未）です。診断対象後の表定義のB:は「DDLのログ先頭到達と取得時刻を記録し、DDL対象表の漏れを防ぐ」を述べ、対象はDDL後の表定義更新（後の表定義・診断・ログ先・DDL対）です。計画時のInstaのC:は「Instanceの戻り値と取得時刻を記録し」を述べ、対象は複製位置管理 Instance（Insta・計画・戻り値・IBM指）です。dataを複製状態監という用語は「CDC Replication」を指し、遅延監視 宛先定義（datas・複製状・宛先定・宛先定義）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>datastore 遅延監視 宛先定義</strong></p><p>検証目的: 複製状態監視のdatastore 遅延監視 宛先定義について、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。bookmark valueを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB012           DS012          Mirroring   BMK012
+画面・出力には Subscription が含まれ、datastore 遅延監視 宛先定義の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、対象表の不一致を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB012           DS012          BMK012
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0544"><h3>performance statistics 初期同期判定 出力見出し</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「performance statistics 初期同期判定 出力見出し」は、サブスクリプションやデータストアの処理量と遅延を測る情報を初期同期判定の観点で確認する技術項目です。CHC0368I メッセージとMAP028を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> performance statistics 初期同期判定 出力見出しの技術的な意味を資料で確認するとき、DDL後の表定義更新 Subscription 0032との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はログ先頭未到達の見落としを避けるため・調査操作で保守欄を引き継ぎするしてログ先頭到達を照合する。</li><li>B. コマンドまたは機能の用途はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するしてミラー開始を照合する。</li><li>C. コマンドまたは機能の用途はデータ欠落を避けるため・監査操作で記録欄を比較するしてインスタンスを照合する。</li><li>D. コマンドまたは機能の用途は出力見出しの誤読を避けるため・初期同期判定で出力見出しを確認するして出力見出しを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 初期同期対象perfoでDの記述「サブスクリプションやデータストアの処理量と遅延を測る情報を初期同期判」に対応する項目は初期同期判定 出力見出し（perfo・初期同・出力見・出力見出）です。初期同期時のperfoに関する複製状態監視の仕様は「サブスクリプションやデータストアの処理量と遅延を測る情報を初期同期判」で、確認対象はperf・初期同・出力見・出力見出です。後の表定義・棚卸のA:は「DDLのログ先頭到達と取得時刻を記録し、ログ先頭未到達の見落としを防」を述べ、対象はDDL後の表定義更新（後の表定義・棚卸・ログ先・ログ先頭）です。診断対象ミラーリンのB:は「CDCのミラー開始と取得時刻を記録し、イベント重大度の誤読を防ぐ」を述べ、対象はEvent Severity（ミラーリン・診断・ミラー・イベント）です。解除時のHexのC:は「Hex Positionのインスタンス名と取得時刻を記録し」を述べ、対象はHex Position（Hex・解除・インス・データ欠）です。perfを初期同期判という用語は「サブスクリプションやデータストアの処理量と遅延を測る」を指し、初期同期判定 出力見出し（perfo・初期同・出力見・出力見出）に該当します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>performance statistics 初期同期判定 出力見出し</strong></p><p>検証目的: 複製状態監視のperformance statistics 初期同期判定 出力見出しについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB028           DS028          Mirroring   BMK028
+画面・出力には Subscription が含まれ、performance statistics 初期同期判定 出力見出しの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB028           DS028          BMK028
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0545"><h3>performance statistics 開始位置指定 画面タグ</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 上級</p><p>IBM IIDR 11.4 の 複製状態監視 で扱う「performance statistics 開始位置指定 画面タグ」は、サブスクリプションやデータストアの処理量と遅延を測る情報を開始位置指定の観点で確認する技術項目です。CHC0368I メッセージとMAP068を同じ記録で見比べることで、データストア接続失敗を名前だけの確認にせず、処理結果・表名・メッセージの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> performance statistics 開始位置指定 画面タグの技術的な意味を資料で確認するとき、DDL後の表定義更新 Refresh Table 0023との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はRefresh中の再開を避けるため・表示操作で対象欄を追跡するして再開条件を照合する。</li><li>B. 構成を確認する際の意味は画面タグの誤読を避けるため・複製状態監視で画面タグを確認するして画面タグを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 構成を確認する際の意味は重複反映を避けるため・変更確認操作で採取欄を棚卸するして複製位置を照合する。</li><li>D. 構成を確認する際の意味はRefresh未完了でMirroを避けるため・方式変更からReturnvalueを読むして方式変更を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 複製・画面タ・画面タグでBの記述「サブスクリプションやデータストアの処理量と遅延を測る情報である」に対応する項目は開始位置指定 画面タグ（per・画面タ・画面タグ・複製状）です。複製状態時の画面タグに関する複製状態監視の仕様は「サブスクリプションやデータストアの処理量と遅延を測る情報」で、確認対象はper・画面タ・画面タグ・複製状です。後の・棚卸・再開条件のA:は「DDLの再開条件と取得時刻を記録し、Refresh中の再開を防ぐ」を述べ、対象はRefresh Table（後の表・再開条・Refr・棚卸）です。確認時の複製位置のC:は「Bookmarkの複製位置と取得時刻を記録し、重複反映を防ぐ」を述べ、対象は複製位置管理 Bookmark（Boo・複製位・重複反映・確認）です。方式変更を復旧準備のD:は「CDC Refreshで方式変更からReturnvalueを読み」を述べ、対象は復旧準備 REF05（CDC・方式変・Refr・復旧準）です。画面タグを複製状態監という用語は「サブスクリプションやデータストアの処理量と遅延を測る」を指し、開始位置指定 画面タグ（per・画面タ・画面タグ・複製状）で照合する値は画面タグです。</p><p class="kb-src"><strong>出典:</strong> IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>performance statistics 開始位置指定 画面タグ</strong></p><p>検証目的: 複製状態監視のperformance statistics 開始位置指定 画面タグについて、IBM IIDR 11.4の資料に出る操作名・表名・メッセージ形式を机上で照合する。</p><p>前提条件: IBM IIDR 11.4の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、メニュー、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の入力画面です。COMMAND ===&gt; または ?S に最初の確認操作を入れ、複製状態監視の対象へ進みます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help;
+→ Enter を押す
+［画面・出力］
+CHCCLP&gt; help;
+Available commands include connect datastore, list subscriptions, monitor replication and help &quot;&lt;command&gt;&quot;.
+画面・出力には CHCCLP が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の確認画面です。CHC0368I メッセージを読むため、対象名を含む操作を入力します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; list subscriptions;
+→ Enter を押す
+［画面・出力］
+Subscription    Datastore    State       Bookmark
+SUB068           DS068          Mirroring   BMK068
+画面・出力には Subscription が含まれ、performance statistics 開始位置指定 画面タグの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の詳細確認画面です。表示名とメッセージ形式を照合し、データストア接続失敗を切り分けます。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; help &quot;list subscriptions&quot;;
+→ Enter を押す
+［画面・出力］
+ResultStringTable
+Name            Datastore      Bookmark
+SUB068           DS068          BMK068
+画面・出力には ResultStringTable が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の CHCCLP が画面・出力に表示されること
+② ステップ2 の Subscription が画面・出力に表示されること
+③ ステップ3 の ResultStringTable が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IBM_IIDR_11.4_CHCCLP_Commands / IBM IIDR 11.4 Capture service (CECC) / CDC Replication messages CHC0368I</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0546"><h3>複製状態監視 Mirror Status ログとの照合 MIR07</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>ログとの照合では 複製状態監視 の 状態表示 を主操作として MIR07 を判定します。時刻と対象識別子への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR07 に残します。ログとの照合を補助する イベント表示 では headoflog を補助値として MIR07 へ保存します。主判定のログとの照合では複製状態監視の 状態表示 から Latency を読み MIR07 へ残します。証跡照合のログとの照合では複製状態監視の Latency と headoflog を MIR07 に保存します。記録対応のログとの照合では複製状態監視の Table StatusとLatency の証跡へ MIR07 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status ログとの照合 MIR07の技術的な意味を資料で確認するとき、performance statistics 初期同期判定 出力見出しとの境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明は状態表示からLatencyを読むことで状態表示を確認し・初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 管理対象との関係を表す説明は初期同期判定で出力見出しを確認することで出力見出しを確認し・出力見出しの誤読を防ぐ。</li><li>C. 管理対象との関係を表す説明は照合操作で確認欄を採取することで複製位置を確認し・対象インスタンスの取り違えを防ぐ。</li><li>D. 管理対象との関係を表す説明は記録操作で証跡欄を照合することでイベントログを確認し・初期ロード未完了の見落としを防ぐ。CDCミラーリング Subscription 0301固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能状態表・初期ロでAの記述「複製状態で状態表示から Latency を読み」に対応する項目はログとの照合 MIR07（複製状・状態表・ログと）です。照合状態表・ログとに関する複製状態監視の仕様は「複製状態で状態表示から Latency を読み、Latency と」で、確認対象は状態表・ログと・初期ロです。運用ログと・複製状でB:の初期同期判定 出力見出しは「サブスクリプションやデータストアの処理量と遅」を述べるため、正答側の照合軸は状態表・複製状・ログとです。項目状態表・ログとでC:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は初期ロ・複製状・状態表です。仕様状態表・ログとでD:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸はログと・初期ロ・状態表です。用語状態表・ログとという用語は「複製状態で状態表示から Latency を読み」を指し、照合する値と誤認リスクの組合せは複製状・状態表・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status ログとの照合 MIR07</strong></p><p>検証目的: 複製状態監視のMirror Statusについて操作とログを対応し、MIR07のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB07を指定し、MIR07の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB07
+→ Enter を押す
+［画面・出力］
+Subscription: SUB07
+Table: APP.MIR07
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB07を指定し、MIR07のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB07
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB07 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR07の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Latency が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の CHC9788I が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0547"><h3>複製状態監視 Mirror Status 代替経路の確認 MIR10</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>代替経路の確認では 複製状態監視 の 状態表示 を主操作として MIR10 を判定します。主経路との役割差への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR10 に残します。代替経路の確認を補助する イベント表示 では headoflog を補助値として MIR10 へ保存します。主判定の代替経路の確認では複製状態監視の 状態表示 から Latency を読み MIR10 へ残します。証跡照合の代替経路の確認では複製状態監視の Latency と headoflog を MIR10 に保存します。記録対応の代替経路の確認では複製状態監視の Table StatusとLatency の証跡へ MIR10 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 代替経路の確認 MIR10の設定や表示を読む前に役割を確認します。ログ依存・サポート Log Dependency 依存関係の確認 LOG13ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは依存表示からOldestrequiredことで依存表示を確認し・休止購読を見落として必要ログを防ぐ。</li><li>B. 対象資源に対する働きは表示操作で対象欄を追跡することでデータ定義対を確認し・初期ロード中の再開を防ぐ。</li><li>C. 対象資源に対する働きは状態表示からLatencyを読むことで状態表示を確認し・初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きは保守操作で監査欄を保存することでミラー開始を確認し・対象サブスクリプションの取りを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能状態表・初期ロでCの記述「複製状態で状態表示から Latency を読み」に対応する項目は代替経路の確認 MIR10（複製状・状態表・代替経）です。照合状態表・代替経に関する複製状態監視の仕様は「複製状態で状態表示から Latency を読み、Latency と」で、確認対象は状態表・代替経・初期ロです。比較複製状・代替経でA:の依存関係の確認 LOG13は「ログ依存で依存表示から Oldestrequ」を述べるため、正答側の照合軸は複製状・代替経・状態表です。運用代替経・複製状でB:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は状態表・複製状・代替経です。仕様状態表・代替経でD:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸は代替経・初期ロ・状態表です。用語状態表・代替経という用語は「複製状態で状態表示から Latency を読み」を指し、照合する値と誤認リスクの組合せは複製状・状態表・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 代替経路の確認 MIR10</strong></p><p>検証目的: 複製状態監視のMirror Statusについて代替手段の成立を確認し、MIR10のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB10を指定し、MIR10の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB10
+→ Enter を押す
+［画面・出力］
+Subscription: SUB10
+Table: APP.MIR10
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB10を指定し、MIR10のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB10
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB10 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR10の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Latency が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の CHC9788I が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0548"><h3>複製状態監視 Mirror Status 依存関係の確認 MIR13</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>依存関係の確認では 複製状態監視 の 状態表示 を主操作として MIR13 を判定します。前提資源と後続処理の順序への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR13 に残します。依存関係の確認を補助する イベント表示 では headoflog を補助値として MIR13 へ保存します。主判定の依存関係の確認では複製状態監視の 状態表示 から Latency を読み MIR13 へ残します。証跡照合の依存関係の確認では複製状態監視の Latency と headoflog を MIR13 に保存します。記録対応の依存関係の確認では複製状態監視の Table StatusとLatency の証跡へ MIR13 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 依存関係の確認 MIR13の役割を調べています。apply task 状態確認 構成配布の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は依存関係確認で状態表示を証跡に残し・複製状態で状態表示から Latency を読み。 <span class="kb-ok">✅ 正解</span></li><li>B. 表示や設定で扱う内容は状態確認で構成配布を証跡に残し・ターゲットへ変更を反映し適用済み位置を記録する処理。</li><li>C. 表示や設定で扱う内容は変更で遅延確認を証跡に残し・変更データ取得の遅延確認と取得時刻を記録し。</li><li>D. 表示や設定で扱う内容は抑止で初期ロード状を証跡に残し・変更データ取得の初期ロード状態と取得時刻を記録し。CDCミラーリング Table Status 0295固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能状態表・初期ロでAの記述「複製状態で状態表示から Latency を読み」に対応する項目は依存関係の確認 MIR13（複製状・状態表・依存関）です。照合状態表・依存関に関する複製状態監視の仕様は「複製状態で状態表示から Latency を読み、Latency と」で、確認対象は状態表・依存関・初期ロです。運用依存関・複製状でB:の状態確認 構成配布は「ターゲットへ変更を反映し適用済み位置を記録す」を述べるため、正答側の照合軸は状態表・複製状・依存関です。項目状態表・依存関でC:のCDCミラーリングは「変更データ取得の遅延確認と取得時刻を記録し」を述べるため、正答側の照合軸は初期ロ・複製状・状態表です。仕様状態表・依存関でD:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸は依存関・初期ロ・状態表です。用語状態表・依存関という用語は「複製状態で状態表示から Latency を読み」を指し、照合する値と誤認リスクの組合せは複製状・状態表・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 依存関係の確認 MIR13</strong></p><p>検証目的: 複製状態監視のMirror Statusについて依存資源を点検し、MIR13のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB13を指定し、MIR13の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB13
+→ Enter を押す
+［画面・出力］
+Subscription: SUB13
+Table: APP.MIR13
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB13を指定し、MIR13のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB13
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB13 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR13の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Latency が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の CHC9788I が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0549"><h3>複製状態監視 Mirror Status 停止前の確認 MIR14</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>停止前の確認では 複製状態監視 の イベント表示 を主操作として MIR14 を判定します。処理中資源と未完了要求への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR14 に残します。停止前の確認を補助する 通信活動 では CHC9788I を補助値として MIR14 へ保存します。主判定の停止前の確認では複製状態監視の イベント表示 から headoflog を読み MIR14 へ残します。証跡照合の停止前の確認では複製状態監視の headoflog と CHC9788I を MIR14 に保存します。記録対応の停止前の確認では複製状態監視の Table StatusとLatency の証跡へ MIR14 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 停止前の確認 MIR14について構成や状態を確認します。subscription マッピング検査 保持期間ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はマッピングで保持期間を証跡に残し・複製対象の表対応と開始位置をまとめる管理単位をマッピング検査。</li><li>B. 一次資料が示す主目的は監査で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li><li>C. 一次資料が示す主目的は抑止でイベントログを証跡に残し・変更データ取得のイベントログと取得時刻を記録し。</li><li>D. 一次資料が示す主目的は停止確認でイベント表示を証跡に残し・複製状態でイベント表示から headoflog を読み。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・初期ロでDの記述「複製状態でイベント表示から headoflog を読み」に対応する項目は停止前の確認 MIR14（複製状・イベン・停止確）です。照合イベン・停止確に関する複製状態監視の仕様は「複製状態でイベント表示から headoflog を読み」で、確認対象はイベン・停止確・初期ロです。比較複製状・停止確でA:のマッピング検査 保持期間は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸は複製状・停止確・イベンです。運用停止確・複製状でB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸はイベン・複製状・停止確です。項目イベン・停止確でC:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は初期ロ・複製状・イベンです。用語イベン・停止確という用語は「複製状態でイベント表示から headoflog」を指し、照合する値と誤認リスクの組合せは複製状・イベン・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 停止前の確認 MIR14</strong></p><p>検証目的: 複製状態監視のMirror Statusについて安全な停止条件を確認し、MIR14のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB14を指定し、MIR14のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB14
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB14 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR14の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB14を指定し、MIR14の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB14
+→ Enter を押す
+［画面・出力］
+Subscription: SUB14
+Table: APP.MIR14
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の CHC9788I が画面・出力に表示されること
+③ ステップ3 の Latency が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0550"><h3>複製状態監視 Mirror Status 再始動後の確認 MIR15</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>再始動後の確認では 複製状態監視 の 通信活動 を主操作として MIR15 を判定します。再開点と未処理データへの注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR15 に残します。再始動後の確認を補助する 状態表示 では Latency を補助値として MIR15 へ保存します。主判定の再始動後の確認では複製状態監視の 通信活動 から CHC9788I を読み MIR15 へ残します。証跡照合の再始動後の確認では複製状態監視の CHC9788I と Latency を MIR15 に保存します。記録対応の再始動後の確認では複製状態監視の Table StatusとLatency の証跡へ MIR15 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 再始動後の確認 MIR15の技術的な意味を資料で確認するとき、apply task マッピング検査 保存場所との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は複製状態で通信活動から CHC9788I を読み・CHC9788I と Latency を照合する。通信活動からCHC9788Iを読むときは初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 構成を確認する際の意味はターゲットへ変更を反映し適用済み位置を記録する処理をマッピング検査として確認する。データストアで保存場所を確認するときは保存場所の誤読を防ぐ。</li><li>C. 構成を確認する際の意味は後の表定義更新の項目のデータ定義対象表と取得時刻を記録し・ログ先頭未到達の見落としを防ぐである。調査操作で保守欄を引き継ぎするときはログ先頭未到達の見落としを防ぐ。DDL後の表定義更新 Table Definition 0104固有の属性も確認対象に含める。</li><li>D. 構成を確認する際の意味はLocaleのサブスクリプション名と取得時刻を記録し・対象インスタンスの取り違えを防ぐである。照合操作で確認欄を採取するときは対象インスタンスの取り違えを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信活・初期ロでAの記述「複製状態で通信活動から CHC9788I を読み」に対応する項目は再始動後の確認 MIR15（複製状・通信活・再始動）です。照合通信活・再始動に関する複製状態監視の仕様は「複製状態で通信活動から CHC9788I を読み、CHC9788I」で、確認対象は通信活・再始動・初期ロです。運用再始動・複製状でB:のマッピング検査 保存場所は「ターゲットへ変更を反映し適用済み位置を記録す」を述べるため、正答側の照合軸は通信活・複製状・再始動です。項目通信活・再始動でC:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は初期ロ・複製状・通信活です。仕様通信活・再始動でD:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は再始動・初期ロ・通信活です。用語通信活・再始動という用語は「複製状態で通信活動から CHC9788I を読み」を指し、照合する値と誤認リスクの組合せは複製状・通信活・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 再始動後の確認 MIR15</strong></p><p>検証目的: 複製状態監視のMirror Statusについて再始動結果を検証し、MIR15のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR15の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB15を指定し、MIR15の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB15
+→ Enter を押す
+［画面・出力］
+Subscription: SUB15
+Table: APP.MIR15
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB15を指定し、MIR15のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB15
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB15 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の CHC9788I が画面・出力に表示されること
+② ステップ2 の Latency が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0551"><h3>複製状態監視 Mirror Status 変更前の確認 MIR02</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>変更前の確認では 複製状態監視 の イベント表示 を主操作として MIR02 を判定します。変更対象と非対象の境界への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR02 に残します。変更前の確認を補助する 通信活動 では CHC9788I を補助値として MIR02 へ保存します。主判定の変更前の確認では複製状態監視の イベント表示 から headoflog を読み MIR02 へ残します。証跡照合の変更前の確認では複製状態監視の headoflog と CHC9788I を MIR02 に保存します。記録対応の変更前の確認では複製状態監視の Table StatusとLatency の証跡へ MIR02 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 変更前の確認 MIR02の設定や表示を読む前に役割を確認します。リフレッシュ制御 CDC Refresh 権限境界の確認 REF12ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は変更データ取得 初期ロードで完了確認から Rowsapplied を読み・Rowsapplied とである。完了確認からRowsappliedをときは初期ロード未完了でMirroを防ぐ。</li><li>B. 一次資料が示す主目的は変更データ取得の初期ロード状態と取得時刻を記録し・対象サブスクリプションの取り違えを防ぐである。保守操作で監査欄を保存するときは対象サブスクリプションの取りを防ぐ。</li><li>C. 一次資料が示す主目的は複製状態でイベント表示から headoflog を読み・headoflog と CHC9788I を照合する。イベント表示からheadoflogをときは初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的はサブスクリプションの16進ブックマークと取得時刻を記録し・データ欠落を防ぐである。監査操作で記録欄を比較するときはデータ欠落を防ぐ。複製位置管理 Subscription 0315固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・初期ロでCの記述「複製状態でイベント表示から headoflog を読み」に対応する項目は変更前の確認 MIR02（複製状・イベン・変更確）です。照合イベン・変更確に関する複製状態監視の仕様は「複製状態でイベント表示から headoflog を読み」で、確認対象はイベン・変更確・初期ロです。比較複製状・変更確でA:の権限境界の確認 REF12は「変更データ取得 初期ロードで完了確認から」を述べるため、正答側の照合軸は複製状・変更確・イベンです。運用変更確・複製状でB:のTable Statusは「変更データ取得の初期ロード状態と取得時刻を記」を述べるため、正答側の照合軸はイベン・複製状・変更確です。仕様イベン・変更確でD:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は変更確・初期ロ・イベンです。用語イベン・変更確という用語は「複製状態でイベント表示から headoflog」を指し、照合する値と誤認リスクの組合せは複製状・イベン・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 変更前の確認 MIR02</strong></p><p>検証目的: 複製状態監視のMirror Statusについて変更前の証跡を保存し、MIR02のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB02を指定し、MIR02のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB02
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB02 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR02の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB02を指定し、MIR02の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB02
+→ Enter を押す
+［画面・出力］
+Subscription: SUB02
+Table: APP.MIR02
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の CHC9788I が画面・出力に表示されること
+③ ステップ3 の Latency が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0552"><h3>複製状態監視 Mirror Status 変更後の確認 MIR03</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>変更後の確認では 複製状態監視 の 通信活動 を主操作として MIR03 を判定します。反映値と残存値への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR03 に残します。変更後の確認を補助する 状態表示 では Latency を補助値として MIR03 へ保存します。主判定の変更後の確認では複製状態監視の 通信活動 から CHC9788I を読み MIR03 へ残します。証跡照合の変更後の確認では複製状態監視の CHC9788I と Latency を MIR03 に保存します。記録対応の変更後の確認では複製状態監視の Table StatusとLatency の証跡へ MIR03 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 変更後の確認 MIR03を同一分類のリフレッシュ制御 CDC Refresh 依存関係の確認 REF13と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は依存関係確認で方式表示を証跡に残し・変更データ取得 初期ロードで方式表示から 初期ロードing。</li><li>B. 構成を確認する際の意味は移行で表定義再読込を証跡に残し・後の表定義更新の項目の表定義再読込と取得時刻を記録し。</li><li>C. 構成を確認する際の意味は変更確認で通信活動を証跡に残し・複製状態で通信活動から CHC9788I を読み。 <span class="kb-ok">✅ 正解</span></li><li>D. 構成を確認する際の意味は解析でサブスクリプを証跡に残し・Localeのサブスクリプション名と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信活・初期ロでCの記述「複製状態で通信活動から CHC9788I を読み」に対応する項目は変更後の確認 MIR03（複製状・通信活・変更確）です。照合通信活・変更確に関する複製状態監視の仕様は「複製状態で通信活動から CHC9788I を読み、CHC9788I」で、確認対象は通信活・変更確・初期ロです。比較複製状・変更確でA:の依存関係の確認 REF13は「変更データ取得 初期ロードで方式表示から」を述べるため、正答側の照合軸は複製状・変更確・通信活です。運用変更確・複製状でB:のSource Tableは「後の表定義更新の項目の表定義再読込と取得時刻」を述べるため、正答側の照合軸は通信活・複製状・変更確です。仕様通信活・変更確でD:の複製位置管理 Localeは「Localeのサブスクリプション名と取得時刻」を述べるため、正答側の照合軸は変更確・初期ロ・通信活です。用語通信活・変更確という用語は「複製状態で通信活動から CHC9788I を読み」を指し、照合する値と誤認リスクの組合せは複製状・通信活・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 変更後の確認 MIR03</strong></p><p>検証目的: 複製状態監視のMirror Statusについて変更結果を検証し、MIR03のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR03の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB03を指定し、MIR03の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB03
+→ Enter を押す
+［画面・出力］
+Subscription: SUB03
+Table: APP.MIR03
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB03を指定し、MIR03のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB03
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB03 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の CHC9788I が画面・出力に表示されること
+② ステップ2 の Latency が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0553"><h3>複製状態監視 Mirror Status 引継ぎ記録 MIR09</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>引継ぎ記録では 複製状態監視 の 通信活動 を主操作として MIR09 を判定します。次担当者が追跡できる証跡への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR09 に残します。引継ぎ記録を補助する 状態表示 では Latency を補助値として MIR09 へ保存します。主判定の引継ぎ記録では複製状態監視の 通信活動 から CHC9788I を読み MIR09 へ残します。証跡照合の引継ぎ記録では複製状態監視の CHC9788I と Latency を MIR09 に保存します。記録対応の引継ぎ記録では複製状態監視の Table StatusとLatency の証跡へ MIR09 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 引継ぎ記録 MIR09に関する障害切り分けの前提を確認しています。リフレッシュ制御 CDC Refresh 性能影響の確認 REF11の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては性能影響確認で方式変更を証跡に残し・変更データ取得 初期ロードで方式変更から。リフレッシュ制御 CDC Refresh 性能影響の確認 REF11固有の属性も確認対象に含める。</li><li>B. 機能の説明としては監査でイベントログを証跡に残し・変更データ取得のイベントログと取得時刻を記録し。</li><li>C. 機能の説明としては複製状態監視で通信活動を証跡に残し・複製状態で通信活動から CHC9788I を読み。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としては抑止でログ先頭到達を証跡に残し・後の表定義更新の項目のログ先頭到達と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信活・初期ロでCの記述「複製状態で通信活動から CHC9788I を読み」に対応する項目は引継ぎ記録 MIR09（複製状・通信活・複製状）です。照合通信活・複製状に関する複製状態監視の仕様は「複製状態で通信活動から CHC9788I を読み、CHC9788I」で、確認対象は通信活・複製状・初期ロです。比較複製状・複製状でA:の性能影響の確認 REF11は「変更データ取得 初期ロードで方式変更から」を述べるため、正答側の照合軸は複製状・複製状・通信活です。運用複製状・複製状でB:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は通信活・複製状・複製状です。仕様通信活・複製状でD:のDDL後の表定義更新は「後の表定義更新の項目のログ先頭到達と取得時刻」を述べるため、正答側の照合軸は複製状・初期ロ・通信活です。用語通信活・複製状という用語は「複製状態で通信活動から CHC9788I を読み」を指し、照合する値と誤認リスクの組合せは複製状・通信活・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 引継ぎ記録 MIR09</strong></p><p>検証目的: 複製状態監視のMirror Statusについて再現可能な記録を作成し、MIR09のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR09の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB09を指定し、MIR09の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB09
+→ Enter を押す
+［画面・出力］
+Subscription: SUB09
+Table: APP.MIR09
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB09を指定し、MIR09のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB09
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB09 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の CHC9788I が画面・出力に表示されること
+② ステップ2 の Latency が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0554"><h3>複製状態監視 Mirror Status 復旧後の確認 MIR06</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>復旧後の確認では 複製状態監視 の 通信活動 を主操作として MIR06 を判定します。再発していないことを示す値への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR06 に残します。復旧後の確認を補助する 状態表示 では Latency を補助値として MIR06 へ保存します。主判定の復旧後の確認では複製状態監視の 通信活動 から CHC9788I を読み MIR06 へ残します。証跡照合の復旧後の確認では複製状態監視の CHC9788I と Latency を MIR06 に保存します。記録対応の復旧後の確認では複製状態監視の Table StatusとLatency の証跡へ MIR06 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 復旧後の確認 MIR06について構成や状態を確認します。性能統計 CDC Communications Activity 代替経路の確認ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは代替経路確認で通信統計を証跡に残し・変更データ取得 通信で通信統計から Sends を読み。</li><li>B. 状態を読み取るための働きは復旧でミラー開始を証跡に残し・変更データ取得のミラー開始と取得時刻を記録し。</li><li>C. 状態を読み取るための働きは解析でイベントログを証跡に残し・変更データ取得のイベントログと取得時刻を記録し。</li><li>D. 状態を読み取るための働きは復旧確認で通信活動を証跡に残し・複製状態で通信活動から CHC9788I を読み。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信活・初期ロでDの記述「複製状態で通信活動から CHC9788I を読み」に対応する項目は復旧後の確認 MIR06（複製状・通信活・復旧確）です。照合通信活・復旧確に関する複製状態監視の仕様は「複製状態で通信活動から CHC9788I を読み、CHC9788I」で、確認対象は通信活・復旧確・初期ロです。比較複製状・復旧確でA:の代替経路の確認 STAT10は「変更データ取得 通信で通信統計から」を述べるため、正答側の照合軸は複製状・復旧確・通信活です。運用復旧確・複製状でB:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸は通信活・複製状・復旧確です。項目通信活・復旧確でC:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は初期ロ・複製状・通信活です。用語通信活・復旧確という用語は「複製状態で通信活動から CHC9788I を読み」を指し、照合する値と誤認リスクの組合せは複製状・通信活・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 復旧後の確認 MIR06</strong></p><p>検証目的: 複製状態監視のMirror Statusについて復旧後の安定性を確認し、MIR06のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR06の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB06を指定し、MIR06の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB06
+→ Enter を押す
+［画面・出力］
+Subscription: SUB06
+Table: APP.MIR06
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB06を指定し、MIR06のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB06
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB06 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の CHC9788I が画面・出力に表示されること
+② ステップ2 の Latency が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0555"><h3>複製状態監視 Mirror Status 復旧準備 MIR05</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>復旧準備では 複製状態監視 の イベント表示 を主操作として MIR05 を判定します。再開前に必要な整合性への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR05 に残します。復旧準備を補助する 通信活動 では CHC9788I を補助値として MIR05 へ保存します。主判定の復旧準備では複製状態監視の イベント表示 から headoflog を読み MIR05 へ残します。証跡照合の復旧準備では複製状態監視の headoflog と CHC9788I を MIR05 に保存します。記録対応の復旧準備では複製状態監視の Table StatusとLatency の証跡へ MIR05 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 復旧準備 MIR05の役割を調べています。リフレッシュ制御 CDC Refresh 引継ぎ記録 REF09の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は初期ロード未完了でMirrorへを避けるため・完了確認からRowsappliedを読むして完了確認を照合する。リフレッシュ制御 CDC Refresh 引継ぎ記録 REF09固有の属性も確認対象に含める。</li><li>B. 障害切り分けに用いる役割は初期ロード中の表をMirror完を避けるため・イベント表示からheadoflogを読むしてイベント表示を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割はイベント重大度の誤読を避けるため・採取操作で照合欄を点検するして遅延確認を照合する。</li><li>D. 障害切り分けに用いる役割は遅延ゼロ確認の欠落を避けるため・確認操作で状態欄を整理するしてミラー開始を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・初期ロでBの記述「複製状態でイベント表示から headoflog を読み」に対応する項目は復旧準備 MIR05（複製状・イベン・復旧準）です。照合イベン・復旧準に関する複製状態監視の仕様は「複製状態でイベント表示から headoflog を読み」で、確認対象はイベン・復旧準・初期ロです。比較複製状・復旧準でA:の引継ぎ記録 REF09は「変更データ取得 初期ロードで完了確認から」を述べるため、正答側の照合軸は複製状・復旧準・イベンです。項目イベン・復旧準でC:のCDCミラーリングは「変更データ取得の遅延確認と取得時刻を記録し」を述べるため、正答側の照合軸は初期ロ・複製状・イベンです。仕様イベン・復旧準でD:のEvent Severityは「変更データ取得のミラー開始と取得時刻を記録し」を述べるため、正答側の照合軸は復旧準・初期ロ・イベンです。用語イベン・復旧準という用語は「複製状態でイベント表示から headoflog」を指し、照合する値と誤認リスクの組合せは複製状・イベン・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 復旧準備 MIR05</strong></p><p>検証目的: 複製状態監視のMirror Statusについて復旧条件を確認し、MIR05のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB05を指定し、MIR05のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB05
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB05 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR05の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB05を指定し、MIR05の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB05
+→ Enter を押す
+［画面・出力］
+Subscription: SUB05
+Table: APP.MIR05
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の CHC9788I が画面・出力に表示されること
+③ ステップ3 の Latency が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0556"><h3>複製状態監視 Mirror Status 性能影響の確認 MIR11</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>性能影響の確認では 複製状態監視 の イベント表示 を主操作として MIR11 を判定します。処理時間と滞留箇所への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR11 に残します。性能影響の確認を補助する 通信活動 では CHC9788I を補助値として MIR11 へ保存します。主判定の性能影響の確認では複製状態監視の イベント表示 から headoflog を読み MIR11 へ残します。証跡照合の性能影響の確認では複製状態監視の headoflog と CHC9788I を MIR11 に保存します。記録対応の性能影響の確認では複製状態監視の Table StatusとLatency の証跡へ MIR11 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 性能影響の確認 MIR11を同一分類のログ依存・サポート Log Dependency 通常状態の確認 LOG01と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は通常状態確認で依存表示を証跡に残し・ログ依存で依存表示から Oldestrequired。</li><li>B. コマンドまたは機能の用途は性能影響確認でイベント表示を証跡に残し・複製状態でイベント表示から headoflog を読み。 <span class="kb-ok">✅ 正解</span></li><li>C. コマンドまたは機能の用途は復旧でインスタンスを証跡に残し・Hex Positionのインスタンス名と取得時刻を記録し。複製位置管理 Hex Position 0051固有の属性も確認対象に含める。</li><li>D. コマンドまたは機能の用途は保護で複製位置を証跡に残し・Bookmarkの複製位置と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・初期ロでBの記述「複製状態でイベント表示から headoflog を読み」に対応する項目は性能影響の確認 MIR11（複製状・イベン・性能影）です。照合イベン・性能影に関する複製状態監視の仕様は「複製状態でイベント表示から headoflog を読み」で、確認対象はイベン・性能影・初期ロです。比較複製状・性能影でA:の通常状態の確認 LOG01は「ログ依存で依存表示から Oldestrequ」を述べるため、正答側の照合軸は複製状・性能影・イベンです。項目イベン・性能影でC:のHex Positionは「Hex Positionのインスタンス名と取」を述べるため、正答側の照合軸は初期ロ・複製状・イベンです。仕様イベン・性能影でD:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は性能影・初期ロ・イベンです。用語イベン・性能影という用語は「複製状態でイベント表示から headoflog」を指し、照合する値と誤認リスクの組合せは複製状・イベン・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 性能影響の確認 MIR11</strong></p><p>検証目的: 複製状態監視のMirror Statusについて負荷と待ちを確認し、MIR11のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB11を指定し、MIR11のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB11
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB11 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR11の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB11を指定し、MIR11の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB11
+→ Enter を押す
+［画面・出力］
+Subscription: SUB11
+Table: APP.MIR11
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の CHC9788I が画面・出力に表示されること
+③ ステップ3 の Latency が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0557"><h3>複製状態監視 Mirror Status 構成監査 MIR08</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>構成監査では 複製状態監視 の イベント表示 を主操作として MIR08 を判定します。定義値と稼働値の一致への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR08 に残します。構成監査を補助する 通信活動 では CHC9788I を補助値として MIR08 へ保存します。主判定の構成監査では複製状態監視の イベント表示 から headoflog を読み MIR08 へ残します。証跡照合の構成監査では複製状態監視の headoflog と CHC9788I を MIR08 に保存します。記録対応の構成監査では複製状態監視の Table StatusとLatency の証跡へ MIR08 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 構成監査 MIR08を保守記録に説明する必要があります。capture service 統計採取 接続状態と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は構成監査でイベント表示を証跡に残し・複製状態でイベント表示から headoflog を読み。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は統計採取で接続状態を証跡に残し・ソース変更を読み取りサブスクリプションへ渡す処理を統計採取と。</li><li>C. 仕様上の役割は監査でデータ定義対を証跡に残し・後の表定義更新の項目のデータ定義対象表と取得時刻を記録し。</li><li>D. 仕様上の役割は計画で遅延確認を証跡に残し・変更データ取得の遅延確認と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能イベン・初期ロでAの記述「複製状態でイベント表示から headoflog を読み」に対応する項目は構成監査 MIR08（複製状・イベン・構成監）です。照合イベン・構成監に関する複製状態監視の仕様は「複製状態でイベント表示から headoflog を読み」で、確認対象はイベン・構成監・初期ロです。運用構成監・複製状でB:の統計採取 接続状態は「ソース変更を読み取りサブスクリプションへ渡す」を述べるため、正答側の照合軸はイベン・複製状・構成監です。項目イベン・構成監でC:のTable Definitionは「後の表定義更新の項目のデータ定義対象表と取得」を述べるため、正答側の照合軸は初期ロ・複製状・イベンです。仕様イベン・構成監でD:のCDCミラーリングは「変更データ取得の遅延確認と取得時刻を記録し」を述べるため、正答側の照合軸は構成監・初期ロ・イベンです。用語イベン・構成監という用語は「複製状態でイベント表示から headoflog」を指し、照合する値と誤認リスクの組合せは複製状・イベン・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 構成監査 MIR08</strong></p><p>検証目的: 複製状態監視のMirror Statusについて構成差分を監査し、MIR08のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR08と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB08を指定し、MIR08のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB08
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB08 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR08の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB08を指定し、MIR08の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB08
+→ Enter を押す
+［画面・出力］
+Subscription: SUB08
+Table: APP.MIR08
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Event が画面・出力に表示されること
+② ステップ2 の CHC9788I が画面・出力に表示されること
+③ ステップ3 の Latency が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0558"><h3>複製状態監視 Mirror Status 権限境界の確認 MIR12</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>権限境界の確認では 複製状態監視 の 通信活動 を主操作として MIR12 を判定します。参照操作と変更操作の分離への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR12 に残します。権限境界の確認を補助する 状態表示 では Latency を補助値として MIR12 へ保存します。主判定の権限境界の確認では複製状態監視の 通信活動 から CHC9788I を読み MIR12 へ残します。証跡照合の権限境界の確認では複製状態監視の CHC9788I と Latency を MIR12 に保存します。記録対応の権限境界の確認では複製状態監視の Table StatusとLatency の証跡へ MIR12 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「複製状態監視 Mirror Status 権限境界の確認 MIR12」を「bookmark 遅延監視 適用位置」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割はログ上の適用位置と時刻を追跡する複製の進行点を遅延監視として確認する。データストアで適用位置を確認するときは適用位置の誤読を防ぐ。</li><li>B. 運用時に利用する技術的役割はBookmarkの複製位置と取得時刻を記録し・ベンダー指示なしの位置変更を防ぐである。主操作で出力欄を評価するときはベンダー指示なしの位置変更を防ぐ。複製位置管理 Bookmark 0069固有の属性も確認対象に含める。</li><li>C. 運用時に利用する技術的役割は複製状態で通信活動から CHC9788I を読み・CHC9788I と Latency を照合する。通信活動からCHC9788Iを読むときは初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 運用時に利用する技術的役割はサブスクリプションの16進ブックマークと取得時刻を記録し・重複反映を防ぐである。変更確認操作で採取欄を棚卸するときは重複反映を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能通信活・初期ロでCの記述「複製状態で通信活動から CHC9788I を読み」に対応する項目は権限境界の確認 MIR12（複製状・通信活・権限境）です。照合通信活・権限境に関する複製状態監視の仕様は「複製状態で通信活動から CHC9788I を読み、CHC9788I」で、確認対象は通信活・権限境・初期ロです。比較複製状・権限境でA:の遅延監視 適用位置は「ログ上の適用位置と時刻を追跡する複製の進行点」を述べるため、正答側の照合軸は複製状・権限境・通信活です。運用権限境・複製状でB:の複製位置管理 Bookmarkは「Bookmarkの複製位置と取得時刻を記録し」を述べるため、正答側の照合軸は通信活・複製状・権限境です。仕様通信活・権限境でD:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は権限境・初期ロ・通信活です。用語通信活・権限境という用語は「複製状態で通信活動から CHC9788I を読み」を指し、照合する値と誤認リスクの組合せは複製状・通信活・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 権限境界の確認 MIR12</strong></p><p>検証目的: 複製状態監視のMirror Statusについて実行権限を点検し、MIR12のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR12と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR12の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB12を指定し、MIR12の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB12
+→ Enter を押す
+［画面・出力］
+Subscription: SUB12
+Table: APP.MIR12
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB12を指定し、MIR12のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB12
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB12 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の CHC9788I が画面・出力に表示されること
+② ステップ2 の Latency が画面・出力に表示されること
+③ ステップ3 の Event が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0559"><h3>複製状態監視 Mirror Status 通常状態の確認 MIR01</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>通常状態の確認では 複製状態監視 の 状態表示 を主操作として MIR01 を判定します。基準値と現在値の差への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR01 に残します。通常状態の確認を補助する イベント表示 では headoflog を補助値として MIR01 へ保存します。主判定の通常状態の確認では複製状態監視の 状態表示 から Latency を読み MIR01 へ残します。証跡照合の通常状態の確認では複製状態監視の Latency と headoflog を MIR01 に保存します。記録対応の通常状態の確認では複製状態監視の Table StatusとLatency の証跡へ MIR01 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 複製状態監視 Mirror Status 通常状態の確認 MIR01に関する障害切り分けの前提を確認しています。subscription 状態確認 開始時刻の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容は状態確認で開始時刻を確認することで開始時刻を確認し・開始時刻の誤読を防ぐ。</li><li>B. 表示や設定で扱う内容は採取操作で照合欄を点検することでイベントログを確認し・イベント重大度の誤読を防ぐ。CDCミラーリング Subscription 0091固有の属性も確認対象に含める。</li><li>C. 表示や設定で扱う内容は状態表示からLatencyを読むことで状態表示を確認し・初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は保守操作で監査欄を保存することでサブスクリプを確認し・対象サブスクリプションの取りを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能状態表・初期ロでCの記述「複製状態で状態表示から Latency を読み」に対応する項目は通常状態の確認 MIR01（複製状・状態表・通常状）です。照合状態表・通常状に関する複製状態監視の仕様は「複製状態で状態表示から Latency を読み、Latency と」で、確認対象は状態表・通常状・初期ロです。比較複製状・通常状でA:の状態確認 開始時刻は「複製対象の表対応と開始位置をまとめる管理単位」を述べるため、正答側の照合軸は複製状・通常状・状態表です。運用通常状・複製状でB:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は状態表・複製状・通常状です。仕様状態表・通常状でD:のReplicationは「変更データ取得のサブスクリプション状態と取得」を述べるため、正答側の照合軸は通常状・初期ロ・状態表です。用語状態表・通常状という用語は「複製状態で状態表示から Latency を読み」を指し、照合する値と誤認リスクの組合せは複製状・状態表・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 通常状態の確認 MIR01</strong></p><p>検証目的: 複製状態監視のMirror Statusについて通常状態を確定し、MIR01のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR01と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB01を指定し、MIR01の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB01
+→ Enter を押す
+［画面・出力］
+Subscription: SUB01
+Table: APP.MIR01
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB01を指定し、MIR01のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB01
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB01 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR01の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Latency が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の CHC9788I が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c11-i0560"><h3>複製状態監視 Mirror Status 障害切り分け MIR04</h3><p class="kb-meta">分類: 複製状態監視 ・ 難易度: 中級</p><p>障害切り分けでは 複製状態監視 の 状態表示 を主操作として MIR04 を判定します。最初に失敗した処理への注意として「Refresh中の表をMirror完了と誤認する危険があります」を MIR04 に残します。障害切り分けを補助する イベント表示 では headoflog を補助値として MIR04 へ保存します。主判定の障害切り分けでは複製状態監視の 状態表示 から Latency を読み MIR04 へ残します。証跡照合の障害切り分けでは複製状態監視の Latency と headoflog を MIR04 に保存します。記録対応の障害切り分けでは複製状態監視の Table StatusとLatency の証跡へ MIR04 を結びます。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「複製状態監視 Mirror Status 障害切り分け MIR04」を「エラー処理 CDC Event Log 代替経路の確認 ERR10」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能はイベント一覧から2931を読むことでイベント一覧を確認し・情報イベントと停止を伴うエラを防ぐ。</li><li>B. 保守作業で参照する機能は確認操作で状態欄を整理することでイベントログを確認し・遅延ゼロ確認の欠落を防ぐ。</li><li>C. 保守作業で参照する機能は監査操作で記録欄を比較することで16進ブックを確認し・データ欠落を防ぐ。</li><li>D. 保守作業で参照する機能は状態表示からLatencyを読むことで状態表示を確認し・初期ロード中の表をMirroを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能状態表・初期ロでDの記述「複製状態で状態表示から Latency を読み」に対応する項目は障害切り分け MIR04（複製状・状態表・複製状）です。照合状態表・複製状に関する複製状態監視の仕様は「複製状態で状態表示から Latency を読み、Latency と」で、確認対象は状態表・複製状・初期ロです。比較複製状・複製状でA:の代替経路の確認 ERR10は「変更データ取得 イベントログでイベント一覧か」を述べるため、正答側の照合軸は複製状・複製状・状態表です。運用複製状・複製状でB:のCDCミラーリングは「変更データ取得のイベントログと取得時刻を記録」を述べるため、正答側の照合軸は状態表・複製状・複製状です。項目状態表・複製状でC:の複製位置管理 Subscriptは「サブスクリプションの16進ブックマークと取得」を述べるため、正答側の照合軸は初期ロ・複製状・状態表です。用語状態表・複製状という用語は「複製状態で状態表示から Latency を読み」を指し、照合する値と誤認リスクの組合せは複製状・状態表・初期ロです。</p><p class="kb-src"><strong>出典:</strong> IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>複製状態監視 Mirror Status 障害切り分け MIR04</strong></p><p>検証目的: 複製状態監視のMirror Statusについて障害範囲を限定し、MIR04のTable StatusとLatencyを実出力で確認する。</p><p>前提条件: IBM IIDR 11.4の参照権限を持ち、対象MIR04と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: IBM IIDR 11.4の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へManagement Console &gt; Monitoring &gt; SUB04を指定し、MIR04の状態表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; Management Console &gt; Monitoring &gt; SUB04
+→ Enter を押す
+［画面・出力］
+Subscription: SUB04
+Table: APP.MIR04
+Status: Mirroring
+Latency: 2 seconds
+画面・出力にあるLatencyを読み、Table StatusとLatencyと対象MIR04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へdmshowevents -I SRC1 -s SUB04を指定し、MIR04のイベント表示を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; dmshowevents -I SRC1 -s SUB04
+→ Enter を押す
+［画面・出力］
+Event 1204 Severity INFO Subscription SUB04 reached head of log
+画面・出力にあるEventを読み、Table StatusとLatencyと対象MIR04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はIBM IIDR 11.4の複製状態監視を確認する入力画面です。COMMAND入力口へF CHCCDC1,DSPACT=ALLを指定し、MIR04の通信活動を表示します。
+［操作（入力）］
+IBM IIDR 11.4 操作画面
+COMMAND ===&gt; F CHCCDC1,DSPACT=ALL
+→ Enter を押す
+［画面・出力］
+CHC9788I Datastore name = TGT1, Medium = TCP/IP, Paths = 1, Sends = 21002, Recvs = 20998
+画面・出力にあるCHC9788Iを読み、Table StatusとLatencyと対象MIR04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の Latency が画面・出力に表示されること
+② ステップ2 の Event が画面・出力に表示されること
+③ ステップ3 の CHC9788I が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: IIDR_11.4_CDC_Replication_commands / IIDR_11.4_Management_Console / IIDR_11.4_Access_Server / IIDR_11.4_Troubleshooting</p></div></details></section>

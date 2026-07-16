@@ -1,0 +1,3811 @@
+---
+search:
+  exclude: true
+---
+
+# Windows Server 2022 — 詳細 (1/1)
+
+[← Windows Server 2022 の概要へ戻る](index.md)
+
+
+## ID管理
+
+
+<section class="kb-item" id="c35-i0001"><h3>AD DS ログ確認 構成061</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 中級</p><p>第六十一観点 ID管理 で AD DS は ログ確認 を点検します（運用第六十一）（第六十一観点）。第六十一観点 確認時には ディレクトリデータを格納し、利用者、コンピューター、管理者が参照できるようにする役割という性質を前提にします（資料第六十一）（第六十一観点）。第六十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、認証基盤と名前解決の整合確認を説明可能にします（第六十一観点）。第六十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録061へ書きます（第六十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十一証跡です。ID管理 の運用で AD DS を点検します。確認観点は AD DS、ログ確認、構成 です。DC13.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC13.corp.example と Event Viewer のイベントログ を並べ、AD DS の状態を Windows正061として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC13.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記061として後続調査を止めてしまう。</li><li>C. AD DS の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延061として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在061として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十一観点 判定理由: Aは ID管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第六十一観点）。第六十一観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第六十一観点）。第六十一観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第六十一観点）。第六十一観点 用語関係: BitLocker はボリューム暗号化です（第六十一観点）。第六十一観点 TPM は改ざん検知に関係します（第六十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>AD DS ログ確認 構成061</strong></p><p>検証目的: ID管理における AD DS のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC13.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により AD DS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により AD DS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC13.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により AD DS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC13.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0002"><h3>AD DS 状態確認 照合001</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 初級</p><p>第一観点 ID管理 で AD DS は 状態確認 を点検します（運用第一）（第一観点）。第一観点 確認時には ディレクトリデータを格納し、利用者、コンピューター、管理者が参照できるようにする役割という性質を前提にします（資料第一）（第一観点）。第一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、認証基盤と名前解決の整合確認を説明可能にします（第一観点）。第一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録001へ書きます（第一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>AD DS 状態確認 照合001</strong></p><p>検証目的: ID管理における AD DS の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC01.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により AD DS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により AD DS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC01.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により AD DS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC01.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0003"><h3>DHCP監査ログ レプリケーション確認 構成037</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 中級</p><p>第三十七観点 ID管理 で DHCP監査ログ は レプリケーション確認 を点検します（運用第三十七）（第三十七観点）。第三十七観点 確認時には リース割当、更新、DNS登録失敗などのDHCPサーバー活動を追跡する証跡という性質を前提にします（資料第三十七）（第三十七観点）。第三十七観点 Remote Desktop Services の接続ログ と DC13.corp.example を同じ証跡に置き、暗号化状態の証跡化を管理します（第三十七観点）。第三十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録037から再現します（第三十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十七証跡です。ID管理 の当日作業で DC13.corp.example を追跡します。確認観点は DHCP監査ログ、レプリケーション確認、構成 です。DC13.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC13.corp.example と Remote Desktop Services の接続ログ を並べ、DHCP監査ログ の状態を Windows正037として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC13.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記037として後続調査を止めてしまう。</li><li>C. DHCP監査ログ の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延037として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在037として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十七観点 判定理由: Aは ID管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第三十七観点）。第三十七観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第三十七観点）。第三十七観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第三十七観点）。第三十七観点 用語整理: NPS はRADIUS認証に関係します（第三十七観点）。第三十七観点 Event Viewer はイベントログ確認の入口です（第三十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCP監査ログ レプリケーション確認 構成037</strong></p><p>検証目的: ID管理における DHCP監査ログ のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC13.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCP監査ログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCP監査ログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC13.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCP監査ログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC13.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0004"><h3>DHCP監査ログ 更新確認 照合097</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 上級</p><p>第九十七観点 ID管理 で DHCP監査ログ は 更新確認 を点検します（運用第九十七）（第九十七観点）。第九十七観点 確認時には リース割当、更新、DNS登録失敗などのDHCPサーバー活動を追跡する証跡という性質を前提にします（資料第九十七）（第九十七観点）。第九十七観点 Remote Desktop Services の接続ログ と DC01.corp.example を同じ証跡に置き、暗号化状態の証跡化を管理します（第九十七観点）。第九十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録097から再現します（第九十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十七証跡です。ID管理 の当日作業で DC01.corp.example を追跡します。確認観点は DHCP監査ログ、更新確認、照合 です。DC01.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC01.corp.example と Remote Desktop Services の接続ログ を並べ、DHCP監査ログ の状態を Windows正097として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC01.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記097として後続調査を止めてしまう。</li><li>C. DHCP監査ログ の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延097として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在097として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十七観点 正解確認: Aは DHCP監査ログ と DC01.corp.example を同じ証跡で扱うため、後続の照合に使えます（第九十七観点）。第九十七観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第九十七観点）。第九十七観点 誤答判定: Bは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第九十七観点）。第九十七観点 用語整理: NPS はRADIUS認証に関係します（第九十七観点）。第九十七観点 Event Viewer はイベントログ確認の入口です（第九十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCP監査ログ 更新確認 照合097</strong></p><p>検証目的: ID管理における DHCP監査ログ の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC01.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCP監査ログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCP監査ログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC01.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCP監査ログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC01.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0005"><h3>PowerShell管理 ログ確認 構成013</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 初級</p><p>第十三観点 ID管理 で PowerShell管理 は ログ確認 を点検します（運用第十三）（第十三観点）。第十三観点 確認時には サーバー役割、DNS、DHCP、クラスター、ストレージをコマンドで確認・変更する入口という性質を前提にします（資料第十三）（第十三観点）。第十三観点 DC13.corp.example、DHCPリースと監査ログ、管理ツールの表示を照合し、クラスター所有ノードの確認を確認します（第十三観点）。第十三観点 調査票ではGUIとPowerShellの入口を Windows記録013に区別して残します（第十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十三証跡です。PowerShell管理 の表示とイベントログを比べます。確認観点は PowerShell管理、ログ確認、構成 です。DC13.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC13.corp.example と DHCPリースと監査ログ を並べ、PowerShell管理 の状態を Windows正013として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC13.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記013として後続調査を止めてしまう。</li><li>C. PowerShell管理 の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延013として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在013として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十三観点 判定理由: Aは ID管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第十三観点）。第十三観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第十三観点）。第十三観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第十三観点）。第十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第十三観点）。第十三観点 Server Manager は役割管理に使います（第十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>PowerShell管理 ログ確認 構成013</strong></p><p>検証目的: ID管理における PowerShell管理 のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC13.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により PowerShell管理 の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により PowerShell管理 の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC13.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により PowerShell管理 の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC13.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0006"><h3>PowerShell管理 構成確認 照合073</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 中級</p><p>第七十三観点 ID管理 で PowerShell管理 は 構成確認 を点検します（運用第七十三）（第七十三観点）。第七十三観点 確認時には サーバー役割、DNS、DHCP、クラスター、ストレージをコマンドで確認・変更する入口という性質を前提にします（資料第七十三）（第七十三観点）。第七十三観点 DC01.corp.example、DHCPリースと監査ログ、管理ツールの表示を照合し、クラスター所有ノードの確認を確認します（第七十三観点）。第七十三観点 調査票ではGUIとPowerShellの入口を Windows記録073に区別して残します（第七十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十三証跡です。PowerShell管理 の表示とイベントログを比べます。確認観点は PowerShell管理、構成確認、照合 です。DC01.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC01.corp.example と DHCPリースと監査ログ を並べ、PowerShell管理 の状態を Windows正073として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC01.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記073として後続調査を止めてしまう。</li><li>C. PowerShell管理 の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延073として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在073として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十三観点 正解確認: Aは PowerShell管理 と DC01.corp.example を同じ証跡で扱うため、後続の照合に使えます（第七十三観点）。第七十三観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第七十三観点）。第七十三観点 誤答判定: Bは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第七十三観点）。第七十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第七十三観点）。第七十三観点 Server Manager は役割管理に使います（第七十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>PowerShell管理 構成確認 照合073</strong></p><p>検証目的: ID管理における PowerShell管理 の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC01.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により PowerShell管理 の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により PowerShell管理 の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC01.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により PowerShell管理 の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC01.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0007"><h3>Remote Credential Guard セキュリティ確認 構成085</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 上級</p><p>第八十五観点 ID管理 で Remote Credential Guard は セキュリティ確認 を点検します（運用第八十五）（第八十五観点）。第八十五観点 確認時には RDPセッションで利用者資格情報をクライアント側に保持する保護機能という性質を前提にします（資料第八十五）（第八十五観点）。第八十五観点 DC13.corp.example を起点に設定値を戻し、資格情報保護の有効化確認を点検します（第八十五観点）。第八十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録085に残します（第八十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十五証跡です。Storage Spaces Direct のプール状態 を使って 構成085 を確認します。確認観点は RCG、セキュリティ確認、構成 です。DC13.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC13.corp.example と Storage Spaces Direct のプール状態 を並べ、RCG の状態を Windows正085として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC13.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記085として後続調査を止めてしまう。</li><li>C. Remote Credential Guard の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延085として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在085として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十五観点 判定理由: Aは ID管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第八十五観点）。第八十五観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第八十五観点）。第八十五観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第八十五観点）。第八十五観点 用語確認: AD DS はディレクトリサービスです（第八十五観点）。第八十五観点 DNS は名前をIPアドレスへ対応させます（第八十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Remote Credential Guard セキュリティ確認 構成085</strong></p><p>検証目的: ID管理における Remote Credential Guard のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC13.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Remote Credential Guard の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Remote Credential Guard の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC13.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Remote Credential Guard の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC13.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0008"><h3>Remote Credential Guard 構成確認 照合025</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 中級</p><p>第二十五観点 ID管理 で Remote Credential Guard は 構成確認 を点検します（運用第二十五）（第二十五観点）。第二十五観点 確認時には RDPセッションで利用者資格情報をクライアント側に保持する保護機能という性質を前提にします（資料第二十五）（第二十五観点）。第二十五観点 DC01.corp.example を起点に設定値を戻し、資格情報保護の有効化確認を点検します（第二十五観点）。第二十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録025に残します（第二十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十五証跡です。Storage Spaces Direct のプール状態 を使って 照合025 を確認します。確認観点は RCG、構成確認、照合 です。DC01.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC01.corp.example と Storage Spaces Direct のプール状態 を並べ、RCG の状態を Windows正025として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC01.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記025として後続調査を止めてしまう。</li><li>C. Remote Credential Guard の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延025として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在025として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十五観点 正解確認: Aは RCG と DC01.corp.example を同じ証跡で扱うため、後続の照合に使えます（第二十五観点）。第二十五観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第二十五観点）。第二十五観点 誤答判定: Bは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第二十五観点）。第二十五観点 用語確認: AD DS はディレクトリサービスです（第二十五観点）。第二十五観点 DNS は名前をIPアドレスへ対応させます（第二十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Remote Credential Guard 構成確認 照合025</strong></p><p>検証目的: ID管理における Remote Credential Guard の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC01.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Remote Credential Guard の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Remote Credential Guard の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC01.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Remote Credential Guard の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC01.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0009"><h3>SMB3 更新確認 照合049</h3><p class="kb-meta">分類: ID管理 ・ 難易度: 中級</p><p>第四十九観点 ID管理 で SMB3 は 更新確認 を点検します（運用第四十九）（第四十九観点）。第四十九観点 確認時には Storage Spaces DirectやScale-Out File Serverで利用という性質を前提にします（資料第四十九）（第四十九観点）。第四十九観点 Windows Admin Center の管理画面 の値を DC01.corp.example と合わせ、管理ツール間の値合わせを記録します（第四十九観点）。第四十九観点 証跡には資料IDと確認値を併記し、Windows記録049として保存します（第四十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十九証跡です。照合049 の採取結果を後続作業へ渡します。確認観点は SMB3、更新確認、照合 です。DC01.corp.example を根拠として残す時、対象の取り違えを抑える対応はどれか。</p><ul class="kb-choices"><li>A. 証跡票に DC01.corp.example と Windows Admin Center の管理画面 を並べ、SMB3 の状態を Windows正049として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仮想化 の一般メモを採り、DC01.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記049として後続調査を止めてしまう。</li><li>C. SMB3 の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延049として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在049として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十九観点 正解確認: Aは SMB3 と DC01.corp.example を同じ証跡で扱うため、後続の照合に使えます（第四十九観点）。第四十九観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第四十九観点）。第四十九観点 誤答判定: Bは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第四十九観点）。第四十九観点 用語メモ: CSV はクラスター共有ボリュームです（第四十九観点）。第四十九観点 SMB3 はファイル共有で使います（第四十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMB3 更新確認 照合049</strong></p><p>検証目的: ID管理における SMB3 の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=DC01.corp.example</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により SMB3 の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により SMB3 の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController DC01.corp.example
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により SMB3 の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for DC01.corp.example
+画面・出力には Event ID が含まれる。Event ID を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## アドレス管理
+
+
+<section class="kb-item" id="c35-i0010"><h3>DNSサーバー ログ確認 確認003</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 初級</p><p>第三観点 アドレス管理 の運用では DNSサーバー を定義、ログ、画面の値と結びます（第三観点）。第三観点 コンピューター名をIPアドレスへ対応させ、Windowsネットワークの名前解決を担う役割という内容を操作結果と照合します（第三観点）。第三観点 SCOPE10.2.03.0、DHCPリースと監査ログ、管理ツールの表示を照合し、資格情報保護の有効化確認を確認します（第三観点）。第三観点 調査票ではGUIとPowerShellの入口を Windows記録003に区別して残します（第三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三証跡です。Windows記録003として SCOPE10.2.03.0 の証跡を残します。確認観点は DNSサーバー、ログ確認、確認 です。DHCPリースと監査ログ と SCOPE10.2.03.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.2.03.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記003として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.2.03.0 と DHCPリースと監査ログ を並べ、DNSサーバー の状態を Windows正003として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. DNSサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延003として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在003として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第三観点 採用理由: Bは DNSサーバー の状態を画面とログの両方から確認するため、記録として妥当です（第三観点）。第三観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第三観点）。第三観点 誤答内訳: Aは役割状態欠落、Cはログ名不足、Dは証跡再利用が理由です（第三観点）。第三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第三観点）。第三観点 Server Manager は役割管理に使います（第三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSサーバー ログ確認 確認003</strong></p><p>検証目的: アドレス管理における DNSサーバー のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.2.03.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE03     Up     Node
+NODE04     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 03       Online NODE03
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.2.03.0
+CSV volume is online and owner node is NODE03
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0011"><h3>DNSサーバー 構成確認 接続063</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 中級</p><p>第六十三観点 アドレス管理 の運用では DNSサーバー を定義、ログ、画面の値と結びます（第六十三観点）。第六十三観点 コンピューター名をIPアドレスへ対応させ、Windowsネットワークの名前解決を担う役割という内容を操作結果と照合します（第六十三観点）。第六十三観点 SCOPE10.2.15.0、DHCPリースと監査ログ、管理ツールの表示を照合し、資格情報保護の有効化確認を確認します（第六十三観点）。第六十三観点 調査票ではGUIとPowerShellの入口を Windows記録063に区別して残します（第六十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十三証跡です。Windows記録063として SCOPE10.2.15.0 の証跡を残します。確認観点は DNSサーバー、構成確認、接続 です。DHCPリースと監査ログ と SCOPE10.2.15.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.2.15.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記063として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.2.15.0 と DHCPリースと監査ログ を並べ、DNSサーバー の状態を Windows正063として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. DNSサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延063として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在063として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十三観点 記録理由: Bは SCOPE10.2.15.0 の取得経路を残すため、後日の再調査に耐えます（第六十三観点）。第六十三観点 背景確認: アドレス管理では管理画面とイベントログが分かれて表示されます（第六十三観点）。第六十三観点 誤答整理: Aは一般メモ偏重、CはEvent Viewer除外、Dは再現性不足が理由です（第六十三観点）。第六十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第六十三観点）。第六十三観点 Server Manager は役割管理に使います（第六十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSサーバー 構成確認 接続063</strong></p><p>検証目的: アドレス管理における DNSサーバー の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.2.15.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE15     Up     Node
+NODE16     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 15       Online NODE15
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.2.15.0
+CSV volume is online and owner node is NODE15
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0012"><h3>Failover Clustering セキュリティ確認 確認075</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 中級</p><p>第七十五観点 アドレス管理 の運用では Failover Clustering を定義、ログ、画面の値と結びます（第七十五観点）。第七十五観点 複数ノードをまとめ、障害時にワークロードを別ノードへ移す高可用性機能という内容を操作結果と照合します（第七十五観点）。第七十五観点 SCOPE10.14.03.0 を起点に設定値を戻し、暗号化状態の証跡化を点検します（第七十五観点）。第七十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録075に残します（第七十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十五証跡です。Failover Clustering の状態をPowerShellと照合します。確認観点は FC、セキュリティ確認、確認 です。Storage Spaces Direct のプール状態 と SCOPE10.14.03.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.14.03.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記075として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.14.03.0 と Storage Spaces Direct のプール状態 を並べ、FC の状態を Windows正075として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Failover Clustering の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延075として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在075として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十五観点 採用理由: Bは FC の状態を画面とログの両方から確認するため、記録として妥当です（第七十五観点）。第七十五観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第七十五観点）。第七十五観点 誤答内訳: Aは役割状態欠落、Cはログ名不足、Dは証跡再利用が理由です（第七十五観点）。第七十五観点 用語確認: AD DS はディレクトリサービスです（第七十五観点）。第七十五観点 DNS は名前をIPアドレスへ対応させます（第七十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Failover Clustering セキュリティ確認 確認075</strong></p><p>検証目的: アドレス管理における Failover Clustering のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.14.03.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Failover Clustering の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE03     Up     Node
+NODE04     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Failover Clustering の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 03       Online NODE03
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Failover Clustering の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.14.03.0
+CSV volume is online and owner node is NODE03
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0013"><h3>Failover Clustering 構成確認 接続015</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 初級</p><p>第十五観点 アドレス管理 の運用では Failover Clustering を定義、ログ、画面の値と結びます（第十五観点）。第十五観点 複数ノードをまとめ、障害時にワークロードを別ノードへ移す高可用性機能という内容を操作結果と照合します（第十五観点）。第十五観点 SCOPE10.14.15.0 を起点に設定値を戻し、暗号化状態の証跡化を点検します（第十五観点）。第十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録015に残します（第十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Failover Clustering 構成確認 接続015</strong></p><p>検証目的: アドレス管理における Failover Clustering の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.14.15.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Failover Clustering の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE15     Up     Node
+NODE16     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Failover Clustering の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 15       Online NODE15
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Failover Clustering の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.14.15.0
+CSV volume is online and owner node is NODE15
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0014"><h3>NPS 定義照合 確認099</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 上級</p><p>第九十九観点 アドレス管理 の運用では NPS を定義、ログ、画面の値と結びます（第九十九観点）。第九十九観点 RADIUS認証、承認、アカウンティングを扱い、イベントログやテキストログへ記録する役割という内容を操作結果と照合します（第九十九観点）。第九十九観点 Windows Admin Center の管理画面 の値を SCOPE10.18.03.0 と合わせ、認証基盤と名前解決の整合確認を記録します（第九十九観点）。第九十九観点 証跡には資料IDと確認値を併記し、Windows記録099として保存します（第九十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十九証跡です。Windows Server 2022 の管理画面で 確認099 を扱います。確認観点は NPS、定義照合、確認 です。Windows Admin Center の管理画面 と SCOPE10.18.03.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.18.03.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記099として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.18.03.0 と Windows Admin Center の管理画面 を並べ、NPS の状態を Windows正099として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. NPS の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延099として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在099として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十九観点 採用理由: Bは NPS の状態を画面とログの両方から確認するため、記録として妥当です（第九十九観点）。第九十九観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第九十九観点）。第九十九観点 誤答内訳: Aは役割状態欠落、Cはログ名不足、Dは証跡再利用が理由です（第九十九観点）。第九十九観点 用語メモ: CSV はクラスター共有ボリュームです（第九十九観点）。第九十九観点 SMB3 はファイル共有で使います（第九十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>NPS 定義照合 確認099</strong></p><p>検証目的: アドレス管理における NPS の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.18.03.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により NPS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE03     Up     Node
+NODE04     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により NPS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 03       Online NODE03
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により NPS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.18.03.0
+CSV volume is online and owner node is NODE03
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0015"><h3>NPS 更新確認 接続039</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 中級</p><p>第三十九観点 アドレス管理 の運用では NPS を定義、ログ、画面の値と結びます（第三十九観点）。第三十九観点 RADIUS認証、承認、アカウンティングを扱い、イベントログやテキストログへ記録する役割という内容を操作結果と照合します（第三十九観点）。第三十九観点 Windows Admin Center の管理画面 の値を SCOPE10.18.15.0 と合わせ、認証基盤と名前解決の整合確認を記録します（第三十九観点）。第三十九観点 証跡には資料IDと確認値を併記し、Windows記録039として保存します（第三十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>NPS 更新確認 接続039</strong></p><p>検証目的: アドレス管理における NPS の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.18.15.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により NPS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE15     Up     Node
+NODE16     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により NPS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 15       Online NODE15
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により NPS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.18.15.0
+CSV volume is online and owner node is NODE15
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0016"><h3>Secured-core server セキュリティ確認 確認027</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 中級</p><p>第二十七観点 アドレス管理 の運用では Secured-core server を定義、ログ、画面の値と結びます（第二十七観点）。第二十七観点 ハードウェア、ファームウェア、OSの保護を組み合わせ、攻撃面を減らすサーバー構成という内容を操作結果と照合します（第二十七観点）。第二十七観点 Remote Desktop Services の接続ログ と SCOPE10.6.03.0 を同じ証跡に置き、管理ツール間の値合わせを管理します（第二十七観点）。第二十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録027から再現します（第二十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十七証跡です。アドレス管理 の運用メモをWindows証跡027に整理します。確認観点は Secured-core server、セキュリティ確認、確認 です。Remote Desktop Services の接続ログ と SCOPE10.6.03.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.6.03.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記027として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.6.03.0 と Remote Desktop Services の接続ログ を並べ、Secured-core server の状態を Windows正027として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Secured-core server の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延027として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在027として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十七観点 採用理由: Bは Secured-core server の状態を画面とログの両方から確認するため、記録として妥当です（第二十七観点）。第二十七観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第二十七観点）。第二十七観点 誤答内訳: Aは役割状態欠落、Cはログ名不足、Dは証跡再利用が理由です（第二十七観点）。第二十七観点 用語整理: NPS はRADIUS認証に関係します（第二十七観点）。第二十七観点 Event Viewer はイベントログ確認の入口です（第二十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Secured-core server セキュリティ確認 確認027</strong></p><p>検証目的: アドレス管理における Secured-core server のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.6.03.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Secured-core server の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE03     Up     Node
+NODE04     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Secured-core server の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 03       Online NODE03
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Secured-core server の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.6.03.0
+CSV volume is online and owner node is NODE03
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0017"><h3>Secured-core server 接続確認 接続087</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 上級</p><p>第八十七観点 アドレス管理 の運用では Secured-core server を定義、ログ、画面の値と結びます（第八十七観点）。第八十七観点 ハードウェア、ファームウェア、OSの保護を組み合わせ、攻撃面を減らすサーバー構成という内容を操作結果と照合します（第八十七観点）。第八十七観点 Remote Desktop Services の接続ログ と SCOPE10.6.15.0 を同じ証跡に置き、管理ツール間の値合わせを管理します（第八十七観点）。第八十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録087から再現します（第八十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十七証跡です。アドレス管理 の運用メモをWindows証跡087に整理します。確認観点は Secured-core server、接続確認、接続 です。Remote Desktop Services の接続ログ と SCOPE10.6.15.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.6.15.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記087として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.6.15.0 と Remote Desktop Services の接続ログ を並べ、Secured-core server の状態を Windows正087として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Secured-core server の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延087として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在087として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十七観点 記録理由: Bは SCOPE10.6.15.0 の取得経路を残すため、後日の再調査に耐えます（第八十七観点）。第八十七観点 背景確認: アドレス管理では管理画面とイベントログが分かれて表示されます（第八十七観点）。第八十七観点 誤答整理: Aは一般メモ偏重、CはEvent Viewer除外、Dは再現性不足が理由です（第八十七観点）。第八十七観点 用語整理: NPS はRADIUS認証に関係します（第八十七観点）。第八十七観点 Event Viewer はイベントログ確認の入口です（第八十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Secured-core server 接続確認 接続087</strong></p><p>検証目的: アドレス管理における Secured-core server の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.6.15.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Secured-core server の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE15     Up     Node
+NODE16     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Secured-core server の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 15       Online NODE15
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Secured-core server の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.6.15.0
+CSV volume is online and owner node is NODE15
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0018"><h3>Storage Replica 定義照合 確認051</h3><p class="kb-meta">分類: アドレス管理 ・ 難易度: 中級</p><p>第五十一観点 アドレス管理 の運用では Storage Replica を定義、ログ、画面の値と結びます（第五十一観点）。第五十一観点 サーバー間、クラスター間、ストレッチクラスターで同期または非同期に複製する機能という内容を操作結果と照合します（第五十一観点）。第五十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、クラスター所有ノードの確認を説明可能にします（第五十一観点）。第五十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録051へ書きます（第五十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十一証跡です。Storage Replica の値をGUIとPowerShellで比べます。確認観点は Storage Replica、定義照合、確認 です。Event Viewer のイベントログ と SCOPE10.10.03.0 を合わせて読む時の採用方針として正しいものはどれか。</p><ul class="kb-choices"><li>A. ストレージ の一般メモを採り、SCOPE10.10.03.0、役割名、ログ時刻の対応を記録外に置き、Windows誤記051として後続調査を止めてしまう。</li><li>B. 証跡票に SCOPE10.10.03.0 と Event Viewer のイベントログ を並べ、Storage Replica の状態を Windows正051として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Storage Replica の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延051として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在051として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十一観点 採用理由: Bは Storage Replica の状態を画面とログの両方から確認するため、記録として妥当です（第五十一観点）。第五十一観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第五十一観点）。第五十一観点 誤答内訳: Aは役割状態欠落、Cはログ名不足、Dは証跡再利用が理由です（第五十一観点）。第五十一観点 用語関係: BitLocker はボリューム暗号化です（第五十一観点）。第五十一観点 TPM は改ざん検知に関係します（第五十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Storage Replica 定義照合 確認051</strong></p><p>検証目的: アドレス管理における Storage Replica の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SCOPE10.10.03.0</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Storage Replica の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE03     Up     Node
+NODE04     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Storage Replica の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 03       Online NODE03
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Storage Replica の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster SCOPE10.10.03.0
+CSV volume is online and owner node is NODE03
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## クラスタリング
+
+
+<section class="kb-item" id="c35-i0019"><h3>AD DS 定義照合 接続031</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 中級</p><p>第三十一観点 クラスタリング で AD DS は 定義照合 を点検します（運用第三十一）（第三十一観点）。第三十一観点 確認時には ディレクトリデータを格納し、利用者、コンピューター、管理者が参照できるようにする役割という性質を前提にします（資料第三十一）（第三十一観点）。第三十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、暗号化状態の証跡化を説明可能にします（第三十一観点）。第三十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録031へ書きます（第三十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>AD DS 定義照合 接続031</strong></p><p>検証目的: クラスタリングにおける AD DS の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC07</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により AD DS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により AD DS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC07
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により AD DS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC07
+画面・出力には Event ID が含まれる。Event ID を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0020"><h3>AD DS 権限確認 確認091</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 上級</p><p>第九十一観点 クラスタリング で AD DS は 権限確認 を点検します（運用第九十一）（第九十一観点）。第九十一観点 確認時には ディレクトリデータを格納し、利用者、コンピューター、管理者が参照できるようにする役割という性質を前提にします（資料第九十一）（第九十一観点）。第九十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、暗号化状態の証跡化を説明可能にします（第九十一観点）。第九十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録091へ書きます（第九十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十一証跡です。クラスタリング の運用で AD DS を点検します。確認観点は AD DS、権限確認、確認 です。クラスタリング の判断を次の担当者へ渡す場合、どの扱いが適切か。</p><ul class="kb-choices"><li>A. 更新管理 の一般メモを採り、WAC19、役割名、ログ時刻の対応を記録外に置き、Windows誤記091として後続調査を止めてしまう。</li><li>B. AD DS の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延091として再確認を先送りする。</li><li>C. 証跡票に WAC19 と Event Viewer のイベントログ を並べ、AD DS の状態を Windows正091として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在091として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十一観点 採用理由: Cは AD DS の状態を画面とログの両方から確認するため、記録として妥当です（第九十一観点）。第九十一観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第九十一観点）。第九十一観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Dは証跡再利用が理由です（第九十一観点）。第九十一観点 用語関係: BitLocker はボリューム暗号化です（第九十一観点）。第九十一観点 TPM は改ざん検知に関係します（第九十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>AD DS 権限確認 確認091</strong></p><p>検証目的: クラスタリングにおける AD DS の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC19</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により AD DS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により AD DS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC19
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により AD DS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC19
+画面・出力には Event ID が含まれる。Event ID を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0021"><h3>DHCP監査ログ セキュリティ確認 接続007</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 初級</p><p>第七観点 クラスタリング で DHCP監査ログ は セキュリティ確認 を点検します（運用第七）（第七観点）。第七観点 確認時には リース割当、更新、DNS登録失敗などのDHCPサーバー活動を追跡する証跡という性質を前提にします（資料第七）（第七観点）。第七観点 Remote Desktop Services の接続ログ と WAC07 を同じ証跡に置き、クラスター所有ノードの確認を管理します（第七観点）。第七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録007から再現します（第七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCP監査ログ セキュリティ確認 接続007</strong></p><p>検証目的: クラスタリングにおける DHCP監査ログ のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC07</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCP監査ログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCP監査ログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC07
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCP監査ログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC07
+画面・出力には Event ID が含まれる。Event ID を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0022"><h3>DHCP監査ログ 接続確認 確認067</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 中級</p><p>第六十七観点 クラスタリング で DHCP監査ログ は 接続確認 を点検します（運用第六十七）（第六十七観点）。第六十七観点 確認時には リース割当、更新、DNS登録失敗などのDHCPサーバー活動を追跡する証跡という性質を前提にします（資料第六十七）（第六十七観点）。第六十七観点 Remote Desktop Services の接続ログ と WAC19 を同じ証跡に置き、クラスター所有ノードの確認を管理します（第六十七観点）。第六十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録067から再現します（第六十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十七証跡です。クラスタリング の当日作業で WAC19 を追跡します。確認観点は DHCP監査ログ、接続確認、確認 です。クラスタリング の判断を次の担当者へ渡す場合、どの扱いが適切か。</p><ul class="kb-choices"><li>A. 更新管理 の一般メモを採り、WAC19、役割名、ログ時刻の対応を記録外に置き、Windows誤記067として後続調査を止めてしまう。</li><li>B. DHCP監査ログ の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延067として再確認を先送りする。</li><li>C. 証跡票に WAC19 と Remote Desktop Services の接続ログ を並べ、DHCP監査ログ の状態を Windows正067として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在067として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十七観点 採用理由: Cは DHCP監査ログ の状態を画面とログの両方から確認するため、記録として妥当です（第六十七観点）。第六十七観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第六十七観点）。第六十七観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Dは証跡再利用が理由です（第六十七観点）。第六十七観点 用語整理: NPS はRADIUS認証に関係します（第六十七観点）。第六十七観点 Event Viewer はイベントログ確認の入口です（第六十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCP監査ログ 接続確認 確認067</strong></p><p>検証目的: クラスタリングにおける DHCP監査ログ の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC19</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCP監査ログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCP監査ログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC19
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCP監査ログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC19
+画面・出力には Event ID が含まれる。Event ID を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0023"><h3>PowerShell管理 権限確認 確認043</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 中級</p><p>第四十三観点 クラスタリング で PowerShell管理 は 権限確認 を点検します（運用第四十三）（第四十三観点）。第四十三観点 確認時には サーバー役割、DNS、DHCP、クラスター、ストレージをコマンドで確認・変更する入口という性質を前提にします（資料第四十三）（第四十三観点）。第四十三観点 WAC19、DHCPリースと監査ログ、管理ツールの表示を照合し、管理ツール間の値合わせを確認します（第四十三観点）。第四十三観点 調査票ではGUIとPowerShellの入口を Windows記録043に区別して残します（第四十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十三証跡です。PowerShell管理 の表示とイベントログを比べます。確認観点は PowerShell管理、権限確認、確認 です。クラスタリング の判断を次の担当者へ渡す場合、どの扱いが適切か。</p><ul class="kb-choices"><li>A. 更新管理 の一般メモを採り、WAC19、役割名、ログ時刻の対応を記録外に置き、Windows誤記043として後続調査を止めてしまう。</li><li>B. PowerShell管理 の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延043として再確認を先送りする。</li><li>C. 証跡票に WAC19 と DHCPリースと監査ログ を並べ、PowerShell管理 の状態を Windows正043として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在043として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十三観点 採用理由: Cは PowerShell管理 の状態を画面とログの両方から確認するため、記録として妥当です（第四十三観点）。第四十三観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第四十三観点）。第四十三観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Dは証跡再利用が理由です（第四十三観点）。第四十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第四十三観点）。第四十三観点 Server Manager は役割管理に使います（第四十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>PowerShell管理 権限確認 確認043</strong></p><p>検証目的: クラスタリングにおける PowerShell管理 の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC19</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により PowerShell管理 の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により PowerShell管理 の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC19
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により PowerShell管理 の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC19
+画面・出力には Event ID が含まれる。Event ID を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0024"><h3>Remote Credential Guard 可用性確認 接続055</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 中級</p><p>第五十五観点 クラスタリング で Remote Credential Guard は 可用性確認 を点検します（運用第五十五）（第五十五観点）。第五十五観点 確認時には RDPセッションで利用者資格情報をクライアント側に保持する保護機能という性質を前提にします（資料第五十五）（第五十五観点）。第五十五観点 WAC07 を起点に設定値を戻し、認証基盤と名前解決の整合確認を点検します（第五十五観点）。第五十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録055に残します（第五十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Remote Credential Guard 可用性確認 接続055</strong></p><p>検証目的: クラスタリングにおける Remote Credential Guard の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC07</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Remote Credential Guard の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Remote Credential Guard の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC07
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Remote Credential Guard の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC07
+画面・出力には Event ID が含まれる。Event ID を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0025"><h3>SMB3 接続確認 確認019</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 中級</p><p>第十九観点 クラスタリング で SMB3 は 接続確認 を点検します（運用第十九）（第十九観点）。第十九観点 確認時には Storage Spaces DirectやScale-Out File Serverで利用という性質を前提にします（資料第十九）（第十九観点）。第十九観点 Windows Admin Center の管理画面 の値を WAC19 と合わせ、資格情報保護の有効化確認を記録します（第十九観点）。第十九観点 証跡には資料IDと確認値を併記し、Windows記録019として保存します（第十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十九証跡です。確認019 の採取結果を後続作業へ渡します。確認観点は SMB3、接続確認、確認 です。クラスタリング の判断を次の担当者へ渡す場合、どの扱いが適切か。</p><ul class="kb-choices"><li>A. 更新管理 の一般メモを採り、WAC19、役割名、ログ時刻の対応を記録外に置き、Windows誤記019として後続調査を止めてしまう。</li><li>B. SMB3 の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延019として再確認を先送りする。</li><li>C. 証跡票に WAC19 と Windows Admin Center の管理画面 を並べ、SMB3 の状態を Windows正019として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在019として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第十九観点 採用理由: Cは SMB3 の状態を画面とログの両方から確認するため、記録として妥当です（第十九観点）。第十九観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第十九観点）。第十九観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Dは証跡再利用が理由です（第十九観点）。第十九観点 用語メモ: CSV はクラスター共有ボリュームです（第十九観点）。第十九観点 SMB3 はファイル共有で使います（第十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMB3 接続確認 確認019</strong></p><p>検証目的: クラスタリングにおける SMB3 の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC19</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により SMB3 の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により SMB3 の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC19
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により SMB3 の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC19
+画面・出力には Event ID が含まれる。Event ID を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0026"><h3>SMB3 状態確認 接続079</h3><p class="kb-meta">分類: クラスタリング ・ 難易度: 中級</p><p>第七十九観点 クラスタリング で SMB3 は 状態確認 を点検します（運用第七十九）（第七十九観点）。第七十九観点 確認時には Storage Spaces DirectやScale-Out File Serverで利用という性質を前提にします（資料第七十九）（第七十九観点）。第七十九観点 Windows Admin Center の管理画面 の値を WAC07 と合わせ、資格情報保護の有効化確認を記録します（第七十九観点）。第七十九観点 証跡には資料IDと確認値を併記し、Windows記録079として保存します（第七十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMB3 状態確認 接続079</strong></p><p>検証目的: クラスタリングにおける SMB3 の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=WAC07</p><p>セッション環境: PowerShell / Server Manager / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により SMB3 の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-WindowsFeature -Name AD-Domain-Services,DNS,DHCP
+→ Enter を押す
+［画面・出力］
+Display Name                                            Name                       Install State
+Active Directory Domain Services                       AD-Domain-Services         Installed
+DNS Server                                             DNS                        Installed
+画面・出力には Installed が含まれる。Installed を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により SMB3 の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ADDomainController -Discover -Service PrimaryDC
+→ Enter を押す
+［画面・出力］
+DomainController WAC07
+Forest corp.example
+Site Default-First-Site-Name
+画面・出力には DomainController が含まれる。DomainController を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により SMB3 の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Directory Service
+→ Enter を押す
+［画面・出力］
+Directory Service log
+Event ID 1000 informational entry recorded for WAC07
+画面・出力には Event ID が含まれる。Event ID を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Installed が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: DomainController が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Event ID が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## サーバー管理
+
+
+<section class="kb-item" id="c35-i0027"><h3>DHCPサーバー セキュリティ確認 照合065</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 中級</p><p>第六十五観点 サーバー管理 の変更作業では DHCPサーバー の現在値を先に固定します（第六十五観点）。第六十五観点 役割は クライアントへIPアドレスとTCP/IP構成を配布し、リースと更新を管理する役割という範囲です（第六十五観点）。第六十五観点 NPS17 を起点に設定値を戻し、管理ツール間の値合わせを点検します（第六十五観点）。第六十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録065に残します（第六十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十五証跡です。Storage Spaces Direct のプール状態 を採取した後の扱いを選びます。確認観点は DHCPサーバー、セキュリティ確認、照合 です。DHCPサーバー の調査票へ残す内容として、最も再現性が高いものはどれか。</p><ul class="kb-choices"><li>A. 証跡票に NPS17 と Storage Spaces Direct のプール状態 を並べ、DHCPサーバー の状態を Windows正065として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. セキュリティ の一般メモを採り、NPS17、役割名、ログ時刻の対応を記録外に置き、Windows誤記065として後続調査を止めてしまう。</li><li>C. DHCPサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延065として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在065として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十五観点 正解確認: Aは DHCPサーバー と NPS17 を同じ証跡で扱うため、後続の照合に使えます（第六十五観点）。第六十五観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第六十五観点）。第六十五観点 誤答判定: Bは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第六十五観点）。第六十五観点 用語確認: AD DS はディレクトリサービスです（第六十五観点）。第六十五観点 DNS は名前をIPアドレスへ対応させます（第六十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPサーバー セキュリティ確認 照合065</strong></p><p>検証目的: サーバー管理における DHCPサーバー のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS17</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS17
+画面・出力には Security log が含まれる。Security log を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0028"><h3>DHCPサーバー 構成確認 構成005</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 初級</p><p>第五観点 サーバー管理 の変更作業では DHCPサーバー の現在値を先に固定します（第五観点）。第五観点 役割は クライアントへIPアドレスとTCP/IP構成を配布し、リースと更新を管理する役割という範囲です（第五観点）。第五観点 NPS05 を起点に設定値を戻し、管理ツール間の値合わせを点検します（第五観点）。第五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録005に残します（第五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPサーバー 構成確認 構成005</strong></p><p>検証目的: サーバー管理における DHCPサーバー の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS05</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS05
+画面・出力には Security log が含まれる。Security log を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0029"><h3>RD Gateway 接続確認 構成029</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 中級</p><p>第二十九観点 サーバー管理 の変更作業では RD Gateway の現在値を先に固定します（第二十九観点）。第二十九観点 役割は HTTPSでRDP接続を中継し、公開ポートを抑えて条件付きアクセスへつなぐ役割という範囲です（第二十九観点）。第二十九観点 Windows Admin Center の管理画面 の値を NPS05 と合わせ、クラスター所有ノードの確認を記録します（第二十九観点）。第二十九観点 証跡には資料IDと確認値を併記し、Windows記録029として保存します（第二十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十九証跡です。RD Gateway の差分を同じサーバーで確認します。確認観点は RD Gateway、接続確認、構成 です。RD Gateway の調査票へ残す内容として、最も再現性が高いものはどれか。</p><ul class="kb-choices"><li>A. 証跡票に NPS05 と Windows Admin Center の管理画面 を並べ、RD Gateway の状態を Windows正029として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. セキュリティ の一般メモを採り、NPS05、役割名、ログ時刻の対応を記録外に置き、Windows誤記029として後続調査を止めてしまう。</li><li>C. RD Gateway の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延029として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在029として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十九観点 判定理由: Aは サーバー管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第二十九観点）。第二十九観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第二十九観点）。第二十九観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第二十九観点）。第二十九観点 用語メモ: CSV はクラスター共有ボリュームです（第二十九観点）。第二十九観点 SMB3 はファイル共有で使います（第二十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>RD Gateway 接続確認 構成029</strong></p><p>検証目的: サーバー管理における RD Gateway の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS05</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により RD Gateway の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により RD Gateway の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により RD Gateway の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS05
+画面・出力には Security log が含まれる。Security log を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0030"><h3>RD Gateway 状態確認 照合089</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 上級</p><p>第八十九観点 サーバー管理 の変更作業では RD Gateway の現在値を先に固定します（第八十九観点）。第八十九観点 役割は HTTPSでRDP接続を中継し、公開ポートを抑えて条件付きアクセスへつなぐ役割という範囲です（第八十九観点）。第八十九観点 Windows Admin Center の管理画面 の値を NPS17 と合わせ、クラスター所有ノードの確認を記録します（第八十九観点）。第八十九観点 証跡には資料IDと確認値を併記し、Windows記録089として保存します（第八十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十九証跡です。RD Gateway の差分を同じサーバーで確認します。確認観点は RD Gateway、状態確認、照合 です。RD Gateway の調査票へ残す内容として、最も再現性が高いものはどれか。</p><ul class="kb-choices"><li>A. 証跡票に NPS17 と Windows Admin Center の管理画面 を並べ、RD Gateway の状態を Windows正089として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. セキュリティ の一般メモを採り、NPS17、役割名、ログ時刻の対応を記録外に置き、Windows誤記089として後続調査を止めてしまう。</li><li>C. RD Gateway の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延089として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在089として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十九観点 正解確認: Aは RD Gateway と NPS17 を同じ証跡で扱うため、後続の照合に使えます（第八十九観点）。第八十九観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第八十九観点）。第八十九観点 誤答判定: Bは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第八十九観点）。第八十九観点 用語メモ: CSV はクラスター共有ボリュームです（第八十九観点）。第八十九観点 SMB3 はファイル共有で使います（第八十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>RD Gateway 状態確認 照合089</strong></p><p>検証目的: サーバー管理における RD Gateway の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS17</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により RD Gateway の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により RD Gateway の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により RD Gateway の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS17
+画面・出力には Security log が含まれる。Security log を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0031"><h3>Storage Spaces Direct セキュリティ確認 照合017</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 初級</p><p>第十七観点 サーバー管理 の変更作業では Storage Spaces Direct の現在値を先に固定します（第十七観点）。第十七観点 役割は 複数サーバーの内蔵ドライブをまとめ、ソフトウェア定義の共有ストレージを作る機能という範囲です（第十七観点）。第十七観点 Remote Desktop Services の接続ログ と NPS17 を同じ証跡に置き、認証基盤と名前解決の整合確認を管理します（第十七観点）。第十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録017から再現します（第十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Storage Spaces Direct セキュリティ確認 照合017</strong></p><p>検証目的: サーバー管理における Storage Spaces Direct のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS17</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Storage Spaces Direct の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Storage Spaces Direct の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Storage Spaces Direct の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS17
+画面・出力には Security log が含まれる。Security log を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0032"><h3>Storage Spaces Direct 接続確認 構成077</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 中級</p><p>第七十七観点 サーバー管理 の変更作業では Storage Spaces Direct の現在値を先に固定します（第七十七観点）。第七十七観点 役割は 複数サーバーの内蔵ドライブをまとめ、ソフトウェア定義の共有ストレージを作る機能という範囲です（第七十七観点）。第七十七観点 Remote Desktop Services の接続ログ と NPS05 を同じ証跡に置き、認証基盤と名前解決の整合確認を管理します（第七十七観点）。第七十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録077から再現します（第七十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十七証跡です。サーバー管理 で障害原因を調べます。確認観点は S2D、接続確認、構成 です。Storage Spaces Direct の調査票へ残す内容として、最も再現性が高いものはどれか。</p><ul class="kb-choices"><li>A. 証跡票に NPS05 と Remote Desktop Services の接続ログ を並べ、S2D の状態を Windows正077として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. セキュリティ の一般メモを採り、NPS05、役割名、ログ時刻の対応を記録外に置き、Windows誤記077として後続調査を止めてしまう。</li><li>C. Storage Spaces Direct の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延077として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在077として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十七観点 判定理由: Aは サーバー管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第七十七観点）。第七十七観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第七十七観点）。第七十七観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第七十七観点）。第七十七観点 用語整理: NPS はRADIUS認証に関係します（第七十七観点）。第七十七観点 Event Viewer はイベントログ確認の入口です（第七十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Storage Spaces Direct 接続確認 構成077</strong></p><p>検証目的: サーバー管理における Storage Spaces Direct の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS05</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Storage Spaces Direct の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Storage Spaces Direct の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Storage Spaces Direct の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS05
+画面・出力には Security log が含まれる。Security log を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0033"><h3>Windows Admin Center 定義照合 照合041</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 中級</p><p>第四十一観点 サーバー管理 の変更作業では Windows Admin Center の現在値を先に固定します（第四十一観点）。第四十一観点 役割は サーバー、クラスター、Storage Spaces Directなどをブラウザーから管理するという範囲です（第四十一観点）。第四十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、資格情報保護の有効化確認を説明可能にします（第四十一観点）。第四十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録041へ書きます（第四十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Windows Admin Center 定義照合 照合041</strong></p><p>検証目的: サーバー管理における Windows Admin Center の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS17</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Windows Admin Center の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Windows Admin Center の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Windows Admin Center の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS17
+画面・出力には Security log が含まれる。Security log を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0034"><h3>Windows Defender 権限確認 構成053</h3><p class="kb-meta">分類: サーバー管理 ・ 難易度: 中級</p><p>第五十三観点 サーバー管理 の変更作業では Windows Defender の現在値を先に固定します（第五十三観点）。第五十三観点 役割は サーバー上のマルウェア対策を提供し、定義更新と保護状態を確認する機能という範囲です（第五十三観点）。第五十三観点 NPS05、DHCPリースと監査ログ、管理ツールの表示を照合し、暗号化状態の証跡化を確認します（第五十三観点）。第五十三観点 調査票ではGUIとPowerShellの入口を Windows記録053に区別して残します（第五十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十三証跡です。サーバー管理 の作業票へ Windows Defender を記録します。確認観点は Windows Defender、権限確認、構成 です。Windows Defender の調査票へ残す内容として、最も再現性が高いものはどれか。</p><ul class="kb-choices"><li>A. 証跡票に NPS05 と DHCPリースと監査ログ を並べ、Windows Defender の状態を Windows正053として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. セキュリティ の一般メモを採り、NPS05、役割名、ログ時刻の対応を記録外に置き、Windows誤記053として後続調査を止めてしまう。</li><li>C. Windows Defender の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延053として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在053として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十三観点 判定理由: Aは サーバー管理 の作業対象を管理画面とイベントログでそろえるため、採用できます（第五十三観点）。第五十三観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第五十三観点）。第五十三観点 誤答比較: Bは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第五十三観点）。第五十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第五十三観点）。第五十三観点 Server Manager は役割管理に使います（第五十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Windows Defender 権限確認 構成053</strong></p><p>検証目的: サーバー管理における Windows Defender の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=NPS05</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Windows Defender の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Windows Defender の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Windows Defender の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for NPS05
+画面・出力には Security log が含まれる。Security log を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## ストレージ
+
+
+<section class="kb-item" id="c35-i0035"><h3>BitLocker セキュリティ確認 保護056</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 中級</p><p>第五十六観点 BitLocker は Windows Server 2022 の ストレージ で扱う管理項目です（区分第五十六）（第五十六観点）。第五十六観点 管理上は TPMなどと連携し、OSドライブや固定ドライブを暗号化してデータ露出を抑える機能という値を追います（第五十六観点）。第五十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、クラスター所有ノードの確認を説明可能にします（第五十六観点）。第五十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録056へ書きます（第五十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十六証跡です。BitLocker の再表示結果を点検します。確認観点は BitLocker、セキュリティ確認、保護 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE08、役割名、ログ時刻の対応を記録外に置き、Windows誤記056として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE08 と BitLocker の保護状態 を並べ、BitLocker の状態を Windows正056として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. BitLocker の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延056として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在056として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十六観点 選定根拠: Bは BitLocker の保護状態 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第五十六観点）。第五十六観点 仕組み要点: BitLockerはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第五十六観点）。第五十六観点 誤答確認: Aは HVNODE08 未追跡、CはPowerShell確認不足、Dは別サーバー混同が理由です（第五十六観点）。第五十六観点 用語補足: DHCP はIP構成を配布します（第五十六観点）。第五十六観点 IPAM はアドレス基盤を集中管理します（第五十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>BitLocker セキュリティ確認 保護056</strong></p><p>検証目的: ストレージにおける BitLocker のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE08</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により BitLocker の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE08              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により BitLocker の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.15.08.0 255.255.255.0 Scope056            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により BitLocker の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope056
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0036"><h3>Hyper-V 構成確認 監査044</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 中級</p><p>第四十四観点 Hyper-V は Windows Server 2022 の ストレージ で扱う管理項目です（区分第四十四）（第四十四観点）。第四十四観点 管理上は Windows Server上で仮想マシンを実行し、仮想化基盤を構成する役割という値を追います（第四十四観点）。第四十四観点 Failover Cluster Manager のノード一覧 の値を HVNODE20 と合わせ、認証基盤と名前解決の整合確認を記録します（第四十四観点）。第四十四観点 証跡には資料IDと確認値を併記し、Windows記録044として保存します（第四十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十四証跡です。ストレージ の変更反映で HVNODE20 を記録します。確認観点は Hyper-V、構成確認、監査 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE20、役割名、ログ時刻の対応を記録外に置き、Windows誤記044として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE20 と Failover Cluster Manager のノード一覧 を並べ、Hyper-V の状態を Windows正044として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Hyper-V の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延044として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在044として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十四観点 照合結果: Bは HVNODE20 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第四十四観点）。第四十四観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第四十四観点）。第四十四観点 誤答差分: Aは設定値除外、Cは警告イベント未読、Dはサーバー差の隠蔽が理由です（第四十四観点）。第四十四観点 初出補足: PowerShell は管理コマンドの入口です（第四十四観点）。第四十四観点 イベントIDはログ調査の手掛かりです（第四十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Hyper-V 構成確認 監査044</strong></p><p>検証目的: ストレージにおける Hyper-V の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE20</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Hyper-V の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE20              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Hyper-V の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.3.20.0 255.255.255.0 Scope044            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Hyper-V の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope044
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0037"><h3>IPAM レプリケーション確認 保護008</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 初級</p><p>第八観点 IPAM は Windows Server 2022 の ストレージ で扱う管理項目です（区分第八）（第八観点）。第八観点 管理上は DNS、DHCP、IPアドレス基盤を発見、管理、監視する統合管理ツールという値を追います（第八観点）。第八観点 HVNODE08、Server Manager の役割状態、管理ツールの表示を照合し、資格情報保護の有効化確認を確認します（第八観点）。第八観点 調査票ではGUIとPowerShellの入口を Windows記録008に区別して残します（第八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八証跡です。IPAM の記録を監査用に整えます。確認観点は IPAM、レプリケーション確認、保護 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE08、役割名、ログ時刻の対応を記録外に置き、Windows誤記008として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE08 と Server Manager の役割状態 を並べ、IPAM の状態を Windows正008として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. IPAM の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延008として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在008として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第八観点 選定根拠: Bは Server Manager の役割状態 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第八観点）。第八観点 仕組み要点: IPAMはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第八観点）。第八観点 誤答確認: Aは HVNODE08 未追跡、CはPowerShell確認不足、Dは別サーバー混同が理由です（第八観点）。第八観点 用語説明: Hyper-V は仮想化役割です（第八観点）。第八観点 Failover Clustering は高可用性の基盤です（第八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IPAM レプリケーション確認 保護008</strong></p><p>検証目的: ストレージにおける IPAM のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE08</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により IPAM の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE08              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により IPAM の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.7.08.0 255.255.255.0 Scope008            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により IPAM の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope008
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0038"><h3>IPAM 更新確認 監査068</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 中級</p><p>第六十八観点 IPAM は Windows Server 2022 の ストレージ で扱う管理項目です（区分第六十八）（第六十八観点）。第六十八観点 管理上は DNS、DHCP、IPアドレス基盤を発見、管理、監視する統合管理ツールという値を追います（第六十八観点）。第六十八観点 HVNODE20、Server Manager の役割状態、管理ツールの表示を照合し、資格情報保護の有効化確認を確認します（第六十八観点）。第六十八観点 調査票ではGUIとPowerShellの入口を Windows記録068に区別して残します（第六十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十八証跡です。IPAM の記録を監査用に整えます。確認観点は IPAM、更新確認、監査 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE20、役割名、ログ時刻の対応を記録外に置き、Windows誤記068として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE20 と Server Manager の役割状態 を並べ、IPAM の状態を Windows正068として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. IPAM の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延068として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在068として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十八観点 照合結果: Bは HVNODE20 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第六十八観点）。第六十八観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第六十八観点）。第六十八観点 誤答差分: Aは設定値除外、Cは警告イベント未読、Dはサーバー差の隠蔽が理由です（第六十八観点）。第六十八観点 用語説明: Hyper-V は仮想化役割です（第六十八観点）。第六十八観点 Failover Clustering は高可用性の基盤です（第六十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IPAM 更新確認 監査068</strong></p><p>検証目的: ストレージにおける IPAM の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE20</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により IPAM の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE20              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により IPAM の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.7.20.0 255.255.255.0 Scope068            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により IPAM の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope068
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0039"><h3>SMB Direct 定義照合 保護080</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 中級</p><p>第八十観点 SMB Direct は Windows Server 2022 の ストレージ で扱う管理項目です（区分第八十）（第八十観点）。第八十観点 管理上は RDMA対応ネットワークでSMB通信の低遅延と高スループットを支える機能という値を追います（第八十観点）。第八十観点 HVNODE08 を起点に設定値を戻し、暗号化状態の証跡化を点検します（第八十観点）。第八十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録080に残します（第八十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十証跡です。ストレージ の監査証跡で HVNODE08 を扱います。確認観点は SMB Direct、定義照合、保護 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE08、役割名、ログ時刻の対応を記録外に置き、Windows誤記080として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE08 と PowerShell コマンド出力 を並べ、SMB Direct の状態を Windows正080として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. SMB Direct の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延080として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在080として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第八十観点 選定根拠: Bは PowerShell コマンド出力 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第八十観点）。第八十観点 仕組み要点: SMB DirectはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第八十観点）。第八十観点 誤答確認: Aは HVNODE08 未追跡、CはPowerShell確認不足、Dは別サーバー混同が理由です（第八十観点）。第八十観点 用語区分: Storage Replica は複製機能です（第八十観点）。第八十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第八十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMB Direct 定義照合 保護080</strong></p><p>検証目的: ストレージにおける SMB Direct の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE08</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により SMB Direct の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE08              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により SMB Direct の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.19.08.0 255.255.255.0 Scope080            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により SMB Direct の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope080
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0040"><h3>SMB Direct 更新確認 監査020</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 中級</p><p>第二十観点 SMB Direct は Windows Server 2022 の ストレージ で扱う管理項目です（区分第二十）（第二十観点）。第二十観点 管理上は RDMA対応ネットワークでSMB通信の低遅延と高スループットを支える機能という値を追います（第二十観点）。第二十観点 HVNODE20 を起点に設定値を戻し、暗号化状態の証跡化を点検します（第二十観点）。第二十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録020に残します（第二十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十証跡です。ストレージ の監査証跡で HVNODE20 を扱います。確認観点は SMB Direct、更新確認、監査 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE20、役割名、ログ時刻の対応を記録外に置き、Windows誤記020として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE20 と PowerShell コマンド出力 を並べ、SMB Direct の状態を Windows正020として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. SMB Direct の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延020として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在020として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十観点 照合結果: Bは HVNODE20 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第二十観点）。第二十観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第二十観点）。第二十観点 誤答差分: Aは設定値除外、Cは警告イベント未読、Dはサーバー差の隠蔽が理由です（第二十観点）。第二十観点 用語区分: Storage Replica は複製機能です（第二十観点）。第二十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第二十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMB Direct 更新確認 監査020</strong></p><p>検証目的: ストレージにおける SMB Direct の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE20</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により SMB Direct の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE20              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により SMB Direct の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.19.20.0 255.255.255.0 Scope020            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により SMB Direct の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope020
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0041"><h3>ドメインコントローラー ログ確認 保護032</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 中級</p><p>第三十二観点 ドメインコントローラー は Windows Server 2022 の ストレージ で扱う管理項目です（区分第三十二）（第三十二観点）。第三十二観点 管理上は 認証、更新、検索のためにAD DSとDNSを使い、ドメイン内の場所を示すサーバーという値を追います（第三十二観点）。第三十二観点 DNSゾーンとリソースレコード と HVNODE08 を同じ証跡に置き、管理ツール間の値合わせを管理します（第三十二観点）。第三十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録032から再現します（第三十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十二証跡です。ドメインコントローラー に関する設定変更を扱います。確認観点は DC、ログ確認、保護 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE08、役割名、ログ時刻の対応を記録外に置き、Windows誤記032として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE08 と DNSゾーンとリソースレコード を並べ、DC の状態を Windows正032として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. ドメインコントローラー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延032として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在032として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十二観点 選定根拠: Bは DNSゾーンとリソースレコード をサーバー運用と同じ文脈に置くため、証跡として扱えます（第三十二観点）。第三十二観点 仕組み要点: DCはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第三十二観点）。第三十二観点 誤答確認: Aは HVNODE08 未追跡、CはPowerShell確認不足、Dは別サーバー混同が理由です（第三十二観点）。第三十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第三十二観点）。第三十二観点 RD Gateway はHTTPSでRDPを中継します（第三十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ドメインコントローラー ログ確認 保護032</strong></p><p>検証目的: ストレージにおける ドメインコントローラー のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE08</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により ドメインコントローラー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE08              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により ドメインコントローラー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.11.08.0 255.255.255.0 Scope032            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により ドメインコントローラー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope032
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0042"><h3>ドメインコントローラー 構成確認 監査092</h3><p class="kb-meta">分類: ストレージ ・ 難易度: 上級</p><p>第九十二観点 ドメインコントローラー は Windows Server 2022 の ストレージ で扱う管理項目です（区分第九十二）（第九十二観点）。第九十二観点 管理上は 認証、更新、検索のためにAD DSとDNSを使い、ドメイン内の場所を示すサーバーという値を追います（第九十二観点）。第九十二観点 DNSゾーンとリソースレコード と HVNODE20 を同じ証跡に置き、管理ツール間の値合わせを管理します（第九十二観点）。第九十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録092から再現します（第九十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十二証跡です。ドメインコントローラー に関する設定変更を扱います。確認観点は DC、構成確認、監査 です。イベントログと資料値を照合する作業として、どの選択肢が妥当か。</p><ul class="kb-choices"><li>A. ID管理 の一般メモを採り、HVNODE20、役割名、ログ時刻の対応を記録外に置き、Windows誤記092として後続調査を止めてしまう。</li><li>B. 証跡票に HVNODE20 と DNSゾーンとリソースレコード を並べ、DC の状態を Windows正092として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. ドメインコントローラー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延092として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在092として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十二観点 照合結果: Bは HVNODE20 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第九十二観点）。第九十二観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第九十二観点）。第九十二観点 誤答差分: Aは設定値除外、Cは警告イベント未読、Dはサーバー差の隠蔽が理由です（第九十二観点）。第九十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第九十二観点）。第九十二観点 RD Gateway はHTTPSでRDPを中継します（第九十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ドメインコントローラー 構成確認 監査092</strong></p><p>検証目的: ストレージにおける ドメインコントローラー の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=HVNODE20</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により ドメインコントローラー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+HVNODE20              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により ドメインコントローラー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.11.20.0 255.255.255.0 Scope092            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により ドメインコントローラー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope092
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## セキュリティ
+
+
+<section class="kb-item" id="c35-i0043"><h3>Cluster Shared Volumes セキュリティ確認 復旧046</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 中級</p><p>第四十六観点 Cluster Shared Volumes は セキュリティ の障害調査で確認順序を決める対象です（第四十六観点）。第四十六観点 クラスター内の各ノードから同じボリュームをローカルのように扱うファイルシステム機能という説明をイベントログと結びます（第四十六観点）。第四十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、資格情報保護の有効化確認を説明可能にします（第四十六観点）。第四十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録046へ書きます（第四十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Cluster Shared Volumes セキュリティ確認 復旧046</strong></p><p>検証目的: セキュリティにおける Cluster Shared Volumes のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL22</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Cluster Shared Volumes の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL22 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Cluster Shared Volumes の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK046      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Cluster Shared Volumes の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV22 uses Storage Spaces Direct pool S2DPOOL22
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0044"><h3>DNSゾーン セキュリティ確認 復旧094</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 上級</p><p>第九十四観点 DNSゾーン は セキュリティ の障害調査で確認順序を決める対象です（第九十四観点）。第九十四観点 名前とIPアドレスを保持する範囲で、プライマリ、セカンダリ、スタブなどの形で管理する対象という説明をイベントログと結びます（第九十四観点）。第九十四観点 Failover Cluster Manager のノード一覧 の値を S2DPOOL22 と合わせ、クラスター所有ノードの確認を記録します（第九十四観点）。第九十四観点 証跡には資料IDと確認値を併記し、Windows記録094として保存します（第九十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十四証跡です。Windows Server 2022 の セキュリティ で切分けを行います。確認観点は DNSゾーン、セキュリティ確認、復旧 です。クラスター所有ノードの確認のために、Failover Cluster Manager のノード一覧 を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL22 と Failover Cluster Manager のノード一覧 を並べ、DNSゾーン の状態を Windows正094として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL22、役割名、ログ時刻の対応を記録外に置き、Windows誤記094として後続調査を止めてしまう。</li><li>C. DNSゾーン の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延094として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在094として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十四観点 確認理由: Aは DNSゾーン の値をPowerShellとGUIの両方で追えるため、監査に使えます（第九十四観点）。第九十四観点 監査背景: S2DPOOL22 は記録時刻とサーバー名を添えて扱います（第九十四観点）。第九十四観点 誤答点検: Bはサーバー名欠落、Cは管理画面未確認、Dは時刻差の欠落が理由です（第九十四観点）。第九十四観点 初出補足: PowerShell は管理コマンドの入口です（第九十四観点）。第九十四観点 イベントIDはログ調査の手掛かりです（第九十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSゾーン セキュリティ確認 復旧094</strong></p><p>検証目的: セキュリティにおける DNSゾーン のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL22</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSゾーン の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL22 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSゾーン の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK094      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSゾーン の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV22 uses Storage Spaces Direct pool S2DPOOL22
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0045"><h3>DNSゾーン 構成確認 点検034</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 中級</p><p>第三十四観点 DNSゾーン は セキュリティ の障害調査で確認順序を決める対象です（第三十四観点）。第三十四観点 名前とIPアドレスを保持する範囲で、プライマリ、セカンダリ、スタブなどの形で管理する対象という説明をイベントログと結びます（第三十四観点）。第三十四観点 Failover Cluster Manager のノード一覧 の値を S2DPOOL10 と合わせ、クラスター所有ノードの確認を記録します（第三十四観点）。第三十四観点 証跡には資料IDと確認値を併記し、Windows記録034として保存します（第三十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十四証跡です。Windows Server 2022 の セキュリティ で切分けを行います。確認観点は DNSゾーン、構成確認、点検 です。クラスター所有ノードの確認のために、Failover Cluster Manager のノード一覧 を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL10 と Failover Cluster Manager のノード一覧 を並べ、DNSゾーン の状態を Windows正034として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL10、役割名、ログ時刻の対応を記録外に置き、Windows誤記034として後続調査を止めてしまう。</li><li>C. DNSゾーン の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延034として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在034として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十四観点 正答根拠: Aは Failover Cluster Manager のノード一覧 と S2DPOOL10 を結び付けるため、対象サーバーの取り違えを防げます（第三十四観点）。第三十四観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第三十四観点）。第三十四観点 誤答観点: Bはイベント時刻欠落、CはGUI偏重、Dはコマンド未確認が理由です（第三十四観点）。第三十四観点 初出補足: PowerShell は管理コマンドの入口です（第三十四観点）。第三十四観点 イベントIDはログ調査の手掛かりです（第三十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSゾーン 構成確認 点検034</strong></p><p>検証目的: セキュリティにおける DNSゾーン の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL10</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSゾーン の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL10 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSゾーン の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK034      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSゾーン の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV10 uses Storage Spaces Direct pool S2DPOOL10
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0046"><h3>Remote Desktop Services 接続確認 点検058</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 中級</p><p>第五十八観点 Remote Desktop Services は セキュリティ の障害調査で確認順序を決める対象です（第五十八観点）。第五十八観点 セッションデスクトップやRemoteAppを提供し、TLSとRD Gatewayで保護する役という説明をイベントログと結びます（第五十八観点）。第五十八観点 S2DPOOL10、Server Manager の役割状態、管理ツールの表示を照合し、暗号化状態の証跡化を確認します（第五十八観点）。第五十八観点 調査票ではGUIとPowerShellの入口を Windows記録058に区別して残します（第五十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十八証跡です。点検058 でロール状態の扱いを決めます。確認観点は RDS、接続確認、点検 です。暗号化状態の証跡化のために、Server Manager の役割状態 を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL10 と Server Manager の役割状態 を並べ、RDS の状態を Windows正058として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL10、役割名、ログ時刻の対応を記録外に置き、Windows誤記058として後続調査を止めてしまう。</li><li>C. Remote Desktop Services の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延058として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在058として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十八観点 正答根拠: Aは Server Manager の役割状態 と S2DPOOL10 を結び付けるため、対象サーバーの取り違えを防げます（第五十八観点）。第五十八観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第五十八観点）。第五十八観点 誤答観点: Bはイベント時刻欠落、CはGUI偏重、Dはコマンド未確認が理由です（第五十八観点）。第五十八観点 用語説明: Hyper-V は仮想化役割です（第五十八観点）。第五十八観点 Failover Clustering は高可用性の基盤です（第五十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Remote Desktop Services 接続確認 点検058</strong></p><p>検証目的: セキュリティにおける Remote Desktop Services の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL10</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Remote Desktop Services の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL10 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Remote Desktop Services の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK058      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Remote Desktop Services の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV10 uses Storage Spaces Direct pool S2DPOOL10
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0047"><h3>Scale-Out File Server 定義照合 復旧022</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 中級</p><p>第二十二観点 Scale-Out File Server は セキュリティ の障害調査で確認順序を決める対象です（第二十二観点）。第二十二観点 クラスター上の共有をSMB3で提供し、ファイルサービスを高可用にする役割という説明をイベントログと結びます（第二十二観点）。第二十二観点 DNSゾーンとリソースレコード と S2DPOOL22 を同じ証跡に置き、認証基盤と名前解決の整合確認を管理します（第二十二観点）。第二十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録022から再現します（第二十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十二証跡です。復旧022 の判断前にイベント時刻を確認します。確認観点は Scale-Out File Server、定義照合、復旧 です。認証基盤と名前解決の整合確認のために、DNSゾーンとリソースレコード を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL22 と DNSゾーンとリソースレコード を並べ、Scale-Out File Server の状態を Windows正022として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL22、役割名、ログ時刻の対応を記録外に置き、Windows誤記022として後続調査を止めてしまう。</li><li>C. Scale-Out File Server の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延022として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在022として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十二観点 確認理由: Aは Scale-Out File Server の値をPowerShellとGUIの両方で追えるため、監査に使えます（第二十二観点）。第二十二観点 監査背景: S2DPOOL22 は記録時刻とサーバー名を添えて扱います（第二十二観点）。第二十二観点 誤答点検: Bはサーバー名欠落、Cは管理画面未確認、Dは時刻差の欠落が理由です（第二十二観点）。第二十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第二十二観点）。第二十二観点 RD Gateway はHTTPSでRDPを中継します（第二十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Scale-Out File Server 定義照合 復旧022</strong></p><p>検証目的: セキュリティにおける Scale-Out File Server の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL22</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Scale-Out File Server の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL22 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Scale-Out File Server の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK022      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Scale-Out File Server の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV22 uses Storage Spaces Direct pool S2DPOOL22
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0048"><h3>Scale-Out File Server 権限確認 点検082</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 中級</p><p>第八十二観点 Scale-Out File Server は セキュリティ の障害調査で確認順序を決める対象です（第八十二観点）。第八十二観点 クラスター上の共有をSMB3で提供し、ファイルサービスを高可用にする役割という説明をイベントログと結びます（第八十二観点）。第八十二観点 DNSゾーンとリソースレコード と S2DPOOL10 を同じ証跡に置き、認証基盤と名前解決の整合確認を管理します（第八十二観点）。第八十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録082から再現します（第八十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十二証跡です。点検082 の判断前にイベント時刻を確認します。確認観点は Scale-Out File Server、権限確認、点検 です。認証基盤と名前解決の整合確認のために、DNSゾーンとリソースレコード を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL10 と DNSゾーンとリソースレコード を並べ、Scale-Out File Server の状態を Windows正082として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL10、役割名、ログ時刻の対応を記録外に置き、Windows誤記082として後続調査を止めてしまう。</li><li>C. Scale-Out File Server の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延082として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在082として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第八十二観点 正答根拠: Aは DNSゾーンとリソースレコード と S2DPOOL10 を結び付けるため、対象サーバーの取り違えを防げます（第八十二観点）。第八十二観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第八十二観点）。第八十二観点 誤答観点: Bはイベント時刻欠落、CはGUI偏重、Dはコマンド未確認が理由です（第八十二観点）。第八十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第八十二観点）。第八十二観点 RD Gateway はHTTPSでRDPを中継します（第八十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Scale-Out File Server 権限確認 点検082</strong></p><p>検証目的: セキュリティにおける Scale-Out File Server の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL10</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Scale-Out File Server の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL10 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Scale-Out File Server の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK082      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Scale-Out File Server の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV10 uses Storage Spaces Direct pool S2DPOOL10
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0049"><h3>グループポリシー 定義照合 復旧070</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 中級</p><p>第七十観点 グループポリシー は セキュリティ の障害調査で確認順序を決める対象です（第七十観点）。第七十観点 ドメイン参加コンピューターや利用者へ設定を集中適用する管理機構という説明をイベントログと結びます（第七十観点）。第七十観点 S2DPOOL22 を起点に設定値を戻し、管理ツール間の値合わせを点検します（第七十観点）。第七十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録070に残します（第七十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十証跡です。PowerShell コマンド出力 と S2DPOOL22 の対応を確認します。確認観点は グループポリシー、定義照合、復旧 です。管理ツール間の値合わせのために、PowerShell コマンド出力 を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL22 と PowerShell コマンド出力 を並べ、グループポリシー の状態を Windows正070として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL22、役割名、ログ時刻の対応を記録外に置き、Windows誤記070として後続調査を止めてしまう。</li><li>C. グループポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延070として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在070として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十観点 確認理由: Aは グループポリシー の値をPowerShellとGUIの両方で追えるため、監査に使えます（第七十観点）。第七十観点 監査背景: S2DPOOL22 は記録時刻とサーバー名を添えて扱います（第七十観点）。第七十観点 誤答点検: Bはサーバー名欠落、Cは管理画面未確認、Dは時刻差の欠落が理由です（第七十観点）。第七十観点 用語区分: Storage Replica は複製機能です（第七十観点）。第七十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第七十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>グループポリシー 定義照合 復旧070</strong></p><p>検証目的: セキュリティにおける グループポリシー の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL22</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により グループポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL22 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により グループポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK070      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により グループポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV22 uses Storage Spaces Direct pool S2DPOOL22
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0050"><h3>グループポリシー 更新確認 点検010</h3><p class="kb-meta">分類: セキュリティ ・ 難易度: 初級</p><p>第十観点 グループポリシー は セキュリティ の障害調査で確認順序を決める対象です（第十観点）。第十観点 ドメイン参加コンピューターや利用者へ設定を集中適用する管理機構という説明をイベントログと結びます（第十観点）。第十観点 S2DPOOL10 を起点に設定値を戻し、管理ツール間の値合わせを点検します（第十観点）。第十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録010に残します（第十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十証跡です。PowerShell コマンド出力 と S2DPOOL10 の対応を確認します。確認観点は グループポリシー、更新確認、点検 です。管理ツール間の値合わせのために、PowerShell コマンド出力 を使った運用記録として最も適切な扱いはどれか。</p><ul class="kb-choices"><li>A. 証跡票に S2DPOOL10 と PowerShell コマンド出力 を並べ、グループポリシー の状態を Windows正010として確定する。 <span class="kb-ok">✅ 正解</span></li><li>B. アドレス管理 の一般メモを採り、S2DPOOL10、役割名、ログ時刻の対応を記録外に置き、Windows誤記010として後続調査を止めてしまう。</li><li>C. グループポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延010として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在010として残す。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十観点 正答根拠: Aは PowerShell コマンド出力 と S2DPOOL10 を結び付けるため、対象サーバーの取り違えを防げます（第十観点）。第十観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第十観点）。第十観点 誤答観点: Bはイベント時刻欠落、CはGUI偏重、Dはコマンド未確認が理由です（第十観点）。第十観点 用語区分: Storage Replica は複製機能です（第十観点）。第十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>グループポリシー 更新確認 点検010</strong></p><p>検証目的: セキュリティにおける グループポリシー の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=S2DPOOL10</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により グループポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL10 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により グループポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK010      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により グループポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV10 uses Storage Spaces Direct pool S2DPOOL10
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## ファイル共有
+
+
+<section class="kb-item" id="c35-i0051"><h3>DNSサーバー 可用性確認 構成093</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 上級</p><p>第九十三観点 ファイル共有 の運用では DNSサーバー を定義、ログ、画面の値と結びます（第九十三観点）。第九十三観点 コンピューター名をIPアドレスへ対応させ、Windowsネットワークの名前解決を担う役割という内容を操作結果と照合します（第九十三観点）。第九十三観点 CLUSTER21、DHCPリースと監査ログ、管理ツールの表示を照合し、認証基盤と名前解決の整合確認を確認します（第九十三観点）。第九十三観点 調査票ではGUIとPowerShellの入口を Windows記録093に区別して残します（第九十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十三証跡です。Windows記録093として CLUSTER21 の証跡を残します。確認観点は DNSサーバー、可用性確認、構成 です。CLUSTER21 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER21、役割名、ログ時刻の対応を記録外に置き、Windows誤記093として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER21 と DHCPリースと監査ログ を並べ、DNSサーバー の状態を Windows正093として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. DNSサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延093として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在093として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十三観点 判定理由: Bは ファイル共有 の作業対象を管理画面とイベントログでそろえるため、採用できます（第九十三観点）。第九十三観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第九十三観点）。第九十三観点 誤答比較: Aは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第九十三観点）。第九十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第九十三観点）。第九十三観点 Server Manager は役割管理に使います（第九十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSサーバー 可用性確認 構成093</strong></p><p>検証目的: ファイル共有における DNSサーバー の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER21</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE21     Up     Node
+NODE22     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 21       Online NODE21
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER21
+CSV volume is online and owner node is NODE21
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0052"><h3>DNSサーバー 権限確認 照合033</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 中級</p><p>第三十三観点 ファイル共有 の運用では DNSサーバー を定義、ログ、画面の値と結びます（第三十三観点）。第三十三観点 コンピューター名をIPアドレスへ対応させ、Windowsネットワークの名前解決を担う役割という内容を操作結果と照合します（第三十三観点）。第三十三観点 CLUSTER09、DHCPリースと監査ログ、管理ツールの表示を照合し、認証基盤と名前解決の整合確認を確認します（第三十三観点）。第三十三観点 調査票ではGUIとPowerShellの入口を Windows記録033に区別して残します（第三十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十三証跡です。Windows記録033として CLUSTER09 の証跡を残します。確認観点は DNSサーバー、権限確認、照合 です。CLUSTER09 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER09、役割名、ログ時刻の対応を記録外に置き、Windows誤記033として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER09 と DHCPリースと監査ログ を並べ、DNSサーバー の状態を Windows正033として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. DNSサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延033として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在033として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十三観点 正解確認: Bは DNSサーバー と CLUSTER09 を同じ証跡で扱うため、後続の照合に使えます（第三十三観点）。第三十三観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第三十三観点）。第三十三観点 誤答判定: Aは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第三十三観点）。第三十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第三十三観点）。第三十三観点 Server Manager は役割管理に使います（第三十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSサーバー 権限確認 照合033</strong></p><p>検証目的: ファイル共有における DNSサーバー の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER09</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE09     Up     Node
+NODE10     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 09       Online NODE09
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER09
+CSV volume is online and owner node is NODE09
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0053"><h3>Failover Clustering 可用性確認 構成045</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 中級</p><p>第四十五観点 ファイル共有 の運用では Failover Clustering を定義、ログ、画面の値と結びます（第四十五観点）。第四十五観点 複数ノードをまとめ、障害時にワークロードを別ノードへ移す高可用性機能という内容を操作結果と照合します（第四十五観点）。第四十五観点 CLUSTER21 を起点に設定値を戻し、クラスター所有ノードの確認を点検します（第四十五観点）。第四十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録045に残します（第四十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十五証跡です。Failover Clustering の状態をPowerShellと照合します。確認観点は FC、可用性確認、構成 です。CLUSTER21 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER21、役割名、ログ時刻の対応を記録外に置き、Windows誤記045として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER21 と Storage Spaces Direct のプール状態 を並べ、FC の状態を Windows正045として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Failover Clustering の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延045として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在045として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十五観点 判定理由: Bは ファイル共有 の作業対象を管理画面とイベントログでそろえるため、採用できます（第四十五観点）。第四十五観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第四十五観点）。第四十五観点 誤答比較: Aは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第四十五観点）。第四十五観点 用語確認: AD DS はディレクトリサービスです（第四十五観点）。第四十五観点 DNS は名前をIPアドレスへ対応させます（第四十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Failover Clustering 可用性確認 構成045</strong></p><p>検証目的: ファイル共有における Failover Clustering の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER21</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Failover Clustering の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE21     Up     Node
+NODE22     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Failover Clustering の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 21       Online NODE21
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Failover Clustering の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER21
+CSV volume is online and owner node is NODE21
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0054"><h3>NPS 接続確認 照合009</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 初級</p><p>第九観点 ファイル共有 の運用では NPS を定義、ログ、画面の値と結びます（第九観点）。第九観点 RADIUS認証、承認、アカウンティングを扱い、イベントログやテキストログへ記録する役割という内容を操作結果と照合します（第九観点）。第九観点 Windows Admin Center の管理画面 の値を CLUSTER09 と合わせ、暗号化状態の証跡化を記録します（第九観点）。第九観点 証跡には資料IDと確認値を併記し、Windows記録009として保存します（第九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>NPS 接続確認 照合009</strong></p><p>検証目的: ファイル共有における NPS の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER09</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により NPS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE09     Up     Node
+NODE10     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により NPS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 09       Online NODE09
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により NPS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER09
+CSV volume is online and owner node is NODE09
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0055"><h3>NPS 状態確認 構成069</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 中級</p><p>第六十九観点 ファイル共有 の運用では NPS を定義、ログ、画面の値と結びます（第六十九観点）。第六十九観点 RADIUS認証、承認、アカウンティングを扱い、イベントログやテキストログへ記録する役割という内容を操作結果と照合します（第六十九観点）。第六十九観点 Windows Admin Center の管理画面 の値を CLUSTER21 と合わせ、暗号化状態の証跡化を記録します（第六十九観点）。第六十九観点 証跡には資料IDと確認値を併記し、Windows記録069として保存します（第六十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十九証跡です。Windows Server 2022 の管理画面で 構成069 を扱います。確認観点は NPS、状態確認、構成 です。CLUSTER21 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER21、役割名、ログ時刻の対応を記録外に置き、Windows誤記069として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER21 と Windows Admin Center の管理画面 を並べ、NPS の状態を Windows正069として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. NPS の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延069として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在069として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十九観点 判定理由: Bは ファイル共有 の作業対象を管理画面とイベントログでそろえるため、採用できます（第六十九観点）。第六十九観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第六十九観点）。第六十九観点 誤答比較: Aは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第六十九観点）。第六十九観点 用語メモ: CSV はクラスター共有ボリュームです（第六十九観点）。第六十九観点 SMB3 はファイル共有で使います（第六十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>NPS 状態確認 構成069</strong></p><p>検証目的: ファイル共有における NPS の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER21</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により NPS の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE21     Up     Node
+NODE22     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により NPS の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 21       Online NODE21
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により NPS の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER21
+CSV volume is online and owner node is NODE21
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0056"><h3>Secured-core server レプリケーション確認 照合057</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 中級</p><p>第五十七観点 ファイル共有 の運用では Secured-core server を定義、ログ、画面の値と結びます（第五十七観点）。第五十七観点 ハードウェア、ファームウェア、OSの保護を組み合わせ、攻撃面を減らすサーバー構成という内容を操作結果と照合します（第五十七観点）。第五十七観点 Remote Desktop Services の接続ログ と CLUSTER09 を同じ証跡に置き、資格情報保護の有効化確認を管理します（第五十七観点）。第五十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録057から再現します（第五十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十七証跡です。ファイル共有 の運用メモをWindows証跡057に整理します。確認観点は Secured-core server、レプリケーション確認、照合 です。CLUSTER09 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER09、役割名、ログ時刻の対応を記録外に置き、Windows誤記057として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER09 と Remote Desktop Services の接続ログ を並べ、Secured-core server の状態を Windows正057として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Secured-core server の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延057として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在057として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十七観点 正解確認: Bは Secured-core server と CLUSTER09 を同じ証跡で扱うため、後続の照合に使えます（第五十七観点）。第五十七観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第五十七観点）。第五十七観点 誤答判定: Aは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第五十七観点）。第五十七観点 用語整理: NPS はRADIUS認証に関係します（第五十七観点）。第五十七観点 Event Viewer はイベントログ確認の入口です（第五十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Secured-core server レプリケーション確認 照合057</strong></p><p>検証目的: ファイル共有における Secured-core server のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER09</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Secured-core server の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE09     Up     Node
+NODE10     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Secured-core server の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 09       Online NODE09
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Secured-core server の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER09
+CSV volume is online and owner node is NODE09
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0057"><h3>Storage Replica ログ確認 照合081</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 中級</p><p>第八十一観点 ファイル共有 の運用では Storage Replica を定義、ログ、画面の値と結びます（第八十一観点）。第八十一観点 サーバー間、クラスター間、ストレッチクラスターで同期または非同期に複製する機能という内容を操作結果と照合します（第八十一観点）。第八十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、管理ツール間の値合わせを説明可能にします（第八十一観点）。第八十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録081へ書きます（第八十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十一証跡です。Storage Replica の値をGUIとPowerShellで比べます。確認観点は Storage Replica、ログ確認、照合 です。CLUSTER09 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER09、役割名、ログ時刻の対応を記録外に置き、Windows誤記081として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER09 と Event Viewer のイベントログ を並べ、Storage Replica の状態を Windows正081として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Storage Replica の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延081として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在081として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第八十一観点 正解確認: Bは Storage Replica と CLUSTER09 を同じ証跡で扱うため、後続の照合に使えます（第八十一観点）。第八十一観点 定義背景: AD DS、DNS、DHCP は認証と名前解決とアドレス配布を分担します（第八十一観点）。第八十一観点 誤答判定: Aは後続調査停止、Cは再確認遅延、Dは正常イベント採用が理由です（第八十一観点）。第八十一観点 用語関係: BitLocker はボリューム暗号化です（第八十一観点）。第八十一観点 TPM は改ざん検知に関係します（第八十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Storage Replica ログ確認 照合081</strong></p><p>検証目的: ファイル共有における Storage Replica のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER09</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Storage Replica の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE09     Up     Node
+NODE10     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Storage Replica の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 09       Online NODE09
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Storage Replica の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER09
+CSV volume is online and owner node is NODE09
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0058"><h3>Storage Replica 状態確認 構成021</h3><p class="kb-meta">分類: ファイル共有 ・ 難易度: 中級</p><p>第二十一観点 ファイル共有 の運用では Storage Replica を定義、ログ、画面の値と結びます（第二十一観点）。第二十一観点 サーバー間、クラスター間、ストレッチクラスターで同期または非同期に複製する機能という内容を操作結果と照合します（第二十一観点）。第二十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、管理ツール間の値合わせを説明可能にします（第二十一観点）。第二十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録021へ書きます（第二十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十一証跡です。Storage Replica の値をGUIとPowerShellで比べます。確認観点は Storage Replica、状態確認、構成 です。CLUSTER21 を含む確認結果を承認する前に、どの記録を採るべきか。</p><ul class="kb-choices"><li>A. 名前解決 の一般メモを採り、CLUSTER21、役割名、ログ時刻の対応を記録外に置き、Windows誤記021として後続調査を止めてしまう。</li><li>B. 証跡票に CLUSTER21 と Event Viewer のイベントログ を並べ、Storage Replica の状態を Windows正021として確定する。 <span class="kb-ok">✅ 正解</span></li><li>C. Storage Replica の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延021として再確認を先送りする。</li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在021として残す。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十一観点 判定理由: Bは ファイル共有 の作業対象を管理画面とイベントログでそろえるため、採用できます（第二十一観点）。第二十一観点 接続背景: RDS と RD Gateway はTLS、証明書、イベントログを合わせて確認します（第二十一観点）。第二十一観点 誤答比較: Aは役割名不足、Cはログ差分不足、Dは前回証跡の混入が理由です（第二十一観点）。第二十一観点 用語関係: BitLocker はボリューム暗号化です（第二十一観点）。第二十一観点 TPM は改ざん検知に関係します（第二十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Storage Replica 状態確認 構成021</strong></p><p>検証目的: ファイル共有における Storage Replica の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=CLUSTER21</p><p>セッション環境: Windows Admin Center / Failover Cluster Manager / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Storage Replica の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterNode
+→ Enter を押す
+［画面・出力］
+Name        State  Type
+NODE21     Up     Node
+NODE22     Up     Node
+画面・出力には Name が含まれる。Name を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Storage Replica の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-ClusterSharedVolume
+→ Enter を押す
+［画面・出力］
+Name                   State  OwnerNode
+Cluster Disk 21       Online NODE21
+画面・出力には Cluster Disk が含まれる。Cluster Disk を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Storage Replica の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Failover Cluster Manager
+COMMAND ===&gt; Roles &gt; Storage &gt; Disks
+→ Enter を押す
+［画面・出力］
+Cluster CLUSTER21
+CSV volume is online and owner node is NODE21
+画面・出力には CSV volume が含まれる。CSV volume を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Name が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Cluster Disk が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: CSV volume が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## リモートアクセス
+
+
+<section class="kb-item" id="c35-i0059"><h3>Cluster Shared Volumes レプリケーション確認 監査076</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 中級</p><p>第七十六観点 Cluster Shared Volumes は リモートアクセス の障害調査で確認順序を決める対象です（第七十六観点）。第七十六観点 クラスター内の各ノードから同じボリュームをローカルのように扱うファイルシステム機能という説明をイベントログと結びます（第七十六観点）。第七十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、管理ツール間の値合わせを説明可能にします（第七十六観点）。第七十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録076へ書きます（第七十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十六証跡です。監査076 の作業記録を管理画面と合わせます。確認観点は CSV、レプリケーション確認、監査 です。運用結果を後で説明するため、どの記録が 管理ツール間の値合わせに向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-076、役割名、ログ時刻の対応を記録外に置き、Windows誤記076として後続調査を止めてしまう。</li><li>B. Cluster Shared Volumes の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延076として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在076として残す。</li><li>D. 証跡票に IPAM-076 と BitLocker の保護状態 を並べ、CSV の状態を Windows正076として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十六観点 照合結果: Dは IPAM-076 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第七十六観点）。第七十六観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第七十六観点）。第七十六観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Cはサーバー差の隠蔽が理由です（第七十六観点）。第七十六観点 用語補足: DHCP はIP構成を配布します（第七十六観点）。第七十六観点 IPAM はアドレス基盤を集中管理します（第七十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Cluster Shared Volumes レプリケーション確認 監査076</strong></p><p>検証目的: リモートアクセスにおける Cluster Shared Volumes のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-076</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Cluster Shared Volumes の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL04 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Cluster Shared Volumes の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK076      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Cluster Shared Volumes の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV04 uses Storage Spaces Direct pool S2DPOOL04
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0060"><h3>Cluster Shared Volumes 可用性確認 保護016</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 初級</p><p>第十六観点 Cluster Shared Volumes は リモートアクセス の障害調査で確認順序を決める対象です（第十六観点）。第十六観点 クラスター内の各ノードから同じボリュームをローカルのように扱うファイルシステム機能という説明をイベントログと結びます（第十六観点）。第十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、管理ツール間の値合わせを説明可能にします（第十六観点）。第十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録016へ書きます（第十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十六証跡です。保護016 の作業記録を管理画面と合わせます。確認観点は CSV、可用性確認、保護 です。運用結果を後で説明するため、どの記録が 管理ツール間の値合わせに向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-016、役割名、ログ時刻の対応を記録外に置き、Windows誤記016として後続調査を止めてしまう。</li><li>B. Cluster Shared Volumes の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延016として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在016として残す。</li><li>D. 証跡票に IPAM-016 と BitLocker の保護状態 を並べ、CSV の状態を Windows正016として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十六観点 選定根拠: Dは BitLocker の保護状態 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第十六観点）。第十六観点 仕組み要点: CSVはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第十六観点）。第十六観点 誤答確認: Aは IPAM-016 未追跡、BはPowerShell確認不足、Cは別サーバー混同が理由です（第十六観点）。第十六観点 用語補足: DHCP はIP構成を配布します（第十六観点）。第十六観点 IPAM はアドレス基盤を集中管理します（第十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Cluster Shared Volumes 可用性確認 保護016</strong></p><p>検証目的: リモートアクセスにおける Cluster Shared Volumes の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-016</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Cluster Shared Volumes の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL16 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Cluster Shared Volumes の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK016      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Cluster Shared Volumes の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV16 uses Storage Spaces Direct pool S2DPOOL16
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0061"><h3>DNSゾーン 可用性確認 保護064</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 中級</p><p>第六十四観点 DNSゾーン は リモートアクセス の障害調査で確認順序を決める対象です（第六十四観点）。第六十四観点 名前とIPアドレスを保持する範囲で、プライマリ、セカンダリ、スタブなどの形で管理する対象という説明をイベントログと結びます（第六十四観点）。第六十四観点 Failover Cluster Manager のノード一覧 の値を IPAM-064 と合わせ、暗号化状態の証跡化を記録します（第六十四観点）。第六十四観点 証跡には資料IDと確認値を併記し、Windows記録064として保存します（第六十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十四証跡です。Windows Server 2022 の リモートアクセス で切分けを行います。確認観点は DNSゾーン、可用性確認、保護 です。運用結果を後で説明するため、どの記録が 暗号化状態の証跡化に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-064、役割名、ログ時刻の対応を記録外に置き、Windows誤記064として後続調査を止めてしまう。</li><li>B. DNSゾーン の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延064として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在064として残す。</li><li>D. 証跡票に IPAM-064 と Failover Cluster Manager のノード一覧 を並べ、DNSゾーン の状態を Windows正064として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十四観点 選定根拠: Dは Failover Cluster Manager のノード一覧 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第六十四観点）。第六十四観点 仕組み要点: DNSゾーンはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第六十四観点）。第六十四観点 誤答確認: Aは IPAM-064 未追跡、BはPowerShell確認不足、Cは別サーバー混同が理由です（第六十四観点）。第六十四観点 初出補足: PowerShell は管理コマンドの入口です（第六十四観点）。第六十四観点 イベントIDはログ調査の手掛かりです（第六十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSゾーン 可用性確認 保護064</strong></p><p>検証目的: リモートアクセスにおける DNSゾーン の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-064</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSゾーン の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL16 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSゾーン の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK064      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSゾーン の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV16 uses Storage Spaces Direct pool S2DPOOL16
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0062"><h3>DNSゾーン 権限確認 監査004</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 初級</p><p>第四観点 DNSゾーン は リモートアクセス の障害調査で確認順序を決める対象です（第四観点）。第四観点 名前とIPアドレスを保持する範囲で、プライマリ、セカンダリ、スタブなどの形で管理する対象という説明をイベントログと結びます（第四観点）。第四観点 Failover Cluster Manager のノード一覧 の値を IPAM-004 と合わせ、暗号化状態の証跡化を記録します（第四観点）。第四観点 証跡には資料IDと確認値を併記し、Windows記録004として保存します（第四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四証跡です。Windows Server 2022 の リモートアクセス で切分けを行います。確認観点は DNSゾーン、権限確認、監査 です。運用結果を後で説明するため、どの記録が 暗号化状態の証跡化に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-004、役割名、ログ時刻の対応を記録外に置き、Windows誤記004として後続調査を止めてしまう。</li><li>B. DNSゾーン の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延004として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在004として残す。</li><li>D. 証跡票に IPAM-004 と Failover Cluster Manager のノード一覧 を並べ、DNSゾーン の状態を Windows正004として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第四観点 照合結果: Dは IPAM-004 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第四観点）。第四観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第四観点）。第四観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Cはサーバー差の隠蔽が理由です（第四観点）。第四観点 初出補足: PowerShell は管理コマンドの入口です（第四観点）。第四観点 イベントIDはログ調査の手掛かりです（第四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DNSゾーン 権限確認 監査004</strong></p><p>検証目的: リモートアクセスにおける DNSゾーン の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-004</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DNSゾーン の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL04 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DNSゾーン の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK004      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DNSゾーン の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV04 uses Storage Spaces Direct pool S2DPOOL04
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0063"><h3>Remote Desktop Services レプリケーション確認 監査028</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 中級</p><p>第二十八観点 Remote Desktop Services は リモートアクセス の障害調査で確認順序を決める対象です（第二十八観点）。第二十八観点 セッションデスクトップやRemoteAppを提供し、TLSとRD Gatewayで保護する役という説明をイベントログと結びます（第二十八観点）。第二十八観点 IPAM-028、Server Manager の役割状態、管理ツールの表示を照合し、認証基盤と名前解決の整合確認を確認します（第二十八観点）。第二十八観点 調査票ではGUIとPowerShellの入口を Windows記録028に区別して残します（第二十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十八証跡です。監査028 でロール状態の扱いを決めます。確認観点は RDS、レプリケーション確認、監査 です。運用結果を後で説明するため、どの記録が 認証基盤と名前解決の整合確認に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-028、役割名、ログ時刻の対応を記録外に置き、Windows誤記028として後続調査を止めてしまう。</li><li>B. Remote Desktop Services の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延028として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在028として残す。</li><li>D. 証跡票に IPAM-028 と Server Manager の役割状態 を並べ、RDS の状態を Windows正028として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十八観点 照合結果: Dは IPAM-028 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第二十八観点）。第二十八観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第二十八観点）。第二十八観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Cはサーバー差の隠蔽が理由です（第二十八観点）。第二十八観点 用語説明: Hyper-V は仮想化役割です（第二十八観点）。第二十八観点 Failover Clustering は高可用性の基盤です（第二十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Remote Desktop Services レプリケーション確認 監査028</strong></p><p>検証目的: リモートアクセスにおける Remote Desktop Services のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-028</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Remote Desktop Services の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL04 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Remote Desktop Services の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK028      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Remote Desktop Services の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV04 uses Storage Spaces Direct pool S2DPOOL04
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0064"><h3>Remote Desktop Services 更新確認 保護088</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 上級</p><p>第八十八観点 Remote Desktop Services は リモートアクセス の障害調査で確認順序を決める対象です（第八十八観点）。第八十八観点 セッションデスクトップやRemoteAppを提供し、TLSとRD Gatewayで保護する役という説明をイベントログと結びます（第八十八観点）。第八十八観点 IPAM-088、Server Manager の役割状態、管理ツールの表示を照合し、認証基盤と名前解決の整合確認を確認します（第八十八観点）。第八十八観点 調査票ではGUIとPowerShellの入口を Windows記録088に区別して残します（第八十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十八証跡です。保護088 でロール状態の扱いを決めます。確認観点は RDS、更新確認、保護 です。運用結果を後で説明するため、どの記録が 認証基盤と名前解決の整合確認に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-088、役割名、ログ時刻の対応を記録外に置き、Windows誤記088として後続調査を止めてしまう。</li><li>B. Remote Desktop Services の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延088として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在088として残す。</li><li>D. 証跡票に IPAM-088 と Server Manager の役割状態 を並べ、RDS の状態を Windows正088として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十八観点 選定根拠: Dは Server Manager の役割状態 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第八十八観点）。第八十八観点 仕組み要点: RDSはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第八十八観点）。第八十八観点 誤答確認: Aは IPAM-088 未追跡、BはPowerShell確認不足、Cは別サーバー混同が理由です（第八十八観点）。第八十八観点 用語説明: Hyper-V は仮想化役割です（第八十八観点）。第八十八観点 Failover Clustering は高可用性の基盤です（第八十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Remote Desktop Services 更新確認 保護088</strong></p><p>検証目的: リモートアクセスにおける Remote Desktop Services の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-088</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Remote Desktop Services の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL16 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Remote Desktop Services の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK088      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Remote Desktop Services の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV16 uses Storage Spaces Direct pool S2DPOOL16
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0065"><h3>Scale-Out File Server ログ確認 監査052</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 中級</p><p>第五十二観点 Scale-Out File Server は リモートアクセス の障害調査で確認順序を決める対象です（第五十二観点）。第五十二観点 クラスター上の共有をSMB3で提供し、ファイルサービスを高可用にする役割という説明をイベントログと結びます（第五十二観点）。第五十二観点 DNSゾーンとリソースレコード と IPAM-052 を同じ証跡に置き、資格情報保護の有効化確認を管理します（第五十二観点）。第五十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録052から再現します（第五十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十二証跡です。監査052 の判断前にイベント時刻を確認します。確認観点は Scale-Out File Server、ログ確認、監査 です。運用結果を後で説明するため、どの記録が 資格情報保護の有効化確認に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-052、役割名、ログ時刻の対応を記録外に置き、Windows誤記052として後続調査を止めてしまう。</li><li>B. Scale-Out File Server の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延052として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在052として残す。</li><li>D. 証跡票に IPAM-052 と DNSゾーンとリソースレコード を並べ、Scale-Out File Server の状態を Windows正052として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十二観点 照合結果: Dは IPAM-052 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第五十二観点）。第五十二観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第五十二観点）。第五十二観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Cはサーバー差の隠蔽が理由です（第五十二観点）。第五十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第五十二観点）。第五十二観点 RD Gateway はHTTPSでRDPを中継します（第五十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Scale-Out File Server ログ確認 監査052</strong></p><p>検証目的: リモートアクセスにおける Scale-Out File Server のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-052</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Scale-Out File Server の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL04 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Scale-Out File Server の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK052      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Scale-Out File Server の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV04 uses Storage Spaces Direct pool S2DPOOL04
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0066"><h3>グループポリシー ログ確認 監査100</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 上級</p><p>第百観点 グループポリシー は リモートアクセス の障害調査で確認順序を決める対象です（第百観点）。第百観点 ドメイン参加コンピューターや利用者へ設定を集中適用する管理機構という説明をイベントログと結びます（第百観点）。第百観点 IPAM-100 を起点に設定値を戻し、クラスター所有ノードの確認を点検します（第百観点）。第百観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録100に残します（第百観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第百証跡です。PowerShell コマンド出力 と IPAM-100 の対応を確認します。確認観点は グループポリシー、ログ確認、監査 です。運用結果を後で説明するため、どの記録が クラスター所有ノードの確認に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-100、役割名、ログ時刻の対応を記録外に置き、Windows誤記100として後続調査を止めてしまう。</li><li>B. グループポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延100として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在100として残す。</li><li>D. 証跡票に IPAM-100 と PowerShell コマンド出力 を並べ、グループポリシー の状態を Windows正100として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第百観点 照合結果: Dは IPAM-100 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第百観点）。第百観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第百観点）。第百観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Cはサーバー差の隠蔽が理由です（第百観点）。第百観点 用語区分: Storage Replica は複製機能です（第百観点）。第百観点 Storage Spaces Direct は内蔵ドライブを束ねます（第百観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>グループポリシー ログ確認 監査100</strong></p><p>検証目的: リモートアクセスにおける グループポリシー のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-100</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により グループポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL04 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により グループポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK100      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により グループポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV04 uses Storage Spaces Direct pool S2DPOOL04
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0067"><h3>グループポリシー 状態確認 保護040</h3><p class="kb-meta">分類: リモートアクセス ・ 難易度: 中級</p><p>第四十観点 グループポリシー は リモートアクセス の障害調査で確認順序を決める対象です（第四十観点）。第四十観点 ドメイン参加コンピューターや利用者へ設定を集中適用する管理機構という説明をイベントログと結びます（第四十観点）。第四十観点 IPAM-040 を起点に設定値を戻し、クラスター所有ノードの確認を点検します（第四十観点）。第四十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録040に残します（第四十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十証跡です。PowerShell コマンド出力 と IPAM-040 の対応を確認します。確認観点は グループポリシー、状態確認、保護 です。運用結果を後で説明するため、どの記録が クラスター所有ノードの確認に向いているか。</p><ul class="kb-choices"><li>A. ファイル共有 の一般メモを採り、IPAM-040、役割名、ログ時刻の対応を記録外に置き、Windows誤記040として後続調査を止めてしまう。</li><li>B. グループポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延040として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在040として残す。</li><li>D. 証跡票に IPAM-040 と PowerShell コマンド出力 を並べ、グループポリシー の状態を Windows正040として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十観点 選定根拠: Dは PowerShell コマンド出力 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第四十観点）。第四十観点 仕組み要点: グループポリシーはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第四十観点）。第四十観点 誤答確認: Aは IPAM-040 未追跡、BはPowerShell確認不足、Cは別サーバー混同が理由です（第四十観点）。第四十観点 用語区分: Storage Replica は複製機能です（第四十観点）。第四十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第四十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>グループポリシー 状態確認 保護040</strong></p><p>検証目的: リモートアクセスにおける グループポリシー の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=IPAM-040</p><p>セッション環境: Windows Admin Center / PowerShell / Storage</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により グループポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-StoragePool -IsPrimordial $false
+→ Enter を押す
+［画面・出力］
+FriendlyName OperationalStatus HealthStatus
+S2DPOOL16 OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により グループポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-VirtualDisk
+→ Enter を押す
+［画面・出力］
+FriendlyName ResiliencySettingName OperationalStatus HealthStatus
+VDISK040      Mirror                OK                Healthy
+画面・出力には FriendlyName が含まれる。FriendlyName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により グループポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Windows Admin Center
+COMMAND ===&gt; Storage &gt; Volumes
+→ Enter を押す
+［画面・出力］
+Volume CSV16 uses Storage Spaces Direct pool S2DPOOL16
+画面・出力には Storage Spaces Direct が含まれる。Storage Spaces Direct を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: FriendlyName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: FriendlyName が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Storage Spaces Direct が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## 仮想化
+
+
+<section class="kb-item" id="c35-i0068"><h3>Credential Guard 構成確認 復旧054</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 中級</p><p>第五十四観点 Credential Guard は Windows Server 2022 の 仮想化 を説明するための項目です（第五十四観点）。第五十四観点 資料上は 仮想化ベースの保護で資格情報を守り、リモート接続時の資格情報露出を抑える機能として扱います（第五十四観点）。第五十四観点 Failover Cluster Manager のノード一覧 の値を GPO-SRV-054 と合わせ、管理ツール間の値合わせを記録します（第五十四観点）。第五十四観点 証跡には資料IDと確認値を併記し、Windows記録054として保存します（第五十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十四証跡です。GPO-SRV-054 の値をサーバー運用と対応させます。確認観点は Credential Guard、構成確認、復旧 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-054、役割名、ログ時刻の対応を記録外に置き、Windows誤記054として後続調査を止めてしまう。</li><li>B. Credential Guard の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延054として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在054として残す。</li><li>D. 証跡票に GPO-SRV-054 と Failover Cluster Manager のノード一覧 を並べ、Credential Guard の状態を Windows正054として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十四観点 確認理由: Dは Credential Guard の値をPowerShellとGUIの両方で追えるため、監査に使えます（第五十四観点）。第五十四観点 監査背景: GPO-SRV-054 は記録時刻とサーバー名を添えて扱います（第五十四観点）。第五十四観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Cは時刻差の欠落が理由です（第五十四観点）。第五十四観点 初出補足: PowerShell は管理コマンドの入口です（第五十四観点）。第五十四観点 イベントIDはログ調査の手掛かりです（第五十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Credential Guard 構成確認 復旧054</strong></p><p>検証目的: 仮想化における Credential Guard の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-054</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Credential Guard の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS06.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Credential Guard の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection06
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Credential Guard の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-054
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0069"><h3>DHCPポリシー レプリケーション確認 点検066</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 中級</p><p>第六十六観点 DHCPポリシー は Windows Server 2022 の 仮想化 を説明するための項目です（第六十六観点）。第六十六観点 資料上は MACアドレスやベンダークラスなどの条件でDHCPオプションや設定を分ける管理対象として扱います（第六十六観点）。第六十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、認証基盤と名前解決の整合確認を説明可能にします（第六十六観点）。第六十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録066へ書きます（第六十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十六証跡です。点検066 の確認で DHCPポリシー を見直します。確認観点は DHCPポリシー、レプリケーション確認、点検 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-066、役割名、ログ時刻の対応を記録外に置き、Windows誤記066として後続調査を止めてしまう。</li><li>B. DHCPポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延066として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在066として残す。</li><li>D. 証跡票に GPO-SRV-066 と BitLocker の保護状態 を並べ、DHCPポリシー の状態を Windows正066として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十六観点 正答根拠: Dは BitLocker の保護状態 と GPO-SRV-066 を結び付けるため、対象サーバーの取り違えを防げます（第六十六観点）。第六十六観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第六十六観点）。第六十六観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Cはコマンド未確認が理由です（第六十六観点）。第六十六観点 用語補足: DHCP はIP構成を配布します（第六十六観点）。第六十六観点 IPAM はアドレス基盤を集中管理します（第六十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPポリシー レプリケーション確認 点検066</strong></p><p>検証目的: 仮想化における DHCPポリシー のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-066</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS18.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection18
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-066
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0070"><h3>DHCPポリシー 可用性確認 復旧006</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 初級</p><p>第六観点 DHCPポリシー は Windows Server 2022 の 仮想化 を説明するための項目です（第六観点）。第六観点 資料上は MACアドレスやベンダークラスなどの条件でDHCPオプションや設定を分ける管理対象として扱います（第六観点）。第六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、認証基盤と名前解決の整合確認を説明可能にします（第六観点）。第六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録006へ書きます（第六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPポリシー 可用性確認 復旧006</strong></p><p>検証目的: 仮想化における DHCPポリシー の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-006</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS06.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection06
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-006
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0071"><h3>Server Manager ログ確認 点検042</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 中級</p><p>第四十二観点 Server Manager は Windows Server 2022 の 仮想化 を説明するための項目です（第四十二観点）。第四十二観点 資料上は 役割と機能の追加、サーバー状態の確認、管理対象サーバーの操作を行う管理ツールとして扱います（第四十二観点）。第四十二観点 DNSゾーンとリソースレコード と GPO-SRV-042 を同じ証跡に置き、暗号化状態の証跡化を管理します（第四十二観点）。第四十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録042から再現します（第四十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十二証跡です。点検042 のログ採取で対象サーバーを確認します。確認観点は Server Manager、ログ確認、点検 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-042、役割名、ログ時刻の対応を記録外に置き、Windows誤記042として後続調査を止めてしまう。</li><li>B. Server Manager の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延042として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在042として残す。</li><li>D. 証跡票に GPO-SRV-042 と DNSゾーンとリソースレコード を並べ、Server Manager の状態を Windows正042として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十二観点 正答根拠: Dは DNSゾーンとリソースレコード と GPO-SRV-042 を結び付けるため、対象サーバーの取り違えを防げます（第四十二観点）。第四十二観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第四十二観点）。第四十二観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Cはコマンド未確認が理由です（第四十二観点）。第四十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第四十二観点）。第四十二観点 RD Gateway はHTTPSでRDPを中継します（第四十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Server Manager ログ確認 点検042</strong></p><p>検証目的: 仮想化における Server Manager のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-042</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Server Manager の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS18.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Server Manager の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection18
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Server Manager の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-042
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0072"><h3>Software Storage Bus レプリケーション確認 点検018</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 初級</p><p>第十八観点 Software Storage Bus は Windows Server 2022 の 仮想化 を説明するための項目です（第十八観点）。第十八観点 資料上は クラスター内の各サーバーが互いのローカルドライブを見られるようにするストレージ基盤として扱います（第十八観点）。第十八観点 GPO-SRV-018、Server Manager の役割状態、管理ツールの表示を照合し、クラスター所有ノードの確認を確認します（第十八観点）。第十八観点 調査票ではGUIとPowerShellの入口を Windows記録018に区別して残します（第十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十八証跡です。Software Storage Bus に関するログ名を確認します。確認観点は SSB、レプリケーション確認、点検 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-018、役割名、ログ時刻の対応を記録外に置き、Windows誤記018として後続調査を止めてしまう。</li><li>B. Software Storage Bus の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延018として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在018として残す。</li><li>D. 証跡票に GPO-SRV-018 と Server Manager の役割状態 を並べ、SSB の状態を Windows正018として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十八観点 正答根拠: Dは Server Manager の役割状態 と GPO-SRV-018 を結び付けるため、対象サーバーの取り違えを防げます（第十八観点）。第十八観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第十八観点）。第十八観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Cはコマンド未確認が理由です（第十八観点）。第十八観点 用語説明: Hyper-V は仮想化役割です（第十八観点）。第十八観点 Failover Clustering は高可用性の基盤です（第十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Software Storage Bus レプリケーション確認 点検018</strong></p><p>検証目的: 仮想化における Software Storage Bus のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-018</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Software Storage Bus の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS18.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Software Storage Bus の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection18
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Software Storage Bus の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-018
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0073"><h3>Software Storage Bus 更新確認 復旧078</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 中級</p><p>第七十八観点 Software Storage Bus は Windows Server 2022 の 仮想化 を説明するための項目です（第七十八観点）。第七十八観点 資料上は クラスター内の各サーバーが互いのローカルドライブを見られるようにするストレージ基盤として扱います（第七十八観点）。第七十八観点 GPO-SRV-078、Server Manager の役割状態、管理ツールの表示を照合し、クラスター所有ノードの確認を確認します（第七十八観点）。第七十八観点 調査票ではGUIとPowerShellの入口を Windows記録078に区別して残します（第七十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十八証跡です。Software Storage Bus に関するログ名を確認します。確認観点は SSB、更新確認、復旧 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-078、役割名、ログ時刻の対応を記録外に置き、Windows誤記078として後続調査を止めてしまう。</li><li>B. Software Storage Bus の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延078として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在078として残す。</li><li>D. 証跡票に GPO-SRV-078 と Server Manager の役割状態 を並べ、SSB の状態を Windows正078として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十八観点 確認理由: Dは SSB の値をPowerShellとGUIの両方で追えるため、監査に使えます（第七十八観点）。第七十八観点 監査背景: GPO-SRV-078 は記録時刻とサーバー名を添えて扱います（第七十八観点）。第七十八観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Cは時刻差の欠落が理由です（第七十八観点）。第七十八観点 用語説明: Hyper-V は仮想化役割です（第七十八観点）。第七十八観点 Failover Clustering は高可用性の基盤です（第七十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Software Storage Bus 更新確認 復旧078</strong></p><p>検証目的: 仮想化における Software Storage Bus の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-078</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Software Storage Bus の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS06.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Software Storage Bus の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection06
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Software Storage Bus の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-078
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0074"><h3>イベントログ 定義照合 点検090</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 上級</p><p>第九十観点 イベントログ は Windows Server 2022 の 仮想化 を説明するための項目です（第九十観点）。第九十観点 資料上は 認証、DHCP、DNS、NPS、RDS、セキュリティなどの運用証跡を記録するログとして扱います（第九十観点）。第九十観点 GPO-SRV-090 を起点に設定値を戻し、資格情報保護の有効化確認を点検します（第九十観点）。第九十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録090に残します（第九十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十証跡です。仮想化 の設定更新後に GPO-SRV-090 を再確認します。確認観点は イベントログ、定義照合、点検 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-090、役割名、ログ時刻の対応を記録外に置き、Windows誤記090として後続調査を止めてしまう。</li><li>B. イベントログ の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延090として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在090として残す。</li><li>D. 証跡票に GPO-SRV-090 と PowerShell コマンド出力 を並べ、イベントログ の状態を Windows正090として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十観点 正答根拠: Dは PowerShell コマンド出力 と GPO-SRV-090 を結び付けるため、対象サーバーの取り違えを防げます（第九十観点）。第九十観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第九十観点）。第九十観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Cはコマンド未確認が理由です（第九十観点）。第九十観点 用語区分: Storage Replica は複製機能です（第九十観点）。第九十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第九十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>イベントログ 定義照合 点検090</strong></p><p>検証目的: 仮想化における イベントログ の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-090</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により イベントログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS18.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により イベントログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection18
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により イベントログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-090
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0075"><h3>イベントログ 更新確認 復旧030</h3><p class="kb-meta">分類: 仮想化 ・ 難易度: 中級</p><p>第三十観点 イベントログ は Windows Server 2022 の 仮想化 を説明するための項目です（第三十観点）。第三十観点 資料上は 認証、DHCP、DNS、NPS、RDS、セキュリティなどの運用証跡を記録するログとして扱います（第三十観点）。第三十観点 GPO-SRV-030 を起点に設定値を戻し、資格情報保護の有効化確認を点検します（第三十観点）。第三十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録030に残します（第三十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十証跡です。仮想化 の設定更新後に GPO-SRV-030 を再確認します。確認観点は イベントログ、更新確認、復旧 です。Windows Admin Center またはPowerShellを使った確認で、証跡として採用できるものはどれか。</p><ul class="kb-choices"><li>A. 監査ログ の一般メモを採り、GPO-SRV-030、役割名、ログ時刻の対応を記録外に置き、Windows誤記030として後続調査を止めてしまう。</li><li>B. イベントログ の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延030として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在030として残す。</li><li>D. 証跡票に GPO-SRV-030 と PowerShell コマンド出力 を並べ、イベントログ の状態を Windows正030として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十観点 確認理由: Dは イベントログ の値をPowerShellとGUIの両方で追えるため、監査に使えます（第三十観点）。第三十観点 監査背景: GPO-SRV-030 は記録時刻とサーバー名を添えて扱います（第三十観点）。第三十観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Cは時刻差の欠落が理由です（第三十観点）。第三十観点 用語区分: Storage Replica は複製機能です（第三十観点）。第三十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第三十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>イベントログ 更新確認 復旧030</strong></p><p>検証目的: 仮想化における イベントログ の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=GPO-SRV-030</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により イベントログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS06.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により イベントログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection06
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により イベントログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for GPO-SRV-030
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## 名前解決
+
+
+<section class="kb-item" id="c35-i0076"><h3>BitLocker レプリケーション確認 復旧086</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 上級</p><p>第八十六観点 BitLocker は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第八十六）（第八十六観点）。第八十六観点 管理上は TPMなどと連携し、OSドライブや固定ドライブを暗号化してデータ露出を抑える機能という値を追います（第八十六観点）。第八十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、暗号化状態の証跡化を説明可能にします（第八十六観点）。第八十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録086へ書きます（第八十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十六証跡です。BitLocker の再表示結果を点検します。確認観点は BitLocker、レプリケーション確認、復旧 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE086.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記086として後続調査を止めてしまう。</li><li>B. BitLocker の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延086として再確認を先送りする。</li><li>C. 証跡票に ZONE086.corp.example と BitLocker の保護状態 を並べ、BitLocker の状態を Windows正086として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在086として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十六観点 確認理由: Cは BitLocker の値をPowerShellとGUIの両方で追えるため、監査に使えます（第八十六観点）。第八十六観点 監査背景: ZONE086.corp.example は記録時刻とサーバー名を添えて扱います（第八十六観点）。第八十六観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Dは時刻差の欠落が理由です（第八十六観点）。第八十六観点 用語補足: DHCP はIP構成を配布します（第八十六観点）。第八十六観点 IPAM はアドレス基盤を集中管理します（第八十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>BitLocker レプリケーション確認 復旧086</strong></p><p>検証目的: 名前解決における BitLocker のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE086.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により BitLocker の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE086.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により BitLocker の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.5.14.0 255.255.255.0 Scope086            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により BitLocker の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope086
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0077"><h3>BitLocker 可用性確認 点検026</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 中級</p><p>第二十六観点 BitLocker は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第二十六）（第二十六観点）。第二十六観点 管理上は TPMなどと連携し、OSドライブや固定ドライブを暗号化してデータ露出を抑える機能という値を追います（第二十六観点）。第二十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、暗号化状態の証跡化を説明可能にします（第二十六観点）。第二十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録026へ書きます（第二十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十六証跡です。BitLocker の再表示結果を点検します。確認観点は BitLocker、可用性確認、点検 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE026.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記026として後続調査を止めてしまう。</li><li>B. BitLocker の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延026として再確認を先送りする。</li><li>C. 証跡票に ZONE026.corp.example と BitLocker の保護状態 を並べ、BitLocker の状態を Windows正026として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在026として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十六観点 正答根拠: Cは BitLocker の保護状態 と ZONE026.corp.example を結び付けるため、対象サーバーの取り違えを防げます（第二十六観点）。第二十六観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第二十六観点）。第二十六観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Dはコマンド未確認が理由です（第二十六観点）。第二十六観点 用語補足: DHCP はIP構成を配布します（第二十六観点）。第二十六観点 IPAM はアドレス基盤を集中管理します（第二十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>BitLocker 可用性確認 点検026</strong></p><p>検証目的: 名前解決における BitLocker の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE026.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により BitLocker の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE026.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により BitLocker の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.5.02.0 255.255.255.0 Scope026            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により BitLocker の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope026
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0078"><h3>Hyper-V 可用性確認 点検074</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 中級</p><p>第七十四観点 Hyper-V は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第七十四）（第七十四観点）。第七十四観点 管理上は Windows Server上で仮想マシンを実行し、仮想化基盤を構成する役割という値を追います（第七十四観点）。第七十四観点 Failover Cluster Manager のノード一覧 の値を ZONE074.corp.example と合わせ、資格情報保護の有効化確認を記録します（第七十四観点）。第七十四観点 証跡には資料IDと確認値を併記し、Windows記録074として保存します（第七十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十四証跡です。名前解決 の変更反映で ZONE074.corp.example を記録します。確認観点は Hyper-V、可用性確認、点検 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE074.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記074として後続調査を止めてしまう。</li><li>B. Hyper-V の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延074として再確認を先送りする。</li><li>C. 証跡票に ZONE074.corp.example と Failover Cluster Manager のノード一覧 を並べ、Hyper-V の状態を Windows正074として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在074として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十四観点 正答根拠: Cは Failover Cluster Manager のノード一覧 と ZONE074.corp.example を結び付けるため、対象サーバーの取り違えを防げます（第七十四観点）。第七十四観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第七十四観点）。第七十四観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Dはコマンド未確認が理由です（第七十四観点）。第七十四観点 初出補足: PowerShell は管理コマンドの入口です（第七十四観点）。第七十四観点 イベントIDはログ調査の手掛かりです（第七十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Hyper-V 可用性確認 点検074</strong></p><p>検証目的: 名前解決における Hyper-V の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE074.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Hyper-V の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE074.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Hyper-V の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.13.02.0 255.255.255.0 Scope074            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Hyper-V の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope074
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0079"><h3>Hyper-V 権限確認 復旧014</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 初級</p><p>第十四観点 Hyper-V は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第十四）（第十四観点）。第十四観点 管理上は Windows Server上で仮想マシンを実行し、仮想化基盤を構成する役割という値を追います（第十四観点）。第十四観点 Failover Cluster Manager のノード一覧 の値を ZONE014.corp.example と合わせ、資格情報保護の有効化確認を記録します（第十四観点）。第十四観点 証跡には資料IDと確認値を併記し、Windows記録014として保存します（第十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十四証跡です。名前解決 の変更反映で ZONE014.corp.example を記録します。確認観点は Hyper-V、権限確認、復旧 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE014.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記014として後続調査を止めてしまう。</li><li>B. Hyper-V の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延014として再確認を先送りする。</li><li>C. 証跡票に ZONE014.corp.example と Failover Cluster Manager のノード一覧 を並べ、Hyper-V の状態を Windows正014として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在014として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十四観点 確認理由: Cは Hyper-V の値をPowerShellとGUIの両方で追えるため、監査に使えます（第十四観点）。第十四観点 監査背景: ZONE014.corp.example は記録時刻とサーバー名を添えて扱います（第十四観点）。第十四観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Dは時刻差の欠落が理由です（第十四観点）。第十四観点 初出補足: PowerShell は管理コマンドの入口です（第十四観点）。第十四観点 イベントIDはログ調査の手掛かりです（第十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Hyper-V 権限確認 復旧014</strong></p><p>検証目的: 名前解決における Hyper-V の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE014.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Hyper-V の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE014.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Hyper-V の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.13.14.0 255.255.255.0 Scope014            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Hyper-V の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope014
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0080"><h3>IPAM 接続確認 復旧038</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 中級</p><p>第三十八観点 IPAM は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第三十八）（第三十八観点）。第三十八観点 管理上は DNS、DHCP、IPアドレス基盤を発見、管理、監視する統合管理ツールという値を追います（第三十八観点）。第三十八観点 ZONE038.corp.example、Server Manager の役割状態、管理ツールの表示を照合し、管理ツール間の値合わせを確認します（第三十八観点）。第三十八観点 調査票ではGUIとPowerShellの入口を Windows記録038に区別して残します（第三十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十八証跡です。IPAM の記録を監査用に整えます。確認観点は IPAM、接続確認、復旧 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE038.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記038として後続調査を止めてしまう。</li><li>B. IPAM の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延038として再確認を先送りする。</li><li>C. 証跡票に ZONE038.corp.example と Server Manager の役割状態 を並べ、IPAM の状態を Windows正038として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在038として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十八観点 確認理由: Cは IPAM の値をPowerShellとGUIの両方で追えるため、監査に使えます（第三十八観点）。第三十八観点 監査背景: ZONE038.corp.example は記録時刻とサーバー名を添えて扱います（第三十八観点）。第三十八観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Dは時刻差の欠落が理由です（第三十八観点）。第三十八観点 用語説明: Hyper-V は仮想化役割です（第三十八観点）。第三十八観点 Failover Clustering は高可用性の基盤です（第三十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IPAM 接続確認 復旧038</strong></p><p>検証目的: 名前解決における IPAM の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE038.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により IPAM の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE038.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により IPAM の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.17.14.0 255.255.255.0 Scope038            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により IPAM の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope038
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0081"><h3>IPAM 状態確認 点検098</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 上級</p><p>第九十八観点 IPAM は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第九十八）（第九十八観点）。第九十八観点 管理上は DNS、DHCP、IPアドレス基盤を発見、管理、監視する統合管理ツールという値を追います（第九十八観点）。第九十八観点 ZONE098.corp.example、Server Manager の役割状態、管理ツールの表示を照合し、管理ツール間の値合わせを確認します（第九十八観点）。第九十八観点 調査票ではGUIとPowerShellの入口を Windows記録098に区別して残します（第九十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十八証跡です。IPAM の記録を監査用に整えます。確認観点は IPAM、状態確認、点検 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE098.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記098として後続調査を止めてしまう。</li><li>B. IPAM の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延098として再確認を先送りする。</li><li>C. 証跡票に ZONE098.corp.example と Server Manager の役割状態 を並べ、IPAM の状態を Windows正098として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在098として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十八観点 正答根拠: Cは Server Manager の役割状態 と ZONE098.corp.example を結び付けるため、対象サーバーの取り違えを防げます（第九十八観点）。第九十八観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第九十八観点）。第九十八観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Dはコマンド未確認が理由です（第九十八観点）。第九十八観点 用語説明: Hyper-V は仮想化役割です（第九十八観点）。第九十八観点 Failover Clustering は高可用性の基盤です（第九十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IPAM 状態確認 点検098</strong></p><p>検証目的: 名前解決における IPAM の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE098.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により IPAM の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE098.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により IPAM の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.17.02.0 255.255.255.0 Scope098            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により IPAM の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope098
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0082"><h3>SMB Direct 状態確認 点検050</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 中級</p><p>第五十観点 SMB Direct は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第五十）（第五十観点）。第五十観点 管理上は RDMA対応ネットワークでSMB通信の低遅延と高スループットを支える機能という値を追います（第五十観点）。第五十観点 ZONE050.corp.example を起点に設定値を戻し、認証基盤と名前解決の整合確認を点検します（第五十観点）。第五十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録050に残します（第五十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十証跡です。名前解決 の監査証跡で ZONE050.corp.example を扱います。確認観点は SMB Direct、状態確認、点検 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE050.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記050として後続調査を止めてしまう。</li><li>B. SMB Direct の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延050として再確認を先送りする。</li><li>C. 証跡票に ZONE050.corp.example と PowerShell コマンド出力 を並べ、SMB Direct の状態を Windows正050として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在050として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十観点 正答根拠: Cは PowerShell コマンド出力 と ZONE050.corp.example を結び付けるため、対象サーバーの取り違えを防げます（第五十観点）。第五十観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第五十観点）。第五十観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Dはコマンド未確認が理由です（第五十観点）。第五十観点 用語区分: Storage Replica は複製機能です（第五十観点）。第五十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第五十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMB Direct 状態確認 点検050</strong></p><p>検証目的: 名前解決における SMB Direct の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE050.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により SMB Direct の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE050.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により SMB Direct の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.9.02.0 255.255.255.0 Scope050            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により SMB Direct の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope050
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0083"><h3>ドメインコントローラー 定義照合 点検002</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 初級</p><p>第二観点 ドメインコントローラー は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第二）（第二観点）。第二観点 管理上は 認証、更新、検索のためにAD DSとDNSを使い、ドメイン内の場所を示すサーバーという値を追います（第二観点）。第二観点 DNSゾーンとリソースレコード と ZONE002.corp.example を同じ証跡に置き、クラスター所有ノードの確認を管理します（第二観点）。第二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録002から再現します（第二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二証跡です。ドメインコントローラー に関する設定変更を扱います。確認観点は DC、定義照合、点検 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE002.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記002として後続調査を止めてしまう。</li><li>B. ドメインコントローラー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延002として再確認を先送りする。</li><li>C. 証跡票に ZONE002.corp.example と DNSゾーンとリソースレコード を並べ、DC の状態を Windows正002として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在002として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第二観点 正答根拠: Cは DNSゾーンとリソースレコード と ZONE002.corp.example を結び付けるため、対象サーバーの取り違えを防げます（第二観点）。第二観点 可用性背景: Failover Clustering とCSVはノード障害時の継続性に関係します（第二観点）。第二観点 誤答観点: Aはイベント時刻欠落、BはGUI偏重、Dはコマンド未確認が理由です（第二観点）。第二観点 用語範囲: RDS はリモートデスクトップ機能群です（第二観点）。第二観点 RD Gateway はHTTPSでRDPを中継します（第二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ドメインコントローラー 定義照合 点検002</strong></p><p>検証目的: 名前解決における ドメインコントローラー の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE002.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により ドメインコントローラー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE002.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により ドメインコントローラー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.1.02.0 255.255.255.0 Scope002            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により ドメインコントローラー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope002
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0084"><h3>ドメインコントローラー 権限確認 復旧062</h3><p class="kb-meta">分類: 名前解決 ・ 難易度: 中級</p><p>第六十二観点 ドメインコントローラー は Windows Server 2022 の 名前解決 で扱う管理項目です（区分第六十二）（第六十二観点）。第六十二観点 管理上は 認証、更新、検索のためにAD DSとDNSを使い、ドメイン内の場所を示すサーバーという値を追います（第六十二観点）。第六十二観点 DNSゾーンとリソースレコード と ZONE062.corp.example を同じ証跡に置き、クラスター所有ノードの確認を管理します（第六十二観点）。第六十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録062から再現します（第六十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十二証跡です。ドメインコントローラー に関する設定変更を扱います。確認観点は DC、権限確認、復旧 です。役割状態、PowerShell出力、イベントログを同じ確認票に置く対応として適切なものはどれか。</p><ul class="kb-choices"><li>A. クラスタリング の一般メモを採り、ZONE062.corp.example、役割名、ログ時刻の対応を記録外に置き、Windows誤記062として後続調査を止めてしまう。</li><li>B. ドメインコントローラー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延062として再確認を先送りする。</li><li>C. 証跡票に ZONE062.corp.example と DNSゾーンとリソースレコード を並べ、DC の状態を Windows正062として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在062として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十二観点 確認理由: Cは DC の値をPowerShellとGUIの両方で追えるため、監査に使えます（第六十二観点）。第六十二観点 監査背景: ZONE062.corp.example は記録時刻とサーバー名を添えて扱います（第六十二観点）。第六十二観点 誤答点検: Aはサーバー名欠落、Bは管理画面未確認、Dは時刻差の欠落が理由です（第六十二観点）。第六十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第六十二観点）。第六十二観点 RD Gateway はHTTPSでRDPを中継します（第六十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ドメインコントローラー 権限確認 復旧062</strong></p><p>検証目的: 名前解決における ドメインコントローラー の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=ZONE062.corp.example</p><p>セッション環境: DNS Manager / DHCP console / PowerShell</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により ドメインコントローラー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DnsServerZone
+→ Enter を押す
+［画面・出力］
+ZoneName                  ZoneType    IsDsIntegrated
+corp.example              Primary     True
+ZONE062.corp.example              Primary     False
+画面・出力には ZoneName が含まれる。ZoneName を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により ドメインコントローラー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-DhcpServerv4Scope
+→ Enter を押す
+［画面・出力］
+ScopeId         SubnetMask      Name                 State
+10.1.14.0 255.255.255.0 Scope062            Active
+画面・出力には ScopeId が含まれる。ScopeId を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により ドメインコントローラー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; DHCP-Server
+→ Enter を押す
+［画面・出力］
+DHCP Server log
+Event ID 1063 records DNS registration activity for Scope062
+画面・出力には DHCP Server が含まれる。DHCP Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ZoneName が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: ScopeId が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: DHCP Server が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## 更新管理
+
+
+<section class="kb-item" id="c35-i0085"><h3>Credential Guard 可用性確認 監査084</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 上級</p><p>第八十四観点 Credential Guard は Windows Server 2022 の 更新管理 を説明するための項目です（第八十四観点）。第八十四観点 資料上は 仮想化ベースの保護で資格情報を守り、リモート接続時の資格情報露出を抑える機能として扱います（第八十四観点）。第八十四観点 Failover Cluster Manager のノード一覧 の値を SECLOG084 と合わせ、資格情報保護の有効化確認を記録します（第八十四観点）。第八十四観点 証跡には資料IDと確認値を併記し、Windows記録084として保存します（第八十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十四証跡です。SECLOG084 の値をサーバー運用と対応させます。確認観点は Credential Guard、可用性確認、監査 です。資格情報保護の有効化確認を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG084、役割名、ログ時刻の対応を記録外に置き、Windows誤記084として後続調査を止めてしまう。</li><li>B. Credential Guard の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延084として再確認を先送りする。</li><li>C. 証跡票に SECLOG084 と Failover Cluster Manager のノード一覧 を並べ、Credential Guard の状態を Windows正084として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在084として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十四観点 照合結果: Cは SECLOG084 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第八十四観点）。第八十四観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第八十四観点）。第八十四観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Dはサーバー差の隠蔽が理由です（第八十四観点）。第八十四観点 初出補足: PowerShell は管理コマンドの入口です（第八十四観点）。第八十四観点 イベントIDはログ調査の手掛かりです（第八十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Credential Guard 可用性確認 監査084</strong></p><p>検証目的: 更新管理における Credential Guard の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG084</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Credential Guard の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS12.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Credential Guard の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection12
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Credential Guard の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG084
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0086"><h3>Credential Guard 権限確認 保護024</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 中級</p><p>第二十四観点 Credential Guard は Windows Server 2022 の 更新管理 を説明するための項目です（第二十四観点）。第二十四観点 資料上は 仮想化ベースの保護で資格情報を守り、リモート接続時の資格情報露出を抑える機能として扱います（第二十四観点）。第二十四観点 Failover Cluster Manager のノード一覧 の値を SECLOG024 と合わせ、資格情報保護の有効化確認を記録します（第二十四観点）。第二十四観点 証跡には資料IDと確認値を併記し、Windows記録024として保存します（第二十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十四証跡です。SECLOG024 の値をサーバー運用と対応させます。確認観点は Credential Guard、権限確認、保護 です。資格情報保護の有効化確認を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG024、役割名、ログ時刻の対応を記録外に置き、Windows誤記024として後続調査を止めてしまう。</li><li>B. Credential Guard の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延024として再確認を先送りする。</li><li>C. 証跡票に SECLOG024 と Failover Cluster Manager のノード一覧 を並べ、Credential Guard の状態を Windows正024として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在024として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十四観点 選定根拠: Cは Failover Cluster Manager のノード一覧 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第二十四観点）。第二十四観点 仕組み要点: Credential GuardはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第二十四観点）。第二十四観点 誤答確認: Aは SECLOG024 未追跡、BはPowerShell確認不足、Dは別サーバー混同が理由です（第二十四観点）。第二十四観点 初出補足: PowerShell は管理コマンドの入口です（第二十四観点）。第二十四観点 イベントIDはログ調査の手掛かりです（第二十四観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Credential Guard 権限確認 保護024</strong></p><p>検証目的: 更新管理における Credential Guard の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG024</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Credential Guard の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS24.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Credential Guard の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection24
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Credential Guard の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG024
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0087"><h3>DHCPポリシー セキュリティ確認 監査036</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 中級</p><p>第三十六観点 DHCPポリシー は Windows Server 2022 の 更新管理 を説明するための項目です（第三十六観点）。第三十六観点 資料上は MACアドレスやベンダークラスなどの条件でDHCPオプションや設定を分ける管理対象として扱います（第三十六観点）。第三十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、暗号化状態の証跡化を説明可能にします（第三十六観点）。第三十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録036へ書きます（第三十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十六証跡です。監査036 の確認で DHCPポリシー を見直します。確認観点は DHCPポリシー、セキュリティ確認、監査 です。暗号化状態の証跡化を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG036、役割名、ログ時刻の対応を記録外に置き、Windows誤記036として後続調査を止めてしまう。</li><li>B. DHCPポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延036として再確認を先送りする。</li><li>C. 証跡票に SECLOG036 と BitLocker の保護状態 を並べ、DHCPポリシー の状態を Windows正036として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在036として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十六観点 照合結果: Cは SECLOG036 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第三十六観点）。第三十六観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第三十六観点）。第三十六観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Dはサーバー差の隠蔽が理由です（第三十六観点）。第三十六観点 用語補足: DHCP はIP構成を配布します（第三十六観点）。第三十六観点 IPAM はアドレス基盤を集中管理します（第三十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPポリシー セキュリティ確認 監査036</strong></p><p>検証目的: 更新管理における DHCPポリシー のセキュリティ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG036</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS12.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection12
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG036
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0088"><h3>DHCPポリシー 接続確認 保護096</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 上級</p><p>第九十六観点 DHCPポリシー は Windows Server 2022 の 更新管理 を説明するための項目です（第九十六観点）。第九十六観点 資料上は MACアドレスやベンダークラスなどの条件でDHCPオプションや設定を分ける管理対象として扱います（第九十六観点）。第九十六観点 BitLocker の保護状態 とイベント行を同じ確認票に置き、暗号化状態の証跡化を説明可能にします（第九十六観点）。第九十六観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録096へ書きます（第九十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十六証跡です。保護096 の確認で DHCPポリシー を見直します。確認観点は DHCPポリシー、接続確認、保護 です。暗号化状態の証跡化を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG096、役割名、ログ時刻の対応を記録外に置き、Windows誤記096として後続調査を止めてしまう。</li><li>B. DHCPポリシー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延096として再確認を先送りする。</li><li>C. 証跡票に SECLOG096 と BitLocker の保護状態 を並べ、DHCPポリシー の状態を Windows正096として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在096として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十六観点 選定根拠: Cは BitLocker の保護状態 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第九十六観点）。第九十六観点 仕組み要点: DHCPポリシーはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第九十六観点）。第九十六観点 誤答確認: Aは SECLOG096 未追跡、BはPowerShell確認不足、Dは別サーバー混同が理由です（第九十六観点）。第九十六観点 用語補足: DHCP はIP構成を配布します（第九十六観点）。第九十六観点 IPAM はアドレス基盤を集中管理します（第九十六観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPポリシー 接続確認 保護096</strong></p><p>検証目的: 更新管理における DHCPポリシー の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG096</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPポリシー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS24.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPポリシー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection24
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPポリシー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG096
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0089"><h3>Server Manager 定義照合 監査012</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 初級</p><p>第十二観点 Server Manager は Windows Server 2022 の 更新管理 を説明するための項目です（第十二観点）。第十二観点 資料上は 役割と機能の追加、サーバー状態の確認、管理対象サーバーの操作を行う管理ツールとして扱います（第十二観点）。第十二観点 DNSゾーンとリソースレコード と SECLOG012 を同じ証跡に置き、クラスター所有ノードの確認を管理します（第十二観点）。第十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録012から再現します（第十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十二証跡です。監査012 のログ採取で対象サーバーを確認します。確認観点は Server Manager、定義照合、監査 です。クラスター所有ノードの確認を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG012、役割名、ログ時刻の対応を記録外に置き、Windows誤記012として後続調査を止めてしまう。</li><li>B. Server Manager の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延012として再確認を先送りする。</li><li>C. 証跡票に SECLOG012 と DNSゾーンとリソースレコード を並べ、Server Manager の状態を Windows正012として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在012として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十二観点 照合結果: Cは SECLOG012 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第十二観点）。第十二観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第十二観点）。第十二観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Dはサーバー差の隠蔽が理由です（第十二観点）。第十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第十二観点）。第十二観点 RD Gateway はHTTPSでRDPを中継します（第十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Server Manager 定義照合 監査012</strong></p><p>検証目的: 更新管理における Server Manager の定義照合を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG012</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Server Manager の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS12.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Server Manager の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection12
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Server Manager の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG012
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0090"><h3>Server Manager 権限確認 保護072</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 中級</p><p>第七十二観点 Server Manager は Windows Server 2022 の 更新管理 を説明するための項目です（第七十二観点）。第七十二観点 資料上は 役割と機能の追加、サーバー状態の確認、管理対象サーバーの操作を行う管理ツールとして扱います（第七十二観点）。第七十二観点 DNSゾーンとリソースレコード と SECLOG072 を同じ証跡に置き、クラスター所有ノードの確認を管理します（第七十二観点）。第七十二観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録072から再現します（第七十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十二証跡です。保護072 のログ採取で対象サーバーを確認します。確認観点は Server Manager、権限確認、保護 です。クラスター所有ノードの確認を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG072、役割名、ログ時刻の対応を記録外に置き、Windows誤記072として後続調査を止めてしまう。</li><li>B. Server Manager の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延072として再確認を先送りする。</li><li>C. 証跡票に SECLOG072 と DNSゾーンとリソースレコード を並べ、Server Manager の状態を Windows正072として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在072として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十二観点 選定根拠: Cは DNSゾーンとリソースレコード をサーバー運用と同じ文脈に置くため、証跡として扱えます（第七十二観点）。第七十二観点 仕組み要点: Server ManagerはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第七十二観点）。第七十二観点 誤答確認: Aは SECLOG072 未追跡、BはPowerShell確認不足、Dは別サーバー混同が理由です（第七十二観点）。第七十二観点 用語範囲: RDS はリモートデスクトップ機能群です（第七十二観点）。第七十二観点 RD Gateway はHTTPSでRDPを中継します（第七十二観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Server Manager 権限確認 保護072</strong></p><p>検証目的: 更新管理における Server Manager の権限確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG072</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Server Manager の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS24.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Server Manager の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection24
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Server Manager の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG072
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0091"><h3>Software Storage Bus 接続確認 保護048</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 中級</p><p>第四十八観点 Software Storage Bus は Windows Server 2022 の 更新管理 を説明するための項目です（第四十八観点）。第四十八観点 資料上は クラスター内の各サーバーが互いのローカルドライブを見られるようにするストレージ基盤として扱います（第四十八観点）。第四十八観点 SECLOG048、Server Manager の役割状態、管理ツールの表示を照合し、管理ツール間の値合わせを確認します（第四十八観点）。第四十八観点 調査票ではGUIとPowerShellの入口を Windows記録048に区別して残します（第四十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十八証跡です。Software Storage Bus に関するログ名を確認します。確認観点は SSB、接続確認、保護 です。管理ツール間の値合わせを満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG048、役割名、ログ時刻の対応を記録外に置き、Windows誤記048として後続調査を止めてしまう。</li><li>B. Software Storage Bus の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延048として再確認を先送りする。</li><li>C. 証跡票に SECLOG048 と Server Manager の役割状態 を並べ、SSB の状態を Windows正048として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在048として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十八観点 選定根拠: Cは Server Manager の役割状態 をサーバー運用と同じ文脈に置くため、証跡として扱えます（第四十八観点）。第四十八観点 仕組み要点: SSBはServer Manager、Windows Admin Center、PowerShell、Event Viewer の経路で確認します（第四十八観点）。第四十八観点 誤答確認: Aは SECLOG048 未追跡、BはPowerShell確認不足、Dは別サーバー混同が理由です（第四十八観点）。第四十八観点 用語説明: Hyper-V は仮想化役割です（第四十八観点）。第四十八観点 Failover Clustering は高可用性の基盤です（第四十八観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Software Storage Bus 接続確認 保護048</strong></p><p>検証目的: 更新管理における Software Storage Bus の接続確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG048</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Software Storage Bus の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS24.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Software Storage Bus の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection24
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Software Storage Bus の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG048
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0092"><h3>イベントログ 状態確認 監査060</h3><p class="kb-meta">分類: 更新管理 ・ 難易度: 中級</p><p>第六十観点 イベントログ は Windows Server 2022 の 更新管理 を説明するための項目です（第六十観点）。第六十観点 資料上は 認証、DHCP、DNS、NPS、RDS、セキュリティなどの運用証跡を記録するログとして扱います（第六十観点）。第六十観点 SECLOG060 を起点に設定値を戻し、認証基盤と名前解決の整合確認を点検します（第六十観点）。第六十観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録060に残します（第六十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第六十証跡です。更新管理 の設定更新後に SECLOG060 を再確認します。確認観点は イベントログ、状態確認、監査 です。認証基盤と名前解決の整合確認を満たす記録方法として、管理画面とログを結ぶものはどれか。</p><ul class="kb-choices"><li>A. サーバー管理 の一般メモを採り、SECLOG060、役割名、ログ時刻の対応を記録外に置き、Windows誤記060として後続調査を止めてしまう。</li><li>B. イベントログ の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延060として再確認を先送りする。</li><li>C. 証跡票に SECLOG060 と PowerShell コマンド出力 を並べ、イベントログ の状態を Windows正060として確定する。 <span class="kb-ok">✅ 正解</span></li><li>D. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在060として残す。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第六十観点 照合結果: Cは SECLOG060 を役割名や時刻と一緒に残すため、再確認時にも根拠を追えます（第六十観点）。第六十観点 保護背景: BitLocker、Credential Guard、Defender は資格情報とデータ保護の確認点になります（第六十観点）。第六十観点 誤答差分: Aは設定値除外、Bは警告イベント未読、Dはサーバー差の隠蔽が理由です（第六十観点）。第六十観点 用語区分: Storage Replica は複製機能です（第六十観点）。第六十観点 Storage Spaces Direct は内蔵ドライブを束ねます（第六十観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>イベントログ 状態確認 監査060</strong></p><p>検証目的: 更新管理における イベントログ の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=SECLOG060</p><p>セッション環境: Remote Desktop Services / RD Gateway / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により イベントログ の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-RDServer
+→ Enter を押す
+［画面・出力］
+Server                   Roles
+RDS12.corp.example     RDS-RD-SERVER,RDS-GATEWAY
+画面・出力には Server が含まれる。Server を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により イベントログ の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+Server Manager
+COMMAND ===&gt; Remote Desktop Services &gt; Collections
+→ Enter を押す
+［画面・出力］
+Collection SessionCollection12
+User groups and RemoteApp programs listed
+画面・出力には Collection が含まれる。Collection を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により イベントログ の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Applications and Services Logs &gt; Microsoft &gt; Windows &gt; TerminalServices-Gateway
+→ Enter を押す
+［画面・出力］
+RD Gateway log
+Event ID 302 connection authorization evaluated for SECLOG060
+画面・出力には RD Gateway が含まれる。RD Gateway を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: Server が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: Collection が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: RD Gateway が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+## 監査ログ
+
+
+<section class="kb-item" id="c35-i0093"><h3>DHCPサーバー レプリケーション確認 接続095</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 上級</p><p>第九十五観点 監査ログ の変更作業では DHCPサーバー の現在値を先に固定します（第九十五観点）。第九十五観点 役割は クライアントへIPアドレスとTCP/IP構成を配布し、リースと更新を管理する役割という範囲です（第九十五観点）。第九十五観点 \\SOFS23\Share095 を起点に設定値を戻し、資格情報保護の有効化確認を点検します（第九十五観点）。第九十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録095に残します（第九十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第九十五証跡です。Storage Spaces Direct のプール状態 を採取した後の扱いを選びます。確認観点は DHCPサーバー、レプリケーション確認、接続 です。Storage Spaces Direct のプール状態 を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS23\Share095、役割名、ログ時刻の対応を記録外に置き、Windows誤記095として後続調査を止めてしまう。</li><li>B. DHCPサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延095として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在095として残す。</li><li>D. 証跡票に \\SOFS23\Share095 と Storage Spaces Direct のプール状態 を並べ、DHCPサーバー の状態を Windows正095として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第九十五観点 記録理由: Dは \\SOFS23\Share095 の取得経路を残すため、後日の再調査に耐えます（第九十五観点）。第九十五観点 背景確認: 監査ログでは管理画面とイベントログが分かれて表示されます（第九十五観点）。第九十五観点 誤答整理: Aは一般メモ偏重、BはEvent Viewer除外、Cは再現性不足が理由です（第九十五観点）。第九十五観点 用語確認: AD DS はディレクトリサービスです（第九十五観点）。第九十五観点 DNS は名前をIPアドレスへ対応させます（第九十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPサーバー レプリケーション確認 接続095</strong></p><p>検証目的: 監査ログにおける DHCPサーバー のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS23\Share095</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS23\Share095
+画面・出力には Security log が含まれる。Security log を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0094"><h3>DHCPサーバー 可用性確認 確認035</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 中級</p><p>第三十五観点 監査ログ の変更作業では DHCPサーバー の現在値を先に固定します（第三十五観点）。第三十五観点 役割は クライアントへIPアドレスとTCP/IP構成を配布し、リースと更新を管理する役割という範囲です（第三十五観点）。第三十五観点 \\SOFS11\Share035 を起点に設定値を戻し、資格情報保護の有効化確認を点検します（第三十五観点）。第三十五観点 確認経路は Server Manager、WAC、PowerShell、Event Viewer の別を Windows記録035に残します（第三十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第三十五証跡です。Storage Spaces Direct のプール状態 を採取した後の扱いを選びます。確認観点は DHCPサーバー、可用性確認、確認 です。Storage Spaces Direct のプール状態 を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS11\Share035、役割名、ログ時刻の対応を記録外に置き、Windows誤記035として後続調査を止めてしまう。</li><li>B. DHCPサーバー の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延035として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在035として残す。</li><li>D. 証跡票に \\SOFS11\Share035 と Storage Spaces Direct のプール状態 を並べ、DHCPサーバー の状態を Windows正035として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第三十五観点 採用理由: Dは DHCPサーバー の状態を画面とログの両方から確認するため、記録として妥当です（第三十五観点）。第三十五観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第三十五観点）。第三十五観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Cは証跡再利用が理由です（第三十五観点）。第三十五観点 用語確認: AD DS はディレクトリサービスです（第三十五観点）。第三十五観点 DNS は名前をIPアドレスへ対応させます（第三十五観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DHCPサーバー 可用性確認 確認035</strong></p><p>検証目的: 監査ログにおける DHCPサーバー の可用性確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS11\Share035</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により DHCPサーバー の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により DHCPサーバー の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により DHCPサーバー の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS11\Share035
+画面・出力には Security log が含まれる。Security log を読み取り、資格情報保護の有効化確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0095"><h3>RD Gateway 更新確認 確認059</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 中級</p><p>第五十九観点 監査ログ の変更作業では RD Gateway の現在値を先に固定します（第五十九観点）。第五十九観点 役割は HTTPSでRDP接続を中継し、公開ポートを抑えて条件付きアクセスへつなぐ役割という範囲です（第五十九観点）。第五十九観点 Windows Admin Center の管理画面 の値を \\SOFS11\Share059 と合わせ、管理ツール間の値合わせを記録します（第五十九観点）。第五十九観点 証跡には資料IDと確認値を併記し、Windows記録059として保存します（第五十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第五十九証跡です。RD Gateway の差分を同じサーバーで確認します。確認観点は RD Gateway、更新確認、確認 です。Windows Admin Center の管理画面 を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS11\Share059、役割名、ログ時刻の対応を記録外に置き、Windows誤記059として後続調査を止めてしまう。</li><li>B. RD Gateway の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延059として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在059として残す。</li><li>D. 証跡票に \\SOFS11\Share059 と Windows Admin Center の管理画面 を並べ、RD Gateway の状態を Windows正059として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第五十九観点 採用理由: Dは RD Gateway の状態を画面とログの両方から確認するため、記録として妥当です（第五十九観点）。第五十九観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第五十九観点）。第五十九観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Cは証跡再利用が理由です（第五十九観点）。第五十九観点 用語メモ: CSV はクラスター共有ボリュームです（第五十九観点）。第五十九観点 SMB3 はファイル共有で使います（第五十九観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>RD Gateway 更新確認 確認059</strong></p><p>検証目的: 監査ログにおける RD Gateway の更新確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS11\Share059</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により RD Gateway の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により RD Gateway の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により RD Gateway の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS11\Share059
+画面・出力には Security log が含まれる。Security log を読み取り、管理ツール間の値合わせのため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0096"><h3>Storage Spaces Direct レプリケーション確認 接続047</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 中級</p><p>第四十七観点 監査ログ の変更作業では Storage Spaces Direct の現在値を先に固定します（第四十七観点）。第四十七観点 役割は 複数サーバーの内蔵ドライブをまとめ、ソフトウェア定義の共有ストレージを作る機能という範囲です（第四十七観点）。第四十七観点 Remote Desktop Services の接続ログ と \\SOFS23\Share047 を同じ証跡に置き、暗号化状態の証跡化を管理します（第四十七観点）。第四十七観点 後続確認ではサーバー名、役割名、ログ名、時刻の対応を Windows記録047から再現します（第四十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第四十七証跡です。監査ログ で障害原因を調べます。確認観点は S2D、レプリケーション確認、接続 です。Remote Desktop Services の接続ログ を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS23\Share047、役割名、ログ時刻の対応を記録外に置き、Windows誤記047として後続調査を止めてしまう。</li><li>B. Storage Spaces Direct の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延047として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在047として残す。</li><li>D. 証跡票に \\SOFS23\Share047 と Remote Desktop Services の接続ログ を並べ、S2D の状態を Windows正047として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第四十七観点 記録理由: Dは \\SOFS23\Share047 の取得経路を残すため、後日の再調査に耐えます（第四十七観点）。第四十七観点 背景確認: 監査ログでは管理画面とイベントログが分かれて表示されます（第四十七観点）。第四十七観点 誤答整理: Aは一般メモ偏重、BはEvent Viewer除外、Cは再現性不足が理由です（第四十七観点）。第四十七観点 用語整理: NPS はRADIUS認証に関係します（第四十七観点）。第四十七観点 Event Viewer はイベントログ確認の入口です（第四十七観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Storage Spaces Direct レプリケーション確認 接続047</strong></p><p>検証目的: 監査ログにおける Storage Spaces Direct のレプリケーション確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS23\Share047</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Storage Spaces Direct の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Storage Spaces Direct の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Storage Spaces Direct の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS23\Share047
+画面・出力には Security log が含まれる。Security log を読み取り、暗号化状態の証跡化のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0097"><h3>Windows Admin Center ログ確認 接続071</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 中級</p><p>第七十一観点 監査ログ の変更作業では Windows Admin Center の現在値を先に固定します（第七十一観点）。第七十一観点 役割は サーバー、クラスター、Storage Spaces Directなどをブラウザーから管理するという範囲です（第七十一観点）。第七十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、認証基盤と名前解決の整合確認を説明可能にします（第七十一観点）。第七十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録071へ書きます（第七十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第七十一証跡です。監査ログ の再起動前に Windows Admin Center を確認します。確認観点は WAC、ログ確認、接続 です。Event Viewer のイベントログ を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS23\Share071、役割名、ログ時刻の対応を記録外に置き、Windows誤記071として後続調査を止めてしまう。</li><li>B. Windows Admin Center の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延071として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在071として残す。</li><li>D. 証跡票に \\SOFS23\Share071 と Event Viewer のイベントログ を並べ、WAC の状態を Windows正071として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第七十一観点 記録理由: Dは \\SOFS23\Share071 の取得経路を残すため、後日の再調査に耐えます（第七十一観点）。第七十一観点 背景確認: 監査ログでは管理画面とイベントログが分かれて表示されます（第七十一観点）。第七十一観点 誤答整理: Aは一般メモ偏重、BはEvent Viewer除外、Cは再現性不足が理由です（第七十一観点）。第七十一観点 用語関係: BitLocker はボリューム暗号化です（第七十一観点）。第七十一観点 TPM は改ざん検知に関係します（第七十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Windows Admin Center ログ確認 接続071</strong></p><p>検証目的: 監査ログにおける Windows Admin Center のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS23\Share071</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Windows Admin Center の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Windows Admin Center の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Windows Admin Center の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS23\Share071
+画面・出力には Security log が含まれる。Security log を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0098"><h3>Windows Admin Center 状態確認 確認011</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 初級</p><p>第十一観点 監査ログ の変更作業では Windows Admin Center の現在値を先に固定します（第十一観点）。第十一観点 役割は サーバー、クラスター、Storage Spaces Directなどをブラウザーから管理するという範囲です（第十一観点）。第十一観点 Event Viewer のイベントログ とイベント行を同じ確認票に置き、認証基盤と名前解決の整合確認を説明可能にします（第十一観点）。第十一観点 記録では役割状態、コマンド出力、イベントログ、管理画面のどこを見たかを Windows記録011へ書きます（第十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第十一証跡です。監査ログ の再起動前に Windows Admin Center を確認します。確認観点は WAC、状態確認、確認 です。Event Viewer のイベントログ を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS11\Share011、役割名、ログ時刻の対応を記録外に置き、Windows誤記011として後続調査を止めてしまう。</li><li>B. Windows Admin Center の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延011として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在011として残す。</li><li>D. 証跡票に \\SOFS11\Share011 と Event Viewer のイベントログ を並べ、WAC の状態を Windows正011として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 第十一観点 採用理由: Dは WAC の状態を画面とログの両方から確認するため、記録として妥当です（第十一観点）。第十一観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第十一観点）。第十一観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Cは証跡再利用が理由です（第十一観点）。第十一観点 用語関係: BitLocker はボリューム暗号化です（第十一観点）。第十一観点 TPM は改ざん検知に関係します（第十一観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Windows Admin Center 状態確認 確認011</strong></p><p>検証目的: 監査ログにおける Windows Admin Center の状態確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS11\Share011</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Windows Admin Center の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Windows Admin Center の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Windows Admin Center の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS11\Share011
+画面・出力には Security log が含まれる。Security log を読み取り、認証基盤と名前解決の整合確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0099"><h3>Windows Defender ログ確認 接続023</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 中級</p><p>第二十三観点 監査ログ の変更作業では Windows Defender の現在値を先に固定します（第二十三観点）。第二十三観点 役割は サーバー上のマルウェア対策を提供し、定義更新と保護状態を確認する機能という範囲です（第二十三観点）。第二十三観点 \\SOFS23\Share023、DHCPリースと監査ログ、管理ツールの表示を照合し、クラスター所有ノードの確認を確認します（第二十三観点）。第二十三観点 調査票ではGUIとPowerShellの入口を Windows記録023に区別して残します（第二十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第二十三証跡です。監査ログ の作業票へ Windows Defender を記録します。確認観点は Windows Defender、ログ確認、接続 です。DHCPリースと監査ログ を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS23\Share023、役割名、ログ時刻の対応を記録外に置き、Windows誤記023として後続調査を止めてしまう。</li><li>B. Windows Defender の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延023として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在023として残す。</li><li>D. 証跡票に \\SOFS23\Share023 と DHCPリースと監査ログ を並べ、Windows Defender の状態を Windows正023として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 第二十三観点 記録理由: Dは \\SOFS23\Share023 の取得経路を残すため、後日の再調査に耐えます（第二十三観点）。第二十三観点 背景確認: 監査ログでは管理画面とイベントログが分かれて表示されます（第二十三観点）。第二十三観点 誤答整理: Aは一般メモ偏重、BはEvent Viewer除外、Cは再現性不足が理由です（第二十三観点）。第二十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第二十三観点）。第二十三観点 Server Manager は役割管理に使います（第二十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Windows Defender ログ確認 接続023</strong></p><p>検証目的: 監査ログにおける Windows Defender のログ確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS23\Share023</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Windows Defender の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Windows Defender の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Windows Defender の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS23\Share023
+画面・出力には Security log が含まれる。Security log を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>
+
+
+<section class="kb-item" id="c35-i0100"><h3>Windows Defender 構成確認 確認083</h3><p class="kb-meta">分類: 監査ログ ・ 難易度: 上級</p><p>第八十三観点 監査ログ の変更作業では Windows Defender の現在値を先に固定します（第八十三観点）。第八十三観点 役割は サーバー上のマルウェア対策を提供し、定義更新と保護状態を確認する機能という範囲です（第八十三観点）。第八十三観点 \\SOFS11\Share083、DHCPリースと監査ログ、管理ツールの表示を照合し、クラスター所有ノードの確認を確認します（第八十三観点）。第八十三観点 調査票ではGUIとPowerShellの入口を Windows記録083に区別して残します（第八十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 運用第八十三証跡です。監査ログ の作業票へ Windows Defender を記録します。確認観点は Windows Defender、構成確認、確認 です。DHCPリースと監査ログ を証跡に残す判断として、あとから再確認しやすいものはどれか。</p><ul class="kb-choices"><li>A. リモートアクセス の一般メモを採り、\\SOFS11\Share083、役割名、ログ時刻の対応を記録外に置き、Windows誤記083として後続調査を止めてしまう。</li><li>B. Windows Defender の名称を確認しても、PowerShell出力、管理画面、Event Viewer の状態を読まず、Windows遅延083として再確認を先送りする。</li><li>C. 前回の正常イベントを今回分として採用し、Server Manager、Windows Admin Center、PowerShell の差と時刻差を記録せず、Windows混在083として残す。</li><li>D. 証跡票に \\SOFS11\Share083 と DHCPリースと監査ログ を並べ、Windows Defender の状態を Windows正083として確定する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 第八十三観点 採用理由: Dは Windows Defender の状態を画面とログの両方から確認するため、記録として妥当です（第八十三観点）。第八十三観点 ストレージ背景: Storage Spaces Direct はSMB3、CSV、Software Storage Busを組み合わせます（第八十三観点）。第八十三観点 誤答内訳: Aは役割状態欠落、Bはログ名不足、Cは証跡再利用が理由です（第八十三観点）。第八十三観点 初出定義: Windows Admin Center はブラウザー型の管理ツールです（第八十三観点）。第八十三観点 Server Manager は役割管理に使います（第八十三観点）。</p><p class="kb-src"><strong>出典:</strong> Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Windows Defender 構成確認 確認083</strong></p><p>検証目的: 監査ログにおける Windows Defender の構成確認を机上で確認する。</p><p>前提条件: Windows Server 2022 の対象サーバー、役割、PowerShell出力、管理画面、イベントログを確認済み。対象=\\SOFS11\Share083</p><p>セッション環境: Windows Security / PowerShell / Event Viewer</p><pre class="kb-code">■ ステップ 1
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。状態表示により Windows Defender の値を確認し、対象の現在値を固定する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-BitLockerVolume
+→ Enter を押す
+［画面・出力］
+MountPoint VolumeStatus ProtectionStatus EncryptionPercentage
+C:         FullyEncrypted On               100
+画面・出力には ProtectionStatus が含まれる。ProtectionStatus を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 2
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。定義照合により Windows Defender の値を確認し、定義と資料上の項目を照合する。
+［操作（入力）］
+PowerShell
+COMMAND ===&gt; Get-MpComputerStatus
+→ Enter を押す
+［画面・出力］
+AMServiceEnabled True
+AntivirusEnabled True
+RealTimeProtectionEnabled True
+画面・出力には RealTimeProtectionEnabled が含まれる。RealTimeProtectionEnabled を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――
+■ ステップ 3
+現在の画面は Windows Server 2022 の確認画面またはログ表示である。ログ確認により Windows Defender の値を確認し、同じ対象として記録できることを確認する。
+［操作（入力）］
+Event Viewer
+COMMAND ===&gt; Windows Logs &gt; Security
+→ Enter を押す
+［画面・出力］
+Security log
+Event ID 4688 process audit entry recorded for \\SOFS11\Share083
+画面・出力には Security log が含まれる。Security log を読み取り、クラスター所有ノードの確認のため対象の現在値を記録する。
+――――</pre><p>合格条件: ステップ1: ProtectionStatus が画面または出力に表示され、対象サーバーや役割が取り違えられていないこと。
+ステップ2: RealTimeProtectionEnabled が画面または出力に表示され、管理画面、PowerShell、ログの対応が確認できること。
+ステップ3: Security log が画面または出力に表示され、記録に残す値と出典が一致すること。</p><p class="kb-meta">検証状態: 机上 ／ 出典: Windows_Server_2022_Documentation / WS2022_020_ad_ds_overview / WS2022_041_dns_overview / WS2022_042_dhcp_overview / WS2022_045_ipam_overview / WS2022_051_storage_spaces_direct / WS2022_052_storage_replica / WS2022_030_security_overview / WS2022_036_bitlocker / WS2022_070_rds_overview</p></div></details></section>

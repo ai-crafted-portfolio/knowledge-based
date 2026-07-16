@@ -1,0 +1,5042 @@
+---
+search:
+  exclude: true
+---
+
+# RACF USER/GROUP/DATASET — 詳細 (5/7)
+
+[← RACF USER/GROUP/DATASET の概要へ戻る](index.md)
+
+
+## RACF USER/GROUP/DATASET > LISTDSD 基本
+
+### LISTDSD とは {#c27-i0278}
+*分類: LISTDSD 基本*  ・  難易度: 初級
+
+LISTDSD は、RACF のデータセットプロファイルを表示して確認するコマンドです。プロファイル名、アクセスリスト、履歴、統計、関連する実データセット名など、保護定義の状態を読むために使います。変更後の差分確認や削除前の影響調査に利用し、結果を証跡として残すと判断しやすくなります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTDSD とは**
+
+    - 検証目的: 変更記録のとはについて、LISTDSD は、RACF のデータセットプロファイルを表示して確認するコマンドです。プロファイル名、アクセスリスト、履歴、統計、関連する実データセット名など、保護定義のに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030140の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、変更記録のとはの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTDSD とはを指定し、OSKB030140の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTDSD とは
+    CASE OSKB030140
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTDSD とは
+    CASE OSKB030140
+    SOURCE RACF
+    ```
+
+    LISTDSD とはとOSKB030140が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030140を同じ出力で読み、変更記録のとはの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030140
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030140 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTDSD とは INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030140が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTDSD とは と OSKB030140 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030140 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTDSD コマンドの用途 {#c27-i0279}
+*分類: LISTDSD 基本*  ・  難易度: 初級
+
+登録済みデータセットプロファイルの内容を参照する RACF コマンドが LISTDSD です。短縮形は LD で、削除前の影響調査、変更後の確認、監査時の棚卸しに使います。表示結果から、所有者、UACC、アクセスリスト、履歴、統計などの状態を読み取れます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 構文追跡のコマンドの用途に関係する LISTDSD コマンドの用途の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 机上確認でも実出力の見出しに合わせ、構文追跡の確認値として扱う。 ✅
+    - B. LISTDSD コマンドの用途の名称と担当者名のみを残して構文追跡のコマンドの用途の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で構文追跡のコマンドの用途を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず構文追跡のコマンドの用途の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 初級
+
+    **解説:** 構文追跡のコマンドの用途において選択記号 A を採用し、識別名は構文追跡です。構文追跡のコマンドの用途において LISTDSD コマンドの用途 は説明欄の「LISTDSD コマンドの用途の用途をセキュリティ管理の表示で確認する構文追跡項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は構文追跡です。構文追跡のコマンドの用途に関連して、RACF では LISTDSD コマンドの用途の表示属性と ICH35001I を同じ証跡に残し、背景名は構文追跡です。他の選択肢を確認します。 A: 構文追跡のコマンドの用途は対象出力と項目説明を結び、根拠を残すので構文追跡です。 B: 構文追跡のコマンドの用途は名称や説明のみに寄り、状態を示す出力本文が不足するため構文追跡ではありません。 C: 構文追跡のコマンドの用途は別カテゴリの確認を流用しており、LISTDSD コマンドの用途の根拠にならないため構文追跡ではありません。 D: 構文追跡のコマンドの用途は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため構文追跡ではありません。構文追跡のコマンドの用途で使う LISTDSD コマンドの用途という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は構文追跡です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTDSD コマンドの用途**
+
+    - 検証目的: 探索追跡のコマンドの用途について、登録済みデータセットプロファイルの内容を参照する RACF コマンドが LISTDSD です。短縮形は LD で、削除前の影響調査、変更後の確認、監査時の棚卸しに使います。に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030046の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、探索追跡のコマンドの用途の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTDSD コマンドの用途を指定し、OSKB030046の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTDSD コマンドの用途
+    CASE OSKB030046
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTDSD コマンドの用途
+    CASE OSKB030046
+    SOURCE RACF
+    ```
+
+    LISTDSD コマンドの用途とOSKB030046が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030046を同じ出力で読み、探索追跡のコマンドの用途の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030046
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030046 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTDSD コマンドの用途 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030046が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTDSD コマンドの用途 と OSKB030046 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030046 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > LISTGRP 基本
+
+### LISTGRP とは {#c27-i0280}
+*分類: LISTGRP 基本*  ・  難易度: 初級
+
+グループプロファイルを読むための RACF コマンドが LISTGRP です。所有者、上位グループ、下位グループ、接続利用者、グループ固有セグメントなどを確認できます。変更や削除の前に現状を読み取る入口として使い、短縮形は LG です。表示結果は後続の CONNECT や REMOVE の判断材料になります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP とは**
+
+    - 検証目的: 比較記録のとはについて、グループプロファイルを読むための RACF コマンドが LISTGRP です。所有者、上位グループ、下位グループ、接続利用者、グループ固有セグメントなどを確認できます。変更に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030134の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、比較記録のとはの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP とはを指定し、OSKB030134の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP とは
+    CASE OSKB030134
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP とは
+    CASE OSKB030134
+    SOURCE RACF
+    ```
+
+    LISTGRP とはとOSKB030134が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030134を同じ出力で読み、比較記録のとはの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030134
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030134 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP とは INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030134が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP とは と OSKB030134 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030134 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTGRP コマンドの用途 {#c27-i0281}
+*分類: LISTGRP 基本*  ・  難易度: 初級
+
+グループ属性と接続情報の確認には、RACF の LISTGRP を使います。短縮形は LG で、所有者、上位階層、メンバの接続権限を確認できます。変更コマンドではないため、表示結果をもとに別の操作を判断します。監査証跡を作る前の読み取りにも使います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP コマンドの用途**
+
+    - 検証目的: 呼出判定のコマンドの用途について、グループ属性と接続情報の確認には、RACF の LISTGRP を使います。短縮形は LG で、所有者、上位階層、メンバの接続権限を確認できます。変更コマンドではないため、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020083の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、呼出判定のコマンドの用途の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP コマンドの用途を指定し、OSKB020083の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP コマンドの用途
+    CASE OSKB020083
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP コマンドの用途
+    CASE OSKB020083
+    SOURCE RACF
+    ```
+
+    LISTGRP コマンドの用途とOSKB020083が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020083を同じ出力で読み、呼出判定のコマンドの用途の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020083
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020083 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP コマンドの用途 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020083が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP コマンドの用途 と OSKB020083 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020083 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTGRP ワイルドカード * {#c27-i0282}
+*分類: LISTGRP 基本*  ・  難易度: 中級
+
+ワイルドカード `*` は、RACF の LISTGRP で全グループを表示するために使います。全体一覧は影響範囲が広いため、SPECIAL または AUDITOR のような強い権限を持つ担当者が実行します。棚卸しや移行準備では便利な一方で、出力量も多くなります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP ワイルドカード ***
+
+    - 検証目的: 終端判定のワイルドカード *について、ワイルドカード `*` は、RACF の LISTGRP で全グループを表示するために使います。全体一覧は影響範囲が広いため、SPECIAL または AUDITOR のように関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020085の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、終端判定のワイルドカード *の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP ワイルドカード *を指定し、OSKB020085の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP ワイルドカード *
+    CASE OSKB020085
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP ワイルドカード *
+    CASE OSKB020085
+    SOURCE RACF
+    ```
+
+    LISTGRP ワイルドカード *とOSKB020085が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020085を同じ出力で読み、終端判定のワイルドカード *の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020085
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020085 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP ワイルドカード * INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020085が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP ワイルドカード * と OSKB020085 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020085 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTGRP 構文 {#c27-i0283}
+*分類: LISTGRP 基本*  ・  難易度: 初級
+
+構文では、RACF の LISTGRP の後ろに表示したい groupid を並べます。複数のグループをまとめて確認したい場合も、対象名を明示して表示範囲を絞れます。表示対象を限定すると、全グループ出力よりレビューしやすくなります。監査対象のグループだけを抜き出すときに有効です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP 構文**
+
+    - 検証目的: 置換判定の構文について、構文では、RACF の LISTGRP の後ろに表示したい groupid を並べます。複数のグループをまとめて確認したい場合も、対象名を明示して表示範囲を絞れます。表示対に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020084の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、置換判定の構文の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP 構文を指定し、OSKB020084の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP 構文
+    CASE OSKB020084
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP 構文
+    CASE OSKB020084
+    SOURCE RACF
+    ```
+
+    LISTGRP 構文とOSKB020084が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020084を同じ出力で読み、置換判定の構文の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020084
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020084 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP 構文 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020084が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP 構文 と OSKB020084 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020084 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > LISTGRP 表示制御
+
+### LISTGRP DFP/OMVS/OVM/TME/CSDATA {#c27-i0284}
+*分類: LISTGRP 表示制御*  ・  難易度: 中級
+
+DFP や OMVS などのセグメント指定は、RACF の LISTGRP で必要なグループセグメントを表示するために使います。監査や移行で特定セグメントだけを照合したい場合に、出力範囲を明確にできます。セグメント名は表示する情報の種類を選ぶ指定です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP DFP ・ OMVS ・ OVM ・ TME ・ CSDATA**
+
+    - 検証目的: 上書判定の・ ・ ・について、DFP や OMVS などのセグメント指定は、RACF の LISTGRP で必要なグループセグメントを表示するために使います。監査や移行で特定セグメントだけを照合したい場に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020087の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、上書判定の・ ・ ・の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP DFP ・ OMVSを指定し、OSKB020087の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP DFP ・ OMVS
+    CASE OSKB020087
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP DFP ・ OMVS
+    CASE OSKB020087
+    SOURCE RACF
+    ```
+
+    LISTGRP DFP ・ OMVSとOSKB020087が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020087を同じ出力で読み、上書判定の・ ・ ・の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020087
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020087 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP DFP ・ OMVS ・ OVM ・ TME INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020087が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP DFP ・ OMVS と OSKB020087 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020087 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTGRP NORACF {#c27-i0285}
+*分類: LISTGRP 表示制御*  ・  難易度: 中級
+
+BASE 部分を省く NORACF は、RACF の LISTGRP で指定した拡張セグメントを中心に確認したいときに使います。グループの基本属性ではなく、DFP や OMVS などの追加セグメントだけを見たいレビューで出力を絞れます。BASE 情報を消す操作ではなく、表示内容の選択です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP NORACF**
+
+    - 検証目的: 探索判定の表示制御について、BASE 部分を省く NORACF は、RACF の LISTGRP で指定した拡張セグメントを中心に確認したいときに使います。グループの基本属性ではなく、DFP や OMに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020086の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、探索判定の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP NORACFを指定し、OSKB020086の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP NORACF
+    CASE OSKB020086
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP NORACF
+    CASE OSKB020086
+    SOURCE RACF
+    ```
+
+    LISTGRP NORACFとOSKB020086が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020086を同じ出力で読み、探索判定の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020086
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020086 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP NORACF INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020086が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP NORACF と OSKB020086 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020086 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTGRP SUBGROUPS {#c27-i0286}
+*分類: LISTGRP 表示制御*  ・  難易度: 初級
+
+下位グループを確認する表示指定が、RACF の LISTGRP で使う SUBGROUPS です。グループ削除や階層変更の前に、残っている子グループを洗い出す用途で使います。利用者メンバの接続権限一覧とは確認対象が異なります。削除前の階層確認で読み落としを防ぎます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP SUBGROUPS**
+
+    - 検証目的: 出力判定の表示制御について、下位グループを確認する表示指定が、RACF の LISTGRP で使う SUBGROUPS です。グループ削除や階層変更の前に、残っている子グループを洗い出す用途で使いますに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020088の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、出力判定の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP SUBGROUPSを指定し、OSKB020088の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP SUBGROUPS
+    CASE OSKB020088
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP SUBGROUPS
+    CASE OSKB020088
+    SOURCE RACF
+    ```
+
+    LISTGRP SUBGROUPSとOSKB020088が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020088を同じ出力で読み、出力判定の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020088
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020088 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP SUBGROUPS INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020088が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP SUBGROUPS と OSKB020088 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020088 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### LISTGRP 出力 メンバ一覧 {#c27-i0287}
+*分類: LISTGRP 表示制御*  ・  難易度: 中級
+
+メンバ一覧には、RACF の LISTGRP 出力として、グループへ接続されている user ID とその AUTHORITY が表示されます。誰が通常利用者なのか、誰が接続管理までできるのかを読む材料になります。アクセスリストの PERMIT 情報とは別の、利用者とグループの接続情報です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **LISTGRP 出力 メンバ一覧**
+
+    - 検証目的: 条件判定の出力 メンバ一覧について、メンバ一覧には、RACF の LISTGRP 出力として、グループへ接続されている user ID とその AUTHORITY が表示されます。誰が通常利用者なのか、誰が接に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020089の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、条件判定の出力 メンバ一覧の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTGRP 出力 メンバ一覧を指定し、OSKB020089の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTGRP 出力 メンバ一覧
+    CASE OSKB020089
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTGRP 出力 メンバ一覧
+    CASE OSKB020089
+    SOURCE RACF
+    ```
+
+    LISTGRP 出力 メンバ一覧とOSKB020089が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020089を同じ出力で読み、条件判定の出力 メンバ一覧の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020089
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020089 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTGRP 出力 メンバ一覧 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020089が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTGRP 出力 メンバ一覧 と OSKB020089 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020089 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > LISTUSER 基本
+
+### LISTUSER とは {#c27-i0288}
+*分類: LISTUSER 基本*  ・  難易度: 初級
+
+表示コマンド導入の説明として、LISTUSER は RACF 利用者プロファイルの内容を表示するコマンドです。表示コマンド導入の説明として、BASE 情報、接続グループ、ログオン許可時間、前回アクセス、パスワード関連状態、必要に応じた拡張セグメントを確認できます。変更や削除の前後で、現状確認と作業結果確認に使う読み取り系の入口です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? note "検証手順（1件）"
+    **LISTUSER とは**
+
+    - 検証目的: 条件記録のとはについて、表示コマンド導入の説明として、LISTUSER は RACF 利用者プロファイルの内容を表示するコマンドです。表示コマンド導入の説明として、BASE 情報、接続グループ、ロに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030129の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、条件記録のとはの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER とはを指定し、OSKB030129の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER とは
+    CASE OSKB030129
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER とは
+    CASE OSKB030129
+    SOURCE RACF
+    ```
+
+    LISTUSER とはとOSKB030129が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030129を同じ出力で読み、条件記録のとはの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030129
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030129 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER とは INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030129が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER とは と OSKB030129 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030129 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER コマンドの用途 {#c27-i0289}
+*分類: LISTUSER 基本*  ・  難易度: 初級
+
+表示用途の説明として、LISTUSER は RACF 利用者プロファイルに登録されている情報を表示するコマンドです。短縮形 LU も使われます。所有者、既定グループ、REVOKE 状態、接続グループ、各種セグメントの有無を確認し、変更や削除の前提情報を集める入口になります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 置換確認のコマンドの用途に関する LISTUSER コマンドの用途の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず置換確認のコマンドの用途の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを置換確認のコマンドの用途の証跡として保存して根拠にする。
+    - C. LISTUSER コマンドの用途の変更点を出力本文から切り離して置換確認のコマンドの用途の承認欄のみ残す。
+    - D. 操作結果の本文、対象行、時刻を同じ証跡に入れ、置換確認の確認にする。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 置換確認のコマンドの用途において選択記号 D を採用し、識別名は置換確認です。置換確認のコマンドの用途において LISTUSER コマンドの用途 は説明欄の「LISTUSER コマンドの用途の状態と出力メッセージを結び付ける置換確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は置換確認です。置換確認のコマンドの用途に関する記録は、LISTUSER コマンドの用途の出力行と ICH35001I を一緒に保存し、背景名は置換確認です。選択肢ごとの違いを示します。 A: 置換確認のコマンドの用途は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため置換確認ではありません。 B: 置換確認のコマンドの用途は別カテゴリの確認を流用しており、LISTUSER コマンドの用途の根拠にならないため置換確認ではありません。 C: 置換確認のコマンドの用途は名称や説明のみに寄り、状態を示す出力本文が不足するため置換確認ではありません。 D: 置換確認のコマンドの用途は対象出力と項目説明を結び、根拠を残すので置換確認です。置換確認のコマンドの用途で記録する LISTUSER コマンドの用途は RACF の確認記録に残す対象名であり、用語名は置換確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER コマンドの用途**
+
+    - 検証目的: 条件照合のコマンドの用途について、表示用途の説明として、LISTUSER は RACF 利用者プロファイルに登録されている情報を表示するコマンドです。短縮形 LU も使われます。所有者、既定グループ、REVに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020029の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、条件照合のコマンドの用途の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER コマンドの用途を指定し、OSKB020029の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER コマンドの用途
+    CASE OSKB020029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER コマンドの用途
+    CASE OSKB020029
+    SOURCE RACF
+    ```
+
+    LISTUSER コマンドの用途とOSKB020029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020029を同じ出力で読み、条件照合のコマンドの用途の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020029 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER コマンドの用途 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020029が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER コマンドの用途 と OSKB020029 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020029 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER ワイルドカード * {#c27-i0290}
+*分類: LISTUSER 基本*  ・  難易度: 中級
+
+全体表示指定の説明として、LISTUSER * は、条件に合う利用者情報を広く表示する指定です。全利用者を対象にする運用では SPECIAL や AUDITOR など強い権限が必要になります。大量出力になりやすいため、監査や棚卸しの目的、保管先、閲覧範囲を決めてから実行します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? note "検証手順（1件）"
+    **LISTUSER ワイルドカード ***
+
+    - 検証目的: 優先照合のワイルドカード *について、全体表示指定の説明として、LISTUSER * は、条件に合う利用者情報を広く表示する指定です。全利用者を対象にする運用では SPECIAL や AUDITOR など強い権に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020032の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、優先照合のワイルドカード *の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER ワイルドカード *を指定し、OSKB020032の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER ワイルドカード *
+    CASE OSKB020032
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER ワイルドカード *
+    CASE OSKB020032
+    SOURCE RACF
+    ```
+
+    LISTUSER ワイルドカード *とOSKB020032が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020032を同じ出力で読み、優先照合のワイルドカード *の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020032
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020032 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER ワイルドカード * INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020032が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER ワイルドカード * と OSKB020032 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020032 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER 構文 {#c27-i0291}
+*分類: LISTUSER 基本*  ・  難易度: 中級
+
+表示構文の説明として、LISTUSER は userid を指定して対象利用者を表示します。複数の userid を並べて指定できる場面もあります。表示したいセグメントを TSO や OMVS などで追加し、BASE 情報を省きたい時は NORACF を組み合わせます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 終端確認の構文に関係する LISTUSER 構文の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. RACF の表示形式に沿って根拠行を採り、終端確認の点検結果を残す。 ✅
+    - B. LISTUSER 構文の名称と担当者名のみを残して終端確認の構文の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で終端確認の構文を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず終端確認の構文の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 終端確認の構文において選択記号 A を採用し、識別名は終端確認です。終端確認の構文において LISTUSER 構文 は説明欄の「LISTUSER 構文の用途をセキュリティ管理の表示で確認する終端確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は終端確認です。終端確認の構文に関連して、RACF では LISTUSER 構文の表示属性と ICH35001I を同じ証跡に残し、背景名は終端確認です。他の選択肢を確認します。 A: 終端確認の構文は対象出力と項目説明を結び、根拠を残すので終端確認です。 B: 終端確認の構文は名称や説明のみに寄り、状態を示す出力本文が不足するため終端確認ではありません。 C: 終端確認の構文は別カテゴリの確認を流用しており、LISTUSER 構文の根拠にならないため終端確認ではありません。 D: 終端確認の構文は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため終端確認ではありません。終端確認の構文で使う LISTUSER 構文という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は終端確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER 構文**
+
+    - 検証目的: 区切照合の構文について、表示構文の説明として、LISTUSER は userid を指定して対象利用者を表示します。複数の userid を並べて指定できる場面もあります。表示したいセグメントをに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020030の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、区切照合の構文の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER 構文を指定し、OSKB020030の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER 構文
+    CASE OSKB020030
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER 構文
+    CASE OSKB020030
+    SOURCE RACF
+    ```
+
+    LISTUSER 構文とOSKB020030が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020030を同じ出力で読み、区切照合の構文の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020030
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020030 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER 構文 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020030が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER 構文 と OSKB020030 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020030 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER 自分自身 {#c27-i0292}
+*分類: LISTUSER 基本*  ・  難易度: 初級
+
+自己表示の説明として、LISTUSER で userid を省略すると、自分自身の RACF 利用者情報を表示します。一般利用者が自分の属性や接続グループ、パスワード有効期間を確認する入口になります。管理者が他人の ID を確認する場合は、対象 userid を明示します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 探索確認の自分自身で LISTUSER 自分自身の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. LISTUSER 自分自身の出力を取らず探索確認の自分自身の説明文と承認印のみを残す。
+    - B. 対象の出力行とメッセージ接頭辞を同時に記録し、探索確認で再確認できる形にする。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して探索確認の自分自身の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索確認の自分自身へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 初級
+
+    **解説:** 探索確認の自分自身において選択記号 B を採用し、識別名は探索確認です。探索確認の自分自身において LISTUSER 自分自身 は説明欄の「探索確認の自分自身に関係する定義値と表示行を照合する探索確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認の自分自身の証跡を読む担当者は、LISTUSER 自分自身の属性行と ICH35001I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認の自分自身は名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認の自分自身は対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認の自分自身は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため探索確認ではありません。 D: 探索確認の自分自身は別カテゴリの確認を流用しており、LISTUSER 自分自身の根拠にならないため探索確認ではありません。探索確認の自分自身に出る LISTUSER 自分自身は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は探索確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER 自分自身**
+
+    - 検証目的: 範囲照合の自分自身について、自己表示の説明として、LISTUSER で userid を省略すると、自分自身の RACF 利用者情報を表示します。一般利用者が自分の属性や接続グループ、パスワード有効期に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020031の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、範囲照合の自分自身の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER 自分自身を指定し、OSKB020031の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER 自分自身
+    CASE OSKB020031
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER 自分自身
+    CASE OSKB020031
+    SOURCE RACF
+    ```
+
+    LISTUSER 自分自身とOSKB020031が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020031を同じ出力で読み、範囲照合の自分自身の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020031
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020031 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER 自分自身 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020031が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER 自分自身 と OSKB020031 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020031 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > LISTUSER 表示制御
+
+### LISTUSER CICS {#c27-i0293}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+CICS表示の説明として、CICS セグメントには、端末オペレータの OPCLASS、OPIDENT、OPPRTY、TIMEOUT などが定義されます。端末属性の点検で使う LISTUSER CICS は、CICS サインオン時に参照される属性を棚卸しする時の確認手段です。CICS表示の説明として、CICS を使う ID かどうかの判断材料にもなります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 範囲確認の表示制御でセキュリティ管理の運用確認を行います。LISTUSER CICS の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で範囲確認の表示制御を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず範囲確認の表示制御を正常終了として記録する。
+    - C. 出典欄の説明と運用出力を照合し、範囲確認の確認記録にまとめる。 ✅
+    - D. LISTUSER CICS の属性行を読まず範囲確認の表示制御の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 範囲確認の表示制御において選択記号 C を採用し、識別名は範囲確認です。範囲確認の表示制御において LISTUSER CICS は説明欄の「RACF で LISTUSER CICS の扱いを記録する範囲確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は範囲確認です。範囲確認の表示制御を受け取る担当者は、LISTUSER CICS の表示結果と ICH35001I を同じ確認単位として扱い、背景名は範囲確認です。不適切な選択肢を整理します。 A: 範囲確認の表示制御は別カテゴリの確認を流用しており、LISTUSER CICS の根拠にならないため範囲確認ではありません。 B: 範囲確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため範囲確認ではありません。 C: 範囲確認の表示制御は対象出力と項目説明を結び、根拠を残すので範囲確認です。 D: 範囲確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲確認ではありません。範囲確認の表示制御が示す LISTUSER CICS は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER CICS**
+
+    - 検証目的: 値域照合の表示制御について、CICS 表示の説明として、CICS セグメントには、端末オペレータの OPCLASS、OPIDENT、OPPRTY、TIMEOUT などが定義されます。端末属性の点検で使うに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020036の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、値域照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER CICSを指定し、OSKB020036の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER CICS
+    CASE OSKB020036
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER CICS
+    CASE OSKB020036
+    SOURCE RACF
+    ```
+
+    LISTUSER CICSとOSKB020036が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020036を同じ出力で読み、値域照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020036
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020036 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER CICS INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020036が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER CICS と OSKB020036 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020036 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER DFP {#c27-i0294}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+DFP表示の説明として、STORCLAS、MGMTCLAS、DATACLAS、DATAAPPL などの既定値を扱います。DFP表示の説明として、SMS属性の整理で使う LISTUSER DFP は、利用者がデータセットを作成する時にどの SMS クラスが効くか確認する入口です。ストレージ管理側のクラス定義と照合して読みます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 優先確認の表示制御に関する LISTUSER DFP の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず優先確認の表示制御の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先確認の表示制御の証跡として保存して根拠にする。
+    - C. LISTUSER DFP の変更点を出力本文から切り離して優先確認の表示制御の承認欄のみ残す。
+    - D. 属性行、戻り表示、メッセージ見出しを合わせて優先確認の根拠にする。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 優先確認の表示制御において選択記号 D を採用し、識別名は優先確認です。優先確認の表示制御において LISTUSER DFP は説明欄の「LISTUSER DFP の状態と出力メッセージを結び付ける優先確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は優先確認です。優先確認の表示制御に関する記録は、LISTUSER DFP の出力行と ICH35001I を一緒に保存し、背景名は優先確認です。選択肢ごとの違いを示します。 A: 優先確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため優先確認ではありません。 B: 優先確認の表示制御は別カテゴリの確認を流用しており、LISTUSER DFP の根拠にならないため優先確認ではありません。 C: 優先確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため優先確認ではありません。 D: 優先確認の表示制御は対象出力と項目説明を結び、根拠を残すので優先確認です。優先確認の表示制御で記録する LISTUSER DFP は RACF の確認記録に残す対象名であり、用語名は優先確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER DFP**
+
+    - 検証目的: 警告照合の表示制御について、DFP 表示の説明として、STORCLAS、MGMTCLAS、DATACLAS、DATAAPPL などの既定値を扱います。DFP 表示の説明として、SMS 属性の整理で使う LIに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020037の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、警告照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER DFPを指定し、OSKB020037の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER DFP
+    CASE OSKB020037
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER DFP
+    CASE OSKB020037
+    SOURCE RACF
+    ```
+
+    LISTUSER DFPとOSKB020037が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020037を同じ出力で読み、警告照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020037
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020037 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER DFP INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020037が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER DFP と OSKB020037 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020037 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER KERB/EIM/PROXY/LANGUAGE/MFA {#c27-i0295}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+外部ID連携属性の説明として、LISTUSER は KERB、EIM、PROXY、LANGUAGE、MFA などのセグメントも指定して表示できます。Kerberos principal、EIM の LDAP プロファイル参照、LDAP バインド情報、言語設定、多要素認証情報などを目的別に確認します。セグメントごとに表示権限や出力項目が異なる点に注意します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 構文照合保守の構文照合として LISTUSER を確認するとき、後続担当者へ残すべき証跡はどれですか。
+
+    - A. 名称と担当者名を保存して表示本文を確認しない。
+    - B. 別分類の結果を流用して同じ証跡として扱う。
+    - C. 構文照合の確認結果を出典名と表示本文に結び付ける。 ✅
+    - D. 戻り値と時刻を主な根拠にして表示行を読まない。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 正解はCです。構文照合保守で扱う LISTUSER は RACF USER/GROUP/DATASET の確認対象です（構文照合保守用語）。構文照合保守の担当者は構文照合として、表示本文とメッセージを照合します（構文照合保守照合）。構文照合保守の対応を残すと、後続担当者は同じ出典に戻って確認できます（構文照合保守出典）。A: 構文照合保守で表示とメッセージを結ぶ場合に根拠になります（構文照合保守A）。B: 構文照合保守で定義と出力の関係がない場合は追跡できません（構文照合保守B）。C: 構文照合保守で出典名のみでは実際の表示を説明できません（構文照合保守C）。D: 構文照合保守で操作記録のみでは値や状態の確認が不足します（構文照合保守D）。構文照合保守の初出用語として LISTUSER を扱い、分類内の確認名として保存します（構文照合保守終点）。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER NETVIEW {#c27-i0296}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+NetView セグメントには、IC、CONSNAME、CTL、MSGRECVR、OPCLASS、DOMAINS、NGMFADMN などがあります。運用範囲の照合で使う LISTUSER NETVIEW は、ネットワーク運用 ID の操作範囲や初期情報を棚卸しする時に使います。過剰なドメイン権限が残っていないかも確認します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 記録確認の表示制御に関係する LISTUSER NETVIEW の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 同じ画面で対象行と ICH35001I を読み、記録確認の結果として保存する。 ✅
+    - B. LISTUSER NETVIEW の名称と担当者名のみを残して記録確認の表示制御の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で記録確認の表示制御を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず記録確認の表示制御の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 記録確認の表示制御において選択記号 A を採用し、識別名は記録確認です。記録確認の表示制御において LISTUSER NETVIEW は説明欄の「LISTUSER NETVIEW の用途をセキュリティ管理の表示で確認する記録確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は記録確認です。記録確認の表示制御に関連して、RACF では LISTUSER NETVIEW の表示属性と ICH35001I を同じ証跡に残し、背景名は記録確認です。他の選択肢を確認します。 A: 記録確認の表示制御は対象出力と項目説明を結び、根拠を残すので記録確認です。 B: 記録確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため記録確認ではありません。 C: 記録確認の表示制御は別カテゴリの確認を流用しており、LISTUSER NETVIEW の根拠にならないため記録確認ではありません。 D: 記録確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため記録確認ではありません。記録確認の表示制御で使う LISTUSER NETVIEW という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は記録確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER NETVIEW**
+
+    - 検証目的: 復旧照合の表示制御について、NetView セグメントには、IC、CONSNAME、CTL、MSGRECVR、OPCLASS、DOMAINS、NGMFADMN などがあります。運用範囲の照合で使う Lに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020038の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、復旧照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER NETVIEWを指定し、OSKB020038の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER NETVIEW
+    CASE OSKB020038
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER NETVIEW
+    CASE OSKB020038
+    SOURCE RACF
+    ```
+
+    LISTUSER NETVIEWとOSKB020038が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020038を同じ出力で読み、復旧照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020038
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020038 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER NETVIEW INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020038が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER NETVIEW と OSKB020038 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020038 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER NORACF {#c27-i0297}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+表示制御の照合で使う LISTUSER NORACF は、RACF BASE セグメントの表示を抑え、指定した拡張セグメントだけを見たい時に使います。たとえば LISTUSER userid OMVS NORACF のように、OMVS 情報だけを確認する場面で有効です。基本表示抑止の説明として、MFA などとの組み合わせの扱いに注意します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 出力確認の表示制御に関する LISTUSER NORACF の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず出力確認の表示制御の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを出力確認の表示制御の証跡として保存して根拠にする。
+    - C. LISTUSER NORACF の変更点を出力本文から切り離して出力確認の表示制御の承認欄のみ残す。
+    - D. 参照資料名、表示行、メッセージをそろえて出力確認の根拠を固定する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 出力確認の表示制御において選択記号 D を採用し、識別名は出力確認です。出力確認の表示制御において LISTUSER NORACF は説明欄の「LISTUSER NORACF の状態と出力メッセージを結び付ける出力確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は出力確認です。出力確認の表示制御に関する記録は、LISTUSER NORACF の出力行と ICH35001I を一緒に保存し、背景名は出力確認です。選択肢ごとの違いを示します。 A: 出力確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため出力確認ではありません。 B: 出力確認の表示制御は別カテゴリの確認を流用しており、LISTUSER NORACF の根拠にならないため出力確認ではありません。 C: 出力確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため出力確認ではありません。 D: 出力確認の表示制御は対象出力と項目説明を結び、根拠を残すので出力確認です。出力確認の表示制御で記録する LISTUSER NORACF は RACF の確認記録に残す対象名であり、用語名は出力確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER NORACF**
+
+    - 検証目的: 記録照合の表示制御について、表示制御の照合で使う LISTUSER NORACF は、RACF BASE セグメントの表示を抑え、指定した拡張セグメントだけを見たい時に使います。たとえば LISTUSに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020033の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、記録照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER NORACFを指定し、OSKB020033の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER NORACF
+    CASE OSKB020033
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER NORACF
+    CASE OSKB020033
+    SOURCE RACF
+    ```
+
+    LISTUSER NORACFとOSKB020033が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020033を同じ出力で読み、記録照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020033
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020033 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER NORACF INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020033が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER NORACF と OSKB020033 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020033 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER OMVS {#c27-i0298}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+UNIX表示の説明として、OMVS セグメントには、UID、HOME、PROGRAM、各種 z/OS UNIX 制限値などがあります。UNIX表示の説明として、LISTUSER OMVS で RACF 側の定義を読み、UNIX 側のファイル所有者やホームディレクトリ実体と突き合わせます。影響範囲の確認が重要です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 区切確認の表示制御で LISTUSER OMVS の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. LISTUSER OMVS の出力を取らず区切確認の表示制御の説明文と承認印のみを残す。
+    - B. LISTDSD DATASET('OSKBDATA') ALL の結果から対象行を抜き出し、区切確認の証跡として残す。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して区切確認の表示制御の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を区切確認の表示制御へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 区切確認の表示制御において選択記号 B を採用し、識別名は区切確認です。区切確認の表示制御において LISTUSER OMVS は説明欄の「区切確認の表示制御に関係する定義値と表示行を照合する区切確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は区切確認です。区切確認の表示制御の証跡を読む担当者は、LISTUSER OMVS の属性行と ICH35001I を合わせて追跡し、背景名は区切確認です。誤答側の問題点を分けます。 A: 区切確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため区切確認ではありません。 B: 区切確認の表示制御は対象出力と項目説明を結び、根拠を残すので区切確認です。 C: 区切確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため区切確認ではありません。 D: 区切確認の表示制御は別カテゴリの確認を流用しており、LISTUSER OMVS の根拠にならないため区切確認ではありません。区切確認の表示制御に出る LISTUSER OMVS は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は区切確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER OMVS**
+
+    - 検証目的: 順序照合の表示制御について、UNIX 表示の説明として、OMVS セグメントには、UID、HOME、PROGRAM、各種 z/OS UNIX 制限値などがあります。UNIX 表示の説明として、LISTUSに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020035の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、順序照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER OMVSを指定し、OSKB020035の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER OMVS
+    CASE OSKB020035
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER OMVS
+    CASE OSKB020035
+    SOURCE RACF
+    ```
+
+    LISTUSER OMVSとOSKB020035が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020035を同じ出力で読み、順序照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020035
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020035 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER OMVS INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020035が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER OMVS と OSKB020035 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020035 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER OVM/NDS/DCE {#c27-i0299}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+仮想環境連携属性の説明として、LISTUSER は OVM、NDS、DCE セグメントも表示できます。仮想環境連携属性の説明として、OVM の UNIX 系属性、NDS の外部利用者名、DCE principal や UUID、home cell など、古い連携や分散 ID に関わる情報を確認します。現在使っている機能かどうかも合わせて棚卸しします
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 展開照合権限の展開照合として LISTUSER を確認するとき、後続担当者へ残すべき証跡はどれですか。
+
+    - A. 別分類の結果を流用して同じ証跡として扱う。
+    - B. 戻り値と時刻を主な根拠にして表示行を読まない。
+    - C. 承認欄の記入を優先して出力メッセージを保存しない。
+    - D. 展開照合の操作記録とメッセージを対応させて残す。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 正解はDです。展開照合権限で扱う LISTUSER は RACF USER/GROUP/DATASET の確認対象です（展開照合権限用語）。展開照合権限の担当者は展開照合として、表示本文とメッセージを照合します（展開照合権限照合）。展開照合権限の対応を残すと、後続担当者は同じ出典に戻って確認できます（展開照合権限出典）。A: 展開照合権限で表示とメッセージを結ぶ場合に根拠になります（展開照合権限A）。B: 展開照合権限で定義と出力の関係がない場合は追跡できません（展開照合権限B）。C: 展開照合権限で出典名のみでは実際の表示を説明できません（展開照合権限C）。D: 展開照合権限で操作記録のみでは値や状態の確認が不足します（展開照合権限D）。展開照合権限の初出用語として LISTUSER を扱い、分類内の確認名として保存します（展開照合権限終点）。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER OVM ・ NDS ・ DCE**
+
+    - 検証目的: 構文追跡の・ ・について、仮想環境連携属性の説明として、LISTUSER は OVM、NDS、DCE セグメントも表示できます。仮想環境連携属性の説明として、OVM の UNIX 系属性、NDS のに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020041の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、構文追跡の・ ・の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER OVM ・ NDSを指定し、OSKB020041の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER OVM ・ NDS
+    CASE OSKB020041
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER OVM ・ NDS
+    CASE OSKB020041
+    SOURCE RACF
+    ```
+
+    LISTUSER OVM ・ NDSとOSKB020041が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020041を同じ出力で読み、構文追跡の・ ・の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020041
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020041 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER OVM ・ NDS ・ DCE INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020041が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER OVM ・ NDS と OSKB020041 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020041 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER PWD INTERVAL {#c27-i0300}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+期限間隔の説明として、LISTUSER の PASS-INTERVAL 表示には、パスワードやパスフレーズが有効な日数が示されます。システム側の規則が優先される場合もあります。ただし利用者プロファイル側の期限管理を確認する入口になり、期限切れ問い合わせでは PASSDATE と合わせて読みます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 監査確認の表示制御でセキュリティ管理の運用確認を行います。LISTUSER PWD INTERVAL の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で監査確認の表示制御を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず監査確認の表示制御を正常終了として記録する。
+    - C. 机上確認でも実出力の見出しに合わせ、監査確認の確認値として扱う。 ✅
+    - D. LISTUSER PWD INTERVAL の属性行を読まず監査確認の表示制御の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 監査確認の表示制御において選択記号 C を採用し、識別名は監査確認です。監査確認の表示制御において LISTUSER PWD INTERVAL は説明欄の「RACF で LISTUSER PWD INTERVAL の扱いを記録する監査確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認の表示制御を受け取る担当者は、LISTUSER PWD INTERVAL の表示結果と ICH35001I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認の表示制御は別カテゴリの確認を流用しており、LISTUSER PWD INTERVAL の根拠にならないため監査確認ではありません。 B: 監査確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため監査確認ではありません。 C: 監査確認の表示制御は対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認の表示制御が示す LISTUSER PWD INTERVAL は出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER PWD INTERVAL**
+
+    - 検証目的: 置換追跡の表示制御について、期限間隔の説明として、LISTUSER の PASS-INTERVAL 表示には、パスワードやパスフレーズが有効な日数が示されます。システム側の規則が優先される場合もありまに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020044の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、置換追跡の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER PWD INTERを指定し、OSKB020044の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER PWD INTER
+    CASE OSKB020044
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER PWD INTER
+    CASE OSKB020044
+    SOURCE RACF
+    ```
+
+    LISTUSER PWD INTERとOSKB020044が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020044を同じ出力で読み、置換追跡の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020044
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020044 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER PWD INTERVAL INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020044が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER PWD INTER と OSKB020044 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020044 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER TSO {#c27-i0301}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+TSO表示の説明として、TSO セグメントには、ログオンプロシージャ、アカウント番号、SYSOUT 関連クラスなどが入ります。ログオン属性の設計で使う LISTUSER TSO は、利用者が TSO に入る時の既定値を確認する場面で使います。TSO表示の説明として、NORACF を組み合わせると、BASE 情報を抑えて TSO 関連値を読みやすくできます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 条件確認の表示制御に関係する LISTUSER TSO の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. ICH35001I を含む表示を保存し、説明欄との差分を条件確認で確認する。 ✅
+    - B. LISTUSER TSO の名称と担当者名のみを残して条件確認の表示制御の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で条件確認の表示制御を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず条件確認の表示制御の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 条件確認の表示制御において選択記号 A を採用し、識別名は条件確認です。条件確認の表示制御において LISTUSER TSO は説明欄の「LISTUSER TSO の用途をセキュリティ管理の表示で確認する条件確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は条件確認です。条件確認の表示制御に関連して、RACF では LISTUSER TSO の表示属性と ICH35001I を同じ証跡に残し、背景名は条件確認です。他の選択肢を確認します。 A: 条件確認の表示制御は対象出力と項目説明を結び、根拠を残すので条件確認です。 B: 条件確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため条件確認ではありません。 C: 条件確認の表示制御は別カテゴリの確認を流用しており、LISTUSER TSO の根拠にならないため条件確認ではありません。 D: 条件確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため条件確認ではありません。条件確認の表示制御で使う LISTUSER TSO という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は条件確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER TSO**
+
+    - 検証目的: 比較照合の表示制御について、TSO 表示の説明として、TSO セグメントには、ログオンプロシージャ、アカウント番号、SYSOUT 関連クラスなどが入ります。ログオン属性の設計で使う LISTUSER Tに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020034の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、比較照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER TSOを指定し、OSKB020034の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER TSO
+    CASE OSKB020034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER TSO
+    CASE OSKB020034
+    SOURCE RACF
+    ```
+
+    LISTUSER TSOとOSKB020034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020034を同じ出力で読み、比較照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020034 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER TSO INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020034が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER TSO と OSKB020034 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020034 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER WORKATTR {#c27-i0302}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+作業属性の説明として、WORKATTR セグメントには、WANAME、住所、部署、会計番号、メールアドレスなどの作業属性が入ります。作業属性の確認で使う LISTUSER WORKATTR は、APPC/MVS や SYSOUT 配送で参照される値を確認する時に使います。人事情報そのものではなく、処理が使う属性として扱います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 比較確認の表示制御で LISTUSER WORKATTR の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. LISTUSER WORKATTR の出力を取らず比較確認の表示制御の説明文と承認印のみを残す。
+    - B. LISTDSD DATASET('OSKBDATA') ALL で得た表示本文を使い、比較確認の採否を説明欄に結び付ける。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して比較確認の表示制御の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を比較確認の表示制御へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 比較確認の表示制御において選択記号 B を採用し、識別名は比較確認です。比較確認の表示制御において LISTUSER WORKATTR は説明欄の「比較確認の表示制御に関係する定義値と表示行を照合する比較確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は比較確認です。比較確認の表示制御の証跡を読む担当者は、LISTUSER WORKATTR の属性行と ICH35001I を合わせて追跡し、背景名は比較確認です。誤答側の問題点を分けます。 A: 比較確認の表示制御は名称や説明のみに寄り、状態を示す出力本文が不足するため比較確認ではありません。 B: 比較確認の表示制御は対象出力と項目説明を結び、根拠を残すので比較確認です。 C: 比較確認の表示制御は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため比較確認ではありません。 D: 比較確認の表示制御は別カテゴリの確認を流用しており、LISTUSER WORKATTR の根拠にならないため比較確認ではありません。比較確認の表示制御に出る LISTUSER WORKATTR は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は比較確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER WORKATTR**
+
+    - 検証目的: 監査照合の表示制御について、作業属性の説明として、WORKATTR セグメントには、WANAME、住所、部署、会計番号、メールアドレスなどの作業属性が入ります。作業属性の確認で使う LISTUSERに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020039の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、監査照合の表示制御の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER WORKATTRを指定し、OSKB020039の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER WORKATTR
+    CASE OSKB020039
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER WORKATTR
+    CASE OSKB020039
+    SOURCE RACF
+    ```
+
+    LISTUSER WORKATTRとOSKB020039が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020039を同じ出力で読み、監査照合の表示制御の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020039
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020039 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER WORKATTR INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020039が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER WORKATTR と OSKB020039 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020039 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER 出力 LAST-ACCESS {#c27-i0303}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+最終アクセス表示の説明として、LISTUSER の LAST-ACCESS 表示には、利用者が前回ログオンまたはシステムアクセスした日時が示されます。休眠 ID の棚卸し、削除候補の判断、利用実績の確認に使えます。ただし最後の時刻だけで削除を決めず、バッチ ID や連携 ID の用途も合わせて確認します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 復旧確認の出力で LISTUSER 出力 LAST-ACCESS の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. LISTUSER 出力 LAST-ACCESS の出力を取らず復旧確認の出力の説明文と承認印のみを残す。
+    - B. 対象の出力行とメッセージ接頭辞を同時に記録し、復旧確認で再確認できる形にする。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して復旧確認の出力の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を復旧確認の出力へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 復旧確認の出力において選択記号 B を採用し、識別名は復旧確認です。復旧確認の出力において LISTUSER 出力 LAST-ACCESS は説明欄の「復旧確認の出力に関係する定義値と表示行を照合する復旧確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は復旧確認です。復旧確認の出力の証跡を読む担当者は、LISTUSER 出力 LAST-ACCESS の属性行と ICH35001I を合わせて追跡し、背景名は復旧確認です。誤答側の問題点を分けます。 A: 復旧確認の出力は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧確認ではありません。 B: 復旧確認の出力は対象出力と項目説明を結び、根拠を残すので復旧確認です。 C: 復旧確認の出力は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため復旧確認ではありません。 D: 復旧確認の出力は別カテゴリの確認を流用しており、LISTUSER 出力 LAST-ACCESS の根拠にならないため復旧確認ではありません。復旧確認の出力に出る LISTUSER 出力 LAST-ACCESS は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は復旧確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER 出力 LAST-ACCESS**
+
+    - 検証目的: 呼出追跡の出力について、最終アクセス表示の説明として、LISTUSER の LAST-ACCESS 表示には、利用者が前回ログオンまたはシステムアクセスした日時が示されます。休眠 ID の棚卸し、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020043の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、呼出追跡の出力の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER 出力 LAST-Aを指定し、OSKB020043の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER 出力 LAST-A
+    CASE OSKB020043
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER 出力 LAST-A
+    CASE OSKB020043
+    SOURCE RACF
+    ```
+
+    LISTUSER 出力 LAST-AとOSKB020043が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020043を同じ出力で読み、呼出追跡の出力の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020043
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020043 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER 出力 LAST-ACCESS INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020043が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER 出力 LAST-A と OSKB020043 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020043 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### LISTUSER 表示パスワード {#c27-i0304}
+*分類: LISTUSER 表示制御*  ・  難易度: 中級
+
+パスワード表示制限の説明として、LISTUSER は パスワードの平文値を表示しません。出力項目として PASSDATE、PASS-INTERVAL、PASSWORD ENVELOPED など、状態や管理情報が表示されます。監査や問い合わせの場面で、パスワードそのものではなく状態を確認するコマンドとして扱います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 警告確認の表示パスワードに関係する LISTUSER 表示パスワードの設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. RACF の表示形式に沿って根拠行を採り、警告確認の点検結果を残す。 ✅
+    - B. LISTUSER 表示パスワードの名称と担当者名のみを残して警告確認の表示パスワードの表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で警告確認の表示パスワードを確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず警告確認の表示パスワードの戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 警告確認の表示パスワードにおいて選択記号 A を採用し、識別名は警告確認です。警告確認の表示パスワードにおいて LISTUSER 表示パスワード は説明欄の「LISTUSER 表示パスワードの用途をセキュリティ管理の表示で確認する警告確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は警告確認です。警告確認の表示パスワードに関連して、RACF では LISTUSER 表示パスワードの表示属性と ICH35001I を同じ証跡に残し、背景名は警告確認です。他の選択肢を確認します。 A: 警告確認の表示パスワードは対象出力と項目説明を結び、根拠を残すので警告確認です。 B: 警告確認の表示パスワードは名称や説明のみに寄り、状態を示す出力本文が不足するため警告確認ではありません。 C: 警告確認の表示パスワードは別カテゴリの確認を流用しており、LISTUSER 表示パスワードの根拠にならないため警告確認ではありません。 D: 警告確認の表示パスワードは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため警告確認ではありません。警告確認の表示パスワードで使う LISTUSER 表示パスワードという用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は警告確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **LISTUSER 表示パスワード**
+
+    - 検証目的: 展開追跡の表示パスワードについて、パスワード表示制限の説明として、LISTUSER は パスワードの平文値を表示しません。出力項目として PASSDATE、PASS-INTERVAL、PASSWORD ENに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020042の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、展開追跡の表示パスワードの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にLISTUSER 表示パスワードを指定し、OSKB020042の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND LISTUSER 表示パスワード
+    CASE OSKB020042
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM LISTUSER 表示パスワード
+    CASE OSKB020042
+    SOURCE RACF
+    ```
+
+    LISTUSER 表示パスワードとOSKB020042が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020042を同じ出力で読み、展開追跡の表示パスワードの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020042
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020042 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I LISTUSER 表示パスワード INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020042が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の LISTUSER 表示パスワード と OSKB020042 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020042 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > PASSWORD コマンド
+
+### PASSWORD EXPIRED 動作 {#c27-i0305}
+*分類: PASSWORD コマンド*  ・  難易度: 中級
+
+次回変更の確認で使う PASSWORD EXPIRED は、指定したパスワードやパスフレーズ、または既存の認証情報を次回ログオン時に変更させる状態へ置く指定です。管理者が初期値を配布した後、利用者自身に変更させる運用で使われます。パスワード操作の説明として、NOEXPIRED は この次回変更要求を不要にする対の指定です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 上書照合の動作でセキュリティ管理の運用確認を行います。PASSWORD EXPIRED 動作の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で上書照合の動作を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず上書照合の動作を正常終了として記録する。
+    - C. 資料上の説明と画面上の表示行を突き合わせ、上書照合として引き継ぐ。 ✅
+    - D. PASSWORD EXPIRED 動作の属性行を読まず上書照合の動作の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 上書照合の動作において選択記号 C を採用し、識別名は上書照合です。上書照合の動作において PASSWORD EXPIRED 動作 は説明欄の「RACF で PASSWORD EXPIRED 動作の扱いを記録する上書照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合の動作を受け取る担当者は、PASSWORD EXPIRED 動作の表示結果と ICH35001I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合の動作は別カテゴリの確認を流用しており、PASSWORD EXPIRED 動作の根拠にならないため上書照合ではありません。 B: 上書照合の動作は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため上書照合ではありません。 C: 上書照合の動作は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合の動作は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合の動作が示す PASSWORD EXPIRED 動作は出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PASSWORD EXPIRED 動作**
+
+    - 検証目的: 優先追跡の動作について、次回変更の確認で使う PASSWORD EXPIRED は、指定したパスワードやパスフレーズ、または既存の認証情報を次回ログオン時に変更させる状態へ置く指定です。管理者が初に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020052の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、優先追跡の動作の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD EXPIRED 動を指定し、OSKB020052の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD EXPIRED 動
+    CASE OSKB020052
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD EXPIRED 動
+    CASE OSKB020052
+    SOURCE RACF
+    ```
+
+    PASSWORD EXPIRED 動とOSKB020052が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020052を同じ出力で読み、優先追跡の動作の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020052
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020052 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD EXPIRED 動作 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020052が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD EXPIRED 動 と OSKB020052 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020052 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD INTERVAL(n) {#c27-i0306}
+*分類: PASSWORD コマンド*  ・  難易度: 中級
+
+期限間隔の説明として、PASSWORD INTERVAL(n) は、パスワードやパスフレーズの有効期間を日数で設定します。管理者が USER 指定と組み合わせて他利用者の期限を扱う場合は、SPECIAL や group-SPECIAL などの権限が必要です。システム側のポリシーが優先される場合もあります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 呼出照合のコマンドでセキュリティ管理の運用確認を行います。PASSWORD INTERVAL(n)の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で呼出照合のコマンドを確認した扱いにする。
+    - B. ICH35001I の有無を確認せず呼出照合のコマンドを正常終了として記録する。
+    - C. 出典欄の説明と運用出力を照合し、呼出照合の確認記録にまとめる。 ✅
+    - D. PASSWORD INTERVAL(n)の属性行を読まず呼出照合のコマンドの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 呼出照合のコマンドにおいて選択記号 C を採用し、識別名は呼出照合です。呼出照合のコマンドにおいて PASSWORD INTERVAL(n) は説明欄の「RACF で PASSWORD INTERVAL(n)の扱いを記録する呼出照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は呼出照合です。呼出照合のコマンドを受け取る担当者は、PASSWORD INTERVAL(n)の表示結果と ICH35001I を同じ確認単位として扱い、背景名は呼出照合です。不適切な選択肢を整理します。 A: 呼出照合のコマンドは別カテゴリの確認を流用しており、PASSWORD INTERVAL(n)の根拠にならないため呼出照合ではありません。 B: 呼出照合のコマンドは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため呼出照合ではありません。 C: 呼出照合のコマンドは対象出力と項目説明を結び、根拠を残すので呼出照合です。 D: 呼出照合のコマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため呼出照合ではありません。呼出照合のコマンドが示す PASSWORD INTERVAL(n)は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PASSWORD INTERVAL(n)**
+
+    - 検証目的: 出力追跡のコマンドについて、期限間隔の説明として、PASSWORD INTERVAL(n) は、パスワードやパスフレーズの有効期間を日数で設定します。管理者が USER 指定と組み合わせて他利用者の期に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020048の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、出力追跡のコマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD INTERVAL(を指定し、OSKB020048の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD INTERVAL(
+    CASE OSKB020048
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD INTERVAL(
+    CASE OSKB020048
+    SOURCE RACF
+    ```
+
+    PASSWORD INTERVAL(とOSKB020048が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020048を同じ出力で読み、出力追跡のコマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020048
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020048 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD INTERVAL(n) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020048が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD INTERVAL( と OSKB020048 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020048 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD NOINTERVAL {#c27-i0307}
+*分類: PASSWORD コマンド*  ・  難易度: 中級
+
+期限管理の点検で使う PASSWORD NOINTERVAL は、パスワードやパスフレーズを期限切れにしない指定です。期限間隔の説明として、USER 指定で他利用者へ適用する場合、SPECIAL や対象範囲の group-SPECIAL などの権限が必要です。無期限化にはリスクがあるため、処理用 ID など理由が明確な場合に限定します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 置換照合のコマンドに関する PASSWORD NOINTERVAL の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず置換照合のコマンドの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを置換照合のコマンドの証跡として保存して根拠にする。
+    - C. PASSWORD NOINTERVAL の変更点を出力本文から切り離して置換照合のコマンドの承認欄のみ残す。
+    - D. 属性行、戻り表示、メッセージ見出しを合わせて置換照合の根拠にする。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 置換照合のコマンドにおいて選択記号 D を採用し、識別名は置換照合です。置換照合のコマンドにおいて PASSWORD NOINTERVAL は説明欄の「PASSWORD NOINTERVAL の状態と出力メッセージを結び付ける置換照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合のコマンドに関する記録は、PASSWORD NOINTERVAL の出力行と ICH35001I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合のコマンドは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため置換照合ではありません。 B: 置換照合のコマンドは別カテゴリの確認を流用しており、PASSWORD NOINTERVAL の根拠にならないため置換照合ではありません。 C: 置換照合のコマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合のコマンドは対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合のコマンドで記録する PASSWORD NOINTERVAL は RACF の確認記録に残す対象名であり、用語名は置換照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PASSWORD NOINTERVAL**
+
+    - 検証目的: 条件追跡のコマンドについて、期限管理の点検で使う PASSWORD NOINTERVAL は、パスワードやパスフレーズを期限切れにしない指定です。期限間隔の説明として、USER 指定で他利用者へ適用すに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020049の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、条件追跡のコマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD NOINTERVAを指定し、OSKB020049の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD NOINTERVA
+    CASE OSKB020049
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD NOINTERVA
+    CASE OSKB020049
+    SOURCE RACF
+    ```
+
+    PASSWORD NOINTERVAとOSKB020049が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020049を同じ出力で読み、条件追跡のコマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020049
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020049 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD NOINTERVAL INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020049が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD NOINTERVA と OSKB020049 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020049 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD USER(uid) {#c27-i0308}
+*分類: PASSWORD コマンド*  ・  難易度: 中級
+
+パスワード操作の説明として、PASSWORD USER(uid) は、管理者が他利用者を対象に PASSWORD 関連操作を行う時に使います。パスワード操作の説明として、USER を PASSWORD や PHRASE と同時に指定すると、組み合わせによっては無視される指定があります。パスワード操作の説明として、INTERVAL や NOINTERVAL のような期限管理と組み合わせる意図を確認し、権限は SPECIAL や group-SPECIAL で判断します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 終端照合のコマンドに関係する PASSWORD USER(uid)の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 同じ画面で対象行と ICH35001I を読み、終端照合の結果として保存する。 ✅
+    - B. PASSWORD USER(uid)の名称と担当者名のみを残して終端照合のコマンドの表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で終端照合のコマンドを確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず終端照合のコマンドの戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 終端照合のコマンドにおいて選択記号 A を採用し、識別名は終端照合です。終端照合のコマンドにおいて PASSWORD USER(uid) は説明欄の「PASSWORD USER(uid)の用途をセキュリティ管理の表示で確認する終端照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は終端照合です。終端照合のコマンドに関連して、RACF では PASSWORD USER(uid)の表示属性と ICH35001I を同じ証跡に残し、背景名は終端照合です。他の選択肢を確認します。 A: 終端照合のコマンドは対象出力と項目説明を結び、根拠を残すので終端照合です。 B: 終端照合のコマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため終端照合ではありません。 C: 終端照合のコマンドは別カテゴリの確認を流用しており、PASSWORD USER(uid)の根拠にならないため終端照合ではありません。 D: 終端照合のコマンドは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため終端照合ではありません。終端照合のコマンドで使う PASSWORD USER(uid)という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は終端照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PASSWORD USER(uid)**
+
+    - 検証目的: 区切追跡のコマンドについて、パスワード操作の説明として、PASSWORD USER(uid) は、管理者が他利用者を対象に PASSWORD 関連操作を行う時に使います。パスワード操作の説明として、Uに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020050の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、区切追跡のコマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD USER(uid)を指定し、OSKB020050の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD USER(uid)
+    CASE OSKB020050
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD USER(uid)
+    CASE OSKB020050
+    SOURCE RACF
+    ```
+
+    PASSWORD USER(uid)とOSKB020050が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020050を同じ出力で読み、区切追跡のコマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020050
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020050 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD USER(uid) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020050が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD USER(uid) と OSKB020050 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020050 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD の用途 {#c27-i0309}
+*分類: PASSWORD コマンド*  ・  難易度: 初級
+
+パスワード操作の説明として、PASSWORD は RACF 利用者が自分のパスワードやパスフレーズを変更するためのコマンドです。管理権限がある場合は USER 指定と組み合わせて、他利用者の期限管理なども扱えます。変更後の値は RACF の規則や導入環境の出口で検査されます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 変更確認のの用途に関する PASSWORD の用途の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず変更確認のの用途の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更確認のの用途の証跡として保存して根拠にする。
+    - C. PASSWORD の用途の変更点を出力本文から切り離して変更確認のの用途の承認欄のみ残す。
+    - D. 参照資料名、表示行、メッセージをそろえて変更確認の根拠を固定する。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 変更確認のの用途において選択記号 D を採用し、識別名は変更確認です。変更確認のの用途において PASSWORD の用途 は説明欄の「PASSWORD の用途の状態と出力メッセージを結び付ける変更確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は変更確認です。変更確認のの用途に関する記録は、PASSWORD の用途の出力行と ICH35001I を一緒に保存し、背景名は変更確認です。選択肢ごとの違いを示します。 A: 変更確認のの用途は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため変更確認ではありません。 B: 変更確認のの用途は別カテゴリの確認を流用しており、PASSWORD の用途の根拠にならないため変更確認ではありません。 C: 変更確認のの用途は名称や説明のみに寄り、状態を示す出力本文が不足するため変更確認ではありません。 D: 変更確認のの用途は対象出力と項目説明を結び、根拠を残すので変更確認です。変更確認のの用途で記録する PASSWORD の用途は RACF の確認記録に残す対象名であり、用語名は変更確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PASSWORD の用途**
+
+    - 検証目的: 終端追跡のの用途について、パスワード操作の説明として、PASSWORD は RACF 利用者が自分のパスワードやパスフレーズを変更するためのコマンドです。管理権限がある場合は USER 指定と組み合に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020045の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、終端追跡のの用途の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD の用途を指定し、OSKB020045の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD の用途
+    CASE OSKB020045
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD の用途
+    CASE OSKB020045
+    SOURCE RACF
+    ```
+
+    PASSWORD の用途とOSKB020045が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020045を同じ出力で読み、終端追跡のの用途の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020045
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020045 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD の用途 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020045が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD の用途 と OSKB020045 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020045 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD コマンドとは {#c27-i0310}
+*分類: PASSWORD コマンド*  ・  難易度: 初級
+
+パスワード操作の説明として、PASSWORD は RACF 利用者のパスワードまたはパスフレーズを変更し、必要に応じて有効期間を設定するコマンドです。通常は TSO READY などから利用者本人が使います。一方、USER 指定では権限を持つ管理者が他利用者の期限管理を扱う場面もあります。機密値を入力するため、表示やログに残る経路へ注意します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? note "検証手順（1件）"
+    **PASSWORD コマンドとは**
+
+    - 検証目的: 区切記録のコマンドとはについて、パスワード操作の説明として、PASSWORD は RACF 利用者のパスワードまたはパスフレーズを変更し、必要に応じて有効期間を設定するコマンドです。通常は TSO REAに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030130の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、区切記録のコマンドとはの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD コマンドとはを指定し、OSKB030130の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD コマンドとは
+    CASE OSKB030130
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD コマンドとは
+    CASE OSKB030130
+    SOURCE RACF
+    ```
+
+    PASSWORD コマンドとはとOSKB030130が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030130を同じ出力で読み、区切記録のコマンドとはの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030130
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030130 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD コマンドとは INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030130が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD コマンドとは と OSKB030130 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030130 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD 短縮形 {#c27-i0311}
+*分類: PASSWORD コマンド*  ・  難易度: 初級
+
+パスワード操作の説明として、PASSWORD コマンドには、短縮形 PW があります。手順書や運用メモで PW と書かれていても、RACF のパスワード変更コマンドとして読みます。短縮形は入力を短くするだけで、変更対象や権限条件を緩めるものではありません。運用略称の話です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 構文照合の短縮形に関係する PASSWORD 短縮形の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. ICH35001I を含む表示を保存し、説明欄との差分を構文照合で確認する。 ✅
+    - B. PASSWORD 短縮形の名称と担当者名のみを残して構文照合の短縮形の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で構文照合の短縮形を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず構文照合の短縮形の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 初級
+
+    **解説:** 構文照合の短縮形において選択記号 A を採用し、識別名は構文照合です。構文照合の短縮形において PASSWORD 短縮形 は説明欄の「PASSWORD 短縮形の用途をセキュリティ管理の表示で確認する構文照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は構文照合です。構文照合の短縮形に関連して、RACF では PASSWORD 短縮形の表示属性と ICH35001I を同じ証跡に残し、背景名は構文照合です。他の選択肢を確認します。 A: 構文照合の短縮形は対象出力と項目説明を結び、根拠を残すので構文照合です。 B: 構文照合の短縮形は名称や説明のみに寄り、状態を示す出力本文が不足するため構文照合ではありません。 C: 構文照合の短縮形は別カテゴリの確認を流用しており、PASSWORD 短縮形の根拠にならないため構文照合ではありません。 D: 構文照合の短縮形は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため構文照合ではありません。構文照合の短縮形で使う PASSWORD 短縮形という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は構文照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PASSWORD 短縮形**
+
+    - 検証目的: 探索追跡の短縮形について、パスワード操作の説明として、PASSWORD コマンドには、短縮形 PW があります。手順書や運用メモで PW と書かれていても、RACF のパスワード変更コマンドとして読に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020046の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、探索追跡の短縮形の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD 短縮形を指定し、OSKB020046の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD 短縮形
+    CASE OSKB020046
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD 短縮形
+    CASE OSKB020046
+    SOURCE RACF
+    ```
+
+    PASSWORD 短縮形とOSKB020046が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020046を同じ出力で読み、探索追跡の短縮形の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020046
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020046 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD 短縮形 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020046が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD 短縮形 と OSKB020046 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020046 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PASSWORD(old/new) {#c27-i0312}
+*分類: PASSWORD コマンド*  ・  難易度: 中級
+
+パスワード操作の説明として、PASSWORD の旧値・新値指定は、現在のパスワードと新しいパスワードを組み合わせて変更する形式です。本人が自分の値を変更する時に使われます。現在値を誤ると変更は受け付けられず、新しい値も規則や履歴で拒否される場合があります。本人変更の手順です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? note "検証手順（1件）"
+    **PASSWORD(old・new)**
+
+    - 検証目的: 上書追跡の・について、パスワード操作の説明として、PASSWORD の旧値・新値指定は、現在のパスワードと新しいパスワードを組み合わせて変更する形式です。本人が自分の値を変更する時に使われます。に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020047の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、上書追跡の・の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPASSWORD(old・new)を指定し、OSKB020047の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PASSWORD(old・new)
+    CASE OSKB020047
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PASSWORD(old・new)
+    CASE OSKB020047
+    SOURCE RACF
+    ```
+
+    PASSWORD(old・new)とOSKB020047が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020047を同じ出力で読み、上書追跡の・の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020047
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020047 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PASSWORD(old・new) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020047が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PASSWORD(old・new) と OSKB020047 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020047 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+### PHRASE オペランド {#c27-i0313}
+*分類: PASSWORD コマンド*  ・  難易度: 中級
+
+パスフレーズの説明として、PASSWORD の PHRASE オペランドは、パスフレーズの現在値と新しい値を指定して変更するために使います。引用符付き文字列を扱うため、TSO/E の print inhibit が効かず画面上で見える注意があります。構文規則や導入環境の出口により、新しいパスフレーズが拒否されることもあります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 探索照合のオペランドで PHRASE オペランドの点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. PHRASE オペランドの出力を取らず探索照合のオペランドの説明文と承認印のみを残す。
+    - B. LISTDSD DATASET('OSKBDATA') ALL で得た表示本文を使い、探索照合の採否を説明欄に結び付ける。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して探索照合のオペランドの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索照合のオペランドへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 探索照合のオペランドにおいて選択記号 B を採用し、識別名は探索照合です。探索照合のオペランドにおいて PHRASE オペランド は説明欄の「探索照合のオペランドに関係する定義値と表示行を照合する探索照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は探索照合です。探索照合のオペランドの証跡を読む担当者は、PHRASE オペランドの属性行と ICH35001I を合わせて追跡し、背景名は探索照合です。誤答側の問題点を分けます。 A: 探索照合のオペランドは名称や説明のみに寄り、状態を示す出力本文が不足するため探索照合ではありません。 B: 探索照合のオペランドは対象出力と項目説明を結び、根拠を残すので探索照合です。 C: 探索照合のオペランドは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため探索照合ではありません。 D: 探索照合のオペランドは別カテゴリの確認を流用しており、PHRASE オペランドの根拠にならないため探索照合ではありません。探索照合のオペランドに出る PHRASE オペランドは RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は探索照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+??? note "検証手順（1件）"
+    **PHRASE オペランド**
+
+    - 検証目的: 範囲追跡のオペランドについて、パスフレーズの説明として、PASSWORD の PHRASE オペランドは、パスフレーズの現在値と新しい値を指定して変更するために使います。引用符付き文字列を扱うため、TSに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB020051の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、範囲追跡のオペランドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にPHRASE オペランドを指定し、OSKB020051の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND PHRASE オペランド
+    CASE OSKB020051
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM PHRASE オペランド
+    CASE OSKB020051
+    SOURCE RACF
+    ```
+
+    PHRASE オペランドとOSKB020051が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB020051を同じ出力で読み、範囲追跡のオペランドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB020051
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB020051 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I PHRASE オペランド INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB020051が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の PHRASE オペランド と OSKB020051 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB020051 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide / SA23-2290 z / OS Security Server RACF General User's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT ACCESS
+
+### ACCESS 階層性 {#c27-i0314}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+強弱関係を読むとき、PERMIT の ACCESS 階層性は重要です。一般に ALTER、CONTROL、UPDATE、READ、EXECUTE、NONE の順で上位から下位へ整理します。上位の権限は下位の利用範囲を含むため、必要最小限のレベルを選ぶことが権限設計の基本です
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 警告確認の階層性に関係する ACCESS 階層性の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 参照資料名、表示行、メッセージをそろえて警告確認の根拠を固定する。 ✅
+    - B. ACCESS 階層性の名称と担当者名のみを残して警告確認の階層性の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で警告確認の階層性を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず警告確認の階層性の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 警告確認の階層性において選択記号 A を採用し、識別名は警告確認です。警告確認の階層性において ACCESS 階層性 は説明欄の「ACCESS 階層性の用途をセキュリティ管理の表示で確認する警告確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は警告確認です。警告確認の階層性に関連して、RACF では ACCESS 階層性の表示属性と ICH35001I を同じ証跡に残し、背景名は警告確認です。他の選択肢を確認します。 A: 警告確認の階層性は対象出力と項目説明を結び、根拠を残すので警告確認です。 B: 警告確認の階層性は名称や説明のみに寄り、状態を示す出力本文が不足するため警告確認ではありません。 C: 警告確認の階層性は別カテゴリの確認を流用しており、ACCESS 階層性の根拠にならないため警告確認ではありません。 D: 警告確認の階層性は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため警告確認ではありません。警告確認の階層性で使う ACCESS 階層性という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は警告確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS 階層性**
+
+    - 検証目的: 優先検査の階層性について、強弱関係を読むとき、PERMIT の ACCESS 階層性は重要です。一般に ALTER、CONTROL、UPDATE、READ、EXECUTE、NONE の順で上位から下に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030072の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、優先検査の階層性の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS 階層性を指定し、OSKB030072の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS 階層性
+    CASE OSKB030072
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS 階層性
+    CASE OSKB030072
+    SOURCE RACF
+    ```
+
+    ACCESS 階層性とOSKB030072が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030072を同じ出力で読み、優先検査の階層性の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030072
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030072 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS 階層性 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030072が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS 階層性 と OSKB030072 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030072 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ACCESS(ALTER) {#c27-i0315}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+管理権限まで与える PERMIT では、ACCESS(ALTER) を指定します。対象プロファイルに対する最上位のアクセス権で、ACL の変更を含む管理操作まで可能にします。単にデータを書き換える権限ではなく、他者への許可付与にもつながるため、業務上の所有者や管理者に限定します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 値域確認のセキュリティ管理に関する ACCESS(ALTER)の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず値域確認のセキュリティ管理の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを値域確認のセキュリティ管理の証跡として保存して根拠にする。
+    - C. ACCESS(ALTER)の変更点を出力本文から切り離して値域確認のセキュリティ管理の承認欄のみ残す。
+    - D. 机上確認でも実出力の見出しに合わせ、値域確認の確認値として扱う。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 値域確認のセキュリティ管理において選択記号 D を採用し、識別名は値域確認です。値域確認のセキュリティ管理において ACCESS(ALTER) は説明欄の「ACCESS(ALTER)の状態と出力メッセージを結び付ける値域確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は値域確認です。値域確認のセキュリティ管理に関する記録は、ACCESS(ALTER)の出力行と ICH35001I を一緒に保存し、背景名は値域確認です。選択肢ごとの違いを示します。 A: 値域確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため値域確認ではありません。 B: 値域確認のセキュリティ管理は別カテゴリの確認を流用しており、ACCESS(ALTER)の根拠にならないため値域確認ではありません。 C: 値域確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため値域確認ではありません。 D: 値域確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので値域確認です。値域確認のセキュリティ管理で記録する ACCESS(ALTER)は RACF の確認記録に残す対象名であり、用語名は値域確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS(ALTER)**
+
+    - 検証目的: 範囲検査のセキュリティ管理について、管理権限まで与える PERMIT では、ACCESS(ALTER) を指定します。対象プロファイルに対する最上位のアクセス権で、ACL の変更を含む管理操作まで可能にしますに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030071の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、範囲検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS(ALTER)を指定し、OSKB030071の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS(ALTER)
+    CASE OSKB030071
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS(ALTER)
+    CASE OSKB030071
+    SOURCE RACF
+    ```
+
+    ACCESS(ALTER)とOSKB030071が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030071を同じ出力で読み、範囲検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030071
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030071 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS(ALTER) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030071が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS(ALTER) と OSKB030071 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030071 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ACCESS(CONTROL) {#c27-i0316}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+VSAM 制御を要する PERMIT では、ACCESS(CONTROL) を検討します。これは UPDATE より上位のアクセスレベルで、VSAM の CI/CA 制御などを許可する場面で使われます。通常の順次データセット更新だけなら UPDATE で足りることが多く、保護対象の種類と要求操作で判断します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 順序確認のセキュリティ管理でセキュリティ管理の運用確認を行います。ACCESS(CONTROL)の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で順序確認のセキュリティ管理を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず順序確認のセキュリティ管理を正常終了として記録する。
+    - C. 対象の出力行とメッセージ接頭辞を同時に記録し、順序確認で再確認できる形にする。 ✅
+    - D. ACCESS(CONTROL)の属性行を読まず順序確認のセキュリティ管理の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 順序確認のセキュリティ管理において選択記号 C を採用し、識別名は順序確認です。順序確認のセキュリティ管理において ACCESS(CONTROL) は説明欄の「RACF で ACCESS(CONTROL)の扱いを記録する順序確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は順序確認です。順序確認のセキュリティ管理を受け取る担当者は、ACCESS(CONTROL)の表示結果と ICH35001I を同じ確認単位として扱い、背景名は順序確認です。不適切な選択肢を整理します。 A: 順序確認のセキュリティ管理は別カテゴリの確認を流用しており、ACCESS(CONTROL)の根拠にならないため順序確認ではありません。 B: 順序確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため順序確認ではありません。 C: 順序確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので順序確認です。 D: 順序確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため順序確認ではありません。順序確認のセキュリティ管理が示す ACCESS(CONTROL)は出典欄の資料で使い方を追跡できる項目であり、用語名は順序確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS(CONTROL)**
+
+    - 検証目的: 区切検査のセキュリティ管理について、VSAM 制御を要する PERMIT では、ACCESS(CONTROL) を検討します。これは UPDATE より上位のアクセスレベルで、VSAM の CI/CA 制御なに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030070の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、区切検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS(CONTROL)を指定し、OSKB030070の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS(CONTROL)
+    CASE OSKB030070
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS(CONTROL)
+    CASE OSKB030070
+    SOURCE RACF
+    ```
+
+    ACCESS(CONTROL)とOSKB030070が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030070を同じ出力で読み、区切検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030070
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030070 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS(CONTROL) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030070が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS(CONTROL) と OSKB030070 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030070 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ACCESS(EXECUTE) {#c27-i0317}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+実行可否だけを与える PERMIT では、ACCESS(EXECUTE) を指定します。ロードモジュールなど、読ませるより実行可否を制御したい対象で使われます。データを読む、書き換える、ACL を管理するといった権限ではないため、READ 以上の意味を持つものとして扱いません
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 優先確認のセキュリティ管理に関する ACCESS(EXECUTE)の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず優先確認のセキュリティ管理の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先確認のセキュリティ管理の証跡として保存して根拠にする。
+    - C. ACCESS(EXECUTE)の変更点を出力本文から切り離して優先確認のセキュリティ管理の承認欄のみ残す。
+    - D. 資料上の説明と画面上の表示行を突き合わせ、優先確認として引き継ぐ。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 優先確認のセキュリティ管理において選択記号 D を採用し、識別名は優先確認です。優先確認のセキュリティ管理において ACCESS(EXECUTE) は説明欄の「ACCESS(EXECUTE)の状態と出力メッセージを結び付ける優先確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は優先確認です。優先確認のセキュリティ管理に関する記録は、ACCESS(EXECUTE)の出力行と ICH35001I を一緒に保存し、背景名は優先確認です。選択肢ごとの違いを示します。 A: 優先確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため優先確認ではありません。 B: 優先確認のセキュリティ管理は別カテゴリの確認を流用しており、ACCESS(EXECUTE)の根拠にならないため優先確認ではありません。 C: 優先確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため優先確認ではありません。 D: 優先確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので優先確認です。優先確認のセキュリティ管理で記録する ACCESS(EXECUTE)は RACF の確認記録に残す対象名であり、用語名は優先確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS(EXECUTE)**
+
+    - 検証目的: 上書検査のセキュリティ管理について、実行可否だけを与える PERMIT では、ACCESS(EXECUTE) を指定します。ロードモジュールなど、読ませるより実行可否を制御したい対象で使われます。データを読むに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030067の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、上書検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS(EXECUTE)を指定し、OSKB030067の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS(EXECUTE)
+    CASE OSKB030067
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS(EXECUTE)
+    CASE OSKB030067
+    SOURCE RACF
+    ```
+
+    ACCESS(EXECUTE)とOSKB030067が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030067を同じ出力で読み、上書検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030067
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030067 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS(EXECUTE) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030067が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS(EXECUTE) と OSKB030067 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030067 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ACCESS(NONE) {#c27-i0318}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+明示的に許可しない扱いを残す場合、PERMIT では ACCESS(NONE) を使います。対象 ID を ACL に残したままアクセス権を与えないため、DELETE で ACL から消す操作とは意味が違います。許可を外した事実を ACL 上で見せたい場合と、単純にエントリをなくしたい場合を分けて使います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 範囲確認のセキュリティ管理でセキュリティ管理の運用確認を行います。ACCESS(NONE)の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で範囲確認のセキュリティ管理を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず範囲確認のセキュリティ管理を正常終了として記録する。
+    - C. LISTDSD DATASET('OSKBDATA') ALL で得た表示本文を使い、範囲確認の採否を説明欄に結び付ける。 ✅
+    - D. ACCESS(NONE)の属性行を読まず範囲確認のセキュリティ管理の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 範囲確認のセキュリティ管理において選択記号 C を採用し、識別名は範囲確認です。範囲確認のセキュリティ管理において ACCESS(NONE) は説明欄の「RACF で ACCESS(NONE)の扱いを記録する範囲確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は範囲確認です。範囲確認のセキュリティ管理を受け取る担当者は、ACCESS(NONE)の表示結果と ICH35001I を同じ確認単位として扱い、背景名は範囲確認です。不適切な選択肢を整理します。 A: 範囲確認のセキュリティ管理は別カテゴリの確認を流用しており、ACCESS(NONE)の根拠にならないため範囲確認ではありません。 B: 範囲確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため範囲確認ではありません。 C: 範囲確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので範囲確認です。 D: 範囲確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲確認ではありません。範囲確認のセキュリティ管理が示す ACCESS(NONE)は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS(NONE)**
+
+    - 検証目的: 探索検査のセキュリティ管理について、明示的に許可しない扱いを残す場合、PERMIT では ACCESS(NONE) を使います。対象 ID を ACL に残したままアクセス権を与えないため、DELETE でに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030066の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、探索検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS(NONE)を指定し、OSKB030066の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS(NONE)
+    CASE OSKB030066
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS(NONE)
+    CASE OSKB030066
+    SOURCE RACF
+    ```
+
+    ACCESS(NONE)とOSKB030066が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030066を同じ出力で読み、探索検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030066
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030066 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS(NONE) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030066が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS(NONE) と OSKB030066 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030066 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ACCESS(READ) {#c27-i0319}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+参照専用の権限を与える PERMIT では、ACCESS(READ) を使います。保護対象を読み取る権限であり、更新や管理を許可しない付与に向きます。RAG 照合では、ACCESS を省略した場合や権限値を省いた場合、RACF が READ を既定値として扱うことも確認できます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 記録確認のセキュリティ管理に関係する ACCESS(READ)の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 操作結果の本文、対象行、時刻を同じ証跡に入れ、記録確認の確認にする。 ✅
+    - B. ACCESS(READ)の名称と担当者名のみを残して記録確認のセキュリティ管理の表示本文を確認対象に含めない。
+    - C. セキュリティ管理以外の画面で記録確認のセキュリティ管理を確認し同じ証跡として扱ったことにする。
+    - D. ICH35001I の有無を見ず記録確認のセキュリティ管理の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 記録確認のセキュリティ管理において選択記号 A を採用し、識別名は記録確認です。記録確認のセキュリティ管理において ACCESS(READ) は説明欄の「ACCESS(READ)の用途をセキュリティ管理の表示で確認する記録確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は記録確認です。記録確認のセキュリティ管理に関連して、RACF では ACCESS(READ)の表示属性と ICH35001I を同じ証跡に残し、背景名は記録確認です。他の選択肢を確認します。 A: 記録確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので記録確認です。 B: 記録確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため記録確認ではありません。 C: 記録確認のセキュリティ管理は別カテゴリの確認を流用しており、ACCESS(READ)の根拠にならないため記録確認ではありません。 D: 記録確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため記録確認ではありません。記録確認のセキュリティ管理で使う ACCESS(READ)という用語は RACF USER/GROUP/DATASET で扱う確認対象であり、用語名は記録確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS(READ)**
+
+    - 検証目的: 出力検査のセキュリティ管理について、参照専用の権限を与える PERMIT では、ACCESS(READ) を使います。保護対象を読み取る権限であり、更新や管理を許可しない付与に向きます。RAG 照合では、ACに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030068の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、出力検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS(READ)を指定し、OSKB030068の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS(READ)
+    CASE OSKB030068
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS(READ)
+    CASE OSKB030068
+    SOURCE RACF
+    ```
+
+    ACCESS(READ)とOSKB030068が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030068を同じ出力で読み、出力検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030068
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030068 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS(READ) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030068が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS(READ) と OSKB030068 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030068 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ACCESS(UPDATE) {#c27-i0320}
+*分類: PERMIT ACCESS*  ・  難易度: 中級
+
+更新を許可する PERMIT では、ACCESS(UPDATE) を指定します。読み取りの範囲に加えてデータの更新を許可するため、業務ファイルを読み書きするアプリケーション ID などに与えるレベルです。アクセスリストを変更する権限ではないため、管理権限とは分けて考えます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 比較確認のセキュリティ管理で ACCESS(UPDATE)の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. ACCESS(UPDATE)の出力を取らず比較確認のセキュリティ管理の説明文と承認印のみを残す。
+    - B. RACF の表示形式に沿って根拠行を採り、比較確認の点検結果を残す。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して比較確認のセキュリティ管理の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を比較確認のセキュリティ管理へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 比較確認のセキュリティ管理において選択記号 B を採用し、識別名は比較確認です。比較確認のセキュリティ管理において ACCESS(UPDATE) は説明欄の「比較確認のセキュリティ管理に関係する定義値と表示行を照合する比較確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は比較確認です。比較確認のセキュリティ管理の証跡を読む担当者は、ACCESS(UPDATE)の属性行と ICH35001I を合わせて追跡し、背景名は比較確認です。誤答側の問題点を分けます。 A: 比較確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため比較確認ではありません。 B: 比較確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので比較確認です。 C: 比較確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため比較確認ではありません。 D: 比較確認のセキュリティ管理は別カテゴリの確認を流用しており、ACCESS(UPDATE)の根拠にならないため比較確認ではありません。比較確認のセキュリティ管理に出る ACCESS(UPDATE)は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は比較確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ACCESS(UPDATE)**
+
+    - 検証目的: 条件検査のセキュリティ管理について、更新を許可する PERMIT では、ACCESS(UPDATE) を指定します。読み取りの範囲に加えてデータの更新を許可するため、業務ファイルを読み書きするアプリケーションに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030069の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、条件検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にACCESS(UPDATE)を指定し、OSKB030069の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ACCESS(UPDATE)
+    CASE OSKB030069
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ACCESS(UPDATE)
+    CASE OSKB030069
+    SOURCE RACF
+    ```
+
+    ACCESS(UPDATE)とOSKB030069が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030069を同じ出力で読み、条件検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030069
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030069 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ACCESS(UPDATE) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030069が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ACCESS(UPDATE) と OSKB030069 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030069 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT CLASS
+
+### CLASS(DATASET) {#c27-i0321}
+*分類: PERMIT CLASS*  ・  難易度: 中級
+
+データセットプロファイルを対象にする作業では、PERMIT に CLASS(DATASET) を明示できます。クラス指定を省いた場合も、データセット保護が既定の対象です。手順書やレビュー資料では明示しておくと、一般リソースへの PERMIT と混同しにくくなります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（2問）"
+    **問題.** 上書確認のセキュリティ管理でセキュリティ管理の運用確認を行います。CLASS(DATASET)の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で上書確認のセキュリティ管理を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず上書確認のセキュリティ管理を正常終了として記録する。
+    - C. LISTDSD DATASET('OSKBDATA') ALL の結果から対象行を抜き出し、上書確認の証跡として残す。 ✅
+    - D. CLASS(DATASET)の属性行を読まず上書確認のセキュリティ管理の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 上書確認のセキュリティ管理において選択記号 C を採用し、識別名は上書確認です。上書確認のセキュリティ管理において CLASS(DATASET) は説明欄の「RACF で CLASS(DATASET)の扱いを記録する上書確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は上書確認です。上書確認のセキュリティ管理を受け取る担当者は、CLASS(DATASET)の表示結果と ICH35001I を同じ確認単位として扱い、背景名は上書確認です。不適切な選択肢を整理します。 A: 上書確認のセキュリティ管理は別カテゴリの確認を流用しており、CLASS(DATASET)の根拠にならないため上書確認ではありません。 B: 上書確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため上書確認ではありません。 C: 上書確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので上書確認です。 D: 上書確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため上書確認ではありません。上書確認のセキュリティ管理が示す CLASS(DATASET)は出典欄の資料で使い方を追跡できる項目であり、用語名は上書確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+    ---
+
+    **問題.** 呼出追跡のセキュリティ管理でセキュリティ管理の運用確認を行います。CLASS(DATASET)の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で呼出追跡のセキュリティ管理を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず呼出追跡のセキュリティ管理を正常終了として記録する。
+    - C. LISTDSD DATASET('OSKBDATA') ALL の結果から対象行を抜き出し、呼出追跡の証跡として残す。 ✅
+    - D. CLASS(DATASET)の属性行を読まず呼出追跡のセキュリティ管理の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 呼出追跡のセキュリティ管理において選択記号 C を採用し、識別名は呼出追跡です。呼出追跡のセキュリティ管理において CLASS(DATASET) は説明欄の「RACF で CLASS(DATASET)の扱いを記録する呼出追跡項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は呼出追跡です。呼出追跡のセキュリティ管理を受け取る担当者は、CLASS(DATASET)の表示結果と ICH35001I を同じ確認単位として扱い、背景名は呼出追跡です。不適切な選択肢を整理します。 A: 呼出追跡のセキュリティ管理は別カテゴリの確認を流用しており、CLASS(DATASET)の根拠にならないため呼出追跡ではありません。 B: 呼出追跡のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため呼出追跡ではありません。 C: 呼出追跡のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので呼出追跡です。 D: 呼出追跡のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出追跡ではありません。呼出追跡のセキュリティ管理が示す CLASS(DATASET)は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出追跡です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（2件）"
+    **CLASS(DATASET)**
+
+    - 検証目的: 展開検査のセキュリティ管理について、データセットプロファイルを対象にする作業では、PERMIT に CLASS(DATASET) を明示できます。クラス指定を省いた場合も、データセット保護が既定の対象です。手に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030062の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、展開検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にCLASS(DATASET)を指定し、OSKB030062の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND CLASS(DATASET)
+    CASE OSKB030062
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM CLASS(DATASET)
+    CASE OSKB030062
+    SOURCE RACF
+    ```
+
+    CLASS(DATASET)とOSKB030062が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030062を同じ出力で読み、展開検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030062
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030062 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I CLASS(DATASET) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030062が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の CLASS(DATASET) と OSKB030062 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030062 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+    ---
+
+    **CLASS(DATASET)**
+
+    - 検証目的: 復旧判定のセキュリティ管理について、データセットプロファイルを検索する場合、SEARCH に CLASS(DATASET) を指定します。CLASS を省略した SEARCH の既定も DATASET です。に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030098の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、復旧判定のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にCLASS(DATASET)を指定し、OSKB030098の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND CLASS(DATASET)
+    CASE OSKB030098
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM CLASS(DATASET)
+    CASE OSKB030098
+    SOURCE RACF
+    ```
+
+    CLASS(DATASET)とOSKB030098が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030098を同じ出力で読み、復旧判定のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030098
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030098 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I CLASS(DATASET) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030098が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の CLASS(DATASET) と OSKB030098 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030098 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### CLASS(class) {#c27-i0322}
+*分類: PERMIT CLASS*  ・  難易度: 中級
+
+クラスを明示するために、PERMIT では CLASS(class) を使います。データセット以外の FACILITY、TSOAUTH、TSOPROC などでは、クラス名を指定しないと目的のプロファイルに到達できません。監査証跡では、同じプロファイル名に見えてもクラスが違えば別物として扱います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（2問）"
+    **問題.** 探索確認のセキュリティ管理で CLASS(class)の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. CLASS(class)の出力を取らず探索確認のセキュリティ管理の説明文と承認印のみを残す。
+    - B. ICH35001I を含む表示を保存し、説明欄との差分を探索確認で確認する。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して探索確認のセキュリティ管理の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索確認のセキュリティ管理へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 探索確認のセキュリティ管理において選択記号 B を採用し、識別名は探索確認です。探索確認のセキュリティ管理において CLASS(class) は説明欄の「探索確認のセキュリティ管理に関係する定義値と表示行を照合する探索確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認のセキュリティ管理の証跡を読む担当者は、CLASS(class)の属性行と ICH35001I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため探索確認ではありません。 D: 探索確認のセキュリティ管理は別カテゴリの確認を流用しており、CLASS(class)の根拠にならないため探索確認ではありません。探索確認のセキュリティ管理に出る CLASS(class)は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は探索確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+    ---
+
+    **問題.** 変更照合のセキュリティ管理に関する CLASS(class)の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず変更照合のセキュリティ管理の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更照合のセキュリティ管理の証跡として保存して根拠にする。
+    - C. CLASS(class)の変更点を出力本文から切り離して変更照合のセキュリティ管理の承認欄のみ残す。
+    - D. 机上確認でも実出力の見出しに合わせ、変更照合の確認値として扱う。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 変更照合のセキュリティ管理において選択記号 D を採用し、識別名は変更照合です。変更照合のセキュリティ管理において CLASS(class) は説明欄の「CLASS(class)の状態と出力メッセージを結び付ける変更照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は変更照合です。変更照合のセキュリティ管理に関する記録は、CLASS(class)の出力行と ICH35001I を一緒に保存し、背景名は変更照合です。選択肢ごとの違いを示します。 A: 変更照合のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため変更照合ではありません。 B: 変更照合のセキュリティ管理は別カテゴリの確認を流用しており、CLASS(class)の根拠にならないため変更照合ではありません。 C: 変更照合のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため変更照合ではありません。 D: 変更照合のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので変更照合です。変更照合のセキュリティ管理で記録する CLASS(class)は RACF の確認記録に残す対象名であり、用語名は変更照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（2件）"
+    **CLASS(class)**
+
+    - 検証目的: 構文検査のセキュリティ管理について、クラスを明示するために、PERMIT では CLASS(class) を使います。データセット以外の FACILITY、TSOAUTH、TSOPROC などでは、クラス名をに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030061の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、構文検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にCLASS(class)を指定し、OSKB030061の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND CLASS(class)
+    CASE OSKB030061
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM CLASS(class)
+    CASE OSKB030061
+    SOURCE RACF
+    ```
+
+    CLASS(class)とOSKB030061が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030061を同じ出力で読み、構文検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030061
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030061 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I CLASS(class) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030061が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の CLASS(class) と OSKB030061 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030061 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+    ---
+
+    **CLASS(class)**
+
+    - 検証目的: 順序判定のセキュリティ管理について、検索対象のリソースクラスを選ぶ指定が、SEARCH の CLASS(class) です。データセット、利用者、グループ、任意の一般リソースクラスを指定でき、クラスが違えば同に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030095の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、順序判定のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にCLASS(class)を指定し、OSKB030095の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND CLASS(class)
+    CASE OSKB030095
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM CLASS(class)
+    CASE OSKB030095
+    SOURCE RACF
+    ```
+
+    CLASS(class)とOSKB030095が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030095を同じ出力で読み、順序判定のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030095
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030095 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I CLASS(class) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030095が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の CLASS(class) と OSKB030095 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030095 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT DELETE
+
+### DELETE オペランド {#c27-i0323}
+*分類: PERMIT DELETE*  ・  難易度: 中級
+
+ACL から個別 ID を外す PERMIT では、DELETE オペランドを使います。指定した ID のエントリをプロファイルのアクセスリストから削除する操作です。ACCESS(NONE) のように明示的な禁止を残すのではなく、登録そのものを取り除く点を区別します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 復旧確認のオペランドで DELETE オペランドの点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. DELETE オペランドの出力を取らず復旧確認のオペランドの説明文と承認印のみを残す。
+    - B. ICH35001I を含む表示を保存し、説明欄との差分を復旧確認で確認する。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して復旧確認のオペランドの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を復旧確認のオペランドへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 復旧確認のオペランドにおいて選択記号 B を採用し、識別名は復旧確認です。復旧確認のオペランドにおいて DELETE オペランド は説明欄の「復旧確認のオペランドに関係する定義値と表示行を照合する復旧確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は復旧確認です。復旧確認のオペランドの証跡を読む担当者は、DELETE オペランドの属性行と ICH35001I を合わせて追跡し、背景名は復旧確認です。誤答側の問題点を分けます。 A: 復旧確認のオペランドは名称や説明のみに寄り、状態を示す出力本文が不足するため復旧確認ではありません。 B: 復旧確認のオペランドは対象出力と項目説明を結び、根拠を残すので復旧確認です。 C: 復旧確認のオペランドは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため復旧確認ではありません。 D: 復旧確認のオペランドは別カテゴリの確認を流用しており、DELETE オペランドの根拠にならないため復旧確認ではありません。復旧確認のオペランドに出る DELETE オペランドは RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は復旧確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **DELETE オペランド**
+
+    - 検証目的: 記録検査のオペランドについて、ACL から個別 ID を外す PERMIT では、DELETE オペランドを使います。指定した ID のエントリをプロファイルのアクセスリストから削除する操作です。ACCに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030073の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、記録検査のオペランドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にDELETE オペランドを指定し、OSKB030073の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND DELETE オペランド
+    CASE OSKB030073
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM DELETE オペランド
+    CASE OSKB030073
+    SOURCE RACF
+    ```
+
+    DELETE オペランドとOSKB030073が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030073を同じ出力で読み、記録検査のオペランドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030073
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030073 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I DELETE オペランド INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030073が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の DELETE オペランド と OSKB030073 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030073 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT FROM
+
+### FCLASS(class) {#c27-i0324}
+*分類: PERMIT FROM*  ・  難易度: 中級
+
+コピー元クラスを指定する PERMIT では、FCLASS(class) を FROM と組み合わせます。対象プロファイルの CLASS とコピー元のクラスが異なる場合、FCLASS を省くと意図した元プロファイルを参照できません。許可一覧の横展開では、コピー先クラスとコピー元クラスを別々に記録します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 置換照合のセキュリティ管理に関する FCLASS(class)の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず置換照合のセキュリティ管理の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを置換照合のセキュリティ管理の証跡として保存して根拠にする。
+    - C. FCLASS(class)の変更点を出力本文から切り離して置換照合のセキュリティ管理の承認欄のみ残す。
+    - D. 資料上の説明と画面上の表示行を突き合わせ、置換照合として引き継ぐ。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 置換照合のセキュリティ管理において選択記号 D を採用し、識別名は置換照合です。置換照合のセキュリティ管理において FCLASS(class) は説明欄の「FCLASS(class)の状態と出力メッセージを結び付ける置換照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合のセキュリティ管理に関する記録は、FCLASS(class)の出力行と ICH35001I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため置換照合ではありません。 B: 置換照合のセキュリティ管理は別カテゴリの確認を流用しており、FCLASS(class)の根拠にならないため置換照合ではありません。 C: 置換照合のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合のセキュリティ管理で記録する FCLASS(class)は RACF の確認記録に残す対象名であり、用語名は置換照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **FCLASS(class)**
+
+    - 検証目的: 監査検査のセキュリティ管理について、コピー元クラスを指定する PERMIT では、FCLASS(class) を FROM と組み合わせます。対象プロファイルの CLASS とコピー元のクラスが異なる場合、Fに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030079の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、監査検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にFCLASS(class)を指定し、OSKB030079の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND FCLASS(class)
+    CASE OSKB030079
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM FCLASS(class)
+    CASE OSKB030079
+    SOURCE RACF
+    ```
+
+    FCLASS(class)とOSKB030079が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030079を同じ出力で読み、監査検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030079
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030079 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I FCLASS(class) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030079が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の FCLASS(class) と OSKB030079 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030079 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### FROM(profile) {#c27-i0325}
+*分類: PERMIT FROM*  ・  難易度: 中級
+
+別プロファイルの ACL を流用する PERMIT では、FROM(profile) を指定します。コピー元のアクセスリストを対象プロファイルへ適用するため、類似システムの保護定義を横展開するときに使えます。コピー元に不要な利用者や古いグループが混ざっていないかを確認します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT GENERIC
+
+### GENERIC {#c27-i0326}
+*分類: PERMIT GENERIC*  ・  難易度: 中級
+
+generic プロファイルを扱う作業では、PERMIT に GENERIC を付けて対象種別を明示します。完全修飾名のように見える名前でも、generic と discrete の区別を示さないと、意図した ACL を変更できないことがあります。複数データセットをまとめて保護するプロファイルでは、名前の見た目だけで判断しません
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT ID
+
+### ID(*) 指定 {#c27-i0327}
+*分類: PERMIT ID*  ・  難易度: 中級
+
+全利用者を対象にする PERMIT では、ID(*) が特殊な意味を持ちます。これは RACF に定義済みの全利用者を対象にする指定で、個別の全員登録を省けます。対象範囲が非常に広いため、読み取り専用の公開領域など用途を厳しく限定して使います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 区切確認の* 指定で ID(*) 指定の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. ID(*) 指定の出力を取らず区切確認の* 指定の説明文と承認印のみを残す。
+    - B. 同じ画面で対象行と ICH35001I を読み、区切確認の結果として保存する。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して区切確認の* 指定の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を区切確認の* 指定へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 区切確認の* 指定において選択記号 B を採用し、識別名は区切確認です。区切確認の* 指定において ID(*) 指定 は説明欄の「区切確認の* 指定に関係する定義値と表示行を照合する区切確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は区切確認です。区切確認の* 指定の証跡を読む担当者は、ID(*) 指定の属性行と ICH35001I を合わせて追跡し、背景名は区切確認です。誤答側の問題点を分けます。 A: 区切確認の* 指定は名称や説明のみに寄り、状態を示す出力本文が不足するため区切確認ではありません。 B: 区切確認の* 指定は対象出力と項目説明を結び、根拠を残すので区切確認です。 C: 区切確認の* 指定は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため区切確認ではありません。 D: 区切確認の* 指定は別カテゴリの確認を流用しており、ID(*) 指定の根拠にならないため区切確認ではありません。区切確認の* 指定に出る ID(*) 指定は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は区切確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **ID(*) 指定**
+
+    - 検証目的: 終端検査の* 指定について、全利用者を対象にする PERMIT では、ID(*) が特殊な意味を持ちます。これは RACF に定義済みの全利用者を対象にする指定で、個別の全員登録を省けます。対象範囲がに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030065の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、終端検査の* 指定の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にID(*) 指定を指定し、OSKB030065の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND ID(*) 指定
+    CASE OSKB030065
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM ID(*) 指定
+    CASE OSKB030065
+    SOURCE RACF
+    ```
+
+    ID(*) 指定とOSKB030065が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030065を同じ出力で読み、終端検査の* 指定の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030065
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030065 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I ID(*) 指定 INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030065が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の ID(*) 指定 と OSKB030065 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030065 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### ID(uid|grp,...) {#c27-i0328}
+*分類: PERMIT ID*  ・  難易度: 中級
+
+権限の受け手を示すために、PERMIT では ID(uid|grp,...) を使います。アクセスリストへ追加、変更、削除する利用者 ID またはグループ ID を並べられます。各 ID が RACF に定義済みであることを確認し、個人 ID とグループ ID のどちらへ権限を付けるかを運用責任の単位に合わせます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT RESET
+
+### RESET オペランド {#c27-i0329}
+*分類: PERMIT RESET*  ・  難易度: 中級
+
+ACL を作り直す PERMIT では、RESET オペランドの影響範囲を確認します。RESET または RESET(ALL) は標準 ACL と条件付き ACL の両方を削除します。既存 ACL を全面的に入れ替える操作になるため、実行前に現在の LISTDSD 出力を退避します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 監査確認のオペランドでセキュリティ管理の運用確認を行います。RESET オペランドの根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で監査確認のオペランドを確認した扱いにする。
+    - B. ICH35001I の有無を確認せず監査確認のオペランドを正常終了として記録する。
+    - C. LISTDSD DATASET('OSKBDATA') ALL の結果から対象行を抜き出し、監査確認の証跡として残す。 ✅
+    - D. RESET オペランドの属性行を読まず監査確認のオペランドの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 監査確認のオペランドにおいて選択記号 C を採用し、識別名は監査確認です。監査確認のオペランドにおいて RESET オペランド は説明欄の「RACF で RESET オペランドの扱いを記録する監査確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認のオペランドを受け取る担当者は、RESET オペランドの表示結果と ICH35001I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認のオペランドは別カテゴリの確認を流用しており、RESET オペランドの根拠にならないため監査確認ではありません。 B: 監査確認のオペランドは戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため監査確認ではありません。 C: 監査確認のオペランドは対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認のオペランドは名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認のオペランドが示す RESET オペランドは出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **RESET オペランド**
+
+    - 検証目的: 比較検査のオペランドについて、ACL を作り直す PERMIT では、RESET オペランドの影響範囲を確認します。RESET または RESET(ALL) は標準 ACL と条件付き ACL の両方をに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030074の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、比較検査のオペランドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にRESET オペランドを指定し、OSKB030074の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND RESET オペランド
+    CASE OSKB030074
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM RESET オペランド
+    CASE OSKB030074
+    SOURCE RACF
+    ```
+
+    RESET オペランドとOSKB030074が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030074を同じ出力で読み、比較検査のオペランドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030074
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030074 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I RESET オペランド INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030074が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の RESET オペランド と OSKB030074 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030074 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### RESET(ALL) {#c27-i0330}
+*分類: PERMIT RESET*  ・  難易度: 中級
+
+両方の ACL を消す PERMIT では、RESET(ALL) を使います。標準アクセスリストと条件付きアクセスリストの両方を消去し、RESET と同じ意味として扱われます。全面再構成の前には、実行前の LISTDSD 出力と再設定後の差分を残します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 展開照合のセキュリティ管理で RESET(ALL)の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. RESET(ALL)の出力を取らず展開照合のセキュリティ管理の説明文と承認印のみを残す。
+    - B. 同じ画面で対象行と ICH35001I を読み、展開照合の結果として保存する。 ✅
+    - C. LISTDSD DATASET('OSKBDATA') ALL を省略して展開照合のセキュリティ管理の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を展開照合のセキュリティ管理へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 展開照合のセキュリティ管理において選択記号 B を採用し、識別名は展開照合です。展開照合のセキュリティ管理において RESET(ALL) は説明欄の「展開照合のセキュリティ管理に関係する定義値と表示行を照合する展開照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は展開照合です。展開照合のセキュリティ管理の証跡を読む担当者は、RESET(ALL)の属性行と ICH35001I を合わせて追跡し、背景名は展開照合です。誤答側の問題点を分けます。 A: 展開照合のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため展開照合ではありません。 B: 展開照合のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので展開照合です。 C: 展開照合のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため展開照合ではありません。 D: 展開照合のセキュリティ管理は別カテゴリの確認を流用しており、RESET(ALL)の根拠にならないため展開照合ではありません。展開照合のセキュリティ管理に出る RESET(ALL)は RACF USER/GROUP/DATASET の運用手順で意味を確認する対象であり、用語名は展開照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **RESET(ALL)**
+
+    - 検証目的: 警告検査のセキュリティ管理について、両方の ACL を消す PERMIT では、RESET(ALL) を使います。標準アクセスリストと条件付きアクセスリストの両方を消去し、RESET と同じ意味として扱われまに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030077の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、警告検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にRESET(ALL)を指定し、OSKB030077の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND RESET(ALL)
+    CASE OSKB030077
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM RESET(ALL)
+    CASE OSKB030077
+    SOURCE RACF
+    ```
+
+    RESET(ALL)とOSKB030077が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030077を同じ出力で読み、警告検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030077
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030077 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I RESET(ALL) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030077が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の RESET(ALL) と OSKB030077 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030077 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### RESET(CONDITIONAL) {#c27-i0331}
+*分類: PERMIT RESET*  ・  難易度: 中級
+
+条件付き ACL だけを消す PERMIT では、RESET(CONDITIONAL) を指定します。曜日やプログラムなどの条件を持つアクセスリストだけを消去し、標準 ACL は残します。条件付き許可を廃止する場合は、どの条件エントリが消えるかを先に一覧化します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **RESET(CONDITIONAL)**
+
+    - 検証目的: 値域検査のセキュリティ管理について、条件付き ACL だけを消す PERMIT では、RESET(CONDITIONAL) を指定します。曜日やプログラムなどの条件を持つアクセスリストだけを消去し、標準 ACに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030076の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、値域検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にRESET(CONDITIONAL)を指定し、OSKB030076の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND RESET(CONDITIONAL)
+    CASE OSKB030076
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM RESET(CONDITIONAL)
+    CASE OSKB030076
+    SOURCE RACF
+    ```
+
+    RESET(CONDITIONAL)とOSKB030076が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030076を同じ出力で読み、値域検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030076
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030076 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I RESET(CONDITIONAL) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030076が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の RESET(CONDITIONAL) と OSKB030076 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030076 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### RESET(STANDARD) {#c27-i0332}
+*分類: PERMIT RESET*  ・  難易度: 中級
+
+標準 ACL だけを消す PERMIT では、RESET(STANDARD) を指定します。条件付きアクセスリストは残るため、曜日やプログラム条件で許可しているエントリまで一緒に消したくない場合に使います。標準 ACL と条件付き ACL を混同すると、想定外のアクセス継続や停止につながります
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 変更確認のセキュリティ管理に関する RESET(STANDARD)の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. LISTDSD DATASET('OSKBDATA') ALL の結果を残さず変更確認のセキュリティ管理の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更確認のセキュリティ管理の証跡として保存して根拠にする。
+    - C. RESET(STANDARD)の変更点を出力本文から切り離して変更確認のセキュリティ管理の承認欄のみ残す。
+    - D. 出典欄の説明と運用出力を照合し、変更確認の確認記録にまとめる。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 変更確認のセキュリティ管理において選択記号 D を採用し、識別名は変更確認です。変更確認のセキュリティ管理において RESET(STANDARD) は説明欄の「RESET(STANDARD)の状態と出力メッセージを結び付ける変更確認項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は変更確認です。変更確認のセキュリティ管理に関する記録は、RESET(STANDARD)の出力行と ICH35001I を一緒に保存し、背景名は変更確認です。選択肢ごとの違いを示します。 A: 変更確認のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため変更確認ではありません。 B: 変更確認のセキュリティ管理は別カテゴリの確認を流用しており、RESET(STANDARD)の根拠にならないため変更確認ではありません。 C: 変更確認のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため変更確認ではありません。 D: 変更確認のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので変更確認です。変更確認のセキュリティ管理で記録する RESET(STANDARD)は RACF の確認記録に残す対象名であり、用語名は変更確認です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **RESET(STANDARD)**
+
+    - 検証目的: 順序検査のセキュリティ管理について、標準 ACL だけを消す PERMIT では、RESET(STANDARD) を指定します。条件付きアクセスリストは残るため、曜日やプログラム条件で許可しているエントリまでに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030075の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、順序検査のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にRESET(STANDARD)を指定し、OSKB030075の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND RESET(STANDARD)
+    CASE OSKB030075
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM RESET(STANDARD)
+    CASE OSKB030075
+    SOURCE RACF
+    ```
+
+    RESET(STANDARD)とOSKB030075が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030075を同じ出力で読み、順序検査のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030075
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030075 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I RESET(STANDARD) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030075が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の RESET(STANDARD) と OSKB030075 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030075 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+
+## RACF USER/GROUP/DATASET > PERMIT WHEN
+
+### WHEN(APPCPORT(name)) {#c27-i0333}
+*分類: PERMIT WHEN*  ・  難易度: 中級
+
+APPC ポートで絞る PERMIT 条件には、WHEN(APPCPORT(name)) を使います。PARTNER が相手 LU を見るのに対し、APPCPORT は通信ポート側の条件を表します。連携系の条件は似た名前が多いため、ポート、相手 LU、セッションプロファイルを分けて読みます
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? note "検証手順（1件）"
+    **WHEN(APPCPORT(name))**
+
+    - 検証目的: 条件判定のセキュリティ管理について、APPC ポートで絞る PERMIT 条件には、WHEN(APPCPORT(name)) を使います。PARTNER が相手 LU を見るのに対し、APPCPORT は通信に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030089の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、条件判定のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にWHEN(APPCPORT(nameを指定し、OSKB030089の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND WHEN(APPCPORT(name
+    CASE OSKB030089
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM WHEN(APPCPORT(name
+    CASE OSKB030089
+    SOURCE RACF
+    ```
+
+    WHEN(APPCPORT(nameとOSKB030089が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030089を同じ出力で読み、条件判定のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030089
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030089 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I WHEN(APPCPORT(name)) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030089が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の WHEN(APPCPORT(name と OSKB030089 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030089 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### WHEN(CONSOLE(name)) {#c27-i0334}
+*分類: PERMIT WHEN*  ・  難易度: 中級
+
+コンソールで絞る PERMIT 条件には、WHEN(CONSOLE(name)) を使います。CONSOLE クラスと組み合わせて、どの操作端末やコンソールからの利用を認めるかを制御します。利用者 ID だけでは表せない操作場所やコンソール属性に依存する制御として扱います
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+??? question "確認問題（1問）"
+    **問題.** 上書照合のセキュリティ管理でセキュリティ管理の運用確認を行います。WHEN(CONSOLE(name))の根拠にできる作業はどれですか。
+
+    - A. RACF と無関係な一覧で上書照合のセキュリティ管理を確認した扱いにする。
+    - B. ICH35001I の有無を確認せず上書照合のセキュリティ管理を正常終了として記録する。
+    - C. 対象の出力行とメッセージ接頭辞を同時に記録し、上書照合で再確認できる形にする。 ✅
+    - D. WHEN(CONSOLE(name))の属性行を読まず上書照合のセキュリティ管理の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 上書照合のセキュリティ管理において選択記号 C を採用し、識別名は上書照合です。上書照合のセキュリティ管理において WHEN(CONSOLE(name)) は説明欄の「RACF で WHEN(CONSOLE(name))の扱いを記録する上書照合項目」と LISTDSD DATASET('OSKB.DATA') ALL または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合のセキュリティ管理を受け取る担当者は、WHEN(CONSOLE(name))の表示結果と ICH35001I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合のセキュリティ管理は別カテゴリの確認を流用しており、WHEN(CONSOLE(name))の根拠にならないため上書照合ではありません。 B: 上書照合のセキュリティ管理は戻り値や記録番号に寄り、ICH35001I や属性表示を落とすため上書照合ではありません。 C: 上書照合のセキュリティ管理は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合のセキュリティ管理は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合のセキュリティ管理が示す WHEN(CONSOLE(name))は出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。
+
+    **出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+??? note "検証手順（1件）"
+    **WHEN(CONSOLE(name))**
+
+    - 検証目的: 展開判定のセキュリティ管理について、コンソールで絞る PERMIT 条件には、WHEN(CONSOLE(name)) を使います。CONSOLE クラスと組み合わせて、どの操作端末やコンソールからの利用を認めに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: TSO RACFまたは関連TSO/コンソールを参照でき、OSKB030082の検証用出力を記録できる。
+    - セッション環境: TSO RACFでLISTDSD DATASET('OSKB.DATA') ALLを実行し、ICH35001Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はTSO RACFのコマンド入力画面です。COMMAND INPUT ===> に LISTDSD DATASET('OSKB.DATA') ALL を入力し、展開判定のセキュリティ管理の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    ```
+
+    COMMAND INPUTにLISTDSD DATASET('OSKB.DATA') ALLが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はTSO RACFの表示結果です。FIND欄にWHEN(CONSOLE(name)を指定し、OSKB030082の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (TSO RACF Result)
+    COMMAND INPUT ===> FIND WHEN(CONSOLE(name)
+    CASE OSKB030082
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (TSO RACF Result)
+    ITEM WHEN(CONSOLE(name)
+    CASE OSKB030082
+    SOURCE RACF
+    ```
+
+    WHEN(CONSOLE(name)とOSKB030082が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はTSO RACFの詳細表示です。ICH35001IとOSKB030082を同じ出力で読み、展開判定のセキュリティ管理の根拠を記録します。
+    操作（入力）:
+    ```text
+    (TSO RACF Detail)
+    COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL
+    CASE OSKB030082
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    TSO RACF COMMAND RESPONSE
+    LISTDSD DATASET('OSKB.DATA') ALL
+    USER=OSKB030082 OWNER=SYS1 DEFAULT-GROUP=SYS1
+    ICH35001I WHEN(CONSOLE(name)) INFORMATION LISTED
+    ```
+
+    ICH35001IとOSKB030082が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> LISTDSD DATASET('OSKB.DATA') ALL が画面・出力に表示されること
+    ② ステップ2 の WHEN(CONSOLE(name) と OSKB030082 が画面・出力に表示されること
+    ③ ステップ3 の ICH35001I と OSKB030082 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+
+### WHEN(CRITERIA(SQLROLE=...)) {#c27-i0335}
+*分類: PERMIT WHEN*  ・  難易度: 中級
+
+キーと値で絞る PERMIT 条件には、WHEN(CRITERIA(...)) を使います。条件名と値を対にして残せるため、SQL ロールなどの属性を構造的に表現できます。個別の WHEN 形式と同じ意味になる場合でも、どの属性を条件にしたのか分かるように記録します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+
+
+### WHEN(DAYS(WEEKDAYS|ANYDAY|MONDAY|...)) {#c27-i0336}
+*分類: PERMIT WHEN*  ・  難易度: 中級
+
+曜日で絞る PERMIT 条件には、WHEN(DAYS(...)) を使います。平日だけ許可する、週末だけ止めるといった運用条件を RACF 側に持たせる指定です。業務カレンダーや祝日の扱いまで自動で判断する指定ではないため、曜日条件で足りるかを確認します
+
+**出典:** SA23-2292 z / OS Security Server RACF Command Language Reference (zOS31_icha400.pdf) / SA23-2288 z / OS Security Server RACF Security Administrator's Guide
+

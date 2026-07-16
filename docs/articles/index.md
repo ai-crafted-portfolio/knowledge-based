@@ -1,8 +1,9 @@
-# 記事一覧
+# 技術記事
 
-全記事のインデックスです。カテゴリから探す場合は [カテゴリ一覧](../categories/index.md) を参照してください。
+基礎をまとめた解説記事です。カテゴリ別の技術項目・QA・手順は[カテゴリ別 対応状況](../categories/index.md)から辿れます。
 
-## 新着
-
-- [初回セットアップ手順](initial-setup.md)
-- [よくあるエラーと対処](common-errors.md)
+- [JCL 入門 — JOB / EXEC / DD の基礎](zos/jcl-fundamentals.md)
+- [RACF 入門 — 認証・認可・データセット保護](zos/racf-fundamentals.md)
+- [TSO / ISPF / SDSF 入門](zos/tso-ispf-fundamentals.md)
+- [USS（UNIX System Services）入門](zos/uss-fundamentals.md)
+- [CICS 入門 — オンライン基盤の基礎](zos/cics-fundamentals.md)

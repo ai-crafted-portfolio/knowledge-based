@@ -1,0 +1,6563 @@
+---
+search:
+  exclude: true
+---
+
+# PowerHA SystemMirror 7.2 — 詳細 (3/4)
+
+[← PowerHA SystemMirror 7.2 の概要へ戻る](index.md)
+
+
+## リソースグループ
+
+
+<section class="kb-item" id="c25-i0319"><h3>リソースグループ制御 Online Node 0089</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>朱J変更0090ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票朱J変更0090です。朱J変更0090はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録朱J変更0090です。朱J変更0090ではRG現在位置と取得時刻を採取票朱J変更0090へ残します。朱J変更0090ではRG位置の誤認を避けるため補助資料も照合する判断朱J変更0090です。朱J変更0090の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録朱J変更0090です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「リソースグループ制御 Online Node 0089」を「GLVM地理的ミラー syslog entry 0117」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてsyslogを照合する。</li><li>B. 運用時に利用する技術的役割はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するして基本ソフトAを照合する。</li><li>C. 運用時に利用する技術的役割は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 運用時に利用する技術的役割は管理設定と資源状態の混同を避けるため・RG確認からapp_rgを読むして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・リソー・資源グでCの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・変更）です。照合変更・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・変更・資源グです。比較リソー・変更でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はオンラ・変更・資源グです。運用変更・オンラでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は資源グ・リソー・変更です。仕様変更・リソー・資源グでD:の再始動後の確認 START15は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は変更・資源グ・資源グです。用語変更・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0089</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0089について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_89
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0089A
+画面・出力には PHA72DD0089A が表示され、リソースグループ制御 Online Node 0089 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0089
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0089B
+画面・出力には PHA72DD0089B が表示され、リソースグループ制御 Online Node 0089 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0089
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0089C
+画面・出力には PHA72DD0089C が表示され、リソースグループ制御 Online Node 0089 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0089A が画面・出力に表示されること
+② ステップ2 の PHA72DD0089B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0089C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0320"><h3>リソースグループ制御 Online Node 0104</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>紅E移行0105ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紅E移行0105です。紅E移行0105はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録紅E移行0105です。紅E移行0105ではRG現在位置と取得時刻を採取票紅E移行0105へ残します。紅E移行0105では自動戻し条件の誤読を避けるため補助資料も照合する判断紅E移行0105です。紅E移行0105の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録紅E移行0105です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0104を同一分類のGLVM地理的ミラー RPV Server 0156と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は照合操作で確認欄を採取することでミラー更新状を確認し・ミラー再同期条件の誤読を防ぐ。</li><li>B. 構成を確認する際の意味は点検操作で判定欄を記録することで移動履歴を確認し・依存リソース順序の見落としを防ぐ。</li><li>C. 構成を確認する際の意味は調査操作で保守欄を引き継ぎすることで資源グループを確認し・自動戻し条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 構成を確認する際の意味はRG一覧からdatabase_rgを読むことで資源グループを確認し・依存順を無視して子資源を先にを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・リソー・資源グでCの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・移行）です。照合移行・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・移行・自動戻です。比較リソー・移行でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はオンラ・移行・資源グです。運用移行・オンラでB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は資源グ・リソー・移行です。仕様移行・リソー・資源グでD:の変更前の確認 DEP02は「資源グループで資源グループRG一覧から」を述べるため、正答側の照合軸は移行・自動戻・資源グです。用語移行・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0104</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0104について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_104
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0104A
+画面・出力には PHA72DD0104A が表示され、リソースグループ制御 Online Node 0104 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0104
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0104B
+画面・出力には PHA72DD0104B が表示され、リソースグループ制御 Online Node 0104 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0104
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0104C
+画面・出力には PHA72DD0104C が表示され、リソースグループ制御 Online Node 0104 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0104A が画面・出力に表示されること
+② ステップ2 の PHA72DD0104B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0104C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0321"><h3>リソースグループ制御 Online Node 0119</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>空T移行0120ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票空T移行0120です。空T移行0120はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録空T移行0120です。空T移行0120ではRG現在位置と取得時刻を採取票空T移行0120へ残します。空T移行0120では獲得失敗ログの未採取を避けるため補助資料も照合する判断空T移行0120です。空T移行0120の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録空T移行0120です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0119の設定や表示を読む前に役割を確認します。GLVM地理的ミラー RPV Client 0204ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは表示操作で対象欄を追跡することで資源グループを確認し・獲得失敗ログの未採取を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きは照合操作で確認欄を採取することで遠隔ボリューを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>C. 状態を読み取るための働きは変更確認操作で採取欄を棚卸することでsyslogを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>D. 状態を読み取るための働きは表示操作で対象欄を追跡することで獲得イベントを確認し・獲得失敗ログの未採取を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・移行）です。照合移行・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・移行・獲得失です。運用移行・オンラでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は資源グ・リソー・移行です。項目移行・リソー・資源グでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は獲得失・リソー・資源グです。仕様移行・リソー・資源グでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は移行・獲得失・資源グです。用語移行・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0119</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0119について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_119
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0119A
+画面・出力には PHA72DD0119A が表示され、リソースグループ制御 Online Node 0119 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0119
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0119B
+画面・出力には PHA72DD0119B が表示され、リソースグループ制御 Online Node 0119 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0119
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0119C
+画面・出力には PHA72DD0119C が表示され、リソースグループ制御 Online Node 0119 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0119A が画面・出力に表示されること
+② ステップ2 の PHA72DD0119B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0119C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0322"><h3>リソースグループ制御 Online Node 0134</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>翠O診断0135ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票翠O診断0135です。翠O診断0135はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録翠O診断0135です。翠O診断0135ではRG現在位置と取得時刻を採取票翠O診断0135へ残します。翠O診断0135では依存リソース順序の見落としを避けるため補助資料も照合する判断翠O診断0135です。翠O診断0135の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録翠O診断0135です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0134に関する障害切り分けの前提を確認しています。GLVM地理的ミラー syslog entry 0207の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 機能の説明としてはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてsyslogを照合する。</li><li>C. 機能の説明としてはsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてVG varを照合する。</li><li>D. 機能の説明としては依存順を無視して子資源を先にオンを避けるため・依存照会からSTART_AFTERを読むして依存照会を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・診断）です。照合診断・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・診断・依存リです。運用診断・オンラでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は資源グ・リソー・診断です。項目診断・リソー・資源グでC:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は依存リ・リソー・資源グです。仕様診断・リソー・資源グでD:の通常状態の確認 DEP01は「資源グループで依存照会から」を述べるため、正答側の照合軸は診断・依存リ・資源グです。用語診断・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0134</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0134について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_14
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0134A
+画面・出力には PHA72DD0134A が表示され、リソースグループ制御 Online Node 0134 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0134
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0134B
+画面・出力には PHA72DD0134B が表示され、リソースグループ制御 Online Node 0134 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0134
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0134C
+画面・出力には PHA72DD0134C が表示され、リソースグループ制御 Online Node 0134 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0134A が画面・出力に表示されること
+② ステップ2 の PHA72DD0134B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0134C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0323"><h3>リソースグループ制御 Online Node 0149</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>朱J保守0150ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票朱J保守0150です。朱J保守0150はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録朱J保守0150です。朱J保守0150ではRG現在位置と取得時刻を採取票朱J保守0150へ残します。朱J保守0150ではRG位置の誤認を避けるため補助資料も照合する判断朱J保守0150です。朱J保守0150の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録朱J保守0150です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0149を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0223と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。</li><li>B. 運用時に利用する技術的役割は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割は一致条件の誤読を避けるため・整合確認で一致条件を確認するして一致条件を照合する。</li><li>D. 運用時に利用する技術的役割はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・リソー・資源グでBの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・保守）です。照合保守・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・保守・資源グです。比較保守・リソー・資源グ・資源グでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はオンラ・保守・資源グです。項目保守・リソー・資源グでC:の整合確認 一致条件は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は資源グ・リソー・資源グです。仕様保守・リソー・資源グでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は保守・資源グ・資源グです。用語保守・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0149</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0149について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_29
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0149A
+画面・出力には PHA72DD0149A が表示され、リソースグループ制御 Online Node 0149 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0149
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0149B
+画面・出力には PHA72DD0149B が表示され、リソースグループ制御 Online Node 0149 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0149
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0149C
+画面・出力には PHA72DD0149C が表示され、リソースグループ制御 Online Node 0149 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0149A が画面・出力に表示されること
+② ステップ2 の PHA72DD0149B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0149C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0324"><h3>リソースグループ制御 Online Node 0164</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>紅E切替0165ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紅E切替0165です。紅E切替0165はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録紅E切替0165です。紅E切替0165ではRG現在位置と取得時刻を採取票紅E切替0165へ残します。紅E切替0165では自動戻し条件の誤読を避けるため補助資料も照合する判断紅E切替0165です。紅E切替0165の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録紅E切替0165です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0164の技術的な意味を資料で確認するとき、リソースグループ制御 Event Summary 0218との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はイベント要約の失敗ラベルと取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>B. 構成を確認する際の意味は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. 構成を確認する際の意味は地理的ミラーの項目のsyslog記録と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>D. 構成を確認する際の意味はオンラインノードの資源グループRG現在位置と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・リソー・資源グでDの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・切替）です。照合切替・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・切替・自動戻です。比較切替・リソー・資源グ・自動戻でA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はオンラ・切替・資源グです。運用切替・オンラでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は資源グ・リソー・切替です。項目切替・リソー・資源グでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は自動戻・リソー・資源グです。用語切替・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0164</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0164について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_44
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0164A
+画面・出力には PHA72DD0164A が表示され、リソースグループ制御 Online Node 0164 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0164
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0164B
+画面・出力には PHA72DD0164B が表示され、リソースグループ制御 Online Node 0164 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0164
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0164C
+画面・出力には PHA72DD0164C が表示され、リソースグループ制御 Online Node 0164 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0164A が画面・出力に表示されること
+② ステップ2 の PHA72DD0164B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0164C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0325"><h3>リソースグループ制御 Online Node 0179</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>空T切替0180ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票空T切替0180です。空T切替0180はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録空T切替0180です。空T切替0180ではRG現在位置と取得時刻を採取票空T切替0180へ残します。空T切替0180では獲得失敗ログの未採取を避けるため補助資料も照合する判断空T切替0180です。空T切替0180の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録空T切替0180です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0179について構成や状態を確認します。GLVM地理的ミラー VG STATE 0228ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きはミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するして基本ソフトAを照合する。</li><li>C. 状態を読み取るための働きは監査証跡の誤読を避けるため・監査証跡で監査証跡を確認するして監査証跡を照合する。</li><li>D. 状態を読み取るための働きは遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてミラー更新状を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・切替）です。照合切替・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・切替・獲得失です。運用切替・オンラでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は資源グ・リソー・切替です。項目切替・リソー・資源グでC:の状態確認 監査証跡は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸は獲得失・リソー・資源グです。仕様切替・リソー・資源グでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は切替・獲得失・資源グです。用語切替・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0179</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0179について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_59
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0179A
+画面・出力には PHA72DD0179A が表示され、リソースグループ制御 Online Node 0179 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0179
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0179B
+画面・出力には PHA72DD0179B が表示され、リソースグループ制御 Online Node 0179 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0179
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0179C
+画面・出力には PHA72DD0179C が表示され、リソースグループ制御 Online Node 0179 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0179A が画面・出力に表示されること
+② ステップ2 の PHA72DD0179B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0179C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0326"><h3>リソースグループ制御 Online Node 0194</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>翠O収集0195ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票翠O収集0195です。翠O収集0195はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録翠O収集0195です。翠O収集0195ではRG現在位置と取得時刻を採取票翠O収集0195へ残します。翠O収集0195では依存リソース順序の見落としを避けるため補助資料も照合する判断翠O収集0195です。翠O収集0195の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録翠O収集0195です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0194の役割を調べています。GLVM地理的ミラー Mirror Pool 0270の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてVG varを照合する。</li><li>B. 機能の説明としてはイベント転送の誤読を避けるため・起動確認でイベント転送を確認するしてイベント転送を照合する。</li><li>C. 機能の説明としては依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としては警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてリソース要約を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・リソー・資源グでCの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・収集）です。照合収集・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・収集・依存リです。比較収集・リソー・資源グ・依存リでA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸はオンラ・収集・資源グです。運用収集・オンラでB:の起動確認 イベント転送は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸は資源グ・リソー・収集です。仕様収集・リソー・資源グでD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は収集・依存リ・資源グです。用語収集・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0194</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0194について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_74
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0194A
+画面・出力には PHA72DD0194A が表示され、リソースグループ制御 Online Node 0194 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0194
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0194B
+画面・出力には PHA72DD0194B が表示され、リソースグループ制御 Online Node 0194 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0194
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0194C
+画面・出力には PHA72DD0194C が表示され、リソースグループ制御 Online Node 0194 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0194A が画面・出力に表示されること
+② ステップ2 の PHA72DD0194B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0194C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0327"><h3>リソースグループ制御 Online Node 0209</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>朱J登録0210ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票朱J登録0210です。朱J登録0210はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録朱J登録0210です。朱J登録0210ではRG現在位置と取得時刻を採取票朱J登録0210へ残します。朱J登録0210ではRG位置の誤認を避けるため補助資料も照合する判断朱J登録0210です。朱J登録0210の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録朱J登録0210です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「リソースグループ制御 Online Node 0209」を「クラスタ構成検証 clverify.log 0232」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は登録で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割は確認で検証報告ROを証跡に残し・clverify.logの検証報告ROHAレポートと取得時刻。クラスタ構成検証 clverify.log 0232固有の属性も確認対象に含める。</li><li>C. 運用時に利用する技術的役割は復旧確認でイベント確認を証跡に残し・PowerHA Node Stateでイベント確認から。</li><li>D. 運用時に利用する技術的役割は変更で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・登録）です。照合登録・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・登録・資源グです。運用登録・オンラでB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は資源グ・リソー・登録です。項目登録・リソー・資源グでC:の復旧後の確認 NODE06は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は資源グ・リソー・資源グです。仕様登録・リソー・資源グでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は登録・資源グ・資源グです。用語登録・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0209</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0209について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_89
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0209A
+画面・出力には PHA72DD0209A が表示され、リソースグループ制御 Online Node 0209 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0209
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0209B
+画面・出力には PHA72DD0209B が表示され、リソースグループ制御 Online Node 0209 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0209
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0209C
+画面・出力には PHA72DD0209C が表示され、リソースグループ制御 Online Node 0209 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0209A が画面・出力に表示されること
+② ステップ2 の PHA72DD0209B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0209C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0328"><h3>リソースグループ制御 Online Node 0224</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>紅E確認0225ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紅E確認0225です。紅E確認0225はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録紅E確認0225です。紅E確認0225ではRG現在位置と取得時刻を採取票紅E確認0225へ残します。紅E確認0225では自動戻し条件の誤読を避けるため補助資料も照合する判断紅E確認0225です。紅E確認0225の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録紅E確認0225です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0224を同一分類のGLVM地理的ミラー syslog entry 0252と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてsyslogを照合する。</li><li>B. 構成を確認する際の意味は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 構成を確認する際の意味は基本ソフト稼働とクラスタ稼働の混を避けるため・イベント確認から終了状態を読むしてイベント確認を照合する。</li><li>D. 構成を確認する際の意味は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証報告ROを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・リソー・資源グでBの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・確認）です。照合確認・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・確認・自動戻です。比較確認・リソー・資源グ・自動戻でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はオンラ・確認・資源グです。項目確認・リソー・資源グでC:の再始動後の確認 NODE15は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は自動戻・リソー・資源グです。仕様確認・リソー・資源グでD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は確認・自動戻・資源グです。用語確認・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0224</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0224について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_104
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0224A
+画面・出力には PHA72DD0224A が表示され、リソースグループ制御 Online Node 0224 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0224
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0224B
+画面・出力には PHA72DD0224B が表示され、リソースグループ制御 Online Node 0224 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0224
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0224C
+画面・出力には PHA72DD0224C が表示され、リソースグループ制御 Online Node 0224 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0224A が画面・出力に表示されること
+② ステップ2 の PHA72DD0224B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0224C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0329"><h3>リソースグループ制御 Online Node 0239</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>空T確認0240ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票空T確認0240です。空T確認0240はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録空T確認0240です。空T確認0240ではRG現在位置と取得時刻を採取票空T確認0240へ残します。空T確認0240では獲得失敗ログの未採取を避けるため補助資料も照合する判断空T確認0240です。空T確認0240の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録空T確認0240です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0239の設定や表示を読む前に役割を確認します。クラスタ構成検証 clverify.log 0247ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きは警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証報告ROを照合する。</li><li>C. 状態を読み取るための働きは片系定義を全体正本とする誤認を避けるため・ネットワーク照会からnet_ether_してネットワークを照合する。</li><li>D. 状態を読み取るための働きは警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証進行率を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・確認）です。照合確認・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・確認・獲得失です。運用確認・オンラでB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は資源グ・リソー・確認です。項目確認・リソー・資源グでC:の復旧準備 TOPO05は「クラスタートポロジーでネットワーク照会から」を述べるため、正答側の照合軸は獲得失・リソー・資源グです。仕様確認・リソー・資源グでD:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は確認・獲得失・資源グです。用語確認・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0239</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0239について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_119
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0239A
+画面・出力には PHA72DD0239A が表示され、リソースグループ制御 Online Node 0239 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0239
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0239B
+画面・出力には PHA72DD0239B が表示され、リソースグループ制御 Online Node 0239 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0239
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0239C
+画面・出力には PHA72DD0239C が表示され、リソースグループ制御 Online Node 0239 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0239A が画面・出力に表示されること
+② ステップ2 の PHA72DD0239B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0239C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0330"><h3>リソースグループ制御 Online Node 0254</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>翠O保護0255ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票翠O保護0255です。翠O保護0255はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録翠O保護0255です。翠O保護0255ではRG現在位置と取得時刻を採取票翠O保護0255へ残します。翠O保護0255では依存リソース順序の見落としを避けるため補助資料も照合する判断翠O保護0255です。翠O保護0255の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録翠O保護0255です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0254に関する障害切り分けの前提を確認しています。リソースグループ制御 Resource Group Name 0275の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては照合で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>B. 機能の説明としては保護で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としては停止確認でマネージャーを証跡に残し・hacmp.out Eventでマネージャーログから。</li><li>D. 機能の説明としては保守で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。GLVM地理的ミラー VG STATE 0153固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・リソー・資源グでBの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・保護）です。照合保護・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・保護・依存リです。比較保護・リソー・資源グ・依存リでA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はオンラ・保護・資源グです。項目保護・リソー・資源グでC:の停止前の確認 FAIL14は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は依存リ・リソー・資源グです。仕様保護・リソー・資源グでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は保護・依存リ・資源グです。用語保護・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0254</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0254について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_14
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0254A
+画面・出力には PHA72DD0254A が表示され、リソースグループ制御 Online Node 0254 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0254
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0254B
+画面・出力には PHA72DD0254B が表示され、リソースグループ制御 Online Node 0254 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0254
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0254C
+画面・出力には PHA72DD0254C が表示され、リソースグループ制御 Online Node 0254 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0254A が画面・出力に表示されること
+② ステップ2 の PHA72DD0254B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0254C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0331"><h3>リソースグループ制御 Online Node 0269</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>朱J照合0270ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票朱J照合0270です。朱J照合0270はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録朱J照合0270です。朱J照合0270ではRG現在位置と取得時刻を採取票朱J照合0270へ残します。朱J照合0270ではRG位置の誤認を避けるため補助資料も照合する判断朱J照合0270です。朱J照合0270の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録朱J照合0270です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0269を保守記録に説明する必要があります。GLVM地理的ミラー RPV Server 0291と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>B. 運用時に利用する技術的役割はクラスタートポロジーでネットワーク照会から net_ether_01 を読み・net_ether_01 とである。ネットワーク照会からnet_etheときは片系定義を全体正本とする誤認を防ぐ。</li><li>C. 運用時に利用する技術的役割は地理的ミラーの項目のsyslog記録と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>D. 運用時に利用する技術的役割はオンラインノードの資源グループRG現在位置と取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・リソー・資源グでDの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・照合）です。照合照合・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・照合・資源グです。比較照合・リソー・資源グ・資源グでA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はオンラ・照合・資源グです。運用照合・オンラでB:の停止前の確認 TOPO14は「クラスタートポロジーでネットワーク照会から」を述べるため、正答側の照合軸は資源グ・リソー・照合です。項目照合・リソー・資源グでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は資源グ・リソー・資源グです。用語照合・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0269</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0269について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_29
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0269A
+画面・出力には PHA72DD0269A が表示され、リソースグループ制御 Online Node 0269 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0269
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0269B
+画面・出力には PHA72DD0269B が表示され、リソースグループ制御 Online Node 0269 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0269
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0269C
+画面・出力には PHA72DD0269C が表示され、リソースグループ制御 Online Node 0269 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0269A が画面・出力に表示されること
+② ステップ2 の PHA72DD0269B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0269C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0332"><h3>リソースグループ制御 Online Node 0284</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>紅E抑止0285ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紅E抑止0285です。紅E抑止0285はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録紅E抑止0285です。紅E抑止0285ではRG現在位置と取得時刻を採取票紅E抑止0285へ残します。紅E抑止0285では自動戻し条件の誤読を避けるため補助資料も照合する判断紅E抑止0285です。紅E抑止0285の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録紅E抑止0285です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0284の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Client 0339との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして遠隔ボリューを照合する。</li><li>B. 構成を確認する際の意味は同期元を誤ると古い定義を全ノードを避けるため・再確認からfalseを読むして再確認を照合する。</li><li>C. 構成を確認する際の意味は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして失敗ラベルを照合する。</li><li>D. 構成を確認する際の意味は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・リソー・資源グでDの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・抑止）です。照合抑止・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・抑止・自動戻です。比較抑止・リソー・資源グ・自動戻でA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はオンラ・抑止・資源グです。運用抑止・オンラでB:の権限境界の確認 SYNC12は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は資源グ・リソー・抑止です。項目抑止・リソー・資源グでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は自動戻・リソー・資源グです。用語抑止・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0284</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0284について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_44
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0284A
+画面・出力には PHA72DD0284A が表示され、リソースグループ制御 Online Node 0284 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0284
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0284B
+画面・出力には PHA72DD0284B が表示され、リソースグループ制御 Online Node 0284 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0284
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0284C
+画面・出力には PHA72DD0284C が表示され、リソースグループ制御 Online Node 0284 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0284A が画面・出力に表示されること
+② ステップ2 の PHA72DD0284B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0284C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0333"><h3>リソースグループ制御 Online Node 0299</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>空T抑止0300ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票空T抑止0300です。空T抑止0300はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録空T抑止0300です。空T抑止0300ではRG現在位置と取得時刻を採取票空T抑止0300へ残します。空T抑止0300では獲得失敗ログの未採取を避けるため補助資料も照合する判断空T抑止0300です。空T抑止0300の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録空T抑止0300です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0299について構成や状態を確認します。クラスタ構成検証 Cluster Topology 0343ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは解除で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li><li>B. 状態を読み取るための働きは代替経路確認で主要ログを証跡に残し・hacmp.out Eventで主要ログから。</li><li>C. 状態を読み取るための働きは抑止で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは保守でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・リソー・資源グでCの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・抑止）です。照合抑止・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・抑止・獲得失です。比較抑止・リソー・資源グ・獲得失でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はオンラ・抑止・資源グです。運用抑止・オンラでB:の代替経路の確認 FAIL10は「hacmp.out Eventで主要ログから」を述べるため、正答側の照合軸は資源グ・リソー・抑止です。仕様抑止・リソー・資源グでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は抑止・獲得失・資源グです。用語抑止・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0299</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0299について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_59
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0299A
+画面・出力には PHA72DD0299A が表示され、リソースグループ制御 Online Node 0299 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0299
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0299B
+画面・出力には PHA72DD0299B が表示され、リソースグループ制御 Online Node 0299 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0299
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0299C
+画面・出力には PHA72DD0299C が表示され、リソースグループ制御 Online Node 0299 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0299A が画面・出力に表示されること
+② ステップ2 の PHA72DD0299B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0299C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0334"><h3>リソースグループ制御 Online Node 0314</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>翠O解析0315ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票翠O解析0315です。翠O解析0315はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録翠O解析0315です。翠O解析0315ではRG現在位置と取得時刻を採取票翠O解析0315へ残します。翠O解析0315では依存リソース順序の見落としを避けるため補助資料も照合する判断翠O解析0315です。翠O解析0315の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録翠O解析0315です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0314の役割を調べています。clmgr sync cluster トポロジー確認 チューニング値の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては検証後に構成を同期し・クラスタスナップショットを作成する操作をトポロジー確認する。トポロジー確でチューニングを確認するときはチューニングの誤読を防ぐ。</li><li>B. 機能の説明としては資源グループで資源グループRG一覧から database_rg を読み・database_rg とである。RG一覧からdatabase_rgをときは依存順を無視して子資源を先にを防ぐ。</li><li>C. 機能の説明としてはオンラインノードの資源グループRG現在位置と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としてはシステム管理コマンドの検証進行率と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・リソー・資源グでCの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・解析）です。照合解析・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・解析・依存リです。比較解析・リソー・資源グ・依存リでA:のトポロジー確認 チューニング値は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸はオンラ・解析・資源グです。運用解析・オンラでB:の構成監査 DEP08は「資源グループで資源グループRG一覧から」を述べるため、正答側の照合軸は資源グ・リソー・解析です。仕様解析・リソー・資源グでD:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は解析・依存リ・資源グです。用語解析・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0314</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0314について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_74
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0314A
+画面・出力には PHA72DD0314A が表示され、リソースグループ制御 Online Node 0314 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0314
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0314B
+画面・出力には PHA72DD0314B が表示され、リソースグループ制御 Online Node 0314 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0314
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0314C
+画面・出力には PHA72DD0314C が表示され、リソースグループ制御 Online Node 0314 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0314A が画面・出力に表示されること
+② ステップ2 の PHA72DD0314B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0314C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0335"><h3>リソースグループ制御 Online Node 0329</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>朱J計画0330ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票朱J計画0330です。朱J計画0330はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録朱J計画0330です。朱J計画0330ではRG現在位置と取得時刻を採取票朱J計画0330へ残します。朱J計画0330ではRG位置の誤認を避けるため補助資料も照合する判断朱J計画0330です。朱J計画0330の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録朱J計画0330です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「リソースグループ制御 Online Node 0329」を「GLVM地理的ミラー Mirror Pool 0360」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li><li>C. 運用時に利用する技術的役割は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして遠隔ボリューを照合する。</li><li>D. 運用時に利用する技術的役割は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・計画）です。照合計画・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・計画・資源グです。運用計画・オンラでB:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は資源グ・リソー・計画です。項目計画・リソー・資源グでC:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は資源グ・リソー・資源グです。仕様計画・リソー・資源グでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は計画・資源グ・資源グです。用語計画・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0329</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0329について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_89
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0329A
+画面・出力には PHA72DD0329A が表示され、リソースグループ制御 Online Node 0329 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0329
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0329B
+画面・出力には PHA72DD0329B が表示され、リソースグループ制御 Online Node 0329 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0329
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0329C
+画面・出力には PHA72DD0329C が表示され、リソースグループ制御 Online Node 0329 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0329A が画面・出力に表示されること
+② ステップ2 の PHA72DD0329B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0329C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0336"><h3>リソースグループ制御 Online Node 0344</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>紅E解除0345ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紅E解除0345です。紅E解除0345はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録紅E解除0345です。紅E解除0345ではRG現在位置と取得時刻を採取票紅E解除0345へ残します。紅E解除0345では自動戻し条件の誤読を避けるため補助資料も照合する判断紅E解除0345です。紅E解除0345の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録紅E解除0345です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0344を同一分類のclmgr start cluster 障害切り分け 停止確認と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はオンラインノードの資源グループRG現在位置と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 構成を確認する際の意味はクラスタサービスを開始し・リソースグループをオンライン化する操作である。停止確認で停止確認を確認するときは停止確認の誤読を防ぐ。</li><li>C. 構成を確認する際の意味は地理的ミラーの項目のsyslog記録と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>D. 構成を確認する際の意味はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・リソー・資源グでAの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・解除）です。照合解除・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・解除・自動戻です。運用解除・オンラでB:の障害切り分け 停止確認は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は資源グ・リソー・解除です。項目解除・リソー・資源グでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は自動戻・リソー・資源グです。仕様解除・リソー・資源グでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は解除・自動戻・資源グです。用語解除・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0344</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0344について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_104
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0344A
+画面・出力には PHA72DD0344A が表示され、リソースグループ制御 Online Node 0344 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0344
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0344B
+画面・出力には PHA72DD0344B が表示され、リソースグループ制御 Online Node 0344 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0344
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0344C
+画面・出力には PHA72DD0344C が表示され、リソースグループ制御 Online Node 0344 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0344A が画面・出力に表示されること
+② ステップ2 の PHA72DD0344B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0344C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0337"><h3>リソースグループ制御 Online Node 0359</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>空T解除0360ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票空T解除0360です。空T解除0360はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録空T解除0360です。空T解除0360ではRG現在位置と取得時刻を採取票空T解除0360へ残します。空T解除0360では獲得失敗ログの未採取を避けるため補助資料も照合する判断空T解除0360です。空T解除0360の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録空T解除0360です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Online Node 0359の設定や表示を読む前に役割を確認します。clmgr start cluster 整合確認 メッセージ行ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはメッセージ行の誤読を避けるため・整合確認でメッセージ行を確認するしてメッセージ行を照合する。</li><li>B. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして資源グループを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きは片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。</li><li>D. 状態を読み取るための働きはノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するしてトポロジ要約を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・リソー・資源グでBの記述「オンラインノードの資源グループRG現在位置と取得時刻を記」に対応する項目はOnline Node（オンラ・資源グ・解除）です。照合解除・リソー・資源グに関するリソースグループの仕様は「オンラインノードの資源グループRG現在位置と取得時刻を記録し」で、確認対象は資源グ・解除・獲得失です。比較解除・リソー・資源グ・獲得失でA:の整合確認 メッセージ行は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はオンラ・解除・資源グです。項目解除・リソー・資源グでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は獲得失・リソー・資源グです。仕様解除・リソー・資源グでD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は解除・獲得失・資源グです。用語解除・リソー・資源グという用語は「オンラインノードの資源グループRG現在位置と取得時刻」を指し、照合する値と誤認リスクの組合せはリソー・資源グ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Online Node 0359</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Online Node 0359について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Online Node と RG現在位置</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; tail /var/hacmp/log/clstrmgr.debug
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_119
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0359A
+画面・出力には PHA72DD0359A が表示され、リソースグループ制御 Online Node 0359 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0359
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0359B
+画面・出力には PHA72DD0359B が表示され、リソースグループ制御 Online Node 0359 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Online Node を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0359
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0359C
+画面・出力には PHA72DD0359C が表示され、リソースグループ制御 Online Node 0359 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0359A が画面・出力に表示されること
+② ステップ2 の PHA72DD0359B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0359C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0338"><h3>リソースグループ制御 Resource Group Name 0005</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>銀F巡回0006ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票銀F巡回0006です。銀F巡回0006はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録銀F巡回0006です。銀F巡回0006では優先ノード一覧と取得時刻を採取票銀F巡回0006へ残します。銀F巡回0006ではRG位置の誤認を避けるため補助資料も照合する判断銀F巡回0006です。銀F巡回0006の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録銀F巡回0006です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0005を保守記録に説明する必要があります。GLVM地理的ミラー RPV Client 0039と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は巡回で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割は棚卸で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>C. 運用時に利用する技術的役割は登録で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>D. 運用時に利用する技術的役割はトポロジーで検証を証跡に残し・クラスタートポロジーで検証から Verification。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・リソー・優先ノでAの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・巡回）です。照合巡回・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・巡回・資源グです。運用巡回・資源グでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は優先ノ・リソー・巡回です。項目巡回・リソー・優先ノでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は資源グ・リソー・優先ノです。仕様巡回・リソー・優先ノでD:の引継ぎ記録 TOPO09は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸は巡回・資源グ・優先ノです。用語巡回・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0005</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0005について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_05
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0005A
+画面・出力には PHA72DD0005A が表示され、リソースグループ制御 Resource Group Name 0005 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0005
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0005B
+画面・出力には PHA72DD0005B が表示され、リソースグループ制御 Resource Group Name 0005 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0005
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0005C
+画面・出力には PHA72DD0005C が表示され、リソースグループ制御 Resource Group Name 0005 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0005A が画面・出力に表示されること
+② ステップ2 の PHA72DD0005B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0005C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0339"><h3>リソースグループ制御 Resource Group Name 0020</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>蒼A棚卸0021ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票蒼A棚卸0021です。蒼A棚卸0021はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録蒼A棚卸0021です。蒼A棚卸0021では優先ノード一覧と取得時刻を採取票蒼A棚卸0021へ残します。蒼A棚卸0021では自動戻し条件の誤読を避けるため補助資料も照合する判断蒼A棚卸0021です。蒼A棚卸0021の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録蒼A棚卸0021です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0020の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Server 0036との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li><li>B. 構成を確認する際の意味はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li><li>C. 構成を確認する際の意味はCluster Servicesで状態確認から ST_STABLE を読み・ST_STABLE とである。状態確認からST_STABLEを読むときは管理設定と資源状態の混同を防ぐ。</li><li>D. 構成を確認する際の意味は資源グループの優先ノード一覧と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能棚卸・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・棚卸）です。照合棚卸・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・棚卸・自動戻です。比較リソー・棚卸でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は資源グ・棚卸・優先ノです。運用棚卸・資源グでB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は優先ノ・リソー・棚卸です。項目棚卸・リソー・優先ノでC:の復旧準備 START05は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸は自動戻・リソー・優先ノです。用語棚卸・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0020</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0020について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_20
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0020A
+画面・出力には PHA72DD0020A が表示され、リソースグループ制御 Resource Group Name 0020 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0020
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0020B
+画面・出力には PHA72DD0020B が表示され、リソースグループ制御 Resource Group Name 0020 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0020
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0020C
+画面・出力には PHA72DD0020C が表示され、リソースグループ制御 Resource Group Name 0020 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0020A が画面・出力に表示されること
+② ステップ2 の PHA72DD0020B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0020C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0340"><h3>リソースグループ制御 Resource Group Name 0035</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>金P棚卸0036ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票金P棚卸0036です。金P棚卸0036はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録金P棚卸0036です。金P棚卸0036では優先ノード一覧と取得時刻を採取票金P棚卸0036へ残します。金P棚卸0036では獲得失敗ログの未採取を避けるため補助資料も照合する判断金P棚卸0036です。金P棚卸0036の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録金P棚卸0036です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0035について構成や状態を確認します。クラスタ構成検証 SMIT Command Status 0079ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは採取操作で照合欄を点検することで検証進行率を確認し・警告と致命エラーの混同を防ぐ。</li><li>B. 状態を読み取るための働きは表示操作で対象欄を追跡することで優先ノード一を確認し・獲得失敗ログの未採取を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きは保守操作で監査欄を保存することでトポロジ要約を確認し・検証ログの採取漏れを防ぐ。</li><li>D. 状態を読み取るための働きはインターフェースから192.0.2.50ことでインターフェを確認し・永続アドレスとサービスアドレを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・リソー・優先ノでBの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・棚卸）です。照合棚卸・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・棚卸・獲得失です。比較リソー・棚卸でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は資源グ・棚卸・優先ノです。項目棚卸・リソー・優先ノでC:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は獲得失・リソー・優先ノです。仕様棚卸・リソー・優先ノでD:の権限境界の確認 SVCIP12は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は棚卸・獲得失・優先ノです。用語棚卸・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0035</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0035について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_35
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0035A
+画面・出力には PHA72DD0035A が表示され、リソースグループ制御 Resource Group Name 0035 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0035
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0035B
+画面・出力には PHA72DD0035B が表示され、リソースグループ制御 Resource Group Name 0035 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0035
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0035C
+画面・出力には PHA72DD0035C が表示され、リソースグループ制御 Resource Group Name 0035 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0035A が画面・出力に表示されること
+② ステップ2 の PHA72DD0035B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0035C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0341"><h3>リソースグループ制御 Resource Group Name 0050</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>紺K復旧0051ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紺K復旧0051です。紺K復旧0051はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録紺K復旧0051です。紺K復旧0051では優先ノード一覧と取得時刻を採取票紺K復旧0051へ残します。紺K復旧0051では依存リソース順序の見落としを避けるため補助資料も照合する判断紺K復旧0051です。紺K復旧0051の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録紺K復旧0051です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0050の役割を調べています。GLVM地理的ミラー syslog entry 0102の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては変更確認操作で採取欄を棚卸することでsyslogを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 機能の説明としては調査操作で保守欄を引き継ぎすることで失敗ラベルを確認し・自動戻し条件の誤読を防ぐ。</li><li>C. 機能の説明としては点検操作で判定欄を記録することで優先ノード一を確認し・依存リソース順序の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としては未同期確認からUNSYNCED_CHANことで未同期確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・リソー・優先ノでCの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・復旧）です。照合復旧・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・復旧・依存リです。比較リソー・復旧でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は資源グ・復旧・優先ノです。運用復旧・資源グでB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は優先ノ・リソー・復旧です。仕様復旧・リソー・優先ノでD:のログとの照合 SYNC07は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸は復旧・依存リ・優先ノです。用語復旧・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0050</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0050について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_50
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0050A
+画面・出力には PHA72DD0050A が表示され、リソースグループ制御 Resource Group Name 0050 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0050
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0050B
+画面・出力には PHA72DD0050B が表示され、リソースグループ制御 Resource Group Name 0050 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0050
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0050C
+画面・出力には PHA72DD0050C が表示され、リソースグループ制御 Resource Group Name 0050 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0050A が画面・出力に表示されること
+② ステップ2 の PHA72DD0050B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0050C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0342"><h3>リソースグループ制御 Resource Group Name 0065</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>銀F監査0066ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票銀F監査0066です。銀F監査0066はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録銀F監査0066です。銀F監査0066では優先ノード一覧と取得時刻を採取票銀F監査0066へ残します。銀F監査0066ではRG位置の誤認を避けるため補助資料も照合する判断銀F監査0066です。銀F監査0066の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録銀F監査0066です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「リソースグループ制御 Resource Group Name 0065」を「GLVM地理的ミラー RPV Client 0084」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li><li>B. 運用時に利用する技術的役割はclverify.logの検証報告ROHAレポートと取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>C. 運用時に利用する技術的役割は資源グループの優先ノード一覧と取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 運用時に利用する技術的役割はclstatでクラスタ表示から Cluster を読み・Cluster と clinfoES を照合する。クラスタ表示からClusterを読むときは監視通信SNMP情報の残留をを防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・リソー・優先ノでCの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・監査）です。照合監査・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・監査・資源グです。比較リソー・監査でA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は資源グ・監査・優先ノです。運用監査・資源グでB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は優先ノ・リソー・監査です。仕様監査・リソー・優先ノでD:の変更後の確認 CLSTAT03は「clstatでクラスタ表示から」を述べるため、正答側の照合軸は監査・資源グ・優先ノです。用語監査・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0065</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0065について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_65
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0065A
+画面・出力には PHA72DD0065A が表示され、リソースグループ制御 Resource Group Name 0065 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0065
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0065B
+画面・出力には PHA72DD0065B が表示され、リソースグループ制御 Resource Group Name 0065 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0065
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0065C
+画面・出力には PHA72DD0065C が表示され、リソースグループ制御 Resource Group Name 0065 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0065A が画面・出力に表示されること
+② ステップ2 の PHA72DD0065B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0065C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0343"><h3>リソースグループ制御 Resource Group Name 0080</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>蒼A変更0081ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票蒼A変更0081です。蒼A変更0081はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録蒼A変更0081です。蒼A変更0081では優先ノード一覧と取得時刻を採取票蒼A変更0081へ残します。蒼A変更0081では自動戻し条件の誤読を避けるため補助資料も照合する判断蒼A変更0081です。蒼A変更0081の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録蒼A変更0081です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0080を同一分類のリソースグループ制御 Node List 0107と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして移動履歴を照合する。</li><li>B. 構成を確認する際の意味は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして獲得イベントを照合する。</li><li>C. 構成を確認する際の意味は監視通信SNMP情報の残留を実ノを避けるため・clinfoES状態からclinfoESしてclinfoを照合する。</li><li>D. 構成を確認する際の意味は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして優先ノード一を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・変更）です。照合変更・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・変更・自動戻です。比較リソー・変更でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は資源グ・変更・優先ノです。運用変更・資源グでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は優先ノ・リソー・変更です。項目変更・リソー・優先ノでC:の通常状態の確認 CLSTAT01は「clstatでclinfoES状態から」を述べるため、正答側の照合軸は自動戻・リソー・優先ノです。用語変更・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0080</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0080について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_80
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0080A
+画面・出力には PHA72DD0080A が表示され、リソースグループ制御 Resource Group Name 0080 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0080
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0080B
+画面・出力には PHA72DD0080B が表示され、リソースグループ制御 Resource Group Name 0080 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0080
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0080C
+画面・出力には PHA72DD0080C が表示され、リソースグループ制御 Resource Group Name 0080 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0080A が画面・出力に表示されること
+② ステップ2 の PHA72DD0080B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0080C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0344"><h3>リソースグループ制御 Resource Group Name 0095</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>金P変更0096ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票金P変更0096です。金P変更0096はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録金P変更0096です。金P変更0096では優先ノード一覧と取得時刻を採取票金P変更0096へ残します。金P変更0096では獲得失敗ログの未採取を避けるため補助資料も照合する判断金P変更0096です。金P変更0096の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録金P変更0096です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0095の設定や表示を読む前に役割を確認します。GLVM地理的ミラー VG STATE 0108ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは表示操作で対象欄を追跡することで優先ノード一を確認し・獲得失敗ログの未採取を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きは照合操作で確認欄を採取することで基本ソフトAを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>C. 状態を読み取るための働きは調査操作で保守欄を引き継ぎすることで獲得イベントを確認し・自動戻し条件の誤読を防ぐ。</li><li>D. 状態を読み取るための働きは点検操作で判定欄を記録することで移動履歴を確認し・依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・リソー・優先ノでAの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・変更）です。照合変更・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・変更・獲得失です。運用変更・資源グでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は優先ノ・リソー・変更です。項目変更・リソー・優先ノでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は獲得失・リソー・優先ノです。仕様変更・リソー・優先ノでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は変更・獲得失・優先ノです。用語変更・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0095</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0095について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_95
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0095A
+画面・出力には PHA72DD0095A が表示され、リソースグループ制御 Resource Group Name 0095 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0095
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0095B
+画面・出力には PHA72DD0095B が表示され、リソースグループ制御 Resource Group Name 0095 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0095
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0095C
+画面・出力には PHA72DD0095C が表示され、リソースグループ制御 Resource Group Name 0095 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0095A が画面・出力に表示されること
+② ステップ2 の PHA72DD0095B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0095C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0345"><h3>リソースグループ制御 Resource Group Name 0110</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>紺K移行0111ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紺K移行0111です。紺K移行0111はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録紺K移行0111です。紺K移行0111では優先ノード一覧と取得時刻を採取票紺K移行0111へ残します。紺K移行0111では依存リソース順序の見落としを避けるため補助資料も照合する判断紺K移行0111です。紺K移行0111の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録紺K移行0111です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0110に関する障害切り分けの前提を確認しています。GLVM地理的ミラー RPV Server 0141の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてミラー更新状を照合する。</li><li>B. 機能の説明としては依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして優先ノード一を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としては自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして失敗ラベルを照合する。</li><li>D. 機能の説明としてはノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するしてトポロジ要約を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・リソー・優先ノでBの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・移行）です。照合移行・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・移行・依存リです。比較リソー・移行でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は資源グ・移行・優先ノです。項目移行・リソー・優先ノでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は依存リ・リソー・優先ノです。仕様移行・リソー・優先ノでD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は移行・依存リ・優先ノです。用語移行・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0110</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0110について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_110
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0110A
+画面・出力には PHA72DD0110A が表示され、リソースグループ制御 Resource Group Name 0110 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0110
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0110B
+画面・出力には PHA72DD0110B が表示され、リソースグループ制御 Resource Group Name 0110 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0110
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0110C
+画面・出力には PHA72DD0110C が表示され、リソースグループ制御 Resource Group Name 0110 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0110A が画面・出力に表示されること
+② ステップ2 の PHA72DD0110B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0110C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0346"><h3>リソースグループ制御 Resource Group Name 0125</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>銀F診断0126ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票銀F診断0126です。銀F診断0126はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録銀F診断0126です。銀F診断0126では優先ノード一覧と取得時刻を採取票銀F診断0126へ残します。銀F診断0126ではRG位置の誤認を避けるため補助資料も照合する判断銀F診断0126です。銀F診断0126の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録銀F診断0126です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0125を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0193と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして構成データOを照合する。</li><li>B. 運用時に利用する技術的役割は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして優先ノード一を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 運用時に利用する技術的役割は対象ファイルの誤読を避けるため・状態確認で対象ファイルを確認するして対象ファイルを照合する。</li><li>D. 運用時に利用する技術的役割は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・リソー・優先ノでBの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・診断）です。照合診断・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・診断・資源グです。比較リソー・診断でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は資源グ・診断・優先ノです。項目診断・リソー・優先ノでC:の状態確認 対象ファイルは「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は資源グ・リソー・優先ノです。仕様診断・リソー・優先ノでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は診断・資源グ・優先ノです。用語診断・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0125</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0125について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_05
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0125A
+画面・出力には PHA72DD0125A が表示され、リソースグループ制御 Resource Group Name 0125 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0125
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0125B
+画面・出力には PHA72DD0125B が表示され、リソースグループ制御 Resource Group Name 0125 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0125
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0125C
+画面・出力には PHA72DD0125C が表示され、リソースグループ制御 Resource Group Name 0125 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0125A が画面・出力に表示されること
+② ステップ2 の PHA72DD0125B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0125C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0347"><h3>リソースグループ制御 Resource Group Name 0140</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>蒼A保守0141ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票蒼A保守0141です。蒼A保守0141はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録蒼A保守0141です。蒼A保守0141では優先ノード一覧と取得時刻を採取票蒼A保守0141へ残します。蒼A保守0141では自動戻し条件の誤読を避けるため補助資料も照合する判断蒼A保守0141です。蒼A保守0141の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録蒼A保守0141です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0140の技術的な意味を資料で確認するとき、GLVM地理的ミラー VG STATE 0183との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は監査操作で記録欄を比較することで基本ソフトAを確認し・syslogとhacmp.oを防ぐ。</li><li>B. 構成を確認する際の意味は主操作で出力欄を評価することでミラー更新状を確認し・片側VGのvaryon誤操作を防ぐ。</li><li>C. 構成を確認する際の意味は依存照会からSTART_AFTERを読むことで依存照会を確認し・依存順を無視して子資源を先にを防ぐ。</li><li>D. 構成を確認する際の意味は調査操作で保守欄を引き継ぎすることで優先ノード一を確認し・自動戻し条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保守・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・保守）です。照合保守・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・保守・自動戻です。比較保守・リソー・優先ノ・自動戻でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は資源グ・保守・優先ノです。運用保守・資源グでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は優先ノ・リソー・保守です。項目保守・リソー・優先ノでC:の障害切り分け DEP04は「資源グループで依存照会から」を述べるため、正答側の照合軸は自動戻・リソー・優先ノです。用語保守・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0140</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0140について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_20
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0140A
+画面・出力には PHA72DD0140A が表示され、リソースグループ制御 Resource Group Name 0140 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0140
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0140B
+画面・出力には PHA72DD0140B が表示され、リソースグループ制御 Resource Group Name 0140 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0140
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0140C
+画面・出力には PHA72DD0140C が表示され、リソースグループ制御 Resource Group Name 0140 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0140A が画面・出力に表示されること
+② ステップ2 の PHA72DD0140B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0140C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0348"><h3>リソースグループ制御 Resource Group Name 0155</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>金P保守0156ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票金P保守0156です。金P保守0156はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録金P保守0156です。金P保守0156では優先ノード一覧と取得時刻を採取票金P保守0156へ残します。金P保守0156では獲得失敗ログの未採取を避けるため補助資料も照合する判断金P保守0156です。金P保守0156の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録金P保守0156です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0155について構成や状態を確認します。GLVM地理的ミラー RPV Client 0189ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは資源グループの優先ノード一覧と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きは地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>C. 状態を読み取るための働きはクラスタトポロジーとリソースの整合性を検査するコマンドを版数確認する。系切替確認で系切替確認を確認するときは系切替確認の誤読を防ぐ。</li><li>D. 状態を読み取るための働きは地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・リソー・優先ノでAの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・保守）です。照合保守・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・保守・獲得失です。運用保守・資源グでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は優先ノ・リソー・保守です。項目保守・リソー・優先ノでC:の版数確認 系切替確認は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸は獲得失・リソー・優先ノです。仕様保守・リソー・優先ノでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は保守・獲得失・優先ノです。用語保守・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0155</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0155について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_35
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0155A
+画面・出力には PHA72DD0155A が表示され、リソースグループ制御 Resource Group Name 0155 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0155
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0155B
+画面・出力には PHA72DD0155B が表示され、リソースグループ制御 Resource Group Name 0155 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0155
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0155C
+画面・出力には PHA72DD0155C が表示され、リソースグループ制御 Resource Group Name 0155 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0155A が画面・出力に表示されること
+② ステップ2 の PHA72DD0155B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0155C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0349"><h3>リソースグループ制御 Resource Group Name 0170</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>紺K切替0171ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紺K切替0171です。紺K切替0171はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録紺K切替0171です。紺K切替0171では優先ノード一覧と取得時刻を採取票紺K切替0171へ残します。紺K切替0171では依存リソース順序の見落としを避けるため補助資料も照合する判断紺K切替0171です。紺K切替0171の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録紺K切替0171です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0170の役割を調べています。リソースグループ制御 Node List 0182の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはノード一覧の移動履歴と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。</li><li>B. 機能の説明としては資源グループの優先ノード一覧と取得時刻を記録し・依存リソース順序の見落としを防ぐである。点検操作で判定欄を記録するときは依存リソース順序の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としてはリソースグループの状態と所有ノードを表示するコマンドを同期確認する。同期確認でボリューム状を確認するときはボリューム状の誤読を防ぐ。</li><li>D. 機能の説明としてはクラスタートポロジーの構成データODM登録値と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・リソー・優先ノでBの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・切替）です。照合切替・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・切替・依存リです。比較切替・リソー・優先ノ・依存リでA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は資源グ・切替・優先ノです。項目切替・リソー・優先ノでC:の同期確認 ボリューム状態は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は依存リ・リソー・優先ノです。仕様切替・リソー・優先ノでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は切替・依存リ・優先ノです。用語切替・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0170</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0170について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_50
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0170A
+画面・出力には PHA72DD0170A が表示され、リソースグループ制御 Resource Group Name 0170 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0170
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0170B
+画面・出力には PHA72DD0170B が表示され、リソースグループ制御 Resource Group Name 0170 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0170
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0170C
+画面・出力には PHA72DD0170C が表示され、リソースグループ制御 Resource Group Name 0170 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0170A が画面・出力に表示されること
+② ステップ2 の PHA72DD0170B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0170C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0350"><h3>リソースグループ制御 Resource Group Name 0185</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>銀F収集0186ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票銀F収集0186です。銀F収集0186はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録銀F収集0186です。銀F収集0186では優先ノード一覧と取得時刻を採取票銀F収集0186へ残します。銀F収集0186ではRG位置の誤認を避けるため補助資料も照合する判断銀F収集0186です。銀F収集0186の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録銀F収集0186です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「リソースグループ制御 Resource Group Name 0185」を「GLVM地理的ミラー syslog entry 0267」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は照合でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>B. 運用時に利用する技術的役割は再始動確認でイベント確認を証跡に残し・PowerHA Node Stateでイベント確認から。</li><li>C. 運用時に利用する技術的役割は収集で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 運用時に利用する技術的役割は棚卸で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・リソー・優先ノでCの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・収集）です。照合収集・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・収集・資源グです。比較収集・リソー・優先ノ・資源グでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は資源グ・収集・優先ノです。運用収集・資源グでB:の再始動後の確認 NODE15は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は優先ノ・リソー・収集です。仕様収集・リソー・優先ノでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は収集・資源グ・優先ノです。用語収集・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0185</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0185について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_65
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0185A
+画面・出力には PHA72DD0185A が表示され、リソースグループ制御 Resource Group Name 0185 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0185
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0185B
+画面・出力には PHA72DD0185B が表示され、リソースグループ制御 Resource Group Name 0185 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0185
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0185C
+画面・出力には PHA72DD0185C が表示され、リソースグループ制御 Resource Group Name 0185 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0185A が画面・出力に表示されること
+② ステップ2 の PHA72DD0185B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0185C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0351"><h3>リソースグループ制御 Resource Group Name 0200</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>蒼A登録0201ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票蒼A登録0201です。蒼A登録0201はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録蒼A登録0201です。蒼A登録0201では優先ノード一覧と取得時刻を採取票蒼A登録0201へ残します。蒼A登録0201では自動戻し条件の誤読を避けるため補助資料も照合する判断蒼A登録0201です。蒼A登録0201の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録蒼A登録0201です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0200を同一分類のGLVM地理的ミラー VG STATE 0258と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は保護で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>B. 構成を確認する際の意味は登録で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 構成を確認する際の意味はノード状態でノード一覧を証跡に残し・PowerHA Node Stateでノード一覧から。</li><li>D. 構成を確認する際の意味は監査で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・リソー・優先ノでBの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・登録）です。照合登録・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・登録・自動戻です。比較登録・リソー・優先ノ・自動戻でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は資源グ・登録・優先ノです。項目登録・リソー・優先ノでC:の障害切り分け NODE04は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は自動戻・リソー・優先ノです。仕様登録・リソー・優先ノでD:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は登録・自動戻・優先ノです。用語登録・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0200</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0200について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_80
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0200A
+画面・出力には PHA72DD0200A が表示され、リソースグループ制御 Resource Group Name 0200 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0200
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0200B
+画面・出力には PHA72DD0200B が表示され、リソースグループ制御 Resource Group Name 0200 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0200
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0200C
+画面・出力には PHA72DD0200C が表示され、リソースグループ制御 Resource Group Name 0200 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0200A が画面・出力に表示されること
+② ステップ2 の PHA72DD0200B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0200C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0352"><h3>リソースグループ制御 Resource Group Name 0215</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>金P登録0216ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票金P登録0216です。金P登録0216はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録金P登録0216です。金P登録0216では優先ノード一覧と取得時刻を採取票金P登録0216へ残します。金P登録0216では獲得失敗ログの未採取を避けるため補助資料も照合する判断金P登録0216です。金P登録0216の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録金P登録0216です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0215の設定や表示を読む前に役割を確認します。GLVM地理的ミラー Mirror Pool 0300ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてVG varを照合する。</li><li>B. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして優先ノード一を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 状態を読み取るための働きは管理設定と資源状態の混同を避けるため・RG確認からapp_rgを読むして資源グループを照合する。</li><li>D. 状態を読み取るための働きは片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・リソー・優先ノでBの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・登録）です。照合登録・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・登録・獲得失です。比較登録・リソー・優先ノ・獲得失でA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は資源グ・登録・優先ノです。項目登録・リソー・優先ノでC:の変更後の確認 START03は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は獲得失・リソー・優先ノです。仕様登録・リソー・優先ノでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は登録・獲得失・優先ノです。用語登録・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0215</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0215について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_95
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0215A
+画面・出力には PHA72DD0215A が表示され、リソースグループ制御 Resource Group Name 0215 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0215
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0215B
+画面・出力には PHA72DD0215B が表示され、リソースグループ制御 Resource Group Name 0215 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0215
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0215C
+画面・出力には PHA72DD0215C が表示され、リソースグループ制御 Resource Group Name 0215 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0215A が画面・出力に表示されること
+② ステップ2 の PHA72DD0215B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0215C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0353"><h3>リソースグループ制御 Resource Group Name 0230</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>紺K確認0231ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紺K確認0231です。紺K確認0231はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録紺K確認0231です。紺K確認0231では優先ノード一覧と取得時刻を採取票紺K確認0231へ残します。紺K確認0231では依存リソース順序の見落としを避けるため補助資料も照合する判断紺K確認0231です。紺K確認0231の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録紺K確認0231です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0230に関する障害切り分けの前提を確認しています。GLVM地理的ミラー RPV Client 0234の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては変更確認操作で採取欄を棚卸することで遠隔ボリューを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 機能の説明としては再確認からfalseを読むことで再確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li><li>C. 機能の説明としては採取操作で照合欄を点検することで検証進行率を確認し・警告と致命エラーの混同を防ぐ。</li><li>D. 機能の説明としては点検操作で判定欄を記録することで優先ノード一を確認し・依存リソース順序の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・確認）です。照合確認・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・確認・依存リです。比較確認・リソー・優先ノ・依存リでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は資源グ・確認・優先ノです。運用確認・資源グでB:の再始動後の確認 SYNC15は「Cluster Synchronizで再確認」を述べるため、正答側の照合軸は優先ノ・リソー・確認です。項目確認・リソー・優先ノでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は依存リ・リソー・優先ノです。用語確認・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0230</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0230について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_110
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0230A
+画面・出力には PHA72DD0230A が表示され、リソースグループ制御 Resource Group Name 0230 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0230
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0230B
+画面・出力には PHA72DD0230B が表示され、リソースグループ制御 Resource Group Name 0230 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0230
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0230C
+画面・出力には PHA72DD0230C が表示され、リソースグループ制御 Resource Group Name 0230 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0230A が画面・出力に表示されること
+② ステップ2 の PHA72DD0230B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0230C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0354"><h3>リソースグループ制御 Resource Group Name 0245</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>銀F保護0246ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票銀F保護0246です。銀F保護0246はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録銀F保護0246です。銀F保護0246では優先ノード一覧と取得時刻を採取票銀F保護0246へ残します。銀F保護0246ではRG位置の誤認を避けるため補助資料も照合する判断銀F保護0246です。銀F保護0246の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録銀F保護0246です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0245を保守記録に説明する必要があります。GLVM地理的ミラー RPV Client 0324と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は照合操作で確認欄を採取することで遠隔ボリューを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>B. 運用時に利用する技術的役割はSMUX接続からESTABLISHEDをことで管理通信SMを確認し・監視通信SNMP情報の残留をを防ぐ。</li><li>C. 運用時に利用する技術的役割は調査操作で保守欄を引き継ぎすることで資源グループを確認し・自動戻し条件の誤読を防ぐ。</li><li>D. 運用時に利用する技術的役割は復旧操作で点検欄を確認することで優先ノード一を確認し・資源グループ位置の誤認を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・保護）です。照合保護・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・保護・資源グです。比較保護・リソー・優先ノ・資源グでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は資源グ・保護・優先ノです。運用保護・資源グでB:の変更前の確認 CLSTAT02は「clstatで管理通信SMUX接続から」を述べるため、正答側の照合軸は優先ノ・リソー・保護です。項目保護・リソー・優先ノでC:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は資源グ・リソー・優先ノです。用語保護・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0245</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0245について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_05
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0245A
+画面・出力には PHA72DD0245A が表示され、リソースグループ制御 Resource Group Name 0245 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0245
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0245B
+画面・出力には PHA72DD0245B が表示され、リソースグループ制御 Resource Group Name 0245 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0245
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0245C
+画面・出力には PHA72DD0245C が表示され、リソースグループ制御 Resource Group Name 0245 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0245A が画面・出力に表示されること
+② ステップ2 の PHA72DD0245B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0245C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0355"><h3>リソースグループ制御 Resource Group Name 0260</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 初級</p><p>蒼A照合0261ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票蒼A照合0261です。蒼A照合0261はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録蒼A照合0261です。蒼A照合0261では優先ノード一覧と取得時刻を採取票蒼A照合0261へ残します。蒼A照合0261では自動戻し条件の誤読を避けるため補助資料も照合する判断蒼A照合0261です。蒼A照合0261の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録蒼A照合0261です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0260の技術的な意味を資料で確認するとき、クラスタ構成検証 Cluster Resources 0295との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は資源グループの優先ノード一覧と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 構成を確認する際の意味はクラスター資源のトポロジ要約と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>C. 構成を確認する際の意味はIP Service IPでサービスアドレス照会から アドレス を読み・アドレス と オンライン表示である。IP資源照会からアドレスを読むときは永続アドレスとサービスアドレを防ぐ。</li><li>D. 構成を確認する際の意味は獲得処理の獲得イベントと取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能照合・リソー・優先ノでAの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・照合）です。照合照合・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・照合・自動戻です。運用照合・資源グでB:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は優先ノ・リソー・照合です。項目照合・リソー・優先ノでC:の依存関係の確認 SVCIP13は「IP Service IPでサービスアドレス」を述べるため、正答側の照合軸は自動戻・リソー・優先ノです。仕様照合・リソー・優先ノでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は照合・自動戻・優先ノです。用語照合・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0260</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0260について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_20
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0260A
+画面・出力には PHA72DD0260A が表示され、リソースグループ制御 Resource Group Name 0260 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0260
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0260B
+画面・出力には PHA72DD0260B が表示され、リソースグループ制御 Resource Group Name 0260 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0260
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0260C
+画面・出力には PHA72DD0260C が表示され、リソースグループ制御 Resource Group Name 0260 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0260A が画面・出力に表示されること
+② ステップ2 の PHA72DD0260B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0260C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0356"><h3>リソースグループ制御 Resource Group Name 0275</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>金P照合0276ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票金P照合0276です。金P照合0276はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録金P照合0276です。金P照合0276では優先ノード一覧と取得時刻を採取票金P照合0276へ残します。金P照合0276では獲得失敗ログの未採取を避けるため補助資料も照合する判断金P照合0276です。金P照合0276の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録金P照合0276です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0275について構成や状態を確認します。GLVM地理的ミラー RPV Server 0306ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 状態を読み取るための働きはエラー記録からIDENTIFIERを読むことでエラー記録を確認し・cluster historを防ぐ。</li><li>C. 状態を読み取るための働きは復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。</li><li>D. 状態を読み取るための働きは表示操作で対象欄を追跡することで優先ノード一を確認し・獲得失敗ログの未採取を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・照合）です。照合照合・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・照合・獲得失です。比較照合・リソー・優先ノ・獲得失でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は資源グ・照合・優先ノです。運用照合・資源グでB:の権限境界の確認 FAIL12は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は優先ノ・リソー・照合です。項目照合・リソー・優先ノでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は獲得失・リソー・優先ノです。用語照合・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0275</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0275について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_35
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0275A
+画面・出力には PHA72DD0275A が表示され、リソースグループ制御 Resource Group Name 0275 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0275
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0275B
+画面・出力には PHA72DD0275B が表示され、リソースグループ制御 Resource Group Name 0275 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0275
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0275C
+画面・出力には PHA72DD0275C が表示され、リソースグループ制御 Resource Group Name 0275 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0275A が画面・出力に表示されること
+② ステップ2 の PHA72DD0275B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0275C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0357"><h3>リソースグループ制御 Resource Group Name 0290</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>紺K抑止0291ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紺K抑止0291です。紺K抑止0291はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録紺K抑止0291です。紺K抑止0291では優先ノード一覧と取得時刻を採取票紺K抑止0291へ残します。紺K抑止0291では依存リソース順序の見落としを避けるため補助資料も照合する判断紺K抑止0291です。紺K抑止0291の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録紺K抑止0291です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0290の役割を調べています。GLVM地理的ミラー syslog entry 0312の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としては照合操作で確認欄を採取することでsyslogを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>B. 機能の説明としてはSMUX接続からESTABLISHEDをことで管理通信SMを確認し・監視通信SNMP情報の残留をを防ぐ。</li><li>C. 機能の説明としては保守操作で監査欄を保存することで検証報告ROを確認し・検証ログの採取漏れを防ぐ。</li><li>D. 機能の説明としては点検操作で判定欄を記録することで優先ノード一を確認し・依存リソース順序の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・抑止）です。照合抑止・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・抑止・依存リです。比較抑止・リソー・優先ノ・依存リでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は資源グ・抑止・優先ノです。運用抑止・資源グでB:の停止前の確認 CLSTAT14は「clstatで管理通信SMUX接続から」を述べるため、正答側の照合軸は優先ノ・リソー・抑止です。項目抑止・リソー・優先ノでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は依存リ・リソー・優先ノです。用語抑止・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0290</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0290について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_50
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0290A
+画面・出力には PHA72DD0290A が表示され、リソースグループ制御 Resource Group Name 0290 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0290
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0290B
+画面・出力には PHA72DD0290B が表示され、リソースグループ制御 Resource Group Name 0290 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0290
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0290C
+画面・出力には PHA72DD0290C が表示され、リソースグループ制御 Resource Group Name 0290 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0290A が画面・出力に表示されること
+② ステップ2 の PHA72DD0290B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0290C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0358"><h3>リソースグループ制御 Resource Group Name 0305</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>銀F解析0306ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票銀F解析0306です。銀F解析0306はリソースグループ制御の復旧操作でリソースグループ制御の点検欄を確認する記録銀F解析0306です。銀F解析0306では優先ノード一覧と取得時刻を採取票銀F解析0306へ残します。銀F解析0306ではRG位置の誤認を避けるため補助資料も照合する判断銀F解析0306です。銀F解析0306の用語整理ではリソースグループ制御の対象値を実在出力で点検する記録銀F解析0306です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「リソースグループ制御 Resource Group Name 0305」を「クラスタ構成検証 Cluster Topology 0328」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は計画で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li><li>B. 運用時に利用する技術的役割は棚卸でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li><li>C. 運用時に利用する技術的役割は解析で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 運用時に利用する技術的役割は登録でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・リソー・優先ノでCの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・解析）です。照合解析・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・解析・資源グです。比較解析・リソー・優先ノ・資源グでA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は資源グ・解析・優先ノです。運用解析・資源グでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は優先ノ・リソー・解析です。仕様解析・リソー・優先ノでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は解析・資源グ・優先ノです。用語解析・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・資源グです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0305</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0305について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_65
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0305A
+画面・出力には PHA72DD0305A が表示され、リソースグループ制御 Resource Group Name 0305 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0305
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0305B
+画面・出力には PHA72DD0305B が表示され、リソースグループ制御 Resource Group Name 0305 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0305
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0305C
+画面・出力には PHA72DD0305C が表示され、リソースグループ制御 Resource Group Name 0305 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0305A が画面・出力に表示されること
+② ステップ2 の PHA72DD0305B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0305C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0359"><h3>リソースグループ制御 Resource Group Name 0320</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>蒼A計画0321ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票蒼A計画0321です。蒼A計画0321はリソースグループ制御の調査操作でリソースグループ制御の保守欄を引き継ぎする記録蒼A計画0321です。蒼A計画0321では優先ノード一覧と取得時刻を採取票蒼A計画0321へ残します。蒼A計画0321では自動戻し条件の誤読を避けるため補助資料も照合する判断蒼A計画0321です。蒼A計画0321の用語整理ではリソースグループ制御の対象値を実在出力で整理する記録蒼A計画0321です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0320を同一分類のGLVM地理的ミラー syslog entry 0327と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味は計画でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>B. 構成を確認する際の意味は復旧で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>C. 構成を確認する際の意味は収集でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li><li>D. 構成を確認する際の意味は計画で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・リソー・優先ノでDの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・計画）です。照合計画・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・計画・自動戻です。比較計画・リソー・優先ノ・自動戻でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は資源グ・計画・優先ノです。運用計画・資源グでB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は優先ノ・リソー・計画です。項目計画・リソー・優先ノでC:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は自動戻・リソー・優先ノです。用語計画・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・自動戻です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0320</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0320について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_80
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0320A
+画面・出力には PHA72DD0320A が表示され、リソースグループ制御 Resource Group Name 0320 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0320
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0320B
+画面・出力には PHA72DD0320B が表示され、リソースグループ制御 Resource Group Name 0320 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0320
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0320C
+画面・出力には PHA72DD0320C が表示され、リソースグループ制御 Resource Group Name 0320 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0320A が画面・出力に表示されること
+② ステップ2 の PHA72DD0320B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0320C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0360"><h3>リソースグループ制御 Resource Group Name 0335</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 中級</p><p>金P計画0336ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票金P計画0336です。金P計画0336はリソースグループ制御の表示操作でリソースグループ制御の対象欄を追跡する記録金P計画0336です。金P計画0336では優先ノード一覧と取得時刻を採取票金P計画0336へ残します。金P計画0336では獲得失敗ログの未採取を避けるため補助資料も照合する判断金P計画0336です。金P計画0336の用語整理ではリソースグループ制御の対象値を実在出力で照合する記録金P計画0336です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0335の設定や表示を読む前に役割を確認します。クラスタ構成検証 SMIT Command Status 0349ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。</li><li>B. 状態を読み取るための働きは遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてミラー更新状を照合する。</li><li>C. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして優先ノード一を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証報告ROを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・リソー・優先ノでCの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・計画）です。照合計画・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・計画・獲得失です。比較計画・リソー・優先ノ・獲得失でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は資源グ・計画・優先ノです。運用計画・資源グでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は優先ノ・リソー・計画です。仕様計画・リソー・優先ノでD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は計画・獲得失・優先ノです。用語計画・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・獲得失です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0335</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0335について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_95
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0335A
+画面・出力には PHA72DD0335A が表示され、リソースグループ制御 Resource Group Name 0335 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0335
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0335B
+画面・出力には PHA72DD0335B が表示され、リソースグループ制御 Resource Group Name 0335 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0335
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0335C
+画面・出力には PHA72DD0335C が表示され、リソースグループ制御 Resource Group Name 0335 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0335A が画面・出力に表示されること
+② ステップ2 の PHA72DD0335B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0335C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0361"><h3>リソースグループ制御 Resource Group Name 0350</h3><p class="kb-meta">分類: リソースグループ ・ 難易度: 上級</p><p>紺K解除0351ではPowerHA SystemMirror 7.2 の リソースグループを扱う採取票紺K解除0351です。紺K解除0351はリソースグループ制御の点検操作でリソースグループ制御の判定欄を記録する記録紺K解除0351です。紺K解除0351では優先ノード一覧と取得時刻を採取票紺K解除0351へ残します。紺K解除0351では依存リソース順序の見落としを避けるため補助資料も照合する判断紺K解除0351です。紺K解除0351の用語整理ではリソースグループ制御の対象値を実在出力で保管する記録紺K解除0351です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> リソースグループ制御 Resource Group Name 0350に関する障害切り分けの前提を確認しています。ノード状態 PowerHA Node State 障害切り分け NODE04の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはノード状態でノード一覧を証跡に残し・PowerHA Node Stateでノード一覧から。</li><li>B. 機能の説明としては資源依存関係でイベント順序を証跡に残し・資源グループでイベント順序から completed を読み。</li><li>C. 機能の説明としては解除で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 機能の説明としては確認でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・リソー・優先ノでCの記述「資源グループの優先ノード一覧と取得時刻を記録し」に対応する項目はGroup Name（資源グ・優先ノ・解除）です。照合解除・リソー・優先ノに関するリソースグループの仕様は「資源グループの優先ノード一覧と取得時刻を記録し」で、確認対象は優先ノ・解除・依存リです。比較解除・リソー・優先ノ・依存リでA:の障害切り分け NODE04は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は資源グ・解除・優先ノです。運用解除・資源グでB:の引継ぎ記録 DEP09は「資源グループでイベント順序から」を述べるため、正答側の照合軸は優先ノ・リソー・解除です。仕様解除・リソー・優先ノでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は解除・依存リ・優先ノです。用語解除・リソー・優先ノという用語は「資源グループの優先ノード一覧と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはリソー・優先ノ・依存リです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>リソースグループ制御 Resource Group Name 0350</strong></p><p>検証目的: リソースグループ制御のリソースグループ制御 Resource Group Name 0350について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Resource Group Name と 優先ノード一覧</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+Resource Group rg_app_110
+Node List nodeA nodeB
+Online Node nodeA
+確認コード PHA72DD0350A
+画面・出力には PHA72DD0350A が表示され、リソースグループ制御 Resource Group Name 0350 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clRGinfo -v
+→ Enter を押す
+［画面・出力］
+hacmp.out PHA0350
+Resource group acquisition completed
+Application controller start method recorded
+確認コード PHA72DD0350B
+画面・出力には PHA72DD0350B が表示され、リソースグループ制御 Resource Group Name 0350 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Resource Group Name を読むため、リソースグループ制御 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr query resource_group
+→ Enter を押す
+［画面・出力］
+clstrmgr.debug PHA0350
+Event resource group move processed
+Fallback policy evaluated
+確認コード PHA72DD0350C
+画面・出力には PHA72DD0350C が表示され、リソースグループ制御 Resource Group Name 0350 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0350A が画面・出力に表示されること
+② ステップ2 の PHA72DD0350B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0350C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+## 同期処理
+
+
+<section class="kb-item" id="c25-i0362"><h3>clRGinfo 所有先確認 対象ノード</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clRGinfo 所有先確認 対象ノード」は、リソースグループの状態と所有ノードを表示するコマンドを所有先確認の観点で確認する技術項目です。CLversion 行とclnode_3を同じ記録で見比べることで、サービスIP定義の不一致を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clRGinfo 所有先確認 対象ノードの設定や表示を読む前に役割を確認します。ノード状態 PowerHA Node State 変更前の確認 NODE02ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きはリソースグループの状態と所有ノードを表示するコマンドを所有先確認する。所有先確認で対象ノードを確認するときは対象ノードの誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 状態を読み取るための働きはPowerHA Node Stateでサブシステム状態から クラスター管理プロセス を読みである。SRC状態からクラスター管理プロセスときは基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>C. 状態を読み取るための働きはノード一覧の移動履歴と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li><li>D. 状態を読み取るための働きは資源グループの優先ノード一覧と取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能所有先・所有先・対象ノでAの記述「リソースグループの状態と所有ノードを表示するコマンドを所」に対応する項目は所有先確認 対象ノード（clR・対象ノ・所有先）です。照合所有先・所有先・対象ノに関する同期処理の仕様は「リソースグループの状態と所有ノードを表示するコマンドを所有先確認する」で、確認対象は対象ノ・所有先・対象ノです。運用所有先・clRでB:の変更前の確認 NODE02は「PowerHA Node Stateでサブシ」を述べるため、正答側の照合軸は対象ノ・所有先・所有先です。項目所有先・所有先・対象ノでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は対象ノ・所有先・対象ノです。仕様所有先・所有先・対象ノでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は所有先・対象ノ・対象ノです。用語所有先・所有先・対象ノという用語は「リソースグループの状態と所有ノードを表示するコマンド」を指し、照合する値と誤認リスクの組合せは所有先・対象ノ・対象ノです。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clRGinfo 所有先確認 対象ノード</strong></p><p>検証目的: 同期処理のclRGinfo 所有先確認 対象ノードについて、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cltopinfo
+→ Enter を押す
+［画面・出力］
+Cluster Name:    prodcluster047
+Heartbeat Type:  Unicast
+Repository Disk: hdisk2
+Resource Group rg_app_047
+Service IP Label clst_svcIP_047
+画面・出力には Cluster が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name     Group State                  Node
+rg_app_047     ONLINE                       clnode_1
+               OFFLINE                      clnode_2
+画面・出力には Group が含まれ、clRGinfo 所有先確認 対象ノードの証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、サービスIP定義の不一致を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query resource_group rg_app_047
+→ Enter を押す
+［画面・出力］
+NAME=&quot;rg_app_047&quot;
+STATE=&quot;ONLINE&quot;
+PARTICIPATING_NODES=&quot;clnode_1 clnode_2&quot;
+画面・出力には NAME= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の NAME= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0363"><h3>clRGinfo 障害切り分け 識別値</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 初級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clRGinfo 障害切り分け 識別値」は、リソースグループの状態と所有ノードを表示するコマンドを障害切り分けの観点で確認する技術項目です。CLversion 行とclst_svcIP_007を同じ記録で見比べることで、サービスIP定義の不一致を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clRGinfo 障害切り分け 識別値の設定や表示を読む前に役割を確認します。clmgr verify cluster 同期確認 出力比較ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はクラスタトポロジーとリソースの整合性を検査するコマンドを同期確認する。同期確認で出力比較を確認するときは出力比較の誤読を防ぐ。</li><li>B. 一次資料が示す主目的はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li><li>C. 一次資料が示す主目的はリソースグループの状態と所有ノードを表示するコマンドである。同期処理で識別値を確認するときは識別値の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は構成検証のリソース要約と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能同期処・障害切・識別値でCの記述「リソースグループの状態と所有ノードを表示するコマンドであ」に対応する項目は障害切り分け 識別値（clR・識別値・同期処）です。照合同期処・障害切・識別値に関する同期処理の仕様は「リソースグループの状態と所有ノードを表示するコマンド」で、確認対象は識別値・同期処・識別値です。比較同期処・障害切・識別値・識別値でA:の同期確認 出力比較は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸はclR・同期処・識別値です。運用同期処・clRでB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は識別値・障害切・同期処です。仕様同期処・障害切・識別値でD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は同期処・識別値・識別値です。用語同期処・障害切・識別値という用語は「リソースグループの状態と所有ノードを表示するコマンド」を指し、照合する値と誤認リスクの組合せは障害切・識別値・識別値です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clRGinfo 障害切り分け 識別値</strong></p><p>検証目的: 同期処理のclRGinfo 障害切り分け 識別値について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cltopinfo
+→ Enter を押す
+［画面・出力］
+Cluster Name:    prodcluster007
+Heartbeat Type:  Unicast
+Repository Disk: hdisk2
+Resource Group rg_app_007
+Service IP Label clst_svcIP_007
+画面・出力には Cluster が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clRGinfo
+→ Enter を押す
+［画面・出力］
+Group Name     Group State                  Node
+rg_app_007     ONLINE                       clnode_1
+               OFFLINE                      clnode_2
+画面・出力には Group が含まれ、clRGinfo 障害切り分け 識別値の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、サービスIP定義の不一致を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query resource_group rg_app_007
+→ Enter を押す
+［画面・出力］
+NAME=&quot;rg_app_007&quot;
+STATE=&quot;ONLINE&quot;
+PARTICIPATING_NODES=&quot;clnode_1 clnode_2&quot;
+画面・出力には NAME= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Cluster が画面・出力に表示されること
+② ステップ2 の Group が画面・出力に表示されること
+③ ステップ3 の NAME= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0364"><h3>clmgr query node 状態確認 サンプル採取</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clmgr query node 状態確認 サンプル採取」は、ノードの状態と raw_state を確認するコマンドを状態確認の観点で確認する技術項目です。CLversion 行とclnode_3を同じ記録で見比べることで、検証警告の見落としを名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr query node 状態確認 サンプル採取の設定や表示を読む前に役割を確認します。clmgr verify cluster 整合確認 装置一覧ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは整合確認で装置一覧を証跡に残し・クラスタトポロジーとリソースの整合性を検査するコマンドを整合。</li><li>B. 状態を読み取るための働きは監査で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。リソースグループ制御 Online Node 0074固有の属性も確認対象に含める。</li><li>C. 状態を読み取るための働きはサンプル採取でサンプル採取を証跡に残し・ノードの状態と raw_state を確認するコマンド。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは登録でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能サンプ・状態・サンプでCの記述「ノードの状態と raw_state」に対応する項目は状態確認 サンプル採取（clm・サンプ・サンプ）です。照合サンプ・状態・サンプに関する同期処理の仕様は「ノードの状態と raw_state を確認するコマンド」で、確認対象はサンプ・サンプ・サンプです。比較サンプ・状態・サンプ・サンプでA:の整合確認 装置一覧は「クラスタトポロジーとリソースの整合性を検査す」を述べるため、正答側の照合軸はclm・サンプ・サンプです。運用サンプ・clmでB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はサンプ・状態・サンプです。仕様サンプ・状態・サンプでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸はサンプ・サンプ・サンプです。用語サンプ・状態・サンプという用語は「ノードの状態と raw_state」を指し、照合する値と誤認リスクの組合せは状態・サンプ・サンプです。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr query node 状態確認 サンプル採取</strong></p><p>検証目的: 同期処理のclmgr query node 状態確認 サンプル採取について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -ls clstrmgrES
+→ Enter を押す
+［画面・出力］
+Current state: ST_STABLE
+CLversion: 16
+local node vrmf is 7200
+cluster fix level is &quot;0&quot;
+画面・出力には Current が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; ps -ef | grep clstrmgrES
+→ Enter を押す
+［画面・出力］
+root 18363 3346 3 11:02:05 - 10:20 /usr/es/sbin/cluster/clstrmgrES
+画面・出力には root が含まれ、clmgr query node 状態確認 サンプル採取の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、検証警告の見落としを切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; lssrc -g cluster
+→ Enter を押す
+［画面・出力］
+Subsystem         Group            PID          Status
+clstrmgrES        cluster          544802       active
+clcomdES          clcomdES         204920       active
+画面・出力には Subsystem が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Current が画面・出力に表示されること
+② ステップ2 の root が画面・出力に表示されること
+③ ステップ3 の Subsystem が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0365"><h3>clmgr sync cluster 版数確認 再読込</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clmgr sync cluster 版数確認 再読込」は、検証後に構成を同期し、クラスタスナップショットを作成する操作を版数確認の観点で確認する技術項目です。CLversion 行とcltopinfo 015を同じ記録で見比べることで、所有ノードの誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr sync cluster 版数確認 再読込の設定や表示を読む前に役割を確認します。ノード状態 PowerHA Node State 再始動後の確認 NODE15ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはイベント確認から終了状態を読むことでイベント確認を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>B. 対象資源に対する働きは照合操作で確認欄を採取することで基本ソフトAを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>C. 対象資源に対する働きは版数確認で再読込を確認することで再読込を確認し・再読込の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 対象資源に対する働きは確認操作で状態欄を整理することで構成データOを確認し・ノード間構成データODM差分を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能版数確・版数・再読込でCの記述「検証後に構成を同期し、クラスタスナップショットを作成する」に対応する項目は版数確認 再読込（clm・再読込・版数確）です。照合版数確・版数・再読込に関する同期処理の仕様は「検証後に構成を同期し、クラスタスナップショットを作成する操作を版数確」で、確認対象は再読込・版数確・再読込です。比較版数確・版数・再読込・再読込でA:の再始動後の確認 NODE15は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸はclm・版数確・再読込です。運用版数確・clmでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は再読込・版数・版数確です。仕様版数確・版数・再読込でD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は版数確・再読込・再読込です。用語版数確・版数・再読込という用語は「検証後に構成を同期し、クラスタスナップショットを作成」を指し、照合する値と誤認リスクの組合せは版数・再読込・再読込です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr sync cluster 版数確認 再読込</strong></p><p>検証目的: 同期処理のclmgr sync cluster 版数確認 再読込について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+clstat - Cluster Status Monitor
+Cluster: prodcluster015
+State: UP
+SubState: STABLE
+Resource Group: rg_app_015
+State: Online
+画面・出力には clstat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; /usr/es/sbin/cluster/utilities/cldump
+→ Enter を押す
+［画面・出力］
+Cluster prodcluster015
+Node clnode_1 State UP
+Network net_ether_01
+Resource Group rg_app_015 Online
+画面・出力には Cluster が含まれ、clmgr sync cluster 版数確認 再読込の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、所有ノードの誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a state query cluster
+→ Enter を押す
+［画面・出力］
+STATE=&quot;ONLINE&quot;
+画面・出力には STATE= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の clstat が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の STATE= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0366"><h3>clmgr sync cluster 起動確認 経路確認</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 上級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clmgr sync cluster 起動確認 経路確認」は、検証後に構成を同期し、クラスタスナップショットを作成する操作を起動確認の観点で確認する技術項目です。CLversion 行とclst_svcIP_055を同じ記録で見比べることで、所有ノードの誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr sync cluster 起動確認 経路確認の設定や表示を読む前に役割を確認します。ノード状態 PowerHA Node State 代替経路の確認 NODE10ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li><li>B. 一次資料が示す主目的は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li><li>C. 一次資料が示す主目的は経路確認の誤読を避けるため・経路確認で経路確認を確認するして経路確認を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するしてVG varを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能経路確・起動・経路確でCの記述「検証後に構成を同期し、クラスタスナップショットを作成する」に対応する項目は起動確認 経路確認（clm・経路確・経路確）です。照合経路確・起動・経路確に関する同期処理の仕様は「検証後に構成を同期し、クラスタスナップショットを作成する操作を起動確」で、確認対象は経路確・経路確・経路確です。比較経路確・起動・経路確・経路確でA:の代替経路の確認 NODE10は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸はclm・経路確・経路確です。運用経路確・clmでB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は経路確・起動・経路確です。仕様経路確・起動・経路確でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は経路確・経路確・経路確です。用語経路確・起動・経路確という用語は「検証後に構成を同期し、クラスタスナップショットを作成」を指し、照合する値と誤認リスクの組合せは起動・経路確・経路確です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr sync cluster 起動確認 経路確認</strong></p><p>検証目的: 同期処理のclmgr sync cluster 起動確認 経路確認について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clstat -o
+→ Enter を押す
+［画面・出力］
+clstat - Cluster Status Monitor
+Cluster: prodcluster055
+State: UP
+SubState: STABLE
+Resource Group: rg_app_055
+State: Online
+画面・出力には clstat が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; /usr/es/sbin/cluster/utilities/cldump
+→ Enter を押す
+［画面・出力］
+Cluster prodcluster055
+Node clnode_1 State UP
+Network net_ether_01
+Resource Group rg_app_055 Online
+画面・出力には Cluster が含まれ、clmgr sync cluster 起動確認 経路確認の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、所有ノードの誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a state query cluster
+→ Enter を押す
+［画面・出力］
+STATE=&quot;ONLINE&quot;
+画面・出力には STATE= が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の clstat が画面・出力に表示されること
+② ステップ2 の Cluster が画面・出力に表示されること
+③ ステップ3 の STATE= が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0367"><h3>clmgr verify cluster 整合確認 装置一覧</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clmgr verify cluster 整合確認 装置一覧」は、クラスタトポロジーとリソースの整合性を検査するコマンドを整合確認の観点で確認する技術項目です。CLversion 行とclst_svcIP_031を同じ記録で見比べることで、同期前構成の採用を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clmgr verify cluster 整合確認 装置一覧の設定や表示を読む前に役割を確認します。clmgr start cluster 所有先確認 依存関係ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は依存関係の誤読を避けるため・所有先確認で依存関係を確認するして依存関係を照合する。</li><li>B. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてトポロジ要約を照合する。</li><li>C. 一次資料が示す主目的は装置一覧の誤読を避けるため・整合確認で装置一覧を確認するして装置一覧を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして獲得イベントを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能整合確・整合・装置一でCの記述「クラスタトポロジーとリソースの整合性を検査するコマンドを」に対応する項目は整合確認 装置一覧（clm・装置一・整合確）です。照合整合確・整合・装置一に関する同期処理の仕様は「クラスタトポロジーとリソースの整合性を検査するコマンドを整合確認する」で、確認対象は装置一・整合確・装置一です。比較整合確・整合・装置一・装置一でA:の所有先確認 依存関係は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はclm・整合確・装置一です。運用整合確・clmでB:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は装置一・整合・整合確です。仕様整合確・整合・装置一でD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は整合確・装置一・装置一です。用語整合確・整合・装置一という用語は「クラスタトポロジーとリソースの整合性を検査するコマン」を指し、照合する値と誤認リスクの組合せは整合・装置一・装置一です。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clmgr verify cluster 整合確認 装置一覧</strong></p><p>検証目的: 同期処理のclmgr verify cluster 整合確認 装置一覧について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr verify cluster
+→ Enter を押す
+［画面・出力］
+Verification to be performed on the following:
+        Cluster Topology
+        Cluster Resources
+Completed 100 percent of the verification checks
+Verification exiting with error count: 0
+画面・出力には Verification が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr query cluster
+→ Enter を押す
+［画面・出力］
+CLUSTER_NAME=&quot;prodcluster031&quot;
+STATE=&quot;ONLINE&quot;
+VERSION=&quot;7.2.2.1&quot;
+画面・出力には CLUSTER が含まれ、clmgr verify cluster 整合確認 装置一覧の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、同期前構成の採用を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -cv -a name,state,raw_state query node
+→ Enter を押す
+［画面・出力］
+# NAME:STATE:RAW_STATE
+clnode_1:NORMAL:ST_STABLE
+clnode_2:NORMAL:ST_STABLE
+画面・出力には NAME が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Verification が画面・出力に表示されること
+② ステップ2 の CLUSTER が画面・出力に表示されること
+③ ステップ3 の NAME が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0368"><h3>clstat -o 整合確認 サービス状態</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>PowerHA SystemMirror 7.2 の 同期処理 で扱う「clstat -o 整合確認 サービス状態」は、クラスタ、ノード、インターフェース、リソースグループの状態を表示する監視コマンドを整合確認の観点で確認する技術項目です。CLversion 行とcltopinfo 039を同じ記録で見比べることで、クラスタ版数混在の誤認を名前だけの確認にせず、処理結果・設定値・出力見出しの対応まで追跡します。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> clstat -o 整合確認 サービス状態の設定や表示を読む前に役割を確認します。トポロジー Cluster Topology 復旧後の確認 TOPO06ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはクラスタートポロジーで検証から Verification を読み・Verification とである。検証からVerificationを読ときは片系定義を全体正本とする誤認を防ぐ。</li><li>B. 対象資源に対する働きはclverify.logの検証報告ROHAレポートと取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。</li><li>C. 対象資源に対する働きはシステム管理コマンドの検証進行率と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。</li><li>D. 対象資源に対する働きはクラスタ・ノード・インターフェース・リソースグループの状態を表示する監視コマンドを整合確認する。整合確認でサービス状態を確認するときはサービス状態の誤読を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能整合確・整合・サービでDの記述「クラスタ、ノード、インターフェース」に対応する項目は整合確認 サービス状態（cls・サービ・整合確）です。照合整合確・整合・サービに関する同期処理の仕様は「クラスタ、ノード、インターフェース、リソースグループの状態を表示する」で、確認対象はサービ・整合確・サービです。比較整合確・整合・サービ・サービでA:の復旧後の確認 TOPO06は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸はcls・整合確・サービです。運用整合確・clsでB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はサービ・整合・整合確です。項目整合確・整合・サービでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はサービ・整合・サービです。用語整合確・整合・サービという用語は「クラスタ、ノード、インターフェース」を指し、照合する値と誤認リスクの組合せは整合・サービ・サービです。</p><p class="kb-src"><strong>出典:</strong> RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>clstat -o 整合確認 サービス状態</strong></p><p>検証目的: 同期処理のclstat -o 整合確認 サービス状態について、PowerHA SystemMirror 7.2の資料に出る操作名・設定名・出力形式を机上で照合する。</p><p>前提条件: PowerHA SystemMirror 7.2の資料確認ができ、対象環境の表示例を机上証跡として記録できる。</p><p>セッション環境: 机上検証。製品資料に記載されたコマンド、構成ファイル、表名、メッセージ形式を使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の入力画面です。COMMAND ===&gt; に最初の確認操作を入れ、同期処理の対象へ進みます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr start cluster
+→ Enter を押す
+［画面・出力］
+Starting Cluster Services on node: clnode_1
+clnode_1: Exit status = 0
+The cluster is now online.
+画面・出力には Starting が表示され、最初の到達点を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面です。CLversion 行を読むため、対象名を含む操作を入力します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Verifying additional prerequisites for Dynamic Reconfiguration...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: active.0
+画面・出力には Verifying が含まれ、clstat -o 整合確認 サービス状態の証跡を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の詳細確認画面です。表示名とメッセージ形式を照合し、クラスタ版数混在の誤認を切り分けます。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; cat /usr/es/sbin/cluster/netmon.cf
+→ Enter を押す
+［画面・出力］
+!REQD en0 192.168.100.1
+画面・出力には REQD が現れ、判定材料を記録できます。
+――――</pre><p>合格条件: ① ステップ1 の Starting が画面・出力に表示されること
+② ステップ2 の Verifying が画面・出力に表示されること
+③ ステップ3 の REQD が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278 / EN_PowerHA72_Administering / EN_PowerHA72_Commands / EN_PowerHA72_Troubleshooting</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0369"><h3>同期処理 Cluster Synchronization ログとの照合 SYNC07</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>ログとの照合では 同期処理 の 未同期確認 を主操作として SYNC07 を判定します。時刻と対象識別子への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC07 に残します。ログとの照合を補助する 同期実行 では clsnapshot を補助値として SYNC07 へ保存します。主判定のログとの照合では同期処理の 未同期確認 から UNSYNCED_CHANGES を読み SYNC07 へ残します。証跡照合のログとの照合では同期処理の UNSYNCED_CHANGES と clsnapshot を SYNC07 に保存します。記録対応のログとの照合では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC07 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization ログとの照合 SYNC07について構成や状態を確認します。クラスタ構成検証 SMIT Command Status 0019ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は巡回で検証進行率を証跡に残し・SMIT Commandの検証進行率と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は切替で移動履歴を証跡に残し・Node Listの移動履歴と取得時刻を記録し。</li><li>C. 一次資料が示す主目的は整合確認でサービス状態を証跡に残し・クラスタ・ノード・インターフェース・リソースグループの状態を。</li><li>D. 一次資料が示す主目的はログとの照合で未同期確認を証跡に残し・Cluster Synchronizで未同期確認から。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能未同期・同期元でDの記述「Cluster Synchronizで未同期確認から」に対応する項目はログとの照合 SYNC07（Clu・未同期・ログと）です。照合未同期・ログとに関する同期処理の仕様は「Cluster Synchronizで未同期確認から」で、確認対象は未同期・ログと・同期元です。比較同期処・ログとでA:のCommand Statusは「SMIT Commandの検証進行率と取得時」を述べるため、正答側の照合軸はClu・ログと・未同期です。運用ログと・CluでB:のNode Listは「Node Listの移動履歴と取得時刻を記録」を述べるため、正答側の照合軸は未同期・同期処・ログとです。項目未同期・ログとでC:の整合確認 サービス状態は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸は同期元・同期処・未同期です。用語未同期・ログとという用語は「Cluster Synchronizで未同期確認から」を指し、照合する値と誤認リスクの組合せは同期処・未同期・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization ログとの照合 SYNC07</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて操作とログを対応し、SYNC07のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC07と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC07の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC07の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC07の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC07の対応を確認します。時刻と対象識別子を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の UNSYNCED が画面・出力に表示されること
+② ステップ2 の clsnapshot が画面・出力に表示されること
+③ ステップ3 の false が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0370"><h3>同期処理 Cluster Synchronization 代替経路の確認 SYNC10</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>代替経路の確認では 同期処理 の 未同期確認 を主操作として SYNC10 を判定します。主経路との役割差への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC10 に残します。代替経路の確認を補助する 同期実行 では clsnapshot を補助値として SYNC10 へ保存します。主判定の代替経路の確認では同期処理の 未同期確認 から UNSYNCED_CHANGES を読み SYNC10 へ残します。証跡照合の代替経路の確認では同期処理の UNSYNCED_CHANGES と clsnapshot を SYNC10 に保存します。記録対応の代替経路の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC10 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 代替経路の確認 SYNC10に関する障害切り分けの前提を確認しています。障害調査 hacmp.out Event Summary 復旧準備 FAIL05の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はcluster historyだを避けるため・マネージャーログからクラスター管理プロセしてマネージャーを照合する。</li><li>B. 障害切り分けに用いる役割は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして移動履歴を照合する。</li><li>C. 障害切り分けに用いる役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するしてODM登録値を照合する。</li><li>D. 障害切り分けに用いる役割は同期元を誤ると古い定義を全ノードを避けるため・未同期確認からUNSYNCED_CHANして未同期確認を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能未同期・同期元でDの記述「Cluster Synchronizで未同期確認から」に対応する項目は代替経路の確認 SYNC10（Clu・未同期・代替経）です。照合未同期・代替経に関する同期処理の仕様は「Cluster Synchronizで未同期確認から」で、確認対象は未同期・代替経・同期元です。比較同期処・代替経でA:の復旧準備 FAIL05は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸はClu・代替経・未同期です。運用代替経・CluでB:のNode Listは「Node Listの移動履歴と取得時刻を記録」を述べるため、正答側の照合軸は未同期・同期処・代替経です。項目未同期・代替経でC:のCluster Topologyは「Cluster TopologyのODM登録」を述べるため、正答側の照合軸は同期元・同期処・未同期です。用語未同期・代替経という用語は「Cluster Synchronizで未同期確認から」を指し、照合する値と誤認リスクの組合せは同期処・未同期・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 代替経路の確認 SYNC10</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて代替手段の成立を確認し、SYNC10のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC10と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC10の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC10の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC10の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC10の対応を確認します。主経路との役割差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の UNSYNCED が画面・出力に表示されること
+② ステップ2 の clsnapshot が画面・出力に表示されること
+③ ステップ3 の false が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0371"><h3>同期処理 Cluster Synchronization 依存関係の確認 SYNC13</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>依存関係の確認では 同期処理 の 未同期確認 を主操作として SYNC13 を判定します。前提資源と後続処理の順序への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC13 に残します。依存関係の確認を補助する 同期実行 では clsnapshot を補助値として SYNC13 へ保存します。主判定の依存関係の確認では同期処理の 未同期確認 から UNSYNCED_CHANGES を読み SYNC13 へ残します。証跡照合の依存関係の確認では同期処理の UNSYNCED_CHANGES と clsnapshot を SYNC13 に保存します。記録対応の依存関係の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC13 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「同期処理 Cluster Synchronization 依存関係の確認 SYNC13」を「GLVM地理的ミラー RPV Client 0009」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は主操作で出力欄を評価することでRPV通信ペを確認し・片側VGのvaryon誤操作を防ぐ。GLVM地理的ミラー RPV Client 0009固有の属性も確認対象に含める。</li><li>B. 仕様上の役割は未同期確認からUNSYNCED_CHANことで未同期確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は点検操作で判定欄を記録することで失敗ラベルを確認し・依存リソース順序の見落としを防ぐ。</li><li>D. 仕様上の役割は停止確認で停止確認を確認することで停止確認を確認し・停止確認の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能未同期・同期元でBの記述「Cluster Synchronizで未同期確認から」に対応する項目は依存関係の確認 SYNC13（Clu・未同期・依存関）です。照合未同期・依存関に関する同期処理の仕様は「Cluster Synchronizで未同期確認から」で、確認対象は未同期・依存関・同期元です。比較同期処・依存関でA:のRPV Clientは「地理的ミラーの項目のRPV通信ペアと取得時刻」を述べるため、正答側の照合軸はClu・依存関・未同期です。項目未同期・依存関でC:のEvent Summaryは「Event Summaryの失敗ラベルと取得」を述べるため、正答側の照合軸は同期元・同期処・未同期です。仕様未同期・依存関でD:の障害切り分け 停止確認は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は依存関・同期元・未同期です。用語未同期・依存関という用語は「Cluster Synchronizで未同期確認から」を指し、照合する値と誤認リスクの組合せは同期処・未同期・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 依存関係の確認 SYNC13</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて依存資源を点検し、SYNC13のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC13と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC13の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC13の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC13の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC13の対応を確認します。前提資源と後続処理の順序を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の UNSYNCED が画面・出力に表示されること
+② ステップ2 の clsnapshot が画面・出力に表示されること
+③ ステップ3 の false が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0372"><h3>同期処理 Cluster Synchronization 停止前の確認 SYNC14</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>停止前の確認では 同期処理 の 同期実行 を主操作として SYNC14 を判定します。処理中資源と未完了要求への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC14 に残します。停止前の確認を補助する 再確認 では false を補助値として SYNC14 へ保存します。主判定の停止前の確認では同期処理の 同期実行 から clsnapshot を読み SYNC14 へ残します。証跡照合の停止前の確認では同期処理の clsnapshot と false を SYNC14 に保存します。記録対応の停止前の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC14 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 停止前の確認 SYNC14の役割を調べています。障害調査 hacmp.out Event Summary 構成監査 FAIL08の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはhacmp.out Eventでマネージャーログから クラスター管理プロセス を読みである。マネージャーログからクラスター管理プときはcluster historを防ぐ。</li><li>B. 機能の説明としてはCluster Synchronizで同期実行から clsnapshot を読み・clsnapshot とである。同期実行からclsnapshotを読ときは同期元を誤ると古い定義を全ノを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 機能の説明としてはOnline NodeのRG現在位置と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。リソースグループ制御 Online Node 0164固有の属性も確認対象に含める。</li><li>D. 機能の説明としては地理的ミラーの項目のVG vary状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期実・同期元でBの記述「Cluster Synchronizで同期実行から」に対応する項目は停止前の確認 SYNC14（Clu・同期実・停止確）です。照合同期実・停止確に関する同期処理の仕様は「Cluster Synchronizで同期実行から」で、確認対象は同期実・停止確・同期元です。比較同期処・停止確でA:の構成監査 FAIL08は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸はClu・停止確・同期実です。項目同期実・停止確でC:のOnline Nodeは「Online NodeのRG現在位置と取得時」を述べるため、正答側の照合軸は同期元・同期処・同期実です。仕様同期実・停止確でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は停止確・同期元・同期実です。用語同期実・停止確という用語は「Cluster Synchronizで同期実行から」を指し、照合する値と誤認リスクの組合せは同期処・同期実・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 停止前の確認 SYNC14</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて安全な停止条件を確認し、SYNC14のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC14と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC14の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC14の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC14の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC14の対応を確認します。処理中資源と未完了要求を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clsnapshot が画面・出力に表示されること
+② ステップ2 の false が画面・出力に表示されること
+③ ステップ3 の UNSYNCED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0373"><h3>同期処理 Cluster Synchronization 再始動後の確認 SYNC15</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>再始動後の確認では 同期処理 の 再確認 を主操作として SYNC15 を判定します。再開点と未処理データへの注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC15 に残します。再始動後の確認を補助する 未同期確認 では UNSYNCED_CHANGES を補助値として SYNC15 へ保存します。主判定の再始動後の確認では同期処理の 再確認 から false を読み SYNC15 へ残します。証跡照合の再始動後の確認では同期処理の false と UNSYNCED_CHANGES を SYNC15 に保存します。記録対応の再始動後の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC15 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 再始動後の確認 SYNC15について構成や状態を確認します。リソースグループ制御 Acquisition Failure 0026ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きは再確認からfalseを読むことで再確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きは点検操作で判定欄を記録することで獲得イベントを確認し・依存リソース順序の見落としを防ぐ。</li><li>C. 対象資源に対する働きは主操作で出力欄を評価することでVG varを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>D. 対象資源に対する働きは停止確認で停止確認を確認することで停止確認を確認し・停止確認の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再確認・同期元でAの記述「Cluster Synchronizで再確認から」に対応する項目は再始動後の確認 SYNC15（Clu・再確認・再始動）です。照合再確認・再始動に関する同期処理の仕様は「Cluster Synchronizで再確認から false」で、確認対象は再確認・再始動・同期元です。運用再始動・CluでB:のAcquisitionは「Acquisitionの獲得イベントと取得時」を述べるため、正答側の照合軸は再確認・同期処・再始動です。項目再確認・再始動でC:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は同期元・同期処・再確認です。仕様再確認・再始動でD:の障害切り分け 停止確認は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は再始動・同期元・再確認です。用語再確認・再始動という用語は「Cluster Synchronizで再確認から」を指し、照合する値と誤認リスクの組合せは同期処・再確認・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 再始動後の確認 SYNC15</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて再始動結果を検証し、SYNC15のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC15と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC15の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC15の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC15の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC15の対応を確認します。再開点と未処理データを説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の false が画面・出力に表示されること
+② ステップ2 の UNSYNCED が画面・出力に表示されること
+③ ステップ3 の clsnapshot が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0374"><h3>同期処理 Cluster Synchronization 変更前の確認 SYNC02</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>変更前の確認では 同期処理 の 同期実行 を主操作として SYNC02 を判定します。変更対象と非対象の境界への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC02 に残します。変更前の確認を補助する 再確認 では false を補助値として SYNC02 へ保存します。主判定の変更前の確認では同期処理の 同期実行 から clsnapshot を読み SYNC02 へ残します。証跡照合の変更前の確認では同期処理の clsnapshot と false を SYNC02 に保存します。記録対応の変更前の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC02 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 変更前の確認 SYNC02に関する障害切り分けの前提を確認しています。clstat・SNMP clinfoES Status Path 権限境界の確認の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 機能の説明としてはclstatでクラスタ表示から Cluster を読み・Cluster と clinfoES を照合する。クラスタ表示からClusterを読むときはSNMP情報の残留を実ノードを防ぐ。clstat・SNMP clinfoES Status Path固有の属性も確認対象に含める。</li><li>B. 機能の説明としては地理的ミラーの項目のAIXエラー識別子と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>C. 機能の説明としてはノードの状態と raw_state を確認するコマンドを起動確認する。起動確認でエラー詳細を確認するときはエラー詳細の誤読を防ぐ。</li><li>D. 機能の説明としてはCluster Synchronizで同期実行から clsnapshot を読み・clsnapshot とである。同期実行からclsnapshotを読ときは同期元を誤ると古い定義を全ノを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期実・同期元でDの記述「Cluster Synchronizで同期実行から」に対応する項目は変更前の確認 SYNC02（Clu・同期実・変更確）です。照合同期実・変更確に関する同期処理の仕様は「Cluster Synchronizで同期実行から」で、確認対象は同期実・変更確・同期元です。比較同期処・変更確でA:の権限境界の確認 CLSTAT12は「clstatでクラスタ表示から」を述べるため、正答側の照合軸はClu・変更確・同期実です。運用変更確・CluでB:のVG STATEは「地理的ミラーの項目のAIXエラー識別子と取得」を述べるため、正答側の照合軸は同期実・同期処・変更確です。項目同期実・変更確でC:の起動確認 エラー詳細は「ノードの状態と raw_state」を述べるため、正答側の照合軸は同期元・同期処・同期実です。用語同期実・変更確という用語は「Cluster Synchronizで同期実行から」を指し、照合する値と誤認リスクの組合せは同期処・同期実・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 変更前の確認 SYNC02</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて変更前の証跡を保存し、SYNC02のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC02と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC02の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC02の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC02の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC02の対応を確認します。変更対象と非対象の境界を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clsnapshot が画面・出力に表示されること
+② ステップ2 の false が画面・出力に表示されること
+③ ステップ3 の UNSYNCED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0375"><h3>同期処理 Cluster Synchronization 変更後の確認 SYNC03</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>変更後の確認では 同期処理 の 再確認 を主操作として SYNC03 を判定します。反映値と残存値への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC03 に残します。変更後の確認を補助する 未同期確認 では UNSYNCED_CHANGES を補助値として SYNC03 へ保存します。主判定の変更後の確認では同期処理の 再確認 から false を読み SYNC03 へ残します。証跡照合の変更後の確認では同期処理の false と UNSYNCED_CHANGES を SYNC03 に保存します。記録対応の変更後の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC03 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 変更後の確認 SYNC03の設定や表示を読む前に役割を確認します。障害調査 hacmp.out Event Summary 引継ぎ記録 FAIL09ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 対象資源に対する働きはCluster Synchronizで再確認から false を読み・false とである。再確認からfalseを読むときは同期元を誤ると古い定義を全ノを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 対象資源に対する働きはhacmp.out Eventでエラー記録から IDENTIFIER を読み・IDENTIFIER とである。エラー記録からIDENTIFIERをときはcluster historを防ぐ。</li><li>C. 対象資源に対する働きは地理的ミラーの項目のRPV通信ペアと取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>D. 対象資源に対する働きはCluster TopologyのODM登録値と取得時刻を記録し・ノード間ODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間ODM差分の残存を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再確認・同期元でAの記述「Cluster Synchronizで再確認から」に対応する項目は変更後の確認 SYNC03（Clu・再確認・変更確）です。照合再確認・変更確に関する同期処理の仕様は「Cluster Synchronizで再確認から false」で、確認対象は再確認・変更確・同期元です。運用変更確・CluでB:の引継ぎ記録 FAIL09は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は再確認・同期処・変更確です。項目再確認・変更確でC:のRPV Clientは「地理的ミラーの項目のRPV通信ペアと取得時刻」を述べるため、正答側の照合軸は同期元・同期処・再確認です。仕様再確認・変更確でD:のCluster Topologyは「Cluster TopologyのODM登録」を述べるため、正答側の照合軸は変更確・同期元・再確認です。用語再確認・変更確という用語は「Cluster Synchronizで再確認から」を指し、照合する値と誤認リスクの組合せは同期処・再確認・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 変更後の確認 SYNC03</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて変更結果を検証し、SYNC03のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC03と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC03の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC03の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC03の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC03の対応を確認します。反映値と残存値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の false が画面・出力に表示されること
+② ステップ2 の UNSYNCED が画面・出力に表示されること
+③ ステップ3 の clsnapshot が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0376"><h3>同期処理 Cluster Synchronization 引継ぎ記録 SYNC09</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>引継ぎ記録では 同期処理 の 再確認 を主操作として SYNC09 を判定します。次担当者が追跡できる証跡への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC09 に残します。引継ぎ記録を補助する 未同期確認 では UNSYNCED_CHANGES を補助値として SYNC09 へ保存します。主判定の引継ぎ記録では同期処理の 再確認 から false を読み SYNC09 へ残します。証跡照合の引継ぎ記録では同期処理の false と UNSYNCED_CHANGES を SYNC09 に保存します。記録対応の引継ぎ記録では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC09 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 引継ぎ記録 SYNC09を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0043と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 保守作業で参照する機能は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてODM登録値を照合する。クラスタ構成検証 Cluster Topology 0043固有の属性も確認対象に含める。</li><li>B. 保守作業で参照する機能は同期元を誤ると古い定義を全ノードを避けるため・再確認からfalseを読むして再確認を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 保守作業で参照する機能は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてRPV通信ペを照合する。</li><li>D. 保守作業で参照する機能は表形式の誤読を避けるため・所有先確認で表形式を確認するして表形式を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再確認・同期元でBの記述「Cluster Synchronizで再確認から」に対応する項目は引継ぎ記録 SYNC09（Clu・再確認・同期処）です。照合再確認・同期処に関する同期処理の仕様は「Cluster Synchronizで再確認から false」で、確認対象は再確認・同期処・同期元です。比較同期処・同期処でA:のCluster Topologyは「Cluster TopologyのODM登録」を述べるため、正答側の照合軸はClu・同期処・再確認です。項目再確認・同期処でC:のRPV Clientは「地理的ミラーの項目のRPV通信ペアと取得時刻」を述べるため、正答側の照合軸は同期元・同期処・再確認です。仕様再確認・同期処でD:の所有先確認 表形式は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸は同期処・同期元・再確認です。用語再確認・同期処という用語は「Cluster Synchronizで再確認から」を指し、照合する値と誤認リスクの組合せは同期処・再確認・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 引継ぎ記録 SYNC09</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて再現可能な記録を作成し、SYNC09のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC09と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC09の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC09の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC09の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC09の対応を確認します。次担当者が追跡できる証跡を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の false が画面・出力に表示されること
+② ステップ2 の UNSYNCED が画面・出力に表示されること
+③ ステップ3 の clsnapshot が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0377"><h3>同期処理 Cluster Synchronization 復旧後の確認 SYNC06</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>復旧後の確認では 同期処理 の 再確認 を主操作として SYNC06 を判定します。再発していないことを示す値への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC06 に残します。復旧後の確認を補助する 未同期確認 では UNSYNCED_CHANGES を補助値として SYNC06 へ保存します。主判定の復旧後の確認では同期処理の 再確認 から false を読み SYNC06 へ残します。証跡照合の復旧後の確認では同期処理の false と UNSYNCED_CHANGES を SYNC06 に保存します。記録対応の復旧後の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC06 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 復旧後の確認 SYNC06の役割を調べています。障害調査 hacmp.out Event Summary 停止前の確認 FAIL14の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 表示や設定で扱う内容はcluster historyだを避けるため・マネージャーログからクラスター管理プロセしてマネージャーを照合する。</li><li>B. 表示や設定で扱う内容は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてミラー更新状を照合する。</li><li>C. 表示や設定で扱う内容は同期元を誤ると古い定義を全ノードを避けるため・再確認からfalseを読むして再確認を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 表示や設定で扱う内容は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてトポロジ要約を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再確認・同期元でCの記述「Cluster Synchronizで再確認から」に対応する項目は復旧後の確認 SYNC06（Clu・再確認・復旧確）です。照合再確認・復旧確に関する同期処理の仕様は「Cluster Synchronizで再確認から false」で、確認対象は再確認・復旧確・同期元です。比較同期処・復旧確でA:の停止前の確認 FAIL14は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸はClu・復旧確・再確認です。運用復旧確・CluでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は再確認・同期処・復旧確です。仕様再確認・復旧確でD:のCluster Resourceは「Cluster Resourcesのトポロジ」を述べるため、正答側の照合軸は復旧確・同期元・再確認です。用語再確認・復旧確という用語は「Cluster Synchronizで再確認から」を指し、照合する値と誤認リスクの組合せは同期処・再確認・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 復旧後の確認 SYNC06</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて復旧後の安定性を確認し、SYNC06のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC06と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC06の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC06の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC06の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC06の対応を確認します。再発していないことを示す値を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の false が画面・出力に表示されること
+② ステップ2 の UNSYNCED が画面・出力に表示されること
+③ ステップ3 の clsnapshot が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0378"><h3>同期処理 Cluster Synchronization 復旧準備 SYNC05</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>復旧準備では 同期処理 の 同期実行 を主操作として SYNC05 を判定します。再開前に必要な整合性への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC05 に残します。復旧準備を補助する 再確認 では false を補助値として SYNC05 へ保存します。主判定の復旧準備では同期処理の 同期実行 から clsnapshot を読み SYNC05 へ残します。証跡照合の復旧準備では同期処理の clsnapshot と false を SYNC05 に保存します。記録対応の復旧準備では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC05 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「同期処理 Cluster Synchronization 復旧準備 SYNC05」を「clstat・SNMP clinfoES Status Path 構成監査」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 運用時に利用する技術的役割は復旧準備で同期実行を証跡に残し・Cluster Synchronizで同期実行から。 <span class="kb-ok">✅ 正解</span></li><li>B. 運用時に利用する技術的役割は構成監査でSMUX接続を証跡に残し・clstatでSMUX接続から ESTABLISHED。</li><li>C. 運用時に利用する技術的役割は登録で優先ノード一を証跡に残し・Resource Groupの優先ノード一覧と取得時刻を記録。</li><li>D. 運用時に利用する技術的役割は解析でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期実・同期元でAの記述「Cluster Synchronizで同期実行から」に対応する項目は復旧準備 SYNC05（Clu・同期実・復旧準）です。照合同期実・復旧準に関する同期処理の仕様は「Cluster Synchronizで同期実行から」で、確認対象は同期実・復旧準・同期元です。運用復旧準・CluでB:の構成監査 CLSTAT08は「clstatでSMUX接続から」を述べるため、正答側の照合軸は同期実・同期処・復旧準です。項目同期実・復旧準でC:のGroup Nameは「Resource Groupの優先ノード一覧」を述べるため、正答側の照合軸は同期元・同期処・同期実です。仕様同期実・復旧準でD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は復旧準・同期元・同期実です。用語同期実・復旧準という用語は「Cluster Synchronizで同期実行から」を指し、照合する値と誤認リスクの組合せは同期処・同期実・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 復旧準備 SYNC05</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて復旧条件を確認し、SYNC05のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC05と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC05の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC05の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC05の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC05の対応を確認します。再開前に必要な整合性を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clsnapshot が画面・出力に表示されること
+② ステップ2 の false が画面・出力に表示されること
+③ ステップ3 の UNSYNCED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0379"><h3>同期処理 Cluster Synchronization 性能影響の確認 SYNC11</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>性能影響の確認では 同期処理 の 同期実行 を主操作として SYNC11 を判定します。処理時間と滞留箇所への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC11 に残します。性能影響の確認を補助する 再確認 では false を補助値として SYNC11 へ保存します。主判定の性能影響の確認では同期処理の 同期実行 から clsnapshot を読み SYNC11 へ残します。証跡照合の性能影響の確認では同期処理の clsnapshot と false を SYNC11 に保存します。記録対応の性能影響の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC11 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 性能影響の確認 SYNC11の設定や表示を読む前に役割を確認します。リソースグループ制御 Acquisition Failure 0026ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 状態を読み取るための働きは依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして獲得イベントを照合する。</li><li>B. 状態を読み取るための働きは獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして失敗ラベルを照合する。</li><li>C. 状態を読み取るための働きは同期元を誤ると古い定義を全ノードを避けるため・同期実行からclsnapshotを読むして同期実行を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 状態を読み取るための働きは識別値の誤読を避けるため・同期処理で識別値を確認するして識別値を照合する。clRGinfo 障害切り分け 識別値固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期実・同期元でCの記述「Cluster Synchronizで同期実行から」に対応する項目は性能影響の確認 SYNC11（Clu・同期実・性能影）です。照合同期実・性能影に関する同期処理の仕様は「Cluster Synchronizで同期実行から」で、確認対象は同期実・性能影・同期元です。比較同期処・性能影でA:のAcquisitionは「Acquisitionの獲得イベントと取得時」を述べるため、正答側の照合軸はClu・性能影・同期実です。運用性能影・CluでB:のEvent Summaryは「Event Summaryの失敗ラベルと取得」を述べるため、正答側の照合軸は同期実・同期処・性能影です。仕様同期実・性能影でD:の障害切り分け 識別値は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は性能影・同期元・同期実です。用語同期実・性能影という用語は「Cluster Synchronizで同期実行から」を指し、照合する値と誤認リスクの組合せは同期処・同期実・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 性能影響の確認 SYNC11</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて負荷と待ちを確認し、SYNC11のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC11と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC11の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC11の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC11の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC11の対応を確認します。処理時間と滞留箇所を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clsnapshot が画面・出力に表示されること
+② ステップ2 の false が画面・出力に表示されること
+③ ステップ3 の UNSYNCED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0380"><h3>同期処理 Cluster Synchronization 構成監査 SYNC08</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>構成監査では 同期処理 の 同期実行 を主操作として SYNC08 を判定します。定義値と稼働値の一致への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC08 に残します。構成監査を補助する 再確認 では false を補助値として SYNC08 へ保存します。主判定の構成監査では同期処理の 同期実行 から clsnapshot を読み SYNC08 へ残します。証跡照合の構成監査では同期処理の clsnapshot と false を SYNC08 に保存します。記録対応の構成監査では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC08 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 構成監査 SYNC08の技術的な意味を資料で確認するとき、clstat・SNMP clinfoES Status Path 復旧準備との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. 構成を確認する際の意味はSNMP情報の残留を実ノード状態を避けるため・SMUX接続からESTABLISHEDをしてSMUX接続を照合する。</li><li>B. 構成を確認する際の意味は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして優先ノード一を照合する。</li><li>C. 構成を確認する際の意味はノード間ODM差分の残存を避けるため・確認操作で状態欄を整理するしてODM登録値を照合する。</li><li>D. 構成を確認する際の意味は同期元を誤ると古い定義を全ノードを避けるため・同期実行からclsnapshotを読むして同期実行を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能同期実・同期元でDの記述「Cluster Synchronizで同期実行から」に対応する項目は構成監査 SYNC08（Clu・同期実・構成監）です。照合同期実・構成監に関する同期処理の仕様は「Cluster Synchronizで同期実行から」で、確認対象は同期実・構成監・同期元です。比較同期処・構成監でA:の復旧準備 CLSTAT05は「clstatでSMUX接続から」を述べるため、正答側の照合軸はClu・構成監・同期実です。運用構成監・CluでB:のGroup Nameは「Resource Groupの優先ノード一覧」を述べるため、正答側の照合軸は同期実・同期処・構成監です。項目同期実・構成監でC:のCluster Topologyは「Cluster TopologyのODM登録」を述べるため、正答側の照合軸は同期元・同期処・同期実です。用語同期実・構成監という用語は「Cluster Synchronizで同期実行から」を指し、照合する値と誤認リスクの組合せは同期処・同期実・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 構成監査 SYNC08</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて構成差分を監査し、SYNC08のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC08と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC08の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC08の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC08の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC08の対応を確認します。定義値と稼働値の一致を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の clsnapshot が画面・出力に表示されること
+② ステップ2 の false が画面・出力に表示されること
+③ ステップ3 の UNSYNCED が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0381"><h3>同期処理 Cluster Synchronization 権限境界の確認 SYNC12</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>権限境界の確認では 同期処理 の 再確認 を主操作として SYNC12 を判定します。参照操作と変更操作の分離への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC12 に残します。権限境界の確認を補助する 未同期確認 では UNSYNCED_CHANGES を補助値として SYNC12 へ保存します。主判定の権限境界の確認では同期処理の 再確認 から false を読み SYNC12 へ残します。証跡照合の権限境界の確認では同期処理の false と UNSYNCED_CHANGES を SYNC12 に保存します。記録対応の権限境界の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC12 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 権限境界の確認 SYNC12を同一分類のGLVM地理的ミラー RPV Server 0036と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. 管理対象との関係を表す説明はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてミラー更新状を照合する。GLVM地理的ミラー RPV Server 0036固有の属性も確認対象に含める。</li><li>B. 管理対象との関係を表す説明は同期元を誤ると古い定義を全ノードを避けるため・再確認からfalseを読むして再確認を照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 管理対象との関係を表す説明は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして失敗ラベルを照合する。</li><li>D. 管理対象との関係を表す説明は変更証跡の誤読を避けるため・変更証跡で変更証跡を確認するして変更証跡を照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能再確認・同期元でBの記述「Cluster Synchronizで再確認から」に対応する項目は権限境界の確認 SYNC12（Clu・再確認・権限境）です。照合再確認・権限境に関する同期処理の仕様は「Cluster Synchronizで再確認から false」で、確認対象は再確認・権限境・同期元です。比較同期処・権限境でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はClu・権限境・再確認です。項目再確認・権限境でC:のEvent Summaryは「Event Summaryの失敗ラベルと取得」を述べるため、正答側の照合軸は同期元・同期処・再確認です。仕様再確認・権限境でD:の所有先確認 変更証跡は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は権限境・同期元・再確認です。用語再確認・権限境という用語は「Cluster Synchronizで再確認から」を指し、照合する値と誤認リスクの組合せは同期処・再確認・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 権限境界の確認 SYNC12</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて実行権限を点検し、SYNC12のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC12と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC12の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC12の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC12の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC12の対応を確認します。参照操作と変更操作の分離を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の false が画面・出力に表示されること
+② ステップ2 の UNSYNCED が画面・出力に表示されること
+③ ステップ3 の clsnapshot が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0382"><h3>同期処理 Cluster Synchronization 通常状態の確認 SYNC01</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>通常状態の確認では 同期処理 の 未同期確認 を主操作として SYNC01 を判定します。基準値と現在値の差への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC01 に残します。通常状態の確認を補助する 同期実行 では clsnapshot を補助値として SYNC01 へ保存します。主判定の通常状態の確認では同期処理の 未同期確認 から UNSYNCED_CHANGES を読み SYNC01 へ残します。証跡照合の通常状態の確認では同期処理の UNSYNCED_CHANGES と clsnapshot を SYNC01 に保存します。記録対応の通常状態の確認では同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC01 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 通常状態の確認 SYNC01を保守記録に説明する必要があります。clstat・SNMP clinfoES Status Path 停止前の確認と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は停止確認でSMUX接続を証跡に残し・clstatでSMUX接続から ESTABLISHED。</li><li>B. 仕様上の役割は収集でリソース要約を証跡に残し・Verificationのリソース要約と取得時刻を記録し。</li><li>C. 仕様上の役割は通常状態確認で未同期確認を証跡に残し・Cluster Synchronizで未同期確認から。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は計画で優先ノード一を証跡に残し・Resource Groupの優先ノード一覧と取得時刻を記録。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能未同期・同期元でCの記述「Cluster Synchronizで未同期確認から」に対応する項目は通常状態の確認 SYNC01（Clu・未同期・通常状）です。照合未同期・通常状に関する同期処理の仕様は「Cluster Synchronizで未同期確認から」で、確認対象は未同期・通常状・同期元です。比較同期処・通常状でA:の停止前の確認 CLSTAT14は「clstatでSMUX接続から」を述べるため、正答側の照合軸はClu・通常状・未同期です。運用通常状・CluでB:のVerificationは「Verificationのリソース要約と取得」を述べるため、正答側の照合軸は未同期・同期処・通常状です。仕様未同期・通常状でD:のGroup Nameは「Resource Groupの優先ノード一覧」を述べるため、正答側の照合軸は通常状・同期元・未同期です。用語未同期・通常状という用語は「Cluster Synchronizで未同期確認から」を指し、照合する値と誤認リスクの組合せは同期処・未同期・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 通常状態の確認 SYNC01</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて通常状態を確定し、SYNC01のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC01と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC01の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC01の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC01の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC01の対応を確認します。基準値と現在値の差を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の UNSYNCED が画面・出力に表示されること
+② ステップ2 の clsnapshot が画面・出力に表示されること
+③ ステップ3 の false が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0383"><h3>同期処理 Cluster Synchronization 障害切り分け SYNC04</h3><p class="kb-meta">分類: 同期処理 ・ 難易度: 中級</p><p>障害切り分けでは 同期処理 の 未同期確認 を主操作として SYNC04 を判定します。最初に失敗した処理への注意として「同期元を誤ると古い定義を全ノードへ配布する危険があります」を SYNC04 に残します。障害切り分けを補助する 同期実行 では clsnapshot を補助値として SYNC04 へ保存します。主判定の障害切り分けでは同期処理の 未同期確認 から UNSYNCED_CHANGES を読み SYNC04 へ残します。証跡照合の障害切り分けでは同期処理の UNSYNCED_CHANGES と clsnapshot を SYNC04 に保存します。記録対応の障害切り分けでは同期処理の UNSYNCED_CHANGESとVerification の証跡へ SYNC04 を結びます。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 同期処理 Cluster Synchronization 障害切り分け SYNC04を同一分類のGLVM地理的ミラー RPV Server 0021と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。</li><li>B. コマンドまたは機能の用途は地理的ミラーの項目のAIXエラー識別子と取得時刻を記録し・片側VGのvaryon誤操作を防ぐである。主操作で出力欄を評価するときは片側VGのvaryon誤操作を防ぐ。GLVM地理的ミラー VG STATE 0153固有の属性も確認対象に含める。</li><li>C. コマンドまたは機能の用途はCluster Synchronizで未同期確認から UNSYNCED_CHANGES を読みである。未同期確認からUNSYNCED_CHときは同期元を誤ると古い定義を全ノを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はクラスタサービスを開始し・リソースグループをオンライン化する操作を同期確認する。同期確認でファイルセッを確認するときはファイルセッの誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能未同期・同期元でCの記述「Cluster Synchronizで未同期確認から」に対応する項目は障害切り分け SYNC04（Clu・未同期・同期処）です。照合未同期・同期処に関する同期処理の仕様は「Cluster Synchronizで未同期確認から」で、確認対象は未同期・同期処・同期元です。比較同期処・同期処でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はClu・同期処・未同期です。運用同期処・CluでB:のVG STATEは「地理的ミラーの項目のAIXエラー識別子と取得」を述べるため、正答側の照合軸は未同期・同期処・同期処です。仕様未同期・同期処でD:の同期確認 ファイルセットは「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は同期処・同期元・未同期です。用語未同期・同期処という用語は「Cluster Synchronizで未同期確認から」を指し、照合する値と誤認リスクの組合せは同期処・未同期・同期元です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>同期処理 Cluster Synchronization 障害切り分け SYNC04</strong></p><p>検証目的: 同期処理のCluster Synchronizationについて障害範囲を限定し、SYNC04のUNSYNCED_CHANGESとVerificationを実出力で確認する。</p><p>前提条件: PowerHA SystemMirror 7.2の参照権限を持ち、対象SYNC04と実行時刻を記録できること。変更操作は実施せず机上で確認する。</p><p>セッション環境: PowerHA SystemMirror 7.2の運用画面またはコマンド入力画面</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC04の未同期確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;true&quot;
+画面・出力にあるUNSYNCEDを読み、UNSYNCED_CHANGESとVerificationと対象SYNC04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr sync clusterを指定し、SYNC04の同期実行を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr sync cluster
+→ Enter を押す
+［画面・出力］
+Committing any changes, as required, to all available nodes...
+Verification has completed normally.
+clsnapshot: Succeeded creating Cluster Snapshot: clver_pass_snapshot.
+画面・出力にあるclsnapshotを読み、UNSYNCED_CHANGESとVerificationと対象SYNC04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の同期処理を確認する入力画面です。COMMAND入力口へclmgr -a UNSYNCED_CHANGES query clusterを指定し、SYNC04の再確認を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面
+COMMAND ===&gt; clmgr -a UNSYNCED_CHANGES query cluster
+→ Enter を押す
+［画面・出力］
+UNSYNCED_CHANGES=&quot;false&quot;
+画面・出力にあるfalseを読み、UNSYNCED_CHANGESとVerificationと対象SYNC04の対応を確認します。最初に失敗した処理を説明できるよう時刻も残します。
+――――</pre><p>合格条件: ① ステップ1 の UNSYNCED が画面・出力に表示されること
+② ステップ2 の clsnapshot が画面・出力に表示されること
+③ ステップ3 の false が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / RB_PowerHA72_Cookbook_SG247739 / RB_PowerHA72_Updates_SG248278</p></div></details></section>
+
+
+## 構成検証
+
+
+<section class="kb-item" id="c25-i0384"><h3>クラスタ構成検証 Cluster Resources 0010</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>紺K巡回0011ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紺K巡回0011です。紺K巡回0011はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紺K巡回0011です。紺K巡回0011ではトポロジ要約と取得時刻を採取票紺K巡回0011へ残します。紺K巡回0011ではノード間ODM差分の残存を避けるため補助資料も照合する判断紺K巡回0011です。紺K巡回0011の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紺K巡回0011です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0010の役割を調べています。リソースグループ制御 Online Node 0059の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は復旧で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。</li><li>B. 障害切り分けに用いる役割は登録で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は変更証跡で変更証跡を証跡に残し・クラスタ構成と状態をスナップショットとして表示するコマンドを。</li><li>D. 障害切り分けに用いる役割は巡回でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・巡回）です。照合巡回・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・巡回・ノードです。比較クラス・巡回でA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はクラス・巡回・トポロです。運用巡回・クラスでB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はトポロ・クラス・巡回です。項目巡回・クラス・トポロでC:の所有先確認 変更証跡は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸はノード・クラス・トポロです。用語巡回・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0010</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0010について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0010A
+画面・出力には PHA72DD0010A が表示され、クラスタ構成検証 Cluster Resources 0010 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0010
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0010B
+画面・出力には PHA72DD0010B が表示され、クラスタ構成検証 Cluster Resources 0010 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0010
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0010C
+画面・出力には PHA72DD0010C が表示され、クラスタ構成検証 Cluster Resources 0010 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0010A が画面・出力に表示されること
+② ステップ2 の PHA72DD0010B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0010C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0385"><h3>クラスタ構成検証 Cluster Resources 0025</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>銀F棚卸0026ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票銀F棚卸0026です。銀F棚卸0026はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録銀F棚卸0026です。銀F棚卸0026ではトポロジ要約と取得時刻を採取票銀F棚卸0026へ残します。銀F棚卸0026では未同期構成の見落としを避けるため補助資料も照合する判断銀F棚卸0026です。銀F棚卸0026の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録銀F棚卸0026です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Cluster Resources 0025」を「リソースグループ制御 Online Node 0104」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li><li>B. 仕様上の役割は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてリソース要約を照合する。</li><li>C. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するしてトポロジ要約を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・クラス・トポロでCの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・棚卸）です。照合棚卸・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・棚卸・未同期です。比較クラス・棚卸でA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はクラス・棚卸・トポロです。運用棚卸・クラスでB:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸はトポロ・クラス・棚卸です。仕様棚卸・クラス・トポロでD:のログとの照合 NODE07は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は棚卸・未同期・トポロです。用語棚卸・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0025</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0025について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0025A
+画面・出力には PHA72DD0025A が表示され、クラスタ構成検証 Cluster Resources 0025 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0025
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0025B
+画面・出力には PHA72DD0025B が表示され、クラスタ構成検証 Cluster Resources 0025 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0025
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0025C
+画面・出力には PHA72DD0025C が表示され、クラスタ構成検証 Cluster Resources 0025 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0025A が画面・出力に表示されること
+② ステップ2 の PHA72DD0025B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0025C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0386"><h3>クラスタ構成検証 Cluster Resources 0040</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>蒼A復旧0041ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票蒼A復旧0041です。蒼A復旧0041はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録蒼A復旧0041です。蒼A復旧0041ではトポロジ要約と取得時刻を採取票蒼A復旧0041へ残します。蒼A復旧0041では検証ログの採取漏れを避けるため補助資料も照合する判断蒼A復旧0041です。蒼A復旧0041の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録蒼A復旧0041です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0040を同一分類のGLVM地理的ミラー syslog entry 0042と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は復旧でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は保護で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li><li>C. コマンドまたは機能の用途は復旧でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は退避確認で退避確認を証跡に残し・Cluster Manager の状態・クラスタ版数。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・クラス・トポロでCの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・復旧）です。照合復旧・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・復旧・検証ロです。比較クラス・復旧でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はクラス・復旧・トポロです。運用復旧・クラスでB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はトポロ・クラス・復旧です。仕様復旧・クラス・トポロでD:の障害切り分け 退避確認は「Cluster Manager の状態」を述べるため、正答側の照合軸は復旧・検証ロ・トポロです。用語復旧・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0040</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0040について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0040A
+画面・出力には PHA72DD0040A が表示され、クラスタ構成検証 Cluster Resources 0040 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0040
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0040B
+画面・出力には PHA72DD0040B が表示され、クラスタ構成検証 Cluster Resources 0040 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0040
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0040C
+画面・出力には PHA72DD0040C が表示され、クラスタ構成検証 Cluster Resources 0040 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0040A が画面・出力に表示されること
+② ステップ2 の PHA72DD0040B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0040C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0387"><h3>クラスタ構成検証 Cluster Resources 0055</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>金P復旧0056ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票金P復旧0056です。金P復旧0056はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録金P復旧0056です。金P復旧0056ではトポロジ要約と取得時刻を採取票金P復旧0056へ残します。金P復旧0056では警告と致命エラーの混同を避けるため補助資料も照合する判断金P復旧0056です。金P復旧0056の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録金P復旧0056です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0055の設定や表示を読む前に役割を確認します。クラスタ構成検証 clverify.log 0142ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてトポロジ要約を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するして検証報告ROを照合する。</li><li>C. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして失敗ラベルを照合する。</li><li>D. 一次資料が示す主目的は永続アドレスとサービスアドレスのを避けるため・IP資源照会からアドレスを読むしてサービスアドを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・クラス・トポロでAの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・復旧）です。照合復旧・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・復旧・警告とです。運用復旧・クラスでB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はトポロ・クラス・復旧です。項目復旧・クラス・トポロでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は警告と・クラス・トポロです。仕様復旧・クラス・トポロでD:の障害切り分け SVCIP04は「IP Service IPでサービスアドレス」を述べるため、正答側の照合軸は復旧・警告と・トポロです。用語復旧・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0055</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0055について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0055A
+画面・出力には PHA72DD0055A が表示され、クラスタ構成検証 Cluster Resources 0055 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0055
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0055B
+画面・出力には PHA72DD0055B が表示され、クラスタ構成検証 Cluster Resources 0055 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0055
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0055C
+画面・出力には PHA72DD0055C が表示され、クラスタ構成検証 Cluster Resources 0055 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0055A が画面・出力に表示されること
+② ステップ2 の PHA72DD0055B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0055C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0388"><h3>クラスタ構成検証 Cluster Resources 0070</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紺K監査0071ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紺K監査0071です。紺K監査0071はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紺K監査0071です。紺K監査0071ではトポロジ要約と取得時刻を採取票紺K監査0071へ残します。紺K監査0071ではノード間ODM差分の残存を避けるため補助資料も照合する判断紺K監査0071です。紺K監査0071の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紺K監査0071です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0070に関する障害切り分けの前提を確認しています。リソースグループ制御 Node List 0092の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は確認操作で状態欄を整理することでトポロジ要約を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は調査操作で保守欄を引き継ぎすることで移動履歴を確認し・自動戻し条件の誤読を防ぐ。</li><li>C. 障害切り分けに用いる役割は復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。リソースグループ制御 Acquisition Failure 0281固有の属性も確認対象に含める。</li><li>D. 障害切り分けに用いる役割は開始から終了状態を読むことで開始を確認し・管理設定と資源状態の混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・クラス・トポロでAの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・監査）です。照合監査・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・監査・ノードです。運用監査・クラスでB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はトポロ・クラス・監査です。項目監査・クラス・トポロでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はノード・クラス・トポロです。仕様監査・クラス・トポロでD:の依存関係の確認 START13は「Cluster Servicesで開始から」を述べるため、正答側の照合軸は監査・ノード・トポロです。用語監査・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0070</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0070について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0070A
+画面・出力には PHA72DD0070A が表示され、クラスタ構成検証 Cluster Resources 0070 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0070
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0070B
+画面・出力には PHA72DD0070B が表示され、クラスタ構成検証 Cluster Resources 0070 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0070
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0070C
+画面・出力には PHA72DD0070C が表示され、クラスタ構成検証 Cluster Resources 0070 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0070A が画面・出力に表示されること
+② ステップ2 の PHA72DD0070B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0070C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0389"><h3>クラスタ構成検証 Cluster Resources 0085</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>銀F変更0086ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票銀F変更0086です。銀F変更0086はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録銀F変更0086です。銀F変更0086ではトポロジ要約と取得時刻を採取票銀F変更0086へ残します。銀F変更0086では未同期構成の見落としを避けるため補助資料も照合する判断銀F変更0086です。銀F変更0086の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録銀F変更0086です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0085を保守記録に説明する必要があります。クラスタ構成検証 clverify.log 0112と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証報告ROを照合する。</li><li>B. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。</li><li>C. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するしてトポロジ要約を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は監視通信SNMP情報の残留を実ノを避けるため・clinfoES状態からclinfoESしてclinfoを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・クラス・トポロでCの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・変更）です。照合変更・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・変更・未同期です。比較クラス・変更でA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はクラス・変更・トポロです。運用変更・クラスでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はトポロ・クラス・変更です。仕様変更・クラス・トポロでD:の代替経路の確認 CLSTAT10は「clstatでclinfoES状態から」を述べるため、正答側の照合軸は変更・未同期・トポロです。用語変更・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0085</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0085について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0085A
+画面・出力には PHA72DD0085A が表示され、クラスタ構成検証 Cluster Resources 0085 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0085
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0085B
+画面・出力には PHA72DD0085B が表示され、クラスタ構成検証 Cluster Resources 0085 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0085
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0085C
+画面・出力には PHA72DD0085C が表示され、クラスタ構成検証 Cluster Resources 0085 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0085A が画面・出力に表示されること
+② ステップ2 の PHA72DD0085B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0085C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0390"><h3>クラスタ構成検証 Cluster Resources 0100</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>蒼A移行0101ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票蒼A移行0101です。蒼A移行0101はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録蒼A移行0101です。蒼A移行0101ではトポロジ要約と取得時刻を採取票蒼A移行0101へ残します。蒼A移行0101では検証ログの採取漏れを避けるため補助資料も照合する判断蒼A移行0101です。蒼A移行0101の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録蒼A移行0101です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0100の技術的な意味を資料で確認するとき、クラスタ構成検証 Verification Progress 0181との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は移行でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は収集でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>C. コマンドまたは機能の用途は構成照合で構成照合を証跡に残し・ノードの状態と raw_state を確認するコマンドを所有。</li><li>D. コマンドまたは機能の用途は巡回でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・クラス・トポロでAの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・移行）です。照合移行・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・移行・検証ロです。運用移行・クラスでB:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸はトポロ・クラス・移行です。項目移行・クラス・トポロでC:の所有先確認 構成照合は「ノードの状態と raw_state」を述べるため、正答側の照合軸は検証ロ・クラス・トポロです。仕様移行・クラス・トポロでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は移行・検証ロ・トポロです。用語移行・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0100</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0100について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0100A
+画面・出力には PHA72DD0100A が表示され、クラスタ構成検証 Cluster Resources 0100 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0100
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0100B
+画面・出力には PHA72DD0100B が表示され、クラスタ構成検証 Cluster Resources 0100 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0100
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0100C
+画面・出力には PHA72DD0100C が表示され、クラスタ構成検証 Cluster Resources 0100 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0100A が画面・出力に表示されること
+② ステップ2 の PHA72DD0100B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0100C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0391"><h3>クラスタ構成検証 Cluster Resources 0115</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>金P移行0116ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票金P移行0116です。金P移行0116はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録金P移行0116です。金P移行0116ではトポロジ要約と取得時刻を採取票金P移行0116へ残します。金P移行0116では警告と致命エラーの混同を避けるため補助資料も照合する判断金P移行0116です。金P移行0116の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録金P移行0116です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0115について構成や状態を確認します。リソースグループ制御 Acquisition Failure 0146ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は保守で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>B. 一次資料が示す主目的は計画で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>C. 一次資料が示す主目的は停止確認でマネージャーを証跡に残し・hacmp.out Eventでマネージャーログから。</li><li>D. 一次資料が示す主目的は移行でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・移行）です。照合移行・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・移行・警告とです。比較クラス・移行でA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はクラス・移行・トポロです。運用移行・クラスでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はトポロ・クラス・移行です。項目移行・クラス・トポロでC:の停止前の確認 FAIL14は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は警告と・クラス・トポロです。用語移行・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0115</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0115について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0115A
+画面・出力には PHA72DD0115A が表示され、クラスタ構成検証 Cluster Resources 0115 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0115
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0115B
+画面・出力には PHA72DD0115B が表示され、クラスタ構成検証 Cluster Resources 0115 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0115
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0115C
+画面・出力には PHA72DD0115C が表示され、クラスタ構成検証 Cluster Resources 0115 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0115A が画面・出力に表示されること
+② ステップ2 の PHA72DD0115B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0115C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0392"><h3>クラスタ構成検証 Cluster Resources 0130</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>紺K診断0131ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紺K診断0131です。紺K診断0131はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紺K診断0131です。紺K診断0131ではトポロジ要約と取得時刻を採取票紺K診断0131へ残します。紺K診断0131ではノード間ODM差分の残存を避けるため補助資料も照合する判断紺K診断0131です。紺K診断0131の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紺K診断0131です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0130の役割を調べています。リソースグループ制御 Event Summary 0158の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は点検操作で判定欄を記録することで失敗ラベルを確認し・依存リソース順序の見落としを防ぐ。</li><li>B. 障害切り分けに用いる役割は起動確認でディスク状態を確認することでディスク状態を確認し・ディスク状態の誤読を防ぐ。cltopinfo 起動確認 ディスク状態固有の属性も確認対象に含める。</li><li>C. 障害切り分けに用いる役割は確認操作で状態欄を整理することでトポロジ要約を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は採取操作で照合欄を点検することで構成データOを確認し・警告と致命エラーの混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・クラス・トポロでCの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・診断）です。照合診断・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・診断・ノードです。比較クラス・診断でA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はクラス・診断・トポロです。運用診断・クラスでB:の起動確認 ディスク状態は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸はトポロ・クラス・診断です。仕様診断・クラス・トポロでD:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は診断・ノード・トポロです。用語診断・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0130</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0130について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0130A
+画面・出力には PHA72DD0130A が表示され、クラスタ構成検証 Cluster Resources 0130 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0130
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0130B
+画面・出力には PHA72DD0130B が表示され、クラスタ構成検証 Cluster Resources 0130 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0130
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0130C
+画面・出力には PHA72DD0130C が表示され、クラスタ構成検証 Cluster Resources 0130 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0130A が画面・出力に表示されること
+② ステップ2 の PHA72DD0130B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0130C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0393"><h3>クラスタ構成検証 Cluster Resources 0145</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>銀F保守0146ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票銀F保守0146です。銀F保守0146はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録銀F保守0146です。銀F保守0146ではトポロジ要約と取得時刻を採取票銀F保守0146へ残します。銀F保守0146では未同期構成の見落としを避けるため補助資料も照合する判断銀F保守0146です。銀F保守0146の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録銀F保守0146です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Cluster Resources 0145」を「GLVM地理的ミラー syslog entry 0192」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は照合操作で確認欄を採取することでsyslogを確認し・ミラー再同期条件の誤読を防ぐ。</li><li>B. 仕様上の役割は記録操作で証跡欄を照合することでトポロジ要約を確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は再投入確認で再投入確認を確認することで再投入確認を確認し・再投入確認の誤読を防ぐ。</li><li>D. 仕様上の役割はclinfoES状態からclinfoESことでclinfoを確認し・監視通信SNMP情報の残留をを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・クラス・トポロでBの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・保守）です。照合保守・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・保守・未同期です。比較保守・クラス・トポロ・未同期でA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はクラス・保守・トポロです。項目保守・クラス・トポロでC:の版数確認 再投入確認は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸は未同期・クラス・トポロです。仕様保守・クラス・トポロでD:の障害切り分け CLSTAT04は「clstatでclinfoES状態から」を述べるため、正答側の照合軸は保守・未同期・トポロです。用語保守・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0145</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0145について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0145A
+画面・出力には PHA72DD0145A が表示され、クラスタ構成検証 Cluster Resources 0145 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0145
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0145B
+画面・出力には PHA72DD0145B が表示され、クラスタ構成検証 Cluster Resources 0145 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0145
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0145C
+画面・出力には PHA72DD0145C が表示され、クラスタ構成検証 Cluster Resources 0145 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0145A が画面・出力に表示されること
+② ステップ2 の PHA72DD0145B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0145C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0394"><h3>クラスタ構成検証 Cluster Resources 0160</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>蒼A切替0161ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票蒼A切替0161です。蒼A切替0161はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録蒼A切替0161です。蒼A切替0161ではトポロジ要約と取得時刻を採取票蒼A切替0161へ残します。蒼A切替0161では検証ログの採取漏れを避けるため補助資料も照合する判断蒼A切替0161です。蒼A切替0161の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録蒼A切替0161です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0160を同一分類のGLVM地理的ミラー RPV Server 0231と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>B. コマンドまたは機能の用途はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>C. コマンドまたは機能の用途は資源グループで依存照会から START_AFTER を読み・START_AFTER とである。依存照会からSTART_AFTERをときは依存順を無視して子資源を先にを防ぐ。</li><li>D. コマンドまたは機能の用途はクラスター資源のトポロジ要約と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・切替）です。照合切替・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・切替・検証ロです。比較切替・クラス・トポロ・検証ロでA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はクラス・切替・トポロです。運用切替・クラスでB:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はトポロ・クラス・切替です。項目切替・クラス・トポロでC:の通常状態の確認 DEP01は「資源グループで依存照会から」を述べるため、正答側の照合軸は検証ロ・クラス・トポロです。用語切替・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0160</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0160について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0160A
+画面・出力には PHA72DD0160A が表示され、クラスタ構成検証 Cluster Resources 0160 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0160
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0160B
+画面・出力には PHA72DD0160B が表示され、クラスタ構成検証 Cluster Resources 0160 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0160
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0160C
+画面・出力には PHA72DD0160C が表示され、クラスタ構成検証 Cluster Resources 0160 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0160A が画面・出力に表示されること
+② ステップ2 の PHA72DD0160B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0160C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0395"><h3>クラスタ構成検証 Cluster Resources 0175</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>金P切替0176ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票金P切替0176です。金P切替0176はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録金P切替0176です。金P切替0176ではトポロジ要約と取得時刻を採取票金P切替0176へ残します。金P切替0176では警告と致命エラーの混同を避けるため補助資料も照合する判断金P切替0176です。金P切替0176の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録金P切替0176です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0175の設定や表示を読む前に役割を確認します。リソースグループ制御 Acquisition Failure 0221ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。</li><li>B. 一次資料が示す主目的は整合確認で整合確認を確認することで整合確認を確認し・整合確認の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は復旧操作で点検欄を確認することで失敗ラベルを確認し・資源グループ位置の誤認を防ぐ。</li><li>D. 一次資料が示す主目的は採取操作で照合欄を点検することでトポロジ要約を確認し・警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・切替）です。照合切替・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・切替・警告とです。比較切替・クラス・トポロ・警告とでA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はクラス・切替・トポロです。運用切替・クラスでB:の状態確認 整合確認は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸はトポロ・クラス・切替です。項目切替・クラス・トポロでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は警告と・クラス・トポロです。用語切替・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0175</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0175について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0175A
+画面・出力には PHA72DD0175A が表示され、クラスタ構成検証 Cluster Resources 0175 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0175
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0175B
+画面・出力には PHA72DD0175B が表示され、クラスタ構成検証 Cluster Resources 0175 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0175
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0175C
+画面・出力には PHA72DD0175C が表示され、クラスタ構成検証 Cluster Resources 0175 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0175A が画面・出力に表示されること
+② ステップ2 の PHA72DD0175B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0175C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0396"><h3>クラスタ構成検証 Cluster Resources 0190</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紺K収集0191ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紺K収集0191です。紺K収集0191はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紺K収集0191です。紺K収集0191ではトポロジ要約と取得時刻を採取票紺K収集0191へ残します。紺K収集0191ではノード間ODM差分の残存を避けるため補助資料も照合する判断紺K収集0191です。紺K収集0191の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紺K収集0191です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0190に関する障害切り分けの前提を確認しています。リソースグループ制御 Resource Group Name 0245の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は復旧操作で点検欄を確認することで優先ノード一を確認し・資源グループ位置の誤認を防ぐ。</li><li>B. 障害切り分けに用いる役割は同期確認でファイルセッを確認することでファイルセッを確認し・ファイルセッの誤読を防ぐ。clmgr start cluster 同期確認 ファイルセット固有の属性も確認対象に含める。</li><li>C. 障害切り分けに用いる役割は採取操作で照合欄を点検することで検証進行率を確認し・警告と致命エラーの混同を防ぐ。</li><li>D. 障害切り分けに用いる役割は確認操作で状態欄を整理することでトポロジ要約を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・収集）です。照合収集・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・収集・ノードです。比較収集・クラス・トポロ・ノードでA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はクラス・収集・トポロです。運用収集・クラスでB:の同期確認 ファイルセットは「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はトポロ・クラス・収集です。項目収集・クラス・トポロでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はノード・クラス・トポロです。用語収集・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0190</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0190について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0190A
+画面・出力には PHA72DD0190A が表示され、クラスタ構成検証 Cluster Resources 0190 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0190
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0190B
+画面・出力には PHA72DD0190B が表示され、クラスタ構成検証 Cluster Resources 0190 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0190
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0190C
+画面・出力には PHA72DD0190C が表示され、クラスタ構成検証 Cluster Resources 0190 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0190A が画面・出力に表示されること
+② ステップ2 の PHA72DD0190B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0190C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0397"><h3>クラスタ構成検証 Cluster Resources 0205</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>銀F登録0206ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票銀F登録0206です。銀F登録0206はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録銀F登録0206です。銀F登録0206ではトポロジ要約と取得時刻を採取票銀F登録0206へ残します。銀F登録0206では未同期構成の見落としを避けるため補助資料も照合する判断銀F登録0206です。銀F登録0206の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録銀F登録0206です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0205を保守記録に説明する必要があります。GLVM地理的ミラー VG STATE 0213と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は登録で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>B. 仕様上の役割は所有先確認で依存関係を証跡に残し・クラスタサービスを開始し・リソースグループをオンライン化する。</li><li>C. 仕様上の役割は診断でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li><li>D. 仕様上の役割は登録でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・登録）です。照合登録・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・登録・未同期です。比較登録・クラス・トポロ・未同期でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はクラス・登録・トポロです。運用登録・クラスでB:の所有先確認 依存関係は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はトポロ・クラス・登録です。項目登録・クラス・トポロでC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は未同期・クラス・トポロです。用語登録・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0205</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0205について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0205A
+画面・出力には PHA72DD0205A が表示され、クラスタ構成検証 Cluster Resources 0205 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0205
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0205B
+画面・出力には PHA72DD0205B が表示され、クラスタ構成検証 Cluster Resources 0205 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0205
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0205C
+画面・出力には PHA72DD0205C が表示され、クラスタ構成検証 Cluster Resources 0205 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0205A が画面・出力に表示されること
+② ステップ2 の PHA72DD0205B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0205C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0398"><h3>クラスタ構成検証 Cluster Resources 0220</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>蒼A確認0221ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票蒼A確認0221です。蒼A確認0221はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録蒼A確認0221です。蒼A確認0221ではトポロジ要約と取得時刻を採取票蒼A確認0221へ残します。蒼A確認0221では検証ログの採取漏れを避けるため補助資料も照合する判断蒼A確認0221です。蒼A確認0221の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録蒼A確認0221です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0220の技術的な意味を資料で確認するとき、リソースグループ制御 Resource Group Name 0275との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして優先ノード一を照合する。</li><li>B. コマンドまたは機能の用途は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li><li>C. コマンドまたは機能の用途はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてミラー更新状を照合する。</li><li>D. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてトポロジ要約を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・確認）です。照合確認・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・確認・検証ロです。比較確認・クラス・トポロ・検証ロでA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はクラス・確認・トポロです。運用確認・クラスでB:の通常状態の確認 NODE01は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸はトポロ・クラス・確認です。項目確認・クラス・トポロでC:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は検証ロ・クラス・トポロです。用語確認・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0220</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0220について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0220A
+画面・出力には PHA72DD0220A が表示され、クラスタ構成検証 Cluster Resources 0220 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0220
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0220B
+画面・出力には PHA72DD0220B が表示され、クラスタ構成検証 Cluster Resources 0220 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0220
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0220C
+画面・出力には PHA72DD0220C が表示され、クラスタ構成検証 Cluster Resources 0220 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0220A が画面・出力に表示されること
+② ステップ2 の PHA72DD0220B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0220C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0399"><h3>クラスタ構成検証 Cluster Resources 0235</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>金P確認0236ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票金P確認0236です。金P確認0236はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録金P確認0236です。金P確認0236ではトポロジ要約と取得時刻を採取票金P確認0236へ残します。金P確認0236では警告と致命エラーの混同を避けるため補助資料も照合する判断金P確認0236です。金P確認0236の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録金P確認0236です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0235について構成や状態を確認します。クラスタ構成検証 SMIT Command Status 0274ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は照合で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は復旧確認で資源グループを証跡に残し・Cluster Servicesで資源グループRG確認から。</li><li>C. 一次資料が示す主目的は確認でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は監査でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・クラス・トポロでCの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・確認）です。照合確認・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・確認・警告とです。比較確認・クラス・トポロ・警告とでA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はクラス・確認・トポロです。運用確認・クラスでB:の復旧後の確認 START06は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸はトポロ・クラス・確認です。仕様確認・クラス・トポロでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は確認・警告と・トポロです。用語確認・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0235</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0235について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0235A
+画面・出力には PHA72DD0235A が表示され、クラスタ構成検証 Cluster Resources 0235 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0235
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0235B
+画面・出力には PHA72DD0235B が表示され、クラスタ構成検証 Cluster Resources 0235 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0235
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0235C
+画面・出力には PHA72DD0235C が表示され、クラスタ構成検証 Cluster Resources 0235 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0235A が画面・出力に表示されること
+② ステップ2 の PHA72DD0235B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0235C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0400"><h3>クラスタ構成検証 Cluster Resources 0250</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>紺K保護0251ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紺K保護0251です。紺K保護0251はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紺K保護0251です。紺K保護0251ではトポロジ要約と取得時刻を採取票紺K保護0251へ残します。紺K保護0251ではノード間ODM差分の残存を避けるため補助資料も照合する判断紺K保護0251です。紺K保護0251の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紺K保護0251です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0250の役割を調べています。クラスタ構成検証 SMIT Command Status 0334の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は確認操作で状態欄を整理することでトポロジ要約を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は確認操作で状態欄を整理することで検証進行率を確認し・ノード間構成データODM差分を防ぐ。</li><li>C. 障害切り分けに用いる役割は未同期確認からUNSYNCED_CHANことで未同期確認を確認し・同期元を誤ると古い定義を全ノを防ぐ。</li><li>D. 障害切り分けに用いる役割は照合操作で確認欄を採取することで基本ソフトAを確認し・ミラー再同期条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・クラス・トポロでAの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・保護）です。照合保護・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・保護・ノードです。運用保護・クラスでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はトポロ・クラス・保護です。項目保護・クラス・トポロでC:の障害切り分け SYNC04は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸はノード・クラス・トポロです。仕様保護・クラス・トポロでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は保護・ノード・トポロです。用語保護・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0250</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0250について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0250A
+画面・出力には PHA72DD0250A が表示され、クラスタ構成検証 Cluster Resources 0250 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0250
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0250B
+画面・出力には PHA72DD0250B が表示され、クラスタ構成検証 Cluster Resources 0250 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0250
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0250C
+画面・出力には PHA72DD0250C が表示され、クラスタ構成検証 Cluster Resources 0250 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0250A が画面・出力に表示されること
+② ステップ2 の PHA72DD0250B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0250C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0401"><h3>クラスタ構成検証 Cluster Resources 0265</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>銀F照合0266ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票銀F照合0266です。銀F照合0266はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録銀F照合0266です。銀F照合0266ではトポロジ要約と取得時刻を採取票銀F照合0266へ残します。銀F照合0266では未同期構成の見落としを避けるため補助資料も照合する判断銀F照合0266です。銀F照合0266の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録銀F照合0266です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Cluster Resources 0265」を「GLVM地理的ミラー syslog entry 0312」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するしてトポロジ要約を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてsyslogを照合する。</li><li>C. 仕様上の役割は管理設定と資源状態の混同を避けるため・開始から終了状態を読むして開始を照合する。</li><li>D. 仕様上の役割は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・クラス・トポロでAの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・照合）です。照合照合・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・照合・未同期です。運用照合・クラスでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はトポロ・クラス・照合です。項目照合・クラス・トポロでC:の代替経路の確認 START10は「Cluster Servicesで開始から」を述べるため、正答側の照合軸は未同期・クラス・トポロです。仕様照合・クラス・トポロでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は照合・未同期・トポロです。用語照合・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0265</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0265について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0265A
+画面・出力には PHA72DD0265A が表示され、クラスタ構成検証 Cluster Resources 0265 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0265
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0265B
+画面・出力には PHA72DD0265B が表示され、クラスタ構成検証 Cluster Resources 0265 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0265
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0265C
+画面・出力には PHA72DD0265C が表示され、クラスタ構成検証 Cluster Resources 0265 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0265A が画面・出力に表示されること
+② ステップ2 の PHA72DD0265B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0265C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0402"><h3>クラスタ構成検証 Cluster Resources 0280</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>蒼A抑止0281ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票蒼A抑止0281です。蒼A抑止0281はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録蒼A抑止0281です。蒼A抑止0281ではトポロジ要約と取得時刻を採取票蒼A抑止0281へ残します。蒼A抑止0281では検証ログの採取漏れを避けるため補助資料も照合する判断蒼A抑止0281です。蒼A抑止0281の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録蒼A抑止0281です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0280を同一分類のGLVM地理的ミラー RPV Client 0354と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。</li><li>B. コマンドまたは機能の用途はcluster historyだを避けるため・エラー記録からIDENTIFIERを読むしてエラー記録を照合する。</li><li>C. コマンドまたは機能の用途は獲得失敗ログの未採取を避けるため・表示操作で対象欄を追跡するして獲得イベントを照合する。</li><li>D. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてトポロジ要約を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・抑止）です。照合抑止・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・抑止・検証ロです。比較抑止・クラス・トポロ・検証ロでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はクラス・抑止・トポロです。運用抑止・クラスでB:の変更後の確認 FAIL03は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸はトポロ・クラス・抑止です。項目抑止・クラス・トポロでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は検証ロ・クラス・トポロです。用語抑止・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0280</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0280について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0280A
+画面・出力には PHA72DD0280A が表示され、クラスタ構成検証 Cluster Resources 0280 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0280
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0280B
+画面・出力には PHA72DD0280B が表示され、クラスタ構成検証 Cluster Resources 0280 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0280
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0280C
+画面・出力には PHA72DD0280C が表示され、クラスタ構成検証 Cluster Resources 0280 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0280A が画面・出力に表示されること
+② ステップ2 の PHA72DD0280B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0280C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0403"><h3>クラスタ構成検証 Cluster Resources 0295</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>金P抑止0296ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票金P抑止0296です。金P抑止0296はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録金P抑止0296です。金P抑止0296ではトポロジ要約と取得時刻を採取票金P抑止0296へ残します。金P抑止0296では警告と致命エラーの混同を避けるため補助資料も照合する判断金P抑止0296です。金P抑止0296の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録金P抑止0296です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0295の設定や表示を読む前に役割を確認します。クラスタ構成検証 SMIT Command Status 0304ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は保守操作で監査欄を保存することで検証進行率を確認し・検証ログの採取漏れを防ぐ。</li><li>B. 一次資料が示す主目的は調査操作で保守欄を引き継ぎすることで優先ノード一を確認し・自動戻し条件の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は採取操作で照合欄を点検することで検証報告ROを確認し・警告と致命エラーの混同を防ぐ。</li><li>D. 一次資料が示す主目的は採取操作で照合欄を点検することでトポロジ要約を確認し・警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・抑止）です。照合抑止・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・抑止・警告とです。比較抑止・クラス・トポロ・警告とでA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はクラス・抑止・トポロです。運用抑止・クラスでB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はトポロ・クラス・抑止です。項目抑止・クラス・トポロでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は警告と・クラス・トポロです。用語抑止・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0295</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0295について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0295A
+画面・出力には PHA72DD0295A が表示され、クラスタ構成検証 Cluster Resources 0295 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0295
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0295B
+画面・出力には PHA72DD0295B が表示され、クラスタ構成検証 Cluster Resources 0295 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0295
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0295C
+画面・出力には PHA72DD0295C が表示され、クラスタ構成検証 Cluster Resources 0295 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0295A が画面・出力に表示されること
+② ステップ2 の PHA72DD0295B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0295C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0404"><h3>クラスタ構成検証 Cluster Resources 0310</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紺K解析0311ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紺K解析0311です。紺K解析0311はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紺K解析0311です。紺K解析0311ではトポロジ要約と取得時刻を採取票紺K解析0311へ残します。紺K解析0311ではノード間ODM差分の残存を避けるため補助資料も照合する判断紺K解析0311です。紺K解析0311の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紺K解析0311です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0310に関する障害切り分けの前提を確認しています。cltopinfo 整合確認 確認範囲の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は確認範囲で確認範囲を証跡に残し・クラスタトポロジー・ネットワーク・サービスIP。</li><li>B. 障害切り分けに用いる役割は解析でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は巡回で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は収集でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・クラス・トポロでBの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・解析）です。照合解析・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・解析・ノードです。比較解析・クラス・トポロ・ノードでA:の整合確認 確認範囲は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸はクラス・解析・トポロです。項目解析・クラス・トポロでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はノード・クラス・トポロです。仕様解析・クラス・トポロでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は解析・ノード・トポロです。用語解析・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0310</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0310について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0310A
+画面・出力には PHA72DD0310A が表示され、クラスタ構成検証 Cluster Resources 0310 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0310
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0310B
+画面・出力には PHA72DD0310B が表示され、クラスタ構成検証 Cluster Resources 0310 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0310
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0310C
+画面・出力には PHA72DD0310C が表示され、クラスタ構成検証 Cluster Resources 0310 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0310A が画面・出力に表示されること
+② ステップ2 の PHA72DD0310B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0310C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0405"><h3>クラスタ構成検証 Cluster Resources 0325</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>銀F計画0326ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票銀F計画0326です。銀F計画0326はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録銀F計画0326です。銀F計画0326ではトポロジ要約と取得時刻を採取票銀F計画0326へ残します。銀F計画0326では未同期構成の見落としを避けるため補助資料も照合する判断銀F計画0326です。銀F計画0326の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録銀F計画0326です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0325を保守記録に説明する必要があります。リソースグループ制御 Acquisition Failure 0341と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。</li><li>B. 仕様上の役割はエラー記録からIDENTIFIERを読むことでエラー記録を確認し・cluster historを防ぐ。</li><li>C. 仕様上の役割は記録操作で証跡欄を照合することでトポロジ要約を確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は確認操作で状態欄を整理することで検証進行率を確認し・ノード間構成データODM差分を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・クラス・トポロでCの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・計画）です。照合計画・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・計画・未同期です。比較計画・クラス・トポロ・未同期でA:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はクラス・計画・トポロです。運用計画・クラスでB:の再始動後の確認 FAIL15は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸はトポロ・クラス・計画です。仕様計画・クラス・トポロでD:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は計画・未同期・トポロです。用語計画・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0325</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0325について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0325A
+画面・出力には PHA72DD0325A が表示され、クラスタ構成検証 Cluster Resources 0325 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0325
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0325B
+画面・出力には PHA72DD0325B が表示され、クラスタ構成検証 Cluster Resources 0325 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0325
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0325C
+画面・出力には PHA72DD0325C が表示され、クラスタ構成検証 Cluster Resources 0325 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0325A が画面・出力に表示されること
+② ステップ2 の PHA72DD0325B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0325C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0406"><h3>クラスタ構成検証 Cluster Resources 0340</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>蒼A解除0341ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票蒼A解除0341です。蒼A解除0341はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録蒼A解除0341です。蒼A解除0341ではトポロジ要約と取得時刻を採取票蒼A解除0341へ残します。蒼A解除0341では検証ログの採取漏れを避けるため補助資料も照合する判断蒼A解除0341です。蒼A解除0341の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録蒼A解除0341です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0340の技術的な意味を資料で確認するとき、cltopinfo 状態確認 対象ファイルとの境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は状態確認で対象ファイルを確認することで対象ファイルを確認し・対象ファイルの誤読を防ぐ。</li><li>B. コマンドまたは機能の用途はRG一覧からdatabase_rgを読むことで資源グループを確認し・依存順を無視して子資源を先にを防ぐ。</li><li>C. コマンドまたは機能の用途は調査操作で保守欄を引き継ぎすることで移動履歴を確認し・自動戻し条件の誤読を防ぐ。</li><li>D. コマンドまたは機能の用途は保守操作で監査欄を保存することでトポロジ要約を確認し・検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・解除）です。照合解除・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・解除・検証ロです。比較解除・クラス・トポロ・検証ロでA:の状態確認 対象ファイルは「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸はクラス・解除・トポロです。運用解除・クラスでB:の変更前の確認 DEP02は「資源グループで資源グループRG一覧から」を述べるため、正答側の照合軸はトポロ・クラス・解除です。項目解除・クラス・トポロでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は検証ロ・クラス・トポロです。用語解除・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0340</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0340について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0340A
+画面・出力には PHA72DD0340A が表示され、クラスタ構成検証 Cluster Resources 0340 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0340
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0340B
+画面・出力には PHA72DD0340B が表示され、クラスタ構成検証 Cluster Resources 0340 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0340
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0340C
+画面・出力には PHA72DD0340C が表示され、クラスタ構成検証 Cluster Resources 0340 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0340A が画面・出力に表示されること
+② ステップ2 の PHA72DD0340B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0340C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0407"><h3>クラスタ構成検証 Cluster Resources 0355</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>金P解除0356ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票金P解除0356です。金P解除0356はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録金P解除0356です。金P解除0356ではトポロジ要約と取得時刻を採取票金P解除0356へ残します。金P解除0356では警告と致命エラーの混同を避けるため補助資料も照合する判断金P解除0356です。金P解除0356の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録金P解除0356です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Resources 0355について構成や状態を確認します。トポロジー Cluster Topology 変更前の確認 TOPO02ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は変更確認でネットワークを証跡に残し・クラスタートポロジーでネットワーク照会から。</li><li>B. 一次資料が示す主目的は復旧で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 一次資料が示す主目的は登録で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>D. 一次資料が示す主目的は解除でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・クラス・トポロでDの記述「クラスター資源のトポロジ要約と取得時刻を記録し」に対応する項目はCluster Resources（クラス・トポロ・解除）です。照合解除・クラス・トポロに関する構成検証の仕様は「クラスター資源のトポロジ要約と取得時刻を記録し」で、確認対象はトポロ・解除・警告とです。比較解除・クラス・トポロ・警告とでA:の変更前の確認 TOPO02は「クラスタートポロジーでネットワーク照会から」を述べるため、正答側の照合軸はクラス・解除・トポロです。運用解除・クラスでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はトポロ・クラス・解除です。項目解除・クラス・トポロでC:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は警告と・クラス・トポロです。用語解除・クラス・トポロという用語は「クラスター資源のトポロジ要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・トポロ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Resources 0355</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Resources 0355について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Resources と トポロジ要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clmgr view report roha
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0355A
+画面・出力には PHA72DD0355A が表示され、クラスタ構成検証 Cluster Resources 0355 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0355
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0355B
+画面・出力には PHA72DD0355B が表示され、クラスタ構成検証 Cluster Resources 0355 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Resources を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0355
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0355C
+画面・出力には PHA72DD0355C が表示され、クラスタ構成検証 Cluster Resources 0355 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0355A が画面・出力に表示されること
+② ステップ2 の PHA72DD0355B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0355C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0408"><h3>クラスタ構成検証 Cluster Topology 0013</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>灰N巡回0014ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票灰N巡回0014です。灰N巡回0014はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録灰N巡回0014です。灰N巡回0014ではODM登録値と取得時刻を採取票灰N巡回0014へ残します。灰N巡回0014では未同期構成の見落としを避けるため補助資料も照合する判断灰N巡回0014です。灰N巡回0014の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録灰N巡回0014です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0013を保守記録に説明する必要があります。クラスタ構成検証 Cluster Resources 0055と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は復旧でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。クラスタ構成検証 Cluster Resources 0055固有の属性も確認対象に含める。</li><li>B. 仕様上の役割は照合でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>C. 仕様上の役割は代替経路確認でクラスタ照会を証跡に残し・クラスタートポロジーでクラスタ照会から。</li><li>D. 仕様上の役割は巡回で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・クラス・構成デでDの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・巡回）です。照合巡回・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・巡回・未同期です。比較クラス・巡回でA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸はクラス・巡回・構成デです。運用巡回・クラスでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は構成デ・クラス・巡回です。項目巡回・クラス・構成デでC:の代替経路の確認 TOPO10は「クラスタートポロジーでクラスタ照会から」を述べるため、正答側の照合軸は未同期・クラス・構成デです。用語巡回・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0013</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0013について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0013A
+画面・出力には PHA72DD0013A が表示され、クラスタ構成検証 Cluster Topology 0013 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0013
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0013B
+画面・出力には PHA72DD0013B が表示され、クラスタ構成検証 Cluster Topology 0013 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0013
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0013C
+画面・出力には PHA72DD0013C が表示され、クラスタ構成検証 Cluster Topology 0013 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0013A が画面・出力に表示されること
+② ステップ2 の PHA72DD0013B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0013C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0409"><h3>クラスタ構成検証 Cluster Topology 0028</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黄I棚卸0029ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黄I棚卸0029です。黄I棚卸0029はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録黄I棚卸0029です。黄I棚卸0029ではODM登録値と取得時刻を採取票黄I棚卸0029へ残します。黄I棚卸0029では検証ログの採取漏れを避けるため補助資料も照合する判断黄I棚卸0029です。黄I棚卸0029の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録黄I棚卸0029です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0028の技術的な意味を資料で確認するとき、リソースグループ制御 Node List 0077との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は保守操作で監査欄を保存することで構成データOを確認し・検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は復旧操作で点検欄を確認することで移動履歴を確認し・資源グループ位置の誤認を防ぐ。</li><li>C. コマンドまたは機能の用途は保守操作で監査欄を保存することで検証進行率を確認し・検証ログの採取漏れを防ぐ。</li><li>D. コマンドまたは機能の用途はノード一覧から実状態値を読むことでノード一覧を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・棚卸）です。照合棚卸・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・棚卸・検証ロです。運用棚卸・クラスでB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成デ・クラス・棚卸です。項目棚卸・クラス・構成デでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は検証ロ・クラス・構成デです。仕様棚卸・クラス・構成デでD:の代替経路の確認 NODE10は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は棚卸・検証ロ・構成デです。用語棚卸・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0028</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0028について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0028A
+画面・出力には PHA72DD0028A が表示され、クラスタ構成検証 Cluster Topology 0028 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0028
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0028B
+画面・出力には PHA72DD0028B が表示され、クラスタ構成検証 Cluster Topology 0028 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0028
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0028C
+画面・出力には PHA72DD0028C が表示され、クラスタ構成検証 Cluster Topology 0028 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0028A が画面・出力に表示されること
+② ステップ2 の PHA72DD0028B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0028C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0410"><h3>クラスタ構成検証 Cluster Topology 0043</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>藍D復旧0044ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票藍D復旧0044です。藍D復旧0044はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録藍D復旧0044です。藍D復旧0044ではODM登録値と取得時刻を採取票藍D復旧0044へ残します。藍D復旧0044では警告と致命エラーの混同を避けるため補助資料も照合する判断藍D復旧0044です。藍D復旧0044の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録藍D復旧0044です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0043について構成や状態を確認します。リソースグループ制御 Resource Group Name 0095ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は変更で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は確認で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>C. 一次資料が示す主目的はサービスIPでインターフェを証跡に残し・IP Service IPでインターフェースから。</li><li>D. 一次資料が示す主目的は復旧で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・クラス・構成デでDの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・復旧）です。照合復旧・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・復旧・警告とです。比較クラス・復旧でA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はクラス・復旧・構成デです。運用復旧・クラスでB:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は構成デ・クラス・復旧です。項目復旧・クラス・構成デでC:の引継ぎ記録 SVCIP09は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は警告と・クラス・構成デです。用語復旧・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0043</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0043について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0043A
+画面・出力には PHA72DD0043A が表示され、クラスタ構成検証 Cluster Topology 0043 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0043
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0043B
+画面・出力には PHA72DD0043B が表示され、クラスタ構成検証 Cluster Topology 0043 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0043
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0043C
+画面・出力には PHA72DD0043C が表示され、クラスタ構成検証 Cluster Topology 0043 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0043A が画面・出力に表示されること
+② ステップ2 の PHA72DD0043B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0043C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0411"><h3>クラスタ構成検証 Cluster Topology 0058</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黒S復旧0059ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黒S復旧0059です。黒S復旧0059はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録黒S復旧0059です。黒S復旧0059ではODM登録値と取得時刻を採取票黒S復旧0059へ残します。黒S復旧0059ではノード間ODM差分の残存を避けるため補助資料も照合する判断黒S復旧0059です。黒S復旧0059の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録黒S復旧0059です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0058の役割を調べています。リソースグループ制御 Event Summary 0083の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は復旧で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は変更で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は計画で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。リソースグループ制御 Acquisition Failure 0326固有の属性も確認対象に含める。</li><li>D. 障害切り分けに用いる役割は通常状態確認で主要ログを証跡に残し・hacmp.out Eventで主要ログから。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・復旧）です。照合復旧・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・復旧・ノードです。運用復旧・クラスでB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は構成デ・クラス・復旧です。項目復旧・クラス・構成デでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸はノード・クラス・構成デです。仕様復旧・クラス・構成デでD:の通常状態の確認 FAIL01は「hacmp.out Eventで主要ログから」を述べるため、正答側の照合軸は復旧・ノード・構成デです。用語復旧・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0058</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0058について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0058A
+画面・出力には PHA72DD0058A が表示され、クラスタ構成検証 Cluster Topology 0058 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0058
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0058B
+画面・出力には PHA72DD0058B が表示され、クラスタ構成検証 Cluster Topology 0058 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0058
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0058C
+画面・出力には PHA72DD0058C が表示され、クラスタ構成検証 Cluster Topology 0058 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0058A が画面・出力に表示されること
+② ステップ2 の PHA72DD0058B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0058C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0412"><h3>クラスタ構成検証 Cluster Topology 0073</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>灰N監査0074ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票灰N監査0074です。灰N監査0074はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録灰N監査0074です。灰N監査0074ではODM登録値と取得時刻を採取票灰N監査0074へ残します。灰N監査0074では未同期構成の見落としを避けるため補助資料も照合する判断灰N監査0074です。灰N監査0074の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録灰N監査0074です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Cluster Topology 0073」を「クラスタ構成検証 SMIT Command Status 0139」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は診断で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。クラスタ構成検証 SMIT Command Status 0139固有の属性も確認対象に含める。</li><li>B. 仕様上の役割は監査で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は解除でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li><li>D. 仕様上の役割は停止確認で状態確認を証跡に残し・Cluster Servicesで状態確認から。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・監査）です。照合監査・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・監査・未同期です。比較クラス・監査でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はクラス・監査・構成デです。項目監査・クラス・構成デでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は未同期・クラス・構成デです。仕様監査・クラス・構成デでD:の停止前の確認 START14は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸は監査・未同期・構成デです。用語監査・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0073</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0073について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0073A
+画面・出力には PHA72DD0073A が表示され、クラスタ構成検証 Cluster Topology 0073 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0073
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0073B
+画面・出力には PHA72DD0073B が表示され、クラスタ構成検証 Cluster Topology 0073 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0073
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0073C
+画面・出力には PHA72DD0073C が表示され、クラスタ構成検証 Cluster Topology 0073 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0073A が画面・出力に表示されること
+② ステップ2 の PHA72DD0073B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0073C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0413"><h3>クラスタ構成検証 Cluster Topology 0088</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黄I変更0089ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黄I変更0089です。黄I変更0089はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録黄I変更0089です。黄I変更0089ではODM登録値と取得時刻を採取票黄I変更0089へ残します。黄I変更0089では検証ログの採取漏れを避けるため補助資料も照合する判断黄I変更0089です。黄I変更0089の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録黄I変更0089です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0088を同一分類のクラスタ構成検証 SMIT Command Status 0139と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証進行率を照合する。</li><li>B. コマンドまたは機能の用途はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてミラー更新状を照合する。</li><li>C. コマンドまたは機能の用途はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。</li><li>D. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・クラス・構成デでDの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・変更）です。照合変更・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・変更・検証ロです。比較クラス・変更でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はクラス・変更・構成デです。運用変更・クラスでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は構成デ・クラス・変更です。項目変更・クラス・構成デでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は検証ロ・クラス・構成デです。用語変更・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0088</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0088について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0088A
+画面・出力には PHA72DD0088A が表示され、クラスタ構成検証 Cluster Topology 0088 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0088
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0088B
+画面・出力には PHA72DD0088B が表示され、クラスタ構成検証 Cluster Topology 0088 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0088
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0088C
+画面・出力には PHA72DD0088C が表示され、クラスタ構成検証 Cluster Topology 0088 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0088A が画面・出力に表示されること
+② ステップ2 の PHA72DD0088B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0088C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0414"><h3>クラスタ構成検証 Cluster Topology 0103</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>藍D移行0104ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票藍D移行0104です。藍D移行0104はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録藍D移行0104です。藍D移行0104ではODM登録値と取得時刻を採取票藍D移行0104へ残します。藍D移行0104では警告と致命エラーの混同を避けるため補助資料も照合する判断藍D移行0104です。藍D移行0104の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録藍D移行0104です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0103の設定や表示を読む前に役割を確認します。クラスタ構成検証 Verification Progress 0106ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は確認操作で状態欄を整理することでリソース要約を確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 一次資料が示す主目的は採取操作で照合欄を点検することで構成データOを確認し・警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は監査操作で記録欄を比較することでsyslogを確認し・syslogとhacmp.oを防ぐ。</li><li>D. 一次資料が示す主目的はRG確認からapp_rgを読むことで資源グループを確認し・管理設定と資源状態の混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・移行）です。照合移行・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・移行・警告とです。比較クラス・移行でA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸はクラス・移行・構成デです。項目移行・クラス・構成デでC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は警告と・クラス・構成デです。仕様移行・クラス・構成デでD:の変更後の確認 START03は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は移行・警告と・構成デです。用語移行・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0103</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0103について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0103A
+画面・出力には PHA72DD0103A が表示され、クラスタ構成検証 Cluster Topology 0103 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0103
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0103B
+画面・出力には PHA72DD0103B が表示され、クラスタ構成検証 Cluster Topology 0103 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0103
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0103C
+画面・出力には PHA72DD0103C が表示され、クラスタ構成検証 Cluster Topology 0103 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0103A が画面・出力に表示されること
+② ステップ2 の PHA72DD0103B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0103C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0415"><h3>クラスタ構成検証 Cluster Topology 0118</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>黒S移行0119ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黒S移行0119です。黒S移行0119はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録黒S移行0119です。黒S移行0119ではODM登録値と取得時刻を採取票黒S移行0119へ残します。黒S移行0119ではノード間ODM差分の残存を避けるため補助資料も照合する判断黒S移行0119です。黒S移行0119の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録黒S移行0119です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0118に関する障害切り分けの前提を確認しています。クラスタ構成検証 Cluster Resources 0160の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は保守操作で監査欄を保存することでトポロジ要約を確認し・検証ログの採取漏れを防ぐ。クラスタ構成検証 Cluster Resources 0160固有の属性も確認対象に含める。</li><li>B. 障害切り分けに用いる役割は確認操作で状態欄を整理することで構成データOを確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は調査操作で保守欄を引き継ぎすることで失敗ラベルを確認し・自動戻し条件の誤読を防ぐ。</li><li>D. 障害切り分けに用いる役割は復旧操作で点検欄を確認することで移動履歴を確認し・資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・移行）です。照合移行・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・移行・ノードです。比較クラス・移行でA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸はクラス・移行・構成デです。項目移行・クラス・構成デでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はノード・クラス・構成デです。仕様移行・クラス・構成デでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は移行・ノード・構成デです。用語移行・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0118</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0118について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0118A
+画面・出力には PHA72DD0118A が表示され、クラスタ構成検証 Cluster Topology 0118 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0118
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0118B
+画面・出力には PHA72DD0118B が表示され、クラスタ構成検証 Cluster Topology 0118 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0118
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0118C
+画面・出力には PHA72DD0118C が表示され、クラスタ構成検証 Cluster Topology 0118 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0118A が画面・出力に表示されること
+② ステップ2 の PHA72DD0118B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0118C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0416"><h3>クラスタ構成検証 Cluster Topology 0133</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>灰N診断0134ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票灰N診断0134です。灰N診断0134はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録灰N診断0134です。灰N診断0134ではODM登録値と取得時刻を採取票灰N診断0134へ残します。灰N診断0134では未同期構成の見落としを避けるため補助資料も照合する判断灰N診断0134です。灰N診断0134の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録灰N診断0134です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0133を保守記録に説明する必要があります。クラスタ構成検証 SMIT Command Status 0169と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。</li><li>B. 仕様上の役割は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてsyslogを照合する。</li><li>C. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は監視通信SNMP情報の残留を実ノを避けるため・clinfoES状態からclinfoESしてclinfoを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・クラス・構成デでCの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・診断）です。照合診断・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・診断・未同期です。比較診断・クラス・構成デ・未同期でA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はクラス・診断・構成デです。運用診断・クラスでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は構成デ・クラス・診断です。仕様診断・クラス・構成デでD:のログとの照合 CLSTAT07は「clstatでclinfoES状態から」を述べるため、正答側の照合軸は診断・未同期・構成デです。用語診断・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0133</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0133について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0133A
+画面・出力には PHA72DD0133A が表示され、クラスタ構成検証 Cluster Topology 0133 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0133
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0133B
+画面・出力には PHA72DD0133B が表示され、クラスタ構成検証 Cluster Topology 0133 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0133
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0133C
+画面・出力には PHA72DD0133C が表示され、クラスタ構成検証 Cluster Topology 0133 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0133A が画面・出力に表示されること
+② ステップ2 の PHA72DD0133B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0133C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0417"><h3>クラスタ構成検証 Cluster Topology 0148</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黄I保守0149ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黄I保守0149です。黄I保守0149はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録黄I保守0149です。黄I保守0149ではODM登録値と取得時刻を採取票黄I保守0149へ残します。黄I保守0149では検証ログの採取漏れを避けるため補助資料も照合する判断黄I保守0149です。黄I保守0149の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録黄I保守0149です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0148の技術的な意味を資料で確認するとき、リソースグループ制御 Node List 0212との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして移動履歴を照合する。</li><li>C. コマンドまたは機能の用途は整合確認の誤読を避けるため・整合確認で整合確認を確認するして整合確認を照合する。</li><li>D. コマンドまたは機能の用途はcluster historyだを避けるため・エラー記録からIDENTIFIERを読むしてエラー記録を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・保守）です。照合保守・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・保守・検証ロです。運用保守・クラスでB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成デ・クラス・保守です。項目保守・クラス・構成デでC:の状態確認 整合確認は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は検証ロ・クラス・構成デです。仕様保守・クラス・構成デでD:の再始動後の確認 FAIL15は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は保守・検証ロ・構成デです。用語保守・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0148</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0148について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0148A
+画面・出力には PHA72DD0148A が表示され、クラスタ構成検証 Cluster Topology 0148 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0148
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0148B
+画面・出力には PHA72DD0148B が表示され、クラスタ構成検証 Cluster Topology 0148 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0148
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0148C
+画面・出力には PHA72DD0148C が表示され、クラスタ構成検証 Cluster Topology 0148 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0148A が画面・出力に表示されること
+② ステップ2 の PHA72DD0148B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0148C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0418"><h3>クラスタ構成検証 Cluster Topology 0163</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>藍D切替0164ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票藍D切替0164です。藍D切替0164はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録藍D切替0164です。藍D切替0164ではODM登録値と取得時刻を採取票藍D切替0164へ残します。藍D切替0164では警告と致命エラーの混同を避けるため補助資料も照合する判断藍D切替0164です。藍D切替0164の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録藍D切替0164です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0163について構成や状態を確認します。GLVM地理的ミラー VG STATE 0213ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するして基本ソフトAを照合する。</li><li>B. 一次資料が示す主目的は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。</li><li>C. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして失敗ラベルを照合する。</li><li>D. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・クラス・構成デでDの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・切替）です。照合切替・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・切替・警告とです。比較切替・クラス・構成デ・警告とでA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はクラス・切替・構成デです。運用切替・クラスでB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は構成デ・クラス・切替です。項目切替・クラス・構成デでC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は警告と・クラス・構成デです。用語切替・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0163</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0163について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0163A
+画面・出力には PHA72DD0163A が表示され、クラスタ構成検証 Cluster Topology 0163 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0163
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0163B
+画面・出力には PHA72DD0163B が表示され、クラスタ構成検証 Cluster Topology 0163 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0163
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0163C
+画面・出力には PHA72DD0163C が表示され、クラスタ構成検証 Cluster Topology 0163 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0163A が画面・出力に表示されること
+② ステップ2 の PHA72DD0163B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0163C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0419"><h3>クラスタ構成検証 Cluster Topology 0178</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黒S切替0179ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黒S切替0179です。黒S切替0179はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録黒S切替0179です。黒S切替0179ではODM登録値と取得時刻を採取票黒S切替0179へ残します。黒S切替0179ではノード間ODM差分の残存を避けるため補助資料も照合する判断黒S切替0179です。黒S切替0179の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録黒S切替0179です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0178の役割を調べています。GLVM地理的ミラー syslog entry 0267の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は地理的ミラーの項目のsyslog記録と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。GLVM地理的ミラー syslog entry 0267固有の属性も確認対象に含める。</li><li>C. 障害切り分けに用いる役割はクラスタサービスを開始し・リソースグループをオンライン化する操作を起動確認する。属性確認で属性確認を確認するときは属性確認の誤読を防ぐ。</li><li>D. 障害切り分けに用いる役割は地理的ミラーの項目のVG vary状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・切替）です。照合切替・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・切替・ノードです。運用切替・クラスでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は構成デ・クラス・切替です。項目切替・クラス・構成デでC:の起動確認 属性確認は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸はノード・クラス・構成デです。仕様切替・クラス・構成デでD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は切替・ノード・構成デです。用語切替・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0178</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0178について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0178A
+画面・出力には PHA72DD0178A が表示され、クラスタ構成検証 Cluster Topology 0178 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0178
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0178B
+画面・出力には PHA72DD0178B が表示され、クラスタ構成検証 Cluster Topology 0178 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0178
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0178C
+画面・出力には PHA72DD0178C が表示され、クラスタ構成検証 Cluster Topology 0178 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0178A が画面・出力に表示されること
+② ステップ2 の PHA72DD0178B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0178C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0420"><h3>クラスタ構成検証 Cluster Topology 0193</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>灰N収集0194ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票灰N収集0194です。灰N収集0194はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録灰N収集0194です。灰N収集0194ではODM登録値と取得時刻を採取票灰N収集0194へ残します。灰N収集0194では未同期構成の見落としを避けるため補助資料も照合する判断灰N収集0194です。灰N収集0194の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録灰N収集0194です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Cluster Topology 0193」を「リソースグループ制御 Event Summary 0248」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は保護で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>B. 仕様上の役割はトポロジー確で警告行を証跡に残し・クラスタ構成と状態をスナップショットとして表示するコマンドを。</li><li>C. 仕様上の役割は収集で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は棚卸で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・クラス・構成デでCの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・収集）です。照合収集・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・収集・未同期です。比較収集・クラス・構成デ・未同期でA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はクラス・収集・構成デです。運用収集・クラスでB:のトポロジー確認 警告行は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は構成デ・クラス・収集です。仕様収集・クラス・構成デでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は収集・未同期・構成デです。用語収集・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0193</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0193について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0193A
+画面・出力には PHA72DD0193A が表示され、クラスタ構成検証 Cluster Topology 0193 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0193
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0193B
+画面・出力には PHA72DD0193B が表示され、クラスタ構成検証 Cluster Topology 0193 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0193
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0193C
+画面・出力には PHA72DD0193C が表示され、クラスタ構成検証 Cluster Topology 0193 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0193A が画面・出力に表示されること
+② ステップ2 の PHA72DD0193B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0193C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0421"><h3>クラスタ構成検証 Cluster Topology 0208</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黄I登録0209ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黄I登録0209です。黄I登録0209はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録黄I登録0209です。黄I登録0209ではODM登録値と取得時刻を採取票黄I登録0209へ残します。黄I登録0209では検証ログの採取漏れを避けるため補助資料も照合する判断黄I登録0209です。黄I登録0209の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録黄I登録0209です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0208を同一分類のGLVM地理的ミラー RPV Client 0294と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. コマンドまたは機能の用途は検証後に構成を同期し・クラスタスナップショットを作成する操作をトポロジー確認する。トポロジー確でチューニングを確認するときはチューニングの誤読を防ぐ。</li><li>C. コマンドまたは機能の用途はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は獲得処理の獲得イベントと取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。リソースグループ制御 Acquisition Failure 0041固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・クラス・構成デでCの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・登録）です。照合登録・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・登録・検証ロです。比較登録・クラス・構成デ・検証ロでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はクラス・登録・構成デです。運用登録・クラスでB:のトポロジー確認 チューニング値は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸は構成デ・クラス・登録です。仕様登録・クラス・構成デでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は登録・検証ロ・構成デです。用語登録・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0208</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0208について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0208A
+画面・出力には PHA72DD0208A が表示され、クラスタ構成検証 Cluster Topology 0208 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0208
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0208B
+画面・出力には PHA72DD0208B が表示され、クラスタ構成検証 Cluster Topology 0208 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0208
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0208C
+画面・出力には PHA72DD0208C が表示され、クラスタ構成検証 Cluster Topology 0208 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0208A が画面・出力に表示されること
+② ステップ2 の PHA72DD0208B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0208C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0422"><h3>クラスタ構成検証 Cluster Topology 0223</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>藍D確認0224ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票藍D確認0224です。藍D確認0224はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録藍D確認0224です。藍D確認0224ではODM登録値と取得時刻を採取票藍D確認0224へ残します。藍D確認0224では警告と致命エラーの混同を避けるため補助資料も照合する判断藍D確認0224です。藍D確認0224の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録藍D確認0224です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0223の設定や表示を読む前に役割を確認します。リソースグループ制御 Online Node 0239ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は採取操作で照合欄を点検することで構成データOを確認し・警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は表示操作で対象欄を追跡することで資源グループを確認し・獲得失敗ログの未採取を防ぐ。</li><li>C. 一次資料が示す主目的は開始から終了状態を読むことで開始を確認し・管理設定と資源状態の混同を防ぐ。</li><li>D. 一次資料が示す主目的は照合操作で確認欄を採取することで遠隔ボリューを確認し・ミラー再同期条件の誤読を防ぐ。GLVM地理的ミラー RPV Client 0084固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・確認）です。照合確認・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・確認・警告とです。運用確認・クラスでB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は構成デ・クラス・確認です。項目確認・クラス・構成デでC:の通常状態の確認 START01は「Cluster Servicesで開始から」を述べるため、正答側の照合軸は警告と・クラス・構成デです。仕様確認・クラス・構成デでD:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は確認・警告と・構成デです。用語確認・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0223</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0223について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0223A
+画面・出力には PHA72DD0223A が表示され、クラスタ構成検証 Cluster Topology 0223 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0223
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0223B
+画面・出力には PHA72DD0223B が表示され、クラスタ構成検証 Cluster Topology 0223 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0223
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0223C
+画面・出力には PHA72DD0223C が表示され、クラスタ構成検証 Cluster Topology 0223 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0223A が画面・出力に表示されること
+② ステップ2 の PHA72DD0223B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0223C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0423"><h3>クラスタ構成検証 Cluster Topology 0238</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>黒S確認0239ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黒S確認0239です。黒S確認0239はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録黒S確認0239です。黒S確認0239ではODM登録値と取得時刻を採取票黒S確認0239へ残します。黒S確認0239ではノード間ODM差分の残存を避けるため補助資料も照合する判断黒S確認0239です。黒S確認0239の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録黒S確認0239です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0238に関する障害切り分けの前提を確認しています。リソースグループ制御 Node List 0242の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして移動履歴を照合する。リソースグループ制御 Node List 0242固有の属性も確認対象に含める。</li><li>C. 障害切り分けに用いる役割は片系定義を全体正本とする誤認を避けるため・検証からVerificationを読むして検証を照合する。</li><li>D. 障害切り分けに用いる役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するしてトポロジ要約を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・確認）です。照合確認・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・確認・ノードです。運用確認・クラスでB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成デ・クラス・確認です。項目確認・クラス・構成デでC:の復旧後の確認 TOPO06は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸はノード・クラス・構成デです。仕様確認・クラス・構成デでD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は確認・ノード・構成デです。用語確認・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0238</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0238について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0238A
+画面・出力には PHA72DD0238A が表示され、クラスタ構成検証 Cluster Topology 0238 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0238
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0238B
+画面・出力には PHA72DD0238B が表示され、クラスタ構成検証 Cluster Topology 0238 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0238
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0238C
+画面・出力には PHA72DD0238C が表示され、クラスタ構成検証 Cluster Topology 0238 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0238A が画面・出力に表示されること
+② ステップ2 の PHA72DD0238B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0238C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0424"><h3>クラスタ構成検証 Cluster Topology 0253</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>灰N保護0254ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票灰N保護0254です。灰N保護0254はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録灰N保護0254です。灰N保護0254ではODM登録値と取得時刻を採取票灰N保護0254へ残します。灰N保護0254では未同期構成の見落としを避けるため補助資料も照合する判断灰N保護0254です。灰N保護0254の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録灰N保護0254です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0253を保守記録に説明する必要があります。GLVM地理的ミラー VG STATE 0273と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は主操作で出力欄を評価することで基本ソフトAを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>B. 仕様上の役割は記録操作で証跡欄を照合することで構成データOを確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割はRG確認からapp_rgを読むことで資源グループを確認し・管理設定と資源状態の混同を防ぐ。</li><li>D. 仕様上の役割は確認操作で状態欄を整理することでリソース要約を確認し・ノード間構成データODM差分を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・保護）です。照合保護・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・保護・未同期です。比較保護・クラス・構成デ・未同期でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はクラス・保護・構成デです。項目保護・クラス・構成デでC:の変更後の確認 START03は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は未同期・クラス・構成デです。仕様保護・クラス・構成デでD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は保護・未同期・構成デです。用語保護・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0253</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0253について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0253A
+画面・出力には PHA72DD0253A が表示され、クラスタ構成検証 Cluster Topology 0253 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0253
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0253B
+画面・出力には PHA72DD0253B が表示され、クラスタ構成検証 Cluster Topology 0253 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0253
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0253C
+画面・出力には PHA72DD0253C が表示され、クラスタ構成検証 Cluster Topology 0253 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0253A が画面・出力に表示されること
+② ステップ2 の PHA72DD0253B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0253C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0425"><h3>クラスタ構成検証 Cluster Topology 0268</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黄I照合0269ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黄I照合0269です。黄I照合0269はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録黄I照合0269です。黄I照合0269ではODM登録値と取得時刻を採取票黄I照合0269へ残します。黄I照合0269では検証ログの採取漏れを避けるため補助資料も照合する判断黄I照合0269です。黄I照合0269の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録黄I照合0269です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0268の技術的な意味を資料で確認するとき、リソースグループ制御 Online Node 0314との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は解析で資源グループを証跡に残し・オンラインノードの資源グループRG現在位置と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は停止確認で同期実行を証跡に残し・Cluster Synchronizで同期実行から。</li><li>C. コマンドまたは機能の用途は照合で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は移行でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・クラス・構成デでCの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・照合）です。照合照合・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・照合・検証ロです。比較照合・クラス・構成デ・検証ロでA:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸はクラス・照合・構成デです。運用照合・クラスでB:の停止前の確認 SYNC14は「Cluster Synchronizで同期実」を述べるため、正答側の照合軸は構成デ・クラス・照合です。仕様照合・クラス・構成デでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は照合・検証ロ・構成デです。用語照合・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0268</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0268について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0268A
+画面・出力には PHA72DD0268A が表示され、クラスタ構成検証 Cluster Topology 0268 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0268
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0268B
+画面・出力には PHA72DD0268B が表示され、クラスタ構成検証 Cluster Topology 0268 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0268
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0268C
+画面・出力には PHA72DD0268C が表示され、クラスタ構成検証 Cluster Topology 0268 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0268A が画面・出力に表示されること
+② ステップ2 の PHA72DD0268B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0268C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0426"><h3>クラスタ構成検証 Cluster Topology 0283</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>藍D抑止0284ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票藍D抑止0284です。藍D抑止0284はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録藍D抑止0284です。藍D抑止0284ではODM登録値と取得時刻を採取票藍D抑止0284へ残します。藍D抑止0284では警告と致命エラーの混同を避けるため補助資料も照合する判断藍D抑止0284です。藍D抑止0284の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録藍D抑止0284です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0283について構成や状態を確認します。クラスタ構成検証 clverify.log 0292ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証報告ROを照合する。</li><li>B. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして資源グループを照合する。</li><li>D. 一次資料が示す主目的はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・抑止）です。照合抑止・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・抑止・警告とです。比較抑止・クラス・構成デ・警告とでA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はクラス・抑止・構成デです。項目抑止・クラス・構成デでC:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は警告と・クラス・構成デです。仕様抑止・クラス・構成デでD:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は抑止・警告と・構成デです。用語抑止・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0283</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0283について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0283A
+画面・出力には PHA72DD0283A が表示され、クラスタ構成検証 Cluster Topology 0283 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0283
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0283B
+画面・出力には PHA72DD0283B が表示され、クラスタ構成検証 Cluster Topology 0283 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0283
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0283C
+画面・出力には PHA72DD0283C が表示され、クラスタ構成検証 Cluster Topology 0283 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0283A が画面・出力に表示されること
+② ステップ2 の PHA72DD0283B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0283C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0427"><h3>クラスタ構成検証 Cluster Topology 0298</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黒S抑止0299ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黒S抑止0299です。黒S抑止0299はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録黒S抑止0299です。黒S抑止0299ではODM登録値と取得時刻を採取票黒S抑止0299へ残します。黒S抑止0299ではノード間ODM差分の残存を避けるため補助資料も照合する判断黒S抑止0299です。黒S抑止0299の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録黒S抑止0299です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0298の役割を調べています。lssrc -ls clstrmgrES トポロジー確認 ページング状態の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はトポロジー確でページング状を証跡に残し・Cluster Manager の状態・クラスタ版数。</li><li>B. 障害切り分けに用いる役割は抑止で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は復旧確認でエラー記録を証跡に残し・hacmp.out Eventでエラー記録から。</li><li>D. 障害切り分けに用いる役割は保守で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・抑止）です。照合抑止・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・抑止・ノードです。比較抑止・クラス・構成デ・ノードでA:のトポロジー確認 ページング状態は「Cluster Manager の状態」を述べるため、正答側の照合軸はクラス・抑止・構成デです。項目抑止・クラス・構成デでC:の復旧後の確認 FAIL06は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸はノード・クラス・構成デです。仕様抑止・クラス・構成デでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は抑止・ノード・構成デです。用語抑止・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0298</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0298について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0298A
+画面・出力には PHA72DD0298A が表示され、クラスタ構成検証 Cluster Topology 0298 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0298
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0298B
+画面・出力には PHA72DD0298B が表示され、クラスタ構成検証 Cluster Topology 0298 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0298
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0298C
+画面・出力には PHA72DD0298C が表示され、クラスタ構成検証 Cluster Topology 0298 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0298A が画面・出力に表示されること
+② ステップ2 の PHA72DD0298B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0298C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0428"><h3>クラスタ構成検証 Cluster Topology 0313</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>灰N解析0314ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票灰N解析0314です。灰N解析0314はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録灰N解析0314です。灰N解析0314ではODM登録値と取得時刻を採取票灰N解析0314へ残します。灰N解析0314では未同期構成の見落としを避けるため補助資料も照合する判断灰N解析0314です。灰N解析0314の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録灰N解析0314です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Cluster Topology 0313」を「clstat -o 状態確認 出力見出し」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は状態確認で出力見出しを証跡に残し・クラスタ・ノード・インターフェース・リソースグループの状態を。</li><li>B. 仕様上の役割は復旧で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>C. 仕様上の役割は解析で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は切替でsyslogを証跡に残し・地理的ミラーの項目のsyslog記録と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・クラス・構成デでCの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・解析）です。照合解析・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・解析・未同期です。比較解析・クラス・構成デ・未同期でA:の状態確認 出力見出しは「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸はクラス・解析・構成デです。運用解析・クラスでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は構成デ・クラス・解析です。仕様解析・クラス・構成デでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は解析・未同期・構成デです。用語解析・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0313</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0313について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0313A
+画面・出力には PHA72DD0313A が表示され、クラスタ構成検証 Cluster Topology 0313 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0313
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0313B
+画面・出力には PHA72DD0313B が表示され、クラスタ構成検証 Cluster Topology 0313 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0313
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0313C
+画面・出力には PHA72DD0313C が表示され、クラスタ構成検証 Cluster Topology 0313 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0313A が画面・出力に表示されること
+② ステップ2 の PHA72DD0313B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0313C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0429"><h3>クラスタ構成検証 Cluster Topology 0328</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>黄I計画0329ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黄I計画0329です。黄I計画0329はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録黄I計画0329です。黄I計画0329ではODM登録値と取得時刻を採取票黄I計画0329へ残します。黄I計画0329では検証ログの採取漏れを避けるため補助資料も照合する判断黄I計画0329です。黄I計画0329の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録黄I計画0329です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0328を同一分類のGLVM地理的ミラー RPV Client 0354と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は計画で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は解除で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。GLVM地理的ミラー RPV Client 0354固有の属性も確認対象に含める。</li><li>C. コマンドまたは機能の用途は復旧で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>D. コマンドまたは機能の用途は切替でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・クラス・構成デでAの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・計画）です。照合計画・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・計画・検証ロです。運用計画・クラスでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は構成デ・クラス・計画です。項目計画・クラス・構成デでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は検証ロ・クラス・構成デです。仕様計画・クラス・構成デでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は計画・検証ロ・構成デです。用語計画・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0328</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0328について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0328A
+画面・出力には PHA72DD0328A が表示され、クラスタ構成検証 Cluster Topology 0328 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0328
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0328B
+画面・出力には PHA72DD0328B が表示され、クラスタ構成検証 Cluster Topology 0328 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0328
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0328C
+画面・出力には PHA72DD0328C が表示され、クラスタ構成検証 Cluster Topology 0328 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0328A が画面・出力に表示されること
+② ステップ2 の PHA72DD0328B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0328C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0430"><h3>クラスタ構成検証 Cluster Topology 0343</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>藍D解除0344ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票藍D解除0344です。藍D解除0344はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録藍D解除0344です。藍D解除0344ではODM登録値と取得時刻を採取票藍D解除0344へ残します。藍D解除0344では警告と致命エラーの混同を避けるため補助資料も照合する判断藍D解除0344です。藍D解除0344の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録藍D解除0344です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0343の設定や表示を読む前に役割を確認します。clmgr sync cluster 起動確認 経路確認ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は経路確認の誤読を避けるため・経路確認で経路確認を確認するして経路確認を照合する。</li><li>B. 一次資料が示す主目的は依存順を無視して子資源を先にオンを避けるため・イベント順序からcompletedを読むしてイベント順序を照合する。</li><li>C. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして資源グループを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・クラス・構成デでCの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・解除）です。照合解除・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・解除・警告とです。比較解除・クラス・構成デ・警告とでA:の起動確認 経路確認は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸はクラス・解除・構成デです。運用解除・クラスでB:の変更後の確認 DEP03は「資源グループでイベント順序から」を述べるため、正答側の照合軸は構成デ・クラス・解除です。仕様解除・クラス・構成デでD:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は解除・警告と・構成デです。用語解除・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0343</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0343について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0343A
+画面・出力には PHA72DD0343A が表示され、クラスタ構成検証 Cluster Topology 0343 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0343
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0343B
+画面・出力には PHA72DD0343B が表示され、クラスタ構成検証 Cluster Topology 0343 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0343
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0343C
+画面・出力には PHA72DD0343C が表示され、クラスタ構成検証 Cluster Topology 0343 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0343A が画面・出力に表示されること
+② ステップ2 の PHA72DD0343B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0343C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0431"><h3>クラスタ構成検証 Cluster Topology 0358</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>黒S解除0359ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票黒S解除0359です。黒S解除0359はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録黒S解除0359です。黒S解除0359ではODM登録値と取得時刻を採取票黒S解除0359へ残します。黒S解除0359ではノード間ODM差分の残存を避けるため補助資料も照合する判断黒S解除0359です。黒S解除0359の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録黒S解除0359です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Cluster Topology 0358に関する障害切り分けの前提を確認しています。clmgr query node 起動確認 エラー詳細の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はノードの状態と raw_state を確認するコマンドを起動確認する。起動確認でエラー詳細を確認するときはエラー詳細の誤読を防ぐ。</li><li>B. 障害切り分けに用いる役割はクラスタートポロジーの構成データODM登録値と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割はclverify.logの検証報告ROHAレポートと取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>D. 障害切り分けに用いる役割は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。GLVM地理的ミラー RPV Server 0216固有の属性も確認対象に含める。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・クラス・構成デでBの記述「クラスタートポロジーの構成データODM登録値と取得時刻を」に対応する項目はCluster Topology（クラス・構成デ・解除）です。照合解除・クラス・構成デに関する構成検証の仕様は「クラスタートポロジーの構成データODM登録値と取得時刻を記録し」で、確認対象は構成デ・解除・ノードです。比較解除・クラス・構成デ・ノードでA:の起動確認 エラー詳細は「ノードの状態と raw_state」を述べるため、正答側の照合軸はクラス・解除・構成デです。項目解除・クラス・構成デでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はノード・クラス・構成デです。仕様解除・クラス・構成デでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は解除・ノード・構成デです。用語解除・クラス・構成デという用語は「クラスタートポロジーの構成データODM登録値と取得時」を指し、照合する値と誤認リスクの組合せはクラス・構成デ・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Cluster Topology 0358</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Cluster Topology 0358について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Cluster Topology と ODM登録値</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clodmget HACMPdynresop
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0358A
+画面・出力には PHA72DD0358A が表示され、クラスタ構成検証 Cluster Topology 0358 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0358
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0358B
+画面・出力には PHA72DD0358B が表示され、クラスタ構成検証 Cluster Topology 0358 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Cluster Topology を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0358
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0358C
+画面・出力には PHA72DD0358C が表示され、クラスタ構成検証 Cluster Topology 0358 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0358A が画面・出力に表示されること
+② ステップ2 の PHA72DD0358B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0358C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0432"><h3>クラスタ構成検証 SMIT Command Status 0004</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>紅E巡回0005ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紅E巡回0005です。紅E巡回0005はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録紅E巡回0005です。紅E巡回0005では検証進行率と取得時刻を採取票紅E巡回0005へ残します。紅E巡回0005では検証ログの採取漏れを避けるため補助資料も照合する判断紅E巡回0005です。紅E巡回0005の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録紅E巡回0005です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0004の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Server 0081との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は主操作で出力欄を評価することでミラー更新状を確認し・片側VGのvaryon誤操作を防ぐ。</li><li>B. コマンドまたは機能の用途は点検操作で判定欄を記録することで資源グループを確認し・依存リソース順序の見落としを防ぐ。</li><li>C. コマンドまたは機能の用途は保守操作で監査欄を保存することで検証進行率を確認し・検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途はノード一覧から実状態値を読むことでノード一覧を確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・クラス・検証進でCの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・巡回）です。照合巡回・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・巡回・検証ロです。比較クラス・巡回でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はシステ・巡回・検証進です。運用巡回・システでB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は検証進・クラス・巡回です。仕様巡回・クラス・検証進でD:の障害切り分け NODE04は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は巡回・検証ロ・検証進です。用語巡回・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0004</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0004について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0004A
+画面・出力には PHA72DD0004A が表示され、クラスタ構成検証 SMIT Command Status 0004 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0004
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0004B
+画面・出力には PHA72DD0004B が表示され、クラスタ構成検証 SMIT Command Status 0004 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0004
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0004C
+画面・出力には PHA72DD0004C が表示され、クラスタ構成検証 SMIT Command Status 0004 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0004A が画面・出力に表示されること
+② ステップ2 の PHA72DD0004B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0004C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0433"><h3>クラスタ構成検証 SMIT Command Status 0019</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>空T巡回0020ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票空T巡回0020です。空T巡回0020はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録空T巡回0020です。空T巡回0020では検証進行率と取得時刻を採取票空T巡回0020へ残します。空T巡回0020では警告と致命エラーの混同を避けるため補助資料も照合する判断空T巡回0020です。空T巡回0020の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録空T巡回0020です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0019について構成や状態を確認します。GLVM地理的ミラー VG STATE 0078ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 一次資料が示す主目的はオンラインノードの資源グループRG現在位置と取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li><li>C. 一次資料が示す主目的はクラスタトポロジー・ネットワーク・サービスIP・リソースグループを表示するコマンドを整合確認する。確認範囲で確認範囲を確認するときは確認範囲の誤読を防ぐ。</li><li>D. 一次資料が示す主目的はシステム管理コマンドの検証進行率と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・クラス・検証進でDの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・巡回）です。照合巡回・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・巡回・警告とです。比較クラス・巡回でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はシステ・巡回・検証進です。運用巡回・システでB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は検証進・クラス・巡回です。項目巡回・クラス・検証進でC:の整合確認 確認範囲は「クラスタトポロジー、ネットワーク」を述べるため、正答側の照合軸は警告と・クラス・検証進です。用語巡回・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0019</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0019について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0019A
+画面・出力には PHA72DD0019A が表示され、クラスタ構成検証 SMIT Command Status 0019 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0019
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0019B
+画面・出力には PHA72DD0019B が表示され、クラスタ構成検証 SMIT Command Status 0019 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0019
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0019C
+画面・出力には PHA72DD0019C が表示され、クラスタ構成検証 SMIT Command Status 0019 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0019A が画面・出力に表示されること
+② ステップ2 の PHA72DD0019B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0019C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0434"><h3>クラスタ構成検証 SMIT Command Status 0034</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>翠O棚卸0035ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票翠O棚卸0035です。翠O棚卸0035はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録翠O棚卸0035です。翠O棚卸0035では検証進行率と取得時刻を採取票翠O棚卸0035へ残します。翠O棚卸0035ではノード間ODM差分の残存を避けるため補助資料も照合する判断翠O棚卸0035です。翠O棚卸0035の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録翠O棚卸0035です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0034の役割を調べています。リソースグループ制御 Node List 0107の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は表示操作で対象欄を追跡することで移動履歴を確認し・獲得失敗ログの未採取を防ぐ。</li><li>B. 障害切り分けに用いる役割は確認操作で状態欄を整理することで検証進行率を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は点検操作で判定欄を記録することで失敗ラベルを確認し・依存リソース順序の見落としを防ぐ。リソースグループ制御 Event Summary 0218固有の属性も確認対象に含める。</li><li>D. 障害切り分けに用いる役割は開始から終了状態を読むことで開始を確認し・管理設定と資源状態の混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・クラス・検証進でBの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・棚卸）です。照合棚卸・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・棚卸・ノードです。比較クラス・棚卸でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はシステ・棚卸・検証進です。項目棚卸・クラス・検証進でC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はノード・クラス・検証進です。仕様棚卸・クラス・検証進でD:の依存関係の確認 START13は「Cluster Servicesで開始から」を述べるため、正答側の照合軸は棚卸・ノード・検証進です。用語棚卸・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0034</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0034について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0034A
+画面・出力には PHA72DD0034A が表示され、クラスタ構成検証 SMIT Command Status 0034 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0034
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0034B
+画面・出力には PHA72DD0034B が表示され、クラスタ構成検証 SMIT Command Status 0034 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0034
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0034C
+画面・出力には PHA72DD0034C が表示され、クラスタ構成検証 SMIT Command Status 0034 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0034A が画面・出力に表示されること
+② ステップ2 の PHA72DD0034B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0034C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0435"><h3>クラスタ構成検証 SMIT Command Status 0049</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>朱J復旧0050ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票朱J復旧0050です。朱J復旧0050はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録朱J復旧0050です。朱J復旧0050では検証進行率と取得時刻を採取票朱J復旧0050へ残します。朱J復旧0050では未同期構成の見落としを避けるため補助資料も照合する判断朱J復旧0050です。朱J復旧0050の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録朱J復旧0050です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 SMIT Command Status 0049」を「リソースグループ制御 Event Summary 0053」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は復旧で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割は復旧で失敗ラベルを証跡に残し・イベント要約の失敗ラベルと取得時刻を記録し。</li><li>C. 仕様上の役割は抑止で獲得イベントを証跡に残し・獲得処理の獲得イベントと取得時刻を記録し。</li><li>D. 仕様上の役割は所有先確認で依存関係を証跡に残し・クラスタサービスを開始し・リソースグループをオンライン化する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・復旧）です。照合復旧・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・復旧・未同期です。運用復旧・システでB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は検証進・クラス・復旧です。項目復旧・クラス・検証進でC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は未同期・クラス・検証進です。仕様復旧・クラス・検証進でD:の所有先確認 依存関係は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は復旧・未同期・検証進です。用語復旧・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0049</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0049について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0049A
+画面・出力には PHA72DD0049A が表示され、クラスタ構成検証 SMIT Command Status 0049 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0049
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0049B
+画面・出力には PHA72DD0049B が表示され、クラスタ構成検証 SMIT Command Status 0049 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0049
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0049C
+画面・出力には PHA72DD0049C が表示され、クラスタ構成検証 SMIT Command Status 0049 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0049A が画面・出力に表示されること
+② ステップ2 の PHA72DD0049B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0049C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0436"><h3>クラスタ構成検証 SMIT Command Status 0064</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紅E監査0065ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紅E監査0065です。紅E監査0065はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録紅E監査0065です。紅E監査0065では検証進行率と取得時刻を採取票紅E監査0065へ残します。紅E監査0065では検証ログの採取漏れを避けるため補助資料も照合する判断紅E監査0065です。紅E監査0065の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録紅E監査0065です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0064を同一分類のクラスタ構成検証 Cluster Topology 0103と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。</li><li>B. コマンドまたは機能の用途は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。</li><li>C. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・クラス・検証進でCの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・監査）です。照合監査・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・監査・検証ロです。比較クラス・監査でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸はシステ・監査・検証進です。運用監査・システでB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は検証進・クラス・監査です。仕様監査・クラス・検証進でD:の障害切り分け NODE04は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は監査・検証ロ・検証進です。用語監査・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0064</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0064について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0064A
+画面・出力には PHA72DD0064A が表示され、クラスタ構成検証 SMIT Command Status 0064 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0064
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0064B
+画面・出力には PHA72DD0064B が表示され、クラスタ構成検証 SMIT Command Status 0064 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0064
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0064C
+画面・出力には PHA72DD0064C が表示され、クラスタ構成検証 SMIT Command Status 0064 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0064A が画面・出力に表示されること
+② ステップ2 の PHA72DD0064B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0064C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0437"><h3>クラスタ構成検証 SMIT Command Status 0079</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>空T監査0080ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票空T監査0080です。空T監査0080はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録空T監査0080です。空T監査0080では検証進行率と取得時刻を採取票空T監査0080へ残します。空T監査0080では警告と致命エラーの混同を避けるため補助資料も照合する判断空T監査0080です。空T監査0080の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録空T監査0080です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0079の設定や表示を読む前に役割を確認します。リソースグループ制御 Event Summary 0128ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして失敗ラベルを照合する。</li><li>B. 一次資料が示す主目的は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして優先ノード一を照合する。</li><li>C. 一次資料が示す主目的は片系定義を全体正本とする誤認を避けるため・検証からVerificationを読むして検証を照合する。</li><li>D. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・クラス・検証進でDの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・監査）です。照合監査・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・監査・警告とです。比較クラス・監査でA:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はシステ・監査・検証進です。運用監査・システでB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は検証進・クラス・監査です。項目監査・クラス・検証進でC:の復旧後の確認 TOPO06は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸は警告と・クラス・検証進です。用語監査・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0079</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0079について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0079A
+画面・出力には PHA72DD0079A が表示され、クラスタ構成検証 SMIT Command Status 0079 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0079
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0079B
+画面・出力には PHA72DD0079B が表示され、クラスタ構成検証 SMIT Command Status 0079 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0079
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0079C
+画面・出力には PHA72DD0079C が表示され、クラスタ構成検証 SMIT Command Status 0079 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0079A が画面・出力に表示されること
+② ステップ2 の PHA72DD0079B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0079C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0438"><h3>クラスタ構成検証 SMIT Command Status 0094</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>翠O変更0095ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票翠O変更0095です。翠O変更0095はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録翠O変更0095です。翠O変更0095では検証進行率と取得時刻を採取票翠O変更0095へ残します。翠O変更0095ではノード間ODM差分の残存を避けるため補助資料も照合する判断翠O変更0095です。翠O変更0095の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録翠O変更0095です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0094に関する障害切り分けの前提を確認しています。GLVM地理的ミラー Mirror Pool 0120の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は変更で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は診断でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li><li>C. 障害切り分けに用いる役割は解析で移動履歴を証跡に残し・ノード一覧の移動履歴と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は変更確認でエラー記録を証跡に残し・hacmp.out Eventでエラー記録から。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・変更）です。照合変更・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・変更・ノードです。運用変更・システでB:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は検証進・クラス・変更です。項目変更・クラス・検証進でC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はノード・クラス・検証進です。仕様変更・クラス・検証進でD:の変更後の確認 FAIL03は「hacmp.out Eventでエラー記録か」を述べるため、正答側の照合軸は変更・ノード・検証進です。用語変更・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0094</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0094について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0094A
+画面・出力には PHA72DD0094A が表示され、クラスタ構成検証 SMIT Command Status 0094 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0094
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0094B
+画面・出力には PHA72DD0094B が表示され、クラスタ構成検証 SMIT Command Status 0094 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0094
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0094C
+画面・出力には PHA72DD0094C が表示され、クラスタ構成検証 SMIT Command Status 0094 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0094A が画面・出力に表示されること
+② ステップ2 の PHA72DD0094B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0094C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0439"><h3>クラスタ構成検証 SMIT Command Status 0109</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>朱J移行0110ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票朱J移行0110です。朱J移行0110はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録朱J移行0110です。朱J移行0110では検証進行率と取得時刻を採取票朱J移行0110へ残します。朱J移行0110では未同期構成の見落としを避けるため補助資料も照合する判断朱J移行0110です。朱J移行0110の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録朱J移行0110です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0109を保守記録に説明する必要があります。GLVM地理的ミラー RPV Server 0156と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 仕様上の役割はミラー再同期条件の誤読を避けるため・照合操作で確認欄を採取するしてミラー更新状を照合する。</li><li>C. 仕様上の役割は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてリソース要約を照合する。</li><li>D. 仕様上の役割は依存順を無視して子資源を先にオンを避けるため・イベント順序からcompletedを読むしてイベント順序を照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・移行）です。照合移行・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・移行・未同期です。運用移行・システでB:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は検証進・クラス・移行です。項目移行・クラス・検証進でC:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は未同期・クラス・検証進です。仕様移行・クラス・検証進でD:の変更後の確認 DEP03は「資源グループでイベント順序から」を述べるため、正答側の照合軸は移行・未同期・検証進です。用語移行・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0109</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0109について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0109A
+画面・出力には PHA72DD0109A が表示され、クラスタ構成検証 SMIT Command Status 0109 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0109
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0109B
+画面・出力には PHA72DD0109B が表示され、クラスタ構成検証 SMIT Command Status 0109 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0109
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0109C
+画面・出力には PHA72DD0109C が表示され、クラスタ構成検証 SMIT Command Status 0109 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0109A が画面・出力に表示されること
+② ステップ2 の PHA72DD0109B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0109C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0440"><h3>クラスタ構成検証 SMIT Command Status 0124</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>紅E診断0125ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紅E診断0125です。紅E診断0125はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録紅E診断0125です。紅E診断0125では検証進行率と取得時刻を採取票紅E診断0125へ残します。紅E診断0125では検証ログの採取漏れを避けるため補助資料も照合する判断紅E診断0125です。紅E診断0125の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録紅E診断0125です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0124の技術的な意味を資料で確認するとき、GLVM地理的ミラー syslog entry 0162との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は保守操作で監査欄を保存することで検証進行率を確認し・検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は変更確認操作で採取欄を棚卸することでsyslogを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. コマンドまたは機能の用途は表示操作で対象欄を追跡することで失敗ラベルを確認し・獲得失敗ログの未採取を防ぐ。</li><li>D. コマンドまたは機能の用途はマネージャーログからクラスター管理プロセことでマネージャーを確認し・cluster historを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・診断）です。照合診断・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・診断・検証ロです。運用診断・システでB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は検証進・クラス・診断です。項目診断・クラス・検証進でC:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は検証ロ・クラス・検証進です。仕様診断・クラス・検証進でD:の性能影響の確認 FAIL11は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は診断・検証ロ・検証進です。用語診断・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0124</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0124について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0124A
+画面・出力には PHA72DD0124A が表示され、クラスタ構成検証 SMIT Command Status 0124 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0124
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0124B
+画面・出力には PHA72DD0124B が表示され、クラスタ構成検証 SMIT Command Status 0124 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0124
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0124C
+画面・出力には PHA72DD0124C が表示され、クラスタ構成検証 SMIT Command Status 0124 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0124A が画面・出力に表示されること
+② ステップ2 の PHA72DD0124B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0124C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0441"><h3>クラスタ構成検証 SMIT Command Status 0139</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>空T診断0140ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票空T診断0140です。空T診断0140はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録空T診断0140です。空T診断0140では検証進行率と取得時刻を採取票空T診断0140へ残します。空T診断0140では警告と致命エラーの混同を避けるため補助資料も照合する判断空T診断0140です。空T診断0140の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録空T診断0140です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0139について構成や状態を確認します。GLVM地理的ミラー RPV Server 0141ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は保守でミラー更新状を証跡に残し・地理的ミラーの項目のミラー更新状態と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は診断で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はログ採取でログ採取を証跡に残し・検証後に構成を同期し・クラスタスナップショットを作成する操作。</li><li>D. 一次資料が示す主目的は棚卸でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・クラス・検証進でBの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・診断）です。照合診断・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・診断・警告とです。比較診断・クラス・検証進・警告とでA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はシステ・診断・検証進です。項目診断・クラス・検証進でC:の同期確認 ログ採取は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸は警告と・クラス・検証進です。仕様診断・クラス・検証進でD:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸は診断・警告と・検証進です。用語診断・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0139</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0139について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0139A
+画面・出力には PHA72DD0139A が表示され、クラスタ構成検証 SMIT Command Status 0139 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0139
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0139B
+画面・出力には PHA72DD0139B が表示され、クラスタ構成検証 SMIT Command Status 0139 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0139
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0139C
+画面・出力には PHA72DD0139C が表示され、クラスタ構成検証 SMIT Command Status 0139 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0139A が画面・出力に表示されること
+② ステップ2 の PHA72DD0139B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0139C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0442"><h3>クラスタ構成検証 SMIT Command Status 0154</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>翠O保守0155ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票翠O保守0155です。翠O保守0155はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録翠O保守0155です。翠O保守0155では検証進行率と取得時刻を採取票翠O保守0155へ残します。翠O保守0155ではノード間ODM差分の残存を避けるため補助資料も照合する判断翠O保守0155です。翠O保守0155の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録翠O保守0155です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0154の役割を調べています。クラスタ構成検証 Verification Progress 0226の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は確認操作で状態欄を整理することでリソース要約を確認し・ノード間構成データODM差分を防ぐ。</li><li>B. 障害切り分けに用いる役割は同期確認で受信先を確認することで受信先を確認し・受信先の誤読を防ぐ。</li><li>C. 障害切り分けに用いる役割は確認操作で状態欄を整理することで検証進行率を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は採取操作で照合欄を点検することで検証報告ROを確認し・警告と致命エラーの混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・クラス・検証進でCの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・保守）です。照合保守・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・保守・ノードです。比較保守・クラス・検証進・ノードでA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸はシステ・保守・検証進です。運用保守・システでB:の同期確認 受信先は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は検証進・クラス・保守です。仕様保守・クラス・検証進でD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は保守・ノード・検証進です。用語保守・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0154</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0154について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0154A
+画面・出力には PHA72DD0154A が表示され、クラスタ構成検証 SMIT Command Status 0154 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0154
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0154B
+画面・出力には PHA72DD0154B が表示され、クラスタ構成検証 SMIT Command Status 0154 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0154
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0154C
+画面・出力には PHA72DD0154C が表示され、クラスタ構成検証 SMIT Command Status 0154 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0154A が画面・出力に表示されること
+② ステップ2 の PHA72DD0154B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0154C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0443"><h3>クラスタ構成検証 SMIT Command Status 0169</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>朱J切替0170ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票朱J切替0170です。朱J切替0170はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録朱J切替0170です。朱J切替0170では検証進行率と取得時刻を採取票朱J切替0170へ残します。朱J切替0170では未同期構成の見落としを避けるため補助資料も照合する判断朱J切替0170です。朱J切替0170の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録朱J切替0170です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 SMIT Command Status 0169」を「GLVM地理的ミラー RPV Server 0231」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>B. 仕様上の役割はリソースグループの状態と所有ノードを表示するコマンドである。同期処理で識別値を確認するときは識別値の誤読を防ぐ。</li><li>C. 仕様上の役割は地理的ミラーの項目のsyslog記録と取得時刻を記録し・ミラー再同期条件の誤読を防ぐである。照合操作で確認欄を採取するときはミラー再同期条件の誤読を防ぐ。</li><li>D. 仕様上の役割はシステム管理コマンドの検証進行率と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・クラス・検証進でDの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・切替）です。照合切替・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・切替・未同期です。比較切替・クラス・検証進・未同期でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸はシステ・切替・検証進です。運用切替・システでB:の障害切り分け 識別値は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は検証進・クラス・切替です。項目切替・クラス・検証進でC:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は未同期・クラス・検証進です。用語切替・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0169</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0169について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0169A
+画面・出力には PHA72DD0169A が表示され、クラスタ構成検証 SMIT Command Status 0169 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0169
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0169B
+画面・出力には PHA72DD0169B が表示され、クラスタ構成検証 SMIT Command Status 0169 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0169
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0169C
+画面・出力には PHA72DD0169C が表示され、クラスタ構成検証 SMIT Command Status 0169 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0169A が画面・出力に表示されること
+② ステップ2 の PHA72DD0169B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0169C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0444"><h3>クラスタ構成検証 SMIT Command Status 0184</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紅E収集0185ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紅E収集0185です。紅E収集0185はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録紅E収集0185です。紅E収集0185では検証進行率と取得時刻を採取票紅E収集0185へ残します。紅E収集0185では検証ログの採取漏れを避けるため補助資料も照合する判断紅E収集0185です。紅E収集0185の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録紅E収集0185です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0184を同一分類のリソースグループ制御 Acquisition Failure 0206と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして獲得イベントを照合する。</li><li>C. コマンドまたは機能の用途は基本ソフト稼働とクラスタ稼働の混を避けるため・ノード一覧から実状態値を読むしてノード一覧を照合する。</li><li>D. コマンドまたは機能の用途はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてVG varを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・収集）です。照合収集・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・収集・検証ロです。運用収集・システでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は検証進・クラス・収集です。項目収集・クラス・検証進でC:の依存関係の確認 NODE13は「PowerHA Node Stateでノード」を述べるため、正答側の照合軸は検証ロ・クラス・検証進です。仕様収集・クラス・検証進でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は収集・検証ロ・検証進です。用語収集・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0184</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0184について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0184A
+画面・出力には PHA72DD0184A が表示され、クラスタ構成検証 SMIT Command Status 0184 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0184
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0184B
+画面・出力には PHA72DD0184B が表示され、クラスタ構成検証 SMIT Command Status 0184 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0184
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0184C
+画面・出力には PHA72DD0184C が表示され、クラスタ構成検証 SMIT Command Status 0184 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0184A が画面・出力に表示されること
+② ステップ2 の PHA72DD0184B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0184C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0445"><h3>クラスタ構成検証 SMIT Command Status 0199</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>空T収集0200ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票空T収集0200です。空T収集0200はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録空T収集0200です。空T収集0200では検証進行率と取得時刻を採取票空T収集0200へ残します。空T収集0200では警告と致命エラーの混同を避けるため補助資料も照合する判断空T収集0200です。空T収集0200の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録空T収集0200です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0199の設定や表示を読む前に役割を確認します。リソースグループ制御 Online Node 0284ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして資源グループを照合する。</li><li>C. 一次資料が示す主目的は資料見出しの誤読を避けるため・トポロジー確で資料見出しを確認するして資料見出しを照合する。</li><li>D. 一次資料が示す主目的は未同期構成の見落としを避けるため・記録操作で証跡欄を照合するして検証報告ROを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・収集）です。照合収集・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・収集・警告とです。運用収集・システでB:のOnline Nodeは「オンラインノードの資源グループRG現在位置と」を述べるため、正答側の照合軸は検証進・クラス・収集です。項目収集・クラス・検証進でC:のトポロジー確認 資料見出しは「クラスタ名、状態、バージョンなどのクラスタ属」を述べるため、正答側の照合軸は警告と・クラス・検証進です。仕様収集・クラス・検証進でD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は収集・警告と・検証進です。用語収集・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0199</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0199について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0199A
+画面・出力には PHA72DD0199A が表示され、クラスタ構成検証 SMIT Command Status 0199 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0199
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0199B
+画面・出力には PHA72DD0199B が表示され、クラスタ構成検証 SMIT Command Status 0199 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0199
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0199C
+画面・出力には PHA72DD0199C が表示され、クラスタ構成検証 SMIT Command Status 0199 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0199A が画面・出力に表示されること
+② ステップ2 の PHA72DD0199B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0199C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0446"><h3>クラスタ構成検証 SMIT Command Status 0214</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>翠O登録0215ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票翠O登録0215です。翠O登録0215はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録翠O登録0215です。翠O登録0215では検証進行率と取得時刻を採取票翠O登録0215へ残します。翠O登録0215ではノード間ODM差分の残存を避けるため補助資料も照合する判断翠O登録0215です。翠O登録0215の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録翠O登録0215です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0214に関する障害切り分けの前提を確認しています。GLVM地理的ミラー RPV Client 0234の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を記録しである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 障害切り分けに用いる役割はシステム管理コマンドの検証進行率と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割はCluster Servicesで資源グループRG確認から app_rg を読み・app_rg とである。RG確認からapp_rgを読むときは管理設定と資源状態の混同を防ぐ。</li><li>D. 障害切り分けに用いる役割は地理的ミラーの項目のVG vary状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・クラス・検証進でBの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・登録）です。照合登録・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・登録・ノードです。比較登録・クラス・検証進・ノードでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はシステ・登録・検証進です。項目登録・クラス・検証進でC:の変更後の確認 START03は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸はノード・クラス・検証進です。仕様登録・クラス・検証進でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は登録・ノード・検証進です。用語登録・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0214</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0214について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0214A
+画面・出力には PHA72DD0214A が表示され、クラスタ構成検証 SMIT Command Status 0214 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0214
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0214B
+画面・出力には PHA72DD0214B が表示され、クラスタ構成検証 SMIT Command Status 0214 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0214
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0214C
+画面・出力には PHA72DD0214C が表示され、クラスタ構成検証 SMIT Command Status 0214 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0214A が画面・出力に表示されること
+② ステップ2 の PHA72DD0214B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0214C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0447"><h3>クラスタ構成検証 SMIT Command Status 0229</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>朱J確認0230ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票朱J確認0230です。朱J確認0230はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録朱J確認0230です。朱J確認0230では検証進行率と取得時刻を採取票朱J確認0230へ残します。朱J確認0230では未同期構成の見落としを避けるため補助資料も照合する判断朱J確認0230です。朱J確認0230の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録朱J確認0230です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0229を保守記録に説明する必要があります。クラスタ構成検証 Verification Progress 0301と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は記録操作で証跡欄を照合することでリソース要約を確認し・未同期構成の見落としを防ぐ。</li><li>B. 仕様上の役割は記録操作で証跡欄を照合することで検証進行率を確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は状態確認からST_STABLEを読むことで状態確認を確認し・管理設定と資源状態の混同を防ぐ。</li><li>D. 仕様上の役割は変更確認操作で採取欄を棚卸することでVG varを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・クラス・検証進でBの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・確認）です。照合確認・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・確認・未同期です。比較確認・クラス・検証進・未同期でA:のVerificationは「構成検証のリソース要約と取得時刻を記録し」を述べるため、正答側の照合軸はシステ・確認・検証進です。項目確認・クラス・検証進でC:の変更前の確認 START02は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸は未同期・クラス・検証進です。仕様確認・クラス・検証進でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は確認・未同期・検証進です。用語確認・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0229</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0229について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0229A
+画面・出力には PHA72DD0229A が表示され、クラスタ構成検証 SMIT Command Status 0229 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0229
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0229B
+画面・出力には PHA72DD0229B が表示され、クラスタ構成検証 SMIT Command Status 0229 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0229
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0229C
+画面・出力には PHA72DD0229C が表示され、クラスタ構成検証 SMIT Command Status 0229 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0229A が画面・出力に表示されること
+② ステップ2 の PHA72DD0229B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0229C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0448"><h3>クラスタ構成検証 SMIT Command Status 0244</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>紅E保護0245ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紅E保護0245です。紅E保護0245はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録紅E保護0245です。紅E保護0245では検証進行率と取得時刻を採取票紅E保護0245へ残します。紅E保護0245では検証ログの採取漏れを避けるため補助資料も照合する判断紅E保護0245です。紅E保護0245の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録紅E保護0245です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0244の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Client 0294との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は遠隔ボリュームRPV経路断の見落を避けるため・変更確認操作で採取欄を棚卸するして遠隔ボリューを照合する。</li><li>B. コマンドまたは機能の用途は基本ソフト稼働とクラスタ稼働の混を避けるため・イベント確認から終了状態を読むしてイベント確認を照合する。</li><li>C. コマンドまたは機能の用途は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして構成データOを照合する。</li><li>D. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・クラス・検証進でDの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・保護）です。照合保護・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・保護・検証ロです。比較保護・クラス・検証進・検証ロでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はシステ・保護・検証進です。運用保護・システでB:の復旧後の確認 NODE06は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は検証進・クラス・保護です。項目保護・クラス・検証進でC:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は検証ロ・クラス・検証進です。用語保護・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0244</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0244について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0244A
+画面・出力には PHA72DD0244A が表示され、クラスタ構成検証 SMIT Command Status 0244 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0244
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0244B
+画面・出力には PHA72DD0244B が表示され、クラスタ構成検証 SMIT Command Status 0244 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0244
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0244C
+画面・出力には PHA72DD0244C が表示され、クラスタ構成検証 SMIT Command Status 0244 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0244A が画面・出力に表示されること
+② ステップ2 の PHA72DD0244B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0244C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0449"><h3>クラスタ構成検証 SMIT Command Status 0259</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>空T保護0260ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票空T保護0260です。空T保護0260はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録空T保護0260です。空T保護0260では検証進行率と取得時刻を採取票空T保護0260へ残します。空T保護0260では警告と致命エラーの混同を避けるため補助資料も照合する判断空T保護0260です。空T保護0260の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録空T保護0260です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0259について構成や状態を確認します。クラスタ構成検証 Cluster Resources 0265ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は記録操作で証跡欄を照合することでトポロジ要約を確認し・未同期構成の見落としを防ぐ。</li><li>B. 一次資料が示す主目的はRG確認からapp_rgを読むことで資源グループを確認し・管理設定と資源状態の混同を防ぐ。</li><li>C. 一次資料が示す主目的は採取操作で照合欄を点検することで検証進行率を確認し・警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は調査操作で保守欄を引き継ぎすることで獲得イベントを確認し・自動戻し条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・クラス・検証進でCの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・保護）です。照合保護・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・保護・警告とです。比較保護・クラス・検証進・警告とでA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸はシステ・保護・検証進です。運用保護・システでB:の再始動後の確認 START15は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は検証進・クラス・保護です。仕様保護・クラス・検証進でD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は保護・警告と・検証進です。用語保護・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0259</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0259について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0259A
+画面・出力には PHA72DD0259A が表示され、クラスタ構成検証 SMIT Command Status 0259 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0259
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0259B
+画面・出力には PHA72DD0259B が表示され、クラスタ構成検証 SMIT Command Status 0259 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0259
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0259C
+画面・出力には PHA72DD0259C が表示され、クラスタ構成検証 SMIT Command Status 0259 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0259A が画面・出力に表示されること
+② ステップ2 の PHA72DD0259B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0259C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0450"><h3>クラスタ構成検証 SMIT Command Status 0274</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>翠O照合0275ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票翠O照合0275です。翠O照合0275はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録翠O照合0275です。翠O照合0275では検証進行率と取得時刻を採取票翠O照合0275へ残します。翠O照合0275ではノード間ODM差分の残存を避けるため補助資料も照合する判断翠O照合0275です。翠O照合0275の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録翠O照合0275です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0274の役割を調べています。リソースグループ制御 Acquisition Failure 0326の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li><li>B. 障害切り分けに用いる役割は依存リソース順序の見落としを避けるため・点検操作で判定欄を記録するして獲得イベントを照合する。</li><li>C. 障害切り分けに用いる役割は同期元を誤ると古い定義を全ノードを避けるため・未同期確認からUNSYNCED_CHANして未同期確認を照合する。</li><li>D. 障害切り分けに用いる役割は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして失敗ラベルを照合する。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能照合・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・照合）です。照合照合・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・照合・ノードです。運用照合・システでB:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は検証進・クラス・照合です。項目照合・クラス・検証進でC:の障害切り分け SYNC04は「Cluster Synchronizで未同期」を述べるため、正答側の照合軸はノード・クラス・検証進です。仕様照合・クラス・検証進でD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は照合・ノード・検証進です。用語照合・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0274</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0274について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0274A
+画面・出力には PHA72DD0274A が表示され、クラスタ構成検証 SMIT Command Status 0274 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0274
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0274B
+画面・出力には PHA72DD0274B が表示され、クラスタ構成検証 SMIT Command Status 0274 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0274
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0274C
+画面・出力には PHA72DD0274C が表示され、クラスタ構成検証 SMIT Command Status 0274 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0274A が画面・出力に表示されること
+② ステップ2 の PHA72DD0274B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0274C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0451"><h3>クラスタ構成検証 SMIT Command Status 0289</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>朱J抑止0290ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票朱J抑止0290です。朱J抑止0290はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録朱J抑止0290です。朱J抑止0290では検証進行率と取得時刻を採取票朱J抑止0290へ残します。朱J抑止0290では未同期構成の見落としを避けるため補助資料も照合する判断朱J抑止0290です。朱J抑止0290の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録朱J抑止0290です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 SMIT Command Status 0289」を「リソースグループ制御 Resource Group Name 0305」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は解析で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>B. 仕様上の役割は構成監査でマネージャーを証跡に残し・hacmp.out Eventでマネージャーログから。</li><li>C. 仕様上の役割は移行で構成データOを証跡に残し・クラスタートポロジーの構成データODM登録値と取得時刻を記録。</li><li>D. 仕様上の役割は抑止で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能抑止・クラス・検証進でDの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・抑止）です。照合抑止・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・抑止・未同期です。比較抑止・クラス・検証進・未同期でA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸はシステ・抑止・検証進です。運用抑止・システでB:の構成監査 FAIL08は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は検証進・クラス・抑止です。項目抑止・クラス・検証進でC:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は未同期・クラス・検証進です。用語抑止・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0289</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0289について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0289A
+画面・出力には PHA72DD0289A が表示され、クラスタ構成検証 SMIT Command Status 0289 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0289
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0289B
+画面・出力には PHA72DD0289B が表示され、クラスタ構成検証 SMIT Command Status 0289 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0289
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0289C
+画面・出力には PHA72DD0289C が表示され、クラスタ構成検証 SMIT Command Status 0289 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0289A が画面・出力に表示されること
+② ステップ2 の PHA72DD0289B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0289C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0452"><h3>クラスタ構成検証 SMIT Command Status 0304</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紅E解析0305ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紅E解析0305です。紅E解析0305はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録紅E解析0305です。紅E解析0305では検証進行率と取得時刻を採取票紅E解析0305へ残します。紅E解析0305では検証ログの採取漏れを避けるため補助資料も照合する判断紅E解析0305です。紅E解析0305の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録紅E解析0305です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0304を同一分類のclRGinfo 障害切り分け 識別値と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はシステム管理コマンドの検証進行率と取得時刻を記録し・検証ログの採取漏れを防ぐである。保守操作で監査欄を保存するときは検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途はリソースグループの状態と所有ノードを表示するコマンドである。同期処理で識別値を確認するときは識別値の誤読を防ぐ。</li><li>C. コマンドまたは機能の用途はhacmp.out Eventで主要ログから ACQUISITION を読み・ACQUISITION とである。主要ログからACQUISITIONをときはcluster historを防ぐ。</li><li>D. コマンドまたは機能の用途はクラスター資源のトポロジ要約と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・解析）です。照合解析・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・解析・検証ロです。運用解析・システでB:の障害切り分け 識別値は「リソースグループの状態と所有ノードを表示する」を述べるため、正答側の照合軸は検証進・クラス・解析です。項目解析・クラス・検証進でC:の障害切り分け FAIL04は「hacmp.out Eventで主要ログから」を述べるため、正答側の照合軸は検証ロ・クラス・検証進です。仕様解析・クラス・検証進でD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は解析・検証ロ・検証進です。用語解析・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0304</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0304について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0304A
+画面・出力には PHA72DD0304A が表示され、クラスタ構成検証 SMIT Command Status 0304 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0304
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0304B
+画面・出力には PHA72DD0304B が表示され、クラスタ構成検証 SMIT Command Status 0304 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0304
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0304C
+画面・出力には PHA72DD0304C が表示され、クラスタ構成検証 SMIT Command Status 0304 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0304A が画面・出力に表示されること
+② ステップ2 の PHA72DD0304B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0304C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0453"><h3>クラスタ構成検証 SMIT Command Status 0319</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>空T解析0320ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票空T解析0320です。空T解析0320はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録空T解析0320です。空T解析0320では検証進行率と取得時刻を採取票空T解析0320へ残します。空T解析0320では警告と致命エラーの混同を避けるため補助資料も照合する判断空T解析0320です。空T解析0320の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録空T解析0320です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0319の設定や表示を読む前に役割を確認します。cldump トポロジー確認 警告行ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的はシステム管理コマンドの検証進行率と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. 一次資料が示す主目的はクラスタ構成と状態をスナップショットとして表示するコマンドをトポロジー確認する。トポロジー確で警告行を確認するときは警告行の誤読を防ぐ。</li><li>C. 一次資料が示す主目的は資源グループで資源グループRG一覧から database_rg を読み・database_rg とである。RG一覧からdatabase_rgをときは依存順を無視して子資源を先にを防ぐ。</li><li>D. 一次資料が示す主目的は地理的ミラーの項目のVG vary状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能解析・クラス・検証進でAの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・解析）です。照合解析・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・解析・警告とです。運用解析・システでB:のトポロジー確認 警告行は「クラスタ構成と状態をスナップショットとして表」を述べるため、正答側の照合軸は検証進・クラス・解析です。項目解析・クラス・検証進でC:の変更前の確認 DEP02は「資源グループで資源グループRG一覧から」を述べるため、正答側の照合軸は警告と・クラス・検証進です。仕様解析・クラス・検証進でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は解析・警告と・検証進です。用語解析・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0319</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0319について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0319A
+画面・出力には PHA72DD0319A が表示され、クラスタ構成検証 SMIT Command Status 0319 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0319
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0319B
+画面・出力には PHA72DD0319B が表示され、クラスタ構成検証 SMIT Command Status 0319 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0319
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0319C
+画面・出力には PHA72DD0319C が表示され、クラスタ構成検証 SMIT Command Status 0319 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0319A が画面・出力に表示されること
+② ステップ2 の PHA72DD0319B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0319C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0454"><h3>クラスタ構成検証 SMIT Command Status 0334</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>翠O計画0335ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票翠O計画0335です。翠O計画0335はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録翠O計画0335です。翠O計画0335では検証進行率と取得時刻を採取票翠O計画0335へ残します。翠O計画0335ではノード間ODM差分の残存を避けるため補助資料も照合する判断翠O計画0335です。翠O計画0335の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録翠O計画0335です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0334に関する障害切り分けの前提を確認しています。clstat -o 版数確認 再投入確認の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は再投入確認の誤読を避けるため・再投入確認で再投入確認を確認するして再投入確認を照合する。clstat -o 版数確認 再投入確認固有の属性も確認対象に含める。</li><li>B. 障害切り分けに用いる役割は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして優先ノード一を照合する。</li><li>C. 障害切り分けに用いる役割はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するして検証進行率を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するして検証報告ROを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能計画・クラス・検証進でCの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・計画）です。照合計画・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・計画・ノードです。比較計画・クラス・検証進・ノードでA:の版数確認 再投入確認は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸はシステ・計画・検証進です。運用計画・システでB:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は検証進・クラス・計画です。仕様計画・クラス・検証進でD:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は計画・ノード・検証進です。用語計画・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0334</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0334について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0334A
+画面・出力には PHA72DD0334A が表示され、クラスタ構成検証 SMIT Command Status 0334 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0334
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0334B
+画面・出力には PHA72DD0334B が表示され、クラスタ構成検証 SMIT Command Status 0334 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0334
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0334C
+画面・出力には PHA72DD0334C が表示され、クラスタ構成検証 SMIT Command Status 0334 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0334A が画面・出力に表示されること
+② ステップ2 の PHA72DD0334B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0334C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0455"><h3>クラスタ構成検証 SMIT Command Status 0349</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>朱J解除0350ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票朱J解除0350です。朱J解除0350はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録朱J解除0350です。朱J解除0350では検証進行率と取得時刻を採取票朱J解除0350へ残します。朱J解除0350では未同期構成の見落としを避けるため補助資料も照合する判断朱J解除0350です。朱J解除0350の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録朱J解除0350です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 SMIT Command Status 0349を保守記録に説明する必要があります。clstat -o 同期確認 統計値と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は同期確認で統計値を証跡に残し・クラスタ・ノード・インターフェース・リソースグループの状態を。</li><li>B. 仕様上の役割は解除で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は変更で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>D. 仕様上の役割は保護でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能解除・クラス・検証進でBの記述「システム管理コマンドの検証進行率と取得時刻を記録し」に対応する項目はCommand Status（システ・検証進・解除）です。照合解除・クラス・検証進に関する構成検証の仕様は「システム管理コマンドの検証進行率と取得時刻を記録し」で、確認対象は検証進・解除・未同期です。比較解除・クラス・検証進・未同期でA:の同期確認 統計値は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸はシステ・解除・検証進です。項目解除・クラス・検証進でC:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は未同期・クラス・検証進です。仕様解除・クラス・検証進でD:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は解除・未同期・検証進です。用語解除・クラス・検証進という用語は「システム管理コマンドの検証進行率と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・検証進・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 SMIT Command Status 0349</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 SMIT Command Status 0349について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=SMIT Command Status と 検証進行率</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; smit sysmirror
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0349A
+画面・出力には PHA72DD0349A が表示され、クラスタ構成検証 SMIT Command Status 0349 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0349
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0349B
+画面・出力には PHA72DD0349B が表示され、クラスタ構成検証 SMIT Command Status 0349 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。SMIT Command Status を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0349
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0349C
+画面・出力には PHA72DD0349C が表示され、クラスタ構成検証 SMIT Command Status 0349 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0349A が画面・出力に表示されること
+② ステップ2 の PHA72DD0349B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0349C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0456"><h3>クラスタ構成検証 Verification Progress 0001</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>橙B巡回0002ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票橙B巡回0002です。橙B巡回0002はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録橙B巡回0002です。橙B巡回0002ではリソース要約と取得時刻を採取票橙B巡回0002へ残します。橙B巡回0002では未同期構成の見落としを避けるため補助資料も照合する判断橙B巡回0002です。橙B巡回0002の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録橙B巡回0002です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Verification Progress 0001」を「リソースグループ制御 Node List 0077」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はノード一覧の移動履歴と取得時刻を記録し・資源グループ位置の誤認を防ぐである。復旧操作で点検欄を確認するときは資源グループ位置の誤認を防ぐ。</li><li>B. 仕様上の役割は構成検証のリソース要約と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割はシステム管理コマンドの検証進行率と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。</li><li>D. 仕様上の役割はクラスタ・ノード・インターフェース・リソースグループの状態を表示する監視コマンドを版数確認する。再投入確認で再投入確認を確認するときは再投入確認の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・巡回）です。照合巡回・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、未同期構成の見落としを防ぐ」で、確認対象はリソー・巡回・未同期です。比較クラス・巡回でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成検・巡回・リソーです。項目巡回・クラス・リソーでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は未同期・クラス・リソーです。仕様巡回・クラス・リソーでD:の版数確認 再投入確認は「クラスタ、ノード、インターフェース」を述べるため、正答側の照合軸は巡回・未同期・リソーです。用語巡回・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0001</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0001について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0001A
+画面・出力には PHA72DD0001A が表示され、クラスタ構成検証 Verification Progress 0001 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0001
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0001B
+画面・出力には PHA72DD0001B が表示され、クラスタ構成検証 Verification Progress 0001 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0001
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0001C
+画面・出力には PHA72DD0001C が表示され、クラスタ構成検証 Verification Progress 0001 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0001A が画面・出力に表示されること
+② ステップ2 の PHA72DD0001B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0001C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0457"><h3>クラスタ構成検証 Verification Progress 0016</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>青Q巡回0017ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票青Q巡回0017です。青Q巡回0017はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録青Q巡回0017です。青Q巡回0017ではリソース要約と取得時刻を採取票青Q巡回0017へ残します。青Q巡回0017では検証ログの採取漏れを避けるため補助資料も照合する判断青Q巡回0017です。青Q巡回0017の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録青Q巡回0017です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0016を同一分類のクラスタ構成検証 Cluster Resources 0055と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は復旧でトポロジ要約を証跡に残し・クラスター資源のトポロジ要約と取得時刻を記録し。</li><li>B. コマンドまたは機能の用途は照合で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>C. コマンドまたは機能の用途は巡回でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>D. コマンドまたは機能の用途は復旧確認でイベント確認を証跡に残し・PowerHA Node Stateでイベント確認から。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能巡回・クラス・リソーでCの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・巡回）です。照合巡回・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、検証ログの採取漏れを防ぐ」で、確認対象はリソー・巡回・検証ロです。比較クラス・巡回でA:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は構成検・巡回・リソーです。運用巡回・構成検でB:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はリソー・クラス・巡回です。仕様巡回・クラス・リソーでD:の復旧後の確認 NODE06は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は巡回・検証ロ・リソーです。用語巡回・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0016</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0016について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0016A
+画面・出力には PHA72DD0016A が表示され、クラスタ構成検証 Verification Progress 0016 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0016
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0016B
+画面・出力には PHA72DD0016B が表示され、クラスタ構成検証 Verification Progress 0016 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0016
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0016C
+画面・出力には PHA72DD0016C が表示され、クラスタ構成検証 Verification Progress 0016 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0016A が画面・出力に表示されること
+② ステップ2 の PHA72DD0016B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0016C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0458"><h3>クラスタ構成検証 Verification Progress 0031</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>白L棚卸0032ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票白L棚卸0032です。白L棚卸0032はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録白L棚卸0032です。白L棚卸0032ではリソース要約と取得時刻を採取票白L棚卸0032へ残します。白L棚卸0032では警告と致命エラーの混同を避けるため補助資料も照合する判断白L棚卸0032です。白L棚卸0032の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録白L棚卸0032です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0031の設定や表示を読む前に役割を確認します。リソースグループ制御 Resource Group Name 0065ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は監査で優先ノード一を証跡に残し・資源グループの優先ノード一覧と取得時刻を記録し。</li><li>B. 一次資料が示す主目的は棚卸でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は解析でVG varを証跡に残し・地理的ミラーの項目のVG vary状態と取得時刻を記録し。</li><li>D. 一次資料が示す主目的は構成監査で状態確認を証跡に残し・Cluster Servicesで状態確認から。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能棚卸・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・棚卸）です。照合棚卸・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・棚卸・警告とです。比較クラス・棚卸でA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は構成検・棚卸・リソーです。項目棚卸・クラス・リソーでC:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は警告と・クラス・リソーです。仕様棚卸・クラス・リソーでD:の構成監査 START08は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸は棚卸・警告と・リソーです。用語棚卸・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0031</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0031について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0031A
+画面・出力には PHA72DD0031A が表示され、クラスタ構成検証 Verification Progress 0031 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0031
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0031B
+画面・出力には PHA72DD0031B が表示され、クラスタ構成検証 Verification Progress 0031 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0031
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0031C
+画面・出力には PHA72DD0031C が表示され、クラスタ構成検証 Verification Progress 0031 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0031A が画面・出力に表示されること
+② ステップ2 の PHA72DD0031B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0031C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0459"><h3>クラスタ構成検証 Verification Progress 0046</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紫G復旧0047ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紫G復旧0047です。紫G復旧0047はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紫G復旧0047です。紫G復旧0047ではリソース要約と取得時刻を採取票紫G復旧0047へ残します。紫G復旧0047ではノード間ODM差分の残存を避けるため補助資料も照合する判断紫G復旧0047です。紫G復旧0047の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紫G復旧0047です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0046に関する障害切り分けの前提を確認しています。GLVM地理的ミラー VG STATE 0123の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は診断で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>B. 障害切り分けに用いる役割は復旧でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は照合で検証進行率を証跡に残し・システム管理コマンドの検証進行率と取得時刻を記録し。</li><li>D. 障害切り分けに用いる役割は依存関係確認でクラスタ照会を証跡に残し・クラスタートポロジーでクラスタ照会から。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能復旧・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・復旧）です。照合復旧・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・復旧・ノードです。比較クラス・復旧でA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は構成検・復旧・リソーです。項目復旧・クラス・リソーでC:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸はノード・クラス・リソーです。仕様復旧・クラス・リソーでD:の依存関係の確認 TOPO13は「クラスタートポロジーでクラスタ照会から」を述べるため、正答側の照合軸は復旧・ノード・リソーです。用語復旧・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0046</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0046について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0046A
+画面・出力には PHA72DD0046A が表示され、クラスタ構成検証 Verification Progress 0046 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0046
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0046B
+画面・出力には PHA72DD0046B が表示され、クラスタ構成検証 Verification Progress 0046 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0046
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0046C
+画面・出力には PHA72DD0046C が表示され、クラスタ構成検証 Verification Progress 0046 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0046A が画面・出力に表示されること
+② ステップ2 の PHA72DD0046B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0046C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0460"><h3>クラスタ構成検証 Verification Progress 0061</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>橙B監査0062ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票橙B監査0062です。橙B監査0062はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録橙B監査0062です。橙B監査0062ではリソース要約と取得時刻を採取票橙B監査0062へ残します。橙B監査0062では未同期構成の見落としを避けるため補助資料も照合する判断橙B監査0062です。橙B監査0062の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録橙B監査0062です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0061を保守記録に説明する必要があります。リソースグループ制御 Resource Group Name 0125と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は復旧操作で点検欄を確認することで優先ノード一を確認し・資源グループ位置の誤認を防ぐ。</li><li>B. 仕様上の役割は点検操作で判定欄を記録することで移動履歴を確認し・依存リソース順序の見落としを防ぐ。</li><li>C. 仕様上の役割はSRC状態からクラスター管理プロセスを読ことでサブシステムを確認し・基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>D. 仕様上の役割は記録操作で証跡欄を照合することでリソース要約を確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・クラス・リソーでDの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・監査）です。照合監査・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、未同期構成の見落としを防ぐ」で、確認対象はリソー・監査・未同期です。比較クラス・監査でA:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は構成検・監査・リソーです。運用監査・構成検でB:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸はリソー・クラス・監査です。項目監査・クラス・リソーでC:の性能影響の確認 NODE11は「PowerHA Node Stateでサブシ」を述べるため、正答側の照合軸は未同期・クラス・リソーです。用語監査・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0061</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0061について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0061A
+画面・出力には PHA72DD0061A が表示され、クラスタ構成検証 Verification Progress 0061 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0061
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0061B
+画面・出力には PHA72DD0061B が表示され、クラスタ構成検証 Verification Progress 0061 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0061
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0061C
+画面・出力には PHA72DD0061C が表示され、クラスタ構成検証 Verification Progress 0061 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0061A が画面・出力に表示されること
+② ステップ2 の PHA72DD0061B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0061C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0461"><h3>クラスタ構成検証 Verification Progress 0076</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>青Q監査0077ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票青Q監査0077です。青Q監査0077はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録青Q監査0077です。青Q監査0077ではリソース要約と取得時刻を採取票青Q監査0077へ残します。青Q監査0077では検証ログの採取漏れを避けるため補助資料も照合する判断青Q監査0077です。青Q監査0077の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録青Q監査0077です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0076の技術的な意味を資料で確認するとき、GLVM地理的ミラー RPV Client 0084との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は監査でリソース要約を証跡に残し・構成検証のリソース要約と取得時刻を記録し。 <span class="kb-ok">✅ 正解</span></li><li>B. コマンドまたは機能の用途は変更で遠隔ボリューを証跡に残し・地理的ミラーの項目の遠隔ボリュームRPV通信ペアと取得時刻を。</li><li>C. コマンドまたは機能の用途は解析で基本ソフトAを証跡に残し・地理的ミラーの項目の基本ソフトAIXエラー識別子と取得時刻を。</li><li>D. コマンドまたは機能の用途は停止確認でマネージャーを証跡に残し・hacmp.out Eventでマネージャーログから。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能監査・クラス・リソーでAの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・監査）です。照合監査・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、検証ログの採取漏れを防ぐ」で、確認対象はリソー・監査・検証ロです。運用監査・構成検でB:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸はリソー・クラス・監査です。項目監査・クラス・リソーでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は検証ロ・クラス・リソーです。仕様監査・クラス・リソーでD:の停止前の確認 FAIL14は「hacmp.out Eventでマネージャー」を述べるため、正答側の照合軸は監査・検証ロ・リソーです。用語監査・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0076</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0076について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0076A
+画面・出力には PHA72DD0076A が表示され、クラスタ構成検証 Verification Progress 0076 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0076
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0076B
+画面・出力には PHA72DD0076B が表示され、クラスタ構成検証 Verification Progress 0076 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0076
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0076C
+画面・出力には PHA72DD0076C が表示され、クラスタ構成検証 Verification Progress 0076 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0076A が画面・出力に表示されること
+② ステップ2 の PHA72DD0076B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0076C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0462"><h3>クラスタ構成検証 Verification Progress 0091</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>白L変更0092ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票白L変更0092です。白L変更0092はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録白L変更0092です。白L変更0092ではリソース要約と取得時刻を採取票白L変更0092へ残します。白L変更0092では警告と致命エラーの混同を避けるため補助資料も照合する判断白L変更0092です。白L変更0092の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録白L変更0092です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0091について構成や状態を確認します。GLVM地理的ミラー RPV Server 0111ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は地理的ミラーの項目のミラー更新状態と取得時刻を記録し・syslogとhacmp.outの突合漏れを防ぐである。監査操作で記録欄を比較するときはsyslogとhacmp.oを防ぐ。</li><li>B. 一次資料が示す主目的は構成検証のリソース要約と取得時刻を記録し・警告と致命エラーの混同を防ぐである。採取操作で照合欄を点検するときは警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的は獲得処理の獲得イベントと取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。</li><li>D. 一次資料が示す主目的はCluster Servicesで資源グループRG確認から app_rg を読み・app_rg とである。RG確認からapp_rgを読むときは管理設定と資源状態の混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能変更・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・変更）です。照合変更・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・変更・警告とです。比較クラス・変更でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は構成検・変更・リソーです。項目変更・クラス・リソーでC:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は警告と・クラス・リソーです。仕様変更・クラス・リソーでD:の再始動後の確認 START15は「Cluster Servicesで資源グルー」を述べるため、正答側の照合軸は変更・警告と・リソーです。用語変更・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0091</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0091について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0091A
+画面・出力には PHA72DD0091A が表示され、クラスタ構成検証 Verification Progress 0091 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0091
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0091B
+画面・出力には PHA72DD0091B が表示され、クラスタ構成検証 Verification Progress 0091 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0091
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0091C
+画面・出力には PHA72DD0091C が表示され、クラスタ構成検証 Verification Progress 0091 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0091A が画面・出力に表示されること
+② ステップ2 の PHA72DD0091B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0091C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0463"><h3>クラスタ構成検証 Verification Progress 0106</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>紫G移行0107ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紫G移行0107です。紫G移行0107はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紫G移行0107です。紫G移行0107ではリソース要約と取得時刻を採取票紫G移行0107へ残します。紫G移行0107ではノード間ODM差分の残存を避けるため補助資料も照合する判断紫G移行0107です。紫G移行0107の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紫G移行0107です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0106の役割を調べています。リソースグループ制御 Node List 0152の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割はノード一覧の移動履歴と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li><li>B. 障害切り分けに用いる役割はイベント要約の失敗ラベルと取得時刻を記録し・獲得失敗ログの未採取を防ぐである。表示操作で対象欄を追跡するときは獲得失敗ログの未採取を防ぐ。リソースグループ制御 Event Summary 0323固有の属性も確認対象に含める。</li><li>C. 障害切り分けに用いる役割は構成検証のリソース要約と取得時刻を記録し・ノード間構成データODM差分の残存を防ぐである。確認操作で状態欄を整理するときはノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 障害切り分けに用いる役割は資源グループの優先ノード一覧と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能移行・クラス・リソーでCの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・移行）です。照合移行・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・移行・ノードです。比較クラス・移行でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成検・移行・リソーです。運用移行・構成検でB:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸はリソー・クラス・移行です。仕様移行・クラス・リソーでD:のGroup Nameは「資源グループの優先ノード一覧と取得時刻を記録」を述べるため、正答側の照合軸は移行・ノード・リソーです。用語移行・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0106</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0106について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0106A
+画面・出力には PHA72DD0106A が表示され、クラスタ構成検証 Verification Progress 0106 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0106
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0106B
+画面・出力には PHA72DD0106B が表示され、クラスタ構成検証 Verification Progress 0106 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0106
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0106C
+画面・出力には PHA72DD0106C が表示され、クラスタ構成検証 Verification Progress 0106 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0106A が画面・出力に表示されること
+② ステップ2 の PHA72DD0106B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0106C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0464"><h3>クラスタ構成検証 Verification Progress 0121</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>橙B診断0122ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票橙B診断0122です。橙B診断0122はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録橙B診断0122です。橙B診断0122ではリソース要約と取得時刻を採取票橙B診断0122へ残します。橙B診断0122では未同期構成の見落としを避けるため補助資料も照合する判断橙B診断0122です。橙B診断0122の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録橙B診断0122です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Verification Progress 0121」を「GLVM地理的ミラー RPV Server 0126」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は変更確認操作で採取欄を棚卸することでミラー更新状を確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 仕様上の役割は保守操作で監査欄を保存することで検証報告ROを確認し・検証ログの採取漏れを防ぐ。</li><li>C. 仕様上の役割は記録操作で証跡欄を照合することでリソース要約を確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>D. 仕様上の役割は表示操作で対象欄を追跡することで獲得イベントを確認し・獲得失敗ログの未採取を防ぐ。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・クラス・リソーでCの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・診断）です。照合診断・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、未同期構成の見落としを防ぐ」で、確認対象はリソー・診断・未同期です。比較クラス・診断でA:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は構成検・診断・リソーです。運用診断・構成検でB:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸はリソー・クラス・診断です。仕様診断・クラス・リソーでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は診断・未同期・リソーです。用語診断・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0121</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0121について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0121A
+画面・出力には PHA72DD0121A が表示され、クラスタ構成検証 Verification Progress 0121 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0121
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0121B
+画面・出力には PHA72DD0121B が表示され、クラスタ構成検証 Verification Progress 0121 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0121
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0121C
+画面・出力には PHA72DD0121C が表示され、クラスタ構成検証 Verification Progress 0121 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0121A が画面・出力に表示されること
+② ステップ2 の PHA72DD0121B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0121C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0465"><h3>クラスタ構成検証 Verification Progress 0136</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>青Q診断0137ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票青Q診断0137です。青Q診断0137はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録青Q診断0137です。青Q診断0137ではリソース要約と取得時刻を採取票青Q診断0137へ残します。青Q診断0137では検証ログの採取漏れを避けるため補助資料も照合する判断青Q診断0137です。青Q診断0137の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録青Q診断0137です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0136を同一分類のクラスタ構成検証 SMIT Command Status 0199と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は採取操作で照合欄を点検することで検証進行率を確認し・警告と致命エラーの混同を防ぐ。</li><li>B. コマンドまたは機能の用途は変更確認操作で採取欄を棚卸することでsyslogを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>C. コマンドまたは機能の用途は保守操作で監査欄を保存することで検証報告ROを確認し・検証ログの採取漏れを防ぐ。</li><li>D. コマンドまたは機能の用途は保守操作で監査欄を保存することでリソース要約を確認し・検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能診断・クラス・リソーでDの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・診断）です。照合診断・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、検証ログの採取漏れを防ぐ」で、確認対象はリソー・診断・検証ロです。比較診断・クラス・リソー・検証ロでA:のCommand Statusは「システム管理コマンドの検証進行率と取得時刻を」を述べるため、正答側の照合軸は構成検・診断・リソーです。運用診断・構成検でB:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸はリソー・クラス・診断です。項目診断・クラス・リソーでC:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は検証ロ・クラス・リソーです。用語診断・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0136</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0136について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0136A
+画面・出力には PHA72DD0136A が表示され、クラスタ構成検証 Verification Progress 0136 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0136
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0136B
+画面・出力には PHA72DD0136B が表示され、クラスタ構成検証 Verification Progress 0136 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0136
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0136C
+画面・出力には PHA72DD0136C が表示され、クラスタ構成検証 Verification Progress 0136 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0136A が画面・出力に表示されること
+② ステップ2 の PHA72DD0136B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0136C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0466"><h3>クラスタ構成検証 Verification Progress 0151</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>白L保守0152ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票白L保守0152です。白L保守0152はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録白L保守0152です。白L保守0152ではリソース要約と取得時刻を採取票白L保守0152へ残します。白L保守0152では警告と致命エラーの混同を避けるため補助資料も照合する判断白L保守0152です。白L保守0152の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録白L保守0152です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0151の設定や表示を読む前に役割を確認します。GLVM地理的ミラー syslog entry 0177ではなく対象を説明しているものはどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は片側VGのvaryon誤操作を避けるため・主操作で出力欄を評価するしてsyslogを照合する。</li><li>B. 一次資料が示す主目的は監査証跡の誤読を避けるため・監査証跡で監査証跡を確認するして監査証跡を照合する。</li><li>C. 一次資料が示す主目的は警告と致命エラーの混同を避けるため・採取操作で照合欄を点検するしてリソース要約を照合する。 <span class="kb-ok">✅ 正解</span></li><li>D. 一次資料が示す主目的は資源グループ位置の誤認を避けるため・復旧操作で点検欄を確認するして失敗ラベルを照合する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能保守・クラス・リソーでCの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・保守）です。照合保守・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・保守・警告とです。比較保守・クラス・リソー・警告とでA:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は構成検・保守・リソーです。運用保守・構成検でB:の状態確認 監査証跡は「検証後に構成を同期し、クラスタスナップショッ」を述べるため、正答側の照合軸はリソー・クラス・保守です。仕様保守・クラス・リソーでD:のEvent Summaryは「イベント要約の失敗ラベルと取得時刻を記録し」を述べるため、正答側の照合軸は保守・警告と・リソーです。用語保守・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0151</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0151について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 80 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0151A
+画面・出力には PHA72DD0151A が表示され、クラスタ構成検証 Verification Progress 0151 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0151
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0151B
+画面・出力には PHA72DD0151B が表示され、クラスタ構成検証 Verification Progress 0151 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0151
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0151C
+画面・出力には PHA72DD0151C が表示され、クラスタ構成検証 Verification Progress 0151 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0151A が画面・出力に表示されること
+② ステップ2 の PHA72DD0151B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0151C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0467"><h3>クラスタ構成検証 Verification Progress 0166</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>紫G切替0167ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紫G切替0167です。紫G切替0167はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紫G切替0167です。紫G切替0167ではリソース要約と取得時刻を採取票紫G切替0167へ残します。紫G切替0167ではノード間ODM差分の残存を避けるため補助資料も照合する判断紫G切替0167です。紫G切替0167の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紫G切替0167です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0166に関する障害切り分けの前提を確認しています。GLVM地理的ミラー VG STATE 0198の機能を混同しない選択肢はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は変更確認操作で採取欄を棚卸することで基本ソフトAを確認し・遠隔ボリュームRPV経路断のを防ぐ。</li><li>B. 障害切り分けに用いる役割は確認操作で状態欄を整理することでリソース要約を確認し・ノード間構成データODM差分を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 障害切り分けに用いる役割は起動確認で時刻情報を確認することで時刻情報を確認し・時刻情報の誤読を防ぐ。</li><li>D. 障害切り分けに用いる役割は点検操作で判定欄を記録することで移動履歴を確認し・依存リソース順序の見落としを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能切替・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・切替）です。照合切替・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・切替・ノードです。比較切替・クラス・リソー・ノードでA:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸は構成検・切替・リソーです。項目切替・クラス・リソーでC:の起動確認 時刻情報は「Cluster Manager の状態」を述べるため、正答側の照合軸はノード・クラス・リソーです。仕様切替・クラス・リソーでD:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は切替・ノード・リソーです。用語切替・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0166</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0166について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 70 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0166A
+画面・出力には PHA72DD0166A が表示され、クラスタ構成検証 Verification Progress 0166 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0166
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0166B
+画面・出力には PHA72DD0166B が表示され、クラスタ構成検証 Verification Progress 0166 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0166
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0166C
+画面・出力には PHA72DD0166C が表示され、クラスタ構成検証 Verification Progress 0166 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0166A が画面・出力に表示されること
+② ステップ2 の PHA72DD0166B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0166C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0468"><h3>クラスタ構成検証 Verification Progress 0181</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>橙B収集0182ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票橙B収集0182です。橙B収集0182はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録橙B収集0182です。橙B収集0182ではリソース要約と取得時刻を採取票橙B収集0182へ残します。橙B収集0182では未同期構成の見落としを避けるため補助資料も照合する判断橙B収集0182です。橙B収集0182の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録橙B収集0182です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0181を保守記録に説明する必要があります。クラスタ構成検証 Cluster Topology 0223と取り違えない説明はどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割は採取操作で照合欄を点検することで構成データOを確認し・警告と致命エラーの混同を防ぐ。</li><li>B. 仕様上の役割は記録操作で証跡欄を照合することでリソース要約を確認し・未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割は所有先確認で依存関係を確認することで依存関係を確認し・依存関係の誤読を防ぐ。</li><li>D. 仕様上の役割は採取操作で照合欄を点検することでトポロジ要約を確認し・警告と致命エラーの混同を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・収集）です。照合収集・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、未同期構成の見落としを防ぐ」で、確認対象はリソー・収集・未同期です。比較収集・クラス・リソー・未同期でA:のCluster Topologyは「クラスタートポロジーの構成データODM登録値」を述べるため、正答側の照合軸は構成検・収集・リソーです。項目収集・クラス・リソーでC:の所有先確認 依存関係は「クラスタサービスを開始し、リソースグループを」を述べるため、正答側の照合軸は未同期・クラス・リソーです。仕様収集・クラス・リソーでD:のCluster Resourceは「クラスター資源のトポロジ要約と取得時刻を記録」を述べるため、正答側の照合軸は収集・未同期・リソーです。用語収集・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0181</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0181について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 60 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0181A
+画面・出力には PHA72DD0181A が表示され、クラスタ構成検証 Verification Progress 0181 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0181
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0181B
+画面・出力には PHA72DD0181B が表示され、クラスタ構成検証 Verification Progress 0181 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0181
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0181C
+画面・出力には PHA72DD0181C が表示され、クラスタ構成検証 Verification Progress 0181 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0181A が画面・出力に表示されること
+② ステップ2 の PHA72DD0181B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0181C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0469"><h3>クラスタ構成検証 Verification Progress 0196</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>青Q収集0197ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票青Q収集0197です。青Q収集0197はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録青Q収集0197です。青Q収集0197ではリソース要約と取得時刻を採取票青Q収集0197へ残します。青Q収集0197では検証ログの採取漏れを避けるため補助資料も照合する判断青Q収集0197です。青Q収集0197の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録青Q収集0197です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0196の技術的な意味を資料で確認するとき、GLVM地理的ミラー Mirror Pool 0255との境界を正しく示す記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するしてVG varを照合する。</li><li>B. コマンドまたは機能の用途は管理設定と資源状態の混同を避けるため・状態確認からST_STABLEを読むして状態確認を照合する。</li><li>C. コマンドまたは機能の用途は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして移動履歴を照合する。</li><li>D. コマンドまたは機能の用途は検証ログの採取漏れを避けるため・保守操作で監査欄を保存するしてリソース要約を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能収集・クラス・リソーでDの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・収集）です。照合収集・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、検証ログの採取漏れを防ぐ」で、確認対象はリソー・収集・検証ロです。比較収集・クラス・リソー・検証ロでA:のMirror Poolは「地理的ミラーの項目のVG vary状態と取得」を述べるため、正答側の照合軸は構成検・収集・リソーです。運用収集・構成検でB:の変更前の確認 START02は「Cluster Servicesで状態確認か」を述べるため、正答側の照合軸はリソー・クラス・収集です。項目収集・クラス・リソーでC:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は検証ロ・クラス・リソーです。用語収集・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0196</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0196について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 50 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0196A
+画面・出力には PHA72DD0196A が表示され、クラスタ構成検証 Verification Progress 0196 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0196
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0196B
+画面・出力には PHA72DD0196B が表示され、クラスタ構成検証 Verification Progress 0196 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0196
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0196C
+画面・出力には PHA72DD0196C が表示され、クラスタ構成検証 Verification Progress 0196 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0196A が画面・出力に表示されること
+② ステップ2 の PHA72DD0196B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0196C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0470"><h3>クラスタ構成検証 Verification Progress 0211</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 中級</p><p>白L登録0212ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票白L登録0212です。白L登録0212はクラスタ構成検証の採取操作でクラスタ構成検証の照合欄を点検する記録白L登録0212です。白L登録0212ではリソース要約と取得時刻を採取票白L登録0212へ残します。白L登録0212では警告と致命エラーの混同を避けるため補助資料も照合する判断白L登録0212です。白L登録0212の用語整理ではクラスタ構成検証の対象値を実在出力で評価する記録白L登録0212です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0211について構成や状態を確認します。クラスタ構成検証 clverify.log 0277ではなく対象機能を表す記述はどれですか。</p><ul class="kb-choices"><li>A. 一次資料が示す主目的は記録操作で証跡欄を照合することで検証報告ROを確認し・未同期構成の見落としを防ぐ。</li><li>B. 一次資料が示す主目的は採取操作で照合欄を点検することでリソース要約を確認し・警告と致命エラーの混同を防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 一次資料が示す主目的はインターフェースから192.0.2.50ことでインターフェを確認し・永続アドレスとサービスアドレを防ぐ。</li><li>D. 一次資料が示す主目的は復旧操作で点検欄を確認することで獲得イベントを確認し・資源グループ位置の誤認を防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 機能登録・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・登録）です。照合登録・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・登録・警告とです。比較登録・クラス・リソー・警告とでA:のクラスタ構成検証 clverifは「clverify.logの検証報告ROHAレ」を述べるため、正答側の照合軸は構成検・登録・リソーです。項目登録・クラス・リソーでC:の変更後の確認 SVCIP03は「IP Service IPでインターフェース」を述べるため、正答側の照合軸は警告と・クラス・リソーです。仕様登録・クラス・リソーでD:のAcquisitionは「獲得処理の獲得イベントと取得時刻を記録し」を述べるため、正答側の照合軸は登録・警告と・リソーです。用語登録・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・警告とです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0211</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0211について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 40 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0211A
+画面・出力には PHA72DD0211A が表示され、クラスタ構成検証 Verification Progress 0211 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0211
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0211B
+画面・出力には PHA72DD0211B が表示され、クラスタ構成検証 Verification Progress 0211 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0211
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0211C
+画面・出力には PHA72DD0211C が表示され、クラスタ構成検証 Verification Progress 0211 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0211A が画面・出力に表示されること
+② ステップ2 の PHA72DD0211B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0211C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0471"><h3>クラスタ構成検証 Verification Progress 0226</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 上級</p><p>紫G確認0227ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票紫G確認0227です。紫G確認0227はクラスタ構成検証の確認操作でクラスタ構成検証の状態欄を整理する記録紫G確認0227です。紫G確認0227ではリソース要約と取得時刻を採取票紫G確認0227へ残します。紫G確認0227ではノード間ODM差分の残存を避けるため補助資料も照合する判断紫G確認0227です。紫G確認0227の用語整理ではクラスタ構成検証の対象値を実在出力で読み分けする記録紫G確認0227です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0226の役割を調べています。リソースグループ制御 Node List 0272の説明を混ぜずに採るべき記述はどれですか。</p><ul class="kb-choices"><li>A. 障害切り分けに用いる役割は自動戻し条件の誤読を避けるため・調査操作で保守欄を引き継ぎするして移動履歴を照合する。</li><li>B. 障害切り分けに用いる役割はcluster historyだを避けるため・主要ログからACQUISITIONを読むして主要ログを照合する。</li><li>C. 障害切り分けに用いる役割はsyslogとhacmp.outを避けるため・監査操作で記録欄を比較するして基本ソフトAを照合する。</li><li>D. 障害切り分けに用いる役割はノード間構成データODM差分の残を避けるため・確認操作で状態欄を整理するしてリソース要約を照合する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 機能確認・クラス・リソーでDの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・確認）です。照合確認・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し」で、確認対象はリソー・確認・ノードです。比較確認・クラス・リソー・ノードでA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成検・確認・リソーです。運用確認・構成検でB:のログとの照合 FAIL07は「hacmp.out Eventで主要ログから」を述べるため、正答側の照合軸はリソー・クラス・確認です。項目確認・クラス・リソーでC:のVG STATEは「地理的ミラーの項目の基本ソフトAIXエラー識」を述べるため、正答側の照合軸はノード・クラス・リソーです。用語確認・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・ノードです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0226</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0226について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 30 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0226A
+画面・出力には PHA72DD0226A が表示され、クラスタ構成検証 Verification Progress 0226 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0226
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0226B
+画面・出力には PHA72DD0226B が表示され、クラスタ構成検証 Verification Progress 0226 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0226
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0226C
+画面・出力には PHA72DD0226C が表示され、クラスタ構成検証 Verification Progress 0226 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0226A が画面・出力に表示されること
+② ステップ2 の PHA72DD0226B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0226C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0472"><h3>クラスタ構成検証 Verification Progress 0241</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>橙B保護0242ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票橙B保護0242です。橙B保護0242はクラスタ構成検証の記録操作でクラスタ構成検証の証跡欄を照合する記録橙B保護0242です。橙B保護0242ではリソース要約と取得時刻を採取票橙B保護0242へ残します。橙B保護0242では未同期構成の見落としを避けるため補助資料も照合する判断橙B保護0242です。橙B保護0242の用語整理ではクラスタ構成検証の対象値を実在出力で比較する記録橙B保護0242です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 「クラスタ構成検証 Verification Progress 0241」を「リソースグループ制御 Node List 0272」と区別して説明するとき、一次資料と整合する組合せはどれですか。</p><ul class="kb-choices"><li>A. 仕様上の役割はノード一覧の移動履歴と取得時刻を記録し・自動戻し条件の誤読を防ぐである。調査操作で保守欄を引き継ぎするときは自動戻し条件の誤読を防ぐ。</li><li>B. 仕様上の役割は構成検証のリソース要約と取得時刻を記録し・未同期構成の見落としを防ぐである。記録操作で証跡欄を照合するときは未同期構成の見落としを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. 仕様上の役割はPowerHA Node Stateでイベント確認から 終了状態 を読み・終了状態 と 実状態値 を照合する。イベント確認から終了状態を読むときは基本ソフト稼働とクラスタ稼働を防ぐ。</li><li>D. 仕様上の役割は地理的ミラーの項目のsyslog記録と取得時刻を記録し・遠隔ボリュームRPV経路断の見落としを防ぐである。変更確認操作で採取欄を棚卸するときは遠隔ボリュームRPV経路断のを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・保護）です。照合保護・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、未同期構成の見落としを防ぐ」で、確認対象はリソー・保護・未同期です。比較保護・クラス・リソー・未同期でA:のNode Listは「ノード一覧の移動履歴と取得時刻を記録し」を述べるため、正答側の照合軸は構成検・保護・リソーです。項目保護・クラス・リソーでC:の権限境界の確認 NODE12は「PowerHA Node Stateでイベン」を述べるため、正答側の照合軸は未同期・クラス・リソーです。仕様保護・クラス・リソーでD:のsyslog entryは「地理的ミラーの項目のsyslog記録と取得時」を述べるため、正答側の照合軸は保護・未同期・リソーです。用語保護・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・未同期です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0241</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0241について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 20 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0241A
+画面・出力には PHA72DD0241A が表示され、クラスタ構成検証 Verification Progress 0241 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0241
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0241B
+画面・出力には PHA72DD0241B が表示され、クラスタ構成検証 Verification Progress 0241 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0241
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0241C
+画面・出力には PHA72DD0241C が表示され、クラスタ構成検証 Verification Progress 0241 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0241A が画面・出力に表示されること
+② ステップ2 の PHA72DD0241B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0241C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>
+
+
+<section class="kb-item" id="c25-i0473"><h3>クラスタ構成検証 Verification Progress 0256</h3><p class="kb-meta">分類: 構成検証 ・ 難易度: 初級</p><p>青Q保護0257ではPowerHA SystemMirror 7.2 の 構成検証を扱う採取票青Q保護0257です。青Q保護0257はクラスタ構成検証の保守操作でクラスタ構成検証の監査欄を保存する記録青Q保護0257です。青Q保護0257ではリソース要約と取得時刻を採取票青Q保護0257へ残します。青Q保護0257では検証ログの採取漏れを避けるため補助資料も照合する判断青Q保護0257です。青Q保護0257の用語整理ではクラスタ構成検証の対象値を実在出力で区別する記録青Q保護0257です。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> クラスタ構成検証 Verification Progress 0256を同一分類のGLVM地理的ミラー RPV Client 0309と比較します。対象固有の機能として妥当な記述はどれですか。</p><ul class="kb-choices"><li>A. コマンドまたは機能の用途は主操作で出力欄を評価することで遠隔ボリューを確認し・片側VGのvaryon誤操作を防ぐ。</li><li>B. コマンドまたは機能の用途は保守操作で監査欄を保存することでリソース要約を確認し・検証ログの採取漏れを防ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. コマンドまたは機能の用途は検証からVerificationを読むことで検証を確認し・片系定義を全体正本とする誤認を防ぐ。</li><li>D. コマンドまたは機能の用途は監査操作で記録欄を比較することでミラー更新状を確認し・syslogとhacmp.oを防ぐ。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 初級</p><p><strong>解説:</strong> 機能保護・クラス・リソーでBの記述「構成検証のリソース要約と取得時刻を記録し」に対応する項目はVerification（構成検・リソー・保護）です。照合保護・クラス・リソーに関する構成検証の仕様は「構成検証のリソース要約と取得時刻を記録し、検証ログの採取漏れを防ぐ」で、確認対象はリソー・保護・検証ロです。比較保護・クラス・リソー・検証ロでA:のRPV Clientは「地理的ミラーの項目の遠隔ボリュームRPV通信」を述べるため、正答側の照合軸は構成検・保護・リソーです。項目保護・クラス・リソーでC:の変更後の確認 TOPO03は「クラスタートポロジーで検証から」を述べるため、正答側の照合軸は検証ロ・クラス・リソーです。仕様保護・クラス・リソーでD:のRPV Serverは「地理的ミラーの項目のミラー更新状態と取得時刻」を述べるため、正答側の照合軸は保護・検証ロ・リソーです。用語保護・クラス・リソーという用語は「構成検証のリソース要約と取得時刻を記録し」を指し、照合する値と誤認リスクの組合せはクラス・リソー・検証ロです。</p><p class="kb-src"><strong>出典:</strong> EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>クラスタ構成検証 Verification Progress 0256</strong></p><p>検証目的: クラスタ構成検証のクラスタ構成検証 Verification Progress 0256について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。</p><p>前提条件: 対象資料を確認済み。対象=Verification Progress と リソース要約</p><p>セッション環境: 机上検証。PowerHA SystemMirror 7.2のコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。</p><pre class="kb-code">■ ステップ 1
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify
+→ Enter を押す
+［画面・出力］
+Verification to be performed on cluster topology and cluster resources
+Completed 10 percent of the verification checks
+Node nodeA data collection completed
+確認コード PHA72DD0256A
+画面・出力には PHA72DD0256A が表示され、クラスタ構成検証 Verification Progress 0256 の入力欄確認を確認できます。
+――――
+■ ステップ 2
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; grep -i warning /var/hacmp/log/clverify.log
+→ Enter を押す
+［画面・出力］
+clverify.log entry PHA0256
+Warning group network labels reviewed
+Cluster resources synchronized after review
+確認コード PHA72DD0256B
+画面・出力には PHA72DD0256B が表示され、クラスタ構成検証 Verification Progress 0256 の証跡表示確認を確認できます。
+――――
+■ ステップ 3
+現在の画面はPowerHA SystemMirror 7.2の確認画面またはコマンド結果です。Verification Progress を読むため、クラスタ構成検証 の対象値を表示します。
+［操作（入力）］
+PowerHA SystemMirror 7.2 操作画面またはコマンド環境
+COMMAND ===&gt; clverify -v
+→ Enter を押す
+［画面・出力］
+ROHA report PHA0256
+Dynamic resource operation recorded
+clmgr verify cluster completed with review notes
+確認コード PHA72DD0256C
+画面・出力には PHA72DD0256C が表示され、クラスタ構成検証 Verification Progress 0256 の判定材料確認を確認できます。
+――――</pre><p>合格条件: ① ステップ1 の PHA72DD0256A が画面・出力に表示されること
+② ステップ2 の PHA72DD0256B が画面・出力に表示されること
+③ ステップ3 の PHA72DD0256C が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: EN_PowerHA72_Administering / EN_PowerHA72_Concepts / EN_PowerHA72_Troubleshooting / EN_PowerHA72_GLVM_EE / RB_PowerHA723_Updates_SG248434</p></div></details></section>

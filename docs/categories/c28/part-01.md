@@ -1,0 +1,9350 @@
+---
+search:
+  exclude: true
+---
+
+# SMP/E / SMF / WLM — 詳細 (1/3)
+
+[← SMP/E / SMF / WLM の概要へ戻る](index.md)
+
+
+## SMF Logstream
+
+
+<section class="kb-item" id="c28-i0001"><h3>DASDONLY Logstream</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>DASDONLY Logstreamは、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 優先照合の保守管理に関する DASDONLY Logstreamの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先照合の保守管理の証跡として保存して根拠にする。</li><li>C. DASDONLY Logstreamの変更点を出力本文から切り離して優先照合の保守管理の承認欄のみ残す。</li><li>D. D WLM,SYSTEMS の結果から対象行を抜き出し、優先照合の証跡として残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先照合の保守管理において選択記号 D を採用し、識別名は優先照合です。優先照合の保守管理において DASDONLY Logstream は説明欄の「DASDONLY Logstreamの状態と出力メッセージを結び付ける優先照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先照合です。優先照合の保守管理に関する記録は、DASDONLY Logstreamの出力行と IWM025I を一緒に保存し、背景名は優先照合です。選択肢ごとの違いを示します。 A: 優先照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先照合ではありません。 B: 優先照合の保守管理は別カテゴリの確認を流用しており、DASDONLY Logstreamの根拠にならないため優先照合ではありません。 C: 優先照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため優先照合ではありません。 D: 優先照合の保守管理は対象出力と項目説明を結び、根拠を残すので優先照合です。優先照合の保守管理で記録する DASDONLY Logstreamは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DASDONLY Logstream</strong></p><p>検証目的: 順序追跡の保守管理について、DASDONLY Logstreamは、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030055の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDASDONLY Logstreamを指定し、OSKB030055の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DASDONLY Logstream
+CASE OSKB030055
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DASDONLY Logstream
+CASE OSKB030055
+SOURCE SMP/E SMF WLM
+DASDONLY LogstreamとOSKB030055が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030055を同じ出力で読み、順序追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030055
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030055
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DASDONLY Logstream REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030055が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DASDONLY Logstream と OSKB030055 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030055 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0002"><h3>Logstream HIGHOFFLOAD</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>Logstream HIGHOFFLOADは、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切照合の保守管理で Logstream HIGHOFFLOAD の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. Logstream HIGHOFFLOAD の出力を取らず区切照合の保守管理の説明文と承認印のみを残す。</li><li>B. 参照資料名、表示行、メッセージをそろえて区切照合の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切照合の保守管理において選択記号 B を採用し、識別名は区切照合です。区切照合の保守管理において Logstream HIGHOFFLOAD は説明欄の「区切照合の保守管理に関係する定義値と表示行を照合する区切照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切照合です。区切照合の保守管理の証跡を読む担当者は、Logstream HIGHOFFLOAD の属性行と IWM025I を合わせて追跡し、背景名は区切照合です。誤答側の問題点を分けます。 A: 区切照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため区切照合ではありません。 B: 区切照合の保守管理は対象出力と項目説明を結び、根拠を残すので区切照合です。 C: 区切照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切照合ではありません。 D: 区切照合の保守管理は別カテゴリの確認を流用しており、Logstream HIGHOFFLOAD の根拠にならないため区切照合ではありません。区切照合の保守管理に出る Logstream HIGHOFFLOAD は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Logstream HIGHOFFLOAD</strong></p><p>検証目的: 記録追跡の保守管理について、Logstream HIGHOFFLOAD は、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030053の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にLogstream HIGHOFFLを指定し、OSKB030053の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND Logstream HIGHOFFL
+CASE OSKB030053
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM Logstream HIGHOFFL
+CASE OSKB030053
+SOURCE SMP/E SMF WLM
+Logstream HIGHOFFLとOSKB030053が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030053を同じ出力で読み、記録追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030053
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030053
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I Logstream HIGHOFFLOAD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030053が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の Logstream HIGHOFFL と OSKB030053 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030053 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0003"><h3>Logstream LOWOFFLOAD</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>Logstream LOWOFFLOADは、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 範囲照合の保守管理で保守管理の運用確認を行います。Logstream LOWOFFLOAD の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲照合の保守管理を正常終了として記録する。</li><li>C. IWM025I を含む表示を保存し、説明欄との差分を範囲照合で確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. Logstream LOWOFFLOAD の属性行を読まず範囲照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲照合の保守管理において選択記号 C を採用し、識別名は範囲照合です。範囲照合の保守管理において Logstream LOWOFFLOAD は説明欄の「SMP/E SMF WLM で Logstream LOWOFFLOAD の扱いを記録する範囲照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合の保守管理を受け取る担当者は、Logstream LOWOFFLOAD の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合の保守管理は別カテゴリの確認を流用しており、Logstream LOWOFFLOAD の根拠にならないため範囲照合ではありません。 B: 範囲照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合の保守管理は対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合の保守管理が示す Logstream LOWOFFLOAD は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Logstream LOWOFFLOAD</strong></p><p>検証目的: 比較追跡の保守管理について、Logstream LOWOFFLOAD は、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030054の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にLogstream LOWOFFLOを指定し、OSKB030054の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND Logstream LOWOFFLO
+CASE OSKB030054
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM Logstream LOWOFFLO
+CASE OSKB030054
+SOURCE SMP/E SMF WLM
+Logstream LOWOFFLOとOSKB030054が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030054を同じ出力で読み、比較追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030054
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030054
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I Logstream LOWOFFLOAD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030054が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の Logstream LOWOFFLO と OSKB030054 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030054 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0004"><h3>Logstream バッファ溢れ</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>Logstream バッファ溢れは、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較照合のバッファ溢れで Logstream バッファ溢れの点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. Logstream バッファ溢れの出力を取らず比較照合のバッファ溢れの説明文と承認印のみを残す。</li><li>B. 属性行、戻り表示、メッセージ見出しを合わせて比較照合の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較照合のバッファ溢れの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較照合のバッファ溢れへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較照合のバッファ溢れにおいて選択記号 B を採用し、識別名は比較照合です。比較照合のバッファ溢れにおいて Logstream バッファ溢れ は説明欄の「比較照合のバッファ溢れに関係する定義値と表示行を照合する比較照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較照合です。比較照合のバッファ溢れの証跡を読む担当者は、Logstream バッファ溢れの属性行と IWM025I を合わせて追跡し、背景名は比較照合です。誤答側の問題点を分けます。 A: 比較照合のバッファ溢れは名称や説明のみに寄り、状態を示す出力本文が不足するため比較照合ではありません。 B: 比較照合のバッファ溢れは対象出力と項目説明を結び、根拠を残すので比較照合です。 C: 比較照合のバッファ溢れは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較照合ではありません。 D: 比較照合のバッファ溢れは別カテゴリの確認を流用しており、Logstream バッファ溢れの根拠にならないため比較照合ではありません。比較照合のバッファ溢れに出る Logstream バッファ溢れは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Logstream バッファ溢れ</strong></p><p>検証目的: 警告追跡のバッファ溢れについて、Logstream バッファ溢れは、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030057の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告追跡のバッファ溢れの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にLogstream バッファ溢れを指定し、OSKB030057の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND Logstream バッファ溢れ
+CASE OSKB030057
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM Logstream バッファ溢れ
+CASE OSKB030057
+SOURCE SMP/E SMF WLM
+Logstream バッファ溢れとOSKB030057が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030057を同じ出力で読み、警告追跡のバッファ溢れの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030057
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030057
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I Logstream バッファ溢れ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030057が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の Logstream バッファ溢れ と OSKB030057 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030057 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0005"><h3>Logstream 利用の前提</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>Logstream 利用の前提は、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 出力照合の利用の前提に関する Logstream 利用の前提の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力照合の利用の前提の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力照合の利用の前提の証跡として保存して根拠にする。</li><li>C. Logstream 利用の前提の変更点を出力本文から切り離して出力照合の利用の前提の承認欄のみ残す。</li><li>D. 対象の出力行とメッセージ接頭辞を同時に記録し、出力照合で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力照合の利用の前提において選択記号 D を採用し、識別名は出力照合です。出力照合の利用の前提において Logstream 利用の前提 は説明欄の「Logstream 利用の前提の状態と出力メッセージを結び付ける出力照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力照合です。出力照合の利用の前提に関する記録は、Logstream 利用の前提の出力行と IWM025I を一緒に保存し、背景名は出力照合です。選択肢ごとの違いを示します。 A: 出力照合の利用の前提は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力照合ではありません。 B: 出力照合の利用の前提は別カテゴリの確認を流用しており、Logstream 利用の前提の根拠にならないため出力照合ではありません。 C: 出力照合の利用の前提は名称や説明のみに寄り、状態を示す出力本文が不足するため出力照合ではありません。 D: 出力照合の利用の前提は対象出力と項目説明を結び、根拠を残すので出力照合です。出力照合の利用の前提で記録する Logstream 利用の前提は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Logstream 利用の前提</strong></p><p>検証目的: 範囲追跡の利用の前提について、Logstream 利用の前提は、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030051の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲追跡の利用の前提の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にLogstream 利用の前提を指定し、OSKB030051の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND Logstream 利用の前提
+CASE OSKB030051
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM Logstream 利用の前提
+CASE OSKB030051
+SOURCE SMP/E SMF WLM
+Logstream 利用の前提とOSKB030051が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030051を同じ出力で読み、範囲追跡の利用の前提の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030051
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030051
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I Logstream 利用の前提 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030051が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の Logstream 利用の前提 と OSKB030051 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030051 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0006"><h3>Logstream 定義 IXCMIAPU</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>Logstream 定義 IXCMIAPUは、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件照合の定義に関係する Logstream 定義 IXCMIAPU の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 机上確認でも実出力の見出しに合わせ、条件照合の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>B. Logstream 定義 IXCMIAPU の名称と担当者名のみを残して条件照合の定義の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件照合の定義を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件照合の定義の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件照合の定義において選択記号 A を採用し、識別名は条件照合です。条件照合の定義において Logstream 定義 IXCMIAPU は説明欄の「Logstream 定義 IXCMIAPU の用途を保守管理の表示で確認する条件照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件照合です。条件照合の定義に関連して、SMP/E SMF WLM では Logstream 定義 IXCMIAPU の表示属性と IWM025I を同じ証跡に残し、背景名は条件照合です。他の選択肢を確認します。 A: 条件照合の定義は対象出力と項目説明を結び、根拠を残すので条件照合です。 B: 条件照合の定義は名称や説明のみに寄り、状態を示す出力本文が不足するため条件照合ではありません。 C: 条件照合の定義は別カテゴリの確認を流用しており、Logstream 定義 IXCMIAPU の根拠にならないため条件照合ではありません。 D: 条件照合の定義は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件照合ではありません。条件照合の定義で使う Logstream 定義 IXCMIAPU という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Logstream 定義 IXCMIAPU</strong></p><p>検証目的: 優先追跡の定義について、Logstream 定義 IXCMIAPU は、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030052の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先追跡の定義の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にLogstream 定義 IXCMIを指定し、OSKB030052の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND Logstream 定義 IXCMI
+CASE OSKB030052
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM Logstream 定義 IXCMI
+CASE OSKB030052
+SOURCE SMP/E SMF WLM
+Logstream 定義 IXCMIとOSKB030052が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030052を同じ出力で読み、優先追跡の定義の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030052
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030052
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I Logstream 定義 IXCMIAPU REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030052が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の Logstream 定義 IXCMI と OSKB030052 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030052 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0007"><h3>Sysplex Logstream</h3><p class="kb-meta">分類: SMF Logstream ・ 難易度: 上級</p><p>Sysplex Logstreamは、SMP/E / SMF / WLMのSMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 記録照合の保守管理に関係する Sysplex Logstreamの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 出典欄の説明と運用出力を照合し、記録照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>B. Sysplex Logstreamの名称と担当者名のみを残して記録照合の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で記録照合の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず記録照合の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録照合の保守管理において選択記号 A を採用し、識別名は記録照合です。記録照合の保守管理において Sysplex Logstream は説明欄の「Sysplex Logstreamの用途を保守管理の表示で確認する記録照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録照合です。記録照合の保守管理に関連して、SMP/E SMF WLM では Sysplex Logstreamの表示属性と IWM025I を同じ証跡に残し、背景名は記録照合です。他の選択肢を確認します。 A: 記録照合の保守管理は対象出力と項目説明を結び、根拠を残すので記録照合です。 B: 記録照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため記録照合ではありません。 C: 記録照合の保守管理は別カテゴリの確認を流用しており、Sysplex Logstreamの根拠にならないため記録照合ではありません。 D: 記録照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録照合ではありません。記録照合の保守管理で使う Sysplex Logstreamという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>Sysplex Logstream</strong></p><p>検証目的: 値域追跡の保守管理について、Sysplex Logstreamは、SMP/E / SMF / WLM の SMF Logstreamで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030056の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSysplex Logstreamを指定し、OSKB030056の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND Sysplex Logstream
+CASE OSKB030056
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM Sysplex Logstream
+CASE OSKB030056
+SOURCE SMP/E SMF WLM
+Sysplex LogstreamとOSKB030056が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030056を同じ出力で読み、値域追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030056
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030056
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I Sysplex Logstream REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030056が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の Sysplex Logstream と OSKB030056 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030056 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+## SMF SMFPRMxx
+
+
+<section class="kb-item" id="c28-i0008"><h3>ACTIVE/NOACTIVE</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>ACTIVE/NOACTIVEは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACTIVE ・ NOACTIVE</strong></p><p>検証目的: 復旧確認の・について、ACTIVE/NOACTIVE は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020018の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧確認の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACTIVE ・ NOACTIVEを指定し、OSKB020018の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACTIVE ・ NOACTIVE
+CASE OSKB020018
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACTIVE ・ NOACTIVE
+CASE OSKB020018
+SOURCE SMP/E SMF WLM
+ACTIVE ・ NOACTIVEとOSKB020018が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020018を同じ出力で読み、復旧確認の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020018
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020018
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACTIVE ・ NOACTIVE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020018が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACTIVE ・ NOACTIVE と OSKB020018 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020018 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0009"><h3>BUFSIZMAX</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>BUFSIZMAXは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 順序照合の保守管理で保守管理の運用確認を行います。BUFSIZMAX の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で順序照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず順序照合の保守管理を正常終了として記録する。</li><li>C. D WLM,SYSTEMS の結果から対象行を抜き出し、順序照合の証跡として残す。 <span class="kb-ok">✅ 正解</span></li><li>D. BUFSIZMAX の属性行を読まず順序照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 順序照合の保守管理において選択記号 C を採用し、識別名は順序照合です。順序照合の保守管理において BUFSIZMAX は説明欄の「SMP/E SMF WLM で BUFSIZMAX の扱いを記録する順序照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序照合です。順序照合の保守管理を受け取る担当者は、BUFSIZMAX の表示結果と IWM025I を同じ確認単位として扱い、背景名は順序照合です。不適切な選択肢を整理します。 A: 順序照合の保守管理は別カテゴリの確認を流用しており、BUFSIZMAX の根拠にならないため順序照合ではありません。 B: 順序照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序照合ではありません。 C: 順序照合の保守管理は対象出力と項目説明を結び、根拠を残すので順序照合です。 D: 順序照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため順序照合ではありません。順序照合の保守管理が示す BUFSIZMAX は出典欄の資料で使い方を追跡できる項目であり、用語名は順序照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>BUFSIZMAX</strong></p><p>検証目的: 出力照合の保守管理について、BUFSIZMAX は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020028の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にBUFSIZMAXを指定し、OSKB020028の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND BUFSIZMAX
+CASE OSKB020028
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM BUFSIZMAX
+CASE OSKB020028
+SOURCE SMP/E SMF WLM
+BUFSIZMAXとOSKB020028が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020028を同じ出力で読み、出力照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020028
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020028
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I BUFSIZMAX REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020028が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の BUFSIZMAX と OSKB020028 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020028 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0010"><h3>BUFUSEWARN</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>BUFUSEWARNは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 値域照合の保守管理に関する BUFUSEWARN の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず値域照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを値域照合の保守管理の証跡として保存して根拠にする。</li><li>C. BUFUSEWARN の変更点を出力本文から切り離して値域照合の保守管理の承認欄のみ残す。</li><li>D. 出典欄の説明と運用出力を照合し、値域照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 値域照合の保守管理において選択記号 D を採用し、識別名は値域照合です。値域照合の保守管理において BUFUSEWARN は説明欄の「BUFUSEWARN の状態と出力メッセージを結び付ける値域照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は値域照合です。値域照合の保守管理に関する記録は、BUFUSEWARN の出力行と IWM025I を一緒に保存し、背景名は値域照合です。選択肢ごとの違いを示します。 A: 値域照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため値域照合ではありません。 B: 値域照合の保守管理は別カテゴリの確認を流用しており、BUFUSEWARN の根拠にならないため値域照合ではありません。 C: 値域照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため値域照合ではありません。 D: 値域照合の保守管理は対象出力と項目説明を結び、根拠を残すので値域照合です。値域照合の保守管理で記録する BUFUSEWARN は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は値域照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>BUFUSEWARN</strong></p><p>検証目的: 条件照合の保守管理について、BUFUSEWARN は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020029の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にBUFUSEWARNを指定し、OSKB020029の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND BUFUSEWARN
+CASE OSKB020029
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM BUFUSEWARN
+CASE OSKB020029
+SOURCE SMP/E SMF WLM
+BUFUSEWARNとOSKB020029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020029を同じ出力で読み、条件照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020029
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020029
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I BUFUSEWARN REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020029が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の BUFUSEWARN と OSKB020029 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020029 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0011"><h3>DEFAULTLSNAME</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>DEFAULTLSNAMEは、SMP/E / SMF / WLMのSMF SMFPRMxxで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象、監査上の証跡を別々に見て、過剰な権限を残さないようにします。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（4問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切照合の保守管理で DEFAULTLSNAME の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. DEFAULTLSNAME の出力を取らず区切照合の保守管理の説明文と承認印のみを残す。</li><li>B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、区切照合の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切照合の保守管理において選択記号 B を採用し、識別名は区切照合です。区切照合の保守管理において DEFAULTLSNAME は説明欄の「区切照合の保守管理に関係する定義値と表示行を照合する区切照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切照合です。区切照合の保守管理の証跡を読む担当者は、DEFAULTLSNAME の属性行と IWM025I を合わせて追跡し、背景名は区切照合です。誤答側の問題点を分けます。 A: 区切照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため区切照合ではありません。 B: 区切照合の保守管理は対象出力と項目説明を結び、根拠を残すので区切照合です。 C: 区切照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切照合ではありません。 D: 区切照合の保守管理は別カテゴリの確認を流用しており、DEFAULTLSNAME の根拠にならないため区切照合ではありません。区切照合の保守管理に出る DEFAULTLSNAME は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 抽出面の既定ログストリーム名を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って既定ログストリームとIFAシステム管理機能接頭辞を確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL OUTDD TYPE</li><li>B. DEFAULTLSNAME <span class="kb-ok">✅ 正解</span></li><li>C. VARY WLM,APPLENV,REFRESH</li><li>D. Report class</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 運用面観点の資料照合として既定ログストリーム名応答を選び、答えはBで、記録焦点は既定ログストリーム名保守です。管理面観点の既定ログストリーム名監査は、レコード種別の既定出力先ログストリームを指定することを満たす入力、報告、状態表示を同じ証跡で確認する既定ログストリーム名監査です。照合面観点から見る既定ログストリーム名引継ぎは、既定ログストリームとIFAシステム管理機能接頭辞をメッセージ形式と対応させる既定ログストリーム名引継ぎです。抽出面観点の既定ログストリーム名棚卸は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する既定ログストリーム名棚卸です。A: 確認面観点の参照先は種別別出力保守で、作業記録で追跡する対象は既定ログストリーム名選択です。B: 方針面観点の既定ログストリーム名監査は、入力名と報告内の既定ログストリームとIFAシステム管理機能接頭辞を結ぶ既定ログストリーム名観点です。C: 復旧面観点の照合先はアプリ環境再読込引継ぎで、中心は既定ログストリーム名照合です。D: 監査面観点の処理段階は報告クラス棚卸で、入力と出力を結ぶ対象は既定ログストリーム名報告です。分類面観点の用語定義として、既定ログストリーム名とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む既定ログストリーム名反映です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities DEFAULTLSNAME</p></div><div class="kb-q"><p><strong>問題.</strong> 管理面の既定ログストリーム名を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って既定ログストリームとIFAシステム管理機能接頭辞を確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. DISPLAY WLM,SCHENV</li><li>B. SET BDY(GLOBAL)</li><li>C. ACCEPT SYSMOD</li><li>D. DEFAULTLSNAME <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 報告面観点の既定ログストリーム名監査は正答Dで、表記上の手掛かりは既定ログストリーム引継ぎです。選択面観点の既定ログストリーム名棚卸は、レコード種別の既定出力先ログストリームを指定することを満たす入力、報告、状態表示を同じ証跡で確認する既定ログストリーム名棚卸です。確認面観点で読む既定ログストリーム名復旧は、既定ログストリームとIFAシステム管理機能接頭辞を資料のコマンド形式やメッセージ形式と照合する既定ログストリーム名復旧です。管理面観点の既定ログストリーム名照合は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する既定ログストリーム名照合です。A: 方針面観点の照合先はスケジューリング環境表示引継ぎで、中心は既定ログストリーム名選択です。B: 復旧面観点の処理段階はグローバルゾーン選択棚卸で、入力と出力を結ぶ対象は既定ログストリーム名反映です。C: 監査面観点の参照先は保守要素配布反映復旧で、作業記録で追跡する対象は既定ログストリーム名観点です。D: 報告面観点の既定ログストリーム名照合は、入力名と報告内の既定ログストリームとIFAシステム管理機能接頭辞を結ぶ既定ログストリーム名読取です。抽出面観点の用語定義として、既定ログストリーム名とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む既定ログストリーム名証跡です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities DEFAULTLSNAME</p></div><div class="kb-q"><p><strong>問題.</strong> 選択面の既定ログストリーム名を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って既定ログストリームとIFAシステム管理機能接頭辞を確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. RECEIVE HOLDDATA</li><li>B. DEFAULTLSNAME <span class="kb-ok">✅ 正解</span></li><li>C. LIST HOLDDATA</li><li>D. DDDEF</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 構成面観点の資料照合として既定ログストリーム名棚卸を選び、答えはBで、記録焦点は既定ログストリーム名復旧です。照合面観点の既定ログストリーム名照合は、レコード種別の既定出力先ログストリームを指定することを満たす入力、報告、状態表示を同じ証跡で確認する既定ログストリーム名照合です。監査面観点から見る既定ログストリーム名報告は、既定ログストリームとIFAシステム管理機能接頭辞をメッセージ形式と対応させる既定ログストリーム名報告です。選択面観点の既定ログストリーム名選択は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する既定ログストリーム名選択です。A: 復旧面観点の参照先は保留情報受信復旧で、作業記録で追跡する対象は既定ログストリーム名読取です。B: 記録面観点の既定ログストリーム名照合は、入力名と報告内の既定ログストリームとIFAシステム管理機能接頭辞を結ぶ既定ログストリーム名定義です。C: 報告面観点の照合先は保留情報表示報告で、中心は既定ログストリーム名観点です。D: 運用面観点の処理段階はDD定義定義選択で、入力と出力を結ぶ対象は既定ログストリーム名証跡です。管理面観点の用語定義として、既定ログストリーム名とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む既定ログストリーム名状態です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities DEFAULTLSNAME</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DEFAULTLSNAME</strong></p><p>検証目的: 呼出照合の保守管理について、DEFAULTLSNAME は、SMP/E / SMF / WLM の SMF SMFPRMxxで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象、監査上に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020023の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDEFAULTLSNAMEを指定し、OSKB020023の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DEFAULTLSNAME
+CASE OSKB020023
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DEFAULTLSNAME
+CASE OSKB020023
+SOURCE SMP/E SMF WLM
+DEFAULTLSNAMEとOSKB020023が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020023を同じ出力で読み、呼出照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020023
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020023
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DEFAULTLSNAME REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020023が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DEFAULTLSNAME と OSKB020023 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020023 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0012"><h3>DSNAME パラメータ</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>DSNAME パラメータは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件照合のパラメータに関係する DSNAME パラメータの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 操作結果の本文、対象行、時刻を同じ証跡に入れ、条件照合の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>B. DSNAME パラメータの名称と担当者名のみを残して条件照合のパラメータの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件照合のパラメータを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件照合のパラメータの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件照合のパラメータにおいて選択記号 A を採用し、識別名は条件照合です。条件照合のパラメータにおいて DSNAME パラメータ は説明欄の「DSNAME パラメータの用途を保守管理の表示で確認する条件照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件照合です。条件照合のパラメータに関連して、SMP/E SMF WLM では DSNAME パラメータの表示属性と IWM025I を同じ証跡に残し、背景名は条件照合です。他の選択肢を確認します。 A: 条件照合のパラメータは対象出力と項目説明を結び、根拠を残すので条件照合です。 B: 条件照合のパラメータは名称や説明のみに寄り、状態を示す出力本文が不足するため条件照合ではありません。 C: 条件照合のパラメータは別カテゴリの確認を流用しており、DSNAME パラメータの根拠にならないため条件照合ではありません。 D: 条件照合のパラメータは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件照合ではありません。条件照合のパラメータで使う DSNAME パラメータという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DSNAME パラメータ</strong></p><p>検証目的: 展開照合のパラメータについて、DSNAME パラメータは、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020022の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開照合のパラメータの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDSNAME パラメータを指定し、OSKB020022の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DSNAME パラメータ
+CASE OSKB020022
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DSNAME パラメータ
+CASE OSKB020022
+SOURCE SMP/E SMF WLM
+DSNAME パラメータとOSKB020022が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020022を同じ出力で読み、展開照合のパラメータの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020022
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020022
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DSNAME パラメータ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020022が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DSNAME パラメータ と OSKB020022 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020022 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0013"><h3>EXITS(IEFU83,IEFU84,...)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SMP E SMF WLMのSMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLMの運用で指定値、構文上の位置、反映後の出力を読み分ける項目です。出典欄のマニュアルで、EXITS(IEFU83,IEFU84,...)の表記と許可される値を確認します。</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0014"><h3>INTVAL</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>INTVALは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 変更照合の保守管理に関する INTVAL の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず変更照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを変更照合の保守管理の証跡として保存して根拠にする。</li><li>C. INTVAL の変更点を出力本文から切り離して変更照合の保守管理の承認欄のみ残す。</li><li>D. 資料上の説明と画面上の表示行を突き合わせ、変更照合として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 変更照合の保守管理において選択記号 D を採用し、識別名は変更照合です。変更照合の保守管理において INTVAL は説明欄の「INTVAL の状態と出力メッセージを結び付ける変更照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は変更照合です。変更照合の保守管理に関する記録は、INTVAL の出力行と IWM025I を一緒に保存し、背景名は変更照合です。選択肢ごとの違いを示します。 A: 変更照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため変更照合ではありません。 B: 変更照合の保守管理は別カテゴリの確認を流用しており、INTVAL の根拠にならないため変更照合ではありません。 C: 変更照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため変更照合ではありません。 D: 変更照合の保守管理は対象出力と項目説明を結び、根拠を残すので変更照合です。変更照合の保守管理で記録する INTVAL は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は変更照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>INTVAL</strong></p><p>検証目的: 記録照合の保守管理について、INTVAL は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020033の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にINTVALを指定し、OSKB020033の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND INTVAL
+CASE OSKB020033
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM INTVAL
+CASE OSKB020033
+SOURCE SMP/E SMF WLM
+INTVALとOSKB020033が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020033を同じ出力で読み、記録照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020033
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020033
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I INTVAL REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020033が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の INTVAL と OSKB020033 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020033 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0015"><h3>JWT パラメータ</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>JWT パラメータは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 警告照合のパラメータに関係する JWT パラメータの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 属性行、戻り表示、メッセージ見出しを合わせて警告照合の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>B. JWT パラメータの名称と担当者名のみを残して警告照合のパラメータの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で警告照合のパラメータを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず警告照合のパラメータの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 警告照合のパラメータにおいて選択記号 A を採用し、識別名は警告照合です。警告照合のパラメータにおいて JWT パラメータ は説明欄の「JWT パラメータの用途を保守管理の表示で確認する警告照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は警告照合です。警告照合のパラメータに関連して、SMP/E SMF WLM では JWT パラメータの表示属性と IWM025I を同じ証跡に残し、背景名は警告照合です。他の選択肢を確認します。 A: 警告照合のパラメータは対象出力と項目説明を結び、根拠を残すので警告照合です。 B: 警告照合のパラメータは名称や説明のみに寄り、状態を示す出力本文が不足するため警告照合ではありません。 C: 警告照合のパラメータは別カテゴリの確認を流用しており、JWT パラメータの根拠にならないため警告照合ではありません。 D: 警告照合のパラメータは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため警告照合ではありません。警告照合のパラメータで使う JWT パラメータという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は警告照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>JWT パラメータ</strong></p><p>検証目的: 区切照合のパラメータについて、JWT パラメータは、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020030の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切照合のパラメータの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にJWT パラメータを指定し、OSKB020030の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND JWT パラメータ
+CASE OSKB020030
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM JWT パラメータ
+CASE OSKB020030
+SOURCE SMP/E SMF WLM
+JWT パラメータとOSKB020030が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020030を同じ出力で読み、区切照合のパラメータの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020030
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020030
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I JWT パラメータ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020030が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の JWT パラメータ と OSKB020030 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020030 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0016"><h3>LSNAME(...)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SMP E SMF WLMのSMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLMの運用で指定値、構文上の位置、反映後の出力を読み分ける項目です。出典欄のマニュアルで、LSNAME(...)の表記と許可される値を確認します。</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0017"><h3>MAXDORM</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>MAXDORMは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 置換追跡の保守管理に関する MAXDORM の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず置換追跡の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを置換追跡の保守管理の証跡として保存して根拠にする。</li><li>C. MAXDORM の変更点を出力本文から切り離して置換追跡の保守管理の承認欄のみ残す。</li><li>D. 机上確認でも実出力の見出しに合わせ、置換追跡の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 置換追跡の保守管理において選択記号 D を採用し、識別名は置換追跡です。置換追跡の保守管理において MAXDORM は説明欄の「MAXDORM の状態と出力メッセージを結び付ける置換追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換追跡です。置換追跡の保守管理に関する記録は、MAXDORM の出力行と IWM025I を一緒に保存し、背景名は置換追跡です。選択肢ごとの違いを示します。 A: 置換追跡の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換追跡ではありません。 B: 置換追跡の保守管理は別カテゴリの確認を流用しており、MAXDORM の根拠にならないため置換追跡ではありません。 C: 置換追跡の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため置換追跡ではありません。 D: 置換追跡の保守管理は対象出力と項目説明を結び、根拠を残すので置換追跡です。置換追跡の保守管理で記録する MAXDORM は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>MAXDORM</strong></p><p>検証目的: 警告照合の保守管理について、MAXDORM は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020037の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にMAXDORMを指定し、OSKB020037の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND MAXDORM
+CASE OSKB020037
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM MAXDORM
+CASE OSKB020037
+SOURCE SMP/E SMF WLM
+MAXDORMとOSKB020037が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020037を同じ出力で読み、警告照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020037
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020037
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I MAXDORM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020037が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の MAXDORM と OSKB020037 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020037 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0018"><h3>MEMBER(SMFPRMxx)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>MEMBER(SMFPRMxx)は、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 上書追跡の保守管理で保守管理の運用確認を行います。MEMBER(SMFPRMxx)の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で上書追跡の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず上書追跡の保守管理を正常終了として記録する。</li><li>C. D WLM,SYSTEMS の結果から対象行を抜き出し、上書追跡の証跡として残す。 <span class="kb-ok">✅ 正解</span></li><li>D. MEMBER(SMFPRMxx)の属性行を読まず上書追跡の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 上書追跡の保守管理において選択記号 C を採用し、識別名は上書追跡です。上書追跡の保守管理において MEMBER(SMFPRMxx) は説明欄の「SMP/E SMF WLM で MEMBER(SMFPRMxx)の扱いを記録する上書追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書追跡です。上書追跡の保守管理を受け取る担当者は、MEMBER(SMFPRMxx)の表示結果と IWM025I を同じ確認単位として扱い、背景名は上書追跡です。不適切な選択肢を整理します。 A: 上書追跡の保守管理は別カテゴリの確認を流用しており、MEMBER(SMFPRMxx)の根拠にならないため上書追跡ではありません。 B: 上書追跡の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書追跡ではありません。 C: 上書追跡の保守管理は対象出力と項目説明を結び、根拠を残すので上書追跡です。 D: 上書追跡の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため上書追跡ではありません。上書追跡の保守管理が示す MEMBER(SMFPRMxx)は出典欄の資料で使い方を追跡できる項目であり、用語名は上書追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>MEMBER(SMFPRMxx)</strong></p><p>検証目的: 変更照合の保守管理について、MEMBER(SMFPRMxx)は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020040の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にMEMBER(SMFPRMxx)を指定し、OSKB020040の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND MEMBER(SMFPRMxx)
+CASE OSKB020040
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM MEMBER(SMFPRMxx)
+CASE OSKB020040
+SOURCE SMP/E SMF WLM
+MEMBER(SMFPRMxx)とOSKB020040が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020040を同じ出力で読み、変更照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020040
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020040
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I MEMBER(SMFPRMxx) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020040が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の MEMBER(SMFPRMxx) と OSKB020040 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020040 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0019"><h3>MEMLIMIT</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>MEMLIMITは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開追跡の保守管理で MEMLIMIT の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. MEMLIMIT の出力を取らず展開追跡の保守管理の説明文と承認印のみを残す。</li><li>B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、展開追跡の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開追跡の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開追跡の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開追跡の保守管理において選択記号 B を採用し、識別名は展開追跡です。展開追跡の保守管理において MEMLIMIT は説明欄の「展開追跡の保守管理に関係する定義値と表示行を照合する展開追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開追跡です。展開追跡の保守管理の証跡を読む担当者は、MEMLIMIT の属性行と IWM025I を合わせて追跡し、背景名は展開追跡です。誤答側の問題点を分けます。 A: 展開追跡の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため展開追跡ではありません。 B: 展開追跡の保守管理は対象出力と項目説明を結び、根拠を残すので展開追跡です。 C: 展開追跡の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開追跡ではありません。 D: 展開追跡の保守管理は別カテゴリの確認を流用しており、MEMLIMIT の根拠にならないため展開追跡ではありません。展開追跡の保守管理に出る MEMLIMIT は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>MEMLIMIT</strong></p><p>検証目的: 順序照合の保守管理について、MEMLIMIT は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこにに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020035の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にMEMLIMITを指定し、OSKB020035の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND MEMLIMIT
+CASE OSKB020035
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM MEMLIMIT
+CASE OSKB020035
+SOURCE SMP/E SMF WLM
+MEMLIMITとOSKB020035が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020035を同じ出力で読み、順序照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020035
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020035
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I MEMLIMIT REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020035が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の MEMLIMIT と OSKB020035 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020035 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0020"><h3>PROMPT(ALL/IPLR/LIST/NONE)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>PROMPT(ALL/IPLR/LIST/NONE)は、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文照合保守の構文照合として PROMPT を確認するとき、後続担当者へ残すべき証跡はどれですか。</p><ul class="kb-choices"><li>A. 名称と担当者名を保存して表示本文を確認しない。</li><li>B. 構文照合の定義行と出力行を同じ証跡として保存する。 <span class="kb-ok">✅ 正解</span></li><li>C. 別分類の結果を流用して同じ証跡として扱う。</li><li>D. 戻り値と時刻を主な根拠にして表示行を読まない。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 正解はBです。構文照合保守で扱う PROMPT は SMP/E / SMF / WLM の確認対象です（構文照合保守用語）。構文照合保守の担当者は構文照合として、表示本文とメッセージを照合します（構文照合保守照合）。構文照合保守の対応を残すと、後続担当者は同じ出典に戻って確認できます（構文照合保守出典）。A: 構文照合保守で表示とメッセージを結ぶ場合に根拠になります（構文照合保守A）。B: 構文照合保守で定義と出力の関係がない場合は追跡できません（構文照合保守B）。C: 構文照合保守で出典名のみでは実際の表示を説明できません（構文照合保守C）。D: 構文照合保守で操作記録のみでは値や状態の確認が不足します（構文照合保守D）。構文照合保守の初出用語として PROMPT を扱い、分類内の確認名として保存します（構文照合保守終点）。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>PROMPT(ALL ・ IPLR ・ LIST ・ NONE)</strong></p><p>検証目的: 監査確認の・ ・ ・について、PROMPT(ALL/IPLR/LIST/NONE)は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020019の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査確認の・ ・ ・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にPROMPT(ALL ・ IPLR を指定し、OSKB020019の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND PROMPT(ALL ・ IPLR 
+CASE OSKB020019
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM PROMPT(ALL ・ IPLR 
+CASE OSKB020019
+SOURCE SMP/E SMF WLM
+PROMPT(ALL ・ IPLR とOSKB020019が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020019を同じ出力で読み、監査確認の・ ・ ・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020019
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020019
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I PROMPT(ALL ・ IPLR ・ LIST ・ NON REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020019が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の PROMPT(ALL ・ IPLR  と OSKB020019 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020019 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0021"><h3>RECORDING(DATASET)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>RECORDING(DATASET)は、SMP/E / SMF / WLMのSMF SMFPRMxxで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 上書照合の保守管理で保守管理の運用確認を行います。RECORDING(DATASET)の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で上書照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず上書照合の保守管理を正常終了として記録する。</li><li>C. D WLM,SYSTEMS で得た表示本文を使い、上書照合の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>D. RECORDING(DATASET)の属性行を読まず上書照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 上書照合の保守管理において選択記号 C を採用し、識別名は上書照合です。上書照合の保守管理において RECORDING(DATASET) は説明欄の「SMP/E SMF WLM で RECORDING(DATASET)の扱いを記録する上書照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合の保守管理を受け取る担当者は、RECORDING(DATASET)の表示結果と IWM025I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合の保守管理は別カテゴリの確認を流用しており、RECORDING(DATASET)の根拠にならないため上書照合ではありません。 B: 上書照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書照合ではありません。 C: 上書照合の保守管理は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合の保守管理が示す RECORDING(DATASET)は出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>RECORDING(DATASET)</strong></p><p>検証目的: 変更確認の保守管理について、RECORDING(DATASET)は、SMP/E / SMF / WLM の SMF SMFPRMxxで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020020の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にRECORDING(DATASET)を指定し、OSKB020020の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND RECORDING(DATASET)
+CASE OSKB020020
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM RECORDING(DATASET)
+CASE OSKB020020
+SOURCE SMP/E SMF WLM
+RECORDING(DATASET)とOSKB020020が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020020を同じ出力で読み、変更確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020020
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020020
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I RECORDING(DATASET) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020020が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の RECORDING(DATASET) と OSKB020020 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020020 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0022"><h3>RECORDING(LOGSTREAM)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>RECORDING(LOGSTREAM)は、SMP/E / SMF / WLMのSMF SMFPRMxxで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 出力照合の保守管理に関する RECORDING 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力照合の保守管理の証跡として保存して根拠にする。</li><li>C. RECORDING 属性の変更点を出力本文から切り離して出力照合の保守管理の承認欄のみ残す。</li><li>D. 資料上の説明と画面上の表示行を突き合わせ、出力照合として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力照合の保守管理において選択記号 D を採用し、識別名は出力照合です。出力照合の保守管理において RECORDING 属性 は説明欄の「RECORDING 属性の状態と出力メッセージを結び付ける出力照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力照合です。出力照合の保守管理に関する記録は、RECORDING 属性の出力行と IWM025I を一緒に保存し、背景名は出力照合です。選択肢ごとの違いを示します。 A: 出力照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力照合ではありません。 B: 出力照合の保守管理は別カテゴリの確認を流用しており、RECORDING 属性の根拠にならないため出力照合ではありません。 C: 出力照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため出力照合ではありません。 D: 出力照合の保守管理は対象出力と項目説明を結び、根拠を残すので出力照合です。出力照合の保守管理で記録する RECORDING 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>RECORDING(LOGSTREAM)</strong></p><p>検証目的: 構文照合の保守管理について、RECORDING(LOGSTREAM)は、SMP/E / SMF / WLM の SMF SMFPRMxxで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020021の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にRECORDING(LOGSTREAを指定し、OSKB020021の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND RECORDING(LOGSTREA
+CASE OSKB020021
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM RECORDING(LOGSTREA
+CASE OSKB020021
+SOURCE SMP/E SMF WLM
+RECORDING(LOGSTREAとOSKB020021が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020021を同じ出力で読み、構文照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020021
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020021
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I RECORDING(LOGSTREAM) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020021が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の RECORDING(LOGSTREA と OSKB020021 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020021 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0023"><h3>REGION (SMF)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>REGION (SMF)は、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 呼出追跡の保守管理で保守管理の運用確認を行います。REGION (SMF)の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出追跡の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出追跡の保守管理を正常終了として記録する。</li><li>C. 対象の出力行とメッセージ接頭辞を同時に記録し、呼出追跡で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li><li>D. REGION (SMF)の属性行を読まず呼出追跡の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出追跡の保守管理において選択記号 C を採用し、識別名は呼出追跡です。呼出追跡の保守管理において REGION (SMF) は説明欄の「SMP/E SMF WLM で REGION (SMF)の扱いを記録する呼出追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出追跡です。呼出追跡の保守管理を受け取る担当者は、REGION (SMF)の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出追跡です。不適切な選択肢を整理します。 A: 呼出追跡の保守管理は別カテゴリの確認を流用しており、REGION (SMF)の根拠にならないため呼出追跡ではありません。 B: 呼出追跡の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出追跡ではありません。 C: 呼出追跡の保守管理は対象出力と項目説明を結び、根拠を残すので呼出追跡です。 D: 呼出追跡の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出追跡ではありません。呼出追跡の保守管理が示す REGION (SMF)は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>REGION (SMF)</strong></p><p>検証目的: 値域照合の保守管理について、REGION (SMF)は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020036の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にREGION (SMF)を指定し、OSKB020036の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND REGION (SMF)
+CASE OSKB020036
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM REGION (SMF)
+CASE OSKB020036
+SOURCE SMP/E SMF WLM
+REGION (SMF)とOSKB020036が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020036を同じ出力で読み、値域照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020036
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020036
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I REGION (SMF) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020036が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の REGION (SMF) と OSKB020036 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020036 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0024"><h3>SID パラメータ</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SID パラメータは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 置換照合のパラメータに関する SID パラメータの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず置換照合のパラメータの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを置換照合のパラメータの証跡として保存して根拠にする。</li><li>C. SID パラメータの変更点を出力本文から切り離して置換照合のパラメータの承認欄のみ残す。</li><li>D. 出典欄の説明と運用出力を照合し、置換照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 置換照合のパラメータにおいて選択記号 D を採用し、識別名は置換照合です。置換照合のパラメータにおいて SID パラメータ は説明欄の「SID パラメータの状態と出力メッセージを結び付ける置換照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合のパラメータに関する記録は、SID パラメータの出力行と IWM025I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合のパラメータは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換照合ではありません。 B: 置換照合のパラメータは別カテゴリの確認を流用しており、SID パラメータの根拠にならないため置換照合ではありません。 C: 置換照合のパラメータは名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合のパラメータは対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合のパラメータで記録する SID パラメータは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SID パラメータ</strong></p><p>検証目的: 警告確認のパラメータについて、SID パラメータは、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020017の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告確認のパラメータの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSID パラメータを指定し、OSKB020017の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SID パラメータ
+CASE OSKB020017
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SID パラメータ
+CASE OSKB020017
+SOURCE SMP/E SMF WLM
+SID パラメータとOSKB020017が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020017を同じ出力で読み、警告確認のパラメータの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020017
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020017
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SID パラメータ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020017が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SID パラメータ と OSKB020017 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020017 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0025"><h3>SMFPRMxx の位置付け</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SMFPRMxx の位置付けは、PARMLIB 内 SMF オプションメンバ、IPL 時または SET SMF=xx で読込</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 呼出照合のの位置付けで保守管理の運用確認を行います。SMFPRMxx の位置付けの根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出照合のの位置付けを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出照合のの位置付けを正常終了として記録する。</li><li>C. D WLM,SYSTEMS の結果から対象行を抜き出し、呼出照合の証跡として残す。 <span class="kb-ok">✅ 正解</span></li><li>D. SMFPRMxx の位置付けの属性行を読まず呼出照合のの位置付けの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出照合のの位置付けにおいて選択記号 C を採用し、識別名は呼出照合です。呼出照合のの位置付けにおいて SMFPRMxx の位置付け は説明欄の「SMP/E SMF WLM で SMFPRMxx の位置付けの扱いを記録する呼出照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出照合です。呼出照合のの位置付けを受け取る担当者は、SMFPRMxx の位置付けの表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出照合です。不適切な選択肢を整理します。 A: 呼出照合のの位置付けは別カテゴリの確認を流用しており、SMFPRMxx の位置付けの根拠にならないため呼出照合ではありません。 B: 呼出照合のの位置付けは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出照合ではありません。 C: 呼出照合のの位置付けは対象出力と項目説明を結び、根拠を残すので呼出照合です。 D: 呼出照合のの位置付けは名称や説明のみに寄り、状態を示す出力本文が不足するため呼出照合ではありません。呼出照合のの位置付けが示す SMFPRMxx の位置付けは出典欄の資料で使い方を追跡できる項目であり、用語名は呼出照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMFPRMxx の位置付け</strong></p><p>検証目的: 値域確認のの位置付けについて、SMFPRMxx の位置付けは、PARMLIB 内 SMF オプションメンバ、IPL 時または SET SMF=xx で読込に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020016の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域確認のの位置付けの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSMFPRMxx の位置付けを指定し、OSKB020016の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SMFPRMxx の位置付け
+CASE OSKB020016
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SMFPRMxx の位置付け
+CASE OSKB020016
+SOURCE SMP/E SMF WLM
+SMFPRMxx の位置付けとOSKB020016が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020016を同じ出力で読み、値域確認のの位置付けの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020016
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020016
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SMFPRMxx の位置付け REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020016が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SMFPRMxx の位置付け と OSKB020016 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020016 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0026"><h3>STATUS パラメータ</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>STATUS パラメータは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 終端追跡のパラメータに関係する STATUS パラメータの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 参照資料名、表示行、メッセージをそろえて終端追跡の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>B. STATUS パラメータの名称と担当者名のみを残して終端追跡のパラメータの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で終端追跡のパラメータを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず終端追跡のパラメータの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 終端追跡のパラメータにおいて選択記号 A を採用し、識別名は終端追跡です。終端追跡のパラメータにおいて STATUS パラメータ は説明欄の「STATUS パラメータの用途を保守管理の表示で確認する終端追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端追跡です。終端追跡のパラメータに関連して、SMP/E SMF WLM では STATUS パラメータの表示属性と IWM025I を同じ証跡に残し、背景名は終端追跡です。他の選択肢を確認します。 A: 終端追跡のパラメータは対象出力と項目説明を結び、根拠を残すので終端追跡です。 B: 終端追跡のパラメータは名称や説明のみに寄り、状態を示す出力本文が不足するため終端追跡ではありません。 C: 終端追跡のパラメータは別カテゴリの確認を流用しており、STATUS パラメータの根拠にならないため終端追跡ではありません。 D: 終端追跡のパラメータは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端追跡ではありません。終端追跡のパラメータで使う STATUS パラメータという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>STATUS パラメータ</strong></p><p>検証目的: 復旧照合のパラメータについて、STATUS パラメータは、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020038の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧照合のパラメータの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSTATUS パラメータを指定し、OSKB020038の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND STATUS パラメータ
+CASE OSKB020038
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM STATUS パラメータ
+CASE OSKB020038
+SOURCE SMP/E SMF WLM
+STATUS パラメータとOSKB020038が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020038を同じ出力で読み、復旧照合のパラメータの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020038
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020038
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I STATUS パラメータ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020038が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の STATUS パラメータ と OSKB020038 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020038 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0027"><h3>SUBSYS と EXITS</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SUBSYS と EXITSは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較照合のとで SUBSYS と EXITS の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. SUBSYS と EXITS の出力を取らず比較照合のとの説明文と承認印のみを残す。</li><li>B. IWM025I を含む表示を保存し、説明欄との差分を比較照合で確認する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較照合のとの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較照合のとへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較照合のとにおいて選択記号 B を採用し、識別名は比較照合です。比較照合のとにおいて SUBSYS と EXITS は説明欄の「比較照合のとに関係する定義値と表示行を照合する比較照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較照合です。比較照合のとの証跡を読む担当者は、SUBSYS と EXITS の属性行と IWM025I を合わせて追跡し、背景名は比較照合です。誤答側の問題点を分けます。 A: 比較照合のとは名称や説明のみに寄り、状態を示す出力本文が不足するため比較照合ではありません。 B: 比較照合のとは対象出力と項目説明を結び、根拠を残すので比較照合です。 C: 比較照合のとは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較照合ではありません。 D: 比較照合のとは別カテゴリの確認を流用しており、SUBSYS と EXITS の根拠にならないため比較照合ではありません。比較照合のとに出る SUBSYS と EXITS は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SUBSYS と EXITS</strong></p><p>検証目的: 上書照合のとについて、SUBSYS と EXITS は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020027の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書照合のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSUBSYS と EXITSを指定し、OSKB020027の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SUBSYS と EXITS
+CASE OSKB020027
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SUBSYS と EXITS
+CASE OSKB020027
+SOURCE SMP/E SMF WLM
+SUBSYS と EXITSとOSKB020027が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020027を同じ出力で読み、上書照合のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020027
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020027
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SUBSYS と EXITS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020027が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SUBSYS と EXITS と OSKB020027 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020027 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0028"><h3>SUBSYS(STC,...) / SUBSYS(TSO,...)</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SMP E SMF WLMのSMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLMの運用で指定値、構文上の位置、反映後の出力を読み分ける項目です。出典欄のマニュアルで、SUBSYS(STC,...) / SUBSYS(TSO,...)の表記と許可される値を確認します。</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0029"><h3>SWT パラメータ</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SWT パラメータは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 復旧照合のパラメータで SWT パラメータの点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. SWT パラメータの出力を取らず復旧照合のパラメータの説明文と承認印のみを残す。</li><li>B. 同じ画面で対象行と IWM025I を読み、復旧照合の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して復旧照合のパラメータの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を復旧照合のパラメータへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧照合のパラメータにおいて選択記号 B を採用し、識別名は復旧照合です。復旧照合のパラメータにおいて SWT パラメータ は説明欄の「復旧照合のパラメータに関係する定義値と表示行を照合する復旧照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧照合です。復旧照合のパラメータの証跡を読む担当者は、SWT パラメータの属性行と IWM025I を合わせて追跡し、背景名は復旧照合です。誤答側の問題点を分けます。 A: 復旧照合のパラメータは名称や説明のみに寄り、状態を示す出力本文が不足するため復旧照合ではありません。 B: 復旧照合のパラメータは対象出力と項目説明を結び、根拠を残すので復旧照合です。 C: 復旧照合のパラメータは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧照合ではありません。 D: 復旧照合のパラメータは別カテゴリの確認を流用しており、SWT パラメータの根拠にならないため復旧照合ではありません。復旧照合のパラメータに出る SWT パラメータは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SWT パラメータ</strong></p><p>検証目的: 範囲照合のパラメータについて、SWT パラメータは、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020031の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲照合のパラメータの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSWT パラメータを指定し、OSKB020031の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SWT パラメータ
+CASE OSKB020031
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SWT パラメータ
+CASE OSKB020031
+SOURCE SMP/E SMF WLM
+SWT パラメータとOSKB020031が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020031を同じ出力で読み、範囲照合のパラメータの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020031
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020031
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SWT パラメータ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020031が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SWT パラメータ と OSKB020031 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020031 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0030"><h3>SYNCVAL</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>SYNCVALは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文追跡の保守管理に関係する SYNCVAL の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 操作結果の本文、対象行、時刻を同じ証跡に入れ、構文追跡の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>B. SYNCVAL の名称と担当者名のみを残して構文追跡の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文追跡の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文追跡の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文追跡の保守管理において選択記号 A を採用し、識別名は構文追跡です。構文追跡の保守管理において SYNCVAL は説明欄の「SYNCVAL の用途を保守管理の表示で確認する構文追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文追跡です。構文追跡の保守管理に関連して、SMP/E SMF WLM では SYNCVAL の表示属性と IWM025I を同じ証跡に残し、背景名は構文追跡です。他の選択肢を確認します。 A: 構文追跡の保守管理は対象出力と項目説明を結び、根拠を残すので構文追跡です。 B: 構文追跡の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため構文追跡ではありません。 C: 構文追跡の保守管理は別カテゴリの確認を流用しており、SYNCVAL の根拠にならないため構文追跡ではありません。 D: 構文追跡の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文追跡ではありません。構文追跡の保守管理で使う SYNCVAL という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SYNCVAL</strong></p><p>検証目的: 比較照合の保守管理について、SYNCVAL は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020034の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSYNCVALを指定し、OSKB020034の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SYNCVAL
+CASE OSKB020034
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SYNCVAL
+CASE OSKB020034
+SOURCE SMP/E SMF WLM
+SYNCVALとOSKB020034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020034を同じ出力で読み、比較照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020034
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020034
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SYNCVAL REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020034が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SYNCVAL と OSKB020034 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020034 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0031"><h3>TWT パラメータ</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>TWT パラメータは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 監査照合のパラメータで保守管理の運用確認を行います。TWT パラメータの根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で監査照合のパラメータを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず監査照合のパラメータを正常終了として記録する。</li><li>C. D WLM,SYSTEMS で得た表示本文を使い、監査照合の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>D. TWT パラメータの属性行を読まず監査照合のパラメータの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査照合のパラメータにおいて選択記号 C を採用し、識別名は監査照合です。監査照合のパラメータにおいて TWT パラメータ は説明欄の「SMP/E SMF WLM で TWT パラメータの扱いを記録する監査照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査照合です。監査照合のパラメータを受け取る担当者は、TWT パラメータの表示結果と IWM025I を同じ確認単位として扱い、背景名は監査照合です。不適切な選択肢を整理します。 A: 監査照合のパラメータは別カテゴリの確認を流用しており、TWT パラメータの根拠にならないため監査照合ではありません。 B: 監査照合のパラメータは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査照合ではありません。 C: 監査照合のパラメータは対象出力と項目説明を結び、根拠を残すので監査照合です。 D: 監査照合のパラメータは名称や説明のみに寄り、状態を示す出力本文が不足するため監査照合ではありません。監査照合のパラメータが示す TWT パラメータは出典欄の資料で使い方を追跡できる項目であり、用語名は監査照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TWT パラメータ</strong></p><p>検証目的: 優先照合のパラメータについて、TWT パラメータは、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020032の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先照合のパラメータの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTWT パラメータを指定し、OSKB020032の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TWT パラメータ
+CASE OSKB020032
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TWT パラメータ
+CASE OSKB020032
+SOURCE SMP/E SMF WLM
+TWT パラメータとOSKB020032が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020032を同じ出力で読み、優先照合のパラメータの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020032
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020032
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TWT パラメータ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020032が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TWT パラメータ と OSKB020032 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020032 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0032"><h3>TYPE/NOTYPE</h3><p class="kb-meta">分類: SMF SMFPRMxx ・ 難易度: 上級</p><p>TYPE/NOTYPEは、SMP/E / SMF / WLMのSMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Initialization and Tuning Reference (zOS31_ieae200) / z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 優先照合のTYPE/NOTYPEに関する TYPE ・ NOTYPE の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先照合のTYPE/NOTYPEの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先照合のTYPE/NOTYPEの証跡として保存して根拠にする。</li><li>C. TYPE ・ NOTYPE の変更点を出力本文から切り離して優先照合のTYPE/NOTYPEの承認欄のみ残す。</li><li>D. 机上確認でも実出力の見出しに合わせ、優先照合の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先照合のTYPE/NOTYPEにおいて選択記号 D を採用し、識別名は優先照合です。優先照合のTYPE/NOTYPEにおいて TYPE ・ NOTYPE は説明欄の「TYPE ・ NOTYPE の状態と出力メッセージを結び付ける優先照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先照合です。優先照合のTYPE/NOTYPEに関する記録は、TYPE ・ NOTYPE の出力行と IWM025I を一緒に保存し、背景名は優先照合です。選択肢ごとの違いを示します。 A: 優先照合のTYPE/NOTYPEは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先照合ではありません。 B: 優先照合のTYPE/NOTYPEは別カテゴリの確認を流用しており、TYPE ・ NOTYPE の根拠にならないため優先照合ではありません。 C: 優先照合のTYPE/NOTYPEは名称や説明のみに寄り、状態を示す出力本文が不足するため優先照合ではありません。 D: 優先照合のTYPE/NOTYPEは対象出力と項目説明を結び、根拠を残すので優先照合です。優先照合のTYPE/NOTYPEで記録する TYPE ・ NOTYPE は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE ・ NOTYPE</strong></p><p>検証目的: 終端照合の・について、TYPE/NOTYPE は、SMP/E / SMF / WLM の SMF SMFPRMxxで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020025の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端照合の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE ・ NOTYPEを指定し、OSKB020025の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE ・ NOTYPE
+CASE OSKB020025
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE ・ NOTYPE
+CASE OSKB020025
+SOURCE SMP/E SMF WLM
+TYPE ・ NOTYPEとOSKB020025が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020025を同じ出力で読み、終端照合の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020025
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020025
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE ・ NOTYPE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020025が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE ・ NOTYPE と OSKB020025 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020025 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+## SMF TYPE 30
+
+
+<section class="kb-item" id="c28-i0033"><h3>TYPE 30 と CPU 時間</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>TYPE 30 と CPU 時間は、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 30 と CPU 時間</strong></p><p>検証目的: 監査確認のと 時間について、TYPE 30 と CPU 時間は、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030019の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査確認のと 時間の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 30 と CPU 時間を指定し、OSKB030019の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 30 と CPU 時間
+CASE OSKB030019
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 30 と CPU 時間
+CASE OSKB030019
+SOURCE SMP/E SMF WLM
+TYPE 30 と CPU 時間とOSKB030019が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030019を同じ出力で読み、監査確認のと 時間の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030019
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030019
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 30 と CPU 時間 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030019が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 30 と CPU 時間 と OSKB030019 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030019 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0034"><h3>TYPE 30 と RACF userid</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>TYPE 30 と RACF useridは、SMP/E / SMF / WLMのSMF TYPE 30で認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象、監査上の証跡を別々に見て、過剰な権限を残さないようにします。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 30 と RACF userid</strong></p><p>検証目的: 復旧確認のとについて、TYPE 30 と RACF useridは、SMP/E / SMF / WLM の SMF TYPE 30で認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030018の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧確認のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 30 と RACF useを指定し、OSKB030018の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 30 と RACF use
+CASE OSKB030018
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 30 と RACF use
+CASE OSKB030018
+SOURCE SMP/E SMF WLM
+TYPE 30 と RACF useとOSKB030018が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030018を同じ出力で読み、復旧確認のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030018
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030018
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 30 と RACF userid REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030018が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 30 と RACF use と OSKB030018 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030018 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0035"><h3>TYPE 30 と zIIP</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>TYPE 30 と zIIPは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 30 と zIIP</strong></p><p>検証目的: 変更確認のとについて、TYPE 30 と zIIP は、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030020の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更確認のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 30 と zIIPを指定し、OSKB030020の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 30 と zIIP
+CASE OSKB030020
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 30 と zIIP
+CASE OSKB030020
+SOURCE SMP/E SMF WLM
+TYPE 30 と zIIPとOSKB030020が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030020を同じ出力で読み、変更確認のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030020
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030020
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 30 と zIIP REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030020が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 30 と zIIP と OSKB030020 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030020 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0036"><h3>TYPE 30 概要</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>TYPE 30 概要は、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 30 概要</strong></p><p>検証目的: 範囲確認の概要について、TYPE 30 概要は、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030011の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲確認の概要の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 30 概要を指定し、OSKB030011の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 30 概要
+CASE OSKB030011
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 30 概要
+CASE OSKB030011
+SOURCE SMP/E SMF WLM
+TYPE 30 概要とOSKB030011が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030011を同じ出力で読み、範囲確認の概要の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030011
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030011
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 30 概要 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030011が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 30 概要 と OSKB030011 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030011 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0037"><h3>サブタイプ 1 Job Initiation</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>サブタイプ 1 Job Initiationは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブタイプ 1 Job Initiation</strong></p><p>検証目的: 優先確認のサブタイプについて、サブタイプ 1 Job Initiationは、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030012の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先確認のサブタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にサブタイプ 1 Job Initiaを指定し、OSKB030012の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND サブタイプ 1 Job Initia
+CASE OSKB030012
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM サブタイプ 1 Job Initia
+CASE OSKB030012
+SOURCE SMP/E SMF WLM
+サブタイプ 1 Job InitiaとOSKB030012が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030012を同じ出力で読み、優先確認のサブタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030012
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030012
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I サブタイプ 1 Job Initiation REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030012が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の サブタイプ 1 Job Initia と OSKB030012 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030012 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0038"><h3>サブタイプ 2 Interval</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>サブタイプ 2 Intervalは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブタイプ 2 Interval</strong></p><p>検証目的: 記録確認のサブタイプについて、サブタイプ 2 Intervalは、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030013の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録確認のサブタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にサブタイプ 2 Intervalを指定し、OSKB030013の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND サブタイプ 2 Interval
+CASE OSKB030013
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM サブタイプ 2 Interval
+CASE OSKB030013
+SOURCE SMP/E SMF WLM
+サブタイプ 2 IntervalとOSKB030013が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030013を同じ出力で読み、記録確認のサブタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030013
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030013
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I サブタイプ 2 Interval REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030013が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の サブタイプ 2 Interval と OSKB030013 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030013 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0039"><h3>サブタイプ 3 Last Interval</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>サブタイプ 3 Last Intervalは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブタイプ 3 Last Interval</strong></p><p>検証目的: 比較確認のサブタイプについて、サブタイプ 3 Last Intervalは、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030014の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較確認のサブタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にサブタイプ 3 Last Interを指定し、OSKB030014の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND サブタイプ 3 Last Inter
+CASE OSKB030014
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM サブタイプ 3 Last Inter
+CASE OSKB030014
+SOURCE SMP/E SMF WLM
+サブタイプ 3 Last InterとOSKB030014が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030014を同じ出力で読み、比較確認のサブタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030014
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030014
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I サブタイプ 3 Last Interval REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030014が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の サブタイプ 3 Last Inter と OSKB030014 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030014 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0040"><h3>サブタイプ 4 Step End</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>サブタイプ 4 Step Endは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブタイプ 4 Step End</strong></p><p>検証目的: 順序確認のサブタイプについて、サブタイプ 4 Step Endは、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030015の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序確認のサブタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にサブタイプ 4 Step Endを指定し、OSKB030015の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND サブタイプ 4 Step End
+CASE OSKB030015
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM サブタイプ 4 Step End
+CASE OSKB030015
+SOURCE SMP/E SMF WLM
+サブタイプ 4 Step EndとOSKB030015が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030015を同じ出力で読み、順序確認のサブタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030015
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030015
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I サブタイプ 4 Step End REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030015が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の サブタイプ 4 Step End と OSKB030015 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030015 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0041"><h3>サブタイプ 5 Job End</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>サブタイプ 5 Job Endは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブタイプ 5 Job End</strong></p><p>検証目的: 値域確認のサブタイプについて、サブタイプ 5 Job Endは、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030016の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域確認のサブタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にサブタイプ 5 Job Endを指定し、OSKB030016の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND サブタイプ 5 Job End
+CASE OSKB030016
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM サブタイプ 5 Job End
+CASE OSKB030016
+SOURCE SMP/E SMF WLM
+サブタイプ 5 Job EndとOSKB030016が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030016を同じ出力で読み、値域確認のサブタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030016
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030016
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I サブタイプ 5 Job End REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030016が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の サブタイプ 5 Job End と OSKB030016 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030016 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0042"><h3>サブタイプ 6 Job Total</h3><p class="kb-meta">分類: SMF TYPE 30 ・ 難易度: 上級</p><p>サブタイプ 6 Job Totalは、SMP/E / SMF / WLMのSMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>サブタイプ 6 Job Total</strong></p><p>検証目的: 警告確認のサブタイプについて、サブタイプ 6 Job Totalは、SMP/E / SMF / WLM の SMF TYPE 30で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030017の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告確認のサブタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にサブタイプ 6 Job Totalを指定し、OSKB030017の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND サブタイプ 6 Job Total
+CASE OSKB030017
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM サブタイプ 6 Job Total
+CASE OSKB030017
+SOURCE SMP/E SMF WLM
+サブタイプ 6 Job TotalとOSKB030017が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030017を同じ出力で読み、警告確認のサブタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030017
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030017
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I サブタイプ 6 Job Total REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030017が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の サブタイプ 6 Job Total と OSKB030017 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030017 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+## SMF ユーティリティ
+
+
+<section class="kb-item" id="c28-i0043"><h3>IFASMFDL LSNAME(...)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDL LSNAME(...)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0044"><h3>IFASMFDL SOFTOFFLOAD</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDL SOFTOFFLOADは、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 記録確認のユーティリティに関係する IFASMFDL SOFTOFFLOAD の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 資料上の説明と画面上の表示行を突き合わせ、記録確認として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. IFASMFDL SOFTOFFLOAD の名称と担当者名のみを残して記録確認のユーティリティの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で記録確認のユーティリティを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず記録確認のユーティリティの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録確認のユーティリティにおいて選択記号 A を採用し、識別名は記録確認です。記録確認のユーティリティにおいて IFASMFDL SOFTOFFLOAD は説明欄の「IFASMFDL SOFTOFFLOAD の用途を保守管理の表示で確認する記録確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録確認です。記録確認のユーティリティに関連して、SMP/E SMF WLM では IFASMFDL SOFTOFFLOAD の表示属性と IWM025I を同じ証跡に残し、背景名は記録確認です。他の選択肢を確認します。 A: 記録確認のユーティリティは対象出力と項目説明を結び、根拠を残すので記録確認です。 B: 記録確認のユーティリティは名称や説明のみに寄り、状態を示す出力本文が不足するため記録確認ではありません。 C: 記録確認のユーティリティは別カテゴリの確認を流用しており、IFASMFDL SOFTOFFLOAD の根拠にならないため記録確認ではありません。 D: 記録確認のユーティリティは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録確認ではありません。記録確認のユーティリティで使う IFASMFDL SOFTOFFLOAD という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDL SOFTOFFLOAD</strong></p><p>検証目的: 値域照合のユーティリティについて、IFASMFDL SOFTOFFLOAD は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030036の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDL SOFTOFFLOを指定し、OSKB030036の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDL SOFTOFFLO
+CASE OSKB030036
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDL SOFTOFFLO
+CASE OSKB030036
+SOURCE SMP/E SMF WLM
+IFASMFDL SOFTOFFLOとOSKB030036が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030036を同じ出力で読み、値域照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030036
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030036
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDL SOFTOFFLOAD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030036が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDL SOFTOFFLO と OSKB030036 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030036 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0045"><h3>IFASMFDL の OUTDD</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDL の OUTDDは、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較確認のので IFASMFDL の OUTDD の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL の OUTDD の出力を取らず比較確認ののの説明文と承認印のみを残す。</li><li>B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、比較確認の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較確認ののの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較確認ののへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較確認ののにおいて選択記号 B を採用し、識別名は比較確認です。比較確認ののにおいて IFASMFDL の OUTDD は説明欄の「比較確認ののに関係する定義値と表示行を照合する比較確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較確認です。比較確認ののの証跡を読む担当者は、IFASMFDL の OUTDD の属性行と IWM025I を合わせて追跡し、背景名は比較確認です。誤答側の問題点を分けます。 A: 比較確認ののは名称や説明のみに寄り、状態を示す出力本文が不足するため比較確認ではありません。 B: 比較確認ののは対象出力と項目説明を結び、根拠を残すので比較確認です。 C: 比較確認ののは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較確認ではありません。 D: 比較確認ののは別カテゴリの確認を流用しており、IFASMFDL の OUTDD の根拠にならないため比較確認ではありません。比較確認ののに出る IFASMFDL の OUTDD は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDL の OUTDD</strong></p><p>検証目的: 警告照合ののについて、IFASMFDL の OUTDD は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030037の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告照合ののの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDL の OUTDDを指定し、OSKB030037の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDL の OUTDD
+CASE OSKB030037
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDL の OUTDD
+CASE OSKB030037
+SOURCE SMP/E SMF WLM
+IFASMFDL の OUTDDとOSKB030037が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030037を同じ出力で読み、警告照合ののの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030037
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030037
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDL の OUTDD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030037が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDL の OUTDD と OSKB030037 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030037 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0046"><h3>IFASMFDL の役割</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDL の役割は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 範囲確認のの役割で保守管理の運用確認を行います。IFASMFDL の役割の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲確認のの役割を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲確認のの役割を正常終了として記録する。</li><li>C. 同じ画面で対象行と IWM025I を読み、範囲確認の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>D. IFASMFDL の役割の属性行を読まず範囲確認のの役割の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲確認のの役割において選択記号 C を採用し、識別名は範囲確認です。範囲確認のの役割において IFASMFDL の役割 は説明欄の「SMP/E SMF WLM で IFASMFDL の役割の扱いを記録する範囲確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲確認です。範囲確認のの役割を受け取る担当者は、IFASMFDL の役割の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲確認です。不適切な選択肢を整理します。 A: 範囲確認のの役割は別カテゴリの確認を流用しており、IFASMFDL の役割の根拠にならないため範囲確認ではありません。 B: 範囲確認のの役割は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲確認ではありません。 C: 範囲確認のの役割は対象出力と項目説明を結び、根拠を残すので範囲確認です。 D: 範囲確認のの役割は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲確認ではありません。範囲確認のの役割が示す IFASMFDL の役割は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDL の役割</strong></p><p>検証目的: 比較照合のの役割について、IFASMFDL の役割は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030034の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較照合のの役割の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDL の役割を指定し、OSKB030034の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDL の役割
+CASE OSKB030034
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDL の役割
+CASE OSKB030034
+SOURCE SMP/E SMF WLM
+IFASMFDL の役割とOSKB030034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030034を同じ出力で読み、比較照合のの役割の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030034
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030034
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDL の役割 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030034が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDL の役割 と OSKB030034 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030034 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0047"><h3>IFASMFDP CLEAR</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP CLEARは、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 出力確認のユーティリティに関する IFASMFDP CLEAR の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力確認のユーティリティの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力確認のユーティリティの証跡として保存して根拠にする。</li><li>C. IFASMFDP CLEAR の変更点を出力本文から切り離して出力確認のユーティリティの承認欄のみ残す。</li><li>D. D WLM,SYSTEMS の結果から対象行を抜き出し、出力確認の証跡として残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力確認のユーティリティにおいて選択記号 D を採用し、識別名は出力確認です。出力確認のユーティリティにおいて IFASMFDP CLEAR は説明欄の「IFASMFDP CLEAR の状態と出力メッセージを結び付ける出力確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力確認です。出力確認のユーティリティに関する記録は、IFASMFDP CLEAR の出力行と IWM025I を一緒に保存し、背景名は出力確認です。選択肢ごとの違いを示します。 A: 出力確認のユーティリティは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力確認ではありません。 B: 出力確認のユーティリティは別カテゴリの確認を流用しており、IFASMFDP CLEAR の根拠にならないため出力確認ではありません。 C: 出力確認のユーティリティは名称や説明のみに寄り、状態を示す出力本文が不足するため出力確認ではありません。 D: 出力確認のユーティリティは対象出力と項目説明を結び、根拠を残すので出力確認です。出力確認のユーティリティで記録する IFASMFDP CLEAR は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP CLEAR</strong></p><p>検証目的: 範囲照合のユーティリティについて、IFASMFDP CLEAR は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030031の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP CLEARを指定し、OSKB030031の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP CLEAR
+CASE OSKB030031
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP CLEAR
+CASE OSKB030031
+SOURCE SMP/E SMF WLM
+IFASMFDP CLEARとOSKB030031が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030031を同じ出力で読み、範囲照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030031
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030031
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP CLEAR REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030031が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP CLEAR と OSKB030031 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030031 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0048"><h3>IFASMFDP DATE(yyyyddd,...)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP DATE(yyyyddd,...)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0049"><h3>IFASMFDP DUMPIN/DUMPOUT</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP DUMPIN/DUMPOUTは、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP DUMPIN ・ DUMPOUT</strong></p><p>検証目的: 呼出照合の・について、IFASMFDP DUMPIN/DUMPOUT は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030023の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出照合の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP DUMPIN ・ を指定し、OSKB030023の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP DUMPIN ・ 
+CASE OSKB030023
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP DUMPIN ・ 
+CASE OSKB030023
+SOURCE SMP/E SMF WLM
+IFASMFDP DUMPIN ・ とOSKB030023が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030023を同じ出力で読み、呼出照合の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030023
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030023
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP DUMPIN ・ DUMPOUT REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030023が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP DUMPIN ・  と OSKB030023 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030023 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0050"><h3>IFASMFDP INDD(MANx)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP INDD(MANx)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文確認のユーティリティに関係する IFASMFDP INDD 属性の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 資料上の説明と画面上の表示行を突き合わせ、構文確認として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. IFASMFDP INDD 属性の名称と担当者名のみを残して構文確認のユーティリティの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文確認のユーティリティを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文確認のユーティリティの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文確認のユーティリティにおいて選択記号 A を採用し、識別名は構文確認です。構文確認のユーティリティにおいて IFASMFDP INDD 属性 は説明欄の「IFASMFDP INDD 属性の用途を保守管理の表示で確認する構文確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文確認です。構文確認のユーティリティに関連して、SMP/E SMF WLM では IFASMFDP INDD 属性の表示属性と IWM025I を同じ証跡に残し、背景名は構文確認です。他の選択肢を確認します。 A: 構文確認のユーティリティは対象出力と項目説明を結び、根拠を残すので構文確認です。 B: 構文確認のユーティリティは名称や説明のみに寄り、状態を示す出力本文が不足するため構文確認ではありません。 C: 構文確認のユーティリティは別カテゴリの確認を流用しており、IFASMFDP INDD 属性の根拠にならないため構文確認ではありません。 D: 構文確認のユーティリティは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文確認ではありません。構文確認のユーティリティで使う IFASMFDP INDD 属性という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP INDD(MANx)</strong></p><p>検証目的: 置換照合のユーティリティについて、IFASMFDP INDD(MANx)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030024の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP INDD(MANxを指定し、OSKB030024の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP INDD(MANx
+CASE OSKB030024
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP INDD(MANx
+CASE OSKB030024
+SOURCE SMP/E SMF WLM
+IFASMFDP INDD(MANxとOSKB030024が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030024を同じ出力で読み、置換照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030024
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030024
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP INDD(MANx) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030024が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP INDD(MANx と OSKB030024 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030024 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0051"><h3>IFASMFDP OUTDD</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP OUTDDは、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP OUTDD</strong></p><p>検証目的: 展開照合のユーティリティについて、IFASMFDP OUTDD は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030022の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP OUTDDを指定し、OSKB030022の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP OUTDD
+CASE OSKB030022
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP OUTDD
+CASE OSKB030022
+SOURCE SMP/E SMF WLM
+IFASMFDP OUTDDとOSKB030022が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030022を同じ出力で読み、展開照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030022
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030022
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP OUTDD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030022が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP OUTDD と OSKB030022 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030022 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0052"><h3>IFASMFDP REL(z/OS リリース)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP REL(z/OS リリース)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP REL(z・ OS リリース)</strong></p><p>検証目的: 区切照合の・ リリースについて、IFASMFDP REL(z/OS リリース)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030030の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切照合の・ リリースの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP REL(z・ OSを指定し、OSKB030030の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP REL(z・ OS
+CASE OSKB030030
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP REL(z・ OS
+CASE OSKB030030
+SOURCE SMP/E SMF WLM
+IFASMFDP REL(z・ OSとOSKB030030が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030030を同じ出力で読み、区切照合の・ リリースの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030030
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030030
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP REL(z・ OS リリース) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030030が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP REL(z・ OS と OSKB030030 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030030 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0053"><h3>IFASMFDP RELATIVEDATE</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP RELATIVEDATEは、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開確認のユーティリティで IFASMFDP RELATIVEDATE の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDP RELATIVEDATE の出力を取らず展開確認のユーティリティの説明文と承認印のみを残す。</li><li>B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、展開確認の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開確認のユーティリティの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開確認のユーティリティへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開確認のユーティリティにおいて選択記号 B を採用し、識別名は展開確認です。展開確認のユーティリティにおいて IFASMFDP RELATIVEDATE は説明欄の「展開確認のユーティリティに関係する定義値と表示行を照合する展開確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開確認です。展開確認のユーティリティの証跡を読む担当者は、IFASMFDP RELATIVEDATE の属性行と IWM025I を合わせて追跡し、背景名は展開確認です。誤答側の問題点を分けます。 A: 展開確認のユーティリティは名称や説明のみに寄り、状態を示す出力本文が不足するため展開確認ではありません。 B: 展開確認のユーティリティは対象出力と項目説明を結び、根拠を残すので展開確認です。 C: 展開確認のユーティリティは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開確認ではありません。 D: 展開確認のユーティリティは別カテゴリの確認を流用しており、IFASMFDP RELATIVEDATE の根拠にならないため展開確認ではありません。展開確認のユーティリティに出る IFASMFDP RELATIVEDATE は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP RELATIVEDATE</strong></p><p>検証目的: 終端照合のユーティリティについて、IFASMFDP RELATIVEDATE は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030025の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP RELATIVEDを指定し、OSKB030025の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP RELATIVED
+CASE OSKB030025
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP RELATIVED
+CASE OSKB030025
+SOURCE SMP/E SMF WLM
+IFASMFDP RELATIVEDとOSKB030025が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030025を同じ出力で読み、終端照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030025
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030025
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP RELATIVEDATE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030025が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP RELATIVED と OSKB030025 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030025 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0054"><h3>IFASMFDP SID(...)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP SID(...)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0055"><h3>IFASMFDP START(hhmm)/END(hhmm)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP START(hhmm)/END(hhmm)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 技術項目「IFASMFDP START(hhmm)/END(hhmm)」の確認として、構文照合保守の構文照合として IFASMFDP を確認するとき、後続担当者へ残すべき証跡はどれですか。</p><ul class="kb-choices"><li>A. 名称と担当者名を保存して表示本文を確認しない。</li><li>B. 別分類の結果を流用して同じ証跡として扱う。</li><li>C. 戻り値と時刻を主な根拠にして表示行を読まない。</li><li>D. 構文照合の操作記録とメッセージを対応させて残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 正解はDです。構文照合保守で扱う IFASMFDP は SMP/E / SMF / WLM の確認対象です（構文照合保守用語）。構文照合保守の担当者は構文照合として、表示本文とメッセージを照合します（構文照合保守照合）。構文照合保守の対応を残すと、後続担当者は同じ出典に戻って確認できます（構文照合保守出典）。A: 構文照合保守で表示とメッセージを結ぶ場合に根拠になります（構文照合保守A）。B: 構文照合保守で定義と出力の関係がない場合は追跡できません（構文照合保守B）。C: 構文照合保守で出典名のみでは実際の表示を説明できません（構文照合保守C）。D: 構文照合保守で操作記録のみでは値や状態の確認が不足します（構文照合保守D）。構文照合保守の初出用語として IFASMFDP を扱い、分類内の確認名として保存します（構文照合保守終点）。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP START(hhmm)・ END(hhmm)</strong></p><p>検証目的: 上書照合の・について、IFASMFDP START(hhmm)/END(hhmm)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030027の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書照合の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP START(hhmを指定し、OSKB030027の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP START(hhm
+CASE OSKB030027
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP START(hhm
+CASE OSKB030027
+SOURCE SMP/E SMF WLM
+IFASMFDP START(hhmとOSKB030027が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030027を同じ出力で読み、上書照合の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030027
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030027
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP START(hhmm)・ END REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030027が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP START(hhm と OSKB030027 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030027 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0056"><h3>IFASMFDP TYPE(30(5))</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP TYPE(30(5))は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切確認のユーティリティで IFASMFDP TYPE 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDP TYPE 属性の出力を取らず区切確認のユーティリティの説明文と承認印のみを残す。</li><li>B. 属性行、戻り表示、メッセージ見出しを合わせて区切確認の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切確認のユーティリティの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切確認のユーティリティへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切確認のユーティリティにおいて選択記号 B を採用し、識別名は区切確認です。区切確認のユーティリティにおいて IFASMFDP TYPE 属性 は説明欄の「区切確認のユーティリティに関係する定義値と表示行を照合する区切確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切確認です。区切確認のユーティリティの証跡を読む担当者は、IFASMFDP TYPE 属性の属性行と IWM025I を合わせて追跡し、背景名は区切確認です。誤答側の問題点を分けます。 A: 区切確認のユーティリティは名称や説明のみに寄り、状態を示す出力本文が不足するため区切確認ではありません。 B: 区切確認のユーティリティは対象出力と項目説明を結び、根拠を残すので区切確認です。 C: 区切確認のユーティリティは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切確認ではありません。 D: 区切確認のユーティリティは別カテゴリの確認を流用しており、IFASMFDP TYPE 属性の根拠にならないため区切確認ではありません。区切確認のユーティリティに出る IFASMFDP TYPE 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP TYPE(30(5))</strong></p><p>検証目的: 記録照合のユーティリティについて、IFASMFDP TYPE(30(5))は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030033の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP TYPE(30(5を指定し、OSKB030033の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP TYPE(30(5
+CASE OSKB030033
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP TYPE(30(5
+CASE OSKB030033
+SOURCE SMP/E SMF WLM
+IFASMFDP TYPE(30(5とOSKB030033が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030033を同じ出力で読み、記録照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030033
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030033
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP TYPE(30(5)) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030033が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP TYPE(30(5 と OSKB030033 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030033 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0057"><h3>IFASMFDP TYPE(30)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP TYPE(30)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件確認のユーティリティに関係する IFASMFDP TYPE(30)の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 出典欄の説明と運用出力を照合し、条件確認の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>B. IFASMFDP TYPE(30)の名称と担当者名のみを残して条件確認のユーティリティの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件確認のユーティリティを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件確認のユーティリティの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件確認のユーティリティにおいて選択記号 A を採用し、識別名は条件確認です。条件確認のユーティリティにおいて IFASMFDP TYPE(30) は説明欄の「IFASMFDP TYPE(30)の用途を保守管理の表示で確認する条件確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件確認です。条件確認のユーティリティに関連して、SMP/E SMF WLM では IFASMFDP TYPE(30)の表示属性と IWM025I を同じ証跡に残し、背景名は条件確認です。他の選択肢を確認します。 A: 条件確認のユーティリティは対象出力と項目説明を結び、根拠を残すので条件確認です。 B: 条件確認のユーティリティは名称や説明のみに寄り、状態を示す出力本文が不足するため条件確認ではありません。 C: 条件確認のユーティリティは別カテゴリの確認を流用しており、IFASMFDP TYPE(30)の根拠にならないため条件確認ではありません。 D: 条件確認のユーティリティは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件確認ではありません。条件確認のユーティリティで使う IFASMFDP TYPE(30)という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP TYPE(30)</strong></p><p>検証目的: 優先照合のユーティリティについて、IFASMFDP TYPE(30)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030032の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先照合のユーティリティの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP TYPE(30)を指定し、OSKB030032の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP TYPE(30)
+CASE OSKB030032
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP TYPE(30)
+CASE OSKB030032
+SOURCE SMP/E SMF WLM
+IFASMFDP TYPE(30)とOSKB030032が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030032を同じ出力で読み、優先照合のユーティリティの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030032
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030032
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP TYPE(30) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030032が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP TYPE(30) と OSKB030032 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030032 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0058"><h3>IFASMFDP USER(...)</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP USER(...)は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></section>
+
+
+<section class="kb-item" id="c28-i0059"><h3>IFASMFDP の役割</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP の役割は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP の役割</strong></p><p>検証目的: 構文照合のの役割について、IFASMFDP の役割は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030021の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文照合のの役割の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP の役割を指定し、OSKB030021の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP の役割
+CASE OSKB030021
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP の役割
+CASE OSKB030021
+SOURCE SMP/E SMF WLM
+IFASMFDP の役割とOSKB030021が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030021を同じ出力で読み、構文照合のの役割の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030021
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030021
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP の役割 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030021が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP の役割 と OSKB030021 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030021 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0060"><h3>IFASMFDP/DL の戻り値</h3><p class="kb-meta">分類: SMF ユーティリティ ・ 難易度: 上級</p><p>IFASMFDP/DL の戻り値は、SMP/E / SMF / WLMのSMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IFASMFDP ・ DL の戻り値</strong></p><p>検証目的: 復旧照合の・ の戻り値について、IFASMFDP/DL の戻り値は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030038の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧照合の・ の戻り値の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP ・ DL の戻り値を指定し、OSKB030038の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IFASMFDP ・ DL の戻り値
+CASE OSKB030038
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IFASMFDP ・ DL の戻り値
+CASE OSKB030038
+SOURCE SMP/E SMF WLM
+IFASMFDP ・ DL の戻り値とOSKB030038が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030038を同じ出力で読み、復旧照合の・ の戻り値の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030038
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030038
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IFASMFDP ・ DL の戻り値 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030038が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IFASMFDP ・ DL の戻り値 と OSKB030038 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030038 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+## SMF レコードタイプ
+
+
+<section class="kb-item" id="c28-i0061"><h3>TYPE 0 IPL</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 0 IPLは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 出力追跡のレコードタイプに関する TYPE 0 IPL の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力追跡のレコードタイプの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力追跡のレコードタイプの証跡として保存して根拠にする。</li><li>C. TYPE 0 IPL の変更点を出力本文から切り離して出力追跡のレコードタイプの承認欄のみ残す。</li><li>D. 出典欄の説明と運用出力を照合し、出力追跡の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力追跡のレコードタイプにおいて選択記号 D を採用し、識別名は出力追跡です。出力追跡のレコードタイプにおいて TYPE 0 IPL は説明欄の「TYPE 0 IPL の状態と出力メッセージを結び付ける出力追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力追跡です。出力追跡のレコードタイプに関する記録は、TYPE 0 IPL の出力行と IWM025I を一緒に保存し、背景名は出力追跡です。選択肢ごとの違いを示します。 A: 出力追跡のレコードタイプは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力追跡ではありません。 B: 出力追跡のレコードタイプは別カテゴリの確認を流用しており、TYPE 0 IPL の根拠にならないため出力追跡ではありません。 C: 出力追跡のレコードタイプは名称や説明のみに寄り、状態を示す出力本文が不足するため出力追跡ではありません。 D: 出力追跡のレコードタイプは対象出力と項目説明を結び、根拠を残すので出力追跡です。出力追跡のレコードタイプで記録する TYPE 0 IPL は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 0 IPL</strong></p><p>検証目的: 構文追跡のレコードタイプについて、TYPE 0 IPL は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020041の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 0 IPLを指定し、OSKB020041の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 0 IPL
+CASE OSKB020041
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 0 IPL
+CASE OSKB020041
+SOURCE SMP/E SMF WLM
+TYPE 0 IPLとOSKB020041が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020041を同じ出力で読み、構文追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020041
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020041
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 0 IPL REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020041が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 0 IPL と OSKB020041 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020041 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0062"><h3>TYPE 1 SMF Statistics</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 1 SMF Statisticsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件追跡のレコードタイプに関係する TYPE 1 SMF Statisticsの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 属性行、戻り表示、メッセージ見出しを合わせて条件追跡の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>B. TYPE 1 SMF Statisticsの名称と担当者名のみを残して条件追跡のレコードタイプの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件追跡のレコードタイプを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件追跡のレコードタイプの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件追跡のレコードタイプにおいて選択記号 A を採用し、識別名は条件追跡です。条件追跡のレコードタイプにおいて TYPE 1 SMF Statistics は説明欄の「TYPE 1 SMF Statisticsの用途を保守管理の表示で確認する条件追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件追跡です。条件追跡のレコードタイプに関連して、SMP/E SMF WLM では TYPE 1 SMF Statisticsの表示属性と IWM025I を同じ証跡に残し、背景名は条件追跡です。他の選択肢を確認します。 A: 条件追跡のレコードタイプは対象出力と項目説明を結び、根拠を残すので条件追跡です。 B: 条件追跡のレコードタイプは名称や説明のみに寄り、状態を示す出力本文が不足するため条件追跡ではありません。 C: 条件追跡のレコードタイプは別カテゴリの確認を流用しており、TYPE 1 SMF Statisticsの根拠にならないため条件追跡ではありません。 D: 条件追跡のレコードタイプは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件追跡ではありません。条件追跡のレコードタイプで使う TYPE 1 SMF Statisticsという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 1 SMF Statistics</strong></p><p>検証目的: 展開追跡のレコードタイプについて、TYPE 1 SMF Statisticsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020042の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 1 SMF Statistを指定し、OSKB020042の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 1 SMF Statist
+CASE OSKB020042
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 1 SMF Statist
+CASE OSKB020042
+SOURCE SMP/E SMF WLM
+TYPE 1 SMF StatistとOSKB020042が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020042を同じ出力で読み、展開追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020042
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020042
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 1 SMF Statistics REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020042が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 1 SMF Statist と OSKB020042 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020042 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0063"><h3>TYPE 100 Db2 Statistics</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 100 Db2 Statisticsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 100 Db2 Statistics</strong></p><p>検証目的: 警告整理のレコードタイプについて、TYPE 100 Db2 Statisticsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020117の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 100 Db2 Statiを指定し、OSKB020117の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 100 Db2 Stati
+CASE OSKB020117
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 100 Db2 Stati
+CASE OSKB020117
+SOURCE SMP/E SMF WLM
+TYPE 100 Db2 StatiとOSKB020117が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020117を同じ出力で読み、警告整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020117
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020117
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 100 Db2 Statistics REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020117が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 100 Db2 Stati と OSKB020117 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020117 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0064"><h3>TYPE 100-103 Db2</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 100-103 Db2は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 100-103 Db2</strong></p><p>検証目的: 値域整理のレコードタイプについて、TYPE 100-103 Db2は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020116の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 100-103 Db2を指定し、OSKB020116の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 100-103 Db2
+CASE OSKB020116
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 100-103 Db2
+CASE OSKB020116
+SOURCE SMP/E SMF WLM
+TYPE 100-103 Db2とOSKB020116が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020116を同じ出力で読み、値域整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020116
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020116
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 100-103 Db2 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020116が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 100-103 Db2 と OSKB020116 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020116 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0065"><h3>TYPE 101 Db2 Accounting</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 101 Db2 Accountingは、SMP/E / SMF / WLMのSMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 101 Db2 Accounting</strong></p><p>検証目的: 復旧整理のレコードタイプについて、TYPE 101 Db2 Accountingは、SMP/E / SMF / WLM の SMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020118の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 101 Db2 Accouを指定し、OSKB020118の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 101 Db2 Accou
+CASE OSKB020118
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 101 Db2 Accou
+CASE OSKB020118
+SOURCE SMP/E SMF WLM
+TYPE 101 Db2 AccouとOSKB020118が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020118を同じ出力で読み、復旧整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020118
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020118
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 101 Db2 Accounting REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020118が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 101 Db2 Accou と OSKB020118 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020118 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0066"><h3>TYPE 102 Db2 Performance</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 102 Db2 Performanceは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 102 Db2 Performance</strong></p><p>検証目的: 監査整理のレコードタイプについて、TYPE 102 Db2 Performanceは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020119の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 102 Db2 Perfoを指定し、OSKB020119の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 102 Db2 Perfo
+CASE OSKB020119
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 102 Db2 Perfo
+CASE OSKB020119
+SOURCE SMP/E SMF WLM
+TYPE 102 Db2 PerfoとOSKB020119が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020119を同じ出力で読み、監査整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020119
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020119
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 102 Db2 Performance REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020119が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 102 Db2 Perfo と OSKB020119 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020119 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0067"><h3>TYPE 103 Db2 Audit</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 103 Db2 Auditは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 103 Db2 Audit</strong></p><p>検証目的: 変更整理のレコードタイプについて、TYPE 103 Db2 Auditは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020120の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 103 Db2 Auditを指定し、OSKB020120の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 103 Db2 Audit
+CASE OSKB020120
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 103 Db2 Audit
+CASE OSKB020120
+SOURCE SMP/E SMF WLM
+TYPE 103 Db2 AuditとOSKB020120が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020120を同じ出力で読み、変更整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020120
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020120
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 103 Db2 Audit REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020120が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 103 Db2 Audit と OSKB020120 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020120 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0068"><h3>TYPE 110 CICS</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 110 CICSは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 110 CICS</strong></p><p>検証目的: 構文確認のレコードタイプについて、TYPE 110 CICS は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030001の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文確認のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 110 CICSを指定し、OSKB030001の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 110 CICS
+CASE OSKB030001
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 110 CICS
+CASE OSKB030001
+SOURCE SMP/E SMF WLM
+TYPE 110 CICSとOSKB030001が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030001を同じ出力で読み、構文確認のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030001
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030001
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 110 CICS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030001が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 110 CICS と OSKB030001 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030001 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0069"><h3>TYPE 110 サブ 1 CICS Monitoring</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 110 サブ 1 CICS Monitoringは、SMP/E / SMF / WLMのSMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 110 サブ 1 CICS Monitoring</strong></p><p>検証目的: 展開確認のサブについて、TYPE 110 サブ 1 CICS Monitoringは、SMP/E / SMF / WLM の SMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030002の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開確認のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 110 サブ 1 CICSを指定し、OSKB030002の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 110 サブ 1 CICS
+CASE OSKB030002
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 110 サブ 1 CICS
+CASE OSKB030002
+SOURCE SMP/E SMF WLM
+TYPE 110 サブ 1 CICSとOSKB030002が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030002を同じ出力で読み、展開確認のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030002
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030002
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 110 サブ 1 CICS Monit REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030002が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 110 サブ 1 CICS と OSKB030002 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030002 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0070"><h3>TYPE 110 サブ 2 CICS Statistics</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 110 サブ 2 CICS Statisticsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 110 サブ 2 CICS Statistics</strong></p><p>検証目的: 呼出確認のサブについて、TYPE 110 サブ 2 CICS Statisticsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目でに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030003の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出確認のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 110 サブ 2 CICSを指定し、OSKB030003の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 110 サブ 2 CICS
+CASE OSKB030003
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 110 サブ 2 CICS
+CASE OSKB030003
+SOURCE SMP/E SMF WLM
+TYPE 110 サブ 2 CICSとOSKB030003が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030003を同じ出力で読み、呼出確認のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030003
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030003
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 110 サブ 2 CICS Stati REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030003が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 110 サブ 2 CICS と OSKB030003 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030003 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0071"><h3>TYPE 111 CICS TS Logger</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 111 CICS TS Loggerは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 111 CICS TS Logger</strong></p><p>検証目的: 置換確認のレコードタイプについて、TYPE 111 CICS TS Loggerは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030004の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換確認のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 111 CICS TS Lを指定し、OSKB030004の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 111 CICS TS L
+CASE OSKB030004
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 111 CICS TS L
+CASE OSKB030004
+SOURCE SMP/E SMF WLM
+TYPE 111 CICS TS LとOSKB030004が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030004を同じ出力で読み、置換確認のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030004
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030004
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 111 CICS TS Logger REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030004が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 111 CICS TS L と OSKB030004 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030004 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0072"><h3>TYPE 115/116 MQ</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 115/116 MQは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 115・116 MQ</strong></p><p>検証目的: 終端確認の・について、TYPE 115/116 MQ は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030005の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端確認の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 115・116 MQを指定し、OSKB030005の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 115・116 MQ
+CASE OSKB030005
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 115・116 MQ
+CASE OSKB030005
+SOURCE SMP/E SMF WLM
+TYPE 115・116 MQとOSKB030005が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030005を同じ出力で読み、終端確認の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030005
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030005
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 115・116 MQ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030005が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 115・116 MQ と OSKB030005 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030005 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0073"><h3>TYPE 117 MQ チャネル</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 117 MQ チャネルは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 117 MQ チャネル</strong></p><p>検証目的: 探索確認のチャネルについて、TYPE 117 MQ チャネルは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030006の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索確認のチャネルの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 117 MQ チャネルを指定し、OSKB030006の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 117 MQ チャネル
+CASE OSKB030006
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 117 MQ チャネル
+CASE OSKB030006
+SOURCE SMP/E SMF WLM
+TYPE 117 MQ チャネルとOSKB030006が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030006を同じ出力で読み、探索確認のチャネルの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030006
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030006
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 117 MQ チャネル REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030006が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 117 MQ チャネル と OSKB030006 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030006 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0074"><h3>TYPE 118 TCP/IP (旧)</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 118 TCP/IP (旧)は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 118 TCP ・ IP (旧)</strong></p><p>検証目的: 上書確認の・ 旧について、TYPE 118 TCP/IP (旧)は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030007の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書確認の・ 旧の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 118 TCP ・ IP を指定し、OSKB030007の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 118 TCP ・ IP 
+CASE OSKB030007
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 118 TCP ・ IP 
+CASE OSKB030007
+SOURCE SMP/E SMF WLM
+TYPE 118 TCP ・ IP とOSKB030007が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030007を同じ出力で読み、上書確認の・ 旧の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030007
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030007
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 118 TCP ・ IP (旧) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030007が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 118 TCP ・ IP  と OSKB030007 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030007 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0075"><h3>TYPE 119 TCP/IP</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 119 TCP/IPは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 119 TCP ・ IP</strong></p><p>検証目的: 出力確認の・について、TYPE 119 TCP/IP は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030008の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力確認の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 119 TCP ・ IPを指定し、OSKB030008の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 119 TCP ・ IP
+CASE OSKB030008
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 119 TCP ・ IP
+CASE OSKB030008
+SOURCE SMP/E SMF WLM
+TYPE 119 TCP ・ IPとOSKB030008が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030008を同じ出力で読み、出力確認の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030008
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030008
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 119 TCP ・ IP REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030008が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 119 TCP ・ IP と OSKB030008 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030008 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0076"><h3>TYPE 120 WAS</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 120 WASは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 120 WAS</strong></p><p>検証目的: 条件確認のレコードタイプについて、TYPE 120 WAS は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030009の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件確認のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 120 WASを指定し、OSKB030009の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 120 WAS
+CASE OSKB030009
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 120 WAS
+CASE OSKB030009
+SOURCE SMP/E SMF WLM
+TYPE 120 WASとOSKB030009が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030009を同じ出力で読み、条件確認のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030009
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030009
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 120 WAS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030009が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 120 WAS と OSKB030009 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030009 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0077"><h3>TYPE 14 INPUT/RDBACK DS Close</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 14 INPUT/RDBACK DS Closeは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 14 INPUT ・ RDBACK DS Close</strong></p><p>検証目的: 区切追跡の・について、TYPE 14 INPUT/RDBACK DS Closeは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目でに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020050の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切追跡の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 14 INPUT ・ RDを指定し、OSKB020050の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 14 INPUT ・ RD
+CASE OSKB020050
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 14 INPUT ・ RD
+CASE OSKB020050
+SOURCE SMP/E SMF WLM
+TYPE 14 INPUT ・ RDとOSKB020050が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020050を同じ出力で読み、区切追跡の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020050
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020050
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 14 INPUT ・ RDBACK DS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020050が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 14 INPUT ・ RD と OSKB020050 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020050 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0078"><h3>TYPE 15 OUTPUT/UPDATE DS Close</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 15 OUTPUT/UPDATE DS Closeは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 15 OUTPUT ・ UPDATE DS Close</strong></p><p>検証目的: 範囲追跡の・について、TYPE 15 OUTPUT/UPDATE DS Closeは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020051の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲追跡の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 15 OUTPUT ・ Uを指定し、OSKB020051の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 15 OUTPUT ・ U
+CASE OSKB020051
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 15 OUTPUT ・ U
+CASE OSKB020051
+SOURCE SMP/E SMF WLM
+TYPE 15 OUTPUT ・ UとOSKB020051が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020051を同じ出力で読み、範囲追跡の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020051
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020051
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 15 OUTPUT ・ UPDATE DS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020051が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 15 OUTPUT ・ U と OSKB020051 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020051 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0079"><h3>TYPE 17 Scratch DS</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 17 Scratch DSは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 17 Scratch DS</strong></p><p>検証目的: 優先追跡のレコードタイプについて、TYPE 17 Scratch DS は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020052の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 17 Scratch DSを指定し、OSKB020052の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 17 Scratch DS
+CASE OSKB020052
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 17 Scratch DS
+CASE OSKB020052
+SOURCE SMP/E SMF WLM
+TYPE 17 Scratch DSとOSKB020052が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020052を同じ出力で読み、優先追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020052
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020052
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 17 Scratch DS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020052が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 17 Scratch DS と OSKB020052 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020052 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0080"><h3>TYPE 18 Rename DS</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 18 Rename DSは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 18 Rename DS</strong></p><p>検証目的: 記録追跡のレコードタイプについて、TYPE 18 Rename DS は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020053の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 18 Rename DSを指定し、OSKB020053の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 18 Rename DS
+CASE OSKB020053
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 18 Rename DS
+CASE OSKB020053
+SOURCE SMP/E SMF WLM
+TYPE 18 Rename DSとOSKB020053が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020053を同じ出力で読み、記録追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020053
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020053
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 18 Rename DS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020053が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 18 Rename DS と OSKB020053 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020053 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0081"><h3>TYPE 19 DASD Volume</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 19 DASD Volumeは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 19 DASD Volume</strong></p><p>検証目的: 比較追跡のレコードタイプについて、TYPE 19 DASD Volumeは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020054の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 19 DASD Volumを指定し、OSKB020054の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 19 DASD Volum
+CASE OSKB020054
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 19 DASD Volum
+CASE OSKB020054
+SOURCE SMP/E SMF WLM
+TYPE 19 DASD VolumとOSKB020054が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020054を同じ出力で読み、比較追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020054
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020054
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 19 DASD Volume REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020054が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 19 DASD Volum と OSKB020054 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020054 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0082"><h3>TYPE 199-255 User</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 199-255 Userは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 199-255 User</strong></p><p>検証目的: 区切確認のレコードタイプについて、TYPE 199-255 Userは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030010の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切確認のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 199-255 Userを指定し、OSKB030010の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 199-255 User
+CASE OSKB030010
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 199-255 User
+CASE OSKB030010
+SOURCE SMP/E SMF WLM
+TYPE 199-255 UserとOSKB030010が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030010を同じ出力で読み、区切確認のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030010
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030010
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 199-255 User REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030010が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 199-255 User と OSKB030010 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030010 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0083"><h3>TYPE 2 Dump Header</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 2 Dump Headerは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切追跡のレコードタイプで TYPE 2 Dump Headerの点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. TYPE 2 Dump Headerの出力を取らず区切追跡のレコードタイプの説明文と承認印のみを残す。</li><li>B. 同じ画面で対象行と IWM025I を読み、区切追跡の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切追跡のレコードタイプの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切追跡のレコードタイプへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切追跡のレコードタイプにおいて選択記号 B を採用し、識別名は区切追跡です。区切追跡のレコードタイプにおいて TYPE 2 Dump Header は説明欄の「区切追跡のレコードタイプに関係する定義値と表示行を照合する区切追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切追跡です。区切追跡のレコードタイプの証跡を読む担当者は、TYPE 2 Dump Headerの属性行と IWM025I を合わせて追跡し、背景名は区切追跡です。誤答側の問題点を分けます。 A: 区切追跡のレコードタイプは名称や説明のみに寄り、状態を示す出力本文が不足するため区切追跡ではありません。 B: 区切追跡のレコードタイプは対象出力と項目説明を結び、根拠を残すので区切追跡です。 C: 区切追跡のレコードタイプは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切追跡ではありません。 D: 区切追跡のレコードタイプは別カテゴリの確認を流用しており、TYPE 2 Dump Headerの根拠にならないため区切追跡ではありません。区切追跡のレコードタイプに出る TYPE 2 Dump Headerは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切追跡です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 2 Dump Header</strong></p><p>検証目的: 呼出追跡のレコードタイプについて、TYPE 2 Dump Headerは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020043の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 2 Dump Headerを指定し、OSKB020043の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 2 Dump Header
+CASE OSKB020043
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 2 Dump Header
+CASE OSKB020043
+SOURCE SMP/E SMF WLM
+TYPE 2 Dump HeaderとOSKB020043が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020043を同じ出力で読み、呼出追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020043
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020043
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 2 Dump Header REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020043が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 2 Dump Header と OSKB020043 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020043 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0084"><h3>TYPE 21 Tape Error Statistics</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 21 Tape Error Statisticsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 21 Tape Error Statistics</strong></p><p>検証目的: 順序追跡のレコードタイプについて、TYPE 21 Tape Error Statisticsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目でに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020055の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 21 Tape Errorを指定し、OSKB020055の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 21 Tape Error
+CASE OSKB020055
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 21 Tape Error
+CASE OSKB020055
+SOURCE SMP/E SMF WLM
+TYPE 21 Tape ErrorとOSKB020055が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020055を同じ出力で読み、順序追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020055
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020055
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 21 Tape Error Stati REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020055が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 21 Tape Error と OSKB020055 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020055 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0085"><h3>TYPE 23 SMF Status</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 23 SMF Statusは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 23 SMF Status</strong></p><p>検証目的: 値域追跡のレコードタイプについて、TYPE 23 SMF Statusは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020056の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 23 SMF Statusを指定し、OSKB020056の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 23 SMF Status
+CASE OSKB020056
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 23 SMF Status
+CASE OSKB020056
+SOURCE SMP/E SMF WLM
+TYPE 23 SMF StatusとOSKB020056が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020056を同じ出力で読み、値域追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020056
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020056
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 23 SMF Status REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020056が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 23 SMF Status と OSKB020056 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020056 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0086"><h3>TYPE 24 JES2 Spool Offload</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 24 JES2 Spool Offloadは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 24 JES2 Spool Offload</strong></p><p>検証目的: 警告追跡のレコードタイプについて、TYPE 24 JES2 Spool Offloadは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020057の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 24 JES2 Spoolを指定し、OSKB020057の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 24 JES2 Spool
+CASE OSKB020057
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 24 JES2 Spool
+CASE OSKB020057
+SOURCE SMP/E SMF WLM
+TYPE 24 JES2 SpoolとOSKB020057が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020057を同じ出力で読み、警告追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020057
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020057
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 24 JES2 Spool Offlo REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020057が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 24 JES2 Spool と OSKB020057 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020057 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0087"><h3>TYPE 26 JES2 Purge</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 26 JES2 Purgeは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 26 JES2 Purge</strong></p><p>検証目的: 復旧追跡のレコードタイプについて、TYPE 26 JES2 Purgeは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020058の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 26 JES2 Purgeを指定し、OSKB020058の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 26 JES2 Purge
+CASE OSKB020058
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 26 JES2 Purge
+CASE OSKB020058
+SOURCE SMP/E SMF WLM
+TYPE 26 JES2 PurgeとOSKB020058が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020058を同じ出力で読み、復旧追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020058
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020058
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 26 JES2 Purge REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020058が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 26 JES2 Purge と OSKB020058 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020058 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0088"><h3>TYPE 28 NPM</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 28 NPMは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 28 NPM</strong></p><p>検証目的: 監査追跡のレコードタイプについて、TYPE 28 NPM は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020059の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 28 NPMを指定し、OSKB020059の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 28 NPM
+CASE OSKB020059
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 28 NPM
+CASE OSKB020059
+SOURCE SMP/E SMF WLM
+TYPE 28 NPMとOSKB020059が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020059を同じ出力で読み、監査追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020059
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020059
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 28 NPM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020059が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 28 NPM と OSKB020059 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020059 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0089"><h3>TYPE 29 NPM ネットワーク</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 29 NPM ネットワークは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 29 NPM ネットワーク</strong></p><p>検証目的: 変更追跡のネットワークについて、TYPE 29 NPM ネットワークは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020060の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更追跡のネットワークの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 29 NPM ネットワークを指定し、OSKB020060の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 29 NPM ネットワーク
+CASE OSKB020060
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 29 NPM ネットワーク
+CASE OSKB020060
+SOURCE SMP/E SMF WLM
+TYPE 29 NPM ネットワークとOSKB020060が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020060を同じ出力で読み、変更追跡のネットワークの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020060
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020060
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 29 NPM ネットワーク REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020060が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 29 NPM ネットワーク と OSKB020060 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020060 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0090"><h3>TYPE 3 Dump Trailer</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 3 Dump Trailerは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 3 Dump Trailer</strong></p><p>検証目的: 置換追跡のレコードタイプについて、TYPE 3 Dump Trailerは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020044の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 3 Dump Traileを指定し、OSKB020044の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 3 Dump Traile
+CASE OSKB020044
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 3 Dump Traile
+CASE OSKB020044
+SOURCE SMP/E SMF WLM
+TYPE 3 Dump TraileとOSKB020044が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020044を同じ出力で読み、置換追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020044
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020044
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 3 Dump Trailer REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020044が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 3 Dump Traile と OSKB020044 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020044 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0091"><h3>TYPE 30 ジョブ/ステップ会計</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 30 ジョブ/ステップ会計は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 30 ジョブ・ステップ会計</strong></p><p>検証目的: 構文検査のジョブ・ステップ会計について、TYPE 30 ジョブ/ステップ会計は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020061の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文検査のジョブ・ステップ会計の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 30 ジョブ・ステップ会計を指定し、OSKB020061の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 30 ジョブ・ステップ会計
+CASE OSKB020061
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 30 ジョブ・ステップ会計
+CASE OSKB020061
+SOURCE SMP/E SMF WLM
+TYPE 30 ジョブ・ステップ会計とOSKB020061が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020061を同じ出力で読み、構文検査のジョブ・ステップ会計の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020061
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020061
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 30 ジョブ・ステップ会計 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020061が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 30 ジョブ・ステップ会計 と OSKB020061 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020061 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0092"><h3>TYPE 31 TIOC</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 31 TIOCは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 31 TIOC</strong></p><p>検証目的: 展開検査のレコードタイプについて、TYPE 31 TIOC は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020062の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 31 TIOCを指定し、OSKB020062の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 31 TIOC
+CASE OSKB020062
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 31 TIOC
+CASE OSKB020062
+SOURCE SMP/E SMF WLM
+TYPE 31 TIOCとOSKB020062が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020062を同じ出力で読み、展開検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020062
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020062
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 31 TIOC REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020062が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 31 TIOC と OSKB020062 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020062 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0093"><h3>TYPE 32 TSO User Work</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 32 TSO User Workは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 32 TSO User Work</strong></p><p>検証目的: 呼出検査のレコードタイプについて、TYPE 32 TSO User Workは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020063の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 32 TSO User Wを指定し、OSKB020063の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 32 TSO User W
+CASE OSKB020063
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 32 TSO User W
+CASE OSKB020063
+SOURCE SMP/E SMF WLM
+TYPE 32 TSO User WとOSKB020063が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020063を同じ出力で読み、呼出検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020063
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020063
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 32 TSO User Work REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020063が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 32 TSO User W と OSKB020063 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020063 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0094"><h3>TYPE 33 APPC</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 33 APPCは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 33 APPC</strong></p><p>検証目的: 置換検査のレコードタイプについて、TYPE 33 APPC は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020064の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 33 APPCを指定し、OSKB020064の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 33 APPC
+CASE OSKB020064
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 33 APPC
+CASE OSKB020064
+SOURCE SMP/E SMF WLM
+TYPE 33 APPCとOSKB020064が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020064を同じ出力で読み、置換検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020064
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020064
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 33 APPC REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020064が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 33 APPC と OSKB020064 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020064 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0095"><h3>TYPE 34 TSO Step End (旧)</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 34 TSO Step End (旧)は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 34 TSO Step End (旧)</strong></p><p>検証目的: 終端検査の旧について、TYPE 34 TSO Step End (旧)は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020065の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端検査の旧の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 34 TSO Step Eを指定し、OSKB020065の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 34 TSO Step E
+CASE OSKB020065
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 34 TSO Step E
+CASE OSKB020065
+SOURCE SMP/E SMF WLM
+TYPE 34 TSO Step EとOSKB020065が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020065を同じ出力で読み、終端検査の旧の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020065
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020065
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 34 TSO Step End (旧) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020065が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 34 TSO Step E と OSKB020065 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020065 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0096"><h3>TYPE 35 TSO Logoff</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 35 TSO Logoffは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 35 TSO Logoff</strong></p><p>検証目的: 探索検査のレコードタイプについて、TYPE 35 TSO Logoffは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020066の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 35 TSO Logoffを指定し、OSKB020066の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 35 TSO Logoff
+CASE OSKB020066
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 35 TSO Logoff
+CASE OSKB020066
+SOURCE SMP/E SMF WLM
+TYPE 35 TSO LogoffとOSKB020066が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020066を同じ出力で読み、探索検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020066
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020066
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 35 TSO Logoff REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020066が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 35 TSO Logoff と OSKB020066 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020066 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0097"><h3>TYPE 4 Step Termination (旧)</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 4 Step Termination (旧)は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 4 Step Termination (旧)</strong></p><p>検証目的: 終端追跡のレコードタイプについて、TYPE 4 Step Termination (旧)は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020045の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 4 Step Terminを指定し、OSKB020045の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 4 Step Termin
+CASE OSKB020045
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 4 Step Termin
+CASE OSKB020045
+SOURCE SMP/E SMF WLM
+TYPE 4 Step TerminとOSKB020045が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020045を同じ出力で読み、終端追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020045
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020045
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 4 Step Termination REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020045が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 4 Step Termin と OSKB020045 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020045 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0098"><h3>TYPE 40 Dynamic DD</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 40 Dynamic DDは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 40 Dynamic DD</strong></p><p>検証目的: 上書検査のレコードタイプについて、TYPE 40 Dynamic DD は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020067の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 40 Dynamic DDを指定し、OSKB020067の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 40 Dynamic DD
+CASE OSKB020067
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 40 Dynamic DD
+CASE OSKB020067
+SOURCE SMP/E SMF WLM
+TYPE 40 Dynamic DDとOSKB020067が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020067を同じ出力で読み、上書検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020067
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020067
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 40 Dynamic DD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020067が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 40 Dynamic DD と OSKB020067 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020067 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0099"><h3>TYPE 41 DIV/VLF</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 41 DIV/VLFは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 41 DIV ・ VLF</strong></p><p>検証目的: 出力検査の・について、TYPE 41 DIV/VLF は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020068の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力検査の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 41 DIV ・ VLFを指定し、OSKB020068の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 41 DIV ・ VLF
+CASE OSKB020068
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 41 DIV ・ VLF
+CASE OSKB020068
+SOURCE SMP/E SMF WLM
+TYPE 41 DIV ・ VLFとOSKB020068が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020068を同じ出力で読み、出力検査の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020068
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020068
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 41 DIV ・ VLF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020068が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 41 DIV ・ VLF と OSKB020068 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020068 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0100"><h3>TYPE 42 DFSMS Stats</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 42 DFSMS Statsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 42 DFSMS Stats</strong></p><p>検証目的: 条件検査のレコードタイプについて、TYPE 42 DFSMS Statsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020069の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 42 DFSMS Statを指定し、OSKB020069の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 42 DFSMS Stat
+CASE OSKB020069
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 42 DFSMS Stat
+CASE OSKB020069
+SOURCE SMP/E SMF WLM
+TYPE 42 DFSMS StatとOSKB020069が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020069を同じ出力で読み、条件検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020069
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020069
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 42 DFSMS Stats REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020069が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 42 DFSMS Stat と OSKB020069 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020069 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0101"><h3>TYPE 42 サブ 25 DSS Backup</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 42 サブ 25 DSS Backupは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 42 サブ 25 DSS Backup</strong></p><p>検証目的: 範囲検査のサブについて、TYPE 42 サブ 25 DSS Backupは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020071の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲検査のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 42 サブ 25 DSS を指定し、OSKB020071の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 42 サブ 25 DSS 
+CASE OSKB020071
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 42 サブ 25 DSS 
+CASE OSKB020071
+SOURCE SMP/E SMF WLM
+TYPE 42 サブ 25 DSS とOSKB020071が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020071を同じ出力で読み、範囲検査のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020071
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020071
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 42 サブ 25 DSS Backup REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020071が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 42 サブ 25 DSS  と OSKB020071 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020071 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0102"><h3>TYPE 42 サブ 6 Cache統計</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 42 サブ 6 Cache統計は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 42 サブ 6 Cache統計</strong></p><p>検証目的: 区切検査のサブ 統計について、TYPE 42 サブ 6 Cache統計は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020070の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切検査のサブ 統計の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 42 サブ 6 Cacheを指定し、OSKB020070の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 42 サブ 6 Cache
+CASE OSKB020070
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 42 サブ 6 Cache
+CASE OSKB020070
+SOURCE SMP/E SMF WLM
+TYPE 42 サブ 6 CacheとOSKB020070が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020070を同じ出力で読み、区切検査のサブ 統計の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020070
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020070
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 42 サブ 6 Cache統計 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020070が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 42 サブ 6 Cache と OSKB020070 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020070 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0103"><h3>TYPE 43-49 JES</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 43-49 JESは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 43-49 JES</strong></p><p>検証目的: 優先検査のレコードタイプについて、TYPE 43-49 JES は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020072の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 43-49 JESを指定し、OSKB020072の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 43-49 JES
+CASE OSKB020072
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 43-49 JES
+CASE OSKB020072
+SOURCE SMP/E SMF WLM
+TYPE 43-49 JESとOSKB020072が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020072を同じ出力で読み、優先検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020072
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020072
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 43-49 JES REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020072が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 43-49 JES と OSKB020072 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020072 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0104"><h3>TYPE 47 JES Signon</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 47 JES Signonは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 47 JES Signon</strong></p><p>検証目的: 記録検査のレコードタイプについて、TYPE 47 JES Signonは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020073の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 47 JES Signonを指定し、OSKB020073の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 47 JES Signon
+CASE OSKB020073
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 47 JES Signon
+CASE OSKB020073
+SOURCE SMP/E SMF WLM
+TYPE 47 JES SignonとOSKB020073が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020073を同じ出力で読み、記録検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020073
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020073
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 47 JES Signon REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020073が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 47 JES Signon と OSKB020073 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020073 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0105"><h3>TYPE 48 JES Signoff</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 48 JES Signoffは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 48 JES Signoff</strong></p><p>検証目的: 比較検査のレコードタイプについて、TYPE 48 JES Signoffは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020074の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 48 JES Signofを指定し、OSKB020074の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 48 JES Signof
+CASE OSKB020074
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 48 JES Signof
+CASE OSKB020074
+SOURCE SMP/E SMF WLM
+TYPE 48 JES SignofとOSKB020074が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020074を同じ出力で読み、比較検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020074
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020074
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 48 JES Signoff REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020074が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 48 JES Signof と OSKB020074 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020074 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0106"><h3>TYPE 49 JES NJE</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 49 JES NJEは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 49 JES NJE</strong></p><p>検証目的: 順序検査のレコードタイプについて、TYPE 49 JES NJE は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020075の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 49 JES NJEを指定し、OSKB020075の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 49 JES NJE
+CASE OSKB020075
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 49 JES NJE
+CASE OSKB020075
+SOURCE SMP/E SMF WLM
+TYPE 49 JES NJEとOSKB020075が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020075を同じ出力で読み、順序検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020075
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020075
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 49 JES NJE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020075が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 49 JES NJE と OSKB020075 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020075 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0107"><h3>TYPE 5 Job Termination (旧)</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 5 Job Termination (旧)は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 5 Job Termination (旧)</strong></p><p>検証目的: 探索追跡のレコードタイプについて、TYPE 5 Job Termination (旧)は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020046の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 5 Job Terminaを指定し、OSKB020046の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 5 Job Termina
+CASE OSKB020046
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 5 Job Termina
+CASE OSKB020046
+SOURCE SMP/E SMF WLM
+TYPE 5 Job TerminaとOSKB020046が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020046を同じ出力で読み、探索追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020046
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020046
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 5 Job Termination ( REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020046が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 5 Job Termina と OSKB020046 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020046 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0108"><h3>TYPE 52-54 JES3</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 52-54 JES3は、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 52-54 JES3</strong></p><p>検証目的: 値域検査のレコードタイプについて、TYPE 52-54 JES3 は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020076の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 52-54 JES3を指定し、OSKB020076の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 52-54 JES3
+CASE OSKB020076
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 52-54 JES3
+CASE OSKB020076
+SOURCE SMP/E SMF WLM
+TYPE 52-54 JES3とOSKB020076が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020076を同じ出力で読み、値域検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020076
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020076
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 52-54 JES3 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020076が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 52-54 JES3 と OSKB020076 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020076 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0109"><h3>TYPE 56 NetView</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 56 NetViewは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 56 NetView</strong></p><p>検証目的: 警告検査のレコードタイプについて、TYPE 56 NetViewは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020077の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 56 NetViewを指定し、OSKB020077の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 56 NetView
+CASE OSKB020077
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 56 NetView
+CASE OSKB020077
+SOURCE SMP/E SMF WLM
+TYPE 56 NetViewとOSKB020077が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020077を同じ出力で読み、警告検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020077
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020077
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 56 NetView REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020077が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 56 NetView と OSKB020077 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020077 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0110"><h3>TYPE 57 NJE Statistics</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 57 NJE Statisticsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 57 NJE Statistics</strong></p><p>検証目的: 復旧検査のレコードタイプについて、TYPE 57 NJE Statisticsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020078の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 57 NJE Statisを指定し、OSKB020078の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 57 NJE Statis
+CASE OSKB020078
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 57 NJE Statis
+CASE OSKB020078
+SOURCE SMP/E SMF WLM
+TYPE 57 NJE StatisとOSKB020078が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020078を同じ出力で読み、復旧検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020078
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020078
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 57 NJE Statistics REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020078が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 57 NJE Statis と OSKB020078 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020078 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0111"><h3>TYPE 6 Output Writer</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 6 Output Writerは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 6 Output Writer</strong></p><p>検証目的: 上書追跡のレコードタイプについて、TYPE 6 Output Writerは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020047の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 6 Output Writを指定し、OSKB020047の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 6 Output Writ
+CASE OSKB020047
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 6 Output Writ
+CASE OSKB020047
+SOURCE SMP/E SMF WLM
+TYPE 6 Output WritとOSKB020047が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020047を同じ出力で読み、上書追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020047
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020047
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 6 Output Writer REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020047が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 6 Output Writ と OSKB020047 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020047 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0112"><h3>TYPE 60-69 VSAM</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 60-69 VSAMは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 60-69 VSAM</strong></p><p>検証目的: 監査検査のレコードタイプについて、TYPE 60-69 VSAM は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020079の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 60-69 VSAMを指定し、OSKB020079の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 60-69 VSAM
+CASE OSKB020079
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 60-69 VSAM
+CASE OSKB020079
+SOURCE SMP/E SMF WLM
+TYPE 60-69 VSAMとOSKB020079が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020079を同じ出力で読み、監査検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020079
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020079
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 60-69 VSAM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020079が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 60-69 VSAM と OSKB020079 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020079 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0113"><h3>TYPE 62 VSAM Component</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 62 VSAM Componentは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 62 VSAM Component</strong></p><p>検証目的: 変更検査のレコードタイプについて、TYPE 62 VSAM Componentは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020080の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更検査のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 62 VSAM Compoを指定し、OSKB020080の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 62 VSAM Compo
+CASE OSKB020080
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 62 VSAM Compo
+CASE OSKB020080
+SOURCE SMP/E SMF WLM
+TYPE 62 VSAM CompoとOSKB020080が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020080を同じ出力で読み、変更検査のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020080
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020080
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 62 VSAM Component REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020080が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 62 VSAM Compo と OSKB020080 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020080 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0114"><h3>TYPE 63 VSAM Catalog</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 63 VSAM Catalogは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 63 VSAM Catalog</strong></p><p>検証目的: 構文判定のレコードタイプについて、TYPE 63 VSAM Catalogは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020081の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 63 VSAM Catalを指定し、OSKB020081の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 63 VSAM Catal
+CASE OSKB020081
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 63 VSAM Catal
+CASE OSKB020081
+SOURCE SMP/E SMF WLM
+TYPE 63 VSAM CatalとOSKB020081が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020081を同じ出力で読み、構文判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020081
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020081
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 63 VSAM Catalog REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020081が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 63 VSAM Catal と OSKB020081 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020081 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0115"><h3>TYPE 64 VSAM Status</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 64 VSAM Statusは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 64 VSAM Status</strong></p><p>検証目的: 展開判定のレコードタイプについて、TYPE 64 VSAM Statusは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020082の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 64 VSAM Statuを指定し、OSKB020082の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 64 VSAM Statu
+CASE OSKB020082
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 64 VSAM Statu
+CASE OSKB020082
+SOURCE SMP/E SMF WLM
+TYPE 64 VSAM StatuとOSKB020082が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020082を同じ出力で読み、展開判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020082
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020082
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 64 VSAM Status REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020082が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 64 VSAM Statu と OSKB020082 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020082 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0116"><h3>TYPE 65 VSAM Delete</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 65 VSAM Deleteは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 65 VSAM Delete</strong></p><p>検証目的: 呼出判定のレコードタイプについて、TYPE 65 VSAM Deleteは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020083の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 65 VSAM Deletを指定し、OSKB020083の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 65 VSAM Delet
+CASE OSKB020083
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 65 VSAM Delet
+CASE OSKB020083
+SOURCE SMP/E SMF WLM
+TYPE 65 VSAM DeletとOSKB020083が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020083を同じ出力で読み、呼出判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020083
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020083
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 65 VSAM Delete REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020083が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 65 VSAM Delet と OSKB020083 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020083 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0117"><h3>TYPE 66 VSAM Alter</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 66 VSAM Alterは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 66 VSAM Alter</strong></p><p>検証目的: 置換判定のレコードタイプについて、TYPE 66 VSAM Alterは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020084の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 66 VSAM Alterを指定し、OSKB020084の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 66 VSAM Alter
+CASE OSKB020084
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 66 VSAM Alter
+CASE OSKB020084
+SOURCE SMP/E SMF WLM
+TYPE 66 VSAM AlterとOSKB020084が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020084を同じ出力で読み、置換判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020084
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020084
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 66 VSAM Alter REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020084が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 66 VSAM Alter と OSKB020084 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020084 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0118"><h3>TYPE 67 VSAM Rename</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 67 VSAM Renameは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 67 VSAM Rename</strong></p><p>検証目的: 終端判定のレコードタイプについて、TYPE 67 VSAM Renameは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020085の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 67 VSAM Renamを指定し、OSKB020085の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 67 VSAM Renam
+CASE OSKB020085
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 67 VSAM Renam
+CASE OSKB020085
+SOURCE SMP/E SMF WLM
+TYPE 67 VSAM RenamとOSKB020085が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020085を同じ出力で読み、終端判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020085
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020085
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 67 VSAM Rename REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020085が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 67 VSAM Renam と OSKB020085 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020085 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0119"><h3>TYPE 68 VSAM ICF Catalog</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 68 VSAM ICF Catalogは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 68 VSAM ICF Catalog</strong></p><p>検証目的: 探索判定のレコードタイプについて、TYPE 68 VSAM ICF Catalogは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020086の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 68 VSAM ICF Cを指定し、OSKB020086の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 68 VSAM ICF C
+CASE OSKB020086
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 68 VSAM ICF C
+CASE OSKB020086
+SOURCE SMP/E SMF WLM
+TYPE 68 VSAM ICF CとOSKB020086が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020086を同じ出力で読み、探索判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020086
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020086
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 68 VSAM ICF Catalog REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020086が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 68 VSAM ICF C と OSKB020086 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020086 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0120"><h3>TYPE 69 VSAM DSPACE</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 69 VSAM DSPACEは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 69 VSAM DSPACE</strong></p><p>検証目的: 上書判定のレコードタイプについて、TYPE 69 VSAM DSPACE は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020087の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 69 VSAM DSPACを指定し、OSKB020087の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 69 VSAM DSPAC
+CASE OSKB020087
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 69 VSAM DSPAC
+CASE OSKB020087
+SOURCE SMP/E SMF WLM
+TYPE 69 VSAM DSPACとOSKB020087が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020087を同じ出力で読み、上書判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020087
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020087
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 69 VSAM DSPACE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020087が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 69 VSAM DSPAC と OSKB020087 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020087 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0121"><h3>TYPE 7 SMF Data Lost</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 7 SMF Data Lostは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 7 SMF Data Lost</strong></p><p>検証目的: 出力追跡のレコードタイプについて、TYPE 7 SMF Data Lostは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020048の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力追跡のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 7 SMF Data Loを指定し、OSKB020048の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 7 SMF Data Lo
+CASE OSKB020048
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 7 SMF Data Lo
+CASE OSKB020048
+SOURCE SMP/E SMF WLM
+TYPE 7 SMF Data LoとOSKB020048が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020048を同じ出力で読み、出力追跡のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020048
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020048
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 7 SMF Data Lost REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020048が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 7 SMF Data Lo と OSKB020048 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020048 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0122"><h3>TYPE 70 RMF CPU</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 70 RMF CPUは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 70 RMF CPU</strong></p><p>検証目的: 出力判定のレコードタイプについて、TYPE 70 RMF CPU は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020088の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 70 RMF CPUを指定し、OSKB020088の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 70 RMF CPU
+CASE OSKB020088
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 70 RMF CPU
+CASE OSKB020088
+SOURCE SMP/E SMF WLM
+TYPE 70 RMF CPUとOSKB020088が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020088を同じ出力で読み、出力判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020088
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020088
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 70 RMF CPU REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020088が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 70 RMF CPU と OSKB020088 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020088 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0123"><h3>TYPE 71 RMF Paging</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 71 RMF Pagingは、SMP/E / SMF / WLMのSMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 71 RMF Paging</strong></p><p>検証目的: 条件判定のレコードタイプについて、TYPE 71 RMF Pagingは、SMP/E / SMF / WLM の SMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020089の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 71 RMF Pagingを指定し、OSKB020089の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 71 RMF Paging
+CASE OSKB020089
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 71 RMF Paging
+CASE OSKB020089
+SOURCE SMP/E SMF WLM
+TYPE 71 RMF PagingとOSKB020089が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020089を同じ出力で読み、条件判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020089
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020089
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 71 RMF Paging REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020089が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 71 RMF Paging と OSKB020089 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020089 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0124"><h3>TYPE 72 RMF WLM</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 72 RMF WLMは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 72 RMF WLM</strong></p><p>検証目的: 区切判定のレコードタイプについて、TYPE 72 RMF WLM は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020090の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 72 RMF WLMを指定し、OSKB020090の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 72 RMF WLM
+CASE OSKB020090
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 72 RMF WLM
+CASE OSKB020090
+SOURCE SMP/E SMF WLM
+TYPE 72 RMF WLMとOSKB020090が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020090を同じ出力で読み、区切判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020090
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020090
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 72 RMF WLM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020090が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 72 RMF WLM と OSKB020090 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020090 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0125"><h3>TYPE 73 RMF Channel</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 73 RMF Channelは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 73 RMF Channel</strong></p><p>検証目的: 範囲判定のレコードタイプについて、TYPE 73 RMF Channelは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020091の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 73 RMF Channeを指定し、OSKB020091の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 73 RMF Channe
+CASE OSKB020091
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 73 RMF Channe
+CASE OSKB020091
+SOURCE SMP/E SMF WLM
+TYPE 73 RMF ChanneとOSKB020091が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020091を同じ出力で読み、範囲判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020091
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020091
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 73 RMF Channel REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020091が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 73 RMF Channe と OSKB020091 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020091 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0126"><h3>TYPE 74 RMF Device</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 74 RMF Deviceは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 74 RMF Device</strong></p><p>検証目的: 優先判定のレコードタイプについて、TYPE 74 RMF Deviceは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020092の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 74 RMF Deviceを指定し、OSKB020092の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 74 RMF Device
+CASE OSKB020092
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 74 RMF Device
+CASE OSKB020092
+SOURCE SMP/E SMF WLM
+TYPE 74 RMF DeviceとOSKB020092が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020092を同じ出力で読み、優先判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020092
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020092
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 74 RMF Device REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020092が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 74 RMF Device と OSKB020092 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020092 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0127"><h3>TYPE 74 サブ 1 Device</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 74 サブ 1 Deviceは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 74 サブ 1 Device</strong></p><p>検証目的: 記録判定のサブについて、TYPE 74 サブ 1 Deviceは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020093の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録判定のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 74 サブ 1 Devicを指定し、OSKB020093の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 74 サブ 1 Devic
+CASE OSKB020093
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 74 サブ 1 Devic
+CASE OSKB020093
+SOURCE SMP/E SMF WLM
+TYPE 74 サブ 1 DevicとOSKB020093が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020093を同じ出力で読み、記録判定のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020093
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020093
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 74 サブ 1 Device REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020093が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 74 サブ 1 Devic と OSKB020093 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020093 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0128"><h3>TYPE 74 サブ 4 CF</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 74 サブ 4 CFは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 74 サブ 4 CF</strong></p><p>検証目的: 比較判定のサブについて、TYPE 74 サブ 4 CF は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020094の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較判定のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 74 サブ 4 CFを指定し、OSKB020094の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 74 サブ 4 CF
+CASE OSKB020094
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 74 サブ 4 CF
+CASE OSKB020094
+SOURCE SMP/E SMF WLM
+TYPE 74 サブ 4 CFとOSKB020094が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020094を同じ出力で読み、比較判定のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020094
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020094
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 74 サブ 4 CF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020094が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 74 サブ 4 CF と OSKB020094 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020094 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0129"><h3>TYPE 74 サブ 5 Cache</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 74 サブ 5 Cacheは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 74 サブ 5 Cache</strong></p><p>検証目的: 順序判定のサブについて、TYPE 74 サブ 5 Cacheは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020095の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序判定のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 74 サブ 5 Cacheを指定し、OSKB020095の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 74 サブ 5 Cache
+CASE OSKB020095
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 74 サブ 5 Cache
+CASE OSKB020095
+SOURCE SMP/E SMF WLM
+TYPE 74 サブ 5 CacheとOSKB020095が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020095を同じ出力で読み、順序判定のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020095
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020095
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 74 サブ 5 Cache REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020095が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 74 サブ 5 Cache と OSKB020095 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020095 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0130"><h3>TYPE 74 サブ 7 FICON</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 74 サブ 7 FICONは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 74 サブ 7 FICON</strong></p><p>検証目的: 値域判定のサブについて、TYPE 74 サブ 7 FICON は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020096の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域判定のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 74 サブ 7 FICONを指定し、OSKB020096の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 74 サブ 7 FICON
+CASE OSKB020096
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 74 サブ 7 FICON
+CASE OSKB020096
+SOURCE SMP/E SMF WLM
+TYPE 74 サブ 7 FICONとOSKB020096が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020096を同じ出力で読み、値域判定のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020096
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020096
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 74 サブ 7 FICON REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020096が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 74 サブ 7 FICON と OSKB020096 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020096 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0131"><h3>TYPE 75 RMF Page Dataset</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 75 RMF Page Datasetは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 75 RMF Page Dataset</strong></p><p>検証目的: 警告判定のレコードタイプについて、TYPE 75 RMF Page Datasetは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020097の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 75 RMF Page Dを指定し、OSKB020097の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 75 RMF Page D
+CASE OSKB020097
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 75 RMF Page D
+CASE OSKB020097
+SOURCE SMP/E SMF WLM
+TYPE 75 RMF Page DとOSKB020097が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020097を同じ出力で読み、警告判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020097
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020097
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 75 RMF Page Dataset REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020097が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 75 RMF Page D と OSKB020097 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020097 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0132"><h3>TYPE 76 RMF Trace</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 76 RMF Traceは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 76 RMF Trace</strong></p><p>検証目的: 復旧判定のレコードタイプについて、TYPE 76 RMF Traceは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020098の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 76 RMF Traceを指定し、OSKB020098の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 76 RMF Trace
+CASE OSKB020098
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 76 RMF Trace
+CASE OSKB020098
+SOURCE SMP/E SMF WLM
+TYPE 76 RMF TraceとOSKB020098が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020098を同じ出力で読み、復旧判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020098
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020098
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 76 RMF Trace REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020098が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 76 RMF Trace と OSKB020098 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020098 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0133"><h3>TYPE 77 RMF Enqueue</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 77 RMF Enqueueは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 77 RMF Enqueue</strong></p><p>検証目的: 監査判定のレコードタイプについて、TYPE 77 RMF Enqueueは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020099の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査判定のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 77 RMF Enqueuを指定し、OSKB020099の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 77 RMF Enqueu
+CASE OSKB020099
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 77 RMF Enqueu
+CASE OSKB020099
+SOURCE SMP/E SMF WLM
+TYPE 77 RMF EnqueuとOSKB020099が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020099を同じ出力で読み、監査判定のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020099
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020099
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 77 RMF Enqueue REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020099が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 77 RMF Enqueu と OSKB020099 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020099 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0134"><h3>TYPE 78 RMF I/O Queuing</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 78 RMF I/O Queuingは、SMP/E / SMF / WLMのSMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 78 RMF I ・ O Queuing</strong></p><p>検証目的: 変更判定の・について、TYPE 78 RMF I/O Queuingは、SMP/E / SMF / WLM の SMF レコードタイプで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020100の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更判定の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 78 RMF I ・ O を指定し、OSKB020100の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 78 RMF I ・ O 
+CASE OSKB020100
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 78 RMF I ・ O 
+CASE OSKB020100
+SOURCE SMP/E SMF WLM
+TYPE 78 RMF I ・ O とOSKB020100が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020100を同じ出力で読み、変更判定の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020100
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020100
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 78 RMF I ・ O Queuing REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020100が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 78 RMF I ・ O  と OSKB020100 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020100 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0135"><h3>TYPE 79 RMF Monitor II</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 79 RMF Monitor IIは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 79 RMF Monitor II</strong></p><p>検証目的: 構文整理のレコードタイプについて、TYPE 79 RMF Monitor II は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020101の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 79 RMF Monitoを指定し、OSKB020101の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 79 RMF Monito
+CASE OSKB020101
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 79 RMF Monito
+CASE OSKB020101
+SOURCE SMP/E SMF WLM
+TYPE 79 RMF MonitoとOSKB020101が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020101を同じ出力で読み、構文整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020101
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020101
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 79 RMF Monitor II REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020101が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 79 RMF Monito と OSKB020101 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020101 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0136"><h3>TYPE 8-13 ハードウェア構成</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 8-13 ハードウェア構成は、SMP/E / SMF / WLMのSMF レコードタイプで構成値やオプションの意味を確認する項目です。指定場所、既定値、変更後に影響する機能を分けて確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 8-13 ハードウェア構成</strong></p><p>検証目的: 条件追跡のハードウェア構成について、TYPE 8-13 ハードウェア構成は、SMP/E / SMF / WLM の SMF レコードタイプで構成値やオプションの意味を確認する項目です。指定場所、既定値、変更後に影に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020049の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件追跡のハードウェア構成の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 8-13 ハードウェア構成を指定し、OSKB020049の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 8-13 ハードウェア構成
+CASE OSKB020049
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 8-13 ハードウェア構成
+CASE OSKB020049
+SOURCE SMP/E SMF WLM
+TYPE 8-13 ハードウェア構成とOSKB020049が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020049を同じ出力で読み、条件追跡のハードウェア構成の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020049
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020049
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 8-13 ハードウェア構成 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020049が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 8-13 ハードウェア構成 と OSKB020049 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020049 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0137"><h3>TYPE 80 RACF Audit</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 80 RACF Auditは、SMP/E / SMF / WLMのSMF レコードタイプで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象、監査上の証跡を別々に見て、過剰な権限を残さないようにします。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 80 RACF Audit</strong></p><p>検証目的: 展開整理のレコードタイプについて、TYPE 80 RACF Auditは、SMP/E / SMF / WLM の SMF レコードタイプで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020102の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 80 RACF Auditを指定し、OSKB020102の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 80 RACF Audit
+CASE OSKB020102
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 80 RACF Audit
+CASE OSKB020102
+SOURCE SMP/E SMF WLM
+TYPE 80 RACF AuditとOSKB020102が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020102を同じ出力で読み、展開整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020102
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020102
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 80 RACF Audit REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020102が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 80 RACF Audit と OSKB020102 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020102 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0138"><h3>TYPE 81 RACF Initialization</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 81 RACF Initializationは、SMP/E / SMF / WLMのSMF レコードタイプで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象、監査上の証跡を別々に見て、過剰な権限を残さないようにします。z/OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 81 RACF Initialization</strong></p><p>検証目的: 呼出整理のレコードタイプについて、TYPE 81 RACF Initializationは、SMP/E / SMF / WLM の SMF レコードタイプで認証、権限、またはセキュリティ設定を確認する項目です。に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020103の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 81 RACF Initiを指定し、OSKB020103の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 81 RACF Initi
+CASE OSKB020103
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 81 RACF Initi
+CASE OSKB020103
+SOURCE SMP/E SMF WLM
+TYPE 81 RACF InitiとOSKB020103が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020103を同じ出力で読み、呼出整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020103
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020103
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 81 RACF Initializat REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020103が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 81 RACF Initi と OSKB020103 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020103 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0139"><h3>TYPE 82 ICSF</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 82 ICSFは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 82 ICSF</strong></p><p>検証目的: 置換整理のレコードタイプについて、TYPE 82 ICSF は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020104の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 82 ICSFを指定し、OSKB020104の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 82 ICSF
+CASE OSKB020104
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 82 ICSF
+CASE OSKB020104
+SOURCE SMP/E SMF WLM
+TYPE 82 ICSFとOSKB020104が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020104を同じ出力で読み、置換整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020104
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020104
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 82 ICSF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020104が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 82 ICSF と OSKB020104 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020104 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0140"><h3>TYPE 83 RACF DB Audit</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 83 RACF DB Auditは、SMP/E / SMF / WLMのSMF レコードタイプで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保護対象、監査上の証跡を別々に見て、過剰な権限を残さないようにします。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 83 RACF DB Audit</strong></p><p>検証目的: 終端整理のレコードタイプについて、TYPE 83 RACF DB Auditは、SMP/E / SMF / WLM の SMF レコードタイプで認証、権限、またはセキュリティ設定を確認する項目です。許可対象、保に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020105の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 83 RACF DB Auを指定し、OSKB020105の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 83 RACF DB Au
+CASE OSKB020105
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 83 RACF DB Au
+CASE OSKB020105
+SOURCE SMP/E SMF WLM
+TYPE 83 RACF DB AuとOSKB020105が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020105を同じ出力で読み、終端整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020105
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020105
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 83 RACF DB Audit REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020105が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 83 RACF DB Au と OSKB020105 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020105 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0141"><h3>TYPE 84 JES3 Spool</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 84 JES3 Spoolは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 84 JES3 Spool</strong></p><p>検証目的: 探索整理のレコードタイプについて、TYPE 84 JES3 Spoolは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020106の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 84 JES3 Spoolを指定し、OSKB020106の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 84 JES3 Spool
+CASE OSKB020106
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 84 JES3 Spool
+CASE OSKB020106
+SOURCE SMP/E SMF WLM
+TYPE 84 JES3 SpoolとOSKB020106が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020106を同じ出力で読み、探索整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020106
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020106
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 84 JES3 Spool REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020106が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 84 JES3 Spool と OSKB020106 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020106 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0142"><h3>TYPE 85 OAM</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 85 OAMは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 85 OAM</strong></p><p>検証目的: 上書整理のレコードタイプについて、TYPE 85 OAM は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020107の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 85 OAMを指定し、OSKB020107の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 85 OAM
+CASE OSKB020107
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 85 OAM
+CASE OSKB020107
+SOURCE SMP/E SMF WLM
+TYPE 85 OAMとOSKB020107が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020107を同じ出力で読み、上書整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020107
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020107
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 85 OAM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020107が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 85 OAM と OSKB020107 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020107 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0143"><h3>TYPE 86 GRS Latch</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 86 GRS Latchは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 86 GRS Latch</strong></p><p>検証目的: 出力整理のレコードタイプについて、TYPE 86 GRS Latchは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020108の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 86 GRS Latchを指定し、OSKB020108の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 86 GRS Latch
+CASE OSKB020108
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 86 GRS Latch
+CASE OSKB020108
+SOURCE SMP/E SMF WLM
+TYPE 86 GRS LatchとOSKB020108が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020108を同じ出力で読み、出力整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020108
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020108
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 86 GRS Latch REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020108が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 86 GRS Latch と OSKB020108 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020108 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0144"><h3>TYPE 87 GRS ENQ</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 87 GRS ENQは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 87 GRS ENQ</strong></p><p>検証目的: 条件整理のレコードタイプについて、TYPE 87 GRS ENQ は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020109の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 87 GRS ENQを指定し、OSKB020109の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 87 GRS ENQ
+CASE OSKB020109
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 87 GRS ENQ
+CASE OSKB020109
+SOURCE SMP/E SMF WLM
+TYPE 87 GRS ENQとOSKB020109が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020109を同じ出力で読み、条件整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020109
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020109
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 87 GRS ENQ REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020109が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 87 GRS ENQ と OSKB020109 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020109 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0145"><h3>TYPE 88 System Logger</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 88 System Loggerは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 88 System Logger</strong></p><p>検証目的: 区切整理のレコードタイプについて、TYPE 88 System Loggerは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020110の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 88 System Logを指定し、OSKB020110の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 88 System Log
+CASE OSKB020110
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 88 System Log
+CASE OSKB020110
+SOURCE SMP/E SMF WLM
+TYPE 88 System LogとOSKB020110が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020110を同じ出力で読み、区切整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020110
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020110
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 88 System Logger REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020110が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 88 System Log と OSKB020110 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020110 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0146"><h3>TYPE 89 Usage Data</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 89 Usage Dataは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 89 Usage Data</strong></p><p>検証目的: 範囲整理のレコードタイプについて、TYPE 89 Usage Dataは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020111の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 89 Usage Dataを指定し、OSKB020111の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 89 Usage Data
+CASE OSKB020111
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 89 Usage Data
+CASE OSKB020111
+SOURCE SMP/E SMF WLM
+TYPE 89 Usage DataとOSKB020111が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020111を同じ出力で読み、範囲整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020111
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020111
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 89 Usage Data REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020111が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 89 Usage Data と OSKB020111 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020111 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0147"><h3>TYPE 90 System Status Change</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 90 System Status Changeは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 90 System Status Change</strong></p><p>検証目的: 優先整理のレコードタイプについて、TYPE 90 System Status Changeは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目ですに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020112の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 90 System Staを指定し、OSKB020112の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 90 System Sta
+CASE OSKB020112
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 90 System Sta
+CASE OSKB020112
+SOURCE SMP/E SMF WLM
+TYPE 90 System StaとOSKB020112が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020112を同じ出力で読み、優先整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020112
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020112
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 90 System Status Ch REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020112が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 90 System Sta と OSKB020112 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020112 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0148"><h3>TYPE 90 サブ 5 LOAD</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 90 サブ 5 LOADは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 90 サブ 5 LOAD</strong></p><p>検証目的: 記録整理のサブについて、TYPE 90 サブ 5 LOAD は、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020113の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録整理のサブの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 90 サブ 5 LOADを指定し、OSKB020113の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 90 サブ 5 LOAD
+CASE OSKB020113
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 90 サブ 5 LOAD
+CASE OSKB020113
+SOURCE SMP/E SMF WLM
+TYPE 90 サブ 5 LOADとOSKB020113が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020113を同じ出力で読み、記録整理のサブの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020113
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020113
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 90 サブ 5 LOAD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020113が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 90 サブ 5 LOAD と OSKB020113 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020113 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0149"><h3>TYPE 92 USS File</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 92 USS Fileは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 92 USS File</strong></p><p>検証目的: 比較整理のレコードタイプについて、TYPE 92 USS Fileは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020114の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 92 USS Fileを指定し、OSKB020114の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 92 USS File
+CASE OSKB020114
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 92 USS File
+CASE OSKB020114
+SOURCE SMP/E SMF WLM
+TYPE 92 USS FileとOSKB020114が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020114を同じ出力で読み、比較整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020114
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020114
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 92 USS File REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020114が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 92 USS File と OSKB020114 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020114 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0150"><h3>TYPE 99 WLM Decisions</h3><p class="kb-meta">分類: SMF レコードタイプ ・ 難易度: 上級</p><p>TYPE 99 WLM Decisionsは、SMP/E / SMF / WLMのSMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TYPE 99 WLM Decisions</strong></p><p>検証目的: 順序整理のレコードタイプについて、TYPE 99 WLM Decisionsは、SMP/E / SMF / WLM の SMF レコードタイプで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020115の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序整理のレコードタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTYPE 99 WLM Decisiを指定し、OSKB020115の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TYPE 99 WLM Decisi
+CASE OSKB020115
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TYPE 99 WLM Decisi
+CASE OSKB020115
+SOURCE SMP/E SMF WLM
+TYPE 99 WLM DecisiとOSKB020115が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020115を同じ出力で読み、順序整理のレコードタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020115
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020115
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TYPE 99 WLM Decisions REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020115が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TYPE 99 WLM Decisi と OSKB020115 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020115 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+## SMF 出口
+
+
+<section class="kb-item" id="c28-i0151"><h3>IEFACTRT Step/Job End Accounting</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFACTRT Step/Job End Accountingは、ステップ/ジョブ終了時、アカウンティング出口</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開照合権限の展開照合として IEFACTRT を確認するとき、後続担当者へ残すべき証跡はどれですか。</p><ul class="kb-choices"><li>A. 展開照合の表示本文とメッセージを照合して記録する。 <span class="kb-ok">✅ 正解</span></li><li>B. 別分類の結果を流用して同じ証跡として扱う。</li><li>C. 戻り値と時刻を主な根拠にして表示行を読まない。</li><li>D. 承認欄の記入を優先して出力メッセージを保存しない。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 正解はAです。展開照合権限で扱う IEFACTRT は SMP/E / SMF / WLM の確認対象です（展開照合権限用語）。展開照合権限の担当者は展開照合として、表示本文とメッセージを照合します（展開照合権限照合）。展開照合権限の対応を残すと、後続担当者は同じ出典に戻って確認できます（展開照合権限出典）。A: 展開照合権限で表示とメッセージを結ぶ場合に根拠になります（展開照合権限A）。B: 展開照合権限で定義と出力の関係がない場合は追跡できません（展開照合権限B）。C: 展開照合権限で出典名のみでは実際の表示を説明できません（展開照合権限C）。D: 展開照合権限で操作記録のみでは値や状態の確認が不足します（展開照合権限D）。展開照合権限の初出用語として IEFACTRT を扱い、分類内の確認名として保存します（展開照合権限終点）。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFACTRT Step・ Job End Accounting</strong></p><p>検証目的: 出力追跡の・について、IEFACTRT Step/Job End Accountingは、ステップ/ジョブ終了時、アカウンティング出口に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030048の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力追跡の・の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFACTRT Step・ Jobを指定し、OSKB030048の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFACTRT Step・ Job
+CASE OSKB030048
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFACTRT Step・ Job
+CASE OSKB030048
+SOURCE SMP/E SMF WLM
+IEFACTRT Step・ JobとOSKB030048が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030048を同じ出力で読み、出力追跡の・の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030048
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030048
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFACTRT Step・ Job End Ac REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030048が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFACTRT Step・ Job と OSKB030048 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030048 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0152"><h3>IEFU29 SMF Dump</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFU29 SMF Dumpは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 変更確認の出口に関する IEFU29 SMF Dumpの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず変更確認の出口の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを変更確認の出口の証跡として保存して根拠にする。</li><li>C. IEFU29 SMF Dumpの変更点を出力本文から切り離して変更確認の出口の承認欄のみ残す。</li><li>D. D WLM,SYSTEMS の結果から対象行を抜き出し、変更確認の証跡として残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 変更確認の出口において選択記号 D を採用し、識別名は変更確認です。変更確認の出口において IEFU29 SMF Dump は説明欄の「IEFU29 SMF Dumpの状態と出力メッセージを結び付ける変更確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は変更確認です。変更確認の出口に関する記録は、IEFU29 SMF Dumpの出力行と IWM025I を一緒に保存し、背景名は変更確認です。選択肢ごとの違いを示します。 A: 変更確認の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため変更確認ではありません。 B: 変更確認の出口は別カテゴリの確認を流用しており、IEFU29 SMF Dumpの根拠にならないため変更確認ではありません。 C: 変更確認の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため変更確認ではありません。 D: 変更確認の出口は対象出力と項目説明を結び、根拠を残すので変更確認です。変更確認の出口で記録する IEFU29 SMF Dumpは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は変更確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFU29 SMF Dump</strong></p><p>検証目的: 呼出追跡の出口について、IEFU29 SMF Dumpは、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030043の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFU29 SMF Dumpを指定し、OSKB030043の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFU29 SMF Dump
+CASE OSKB030043
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFU29 SMF Dump
+CASE OSKB030043
+SOURCE SMP/E SMF WLM
+IEFU29 SMF DumpとOSKB030043が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030043を同じ出力で読み、呼出追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030043
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030043
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFU29 SMF Dump REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030043が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFU29 SMF Dump と OSKB030043 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030043 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0153"><h3>IEFU83 (System SMF Record)</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFU83 (System SMF Record)は、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 値域確認の出口に関する IEFU83 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず値域確認の出口の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを値域確認の出口の証跡として保存して根拠にする。</li><li>C. IEFU83 属性の変更点を出力本文から切り離して値域確認の出口の承認欄のみ残す。</li><li>D. 対象の出力行とメッセージ接頭辞を同時に記録し、値域確認で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 値域確認の出口において選択記号 D を採用し、識別名は値域確認です。値域確認の出口において IEFU83 属性 は説明欄の「IEFU83 属性の状態と出力メッセージを結び付ける値域確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は値域確認です。値域確認の出口に関する記録は、IEFU83 属性の出力行と IWM025I を一緒に保存し、背景名は値域確認です。選択肢ごとの違いを示します。 A: 値域確認の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため値域確認ではありません。 B: 値域確認の出口は別カテゴリの確認を流用しており、IEFU83 属性の根拠にならないため値域確認ではありません。 C: 値域確認の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため値域確認ではありません。 D: 値域確認の出口は対象出力と項目説明を結び、根拠を残すので値域確認です。値域確認の出口で記録する IEFU83 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は値域確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFU83 (System SMF Record)</strong></p><p>検証目的: 監査照合の出口について、IEFU83 (System SMF Record)は、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030039の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査照合の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFU83 (System SMFを指定し、OSKB030039の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFU83 (System SMF
+CASE OSKB030039
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFU83 (System SMF
+CASE OSKB030039
+SOURCE SMP/E SMF WLM
+IEFU83 (System SMFとOSKB030039が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030039を同じ出力で読み、監査照合の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030039
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030039
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFU83 (System SMF Recor REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030039が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFU83 (System SMF と OSKB030039 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030039 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0154"><h3>IEFU84 (Subsystem SMF Record)</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFU84 (Subsystem SMF Record)は、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 警告確認の出口に関係する IEFU84 属性の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 机上確認でも実出力の見出しに合わせ、警告確認の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>B. IEFU84 属性の名称と担当者名のみを残して警告確認の出口の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で警告確認の出口を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず警告確認の出口の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 警告確認の出口において選択記号 A を採用し、識別名は警告確認です。警告確認の出口において IEFU84 属性 は説明欄の「IEFU84 属性の用途を保守管理の表示で確認する警告確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は警告確認です。警告確認の出口に関連して、SMP/E SMF WLM では IEFU84 属性の表示属性と IWM025I を同じ証跡に残し、背景名は警告確認です。他の選択肢を確認します。 A: 警告確認の出口は対象出力と項目説明を結び、根拠を残すので警告確認です。 B: 警告確認の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため警告確認ではありません。 C: 警告確認の出口は別カテゴリの確認を流用しており、IEFU84 属性の根拠にならないため警告確認ではありません。 D: 警告確認の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため警告確認ではありません。警告確認の出口で使う IEFU84 属性という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は警告確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFU84 (Subsystem SMF Record)</strong></p><p>検証目的: 変更照合の出口について、IEFU84 (Subsystem SMF Record)は、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030040の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更照合の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFU84 (Subsystem を指定し、OSKB030040の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFU84 (Subsystem 
+CASE OSKB030040
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFU84 (Subsystem 
+CASE OSKB030040
+SOURCE SMP/E SMF WLM
+IEFU84 (Subsystem とOSKB030040が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030040を同じ出力で読み、変更照合の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030040
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030040
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFU84 (Subsystem SMF Re REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030040が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFU84 (Subsystem  と OSKB030040 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030040 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0155"><h3>IEFU85 (Branch Entry SMF Record)</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFU85 (Branch Entry SMF Record)は、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 復旧確認の出口で IEFU85 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IEFU85 属性の出力を取らず復旧確認の出口の説明文と承認印のみを残す。</li><li>B. 参照資料名、表示行、メッセージをそろえて復旧確認の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して復旧確認の出口の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を復旧確認の出口へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧確認の出口において選択記号 B を採用し、識別名は復旧確認です。復旧確認の出口において IEFU85 属性 は説明欄の「復旧確認の出口に関係する定義値と表示行を照合する復旧確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧確認です。復旧確認の出口の証跡を読む担当者は、IEFU85 属性の属性行と IWM025I を合わせて追跡し、背景名は復旧確認です。誤答側の問題点を分けます。 A: 復旧確認の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧確認ではありません。 B: 復旧確認の出口は対象出力と項目説明を結び、根拠を残すので復旧確認です。 C: 復旧確認の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧確認ではありません。 D: 復旧確認の出口は別カテゴリの確認を流用しており、IEFU85 属性の根拠にならないため復旧確認ではありません。復旧確認の出口に出る IEFU85 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFU85 (Branch Entry SMF Record)</strong></p><p>検証目的: 構文追跡の出口について、IEFU85 (Branch Entry SMF Record)は、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030041の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFU85 (Branch Entを指定し、OSKB030041の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFU85 (Branch Ent
+CASE OSKB030041
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFU85 (Branch Ent
+CASE OSKB030041
+SOURCE SMP/E SMF WLM
+IEFU85 (Branch EntとOSKB030041が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030041を同じ出力で読み、構文追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030041
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030041
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFU85 (Branch Entry SMF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030041が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFU85 (Branch Ent と OSKB030041 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030041 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0156"><h3>IEFU86 (Logstream SMF Record)</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFU86 (Logstream SMF Record)は、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 監査確認の出口で保守管理の運用確認を行います。IEFU86 属性の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で監査確認の出口を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず監査確認の出口を正常終了として記録する。</li><li>C. IWM025I を含む表示を保存し、説明欄との差分を監査確認で確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. IEFU86 属性の属性行を読まず監査確認の出口の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査確認の出口において選択記号 C を採用し、識別名は監査確認です。監査確認の出口において IEFU86 属性 は説明欄の「SMP/E SMF WLM で IEFU86 属性の扱いを記録する監査確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認の出口を受け取る担当者は、IEFU86 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認の出口は別カテゴリの確認を流用しており、IEFU86 属性の根拠にならないため監査確認ではありません。 B: 監査確認の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査確認ではありません。 C: 監査確認の出口は対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認の出口が示す IEFU86 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFU86 (Logstream SMF Record)</strong></p><p>検証目的: 展開追跡の出口について、IEFU86 (Logstream SMF Record)は、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030042の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFU86 (Logstream を指定し、OSKB030042の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFU86 (Logstream 
+CASE OSKB030042
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFU86 (Logstream 
+CASE OSKB030042
+SOURCE SMP/E SMF WLM
+IEFU86 (Logstream とOSKB030042が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030042を同じ出力で読み、展開追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030042
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030042
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFU86 (Logstream SMF Re REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030042が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFU86 (Logstream  と OSKB030042 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030042 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0157"><h3>IEFUAV TSO LOGON</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFUAV TSO LOGONは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 探索照合の出口で IEFUAV TSO LOGON の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IEFUAV TSO LOGON の出力を取らず探索照合の出口の説明文と承認印のみを残す。</li><li>B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、探索照合の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索照合の出口の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索照合の出口へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索照合の出口において選択記号 B を採用し、識別名は探索照合です。探索照合の出口において IEFUAV TSO LOGON は説明欄の「探索照合の出口に関係する定義値と表示行を照合する探索照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索照合です。探索照合の出口の証跡を読む担当者は、IEFUAV TSO LOGON の属性行と IWM025I を合わせて追跡し、背景名は探索照合です。誤答側の問題点を分けます。 A: 探索照合の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため探索照合ではありません。 B: 探索照合の出口は対象出力と項目説明を結び、根拠を残すので探索照合です。 C: 探索照合の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索照合ではありません。 D: 探索照合の出口は別カテゴリの確認を流用しており、IEFUAV TSO LOGON の根拠にならないため探索照合ではありません。探索照合の出口に出る IEFUAV TSO LOGON は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFUAV TSO LOGON</strong></p><p>検証目的: 条件追跡の出口について、IEFUAV TSO LOGON は、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030049の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFUAV TSO LOGONを指定し、OSKB030049の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFUAV TSO LOGON
+CASE OSKB030049
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFUAV TSO LOGON
+CASE OSKB030049
+SOURCE SMP/E SMF WLM
+IEFUAV TSO LOGONとOSKB030049が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030049を同じ出力で読み、条件追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030049
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030049
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFUAV TSO LOGON REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030049が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFUAV TSO LOGON と OSKB030049 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030049 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0158"><h3>IEFUJI Job Initiation</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFUJI Job Initiationは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 上書照合の出口で保守管理の運用確認を行います。IEFUJI Job Initiationの根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で上書照合の出口を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず上書照合の出口を正常終了として記録する。</li><li>C. SMP/E SMF WLM の表示形式に沿って根拠行を採り、上書照合の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>D. IEFUJI Job Initiationの属性行を読まず上書照合の出口の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 上書照合の出口において選択記号 C を採用し、識別名は上書照合です。上書照合の出口において IEFUJI Job Initiation は説明欄の「SMP/E SMF WLM で IEFUJI Job Initiationの扱いを記録する上書照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合の出口を受け取る担当者は、IEFUJI Job Initiationの表示結果と IWM025I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合の出口は別カテゴリの確認を流用しており、IEFUJI Job Initiationの根拠にならないため上書照合ではありません。 B: 上書照合の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書照合ではありません。 C: 上書照合の出口は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合の出口が示す IEFUJI Job Initiationは出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFUJI Job Initiation</strong></p><p>検証目的: 区切追跡の出口について、IEFUJI Job Initiationは、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030050の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFUJI Job Initiatを指定し、OSKB030050の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFUJI Job Initiat
+CASE OSKB030050
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFUJI Job Initiat
+CASE OSKB030050
+SOURCE SMP/E SMF WLM
+IEFUJI Job InitiatとOSKB030050が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030050を同じ出力で読み、区切追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030050
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030050
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFUJI Job Initiation REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030050が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFUJI Job Initiat と OSKB030050 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030050 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0159"><h3>IEFUJP Job Purge</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFUJP Job Purgeは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 置換照合の出口に関する IEFUJP Job Purgeの引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず置換照合の出口の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを置換照合の出口の証跡として保存して根拠にする。</li><li>C. IEFUJP Job Purgeの変更点を出力本文から切り離して置換照合の出口の承認欄のみ残す。</li><li>D. D WLM,SYSTEMS で得た表示本文を使い、置換照合の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 置換照合の出口において選択記号 D を採用し、識別名は置換照合です。置換照合の出口において IEFUJP Job Purge は説明欄の「IEFUJP Job Purgeの状態と出力メッセージを結び付ける置換照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合の出口に関する記録は、IEFUJP Job Purgeの出力行と IWM025I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換照合ではありません。 B: 置換照合の出口は別カテゴリの確認を流用しており、IEFUJP Job Purgeの根拠にならないため置換照合ではありません。 C: 置換照合の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合の出口は対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合の出口で記録する IEFUJP Job Purgeは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFUJP Job Purge</strong></p><p>検証目的: 上書追跡の出口について、IEFUJP Job Purgeは、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030047の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFUJP Job Purgeを指定し、OSKB030047の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFUJP Job Purge
+CASE OSKB030047
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFUJP Job Purge
+CASE OSKB030047
+SOURCE SMP/E SMF WLM
+IEFUJP Job PurgeとOSKB030047が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030047を同じ出力で読み、上書追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030047
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030047
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFUJP Job Purge REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030047が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFUJP Job Purge と OSKB030047 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030047 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0160"><h3>IEFUJV Job Validation</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFUJV Job Validationは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS MVS Installation Exits (zOS31_ieae400); OS MVS System Management Facilities SMF (zOS31_ieag200) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 呼出照合の出口で保守管理の運用確認を行います。IEFUJV Job Validationの根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出照合の出口を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出照合の出口を正常終了として記録する。</li><li>C. 同じ画面で対象行と IWM025I を読み、呼出照合の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>D. IEFUJV Job Validationの属性行を読まず呼出照合の出口の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出照合の出口において選択記号 C を採用し、識別名は呼出照合です。呼出照合の出口において IEFUJV Job Validation は説明欄の「SMP/E SMF WLM で IEFUJV Job Validationの扱いを記録する呼出照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出照合です。呼出照合の出口を受け取る担当者は、IEFUJV Job Validationの表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出照合です。不適切な選択肢を整理します。 A: 呼出照合の出口は別カテゴリの確認を流用しており、IEFUJV Job Validationの根拠にならないため呼出照合ではありません。 B: 呼出照合の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出照合ではありません。 C: 呼出照合の出口は対象出力と項目説明を結び、根拠を残すので呼出照合です。 D: 呼出照合の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出照合ではありません。呼出照合の出口が示す IEFUJV Job Validationは出典欄の資料で使い方を追跡できる項目であり、用語名は呼出照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFUJV Job Validation</strong></p><p>検証目的: 探索追跡の出口について、IEFUJV Job Validationは、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030046の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFUJV Job Validatを指定し、OSKB030046の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFUJV Job Validat
+CASE OSKB030046
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFUJV Job Validat
+CASE OSKB030046
+SOURCE SMP/E SMF WLM
+IEFUJV Job ValidatとOSKB030046が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030046を同じ出力で読み、探索追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030046
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030046
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFUJV Job Validation REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030046が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFUJV Job Validat と OSKB030046 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030046 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0161"><h3>IEFUSI Job Step Initiation</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFUSI Job Step Initiationは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文照合の出口に関係する IEFUSI Job Step Initiatiの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 出典欄の説明と運用出力を照合し、構文照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>B. IEFUSI Job Step Initiatiの名称と担当者名のみを残して構文照合の出口の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文照合の出口を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文照合の出口の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文照合の出口において選択記号 A を採用し、識別名は構文照合です。構文照合の出口において IEFUSI Job Step Initiati は説明欄の「IEFUSI Job Step Initiatiの用途を保守管理の表示で確認する構文照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文照合です。構文照合の出口に関連して、SMP/E SMF WLM では IEFUSI Job Step Initiatiの表示属性と IWM025I を同じ証跡に残し、背景名は構文照合です。他の選択肢を確認します。 A: 構文照合の出口は対象出力と項目説明を結び、根拠を残すので構文照合です。 B: 構文照合の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため構文照合ではありません。 C: 構文照合の出口は別カテゴリの確認を流用しており、IEFUSI Job Step Initiatiの根拠にならないため構文照合ではありません。 D: 構文照合の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文照合ではありません。構文照合の出口で使う IEFUSI Job Step Initiatiという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFUSI Job Step Initiation</strong></p><p>検証目的: 置換追跡の出口について、IEFUSI Job Step Initiationは、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030044の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFUSI Job Step Inを指定し、OSKB030044の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFUSI Job Step In
+CASE OSKB030044
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFUSI Job Step In
+CASE OSKB030044
+SOURCE SMP/E SMF WLM
+IEFUSI Job Step InとOSKB030044が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030044を同じ出力で読み、置換追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030044
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030044
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFUSI Job Step Initiati REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030044が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFUSI Job Step In と OSKB030044 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030044 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0162"><h3>IEFUTL Wait Limit</h3><p class="kb-meta">分類: SMF 出口 ・ 難易度: 上級</p><p>IEFUTL Wait Limitは、SMP/E / SMF / WLMのSMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開照合の出口で IEFUTL Wait Limitの点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. IEFUTL Wait Limitの出力を取らず展開照合の出口の説明文と承認印のみを残す。</li><li>B. 属性行、戻り表示、メッセージ見出しを合わせて展開照合の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開照合の出口の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開照合の出口へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開照合の出口において選択記号 B を採用し、識別名は展開照合です。展開照合の出口において IEFUTL Wait Limit は説明欄の「展開照合の出口に関係する定義値と表示行を照合する展開照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開照合です。展開照合の出口の証跡を読む担当者は、IEFUTL Wait Limitの属性行と IWM025I を合わせて追跡し、背景名は展開照合です。誤答側の問題点を分けます。 A: 展開照合の出口は名称や説明のみに寄り、状態を示す出力本文が不足するため展開照合ではありません。 B: 展開照合の出口は対象出力と項目説明を結び、根拠を残すので展開照合です。 C: 展開照合の出口は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開照合ではありません。 D: 展開照合の出口は別カテゴリの確認を流用しており、IEFUTL Wait Limitの根拠にならないため展開照合ではありません。展開照合の出口に出る IEFUTL Wait Limitは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>IEFUTL Wait Limit</strong></p><p>検証目的: 終端追跡の出口について、IEFUTL Wait Limitは、SMP/E / SMF / WLM の SMF 出口で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030045の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端追跡の出口の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にIEFUTL Wait Limitを指定し、OSKB030045の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND IEFUTL Wait Limit
+CASE OSKB030045
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM IEFUTL Wait Limit
+CASE OSKB030045
+SOURCE SMP/E SMF WLM
+IEFUTL Wait LimitとOSKB030045が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030045を同じ出力で読み、終端追跡の出口の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB030045
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB030045
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I IEFUTL Wait Limit REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB030045が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の IEFUTL Wait Limit と OSKB030045 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB030045 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS MVS Installation Exits (zOS31_ieae400) / OS MVS System Management Facilities SMF (zOS31_ieag200)</p></div></details></section>
+
+
+## SMP/E ACCEPT
+
+
+<section class="kb-item" id="c28-i0163"><h3>ACCEPT BYPASS(HOLDCLASS)</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT BYPASS(HOLDCLASS)は、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 探索照合の保守管理で ACCEPT BYPASS 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT BYPASS 属性の出力を取らず探索照合の保守管理の説明文と承認印のみを残す。</li><li>B. 出典欄の説明と運用出力を照合し、探索照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索照合の保守管理において選択記号 B を採用し、識別名は探索照合です。探索照合の保守管理において ACCEPT BYPASS 属性 は説明欄の「探索照合の保守管理に関係する定義値と表示行を照合する探索照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索照合です。探索照合の保守管理の証跡を読む担当者は、ACCEPT BYPASS 属性の属性行と IWM025I を合わせて追跡し、背景名は探索照合です。誤答側の問題点を分けます。 A: 探索照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため探索照合ではありません。 B: 探索照合の保守管理は対象出力と項目説明を結び、根拠を残すので探索照合です。 C: 探索照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索照合ではありません。 D: 探索照合の保守管理は別カテゴリの確認を流用しており、ACCEPT BYPASS 属性の根拠にならないため探索照合ではありません。探索照合の保守管理に出る ACCEPT BYPASS 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT BYPASS(HOLDCLASS)</strong></p><p>検証目的: 監査照合の保守管理について、ACCEPT BYPASS(HOLDCLASS)は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010039の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT BYPASS(HOLDを指定し、OSKB010039の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT BYPASS(HOLD
+CASE OSKB010039
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT BYPASS(HOLD
+CASE OSKB010039
+SOURCE SMP/E SMF WLM
+ACCEPT BYPASS(HOLDとOSKB010039が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010039を同じ出力で読み、監査照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010039
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010039
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT BYPASS(HOLDCLASS) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010039が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT BYPASS(HOLD と OSKB010039 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010039 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0164"><h3>ACCEPT BYPASS(HOLDSYSTEM)</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT BYPASS(HOLDSYSTEM)は、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 置換照合の保守管理に関する ACCEPT BYPASS 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず置換照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを置換照合の保守管理の証跡として保存して根拠にする。</li><li>C. ACCEPT BYPASS 属性の変更点を出力本文から切り離して置換照合の保守管理の承認欄のみ残す。</li><li>D. IWM025I を含む表示を保存し、説明欄との差分を置換照合で確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 置換照合の保守管理において選択記号 D を採用し、識別名は置換照合です。置換照合の保守管理において ACCEPT BYPASS 属性 は説明欄の「ACCEPT BYPASS 属性の状態と出力メッセージを結び付ける置換照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合の保守管理に関する記録は、ACCEPT BYPASS 属性の出力行と IWM025I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換照合ではありません。 B: 置換照合の保守管理は別カテゴリの確認を流用しており、ACCEPT BYPASS 属性の根拠にならないため置換照合ではありません。 C: 置換照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合の保守管理は対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合の保守管理で記録する ACCEPT BYPASS 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT BYPASS(HOLDSYSTEM)</strong></p><p>検証目的: 警告照合の保守管理について、ACCEPT BYPASS(HOLDSYSTEM)は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010037の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT BYPASS(HOLDを指定し、OSKB010037の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT BYPASS(HOLD
+CASE OSKB010037
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT BYPASS(HOLD
+CASE OSKB010037
+SOURCE SMP/E SMF WLM
+ACCEPT BYPASS(HOLDとOSKB010037が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010037を同じ出力で読み、警告照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010037
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010037
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT BYPASS(HOLDSYSTEM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010037が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT BYPASS(HOLD と OSKB010037 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010037 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0165"><h3>ACCEPT BYPASS(HOLDUSER)</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT BYPASS(HOLDUSER)は、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 終端照合の保守管理に関係する ACCEPT BYPASS 属性の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果から対象行を抜き出し、終端照合の証跡として残す。 <span class="kb-ok">✅ 正解</span></li><li>B. ACCEPT BYPASS 属性の名称と担当者名のみを残して終端照合の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で終端照合の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず終端照合の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 終端照合の保守管理において選択記号 A を採用し、識別名は終端照合です。終端照合の保守管理において ACCEPT BYPASS 属性 は説明欄の「ACCEPT BYPASS 属性の用途を保守管理の表示で確認する終端照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端照合です。終端照合の保守管理に関連して、SMP/E SMF WLM では ACCEPT BYPASS 属性の表示属性と IWM025I を同じ証跡に残し、背景名は終端照合です。他の選択肢を確認します。 A: 終端照合の保守管理は対象出力と項目説明を結び、根拠を残すので終端照合です。 B: 終端照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため終端照合ではありません。 C: 終端照合の保守管理は別カテゴリの確認を流用しており、ACCEPT BYPASS 属性の根拠にならないため終端照合ではありません。 D: 終端照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端照合ではありません。終端照合の保守管理で使う ACCEPT BYPASS 属性という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT BYPASS(HOLDUSER)</strong></p><p>検証目的: 復旧照合の保守管理について、ACCEPT BYPASS(HOLDUSER)は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010038の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT BYPASS(HOLDを指定し、OSKB010038の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT BYPASS(HOLD
+CASE OSKB010038
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT BYPASS(HOLD
+CASE OSKB010038
+SOURCE SMP/E SMF WLM
+ACCEPT BYPASS(HOLDとOSKB010038が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010038を同じ出力で読み、復旧照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010038
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010038
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT BYPASS(HOLDUSER) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010038が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT BYPASS(HOLD と OSKB010038 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010038 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0166"><h3>ACCEPT CHECK</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT CHECKは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（4問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開照合の保守管理で ACCEPT CHECK の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT CHECK の出力を取らず展開照合の保守管理の説明文と承認印のみを残す。</li><li>B. 机上確認でも実出力の見出しに合わせ、展開照合の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開照合の保守管理において選択記号 B を採用し、識別名は展開照合です。展開照合の保守管理において ACCEPT CHECK は説明欄の「展開照合の保守管理に関係する定義値と表示行を照合する展開照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開照合です。展開照合の保守管理の証跡を読む担当者は、ACCEPT CHECK の属性行と IWM025I を合わせて追跡し、背景名は展開照合です。誤答側の問題点を分けます。 A: 展開照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため展開照合ではありません。 B: 展開照合の保守管理は対象出力と項目説明を結び、根拠を残すので展開照合です。 C: 展開照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開照合ではありません。 D: 展開照合の保守管理は別カテゴリの確認を流用しており、ACCEPT CHECK の根拠にならないため展開照合ではありません。展開照合の保守管理に出る ACCEPT CHECK は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 保守面の配布反映事前検査を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って配布反映 CHECK reportとdistribution zoneを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. RECEIVE HOLDDATA</li><li>B. LIST TARGETZONE</li><li>C. SMPLOG SMPRPT</li><li>D. ACCEPT CHECK <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 確認面観点の配布反映事前検査監査は正答Dで、表記上の手掛かりは配布反映 CHECK引継ぎです。制御面観点の配布反映事前検査棚卸は、配布ゾーン反映を実行せず整合性だけ検査することを満たす入力、報告、状態表示を同じ証跡で確認する配布反映事前検査棚卸です。選択面観点で読む配布反映事前検査復旧は、配布反映 CHECK reportとdistribution zoneを資料のコマンド形式やメッセージ形式と照合する配布反映事前検査復旧です。保守面観点の配布反映事前検査照合は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する配布反映事前検査照合です。A: 運用面観点の照合先は保留情報受信引継ぎで、中心は配布反映事前検査選択です。B: 反映面観点の処理段階はターゲットゾーン表示棚卸で、入力と出力を結ぶ対象は配布反映事前検査反映です。C: 管理面観点の参照先はログと報告出力復旧で、作業記録で追跡する対象は配布反映事前検査観点です。D: 確認面観点の配布反映事前検査照合は、入力名と報告内の配布反映 CHECK reportとdistribution zoneを結ぶ配布反映事前検査読取です。記録面観点の用語定義として、配布反映事前検査とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む配布反映事前検査証跡です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT CHECK</p></div><div class="kb-q"><p><strong>問題.</strong> 制御面の配布反映事前検査を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って配布反映 CHECK reportとdistribution zoneを確認する場合、証跡として中心に置く項目はどれですか。</p><ul class="kb-choices"><li>A. REPORT ERRSYSMODS</li><li>B. ACCEPT CHECK <span class="kb-ok">✅ 正解</span></li><li>C. DEFAULTLSNAME</li><li>D. IFASMFDL log stream dump</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 監査面観点の資料照合として配布反映事前検査棚卸を選び、答えはBで、記録焦点は配布反映事前検査復旧です。分類面観点の配布反映事前検査照合は、配布ゾーン反映を実行せず整合性だけ検査することを満たす入力、報告、状態表示を同じ証跡で確認する配布反映事前検査照合です。管理面観点から見る配布反映事前検査報告は、配布反映 CHECK reportとdistribution zoneをメッセージ形式と対応させる配布反映事前検査報告です。制御面観点の配布反映事前検査選択は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する配布反映事前検査選択です。A: 反映面観点の参照先はエラーHOLD影響報告復旧で、作業記録で追跡する対象は配布反映事前検査読取です。B: 構成面観点の配布反映事前検査照合は、入力名と報告内の配布反映 CHECK reportとdistribution zoneを結ぶ配布反映事前検査定義です。C: 確認面観点の照合先は既定ログストリーム名報告で、中心は配布反映事前検査観点です。D: 照合面観点の処理段階はログストリームダンプ選択で、入力と出力を結ぶ対象は配布反映事前検査証跡です。保守面観点の用語定義として、配布反映事前検査とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む配布反映事前検査状態です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT CHECK</p></div><div class="kb-q"><p><strong>問題.</strong> 分類面の配布反映事前検査を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って配布反映 CHECK reportとdistribution zoneを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. SETSMF LSNAME</li><li>B. IFASMFDL DATE START END</li><li>C. DISPLAY WLM,APPLENV</li><li>D. ACCEPT CHECK <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 復旧面観点の配布反映事前検査照合は正答Dで、表記上の手掛かりは配布反映 CHECK報告です。抽出面観点の配布反映事前検査選択は、配布ゾーン反映を実行せず整合性だけ検査することを満たす入力、報告、状態表示を同じ証跡で確認する配布反映事前検査選択です。反映面観点で読む配布反映事前検査反映は、配布反映 CHECK reportとdistribution zoneを資料のコマンド形式やメッセージ形式と照合する配布反映事前検査反映です。分類面観点の配布反映事前検査観点は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する配布反映事前検査観点です。A: 構成面観点の照合先は一時ログストリーム変更報告で、中心は配布反映事前検査読取です。B: 確認面観点の処理段階は期間指定ダンプ選択で、入力と出力を結ぶ対象は配布反映事前検査状態です。C: 照合面観点の参照先はアプリケーション環境表示反映で、作業記録で追跡する対象は配布反映事前検査定義です。D: 復旧面観点の配布反映事前検査観点は、入力名と報告内の配布反映 CHECK reportとdistribution zoneを結ぶ配布反映事前検査応答です。制御面観点の用語定義として、配布反映事前検査とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む配布反映事前検査根拠です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT CHECK</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT CHECK</strong></p><p>検証目的: 順序照合の保守管理について、ACCEPT CHECK は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010035の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT CHECKを指定し、OSKB010035の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT CHECK
+CASE OSKB010035
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT CHECK
+CASE OSKB010035
+SOURCE SMP/E SMF WLM
+ACCEPT CHECKとOSKB010035が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010035を同じ出力で読み、順序照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010035
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010035
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT CHECK REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010035が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT CHECK と OSKB010035 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010035 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0167"><h3>ACCEPT COMPRESS(ALL)</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT COMPRESS(ALL)は、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 上書照合の保守管理で保守管理の運用確認を行います。ACCEPT COMPRESS 属性の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で上書照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず上書照合の保守管理を正常終了として記録する。</li><li>C. 属性行、戻り表示、メッセージ見出しを合わせて上書照合の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>D. ACCEPT COMPRESS 属性の属性行を読まず上書照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 上書照合の保守管理において選択記号 C を採用し、識別名は上書照合です。上書照合の保守管理において ACCEPT COMPRESS 属性 は説明欄の「SMP/E SMF WLM で ACCEPT COMPRESS 属性の扱いを記録する上書照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合の保守管理を受け取る担当者は、ACCEPT COMPRESS 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合の保守管理は別カテゴリの確認を流用しており、ACCEPT COMPRESS 属性の根拠にならないため上書照合ではありません。 B: 上書照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書照合ではありません。 C: 上書照合の保守管理は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合の保守管理が示す ACCEPT COMPRESS 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT COMPRESS(ALL)</strong></p><p>検証目的: 変更照合の保守管理について、ACCEPT COMPRESS(ALL)は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010040の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT COMPRESS(ALを指定し、OSKB010040の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT COMPRESS(AL
+CASE OSKB010040
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT COMPRESS(AL
+CASE OSKB010040
+SOURCE SMP/E SMF WLM
+ACCEPT COMPRESS(ALとOSKB010040が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010040を同じ出力で読み、変更照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010040
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010040
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT COMPRESS(ALL) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010040が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT COMPRESS(AL と OSKB010040 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010040 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0168"><h3>ACCEPT EXCLUDE</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT EXCLUDEは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 優先照合の保守管理に関する ACCEPT EXCLUDE の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先照合の保守管理の証跡として保存して根拠にする。</li><li>C. ACCEPT EXCLUDE の変更点を出力本文から切り離して優先照合の保守管理の承認欄のみ残す。</li><li>D. SMP/E SMF WLM の表示形式に沿って根拠行を採り、優先照合の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先照合の保守管理において選択記号 D を採用し、識別名は優先照合です。優先照合の保守管理において ACCEPT EXCLUDE は説明欄の「ACCEPT EXCLUDE の状態と出力メッセージを結び付ける優先照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先照合です。優先照合の保守管理に関する記録は、ACCEPT EXCLUDE の出力行と IWM025I を一緒に保存し、背景名は優先照合です。選択肢ごとの違いを示します。 A: 優先照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先照合ではありません。 B: 優先照合の保守管理は別カテゴリの確認を流用しており、ACCEPT EXCLUDE の根拠にならないため優先照合ではありません。 C: 優先照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため優先照合ではありません。 D: 優先照合の保守管理は対象出力と項目説明を結び、根拠を残すので優先照合です。優先照合の保守管理で記録する ACCEPT EXCLUDE は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT EXCLUDE</strong></p><p>検証目的: 終端追跡の保守管理について、ACCEPT EXCLUDE は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010045の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT EXCLUDEを指定し、OSKB010045の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT EXCLUDE
+CASE OSKB010045
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT EXCLUDE
+CASE OSKB010045
+SOURCE SMP/E SMF WLM
+ACCEPT EXCLUDEとOSKB010045が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010045を同じ出力で読み、終端追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010045
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010045
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT EXCLUDE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010045が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT EXCLUDE と OSKB010045 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010045 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0169"><h3>ACCEPT GROUP</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT GROUPは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件照合の保守管理に関係する ACCEPT GROUP の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS で得た表示本文を使い、条件照合の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>B. ACCEPT GROUP の名称と担当者名のみを残して条件照合の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件照合の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件照合の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件照合の保守管理において選択記号 A を採用し、識別名は条件照合です。条件照合の保守管理において ACCEPT GROUP は説明欄の「ACCEPT GROUP の用途を保守管理の表示で確認する条件照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件照合です。条件照合の保守管理に関連して、SMP/E SMF WLM では ACCEPT GROUP の表示属性と IWM025I を同じ証跡に残し、背景名は条件照合です。他の選択肢を確認します。 A: 条件照合の保守管理は対象出力と項目説明を結び、根拠を残すので条件照合です。 B: 条件照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため条件照合ではありません。 C: 条件照合の保守管理は別カテゴリの確認を流用しており、ACCEPT GROUP の根拠にならないため条件照合ではありません。 D: 条件照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件照合ではありません。条件照合の保守管理で使う ACCEPT GROUP という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT GROUP</strong></p><p>検証目的: 展開追跡の保守管理について、ACCEPT GROUP は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010042の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT GROUPを指定し、OSKB010042の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT GROUP
+CASE OSKB010042
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT GROUP
+CASE OSKB010042
+SOURCE SMP/E SMF WLM
+ACCEPT GROUPとOSKB010042が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010042を同じ出力で読み、展開追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010042
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010042
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT GROUP REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010042が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT GROUP と OSKB010042 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010042 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0170"><h3>ACCEPT GROUPEXTEND</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT GROUPEXTENDは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切照合の保守管理で ACCEPT GROUPEXTEND の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT GROUPEXTEND の出力を取らず区切照合の保守管理の説明文と承認印のみを残す。</li><li>B. 資料上の説明と画面上の表示行を突き合わせ、区切照合として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切照合の保守管理において選択記号 B を採用し、識別名は区切照合です。区切照合の保守管理において ACCEPT GROUPEXTEND は説明欄の「区切照合の保守管理に関係する定義値と表示行を照合する区切照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切照合です。区切照合の保守管理の証跡を読む担当者は、ACCEPT GROUPEXTEND の属性行と IWM025I を合わせて追跡し、背景名は区切照合です。誤答側の問題点を分けます。 A: 区切照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため区切照合ではありません。 B: 区切照合の保守管理は対象出力と項目説明を結び、根拠を残すので区切照合です。 C: 区切照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切照合ではありません。 D: 区切照合の保守管理は別カテゴリの確認を流用しており、ACCEPT GROUPEXTEND の根拠にならないため区切照合ではありません。区切照合の保守管理に出る ACCEPT GROUPEXTEND は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT GROUPEXTEND</strong></p><p>検証目的: 呼出追跡の保守管理について、ACCEPT GROUPEXTEND は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010043の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT GROUPEXTENDを指定し、OSKB010043の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT GROUPEXTEND
+CASE OSKB010043
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT GROUPEXTEND
+CASE OSKB010043
+SOURCE SMP/E SMF WLM
+ACCEPT GROUPEXTENDとOSKB010043が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010043を同じ出力で読み、呼出追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010043
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010043
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT GROUPEXTEND REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010043が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT GROUPEXTEND と OSKB010043 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010043 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0171"><h3>ACCEPT REDO</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT REDOは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 呼出照合の保守管理で保守管理の運用確認を行います。ACCEPT REDO の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出照合の保守管理を正常終了として記録する。</li><li>C. 参照資料名、表示行、メッセージをそろえて呼出照合の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>D. ACCEPT REDO の属性行を読まず呼出照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出照合の保守管理において選択記号 C を採用し、識別名は呼出照合です。呼出照合の保守管理において ACCEPT REDO は説明欄の「SMP/E SMF WLM で ACCEPT REDO の扱いを記録する呼出照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出照合です。呼出照合の保守管理を受け取る担当者は、ACCEPT REDO の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出照合です。不適切な選択肢を整理します。 A: 呼出照合の保守管理は別カテゴリの確認を流用しており、ACCEPT REDO の根拠にならないため呼出照合ではありません。 B: 呼出照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出照合ではありません。 C: 呼出照合の保守管理は対象出力と項目説明を結び、根拠を残すので呼出照合です。 D: 呼出照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出照合ではありません。呼出照合の保守管理が示す ACCEPT REDO は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT REDO</strong></p><p>検証目的: 値域照合の保守管理について、ACCEPT REDO は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010036の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT REDOを指定し、OSKB010036の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT REDO
+CASE OSKB010036
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT REDO
+CASE OSKB010036
+SOURCE SMP/E SMF WLM
+ACCEPT REDOとOSKB010036が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010036を同じ出力で読み、値域照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010036
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010036
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT REDO REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010036が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT REDO と OSKB010036 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010036 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0172"><h3>ACCEPT SELECT</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT SELECTは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 範囲照合の保守管理で保守管理の運用確認を行います。ACCEPT SELECT の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲照合の保守管理を正常終了として記録する。</li><li>C. 操作結果の本文、対象行、時刻を同じ証跡に入れ、範囲照合の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>D. ACCEPT SELECT の属性行を読まず範囲照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲照合の保守管理において選択記号 C を採用し、識別名は範囲照合です。範囲照合の保守管理において ACCEPT SELECT は説明欄の「SMP/E SMF WLM で ACCEPT SELECT の扱いを記録する範囲照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合の保守管理を受け取る担当者は、ACCEPT SELECT の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合の保守管理は別カテゴリの確認を流用しており、ACCEPT SELECT の根拠にならないため範囲照合ではありません。 B: 範囲照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合の保守管理は対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合の保守管理が示す ACCEPT SELECT は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT SELECT</strong></p><p>検証目的: 置換追跡の保守管理について、ACCEPT SELECT は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010044の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT SELECTを指定し、OSKB010044の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT SELECT
+CASE OSKB010044
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT SELECT
+CASE OSKB010044
+SOURCE SMP/E SMF WLM
+ACCEPT SELECTとOSKB010044が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010044を同じ出力で読み、置換追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010044
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010044
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT SELECT REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010044が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT SELECT と OSKB010044 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010044 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0173"><h3>ACCEPT SOURCEID</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT SOURCEIDは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 出力照合の保守管理に関する ACCEPT SOURCEID の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力照合の保守管理の証跡として保存して根拠にする。</li><li>C. ACCEPT SOURCEID の変更点を出力本文から切り離して出力照合の保守管理の承認欄のみ残す。</li><li>D. 同じ画面で対象行と IWM025I を読み、出力照合の結果として保存する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力照合の保守管理において選択記号 D を採用し、識別名は出力照合です。出力照合の保守管理において ACCEPT SOURCEID は説明欄の「ACCEPT SOURCEID の状態と出力メッセージを結び付ける出力照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力照合です。出力照合の保守管理に関する記録は、ACCEPT SOURCEID の出力行と IWM025I を一緒に保存し、背景名は出力照合です。選択肢ごとの違いを示します。 A: 出力照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力照合ではありません。 B: 出力照合の保守管理は別カテゴリの確認を流用しており、ACCEPT SOURCEID の根拠にならないため出力照合ではありません。 C: 出力照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため出力照合ではありません。 D: 出力照合の保守管理は対象出力と項目説明を結び、根拠を残すので出力照合です。出力照合の保守管理で記録する ACCEPT SOURCEID は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT SOURCEID</strong></p><p>検証目的: 構文追跡の保守管理について、ACCEPT SOURCEID は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010041の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文追跡の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT SOURCEIDを指定し、OSKB010041の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT SOURCEID
+CASE OSKB010041
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT SOURCEID
+CASE OSKB010041
+SOURCE SMP/E SMF WLM
+ACCEPT SOURCEIDとOSKB010041が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010041を同じ出力で読み、構文追跡の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010041
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010041
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT SOURCEID REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010041が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT SOURCEID と OSKB010041 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010041 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0174"><h3>ACCEPT と DLZONE</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT と DLZONEは、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較照合のとで ACCEPT と DLZONE の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. ACCEPT と DLZONE の出力を取らず比較照合のとの説明文と承認印のみを残す。</li><li>B. 机上確認でも実出力の見出しに合わせ、比較照合の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較照合のとの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較照合のとへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較照合のとにおいて選択記号 B を採用し、識別名は比較照合です。比較照合のとにおいて ACCEPT と DLZONE は説明欄の「比較照合のとに関係する定義値と表示行を照合する比較照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較照合です。比較照合のとの証跡を読む担当者は、ACCEPT と DLZONE の属性行と IWM025I を合わせて追跡し、背景名は比較照合です。誤答側の問題点を分けます。 A: 比較照合のとは名称や説明のみに寄り、状態を示す出力本文が不足するため比較照合ではありません。 B: 比較照合のとは対象出力と項目説明を結び、根拠を残すので比較照合です。 C: 比較照合のとは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較照合ではありません。 D: 比較照合のとは別カテゴリの確認を流用しており、ACCEPT と DLZONE の根拠にならないため比較照合ではありません。比較照合のとに出る ACCEPT と DLZONE は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT と DLZONE</strong></p><p>検証目的: 上書追跡のとについて、ACCEPT と DLZONE は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010047の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書追跡のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT と DLZONEを指定し、OSKB010047の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT と DLZONE
+CASE OSKB010047
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT と DLZONE
+CASE OSKB010047
+SOURCE SMP/E SMF WLM
+ACCEPT と DLZONEとOSKB010047が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010047を同じ出力で読み、上書追跡のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010047
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010047
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT と DLZONE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010047が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT と DLZONE と OSKB010047 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010047 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0175"><h3>ACCEPT コマンドの位置付け</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT コマンドの位置付けは、APPLY 済み SYSMOD を DLIB (配布ライブラリ) に反映、永続化</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文照合のコマンドの位置付けに関係する ACCEPT コマンドの位置付けの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 対象の出力行とメッセージ接頭辞を同時に記録し、構文照合で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li><li>B. ACCEPT コマンドの位置付けの名称と担当者名のみを残して構文照合のコマンドの位置付けの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文照合のコマンドの位置付けを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文照合のコマンドの位置付けの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文照合のコマンドの位置付けにおいて選択記号 A を採用し、識別名は構文照合です。構文照合のコマンドの位置付けにおいて ACCEPT コマンドの位置付け は説明欄の「ACCEPT コマンドの位置付けの用途を保守管理の表示で確認する構文照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文照合です。構文照合のコマンドの位置付けに関連して、SMP/E SMF WLM では ACCEPT コマンドの位置付けの表示属性と IWM025I を同じ証跡に残し、背景名は構文照合です。他の選択肢を確認します。 A: 構文照合のコマンドの位置付けは対象出力と項目説明を結び、根拠を残すので構文照合です。 B: 構文照合のコマンドの位置付けは名称や説明のみに寄り、状態を示す出力本文が不足するため構文照合ではありません。 C: 構文照合のコマンドの位置付けは別カテゴリの確認を流用しており、ACCEPT コマンドの位置付けの根拠にならないため構文照合ではありません。 D: 構文照合のコマンドの位置付けは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文照合ではありません。構文照合のコマンドの位置付けで使う ACCEPT コマンドの位置付けという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT コマンドの位置付け</strong></p><p>検証目的: 比較照合のコマンドの位置付けについて、ACCEPT コマンドの位置付けは、APPLY 済み SYSMOD を DLIB (配布ライブラリ) に反映、永続化に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010034の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較照合のコマンドの位置付けの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT コマンドの位置付けを指定し、OSKB010034の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT コマンドの位置付け
+CASE OSKB010034
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT コマンドの位置付け
+CASE OSKB010034
+SOURCE SMP/E SMF WLM
+ACCEPT コマンドの位置付けとOSKB010034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010034を同じ出力で読み、比較照合のコマンドの位置付けの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010034
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010034
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT コマンドの位置付け REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010034が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT コマンドの位置付け と OSKB010034 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010034 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0176"><h3>ACCEPT 後の RESTORE 不可</h3><p class="kb-meta">分類: SMP/E ACCEPT ・ 難易度: 上級</p><p>ACCEPT 後の RESTORE 不可は、SMP/E / SMF / WLMのSMP/E ACCEPTで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 記録照合の後の 不可に関係する ACCEPT 後の RESTORE 不可の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 対象の出力行とメッセージ接頭辞を同時に記録し、記録照合で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li><li>B. ACCEPT 後の RESTORE 不可の名称と担当者名のみを残して記録照合の後の 不可の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で記録照合の後の 不可を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず記録照合の後の 不可の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録照合の後の 不可において選択記号 A を採用し、識別名は記録照合です。記録照合の後の 不可において ACCEPT 後の RESTORE 不可 は説明欄の「ACCEPT 後の RESTORE 不可の用途を保守管理の表示で確認する記録照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録照合です。記録照合の後の 不可に関連して、SMP/E SMF WLM では ACCEPT 後の RESTORE 不可の表示属性と IWM025I を同じ証跡に残し、背景名は記録照合です。他の選択肢を確認します。 A: 記録照合の後の 不可は対象出力と項目説明を結び、根拠を残すので記録照合です。 B: 記録照合の後の 不可は名称や説明のみに寄り、状態を示す出力本文が不足するため記録照合ではありません。 C: 記録照合の後の 不可は別カテゴリの確認を流用しており、ACCEPT 後の RESTORE 不可の根拠にならないため記録照合ではありません。 D: 記録照合の後の 不可は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録照合ではありません。記録照合の後の 不可で使う ACCEPT 後の RESTORE 不可という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ACCEPT 後の RESTORE 不可</strong></p><p>検証目的: 探索追跡の後の 不可について、ACCEPT 後の RESTORE 不可は、SMP/E / SMF / WLM の SMP/E ACCEPT で機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010046の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索追跡の後の 不可の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にACCEPT 後の RESTORE を指定し、OSKB010046の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ACCEPT 後の RESTORE 
+CASE OSKB010046
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ACCEPT 後の RESTORE 
+CASE OSKB010046
+SOURCE SMP/E SMF WLM
+ACCEPT 後の RESTORE とOSKB010046が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010046を同じ出力で読み、探索追跡の後の 不可の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010046
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010046
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ACCEPT 後の RESTORE 不可 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010046が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ACCEPT 後の RESTORE  と OSKB010046 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010046 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+## SMP/E APPLY
+
+
+<section class="kb-item" id="c28-i0177"><h3>APPLY ASSEM</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY ASSEMは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 警告確認の保守管理に関係する APPLY ASSEM の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS で得た表示本文を使い、警告確認の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>B. APPLY ASSEM の名称と担当者名のみを残して警告確認の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で警告確認の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず警告確認の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 警告確認の保守管理において選択記号 A を採用し、識別名は警告確認です。警告確認の保守管理において APPLY ASSEM は説明欄の「APPLY ASSEM の用途を保守管理の表示で確認する警告確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は警告確認です。警告確認の保守管理に関連して、SMP/E SMF WLM では APPLY ASSEM の表示属性と IWM025I を同じ証跡に残し、背景名は警告確認です。他の選択肢を確認します。 A: 警告確認の保守管理は対象出力と項目説明を結び、根拠を残すので警告確認です。 B: 警告確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため警告確認ではありません。 C: 警告確認の保守管理は別カテゴリの確認を流用しており、APPLY ASSEM の根拠にならないため警告確認ではありません。 D: 警告確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため警告確認ではありません。警告確認の保守管理で使う APPLY ASSEM という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は警告確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY ASSEM</strong></p><p>検証目的: 区切照合の保守管理について、APPLY ASSEM は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010030の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY ASSEMを指定し、OSKB010030の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY ASSEM
+CASE OSKB010030
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY ASSEM
+CASE OSKB010030
+SOURCE SMP/E SMF WLM
+APPLY ASSEMとOSKB010030が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010030を同じ出力で読み、区切照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010030
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010030
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY ASSEM REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010030が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY ASSEM と OSKB010030 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010030 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0178"><h3>APPLY BYPASS(HOLDCLASS)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY BYPASS(HOLDCLASS)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 終端確認の保守管理に関係する APPLY BYPASS 属性の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS で得た表示本文を使い、終端確認の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>B. APPLY BYPASS 属性の名称と担当者名のみを残して終端確認の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で終端確認の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず終端確認の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 終端確認の保守管理において選択記号 A を採用し、識別名は終端確認です。終端確認の保守管理において APPLY BYPASS 属性 は説明欄の「APPLY BYPASS 属性の用途を保守管理の表示で確認する終端確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端確認です。終端確認の保守管理に関連して、SMP/E SMF WLM では APPLY BYPASS 属性の表示属性と IWM025I を同じ証跡に残し、背景名は終端確認です。他の選択肢を確認します。 A: 終端確認の保守管理は対象出力と項目説明を結び、根拠を残すので終端確認です。 B: 終端確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため終端確認ではありません。 C: 終端確認の保守管理は別カテゴリの確認を流用しており、APPLY BYPASS 属性の根拠にならないため終端確認ではありません。 D: 終端確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端確認ではありません。終端確認の保守管理で使う APPLY BYPASS 属性という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY BYPASS(HOLDCLASS)</strong></p><p>検証目的: 復旧確認の保守管理について、APPLY BYPASS(HOLDCLASS)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010018の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(HOLDCを指定し、OSKB010018の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY BYPASS(HOLDC
+CASE OSKB010018
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY BYPASS(HOLDC
+CASE OSKB010018
+SOURCE SMP/E SMF WLM
+APPLY BYPASS(HOLDCとOSKB010018が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010018を同じ出力で読み、復旧確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010018
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010018
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY BYPASS(HOLDCLASS) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010018が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY BYPASS(HOLDC と OSKB010018 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010018 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0179"><h3>APPLY BYPASS(HOLDSYSTEM)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY BYPASS(HOLDSYSTEM)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 呼出確認の保守管理で保守管理の運用確認を行います。APPLY BYPASS 属性の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出確認の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出確認の保守管理を正常終了として記録する。</li><li>C. 属性行、戻り表示、メッセージ見出しを合わせて呼出確認の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>D. APPLY BYPASS 属性の属性行を読まず呼出確認の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出確認の保守管理において選択記号 C を採用し、識別名は呼出確認です。呼出確認の保守管理において APPLY BYPASS 属性 は説明欄の「SMP/E SMF WLM で APPLY BYPASS 属性の扱いを記録する呼出確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出確認です。呼出確認の保守管理を受け取る担当者は、APPLY BYPASS 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出確認です。不適切な選択肢を整理します。 A: 呼出確認の保守管理は別カテゴリの確認を流用しており、APPLY BYPASS 属性の根拠にならないため呼出確認ではありません。 B: 呼出確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出確認ではありません。 C: 呼出確認の保守管理は対象出力と項目説明を結び、根拠を残すので呼出確認です。 D: 呼出確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出確認ではありません。呼出確認の保守管理が示す APPLY BYPASS 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY BYPASS(HOLDSYSTEM)</strong></p><p>検証目的: 値域確認の保守管理について、APPLY BYPASS(HOLDSYSTEM)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連すに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010016の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(HOLDSを指定し、OSKB010016の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY BYPASS(HOLDS
+CASE OSKB010016
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY BYPASS(HOLDS
+CASE OSKB010016
+SOURCE SMP/E SMF WLM
+APPLY BYPASS(HOLDSとOSKB010016が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010016を同じ出力で読み、値域確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010016
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010016
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY BYPASS(HOLDSYSTEM) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010016が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY BYPASS(HOLDS と OSKB010016 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010016 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0180"><h3>APPLY BYPASS(HOLDUSER)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY BYPASS(HOLDUSER)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 置換確認の保守管理に関する APPLY BYPASS 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず置換確認の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを置換確認の保守管理の証跡として保存して根拠にする。</li><li>C. APPLY BYPASS 属性の変更点を出力本文から切り離して置換確認の保守管理の承認欄のみ残す。</li><li>D. 同じ画面で対象行と IWM025I を読み、置換確認の結果として保存する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 置換確認の保守管理において選択記号 D を採用し、識別名は置換確認です。置換確認の保守管理において APPLY BYPASS 属性 は説明欄の「APPLY BYPASS 属性の状態と出力メッセージを結び付ける置換確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換確認です。置換確認の保守管理に関する記録は、APPLY BYPASS 属性の出力行と IWM025I を一緒に保存し、背景名は置換確認です。選択肢ごとの違いを示します。 A: 置換確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換確認ではありません。 B: 置換確認の保守管理は別カテゴリの確認を流用しており、APPLY BYPASS 属性の根拠にならないため置換確認ではありません。 C: 置換確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため置換確認ではありません。 D: 置換確認の保守管理は対象出力と項目説明を結び、根拠を残すので置換確認です。置換確認の保守管理で記録する APPLY BYPASS 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY BYPASS(HOLDUSER)</strong></p><p>検証目的: 警告確認の保守管理について、APPLY BYPASS(HOLDUSER)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010017の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(HOLDUを指定し、OSKB010017の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY BYPASS(HOLDU
+CASE OSKB010017
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY BYPASS(HOLDU
+CASE OSKB010017
+SOURCE SMP/E SMF WLM
+APPLY BYPASS(HOLDUとOSKB010017が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010017を同じ出力で読み、警告確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010017
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010017
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY BYPASS(HOLDUSER) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010017が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY BYPASS(HOLDU と OSKB010017 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010017 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0181"><h3>APPLY BYPASS(ID(...))</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY BYPASS(ID(...))は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></section>
+
+
+<section class="kb-item" id="c28-i0182"><h3>APPLY BYPASS(IFREQ)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY BYPASS(IFREQ)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 出力確認の保守管理に関する APPLY BYPASS 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず出力確認の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを出力確認の保守管理の証跡として保存して根拠にする。</li><li>C. APPLY BYPASS 属性の変更点を出力本文から切り離して出力確認の保守管理の承認欄のみ残す。</li><li>D. SMP/E SMF WLM の表示形式に沿って根拠行を採り、出力確認の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 出力確認の保守管理において選択記号 D を採用し、識別名は出力確認です。出力確認の保守管理において APPLY BYPASS 属性 は説明欄の「APPLY BYPASS 属性の状態と出力メッセージを結び付ける出力確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力確認です。出力確認の保守管理に関する記録は、APPLY BYPASS 属性の出力行と IWM025I を一緒に保存し、背景名は出力確認です。選択肢ごとの違いを示します。 A: 出力確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力確認ではありません。 B: 出力確認の保守管理は別カテゴリの確認を流用しており、APPLY BYPASS 属性の根拠にならないため出力確認ではありません。 C: 出力確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため出力確認ではありません。 D: 出力確認の保守管理は対象出力と項目説明を結び、根拠を残すので出力確認です。出力確認の保守管理で記録する APPLY BYPASS 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY BYPASS(IFREQ)</strong></p><p>検証目的: 構文照合の保守管理について、APPLY BYPASS(IFREQ)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010021の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(IFREQを指定し、OSKB010021の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY BYPASS(IFREQ
+CASE OSKB010021
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY BYPASS(IFREQ
+CASE OSKB010021
+SOURCE SMP/E SMF WLM
+APPLY BYPASS(IFREQとOSKB010021が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010021を同じ出力で読み、構文照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010021
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010021
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY BYPASS(IFREQ) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010021が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY BYPASS(IFREQ と OSKB010021 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010021 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0183"><h3>APPLY BYPASS(PRE)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY BYPASS(PRE)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 上書確認の保守管理で保守管理の運用確認を行います。APPLY BYPASS(PRE)の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で上書確認の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず上書確認の保守管理を正常終了として記録する。</li><li>C. 操作結果の本文、対象行、時刻を同じ証跡に入れ、上書確認の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>D. APPLY BYPASS(PRE)の属性行を読まず上書確認の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 上書確認の保守管理において選択記号 C を採用し、識別名は上書確認です。上書確認の保守管理において APPLY BYPASS(PRE) は説明欄の「SMP/E SMF WLM で APPLY BYPASS(PRE)の扱いを記録する上書確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書確認です。上書確認の保守管理を受け取る担当者は、APPLY BYPASS(PRE)の表示結果と IWM025I を同じ確認単位として扱い、背景名は上書確認です。不適切な選択肢を整理します。 A: 上書確認の保守管理は別カテゴリの確認を流用しており、APPLY BYPASS(PRE)の根拠にならないため上書確認ではありません。 B: 上書確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書確認ではありません。 C: 上書確認の保守管理は対象出力と項目説明を結び、根拠を残すので上書確認です。 D: 上書確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため上書確認ではありません。上書確認の保守管理が示す APPLY BYPASS(PRE)は出典欄の資料で使い方を追跡できる項目であり、用語名は上書確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY BYPASS(PRE)</strong></p><p>検証目的: 変更確認の保守管理について、APPLY BYPASS(PRE)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010020の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(PRE)を指定し、OSKB010020の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY BYPASS(PRE)
+CASE OSKB010020
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY BYPASS(PRE)
+CASE OSKB010020
+SOURCE SMP/E SMF WLM
+APPLY BYPASS(PRE)とOSKB010020が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010020を同じ出力で読み、変更確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010020
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010020
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY BYPASS(PRE) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010020が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY BYPASS(PRE) と OSKB010020 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010020 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0184"><h3>APPLY CALLLIBS</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY CALLLIBSは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 監査確認の保守管理で保守管理の運用確認を行います。APPLY CALLLIBS の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で監査確認の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず監査確認の保守管理を正常終了として記録する。</li><li>C. 操作結果の本文、対象行、時刻を同じ証跡に入れ、監査確認の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>D. APPLY CALLLIBS の属性行を読まず監査確認の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 監査確認の保守管理において選択記号 C を採用し、識別名は監査確認です。監査確認の保守管理において APPLY CALLLIBS は説明欄の「SMP/E SMF WLM で APPLY CALLLIBS の扱いを記録する監査確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認の保守管理を受け取る担当者は、APPLY CALLLIBS の表示結果と IWM025I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認の保守管理は別カテゴリの確認を流用しており、APPLY CALLLIBS の根拠にならないため監査確認ではありません。 B: 監査確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査確認ではありません。 C: 監査確認の保守管理は対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認の保守管理が示す APPLY CALLLIBS は出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY CALLLIBS</strong></p><p>検証目的: 優先照合の保守管理について、APPLY CALLLIBS は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010032の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY CALLLIBSを指定し、OSKB010032の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY CALLLIBS
+CASE OSKB010032
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY CALLLIBS
+CASE OSKB010032
+SOURCE SMP/E SMF WLM
+APPLY CALLLIBSとOSKB010032が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010032を同じ出力で読み、優先照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010032
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010032
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY CALLLIBS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010032が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY CALLLIBS と OSKB010032 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010032 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0185"><h3>APPLY CHECK</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY CHECKは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（3問）</summary><div class="kb-q"><p><strong>問題.</strong> 抽出面の適用事前検査を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って適用処理 CHECK reportとreturn codeを確認する場合、引継ぎ対象として適切な項目はどれですか。</p><ul class="kb-choices"><li>A. APPLY CHECK <span class="kb-ok">✅ 正解</span></li><li>B. IFASMFDL SID</li><li>C. DISPLAY WLM,APPLENV</li><li>D. Service class goal</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 復旧面観点で読む適用事前検査根拠は正答位置Aで、記録する焦点は適用処理 CHECK応答です。管理面観点の適用事前検査保守は、対象保守要素を実適用せずターゲットゾーンで検査することを満たす入力、報告、状態表示を同じ証跡で確認する適用事前検査保守です。反映面観点の適用事前検査監査は、適用処理 CHECK reportとreturn codeを入力記録と合わせて処理対象を見分ける適用事前検査監査です。抽出面観点の適用事前検査引継ぎは、保守管理適用確認の入力要求と戻った報告を結び、運用状態を説明する適用事前検査引継ぎです。A: 表示面観点の適用事前検査応答は、入力名と報告内の適用処理 CHECK reportとreturn codeを結ぶ適用事前検査反映です。B: 監査面観点の参照先はシステムID選択保守で、作業記録で追跡する対象は適用事前検査報告です。C: 報告面観点の比較先はアプリケーション環境表示監査で、要求対象は適用事前検査棚卸です。D: 運用面観点の照合先はサービスクラス目標引継ぎで、中心は適用事前検査復旧です。分類面観点の用語定義として、適用事前検査とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用事前検査選択です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands APPLY CHECK</p></div><div class="kb-q"><p><strong>問題.</strong> 管理面の適用事前検査を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って適用処理 CHECK reportとreturn codeを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. VARY WLM,APPLENV,RESUME</li><li>B. WLM couple data set</li><li>C. APPLY CHECK <span class="kb-ok">✅ 正解</span></li><li>D. ACCEPT SYSMOD</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 運用面観点の出力確認として適用事前検査保守を読み、答えはCで、照合焦点は適用事前検査監査です。選択面観点の適用事前検査引継ぎは、対象保守要素を実適用せずターゲットゾーンで検査することを満たす入力、報告、状態表示を同じ証跡で確認する適用事前検査引継ぎです。照合面観点で残す適用事前検査棚卸は、適用処理 CHECK reportとreturn codeをコマンド形式と照合する適用事前検査棚卸です。管理面観点の適用事前検査復旧は、保守管理適用確認の入力要求と戻った報告を結び、運用状態を説明する適用事前検査復旧です。A: 記録面観点の比較先はアプリ環境再開監査で、要求対象は適用事前検査照合です。B: 報告面観点の照合先はワークロード管理カップルデータセット引継ぎで、中心は適用事前検査報告です。C: 方針面観点の適用事前検査棚卸は、入力名と報告内の適用処理 CHECK reportとreturn codeを結ぶ適用事前検査証跡です。D: 反映面観点の参照先は保守要素配布反映復旧で、作業記録で追跡する対象は適用事前検査反映です。抽出面観点の用語定義として、適用事前検査とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用事前検査観点です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands APPLY CHECK</p></div><div class="kb-q"><p><strong>問題.</strong> 選択面の適用事前検査を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って適用処理 CHECK reportとreturn codeを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. APPLY CHECK <span class="kb-ok">✅ 正解</span></li><li>B. RECEIVE SYSMOD</li><li>C. LIST HOLDDATA</li><li>D. DDDEF</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 中級</p><p><strong>解説:</strong> 報告面観点で読む適用事前検査引継ぎは正答位置Aで、記録する焦点は適用処理 CHECK棚卸です。照合面観点の適用事前検査復旧は、対象保守要素を実適用せずターゲットゾーンで検査することを満たす入力、報告、状態表示を同じ証跡で確認する適用事前検査復旧です。確認面観点の適用事前検査照合は、適用処理 CHECK reportとreturn codeを入力記録と合わせて処理対象を見分ける適用事前検査照合です。選択面観点の適用事前検査報告は、保守管理適用確認の入力要求と戻った報告を結び、運用状態を説明する適用事前検査報告です。A: 保守面観点の適用事前検査棚卸は、入力名と報告内の適用処理 CHECK reportとreturn codeを結ぶ適用事前検査状態です。B: 運用面観点の参照先は保守要素受信復旧で、作業記録で追跡する対象は適用事前検査証跡です。C: 表示面観点の比較先は保留情報表示照合で、要求対象は適用事前検査選択です。D: 構成面観点の照合先はDD定義定義報告で、中心は適用事前検査反映です。管理面観点の用語定義として、適用事前検査とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用事前検査読取です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands APPLY CHECK</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY CHECK</strong></p><p>検証目的: 記録確認の保守管理について、APPLY CHECK は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010013の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY CHECKを指定し、OSKB010013の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY CHECK
+CASE OSKB010013
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY CHECK
+CASE OSKB010013
+SOURCE SMP/E SMF WLM
+APPLY CHECKとOSKB010013が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010013を同じ出力で読み、記録確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010013
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010013
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY CHECK REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010013が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY CHECK と OSKB010013 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010013 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0186"><h3>APPLY CHECK + REPORT</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY CHECK + REPORTは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文確認の保守管理に関係する APPLY CHECK + REPORT の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果から対象行を抜き出し、構文確認の証跡として残す。 <span class="kb-ok">✅ 正解</span></li><li>B. APPLY CHECK + REPORT の名称と担当者名のみを残して構文確認の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文確認の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文確認の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文確認の保守管理において選択記号 A を採用し、識別名は構文確認です。構文確認の保守管理において APPLY CHECK + REPORT は説明欄の「APPLY CHECK + REPORT の用途を保守管理の表示で確認する構文確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文確認です。構文確認の保守管理に関連して、SMP/E SMF WLM では APPLY CHECK + REPORT の表示属性と IWM025I を同じ証跡に残し、背景名は構文確認です。他の選択肢を確認します。 A: 構文確認の保守管理は対象出力と項目説明を結び、根拠を残すので構文確認です。 B: 構文確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため構文確認ではありません。 C: 構文確認の保守管理は別カテゴリの確認を流用しており、APPLY CHECK + REPORT の根拠にならないため構文確認ではありません。 D: 構文確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文確認ではありません。構文確認の保守管理で使う APPLY CHECK + REPORT という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY CHECK + REPORT</strong></p><p>検証目的: 比較確認の保守管理について、APPLY CHECK + REPORT は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010014の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY CHECK + REPOを指定し、OSKB010014の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY CHECK + REPO
+CASE OSKB010014
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY CHECK + REPO
+CASE OSKB010014
+SOURCE SMP/E SMF WLM
+APPLY CHECK + REPOとOSKB010014が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010014を同じ出力で読み、比較確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010014
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010014
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY CHECK + REPORT REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010014が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY CHECK + REPO と OSKB010014 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010014 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0187"><h3>APPLY COMPRESS(ALL)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY COMPRESS(ALL)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件確認の保守管理に関係する APPLY COMPRESS 属性の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 対象の出力行とメッセージ接頭辞を同時に記録し、条件確認で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li><li>B. APPLY COMPRESS 属性の名称と担当者名のみを残して条件確認の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件確認の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件確認の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件確認の保守管理において選択記号 A を採用し、識別名は条件確認です。条件確認の保守管理において APPLY COMPRESS 属性 は説明欄の「APPLY COMPRESS 属性の用途を保守管理の表示で確認する条件確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件確認です。条件確認の保守管理に関連して、SMP/E SMF WLM では APPLY COMPRESS 属性の表示属性と IWM025I を同じ証跡に残し、背景名は条件確認です。他の選択肢を確認します。 A: 条件確認の保守管理は対象出力と項目説明を結び、根拠を残すので条件確認です。 B: 条件確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため条件確認ではありません。 C: 条件確認の保守管理は別カテゴリの確認を流用しており、APPLY COMPRESS 属性の根拠にならないため条件確認ではありません。 D: 条件確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件確認ではありません。条件確認の保守管理で使う APPLY COMPRESS 属性という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY COMPRESS(ALL)</strong></p><p>検証目的: 展開照合の保守管理について、APPLY COMPRESS(ALL)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010022の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY COMPRESS(ALLを指定し、OSKB010022の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY COMPRESS(ALL
+CASE OSKB010022
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY COMPRESS(ALL
+CASE OSKB010022
+SOURCE SMP/E SMF WLM
+APPLY COMPRESS(ALLとOSKB010022が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010022を同じ出力で読み、展開照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010022
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010022
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY COMPRESS(ALL) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010022が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY COMPRESS(ALL と OSKB010022 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010022 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0188"><h3>APPLY COMPRESS(SMPSCDS)</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY COMPRESS(SMPSCDS)は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切確認の保守管理で APPLY COMPRESS 属性の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. APPLY COMPRESS 属性の出力を取らず区切確認の保守管理の説明文と承認印のみを残す。</li><li>B. 机上確認でも実出力の見出しに合わせ、区切確認の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切確認の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切確認の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切確認の保守管理において選択記号 B を採用し、識別名は区切確認です。区切確認の保守管理において APPLY COMPRESS 属性 は説明欄の「区切確認の保守管理に関係する定義値と表示行を照合する区切確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切確認です。区切確認の保守管理の証跡を読む担当者は、APPLY COMPRESS 属性の属性行と IWM025I を合わせて追跡し、背景名は区切確認です。誤答側の問題点を分けます。 A: 区切確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため区切確認ではありません。 B: 区切確認の保守管理は対象出力と項目説明を結び、根拠を残すので区切確認です。 C: 区切確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切確認ではありません。 D: 区切確認の保守管理は別カテゴリの確認を流用しており、APPLY COMPRESS 属性の根拠にならないため区切確認ではありません。区切確認の保守管理に出る APPLY COMPRESS 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY COMPRESS(SMPSCDS)</strong></p><p>検証目的: 呼出照合の保守管理について、APPLY COMPRESS(SMPSCDS)は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連するに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010023の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY COMPRESS(SMPを指定し、OSKB010023の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY COMPRESS(SMP
+CASE OSKB010023
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY COMPRESS(SMP
+CASE OSKB010023
+SOURCE SMP/E SMF WLM
+APPLY COMPRESS(SMPとOSKB010023が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010023を同じ出力で読み、呼出照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010023
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010023
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY COMPRESS(SMPSCDS) REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010023が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY COMPRESS(SMP と OSKB010023 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010023 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0189"><h3>APPLY EXCLUDE</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY EXCLUDEは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 値域確認の保守管理に関する APPLY EXCLUDE の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず値域確認の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを値域確認の保守管理の証跡として保存して根拠にする。</li><li>C. APPLY EXCLUDE の変更点を出力本文から切り離して値域確認の保守管理の承認欄のみ残す。</li><li>D. 同じ画面で対象行と IWM025I を読み、値域確認の結果として保存する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 値域確認の保守管理において選択記号 D を採用し、識別名は値域確認です。値域確認の保守管理において APPLY EXCLUDE は説明欄の「APPLY EXCLUDE の状態と出力メッセージを結び付ける値域確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は値域確認です。値域確認の保守管理に関する記録は、APPLY EXCLUDE の出力行と IWM025I を一緒に保存し、背景名は値域確認です。選択肢ごとの違いを示します。 A: 値域確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため値域確認ではありません。 B: 値域確認の保守管理は別カテゴリの確認を流用しており、APPLY EXCLUDE の根拠にならないため値域確認ではありません。 C: 値域確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため値域確認ではありません。 D: 値域確認の保守管理は対象出力と項目説明を結び、根拠を残すので値域確認です。値域確認の保守管理で記録する APPLY EXCLUDE は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は値域確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY EXCLUDE</strong></p><p>検証目的: 条件照合の保守管理について、APPLY EXCLUDE は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010029の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY EXCLUDEを指定し、OSKB010029の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY EXCLUDE
+CASE OSKB010029
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY EXCLUDE
+CASE OSKB010029
+SOURCE SMP/E SMF WLM
+APPLY EXCLUDEとOSKB010029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010029を同じ出力で読み、条件照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010029
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010029
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY EXCLUDE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010029が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY EXCLUDE と OSKB010029 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010029 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0190"><h3>APPLY FORFMID</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY FORFMIDは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較確認の保守管理で APPLY FORFMID の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. APPLY FORFMID の出力を取らず比較確認の保守管理の説明文と承認印のみを残す。</li><li>B. 出典欄の説明と運用出力を照合し、比較確認の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較確認の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較確認の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較確認の保守管理において選択記号 B を採用し、識別名は比較確認です。比較確認の保守管理において APPLY FORFMID は説明欄の「比較確認の保守管理に関係する定義値と表示行を照合する比較確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較確認です。比較確認の保守管理の証跡を読む担当者は、APPLY FORFMID の属性行と IWM025I を合わせて追跡し、背景名は比較確認です。誤答側の問題点を分けます。 A: 比較確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため比較確認ではありません。 B: 比較確認の保守管理は対象出力と項目説明を結び、根拠を残すので比較確認です。 C: 比較確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較確認ではありません。 D: 比較確認の保守管理は別カテゴリの確認を流用しており、APPLY FORFMID の根拠にならないため比較確認ではありません。比較確認の保守管理に出る APPLY FORFMID は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY FORFMID</strong></p><p>検証目的: 上書照合の保守管理について、APPLY FORFMID は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010027の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY FORFMIDを指定し、OSKB010027の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY FORFMID
+CASE OSKB010027
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY FORFMID
+CASE OSKB010027
+SOURCE SMP/E SMF WLM
+APPLY FORFMIDとOSKB010027が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010027を同じ出力で読み、上書照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010027
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010027
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY FORFMID REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010027が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY FORFMID と OSKB010027 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010027 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0191"><h3>APPLY GROUP</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY GROUPは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 優先確認の保守管理に関する APPLY GROUP の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先確認の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先確認の保守管理の証跡として保存して根拠にする。</li><li>C. APPLY GROUP の変更点を出力本文から切り離して優先確認の保守管理の承認欄のみ残す。</li><li>D. IWM025I を含む表示を保存し、説明欄との差分を優先確認で確認する。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先確認の保守管理において選択記号 D を採用し、識別名は優先確認です。優先確認の保守管理において APPLY GROUP は説明欄の「APPLY GROUP の状態と出力メッセージを結び付ける優先確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先確認です。優先確認の保守管理に関する記録は、APPLY GROUP の出力行と IWM025I を一緒に保存し、背景名は優先確認です。選択肢ごとの違いを示します。 A: 優先確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先確認ではありません。 B: 優先確認の保守管理は別カテゴリの確認を流用しており、APPLY GROUP の根拠にならないため優先確認ではありません。 C: 優先確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため優先確認ではありません。 D: 優先確認の保守管理は対象出力と項目説明を結び、根拠を残すので優先確認です。優先確認の保守管理で記録する APPLY GROUP は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY GROUP</strong></p><p>検証目的: 終端照合の保守管理について、APPLY GROUP は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010025の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY GROUPを指定し、OSKB010025の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY GROUP
+CASE OSKB010025
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY GROUP
+CASE OSKB010025
+SOURCE SMP/E SMF WLM
+APPLY GROUPとOSKB010025が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010025を同じ出力で読み、終端照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010025
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010025
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY GROUP REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010025が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY GROUP と OSKB010025 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010025 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0192"><h3>APPLY GROUPEXTEND</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY GROUPEXTENDは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（4問）</summary><div class="kb-q"><p><strong>問題.</strong> 記録確認の保守管理に関係する APPLY GROUPEXTEND の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果から対象行を抜き出し、記録確認の証跡として残す。 <span class="kb-ok">✅ 正解</span></li><li>B. APPLY GROUPEXTEND の名称と担当者名のみを残して記録確認の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で記録確認の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず記録確認の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録確認の保守管理において選択記号 A を採用し、識別名は記録確認です。記録確認の保守管理において APPLY GROUPEXTEND は説明欄の「APPLY GROUPEXTEND の用途を保守管理の表示で確認する記録確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録確認です。記録確認の保守管理に関連して、SMP/E SMF WLM では APPLY GROUPEXTEND の表示属性と IWM025I を同じ証跡に残し、背景名は記録確認です。他の選択肢を確認します。 A: 記録確認の保守管理は対象出力と項目説明を結び、根拠を残すので記録確認です。 B: 記録確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため記録確認ではありません。 C: 記録確認の保守管理は別カテゴリの確認を流用しており、APPLY GROUPEXTEND の根拠にならないため記録確認ではありません。 D: 記録確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録確認ではありません。記録確認の保守管理で使う APPLY GROUPEXTEND という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div><div class="kb-q"><p><strong>問題.</strong> 分類面の関連保守要素展開を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って関連展開指定とcauser summaryを確認する場合、どの項目を選ぶべきですか。</p><ul class="kb-choices"><li>A. REPORT MISSINGFIX FIXCAT</li><li>B. APPLY GROUPEXTEND <span class="kb-ok">✅ 正解</span></li><li>C. SMPLOG SMPRPT</li><li>D. DISPLAY SMF,M</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 確認面観点の資料照合として関連保守要素展開応答を選び、答えはBで、記録焦点は関連保守要素展開保守です。抽出面観点の関連保守要素展開監査は、必要な関連保守要素まで含めて適用候補を広げることを満たす入力、報告、状態表示を同じ証跡で確認する関連保守要素展開監査です。選択面観点から見る関連保守要素展開引継ぎは、関連展開指定とcauser summaryをメッセージ形式と対応させる関連保守要素展開引継ぎです。分類面観点の関連保守要素展開棚卸は、保守管理適用確認の入力要求と戻った報告を結び、運用状態を説明する関連保守要素展開棚卸です。A: 監査面観点の参照先は修正カテゴリー不足報告保守で、作業記録で追跡する対象は関連保守要素展開選択です。B: 報告面観点の関連保守要素展開監査は、入力名と報告内の関連展開指定とcauser summaryを結ぶ関連保守要素展開観点です。C: 運用面観点の照合先はログと報告出力引継ぎで、中心は関連保守要素展開照合です。D: 反映面観点の処理段階はシステム管理機能メンバー表示棚卸で、入力と出力を結ぶ対象は関連保守要素展開報告です。制御面観点の用語定義として、関連保守要素展開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む関連保守要素展開反映です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands APPLY GROUPEXTEND</p></div><div class="kb-q"><p><strong>問題.</strong> 抽出面の関連保守要素展開を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って関連展開指定とcauser summaryを確認する場合、最も適切な確認対象はどれですか。</p><ul class="kb-choices"><li>A. LSNAME TYPE</li><li>B. IFASMFDL log stream dump</li><li>C. IWM001I policy activation</li><li>D. APPLY GROUPEXTEND <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構成面観点の関連保守要素展開監査は正答Dで、表記上の手掛かりは適用処理 関連展開引継ぎです。管理面観点の関連保守要素展開棚卸は、必要な関連保守要素まで含めて適用候補を広げることを満たす入力、報告、状態表示を同じ証跡で確認する関連保守要素展開棚卸です。監査面観点で読む関連保守要素展開復旧は、関連展開指定とcauser summaryを資料のコマンド形式やメッセージ形式と照合する関連保守要素展開復旧です。抽出面観点の関連保守要素展開照合は、保守管理適用確認の入力要求と戻った報告を結び、運用状態を説明する関連保守要素展開照合です。A: 報告面観点の照合先は種別別ログストリーム引継ぎで、中心は関連保守要素展開選択です。B: 運用面観点の処理段階はログストリームダンプ棚卸で、入力と出力を結ぶ対象は関連保守要素展開反映です。C: 反映面観点の参照先は方針有効化メッセージ復旧で、作業記録で追跡する対象は関連保守要素展開観点です。D: 構成面観点の関連保守要素展開照合は、入力名と報告内の関連展開指定とcauser summaryを結ぶ関連保守要素展開読取です。分類面観点の用語定義として、関連保守要素展開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む関連保守要素展開証跡です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands APPLY GROUPEXTEND</p></div><div class="kb-q"><p><strong>問題.</strong> 管理面の関連保守要素展開を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って関連展開指定とcauser summaryを確認する場合、この状況で優先する項目はどれですか。</p><ul class="kb-choices"><li>A. IFASMFDL SID</li><li>B. APPLY GROUPEXTEND <span class="kb-ok">✅ 正解</span></li><li>C. DISPLAY WLM,APPLENV</li><li>D. Service class goal</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧面観点の資料照合として関連保守要素展開棚卸を選び、答えはBで、記録焦点は関連保守要素展開復旧です。選択面観点の関連保守要素展開照合は、必要な関連保守要素まで含めて適用候補を広げることを満たす入力、報告、状態表示を同じ証跡で確認する関連保守要素展開照合です。反映面観点から見る関連保守要素展開報告は、関連展開指定とcauser summaryをメッセージ形式と対応させる関連保守要素展開報告です。管理面観点の関連保守要素展開選択は、保守管理適用確認の入力要求と戻った報告を結び、運用状態を説明する関連保守要素展開選択です。A: 運用面観点の参照先はシステムID選択復旧で、作業記録で追跡する対象は関連保守要素展開読取です。B: 表示面観点の関連保守要素展開照合は、入力名と報告内の関連展開指定とcauser summaryを結ぶ関連保守要素展開定義です。C: 構成面観点の照合先はアプリケーション環境表示報告で、中心は関連保守要素展開観点です。D: 確認面観点の処理段階はサービスクラス目標選択で、入力と出力を結ぶ対象は関連保守要素展開証跡です。抽出面観点の用語定義として、関連保守要素展開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む関連保守要素展開状態です。</p><p class="kb-src"><strong>出典:</strong> zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User&#x27;s Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands APPLY GROUPEXTEND</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY GROUPEXTEND</strong></p><p>検証目的: 探索照合の保守管理について、APPLY GROUPEXTEND は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010026の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY GROUPEXTENDを指定し、OSKB010026の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY GROUPEXTEND
+CASE OSKB010026
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY GROUPEXTEND
+CASE OSKB010026
+SOURCE SMP/E SMF WLM
+APPLY GROUPEXTENDとOSKB010026が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010026を同じ出力で読み、探索照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010026
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010026
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY GROUPEXTEND REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010026が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY GROUPEXTEND と OSKB010026 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010026 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0193"><h3>APPLY REDO</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY REDOは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開確認の保守管理で APPLY REDO の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. APPLY REDO の出力を取らず展開確認の保守管理の説明文と承認印のみを残す。</li><li>B. 出典欄の説明と運用出力を照合し、展開確認の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開確認の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開確認の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開確認の保守管理において選択記号 B を採用し、識別名は展開確認です。展開確認の保守管理において APPLY REDO は説明欄の「展開確認の保守管理に関係する定義値と表示行を照合する展開確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開確認です。展開確認の保守管理の証跡を読む担当者は、APPLY REDO の属性行と IWM025I を合わせて追跡し、背景名は展開確認です。誤答側の問題点を分けます。 A: 展開確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため展開確認ではありません。 B: 展開確認の保守管理は対象出力と項目説明を結び、根拠を残すので展開確認です。 C: 展開確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開確認ではありません。 D: 展開確認の保守管理は別カテゴリの確認を流用しており、APPLY REDO の根拠にならないため展開確認ではありません。展開確認の保守管理に出る APPLY REDO は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY REDO</strong></p><p>検証目的: 順序確認の保守管理について、APPLY REDO は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010015の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序確認の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY REDOを指定し、OSKB010015の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY REDO
+CASE OSKB010015
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY REDO
+CASE OSKB010015
+SOURCE SMP/E SMF WLM
+APPLY REDOとOSKB010015が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010015を同じ出力で読み、順序確認の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010015
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010015
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY REDO REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010015が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY REDO と OSKB010015 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010015 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0194"><h3>APPLY RETRY</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY RETRYは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 復旧確認の保守管理で APPLY RETRY の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. APPLY RETRY の出力を取らず復旧確認の保守管理の説明文と承認印のみを残す。</li><li>B. 資料上の説明と画面上の表示行を突き合わせ、復旧確認として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して復旧確認の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を復旧確認の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧確認の保守管理において選択記号 B を採用し、識別名は復旧確認です。復旧確認の保守管理において APPLY RETRY は説明欄の「復旧確認の保守管理に関係する定義値と表示行を照合する復旧確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧確認です。復旧確認の保守管理の証跡を読む担当者は、APPLY RETRY の属性行と IWM025I を合わせて追跡し、背景名は復旧確認です。誤答側の問題点を分けます。 A: 復旧確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧確認ではありません。 B: 復旧確認の保守管理は対象出力と項目説明を結び、根拠を残すので復旧確認です。 C: 復旧確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧確認ではありません。 D: 復旧確認の保守管理は別カテゴリの確認を流用しており、APPLY RETRY の根拠にならないため復旧確認ではありません。復旧確認の保守管理に出る APPLY RETRY は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY RETRY</strong></p><p>検証目的: 範囲照合の保守管理について、APPLY RETRY は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010031の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY RETRYを指定し、OSKB010031の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY RETRY
+CASE OSKB010031
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY RETRY
+CASE OSKB010031
+SOURCE SMP/E SMF WLM
+APPLY RETRYとOSKB010031が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010031を同じ出力で読み、範囲照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010031
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010031
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY RETRY REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010031が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY RETRY と OSKB010031 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010031 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0195"><h3>APPLY SELECT</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY SELECTは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 順序確認の保守管理で保守管理の運用確認を行います。APPLY SELECT の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で順序確認の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず順序確認の保守管理を正常終了として記録する。</li><li>C. 属性行、戻り表示、メッセージ見出しを合わせて順序確認の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>D. APPLY SELECT の属性行を読まず順序確認の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 順序確認の保守管理において選択記号 C を採用し、識別名は順序確認です。順序確認の保守管理において APPLY SELECT は説明欄の「SMP/E SMF WLM で APPLY SELECT の扱いを記録する順序確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序確認です。順序確認の保守管理を受け取る担当者は、APPLY SELECT の表示結果と IWM025I を同じ確認単位として扱い、背景名は順序確認です。不適切な選択肢を整理します。 A: 順序確認の保守管理は別カテゴリの確認を流用しており、APPLY SELECT の根拠にならないため順序確認ではありません。 B: 順序確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序確認ではありません。 C: 順序確認の保守管理は対象出力と項目説明を結び、根拠を残すので順序確認です。 D: 順序確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため順序確認ではありません。順序確認の保守管理が示す APPLY SELECT は出典欄の資料で使い方を追跡できる項目であり、用語名は順序確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY SELECT</strong></p><p>検証目的: 出力照合の保守管理について、APPLY SELECT は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010028の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY SELECTを指定し、OSKB010028の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY SELECT
+CASE OSKB010028
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY SELECT
+CASE OSKB010028
+SOURCE SMP/E SMF WLM
+APPLY SELECTとOSKB010028が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010028を同じ出力で読み、出力照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010028
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010028
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY SELECT REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010028が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY SELECT と OSKB010028 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010028 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0196"><h3>APPLY SOURCEID</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY SOURCEIDは、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 範囲確認の保守管理で保守管理の運用確認を行います。APPLY SOURCEID の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲確認の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲確認の保守管理を正常終了として記録する。</li><li>C. 参照資料名、表示行、メッセージをそろえて範囲確認の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>D. APPLY SOURCEID の属性行を読まず範囲確認の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲確認の保守管理において選択記号 C を採用し、識別名は範囲確認です。範囲確認の保守管理において APPLY SOURCEID は説明欄の「SMP/E SMF WLM で APPLY SOURCEID の扱いを記録する範囲確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲確認です。範囲確認の保守管理を受け取る担当者は、APPLY SOURCEID の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲確認です。不適切な選択肢を整理します。 A: 範囲確認の保守管理は別カテゴリの確認を流用しており、APPLY SOURCEID の根拠にならないため範囲確認ではありません。 B: 範囲確認の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲確認ではありません。 C: 範囲確認の保守管理は対象出力と項目説明を結び、根拠を残すので範囲確認です。 D: 範囲確認の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲確認ではありません。範囲確認の保守管理が示す APPLY SOURCEID は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY SOURCEID</strong></p><p>検証目的: 置換照合の保守管理について、APPLY SOURCEID は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010024の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換照合の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY SOURCEIDを指定し、OSKB010024の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY SOURCEID
+CASE OSKB010024
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY SOURCEID
+CASE OSKB010024
+SOURCE SMP/E SMF WLM
+APPLY SOURCEIDとOSKB010024が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010024を同じ出力で読み、置換照合の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010024
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010024
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY SOURCEID REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010024が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY SOURCEID と OSKB010024 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010024 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0197"><h3>APPLY コマンドの位置付け</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY コマンドの位置付けは、GLOBAL の SYSMOD を TARGET ゾーンに適用、TLIB に物理コピー</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY コマンドの位置付け</strong></p><p>検証目的: 優先確認のコマンドの位置付けについて、APPLY コマンドの位置付けは、GLOBAL の SYSMOD を TARGET ゾーンに適用、TLIB に物理コピーに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010012の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先確認のコマンドの位置付けの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY コマンドの位置付けを指定し、OSKB010012の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY コマンドの位置付け
+CASE OSKB010012
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY コマンドの位置付け
+CASE OSKB010012
+SOURCE SMP/E SMF WLM
+APPLY コマンドの位置付けとOSKB010012が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010012を同じ出力で読み、優先確認のコマンドの位置付けの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010012
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010012
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY コマンドの位置付け REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010012が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY コマンドの位置付け と OSKB010012 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010012 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0198"><h3>APPLY 戻り値の意味</h3><p class="kb-meta">分類: SMP/E APPLY ・ 難易度: 上級</p><p>APPLY 戻り値の意味は、SMP/E / SMF / WLMのSMP/E APPLYで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 変更確認の戻り値の意味に関する APPLY 戻り値の意味の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず変更確認の戻り値の意味の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを変更確認の戻り値の意味の証跡として保存して根拠にする。</li><li>C. APPLY 戻り値の意味の変更点を出力本文から切り離して変更確認の戻り値の意味の承認欄のみ残す。</li><li>D. SMP/E SMF WLM の表示形式に沿って根拠行を採り、変更確認の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 変更確認の戻り値の意味において選択記号 D を採用し、識別名は変更確認です。変更確認の戻り値の意味において APPLY 戻り値の意味 は説明欄の「APPLY 戻り値の意味の状態と出力メッセージを結び付ける変更確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は変更確認です。変更確認の戻り値の意味に関する記録は、APPLY 戻り値の意味の出力行と IWM025I を一緒に保存し、背景名は変更確認です。選択肢ごとの違いを示します。 A: 変更確認の戻り値の意味は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため変更確認ではありません。 B: 変更確認の戻り値の意味は別カテゴリの確認を流用しており、APPLY 戻り値の意味の根拠にならないため変更確認ではありません。 C: 変更確認の戻り値の意味は名称や説明のみに寄り、状態を示す出力本文が不足するため変更確認ではありません。 D: 変更確認の戻り値の意味は対象出力と項目説明を結び、根拠を残すので変更確認です。変更確認の戻り値の意味で記録する APPLY 戻り値の意味は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は変更確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>APPLY 戻り値の意味</strong></p><p>検証目的: 記録照合の戻り値の意味について、APPLY 戻り値の意味は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010033の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録照合の戻り値の意味の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY 戻り値の意味を指定し、OSKB010033の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND APPLY 戻り値の意味
+CASE OSKB010033
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM APPLY 戻り値の意味
+CASE OSKB010033
+SOURCE SMP/E SMF WLM
+APPLY 戻り値の意味とOSKB010033が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010033を同じ出力で読み、記録照合の戻り値の意味の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010033
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010033
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I APPLY 戻り値の意味 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010033が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の APPLY 戻り値の意味 と OSKB010033 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010033 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+## SMP/E CSI
+
+
+<section class="kb-item" id="c28-i0199"><h3>CSI と GIMZPOOL</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>CSI と GIMZPOOLは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 変更確認のとに関する CSI と GIMZPOOL の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず変更確認のとの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを変更確認のとの証跡として保存して根拠にする。</li><li>C. CSI と GIMZPOOL の変更点を出力本文から切り離して変更確認のとの承認欄のみ残す。</li><li>D. 対象の出力行とメッセージ接頭辞を同時に記録し、変更確認で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 変更確認のとにおいて選択記号 D を採用し、識別名は変更確認です。変更確認のとにおいて CSI と GIMZPOOL は説明欄の「CSI と GIMZPOOL の状態と出力メッセージを結び付ける変更確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は変更確認です。変更確認のとに関する記録は、CSI と GIMZPOOL の出力行と IWM025I を一緒に保存し、背景名は変更確認です。選択肢ごとの違いを示します。 A: 変更確認のとは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため変更確認ではありません。 B: 変更確認のとは別カテゴリの確認を流用しており、CSI と GIMZPOOL の根拠にならないため変更確認ではありません。 C: 変更確認のとは名称や説明のみに寄り、状態を示す出力本文が不足するため変更確認ではありません。 D: 変更確認のとは対象出力と項目説明を結び、根拠を残すので変更確認です。変更確認のとで記録する CSI と GIMZPOOL は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は変更確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CSI と GIMZPOOL</strong></p><p>検証目的: 呼出判定のとについて、CSI と GIMZPOOL は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010083の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、呼出判定のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にCSI と GIMZPOOLを指定し、OSKB010083の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND CSI と GIMZPOOL
+CASE OSKB010083
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM CSI と GIMZPOOL
+CASE OSKB010083
+SOURCE SMP/E SMF WLM
+CSI と GIMZPOOLとOSKB010083が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010083を同じ出力で読み、呼出判定のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010083
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010083
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I CSI と GIMZPOOL REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010083が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の CSI と GIMZPOOL と OSKB010083 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010083 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0200"><h3>CSI とは</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>CSI とはは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CSI とは</strong></p><p>検証目的: 展開判定のとはについて、CSI とはは、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかをに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010082の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開判定のとはの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にCSI とはを指定し、OSKB010082の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND CSI とは
+CASE OSKB010082
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM CSI とは
+CASE OSKB010082
+SOURCE SMP/E SMF WLM
+CSI とはとOSKB010082が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010082を同じ出力で読み、展開判定のとはの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010082
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010082
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I CSI とは REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010082が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の CSI とは と OSKB010082 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010082 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0201"><h3>CSI の物理形式</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>CSI の物理形式は、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 構文照合のの物理形式に関係する CSI の物理形式の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 机上確認でも実出力の見出しに合わせ、構文照合の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>B. CSI の物理形式の名称と担当者名のみを残して構文照合のの物理形式の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で構文照合のの物理形式を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず構文照合のの物理形式の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 構文照合のの物理形式において選択記号 A を採用し、識別名は構文照合です。構文照合のの物理形式において CSI の物理形式 は説明欄の「CSI の物理形式の用途を保守管理の表示で確認する構文照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文照合です。構文照合のの物理形式に関連して、SMP/E SMF WLM では CSI の物理形式の表示属性と IWM025I を同じ証跡に残し、背景名は構文照合です。他の選択肢を確認します。 A: 構文照合のの物理形式は対象出力と項目説明を結び、根拠を残すので構文照合です。 B: 構文照合のの物理形式は名称や説明のみに寄り、状態を示す出力本文が不足するため構文照合ではありません。 C: 構文照合のの物理形式は別カテゴリの確認を流用しており、CSI の物理形式の根拠にならないため構文照合ではありません。 D: 構文照合のの物理形式は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文照合ではありません。構文照合のの物理形式で使う CSI の物理形式という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>CSI の物理形式</strong></p><p>検証目的: 置換判定のの物理形式について、CSI の物理形式は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010084の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、置換判定のの物理形式の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にCSI の物理形式を指定し、OSKB010084の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND CSI の物理形式
+CASE OSKB010084
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM CSI の物理形式
+CASE OSKB010084
+SOURCE SMP/E SMF WLM
+CSI の物理形式とOSKB010084が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010084を同じ出力で読み、置換判定のの物理形式の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010084
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010084
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I CSI の物理形式 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010084が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の CSI の物理形式 と OSKB010084 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010084 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0202"><h3>DDDEF と JCL DD</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>DDDEF と JCL DDは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件照合のとに関係する DDDEF と JCL DD の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 資料上の説明と画面上の表示行を突き合わせ、条件照合として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li><li>B. DDDEF と JCL DD の名称と担当者名のみを残して条件照合のとの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件照合のとを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件照合のとの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件照合のとにおいて選択記号 A を採用し、識別名は条件照合です。条件照合のとにおいて DDDEF と JCL DD は説明欄の「DDDEF と JCL DD の用途を保守管理の表示で確認する条件照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件照合です。条件照合のとに関連して、SMP/E SMF WLM では DDDEF と JCL DD の表示属性と IWM025I を同じ証跡に残し、背景名は条件照合です。他の選択肢を確認します。 A: 条件照合のとは対象出力と項目説明を結び、根拠を残すので条件照合です。 B: 条件照合のとは名称や説明のみに寄り、状態を示す出力本文が不足するため条件照合ではありません。 C: 条件照合のとは別カテゴリの確認を流用しており、DDDEF と JCL DD の根拠にならないため条件照合ではありません。 D: 条件照合のとは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件照合ではありません。条件照合のとで使う DDDEF と JCL DD という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDDEF と JCL DD</strong></p><p>検証目的: 優先判定のとについて、DDDEF と JCL DD は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010092の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、優先判定のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDDDEF と JCL DDを指定し、OSKB010092の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DDDEF と JCL DD
+CASE OSKB010092
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DDDEF と JCL DD
+CASE OSKB010092
+SOURCE SMP/E SMF WLM
+DDDEF と JCL DDとOSKB010092が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010092を同じ出力で読み、優先判定のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010092
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010092
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DDDEF と JCL DD REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010092が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DDDEF と JCL DD と OSKB010092 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010092 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0203"><h3>DDDEF とは</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>DDDEF とはは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DDDEF とは</strong></p><p>検証目的: 範囲判定のとはについて、DDDEF とはは、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010091の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、範囲判定のとはの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDDDEF とはを指定し、OSKB010091の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DDDEF とは
+CASE OSKB010091
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DDDEF とは
+CASE OSKB010091
+SOURCE SMP/E SMF WLM
+DDDEF とはとOSKB010091が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010091を同じ出力で読み、範囲判定のとはの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010091
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010091
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DDDEF とは REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010091が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DDDEF とは と OSKB010091 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010091 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0204"><h3>DLIB ゾーン (DZONE) の役割</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>DLIB ゾーン (DZONE) の役割は、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 置換照合のゾーン の役割に関する DLIB ゾーン 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず置換照合のゾーン の役割の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを置換照合のゾーン の役割の証跡として保存して根拠にする。</li><li>C. DLIB ゾーン 属性の変更点を出力本文から切り離して置換照合のゾーン の役割の承認欄のみ残す。</li><li>D. D WLM,SYSTEMS の結果から対象行を抜き出し、置換照合の証跡として残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 置換照合のゾーン の役割において選択記号 D を採用し、識別名は置換照合です。置換照合のゾーン の役割において DLIB ゾーン 属性 は説明欄の「DLIB ゾーン 属性の状態と出力メッセージを結び付ける置換照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合のゾーン の役割に関する記録は、DLIB ゾーン 属性の出力行と IWM025I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合のゾーン の役割は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換照合ではありません。 B: 置換照合のゾーン の役割は別カテゴリの確認を流用しており、DLIB ゾーン 属性の根拠にならないため置換照合ではありません。 C: 置換照合のゾーン の役割は名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合のゾーン の役割は対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合のゾーン の役割で記録する DLIB ゾーン 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DLIB ゾーン (DZONE) の役割</strong></p><p>検証目的: 上書判定のゾーン の役割について、DLIB ゾーン (DZONE) の役割は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010087の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書判定のゾーン の役割の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDLIB ゾーン (DZONE) のを指定し、OSKB010087の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DLIB ゾーン (DZONE) の
+CASE OSKB010087
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DLIB ゾーン (DZONE) の
+CASE OSKB010087
+SOURCE SMP/E SMF WLM
+DLIB ゾーン (DZONE) のとOSKB010087が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010087を同じ出力で読み、上書判定のゾーン の役割の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010087
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010087
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DLIB ゾーン (DZONE) の役割 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010087が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DLIB ゾーン (DZONE) の と OSKB010087 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010087 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0205"><h3>DTL ゾーン</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>DTL ゾーンは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 終端照合のゾーンに関係する DTL ゾーンの設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 出典欄の説明と運用出力を照合し、終端照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>B. DTL ゾーンの名称と担当者名のみを残して終端照合のゾーンの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で終端照合のゾーンを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず終端照合のゾーンの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 終端照合のゾーンにおいて選択記号 A を採用し、識別名は終端照合です。終端照合のゾーンにおいて DTL ゾーン は説明欄の「DTL ゾーンの用途を保守管理の表示で確認する終端照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端照合です。終端照合のゾーンに関連して、SMP/E SMF WLM では DTL ゾーンの表示属性と IWM025I を同じ証跡に残し、背景名は終端照合です。他の選択肢を確認します。 A: 終端照合のゾーンは対象出力と項目説明を結び、根拠を残すので終端照合です。 B: 終端照合のゾーンは名称や説明のみに寄り、状態を示す出力本文が不足するため終端照合ではありません。 C: 終端照合のゾーンは別カテゴリの確認を流用しており、DTL ゾーンの根拠にならないため終端照合ではありません。 D: 終端照合のゾーンは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端照合ではありません。終端照合のゾーンで使う DTL ゾーンという用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DTL ゾーン</strong></p><p>検証目的: 出力判定のゾーンについて、DTL ゾーンは、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010088の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力判定のゾーンの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDTL ゾーンを指定し、OSKB010088の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DTL ゾーン
+CASE OSKB010088
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DTL ゾーン
+CASE OSKB010088
+SOURCE SMP/E SMF WLM
+DTL ゾーンとOSKB010088が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010088を同じ出力で読み、出力判定のゾーンの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010088
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010088
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DTL ゾーン REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010088が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DTL ゾーン と OSKB010088 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010088 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0206"><h3>DZONE DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>DZONE DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 優先照合の保守管理に関する DZONE DDDEF の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず優先照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを優先照合の保守管理の証跡として保存して根拠にする。</li><li>C. DZONE DDDEF の変更点を出力本文から切り離して優先照合の保守管理の承認欄のみ残す。</li><li>D. 対象の出力行とメッセージ接頭辞を同時に記録し、優先照合で再確認できる形にする。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 優先照合の保守管理において選択記号 D を採用し、識別名は優先照合です。優先照合の保守管理において DZONE DDDEF は説明欄の「DZONE DDDEF の状態と出力メッセージを結び付ける優先照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先照合です。優先照合の保守管理に関する記録は、DZONE DDDEF の出力行と IWM025I を一緒に保存し、背景名は優先照合です。選択肢ごとの違いを示します。 A: 優先照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先照合ではありません。 B: 優先照合の保守管理は別カテゴリの確認を流用しており、DZONE DDDEF の根拠にならないため優先照合ではありません。 C: 優先照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため優先照合ではありません。 D: 優先照合の保守管理は対象出力と項目説明を結び、根拠を残すので優先照合です。優先照合の保守管理で記録する DZONE DDDEF は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>DZONE DDDEF</strong></p><p>検証目的: 順序判定の保守管理について、DZONE DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこにに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010095の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、順序判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にDZONE DDDEFを指定し、OSKB010095の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND DZONE DDDEF
+CASE OSKB010095
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM DZONE DDDEF
+CASE OSKB010095
+SOURCE SMP/E SMF WLM
+DZONE DDDEFとOSKB010095が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010095を同じ出力で読み、順序判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010095
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010095
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I DZONE DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010095が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の DZONE DDDEF と OSKB010095 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010095 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0207"><h3>GIMSMP DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>GIMSMP DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 記録照合の保守管理に関係する GIMSMP DDDEF の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 机上確認でも実出力の見出しに合わせ、記録照合の確認値として扱う。 <span class="kb-ok">✅ 正解</span></li><li>B. GIMSMP DDDEF の名称と担当者名のみを残して記録照合の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で記録照合の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず記録照合の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録照合の保守管理において選択記号 A を採用し、識別名は記録照合です。記録照合の保守管理において GIMSMP DDDEF は説明欄の「GIMSMP DDDEF の用途を保守管理の表示で確認する記録照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録照合です。記録照合の保守管理に関連して、SMP/E SMF WLM では GIMSMP DDDEF の表示属性と IWM025I を同じ証跡に残し、背景名は記録照合です。他の選択肢を確認します。 A: 記録照合の保守管理は対象出力と項目説明を結び、根拠を残すので記録照合です。 B: 記録照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため記録照合ではありません。 C: 記録照合の保守管理は別カテゴリの確認を流用しており、GIMSMP DDDEF の根拠にならないため記録照合ではありません。 D: 記録照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録照合ではありません。記録照合の保守管理で使う GIMSMP DDDEF という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GIMSMP DDDEF</strong></p><p>検証目的: 値域判定の保守管理について、GIMSMP DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010096の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、値域判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にGIMSMP DDDEFを指定し、OSKB010096の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND GIMSMP DDDEF
+CASE OSKB010096
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM GIMSMP DDDEF
+CASE OSKB010096
+SOURCE SMP/E SMF WLM
+GIMSMP DDDEFとOSKB010096が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010096を同じ出力で読み、値域判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010096
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010096
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I GIMSMP DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010096が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の GIMSMP DDDEF と OSKB010096 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010096 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0208"><h3>GLOBAL ゾーンの役割</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>GLOBAL ゾーンの役割は、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 展開照合のゾーンの役割で GLOBAL ゾーンの役割の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. GLOBAL ゾーンの役割の出力を取らず展開照合のゾーンの役割の説明文と承認印のみを残す。</li><li>B. 参照資料名、表示行、メッセージをそろえて展開照合の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して展開照合のゾーンの役割の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を展開照合のゾーンの役割へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 展開照合のゾーンの役割において選択記号 B を採用し、識別名は展開照合です。展開照合のゾーンの役割において GLOBAL ゾーンの役割 は説明欄の「展開照合のゾーンの役割に関係する定義値と表示行を照合する展開照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開照合です。展開照合のゾーンの役割の証跡を読む担当者は、GLOBAL ゾーンの役割の属性行と IWM025I を合わせて追跡し、背景名は展開照合です。誤答側の問題点を分けます。 A: 展開照合のゾーンの役割は名称や説明のみに寄り、状態を示す出力本文が不足するため展開照合ではありません。 B: 展開照合のゾーンの役割は対象出力と項目説明を結び、根拠を残すので展開照合です。 C: 展開照合のゾーンの役割は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開照合ではありません。 D: 展開照合のゾーンの役割は別カテゴリの確認を流用しており、GLOBAL ゾーンの役割の根拠にならないため展開照合ではありません。展開照合のゾーンの役割に出る GLOBAL ゾーンの役割は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GLOBAL ゾーンの役割</strong></p><p>検証目的: 終端判定のゾーンの役割について、GLOBAL ゾーンの役割は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010085の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、終端判定のゾーンの役割の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にGLOBAL ゾーンの役割を指定し、OSKB010085の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND GLOBAL ゾーンの役割
+CASE OSKB010085
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM GLOBAL ゾーンの役割
+CASE OSKB010085
+SOURCE SMP/E SMF WLM
+GLOBAL ゾーンの役割とOSKB010085が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010085を同じ出力で読み、終端判定のゾーンの役割の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010085
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010085
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I GLOBAL ゾーンの役割 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010085が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の GLOBAL ゾーンの役割 と OSKB010085 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010085 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0209"><h3>GZNDDS GDS</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>GZNDDS GDSは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 区切照合の保守管理で GZNDDS GDS の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. GZNDDS GDS の出力を取らず区切照合の保守管理の説明文と承認印のみを残す。</li><li>B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、区切照合の確認にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して区切照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を区切照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 区切照合の保守管理において選択記号 B を採用し、識別名は区切照合です。区切照合の保守管理において GZNDDS GDS は説明欄の「区切照合の保守管理に関係する定義値と表示行を照合する区切照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切照合です。区切照合の保守管理の証跡を読む担当者は、GZNDDS GDS の属性行と IWM025I を合わせて追跡し、背景名は区切照合です。誤答側の問題点を分けます。 A: 区切照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため区切照合ではありません。 B: 区切照合の保守管理は対象出力と項目説明を結び、根拠を残すので区切照合です。 C: 区切照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切照合ではありません。 D: 区切照合の保守管理は別カテゴリの確認を流用しており、GZNDDS GDS の根拠にならないため区切照合ではありません。区切照合の保守管理に出る GZNDDS GDS は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GZNDDS GDS</strong></p><p>検証目的: 記録判定の保守管理について、GZNDDS GDS は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010093の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、記録判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にGZNDDS GDSを指定し、OSKB010093の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND GZNDDS GDS
+CASE OSKB010093
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM GZNDDS GDS
+CASE OSKB010093
+SOURCE SMP/E SMF WLM
+GZNDDS GDSとOSKB010093が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010093を同じ出力で読み、記録判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010093
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010093
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I GZNDDS GDS REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010093が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の GZNDDS GDS と OSKB010093 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010093 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0210"><h3>GZONE 内 SREL</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>GZONE 内 SRELは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 上書照合の内で保守管理の運用確認を行います。GZONE 内 SREL の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で上書照合の内を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず上書照合の内を正常終了として記録する。</li><li>C. 同じ画面で対象行と IWM025I を読み、上書照合の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>D. GZONE 内 SREL の属性行を読まず上書照合の内の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 上書照合の内において選択記号 C を採用し、識別名は上書照合です。上書照合の内において GZONE 内 SREL は説明欄の「SMP/E SMF WLM で GZONE 内 SREL の扱いを記録する上書照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合の内を受け取る担当者は、GZONE 内 SREL の表示結果と IWM025I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合の内は別カテゴリの確認を流用しており、GZONE 内 SREL の根拠にならないため上書照合ではありません。 B: 上書照合の内は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書照合ではありません。 C: 上書照合の内は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合の内は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合の内が示す GZONE 内 SREL は出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>GZONE 内 SREL</strong></p><p>検証目的: 区切判定の内について、GZONE 内 SREL は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010090の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、区切判定の内の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にGZONE 内 SRELを指定し、OSKB010090の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND GZONE 内 SREL
+CASE OSKB010090
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM GZONE 内 SREL
+CASE OSKB010090
+SOURCE SMP/E SMF WLM
+GZONE 内 SRELとOSKB010090が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010090を同じ出力で読み、区切判定の内の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010090
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010090
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I GZONE 内 SREL REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010090が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の GZONE 内 SREL と OSKB010090 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010090 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0211"><h3>SMPLOG DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>SMPLOG DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較照合の保守管理で SMPLOG DDDEF の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. SMPLOG DDDEF の出力を取らず比較照合の保守管理の説明文と承認印のみを残す。</li><li>B. 参照資料名、表示行、メッセージをそろえて比較照合の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較照合の保守管理において選択記号 B を採用し、識別名は比較照合です。比較照合の保守管理において SMPLOG DDDEF は説明欄の「比較照合の保守管理に関係する定義値と表示行を照合する比較照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較照合です。比較照合の保守管理の証跡を読む担当者は、SMPLOG DDDEF の属性行と IWM025I を合わせて追跡し、背景名は比較照合です。誤答側の問題点を分けます。 A: 比較照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため比較照合ではありません。 B: 比較照合の保守管理は対象出力と項目説明を結び、根拠を残すので比較照合です。 C: 比較照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較照合ではありません。 D: 比較照合の保守管理は別カテゴリの確認を流用しており、SMPLOG DDDEF の根拠にならないため比較照合ではありません。比較照合の保守管理に出る SMPLOG DDDEF は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMPLOG DDDEF</strong></p><p>検証目的: 警告判定の保守管理について、SMPLOG DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010097の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、警告判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSMPLOG DDDEFを指定し、OSKB010097の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SMPLOG DDDEF
+CASE OSKB010097
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SMPLOG DDDEF
+CASE OSKB010097
+SOURCE SMP/E SMF WLM
+SMPLOG DDDEFとOSKB010097が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010097を同じ出力で読み、警告判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010097
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010097
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SMPLOG DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010097が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SMPLOG DDDEF と OSKB010097 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010097 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0212"><h3>SMPLOGA DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>SMPLOGA DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 順序照合の保守管理で保守管理の運用確認を行います。SMPLOGA DDDEF の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で順序照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず順序照合の保守管理を正常終了として記録する。</li><li>C. IWM025I を含む表示を保存し、説明欄との差分を順序照合で確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. SMPLOGA DDDEF の属性行を読まず順序照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 順序照合の保守管理において選択記号 C を採用し、識別名は順序照合です。順序照合の保守管理において SMPLOGA DDDEF は説明欄の「SMP/E SMF WLM で SMPLOGA DDDEF の扱いを記録する順序照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序照合です。順序照合の保守管理を受け取る担当者は、SMPLOGA DDDEF の表示結果と IWM025I を同じ確認単位として扱い、背景名は順序照合です。不適切な選択肢を整理します。 A: 順序照合の保守管理は別カテゴリの確認を流用しており、SMPLOGA DDDEF の根拠にならないため順序照合ではありません。 B: 順序照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序照合ではありません。 C: 順序照合の保守管理は対象出力と項目説明を結び、根拠を残すので順序照合です。 D: 順序照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため順序照合ではありません。順序照合の保守管理が示す SMPLOGA DDDEF は出典欄の資料で使い方を追跡できる項目であり、用語名は順序照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMPLOGA DDDEF</strong></p><p>検証目的: 復旧判定の保守管理について、SMPLOGA DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010098の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、復旧判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSMPLOGA DDDEFを指定し、OSKB010098の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SMPLOGA DDDEF
+CASE OSKB010098
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SMPLOGA DDDEF
+CASE OSKB010098
+SOURCE SMP/E SMF WLM
+SMPLOGA DDDEFとOSKB010098が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010098を同じ出力で読み、復旧判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010098
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010098
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SMPLOGA DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010098が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SMPLOGA DDDEF と OSKB010098 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010098 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0213"><h3>SMPMTS DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>SMPMTS DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 値域照合の保守管理に関する SMPMTS DDDEF の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず値域照合の保守管理の担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを値域照合の保守管理の証跡として保存して根拠にする。</li><li>C. SMPMTS DDDEF の変更点を出力本文から切り離して値域照合の保守管理の承認欄のみ残す。</li><li>D. D WLM,SYSTEMS の結果から対象行を抜き出し、値域照合の証跡として残す。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 値域照合の保守管理において選択記号 D を採用し、識別名は値域照合です。値域照合の保守管理において SMPMTS DDDEF は説明欄の「SMPMTS DDDEF の状態と出力メッセージを結び付ける値域照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は値域照合です。値域照合の保守管理に関する記録は、SMPMTS DDDEF の出力行と IWM025I を一緒に保存し、背景名は値域照合です。選択肢ごとの違いを示します。 A: 値域照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため値域照合ではありません。 B: 値域照合の保守管理は別カテゴリの確認を流用しており、SMPMTS DDDEF の根拠にならないため値域照合ではありません。 C: 値域照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため値域照合ではありません。 D: 値域照合の保守管理は対象出力と項目説明を結び、根拠を残すので値域照合です。値域照合の保守管理で記録する SMPMTS DDDEF は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は値域照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMPMTS DDDEF</strong></p><p>検証目的: 監査判定の保守管理について、SMPMTS DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010099の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSMPMTS DDDEFを指定し、OSKB010099の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SMPMTS DDDEF
+CASE OSKB010099
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SMPMTS DDDEF
+CASE OSKB010099
+SOURCE SMP/E SMF WLM
+SMPMTS DDDEFとOSKB010099が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010099を同じ出力で読み、監査判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010099
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010099
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SMPMTS DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010099が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SMPMTS DDDEF と OSKB010099 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010099 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0214"><h3>SMPSCDS DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>SMPSCDS DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 復旧照合の保守管理で SMPSCDS DDDEF の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. SMPSCDS DDDEF の出力を取らず復旧照合の保守管理の説明文と承認印のみを残す。</li><li>B. 属性行、戻り表示、メッセージ見出しを合わせて復旧照合の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して復旧照合の保守管理の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を復旧照合の保守管理へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 復旧照合の保守管理において選択記号 B を採用し、識別名は復旧照合です。復旧照合の保守管理において SMPSCDS DDDEF は説明欄の「復旧照合の保守管理に関係する定義値と表示行を照合する復旧照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧照合です。復旧照合の保守管理の証跡を読む担当者は、SMPSCDS DDDEF の属性行と IWM025I を合わせて追跡し、背景名は復旧照合です。誤答側の問題点を分けます。 A: 復旧照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧照合ではありません。 B: 復旧照合の保守管理は対象出力と項目説明を結び、根拠を残すので復旧照合です。 C: 復旧照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧照合ではありません。 D: 復旧照合の保守管理は別カテゴリの確認を流用しており、SMPSCDS DDDEF の根拠にならないため復旧照合ではありません。復旧照合の保守管理に出る SMPSCDS DDDEF は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMPSCDS DDDEF</strong></p><p>検証目的: 構文整理の保守管理について、SMPSCDS DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010101の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、構文整理の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSMPSCDS DDDEFを指定し、OSKB010101の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SMPSCDS DDDEF
+CASE OSKB010101
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SMPSCDS DDDEF
+CASE OSKB010101
+SOURCE SMP/E SMF WLM
+SMPSCDS DDDEFとOSKB010101が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010101を同じ出力で読み、構文整理の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010101
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010101
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SMPSCDS DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010101が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SMPSCDS DDDEF と OSKB010101 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010101 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0215"><h3>SMPSTS DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>SMPSTS DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 警告照合の保守管理に関係する SMPSTS DDDEF の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 出典欄の説明と運用出力を照合し、警告照合の確認記録にまとめる。 <span class="kb-ok">✅ 正解</span></li><li>B. SMPSTS DDDEF の名称と担当者名のみを残して警告照合の保守管理の表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で警告照合の保守管理を確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず警告照合の保守管理の戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 警告照合の保守管理において選択記号 A を採用し、識別名は警告照合です。警告照合の保守管理において SMPSTS DDDEF は説明欄の「SMPSTS DDDEF の用途を保守管理の表示で確認する警告照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は警告照合です。警告照合の保守管理に関連して、SMP/E SMF WLM では SMPSTS DDDEF の表示属性と IWM025I を同じ証跡に残し、背景名は警告照合です。他の選択肢を確認します。 A: 警告照合の保守管理は対象出力と項目説明を結び、根拠を残すので警告照合です。 B: 警告照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため警告照合ではありません。 C: 警告照合の保守管理は別カテゴリの確認を流用しており、SMPSTS DDDEF の根拠にならないため警告照合ではありません。 D: 警告照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため警告照合ではありません。警告照合の保守管理で使う SMPSTS DDDEF という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は警告照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>SMPSTS DDDEF</strong></p><p>検証目的: 変更判定の保守管理について、SMPSTS DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010100の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、変更判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にSMPSTS DDDEFを指定し、OSKB010100の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND SMPSTS DDDEF
+CASE OSKB010100
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM SMPSTS DDDEF
+CASE OSKB010100
+SOURCE SMP/E SMF WLM
+SMPSTS DDDEFとOSKB010100が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010100を同じ出力で読み、変更判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010100
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010100
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I SMPSTS DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010100が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の SMPSTS DDDEF と OSKB010100 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010100 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0216"><h3>TARGET ゾーン (TZONE) の役割</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>TARGET ゾーン (TZONE) の役割は、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 呼出照合のゾーン の役割で保守管理の運用確認を行います。TARGET ゾーン 属性の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で呼出照合のゾーン の役割を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず呼出照合のゾーン の役割を正常終了として記録する。</li><li>C. IWM025I を含む表示を保存し、説明欄との差分を呼出照合で確認する。 <span class="kb-ok">✅ 正解</span></li><li>D. TARGET ゾーン 属性の属性行を読まず呼出照合のゾーン の役割の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 呼出照合のゾーン の役割において選択記号 C を採用し、識別名は呼出照合です。呼出照合のゾーン の役割において TARGET ゾーン 属性 は説明欄の「SMP/E SMF WLM で TARGET ゾーン 属性の扱いを記録する呼出照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出照合です。呼出照合のゾーン の役割を受け取る担当者は、TARGET ゾーン 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出照合です。不適切な選択肢を整理します。 A: 呼出照合のゾーン の役割は別カテゴリの確認を流用しており、TARGET ゾーン 属性の根拠にならないため呼出照合ではありません。 B: 呼出照合のゾーン の役割は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出照合ではありません。 C: 呼出照合のゾーン の役割は対象出力と項目説明を結び、根拠を残すので呼出照合です。 D: 呼出照合のゾーン の役割は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出照合ではありません。呼出照合のゾーン の役割が示す TARGET ゾーン 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TARGET ゾーン (TZONE) の役割</strong></p><p>検証目的: 探索判定のゾーン の役割について、TARGET ゾーン (TZONE) の役割は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010086の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索判定のゾーン の役割の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTARGET ゾーン (TZONE)を指定し、OSKB010086の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TARGET ゾーン (TZONE)
+CASE OSKB010086
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TARGET ゾーン (TZONE)
+CASE OSKB010086
+SOURCE SMP/E SMF WLM
+TARGET ゾーン (TZONE)とOSKB010086が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010086を同じ出力で読み、探索判定のゾーン の役割の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010086
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010086
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TARGET ゾーン (TZONE) の役割 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010086が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TARGET ゾーン (TZONE) と OSKB010086 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010086 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0217"><h3>TZONE DDDEF</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>TZONE DDDEFは、SMP/E / SMF / WLMのSMP/E CSIで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 範囲照合の保守管理で保守管理の運用確認を行います。TZONE DDDEF の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で範囲照合の保守管理を確認した扱いにする。</li><li>B. IWM025I の有無を確認せず範囲照合の保守管理を正常終了として記録する。</li><li>C. SMP/E SMF WLM の表示形式に沿って根拠行を採り、範囲照合の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>D. TZONE DDDEF の属性行を読まず範囲照合の保守管理の画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 範囲照合の保守管理において選択記号 C を採用し、識別名は範囲照合です。範囲照合の保守管理において TZONE DDDEF は説明欄の「SMP/E SMF WLM で TZONE DDDEF の扱いを記録する範囲照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合の保守管理を受け取る担当者は、TZONE DDDEF の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合の保守管理は別カテゴリの確認を流用しており、TZONE DDDEF の根拠にならないため範囲照合ではありません。 B: 範囲照合の保守管理は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合の保守管理は対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合の保守管理は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合の保守管理が示す TZONE DDDEF は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>TZONE DDDEF</strong></p><p>検証目的: 比較判定の保守管理について、TZONE DDDEF は、SMP/E / SMF / WLM の SMP/E CSI で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこにに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010094の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、比較判定の保守管理の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にTZONE DDDEFを指定し、OSKB010094の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND TZONE DDDEF
+CASE OSKB010094
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM TZONE DDDEF
+CASE OSKB010094
+SOURCE SMP/E SMF WLM
+TZONE DDDEFとOSKB010094が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010094を同じ出力で読み、比較判定の保守管理の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010094
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010094
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I TZONE DDDEF REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010094が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の TZONE DDDEF と OSKB010094 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010094 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0218"><h3>ゾーンと CSI の関係</h3><p class="kb-meta">分類: SMP/E CSI ・ 難易度: 上級</p><p>ゾーンと CSI の関係は、1 つの CSI に複数ゾーンを格納可能、運用上は GLOBAL/TZONE/DZONE 同居が一般的</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 探索照合のゾーンと の関係でゾーンと CSI の関係の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. ゾーンと CSI の関係の出力を取らず探索照合のゾーンと の関係の説明文と承認印のみを残す。</li><li>B. 属性行、戻り表示、メッセージ見出しを合わせて探索照合の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索照合のゾーンと の関係の記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索照合のゾーンと の関係へ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索照合のゾーンと の関係において選択記号 B を採用し、識別名は探索照合です。探索照合のゾーンと の関係においてゾーンと CSI の関係 は説明欄の「探索照合のゾーンと の関係に関係する定義値と表示行を照合する探索照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索照合です。探索照合のゾーンと の関係の証跡を読む担当者は、ゾーンと CSI の関係の属性行と IWM025I を合わせて追跡し、背景名は探索照合です。誤答側の問題点を分けます。 A: 探索照合のゾーンと の関係は名称や説明のみに寄り、状態を示す出力本文が不足するため探索照合ではありません。 B: 探索照合のゾーンと の関係は対象出力と項目説明を結び、根拠を残すので探索照合です。 C: 探索照合のゾーンと の関係は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索照合ではありません。 D: 探索照合のゾーンと の関係は別カテゴリの確認を流用しており、ゾーンと CSI の関係の根拠にならないため探索照合ではありません。探索照合のゾーンと の関係に出るゾーンと CSI の関係は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索照合です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>ゾーンと CSI の関係</strong></p><p>検証目的: 条件判定のゾーンと の関係について、ゾーンと CSI の関係は、1 つの CSI に複数ゾーンを格納可能、運用上は GLOBAL/TZONE/DZONE 同居が一般的に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010089の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件判定のゾーンと の関係の確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にゾーンと CSI の関係を指定し、OSKB010089の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND ゾーンと CSI の関係
+CASE OSKB010089
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM ゾーンと CSI の関係
+CASE OSKB010089
+SOURCE SMP/E SMF WLM
+ゾーンと CSI の関係とOSKB010089が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010089を同じ出力で読み、条件判定のゾーンと の関係の根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010089
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010089
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I ゾーンと CSI の関係 REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010089が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の ゾーンと CSI の関係 と OSKB010089 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010089 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+## SMP/E HOLD
+
+
+<section class="kb-item" id="c28-i0219"><h3>HOLD と HOLDDATA</h3><p class="kb-meta">分類: SMP/E HOLD ・ 難易度: 上級</p><p>HOLD と HOLDDATAは、SMP/E / SMF / WLMのSMP/E HOLDで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 値域確認のとに関する HOLD と HOLDDATA の引き継ぎです。後続担当者へ残すべき確認はどれですか。</p><ul class="kb-choices"><li>A. D WLM,SYSTEMS の結果を残さず値域確認のとの担当者名と日時のみを記録する。</li><li>B. 別製品のメッセージを値域確認のとの証跡として保存して根拠にする。</li><li>C. HOLD と HOLDDATA の変更点を出力本文から切り離して値域確認のとの承認欄のみ残す。</li><li>D. 資料上の説明と画面上の表示行を突き合わせ、値域確認として引き継ぐ。 <span class="kb-ok">✅ 正解</span></li></ul><p class="kb-meta">正解: <strong>D</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 値域確認のとにおいて選択記号 D を採用し、識別名は値域確認です。値域確認のとにおいて HOLD と HOLDDATA は説明欄の「HOLD と HOLDDATA の状態と出力メッセージを結び付ける値域確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は値域確認です。値域確認のとに関する記録は、HOLD と HOLDDATA の出力行と IWM025I を一緒に保存し、背景名は値域確認です。選択肢ごとの違いを示します。 A: 値域確認のとは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため値域確認ではありません。 B: 値域確認のとは別カテゴリの確認を流用しており、HOLD と HOLDDATA の根拠にならないため値域確認ではありません。 C: 値域確認のとは名称や説明のみに寄り、状態を示す出力本文が不足するため値域確認ではありません。 D: 値域確認のとは対象出力と項目説明を結び、根拠を残すので値域確認です。値域確認のとで記録する HOLD と HOLDDATA は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は値域確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>HOLD と HOLDDATA</strong></p><p>検証目的: 条件確認のとについて、HOLD と HOLDDATA は、SMP/E / SMF / WLM の SMP/E HOLD で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020009の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、条件確認のとの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にHOLD と HOLDDATAを指定し、OSKB020009の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND HOLD と HOLDDATA
+CASE OSKB020009
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM HOLD と HOLDDATA
+CASE OSKB020009
+SOURCE SMP/E SMF WLM
+HOLD と HOLDDATAとOSKB020009が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020009を同じ出力で読み、条件確認のとの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020009
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020009
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I HOLD と HOLDDATA REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020009が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の HOLD と HOLDDATA と OSKB020009 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020009 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0220"><h3>HOLD クラス HIPER</h3><p class="kb-meta">分類: SMP/E HOLD ・ 難易度: 上級</p><p>HOLD クラス HIPERは、SMP/E / SMF / WLMのSMP/E HOLDで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 記録確認のクラスに関係する HOLD クラス HIPER の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 属性行、戻り表示、メッセージ見出しを合わせて記録確認の根拠にする。 <span class="kb-ok">✅ 正解</span></li><li>B. HOLD クラス HIPER の名称と担当者名のみを残して記録確認のクラスの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で記録確認のクラスを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず記録確認のクラスの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 記録確認のクラスにおいて選択記号 A を採用し、識別名は記録確認です。記録確認のクラスにおいて HOLD クラス HIPER は説明欄の「HOLD クラス HIPER の用途を保守管理の表示で確認する記録確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録確認です。記録確認のクラスに関連して、SMP/E SMF WLM では HOLD クラス HIPER の表示属性と IWM025I を同じ証跡に残し、背景名は記録確認です。他の選択肢を確認します。 A: 記録確認のクラスは対象出力と項目説明を結び、根拠を残すので記録確認です。 B: 記録確認のクラスは名称や説明のみに寄り、状態を示す出力本文が不足するため記録確認ではありません。 C: 記録確認のクラスは別カテゴリの確認を流用しており、HOLD クラス HIPER の根拠にならないため記録確認ではありません。 D: 記録確認のクラスは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録確認ではありません。記録確認のクラスで使う HOLD クラス HIPER という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>HOLD クラス HIPER</strong></p><p>検証目的: 探索確認のクラスについて、HOLD クラス HIPER は、SMP/E / SMF / WLM の SMP/E HOLD で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020006の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、探索確認のクラスの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にHOLD クラス HIPERを指定し、OSKB020006の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND HOLD クラス HIPER
+CASE OSKB020006
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM HOLD クラス HIPER
+CASE OSKB020006
+SOURCE SMP/E SMF WLM
+HOLD クラス HIPERとOSKB020006が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020006を同じ出力で読み、探索確認のクラスの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020006
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020006
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I HOLD クラス HIPER REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020006が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の HOLD クラス HIPER と OSKB020006 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020006 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0221"><h3>HOLD クラス PE</h3><p class="kb-meta">分類: SMP/E HOLD ・ 難易度: 上級</p><p>HOLD クラス PEは、SMP/E / SMF / WLMのSMP/E HOLDで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 比較確認のクラスで HOLD クラス PE の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. HOLD クラス PE の出力を取らず比較確認のクラスの説明文と承認印のみを残す。</li><li>B. 同じ画面で対象行と IWM025I を読み、比較確認の結果として保存する。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して比較確認のクラスの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を比較確認のクラスへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 比較確認のクラスにおいて選択記号 B を採用し、識別名は比較確認です。比較確認のクラスにおいて HOLD クラス PE は説明欄の「比較確認のクラスに関係する定義値と表示行を照合する比較確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較確認です。比較確認のクラスの証跡を読む担当者は、HOLD クラス PE の属性行と IWM025I を合わせて追跡し、背景名は比較確認です。誤答側の問題点を分けます。 A: 比較確認のクラスは名称や説明のみに寄り、状態を示す出力本文が不足するため比較確認ではありません。 B: 比較確認のクラスは対象出力と項目説明を結び、根拠を残すので比較確認です。 C: 比較確認のクラスは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較確認ではありません。 D: 比較確認のクラスは別カテゴリの確認を流用しており、HOLD クラス PE の根拠にならないため比較確認ではありません。比較確認のクラスに出る HOLD クラス PE は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>HOLD クラス PE</strong></p><p>検証目的: 上書確認のクラスについて、HOLD クラス PE は、SMP/E / SMF / WLM の SMP/E HOLD で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020007の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、上書確認のクラスの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にHOLD クラス PEを指定し、OSKB020007の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND HOLD クラス PE
+CASE OSKB020007
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM HOLD クラス PE
+CASE OSKB020007
+SOURCE SMP/E SMF WLM
+HOLD クラス PEとOSKB020007が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020007を同じ出力で読み、上書確認のクラスの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020007
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020007
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I HOLD クラス PE REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020007が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の HOLD クラス PE と OSKB020007 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020007 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0222"><h3>HOLD クラス RESTRICT</h3><p class="kb-meta">分類: SMP/E HOLD ・ 難易度: 上級</p><p>HOLD クラス RESTRICTは、SMP/E / SMF / WLMのSMP/E HOLDで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 順序確認のクラスで保守管理の運用確認を行います。HOLD クラス RESTRICT の根拠にできる作業はどれですか。</p><ul class="kb-choices"><li>A. SMP/E SMF WLM と無関係な一覧で順序確認のクラスを確認した扱いにする。</li><li>B. IWM025I の有無を確認せず順序確認のクラスを正常終了として記録する。</li><li>C. D WLM,SYSTEMS で得た表示本文を使い、順序確認の採否を説明欄に結び付ける。 <span class="kb-ok">✅ 正解</span></li><li>D. HOLD クラス RESTRICT の属性行を読まず順序確認のクラスの画面名と利用者名のみを保存する。</li></ul><p class="kb-meta">正解: <strong>C</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 順序確認のクラスにおいて選択記号 C を採用し、識別名は順序確認です。順序確認のクラスにおいて HOLD クラス RESTRICT は説明欄の「SMP/E SMF WLM で HOLD クラス RESTRICT の扱いを記録する順序確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序確認です。順序確認のクラスを受け取る担当者は、HOLD クラス RESTRICT の表示結果と IWM025I を同じ確認単位として扱い、背景名は順序確認です。不適切な選択肢を整理します。 A: 順序確認のクラスは別カテゴリの確認を流用しており、HOLD クラス RESTRICT の根拠にならないため順序確認ではありません。 B: 順序確認のクラスは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序確認ではありません。 C: 順序確認のクラスは対象出力と項目説明を結び、根拠を残すので順序確認です。 D: 順序確認のクラスは名称や説明のみに寄り、状態を示す出力本文が不足するため順序確認ではありません。順序確認のクラスが示す HOLD クラス RESTRICT は出典欄の資料で使い方を追跡できる項目であり、用語名は順序確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>HOLD クラス RESTRICT</strong></p><p>検証目的: 出力確認のクラスについて、HOLD クラス RESTRICT は、SMP/E / SMF / WLM の SMP/E HOLD で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020008の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、出力確認のクラスの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にHOLD クラス RESTRICTを指定し、OSKB020008の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND HOLD クラス RESTRICT
+CASE OSKB020008
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM HOLD クラス RESTRICT
+CASE OSKB020008
+SOURCE SMP/E SMF WLM
+HOLD クラス RESTRICTとOSKB020008が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020008を同じ出力で読み、出力確認のクラスの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020008
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020008
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I HOLD クラス RESTRICT REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020008が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の HOLD クラス RESTRICT と OSKB020008 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020008 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0223"><h3>HOLD タイプ ACTION</h3><p class="kb-meta">分類: SMP/E HOLD ・ 難易度: 上級</p><p>HOLD タイプ ACTIONは、SMP/E / SMF / WLMのSMP/E HOLDで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 探索確認のタイプで HOLD タイプ ACTION の点検記録を作ります。証跡として扱える確認はどれですか。</p><ul class="kb-choices"><li>A. HOLD タイプ ACTION の出力を取らず探索確認のタイプの説明文と承認印のみを残す。</li><li>B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、探索確認の点検結果を残す。 <span class="kb-ok">✅ 正解</span></li><li>C. D WLM,SYSTEMS を省略して探索確認のタイプの記録番号と時刻のみを残す。</li><li>D. 隣接項目の結果を探索確認のタイプへ転記して同じ結果として扱う。</li></ul><p class="kb-meta">正解: <strong>B</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 探索確認のタイプにおいて選択記号 B を採用し、識別名は探索確認です。探索確認のタイプにおいて HOLD タイプ ACTION は説明欄の「探索確認のタイプに関係する定義値と表示行を照合する探索確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認のタイプの証跡を読む担当者は、HOLD タイプ ACTION の属性行と IWM025I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認のタイプは名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認のタイプは対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認のタイプは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索確認ではありません。 D: 探索確認のタイプは別カテゴリの確認を流用しており、HOLD タイプ ACTION の根拠にならないため探索確認ではありません。探索確認のタイプに出る HOLD タイプ ACTION は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>HOLD タイプ ACTION</strong></p><p>検証目的: 監査整理のタイプについて、HOLD タイプ ACTION は、SMP/E / SMF / WLM の SMP/E HOLD で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010119の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、監査整理のタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にHOLD タイプ ACTIONを指定し、OSKB010119の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND HOLD タイプ ACTION
+CASE OSKB010119
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM HOLD タイプ ACTION
+CASE OSKB010119
+SOURCE SMP/E SMF WLM
+HOLD タイプ ACTIONとOSKB010119が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010119を同じ出力で読み、監査整理のタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB010119
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB010119
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I HOLD タイプ ACTION REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB010119が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の HOLD タイプ ACTION と OSKB010119 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB010119 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>
+
+
+<section class="kb-item" id="c28-i0224"><h3>HOLD タイプ AO</h3><p class="kb-meta">分類: SMP/E HOLD ・ 難易度: 上級</p><p>HOLD タイプ AOは、SMP/E / SMF / WLMのSMP/E HOLDで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。z/OS SMP/E Commands (zOS31_gim1000) / z/OS SMP/E Reference (zOS31_gim2000) / z/OS SMP/E User&#x27;s Guide (zOS31_gim3000) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます</p><p class="kb-src"><strong>出典:</strong> z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p><details class="kb-block"><summary>確認問題（1問）</summary><div class="kb-q"><p><strong>問題.</strong> 条件確認のタイプに関係する HOLD タイプ AO の設問です。一次資料に沿って採るべき確認はどれですか。</p><ul class="kb-choices"><li>A. 参照資料名、表示行、メッセージをそろえて条件確認の根拠を固定する。 <span class="kb-ok">✅ 正解</span></li><li>B. HOLD タイプ AO の名称と担当者名のみを残して条件確認のタイプの表示本文を確認対象に含めない。</li><li>C. 保守管理以外の画面で条件確認のタイプを確認し同じ証跡として扱ったことにする。</li><li>D. IWM025I の有無を見ず条件確認のタイプの戻り値と時刻を主な根拠にして完了にする。</li></ul><p class="kb-meta">正解: <strong>A</strong> ／ 難易度: 上級</p><p><strong>解説:</strong> 条件確認のタイプにおいて選択記号 A を採用し、識別名は条件確認です。条件確認のタイプにおいて HOLD タイプ AO は説明欄の「HOLD タイプ AO の用途を保守管理の表示で確認する条件確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は条件確認です。条件確認のタイプに関連して、SMP/E SMF WLM では HOLD タイプ AO の表示属性と IWM025I を同じ証跡に残し、背景名は条件確認です。他の選択肢を確認します。 A: 条件確認のタイプは対象出力と項目説明を結び、根拠を残すので条件確認です。 B: 条件確認のタイプは名称や説明のみに寄り、状態を示す出力本文が不足するため条件確認ではありません。 C: 条件確認のタイプは別カテゴリの確認を流用しており、HOLD タイプ AO の根拠にならないため条件確認ではありません。 D: 条件確認のタイプは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため条件確認ではありません。条件確認のタイプで使う HOLD タイプ AO という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は条件確認です。</p><p class="kb-src"><strong>出典:</strong> and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）</p></div></details><details class="kb-block"><summary>検証手順（1件）</summary><div class="kb-p"><p class="kb-pname"><strong>HOLD タイプ AO</strong></p><p>検証目的: 展開確認のタイプについて、HOLD タイプ AO は、SMP/E / SMF / WLM の SMP/E HOLD で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わる状態・定義・メッセージを机上で照合する。</p><p>前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020002の検証用出力を記録できる。</p><p>セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。</p><pre class="kb-code">■ ステップ 1
+現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===&gt; に D WLM,SYSTEMS を入力し、展開確認のタイプの確認表示へ進みます。
+［操作（入力）］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+→ Enter を押す
+［画面・出力］
+(SMP/E)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+――――
+■ ステップ 2
+現在の画面はSMP/Eの表示結果です。FIND欄にHOLD タイプ AOを指定し、OSKB020002の対象行を見つけます。
+［操作（入力）］
+(SMP/E Result)
+COMMAND INPUT ===&gt; FIND HOLD タイプ AO
+CASE OSKB020002
+→ Enter を押す
+［画面・出力］
+(SMP/E Result)
+ITEM HOLD タイプ AO
+CASE OSKB020002
+SOURCE SMP/E SMF WLM
+HOLD タイプ AOとOSKB020002が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+――――
+■ ステップ 3
+現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020002を同じ出力で読み、展開確認のタイプの根拠を記録します。
+［操作（入力）］
+(SMP/E Detail)
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+CASE OSKB020002
+→ Enter を押す
+［画面・出力］
+SMP/E REPORT OSKB020002
+COMMAND INPUT ===&gt; D WLM,SYSTEMS
+IWM025I HOLD タイプ AO REPORT FOLLOWS
+ZONE TARGET1 STATUS REVIEWED
+IWM025IとOSKB020002が同じ出力に現れるため、対象項目の確認値として記録できます。
+――――</pre><p>合格条件: ① ステップ1 の COMMAND INPUT ===&gt; D WLM,SYSTEMS が画面・出力に表示されること
+② ステップ2 の HOLD タイプ AO と OSKB020002 が画面・出力に表示されること
+③ ステップ3 の IWM025I と OSKB020002 が画面・出力に表示されること</p><p class="kb-meta">検証状態: 机上 ／ 出典: z / OS SMP / E Commands (zOS31_gim1000) / E Reference (zOS31_gim2000) / E User&#x27;s Guide (zOS31_gim3000)</p></div></details></section>

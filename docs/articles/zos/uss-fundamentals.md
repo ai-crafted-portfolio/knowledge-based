@@ -57,8 +57,8 @@ MVS データセット連携:
 
 ## 前提知識
 
-- [データセット入門](../dataset/fundamentals.md)
-- [VSAM 入門](../vsam/fundamentals.md) — zFS / HFS の実体
+- データセット入門
+- VSAM 入門 — zFS / HFS の実体
 - [RACF Security 基本](./racf-fundamentals.md) — OMVS segment が必須
 - POSIX、Unix シェル、`rwx` 権限
 

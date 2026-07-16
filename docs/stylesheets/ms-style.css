@@ -468,3 +468,82 @@ a:active { color: var(--color-primary-active); }
   .main-content { max-width: 100%; }
   a { color: var(--color-text); text-decoration: underline; }
 }
+
+/* ============================================================
+   Knowledge-base additions (2026-07-16): responsive, no-overflow
+   ============================================================ */
+
+/* Long commands / outputs: horizontal scroll instead of overflow */
+.md-typeset pre > code {
+  white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+.md-typeset .highlight,
+.md-typeset pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Inline code shouldn't blow out narrow screens */
+.md-typeset code { word-break: break-word; }
+
+/* Wide tables (master coverage table) scroll horizontally on small screens */
+.kb-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.md-typeset table:not([class]) { display: table; width: 100%; }
+@media screen and (max-width: 76.1875em) {
+  .md-typeset table:not([class]) { display: block; overflow-x: auto; white-space: nowrap; }
+}
+
+/* Coverage callout on category pages */
+.kb-cov {
+  border-left: 4px solid var(--color-primary, #3f51b5);
+  background: var(--color-bg-subtle, #f3f2f1);
+  padding: .7rem 1rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+  font-size: .92rem;
+  overflow-wrap: anywhere;
+}
+
+/* Category cards grid on the home page */
+.md-typeset .grid.cards.kb-cats > ul > li,
+.md-typeset .grid.cards.kb-cats > ul {
+  overflow-wrap: anywhere;
+}
+.grid.cards.kb-cats { font-size: .85rem; }
+
+/* Collapsible QA/procedure blocks: keep content within viewport */
+.md-typeset details { max-width: 100%; }
+.md-typeset details > *:not(summary) { overflow-wrap: anywhere; }
+
+/* ---- raw-HTML knowledge blocks (2026-07-16) ---- */
+.md-typeset .kb-item { scroll-margin-top: 4.2rem; padding: .4rem 0 1rem; border-bottom: 1px solid var(--color-border, #e5e5e5); }
+.md-typeset .kb-item > h3 { margin: .4rem 0 .3rem; font-size: 1.02rem; }
+.md-typeset .kb-meta { color: var(--color-text-muted, #666); font-size: .82rem; margin: .1rem 0 .4rem; }
+.md-typeset .kb-src { font-size: .82rem; color: var(--color-text-muted, #666); overflow-wrap: anywhere; }
+.md-typeset details.kb-block { margin: .5rem 0; border: 1px solid var(--color-border, #e0e0e0); border-radius: 5px; }
+.md-typeset details.kb-block > summary { cursor: pointer; font-weight: 600; padding: .5rem .8rem; background: var(--color-bg-subtle, #f3f2f1); border-radius: 5px; font-size: .9rem; }
+.md-typeset details.kb-block[open] > summary { border-bottom: 1px solid var(--color-border, #e0e0e0); border-radius: 5px 5px 0 0; }
+.md-typeset .kb-q, .md-typeset .kb-p { padding: .5rem .8rem; margin: 0; border-top: 1px dashed var(--color-border, #eee); }
+.md-typeset details.kb-block > .kb-q:first-of-type, .md-typeset details.kb-block > .kb-p:first-of-type { border-top: none; }
+.md-typeset .kb-q p, .md-typeset .kb-p p { margin: .25rem 0; overflow-wrap: anywhere; }
+.md-typeset ul.kb-choices { margin: .3rem 0 .3rem 1.1rem; }
+.md-typeset ul.kb-choices > li { overflow-wrap: anywhere; }
+.md-typeset .kb-ok { color: var(--color-success, #107c10); font-weight: 700; white-space: nowrap; }
+/* long commands / outputs: horizontal scroll, never overflow the viewport */
+.md-typeset pre.kb-code {
+  white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  background: var(--color-bg-code, #f6f8fa);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 5px;
+  padding: .6rem .8rem;
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: .8rem;
+  line-height: 1.5;
+  margin: .4rem 0;
+}

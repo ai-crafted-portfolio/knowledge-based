@@ -1,0 +1,4861 @@
+---
+search:
+  exclude: true
+---
+
+# IBM Guardium Data Protection 12.x — 詳細 (9/12)
+
+[← IBM Guardium Data Protection 12.x の概要へ戻る](index.md)
+
+
+## IBM Guardium Data Protection 12.x > レポート
+
+### 監査レポート Audit Task Status 0128 {#c10-i0389}
+*分類: レポート*  ・  難易度: 初級
+
+黄I診断0129ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黄I診断0129です。黄I診断0129は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録黄I診断0129です。黄I診断0129ではユーザー活動と取得時刻を採取票黄I診断0129へ残します。黄I診断0129では対象データソースの取り違えを避けるため補助資料も照合する判断黄I診断0129です。黄I診断0129の用語整理では監査レポートの対象値を実在出力で整理する記録黄I診断0129です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0128を同一分類のS-TAP監視 DB Server Type 0175と比較します。対象固有の機能として妥当な記述はどれですか。
+
+    - A. 構成を確認する際の意味は診断でユーザー活動を証跡に残し・Audit Task Statusのユーザー活動と取得時刻を。 ✅
+    - B. 構成を確認する際の意味は切替で承認クライアを証跡に残し・監視エージェントの承認クライアントと取得時刻を記録し。
+    - C. 構成を確認する際の意味は承認履歴確認で初期同期を証跡に残し・接続を許可された S-TAP と状態を確認する管理レポートを。
+    - D. 構成を確認する際の意味は変更確認でジョブキューを証跡に残し・Appliance Monitoriでジョブキューから。
+
+    正解: **A** ／ 難易度: 初級
+
+    **解説:** 機能ユーザ・対象デでAの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・診断）です。照合ユーザ・診断に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・診断・対象デです。運用診断・AudでB:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸はユーザ・監査レ・診断です。項目ユーザ・診断でC:の承認履歴確認 初期同期は「接続を許可された S-TAP」を述べるため、正答側の照合軸は対象デ・監査レ・ユーザです。仕様ユーザ・診断でD:の変更後の確認 APP03は「Appliance Monitoriでジョブ」を述べるため、正答側の照合軸は診断・対象デ・ユーザです。用語ユーザ・診断という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0128**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0128について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.18
+    Server IP 198.51.100.28
+    Count 18
+    確認コード GDP12DD0128A
+    ```
+
+    画面・出力には GDP12DD0128A が表示され、監査レポート Audit Task Status 0128 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0128
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0128B
+    ```
+
+    画面・出力には GDP12DD0128B が表示され、監査レポート Audit Task Status 0128 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0128C
+    ```
+
+    画面・出力には GDP12DD0128C が表示され、監査レポート Audit Task Status 0128 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0128A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0128B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0128C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0143 {#c10-i0390}
+*分類: レポート*  ・  難易度: 中級
+
+藍D保守0144ではIBM Guardium Data Protection 12.x の レポートを扱う採取票藍D保守0144です。藍D保守0144は監査レポートの表示操作で監査レポートの対象欄を追跡する記録藍D保守0144です。藍D保守0144ではユーザー活動と取得時刻を採取票藍D保守0144へ残します。藍D保守0144ではジョブ失敗の見落としを避けるため補助資料も照合する判断藍D保守0144です。藍D保守0144の用語整理では監査レポートの対象値を実在出力で照合する記録藍D保守0144です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0143の設定や表示を読む前に役割を確認します。監査レポート DB User Name 0194ではなく対象を説明しているものはどれですか。
+
+    - A. 状態を読み取るための働きは保守でユーザー活動を証跡に残し・Audit Task Statusのユーザー活動と取得時刻を。 ✅
+    - B. 状態を読み取るための働きは収集で照会文動詞集を証跡に残し・データベース User Nameの照会文動詞集計と取得時刻を。
+    - C. 状態を読み取るための働きは復旧手掛かりで復旧手掛かりを証跡に残し・データベース通信を解析し監査レコードを作る処理を対象絞り込み。
+    - D. 状態を読み取るための働きは復旧でデータソースを証跡に残し・Server IPのデータソースと取得時刻を記録し。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・ジョブでAの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・保守）です。照合ユーザ・保守に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・保守・ジョブです。運用保守・AudでB:のUser Nameは「データベース User Nameの照会文動詞」を述べるため、正答側の照合軸はユーザ・監査レ・保守です。項目ユーザ・保守でC:の対象絞り込み 復旧手掛かりは「データベース通信を解析し監査レコードを作る処」を述べるため、正答側の照合軸はジョブ・監査レ・ユーザです。仕様ユーザ・保守でD:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸は保守・ジョブ・ユーザです。用語ユーザ・保守という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0143**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0143について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.33
+    Server IP 198.51.100.43
+    Count 33
+    確認コード GDP12DD0143A
+    ```
+
+    画面・出力には GDP12DD0143A が表示され、監査レポート Audit Task Status 0143 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0143
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0143B
+    ```
+
+    画面・出力には GDP12DD0143B が表示され、監査レポート Audit Task Status 0143 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0143C
+    ```
+
+    画面・出力には GDP12DD0143C が表示され、監査レポート Audit Task Status 0143 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0143A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0143B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0143C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0158 {#c10-i0391}
+*分類: レポート*  ・  難易度: 中級
+
+黒S保守0159ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黒S保守0159です。黒S保守0159は監査レポートの点検操作で監査レポートの判定欄を記録する記録黒S保守0159です。黒S保守0159ではユーザー活動と取得時刻を採取票黒S保守0159へ残します。黒S保守0159ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断黒S保守0159です。黒S保守0159の用語整理では監査レポートの対象値を実在出力で保管する記録黒S保守0159です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0158に関する障害切り分けの前提を確認しています。ロールと権限 LDAP User 0252の機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としては照合操作で確認欄を採取することでGuardAを確認し・監査担当者の閲覧範囲不足を防ぐ。
+    - B. 機能の説明としては点検操作で判定欄を記録することでユーザー活動を確認し・照会文動詞集計の期間誤りを防ぐ。 ✅
+    - C. 機能の説明としては採取操作で照合欄を点検することで承認クライアを確認し・カーネル監視導入状態の誤読を防ぐ。
+    - D. 機能の説明としては確認操作で状態欄を整理することで暗号化表示を確認し・最終応答停止の見落としを防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・照会文でBの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・保守）です。照合ユーザ・保守に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・保守・照会文です。比較監査レ・保守でA:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸はAud・保守・ユーザです。項目ユーザ・保守でC:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸は照会文・監査レ・ユーザです。仕様ユーザ・保守でD:のS-TAP Versionは「監視エージェントの暗号化表示と取得時刻を記録」を述べるため、正答側の照合軸は保守・照会文・ユーザです。用語ユーザ・保守という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0158**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0158について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.48
+    Server IP 198.51.100.58
+    Count 48
+    確認コード GDP12DD0158A
+    ```
+
+    画面・出力には GDP12DD0158A が表示され、監査レポート Audit Task Status 0158 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0158
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0158B
+    ```
+
+    画面・出力には GDP12DD0158B が表示され、監査レポート Audit Task Status 0158 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0158C
+    ```
+
+    画面・出力には GDP12DD0158C が表示され、監査レポート Audit Task Status 0158 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0158A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0158B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0158C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0173 {#c10-i0392}
+*分類: レポート*  ・  難易度: 中級
+
+灰N切替0174ではIBM Guardium Data Protection 12.x の レポートを扱う採取票灰N切替0174です。灰N切替0174は監査レポートの復旧操作で監査レポートの点検欄を確認する記録灰N切替0174です。灰N切替0174ではユーザー活動と取得時刻を採取票灰N切替0174へ残します。灰N切替0174では監査タスク未レビューを避けるため補助資料も照合する判断灰N切替0174です。灰N切替0174の用語整理では監査レポートの対象値を実在出力で点検する記録灰N切替0174です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0173を保守記録に説明する必要があります。監査レポート Server IP 0242と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割は点検操作で判定欄を記録することでデータソースを確認し・照会文動詞集計の期間誤りを防ぐ。
+    - B. 運用時に利用する技術的役割は復旧操作で点検欄を確認することでユーザー活動を確認し・監査タスク未レビューを防ぐ。 ✅
+    - C. 運用時に利用する技術的役割は状態確認で適用位置を確認することで適用位置を確認し・適用位置の誤読を防ぐ。
+    - D. 運用時に利用する技術的役割は記録操作で証跡欄を照合することで暗号化表示を確認し・未承認監視エージェント接続を防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・監査タでBの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・切替）です。照合ユーザ・切替に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・切替・監査タです。比較監査レ・切替でA:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸はAud・切替・ユーザです。項目ユーザ・切替でC:の状態確認 適用位置は「S-TAP や外部接続から監査データを受け取」を述べるため、正答側の照合軸は監査タ・監査レ・ユーザです。仕様ユーザ・切替でD:のS-TAP Versionは「監視エージェントの暗号化表示と取得時刻を記録」を述べるため、正答側の照合軸は切替・監査タ・ユーザです。用語ユーザ・切替という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0173**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0173について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.63
+    Server IP 198.51.100.73
+    Count 63
+    確認コード GDP12DD0173A
+    ```
+
+    画面・出力には GDP12DD0173A が表示され、監査レポート Audit Task Status 0173 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0173
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0173B
+    ```
+
+    画面・出力には GDP12DD0173B が表示され、監査レポート Audit Task Status 0173 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0173C
+    ```
+
+    画面・出力には GDP12DD0173C が表示され、監査レポート Audit Task Status 0173 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0173A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0173B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0173C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0188 {#c10-i0393}
+*分類: レポート*  ・  難易度: 中級
+
+黄I収集0189ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黄I収集0189です。黄I収集0189は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録黄I収集0189です。黄I収集0189ではユーザー活動と取得時刻を採取票黄I収集0189へ残します。黄I収集0189では対象データソースの取り違えを避けるため補助資料も照合する判断黄I収集0189です。黄I収集0189の用語整理では監査レポートの対象値を実在出力で整理する記録黄I収集0189です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0188の技術的な意味を資料で確認するとき、監査レポート Server IP 0212との境界を正しく示す記述はどれですか。
+
+    - A. 構成を確認する際の意味はServer IPのデータソースと取得時刻を記録し・対象データソースの取り違えを防ぐである。調査操作で保守欄を引き継ぎするときは対象データソースの取り違えを防ぐ。
+    - B. 構成を確認する際の意味はI/O 指標を収集するサポートCLIコマンドを証跡採取として確認する。差分確認で差分確認を確認するときは差分確認の誤読を防ぐ。
+    - C. 構成を確認する際の意味はRoleのディレクトリー取込と取得時刻を記録し・監査担当者の閲覧範囲不足を防ぐである。照合操作で確認欄を採取するときは監査担当者の閲覧範囲不足を防ぐ。ロールと権限 Role 0036固有の属性も確認対象に含める。
+    - D. 構成を確認する際の意味はAudit Task Statusのユーザー活動と取得時刻を記録し・対象データソースの取り違えを防ぐである。調査操作で保守欄を引き継ぎするときは対象データソースの取り違えを防ぐ。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・対象デでDの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・収集）です。照合ユーザ・収集に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・収集・対象デです。比較監査レ・収集でA:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸はAud・収集・ユーザです。運用収集・AudでB:の証跡採取 差分確認は「I/O 指標を収集するサポートCLIコマンド」を述べるため、正答側の照合軸はユーザ・監査レ・収集です。項目ユーザ・収集でC:のロールと権限 Roleは「Roleのディレクトリー取込と取得時刻を記録」を述べるため、正答側の照合軸は対象デ・監査レ・ユーザです。用語ユーザ・収集という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0188**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0188について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.78
+    Server IP 198.51.100.28
+    Count 78
+    確認コード GDP12DD0188A
+    ```
+
+    画面・出力には GDP12DD0188A が表示され、監査レポート Audit Task Status 0188 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0188
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0188B
+    ```
+
+    画面・出力には GDP12DD0188B が表示され、監査レポート Audit Task Status 0188 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0188C
+    ```
+
+    画面・出力には GDP12DD0188C が表示され、監査レポート Audit Task Status 0188 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0188A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0188B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0188C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0203 {#c10-i0394}
+*分類: レポート*  ・  難易度: 中級
+
+藍D登録0204ではIBM Guardium Data Protection 12.x の レポートを扱う採取票藍D登録0204です。藍D登録0204は監査レポートの表示操作で監査レポートの対象欄を追跡する記録藍D登録0204です。藍D登録0204ではユーザー活動と取得時刻を採取票藍D登録0204へ残します。藍D登録0204ではジョブ失敗の見落としを避けるため補助資料も照合する判断藍D登録0204です。藍D登録0204の用語整理では監査レポートの対象値を実在出力で照合する記録藍D登録0204です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0203について構成や状態を確認します。監査レポート Server IP 0227ではなく対象機能を表す記述はどれですか。
+
+    - A. 状態を読み取るための働きは表示操作で対象欄を追跡することでデータソースを確認し・ジョブ失敗の見落としを防ぐ。
+    - B. 状態を読み取るための働きは表示操作で対象欄を追跡することでユーザー活動を確認し・ジョブ失敗の見落としを防ぐ。 ✅
+    - C. 状態を読み取るための働きはプロセス一覧からScheduleを読むことでプロセス一覧を確認し・実行間隔より短いFROM/Tを防ぐ。
+    - D. 状態を読み取るための働きは復旧操作で点検欄を確認することでジョブキューを確認し・監査タスク未レビューを防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・ジョブでBの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・登録）です。照合ユーザ・登録に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・登録・ジョブです。比較監査レ・登録でA:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸はAud・登録・ユーザです。項目ユーザ・登録でC:の障害切り分け AUDIT04は「Audit Processでプロセス一覧から」を述べるため、正答側の照合軸はジョブ・監査レ・ユーザです。仕様ユーザ・登録でD:のSQL Verbは「照会文 Verbのジョブキューと取得時刻を記」を述べるため、正答側の照合軸は登録・ジョブ・ユーザです。用語ユーザ・登録という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0203**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0203について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.13
+    Server IP 198.51.100.43
+    Count 93
+    確認コード GDP12DD0203A
+    ```
+
+    画面・出力には GDP12DD0203A が表示され、監査レポート Audit Task Status 0203 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0203
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0203B
+    ```
+
+    画面・出力には GDP12DD0203B が表示され、監査レポート Audit Task Status 0203 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0203C
+    ```
+
+    画面・出力には GDP12DD0203C が表示され、監査レポート Audit Task Status 0203 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0203A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0203B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0203C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0218 {#c10-i0395}
+*分類: レポート*  ・  難易度: 中級
+
+黒S登録0219ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黒S登録0219です。黒S登録0219は監査レポートの点検操作で監査レポートの判定欄を記録する記録黒S登録0219です。黒S登録0219ではユーザー活動と取得時刻を採取票黒S登録0219へ残します。黒S登録0219ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断黒S登録0219です。黒S登録0219の用語整理では監査レポートの対象値を実在出力で保管する記録黒S登録0219です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0218の役割を調べています。ロールと権限 Login Name 0309の説明を混ぜずに採るべき記述はどれですか。
+
+    - A. 機能の説明としてはLogin Nameのロール割当と取得時刻を記録し・過剰ロール付与を防ぐである。主操作で出力欄を評価するときは過剰ロール付与を防ぐ。
+    - B. 機能の説明としてはAudit Task Statusのユーザー活動と取得時刻を記録し・照会文動詞集計の期間誤りを防ぐである。点検操作で判定欄を記録するときは照会文動詞集計の期間誤りを防ぐ。 ✅
+    - C. 機能の説明としてはCentral Managerで保守後の確認では中央管理サーバーの 例外レポートから Exceptionである。保守確認で保守後の確認を確認するときはmanaged unitからを防ぐ。
+    - D. 機能の説明としてはServer IPのデータソースと取得時刻を記録し・ジョブ失敗の見落としを防ぐである。表示操作で対象欄を追跡するときはジョブ失敗の見落としを防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・照会文でBの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・登録）です。照合ユーザ・登録に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・登録・照会文です。比較監査レ・登録でA:のLogin Nameは「Login Nameのロール割当と取得時刻を」を述べるため、正答側の照合軸はAud・登録・ユーザです。項目ユーザ・登録でC:の保守後の確認 CM20は「Central Managerで保守後の確認」を述べるため、正答側の照合軸は照会文・監査レ・ユーザです。仕様ユーザ・登録でD:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸は登録・照会文・ユーザです。用語ユーザ・登録という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0218**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0218について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.28
+    Server IP 198.51.100.58
+    Count 108
+    確認コード GDP12DD0218A
+    ```
+
+    画面・出力には GDP12DD0218A が表示され、監査レポート Audit Task Status 0218 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0218
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0218B
+    ```
+
+    画面・出力には GDP12DD0218B が表示され、監査レポート Audit Task Status 0218 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0218C
+    ```
+
+    画面・出力には GDP12DD0218C が表示され、監査レポート Audit Task Status 0218 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0218A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0218B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0218C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0233 {#c10-i0396}
+*分類: レポート*  ・  難易度: 上級
+
+灰N確認0234ではIBM Guardium Data Protection 12.x の レポートを扱う採取票灰N確認0234です。灰N確認0234は監査レポートの復旧操作で監査レポートの点検欄を確認する記録灰N確認0234です。灰N確認0234ではユーザー活動と取得時刻を採取票灰N確認0234へ残します。灰N確認0234では監査タスク未レビューを避けるため補助資料も照合する判断灰N確認0234です。灰N確認0234の用語整理では監査レポートの対象値を実在出力で点検する記録灰N確認0234です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 「監査レポート Audit Task Status 0233」を「S-TAP監視 DB Server Type 0295」と区別して説明するとき、一次資料と整合する組合せはどれですか。
+
+    - A. 運用時に利用する技術的役割はカーネル監視導入状態の誤読を避けるため・採取操作で照合欄を点検するして承認クライアを照合する。
+    - B. 運用時に利用する技術的役割はmanaged unitからのデを避けるため・通常状態確認で確認では中央を確認するして確認では中央を照合する。
+    - C. 運用時に利用する技術的役割は対象データソースの取り違えを避けるため・調査操作で保守欄を引き継ぎするしてジョブキューを照合する。
+    - D. 運用時に利用する技術的役割は監査タスク未レビューを避けるため・復旧操作で点検欄を確認するしてユーザー活動を照合する。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 機能ユーザ・監査タでDの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・確認）です。照合ユーザ・確認に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・確認・監査タです。比較監査レ・確認でA:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸はAud・確認・ユーザです。運用確認・AudでB:の通常状態の確認 CM01は「Central Managerで通常状態の確」を述べるため、正答側の照合軸はユーザ・監査レ・確認です。項目ユーザ・確認でC:のSQL Verbは「照会文 Verbのジョブキューと取得時刻を記」を述べるため、正答側の照合軸は監査タ・監査レ・ユーザです。用語ユーザ・確認という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0233**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0233について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.43
+    Server IP 198.51.100.73
+    Count 123
+    確認コード GDP12DD0233A
+    ```
+
+    画面・出力には GDP12DD0233A が表示され、監査レポート Audit Task Status 0233 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0233
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0233B
+    ```
+
+    画面・出力には GDP12DD0233B が表示され、監査レポート Audit Task Status 0233 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0233C
+    ```
+
+    画面・出力には GDP12DD0233C が表示され、監査レポート Audit Task Status 0233 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0233A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0233B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0233C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0248 {#c10-i0397}
+*分類: レポート*  ・  難易度: 初級
+
+黄I保護0249ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黄I保護0249です。黄I保護0249は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録黄I保護0249です。黄I保護0249ではユーザー活動と取得時刻を採取票黄I保護0249へ残します。黄I保護0249では対象データソースの取り違えを避けるため補助資料も照合する判断黄I保護0249です。黄I保護0249の用語整理では監査レポートの対象値を実在出力で整理する記録黄I保護0249です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0248を同一分類のS-TAP監視 DB Server Type 0310と比較します。対象固有の機能として妥当な記述はどれですか。
+
+    - A. 構成を確認する際の意味は確認操作で状態欄を整理することで承認クライアを確認し・最終応答停止の見落としを防ぐ。
+    - B. 構成を確認する際の意味は作業一覧からStatusを読むことで作業一覧を確認し・実行間隔より短いFROM/Tを防ぐ。
+    - C. 構成を確認する際の意味は調査操作で保守欄を引き継ぎすることでデータソースを確認し・対象データソースの取り違えを防ぐ。
+    - D. 構成を確認する際の意味は調査操作で保守欄を引き継ぎすることでユーザー活動を確認し・対象データソースの取り違えを防ぐ。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 機能ユーザ・対象デでDの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・保護）です。照合ユーザ・保護に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・保護・対象デです。比較監査レ・保護でA:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸はAud・保護・ユーザです。運用保護・AudでB:の構成監査 AUDIT08は「Audit Processで作業一覧から」を述べるため、正答側の照合軸はユーザ・監査レ・保護です。項目ユーザ・保護でC:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸は対象デ・監査レ・ユーザです。用語ユーザ・保護という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0248**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0248について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.18
+    Server IP 198.51.100.28
+    Count 18
+    確認コード GDP12DD0248A
+    ```
+
+    画面・出力には GDP12DD0248A が表示され、監査レポート Audit Task Status 0248 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0248
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0248B
+    ```
+
+    画面・出力には GDP12DD0248B が表示され、監査レポート Audit Task Status 0248 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0248C
+    ```
+
+    画面・出力には GDP12DD0248C が表示され、監査レポート Audit Task Status 0248 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0248A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0248B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0248C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0263 {#c10-i0398}
+*分類: レポート*  ・  難易度: 中級
+
+藍D照合0264ではIBM Guardium Data Protection 12.x の レポートを扱う採取票藍D照合0264です。藍D照合0264は監査レポートの表示操作で監査レポートの対象欄を追跡する記録藍D照合0264です。藍D照合0264ではユーザー活動と取得時刻を採取票藍D照合0264へ残します。藍D照合0264ではジョブ失敗の見落としを避けるため補助資料も照合する判断藍D照合0264です。藍D照合0264の用語整理では監査レポートの対象値を実在出力で照合する記録藍D照合0264です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0263の設定や表示を読む前に役割を確認します。S-TAP監視 S-TAP Version 0283ではなく対象を説明しているものはどれですか。
+
+    - A. 状態を読み取るための働きはカーネル監視導入状態の誤読を避けるため・採取操作で照合欄を点検するして暗号化表示を照合する。
+    - B. 状態を読み取るための働きはInspectionを避けるため・検査状態からLastResponseを読して検査状態を照合する。
+    - C. 状態を読み取るための働きはジョブ失敗の見落としを避けるため・表示操作で対象欄を追跡するしてユーザー活動を照合する。 ✅
+    - D. 状態を読み取るための働きは過剰ロール付与を避けるため・主操作で出力欄を評価するして表示可能レポを照合する。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・ジョブでCの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・照合）です。照合ユーザ・照合に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・照合・ジョブです。比較監査レ・照合でA:のS-TAP Versionは「監視エージェントの暗号化表示と取得時刻を記録」を述べるため、正答側の照合軸はAud・照合・ユーザです。運用照合・AudでB:の障害切り分け IE04は「Inspection Engineで検査状態」を述べるため、正答側の照合軸はユーザ・監査レ・照合です。仕様ユーザ・照合でD:のロールと権限 Permissioは「Permissionの表示可能レポートと取得」を述べるため、正答側の照合軸は照合・ジョブ・ユーザです。用語ユーザ・照合という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0263**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0263について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.33
+    Server IP 198.51.100.43
+    Count 33
+    確認コード GDP12DD0263A
+    ```
+
+    画面・出力には GDP12DD0263A が表示され、監査レポート Audit Task Status 0263 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0263
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0263B
+    ```
+
+    画面・出力には GDP12DD0263B が表示され、監査レポート Audit Task Status 0263 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0263C
+    ```
+
+    画面・出力には GDP12DD0263C が表示され、監査レポート Audit Task Status 0263 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0263A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0263B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0263C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0278 {#c10-i0399}
+*分類: レポート*  ・  難易度: 中級
+
+黒S照合0279ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黒S照合0279です。黒S照合0279は監査レポートの点検操作で監査レポートの判定欄を記録する記録黒S照合0279です。黒S照合0279ではユーザー活動と取得時刻を採取票黒S照合0279へ残します。黒S照合0279ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断黒S照合0279です。黒S照合0279の用語整理では監査レポートの対象値を実在出力で保管する記録黒S照合0279です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0278に関する障害切り分けの前提を確認しています。監査レポート Client IP 0350の機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としては解除で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。
+    - B. 機能の説明としては性能影響確認で確認では中央を証跡に残し・Central Managerで性能影響の確認では中央管理サ。
+    - C. 機能の説明としては診断でGuardAを証跡に残し・ディレクトリー UserのGuardAPI権限と取得時刻を記。
+    - D. 機能の説明としては照合でユーザー活動を証跡に残し・Audit Task Statusのユーザー活動と取得時刻を。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・照会文でDの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・照合）です。照合ユーザ・照合に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・照合・照会文です。比較監査レ・照合でA:のClient IPは「Client IPの監査タスクと取得時刻を記」を述べるため、正答側の照合軸はAud・照合・ユーザです。運用照合・AudでB:の性能影響の確認 CM11は「Central Managerで性能影響の確」を述べるため、正答側の照合軸はユーザ・監査レ・照合です。項目ユーザ・照合でC:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は照会文・監査レ・ユーザです。用語ユーザ・照合という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0278**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0278について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.48
+    Server IP 198.51.100.58
+    Count 48
+    確認コード GDP12DD0278A
+    ```
+
+    画面・出力には GDP12DD0278A が表示され、監査レポート Audit Task Status 0278 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0278
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0278B
+    ```
+
+    画面・出力には GDP12DD0278B が表示され、監査レポート Audit Task Status 0278 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0278C
+    ```
+
+    画面・出力には GDP12DD0278C が表示され、監査レポート Audit Task Status 0278 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0278A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0278B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0278C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0293 {#c10-i0400}
+*分類: レポート*  ・  難易度: 中級
+
+灰N抑止0294ではIBM Guardium Data Protection 12.x の レポートを扱う採取票灰N抑止0294です。灰N抑止0294は監査レポートの復旧操作で監査レポートの点検欄を確認する記録灰N抑止0294です。灰N抑止0294ではユーザー活動と取得時刻を採取票灰N抑止0294へ残します。灰N抑止0294では監査タスク未レビューを避けるため補助資料も照合する判断灰N抑止0294です。灰N抑止0294の用語整理では監査レポートの対象値を実在出力で点検する記録灰N抑止0294です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0293を保守記録に説明する必要があります。S-TAP監視 DB Server Type 0295と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割は監査タスク未レビューを避けるため・復旧操作で点検欄を確認するしてユーザー活動を照合する。 ✅
+    - B. 運用時に利用する技術的役割はカーネル監視導入状態の誤読を避けるため・採取操作で照合欄を点検するして承認クライアを照合する。
+    - C. 運用時に利用する技術的役割はInspectionを避けるため・エージェント変更からInspectionしてエージェントを照合する。
+    - D. 運用時に利用する技術的役割はジョブ失敗の見落としを避けるため・表示操作で対象欄を追跡するしてジョブキューを照合する。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・監査タでAの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・抑止）です。照合ユーザ・抑止に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・抑止・監査タです。運用抑止・AudでB:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸はユーザ・監査レ・抑止です。項目ユーザ・抑止でC:の引継ぎ記録 IE09は「Inspection Engineでエージェ」を述べるため、正答側の照合軸は監査タ・監査レ・ユーザです。仕様ユーザ・抑止でD:のSQL Verbは「照会文 Verbのジョブキューと取得時刻を記」を述べるため、正答側の照合軸は抑止・監査タ・ユーザです。用語ユーザ・抑止という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0293**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0293について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.63
+    Server IP 198.51.100.73
+    Count 63
+    確認コード GDP12DD0293A
+    ```
+
+    画面・出力には GDP12DD0293A が表示され、監査レポート Audit Task Status 0293 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0293
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0293B
+    ```
+
+    画面・出力には GDP12DD0293B が表示され、監査レポート Audit Task Status 0293 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0293C
+    ```
+
+    画面・出力には GDP12DD0293C が表示され、監査レポート Audit Task Status 0293 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0293A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0293B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0293C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0308 {#c10-i0401}
+*分類: レポート*  ・  難易度: 中級
+
+黄I解析0309ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黄I解析0309です。黄I解析0309は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録黄I解析0309です。黄I解析0309ではユーザー活動と取得時刻を採取票黄I解析0309へ残します。黄I解析0309では対象データソースの取り違えを避けるため補助資料も照合する判断黄I解析0309です。黄I解析0309の用語整理では監査レポートの対象値を実在出力で整理する記録黄I解析0309です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0308の技術的な意味を資料で確認するとき、S-TAP監視 S-TAP Host 0346との境界を正しく示す記述はどれですか。
+
+    - A. 構成を確認する際の意味は確認操作で状態欄を整理することで最終応答を確認し・最終応答停止の見落としを防ぐ。
+    - B. 構成を確認する際の意味はジョブキューからJobNameを読むことでジョブキューを確認し・ディスク逼迫中に検査データ流を防ぐ。
+    - C. 構成を確認する際の意味は変更確認操作で採取欄を棚卸することで表示可能レポを確認し・ディレクトリー取込対象の誤りを防ぐ。
+    - D. 構成を確認する際の意味は調査操作で保守欄を引き継ぎすることでユーザー活動を確認し・対象データソースの取り違えを防ぐ。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・対象デでDの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・解析）です。照合ユーザ・解析に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・解析・対象デです。比較監査レ・解析でA:のS-TAP Hostは「監視エージェントの最終応答と取得時刻を記録し」を述べるため、正答側の照合軸はAud・解析・ユーザです。運用解析・AudでB:の再始動後の確認 APP15は「Appliance Monitoriでジョブ」を述べるため、正答側の照合軸はユーザ・監査レ・解析です。項目ユーザ・解析でC:のロールと権限 Permissioは「Permissionの表示可能レポートと取得」を述べるため、正答側の照合軸は対象デ・監査レ・ユーザです。用語ユーザ・解析という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0308**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0308について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.78
+    Server IP 198.51.100.28
+    Count 78
+    確認コード GDP12DD0308A
+    ```
+
+    画面・出力には GDP12DD0308A が表示され、監査レポート Audit Task Status 0308 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0308
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0308B
+    ```
+
+    画面・出力には GDP12DD0308B が表示され、監査レポート Audit Task Status 0308 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0308C
+    ```
+
+    画面・出力には GDP12DD0308C が表示され、監査レポート Audit Task Status 0308 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0308A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0308B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0308C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0323 {#c10-i0402}
+*分類: レポート*  ・  難易度: 中級
+
+藍D計画0324ではIBM Guardium Data Protection 12.x の レポートを扱う採取票藍D計画0324です。藍D計画0324は監査レポートの表示操作で監査レポートの対象欄を追跡する記録藍D計画0324です。藍D計画0324ではユーザー活動と取得時刻を採取票藍D計画0324へ残します。藍D計画0324ではジョブ失敗の見落としを避けるため補助資料も照合する判断藍D計画0324です。藍D計画0324の用語整理では監査レポートの対象値を実在出力で照合する記録藍D計画0324です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0323について構成や状態を確認します。S-TAP監視 KTAP Installed 0334ではなく対象機能を表す記述はどれですか。
+
+    - A. 状態を読み取るための働きは確認操作で状態欄を整理することで監視エージェを確認し・最終応答停止の見落としを防ぐ。
+    - B. 状態を読み取るための働きは表示操作で対象欄を追跡することでユーザー活動を確認し・ジョブ失敗の見落としを防ぐ。 ✅
+    - C. 状態を読み取るための働きは監視プロセスからApplianceを読むことで監視プロセスを確認し・ディスク逼迫中に検査データ流を防ぐ。
+    - D. 状態を読み取るための働きは主操作で出力欄を評価することでGuardAを確認し・過剰ロール付与を防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・ジョブでBの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・計画）です。照合ユーザ・計画に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・計画・ジョブです。比較監査レ・計画でA:のKTAP Installedは「監視エージェントの監視エージェント状態と取得」を述べるため、正答側の照合軸はAud・計画・ユーザです。項目ユーザ・計画でC:の障害切り分け APP04は「Appliance Monitoriで監視プ」を述べるため、正答側の照合軸はジョブ・監査レ・ユーザです。仕様ユーザ・計画でD:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は計画・ジョブ・ユーザです。用語ユーザ・計画という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0323**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0323について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.13
+    Server IP 198.51.100.43
+    Count 93
+    確認コード GDP12DD0323A
+    ```
+
+    画面・出力には GDP12DD0323A が表示され、監査レポート Audit Task Status 0323 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0323
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0323B
+    ```
+
+    画面・出力には GDP12DD0323B が表示され、監査レポート Audit Task Status 0323 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0323C
+    ```
+
+    画面・出力には GDP12DD0323C が表示され、監査レポート Audit Task Status 0323 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0323A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0323B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0323C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0338 {#c10-i0403}
+*分類: レポート*  ・  難易度: 中級
+
+黒S計画0339ではIBM Guardium Data Protection 12.x の レポートを扱う採取票黒S計画0339です。黒S計画0339は監査レポートの点検操作で監査レポートの判定欄を記録する記録黒S計画0339です。黒S計画0339ではユーザー活動と取得時刻を採取票黒S計画0339へ残します。黒S計画0339ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断黒S計画0339です。黒S計画0339の用語整理では監査レポートの対象値を実在出力で保管する記録黒S計画0339です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Audit Task Status 0338の役割を調べています。監査プロセス Audit Process Builder 変更前の確認の説明を混ぜずに採るべき記述はどれですか。
+
+    - A. 機能の説明としては変更確認で作業一覧を証跡に残し・Audit Processで作業一覧から Status。
+    - B. 機能の説明としては計画でユーザー活動を証跡に残し・Audit Task Statusのユーザー活動と取得時刻を。 ✅
+    - C. 機能の説明としては棚卸でデータソースを証跡に残し・Server IPのデータソースと取得時刻を記録し。監査レポート Server IP 0032固有の属性も確認対象に含める。
+    - D. 機能の説明としては切替でロール割当を証跡に残し・Login Nameのロール割当と取得時刻を記録し。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能ユーザ・照会文でBの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・計画）です。照合ユーザ・計画に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・計画・照会文です。比較監査レ・計画でA:の変更前の確認 AUDIT02は「Audit Processで作業一覧から」を述べるため、正答側の照合軸はAud・計画・ユーザです。項目ユーザ・計画でC:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸は照会文・監査レ・ユーザです。仕様ユーザ・計画でD:のLogin Nameは「Login Nameのロール割当と取得時刻を」を述べるため、正答側の照合軸は計画・照会文・ユーザです。用語ユーザ・計画という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0338**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0338について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.28
+    Server IP 198.51.100.58
+    Count 108
+    確認コード GDP12DD0338A
+    ```
+
+    画面・出力には GDP12DD0338A が表示され、監査レポート Audit Task Status 0338 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0338
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0338B
+    ```
+
+    画面・出力には GDP12DD0338B が表示され、監査レポート Audit Task Status 0338 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0338C
+    ```
+
+    画面・出力には GDP12DD0338C が表示され、監査レポート Audit Task Status 0338 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0338A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0338B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0338C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Audit Task Status 0353 {#c10-i0404}
+*分類: レポート*  ・  難易度: 上級
+
+灰N解除0354ではIBM Guardium Data Protection 12.x の レポートを扱う採取票灰N解除0354です。灰N解除0354は監査レポートの復旧操作で監査レポートの点検欄を確認する記録灰N解除0354です。灰N解除0354ではユーザー活動と取得時刻を採取票灰N解除0354へ残します。灰N解除0354では監査タスク未レビューを避けるため補助資料も照合する判断灰N解除0354です。灰N解除0354の用語整理では監査レポートの対象値を実在出力で点検する記録灰N解除0354です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 「監査レポート Audit Task Status 0353」を「監査プロセス Audit Process Builder 復旧後の確認」と区別して説明するとき、一次資料と整合する組合せはどれですか。
+
+    - A. 運用時に利用する技術的役割は報告上限からmax_audit_repoことで報告上限を確認し・実行間隔より短いFROM/Tを防ぐ。
+    - B. 運用時に利用する技術的役割はジョブキューからJobNameを読むことでジョブキューを確認し・ディスク逼迫中に検査データ流を防ぐ。
+    - C. 運用時に利用する技術的役割は復旧操作で点検欄を確認することでユーザー活動を確認し・監査タスク未レビューを防ぐ。 ✅
+    - D. 運用時に利用する技術的役割は監査操作で記録欄を比較することでGuardAを確認し・GuardAPI実行権限不足を防ぐ。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 機能ユーザ・監査タでCの記述「Audit Task Statusのユーザー活動と取得時」に対応する項目はTask Status（Aud・ユーザ・解除）です。照合ユーザ・解除に関するレポートの仕様は「Audit Task Statusのユーザー活動と取得時刻を記録し」で、確認対象はユーザ・解除・監査タです。比較監査レ・解除でA:の復旧後の確認 AUDIT06は「Audit Processで報告上限から」を述べるため、正答側の照合軸はAud・解除・ユーザです。運用解除・AudでB:の監査証跡の保存 APP18は「Appliance Monitoriでジョブ」を述べるため、正答側の照合軸はユーザ・監査レ・解除です。仕様ユーザ・解除でD:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は解除・監査タ・ユーザです。用語ユーザ・解除という用語は「Audit Task Statusのユーザー活動と取」を指し、照合する値と誤認リスクの組合せは監査レ・ユーザ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Audit Task Status 0353**
+
+    - 検証目的: 監査レポートの監査レポート Audit Task Status 0353について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Audit Task Status と ユーザー活動
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.43
+    Server IP 198.51.100.73
+    Count 123
+    確認コード GDP12DD0353A
+    ```
+
+    画面・出力には GDP12DD0353A が表示され、監査レポート Audit Task Status 0353 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0353
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0353B
+    ```
+
+    画面・出力には GDP12DD0353B が表示され、監査レポート Audit Task Status 0353 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Audit Task Status を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0353C
+    ```
+
+    画面・出力には GDP12DD0353C が表示され、監査レポート Audit Task Status 0353 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0353A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0353B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0353C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0005 {#c10-i0405}
+*分類: レポート*  ・  難易度: 初級
+
+銀F巡回0006ではIBM Guardium Data Protection 12.x の レポートを扱う採取票銀F巡回0006です。銀F巡回0006は監査レポートの復旧操作で監査レポートの点検欄を確認する記録銀F巡回0006です。銀F巡回0006では監査タスクと取得時刻を採取票銀F巡回0006へ残します。銀F巡回0006では監査タスク未レビューを避けるため補助資料も照合する判断銀F巡回0006です。銀F巡回0006の用語整理では監査レポートの対象値を実在出力で点検する記録銀F巡回0006です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0005を保守記録に説明する必要があります。S-TAP監視 S-TAP Version 0058と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割は最終応答停止の見落としを避けるため・確認操作で状態欄を整理するして暗号化表示を照合する。
+    - B. 運用時に利用する技術的役割は監査タスク未レビューを避けるため・復旧操作で点検欄を確認するしてジョブキューを照合する。
+    - C. 運用時に利用する技術的役割は実行間隔より短いFROM/TO範を避けるため・世代整合確認で世代整合の確を確認するして世代整合の確を照合する。
+    - D. 運用時に利用する技術的役割は監査タスク未レビューを避けるため・復旧操作で点検欄を確認するして監査タスクを照合する。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 巡回対象監査タスクでDの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Clien・巡回・監査タ・監査タス）です。巡回時の監査タスクに関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象はClie・巡回・監査タ・監査タスです。監視・復旧・暗号化表のA:は「S-TAPの暗号化表示と取得時刻を記録し」を述べ、対象はS-TAP Version（監視エージ・復旧・暗号化・最終応答）です。確認対象ジョブキュのB:は「SQL Verbのジョブキューと取得時刻を記録し」を述べ、対象はSQL Verb（照会文・確認・ジョブ・監査タス）です。世代整合時の世代整合ののC:は「Audit Processで世代整合の確認では監査プロセスの」を述べ、対象は世代整合の確認 AUDIT17（Audit・世代整・世代整・実行間隔）です。監査タスクを巡回という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、Client IP（Clien・巡回・監査タ・監査タス）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0005**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0005について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.15
+    Server IP 198.51.100.25
+    Count 15
+    確認コード GDP12DD0005A
+    ```
+
+    画面・出力には GDP12DD0005A が表示され、監査レポート Client IP 0005 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0005
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0005B
+    ```
+
+    画面・出力には GDP12DD0005B が表示され、監査レポート Client IP 0005 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0005C
+    ```
+
+    画面・出力には GDP12DD0005C が表示され、監査レポート Client IP 0005 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0005A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0005B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0005C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0020 {#c10-i0406}
+*分類: レポート*  ・  難易度: 初級
+
+蒼A棚卸0021ではIBM Guardium Data Protection 12.x の レポートを扱う採取票蒼A棚卸0021です。蒼A棚卸0021は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録蒼A棚卸0021です。蒼A棚卸0021では監査タスクと取得時刻を採取票蒼A棚卸0021へ残します。蒼A棚卸0021では対象データソースの取り違えを避けるため補助資料も照合する判断蒼A棚卸0021です。蒼A棚卸0021の用語整理では監査レポートの対象値を実在出力で整理する記録蒼A棚卸0021です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0020の技術的な意味を資料で確認するとき、監査レポート SQL Verb 0086との境界を正しく示す記述はどれですか。
+
+    - A. 構成を確認する際の意味は変更でジョブキューを証跡に残し・SQL Verbのジョブキューと取得時刻を記録し。
+    - B. 構成を確認する際の意味は保護で表示可能レポを証跡に残し・Permissionの表示可能レポートと取得時刻を記録し。
+    - C. 構成を確認する際の意味は依存関係確認で依存関係の確を証跡に残し・Audit Processで依存関係の確認では監査プロセスの。
+    - D. 構成を確認する際の意味は棚卸で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 棚卸対象監査タスクでDの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Clien・棚卸・監査タ・対象デー）です。棚卸時の監査タスクに関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象はClie・棚卸・監査タ・対象デーです。照会・変更・ジョブキのA:は「SQL Verbのジョブキューと取得時刻を記録し」を述べ、対象はSQL Verb（照会文・変更・ジョブ・照会文動）です。保護対象表示可能レのB:は「Permissionの表示可能レポートと取得時刻を記録し」を述べ、対象はロールと権限 Permission（Permi・保護・表示可・ディレク）です。依存関係時の依存関係ののC:は「Audit Processで依存関係の確認では監査プロセスの」を述べ、対象は依存関係の確認 AUDIT13（Audit・依存関・依存関・実行間隔）です。監査タスクを棚卸という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、Client IP（Clien・棚卸・監査タ・対象デー）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0020**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0020について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.30
+    Server IP 198.51.100.40
+    Count 30
+    確認コード GDP12DD0020A
+    ```
+
+    画面・出力には GDP12DD0020A が表示され、監査レポート Client IP 0020 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0020
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0020B
+    ```
+
+    画面・出力には GDP12DD0020B が表示され、監査レポート Client IP 0020 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0020C
+    ```
+
+    画面・出力には GDP12DD0020C が表示され、監査レポート Client IP 0020 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0020A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0020B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0020C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0035 {#c10-i0407}
+*分類: レポート*  ・  難易度: 中級
+
+金P棚卸0036ではIBM Guardium Data Protection 12.x の レポートを扱う採取票金P棚卸0036です。金P棚卸0036は監査レポートの表示操作で監査レポートの対象欄を追跡する記録金P棚卸0036です。金P棚卸0036では監査タスクと取得時刻を採取票金P棚卸0036へ残します。金P棚卸0036ではジョブ失敗の見落としを避けるため補助資料も照合する判断金P棚卸0036です。金P棚卸0036の用語整理では監査レポートの対象値を実在出力で照合する記録金P棚卸0036です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0035について構成や状態を確認します。監査レポート SQL Verb 0071ではなく対象機能を表す記述はどれですか。
+
+    - A. 状態を読み取るための働きはジョブ失敗の見落としを避けるため・表示操作で対象欄を追跡するしてジョブキューを照合する。
+    - B. 状態を読み取るための働きはジョブ失敗の見落としを避けるため・表示操作で対象欄を追跡するして監査タスクを照合する。 ✅
+    - C. 状態を読み取るための働きはGuardAPI実行権限不足を避けるため・監査操作で記録欄を比較するしてユーザー有効を照合する。
+    - D. 状態を読み取るための働きは実行間隔より短いFROM/TO範を避けるため・監査プロセスで引継ぎ記録でを確認するして引継ぎ記録でを照合する。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 棚卸対象監査タスクでBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Clien・棚卸・監査タ・ジョブ失）です。棚卸時の監査タスクに関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象はClie・棚卸・監査タ・ジョブ失です。照会・監査・ジョブキのA:は「SQL Verbのジョブキューと取得時刻を記録し」を述べ、対象はSQL Verb（照会文・監査・ジョブ・ジョブ失）です。保護時のユーザー有のC:は「Application Accessのユーザー有効化と取得時刻を記録」を述べ、対象はApplication Access（Appli・保護・ユーザ・Guar）です。引継ぎ記録を監査プロセのD:は「Audit Processで引継ぎ記録では監査プロセスの」を述べ、対象は引継ぎ記録 AUDIT09（Audit・監査プ・引継ぎ・実行間隔）です。監査タスクを棚卸という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、Client IP（Clien・棚卸・監査タ・ジョブ失）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0035**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0035について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.45
+    Server IP 198.51.100.55
+    Count 45
+    確認コード GDP12DD0035A
+    ```
+
+    画面・出力には GDP12DD0035A が表示され、監査レポート Client IP 0035 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0035
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0035B
+    ```
+
+    画面・出力には GDP12DD0035B が表示され、監査レポート Client IP 0035 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0035C
+    ```
+
+    画面・出力には GDP12DD0035C が表示され、監査レポート Client IP 0035 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0035A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0035B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0035C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0050 {#c10-i0408}
+*分類: レポート*  ・  難易度: 中級
+
+紺K復旧0051ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紺K復旧0051です。紺K復旧0051は監査レポートの点検操作で監査レポートの判定欄を記録する記録紺K復旧0051です。紺K復旧0051では監査タスクと取得時刻を採取票紺K復旧0051へ残します。紺K復旧0051ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断紺K復旧0051です。紺K復旧0051の用語整理では監査レポートの対象値を実在出力で保管する記録紺K復旧0051です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0050の役割を調べています。ロールと権限 LDAP User 0102の説明を混ぜずに採るべき記述はどれですか。
+
+    - A. 機能の説明としては変更確認操作で採取欄を棚卸することでGuardAを確認し・ディレクトリー取込対象の誤りを防ぐ。
+    - B. 機能の説明としては監査操作で記録欄を比較することでディレクトリを確認し・GuardAPI実行権限不足を防ぐ。
+    - C. 機能の説明としては依存関係確認で依存関係の確を確認することで依存関係の確を確認し・実行間隔より短いFROM/Tを防ぐ。
+    - D. 機能の説明としては点検操作で判定欄を記録することで監査タスクを確認し・照会文動詞集計の期間誤りを防ぐ。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 復旧対象監査タスクでDの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Clien・復旧・監査タ・照会文動）です。復旧時の監査タスクに関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象はClie・復旧・監査タ・照会文動です。ディ・移行・GuarのA:は「LDAP UserのGuardAPI権限と取得時刻を記録し」を述べ、対象はLDAP User（ディレクト・移行・Gua・ディレク）です。確認対象ディレクトのB:は「RoleのLDAP取込と取得時刻を記録し」を述べ、対象はロールと権限 Role（Role・確認・ディレ・Guar）です。依存関係時の依存関係ののC:は「Audit Processで依存関係の確認では監査プロセスの」を述べ、対象は依存関係の確認 AUDIT13（Audit・依存関・依存関・実行間隔）です。監査タスクを復旧という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、Client IP（Clien・復旧・監査タ・照会文動）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0050**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0050について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.60
+    Server IP 198.51.100.70
+    Count 60
+    確認コード GDP12DD0050A
+    ```
+
+    画面・出力には GDP12DD0050A が表示され、監査レポート Client IP 0050 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0050
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0050B
+    ```
+
+    画面・出力には GDP12DD0050B が表示され、監査レポート Client IP 0050 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0050C
+    ```
+
+    画面・出力には GDP12DD0050C が表示され、監査レポート Client IP 0050 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0050A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0050B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0050C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0065 {#c10-i0409}
+*分類: レポート*  ・  難易度: 中級
+
+銀F監査0066ではIBM Guardium Data Protection 12.x の レポートを扱う採取票銀F監査0066です。銀F監査0066は監査レポートの復旧操作で監査レポートの点検欄を確認する記録銀F監査0066です。銀F監査0066では監査タスクと取得時刻を採取票銀F監査0066へ残します。銀F監査0066では監査タスク未レビューを避けるため補助資料も照合する判断銀F監査0066です。銀F監査0066の用語整理では監査レポートの対象値を実在出力で点検する記録銀F監査0066です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 「監査レポート Client IP 0065」を「ロールと権限 Role 0141」と区別して説明するとき、一次資料と整合する組合せはどれですか。
+
+    - A. 運用時に利用する技術的役割は監査で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。 ✅
+    - B. 運用時に利用する技術的役割は保守でディレクトリを証跡に残し・Roleのディレクトリー取込と取得時刻を記録し。
+    - C. 運用時に利用する技術的役割は計画でユーザー有効を証跡に残し・Application Accessのユーザー有効化と取得時。
+    - D. 運用時に利用する技術的役割は容量余力確認で集約エラーを証跡に残し・Aggregatorで集約エラーから。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・監査タでAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・監査）です。照合監査タ・監査に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・監査・監査タです。運用監査・CliでB:のロールと権限 Roleは「Roleのディレクトリー取込と取得時刻を記録」を述べるため、正答側の照合軸は監査タ・監査レ・監査です。項目監査タ・監査でC:のApplicationは「Application Accessのユーザ」を述べるため、正答側の照合軸は監査タ・監査レ・監査タです。仕様監査タ・監査でD:の容量余力の確認 AGG16は「Aggregatorで集約エラーから」を述べるため、正答側の照合軸は監査・監査タ・監査タです。用語監査タ・監査という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0065**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0065について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.75
+    Server IP 198.51.100.25
+    Count 75
+    確認コード GDP12DD0065A
+    ```
+
+    画面・出力には GDP12DD0065A が表示され、監査レポート Client IP 0065 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0065
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0065B
+    ```
+
+    画面・出力には GDP12DD0065B が表示され、監査レポート Client IP 0065 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0065C
+    ```
+
+    画面・出力には GDP12DD0065C が表示され、監査レポート Client IP 0065 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0065A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0065B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0065C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0080 {#c10-i0410}
+*分類: レポート*  ・  難易度: 中級
+
+蒼A変更0081ではIBM Guardium Data Protection 12.x の レポートを扱う採取票蒼A変更0081です。蒼A変更0081は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録蒼A変更0081です。蒼A変更0081では監査タスクと取得時刻を採取票蒼A変更0081へ残します。蒼A変更0081では対象データソースの取り違えを避けるため補助資料も照合する判断蒼A変更0081です。蒼A変更0081の用語整理では監査レポートの対象値を実在出力で整理する記録蒼A変更0081です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0080を同一分類のS-TAP監視 DB Server Type 0160と比較します。対象固有の機能として妥当な記述はどれですか。
+
+    - A. 構成を確認する際の意味は切替で承認クライアを証跡に残し・監視エージェントの承認クライアントと取得時刻を記録し。
+    - B. 構成を確認する際の意味は抑止でロール割当を証跡に残し・Login Nameのロール割当と取得時刻を記録し。
+    - C. 構成を確認する際の意味は監査証跡の保でエージェントを証跡に残し・Inspection Engineでエージェント変更から。
+    - D. 構成を確認する際の意味は変更で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・対象デでDの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・変更）です。照合監査タ・変更に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・変更・対象デです。比較監査レ・変更でA:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸はCli・変更・監査タです。運用変更・CliでB:のLogin Nameは「Login Nameのロール割当と取得時刻を」を述べるため、正答側の照合軸は監査タ・監査レ・変更です。項目監査タ・変更でC:の監査証跡の保存 IE18は「Inspection Engineでエージェ」を述べるため、正答側の照合軸は対象デ・監査レ・監査タです。用語監査タ・変更という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0080**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0080について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.10
+    Server IP 198.51.100.40
+    Count 90
+    確認コード GDP12DD0080A
+    ```
+
+    画面・出力には GDP12DD0080A が表示され、監査レポート Client IP 0080 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0080
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0080B
+    ```
+
+    画面・出力には GDP12DD0080B が表示され、監査レポート Client IP 0080 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0080C
+    ```
+
+    画面・出力には GDP12DD0080C が表示され、監査レポート Client IP 0080 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0080A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0080B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0080C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0095 {#c10-i0411}
+*分類: レポート*  ・  難易度: 中級
+
+金P変更0096ではIBM Guardium Data Protection 12.x の レポートを扱う採取票金P変更0096です。金P変更0096は監査レポートの表示操作で監査レポートの対象欄を追跡する記録金P変更0096です。金P変更0096では監査タスクと取得時刻を採取票金P変更0096へ残します。金P変更0096ではジョブ失敗の見落としを避けるため補助資料も照合する判断金P変更0096です。金P変更0096の用語整理では監査レポートの対象値を実在出力で照合する記録金P変更0096です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0095の設定や表示を読む前に役割を確認します。ロールと権限 Application Access 0120ではなく対象を説明しているものはどれですか。
+
+    - A. 状態を読み取るための働きはClient IPの監査タスクと取得時刻を記録し・ジョブ失敗の見落としを防ぐである。表示操作で対象欄を追跡するときはジョブ失敗の見落としを防ぐ。 ✅
+    - B. 状態を読み取るための働きはApplication Accessのユーザー有効化と取得時刻を記録し・監査担当者の閲覧範囲不足を防ぐである。照合操作で確認欄を採取するときは監査担当者の閲覧範囲不足を防ぐ。
+    - C. 状態を読み取るための働きは監査要件に沿ってレポート実行とレビューを束ねる処理である。状態確認で開始時刻を確認するときは開始時刻の誤読を防ぐ。
+    - D. 状態を読み取るための働きはGuardiumで参照箇所から UsedBy を読み・UsedBy と Operation を照合する。参照箇所からUsedByを読むときは廃止サーバーの参照を残して監を防ぐ。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・ジョブでAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・変更）です。照合監査タ・変更に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・変更・ジョブです。運用変更・CliでB:のApplicationは「Application Accessのユーザ」を述べるため、正答側の照合軸は監査タ・監査レ・変更です。項目監査タ・変更でC:の状態確認 開始時刻は「監査要件に沿ってレポート実行とレビューを束ね」を述べるため、正答側の照合軸はジョブ・監査レ・監査タです。仕様監査タ・変更でD:の保守後の確認 DSRC20は「Guardiumで参照箇所から」を述べるため、正答側の照合軸は変更・ジョブ・監査タです。用語監査タ・変更という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0095**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0095について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.25
+    Server IP 198.51.100.55
+    Count 105
+    確認コード GDP12DD0095A
+    ```
+
+    画面・出力には GDP12DD0095A が表示され、監査レポート Client IP 0095 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0095
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0095B
+    ```
+
+    画面・出力には GDP12DD0095B が表示され、監査レポート Client IP 0095 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0095C
+    ```
+
+    画面・出力には GDP12DD0095C が表示され、監査レポート Client IP 0095 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0095A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0095B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0095C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0110 {#c10-i0412}
+*分類: レポート*  ・  難易度: 上級
+
+紺K移行0111ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紺K移行0111です。紺K移行0111は監査レポートの点検操作で監査レポートの判定欄を記録する記録紺K移行0111です。紺K移行0111では監査タスクと取得時刻を採取票紺K移行0111へ残します。紺K移行0111ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断紺K移行0111です。紺K移行0111の用語整理では監査レポートの対象値を実在出力で保管する記録紺K移行0111です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0110に関する障害切り分けの前提を確認しています。S-TAP監視 S-TAP Version 0133の機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としてはClient IPの監査タスクと取得時刻を記録し・照会文動詞集計の期間誤りを防ぐである。点検操作で判定欄を記録するときは照会文動詞集計の期間誤りを防ぐ。 ✅
+    - B. 機能の説明としては監視エージェントの暗号化表示と取得時刻を記録し・未承認監視エージェント接続を防ぐである。記録操作で証跡欄を照合するときは未承認監視エージェント接続を防ぐ。
+    - C. 機能の説明としては監視エージェントの最終応答と取得時刻を記録し・カーネル監視導入状態の誤読を防ぐである。採取操作で照合欄を点検するときはカーネル監視導入状態の誤読を防ぐ。
+    - D. 機能の説明としてはディレクトリー UserのGuardAPI権限と取得時刻を記録し・監査担当者の閲覧範囲不足を防ぐである。照合操作で確認欄を採取するときは監査担当者の閲覧範囲不足を防ぐ。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 機能監査タ・照会文でAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・移行）です。照合監査タ・移行に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・移行・照会文です。運用移行・CliでB:のS-TAP Versionは「監視エージェントの暗号化表示と取得時刻を記録」を述べるため、正答側の照合軸は監査タ・監査レ・移行です。項目監査タ・移行でC:のS-TAP Hostは「監視エージェントの最終応答と取得時刻を記録し」を述べるため、正答側の照合軸は照会文・監査レ・監査タです。仕様監査タ・移行でD:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は移行・照会文・監査タです。用語監査タ・移行という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0110**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0110について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.40
+    Server IP 198.51.100.70
+    Count 120
+    確認コード GDP12DD0110A
+    ```
+
+    画面・出力には GDP12DD0110A が表示され、監査レポート Client IP 0110 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0110
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0110B
+    ```
+
+    画面・出力には GDP12DD0110B が表示され、監査レポート Client IP 0110 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0110C
+    ```
+
+    画面・出力には GDP12DD0110C が表示され、監査レポート Client IP 0110 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0110A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0110B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0110C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0125 {#c10-i0413}
+*分類: レポート*  ・  難易度: 初級
+
+銀F診断0126ではIBM Guardium Data Protection 12.x の レポートを扱う採取票銀F診断0126です。銀F診断0126は監査レポートの復旧操作で監査レポートの点検欄を確認する記録銀F診断0126です。銀F診断0126では監査タスクと取得時刻を採取票銀F診断0126へ残します。銀F診断0126では監査タスク未レビューを避けるため補助資料も照合する判断銀F診断0126です。銀F診断0126の用語整理では監査レポートの対象値を実在出力で点検する記録銀F診断0126です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0125を保守記録に説明する必要があります。監査レポート DB User Name 0164と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割は切替で照会文動詞集を証跡に残し・データベース User Nameの照会文動詞集計と取得時刻を。
+    - B. 運用時に利用する技術的役割は計画でGuardAを証跡に残し・ディレクトリー UserのGuardAPI権限と取得時刻を記。
+    - C. 運用時に利用する技術的役割は診断で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。 ✅
+    - D. 運用時に利用する技術的役割は依存関係確認で検査状態を証跡に残し・Inspection Engineで検査状態から。
+
+    正解: **C** ／ 難易度: 初級
+
+    **解説:** 機能監査タ・監査タでCの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・診断）です。照合監査タ・診断に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・診断・監査タです。比較監査レ・診断でA:のUser Nameは「データベース User Nameの照会文動詞」を述べるため、正答側の照合軸はCli・診断・監査タです。運用診断・CliでB:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は監査タ・監査レ・診断です。仕様監査タ・診断でD:の依存関係の確認 IE13は「Inspection Engineで検査状態」を述べるため、正答側の照合軸は診断・監査タ・監査タです。用語監査タ・診断という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0125**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0125について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.15
+    Server IP 198.51.100.25
+    Count 15
+    確認コード GDP12DD0125A
+    ```
+
+    画面・出力には GDP12DD0125A が表示され、監査レポート Client IP 0125 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0125
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0125B
+    ```
+
+    画面・出力には GDP12DD0125B が表示され、監査レポート Client IP 0125 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0125C
+    ```
+
+    画面・出力には GDP12DD0125C が表示され、監査レポート Client IP 0125 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0125A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0125B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0125C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0140 {#c10-i0414}
+*分類: レポート*  ・  難易度: 初級
+
+蒼A保守0141ではIBM Guardium Data Protection 12.x の レポートを扱う採取票蒼A保守0141です。蒼A保守0141は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録蒼A保守0141です。蒼A保守0141では監査タスクと取得時刻を採取票蒼A保守0141へ残します。蒼A保守0141では対象データソースの取り違えを避けるため補助資料も照合する判断蒼A保守0141です。蒼A保守0141の用語整理では監査レポートの対象値を実在出力で整理する記録蒼A保守0141です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0140の技術的な意味を資料で確認するとき、S-TAP監視 KTAP Installed 0214との境界を正しく示す記述はどれですか。
+
+    - A. 構成を確認する際の意味は監視エージェントの監視エージェント状態と取得時刻を記録し・最終応答停止の見落としを防ぐである。確認操作で状態欄を整理するときは最終応答停止の見落としを防ぐ。
+    - B. 構成を確認する際の意味はClient IPの監査タスクと取得時刻を記録し・対象データソースの取り違えを防ぐである。調査操作で保守欄を引き継ぎするときは対象データソースの取り違えを防ぐ。 ✅
+    - C. 構成を確認する際の意味は監査要件に沿ってレポート実行とレビューを束ねる処理である。状態確認で開始時刻を確認するときは開始時刻の誤読を防ぐ。
+    - D. 構成を確認する際の意味はRoleのディレクトリー取込と取得時刻を記録し・過剰ロール付与を防ぐである。主操作で出力欄を評価するときは過剰ロール付与を防ぐ。ロールと権限 Role 0021固有の属性も確認対象に含める。
+
+    正解: **B** ／ 難易度: 初級
+
+    **解説:** 機能監査タ・対象デでBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・保守）です。照合監査タ・保守に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・保守・対象デです。比較監査レ・保守でA:のKTAP Installedは「監視エージェントの監視エージェント状態と取得」を述べるため、正答側の照合軸はCli・保守・監査タです。項目監査タ・保守でC:の状態確認 開始時刻は「監査要件に沿ってレポート実行とレビューを束ね」を述べるため、正答側の照合軸は対象デ・監査レ・監査タです。仕様監査タ・保守でD:のロールと権限 Roleは「Roleのディレクトリー取込と取得時刻を記録」を述べるため、正答側の照合軸は保守・対象デ・監査タです。用語監査タ・保守という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0140**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0140について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.30
+    Server IP 198.51.100.40
+    Count 30
+    確認コード GDP12DD0140A
+    ```
+
+    画面・出力には GDP12DD0140A が表示され、監査レポート Client IP 0140 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0140
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0140B
+    ```
+
+    画面・出力には GDP12DD0140B が表示され、監査レポート Client IP 0140 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0140C
+    ```
+
+    画面・出力には GDP12DD0140C が表示され、監査レポート Client IP 0140 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0140A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0140B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0140C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0155 {#c10-i0415}
+*分類: レポート*  ・  難易度: 中級
+
+金P保守0156ではIBM Guardium Data Protection 12.x の レポートを扱う採取票金P保守0156です。金P保守0156は監査レポートの表示操作で監査レポートの対象欄を追跡する記録金P保守0156です。金P保守0156では監査タスクと取得時刻を採取票金P保守0156へ残します。金P保守0156ではジョブ失敗の見落としを避けるため補助資料も照合する判断金P保守0156です。金P保守0156の用語整理では監査レポートの対象値を実在出力で照合する記録金P保守0156です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0155について構成や状態を確認します。ロールと権限 Role 0216ではなく対象機能を表す記述はどれですか。
+
+    - A. 状態を読み取るための働きは表示操作で対象欄を追跡することで監査タスクを確認し・ジョブ失敗の見落としを防ぐ。 ✅
+    - B. 状態を読み取るための働きは照合操作で確認欄を採取することでディレクトリを確認し・監査担当者の閲覧範囲不足を防ぐ。
+    - C. 状態を読み取るための働きは証跡採取で自動処理を確認することで自動処理を確認し・自動処理の誤読を防ぐ。
+    - D. 状態を読み取るための働きは確認操作で状態欄を整理することでカーネル監視を確認し・最終応答停止の見落としを防ぐ。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・ジョブでAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・保守）です。照合監査タ・保守に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・保守・ジョブです。運用保守・CliでB:のロールと権限 Roleは「Roleのディレクトリー取込と取得時刻を記録」を述べるため、正答側の照合軸は監査タ・監査レ・保守です。項目監査タ・保守でC:の証跡採取 自動処理は「処理ID、状態、開始終了時刻、Data」を述べるため、正答側の照合軸はジョブ・監査レ・監査タです。仕様監査タ・保守でD:のLast Responseは「監視エージェントのカーネル監視有無と取得時刻」を述べるため、正答側の照合軸は保守・ジョブ・監査タです。用語監査タ・保守という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0155**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0155について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.45
+    Server IP 198.51.100.55
+    Count 45
+    確認コード GDP12DD0155A
+    ```
+
+    画面・出力には GDP12DD0155A が表示され、監査レポート Client IP 0155 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0155
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0155B
+    ```
+
+    画面・出力には GDP12DD0155B が表示され、監査レポート Client IP 0155 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0155C
+    ```
+
+    画面・出力には GDP12DD0155C が表示され、監査レポート Client IP 0155 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0155A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0155B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0155C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0170 {#c10-i0416}
+*分類: レポート*  ・  難易度: 中級
+
+紺K切替0171ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紺K切替0171です。紺K切替0171は監査レポートの点検操作で監査レポートの判定欄を記録する記録紺K切替0171です。紺K切替0171では監査タスクと取得時刻を採取票紺K切替0171へ残します。紺K切替0171ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断紺K切替0171です。紺K切替0171の用語整理では監査レポートの対象値を実在出力で保管する記録紺K切替0171です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0170の役割を調べています。S-TAP監視 KTAP Installed 0259の説明を混ぜずに採るべき記述はどれですか。
+
+    - A. 機能の説明としては採取操作で照合欄を点検することで監視エージェを確認し・カーネル監視導入状態の誤読を防ぐ。
+    - B. 機能の説明としては証跡採取で承認履歴を確認することで承認履歴を確認し・承認履歴の誤読を防ぐ。
+    - C. 機能の説明としては点検操作で判定欄を記録することで監査タスクを確認し・照会文動詞集計の期間誤りを防ぐ。 ✅
+    - D. 機能の説明としては照合操作で確認欄を採取することでロール割当を確認し・監査担当者の閲覧範囲不足を防ぐ。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・照会文でCの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・切替）です。照合監査タ・切替に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・切替・照会文です。比較監査レ・切替でA:のKTAP Installedは「監視エージェントの監視エージェント状態と取得」を述べるため、正答側の照合軸はCli・切替・監査タです。運用切替・CliでB:の証跡採取 承認履歴は「監視対象データベースやサービスを表す」を述べるため、正答側の照合軸は監査タ・監査レ・切替です。仕様監査タ・切替でD:のLogin Nameは「Login Nameのロール割当と取得時刻を」を述べるため、正答側の照合軸は切替・照会文・監査タです。用語監査タ・切替という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0170**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0170について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.60
+    Server IP 198.51.100.70
+    Count 60
+    確認コード GDP12DD0170A
+    ```
+
+    画面・出力には GDP12DD0170A が表示され、監査レポート Client IP 0170 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0170
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0170B
+    ```
+
+    画面・出力には GDP12DD0170B が表示され、監査レポート Client IP 0170 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0170C
+    ```
+
+    画面・出力には GDP12DD0170C が表示され、監査レポート Client IP 0170 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0170A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0170B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0170C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0185 {#c10-i0417}
+*分類: レポート*  ・  難易度: 中級
+
+銀F収集0186ではIBM Guardium Data Protection 12.x の レポートを扱う採取票銀F収集0186です。銀F収集0186は監査レポートの復旧操作で監査レポートの点検欄を確認する記録銀F収集0186です。銀F収集0186では監査タスクと取得時刻を採取票銀F収集0186へ残します。銀F収集0186では監査タスク未レビューを避けるため補助資料も照合する判断銀F収集0186です。銀F収集0186の用語整理では監査レポートの対象値を実在出力で点検する記録銀F収集0186です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 「監査レポート Client IP 0185」を「監査レポート Audit Task Status 0218」と区別して説明するとき、一次資料と整合する組合せはどれですか。
+
+    - A. 運用時に利用する技術的役割はClient IPの監査タスクと取得時刻を記録し・監査タスク未レビューを防ぐである。復旧操作で点検欄を確認するときは監査タスク未レビューを防ぐ。 ✅
+    - B. 運用時に利用する技術的役割はAudit Task Statusのユーザー活動と取得時刻を記録し・照会文動詞集計の期間誤りを防ぐである。点検操作で判定欄を記録するときは照会文動詞集計の期間誤りを防ぐ。
+    - C. 運用時に利用する技術的役割は複数 collector の監査情報を集約しレポートへ渡す装置を証跡採取として確認する。証跡採取で取得間隔を確認するときは取得間隔の誤読を防ぐ。
+    - D. 運用時に利用する技術的役割は監視エージェントのカーネル監視有無と取得時刻を記録し・最終応答停止の見落としを防ぐである。確認操作で状態欄を整理するときは最終応答停止の見落としを防ぐ。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・監査タでAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・収集）です。照合監査タ・収集に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・収集・監査タです。運用収集・CliでB:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸は監査タ・監査レ・収集です。項目監査タ・収集でC:の証跡採取 取得間隔は「複数 collector の監査情報を集約し」を述べるため、正答側の照合軸は監査タ・監査レ・監査タです。仕様監査タ・収集でD:のLast Responseは「監視エージェントのカーネル監視有無と取得時刻」を述べるため、正答側の照合軸は収集・監査タ・監査タです。用語監査タ・収集という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0185**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0185について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.75
+    Server IP 198.51.100.25
+    Count 75
+    確認コード GDP12DD0185A
+    ```
+
+    画面・出力には GDP12DD0185A が表示され、監査レポート Client IP 0185 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0185
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0185B
+    ```
+
+    画面・出力には GDP12DD0185B が表示され、監査レポート Client IP 0185 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0185C
+    ```
+
+    画面・出力には GDP12DD0185C が表示され、監査レポート Client IP 0185 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0185A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0185B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0185C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0200 {#c10-i0418}
+*分類: レポート*  ・  難易度: 中級
+
+蒼A登録0201ではIBM Guardium Data Protection 12.x の レポートを扱う採取票蒼A登録0201です。蒼A登録0201は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録蒼A登録0201です。蒼A登録0201では監査タスクと取得時刻を採取票蒼A登録0201へ残します。蒼A登録0201では対象データソースの取り違えを避けるため補助資料も照合する判断蒼A登録0201です。蒼A登録0201の用語整理では監査レポートの対象値を実在出力で整理する記録蒼A登録0201です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0200を同一分類のロールと権限 LDAP User 0297と比較します。対象固有の機能として妥当な記述はどれですか。
+
+    - A. 構成を確認する際の意味は過剰ロール付与を避けるため・主操作で出力欄を評価するしてGuardAを照合する。
+    - B. 構成を確認する際の意味はプール宛先の誤読を避けるため・実行結果照合でプール宛先を確認するしてプール宛先を照合する。
+    - C. 構成を確認する際の意味は対象データソースの取り違えを避けるため・調査操作で保守欄を引き継ぎするして監査タスクを照合する。 ✅
+    - D. 構成を確認する際の意味は最終応答停止の見落としを避けるため・確認操作で状態欄を整理するしてカーネル監視を照合する。S-TAP監視 Last Response 0082固有の属性も確認対象に含める。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・対象デでCの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・登録）です。照合監査タ・登録に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・登録・対象デです。比較監査レ・登録でA:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸はCli・登録・監査タです。運用登録・CliでB:の実行結果照合 プール宛先は「I/O 指標を収集するサポートCLIコマンド」を述べるため、正答側の照合軸は監査タ・監査レ・登録です。仕様監査タ・登録でD:のLast Responseは「監視エージェントのカーネル監視有無と取得時刻」を述べるため、正答側の照合軸は登録・対象デ・監査タです。用語監査タ・登録という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0200**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0200について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.10
+    Server IP 198.51.100.40
+    Count 90
+    確認コード GDP12DD0200A
+    ```
+
+    画面・出力には GDP12DD0200A が表示され、監査レポート Client IP 0200 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0200
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0200B
+    ```
+
+    画面・出力には GDP12DD0200B が表示され、監査レポート Client IP 0200 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0200C
+    ```
+
+    画面・出力には GDP12DD0200C が表示され、監査レポート Client IP 0200 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0200A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0200B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0200C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0215 {#c10-i0419}
+*分類: レポート*  ・  難易度: 中級
+
+金P登録0216ではIBM Guardium Data Protection 12.x の レポートを扱う採取票金P登録0216です。金P登録0216は監査レポートの表示操作で監査レポートの対象欄を追跡する記録金P登録0216です。金P登録0216では監査タスクと取得時刻を採取票金P登録0216へ残します。金P登録0216ではジョブ失敗の見落としを避けるため補助資料も照合する判断金P登録0216です。金P登録0216の用語整理では監査レポートの対象値を実在出力で照合する記録金P登録0216です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0215の設定や表示を読む前に役割を確認します。ロールと権限 Permission 0258ではなく対象を説明しているものはどれですか。
+
+    - A. 状態を読み取るための働きは変更確認操作で採取欄を棚卸することで表示可能レポを確認し・ディレクトリー取込対象の誤りを防ぐ。
+    - B. 状態を読み取るための働きは表示操作で対象欄を追跡することで監査タスクを確認し・ジョブ失敗の見落としを防ぐ。 ✅
+    - C. 状態を読み取るための働きは作業一覧からStatusを読むことで作業一覧を確認し・実行間隔より短いFROM/Tを防ぐ。
+    - D. 状態を読み取るための働きは復旧操作で点検欄を確認することでユーザー活動を確認し・監査タスク未レビューを防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・ジョブでBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・登録）です。照合監査タ・登録に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・登録・ジョブです。比較監査レ・登録でA:のロールと権限 Permissioは「Permissionの表示可能レポートと取得」を述べるため、正答側の照合軸はCli・登録・監査タです。項目監査タ・登録でC:の性能影響の確認 AUDIT11は「Audit Processで作業一覧から」を述べるため、正答側の照合軸はジョブ・監査レ・監査タです。仕様監査タ・登録でD:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸は登録・ジョブ・監査タです。用語監査タ・登録という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0215**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0215について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.25
+    Server IP 198.51.100.55
+    Count 105
+    確認コード GDP12DD0215A
+    ```
+
+    画面・出力には GDP12DD0215A が表示され、監査レポート Client IP 0215 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0215
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0215B
+    ```
+
+    画面・出力には GDP12DD0215B が表示され、監査レポート Client IP 0215 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0215C
+    ```
+
+    画面・出力には GDP12DD0215C が表示され、監査レポート Client IP 0215 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0215A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0215B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0215C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0230 {#c10-i0420}
+*分類: レポート*  ・  難易度: 上級
+
+紺K確認0231ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紺K確認0231です。紺K確認0231は監査レポートの点検操作で監査レポートの判定欄を記録する記録紺K確認0231です。紺K確認0231では監査タスクと取得時刻を採取票紺K確認0231へ残します。紺K確認0231ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断紺K確認0231です。紺K確認0231の用語整理では監査レポートの対象値を実在出力で保管する記録紺K確認0231です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0230に関する障害切り分けの前提を確認しています。S-TAP監視 Last Response 0292の機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としてはローカル通信制御監視の未確認を避けるため・保守操作で監査欄を保存するしてカーネル監視を照合する。
+    - B. 機能の説明としては照会文動詞集計の期間誤りを避けるため・点検操作で判定欄を記録するして監査タスクを照合する。 ✅
+    - C. 機能の説明としては集約遅延中の期間を監査完了としてを避けるため・集約エラーからAggregationを読して集約エラーを照合する。
+    - D. 機能の説明としては照会文動詞集計の期間誤りを避けるため・点検操作で判定欄を記録するしてユーザー活動を照合する。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 機能監査タ・照会文でBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・確認）です。照合監査タ・確認に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・確認・照会文です。比較監査レ・確認でA:のLast Responseは「監視エージェントのカーネル監視有無と取得時刻」を述べるため、正答側の照合軸はCli・確認・監査タです。項目監査タ・確認でC:の代替経路の確認 AGG10は「Aggregatorで集約エラーから」を述べるため、正答側の照合軸は照会文・監査レ・監査タです。仕様監査タ・確認でD:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸は確認・照会文・監査タです。用語監査タ・確認という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0230**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0230について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.40
+    Server IP 198.51.100.70
+    Count 120
+    確認コード GDP12DD0230A
+    ```
+
+    画面・出力には GDP12DD0230A が表示され、監査レポート Client IP 0230 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0230
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0230B
+    ```
+
+    画面・出力には GDP12DD0230B が表示され、監査レポート Client IP 0230 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0230C
+    ```
+
+    画面・出力には GDP12DD0230C が表示され、監査レポート Client IP 0230 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0230A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0230B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0230C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0245 {#c10-i0421}
+*分類: レポート*  ・  難易度: 初級
+
+銀F保護0246ではIBM Guardium Data Protection 12.x の レポートを扱う採取票銀F保護0246です。銀F保護0246は監査レポートの復旧操作で監査レポートの点検欄を確認する記録銀F保護0246です。銀F保護0246では監査タスクと取得時刻を採取票銀F保護0246へ残します。銀F保護0246では監査タスク未レビューを避けるため補助資料も照合する判断銀F保護0246です。銀F保護0246の用語整理では監査レポートの対象値を実在出力で点検する記録銀F保護0246です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0245を保守記録に説明する必要があります。S-TAP監視 KTAP Installed 0319と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割はカーネル監視導入状態の誤読を避けるため・採取操作で照合欄を点検するして監視エージェを照合する。
+    - B. 運用時に利用する技術的役割は実行間隔より短いFROM/TO範を避けるため・報告上限からmax_audit_repoして報告上限を照合する。
+    - C. 運用時に利用する技術的役割は過剰ロール付与を避けるため・主操作で出力欄を評価するしてロール割当を照合する。
+    - D. 運用時に利用する技術的役割は監査タスク未レビューを避けるため・復旧操作で点検欄を確認するして監査タスクを照合する。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 機能監査タ・監査タでDの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・保護）です。照合監査タ・保護に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・保護・監査タです。比較監査レ・保護でA:のKTAP Installedは「監視エージェントの監視エージェント状態と取得」を述べるため、正答側の照合軸はCli・保護・監査タです。運用保護・CliでB:の監査証跡の保存 AUDIT18は「Audit Processで報告上限から」を述べるため、正答側の照合軸は監査タ・監査レ・保護です。項目監査タ・保護でC:のLogin Nameは「Login Nameのロール割当と取得時刻を」を述べるため、正答側の照合軸は監査タ・監査レ・監査タです。用語監査タ・保護という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0245**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0245について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.15
+    Server IP 198.51.100.25
+    Count 15
+    確認コード GDP12DD0245A
+    ```
+
+    画面・出力には GDP12DD0245A が表示され、監査レポート Client IP 0245 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0245
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0245B
+    ```
+
+    画面・出力には GDP12DD0245B が表示され、監査レポート Client IP 0245 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0245C
+    ```
+
+    画面・出力には GDP12DD0245C が表示され、監査レポート Client IP 0245 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0245A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0245B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0245C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0260 {#c10-i0422}
+*分類: レポート*  ・  難易度: 初級
+
+蒼A照合0261ではIBM Guardium Data Protection 12.x の レポートを扱う採取票蒼A照合0261です。蒼A照合0261は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録蒼A照合0261です。蒼A照合0261では監査タスクと取得時刻を採取票蒼A照合0261へ残します。蒼A照合0261では対象データソースの取り違えを避けるため補助資料も照合する判断蒼A照合0261です。蒼A照合0261の用語整理では監査レポートの対象値を実在出力で整理する記録蒼A照合0261です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0260の技術的な意味を資料で確認するとき、ロールと権限 Application Access 0345との境界を正しく示す記述はどれですか。
+
+    - A. 構成を確認する際の意味は調査操作で保守欄を引き継ぎすることで監査タスクを確認し・対象データソースの取り違えを防ぐ。 ✅
+    - B. 構成を確認する際の意味は主操作で出力欄を評価することでユーザー有効を確認し・過剰ロール付与を防ぐ。
+    - C. 構成を確認する際の意味は監視プロセスからApplianceを読むことで監視プロセスを確認し・ディスク逼迫中に検査データ流を防ぐ。
+    - D. 構成を確認する際の意味は保守操作で監査欄を保存することで承認クライアを確認し・ローカル通信制御監視の未確認を防ぐ。
+
+    正解: **A** ／ 難易度: 初級
+
+    **解説:** 機能監査タ・対象デでAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・照合）です。照合監査タ・照合に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・照合・対象デです。運用照合・CliでB:のApplicationは「Application Accessのユーザ」を述べるため、正答側の照合軸は監査タ・監査レ・照合です。項目監査タ・照合でC:のログとの照合 APP07は「Appliance Monitoriで監視プ」を述べるため、正答側の照合軸は対象デ・監査レ・監査タです。仕様監査タ・照合でD:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸は照合・対象デ・監査タです。用語監査タ・照合という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0260**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0260について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.30
+    Server IP 198.51.100.40
+    Count 30
+    確認コード GDP12DD0260A
+    ```
+
+    画面・出力には GDP12DD0260A が表示され、監査レポート Client IP 0260 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0260
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0260B
+    ```
+
+    画面・出力には GDP12DD0260B が表示され、監査レポート Client IP 0260 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0260C
+    ```
+
+    画面・出力には GDP12DD0260C が表示され、監査レポート Client IP 0260 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0260A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0260B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0260C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0275 {#c10-i0423}
+*分類: レポート*  ・  難易度: 中級
+
+金P照合0276ではIBM Guardium Data Protection 12.x の レポートを扱う採取票金P照合0276です。金P照合0276は監査レポートの表示操作で監査レポートの対象欄を追跡する記録金P照合0276です。金P照合0276では監査タスクと取得時刻を採取票金P照合0276へ残します。金P照合0276ではジョブ失敗の見落としを避けるため補助資料も照合する判断金P照合0276です。金P照合0276の用語整理では監査レポートの対象値を実在出力で照合する記録金P照合0276です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0275について構成や状態を確認します。ロールと権限 LDAP User 0312ではなく対象機能を表す記述はどれですか。
+
+    - A. 状態を読み取るための働きはディレクトリー UserのGuardAPI権限と取得時刻を記録し・監査担当者の閲覧範囲不足を防ぐである。照合操作で確認欄を採取するときは監査担当者の閲覧範囲不足を防ぐ。
+    - B. 状態を読み取るための働きはClient IPの監査タスクと取得時刻を記録し・ジョブ失敗の見落としを防ぐである。表示操作で対象欄を追跡するときはジョブ失敗の見落としを防ぐ。 ✅
+    - C. 状態を読み取るための働きはCentral Managerで依存関係の確認では中央管理サーバーの 管理単位状態からである。依存関係確認で確認では中央を確認するときはmanaged unitからを防ぐ。
+    - D. 状態を読み取るための働きは監視エージェントの承認クライアントと取得時刻を記録し・ローカル通信制御監視の未確認を防ぐである。保守操作で監査欄を保存するときはローカル通信制御監視の未確認を防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・ジョブでBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・照合）です。照合監査タ・照合に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・照合・ジョブです。比較監査レ・照合でA:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸はCli・照合・監査タです。項目監査タ・照合でC:の依存関係の確認 CM13は「Central Managerで依存関係の確」を述べるため、正答側の照合軸はジョブ・監査レ・監査タです。仕様監査タ・照合でD:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸は照合・ジョブ・監査タです。用語監査タ・照合という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0275**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0275について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.45
+    Server IP 198.51.100.55
+    Count 45
+    確認コード GDP12DD0275A
+    ```
+
+    画面・出力には GDP12DD0275A が表示され、監査レポート Client IP 0275 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0275
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0275B
+    ```
+
+    画面・出力には GDP12DD0275B が表示され、監査レポート Client IP 0275 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0275C
+    ```
+
+    画面・出力には GDP12DD0275C が表示され、監査レポート Client IP 0275 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0275A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0275B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0275C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0290 {#c10-i0424}
+*分類: レポート*  ・  難易度: 中級
+
+紺K抑止0291ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紺K抑止0291です。紺K抑止0291は監査レポートの点検操作で監査レポートの判定欄を記録する記録紺K抑止0291です。紺K抑止0291では監査タスクと取得時刻を採取票紺K抑止0291へ残します。紺K抑止0291ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断紺K抑止0291です。紺K抑止0291の用語整理では監査レポートの対象値を実在出力で保管する記録紺K抑止0291です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0290の役割を調べています。collector 証跡採取 証明書検査の説明を混ぜずに採るべき記述はどれですか。
+
+    - A. 機能の説明としてはS-TAP や外部接続から監査データを受け取る Guardium 装置を証跡採取として確認する。証跡採取で証明書検査を確認するときは証明書検査の誤読を防ぐ。
+    - B. 機能の説明としてはCentral Managerで性能影響の確認では中央管理サーバーの 例外レポートから Exceptionである。性能影響確認で確認では中央を確認するときはmanaged unitからを防ぐ。
+    - C. 機能の説明としては照会文 Verbのジョブキューと取得時刻を記録し・照会文動詞集計の期間誤りを防ぐである。点検操作で判定欄を記録するときは照会文動詞集計の期間誤りを防ぐ。
+    - D. 機能の説明としてはClient IPの監査タスクと取得時刻を記録し・照会文動詞集計の期間誤りを防ぐである。点検操作で判定欄を記録するときは照会文動詞集計の期間誤りを防ぐ。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・照会文でDの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・抑止）です。照合監査タ・抑止に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・抑止・照会文です。比較監査レ・抑止でA:の証跡採取 証明書検査は「S-TAP や外部接続から監査データを受け取」を述べるため、正答側の照合軸はCli・抑止・監査タです。運用抑止・CliでB:の性能影響の確認 CM11は「Central Managerで性能影響の確」を述べるため、正答側の照合軸は監査タ・監査レ・抑止です。項目監査タ・抑止でC:のSQL Verbは「照会文 Verbのジョブキューと取得時刻を記」を述べるため、正答側の照合軸は照会文・監査レ・監査タです。用語監査タ・抑止という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0290**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0290について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.60
+    Server IP 198.51.100.70
+    Count 60
+    確認コード GDP12DD0290A
+    ```
+
+    画面・出力には GDP12DD0290A が表示され、監査レポート Client IP 0290 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0290
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0290B
+    ```
+
+    画面・出力には GDP12DD0290B が表示され、監査レポート Client IP 0290 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0290C
+    ```
+
+    画面・出力には GDP12DD0290C が表示され、監査レポート Client IP 0290 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0290A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0290B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0290C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0305 {#c10-i0425}
+*分類: レポート*  ・  難易度: 中級
+
+銀F解析0306ではIBM Guardium Data Protection 12.x の レポートを扱う採取票銀F解析0306です。銀F解析0306は監査レポートの復旧操作で監査レポートの点検欄を確認する記録銀F解析0306です。銀F解析0306では監査タスクと取得時刻を採取票銀F解析0306へ残します。銀F解析0306では監査タスク未レビューを避けるため補助資料も照合する判断銀F解析0306です。銀F解析0306の用語整理では監査レポートの対象値を実在出力で点検する記録銀F解析0306です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 「監査レポート Client IP 0305」を「Central Manager 承認履歴確認 構成配布」と区別して説明するとき、一次資料と整合する組合せはどれですか。
+
+    - A. 運用時に利用する技術的役割は承認履歴確認で構成配布を証跡に残し・管理対象システムの構成と配布を統制する管理点を承認履歴確認す。
+    - B. 運用時に利用する技術的役割は世代整合確認でポリシー変更を証跡に残し・Inspection Engineでポリシー変更から。
+    - C. 運用時に利用する技術的役割は解析で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。 ✅
+    - D. 運用時に利用する技術的役割は保守でユーザー活動を証跡に残し・Audit Task Statusのユーザー活動と取得時刻を。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・監査タでCの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・解析）です。照合監査タ・解析に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・解析・監査タです。比較監査レ・解析でA:の承認履歴確認 構成配布は「管理対象システムの構成と配布を統制する管理点」を述べるため、正答側の照合軸はCli・解析・監査タです。運用解析・CliでB:の世代整合の確認 IE17は「Inspection Engineでポリシー」を述べるため、正答側の照合軸は監査タ・監査レ・解析です。仕様監査タ・解析でD:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸は解析・監査タ・監査タです。用語監査タ・解析という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0305**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0305について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.75
+    Server IP 198.51.100.25
+    Count 75
+    確認コード GDP12DD0305A
+    ```
+
+    画面・出力には GDP12DD0305A が表示され、監査レポート Client IP 0305 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0305
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0305B
+    ```
+
+    画面・出力には GDP12DD0305B が表示され、監査レポート Client IP 0305 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0305C
+    ```
+
+    画面・出力には GDP12DD0305C が表示され、監査レポート Client IP 0305 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0305A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0305B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0305C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0320 {#c10-i0426}
+*分類: レポート*  ・  難易度: 中級
+
+蒼A計画0321ではIBM Guardium Data Protection 12.x の レポートを扱う採取票蒼A計画0321です。蒼A計画0321は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録蒼A計画0321です。蒼A計画0321では監査タスクと取得時刻を採取票蒼A計画0321へ残します。蒼A計画0321では対象データソースの取り違えを避けるため補助資料も照合する判断蒼A計画0321です。蒼A計画0321の用語整理では監査レポートの対象値を実在出力で整理する記録蒼A計画0321です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0320を同一分類のcollector 承認履歴確認 伝搬経路と比較します。対象固有の機能として妥当な記述はどれですか。
+
+    - A. 構成を確認する際の意味は計画で監査タスクを証跡に残し・Client IPの監査タスクと取得時刻を記録し。 ✅
+    - B. 構成を確認する際の意味は承認履歴確認で伝搬経路を証跡に残し・S-TAP や外部接続から監査データを受け取る。
+    - C. 構成を確認する際の意味は復旧でデータソースを証跡に残し・Server IPのデータソースと取得時刻を記録し。
+    - D. 構成を確認する際の意味は収集で表示可能レポを証跡に残し・Permissionの表示可能レポートと取得時刻を記録し。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・対象デでAの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・計画）です。照合監査タ・計画に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・計画・対象デです。運用計画・CliでB:の承認履歴確認 伝搬経路は「S-TAP や外部接続から監査データを受け取」を述べるため、正答側の照合軸は監査タ・監査レ・計画です。項目監査タ・計画でC:のServer IPは「Server IPのデータソースと取得時刻を」を述べるため、正答側の照合軸は対象デ・監査レ・監査タです。仕様監査タ・計画でD:のロールと権限 Permissioは「Permissionの表示可能レポートと取得」を述べるため、正答側の照合軸は計画・対象デ・監査タです。用語監査タ・計画という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0320**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0320について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.10
+    Server IP 198.51.100.40
+    Count 90
+    確認コード GDP12DD0320A
+    ```
+
+    画面・出力には GDP12DD0320A が表示され、監査レポート Client IP 0320 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0320
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0320B
+    ```
+
+    画面・出力には GDP12DD0320B が表示され、監査レポート Client IP 0320 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0320C
+    ```
+
+    画面・出力には GDP12DD0320C が表示され、監査レポート Client IP 0320 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0320A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0320B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0320C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0335 {#c10-i0427}
+*分類: レポート*  ・  難易度: 中級
+
+金P計画0336ではIBM Guardium Data Protection 12.x の レポートを扱う採取票金P計画0336です。金P計画0336は監査レポートの表示操作で監査レポートの対象欄を追跡する記録金P計画0336です。金P計画0336では監査タスクと取得時刻を採取票金P計画0336へ残します。金P計画0336ではジョブ失敗の見落としを避けるため補助資料も照合する判断金P計画0336です。金P計画0336の用語整理では監査レポートの対象値を実在出力で照合する記録金P計画0336です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0335の設定や表示を読む前に役割を確認します。support gather_io_metrics 障害時切り分け 出力見出しではなく対象を説明しているものはどれですか。
+
+    - A. 状態を読み取るための働きは出力見出しの誤読を避けるため・レポートで出力見出しを確認するして出力見出しを照合する。
+    - B. 状態を読み取るための働きはジョブ失敗の見落としを避けるため・表示操作で対象欄を追跡するして監査タスクを照合する。 ✅
+    - C. 状態を読み取るための働きは対象データソースの取り違えを避けるため・調査操作で保守欄を引き継ぎするしてユーザー活動を照合する。
+    - D. 状態を読み取るための働きはカーネル監視導入状態の誤読を避けるため・採取操作で照合欄を点検するして暗号化表示を照合する。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能監査タ・ジョブでBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・計画）です。照合監査タ・計画に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・計画・ジョブです。比較監査レ・計画でA:の障害時切り分け 出力見出しは「I/O 指標を収集するサポートCLIコマンド」を述べるため、正答側の照合軸はCli・計画・監査タです。項目監査タ・計画でC:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸はジョブ・監査レ・監査タです。仕様監査タ・計画でD:のS-TAP Versionは「監視エージェントの暗号化表示と取得時刻を記録」を述べるため、正答側の照合軸は計画・ジョブ・監査タです。用語監査タ・計画という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0335**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0335について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.25
+    Server IP 198.51.100.55
+    Count 105
+    確認コード GDP12DD0335A
+    ```
+
+    画面・出力には GDP12DD0335A が表示され、監査レポート Client IP 0335 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0335
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0335B
+    ```
+
+    画面・出力には GDP12DD0335B が表示され、監査レポート Client IP 0335 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0335C
+    ```
+
+    画面・出力には GDP12DD0335C が表示され、監査レポート Client IP 0335 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0335A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0335B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0335C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート Client IP 0350 {#c10-i0428}
+*分類: レポート*  ・  難易度: 上級
+
+紺K解除0351ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紺K解除0351です。紺K解除0351は監査レポートの点検操作で監査レポートの判定欄を記録する記録紺K解除0351です。紺K解除0351では監査タスクと取得時刻を採取票紺K解除0351へ残します。紺K解除0351ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断紺K解除0351です。紺K解除0351の用語整理では監査レポートの対象値を実在出力で保管する記録紺K解除0351です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート Client IP 0350に関する障害切り分けの前提を確認しています。aggregator 状態確認 スケジュールの機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としては状態確認でスケジュールを確認することでスケジュールを確認し・スケジュールの誤読を防ぐ。
+    - B. 機能の説明としては点検操作で判定欄を記録することで監査タスクを確認し・照会文動詞集計の期間誤りを防ぐ。 ✅
+    - C. 機能の説明としては採取操作で照合欄を点検することで最終応答を確認し・カーネル監視導入状態の誤読を防ぐ。
+    - D. 機能の説明としては調査操作で保守欄を引き継ぎすることでユーザー活動を確認し・対象データソースの取り違えを防ぐ。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 機能監査タ・照会文でBの記述「Client IPの監査タスクと取得時刻を記録し」に対応する項目はClient IP（Cli・監査タ・解除）です。照合監査タ・解除に関するレポートの仕様は「Client IPの監査タスクと取得時刻を記録し」で、確認対象は監査タ・解除・照会文です。比較監査レ・解除でA:の状態確認 スケジュールは「複数 collector の監査情報を集約し」を述べるため、正答側の照合軸はCli・解除・監査タです。項目監査タ・解除でC:のS-TAP Hostは「監視エージェントの最終応答と取得時刻を記録し」を述べるため、正答側の照合軸は照会文・監査レ・監査タです。仕様監査タ・解除でD:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸は解除・照会文・監査タです。用語監査タ・解除という用語は「Client IPの監査タスクと取得時刻を記録し」を指し、照合する値と誤認リスクの組合せは監査レ・監査タ・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート Client IP 0350**
+
+    - 検証目的: 監査レポートの監査レポート Client IP 0350について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=Client IP と 監査タスク
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.40
+    Server IP 198.51.100.70
+    Count 120
+    確認コード GDP12DD0350A
+    ```
+
+    画面・出力には GDP12DD0350A が表示され、監査レポート Client IP 0350 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0350
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0350B
+    ```
+
+    画面・出力には GDP12DD0350B が表示され、監査レポート Client IP 0350 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。Client IP を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0350C
+    ```
+
+    画面・出力には GDP12DD0350C が表示され、監査レポート Client IP 0350 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0350A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0350B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0350C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0014 {#c10-i0429}
+*分類: レポート*  ・  難易度: 初級
+
+翠O巡回0015ではIBM Guardium Data Protection 12.x の レポートを扱う採取票翠O巡回0015です。翠O巡回0015は監査レポートの点検操作で監査レポートの判定欄を記録する記録翠O巡回0015です。翠O巡回0015ではSQL動詞集計と取得時刻を採取票翠O巡回0015へ残します。翠O巡回0015ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断翠O巡回0015です。翠O巡回0015の用語整理では監査レポートの対象値を実在出力で保管する記録翠O巡回0015です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0014に関する障害切り分けの前提を確認しています。ロールと権限 Permission 0033の機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としては過剰ロール付与を避けるため・主操作で出力欄を評価するして表示可能レポを照合する。
+    - B. 機能の説明としてはディレクトリー取込対象の誤りを避けるため・変更確認操作で採取欄を棚卸するしてGuardAを照合する。
+    - C. 機能の説明としては履歴行の誤読を避けるため・状態確認で履歴行を確認するして履歴行を照合する。
+    - D. 機能の説明としては照会文動詞集計の期間誤りを避けるため・点検操作で判定欄を記録するして照会文動詞集を照合する。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 巡回対象照会文動詞でDの記述「DB User NameのSQL動詞集計と取得時刻を記録し」に対応する項目はUser Name（データベー・巡回・照会文・照会文動）です。巡回時の照会文動詞に関するレポートの仕様は「DB User NameのSQL動詞集計と取得時刻を記録し」で、確認対象はデータベ・巡回・照会文・照会文動です。Pe・棚卸・表示可能のA:は「Permissionの表示可能レポートと取得時刻を記録し」を述べ、対象はロールと権限 Permission（Permi・棚卸・表示可・過剰ロー）です。抑止対象GuardのB:は「LDAP UserのGuardAPI権限と取得時刻を記録し」を述べ、対象はLDAP User（ディレクト・抑止・Gua・ディレク）です。状態確認時の履歴行のC:は「データベース通信を解析し監査レコードを作る処理」を述べ、対象は状態確認 履歴行（inspe・状態確・履歴行・履歴行の）です。照会文動詞を巡回という用語は「DB User NameのSQL動詞集計と取得時刻を」を指し、User Name（データベー・巡回・照会文・照会文動）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0014**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0014について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.24
+    Server IP 198.51.100.34
+    Count 24
+    確認コード GDP12DD0014A
+    ```
+
+    画面・出力には GDP12DD0014A が表示され、監査レポート DB User Name 0014 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0014
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0014B
+    ```
+
+    画面・出力には GDP12DD0014B が表示され、監査レポート DB User Name 0014 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0014C
+    ```
+
+    画面・出力には GDP12DD0014C が表示され、監査レポート DB User Name 0014 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0014A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0014B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0014C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0029 {#c10-i0430}
+*分類: レポート*  ・  難易度: 中級
+
+朱J棚卸0030ではIBM Guardium Data Protection 12.x の レポートを扱う採取票朱J棚卸0030です。朱J棚卸0030は監査レポートの復旧操作で監査レポートの点検欄を確認する記録朱J棚卸0030です。朱J棚卸0030ではSQL動詞集計と取得時刻を採取票朱J棚卸0030へ残します。朱J棚卸0030では監査タスク未レビューを避けるため補助資料も照合する判断朱J棚卸0030です。朱J棚卸0030の用語整理では監査レポートの対象値を実在出力で点検する記録朱J棚卸0030です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0029を保守記録に説明する必要があります。S-TAP監視 S-TAP Host 0061と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割は棚卸で照会文動詞集を証跡に残し・DB User NameのSQL動詞集計と取得時刻を記録し。 ✅
+    - B. 運用時に利用する技術的役割は監査で最終応答を証跡に残し・S-TAPの最終応答と取得時刻を記録し。
+    - C. 運用時に利用する技術的役割は登録でユーザー活動を証跡に残し・Audit Task Statusのユーザー活動と取得時刻を。
+    - D. 運用時に利用する技術的役割は監査プロセスで障害切り分けを証跡に残し・Audit Processで障害切り分けでは監査プロセスの。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 棚卸対象照会文動詞でAの記述「DB User NameのSQL動詞集計と取得時刻を記録し」に対応する項目はUser Name（データベー・棚卸・照会文・監査タス）です。棚卸時の照会文動詞に関するレポートの仕様は「DB User NameのSQL動詞集計と取得時刻を記録し」で、確認対象はデータベ・棚卸・照会文・監査タスです。監査対象最終応答のB:は「S-TAPの最終応答と取得時刻を記録し、未承認S-TAP接続を防ぐ」を述べ、対象はS-TAP Host（監視エージ・監査・最終応・未承認監）です。登録時のユーザー活のC:は「Audit Task Statusのユーザー活動と取得時刻を記録し」を述べ、対象はTask Status（Audit・登録・ユーザ・照会文動）です。障害切り分を監査プロセのD:は「Audit Processで障害切り分けでは監査プロセスの」を述べ、対象は障害切り分け AUDIT04（Audit・監査プ・障害切・実行間隔）です。照会文動詞を棚卸という用語は「DB User NameのSQL動詞集計と取得時刻を」を指し、User Name（データベー・棚卸・照会文・監査タス）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0029**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0029について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.39
+    Server IP 198.51.100.49
+    Count 39
+    確認コード GDP12DD0029A
+    ```
+
+    画面・出力には GDP12DD0029A が表示され、監査レポート DB User Name 0029 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0029
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0029B
+    ```
+
+    画面・出力には GDP12DD0029B が表示され、監査レポート DB User Name 0029 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0029C
+    ```
+
+    画面・出力には GDP12DD0029C が表示され、監査レポート DB User Name 0029 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0029A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0029B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0029C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0044 {#c10-i0431}
+*分類: レポート*  ・  難易度: 中級
+
+紅E復旧0045ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紅E復旧0045です。紅E復旧0045は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録紅E復旧0045です。紅E復旧0045ではSQL動詞集計と取得時刻を採取票紅E復旧0045へ残します。紅E復旧0045では対象データソースの取り違えを避けるため補助資料も照合する判断紅E復旧0045です。紅E復旧0045の用語整理では監査レポートの対象値を実在出力で整理する記録紅E復旧0045です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0044の技術的な意味を資料で確認するとき、ロールと権限 LDAP User 0057との境界を正しく示す記述はどれですか。
+
+    - A. 構成を確認する際の意味は復旧でGuardAを証跡に残し・LDAP UserのGuardAPI権限と取得時刻を記録し。
+    - B. 構成を確認する際の意味は復旧で照会文動詞集を証跡に残し・DB User NameのSQL動詞集計と取得時刻を記録し。 ✅
+    - C. 構成を確認する際の意味は抑止で暗号化表示を証跡に残し・S-TAPの暗号化表示と取得時刻を記録し。
+    - D. 構成を確認する際の意味は監査プロセスで引継ぎ記録でを証跡に残し・Audit Processで引継ぎ記録では監査プロセスの。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 復旧対象照会文動詞でBの記述「DB User NameのSQL動詞集計と取得時刻を記録し」に対応する項目はUser Name（データベー・復旧・照会文・対象デー）です。復旧時の照会文動詞に関するレポートの仕様は「DB User NameのSQL動詞集計と取得時刻を記録し」で、確認対象はデータベ・復旧・照会文・対象デーです。ディ・復旧・GuarのA:は「LDAP UserのGuardAPI権限と取得時刻を記録し」を述べ、対象はLDAP User（ディレクト・復旧・Gua・過剰ロー）です。抑止時の暗号化表示のC:は「S-TAPの暗号化表示と取得時刻を記録し」を述べ、対象はS-TAP Version（監視エージ・抑止・暗号化・カーネル）です。引継ぎ記録を監査プロセのD:は「Audit Processで引継ぎ記録では監査プロセスの」を述べ、対象は引継ぎ記録 AUDIT09（Audit・監査プ・引継ぎ・実行間隔）です。照会文動詞を復旧という用語は「DB User NameのSQL動詞集計と取得時刻を」を指し、User Name（データベー・復旧・照会文・対象デー）に該当します。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0044**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0044について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.54
+    Server IP 198.51.100.64
+    Count 54
+    確認コード GDP12DD0044A
+    ```
+
+    画面・出力には GDP12DD0044A が表示され、監査レポート DB User Name 0044 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0044
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0044B
+    ```
+
+    画面・出力には GDP12DD0044B が表示され、監査レポート DB User Name 0044 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0044C
+    ```
+
+    画面・出力には GDP12DD0044C が表示され、監査レポート DB User Name 0044 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0044A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0044B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0044C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0059 {#c10-i0432}
+*分類: レポート*  ・  難易度: 中級
+
+空T復旧0060ではIBM Guardium Data Protection 12.x の レポートを扱う採取票空T復旧0060です。空T復旧0060は監査レポートの表示操作で監査レポートの対象欄を追跡する記録空T復旧0060です。空T復旧0060ではSQL動詞集計と取得時刻を採取票空T復旧0060へ残します。空T復旧0060ではジョブ失敗の見落としを避けるため補助資料も照合する判断空T復旧0060です。空T復旧0060の用語整理では監査レポートの対象値を実在出力で照合する記録空T復旧0060です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0059について構成や状態を確認します。S-TAP監視 KTAP Installed 0094ではなく対象機能を表す記述はどれですか。
+
+    - A. 状態を読み取るための働きは最終応答停止の見落としを避けるため・確認操作で状態欄を整理するして監視エージェを照合する。
+    - B. 状態を読み取るための働きはGuardAPI実行権限不足を避けるため・監査操作で記録欄を比較するしてGuardAを照合する。
+    - C. 状態を読み取るための働きは高速伝搬の誤読を避けるため・承認履歴確認で高速伝搬を確認するして高速伝搬を照合する。
+    - D. 状態を読み取るための働きはジョブ失敗の見落としを避けるため・表示操作で対象欄を追跡するして照会文動詞集を照合する。 ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 機能照会文・ジョブでDの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・復旧）です。照合照会文・復旧に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・復旧・ジョブです。比較監査レ・復旧でA:のKTAP Installedは「監視エージェントの監視エージェント状態と取得」を述べるため、正答側の照合軸はデータ・復旧・照会文です。運用復旧・データでB:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は照会文・監査レ・復旧です。項目照会文・復旧でC:の承認履歴確認 高速伝搬は「監査結果のレビューと承認の履歴を承認履歴確認」を述べるため、正答側の照合軸はジョブ・監査レ・照会文です。用語照会文・復旧という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0059**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0059について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.69
+    Server IP 198.51.100.79
+    Count 69
+    確認コード GDP12DD0059A
+    ```
+
+    画面・出力には GDP12DD0059A が表示され、監査レポート DB User Name 0059 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0059
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0059B
+    ```
+
+    画面・出力には GDP12DD0059B が表示され、監査レポート DB User Name 0059 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0059C
+    ```
+
+    画面・出力には GDP12DD0059C が表示され、監査レポート DB User Name 0059 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0059A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0059B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0059C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0074 {#c10-i0433}
+*分類: レポート*  ・  難易度: 中級
+
+翠O監査0075ではIBM Guardium Data Protection 12.x の レポートを扱う採取票翠O監査0075です。翠O監査0075は監査レポートの点検操作で監査レポートの判定欄を記録する記録翠O監査0075です。翠O監査0075ではSQL動詞集計と取得時刻を採取票翠O監査0075へ残します。翠O監査0075ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断翠O監査0075です。翠O監査0075の用語整理では監査レポートの対象値を実在出力で保管する記録翠O監査0075です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0074の役割を調べています。S-TAP監視 DB Server Type 0130の説明を混ぜずに採るべき記述はどれですか。
+
+    - A. 機能の説明としてはデータベース User Nameの照会文動詞集計と取得時刻を記録し・照会文動詞集計の期間誤りを防ぐである。点検操作で判定欄を記録するときは照会文動詞集計の期間誤りを防ぐ。 ✅
+    - B. 機能の説明としては監視エージェントの承認クライアントと取得時刻を記録し・最終応答停止の見落としを防ぐである。確認操作で状態欄を整理するときは最終応答停止の見落としを防ぐ。
+    - C. 機能の説明としてはディレクトリー UserのGuardAPI権限と取得時刻を記録し・ディレクトリー取込対象の誤りを防ぐである。変更確認操作で採取欄を棚卸するときはディレクトリー取込対象の誤りを防ぐ。
+    - D. 機能の説明としてはCentral Managerで通常状態の確認では中央管理サーバーの 管理単位状態からである。通常状態確認で確認では中央を確認するときはmanaged unitからを防ぐ。
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 機能照会文・照会文でAの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・監査）です。照合照会文・監査に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・監査・照会文です。運用監査・データでB:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸は照会文・監査レ・監査です。項目照会文・監査でC:のLDAP Userは「ディレクトリー UserのGuardAPI権」を述べるため、正答側の照合軸は照会文・監査レ・照会文です。仕様照会文・監査でD:の通常状態の確認 CM01は「Central Managerで通常状態の確」を述べるため、正答側の照合軸は監査・照会文・照会文です。用語照会文・監査という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0074**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0074について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.84
+    Server IP 198.51.100.34
+    Count 84
+    確認コード GDP12DD0074A
+    ```
+
+    画面・出力には GDP12DD0074A が表示され、監査レポート DB User Name 0074 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0074
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0074B
+    ```
+
+    画面・出力には GDP12DD0074B が表示され、監査レポート DB User Name 0074 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0074C
+    ```
+
+    画面・出力には GDP12DD0074C が表示され、監査レポート DB User Name 0074 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0074A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0074B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0074C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0089 {#c10-i0434}
+*分類: レポート*  ・  難易度: 中級
+
+朱J変更0090ではIBM Guardium Data Protection 12.x の レポートを扱う採取票朱J変更0090です。朱J変更0090は監査レポートの復旧操作で監査レポートの点検欄を確認する記録朱J変更0090です。朱J変更0090ではSQL動詞集計と取得時刻を採取票朱J変更0090へ残します。朱J変更0090では監査タスク未レビューを避けるため補助資料も照合する判断朱J変更0090です。朱J変更0090の用語整理では監査レポートの対象値を実在出力で点検する記録朱J変更0090です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 「監査レポート DB User Name 0089」を「S-TAP監視 DB Server Type 0130」と区別して説明するとき、一次資料と整合する組合せはどれですか。
+
+    - A. 運用時に利用する技術的役割は確認操作で状態欄を整理することで承認クライアを確認し・最終応答停止の見落としを防ぐ。
+    - B. 運用時に利用する技術的役割は復旧操作で点検欄を確認することで照会文動詞集を確認し・監査タスク未レビューを防ぐ。 ✅
+    - C. 運用時に利用する技術的役割は照合操作で確認欄を採取することでユーザー有効を確認し・監査担当者の閲覧範囲不足を防ぐ。
+    - D. 運用時に利用する技術的役割はジョブキューからJobNameを読むことでジョブキューを確認し・ディスク逼迫中に検査データ流を防ぐ。
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 機能照会文・監査タでBの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・変更）です。照合照会文・変更に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・変更・監査タです。比較監査レ・変更でA:のServer Typeは「監視エージェントの承認クライアントと取得時刻」を述べるため、正答側の照合軸はデータ・変更・照会文です。項目照会文・変更でC:のApplicationは「Application Accessのユーザ」を述べるため、正答側の照合軸は監査タ・監査レ・照会文です。仕様照会文・変更でD:の再始動後の確認 APP15は「Appliance Monitoriでジョブ」を述べるため、正答側の照合軸は変更・監査タ・照会文です。用語照会文・変更という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0089**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0089について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.19
+    Server IP 198.51.100.49
+    Count 99
+    確認コード GDP12DD0089A
+    ```
+
+    画面・出力には GDP12DD0089A が表示され、監査レポート DB User Name 0089 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0089
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0089B
+    ```
+
+    画面・出力には GDP12DD0089B が表示され、監査レポート DB User Name 0089 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor08
+    Action required review
+    Task result pending
+    確認コード GDP12DD0089C
+    ```
+
+    画面・出力には GDP12DD0089C が表示され、監査レポート DB User Name 0089 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0089A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0089B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0089C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0104 {#c10-i0435}
+*分類: レポート*  ・  難易度: 上級
+
+紅E移行0105ではIBM Guardium Data Protection 12.x の レポートを扱う採取票紅E移行0105です。紅E移行0105は監査レポートの調査操作で監査レポートの保守欄を引き継ぎする記録紅E移行0105です。紅E移行0105ではSQL動詞集計と取得時刻を採取票紅E移行0105へ残します。紅E移行0105では対象データソースの取り違えを避けるため補助資料も照合する判断紅E移行0105です。紅E移行0105の用語整理では監査レポートの対象値を実在出力で整理する記録紅E移行0105です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0104を同一分類のロールと権限 Login Name 0114と比較します。対象固有の機能として妥当な記述はどれですか。
+
+    - A. 構成を確認する際の意味はLogin Nameのロール割当と取得時刻を記録し・ディレクトリー取込対象の誤りを防ぐである。変更確認操作で採取欄を棚卸するときはディレクトリー取込対象の誤りを防ぐ。
+    - B. 構成を確認する際の意味は処理ID・状態・開始終了時刻・Data Sources を示すジョブ一覧を障害時切り分けとして確認する。Centraで同期範囲を確認するときは同期範囲の誤読を防ぐ。Guardium Job Queue 障害時切り分け 同期範囲固有の属性も確認対象に含める。
+    - C. 構成を確認する際の意味はデータベース User Nameの照会文動詞集計と取得時刻を記録し・対象データソースの取り違えを防ぐである。調査操作で保守欄を引き継ぎするときは対象データソースの取り違えを防ぐ。 ✅
+    - D. 構成を確認する際の意味はCentral Managerで依存関係の確認では中央管理サーバーの 管理単位状態からである。依存関係確認で確認では中央を確認するときはmanaged unitからを防ぐ。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 機能照会文・対象デでCの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・移行）です。照合照会文・移行に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・移行・対象デです。比較監査レ・移行でA:のLogin Nameは「Login Nameのロール割当と取得時刻を」を述べるため、正答側の照合軸はデータ・移行・照会文です。運用移行・データでB:の障害時切り分け 同期範囲は「処理ID、状態、開始終了時刻、Data」を述べるため、正答側の照合軸は照会文・監査レ・移行です。仕様照会文・移行でD:の依存関係の確認 CM13は「Central Managerで依存関係の確」を述べるため、正答側の照合軸は移行・対象デ・照会文です。用語照会文・移行という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・対象デです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0104**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0104について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.34
+    Server IP 198.51.100.64
+    Count 114
+    確認コード GDP12DD0104A
+    ```
+
+    画面・出力には GDP12DD0104A が表示され、監査レポート DB User Name 0104 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0104
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0104B
+    ```
+
+    画面・出力には GDP12DD0104B が表示され、監査レポート DB User Name 0104 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0104C
+    ```
+
+    画面・出力には GDP12DD0104C が表示され、監査レポート DB User Name 0104 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0104A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0104B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0104C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0119 {#c10-i0436}
+*分類: レポート*  ・  難易度: 上級
+
+空T移行0120ではIBM Guardium Data Protection 12.x の レポートを扱う採取票空T移行0120です。空T移行0120は監査レポートの表示操作で監査レポートの対象欄を追跡する記録空T移行0120です。空T移行0120ではSQL動詞集計と取得時刻を採取票空T移行0120へ残します。空T移行0120ではジョブ失敗の見落としを避けるため補助資料も照合する判断空T移行0120です。空T移行0120の用語整理では監査レポートの対象値を実在出力で照合する記録空T移行0120です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0119の設定や表示を読む前に役割を確認します。ロールと権限 Application Access 0180ではなく対象を説明しているものはどれですか。
+
+    - A. 状態を読み取るための働きはApplication Accessのユーザー有効化と取得時刻を記録し・監査担当者の閲覧範囲不足を防ぐである。照合操作で確認欄を採取するときは監査担当者の閲覧範囲不足を防ぐ。
+    - B. 状態を読み取るための働きは監視エージェントの最終応答と取得時刻を記録し・未承認監視エージェント接続を防ぐである。記録操作で証跡欄を照合するときは未承認監視エージェント接続を防ぐ。
+    - C. 状態を読み取るための働きはデータベース User Nameの照会文動詞集計と取得時刻を記録し・ジョブ失敗の見落としを防ぐである。表示操作で対象欄を追跡するときはジョブ失敗の見落としを防ぐ。 ✅
+    - D. 状態を読み取るための働きはAppliance Monitoriでデータベース処理一覧から TURBINE を読み・TURBINE とである。DB処理一覧からTURBINEを読むときはディスク逼迫中に検査データ流を防ぐ。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 機能照会文・ジョブでCの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・移行）です。照合照会文・移行に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・移行・ジョブです。比較監査レ・移行でA:のApplicationは「Application Accessのユーザ」を述べるため、正答側の照合軸はデータ・移行・照会文です。運用移行・データでB:のS-TAP Hostは「監視エージェントの最終応答と取得時刻を記録し」を述べるため、正答側の照合軸は照会文・監査レ・移行です。仕様照会文・移行でD:の停止前の確認 APP14は「Appliance Monitoriでデータ」を述べるため、正答側の照合軸は移行・ジョブ・照会文です。用語照会文・移行という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・ジョブです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0119**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0119について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.49
+    Server IP 198.51.100.79
+    Count 129
+    確認コード GDP12DD0119A
+    ```
+
+    画面・出力には GDP12DD0119A が表示され、監査レポート DB User Name 0119 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0119
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0119B
+    ```
+
+    画面・出力には GDP12DD0119B が表示され、監査レポート DB User Name 0119 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0119C
+    ```
+
+    画面・出力には GDP12DD0119C が表示され、監査レポート DB User Name 0119 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0119A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0119B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0119C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0134 {#c10-i0437}
+*分類: レポート*  ・  難易度: 初級
+
+翠O診断0135ではIBM Guardium Data Protection 12.x の レポートを扱う採取票翠O診断0135です。翠O診断0135は監査レポートの点検操作で監査レポートの判定欄を記録する記録翠O診断0135です。翠O診断0135ではSQL動詞集計と取得時刻を採取票翠O診断0135へ残します。翠O診断0135ではSQL動詞集計の期間誤りを避けるため補助資料も照合する判断翠O診断0135です。翠O診断0135の用語整理では監査レポートの対象値を実在出力で保管する記録翠O診断0135です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0134に関する障害切り分けの前提を確認しています。ロールと権限 Permission 0138の機能を混同しない選択肢はどれですか。
+
+    - A. 機能の説明としては変更確認操作で採取欄を棚卸することで表示可能レポを確認し・ディレクトリー取込対象の誤りを防ぐ。
+    - B. 機能の説明としては証跡採取で統計値を確認することで統計値を確認し・統計値の誤読を防ぐ。
+    - C. 機能の説明としては表示操作で対象欄を追跡することでユーザー活動を確認し・ジョブ失敗の見落としを防ぐ。
+    - D. 機能の説明としては点検操作で判定欄を記録することで照会文動詞集を確認し・照会文動詞集計の期間誤りを防ぐ。 ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 機能照会文・照会文でDの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・診断）です。照合照会文・診断に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・診断・照会文です。比較監査レ・診断でA:のロールと権限 Permissioは「Permissionの表示可能レポートと取得」を述べるため、正答側の照合軸はデータ・診断・照会文です。運用診断・データでB:の証跡採取 統計値は「監査結果のレビューと承認の履歴を証跡採取とし」を述べるため、正答側の照合軸は照会文・監査レ・診断です。項目照会文・診断でC:のTask Statusは「Audit Task Statusのユーザー」を述べるため、正答側の照合軸は照会文・監査レ・照会文です。用語照会文・診断という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・照会文です。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0134**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0134について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.24
+    Server IP 198.51.100.34
+    Count 24
+    確認コード GDP12DD0134A
+    ```
+
+    画面・出力には GDP12DD0134A が表示され、監査レポート DB User Name 0134 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0134
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0134B
+    ```
+
+    画面・出力には GDP12DD0134B が表示され、監査レポート DB User Name 0134 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor05
+    Action required review
+    Task result pending
+    確認コード GDP12DD0134C
+    ```
+
+    画面・出力には GDP12DD0134C が表示され、監査レポート DB User Name 0134 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0134A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0134B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0134C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+
+### 監査レポート DB User Name 0149 {#c10-i0438}
+*分類: レポート*  ・  難易度: 中級
+
+朱J保守0150ではIBM Guardium Data Protection 12.x の レポートを扱う採取票朱J保守0150です。朱J保守0150は監査レポートの復旧操作で監査レポートの点検欄を確認する記録朱J保守0150です。朱J保守0150ではSQL動詞集計と取得時刻を採取票朱J保守0150へ残します。朱J保守0150では監査タスク未レビューを避けるため補助資料も照合する判断朱J保守0150です。朱J保守0150の用語整理では監査レポートの対象値を実在出力で点検する記録朱J保守0150です。
+
+**出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+??? question "確認問題（1問）"
+    **問題.** 監査レポート DB User Name 0149を保守記録に説明する必要があります。S-TAP監視 S-TAP Version 0223と取り違えない説明はどれですか。
+
+    - A. 運用時に利用する技術的役割は監視エージェントの暗号化表示と取得時刻を記録し・カーネル監視導入状態の誤読を防ぐである。採取操作で照合欄を点検するときはカーネル監視導入状態の誤読を防ぐ。
+    - B. 運用時に利用する技術的役割は管理対象システムの構成と配布を統制する管理点である。状態確認で更新配布を確認するときは更新配布の誤読を防ぐ。
+    - C. 運用時に利用する技術的役割はデータベース User Nameの照会文動詞集計と取得時刻を記録し・監査タスク未レビューを防ぐである。復旧操作で点検欄を確認するときは監査タスク未レビューを防ぐ。 ✅
+    - D. 運用時に利用する技術的役割はPermissionの表示可能レポートと取得時刻を記録し・GuardAPI実行権限不足を防ぐである。監査操作で記録欄を比較するときはGuardAPI実行権限不足を防ぐ。
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 機能照会文・監査タでCの記述「データベース User Nameの照会文動詞集計と取得時」に対応する項目はUser Name（データ・照会文・保守）です。照合照会文・保守に関するレポートの仕様は「データベース User Nameの照会文動詞集計と取得時刻を記録し」で、確認対象は照会文・保守・監査タです。比較監査レ・保守でA:のS-TAP Versionは「監視エージェントの暗号化表示と取得時刻を記録」を述べるため、正答側の照合軸はデータ・保守・照会文です。運用保守・データでB:の状態確認 更新配布は「管理対象システムの構成と配布を統制する管理点」を述べるため、正答側の照合軸は照会文・監査レ・保守です。仕様照会文・保守でD:のロールと権限 Permissioは「Permissionの表示可能レポートと取得」を述べるため、正答側の照合軸は保守・監査タ・照会文です。用語照会文・保守という用語は「データベース User Nameの照会文動詞集計と取」を指し、照合する値と誤認リスクの組合せは監査レ・照会文・監査タです。
+
+    **出典:** Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+
+??? note "検証手順（1件）"
+    **監査レポート DB User Name 0149**
+
+    - 検証目的: 監査レポートの監査レポート DB User Name 0149について、登録資料で確認できる実在コマンドまたは実在レポート形式を机上で照合する。
+    - 前提条件: 対象資料を確認済み。対象=DB User Name と SQL動詞集計
+    - セッション環境: 机上検証。IBM Guardium Data Protection 12.xのコマンド、管理画面、レポート、ログ形式を資料に合わせて使う。
+
+    **ステップ 1**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Assessment Datasources report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SQL Verb SELECT
+    Client IP 192.0.2.39
+    Server IP 198.51.100.49
+    Count 39
+    確認コード GDP12DD0149A
+    ```
+
+    画面・出力には GDP12DD0149A が表示され、監査レポート DB User Name 0149 の入力欄確認を確認できます。
+
+    **ステップ 2**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> SQL Verb report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Guardium Job Queue
+    Process Run ID GDP0149
+    Process Type Report
+    Status completed
+    確認コード GDP12DD0149B
+    ```
+
+    画面・出力には GDP12DD0149B が表示され、監査レポート DB User Name 0149 の証跡表示確認を確認できます。
+
+    **ステップ 3**
+    現在の画面はIBM Guardium Data Protection 12.xの確認画面またはコマンド結果です。DB User Name を読むため、監査レポート の対象値を表示します。
+    操作（入力）:
+    ```text
+    IBM Guardium Data Protection 12.x 操作画面またはコマンド環境
+    COMMAND ===> Guardium Job Queue report
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    Audit Process To Do List
+    Login Name auditor02
+    Action required review
+    Task result pending
+    確認コード GDP12DD0149C
+    ```
+
+    画面・出力には GDP12DD0149C が表示され、監査レポート DB User Name 0149 の判定材料確認を確認できます。
+
+    - 合格条件: ① ステップ1 の GDP12DD0149A が画面・出力に表示されること
+    ② ステップ2 の GDP12DD0149B が画面・出力に表示されること
+    ③ ステップ3 の GDP12DD0149C が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Guardium_Data_Protection_12_Predefined_reports / Guardium_Data_Protection_12_CLI_commands / Guardium_Data_Protection_12_Access_management / Guardium_Data_Protection_12_Compliance_monitoring
+
+

@@ -1,0 +1,5999 @@
+---
+search:
+  exclude: true
+---
+
+# Assembler / システム・プログラミング — 詳細 (8/10)
+
+[← Assembler / システム・プログラミング の概要へ戻る](index.md)
+
+
+## Assembler / システム・プログラミング > 出口: JES2
+
+### EXIT 0 - PCE {#c03-i0424}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 0 - PCEは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。Pre-Initialization Exit (PCE Attach 前) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 記録照合の出口:に関係する EXIT 0 - PCE の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 資料上の説明と画面上の表示行を突き合わせ、記録照合として引き継ぐ。 ✅
+    - B. EXIT 0 - PCE の名称と担当者名のみを残して記録照合の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で記録照合の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず記録照合の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 記録照合の出口:において選択記号 A を採用し、識別名は記録照合です。記録照合の出口:において EXIT 0 - PCE は説明欄の「EXIT 0 - PCE の用途をアセンブラーの表示で確認する記録照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は記録照合です。記録照合の出口:に関連して、HLASM and z/OS System Programmingでは EXIT 0 - PCE の表示属性と ASMA90I を同じ証跡に残し、背景名は記録照合です。他の選択肢を確認します。 A: 記録照合の出口:は対象出力と項目説明を結び、根拠を残すので記録照合です。 B: 記録照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため記録照合ではありません。 C: 記録照合の出口:は別カテゴリの確認を流用しており、EXIT 0 - PCE の根拠にならないため記録照合ではありません。 D: 記録照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため記録照合ではありません。記録照合の出口:で使う EXIT 0 - PCE という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は記録照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 0 - PCE**
+
+    - 検証目的: 値域確認の出口:について、EXIT 0 - PCE は、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。Pre-Initialization Exit (PCEに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050016の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、値域確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 0 - PCEを指定し、OSKB050016の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 0 - PCE
+    CASE OSKB050016
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 0 - PCE
+    CASE OSKB050016
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 0 - PCEとOSKB050016が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050016を同じ出力で読み、値域確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050016
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050016
+    ASMA90I EXIT 0 - PCE ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050016が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 0 - PCE と OSKB050016 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050016 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 14 - Job Queue {#c03-i0425}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 14 - Job Queueは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。Queue 操作監査 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 復旧照合の出口:で EXIT 14 出口の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. EXIT 14 出口の出力を取らず復旧照合の出口:の説明文と承認印のみを残す。
+    - B. 参照資料名、表示行、メッセージをそろえて復旧照合の根拠を固定する。 ✅
+    - C. ST OSKBASM を省略して復旧照合の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を復旧照合の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 復旧照合の出口:において選択記号 B を採用し、識別名は復旧照合です。復旧照合の出口:において EXIT 14 出口 は説明欄の「復旧照合の出口:に関係する定義値と表示行を照合する復旧照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は復旧照合です。復旧照合の出口:の証跡を読む担当者は、EXIT 14 出口の属性行と ASMA90I を合わせて追跡し、背景名は復旧照合です。誤答側の問題点を分けます。 A: 復旧照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧照合ではありません。 B: 復旧照合の出口:は対象出力と項目説明を結び、根拠を残すので復旧照合です。 C: 復旧照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため復旧照合ではありません。 D: 復旧照合の出口:は別カテゴリの確認を流用しており、EXIT 14 出口の根拠にならないため復旧照合ではありません。復旧照合の出口:に出る EXIT 14 出口は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は復旧照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 14 - Job Queue**
+
+    - 検証目的: 構文照合の出口:について、EXIT 14 - Job Queueは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。Queue 操作監査 (メインフレーム実践に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050021の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、構文照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 14 - Job Queuを指定し、OSKB050021の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 14 - Job Queu
+    CASE OSKB050021
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 14 - Job Queu
+    CASE OSKB050021
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 14 - Job QueuとOSKB050021が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050021を同じ出力で読み、構文照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050021
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050021
+    ASMA90I EXIT 14 - Job Queue ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050021が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 14 - Job Queu と OSKB050021 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050021 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 15 - JCT Read {#c03-i0426}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 15 - JCT Readは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。JCT 読出し検査 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 監査照合の出口:でアセンブラーの運用確認を行います。EXIT 15 - JCT Readの根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で監査照合の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず監査照合の出口:を正常終了として記録する。
+    - C. ASMA90I を含む表示を保存し、説明欄との差分を監査照合で確認する。 ✅
+    - D. EXIT 15 - JCT Readの属性行を読まず監査照合の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査照合の出口:において選択記号 C を採用し、識別名は監査照合です。監査照合の出口:において EXIT 15 - JCT Read は説明欄の「HLASM and z/OS System Programmingで EXIT 15 - JCT Readの扱いを記録する監査照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は監査照合です。監査照合の出口:を受け取る担当者は、EXIT 15 - JCT Readの表示結果と ASMA90I を同じ確認単位として扱い、背景名は監査照合です。不適切な選択肢を整理します。 A: 監査照合の出口:は別カテゴリの確認を流用しており、EXIT 15 - JCT Readの根拠にならないため監査照合ではありません。 B: 監査照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため監査照合ではありません。 C: 監査照合の出口:は対象出力と項目説明を結び、根拠を残すので監査照合です。 D: 監査照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため監査照合ではありません。監査照合の出口:が示す EXIT 15 - JCT Readは出典欄の資料で使い方を追跡できる項目であり、用語名は監査照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 15 - JCT Read**
+
+    - 検証目的: 展開照合の出口:について、EXIT 15 - JCT Readは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。JCT 読出し検査 (メインフレーム実践 (神に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050022の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、展開照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 15 - JCT Readを指定し、OSKB050022の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 15 - JCT Read
+    CASE OSKB050022
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 15 - JCT Read
+    CASE OSKB050022
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 15 - JCT ReadとOSKB050022が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050022を同じ出力で読み、展開照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050022
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050022
+    ASMA90I EXIT 15 - JCT Read ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050022が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 15 - JCT Read と OSKB050022 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050022 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 2 - Job Statement {#c03-i0427}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 2 - Job Statementは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。Job 文スキャン (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 比較照合の出口:で EXIT 2 出口の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. EXIT 2 出口の出力を取らず比較照合の出口:の説明文と承認印のみを残す。
+    - B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、比較照合の確認にする。 ✅
+    - C. ST OSKBASM を省略して比較照合の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を比較照合の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 比較照合の出口:において選択記号 B を採用し、識別名は比較照合です。比較照合の出口:において EXIT 2 出口 は説明欄の「比較照合の出口:に関係する定義値と表示行を照合する比較照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は比較照合です。比較照合の出口:の証跡を読む担当者は、EXIT 2 出口の属性行と ASMA90I を合わせて追跡し、背景名は比較照合です。誤答側の問題点を分けます。 A: 比較照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため比較照合ではありません。 B: 比較照合の出口:は対象出力と項目説明を結び、根拠を残すので比較照合です。 C: 比較照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため比較照合ではありません。 D: 比較照合の出口:は別カテゴリの確認を流用しており、EXIT 2 出口の根拠にならないため比較照合ではありません。比較照合の出口:に出る EXIT 2 出口は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は比較照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 2 - Job Statement**
+
+    - 検証目的: 警告確認の出口:について、EXIT 2 - Job Statementは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。Job 文スキャン (メインフレーム実に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050017の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、警告確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 2 - Job Stateを指定し、OSKB050017の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 2 - Job State
+    CASE OSKB050017
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 2 - Job State
+    CASE OSKB050017
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 2 - Job StateとOSKB050017が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050017を同じ出力で読み、警告確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050017
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050017
+    ASMA90I EXIT 2 - Job Statement ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050017が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 2 - Job State と OSKB050017 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050017 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 4 - JCL Scan {#c03-i0428}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 4 - JCL Scanは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。JCL converter 結果検査 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 順序照合の出口:でアセンブラーの運用確認を行います。EXIT 4 - JCL Scanの根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で順序照合の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず順序照合の出口:を正常終了として記録する。
+    - C. HLASM and z/OS System Programmingの表示形式に沿って根拠行を採り、順序照合の点検結果を残す。 ✅
+    - D. EXIT 4 - JCL Scanの属性行を読まず順序照合の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 順序照合の出口:において選択記号 C を採用し、識別名は順序照合です。順序照合の出口:において EXIT 4 - JCL Scan は説明欄の「HLASM and z/OS System Programmingで EXIT 4 - JCL Scanの扱いを記録する順序照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は順序照合です。順序照合の出口:を受け取る担当者は、EXIT 4 - JCL Scanの表示結果と ASMA90I を同じ確認単位として扱い、背景名は順序照合です。不適切な選択肢を整理します。 A: 順序照合の出口:は別カテゴリの確認を流用しており、EXIT 4 - JCL Scanの根拠にならないため順序照合ではありません。 B: 順序照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため順序照合ではありません。 C: 順序照合の出口:は対象出力と項目説明を結び、根拠を残すので順序照合です。 D: 順序照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため順序照合ではありません。順序照合の出口:が示す EXIT 4 - JCL Scanは出典欄の資料で使い方を追跡できる項目であり、用語名は順序照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 4 - JCL Scan**
+
+    - 検証目的: 復旧確認の出口:について、EXIT 4 - JCL Scanは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。JCL converter 結果検査 (メインフに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050018の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、復旧確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 4 - JCL Scanを指定し、OSKB050018の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 4 - JCL Scan
+    CASE OSKB050018
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 4 - JCL Scan
+    CASE OSKB050018
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 4 - JCL ScanとOSKB050018が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050018を同じ出力で読み、復旧確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050018
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050018
+    ASMA90I EXIT 4 - JCL Scan ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050018が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 4 - JCL Scan と OSKB050018 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050018 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 51 - Job End-Of-Memory {#c03-i0429}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 51 - Job End-Of-Memoryは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。ジョブの EOM 検出 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 変更照合の出口:に関する EXIT 51 出口の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず変更照合の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更照合の出口:の証跡として保存して根拠にする。
+    - C. EXIT 51 出口の変更点を出力本文から切り離して変更照合の出口:の承認欄のみ残す。
+    - D. ST OSKBASM の結果から対象行を抜き出し、変更照合の証跡として残す。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 変更照合の出口:において選択記号 D を採用し、識別名は変更照合です。変更照合の出口:において EXIT 51 出口 は説明欄の「EXIT 51 出口の状態と出力メッセージを結び付ける変更照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は変更照合です。変更照合の出口:に関する記録は、EXIT 51 出口の出力行と ASMA90I を一緒に保存し、背景名は変更照合です。選択肢ごとの違いを示します。 A: 変更照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため変更照合ではありません。 B: 変更照合の出口:は別カテゴリの確認を流用しており、EXIT 51 出口の根拠にならないため変更照合ではありません。 C: 変更照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため変更照合ではありません。 D: 変更照合の出口:は対象出力と項目説明を結び、根拠を残すので変更照合です。変更照合の出口:で記録する EXIT 51 出口は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は変更照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 51 - Job End-Of-Memory**
+
+    - 検証目的: 呼出照合の出口:について、EXIT 51 - Job End-Of-Memoryは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。ジョブの EOM 検出 (メに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050023の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、呼出照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 51 - Job End-を指定し、OSKB050023の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 51 - Job End-
+    CASE OSKB050023
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 51 - Job End-
+    CASE OSKB050023
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 51 - Job End-とOSKB050023が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050023を同じ出力で読み、呼出照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050023
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050023
+    ASMA90I EXIT 51 - Job End-Of-Mem ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050023が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 51 - Job End- と OSKB050023 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050023 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 6 - Job Output {#c03-i0430}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 6 - Job Outputは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。出力データ加工 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 値域照合の出口:に関する EXIT 6 出口の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず値域照合の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを値域照合の出口:の証跡として保存して根拠にする。
+    - C. EXIT 6 出口の変更点を出力本文から切り離して値域照合の出口:の承認欄のみ残す。
+    - D. 対象の出力行とメッセージ接頭辞を同時に記録し、値域照合で再確認できる形にする。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 値域照合の出口:において選択記号 D を採用し、識別名は値域照合です。値域照合の出口:において EXIT 6 出口 は説明欄の「EXIT 6 出口の状態と出力メッセージを結び付ける値域照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は値域照合です。値域照合の出口:に関する記録は、EXIT 6 出口の出力行と ASMA90I を一緒に保存し、背景名は値域照合です。選択肢ごとの違いを示します。 A: 値域照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため値域照合ではありません。 B: 値域照合の出口:は別カテゴリの確認を流用しており、EXIT 6 出口の根拠にならないため値域照合ではありません。 C: 値域照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため値域照合ではありません。 D: 値域照合の出口:は対象出力と項目説明を結び、根拠を残すので値域照合です。値域照合の出口:で記録する EXIT 6 出口は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は値域照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 6 - Job Output**
+
+    - 検証目的: 監査確認の出口:について、EXIT 6 - Job Outputは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。出力データ加工 (メインフレーム実践 (神居に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050019の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、監査確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 6 - Job Outpuを指定し、OSKB050019の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 6 - Job Outpu
+    CASE OSKB050019
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 6 - Job Outpu
+    CASE OSKB050019
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 6 - Job OutpuとOSKB050019が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050019を同じ出力で読み、監査確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050019
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050019
+    ASMA90I EXIT 6 - Job Output ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050019が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 6 - Job Outpu と OSKB050019 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050019 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### EXIT 7 - SYSOUT Data Set {#c03-i0431}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+EXIT 7 - SYSOUT Data Setは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。SYSOUT 単位の出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 警告照合の出口:に関係する EXIT 7 出口の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 机上確認でも実出力の見出しに合わせ、警告照合の確認値として扱う。 ✅
+    - B. EXIT 7 出口の名称と担当者名のみを残して警告照合の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で警告照合の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず警告照合の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 警告照合の出口:において選択記号 A を採用し、識別名は警告照合です。警告照合の出口:において EXIT 7 出口 は説明欄の「EXIT 7 出口の用途をアセンブラーの表示で確認する警告照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は警告照合です。警告照合の出口:に関連して、HLASM and z/OS System Programmingでは EXIT 7 出口の表示属性と ASMA90I を同じ証跡に残し、背景名は警告照合です。他の選択肢を確認します。 A: 警告照合の出口:は対象出力と項目説明を結び、根拠を残すので警告照合です。 B: 警告照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため警告照合ではありません。 C: 警告照合の出口:は別カテゴリの確認を流用しており、EXIT 7 出口の根拠にならないため警告照合ではありません。 D: 警告照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため警告照合ではありません。警告照合の出口:で使う EXIT 7 出口という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は警告照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **EXIT 7 - SYSOUT Data Set**
+
+    - 検証目的: 変更確認の出口:について、EXIT 7 - SYSOUT Data Setは、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。SYSOUT 単位の出口 (メインに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050020の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、変更確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXIT 7 - SYSOUT Daを指定し、OSKB050020の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXIT 7 - SYSOUT Da
+    CASE OSKB050020
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXIT 7 - SYSOUT Da
+    CASE OSKB050020
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXIT 7 - SYSOUT DaとOSKB050020が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050020を同じ出力で読み、変更確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050020
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050020
+    ASMA90I EXIT 7 - SYSOUT Data Set ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050020が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXIT 7 - SYSOUT Da と OSKB050020 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050020 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+### PARMLIB LOAD MODULE {#c03-i0432}
+*分類: 出口: JES2*  ・  難易度: 上級
+
+PARMLIB LOAD MODULEは、Assembler / システム・プログラミングの出口: JES2で確認する項目です。JES2 EXITxxx 定義は HASPPARM (PROCLIB) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+??? question "確認問題（1問）"
+    **問題.** 構文追跡の出口:に関係する PARMLIB LOAD MODULE の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 出典欄の説明と運用出力を照合し、構文追跡の確認記録にまとめる。 ✅
+    - B. PARMLIB LOAD MODULE の名称と担当者名のみを残して構文追跡の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で構文追跡の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず構文追跡の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 構文追跡の出口:において選択記号 A を採用し、識別名は構文追跡です。構文追跡の出口:において PARMLIB LOAD MODULE は説明欄の「PARMLIB LOAD MODULE の用途をアセンブラーの表示で確認する構文追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は構文追跡です。構文追跡の出口:に関連して、HLASM and z/OS System Programmingでは PARMLIB LOAD MODULE の表示属性と ASMA90I を同じ証跡に残し、背景名は構文追跡です。他の選択肢を確認します。 A: 構文追跡の出口:は対象出力と項目説明を結び、根拠を残すので構文追跡です。 B: 構文追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため構文追跡ではありません。 C: 構文追跡の出口:は別カテゴリの確認を流用しており、PARMLIB LOAD MODULE の根拠にならないため構文追跡ではありません。 D: 構文追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため構文追跡ではありません。構文追跡の出口:で使う PARMLIB LOAD MODULE という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は構文追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **PARMLIB LOAD MODULE**
+
+    - 検証目的: 置換照合の出口:について、PARMLIB LOAD MODULE は、Assembler / システム・プログラミングの出口: JES2 で確認する項目です。JES2 EXITxxx 定義は HASPPに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050024の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、置換照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にPARMLIB LOAD MODULを指定し、OSKB050024の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND PARMLIB LOAD MODUL
+    CASE OSKB050024
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM PARMLIB LOAD MODUL
+    CASE OSKB050024
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    PARMLIB LOAD MODULとOSKB050024が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050024を同じ出力で読み、置換照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050024
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050024
+    ASMA90I PARMLIB LOAD MODULE ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050024が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の PARMLIB LOAD MODUL と OSKB050024 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050024 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasc100] [zOS31_hasc100]
+
+
+
+
+## Assembler / システム・プログラミング > 出口: JES3
+
+### IATUX19 - Job Validation {#c03-i0433}
+*分類: 出口: JES3*  ・  難易度: 上級
+
+IATUX19 - Job Validationは、Assembler / システム・プログラミングの出口: JES3で機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉; 髙尾司) [zOS31_hasa200] を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasa200]
+
+??? question "確認問題（1問）"
+    **問題.** 展開追跡の出口:で IATUX19 出口の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. IATUX19 出口の出力を取らず展開追跡の出口:の説明文と承認印のみを残す。
+    - B. 属性行、戻り表示、メッセージ見出しを合わせて展開追跡の根拠にする。 ✅
+    - C. ST OSKBASM を省略して展開追跡の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を展開追跡の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 展開追跡の出口:において選択記号 B を採用し、識別名は展開追跡です。展開追跡の出口:において IATUX19 出口 は説明欄の「展開追跡の出口:に関係する定義値と表示行を照合する展開追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は展開追跡です。展開追跡の出口:の証跡を読む担当者は、IATUX19 出口の属性行と ASMA90I を合わせて追跡し、背景名は展開追跡です。誤答側の問題点を分けます。 A: 展開追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため展開追跡ではありません。 B: 展開追跡の出口:は対象出力と項目説明を結び、根拠を残すので展開追跡です。 C: 展開追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため展開追跡ではありません。 D: 展開追跡の出口:は別カテゴリの確認を流用しており、IATUX19 出口の根拠にならないため展開追跡ではありません。展開追跡の出口:に出る IATUX19 出口は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は展開追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IATUX19 - Job Validation**
+
+    - 検証目的: 終端照合の出口:について、IATUX19 - Job Validationは、Assembler / システム・プログラミングの出口: JES3 で機能名、見出し、または確認対象として参照する項目ですに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050025の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、終端照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIATUX19 - Job Valiを指定し、OSKB050025の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IATUX19 - Job Vali
+    CASE OSKB050025
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IATUX19 - Job Vali
+    CASE OSKB050025
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IATUX19 - Job ValiとOSKB050025が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050025を同じ出力で読み、終端照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050025
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050025
+    ASMA90I IATUX19 - Job Validation ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050025が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IATUX19 - Job Vali と OSKB050025 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050025 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasa200]
+
+
+
+### IATUX29 - Output Service {#c03-i0434}
+*分類: 出口: JES3*  ・  難易度: 上級
+
+IATUX29 - Output Serviceは、Assembler / システム・プログラミングの出口: JES3で確認する項目です。出力サービス出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasa200]
+
+??? question "確認問題（1問）"
+    **問題.** 呼出追跡の出口:でアセンブラーの運用確認を行います。IATUX29 出口の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で呼出追跡の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず呼出追跡の出口:を正常終了として記録する。
+    - C. 同じ画面で対象行と ASMA90I を読み、呼出追跡の結果として保存する。 ✅
+    - D. IATUX29 出口の属性行を読まず呼出追跡の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 呼出追跡の出口:において選択記号 C を採用し、識別名は呼出追跡です。呼出追跡の出口:において IATUX29 出口 は説明欄の「HLASM and z/OS System Programmingで IATUX29 出口の扱いを記録する呼出追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は呼出追跡です。呼出追跡の出口:を受け取る担当者は、IATUX29 出口の表示結果と ASMA90I を同じ確認単位として扱い、背景名は呼出追跡です。不適切な選択肢を整理します。 A: 呼出追跡の出口:は別カテゴリの確認を流用しており、IATUX29 出口の根拠にならないため呼出追跡ではありません。 B: 呼出追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため呼出追跡ではありません。 C: 呼出追跡の出口:は対象出力と項目説明を結び、根拠を残すので呼出追跡です。 D: 呼出追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出追跡ではありません。呼出追跡の出口:が示す IATUX29 出口は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（2件）"
+    **IATUX29 - Output Service**
+
+    - 検証目的: 比較確認の出口:について、IATUX29 - Output Serviceは、Assembler / システム・プログラミングの出口: JES3 で確認する項目です。出力サービス出口 (メインフレームに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB060014の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、比較確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIATUX29 - Output Sを指定し、OSKB060014の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IATUX29 - Output S
+    CASE OSKB060014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IATUX29 - Output S
+    CASE OSKB060014
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IATUX29 - Output SとOSKB060014が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB060014を同じ出力で読み、比較確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB060014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB060014
+    ASMA90I IATUX29 - Output Service ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB060014が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IATUX29 - Output S と OSKB060014 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB060014 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasa200]
+
+    ---
+
+    **IATUX29 - Output Service**
+
+    - 検証目的: 探索照合の出口:について、IATUX29 - Output Serviceは、Assembler / システム・プログラミングの出口: JES3 で確認する項目です。出力サービス出口 (メインフレームに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050026の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、探索照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIATUX29 - Output Sを指定し、OSKB050026の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IATUX29 - Output S
+    CASE OSKB050026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IATUX29 - Output S
+    CASE OSKB050026
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IATUX29 - Output SとOSKB050026が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050026を同じ出力で読み、探索照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050026
+    ASMA90I IATUX29 - Output Service ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050026が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IATUX29 - Output S と OSKB050026 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050026 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_hasa200]
+
+
+
+
+## Assembler / システム・プログラミング > 出口: RACF
+
+### ICHDEX01 {#c03-i0435}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHDEX01は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。Password Encryption Exit (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（1問）"
+    **問題.** 条件追跡の出口:に関係する ICHDEX01 の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 机上確認でも実出力の見出しに合わせ、条件追跡の確認値として扱う。 ✅
+    - B. ICHDEX01 の名称と担当者名のみを残して条件追跡の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で条件追跡の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず条件追跡の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 条件追跡の出口:において選択記号 A を採用し、識別名は条件追跡です。条件追跡の出口:において ICHDEX01 は説明欄の「ICHDEX01 の用途をアセンブラーの表示で確認する条件追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は条件追跡です。条件追跡の出口:に関連して、HLASM and z/OS System Programmingでは ICHDEX01 の表示属性と ASMA90I を同じ証跡に残し、背景名は条件追跡です。他の選択肢を確認します。 A: 条件追跡の出口:は対象出力と項目説明を結び、根拠を残すので条件追跡です。 B: 条件追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため条件追跡ではありません。 C: 条件追跡の出口:は別カテゴリの確認を流用しており、ICHDEX01 の根拠にならないため条件追跡ではありません。 D: 条件追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため条件追跡ではありません。条件追跡の出口:で使う ICHDEX01 という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は条件追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHDEX01**
+
+    - 検証目的: 優先照合の出口:について、ICHDEX01 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。Password Encryption Exit (メインフレームに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050032の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、優先照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHDEX01を指定し、OSKB050032の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHDEX01
+    CASE OSKB050032
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHDEX01
+    CASE OSKB050032
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHDEX01とOSKB050032が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050032を同じ出力で読み、優先照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050032
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050032
+    ASMA90I ICHDEX01 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050032が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHDEX01 と OSKB050032 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050032 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+### ICHPWX01 {#c03-i0436}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHPWX01は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。Password New Value Exit (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（1問）"
+    **問題.** 区切追跡の出口:で ICHPWX01 の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. ICHPWX01 の出力を取らず区切追跡の出口:の説明文と承認印のみを残す。
+    - B. 参照資料名、表示行、メッセージをそろえて区切追跡の根拠を固定する。 ✅
+    - C. ST OSKBASM を省略して区切追跡の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を区切追跡の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 区切追跡の出口:において選択記号 B を採用し、識別名は区切追跡です。区切追跡の出口:において ICHPWX01 は説明欄の「区切追跡の出口:に関係する定義値と表示行を照合する区切追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は区切追跡です。区切追跡の出口:の証跡を読む担当者は、ICHPWX01 の属性行と ASMA90I を合わせて追跡し、背景名は区切追跡です。誤答側の問題点を分けます。 A: 区切追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため区切追跡ではありません。 B: 区切追跡の出口:は対象出力と項目説明を結び、根拠を残すので区切追跡です。 C: 区切追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため区切追跡ではありません。 D: 区切追跡の出口:は別カテゴリの確認を流用しており、ICHPWX01 の根拠にならないため区切追跡ではありません。区切追跡の出口:に出る ICHPWX01 は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は区切追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHPWX01**
+
+    - 検証目的: 記録照合の出口:について、ICHPWX01 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。Password New Value Exit (メインフレーム実に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050033の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、記録照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHPWX01を指定し、OSKB050033の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHPWX01
+    CASE OSKB050033
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHPWX01
+    CASE OSKB050033
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHPWX01とOSKB050033が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050033を同じ出力で読み、記録照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050033
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050033
+    ASMA90I ICHPWX01 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050033が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHPWX01 と OSKB050033 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050033 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+### ICHRCX01 {#c03-i0437}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHRCX01は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。RACHECK Pre-Processing (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（1問）"
+    **問題.** 探索追跡の出口:で ICHRCX01 の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. ICHRCX01 の出力を取らず探索追跡の出口:の説明文と承認印のみを残す。
+    - B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、探索追跡の確認にする。 ✅
+    - C. ST OSKBASM を省略して探索追跡の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索追跡の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索追跡の出口:において選択記号 B を採用し、識別名は探索追跡です。探索追跡の出口:において ICHRCX01 は説明欄の「探索追跡の出口:に関係する定義値と表示行を照合する探索追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は探索追跡です。探索追跡の出口:の証跡を読む担当者は、ICHRCX01 の属性行と ASMA90I を合わせて追跡し、背景名は探索追跡です。誤答側の問題点を分けます。 A: 探索追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため探索追跡ではありません。 B: 探索追跡の出口:は対象出力と項目説明を結び、根拠を残すので探索追跡です。 C: 探索追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため探索追跡ではありません。 D: 探索追跡の出口:は別カテゴリの確認を流用しており、ICHRCX01 の根拠にならないため探索追跡ではありません。探索追跡の出口:に出る ICHRCX01 は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は探索追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHRCX01**
+
+    - 検証目的: 条件照合の出口:について、ICHRCX01 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。RACHECK Pre-Processing (メインフレーム実践に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050029の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、条件照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHRCX01を指定し、OSKB050029の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHRCX01
+    CASE OSKB050029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHRCX01
+    CASE OSKB050029
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHRCX01とOSKB050029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050029を同じ出力で読み、条件照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050029
+    ASMA90I ICHRCX01 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050029が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHRCX01 と OSKB050029 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050029 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+### ICHRCX02 {#c03-i0438}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHRCX02は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。RACHECK Post-Processing (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（1問）"
+    **問題.** 上書追跡の出口:でアセンブラーの運用確認を行います。ICHRCX02 の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で上書追跡の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず上書追跡の出口:を正常終了として記録する。
+    - C. HLASM and z/OS System Programmingの表示形式に沿って根拠行を採り、上書追跡の点検結果を残す。 ✅
+    - D. ICHRCX02 の属性行を読まず上書追跡の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 上書追跡の出口:において選択記号 C を採用し、識別名は上書追跡です。上書追跡の出口:において ICHRCX02 は説明欄の「HLASM and z/OS System Programmingで ICHRCX02 の扱いを記録する上書追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は上書追跡です。上書追跡の出口:を受け取る担当者は、ICHRCX02 の表示結果と ASMA90I を同じ確認単位として扱い、背景名は上書追跡です。不適切な選択肢を整理します。 A: 上書追跡の出口:は別カテゴリの確認を流用しており、ICHRCX02 の根拠にならないため上書追跡ではありません。 B: 上書追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため上書追跡ではありません。 C: 上書追跡の出口:は対象出力と項目説明を結び、根拠を残すので上書追跡です。 D: 上書追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため上書追跡ではありません。上書追跡の出口:が示す ICHRCX02 は出典欄の資料で使い方を追跡できる項目であり、用語名は上書追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHRCX02**
+
+    - 検証目的: 区切照合の出口:について、ICHRCX02 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。RACHECK Post-Processing (メインフレーム実に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050030の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、区切照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHRCX02を指定し、OSKB050030の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHRCX02
+    CASE OSKB050030
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHRCX02
+    CASE OSKB050030
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHRCX02とOSKB050030が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050030を同じ出力で読み、区切照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050030
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050030
+    ASMA90I ICHRCX02 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050030が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHRCX02 と OSKB050030 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050030 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+### ICHRIX01 {#c03-i0439}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHRIX01は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。RACINIT Pre-Processing Exit (ログオン前) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（1問）"
+    **問題.** 置換追跡の出口:に関する ICHRIX01 の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず置換追跡の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを置換追跡の出口:の証跡として保存して根拠にする。
+    - C. ICHRIX01 の変更点を出力本文から切り離して置換追跡の出口:の承認欄のみ残す。
+    - D. ST OSKBASM で得た表示本文を使い、置換追跡の採否を説明欄に結び付ける。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 置換追跡の出口:において選択記号 D を採用し、識別名は置換追跡です。置換追跡の出口:において ICHRIX01 は説明欄の「ICHRIX01 の状態と出力メッセージを結び付ける置換追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は置換追跡です。置換追跡の出口:に関する記録は、ICHRIX01 の出力行と ASMA90I を一緒に保存し、背景名は置換追跡です。選択肢ごとの違いを示します。 A: 置換追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため置換追跡ではありません。 B: 置換追跡の出口:は別カテゴリの確認を流用しており、ICHRIX01 の根拠にならないため置換追跡ではありません。 C: 置換追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため置換追跡ではありません。 D: 置換追跡の出口:は対象出力と項目説明を結び、根拠を残すので置換追跡です。置換追跡の出口:で記録する ICHRIX01 は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は置換追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHRIX01**
+
+    - 検証目的: 上書照合の出口:について、ICHRIX01 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。RACINIT Pre-Processing Exit (ログオンに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050027の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、上書照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHRIX01を指定し、OSKB050027の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHRIX01
+    CASE OSKB050027
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHRIX01
+    CASE OSKB050027
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHRIX01とOSKB050027が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050027を同じ出力で読み、上書照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050027
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050027
+    ASMA90I ICHRIX01 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050027が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHRIX01 と OSKB050027 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050027 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+### ICHRIX02 {#c03-i0440}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHRIX02は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。RACINIT Post-Processing Exit (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（2問）"
+    **問題.** 区切照合の出口:で ICHRIX02 の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. ICHRIX02 の出力を取らず区切照合の出口:の説明文と承認印だけを残す。
+    - B. ST OSKBASM で得た表示本文を使い、区切照合の採否を説明欄に結び付ける。 ✅
+    - C. ST OSKBASM を省略して区切照合の出口:の記録番号と時刻だけを残す。
+    - D. 隣接項目の結果を区切照合の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 区切照合正解では選択記号 B を採用し、正解名は区切照合正解です。区切照合根拠では ICHRIX02 は「区切照合の出口:に関係する定義値と表示行を照合する区切照合項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は区切照合根拠です。区切照合追跡では ICHRIX02 の属性行と ASMA90I を合わせ、追跡名は区切照合追跡です。誤答側の問題点を分けます。 A: 区切照合不足は名称や説明だけに寄り、判定名は区切照合不足です。 B: 区切照合正答は対象出力と項目説明を結び、根拠名は区切照合正答です。 C: 区切照合欠落は戻り値や記録番号に寄り、欠落名は区切照合欠落です。 D: 区切照合流用は別カテゴリの確認であり、排除名は区切照合流用です。区切照合初出では ICHRIX02 を Assembler / システム・プログラミングの運用手順で確認し、初出名は区切照合初出です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+    ---
+
+    **問題.** 終端追跡の出口:に関係する ICHRIX02 の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 資料上の説明と画面上の表示行を突き合わせ、終端追跡として引き継ぐ。 ✅
+    - B. ICHRIX02 の名称と担当者名のみを残して終端追跡の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で終端追跡の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず終端追跡の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 終端追跡の出口:において選択記号 A を採用し、識別名は終端追跡です。終端追跡の出口:において ICHRIX02 は説明欄の「ICHRIX02 の用途をアセンブラーの表示で確認する終端追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は終端追跡です。終端追跡の出口:に関連して、HLASM and z/OS System Programmingでは ICHRIX02 の表示属性と ASMA90I を同じ証跡に残し、背景名は終端追跡です。他の選択肢を確認します。 A: 終端追跡の出口:は対象出力と項目説明を結び、根拠を残すので終端追跡です。 B: 終端追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため終端追跡ではありません。 C: 終端追跡の出口:は別カテゴリの確認を流用しており、ICHRIX02 の根拠にならないため終端追跡ではありません。 D: 終端追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため終端追跡ではありません。終端追跡の出口:で使う ICHRIX02 という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は終端追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHRIX02**
+
+    - 検証目的: 出力照合の出口:について、ICHRIX02 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。RACINIT Post-Processing Exit (メインに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050028の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、出力照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHRIX02を指定し、OSKB050028の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHRIX02
+    CASE OSKB050028
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHRIX02
+    CASE OSKB050028
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHRIX02とOSKB050028が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050028を同じ出力で読み、出力照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050028
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050028
+    ASMA90I ICHRIX02 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050028が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHRIX02 と OSKB050028 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050028 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+### ICHRTX00 {#c03-i0441}
+*分類: 出口: RACF*  ・  難易度: 上級
+
+ICHRTX00は、Assembler / システム・プログラミングの出口: RACFで確認する項目です。RACROUTE Router 共通出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+??? question "確認問題（2問）"
+    **問題.** 構文検査の出口:に関係する ICHRTX00 の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. ASMA90I を含む表示を保存し、説明欄との差分を構文検査で確認する。 ✅
+    - B. ICHRTX00 の名称と担当者名だけを残して構文検査の出口:の表示本文を対象から外す。
+    - C. アセンブラー以外の画面で構文検査の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず構文検査の出口:の戻り値と時刻だけで完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 構文検査正解では選択記号 A を採用し、正解名は構文検査正解です。構文検査根拠では ICHRTX00 は「ICHRTX00 の用途をアセンブラーの表示で確認する構文検査項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は構文検査根拠です。構文検査背景では HLASM and z/OS System Programmingの ICHRTX00 と ASMA90I を同じ証跡に残し、背景名は構文検査背景です。他の選択肢を確認します。 A: 構文検査正答は対象出力と項目説明を結び、根拠名は構文検査正答です。 B: 構文検査不足は名称や説明だけに寄り、判定名は構文検査不足です。 C: 構文検査流用は別カテゴリの確認であり、排除名は構文検査流用です。 D: 構文検査欠落は戻り値や記録番号に寄り、欠落名は構文検査欠落です。構文検査用語では ICHRTX00 を Assembler / システム・プログラミングで扱う確認対象とし、用語名は構文検査用語です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+    ---
+
+    **問題.** 出力追跡の出口:に関する ICHRTX00 の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず出力追跡の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを出力追跡の出口:の証跡として保存して根拠にする。
+    - C. ICHRTX00 の変更点を出力本文から切り離して出力追跡の出口:の承認欄のみ残す。
+    - D. 対象の出力行とメッセージ接頭辞を同時に記録し、出力追跡で再確認できる形にする。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 出力追跡の出口:において選択記号 D を採用し、識別名は出力追跡です。出力追跡の出口:において ICHRTX00 は説明欄の「ICHRTX00 の状態と出力メッセージを結び付ける出力追跡項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は出力追跡です。出力追跡の出口:に関する記録は、ICHRTX00 の出力行と ASMA90I を一緒に保存し、背景名は出力追跡です。選択肢ごとの違いを示します。 A: 出力追跡の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため出力追跡ではありません。 B: 出力追跡の出口:は別カテゴリの確認を流用しており、ICHRTX00 の根拠にならないため出力追跡ではありません。 C: 出力追跡の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため出力追跡ではありません。 D: 出力追跡の出口:は対象出力と項目説明を結び、根拠を残すので出力追跡です。出力追跡の出口:で記録する ICHRTX00 は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は出力追跡です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHRTX00**
+
+    - 検証目的: 範囲照合の出口:について、ICHRTX00 は、Assembler / システム・プログラミングの出口: RACF で確認する項目です。RACROUTE Router 共通出口 (メインフレーム実践 (に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050031の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、範囲照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHRTX00を指定し、OSKB050031の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHRTX00
+    CASE OSKB050031
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHRTX00
+    CASE OSKB050031
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHRTX00とOSKB050031が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050031を同じ出力で読み、範囲照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050031
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050031
+    ASMA90I ICHRTX00 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050031が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHRTX00 と OSKB050031 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050031 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_icha200] [zOS31_ichb200]
+
+
+
+
+## Assembler / システム・プログラミング > 出口: SAF
+
+### ICHSAFP {#c03-i0442}
+*分類: 出口: SAF*  ・  難易度: 上級
+
+ICHSAFPは、Assembler / システム・プログラミングの出口: SAFで確認する項目です。SAF Router 制御テーブル (出口先名定義) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ichc600] [zOS31_ichc600]
+
+??? question "確認問題（1問）"
+    **問題.** 構文確認の出口:に関係する ICHSAFP の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 参照資料名、表示行、メッセージをそろえて構文確認の根拠を固定する。 ✅
+    - B. ICHSAFP の名称と担当者名のみを残して構文確認の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で構文確認の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず構文確認の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 構文確認の出口:において選択記号 A を採用し、識別名は構文確認です。構文確認の出口:において ICHSAFP は説明欄の「ICHSAFP の用途をアセンブラーの表示で確認する構文確認項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は構文確認です。構文確認の出口:に関連して、HLASM and z/OS System Programmingでは ICHSAFP の表示属性と ASMA90I を同じ証跡に残し、背景名は構文確認です。他の選択肢を確認します。 A: 構文確認の出口:は対象出力と項目説明を結び、根拠を残すので構文確認です。 B: 構文確認の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため構文確認ではありません。 C: 構文確認の出口:は別カテゴリの確認を流用しており、ICHSAFP の根拠にならないため構文確認ではありません。 D: 構文確認の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため構文確認ではありません。構文確認の出口:で使う ICHSAFP という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は構文確認です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **ICHSAFP**
+
+    - 検証目的: 比較照合の出口:について、ICHSAFP は、Assembler / システム・プログラミングの出口: SAF で確認する項目です。SAF Router 制御テーブル (出口先名定義) (メインフレームに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050034の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、比較照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にICHSAFPを指定し、OSKB050034の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ICHSAFP
+    CASE OSKB050034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ICHSAFP
+    CASE OSKB050034
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ICHSAFPとOSKB050034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050034を同じ出力で読み、比較照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050034
+    ASMA90I ICHSAFP ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050034が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ICHSAFP と OSKB050034 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050034 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ichc600] [zOS31_ichc600]
+
+
+
+
+## Assembler / システム・プログラミング > 出口: SMF
+
+### IEFACTRT {#c03-i0443}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFACTRTは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Step/Job Termination 出口 (会計情報) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（2問）"
+    **問題.** 値域検査の出口:に関する IEFACTRT の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず値域検査の出口:の担当者名と日時だけを記録する。
+    - B. 別製品のメッセージを値域検査の出口:の証跡として保存して根拠にする。
+    - C. IEFACTRT の変更点を出力本文から切り離して値域検査の出口:の承認欄だけ残す。
+    - D. 属性行、戻り表示、メッセージ見出しを合わせて値域検査の根拠にする。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 値域検査正解では選択記号 D を採用し、正解名は値域検査正解です。値域検査根拠では IEFACTRT は「IEFACTRT の状態と出力メッセージを結び付ける値域検査項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は値域検査根拠です。値域検査保存では IEFACTRT の出力行と ASMA90I を一緒に残し、保存名は値域検査保存です。選択肢ごとの違いを示します。 A: 値域検査欠落は戻り値や記録番号に寄り、欠落名は値域検査欠落です。 B: 値域検査流用は別カテゴリの確認であり、排除名は値域検査流用です。 C: 値域検査不足は名称や説明だけに寄り、判定名は値域検査不足です。 D: 値域検査正答は対象出力と項目説明を結び、根拠名は値域検査正答です。値域検査対象では IEFACTRT を HLASM and z/OS System Programmingの確認記録に残し、対象名は値域検査対象です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+    ---
+
+    **問題.** 範囲照合の出口:でアセンブラーの運用確認を行います。IEFACTRT の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で範囲照合の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず範囲照合の出口:を正常終了として記録する。
+    - C. 同じ画面で対象行と ASMA90I を読み、範囲照合の結果として保存する。 ✅
+    - D. IEFACTRT の属性行を読まず範囲照合の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 範囲照合の出口:において選択記号 C を採用し、識別名は範囲照合です。範囲照合の出口:において IEFACTRT は説明欄の「HLASM and z/OS System Programmingで IEFACTRT の扱いを記録する範囲照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合の出口:を受け取る担当者は、IEFACTRT の表示結果と ASMA90I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合の出口:は別カテゴリの確認を流用しており、IEFACTRT の根拠にならないため範囲照合ではありません。 B: 範囲照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合の出口:は対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合の出口:が示す IEFACTRT は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFACTRT**
+
+    - 検証目的: 比較確認の出口:について、IEFACTRT は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Step/Job Termination 出口 (会計情報) (メイに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050014の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、比較確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFACTRTを指定し、OSKB050014の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFACTRT
+    CASE OSKB050014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFACTRT
+    CASE OSKB050014
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFACTRTとOSKB050014が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050014を同じ出力で読み、比較確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050014
+    ASMA90I IEFACTRT ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050014が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFACTRT と OSKB050014 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050014 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFU83 {#c03-i0444}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFU83は、Assembler / システム・プログラミングの出口: SMFで確認する項目です。SMF Record Exit。WRITE SMF 直前に呼出 (タスクモード) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 構文照合の出口:に関係する IEFU83 の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 資料上の説明と画面上の表示行を突き合わせ、構文照合として引き継ぐ。 ✅
+    - B. IEFU83 の名称と担当者名のみを残して構文照合の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で構文照合の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず構文照合の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 構文照合の出口:において選択記号 A を採用し、識別名は構文照合です。構文照合の出口:において IEFU83 は説明欄の「IEFU83 の用途をアセンブラーの表示で確認する構文照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は構文照合です。構文照合の出口:に関連して、HLASM and z/OS System Programmingでは IEFU83 の表示属性と ASMA90I を同じ証跡に残し、背景名は構文照合です。他の選択肢を確認します。 A: 構文照合の出口:は対象出力と項目説明を結び、根拠を残すので構文照合です。 B: 構文照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため構文照合ではありません。 C: 構文照合の出口:は別カテゴリの確認を流用しており、IEFU83 の根拠にならないため構文照合ではありません。 D: 構文照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため構文照合ではありません。構文照合の出口:で使う IEFU83 という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は構文照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFU83**
+
+    - 検証目的: 置換確認の出口:について、IEFU83 は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。SMF Record Exit。WRITE SMF 直前に呼出 (タスクに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050004の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、置換確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFU83を指定し、OSKB050004の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFU83
+    CASE OSKB050004
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFU83
+    CASE OSKB050004
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFU83とOSKB050004が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050004を同じ出力で読み、置換確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050004
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050004
+    ASMA90I IEFU83 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050004が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFU83 と OSKB050004 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050004 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFU84 {#c03-i0445}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFU84は、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Branch Entry 版 IEFU83 (高速) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 展開照合の出口:で IEFU84 の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. IEFU84 の出力を取らず展開照合の出口:の説明文と承認印のみを残す。
+    - B. 操作結果の本文、対象行、時刻を同じ証跡に入れ、展開照合の確認にする。 ✅
+    - C. ST OSKBASM を省略して展開照合の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を展開照合の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 展開照合の出口:において選択記号 B を採用し、識別名は展開照合です。展開照合の出口:において IEFU84 は説明欄の「展開照合の出口:に関係する定義値と表示行を照合する展開照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は展開照合です。展開照合の出口:の証跡を読む担当者は、IEFU84 の属性行と ASMA90I を合わせて追跡し、背景名は展開照合です。誤答側の問題点を分けます。 A: 展開照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため展開照合ではありません。 B: 展開照合の出口:は対象出力と項目説明を結び、根拠を残すので展開照合です。 C: 展開照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため展開照合ではありません。 D: 展開照合の出口:は別カテゴリの確認を流用しており、IEFU84 の根拠にならないため展開照合ではありません。展開照合の出口:に出る IEFU84 は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は展開照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFU84**
+
+    - 検証目的: 終端確認の出口:について、IEFU84 は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Branch Entry 版 IEFU83 (高速) (メインフレーム実に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050005の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、終端確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFU84を指定し、OSKB050005の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFU84
+    CASE OSKB050005
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFU84
+    CASE OSKB050005
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFU84とOSKB050005が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050005を同じ出力で読み、終端確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050005
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050005
+    ASMA90I IEFU84 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050005が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFU84 と OSKB050005 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050005 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFU85 {#c03-i0446}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFU85は、Assembler / システム・プログラミングの出口: SMFで確認する項目です。SMF Logger 環境用 (SMF サブシステム/Log Stream) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 呼出照合の出口:でアセンブラーの運用確認を行います。IEFU85 の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で呼出照合の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず呼出照合の出口:を正常終了として記録する。
+    - C. HLASM and z/OS System Programmingの表示形式に沿って根拠行を採り、呼出照合の点検結果を残す。 ✅
+    - D. IEFU85 の属性行を読まず呼出照合の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 呼出照合の出口:において選択記号 C を採用し、識別名は呼出照合です。呼出照合の出口:において IEFU85 は説明欄の「HLASM and z/OS System Programmingで IEFU85 の扱いを記録する呼出照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は呼出照合です。呼出照合の出口:を受け取る担当者は、IEFU85 の表示結果と ASMA90I を同じ確認単位として扱い、背景名は呼出照合です。不適切な選択肢を整理します。 A: 呼出照合の出口:は別カテゴリの確認を流用しており、IEFU85 の根拠にならないため呼出照合ではありません。 B: 呼出照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため呼出照合ではありません。 C: 呼出照合の出口:は対象出力と項目説明を結び、根拠を残すので呼出照合です。 D: 呼出照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため呼出照合ではありません。呼出照合の出口:が示す IEFU85 は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFU85**
+
+    - 検証目的: 探索確認の出口:について、IEFU85 は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。SMF Logger 環境用 (SMF サブシステム/Log Streaに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050006の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、探索確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFU85を指定し、OSKB050006の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFU85
+    CASE OSKB050006
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFU85
+    CASE OSKB050006
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFU85とOSKB050006が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050006を同じ出力で読み、探索確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050006
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050006
+    ASMA90I IEFU85 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050006が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFU85 と OSKB050006 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050006 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFU86 {#c03-i0447}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFU86は、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Log Stream 出口 (SMF サブシステム経由) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 置換照合の出口:に関する IEFU86 の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず置換照合の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを置換照合の出口:の証跡として保存して根拠にする。
+    - C. IEFU86 の変更点を出力本文から切り離して置換照合の出口:の承認欄のみ残す。
+    - D. 対象の出力行とメッセージ接頭辞を同時に記録し、置換照合で再確認できる形にする。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 置換照合の出口:において選択記号 D を採用し、識別名は置換照合です。置換照合の出口:において IEFU86 は説明欄の「IEFU86 の状態と出力メッセージを結び付ける置換照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は置換照合です。置換照合の出口:に関する記録は、IEFU86 の出力行と ASMA90I を一緒に保存し、背景名は置換照合です。選択肢ごとの違いを示します。 A: 置換照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため置換照合ではありません。 B: 置換照合の出口:は別カテゴリの確認を流用しており、IEFU86 の根拠にならないため置換照合ではありません。 C: 置換照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため置換照合ではありません。 D: 置換照合の出口:は対象出力と項目説明を結び、根拠を残すので置換照合です。置換照合の出口:で記録する IEFU86 は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は置換照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFU86**
+
+    - 検証目的: 上書確認の出口:について、IEFU86 は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Log Stream 出口 (SMF サブシステム経由) (メインフレーに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050007の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、上書確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFU86を指定し、OSKB050007の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFU86
+    CASE OSKB050007
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFU86
+    CASE OSKB050007
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFU86とOSKB050007が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050007を同じ出力で読み、上書確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050007
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050007
+    ASMA90I IEFU86 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050007が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFU86 と OSKB050007 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050007 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFUJI {#c03-i0448}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFUJIは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Job Initiation 出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 探索照合の出口:で IEFUJI の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. IEFUJI の出力を取らず探索照合の出口:の説明文と承認印のみを残す。
+    - B. 参照資料名、表示行、メッセージをそろえて探索照合の根拠を固定する。 ✅
+    - C. ST OSKBASM を省略して探索照合の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索照合の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索照合の出口:において選択記号 B を採用し、識別名は探索照合です。探索照合の出口:において IEFUJI は説明欄の「探索照合の出口:に関係する定義値と表示行を照合する探索照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は探索照合です。探索照合の出口:の証跡を読む担当者は、IEFUJI の属性行と ASMA90I を合わせて追跡し、背景名は探索照合です。誤答側の問題点を分けます。 A: 探索照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため探索照合ではありません。 B: 探索照合の出口:は対象出力と項目説明を結び、根拠を残すので探索照合です。 C: 探索照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため探索照合ではありません。 D: 探索照合の出口:は別カテゴリの確認を流用しており、IEFUJI の根拠にならないため探索照合ではありません。探索照合の出口:に出る IEFUJI は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は探索照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（2件）"
+    **IEFUJI**
+
+    - 検証目的: 条件照合の出口:について、IEFUJI は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Job Initiation 出口 (メインフレーム実践 (神居俊哉)、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB060029の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、条件照合の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUJIを指定し、OSKB060029の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUJI
+    CASE OSKB060029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUJI
+    CASE OSKB060029
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUJIとOSKB060029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB060029を同じ出力で読み、条件照合の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB060029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB060029
+    ASMA90I IEFUJI ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB060029が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUJI と OSKB060029 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB060029 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+    ---
+
+    **IEFUJI**
+
+    - 検証目的: 条件確認の出口:について、IEFUJI は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Job Initiation 出口 (メインフレーム実践 (神居俊哉)、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050009の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、条件確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUJIを指定し、OSKB050009の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUJI
+    CASE OSKB050009
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUJI
+    CASE OSKB050009
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUJIとOSKB050009が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050009を同じ出力で読み、条件確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050009
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050009
+    ASMA90I IEFUJI ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050009が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUJI と OSKB050009 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050009 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFUJP {#c03-i0449}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFUJPは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Job Purge 出口 (SMF 出力直前) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 区切照合の出口:で IEFUJP の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. IEFUJP の出力を取らず区切照合の出口:の説明文と承認印のみを残す。
+    - B. 属性行、戻り表示、メッセージ見出しを合わせて区切照合の根拠にする。 ✅
+    - C. ST OSKBASM を省略して区切照合の出口:の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を区切照合の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 区切照合の出口:において選択記号 B を採用し、識別名は区切照合です。区切照合の出口:において IEFUJP は説明欄の「区切照合の出口:に関係する定義値と表示行を照合する区切照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は区切照合です。区切照合の出口:の証跡を読む担当者は、IEFUJP の属性行と ASMA90I を合わせて追跡し、背景名は区切照合です。誤答側の問題点を分けます。 A: 区切照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため区切照合ではありません。 B: 区切照合の出口:は対象出力と項目説明を結び、根拠を残すので区切照合です。 C: 区切照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため区切照合ではありません。 D: 区切照合の出口:は別カテゴリの確認を流用しており、IEFUJP の根拠にならないため区切照合ではありません。区切照合の出口:に出る IEFUJP は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は区切照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFUJP**
+
+    - 検証目的: 記録確認の出口:について、IEFUJP は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Job Purge 出口 (SMF 出力直前) (メインフレーム実践 (に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050013の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、記録確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUJPを指定し、OSKB050013の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUJP
+    CASE OSKB050013
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUJP
+    CASE OSKB050013
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUJPとOSKB050013が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050013を同じ出力で読み、記録確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050013
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050013
+    ASMA90I IEFUJP ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050013が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUJP と OSKB050013 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050013 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFUJV {#c03-i0450}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFUJVは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Job Validation 出口 (JCL converter 段階) (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（2問）"
+    **問題.** 比較確認の出口:で IEFUJV の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. IEFUJV の出力を取らず比較確認の出口:の説明文と承認印だけを残す。
+    - B. ST OSKBASM の結果から対象行を抜き出し、比較確認の証跡として残す。 ✅
+    - C. ST OSKBASM を省略して比較確認の出口:の記録番号と時刻だけを残す。
+    - D. 隣接項目の結果を比較確認の出口:へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 比較確認正解では選択記号 B を採用し、正解名は比較確認正解です。比較確認根拠では IEFUJV は「比較確認の出口:に関係する定義値と表示行を照合する比較確認項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は比較確認根拠です。比較確認追跡では IEFUJV の属性行と ASMA90I を合わせ、追跡名は比較確認追跡です。誤答側の問題点を分けます。 A: 比較確認不足は名称や説明だけに寄り、判定名は比較確認不足です。 B: 比較確認正答は対象出力と項目説明を結び、根拠名は比較確認正答です。 C: 比較確認欠落は戻り値や記録番号に寄り、欠落名は比較確認欠落です。 D: 比較確認流用は別カテゴリの確認であり、排除名は比較確認流用です。比較確認初出では IEFUJV を Assembler / システム・プログラミングの運用手順で確認し、初出名は比較確認初出です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+    ---
+
+    **問題.** 終端照合の出口:に関係する IEFUJV の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 机上確認でも実出力の見出しに合わせ、終端照合の確認値として扱う。 ✅
+    - B. IEFUJV の名称と担当者名のみを残して終端照合の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で終端照合の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず終端照合の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 終端照合の出口:において選択記号 A を採用し、識別名は終端照合です。終端照合の出口:において IEFUJV は説明欄の「IEFUJV の用途をアセンブラーの表示で確認する終端照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は終端照合です。終端照合の出口:に関連して、HLASM and z/OS System Programmingでは IEFUJV の表示属性と ASMA90I を同じ証跡に残し、背景名は終端照合です。他の選択肢を確認します。 A: 終端照合の出口:は対象出力と項目説明を結び、根拠を残すので終端照合です。 B: 終端照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため終端照合ではありません。 C: 終端照合の出口:は別カテゴリの確認を流用しており、IEFUJV の根拠にならないため終端照合ではありません。 D: 終端照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため終端照合ではありません。終端照合の出口:で使う IEFUJV という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は終端照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFUJV**
+
+    - 検証目的: 出力確認の出口:について、IEFUJV は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Job Validation 出口 (JCL converter 段階)に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050008の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、出力確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUJVを指定し、OSKB050008の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUJV
+    CASE OSKB050008
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUJV
+    CASE OSKB050008
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUJVとOSKB050008が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050008を同じ出力で読み、出力確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050008
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050008
+    ASMA90I IEFUJV ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050008が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUJV と OSKB050008 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050008 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFUSI {#c03-i0451}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFUSIは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。Step Initiation 出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 上書照合の出口:でアセンブラーの運用確認を行います。IEFUSI の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で上書照合の出口:を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず上書照合の出口:を正常終了として記録する。
+    - C. ASMA90I を含む表示を保存し、説明欄との差分を上書照合で確認する。 ✅
+    - D. IEFUSI の属性行を読まず上書照合の出口:の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 上書照合の出口:において選択記号 C を採用し、識別名は上書照合です。上書照合の出口:において IEFUSI は説明欄の「HLASM and z/OS System Programmingで IEFUSI の扱いを記録する上書照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は上書照合です。上書照合の出口:を受け取る担当者は、IEFUSI の表示結果と ASMA90I を同じ確認単位として扱い、背景名は上書照合です。不適切な選択肢を整理します。 A: 上書照合の出口:は別カテゴリの確認を流用しており、IEFUSI の根拠にならないため上書照合ではありません。 B: 上書照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため上書照合ではありません。 C: 上書照合の出口:は対象出力と項目説明を結び、根拠を残すので上書照合です。 D: 上書照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため上書照合ではありません。上書照合の出口:が示す IEFUSI は出典欄の資料で使い方を追跡できる項目であり、用語名は上書照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFUSI**
+
+    - 検証目的: 区切確認の出口:について、IEFUSI は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。Step Initiation 出口 (メインフレーム実践 (神居俊哉)に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050010の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、区切確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUSIを指定し、OSKB050010の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUSI
+    CASE OSKB050010
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUSI
+    CASE OSKB050010
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUSIとOSKB050010が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050010を同じ出力で読み、区切確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050010
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050010
+    ASMA90I IEFUSI ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050010が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUSI と OSKB050010 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050010 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFUSO {#c03-i0452}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFUSOは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。SYSOUT 制限超過出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 条件照合の出口:に関係する IEFUSO の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 出典欄の説明と運用出力を照合し、条件照合の確認記録にまとめる。 ✅
+    - B. IEFUSO の名称と担当者名のみを残して条件照合の出口:の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で条件照合の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず条件照合の出口:の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 条件照合の出口:において選択記号 A を採用し、識別名は条件照合です。条件照合の出口:において IEFUSO は説明欄の「IEFUSO の用途をアセンブラーの表示で確認する条件照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は条件照合です。条件照合の出口:に関連して、HLASM and z/OS System Programmingでは IEFUSO の表示属性と ASMA90I を同じ証跡に残し、背景名は条件照合です。他の選択肢を確認します。 A: 条件照合の出口:は対象出力と項目説明を結び、根拠を残すので条件照合です。 B: 条件照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため条件照合ではありません。 C: 条件照合の出口:は別カテゴリの確認を流用しており、IEFUSO の根拠にならないため条件照合ではありません。 D: 条件照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため条件照合ではありません。条件照合の出口:で使う IEFUSO という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は条件照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFUSO**
+
+    - 検証目的: 優先確認の出口:について、IEFUSO は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。SYSOUT 制限超過出口 (メインフレーム実践 (神居俊哉)、アドバンに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050012の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、優先確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUSOを指定し、OSKB050012の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUSO
+    CASE OSKB050012
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUSO
+    CASE OSKB050012
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUSOとOSKB050012が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050012を同じ出力で読み、優先確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050012
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050012
+    ASMA90I IEFUSO ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050012が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUSO と OSKB050012 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050012 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### IEFUTL {#c03-i0453}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+IEFUTLは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。TIME LIMIT 超過時の出口 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（2問）"
+    **問題.** 終端追跡の出口:に関係する IEFUTL の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. HLASM and z/OS System Programmingの表示形式に沿って根拠行を採り、終端追跡の点検結果を残す。 ✅
+    - B. IEFUTL の名称と担当者名だけを残して終端追跡の出口:の表示本文を対象から外す。
+    - C. アセンブラー以外の画面で終端追跡の出口:を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず終端追跡の出口:の戻り値と時刻だけで完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 終端追跡正解では選択記号 A を採用し、正解名は終端追跡正解です。終端追跡根拠では IEFUTL は「IEFUTL の用途をアセンブラーの表示で確認する終端追跡項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は終端追跡根拠です。終端追跡背景では HLASM and z/OS System Programmingの IEFUTL と ASMA90I を同じ証跡に残し、背景名は終端追跡背景です。他の選択肢を確認します。 A: 終端追跡正答は対象出力と項目説明を結び、根拠名は終端追跡正答です。 B: 終端追跡不足は名称や説明だけに寄り、判定名は終端追跡不足です。 C: 終端追跡流用は別カテゴリの確認であり、排除名は終端追跡流用です。 D: 終端追跡欠落は戻り値や記録番号に寄り、欠落名は終端追跡欠落です。終端追跡用語では IEFUTL を Assembler / システム・プログラミングで扱う確認対象とし、用語名は終端追跡用語です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+    ---
+
+    **問題.** 出力照合の出口:に関する IEFUTL の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず出力照合の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを出力照合の出口:の証跡として保存して根拠にする。
+    - C. IEFUTL の変更点を出力本文から切り離して出力照合の出口:の承認欄のみ残す。
+    - D. ST OSKBASM の結果から対象行を抜き出し、出力照合の証跡として残す。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 出力照合の出口:において選択記号 D を採用し、識別名は出力照合です。出力照合の出口:において IEFUTL は説明欄の「IEFUTL の状態と出力メッセージを結び付ける出力照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は出力照合です。出力照合の出口:に関する記録は、IEFUTL の出力行と ASMA90I を一緒に保存し、背景名は出力照合です。選択肢ごとの違いを示します。 A: 出力照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため出力照合ではありません。 B: 出力照合の出口:は別カテゴリの確認を流用しており、IEFUTL の根拠にならないため出力照合ではありません。 C: 出力照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため出力照合ではありません。 D: 出力照合の出口:は対象出力と項目説明を結び、根拠を残すので出力照合です。出力照合の出口:で記録する IEFUTL は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は出力照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **IEFUTL**
+
+    - 検証目的: 範囲確認の出口:について、IEFUTL は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。TIME LIMIT 超過時の出口 (メインフレーム実践 (神居俊哉)、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050011の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、範囲確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にIEFUTLを指定し、OSKB050011の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND IEFUTL
+    CASE OSKB050011
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM IEFUTL
+    CASE OSKB050011
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    IEFUTLとOSKB050011が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050011を同じ出力で読み、範囲確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050011
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050011
+    ASMA90I IEFUTL ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050011が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の IEFUTL と OSKB050011 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050011 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+### SMFPRMxx EXITS {#c03-i0454}
+*分類: 出口: SMF*  ・  難易度: 上級
+
+SMFPRMxx EXITSは、Assembler / システム・プログラミングの出口: SMFで確認する項目です。出口を活性化する PARMLIB 文 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+??? question "確認問題（1問）"
+    **問題.** 優先照合の出口:に関する SMFPRMxx EXITS の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず優先照合の出口:の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先照合の出口:の証跡として保存して根拠にする。
+    - C. SMFPRMxx EXITS の変更点を出力本文から切り離して優先照合の出口:の承認欄のみ残す。
+    - D. ST OSKBASM で得た表示本文を使い、優先照合の採否を説明欄に結び付ける。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 優先照合の出口:において選択記号 D を採用し、識別名は優先照合です。優先照合の出口:において SMFPRMxx EXITS は説明欄の「SMFPRMxx EXITS の状態と出力メッセージを結び付ける優先照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は優先照合です。優先照合の出口:に関する記録は、SMFPRMxx EXITS の出力行と ASMA90I を一緒に保存し、背景名は優先照合です。選択肢ごとの違いを示します。 A: 優先照合の出口:は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため優先照合ではありません。 B: 優先照合の出口:は別カテゴリの確認を流用しており、SMFPRMxx EXITS の根拠にならないため優先照合ではありません。 C: 優先照合の出口:は名称や説明のみに寄り、状態を示す出力本文が不足するため優先照合ではありません。 D: 優先照合の出口:は対象出力と項目説明を結び、根拠を残すので優先照合です。優先照合の出口:で記録する SMFPRMxx EXITS は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は優先照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **SMFPRMxx EXITS**
+
+    - 検証目的: 順序確認の出口:について、SMFPRMxx EXITS は、Assembler / システム・プログラミングの出口: SMF で確認する項目です。出口を活性化する PARMLIB 文 (メインフレーム実に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050015の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、順序確認の出口:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にSMFPRMxx EXITSを指定し、OSKB050015の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND SMFPRMxx EXITS
+    CASE OSKB050015
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM SMFPRMxx EXITS
+    CASE OSKB050015
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    SMFPRMxx EXITSとOSKB050015が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050015を同じ出力で読み、順序確認の出口:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050015
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050015
+    ASMA90I SMFPRMxx EXITS ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050015が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の SMFPRMxx EXITS と OSKB050015 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050015 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieae400] [zOS31_ieae400]
+
+
+
+
+## Assembler / システム・プログラミング > 制御命令: DC/DS
+
+### DC 形式 {#c03-i0455}
+*分類: 制御命令: DC/DS*  ・  難易度: 上級
+
+DC 形式は、Assembler / システム・プログラミングの制御命令: DC/DSで確認する項目です。Define Constant。型修飾子+長さ+値で定数生成 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+??? question "確認問題（1問）"
+    **問題.** 警告照合の形式に関係する DC 形式の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 出典欄の説明と運用出力を照合し、警告照合の確認記録にまとめる。 ✅
+    - B. DC 形式の名称と担当者名のみを残して警告照合の形式の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で警告照合の形式を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず警告照合の形式の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 警告照合の形式において選択記号 A を採用し、識別名は警告照合です。警告照合の形式において DC 形式 は説明欄の「DC 形式の用途をアセンブラーの表示で確認する警告照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は警告照合です。警告照合の形式に関連して、HLASM and z/OS System Programmingでは DC 形式の表示属性と ASMA90I を同じ証跡に残し、背景名は警告照合です。他の選択肢を確認します。 A: 警告照合の形式は対象出力と項目説明を結び、根拠を残すので警告照合です。 B: 警告照合の形式は名称や説明のみに寄り、状態を示す出力本文が不足するため警告照合ではありません。 C: 警告照合の形式は別カテゴリの確認を流用しており、DC 形式の根拠にならないため警告照合ではありません。 D: 警告照合の形式は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため警告照合ではありません。警告照合の形式で使う DC 形式という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は警告照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **DC 形式**
+
+    - 検証目的: 変更判定の形式について、DC 形式は、Assembler / システム・プログラミングの制御命令: DC/DS で確認する項目です。Define Constant。型修飾子+長さ+値で定数生成 (メに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010100の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、変更判定の形式の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDC 形式を指定し、OSKB010100の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DC 形式
+    CASE OSKB010100
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DC 形式
+    CASE OSKB010100
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DC 形式とOSKB010100が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010100を同じ出力で読み、変更判定の形式の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010100
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010100
+    ASMA90I DC 形式 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010100が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DC 形式 と OSKB010100 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010100 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+
+
+### DC 重複係数 {#c03-i0456}
+*分類: 制御命令: DC/DS*  ・  難易度: 上級
+
+DC 重複係数は、Assembler / システム・プログラミングの制御命令: DC/DSで確認する項目です。n×DC 形式。DC 4F'0' で 4 ワード 0 詰め (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+??? question "確認問題（1問）"
+    **問題.** 監査照合の重複係数でアセンブラーの運用確認を行います。DC 重複係数の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で監査照合の重複係数を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず監査照合の重複係数を正常終了として記録する。
+    - C. 同じ画面で対象行と ASMA90I を読み、監査照合の結果として保存する。 ✅
+    - D. DC 重複係数の属性行を読まず監査照合の重複係数の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査照合の重複係数において選択記号 C を採用し、識別名は監査照合です。監査照合の重複係数において DC 重複係数 は説明欄の「HLASM and z/OS System Programmingで DC 重複係数の扱いを記録する監査照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は監査照合です。監査照合の重複係数を受け取る担当者は、DC 重複係数の表示結果と ASMA90I を同じ確認単位として扱い、背景名は監査照合です。不適切な選択肢を整理します。 A: 監査照合の重複係数は別カテゴリの確認を流用しており、DC 重複係数の根拠にならないため監査照合ではありません。 B: 監査照合の重複係数は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため監査照合ではありません。 C: 監査照合の重複係数は対象出力と項目説明を結び、根拠を残すので監査照合です。 D: 監査照合の重複係数は名称や説明のみに寄り、状態を示す出力本文が不足するため監査照合ではありません。監査照合の重複係数が示す DC 重複係数は出典欄の資料で使い方を追跡できる項目であり、用語名は監査照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（2件）"
+    **DC 重複係数**
+
+    - 検証目的: 比較照合の重複係数について、DC 重複係数は、Assembler / システム・プログラミングの制御命令: DC/DS で確認する項目です。n×DC 形式。DC 4F'0' で 4 ワード 0 詰め (に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB060034の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、比較照合の重複係数の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDC 重複係数を指定し、OSKB060034の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DC 重複係数
+    CASE OSKB060034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DC 重複係数
+    CASE OSKB060034
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DC 重複係数とOSKB060034が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB060034を同じ出力で読み、比較照合の重複係数の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB060034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB060034
+    ASMA90I DC 重複係数 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB060034が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DC 重複係数 と OSKB060034 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB060034 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+    ---
+
+    **DC 重複係数**
+
+    - 検証目的: 展開整理の重複係数について、DC 重複係数は、Assembler / システム・プログラミングの制御命令: DC/DS で確認する項目です。n×DC 形式。DC 4F'0' で 4 ワード 0 詰め (に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010102の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、展開整理の重複係数の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDC 重複係数を指定し、OSKB010102の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DC 重複係数
+    CASE OSKB010102
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DC 重複係数
+    CASE OSKB010102
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DC 重複係数とOSKB010102が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010102を同じ出力で読み、展開整理の重複係数の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010102
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010102
+    ASMA90I DC 重複係数 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010102が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DC 重複係数 と OSKB010102 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010102 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+
+
+### DS 0H の用法 {#c03-i0457}
+*分類: 制御命令: DC/DS*  ・  難易度: 上級
+
+DS 0H の用法は、Assembler / システム・プログラミングの制御命令: DC/DSで確認する項目です。境界整列だけ行うラベル定義の慣用句 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+??? question "確認問題（1問）"
+    **問題.** 変更照合の用法に関する DS 0H の用法の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず変更照合の用法の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更照合の用法の証跡として保存して根拠にする。
+    - C. DS 0H の用法の変更点を出力本文から切り離して変更照合の用法の承認欄のみ残す。
+    - D. ST OSKBASM で得た表示本文を使い、変更照合の採否を説明欄に結び付ける。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 変更照合の用法において選択記号 D を採用し、識別名は変更照合です。変更照合の用法において DS 0H の用法 は説明欄の「DS 0H の用法の状態と出力メッセージを結び付ける変更照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は変更照合です。変更照合の用法に関する記録は、DS 0H の用法の出力行と ASMA90I を一緒に保存し、背景名は変更照合です。選択肢ごとの違いを示します。 A: 変更照合の用法は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため変更照合ではありません。 B: 変更照合の用法は別カテゴリの確認を流用しており、DS 0H の用法の根拠にならないため変更照合ではありません。 C: 変更照合の用法は名称や説明のみに寄り、状態を示す出力本文が不足するため変更照合ではありません。 D: 変更照合の用法は対象出力と項目説明を結び、根拠を残すので変更照合です。変更照合の用法で記録する DS 0H の用法は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は変更照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **DS 0H の用法**
+
+    - 検証目的: 呼出整理の用法について、DS 0H の用法は、Assembler / システム・プログラミングの制御命令: DC/DS で確認する項目です。境界整列だけ行うラベル定義の慣用句 (メインフレーム実践に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010103の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、呼出整理の用法の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDS 0H の用法を指定し、OSKB010103の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DS 0H の用法
+    CASE OSKB010103
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DS 0H の用法
+    CASE OSKB010103
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DS 0H の用法とOSKB010103が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010103を同じ出力で読み、呼出整理の用法の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010103
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010103
+    ASMA90I DS 0H の用法 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010103が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DS 0H の用法 と OSKB010103 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010103 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+
+
+### DS 形式 {#c03-i0458}
+*分類: 制御命令: DC/DS*  ・  難易度: 上級
+
+DS 形式は、Assembler / システム・プログラミングの制御命令: DC/DSで確認する項目です。Define Storage。値を出力せず領域だけ確保 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+??? question "確認問題（2問）"
+    **問題.** 監査確認の形式でアセンブラーの運用確認を行います。DS 形式の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で監査確認の形式を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず監査確認の形式を正常終了として記録する。
+    - C. 資料上の説明と画面上の表示行を突き合わせ、監査確認として引き継ぐ。 ✅
+    - D. DS 形式の属性行を読まず監査確認の形式の画面名と利用者名だけを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査確認正解では選択記号 C を採用し、正解名は監査確認正解です。監査確認根拠では DS 形式 は「HLASM and z/OS System Programmingで DS 形式の扱いを記録する監査確認項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は監査確認根拠です。監査確認受渡では DS 形式の表示結果と ASMA90I を同じ確認単位にし、受渡名は監査確認受渡です。不適切な選択肢を整理します。 A: 監査確認流用は別カテゴリの確認であり、排除名は監査確認流用です。 B: 監査確認欠落は戻り値や記録番号に寄り、欠落名は監査確認欠落です。 C: 監査確認正答は対象出力と項目説明を結び、根拠名は監査確認正答です。 D: 監査確認不足は名称や説明だけに寄り、判定名は監査確認不足です。監査確認資料では DS 形式の使い方を出典欄から追跡し、資料名は監査確認資料です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+    ---
+
+    **問題.** 復旧照合の形式で DS 形式の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. DS 形式の出力を取らず復旧照合の形式の説明文と承認印のみを残す。
+    - B. 属性行、戻り表示、メッセージ見出しを合わせて復旧照合の根拠にする。 ✅
+    - C. ST OSKBASM を省略して復旧照合の形式の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を復旧照合の形式へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 復旧照合の形式において選択記号 B を採用し、識別名は復旧照合です。復旧照合の形式において DS 形式 は説明欄の「復旧照合の形式に関係する定義値と表示行を照合する復旧照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は復旧照合です。復旧照合の形式の証跡を読む担当者は、DS 形式の属性行と ASMA90I を合わせて追跡し、背景名は復旧照合です。誤答側の問題点を分けます。 A: 復旧照合の形式は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧照合ではありません。 B: 復旧照合の形式は対象出力と項目説明を結び、根拠を残すので復旧照合です。 C: 復旧照合の形式は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため復旧照合ではありません。 D: 復旧照合の形式は別カテゴリの確認を流用しており、DS 形式の根拠にならないため復旧照合ではありません。復旧照合の形式に出る DS 形式は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は復旧照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **DS 形式**
+
+    - 検証目的: 構文整理の形式について、DS 形式は、Assembler / システム・プログラミングの制御命令: DC/DS で確認する項目です。Define Storage。値を出力せず領域だけ確保 (メインフに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010101の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、構文整理の形式の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDS 形式を指定し、OSKB010101の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DS 形式
+    CASE OSKB010101
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DS 形式
+    CASE OSKB010101
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DS 形式とOSKB010101が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010101を同じ出力で読み、構文整理の形式の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010101
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010101
+    ASMA90I DS 形式 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010101が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DS 形式 と OSKB010101 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010101 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpg01] [zOS31_cbcux01]
+
+
+
+
+## Assembler / システム・プログラミング > 制御命令: USING
+
+### DROP reg {#c03-i0459}
+*分類: 制御命令: USING*  ・  難易度: 上級
+
+DROP regは、Assembler / システム・プログラミングの制御命令: USINGで確認する項目です。ベース宣言を解除 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+??? note "検証手順（1件）"
+    **DROP reg**
+
+    - 検証目的: 比較確認の制御命令:について、DROP regは、Assembler / システム・プログラミングの制御命令: USING で確認する項目です。ベース宣言を解除 (メインフレーム実践 (神居俊哉)、MFOに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020014の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、比較確認の制御命令:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDROP regを指定し、OSKB020014の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DROP reg
+    CASE OSKB020014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DROP reg
+    CASE OSKB020014
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DROP regとOSKB020014が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020014を同じ出力で読み、比較確認の制御命令:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020014
+    ASMA90I DROP reg ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020014が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DROP reg と OSKB020014 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020014 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+
+
+### USING base,reg {#c03-i0460}
+*分類: 制御命令: USING*  ・  難易度: 上級
+
+USING base,regは、Assembler / システム・プログラミングの制御命令: USINGで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。MF,BAS を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+??? note "検証手順（1件）"
+    **USING base,reg**
+
+    - 検証目的: 区切確認の制御命令:について、USING base,regは、Assembler / システム・プログラミングの制御命令: USING で自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020010の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、区切確認の制御命令:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にUSING base,regを指定し、OSKB020010の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND USING base,reg
+    CASE OSKB020010
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM USING base,reg
+    CASE OSKB020010
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    USING base,regとOSKB020010が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020010を同じ出力で読み、区切確認の制御命令:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020010
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020010
+    ASMA90I USING base,reg ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020010が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の USING base,reg と OSKB020010 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020010 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+
+
+### USING dsect,reg {#c03-i0461}
+*分類: 制御命令: USING*  ・  難易度: 上級
+
+USING dsect,regは、Assembler / システム・プログラミングの制御命令: USINGで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。MF,BAS を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+??? note "検証手順（1件）"
+    **USING dsect,reg**
+
+    - 検証目的: 範囲確認の制御命令:について、USING dsect,regは、Assembler / システム・プログラミングの制御命令: USING で自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020011の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、範囲確認の制御命令:の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にUSING dsect,regを指定し、OSKB020011の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND USING dsect,reg
+    CASE OSKB020011
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM USING dsect,reg
+    CASE OSKB020011
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    USING dsect,regとOSKB020011が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020011を同じ出力で読み、範囲確認の制御命令:の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020011
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020011
+    ASMA90I USING dsect,reg ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020011が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の USING dsect,reg と OSKB020011 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020011 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+
+
+### USING との重複時 {#c03-i0462}
+*分類: 制御命令: USING*  ・  難易度: 上級
+
+USING との重複時は、Assembler / システム・プログラミングの制御命令: USINGで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000] を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+??? note "検証手順（1件）"
+    **USING との重複時**
+
+    - 検証目的: 順序確認のの重複時について、USING との重複時は、Assembler / システム・プログラミングの制御命令: USING で自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020015の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、順序確認のの重複時の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にUSING との重複時を指定し、OSKB020015の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND USING との重複時
+    CASE OSKB020015
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM USING との重複時
+    CASE OSKB020015
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    USING との重複時とOSKB020015が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020015を同じ出力で読み、順序確認のの重複時の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020015
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020015
+    ASMA90I USING との重複時 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020015が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の USING との重複時 と OSKB020015 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020015 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+
+
+### USING 範囲 {#c03-i0463}
+*分類: 制御命令: USING*  ・  難易度: 上級
+
+USING 範囲は、Assembler / システム・プログラミングの制御命令: USINGで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。MF,BAS を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+??? note "検証手順（1件）"
+    **USING 範囲**
+
+    - 検証目的: 優先確認の範囲について、USING 範囲は、Assembler / システム・プログラミングの制御命令: USING で自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作をに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020012の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、優先確認の範囲の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にUSING 範囲を指定し、OSKB020012の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND USING 範囲
+    CASE OSKB020012
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM USING 範囲
+    CASE OSKB020012
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    USING 範囲とOSKB020012が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020012を同じ出力で読み、優先確認の範囲の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020012
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020012
+    ASMA90I USING 範囲 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020012が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の USING 範囲 と OSKB020012 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020012 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+
+
+### USING 複数ベース {#c03-i0464}
+*分類: 制御命令: USING*  ・  難易度: 上級
+
+USING 複数ベースは、Assembler / システム・プログラミングの制御命令: USINGで自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替動作を分けて確認します。MF,BAS を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+??? note "検証手順（1件）"
+    **USING 複数ベース**
+
+    - 検証目的: 記録確認の複数ベースについて、USING 複数ベースは、Assembler / システム・プログラミングの制御命令: USING で自動化処理や復旧動作を確認する項目です。起動条件、停止条件、失敗時の代替に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020013の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、記録確認の複数ベースの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にUSING 複数ベースを指定し、OSKB020013の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND USING 複数ベース
+    CASE OSKB020013
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM USING 複数ベース
+    CASE OSKB020013
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    USING 複数ベースとOSKB020013が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020013を同じ出力で読み、記録確認の複数ベースの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020013
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020013
+    ASMA90I USING 複数ベース ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020013が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の USING 複数ベース と OSKB020013 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020013 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_antg000]
+
+
+
+
+## Assembler / システム・プログラミング > 制御命令: シンボル
+
+### CNOP byte,bound {#c03-i0465}
+*分類: 制御命令: シンボル*  ・  難易度: 上級
+
+CNOP byte,boundは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+??? question "確認問題（1問）"
+    **問題.** 順序照合の制御命令: シンボルでアセンブラーの運用確認を行います。CNOP byte,boundの根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で順序照合の制御命令: シンボルを確認した扱いにする。
+    - B. ASMA90I の有無を確認せず順序照合の制御命令: シンボルを正常終了として記録する。
+    - C. ASMA90I を含む表示を保存し、説明欄との差分を順序照合で確認する。 ✅
+    - D. CNOP byte,boundの属性行を読まず順序照合の制御命令: シンボルの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 順序照合の制御命令: シンボルにおいて選択記号 C を採用し、識別名は順序照合です。順序照合の制御命令: シンボルにおいて CNOP byte,bound は説明欄の「HLASM and z/OS System Programmingで CNOP byte,boundの扱いを記録する順序照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は順序照合です。順序照合の制御命令: シンボルを受け取る担当者は、CNOP byte,boundの表示結果と ASMA90I を同じ確認単位として扱い、背景名は順序照合です。不適切な選択肢を整理します。 A: 順序照合の制御命令: シンボルは別カテゴリの確認を流用しており、CNOP byte,boundの根拠にならないため順序照合ではありません。 B: 順序照合の制御命令: シンボルは戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため順序照合ではありません。 C: 順序照合の制御命令: シンボルは対象出力と項目説明を結び、根拠を残すので順序照合です。 D: 順序照合の制御命令: シンボルは名称や説明のみに寄り、状態を示す出力本文が不足するため順序照合ではありません。順序照合の制御命令: シンボルが示す CNOP byte,boundは出典欄の資料で使い方を追跡できる項目であり、用語名は順序照合です。
+
+    **出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+??? note "検証手順（1件）"
+    **CNOP byte,bound**
+
+    - 検証目的: 復旧判定の制御命令: シンボルについて、CNOP byte,boundは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010098の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、復旧判定の制御命令: シンボルの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCNOP byte,boundを指定し、OSKB010098の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CNOP byte,bound
+    CASE OSKB010098
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CNOP byte,bound
+    CASE OSKB010098
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CNOP byte,boundとOSKB010098が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010098を同じ出力で読み、復旧判定の制御命令: シンボルの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010098
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010098
+    ASMA90I CNOP byte,bound ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010098が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CNOP byte,bound と OSKB010098 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010098 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+
+### EQU * 形式 {#c03-i0466}
+*分類: 制御命令: シンボル*  ・  難易度: 上級
+
+EQU * 形式は、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+??? question "確認問題（1問）"
+    **問題.** 優先照合の* 形式に関する EQU * 形式の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず優先照合の* 形式の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先照合の* 形式の証跡として保存して根拠にする。
+    - C. EQU * 形式の変更点を出力本文から切り離して優先照合の* 形式の承認欄のみ残す。
+    - D. 対象の出力行とメッセージ接頭辞を同時に記録し、優先照合で再確認できる形にする。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 優先照合の* 形式において選択記号 D を採用し、識別名は優先照合です。優先照合の* 形式において EQU * 形式 は説明欄の「EQU * 形式の状態と出力メッセージを結び付ける優先照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は優先照合です。優先照合の* 形式に関する記録は、EQU * 形式の出力行と ASMA90I を一緒に保存し、背景名は優先照合です。選択肢ごとの違いを示します。 A: 優先照合の* 形式は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため優先照合ではありません。 B: 優先照合の* 形式は別カテゴリの確認を流用しており、EQU * 形式の根拠にならないため優先照合ではありません。 C: 優先照合の* 形式は名称や説明のみに寄り、状態を示す出力本文が不足するため優先照合ではありません。 D: 優先照合の* 形式は対象出力と項目説明を結び、根拠を残すので優先照合です。優先照合の* 形式で記録する EQU * 形式は HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は優先照合です。
+
+    **出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+??? note "検証手順（1件）"
+    **EQU * 形式**
+
+    - 検証目的: 順序判定の* 形式について、EQU * 形式は、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010095の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、順序判定の* 形式の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEQU * 形式を指定し、OSKB010095の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EQU * 形式
+    CASE OSKB010095
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EQU * 形式
+    CASE OSKB010095
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EQU * 形式とOSKB010095が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010095を同じ出力で読み、順序判定の* 形式の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010095
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010095
+    ASMA90I EQU * 形式 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010095が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EQU * 形式 と OSKB010095 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010095 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+
+### EQU length,type {#c03-i0467}
+*分類: 制御命令: シンボル*  ・  難易度: 上級
+
+EQU length,typeは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉
+
+??? note "検証手順（1件）"
+    **EQU length,type**
+
+    - 検証目的: 値域判定の制御命令: シンボルについて、EQU length,typeは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010096の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、値域判定の制御命令: シンボルの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEQU length,typeを指定し、OSKB010096の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EQU length,type
+    CASE OSKB010096
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EQU length,type
+    CASE OSKB010096
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EQU length,typeとOSKB010096が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010096を同じ出力で読み、値域判定の制御命令: シンボルの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010096
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010096
+    ASMA90I EQU length,type ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010096が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EQU length,type と OSKB010096 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010096 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉
+
+
+
+### EQU value {#c03-i0468}
+*分類: 制御命令: シンボル*  ・  難易度: 上級
+
+EQU valueは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+??? question "確認問題（1問）"
+    **問題.** 範囲照合の制御命令: シンボルでアセンブラーの運用確認を行います。EQU valueの根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で範囲照合の制御命令: シンボルを確認した扱いにする。
+    - B. ASMA90I の有無を確認せず範囲照合の制御命令: シンボルを正常終了として記録する。
+    - C. HLASM and z/OS System Programmingの表示形式に沿って根拠行を採り、範囲照合の点検結果を残す。 ✅
+    - D. EQU valueの属性行を読まず範囲照合の制御命令: シンボルの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 範囲照合の制御命令: シンボルにおいて選択記号 C を採用し、識別名は範囲照合です。範囲照合の制御命令: シンボルにおいて EQU value は説明欄の「HLASM and z/OS System Programmingで EQU valueの扱いを記録する範囲照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合の制御命令: シンボルを受け取る担当者は、EQU valueの表示結果と ASMA90I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合の制御命令: シンボルは別カテゴリの確認を流用しており、EQU valueの根拠にならないため範囲照合ではありません。 B: 範囲照合の制御命令: シンボルは戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合の制御命令: シンボルは対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合の制御命令: シンボルは名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合の制御命令: シンボルが示す EQU valueは出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。
+
+    **出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+??? note "検証手順（1件）"
+    **EQU value**
+
+    - 検証目的: 比較判定の制御命令: シンボルについて、EQU valueは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010094の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、比較判定の制御命令: シンボルの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEQU valueを指定し、OSKB010094の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EQU value
+    CASE OSKB010094
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EQU value
+    CASE OSKB010094
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EQU valueとOSKB010094が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010094を同じ出力で読み、比較判定の制御命令: シンボルの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010094
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010094
+    ASMA90I EQU value ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010094が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EQU value と OSKB010094 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010094 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+
+### LOCTR name {#c03-i0469}
+*分類: 制御命令: シンボル*  ・  難易度: 上級
+
+LOCTR nameは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉
+
+??? question "確認問題（1問）"
+    **問題.** 値域照合の制御命令: シンボルに関する LOCTR nameの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず値域照合の制御命令: シンボルの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを値域照合の制御命令: シンボルの証跡として保存して根拠にする。
+    - C. LOCTR nameの変更点を出力本文から切り離して値域照合の制御命令: シンボルの承認欄のみ残す。
+    - D. ST OSKBASM の結果から対象行を抜き出し、値域照合の証跡として残す。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 値域照合の制御命令: シンボルにおいて選択記号 D を採用し、識別名は値域照合です。値域照合の制御命令: シンボルにおいて LOCTR name は説明欄の「LOCTR nameの状態と出力メッセージを結び付ける値域照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は値域照合です。値域照合の制御命令: シンボルに関する記録は、LOCTR nameの出力行と ASMA90I を一緒に保存し、背景名は値域照合です。選択肢ごとの違いを示します。 A: 値域照合の制御命令: シンボルは戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため値域照合ではありません。 B: 値域照合の制御命令: シンボルは別カテゴリの確認を流用しており、LOCTR nameの根拠にならないため値域照合ではありません。 C: 値域照合の制御命令: シンボルは名称や説明のみに寄り、状態を示す出力本文が不足するため値域照合ではありません。 D: 値域照合の制御命令: シンボルは対象出力と項目説明を結び、根拠を残すので値域照合です。値域照合の制御命令: シンボルで記録する LOCTR nameは HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は値域照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（2件）"
+    **LOCTR name**
+
+    - 検証目的: 呼出確認の制御命令: シンボルについて、LOCTR nameは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB060003の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、呼出確認の制御命令: シンボルの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にLOCTR nameを指定し、OSKB060003の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND LOCTR name
+    CASE OSKB060003
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM LOCTR name
+    CASE OSKB060003
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    LOCTR nameとOSKB060003が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB060003を同じ出力で読み、呼出確認の制御命令: シンボルの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB060003
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB060003
+    ASMA90I LOCTR name ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB060003が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の LOCTR name と OSKB060003 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB060003 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉
+
+    ---
+
+    **LOCTR name**
+
+    - 検証目的: 監査判定の制御命令: シンボルについて、LOCTR nameは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010099の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、監査判定の制御命令: シンボルの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にLOCTR nameを指定し、OSKB010099の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND LOCTR name
+    CASE OSKB010099
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM LOCTR name
+    CASE OSKB010099
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    LOCTR nameとOSKB010099が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010099を同じ出力で読み、監査判定の制御命令: シンボルの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010099
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010099
+    ASMA90I LOCTR name ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010099が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の LOCTR name と OSKB010099 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010099 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉
+
+
+
+### ORG addr {#c03-i0470}
+*分類: 制御命令: シンボル*  ・  難易度: 上級
+
+ORG addrは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結果のどこに関わるかを出典マニュアルの節で確認します。メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+??? question "確認問題（1問）"
+    **問題.** 比較照合の制御命令: シンボルで ORG addrの点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. ORG addrの出力を取らず比較照合の制御命令: シンボルの説明文と承認印のみを残す。
+    - B. 参照資料名、表示行、メッセージをそろえて比較照合の根拠を固定する。 ✅
+    - C. ST OSKBASM を省略して比較照合の制御命令: シンボルの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を比較照合の制御命令: シンボルへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 比較照合の制御命令: シンボルにおいて選択記号 B を採用し、識別名は比較照合です。比較照合の制御命令: シンボルにおいて ORG addr は説明欄の「比較照合の制御命令: シンボルに関係する定義値と表示行を照合する比較照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は比較照合です。比較照合の制御命令: シンボルの証跡を読む担当者は、ORG addrの属性行と ASMA90I を合わせて追跡し、背景名は比較照合です。誤答側の問題点を分けます。 A: 比較照合の制御命令: シンボルは名称や説明のみに寄り、状態を示す出力本文が不足するため比較照合ではありません。 B: 比較照合の制御命令: シンボルは対象出力と項目説明を結び、根拠を残すので比較照合です。 C: 比較照合の制御命令: シンボルは戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため比較照合ではありません。 D: 比較照合の制御命令: シンボルは別カテゴリの確認を流用しており、ORG addrの根拠にならないため比較照合ではありません。比較照合の制御命令: シンボルに出る ORG addrは Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は比較照合です。
+
+    **出典:** zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+??? note "検証手順（1件）"
+    **ORG addr**
+
+    - 検証目的: 警告判定の制御命令: シンボルについて、ORG addrは、Assembler / システム・プログラミングの制御命令: シンボルで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表示結に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010097の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、警告判定の制御命令: シンボルの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にORG addrを指定し、OSKB010097の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ORG addr
+    CASE OSKB010097
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ORG addr
+    CASE OSKB010097
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ORG addrとOSKB010097が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010097を同じ出力で読み、警告判定の制御命令: シンボルの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010097
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010097
+    ASMA90I ORG addr ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010097が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ORG addr と OSKB010097 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010097 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: zOS_HLASM_Language_Reference / zOS_HLASM_Programmers_Guide
+
+
+
+
+## Assembler / システム・プログラミング > 制御命令: セクション
+
+### COM {#c03-i0471}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+COMは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Common Section。複数モジュールが共有する未初期化領域 (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 / 髙尾司) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? note "検証手順（1件）"
+    **COM**
+
+    - 検証目的: 終端確認の制御命令: セクションについて、COM は、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Common Section。複数モジュールが共有する未初期化領域 (に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020005の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、終端確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCOMを指定し、OSKB020005の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND COM
+    CASE OSKB020005
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM COM
+    CASE OSKB020005
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    COMとOSKB020005が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020005を同じ出力で読み、終端確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020005
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020005
+    ASMA90I COM ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020005が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の COM と OSKB020005 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020005 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 / 髙尾司) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+### CSECT {#c03-i0472}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+CSECTは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Control Section 開始。実行可能コード/データの単位 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? question "確認問題（1問）"
+    **問題.** 条件照合のバインダに関係する CSECT の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 属性行、戻り表示、メッセージ見出しを合わせて条件照合の根拠にする。 ✅
+    - B. CSECT の名称と担当者名のみを残して条件照合のバインダの表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で条件照合のバインダを確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず条件照合のバインダの戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 条件照合のバインダにおいて選択記号 A を採用し、識別名は条件照合です。条件照合のバインダにおいて CSECT は説明欄の「CSECT の用途をアセンブラーの表示で確認する条件照合項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は条件照合です。条件照合のバインダに関連して、HLASM and z/OS System Programmingでは CSECT の表示属性と ASMA90I を同じ証跡に残し、背景名は条件照合です。他の選択肢を確認します。 A: 条件照合のバインダは対象出力と項目説明を結び、根拠を残すので条件照合です。 B: 条件照合のバインダは名称や説明のみに寄り、状態を示す出力本文が不足するため条件照合ではありません。 C: 条件照合のバインダは別カテゴリの確認を流用しており、CSECT の根拠にならないため条件照合ではありません。 D: 条件照合のバインダは戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため条件照合ではありません。条件照合のバインダで使う CSECT という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は条件照合です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（2件）"
+    **CSECT**
+
+    - 検証目的: 展開確認の制御命令: セクションについて、CSECT は、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Control Section 開始。実行可能コード/データの単位に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020002の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、展開確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCSECTを指定し、OSKB020002の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CSECT
+    CASE OSKB020002
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CSECT
+    CASE OSKB020002
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CSECTとOSKB020002が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020002を同じ出力で読み、展開確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020002
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020002
+    ASMA90I CSECT ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020002が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CSECT と OSKB020002 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020002 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+    ---
+
+    **CSECT**
+
+    - 検証目的: 展開検査のバインダについて、CSECT は、Assembler / システム・プログラミングのバインダで確認する項目です。バインダの基本単位 (Control Section) (メインフレーム実践 (に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB050062の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、展開検査のバインダの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCSECTを指定し、OSKB050062の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CSECT
+    CASE OSKB050062
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CSECT
+    CASE OSKB050062
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CSECTとOSKB050062が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB050062を同じ出力で読み、展開検査のバインダの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB050062
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB050062
+    ASMA90I CSECT ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB050062が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CSECT と OSKB050062 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB050062 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.2 (神居俊哉 / 髙尾司) [zOS31_ieab200] [zOS31_ikjb600]
+
+
+
+### DSECT {#c03-i0473}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+DSECTは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Dummy Section。アドレス定義のみのテンプレート (実体なし) (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? note "検証手順（1件）"
+    **DSECT**
+
+    - 検証目的: 呼出確認の制御命令: セクションについて、DSECT は、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Dummy Section。アドレス定義のみのテンプレート (実体に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020003の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、呼出確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDSECTを指定し、OSKB020003の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DSECT
+    CASE OSKB020003
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DSECT
+    CASE OSKB020003
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DSECTとOSKB020003が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020003を同じ出力で読み、呼出確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020003
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020003
+    ASMA90I DSECT ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020003が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DSECT と OSKB020003 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020003 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+### ENTRY label {#c03-i0474}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+ENTRY labelは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。外部エントリ点を宣言 (他モジュールから参照可) (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? note "検証手順（1件）"
+    **ENTRY label**
+
+    - 検証目的: 上書確認の制御命令: セクションについて、ENTRY labelは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。外部エントリ点を宣言 (他モジュールから参照可) (メに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020007の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、上書確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にENTRY labelを指定し、OSKB020007の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND ENTRY label
+    CASE OSKB020007
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM ENTRY label
+    CASE OSKB020007
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    ENTRY labelとOSKB020007が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020007を同じ出力で読み、上書確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020007
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020007
+    ASMA90I ENTRY label ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020007が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の ENTRY label と OSKB020007 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020007 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+### EXTRN label {#c03-i0475}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+EXTRN labelは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。外部参照を宣言。V 型定数では暗黙宣言 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? note "検証手順（1件）"
+    **EXTRN label**
+
+    - 検証目的: 出力確認の制御命令: セクションについて、EXTRN labelは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。外部参照を宣言。V 型定数では暗黙宣言 (メインフレーに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020008の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、出力確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にEXTRN labelを指定し、OSKB020008の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND EXTRN label
+    CASE OSKB020008
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM EXTRN label
+    CASE OSKB020008
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    EXTRN labelとOSKB020008が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020008を同じ出力で読み、出力確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020008
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020008
+    ASMA90I EXTRN label ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020008が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の EXTRN label と OSKB020008 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020008 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+### RSECT {#c03-i0476}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+RSECTは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Reentrant Section。再入可能を強制宣言。書込検出時エラー (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 / 髙尾司) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? question "確認問題（1問）"
+    **問題.** 探索検査の制御命令: セクションで RSECT の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. RSECT の出力を取らず探索検査の制御命令: セクションの説明文と承認印だけを残す。
+    - B. ST OSKBASM で得た表示本文を使い、探索検査の採否を説明欄に結び付ける。 ✅
+    - C. ST OSKBASM を省略して探索検査の制御命令: セクションの記録番号と時刻だけを残す。
+    - D. 隣接項目の結果を探索検査の制御命令: セクションへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索検査正解では選択記号 B を採用し、正解名は探索検査正解です。探索検査根拠では RSECT は「探索検査の制御命令: セクションに関係する定義値と表示行を照合する探索検査項目」と ST OSKBASM または該当パネルの出力を照合し、根拠名は探索検査根拠です。探索検査追跡では RSECT の属性行と ASMA90I を合わせ、追跡名は探索検査追跡です。誤答側の問題点を分けます。 A: 探索検査不足は名称や説明だけに寄り、判定名は探索検査不足です。 B: 探索検査正答は対象出力と項目説明を結び、根拠名は探索検査正答です。 C: 探索検査欠落は戻り値や記録番号に寄り、欠落名は探索検査欠落です。 D: 探索検査流用は別カテゴリの確認であり、排除名は探索検査流用です。探索検査初出では RSECT を Assembler / システム・プログラミングの運用手順で確認し、初出名は探索検査初出です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **RSECT**
+
+    - 検証目的: 置換確認の制御命令: セクションについて、RSECT は、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Reentrant Section。再入可能を強制宣言。書込検出時に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020004の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、置換確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にRSECTを指定し、OSKB020004の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND RSECT
+    CASE OSKB020004
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM RSECT
+    CASE OSKB020004
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    RSECTとOSKB020004が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020004を同じ出力で読み、置換確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020004
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020004
+    ASMA90I RSECT ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020004が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の RSECT と OSKB020004 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020004 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 / 髙尾司) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+### START 0 {#c03-i0477}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+START 0は、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。プログラム開始 (旧形式)。CSECT 相当 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? note "検証手順（1件）"
+    **START 0**
+
+    - 検証目的: 探索確認の制御命令: セクションについて、START 0は、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。プログラム開始 (旧形式)。CSECT 相当 (メインフレームに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020006の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、探索確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にSTART 0を指定し、OSKB020006の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND START 0
+    CASE OSKB020006
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM START 0
+    CASE OSKB020006
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    START 0とOSKB020006が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020006を同じ出力で読み、探索確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020006
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020006
+    ASMA90I START 0 ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020006が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の START 0 と OSKB020006 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020006 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+### WXTRN label {#c03-i0478}
+*分類: 制御命令: セクション*  ・  難易度: 上級
+
+WXTRN labelは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Weak External Reference。未解決でもリンクエラーにしない (メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉/髙尾司) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 / 髙尾司) [zOS31_cbcux01] [zOS31_ieac500]
+
+??? note "検証手順（1件）"
+    **WXTRN label**
+
+    - 検証目的: 条件確認の制御命令: セクションについて、WXTRN labelは、Assembler / システム・プログラミングの制御命令: セクションで確認する項目です。Weak External Reference。未解決に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB020009の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、条件確認の制御命令: セクションの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にWXTRN labelを指定し、OSKB020009の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND WXTRN label
+    CASE OSKB020009
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM WXTRN label
+    CASE OSKB020009
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    WXTRN labelとOSKB020009が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB020009を同じ出力で読み、条件確認の制御命令: セクションの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB020009
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB020009
+    ASMA90I WXTRN label ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB020009が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の WXTRN label と OSKB020009 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB020009 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、アドバンスドスキル Vol.1 (神居俊哉 / 髙尾司) [zOS31_cbcux01] [zOS31_ieac500]
+
+
+
+
+## Assembler / システム・プログラミング > 命令: 10進
+
+### AP addr1(l1),addr2(l2) {#c03-i0479}
+*分類: 命令: 10進*  ・  難易度: 上級
+
+AP addr1(l1),addr2(l2)は、Assembler / システム・プログラミングの命令: 10進で機能名、見出し、または確認対象として参照する項目です。Add Packed。パック 10 進加算 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+??? question "確認問題（1問）"
+    **問題.** 比較確認の命令: 進で AP addr1 属性の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. AP addr1 属性の出力を取らず比較確認の命令: 進の説明文と承認印のみを残す。
+    - B. 属性行、戻り表示、メッセージ見出しを合わせて比較確認の根拠にする。 ✅
+    - C. ST OSKBASM を省略して比較確認の命令: 進の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を比較確認の命令: 進へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 比較確認の命令: 進において選択記号 B を採用し、識別名は比較確認です。比較確認の命令: 進において AP addr1 属性 は説明欄の「比較確認の命令: 進に関係する定義値と表示行を照合する比較確認項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は比較確認です。比較確認の命令: 進の証跡を読む担当者は、AP addr1 属性の属性行と ASMA90I を合わせて追跡し、背景名は比較確認です。誤答側の問題点を分けます。 A: 比較確認の命令: 進は名称や説明のみに寄り、状態を示す出力本文が不足するため比較確認ではありません。 B: 比較確認の命令: 進は対象出力と項目説明を結び、根拠を残すので比較確認です。 C: 比較確認の命令: 進は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため比較確認ではありません。 D: 比較確認の命令: 進は別カテゴリの確認を流用しており、AP addr1 属性の根拠にならないため比較確認ではありません。比較確認の命令: 進に出る AP addr1 属性は Assembler / システム・プログラミングの運用手順で意味を確認する対象であり、用語名は比較確認です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **AP addr1(l1),addr2(l2)**
+
+    - 検証目的: 警告検査の命令: 進について、AP addr1(l1),addr2(l2)は、Assembler / システム・プログラミングの命令: 10進で機能名、見出し、または確認対象として参照する項目です。Adに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010077の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、警告検査の命令: 進の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にAP addr1(l1),addr2を指定し、OSKB010077の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND AP addr1(l1),addr2
+    CASE OSKB010077
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM AP addr1(l1),addr2
+    CASE OSKB010077
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    AP addr1(l1),addr2とOSKB010077が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010077を同じ出力で読み、警告検査の命令: 進の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010077
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010077
+    ASMA90I AP addr1(l1),addr2(l2) ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010077が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の AP addr1(l1),addr2 と OSKB010077 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010077 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+
+
+### CP addr1(l1),addr2(l2) {#c03-i0480}
+*分類: 命令: 10進*  ・  難易度: 上級
+
+Compare Packed。CC 設定 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+??? question "確認問題（1問）"
+    **問題.** 監査確認の命令: 進でアセンブラーの運用確認を行います。CP addr1 属性の根拠にできる作業はどれですか。
+
+    - A. HLASM and z/OS System Programmingと無関係な一覧で監査確認の命令: 進を確認した扱いにする。
+    - B. ASMA90I の有無を確認せず監査確認の命令: 進を正常終了として記録する。
+    - C. HLASM and z/OS System Programmingの表示形式に沿って根拠行を採り、監査確認の点検結果を残す。 ✅
+    - D. CP addr1 属性の属性行を読まず監査確認の命令: 進の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査確認の命令: 進において選択記号 C を採用し、識別名は監査確認です。監査確認の命令: 進において CP addr1 属性 は説明欄の「HLASM and z/OS System Programmingで CP addr1 属性の扱いを記録する監査確認項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認の命令: 進を受け取る担当者は、CP addr1 属性の表示結果と ASMA90I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認の命令: 進は別カテゴリの確認を流用しており、CP addr1 属性の根拠にならないため監査確認ではありません。 B: 監査確認の命令: 進は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため監査確認ではありません。 C: 監査確認の命令: 進は対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認の命令: 進は名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認の命令: 進が示す CP addr1 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（2件）"
+    **CP addr1(l1),addr2(l2)**
+
+    - 検証目的: 復旧確認の命令: 進について、Compare Packed。CC 設定 (メインフレーム実践 (神居俊哉)、MFOS 入門 (アルテシード) 由来 + 出典: HLASM Language Referenに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB060018の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、復旧確認の命令: 進の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCP addr1(l1),addr2を指定し、OSKB060018の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CP addr1(l1),addr2
+    CASE OSKB060018
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CP addr1(l1),addr2
+    CASE OSKB060018
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CP addr1(l1),addr2とOSKB060018が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB060018を同じ出力で読み、復旧確認の命令: 進の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB060018
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB060018
+    ASMA90I CP addr1(l1),addr2(l2) ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB060018が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CP addr1(l1),addr2 と OSKB060018 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB060018 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+    ---
+
+    **CP addr1(l1),addr2(l2)**
+
+    - 検証目的: 展開判定の命令: 進について、Compare Packed。CC 設定 (メインフレーム実践 (神居俊哉)、MFOS 入門 (アルテシード) 由来 + 出典: HLASM Language Referenに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010082の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、展開判定の命令: 進の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCP addr1(l1),addr2を指定し、OSKB010082の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CP addr1(l1),addr2
+    CASE OSKB010082
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CP addr1(l1),addr2
+    CASE OSKB010082
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CP addr1(l1),addr2とOSKB010082が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010082を同じ出力で読み、展開判定の命令: 進の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010082
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010082
+    ASMA90I CP addr1(l1),addr2(l2) ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010082が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CP addr1(l1),addr2 と OSKB010082 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010082 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+
+
+### CVB R1,addr {#c03-i0481}
+*分類: 命令: 10進*  ・  難易度: 上級
+
+CVB R1,addrは、Assembler / システム・プログラミングの命令: 10進で確認する項目です。Convert to Binary。8 バイトパック から R1 の 2 進整数 (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+??? question "確認問題（1問）"
+    **問題.** 優先確認の命令: 進に関する CVB R1,addrの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. ST OSKBASM の結果を残さず優先確認の命令: 進の担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先確認の命令: 進の証跡として保存して根拠にする。
+    - C. CVB R1,addrの変更点を出力本文から切り離して優先確認の命令: 進の承認欄のみ残す。
+    - D. ST OSKBASM の結果から対象行を抜き出し、優先確認の証跡として残す。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 優先確認の命令: 進において選択記号 D を採用し、識別名は優先確認です。優先確認の命令: 進において CVB R1,addr は説明欄の「CVB R1,addrの状態と出力メッセージを結び付ける優先確認項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は優先確認です。優先確認の命令: 進に関する記録は、CVB R1,addrの出力行と ASMA90I を一緒に保存し、背景名は優先確認です。選択肢ごとの違いを示します。 A: 優先確認の命令: 進は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため優先確認ではありません。 B: 優先確認の命令: 進は別カテゴリの確認を流用しており、CVB R1,addrの根拠にならないため優先確認ではありません。 C: 優先確認の命令: 進は名称や説明のみに寄り、状態を示す出力本文が不足するため優先確認ではありません。 D: 優先確認の命令: 進は対象出力と項目説明を結び、根拠を残すので優先確認です。優先確認の命令: 進で記録する CVB R1,addrは HLASM and z/OS System Programmingの確認記録に残す対象名であり、用語名は優先確認です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **CVB R1,addr**
+
+    - 検証目的: 順序検査の命令: 進について、CVB R1,addrは、Assembler / システム・プログラミングの命令: 10進で確認する項目です。Convert to Binary。8 バイトパック から Rに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010075の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、順序検査の命令: 進の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCVB R1,addrを指定し、OSKB010075の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CVB R1,addr
+    CASE OSKB010075
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CVB R1,addr
+    CASE OSKB010075
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CVB R1,addrとOSKB010075が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010075を同じ出力で読み、順序検査の命令: 進の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010075
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010075
+    ASMA90I CVB R1,addr ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010075が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CVB R1,addr と OSKB010075 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010075 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+
+
+### CVD R1,addr {#c03-i0482}
+*分類: 命令: 10進*  ・  難易度: 上級
+
+CVD R1,addrは、Assembler / システム・プログラミングの命令: 10進で確認する項目です。Convert to Decimal。R1 の 2 進整数 から 8 バイトパック (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+??? question "確認問題（1問）"
+    **問題.** 記録確認の命令: 進に関係する CVD R1,addrの設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 出典欄の説明と運用出力を照合し、記録確認の確認記録にまとめる。 ✅
+    - B. CVD R1,addrの名称と担当者名のみを残して記録確認の命令: 進の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で記録確認の命令: 進を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず記録確認の命令: 進の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 記録確認の命令: 進において選択記号 A を採用し、識別名は記録確認です。記録確認の命令: 進において CVD R1,addr は説明欄の「CVD R1,addrの用途をアセンブラーの表示で確認する記録確認項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は記録確認です。記録確認の命令: 進に関連して、HLASM and z/OS System Programmingでは CVD R1,addrの表示属性と ASMA90I を同じ証跡に残し、背景名は記録確認です。他の選択肢を確認します。 A: 記録確認の命令: 進は対象出力と項目説明を結び、根拠を残すので記録確認です。 B: 記録確認の命令: 進は名称や説明のみに寄り、状態を示す出力本文が不足するため記録確認ではありません。 C: 記録確認の命令: 進は別カテゴリの確認を流用しており、CVD R1,addrの根拠にならないため記録確認ではありません。 D: 記録確認の命令: 進は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため記録確認ではありません。記録確認の命令: 進で使う CVD R1,addrという用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は記録確認です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **CVD R1,addr**
+
+    - 検証目的: 値域検査の命令: 進について、CVD R1,addrは、Assembler / システム・プログラミングの命令: 10進で確認する項目です。Convert to Decimal。R1 の 2 進整数 かに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010076の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、値域検査の命令: 進の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にCVD R1,addrを指定し、OSKB010076の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND CVD R1,addr
+    CASE OSKB010076
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM CVD R1,addr
+    CASE OSKB010076
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    CVD R1,addrとOSKB010076が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010076を同じ出力で読み、値域検査の命令: 進の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010076
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010076
+    ASMA90I CVD R1,addr ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010076が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の CVD R1,addr と OSKB010076 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010076 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+
+
+### DP addr1(l1),addr2(l2) {#c03-i0483}
+*分類: 命令: 10進*  ・  難易度: 上級
+
+DP addr1(l1),addr2(l2)は、Assembler / システム・プログラミングの命令: 10進で確認する項目です。Divide Packed。商と剰余が結果領域に並ぶ (メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) 由来 + 出典: HLASM Language Reference / z/OS MVS Assembler Services、)
+
+**出典:** メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+??? question "確認問題（1問）"
+    **問題.** 警告確認の命令: 進に関係する DP addr1 属性の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 資料上の説明と画面上の表示行を突き合わせ、警告確認として引き継ぐ。 ✅
+    - B. DP addr1 属性の名称と担当者名のみを残して警告確認の命令: 進の表示本文を確認対象に含めない。
+    - C. アセンブラー以外の画面で警告確認の命令: 進を確認し同じ証跡として扱ったことにする。
+    - D. ASMA90I の有無を見ず警告確認の命令: 進の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 警告確認の命令: 進において選択記号 A を採用し、識別名は警告確認です。警告確認の命令: 進において DP addr1 属性 は説明欄の「DP addr1 属性の用途をアセンブラーの表示で確認する警告確認項目」と ST OSKBASM または該当パネルの出力を照合する対象で、答え名は警告確認です。警告確認の命令: 進に関連して、HLASM and z/OS System Programmingでは DP addr1 属性の表示属性と ASMA90I を同じ証跡に残し、背景名は警告確認です。他の選択肢を確認します。 A: 警告確認の命令: 進は対象出力と項目説明を結び、根拠を残すので警告確認です。 B: 警告確認の命令: 進は名称や説明のみに寄り、状態を示す出力本文が不足するため警告確認ではありません。 C: 警告確認の命令: 進は別カテゴリの確認を流用しており、DP addr1 属性の根拠にならないため警告確認ではありません。 D: 警告確認の命令: 進は戻り値や記録番号に寄り、ASMA90I や属性表示を落とすため警告確認ではありません。警告確認の命令: 進で使う DP addr1 属性という用語は Assembler / システム・プログラミングで扱う確認対象であり、用語名は警告確認です。
+
+    **出典:** zOS31_asma90 / zOS31_ieav100 / zOS31_ieam400
+
+
+??? note "検証手順（1件）"
+    **DP addr1(l1),addr2(l2)**
+
+    - 検証目的: 変更検査の命令: 進について、DP addr1(l1),addr2(l2)は、Assembler / システム・プログラミングの命令: 10進で確認する項目です。Divide Packed。商と剰余が結に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SDSFまたは関連TSO/コンソールを参照でき、OSKB010080の検証用出力を記録できる。
+    - セッション環境: SDSFでST OSKBASMを実行し、ASMA90Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSDSFのコマンド入力画面です。COMMAND INPUT ===> に ST OSKBASM を入力し、変更検査の命令: 進の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST OSKBASM
+    ```
+
+    COMMAND INPUTにST OSKBASMが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFの表示結果です。FIND欄にDP addr1(l1),addr2を指定し、OSKB010080の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SDSF Result)
+    COMMAND INPUT ===> FIND DP addr1(l1),addr2
+    CASE OSKB010080
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Result)
+    ITEM DP addr1(l1),addr2
+    CASE OSKB010080
+    SOURCE HLASM and z/OS System Programming
+    ```
+
+    DP addr1(l1),addr2とOSKB010080が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSDSFの詳細表示です。ASMA90IとOSKB010080を同じ出力で読み、変更検査の命令: 進の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SDSF Detail)
+    COMMAND INPUT ===> ST OSKBASM
+    CASE OSKB010080
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SDSF OUTPUT FOR OSKB010080
+    ASMA90I DP addr1(l1),addr2(l2) ASSEMBLY OR BINDER DIAGNOSTIC
+    IEW2646I 4 ESD/XSD PROCESSING COMPLETED
+    IEW2456I 0 SYMBOL RESOLUTION COMPLETED
+    ```
+
+    ASMA90IとOSKB010080が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST OSKBASM が画面・出力に表示されること
+    ② ステップ2 の DP addr1(l1),addr2 と OSKB010080 が画面・出力に表示されること
+    ③ ステップ3 の ASMA90I と OSKB010080 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: メインフレーム実践 (神居俊哉)、MFOS入門 (アルテシード) [zOS31_cbcpx01]
+
+

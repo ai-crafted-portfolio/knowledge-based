@@ -1,0 +1,3944 @@
+---
+search:
+  exclude: true
+---
+
+# SMP/E / SMF / WLM — 詳細 (4/4)
+
+[← SMP/E / SMF / WLM の概要へ戻る](index.md)
+
+
+## SMP/E / SMF / WLM > WLM 運用コマンド
+
+### D WLM {#c28-i0377}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+D WLMは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 呼出検査の運用コマンドで保守管理の運用確認を行います。D WLM の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で呼出検査の運用コマンドを確認した扱いにする。
+    - B. IWM025I の有無を確認せず呼出検査の運用コマンドを正常終了として記録する。
+    - C. 対象の出力行とメッセージ接頭辞を同時に記録し、呼出検査で再確認できる形にする。 ✅
+    - D. D WLM の属性行を読まず呼出検査の運用コマンドの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 呼出検査の運用コマンドにおいて選択記号 C を採用し、識別名は呼出検査です。呼出検査の運用コマンドにおいて D WLM は説明欄の「SMP/E SMF WLM で D WLM の扱いを記録する呼出検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出検査です。呼出検査の運用コマンドを受け取る担当者は、D WLM の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出検査です。不適切な選択肢を整理します。 A: 呼出検査の運用コマンドは別カテゴリの確認を流用しており、D WLM の根拠にならないため呼出検査ではありません。 B: 呼出検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出検査ではありません。 C: 呼出検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので呼出検査です。 D: 呼出検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため呼出検査ではありません。呼出検査の運用コマンドが示す D WLM は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **D WLM**
+
+    - 検証目的: 値域記録の運用コマンドについて、D WLM は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030136の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、値域記録の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にD WLMを指定し、OSKB030136の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND D WLM
+    CASE OSKB030136
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM D WLM
+    CASE OSKB030136
+    SOURCE SMP/E SMF WLM
+    ```
+
+    D WLMとOSKB030136が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030136を同じ出力で読み、値域記録の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030136
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030136
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I D WLM REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030136が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の D WLM と OSKB030136 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030136 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### D WLM,APPLENV=* {#c28-i0378}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+D WLM,APPLENV=*は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 終端検査の*に関係する D WLM,APPLENV=*の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 参照資料名、表示行、メッセージをそろえて終端検査の根拠を固定する。 ✅
+    - B. D WLM,APPLENV=*の名称と担当者名のみを残して終端検査の*の表示本文を確認対象に含めない。
+    - C. 保守管理以外の画面で終端検査の*を確認し同じ証跡として扱ったことにする。
+    - D. IWM025I の有無を見ず終端検査の*の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 終端検査の*において選択記号 A を採用し、識別名は終端検査です。終端検査の*において D WLM,APPLENV=* は説明欄の「D WLM,APPLENV=*の用途を保守管理の表示で確認する終端検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端検査です。終端検査の*に関連して、SMP/E SMF WLM では D WLM,APPLENV=*の表示属性と IWM025I を同じ証跡に残し、背景名は終端検査です。他の選択肢を確認します。 A: 終端検査の*は対象出力と項目説明を結び、根拠を残すので終端検査です。 B: 終端検査の*は名称や説明のみに寄り、状態を示す出力本文が不足するため終端検査ではありません。 C: 終端検査の*は別カテゴリの確認を流用しており、D WLM,APPLENV=*の根拠にならないため終端検査ではありません。 D: 終端検査の*は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端検査ではありません。終端検査の*で使う D WLM,APPLENV=*という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **D WLM,APPLENV=***
+
+    - 検証目的: 復旧記録の*について、D WLM,APPLENV=*は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030138の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、復旧記録の*の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にD WLM,APPLENV=*を指定し、OSKB030138の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND D WLM,APPLENV=*
+    CASE OSKB030138
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM D WLM,APPLENV=*
+    CASE OSKB030138
+    SOURCE SMP/E SMF WLM
+    ```
+
+    D WLM,APPLENV=*とOSKB030138が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030138を同じ出力で読み、復旧記録の*の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030138
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030138
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I D WLM,APPLENV=* REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030138が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の D WLM,APPLENV=* と OSKB030138 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030138 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### D WLM,RESOURCE=* {#c28-i0379}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+D WLM,RESOURCE=*は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 上書検査の*で保守管理の運用確認を行います。D WLM,RESOURCE=*の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で上書検査の*を確認した扱いにする。
+    - B. IWM025I の有無を確認せず上書検査の*を正常終了として記録する。
+    - C. D WLM,SYSTEMS の結果から対象行を抜き出し、上書検査の証跡として残す。 ✅
+    - D. D WLM,RESOURCE=*の属性行を読まず上書検査の*の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 上書検査の*において選択記号 C を採用し、識別名は上書検査です。上書検査の*において D WLM,RESOURCE=* は説明欄の「SMP/E SMF WLM で D WLM,RESOURCE=*の扱いを記録する上書検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は上書検査です。上書検査の*を受け取る担当者は、D WLM,RESOURCE=*の表示結果と IWM025I を同じ確認単位として扱い、背景名は上書検査です。不適切な選択肢を整理します。 A: 上書検査の*は別カテゴリの確認を流用しており、D WLM,RESOURCE=*の根拠にならないため上書検査ではありません。 B: 上書検査の*は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため上書検査ではありません。 C: 上書検査の*は対象出力と項目説明を結び、根拠を残すので上書検査です。 D: 上書検査の*は名称や説明のみに寄り、状態を示す出力本文が不足するため上書検査ではありません。上書検査の*が示す D WLM,RESOURCE=*は出典欄の資料で使い方を追跡できる項目であり、用語名は上書検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **D WLM,RESOURCE=***
+
+    - 検証目的: 変更記録の*について、D WLM,RESOURCE=*は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示されるに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030140の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、変更記録の*の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にD WLM,RESOURCE=*を指定し、OSKB030140の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND D WLM,RESOURCE=*
+    CASE OSKB030140
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM D WLM,RESOURCE=*
+    CASE OSKB030140
+    SOURCE SMP/E SMF WLM
+    ```
+
+    D WLM,RESOURCE=*とOSKB030140が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030140を同じ出力で読み、変更記録の*の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030140
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030140
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I D WLM,RESOURCE=* REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030140が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の D WLM,RESOURCE=* と OSKB030140 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030140 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### D WLM,SCHENV=* {#c28-i0380}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+D WLM,SCHENV=*は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 探索検査の*で D WLM,SCHENV=*の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. D WLM,SCHENV=*の出力を取らず探索検査の*の説明文と承認印のみを残す。
+    - B. IWM025I を含む表示を保存し、説明欄との差分を探索検査で確認する。 ✅
+    - C. D WLM,SYSTEMS を省略して探索検査の*の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索検査の*へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索検査の*において選択記号 B を採用し、識別名は探索検査です。探索検査の*において D WLM,SCHENV=* は説明欄の「探索検査の*に関係する定義値と表示行を照合する探索検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索検査です。探索検査の*の証跡を読む担当者は、D WLM,SCHENV=*の属性行と IWM025I を合わせて追跡し、背景名は探索検査です。誤答側の問題点を分けます。 A: 探索検査の*は名称や説明のみに寄り、状態を示す出力本文が不足するため探索検査ではありません。 B: 探索検査の*は対象出力と項目説明を結び、根拠を残すので探索検査です。 C: 探索検査の*は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索検査ではありません。 D: 探索検査の*は別カテゴリの確認を流用しており、D WLM,SCHENV=*の根拠にならないため探索検査ではありません。探索検査の*に出る D WLM,SCHENV=*は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **D WLM,SCHENV=***
+
+    - 検証目的: 監査記録の*について、D WLM,SCHENV=*は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030139の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、監査記録の*の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にD WLM,SCHENV=*を指定し、OSKB030139の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND D WLM,SCHENV=*
+    CASE OSKB030139
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM D WLM,SCHENV=*
+    CASE OSKB030139
+    SOURCE SMP/E SMF WLM
+    ```
+
+    D WLM,SCHENV=*とOSKB030139が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030139を同じ出力で読み、監査記録の*の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030139
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030139
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I D WLM,SCHENV=* REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030139が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の D WLM,SCHENV=* と OSKB030139 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030139 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### D WLM,SYSTEMS {#c28-i0381}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+D WLM,SYSTEMSは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 置換検査の運用コマンドに関する D WLM,SYSTEMS の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず置換検査の運用コマンドの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを置換検査の運用コマンドの証跡として保存して根拠にする。
+    - C. D WLM,SYSTEMS の変更点を出力本文から切り離して置換検査の運用コマンドの承認欄のみ残す。
+    - D. 机上確認でも実出力の見出しに合わせ、置換検査の確認値として扱う。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 置換検査の運用コマンドにおいて選択記号 D を採用し、識別名は置換検査です。置換検査の運用コマンドにおいて D WLM,SYSTEMS は説明欄の「D WLM,SYSTEMS の状態と出力メッセージを結び付ける置換検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は置換検査です。置換検査の運用コマンドに関する記録は、D WLM,SYSTEMS の出力行と IWM025I を一緒に保存し、背景名は置換検査です。選択肢ごとの違いを示します。 A: 置換検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため置換検査ではありません。 B: 置換検査の運用コマンドは別カテゴリの確認を流用しており、D WLM,SYSTEMS の根拠にならないため置換検査ではありません。 C: 置換検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため置換検査ではありません。 D: 置換検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので置換検査です。置換検査の運用コマンドで記録する D WLM,SYSTEMS は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は置換検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **D WLM,SYSTEMS**
+
+    - 検証目的: 警告記録の運用コマンドについて、D WLM,SYSTEMS は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態のに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030137の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、警告記録の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にD WLM,SYSTEMSを指定し、OSKB030137の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND D WLM,SYSTEMS
+    CASE OSKB030137
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM D WLM,SYSTEMS
+    CASE OSKB030137
+    SOURCE SMP/E SMF WLM
+    ```
+
+    D WLM,SYSTEMSとOSKB030137が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030137を同じ出力で読み、警告記録の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030137
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030137
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I D WLM,SYSTEMS REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030137が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の D WLM,SYSTEMS と OSKB030137 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030137 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### Discretionary 利用シーン {#c28-i0382}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+Discretionary 利用シーンは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 変更検査の利用シーンに関する Discretionary 利用シーンの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず変更検査の利用シーンの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更検査の利用シーンの証跡として保存して根拠にする。
+    - C. Discretionary 利用シーンの変更点を出力本文から切り離して変更検査の利用シーンの承認欄のみ残す。
+    - D. 出典欄の説明と運用出力を照合し、変更検査の確認記録にまとめる。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 変更検査の利用シーンにおいて選択記号 D を採用し、識別名は変更検査です。変更検査の利用シーンにおいて Discretionary 利用シーン は説明欄の「Discretionary 利用シーンの状態と出力メッセージを結び付ける変更検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は変更検査です。変更検査の利用シーンに関する記録は、Discretionary 利用シーンの出力行と IWM025I を一緒に保存し、背景名は変更検査です。選択肢ごとの違いを示します。 A: 変更検査の利用シーンは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため変更検査ではありません。 B: 変更検査の利用シーンは別カテゴリの確認を流用しており、Discretionary 利用シーンの根拠にならないため変更検査ではありません。 C: 変更検査の利用シーンは名称や説明のみに寄り、状態を示す出力本文が不足するため変更検査ではありません。 D: 変更検査の利用シーンは対象出力と項目説明を結び、根拠を残すので変更検査です。変更検査の利用シーンで記録する Discretionary 利用シーンは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は変更検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **Discretionary 利用シーン**
+
+    - 検証目的: 記録分離の利用シーンについて、Discretionary 利用シーンは、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030153の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、記録分離の利用シーンの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にDiscretionary 利用シーを指定し、OSKB030153の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND Discretionary 利用シー
+    CASE OSKB030153
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM Discretionary 利用シー
+    CASE OSKB030153
+    SOURCE SMP/E SMF WLM
+    ```
+
+    Discretionary 利用シーとOSKB030153が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030153を同じ出力で読み、記録分離の利用シーンの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030153
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030153
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I Discretionary 利用シーン REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030153が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の Discretionary 利用シー と OSKB030153 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030153 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### ENF 41 Listener {#c28-i0383}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+ENF 41 Listenerは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 順序検査の運用コマンドで保守管理の運用確認を行います。ENF 41 Listenerの根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で順序検査の運用コマンドを確認した扱いにする。
+    - B. IWM025I の有無を確認せず順序検査の運用コマンドを正常終了として記録する。
+    - C. 対象の出力行とメッセージ接頭辞を同時に記録し、順序検査で再確認できる形にする。 ✅
+    - D. ENF 41 Listenerの属性行を読まず順序検査の運用コマンドの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 順序検査の運用コマンドにおいて選択記号 C を採用し、識別名は順序検査です。順序検査の運用コマンドにおいて ENF 41 Listener は説明欄の「SMP/E SMF WLM で ENF 41 Listenerの扱いを記録する順序検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序検査です。順序検査の運用コマンドを受け取る担当者は、ENF 41 Listenerの表示結果と IWM025I を同じ確認単位として扱い、背景名は順序検査です。不適切な選択肢を整理します。 A: 順序検査の運用コマンドは別カテゴリの確認を流用しており、ENF 41 Listenerの根拠にならないため順序検査ではありません。 B: 順序検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序検査ではありません。 C: 順序検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので順序検査です。 D: 順序検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため順序検査ではありません。順序検査の運用コマンドが示す ENF 41 Listenerは出典欄の資料で使い方を追跡できる項目であり、用語名は順序検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **ENF 41 Listener**
+
+    - 検証目的: 出力分離の運用コマンドについて、ENF 41 Listenerは、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030148の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、出力分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にENF 41 Listenerを指定し、OSKB030148の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND ENF 41 Listener
+    CASE OSKB030148
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM ENF 41 Listener
+    CASE OSKB030148
+    SOURCE SMP/E SMF WLM
+    ```
+
+    ENF 41 ListenerとOSKB030148が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030148を同じ出力で読み、出力分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030148
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030148
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I ENF 41 Listener REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030148が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の ENF 41 Listener と OSKB030148 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030148 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### ENF 57 Listener {#c28-i0384}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+ENF 57 Listenerは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 値域検査の運用コマンドに関する ENF 57 Listenerの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず値域検査の運用コマンドの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを値域検査の運用コマンドの証跡として保存して根拠にする。
+    - C. ENF 57 Listenerの変更点を出力本文から切り離して値域検査の運用コマンドの承認欄のみ残す。
+    - D. 机上確認でも実出力の見出しに合わせ、値域検査の確認値として扱う。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 値域検査の運用コマンドにおいて選択記号 D を採用し、識別名は値域検査です。値域検査の運用コマンドにおいて ENF 57 Listener は説明欄の「ENF 57 Listenerの状態と出力メッセージを結び付ける値域検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は値域検査です。値域検査の運用コマンドに関する記録は、ENF 57 Listenerの出力行と IWM025I を一緒に保存し、背景名は値域検査です。選択肢ごとの違いを示します。 A: 値域検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため値域検査ではありません。 B: 値域検査の運用コマンドは別カテゴリの確認を流用しており、ENF 57 Listenerの根拠にならないため値域検査ではありません。 C: 値域検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため値域検査ではありません。 D: 値域検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので値域検査です。値域検査の運用コマンドで記録する ENF 57 Listenerは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は値域検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **ENF 57 Listener**
+
+    - 検証目的: 条件分離の運用コマンドについて、ENF 57 Listenerは、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030149の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、条件分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にENF 57 Listenerを指定し、OSKB030149の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND ENF 57 Listener
+    CASE OSKB030149
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM ENF 57 Listener
+    CASE OSKB030149
+    SOURCE SMP/E SMF WLM
+    ```
+
+    ENF 57 ListenerとOSKB030149が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030149を同じ出力で読み、条件分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030149
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030149
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I ENF 57 Listener REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030149が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の ENF 57 Listener と OSKB030149 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030149 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### F WLM,APPLENV=...,REFRESH {#c28-i0385}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+F WLM,APPLENV=...,REFRESHは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+### F WLM,MODE=GOAL {#c28-i0386}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+F WLM,MODE=GOALは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 区切検査の運用コマンドで F WLM,MODE=GOAL の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. F WLM,MODE=GOAL の出力を取らず区切検査の運用コマンドの説明文と承認印のみを残す。
+    - B. 同じ画面で対象行と IWM025I を読み、区切検査の結果として保存する。 ✅
+    - C. D WLM,SYSTEMS を省略して区切検査の運用コマンドの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を区切検査の運用コマンドへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 区切検査の運用コマンドにおいて選択記号 B を採用し、識別名は区切検査です。区切検査の運用コマンドにおいて F WLM,MODE=GOAL は説明欄の「区切検査の運用コマンドに関係する定義値と表示行を照合する区切検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は区切検査です。区切検査の運用コマンドの証跡を読む担当者は、F WLM,MODE=GOAL の属性行と IWM025I を合わせて追跡し、背景名は区切検査です。誤答側の問題点を分けます。 A: 区切検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため区切検査ではありません。 B: 区切検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので区切検査です。 C: 区切検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため区切検査ではありません。 D: 区切検査の運用コマンドは別カテゴリの確認を流用しており、F WLM,MODE=GOAL の根拠にならないため区切検査ではありません。区切検査の運用コマンドに出る F WLM,MODE=GOAL は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は区切検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **F WLM,MODE=GOAL**
+
+    - 検証目的: 呼出分離の運用コマンドについて、F WLM,MODE=GOAL は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030143の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、呼出分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にF WLM,MODE=GOALを指定し、OSKB030143の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND F WLM,MODE=GOAL
+    CASE OSKB030143
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM F WLM,MODE=GOAL
+    CASE OSKB030143
+    SOURCE SMP/E SMF WLM
+    ```
+
+    F WLM,MODE=GOALとOSKB030143が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030143を同じ出力で読み、呼出分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030143
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030143
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I F WLM,MODE=GOAL REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030143が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の F WLM,MODE=GOAL と OSKB030143 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030143 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### Goal vs Velocity 選択 {#c28-i0387}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+Goal vs Velocity 選択は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。Goal vs Velocity 選択は、応答時間が測定できる Response Time、長時間バッチ Velocity。応答時間が測定できる → Response Time、長時間バッチ → Velocity
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 復旧検査の選択で Goal vs Velocity 選択の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. Goal vs Velocity 選択の出力を取らず復旧検査の選択の説明文と承認印のみを残す。
+    - B. IWM025I を含む表示を保存し、説明欄との差分を復旧検査で確認する。 ✅
+    - C. D WLM,SYSTEMS を省略して復旧検査の選択の記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を復旧検査の選択へ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 復旧検査の選択において選択記号 B を採用し、識別名は復旧検査です。復旧検査の選択において Goal vs Velocity 選択 は説明欄の「復旧検査の選択に関係する定義値と表示行を照合する復旧検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧検査です。復旧検査の選択の証跡を読む担当者は、Goal vs Velocity 選択の属性行と IWM025I を合わせて追跡し、背景名は復旧検査です。誤答側の問題点を分けます。 A: 復旧検査の選択は名称や説明のみに寄り、状態を示す出力本文が不足するため復旧検査ではありません。 B: 復旧検査の選択は対象出力と項目説明を結び、根拠を残すので復旧検査です。 C: 復旧検査の選択は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧検査ではありません。 D: 復旧検査の選択は別カテゴリの確認を流用しており、Goal vs Velocity 選択の根拠にならないため復旧検査ではありません。復旧検査の選択に出る Goal vs Velocity 選択は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **Goal vs Velocity 選択**
+
+    - 検証目的: 範囲分離の選択について、Goal vs Velocity 選択は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。Goal vs Veloに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030151の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、範囲分離の選択の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にGoal vs Velocity 選を指定し、OSKB030151の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND Goal vs Velocity 選
+    CASE OSKB030151
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM Goal vs Velocity 選
+    CASE OSKB030151
+    SOURCE SMP/E SMF WLM
+    ```
+
+    Goal vs Velocity 選とOSKB030151が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030151を同じ出力で読み、範囲分離の選択の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030151
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030151
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I Goal vs Velocity 選択 REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030151が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の Goal vs Velocity 選 と OSKB030151 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030151 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### PI (Performance Index) {#c28-i0388}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+PI (Performance Index)は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 監査追跡の運用コマンドで保守管理の運用確認を行います。PI 属性の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で監査追跡の運用コマンドを確認した扱いにする。
+    - B. IWM025I の有無を確認せず監査追跡の運用コマンドを正常終了として記録する。
+    - C. D WLM,SYSTEMS で得た表示本文を使い、監査追跡の採否を説明欄に結び付ける。 ✅
+    - D. PI 属性の属性行を読まず監査追跡の運用コマンドの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査追跡の運用コマンドにおいて選択記号 C を採用し、識別名は監査追跡です。監査追跡の運用コマンドにおいて PI 属性 は説明欄の「SMP/E SMF WLM で PI 属性の扱いを記録する監査追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査追跡です。監査追跡の運用コマンドを受け取る担当者は、PI 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は監査追跡です。不適切な選択肢を整理します。 A: 監査追跡の運用コマンドは別カテゴリの確認を流用しており、PI 属性の根拠にならないため監査追跡ではありません。 B: 監査追跡の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査追跡ではありません。 C: 監査追跡の運用コマンドは対象出力と項目説明を結び、根拠を残すので監査追跡です。 D: 監査追跡の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため監査追跡ではありません。監査追跡の運用コマンドが示す PI 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は監査追跡です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **PI (Performance Index)**
+
+    - 検証目的: 優先記録の運用コマンドについて、PI (Performance Index)は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030132の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、優先記録の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にPI (Performance Inを指定し、OSKB030132の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND PI (Performance In
+    CASE OSKB030132
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM PI (Performance In
+    CASE OSKB030132
+    SOURCE SMP/E SMF WLM
+    ```
+
+    PI (Performance InとOSKB030132が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030132を同じ出力で読み、優先記録の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030132
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030132
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I PI (Performance Index) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030132が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の PI (Performance In と OSKB030132 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030132 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### PI < 1.0 {#c28-i0389}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+PI < 1.0は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+### PI = 1.0 {#c28-i0390}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+PI = 1.0は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 変更追跡の運用コマンドに関する PI = 1.0の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず変更追跡の運用コマンドの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを変更追跡の運用コマンドの証跡として保存して根拠にする。
+    - C. PI = 1.0の変更点を出力本文から切り離して変更追跡の運用コマンドの承認欄のみ残す。
+    - D. 資料上の説明と画面上の表示行を突き合わせ、変更追跡として引き継ぐ。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 変更追跡の運用コマンドにおいて選択記号 D を採用し、識別名は変更追跡です。変更追跡の運用コマンドにおいて PI = 1.0 は説明欄の「PI = 1.0の状態と出力メッセージを結び付ける変更追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は変更追跡です。変更追跡の運用コマンドに関する記録は、PI = 1.0の出力行と IWM025I を一緒に保存し、背景名は変更追跡です。選択肢ごとの違いを示します。 A: 変更追跡の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため変更追跡ではありません。 B: 変更追跡の運用コマンドは別カテゴリの確認を流用しており、PI = 1.0の根拠にならないため変更追跡ではありません。 C: 変更追跡の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため変更追跡ではありません。 D: 変更追跡の運用コマンドは対象出力と項目説明を結び、根拠を残すので変更追跡です。変更追跡の運用コマンドで記録する PI = 1.0は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は変更追跡です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **PI = 1.0**
+
+    - 検証目的: 記録記録の運用コマンドについて、PI = 1.0は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030133の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、記録記録の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にPI = 1.0を指定し、OSKB030133の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND PI = 1.0
+    CASE OSKB030133
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM PI = 1.0
+    CASE OSKB030133
+    SOURCE SMP/E SMF WLM
+    ```
+
+    PI = 1.0とOSKB030133が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030133を同じ出力で読み、記録記録の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030133
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030133
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I PI = 1.0 REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030133が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の PI = 1.0 と OSKB030133 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030133 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### PI > 1.0 {#c28-i0391}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+PI 1 超.0は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+### RMF Monitor III SYSSUM {#c28-i0392}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+RMF Monitor III SYSSUMは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 優先検査の運用コマンドに関する RMF Monitor III SYSSUM の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず優先検査の運用コマンドの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先検査の運用コマンドの証跡として保存して根拠にする。
+    - C. RMF Monitor III SYSSUM の変更点を出力本文から切り離して優先検査の運用コマンドの承認欄のみ残す。
+    - D. 資料上の説明と画面上の表示行を突き合わせ、優先検査として引き継ぐ。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 優先検査の運用コマンドにおいて選択記号 D を採用し、識別名は優先検査です。優先検査の運用コマンドにおいて RMF Monitor III SYSSUM は説明欄の「RMF Monitor III SYSSUM の状態と出力メッセージを結び付ける優先検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先検査です。優先検査の運用コマンドに関する記録は、RMF Monitor III SYSSUM の出力行と IWM025I を一緒に保存し、背景名は優先検査です。選択肢ごとの違いを示します。 A: 優先検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先検査ではありません。 B: 優先検査の運用コマンドは別カテゴリの確認を流用しており、RMF Monitor III SYSSUM の根拠にならないため優先検査ではありません。 C: 優先検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため優先検査ではありません。 D: 優先検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので優先検査です。優先検査の運用コマンドで記録する RMF Monitor III SYSSUM は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **RMF Monitor III SYSSUM**
+
+    - 検証目的: 終端分離の運用コマンドについて、RMF Monitor III SYSSUM は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030145の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、終端分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にRMF Monitor III SYを指定し、OSKB030145の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND RMF Monitor III SY
+    CASE OSKB030145
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM RMF Monitor III SY
+    CASE OSKB030145
+    SOURCE SMP/E SMF WLM
+    ```
+
+    RMF Monitor III SYとOSKB030145が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030145を同じ出力で読み、終端分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030145
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030145
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I RMF Monitor III SYSSUM REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030145が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の RMF Monitor III SY と OSKB030145 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030145 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### RMF Monitor III WFEX {#c28-i0393}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+RMF Monitor III WFEXは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 記録検査の運用コマンドに関係する RMF Monitor III WFEX の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 操作結果の本文、対象行、時刻を同じ証跡に入れ、記録検査の確認にする。 ✅
+    - B. RMF Monitor III WFEX の名称と担当者名のみを残して記録検査の運用コマンドの表示本文を確認対象に含めない。
+    - C. 保守管理以外の画面で記録検査の運用コマンドを確認し同じ証跡として扱ったことにする。
+    - D. IWM025I の有無を見ず記録検査の運用コマンドの戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 記録検査の運用コマンドにおいて選択記号 A を採用し、識別名は記録検査です。記録検査の運用コマンドにおいて RMF Monitor III WFEX は説明欄の「RMF Monitor III WFEX の用途を保守管理の表示で確認する記録検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は記録検査です。記録検査の運用コマンドに関連して、SMP/E SMF WLM では RMF Monitor III WFEX の表示属性と IWM025I を同じ証跡に残し、背景名は記録検査です。他の選択肢を確認します。 A: 記録検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので記録検査です。 B: 記録検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため記録検査ではありません。 C: 記録検査の運用コマンドは別カテゴリの確認を流用しており、RMF Monitor III WFEX の根拠にならないため記録検査ではありません。 D: 記録検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため記録検査ではありません。記録検査の運用コマンドで使う RMF Monitor III WFEX という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は記録検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **RMF Monitor III WFEX**
+
+    - 検証目的: 探索分離の運用コマンドについて、RMF Monitor III WFEX は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030146の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、探索分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にRMF Monitor III WFを指定し、OSKB030146の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND RMF Monitor III WF
+    CASE OSKB030146
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM RMF Monitor III WF
+    CASE OSKB030146
+    SOURCE SMP/E SMF WLM
+    ```
+
+    RMF Monitor III WFとOSKB030146が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030146を同じ出力で読み、探索分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030146
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030146
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I RMF Monitor III WFEX REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030146が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の RMF Monitor III WF と OSKB030146 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030146 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### SMF 99 と WLM 内部 {#c28-i0394}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+SMF 99 と WLM 内部は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 警告検査のと 内部に関係する SMF 99 と WLM 内部の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 参照資料名、表示行、メッセージをそろえて警告検査の根拠を固定する。 ✅
+    - B. SMF 99 と WLM 内部の名称と担当者名のみを残して警告検査のと 内部の表示本文を確認対象に含めない。
+    - C. 保守管理以外の画面で警告検査のと 内部を確認し同じ証跡として扱ったことにする。
+    - D. IWM025I の有無を見ず警告検査のと 内部の戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 警告検査のと 内部において選択記号 A を採用し、識別名は警告検査です。警告検査のと 内部において SMF 99 と WLM 内部 は説明欄の「SMF 99 と WLM 内部の用途を保守管理の表示で確認する警告検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は警告検査です。警告検査のと 内部に関連して、SMP/E SMF WLM では SMF 99 と WLM 内部の表示属性と IWM025I を同じ証跡に残し、背景名は警告検査です。他の選択肢を確認します。 A: 警告検査のと 内部は対象出力と項目説明を結び、根拠を残すので警告検査です。 B: 警告検査のと 内部は名称や説明のみに寄り、状態を示す出力本文が不足するため警告検査ではありません。 C: 警告検査のと 内部は別カテゴリの確認を流用しており、SMF 99 と WLM 内部の根拠にならないため警告検査ではありません。 D: 警告検査のと 内部は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため警告検査ではありません。警告検査のと 内部で使う SMF 99 と WLM 内部という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は警告検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **SMF 99 と WLM 内部**
+
+    - 検証目的: 区切分離のと 内部について、SMF 99 と WLM 内部は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030150の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、区切分離のと 内部の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にSMF 99 と WLM 内部を指定し、OSKB030150の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND SMF 99 と WLM 内部
+    CASE OSKB030150
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM SMF 99 と WLM 内部
+    CASE OSKB030150
+    SOURCE SMP/E SMF WLM
+    ```
+
+    SMF 99 と WLM 内部とOSKB030150が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030150を同じ出力で読み、区切分離のと 内部の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030150
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030150
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I SMF 99 と WLM 内部 REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030150が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の SMF 99 と WLM 内部 と OSKB030150 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030150 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### V WLM,POLICY=name {#c28-i0395}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+V WLM,POLICY=nameは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 出力検査の運用コマンドに関する V WLM,POLICY=nameの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず出力検査の運用コマンドの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを出力検査の運用コマンドの証跡として保存して根拠にする。
+    - C. V WLM,POLICY=nameの変更点を出力本文から切り離して出力検査の運用コマンドの承認欄のみ残す。
+    - D. 出典欄の説明と運用出力を照合し、出力検査の確認記録にまとめる。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 出力検査の運用コマンドにおいて選択記号 D を採用し、識別名は出力検査です。出力検査の運用コマンドにおいて V WLM,POLICY=name は説明欄の「V WLM,POLICY=nameの状態と出力メッセージを結び付ける出力検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力検査です。出力検査の運用コマンドに関する記録は、V WLM,POLICY=nameの出力行と IWM025I を一緒に保存し、背景名は出力検査です。選択肢ごとの違いを示します。 A: 出力検査の運用コマンドは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力検査ではありません。 B: 出力検査の運用コマンドは別カテゴリの確認を流用しており、V WLM,POLICY=nameの根拠にならないため出力検査ではありません。 C: 出力検査の運用コマンドは名称や説明のみに寄り、状態を示す出力本文が不足するため出力検査ではありません。 D: 出力検査の運用コマンドは対象出力と項目説明を結び、根拠を残すので出力検査です。出力検査の運用コマンドで記録する V WLM,POLICY=nameは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **V WLM,POLICY=name**
+
+    - 検証目的: 構文分離の運用コマンドについて、V WLM,POLICY=nameは、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示されに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030141の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、構文分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にV WLM,POLICY=nameを指定し、OSKB030141の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND V WLM,POLICY=name
+    CASE OSKB030141
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM V WLM,POLICY=name
+    CASE OSKB030141
+    SOURCE SMP/E SMF WLM
+    ```
+
+    V WLM,POLICY=nameとOSKB030141が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030141を同じ出力で読み、構文分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030141
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030141
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I V WLM,POLICY=name REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030141が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の V WLM,POLICY=name と OSKB030141 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030141 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### V WLM,POLICY=name,REFRESH {#c28-i0396}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+V WLM,POLICY=name,REFRESHは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? note "検証手順（1件）"
+    **V WLM,POLICY=name,REFRESH**
+
+    - 検証目的: 展開分離の運用コマンドについて、V WLM,POLICY=name,REFRESH は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030142の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、展開分離の運用コマンドの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にV WLM,POLICY=name,を指定し、OSKB030142の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND V WLM,POLICY=name,
+    CASE OSKB030142
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM V WLM,POLICY=name,
+    CASE OSKB030142
+    SOURCE SMP/E SMF WLM
+    ```
+
+    V WLM,POLICY=name,とOSKB030142が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030142を同じ出力で読み、展開分離の運用コマンドの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030142
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030142
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I V WLM,POLICY=name,REFRES REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030142が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の V WLM,POLICY=name, と OSKB030142 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030142 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### Velocity の典型値 {#c28-i0397}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+Velocity の典型値は、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 監査検査のの典型値で保守管理の運用確認を行います。Velocity の典型値の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で監査検査のの典型値を確認した扱いにする。
+    - B. IWM025I の有無を確認せず監査検査のの典型値を正常終了として記録する。
+    - C. D WLM,SYSTEMS の結果から対象行を抜き出し、監査検査の証跡として残す。 ✅
+    - D. Velocity の典型値の属性行を読まず監査検査のの典型値の画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査検査のの典型値において選択記号 C を採用し、識別名は監査検査です。監査検査のの典型値において Velocity の典型値 は説明欄の「SMP/E SMF WLM で Velocity の典型値の扱いを記録する監査検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査検査です。監査検査のの典型値を受け取る担当者は、Velocity の典型値の表示結果と IWM025I を同じ確認単位として扱い、背景名は監査検査です。不適切な選択肢を整理します。 A: 監査検査のの典型値は別カテゴリの確認を流用しており、Velocity の典型値の根拠にならないため監査検査ではありません。 B: 監査検査のの典型値は戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査検査ではありません。 C: 監査検査のの典型値は対象出力と項目説明を結び、根拠を残すので監査検査です。 D: 監査検査のの典型値は名称や説明のみに寄り、状態を示す出力本文が不足するため監査検査ではありません。監査検査のの典型値が示す Velocity の典型値は出典欄の資料で使い方を追跡できる項目であり、用語名は監査検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **Velocity の典型値**
+
+    - 検証目的: 優先分離のの典型値について、Velocity の典型値は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態のに関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030152の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、優先分離のの典型値の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にVelocity の典型値を指定し、OSKB030152の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND Velocity の典型値
+    CASE OSKB030152
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM Velocity の典型値
+    CASE OSKB030152
+    SOURCE SMP/E SMF WLM
+    ```
+
+    Velocity の典型値とOSKB030152が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030152を同じ出力で読み、優先分離のの典型値の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030152
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030152
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I Velocity の典型値 REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030152が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の Velocity の典型値 と OSKB030152 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030152 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+### WLM ENF イベント {#c28-i0398}
+*分類: WLM 運用コマンド*  ・  難易度: 上級
+
+WLM ENF イベントは、SMP/E / SMF / WLMのWLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分けて確認します。z/OS MVS System Commands (zOS31_ieag100) / z/OS MVS Planning Workload Management (zOS31_ieaw100) を参照し、用語だけでなく対象機能と確認すべき状態を結び付けます
+
+**出典:** z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+??? question "確認問題（1問）"
+    **問題.** 比較検査のイベントで WLM ENF イベントの点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. WLM ENF イベントの出力を取らず比較検査のイベントの説明文と承認印のみを残す。
+    - B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、比較検査の点検結果を残す。 ✅
+    - C. D WLM,SYSTEMS を省略して比較検査のイベントの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を比較検査のイベントへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 比較検査のイベントにおいて選択記号 B を採用し、識別名は比較検査です。比較検査のイベントにおいて WLM ENF イベント は説明欄の「比較検査のイベントに関係する定義値と表示行を照合する比較検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は比較検査です。比較検査のイベントの証跡を読む担当者は、WLM ENF イベントの属性行と IWM025I を合わせて追跡し、背景名は比較検査です。誤答側の問題点を分けます。 A: 比較検査のイベントは名称や説明のみに寄り、状態を示す出力本文が不足するため比較検査ではありません。 B: 比較検査のイベントは対象出力と項目説明を結び、根拠を残すので比較検査です。 C: 比較検査のイベントは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため比較検査ではありません。 D: 比較検査のイベントは別カテゴリの確認を流用しており、WLM ENF イベントの根拠にならないため比較検査ではありません。比較検査のイベントに出る WLM ENF イベントは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は比較検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+
+??? note "検証手順（1件）"
+    **WLM ENF イベント**
+
+    - 検証目的: 上書分離のイベントについて、WLM ENF イベントは、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030147の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、上書分離のイベントの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にWLM ENF イベントを指定し、OSKB030147の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND WLM ENF イベント
+    CASE OSKB030147
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM WLM ENF イベント
+    CASE OSKB030147
+    SOURCE SMP/E SMF WLM
+    ```
+
+    WLM ENF イベントとOSKB030147が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030147を同じ出力で読み、上書分離のイベントの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030147
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030147
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I WLM ENF イベント REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030147が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の WLM ENF イベント と OSKB030147 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030147 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+
+
+
+## その他
+
+### その他（特定項目に紐づかないQA・手順） {#c28-other}
+
+このカテゴリで項目名が個別の技術項目に一致しなかったQA・手順です。
+
+??? question "確認問題（90問）"
+    **問題.** 探索確認のなどで APPLY BYPASS 属性の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. APPLY BYPASS 属性の出力を取らず探索確認のなどの説明文と承認印のみを残す。
+    - B. 資料上の説明と画面上の表示行を突き合わせ、探索確認として引き継ぐ。 ✅
+    - C. D WLM,SYSTEMS を省略して探索確認のなどの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索確認のなどへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索確認のなどにおいて選択記号 B を採用し、識別名は探索確認です。探索確認のなどにおいて APPLY BYPASS 属性 は説明欄の「探索確認のなどに関係する定義値と表示行を照合する探索確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認のなどの証跡を読む担当者は、APPLY BYPASS 属性の属性行と IWM025I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認のなどは対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索確認ではありません。 D: 探索確認のなどは別カテゴリの確認を流用しており、APPLY BYPASS 属性の根拠にならないため探索確認ではありません。探索確認のなどに出る APPLY BYPASS 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 監査確認のとはで保守管理の運用確認を行います。CSI とはの根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で監査確認のとはを確認した扱いにする。
+    - B. IWM025I の有無を確認せず監査確認のとはを正常終了として記録する。
+    - C. SMP/E SMF WLM の表示形式に沿って根拠行を採り、監査確認の点検結果を残す。 ✅
+    - D. CSI とはの属性行を読まず監査確認のとはの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査確認のとはにおいて選択記号 C を採用し、識別名は監査確認です。監査確認のとはにおいて CSI とは は説明欄の「SMP/E SMF WLM で CSI とはの扱いを記録する監査確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は監査確認です。監査確認のとはを受け取る担当者は、CSI とはの表示結果と IWM025I を同じ確認単位として扱い、背景名は監査確認です。不適切な選択肢を整理します。 A: 監査確認のとはは別カテゴリの確認を流用しており、CSI とはの根拠にならないため監査確認ではありません。 B: 監査確認のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため監査確認ではありません。 C: 監査確認のとはは対象出力と項目説明を結び、根拠を残すので監査確認です。 D: 監査確認のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため監査確認ではありません。監査確認のとはが示す CSI とはは出典欄の資料で使い方を追跡できる項目であり、用語名は監査確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 出力照合のとはに関する DDDEF とはの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず出力照合のとはの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを出力照合のとはの証跡として保存して根拠にする。
+    - C. DDDEF とはの変更点を出力本文から切り離して出力照合のとはの承認欄のみ残す。
+    - D. D WLM,SYSTEMS で得た表示本文を使い、出力照合の採否を説明欄に結び付ける。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 出力照合のとはにおいて選択記号 D を採用し、識別名は出力照合です。出力照合のとはにおいて DDDEF とは は説明欄の「DDDEF とはの状態と出力メッセージを結び付ける出力照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力照合です。出力照合のとはに関する記録は、DDDEF とはの出力行と IWM025I を一緒に保存し、背景名は出力照合です。選択肢ごとの違いを示します。 A: 出力照合のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力照合ではありません。 B: 出力照合のとはは別カテゴリの確認を流用しており、DDDEF とはの根拠にならないため出力照合ではありません。 C: 出力照合のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため出力照合ではありません。 D: 出力照合のとはは対象出力と項目説明を結び、根拠を残すので出力照合です。出力照合のとはで記録する DDDEF とはは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力照合です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 復旧確認のとはで SOURCEID とはの点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. SOURCEID とはの出力を取らず復旧確認のとはの説明文と承認印のみを残す。
+    - B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、復旧確認の点検結果を残す。 ✅
+    - C. D WLM,SYSTEMS を省略して復旧確認のとはの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を復旧確認のとはへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 復旧確認のとはにおいて選択記号 B を採用し、識別名は復旧確認です。復旧確認のとはにおいて SOURCEID とは は説明欄の「復旧確認のとはに関係する定義値と表示行を照合する復旧確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は復旧確認です。復旧確認のとはの証跡を読む担当者は、SOURCEID とはの属性行と IWM025I を合わせて追跡し、背景名は復旧確認です。誤答側の問題点を分けます。 A: 復旧確認のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため復旧確認ではありません。 B: 復旧確認のとはは対象出力と項目説明を結び、根拠を残すので復旧確認です。 C: 復旧確認のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため復旧確認ではありません。 D: 復旧確認のとはは別カテゴリの確認を流用しており、SOURCEID とはの根拠にならないため復旧確認ではありません。復旧確認のとはに出る SOURCEID とはは SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は復旧確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 範囲照合のなどで保守管理の運用確認を行います。LSNAME(など)の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で範囲照合のなどを確認した扱いにする。
+    - B. IWM025I の有無を確認せず範囲照合のなどを正常終了として記録する。
+    - C. 対象の出力行とメッセージ接頭辞を同時に記録し、範囲照合で再確認できる形にする。 ✅
+    - D. LSNAME(など)の属性行を読まず範囲照合のなどの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 範囲照合のなどにおいて選択記号 C を採用し、識別名は範囲照合です。範囲照合のなどにおいて LSNAME(など) は説明欄の「SMP/E SMF WLM で LSNAME(など)の扱いを記録する範囲照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲照合です。範囲照合のなどを受け取る担当者は、LSNAME(など)の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲照合です。不適切な選択肢を整理します。 A: 範囲照合のなどは別カテゴリの確認を流用しており、LSNAME(など)の根拠にならないため範囲照合ではありません。 B: 範囲照合のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲照合ではありません。 C: 範囲照合のなどは対象出力と項目説明を結び、根拠を残すので範囲照合です。 D: 範囲照合のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため範囲照合ではありません。範囲照合のなどが示す LSNAME(など)は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲照合です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 探索追跡のなどで EXITS 属性の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. EXITS 属性の出力を取らず探索追跡のなどの説明文と承認印のみを残す。
+    - B. IWM025I を含む表示を保存し、説明欄との差分を探索追跡で確認する。 ✅
+    - C. D WLM,SYSTEMS を省略して探索追跡のなどの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索追跡のなどへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索追跡のなどにおいて選択記号 B を採用し、識別名は探索追跡です。探索追跡のなどにおいて EXITS 属性 は説明欄の「探索追跡のなどに関係する定義値と表示行を照合する探索追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索追跡です。探索追跡のなどの証跡を読む担当者は、EXITS 属性の属性行と IWM025I を合わせて追跡し、背景名は探索追跡です。誤答側の問題点を分けます。 A: 探索追跡のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため探索追跡ではありません。 B: 探索追跡のなどは対象出力と項目説明を結び、根拠を残すので探索追跡です。 C: 探索追跡のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索追跡ではありません。 D: 探索追跡のなどは別カテゴリの確認を流用しており、EXITS 属性の根拠にならないため探索追跡ではありません。探索追跡のなどに出る EXITS 属性は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索追跡です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 呼出確認のなどで保守管理の運用確認を行います。IFASMFDP DATE 属性の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で呼出確認のなどを確認した扱いにする。
+    - B. IWM025I の有無を確認せず呼出確認のなどを正常終了として記録する。
+    - C. SMP/E SMF WLM の表示形式に沿って根拠行を採り、呼出確認の点検結果を残す。 ✅
+    - D. IFASMFDP DATE 属性の属性行を読まず呼出確認のなどの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 呼出確認のなどにおいて選択記号 C を採用し、識別名は呼出確認です。呼出確認のなどにおいて IFASMFDP DATE 属性 は説明欄の「SMP/E SMF WLM で IFASMFDP DATE 属性の扱いを記録する呼出確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は呼出確認です。呼出確認のなどを受け取る担当者は、IFASMFDP DATE 属性の表示結果と IWM025I を同じ確認単位として扱い、背景名は呼出確認です。不適切な選択肢を整理します。 A: 呼出確認のなどは別カテゴリの確認を流用しており、IFASMFDP DATE 属性の根拠にならないため呼出確認ではありません。 B: 呼出確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため呼出確認ではありません。 C: 呼出確認のなどは対象出力と項目説明を結び、根拠を残すので呼出確認です。 D: 呼出確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため呼出確認ではありません。呼出確認のなどが示す IFASMFDP DATE 属性は出典欄の資料で使い方を追跡できる項目であり、用語名は呼出確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 終端確認のなどに関係する IFASMFDP SID(など)の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 机上確認でも実出力の見出しに合わせ、終端確認の確認値として扱う。 ✅
+    - B. IFASMFDP SID(など)の名称と担当者名のみを残して終端確認のなどの表示本文を確認対象に含めない。
+    - C. 保守管理以外の画面で終端確認のなどを確認し同じ証跡として扱ったことにする。
+    - D. IWM025I の有無を見ず終端確認のなどの戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 終端確認のなどにおいて選択記号 A を採用し、識別名は終端確認です。終端確認のなどにおいて IFASMFDP SID(など) は説明欄の「IFASMFDP SID(など)の用途を保守管理の表示で確認する終端確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は終端確認です。終端確認のなどに関連して、SMP/E SMF WLM では IFASMFDP SID(など)の表示属性と IWM025I を同じ証跡に残し、背景名は終端確認です。他の選択肢を確認します。 A: 終端確認のなどは対象出力と項目説明を結び、根拠を残すので終端確認です。 B: 終端確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため終端確認ではありません。 C: 終端確認のなどは別カテゴリの確認を流用しており、IFASMFDP SID(など)の根拠にならないため終端確認ではありません。 D: 終端確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため終端確認ではありません。終端確認のなどで使う IFASMFDP SID(など)という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は終端確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 探索確認のなどで IFASMFDP USER(など)の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. IFASMFDP USER(など)の出力を取らず探索確認のなどの説明文と承認印のみを残す。
+    - B. 参照資料名、表示行、メッセージをそろえて探索確認の根拠を固定する。 ✅
+    - C. D WLM,SYSTEMS を省略して探索確認のなどの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を探索確認のなどへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 探索確認のなどにおいて選択記号 B を採用し、識別名は探索確認です。探索確認のなどにおいて IFASMFDP USER(など) は説明欄の「探索確認のなどに関係する定義値と表示行を照合する探索確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は探索確認です。探索確認のなどの証跡を読む担当者は、IFASMFDP USER(など)の属性行と IWM025I を合わせて追跡し、背景名は探索確認です。誤答側の問題点を分けます。 A: 探索確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため探索確認ではありません。 B: 探索確認のなどは対象出力と項目説明を結び、根拠を残すので探索確認です。 C: 探索確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため探索確認ではありません。 D: 探索確認のなどは別カテゴリの確認を流用しており、IFASMFDP USER(など)の根拠にならないため探索確認ではありません。探索確認のなどに出る IFASMFDP USER(など)は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は探索確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 優先確認のなどに関する IFASMFDL LSNAME 属性の引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず優先確認のなどの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先確認のなどの証跡として保存して根拠にする。
+    - C. IFASMFDL LSNAME 属性の変更点を出力本文から切り離して優先確認のなどの承認欄のみ残す。
+    - D. D WLM,SYSTEMS で得た表示本文を使い、優先確認の採否を説明欄に結び付ける。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 優先確認のなどにおいて選択記号 D を採用し、識別名は優先確認です。優先確認のなどにおいて IFASMFDL LSNAME 属性 は説明欄の「IFASMFDL LSNAME 属性の状態と出力メッセージを結び付ける優先確認項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先確認です。優先確認のなどに関する記録は、IFASMFDL LSNAME 属性の出力行と IWM025I を一緒に保存し、背景名は優先確認です。選択肢ごとの違いを示します。 A: 優先確認のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先確認ではありません。 B: 優先確認のなどは別カテゴリの確認を流用しており、IFASMFDL LSNAME 属性の根拠にならないため優先確認ではありません。 C: 優先確認のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため優先確認ではありません。 D: 優先確認のなどは対象出力と項目説明を結び、根拠を残すので優先確認です。優先確認のなどで記録する IFASMFDL LSNAME 属性は SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先確認です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 順序照合のとはで保守管理の運用確認を行います。Service Definition とはの根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で順序照合のとはを確認した扱いにする。
+    - B. IWM025I の有無を確認せず順序照合のとはを正常終了として記録する。
+    - C. 同じ画面で対象行と IWM025I を読み、順序照合の結果として保存する。 ✅
+    - D. Service Definition とはの属性行を読まず順序照合のとはの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 順序照合のとはにおいて選択記号 C を採用し、識別名は順序照合です。順序照合のとはにおいて Service Definition とは は説明欄の「SMP/E SMF WLM で Service Definition とはの扱いを記録する順序照合項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は順序照合です。順序照合のとはを受け取る担当者は、Service Definition とはの表示結果と IWM025I を同じ確認単位として扱い、背景名は順序照合です。不適切な選択肢を整理します。 A: 順序照合のとはは別カテゴリの確認を流用しており、Service Definition とはの根拠にならないため順序照合ではありません。 B: 順序照合のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため順序照合ではありません。 C: 順序照合のとはは対象出力と項目説明を結び、根拠を残すので順序照合です。 D: 順序照合のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため順序照合ではありません。順序照合のとはが示す Service Definition とはは出典欄の資料で使い方を追跡できる項目であり、用語名は順序照合です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 出力追跡のとはに関する AE とはの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず出力追跡のとはの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを出力追跡のとはの証跡として保存して根拠にする。
+    - C. AE とはの変更点を出力本文から切り離して出力追跡のとはの承認欄のみ残す。
+    - D. 資料上の説明と画面上の表示行を突き合わせ、出力追跡として引き継ぐ。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 出力追跡のとはにおいて選択記号 D を採用し、識別名は出力追跡です。出力追跡のとはにおいて AE とは は説明欄の「AE とはの状態と出力メッセージを結び付ける出力追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は出力追跡です。出力追跡のとはに関する記録は、AE とはの出力行と IWM025I を一緒に保存し、背景名は出力追跡です。選択肢ごとの違いを示します。 A: 出力追跡のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため出力追跡ではありません。 B: 出力追跡のとはは別カテゴリの確認を流用しており、AE とはの根拠にならないため出力追跡ではありません。 C: 出力追跡のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため出力追跡ではありません。 D: 出力追跡のとはは対象出力と項目説明を結び、根拠を残すので出力追跡です。出力追跡のとはで記録する AE とはは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は出力追跡です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 優先追跡のとはに関する SE とはの引き継ぎです。後続担当者へ残すべき確認はどれですか。
+
+    - A. D WLM,SYSTEMS の結果を残さず優先追跡のとはの担当者名と日時のみを記録する。
+    - B. 別製品のメッセージを優先追跡のとはの証跡として保存して根拠にする。
+    - C. SE とはの変更点を出力本文から切り離して優先追跡のとはの承認欄のみ残す。
+    - D. 机上確認でも実出力の見出しに合わせ、優先追跡の確認値として扱う。 ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 優先追跡のとはにおいて選択記号 D を採用し、識別名は優先追跡です。優先追跡のとはにおいて SE とは は説明欄の「SE とはの状態と出力メッセージを結び付ける優先追跡項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は優先追跡です。優先追跡のとはに関する記録は、SE とはの出力行と IWM025I を一緒に保存し、背景名は優先追跡です。選択肢ごとの違いを示します。 A: 優先追跡のとはは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため優先追跡ではありません。 B: 優先追跡のとはは別カテゴリの確認を流用しており、SE とはの根拠にならないため優先追跡ではありません。 C: 優先追跡のとはは名称や説明のみに寄り、状態を示す出力本文が不足するため優先追跡ではありません。 D: 優先追跡のとはは対象出力と項目説明を結び、根拠を残すので優先追跡です。優先追跡のとはで記録する SE とはは SMP/E SMF WLM の確認記録に残す対象名であり、用語名は優先追跡です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 構文検査の大なりに関係する PI 大なり 1.0の設問です。一次資料に沿って採るべき確認はどれですか。
+
+    - A. 操作結果の本文、対象行、時刻を同じ証跡に入れ、構文検査の確認にする。 ✅
+    - B. PI 大なり 1.0の名称と担当者名のみを残して構文検査の大なりの表示本文を確認対象に含めない。
+    - C. 保守管理以外の画面で構文検査の大なりを確認し同じ証跡として扱ったことにする。
+    - D. IWM025I の有無を見ず構文検査の大なりの戻り値と時刻を主な根拠にして完了にする。
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 構文検査の大なりにおいて選択記号 A を採用し、識別名は構文検査です。構文検査の大なりにおいて PI 大なり 1.0 は説明欄の「PI 大なり 1.0の用途を保守管理の表示で確認する構文検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は構文検査です。構文検査の大なりに関連して、SMP/E SMF WLM では PI 大なり 1.0の表示属性と IWM025I を同じ証跡に残し、背景名は構文検査です。他の選択肢を確認します。 A: 構文検査の大なりは対象出力と項目説明を結び、根拠を残すので構文検査です。 B: 構文検査の大なりは名称や説明のみに寄り、状態を示す出力本文が不足するため構文検査ではありません。 C: 構文検査の大なりは別カテゴリの確認を流用しており、PI 大なり 1.0の根拠にならないため構文検査ではありません。 D: 構文検査の大なりは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため構文検査ではありません。構文検査の大なりで使う PI 大なり 1.0という用語は SMP/E / SMF / WLM で扱う確認対象であり、用語名は構文検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 展開検査の小なりで PI 小なり 1.0の点検記録を作ります。証跡として扱える確認はどれですか。
+
+    - A. PI 小なり 1.0の出力を取らず展開検査の小なりの説明文と承認印のみを残す。
+    - B. SMP/E SMF WLM の表示形式に沿って根拠行を採り、展開検査の点検結果を残す。 ✅
+    - C. D WLM,SYSTEMS を省略して展開検査の小なりの記録番号と時刻のみを残す。
+    - D. 隣接項目の結果を展開検査の小なりへ転記して同じ結果として扱う。
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 展開検査の小なりにおいて選択記号 B を採用し、識別名は展開検査です。展開検査の小なりにおいて PI 小なり 1.0 は説明欄の「展開検査の小なりに関係する定義値と表示行を照合する展開検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は展開検査です。展開検査の小なりの証跡を読む担当者は、PI 小なり 1.0の属性行と IWM025I を合わせて追跡し、背景名は展開検査です。誤答側の問題点を分けます。 A: 展開検査の小なりは名称や説明のみに寄り、状態を示す出力本文が不足するため展開検査ではありません。 B: 展開検査の小なりは対象出力と項目説明を結び、根拠を残すので展開検査です。 C: 展開検査の小なりは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため展開検査ではありません。 D: 展開検査の小なりは別カテゴリの確認を流用しており、PI 小なり 1.0の根拠にならないため展開検査ではありません。展開検査の小なりに出る PI 小なり 1.0は SMP/E / SMF / WLM の運用手順で意味を確認する対象であり、用語名は展開検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 範囲検査のなどで保守管理の運用確認を行います。F WLM,APPLENV= など,REFRESH の根拠にできる作業はどれですか。
+
+    - A. SMP/E SMF WLM と無関係な一覧で範囲検査のなどを確認した扱いにする。
+    - B. IWM025I の有無を確認せず範囲検査のなどを正常終了として記録する。
+    - C. D WLM,SYSTEMS で得た表示本文を使い、範囲検査の採否を説明欄に結び付ける。 ✅
+    - D. F WLM,APPLENV= など,REFRESH の属性行を読まず範囲検査のなどの画面名と利用者名のみを保存する。
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 範囲検査のなどにおいて選択記号 C を採用し、識別名は範囲検査です。範囲検査のなどにおいて F WLM,APPLENV= など,REFRESH は説明欄の「SMP/E SMF WLM で F WLM,APPLENV= など,REFRESH の扱いを記録する範囲検査項目」と D WLM,SYSTEMS または該当パネルの出力を照合する対象で、答え名は範囲検査です。範囲検査のなどを受け取る担当者は、F WLM,APPLENV= など,REFRESH の表示結果と IWM025I を同じ確認単位として扱い、背景名は範囲検査です。不適切な選択肢を整理します。 A: 範囲検査のなどは別カテゴリの確認を流用しており、F WLM,APPLENV= など,REFRESH の根拠にならないため範囲検査ではありません。 B: 範囲検査のなどは戻り値や記録番号に寄り、IWM025I や属性表示を落とすため範囲検査ではありません。 C: 範囲検査のなどは対象出力と項目説明を結び、根拠を残すので範囲検査です。 D: 範囲検査のなどは名称や説明のみに寄り、状態を示す出力本文が不足するため範囲検査ではありません。範囲検査のなどが示す F WLM,APPLENV= など,REFRESH は出典欄の資料で使い方を追跡できる項目であり、用語名は範囲検査です。
+
+    **出典:** and Diagnosis（zOS31_gim0000） / OS MVS System Commands（zOS31_ieag100）
+
+    ---
+
+    **問題.** 照合面のターゲットゾーン選択を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO ターゲット ZONEとゾーン名を確認する場合、最も適切な確認対象はどれですか。
+
+    - A. RESTORE SYSMOD
+    - B. SET BDY(TARGET) ✅
+    - C. SET SMF=xx
+    - D. IFASMFDL DATE START END
+
+    正解: **B** ／ 難易度: 初級
+
+    **解説:** 報告面観点の資料照合としてターゲットゾーン選択読取を選び、答えはBで、記録焦点はターゲットゾーン選択状態です。反映面観点のターゲットゾーン選択定義は、適用処理や報告で保守対象のターゲットゾーンを選ぶことを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン選択定義です。確認面観点から見るターゲットゾーン選択根拠は、NOW SET TO ターゲット ZONEとゾーン名をメッセージ形式と対応させるターゲットゾーン選択根拠です。照合面観点のターゲットゾーン選択応答は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン選択応答です。A: 構成面観点の参照先は適用済み保守要素復元状態で、作業記録で追跡する対象はターゲットゾーン選択棚卸です。B: 保守面観点のターゲットゾーン選択定義は、入力名と報告内のNOW SET TO ターゲット ZONEとゾーン名を結ぶターゲットゾーン選択照合です。C: 方針面観点の照合先はシステム管理機能パラメータxx切替根拠で、中心はターゲットゾーン選択監査です。D: 復旧面観点の処理段階は期間指定ダンプ応答で、入力と出力を結ぶ対象はターゲットゾーン選択引継ぎです。選択面観点の用語定義として、ターゲットゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン選択復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command
+
+    ---
+
+    **問題.** 選択面の保守要素受信を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って受信処理 summary reportと保守要素 statusを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. DISPLAY WLM,RESOURCE
+    - B. IWMPQRY active policy
+    - C. RECEIVE SYSMOD ✅
+    - D. APPLY CHECK
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 復旧面観点の出力確認として保守要素受信状態を読み、答えはCで、照合焦点は保守要素受信定義です。照合面観点の保守要素受信根拠は、SMPPTFINの保守データをPTSとグローバルゾーンへ登録することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素受信根拠です。反映面観点で残す保守要素受信応答は、受信処理 summary reportと保守要素 statusをコマンド形式と照合する保守要素受信応答です。選択面観点の保守要素受信保守は、保守管理保守投入の入力要求と戻った報告を結び、運用状態を説明する保守要素受信保守です。A: 保守面観点の比較先は資源状態表示定義で、要求対象は保守要素受信監査です。B: 方針面観点の照合先は有効方針照会根拠で、中心は保守要素受信引継ぎです。C: 表示面観点の保守要素受信応答は、入力名と報告内の受信処理 summary reportと保守要素 statusを結ぶ保守要素受信報告です。D: 監査面観点の参照先は適用事前検査保守で、作業記録で追跡する対象は保守要素受信復旧です。管理面観点の用語定義として、保守要素受信とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素受信照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RECEIVE command
+
+    ---
+
+    **問題.** 記録面の保守要素配布反映を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って配布反映 processing reportとdistribution zoneを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. ACCEPT SYSMOD ✅
+    - B. DISPLAY SMFLIM
+    - C. DISPLAY WLM
+    - D. DISPLAY WLM,SCHENV
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 反映面観点で読む保守要素配布反映引継ぎは正答位置Aで、記録する焦点は配布反映 保守要素棚卸です。保守面観点の保守要素配布反映復旧は、適用済み保守要素を配布ライブラリーへ反映することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素配布反映復旧です。抽出面観点の保守要素配布反映照合は、配布反映 processing reportとdistribution zoneを入力記録と合わせて処理対象を見分ける保守要素配布反映照合です。記録面観点の保守要素配布反映報告は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する保守要素配布反映報告です。A: 復旧面観点の保守要素配布反映棚卸は、入力名と報告内の配布反映 processing reportとdistribution zoneを結ぶ保守要素配布反映状態です。B: 管理面観点の参照先はシステム管理機能リミット表示復旧で、作業記録で追跡する対象は保守要素配布反映証跡です。C: 確認面観点の比較先は有効サービス方針表示照合で、要求対象は保守要素配布反映選択です。D: 照合面観点の照合先はスケジューリング環境表示報告で、中心は保守要素配布反映反映です。表示面観点の用語定義として、保守要素配布反映とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素配布反映読取です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT command
+
+    ---
+
+    **問題.** 表示面の保守要素全ゾーン表示を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って表示 Summary reportと全ゾーン表示を確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. ACCEPT SYSMOD
+    - B. LIST SYSMOD ALLZONES ✅
+    - C. RESTORE SYSMOD
+    - D. SETSMF LSNAME
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 選択面観点の資料照合として保守要素全ゾーン表示棚卸を選び、答えはBで、記録焦点は保守要素全ゾーン表示復旧です。記録面観点の保守要素全ゾーン表示照合は、保守要素の受信、適用、配布状態を複数ゾーンで確認することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素全ゾーン表示照合です。制御面観点から見る保守要素全ゾーン表示報告は、表示 Summary reportと全ゾーン表示をメッセージ形式と対応させる保守要素全ゾーン表示報告です。表示面観点の保守要素全ゾーン表示選択は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保守要素全ゾーン表示選択です。A: 管理面観点の参照先は保守要素配布反映復旧で、作業記録で追跡する対象は保守要素全ゾーン表示読取です。B: 確認面観点の保守要素全ゾーン表示照合は、入力名と報告内の表示 Summary reportと全ゾーン表示を結ぶ保守要素全ゾーン表示定義です。C: 照合面観点の照合先は適用済み保守要素復元報告で、中心は保守要素全ゾーン表示観点です。D: 抽出面観点の処理段階は一時ログストリーム変更選択で、入力と出力を結ぶ対象は保守要素全ゾーン表示証跡です。方針面観点の用語定義として、保守要素全ゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素全ゾーン表示状態です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST SYSMOD
+
+    ---
+
+    **問題.** 方針面の保留情報表示を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って保留情報 entryとreason idを確認する場合、どの項目を選ぶべきですか。
+
+    - A. DISPLAY SMF,S
+    - B. IFASMFDL SID
+    - C. LIST HOLDDATA ✅
+    - D. VARY WLM,APPLENV,REFRESH
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 抽出面観点の出力確認として保留情報表示復旧を読み、答えはCで、照合焦点は保留情報表示照合です。表示面観点の保留情報表示報告は、HOLDERRORやシステム保留の保留情報を一覧で確認することを満たす入力、報告、状態表示を同じ証跡で確認する保留情報表示報告です。記録面観点で残す保留情報表示選択は、保留情報 entryとreason idをコマンド形式と照合する保留情報表示選択です。方針面観点の保留情報表示反映は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保留情報表示反映です。A: 確認面観点の比較先はシステム管理機能状態表示照合で、要求対象は保留情報表示観点です。B: 照合面観点の照合先はシステムID選択報告で、中心は保留情報表示証跡です。C: 反映面観点の保留情報表示選択は、入力名と報告内の保留情報 entryとreason idを結ぶ保留情報表示根拠です。D: 保守面観点の参照先はアプリ環境再読込反映で、作業記録で追跡する対象は保留情報表示状態です。報告面観点の用語定義として、保留情報表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保留情報表示定義です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST HOLDDATA
+
+    ---
+
+    **問題.** 報告面のターゲットゾーン表示を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってターゲットZONE entryとDD定義参照を確認する場合、最も適切な確認対象はどれですか。
+
+    - A. SET BDY(GLOBAL)
+    - B. ACCEPT CHECK
+    - C. RESTORE SYSMOD
+    - D. LIST TARGETZONE ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 選択面観点のターゲットゾーン表示照合は正答Dで、表記上の手掛かりは表示 ターゲットZONE報告です。方針面観点のターゲットゾーン表示選択は、ターゲットゾーンのDD定義やOPTIONSを確認することを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン表示選択です。制御面観点で読むターゲットゾーン表示反映は、ターゲットZONE entryとDD定義参照を資料のコマンド形式やメッセージ形式と照合するターゲットゾーン表示反映です。報告面観点のターゲットゾーン表示観点は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン表示観点です。A: 照合面観点の照合先はグローバルゾーン選択報告で、中心はターゲットゾーン表示読取です。B: 抽出面観点の処理段階は配布反映事前検査選択で、入力と出力を結ぶ対象はターゲットゾーン表示状態です。C: 保守面観点の参照先は適用済み保守要素復元反映で、作業記録で追跡する対象はターゲットゾーン表示定義です。D: 選択面観点のターゲットゾーン表示観点は、入力名と報告内のターゲットZONE entryとDD定義参照を結ぶターゲットゾーン表示応答です。構成面観点の用語定義として、ターゲットゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン表示根拠です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST TARGETZONE
+
+    ---
+
+    **問題.** 確認面の未採用保守要素除去を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って除去 return codeと保守要素 statusを確認する場合、どの項目を選ぶべきですか。
+
+    - A. VARY WLM,APPLENV,RESUME
+    - B. WLM couple data set
+    - C. ACCEPT CHECK
+    - D. REJECT SYSMOD ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 制御面観点の未採用保守要素除去観点は正答Dで、表記上の手掛かりは除去 保守要素証跡です。運用面観点の未採用保守要素除去読取は、不要な未適用保守要素をグローバルゾーンやPTSから整理することを満たす入力、報告、状態表示を同じ証跡で確認する未採用保守要素除去読取です。方針面観点で読む未採用保守要素除去状態は、除去 return codeと保守要素 statusを資料のコマンド形式やメッセージ形式と照合する未採用保守要素除去状態です。確認面観点の未採用保守要素除去定義は、保守管理保守整理の入力要求と戻った報告を結び、運用状態を説明する未採用保守要素除去定義です。A: 分類面観点の照合先はアプリ環境再開証跡で、中心は未採用保守要素除去応答です。B: 記録面観点の処理段階はワークロード管理カップルデータセット読取で、入力と出力を結ぶ対象は未採用保守要素除去保守です。C: 報告面観点の参照先は配布反映事前検査状態で、作業記録で追跡する対象は未採用保守要素除去監査です。D: 制御面観点の未採用保守要素除去定義は、入力名と報告内の除去 return codeと保守要素 statusを結ぶ未採用保守要素除去棚卸です。監査面観点の用語定義として、未採用保守要素除去とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む未採用保守要素除去引継ぎです。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands REJECT command
+
+    ---
+
+    **問題.** 監査面の適用済み保守要素復元を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って復元 reportとtarget zoneを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. RESTORE SYSMOD ✅
+    - B. CSI ZONEINDEX
+    - C. SETSMF LSNAME
+    - D. IFASMFDL SID
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 記録面観点で読む適用済み保守要素復元証跡は正答位置Aで、記録する焦点は復元 保守要素読取です。確認面観点の適用済み保守要素復元状態は、ターゲットライブラリーを適用前の状態へ戻すことを満たす入力、報告、状態表示を同じ証跡で確認する適用済み保守要素復元状態です。構成面観点の適用済み保守要素復元定義は、復元 reportとtarget zoneを入力記録と合わせて処理対象を見分ける適用済み保守要素復元定義です。監査面観点の適用済み保守要素復元根拠は、保守管理復旧の入力要求と戻った報告を結び、運用状態を説明する適用済み保守要素復元根拠です。A: 抽出面観点の適用済み保守要素復元読取は、入力名と報告内の復元 reportとtarget zoneを結ぶ適用済み保守要素復元復旧です。B: 報告面観点の参照先はCSI台帳ゾーン索引状態で、作業記録で追跡する対象は適用済み保守要素復元引継ぎです。C: 制御面観点の比較先は一時ログストリーム変更定義で、要求対象は適用済み保守要素復元応答です。D: 表示面観点の照合先はシステムID選択根拠で、中心は適用済み保守要素復元保守です。反映面観点の用語定義として、適用済み保守要素復元とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用済み保守要素復元棚卸です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RESTORE command
+
+    ---
+
+    **問題.** 反映面のCSI台帳ゾーン索引を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってゾーン索引 entryとzone nameを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. DISPLAY WLM,APPLENV
+    - B. CSI ZONEINDEX ✅
+    - C. IWMPACT activate policy
+    - D. APPLY CHECK
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 方針面観点の資料照合としてCSI台帳ゾーン索引読取を選び、答えはBで、記録焦点はCSI台帳ゾーン索引状態です。監査面観点のCSI台帳ゾーン索引定義は、SMPCSI台帳内のゾーン構成と参照先を把握することを満たす入力、報告、状態表示を同じ証跡で確認するCSI台帳ゾーン索引定義です。運用面観点から見るCSI台帳ゾーン索引根拠は、ゾーン索引 entryとzone nameをメッセージ形式と対応させるCSI台帳ゾーン索引根拠です。反映面観点のCSI台帳ゾーン索引応答は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するCSI台帳ゾーン索引応答です。A: 報告面観点の参照先はアプリケーション環境表示状態で、作業記録で追跡する対象はCSI台帳ゾーン索引棚卸です。B: 制御面観点のCSI台帳ゾーン索引定義は、入力名と報告内のゾーン索引 entryとzone nameを結ぶCSI台帳ゾーン索引照合です。C: 表示面観点の照合先はサービス方針有効化根拠で、中心はCSI台帳ゾーン索引監査です。D: 構成面観点の処理段階は適用事前検査応答で、入力と出力を結ぶ対象はCSI台帳ゾーン索引引継ぎです。照合面観点の用語定義として、CSI台帳ゾーン索引とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むCSI台帳ゾーン索引復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference CSI entries
+
+    ---
+
+    **問題.** 照合面のDD定義定義を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってDD定義 entryとdata set nameを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. APPLY CHECK
+    - B. LIST TARGETZONE
+    - C. DDDEF ✅
+    - D. SMFPRMxx RECORDING(LOGSTREAM)
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 構成面観点の出力確認としてDD定義定義状態を読み、答えはCで、照合焦点はDD定義定義定義です。反映面観点のDD定義定義根拠は、保守管理処理で使うデータセット割り当てをゾーン内に登録することを満たす入力、報告、状態表示を同じ証跡で確認するDD定義定義根拠です。監査面観点で残すDD定義定義応答は、DD定義 entryとdata set nameをコマンド形式と照合するDD定義定義応答です。照合面観点のDD定義定義保守は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するDD定義定義保守です。A: 制御面観点の比較先は適用事前検査定義で、要求対象はDD定義定義監査です。B: 表示面観点の照合先はターゲットゾーン表示根拠で、中心はDD定義定義引継ぎです。C: 記録面観点のDD定義定義応答は、入力名と報告内のDD定義 entryとdata set nameを結ぶDD定義定義報告です。D: 確認面観点の参照先はログストリーム記録保守で、作業記録で追跡する対象はDD定義定義復旧です。選択面観点の用語定義として、DD定義定義とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むDD定義定義照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference DDDEF entry
+
+    ---
+
+    **問題.** 選択面のログと報告出力を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってSMPログ、SMPログA、SMP報告、SMPOUTを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. DISPLAY WLM,SYSTEM
+    - B. DISPLAY WLM,SCHENV
+    - C. SET BDY(TARGET)
+    - D. SMPLOG SMPRPT ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 方針面観点のログと報告出力定義は正答Dで、表記上の手掛かりはSMPログ SMP報告根拠です。照合面観点のログと報告出力応答は、保守管理処理のログと報告を分けて保存することを満たす入力、報告、状態表示を同じ証跡で確認するログと報告出力応答です。運用面観点で読むログと報告出力保守は、SMPログ、SMPログA、SMP報告、SMPOUTを資料のコマンド形式やメッセージ形式と照合するログと報告出力保守です。選択面観点のログと報告出力監査は、保守管理証跡の入力要求と戻った報告を結び、運用状態を説明するログと報告出力監査です。A: 表示面観点の照合先はシステム別ワークロード管理表示根拠で、中心はログと報告出力棚卸です。B: 構成面観点の処理段階はスケジューリング環境表示応答で、入力と出力を結ぶ対象はログと報告出力復旧です。C: 確認面観点の参照先はターゲットゾーン選択保守で、作業記録で追跡する対象はログと報告出力照合です。D: 方針面観点のログと報告出力監査は、入力名と報告内のSMPログ、SMPログA、SMP報告、SMPOUTを結ぶログと報告出力選択です。管理面観点の用語定義として、ログと報告出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログと報告出力報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands data sets
+
+    ---
+
+    **問題.** 分類面の種別別ログストリームを障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってログストリーム名とレコード種別範囲を確認する場合、この状況で優先する項目はどれですか。
+
+    - A. APPLY CHECK
+    - B. LIST TARGETZONE
+    - C. LSNAME TYPE ✅
+    - D. SMPLOG SMPRPT
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査面観点の出力確認として種別別ログストリーム保守を読み、答えはCで、照合焦点は種別別ログストリーム監査です。抽出面観点の種別別ログストリーム引継ぎは、特定のシステム管理機能レコード種別を専用ログストリームへ振り分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別ログストリーム引継ぎです。管理面観点で残す種別別ログストリーム棚卸は、ログストリーム名とレコード種別範囲をコマンド形式と照合する種別別ログストリーム棚卸です。分類面観点の種別別ログストリーム復旧は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する種別別ログストリーム復旧です。A: 方針面観点の比較先は適用事前検査監査で、要求対象は種別別ログストリーム照合です。B: 復旧面観点の照合先はターゲットゾーン表示引継ぎで、中心は種別別ログストリーム報告です。C: 構成面観点の種別別ログストリーム棚卸は、入力名と報告内のログストリーム名とレコード種別範囲を結ぶ種別別ログストリーム証跡です。D: 選択面観点の参照先はログと報告出力復旧で、作業記録で追跡する対象は種別別ログストリーム反映です。制御面観点の用語定義として、種別別ログストリームとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別ログストリーム観点です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities LSNAME
+
+    ---
+
+    **問題.** 運用面の期間指定ダンプを変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って日付、開始時刻、終了時刻のSYSPRINT表示を確認する場合、最も適切な確認対象はどれですか。
+
+    - A. DISPLAY SMF,M
+    - B. DISPLAY WLM
+    - C. DISPLAY WLM,SCHENV
+    - D. IFASMFDL DATE START END ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 分類面観点の期間指定ダンプ観点は正答Dで、表記上の手掛かりはシステム管理機能ログストリームダンプ 日付 開始時刻 終了時刻証跡です。復旧面観点の期間指定ダンプ読取は、日付と時刻の範囲でシステム管理機能レコードを抽出することを満たす入力、報告、状態表示を同じ証跡で確認する期間指定ダンプ読取です。表示面観点で読む期間指定ダンプ状態は、日付、開始時刻、終了時刻のSYSPRINT表示を資料のコマンド形式やメッセージ形式と照合する期間指定ダンプ状態です。運用面観点の期間指定ダンプ定義は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する期間指定ダンプ定義です。A: 抽出面観点の照合先はシステム管理機能メンバー表示証跡で、中心は期間指定ダンプ応答です。B: 保守面観点の処理段階は有効サービス方針表示読取で、入力と出力を結ぶ対象は期間指定ダンプ保守です。C: 方針面観点の参照先はスケジューリング環境表示状態で、作業記録で追跡する対象は期間指定ダンプ監査です。D: 分類面観点の期間指定ダンプ定義は、入力名と報告内の日付、開始時刻、終了時刻のSYSPRINT表示を結ぶ期間指定ダンプ棚卸です。確認面観点の用語定義として、期間指定ダンプとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む期間指定ダンプ引継ぎです。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL parameters
+
+    ---
+
+    **問題.** 確認面のシステムID選択を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってシステムID parameterとSYSPRINT表示を確認する場合、この状況で優先する項目はどれですか。
+
+    - A. IFASMFDL SID ✅
+    - B. VARY WLM,APPLENV,REFRESH
+    - C. Service class goal
+    - D. APPLY GROUPEXTEND
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 保守面観点で読むシステムID選択証跡は正答位置Aで、記録する焦点はシステム管理機能ログストリームダンプ システムID読取です。運用面観点のシステムID選択状態は、特定システムIDのシステム管理機能レコードだけを抽出することを満たす入力、報告、状態表示を同じ証跡で確認するシステムID選択状態です。報告面観点のシステムID選択定義は、システムID parameterとSYSPRINT表示を入力記録と合わせて処理対象を見分けるシステムID選択定義です。確認面観点のシステムID選択根拠は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明するシステムID選択根拠です。A: 管理面観点のシステムID選択読取は、入力名と報告内のシステムID parameterとSYSPRINT表示を結ぶシステムID選択復旧です。B: 方針面観点の参照先はアプリ環境再読込状態で、作業記録で追跡する対象はシステムID選択引継ぎです。C: 分類面観点の比較先はサービスクラス目標定義で、要求対象はシステムID選択応答です。D: 記録面観点の照合先は関連保守要素展開根拠で、中心はシステムID選択保守です。監査面観点の用語定義として、システムID選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むシステムID選択棚卸です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL SID
+
+    ---
+
+    **問題.** 監査面の種別別出力を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って出力DDとレコード種別範囲を確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. SMFPRMxx RECORDING(LOGSTREAM)
+    - B. IFASMFDL OUTDD TYPE ✅
+    - C. DISPLAY SMF,M
+    - D. DISPLAY WLM,SYSTEM
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 表示面観点の資料照合として種別別出力読取を選び、答えはBで、記録焦点は種別別出力状態です。確認面観点の種別別出力定義は、システム管理機能レコード種別ごとに出力DDを分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別出力定義です。復旧面観点から見る種別別出力根拠は、出力DDとレコード種別範囲をメッセージ形式と対応させる種別別出力根拠です。監査面観点の種別別出力応答は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する種別別出力応答です。A: 方針面観点の参照先はログストリーム記録状態で、作業記録で追跡する対象は種別別出力棚卸です。B: 分類面観点の種別別出力定義は、入力名と報告内の出力DDとレコード種別範囲を結ぶ種別別出力照合です。C: 記録面観点の照合先はシステム管理機能メンバー表示根拠で、中心は種別別出力監査です。D: 報告面観点の処理段階はシステム別ワークロード管理表示応答で、入力と出力を結ぶ対象は種別別出力引継ぎです。反映面観点の用語定義として、種別別出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別出力復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL OUTDD
+
+    ---
+
+    **問題.** 反映面の空入力検知を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って空入力メッセージまたはIFA841Iメッセージを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. IWMCQRY classification rules
+    - B. SET BDY(TARGET)
+    - C. IFA023I empty input ✅
+    - D. LIST SYSMOD ALLZONES
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 報告面観点の出力確認として空入力検知状態を読み、答えはCで、照合焦点は空入力検知定義です。監査面観点の空入力検知根拠は、指定範囲にダンプ対象システム管理機能データがない状態を判定することを満たす入力、報告、状態表示を同じ証跡で確認する空入力検知根拠です。確認面観点で残す空入力検知応答は、空入力メッセージまたはIFA841Iメッセージをコマンド形式と照合する空入力検知応答です。反映面観点の空入力検知保守は、システム管理機能メッセージの入力要求と戻った報告を結び、運用状態を説明する空入力検知保守です。A: 分類面観点の比較先は分類規則照会定義で、要求対象は空入力検知監査です。B: 記録面観点の照合先はターゲットゾーン選択根拠で、中心は空入力検知引継ぎです。C: 保守面観点の空入力検知応答は、入力名と報告内の空入力メッセージまたはIFA841Iメッセージを結ぶ空入力検知報告です。D: 運用面観点の参照先は保守要素全ゾーン表示保守で、作業記録で追跡する対象は空入力検知復旧です。照合面観点の用語定義として、空入力検知とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む空入力検知照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IFA023I
+
+    ---
+
+    **問題.** 抽出面の資源状態表示を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってIWM038I 資源 and STATEを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. DISPLAY WLM,APPLENV
+    - B. IWMPACT activate policy
+    - C. DISPLAY WLM,RESOURCE ✅
+    - D. APPLY CHECK
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 確認面観点の出力確認として資源状態表示保守を読み、答えはCで、照合焦点は資源状態表示監査です。管理面観点の資源状態表示引継ぎは、ワークロード管理が管理する資源の状態を表示することを満たす入力、報告、状態表示を同じ証跡で確認する資源状態表示引継ぎです。選択面観点で残す資源状態表示棚卸は、IWM038I 資源 and STATEをコマンド形式と照合する資源状態表示棚卸です。抽出面観点の資源状態表示復旧は、ワークロード管理資源の入力要求と戻った報告を結び、運用状態を説明する資源状態表示復旧です。A: 表示面観点の比較先はアプリケーション環境表示監査で、要求対象は資源状態表示照合です。B: 構成面観点の照合先はサービス方針有効化引継ぎで、中心は資源状態表示報告です。C: 報告面観点の資源状態表示棚卸は、入力名と報告内のIWM038I 資源 and STATEを結ぶ資源状態表示証跡です。D: 照合面観点の参照先は適用事前検査復旧で、作業記録で追跡する対象は資源状態表示反映です。分類面観点の用語定義として、資源状態表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む資源状態表示観点です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IWM038I
+
+    ---
+
+    **問題.** 制御面のアプリ環境再読込を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再読込 completedを確認する場合、どの項目を選ぶべきですか。
+
+    - A. VARY WLM,APPLENV,REFRESH ✅
+    - B. DISPLAY WLM,APPLENV
+    - C. Service class goal
+    - D. APPLY GROUPEXTEND
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 確認面観点で読むアプリ環境再読込引継ぎは正答位置Aで、記録する焦点は変更指示 ワークロード管理,アプリ環境,再読込棚卸です。分類面観点のアプリ環境再読込復旧は、サーバーアドレス空間を再起動してアプリ環境を反映することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再読込復旧です。選択面観点のアプリ環境再読込照合は、IWM032I 再読込 completedを入力記録と合わせて処理対象を見分けるアプリ環境再読込照合です。制御面観点のアプリ環境再読込報告は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再読込報告です。A: 報告面観点のアプリ環境再読込棚卸は、入力名と報告内のIWM032I 再読込 completedを結ぶアプリ環境再読込状態です。B: 照合面観点の参照先はアプリケーション環境表示復旧で、作業記録で追跡する対象はアプリ環境再読込証跡です。C: 復旧面観点の比較先はサービスクラス目標照合で、要求対象はアプリ環境再読込選択です。D: 監査面観点の照合先は関連保守要素展開報告で、中心はアプリ環境再読込反映です。保守面観点の用語定義として、アプリ環境再読込とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再読込読取です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 保守面のアプリ環境停止を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 静止 completedを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. SMPPUNCH output
+    - B. VARY WLM,APPLENV,QUIESCE ✅
+    - C. SMFPRMxx RECORDING(LOGSTREAM)
+    - D. DISPLAY SMFLIM
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 反映面観点の資料照合としてアプリ環境停止棚卸を選び、答えはBで、記録焦点はアプリ環境停止復旧です。制御面観点のアプリ環境停止照合は、ワークロード管理アプリケーション環境のサーバー起動を静止することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境停止照合です。抽出面観点から見るアプリ環境停止報告は、IWM032I 静止 completedをメッセージ形式と対応させるアプリ環境停止報告です。保守面観点のアプリ環境停止選択は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境停止選択です。A: 照合面観点の参照先は生成コマンドコマンド出力復旧で、作業記録で追跡する対象はアプリ環境停止読取です。B: 復旧面観点のアプリ環境停止照合は、入力名と報告内のIWM032I 静止 completedを結ぶアプリ環境停止定義です。C: 監査面観点の照合先はログストリーム記録報告で、中心はアプリ環境停止観点です。D: 選択面観点の処理段階はシステム管理機能リミット表示選択で、入力と出力を結ぶ対象はアプリ環境停止証跡です。記録面観点の用語定義として、アプリ環境停止とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境停止状態です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 記録面のアプリ環境再開を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再開 completedを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. DISPLAY WLM
+    - B. DISPLAY WLM,SCHENV
+    - C. VARY WLM,APPLENV,RESUME ✅
+    - D. SET BDY(TARGET)
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 選択面観点の出力確認としてアプリ環境再開復旧を読み、答えはCで、照合焦点はアプリ環境再開照合です。保守面観点のアプリ環境再開報告は、静止したアプリケーション環境のサーバー起動を再開することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再開報告です。制御面観点で残すアプリ環境再開選択は、IWM032I 再開 completedをコマンド形式と照合するアプリ環境再開選択です。記録面観点のアプリ環境再開反映は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再開反映です。A: 復旧面観点の比較先は有効サービス方針表示照合で、要求対象はアプリ環境再開観点です。B: 監査面観点の照合先はスケジューリング環境表示報告で、中心はアプリ環境再開証跡です。C: 確認面観点のアプリ環境再開選択は、入力名と報告内のIWM032I 再開 completedを結ぶアプリ環境再開根拠です。D: 分類面観点の参照先はターゲットゾーン選択反映で、作業記録で追跡する対象はアプリ環境再開状態です。表示面観点の用語定義として、アプリ環境再開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再開定義です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 方針面の分類規則照会を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って分類規則照会 returned rules and service classを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. IWMCQRY classification rules ✅
+    - B. IWM001I policy activation
+    - C. IWMPQRY active policy
+    - D. RECEIVE HOLDDATA
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 選択面観点で読む分類規則照会報告は正答位置Aで、記録する焦点は分類規則照会 classification rules選択です。表示面観点の分類規則照会反映は、有効方針の分類規則をプログラムから照会することを満たす入力、報告、状態表示を同じ証跡で確認する分類規則照会反映です。制御面観点の分類規則照会観点は、分類規則照会 returned rules and service classを入力記録と合わせて処理対象を見分ける分類規則照会観点です。方針面観点の分類規則照会証跡は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する分類規則照会証跡です。A: 確認面観点の分類規則照会選択は、入力名と報告内の分類規則照会 returned rules and service classを結ぶ分類規則照会保守です。B: 分類面観点の参照先は方針有効化メッセージ反映で、作業記録で追跡する対象は分類規則照会根拠です。C: 反映面観点の比較先は有効方針照会観点で、要求対象は分類規則照会読取です。D: 管理面観点の照合先は保留情報受信証跡で、中心は分類規則照会状態です。報告面観点の用語定義として、分類規則照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む分類規則照会応答です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMCQRY
+
+    ---
+
+    **問題.** 報告面の有効方針照会を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って方針照会 service policy mappingを確認する場合、どの項目を選ぶべきですか。
+
+    - A. APPLY CHECK
+    - B. IWMPQRY active policy ✅
+    - C. LIST TARGETZONE
+    - D. SMPLOG SMPRPT
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 抽出面観点の資料照合として有効方針照会選択を選び、答えはBで、記録焦点は有効方針照会反映です。方針面観点の有効方針照会観点は、有効なサービス方針とサービスクラス情報をAPIで照会することを満たす入力、報告、状態表示を同じ証跡で確認する有効方針照会観点です。記録面観点から見る有効方針照会証跡は、方針照会 service policy mappingをメッセージ形式と対応させる有効方針照会証跡です。報告面観点の有効方針照会読取は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する有効方針照会読取です。A: 分類面観点の参照先は適用事前検査反映で、作業記録で追跡する対象は有効方針照会応答です。B: 反映面観点の有効方針照会観点は、入力名と報告内の方針照会 service policy mappingを結ぶ有効方針照会監査です。C: 管理面観点の照合先はターゲットゾーン表示証跡で、中心は有効方針照会定義です。D: 制御面観点の処理段階はログと報告出力読取で、入力と出力を結ぶ対象は有効方針照会根拠です。構成面観点の用語定義として、有効方針照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む有効方針照会保守です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPQRY
+
+    ---
+
+    **問題.** 構成面のサービス方針有効化を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って方針有効化API return and 方針有効化メッセージを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. IFASMFDL log stream dump
+    - B. DISPLAY WLM,SYSTEM
+    - C. IWMPACT activate policy ✅
+    - D. IWMCQRY classification rules
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 制御面観点の出力確認としてサービス方針有効化反映を読み、答えはCで、照合焦点はサービス方針有効化観点です。報告面観点のサービス方針有効化証跡は、プログラムからワークロード管理サービス方針を有効化することを満たす入力、報告、状態表示を同じ証跡で確認するサービス方針有効化証跡です。方針面観点で残すサービス方針有効化読取は、方針有効化API return and 方針有効化メッセージをコマンド形式と照合するサービス方針有効化読取です。構成面観点のサービス方針有効化状態は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明するサービス方針有効化状態です。A: 反映面観点の比較先はログストリームダンプ観点で、要求対象はサービス方針有効化定義です。B: 管理面観点の照合先はシステム別ワークロード管理表示証跡で、中心はサービス方針有効化根拠です。C: 選択面観点のサービス方針有効化読取は、入力名と報告内の方針有効化API return and 方針有効化メッセージを結ぶサービス方針有効化引継ぎです。D: 表示面観点の参照先は分類規則照会状態で、作業記録で追跡する対象はサービス方針有効化保守です。復旧面観点の用語定義として、サービス方針有効化とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービス方針有効化監査です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPACT
+
+    ---
+
+    **問題.** 復旧面のサービスクラス目標を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってservice class goal and importanceを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. Report class
+    - B. APPLY GROUPEXTEND
+    - C. SMPPUNCH output
+    - D. Service class goal ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 抽出面観点のサービスクラス目標観点は正答Dで、表記上の手掛かりはサービスクラス goal証跡です。構成面観点のサービスクラス目標読取は、作業を応答時間、速度、または裁量目標で管理することを満たす入力、報告、状態表示を同じ証跡で確認するサービスクラス目標読取です。記録面観点で読むサービスクラス目標状態は、service class goal and importanceを資料のコマンド形式やメッセージ形式と照合するサービスクラス目標状態です。復旧面観点のサービスクラス目標定義は、ワークロード管理方針の入力要求と戻った報告を結び、運用状態を説明するサービスクラス目標定義です。A: 管理面観点の照合先は報告クラス証跡で、中心はサービスクラス目標応答です。B: 制御面観点の処理段階は関連保守要素展開読取で、入力と出力を結ぶ対象はサービスクラス目標保守です。C: 表示面観点の参照先は生成コマンドコマンド出力状態で、作業記録で追跡する対象はサービスクラス目標監査です。D: 抽出面観点のサービスクラス目標定義は、入力名と報告内のservice class goal and importanceを結ぶサービスクラス目標棚卸です。運用面観点の用語定義として、サービスクラス目標とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービスクラス目標引継ぎです。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / WLM service definition service class
+
+    ---
+
+    **問題.** 監査面のグローバルゾーン選択を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO グローバル ZONEとSMPCSI台帳指定を確認する場合、最も適切な確認対象はどれですか。
+
+    - A. RECEIVE HOLDDATA
+    - B. LIST HOLDDATA
+    - C. SET BDY(GLOBAL) ✅
+    - D. DDDEF
+
+    正解: **C** ／ 難易度: 初級
+
+    **解説:** 方針面観点の出力確認としてグローバルゾーン選択状態を読み、答えはCで、照合焦点はグローバルゾーン選択定義です。確認面観点のグローバルゾーン選択根拠は、受信処理や表示の処理境界をグローバルゾーンへ切り替えることを満たす入力、報告、状態表示を同じ証跡で確認するグローバルゾーン選択根拠です。運用面観点で残すグローバルゾーン選択応答は、NOW SET TO グローバル ZONEとSMPCSI台帳指定をコマンド形式と照合するグローバルゾーン選択応答です。監査面観点のグローバルゾーン選択保守は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するグローバルゾーン選択保守です。A: 抽出面観点の比較先は保留情報受信定義で、要求対象はグローバルゾーン選択監査です。B: 保守面観点の照合先は保留情報表示根拠で、中心はグローバルゾーン選択引継ぎです。C: 制御面観点のグローバルゾーン選択応答は、入力名と報告内のNOW SET TO グローバル ZONEとSMPCSI台帳指定を結ぶグローバルゾーン選択報告です。D: 復旧面観点の参照先はDD定義定義保守で、作業記録で追跡する対象はグローバルゾーン選択復旧です。反映面観点の用語定義として、グローバルゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むグローバルゾーン選択照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command
+
+    ---
+
+    **問題.** 反映面のターゲットゾーン選択を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO ターゲット ZONEとゾーン名を確認する場合、この状況で優先する項目はどれですか。
+
+    - A. DISPLAY SMF,O
+    - B. IFASMFDL OUTDD TYPE
+    - C. VARY WLM,APPLENV,QUIESCE
+    - D. SET BDY(TARGET) ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 記録面観点のターゲットゾーン選択定義は正答Dで、表記上の手掛かりは境界設定(ターゲット)根拠です。監査面観点のターゲットゾーン選択応答は、適用処理や報告で保守対象のターゲットゾーンを選ぶことを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン選択応答です。構成面観点で読むターゲットゾーン選択保守は、NOW SET TO ターゲット ZONEとゾーン名を資料のコマンド形式やメッセージ形式と照合するターゲットゾーン選択保守です。反映面観点のターゲットゾーン選択監査は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン選択監査です。A: 保守面観点の照合先はシステム管理機能オプション表示根拠で、中心はターゲットゾーン選択棚卸です。B: 方針面観点の処理段階は種別別出力応答で、入力と出力を結ぶ対象はターゲットゾーン選択復旧です。C: 復旧面観点の参照先はアプリ環境停止保守で、作業記録で追跡する対象はターゲットゾーン選択照合です。D: 記録面観点のターゲットゾーン選択監査は、入力名と報告内のNOW SET TO ターゲット ZONEとゾーン名を結ぶターゲットゾーン選択選択です。照合面観点の用語定義として、ターゲットゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン選択報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command
+
+    ---
+
+    **問題.** 照合面の保守要素受信を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って受信処理 summary reportと保守要素 statusを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. RECEIVE SYSMOD ✅
+    - B. Report class
+    - C. APPLY BYPASS(HOLDSYSTEM)
+    - D. REPORT ERRSYSMODS
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 方針面観点で読む保守要素受信根拠は正答位置Aで、記録する焦点は受信処理 保守要素応答です。反映面観点の保守要素受信保守は、SMPPTFINの保守データをPTSとグローバルゾーンへ登録することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素受信保守です。運用面観点の保守要素受信監査は、受信処理 summary reportと保守要素 statusを入力記録と合わせて処理対象を見分ける保守要素受信監査です。照合面観点の保守要素受信引継ぎは、保守管理保守投入の入力要求と戻った報告を結び、運用状態を説明する保守要素受信引継ぎです。A: 制御面観点の保守要素受信応答は、入力名と報告内の受信処理 summary reportと保守要素 statusを結ぶ保守要素受信反映です。B: 復旧面観点の参照先は報告クラス保守で、作業記録で追跡する対象は保守要素受信報告です。C: 記録面観点の比較先はSYSTEM HOLD迂回監査で、要求対象は保守要素受信棚卸です。D: 報告面観点の照合先はエラーHOLD影響報告引継ぎで、中心は保守要素受信復旧です。選択面観点の用語定義として、保守要素受信とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素受信選択です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RECEIVE command
+
+    ---
+
+    **問題.** 保守面の保守要素配布反映を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って配布反映 processing reportとdistribution zoneを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. DISPLAY WLM,RESOURCE
+    - B. IWMPQRY active policy
+    - C. ACCEPT SYSMOD ✅
+    - D. RECEIVE HOLDDATA
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 照合面観点の出力確認として保守要素配布反映復旧を読み、答えはCで、照合焦点は保守要素配布反映照合です。制御面観点の保守要素配布反映報告は、適用済み保守要素を配布ライブラリーへ反映することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素配布反映報告です。分類面観点で残す保守要素配布反映選択は、配布反映 processing reportとdistribution zoneをコマンド形式と照合する保守要素配布反映選択です。保守面観点の保守要素配布反映反映は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する保守要素配布反映反映です。A: 構成面観点の比較先は資源状態表示照合で、要求対象は保守要素配布反映観点です。B: 確認面観点の照合先は有効方針照会報告で、中心は保守要素配布反映証跡です。C: 運用面観点の保守要素配布反映選択は、入力名と報告内の配布反映 processing reportとdistribution zoneを結ぶ保守要素配布反映根拠です。D: 抽出面観点の参照先は保留情報受信反映で、作業記録で追跡する対象は保守要素配布反映状態です。記録面観点の用語定義として、保守要素配布反映とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素配布反映定義です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT command
+
+    ---
+
+    **問題.** 記録面の保守要素全ゾーン表示を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って表示 Summary reportと全ゾーン表示を確認する場合、どの項目を選ぶべきですか。
+
+    - A. SMPLOG SMPRPT
+    - B. DISPLAY SMF,O
+    - C. IFA023I empty input
+    - D. LIST SYSMOD ALLZONES ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 監査面観点の保守要素全ゾーン表示照合は正答Dで、表記上の手掛かりは表示 保守要素 全ゾーン報告です。保守面観点の保守要素全ゾーン表示選択は、保守要素の受信、適用、配布状態を複数ゾーンで確認することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素全ゾーン表示選択です。管理面観点で読む保守要素全ゾーン表示反映は、表示 Summary reportと全ゾーン表示を資料のコマンド形式やメッセージ形式と照合する保守要素全ゾーン表示反映です。記録面観点の保守要素全ゾーン表示観点は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保守要素全ゾーン表示観点です。A: 確認面観点の照合先はログと報告出力報告で、中心は保守要素全ゾーン表示読取です。B: 照合面観点の処理段階はシステム管理機能オプション表示選択で、入力と出力を結ぶ対象は保守要素全ゾーン表示状態です。C: 抽出面観点の参照先は空入力検知反映で、作業記録で追跡する対象は保守要素全ゾーン表示定義です。D: 監査面観点の保守要素全ゾーン表示観点は、入力名と報告内の表示 Summary reportと全ゾーン表示を結ぶ保守要素全ゾーン表示応答です。表示面観点の用語定義として、保守要素全ゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素全ゾーン表示根拠です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST SYSMOD
+
+    ---
+
+    **問題.** 表示面の保留情報表示を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って保留情報 entryとreason idを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. LIST HOLDDATA ✅
+    - B. DISPLAY WLM
+    - C. VARY WLM,APPLENV,RESUME
+    - D. SET BDY(GLOBAL)
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 照合面観点で読む保留情報表示報告は正答位置Aで、記録する焦点は表示 保留情報選択です。記録面観点の保留情報表示反映は、HOLDERRORやシステム保留の保留情報を一覧で確認することを満たす入力、報告、状態表示を同じ証跡で確認する保留情報表示反映です。分類面観点の保留情報表示観点は、保留情報 entryとreason idを入力記録と合わせて処理対象を見分ける保留情報表示観点です。表示面観点の保留情報表示証跡は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保留情報表示証跡です。A: 運用面観点の保留情報表示選択は、入力名と報告内の保留情報 entryとreason idを結ぶ保留情報表示保守です。B: 抽出面観点の参照先は有効サービス方針表示反映で、作業記録で追跡する対象は保留情報表示根拠です。C: 監査面観点の比較先はアプリ環境再開観点で、要求対象は保留情報表示読取です。D: 選択面観点の照合先はグローバルゾーン選択証跡で、中心は保留情報表示状態です。方針面観点の用語定義として、保留情報表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保留情報表示応答です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST HOLDDATA
+
+    ---
+
+    **問題.** 方針面のターゲットゾーン表示を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってターゲットZONE entryとDD定義参照を確認する場合、この状況で優先する項目はどれですか。
+
+    - A. LIST HOLDDATA
+    - B. LIST TARGETZONE ✅
+    - C. DDDEF
+    - D. DISPLAY SMF,O
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 管理面観点の資料照合としてターゲットゾーン表示選択を選び、答えはBで、記録焦点はターゲットゾーン表示反映です。表示面観点のターゲットゾーン表示観点は、ターゲットゾーンのDD定義やOPTIONSを確認することを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン表示観点です。保守面観点から見るターゲットゾーン表示証跡は、ターゲットZONE entryとDD定義参照をメッセージ形式と対応させるターゲットゾーン表示証跡です。方針面観点のターゲットゾーン表示読取は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン表示読取です。A: 抽出面観点の参照先は保留情報表示反映で、作業記録で追跡する対象はターゲットゾーン表示応答です。B: 監査面観点のターゲットゾーン表示観点は、入力名と報告内のターゲットZONE entryとDD定義参照を結ぶターゲットゾーン表示監査です。C: 選択面観点の照合先はDD定義定義証跡で、中心はターゲットゾーン表示定義です。D: 分類面観点の処理段階はシステム管理機能オプション表示読取で、入力と出力を結ぶ対象はターゲットゾーン表示根拠です。報告面観点の用語定義として、ターゲットゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン表示保守です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST TARGETZONE
+
+    ---
+
+    **問題.** 運用面の未採用保守要素除去を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って除去 return codeと保守要素 statusを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. RECEIVE SYSMOD
+    - B. REJECT SYSMOD ✅
+    - C. LIST SYSMOD ALLZONES
+    - D. DDDEF
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 保守面観点の資料照合として未採用保守要素除去読取を選び、答えはBで、記録焦点は未採用保守要素除去状態です。復旧面観点の未採用保守要素除去定義は、不要な未適用保守要素をグローバルゾーンやPTSから整理することを満たす入力、報告、状態表示を同じ証跡で確認する未採用保守要素除去定義です。報告面観点から見る未採用保守要素除去根拠は、除去 return codeと保守要素 statusをメッセージ形式と対応させる未採用保守要素除去根拠です。運用面観点の未採用保守要素除去応答は、保守管理保守整理の入力要求と戻った報告を結び、運用状態を説明する未採用保守要素除去応答です。A: 記録面観点の参照先は保守要素受信状態で、作業記録で追跡する対象は未採用保守要素除去棚卸です。B: 管理面観点の未採用保守要素除去定義は、入力名と報告内の除去 return codeと保守要素 statusを結ぶ未採用保守要素除去照合です。C: 制御面観点の照合先は保守要素全ゾーン表示根拠で、中心は未採用保守要素除去監査です。D: 表示面観点の処理段階はDD定義定義応答で、入力と出力を結ぶ対象は未採用保守要素除去引継ぎです。確認面観点の用語定義として、未採用保守要素除去とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む未採用保守要素除去復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands REJECT command
+
+    ---
+
+    **問題.** 確認面の適用済み保守要素復元を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って復元 reportとtarget zoneを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. DISPLAY SMF,M
+    - B. IFA023I empty input
+    - C. RESTORE SYSMOD ✅
+    - D. VARY WLM,APPLENV,RESUME
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 表示面観点の出力確認として適用済み保守要素復元状態を読み、答えはCで、照合焦点は適用済み保守要素復元定義です。運用面観点の適用済み保守要素復元根拠は、ターゲットライブラリーを適用前の状態へ戻すことを満たす入力、報告、状態表示を同じ証跡で確認する適用済み保守要素復元根拠です。復旧面観点で残す適用済み保守要素復元応答は、復元 reportとtarget zoneをコマンド形式と照合する適用済み保守要素復元応答です。確認面観点の適用済み保守要素復元保守は、保守管理復旧の入力要求と戻った報告を結び、運用状態を説明する適用済み保守要素復元保守です。A: 管理面観点の比較先はシステム管理機能メンバー表示定義で、要求対象は適用済み保守要素復元監査です。B: 制御面観点の照合先は空入力検知根拠で、中心は適用済み保守要素復元引継ぎです。C: 分類面観点の適用済み保守要素復元応答は、入力名と報告内の復元 reportとtarget zoneを結ぶ適用済み保守要素復元報告です。D: 構成面観点の参照先はアプリ環境再開保守で、作業記録で追跡する対象は適用済み保守要素復元復旧です。監査面観点の用語定義として、適用済み保守要素復元とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用済み保守要素復元照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RESTORE command
+
+    ---
+
+    **問題.** 監査面のCSI台帳ゾーン索引を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってゾーン索引 entryとzone nameを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. WLM couple data set
+    - B. APPLY BYPASS(HOLDSYSTEM)
+    - C. REPORT ERRSYSMODS
+    - D. CSI ZONEINDEX ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 保守面観点のCSI台帳ゾーン索引定義は正答Dで、表記上の手掛かりはCSI台帳 ゾーン索引根拠です。確認面観点のCSI台帳ゾーン索引応答は、SMPCSI台帳内のゾーン構成と参照先を把握することを満たす入力、報告、状態表示を同じ証跡で確認するCSI台帳ゾーン索引応答です。報告面観点で読むCSI台帳ゾーン索引保守は、ゾーン索引 entryとzone nameを資料のコマンド形式やメッセージ形式と照合するCSI台帳ゾーン索引保守です。監査面観点のCSI台帳ゾーン索引監査は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するCSI台帳ゾーン索引監査です。A: 制御面観点の照合先はワークロード管理カップルデータセット根拠で、中心はCSI台帳ゾーン索引棚卸です。B: 表示面観点の処理段階はSYSTEM HOLD迂回応答で、入力と出力を結ぶ対象はCSI台帳ゾーン索引復旧です。C: 構成面観点の参照先はエラーHOLD影響報告保守で、作業記録で追跡する対象はCSI台帳ゾーン索引照合です。D: 保守面観点のCSI台帳ゾーン索引監査は、入力名と報告内のゾーン索引 entryとzone nameを結ぶCSI台帳ゾーン索引選択です。反映面観点の用語定義として、CSI台帳ゾーン索引とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むCSI台帳ゾーン索引報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference CSI entries
+
+    ---
+
+    **問題.** 反映面のDD定義定義を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってDD定義 entryとdata set nameを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. DDDEF ✅
+    - B. REPORT ERRSYSMODS
+    - C. LSNAME TYPE
+    - D. IFASMFDP data set dump
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 表示面観点で読むDD定義定義根拠は正答位置Aで、記録する焦点はDD定義応答です。監査面観点のDD定義定義保守は、保守管理処理で使うデータセット割り当てをゾーン内に登録することを満たす入力、報告、状態表示を同じ証跡で確認するDD定義定義保守です。復旧面観点のDD定義定義監査は、DD定義 entryとdata set nameを入力記録と合わせて処理対象を見分けるDD定義定義監査です。反映面観点のDD定義定義引継ぎは、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するDD定義定義引継ぎです。A: 分類面観点のDD定義定義応答は、入力名と報告内のDD定義 entryとdata set nameを結ぶDD定義定義反映です。B: 構成面観点の参照先はエラーHOLD影響報告保守で、作業記録で追跡する対象はDD定義定義報告です。C: 保守面観点の比較先は種別別ログストリーム監査で、要求対象はDD定義定義棚卸です。D: 方針面観点の照合先はMANデータセットダンプ引継ぎで、中心はDD定義定義復旧です。照合面観点の用語定義として、DD定義定義とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むDD定義定義選択です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference DDDEF entry
+
+    ---
+
+    **問題.** 照合面のログと報告出力を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってSMPログ、SMPログA、SMP報告、SMPOUTを確認する場合、どの項目を選ぶべきですか。
+
+    - A. IWMPACT activate policy
+    - B. SMPLOG SMPRPT ✅
+    - C. RECEIVE HOLDDATA
+    - D. LIST TARGETZONE
+
+    正解: **B** ／ 難易度: 初級
+
+    **解説:** 報告面観点の資料照合としてログと報告出力応答を選び、答えはBで、記録焦点はログと報告出力保守です。反映面観点のログと報告出力監査は、保守管理処理のログと報告を分けて保存することを満たす入力、報告、状態表示を同じ証跡で確認するログと報告出力監査です。確認面観点から見るログと報告出力引継ぎは、SMPログ、SMPログA、SMP報告、SMPOUTをメッセージ形式と対応させるログと報告出力引継ぎです。照合面観点のログと報告出力棚卸は、保守管理証跡の入力要求と戻った報告を結び、運用状態を説明するログと報告出力棚卸です。A: 構成面観点の参照先はサービス方針有効化保守で、作業記録で追跡する対象はログと報告出力選択です。B: 保守面観点のログと報告出力監査は、入力名と報告内のSMPログ、SMPログA、SMP報告、SMPOUTを結ぶログと報告出力観点です。C: 方針面観点の照合先は保留情報受信引継ぎで、中心はログと報告出力照合です。D: 復旧面観点の処理段階はターゲットゾーン表示棚卸で、入力と出力を結ぶ対象はログと報告出力報告です。選択面観点の用語定義として、ログと報告出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログと報告出力反映です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands data sets
+
+    ---
+
+    **問題.** 選択面のログストリーム記録を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って記録方式(ログストリーム)とシステム管理機能パラメータxxを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. DISPLAY WLM,SYSTEM
+    - B. DISPLAY WLM,SCHENV
+    - C. SMFPRMxx RECORDING(LOGSTREAM) ✅
+    - D. SET BDY(TARGET)
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 復旧面観点の出力確認としてログストリーム記録保守を読み、答えはCで、照合焦点はログストリーム記録監査です。照合面観点のログストリーム記録引継ぎは、システム管理機能をMANデータセットではなくログストリームへ記録することを満たす入力、報告、状態表示を同じ証跡で確認するログストリーム記録引継ぎです。反映面観点で残すログストリーム記録棚卸は、記録方式(ログストリーム)とシステム管理機能パラメータxxをコマンド形式と照合するログストリーム記録棚卸です。選択面観点のログストリーム記録復旧は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明するログストリーム記録復旧です。A: 保守面観点の比較先はシステム別ワークロード管理表示監査で、要求対象はログストリーム記録照合です。B: 方針面観点の照合先はスケジューリング環境表示引継ぎで、中心はログストリーム記録報告です。C: 表示面観点のログストリーム記録棚卸は、入力名と報告内の記録方式(ログストリーム)とシステム管理機能パラメータxxを結ぶログストリーム記録証跡です。D: 監査面観点の参照先はターゲットゾーン選択復旧で、作業記録で追跡する対象はログストリーム記録反映です。管理面観点の用語定義として、ログストリーム記録とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログストリーム記録観点です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities SMFPRMxx
+
+    ---
+
+    **問題.** 抽出面の種別別ログストリームを証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってログストリーム名とレコード種別範囲を確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. LSNAME TYPE ✅
+    - B. REPORT ERRSYSMODS
+    - C. DEFAULTLSNAME
+    - D. IFASMFDP data set dump
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 復旧面観点で読む種別別ログストリーム引継ぎは正答位置Aで、記録する焦点はログストリーム名 レコード種別棚卸です。管理面観点の種別別ログストリーム復旧は、特定のシステム管理機能レコード種別を専用ログストリームへ振り分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別ログストリーム復旧です。反映面観点の種別別ログストリーム照合は、ログストリーム名とレコード種別範囲を入力記録と合わせて処理対象を見分ける種別別ログストリーム照合です。抽出面観点の種別別ログストリーム報告は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する種別別ログストリーム報告です。A: 表示面観点の種別別ログストリーム棚卸は、入力名と報告内のログストリーム名とレコード種別範囲を結ぶ種別別ログストリーム状態です。B: 監査面観点の参照先はエラーHOLD影響報告復旧で、作業記録で追跡する対象は種別別ログストリーム証跡です。C: 報告面観点の比較先は既定ログストリーム名照合で、要求対象は種別別ログストリーム選択です。D: 運用面観点の照合先はMANデータセットダンプ報告で、中心は種別別ログストリーム反映です。分類面観点の用語定義として、種別別ログストリームとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別ログストリーム読取です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities LSNAME
+
+    ---
+
+    **問題.** 復旧面の期間指定ダンプを障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って日付、開始時刻、終了時刻のSYSPRINT表示を確認する場合、この状況で優先する項目はどれですか。
+
+    - A. DISPLAY WLM,RESOURCE
+    - B. IFASMFDL DATE START END ✅
+    - C. IWMPQRY active policy
+    - D. RECEIVE HOLDDATA
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 制御面観点の資料照合として期間指定ダンプ読取を選び、答えはBで、記録焦点は期間指定ダンプ状態です。構成面観点の期間指定ダンプ定義は、日付と時刻の範囲でシステム管理機能レコードを抽出することを満たす入力、報告、状態表示を同じ証跡で確認する期間指定ダンプ定義です。方針面観点から見る期間指定ダンプ根拠は、日付、開始時刻、終了時刻のSYSPRINT表示をメッセージ形式と対応させる期間指定ダンプ根拠です。復旧面観点の期間指定ダンプ応答は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する期間指定ダンプ応答です。A: 保守面観点の参照先は資源状態表示状態で、作業記録で追跡する対象は期間指定ダンプ棚卸です。B: 選択面観点の期間指定ダンプ定義は、入力名と報告内の日付、開始時刻、終了時刻のSYSPRINT表示を結ぶ期間指定ダンプ照合です。C: 分類面観点の照合先は有効方針照会根拠で、中心は期間指定ダンプ監査です。D: 記録面観点の処理段階は保留情報受信応答で、入力と出力を結ぶ対象は期間指定ダンプ引継ぎです。運用面観点の用語定義として、期間指定ダンプとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む期間指定ダンプ復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL parameters
+
+    ---
+
+    **問題.** 運用面のシステムID選択を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってシステムID parameterとSYSPRINT表示を確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. SET BDY(GLOBAL)
+    - B. ACCEPT CHECK
+    - C. IFASMFDL SID ✅
+    - D. REJECT SYSMOD
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 記録面観点の出力確認としてシステムID選択状態を読み、答えはCで、照合焦点はシステムID選択定義です。復旧面観点のシステムID選択根拠は、特定システムIDのシステム管理機能レコードだけを抽出することを満たす入力、報告、状態表示を同じ証跡で確認するシステムID選択根拠です。構成面観点で残すシステムID選択応答は、システムID parameterとSYSPRINT表示をコマンド形式と照合するシステムID選択応答です。運用面観点のシステムID選択保守は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明するシステムID選択保守です。A: 選択面観点の比較先はグローバルゾーン選択定義で、要求対象はシステムID選択監査です。B: 分類面観点の照合先は配布反映事前検査根拠で、中心はシステムID選択引継ぎです。C: 抽出面観点のシステムID選択応答は、入力名と報告内のシステムID parameterとSYSPRINT表示を結ぶシステムID選択報告です。D: 報告面観点の参照先は未採用保守要素除去保守で、作業記録で追跡する対象はシステムID選択復旧です。確認面観点の用語定義として、システムID選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むシステムID選択照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL SID
+
+    ---
+
+    **問題.** 確認面の種別別出力を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って出力DDとレコード種別範囲を確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. IFASMFDP data set dump
+    - B. DISPLAY WLM,RESOURCE
+    - C. IWMPACT activate policy
+    - D. IFASMFDL OUTDD TYPE ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 制御面観点の種別別出力定義は正答Dで、表記上の手掛かりはシステム管理機能ログストリームダンプ 出力DD レコード種別根拠です。運用面観点の種別別出力応答は、システム管理機能レコード種別ごとに出力DDを分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別出力応答です。方針面観点で読む種別別出力保守は、出力DDとレコード種別範囲を資料のコマンド形式やメッセージ形式と照合する種別別出力保守です。確認面観点の種別別出力監査は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する種別別出力監査です。A: 分類面観点の照合先はMANデータセットダンプ根拠で、中心は種別別出力棚卸です。B: 記録面観点の処理段階は資源状態表示応答で、入力と出力を結ぶ対象は種別別出力復旧です。C: 報告面観点の参照先はサービス方針有効化保守で、作業記録で追跡する対象は種別別出力照合です。D: 制御面観点の種別別出力監査は、入力名と報告内の出力DDとレコード種別範囲を結ぶ種別別出力選択です。監査面観点の用語定義として、種別別出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別出力報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL OUTDD
+
+    ---
+
+    **問題.** 監査面の空入力検知を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って空入力メッセージまたはIFA841Iメッセージを確認する場合、どの項目を選ぶべきですか。
+
+    - A. IFA023I empty input ✅
+    - B. APPLY CHECK
+    - C. LIST TARGETZONE
+    - D. SMPLOG SMPRPT
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 記録面観点で読む空入力検知根拠は正答位置Aで、記録する焦点は空入力メッセージ empty input応答です。確認面観点の空入力検知保守は、指定範囲にダンプ対象システム管理機能データがない状態を判定することを満たす入力、報告、状態表示を同じ証跡で確認する空入力検知保守です。構成面観点の空入力検知監査は、空入力メッセージまたはIFA841Iメッセージを入力記録と合わせて処理対象を見分ける空入力検知監査です。監査面観点の空入力検知引継ぎは、システム管理機能メッセージの入力要求と戻った報告を結び、運用状態を説明する空入力検知引継ぎです。A: 抽出面観点の空入力検知応答は、入力名と報告内の空入力メッセージまたはIFA841Iメッセージを結ぶ空入力検知反映です。B: 報告面観点の参照先は適用事前検査保守で、作業記録で追跡する対象は空入力検知報告です。C: 制御面観点の比較先はターゲットゾーン表示監査で、要求対象は空入力検知棚卸です。D: 表示面観点の照合先はログと報告出力引継ぎで、中心は空入力検知復旧です。反映面観点の用語定義として、空入力検知とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む空入力検知選択です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IFA023I
+
+    ---
+
+    **問題.** 管理面の資源状態表示を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってIWM038I 資源 and STATEを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. DISPLAY WLM,RESOURCE ✅
+    - B. WLM couple data set
+    - C. APPLY BYPASS(HOLDSYSTEM)
+    - D. REPORT ERRSYSMODS
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 構成面観点で読む資源状態表示引継ぎは正答位置Aで、記録する焦点は表示 ワークロード管理,資源棚卸です。選択面観点の資源状態表示復旧は、ワークロード管理が管理する資源の状態を表示することを満たす入力、報告、状態表示を同じ証跡で確認する資源状態表示復旧です。監査面観点の資源状態表示照合は、IWM038I 資源 and STATEを入力記録と合わせて処理対象を見分ける資源状態表示照合です。管理面観点の資源状態表示報告は、ワークロード管理資源の入力要求と戻った報告を結び、運用状態を説明する資源状態表示報告です。A: 記録面観点の資源状態表示棚卸は、入力名と報告内のIWM038I 資源 and STATEを結ぶ資源状態表示状態です。B: 確認面観点の参照先はワークロード管理カップルデータセット復旧で、作業記録で追跡する対象は資源状態表示証跡です。C: 方針面観点の比較先はSYSTEM HOLD迂回照合で、要求対象は資源状態表示選択です。D: 復旧面観点の照合先はエラーHOLD影響報告報告で、中心は資源状態表示反映です。抽出面観点の用語定義として、資源状態表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む資源状態表示読取です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IWM038I
+
+    ---
+
+    **問題.** 分類面のアプリ環境再読込を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再読込 completedを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. SET BDY(GLOBAL)
+    - B. ACCEPT CHECK
+    - C. VARY WLM,APPLENV,REFRESH ✅
+    - D. REJECT SYSMOD
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 監査面観点の出力確認としてアプリ環境再読込復旧を読み、答えはCで、照合焦点はアプリ環境再読込照合です。抽出面観点のアプリ環境再読込報告は、サーバーアドレス空間を再起動してアプリ環境を反映することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再読込報告です。管理面観点で残すアプリ環境再読込選択は、IWM032I 再読込 completedをコマンド形式と照合するアプリ環境再読込選択です。分類面観点のアプリ環境再読込反映は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再読込反映です。A: 方針面観点の比較先はグローバルゾーン選択照合で、要求対象はアプリ環境再読込観点です。B: 復旧面観点の照合先は配布反映事前検査報告で、中心はアプリ環境再読込証跡です。C: 構成面観点のアプリ環境再読込選択は、入力名と報告内のIWM032I 再読込 completedを結ぶアプリ環境再読込根拠です。D: 選択面観点の参照先は未採用保守要素除去反映で、作業記録で追跡する対象はアプリ環境再読込状態です。制御面観点の用語定義として、アプリ環境再読込とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再読込定義です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 制御面のアプリ環境停止を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 静止 completedを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. SET SMF=xx
+    - B. IFASMFDP data set dump
+    - C. DISPLAY WLM,RESOURCE
+    - D. VARY WLM,APPLENV,QUIESCE ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 運用面観点のアプリ環境停止照合は正答Dで、表記上の手掛かりは変更指示 ワークロード管理,アプリ環境,静止報告です。分類面観点のアプリ環境停止選択は、ワークロード管理アプリケーション環境のサーバー起動を静止することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境停止選択です。照合面観点で読むアプリ環境停止反映は、IWM032I 静止 completedを資料のコマンド形式やメッセージ形式と照合するアプリ環境停止反映です。制御面観点のアプリ環境停止観点は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境停止観点です。A: 復旧面観点の照合先はシステム管理機能パラメータxx切替報告で、中心はアプリ環境停止読取です。B: 監査面観点の処理段階はMANデータセットダンプ選択で、入力と出力を結ぶ対象はアプリ環境停止状態です。C: 選択面観点の参照先は資源状態表示反映で、作業記録で追跡する対象はアプリ環境停止定義です。D: 運用面観点のアプリ環境停止観点は、入力名と報告内のIWM032I 静止 completedを結ぶアプリ環境停止応答です。保守面観点の用語定義として、アプリ環境停止とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境停止根拠です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 保守面のアプリ環境再開を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再開 completedを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. VARY WLM,APPLENV,RESUME ✅
+    - B. IWMPACT activate policy
+    - C. RECEIVE HOLDDATA
+    - D. LIST TARGETZONE
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 監査面観点で読むアプリ環境再開報告は正答位置Aで、記録する焦点は変更指示 ワークロード管理,アプリ環境,再開選択です。制御面観点のアプリ環境再開反映は、静止したアプリケーション環境のサーバー起動を再開することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再開反映です。管理面観点のアプリ環境再開観点は、IWM032I 再開 completedを入力記録と合わせて処理対象を見分けるアプリ環境再開観点です。保守面観点のアプリ環境再開証跡は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再開証跡です。A: 構成面観点のアプリ環境再開選択は、入力名と報告内のIWM032I 再開 completedを結ぶアプリ環境再開保守です。B: 選択面観点の参照先はサービス方針有効化反映で、作業記録で追跡する対象はアプリ環境再開根拠です。C: 運用面観点の比較先は保留情報受信観点で、要求対象はアプリ環境再開読取です。D: 反映面観点の照合先はターゲットゾーン表示証跡で、中心はアプリ環境再開状態です。記録面観点の用語定義として、アプリ環境再開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再開応答です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 表示面の分類規則照会を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って分類規則照会 returned rules and service classを確認する場合、どの項目を選ぶべきですか。
+
+    - A. Report class
+    - B. APPLY GROUPEXTEND
+    - C. IWMCQRY classification rules ✅
+    - D. SMPPUNCH output
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 管理面観点の出力確認として分類規則照会反映を読み、答えはCで、照合焦点は分類規則照会観点です。記録面観点の分類規則照会証跡は、有効方針の分類規則をプログラムから照会することを満たす入力、報告、状態表示を同じ証跡で確認する分類規則照会証跡です。保守面観点で残す分類規則照会読取は、分類規則照会 returned rules and service classをコマンド形式と照合する分類規則照会読取です。表示面観点の分類規則照会状態は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する分類規則照会状態です。A: 運用面観点の比較先は報告クラス観点で、要求対象は分類規則照会定義です。B: 反映面観点の照合先は関連保守要素展開証跡で、中心は分類規則照会根拠です。C: 監査面観点の分類規則照会読取は、入力名と報告内の分類規則照会 returned rules and service classを結ぶ分類規則照会引継ぎです。D: 制御面観点の参照先は生成コマンドコマンド出力状態で、作業記録で追跡する対象は分類規則照会保守です。方針面観点の用語定義として、分類規則照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む分類規則照会監査です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMCQRY
+
+    ---
+
+    **問題.** 方針面の有効方針照会を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って方針照会 service policy mappingを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. REPORT ERRSYSMODS
+    - B. DEFAULTLSNAME
+    - C. IFASMFDL log stream dump
+    - D. IWMPQRY active policy ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 照合面観点の有効方針照会観点は正答Dで、表記上の手掛かりは方針照会 active policy証跡です。表示面観点の有効方針照会読取は、有効なサービス方針とサービスクラス情報をAPIで照会することを満たす入力、報告、状態表示を同じ証跡で確認する有効方針照会読取です。分類面観点で読む有効方針照会状態は、方針照会 service policy mappingを資料のコマンド形式やメッセージ形式と照合する有効方針照会状態です。方針面観点の有効方針照会定義は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する有効方針照会定義です。A: 反映面観点の照合先はエラーHOLD影響報告証跡で、中心は有効方針照会応答です。B: 管理面観点の処理段階は既定ログストリーム名読取で、入力と出力を結ぶ対象は有効方針照会保守です。C: 制御面観点の参照先はログストリームダンプ状態で、作業記録で追跡する対象は有効方針照会監査です。D: 照合面観点の有効方針照会定義は、入力名と報告内の方針照会 service policy mappingを結ぶ有効方針照会棚卸です。報告面観点の用語定義として、有効方針照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む有効方針照会引継ぎです。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPQRY
+
+    ---
+
+    **問題.** 報告面のサービス方針有効化を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って方針有効化API return and 方針有効化メッセージを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. IWMPACT activate policy ✅
+    - B. DISPLAY WLM,APPLENV
+    - C. Service class goal
+    - D. APPLY GROUPEXTEND
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 管理面観点で読むサービス方針有効化証跡は正答位置Aで、記録する焦点は方針有効化API activate policy読取です。方針面観点のサービス方針有効化状態は、プログラムからワークロード管理サービス方針を有効化することを満たす入力、報告、状態表示を同じ証跡で確認するサービス方針有効化状態です。保守面観点のサービス方針有効化定義は、方針有効化API return and 方針有効化メッセージを入力記録と合わせて処理対象を見分けるサービス方針有効化定義です。報告面観点のサービス方針有効化根拠は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明するサービス方針有効化根拠です。A: 監査面観点のサービス方針有効化読取は、入力名と報告内の方針有効化API return and 方針有効化メッセージを結ぶサービス方針有効化復旧です。B: 制御面観点の参照先はアプリケーション環境表示状態で、作業記録で追跡する対象はサービス方針有効化引継ぎです。C: 照合面観点の比較先はサービスクラス目標定義で、要求対象はサービス方針有効化応答です。D: 抽出面観点の照合先は関連保守要素展開根拠で、中心はサービス方針有効化保守です。構成面観点の用語定義として、サービス方針有効化とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービス方針有効化棚卸です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPACT
+
+    ---
+
+    **問題.** 構成面のサービスクラス目標を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってservice class goal and importanceを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. ACCEPT SYSMOD
+    - B. Service class goal ✅
+    - C. REJECT SYSMOD
+    - D. SET SMF=xx
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 分類面観点の資料照合としてサービスクラス目標読取を選び、答えはBで、記録焦点はサービスクラス目標状態です。報告面観点のサービスクラス目標定義は、作業を応答時間、速度、または裁量目標で管理することを満たす入力、報告、状態表示を同じ証跡で確認するサービスクラス目標定義です。表示面観点から見るサービスクラス目標根拠は、service class goal and importanceをメッセージ形式と対応させるサービスクラス目標根拠です。構成面観点のサービスクラス目標応答は、ワークロード管理方針の入力要求と戻った報告を結び、運用状態を説明するサービスクラス目標応答です。A: 制御面観点の参照先は保守要素配布反映状態で、作業記録で追跡する対象はサービスクラス目標棚卸です。B: 照合面観点のサービスクラス目標定義は、入力名と報告内のservice class goal and importanceを結ぶサービスクラス目標照合です。C: 抽出面観点の照合先は未採用保守要素除去根拠で、中心はサービスクラス目標監査です。D: 保守面観点の処理段階はシステム管理機能パラメータxx切替応答で、入力と出力を結ぶ対象はサービスクラス目標引継ぎです。復旧面観点の用語定義として、サービスクラス目標とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービスクラス目標復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / WLM service definition service class
+
+    ---
+
+    **問題.** 監査面のターゲットゾーン選択を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってNOW SET TO ターゲット ZONEとゾーン名を確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. DISPLAY WLM,SYSTEM
+    - B. SET BDY(TARGET) ✅
+    - C. DISPLAY WLM,SCHENV
+    - D. RECEIVE SYSMOD
+
+    正解: **B** ／ 難易度: 初級
+
+    **解説:** 表示面観点の資料照合としてターゲットゾーン選択応答を選び、答えはBで、記録焦点はターゲットゾーン選択保守です。確認面観点のターゲットゾーン選択監査は、適用処理や報告で保守対象のターゲットゾーンを選ぶことを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン選択監査です。復旧面観点から見るターゲットゾーン選択引継ぎは、NOW SET TO ターゲット ZONEとゾーン名をメッセージ形式と対応させるターゲットゾーン選択引継ぎです。監査面観点のターゲットゾーン選択棚卸は、保守管理ゾーン制御の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン選択棚卸です。A: 方針面観点の参照先はシステム別ワークロード管理表示保守で、作業記録で追跡する対象はターゲットゾーン選択選択です。B: 分類面観点のターゲットゾーン選択監査は、入力名と報告内のNOW SET TO ターゲット ZONEとゾーン名を結ぶターゲットゾーン選択観点です。C: 記録面観点の照合先はスケジューリング環境表示引継ぎで、中心はターゲットゾーン選択照合です。D: 報告面観点の処理段階は保守要素受信棚卸で、入力と出力を結ぶ対象はターゲットゾーン選択報告です。反映面観点の用語定義として、ターゲットゾーン選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン選択反映です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands SET command
+
+    ---
+
+    **問題.** 反映面の保守要素受信を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使って受信処理 summary reportと保守要素 statusを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. LIST SYSMOD ALLZONES
+    - B. RESTORE SYSMOD
+    - C. RECEIVE SYSMOD ✅
+    - D. SETSMF LSNAME
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 報告面観点の出力確認として保守要素受信保守を読み、答えはCで、照合焦点は保守要素受信監査です。監査面観点の保守要素受信引継ぎは、SMPPTFINの保守データをPTSとグローバルゾーンへ登録することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素受信引継ぎです。確認面観点で残す保守要素受信棚卸は、受信処理 summary reportと保守要素 statusをコマンド形式と照合する保守要素受信棚卸です。反映面観点の保守要素受信復旧は、保守管理保守投入の入力要求と戻った報告を結び、運用状態を説明する保守要素受信復旧です。A: 分類面観点の比較先は保守要素全ゾーン表示監査で、要求対象は保守要素受信照合です。B: 記録面観点の照合先は適用済み保守要素復元引継ぎで、中心は保守要素受信報告です。C: 保守面観点の保守要素受信棚卸は、入力名と報告内の受信処理 summary reportと保守要素 statusを結ぶ保守要素受信証跡です。D: 運用面観点の参照先は一時ログストリーム変更復旧で、作業記録で追跡する対象は保守要素受信反映です。照合面観点の用語定義として、保守要素受信とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素受信観点です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RECEIVE command
+
+    ---
+
+    **問題.** 制御面の保守要素配布反映を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って配布反映 processing reportとdistribution zoneを確認する場合、どの項目を選ぶべきですか。
+
+    - A. ACCEPT SYSMOD ✅
+    - B. Report class
+    - C. APPLY GROUPEXTEND
+    - D. REPORT ERRSYSMODS
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 確認面観点で読む保守要素配布反映報告は正答位置Aで、記録する焦点は配布反映 保守要素選択です。分類面観点の保守要素配布反映反映は、適用済み保守要素を配布ライブラリーへ反映することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素配布反映反映です。選択面観点の保守要素配布反映観点は、配布反映 processing reportとdistribution zoneを入力記録と合わせて処理対象を見分ける保守要素配布反映観点です。制御面観点の保守要素配布反映証跡は、保守管理配布反映の入力要求と戻った報告を結び、運用状態を説明する保守要素配布反映証跡です。A: 報告面観点の保守要素配布反映選択は、入力名と報告内の配布反映 processing reportとdistribution zoneを結ぶ保守要素配布反映保守です。B: 照合面観点の参照先は報告クラス反映で、作業記録で追跡する対象は保守要素配布反映根拠です。C: 復旧面観点の比較先は関連保守要素展開観点で、要求対象は保守要素配布反映読取です。D: 監査面観点の照合先はエラーHOLD影響報告証跡で、中心は保守要素配布反映状態です。保守面観点の用語定義として、保守要素配布反映とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素配布反映応答です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands ACCEPT command
+
+    ---
+
+    **問題.** 保守面の保守要素全ゾーン表示を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って表示 Summary reportと全ゾーン表示を確認する場合、最も適切な確認対象はどれですか。
+
+    - A. IFASMFDL log stream dump
+    - B. LIST SYSMOD ALLZONES ✅
+    - C. DISPLAY WLM,SYSTEM
+    - D. IWMCQRY classification rules
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 反映面観点の資料照合として保守要素全ゾーン表示選択を選び、答えはBで、記録焦点は保守要素全ゾーン表示反映です。制御面観点の保守要素全ゾーン表示観点は、保守要素の受信、適用、配布状態を複数ゾーンで確認することを満たす入力、報告、状態表示を同じ証跡で確認する保守要素全ゾーン表示観点です。抽出面観点から見る保守要素全ゾーン表示証跡は、表示 Summary reportと全ゾーン表示をメッセージ形式と対応させる保守要素全ゾーン表示証跡です。保守面観点の保守要素全ゾーン表示読取は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保守要素全ゾーン表示読取です。A: 照合面観点の参照先はログストリームダンプ反映で、作業記録で追跡する対象は保守要素全ゾーン表示応答です。B: 復旧面観点の保守要素全ゾーン表示観点は、入力名と報告内の表示 Summary reportと全ゾーン表示を結ぶ保守要素全ゾーン表示監査です。C: 監査面観点の照合先はシステム別ワークロード管理表示証跡で、中心は保守要素全ゾーン表示定義です。D: 選択面観点の処理段階は分類規則照会読取で、入力と出力を結ぶ対象は保守要素全ゾーン表示根拠です。記録面観点の用語定義として、保守要素全ゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保守要素全ゾーン表示保守です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST SYSMOD
+
+    ---
+
+    **問題.** 記録面の保留情報表示を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って保留情報 entryとreason idを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. IWMPQRY active policy
+    - B. RECEIVE SYSMOD
+    - C. LIST HOLDDATA ✅
+    - D. LIST TARGETZONE
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 選択面観点の出力確認として保留情報表示反映を読み、答えはCで、照合焦点は保留情報表示観点です。保守面観点の保留情報表示証跡は、HOLDERRORやシステム保留の保留情報を一覧で確認することを満たす入力、報告、状態表示を同じ証跡で確認する保留情報表示証跡です。制御面観点で残す保留情報表示読取は、保留情報 entryとreason idをコマンド形式と照合する保留情報表示読取です。記録面観点の保留情報表示状態は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明する保留情報表示状態です。A: 復旧面観点の比較先は有効方針照会観点で、要求対象は保留情報表示定義です。B: 監査面観点の照合先は保守要素受信証跡で、中心は保留情報表示根拠です。C: 確認面観点の保留情報表示読取は、入力名と報告内の保留情報 entryとreason idを結ぶ保留情報表示引継ぎです。D: 分類面観点の参照先はターゲットゾーン表示状態で、作業記録で追跡する対象は保留情報表示保守です。表示面観点の用語定義として、保留情報表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む保留情報表示監査です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST HOLDDATA
+
+    ---
+
+    **問題.** 表示面のターゲットゾーン表示を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってターゲットZONE entryとDD定義参照を確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. DEFAULTLSNAME
+    - B. DISPLAY SMFLIM
+    - C. DISPLAY WLM,SYSTEM
+    - D. LIST TARGETZONE ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 反映面観点のターゲットゾーン表示観点は正答Dで、表記上の手掛かりは表示 ターゲットZONE証跡です。記録面観点のターゲットゾーン表示読取は、ターゲットゾーンのDD定義やOPTIONSを確認することを満たす入力、報告、状態表示を同じ証跡で確認するターゲットゾーン表示読取です。抽出面観点で読むターゲットゾーン表示状態は、ターゲットZONE entryとDD定義参照を資料のコマンド形式やメッセージ形式と照合するターゲットゾーン表示状態です。表示面観点のターゲットゾーン表示定義は、保守管理表示の入力要求と戻った報告を結び、運用状態を説明するターゲットゾーン表示定義です。A: 監査面観点の照合先は既定ログストリーム名証跡で、中心はターゲットゾーン表示応答です。B: 選択面観点の処理段階はシステム管理機能リミット表示読取で、入力と出力を結ぶ対象はターゲットゾーン表示保守です。C: 分類面観点の参照先はシステム別ワークロード管理表示状態で、作業記録で追跡する対象はターゲットゾーン表示監査です。D: 反映面観点のターゲットゾーン表示定義は、入力名と報告内のターゲットZONE entryとDD定義参照を結ぶターゲットゾーン表示棚卸です。方針面観点の用語定義として、ターゲットゾーン表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むターゲットゾーン表示引継ぎです。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands LIST TARGETZONE
+
+    ---
+
+    **問題.** 復旧面の未採用保守要素除去を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って除去 return codeと保守要素 statusを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. REPORT MISSINGFIX FIXCAT
+    - B. SMFPRMxx RECORDING(LOGSTREAM)
+    - C. DISPLAY SMFLIM
+    - D. REJECT SYSMOD ✅
+
+    正解: **D** ／ 難易度: 上級
+
+    **解説:** 抽出面観点の未採用保守要素除去定義は正答Dで、表記上の手掛かりは除去 保守要素根拠です。構成面観点の未採用保守要素除去応答は、不要な未適用保守要素をグローバルゾーンやPTSから整理することを満たす入力、報告、状態表示を同じ証跡で確認する未採用保守要素除去応答です。記録面観点で読む未採用保守要素除去保守は、除去 return codeと保守要素 statusを資料のコマンド形式やメッセージ形式と照合する未採用保守要素除去保守です。復旧面観点の未採用保守要素除去監査は、保守管理保守整理の入力要求と戻った報告を結び、運用状態を説明する未採用保守要素除去監査です。A: 管理面観点の照合先は修正カテゴリー不足報告根拠で、中心は未採用保守要素除去棚卸です。B: 制御面観点の処理段階はログストリーム記録応答で、入力と出力を結ぶ対象は未採用保守要素除去復旧です。C: 表示面観点の参照先はシステム管理機能リミット表示保守で、作業記録で追跡する対象は未採用保守要素除去照合です。D: 抽出面観点の未採用保守要素除去監査は、入力名と報告内の除去 return codeと保守要素 statusを結ぶ未採用保守要素除去選択です。運用面観点の用語定義として、未採用保守要素除去とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む未採用保守要素除去報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands REJECT command
+
+    ---
+
+    **問題.** 運用面の適用済み保守要素復元を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って復元 reportとtarget zoneを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. RESTORE SYSMOD ✅
+    - B. IWM001I policy activation
+    - C. IWMCQRY classification rules
+    - D. RECEIVE SYSMOD
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 制御面観点で読む適用済み保守要素復元根拠は正答位置Aで、記録する焦点は復元 保守要素応答です。復旧面観点の適用済み保守要素復元保守は、ターゲットライブラリーを適用前の状態へ戻すことを満たす入力、報告、状態表示を同じ証跡で確認する適用済み保守要素復元保守です。方針面観点の適用済み保守要素復元監査は、復元 reportとtarget zoneを入力記録と合わせて処理対象を見分ける適用済み保守要素復元監査です。運用面観点の適用済み保守要素復元引継ぎは、保守管理復旧の入力要求と戻った報告を結び、運用状態を説明する適用済み保守要素復元引継ぎです。A: 選択面観点の適用済み保守要素復元応答は、入力名と報告内の復元 reportとtarget zoneを結ぶ適用済み保守要素復元反映です。B: 表示面観点の参照先は方針有効化メッセージ保守で、作業記録で追跡する対象は適用済み保守要素復元報告です。C: 抽出面観点の比較先は分類規則照会監査で、要求対象は適用済み保守要素復元棚卸です。D: 保守面観点の照合先は保守要素受信引継ぎで、中心は適用済み保守要素復元復旧です。確認面観点の用語定義として、適用済み保守要素復元とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む適用済み保守要素復元選択です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands RESTORE command
+
+    ---
+
+    **問題.** 確認面のCSI台帳ゾーン索引を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってゾーン索引 entryとzone nameを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. LIST SYSMOD ALLZONES
+    - B. CSI ZONEINDEX ✅
+    - C. RESTORE SYSMOD
+    - D. DISPLAY SMF,S
+
+    正解: **B** ／ 難易度: 中級
+
+    **解説:** 記録面観点の資料照合としてCSI台帳ゾーン索引応答を選び、答えはBで、記録焦点はCSI台帳ゾーン索引保守です。運用面観点のCSI台帳ゾーン索引監査は、SMPCSI台帳内のゾーン構成と参照先を把握することを満たす入力、報告、状態表示を同じ証跡で確認するCSI台帳ゾーン索引監査です。構成面観点から見るCSI台帳ゾーン索引引継ぎは、ゾーン索引 entryとzone nameをメッセージ形式と対応させるCSI台帳ゾーン索引引継ぎです。確認面観点のCSI台帳ゾーン索引棚卸は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するCSI台帳ゾーン索引棚卸です。A: 表示面観点の参照先は保守要素全ゾーン表示保守で、作業記録で追跡する対象はCSI台帳ゾーン索引選択です。B: 抽出面観点のCSI台帳ゾーン索引監査は、入力名と報告内のゾーン索引 entryとzone nameを結ぶCSI台帳ゾーン索引観点です。C: 保守面観点の照合先は適用済み保守要素復元引継ぎで、中心はCSI台帳ゾーン索引照合です。D: 方針面観点の処理段階はシステム管理機能状態表示棚卸で、入力と出力を結ぶ対象はCSI台帳ゾーン索引報告です。監査面観点の用語定義として、CSI台帳ゾーン索引とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むCSI台帳ゾーン索引反映です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference CSI entries
+
+    ---
+
+    **問題.** 監査面のDD定義定義を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってDD定義 entryとdata set nameを確認する場合、どの項目を選ぶべきですか。
+
+    - A. DISPLAY SMF,S
+    - B. IFASMFDL SID
+    - C. DDDEF ✅
+    - D. VARY WLM,APPLENV,REFRESH
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 方針面観点の出力確認としてDD定義定義保守を読み、答えはCで、照合焦点はDD定義定義監査です。確認面観点のDD定義定義引継ぎは、保守管理処理で使うデータセット割り当てをゾーン内に登録することを満たす入力、報告、状態表示を同じ証跡で確認するDD定義定義引継ぎです。運用面観点で残すDD定義定義棚卸は、DD定義 entryとdata set nameをコマンド形式と照合するDD定義定義棚卸です。監査面観点のDD定義定義復旧は、保守管理台帳の入力要求と戻った報告を結び、運用状態を説明するDD定義定義復旧です。A: 抽出面観点の比較先はシステム管理機能状態表示監査で、要求対象はDD定義定義照合です。B: 保守面観点の照合先はシステムID選択引継ぎで、中心はDD定義定義報告です。C: 制御面観点のDD定義定義棚卸は、入力名と報告内のDD定義 entryとdata set nameを結ぶDD定義定義証跡です。D: 復旧面観点の参照先はアプリ環境再読込復旧で、作業記録で追跡する対象はDD定義定義反映です。反映面観点の用語定義として、DD定義定義とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むDD定義定義観点です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Reference DDDEF entry
+
+    ---
+
+    **問題.** 反映面のログと報告出力を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使ってSMPログ、SMPログA、SMP報告、SMPOUTを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. APPLY BYPASS(HOLDSYSTEM)
+    - B. SMPPUNCH output
+    - C. LSNAME TYPE
+    - D. SMPLOG SMPRPT ✅
+
+    正解: **D** ／ 難易度: 初級
+
+    **解説:** 記録面観点のログと報告出力監査は正答Dで、表記上の手掛かりはSMPログ SMP報告引継ぎです。監査面観点のログと報告出力棚卸は、保守管理処理のログと報告を分けて保存することを満たす入力、報告、状態表示を同じ証跡で確認するログと報告出力棚卸です。構成面観点で読むログと報告出力復旧は、SMPログ、SMPログA、SMP報告、SMPOUTを資料のコマンド形式やメッセージ形式と照合するログと報告出力復旧です。反映面観点のログと報告出力照合は、保守管理証跡の入力要求と戻った報告を結び、運用状態を説明するログと報告出力照合です。A: 保守面観点の照合先はSYSTEM HOLD迂回引継ぎで、中心はログと報告出力選択です。B: 方針面観点の処理段階は生成コマンドコマンド出力棚卸で、入力と出力を結ぶ対象はログと報告出力反映です。C: 復旧面観点の参照先は種別別ログストリーム復旧で、作業記録で追跡する対象はログと報告出力観点です。D: 記録面観点のログと報告出力照合は、入力名と報告内のSMPログ、SMPログA、SMP報告、SMPOUTを結ぶログと報告出力読取です。照合面観点の用語定義として、ログと報告出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むログと報告出力証跡です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / SMP / E Commands data sets
+
+    ---
+
+    **問題.** 管理面の種別別ログストリームを運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってログストリーム名とレコード種別範囲を確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. DISPLAY SMF,S
+    - B. IFASMFDL SID
+    - C. LSNAME TYPE ✅
+    - D. VARY WLM,APPLENV,REFRESH
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 運用面観点の出力確認として種別別ログストリーム復旧を読み、答えはCで、照合焦点は種別別ログストリーム照合です。選択面観点の種別別ログストリーム報告は、特定のシステム管理機能レコード種別を専用ログストリームへ振り分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別ログストリーム報告です。照合面観点で残す種別別ログストリーム選択は、ログストリーム名とレコード種別範囲をコマンド形式と照合する種別別ログストリーム選択です。管理面観点の種別別ログストリーム反映は、システム管理機能記録設定の入力要求と戻った報告を結び、運用状態を説明する種別別ログストリーム反映です。A: 記録面観点の比較先はシステム管理機能状態表示照合で、要求対象は種別別ログストリーム観点です。B: 報告面観点の照合先はシステムID選択報告で、中心は種別別ログストリーム証跡です。C: 方針面観点の種別別ログストリーム選択は、入力名と報告内のログストリーム名とレコード種別範囲を結ぶ種別別ログストリーム根拠です。D: 反映面観点の参照先はアプリ環境再読込反映で、作業記録で追跡する対象は種別別ログストリーム状態です。抽出面観点の用語定義として、種別別ログストリームとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別ログストリーム定義です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities LSNAME
+
+    ---
+
+    **問題.** 構成面の期間指定ダンプを証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って日付、開始時刻、終了時刻のSYSPRINT表示を確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. Report class
+    - B. APPLY GROUPEXTEND
+    - C. SMPPUNCH output
+    - D. IFASMFDL DATE START END ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 管理面観点の期間指定ダンプ定義は正答Dで、表記上の手掛かりはシステム管理機能ログストリームダンプ 日付 開始時刻 終了時刻根拠です。報告面観点の期間指定ダンプ応答は、日付と時刻の範囲でシステム管理機能レコードを抽出することを満たす入力、報告、状態表示を同じ証跡で確認する期間指定ダンプ応答です。保守面観点で読む期間指定ダンプ保守は、日付、開始時刻、終了時刻のSYSPRINT表示を資料のコマンド形式やメッセージ形式と照合する期間指定ダンプ保守です。構成面観点の期間指定ダンプ監査は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する期間指定ダンプ監査です。A: 選択面観点の照合先は報告クラス根拠で、中心は期間指定ダンプ棚卸です。B: 分類面観点の処理段階は関連保守要素展開応答で、入力と出力を結ぶ対象は期間指定ダンプ復旧です。C: 記録面観点の参照先は生成コマンドコマンド出力保守で、作業記録で追跡する対象は期間指定ダンプ照合です。D: 管理面観点の期間指定ダンプ監査は、入力名と報告内の日付、開始時刻、終了時刻のSYSPRINT表示を結ぶ期間指定ダンプ選択です。復旧面観点の用語定義として、期間指定ダンプとはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む期間指定ダンプ報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL parameters
+
+    ---
+
+    **問題.** 復旧面のシステムID選択を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってシステムID parameterとSYSPRINT表示を確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. IFASMFDL SID ✅
+    - B. LIST HOLDDATA
+    - C. CSI ZONEINDEX
+    - D. DISPLAY SMF,S
+
+    正解: **A** ／ 難易度: 中級
+
+    **解説:** 分類面観点で読むシステムID選択根拠は正答位置Aで、記録する焦点はシステム管理機能ログストリームダンプ システムID応答です。構成面観点のシステムID選択保守は、特定システムIDのシステム管理機能レコードだけを抽出することを満たす入力、報告、状態表示を同じ証跡で確認するシステムID選択保守です。表示面観点のシステムID選択監査は、システムID parameterとSYSPRINT表示を入力記録と合わせて処理対象を見分けるシステムID選択監査です。復旧面観点のシステムID選択引継ぎは、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明するシステムID選択引継ぎです。A: 照合面観点のシステムID選択応答は、入力名と報告内のシステムID parameterとSYSPRINT表示を結ぶシステムID選択反映です。B: 記録面観点の参照先は保留情報表示保守で、作業記録で追跡する対象はシステムID選択報告です。C: 管理面観点の比較先はCSI台帳ゾーン索引監査で、要求対象はシステムID選択棚卸です。D: 制御面観点の照合先はシステム管理機能状態表示引継ぎで、中心はシステムID選択復旧です。運用面観点の用語定義として、システムID選択とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むシステムID選択選択です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL SID
+
+    ---
+
+    **問題.** 運用面の種別別出力を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使って出力DDとレコード種別範囲を確認する場合、どの項目を選ぶべきですか。
+
+    - A. VARY WLM,APPLENV,QUIESCE
+    - B. IFASMFDL OUTDD TYPE ✅
+    - C. Report class
+    - D. APPLY BYPASS(HOLDSYSTEM)
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 保守面観点の資料照合として種別別出力応答を選び、答えはBで、記録焦点は種別別出力保守です。復旧面観点の種別別出力監査は、システム管理機能レコード種別ごとに出力DDを分けることを満たす入力、報告、状態表示を同じ証跡で確認する種別別出力監査です。報告面観点から見る種別別出力引継ぎは、出力DDとレコード種別範囲をメッセージ形式と対応させる種別別出力引継ぎです。運用面観点の種別別出力棚卸は、システム管理機能ダンプの入力要求と戻った報告を結び、運用状態を説明する種別別出力棚卸です。A: 記録面観点の参照先はアプリ環境停止保守で、作業記録で追跡する対象は種別別出力選択です。B: 管理面観点の種別別出力監査は、入力名と報告内の出力DDとレコード種別範囲を結ぶ種別別出力観点です。C: 制御面観点の照合先は報告クラス引継ぎで、中心は種別別出力照合です。D: 表示面観点の処理段階はSYSTEM HOLD迂回棚卸で、入力と出力を結ぶ対象は種別別出力報告です。確認面観点の用語定義として、種別別出力とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む種別別出力反映です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Management Facilities IFASMFDL OUTDD
+
+    ---
+
+    **問題.** 確認面の空入力検知を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って空入力メッセージまたはIFA841Iメッセージを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. REPORT ERRSYSMODS
+    - B. DEFAULTLSNAME
+    - C. IFA023I empty input ✅
+    - D. IFASMFDL log stream dump
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 表示面観点の出力確認として空入力検知保守を読み、答えはCで、照合焦点は空入力検知監査です。運用面観点の空入力検知引継ぎは、指定範囲にダンプ対象システム管理機能データがない状態を判定することを満たす入力、報告、状態表示を同じ証跡で確認する空入力検知引継ぎです。復旧面観点で残す空入力検知棚卸は、空入力メッセージまたはIFA841Iメッセージをコマンド形式と照合する空入力検知棚卸です。確認面観点の空入力検知復旧は、システム管理機能メッセージの入力要求と戻った報告を結び、運用状態を説明する空入力検知復旧です。A: 管理面観点の比較先はエラーHOLD影響報告監査で、要求対象は空入力検知照合です。B: 制御面観点の照合先は既定ログストリーム名引継ぎで、中心は空入力検知報告です。C: 分類面観点の空入力検知棚卸は、入力名と報告内の空入力メッセージまたはIFA841Iメッセージを結ぶ空入力検知証跡です。D: 構成面観点の参照先はログストリームダンプ復旧で、作業記録で追跡する対象は空入力検知反映です。監査面観点の用語定義として、空入力検知とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む空入力検知観点です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IFA023I
+
+    ---
+
+    **問題.** 選択面の資源状態表示を定義確認で確認します。処理対象の定義を読み取り、表示項目と運用記録を合わせます。資料のコマンド形式、報告名、メッセージ名を使ってIWM038I 資源 and STATEを確認する場合、どの項目を選ぶべきですか。
+
+    - A. LIST SYSMOD ALLZONES
+    - B. RESTORE SYSMOD
+    - C. DISPLAY WLM,RESOURCE ✅
+    - D. SETSMF LSNAME
+
+    正解: **C** ／ 難易度: 中級
+
+    **解説:** 復旧面観点の出力確認として資源状態表示復旧を読み、答えはCで、照合焦点は資源状態表示照合です。照合面観点の資源状態表示報告は、ワークロード管理が管理する資源の状態を表示することを満たす入力、報告、状態表示を同じ証跡で確認する資源状態表示報告です。反映面観点で残す資源状態表示選択は、IWM038I 資源 and STATEをコマンド形式と照合する資源状態表示選択です。選択面観点の資源状態表示反映は、ワークロード管理資源の入力要求と戻った報告を結び、運用状態を説明する資源状態表示反映です。A: 保守面観点の比較先は保守要素全ゾーン表示照合で、要求対象は資源状態表示観点です。B: 方針面観点の照合先は適用済み保守要素復元報告で、中心は資源状態表示証跡です。C: 表示面観点の資源状態表示選択は、入力名と報告内のIWM038I 資源 and STATEを結ぶ資源状態表示根拠です。D: 監査面観点の参照先は一時ログストリーム変更反映で、作業記録で追跡する対象は資源状態表示状態です。管理面観点の用語定義として、資源状態表示とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む資源状態表示定義です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Messages IWM038I
+
+    ---
+
+    **問題.** 抽出面のアプリ環境再読込を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再読込 completedを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. VARY WLM,APPLENV,REFRESH ✅
+    - B. LIST HOLDDATA
+    - C. CSI ZONEINDEX
+    - D. DISPLAY SMF,S
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 復旧面観点で読むアプリ環境再読込報告は正答位置Aで、記録する焦点は変更指示 ワークロード管理,アプリ環境,再読込選択です。管理面観点のアプリ環境再読込反映は、サーバーアドレス空間を再起動してアプリ環境を反映することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再読込反映です。反映面観点のアプリ環境再読込観点は、IWM032I 再読込 completedを入力記録と合わせて処理対象を見分けるアプリ環境再読込観点です。抽出面観点のアプリ環境再読込証跡は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再読込証跡です。A: 表示面観点のアプリ環境再読込選択は、入力名と報告内のIWM032I 再読込 completedを結ぶアプリ環境再読込保守です。B: 監査面観点の参照先は保留情報表示反映で、作業記録で追跡する対象はアプリ環境再読込根拠です。C: 報告面観点の比較先はCSI台帳ゾーン索引観点で、要求対象はアプリ環境再読込読取です。D: 運用面観点の照合先はシステム管理機能状態表示証跡で、中心はアプリ環境再読込状態です。分類面観点の用語定義として、アプリ環境再読込とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再読込応答です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 分類面のアプリ環境停止を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 静止 completedを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. IFASMFDL OUTDD TYPE
+    - B. VARY WLM,APPLENV,QUIESCE ✅
+    - C. VARY WLM,APPLENV,REFRESH
+    - D. WLM couple data set
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 確認面観点の資料照合としてアプリ環境停止選択を選び、答えはBで、記録焦点はアプリ環境停止反映です。抽出面観点のアプリ環境停止観点は、ワークロード管理アプリケーション環境のサーバー起動を静止することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境停止観点です。選択面観点から見るアプリ環境停止証跡は、IWM032I 静止 completedをメッセージ形式と対応させるアプリ環境停止証跡です。分類面観点のアプリ環境停止読取は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境停止読取です。A: 監査面観点の参照先は種別別出力反映で、作業記録で追跡する対象はアプリ環境停止応答です。B: 報告面観点のアプリ環境停止観点は、入力名と報告内のIWM032I 静止 completedを結ぶアプリ環境停止監査です。C: 運用面観点の照合先はアプリ環境再読込証跡で、中心はアプリ環境停止定義です。D: 反映面観点の処理段階はワークロード管理カップルデータセット読取で、入力と出力を結ぶ対象はアプリ環境停止根拠です。制御面観点の用語定義として、アプリ環境停止とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境停止保守です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 制御面のアプリ環境再開を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってIWM032I 再開 completedを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. APPLY BYPASS(HOLDSYSTEM)
+    - B. SMPPUNCH output
+    - C. VARY WLM,APPLENV,RESUME ✅
+    - D. DEFAULTLSNAME
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 反映面観点の出力確認としてアプリ環境再開反映を読み、答えはCで、照合焦点はアプリ環境再開観点です。分類面観点のアプリ環境再開証跡は、静止したアプリケーション環境のサーバー起動を再開することを満たす入力、報告、状態表示を同じ証跡で確認するアプリ環境再開証跡です。抽出面観点で残すアプリ環境再開読取は、IWM032I 再開 completedをコマンド形式と照合するアプリ環境再開読取です。制御面観点のアプリ環境再開状態は、ワークロード管理アプリ環境の入力要求と戻った報告を結び、運用状態を説明するアプリ環境再開状態です。A: 報告面観点の比較先はSYSTEM HOLD迂回観点で、要求対象はアプリ環境再開定義です。B: 運用面観点の照合先は生成コマンドコマンド出力証跡で、中心はアプリ環境再開根拠です。C: 復旧面観点のアプリ環境再開読取は、入力名と報告内のIWM032I 再開 completedを結ぶアプリ環境再開引継ぎです。D: 管理面観点の参照先は既定ログストリーム名状態で、作業記録で追跡する対象はアプリ環境再開保守です。保守面観点の用語定義として、アプリ環境再開とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むアプリ環境再開監査です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS System Commands VARY WLM APPLENV
+
+    ---
+
+    **問題.** 記録面の分類規則照会を変更前検査で確認します。変更や適用の前に、入力文と報告出力の意味を整理します。資料のコマンド形式、報告名、メッセージ名を使って分類規則照会 returned rules and service classを確認する場合、最も適切な確認対象はどれですか。
+
+    - A. IWMCQRY classification rules ✅
+    - B. ACCEPT SYSMOD
+    - C. REJECT SYSMOD
+    - D. SET SMF=xx
+
+    正解: **A** ／ 難易度: 上級
+
+    **解説:** 反映面観点で読む分類規則照会証跡は正答位置Aで、記録する焦点は分類規則照会 classification rules読取です。保守面観点の分類規則照会状態は、有効方針の分類規則をプログラムから照会することを満たす入力、報告、状態表示を同じ証跡で確認する分類規則照会状態です。抽出面観点の分類規則照会定義は、分類規則照会 returned rules and service classを入力記録と合わせて処理対象を見分ける分類規則照会定義です。記録面観点の分類規則照会根拠は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する分類規則照会根拠です。A: 復旧面観点の分類規則照会読取は、入力名と報告内の分類規則照会 returned rules and service classを結ぶ分類規則照会復旧です。B: 管理面観点の参照先は保守要素配布反映状態で、作業記録で追跡する対象は分類規則照会引継ぎです。C: 確認面観点の比較先は未採用保守要素除去定義で、要求対象は分類規則照会応答です。D: 照合面観点の照合先はシステム管理機能パラメータxx切替根拠で、中心は分類規則照会保守です。表示面観点の用語定義として、分類規則照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む分類規則照会棚卸です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMCQRY
+
+    ---
+
+    **問題.** 表示面の有効方針照会を障害切り分けで確認します。メッセージ、報告、状態表示から原因候補を分けます。資料のコマンド形式、報告名、メッセージ名を使って方針照会 service policy mappingを確認する場合、この状況で優先する項目はどれですか。
+
+    - A. SETSMF LSNAME
+    - B. IWMPQRY active policy ✅
+    - C. IFASMFDL DATE START END
+    - D. DISPLAY WLM,APPLENV
+
+    正解: **B** ／ 難易度: 上級
+
+    **解説:** 選択面観点の資料照合として有効方針照会読取を選び、答えはBで、記録焦点は有効方針照会状態です。記録面観点の有効方針照会定義は、有効なサービス方針とサービスクラス情報をAPIで照会することを満たす入力、報告、状態表示を同じ証跡で確認する有効方針照会定義です。制御面観点から見る有効方針照会根拠は、方針照会 service policy mappingをメッセージ形式と対応させる有効方針照会根拠です。表示面観点の有効方針照会応答は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明する有効方針照会応答です。A: 管理面観点の参照先は一時ログストリーム変更状態で、作業記録で追跡する対象は有効方針照会棚卸です。B: 確認面観点の有効方針照会定義は、入力名と報告内の方針照会 service policy mappingを結ぶ有効方針照会照合です。C: 照合面観点の照合先は期間指定ダンプ根拠で、中心は有効方針照会監査です。D: 抽出面観点の処理段階はアプリケーション環境表示応答で、入力と出力を結ぶ対象は有効方針照会引継ぎです。方針面観点の用語定義として、有効方針照会とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読む有効方針照会復旧です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPQRY
+
+    ---
+
+    **問題.** 方針面のサービス方針有効化を証跡保存で確認します。実行した入力と表示された報告を同じ作業記録に残します。資料のコマンド形式、報告名、メッセージ名を使って方針有効化API return and 方針有効化メッセージを確認する場合、証跡として中心に置く項目はどれですか。
+
+    - A. SET BDY(GLOBAL)
+    - B. ACCEPT CHECK
+    - C. IWMPACT activate policy ✅
+    - D. REJECT SYSMOD
+
+    正解: **C** ／ 難易度: 上級
+
+    **解説:** 抽出面観点の出力確認としてサービス方針有効化状態を読み、答えはCで、照合焦点はサービス方針有効化定義です。表示面観点のサービス方針有効化根拠は、プログラムからワークロード管理サービス方針を有効化することを満たす入力、報告、状態表示を同じ証跡で確認するサービス方針有効化根拠です。記録面観点で残すサービス方針有効化応答は、方針有効化API return and 方針有効化メッセージをコマンド形式と照合するサービス方針有効化応答です。方針面観点のサービス方針有効化保守は、ワークロード管理 APIの入力要求と戻った報告を結び、運用状態を説明するサービス方針有効化保守です。A: 確認面観点の比較先はグローバルゾーン選択定義で、要求対象はサービス方針有効化監査です。B: 照合面観点の照合先は配布反映事前検査根拠で、中心はサービス方針有効化引継ぎです。C: 反映面観点のサービス方針有効化応答は、入力名と報告内の方針有効化API return and 方針有効化メッセージを結ぶサービス方針有効化報告です。D: 保守面観点の参照先は未採用保守要素除去保守で、作業記録で追跡する対象はサービス方針有効化復旧です。報告面観点の用語定義として、サービス方針有効化とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービス方針有効化照合です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / MVS Programming Workload Management Services IWMPACT
+
+    ---
+
+    **問題.** 報告面のサービスクラス目標を運用引継ぎで確認します。次の担当者が同じ状態を確認できる粒度で説明します。資料のコマンド形式、報告名、メッセージ名を使ってservice class goal and importanceを確認する場合、引継ぎ対象として適切な項目はどれですか。
+
+    - A. DDDEF
+    - B. DISPLAY SMF,S
+    - C. IFASMFDL OUTDD TYPE
+    - D. Service class goal ✅
+
+    正解: **D** ／ 難易度: 中級
+
+    **解説:** 選択面観点のサービスクラス目標定義は正答Dで、表記上の手掛かりはサービスクラス goal根拠です。方針面観点のサービスクラス目標応答は、作業を応答時間、速度、または裁量目標で管理することを満たす入力、報告、状態表示を同じ証跡で確認するサービスクラス目標応答です。制御面観点で読むサービスクラス目標保守は、service class goal and importanceを資料のコマンド形式やメッセージ形式と照合するサービスクラス目標保守です。報告面観点のサービスクラス目標監査は、ワークロード管理方針の入力要求と戻った報告を結び、運用状態を説明するサービスクラス目標監査です。A: 照合面観点の照合先はDD定義定義根拠で、中心はサービスクラス目標棚卸です。B: 抽出面観点の処理段階はシステム管理機能状態表示応答で、入力と出力を結ぶ対象はサービスクラス目標復旧です。C: 保守面観点の参照先は種別別出力保守で、作業記録で追跡する対象はサービスクラス目標照合です。D: 選択面観点のサービスクラス目標監査は、入力名と報告内のservice class goal and importanceを結ぶサービスクラス目標選択です。構成面観点の用語定義として、サービスクラス目標とはz/OSの保守、記録、または作業負荷管理で、入力と出力を対応させて状態を読むサービスクラス目標報告です。
+
+    **出典:** zOS31_gim1000.pdf z / OS SMP / E Commands / zOS31_gim2000.pdf z / E Reference / zOS31_gim3000.pdf z / E User's Guide / zOS31_ieag200.pdf z / OS MVS System Management Facilities / zOS31_ieag100.pdf z / OS MVS System Commands / zOS31_ieam900.pdf z / OS MVS System Messages Vol 9 / WLM service definition service class
+
+
+??? note "検証手順（11件）"
+    **APPLY BYPASS(ID(など))**
+
+    - 検証目的: 監査確認のなどについて、APPLY BYPASS(ID(など))は、SMP/E / SMF / WLM の SMP/E APPLY で機能名、見出し、または確認対象として参照する項目です。関連する操作、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB010019の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、監査確認のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にAPPLY BYPASS(ID(などを指定し、OSKB010019の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND APPLY BYPASS(ID(など
+    CASE OSKB010019
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM APPLY BYPASS(ID(など
+    CASE OSKB010019
+    SOURCE SMP/E SMF WLM
+    ```
+
+    APPLY BYPASS(ID(などとOSKB010019が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB010019を同じ出力で読み、監査確認のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB010019
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB010019
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I APPLY BYPASS(ID(など)) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB010019が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の APPLY BYPASS(ID(など と OSKB010019 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB010019 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS SMP / E Commands (zOS31_gim1000) / E User's Guide (zOS31_gim3000)
+
+    ---
+
+    **LSNAME(など)**
+
+    - 検証目的: 置換照合のなどについて、SMP E SMF WLM の SMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLM の運用に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020024の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、置換照合のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にLSNAME(など)を指定し、OSKB020024の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND LSNAME(など)
+    CASE OSKB020024
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM LSNAME(など)
+    CASE OSKB020024
+    SOURCE SMP/E SMF WLM
+    ```
+
+    LSNAME(など)とOSKB020024が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020024を同じ出力で読み、置換照合のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB020024
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB020024
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I LSNAME(など) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB020024が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の LSNAME(など) と OSKB020024 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB020024 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **SUBSYS(STC,など) ・ SUBSYS(TSO,など)**
+
+    - 検証目的: 探索照合のなど ・について、SMP E SMF WLM の SMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLM の運用に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020026の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、探索照合のなど ・の確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にSUBSYS(STC,など) ・ Sを指定し、OSKB020026の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND SUBSYS(STC,など) ・ S
+    CASE OSKB020026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM SUBSYS(STC,など) ・ S
+    CASE OSKB020026
+    SOURCE SMP/E SMF WLM
+    ```
+
+    SUBSYS(STC,など) ・ SとOSKB020026が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020026を同じ出力で読み、探索照合のなど ・の根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB020026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB020026
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I SUBSYS(STC,など) ・ SUBSYS( REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB020026が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の SUBSYS(STC,など) ・ S と OSKB020026 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB020026 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **EXITS(IEFU83,IEFU84,など)**
+
+    - 検証目的: 監査照合のなどについて、SMP E SMF WLM の SMF SMFPRMxxでは、対象資源、指定値、実行時の出力を対応付けて確認します。SMF SMFPRMxxは、SMP E SMF WLM の運用に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB020039の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、監査照合のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にEXITS(IEFU83,IEFU8を指定し、OSKB020039の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND EXITS(IEFU83,IEFU8
+    CASE OSKB020039
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM EXITS(IEFU83,IEFU8
+    CASE OSKB020039
+    SOURCE SMP/E SMF WLM
+    ```
+
+    EXITS(IEFU83,IEFU8とOSKB020039が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB020039を同じ出力で読み、監査照合のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB020039
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB020039
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I EXITS(IEFU83,IEFU84,など) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB020039が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の EXITS(IEFU83,IEFU8 と OSKB020039 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB020039 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS Initialization and Tuning Reference (zOS31_ieae200) / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **IFASMFDP DATE(yyyyddd,など)**
+
+    - 検証目的: 探索照合のなどについて、IFASMFDP DATE(yyyyddd,など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030026の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、探索照合のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP DATE(yyyyを指定し、OSKB030026の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND IFASMFDP DATE(yyyy
+    CASE OSKB030026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM IFASMFDP DATE(yyyy
+    CASE OSKB030026
+    SOURCE SMP/E SMF WLM
+    ```
+
+    IFASMFDP DATE(yyyyとOSKB030026が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030026を同じ出力で読み、探索照合のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030026
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I IFASMFDP DATE(yyyyddd,など REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030026が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の IFASMFDP DATE(yyyy と OSKB030026 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030026 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **IFASMFDP SID(など)**
+
+    - 検証目的: 出力照合のなどについて、IFASMFDP SID(など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、表に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030028の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、出力照合のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP SID(など)を指定し、OSKB030028の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND IFASMFDP SID(など)
+    CASE OSKB030028
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM IFASMFDP SID(など)
+    CASE OSKB030028
+    SOURCE SMP/E SMF WLM
+    ```
+
+    IFASMFDP SID(など)とOSKB030028が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030028を同じ出力で読み、出力照合のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030028
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030028
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I IFASMFDP SID(など) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030028が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の IFASMFDP SID(など) と OSKB030028 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030028 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **IFASMFDP USER(など)**
+
+    - 検証目的: 条件照合のなどについて、IFASMFDP USER(など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設定、に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030029の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、条件照合のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDP USER(など)を指定し、OSKB030029の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND IFASMFDP USER(など)
+    CASE OSKB030029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM IFASMFDP USER(など)
+    CASE OSKB030029
+    SOURCE SMP/E SMF WLM
+    ```
+
+    IFASMFDP USER(など)とOSKB030029が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030029を同じ出力で読み、条件照合のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030029
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I IFASMFDP USER(など) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030029が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の IFASMFDP USER(など) と OSKB030029 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030029 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **IFASMFDL LSNAME(など)**
+
+    - 検証目的: 順序照合のなどについて、IFASMFDL LSNAME(など)は、SMP/E / SMF / WLM の SMF ユーティリティで機能名、見出し、または確認対象として参照する項目です。関連する操作、設に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030035の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、順序照合のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にIFASMFDL LSNAME(などを指定し、OSKB030035の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND IFASMFDL LSNAME(など
+    CASE OSKB030035
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM IFASMFDL LSNAME(など
+    CASE OSKB030035
+    SOURCE SMP/E SMF WLM
+    ```
+
+    IFASMFDL LSNAME(などとOSKB030035が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030035を同じ出力で読み、順序照合のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030035
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030035
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I IFASMFDL LSNAME(など) REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030035が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の IFASMFDL LSNAME(など と OSKB030035 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030035 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Management Facilities SMF (zOS31_ieag200)
+
+    ---
+
+    **PI 大なり 1.0**
+
+    - 検証目的: 比較記録の大なりについて、PI 1 超.0は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030134の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、比較記録の大なりの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にPI 大なり 1.0を指定し、OSKB030134の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND PI 大なり 1.0
+    CASE OSKB030134
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM PI 大なり 1.0
+    CASE OSKB030134
+    SOURCE SMP/E SMF WLM
+    ```
+
+    PI 大なり 1.0とOSKB030134が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030134を同じ出力で読み、比較記録の大なりの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030134
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030134
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I PI 大なり 1.0 REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030134が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の PI 大なり 1.0 と OSKB030134 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030134 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+    ---
+
+    **PI 小なり 1.0**
+
+    - 検証目的: 順序記録の小なりについて、PI < 1.0は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要権限、表示される状態の読み方を分に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030135の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、順序記録の小なりの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にPI 小なり 1.0を指定し、OSKB030135の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND PI 小なり 1.0
+    CASE OSKB030135
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM PI 小なり 1.0
+    CASE OSKB030135
+    SOURCE SMP/E SMF WLM
+    ```
+
+    PI 小なり 1.0とOSKB030135が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030135を同じ出力で読み、順序記録の小なりの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030135
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030135
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I PI 小なり 1.0 REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030135が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の PI 小なり 1.0 と OSKB030135 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030135 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+
+    ---
+
+    **F WLM,APPLENV= など,REFRESH**
+
+    - 検証目的: 置換分離のなどについて、F WLM,APPLENV= など,REFRESH は、SMP/E / SMF / WLM の WLM 運用コマンドで状態表示や操作を行うためのコマンド関連項目です。実行対象、必要に関わる状態・定義・メッセージを机上で照合する。
+    - 前提条件: SMP/Eまたは関連TSO/コンソールを参照でき、OSKB030144の検証用出力を記録できる。
+    - セッション環境: SMP/EでD WLM,SYSTEMSを実行し、IWM025Iを含む表示を確認する。
+
+    **ステップ 1**
+    現在の画面はSMP/Eのコマンド入力画面です。COMMAND INPUT ===> に D WLM,SYSTEMS を入力し、置換分離のなどの確認表示へ進みます。
+    操作（入力）:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    ```
+
+    COMMAND INPUTにD WLM,SYSTEMSが表示され、対象コマンドを実行する準備ができています。
+
+    **ステップ 2**
+    現在の画面はSMP/Eの表示結果です。FIND欄にF WLM,APPLENV= など,を指定し、OSKB030144の対象行を見つけます。
+    操作（入力）:
+    ```text
+    (SMP/E Result)
+    COMMAND INPUT ===> FIND F WLM,APPLENV= など,
+    CASE OSKB030144
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SMP/E Result)
+    ITEM F WLM,APPLENV= など,
+    CASE OSKB030144
+    SOURCE SMP/E SMF WLM
+    ```
+
+    F WLM,APPLENV= など,とOSKB030144が同じ表示に現れるため、対象項目の表示範囲を特定できます。
+
+    **ステップ 3**
+    現在の画面はSMP/Eの詳細表示です。IWM025IとOSKB030144を同じ出力で読み、置換分離のなどの根拠を記録します。
+    操作（入力）:
+    ```text
+    (SMP/E Detail)
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    CASE OSKB030144
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    SMP/E REPORT OSKB030144
+    COMMAND INPUT ===> D WLM,SYSTEMS
+    IWM025I F WLM,APPLENV= など,REFRESH REPORT FOLLOWS
+    ZONE TARGET1 STATUS REVIEWED
+    ```
+
+    IWM025IとOSKB030144が同じ出力に現れるため、対象項目の確認値として記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> D WLM,SYSTEMS が画面・出力に表示されること
+    ② ステップ2 の F WLM,APPLENV= など, と OSKB030144 が画面・出力に表示されること
+    ③ ステップ3 の IWM025I と OSKB030144 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS MVS System Commands (zOS31_ieag100) / OS MVS Planning Workload Management (zOS31_ieaw100)
+

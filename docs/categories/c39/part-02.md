@@ -1,0 +1,15280 @@
+---
+search:
+  exclude: true
+---
+
+# プログラミング言語 (COBOL / PL/I / LE) — 詳細 (2/2)
+
+[← プログラミング言語 (COBOL / PL/I / LE) の概要へ戻る](index.md)
+
+
+## その他
+
+### その他（特定項目に紐づかないQA・手順） {#c39-other}
+
+このカテゴリで項目名が個別の技術項目に一致しなかったQA・手順です。
+
+??? note "検証手順（215件）"
+    **AUTHOR 確認手順**
+
+    - 検証目的: AUTHORについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00001を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00001 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00001
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00001
+    ```
+
+    COMMAND INPUTにST LNG00001が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00001 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00001),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00001
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00001が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00001 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00001 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_hali001 / zOS31_hala001)
+
+    ---
+
+    **INSTALLATION 確認手順**
+
+    - 検証目的: INSTALLATIONについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00002を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00002 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00002
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00002
+    ```
+
+    COMMAND INPUTにST LNG00002が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00002 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00002),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00002
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00002が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00002 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00002 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_hali001 / zOS31_hala001)
+
+    ---
+
+    **DATE-WRITTEN 確認手順**
+
+    - 検証目的: DATE-WRITTENについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00003を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00003 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00003
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00003
+    ```
+
+    COMMAND INPUTにST LNG00003が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00003 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00003),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00003
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00003が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00003 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00003 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_hali001 / zOS31_hala001)
+
+    ---
+
+    **SECURITY 確認手順**
+
+    - 検証目的: SECURITYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00004を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00004 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00004
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00004
+    ```
+
+    COMMAND INPUTにST LNG00004が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00004 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00004),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00004
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00004が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00004 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00004 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_hali001 / zOS31_hala001)
+
+    ---
+
+    **REMARKS 確認手順**
+
+    - 検証目的: REMARKSについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00005を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00005 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00005
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00005
+    ```
+
+    COMMAND INPUTにST LNG00005が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00005 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00005),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00005
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00005が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00005 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00005 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_hali001 / zOS31_hala001)
+
+    ---
+
+    **SOURCE-COMPUTER 確認手順**
+
+    - 検証目的: SOURCE-COMPUTERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00006を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00006 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00006
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00006
+    ```
+
+    COMMAND INPUTにST LNG00006が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00006 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00006),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00006
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00006が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00006 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00006 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference
+
+    ---
+
+    **OBJECT-COMPUTER 確認手順**
+
+    - 検証目的: OBJECT-COMPUTERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00007を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00007 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00007
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00007
+    ```
+
+    COMMAND INPUTにST LNG00007が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00007 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00007),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00007
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00007が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00007 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00007 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference
+
+    ---
+
+    **SPECIAL-NAMES 確認手順**
+
+    - 検証目的: SPECIAL-NAMESについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00008を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00008 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00008
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00008
+    ```
+
+    COMMAND INPUTにST LNG00008が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00008 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00008),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00008
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00008が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00008 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00008 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference
+
+    ---
+
+    **FILE-CONTROL 確認手順**
+
+    - 検証目的: FILE-CONTROLについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00009を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00009 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00009
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00009
+    ```
+
+    COMMAND INPUTにST LNG00009が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00009 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00009),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00009
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00009が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00009 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00009 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **I-O-CONTROL 確認手順**
+
+    - 検証目的: I-O-CONTROLについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00010を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00010 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00010
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00010
+    ```
+
+    COMMAND INPUTにST LNG00010が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00010 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00010),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00010
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00010が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00010 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00010 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ASSIGN 確認手順**
+
+    - 検証目的: ASSIGNについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00011を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00011 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00011
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00011
+    ```
+
+    COMMAND INPUTにST LNG00011が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00011 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00011),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00011
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00011が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00011 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00011 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ORGANIZATION SEQUENTIAL 確認手順**
+
+    - 検証目的: ORGANIZATION SEQUENTIALについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00012を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00012 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00012
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00012
+    ```
+
+    COMMAND INPUTにST LNG00012が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00012 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00012),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00012
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00012が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00012 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00012 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ORGANIZATION INDEXED 確認手順**
+
+    - 検証目的: ORGANIZATION INDEXEDについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00013を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00013 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00013
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00013
+    ```
+
+    COMMAND INPUTにST LNG00013が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00013 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00013),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00013
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00013が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00013 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00013 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ORGANIZATION RELATIVE 確認手順**
+
+    - 検証目的: ORGANIZATION RELATIVEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00014を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00014 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00014
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00014
+    ```
+
+    COMMAND INPUTにST LNG00014が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00014 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00014),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00014
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00014が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00014 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00014 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ACCESS MODE SEQUENTIAL 確認手順**
+
+    - 検証目的: ACCESS MODE SEQUENTIALについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00015を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00015 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00015
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00015
+    ```
+
+    COMMAND INPUTにST LNG00015が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00015 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00015),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00015
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00015が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00015 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00015 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ACCESS MODE RANDOM 確認手順**
+
+    - 検証目的: ACCESS MODE RANDOMについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00016を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00016 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00016
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00016
+    ```
+
+    COMMAND INPUTにST LNG00016が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00016 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00016),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00016
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00016が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00016 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00016 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ACCESS MODE DYNAMIC 確認手順**
+
+    - 検証目的: ACCESS MODE DYNAMICについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00017を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00017 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00017
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00017
+    ```
+
+    COMMAND INPUTにST LNG00017が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00017 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00017),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00017
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00017が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00017 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00017 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **RECORD KEY 確認手順**
+
+    - 検証目的: RECORD KEYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00018を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00018 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00018
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00018
+    ```
+
+    COMMAND INPUTにST LNG00018が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00018 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00018),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00018
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00018が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00018 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00018 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **ALTERNATE RECORD KEY 確認手順**
+
+    - 検証目的: ALTERNATE RECORD KEYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00019を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00019 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00019
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00019
+    ```
+
+    COMMAND INPUTにST LNG00019が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00019 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00019),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00019
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00019が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00019 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00019 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **RELATIVE KEY 確認手順**
+
+    - 検証目的: RELATIVE KEYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00020を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00020 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00020
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00020
+    ```
+
+    COMMAND INPUTにST LNG00020が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00020 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00020),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00020
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00020が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00020 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00020 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **FILE STATUS 確認手順**
+
+    - 検証目的: FILE STATUSについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00021を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00021 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00021
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00021
+    ```
+
+    COMMAND INPUTにST LNG00021が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00021 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00021),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00021
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00021が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00021 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00021 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **PASSWORD 確認手順**
+
+    - 検証目的: PASSWORDについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00022を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00022 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00022
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00022
+    ```
+
+    COMMAND INPUTにST LNG00022が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00022 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00022),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00022
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00022が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00022 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00022 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference (zOS31_iceg200 / zOS31_icet100)
+
+    ---
+
+    **FILE SECTION 確認手順**
+
+    - 検証目的: FILE SECTIONについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00023を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00023 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00023
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00023
+    ```
+
+    COMMAND INPUTにST LNG00023が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00023 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00023),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00023
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00023が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00023 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00023 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **WORKING-STORAGE SECTION 確認手順**
+
+    - 検証目的: WORKING-STORAGE SECTIONについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00024を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00024 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00024
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00024
+    ```
+
+    COMMAND INPUTにST LNG00024が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00024 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00024),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00024
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00024が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00024 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00024 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **LOCAL-STORAGE SECTION 確認手順**
+
+    - 検証目的: LOCAL-STORAGE SECTIONについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00025を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00025 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00025
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00025
+    ```
+
+    COMMAND INPUTにST LNG00025が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00025 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00025),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00025
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00025が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00025 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00025 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **LINKAGE SECTION 確認手順**
+
+    - 検証目的: LINKAGE SECTIONについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00026を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00026 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00026
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00026
+    ```
+
+    COMMAND INPUTにST LNG00026が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00026 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00026),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00026
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00026が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00026 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00026 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **01 レベル 確認手順**
+
+    - 検証目的: 01 レベルについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00027を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00027 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00027
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00027
+    ```
+
+    COMMAND INPUTにST LNG00027が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00027 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00027),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00027
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00027が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00027 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00027 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icea100)
+
+    ---
+
+    **02-49 レベル (基本/グループ項目) 確認手順**
+
+    - 検証目的: 02-49 レベル (基本/グループ項目)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00028を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00028 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00028
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00028
+    ```
+
+    COMMAND INPUTにST LNG00028が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00028 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00028),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00028
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00028が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00028 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00028 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icea100)
+
+    ---
+
+    **66 RENAMES 確認手順**
+
+    - 検証目的: 66 RENAMESについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00029を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00029 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00029
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00029
+    ```
+
+    COMMAND INPUTにST LNG00029が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00029 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00029),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00029
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00029が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00029 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00029 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icea100)
+
+    ---
+
+    **77 独立項目 確認手順**
+
+    - 検証目的: 77 独立項目について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00030を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00030 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00030
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00030
+    ```
+
+    COMMAND INPUTにST LNG00030が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00030 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00030),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00030
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00030が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00030 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00030 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icea100)
+
+    ---
+
+    **88 条件名 確認手順**
+
+    - 検証目的: 88 条件名について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00031を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00031 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00031
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00031
+    ```
+
+    COMMAND INPUTにST LNG00031が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00031 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00031),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00031
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00031が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00031 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00031 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icea100)
+
+    ---
+
+    **FD (File Description) 確認手順**
+
+    - 検証目的: FD (File Description)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00032を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00032 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00032
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00032
+    ```
+
+    COMMAND INPUTにST LNG00032が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00032 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00032),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00032
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00032が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00032 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00032 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icet100)
+
+    ---
+
+    **SD (Sort Description) 確認手順**
+
+    - 検証目的: SD (Sort Description)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00033を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00033 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00033
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00033
+    ```
+
+    COMMAND INPUTにST LNG00033が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00033 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00033),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00033
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00033が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00033 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00033 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icet100)
+
+    ---
+
+    **RECORD CONTAINS 確認手順**
+
+    - 検証目的: RECORD CONTAINSについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00034を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00034 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00034
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00034
+    ```
+
+    COMMAND INPUTにST LNG00034が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00034 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00034),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00034
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00034が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00034 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00034 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_icet100)
+
+    ---
+
+    **PIC X 確認手順**
+
+    - 検証目的: PIC Xについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00035を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00035 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00035
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00035
+    ```
+
+    COMMAND INPUTにST LNG00035が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00035 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00035),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00035
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00035が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00035 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00035 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC 9 確認手順**
+
+    - 検証目的: PIC 9について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00036を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00036 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00036
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00036
+    ```
+
+    COMMAND INPUTにST LNG00036が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00036 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00036),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00036
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00036が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00036 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00036 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC S 確認手順**
+
+    - 検証目的: PIC Sについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00037を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00037 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00037
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00037
+    ```
+
+    COMMAND INPUTにST LNG00037が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00037 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00037),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00037
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00037が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00037 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00037 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC V 確認手順**
+
+    - 検証目的: PIC Vについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00038を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00038 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00038
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00038
+    ```
+
+    COMMAND INPUTにST LNG00038が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00038 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00038),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00038
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00038が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00038 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00038 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC A 確認手順**
+
+    - 検証目的: PIC Aについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00039を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00039 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00039
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00039
+    ```
+
+    COMMAND INPUTにST LNG00039が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00039 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00039),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00039
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00039が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00039 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00039 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC B 確認手順**
+
+    - 検証目的: PIC Bについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00040を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00040 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00040
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00040
+    ```
+
+    COMMAND INPUTにST LNG00040が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00040 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00040),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00040
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00040が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00040 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00040 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC 0 確認手順**
+
+    - 検証目的: PIC 0について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00041を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00041 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00041
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00041
+    ```
+
+    COMMAND INPUTにST LNG00041が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00041 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00041),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00041
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00041が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00041 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00041 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC P 確認手順**
+
+    - 検証目的: PIC Pについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00042を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00042 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00042
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00042
+    ```
+
+    COMMAND INPUTにST LNG00042が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00042 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00042),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00042
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00042が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00042 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00042 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC Z 確認手順**
+
+    - 検証目的: PIC Zについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00043を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00043 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00043
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00043
+    ```
+
+    COMMAND INPUTにST LNG00043が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00043 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00043),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00043
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00043が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00043 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00043 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC $ 確認手順**
+
+    - 検証目的: PIC $について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00044を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00044 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00044
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00044
+    ```
+
+    COMMAND INPUTにST LNG00044が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00044 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00044),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00044
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00044が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00044 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00044 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC + / PIC - 確認手順**
+
+    - 検証目的: PIC + / PIC -について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00045を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00045 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00045
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00045
+    ```
+
+    COMMAND INPUTにST LNG00045が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00045 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00045),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00045
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00045が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00045 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00045 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC CR / PIC DB 確認手順**
+
+    - 検証目的: PIC CR / PIC DBについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00046を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00046 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00046
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00046
+    ```
+
+    COMMAND INPUTにST LNG00046が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00046 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00046),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00046
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00046が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00046 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00046 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **PIC * 確認手順**
+
+    - 検証目的: PIC *について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00047を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00047 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00047
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00047
+    ```
+
+    COMMAND INPUTにST LNG00047が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00047 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00047),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00047
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00047が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00047 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00047 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE DISPLAY 確認手順**
+
+    - 検証目的: USAGE DISPLAYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00048を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00048 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00048
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00048
+    ```
+
+    COMMAND INPUTにST LNG00048が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00048 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00048),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00048
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00048が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00048 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00048 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE COMPUTATIONAL (COMP) 確認手順**
+
+    - 検証目的: USAGE COMPUTATIONAL (COMP)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00049を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00049 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00049
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00049
+    ```
+
+    COMMAND INPUTにST LNG00049が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00049 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00049),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00049
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00049が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00049 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00049 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE COMP-1 確認手順**
+
+    - 検証目的: USAGE COMP-1について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00050を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00050 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00050
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00050
+    ```
+
+    COMMAND INPUTにST LNG00050が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00050 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00050),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00050
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00050が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00050 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00050 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE COMP-2 確認手順**
+
+    - 検証目的: USAGE COMP-2について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00051を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00051 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00051
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00051
+    ```
+
+    COMMAND INPUTにST LNG00051が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00051 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00051),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00051
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00051が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00051 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00051 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE COMP-3 (PACKED-DECIMAL) 確認手順**
+
+    - 検証目的: USAGE COMP-3 (PACKED-DECIMAL)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00052を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00052 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00052
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00052
+    ```
+
+    COMMAND INPUTにST LNG00052が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00052 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00052),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00052
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00052が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00052 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00052 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE COMP-4 確認手順**
+
+    - 検証目的: USAGE COMP-4について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00053を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00053 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00053
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00053
+    ```
+
+    COMMAND INPUTにST LNG00053が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00053 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00053),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00053
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00053が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00053 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00053 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE COMP-5 確認手順**
+
+    - 検証目的: USAGE COMP-5について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00054を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00054 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00054
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00054
+    ```
+
+    COMMAND INPUTにST LNG00054が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00054 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00054),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00054
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00054が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00054 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00054 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE BINARY 確認手順**
+
+    - 検証目的: USAGE BINARYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00055を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00055 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00055
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00055
+    ```
+
+    COMMAND INPUTにST LNG00055が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00055 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00055),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00055
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00055が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00055 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00055 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE INDEX 確認手順**
+
+    - 検証目的: USAGE INDEXについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00056を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00056 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00056
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00056
+    ```
+
+    COMMAND INPUTにST LNG00056が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00056 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00056),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00056
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00056が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00056 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00056 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE POINTER 確認手順**
+
+    - 検証目的: USAGE POINTERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00057を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00057 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00057
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00057
+    ```
+
+    COMMAND INPUTにST LNG00057が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00057 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00057),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00057
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00057が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00057 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00057 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE PROCEDURE-POINTER 確認手順**
+
+    - 検証目的: USAGE PROCEDURE-POINTERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00058を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00058 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00058
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00058
+    ```
+
+    COMMAND INPUTにST LNG00058が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00058 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00058),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00058
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00058が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00058 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00058 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE FUNCTION-POINTER 確認手順**
+
+    - 検証目的: USAGE FUNCTION-POINTERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00059を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00059 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00059
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00059
+    ```
+
+    COMMAND INPUTにST LNG00059が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00059 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00059),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00059
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00059が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00059 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00059 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE NATIONAL 確認手順**
+
+    - 検証目的: USAGE NATIONALについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00060を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00060 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00060
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00060
+    ```
+
+    COMMAND INPUTにST LNG00060が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00060 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00060),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00060
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00060が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00060 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00060 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **USAGE OBJECT REFERENCE 確認手順**
+
+    - 検証目的: USAGE OBJECT REFERENCEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00061を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00061 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00061
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00061
+    ```
+
+    COMMAND INPUTにST LNG00061が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00061 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00061),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00061
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00061が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00061 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00061 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea400)
+
+    ---
+
+    **88 条件名 確認手順**
+
+    - 検証目的: 88 条件名について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00062を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00062 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00062
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00062
+    ```
+
+    COMMAND INPUTにST LNG00062が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00062 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00062),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00062
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00062が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00062 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00062 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS DFSORT Application Programming Guide (zOS31_icea100)
+
+    ---
+
+    **REDEFINES 確認手順**
+
+    - 検証目的: REDEFINESについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00063を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00063 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00063
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00063
+    ```
+
+    COMMAND INPUTにST LNG00063が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00063 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00063),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00063
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00063が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00063 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00063 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS DFSORT Application Programming Guide (zOS31_icea100)
+
+    ---
+
+    **OCCURS (固定回数) 確認手順**
+
+    - 検証目的: OCCURS (固定回数)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00064を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00064 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00064
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00064
+    ```
+
+    COMMAND INPUTにST LNG00064が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00064 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00064),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00064
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00064が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00064 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00064 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS DFSORT Application Programming Guide (zOS31_icea100)
+
+    ---
+
+    **OCCURS DEPENDING ON (可変回数) 確認手順**
+
+    - 検証目的: OCCURS DEPENDING ON (可変回数)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00065を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00065 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00065
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00065
+    ```
+
+    COMMAND INPUTにST LNG00065が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00065 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00065),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00065
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00065が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00065 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00065 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS DFSORT Application Programming Guide (zOS31_icea100)
+
+    ---
+
+    **VALUE 確認手順**
+
+    - 検証目的: VALUEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00066を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00066 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00066
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00066
+    ```
+
+    COMMAND INPUTにST LNG00066が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00066 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00066),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00066
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00066が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00066 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00066 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS DFSORT Application Programming Guide (zOS31_icea100)
+
+    ---
+
+    **VALUE ALL 確認手順**
+
+    - 検証目的: VALUE ALLについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00067を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00067 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00067
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00067
+    ```
+
+    COMMAND INPUTにST LNG00067が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00067 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00067),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00067
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00067が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00067 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00067 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / z / OS DFSORT Application Programming Guide (zOS31_icea100)
+
+    ---
+
+    **MOVE 確認手順**
+
+    - 検証目的: MOVEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00068を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00068 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00068
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00068
+    ```
+
+    COMMAND INPUTにST LNG00068が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00068 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00068),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00068
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00068が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00068 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00068 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **ADD 確認手順**
+
+    - 検証目的: ADDについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00069を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00069 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00069
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00069
+    ```
+
+    COMMAND INPUTにST LNG00069が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00069 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00069),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00069
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00069が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00069 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00069 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **SUBTRACT 確認手順**
+
+    - 検証目的: SUBTRACTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00070を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00070 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00070
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00070
+    ```
+
+    COMMAND INPUTにST LNG00070が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00070 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00070),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00070
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00070が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00070 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00070 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **MULTIPLY 確認手順**
+
+    - 検証目的: MULTIPLYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00071を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00071 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00071
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00071
+    ```
+
+    COMMAND INPUTにST LNG00071が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00071 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00071),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00071
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00071が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00071 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00071 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **DIVIDE 確認手順**
+
+    - 検証目的: DIVIDEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00072を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00072 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00072
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00072
+    ```
+
+    COMMAND INPUTにST LNG00072が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00072 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00072),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00072
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00072が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00072 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00072 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **COMPUTE 確認手順**
+
+    - 検証目的: COMPUTEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00073を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00073 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00073
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00073
+    ```
+
+    COMMAND INPUTにST LNG00073が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00073 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00073),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00073
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00073が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00073 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00073 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **IF / ELSE / END-IF 確認手順**
+
+    - 検証目的: IF / ELSE / END-IFについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00074を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00074 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00074
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00074
+    ```
+
+    COMMAND INPUTにST LNG00074が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00074 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00074),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00074
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00074が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00074 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00074 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **GO TO 確認手順**
+
+    - 検証目的: GO TOについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00075を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00075 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00075
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00075
+    ```
+
+    COMMAND INPUTにST LNG00075が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00075 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00075),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00075
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00075が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00075 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00075 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **CALL 確認手順**
+
+    - 検証目的: CALLについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00076を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00076 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00076
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00076
+    ```
+
+    COMMAND INPUTにST LNG00076が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00076 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00076),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00076
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00076が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00076 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00076 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **CANCEL 確認手順**
+
+    - 検証目的: CANCELについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00077を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00077 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00077
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00077
+    ```
+
+    COMMAND INPUTにST LNG00077が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00077 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00077),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00077
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00077が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00077 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00077 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **CONTINUE 確認手順**
+
+    - 検証目的: CONTINUEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00078を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00078 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00078
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00078
+    ```
+
+    COMMAND INPUTにST LNG00078が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00078 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00078),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00078
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00078が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00078 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00078 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **EXIT 確認手順**
+
+    - 検証目的: EXITについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00079を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00079 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00079
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00079
+    ```
+
+    COMMAND INPUTにST LNG00079が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00079 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00079),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00079
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00079が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00079 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00079 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **STOP RUN 確認手順**
+
+    - 検証目的: STOP RUNについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00080を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00080 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00080
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00080
+    ```
+
+    COMMAND INPUTにST LNG00080が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00080 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00080),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00080
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00080が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00080 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00080 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **INITIALIZE 確認手順**
+
+    - 検証目的: INITIALIZEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00081を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00081 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00081
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00081
+    ```
+
+    COMMAND INPUTにST LNG00081が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00081 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00081),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00081
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00081が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00081 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00081 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **SET 確認手順**
+
+    - 検証目的: SETについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00082を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00082 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00082
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00082
+    ```
+
+    COMMAND INPUTにST LNG00082が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00082 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00082),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00082
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00082が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00082 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00082 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **SEARCH 確認手順**
+
+    - 検証目的: SEARCHについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00083を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00083 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00083
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00083
+    ```
+
+    COMMAND INPUTにST LNG00083が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00083 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00083),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00083
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00083が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00083 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00083 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **SORT 確認手順**
+
+    - 検証目的: SORTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00084を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00084 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00084
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00084
+    ```
+
+    COMMAND INPUTにST LNG00084が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00084 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00084),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00084
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00084が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00084 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00084 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **ACCEPT 確認手順**
+
+    - 検証目的: ACCEPTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00085を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00085 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00085
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00085
+    ```
+
+    COMMAND INPUTにST LNG00085が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00085 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00085),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00085
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00085が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00085 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00085 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **DISPLAY 確認手順**
+
+    - 検証目的: DISPLAYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00086を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00086 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00086
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00086
+    ```
+
+    COMMAND INPUTにST LNG00086が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00086 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00086),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00086
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00086が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00086 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00086 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide (zOS31_ceea400)
+
+    ---
+
+    **PERFORM (単純) 確認手順**
+
+    - 検証目的: PERFORM (単純)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00087を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00087 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00087
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00087
+    ```
+
+    COMMAND INPUTにST LNG00087が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00087 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00087),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00087
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00087が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00087 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00087 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **PERFORM THRU (THROUGH) 確認手順**
+
+    - 検証目的: PERFORM THRU (THROUGH)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00088を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00088 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00088
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00088
+    ```
+
+    COMMAND INPUTにST LNG00088が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00088 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00088),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00088
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00088が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00088 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00088 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **PERFORM UNTIL 確認手順**
+
+    - 検証目的: PERFORM UNTILについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00089を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00089 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00089
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00089
+    ```
+
+    COMMAND INPUTにST LNG00089が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00089 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00089),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00089
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00089が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00089 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00089 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **PERFORM VARYING 確認手順**
+
+    - 検証目的: PERFORM VARYINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00090を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00090 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00090
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00090
+    ```
+
+    COMMAND INPUTにST LNG00090が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00090 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00090),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00090
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00090が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00090 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00090 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **PERFORM TIMES 確認手順**
+
+    - 検証目的: PERFORM TIMESについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00091を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00091 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00091
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00091
+    ```
+
+    COMMAND INPUTにST LNG00091が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00091 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00091),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00091
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00091が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00091 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00091 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **PERFORM INLINE 確認手順**
+
+    - 検証目的: PERFORM INLINEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00092を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00092 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00092
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00092
+    ```
+
+    COMMAND INPUTにST LNG00092が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00092 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00092),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00092
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00092が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00092 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00092 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **EVALUATE (基本) 確認手順**
+
+    - 検証目的: EVALUATE (基本)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00093を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00093 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00093
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00093
+    ```
+
+    COMMAND INPUTにST LNG00093が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00093 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00093),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00093
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00093が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00093 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00093 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **WHEN (単一値・範囲) 確認手順**
+
+    - 検証目的: WHEN (単一値・範囲)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00094を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00094 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00094
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00094
+    ```
+
+    COMMAND INPUTにST LNG00094が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00094 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00094),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00094
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00094が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00094 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00094 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **EVALUATE TRUE 確認手順**
+
+    - 検証目的: EVALUATE TRUEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00095を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00095 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00095
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00095
+    ```
+
+    COMMAND INPUTにST LNG00095が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00095 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00095),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00095
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00095が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00095 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00095 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **EVALUATE ALSO (複数式) 確認手順**
+
+    - 検証目的: EVALUATE ALSO (複数式)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00096を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00096 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00096
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00096
+    ```
+
+    COMMAND INPUTにST LNG00096が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00096 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00096),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00096
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00096が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00096 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00096 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **WHEN OTHER 確認手順**
+
+    - 検証目的: WHEN OTHERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00097を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00097 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00097
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00097
+    ```
+
+    COMMAND INPUTにST LNG00097が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00097 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00097),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00097
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00097が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00097 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00097 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **STRING 確認手順**
+
+    - 検証目的: STRINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00098を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00098 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00098
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00098
+    ```
+
+    COMMAND INPUTにST LNG00098が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00098 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00098),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00098
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00098が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00098 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00098 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **UNSTRING 確認手順**
+
+    - 検証目的: UNSTRINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00099を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00099 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00099
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00099
+    ```
+
+    COMMAND INPUTにST LNG00099が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00099 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00099),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00099
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00099が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00099 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00099 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **INSPECT TALLYING 確認手順**
+
+    - 検証目的: INSPECT TALLYINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00100を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00100 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00100
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00100
+    ```
+
+    COMMAND INPUTにST LNG00100が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00100 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00100),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00100
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00100が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00100 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00100 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **INSPECT REPLACING 確認手順**
+
+    - 検証目的: INSPECT REPLACINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00101を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00101 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00101
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00101
+    ```
+
+    COMMAND INPUTにST LNG00101が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00101 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00101),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00101
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00101が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00101 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00101 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **INSPECT CONVERTING 確認手順**
+
+    - 検証目的: INSPECT CONVERTINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00102を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00102 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00102
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00102
+    ```
+
+    COMMAND INPUTにST LNG00102が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00102 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00102),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00102
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00102が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00102 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00102 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **OPEN 確認手順**
+
+    - 検証目的: OPENについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00103を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00103 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00103
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00103
+    ```
+
+    COMMAND INPUTにST LNG00103が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00103 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00103),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00103
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00103が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00103 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00103 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **CLOSE 確認手順**
+
+    - 検証目的: CLOSEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00104を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00104 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00104
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00104
+    ```
+
+    COMMAND INPUTにST LNG00104が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00104 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00104),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00104
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00104が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00104 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00104 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **READ 確認手順**
+
+    - 検証目的: READについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00105を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00105 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00105
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00105
+    ```
+
+    COMMAND INPUTにST LNG00105が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00105 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00105),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00105
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00105が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00105 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00105 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **READ NEXT 確認手順**
+
+    - 検証目的: READ NEXTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00106を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00106 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00106
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00106
+    ```
+
+    COMMAND INPUTにST LNG00106が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00106 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00106),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00106
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00106が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00106 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00106 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **WRITE 確認手順**
+
+    - 検証目的: WRITEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00107を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00107 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00107
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00107
+    ```
+
+    COMMAND INPUTにST LNG00107が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00107 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00107),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00107
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00107が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00107 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00107 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **REWRITE 確認手順**
+
+    - 検証目的: REWRITEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00108を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00108 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00108
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00108
+    ```
+
+    COMMAND INPUTにST LNG00108が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00108 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00108),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00108
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00108が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00108 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00108 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **DELETE 確認手順**
+
+    - 検証目的: DELETEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00109を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00109 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00109
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00109
+    ```
+
+    COMMAND INPUTにST LNG00109が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00109 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00109),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00109
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00109が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00109 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00109 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **START 確認手順**
+
+    - 検証目的: STARTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00110を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00110 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00110
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00110
+    ```
+
+    COMMAND INPUTにST LNG00110が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00110 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00110),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00110
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00110が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00110 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00110 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Language Reference / Enterprise COBOL Programming Guide
+
+    ---
+
+    **COPY 文 確認手順**
+
+    - 検証目的: COPY 文について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00111を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00111 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00111
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00111
+    ```
+
+    COMMAND INPUTにST LNG00111が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00111 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00111),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00111
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00111が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00111 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00111 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference
+
+    ---
+
+    **REPLACING 句 確認手順**
+
+    - 検証目的: REPLACING 句について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00112を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00112 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00112
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00112
+    ```
+
+    COMMAND INPUTにST LNG00112が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00112 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00112),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00112
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00112が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00112 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00112 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference
+
+    ---
+
+    **SUPPRESS 句 確認手順**
+
+    - 検証目的: SUPPRESS 句について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00113を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00113 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00113
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00113
+    ```
+
+    COMMAND INPUTにST LNG00113が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00113 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00113),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00113
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00113が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00113 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00113 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / Enterprise COBOL Language Reference
+
+    ---
+
+    **EXEC SQL ... END-EXEC 確認手順**
+
+    - 検証目的: EXEC SQL ... END-EXECについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00114を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00114 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00114
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00114
+    ```
+
+    COMMAND INPUTにST LNG00114が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00114 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00114),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00114
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00114が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00114 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00114 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ Programming Guide / Enterprise COBOL Programming Guide / Db2 for z / OS Application Programming and SQL Guide (zOS31_cbcpx01)
+
+    ---
+
+    **DB2 プリコンパイラ 確認手順**
+
+    - 検証目的: DB2 プリコンパイラについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00115を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00115 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00115
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00115
+    ```
+
+    COMMAND INPUTにST LNG00115が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00115 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00115),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00115
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00115が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00115 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00115 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ Programming Guide / Enterprise COBOL Programming Guide / Db2 for z / OS Application Programming and SQL Guide (zOS31_cbcpx01)
+
+    ---
+
+    **SQLCA 確認手順**
+
+    - 検証目的: SQLCAについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00116を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00116 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00116
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00116
+    ```
+
+    COMMAND INPUTにST LNG00116が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00116 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00116),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00116
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00116が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00116 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00116 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ Programming Guide / Enterprise COBOL Programming Guide / Db2 for z / OS Application Programming and SQL Guide (zOS31_cbcpx01)
+
+    ---
+
+    **SQLDA 確認手順**
+
+    - 検証目的: SQLDAについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00117を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00117 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00117
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00117
+    ```
+
+    COMMAND INPUTにST LNG00117が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00117 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00117),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00117
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00117が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00117 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00117 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ Programming Guide / Enterprise COBOL Programming Guide / Db2 for z / OS Application Programming and SQL Guide (zOS31_cbcpx01)
+
+    ---
+
+    **ホスト変数 確認手順**
+
+    - 検証目的: ホスト変数について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00118を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00118 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00118
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00118
+    ```
+
+    COMMAND INPUTにST LNG00118が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00118 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00118),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00118
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00118が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00118 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00118 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ Programming Guide / Enterprise COBOL Programming Guide / Db2 for z / OS Application Programming and SQL Guide (zOS31_cbcpx01)
+
+    ---
+
+    **EXEC CICS ... END-EXEC 確認手順**
+
+    - 検証目的: EXEC CICS ... END-EXECについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00119を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00119 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00119
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00119
+    ```
+
+    COMMAND INPUTにST LNG00119が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00119 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00119),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00119
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00119が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00119 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00119 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / CICS Application Programming Guide (zOS31_halc001 / zOS31_ceea500 / zOS31_ceea200)
+
+    ---
+
+    **CICS トランスレータ 確認手順**
+
+    - 検証目的: CICS トランスレータについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00120を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00120 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00120
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00120
+    ```
+
+    COMMAND INPUTにST LNG00120が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00120 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00120),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00120
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00120が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00120 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00120 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / CICS Application Programming Guide (zOS31_halc001 / zOS31_ceea500 / zOS31_ceea200)
+
+    ---
+
+    **EIB (Execute Interface Block) 確認手順**
+
+    - 検証目的: EIB (Execute Interface Block)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00121を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00121 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00121
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00121
+    ```
+
+    COMMAND INPUTにST LNG00121が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00121 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00121),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00121
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00121が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00121 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00121 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / CICS Application Programming Guide (zOS31_halc001 / zOS31_ceea500 / zOS31_ceea200)
+
+    ---
+
+    **DFHCOMMAREA 確認手順**
+
+    - 検証目的: DFHCOMMAREAについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00122を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00122 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00122
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00122
+    ```
+
+    COMMAND INPUTにST LNG00122が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00122 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00122),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00122
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00122が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00122 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00122 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise COBOL Programming Guide / CICS Application Programming Guide (zOS31_halc001 / zOS31_ceea500 / zOS31_ceea200)
+
+    ---
+
+    **LE (Language Environment) 概要 確認手順**
+
+    - 検証目的: LE (Language Environment) 概要について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00123を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00123 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00123
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00123
+    ```
+
+    COMMAND INPUTにST LNG00123が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00123 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00123),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00123
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00123が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00123 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00123 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Vendor Interfaces (zOS31_ceev100)
+
+    ---
+
+    **LE 共通領域 (LE/370) 確認手順**
+
+    - 検証目的: LE 共通領域 (LE/370)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00124を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00124 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00124
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00124
+    ```
+
+    COMMAND INPUTにST LNG00124が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00124 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00124),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00124
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00124が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00124 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00124 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Vendor Interfaces (zOS31_ceev100)
+
+    ---
+
+    **CEEDUMP 確認手順**
+
+    - 検証目的: CEEDUMPについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00125を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00125 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00125
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00125
+    ```
+
+    COMMAND INPUTにST LNG00125が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00125 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00125),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00125
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00125が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00125 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00125 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Vendor Interfaces (zOS31_ceev100)
+
+    ---
+
+    **CEESTART 確認手順**
+
+    - 検証目的: CEESTARTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00126を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00126 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00126
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00126
+    ```
+
+    COMMAND INPUTにST LNG00126が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00126 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00126),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00126
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00126が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00126 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00126 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Vendor Interfaces (zOS31_ceev100)
+
+    ---
+
+    **CEEPIPI (Preinitialized Programs Interface) 確認手順**
+
+    - 検証目的: CEEPIPI (Preinitialized Programs Interface)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00127を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00127 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00127
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00127
+    ```
+
+    COMMAND INPUTにST LNG00127が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00127 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00127),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00127
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00127が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00127 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00127 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Vendor Interfaces (zOS31_ceev100)
+
+    ---
+
+    **ALL31 確認手順**
+
+    - 検証目的: ALL31について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00128を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00128 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00128
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00128
+    ```
+
+    COMMAND INPUTにST LNG00128が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00128 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00128),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00128
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00128が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00128 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00128 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **ANYHEAP 確認手順**
+
+    - 検証目的: ANYHEAPについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00129を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00129 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00129
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00129
+    ```
+
+    COMMAND INPUTにST LNG00129が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00129 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00129),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00129
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00129が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00129 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00129 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **BELOWHEAP 確認手順**
+
+    - 検証目的: BELOWHEAPについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00130を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00130 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00130
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00130
+    ```
+
+    COMMAND INPUTにST LNG00130が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00130 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00130),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00130
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00130が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00130 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00130 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **CHECK 確認手順**
+
+    - 検証目的: CHECKについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00131を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00131 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00131
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00131
+    ```
+
+    COMMAND INPUTにST LNG00131が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00131 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00131),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00131
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00131が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00131 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00131 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **DEBUG 確認手順**
+
+    - 検証目的: DEBUGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00132を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00132 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00132
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00132
+    ```
+
+    COMMAND INPUTにST LNG00132が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00132 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00132),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00132
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00132が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00132 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00132 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **ENVAR 確認手順**
+
+    - 検証目的: ENVARについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00133を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00133 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00133
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00133
+    ```
+
+    COMMAND INPUTにST LNG00133が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00133 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00133),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00133
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00133が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00133 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00133 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **ERRCOUNT 確認手順**
+
+    - 検証目的: ERRCOUNTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00134を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00134 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00134
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00134
+    ```
+
+    COMMAND INPUTにST LNG00134が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00134 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00134),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00134
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00134が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00134 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00134 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **HEAP 確認手順**
+
+    - 検証目的: HEAPについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00135を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00135 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00135
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00135
+    ```
+
+    COMMAND INPUTにST LNG00135が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00135 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00135),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00135
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00135が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00135 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00135 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **INFOMSGFILTER 確認手順**
+
+    - 検証目的: INFOMSGFILTERについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00136を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00136 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00136
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00136
+    ```
+
+    COMMAND INPUTにST LNG00136が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00136 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00136),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00136
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00136が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00136 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00136 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **LIBSTACK 確認手順**
+
+    - 検証目的: LIBSTACKについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00137を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00137 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00137
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00137
+    ```
+
+    COMMAND INPUTにST LNG00137が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00137 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00137),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00137
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00137が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00137 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00137 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **MSGFILE 確認手順**
+
+    - 検証目的: MSGFILEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00138を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00138 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00138
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00138
+    ```
+
+    COMMAND INPUTにST LNG00138が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00138 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00138),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00138
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00138が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00138 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00138 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **MSGQ 確認手順**
+
+    - 検証目的: MSGQについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00139を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00139 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00139
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00139
+    ```
+
+    COMMAND INPUTにST LNG00139が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00139 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00139),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00139
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00139が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00139 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00139 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **NATLANG 確認手順**
+
+    - 検証目的: NATLANGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00140を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00140 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00140
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00140
+    ```
+
+    COMMAND INPUTにST LNG00140が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00140 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00140),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00140
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00140が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00140 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00140 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **POSIX 確認手順**
+
+    - 検証目的: POSIXについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00141を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00141 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00141
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00141
+    ```
+
+    COMMAND INPUTにST LNG00141が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00141 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00141),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00141
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00141が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00141 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00141 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **PUNCH 確認手順**
+
+    - 検証目的: PUNCHについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00142を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00142 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00142
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00142
+    ```
+
+    COMMAND INPUTにST LNG00142が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00142 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00142),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00142
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00142が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00142 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00142 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **RPTOPTS 確認手順**
+
+    - 検証目的: RPTOPTSについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00143を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00143 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00143
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00143
+    ```
+
+    COMMAND INPUTにST LNG00143が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00143 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00143),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00143
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00143が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00143 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00143 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **RPTSTG 確認手順**
+
+    - 検証目的: RPTSTGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00144を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00144 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00144
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00144
+    ```
+
+    COMMAND INPUTにST LNG00144が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00144 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00144),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00144
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00144が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00144 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00144 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **STACK 確認手順**
+
+    - 検証目的: STACKについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00145を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00145 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00145
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00145
+    ```
+
+    COMMAND INPUTにST LNG00145が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00145 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00145),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00145
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00145が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00145 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00145 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **STORAGE 確認手順**
+
+    - 検証目的: STORAGEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00146を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00146 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00146
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00146
+    ```
+
+    COMMAND INPUTにST LNG00146が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00146 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00146),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00146
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00146が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00146 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00146 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **TERMTHDACT 確認手順**
+
+    - 検証目的: TERMTHDACTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00147を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00147 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00147
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00147
+    ```
+
+    COMMAND INPUTにST LNG00147が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00147 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00147),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00147
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00147が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00147 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00147 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **THREADHEAP 確認手順**
+
+    - 検証目的: THREADHEAPについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00148を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00148 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00148
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00148
+    ```
+
+    COMMAND INPUTにST LNG00148が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00148 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00148),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00148
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00148が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00148 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00148 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **THREADSTACK 確認手順**
+
+    - 検証目的: THREADSTACKについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00149を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00149 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00149
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00149
+    ```
+
+    COMMAND INPUTにST LNG00149が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00149 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00149),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00149
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00149が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00149 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00149 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **TRACE 確認手順**
+
+    - 検証目的: TRACEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00150を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00150 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00150
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00150
+    ```
+
+    COMMAND INPUTにST LNG00150が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00150 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00150),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00150
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00150が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00150 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00150 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **TRAP 確認手順**
+
+    - 検証目的: TRAPについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00151を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00151 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00151
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00151
+    ```
+
+    COMMAND INPUTにST LNG00151が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00151 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00151),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00151
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00151が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00151 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00151 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **USRHDLR 確認手順**
+
+    - 検証目的: USRHDLRについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00152を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00152 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00152
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00152
+    ```
+
+    COMMAND INPUTにST LNG00152が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00152 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00152),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00152
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00152が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00152 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00152 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **VCTRSAVE 確認手順**
+
+    - 検証目的: VCTRSAVEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00153を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00153 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00153
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00153
+    ```
+
+    COMMAND INPUTにST LNG00153が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00153 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00153),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00153
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00153が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00153 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00153 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **XPLINK 確認手順**
+
+    - 検証目的: XPLINKについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00154を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00154 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00154
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00154
+    ```
+
+    COMMAND INPUTにST LNG00154が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00154 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00154),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00154
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00154が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00154 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00154 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Customization / OS Language Environment Programming Reference (zOS31_ceea300 / zOS31_ceea500)
+
+    ---
+
+    **CEE3SPMI 確認手順**
+
+    - 検証目的: CEE3SPMIについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00155を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00155 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00155
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00155
+    ```
+
+    COMMAND INPUTにST LNG00155が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00155 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00155),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00155
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00155が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00155 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00155 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Programming Reference (zOS31_ceea200)
+
+    ---
+
+    **CEEFETCH 確認手順**
+
+    - 検証目的: CEEFETCHについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00156を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00156 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00156
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00156
+    ```
+
+    COMMAND INPUTにST LNG00156が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00156 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00156),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00156
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00156が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00156 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00156 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Programming Reference (zOS31_ceea200)
+
+    ---
+
+    **CEERELEASE 確認手順**
+
+    - 検証目的: CEERELEASEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00157を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00157 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00157
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00157
+    ```
+
+    COMMAND INPUTにST LNG00157が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00157 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00157),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00157
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00157が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00157 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00157 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Programming Reference (zOS31_ceea200)
+
+    ---
+
+    **CEEHDLR / CEEHDLU 確認手順**
+
+    - 検証目的: CEEHDLR / CEEHDLUについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00158を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00158 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00158
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00158
+    ```
+
+    COMMAND INPUTにST LNG00158が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00158 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00158),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00158
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00158が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00158 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00158 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Programming Reference (zOS31_ceea200)
+
+    ---
+
+    **CEE3GRC 確認手順**
+
+    - 検証目的: CEE3GRCについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00159を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00159 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00159
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00159
+    ```
+
+    COMMAND INPUTにST LNG00159が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00159 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00159),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00159
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00159が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00159 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00159 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS Language Environment Programming Guide / OS Language Environment Programming Reference (zOS31_ceea200)
+
+    ---
+
+    **PROCEDURE 確認手順**
+
+    - 検証目的: PROCEDUREについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00160を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00160 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00160
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00160
+    ```
+
+    COMMAND INPUTにST LNG00160が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00160 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00160),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00160
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00160が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00160 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00160 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **BEGIN 確認手順**
+
+    - 検証目的: BEGINについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00161を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00161 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00161
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00161
+    ```
+
+    COMMAND INPUTにST LNG00161が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00161 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00161),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00161
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00161が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00161 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00161 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **DO 確認手順**
+
+    - 検証目的: DOについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00162を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00162 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00162
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00162
+    ```
+
+    COMMAND INPUTにST LNG00162が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00162 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00162),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00162
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00162が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00162 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00162 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **IF / THEN / ELSE 確認手順**
+
+    - 検証目的: IF / THEN / ELSEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00163を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00163 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00163
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00163
+    ```
+
+    COMMAND INPUTにST LNG00163が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00163 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00163),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00163
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00163が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00163 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00163 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **SELECT / WHEN / OTHERWISE 確認手順**
+
+    - 検証目的: SELECT / WHEN / OTHERWISEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00164を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00164 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00164
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00164
+    ```
+
+    COMMAND INPUTにST LNG00164が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00164 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00164),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00164
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00164が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00164 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00164 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **ON ステートメント 確認手順**
+
+    - 検証目的: ON ステートメントについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00165を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00165 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00165
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00165
+    ```
+
+    COMMAND INPUTにST LNG00165が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00165 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00165),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00165
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00165が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00165 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00165 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **CALL 確認手順**
+
+    - 検証目的: CALLについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00166を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00166 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00166
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00166
+    ```
+
+    COMMAND INPUTにST LNG00166が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00166 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00166),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00166
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00166が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00166 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00166 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **RETURN 確認手順**
+
+    - 検証目的: RETURNについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00167を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00167 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00167
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00167
+    ```
+
+    COMMAND INPUTにST LNG00167が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00167 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00167),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00167
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00167が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00167 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00167 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **FIXED BIN(p,q) 確認手順**
+
+    - 検証目的: FIXED BIN(p,q)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00168を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00168 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00168
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00168
+    ```
+
+    COMMAND INPUTにST LNG00168が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00168 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00168),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00168
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00168が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00168 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00168 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **FIXED DEC(p,q) 確認手順**
+
+    - 検証目的: FIXED DEC(p,q)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00169を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00169 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00169
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00169
+    ```
+
+    COMMAND INPUTにST LNG00169が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00169 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00169),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00169
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00169が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00169 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00169 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **FLOAT BIN 確認手順**
+
+    - 検証目的: FLOAT BINについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00170を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00170 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00170
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00170
+    ```
+
+    COMMAND INPUTにST LNG00170が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00170 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00170),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00170
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00170が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00170 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00170 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **FLOAT DEC 確認手順**
+
+    - 検証目的: FLOAT DECについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00171を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00171 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00171
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00171
+    ```
+
+    COMMAND INPUTにST LNG00171が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00171 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00171),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00171
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00171が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00171 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00171 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **CHARACTER (CHAR) 確認手順**
+
+    - 検証目的: CHARACTER (CHAR)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00172を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00172 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00172
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00172
+    ```
+
+    COMMAND INPUTにST LNG00172が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00172 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00172),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00172
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00172が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00172 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00172 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **BIT 確認手順**
+
+    - 検証目的: BITについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00173を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00173 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00173
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00173
+    ```
+
+    COMMAND INPUTにST LNG00173が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00173 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00173),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00173
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00173が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00173 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00173 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **PICTURE (PIC) 確認手順**
+
+    - 検証目的: PICTURE (PIC)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00174を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00174 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00174
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00174
+    ```
+
+    COMMAND INPUTにST LNG00174が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00174 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00174),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00174
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00174が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00174 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00174 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **POINTER (PTR) 確認手順**
+
+    - 検証目的: POINTER (PTR)について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00175を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00175 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00175
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00175
+    ```
+
+    COMMAND INPUTにST LNG00175が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00175 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00175),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00175
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00175が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00175 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00175 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **OFFSET 確認手順**
+
+    - 検証目的: OFFSETについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00176を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00176 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00176
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00176
+    ```
+
+    COMMAND INPUTにST LNG00176が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00176 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00176),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00176
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00176が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00176 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00176 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **AREA 確認手順**
+
+    - 検証目的: AREAについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00177を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00177 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00177
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00177
+    ```
+
+    COMMAND INPUTにST LNG00177が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00177 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00177),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00177
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00177が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00177 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00177 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **FILE 確認手順**
+
+    - 検証目的: FILEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00178を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00178 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00178
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00178
+    ```
+
+    COMMAND INPUTにST LNG00178が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00178 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00178),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00178
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00178が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00178 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00178 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **TASK 確認手順**
+
+    - 検証目的: TASKについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00179を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00179 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00179
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00179
+    ```
+
+    COMMAND INPUTにST LNG00179が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00179 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00179),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00179
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00179が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00179 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00179 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **EVENT 確認手順**
+
+    - 検証目的: EVENTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00180を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00180 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00180
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00180
+    ```
+
+    COMMAND INPUTにST LNG00180が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00180 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00180),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00180
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00180が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00180 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00180 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **ENTRY 確認手順**
+
+    - 検証目的: ENTRYについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00181を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00181 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00181
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00181
+    ```
+
+    COMMAND INPUTにST LNG00181が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00181 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00181),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00181
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00181が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00181 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00181 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **LABEL 確認手順**
+
+    - 検証目的: LABELについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00182を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00182 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00182
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00182
+    ```
+
+    COMMAND INPUTにST LNG00182が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00182 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00182),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00182
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00182が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00182 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00182 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / z / OS Language Environment Writing ILC Applications (zOS31_ceea300 / zOS31_ceea400)
+
+    ---
+
+    **ON ステートメント 確認手順**
+
+    - 検証目的: ON ステートメントについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00183を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00183 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00183
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00183
+    ```
+
+    COMMAND INPUTにST LNG00183が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00183 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00183),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00183
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00183が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00183 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00183 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **SIGNAL 確認手順**
+
+    - 検証目的: SIGNALについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00184を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00184 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00184
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00184
+    ```
+
+    COMMAND INPUTにST LNG00184が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00184 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00184),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00184
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00184が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00184 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00184 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **REVERT 確認手順**
+
+    - 検証目的: REVERTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00185を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00185 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00185
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00185
+    ```
+
+    COMMAND INPUTにST LNG00185が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00185 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00185),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00185
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00185が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00185 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00185 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **ERROR 条件 確認手順**
+
+    - 検証目的: ERROR 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00186を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00186 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00186
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00186
+    ```
+
+    COMMAND INPUTにST LNG00186が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00186 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00186),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00186
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00186が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00186 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00186 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **ZERODIVIDE 条件 確認手順**
+
+    - 検証目的: ZERODIVIDE 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00187を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00187 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00187
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00187
+    ```
+
+    COMMAND INPUTにST LNG00187が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00187 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00187),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00187
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00187が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00187 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00187 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **OVERFLOW 条件 確認手順**
+
+    - 検証目的: OVERFLOW 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00188を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00188 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00188
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00188
+    ```
+
+    COMMAND INPUTにST LNG00188が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00188 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00188),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00188
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00188が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00188 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00188 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **UNDERFLOW 条件 確認手順**
+
+    - 検証目的: UNDERFLOW 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00189を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00189 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00189
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00189
+    ```
+
+    COMMAND INPUTにST LNG00189が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00189 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00189),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00189
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00189が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00189 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00189 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **FIXEDOVERFLOW (FOFL) 条件 確認手順**
+
+    - 検証目的: FIXEDOVERFLOW (FOFL) 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00190を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00190 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00190
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00190
+    ```
+
+    COMMAND INPUTにST LNG00190が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00190 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00190),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00190
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00190が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00190 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00190 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **CONVERSION 条件 確認手順**
+
+    - 検証目的: CONVERSION 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00191を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00191 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00191
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00191
+    ```
+
+    COMMAND INPUTにST LNG00191が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00191 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00191),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00191
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00191が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00191 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00191 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **ENDFILE 条件 確認手順**
+
+    - 検証目的: ENDFILE 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00192を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00192 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00192
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00192
+    ```
+
+    COMMAND INPUTにST LNG00192が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00192 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00192),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00192
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00192が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00192 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00192 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **ENDPAGE 条件 確認手順**
+
+    - 検証目的: ENDPAGE 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00193を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00193 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00193
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00193
+    ```
+
+    COMMAND INPUTにST LNG00193が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00193 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00193),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00193
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00193が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00193 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00193 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **TRANSMIT / KEY / RECORD 条件 確認手順**
+
+    - 検証目的: TRANSMIT / KEY / RECORD 条件について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00194を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00194 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00194
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00194
+    ```
+
+    COMMAND INPUTにST LNG00194が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00194 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00194),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00194
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00194が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00194 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00194 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Programming Guide / z / OS Language Environment Programming Guide (zOS31_ceea200)
+
+    ---
+
+    **PUT LIST 確認手順**
+
+    - 検証目的: PUT LISTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00195を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00195 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00195
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00195
+    ```
+
+    COMMAND INPUTにST LNG00195が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00195 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00195),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00195
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00195が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00195 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00195 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **PUT EDIT 確認手順**
+
+    - 検証目的: PUT EDITについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00196を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00196 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00196
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00196
+    ```
+
+    COMMAND INPUTにST LNG00196が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00196 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00196),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00196
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00196が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00196 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00196 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **PUT DATA 確認手順**
+
+    - 検証目的: PUT DATAについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00197を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00197 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00197
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00197
+    ```
+
+    COMMAND INPUTにST LNG00197が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00197 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00197),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00197
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00197が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00197 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00197 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **PUT FILE 確認手順**
+
+    - 検証目的: PUT FILEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00198を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00198 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00198
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00198
+    ```
+
+    COMMAND INPUTにST LNG00198が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00198 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00198),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00198
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00198が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00198 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00198 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **PUT STRING 確認手順**
+
+    - 検証目的: PUT STRINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00199を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00199 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00199
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00199
+    ```
+
+    COMMAND INPUTにST LNG00199が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00199 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00199),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00199
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00199が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00199 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00199 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **GET LIST 確認手順**
+
+    - 検証目的: GET LISTについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00200を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00200 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00200
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00200
+    ```
+
+    COMMAND INPUTにST LNG00200が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00200 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00200),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00200
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00200が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00200 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00200 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **GET EDIT 確認手順**
+
+    - 検証目的: GET EDITについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00201を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00201 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00201
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00201
+    ```
+
+    COMMAND INPUTにST LNG00201が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00201 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00201),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00201
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00201が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00201 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00201 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **GET DATA 確認手順**
+
+    - 検証目的: GET DATAについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00202を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00202 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00202
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00202
+    ```
+
+    COMMAND INPUTにST LNG00202が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00202 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00202),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00202
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00202が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00202 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00202 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **GET FILE 確認手順**
+
+    - 検証目的: GET FILEについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00203を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00203 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00203
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00203
+    ```
+
+    COMMAND INPUTにST LNG00203が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00203 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00203),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00203
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00203が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00203 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00203 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **GET STRING 確認手順**
+
+    - 検証目的: GET STRINGについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00204を表示し、RPTOPTSとCEE3204Sをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00204 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00204
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00204
+    ```
+
+    COMMAND INPUTにST LNG00204が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00204 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //RUN EXEC PGM=CEEFTST,PARM='RPTOPTS(ON)'
+    //SYSIN DD DSN=APP.SOURCE(LNG00204),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにRPTOPTSまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CEE3204S The system detected a condition for LNG00204
+    RPTOPTS OPTION REPORT
+    ```
+
+    CEE3204SとLNG00204が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00204 が画面・出力に表示されること
+    ② ステップ2 の RPTOPTS が画面・出力に表示されること
+    ③ ステップ3 の CEE3204S と LNG00204 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: Enterprise PL / I Language Reference / I Programming Guide
+
+    ---
+
+    **z/OS XL C/C++ 確認手順**
+
+    - 検証目的: z/OS XL C/C++について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00205を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00205 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00205
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00205
+    ```
+
+    COMMAND INPUTにST LNG00205が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00205 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00205),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00205
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00205が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00205 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00205 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **IBM Open XL C/C++ 確認手順**
+
+    - 検証目的: IBM Open XL C/C++について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00206を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00206 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00206
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00206
+    ```
+
+    COMMAND INPUTにST LNG00206が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00206 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00206),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00206
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00206が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00206 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00206 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **__asm 確認手順**
+
+    - 検証目的: __asmについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00207を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00207 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00207
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00207
+    ```
+
+    COMMAND INPUTにST LNG00207が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00207 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00207),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00207
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00207が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00207 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00207 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **#pragma 確認手順**
+
+    - 検証目的: #pragmaについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00208を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00208 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00208
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00208
+    ```
+
+    COMMAND INPUTにST LNG00208が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00208 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00208),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00208
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00208が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00208 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00208 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **XPLINK 規約 確認手順**
+
+    - 検証目的: XPLINK 規約について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00209を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00209 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00209
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00209
+    ```
+
+    COMMAND INPUTにST LNG00209が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00209 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00209),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00209
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00209が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00209 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00209 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **AMODE 64 確認手順**
+
+    - 検証目的: AMODE 64について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00210を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00210 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00210
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00210
+    ```
+
+    COMMAND INPUTにST LNG00210が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00210 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00210),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00210
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00210が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00210 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00210 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **z/OS C 標準ライブラリ 確認手順**
+
+    - 検証目的: z/OS C 標準ライブラリについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00211を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00211 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00211
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00211
+    ```
+
+    COMMAND INPUTにST LNG00211が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00211 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00211),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00211
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00211が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00211 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00211 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **ASCII/EBCDIC 変換 確認手順**
+
+    - 検証目的: ASCII/EBCDIC 変換について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00212を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00212 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00212
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00212
+    ```
+
+    COMMAND INPUTにST LNG00212が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00212 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00212),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00212
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00212が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00212 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00212 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **IEEE/Hex 浮動小数 確認手順**
+
+    - 検証目的: IEEE/Hex 浮動小数について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00213を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00213 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00213
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00213
+    ```
+
+    COMMAND INPUTにST LNG00213が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00213 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00213),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00213
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00213が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00213 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00213 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **BPX (USS) API 関数 確認手順**
+
+    - 検証目的: BPX (USS) API 関数について、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00214を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00214 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00214
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00214
+    ```
+
+    COMMAND INPUTにST LNG00214が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00214 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00214),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00214
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00214が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00214 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00214 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
+    ---
+
+    **Metal C 確認手順**
+
+    - 検証目的: Metal Cについて、ソース構造、コンパイルリスト、実行時メッセージを机上で確認します。
+    - 前提条件: SDSFで検証用ジョブのJESJCL、SYSPRINT、JESYSMSGを閲覧できる前提です。実機では変更管理承認を得て検証用ソースを使用します。
+    - セッション環境: SDSFでLNG00215を表示し、CCNDRVRとCCN0797Iをリストまたはメッセージで確認します。
+
+    **ステップ 1**
+    現在の画面はSDSFの基本メニューです。COMMAND INPUT ===> に ST LNG00215 を入力し、検証用ジョブを一覧表示します。
+    操作（入力）:
+    ```text
+    (SDSF PRIMARY OPTION MENU)
+    COMMAND INPUT ===> ST LNG00215
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF)
+    COMMAND INPUT ===> ST LNG00215
+    ```
+
+    COMMAND INPUTにST LNG00215が表示され、出力データセットを開く準備ができています。
+
+    **ステップ 2**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してJESJCLを開き、コンパイル指定を確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    JESJCL
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output JESJCL)
+    //LNG00215 JOB (ACCT),'LANG',CLASS=A,MSGCLASS=X
+    //CC EXEC PGM=CCNDRVR,PARM='LIST,XPLINK'
+    //SYSIN DD DSN=APP.SOURCE(LNG00215),DISP=SHR
+    //SYSPRINT DD SYSOUT=*
+    ```
+
+    JESJCLにCCNDRVRまたは関連プログラム名が表示されていれば、言語処理の入口を確認できます。
+
+    **ステップ 3**
+    現在の画面はSDSFのジョブデータセット一覧です。NP欄に S を入力してSYSPRINTを開き、コンパイルリストまたは実行時メッセージを確認します。
+    操作（入力）:
+    ```text
+    (SDSF Job Data Sets)
+    NP   DDNAME
+    S    SYSPRINT
+    → Enter を押す
+    ```
+
+    画面・出力:
+    ```text
+    (SDSF Output SYSPRINT)
+    CCN0797I Compilation completed for LNG00215
+    XPLINK OPTION IN EFFECT
+    ```
+
+    CCN0797IとLNG00215が同じ出力に現れるため、対象言語項目の確認値を記録できます。
+
+    - 合格条件: ① ステップ1 の COMMAND INPUT ===> ST LNG00215 が画面・出力に表示されること
+    ② ステップ2 の CCNDRVR が画面・出力に表示されること
+    ③ ステップ3 の CCN0797I と LNG00215 が画面・出力に表示されること
+    - 検証状態: 机上
+    - 出典: z / OS XL C / C++ User's Guide / C++ Language Reference / C++ Migration Guide (zOS31_cbcmg01 / zOS31_cbcux01)
+
