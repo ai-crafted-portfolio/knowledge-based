@@ -1,130 +1,17 @@
-site_name: z/OS 技術ナレッジベース
-site_description: z/OS と関連製品の技術項目・確認問題・検証手順をカテゴリ別に検索・閲覧できるナレッジベース
-site_author: Knowledge Base
+site_name: AIX 7.3 Operations Library
+site_description: 説明品質監査を通過したAIX 7.3技術項目
 site_url: https://ai-crafted-portfolio.github.io/knowledge-based/
+docs_dir: aix_pass_site/docs
+site_dir: site
+use_directory_urls: true
+strict: true
 
 theme:
-  name: material
-  language: ja
-  font:
-    text: Segoe UI
-    code: Cascadia Code
-  palette:
-    - scheme: default
-      primary: indigo
-      accent: blue
-      toggle:
-        icon: material/weather-night
-        name: ダークモードに切替
-    - scheme: slate
-      primary: indigo
-      accent: blue
-      toggle:
-        icon: material/weather-sunny
-        name: ライトモードに切替
-  features:
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.top
-    - navigation.footer
-    - toc.follow
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
+  name: null
+  custom_dir: aix_pass_site/theme
 
-extra_css:
-  - stylesheets/ms-style.css
-
-extra:
-  generator: false
-
-plugins:
-  - search:
-      lang:
-        - ja
-        - en
-
-not_in_nav: |
-  /categories/*/part-*.md
-
-validation:
-  nav:
-    omitted_files: ignore
-    not_found: warn
-    absolute_links: warn
-  links:
-    not_found: warn
-    absolute_links: warn
-    unrecognized_links: warn
-    anchors: ignore
-
-markdown_extensions:
-  - admonition
-  - attr_list
-  - def_list
-  - md_in_html
-  - tables
-  - toc:
-      permalink: true
-      title: このページの内容
-      toc_depth: 3
-  - pymdownx.superfences
-  - pymdownx.highlight:
-      use_pygments: false
-  - pymdownx.keys
+plugins: []
 
 nav:
-  - ホーム: index.md
-  - カテゴリ別 対応状況: categories/index.md
-  - カテゴリ:
-      - "AIX 7.3": categories/c01/index.md
-      - "Anthropic Claude Support / Console Administration": categories/c02/index.md
-      - "Assembler / システム・プログラミング": categories/c03/index.md
-      - "CICS Transaction Server for z/OS 6.x": categories/c04/index.md
-      - "Comm Server / VTAM / TCP/IP": categories/c05/index.md
-      - "DFSMS / IDCAMS / VSAM": categories/c06/index.md
-      - "Db2 for z/OS": categories/c07/index.md
-      - "ESS REC / REC NEAO": categories/c08/index.md
-      - "GDPS 災害対策・サイトスイッチ": categories/c09/index.md
-      - "IBM Guardium Data Protection 12.x": categories/c10/index.md
-      - "IBM IIDR 11.4": categories/c11/index.md
-      - "IBM MQ メッセージング": categories/c12/index.md
-      - "IBM Personal Communications 15.0": categories/c13/index.md
-      - "IBM Spectrum Protect 8.1": categories/c14/index.md
-      - "IBM Workload Automation": categories/c15/index.md
-      - "IMS 15.5": categories/c16/index.md
-      - "JCL DD 文": categories/c17/index.md
-      - "JCL EXEC 文": categories/c18/index.md
-      - "JCL JOB 文": categories/c19/index.md
-      - "JCL PROC / 制御": categories/c20/index.md
-      - "JES2": categories/c21/index.md
-      - "MVS オペレータコマンド": categories/c22/index.md
-      - "Netcool/OMNIbus V8.1": categories/c23/index.md
-      - "PSF for z/OS 4.7": categories/c24/index.md
-      - "PowerHA SystemMirror 7.2": categories/c25/index.md
-      - "RACF SETROPTS/RDEFINE/RACDCERT": categories/c26/index.md
-      - "RACF USER/GROUP/DATASET": categories/c27/index.md
-      - "SMP/E / SMF / WLM": categories/c28/index.md
-      - "Sysplex / XCF / GRS / CF": categories/c29/index.md
-      - "TSO / ISPF / SDSF": categories/c30/index.md
-      - "Tivoli Log File Agent 6.3": categories/c31/index.md
-      - "Tivoli NetView z/OS 自動化": categories/c32/index.md
-      - "UNIX System Services (USS)": categories/c33/index.md
-      - "VIOS": categories/c34/index.md
-      - "Windows Server 2022": categories/c35/index.md
-      - "Z System Automation (TSA)": categories/c36/index.md
-      - "z/OS 3.1 Core Operations": categories/c37/index.md
-      - "z/OS System Programming": categories/c38/index.md
-      - "プログラミング言語 (COBOL / PL/I / LE)": categories/c39/index.md
-      - "ユーティリティ": categories/c40/index.md
-      - "診断 (IPCS / Trace / ABEND)": categories/c41/index.md
-  - 技術記事:
-      - articles/index.md
-      - JCL 入門: articles/zos/jcl-fundamentals.md
-      - RACF 入門: articles/zos/racf-fundamentals.md
-      - TSO/ISPF/SDSF 入門: articles/zos/tso-ispf-fundamentals.md
-      - USS 入門: articles/zos/uss-fundamentals.md
-      - CICS 入門: articles/zos/cics-fundamentals.md
-  - このサイトについて: about.md
-  - FAQ: faq.md
-  - 検索: search.md
+  - AIX 7.3: index.md
+  - AIX 7.3 category: categories/c01/index.md

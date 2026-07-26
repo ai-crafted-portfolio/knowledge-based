@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#151515">
+  <title>AIX 7.3 Operations Library</title>
+  <link rel="stylesheet" href="{{ base_url }}/assets/site.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-bar">
+      <button class="icon-button mobile-menu" id="menu-button" type="button"
+              aria-label="記事一覧を開く" title="記事一覧を開く">
+        <i data-lucide="panel-left"></i>
+      </button>
+      <a class="brand" href="{{ base_url }}/" aria-label="AIX 7.3 Operations Library">
+        <span class="brand-mark">AIX</span>
+        <span class="brand-copy">
+          <strong>AIX 7.3</strong>
+          <small>OPERATIONS LIBRARY</small>
+        </span>
+      </a>
+      <div class="global-search">
+        <i data-lucide="search"></i>
+        <input id="search-input" type="search" autocomplete="off"
+               placeholder="コマンド、用途、出力項目を検索"
+               aria-label="記事を検索">
+        <kbd id="result-count">463</kbd>
+      </div>
+      <div class="quality-state" title="ADR-0152説明品質監査を通過した記事のみ">
+        <i data-lucide="shield-check"></i>
+        <span><strong>463</strong><small>REVIEWED</small></span>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar" id="sidebar" aria-label="記事一覧">
+        <div class="sidebar-head">
+          <div>
+            <span class="eyebrow">LIBRARY</span>
+            <h2>技術項目</h2>
+          </div>
+          <button class="icon-button mobile-close" id="close-button" type="button"
+                  aria-label="記事一覧を閉じる" title="閉じる">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <div class="mobile-search">
+          <i data-lucide="search"></i>
+          <input id="mobile-search-input" type="search" autocomplete="off"
+                 placeholder="記事を検索" aria-label="記事を検索">
+        </div>
+        <nav class="category-nav" id="category-nav" aria-label="分野"></nav>
+        <div class="list-head">
+          <span id="list-label">すべての記事</span>
+          <span id="list-count">463</span>
+        </div>
+        <div class="article-list" id="article-list"></div>
+      </aside>
+
+      <button class="scrim" id="scrim" type="button" aria-label="記事一覧を閉じる"></button>
+
+      <main class="reader" id="reader">
+        <article class="article" aria-live="polite">
+          <header class="article-header" id="overview">
+            <div class="article-kicker">
+              <span class="pass-mark"><i data-lucide="check"></i> REVIEWED</span>
+              <span id="article-position">1 / 463</span>
+            </div>
+            <h1 id="article-title"></h1>
+            <div class="article-meta">
+              <span id="article-category"></span>
+              <span aria-hidden="true">/</span>
+              <span id="article-difficulty"></span>
+              <span aria-hidden="true">/</span>
+              <span id="article-form"></span>
+            </div>
+          </header>
+
+          <section class="article-body" id="article-body"></section>
+
+          <footer class="article-source" id="source">
+            <span class="eyebrow">PRIMARY SOURCE</span>
+            <a id="source-link" target="_blank" rel="noreferrer"></a>
+            <span id="source-label"></span>
+          </footer>
+
+          <nav class="article-pager" aria-label="前後の記事">
+            <button id="previous-button" type="button">
+              <i data-lucide="arrow-left"></i>
+              <span><small>PREVIOUS</small><strong id="previous-title"></strong></span>
+            </button>
+            <button id="next-button" type="button">
+              <span><small>NEXT</small><strong id="next-title"></strong></span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </nav>
+        </article>
+      </main>
+
+      <aside class="context-rail" aria-label="記事内ナビゲーション">
+        <div class="rail-block">
+          <span class="eyebrow">ON THIS PAGE</span>
+          <a href="#overview"><i data-lucide="file-text"></i>概要</a>
+          <a href="#article-body"><i data-lucide="terminal"></i>実行形式と判断</a>
+          <a href="#source"><i data-lucide="book-open"></i>一次資料</a>
+        </div>
+        <div class="rail-note">
+          <i data-lucide="shield-check"></i>
+          <p>説明品質監査を通過したAIX項目のみを表示しています。</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <script src="{{ base_url }}/assets/lucide.js"></script>
+  <script src="{{ base_url }}/assets/data.js"></script>
+  <script src="{{ base_url }}/assets/app.js"></script>
+</body>
+</html>
