@@ -1,0 +1,217 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>RPC プロトコルをインプリメントするための C コードを生成します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>1 つのファイルに対して 4 つのタイプの出力ファイルを生成するには</dt>
+
+<dd><p><span>/usr/bin/rpcgen</span> InputFile</p>
+
+</dd>
+
+
+
+<dt>ファイルの特定の出力ファイルを生成するには</dt>
+
+<dd><p><span>rpcgen</span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e175987" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e175993" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e175999" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e176005" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e176011" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>OutputFile</em> ] [<em> InputFile</em> ]</p>
+
+</dd>
+
+
+
+<dt>TCP または UDP 用のサーバー・サイド・ファイルを生成するには</dt>
+
+<dd><p><span>rpcgen</span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e176019" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>トランスポート ... </em>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcgen.html#rpcgen__row-d3e176011" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>OutputFile</em> ] [ <em>InputFile</em> ]</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>rpcgen</strong> コマンドは、リモート・プロシージャー・コール (RPC) プロトコルをインプリメントするための C コードを生成します。 RPC <strong>rpcgen</strong> コマンドへの入力は、RPC 言語として知られている C 言語に似た言語です。</p>
+
+<p>最初の構文構造は、<strong>rpcgen</strong> コマンドに使用される最も一般的なフォーマットで、1 つの入力ファイルから 4 つの出力ファイルを生成します。 例えば、<em>InputFile</em> パラメーターの名前が <strong>proto.x</strong> であれば、<strong>rpcgen</strong> コマンドは下記のようなファイルを生成します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>proto.h</strong></td>
+
+<td>ヘッダー・ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>proto_xdr.c</strong></td>
+
+<td>XDR ルーチン</td>
+
+</tr>
+
+<tr>
+<td><strong>proto_svc.c</strong></td>
+
+<td>サーバー側スタブ</td>
+
+</tr>
+
+<tr>
+<td><strong>proto_clnt.c</strong></td>
+
+<td>クライアント側スタブ</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>他の構文構造は、4 つのすべての出力ファイルではなく、特定の出力ファイルを生成したいときに使用します。</p>
+
+<p><strong>cpp</strong> コマンド (C プリプロセッサー) は、実際に <strong>rpcgen</strong> コマンドによって解釈される前にすべての入力ファイル上で実行されます。 したがって、すべての <strong>cpp</strong> 指示は <strong>rpcgen</strong> 入力ファイル内で正当です。 出力ファイルの各タイプに対して、<strong>rpcgen</strong> コマンドは、<strong>rpcgen</strong> プログラマーによって使用される特別な <strong>cpp</strong> 記号を次のように定義します。</p>
+
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>RPC ヘッダー</strong></td>
+
+<td>ヘッダー・ファイル内にコンパイルされる際に定義されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>RPC XDR (RPC)</strong></td>
+
+<td>XDR ルーチン内にコンパイルされる際に定義されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>RPC SVC (RPC SVC)</strong></td>
+
+<td>サーバー側スタブ内にコンパイルされる際に定義されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>RPC CLNT (RPC)</strong></td>
+
+<td>クライアント側スタブ内にコンパイルされる際に定義されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>さらに、<strong>rpcgen</strong> コマンドはそれ自体のプリプロセスをいくつか行います。 <strong>%</strong> (パーセント記号) で始まる行は、直接出力ファイルに送られ、<strong>rpcgen</strong> コマンドでは解釈されません。</p>
+
+<p>ユーザーが XDR ルーチンを作成するには、データ・タイプを定義しないでおきます。 すべての定義されていないデータ・タイプに対しては、<strong>rpcgen</strong> コマンドは、未定義のタイプ名に <strong>xdr_</strong> を事前に保留して、ルーチンが存在するものと見なします。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><div>
+<ol>
+<li><span></span>ネストはサポートされていません。 回避策として、同じ効果を得るために、他の構造体内で使用される名前を使用して、構造体を以前に宣言することができます。</li>
+
+<li><span></span>プログラム定義を使用すると、明白なスコープは実際には適用されないため、名前の競合が発生する可能性があります。 一般にこのような事態は、プログラム、バージョン、プロシージャーおよびタイプに固有の名前を付けて避けることができます。</li>
+
+<li>TIRPC インターフェースに対するプログラムを作成し、
+マルチスレッド RPC アプリケーションを使用できるようにするには、
+<strong>tirpcgen</strong> コマンドを使用します。 また、<strong>libtli.a</strong><strong>（-ltli</strong>）指定と同様に、Makefileでプリプロセッサ変数<strong>_<span>AIX</span>_TIRPC</strong>を定義する必要がある。 <strong>tirpcgen</strong> は、新規 <strong>rpcgen</strong> コマンドの一時的な名前で、
+将来のバージョンのオペレーティング・システムで <strong>rpcgen</strong> に取って代わるものです。</li>
+
+</ol>
+
+</div>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>XDR ルーチンにコンパイルします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>C データ定義 (ヘッダー・ファイル) 内にコンパイルします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>クライアント側スタブ内にコンパイルします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>サーバー側スタブ内にコンパイルしますが、メイン・ルーチンは生成しません。 このオプションは、コールバック・ルーチンを実行したり、初期化を行うメイン・ルーチンを書き込む際に役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutputFile</em></td>
+
+<td>出力ファイルの名前を指定します。 何も指定されない場合、標準出力が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> トランスポート</em></td>
+
+<td>与えられたトランスポートを使用して、サーバー側スタブ内にコンパイルします。 サポートされるトランスポートは以下のとおりです。udpおよびtcpこのフラグは、複数のトランスポートを処理するサーバーをコンパイルするために複数回実行することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

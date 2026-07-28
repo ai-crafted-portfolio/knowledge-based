@@ -1,0 +1,124 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ジョブをバックグラウンドで実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>bg</strong> [ <em>JobID</em> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p>ジョブ制御が有効になっている場合 ( <span><em>オペレーティング・システムおよびデバイスの管理</em></span>の <strong>"Korn シェルまたは POSIX シェルでのジョブ制御"</strong> を参照)、 <strong>BG</strong> コマンドは、中断されているジョブをバックグラウンド・ジョブとして実行することにより、現行環境でそれらのジョブを再開します。 指定したジョブが既にバックグラウンドで実行されている場合は、<strong>bg</strong> コマンドは効果がなく、正常に終了します。 <em>JobID</em> パラメーターを指定しないと、<strong>bg</strong> コマンドは最後に中断されたジョブを使用します。</p>
+ <p><em>JobID</em> パラメーターは、プロセス ID 番号の場合もあります。または、次の記号の組み合わせのいずれか 1 つを指定することもできます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>%</strong><em>数値</em></td>
+
+<td>ジョブ番号別にジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>%</strong><em>文字列</em></td>
+
+<td>指定文字列で名前が始まるジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>%?</strong><em>ストリング</em></td>
+
+<td>指定文字列が名前に含まれているジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>% +</strong> または <strong>%%</strong></td>
+
+<td>現行ジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>%-</strong></td>
+
+<td>直前のジョブを参照します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>bg</strong> コマンドを使用してジョブをバックグラウンドに入れると、そのジョブのプロセス ID が現行のシェル環境内で認識されるようになります。 <strong>bg</strong> コマンドの出力には、ジョブ番号とそのジョブに関連したコマンドが表示されます。 ジョブ番号に接頭部として % (パーセント記号) を付けると、<strong>wait</strong>、<strong>fg</strong>、および <strong>kill</strong> コマンドで使用できます。 例えば、<strong>kill %3</strong> のように指定します。</p>
+ <div>ジョブを中断するには、<strong>Ctrl-Z</strong> キー・シーケンスを使います。 中断したジョブは、<strong>bg</strong> コマンドを使ってバックグラウンドで再開できます。 これは、ジョブが端末入力を期待しない場合や、ジョブの出力が端末以外のファイルにリダイレクトされる場合に有効です。 バックグラウンド・ジョブに端末出力がある場合は、以下のコマンドを入力してそのジョ
+ブを強制的に停止できます。<div><div><pre><code>stty tostop</code></pre></div><div></div></div></div>
+ <div>次のコマンドを入力すると、バックグラウンド・ジョブを停止できます。<div><div><pre><code>kill -s stop JobID</code></pre></div><div></div></div></div>
+ <div><strong>/usr/bin/bg</strong> コマンドを独自のコマンド実行環境で実行すると、その環境には操作対象となる中断状態のジョブがないので、このコマンドは機能しません。 以下の例がこの場合にあてはまります。<div><div><pre><code>Command | xargs bg</code></pre></div><div></div></div></div>
+ <p>各 <strong>/usr/bin/bg</strong> コマンドはそれぞれ異なる環境で動作し、ジョブに関する親シェルの認識を共有しません。 このため、<strong>bg</strong> コマンドは Korn シェル (POSIX シェル) の正規組み込みコマンドとしてインプリメントされます。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>ジョブ制御が使用不可になっていると、<strong>bg</strong> コマンドはエラーを示して終了します。ジョブはバックグラウンドには入りません。</p>
+</section>
+
+<section><h2>例</h2> <div><strong>jobs</strong> コマンドの出力に、次の停止されたジョブが表示される場合:<div><div><pre><code>[2] + Stopped (SIGSTOP)  sleep 100 &amp;</code></pre></div><div></div></div></div>
+ <p>ジョブ番号を使用して, システムを再開してください。sleep 100 &amp;ジョブを入力することによって</p>
+ <div> <div><div><pre><code>bg %2</code></pre></div><div></div></div></div>
+ <p>画面に、ジョブの改訂後のステータスが表示されます。2:</p>
+ <div> <div><div><pre><code>[2] sleep 100 &amp;</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/ksh</strong></td>
+
+<td>Korn シェルの <strong>bg</strong> 組み込みコマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/bg</strong></td>
+
+<td><strong>bg</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,155 @@
+<div class="official-dom"><div>
+<div>
+<p></p>
+</div>
+
+<section><h2>目的</h2>
+<p>2 つのソート済みファイルに共通の行を選択またはリジェクトします。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>通信</strong> [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comm.html#comm__row-d3e123680" target="_blank" rel="noopener noreferrer"><strong>-1</strong></a><strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comm.html#comm__row-d3e123689" target="_blank" rel="noopener noreferrer"><strong>-2 </strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comm.html#comm__row-d3e123698" target="_blank" rel="noopener noreferrer"><strong>-3 </strong></a>] <em>File1 File2</em></p>
+</section>
+
+<section><h2>説明</h2>
+<p></p><blockquote><span>“</span><span></span><strong>注:</strong> ファイル名の 1 つに-(マイナス) を指定すると、 <strong>comm</strong> コマンドは標準入力を読み取ります。<span>”</span></blockquote>
+<p></p>
+
+<p><strong>comm</strong> コマンドはパラメーター <em>File1</em> と <em>File2</em>  を読み込み、デフォルトでは、標準出力に 3 つの欄から成る出力を書き込みます。 欄は以下から構成されています。</p>
+
+<ul>
+<li><span></span> <em>File1</em></li>
+
+<li><span></span> <em>File2</em></li>
+
+<li><span></span> <em>File1</em> と <em>File2</em>の両方にある行。</li>
+
+</ul>
+
+<p><em>File1</em> と <em>File2</em> はどちらも現行の各国語環境で指定された照合シーケンスに従ってソートされていなければなりません。</p>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-1</strong></td>
+
+<td>1 番目の欄 (<em>File1</em> 内の行) の表示を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-2</strong></td>
+
+<td>2 番目の欄 (<em>File2</em> 内の行) の表示を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-3</strong></td>
+
+<td>3 番目の欄 (<em>File1</em> と <em>File2</em> に共通の行) の表示を抑制します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>すべての入力ファイルが正常に出力されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li><span></span>各ファイルに固有の、両方に共通の行を表示するには、次のように入力します。<div>
+<div><div><pre><code>comm things.to.do things.done</code></pre></div><div></div></div>ファイルがthings.to.doおよびthings.done以下のリストが含まれています。<div><div><pre><code>things.to.do
+ 
+buy soap
+groceries
+luncheon
+meeting at 3
+system update
+tech. review
+ 
+things.done
+ 
+2nd revision
+interview
+luncheon
+system update
+tech. review
+weekly report</code></pre></div><div></div></div><strong>comm</strong> コマンドは以下を表示します。<div><div><pre><code>       2nd revision
+buy soap
+groceries
+       interview
+               luncheon
+meeting at 3
+               system update
+               tech. review
+       weekly report</code></pre></div><div></div></div>最初の列には、以下の場所にある行のみが含まれます。things.to.do. タブ文字で字下げされた 2 番目のカラムには, 検索された行だけがリストされthings.done. 2 つのタブでインデントされた 3 番目の列には、両方に共通の行がリストされます。</div>
+</li>
+
+<li><span></span>1 つのファイルだけに現れる行を表示するには、次のように入力します。<div>
+<div><div><pre><code>comm -23 things.to.do things.done</code></pre></div><div></div></div>これによって <strong>comm</strong> コマンドがリスト表示する 2 番目と 3 番目の欄が抑制されます。 例 1 のファイルの場合、以下の内容が表示されます。<div><div><pre><code>buy soap
+groceries
+meeting at 3</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/comm</strong></td>
+
+<td><strong>comm</strong> コマンドが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

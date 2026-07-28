@@ -1,0 +1,376 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>区画のネットワーク・アダプターからメディア・アクセス制御 (MAC) アドレスおよび物理ロケーション・コードを取得するか、区画にネットワークを開始するよう指示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>MAC アドレスおよび物理ロケーション・コードを取得する場合:</strong></p>
+ <p><span><span>lpar_netboot</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61886" target="_blank" rel="noopener noreferrer"><span><span>-M</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61902" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61936" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61942" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61820" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61862" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E</span></span></a> <span><span>環境</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E
+...</span></span></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61784" target="_blank" rel="noopener noreferrer"><span><span>-A</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61929" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>ent</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootut" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>{ on | off }</span></span>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61917" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <span><span>スピード</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61808" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> <span><span>両面印刷</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61908" target="_blank" rel="noopener noreferrer"><span><span>-S</span></span></a> <span><span>サーバー</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61826" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>ゲートウェイ</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61790" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>クライアント</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61868" target="_blank" rel="noopener noreferrer"><span><span>-K</span></span></a> <span><span>サブネット・マスク</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuv" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a> <span><span>VLAN タグ</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuy" target="_blank" rel="noopener noreferrer"><span><span>-Y</span></span></a> <span><span>VLAN 優先順位</span></span> ]] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootpartname" target="_blank" rel="noopener noreferrer"><span><span>パーティション名</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootpartprof" target="_blank" rel="noopener noreferrer"><span><span>パーティション・プロファイル</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootmngdsys" target="_blank" rel="noopener noreferrer"><span><span>管理対象システム</span></span></a></p>
+ <p><strong>ネットワーク・ブートを実行する場合:</strong></p>
+ <p><span><span>lpar_netboot</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61936" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61942" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61820" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61862" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E</span></span></a> <span><span>環境</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E
+...</span></span></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61838" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a> <span><span>引数</span></span> ] [{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61784" target="_blank" rel="noopener noreferrer"><span><span>-A</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61877" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> <span><span>物理ロケーション・コード (physical_location_code)</span></span> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61893" target="_blank" rel="noopener noreferrer"><span><span>-m</span></span></a> <span><span>MAC アドレス</span></span> }] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61929" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>ent</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootut" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>{ on | off }</span></span>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61917" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <span><span>スピード</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61808" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> <span><span>両面印刷</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61908" target="_blank" rel="noopener noreferrer"><span><span>-S</span></span></a> <span><span>サーバー</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61826" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>ゲートウェイ</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61790" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>クライアント</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61868" target="_blank" rel="noopener noreferrer"><span><span>-K</span></span></a> <span><span>サブネット・マスク</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuv" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a> <span><span>VLAN タグ</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuy" target="_blank" rel="noopener noreferrer"><span><span>-Y</span></span></a> <span><span>VLAN 優先順位</span></span> ] [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootla" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootub" target="_blank" rel="noopener noreferrer"><span><span>-B</span></span></a> <span><span>FTP イメージ・ファイル名</span></span> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootub" target="_blank" rel="noopener noreferrer"><span><span>-B</span></span></a> <span><span>ブート・イメージ・ファイル名</span></span> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootpartname" target="_blank" rel="noopener noreferrer"><span><span>パーティション名</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootpartprof" target="_blank" rel="noopener noreferrer"><span><span>パーティション・プロファイル</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootmngdsys" target="_blank" rel="noopener noreferrer"><span><span>管理対象システム</span></span></a></p>
+ <p><strong>フル・システム区画をサポートするシステム上で MAC アドレスおよび物理ロケーション・コードを取得する場合:</strong></p>
+ <p><span><span>lpar_netboot</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61886" target="_blank" rel="noopener noreferrer"><span><span>-M</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61902" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61936" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61942" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61820" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61862" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E</span></span></a> <span><span>環境</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E
+...</span></span></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61784" target="_blank" rel="noopener noreferrer"><span><span>-A</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61929" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>ent</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootut" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>{ on | off }</span></span>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61917" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <span><span>スピード</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61808" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> <span><span>両面印刷</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61908" target="_blank" rel="noopener noreferrer"><span><span>-S</span></span></a> <span><span>サーバー</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61826" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>ゲートウェイ</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61790" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>クライアント</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61868" target="_blank" rel="noopener noreferrer"><span><span>-K</span></span></a> <span><span>サブネット・マスク</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuv" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a> <span><span>VLAN タグ</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuy" target="_blank" rel="noopener noreferrer"><span><span>-Y</span></span></a> <span><span>VLAN 優先順位</span></span> ]] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootmngdsys" target="_blank" rel="noopener noreferrer"><span><span>管理対象システム</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootmngdsys" target="_blank" rel="noopener noreferrer"><span><span>管理対象システム</span></span></a></p>
+ <p><strong>フル・システム区画をサポートするシステム上でネットワーク・ブートを実行する場合:</strong></p>
+ <p><span><span>lpar_netboot</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61936" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61942" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61820" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61862" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E</span></span></a> <span><span>環境</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootue" target="_blank" rel="noopener noreferrer"><span><span>-E
+...</span></span></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61838" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a> <span><span>引数</span></span> ] [{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61784" target="_blank" rel="noopener noreferrer"><span><span>-A</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61877" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> <span><span>物理ロケーション・コード (physical_location_code)</span></span> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61799" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61893" target="_blank" rel="noopener noreferrer"><span><span>-m</span></span></a> <span><span>MAC アドレス</span></span> }] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61929" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>ent</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootut" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>{ on | off }</span></span>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61917" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <span><span>スピード</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61808" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> <span><span>両面印刷</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61908" target="_blank" rel="noopener noreferrer"><span><span>-S</span></span></a> <span><span>サーバー</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61826" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>ゲートウェイ</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61790" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>クライアント</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-d3e61868" target="_blank" rel="noopener noreferrer"><span><span>-K</span></span></a> <span><span>サブネット・マスク</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuv" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a> <span><span>VLAN タグ</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootuy" target="_blank" rel="noopener noreferrer"><span><span>-Y</span></span></a> <span><span>VLAN 優先順位</span></span> ] [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootla" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootub" target="_blank" rel="noopener noreferrer"><span><span>-B</span></span></a> <span><span>FTP イメージ・ファイル名</span></span> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootub" target="_blank" rel="noopener noreferrer"><span><span>-B</span></span></a> <span><span>ブート・イメージ・ファイル名</span></span> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootmngdsys" target="_blank" rel="noopener noreferrer"><span><span>管理対象システム</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpar_netboot.html#lpar_netboot__row-lparnetbootmngdsys" target="_blank" rel="noopener noreferrer"><span><span>管理対象システム</span></span></a></p>
+  </section>
+
+<section><h2>説明</h2> <p><span><span>lpar_netboot</span></span> コマンドは、 <span><span>-S</span></span> フラグで指定されたサーバーに区画が <span><span>bootp</span></span> 要求を送信することによって、論理区画にネットワーク・ブートを指示します。 このサーバーは、SPOT リソースにサービスを提供する NIM サーバーであっても、ネットワーク・ブート・イメージを提供する別のサーバーであっても構いません。</p>
+ <p><span><span>-M</span></span> フラグと <span><span>-n</span></span> フラグが指定されている場合、 <span><span>lpar_netboot</span></span> コマンドは、 <span><span>-t</span></span> フラグで指定された特定のタイプのネットワーク・アダプターのメディア・アクセス制御 (MAC) アドレスと物理ロケーション・コードを返します。 <span><span>-m</span></span> フラグが指定されている場合、 <span><span>lpar_netboot</span></span> は、指定された MAC アドレスに一致する特定のネットワーク・アダプターを使用して区画をブートします。 <span><span>-l</span></span> フラグを指定すると、 <span><span>lpar_netboot</span></span> は、指定された物理ロケーション・コードと一致するネットワーク・アダプターの特定の物理ロケーション・コードを使用して、パーティションをブートします。 MAC アドレスまたは物理ロケーション・コードが一致するかは、区画がブートされたプロファイル内でのハードウェア・リソース割り振りによって決まります。 <span><span>lpar_netboot</span></span> コマンドには、パーティション名、パーティション・プロファイル (割り当てられたハードウェア・リソースを含む)、およびパーティションが定義された管理対象システムの名前の引数も必要です。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-A</span></span></td>
+
+<td><strong>-t</strong> フラグで指定された特定のタイプのすべてのアダプターを返します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>サーバー、クライアント、およびゲートウェイが IPv6 アドレスであるときのネットワーク IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-B</span></span> <span><span>イメージ・ファイル名</span></span></td>
+
+<td>ネットワーク・ブート・イメージのファイル名を指定します。 <strong>-B</strong> フラグは、IPv6 アドレスの必須フラグです。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-C</span></span> <span><span>クライアント</span></span></td>
+
+<td>ネットワークを開始する区画の IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-D</span></span></td>
+
+<td>ping テストを実行して、 <span><span>-S</span></span> フラグで指定されたサーバーを正常に ping できるアダプターを識別し、使用します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span> <span><span>二重</span></span></td>
+
+<td><span><span>-C</span></span> フラグで指定された区画の二重設定を指定します。 <strong>-d</strong> フラグの有効な値は、<span><span>full</span></span>、<span><span>half</span></span>、および <span><span>auto</span></span> です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-E</span></span></td>
+
+<td>環境変数の設定を指定します。 以下のコマンドは、同じ出力を返します。<div><div><pre><code>-E LPAR_NETBOOT_DEBUG=1</code></pre></div><div></div></div><div><div><pre><code>export LPAR_NETBOOT_DEBUG=1</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span><span>-f</span></span></td>
+
+<td>区画の仮想端末セッションを強制的にクローズします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-G</span></span> <span><span>ゲートウェイ</span></span></td>
+
+<td><span><span>-C</span></span> フラグで指定された区画のゲートウェイ IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-g</span></span> <span><span>引数</span></span></td>
+
+<td>区画の開始用の汎用引数を指定します。 ファームウェア・ブート・コマンドでの追加引数は、<strong>-g</strong> フラグを使用して指定できます。 <strong>-g</strong> フラグは、プリブート実行環境 (PXE) の開始用に追加されます。 <strong>-g</strong> 引数の例を以下に示します。<div><div><pre><code>-g autoyast=
+nfs://9.184.115.219//
+csminstall/csm/SLES10/09B873DC 
+dhcptimeout=150
+install=nfs://9.184.115.219//
+csminstall/Linux/SLES/10/ppc64/GA/CD1</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span><span>-i</span></span></td>
+
+<td>区画の即時シャットダウンを強制実行します。 このオプションを指定しないと、遅延シャットダウンが実行されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-K</span></span> <span><span>サブネット・マスク</span></span></td>
+
+<td>経路指定用の適切なサブネットワークを判別する際にゲートウェイが使用するマスクを指定します。 サブネット・マスクは、IP アドレス内と同様に 4 バイトのセットです。 サブネット・マスクは、ネットワークおよびサブネットワーク・アドレスのビット位置に対応する高ビット (1s) と、ホスト・アドレスのビット位置に対応する低ビット (0s) で構成されています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span> <span><span>物理ロケーション</span></span></td>
+
+<td>ネットワーク・ブートに使用するネットワーク・アダプターの物理ロケーション・コードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-M</span></span></td>
+
+<td>ネットワーク・アダプターの MAC アドレスおよび物理ロケーション・コードを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-m</span></span><span><span> アドレス</span></span></td>
+
+<td>ネットワーク・ブートに使用するネットワーク・アダプターの MAC アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span></td>
+
+<td>ネットワーク・ブートを行わないように区画に指示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-S</span></span> <span><span>サーバー</span></span></td>
+
+<td>ネットワーク・ブート時にネットワーク・ブート・イメージの取得元となる区画の IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span> <span><span>速度</span></span></td>
+
+<td><span><span>-C</span></span> フラグで指定された区画の速度設定を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-T</span></span></td>
+
+<td>ファームウェア・スパンニング・ツリーの表示を使用可能または使用不可にします。 <strong>-d</strong> フラグの有効な値は、<span><span>on</span></span> および <span><span>off</span></span> です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span><span><span> エント</span></span></td>
+
+<td>MAC アドレスまたは物理ロケーション・コード・ディスカバリーの表示用、あるいはネットワーク・ブート用のアダプターのタイプを指定します。 <strong>-t</strong> フラグ用に有効な唯一の値は、イーサネットを表す <span><span>ent</span></span> です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-V</span></span><span><span> vlan_tag</span></span></td>
+
+<td>仮想ネットワーク通信用のネットワーク・インストール時に、イーサネット・フレームのタグ付け用に VLAN タグ ID を指定します。 <strong>-V</strong> フラグの有効な値は、<span><span>0</span></span> から <span><span>4094</span></span> です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td>コマンド実行中の追加情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-x</span></span></td>
+
+<td>コマンド実行中のデバッグ出力を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-Y</span></span><span><span> vlan_priority</span></span></td>
+
+<td>仮想ネットワーク通信用のネットワーク・インストール時に、イーサネット・フレームのタグ付け用に VLAN タグ優先順位を指定します。 <strong>-Y</strong> フラグの有効な値は、<span><span>0</span></span> から <span><span>7</span></span> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>パーティション名</span></span></td>
+
+<td>区画の名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>パーティション・プロファイル</span></span></td>
+
+<td>使用する区画プロファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>管理対象システム</span></span></td>
+
+<td>区画が定義される管理対象システムの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>「INSTALLIOS_DEBUG」</span></span></td>
+
+<td><span><span>installios</span></span> コマンドで指定された場合、lpar_netboot デバッグ出力を出力します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>lpar_netboot_debug</span></span></td>
+
+<td>lpar_netboot デバッグ出力を表示します。 したがって、<strong>-x</strong> フラグと似ています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>lpar_netboot_debug_boot</span></span></td>
+
+<td><strong>-s</strong> フラグと一緒に指定すると、ファームウェア・ブート・コマンドを開始します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>lpar_netboot_add_timeout</span></span></td>
+
+<td>次の例で示すように、タイムアウト値を 5 秒だけ延長します。<div><div><pre><code>LPAR_NETBOOT_ADD_TIMEOUT=5</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span><span>lpar_netboot_sub_timeout</span></span></td>
+
+<td>次の例で示すように、タイムアウト値を 8 秒だけ短縮します。<div><div><pre><code>LPAR_NETBOOT_SUB_TIMEOUT=8</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span><span>lpar_netboot_spanning_tree</span></span></td>
+
+<td>ファームウェア・スパンニング・ツリーの表示を使用可能または使用不可にします。 <strong>-d</strong> フラグの有効な値は、<span><span>on</span></span> および <span><span>off</span></span> です。 したがって、<strong>-T</strong> フラグと似ています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>「OPEN_DEV_DEBUG」</span></span></td>
+
+<td><span><span>OPEN_DEV_DEBUG</span></span> 変数の値が <span><span>yes</span></span> に設定されている場合、ファームウェア open_dev デバッグ出力を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>FIRMWARE_DUMP</span></span></td>
+
+<td><span><span>FIRMWARE_DUMP</span></span> 変数の値が <span><span>yes</span></span> に設定されている場合、ファームウェア・デバッグ用のファームウェア・ダンプを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: <span><span>lpar_netboot</span></span> コマンドを実行するには、root 権限が必要です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>管理対象システム <code>test_sys</code> 上の区画プロファイル <code>machA_prof</code> を用いて区画 <code>machA</code> の MAC アドレスおよび物理ロケーション・コードを取得するには、次のコマンドを入力します。<div><div><pre><code>      lpar_netboot -M -n -t ent "machA" "machA_prof" "test_sys"</code></pre></div><div></div></div> 
+     </li>
+
+<li>管理対象システム <code>test_sys</code> 上の区画プロファイル <code>machA_prof</code> を用いて区画 <code>machA</code> のネットワーク・ブートを行うには、次のコマンドを入力します。<div><div><pre><code>      lpar_netboot -t ent -s auto -d auto -S 9.3.6.49 -G 9.3.6.1 -C 9.3.6.234
+                    "machA" "machA_prof" "test_sys"</code></pre></div><div></div></div>  
+    </li>
+
+<li>管理対象システム <code>test_sys</code> 上の特定の MAC アドレス <code>00:09:6b:dd:02:e8</code> および区画プロファイル <code>machA_prof</code> を用いて区画 <code>machA</code> のネットワーク・ブートを行うには、次のコマンドを入力します。<div><div><pre><code>      lpar_netboot -t ent -m 00096bdd02e8 -s auto -d auto -S 9.3.6.49 -G 9.3.6.1
+                    -C 9.3.6.234 "machA" "machA_prof" "test_sys"</code></pre></div><div></div></div> 
+     </li>
+
+<li>管理対象システム <code>test_sys</code> 上の特定の物理ロケーション・コード <code>U1234.121.A123456-P1-T6</code> および区画プロファイル <code>machA_prof</code> を用いて区画 <code>machA</code> のネットワーク・ブートを行うには、次のコマンドを入力します。<div><div><pre><code>      lpar_netboot -t ent -l U1234.121.A123456-P1-T6 -s auto -d auto -S 9.3.6.49
+                    -G 9.3.6.1 -C 9.3.6.234 "machA" "machA_prof" "test_sys"</code></pre></div><div></div></div> 
+     </li>
+
+<li>管理対象システム <code>test_sys</code> 上の区画プロファイル <code>machA_prof</code> を用いて、ping テストおよび区画 <code>machA</code> のネットワーク・ブートを行うには、次のコマンドを入力します。<div><div><pre><code>      lpar_netboot -t ent -D -s auto -d auto -S 9.3.6.49 -G 9.3.6.1 -C 9.3.6.234
+                    "machA" "machA_prof" "test_sys"</code></pre></div><div></div></div>  
+    </li>
+
+<li>管理対象システム <code>test_sys</code> 上の区画プロファイル <code>machA_prof</code> を用いて、ping テストおよび区画 <code>machA</code> のネットワーク・ブートを実行し、ファームウェア・スパンニング・ツリー・ディスカバリーを使用不可にするには、次のコマンドを入力します。<div><div><pre><code>      lpar_netboot -t ent -T off -D -s auto -d auto -S 9.3.6.49 -G 9.3.6.1
+                    -C 9.3.6.234 "machA" "machA_prof" "test_sys"</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><span><span>/opt/ibm/sysmgt/dsm/dsmbin/lpar_netboot</span></span></p>
+</section>
+
+</div></div>

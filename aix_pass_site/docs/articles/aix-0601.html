@@ -1,0 +1,193 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p><span>hmcauth</span>コマンドは、Hardware Management Console（HMC）で認証を行い、<span>AIXLive Update</span>操作でHMCサービスを使用するためのトークンを取得するために使用します。 また、トークンの無効化にも使用できます。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>HMC に対する認証を行い、トークンを入手するには、次の構文を使用します。<div><div><pre><code>hmcauth [ -u user_name ] [ -p password ] [ -a hmc ] [ -P port ]</code></pre></div><div></div></div></div>
+
+<div>以前に生成したトークンの無効化および削除を行うには、次の構文を使用します。<div><div><pre><code>hmcauth -r [ -a hmc ] [ -u user_name ]</code></pre></div><div></div></div></div>
+
+<div>既知のすべての HMC 認証トークンをリストするには、次の構文を使用します。<div><div><pre><code>hmcauth -l</code></pre></div><div></div></div></div>
+
+<div>コマンドの使用法ステートメントを表示するには、次の構文を使用します。<div><div><pre><code>hmcauth -h</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>hmcauth</span> コマンドは、すべてのオブジェクトへアクセスでき、HMC の適切な管理権限がある場合に使用することができます。 <span>hmcauth</span>コマンドは、AIX®パーティション管理者が<span>ライブアップデート</span>操作を実行するために使用できるトークンを生成します。 コマンドが成功すると、 <span>geninstall</span> インターフェースが <span>ライブ・アップデート</span> 操作を実行できるように、トークンがカーネルに保管されます。</p>
+
+<p>このコマンドを使用するには、以下のタスクを実行する権限が必要です。</p>
+
+<ul>
+<li>管理対象区画の電源をオンにする。</li>
+
+<li>管理対象区画をシャットダウンする。</li>
+
+<li>管理対象区画を削除する (自動モードのみ)。</li>
+
+<li>現行のプロファイルに基づき、管理対象区画を作成する (自動モードのみ)。</li>
+
+<li>管理対象区画のブート・デバイスを設定する。</li>
+
+<li>仮想イーサネット・アダプターを管理する。</li>
+
+</ul>
+
+<p><code>hmcclientliveupdate</code> HMC ロールには、 <span>「ライブ・アップデート」</span> 操作に必要なすべての特権があります。 このロールのある HMC 上でユーザーが識別される場合、認証は、<code>hscroot</code> ユーザーではなく、このユーザーに対して行うことができます。</p>
+
+<p><span>hmcauth</span> は、フラグを指定せずに使用することもできます。 フラグを指定しない場合、<span>hmcauth</span> コマンドは、必要なすべての情報 (user_name、hmc、password など) の入力を求めるプロンプトを出します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> LPAR が再始動された場合、HMC 認証トークンは保持されません。 したがって、 <span>ライブ・アップデート</span> 操作を試行する前に、HMC で再度認証する必要があります。</div>
+        </div>
+      </div></div>
+
+<p>互換性のない HMC バージョンが原因で <span>hmcauth</span> コマンドが失敗する場合は、最新の暫定修正から <span>hmcauth</span> コマンド・ファイルを更新します。</p>
+
+</section>
+
+<section><h2>パラメーター</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>user_name</td>
+
+<td>HMC のユーザー名を指定する、最大 64 文字の文字列。</td>
+
+</tr>
+
+<tr>
+<td>パスワード</td>
+
+<td>パスワードを指定する、最大 64 文字の文字列。</td>
+
+</tr>
+
+<tr>
+<td>HMC</td>
+
+<td>認証する対象の HMC のホスト名または IP アドレスを指定する、最大 64 文字の文字列。</td>
+
+</tr>
+
+<tr>
+<td>ポート</td>
+
+<td>HMC に接続するポート番号を指定する最大 16 文字の文字列。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span> エッチエムシー</td>
+
+<td>認証する対象の HMC のホスト名または IP アドレスを指定します。<p>hmc 変数を指定しない場合、コマンドはその入力を求めるプロンプトを出します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td>コマンドの使用方法の文を標準出力に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>HMC が生成するトークンを削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> ポート</td>
+
+<td>HMC への接続に使用されるポート番号を指定します。<p><span>-P</span> フラグはオプションです。 したがって、ポート番号を指定しない場合、このポート番号はデフォルト値の 12443 に指定されます。 <span>HMC は常にポート 12443 を使用しますが、プロキシー・セットアップを使用する場合は、 <span>-P</span> オプションを使用して、プロキシーが 12443 以外のポートを使用できるようにすることができます。</span></p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> パスワード</td>
+
+<td>認証のパスワードを指定します。 コマンド・ラインでパスワードを指定しないと、パスワードの入力を求めるプロンプトが出されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> ユーザー名</td>
+
+<td>認証に使用する HMC ユーザー名を指定します。 すべてのオブジェクトにアクセスできること、および HMC での適切なタスク権限が必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><code>apollo</code> という HMC に対して認証を行うには、次のコマンドを入力します。<div><div><pre><code># hmcauth -a apollo -u hscroot -p T2x6z42p</code></pre></div><div></div></div></li>
+
+<li>パスワード・プロンプトを使用して、IP 5.5.55.121 の HMC に対して認証を行うには、次のコマンドを入力します。<div><div><pre><code># hmcauth -a 5.5.55.121 -u hscroot
+Enter password for hscroot:</code></pre></div><div></div></div></li>
+
+<li>IP 5.5.55.121 の HMC に対して以前に行った認証を無効化するには、次のコマンドを入力します。<div><div><pre><code># hmcauth -r -a 5.5.55.121</code></pre></div><div></div></div></li>
+
+<li>HMC ポート 12443 にアクセスできないファイアウォールを持つ、<code>apollo</code> という HMC に対して認証を行うには、再バインドされたプロキシー・ノードを、別のオープン・ポートを使用するようにセットアップできます。 <code>proxy1</code> というプロキシー・ノード上のポート 14111 を持つ <code>SSH</code> クライアントを使用して論理区画 <code>mylpar</code> から認証を行うには、次のコマンドを入力します。<div><div><pre><code>(0) root @ proxy1: /
+# ssh -R localhost:14111:apollo:12443 root@mylpar
+
+(0) root @ mylpar: /
+# hmcauth -a localhost -u hscroot -P 14111
+Enter HMC password: </code></pre></div><div></div></div><p><span>lvupdate.data</span> ファイルの <code>hmc</code> スタンザで <code>management_console</code> 属性として <code>localhost</code> を指定して、 <span>ライブ・アップデート</span> 操作を開始できます。</p>
+</li>
+
+</ol>
+
+</section>
+
+</div></div>

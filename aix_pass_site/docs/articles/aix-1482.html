@@ -1,0 +1,361 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>プリンター・ドライバーの設定を変更または表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>スプリップ</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44486" target="_blank" rel="noopener noreferrer"><strong>-b (B) </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44507" target="_blank" rel="noopener noreferrer"><strong>-B </strong></a><em>数値</em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44518" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44539" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44560" target="_blank" rel="noopener noreferrer"><strong>-e (E) </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44581" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44602" target="_blank" rel="noopener noreferrer"><strong>-F! </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44608" target="_blank" rel="noopener noreferrer"><strong>I </strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44619" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44630" target="_blank" rel="noopener noreferrer"><strong>N </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44651" target="_blank" rel="noopener noreferrer"><strong>-N (N) </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44673" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44740" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em> オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44761" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44782" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44800" target="_blank" rel="noopener noreferrer"><strong>-S (S) </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44821" target="_blank" rel="noopener noreferrer"><strong>T </strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44842" target="_blank" rel="noopener noreferrer"><strong>-T (T) </strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44856" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44870" target="_blank" rel="noopener noreferrer"><strong>-W (W)</strong></a><em> オプション </em>] [ <em>DevicePath </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>splp</strong> コマンドは、
+プリンター・デバイス・ドライバーの設定を変更したり、
+表示したりします。 デフォルトのデバイス・パスは <strong> /dev/lp0</strong> で、フラグはすべてオプションです。 デバイス・パスが <strong>/</strong> (スラッシュ) で始まっていない場合は、<strong>/dev</strong> ディレクトリーが想定されます。 また、フラグを指定しないと、<strong>splp</strong> コマンドは指定したデバイス・パスの現在の設定を報告します。 現在の設定を変更するには、適切なフラグを指定します。 他の処理は行われず、他の出力もありません。</p>
+ <p><strong>splp</strong> コマンドが行った変更は、次にシステムを再始動するまで、あるいは、<strong>splp</strong> コマンドを再実行するまで有効です。 <strong>splp</strong> コマンドは <strong>/etc/inittab</strong> コマンド・ファイルから実行して、システムを始動するたびにプリンターを構成できます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44486" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a>の <strong>splp</strong> コマンドの設定値。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44518" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44539" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44581" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44608" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44619" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44630" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44673" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44761" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44821" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44856" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44870" target="_blank" rel="noopener noreferrer"><strong>-W </strong></a>フラグは、データがプリンターに直接送信される場合にのみ適用されます。例えば、次のようになります。 <strong>cat</strong> コマンドの出力を、指定された装置パスに直接リダイレクトします。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html" target="_blank" rel="noopener noreferrer"><strong>enq</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html" target="_blank" rel="noopener noreferrer"><strong>qprt</strong></a>を使用してファイルを印刷するためにキューに入れると、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lp.html" target="_blank" rel="noopener noreferrer"><strong>lp</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpr.html" target="_blank" rel="noopener noreferrer"><strong>lpr</strong></a> コマンドの場合、これらのフラグの設定は無視され、変更されません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> オプション</em></td>
+
+<td>バックスペースをプリンターに送るかどうかを指定します。<dl>
+
+<dt><strong>+</strong></dt>
+
+<dd>バックスペースをプリンターに送るように指定します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>バックスペースを破棄するように指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong><em> 数値</em></td>
+
+<td>速度を指定された bps (ビット/秒) 数に設定します。 <em>Number</em> 変数の値は、50、75、110、134、
+150、300、600、1200、1800、2400、4800、9600、19,200、38,400 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> オプション</em></td>
+
+<td>復帰をプリンターに送るかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>復帰をプリンターに送ります。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>復帰をライン・フィードに変換します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong><em> オプション</em></td>
+
+<td>すべての小文字を大文字に変換するかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>小文字を大文字に変換します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>小文字を大文字に変換しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> オプション</em></td>
+
+<td>エラーが検出された場合に実行する処理を指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>エラーを戻します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>エラーが消去されるまで待ちます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> オプション</em></td>
+
+<td>プリンターに用紙送り文字を送るか、あるいは用紙送り文字をライン・フィードか復帰でシミュレートするかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>用紙送り文字をプリンターに送ります。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>用紙送り文字をライン・フィードか復帰でシミュレートします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-F! (-F!)</strong></td>
+
+<td>3812 ページ・プリンターまたは 3816 ページ・プリンター用のフォント状況表示をリセットします。 このフラグによりフォントは、次のスプールされた印刷ジョブによって、プリンターのフォント・ディスケットからプリンターのメモリーに再ロードされます。 プリンターをオフにしてから再びオンにした場合、あるいはプリンターのメモリー内のフォントが破壊されてしまった場合には、このフラグを指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> 数値</em></td>
+
+<td>指定された桁数だけ字下げします。ここで、<em>Number</em> 変数の値は整数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 番号</em></td>
+
+<td>1 ページに指定された行数を印刷します。ここで、<em>Number</em> 変数の値は整数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> オプション</em></td>
+
+<td>プリンターにライン・フィードを送るか、またはライン・フィードを復帰に変換するかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>ライン・フィードをプリンターに送ります。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>ライン・フィードを復帰に変換します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong><em> オプション</em></td>
+
+<td>パリティーの生成および検出を使用可能にするかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>パリティーの生成および検出を使用可能にします。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>パリティーの生成および検出を使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> オプション</em></td>
+
+<td>システムが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44486" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44518" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>の設定に従って、変更されていないすべての文字をプリンターに送信するか、または文字を変換するかを指定します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44539" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44581" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44608" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44619" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44630" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44761" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44821" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44856" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44870" target="_blank" rel="noopener noreferrer"><strong>-W</strong></a> フラグ:<dl>
+<dt><strong>+</strong></dt>
+
+<dd>変更のないプリンターにすべての文字を送り、他の設定をオーバーライドします。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>設定に従って文字を変換します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> オプション</em></td>
+
+<td>パリティーを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>奇数パリティーを指定します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>偶数パリティーを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> オプション</em></td>
+
+<td>ライン・フィードの後に復帰を追加するかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>ライン・フィードの後に復帰を送ります。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>ライン・フィードの後に復帰を送りません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 数値</em></td>
+
+<td>文字サイズを選択します。ここで、<em>Number</em> 変数はビットの数です。 <em>Number</em> 変数の値は、5、6、7、または 8 にすることができます。 文字サイズの追加情報については、 <strong>termio.h</strong> スペシャル・ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> オプション</em></td>
+
+<td>1 文字当たりのストップ・ビット数を指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>1 文字当たり 2 ストップ・ビット。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>1 文字当たり 1 ストップ・ビット。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> オプション</em></td>
+
+<td>タブを拡張するかどうかを指定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>タブを拡張しません。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>位置境界 8 でタブを拡張します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> 数値</em></td>
+
+<td><em>Number</em> 変数で指定された秒数にタイムアウト期間を設定します。 <em>Number</em> 変数の値は、整数でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 数値</em></td>
+
+<td><em>Number</em> 変数で指定された桁数を印刷します。 <em>Number</em> 変数の値は、整数でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong><em> オプション</em></td>
+
+<td>指定された幅を超えて次の行に文字を折り返して印刷するかどうかを指定します。...改行文字の後の (3 つのドット):<dl>
+<dt><strong>+</strong></dt>
+
+<dd>指定された幅を超える文字を次の行に折り返して印刷します。...改行文字の後に (3 つのドット) が付きます。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>指定した幅を超える文字を切り捨てます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>/dev/lp0</strong> プリンターの現在のプリンター設定を表示するには、次のように入力します。<div> <div><div><pre><code>splp</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>プリンター設定を変更するには、次のように入力します。<div>splp   <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44856" target="_blank" rel="noopener noreferrer">-w</a> 80  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44870" target="_blank" rel="noopener noreferrer">-W</a> +  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splp.html#splp__row-d3e44539" target="_blank" rel="noopener noreferrer">-C</a> +</div>これにより、<strong>/dev/lp0</strong> プリンターの設定が 80 カラムの用紙幅に変更されます (<strong>-w</strong> <strong>80</strong> フラグ)。 また、幅が 80 カラムを超える各行は次の行に折り返され (<strong> -W+</strong> フラグ)、すべての英字が大文字で印刷されます (<strong>-C+</strong> フラグ)。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/dev/lp*</strong></td>
+
+<td>プリンター属性ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/inittab</strong></td>
+
+<td>プリンター構成コマンド・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

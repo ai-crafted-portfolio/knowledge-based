@@ -1,0 +1,382 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>新規のグループを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkgroup</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkgroup.html#mkgroup__row-d3e137581" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>load_module</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkgroup.html#mkgroup__row-d3e137566" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkgroup.html#mkgroup__row-d3e137572" target="_blank" rel="noopener noreferrer"><strong>-A </strong></a>] [ <em>Attribute</em><strong>=</strong><em>Value</em> ... ] <em>Group</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkgroup</strong> コマンドは、新規のグループを作成します。 <em>Group</em> パラメーターは、固有のストリング (長さは管理者が <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html" target="_blank" rel="noopener noreferrer"><span><span>chdev</span></span></a> コマンドを使用して構成できます) でなければならず、 <strong>ALL</strong> または <strong>default</strong> キーワードにすることはできません。 デフォルトでは、<strong>mkgroup</strong> コマンドにより標準グループが作成されます。 管理グループを作成するには、<strong>-a</strong> フラグを指定します。 管理グループを作成するには、root ユーザーまたは GroupAdmin 権限を持つユーザーでなければなりません。</p>
+ <p>代替の Identification and Authentication (I&amp;A) メカニズムを使用してグループを作成するには、<strong>-R</strong> フラグを使用して、グループの作成に使用される I&amp;A ロード・モジュールを指定することができます。 ロード・モジュールは、<strong>/usr/lib/security/methods.cfg</strong> ファイルで定義されます。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mkgroups</strong> 高速パスを使用して実行することができます。</p>
+ <p><strong>mkgroup</strong> コマンドは、常にターゲット・グループのレジストリーを検査して、新規アカウントの ID がターゲット・レジストリーに対して固有であるか確認します。 <strong>mkgroup</strong> コマンドは、<strong>dist_uniqid
+</strong> システム属性を使用して、システムのすべてのグループ・レジストリーを検査するように構成することもできます。 <strong>dist_uniqid</strong> システム属性は <strong>/etc/security/login.cfg</strong> ファイルの <strong>usw</strong> スタンザの属性であり、<strong>chsec</strong> コマンドを使用して管理できます。</p>
+ <div><span><span>dist_uniqid</span></span> システム属性には、以下の値があります。<ul>
+<li><span><span>never</span></span> -非ターゲット・レジストリーとの ID 衝突を検査しません。 これがデフォルト設定です。</li>
+
+<li><span><span>always</span></span> -他のすべてのレジストリーとの ID の衝突を検査します。 ターゲット・レジストリーとそれ以外のレジストリーの間に衝突が検出されると、アカウントの作成や変更は失敗します。</li>
+
+<li><span><span>uniqbyname</span></span> -他のすべてのレジストリーとの ID の衝突を検査します。 レジストリー間の衝突が許可されるのは、作成されるアカウントの名前が既存のアカウントと同じである場合に限られます。</li>
+
+</ul>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> ターゲット・レジストリーでの ID 衝突検出は、 <span><span>dist_uniqid</span></span> システム属性に関係なく常に実施されます。</div>
+        </div>
+      </div></div>
+ <p><strong>uniqbyname</strong> システム属性の設定は、2 つのレジストリーに対して有効に機能します。 3 つ以上のレジストリーがあり、2 つのレジストリー間に既に ID 衝突が存在する場合、衝突した ID 値を使用して第 3 のレジストリーに新規アカウントを作成した場合の <strong>mkgroup</strong> コマンドの動作は未指定です。 新規アカウントの作成は、レジストリーの検査順序によって正常に行われる場合と失敗する場合があります。</p>
+ <p>ID 衝突の検査は、ローカル・レジストリーとリモート・レジストリー間、またはリモート・レジストリー同士間の ID の固有性に関してのみ行われます。 リモート・レジストリー上で新しく作成されたアカウントと、同じリモート・レジストリーを使用する他のシステム上の既存ローカル・ユーザーとの間では、ID の固有性は保証されません。 <strong>mkgroup</strong> コマンドは、それが実行された時点でリモート・レジストリーに到達できないときは、そのリモート・レジストリーをバイパスします。</p>
+ <p>Encrypted File System (EFS) がシステム上で使用可能な場合は、<strong>mkgroup</strong> コマンドは、EFS 属性を使用して <strong>/etc/security/group</strong> ファイルを更新します (コマンド・ラインに EFS 属性を指定しない場合は、デフォルト値が追加されます)。 <code>efs_keystore_access=none</code> を指定しない場合は、1 人以上のユーザーが鍵ストアを保持していれば、<strong>mkgroup</strong> コマンドは、グループ鍵ストアを作成します。</p>
+
+<div><strong>mkgroup</strong> コマンドが戻りコード 3 で戻った場合、グループの鍵ストアは作成されませんが、<strong>mkgroup</strong> コマンドはグループを作成します。<div><div>
+        <div>
+          <div><span>注:</span> 後で <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html" target="_blank" rel="noopener noreferrer"><strong>efskeymgr</strong></a> コマンドを使用して、グループ鍵ストアを作成できます。</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>グループ名の作成に関する制限</strong></p>
+ <p>ログインが矛盾しないように、グループ名全体を英大文字だけで作成しないようにしなければなりません。 <strong>mkgroup</strong> コマンドではマルチバイト・グループ名がサポートされますが、グループ名を POSIX 移動可能なファイル名文字セットの文字に制限することをお勧めします。</p>
+ <p>ユーザー・データベースが破損しないように、グループ名は慎重に命名されなければなりません。 グループ名の先頭に - (ダッシュ)、+ (正符号)、@ (アットマーク)、~ (波形記号) を付けることはできません。 グループ名にキーワード <strong>ALL</strong> または
+<strong>default</strong> を使用することはできません。 また、グループ名文字列には次の文字を使用しないでください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>:</td>
+
+<td>コロン</td>
+
+</tr>
+
+<tr>
+<td>"</td>
+
+<td>二重引用符</td>
+
+</tr>
+
+<tr>
+<td>#</td>
+
+<td>ポンド記号</td>
+
+</tr>
+
+<tr>
+<td>,</td>
+
+<td>コンマ</td>
+
+</tr>
+
+<tr>
+<td>=</td>
+
+<td>等号</td>
+
+</tr>
+
+<tr>
+<td>\</td>
+
+<td>円記号</td>
+
+</tr>
+
+<tr>
+<td>/</td>
+
+<td>スラッシュ</td>
+
+</tr>
+
+<tr>
+<td>?</td>
+
+<td>疑問符</td>
+
+</tr>
+
+<tr>
+<td>'</td>
+
+<td>単一引用符</td>
+
+</tr>
+
+<tr>
+<td>`</td>
+
+<td>逆引用符</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>また、<em>Name</em> パラメーターにスペース、タブ、または改行文字を使用できません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>管理グループを作成します。 root ユーザーのみがこのフラグを使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>グループ管理者を、<strong>mkgroup</strong> コマンドを呼び出したユーザーに設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong><em> ロード・モジュール</em></td>
+
+<td>ユーザーを作成するために使用されるロード可能 I&amp;A モジュールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>属性</em><strong>=</strong><em>値</em></td>
+
+<td>特定の属性でグループを初期化します。 グループ属性について詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgroup.html" target="_blank" rel="noopener noreferrer"><strong>chgroup</strong></a> コマンドを参照してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドが正常に実行され、要求されたすべての変更が行われました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。 印刷されるエラー・メッセージには、コマンド失敗のタイプに関する詳細が示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、実行 (x) 権限を root ユーザーとセキュリティー・グループ・メンバーにのみ付与します。 このコマンドは、トラステッド・コンピューティング・ベース (TCB) にプログラムとしてインストールされなければなりません。 このコマンドは、
+<strong>setuid</strong> (SUID) ビットが設定されている root ユーザーが所有しなければなりません。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>このコマンドの全機能を使用するためには、ロールには <strong>accessauths</strong> のほかに、<strong>aix.security.group.change</strong> 権限も必要です。 システムで Encrypted File System (EFS) が有効になっている場合は、ロールにはグループ鍵ストアを作成するために <strong>aix.security.efs</strong> 権限も必要です。</div>
+ <p>アクセスされるファイル:</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/user</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/limits</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/environ</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/usr/lib/security/mkuser.default</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td><strong>/usr/lib/security/mkuser.sys</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>USER_Create</strong></td>
+
+<td>ユーザー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>制限</h2> <p>グループの作成は、すべてのロード可能 I&amp;A モジュールによってサポートされるわけではありません。 ロード可能 I&amp;A モジュールでグループの作成がサポートされない場合には、エラーが報告されます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>以下の名前の新規グループ・アカウントを作成します。finance、タイプ:<div> <div><div><pre><code>mkgroup finance</code></pre></div><div></div></div></div>
+</li>
+
+<li>新規管理グループ・アカウントを作成するには、以下のようにします。payroll、タイプ:<div> <div><div><pre><code>mkgroup -a payroll</code></pre></div><div></div></div>root ユーザーのみがこのコマンドを入力できます。</div>
+</li>
+
+<li>以下の名前の新規グループ・アカウントを作成します。managers管理者として設定するには、次のように入力します。<div> <div><div><pre><code>mkgroup -A managers</code></pre></div><div></div></div></div>
+</li>
+
+<li>以下の名前の新規グループ・アカウントを作成します。managers管理者のリストを以下のように設定します。 steveおよびmike、タイプ:<div> <div><div><pre><code>mkgroup adms=steve,mike managers</code></pre></div><div></div></div>ユーザーsteveおよびmikeシステム上に既に存在していなければなりません。</div>
+</li>
+
+<li>LDAP I&amp;A ロード可能モジュールのユーザーである新規のグループを作成するには、
+次のように入力してください。<div> <div><div><pre><code>mkgroup -R LDAP monsters</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/mkgroup</strong></td>
+
+<td><strong>mkgroup</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/group_security.html" target="_blank" rel="noopener noreferrer"><strong>/etc/group</strong></a></td>
+
+<td>グループの基本属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/group.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/group</strong></a><strong></strong></td>
+
+<td>拡張グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd.html" target="_blank" rel="noopener noreferrer"><strong>/etc/passwd</strong></a><strong></strong></td>
+
+<td>基本ユーザー情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd_security.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/passwd</strong></a><strong></strong></td>
+
+<td>パスワード情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

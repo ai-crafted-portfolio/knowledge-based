@@ -1,0 +1,117 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ジョブをフォアグラウンドで実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>fg</strong> [ <em>JobID</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p>ジョブ制御が使用可能になっている場合、<strong>fg</strong> コマンドは、現在の環境内のバックグラウンド・ジョブをフォアグラウンドに移動します。 フォアグラウンドで実行する特定のジョブを示すには、<em>JobID</em> パラメーターを使用します。 このパラメーターを指定していない場合は、<strong>fg</strong> コマンドによって、最後に延期されたジョブ、バックグラウンドにあるジョブ、バックグラウンド・ジョブとして実行されるジョブのいずれかが使用されます。</p>
+ <p><em>JobID</em> パラメーターは、プロセス ID 番号の場合もあります。または、次の記号の組み合わせのいずれか 1 つを指定することもできます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>%</strong><em>数値</em></td>
+
+<td>ジョブ番号別にジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>%</strong><em>文字列</em></td>
+
+<td>指定文字列で名前が始まるジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>%?</strong><em>ストリング</em></td>
+
+<td>指定文字列が名前に含まれているジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>% +</strong> または <strong>%%</strong></td>
+
+<td>現行ジョブを参照します。</td>
+
+</tr>
+
+<tr>
+<td><strong>%-</strong></td>
+
+<td>直前のジョブを参照します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>fg</strong> コマンドを指定して、ジョブをフォアグラウンドに移動させると、現在のシェル環境で認識されるジョブのリストからそのジョブのプロセス ID が除去されます。</p>
+ <p><strong>/usr/bin/fg</strong> コマンドは、このコマンド固有の実行環境で動作させると機能しません。これは、この環境では操作に適したジョブがないためです。 したがって、<strong>fg</strong> コマンドは Korn シェル (POSIX シェル) の正規組み込みコマンドとして組み込まれています。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>ジョブ制御が不可能な場合は、<strong>fg</strong> コマンドはエラーを出して終了し、ジョブはフォアグラウンドに移動しません。</p>
+</section>
+
+<section><h2>例</h2> <div><strong>jobs -l</strong> コマンドの出力に、バックグラウンドで実行される次のジョブが示された場合を考えてみます。<div><div><pre><code>[1] + 16477RunningSleep 100 &amp;</code></pre></div><div></div></div></div>
+ <div>プロセス ID を使用してsleep
+100 &amp;コマンドをフォアグラウンドで次のように入力します。<div><div><pre><code>fg 16477</code></pre></div><div></div></div></div>
+ <div>画面には次のように表示されます。<div><div><pre><code>sleep</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/ksh</strong></td>
+
+<td>Korn シェルの <strong>fg</strong> 組み込みコマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/fg</strong></td>
+
+<td><strong>fg</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

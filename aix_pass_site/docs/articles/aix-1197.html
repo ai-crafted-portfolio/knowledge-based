@@ -1,0 +1,178 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>順列索引を生成します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>ptx [ -f ] [ -r ] [ -t ] [ -b Breakfile ] [ -g Number ] [ -w Number ] [ -i Ignore | -o Only ] [ — ] [ Infile [ Outfile ] ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>ptx</span> コマンドは、指定された英語テキスト (Infile パラメーター) を読み取り、そこから配列し直した索引を作成し、指定されたファイル (Outfile) へ書き込みます。 標準入力と標準出力がデフォルトです。</p>
+ <p><span>ptx</span> コマンドは、指定されたファイル (Infile) でキーワードを探索し、行をソートし、ファイル Outfile を作成します。 その後、 Outfile ファイルを <span>nroff</span> または <span>troff</span> コマンドで処理して、再配列された索引を作成することができます。</p>
+ <p><span>ptx</span> コマンドは以下の 3 つのステップで処理します。</p>
+ <ol>
+<li>順列を実行し、入力行のキーワードごとに 1 行を生成し、キーワードを行の前に回転させます。</li>
+
+<li>順列ファイルをソートします。</li>
+
+<li>ソートされた行を回転させて、キーワードが各行の中央にくるようにします。</li>
+
+</ol>
+ <p>結果として生成される行のフォーマットは、Outfile ファイル内で次のようになります。</p>
+ <div> <div><div><pre><code>.xx "" "before keyword" "keyword" "after keyword"</code></pre></div><div></div></div></div>
+ <p>ここで、 <code>.xx</code> は、ユーザーまたは <span>ptx</span> コマンドによって提供される <span>nroff</span> または <span>troff</span> マクロです。 <code>mptx</code> マクロ・パッケージは、<code>.xx</code>  マクロ定義を提供します。</p>
+ <p><code>before keyword</code> フィールド、 <code>keyword</code> フィールド、および <code>after keyword</code> フィールドには、印刷時にキーワードの周囲に収まるだけの行が取り込まれます。 先頭フィールドと最終フィールドは、少なくとも一方は常に空文字列で、行の反対端の未使用のスペースに入るように折り返されます。</p>
+ <div>注:<ol>
+<li>行の長さのカウントは、重ね打ちやプロポーショナル・スペーシングを考慮しません。</li>
+
+<li>~ (ティルド) を含む行は、 <span>ptx</span> コマンドがその文字を内部で使用するため、機能しません。</li>
+
+<li><span>ptx</span> コマンドは、非英数字を破棄しません。</li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-b</span> BreakFile</td>
+
+<td>指定された切断ファイル内の文字を使用してワードを区切ります。 タブ文字、改行文字、スペースは、常に切断文字として使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>ソートのときに大文字と小文字を区別しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span> 番号</td>
+
+<td>出力されるときに <span>ptx</span>  コマンドが行の 4 つの部分間でそれぞれのギャップに予約する文字として、指定数を使用します。 デフォルトの Number 変数値は 3 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> 無視</td>
+
+<td>Ignore ファイルで指定された単語をキーワードとして使用しないでください。 <span>-i</span> と <span>-o</span> フラグを使用しない場合には、<span>/usr/lib/eign</span> ファイルがデフォルトの Ignore ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> のみ</td>
+
+<td>Only ファイルでキーワードとして指定されている単語のみを使用します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>各入力行のブランク以外の先頭文字を、行のテキストと切り離された参照 ID と見なします。 ID を、各出力行の 5 番目のフィールドとして接続します。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span></td>
+
+<td>フォトタイプセッター用の出力を準備します。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span> 番号</td>
+
+<td>出力行の長さとして、指定された数を使用します。 デフォルトの行長は、<span>nroff</span> コマンドの場合には 72 文字で、<span>troff</span> コマンドの場合には 100 文字です。</td>
+
+</tr>
+
+<tr>
+<td><code>—</code></td>
+
+<td>(二重ダッシュ) フラグの終わりを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>infile</td>
+
+<td>英語テキストを指定します。 標準入力がデフォルトのファイルです。 <span>ptx</span> コマンドは、指定ファイルでキーワードを検索し、行をソートし、ファイル Outfile を作成します。</td>
+
+</tr>
+
+<tr>
+<td>outfile</td>
+
+<td>Infile ファイルから作成された索引を <span>ptx</span> コマンドが書き込むファイルを指定します。 標準出力がデフォルトのファイルです。 Outfile ファイルを <span>nroff</span> または <span>troff</span> コマンドで処理して、再配列された索引を作成することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/lib/eign</span></td>
+
+<td>デフォルトの Ignore ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/share/lib/tmac/tmac.ptx</span></td>
+
+<td>マクロ・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

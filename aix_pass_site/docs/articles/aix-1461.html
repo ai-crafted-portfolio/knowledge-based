@@ -1,0 +1,233 @@
+<div class="official-dom"><div><section><h2>目的</h2>
+<p>Simple Network Management Protocol (SNMP) バージョン 1 エージェントをバックグラウン
+ド・プロセスとして開始します。</p>
+</section>
+<section><h2>構文</h2>
+<p><strong>snmpd</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpdv1.html#snmpdv1__row-d3e35335" target="_blank" rel="noopener noreferrer"><strong>-c</strong> </a><em>ConfigFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpdv1.html#snmpdv1__row-d3e35365" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>レベル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpdv1.html#snmpdv1__row-d3e35410" target="_blank" rel="noopener noreferrer"><strong>-f</strong> </a><em>LogFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpdv1.html#snmpdv1__row-d3e35427" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>snmpd</strong> コマンドは SNMP デーモンを始動します。 このコマンドは root 権限を持つユーザーまたはシステム・グループのメンバーだけが発行できます。</p>
+
+<p>SNMP デーモンは RFC 1157 で文書化された標準 Simple Network Management Protocol (SNMP) および RFC 1155 と RFC 1213 内で定義された管理情報ベース (MIB) をサポートするサーバーです。 SNMP デーモンは以下の 3 つの機能を提供します。</p>
+
+<ul><li><span></span>ネットワーク・モニターからの SNMP 要求の受信と認証。</li>
+<li><span></span>要求を処理し、結果を発信元のモニターに返します。</li>
+<li><span></span>構成ファイルにリストされているすべてのホストにトラップ通知を送信しています。</li>
+</ul>
+
+<p>SNMP デーモン・サーバーは、 <strong>-f</strong> フラグが使用されている場合は <em>LogFile</em> 変数で指定されたファイルに、または構成ファイルで指定されたログ・ファイルに、ログ・メッセージを保持します。 ログ・ファイルのサイズが事前定義されたログ・ファイルの最大サイズを超えると、<strong>snmpd</strong> コマンドは、以下のように古いログ・ファイルを他のファイルへ移動してログ・ファイルを循環させます。</p>
+
+<ul><li><span></span>LogFile.3 が削除されました。</li>
+
+<li><span></span>LogFile.2 が LogFile.3に移動されました。</li>
+<li><span></span>LogFile.1 が LogFile.2に移動されました。</li>
+<li><span></span>LogFile.0 が LogFile.1に移動されました。</li>
+<li><span></span>LogFile が LogFile.0に移動されます。</li>
+<li><span></span>ロギングは LogFileで続行されます。</li>
+</ul>
+
+<p>ログが <strong>-f</strong> フラグを指定した <strong>snmpd</strong> コマンド・ラインから指示されない場合は、構成ファイルからログを指示することもできます。</p>
+
+<p>サポートされている set 変数は以下のとおりです。</p>
+
+<ul><li><span></span><strong>sysContact</strong></li>
+<li><span></span><strong>sysName</strong></li>
+<li><span></span><strong>sysLocation</strong></li>
+
+<li><span></span><strong>ifAdminStatus</strong></li>
+<li><span></span><strong>atPhysAddress</strong></li>
+<li><span></span><strong>atNetAddress</strong></li>
+<li><span></span><strong>ipForwarding</strong></li>
+<li><span></span><strong>ipDefaultTTL</strong></li>
+<li><span></span><strong>ipRouteDest</strong></li>
+<li><span></span><strong>ipRouteNextHop</strong></li>
+<li><span></span><strong>ipRouteType</strong></li>
+<li><span></span><strong>ipNetToMediaPhysAddress</strong></li>
+<li><span></span><strong>ipNetToMediaNetAddress</strong></li>
+<li><span></span><strong>ipNetToMediaType</strong></li>
+<li><span></span><strong>snmpEnableAuthenTraps</strong></li>
+<li><span></span><strong>smuxPstatus</strong></li>
+<li><span></span><strong>smuxTstatus</strong></li>
+</ul>
+
+<p>サポートされているセット変数の詳細については、<span> 『<em>AIXVersion6.1Communications Programming Concepts</em>』</span>の「Understanding SNMP Daemon Support for SET Request Processing」を参照してください。</p>
+
+<p>以下のコマンドは SNMP デーモンが始動される前に実行しなければなりません。</p>
+
+<ul><li><span></span><strong>ifconfig lo0 ループバック</strong></li>
+
+<li><span></span><strong>startsrc-sinetd</strong></li>
+
+</ul>
+
+<p>これらのコマンドは通常、 <strong>/etc/rc.net</strong> および <strong>/etc/rc.tcpip</strong> シェル・スクリプトが呼び出されたときに、システム始動時に実行されます。 ( <strong>snmpd</strong> コマンドは、 <strong>/etc/rc.tcpip</strong> シェル・スクリプトに入れることができます。)</p>
+
+<p><strong>snmpd</strong> デーモンは、
+システム・リソース・コントローラー (SRC) を使用して制御されなければなりません。 コマンド・ラインから <strong>snmpd</strong> を実行しないでください。</p>
+<p><strong>システム・リソース・コントローラーを使用した snmpd デーモンの操作方法</strong></p>
+
+<p><strong>snmpd</strong> デーモンは、システム・リソース・コントローラー (SRC) により制御されるサブシステムです。 <strong>snmpd</strong> デーモンは、<strong>tcpip</strong> システム・グループのメンバーです。 <strong>snmpd</strong> デーモンはデフォルトで使用可能となり、SRC コマンドによって操作できます。</p>
+
+<p><strong>snmpd</strong> デーモンを操作するには、以下の SRC コマンドを使用してください。</p>
+
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc" target="_blank" rel="noopener noreferrer"><strong>開始戻りコード</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、サブサーバーのいずれかを始動します。 <strong>startsrc</strong> コマンドを発行することにより、<strong>snmpd</strong> コマンドは <em>coldStart</em> トラップを生成します。</td>
+</tr>
+<tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopsrc.html#stopsrc" target="_blank" rel="noopener noreferrer"><strong>停止ソース</strong></a></td>
+<td>サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。</td>
+</tr>
+<tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html" target="_blank" rel="noopener noreferrer"><strong>最新表示</strong></a></td>
+
+<td>サブシステムまたはサブシステムのグループに、適切な構成ファイルを再読み取りさせます。 <strong>refresh</strong> コマンドを発行することにより、<strong>snmpd</strong> デーモンは <em>warmStart</em> トラップを生成します。</td>
+</tr>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceson.html" target="_blank" rel="noopener noreferrer"><strong>トレース・オン (traceson)</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、
+あるいはサブサーバーのトレースを使用可能にします。 <strong>traceson</strong> コマンドを発行しているユーザーが root ユーザーでなければ、デバッグ・レベルはレベル 2 を超えません。</td>
+
+</tr>
+<tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracesoff.html" target="_blank" rel="noopener noreferrer"><strong>トレースオフ</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、
+あるいはサブサーバーのトレースを使用不可にします。</td>
+</tr>
+<tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssrc.html" target="_blank" rel="noopener noreferrer"><strong>エルエスアールシー</strong></a></td>
+
+<td>サブシステム、サブシステムのグループ、
+あるいはサブサーバーのトレースの状況を取得します。 <strong>lssrc</strong> コマンドの長時間状況形式を発行しているユーザーが root ユーザーでない場合は、コミュニティー名情報は表示されません。</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-c</strong><em> ConfigFile</em></td>
+
+<td><strong>snmpd</strong> デーモンに対して、構成ファイルの絶対パスおよびファイル名を指定します。 <strong>snmpd</strong> デーモンの始動時、および <strong>refresh</strong> または <strong>kill -1</strong> シグナルが発行されたときに、このファイルが読み取られます。 <strong>-c</strong> フラグが指定されない場合、デフォルトの構成ファイルは <strong>/etc/snmpd.conf</strong> です。 このファイル・フォーマットの情報については、<strong>snmpd.conf</strong> ファイルを参照してください。</td>
+</tr>
+<tr>
+<td><strong>-d</strong><em> レベル</em></td>
+<td><strong>snmpd</strong> コマンドが生成するトレースのレベルを指定します。 <em>Level</em> の値は以下のいずれかです。<dl><dt><strong>0</strong></dt>
+<dd>すべての通知、例外、メッセージ</dd>
+<dt><strong>1</strong></dt>
+
+<dd>レベル 0 のメッセージとデバッグ・メッセージ</dd>
+<dt><strong>※2</strong></dt>
+
+<dd>レベル 1 と受信パケットおよび送信パケットの 16 進ダンプ</dd>
+
+<dt><strong>3</strong></dt>
+<dd>レベル 2 と要求パケットおよび応答パケットの英語バージョン</dd>
+
+</dl>
+ 
+<p><strong>-d</strong> フラグを指定しないと、デバッグ・レベルは 0 に設定されます。</p>
+</td>
+</tr>
+<tr><td><strong>-f</strong><em> LogFile</em></td>
+
+<td><strong>snmpd</strong> トレース情報をログに記録する絶対パスおよびファイル名を指定します。 <strong>-f</strong> フラグを指定しないと、情報はログに記録されません。 ロギング・パラメーターの設定についての詳細情報は、<strong>snmpd.conf</strong> ファイルを参照してください。</td>
+</tr>
+<tr><td><strong>-S</strong></td>
+<td>セキュリティー・オプションが指定されている場合に、それを使用可能にします。 このオプションを使用可能にすると、ローカル root ユーザー以外のユーザーはローカル・ホストの MIB 変数を変更できなくなります。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>例</h2>
+<ol><li><span></span> <strong>snmpd</strong> デーモンを始動するには、次のようなコマンドを入力します。<div>
+<div><div><pre><code>startsrc -s snmpd -a "-f /tmp/snmpd.log"</code></pre></div><div></div></div></div>
+ 
+<p>このコマンドにより、<strong>snmpd</strong> デーモンが始動され、デバッグ・レベル 0 で情報を <strong>/tmp/snmpd.log</strong> ファイルに記録します。</p>
+</li>
+<li><span></span> <strong>snmpd</strong> デーモンを正常に停止するには、次のように入力します。<div>
+<div><div><pre><code>stopsrc -s snmpd</code></pre></div><div></div></div></div>
+ 
+<p>このコマンドはデーモンを停止します。 <strong>-s</strong> フラグは、これに続いて停止するサブシステムを指定します。</p>
+</li>
+<li><span></span> <strong>snmpd</strong> デーモンから簡略状況を取得するには、次のように入力します。<div>
+<div><div><pre><code>lssrc -s snmpd</code></pre></div><div></div></div></div>
+ 
+<p>このコマンドにより、デーモン名、デーモンのプロセス ID、デーモンの状態 (アクティブか、非アクティブか) が戻されます。</p>
+</li>
+
+<li><span></span> <strong>snmpd</strong> デーモンから長い状況を取得するには、次のように入力します。<div>
+<div><div><pre><code>lssrc -ls snmpd</code></pre></div><div></div></div></div>
+ 
+<p>ユーザーが root ユーザーである場合は、この長時間形式の状況報告には、構成されているコミュニティー名および関連するアクセス権限がリストされ、<strong>snmp</strong> 要求に対して表示されます。 さらに、トラップ通知、ログ構成パラメーター、<strong>snmpd</strong> 特定の構成パラメーターおよび <strong>smux</strong> 構成パラメーターのために、ホストに関連するコミュニティー名もリストします。</p>
+</li>
+<li><span></span> <strong>snmpd</strong> デーモンのトレースを使用可能にするには、次のように入力します。<div>
+<div><div><pre><code>traceson -s snmpd</code></pre></div><div></div></div></div>
+ 
+<p><strong>snmpd</strong> デーモンがロギング用に構成されれば、このコマンドにより <strong>snmpd</strong> デバッグが使用可能になります。</p>
+</li>
+<li>DHCP サーバー・データベース・ファイル <strong>/etc/dhcpsd.ar</strong> および <strong>/etc/dhcpsd.cr</strong> の内容を表示する場合は、以下のように入力します。<div>
+<div><div><pre><code>lssrc -l -s dhcpsd</code></pre></div><div></div></div></div>
+</li>
+</ol>
+</section>
+
+<section><h2>ファイル</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>/etc/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/services.html" target="_blank" rel="noopener noreferrer"><strong>サービス</strong></a></td>
+
+<td>必要なサービスのポート割り当てが入っています。 既にエントリーがない場合は、以下のエントリーが <strong>/etc/services</strong> ファイル内になければなりません。<dl><dt>snmp</dt>
+<dd>161/udp</dd>
+
+<dt>snmp-trap</dt>
+<dd>162/udp</dd>
+
+<dt>smux</dt>
+<dd>199/tcp</dd>
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>要件:</span><ul><li>snmp ポートは、RFC 1157 で要求されているように、161 でなければなりません。</li>
+<li>snmp-trap ポートは、RFC 1157 で要求されているように、162 でなければなりません。</li>
+<li>smux ポートは、199 でなければなりません。</li>
+<li><strong> /etc/services</strong> ファイルは、出荷時には上記のエントリーが定義された状態で、所定の場所に置かれています。</li>
+<li><strong> /etc/services</strong> ファイルがサーバーから提供されている場合は、上記のエントリーはサーバーの <strong> /etc/services</strong> ファイルになければなりません。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</td>
+</tr>
+<tr><td><strong>/etc/snmpd</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/snmpd.conf.html" target="_blank" rel="noopener noreferrer"><strong>.conf</strong></a></td>
+<td><strong>snmpd</strong> エージェントの構成パラメーターを指定します。</td>
+</tr>
+<tr>
+<td><strong>/etc/mib.defs</strong></td>
+<td>SNMP エージェントが認識し、処理する管理情報ベース (MIB) 変数を定義します。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+</div></div>

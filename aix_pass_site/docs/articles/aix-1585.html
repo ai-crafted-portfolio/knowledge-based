@@ -1,0 +1,318 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルのアクセス時刻と変更時刻を更新します。</p>
+</section>
+
+<section><h2>構文</h2> <div><strong>touch </strong>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104721" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104733" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104745" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104739" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104757" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><em> RefFile </em>] [ <em>Time </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104823" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em> Time </em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__-d_flag" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>date_time</em>] { <em>File </em>... | <em>Directory </em>... }<div><div>
+        <div>
+          <div><span>注：</span>前述の構文は、AIX®オペレーティング・システムでUNIX03モードが有効になっていない場合にのみ適用できる。</div>
+        </div>
+      </div></div>
+</div>
+
+<p><strong>touch</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104721" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104733" target="_blank" rel="noopener noreferrer"><strong>c </strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104745" target="_blank" rel="noopener noreferrer"><strong>m </strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104739" target="_blank" rel="noopener noreferrer"><strong>f</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104757" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>ref_file</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104823" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> time | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__-d_flag" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>date_time</em> ] <em>file</em>... | <em>Directory</em></p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注:</span> 上記の構文は、 UNIX03 モードが有効になっている場合にのみ適用されます。 AIX オペレーティング・システムで UNIX03 モードを使用可能にするには、<strong> XPG_SUS_ENV</strong> 環境変数の値を <strong>ON</strong>に設定する必要があります。</div>
+        </div>
+      </div></div>
+
+</div>
+</section>
+
+<section><h2>説明</h2> <p><strong>touch</strong> コマンドは、<em>Directory</em> パラメーターで指定された各ディレクトリー内の、<em>File</em> パラメーターで指定された各ファイルのアクセス時刻と修正時刻を更新します。 <em>Time</em> 変数の値を指定しなければ、<strong>touch</strong> コマンドは現在の時刻を使用します。 存在しないファイルを指定すると、<strong>touch</strong> コマンドは、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104733" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> フラグを指定しない限り、ファイルを作成します。</p>
+ <p><strong>touch</strong> コマンドからの戻りコードは、時刻を修正できなかった (存在しなかったファイル、および作成されなかったファイルを含む) ファイル数です。</p>
+
+<p><strong>-a</strong> フラグと <strong>-m</strong> フラグは、<strong>touch</strong> コマンドで指定されていないときでもアクティブです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><em>File</em> 変数で指定されたファイルのアクセス時刻を変更します。 <strong>-m</strong> が指定されていない限り、修正時刻は変更しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>ファイルがまだ存在していない場合は、
+ファイルを作成しません。 この条件に関する診断メッセージは書き出されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>日付と時刻</em></td>
+
+<td>これは、現在時刻ではなく指定の日時を使用します。 <em>date_time</em> 変数は、10 進フォーマット、<em>YYYY-MM-DDThh:mm:SS[.frac][tz]</em>、または <em>YYYY-MM-DDThh:mm:SS[,frac][tz]</em> で指定します。
+各項目の説明は以下のとおりです。<dl>
+
+<dt><em>yyyy</em></dt>
+
+<dd>これは、4 桁の年 (0000 から 9999 まで) を指定します。</dd>
+
+
+
+<dt><em>MM</em></dt>
+
+<dd>月を指定します (01 から 12)。</dd>
+
+
+
+<dt><em>DD</em></dt>
+
+<dd>日付を指定します (01 から 31)。</dd>
+
+
+
+<dt><em>hh</em></dt>
+
+<dd>時刻を指定します (00 から 23)。</dd>
+
+
+
+<dt><em>mm</em></dt>
+
+<dd>分を指定します (00 から 59)。</dd>
+
+
+
+<dt><em>ss</em></dt>
+
+<dd>秒を指定します (00 から 59)。</dd>
+
+
+
+<dt><em>T</em></dt>
+
+<dd>これは時刻指定子を表していて、シングル・スペースで置き換えることができます。</dd>
+
+
+
+<dt><em>[.frac]。</em></dt>
+
+<dd>これは、小数点以下の秒を指定します。 これはブランクでも、小数点 (.) とそれに続く 1 つ以上の 10 進数字でもかまいません。</dd>
+
+
+
+<dt><em> [、frac]</em></dt>
+
+<dd>これは、小数点以下の秒を指定します。 これはコンマ (,) とそれに続く 1 つ以上の 10 進数字です。</dd>
+
+
+
+<dt><em>[tz］</em></dt>
+
+<dd><em>[tz]</em> パラメーターの値がブランクの場合は、結果の時刻に対してローカル・タイム・ゾーンが使用されます。 <em>[tz]</em> パラメーターの値が文字 Z の場合は、結果の時刻に対して協定世界時 (UTC) が使用されます。 [tz] パラメーターの値がブランクの場合は、結果の時刻を識別するために TimezoneInfo (TZ) 環境変数の値が使用されます。 結果の時刻が Epoch 時刻よりも前になる場合、<em>[tz]</em> パラメーターの値は実装環境固有となります。 また、結果の時刻が、<em>File</em> パラメーターで指定されているファイルのタイム・スタンプとして表すことができない場合、<strong>touch</strong> コマンドはエラー状況で終了します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ファイルの読み取り許可と書き込み許可に関係なく、更新を強制的に実行しようとします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><em>File</em> の修正時刻を更新します。 <strong>-a</strong> が指定されていない限り、アクセス時刻は変更しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> RefFile</em></td>
+
+<td>現在時刻の代わりに、<em>RefFile</em> 変数で指定されたファイルの対応する時刻を使用します。</td>
+
+</tr>
+
+<tr>
+<td><em>Time</em></td>
+
+<td>新しいタイム・スタンプの日付と時刻を <em>MMDDhhmm</em>[YY] のフォーマットで指定します。<dl>
+<dt><em>MM</em></dt>
+
+<dd>月を指定します (01 から 12)。</dd>
+
+
+<dt><em>DD</em></dt>
+
+<dd>日付を指定します (01 から 31)。</dd>
+
+
+<dt><em>hh</em></dt>
+
+<dd>時刻を指定します (00 から 23)。</dd>
+
+
+<dt><em>mm</em></dt>
+
+<dd>分を指定します (00 から 59)。</dd>
+
+
+<dt><em>YY</em></dt>
+
+<dd>年数の最後の 2 桁を指定します。 <em>YY</em> 変数を指定しないと、デフォルト値は現在の年になります (70 から 99、または 00 から 37)。</dd>
+
+</dl>
+ <p><span><em>YY</em> の桁の値が 70 から 99 までの場合は、年号の上 2 桁は 19 であると見なされます。</span></p>
+ <p><span><em>YY</em> の桁の値が 00 から 37 までの場合は、年号の上 2 桁は 20 であると見なされます。</span></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> 時間</em></td>
+
+<td>現在時刻の代わりに指定された時刻を使用します。 <em>Time</em> 変数は、10 進形式 [[<em>CC</em>]<em>YY</em>]<em>MMDDhhmm</em>[<strong>.</strong><em>SS</em>] で指定されます。<dl>
+<dt><em>CC</em></dt>
+
+<dd>その年の最初の 2 桁 (19 から 21) を指定します。</dd>
+
+
+<dt><em>YY</em></dt>
+
+<dd>その年の最後の 2 桁 (00 から 99) を指定します。<p><span><em>YY</em> の桁の値が 70 から 99 までの場合は、<em>CC</em> の値は 19 であると見なされます。</span></p>
+ <p><span><em>YY</em> の桁の値が 00 から 37 の場合は、<em>CC</em> の値は 20 であると見なされます。</span></p>
+ <p><span>2038 年以降の年は、<em>yyyy</em> 形式で年を指定します。</span></p>
+</dd>
+
+
+<dt><em>MM</em></dt>
+
+<dd>月を指定します (01 から 12)。</dd>
+
+
+<dt><em>DD</em></dt>
+
+<dd>日付を指定します (01 から 31)。</dd>
+
+
+<dt><em>hh</em></dt>
+
+<dd>時刻を指定します (00 から 23)。</dd>
+
+
+<dt><em>mm</em></dt>
+
+<dd>分を指定します (00 から 59)。</dd>
+
+
+<dt><em>ss</em></dt>
+
+<dd>秒を指定します (00 から 59)。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span> <strong>touch</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_bostechref/utimes.html" target="_blank" rel="noopener noreferrer"><strong>utimenstat ()</strong></a> サブルーチンを呼び出して、タッチされたファイルの変更時刻とアクセス時刻を変更します。 これにより、ファイルに対する書き込み許可があるにもかかわらず、実際にはファイルが存在しない場合は、フラグが使用された時点で <strong>touch</strong> コマンドが失敗することがあります。</li>
+
+<li><span></span> <strong>touch</strong> コマンドの使用時にエラー・メッセージを受け取った場合は、絶対パス名 <strong>/usr/bin/touch</strong> を指定しないでください。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に実行されました。 要求されたすべての変更を行いました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>hm</p>
+ <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルのアクセス時刻と変更時刻を更新するには、次のように入力します。<div> <div><div><pre><code>touch program.c</code></pre></div><div></div></div>これにより、以下の最終アクセス時刻と最終変更時刻が設定されます。program.cファイルを現在の日時に変更します。 もしprogram.cファイルが存在しない場合、 <strong>touch</strong> コマンドはその名前の空のファイルを作成します。</div>
+</li>
+
+<li><span></span>新規ファイルを作成しないようにするには、次のように入力します。<div>touch  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104733" target="_blank" rel="noopener noreferrer">-c </a>program.c</div>
+</li>
+
+<li><span></span>変更時刻のみを更新するには、次のように入力します。<div>touch  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104745" target="_blank" rel="noopener noreferrer">-m</a> *.o</div>これにより、以下で終わるファイルの最終変更時刻 (アクセス時刻ではなく) が更新されます。.o現行ディレクトリー内の拡張子。 <strong>make</strong> コマンドの結果を変更するときには、<strong>touch</strong> コマンドをこの方法でしばしば使用します。</li>
+
+<li><span></span>アクセス時刻と変更時刻を明示的に設定するには、次のように入力します。<div>touch  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104733" target="_blank" rel="noopener noreferrer">-c </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104823" target="_blank" rel="noopener noreferrer">-t </a>02171425 program.c</div>これにより、アクセスおよび変更の日付が 14:25 (午後 2 時 25 分 ) 現在の年の 2 月 17 日 に設定されます。</li>
+
+<li><span></span>現在時刻の代わりに別のファイルのタイム・スタンプを使用するには、次のように入力します。<div>touch  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104757" target="_blank" rel="noopener noreferrer">-r </a>file1 program.c</div>これにより、program.cタイム・スタンプと同じタイム・スタンプをファイルします。file1を適用します。</li>
+
+<li><span></span>現在時刻以外の指定時刻を使用してファイルをタッチするには、次のように入力します。<div>touch  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/touch.html#touch__row-d3e104823" target="_blank" rel="noopener noreferrer">-t </a>198503030303.55 program.c</div>これにより、program.c3:03:55 a.mのタイム・スタンプをファイルします。 1985 年 3 月 3 日です</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/touch</strong></td>
+
+<td><strong>touch</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

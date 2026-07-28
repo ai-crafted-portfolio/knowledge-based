@@ -1,0 +1,90 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル NFS レルム・ドメイン間マッピングを変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>chnfsrtd</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsrtd.html#chnfsrtd__row-d3e100871" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> <span><span>RealmDomain</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsrtd.html#chnfsrtd__row-d3e100880" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a> <span><span>OldRealm OldDomain NewRealm NewDomain</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsrtd.html#chnfsrtd__row-d3e100889" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> <span><span>RealmDomain</span></span> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>chnfsrtd</span></span> コマンドは、システムのローカル・レルム・ドメイン間マッピングを管理します。 ローカル・レルム・ドメイン間マッピングは、 <span><span>/etc/nfs/realm.map</span></span> ファイルに保管されます。<div><div>
+        <div>
+          <div><span>注:</span> 現在のレルム・ドメイン間マッピングをリストするには、 <span><span>chnfsdom</span></span> コマンドを使用します。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span> <span><span>RealmDomain</span></span></td>
+
+<td>新しいレルム・ドメイン間マッピングを追加します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-e</span></span> <span><span>OldRealm OldDomain NewRealm NewDomain</span></span></td>
+
+<td>既存のレルム・ドメイン間マッピングを編集します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span> <span><span>RealmDomain</span></span></td>
+
+<td>レルム・ドメイン間マッピングを除去します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>chnfsrtd</span></span> コマンドを使用するには、ユーザーに root 権限が必要です。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>新しいレルム・ドメイン間マッピングを追加する場合は、次のように入力します。<div><div><pre><code>chnfsrtd -a realm1 domain1</code></pre></div><div></div></div>このコマンドは以下を追加します。realm1 domain1を <span><span>/etc/nfs/realm.map</span></span> ファイルに追加します。</li>
+
+<li>レルム・ドメイン間マッピングを除去する場合は、次のように入力します。<div><div><pre><code>chnfsrtd -r realm2 domain2</code></pre></div><div></div></div>このコマンドは、realm2 domain2<span><span>/etc/nfs/realm.map</span></span> ファイルから (そのマッピングが存在する場合)。</li>
+
+<li>既存のレルム・ドメイン間マッピングを編集する場合は、次のように入力します。<div><div><pre><code>chnfsrtd -e realm3 domain3 realm4 domain4</code></pre></div><div></div></div>このコマンドは、realm3 domain3マッピングrealm4 domain4<span><span>/etc/nfs/realm.map</span></span> ファイル内 (そのマッピングが存在する場合)。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/etc/nfs/realm.map</span></span></td>
+
+<td>ローカル・レルム・ドメイン間マッピングを保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

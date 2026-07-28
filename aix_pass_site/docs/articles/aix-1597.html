@@ -1,0 +1,66 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Trusted Platform Module (TPM) 上の所有者をセットアップします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tpm_takeownership</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_takeownership.html#tpm_takeownership__row-d3e107654" target="_blank" rel="noopener noreferrer">-h</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_takeownership.html#tpm_takeownership__row-d3e107664" target="_blank" rel="noopener noreferrer">-</a></strong> [ <strong>なし | エラー | 情報 | デバッグ</strong> ] ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_takeownership.html#tpm_takeownership__row-d3e107677" target="_blank" rel="noopener noreferrer">-ウー</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_takeownership.html#tpm_takeownership__row-d3e107687" target="_blank" rel="noopener noreferrer">-v (V)</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_takeownership.html#tpm_takeownership__row-d3e107707" target="_blank" rel="noopener noreferrer">-z</a></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tpm_takeownership</strong> コマンドは、システム TPM 上の所有者をセットアップします (<strong>TPM_TakeOwnership</strong> API により)。 この操作を行うには、<strong>tpm_setownable</strong> コマンドによって TPM を使用可能にし、制限を設定する必要があります。 このコマンドを実行すると、所有者パスワードおよびセキュリティー・ルート・キー・パスワードの入力と確認を求めるプロンプトが出されます。 このコマンドの処理には時間がかかる場合があります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-h</strong> (または <strong>-- help</strong>)</td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (または <strong>--log</strong>) [ <strong>none | error | info |
+debug</strong> ]</td>
+
+<td>ロギング・レベルを指定のとおり none、error、info、または debug に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> (または <strong>-- unicode</strong>)</td>
+
+<td>TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、パスワードに対して Trusted Computing Group Software Stack (TSS) UNICODE エンコードを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong> (または <strong>-- version</strong>)</td>
+
+<td>コマンドのバージョン情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong> (または <strong>--owner-well-known</strong>)</td>
+
+<td>所有者の秘密をすべてゼロ (20 バイトのゼロ) に変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong> (または <strong>--well-known</strong>)</td>
+
+<td>現行の所有者パスワードがすべてゼロ (20 バイトのゼロ) からなる秘密である場合に、パスワードを新しいものに変更します。 変更する必要があるパスワード (所有者またはストレージ・ルート・キー、あるいは両方) を指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

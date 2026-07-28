@@ -1,0 +1,138 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>定義済み属性のデフォルト値を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chdef</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdef.html#chdef__row-d3e80456" target="_blank" rel="noopener noreferrer"><strong>[-a</strong></a><em> 属性 = 値</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdef.html#chdef__row-d3e80475" target="_blank" rel="noopener noreferrer"> <strong> -c</strong></a><em> クラス </em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdef.html#chdef__row-d3e80495" target="_blank" rel="noopener noreferrer"><strong> -s</strong></a><em> サブクラス</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdef.html#chdef__row-d3e80503" target="_blank" rel="noopener noreferrer"><strong> -t</strong></a> <em> タイプ</em>]</p>
+ <p><strong>chdef </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdef.html#chdef__row-d3e80489" target="_blank" rel="noopener noreferrer"><strong>[-H</strong></a> ]</p>
+ <p><strong>chdef </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdef.html#chdef__row-d3e80483" target="_blank" rel="noopener noreferrer"><strong>[-h］</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <div><strong>chdef</strong> コマンドは指定されたデバイス・タイプの事前定義属性のデフォルト値を変更します。 変更されたデフォルト値は、指定されたリスト内、または指定された属性の値の範囲内になければなりません。また、明示的なリストまたは範囲の値をもつ属性のみを変更できます。 属性のデフォルト値を使用して現在構成されている、同じクラス、サブクラス、およびタイプのデバイスの場合、デバイスのデフォルト値の変更は、リブートするか、またはその後で構成解除と構成操作が行われるまでは有効になりません。 これは <strong>chdef</strong> コマンドが同じクラス、サブクラス、およびタイプのあらゆるデバイスを変更することを除き、<span>-P</span> オプションを指定して <strong>chdev</strong> コマンド操作を実行することに似ています。<div><div>
+        <div>
+          <div><span>注:</span> <strong>chdef </strong>コマンドの実行後に <strong>bosboot</strong> コマンドを実行することをお勧めしますが、必須ではありません。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 属性 </em><strong>=</strong><em> 値</em></td>
+
+<td>新規のデフォルト値を設定する場合に使用するデバイス属性値ペアを指定します。 <em>Attribute</em><strong>=</strong><em>Value</em> 変数は 1 つの attribute=value ペアの指定に使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> クラス</em></td>
+
+<td>デバイス・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>出力される列の上にヘッダーを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> サブクラス</em></td>
+
+<td>デバイスのサブクラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>定義済みデバイスのオブジェクト・クラスからデバイスのタイプを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アクセス制御</strong></p>
+ <p>特権制御: root ユーザーのみに、このコマンドの実行 (x) 権限があります。</p>
+<p><strong>イベントの監査</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>デフォルトの DEV_DEFAULT</strong></td>
+
+<td>デバイスのコマンド・ライン</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>scsd ディスクの <code>hcheck_interval</code> 属性のデフォルト値を 0 から 3 に変更するには、次のように入力します。<div><div><pre><code>chdef -a hcheck_interval=3 -c disk -s scsi -t scsd</code></pre></div><div></div></div></li>
+
+<li>scsd ディスクの <code>hcheck_interval</code> 属性のデフォルト値をデフォルトの 0 に戻すには、次のように入力します。<div><div><pre><code>chdef -a hcheck_interval=0 -c disk -s scsi -t scsd</code></pre></div><div></div></div></li>
+
+<li>デフォルト値を変更したすべての属性をヘッダー付きでリストするには、次のように入力します。<div><div><pre><code>chdef -H</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/chdef</strong></td>
+
+<td><strong>chdef</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

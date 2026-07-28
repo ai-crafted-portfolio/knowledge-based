@@ -1,0 +1,131 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p><strong>savevg</strong> コマンドおよび <strong>restvg</strong> コマンドで使用する、ボリューム・グループに関する情報を入れるファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkvgdata</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkvgdata.html#mkvgdata__row-d3e164554" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkvgdata.html#mkvgdata__row-d3e164507" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a>] [ <strong>-x</strong> <em> ファイル</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkvgdata.html#mkvgdata__row-d3e164563" target="_blank" rel="noopener noreferrer"><em>VGName</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkvgdata</strong> コマンドは、<strong>savevg</strong> コマンドおよび <strong>restvg</strong> コマンドが使用するボリューム・グループの情報を含むファイルを作成します。 この情報には、論理ボリューム、ファイルシステムとそのサイズ、およびボリューム・グループ名のリストが含まれています。 ボリューム・グループのタイプに応じて、次のどちらかのファイルが作成されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/image.data</strong></td>
+
+<td>ルート・ボリューム・グループ (<strong>rootvg</strong>) の情報を入れるために作成されます。 <strong>savevg</strong> コマンドはこのファイルを使用して、<strong>bosinstall</strong> ルーチンが現行システムまたは新規システムにボリューム・グループを再インストールする際に使用するバックアップ・イメージを作成します。 このファイルが既に存在している場合、<strong>mkvgdata</strong> コマンドはこのファイルを上書きします。 <strong>/image.data</strong> ファイルは、<strong>/</strong> ディレクトリーに入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>vgname</em><strong>.データ</strong></td>
+
+<td>ユーザー・ボリューム・グループに関する情報を入れるために作成されます。 <em>VGName</em> 変数はボリューム・グループ名を反映したものです。 <strong>savevg</strong> コマンドはこのファイルを使用して、<strong>restvg</strong> コマンドがユーザー・ボリューム・グループの再インストールに使用するバックアップ・イメージを作成します。 このファイルが既に存在している場合、<strong>mkvgdata</strong> コマンドはこのファイルを上書きします。 <em>vgname</em><strong>.data</strong> ファイルは、<strong>/tmp/vgdata/</strong><em>vgname</em> ディレクトリーに入っています。
+<em>vgname</em> はボリューム・グループ名です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>この 2 つのファイル内の情報は、<strong>savevg</strong> コマンドを実行する前にユーザーが編集できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ボリューム・グループ内の論理ボリュームごとに論理対物理区画のマッピングを指定するマップ・ファイルを作成します。 このマッピングを使用して、
+イメージの復元時に同じ論理対物理マッピングを割り当てることができます。 マップ・ファイルの位置は、
+論理ボリュームごとに <strong>/image.data</strong> ファイルの MAPFILE フィールドに保管されます。 <strong>mklv</strong> コマンドの発行前にインストール・ルーチンがマップを <strong>/tmp</strong> ファイルシステムに入れるので、
+マップ作成のための十分なスペースが <strong>/tmp</strong> ファイルシステム内に存在することになります。<p>例えば、<strong>hd7</strong> 論理ボリュームの場合、
+マップ・ファイルの位置は <strong>/tmp/vgdata/rootvg/hd7.map</strong> です。 <strong>hd7</strong> 論理ボリュームの <strong>/image.data</strong> ファイル内の MAPFILE フィールドは、次の項目の下にあります。MAPFILE=/tmp/vgdata/rootvg/hd7.map.</p>
+  <p>バックアップ・イメージ内のマップ・ファイルは、<strong>image.data</strong> ファイルまたは <em>vgname</em><strong>.data</strong> ファイルの後ろにコピーされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>必要に応じて <strong>/tmp</strong> を拡張します。</td>
+
+</tr>
+
+<tr>
+<td><em>vgname</em></td>
+
+<td>バックアップ・コピーを作成するボリューム・グループの名前。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> <em>file</em></td>
+
+<td>ファイルでリストされたファイルシステムを出力ファイルから除外します。 ファイルシステムのマウント・ポイントは、1 行につき 1 つずつリストする必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span> 結果のバックアップはシステムのリストアに使用できない可能性があるため、ファイル・システムを除外する場合は注意してください。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/image.data</strong></td>
+
+<td>ボリューム・グループが <strong>rootvg</strong> である場合に作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/vgdata/</strong> <em>vgname</em> <strong>/</strong> <em>vgname</em> <strong>.data</strong></td>
+
+<td>ボリューム・グループが <strong>rootvg</strong> でない場合に作成されます。<em>vgname</em> はボリューム・グループ名です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

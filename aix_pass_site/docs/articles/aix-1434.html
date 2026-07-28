@@ -1,0 +1,102 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモートからファイルシステムをマウントしているすべてのクライアントのリストを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/bin/showmount</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/showmount.html#showmount__row-d3e22156" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/showmount.html#showmount__row-d3e22175" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/showmount.html#showmount__row-d3e22181" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> ] [ <em>ホスト</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>showmount</strong> コマンドは、
+<em>Host</em> パラメーターで指定されたコンピューターからファイルシステムをリモート・マウントした全クライアントのリストを表示します。 この情報は、 <em>Host</em> パラメーターの <strong>mountd</strong> デーモンによって保守されます。 この情報は、サーバーがクラッシュした場合に備えて、<strong>/etc/rmtab</strong> ファイルに保存されます。 <em>Host</em> パラメーターのデフォルト値は、<strong>hostname</strong> コマンドによって戻された値です。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> クライアントが異常終了した場合、そのエントリーは、クライアントがリブートして <strong>umount</strong> <strong>-a</strong> コマンドを開始するまでリストから削除されません。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>showmount</strong> コマンドは、 <strong>mountd</strong> デーモンによって保守される情報を戻します。 NFS バージョン 4 は <strong>mountd</strong> デーモンを使用しないため、<strong>showmount</strong> は
+バージョン 4 のマウントについての情報を戻しません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのリモート・マウントを <em>HostName</em><strong>:</strong><em>Directory</em> のフォーマットで表示します。ここで <em>HostName</em> はクライアント名で、<em>Directory</em> はリモート・マウントしたディレクトリーのパス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>クライアントによってリモート・マウントされたディレクトリーだけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>エクスポートされたディレクトリーのリストを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ホストによってマウントされているすべてのリモート・ディレクトリーのリストを表示するには、次のコマンドを入力します。<div>/usr/bin/showmount  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/showmount.html#showmount__row-d3e22156" target="_blank" rel="noopener noreferrer">-a </a>zeus</div>この例では、showmountコマンドは、指定されたホスト・マシン上のクライアントによってマウントされたすべてのリモート・ディレクトリーのリストを作成します。zeus.</li>
+
+<li><span></span>ホスト上のクライアントによってマウントされたディレクトリーのみのリストを表示するには、次のコマンドを入力します。<div>/usr/bin/showmount  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/showmount.html#showmount__row-d3e22175" target="_blank" rel="noopener noreferrer">-d </a>athena</div>この例では、showmountコマンドは、指定されたホスト上のクライアント・マシンによってマウントされたすべてのリモート・ディレクトリーのリストを作成します。athena.</li>
+
+<li><span></span>マシンからエクスポートされたすべてのディレクトリーのリストを印刷するには、次のコマンドを入力します。<div>/usr/bin/showmount  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/showmount.html#showmount__row-d3e22181" target="_blank" rel="noopener noreferrer">-e </a>zeus</div>この例では、showmountコマンドは、指定されたホスト・マシンによってエクスポートされたすべてのリモート・ディレクトリーのリストを作成します。zeusただし、 NFS バージョン 4 でのみエクスポートされるものは除きます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/rmtab</strong></td>
+
+<td>エクスポートされたすべてのディレクトリーの現行状態に関する情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/xtab</strong></td>
+
+<td>現在エクスポートされているディレクトリーをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

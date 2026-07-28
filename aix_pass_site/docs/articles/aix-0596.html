@@ -1,0 +1,92 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ノード上またはコントロール・ワークステーション上のトポロジー・サービス・オプションを制御します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>hatsoptions [-s] [-d]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <div>このコマンドを実行する前に、環境変数 <code>HB_SERVER_SOCKET</code> を、トポロジー・サービス・サブシステムが使用する UNIX ドメイン・ソケットの場所に設定する必要があります。 以下のステートメントを使用できます。<div><div><pre><code>export HB_SERVER_SOCKET=/var/ha/soc/hats/server_socket.partition name
+ </code></pre></div><div></div></div>あるいは、変数 HA_SYSPAR_NAME をパーティション名に設定することもできます。</div>
+ <p>このコマンドを正常に実行するには、トポロジー・サービス・デーモンが実行されている必要があります。</p>
+ <p><span>hatsoptions</span> トポロジー・サービスのいくつかのオプションを制御するために使用できます。 オプション <span>-s</span> は、明らかに遅延しているメッセージを拒否するようにトポロジー・サービス・デーモンに指示します。 これは、大規模システム構成で使用できます。大規模システム構成では、ネットワーク内、または送信側ノードと受信側ノードでメッセージが遅延することがあります。 このオプションは、
+時刻機構 (TOD) がすべてのノードとコントロール・ワークステーションにわたって同期化されている場合にのみ使用します。 そうしないと、送信側の時刻機構が受信側より遅れている場合に、メッセージが誤って廃棄される可能性があります。</p>
+ <p>オプション <span>-d</span> は、明らかに遅延しているメッセージを拒否しないようにトポロジー・サービス・デーモンに指示します。 これはデフォルトです。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt><span>-s</span></dt>
+
+<dd>明らかに遅れているメッセージをリジェクトするようにトポロジー・サービス・
+デーモンに命令します。</dd>
+
+
+<dt><span>-d</span></dt>
+
+<dd>明らかに遅れているメッセージをリジェクトしないようにトポロジー・サービス・
+デーモンに命令します (これがデフォルトです)。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、 <code>root</code> 特権が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt><span>0</span></dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt><span>1</span></dt>
+
+<dd>コマンドが失敗したことを示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <div> <dl>
+<dt>HB_SERVER_SOCKET</dt>
+
+<dd>この環境変数は、このコマンドを実行する前に設定する必要があります。 これは、トポロジー・サービス・クライアントがトポロジー・サービス・デーモンに接続するために使用する UNIX ドメイン・ソケットのロケーションに設定する必要があります。 この環境変数は、 <span>/var/ha/soc/hats/server_socket.</span>partition nameに設定する必要があります。</dd>
+
+
+<dt>HA_SYSPAR_NAME</dt>
+
+<dd>HB_SERVER_SOCKET を設定しなかった場合は、HA_SYSPAR_NAME を区画名に設定
+する必要があります。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでのみ有効です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span>-h</span> フラグが指定されている場合は、このコマンドの使用方法の説明文が標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>このコマンドは、エラー・メッセージを (必要に応じて) 標準エラーに書き込みます。</p>
+</section>
+
+<section><h2>例</h2> <div>ローカル・ノード上でトポロジー・サービス・デーモンに命令して、明らかに遅れている
+メッセージを廃棄するには、次のように入力します。<div><div><pre><code>export HA_SYSPAR_NAME=partition1
+ 
+/opt/rsct/bin/hatsoptions -s</code></pre></div><div></div></div> </div>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt><span>/opt/rsct/bin/hatsoptions</span></dt>
+
+<dd><span>hatsoptions</span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <p><span>/var/ha/soc/hats/server_socket.</span>区画名</p>
+</section>
+
+</div></div>

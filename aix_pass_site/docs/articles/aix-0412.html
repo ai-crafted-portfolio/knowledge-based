@@ -1,0 +1,71 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>日付を解析して再設定します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>dp</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dp.html#dp__row-d3e45221" target="_blank" rel="noopener noreferrer"><strong>-form</strong></a> <em>ファイル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dp.html#dp__row-d3e45235" target="_blank" rel="noopener noreferrer"><strong>-format</strong></a> <em>ストリング </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dp.html#dp__row-d3e45263" target="_blank" rel="noopener noreferrer"><strong>-width</strong></a> <em>数値 </em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dp.html#dp__row-d3e45203" target="_blank" rel="noopener noreferrer"><em>日付</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dp</strong> コマンドは、日付を解析して再設定します。 <strong>dp</strong> コマンドをユーザーが始動することはできません。 <strong>dp</strong> コマンドは他のプログラムから、その絶対パス名 (通常は、<strong>/usr/lib/mh/dp</strong>) で呼び出されます。</p>
+ <p><strong>dp</strong> コマンドは、日付として指定された個々のメールのヘッダー文字列を解析し、その文字列を再設定しようとします。 <strong>dp</strong> コマンドのデフォルトの出力フォーマットは ARPA RFC 822 標準です。 解析できない個々の文字列に対して、<strong>dp</strong> コマンドはエラー・メッセージを表示します。</p>
+</section>
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><em>Date</em></td>
+
+<td>解析される日付を指定します。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-form</strong><em> ファイル</em></td>
+
+<td><em>Date</em> パラメーターで指定されたデータを、<em>File</em> 変数によって記述された代替表示方法に再設定します。</td>
+
+</tr>
+<tr><td><strong>-format</strong><em> ストリング</em></td>
+
+<td><em>Date</em> パラメーターで指定されたデータを、<em>String</em> 変数によって記述された代替表示方法に再設定します。 デフォルトのフォーマット文字列は次のとおりです。<div> <div><div><pre><code>%&lt;(nodate{text})error:%{text}%|%(putstr(pretty{text}))%&gt;</code></pre></div><div></div></div></div>
+</td>
+</tr>
+<tr><td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+</tr>
+
+<tr><td><strong>-width</strong><em> 数値</em></td>
+<td>日付とエラー・メッセージを表示するのに <strong>dp</strong> コマンドが使用する桁の最大数を設定します。 デフォルトはディスプレイの幅です。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>HOME/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/mh_profile.html" target="_blank" rel="noopener noreferrer"><strong>.mh_profile</strong></a></td>
+<td>MH ユーザー・プロファイルが入っています。</td>
+</tr>
+<tr><td><strong>/etc/mh/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/mtstailor.html" target="_blank" rel="noopener noreferrer"><strong>mtsta担当者</strong></a></td>
+<td>MH コマンド定義が入っています。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

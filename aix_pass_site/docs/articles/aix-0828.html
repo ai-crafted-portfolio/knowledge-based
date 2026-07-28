@@ -1,0 +1,325 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>セキュリティー・スタンザ・ファイル内の属性をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Lssec</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssec.html#lssec__row-d3e99335" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssec.html#lssec__row-d3e99341" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssec.html#lssec__row-d3e99349" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a><em>スタンザ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssec.html#lssec__row-d3e99357" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a><em>属性</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lssec</strong> コマンドは、セキュリティー構成スタンザ・ファイルに保管されている属性をリストします。 次のセキュリティー構成ファイルには、<em>Attribute</em> パラメーターで指定できる属性が入っています。</p>
+ <ul>
+<li><strong>/etc/security/environ</strong></li>
+
+<li><strong>/etc/security/group</strong></li>
+
+<li><strong>/etc/security/audit/hosts</strong></li>
+
+<li><strong>/etc/security/lastlog</strong></li>
+
+<li><strong>/etc/security/limits</strong></li>
+
+<li><strong>/etc/security/login.cfg</strong></li>
+
+<li><strong>/usr/lib/security/mkuser.default</strong></li>
+
+<li><strong>/etc/nscontrol.conf</strong></li>
+
+<li><strong>/etc/security/passwd</strong></li>
+
+<li><strong>/etc/security/portlog</strong></li>
+
+<li><strong>/etc/security/pwdalg.cfg</strong></li>
+
+<li><strong>/etc/security/roles</strong></li>
+
+<li><strong>/etc/security/smitacl.user</strong></li>
+
+<li><strong>/etc/security/smitacl.group</strong></li>
+
+<li><strong>/etc/security/user</strong></li>
+
+<li><strong>/etc/security/user.roles</strong></li>
+
+<li><strong>/etc/security/rtc/rtcd_policy.conf</strong></li>
+
+<li><strong>/etc/security/uattr</strong></li>
+
+</ul>
+ <p><strong>/etc/security/environ</strong>、 <strong>/etc/security/lastlog</strong>、 <strong>/etc/security/limits</strong>、 <strong>/etc/security/passwd</strong>内の属性をリストする場合、 <span><strong>/etc/security/uattr</strong>、 </span>および <strong>/etc/security/user</strong> ファイル、 <em>スタンザ</em> ・パラメーターによって指定されるスタンザ名は、有効なユーザー名であるか、またはdefault. <strong>/etc/security/group</strong> ファイル内の属性をリストする場合、 <em>スタンザ</em> ・パラメーターによって指定されるスタンザ名は、有効なグループ名またはdefault. <strong>/usr/lib/security/mkuser.default</strong> ファイル内の属性をリストする場合、 <em>スタンザ</em> ・パラメーターは次のいずれかでなければなりません。adminまたはuser. <strong>/etc/security/portlog</strong> ファイル内の属性をリストする場合、 <em>スタンザ</em> ・パラメーターは有効なポート名でなければなりません。 <strong>/etc/security/login.cfg</strong> ファイル内の属性をリストする場合、<em>Stanza</em> パラメーターは有効なポート名、メソッド名または<strong> usw</strong> 属性でなければなりません。</p>
+ <p><strong>lssec</strong> コマンドを使用して <strong>/etc/security/passwd</strong> ファイルの <strong>password</strong> 属性をリストすることはできません。</p>
+ <p>root ユーザーまたは PasswdAdmin 権限を持つユーザーのみが、
+管理ユーザーに関する最終更新およびフラグの属性をリストすることができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>コロンで区切ったフォーマットで出力するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>リストするスタンザ・ファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> スタンザ</em></td>
+
+<td>リストするスタンザの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong><em> 属性</em></td>
+
+<td>リストする属性を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p>アクセス制御: このコマンドの実行アクセス権は、root ユーザーとセキュリティー・グループにのみ付与されます。 このコマンドにはトラステッド・コンピューティング・ベース属性があり、root ユーザーがセキュリティー・データベースにアクセスできるように、<strong>setuid</strong> サブルーチンを実行します。</p>
+
+<div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>このコマンドの全機能を使用するためには、ロールには <strong>accessauths</strong> のほかに、<strong>aix.security</strong> 権限も必要です。</div>
+
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>root ユーザーの最後の正常なログイン以降に失敗した、root ユーザーによるログイン試行の回数をリストするには、次のように入力します。<div> <div><div><pre><code>lssec -f /etc/security/lastlog -s root -a unsuccessful_login_count</code></pre></div><div></div></div>システムは次のような結果を表示します。<div><div><pre><code>root unsuccessful_login_count=15</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/dev/tty2</strong> ポートでログインが許可される回数をリストするには、次のように入力します。<div> <div><div><pre><code>lssec -f /etc/security/login.cfg -s /dev/tty2 -a logintimes</code></pre></div><div></div></div>システムは次のような結果を表示します。<div><div><pre><code>/dev/tty0 logintimes=!january1,!july4,!december25</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>tpath</strong> 属性および <strong>ttys</strong> 属性のデフォルト設定をコロン・フォーマットでリストするには、次のようにします。</li>
+
+<li>次のように入力します。<div> <div><div><pre><code>lssec -c -f /etc/security/user -s default -a tpath -a ttys</code></pre></div><div></div></div>システムは次のような結果を表示します。<div><div><pre><code>#name:tpath:ttys
+default:nosak:ALL</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td> </td>
+
+<td><strong>/usr/bin/lssec</strong></td>
+
+<td><strong>lssec</strong> コマンドへのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/environ.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/environ</strong></a></td>
+
+<td>ユーザーの環境属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/group.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/group</strong></a></td>
+
+<td>グループの拡張属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/audit/hosts</strong></td>
+
+<td>ホスト ID およびプロセッサー ID が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/lastlog.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/lastlog</strong></a></td>
+
+<td>ユーザーの最後のログイン属性を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/limits.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/limits</strong></a></td>
+
+<td>ユーザーごとのリソース・クォータおよび制限を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/login.cfg</strong></td>
+
+<td>ポート構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/mkuser.default.html" target="_blank" rel="noopener noreferrer"><strong>/usr/lib/security/mkuser.default</strong></a></td>
+
+<td>新規ユーザーのためのデフォルト値が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/nscontrol.conf.html" target="_blank" rel="noopener noreferrer"><strong>/etc/nscontrol.conf</strong></a></td>
+
+<td>いくつかのネーム・サービスの構成情報が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd_security.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/passwd</strong></a></td>
+
+<td>パスワード情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/portlog.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/portlog</strong></a></td>
+
+<td>失敗したログインの情報がポートごとに入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/pwdalg.cfg.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/pwdalg.cfg</strong></a></td>
+
+<td>ロード可能なパスワード・アルゴリズム (LPA) の構成情報が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/roles</strong></td>
+
+<td>有効なロールのリストが含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/smitacl.user.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/smitacl.user</strong></a></td>
+
+<td>ユーザー ACL 定義が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/smitacl.group.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/smitacl.group</strong></a></td>
+
+<td>グループ ACL 定義が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/user.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/user</strong></a></td>
+
+<td>ユーザーの拡張属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/user.roles.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/user.roles</strong></a></td>
+
+<td>それぞれのユーザーの役割のリストが含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/domainfile.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/domains</strong></a></td>
+
+<td>システムの有効なドメイン定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/rtc/rtcd_policy.conf </strong></td>
+
+<td><strong>rtcd</strong> デーモンの構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/uattr.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/uattr</strong></a></td>
+
+<td>さらなるユーザー属性が入ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

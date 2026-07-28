@@ -1,0 +1,101 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p>NFS/TFTP でアクセスするフォント・ディレクトリーをフォント・パスに追加します。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>x_add_nfs_fpe</strong><em> ホスト・ディレクトリー・メソッド位置 TypeName</em></p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>x_add_nfs_fpe</strong> コマンドは、選択したネットワーク・タイプ名のフォント・パスにフォント・パス・エレメントを追加
+します。 このフォント・ディレクトリーには、ネットワーク・ファイルシステム (NFS) またはトリビアル・ファイル転送プロトコル (TFTP) を使ってアクセスします。</p>
+
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>Host</em></td>
+
+<td>フォント・ディレクトリーにアクセスするためのシステム名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>directory</em></td>
+
+<td>フォントが入っているディレクトリーへの絶対パスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>メソッド (method)</em></td>
+
+<td>次のいずれかを指定nfsまたはtftpフォントにアクセスするために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><em>位置</em></td>
+
+<td>このエレメントを挿入するフォント・パス内の位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>TypeName</em></td>
+
+<td>ネットワーク・タイプの名前を指定します。 ネットワーク・タイプごとに、1 つ以上のフォント・パス・エレメントからなるフォント・パスがあります。 フォント・パス要素が追加されるネットワーク・タイプの名前を指定するか, あるいは次の指定によってフォント・パス要素をすべてのネットワーク・タイプ名に追加することを選択してください。Allフォント・パス・エレメントが追加された場合Allネットワーク・タイプの場合は、各フォント・パスの末尾に配置されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+<p>アクセス制御 : root ユーザーだけが、このコマンドに実行 (x) アクセスできるようにしてください。</p>
+</section>
+
+<section><h2>例</h2>
+<p>フォントを追加するには /usr/lib/X11/fonts/100dpiネットワーク・タイプにx_st_mgr.ether次のように入力します。</p>
+
+<div>
+<div><div><pre><code>x_add_nfs_fpe cedar /usr/lib/X11/fonts/100dpi nfs Last \ x_st_mgr.ether</code></pre></div><div></div></div></div>
+
+<p>このフォント・パス・エレメント/usr/lib/X11/fonts/100dpiネットワーク・タイプのフォント・パスの末尾に追加されます。x_st_mgr.etherフォント・ディレクトリーはホスト上にあります。cedarこれには、 NFSを使用してアクセスします。</p>
+</section>
+
+<section><h2>ファイル</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/lpp/x_st_mgr/bin/x_add_nfs_fpe</strong></td>
+
+<td><strong>x_add_nfs_fpe</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/x_st_mgr/ether.cf</strong></td>
+
+<td>ネットワーク・タイプ <strong>x_st_mgr.ether</strong> 構成ファイル (サンプル) が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

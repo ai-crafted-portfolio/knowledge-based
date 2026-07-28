@@ -1,0 +1,123 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ドメイン・ネーム・システム・セキュリティー拡張 (DNSSEC) キー・セット署名ツール。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dnssec-signkey</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42361" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42367" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> class] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42376" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> start-time] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42394" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> endtime] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42415" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42424" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42430" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> randomdev] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42445" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> level] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42465" target="_blank" rel="noopener noreferrer">keyset</a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signkey.html#dnssec-signkey__row-d3e42471" target="_blank" rel="noopener noreferrer">キー</a></p>
+</section>
+
+<section><h2>説明</h2> <p><span>dnssec-signkey</span> コマンドは、キー・セットの署名を行います。 一般に、キー・セットは子ゾーン用であり、<span>dnssec-makekeyset</span> コマンドによって生成されます。 子ゾーンのキー・セットは、
+その親ゾーンのゾーン・キーで署名されます。 出力ファイルの形式は <code>signedkey-nnnn.</code> (nnnn はゾーン名) です。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>すべての生成された署名を検査します。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> class</td>
+
+<td>キー・セットの DNS クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> 開始時刻</td>
+
+<td>生成された SIG レコードが有効になる日付および時刻を指定します。 これは、絶対時刻または相対時刻のいずれかを指定できます。 絶対開始時刻は、
+<code>YYYYMMDDHHMMSS</code> 表記の数字で示されます。
+20000530144500 は、2000 年 05 月 30 日 14:45:00 UTC (協定世界時) を表します。 相対開始時刻は
++N (現在時刻から N 秒) で示されます。 start-time が指定されない場合は、現在時刻が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span> 終了時刻</td>
+
+<td>生成された SIG レコードが期限切れとなる日付および時刻を指定します。 start-time と同様、
+絶対時刻は <code>YYYYMMDDHHMMSS</code> 表記で示されます。 開始時刻 (start time) に対する相対時刻は、
++N (開始時刻から N 秒) で示されます。 現在時刻に対する相対時刻は、<code>now+N</code> で示されます。 end-time が指定されなかった場合、開始時刻から 30 日の時間がデフォルトとして使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td><span>dnssec-signkey</span> コマンドに対するオプションおよび引数の簡略な要約を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>ゾーンに署名する際に、疑似ランダム・データを使用します。 これは、
+より速くなりますが、実ランダム・データを使用するよりも安全性が低下します。 このオプションは、大きいゾーンに署名する場合や、エントロピー・ソースが限られている場合に便利です。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> ランダム開発</td>
+
+<td>ランダムのソースを指定します。 オペレーティング・システムが <span>/dev/random</span> または同等のデバイスを提供しない場合、デフォルトのランダム性のソースはキーボード入力です。 randomdev は、デフォルトの代わりに使用されるランダム・データを含むキャラクター・デバイスまたはファイルの名前を指定します。 特殊値 keyboard は、キーボード入力を使用する必要があることを示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> レベル</td>
+
+<td>デバッグのレベルを設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>keyset</span></td>
+
+<td>子のキー・セットを含んでいるファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>key</span></td>
+
+<td>子のキー・セットの署名に使用されるキー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <div>DNSSEC 指向の <code>.com</code> ゾーンの DNS 管理者は、次のコマンドを使用して、<code>example.com</code> (<span>dnssec-keygen</span> コマンドによって生成されたキーを使用して <span>dnssec-makekeyset</span> コマンドによって生成されたもの) のキー・セット・ファイルに署名します。<div><div><pre><code>dnssec-signkey keyset-example.com. Kcom.+003+51944</code></pre></div><div></div></div>この例では、 <span>dnssec-signkey</span> はファイル <span>signedkey-example.com.</span>を作成します。このファイルには、 <code>example.com</code> 鍵と、 <code>.com</code> 鍵による署名が含まれています。</div>
+</section>
+
+</div></div>

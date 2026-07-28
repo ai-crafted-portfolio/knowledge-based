@@ -1,0 +1,208 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>参考文献データベースを作成または拡張します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>addbib [  -a] [  -p PromptFile] Database</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>addbib</span> コマンドは、一連のプロンプトを使って、ユーザーが参考文献データベースを作成または拡張するための手引きをします。 ユーザーは、これらのプロンプトに対する応答を定義できます。 デフォルトのプロンプトおよび指示は、すべて <span>refer</span> メッセージ・カタログに含まれています。</p>
+ <p>最初のプロンプトは <span>Instructions?</span>です。 です。肯定の応答をすると、指示が表示されます。</p>
+ <p>否定の応答をするか、または Enter キーを押した場合は、指示は表示されません。 この場合は、<span>addbib</span> コマンドは、各種の参考文献フィールドに関するプロンプトを表示し、端末からの応答を読み取り、Database パラメーターに指定されているデータベースに出力レコードを送ります。</p>
+ <p>Enter キーを押すこと (null 応答) は、特定のフィールドを省略することを意味します。 <span>-</span> (負符号) を入力すると、直前のフィールドに戻ります。 末尾に円記号を使うと、フィールドを次行まで継続できます。 <span>「続行しますか?」</span> の繰り返し プロンプトが繰り返されたら、再開するか、現行セッションを終了するか、またはデータベースを編集できます。 再開するには、定義された肯定応答を入力するか、Enter キーを押します。 現行セッションを終了するには、定義された否定応答を入力します。</p>
+ <p>データベースを編集するには、任意のシステム・テキスト・エディター (vi、ex、edit、ed) に入ります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>要約に関するプロンプトを抑止します。 デフォルトでは、要約に関するプロンプトが表示されます。 Ctrl-D キー・シーケンスを押すと、要約は終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span>PromptFile</td>
+
+<td><p><span>addbib</span> コマンドに新しいプロンプト・スケルトンを使用させます。このスケルトンは、 PromptFile パラメーターで指定されたファイルに定義されています。 このファイルには、指定したデータベースに書き込まれるプロンプト文字列、タブ、およびキー文字が入っています。</p>
+
+<div>次に示すのは、最も一般的なキー文字とそれぞれの意味です。 <span>addbib</span> コマンドの場合、プロンプトが英語で表示されるので、これらのキー文字が使えません。 後で参考文献ファイルを編集する場合に、このことを知っておく必要があります。<div><div>
+        <div>
+          <div><span>注:</span><span> %A</span> キー文字を除き、各フィールドは 1 回のみ指定する必要があります。 関係のあるフィールドだけを指定してください。</div>
+        </div>
+      </div></div>
+</div>
+
+<div>
+<dl>
+
+<dt><span>%a</span></dt>
+
+<dd>著者名</dd>
+
+
+
+<dt><span>%B</span></dt>
+
+<dd>参考記事が含まれている書籍</dd>
+
+
+
+<dt><span>%C</span></dt>
+
+<dd>都市 (出版場所)</dd>
+
+
+
+<dt><span>%D</span></dt>
+
+<dd>発行日</dd>
+
+
+
+<dt><span>%E</span></dt>
+
+<dd>参考記事が掲載されている書籍の編集者</dd>
+
+
+
+<dt><span>%F (F)</span></dt>
+
+<dd>脚注番号またはラベル (<span>refer</span> コマンドにより付けられたもの)</dd>
+
+
+
+<dt><span>%G</span></dt>
+
+<dd>政府発注番号</dd>
+
+
+
+<dt><span>%H</span></dt>
+
+<dd>ヘッダー注釈。参照の前に印刷されます。</dd>
+
+
+
+<dt><span>%I</span></dt>
+
+<dd>発行者 (出版社)</dd>
+
+
+
+<dt><span>%J (%J)</span></dt>
+
+<dd>記事が掲載されている雑誌</dd>
+
+
+
+<dt><span>%k</span></dt>
+
+<dd>参考文献を見つけるために使用するキーワード</dd>
+
+
+
+<dt><span>%L</span></dt>
+
+<dd><span>refer</span> コマンドの -k フラグによって使用されるラベル・フィールド</dd>
+
+
+
+<dt><span>%M</span></dt>
+
+<dd>ベル研究所の覚え書き (未定義)</dd>
+
+
+
+<dt><span>%N</span></dt>
+
+<dd>巻中の番号</dd>
+
+
+
+<dt><span>%O (O)</span></dt>
+
+<dd>その他の注釈。参照の最後に印刷されます。</dd>
+
+
+
+<dt><span>%p</span></dt>
+
+<dd>ページ番号</dd>
+
+
+
+<dt><span>%Q</span></dt>
+
+<dd>法人または国外の著者 (未破棄)</dd>
+
+
+
+<dt><span>%R</span></dt>
+
+<dd>レポート、論文、学位論文 (未発表)</dd>
+
+
+
+<dt><span>%S</span></dt>
+
+<dd>シリーズ・タイトル</dd>
+
+
+
+<dt><span>%T</span></dt>
+
+<dd>記事または書籍のタイトル</dd>
+
+
+
+<dt><span>%V</span></dt>
+
+<dd>分冊番号</dd>
+
+
+
+<dt><span>%X</span></dt>
+
+<dd><span>refer</span> コマンドでなく <span>roffbib</span> コマンドで使用される要約</dd>
+
+
+
+<dt><span>%Y、Z</span></dt>
+
+<dd><span>refer</span> コマンドでは無視されます。</dd>
+
+
+</dl>
+
+</div>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>下記に参考文献ファイルの例を示します。</p>
+ <div> <div><div><pre><code>%A Bill Tuthill
+%T Refer - A Bibliography System
+%I Computing Services
+%C Berkeley
+%D 1982
+%O UNIX 4.3.5.</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>ルート・ファイルを<span> bos.rte*</span> ソフトウェア更新からシステムに復元します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>cp_bos_updates</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cp_bos_updates.html#cp_bos_updates__smalld" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> &lt;デバイス&gt;</p>
+</section>
+
+<section><h2>説明</h2><p><span>cp_bos_updates</span> コマンドは、 <span> bos.rte*</span> ソフトウェア更新ルート・パート・ファイル (<span>inst_root</span> パス) のディレクトリーを作成してデータを取り込みます。 ディレクトリーは、元のオペレーティング・システム・インストール時のソフトウェアの version.release.modification.fix (VRMF) レベルと同じレベルでの更新用にのみ作成および転送されます。 7100-02 テクノロジー・レベルの AIX® バージョン 6 または 6100-08 テクノロジー・レベルの AIX バージョン 6 のインストール中に、コマンドが呼び出され、ディレクトリーが自動的に作成されます。 オペレーティング・システム・インストールからの <span>cp_bos_updates</span> 出力が入っているログ・ファイルは、<span>/var/adm/ras/cp_bos_updates.log</span> ファイルに保存されます。 このサポートの前にシステムが基本インストールされてから、<span>cp_bos_updates</span> コマンドをサポートするレベルにアップグレードされた場合、このコマンドは手動で実行してユーザー用のこれらのディレクトリーを作成および転送することができます。 結果のディレクトリーが必要になるのは、基本オペレーティング・システムのレベルが異なる別のシステムから ( <span>restwpar</span> コマンドを使用して) コピーまたは復元された <span>WPAR</span> をアップグレードする場合のみです。</p>
+ </section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-d</span> <em>
+device</em></td>
+
+<td>デバイスは、ディレクトリーまたは光ディスク・デバイス (<span> /dev/cd0</span>など) にすることができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ </section>
+
+<section><h2>ファイル</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/cp_bos_updates</span></td>
+
+<td><span>cp_bos_updates</span> コマンド。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>オペレーティング・システムが元々 6100-06 テクノロジー・レベルで AIX 6 にインストールされていた場合 ( <code>lslpp –ah bos.rte.install</code> を実行して元の VRMF を取得します。この場合は 6.1.6.0になります)、そのレベルの AIX のベース・メディアを DVD ドライブ /dev/cd0に挿入し、次のコマンドを入力します。<div> <div><div><pre><code>cp_bos_updates –d /dev/cd0</code></pre></div><div></div></div></div>
+</li>
+
+<li>オペレーティング・システムが元々、6100-06 基本メディアを使用して AIX 6 から作成された NIM lpp_source からインストールされ、lpp_source に追加のサービス・パックが追加されていない場合は、その lpp_source を <span> /mnt/6100_06</span>のシステムにマウントし、次のコマンドを入力します。<div> <div><div><pre><code>cp_bos_updates –d /mnt/6100_06</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> NIM lpp_source が 6100-06 ベース・メディアを使用して AIX 6 から作成され、後続の Service Pack が lpp_source に追加され、不要なソフトウェア・イメージを除去するために <strong>lppmgr</strong> コマンドが lpp_source に対して実行された場合、 基本レベル VRMF で必要な更新の一部が除去されました。 <span>cp_bos_updates </span>コマンドを使用するには、6100-06 ベース・メディアの AIX 6 を見つけるか、6100-06 テクノロジー・レベルの AIX バージョン 6 をダウンロードする必要があります。</div>
+        </div>
+      </div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,269 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>リソース・モニターおよび制御 (RMC) センサーの属性を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>chsensor</span></span> <span>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_m" target="_blank" rel="noopener noreferrer"><span><span>-m</span></span></a></span><span>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_i" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> <span><span>秒</span></span>]</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_a" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_n" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> <span><span>host1</span></span> [ <span><span>,</span></span> <span><span>host2</span></span> <span><span>,</span></span> … ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_bign" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> { <em>node_file</em> | "<em>-</em>"}] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_h" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_v" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chsensor.html#chsensor__chsensor_v" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a> ] <span><span>sensor_name</span></span> <span><span><span>attr1</span></span><span><span>=</span></span><span><span>value1</span></span> [<span><span>attr2</span></span><span><span>=</span></span><span><span>value2</span></span> ...]</span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>chsensor</span></span> コマンドは、Resource Monitoring and Control (RMC) センサーの属性を変更します。 変更するセンサーを指定するには、
+<span><span>sensor_name</span></span> パラメーターを使用します。</p>
+ <p><strong>chsensor</strong> コマンドはどのノードでも実行できます。 ドメイン内の全ノードで <strong>chsensor</strong> を実行する必要がある場合、<strong>-a</strong> フラグを使用します。 ドメイン内の一部のノードで <strong>chsensor</strong> を実行する必要がある場合、<strong>-n</strong> フラグを使用します。 <strong>-n</strong> フラグを使用して複数のノード名を指定する代わりに、<strong>-N</strong> <em>node_file</em> フラグを使用して、ノード名がファイル内にあることを指示することができます。 標準入力からノード名を読み取るには、<strong>-N</strong> <em>"-"</em> を使用します。</p>
+<p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理と CSM <strong>nodegrp</strong> コマンドの使用については、「<em>CSM: Administration Guide</em>」および「<em>CSM: Command and Technical Reference</em>」を参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノードで、指定された名前と一致するセンサーを変更します。 クラスターの有効範囲は、CT_MANAGEMENT_SCOPE 環境変数によって決まります。 CT_MANAGEMENT_SCOPE が設定されていない場合、コマンドにとって有効な有効範囲になるまで、最初に管理ドメイン有効範囲 (存在する場合) を選択し、次にピア・ドメイン有効範囲 (存在する場合) を選択し、次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合、CT_MANAGEMENT_SCOPE が設定されていない <span><span>chsensor -a</span></span> は管理ドメインで実行されます。 この場合、ピア・ドメインで実行するには CT_MANAGEMENT_SCOPE を 2 に設定します。</dd>
+
+
+<dt>--i <span><span>秒</span></span></dt>
+
+<dd>sensor コマンドを実行してセンサー属性の値を更新する間隔を指定します。 <span><span>seconds</span></span> は整数値で、 <span><span>10</span></span>以上でなければなりません。 sensor コマンドは、センサー・リソースがモニターされる場合にのみ、
+指定した間隔で実行されます。 間隔が <span><span>0</span></span>に設定されている場合、センサー・コマンドは自動的に実行されません。 <span><span>refsensor</span></span> コマンドの使用は、間隔の更新とは関係ありません。</dd>
+
+
+<dt>-m</dt>
+
+<dd>変更されるリソースはマイクロセンサー・リソースであることを指定します。</dd>
+
+
+<dt>--n <span><span>ホスト1</span></span>[<span><span>,ホスト2</span></span>...]</dt>
+
+<dd>センサーを変更するノードを指定します。 デフォルトでは、ローカル・ノード上のセンサーが変更されます。 このフラグは、管理ドメインまたはピア・ドメインでのみ使用します。</dd>
+
+
+<dt>--N{node_<em>file</em>｜<em>"-</em>"}</dt>
+
+<dd>センサーの削除対象となるノードをリストしているファイルまたは標準入力を指定します。 このフラグの使用が適切なのは、クラスター・システム・マネージメント (CSM) またはピア・ドメイン・クラスターの中だけです。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-v │ -V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>送信名</span></span></dt>
+
+<dd>変更するセンサーの名前を指定します。</dd>
+
+
+<dt><span><span>属性 1</span></span>=<span><span>値 1</span></span> <span>[</span><span><span>属性 2</span></span>=<span><span>値 2</span></span> <span>...]</span></dt>
+
+<dd>センサーまたはマイクロセンサー (1 つまたは複数) の属性と新しい値を指定します。<p>これらのセンサー属性値は変更できます。</p>
+<dl>
+<dt>名前</dt>
+
+<dd>センサーの新規の名前を指定します。 新規の名前がスペースまたは特殊文字を含む文字列である場合は、
+その名前を引用符で囲まなければなりません。</dd>
+
+
+<dt>ControlFlags</dt>
+
+<dd>特殊な処理がこのセンサーに必要であるかどうかを指定します。 以下の値の任意の組み合わせを指定できます。<dl>
+<dt>0</dt>
+
+<dd>特殊な処理は不要であることを示します。 これはデフォルトです。<p>センサー・コマンドは <em>sensor_name</em> に指定された間隔で実行されます。 <strong>sensor</strong> コマンドは、モニターが開始されている場合、あるいは <strong>lssensor</strong> コマンドが実行中である場合は、実行されません。 センサー・コマンドとは、センサーの属性値を設定および更新するためにセンサー・リソース・マネージャーが実行するコマンドまたはスクリプトです。</p>
+</dd>
+
+
+<dt>1</dt>
+
+<dd>モニターが開始するときに、センサー・コマンドが実行されることを示します。 センサー・コマンドは <em>sensor_name</em> に指定された間隔でも実行されます。 センサー・コマンドは、<strong>lssensor</strong> コマンドが実行中である場合は、実行されません。<p>センサー・コマンドを即時に実行したい場合を除いて、この値を指定することは推奨されません。 センサー・コマンドが素早く実行されない場合、センサー・リソース・マネージャーへの他の要求がブロックされることになります。 この要求は、センサー・コマンドの実行が終了するまで処理されません。</p>
+</dd>
+
+
+<dt>2</dt>
+
+<dd><span><span>SavedData</span></span> フィールド内のコマンドからの出力が <span><span>SavedData</span></span> 永続リソース属性に永続的に保存されないことを示します。 この値を指定しない場合、センサー・リソース・マネージャーは、コマンドの標準出力に <span><span>SavedData="</span></span><span><span>any-string</span></span><span><span>"</span></span>という行が含まれるたびに、レジストリーのリソース・テーブル内のデータを更新します。</dd>
+
+
+<dt>3</dt>
+
+<dd>値の組み合わせを示します。 <span><span>1</span></span> および <span><span>2</span></span></dd>
+
+
+<dt>4</dt>
+
+<dd>モニター停止後にセンサー・リソース・マネージャーがコマンドを実行することを示します。</dd>
+
+
+<dt>5</dt>
+
+<dd><span><span>1</span></span> と <span><span>4</span></span>の値の組み合わせを示します。</dd>
+
+
+<dt>6</dt>
+
+<dd><span><span>2</span></span> と <span><span>4</span></span>の値の組み合わせを示します。</dd>
+
+
+<dt>7</dt>
+
+<dd>値 <span><span>1</span></span>、 <span><span>2</span></span>、および <span><span>4</span></span>の組み合わせを示します。</dd>
+
+
+<dt>8</dt>
+
+<dd>センサー・リソース・マネージャーがモニター停止後に動的属性値を再設定することを示します。</dd>
+
+</dl>
+</dd>
+
+
+<dt>UserName</dt>
+
+<dd>コマンドを実行するために特権が使用されるユーザーの名前を指定します。 このユーザーは、システム上に既に定義されている必要があります。</dd>
+
+
+<dt>説明</dt>
+
+<dd>センサーとそのモニター対象について説明します。</dd>
+
+
+<dt>ErrorExitValue</dt>
+
+<dd>どの終了値をエラーとして解釈するか、次のように指定します。<dl>
+<dt>0</dt>
+
+<dd>どの終了値もエラーとして解釈しません。</dd>
+
+
+<dt>1</dt>
+
+<dd><span><span>0</span></span> 以外の終了値はエラーとして解釈されます。</dd>
+
+
+<dt>2</dt>
+
+<dd><span><span>0</span></span> の終了値はエラーとして解釈されます。</dd>
+
+</dl>終了値がこの属性によって指定されたエラーを示している場合、動的属性値 ( <span><span>ExitValue</span></span>を除く) は更新されません。</dd>
+
+</dl>
+<p>以下のマイクロセンサーの属性値を変更できます。</p>
+<dl>
+<dt>名前</dt>
+
+<dd>マイクロセンサーの新規の名前を指定します。 新規の名前がスペースまたは特殊文字を含む文字列である場合は、
+その名前を引用符で囲まなければなりません。</dd>
+
+
+<dt>説明</dt>
+
+<dd>マイクロセンサーとそのモニター対象について説明します。</dd>
+
+</dl>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>chsensor</span></span>を実行するには、 <span><span>IBM.Sensor</span></span> リソース・クラスに対する書き込み権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「<em>
+RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>フラグとパラメーターの間違った組み合わせが入力されました。</dd>
+
+
+<dt>6</dt>
+
+<dd>センサー・リソースが見つかりませんでした。</dd>
+
+
+<dt><span><span>n</span></span></dt>
+
+<dd>RMC サブシステムから戻される可能性のあるその他のエラーに基づくものです。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd><span><span>CT_CONTACT</span></span> 環境変数がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の Resource Monitoring and Control (RMC) デーモンと連絡を取ります。 この環境変数を設定しないと、コマンドは、
+そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドにより表示または変更されるリソースまたはリソース・クラスは、
+接続が確立されたシステム上で探されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するための
+セッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。<div>有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</div>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li><span><span>SensorA</span></span> センサーの <span><span>Name</span></span> 属性を <span><span>Sensor1A</span></span>に変更するには、次のように入力します。<div><div><pre><code>chsensor SensorA Name=Sensor1A</code></pre></div><div></div></div></li>
+
+<li><span><span>SensorA</span></span> センサーの更新間隔を <span><span>10</span></span>に変更するには、次のように入力します。<div><div><pre><code>chsensor -i 10 SensorA</code></pre></div><div></div></div></li>
+
+<li><code>/u/joe/common_nodes</code> ファイルにリストされているノードで <strong>SensorA</strong> センサーの <strong>Name</strong> 属性を <strong>Sensor1A</strong> に変更するには、次のように入力します。<div><div><pre><code>chsensor -N /u/joe/common_nodes SensorA Name=Sensor1A</code></pre></div><div></div></div><p>この <code>/u/joe/common_nodes</code> には、以下のものが含まれます。</p>
+<div><div><pre><code># common node file
+#
+node1.myhost.com    main node
+node2.myhost.com    backup node</code></pre></div><div></div></div></li>
+
+<li>microsensor<strong>IBM®.msensorq</strong>の<strong>Name</strong>属性を<strong>IBM.MSensorQ</strong> に変更するには、次のように入力します：<div><div><pre><code>chsensor -m IBM.msensorq Name=IBM.MSensorQ</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/chsensor</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

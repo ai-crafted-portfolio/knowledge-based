@@ -1,0 +1,384 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク・インストール管理 (NIM) クライアントをスタンザ・ファイルから定義します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>nimdef</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimdef.html#nimdef__row-d3e28986" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimdef.html#nimdef__row-d3e28972" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><strong> </strong>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimdef.html#nimdef__row-d3e28966" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><strong> </strong>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimdef.html#nimdef__row-d3e28978" target="_blank" rel="noopener noreferrer"><strong>-f </strong><em>名前</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>nimdef</strong> コマンドは、定義スタンザ・ファイルを構文解析して、NIM 環境に NIM クライアント定義を追加するために必要なコマンドを作成します。</p>
+ <p>また、<strong>nimdef</strong> コマンドは、新しいクライアント定義をサポートするために NIM 環境で自動的に NIM ネットワークおよび NIM マシン・グループを作成します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>nimdef</strong> コマンドを使用する前に、NIM マスターを構成する必要があります。 (詳しくは、「 <span><em>インストールおよび移行</em></span> 」の「 <strong>基本 NIM 操作および構成</strong> 」を参照してください。)<span>”</span></blockquote>
+<p></p>
+<p><strong>クライアント定義ファイルの規則</strong></p>
+ <p>クライアント定義ファイルのフォーマットには、次の規則があります。</p>
+ <ul>
+<li><span></span>スタンザ・ヘッダーの後に、 <em>Attribute</em> = <em>Value の形式の属性行を続けます。</em></li>
+
+<li><span></span>同じスタンザ内で属性値を複数回定義すると、属性が <strong>machine_group</strong>でない限り、最後の定義のみが使用されます。 <strong>machine_group</strong> 属性を複数定義すると、そのすべてがマシン定義に適用されます。</li>
+
+<li><span></span>無効な属性キーワードを使用すると、その属性定義は無視されます。</li>
+
+<li><span></span>ファイルの各行は、1 つのヘッダーまたは属性定義のみを持つことができます。</li>
+
+<li><span></span>各マシン・ホスト名の定義ファイルに存在できるスタンザは 1 つのみです。</li>
+
+<li><span></span>スタンザ・ヘッダー・エントリーがキーワード <strong>default</strong>の場合、デフォルト値を定義する目的で使用することを指定します。</li>
+
+<li><span></span>マシン・ホスト名以外の任意のマシン属性にデフォルト値を指定できます。 マシンの属性を指定せず、デフォルト値を定義すると、そのデフォルト値が使用されます。</li>
+
+<li><span></span>デフォルト値は、定義ファイル内の任意の場所で指定および変更できます。 デフォルト値は、設定が済むと、それ以降のすべての定義に適用されます。</li>
+
+<li><span></span>後続のすべてのマシン定義のデフォルト値をオフにするには、デフォルト・スタンザで属性値を <strong>nothing</strong> に設定します。</li>
+
+<li><span></span>単一のマシン定義のデフォルト値をオフにするには、マシン・スタンザで属性値を <strong>nothing</strong> に設定します。</li>
+
+<li><span></span>クライアント定義ファイルにコメントを組み込むことができます。 コメントは、ポンド (<strong>#</strong>) 文字で開始します。</li>
+
+<li><span></span>ヘッダー/属性キーワードおよび値の定義ファイルを構文解析する場合、タブ文字およびスペースは無視されます。</li>
+
+</ul>
+<p><strong>クライアント定義ファイルのキーワード</strong></p>
+ <p>クライアント定義ファイルでは、次のキーワードを使用してマシン属性を指定します。</p>
+ <p><strong>必須属性</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>cable_type</strong></td>
+
+<td>マシンのケーブル・タイプを指定します。 <strong>network_type</strong> が <strong>ent</strong>の場合は必須。</td>
+
+</tr>
+
+<tr>
+<td><strong>ゲートウェイ</strong></td>
+
+<td>マシンが使用するデフォルト・ゲートウェイのホスト名または IP アドレスを指定します。 ゲートウェイを使用しないマシンの場合は、この属性に値 <strong>0</strong> (ゼロ) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>MACHINE_TYPE</strong></td>
+
+<td>マシンのタイプを指定します。<strong>standalone</strong>、<strong>diskless</strong>、または <strong>dataless</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ネットワーク・タイプ</strong></td>
+
+<td>マシンのネットワーク・アダプターのタイプを指定します。<strong>ent</strong> または <strong>tok</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ring_speed</strong></td>
+
+<td>マシンのリング・スピードを指定します。 <strong>network_type</strong> が <strong>tok</strong> である場合に必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>subnet_mask</strong></td>
+
+<td>マシンが使用するサブネット・マスクを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>オプションの属性</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>nim_name (nim_name)</strong></td>
+
+<td>マシンに使用する NIM 名を指定します。 この属性は、ホスト名以外の名前を NIM 名として使用する場合に指定します。 デフォルトでは、マシンに対して指定した NIM 名からすべてのドメイン情報を取り除いたものが、マシンのホスト名になります。 別々のドメインで非固有のホスト名を使用した場合、
+どちらのマシンでも同じ NIM 名が使用されているため、競合が起こります。 そのような環境では、影響を受けるマシン定義に対してこの属性を定義してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>platform</strong></td>
+
+<td>マシン・ハードウェア・プラットフォームを指定します。 この属性を指定しない場合、デフォルトは<span>AIX 5.1</span>までの<strong>rs6k</strong>のみである。</td>
+
+</tr>
+
+<tr>
+<td><strong>net_adptr_name (net_adptr_name)</strong></td>
+
+<td>マシンが使用するネットワーク・アダプターの名前を指定します (<strong>tok0</strong>、<strong>ent0</strong>、など)。</td>
+
+</tr>
+
+<tr>
+<td><strong>netboot_kernel=</strong> <em>NetbootKernelType</em></td>
+
+<td>ネットワーク上でクライアントをブートする際に使用するカーネルのタイプを指定します。 <strong>netboot_kernel</strong> の値は <strong>up</strong> または <strong>mp</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ipl_rom_emulation (ipl_rom_emulation)</strong></td>
+
+<td>IPL ROM エミュレーションに使用するデバイスを指定します (<strong>/dev/fd0</strong>、
+<strong>/dev/rmt0</strong> など)。</td>
+
+</tr>
+
+<tr>
+<td><strong>プライマリー・インターフェース</strong></td>
+
+<td>オリジナルのマシン定義に使用するホスト名を指定します。 この属性は、現在のスタンザで、NIM 環境で定義されているマシンへの追加のインターフェースだけを定義する場合に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>マスター・ゲートウェイ</strong></td>
+
+<td>別のネットワーク上にあるそのマシンにアクセスするために NIM マスターが使用するゲートウェイを指定します。 マシンが NIM 環境で既に定義されているネットワーク上で定義されている場合や、
+NIM マスター・ネットワークにデフォルト・ゲートウェイが指定されている場合、
+この属性は必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>マシン・グループ</strong></td>
+
+<td>定義されているマシンを追加するグループを 1 つまたは複数指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>コメント</strong></td>
+
+<td>マシン定義に入れるコメントを指定します。 コメント文字列は二重引用符 (<strong>"</strong>) で囲みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>クライアント定義ファイルのスタンザ・エラー</strong></p>
+ <p>次の条件下では、定義スタンザは誤りです。</p>
+ <ul>
+<li><span></span>定義のスタンザ・ヘッダーで使用されているホスト名は解決できません。</li>
+
+<li><span></span>必須属性が欠落しています。</li>
+
+<li><span></span>属性に無効な値を指定しました。</li>
+
+<li><span></span>属性の不一致が発生しました。 例えば、同じスタンザで <strong>network_type=tok</strong> と <strong>cable_type=bnc</strong> を指定することはできません。</li>
+
+<li><span></span>グループ・タイプの不一致が発生します。 例えば、グループにスタンドアロン・マシンが含まれていて、<strong>machine_type=diskless</strong> を指定している場合、
+マシンに対してグループを指定することはできません。</li>
+
+<li><span></span>マシン定義は、同じホスト名に対して複数回発生します。</li>
+
+<li><span></span>マシン定義は、NIM 環境で既に定義されているマシンに対して行われます。</li>
+
+<li><span></span>マシン定義内の <strong>primary_interface</strong> 値が、定義されているマシンまたはスタンザ定義のホスト名と一致しません。</li>
+
+<li><span></span>マシン定義の <strong>primary_interface</strong> 値が別のマシン定義のホスト名と一致していますが、その定義が正しくありません。</li>
+
+</ul>
+<p><strong>サンプル・クライアント定義ファイル</strong></p>
+ <div>これらのデフォルト値は、 <span>AIX 5.1</span> 以前の値です。<div><div><pre><code># Set default values.
+default:
+    machine_type  = standalone
+    subnet_mask   = 255.255.240.0
+    gateway       = gateway1
+    network_type  = tok
+    ring_speed    = 16
+    platform      = rs6k
+    machine_group = all_machines
+
+# Define the machine "lab1"
+# Take all defaults.
+lab1:
+
+# Define the machine "lab2"
+# Take all defaults and specify 2 additional attributes.
+# The machine "lab2" uses IPL ROM emulation, and will be added to
+# the machine groups "all_machines" and "lab_machines".
+lab2:
+    ipl_rom_emulation = /dev/fd0
+    machine_group     = lab_machines
+
+# Define the machine "lab3"
+# Take all defaults, but do not add the machine to the default
+# group.
+lab3:
+    machine_group=
+
+# Define the machine "lab4"
+# Take all defaults, but do not add "lab4" to the default group
+# "all_machines".
+# Instead add it to the groups "lab_machines" and "new_machines".
+lab4:
+    machine_group =
+    machine_group = lab_machines
+    machine_group = new_machines
+
+# Change the default "platform" attribute.
+default:
+    platform = rspc
+
+# define the machine "test1"
+# Take all defaults and include a comment.
+test1:
+    comments = "This machine is a test machine."</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>クライアント定義ファイルからコマンドを生成します。 このフラグは、定義ファイルを処理し、定義を追加するためのコマンドを生成します。 コマンドは呼び出されませんが、KSH スクリプトとして表示されるので、
+ファイルにリダイレクトして、あとで呼び出すことができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>クライアント定義ファイルからマシンを定義します。 このフラグは、定義ファイルを処理し、定義を追加するためのコマンドを NIM 環境に呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f </strong><em>名前</em></td>
+
+<td>クライアント定義ファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>クライアント定義ファイルのプレビューを表示します。 このフラグは、定義ファイルを処理しますが、NIM 環境にマシンを追加しません。 次のように表示されます。<p>すべての完了した有効な NIM 定義スタンザ。</p>
+  <p>マシン用に定義するすべての追加インターフェース。</p>
+  <p>すべての無効な定義スタンザおよび障害の原因。</p>
+  <p>すべての新規マシン・グループおよび追加するメンバー。</p>
+  <p>すべての既存マシン・グループおよび追加するメンバー。</p>
+  <p>NIM 環境に追加するすべてのネットワーク定義。</p>
+  <p>それぞれの新規マシンを追加するために呼び出すコマンド。</p>
+  <p>それぞれの追加マシン・インターフェースを追加するために呼び出すコマンド。</p>
+  <p>新規マシン・グループを作成してそのメンバーを追加するために呼び出すコマンド。</p>
+  <p>既存マシン・グループに新規メンバーを追加するために呼び出すコマンド。</p>
+  <p></p><blockquote><span>“</span><strong>注:</strong> マシンの追加に使用する前にすべてのスタンザが正しいことを確認するため、
+クライアント定義ファイルで <strong>-p</strong> フラグを指定することをお勧めします。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>! 0 (! 0)</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アクセス制御:</strong> <strong>nimdef</strong> コマンドを実行するには、root 権限が必要です。</p>
+ <p><strong>イベントの監査</strong>: N/A</p>
+<p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>クライアント定義ファイル <strong>client.defs</strong>をプレビューするには、次のように入力します。<div> <div><div><pre><code>nimdef -p -f client.defs</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>クライアント定義ファイル <strong>client.defs</strong>に記述されている NIM クライアントを追加するには、次のように入力します。<div> <div><div><pre><code>nimdef -d -f client.defs</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>クライアント定義ファイル <strong>client.defs</strong>に記述されている NIM クライアントを追加するために、 <strong>client.add</strong> という名前の kshell スクリプトを作成するには、次のように入力します。<div> <div><div><pre><code>nimdef -c -f client.defs &gt; client.add</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/nimdef</strong></td>
+
+<td><strong>nimdef</strong> デーモン/コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,192 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>すべての前提ソフトウェアが使用可能であり、
+適切な改訂レベルになっていることを確認します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ckprereq</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ckprereq.html#ckprereq__row-d3e119702" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ckprereq.html#ckprereq__row-d3e119657" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> { <strong>r </strong>| <strong>u </strong>| <strong>s</strong> }] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ckprereq.html#ckprereq__row-d3e119633" target="_blank" rel="noopener noreferrer"><strong>-f</strong> </a><em>PrereqFile</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ckprereq.html#ckprereq__ckprereqbi" target="_blank" rel="noopener noreferrer">a<strong>-l</strong></a> <em>FilesetName</em> [ <em>Level</em>]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ckprereq</strong> コマンドは、システム・レベルと、インストールまたは更新されるソフトウェア・プロダクトとの互換性があるかどうかを判別します。</p>
+ <p><strong>ckprereq</strong> コマンドは、ソフトウェア・プロダクトのインストール手順で使用されるように設計されています。</p>
+ <p><strong>-f</strong> フラグを付けて <strong>ckprereq</strong> を呼び出すと、<em>PrereqFile</em> パラメーターはソフトウェア前提条件リスト・ファイルを指定します。 このファイルの各レコードには、インストール手順を完了するのに必要な前提条件ファイルセットに関する情報が入っています。</p>
+ <p><strong>-l</strong> フラグを付けて <strong>ckprereq</strong> を呼び出すと、ソフトウェア重要プロダクト・データ (SWVPD) データベース内の <em>ProductName</em> 情報から前提条件情報が読み取られます。</p>
+ <p><em>PrereqFile</em> パラメーターに <strong>-f</strong> フラグを指定すると、<strong>ckprereq</strong> コマンドにより出力ファイルが生成されます。 この出力ファイルは、オリジナルの入力のリストであり、入力ファイルを上書きします。 障害が発生した行は、最初の桁に障害コードを入れてマークされます。 前回の <strong>ckprereq</strong> 呼び出しからの出力が入力として使用される場合、<strong>ckprereq</strong> コマンドは障害コードを無視します。</p>
+ <p>実行できる必須検査は、<strong>prereq</strong>、<strong>coreq</strong>、<strong>ifreq</strong>、<strong>instreq</strong> の 4 つです。</p>
+ <p><strong>prereq</strong> は、ファイルセットがインストールされているかどうか、また、指定の改訂レベルであるかどうかを調べるための検査です。 インストールされていると見なされるには、ソフトウェア・プロダクトの SWVPD エントリーが、APPLIED、APPLYING、COMMITTED、または COMMITTING の状態になっている必要があります。 <strong>prereq</strong> では、従属していないファイルセットをインストールする前にそのファイルセットが指定の改訂レベルになっていることも必要です。</p>
+ <p><strong>coreq</strong> 検査は <strong>prereq</strong> 検査と似ています。ただし、<strong>coreq</strong> 検査は任意の順序でインストールできますが、<strong>prereq</strong> 検査は特定の順序でインストールする必要があります。 この検査は相互に必要なソフトウェア・プロダクトがインストールされていることを想定しているので、まだインストールされていない場合は、検査は無視され、障害コードは設定されません。 <strong>ckprereq</strong> コマンドは <strong>coreq</strong> 検査を無視します。 (installp コマンドの必須検査の手順では無視されません。)</p>
+ <p><strong>ifreq</strong> 検査は、ファイルセットがインストールされている場合に限り改訂レベルを検査するということを除けば、<strong>coreq</strong> と同じです。 ファイルセットがインストールされていない場合は、<strong>ifreq</strong> 検査は無視されます。</p>
+ <p><strong>ckprereq</strong> コマンドは <strong>instreq</strong> 検査を <strong>prereq</strong> 検査と同様に扱います。 instreq に特別な意味があるのは、<strong>installp</strong> コマンドの先行必須検査で使用される場合だけです。</p>
+ <p><strong>installp</strong> コマンドは、相互に必要なファイルセットおよび条件下で必要なファイルセットの検査を行い、<strong>coreq</strong> 条件または <strong>ifreq</strong> 条件を満たさないものがあればメッセージを返します。 条件下で必要なプロダクトがインストールされていても、それが指定の改訂レベルに一致していない場合には、その条件は満たされません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong><em> PrereqFile</em></td>
+
+<td>前提条件リスト・ファイルのファイル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>l</strong><em> FilesetName</em>[<em>Level</em>]</td>
+
+<td>SWVPD データベースからの前提条件情報を見つけるために使用するファイルセットまたはファイルセット更新の名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong> { <strong>r</strong> | <strong>u</strong> | <strong>s</strong> }</td>
+
+<td>検査されるソフトウェア・プロダクトのファイル・ツリーの部分を指定します。 このフラグを指定しなかった場合は、<strong>ckprereq</strong> コマンドは、<strong>INUTREE</strong> 環境変数の値を使用して、検査する部分を判別します。 <strong>INUTREE</strong> 環境変数は、<strong>installp</strong> コマンドによって設定されます。 <strong>r</strong> オプションはソフトウェア・プロダクトの / (ルート) 部分を検査することを指示します。 <strong>u</strong> オプションは、ソフトウェア・プロダクトの <strong>/usr</strong> 部分を検査することを指示します。 <strong>s</strong> オプションは、ソフトウェア・プロダクトの
+<strong>/usr/share</strong> 部分を検査することを指示します。 一度に検査できる部分は 1 つだけです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>前提条件リスト・ファイル中で発生した各障害の標準エラーに対して詳細メッセージを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>戻り値</h2> <p><strong>ckprereq</strong> コマンドは、SWVPD 内で見つけた現行バージョン、リリース、改訂レベル、修正レベル、および修正 ID を検査し、検査が正しく実行されなかった場合には、出力ファイルの各障害発生行の最初の桁を次のいずれかのコードでマークします。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>F</strong></td>
+
+<td>修正 (レベル) の検査が正しく実行されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>m</strong></td>
+
+<td>改訂レベルの検査が正しく実行されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>n</strong></td>
+
+<td>ファイルセットがインストールされていないか、あるいは <strong>broken</strong> に設定されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>p</strong></td>
+
+<td>修正 ID の検査が正しく実行されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td>リリースの検査が正しく実行されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>s</strong></td>
+
+<td><em>PrereqFile</em>  パラメーターに構文エラーがあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>v</strong></td>
+
+<td>バージョンの検査が正しく実行されませんでした。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>前提条件リスト・ファイル内に無効なコマンド・ラインがあるとか構文エラーがあるといった重大エラーが発生すると、<strong>ckprereq</strong> コマンドは 255 というコードを返します。 重大エラーでなければ、戻りコードは、失敗した検査の数を表す数値です。</p>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アクセス制御</strong></p>
+<p>このコマンドを実行するには、root 権限が必要です。</p>
+<p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2><ol>
+<li>ファイル <strong>/tmp/prq.test</strong> に次の内容の必須仕様が入っているとします。<div> <div><div><pre><code>   *prereq bos.rte 4.1.0.0
+   *prereq X11.base.rte 4.1.0.0</code></pre></div><div></div></div>なんらかの障害が報告された場合に、この仕様が満たされているかどうかを検査するには、次のように入力します。<div><div><pre><code>   ckprereq -vf /tmp/prq.test</code></pre></div><div></div></div></div>
+</li>
+
+<li>root 部分の <strong>/usr/lpp/snaserv/prereq2</strong> ファイルに記載されているすべての必須ソフトウェアを検査するには、次のように入力します。<div> <div><div><pre><code>   ckprereq -f /usr/lpp/snaserv/prereq2 -Or</code></pre></div><div></div></div></div>
+</li>
+
+<li>レベル 4.1.0.1 のインストール済みファイルセット更新 bos.net.tcp.client の条件が満たされているか検査するには、次のように入力します。<div> <div><div><pre><code>   ckprereq -l bos.net.tcp.client 4.1.0.1</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/product</strong></td>
+
+<td>ファイルシステムの <strong>/root</strong> 部分にインストールされているソフトウェアに関する情報が含まれているデータベース。</td>
+
+</tr>
+
+<tr>
+<td>/ <strong>usr/lib/objrepos/product</strong></td>
+
+<td>ファイルシステムの <strong>/usr</strong> 部分にインストールされているソフトウェアに関する情報が含まれているデータベース。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/product</strong></td>
+
+<td>ファイルシステムの <strong>/usr/share</strong> 部分にインストールされているソフトウェアに関する情報が含まれているデータベース。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

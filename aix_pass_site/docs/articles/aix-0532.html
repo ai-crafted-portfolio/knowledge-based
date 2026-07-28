@@ -1,0 +1,463 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージを転送します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>forw [ + Folder ] [ -draftfolder +Folder | -nodraftfolder ] [ Message ] [ -draftmessage Message ] [ -digest Name [ -issue Number ] [ -volume Number ] ] [ -form FormFile ] [ -editor Editor | -noedit ] [ -whatnowproc Program | -nowhatnowproc ] [ -filterFile] [ -annotate [ -inplace | -noinplace ] | -noannotate ] [ -format| -noformat ] [ -help ] </code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>forw</span> コマンドは、メッセージを転送するためのインターフェースを始動します。 デフォルトでは、<span>forw</span> コマンド・インターフェースは次のように機能します。</p>
+ <ul>
+<li>UserMhDirectory<span>/draft</span> ファイルをオープンして、
+編集できるようにします。</li>
+
+<li><span>/etc/mh/mhl.forward</span> ファイルに定義されたテンプレートに従って、
+転送情報を入力するよう求めるプロンプトを表示します。</li>
+
+<li>転送されたメッセージに付随する必要がある追加のテキストを入力するようユーザーにプロンプトを出します。</li>
+
+</ul>
+ <p>UserMhDirectory<span>/draft</span> ファイルの編集を終了するには、Ctrl-D シーケンスを押します。 <span>forw</span> コマンドは、現行フォルダーの現行メッセージを <span>draft</span> ファイルに追加します。 複数のメッセージを追加したい場合は、Messages パラメーターを使用します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> 送信時にメッセージを識別できるように、
+メッセージのヘッダーと本文の間にダッシュだけの行またはブランク行を 1 行入れておく必要があります。</div>
+        </div>
+      </div></div>
+ <p>エディターの終了時に、<span>forw</span> コマンドは「<code>What Now?</code>」というプロンプトを始動します。 使用可能な <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whatnow.html" target="_blank" rel="noopener noreferrer"><span>whatnow</span></a> サブコマンドのリストを表示するには、Enter キーを押します。 サブコマンドを使うと、メッセージの編集を続けたり、メッセージを表示したり、メッセージの後処理を指示したり、<span>forw</span> コマンドの処理を終了できます。</p>
+ <p><span>forw</span> コマンドに <span>-form</span> フラグを指定すると、転送するメッセージのフォーマットを変更できます。 デフォルトでは、コマンドはUserMhDirectoryの<span>/forwcomps</span>ファイルにあるデフォルトのメッセージ・フォーマットを使用します。 独自の <span>forwcomps</span> ファイルを定義していない場合は、<span>/etc/mh/forwcomps</span> ファイルが使用されます。</p>
+ <p>元のメッセージに転送情報を注釈として付けるには、<span>-annotate</span> フラグを使用します。 確実に注釈を付けるには、<span>forw</span> コマンド・インターフェースが終了する前に、転送する注釈を送信します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>-annotate</span> フラグは、同じドラフトで <span>forw</span> コマンドを複数回実行しても保持されません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-annotate</span></td>
+
+<td>転送するメッセージに次の注釈を付けます。<div>
+<div><div><pre><code>Forwarded: Date
+Forwarded: Addresses</code></pre></div><div></div></div>
+</div>
+
+<p><span>-inplace</span> フラグを使用して、所定の位置にアノテーションを強制します。 このフラグを使用すると、注釈付きメッセージに対するリンクが保存されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-digest</span> 名前</td>
+
+<td>ダイジェスト機能を使って、新しく発行する Name 変数で指定したダイジェストを作成します。 <span>forw</span> コマンドは、 <span>components</span> ファイル内のフォーマット・ストリングを ( <span>repl</span> コマンドで使用されるのと同じフォーマット・ストリング・メカニズムを使用して) 展開し、標準ダイジェスト・カプセル化アルゴリズムを使用してドラフトを作成します。 ドラフトの構成が終わると、<span>forw</span> コマンドはダイジェストのボリュームと発行のエントリーを書き出し、エディターを始動します。<p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/forw.html#forw__row-d3e115978" target="_blank" rel="noopener noreferrer"><span>-form</span></a>フラグを指定しない限り、'<span>forw</span>コマンドはUserMhDirectoryの<span>/digestcomps</span>ファイルのフォーマットを使用する。 このファイルが存在しない場合、コマンドは、 <span>/etc/mh/digestcomps</span> ファイルで指定されているデフォルトを使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>-draftfolder +</code>
+folder</td>
+
+<td>指定したフォルダーにドラフト・メッセージを入れます。 このフラグを指定しないと、<span>forw</span> コマンドはメッセージ・ハンドラー (MH) プロファイル内の情報に従ってデフォルトのドラフト・フォルダーを選択します。 <code>+</code>Folder を指定しないと、<code>Current-Folder</code> が使用されます。 <span>$HOME/.mh_profile</span> ファイルにデフォルトのデフォルト・フォルダーを定義できます。<div><div>
+        <div>
+          <div><span>注:</span> <code>-draftfolder +</code>Folder の後に Message パラメーターが続く場合、これは <span>-draftmessage</span> フラグを指定するのと同じです。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-draftmessage</span> メッセージ</td>
+
+<td>ドラフト・メッセージを指定します。 <span>-draftmessage</span> フラグを指定せずに <span>-draftfolder</span> を指定した場合のデフォルト・メッセージは <code>new</code> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-editor</span> editor
+</td>
+
+<td>メッセージを作成するための初期エディターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-filter</span> ファイル</td>
+
+<td>転送する各メッセージのフォーマットを再設定して、ドラフト・メッセージに入れます。 <span>-filter</span> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhl.html" target="_blank" rel="noopener noreferrer"><span>mhl</span></a> コマンドで使用されるフォーマットを受け入れます。</td>
+
+</tr>
+
+<tr>
+<td><code>+</code>
+folder</td>
+
+<td>転送するメッセージが入っているフォルダーを指定します。 フォルダーを指定しないと、<code>Current-Folder</code> が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-form</span> FormFile</td>
+
+<td><span>forw</span> コマンド出力を、 FormFile 変数で指定された形式で表示します。 <span>forw</span> コマンドは、指定されたファイル内の各行をフォーマット文字列として扱います。 <span>-digest</span> フラグも指定されている場合、 <span>forw</span> コマンドは、 File 変数で指定された形式をダイジェストの形式として使用します。 <span>-digest</span> フラグを指定して <span>-form</span> フラグを指定しないと、ダイジェスト・フィルター・ファイルがフォーマットのデフォルトになります。</td>
+
+</tr>
+
+<tr>
+<td><span>-format</span></td>
+
+<td><span>mhl</span> コマンドとデフォルトのフォーマット・ファイルを使って、転送する各メッセージのフォーマットを再設定し、ドラフト・メッセージに入れます。 UserMhDirectory<span>/mhl.forward</span> ファイルがある場合は、その中にデフォルトのフォーマットが入っています。 このファイルがない場合は、
+<span>/etc/mh/mhl.forward</span> ファイルにデフォルトのフォーマットが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>-help</span></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<div>
+<div><div>
+        <div>
+          <div><span>注:</span> MH の場合は、このフラグ名を省略することはできません。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-inplace</span></td>
+
+<td>強制的に適切な注釈を付けて、注釈付きメッセージとのリンクを保存します。</td>
+
+</tr>
+
+<tr>
+<td><span>-issue</span> 番号</td>
+
+<td>ダイジェストの発行番号を指定します。 デフォルトのissue番号は、UserMhDirectoryの<span>/context</span>ファイルの'<code>DigestName-issue-list</code>エントリーの現在の値より1つ大きい。</td>
+
+</tr>
+
+<tr>
+<td>Message</td>
+
+<td>メッセージを指定します。 複数のメッセージ、メッセージの範囲、または単一メッセージを指定できます。 メッセージの指定には、次の参照を使用します。<dl>
+
+<dt>Number</dt>
+
+<dd>メッセージ番号。</dd>
+
+
+
+<dt>sequence</dt>
+
+<dd>ユーザーが指定するメッセージ・グループ。 認識される値には以下のものが含まれます。<dl>
+
+<dt><code>all</code></dt>
+
+<dd>フォルダー内のすべてのメッセージ。</dd>
+
+
+
+<dt><code>cur</code> または <code>.</code> (ピリオド)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+
+
+<dt><code>first</code></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+
+<dt><code>last</code></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+
+<dt><code>new</code></dt>
+
+<dd>作成された新しいメッセージ。</dd>
+
+
+
+<dt><code>next</code></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+
+<dt><code>prev</code></dt>
+
+<dd>現行メッセージの直前のメッセージ</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+
+<p>デフォルトのメッセージは、現行フォルダー内の現行メッセージです。 複数のメッセージを指定すると、転送された最初のメッセージが現行メッセージになります。 フォルダーを指定すると、指定したフォルダーが現行フォルダーになります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-noannotate</span></td>
+
+<td>元のメッセージに注釈を付けません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-nodraftfolder</span></td>
+
+<td>ドラフトを UserMhDirectory<span>/draft</span> ファイルに入れます。</td>
+
+</tr>
+
+<tr>
+<td><span>-noedit</span></td>
+
+<td>初期編集を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><span>-noformat</span></td>
+
+<td>転送するメッセージを再フォーマットしません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-noinplace</span></td>
+
+<td>適切な注釈付けを強制しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span>-nowhatnowproc</span></td>
+
+<td><span>forw</span> コマンドの対話式処理を行いません。 このフラグを指定すると、編集は行われません。</td>
+
+</tr>
+
+<tr>
+<td><span>-volume</span> 番号</td>
+
+<td>ダイジェストのボリューム番号を指定します。 デフォルトのボリューム番号は、 UserMhDirectoryの<span>/context</span>ファイルの「<code>DigestName</code>「<code>-volume-list</code>エントリーの現在の値である。</td>
+
+</tr>
+
+<tr>
+<td><span>-whatnowproc</span> プログラム</td>
+
+<td>指定されたプログラムを始動して、転送作業を補助します。<div><div>
+        <div>
+          <div><span>注:</span> Programに <span>whatnow</span> コマンドを指定すると、 <span>forw</span> コマンドは、ファイル名 <span>whatnow</span>のプログラムではなく、内部 <span>whatnow</span> プロシージャーを開始します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが UserMhDirectory<span>/.mh_profile</span> ファイルに入力されます。</p>
+ 
+<div><div><table><caption><span>表 2. プロファイル・エントリー</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>Current-Folder:</code></td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Draft-Folder:</code></td>
+
+<td>ドラフトを入れるデフォルトのフォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Editor:</code></td>
+
+<td>デフォルトのエディターを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>fileproc:</code></td>
+
+<td>メッセージの再ファイル化に使用されるプログラムを指定します。</td>
+
+</tr>
+
+<tr>
+<td><code>mhlproc:</code></td>
+
+<td>転送されるメッセージをフィルターに掛けるために使用されるプログラムを指定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Msg-Protect:</code></td>
+
+<td>新しいメッセージ・ファイル用の保護レベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Path:</code></td>
+
+<td>UserMhDirectory を指定します。</td>
+
+</tr>
+
+<tr>
+<td><code>whatnowproc:</code></td>
+
+<td><code>What now?</code> の質問のプロンプトを出すために使用するプログラムを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現在のメッセージを別のユーザーに転送するには、以下のように入力します。<div>
+<div><div><pre><code>forw</code></pre></div><div></div></div>システムは、ヘッダー・フィールドへの情報の入力を求めるプロンプトを表示します。 フィールドをスキップするには、 <span>Enter</span> キーを押します。 情報を入力してください<code>To:</code>分野。 システムは次のように応答します。<div><div><pre><code>---------Enter initial text</code></pre></div><div></div></div>転送されたメッセージのテキストの前に表示するテキストを入力し、Ctrl-D キー・シーケンスを押します。 転送されたメッセージのテキストが表示され、メッセージを転送するための <code>What now?</code> プロンプトの後に<code> What now?</code> Enter <code>send</code> というプロンプトが表示されます。</div>
+</li>
+
+<li><code>inbox</code> フォルダーから <span></span>メッセージを転送するには <code>5</code> 、次のように入力します。<div><code>forw    <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/forw.html#forw__row-d3e115967" target="_blank" rel="noopener noreferrer">+</a>inbox   5</code></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/mh/digestcomps</span></td>
+
+<td><span>-digest</span> フラグを指定した場合の MH のデフォルトのメッセージ形式を定義します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/mh/mhl.forward</span></td>
+
+<td>デフォルトの MH メッセージ・フィルターが入っています。</td>
+
+</tr>
+
+<tr>
+<td>UserMhDirectory<span>/digestcomps</span></td>
+
+<td><span>-digest</span> フラグを指定した場合のユーザーのデフォルトのメッセージ形式を定義します。 (このフォーマットがある場合、MH のデフォルトのメッセージ・フィルターは指定変更されます。)</td>
+
+</tr>
+
+<tr>
+<td>UserMhDirectory<span>/forwcomps</span></td>
+
+<td>ユーザーのデフォルトのメッセージ形式が入っています。</td>
+
+</tr>
+
+<tr>
+<td>UserMhDirectory<span>/mhl.forward</span></td>
+
+<td>ユーザーのデフォルトのメッセージ・フィルターが入っています。 (このフォーマットがある場合、MH のデフォルトのメッセージ・フィルターは指定変更されます。)</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/bin/forw</span></td>
+
+<td><span>forw</span> コマンドの実行可能フォームが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>$HOME/.mh_profile</span></td>
+
+<td>個々のユーザー用に MH をカスタマイズするファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td>UserMhDirectory<span>/draft</span></td>
+
+<td>メッセージを編集するために作成されたドラフトが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/mh/forwcomps</span></td>
+
+<td><span>forw</span> コマンドによって作成されるメッセージのコンポーネントを定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

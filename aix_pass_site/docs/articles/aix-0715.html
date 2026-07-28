@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>デバイス・クラスのデバイスを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>リスト </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/listdgrp.html#listdgrp__row-d3e50001" target="_blank" rel="noopener noreferrer"><em>DeviceClass</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><em>DeviceClass</em> パラメーターが、入出力装置構成データベースの
+カスタマイズ・デバイスのオブジェクト・クラスを参照しているデバイスに関する情報をリストします。</p>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>DeviceClass</em></td>
+
+<td>メンバーを表示するデバイス・クラスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>adapter</strong> クラスのデバイスをリストするには、次のように入力します。<div><div><pre><code>listdgrp adapter</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>a0 
+sa1 
+siokma0 
+fda0 
+scsi0 
+scsi1 
+bl0 
+sioka0 
+siota0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/listdgrp </strong></td>
+
+<td>System V <strong>listdgrp</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

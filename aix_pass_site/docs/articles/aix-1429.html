@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムのノード名を設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>setuname</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setuname.html#setuname__row-d3e20796" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setuname.html#setuname__row-d3e20783" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>ノード</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>setuname</strong> コマンドは、システムのノード名を設定するときに
+使用します。 <strong>-n</strong> オプションは必ず指定してください。 ノード
+名を設定できるのは、root 権限のあるユーザーだけです。 <strong>-t</strong> オプション
+を使用すると、一時的な変更を行えます。 一時変更を要求した場合に変更されるノード名
+は、現在実行中のカーネル上だけになります。 一時的に設定したノード名は、
+リブート後は維持されません。 <strong>-t</strong> オプションを使用しない
+場合は、ノード名が ODM データベース内で永続的に変更されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-n</strong> <em>ノード</em></td>
+
+<td>ノード名を変更する必要があることを指定します。 これは必須オプション
+です。 <em>Node</em> は、ホストの 1 次ノード名
+です。 この名前はシステムの UUCP 通信ネットワーク名でも構いません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>一時的な変更です。 変更内容を永続的にはしません。 リブート後に元の名前が復元します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ノード名を一時的に「orion」に変更するには、次のように入力します。<div><div><pre><code>setuname -t -n orion</code></pre></div><div></div></div></li>
+
+<li>ノード名を永続的に「orion」に変更するには、次のように入力します。<div><div><pre><code>setuname -n orion</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/setuname</strong></td>
+
+<td>setuname コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

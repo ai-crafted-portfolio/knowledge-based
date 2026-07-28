@@ -1,0 +1,291 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ProbeVue 動的トレース・パラメーターおよび ProbeVue セッションの変更と表示を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ProBevctrl</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__c" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>属性</em> = <em>値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__cbig" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__f" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>{ <em>ミリ</em>|<em>マイクロ</em> }] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__d" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>sessionID</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__l" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__n" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>属性</em> = <em>値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__p" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__s" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> { <em>probevue_session_id</em> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__t" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__u" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>ユーザー・リスト</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/probevctrl.html#probevctrl__tbig" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> { <em>表示</em>|<em>開始</em>|<em>停止</em>|<em>リセット</em> }]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>probevctrl</strong> コマンドは、ProbeVue 動的トレース・パラメーター、プロセッサー別のトレース・バッファー・サイズ、固定メモリー消費量、セッションを所有するユーザー、セッションを開始したプロセスの ID、および該当セッションに ProbeVue セッション用のカーネル・プローブがあるかどうかの情報の変更と表示を行います。</p>
+ <div>構成可能な ProbeVue パラメーターは次のとおりです。<ul>
+<li>ProbeVue 状況 (使用可能/使用不可)。</li>
+
+<li>すべての ProbeVue セッションに割り当てられる最大固定メモリー (MB)。</li>
+
+<li>非特権ユーザーの ProbeVue セッションに割り当てられる最大固定メモリー (KB)。トレース・バッファー用メモリーを含む。</li>
+
+<li>通常のユーザーに許可される並行 ProbeVue セッションの数。</li>
+
+<li>プロセッサー別のトレース・バッファーのデフォルト・サイズ (KB)。</li>
+
+<li>トレース・バッファーからの読み取りのために通常のユーザーがトレース・コンシューマーに要求できる最小期間 (ミリ秒)。</li>
+
+<li>ProbeVue バッファーがトレース・コンシューマーによって読み取られるデフォルト期間 (ミリ秒)。</li>
+
+<li>ProbeVue セッションで使用されるプロセッサー別の計算スタックのサイズ (KB)。</li>
+
+<li>間隔プローブでグローバル root ユーザーに許可されている最小の時間間隔。</li>
+
+<li>動的データ構造に対して割り当てられるメモリーのパーセンテージ。</li>
+
+<li>プロセッサー別ローカル・テーブルのサイズ (KB)。</li>
+
+<li>ページ・フォールトを処理するためのページ・フォールト・コンテキストの数。</li>
+
+<li>スレッド・ローカル変数がある場合に、ProbeVue セッションがサポートすべきスレッドの最大数。</li>
+
+<li><strong>net</strong> プローブ・アクションによって使用される、CPU 別のバッファーの最大サイズ (バイト単位)。</li>
+
+<li>アクションが割り込みコンテキスト内で開始された場合に、<strong>systrace</strong> プローブ・アクションにかかる最大時間 (ミリ秒単位)。</li>
+
+<li>アクションが割り込みコンテキスト内で開始された場合に、<strong>sysproc</strong> プローブ・アクションにかかる最大時間 (ミリ秒単位)。</li>
+
+<li>アクションが割り込みコンテキスト内で開始された場合に、<strong>io</strong> プローブ・アクションにかかる最大時間 (ミリ秒単位)。</li>
+
+<li>アクションが割り込みコンテキスト内で開始された場合に、<strong>net</strong> プローブ・アクションにかかる最大時間 (ミリ秒単位)。</li>
+
+<li><strong>CPU-bound interval</strong> プローブ・アクションが割り込みコンテキストにおいて開始されたときに、そのアクションに費やすことができる最大時間 (ミリ秒)。</li>
+
+</ul>
+</div>
+ <div>root ユーザーまたは <strong>aix.ras.probevue.manage</strong> 権限を持っているユーザーのみが、ProbeVue パラメーターを更新し、すべての ProbeVue セッションを表示できます。 それ以外のユーザーは、自分が所有するセッションのみを表示できます。 各セッションは次のフォーマットで表示されます。<div><div><table><thead>
+<tr>
+<th><div>Sid</div></th>
+
+<th><div>PID</div></th>
+
+<th><div>Uid</div></th>
+
+<th><div>バッファー・サイズ (バイト)</div></th>
+
+<th><div>消費されたメモリー (バイト)</div></th>
+
+<th><div>カーネル・プローブ</div></th>
+
+<th><div>プロファイル作成</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>sid</em></td>
+
+<td><em>pid</em></td>
+
+<td><em>uid</em></td>
+
+<td><em>bufsize</em></td>
+
+<td><em>メモリー</em></td>
+
+<td>yes または no</td>
+
+<td>yes または no</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>デフォルトでは、ProbeVue は使用可能です。 ProbeVue セッションがアクティブなときに ProbeVue を使用不可にしようとすると失敗します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-c</dt>
+
+<dd>非ユーザー ProbeVue パラメーターを指定します。 このフラグの引数は、コンマで区切るか、または二重引用符で囲んでコンマまたはスペースで区切ります。 このフラグと一緒に <strong>-p</strong> フラグまたは <strong>-t</strong> フラグのいずれも指定しなかった場合、現在のブート・セッションと次回のブート・セッションの両方で新しい値が有効になります。 有効な<em>属性/値</em> のペアは次のとおりです。<dl>
+<dt>trace= {on | off}</dt>
+
+<dd>ProbeVue を使用可能にするか使用不可にするかを指定します。</dd>
+
+
+<dt>デフォルト・バッファー・サイズ =<em>デフォルト・バッファー・サイズ</em></dt>
+
+<dd>プロセッサー別のトレース・バッファーのデフォルト・サイズ (KB) を指定します。 この値は次の 4KB ページに繰り上げて丸めます。</dd>
+
+
+<dt>合計メンバー・サイズの最大値 =<em>合計メンバー・サイズの最大値</em></dt>
+
+<dd>ProbeVue フレームワーク全体で消費できる最大固定メモリー (MB) を指定します。</dd>
+
+
+<dt>デフォルトの読み取り率 =<em>デフォルトの読み取り率</em></dt>
+
+<dd>ProbeVue バッファーがトレース・コンシューマーによって読み取られるデフォルト期間 (ミリ秒) を指定します。</dd>
+
+
+<dt><em>stack_size=stack_size_in_4Kpages</em></dt>
+
+<dd>プロセッサー別の計算スタックのサイズ (KB) を指定します。 この値は次の 4KB ページに繰り上げて丸めます。</dd>
+
+
+<dt>ローカル・テーブル・サイズ =<em>数値</em></dt>
+
+<dd>プロセッサー別ローカル・テーブルのサイズ (KB) を指定します。 ローカル・テーブル用に割り当てられたスペースの半分は、一時的な文字列で使用されます。 デフォルト値は 4 KB に設定されています。</dd>
+
+
+<dt>最小間隔 =<em>間隔 (ミリ秒)</em></dt>
+
+<dd>間隔プローブでグローバル root ユーザーに許可されている最小の時間間隔を指定します。</dd>
+
+
+<dt>ページ・フローの数 =<em>数値</em></dt>
+
+<dd>ページ・フォールトを処理するためのページ・フォールト・コンテキストの数を指定します。 指定されたページ・フォールト・コンテキストの数は、ProbeVue フレームワークの初期化中に事前割り振りされます。</dd>
+
+
+<dt>スレッドのトレース数 =<em>数値</em></dt>
+
+<dd>スレッド・ローカル変数がある場合に、ProbeVue セッションがサポートできるスレッドの最大数を指定します。 ProbeVue フレームワークは、この属性によって指定されているスレッドの最大数について、セッションの開始時にすべてのスレッド・ローカル変数を事前割り振りします。</dd>
+
+
+<dt>max_net_buf_size=<em>数値</em></dt>
+
+<dd><strong>net</strong> プローブ・アクションによって使用される、CPU 別のバッファーの最大サイズ (バイト単位) を指定します。</dd>
+
+
+<dt>max_intr_systrcprb_time=<em>数値</em></dt>
+
+<dd><strong>systrace</strong> プローブ・アクションが割り込みコンテキスト内で開始された場合に、プローブ・アクションの実行にかかる時間の最大量 (ミリ秒単位) を指定します。</dd>
+
+
+<dt>max_intr_sysprocprb_time=<em>数値</em></dt>
+
+<dd><strong>sysproc</strong> プローブ・アクションが割り込みコンテキスト内で開始された場合に、プローブ・アクションの実行にかかる時間の最大量 (ミリ秒単位) を指定します。</dd>
+
+
+<dt>max_intr_ioprb_time=<em>数値</em></dt>
+
+<dd><strong>io</strong> プローブ・アクションが割り込みコンテキスト内で開始された場合に、プローブ・アクションの実行にかかる時間の最大量 (ミリ秒単位) を指定します。</dd>
+
+
+<dt>max_intr_netprb_time=<em>数値</em></dt>
+
+<dd><strong>net</strong> プローブ・アクションが割り込みコンテキスト内で開始された場合に、プローブ・アクションの実行にかかる時間の最大量 (ミリ秒単位) を指定します。</dd>
+
+
+<dt>async_stats_fetch_interval=<em>数値</em></dt>
+
+<dd>システム統計をフェッチするために、非同期フェッチ間隔をミリ秒単位で指定します。 この属性は、すべての <span>ProbeVue</span> セッションに適用されるグローバル値です。 ProbeVue は、この値に基づいて非同期フェッチ間隔を設定します。 チューナブルのデフォルト値は 1000 ミリ秒です。 チューナブル値の変更は、実行中のセッションには影響せず、指定された値は、新規セッションに対してのみ使用されます。</dd>
+
+
+<dt>fetch_stats_async_only={yes | no}</dt>
+
+<dd>同期フェッチが可能な場合でも、すべてのシステム統計を非同期モードでフェッチする必要があることを指定します。 このパラメーターのデフォルト値は no です。 チューナブル値の変更は実行中のセッションには影響せず、指定された値は新規セッションにのみ使用されます。</dd>
+
+
+
+<dt>max_intr_cpuboundprb_time=数値</dt>
+
+<dd><strong>CPU-bound interval</strong> プローブ・アクションが割り込みコンテキストにおいて開始されたときに、そのプローブ・アクションの実行に費やすことができる最大時間 (ミリ秒) を指定します。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-C</dt>
+
+<dd>ProbeVue セッション・チューナブルを初期値に設定します。 <strong>-C</strong> オプションは、システムの現行構成を使用して、設定する構成の初期値 (High Config または Low Config) を判別し、現行パラメーターと次回のブート・パラメーターの両方を更新します。 チューナブルの高い構成値と低い構成値について詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/generalprogramming/probevue_userguide.html" target="_blank" rel="noopener noreferrer"><strong>ProbeVue 動的トレース機能</strong></a> 」トピックを参照してください。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-C</strong> フラグを使用する前に、アクティブな ProbeVue セッションがないことを確認してください。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt>-d <em>sessionId</em></dt>
+
+<dd>指定されたセッションについて使用可能にするプローブのリストを表示します。 セッション ID にとして <span>all</span> を指定すると、ユーザーが表示できるすべての ProbeVue セッションについて、プローブが表示されます。 ProbeVue セッションおよび関連するセッション ID のリストは、<span>probevctrl</span> コマンドを使用して入手することができます。</dd>
+
+
+<dt>-f</dt>
+
+<dd>プローブ・アクションの時間消費データを表示するフォーマットを指定します。 <strong>-f</strong> オプションを <strong>-T</strong> オプションと一緒に使用すると、特定のセッションに関するアクションを表示できます。 有効なフォーマットは次のとおりです。<dl>
+<dt>milli</dt>
+
+<dd>時間をミリ秒単位で表示します。</dd>
+
+
+<dt>micro</dt>
+
+<dd>時間をマイクロ秒単位で表示します。</dd>
+
+</dl>デフォルトのフォーマットは <strong>milli</strong> です。</dd>
+
+
+<dt>-l</dt>
+
+<dd>ProbeVue 構成パラメーターの現在の値をリストします。 <strong>-p</strong> フラグまたは <strong>-t</strong> フラグを指定しなかった場合は、現在のブート・セッションのパラメーター値が表示されます。</dd>
+
+
+<dt>-n</dt>
+
+<dd>通常のユーザーのための構成可能パラメーターを指定します。 このオプションの引数は、コンマで区切るか、または二重引用符で囲んでコンマまたはスペースで区切ります。 このフラグと一緒に <strong>-p</strong> フラグまたは <strong>-t</strong> フラグのいずれも指定しなかった場合、現在のブート・セッションと次回のブート・セッションの両方で新しい値が有効になります。 有効な<em>属性/値</em> のペアは次のとおりです。<dl>
+<dt>最大メンバー・サイズ =<em>最大メンバー・サイズ</em></dt>
+
+<dd>ProbeVue セッションで消費される最大固定メモリー (MB) を指定します。</dd>
+
+
+<dt>セッションの最大数 =<em>最大セッション数</em></dt>
+
+<dd>許可される並行セッションの最大数を指定します。</dd>
+
+
+<dt>最小の読み取り率 =<em>最小読み取り率</em></dt>
+
+<dd>トレース・バッファーからの読み取りのために通常のユーザーがトレース・コンシューマーに要求できる最小期間 (ミリ秒) を指定します。</dd>
+
+
+<dt>pin_mem_dvar_pc=<em>固定 _mem_dvar_pc</em></dt>
+
+<dd>動的型変数について動的データ構造に割り当てることができるメモリーのパーセンテージを指定します。 このメモリーは、スタック・トレースおよび結合配列型の動的変数に対して使用できます。 このパラメーターの値は、10 から 100 の範囲に設定されます。 デフォルト値は 50 です。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-p</dt>
+
+<dd>次回のブートのデフォルト値を更新して表示することを指定します。</dd>
+
+
+<dt>-s <em>プローブビューセッションID</em></dt>
+
+<dd>アクションを実行するセッションを指定します。 このフラグは、<span>-T</span> フラグと一緒に使用する必要があります。</dd>
+
+
+<dt>-u</dt>
+
+<dd>ProbeVue セッションのリストが必要なユーザーのコンマ区切りリストを指定します。 <strong>-u</strong> フラグを指定しない場合は、ユーザーが表示できるすべての ProbeVue セッションが表示されます。 <strong>aix.ras.probevue.manage</strong> 権限を持つユーザーは、システム内のすべての ProbeVue セッションを表示できます。 この権限のないユーザーは、自分が所有する ProbeVue セッションのみを表示できます。</dd>
+
+
+<dt>-t</dt>
+
+<dd>現在のブート・セッションのデフォルト値を更新して表示することを指定します。</dd>
+
+
+<dt>-T <code>show | start | stop | reset</code></dt>
+
+<dd><span>-s</span> フラグで指定されたセッションのプローブ・アクションのプロファイル作成を表示、開始、停止、またはリセットするのかどうかを指定します。 このフラグと一緒に <span>-s</span> フラグを使用する必要があります。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>次回のブートのデフォルト・バッファー・サイズを変更し、動的トレースをオンにするには、次のように入力します。<div><div><pre><code>probevctrl -c trace=on,default_buffer_size=8 -p</code></pre></div><div></div></div>または<div><div><pre><code>probevctrl -c "trace=on default_buffer_size=8" -p</code></pre></div><div></div></div></li>
+
+<li>次回のブートの ProbeVue 構成をリストするには、次のように入力します。<div><div><pre><code>probevctrl -l -p</code></pre></div><div></div></div></li>
+
+<li>現在の ProbeVue 構成をリストするには、次のように入力します。<div><div><pre><code>probevctrl -l -t</code></pre></div><div></div></div></li>
+
+<li>すべての ProbeVue セッションをリストするには、次のように入力します。<div><div><pre><code>probevctrl</code></pre></div><div></div></div></li>
+
+<li>ユーザー guest が所有するすべての ProbeVue セッションをリストするには、次のように入力します。<div><div><pre><code>probevctrl -u guest</code></pre></div><div></div></div></li>
+
+<li>次回のブートについて動的データ構造 (スタック・トレースおよび結合配列) に割り当てられる pinned (滞留) されるメモリーのパーセンテージをデフォルトの 50 -75 から増やすには、次のように入力します。<div><div><pre><code>probevctrl -n  pin_mem_dvar_pc = 75</code></pre></div><div></div></div> </li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,1125 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>互換性のあるインストール・パッケージ内の使用可能なソフトウェア・プロダクトをインストールします。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>適用のみ、または適用とコミットでインストールするには</dt>
+
+<dd><div><div><pre><code>installp [ -R path ] [ -a | -a -c [ -N ] ] [ -e LogFile ] [ -V Number ] [ -d Device ] [ -E ] [ -Y ] [ -b ] [ -S ] [ -B ] [ -D ] [  -I ] [ -p ] [ -Q ] [ -q ] [  -v ] [  -X ] [ -F | -g ] [ -O { [ r ] [ s ] [ u ] } ] [ -t  SaveDirectory ] [ -w ] [ -z BlockSize ] { FilesetName [ Level ]... | -f ListFile | all }</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>適用されたアップデートをコミットする</dt>
+
+<dd><div><div><pre><code>installp [ -R path ] -c [ -e LogFile ] [ -V Number ] [ -b ] [  -g ] [ -p ] [  -v ] [ -X ] [ -O { [ r ] [ s ] [ u ] } ] [ -w ] { FilesetName [ Level ]... | -f ListFile | all } </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>申請されたアップデートを拒否する</dt>
+
+<dd><div><div><pre><code>installp [ -R path ] -r [ -e LogFile ] [ -V Number ] [ -b ] [ -g ] [ -p ] [ -v ] [ -X ] [ -O { [ r ] [ s ] [ u ] } ] [ -w ] { FilesetName [ Level ]... | -f ListFile } </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>インストールしたソフトウェアをデインストール（削除）するには</dt>
+
+<dd><div><div><pre><code>installp [ -R path ] -u [ -e LogFile ] [ -V Number ] [ -b ] [ -g ] [ -p ] [ -v ] [ -X ] [ -O { [ r ] [ s ] [ u ] } ] [ -w ] { FilesetName [ Level ]... | -f ListFile } </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>失敗したインストールをクリーンアップするには</dt>
+
+<dd><div><div><pre><code>installp [ -R  path ] -C [ -b ] [ -e LogFile ] </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>メディア上のすべてのインストール可能なソフトウェアをリストする</dt>
+
+<dd><div><div><pre><code>installp { -l | -L } [ -e LogFile ] [ -d  Device ] [ -B ] [  -I ] [ -q ] [-E ] [ -z BlockSize ] [ -O { [ s ] [ u ] } ] </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>ソフトウェアで修正された、お客様から報告されたすべての問題をリストアップする、またはすべての補足情報を表示するには</dt>
+
+<dd><div><div><pre><code>installp { -A| -i } [ -e LogFile ] [ -d Device ] [ -B ] [ -I ] [ -q ] [ -z BlockSize ] [ -O { [ s ] [ u ] } ] { FilesetName [ Level ]... | -f ListFile | all } </code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>適用されているがコミットされていないインストール済みアップデートを一覧表示する</dt>
+
+<dd><div><div><pre><code>installp -s [ -e LogFile ] [ -O { [ r ] [ s ] [ u ] } ] [ -w ] { FilesetName [ Level ]... | -f ListFile | all }</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>メディア上のプラットフォーム固有のインストール可能ソフトウェアをリストする</dt>
+
+<dd><div><div><pre><code>installp { -l | -L } { -M Platform } [ -e LogFile ] [ -d Device ] [ -B ] [ -I ] [ -q ] [ -z BlockSize ] [ -O { [ s ] [ u ] } ]</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>ソフトウェアの署名を検証する</dt>
+
+<dd><div><div><pre><code>installp -G -d Device { FilesetName [ Level ]... | -f ListFile | all }</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>Korn または C シェルの <code>noclobber</code> オプションの設定を、インストールの実行元の環境から解除してください。</li>
+
+<li>すべてのアップデートはsmittyまたは'<span>install_all_updates</span>コマンドで行うことができる。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+ <p><span>installp</span> コマンドは、ソフトウェアのインストールと更新を行います。</p>
+ <p>ファイルセットとは、インストール可能な最下位レベルの基本単位のことです。 例えば、<span>bos.net.tcp.client 4.1.0.0</span> は、1 つのファイルセットです。 ファイルセットの更新は、異なるモディフィケーション・レベルまたは異なる修正レベルのイメージです。 例えば、'<span>bos.net.tcp.client
+4.1.0.2</span>と '<span>bos.net.tcp.client 4.1.1.0</span>はどちらも '<code>bos.net.tcp.client 4.1.0.0</code> のファイルセット更新である。</p>
+ <p>基本レベル (ファイルセット) は、システムにインストールされると自動的にコミットされます。 ファイルセットは、状態 (コミット済み、破壊、適用済み更新パッケージによるコミット済み、コミット済み更新パッケージによるコミット済みなど) と無関係に除去できます。</p>
+ <p>ファイルセット更新パッケージがシステムに適用されると、その更新パッケージがインストールされます。 インストール中のソフトウェアの現在のバージョンは、ディスク上の特別なセーブ・ディレクトリに保存されるので、後で必要に応じてそのバージョンに戻ることができる。 ソフトウェア製品の新バージョンがシステムに適用されると、そのバージョンが現在有効なバージョンとなる。</p>
+ <p>システムに適用されたアップデートは、後でコミットすることも、拒否することもできる。 <code>installp -s</code> コマンドを使用すると、コミットまたは拒否可能な適用済みの更新パッケージ内容のリストが得られます。</p>
+ <div><span>-c</span> フラグを指定して更新パッケージをコミットすると、ユーザーはそのバージョンのソフトウェア・プロダクトに対するコミットメントを行うことになります。 そのソフトウェア・プロダクトのすべての旧バージョンからの保存済みファイルは、システムから除去され、そのソフトウェア・プロダクトの旧バージョンに戻ることは不可能になります。 ソフトウェアは、インストール時に <span>-ac</span> フラグの指定によりコミットできます。<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>既に適用済みの更新パッケージをコミットしても、ソフトウェア・プロダクトの現在アクティブなバージョンの変更はできません。 ソフトウェア・プロダクトの旧バージョンの保存ファイルを除去するだけです。</li>
+
+<li>パッケージのインストール時に署名検査が行われます。 この検査はデジタル署名検査ポリシーのレベルに基づいています。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</div>
+ <p><span>-u</span> フラグの指定により基本レベルが除去されると、ソフトウェア・プロダクトの一部であるファイルおよびその更新内容は、システムから除去されます。 製品に関連するシステム構成情報のクリーンアップもほとんど行われるが、クリーンアップは製品によって異なり、必ずしも完全ではないかもしれない。</p>
+ <p><span>-r</span> フラグの指定によりソフトウェア・プロダクトの更新が拒否されると、ソフトウェア・プロダクトの現行のバージョンは更新の直前のバージョンに変更されます。 拒否されたアップデートのために保存されたファイルと、適用されたすべてのアップデートは、システムから削除されます。</p>
+ <p>システムから除去対象のソフトウェア・プロダクトは、どのような状態でもかまいません。 製品のアップデートは、適用された状態かコミットされた状態のいずれかにすることができ、削除もされる。</p>
+ <p>以前に中断したインストールのために、ソフトウェアが適用済み状態またはコミット済み状態のままになっている場合は、<span>-C</span> フラグを指定してクリーンアップを実行しなければ、
+それ以降のインストールをすることはできません。 <code>installp -C</code> コマンドは、コマンド・ライン上のソフトウェア・プロダクト名を受け付け、エラーは戻しませんが、
+<span>-C</span> フラグを指定すると、必ずすべてのプロダクトをクリーンアップしようとします。 不完全なインストール部分があると、前回完了したインストール部分を除去することによりクリーンアップしようとします。 また、ソフトウェア・プロダクトの以前のバージョンがある場合は、そのバージョンに戻ってそれを現在アクティブなバージョンにしようとします。 ソフトウェア製品を以前のバージョンに戻すことができない場合、そのソフトウェア製品は壊れたものとしてマークされ、ユーザーがそれを使用しようとすると予測できない結果が発生する可能性があります。 したがって、ソフトウェア・プロダクトまたは更新パッケージが破壊した場合には、再度インストールすることをお勧めします。</p>
+ <p><span>-t</span>フラグは、更新によって置き換えられるファイルを保存するセーブディレクトリの代替場所を指定する。 このオプションは、主に次の 2 つの場合に役立ちます。</p>
+ <ul>
+<li>置き換えたファイルを保存するのに十分なローカルディスク容量があるが、ルートと'<span>/usr</span>ファイルシステムを恒久的に拡張したくない場合。<p>この場合、代替保存ディレクトリー用に別のファイルシステムを作成することを選択できます。 アップデートされたシステムに満足し、適用されたアップデートがすべてコミットされたら、保存ファイルシステムを削除することでディスクスペースを取り戻すことができます。</p>
+</li>
+
+<li>置き換えるファイルを保存するためのローカル・ディスク・スペースが不十分だが、リモート・システムには十分なディスク・スペースがある。 この場合、リモート・ファイルシステムからマウントしたディレクトリーを指定できます。<p>リモートファイルシステムを使用している場合は、できるだけ早く更新をコミットする。 <code>apply</code>」と「<code>commit</code>操作に「<span>-ac</span>フラグを付けて、インストー ル操作を開始したいかもしれない。 不要なアップデートを拒否できるようにするためだけに『<code>apply</code>使いたいのであれば、新しくインストールされたアップデートをできるだけ早くテストし、コミットまたは拒否する。</p>
+
+<p>代替保管ディレクトリーを使用するときは、以下の事項を考慮してください。</p>
+</li>
+
+<li><span>installp</span> コマンドを呼び出すときは、毎回同じ代替保存位置を使用することを強くお勧めします。</li>
+
+<li>別の保存ディレクトリが適用操作に使用される場合、そのディレクトリを含むファイルシステムがマウントされたままであることを確認してください。 リブート時に必要なマウントが自動的に行われるようにすることをお勧めします。</li>
+
+<li>コミット操作時に代替保存ディレクトリーがなくなってしまった場合、コミット操作は行われますが、保存ディレクトリーを削除できないという警告が出ます。 この場合、ディスク容量を確保するために、使用しなくなった保存ディレクトリを削除する必要があります。</li>
+
+<li>拒否操作時に代替保存ディレクトリーがなくなってしまった場合は、保存済みのファイルがなくなってしまったので拒否操作は行われません。 この場合はエラーが発生し、拒否操作はすべて取り消されます。 保存ディレクトリーがなくなった理由が一時的な状態 (例えば、ネットワーク上のリモート・ディレクトリーにアクセスできないなど) によるものではない場合は、更新パッケージをコミットするか、
+更新パッケージを無制限に適用済み状態にしておく以外に方法はありません。</li>
+
+<li>システムのバックアップをとる場合、ルート・ボリューム・グループに存在しない代替保存ディレクトリーをバックアップするようにしてください。</li>
+
+<li>インストールプロセスでは、リモートセーブディレクトリを持つユーザーを、2つの異なるシステムが同じリモートディレクトリを使用する可能性から保護します。 ただし、ディレクトリー・パス名には、各ユーザーのシステムを簡単で固有に識別できる名前を使用してください。 例えば、パス名にそのシステムのホスト名を入れる方法があります。</li>
+
+<li>リモート保存ディレクトリーを使用してシステムの <code>mksysb</code> バックアップを作成し、元のシステムとは異なるシステム上に <code>mksysb</code> イメージを復元しないでください。 この場合、'<code>mksysb</code>イメージを使用して複数の同様のシステムをインストールすると、同じリモートセーブディレクトリの複数の所有者が発生します。</li>
+
+</ul>
+ <p><code>installp -A</code> コマンドを使用すると、プログラム診断依頼書 (APAR) 番号のリストと、指定されたソフトウェア・パッケージで修正済みの、お客様が報告したすべての問題点の要約が得られます。 <code>installp -i</code>コマンドは、指定したソフトウェア・パッケージの一部となりうるファイルに含まれる補足情報を表示するために使用できる。</p>
+ <p>指定したインストールメディア上のすべてのソフトウェア製品とアップデートを一覧表示するには、「<code>installp -l</code>コマンドを使用する。 以下の出力は、'<span>installp</span>コマンドの出力に'<span>-l</span>フラグを付けたものに似ている：</p>
+ <div> <div><div><pre><code># Fileset Name             Level                    I/U Q Content
+#================================================================
+  X11.adt.include          4.1.0.0                  I  N usr
+#   AIX windows Application Development Toolkit Include F
+   
+  X11.adt.lib              4.1.0.0                  I  N usr
+#   AIX windows Application Development Toolkit Libraries
+#
+  X11.adt.motif            4.1.0.0                  I  N usr
+#    AIX windows Application Development Toolkit Motif
+   
+#
+  X11.adt.bitmaps          4.1.0.0                  I  N usr
+#    AIX windows Application Development Toolkit Bitmap Fi
+   
+#
+  X11.adt.ext              4.1.0.0                  I  N usr
+#    AIX windows Application Development Toolkit for X Ext
+#
+  X11.adt.imake            4.1.0.0                  I  N usr
+#    AIX windows Application Development Toolkit imake
+#
+  X11.apps.rte             4.1.0.0                  I  N usr
+#    AIX windows Runtime Configuration Applications
+#
+  X11.apps.msmit           4.1.0.0                  I  N usr
+#    AIX windows msmit Application</code></pre></div><div></div></div></div>
+ <p>フィールドの説明は次のとおりです。</p>
+ 
+<div><div><table><caption><span>表 1. <code>installp -l</code>コマンドの出力ファイル・フィールドの説明 '</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ファイルセット名</td>
+
+<td>インストール対象のファイルセットの名前。</td>
+
+</tr>
+
+<tr>
+<td><code>Level</code></td>
+
+<td>インストール対象のファイルセットのレベル。</td>
+
+</tr>
+
+<tr>
+<td><code>I/U</code></td>
+
+<td>ファイルセットが属するパッケージのタイプ。 ファイルセットは、インストール・パッケージに属する場合と、更新パッケージのタイプのうちの 1 つに属する場合があります。 以下のリストでは、パッケージの種類を説明している：<dl>
+
+<dt><span>I</span></dt>
+
+<dd>インストール・パッケージを示します。</dd>
+
+
+
+<dt><span>S</span></dt>
+
+<dd>1 つの更新パッケージを示します。</dd>
+
+
+
+<dt><span>SR</span></dt>
+
+<dd>必須の更新パッケージを示します。 <span>installp</span>コマンドが必要な更新に遭遇するたびに、入力リストは必要な更新を含むように自動的に変更される。</dd>
+
+
+
+<dt><span>SF</span></dt>
+
+<dd>必須の更新パッケージを示します。 <span>installp</span> コマンドが必須の更新パッケージを検出したときは必ず、その更新パッケージは自動的に入力リスト内に取り込まれます。 このタイプは、更新パッケージのために <span>installp</span> ファイルセットに予約されています。</dd>
+
+
+
+<dt><span>M</span></dt>
+
+<dd>保守パッケージまたはテクノロジー・パッケージを示します。 このパッケージタイプは、適用される他のアップデートのリストのみを含むパッケージングアップデートです。 このパッケージにはファイルがありません。</dd>
+
+
+
+<dt><span>ML</span></dt>
+
+<dd>プロダクトの新しい保守レベルまたはテクノロジー・レベルを識別する更新パッケージを示します。 このパッケージタイプは、以前の製品レベル以降のすべてのアップデートの累積セットです。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><code>Q</code></td>
+
+<td>抑制カラム。 以下のリストは、「<code>Q</code>列の値を示している。<ul>
+<li><span>Y</span>: 実行中のプロセスが、このファイルセットのインストールによって影響を受ける可能性があることを示す。 ソフトウェア・プロダクトに添付された資料を参照してください。</li>
+
+<li><span>N</span>: 実行中のプロセスが、このファイルセットのインストールによって影響を受けないことを示す。</li>
+
+<li><span>B</span>：ボスブートと静止状態を示す。</li>
+
+<li><span>b</span>:b：bosbootを表し、休止状態ではないことを示す。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><code>Content</code></td>
+
+<td>以下のリストでは、コンテンツ・カラムのフィールドについて説明します：<dl>
+
+<dt><span>usr</span>,<span>root</span></dt>
+
+<dd><span>/usr</span>とルートファイルシステム<span>AIX 3.2</span>以降)</dd>
+
+
+
+<dt><span>usr</span></dt>
+
+<dd><span>/usr</span>ファイルシステムのみ<span>AIX 3.2</span>以降）</dd>
+
+
+
+<dt><span>share</span></dt>
+
+<dd><span>/usr/share</span>ファイルシステムのみ<span>AIX 3.2</span>以降）</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><code>installp -s</code>コマンドの出力は、適用されたソフトウェアファイルセットアップデートと、コミットまたは拒否が可能なアップデートのリストを取得するために使用され、次のような出力に似ている：</p>
+ <div> <div><div><pre><code>Installp Status
+---------------
+Name                       Part    Level                     State
+--------------------------------------------------------------------
+bos.net.tcp.client         USR     4.1.0.2                   APPLIED
+bos.net.tcp.client         ROOT    4.1.0.2                   APPLIED
+bos.rte.commands           USR     4.1.0.1                   APPLIED
+bos.rte.misc_cmds          USR     4.1.0.1                   APPLIED
+bos.rte.tty                USR     4.1.0.1                   APPLIED</code></pre></div><div></div></div></div>
+ <p>フィールドの説明は次のとおりです。</p>
+ 
+<div><div><table><caption><span>表2. <code>installp -S</code>コマンドの出力ファイル・フィールドの説明 '</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>名前</td>
+
+<td>インストール済みソフトウェア・プロダクトのファイルセットの名前。</td>
+
+</tr>
+
+<tr>
+<td>Part</td>
+
+<td>ファイルセットの一部。</td>
+
+</tr>
+
+<tr>
+<td>ROOT</td>
+
+<td>ルートファイルシステム</td>
+
+</tr>
+
+<tr>
+<td>SHARE</td>
+
+<td><span>/usr/share</span> ファイル・システム</td>
+
+</tr>
+
+<tr>
+<td>ﾕｰｻﾞｰ</td>
+
+<td><span>/usr</span> ファイルシステム</td>
+
+</tr>
+
+<tr>
+<td>レベル</td>
+
+<td>インストール済みソフトウェア・プロダクト・オプションのレベル。</td>
+
+</tr>
+
+<tr>
+<td>State</td>
+
+<td>インストール済みソフトウェア・プロダクト・オプションの状態。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>インストールするソフトウェア製品とアップデートは、以下のいずれかの方法で特定できる：</p>
+ <ul>
+<li>キーワード「<code>all</code>使用することで、指定されたインストールメディアに 含まれるすべてのソフトウェアをインストールすることを示す。</li>
+
+<li>インストールするソフトウェアを示すソフトウェア製品名のリストを使用する。 各ソフトウェア製品名の後には、任意でレベルを付けることができる。</li>
+
+<li><span>-f</span>フラグに続けてファイル名を指定し、ファイル内の各行は、ソフトウ ェア製品名を含むエントリで、オプションでその後にレベルが続くか、#で始ま って無視されるコメント行になる。<div><div>
+        <div>
+          <div><span>注：</span>「<span>installp</span>プログラムは、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sysck.html" target="_blank" rel="noopener noreferrer"><span>sysck</span></a>コマンドを使用して、ファイルの復元後にファイルを検証する。 <span>sysck</span>コマンドは、ファイル名の特殊文字「<code>~</code>、「<code>`</code>、「<code>'</code>、「<code>\</code>、「<code>"</code>、「<code>$</code>、「<code>^</code>、「<code>&amp;</code>、「<code>( )</code>、「<code>|</code>、「<code>{}</code>、「<code>[]</code>、「<code>&lt;&gt;</code>、「<code>?</code>」を認識しない。 ファイル名にこれらの文字が含まれている場合、インストールは失敗します。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+ <p>FilesetName パラメーターは、
+ソフトウェア・プロダクト全体を指定するときにも、ソフトウェア・パッケージに入っている個別にインストール可能なファイルセットを指定するときにも使用できます。 たとえば、「<span>bos.net</span>」はソフトウェア・パッケージの名前で、そのソフトウェア・パッケージ内で個別にインストール可能なファイルセットは「<span>bos.net.ncs.client</span>、「<span>bos.net.nfs.client</span>、「<span>bos.net.tcp.client</span>である。 ユーザーがFilesetNameパラメータに「<span>bos.net</span>指定した場合、リストされている個別にインストール可能なファイルセットがすべてインストールされる。 ユーザーがFilesetNameパラメーターに '<span>bos.net.tcp.client</span>を指定した場合、そのファイルセットのみがインストールされる。</p>
+ <p>Level パラメーターは、インストールするソフトウェア・プロダクトまたは更新パッケージのレベルを表します。 Levelパラメータはvv.rr.mmmm.ffffの形式である。</p>
+ 
+<div><div><table><caption><span>表3. レベルパラメータ フォーマット 説明</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>vv</td>
+
+<td>vvフィールドは、バージョン番号を表す1～2桁の数値フィールドである。</td>
+
+</tr>
+
+<tr>
+<td>rr</td>
+
+<td>rrフィールドは、リリース番号を表す1～2桁の数値フィールドである。</td>
+
+</tr>
+
+<tr>
+<td>MMMM</td>
+
+<td>mmmmフィールドは、修正レベルを表す1桁から4桁の数値フィールドである。 モディフィケーション・レベルは、保守レベルまたはテクノロジー・レベルとも呼ばれます。</td>
+
+</tr>
+
+<tr>
+<td>ffff</td>
+
+<td>ffffフィールドは、フィックス・レベルを表す1～4桁の数値フィールドである。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>ユーザーがインストールパッケージのみを含むインストールメディアからインストールパッケージをインストールする場合、レベルを指定する必要はありません。 異なるレベルのソフトウェア製品の複数のインストールパッケージが、同じインストール媒体に存在することはあまりありません。 しかし、これが発生した場合、「<span>installp</span>、FilesetNameで Levelが指定されていないときは、指定されたソフトウェア製品を最新のソフトウェア製品レベルでインストールする。 更新パッケージだけが入っているインストール・パッケージまたはインストール・パッケージと更新パッケージの両方が入っているインストール・メディアをインストールする場合は、
+Level を指定しないと、指定した FilesetName 用のインストール・メディア上にある、適用可能な更新パッケージがすべてインストールされます。 インストールパッケージとアップデートパッケージの両方を含むインストー ルメディアの場合、ユーザーは「<span>-I</span>フラグを使用してインストールパッケ ージのみのインストールを要求したり、「<span>-B</span>フラグを使用してアップデートパッケ ージのみのインストールを要求したりできる。 インストール・メディアに入っている特定のソフトウェア・プロダクトの一部だけをインストールしたい場合は、
+インストールしたい更新パッケージごとに FilesetName と Level の両方を指定しなければなりません。</p>
+ <p>以下の例を使用して、<span>/usr/sys/inst.images</span> ディレクトリー内に入っている TCP/IP ソフトウェア・プロダクトとその更新パッケージの 1 つをインストールできます。</p>
+ <div> <div><div><pre><code>installp -a -d/usr/sys/inst.images bos.net.tcp.client 4.1.0.0
+bos.net.tcp.client 4.1.0.2</code></pre></div><div></div></div></div>
+ <div><div>
+        <div>
+          <div><span>注意:</span>同じレベルでファイルセットが重複している場合、'<span>installp</span>はインストー ルの目次 ('<span>.toc</span>) で最初に見つかったものを使用します。この状況は、'<code>bffcreate</code>を使用して異なるメディアから同じインストールディレクトリにイメージを展開した場合に発生する可能性があります。 このため、更新イメージは、同じレベルにある同じファイルセットの基本レベル・イメージと
+同じディレクトリーには抽出されないので注意してください。</div>
+        </div>
+      </div></div>
+ <p><span>installp</span> コマンド出力の最後には、インストールを試みた各ソフトウェア・プロダクトの状態をリストした要約報告があります。 次の例は、前回の「<span>installp</span>コマンドのサマリー・レポートの例である：</p>
+ <div> <div><div><pre><code>Installp Summary
+----------------
+Name                    Level        Part        Event        Result
+--------------------------------------------------------------------
+bos.net.tcp.client      4.1.0.0      USR        APPLY        SUCCESS
+bos.net.tcp.client      4.1.0.0      ROOT       APPLY        SUCCESS
+bos.net.tcp.client      4.1.0.2      USR        APPLY        SUCCESS</code></pre></div><div></div></div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>以前にインストールしたレベルのファイルセットの更新パッケージが破壊状態の場合、そのファイルセット更新パッケージを再インストールするには、
+<span>-acgN</span> フラグを使用しなければなりません。</li>
+
+<li><span>installp</span>コマンドでは、2 GB を超える mkinstallp パッケージまたは bff イメージをインストールできません。 bffイメージを2GB以下の複数のパッケージに分割する方法もある。</li>
+
+<li><span>暫定修正</span>マネージャー（'<span>emgr</span>コマンド）によってロックされているファイルセットを更新しようとすると、ロックされているファイルセットを示すメッセージが表示される。 <span>lslpp</span> コマンドは、EFIXLOCKED 状態にある、ロックされているすべてのファイルセットを表示します。</li>
+
+<li>インストールされたビルド日が、選択したファイルセットのビルド日より新しいファイルセットを更新しようとすると、メッセージが表示されます。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>要約報告の値</h2> <p>要約報告は、プロダクト・オプションの名前とプロダクトの一部とを識別します。 その他の情報としては、要求されたアクション（イベント）とそのアクションの結果がある。</p>
+
+<dl>
+
+<dt>イベント・バリュー</dt>
+
+<dd><p>サマリー・レポートのイベント欄は、「<span>installp</span>コマンドに要求されたアクションを特定する。 このカラムには次の値が表示されます。</p>
+
+
+<div><div><table><caption><span>表4. イベント値</span></caption><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>APPLY</span></td>
+
+<td>指定されたファイルセットを適用しようとしました。</td>
+
+</tr>
+
+<tr>
+<td><span>COMMIT</span></td>
+
+<td>指定されたファイルセット更新パッケージをコミットしようとした。</td>
+
+</tr>
+
+<tr>
+<td><span>REJECT</span></td>
+
+<td>指定されたファイルセット更新パッケージを拒否しようとした。</td>
+
+</tr>
+
+<tr>
+<td><span>cleanup</span></td>
+
+<td>指定されたファイルセットをクリーンアップしようとしました。</td>
+
+</tr>
+
+<tr>
+<td><span>DEINSTALL</span></td>
+
+<td>指定されたファイルセットを除去しようとした。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>結果値</dt>
+
+<dd><p>要約報告の Result カラムには、要求されたアクションが <span>installp</span> コマンドによって実行された結果が入ります。 このフィールドは次の値をとります。</p>
+
+
+<div><div><table><caption><span>表5. 結果の値</span></caption><thead>
+<tr>
+<th><div>結果</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>SUCCESS</span></td>
+
+<td>指定されたアクションは成功した。</td>
+
+</tr>
+
+<tr>
+<td><span>FAILED</span></td>
+
+<td>指定されたアクションは失敗した。</td>
+
+</tr>
+
+<tr>
+<td><span>CANCELLED</span></td>
+
+<td>指定されたオプションに対するプリインストール検査には合格したが、指定されたアクションを開始する前にこれを取り消す必要があった。 Ctrl+c を使用してインストール・プロセスを中断すると、取り消しアクションが行われる場合もありますが、一般的には、Ctrl+c でインストール・プロセスを中断すると予測できない結果を招く可能性があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表6. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-A</span></td>
+
+<td>APAR 番号と、指定されたソフトウェア・パッケージで修正済みの、お客様が報告した問題点の要約を表示します。 インストールは行われません。</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span></td>
+
+<td>1 つ以上のソフトウェア・プロダクトまたは更新パッケージを適用します。 このフラグがデフォルトの動作である。 このフラグを <span>-c</span> フラグと共に使用すると、インストール時にソフトウェア・プロダクトの更新パッケージを適用し、コミットすることができます。</td>
+
+</tr>
+
+<tr>
+<td><span>-b</span></td>
+
+<td>bosbootが必要なときに、システムがbosbootを実行しないようにする。</td>
+
+</tr>
+
+<tr>
+<td><span>-B</span></td>
+
+<td>要求されたアクションがソフトウェアアップデートに限定されなければならないことを示す。</td>
+
+</tr>
+
+<tr>
+<td><span>-C</span></td>
+
+<td>インストールが中断された場合その後でクリーンアップを実行し、以前のインストールの不完全な部分を除去します。 適用中 かコミット中 のソフトウェア・プロダクトまたは更新がある場合は、必ずクリーンアップを実行しなければなりません。
+また、クリーンアップは必要に応じて手操作でも実行できます。 以前のバージョンとの互換性を保つため、他のフラグやパラメーターは'<code>installp -C</code>で受け付けることができるが、必要なクリーンアップがすべて試みられるため無視される。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>適用されたがコミットされていない指定された更新をすべてコミットする。 アップデートがコミットされると、そのアップデートが依存する他のソフトウェア製品もすべてコミットされなければならない（すでにコミットされている場合を除く）。 指定されたソフトウェア製品は、指定された製品の前提条件または中核条件であるソフトウェア製品に依存する。 必要条件のソフトウェア・プロダクトがコミット済み状態でない場合、コミットは失敗し、エラー・メッセージが表示されます。 <span>-g</span> フラグを使用すると、必要なソフトウェア・プロダクトの更新パッケージを自動的にコミットすることができます。</td>
+
+</tr>
+
+<tr>
+<td><span>-D</span></td>
+
+<td>ソフトウェア製品または更新プログラムが正常にインストールされた後、インストールイメージファイルを削除します。 <span>-g</span> フラグを指定すると、自動的に取り込まれたすべてのプロダクトのインストール・イメージ・ファイルも削除されます。 このフラグは <span>-a</span> フラグか <span>-ac</span> フラグと共に指定した場合にのみ有効で、<span>-Or</span> フラグと共に指定した場合は無効です。 また、このフラグが有効なのは、インストール実施中のシステム上にあるディレクトリーおよびインストール・イメージ・ファイルがデバイスであるときだけです。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span>  Device</td>
+
+<td>インストール・メディアの検索場所を指定します。 インストールメディアは、テープやディスケットなどのハードウェアデバイスでも、インストー ルイメージを含むディレクトリでも、インストールイメージファイルそのものでもかまいません。 インストール・メディアが製品テープまたは修正サービス・テープの場合、テープ・デバイスをno-rewind-on-closeおよびno-retension-on-openに指定してください。 たとえば、高密度テープなら「<span>/dev/rmt0.1</span>、低密度テープなら「<span>/dev/rmt0.5</span>。 テープの製造元が指定したオプションを使用してください。 デフォルト・デバイスは <span>/dev/rfd0</span> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span> LogFile</td>
+
+<td>イベント・ログ作成機能を使用可能にします。 <span>-e</span> フラグを指定すると、<span>installp</span> コマンドの出力のうち、
+ある部分を LogFile 変数で指定したファイルに追加できます。 デフォルトでは、<span>installp</span> コマンドは <span>stdout</span> および <span>stderr</span> に出力されます。
+ただし、SMIT または VSM を使用すると、<span>smit.log</span> に出力されます。 LogFile 変数には、既存の書き込み可能ファイルを指定しなければなりません。
+また、そのファイルが存在するファイルシステムには、ログを保管するだけのスペースが必要です。 ログ・ファイルには折り返しはありません。<p>すべての出力が追加されるわけではありません。 著作権情報は引き続き表示されます。 エラー・メッセージは画面に表示され、かつ LogFile 変数で指定されたファイルにも出力されます。 <span>installp</span> コマンド呼び出し結果の要約も画面に表示され、かつ LogFile にも出力されます。 このフラグは、主にNIMとBOSのインストールで使用され、ユーザーに表示される出力を制限するが、後で検索するために有用な情報を保持する。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-E</span></td>
+
+<td>ソフトウェアご使用条件を表示します。 このフラグが有効なのは、<span>-a</span> フラグか <span>-l</span> フラグと共に指定した場合のみです。 <span>-E</span>フラグが '<span>-a</span>フラグと一緒に指定されている場合、選択されたファイルセットに関連する保留中のライセンス契約を示す新しいセクションが表示される。 <span>-E</span>フラグが「<span>-l</span>フラグと一緒に指定されている場合、メディア上のすべてのファイルセットに関連するライセンス契約が出力される。</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span></td>
+
+<td>このオプションを使用すると、現在インストールされているバージョンと同じか、それより新しいバージョンのソフトウェア製品が以前にインストールされていても、そのソフトウェア製品を強制的にインストールすることができる。 <span>-F</span> フラグは、更新パッケージまたは <span>-g</span> フラグと共に指定した場合は無効です。 <span>-F</span> フラグを指定すると、<span>-I</span> フラグは暗黙に指定されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span> ListFile</td>
+
+<td>ListFile からソフトウェア・プロダクトの名前を読み取ります。 ListFileが'<code>-</code>（ダッシュ）の場合、標準入力から名前のリストを読み込む。 ソフトウェア・ファイルセット名（オプションでその後にレベルが続く）は、テキスト1行につき1つでなければならず、1行の2つ目の空白またはタブに続くテキストは無視される。 <span>installp</span><span> -l</span> コマンドの出力は、このフラグへの入力条件に合致しています。</td>
+
+</tr>
+
+<tr>
+<td><span>-G</span></td>
+
+<td>1つ以上のソフトウェア製品または更新プログラムのインストールパッケージの署名を検証します。<div><div>
+        <div>
+          <div><span>注：</span>この機能は「<span>installp</span>コマンドでのみ使用可能。 この機能は、「<span>geninstall</span>コマンドや「<code>NIM cust</code>オペレーションなど、他の上位コマンドやオペレーションではサポートされていない。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span></td>
+
+<td>このフラグをインストールまたはコミットに使用すると、指定されたソフトウェア製品の必須条件であるソフトウェア製品またはアップデートが自動的にインストールまたはコミットされる。 このフラグをソフトウェアの除去または拒否に使用すると、指定したソフトウェアが従属するソフトウェアを自動的に除去または拒否します。 <span>-g</span> フラグは、<span>-F</span> フラグと共に使用すると無効です。<div><div>
+        <div>
+          <div><span>注:</span> このフラグは、指定された更新が存在しない場合も、メディア上に存在する置き換え更新を自動的にプルします。 このフラグは、インストールメディア上に同じファイルセットに対する複数の優先更新がある場合に、指定されたファイルセットに対して最新の更新をインストールするようにします。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-I</span></td>
+
+<td>要求されたアクションがベースレベルのファイルセットに限定されなければならないことを示す。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>ソフトウェア・プロダクトのインストール・メディアに、<span>lpp.instr</span> ファイル、<span>lpp.doc</span> ファイル、<span>lpp.README</span> ファイル、
+および <span>README</span> ファイルが存在する場合は、これらのファイルを標準出力に表示します。 このフラグは、多くのファイルセットでかなりの時間を要することがある。</td>
+
+</tr>
+
+<tr>
+<td><span>-J</span></td>
+
+<td>このフラグは、<span>installp</span> コマンドが System Management Interface Tool (SMIT) メニューから実行されるときに使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>インストールメディアに含まれる、すべてのソフトウェア製品とその個別インストール可能オプションを標準出力にリストアップする。 インストールは実行されません。 <span>-l</span> フラグは、<span>-Or</span> フラグと共に指定した場合は無効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span></td>
+
+<td>目次 (TOC) を検索し、コロンで区切った出力の情報を表示することにより、メディアの内容を表示します。 このフラグは、smitとvsmがメディアの内容をリストアップするのに使われる。 指定のフォーマットは次のとおりです。<div>
+<div><div><pre><code>package:fileset:v.r.m.f:PTF:enter the following command:state:supersede:\
+sup_ptf:sup_state:latest_sup:quiesce:Descr:\
+netls_vendor_id:netls_prod_id:netls_prod_ver:relocatable:build date </code></pre></div><div></div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span> Platform</td>
+
+<td>プラットフォーム (Platform) の値を指定します。 インストール可能なソフトウェア・パッケージのリストには、次の値のいずれかを使います。<dl>
+
+<dt><span>R</span></dt>
+
+<dd><span>POWER プロセッサベース</span>のプラットフォームパッケージのみを指定する。</dd>
+
+
+
+<dt><span>N</span></dt>
+
+<dd>中立パッケージ、つまり <span>POWER プロセッサー・ベース</span> プラットフォームに限定されないパッケージを指定します。</dd>
+
+
+
+<dt><span>A</span></dt>
+
+<dd>すべてのパッケージを指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-N</span></td>
+
+<td>インストール時または更新時に置き換えられた既存のファイルの保存を無効にします。 このフラグは <span>-ac</span> フラグと共に指定した場合にだけ有効です。 インストール時にシステムに異常が発生した場合にこのフラグを指定していると、置換されたファイルは修復できません。</td>
+
+</tr>
+
+<tr>
+<td><span>-O</span><span>[r</span>]<span>[s</span>]<span>[u</span>]}</td>
+
+<td>ソフトウェア・プロダクトの指定された部分をインストールします。 <span>r</span>は、インストールされる「<span>/</span>（ルート）部分を示す。 <span>s</span>は、インストールされる「<span>/usr/share</span>部分を示す。 <span>u</span>はインストールされる「<span>/usr</span>部分を示す。 <span>-O</span>フラグは、標準システムでは不要である。なぜなら、このフラグがなければ、すべてのパーツがデフォルトでインストールされるからである。 このフラグは、ディスクレス・ワークステーションまたはデータレス・ワークステーションのインストール時に指定する必要があり、<span>nim</span> コマンドが使用できるよう設計されています。 <span>-Or</span> オプションは、<span>-d</span> フラグまたは <span>-l</span> フラグと共に指定した場合は無効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>指定されたアクションのプリインストール検査をすべて実行することにより、アクションのプレビューを実行します。 このフラグは、apply、commit、reject、remove操作（<span>-a</span>、'<span>-c</span>、'<span>-r</span>、'<span>-u</span>フラグ）でのみ有効である。</td>
+
+</tr>
+
+<tr>
+<td><span>-Q</span></td>
+
+<td>前提条件が原因でインストールに失敗した製品に関するエラーや警告を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span></td>
+
+<td>抑制モードを指定します。このモードでは、メディアのボリューム変更の場合を除き、デバイスのプロンプトはすべて表示されなくなります。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>適用されているがコミットされていない、指定されたすべてのソフトウェアアップデートを拒否する。 ソフトウェア更新が拒否された場合、それに依存する他のソフトウェア製品（つまり、指定されたソフトウェア製品を必要条件とするソフトウェア製品）も拒否されなければならない。 <span>-g</span> フラグを使用すると、従属するソフトウェア更新パッケージを自動的に拒否することができます。 キーワード <code>all</code> は、拒否フラグ (<span>-r</span>) と共に指定した場合は無効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span> 
+Path</td>
+
+<td>ユーザー指定のインストール・ロケーションを示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td>すべてのソフトウェア製品と、適用されているがコミットされていないアップデートに関する情報を一覧表示します。 このリストはコミットまたは拒否できるソフトウェアで構成されています。</td>
+
+</tr>
+
+<tr>
+<td><span>-S</span></td>
+
+<td>インストール・デバイスが CD-ROM の場合、マルチボリュームの処理を抑制します。 CD_ROMからのインストールは、CD-ROMに複数巻CDセットの情報が含まれていても、常に1巻として扱われます。 <code>INU_SINGLE_CD</code> 環境を設定した場合も、これと同じマルチボリューム処理の抑制が行われます。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> SaveDirectory</td>
+
+<td>更新によって置き換えられたファイルの代替保存ディレクトリの場所を指定します。<p><span>-t</span>フラグは、'<code>apply</code>または'<code>apply/commit</code>操作による更新でのみ有効である。 このフラグは、<span>-N</span> フラグと共に指定した場合は無効です。</p>
+
+<p><span>-t</span>フラグは、デフォルトのファイルシステム（<code>/</code>」および「<code>/usr</code>）に十分な空き容量がない場合や、これらのファイルシステムを恒久的に拡張するのが望ましくない場合に有用である。 指定されたディレクトリがリモート・ファイル・システムであることが望ましいかもしれない。 <span>installp</span>コマンドはリモート・ファイルシステムを拡張できないので、リモート・ファイルシステムには十分なスペースが必要である。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span></td>
+
+<td>指定されたソフトウェア・プロダクトとそのインストール済み更新パッケージをシステムから除去します。 プロダクトは、コミット済み状態であっても破壊状態であっても問題ありません。 <span>-g</span> フラグを一緒に指定しない限り、指定したプロダクトに従属するソフトウェア・プロダクトも、入力リストに明示的に指定する必要があります。 <span>bos.rte</span> ファイルセットは、絶対に除去しないでください。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>ファイルセット内のすべてのインストール済みファイルのチェックサム値が正しいかどうかをインストール後に検査します。 インストールされたファイルは、インストール後に正しいファイル・サイズかどうかを必ず検査されます。 このフラグは、ネットワーク・デバイスのインストール後かリモート・デバイスのインストール後に使用してください。 エラーが報告された場合は、そのソフトウェア・プロダクトの再インストールが必要な場合があります。 インストール後に必要な一貫性チェックも、このフラグによって開始される。</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span> 番号</td>
+
+<td>詳細オプションを指定します。このオプションにより、プリインストール出力に関して 4 つの詳細レベルを指定できます。 数値 パラメーターの有効な値は、2、3、または 4 です。 <span>-V</span>フラグを使用しないデフォルトの冗長性レベルでは、プリインストール処理の FAILURES、WARNINGS、SUCCESSES のリストをアルファベット順に表示する。 障害の真の原因に重点をおいて、必要条件の障害が報告されます。 不合格となったファイルセットに無関係の必要条件は表示されません。 プリインストール出力は、以下の説明に従って、レベル2～4によって変更される：<dl>
+
+<dt><span>※2</span></dt>
+
+<dd>FAILURE と WARNING のアルファベット順リストが出力されます。 要求の失敗は、選択されたファイルセットと失敗の原因となった要求の間の要求関係を説明する追加情報とともに表示されます。 レベル 1で抑制された不合格要求事項が表示されます。 プリインストール SUCCESS のリストは、その処理順に表示されます。</dd>
+
+
+
+<dt><span>3</span></dt>
+
+<dd>レベル3はレベル2と同じだが、SUCCESSESにはより必要な情報が表示される。</dd>
+
+
+
+<dt><span>4</span></dt>
+
+<dd>Level 4 は、SUCCESS と WARNING に関しては Level 3 と同じです。 要求の失敗は、詳細な要求関係を描写する形式で表示される。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 冗長レベル 2 以上が使用されている場合、システムに復元されたファイルが出力に表示されます。 <span>installp</span> <code>/</code>(ルート)ファイルシステムが、'<span>/smit.log</span>大きくなったときに一杯にならないように注意すること(smitが'<span>installp</span>コマンドを実行するのに使われている場合)。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>FilesetName フラグにワイルドカード機能を適用しません。 smitからこのフラグを使用すると、選択されたファイルセットだけをインストールし、一致するファイルセットはインストールしない。 たとえば、'<span>foo.rte</span>ファイルセットを選択した場合、'<span>foo.rte.bar</span>ファイルセットは、デフォルトのように、'<span>-w</span>フラグがなければ自動的に引き込まれない。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>インストールするためのスペースが不十分なファイルシステムの拡張を試みます。 このオプションは、ソフトウェア・プロダクト・パッケージが提供する現在の使用可能スペースとサイズの推定に基づいてファイルシステムを拡張します。 <span>-X</span>フラグが指定されていても、インストール中に使用可能なディスク領域を使い果たす可能性があります。 また、リモートのファイルシステムは拡張できない。</td>
+
+</tr>
+
+<tr>
+<td><span>-Y</span></td>
+
+<td>インストールするソフトウェアに必要なソフトウェアライセンス契約に同意する。 このフラグは <span>-a</span> フラグと共に使用する場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-z</span> BlockSize</td>
+
+<td>インストール・メディアのブロック・サイズをバイト単位で表示します。 サイズのデフォルト値は 512 です。</td>
+
+</tr>
+
+<tr>
+<td>FilesetName</td>
+
+<td>FilesetNameフィールドは、インストールするソフトウェア製品の名前を指定し、ソフトウェア製品全体またはソフトウェア製品内の個別にインストール可能なファイルセットを指定することができる。 このオプションを使用して、ファイルセットまたはファイルセット更新の名前を指定することができる。</td>
+
+</tr>
+
+<tr>
+<td>レベル</td>
+
+<td>レベル]フィールドは、インストールするソフトウェア製品または更新のレベルを示し、vv.rr.mmmm.ffffの形式である。 ファイルセットのアップデートに追加のフィックスID（ptf IDとも呼ばれる）がある場合、そのIDも、vv.rr.mmmm.ffff.pppppppのようにLevelで指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><caption><span>表7. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span>（ゼロ）</td>
+
+<td>インストールがすべて成功したか、または要求されたファイルセットに対する要求されたアクションに処理が必要なかったことを示します (たとえば、要求されたファイルセットがすでにインストールされている場合など)。</td>
+
+</tr>
+
+<tr>
+<td><span>nonzero</span></td>
+
+<td>インストールが一部完了していないことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><span>installp</span> コマンド出力の最後には、インストールを試みた各ソフトウェア・プロダクトの状態をリストした要約報告があります。 インストールできなかったか、インストールに失敗したソフトウェア・プロダクトについては、
+インストール処理中に <span>installp</span> コマンドが絶えず表示している詳細情報で原因を突き止めることができます。</p>
+</section>
+
+<section><h2>セキュリティー</h2>
+<dl>
+
+<dt>特権コントロール</dt>
+
+<dd>root ユーザーのみがこのコマンドを実行できます。<div><div>
+        <div>
+          <div><span>注:</span><p>Trusted Execution (TE) ポリシーが <code>TSD_LOCK</code> ポリシーまたは <code>TSD_FILE_LOCK</code> ポリシーと一緒にオンになっている場合、<span>installp</span> コマンドは失敗します。 インストールを続行するには、<code>TSD_LOCK</code> ポリシーまたは <code>TSD_FILE_LOCK</code> ポリシーをオフにしてください。 <code>TSD_LOCK</code> ポリシーまたは <code>TSD_FILE_LOCK</code> ポリシーがオンになっていない場合、 <span>installp</span> コマンドは TE ポリシーを使用して正常に実行されます。</p>
+
+</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt>RBACユーザー</dt>
+
+<dd><div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>インストール・カートリッジ・テープに含まれるすべてのソフトウェア製品とインストール可能なオプションを一覧表示するには、次のコマンドを入力します：<div>
+<div><div><pre><code>installp -L -d /dev/rmt0.1</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>インストール・テープ上のすべてのソフトウェア製品で修正された、顧客から報告されたすべての問題を一覧表示するには、次のコマンドを入力します：<div>
+<div><div><pre><code>installp -A -d /dev/rmt0.1 all</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>bos.net</span>ソフトウェアパッケージ（「<span>/usr/sys/inst.images</span>ディレクトリにある）内のすべてのファイルセットをインストール（自動的にコミット）し、必要に応じてファイルシステムを拡張するには、次のコマンドを入力する：<div>
+<div><div><pre><code>installp -aX -d/usr/sys/inst.images bos.net</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>すでにシステムにインストールされているNFSソフトウェア製品オプションを同じレベル（テープから）で再インストールしてコミットするには、次のコマンドを入力します：<div>
+<div><div><pre><code>installp -acF -d/dev/rmt0.1 bos.net.nfs.client 4.1.0.0</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>TCP/IPソフトウェア製品のディスケットに含まれる特定のアップデートをインストール（適用のみ）するには、以下のコマンドを入力します：<div>
+<div><div><pre><code>installp -a bos.net.tcp.client 4.1.0.2 bos.net.tcp.server 4.1.0.1</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>bos.net.tcp.server</span>名前のファイルセットを削除するには、以下のコマンドを入力する：<div>
+<div><div><pre><code>installp -u bos.net.tcp.server</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>リモート・ファイル・システム上の代替ストレージ・ディレクトリを「<span>-t/temp_space</span>」で BOSNET TCP/IP更新に指定するには、以下のコマンドを入力する：.<div>
+<div><div><pre><code>mount Server_Name:/Save_Area /temp_space
+   
+installp -a -t /temp_space/My_Hostname  \ 
+bosnet.nfs.client 4.1.1.0</code></pre></div><div></div></div>
+</div>
+<p>保存ディレクトリは'<span>/temp_space/My_Hostname/usr/lpp/bos.net/bos.net.nfs.client/4.1.1.0.save</span>になる。</p>
+</li>
+
+<li><span>installp</span> コマンドのすべての出力をログ・ファイルに取り出すには、<span>script</span> コマンドを次の例のように使用します。 出力は、現行ディレクトリーの <span>typescript</span> ファイルに書き込まれます。<div>
+<div><div><pre><code>script
+installp ...
+&lt;Ctrl&gt;d</code></pre></div><div></div></div>または<div><div><pre><code>installp ... 2&gt;&amp;1 | tee /tmp/inst.out</code></pre></div><div></div></div>第 2 の例では、出力は画面に書き込まれ、コピーが保存されます。</div>
+</li>
+
+<li><span>installp</span>コマンドを使用してCDから「<span>bos.net.tcp.client</span>ファイルセットのインストー ルをプレビューするには、以下のコマンドを入力する：<div>
+<div><div><pre><code> installp -pacgXd /dev/cd0 bos.net.tcp.client</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>/usr/sys/inst.images</span>」に含まれるTCP/IPとそのアップデートの1つをインストールするには、 以下の例のように「<span>installp</span>コマンドを使用する。<p><span>installp</span> コマンドの出力の最後には、インストールを試みた各ソフトウェア・プロダクトの状態をリストした要約報告があります。 次の例は、前回の「<span>installp</span>コマンドのサマリー・レポートの例である：</p>
+
+<div>
+<div><div><pre><code>Installp Summary
+----------------
+Name                 Level        Part       Event        Result
+-----------------------------------------------------------------
+bos.net.tcp.client   4.1.0.0      USR        APPLY        SUCCESS
+bos.net.tcp.client   4.1.0.0      ROOT       APPLY        SUCCESS
+bos.net.tcp.client   4.1.0.2      USR        APPLY        SUCCESS</code></pre></div><div></div></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注：</span>この要約は、次に「<span>installp</span>起動するまで「<span>/var/adm/sw/installp.summary</span>保存される。 <span>/usr/include</span>ディレクトリのヘッダーファイル'<span>inuerr.h</span>は、'<span>installp.summary</span>ファイルのレコードを構成するフィールドを記述している。</div>
+        </div>
+      </div></div>
+
+</li>
+
+<li><span>POWERプロセッサー搭載</span>マシンにインストール可能なソフトウェア製品（「<span>/usr/sys/inst.images</span>ディレクトリにある）を一覧表示するには、以下のコマンドを入力する：<div>
+<div><div><pre><code>installp -l -MR -d /usr/sys/inst.images</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>システムにインストールされているCDのファイルセットをすべて更新するには、次のコマンドを入力する：<div><div><pre><code>lslpp -lc | awk -F ":" '{print $2}' | tail -n +2 &gt; /tmp/lslpp
+installp -agXd /dev/cd0 -e /tmp/install.log -f /tmp/lslpp</code></pre></div><div></div></div>ここで、'<span>-e</span>は出力を'<span>/tmp/install.log</span>ファイルに記録する。</li>
+
+<li><div><span>bos.net</span>ソフトウェア・パッケージに含まれるすべてのファイルセットの署名を検証するには、以下のコマンドを入力する：<div><div><pre><code>installp -Gd /usr/sys/inst.images bos.net</code></pre></div><div></div></div></div>
+
+<p><span>bos.net</span>ソフトウェア・パッケージは「<span>/usr/sys/inst.images</span>ディレクトリにある。</p>
+
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表8. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/dev/rfd0</span></td>
+
+<td>デフォルトの復元デバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>/dev/rmtn</span></td>
+
+<td>ロー・ストリーミング・テープ・インターフェースを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/sys/inst.images</span> Directory</td>
+
+<td>ソフトウェア・プロダクトのセットまたはサブセット一式のインストールまたは更新に使用されるファイルがバックアップ・フォーマットで入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

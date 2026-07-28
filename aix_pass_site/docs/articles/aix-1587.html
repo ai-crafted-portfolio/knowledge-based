@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>所有者またはストレージ・ルート・キーに関連した許可データを変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tpm_changeauth</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105537" target="_blank" rel="noopener noreferrer">-</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105547" target="_blank" rel="noopener noreferrer">-h</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105557" target="_blank" rel="noopener noreferrer">-</a></strong> [ <strong>なし | エラー | 情報 | デバッグ</strong> ] ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105580" target="_blank" rel="noopener noreferrer">N</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105570" target="_blank" rel="noopener noreferrer">-</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105590" target="_blank" rel="noopener noreferrer">-</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105600" target="_blank" rel="noopener noreferrer">-s</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105610" target="_blank" rel="noopener noreferrer">-ウー</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105620" target="_blank" rel="noopener noreferrer">-v (V)</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_changeauth.html#tpm_changeauth__row-d3e105630" target="_blank" rel="noopener noreferrer">-z</a></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tpm_changeauth</strong> コマンドは、Trusted Platform Module (TPM) 所有者、または TPM ストレージ・ルート・キーの許可データを変更する (<strong>TPM_ChangeAuthOwner</strong> API により) ために使用されます。 この操作を実行すると、現行パスワードのプロンプト、新規パスワードのプロンプト、および新規パスワードの確認のプロンプトが出されます。 <strong>-o</strong> (または <strong>--owner</strong>) オプションは TPM 所有者パスワードを変更し、<strong>-s</strong> (または <strong>--srk</strong>) オプションは TPM ストレージ・ルート・キー (SRK) パスワードを変更します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-g</strong> (または <strong>-- original_password_unicode</strong>)</td>
+
+<td>TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、元のパスワードに対して Trusted Computing Group Software Stack (TSS) UNICODE エンコードを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> (または <strong>-- help</strong>)</td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (または <strong>--log</strong>) [ <strong>none | error | info |
+debug</strong> ]</td>
+
+<td>ロギング・レベルを指定のとおり none、error、info、または debug に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> (または <strong>-- owner</strong>)</td>
+
+<td>TPM 所有者の許可データを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> (または <strong>-- new_password_unicode</strong>)</td>
+
+<td>TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、新規パスワードに対して TSS UNICODE エンコードを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> (または <strong>--set-well-known</strong>)</td>
+
+<td>パスワードをすべてゼロ (20 バイトのゼロ) からなる秘密に変更します。 変更する必要があるパスワード (所有者または SRK、あるいは両方) を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> (または <strong>-- srk</strong>)</td>
+
+<td>TPM ストレージ・ルート・キーの許可データを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> (または <strong>-- unicode</strong>)</td>
+
+<td>TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、パスワードに対して TSS UNICODE エンコードを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong> (または <strong>-- version</strong>)</td>
+
+<td>コマンドのバージョン情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong> (または <strong>--well-known</strong>)</td>
+
+<td>現行の所有者パスワードがすべてゼロ (20 バイトのゼロ) からなる秘密である場合に、パスワードを新しいものに変更します。 変更する必要があるパスワード (所有者または SRK、あるいは両方) を指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

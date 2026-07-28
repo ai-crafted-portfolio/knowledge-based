@@ -1,0 +1,158 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p>NIMOL クライアントで geninstall を実行して、ソフトウェア保守を行います。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、 Hardware Management Console (HMC) から Virtual I/O Server (VIOS) または Integrated Virtualization Management (IVM) に対してのみ使用されます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>nimol_update</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_update.html#nimol_update__row-d3e32472" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>クライアント・ホスト名</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_update.html#nimol_update__row-d3e32505" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> <em>ラベル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_update.html#nimol_update__row-d3e32490" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>geninstall_flags</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_update.html#nimol_update__row-d3e32514" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>リモート・アクセス方式</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_update.html#nimol_update__row-d3e32532" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>パッケージ・リスト</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimol_update.html#nimol_update__row-d3e32484" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>nimol_update</strong> コマンドは、
+指定されたリモート・アクセス方式 (デフォルトでは <strong>/usr/bin/rsh</strong>) を使用して、
+構成済みの NIMOL クライアント上で <strong>geninstall</strong> コマンドを実行します。 <strong>nimol_config</strong> コマンドを使用して NIMOL サーバーを構成する場合、ユーザーはデフォルトのリモート・アクセス方式を、<strong>/usr/bin/rsh</strong> 以外の例えば <strong>/usr/bin/ssh</strong> などに設定することができます。 <strong>-n</strong> フラグなしに <strong>nimol_install</strong> コマンドを
+使用してインストールされたマシンの場合は、NIMOL クライアントとして認識されます。</p>
+
+<p>コマンドは、<strong>-acgX</strong> をデフォルト・フラグ
+として <strong>geninstall</strong> コマンドを実行します。 <strong>-f</strong> フラグを使用して <strong>geninstall</strong> コマンド・フラグを指定します。 <strong>geninstall</strong> コマンドを渡すソフトウェア・パッケージは、<strong>-p</strong> フラグ
+で指定されます。</p>
+
+<p><strong>nimol_update</strong> コマンドを使用してファイルセットをインストールする場合、lpp_source を持つリソース・ラベルを指定する必要があります。 リソース・ラベルが lpp_source を含んでいるか判断する
+には、<strong>nimol_config -l -L <em>label</em></strong> を実行します。 リソース・ラベル・ディレクトリーがまだグローバルにエクスポートされていない場合は、
+コマンドはリソース・ラベル・ディレクトリーをエクスポートします。 クライアントはディレクトリーをマウントし、インストール時にソース・ディレクトリーとして
+使用します。</p>
+</section>
+
+<section><h2>フラグ</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong> <em>クライアント・ホスト名</em></td>
+
+<td><strong>geninstall</strong> コマンドを実行する場所
+となる、NIMOL クライアント・ホスト名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>コマンドをデバッグ・モードで実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>geninstall_flags</em></td>
+
+<td><strong>geninstall</strong> コマンドに渡すフラグを指定します。 デフォルト・フラグは、<strong>acgX</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> <em>ラベル</em></td>
+
+<td>インストール・イメージのソースとして使用されるリソース・ラベルの
+名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>リモート・アクセス・メソッド</em></td>
+
+<td><strong>geninstall</strong> コマンドを実行するために使用する、リモート・アクセス方式を指定します。 デフォルトは <strong>/usr/bin/rsh</strong> です。 もう 1 つのオプションは、<strong>/usr/bin/ssh</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>パッケージ・リスト</em></td>
+
+<td><strong>geninstall</strong> コマンドに渡すソフトウェア・パッケージの名前を指定します。 デフォルトは <code>all</code> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt; 0</strong></td>
+
+<td>エラーが戻されました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+<p><strong>nimol_update</strong> コマンドを NIMOL クライアント上で実行するには、
+クライアントは NIMOL サーバーに対してリモート・アクセス許可を与える必要があります。 <strong>/usr/bin/ssh</strong> の使用は、<strong>/usr/bin/rsh</strong> より
+さらに機密保護機能のあるリモート・アクセス方式です。</p>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li>リソース・ラベル <code>530</code> のすべてのパッケージをクライアント <code>myclient</code> に
+インストールするには、次のように入力します。<div><div><pre><code>nimol_update -c myclient -L 530</code></pre></div><div></div></div></li>
+
+<li>クライアント <code>myclient</code> 上の <code>bos.games</code> に更新を適用するには、
+次のように入力します。<div><div><pre><code>nimol_update -c myclient -L 530 -f "-a" -p "bos.games"</code></pre></div><div></div></div></li>
+
+<li><code>bos.games</code> をクライアント <code>myclient</code> から除去するには、次のように入力します。<div><div><pre><code>nimol_update -c myclient -f "-u" -p "bos.games"</code></pre></div><div></div></div></li>
+
+<li><code>ssh</code>を使用して <strong>geninstall</strong> コマンドを実行するには、次のように入力します。<div><div><pre><code>nimol_update -c myclient -L 530 -m ssh</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2>
+<p><strong>/usr/sbin/nimol_update</strong></p>
+</section>
+
+<section><h2>ファイル</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/nimol.conf</strong></td>
+
+<td>コマンドの構成情報を保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

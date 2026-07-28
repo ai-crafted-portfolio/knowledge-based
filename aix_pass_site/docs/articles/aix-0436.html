@@ -1,0 +1,610 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>CDE セッションを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>dtsession</span></span> [<span><span>オプション</span></span>] ...</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>dtsession</span></span> コマンドは、ログインからログアウトまでのユーザー・セッション中に、ICCCM 1.1に準拠したセッション管理機能を提供します。 このコマンドによってウィンドウ・マネージャーが開始され、ユーザーは、セッションの保管、セッションの復元、セッションのロック、スクリーンセーバーの開始、およびデスクトップ互換クライアントに対する色の割り当てを行うことができます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> デスクトップ・ログイン・マネージャー <span><span>dtlogin</span></span> は、 <span><span>Xsession</span></span> スクリプトを介して <span><span>dtsession</span></span> クライアントを自動的に起動します。 <span><span>dtsession</span></span> クライアントは、既存の X サーバー上の <span><span>Xsession</span></span> スクリプトを使用して開始することもできます。 <span><span>dtsession</span></span> セッション・マネージャーは、自動的にウィンドウ・マネージャーを開始します。</div>
+        </div>
+      </div></div>
+ <div><span><span>dtsession</span></span> コマンドは、以下のタスクをサポートします。<ul>
+<li>セッションを初期化する</li>
+
+<li>ウィンドウ・マネージャーを開始する</li>
+
+<li>ホーム・セッションまたは現行セッションを復元する</li>
+
+<li>コマンドが出されたときまたはタイムアウトが発生したときにセッション・ロックを提供する</li>
+
+<li>コマンドが出されたときまたはタイムアウトが発生したときにセッション・スクリーンセーバーを提供する</li>
+
+<li>他のデスクトップ・クライアントに対して色割り当てサーバーとして機能する</li>
+
+<li>ホーム・セッションまたは現行セッションを保管する</li>
+
+<li>ログアウト時に確認ダイアログを表示する</li>
+
+<li>ログアウト時にセッション選択ダイアログを表示する</li>
+
+<li>セッションを終了する</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>「Sessions (セッション)」</h2> <p>セッションとは、ユーザーのデスクトップに存在するアプリケーション、設定値、およびリソースの集合です。 セッション管理は、 <span><span>dtsession</span></span>などの特殊なセッション・マネージャーがユーザー・セッションを保存および復元できるようにする一連の規則およびプロトコルです。 システムにログインしたユーザーは、ログオフしたときに使用していたものと同じ実行中のアプリケーション、設定値、およびリソースを提供されます。 ユーザーが初めてデスクトップにログインしたときは、デフォルトの初期セッションがロードされます。 その後、 <span><span>dtsession</span></span> は現行セッションとホーム・セッションの概念をサポートします。</p>
+ <div>以下のセッションが定義されています。<dl>
+<dt>初期セッション</dt>
+
+<dd>ユーザーが初めてデスクトップにログインすると、 <span><span>dtsession</span></span> はシステム・デフォルト値を使用してユーザーの初期セッションを生成します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtsession.html#dtsession__section_sys_resrc_mngmt" target="_blank" rel="noopener noreferrer">Session Resource Management</a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtsession.html#dtsession__section_sess_appl_mngmt" target="_blank" rel="noopener noreferrer">Session Application Management</a>を参照してください。</dd>
+
+
+<dt>現在のセッション</dt>
+
+<dd>実行中のユーザー・セッションは、保管されたホーム・セッションまたは保管された現行セッションからログイン時に復元された場合も、システム・デフォルトの初期セッションの場合も、常に現行セッションと見なされます。 ユーザーがセッションを終了すると、ユーザーのスタイル・マネージャーの起動設定に基づいて現行セッションが自動的に保管されます。 ユーザーが次回にデスクトップにログインすると、前に保管された現行セッションが再起動されます。 デスクトップは前回にユーザーがログアウトしたときと同じ状態に復元されます。</dd>
+
+
+<dt>ホーム・セッション</dt>
+
+<dd>もう 1 つのオプションでは、ユーザーがログアウトしたときの状態にかかわりなく、デスクトップはユーザーがログインするたびに同じ状態に復元されます。 ユーザーは、現行セッションの状態を保管してから、ログインするたびにデスクトップでこの状態のセッションが開始されるように、スタイル・マネージャーの起動を設定することができます。</dd>
+
+
+<dt>ディスプレイ固有のセッション</dt>
+
+<dd>特定のディスプレイ用に特定のセッションを実行するために、ユーザーはディスプレイ固有のセッションを作成することができます。 これを行うには、 <span><span>$HOME/.dt/sessions</span></span> ディレクトリーを <span><span>$HOME/.dt/</span></span><span><span>display</span></span>にコピーします。ここで、display は実際の非修飾ホスト名です (例えば、 <code>pablo:0</code> は有効ですが、 <code>pablo.gato.com:0</code> または <code>local:0</code> は有効ではありません)。 ユーザーがディスプレイ <code>pablo:0</code> でログインすると、そのデザイン・パターン固有のセッションが優先されます。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>ICCCM セッション管理プロトコル</h2> <p>アプリケーションがログアウト時に保管され、ログイン時に再始動されるためには、そのアプリケーションは単純なセッション管理プロトコルに参加している必要があります。 <span><span>dtsession</span></span> コマンドは、ICCCM 1.1 Session Management Protocol をサポートします。</p>
+ <p>その状態の保管が必要なアプリケーションは、WM_SAVE_YOURSELF プロトコルに参加することができます。 そのためには、アプリケーションは、その最上位ウィンドウの 1 つのみに WM_SAVE_YOURSELF プロパティーを設定する必要があります。 セッションが保存されると、 <span><span>dtsession</span></span> はアプリケーションの最上位ウィンドウに WM_SAVE_YOURSELF クライアント・メッセージを送信します。 アプリケーションはその状態の静止保管に進みます。 状態の保管中は、アプリケーションはユーザーとどのような対話もできません。 アプリケーションはその状態をファイルに保存する可能性が高いため、セッション・マネージャーには便利な関数 <span><span>DtSessionSavePath</span></span>が用意されています。この関数は、アプリケーションがその状態を保存できるファイルの絶対パス名を返します。 アプリケーションがその状態を保存している間、 <span><span>dtsession</span></span> は終了したことを示すアプリケーションからの通知を待機します。 保存が完了したことを <span><span>dtsession</span></span> に通知するには、アプリケーションの最上位ウィンドウで WM_COMMAND プロパティーを更新する必要があります。</p>
+ <p>アプリケーションの最上位ウィンドウの WM_COMMAND プロパティーは 2 つの目的に奉仕します。 まず、このプロパティーを変更すると、アプリケーションの状態の保存が完了したことが <span><span>dtsession</span></span> に示され、 <span><span>dtsession</span></span> は次のアプリケーションに進むことができます。 2 番目に、WM_COMMAND プロパティー値には、セッション開始時にアプリケーションを再始動するために <span><span>dtsession</span></span> が使用するコマンド行が含まれている必要があります。 アプリケーションは、絶対パス名を指定して開始された場合、WM_COMMAND 値を設定するときに絶対パス名を使用する必要があります。 状態の保管は必要でないが再始動が必要なアプリケーションは、アプリケーションの開始時に WM_COMMAND 値を 1 回だけ設定できます。</p>
+</section>
+
+<section><h2>セッションの復元</h2> <div>セッションの起動時に、 <span><span>dtsession</span></span> はリストアするセッションを決定します。 次のリストはその優先順位を示しています。<ol>
+<li>ディスプレイ固有の現行セッションまたはホーム・セッション</li>
+
+<li>現行セッションまたはホーム・セッション</li>
+
+<li>初期セッション</li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>セッション・リソース管理</h2> <div>セッション・マネージャーは、X サーバーの RESOURCE_MANAGER プロパティーを使用し、そのプロパティーに基づいてすべてのアプリケーションにデスクトップ・リソースを使用可能にします。 セッション・マネージャーは、RESOURCE_MANAGER を次のようにロードします。<ol>
+<li>システム・デフォルト・リソースをロードする。</li>
+
+<li>システム管理者固有のリソースをマージする。</li>
+
+<li>ユーザー指定のリソースをマージする。</li>
+
+</ol>
+</div>
+ <p>デスクトップのデフォルト・リソースは、 <span><span>/usr/dt/config/$LANG/sys.resources</span></span> ファイルにあります。 これらのリソースは、RESOURCE_MANAGER プロパティーを通して各ユーザー・セッションに使用可能にされます。 このファイルは、以降のデスクトップ・インストール時に無条件に上書きされるため、編集しないでください。</p>
+ <p>システム管理者は、 <span><span>/etc/dt/config/$LANG/sys.resources</span></span> ファイルを作成することにより、システム・デフォルト・リソースをオーバーライドしたり、追加のリソースを指定したりすることができます。 このファイルはセッションの起動時にデスクトップ・デフォルト・リソースにマージされるため、このファイルには新しいリソース仕様または更新されたリソース仕様のみを入れるようにしてください。 それはデスクトップ・デフォルト・リソース・ファイルのコピーを作成するよりも好ましいといえます。 このファイルで指定されたリソースは、RESOURCE_MANAGER プロパティーを通して各ユーザー・セッションに使用可能にされます。 このファイルで指定されたリソースは、デスクトップ・デフォルト・リソース・ファイルで指定されたものより優先されます。</p>
+ <p><span><span>$HOME/.Xdefaults</span></span> ファイルを編集することにより、ユーザーはデスクトップのデフォルト・リソースとシステム管理者リソースをオーバーライドできます。 このファイルで指定されたリソースは、RESOURCE_MANAGER プロパティーを通してそのユーザー・セッションのみに使用可能にされ、デスクトップ・デフォルト・リソース・ファイルやシステム管理者リソース・ファイルで指定されたリソースより優先されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> X Toolkit Intrinsics は、アプリケーション・リソースを RESOURCE_MANAGER または <span><span>$HOME/.Xdefaults</span></span>のいずれかからロードすることを指定しますが、両方からロードすることは指定しません。 通常、これはユーザーの <span><span>$HOME/.Xdefaults</span></span> ファイルが無視されることを意味します。 ただし、セッション・マネージャーは、セッション開始時に <span><span>$HOME/.Xdefaults</span></span> を RESOURCE_MANAGER にマージすることによって対応します。 ユーザーが <span><span>$HOME/.Xdefaults</span></span> ファイルを変更すると、その変更は、ユーザーが <span><span>ReloadResources</span></span> アクションを呼び出すまで新規アプリケーションに表示されません。</div>
+        </div>
+      </div></div>
+ <p><span><span>ReloadResources</span></span> アクションは、システム指定、システム管理者指定、およびユーザー指定のリソースを使用して RESOURCE_MANAGER を再ロードするようにセッション・マネージャーに指示します。 それによって、システム管理者指定またはユーザー指定のリソース・ファイルに対して行われた変更が、新しいアプリケーションに使用可能になります。</p>
+</section>
+
+<section><h2>セッション・アプリケーション管理</h2> <p>セッション起動時に、セッション・マネージャーはセッションの一部として保管されたアプリケーションをすべて再起動します。 ユーザーの初期セッションの一部として復元されるシステムのデフォルト・アプリケーション・セットは、 <span><span>/usr/dt/config/$LANG/sys.session</span></span> ファイルにあります。 このファイルは、以降のデスクトップ・インストール時に無条件に上書きされるため、編集しないでください。</p>
+ <p>システム管理者は、 <span><span>/etc/dt/config/$LANG/sys.session</span></span> ファイルを作成することにより、ユーザーの初期セッションの一部として復元されたアプリケーションのセットを置き換えることができます。 このファイルは、リソース・ファイルと異なり、デスクトップ・デフォルト・ファイルを完全に置き換えるので、システム・デフォルト・ファイルのコピーを作成して必要なすべて変更を行うことができます。</p>
+</section>
+
+<section><h2>ウィンドウ・マネージャー</h2> <p><span><span>dtsession</span></span> コマンドは、ウィンドウ・マネージャーを開始します。 デフォルトでは、 <span><span>/usr/dt/bin/dtwm</span></span> が開始されます。 代替ウィンドウ・マネージャーは、 <span><span>wmStartupCommand</span></span> リソースを使用して指定できます。 詳しくは、ワークスペース・マネージャーの仕様を参照してください。</p>
+</section>
+
+<section><h2>スタイル・マネージャー</h2> <p>スタイル・マネージャーは、ユーザーが現行セッションについてデスクトップおよび X サーバーのさまざまな設定を変更するためのインターフェースを提供します。 詳しくは、スタイル・マネージャの仕様を参照してください。</p>
+</section>
+
+<section><h2>カラー・サーバー</h2> <div><span><span>dtsession</span></span> コマンドは、デスクトップのカラー・サーバーとして機能し、それを構成するために使用できる以下の一連のリソースを提供します。<dl>
+<dt>foregroundColor</dt>
+
+<dd>前景色にピクセルを割り当てるかどうかを制御します。</dd>
+
+
+<dt>dynamicColor</dt>
+
+<dd>読み取り専用の色を割り当てるかどうかを指定します。</dd>
+
+
+<dt>shadowPixmaps</dt>
+
+<dd>トップ・シャドーまたはボトム・シャドーに色を割り当てるかどうかを指定します。</dd>
+
+
+<dt>colorUse</dt>
+
+<dd>色の割り当てを制限します。</dd>
+
+
+<dt>writeXrdbColors</dt>
+
+<dd>*background リソースと *foreground リソースをリソース・データベースに書き込むかどうかを指定します。</dd>
+
+</dl>詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtsession.html#dtsession__section_color_server" target="_blank" rel="noopener noreferrer">Color Server Resources</a> 」セクションを参照してください。</div>
+</section>
+
+<section><h2>セッション・ロック</h2> <p><span><span>dtsession</span></span> コマンドは、セッションのロックを提供します。 現行セッションは、フロント・パネルのロック・アイコンを押して直接ロックできます。 X サーバーがサポートしている場合は、指定された非アクティブ期間後に現行セッションをロックすることができます。 セッションをアンロックするには、ユーザーは自分のログイン・パスワード、root ユーザーのログイン・パスワード、または <span><span>keys</span></span> リソースによって指定されたいずれかのユーザーのログイン・パスワードを入力する必要があります。 キー・リソースについて詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dtsession.html#dtsession__section_scrlock_scrsav" target="_blank" rel="noopener noreferrer">画面ロックおよび画面保管リソース</a> 」を参照してください。</p>
+ <p><span><span>dtsession</span></span> コマンドは、サービス名 <span><span>dtsession</span></span>の PAM 対応セッション・マネージャーです。 従来のローカル<span>UNIX</span>認証に加え、セッションのロックを解除するためのPAM認証もサポートしている。 DCE で必要とされるような追加の再認証機能を、個別ベンダーが追加することもできます。</p>
+ <p>認証に PAM を使用するためのシステム全体の構成を設定するには、root ユーザー権限を設定し、 <span><span>/etc/security/login.cfg</span></span> ファイルの <span><span>usw</span></span> スタンザの <span><span>auth_type</span></span> 属性の値を <code>PAM_AUTH</code>に変更します。</p>
+ <div>PAM が有効になっているときに使用される認証メカニズムは、 <span><span>/etc/pam.conf</span></span>でのログイン・サービスの構成によって異なります。 <span><span>dtsession</span></span> コマンドには、 <span><span>auth</span></span> モジュール・タイプの <span><span>/etc/pam.conf</span></span> エントリーが必要です。 <span><span>dtsession</span></span> サービスの <span><span>/etc/pam.conf</span></span> では、以下の構成が推奨されます。<div><div><pre><code>  dtsession        auth               required       /usr/lib/security/pam_aix
+</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>スクリーンセーバー</h2> <p><span><span>dtsession</span></span> コマンドは、フロント・パネルからのセッション・ロックの一部として、または X サーバーによってサポートされている場合は指定された非アクティブ期間の後に、外部スクリーン・セーバーを起動するためのサポートを提供します。 スクリーンセーバーをデスクトップに統合する方法については、スクリーンセーバーの仕様を参照してください。</p>
+</section>
+
+<section><h2>X サーバーのスクリーンセーバー拡張機能</h2> <p>指定された非アクティブ期間が経過した後にセッション・ロックまたはスクリーン・セーバーの起動を提供する <span><span>dtsession</span></span> コマンドの機能は、X サーバー・スクリーン・セーバー拡張機能の可用性によって異なります。 <span><span>dtsession</span></span> コマンドは、X Consortium Sample X11 Screen Saver Extension 1.0 と HP X Screen Saver Extension をサポートします。 <span><span>dtsession</span></span> コマンドがこれらの拡張機能の両方を認識できるか、一方を認識できないかは、ベンダーによって異なります。</p>
+</section>
+
+<section><h2>セッション・マネージャーの始動</h2> <p><span><span>dtsession</span></span> コマンドは、 <span><span>Xsession</span></span> スクリプトから開始する必要があります。 <span><span>Xsession</span></span> については、ログイン・マネージャーの仕様で説明されています。 デフォルトのログイン手順の一部として <span><span>dtlogin</span></span> から <span><span>Xsession</span></span> を開始することをお勧めしますが、一部のシステムでは、 <strong>xinit</strong>、 <strong>x11start</strong>、 <strong>startx</strong>などのプロキシー・プログラムで <span><span>Xsession</span></span>を開始することができます。</p>
+</section>
+
+<section><h2>カラー・サーバー・リソース</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><span><span>colorUse</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>ColorUse</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>デフォルト</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ユーザー・インターフェースに使用する色の数を指定します。 カラー・サーバーは、次のように、画面の表示面の数に基づいてモニターのタイプを判別します。<dl>
+<dt>1、2、または 3 面 (B_W)</dt>
+
+<dd>単色システムを指定します。 カラー・パレットはユーザー・インターフェースに 2 つのカラー・セルを使用します。 この構成では、BlackWhite (黒白) と WhiteBlack (白黒) の 2 つのカラー・パレットのみが使用可能です。 これらのパレットを動的に変更することはできません。 パレットを変更するには、カラー・パレットを使用しているすべてのアプリケーションを再起動する必要があります。 このリソース値により、 <span><span>ShadowPixmaps</span></span> が強制的に True になり、 <span><span>ForegroundColor</span></span> が (選択したパレットに応じて) モノクロになります。</dd>
+
+
+<dt>4 または 5 面 (LOW_COLOR)</dt>
+
+<dd>ロー・カラー・システムを指定します。 カラー・パレットには 2 つのカラー・セットがあり、黒および白 (カラー・セル 0 および 1) を含む最大 12 のカラー・セルがユーザー・インターフェースに使用されます。 カラー・セルの数は、リソース <span><span>ShadowPixmaps</span></span> および <span><span>ForegroundColor</span></span>を使用して減らすことができます。</dd>
+
+
+<dt>6 面 (MEDIUM_COLOR)</dt>
+
+<dd>ミディアム・カラー・システムを指定します。 カラー・パレットには 4 つのカラー・セットがあり、黒および白 (カラー・セル 0 および 1) を含む最大 22 のカラー・セルがユーザー・インターフェースに使用されます。 カラー・セルの数は、リソース <span><span>ShadowPixmaps</span></span> および <span><span>ForegroundColor</span></span>を使用して減らすことができます。</dd>
+
+
+<dt>7+ 面 (HIGH_COLOR)</dt>
+
+<dd>ハイ・カラー (多彩) システムを指定します。 カラー・パレットには 8 つのカラー・セットがあり、黒および白 (カラー・セル 0 および 1) を含む最大 42 のカラー・セルがユーザー・インターフェースに使用されます。 カラー・セルの数は、リソース <span><span>ShadowPixmaps</span></span> および <span><span>ForegroundColor</span></span>を使用して減らすことができます。</dd>
+
+</dl>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>dynamicColor</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>DynamicColor</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>はい</dd>
+
+
+<dt>説明:</dt>
+
+<dd>このリソースは、True または False の値をとります。 <span><span>dynamicColor</span></span> リソースは、使用されているカラー・セルの数を減らすために使用されます。 パレットが選択され、変更されない可能性が高い場合は、 <span><span>dynamicColor</span></span> を False に設定できます。 False に設定した場合は、デスクトップ・スタイル・マネージャーを使用して色を動的に変更することはできません。 選択されたパレットは次のセッションで有効になります。 次回にセッションが開始されると、カラー・サーバーはすべてのクライアントが共有できる読み取り専用カラー・セルを使用するので、使用されるカラー・セルの数が減ります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>foregroundColor</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>ForegroundColor</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>DYNAMIC</dd>
+
+
+<dt>説明:</dt>
+
+<dd>このリソースは、White、Black、または Dynamic の値をとります。 <span><span>foregroundColor</span></span> リソースにより、すべてのテキスト (前景) は、ピクセル 0 または 1 (黒または白) のいずれかを使用するか、各 ColorSetの背景色 (動的) に対する応答として前景と変更専用のカラー・セルを持ちます。 White または Black に設定すると、ColorSet ごとに使用されるカラー・セルの数が 1 つずつ減ります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>shadowPixmaps</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>ShadowPixmaps</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>ストリング</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>デフォルト</dd>
+
+
+<dt>説明:</dt>
+
+<dd>カラー・システムの場合、このリソースは True または False の値をとります。 True の場合、 <span><span>topShadowColor</span></span> および <span><span>bottomShadowColor</span></span> は背景と同じピクセルを使用し、 <span><span>topShadowPixmap</span></span> および <span><span>bottomShadowPixmap</span></span> は単色の代わりに指定されて、3-D の外観を作成します。 その場合、カラー・セルの数が ColorSet ごとに 2 つずつ減ります。 このリソースのデフォルトは、色面が 4 以下 (カラー・セルが 16 以下) のシステムでは True、色面が 4 を超えるシステムでは False です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>writeXrdbColors</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>WriteXrdbColors</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>はい</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>画面ロックと画面保管のリソース</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><span><span>keys</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>Keys</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>unsigned char</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ユーザーによってロックされているときにはいつでも画面をアンロックできるキー・ホルダーをリストします。 これはコンマで区切られたユーザー ID のリストです。 例えば、あるセッション中に、ユーザー <code>kim</code> が次のリソースをアクティブにしている場合、ユーザー <code>fred</code> および <code>keith</code> は、<code>kim</code> が画面をロックしたときでも、それをアンロックできます。<div><div><pre><code>Dtsession*keys: fred,keith</code></pre></div><div></div></div></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>passwordTimeout</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>passwordTimeout</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>unsigned int</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>10</dd>
+
+
+<dt>説明:</dt>
+
+<dd>パスワード・ダイアログが画面から除去されるまでの時間 (秒) を指定します。 画面がロックされると、ポインターはロック・カーソルを表示し、ユーザー・パスワードを要求するダイアログが表示されます。 <span><span>passwordTimeout</span></span> 秒以内にポインターまたはキーボードからのアクティビティーが検出されない場合は、ダイアログは画面から除去されます。 ポインターまたはキーボード・イベントが検出されるとすぐにダイアログが再表示されます。 <span><span>passwordTimeout</span></span> が 0 の場合は、パスワード・ダイアログは画面がロックされている間ずっと表示されたままになります。 デフォルト値は 10 秒です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>その他のリソース</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>queryServerSettings</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>QueryServerSettings</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>説明:</dt>
+
+<dd><span><span>dtsession</span></span> コマンドがログアウト時にすべての設定をサーバーに照会するかどうか、またはデスクトップ・スタイル・マネージャーを使用して設定された設定のみを保存するかどうかを指定します。 サーバーに照会することにより、すべての設定値が確実に保管されます。しかし、全照会を行うとパフォーマンスの低下が生じます。 デフォルト値は False です。つまり、サーバーは照会されません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>saveFontPath</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>SaveFontPath</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>boolean</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>いいえ</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>wmStartupCommand</span></span></td>
+
+<td><dl>
+<dt>ClassClass:</dt>
+
+<dd>WmStartupCommand</dd>
+
+
+<dt>タイプ:</dt>
+
+<dd>executable path</dd>
+
+
+<dt>デフォルト:</dt>
+
+<dd>ヌル</dd>
+
+
+<dt>説明:</dt>
+
+<dd>ログイン時に代替ウィンドウ・マネージャーの起動が可能になります。 このリソースが NULL の場合、 <span><span>dtsession</span></span> は <span><span>/usr/dt/bin/dtwm</span></span>を開始します。 代替起動のコマンドは次のようになります。<div><div><pre><code> Dtsession*wmStartupCommand:   /usr/bin/X11/mwm</code></pre></div><div></div></div>このコマンドにはシェルに対するコマンドを含めてはなりません。また、引用符で囲んではなりません。 <span><span>/usr/dt/bin/dtwm</span></span> 以外のウィンドウ・マネージャーを使用すると、クライアントはリストアされますが、正しい位置にリストアされない場合があります。 デフォルトでは、このリソースの値は NULL です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>前のセッションを復元せずにコマンド・ラインからセッション・マネージャーを起動するには、次のように入力します。<div><div><pre><code>dtsession -norestore</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/dt/bin/dtsession</span></span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/dt/config/$LANG/sys.session</span></span></td>
+
+<td>ユーザーの初期セッション用のアプリケーションのデスクトップ・デフォルト・セット。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/etc/dt/config/$LANG/sys.session</span></span></td>
+
+<td>ユーザーの初期セッション用のシステム管理者指定のアプリケーション・セット。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/config/$LANG/sys.resources</span></span></td>
+
+<td>デスクトップ・デフォルト・リソース。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/etc/dt/config/$LANG/sys.resources</span></span></td>
+
+<td>システム管理者指定のリソース。</td>
+
+</tr>
+
+<tr>
+<td><span><span>$HOME/.Xdefaults</span></span></td>
+
+<td>ユーザー指定のリソース。<div><div>
+        <div>
+          <div><span>注:</span> <span><span>dtsession</span></span> コマンドは、セッション情報を <span><span>$HOME/.dt/display</span></span> または <span><span>$HOME/.dt/sessions</span></span>に保管します。 これらのディレクトリーの内容をユーザーが直接編集してはなりません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/dt/app-defaults/$LANG/Dtsession</span></span></td>
+
+<td>デフォルトの <span><span>dtsession</span></span> リソース。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

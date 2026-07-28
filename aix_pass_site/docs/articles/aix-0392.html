@@ -1,0 +1,291 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>追加アドレスにメッセージを再配布します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ディスト</strong> [ <strong>+</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33762" target="_blank" rel="noopener noreferrer">フォルダー</a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33854" target="_blank" rel="noopener noreferrer"><strong>-nodraftfolder </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33721" target="_blank" rel="noopener noreferrer"><strong>-draftfolder </strong></a><strong>+</strong><em>フォルダー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33801" target="_blank" rel="noopener noreferrer"><em>メッセージ </em></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33746" target="_blank" rel="noopener noreferrer"><strong>-draftmessage </strong></a><em>メッセージ </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33700" target="_blank" rel="noopener noreferrer"><strong>-注釈を付ける </strong></a>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33795" target="_blank" rel="noopener noreferrer"><strong>-inplace (インプレース) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33872" target="_blank" rel="noopener noreferrer"><strong>-ノインプレース </strong></a>] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33848" target="_blank" rel="noopener noreferrer"><strong>-注釈なし </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33773" target="_blank" rel="noopener noreferrer"><strong>-形式 </strong></a><em>FormFile </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33754" target="_blank" rel="noopener noreferrer"><strong>-エディター </strong></a><em>編集者 </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33866" target="_blank" rel="noopener noreferrer"><strong>-noedit (編集不可) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33878" target="_blank" rel="noopener noreferrer"><strong>-nowhatnowproc (処理なし) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33890" target="_blank" rel="noopener noreferrer"><strong>-whatnowproc (whatnowproc) </strong></a><em>プログラム </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dist</strong> コマンドは、既存のメッセージを一連の新しいアドレスに再配布するためのインターフェースの働きをします。 デフォルトでは、<strong>dist</strong> コマンドは、現行フォルダーから <em>UserMHDirectory</em><strong>/draft</strong> ファイルに現行メッセージをコピーして、エディターを始動します。 現行フォルダーにデフォルト以外のメッセージを指定するには、<em>Message</em> パラメーターを使用します。</p>
+ <p>エディターは始動すると、各ヘッダー・フィールドの値の入力を求めるプロンプトを出します。 <strong>dist</strong> コマンドは、<em>UserMHDirectory</em><strong>/distcomps</strong> ファイルに定義されたヘッダー・フォーマットを使用します。 (このファイルがない場合、システムは <strong>/etc/mh/distcomps</strong> ファイルを使用します。) メッセージ本体は、現在再配布中のメッセージなので、メッセージ本体に書き込みを行わないでください。 <em>UserMHDirectory</em><strong>/distcomps</strong> ファイル以外のフォーマット・ファイルを定義するには、<strong>-form</strong> フラグを使用します。</p>
+ <p>デフォルトのエディターを変更するには、 <strong>-editor</strong> フラグを使用するか、Editor:<strong> $HOME/.mh_profile</strong> ファイル内のエントリー。</p>
+ <p>エディターを終了するには、Ctrl-D キー・シーケンスを押します。 エディターを終了すると、 <strong>dist</strong> コマンドはメッセージ・ハンドラー (MH) <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whatnow.html" target="_blank" rel="noopener noreferrer"> を開始します。What Now?</a> できます。 Enter キーを押すと、使用可能な <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whatnow.html" target="_blank" rel="noopener noreferrer"><strong>whatnow</strong></a> サブコマンドのリストが表示されます。 これらのサブコマンドを使用すれば、メッセージ・ヘッダーの編集を続行したり、メッセージ・ヘッダーを表示したり、メッセージの後処理を指示したり、<strong>dist</strong> コマンドの処理を終了することができます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> 送信時にメッセージを識別できるように、
+メッセージのヘッダーと本文の間にダッシュだけの行またはブランク行を 1 行入れておく必要があります。</div>
+        </div>
+      </div></div>
+ <p>再配布されるメッセージは、元のヘッダーと、新しいヘッダーに追加された本体で構成されています。 <strong>dist</strong> コマンドを使用して編集する <strong>draft</strong> ファイルは、ヘッダー・フィールドだけから構成されています。 新しいドラフト・メッセージを持つ元のメッセージのコピーは自動的には格納されません。</p>
+ <p>元のメッセージに再配布情報に関する注釈を付けるには、<strong>-annotate</strong> フラグを使用します。 このフラグは、元のメッセージにResent:および現在の日付と時刻を示します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-注釈を付ける</strong></td>
+
+<td>再配布されるメッセージに、次のような行の注釈を付けます。<div> <div><div><pre><code>Resent: date
+Resent: address</code></pre></div><div></div></div></div>
+  <p><strong>-annotate</strong> フラグはコマンドの実行後まで保存されないため、メッセージが <strong>dist</strong> コマンドから直接送信された時点で、注釈付けは完了します。 <strong>-inplace</strong> フラグを指定すると、注釈付きメッセージとのリンクを保存するために、注釈付けが所定の箇所で強制的に行われます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-draftfolder</strong><em> + フォルダー</em></td>
+
+<td>指定したフォルダーにドラフト・メッセージを入れます。 <strong>-draftfolder +</strong><em>Folder</em> フラグの後に <em>Message</em> 変数が続いている場合は、<strong>-draftmessage</strong> フラグを使用した場合と同じです。 +<em>Folder</em> が指定されていないと、ドラフト・メッセージは <em>Current-Folder</em> に取り込まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-draftmessage</strong><em> メッセージ</em></td>
+
+<td>ドラフト・メッセージを指定します。 デフォルトでは、現行フォルダーに新しいドラフト・メッセージが作成されます。 そのドラフト・メッセージが現行メッセージになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-editor</strong><em> エディター</em></td>
+
+<td>配布するメッセージを作成するための初期エディターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong><em>フォルダー</em></td>
+
+<td>再配布するメッセージが入っているフォルダーを指定します。 フォルダーが指定されていないと、<em>Current-Folder</em> が代わりに用いられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-フォーム</strong><em> FormFile</em></td>
+
+<td>メッセージのフォーマットを決定します。 <strong>dist</strong> コマンドは、指定されたフォーマット・ファイル内の各行を扱います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-inplace</strong></td>
+
+<td>注釈付きメッセージとのリンクを保存するために、注釈付けが所定の箇所で強制的に行われるようにします。</td>
+
+</tr>
+
+<tr>
+<td><em>Message</em></td>
+
+<td>再配布するメッセージを指定します。 以下の参照を使ってメッセージを指定します。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージ番号。</dd>
+
+
+<dt><strong>cur</strong> または <strong>。</strong> (ピリオド)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-注釈なし</strong></td>
+
+<td>注釈を抑止します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノドラフトフォルダー</strong></td>
+
+<td>ドラフトを <em>UserMhDirectory</em><strong>/draft</strong> ファイルに入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-noedit (編集しない)</strong></td>
+
+<td>初期編集を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノーインプレース</strong></td>
+
+<td>適切な注釈付けを強制しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ナウハットナウプロック</strong></td>
+
+<td><strong>dist</strong> コマンドの対話式処理を抑止します。 <strong>-nowhatnowproc</strong> フラグはいかなる編集も発生しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-whatnowproc</strong><em> プログラム</em></td>
+
+<td>指定されたプログラムを始動すると、配布タスクが示されます。 <strong>whatnow</strong> コマンドを <em>Program</em> 変数として指定すると、 <strong>dist</strong> コマンドは、ファイル名 <strong>whatnow</strong>のプログラムの代わりに、内部 <strong>whatnow</strong> プロシージャーを開始します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが <em>UserMhDirectory</em><strong>/.mh_profile</strong> ファイルに入力されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>Current-Folder:</td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Draft-Folder:</td>
+
+<td>ドラフトを入れるデフォルトのフォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Editor:</td>
+
+<td>デフォルトのエディターを設定します。</td>
+
+</tr>
+
+<tr>
+<td>fileproc:</td>
+
+<td>メッセージをリファイルするプログラムを指定します。</td>
+
+</tr>
+
+<tr>
+<td>Path:</td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td>whatnowproc:</td>
+
+<td>プロンプトを出すために使用するプログラムを指定します。What now?という質問プロンプトを表示するときに使用するプログラムを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行フォルダーから現行メッセージを再配布するには、次のように入力します。<div> <div><div><pre><code>dist</code></pre></div><div></div></div>ヘッダー・フィールドの値の入力を求めるプロンプトが表示されます。 値を入力したら、Enter キーを押します。 入力をスキップするには、値を入力せずに Enter キーを押します。 以下を入力する必要があります。Resent-to:設定します。 ヘッダーの完了後に、テキスト本体を変更しないでください。 エディターを終了するには、Ctrl-D キー・シーケンスを押します。 次のようなプロンプトが表示されます。<div><div><pre><code>What now? </code></pre></div><div></div></div>使用可能なオプションのリストを表示するには、Enter キーを押します。 このメッセージを再配布する場合は、次のように入力します。send. メッセージが新しいアドレス・リストに再配布されます。</div>
+</li>
+
+<li><span></span>メッセージ・ドラフトが存在する場合にメッセージを新しいアドレス・リストに再配布するには、以下のように入力します。<div> <div><div><pre><code>dist</code></pre></div><div></div></div>システムは、次のようなメッセージで応答します。<div><div><pre><code>Draft "$HOME/Mail/draft" exists (43 bytes).
+Disposition? _</code></pre></div><div></div></div>このドラフトを再配布するには、次のように入力します。<div><div><pre><code>replace</code></pre></div><div></div></div>ヘッダー・フィールドの値の入力を求めるプロンプトが表示されます。 値を入力したら、Enter キーを押します。 入力をスキップするには、値を入力せずに Enter キーを押します。 以下を入力する必要があります。Resent-to:設定します。 ヘッダーの完了後に、テキスト本体を変更しないでください。 エディターを終了するには、Ctrl-D キー・シーケンスを押します。 次のようなプロンプトが表示されます。<div><div><pre><code>What now?</code></pre></div><div></div></div>使用可能なオプションのリストを表示するには、Enter キーを押します。 ドラフトを再配布する場合は、次のように入力します。send. メッセージが新しいアドレス・リストに再配布されます。</div>
+</li>
+
+<li><span></span>メッセージを再配布するには15を以下から取得します。schedules次のように入力します。<div>dist  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dist.html#dist__row-d3e33762" target="_blank" rel="noopener noreferrer">+</a>schedules 15</div>ヘッダー・フィールドの値の入力を求めるプロンプトが表示されます。 値を入力したら、Enter キーを押します。 入力をスキップするには、値を入力せずに Enter キーを押します。 以下を入力する必要があります。Resent-to:設定します。 ヘッダーの完了後に、テキスト本体を変更しないでください。 エディターを終了するには、Ctrl-D キー・シーケンスを押します。 次のようなプロンプトが表示されます。<div> <div><div><pre><code>What now?</code></pre></div><div></div></div>使用可能なオプションのリストを表示するには、Enter キーを押します。 メッセージを再配布するには、次のように入力します。sendEnter キーを押します。. </div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/mh/distcomps</strong></td>
+
+<td>システムのデフォルト・メッセージ形式が入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>ユーザーMHDディレクトリ</em><strong>/ディストコン</strong></td>
+
+<td>ユーザーのデフォルト・メッセージ形式が入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>ユーザーMHDディレクトリ</em><strong>/草案</strong></td>
+
+<td>現行ドラフト・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/dist</strong></td>
+
+<td><strong>dist</strong> コマンドの実行可能フォーマットが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

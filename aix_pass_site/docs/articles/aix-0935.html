@@ -1,0 +1,205 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><span>拡張アカウンティング・サブシステム</span> ・データを処理するための LDAP クライアントおよびサーバー・マシンを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>mkprojldap</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148963" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148894" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> <span><span>ホスト名</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148885" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> <span><span>bindDN</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148987" target="_blank" rel="noopener noreferrer"><span><span>-w</span></span></a> <span><span>bindPWD</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148903" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148933" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>projectInstallPoint</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148857" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> <span><span>adminInstallPoint</span></span></p>
+ <p><span><span>mkprojldap</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148970" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148894" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a><span><span> ホスト名 </span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148885" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a><span><span>bindDN</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148987" target="_blank" rel="noopener noreferrer"><span><span>-w</span></span></a><span><span>bindPWD</span></span></p>
+ <p><span><span>mkprojldap</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148878" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148885" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> <span><span>bindDN</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148987" target="_blank" rel="noopener noreferrer"><span><span>-w</span></span></a> <span><span>bindPWD</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148933" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>accountingProjectDN</span></span>] [ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148857" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> <span><span>accountingAdminDN</span></span>] [ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148954" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> <span><span>cron</span></span>]</p>
+ <p><span><span>mkprojldap</span></span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148923" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148916" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148885" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> <span><span>バインド DN</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148987" target="_blank" rel="noopener noreferrer"><span><span>-w</span></span></a> <span><span>BindPWD</span></span> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148980" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148933" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkprojldap.html#mkprojldap__row-d3e148857" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>mkprojldap</span></span> コマンドは、 <span>拡張アカウンティング・サブシステム</span> ・データを処理するための LDAP サーバーおよびクライアント・マシンを構成します。 LDAP サーバーとクライアントの関係が既に定義されている必要があり、 <span><span>mkprojldap</span></span> は増分変更のみを行います。 <span><span>mkprojldap</span></span> コマンドを使用して、基本 LDAP 接続を構成できます。</p>
+ <p>LDAP サーバーに <span>拡張アカウンティング</span> ・サポートを追加するには、 <span>拡張アカウンティング</span> の LDAP スキーマをサーバーにアップロードする必要があります。 スキーマは、サーバーに対する <span>拡張アカウンティング</span> ・データの形式を記述します。これにより、サーバーはアカウンティング専用に使用可能にすることなく、アカウンティング・データを処理することができます。 これを行うには、 <span><span>-u</span></span> オプションを使用します。 LDAP サーバーは <span>拡張アカウンティング</span>に依存しません。 このコマンドは、それぞれの LDAP サーバーごとに 1 回だけ実行することが必要です。 このコマンドを実行した後、 <span><span>-s</span></span> オプションを使用して、 <span>拡張アカウンティング</span> ・データを保管する LDAP サーバー上の場所を定義します。 1 つ以上のアカウンティング・ドメインを設定するために、このコマンドを 1 回以上実行することができます。 LDAP クライアントでは、同時にただ 1 つのアカウンティング・ドメインにアクセスできるに過ぎません。</p>
+ <p><span>拡張アカウンティング</span> ・データを受信するように LDAP クライアントを構成するには、 <span><span>-c</span></span> ・オプションを使用して、LDAP クライアントが使用する LDAP サーバー上の <span>拡張アカウンティング</span> ・データ・セットの場所を指定します。 <span><span>mkprojldap</span></span> コマンドを使用して、プロジェクトおよび管理ポリシーへの絶対パス ( <span><span>識別名</span></span> (DN) と呼ばれる) を構成します。 <span>拡張アカウンティング・サブシステム</span> は、プロジェクト定義と管理ポリシーを LDAP サーバーに保管するため、構成可能な <span>拡張アカウンティング</span> DN は 2 つあります。 <span><span>mkprojldap -c</span></span> コマンドは、各クライアントで実行する必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span> <span><span>accountingAdminDN</span></span></td>
+
+<td><span><span>-s</span></span> または <span><span>-c</span></span> オプションとともに使用する場合、LDAP サーバー上のアカウンティング管理 DN ロケーションを指定します。 <span><span>-l</span></span> または <span><span>-L</span></span> オプションと一緒に使用すると、このフラグはアカウンティング管理 DN を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td>LDAP クライアントを構成します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-D</span></span> <span><span>bindDN</span></span></td>
+
+<td>サーバーの構成時に使用されるバインド DN を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span> <span><span>ホスト名</span></span></td>
+
+<td>サーバーの構成時に LDAP サーバーのホスト名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-i</span></span></td>
+
+<td>サーバー構成時に管理者 (<span><span>-a</span></span>) およびプロジェクト (<span><span>-p</span></span>) のインストール・ポイントを提供します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-L</span></span></td>
+
+<td>このサーバーから認識できるアカウンティング DN となる可能性のある DN を表示
+します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td><span><span>ldap.cfg</span></span> ファイル内のアカウンティング DN を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span> <span><span>accountingProjectDN</span></span></td>
+
+<td><span><span>-s</span></span> オプションまたは <span><span>-c</span></span> オプションを指定して使用する場合に、LDAP サーバー上のアカウンティング・プロジェクト DN ロケーションを指定します。 このフラグを <span><span>-l</span></span> または <span><span>-L</span></span> オプションと一緒に使用すると、アカウンティング・プロジェクト DN が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span> <span><span>コン</span></span></td>
+
+<td>LDAP リポジトリーをリフレッシュする頻度 (毎時、毎日、またはオフ) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span></td>
+
+<td>LDAP サーバーを構成します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span></td>
+
+<td><span>拡張アカウンティング</span> ・スキーマを LDAP サーバーにアップロードします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-V</span></span></td>
+
+<td>コロンで区切られた形式で、現行の LDAP クライアント構成の詳細を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-w</span></span> <span><span>bindPWD</span></span></td>
+
+<td><span><span>-D</span></span> オプションで指定されたバインド DN のバインド・パスワードを指定するために使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> このコマンドで上記のフラグを使用する場合は、以下のガイドラインを使用してください。<ul>
+<li>サーバーとクライアントの構成時に、 <span><span>-p</span></span> 引数と <span><span>-a</span></span> 引数の両方を同時に指定できますが、どちらも指定する必要はありません。 どちらも指定されていない場合、 <span><span>mkprojldap</span></span> コマンドは、LDAP サーバー上のオブジェクトを検索することによって、欠落しているアカウンティング DN を計算しようとします。 これらのオブジェクトは、 <span><span>ou=projects</span></span> および <span><span>ou=adminpolicy</span></span>です。 オブジェクトが見つかると、対応するアカウンティング DN が計算され、 <span><span>ldap.cfg</span></span> ファイルに追加されます。</li>
+
+<li><span><span>-l</span></span> または <span><span>-L</span></span> オプションを使用してアカウンティング DN をリストするときには、 <span><span>-p</span></span> と <span><span>-a</span></span> の両方を使用できます。 どちらも指定しない場合は、 <span><span>ldap.cfg</span></span> ファイル内のすべてのアカウンティング DN がリストされます。</li>
+
+<li><span><span>-V</span></span> オプションによって表示されるコロン区切りデータの形式は、以下のとおりです。<div><div><pre><code>ldap-server-hostname:bind DN:bind password:default-projectdn:default-admindn:cron</code></pre></div><div></div></div></li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>拡張アカウンティング</span> ・スキーマをアップロードするには、次のように入力します。<div><div><pre><code>mkprojldap -u -h mozilla -D cn=root -w mozillapasswd</code></pre></div><div></div></div></li>
+
+<li>LDAP サーバーを構成するには、次のように入力します。<div><div><pre><code>mkprojldap -s -h ldap.svr.com -D cn=root -w passwd -i 
+             -p cn=aixdata,o=ibm -a cn=aixdata,o=ibm</code></pre></div><div></div></div>このコマンドにより、以下の形式で 2 つの DN が作成されます。<div><div><pre><code>ou=projects,ou=aacct,cn=aixdata,o=ibm and ou=adminpolicy,ou=aacct,cn=aixdata,o=ibm</code></pre></div><div></div></div></li>
+
+<li>LDAP クライアントを構成するには、次のように入力します。<div><div><pre><code>mkprojldap -c -D cn=testroot -w testpwd -p ou=projects,ou=aacct,ou=cluster1,cn=aixdata -a 
+           ou=adminpolicy,ou=aacct,ou=cluster1,cn=aixdata -r hourly</code></pre></div><div></div></div></li>
+
+<li>現在構成されているアカウンティング DN を表示するには、次のように入力します。<div><div><pre><code>mkprojldap -l</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/usr/sbin/mkprojldap</span></span></td>
+
+<td><span><span>mkprojldap</span></span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/etc/security/ldap/ldap.cfg</span></span></td>
+
+<td>LDAP 構成データが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/etc/security/ldap/sec.ldif</span></span></td>
+
+<td><span>拡張アカウンティング</span>の LDAP スキーマが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

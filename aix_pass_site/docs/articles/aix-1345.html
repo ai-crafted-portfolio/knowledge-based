@@ -1,0 +1,378 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>アプリケーションのパフォーマンス・テストのために各種サイズのメモリーを使用してシステムをシミュレートします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmss</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168213" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><em>MemSize</em></p>
+ <p><strong>RMSS</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168327" target="_blank" rel="noopener noreferrer"><strong>-</strong></a></p>
+ <p><strong>RMSS</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168320" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a></p>
+ <p><strong>RMSS</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168234" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>MemSize</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168249" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>MemSize</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168270" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>NumIterations</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168296" target="_blank" rel="noopener noreferrer"><strong>- </strong></a> <em>OutputFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168334" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em> MemSize</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168355" target="_blank" rel="noopener noreferrer"><em>コマンド</em></a></p>
+ <p></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmss</strong> コマンドはさまざまなサイズの実メモリーでシステムをシミュレートします。この場合、メモリー・ボードを取り外したり交換する必要はありません。 さまざまなサイズのメモリーでアプリケーションを実行し、
+そのパフォーマンス統計情報を収集して、
+アプリケーションを適切なパフォーマンスで実行するのに必要なメモリーを決定します。 <strong>rmss</strong> コマンドを次の 2 つの目的で呼び出す場合は、以下のようにします。</p>
+ <ul>
+<li>メモリー・サイズを変更してから終了するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168213" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> 、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168320" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> 、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168327" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> フラグを使用します。 このようにフラグを指定すると、
+ユーザーは任意のサイズのメモリーで自由にテストを行うことができます。</li>
+
+<li>ドライバー・プログラムとして機能するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168334" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> 、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168249" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> 、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168234" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> 、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168270" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> 、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__row-d3e168296" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> の各フラグを使用します。 このモードでは、
+<strong>rmss</strong> コマンドは指定したコマンドをメモリー・サイズの範囲を超えて複数回実行し、
+各メモリー・サイズでのコマンドのパフォーマンスを記述した重要な統計情報を表示します。 このコマンドは、実行可能プログラムまたはシェル・スクリプト・ファイルを指定できます。また、コマンド・ライン引数は指定してもしなくてもかまいません。</li>
+
+</ul>
+ <p><strong>rmss</strong> コマンドは、DR サブシステムと非互換です。 <strong>rmss</strong> コマンドの実行中に DR イベントが発生すると、システムがハングすることがあります。 <strong>rmss</strong> コマンドのメモリー除去機能は、<strong>drmgr</strong> コマンドでの DR メモリー除去によって置き換えることができるため、<strong>rmss</strong> コマンドの情報テキストを修正して、以下の注意を含める必要があります。</p>
+<div><div>
+        <div>
+          <div><span>注意:</span> <strong>RMSS</strong> コマンドは AIX DLPAR コンポーネントと互換性がないため、このコマンドを使用するとシステムがハングする可能性があります。 <strong>drmgr</strong> コマンドは、DLPAR 環境に安全なメモリー除去機能を提供します。</div>
+        </div>
+      </div></div>
+<div><div>
+        <div>
+          <div><span>注意:</span> <strong>RMSS</strong> が複数メモリー・プール・システムで使用されている場合、以下の原因で失敗する可能性があります。<div> <div><div><pre><code>Failure: VMM unable to free enough frames for stealing.
+Choose a larger memory size or retry with less system activity.</code></pre></div><div></div></div></div>
+ <p>あるいは、これと似たメッセージが出ることもあります。 この失敗は、
+<strong>rmss</strong> がメモリー・プールからすべてのフレームをスチールし、
+他のプールからフレームをスチールできないときに発生することがあります。 この解決策は、
+メモリーを増分単位で縮小することです。</p>
+ <p>システム上のメモリー・プールの数とサイズは、次のコマンドで検索できます。</p>
+ <div> <div><div><pre><code>echo "mempool *" | kdb</code></pre></div><div></div></div></div>
+</div>
+        </div>
+      </div></div>
+ <p><strong>-c</strong>、<strong>-p</strong>、
+および <strong>-r</strong> フラグは相互に排他的です。 <strong>-c</strong> フラグはメモリー・サイズを変更します。
+<strong>-p</strong> フラグは現在のメモリー・サイズを表示します。
+<strong>-r</strong> フラグはメモリー・サイズをコンピューターの実メモリー・サイズにリセットします。</p>
+ <p><strong>rmss</strong> コマンドをドライバー・コマンドとして呼び出し、
+メモリー・サイズの範囲を超えて複数回実行するコマンド (実行可能プログラムまたはシェル・スクリプト・ファイル) のパフォーマンスを測定する場合は、
+<strong>-s</strong>、<strong>-f</strong>、<strong>-d</strong>、<strong>-n</strong>、<strong>-o</strong> フラグを組み合わせて指定します。 このようにして <strong>rmss</strong> コマンドを呼び出すと、
+このコマンドは各メモリー・サイズでのパフォーマンス統計情報
+(コマンドの応答時間やコマンドの実行中に発生したページ・インの回数など) を表示します。 これらの統計は、ファイルにも書き込まれますが、この <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmss.html#rmss__c0138cc548joy" target="_blank" rel="noopener noreferrer">例</a>で説明されています。</p>
+ <p><strong>-s</strong> と <strong>-f</strong> フラグで範囲の開始点と終了点を指定し、
+<strong>-d</strong> フラグでこの範囲内でのメモリー・サイズの増分または減分を指定します。 <strong>-n</strong> フラグを使用して各メモリー・サイズでのコマンドの実行回数を指定し、
+<strong>-o</strong> フラグを使用して <strong>rmss</strong> が生成するレポートの書き込み先となる出力ファイル名を指定します。 <em>Command</em> パラメーターは、各メモリー・サイズで実行して (パフォーマンスを) 測定するコマンドを指定します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span> <strong>RMSS</strong> コマンドは、「使用可能」実メモリーを報告します。 コンピューター上に不良メモリーがあったり、メモリーが使用中の場合、
+<strong>rmss</strong> は物理実メモリーから、不良メモリーまたはシステムが使用中のメモリーを差し引いた実メモリーの量を報告します。 例えば、<strong>-r</strong> は <strong>rmss</strong> フラグを使用して以下のように表示することがあります。<div><div><pre><code>Simulated Memory Size changed to 79.9062MB</code></pre></div><div></div></div>このような結果になるのは、不良のマークを付けられたページがあるか、
+デバイスが使用のためにページをいくつかリザーブ (そのためユーザーが使用できない) しているためです。</li>
+
+<li><span></span> <strong>RMSS</strong> コマンドは、アプリケーションが、デーモンなどのバックグラウンド・プロセスと組み合わせて、多数の異なるファイル (ディレクトリー・ファイルを含む) にアクセスする場合に、アプリケーションの実行に必要なページインの数を過小評価することがあります。 このような過小評価が発生するのは、シミュレートされるメモリーのサイズが 8MB で、
+約 250 の個別ファイルにアクセスする場合です。 任意のシミュレートされるメモリー・サイズでアクセスすると <strong>rmss</strong> コマンドがページ・インの要件を実際よりも少なく見積もる可能性のある個別ファイルのおおよその数を次の表に示します。<div><div><table><thead>
+<tr>
+<th><div>シミュレートされるメモリー・サイズ (MB)</div></th>
+
+<th><div>アクセスする個別ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+
+<td>250</td>
+
+</tr>
+
+<tr>
+<td>16</td>
+
+<td>500</td>
+
+</tr>
+
+<tr>
+<td>24</td>
+
+<td>750</td>
+
+</tr>
+
+<tr>
+<td>32</td>
+
+<td>1000</td>
+
+</tr>
+
+<tr>
+<td>48</td>
+
+<td>1500</td>
+
+</tr>
+
+<tr>
+<td>64</td>
+
+<td>2000</td>
+
+</tr>
+
+<tr>
+<td>128</td>
+
+<td>4000</td>
+
+</tr>
+
+<tr>
+<td>256</td>
+
+<td>8000</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ <p>あるコマンドが多くの個別ファイルにアクセスする可能性があると感じた場合には、
+<strong>filemon</strong> コマンドを使用して、該当するコマンドの実行時にアクセスされるファイルの数を判別することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em> MemSize</em></td>
+
+<td>シミュレートされるメモリーのサイズを <em>MemSize</em> の値に変更します。
+この値はメガバイト単位の整数または小数です。 <em>MemSize</em> 変数は 8MB からコンピューターの実メモリーのサイズの範囲で指定します。 <strong>-c</strong> フラグにはデフォルト値はありません。<div><div>
+        <div>
+          <div><span>注:</span> カーネルなどの固有のシステム構造のサイズが原因で、シミュレートされたメモリー・サイズを 8MB未満に変更することは困難です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> MemSize</em></td>
+
+<td>シミュレート対象のメモリー・サイズ間の増分または減分を指定します。 <em>MemSize</em> 値はメガバイト単位の整数または小数です。 <strong>-d</strong> フラグを省略すると、
+増分または減分は 8MB になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> MemSize</em></td>
+
+<td>最終メモリー・サイズを指定します。 シミュレートされるメモリー・サイズ (<em>MemSize</em> 変数で指定される) でテスト・コマンドを実行して、
+シミュレートするシステムのテストを終了させてください。
+この変数はメガバイト単位の整数または小数です。 <em>MemSize</em> 変数は 4MB からコンピューターの実メモリーのサイズの範囲で指定します。 <strong>-f</strong> フラグを省略すると、最終メモリー・サイズは 8MB になります。<div><div>
+        <div>
+          <div><span>注:</span> カーネルなどの固有のシステム構造のサイズのため、 8MB 未満のシミュレートされたメモリー・サイズで終了することは困難です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> NumIterations</em></td>
+
+<td>各メモリー・サイズでコマンドの実行と測定を行う回数を指定します。 <strong>-n</strong> フラグにはデフォルト値はありません。 <strong>rmss</strong> コマンドの初期化時に <strong>-n</strong> フラグを省略すると、
+<strong>rmss</strong> コマンドは、
+10 秒間の合計実行回数を累算するのに必要なテスト・コマンドの反復回数を判別し、
+各メモリー・サイズでその回数だけコマンドを実行します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>RMSS</strong> コマンドは常に、測定される実行の前に、メモリー・サイズごとに 1 回ずつコマンドを実行します。 これにより、実際のテストのシミュレーションを行います。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutputFile</em></td>
+
+<td><strong>rmss</strong> レポートの書き込み先となるファイルを指定します。 <strong>-o</strong> フラグを省略すると、
+<strong>rmss</strong> レポートは <strong>rmss.out</strong> ファイルに書き込まれます。 また、
+<strong>rmss</strong> レポートは通常標準出力に書き出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>シミュレートされるメモリー・サイズの現行値を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>シミュレートされるメモリー・サイズをコンピューターの実メモリーのサイズにリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> MemSize</em></td>
+
+<td>開始メモリー・サイズを指定します。 シミュレートされるメモリー・サイズ (<em>MemSize</em> 変数で指定される) でテスト・コマンドを実行して、
+シミュレートするシステムのテストを開始してください。この変数はメガバイト単位の整数または小数です。 <em>MemSize</em> 変数は 4MB からコンピューターの実メモリーのサイズの範囲で指定します。 <strong>-s</strong> フラグを省略すると、
+開始メモリー・サイズはコンピューターの実メモリーのサイズになります。<div><div>
+        <div>
+          <div><span>注:</span> カーネルなどの固有のシステム構造のサイズが原因で、シミュレートされたメモリー・サイズが 8MB未満で開始するのは困難です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><em>Command</em></td>
+
+<td>各メモリー・サイズで実行および測定するコマンドを指定します。 <em>Command</em> パラメーターには、実行可能プログラムまたはシェル・スクリプト・ファイルを指定できます。
+また、コマンド・ライン引数は指定してもしなくてもかまいません。 デフォルトのコマンドはありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>メモリー・サイズを 13.5MBに変更するには、次のように入力します。<div> <div><div><pre><code>rmss -c 13.5</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>現在のメモリー・サイズを出力するには、次のように入力します。<div> <div><div><pre><code>rmss -p</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>メモリー・サイズをマシンの実メモリー・サイズにリセットするには、次のように入力します。<div> <div><div><pre><code>rmss -r</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>コマンドのパフォーマンスを調査するには、以下のようにします。cc -O foo.cメモリー・サイズ 32、24、16、および 8MB; でコマンドを実行し、各メモリー・サイズで 1 回ずつコマンドを測定してから、レポートをメモリー・サイズに書き込みます。cc.rmss.outファイル、入力:<div> <div><div><pre><code>rmss -s 32 -f 8 -d 8 -n 1 -o cc.rmss.out cc -O foo.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>コマンドのシーケンスのパフォーマンスを調査するには、以下のようにします。foo.shマシンの実メモリー・サイズから始まり、 8MBで終わるメモリー・サイズのシェル・スクリプト・ファイル。 8MB; の増分により、 <strong>RMSS</strong> コマンドが実行する反復回数を決定し、測定します。foo.sh各メモリー・サイズをファイルに書き込んでから、 <strong>RMSS</strong> 報告書をrmss.outfile ( <strong>RMSS</strong> コマンドのこの呼び出しで使用されるすべてのデフォルトを使用) の場合は、次のように入力します。<div> <div><div><pre><code>rmss foo.sh</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>実行可能ファイルのパフォーマンスを調査します。bar8MB から 16MBまでのメモリー・サイズ、 0.5MB; の実行と測定の増分bar各メモリー・サイズで 2 回、レポートを書き込みます。bar.rmss.outファイル、入力:<div> <div><div><pre><code>rmss -s 8 -f 16 -d .5 -n 2 -o bar.rmss.out bar</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>-s</strong>、 <strong>「-f」</strong>、 <strong>-d 年</strong>、 <strong>N</strong>、および <strong>-</strong> フラグの任意の組み合わせを使用すると、 <strong>RMSS</strong> コマンドはドライバー・プログラムとして実行されます。このコマンドは、メモリー・サイズの範囲内で複数回コマンドを実行し、各メモリー・サイズでのコマンドのパフォーマンスを記述する統計情報を表示します。<p><strong>rmss</strong> コマンドによって出力されるレポートの例を以下に示します。</p>
+
+<div>
+<div><div><pre><code>Hostname:  xray.austin.ibm.com
+Real memory size:   48.00 Mb
+Time of day:  Wed Aug  8 13:07:33 1990
+Command:  cc -O foo.c
+Simulated memory size initialized to  24.00 Mb.
+Number of iterations per memory size = 1 warmup + 1 measured = 2.
+Memory size  Avg. Pageins  Avg. Response Time   Avg. Pagein Rate
+(megabytes)                       (sec.)           (pageins/sec.)
+   -----------------------------------------------------------------
+24.00             0.0              113.7                0.0
+22.00             5.0              114.8                0.0
+20.00             0.0              113.7                0.0
+18.00             3.0              114.3                0.0
+16.00             0.0              114.6                0.0
+14.00             139.0            116.1                1.2
+12.00             816.0            126.9                6.4
+10.00             1246.0           135.7                9.2
+8.00              2218.0           162.9                13.6</code></pre></div><div></div></div>このレポートを生成するコマンドを以下に示します。<div><div><pre><code>rmss -s 24 -f 8 -d 2 -n 1 cc -O foo.c</code></pre></div><div></div></div>レポートの最初の部分には、 <strong>RMSS</strong> コマンドが実行されていたマシン、そのマシンの実メモリー・サイズ、時刻と日付、および測定されていたコマンドなどの一般情報が示されます。 その下の 2 行には、<strong>rmss</strong> コマンドの初期化について説明した情報メッセージが出力されます。 上記の例では、<strong>rmss</strong> コマンドがシミュレートされるメモリー・サイズを 24MB に初期化していることを示しています。
+この 24MB は <strong>-s</strong> フラグで指定した開始メモリー・サイズです。 また、
+<strong>rmss</strong> コマンドは、各メモリー・サイズでコマンドが実行される反復回数も印刷します。 コマンドは立ち上げで 1 回、パフォーマンスの測定で 1 回の計 2 回ずつ、
+各メモリー・サイズで実行されます。 反復回数は <strong>-n</strong> フラグで指定します。</div>
+
+<p>レポートの次の部分には、コマンドが実行されたメモリー・サイズごとに以下の情報が示されます。</p>
+
+<ul>
+<li><span></span>メモリー・サイズと、コマンドの実行中に発生したページインの平均回数</li>
+
+<li><span></span>コマンドの平均応答時間。</li>
+
+<li><span></span>コマンドの実行時に発生した平均ページイン率。<div><div>
+        <div>
+          <div><span>注:</span> 平均ページイン率および平均ページイン率の値には、コマンドによって開始されたページインだけでなく、コマンドの実行中に発生したすべてのページインが含まれます。</div>
+        </div>
+      </div></div>
+
+</li>
+
+</ul>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/rmss</strong></td>
+
+<td><strong>rmss</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,5 +1,5 @@
-site_name: AIX 7.3 Operations Library
-site_description: 説明品質監査を通過したAIX 7.3技術項目
+site_name: AIX 7.3 Official-First Library
+site_description: IBM DocsのDOM構造を保持したAIX 7.3技術項目
 site_url: https://ai-crafted-portfolio.github.io/knowledge-based/
 docs_dir: aix_pass_site/docs
 site_dir: site

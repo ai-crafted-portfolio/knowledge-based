@@ -1,0 +1,185 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プリンター・フォーマッターを始動します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>/usr/lpd/pio/etc/pioformat -@ DataBaseFile [ -! FormatterName ] [ -# + PassThroughOption ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pioformat</span> コマンドは、プリンター・フォーマッター・ドライバーを開始します。 フォーマッター・ドライバーは、データベース値へのアクセスを確立し、プリンター・フォーマッターをロードしてリンクし、その <code>setup</code> 関数、 <code>initialize</code> 関数、 <code>lineout</code> 関数、 <code>passthru</code> 関数、および <code>restore</code> 関数を呼び出すことによってフォーマッターを駆動します。 フォーマッター・ドライバーは、フォーマッターが使用する <span>piogetopt</span> サブルーチン、<span>piogetstr</span> サブルーチン、<span>pioexit</span> サブルーチンも提供します。</p>
+ <p>この後にリストされるフラグは、フォーマッター・ドライバーによって処理され、フォーマッターには渡されません。 ただし、これより後にリストされていないすべてのフラグは、フォーマット・フラグであると想定され、フォーマッターに渡されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-@</span> DataBaseFile</td>
+
+<td>以下のいずれかを指定します。<ul>
+<li>アクセスする (要約された) データベース・ファイルの絶対パス名。</li>
+
+<li>コロンで区切られた、印刷キューとキュー・デバイスの名前</li>
+
+</ul>
+
+<p>引数文字列が <code>/</code> (スラッシュ) 文字で始まる場合、絶対パス名であると想定されます。</p>
+
+<p>キューの名前とキュー・デバイス名を組み合わせると、データベース・ファイル名の一部である固有文字列になり、<span>/var/spool/lpd/pio/@local/ddi</span> ディレクトリー内でデータベース・ファイル名の検索に使用されます。 この短形式の代替は、フォーマッター・ドライバーおよびフォーマッターがスプーラーではなくスタンドアロン・デバイスとして実行される場合に、便宜上提供されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-!</span> FormatterName</td>
+
+<td>ロード、リンク、および始動の対象となるフォーマッターの絶対パス名を指定します。<p><span>-!</span> フラグが指定されていない場合は、データベース内の <code>mf</code> 属性名で定義されているデフォルトのフォーマッター名が使用されます。 デフォルトのフォーマッター名は、フォーマッター・ドライバーおよびフォーマッターがスプーラーではなくスタンドアロン・デバイスとして実行される場合に、便宜上提供されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-#</span><span> +</span> PassThroughOption</td>
+
+<td>印刷ファイルを変更せずにパススルーする必要があることを指定します。 <span>-#
++</span> フラグが指定されていない場合は、印刷ファイルがフォーマット設定されます。<p>フォーマッターの <code>setup</code> ルーチンに渡されるパラメーターには、0 ではなく 1 の値が含まれています。これは、ファイルをフォーマットする代わりにパススルーする必要があることを示しています。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>pro</code>という名前の印刷キューに関連付けられている <code>std</code> という名前のキュー・デバイスのデータベース・ファイル (仮想プリンター記述) に従って <code>myfile</code> ファイルをフォーマットし、ページ幅を 132 文字にオーバーライドし、 <span>pioformat</span> コマンドとフォーマッターをスタンドアロン・フィルターとして使用するには、次のように入力します。<div><code>cat myfile | pioformat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pioformat.html#pioformat__row-d3e83681" target="_blank" rel="noopener noreferrer">-@</a> pro:std -w 132 &gt;/dev/lp0</code></div>
+</li>
+
+<li>スプーラーの下で実行されているパイプラインで <span>pioformat</span> コマンドおよびフォーマッターを使用するには、次のように入力します。<div><code>%Ide/pioformat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pioformat.html#pioformat__row-d3e83681" target="_blank" rel="noopener noreferrer">-@</a> %Idd/%Imm  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pioformat.html#pioformat__row-d3e83706" target="_blank" rel="noopener noreferrer">-!</a> %Idf/piof420x %Fbb %Fee ...</code></div>この例では、以下のことが想定されています。<ul>
+<li>印刷装置は 4207-2 型プロプリンターです。</li>
+
+<li>印刷キュー名は <code>pro.</code> です。</li>
+
+<li>印刷キューに定義されているキュー・デバイス (仮想プリンター) は 1 つだけであり、その名前は <code>std</code> で、その出力データ・ストリーム・タイプは <code>asc</code> (拡張 ASCII) です。</li>
+
+<li>プリンター名は <code>/dev/lp0.</code> です。</li>
+
+<li>印刷ジョブ実行依頼者が、フラグと引数 <code>-i 5</code>を指定しました。</li>
+
+</ul>印刷ジョブ・マネージャー ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piobe.html#piobe" target="_blank" rel="noopener noreferrer"><span>piobe</span></a> コマンド) は、ファイルをフォーマットするためにパイプラインをシェルに渡す前に、属性値に対するパイプラインの組み込み参照を解決します。 この例で前述した前提事項に基づいて、属性参照を次のように解決できます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td> <code>%Ide -&gt; /usr/lpd/pio/etc</code></td>
+
+<td><span>pioformat</span> コマンドが存在するディレクトリー</td>
+
+</tr>
+
+<tr>
+<td> <code>%Idd</code><code> -&gt;</code> <code> /var/spool/lpd/pio/@local/ddi</code></td>
+
+<td>データベース・ファイルのディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td> <code>%Imm</code><code> -&gt;</code> <code> 4207-2.asc.lp0.pro:std</code></td>
+
+<td>データベース・ファイル名。</td>
+
+</tr>
+
+<tr>
+<td> <code>%Idf -&gt; /usr/lpd/pio/fmtrs</code></td>
+
+<td>フォーマッターのディレクトリー</td>
+
+</tr>
+
+<tr>
+<td><code>%Fbb</code><code> -&gt;</code></td>
+
+<td>ヌル・ストリング (実行依頼者が <span>-b</span> フラグを指定しなかったため)</td>
+
+</tr>
+
+<tr>
+<td><code>%Fee -&gt; -i 5</code></td>
+
+<td>実行依頼者は、このフラグと引数を指定しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>この後に表示される結果のパイプラインは、ファイルをフォーマット設定するためにシェルに渡すことができます (読みやすくするために複数行で表示されます)。<div>
+<div><div><pre><code>/usr/lpd/pio/etc/pioformat        # initiate the formatter driver
+-@/usr/lpd/pio/ddi/4207-2.asc.lp0.pro:std
+                                  # (digested) database file
+-!/usr/lpd/pio/fmtrs/piof420x     # loadable formatter
+-i5                               # formatting option
+                                  # (indent 5 characters)</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/lpd/pio/etc/pioformat</span></td>
+
+<td>フォーマッター・ドライバーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lpd/pio/fmtrs/*</span></td>
+
+<td>フォーマッターが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/spool/lpd/pio/@local/ddi/*</span></td>
+
+<td>要約されたデータベース・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

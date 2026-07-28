@@ -1,0 +1,117 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>タブをスペースに変更して標準出力に書き出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>expand</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expand.html#expand__row-d3e93580" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a><em>TabList</em> ] [ <em>ファイル ...</em> ]</p>
+ <p><strong>expand</strong> [-<em>tabstop</em>]|[-<em>tab1</em>,<em>tab2</em>,...,<em>
+tabn</em>] [<em>File</em> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>expand</strong> コマンドは、指定したファイルまたは標準入力を標準出力に書き出して、タブ文字を 1 つ以上のスペース文字に置き換えます。 バックスペース文字は出力にコピーされ、タブ・ストップ計算に使用される桁位置のカウントが減少します。
+桁位置のカウントがゼロよりも小さくなることはありません。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <em>ファイル</em> パラメーターはテキスト・ファイルでなければなりません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-t</strong><em> TabList</em><strong></strong></td>
+
+<td>タブ・ストップの位置を指定します。 タブ・ストップのデフォルト値は 8 桁目です。<p><em>TabList</em> 変数は、1 桁または複数桁の 10 進整数で構成する必要があります。 複数の整数は昇順で指定し、コンマまたはブランク文字で区切り、整数の前後を引用符で囲まなければなりません。 単一の <em>TabList</em> 変数は、タブ・ストップを個々の桁位置に等しい数値に設定します。 複数の <em>TabList</em> 変数は、タブ・ストップを <em>TabList</em> 変数内の整数に対応する桁位置に設定します。</p>
+  <p><strong>expand</strong> コマンドが、<em>TabList</em> 変数内で最後に指定した桁位置を超えてタブ・ストップを処理すると、タブ・ストップは出力内で単一スペース文字に置き換えられます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>tabstop</em></td>
+
+<td>単一引数として指定します。 デフォルトの 8 の代わりに、<em>tabstop</em> SPACE 文字を別に設定します。</td>
+
+</tr>
+
+<tr>
+<td><em>tab1, tab2,..., タブ</em></td>
+
+<td>-<em>tab1,tab2,...,tabn</em> によって指定された列に TAB 文字を設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>タブ・ストップを等距離で調整するには、以下の手順を実行します。text.fil次のように入力します。<div> <div><div><pre><code>expand -t 3 text.fil</code></pre></div><div></div></div>指定する場合は、text.filの内容:<div><div><pre><code>1       2        3456789</code></pre></div><div></div></div><strong>expand</strong> コマンドは次のように表示します。<div><div><pre><code>1  2        3456789</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>タブ・ストップを調整するには、以下のようにしてください。text.fil次のように入力します。<div> <div><div><pre><code>expand -t 3,15,22  text.fil</code></pre></div><div></div></div>または<div><div><pre><code>expand -t "3 15 22" text.fil</code></pre></div><div></div></div>指定する場合は、text.filの内容:<div><div><pre><code>1      2       3      456789</code></pre></div><div></div></div><strong>expand</strong> コマンドは次のように表示します。<div><div><pre><code>1  2       3      456789</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/expand</strong></td>
+
+<td><strong>expand</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

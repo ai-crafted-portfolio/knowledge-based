@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク・フォント・サーバーをフォント・パスに追加します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>x_add_fs_fpe</strong><em> ホスト・ポート位置 TypeName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>x_add_fs_fpe</strong> コマンドは、フォント・サーバーがフォントにアクセスできるように、選択したネットワーク・タイプ名のフォント・パスにフォント・パス・エレメントを追加します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>Host</em></td>
+
+<td>フォント・サーバーが存在するシステムの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>ポート</em></td>
+
+<td>フォント・サーバー・ポートの番号を指定します。 この番号は <strong>/etc/services</strong> ファイルにある番号でなければならず、10 進数で指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>位置</em></td>
+
+<td>このエレメントを挿入するフォント・パス内の位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>TypeName</em></td>
+
+<td>ネットワーク・タイプの名前を指定します。 ネットワーク・タイプごとに、1 つ以上のフォント・パス・エレメントからなるフォント・パスがあります。 フォント・パス要素が追加されるネットワーク・タイプの名前を指定するか, あるいは次の指定によってフォント・パス要素をすべてのネットワーク・タイプ名に追加することを選択してください。Allフォント・パス・エレメントが追加された場合Allネットワーク・タイプは, 各フォント・パスの終わりに入れられます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御 : root ユーザーだけが、このコマンドに実行 (x) アクセスできるようにしてください。</p>
+</section>
+
+<section><h2>例</h2> <p>ネットワーク・タイプのフォント・パスの先頭にフォント・サーバーを追加するにはx_st_mgr.ether次のように入力します。</p>
+ <div> <div><div><pre><code>x_add_fs_fpe winter 7500 1 x_st_mgr.ether</code></pre></div><div></div></div></div>
+ <p>この例では、ホスト上のフォント・サーバーwinterネットワーク・タイプのフォント・パスの先頭に追加されましたx_st_mgr.etherフォント・サーバー・ポートは次のとおりです。7500.</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/lpp/x_st_mgr/bin/x_add_fs_fpe</strong></td>
+
+<td><strong>x_add_fs_fpe</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/x_st_mgr/ether.cf</strong></td>
+
+<td>ネットワーク・タイプ <strong>x_st_mgr.ether</strong> 構成ファイル (サンプル) が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

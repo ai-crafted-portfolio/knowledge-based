@@ -1,0 +1,174 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span><span>csmstat –</span></span> クラスター・ノードの到達可能性、電源状況、およびネットワーク・インターフェース状況のスナップショットを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>csmstat</span></span> [<span><span>-h</span></span>]</p>
+ <p><span><span>csmstat</span></span> [<span><span>-l</span></span>][<span><span>-a</span></span>][<span><span>-S</span></span>][<span><span>-s</span></span><span><span> select_string</span></span> ] [<span><span>-d</span></span><span><span> 区切り文字］</span></span> [<span><span>-n</span></span><span><span> ノードリスト］</span></span> [<span><span>-N</span></span><span><span> ノードグループ］</span></span></p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>csmstat</span></span> コマンドは、1 つ以上のノードのノード到達可能性、電源状況、およびネットワーク・インターフェース状況を収集し、出力を表示します。 デフォルトでは、この出力はホスト名順に表示されます。 1 つのノードに複数のハードウェア制御点 (例えば、複数の HMC) がある場合、リスト内の最初のハードウェア制御点が示されます。<div><div>
+        <div>
+          <div><span>注:</span> このコマンドは現在、 IntelliStation ワークステーション上のノードをサポートしていません。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt><span><span>-a</span></span></dt>
+
+<dd>すべてのノードの属性情報を表示します。 これはデフォルトです。</dd>
+
+
+<dt>-d</dt>
+
+<dd>指定された区切り文字 (コロンなど) を使用した、区切り文字フォーマットの出力を指定します。 この<span>フラグ</span><span>オプション</span>を使用して、
+1 つ以上の文字の区切り文字を指定します。 この <span>flag</span><span>オプション</span> は、 <span><span>–a</span></span> <span>flag</span><span>オプション</span>と一緒に使用することはできません。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用方法を表示します。</dd>
+
+
+<dt>-l</dt>
+
+<dd><span> SP ノード、p660サーバー、および HMC アタッチ<span>IBMSystem p</span>サーバー</span>の LCD 値を返します。 この <span>flag</span><span>オプション</span> は、 <span><span>–d</span></span> <span>flag</span><span>オプション</span>と一緒に使用することはできません。</dd>
+
+
+<dt>-<span><span>ノードリスト</span></span></dt>
+
+<dd>属性情報を表示するときに、コンマまたはスペースで区切ったノード名のリストを指定します。 スペースで区切ったノード名は二重引用符で囲む必要があります。 ノード範囲の指定については、 <span><span>noderange</span></span> のマニュアル・ページを参照してください。</dd>
+
+
+<dt>--Nの <span><span>ノードグループ</span></span></dt>
+
+<dd>属性情報を表示するときに、コンマまたはスペースで区切ったノード・グループのリストを指定します。 スペースで区切ったノード・グループは二重引用符で囲む必要があります。</dd>
+
+
+<dt>-s</dt>
+
+<dd>どの列を表示するかを列見出しによって指定します。 デフォルトでは、 <span><span>Hostname</span></span> が表示されます。 その他の値には、 <span><span>HWControlPoint</span></span>、 <span><span>LCDS</span></span>、 <span><span>Network-Interfaces</span></span>、 <span><span>Status</span></span>、 <span><span>PowerStatus</span></span> 、および <span><span>all</span></span>があります。 この <span>flag</span><span>オプション</span> は、 <span><span>–l</span></span> <span>flag</span><span>オプション</span>と一緒に使用することはできません。</dd>
+
+
+<dt>–S</dt>
+
+<dd>出力を最初にハードウェア制御点、次にホスト名によってソートします。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <p>なし。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、クラスタ管理サーバへのrootアクセスと、RMC '<span><span>ctrmc.acls</span></span>ACLファイル内の<span>IBM</span>.NodeHwCtrlリソース・クラスへのアクセス権を持つユーザIDが必要です。</p>
+ <p>このコマンドは、 <span><span>systemid</span></span> ファイルを必要とする場合があります。 詳しくは、 <span><span>systemid</span></span> のマニュアル・ページを参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>ホスト名</dt>
+
+<dd>ノードの管理のためのホスト名。 この値は、17 文字に切り捨てられます。 17 番目の文字は、切り捨てが使用されたことを示す <span><span>~</span></span> です。</dd>
+
+
+<dt>HWControlPoint</dt>
+
+<dd>ハードウェア制御点のネットワーク・アダプターのホスト名。 この値は、17 文字に切り捨てられます。 17 番目の文字は、切り捨てが使用されたことを示す <span><span>~</span></span> です。</dd>
+
+
+<dt>状況</dt>
+
+<dd>ノードがネットワーク上で到達可能かどうか、およびそのノード上の RMC サブシステムが管理サーバー上の RMC サブシステムと通信できるかどうかを示します。 有効な状態は、 <span><span>0</span></span> (オフ)、 <span><span>1</span></span> (オン)、および <span><span>127</span></span> (不明) です。 区切り文字を使用する場合を除き、英語の表現が使用されます。</dd>
+
+
+<dt>PowerStatus</dt>
+
+<dd>ノードの現在の電源状況を示します。 有効な状態は、 <span><span>0</span></span> (オフ)、 <span><span>1</span></span> (オン)、 <span><span>127</span></span> <span>(不明)、</span> および <span><span>128</span></span> (ハードウェア制御が構成されていない) です。 区切り文字を使用する場合を除き、英語の表現が使用されます。</dd>
+
+
+<dt>NetworkInterface</dt>
+
+<dd>デバイスの <span><span>Name</span></span> と <span><span>OpState</span></span>を含みます。</dd>
+
+
+<dt>名前</dt>
+
+<dd>ネットワーク・インターフェースの名前。 例えば、<span>Linux®</span>では'<span><span>eth0</span></span>、<span>AIX</span>では'<span><span>en0</span></span>である。 <span>スイッチ・ネットワーク</span>・インターフェースも示されます。</dd>
+
+
+<dt>OpState</dt>
+
+<dd>ネットワーク・インターフェースの現在の状態を表します。 有効な状態は、次のとおりです。<dl>
+<dt>1</dt>
+
+<dd>オンライン</dd>
+
+
+<dt>2</dt>
+
+<dd>オフライン</dd>
+
+</dl>
+</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>次のコマンドは、デフォルト・フォーマットで情報を戻します。<div><div><pre><code>csmstat
+
+-----------------------------------------------------------------------------
+Hostname         HWControlPoint  Status  PowerStatus Network-Interfaces
+-----------------------------------------------------------------------------
+clsn10.pok.ibm.c~  /dev/tty2     off     off         unknown
+clsn11.pok.ibm.c~  /dev/tty3     off     off         unknown
+clsn12.pok.ibm.c~  /dev/tty4     unknown on          unknown
+clsn13.pok.ibm.c~  /dev/tty4     unknown on          unknown
+clsn14.pok.ibm.c~  /dev/tty4     unknown off         unknown
+clsn15.pok.ibm.c~  /dev/tty4     unknown on          unknown
+clsn16.pok.ibm.c~  /dev/tty4     unknown on          unknown
+clsn17.pok.ibm.c~  /dev/tty4     unknown on          unknown
+clsn18.pok.ibm.c~  /dev/tty4     on      off         en0-Online
+
+</code></pre></div><div></div></div></li>
+
+<li>次のコマンドは、指定された区切り文字を使用して情報を戻します。<div><div><pre><code>csmstat -d ::
+
+clsn10.pok.ibm.com::/dev/tty2::0::0::unknown
+clsn11.pok.ibm.com::/dev/tty3::0::0::unknown
+clsn12.pok.ibm.com::/dev/tty4::127::1::unknown
+clsn13.pok.ibm.com::/dev/tty4::127::1::unknown
+clsn14.pok.ibm.com::/dev/tty4::127::0::unknown
+clsn15.pok.ibm.com::/dev/tty4::127::1::unknown
+clsn16.pok.ibm.com::/dev/tty4::127::1::unknown
+clsn17.pok.ibm.com::/dev/tty4::127::1::unknown
+clsn18.pok.ibm.com::/dev/tty4::1::0::en0-1::
+
+</code></pre></div><div></div></div></li>
+
+<li>次のコマンドは、指定された列見出しに関する情報を戻します。<div><div><pre><code> csmstat -s Status,Network-Interfaces 
+
+------------------------------------------------
+Hostname          Status  Network-Interfaces
+------------------------------------------------
+clsn10.pok.ibm.c~ on      en0-Online ml0-Offline
+clsn11.pok.ibm.c~ on      sn1-Online sn0-Online at2-Online at1-Online at0-Online
+                          en1-Offline en0-Online ml0-Offline
+clsn12.pok.ibm.c~ on      en0-Online en1-Offline ml0-Offline sn1-Online sn0-Online
+clsn13.pok.ibm.c~ off     unknown
+clsn14.pok.ibm.c~ on      en0-Online en1-Offline at0-Online at1-Online at2-Online
+                          at3-Online sn1-Online sn0-Online ml0-Offline
+clsn15.pok.ibm.c~ on      en0-Online en1-Offline at0-Online at1-Online at2-Online
+                          at3-Online ml0-Offline sn1-Online sn0-Online
+clsn16.pok.ibm.c~ unknown unknown
+</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/opt/csm/bin/csmstat</span></span></p>
+</section>
+
+</div></div>

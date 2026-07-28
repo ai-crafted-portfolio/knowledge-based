@@ -1,0 +1,49 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>ディレクトリーを移動します (ディレクトリーの名前を変更します)。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mvdir</strong><em> Directory1 Directory2</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mvdir</strong> コマンドはファイルシステム内のディレクトリー名を変更します。 <strong>mvdir</strong> コマンドを使用するには、親ディレクトリーだけでなく <em>Directory1</em> と <em>Directory2</em> への書き込み許可を持たなければなりません。</p>
+ <p><em>Directory1</em> パラメーターは既存のディレクトリーの名前でなければなりません。 <em>Directory2</em> が存在しない場合、<em>Directory1</em> が <em>Directory2</em> に移動されます。 <em>Directory2</em> が存在する場合は、<em>Directory1</em> が <em>Directory2</em> のサブディレクトリーになります。 どちらのディレクトリーも他方のサブセットにはなれません。</p>
+ <p><strong>mvdir</strong> コマンドはファイルの移動または名前変更にも使用できます。 <em>Directory1</em> パラメーターが既存のファイル名で、<em>Directory2</em> パラメーターが既存のディレクトリー名であれば、<em>Directory1</em> で指定したファイルは <em>Directory2</em> で指定したディレクトリーに移動されます。 <em>Directory1</em> パラメーターが既存のファイル名で、<em>Directory2</em> パラメーターがまだ存在しなければ、<em>Directory2</em> ディレクトリーがファイル名 <em>Directory1</em> と置き換えられます。 両方とも既存のファイル名であれば、<em>Directory1</em> で指定したファイルの名前が <em>Directory2</em> に変更され、既存の <em>Directory2</em> は除去されます。</p>
+ <p><strong>mv</strong> コマンドは、<strong>mvdir</strong>
+コマンドと同じ機能を提供します。</p>
+ <p><span><span>mvdir</span></span> コマンドは、ディレクトリーが NFS バージョン 4 で使用するためにエクスポートされた場合、またはディレクトリーが NFS バージョン 4 で使用するためにエクスポートされたディレクトリーになる場合は、ディレクトリーの名前を変更しません。 NFS バージョン 4 用にエクスポートされるディレクトリー、および NFS バージョン 4 用にエクスポートされるディレクトリーにつながるディレクトリーは、「ビジー」としてマーク付けされ、アンエクスポートされるまでその状態を保ちます。</p>
+</section>
+
+<section><h2>例</h2> <p>ディレクトリー名を変更するか、ディレクトリーを他の位置に移動するには、次のように入力します。</p>
+ <div> <div><div><pre><code>mvdir appendixes manual</code></pre></div><div></div></div></div>
+ <p>指定する場合は、manualは存在しません。これにより,appendixesディレクトリーmanual.</p>
+ <p>指定されたディレクトリーmanual既に存在しています。これはappendixesおよびその内容manual/appendixes言い換えれば、appendixesサブディレクトリーになります。manual.</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mvdir</strong></td>
+
+<td><strong>mvdir</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

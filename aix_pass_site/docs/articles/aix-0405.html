@@ -1,0 +1,31 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>現行の Network Information Service (<span>NIS</span>) ドメインの名前を表示または設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/bin/domainname </strong>[<em> DomainName </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>domainname</strong> コマンドは、現行 <span>NIS</span> ドメインの名前を表示または設定します。 パラメーターを指定しない場合、 <strong>domainname</strong> コマンドは現行 <span>NIS</span> ドメインの名前を表示します。 通常、ドメインには、同一管理下のホストのグループが含まれています。</p>
+ <p><strong>domainname</strong> コマンドに引数を指定することによってドメインの名前を設定できるのは、root ユーザーだけです。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>新しいドメインを設定するには、次のように入力します。<div> <div><div><pre><code>domainname caesar</code></pre></div><div></div></div>この例では、domainnameコマンドは、 <span>NIS</span> ドメイン名を caesar に設定します。</div>
+</li>
+
+<li>ユーザーのマシンが属しているドメインの名前を見つけるには、
+次のように入力します。<div> <div><div><pre><code>domainname</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

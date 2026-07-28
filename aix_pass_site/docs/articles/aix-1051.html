@@ -1,0 +1,172 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム情報についてネットワーク・インストール管理 (NIM) 環境のシステムに照会し、この環境でクライアント・オブジェクトを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>nimquery</span></span>{{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32868" target="_blank" rel="noopener noreferrer"><span><span> host</span></span> =ホスト名</a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32868" target="_blank" rel="noopener noreferrer"> name=client <span><span>obj</span></span></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32877" target="_blank" rel="noopener noreferrer"> hmc=オブジェクト<span><span>名</span></span> [<span><span>-d</span></span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32877" target="_blank" rel="noopener noreferrer"> cec=オブジェクト<span><span>名</span></span></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32877" target="_blank" rel="noopener noreferrer"> bcmm=オブジェクト<span><span>名</span></span></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32821" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32877" target="_blank" rel="noopener noreferrer"> ivm=obj <span><span>name}</span></span></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32836" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32842" target="_blank" rel="noopener noreferrer"><span><span>-q</span></span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nimquery.html#nimquery__row-d3e32851" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>nimquery</span></span> コマンドは、 <span><span>-a</span></span> ホスト・パラメーターの使用時にシステム情報をマシンに照会します。 この情報は、NIM 環境で新しいクライアント・オブジェクトを定義するために使用されます。 システム情報は、NIM サービス・ハンドラー (nimsh) を使用するシステムから提供されます。</p>
+ <p><span><span>nimquery</span></span> コマンドは、 Hardware Management Console (HMC)、CEC、Integrated Virtualization Manager (IVM)、または Blade Center 管理モジュール (BCMM) オブジェクトを指している場合に、論理区画 (LPAR)、中央電子処理装置 (CEC)、およびブレード情報を照会するためにも使用できます。 これを行うには、<strong>openssh.base.client</strong> を NIM マスターにインストールする必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>以下のパラメーター属性=値の組を割り当てます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span></td>
+
+<td>新規クライアント・オブジェクトを定義します ( <span><span>-a</span></span> ホストを使用する場合は name 属性が必要です)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span></td>
+
+<td>印刷形式を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-q</span></span></td>
+
+<td><span><span>nimquery</span></span> コマンドの属性リストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td>コマンド実行時の詳細デバッグ出力を有効にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>host</span></span>=<span><span>ホスト名</span></span></td>
+
+<td>照会するシステムのホスト名を指定します。 この属性は必要です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>name</span></span><span><span>=client_obj</span></span></td>
+
+<td>NIM データベースに新しい定義を作成するときに、クライアントに割り当てる名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>hmc</span></span><span><span>=オブジェクト</span></span>名</td>
+
+<td>照会する HMC システムのオブジェクト名を指定します。 この属性は必要です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>cec</span></span><span><span>=オブジェクト</span></span>名</td>
+
+<td>照会する CEC システムのオブジェクト名を指定します。 この属性は必要です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>ivm</span></span><span><span>=オブジェクト</span></span>名</td>
+
+<td>照会する IVM システムのオブジェクト名を指定します。 この属性は必要です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>bcmm</span></span><span><span>=オブジェクト</span></span>名</td>
+
+<td>照会する BCMM システムのオブジェクト名を指定します。 この属性は必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>正常時にゼロを戻します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>nimquery</span></span> コマンドを実行するには、root 権限が必要です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム情報を得るためにマシン buckey を照会するには、次のように入力します。<div><div><pre><code>nimquery -a host=buckey</code></pre></div><div></div></div></li>
+
+<li>システム情報についてマシン buckey に照会し、詳細な出力情報を提供するには、次のように入力します。<div><div><pre><code> nimquery -a host=buckey -p</code></pre></div><div></div></div></li>
+
+<li>NIM オブジェクト名として名前 client6 を使用して、マシン buckey.austin.ibm.com を定義するには、
+次のように入力します。<div><div><pre><code>nimquery -a name=client6 -a host=buckey -d</code></pre></div><div></div></div>  </li>
+
+<li>ブレードのシステム情報について管理モジュール bcmm2 に照会するには、次のように入力します。<div><div><pre><code>nimquery -a bcmm=bcmm2</code></pre></div><div></div></div></li>
+
+<li>HMC hmc1 が管理する CEC オブジェクトを定義するには、次のように入力します。<div><div><pre><code>nimquery -a hmc=hmc1 -d</code></pre></div><div></div></div></li>
+
+<li>システム情報について cec1 buckey に接続された LPAR に照会するには、次のように入力します。<div><div><pre><code>nimquery -a cec=cec1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/sbin/nimquery</span></span></td>
+
+<td><span><span>nimquery</span></span> コマンドの場所。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

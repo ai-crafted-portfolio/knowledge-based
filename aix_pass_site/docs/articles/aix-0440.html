@@ -1,0 +1,78 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>ダンプ・デバイスとコピー・ディレクトリーがシステム・ダンプを受信できることを確認します。 ダンプを入れるのにリソースが不足していると思われる場合は、
+デフォルトでは、エラーがログに記録されます。</p>
+</section>
+<section><h2>構文</h2> <p><strong>/usr/lib/ras/dumpcheck</strong> [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpcheck.html#dumpcheck__row-d3e61656" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpcheck.html#dumpcheck__row-d3e61662" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpcheck.html#dumpcheck__row-d3e61711" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>TimeParameters</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpcheck.html#dumpcheck__row-d3e61668" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ]] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpcheck.html#dumpcheck__row-d3e61696" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/lib/ras/dumpcheck</strong> コマンドは、
+システム・ダンプが使用するディスク・リソースの確認のために使用されます。 最大のダンプ・デバイスでも小さすぎてダンプが受信できない場合、あるいは、
+ダンプがページング・スペースに入る際にコピー・ディレクトリーに十分なスペースがない場合は、
+コマンドはログにエラーを記録します。</p>
+ <p><strong>dumpcheck</strong> は通常は、
+現地時間の毎日午後 3 時に cron によって実行されます。 これは、
+<strong>-r</strong> フラグを使用して、
+root の <strong>crontab</strong> からそれを除去するか、
+<strong>-t</strong><em> TimeParameters</em> を使用して、dumpcheck が
+実行される時刻を変更することによって、変えることができます。 SMIT から構成することもできます。 <strong>dumpcheck</strong> は、保守援助プログラムを インストールすると、root の <strong>crontab</strong> に自動的に追加されます。</p>
+ <p>最大の効果を上げるためには、<strong>dumpcheck</strong> を、
+システムの負荷が最も大きいときに実行しなければなりません。 その場合には、システム・ダンプが最大サイズになっているのが普通です。 また、<strong>dumpcheck</strong> がダンプ・サイズを監視していても、
+ダンプがダンプ・デバイスやコピー・ディレクトリーに適合しないという事態が起こる可能性はあります。 ちょうどダンプ時刻にシステム負荷がピークになった場合に、
+こういう状態になることがあります。</p>
+ <p><strong>dumpcheck</strong> 関数は、
+保守援助プログラムのファイルセットの一部として、自動的にインストールされます。</p>
+</section>
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-l</strong></td>
+<td>エラー・ログに警告を記録します。 パラメーターが指定されていない場合は、これがデフォルトです。</td>
+</tr>
+<tr><td><strong>-p</strong></td>
+<td>警告が出されたらそれを標準出力に表示します。</td>
+
+</tr>
+<tr><td><strong>-P</strong></td>
+<td>変更が永続的に行われることを示します。つまり、この変更は、
+これ以降に <strong>dumpcheck</strong> 機能が実行されるたびに適用されます。 <strong>-t</strong> および <strong>-r</strong> フラグが指定されていれば、
+<strong>-P</strong> フラグは不要です。 <strong>-P</strong> フラグが指定されている場合、<strong>dumpcheck</strong> は、
+確認せずに <strong>crontab</strong> エントリーを単純に変更します。</td>
+
+</tr>
+<tr><td><strong>-r</strong></td>
+<td>この関数の <strong>crontab</strong> エントリーを除去して、
+その構成解除を有効にします。 このコマンドは通常、
+<strong>cron</strong> によって実行されます。 <strong>-r</strong> フラグは単独で指定しなければなりません。 他のフラグと同時に使用することはできません。</td>
+</tr>
+<tr><td><span><span>-t</span></span> <span><span>TimeParameters</span></span></td>
+<td><strong>dumpcheck</strong> を実行する時刻を変更します。 <em>TimeParameters</em> フラグは、
+一重引用符または二重引用符で囲まなければなりません。 このフラグは、<strong>crontab</strong> 時刻パラメーター (つまり、<strong>crontab</strong> ファイル内の行の
+最初の 5 つのパラメーター) を指定します。 時刻パラメーターの形式については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/crontab.html" target="_blank" rel="noopener noreferrer"><strong>crontab</strong></a> コマンドを参照してください。 <strong>-t</strong> フラグは、<strong>-r</strong> フラグと同時には使用できません。 <strong>-t</strong> フラグが指定されている場合、<strong>dumpcheck</strong> は、
+確認せずに <strong>crontab</strong> エントリーを変更します。</td>
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>セキュリティー</h2> <p>このコマンドを実行できるのは root ユーザーに限られます。</p>
+</section>
+<section><h2>例</h2> <ol><li>ダンプ・リソースを調べ、その結果をログに記録する代わりに標準出力に表示するには、
+次のように入力します。<div> <div><div><pre><code>/usr/lib/ras/dumpcheck -p</code></pre></div><div></div></div>この変更を永続的に行うには、つまり、
+<strong>crontab</strong> エントリーで変更を行うには、次のように入力します。<div><div><pre><code>/usr/lib/ras/dumpcheck -p -P</code></pre></div><div></div></div></div>
+</li>
+<li>月曜から金曜までの午前 9 時と午後 3 時に <strong>dumpcheck</strong> を実行させるには、
+次のように入力します。<div> <div><div><pre><code>/usr/lib/ras/dumpcheck -t "0 9,15 * * 1-5"</code></pre></div><div></div></div></div>
+  <p>デフォルトに戻るには、次のように入力します。</p>
+  <div> <div><div><pre><code>/usr/lib/ras/dumpcheck -t "0 15 * * *"</code></pre></div><div></div></div></div>
+  <p>SMIT を使用して、
+<strong>dumpcheck</strong> の実行回数を構成することもできます。</p>
+</li>
+<li>このフィーチャーの実行を停止するには、次のように入力します。<div> <div><div><pre><code>/usr/lib/ras/dumpcheck -r</code></pre></div><div></div></div></div>
+  <p>このタスクにも SMIT を使用することができます。</p>
+</li>
+</ol>
+</section>
+</div></div>

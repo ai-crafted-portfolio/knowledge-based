@@ -1,0 +1,67 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>オブジェクト・ライブラリー内のメンバー・ファイルに最適な順番を見つけます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lorder</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lorder.html#lorder__row-d3e57327" target="_blank" rel="noopener noreferrer"><strong>-X </strong> {<strong>32</strong>|<strong>64</strong>|<strong>32_64</strong>}]</a> <em> ファイル ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lorder</strong> コマンドは 1 つ以上のオブジェクトまたはライブラリー・アーカイブ・ファイルを読み取って、外部参照を探し、対になったファイル名のリストを標準出力に書き出します。 対になった最初のファイルには、第 2 のファイルで定義された ID への参照が入っています。</p>
+ <p>オブジェクト・ファイルの終わりに <strong>.o</strong> が付いていない場合、<strong>lorder</strong> コマンドはそれらのオブジェクト・ファイルを無視し、それらのグローバル・シンボルと参照を他のファイルに属するものと見なします。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-X</strong><em> モード</em></td>
+
+<td><strong>lorder</strong> で調べるオブジェクト・ファイルの型を指定します。 <em>mode</em> は次のいずれかでなければなりません。<dl>
+<dt>32</dt>
+
+<dd>32 ビットのオブジェクト・ファイルのみを処理します。</dd>
+
+
+<dt>64</dt>
+
+<dd>64 ビットのオブジェクト・ファイルのみを処理します。</dd>
+
+
+<dt>32_64</dt>
+
+<dd>32 ビットと 64 ビットのオブジェクト・ファイルを処理します。</dd>
+
+</dl>
+  <p>デフォルトでは、32 ビットのオブジェクト・ファイルを処理します (64 ビットのオブジェクトは無視します)。 <em>mode</em> は、<strong>OBJECT_MODE</strong> 環境変数を使用して設定することもできます。 例えば、<strong>OBJECT_MODE=64</strong> では、<strong>lorder</strong> は 64 ビットのオブジェクトを処理して、32 ビットのオブジェクトを無視します。 <strong>-X</strong> フラグは <strong>OBJECT_MODE</strong> 変数をオーバーライドします。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/tmp/sym*</strong></td>
+
+<td>一時ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

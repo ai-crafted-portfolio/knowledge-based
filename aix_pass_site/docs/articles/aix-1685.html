@@ -1,0 +1,258 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム間でファイルをコピーします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ユーシーピー </strong>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155823" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155835" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155861" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155873" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155882" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a><em>グレード </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155896" target="_blank" rel="noopener noreferrer"><strong>-j </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155916" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155936" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a><em>ユーザー</em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155959" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155978" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>ファイル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155989" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em>デバッグレベル </em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__a0679282" target="_blank" rel="noopener noreferrer"><em>SourceFile ...</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__a0679282" target="_blank" rel="noopener noreferrer"><em>DestinationFile ...</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uucp</strong>コマンドはBasic Networking Utilities (BNU)コマンドの1つで、あるシステムの1つ以上のソースファイルを、別の<span>UNIX</span>システムの1つ以上の宛先ファイルにコピーする。 ファイルのコピーは、ローカル・システム内、ローカル・システムとリモート・システムとの間、
+リモート・システム間で行うことができます。</p>
+ <p><strong>uucp</strong> コマンドは、2 つのステップでファイル転送を行います。まず、コマンド (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Command.html" target="_blank" rel="noopener noreferrer"><strong>C. *</strong></a>) を作成します。 ローカル・コンピューター上のスプーリング・ディレクトリーにファイルを作成してから、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico" target="_blank" rel="noopener noreferrer"><strong>uucico</strong></a> デーモンを呼び出して、指定されたコンピューターに要求を送信します。 コマンド・ファイルには、ソース・ファイルおよび宛先ファイルの絶対パス名や送信ユーザーのログイン名などの情報が入っています。 コマンド・ファイルの絶対パス名の形式を以下に示します。</p>
+ <div> <div><div><pre><code>/var/spool/uucp/SystemName/C.SystemNameNxxxx</code></pre></div><div></div></div></div>
+ <p><em>N</em> が要求のグレードで、<em>xxxx</em> は BNU で使われる 16 進数の通し番号です。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__row-d3e155835" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> フラグを指定して <strong>uucp</strong> コマンドを使用し、転送のためにファイルをスプール・ディレクトリーにコピーすると、 <strong>uucp</strong> コマンドはコマンド・ファイルだけでなく、 データ (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Data.html" target="_blank" rel="noopener noreferrer"><strong>D. *</strong></a>) も 実際のソース・ファイルが入っているファイル。 データ・ファイルの絶対パス名は以下のような形式になっています。</p>
+ <div> <div><div><pre><code>/var/spool/uucp/SystemName/D.SystemNamexxxx###</code></pre></div><div></div></div></div>
+ <p>コマンド・ファイル (必要ならばデータ・ファイルも) が作成されると、
+<strong>uucp</strong> コマンドが <strong>uucico</strong> デーモンを呼び出し、
+uucico デーモンがリモート・マシンに接続を試みてファイルを送信します。</p>
+ <p><strong>uucp</strong> コマンドを出す前に、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuname.html#uuname" target="_blank" rel="noopener noreferrer"><strong>uuname</strong></a> コマンドを出して、リモート・システムの正確な名前を判別すると便利です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uulog.html#uulog" target="_blank" rel="noopener noreferrer"><strong>uulog</strong></a> コマンドは、別のシステムとの <strong>uucp</strong> アクティビティーに関する情報を提供します。</p>
+<p><strong>ソース・ファイル名と宛先ファイル名</strong></p>
+ <p>ファイル名とシステム名には ASCII 文字以外は使用できません。 固有のファイル名はローカル・システム上のパス名か、あるいは以下の形式を取ります。</p>
+ <p><em>システム</em><strong>名</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__a0679279" target="_blank" rel="noopener noreferrer"><em>PathName</em></a></p>
+ <p><em>SystemName</em> は、BNU が認識しているシステム名のリストから取られます。</p>
+ <p>宛先 <em>SystemName</em> は、以下のような名前のリストの場合もあります。</p>
+ <p><em>システム</em><strong>名</strong><em>システム名</em><strong>！ </strong>. . . <strong> ！ </strong><em>システム名</em><strong>!</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucp.html#uucp__a0679279" target="_blank" rel="noopener noreferrer"><em>PathName</em></a></p>
+ <p>この場合、指定された経路指定を使用してファイルを宛先へ送信する試みがなされます。 この経路指定の中間ノードに情報を転送する意志があり、実際に次のシステムと会話していることを確認します。</p>
+ <p>シェル・パターン・マッチング文字?(疑問符),*(アスタリスク)、および[ . . . ](大括弧と省略符号) は、ソース・ファイルのパス名に使用することができます。適切なシステムがそれらを展開します。 ただし、宛先ファイルのパス名にはシェル・パターン・マッチング文字を使用しないでください。</p>
+ <p><em>DestinationFile</em> がファイルではなくディレクトリーである場合には、
+<strong> uucp</strong> コマンドは <em>SourceFile</em> 名の最後の部分を使用して、リモート・システム上の転送ファイルに名前を付けます。</p>
+<p><strong>パス名</strong></p>
+ <p><em>SourceFile</em> パラメーター、
+および <em>DestinationFile</em> パラメーターのパス名には、
+ASCII 文字以外は使用できません。 ソース・ファイルのパス名は、以下のいずれの形式でも指定できます。</p>
+ <ul>
+<li><span></span>絶対パス名</li>
+
+<li><span></span>相対パス名</li>
+
+</ul>
+ <p><em>DestinationFile</em> パラメーターのパスは、
+<em>SourceFile</em> パラメーターの形式で指定することも、
+以下のいずれかの形式で指定することもできます。</p>
+ <ul>
+<li><span></span> <strong>~</strong><em>User</em> が前に付いたパス名 (例:~jkimble) ここで、<em> User</em> はリモート・システム上のログイン名です。 指定されたユーザーのログイン・ディレクトリーは、転送の宛先と見なされます。 ユーザーが無効なログイン名を指定した場合には、
+ファイルは公開ディレクトリー <strong>/var/spool/uucppublic</strong> (デフォルト) に転送されます。</li>
+
+<li><span></span>パス名の前に <em>~</em><strong>/</strong><em>Destination</em>が付きます。 ここで、<em> Destination</em> は <strong>/var/spool/uucppublic</strong>に追加されます。 宛先は、要求によって複数のファイルが転送される場合、
+あるいは宛先が既にリモート・システム上にディレクトリーとして存在する場合、
+あるいは宛先がディレクトリーとして指定されている場合には、ファイル名として扱われません。<p>宛先をディレクトリーとして指定するときには、宛先名の後に / (スラッシュ) を付けます。 例:~/amy/宛先がディレクトリーを作成するとき/var/spool/uucppublic/amyまだ存在していない場合は、要求されたファイルをそのディレクトリーに入れます。</p>
+</li>
+
+</ul>
+<p><strong>許可</strong></p>
+ <ul>
+<li><span></span>システム管理者は、他のシステムのユーザーによるローカル・ファイルへのアクセスを制限する必要があります。</li>
+
+<li><span></span>ファイルの送信時に、 <strong>uucp</strong> コマンドは実行許可を保持し、所有者、グループ、およびその他すべてのユーザーに読み取り許可と書き込み許可を付与します。 (<strong>uucp</strong> コマンドは、そのファイルを所有します。)</li>
+
+<li><span></span>他のシステム上の任意の <em>DestinationFile</em> パス名へのファイルの送信、または他のシステム上の任意の <em>SourceFile</em> パス名からのファイルの取得は、セキュリティー制限のために失敗することがよくあります。 パス名内で指定されたファイルは、ユーザーの同一グループだけでなく、
+その他のあらゆるグループについても、読み取り許可または書き込み許可を与えなければなりません。</li>
+
+<li><span></span>保護されたファイル、および要求側が所有する保護されたディレクトリー内のファイルは、 <strong>uucp</strong> コマンドによって送信することができます。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>ファイルがコピーされるのを防ぎます。 このフラグはデフォルトで、<strong>-C</strong> フラグとともに使用することはできません。 両方のフラグを指定した場合には、<strong>-c</strong> フラグが無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>転送するためにローカル・ファイルをスプール・ディレクトリーにコピーします。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Poll.html" target="_blank" rel="noopener noreferrer"><strong>アンケート</strong></a> ファイルと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Systems.html" target="_blank" rel="noopener noreferrer"><strong>システム</strong></a> ファイルの構成、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uusched.html#uusched" target="_blank" rel="noopener noreferrer"><strong>Uusched</strong></a> デーモンの実行頻度に応じて、ファイルはオンデマンド・ポーリング時または将来に即時に転送される可能性があります。<p>場合によっては、ソース・ファイルの転送中に問題が発生することがあります。
+例えば、リモート・マシンが作動していないか、ログインに失敗した場合です。 その場合には、転送が完了するか、あるいはクリーンアップ・コマンドによって除去されるまで、
+ファイルはスプール・ディレクトリーに残ります。</p>
+  <p>このフラグは、<strong>-c</strong> フラグと逆の働きをします。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>ソース・ファイルをリモート・システムの宛先にコピーするために必要な中間ディレクトリーを作成します。 ディレクトリーを作成してからそれにファイルをコピーするのではなく、
+宛先パス名を指定した <strong>uucp</strong> コマンドを入力すれば、
+BNU プログラムが必要なディレクトリーを作成します。 このフラグはデフォルトであり、<strong>-f</strong> フラグと併用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ファイル転送中に中間ディレクトリーを作成しません。 このフラグは、宛先ディレクトリーが既に存在し、
+それを BNU でオーバーライドしたくない場合に使用します。 このフラグは、<strong>-d</strong> フラグと逆の働きをします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em>グレード</em></td>
+
+<td>指定の接続の際に、ファイルを転送する時期を指定します。 <em>Grade</em> 変数は、単一の数字 (0 から 9 まで) あるいは文字 (A から Z まで、あるいは a から z まで) です。
+ASCII の下位シーケンス文字を使えば、上位シーケンス文字を使う場合よりも早く転送できます。 数字 0 が最高の (最も早い) グレードで、z は最低の (最も遅い) グレードです。 デフォルトは <strong>N</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong></td>
+
+<td>転送処理のジョブ識別番号を標準出力に表示します。 このジョブIDは、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat" target="_blank" rel="noopener noreferrer"><strong>uustat</strong></a>または<a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuq.html#uuq" target="_blank" rel="noopener noreferrer"><strong>uuq</strong></a>コマンドで使用して特定のジョブのステータスを取得したり、<strong>uustat-k</strong>コマンドまたは<strong>uuq-d</strong>コマンドで使用して転送が完了する前に終了させることができる。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ソース・ファイルがリモート・システムの宛先ファイルに正常にコピーされると、
+要求側にメール・メッセージを送信します。 メッセージは、要求側のメールボックス <strong>/var/spool/mail/</strong><em>User</em> に送信されます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mail.html" target="_blank" rel="noopener noreferrer"><strong>mail</strong></a> コマンドは、ローカル転送のメッセージを送信しません。<p><strong>-m</strong> フラグは、複数のファイルの送信、または単一のファイルの受信の場合にのみ機能します。 ファイル転送の場合には、機能しません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em>ユーザー</em></td>
+
+<td><em>User</em> エントリーで識別されるリモート・システム上の受信者に、
+ファイルが送信されたことを通知します。 メール・システムは、ローカル転送用のメッセージは送信しません。 ユーザー名には ASCII 文字以外は使用できません。 シェル・パターン・マッチング文字によって指定された複数のファイルの受信?(疑問符),*(アスタリスク)、および[ . . . ](大括弧と省略符号) は、 <strong>-n</strong> オプションを活動化しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>リモート・システムへの呼び出しが許可されているときにコマンドが発行された場合でも、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico" target="_blank" rel="noopener noreferrer"><strong>uucico</strong></a> ファイル転送デーモンの開始を防止します。 (デフォルトでは、<strong>Poll</strong> ファイルおよび <strong>Systems</strong> ファイルに指定された期間中にコマンドが発行された場合に、
+リモート・システムの呼び出しが試行されます。) <strong>-r</strong> オプションは、デバッグ時に役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>ファイル</em></td>
+
+<td>指定されたファイルの転送の状況を報告します。 この場合、<em>File</em> 変数には、絶対パス名を指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em>デバッグレベル</em></td>
+
+<td>デバッグ情報をローカル・システムの画面に表示します。 <em> DebugLevel</em> 変数は、0 から 9 までの数値です。 数値が大きいほど、レポートの詳細度が高くなります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ローカル・システムからリモート・システムにファイルをコピーするには、次のように入力します。<div> <div><div><pre><code>uucp /home/geo/f1 hera!/home/geo/f1</code></pre></div><div></div></div>この例では、f1ローカル・システムからのファイルがリモート・システムにコピーされるhera.</div>
+</li>
+
+<li><span></span>ファイルをリモート・システムからコピーして、公用ディレクトリーに入れるには、次のように入力します。<div> <div><div><pre><code>uucp hera!geo/f2 /var/spool/uucppublic/f2</code></pre></div><div></div></div>この例では、f2リモート・システムからのファイルhera がコピーされ、公用ディレクトリーに置かれます。</div>
+</li>
+
+<li><span></span>ファイルをリモート・システムからコピーして、公用ディレクトリー以外のディレクトリーに入れるには、次のように入力します。<div> <div><div><pre><code>uucp hera!geo/f2 /home/geo/f2</code></pre></div><div></div></div>この例では、f2リモート・システムからのファイルheraがコピーされます。/home/geo/f2ディレクトリー。 このgeoログイン・ディレクトリーは、他のグループのメンバーへの書き込み許可を許可する必要があります (例えば、モード 777)。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uucp</strong></td>
+
+<td><strong>uucp</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Systems.html" target="_blank" rel="noopener noreferrer"><strong>ポーリング</strong></a><strong></strong></td>
+
+<td>リモート・システムが自動的に呼び出される (ポーリングされる) ときのファイル・リスト回数。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Systems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/uucp/Systems</strong></a></td>
+
+<td>アクセス可能なリモート・システムについて記述するファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Sysfiles.html" target="_blank" rel="noopener noreferrer"><strong>システム・ファイル</strong></a><strong></strong></td>
+
+<td><strong>Systems</strong> ファイルとして使用する代替ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/uucp.html" target="_blank" rel="noopener noreferrer"><strong>/var/spool/uucp</strong></a></td>
+
+<td>BNU 状況情報が入っているスプール・ディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/uucppublic.html" target="_blank" rel="noopener noreferrer"><strong>/var/spool/uucppublic</strong></a></td>
+
+<td><strong>uucico</strong> デーモンによる転送待ちのファイルが入っている公開ディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucppublic/</strong><em>SystemName</em><strong>/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Command.html" target="_blank" rel="noopener noreferrer"><strong>C. *</strong></a><strong></strong></td>
+
+<td>コマンド・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucppublic/</strong><em>SystemName</em><strong>/</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/Data.html" target="_blank" rel="noopener noreferrer"><strong>D. *</strong></a><strong></strong></td>
+
+<td>データ・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

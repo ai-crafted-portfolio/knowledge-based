@@ -1,0 +1,335 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><span><span>createvsd</span></span> -仮想共用ディスクのセットを、それらに関連付けられた論理ボリュームとともに作成します。</p>
+</section>
+
+<section><h2>構文</h2> <div> <dl>
+<dt><span><span>createvsd</span></span></dt>
+
+<dd><span><span>-n</span></span><span><span> {ノード</span></span>リスト <span><span>ALL</span></span>} <span><span>-s</span></span><span><span> サイズ_in_MB </span></span><span><span>-g</span></span><span><span> vg_名前</span></span></dd>
+
+
+<dt> </dt>
+
+<dd>[<span><span>-c</span></span> <span><span>vsds_per_node</span></span>| '<span><span>-L</span></span>}][-A]</dd>
+
+
+<dt> </dt>
+
+<dd>[{<span><span>-m</span></span><span><span> ミラー数 </span></span><span><span>-p</span></span><span><span> lvm_strip_size_in_K}</span></span> ] です。[<span><span>-v</span></span><span><span> vsd_name_prefix］</span></span></dd>
+
+
+<dt> </dt>
+
+<dd>[<span><span>-l</span></span><span><span> LV_NAME_PREFIX] [ LV_NAME_PREFIX</span></span> [<span><span>-T</span></span><span><span> lp_size_in_MB] [ lp_size_in_MB</span></span> [<span><span> -k</span></span><span><span> vsd_type］</span></span> [<span><span>-x</span></span>]</dd>
+
+
+<dt> </dt>
+
+<dd></dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>説明</h2> <p>指定された名前 (既に存在していない場合) を持つボリューム・グループを作成し、そのボリューム・
+グループ内に論理ボリュームを<span>作成する</span>場合、このコマンドを使用します。 論理ボリューム・
+サイズは <strong>-s</strong> フラグを使用して指定します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) を使用して実行できます。 SMIT を使用するには、以下のように入力します。</p>
+ <div><div><pre><code>smit vsd_data</code></pre></div><div></div></div> <p>そして「<strong>仮想共有ディスクの作成 (Create a virtual shared disk)</strong>」オプションを選択します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <div><div>
+        <div>
+          <div><span>注:</span> このリストに示されているいくつかの例には、実行可能な十分なフラグが含まれていません。 それらは
+特定のフラグを説明するために不十分な形式で示されています。</div>
+        </div>
+      </div></div>
+ <dl>
+<dt>-<span><span>ノードリスト</span></span></dt>
+
+<dd>仮想共有ディスクを作成しようとしているピア・ドメインのノード番号を指定します。 バックアップ・
+ノードは、1 次ノードと同じにはできません。 <span>非並行仮想共有ディスク</span>に対しては、ノード・リストの形式は次のとおりです。<div><div><pre><code>[P/S] : disk_list1+disk_list2/</code></pre></div><div></div></div><span>並行仮想共有ディスク</span>に対しては、ノード・リストの形式は次のとおりです。<div><div><pre><code>[S1/S2/...Sn] : disk_list1+disk_list2/</code></pre></div><div></div></div>「P」は、連続的にアクセスされる共有ディスクの 1 次サーバー・ノードを指定し、
+「S」は、連続的にアクセスされる共有ディスクのバックアップ (2 次サーバー・ノード) を指定し、
+そして、S1 および S2 は、並行的にアクセスされる共有ディスクのサーバー・ノードを指定します。 <span><span>disk_list1</span></span> はローカル物理ディスクのリスト、または
+ 1 次サーバー・ノード上の論理ボリューム用 vpaths です。 つまり、このリストは、<span><span>hdiskx、hdisky、…</span></span> または <span><span>vpathx、vpathy、…</span></span> から成り立っています。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>vpath は、「サブシステム・デバイス・ドライバー」がインストールされている場合にのみ使用可能です。 vpath は、同一の物理ボリュームに「バーチャル・パス」を提供します。</li>
+
+<li>hdisk および vpath は同一のリストで両方を指定することはできません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>論理ボリュームに対してボリューム・グループ内で必要以上のディスクを持ちたい場合、
+<span><span>disk_list1+disk_list2</span></span> は、ローカル物理ディスクまたは 1 次ノード上のボリューム・グループ
+内の vpath のリストです。 ノードがリストされている順序は、仮想共有ディスクに与えられる名前を決定
+します。 次に例を示します。<div><div><pre><code>createvsd -n 1,6,4 -v PRE</code></pre></div><div></div></div>(<span><span>vsd_prefix</span></span> PRE をつけると) ノード 1 に仮想共有ディスク PRE1n1 を、ノード 6 に PRE2n6 を、
+そしてノード 4 に PRE3n4 を作成します。<p>ノード 1 で hdisk2、hdisk3、および hdisk4 にわたるボリューム・グループ (ノード 3 でバックアップ
+を持つ) を作成するには、次のように入力します。</p>
+ <div><div><pre><code>createvsd -n 1/3:hdisk2,hdisk3,hdisk4/ -v DATA</code></pre></div><div></div></div>このコマンドは、次の出力を生成します。<ul>
+<li>ノード 3 にエクスポートされた、ノード 1 上のグローバル・ボリューム・グループ名 DATA1n1b3 のボリューム・グループ上の論理ボリューム lvDATA1n1 を持つ仮想共用ディスク DATA1n1 。 論理ボリューム・マネージャー (LVM) ボリューム・グループ名は DATA です。 論理ボリューム
+は、hdisk2、hdisk3、および hdisk4 にかかります。</li>
+
+</ul>
+ <p>同一のシステムのノード 4、5、および 6 にバックアップを持つシステムのノード 1、2、および 3 上の
+ものと同様のボリューム・グループを作成するには、次のように入力します。</p>
+ <div><div><pre><code>createvsd -n 1/4:hdisk1,hdisk2,hdisk3/,2/5:hdisk5,hdisk6, \
+          hdisk7/,3/6:hdisk2,hdisk4,hdisk6/ -v DATA</code></pre></div><div></div></div> <p>このコマンドはここでは 2 行で示されていますが、<span><span>node_list</span></span> 内の項目間にスペースを
+入れないで入力する必要があります。</p>
+  <div>コマンドは、次の出力を生成します。<ul>
+<li>ノード 1 でローカル・ボリューム・グループ名 DATA を持つボリューム・グループの
+論理ボリューム lvDATA1n1 を持つ仮想共有ディスク DATA1n1、これはノード 4 にエクスポートされます。 グローバル・ボリューム・グループ名は DATAn1b4 です。</li>
+
+<li>ノード 2 でローカル・ボリューム・グループ名 DATA を持つボリューム・グループの
+論理ボリューム lvDATA2n2 を持つ仮想共有ディスク DATA2n2、これはノード 5 にエクスポートされます。 グロー
+バル・ボリューム・グループ名は DATAn2b5 です。</li>
+
+<li>ノード 3 でローカル・ボリューム・グループ名 DATA を持つボリューム・グループの
+論理ボリューム lvDATA3n3 を持つ仮想共有ディスク DATA3n3、これはノード 6 にエクスポートされます。 グロー
+バル・ボリューム・グループ名は DATAn3b6 です。</li>
+
+</ul>
+</div>
+ <p>論理ボリュームがボリューム・グループ内の物理グループ 2 つのみにかかる仮想共有ディスクを作成
+するには、次のように入力します。</p>
+ <div><div><pre><code>createvsd -n 1/3:hdisk1,hdisk2+hdisk3/ -v DATA</code></pre></div><div></div></div>  <p>このコマンドは、ボリューム・グループ DATA 内の hdisk1 および hdisk2 にかかる論理ボ
+リューム lvDATA1n1 を持つ仮想共有ディスク DATA1n1 を作成します。DATA に
+は、hdisk1、hdisk2、および hdisk3 が含まれます。 それは、ボリューム・グループ DATA をノード 3 に
+エクスポートします。</p>
+  <p>ボリューム・グループが既に作成され、結合された物理 hdisk のリストに論理ボリュームに必要のない
+ディスクが含まれている場合、これらの hdisk はボリューム・グループに追加されます。 ボリューム・グループがまだ作成されていない場合、 <span><span>createvsd</span></span> は <span><span>hdisk_list1+hdisk_list2</span></span>にまたがるボリューム・グループを作成します。</p>
+  <p>バックアップ・ノードは、1 次ノードが果たした仮想共有ディスクの役割を行うために、同一の物理ディスク
+は使用できません。</p>
+ <p><span><span>ALL</span></span> は、RSCT ピア・ドメイン内のすべてのノード上に仮想共用ディスクを作成することを指定します。 このオペランドを使用する場合、バックアップ・ノードは割り当てられません。 仮想共有ディスク
+は、<span><span>node_list</span></span> 内のノードに接続されている全物理ディスク上に作成されます (使用する物理ディスクを指定することはできません)。</p>
+</dd>
+
+
+<dt><span><span>-s</span></span></dt>
+
+<dd>各仮想共有ディスクのサイズをメガバイトで指定します。</dd>
+
+
+<dt><span><span>-g</span></span></dt>
+
+<dd>論理ボリューム・マネージャー (LVM) ボリューム・グループ名を指定します。 この名前は、
+ノード番号と連結され、グローバルボリューム・グループ名を作り出します。 次に例を示します。<div><div><pre><code>createvsd -n 6 -g VSDVG</code></pre></div><div></div></div>ローカル・ボリューム・グループ名 VSDVG およびグローバル・ボリューム・グループ名 VSDVG1n6 のボリューム・グループをノード 6 に作成します。 バックアップ・ノードがボリューム・グループを引き継ぐときに名前の競合を回避するために、ノード番号が接頭部に追加されます。 バックアップ・ノードが存在している場合、グローバル・ボリューム・グループ名は、1 次ノードと同様に
+バックアップ・ノード番号と連結されます。 次に例を示します。<div><div><pre><code>createvsd -n 6/3/ -g VSDVG</code></pre></div><div></div></div>このコマンドにより、ローカル・ボリューム・グループ名 VSDVG およびグローバルボリューム・
+グループ名 VSDVGn6b3 を持つボリューム・グループを作成します。 1 次ノードはノード 6 でこの
+ボリューム・グループのバックアップ・ノードはノード 3 です。</dd>
+
+
+<dt><span><span>-c</span></span></dt>
+
+<dd>各ノードに作成される仮想共有ディスクの数を指定します。 <span><span>number_of_vsds_per_node</span></span> が指定されていない場合、 <span><span>createvsd</span></span>で指定されたノードごとに 1 つの仮想共用ディスクが作成されます。 各ノードに対して複数の仮想共有ディスクが作成
+される場合、名前は自動的に割り当てられます。 次に例を示します。<div><div><pre><code>createvsd -n 1,6 -c 2 -v DATA</code></pre></div><div></div></div>このコマンドにより、ノード 1 に仮想共有ディスク DATA1n1 を、ノード 6 に DATA2n6 を、ノード 1 に DATA3n1 を、
+そしてノード 6 に DATA4n6 を作成します。</dd>
+
+
+<dt>-L</dt>
+
+<dd>使用すると、ローカルにアクセスされる仮想共有ディスクに対して、連番を使用しないで各ノード
+に 1 つの仮想共有ディスクを作成できます。</dd>
+
+
+<dt>-A</dt>
+
+<dd>各ノードに順番に割り当てられる仮想共有ディスク名を指定します。例えば、<div><div><pre><code>createvsd -n 1,6 -c 2 -A DATA</code></pre></div><div></div></div>このコマンドにより、ノード 1 に DATA1n1 および DATA2n1 を、ノード 6 に DATA3n6 および DATA4n6 を作成します。</dd>
+
+
+<dt><span><span>-m</span></span></dt>
+
+<dd>LVM ミラーリング・カウントを指定します。 ミラーリング・カウントは、各論理区画
+に割り当てられている物理区画を設定します。 範囲は 1 から 3 で、デフォルト値は 1 です。</dd>
+
+
+<dt><span><span>-p</span></span></dt>
+
+<dd>LVM ストリップ・サイズを指定します (ストリップ・サイズにアレイ内のディスクの数を乗算した値がストライプ・サイズです)。 このフラグが指定されない場合、論理ボリュームはストライプされません。 ストライピングを使用するには、仮想共有ディスクが定義されているノードには、
+複数の物理ディスクを持っていなければなりません。</dd>
+
+
+<dt><span><span>-v</span></span></dt>
+
+<dd>作成される仮想共有ディスクの名前に与えられる接頭部を指定します。 この接頭部は、
+仮想共有ディスク番号、ノード番号、およびバックアップ・ノード番号 (バックアップ・ディスクが指定
+されている場合) と連結されます。 例えば、ノード 1 に作成された仮想共有ディスクに接頭部 PRE が
+与えられていて、区画全体でこの接頭部を持つ仮想共有ディスクが既に 2 つある場合、
+新規の仮想共有ディスク名は PRE3n1 です。 <span><span>-l</span></span> フラグが使用されていない限り、基礎となる論理ボリュームに与えられる名前は lvPRE3n1になります。 <span><span>createvsd</span></span> コマンドは、最後の PRE 接頭部付き仮想共用ディスクから仮想共用ディスク名の順序付けを続行します。<div><span><span>-v</span></span> を指定しない場合は、接頭部 <code>vsd</code> が使用されます。<div><div>
+        <div>
+          <div><span>注:</span> <span><span>vsd_name_prefix</span></span> の最後の文字を数字にすることはできません。 そうでなければ、
+接頭部 PRE を持つ 11 番目の仮想共有ディスクの名前は、接頭部 PRE1 を持つ最初の仮想共有ディスクの
+名前と同一です。 また、 <span><span>vsd_name_prefix </span></span> には文字 <code>'</code><span><span>.</span></span><code>'</code> を含めることもできません。これは、 <code> '</code><span><span>.</span></span><code>'</code> は正規表現内の任意の文字にすることができるためです。</div>
+        </div>
+      </div></div>
+</div>
+</dd>
+
+
+<dt><span><span>-l</span></span></dt>
+
+<dd><span><span>createvsd</span></span> コマンドによって、デフォルトで論理ボリュームに与えられる接頭部 <span><span>lvx</span></span> をオーバーライドします。ここで、 <span><span>x</span></span> は、 <span><span>vsd_name_prefix</span></span> またはデフォルト (<code>vsd</code>) によって指定された仮想共用ディスク名接頭部です。 以下に例を示します。<div><div><pre><code>createvsd -n 1 -v DATA</code></pre></div><div></div></div>このコマンドにより、内在する論理ボリューム lvDATA1n1 を持つノード 1 に DATA1n1 と名付けられた仮想共有ディスク
+を作成します。 コマンド<div><div><pre><code>createvsd -n 1 -v DATA -l new</code></pre></div><div></div></div>が使用される場合、
+ノード 1 の仮想共有ディスクはまだ DATA1n1 と名付けられますが、内在する論理ボリューム
+は lvnew1n1 と名付けられます。<p>通常は、 <span><span>not</span></span> で <span><span>-l</span></span>を指定すると便利です。これにより、仮想共用ディスク名と論理ボリューム名のリストを簡単に相互に関連付け、名前の競合を回避できます。</p>
+</dd>
+
+
+<dt>-T</dt>
+
+<dd>論理ボリューム・マネージャー (LVM) 論理ボリューム・グループの物理区画のサイズ
+および論理区画のサイズ (それらは同一) もメガバイトで指定します。 2 の 2 乗から 2 の 256 乗
+の範囲を選択する必要があります。 デフォルトは 4 MB です。<p>論理ボリューム・マネージャーは、各ディスクごとに物理区画の数を 1016 に制限します。 ディ
+スクのサイズが 4 ギガバイトより大きい場合、区画の数を制限以下に保つため、物理
+区画のサイズは 4 MB より大きい必要があります。</p>
+</dd>
+
+
+<dt>--k <span><span>vsd_type</span></span></dt>
+
+<dd>仮想共有ディスクのタイプを指定します。 オプションは以下のとおりです。<ul>
+<li><span><span>VSD</span></span>: シリアル・アクセス、 <span>または非コンカレント、</span> 共用ディスク、または</li>
+
+<li><span><span>CVSD</span></span>: コンカレント・アクセス共用ディスクを指定します。</li>
+
+</ul>デフォルトは <span><span>VSD</span></span>です。</dd>
+
+
+<dt>-x</dt>
+
+<dd>1 次ノードおよび 2 次ノード上の仮想共有ディスクを同期するために必要なステップは、
+実行すべきで<strong>ない</strong>ことを指定します。つまり、順序<ul>
+<li>1 次ノード上の <span><span>varyoffvg</span></span></li>
+
+<li>2 次ノード上の <span><span>exportvg</span></span></li>
+
+<li>2 次ノード上の <span><span>importvg</span></span></li>
+
+<li>2 次ノード上の <span><span>chvg</span></span></li>
+
+<li>2 次ノード上の <span><span>varyoffvg</span></span></li>
+
+<li>1 次ノード上の <span><span>varyonvg</span></span></li>
+
+</ul>
+ <p><span><span>createvsd</span></span> 処理の一部としては実行されません。 これは、コマンドの操作を速め、幾つかの仮想共有ディスクが同一の 1 次/ 2 次ノードで作成されてい
+る場合、不必要な処理を避けます。 ただしこの場合、「<span><span>not</span></span>シーケンスの最後の「<span><span>createvsd</span></span>」に<strong> -x</strong>を指定するか、上記のボリュームグループコマンドを明示的に発行する必要がある。</p>
+</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <p>なし。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、root 権限が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt>-1</dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>制約事項</h2> <div> <ol>
+<li>バックアップ・
+ノードは、1 次ノードと同じにはできません。</li>
+
+<li><span><span>名称 vsd_name_prefix</span></span> の最後の文字に数字は使用できません。</li>
+
+<li><span><span>vsd_name_prefix</span></span> には、文字「<span><span>.</span></span>」を入れることはできません。</li>
+
+</ol>
+</div>
+ <p>このコマンドは、ピア・ドメインでオンラインのノードから実行する必要があります。 オンラインのピア・ドメインに移動するには <strong>startrpdomain</strong> コマンドを使用します。 既存のピア・ドメイン内で、オンラインの特定ノードに移動するには <strong>startrpnode</strong>
+コマンドを使用します。 RSCT ピア・ドメインの作成と管理の詳細については、「RSCT: Administration Guide」を参照してください。</p>
+</section>
+
+<section><h2>標準出力</h2> <p>次のコマンドに対して、</p>
+ <div><div><pre><code>createvsd -n 1/2:hdisk13/ -s 1024 -g testvg -v testvsd -T 16</code></pre></div><div></div></div> <p>標準出力へのメッセージは、次と同様になります。</p>
+ <div><div><pre><code>createvsd: calls Getopts.
+createvsd: parsing node_list.
+createvsd: creates task tables.
+createvsd: calls checkclvm.perl on the nodes c164n11.ppd.pok.ibm.com
+createvsd: calls domkvglv.perl.
+OK:1:mkvg -f -y testvg -s 16 hdisk13
+OK:1:mklv -a c -y lvtestvsd1n1 -e x testvg 64 hdisk13
+It took about 8 seconds in mkvglv.
+createvsd: calls dovaryoffvg.perl testvg on the primary node c164n11.ppd.pok.ibm.com
+OK:1:chvg -a n testvg
+OK:1:varyoffvg testvg
+createvsd: calls doimportvg.perl testvg on the nodes c164n12.ppd.pok.ibm.com with 000048186b991a6f
+importvg : testvg
+importvg : OK:2:importvg -y testvg hdisk5
+importvg : OK:2:chvg -a n testvg
+importvg : timestamp 2 testvg 3e036cb33403c8c8
+importvg : OK:2:varyoffvg testvg
+importvg : It took about 10 seconds.
+It took about 12 seconds in importvg.
+createvsd: calls vsdvg.
+OK:1:vsdvg -g testvgn1b2 testvg 1 2
+It took about 12 seconds in vsdvg.
+createvsd: calls dovaryonvg.perl testvg on pri nodes c164n11.ppd.pok.ibm.com
+OK:1:varyonvg  testvg
+createvsd: calls defvsd.
+OK:1:defvsd lvtestvsd1n1 testvgn1b2 testvsd1n1
+It took about 5 seconds in defvsd.   </code></pre></div><div></div></div></section>
+
+<section><h2>例</h2> <p>3 つの 1 次ノードのおのおのに、4 MB の仮想共有ディスクを 2 つ (そのうちの 1 つはバックアップを
+持つ) 作成するには、次のように入力します。</p>
+ <div><div><pre><code>createvsd -n 3,4,7/8/ -c 2 -s 4 -g vsdvg -v TEMP</code></pre></div><div></div></div> <p>このコマンドは次の仮想共有ディスクを作成します。</p>
+ <ul>
+<li>TEMP1n3、ノード 3 でグローバル・ボリューム・グループ名 vsdvgn3 を持つボリューム・グループ
+上に論理ボリューム lvTEMP1n3 付き</li>
+
+<li>TEMP2n4、ノード 4 でグローバル・ボリューム・グループ名 vsdvgn4 を持つボリューム・グループ
+上に論理ボリューム lvTEMP2n4 付き</li>
+
+<li>TEMP3n7、ノード 7 でグローバル・ボリューム・グループ名 vsdvgn7b8 を持つボリューム・グループ
+上に論理ボリューム lvTEMP3n7 付き、ノード 8 にインポートもされます。</li>
+
+<li>TEMP4n3、ノード 3 でグローバル・ボリューム・グループ名 vsdvgn3 を持つボリューム・グループ
+上に論理ボリューム lvTEMP4n3 付き</li>
+
+<li>TEMP5n4、ノード 4 でグローバル・ボリューム・グループ名 vsdvgn4 を持つボリューム・グループ
+上に論理ボリューム lvTEMP5n4 付き</li>
+
+<li>TEMP6n7、ノード 7 でグローバル・ボリューム・グループ名 vsdvgn7b8 を持つボリューム・グループ
+上に論理ボリューム lvTEMP6n7 付き、ノード 8 にインポートもされます。</li>
+
+</ul>
+ <p>ノード 3 で作成される論理ボリュームがボリューム・グループより少ないディスクにかかる、3 つの
+仮想共有ディスクを作成するには、次のように入力します。</p>
+ <div><div><pre><code>createvsd -n 3,4/:hdisk1,hdisk2+hdisk3/,7/8/ -s 4 -g datavg -v USER</code></pre></div><div></div></div> <div>このコマンドは、次の出力を生成します。<ul>
+<li>USER1n3、ノード 3 でグローバル・ボリューム・グループ名 datavgn3 を持つボリューム・グループ
+上に定義された論理ボリューム lvUSER1n3 付き。</li>
+
+<li>USER2n4、ノード 4 でグローバル・ボリューム・グループ名 datavgn4 を持つボリューム・グループ
+上に定義された論理ボリューム lvUSER2n4 付き。datavgn4 は hdisk1、hdisk2、および hdisk3 にかか
+ります。lvUSER2n4 は hdisk1 および hdisk2 にかかります。</li>
+
+<li>USER3n7、ノード 7 でグローバル・ボリューム・グループ名 datavgn7b8 を持つボリューム・グループ
+上に定義された論理ボリューム lvUSER3n7 付き。ノード 8 にインポートもされます。</li>
+
+<li>この <span><span>createvsd</span></span> コマンドが発行される前にノード 3 および 7 でボリューム・グループが定義されていない場合、単一の物理ディスクから 1 つの 4MB 区画を持つボリューム・グループ datavgn3 および datavgn7b8 が作成されます。</li>
+
+</ul>
+ </div>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/opt/rsct/vsd/bin/createvsd</span></span></p>
+</section>
+
+</div></div>

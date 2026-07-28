@@ -1,0 +1,210 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルセット・レベルを入手可能なものと比較し、必要なファイルセットのレポートを生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p>システムにインストール済みのファイルセットを修正リポジトリーに含まれているファイルセットと比較するには、次のように入力します。</p>
+ <p><strong>比較報告書</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125420" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125309" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>FixDir</em> { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125318" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125284" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125349" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125374" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] } [ [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125426" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>ReportDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125457" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> ] ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125444" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ]</p>
+ <p>システムにインストール済みのファイルセットをサポート Web サイトから入手可能なファイルセットと比較するには、次のように入力します。</p>
+ <p><strong>compare_report</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125420" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125411" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>ServiceReport</em> {[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125318" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125284" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ]} [[[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125426" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>ReportDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125457" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> ]] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125444" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ]</p>
+ <p>修正リポジトリーに含まれているファイルセットをサポート Web サイトから入手可能なファイルセットと比較するには、次のように入力します。</p>
+ <p><strong>compare_report</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125309" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>FixDir</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125411" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>ServiceReport</em> [[[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125426" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>ReportDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125457" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> ]] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125444" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ]</p>
+ <p>基本システムにインストール済みのソフトウェアのリストを別のシステムと比較するには、以下のように入力します。</p>
+ <p><strong>比較報告書</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125272" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a> <em>BaseList</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125399" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>OtherList</em> { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125318" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125284" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125349" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125374" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] } [ [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125426" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>ReportDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125457" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> ] ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125444" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ]</p>
+ <p>インストール済みのソフトウェアのリストを修正リポジトリーに含まれているファイルセットと比較するには、次のように入力します。</p>
+ <p><strong>比較報告書</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125272" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a> <em>BaseList</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125309" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>FixDir</em> { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125318" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125284" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125349" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125374" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] } [ [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125426" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>ReportDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125457" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> ] ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125444" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ]</p>
+ <p>インストール済みのソフトウェアのリストをサポート Web サイトから入手可能なファイルセットと比較するには、次のように入力します。</p>
+ <p><strong>比較報告書</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125272" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a> <em>BaseList</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125411" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>ServiceReport</em> { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125318" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125284" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] } [ [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125426" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>ReportDir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125457" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> ] ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/compare_report.html#compare_report__row-d3e125444" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>compare_report</strong> コマンドは、システムにインストール済みのファイルセットを、修正ディレクトリーの内容または最新の入手可能な修正のリストが含まれているサービス・レポートの内容と比較します。 生成される比較レポートは、システムがある特定のソフトウェア・レベルで稼働中であることを保証するうえで役立ちます。 修正ディレクトリーは、<strong>lpp_source</strong> のような、イメージ・リポジトリーである場合もあります。 サービス・レポートは、最新レベルの修正と最新テクノロジー・レベルに含まれる修正の両方のリストであり、<span>IBMSystem p</span>Support for<span>AIX 5L</span>and<span>Linux®</span>servers のサイトhttp://www.ibm.com/servers/eserver/support/unixservers/index.html）からダウンロードできます。 生成されるレポートの一部は、 <span>IBM System p</span> Support for <span>AIX 5L</span> および <span>Linux</span> サーバー・サイトにフィックスを要求するための入力として使用できます。</p>
+ <p><span><span>lslpp</span></span> コマンドと <strong>compare_report</strong> コマンドは両方とも、システムにインストールされている暫定修正に関する情報を表示します。 <span><span>lslpp -L</span></span> または <span><span>lslpp
+-Lc</span></span> コマンドは root で実行する必要があり、戻された暫定修正情報はすべて <span><span>compare_report</span></span> コマンドで使用されます。 この情報には、暫定修正ラベルとレベル値が含まれています。 暫定修正ラベルはファイルセット名と等価であり、
+そのレベルは暫定修正がパッケージされた時刻 (<span><span>YY.MM.DD.HHMMSS</span></span>、ここで <span><span>YY </span></span> は年、<span><span>MM</span></span> は月、<span><span>DD</span></span> は日、<span><span>HH</span></span> は時、<span><span>MM</span></span> は分、そして <span><span>SS</span></span> は秒を示す) をベースにしています。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong> <em>BaseList</em></td>
+
+<td>基本システムにインストール済みのソフトウェアを含んでいるファイルの名前 (<strong>lslpp -Lc</strong> で生成されます)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>より高いレベルのファイルセット・レポートを生成するよう指示します。 これにより、レポート <strong>higherlevel.rpt</strong>、<strong>higherthanmaint.rpt</strong>、または <strong>basehigher.rpt</strong> のいずれかまたは全部 (実行する比較の種類によって決まります) が生成されます。 このフラグは、フラグ <strong>-s</strong>、または <strong>-b</strong> と <strong>-o</strong> の両方と一緒に使用した場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>FixDir</em></td>
+
+<td>修正リポジトリー・ディレクトリーの名前を指定します。 このディレクトリーに含まれるイメージのファイルセット・レベルが比較に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>より低いレベルのファイルセット・レポートを生成するよう指示します。 これにより、レポート <strong>lowerlevel.rpt</strong>、<strong>lowerthanlatest1.rpt</strong>、<strong>lowerthanmaint.rpt</strong>、<strong>lowerthanlatest2.rpt</strong>、または <strong>baselower.rpt</strong> のいずれかまたは全部 (実行する比較の種類によって決まります) が生成されます。 このフラグは、フラグ <strong>-s</strong>、または <strong>-b</strong> と <strong>-o</strong> の両方と一緒に使用した場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>システムにインストール済みだがイメージ・リポジトリー (lpp_source) には含まれていないファイルセット、または基本システムにはインストールされているがそれ以外のシステムにはインストールされていないファイルセットのどちらかをリストするファイルセット・レポートを生成するよう指示します。 これにより、レポート・ファイル <strong>no_update_found.rpt</strong> または <strong>baseonly.rpt</strong> のどちらかが生成されます。 このフラグは、フラグ <strong>-s</strong> と <strong>-i</strong> の両方が指定されているか、またはフラグ <strong>-b</strong> と <strong>-o</strong> の両方が指定されている場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>イメージ・リポジトリー (lpp_source) には含まれているがシステムにはインストールされていないファイルセット、またはその他のシステムにはインストールされているが基本システムにはインストールされていないファイルセットのどちらかをリストするファイルセット・レポートを生成するよう指示します。 これにより、レポート・ファイル <strong>notinstalled.rpt</strong> または <strong>otheronly.rpt</strong> のどちらかが生成されます。 このフラグは、フラグ <strong>-s</strong> と <strong>-i</strong> の両方が指定されているか、またはフラグ <strong>-b</strong> と <strong>-o</strong> の両方が指定されている場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>OtherList</em></td>
+
+<td>基本システムと比較される、別のシステムにインストール済みのソフトウェアを含んでいるファイルの名前 (コマンド <strong>lslpp -Lc</strong> で生成されます)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>ServiceReport</em></td>
+
+<td>入手可能な更新のリストを含んでいるファイルを指定します。 このファイルはサポート Web サイトから取得できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>このシステムにインストール済みのファイルセット・レベルのリストを比較に関与させるよう指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>ReportDir</em></td>
+
+<td>比較レポートの保管先とするターゲット・ディレクトリーを指定します。 <strong>-t</strong> フラグを指定しないと、レポートは <strong>/tmp</strong> ディレクトリーに保管されます。 指定したディレクトリーにレポート・ファイルが既に存在している場合、それらは除去されて再作成されます。 このフラグは、<strong>-v</strong> フラグと一緒に指定すると無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>レポート・ファイルはどれもディスクには保管しないことを指定します。 このフラグは、フラグ <strong>-t</strong> または <strong>-Z</strong> と一緒に指定すると無効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>標準出力へのレポート出力を抑制します。 このフラグは、<strong>-v</strong> フラグと一緒に指定すると無効になります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システムにインストール済みのファイルセットをイメージ・リポジトリー (lpp_source) に含まれているファイルセットと比較するには、次のように入力します。<div><div><pre><code>compare_report -s -i /tmp/imagedir -l -n</code></pre></div><div></div></div>このコマンドは、システム上の低いレベルのファイルセットと、イメージ・リポジトリー (lpp_source) には含まれているがシステムにはインストールされていないファイルセットをリストしたレポートを作成します。 このタイプの比較の場合にすべてのレポート (<strong>-l</strong>、<strong>-h</strong>、<strong>-m</strong>、<strong>-n</strong>) を要求すると、以下のレポートが生成されます。<ul>
+<li><strong>lowerlevel.rpt</strong> ( <strong>-l</strong>で生成)</li>
+
+<li><strong>higherlevel.rpt</strong> ( <strong>-h</strong>で生成)</li>
+
+<li><strong>no_update_found.rpt</strong> ( <strong>-m</strong>で生成)</li>
+
+<li><strong>notinstalled.rpt</strong> ( <strong>-n</strong>で生成)</li>
+
+</ul>
+</li>
+
+<li>このシステムにインストール済みのファイルセットをサポート Web サイトから入手可能なファイルセットと比較するには、次のように入力します。<div><div><pre><code>compare_report -s -r /tmp/LatestFixData -l -Z</code></pre></div><div></div></div>このコマンドは、システム上の最新レベルより低いレベルのファイルセットおよび最新テクノロジー・レベルより低いレベルのファイルセットをリストしたレポートを作成します。 これらのレポートはディスクに保管されますが、標準出力には表示されません。 このタイプの比較の場合にすべてのレポート (<strong>-l</strong>、<strong>-h</strong>) を要求すると、以下のレポートが生成されます。<ul>
+<li><strong>lowerthanlatest1.rpt</strong> (<strong>-l</strong> の場合に生成)</li>
+
+<li><strong>lowerthanmaint.rpt</strong> ( <strong>-l</strong>を指定して生成)</li>
+
+<li><strong>higherthanmaint.rpt</strong> ( <strong>-h</strong>で生成)</li>
+
+</ul>
+</li>
+
+<li>イメージ・リポジトリー (lpp_source) に含まれているファイルセットをサポート Web サイトから入手可能なファイルセットと比較するには、次のように入力します。<div><div><pre><code>compare_report -i /tmp/imagedir -r /tmp/LatestFixData</code></pre></div><div></div></div>このコマンドは、イメージ・リポジトリー (lpp_source) に含まれているファイルセットで、サポート Web サイトから入手可能な最新レベルより低いレベルのファイルセットをリストしたレポートを作成します。 <strong>lowerthanlatest2.rpt</strong> レポートは、このタイプの比較から生成される唯一のレポートです。</li>
+
+<li>基本システムにインストール済みのソフトウェアのリストを別のシステムにインストール済みのソフトウェアのリストと比較するには、次のように入力します。<div><div><pre><code>compare_report -b /tmp/base.lslpp.out -o /tmp/other.lslpp.out -l -h -m -n</code></pre></div><div></div></div>このコマンドは、以下のファイルセットをリストしたレポートを生成します。<ul>
+<li>基本システム上の、その他のシステムのものよりレベルが低いファイルセット</li>
+
+<li>基本システム上の、その他のシステムのものよりレベルが高いファイルセット</li>
+
+<li>基本システムにはインストール済みだがその他のシステムにはインストールされていないファイルセット</li>
+
+<li>その他のシステムにはインストール済みだが基本システムにはインストールされていないファイルセット</li>
+
+</ul>このタイプの比較の場合にすべてのレポート (<strong>-l</strong>、<strong>-h</strong>、<strong>-m</strong>、および <strong>-n</strong>) を要求すると、以下のレポートがそれぞれ生成されます。<ul>
+<li><strong>baselower.rpt</strong> ( <strong>-l</strong>で生成)</li>
+
+<li><strong>basehigher.rpt</strong> ( <strong>-h</strong>で生成)</li>
+
+<li><strong>baseonly.rpt</strong> ( <strong>-m</strong>で生成)</li>
+
+<li><strong>otheronly.rpt</strong> ( <strong>-n</strong>で生成)</li>
+
+</ul>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/compare_report </strong></td>
+
+<td><strong>compare_report</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

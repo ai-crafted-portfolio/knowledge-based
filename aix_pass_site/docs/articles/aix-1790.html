@@ -1,0 +1,386 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>X サーバーのリソース・データベース・ユーティリティーを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>XRDB</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44667" target="_blank" rel="noopener noreferrer"><strong>-表示</strong></a><em> 表示 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44695" target="_blank" rel="noopener noreferrer"><strong>-ヘルプ </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44761" target="_blank" rel="noopener noreferrer"><strong>-静かに</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44773" target="_blank" rel="noopener noreferrer"><strong>-保持</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44633" target="_blank" rel="noopener noreferrer"><strong>-cpp (C)</strong></a><em> FileName</em> |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44740" target="_blank" rel="noopener noreferrer"><strong>-非 cpp </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44653" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em> 名前</em><strong>=</strong><em>値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44701" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong> </a><em>ディレクトリー</em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44812" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a><em> 名前 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44599" target="_blank" rel="noopener noreferrer"><strong>-すべて </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44689" target="_blank" rel="noopener noreferrer"><strong>-グローバル </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44788" target="_blank" rel="noopener noreferrer"><strong>-スクリーン </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44794" target="_blank" rel="noopener noreferrer"><strong>-画面 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44725" target="_blank" rel="noopener noreferrer"><strong>N</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44681" target="_blank" rel="noopener noreferrer"><strong>-編集  </strong></a><em>FileName </em>| [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44614" target="_blank" rel="noopener noreferrer"><strong>-バックアップ</strong></a><em> ストリング </em>] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44718" target="_blank" rel="noopener noreferrer"><strong>-マージ </strong></a>[ <em>FileName </em>] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44712" target="_blank" rel="noopener noreferrer"><strong>-ロード  </strong></a>[ <em>FileName </em>] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44755" target="_blank" rel="noopener noreferrer"><strong>-照会 </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44767" target="_blank" rel="noopener noreferrer"><strong>-削除 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44806" target="_blank" rel="noopener noreferrer"><strong>記号 </strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xrdb.html#xrdb__row-d3e44749" target="_blank" rel="noopener noreferrer"><strong>-オーバーライド </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xrdb</strong> コマンドは、画面 0 のルート・ウィンドウにある RESOURCE_MANAGER 属性またはフルスクリーンのルート・ウィンドウにある SCREEN_RESOURCES 属性、あるいはその組み合わせのすべての内容を取得または設定します。 このプログラムは通常、X 始動ファイルから実行します。</p>
+ <p>ほとんどの X クライアントは、RESOURCE_MANAGER および SCREEN_RESOURCES 属性を使って、アプリケーションのための色やフォントなどをユーザーの好みに合わせて設定するための情報を取り出します。 これまでの X のバージョンでは使用するコンピューターのすべてで <em>デフォルト・</em>ファイルを保守しなければなりませんでしたが、この情報をディスク上ではなく (すべてのクライアントが使用できる) サーバー上に持つことによって、この問題を解決しています。 またファイルを編集せずにデフォルトを動的に変更することもできます。</p>
+ <p>RESOURCE_MANAGER 属性は、ディスプレイのすべての画面に適応するリソースを指定します。 各スクリーン上の SCREEN_RESOURCES 属性は、その画面に使用される追加 (もしくは上書きする) リソースを指定します。 (1 画面しかないときは、SCREEN_RESOURCES は、通常使用されません。すべてのリソースが RESOURCE_MANAGER 属性の中に置かれているのみです。)</p>
+ <p>互換性に関しては、(<strong>xrdb</strong> コマンドが実行されなかったか、または属性が除去されたという理由で) RESOURCE_MANAGER 属性が定義されていない場合、リソース・マネージャーは、ユーザーのホーム・ディレクトリーの中の <strong>.Xdefaults</strong> という名前のファイルを探します。</p>
+ <p>ファイル名 (- が指定されている場合、または入力ファイルが指定されていない場合は標準入力) は、使用されるサーバーの機能に基づき、定義された下記のシンボルを使って、オプションで C プリプロセッサーへ渡されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>SERVERHOST</strong><em>= ホスト名</em></td>
+
+<td>接続しているディスプレイのホスト名の部分を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SRVR_</strong><em>名</em></td>
+
+<td><strong>SERVERHOST</strong> ホスト名文字列をリーガル ID に変更します。 例 :my-dpy.lcs.mit.eduは、右記になりますSRVR_my_dpy_lcs_mit_edu.</td>
+
+</tr>
+
+<tr>
+<td><strong>HOST</strong>=<em>ホスト名</em></td>
+
+<td>接続しているディスプレイのホスト名の部分を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DISPLAY_NUM</strong>=<em>数値</em></td>
+
+<td>サーバー・ホストのディスプレイ数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CLIENTHOST</strong><em>= ホスト名</em></td>
+
+<td>xrdb が実行されているホスト名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CLNT</strong>_<em>名前</em></td>
+
+<td><strong>CLIENTHOST</strong> ホスト名文字列をリーガル ID に変更します。 例 :expo.lcs.mit.eduは、右記になりますCLNT_expo_lcs_mit_edu.</td>
+
+</tr>
+
+<tr>
+<td><strong>WIDTH</strong><em>= 数値</em></td>
+
+<td>デフォルト画面の幅をピクセル単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>HEIGHT</strong><em>= 数値</em></td>
+
+<td>デフォルト画面の高さをピクセル単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>X_RESOLUTION</strong><em>= 数値</em></td>
+
+<td>デフォルト画面の X 軸レゾリューションをメートル当たりのピクセル数で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Y_RESOLUTION</strong><em>= 数値</em></td>
+
+<td>デフォルト画面の Y 軸レゾリューションをメートル当たりのピクセル数で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>プレーン</strong><em>= 数値</em></td>
+
+<td>デフォルト画面のルート・ウィンドウのビット・プレーンの数 (奥行き) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>RELEASE</strong><em>= 数値</em></td>
+
+<td>サーバーのベンダー・リリース番号を指定します。 この番号の解釈は、<strong>VENDOR</strong> によって変化します。</td>
+
+</tr>
+
+<tr>
+<td><strong>REVISION</strong><em>= 数値</em></td>
+
+<td>サーバーによってサポートされている X プロトコルのマイナー・バージョンを指定します (現在は 0)。</td>
+
+</tr>
+
+<tr>
+<td><strong>VERSION</strong><em>= 数値</em></td>
+
+<td>サーバーによってサポートされている X プロトコルのメジャー・バージョンを指定します (常に 11 でなければなりません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>VENDOR</strong>=<em>ベンダー</em></td>
+
+<td>サーバーのベンダーを指定する文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>VNDR</strong>_<em>名前</em></td>
+
+<td><strong>VENDOR</strong> 名文字列をリーガル ID に変更します。 例 :MIT X Consortiumは、右記になりますVNDR_MIT_X_Consortium.</td>
+
+</tr>
+
+<tr>
+<td><strong>EXT</strong>_<em>名前</em></td>
+
+<td>各拡張文字列をリーガル ID に変更します。 サーバーがサポートする各プロトコル拡張に付きシンボルが定義されます。 例 :X3D-PEXは、右記になりますEXT_X3D_PEX.</td>
+
+</tr>
+
+<tr>
+<td><strong>NUM_SCREEN</strong>=<em>数値</em></td>
+
+<td>画面の合計数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SCREEN_NUM</strong>=<em>数値</em></td>
+
+<td>現在の画面の数を指定します。 0 (ゼロ) から。</td>
+
+</tr>
+
+<tr>
+<td><strong>BITS_PER_RGB</strong>=<em>数値</em></td>
+
+<td>RGB カラー仕様に含まれる有効ビットの数を指定します。 これは、ハードウェアが生成できる各 1 次局の異なる陰影数の底を 2 とした常用対数です。 <strong>PLANES</strong> とは無関係なので注意してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>クラス</strong><em>=ビジュアルクラス</em></td>
+
+<td>デフォルト画面のルート・ウィンドウのビジュアル・クラスに、下記のいずれかを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CLASS_</strong><em> ビジュアルクラス</em> = <em>ビジュアルID</em></td>
+
+<td>フォーム内のルート・ウィンドウのビジュアル・クラスに、<em>#ifdef</em> をオンにできることを指定します。 値は、ビジュアルの数値 id です。<p><strong>DirectColor</strong>、<strong>GrayScale</strong>、<strong>PseudoColor</strong>、<strong>StaticColor</strong>、<strong>StaticGray</strong>、<strong>TrueColor</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>CLASS_</strong><em>visualclass_depth</em>=<em>数値</em></td>
+
+<td>スクリーンに対してサポートされている各ビジュアルにつきシンボルが定義されます。 シンボルには、ビジュアル・クラスおよびその奥行きが含まれます。
+値は、ビジュアルの数値 id です。 (同じクラスと奥行きのビジュアルが 2 つ以上ある
+場合、サーバーが報告する最初のビジュアルのサーバー数値 id が使用されます。)</td>
+
+</tr>
+
+<tr>
+<td><strong>カラー</strong></td>
+
+<td><strong>CLASS</strong> が、<strong>StaticColor</strong>、<strong>PseudoColor</strong>、<strong>TrueColor</strong>、または <strong>DirectColor</strong> の 1 つである場合にのみ定義されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>注釈行は ! (感嘆符) で始まり、無視されます。</p>
+ <p><strong>xrdb</strong> を標準入力から読み取れるので、これを使って端末またはシェル・スクリプトから属性の内容を直接変更できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-all</strong></td>
+
+<td>このオプションは、ディスプレイのすべての画面上で操作が画面固有属性 (SCREEN_RESOURCES) と同様に画面独立リソース属性 (RESOURCE_MANAGER) で行われることを示します。 例えば、<strong>-query</strong> と結び付けて使用されているときには、すべての属性の内容が出力されます。 <strong>-load</strong> および <strong>-merge</strong> の場合は、入力ファイルは、各画面につき一度ずつ処理されます。 フルスクリーンの出力に共通して現れるリソースは、集められ、画面独立リソースとして適用されます。 残りのリソースは、個別の画面ごとの属性に適用されます。 これは、デフォルト・モードの操作です。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-backup</strong><em> ストリング</em></td>
+
+<td>ファイル名に付けられる接尾部を指定します。 これを <strong>-edit</strong> と一緒に使用して、バックアップ・ファイルを生成します。 <strong>-edit</strong> は、 <strong>-backup</strong><em> String</em> の前提条件です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-カップ</strong><em> FileName</em></td>
+
+<td>使用する C プリプロセッサー・プログラムのパス名を指定します。 <strong>xrdb</strong> コマンドは CPP を使うように設計されていますが、フィルターとして動作し、<strong>-D</strong> フラグ、<strong>-I</strong> フラグと、<strong>-U</strong> フラグを使用できるプログラムをすべて使うことができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em>名前</em><strong>=</strong><em>値</em></td>
+
+<td>プリプロセッサーにパススルーし、次のような条件付きで使用するシンボルを定義します。 #ifdef.</td>
+
+</tr>
+
+<tr>
+<td><strong>-display</strong><em> 表示</em></td>
+
+<td>使用する X サーバーを指定します。 <strong>-screen</strong> オプション用に使用する画面も指定し、<strong>-global</strong> オプション用にプリプロセッサー・シンボルが取り出される画面を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エディット</strong><em> FileName</em></td>
+
+<td>指定した属性の内容を編集し、そこにリストされた値を置き換えて、所定のファイルに入れなければならないことを示します。 これによって、デフォルトに対して行った変更をリソース・ファイルに納め、コメントやプリプロセッサー行を保管することができるようになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-global</strong></td>
+
+<td>このオプションは、操作が画面独立 RESOURCE_MANAGER 属性上でのみ実行されなければならないことを示します。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>使用可能なフラグの簡潔な説明を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em>ディレクトリー</em></td>
+
+<td>(大文字の i) プリプロセッサーにパススルーし、参照されるファイルを検索するディレクトリーを指定します。#include. </td>
+
+</tr>
+
+<tr>
+<td><strong>ロード</strong></td>
+
+<td>指定した属性の古い内容を置き換えて、新しい値として入力がロードされることを示します。 これはデフォルトのアクションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-マージ</strong></td>
+
+<td>指定した属性の現在の内容が置き換えられる代わりに、入力と組み合わせることを示します。 このオプションを指定すると、2 つの入力は字句通りにソートされて組み合されるので、ユーザーの希望通りではないかもしれませんが、下位互換性を保つために残されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>このオプションは、(<strong>-load</strong> または <strong>-merge</strong> とともに使用されている場合には) 指定された属性に対して、または (<strong>-edit</strong> とともに使用されている場合には) リソース・ファイルに対してなされた変更が、標準出力上に表示されても実行されないことを示します。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノカップ</strong></td>
+
+<td><strong>xrdb</strong> コマンドで、入力ファイルを属性にロードする前に、そのファイルをプリプロセッサーを通じて実行されないことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-override</strong></td>
+
+<td>指定した属性の現在の内容が置き換えられる代わりに、入力に追加されることを示します。 新規の入力によって前の入力が上書きされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-query</strong></td>
+
+<td>指定した属性の現在の内容を標準出力に出力することを示します。 入力リソース・ファイルの中のプリプロセッサー・コマンドは、入力ファイルの一部であり、属性の一部ではないので、このフラグからの出力には現れないことに注意してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-quiet</strong></td>
+
+<td>重複した入力についての警告が表示されないことを示します。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-remove</strong></td>
+
+<td>指定した属性をサーバーから除去することを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-保持</strong></td>
+
+<td><strong>xrdb</strong> コマンドが最初のクライアントであれば、サーバーに再設定しないように指図することを示します。 <strong>xdm</strong> および <strong>xinit</strong> コマンドは、常に最初のクライアントとして動作するので、このフラグが通常の状態で必要になることは、決してありません。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-画面</strong></td>
+
+<td>操作がディスプレイのデフォルト画面の SCREEN_RESOURCES 属性上でのみ実行されなければならないことを示します。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-画面</strong></td>
+
+<td>操作がディスプレイの各画面の SCREEN_RESOURCES 属性上で実行されることを示します。 <strong>-load</strong> および <strong>-merge</strong> の場合は、入力ファイルは、各画面につき一度ずつ処理されます。 このオプションは X11R5 に固有なものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-記号</strong></td>
+
+<td>プリプロセッサー用に定義されたシンボルが、標準出力へ出力されることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em>名前</em></td>
+
+<td>このシンボルのすべての定義をプリプロセッサーへ渡して除去します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルをデータベースにロードするには、以下のようにします。<div> <div><div><pre><code>xrdb -load myfile</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ロードしたばかりのデータベースの内容を取得して編集するか、それを新規ファイルに入れるには、以下のようにします。<div> <div><div><pre><code>xrdb -edit newfile</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <p><strong>xrdb</strong> コマンドは <strong>~/.Xdefaults</strong> ファイルを汎用化します。</p>
+</section>
+
+</div></div>

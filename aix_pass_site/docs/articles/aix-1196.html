@@ -1,0 +1,57 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>AIX® システム・ブート・イメージの更新の通知を管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>PTSVTD</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptsevtd.html#ptsevtd__row-d3e116560" target="_blank" rel="noopener noreferrer">「-c」</a></strong> コマンド] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptsevtd.html#ptsevtd__row-d3e116570" target="_blank" rel="noopener noreferrer">-d 年</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptsevtd.html#ptsevtd__row-d3e116576" target="_blank" rel="noopener noreferrer">「-f」</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptsevtd.html#ptsevtd__row-d3e116585" target="_blank" rel="noopener noreferrer">P-</a></strong> <strong><em>ポート名</em></strong>]</p>
+</section>
+
+<section><h2>説明</h2> <p>認証されたシステムが更新されている場合、<strong>ptsevtd</strong> デーモンは <strong>ptsevt</strong> コマンドによって送信されたイベントを listen します。 デフォルトでは、イベントが受信されると必ず、<strong>ptsevtd</strong> コマンドはそのイベントを送信しているシステムの汎用固有 ID (UUID) を最初の引数として <strong>openpts</strong> コマンドを呼び出します。 このプロセスは対応するリファレンス・マニフェストを、最新または期待される測定値で更新します。 <span>-c</span> オプションを使用すると、通知の受信時に呼び出される代替コマンドを指定することができます。</p>
+ <p><span>-f</span> オプションは、デーモンをフォアグラウンドで実行するために使用します。 <span>-d</span> オプションを複数回指定すると、出力がより詳細になります。 <span>-p</span> 引数は、イベント通知の listen に使用するポートを指定します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>通知を受信した場合に呼び出すコマンドを指定します。 このオプションを指定しないと、デフォルトで <strong>openpts</strong> コマンドが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>出力の詳細度を高めるレベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>リスナーをフォアグラウンドで実行します。 出力は <strong>stderr</strong> コンソールに送信されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>イベント通知に使用する TCP ポートを指定します。 デフォルトは 34185 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

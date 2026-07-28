@@ -1,0 +1,184 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル・システムが RSCT ホスト・ベース認証 (HBA) セキュリティー機構のクリデンシャルの中で自分自身を識別するために使用できる ID を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>ctsvhbal</span></span> [[ <span><span>-d</span></span> | <span><span>-h</span></span> | <span><span>-m</span></span> | <span><span>-s</span></span> ] | [ <span><span>-e</span></span> <span><span>msgnum</span></span>[,<span><span>msgnum</span></span>...]] [ <span><span>-l</span></span> { <span><span>1</span></span> | <span><span>2</span></span> | <span><span>3</span></span> | <span><span>4</span></span> } | <span><span>-b</span></span> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>ctsvhbal</span></span> コマンドは、RSCT ホスト・ベース認証 (HBA) セキュリティー機構の検査ユーティリティーです。 ローカル・システムが、HBA クリデンシャルの中で自分自身を識別するために使用できる ID を表示します。</p>
+ <div>HBA セキュリティー機構は、アプリケーションで選択された方式に応じて、クリデンシャル内の識別情報の一部として、ホスト名かネットワーク・アドレス値を使用します。 ローカル・システムがリモート・システムからの要求に対してサービスを提供する場合、そのリモート・システムのネットワーク・アドレスとホスト名が必ず 1 つ以上、ローカル・システムのトラステッド・ホスト・リストに示されなければなりません。 リモート・システムがローカル・システムを正常に認証できるか検査するため、システム管理者は RSCT クラスター・セキュリティー・コマンドを組み合わせて使用します。<ol>
+<li>ローカル・システムとリモート・システムの両方で、 <span><span>ctsvhbac</span></span> コマンドを発行して、各システムに有効な HBA セキュリティー機構構成があることを確認します。</li>
+
+<li>ローカル・システムで、 <span><span>ctsvhbal</span></span> コマンドを発行して、HBA セキュリティー機構がリモート・システムに対してこのホストを識別するために使用する値を判別します。</li>
+
+<li>リモート・システムで、ローカル・システムのホスト名または IP アドレスを指定して <span><span>ctsvhbar</span></span> コマンドを発行し、ローカル・システムから送信された HBA クリデンシャルを検査するためにリモート・システムが使用する値を判別します。</li>
+
+<li><span><span>ctsvhbal</span></span> および <span><span>ctsvhbar</span></span> コマンド出力を比較して、2 つのシステムがホスト名解決に同じスキームを使用しているかどうかを判別します。 ホスト名の完全一致が出力に表示されない場合は、ホスト名解決スキームを修復し、両方のコマンドが完全一致するまで前のステップを繰り返します。</li>
+
+</ol>
+</div>
+ <div>上記のステップを完了すると、一方向の認証が正常に行われるかが検査されます。つまりこの手順では、リモート・システムがローカル・システムからの要求を認証できるかどうかのみが検査されます。 RSCT サブシステムでは相互認証が使用される場合が多いため、システム管理者は、ローカル・システムがリモート・システムを正常に認証できるかについても検査する必要があります。 この検査を行うには、次の追加ステップが必要です。<ul>
+<li>リモート・システムで、 <span><span>ctsvhbal</span></span> コマンドを発行して、HBA セキュリティー機構がローカル・システムに対してそのホストを識別するために使用する値を判別します。</li>
+
+<li>ローカル・システムで、リモート・システムのホスト名または IP アドレスを指定して <span><span>ctsvhbar</span></span> コマンドを発行し、リモート・システムから送信された HBA クリデンシャルを検査するためにローカル・システムが使用する値を判別します。</li>
+
+<li><span><span>ctsvhbal</span></span> および <span><span>ctsvhbar</span></span> コマンド出力を比較して、2 つのシステムがホスト名解決に同じスキームを使用しているかどうかを判別します。 ホスト名の完全一致が出力に表示されない場合は、ホスト名解決スキームを修復し、両方のコマンドが完全一致するまで前のステップを繰り返します。</li>
+
+</ul>これらの追加ステップを完了すると、トラフィックが逆方向、つまりリモート・システムからローカル・システムに流れたときに正常に認証が行われるかが検査されます。</div>
+ <p>詳しい説明および例については、「<em>RSCT Administration Guide</em>」のクラスター・セキュリティーのトピックを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt>-b</dt>
+
+<dd>要約出力を生成します。 このオプションを使用すると、
+コマンドはローカル・システムについて検出されたホスト ID と検出されたエラーのみを表示します。 <span><span>-l</span></span> オプションが指定されている場合、このオプションは無視されます。</dd>
+
+
+<dt>-d</dt>
+
+<dd>このコマンドを正常に実行するために必要なプローブのリストを表示します。</dd>
+
+
+<dt>-e</dt>
+
+<dd>コマンドの実行中に表示しないエラー・メッセージのリストを指定します。 1 つ以上のメッセージを指定できます。 メッセージ番号のフォーマットは、xxxx-yyy です。 複数のメッセージは、空白文字を入れずにコンマ (,) で区切ります。</dd>
+
+
+<dt>-h</dt>
+
+<dd>このコマンドのヘルプ・メッセージを表示します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>クラスター・システム・マネージメント (CSM) プローブ・インフラストラクチャーで、
+出力の詳細レベルを設定できるようにします。 使用できるレベルは、次のとおりです。<dl>
+
+<dt>1</dt>
+
+<dd>詳細モード。 コマンド目的の要約と、すべてのテストの状況情報を表示します。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド目的の要約と、テストで検出されたアテンションまたはエラー条件を表示します。</dd>
+
+
+<dt>3</dt>
+
+<dd>テストで検出されたアテンションまたはエラー条件を表示します。</dd>
+
+
+<dt>4</dt>
+
+<dd>サイレント・モード。 テスト中に検出されたエラーを表示します。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-m</dt>
+
+<dd>コマンドとその目的の詳細記述を表示します。</dd>
+
+
+<dt>-s</dt>
+
+<dd>コマンドの目的の要約を表示します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <p>なし。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>ctsvhbal</span></span> コマンドに対する許可は、 <span><span>bin</span></span> ユーザー・グループのメンバーにこのコマンドの実行を許可します。</p>
+</section>
+
+<section><h2>終了状況</h2> <div>終了状況は、CSM プローブ・インフラストラクチャーのルールに準拠しています。<dl>
+<dt>0</dt>
+
+<dd>問題が検出されませんでした。 表示されるメッセージは通知メッセージです。 管理操作は不要です。</dd>
+
+
+<dt>10</dt>
+
+<dd>問題は検出されませんでしたが、
+ローカル・システムは自分自身をリモート・システムに対して認証できません。 アクティブなネットワーク・インターフェースがローカル・システムにありません。
+これは RSCT が許可する構成ですが、 この終了状況の場合は、システム管理者はこの構成が適切であることを検査する必要があります。</dd>
+
+
+<dt>20</dt>
+
+<dd>1 つ以上の問題が検出されました。 ローカル・システムが使用するホスト名解決機構で、
+ローカル・システムがサポートするネットワーク・インターフェースのホスト名を取得できません。 この条件を訂正しない限り、HBA 機構を使用する認証要求は、
+このシステムではおそらく成功しません。 この終了状況の場合は、システム管理者はコマンド出力にリストされている問題解決アドバイスに従う必要があります。</dd>
+
+
+<dt>127</dt>
+
+<dd>このコマンドで予期しない障害が発生しました。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>制約事項</h2> <ul>
+<li>クラスター・セキュリティー・サービスがサポートするのは、独自のホスト ID フォーマットおよびトラステッド・ホスト・リスト・ファイル・フォーマットだけです。</li>
+
+<li>トラステッド・ホスト・リストを変更できるのは、このコマンドを使用する場合だけです。</li>
+
+<li>クラスター・セキュリティー・サービスには、クラスター全体を通じてトラステッド・ホスト・リストを作成、管理、および保守するための自動化されたユーティリティーは用意されていません。 これは、システム管理者またはクラスター管理ソフトウェアのいずれかに対する手順です。</li>
+
+</ul>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-l</span></span> フラグを指定すると、トラステッド・ホスト・リスト・ファイルの内容が標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>あらゆる検出済み障害条件に関する記述情報が標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>ローカル・システムが、HBA クリデンシャルの中でローカル・システム自体を識別するために使用できる ID を表示するには、次のように入力します。<div><div><pre><code>ctsvhbal</code></pre></div><div></div></div></div>
+
+<p>出力は次のようになります。</p>
+
+<div><div><pre><code>ctsvhbal: The Host Based Authentication (HBA) mechanism identities for 
+the local system are:
+
+                  Identity:  zathras.pok.ibm.com
+
+                  Identity:  9.127.100.101  
+
+ctsvhbal: At least one of the above identities must appear in the 
+trusted host list on the node where a service application resides in order 
+for client applications on the local system to authenticate successfully. 
+Ensure that at least one host name and one network address identity from the 
+above list appears in the trusted host list on the service systems used by 
+applications on this local system.  
+</code></pre></div><div></div></div></section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/ctsvhbal</dt>
+
+<dd><span><span>ctsvhbal</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/opt/rsct/cfg/ctcasd.cfg</dt>
+
+<dd><span><span>ctcasd</span></span> デーモンのデフォルト構成</dd>
+
+
+<dt>/var/ct/cfg/ctcasd.cfg</dt>
+
+<dd><span><span>ctcasd</span></span> デーモンの構成。これは、システム管理者が変更できます。</dd>
+
+</dl>
+</section>
+
+</div></div>

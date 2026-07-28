@@ -1,0 +1,348 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>NFS クライアントにディレクトリーをエクスポートするときに使用するオプションを変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/chnfsexp</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98506" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em> ディレクトリ</em> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98919" target="_blank" rel="noopener noreferrer">-V</a></strong> <em>ExportedVersion</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98551" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>輸出ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98524" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> <em>ExternalName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98847" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__a277x98e0" target="_blank" rel="noopener noreferrer"><strong>rw</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__a277x98e1" target="_blank" rel="noopener noreferrer"><strong>ロー</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__chnfsexp_t_remove" target="_blank" rel="noopener noreferrer"><strong>取り除く</strong></a> } {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__a277x98e2" target="_blank" rel="noopener noreferrer"><strong>rm</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98646" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a><em> ホスト名</em> [ <strong>,</strong><em>ホスト名 ...</em> ] } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98460" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em> UID</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98753" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><em> HostName</em> [ <strong>,</strong><em> HostName ...</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98492" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><em> HostName</em><strong> ,</strong><em> HostName ...</em> ] ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98514" target="_blank" rel="noopener noreferrer"><strong> -D</strong></a> {yes | no} ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98767" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98685" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98773" target="_blank" rel="noopener noreferrer"><strong>-S</strong> <em>味</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98562" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>rootpath@host</span></span>[<span><span>+</span></span><span><span>ホスト</span></span>][<span><span>:</span></span><span><span>rootpath@host</span></span>[<span><span>+</span></span><span><span>ホスト</span></span>]] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98607" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a> <span><span>rootpath@host</span></span>[<span><span>+</span></span><span><span>ホスト</span></span>][<span><span>:</span></span><span><span>rootpath@host</span></span>[<span><span>+</span></span><span><span>ホスト</span></span>]] ] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__chnfsexp_flag_lowo" target="_blank" rel="noopener noreferrer">-o</a></strong> <em>ご注文</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98929" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98938" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98660" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98480" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98673" target="_blank" rel="noopener noreferrer"><strong>-N </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98741" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98747" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsexp.html#chnfsexp__row-d3e98902" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a><em> 番号</em> [ <strong>,</strong><em> 番号</em> ] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chnfsexp</strong> コマンドは、現在 NFS クライアントにエクスポートされているディレクトリーをパラメーターとして取り込み、そのディレクトリーをエクスポートするときに使用するオプションを変更します。 コマンド・ラインで指定したオプションが、現在使用しているオプションに置き換わります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-UID</strong><em>​</em></td>
+
+<td>要求元のユーザーが不明の場合にだけ、実効ユーザー ID として <em>UID</em> パラメーターを使用します。 このオプションのデフォルト値は -2 です。<div><div>
+        <div>
+          <div><span>注:</span> root ユーザー (uid 0) は、root オプションに含まれていない限り、常に NFS サーバーによって「不明」と見なされます。 <em>UID</em> の値を -1 に設定すると、無名アクセスができなくなります。 <em>UID</em> パラメーターは、uid または username のいずれかになります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>/etc/exports</strong> ファイルのエントリーを更新し、<strong>exportfs</strong> コマンドがただちに実行されてディレクトリーを再エクスポートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> HostName</em> [<strong>,</strong><em> HostName</em> ]...</td>
+
+<td>リストされた各クライアントにマウント・アクセスを提供します。 クライアントは、ホストまたはネットグループのいずれでもかまいません。 デフォルトは、すべてのホストのアクセスを許可することです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> ディレクトリー</em></td>
+
+<td>変更するエクスポート済みディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>D</strong> {yes | no}</td>
+
+<td>指定されたエクスポートのファイル委任を使用可能または使用不可にします。 このオプションは、このエクスポートのシステム全体の委任使用可能化をオーバーライドします。 システム全体の使用可能化は <strong>nfso</strong> を通じて行われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> ExternalName</em></td>
+
+<td><span><span>ExternalName</span></span> パラメーターによって指定されたディレクトリーをエクスポートします。 外部名は、 <span><span>nfsroot</span></span> 名で始まらなければなりません。 このオプションは、ルートを <span><span>/</span></span>以外のものに変更するために <span><span>chnfs -r</span></span> コマンドを実行した場合に役立ちます。 <span><span>nfsroot</span></span> 名の説明については、 <span><span>/etc/exports</span></span> ファイルの説明を参照してください。 このオプションは、NFS バージョン 4 プロトコルによってアクセスするためにエクスポートされたディレクトリーのみに適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> エクスポート・ファイル</em></td>
+
+<td><strong>/etc/exports</strong> 以外のファイルを使用する場合のエクスポート・ファイルの絶対パス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> rootpath@host</em> [+<span><span>host</span></span>] [:<span><span>rootpath@host</span></span> [+<span><span>
+host</span></span>]]</td>
+
+<td>ネームスペース委託は、指定されたパスで作成されます。 この委託は、操作を続行できる指定された代替ロケーションにクライアントを経路指定します。 委託は特殊なオブジェクトです。 非委託オブジェクトが指定されたパスに存在する場合は、エクスポートは不許可となり、エラー・メッセージが表示されます。 指定されたパスに何も存在しない場合は、オブジェクトに至るパス名ディレクトリーを含む委託オブジェクトが作成されます。 <span><span>nfsroot</span></span>に参照を指定することはできません。 名前 <code>localhost</code> を <span><span>hostname</span></span>として使用することはできません。 <span><span>-G</span></span> オプションは、バージョン 4 エクスポートの場合にのみ許可されます。 エクスポート指定によりバージョン 2 またはバージョン 3 のアクセスが許可される場合は、エラー・メッセージが表示され、エクスポートは不許可になります。 管理者は、適切なデータが委託ロケーションに存在することを確認する必要があります。<div><div>
+        <div>
+          <div><span>注:</span> 参照またはレプリカ・エクスポートは、サーバー上で複製が有効になっている場合にのみ作成できます。 <span><span>chnfs -R on</span></span> を使用して、複製を有効にします。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> rootpath@host</em> [+<span><span>host</span></span>] [:<span><span>rootpath@host</span></span> [+<span><span>
+host</span></span>]]</td>
+
+<td>指定されたディレクトリーは、レプリカ情報を用いてマーク付けされます。 サーバーが NFS クライアントによって到達不可となる場合は、クライアントは指定されたいずれかのサーバーに切り替えることができます。 このオプションは NFS バージョン 4 プロトコルを使用している場合にのみ利用でき、バージョン 4 アクセスを各オプションで指定する必要があります。 ディレクトリーがクライアント・アクセス用にエクスポートされるので、NFS バージョン 2 またはバージョン 3 アクセスを指定しても、エラーは発生しませんが、この要求はバージョン 2 またはバージョン 3 のサーバーによって単に無視されます。 このオプションは、 <span><span>-G</span></span> フラグと一緒に指定することはできません。 各指定のホスト部分のみが検査されます。 管理者は、指定された <span><span>rootpaths</span></span> が有効であり、ターゲット・サーバーに適切なデータが含まれていることを確認する必要があります。 エクスポートされるディレクトリーがレプリカ・リスト内にない場合は、そのディレクトリーは最初のレプリカ・ロケーションとして追加されます。 管理者は、適切なデータがレプリカ・ロケーションに存在することを確認する必要があります。 <span><span>-g</span></span>オプションは「<span>AIX'5.35300-03付き</span>以降でのみ使用可能。<div><div>
+        <div>
+          <div><span>注:</span> 参照またはレプリカ・エクスポートは、サーバー上で複製が有効になっている場合にのみ作成できます。 <span><span>chnfs -R on</span></span> を使用して、複製を有効にします。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> ホスト名</em> [ <strong>,</strong><em> HostName</em> ] ...</td>
+
+<td>どのホストがディレクトリーに対して読み取り/書き込みアクセスを持つかを指定します。 このオプションは、ディレクトリーが read-mostly モードでエクスポートされているときにだけ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td><strong>exportfs</strong> コマンドが次に実行されるときに (通常はシステムの再始動時) そのディレクトリーがエクスポートされるように、<strong>/etc/exports</strong> ファイルにエントリーを追加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>/etc/exports</strong> ファイルのエントリーを変更しませんが、エクスポートを変更するために <strong>exportfs</strong> コマンドが正しいパラメーターで実行されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>クライアントに対し、より安全なプロトコルの使用を要求しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>順序付け</em></td>
+
+<td><strong>exportfs</strong> コマンドの <strong>refer</strong> オプションまたは <strong>replicas</strong>  オプションに指定されたサーバーから、
+代替ロケーションのリストを生成する方法を定義します。 オプションは、NFS バージョン 4 プロトコルによってアクセスするためにエクスポートされたディレクトリーのみに適用されます。 <em>Ordering</em> パラメーターには、次の値が入ります。<dl>
+<dt>フル</dt>
+
+<dd>代替ロケーションの組み合わせを形成するために、すべてのサーバーが分散されます。</dd>
+
+
+<dt>partial</dt>
+
+<dd>すべての組み合わせのうち最初のロケーションは、
+<strong>exportfs</strong> コマンドの <strong>refer</strong> オプションまたは <strong>replicas</strong> オプションに指定された最初のサーバーに固定されます。 最初のロケーション以外の残りのロケーションは、次を使用して分散されているかのように分散されます。scatter=fullメソッド。</dd>
+
+
+<dt>なし</dt>
+
+<dd>分散は使用されません。 以前に分散を有効にしていた場合、この値を使って分散を無効にすることもできます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>エクスポートされたディレクトリーが公開ディレクトリーになるように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>エクスポートされたディレクトリーが公開ディレクトリーにならないように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> HostName</em> [<strong>,</strong><em> HostName</em> ]...</td>
+
+<td>指定のホスト上の root ユーザーにディレクトリーへのアクセス権を与えます。 デフォルトは、どのホストにもルート・アクセスを認可しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ディレクトリーにアクセスするとき、クライアントに対してより安全なプロトコルを使用することを要求します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong> <em>フレーバー</em></td>
+
+<td><strong>-c</strong>、<strong>
+-t</strong>、または <strong>-r</strong> オプションと共に使用して、変更するオプションのオカレンスを
+指定できます。 ほとんどの <strong>exportfs</strong> オプションは、
+<strong>sec</strong> オプションを使用して、クラスター化できます。 任意の数の <strong>sec</strong> スタンザを指定することができますが、
+それぞれのセキュリティー・メソッドを指定できるのは一回のみです。 <strong>-d</strong> オプションによって指定された <strong>
+/etc/exports</strong> のエントリーに、指定されたフレーバーの文節が含まれている場合は、その文節が
+更新されて、新しいパラメーターが反映されます。 それ以外の場合は、指定されたパラメーターを持つ
+新しい <strong>sec=</strong> 文節が現行オプション・リストに追加されます。<div>許容されるフレーバー値は次のとおりです。<dl>
+<dt>sys</dt>
+
+<dd><span>UNIX</span> 認証。</dd>
+
+
+<dt>dh</dt>
+
+<dd>DES 認証。</dd>
+
+
+<dt>なし</dt>
+
+<dd>値が <code>-1</code> でない場合は、無名 ID を使用します。 それ以外の場合、
+弱い認証エラーが戻されます。</dd>
+
+
+<dt>krb5</dt>
+
+<dd>Kerberos. 認証専用。</dd>
+
+
+<dt>krb5i</dt>
+
+<dd>Kerberos. 認証と保全性。</dd>
+
+
+<dt>krb5p</dt>
+
+<dd>認証、保全性、およびプライバシー。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>クライアントが使用できるマウント・アクセスのタイプを以下の中から 1 つ指定します。<dl>
+<dt><strong>rw</strong></dt>
+
+<dd>ディレクトリーを読み取り/書き込み許可付きでエクスポートします。 これはデフォルトです。</dd>
+
+
+<dt><strong>ro</strong></dt>
+
+<dd>ディレクトリーを読み取り専用許可でエクスポートします。</dd>
+
+
+<dt><strong>削除</strong></dt>
+
+<dd><strong>-t remove</strong> オプションは、 <strong>-S</strong> <em>フレーバー</em> ・オプションと一緒に指定する必要があります。 指定されたセキュリティー・フレーバー用の既存の NFS エクスポートから、
+セキュリティー・フレーバーとマウント・アクセス・タイプ (<strong>rw</strong>、<strong>ro</strong>、または <strong>rm</strong>) の
+両方が除去されます。</dd>
+
+
+<dt><strong>rm</strong></dt>
+
+<dd>ディレクトリーを read-mostly 許可付きでエクスポートします。 このタイプを指定する場合は、<strong>-h</strong> フラグを使用して、読み取り/書き込み許可を持つホストを指定する必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> 数値</em> [ <strong>,</strong><em> 数値...</em> ]</td>
+
+<td><strong>-d</strong> オプションで指定されたディレクトリーが、
+指定した NFS バージョンを使用するクライアントに使用可能になります。 有効な値は 2、3、または 4 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong> <em>ExportedVersion</em></td>
+
+<td>変更するエクスポート済みディレクトリーのバージョンを指定します。 有効なバージョン番号は 2、3、および 4 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>現状のままの <strong>-g</strong> オプションで指定されたレプリカ位置情報を受け入れます。 存在しない場合には、サーバーの 1 次ホスト名をリストに挿入しません。 このフラグは、複数のネットワーク・インターフェースを持つサーバーで使用することを意図しています。 サーバーのホスト名がレプリカ・リストにない場合、NFSv4 クライアントがそのロケーション情報をエラーとして処理し、廃棄することがあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>1 次ホスト名が自動的にレプリカ・リストに挿入されるようにします。 1 次ホスト名を手動でレプリカ・リストに指定しない場合でも、そのホスト名が最初のレプリカ・ロケーションとして追加されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>エクスポートされたディレクトリーにアクセスできるホストのリストを変更し、この変更が即時および後続のシステム再始動のたびに行われるようにするには、次のように入力します。<div> <div><div><pre><code>chnfsexp     -d     /usr     -t     rw     -c     host1,host3,host29,grp3,grp2     -B </code></pre></div><div></div></div>この例では、chnfsexpコマンドの属性を変更します。/usr読み取りおよび書き込み許可を付与するディレクトリーhost1,host3およびhost29ホスト、およびgrp3およびgrp2ネットグループ。</div>
+</li>
+
+<li><span></span>エクスポートされたディレクトリーにアクセスできるホストのリストを変更し、エクスポート・ファイルのパス名を指定し、この変更を即時および後続のシステム再始動のたびに行うには、次のように入力します。<div> <div><div><pre><code>chnfsexp     -d     /usr     -t     rw     -c     host1,host3,host29,grp3,grp2
+             -f     /etc/exports.other     -B</code></pre></div><div></div></div>この例では、chnfsexpコマンドの属性を変更します。/usr読み取りおよび書き込み許可を付与するディレクトリーhost1,host3およびhost29hosts:grp3およびgrp2netgroups; エクスポート・ファイルのパス名を次のように指定します。/etc/exports.other.</div>
+</li>
+
+<li><strong>/common/documents</strong> ディレクトリーのバージョン・アクセス
+可能性を変更して、NFS バージョン 4 のプロトコルを使用するクライアントのみにアクセスを許可する場合は、次の
+ように入力します。<div><div><pre><code>chnfsexp -d /common/documents -v 4</code></pre></div><div></div></div></li>
+
+<li>krb5 アクセスを使用するクライアントの場合に、 <strong>/common/documents</strong> ディレクトリーのルート・アクセスを <code>client1</code> および <code>client2</code> に変更するには、次のように入力します。<div><div><pre><code>chnfsexp -d /common/documents -S krb5 -r client1,client2</code></pre></div><div></div></div></li>
+
+<li>バージョン 3 としてのみエクスポートされた <strong>/common/documents</strong> ディレクトリーのオプションを変更するには、
+次のコマンドを入力します。<div><div><pre><code>chnfsexp -d /common/documents -V 3 -S krb5</code></pre></div><div></div></div></li>
+
+<li><strong>/common/documents</strong> ディレクトリーの <strong>refer</strong> オプションまたは <strong>replicas</strong> オプションに指定された代替ロケーションに対して全体的な分散を行うには、
+次のコマンドを入力します。<div><div><pre><code>chnfsexp -d /common/documents -o full</code></pre></div><div></div></div></li>
+
+<li>代替レプリカ・ロケーションのリストを追加して、
+<strong>/common/doc</strong> ディレクトリーに対して部分的な分散を行うには、次のコマンドを入力します。<div><div><pre><code>chnfsexp -d /common/doc -g /common/doc@s1:/common/doc@s2:/common/doc@s3 -o partial</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/exports</strong></td>
+
+<td>サーバーがエクスポートできるディレクトリーのリストが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+</div></div>

@@ -1,0 +1,106 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク上の各ホストの状況を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>破裂時間</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182251" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182264" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182258" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182282" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182288" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/bin/ruptime</strong> コマンドは、ローカル・ネットワーク上で
+<strong>rwhod</strong> デーモンを実行している各ホストの状況を表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182258" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182282" target="_blank" rel="noopener noreferrer"><strong>T</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182288" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> フラグが示されていない限り、状況表示行はホスト名でソートされます。 状況情報は、<strong>rwhod</strong> デーモンを実行している各ネットワーク・ホストによって、3 分に 1 回の割合で、パケット・ブロードキャストで提供されます。 ブロードキャスト間に発生したアクティビティー (例えば、ホストの電源のオン、オフなど) は、
+次のブロードキャストまで反映されません。 11 分間何も状況情報が受信されないホストは、
+ダウンとして報告されます。</p>
+ <p>出力内容は、ホスト名、状況、時刻、ユーザー数、ロード平均というフォーマットです。 ロード平均には、サーバーの送信前の、1 分、5 分、15 分のインターバルでのロード平均が表示されます。 ロード平均には 10 が乗算されて、10 進数フォーマットの値が表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのユーザーを含みます。 このフラグを指定しないと、セッションが 1 時間以上アイドルの状態にあるユーザーが含まれません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>リストをロード平均でソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ソートの順序を逆にします。 <strong>-r</strong> フラグは、<strong>-l</strong>、<strong>-t</strong> または <strong>-u</strong> フラグと一緒に使用しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>リストをアップタイムでソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>リストをユーザー数でソートします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ローカル・ネットワーク上のホストの状況レポートを取得するには、次のように入力します。<div> <div><div><pre><code>ruptime</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>host1      up      5:15,   4 users,   load 0.09, 0.04, 0.04
+host2      up      7:45,   3 users,   load 0.08, 0.07, 0.04
+host7      up      7:43,   1 user,    load 0.06, 0.12, 0.11</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>負荷平均でソートされた状況報告書を入手するには、次のように入力します。<div>ruptime  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruptime.html#ruptime__row-d3e182258" target="_blank" rel="noopener noreferrer">-l</a></div>次のような情報が表示されます。<div> <div><div><pre><code>host2      up      7:45,   3 users,   load 0.08, 0.07, 0.04
+host1      up      5:18,   4 users,   load 0.07, 0.07, 0.04
+host7      up      7:43,   1 user,    load 0.06, 0.12, 0.11
+  </code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/spool/rwho/whod.*</strong></td>
+
+<td>リモート <strong>rwhod</strong> デーモンから受け取ったデータ・ファイルを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

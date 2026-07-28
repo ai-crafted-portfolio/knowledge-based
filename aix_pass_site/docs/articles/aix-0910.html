@@ -1,0 +1,488 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Mkf</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e136652" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a><em> ブート</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e136670" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em> 表示名</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e136661" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>i ノード</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e136679" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em> オプション</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e137043" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a><em> プロトタイプ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e137052" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サイズ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e137086" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a><em> VolumeLabel</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkfs.html#mkfs__row-d3e137095" target="_blank" rel="noopener noreferrer"><strong>V 値 </strong></a><em>VfsName</em> ] <em>装置</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkfs</strong> コマンドは、指定されたデバイス上に新しいファイルシステムを作成します。 <strong> mkfs</strong> コマンドは、ボリューム・ラベル、ファイルシステム・ラベル、始動ブロックを初期化します。</p>
+ <p><em>Device</em> パラメーターで、ブロック・デバイス名、ロウ・デバイス名、またはファイルシステムの名前を指定します。 パラメーターがファイルシステム名を指定する場合、 <strong>mkfs</strong> コマンドはこの名前を使用して、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a> ファイルの該当するスタンザから以下のパラメーターを取得します。 ただし、<strong> mkfs</strong> コマンドで以下のパラメーターを入力した場合を除きます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>dev</strong></td>
+
+<td>デバイス名</td>
+
+</tr>
+
+<tr>
+<td><strong>vol</strong></td>
+
+<td>ボリューム ID</td>
+
+</tr>
+
+<tr>
+<td><strong>size</strong></td>
+
+<td>ファイルシステム・サイズ</td>
+
+</tr>
+
+<tr>
+<td><strong>ブート</strong></td>
+
+<td>始動ブロック内にインストールされるプログラム</td>
+
+</tr>
+
+<tr>
+<td><strong>vfs</strong></td>
+
+<td>仮想ファイルシステムの定義</td>
+
+</tr>
+
+<tr>
+<td><strong>options</strong></td>
+
+<td><em>「キーワード」</em><strong>、</strong><em> 「キーワード」</em><strong>=</strong><em>「値」</em> の形式のファイル・システム・インプリメンテーション固有のオプション</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>ファイルシステムは、setgid (セット・グループ ID) ビットを使用可能にして作成されます。 setgid ビットは、デフォルトのグループ許可を決定します。 新しいファイルシステム下で作成されたディレクトリーはすべて、同じデフォルトのグループ許可を持ちます。</li>
+
+<li><strong>mkfs</strong> コマンドは、ファイルシステムのラベルも含めて、マウントされた
+ファイルシステムには一切変更を加えません。 ファイルシステムのラベルが変更されるのは、そのファイルシステムがマウントされていないときに、ユーザーがマウント・ポイントを変更したときです。</li>
+
+<li>ストライプ論理ボリューム上にファイルシステムを作成する方法については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklv.html" target="_blank" rel="noopener noreferrer"><strong>mklv</strong></a> 資料の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklv.dita#mklv/mklv_description_fs_on_striped_lv" target="_blank" rel="noopener noreferrer">mklv.dita#mklv/mklv_description_fs_on_striped_lv</a> を参照してください。</li>
+
+<li>論理ボリューム上に JFS2 ファイルシステムを作成するには、論理ボリュームのマイナー番号が次の値より大きくなければなりません。3071.</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong> <em>ブート</em></td>
+
+<td>新しいファイルシステムのブロック 0 にインストールするプログラム名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>i ノード</em></td>
+
+<td>ファイルシステム上の初期の i ノード数を指定します。 このフラグは、ジャーナル・ファイルシステムを作成するときには無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ラベル</em></td>
+
+<td>新しいファイルシステム用のファイルシステム・ラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>オプション</em></td>
+
+<td>仮想ファイルシステムのインプリメンテーション固有のオプションのリストをコンマで区切って指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>次のオプションは、ジャーナル・ファイルシステム (JFS) に固有のものです。
+</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-o ag=</strong> { <strong>8</strong> | <strong>16</strong> | <strong>32</strong> | <strong>64</strong> }</td>
+
+<td>割り当てグループのサイズを M バイト単位で指定します。 割り当てグループとは、BSD のシリンダー・グループと
+同じように、i ノードとディスク・ブロックをまとめたものです。 デフォルト ag 値は 8 です。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>o bf={</strong> <strong>true</strong> | <strong>false</strong> }</td>
+
+<td>ラージ・ファイル・イネーブル・ファイルシステムを指定します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/devicemanagement/jfslargefiles.htm" target="_blank" rel="noopener noreferrer">JFS およびラージ・ファイル</a> を参照してください。 ラージ・ファイル・イネーブル・ファイルシステムを必要としない場合は、このオプションを false に設定してください (これはデフォルトです)。 <strong>bf=true</strong> を指定すると、フラグメント・サイズ 4096 および
+<strong>compress=no</strong> を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>o frag={</strong> <strong>512</strong> | <strong>1024</strong> | <strong>2048</strong> | <strong>4096</strong> }</td>
+
+<td>JFS フラグメント・サイズをバイト単位で指定します。 ファイルシステムのフラグメントとは、ファイルに割り当てることができるディスク・ストレージの最小単位です。 デフォルトのフラグメント・サイズは 4096 バイトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o 圧縮 =</strong>{ <strong>no</strong> | <strong>LZ</strong> }</td>
+
+<td>データの圧縮を指定します。 データを圧縮しない場合は、このオプションを以下のように設定します。no圧縮を選択するには、2048 以下のフラグメント・サイズが必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o nbpi=</strong>{ <strong>512</strong> | <strong>1024</strong> | <strong>2048
+</strong> | <strong>4096</strong> |<strong>8192</strong> | <strong>
+16384</strong> | <strong>32768</strong> | <strong>65536</strong> | <strong>131072</strong> }</td>
+
+<td>i ノード 1 個当たりのバイト数 (<strong>nbpi</strong>) を指定します。 <strong>nbpi</strong> は、i ノードの合計数に対するファイルシステム・サイズ (バイト単位) の比率です。 デフォルトの <strong>nbpi</strong> 値は 4096 バイトです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><strong>注:</strong><ul>
+<li><strong>ag</strong>、<strong>bf</strong>、<strong>compress</strong>、<strong>frag</strong>、および <strong>nbpi</strong> 属性は、ファイルシステム作成時に設定されるので、ファイルシステムが正常に作成された後で変更することはできません。 <strong>
+size</strong> 属性は、最小ファイルシステム・サイズを定義するもので、
+ファイルシステムの作成後には縮小できません。</li>
+
+<li>ルート・ファイルシステム (<strong>/</strong>) は圧縮できません。</li>
+
+<li><strong>nbpi</strong> 値および割り当てグループ・サイズは相互に排他的になることがあります。 詳しくは、『JFS サイズの制限について』を参照してください。</li>
+
+</ul>
+</div>
+<p><strong>次のオプションは、拡張ジャーナル・ファイルシステムに固有のものです。
+</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-o agblksize= { 512 | 1024 | 2048 | 4096 }</strong></td>
+
+<td>拡張ジャーナル・ファイルシステム (JFS2) のブロック・サイズ (バイト単位) を指定します。 ファイルシステム・ブロックは、
+ファイルに割り当てることができるディスク・ストレージの最小単位です。 デフォルトのブロック・サイズは 4096 バイトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o isnapshot= {yes|no}</strong></td>
+
+<td>ファイルシステムが内部スナップショットをサポートできるかどうかを指定します。 「<strong>yes</strong>」を指定すると、ファイルシステムは、内部スナップショットおよび <strong>v2</strong> 拡張属性をサポートできるようになります。 このファイルシステムは、<span>AIX 6.1</span>より前のリリースとは互換性がない。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o name=<em>マウント・ポイント</em></strong></td>
+
+<td>ファイルシステムのマウント・ポイントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o <em>log=LVName</em> | INLINE | OUTLINE</strong></td>
+
+<td><span>log</span> 属性に対して以下のいずれかの値を設定できます。<dl>
+
+<dt>LVName</dt>
+
+<dd>ログ論理ボリューム名を指定します。 指定した論理ボリュームは、新しい JFS2 のロギング・デバイスとなります。</dd>
+
+
+
+<dt>INLINE</dt>
+
+<dd>これは、JFS2 ファイルシステムが存在する論理ボリュームにログ・デバイスを配置します。 <span>logsize</span> 属性が指定されていない場合、ログ・デバイスはデフォルトで論理ボリューム・サイズの 0.4% に設定されます。 この値はデフォルトで設定されます。</dd>
+
+
+
+<dt>OUTLINE</dt>
+
+<dd>これは、ターゲット・ボリューム・グループにロギング・デバイスがあれば、それを使用します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o logsize=<em>値</em></strong></td>
+
+<td>これは、<strong>INLINE</strong> ログのサイズ (MB) を指定します。 <strong>INLINE</strong> ログが使用されない場合には、無視されます。 このサイズは 2047 MB より大きくはできず、ファイルシステムのサイズの 10% より大きくすることもできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ea= {v1 | v2}</strong></td>
+
+<td>指定された拡張属性を JFS2 ファイルシステムに保管するために使用するフォーマットを指定します。 <strong>v2</strong> フォーマットは、NFS4 ACL はもちろん、指定された、拡張が容易な拡張属性をサポートします。 <strong>v1</strong> フォーマットは、 <span>AIX</span>の旧リリースと互換性があります。 デフォルトのフォーマットは、<strong>v1</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o efs= {yes|no}</strong></td>
+
+<td><p>暗号化を指定します。 「<strong>yes</strong>」を指定すると、JFS2 ファイルシステムの暗号化が可能になります。</p>
+ <div> <ul>
+<li><strong>efs</strong> 属性が「<strong>yes</strong>」に設定されると、<strong>mkfs</strong> コマンドは、拡張属性フォーマットが v2 に設定されている JFS2 ファイルシステムを自動的に作成します。 <strong>ea</strong> 属性は必須ではありません。</li>
+
+<li><strong>efs</strong> 属性が「<strong>no</strong>」に設定されると、<strong>mkfs</strong> コマンドは、暗号化されないファイルシステムを作成します。</li>
+
+</ul>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o vix= {yes|no}</strong></td>
+
+<td><div>ファイルシステム内にフリーの隣接する 16 KB のエクステントがない場合、デフォルトの 16 KB より小さい i-node のエクステントをファイルシステムが割り振れるかどうかを指定します。 ファイルシステムの小さいフリー・エクステントが使用可能になると、 <span>AIX 5.1</span> 以前のリリースでは、そのファイルシステムにアクセスできなくなります。<dl>
+<dt>はい</dt>
+
+<dd>ファイルシステムは、可変長の i-node エクステントを割り振れます。 これは、 <span>AIX 6.1</span>以降のデフォルト値です。</dd>
+
+
+<dt>いいえ</dt>
+
+<dd>ファイルシステムは i-node エクステントに、デフォルト・サイズの 16 KB を使用する必要があります。 既にファイルシステムに可変長の i-node エクステントが含まれている場合、これは無効です。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o maxext=値</strong></td>
+
+<td>ファイルシステム・ブロック内のファイル・エクステントの最大サイズを指定します。 ゼロ値は、JFS2 のデフォルトの最大値を使用する必要があることを指定します。 0 未満の値、またはサポートされる最大エクステント・サイズ 16777215 を超える値は無効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o lff= {yes|no}</strong></td>
+
+<td>これは、ファイルシステムがラージ・ファイルおよびラージ・ファイルシステムをサポートするかどうかを指定します。 デフォルトでは、JFS2 ファイルシステムの最大サイズは 32 TB であり、ファイルの最大サイズは 16 TB です。 <span>lff </span>属性の値が <strong>yes</strong>に設定されている場合、ファイル・システムの最大可能サイズは 4 PB で、最大可能ファイル・サイズは 4 PB です。 さらに、'<span>lff</span>属性が<strong>yes</strong> に設定されている場合、ファイルシステムはAIX® 7.3 以降でのみマウントできる。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>lff</span> 属性の値を <strong>yes</strong> に設定した後は、その値は変更できません。</li>
+
+<li><span>lff</span> 属性は、4096 バイトの集合ブロック・サイズを持つファイルシステム上でのみサポートされます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>agblksize</strong> 属性は、ファイル・システムの作成時に設定され、ファイル・システムが正常に作成された後は変更できません。<p><strong>ea</strong> 属性フォーマットは、ファイルシステムの作成時に設定されます。 <strong>chfs</strong> コマンドを使用して
+拡張属性フォーマットを <strong>v1</strong> から <strong>v2</strong> に変換することができますが、
+逆方向には変換できません。 この変換は、オンデマンド方法で行われます。
+つまり、拡張属性または ACL の書き込みが行われると、
+そのファイル・オブジェクトの変換が行われます。</p>
+</div>
+        </div>
+      </div></div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-p</strong> <em>プロトタイプ</em></td>
+
+<td>JFS ファイルシステムを作成するときに、プロトタイプ・ファイルの名前を指定します。 コマンド・ラインで指定したオプションは、プロトタイプ・ファイル内の属性をオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> サイズ</em></td>
+
+<td>ファイルシステムのサイズを指定します。 Size 属性の値は 512 バイト・ブロック、メガバイト (末尾に M を使用する必要があります)、ギガバイト (末尾に G を使用する必要があります)、テラバイト (末尾に T を使用する必要があります)、またはペタバイト (末尾に P を使用する必要があります) の単位で指定できます。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/devicemanagement/fs_jfs_jfs2.htm" target="_blank" rel="noopener noreferrer">JFS および JFS2</a> を参照してください。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>32 TB を超えるサイズのファイルシステムを使用するには、<span>lff</span> 属性の値を <strong>yes</strong> に設定する必要があります。</li>
+
+<li><span>lff</span> 属性は、4096 バイトの集合ブロック・サイズを持つファイルシステム上でのみサポートされます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><strong>注:</strong><ul>
+<li>ファイルシステムが存在するボリューム・グループは、最大論理ボリューム・サイズを定義し、
+さらにファイルシステムのサイズを制限します。</li>
+
+<li><strong>-s</strong><em> Size</em> フラグは、
+最小ファイル・サイズを指定します。ファイルシステムが正常に作成された後で、
+このサイズを小さくすることはできません。</li>
+
+<li><span><span>maxext</span></span> 属性は、ファイル・システムが新しいリリースで作成された場合でも、古いリリースでは無視されます。</li>
+
+</ul>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-v</strong> <em>VolumeLabel</em></td>
+
+<td>新しいファイルシステム用のボリューム・ラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong> <em>VfsName</em></td>
+
+<td>仮想ファイルシステム (VFS) のタイプを指定します。 VFS には、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/vfs.html" target="_blank" rel="noopener noreferrer"><strong>/etc/vfs</strong></a> ファイル内にエントリーがなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span> <strong>mkfs</strong> コマンドは、セキュリティー・インフラストラクチャー (カーネル・エクステンション、ライブラリーなど) がシステムの始動時に使用できないため、 EFS ファイル・システムによる以下のファイル・システム (マウント・ポイント) の使用可能化を防止します。 以下に、ユーザーが使用できない既知のファイルシステム (マウント・ポイント) のリストを示します。<div>"/"<br> "/usr"<br> "/var"<br> "/opt"</div>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root ユーザーまたは <strong>システム</strong>・グループのメンバーでなければなりません。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>新しいファイルシステムのボリュームとファイルシステム名を指定するには、次のように入力します。<div><div><pre><code>mkfs  -lworks  -vvol001 /dev/hd3</code></pre></div><div></div></div>このコマンドは, システム上に空のファイル・システムを作成します。/dev/hd3装置、ボリューム通し番号を与えるvol001およびファイル・システム名works新しいファイルシステムは、デバイス全体を占有します。 このファイルシステムは、デフォルトのフラグメント・サイズ (4096 バイト) とデフォルトの nbpi 比率 (4096) を持ちます。</li>
+
+<li>デフォルト以外の属性を持つファイルシステムを作成するには、次のように入力します。<div><div><pre><code>mkfs  -s 8192  -o nbpi=2048,frag=512 /dev/lv01</code></pre></div><div></div></div>このコマンドは, システム上に空の 4 MB ファイル・システムを作成します。/dev/lv01512 バイトのフラグメントと、2048 バイトごとに 1 つの i ノードを持つデバイス。</li>
+
+<li>ラージ・ファイル・イネーブル・ファイルシステムを作成するには、次のように入力します。<div> <div><div><pre><code>mkfs -V jfs -o nbpi=131072,bf=true,ag=64 /dev/lv01</code></pre></div><div></div></div>これによって、131072 バイトのすべてのディスクについて、
+割り当てグループのサイズが 64 M バイトで、i ノードが 1 つのラージ・ファイル・イネーブル JFS ファイルシステムが作成されます。 ファイルシステムのサイズは、論理ボリューム lv01 のサイズとなります。</div>
+</li>
+
+<li>デフォルト以外の属性を持つファイルシステムを作成するには、次のように入力します。<div><div><pre><code>mkfs -s 4M -o nbpi=2048, frag=512 /dev/lv01</code></pre></div><div></div></div>このコマンドは、<strong>/dev/lv01</strong> デバイスに、512 バイトのフラグメントと、2048
+バイトごとに 1 個の i ノードを持つ、空の 4MB のファイルシステムを作成します。</li>
+
+<li>NFS4 ACL をサポートできる JFS2 ファイルシステムを作成するには、次のように入力します。<div><div><pre><code>mkfs -V jfs2 -o ea=v2 /dev/lv01</code></pre></div><div></div></div>このコマンドは、<strong>/dev/lv01</strong> デバイスに、
+拡張属性用の <strong>v2</strong> フォーマットを持つ空のファイルシステムを作成します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>仮想ファイルシステムのタイプに関する記述が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

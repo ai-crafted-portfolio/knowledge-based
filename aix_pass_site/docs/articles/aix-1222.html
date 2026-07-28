@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムの所有権を要約します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>quot</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126155" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126165" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126171" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126177" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126186" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] [ <em>FileSystem ... </em>]</p>
+ <p><strong>クォート</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126149" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126155" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126165" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126171" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126177" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quot.html#quot__row-d3e126186" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>quot</strong> コマンドは、指定したファイルシステム (<em>FileSystem</em>) に各ユーザーが現在所有している 512 バイトのブロックの数を表示することにより、JFS ファイルシステムのファイルシステム所有権を要約します。 ファイルシステムを指定しないと、<strong>quot</strong> コマンドは、<span>/etc/filesystems</span> ファイル内の JFS ファイルシステムごとに同じ情報を表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>マウントされたすべてのシステムのレポートを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>3 列のレポートを表示します。 1 列目にはファイル・サイズが 512 バイトのブロック単位で指定されます。 2 列目にはそのサイズのファイル数が指定されます。 最後に、3 列目にはそのサイズ以下のすべてのファイル内の 512 ブロックの累積合計が指定されます。<div><div>
+        <div>
+          <div><span>注:</span> 500 ブロック以上のファイルは、ブロック・サイズ 499 でグループ化されます。 ただし、それらの正確なブロック数はブロックの累積合計に送られます。</div>
+        </div>
+      </div></div>
+ </td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ブロックの総数、ファイルの総数、およびこれらの合計に対応するユーザー名を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>ファイルによって使用されるブロック数を予測します。 この見積もりはファイル・サイズに基づいており、ホール付きファイルの使用時には実際のブロック使用量よりも大きい値を戻す場合もあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>以下のパイプラインを実行することによって、すべてのファイルとそのオーナーのリストを作成します。<div> <div><div><pre><code>ncheck filesystem | sort +On | quot -n filesystem</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>直近の 30 日、60 日、および 90 日にアクセスされなかったブロックの数を、
+3 列の出力に表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは bin ユーザーと bin グループによって所有されています。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>/usr</strong> ファイルシステム内の各ユーザーが所有するファイルおよびバイトの数を表示するには、次のように入力します。<div> <div><div><pre><code>quot -f /usr</code></pre></div><div></div></div>シス
+テムは、次の情報を表示します。<div><div><pre><code>/usr:
+63056    3217    bin
+20832     390    root
+ 1184      42    uucp
+   56       5    adm
+    8       1    guest
+    8       1    sys</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ファイル・サイズ統計、各サイズのファイル数、および累積合計を表示するには、次のように入力します。<div> <div><div><pre><code>quot -c /usr</code></pre></div><div></div></div>シス
+テムは、次の情報を表示します。<div><div><pre><code>/usr:
+8       103      824
+16      2        856
+499     0        856</code></pre></div><div></div></div></div>
+</li>
+
+<li>マウントされたすべてのファイルシステムのレポートを生成するには、次のように入力します。<div><div><pre><code>quot -a</code></pre></div><div></div></div></li>
+
+<li><strong>/var</strong> ファイルシステムのレポートを生成するには、
+次のように入力します。<div><div><pre><code>#quot -v /var 
+/var:
+45695   root            12852   11878   11774
+ 2569   guest            2567    1280     960
+ 2121   adm                92      91      91
+ 1343   bin               465     233     193
+   14   uucp                0       0       0
+    5   daemon              0       0       0
+    1   invscout            1       1       1
+    1   nuucp               1       1       1
+    1   sys                 0       0       0
+</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザー名が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステム名およびロケーションが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,125 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムの特性を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lsfs</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82963" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82951" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82957" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82945" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82982" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> <em>VfsType</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82974" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em> マウントグループ</em> | [ <em>FileSystem</em>...] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsfs</strong> コマンドは、
+マウント・ポイント、自動マウント、
+許可およびファイルシステム・サイズなどのファイルシステムの特性を表示します。 <em>FileSystem</em> パラメーターは、
+特定のファイルシステムについて表示します。 特性のリストは、次のサブセットを照会できます。</p>
+ <ul>
+<li><span></span>すべてのファイル・システム</li>
+
+<li><span></span>特定のマウント・グループのすべてのファイルシステム</li>
+
+<li><span></span>特定の仮想ファイル・システム・タイプのすべてのファイル・システム</li>
+
+<li><span></span>1 つ以上の個別ファイル・システム</li>
+
+</ul>
+ <p><strong>lsfs</strong> コマンドは、
+<strong>-q</strong> フラグを指定すると、
+さらにジャーナル・ファイルシステム (JFS) の特性を表示します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit lsfs</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのファイルシステムをリストします (デフォルト)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>コロン・フォーマットで出力するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>リスト・フォーマットで出力するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>ジャーナル・ファイルシステム (JFS) または拡張ジャーナル・ファイルシステム (JFS2) について、そのファイルシステム・タイプに固有の追加特性を表示します。<p>指定以外の仮想ファイルシステム・タイプには、この情報は表示されません。 この情報は、<strong>lsfs</strong> コマンドにより報告される別のファイルシステム特性と共に表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> MountGroup</em></td>
+
+<td>指定したマウント・グループのすべてのファイルシステムについて報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> VfsType</em></td>
+
+<td>指定されたタイプのすべてのファイルシステムについて報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a> ファイル内のすべてのファイルシステムを表示するには、次のように入力します。<div> <div><div><pre><code>lsfs</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>vfs タイプのすべてのファイル・システムを表示します。jfs次のように入力します。<div>lsfs  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82982" target="_blank" rel="noopener noreferrer">-v</a> jfs</div>
+</li>
+
+<li><span></span>ルート・ファイルシステムのスーパーブロックに記録されているファイルシステム・サイズ、フラグメント・サイズ、圧縮アルゴリズム (ある場合)、および i ノード当たりのバイト数を表示するには、次のように入力します。<div>lsfs  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsfs.html#lsfs__row-d3e82963" target="_blank" rel="noopener noreferrer">-q</a> /</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

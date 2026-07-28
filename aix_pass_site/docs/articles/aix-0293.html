@@ -1,0 +1,114 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>別名とパスワードの矛盾を検索します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>競合</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/conflict.html#conflict__row-d3e126474" target="_blank" rel="noopener noreferrer"><strong>-メール</strong></a> <em>ユーザー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/conflict.html#conflict__row-d3e126488" target="_blank" rel="noopener noreferrer"><strong>-検索</strong></a> <em>ディレクトリー ... </em>] [ <em>ファイル ... </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>conflict</strong> コマンドは、無効なメール・ドロップと別名の矛盾を探します。 <strong>conflict</strong> コマンドは、ユーザーによって始動されるものではありません。 <strong>conflict</strong> コマンドは、
+<strong>cron</strong> デーモンやシステム・アカウントに使用される他のプログラムによって呼び出されます。 ただし、プログラムを呼び出すには、root ユーザー権限と、このコマンドの絶対パス名 <strong>/usr/lib/mh/conflict</strong> が必要です。</p>
+ <p><strong>conflict</strong> コマンドは、<strong>/etc/passwd</strong> ファイル内の有効ユーザーに対応しない名前のメールボックス・ファイルがないかどうか、指定されたメール・ドロップ・ディレクトリーを検索します。 また、同じアドレスに解決しない重複する別名がないかどうか、<em>File</em> パラメーターで指定された別名ファイルを検索します。 デフォルトでは、<strong>conflict</strong> コマンドは <strong>/etc/mh/MailAliases</strong>  ファイルを検索します。</p>
+ <p>また、<strong>conflict</strong> コマンドはグループ・ファイル (<strong>/etc/group</strong>) 内で、無効なユーザー名と有効なグループ番号を持たないユーザーのエントリーを検索します。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/conflict.html#conflict__row-d3e126474" target="_blank" rel="noopener noreferrer"><strong>-mail</strong></a> フラグを指定しない限り、コマンド出力はモニターに送られます。 <strong>-mail</strong> フラグを指定すると、コマンドは指定されたユーザーに出力を送信します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-mail</strong><em> ユーザー</em></td>
+
+<td><strong>conflict</strong> コマンドの実効結果を <em>User</em> 変数で指定されたユーザーに送ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-search</strong><em> ディレクトリー</em></td>
+
+<td><em>Directory</em> 変数で指定されたディレクトリーに無効なメールボックスがないかどうかを検索します。 <strong>-search</strong> フラグの必要な数だけ指定できます。 デフォルトのメールボックス・ディレクトリーは <strong>/var/spool/mail</strong> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/mh/MailAliases</strong></td>
+
+<td>デフォルトのメール別名ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザー・リストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>グループ・リストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/$USER</strong></td>
+
+<td>ユーザー <strong>$USER</strong> のメール・ドロップ。</td>
+
+</tr>
+
+<tr>
+<td><strong>/$HOME/</strong><strong>.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/mh/</strong><strong>トスタラ</strong></td>
+
+<td>MH コマンド定義が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,103 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p><span><span>/etc/filesystems</span></span> ファイルから CIFS マウントを除去し、マウントされている場合はエントリーをアンマウントします。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><span><span>rmcifsmnt</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmcifsmnt.html#rmcifsmnt__row-d3e155269" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> <span><span>MountPoint</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmcifsmnt.html#rmcifsmnt__row-d3e155259" target="_blank" rel="noopener noreferrer"><span><span>-B</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmcifsmnt.html#rmcifsmnt__row-d3e155278" target="_blank" rel="noopener noreferrer"><span><span>-N</span></span></a>]</p>
+</section>
+
+<section><h2>説明</h2>
+<p><span><span>rmcifsmnt</span></span> コマンドは、 <span><span>/etc/filesystems</span></span>から CIFS 項目を除去します。 項目がマウントされている場合、 <span><span>rmcifsmnt</span></span> コマンドはそれをアンマウントします。</p>
+</section>
+
+<section><h2>フラグ</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-B</span></span></td>
+
+<td>対応するエントリーを <span><span>/etc/filesystems</span></span> ファイルから除去し、ファイル・システムをアンマウントします。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-f</span></span> <span><span>MountPoint</span></span></td>
+
+<td>CIFS マウントのパス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-N</span></span></td>
+
+<td>ファイル・システムをアンマウントしますが、 <span><span>/etc/filesystems</span></span> ファイルから項目を除去しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li><span><span>/mnt</span></span> にマウントされている CIFS マウントを除去してアンマウントするには、次のように入力します。<div><div><pre><code>rmcifsmnt -f /mnt </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2>
+<p><span><span>/usr/sbin/rmcifsmnt</span></span></p>
+</section>
+
+<section><h2>ファイル</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/etc/filesystems</span></span></td>
+
+<td>CIFS エントリーを保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

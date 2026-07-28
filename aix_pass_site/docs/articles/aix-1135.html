@@ -1,0 +1,90 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>HP-GL ファイルをプロッター・デバイスにプロットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/lpd/plotlbe</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/plotlbe.html#plotlbe__row-d3e91846" target="_blank" rel="noopener noreferrer"><strong>-fr=</strong><em>X</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/plotlbe.html#plotlbe__row-d3e91866" target="_blank" rel="noopener noreferrer"><strong>-noin</strong></a> ] <em>ファイル</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>plotlbe</strong> コマンドは、TTY デバイスとして定義されるシリアル・ポートに接続したプロッターに HP-GL ファイルをプロットするバックエンド・プログラムです。 <strong>plotlbe</strong> コマンドを使用するには、シリアル・ポートの TTY デバイスを定義し、<strong>plotlbe</strong> バックエンド・プログラムの印刷キューを定義しなければなりません。</p>
+ <p>TTY シリアル・ポートを構成するときは、ボー・レート、パリティー、およびストップ・ビットをプロッターに適切に設定します。 また、XON/XOFF を以下のように設定する必要があります。FALSEご使用の TTY ポート用。</p>
+ <p><strong>plotlbe</strong> コマンドは、<strong>qdaemon</strong> プロセスによって呼び出されます。 このコマンドはコマンド・ラインに入力してはな
+りません。 プロッターに対する特定の印刷要求に必要なオプションは、印刷ジ
+ョブを要求するのに使うコマンド (通常は <strong>enq</strong> コマンド) とともに <strong>plotlbe</strong> コマンドに渡す必要があります。 <strong>enq</strong> コマンドの場合には、<strong>-o</strong> フラグを使用して、処理のためにオプションを <strong>plotlbe</strong> バックエンドに渡します。</p>
+ <p><strong>plotlbe</strong> バックエンド・コマンドは、以下のプロッターをサポートします。すなわち、7731、7372、
+7374、7375-1、7375-2、6180、6182、6184、6186-1、および 6186-2 です。</p>
+ <p><strong>plotlbe</strong> コマンドは、ENQ/ACK 初期接続手順をサポートします。 初期接続手順の詳細は、ユーザーのプロッター・プログラミング解説書を参照してください。</p>
+ <p><strong>plotlbe</strong> バックエンド・コマンドはプロッターの初期化とプロットのスケーリングのために適切な HP-GL コマンドも生成します。 このデータがプロッターへ送信されてから、ユーザー指定の HP-GL ファイルが送信されます。 つまり、HP-GL ファイルに含まれるスケーリングや初期化のコマンドは、<strong>plotlbe</strong> バックエンド・コマンドによって生成されるコマンドを無効にします。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> ユーザーは、印刷要求コマンドを使用して <strong>プロトルベ</strong> コマンドに送信されるファイルへの読み取りアクセス権を持っている必要があります。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-フレーム =</strong><em>X</em></td>
+
+<td>複数フレームの図面のプロットを提供します。 このオプションにより、 <em>X</em> 個のフレームがプロットされます。ここで、 <em>X</em> は 1 から 9 までの範囲の数値です。 例えば、E サイズのロール・メディアに 20 ' の描画をプロットするには、5 つのフレームが必要になる場合があります。 したがって、以下のオプションは、-fr=5<strong>プロトルベ</strong> バックエンドに渡されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノイン</strong></td>
+
+<td>デフォルト値にリセットしなくても、プロッターの正面パネル設定が現在のプロットにそのまま有効であるようにします。 通常、プロッターにプロット・ページを定義する P1 と P2 の位置は、
+<strong>plotlbe</strong> コマンドによってデフォルトの位置に設定されます。 <strong>-noin</strong> 初期化なしオプションを使用して、デフォルトの位置を無効にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルを送信するにはongaxis.gl:NONE.pltplotter キューを指定し、ファイルがプロットするために 5 つのフレームを必要とすることをバックエンドに指定するには、次のように入力します。<div> <div><div><pre><code>enq -Pplt -o -fr=5 longaxis.gl</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ファイルを送信するにはplotdata.gl:NONE.pltplotter キュー (このファイルのプロット・ページ位置をデフォルトにリセットしないことを指定する) には、次のように入力します。<div> <div><div><pre><code>enq -Pplt -o -noin plotdata.gl</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ファイルを送信するにはtwoplot.gl:NONE.pltプロット・ページの初期化を指定せず、プロッターが描画を 2 つのフレームに印刷するようにプロッター・キューに指定するには、次のように入力します。<div> <div><div><pre><code>enq -Pplt -o -noin -o fr=2 twoplot.gl</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lpd/plotlbe</strong></td>
+
+<td><strong>plotlbe</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

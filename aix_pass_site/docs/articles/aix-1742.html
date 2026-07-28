@@ -1,0 +1,237 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>現在ログインしているユーザーを識別します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>対象者</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19679" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> |<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19692" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19698" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19770" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19704" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19710" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19725" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19731" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19737" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19743" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19755" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19770" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19799" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19780" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19793" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19799" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19827" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong> </a>] [ <em>ファイル </em> ]</p>
+ <p><strong>ユーザー </strong>{ <strong>i </strong>| <strong>I </strong>}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>who</strong> コマンドは、ローカル・システム上のすべての現行ユーザーに関する情報を表示します。 表示される情報は、ログイン名、tty、ログインの日付と時間です。 Typingwho am iまたはwho am Iログイン名、tty、ログインした日時を表示します。 リモート・マシンからログインすると、そのコンピューターのホスト名も表示されます。</p>
+ <p><strong>who</strong> コマンドは、ログインしてからの経過時間、コマンド・インタープリター (シェル) のプロセス ID、
+ログイン、ログオフ、再始動、システム・クロックに対する変更、および初期化プロセスで生成された他のプロセスも表示できます。</p>
+ <p><strong>who</strong> コマンドの一般出力フォーマットは下記のとおりです。</p>
+ <div> <div><div><pre><code>Name [State] Line Time [Activity] [Pid] [Exit] (Hostname)</code></pre></div><div></div></div></div>
+ <p>ここで:</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td>Name </td>
+
+<td>ユーザーのログイン名を識別します。</td>
+</tr>
+<tr><td>State </td>
+<td>回線が全員によって書き込み可能かどうかを示します ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19799" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> フラグを参照)。</td>
+
+</tr>
+<tr><td>Line </td>
+<td><strong>/dev</strong> ディレクトリーで見つかった回線名を識別します。</td>
+
+</tr>
+<tr><td>Time </td>
+<td>ユーザーがログインした時刻を表します。</td>
+</tr>
+<tr><td>Activity </td>
+<td>ユーザー回線上で最後にアクティビティーが発生してからの時間 (時、分) を表します。 A (ドット) は、最後の 1 分以内の回線アクティビティーを示します。 回線から 24 時間を超えて信号が
+ないか、最後にシステムを始動してから一度も使用されていない場合には、このエントリーには old と印が付けられます。</td>
+</tr>
+<tr><td>Pid </td>
+
+<td>ユーザーのログイン・シェルのプロセス ID を識別します。</td>
+
+</tr>
+<tr><td>Term </td>
+<td>プロセス終了状況を識別します ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19698" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> フラグを参照)。 終了値の詳細については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_bostechref/wait_waitpid_wait3_wait364.html" target="_blank" rel="noopener noreferrer"><strong>wait</strong></a> サブルーチンまたは <strong>/usr/include/sys/signal.h</strong> ファイルを参照してください。</td>
+
+</tr>
+<tr><td>Exit </td>
+<td>終了したプロセスの終了状況を識別します ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19698" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> フラグを参照)。</td>
+</tr>
+
+<tr><td>Hostname </td>
+<td>ユーザーのログイン元のコンピューター名を示します。</td>
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>情報を入手するために、 <strong>who</strong> コマンドは通常、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/etc/utmp</strong></a> ファイルを調べます。 <em>File</em> パラメーターで別のファイルを指定した場合、<strong>who</strong> コマンドは代わりにそのファイルを調べます。 この新規ファイルは通常、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/var/adm/wtmp</strong></a> ファイルまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/failedlogin</strong></a> ファイルです。</p>
+ <p><em>File</em> パラメーターで複数のファイル名を指定すると、最後のファイル名のみが使用されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span></span>このコマンドは、ローカル・ノード上のユーザーのみを識別します。</div>
+        </div>
+      </div></div>
+</section>
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-a</strong></td>
+<td>すべての情報を含む <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/etc/utmp</strong></a> ファイルまたは指定されたファイルを処理します。 <strong>-bdlprtTu</strong> フラグを指定した場合と同じです。</td>
+
+</tr>
+<tr><td><strong>-b</strong></td>
+<td>最新のシステム始動時刻と日付を示します。</td>
+</tr>
+<tr><td><strong>-d</strong></td>
+<td>init で再生成されずに期限が切れてしまったすべてのプロセスを表示します。 非活動プロセスの終了フィールドが表示され、
+その中には非活動プロセスの打ち切り値および終了値 (wait によって戻される) が入っています。 (このフラグを使用すると、プロセスが終了した理由を、アプリケーションが戻すエラー番号で判別することができます。)</td>
+</tr>
+<tr><td><strong>-l</strong></td>
+<td>すべてのログイン・プロセスをリストします。</td>
+</tr>
+<tr><td><strong>-m</strong></td>
+
+<td>現行端末に関する情報のみを表示します。 <strong>who -m</strong> コマンドは、<strong>who am i</strong> コマンドおよび <strong>who am I</strong> コマンドと同じです。</td>
+</tr>
+<tr><td><strong>-p</strong></td>
+
+<td>現在アクティブで、以前 init によって生成されたアクティブ・プロセスをリストします。</td>
+</tr>
+<tr>
+<td><strong>-q</strong></td>
+<td>ユーザーの早見リストとローカル・システム上のユーザー数を出力します。</td>
+</tr>
+<tr><td><strong>-r</strong></td>
+
+<td>プロセスの現行実行レベルを示します。</td>
+</tr>
+
+<tr><td><strong>-s</strong></td>
+<td>名前、回線、および時間のフィールドだけをリストします。 このフラグはデフォルトです。したがって、<strong>who</strong> コマンドと <strong>who -s</strong> コマンドは同じです。</td>
+
+</tr>
+<tr><td><strong>-t</strong></td>
+<td><strong>date</strong> コマンドを使用して root ユーザーがシステム・クロックに対して最後に行った変更を示します。 システムのインストール後に <strong>date</strong> コマンドが実行されていなければ、<strong>who -t</strong> コマンドを実行しても出力は生成されません。</td>
+</tr>
+<tr><td><strong>-u</strong> または <strong>-i</strong></td>
+
+<td>各現行ユーザーのユーザー名、tty、ログイン時間、回線アクティビティー、およびプロセス ID を表示します。</td>
+</tr>
+<tr>
+<td><strong>-A</strong></td>
+<td><strong>/etc/utmp</strong> ファイル内のすべてのアカウント・エントリーを表示します。 これらのエントリーは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctwtmp.html" target="_blank" rel="noopener noreferrer"><strong>acctwtmp</strong></a> コマンドによって生成されます。</td>
+
+</tr>
+<tr><td><strong>-H</strong></td>
+<td>ヘッダー (タイトル) を表示します。</td>
+</tr>
+<tr><td><strong>-T</strong> または <strong>-w</strong></td>
+
+<td>tty の状態を表示し、その tty に書き込めるユーザーを下記のように示します。<dl><dt><strong>+</strong></dt>
+
+<dd>誰でも書き込み可能。</dd>
+<dt><strong>-</strong></dt>
+
+<dd>root ユーザーまたはそのオーナーのみ書き込み可能。</dd>
+
+<dt><strong>?</strong></dt>
+<dd>正しくない回線が検出された。</dd>
+
+</dl>
+</td>
+</tr>
+<tr><td><span><span>-X</span></span></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を印刷します。 また、ユーザー名は出力の最後の列に移動されます。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr>
+<td><strong>0</strong></td>
+<td>正常終了。</td>
+</tr>
+
+<tr><td><strong>&gt;0</strong></td>
+<td>エラーが発生しました。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section><h2>例</h2> <ol>
+<li>ローカル・システム・ノードを使用しているユーザーに関する情報を表示するには、下記のように入力します。<div><div><pre><code>who</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>pts/1      Nov  9 00:20   long_username_greater_than_eight_characters  (localhost)
+</code></pre></div><div></div></div></li>
+<li>ユーザー名を表示するには、以下のように入力します。<div> <div><div><pre><code>who am i</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>george lft/0 Jun 8 08:34</code></pre></div><div></div></div></div>
+</li>
+
+<li>ログイン、ログアウト、システム始動、およびシステム・シャットダウンのヒストリーを表示するには、下記のように入力します。<div> <div><div><pre><code>who /var/adm/wtmp</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>hank   lft/0   Jun   8   08:34  (ausnix5)
+john   lft/0   Jun   8   08:34  (JIKey)
+mary   lft/0   Jun   8   08:22  (machine.austin.ibm)
+jan    pts4    Jun   8   09:19  (puff.wisc.edu)</code></pre></div><div></div></div></div>
+</li>
+<li>ローカル・システム・ノードの実行レベルを表示するには、次のように入力します。<div>who  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19737" target="_blank" rel="noopener noreferrer">-r</a></div>次のような情報が表示されます。<div> <div><div><pre><code>. run-level 2 Jun 8 04:15 2 0 s</code></pre></div><div></div></div></div>
+</li>
+
+<li>現在アクティブで、以前 init によって生成されたアクティブ・プロセスを表示するには、下記のように入力します。<div>who  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19725" target="_blank" rel="noopener noreferrer">-p</a></div>次のような情報が表示されます。<div> <div><div><pre><code>srcmstr   .    Jun 8  04:15  old  2896
+cron      .    Jun 8  04:15  old  4809
+uprintfd  .    Jun 8  04:15  old  5158</code></pre></div><div></div></div></div>
+</li>
+<li><strong>-bdlprtTu</strong> フラグを指定して <strong>/var/adm/wtmp</strong> ファイルを処理するには、下記のように入力します。<div>who  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/who.html#who__row-d3e19679" target="_blank" rel="noopener noreferrer">-a </a>/var/adm/wtmp</div>次のような情報が表示されます。<div> <div><div><pre><code>
+   .        system boot Jun 19 10:13        
+   .        run-level 2 Jun 19 10:13        
+   .            .       Jun 19 10:14    old 
+   .            .       Jun 19 10:14    old 
+   .            .       Jun 19 10:14    old 
+rc        -     .       Jun 19 10:13    old 
+   .            .       Jun 19 10:16    old 
+   .            .       Jun 19 10:14    old 
+srcmstr   -     .       Jun 19 10:14    old 
+rctcpip   -     .       Jun 19 10:14    old 
+rcdce     -     .       Jun 19 10:14    old 
+rccm      -     .       Jun 19 10:15    old 
+dceupdt   -     .       Jun 19 10:15    old 
+rcnfs     -     .       Jun 19 10:15    old 
+cron      -     .       Jun 19 10:16    old 
+piobe     -     .       Jun 19 10:16    old 
+qdaemon   -     .       Jun 19 10:16    old 
+writesrv  -     .       Jun 19 10:16    old 
+uprintfd  -     .       Jun 19 10:16    old 
+   .            .       Jun 19 10:16    old 
+LOGIN     - lft0        Jun 19 10:16    old 
+   .            .       Jun 19 10:16    old 
+   .            .       Jun 19 10:16    old </code></pre></div><div></div></div></div>
+</li>
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/etc/utmp</strong></a></td>
+
+<td>ユーザーとアカウントの情報が入っています。</td>
+</tr>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/failedlogin</strong></a></td>
+
+<td>すべての無効ログインのヒストリーが入っています。</td>
+</tr>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/utmp.html" target="_blank" rel="noopener noreferrer"><strong>/var/adm/wtmp</strong></a></td>
+
+<td>ファイルが最後に作成されてからのすべてのログインのヒストリーが入っています。</td>
+</tr>
+<tr><td><strong>/usr/include/sys/signal.h</strong></td>
+
+<td>終了値のリストが入っています。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+</div></div>

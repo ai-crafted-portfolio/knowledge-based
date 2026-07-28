@@ -1,0 +1,51 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>SCCS のメッセージまたはコマンドに関する情報を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>sccshelp</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccshelp.html#sccshelp__f9facf6812mart" target="_blank" rel="noopener noreferrer"><em>ErrorCode </em></a>] [ <em>コマンド </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>sccshelp</strong> コマンドは、指定したソース・コード制御システム (SCCS) コマンドの使用、またはコマンドの使用中に生成されるメッセージに関する情報を表示します。 各メッセージには関連コードが付けられ、このコードを引数の一部として<strong> sccshelp</strong> コマンドに提供できます。 ゼロ以上の引数を渡せます。 引数を与えないと、<strong>sccshelp</strong> コマンドは引数を求めるプロンプトを表示します。 <strong>sccshelp</strong> コマンドに対する引数として、SCCS コマンドのいずれかを使用できます。</p>
+ <p><em>ErrorCode</em> パラメーターは、数字と文字で構成されたコードを指定します。
+このコードは、メッセージの終わりに表示されます。 例えば、以下のメッセージでは、(cm7) これは、次のコードです。</p>
+ <div> <div><div><pre><code>There are no SCCS identification keywords in the file. (cm7)</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>例</h2> <p><strong>rmdel</strong> コマンドおよび 2 つのエラー・コードに関して <strong>sccshelp</strong> を取得するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>$ sccshelp rmdel gee ad3</code></pre></div><div></div></div></div>
+ <p><strong>sccshelp</strong> コマンドは、以下のように応答します。</p>
+ <div> <div><div><pre><code>rmdel:
+rmdel -r&lt;SID&gt; &lt;file&gt; ...
+ERROR: 
+1255-141 gee is not a valid parameter. Specify a valid command or error code.
+ad3:
+The header flag you specified is not recognized.
+The header flag you supplied with the -d or the -f flag is not correct.
+Choose a valid header flag.</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/sccshelp</strong></td>
+
+<td>SCCS<strong> sccshelp</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

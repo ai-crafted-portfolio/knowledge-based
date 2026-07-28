@@ -1,0 +1,156 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムからパッケージまたはセットを除去します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>インストール済みソフトウェア・パッケージを削除するには</dt>
+
+<dd><div><div><pre><code>pkgrm [ -n] [ -a Admin] [-P Path ] [ Pkginst1 [ Pkginst2 [. . .]]]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>スプール・デバイスからソフトウェア・パッケージを削除するには</dt>
+
+<dd><div><div><pre><code>pkgrm -s Spool [ Pkginst]</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><span>pkgrm</span> 以前にインストールされたパッケージまたは部分的にインストールされたパッケージまたはセットをシステムから削除します。 パッケージは、個別にインストールできる、関連するファイルおよび実行可能ファイルの集合です。 セットはセット・インストール・パッケージ (SIP) と呼ばれる特殊目的のパッケージと、
+そのセットのメンバーである 1 つまたは複数のパッケージのコレクションからなります。</p>
+ <p><span>pkgrm</span> は、コマンド・ラインにリストされたすべてのパッケージが
+システムに含まれているかどうかを検査します。 リストされているパッケージのいずれかが存在しない場合、システムに対する変更は行われません。つまり、リストされているパッケージはいずれも削除されません。</p>
+ <p>また、除去されるパッケージに他のパッケージが依存しているかどうかを判別するための検査も行われます。 依存関係が存在する場合に実行されるアクションは、 Admin ファイルで定義されます ( <span>-a</span> フラグを参照)。</p>
+ <p>このコマンドのデフォルト状態は対話モードです。このモードでは、
+行われるアクションを管理者が確認できるように、処理中にプロンプト・メッセージが出されます。 <span>-n</span> フラグを使用すると、非対話式モードを要求することができます。</p>
+ <p><span>-s</span> フラグを使用すると、スプールされたパッケージを除去するディレクトリーを
+指定できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-n</span></td>
+
+<td>非対話式モードを使用可能にします。 対話の必要がある場合には、このコマンドは終了します。 このフラグを使用するためには、コマンドを起動するときに少なくとも 1 つは
+パッケージ・インスタンスを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span> 管理者</td>
+
+<td>デフォルトの管理ファイルの代わりに使用される、
+インストール先の管理ファイル Admin を定義します。 [ Admin ファイルの形式の説明については、 <code>admin</code> ファイルの形式を参照してください。] "none" というトークンを指定すると、admin ファイルの使用がオーバーライドされ、
+ユーザーとの対話が強制されます。 絶対パス名を指定しない限り、<span>pkgrm</span> は <span>/var/sadm/install/admin</span> ディレクトリー
+からファイルを探します。 デフォルトでは、そのディレクトリー内のファイル <code>default</code> が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> パス</td>
+
+<td>指定されたパッケージを、代替ルート・ディレクトリー・パスから除去します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> スプール</td>
+
+<td>指定された 1 つ以上のパッケージをディレクトリー Spoolから除去します。</td>
+
+</tr>
+
+<tr>
+<td>プッギンスト</td>
+
+<td>パッケージまたはセット名の省略形を指定するために使用される短ストリングを定義します。 ( <code>package instance</code> という用語は大まかに使用されます。インスタンス ID が含まれていないものも含め、 Pkginstのすべてのインスタンス化を指します。)<p>Pkginst で SIP が指定されている場合、セットのメンバーであるすべてのインストール済みパッケージと SIP 自体が、依存関係の逆順で削除されます。</p>
+
+<p>パッケージのすべてのインスタンスを示すには、「Pkginst<code>.*</code>」を指定し、示されているようにコマンド行を単一引用符で囲み、シェルが <code>"*"</code> 文字を解釈しないようにします。 ソース・メディアで使用可能なすべてのパッケージを参照するには、"all" というトークン
+を使用してください。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><caption><span>表 2. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>スクリプトの正常終了です。</td>
+
+</tr>
+
+<tr>
+<td><span>1</span></td>
+
+<td>致命的なエラーです。 インストール・プロセスは終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>99</span></td>
+
+<td>内部エラー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/pkgrm</span></td>
+
+<td><span>pkgrm</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

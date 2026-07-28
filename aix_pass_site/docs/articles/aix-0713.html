@@ -1,0 +1,59 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>link</strong> サブルーチンを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>リンク</strong><em> File1 File2</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>link</strong> コマンドは、指定されたファイルに <strong>link</strong> サブルーチンを実行します。 関連するサブルーチンが失敗に終わっても、<strong>link</strong> コマンドはエラー・メッセージを発行しません。
+ユーザーは終了値を調べてコマンドが正常に完了したかどうか確認しなければなりません。 このコマンドは、成功した場合は値 0 を、
+指定するパラメーターが少なすぎるかまたは多すぎる場合には値 1 を、
+システム・コールが失敗した場合は値 2 を戻します。</p>
+ <div><blockquote><span>“</span><strong>注意:</strong> <strong>link</strong> コマンドは、root ユーザーの権限を持つユーザーが、ディレクトリー全体をディレクトリー・ツリーの別の部分に移動するなどの特別な問題を扱えるようにします。 また、ユーザーは、到達できないディレクトリー、
+またはそこからエスケープできないディレクトリーを作成することもできます。 次の規則に従って、ディレクトリー構造を注意して保存してください。<ul>
+<li><span></span>すべてのディレクトリーに「.」があることを確認してください。 (ドット) が 1 つあることを確認する。</li>
+
+<li><span></span>すべてのディレクトリーに .. があることを確認してください。 (ドット・ドット) その親ディレクトリーにリンクします。</li>
+
+<li><span></span>各ディレクトリーには、それ自体またはその親ディレクトリーへのリンクが 1 つしかないことを確認してください。</li>
+
+<li><span></span>すべてのディレクトリーがそのファイル・システムのルートからアクセス可能であることを確認してください。</li>
+
+</ul>
+<span>”</span></blockquote>
+</div>
+ <p></p><blockquote><span>“</span><strong>注:</strong> .. (ドット) 項目が破棄され、 <strong>fsck</strong> コマンドがその項目を修復できない (まれに発生します) 場合は、 <strong>link</strong> コマンドを使用して復元することができます。 損傷したディレクトリーの (ドット) 項目。 <strong> リンク</strong><em> Dir</em><em> Dir/</em>を使用します。 ここで、 <em>Dir</em> パラメーターは、損傷したディレクトリーの名前です。 しかし、この方法はディレクトリーが破壊され、<strong>fsck</strong> コマンドがそれを修復できないときに最後の手段としてだけ使ってください。<span>”</span></blockquote>
+<p></p>
+ <p>リンクしているファイルやディレクトリーを <strong>unlink</strong> コマンドによって除去することもできますが、
+<strong>rm</strong> コマンドか <strong>rmdir</strong> コマンドを使用する方が安全です。</p>
+</section>
+
+<section><h2>例</h2> <p>既存のリンクの追加リンクを作成するにはfile1次のように入力します。</p>
+ <div> <div><div><pre><code>link file1 file2</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/link</strong></td>
+
+<td><strong>link</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

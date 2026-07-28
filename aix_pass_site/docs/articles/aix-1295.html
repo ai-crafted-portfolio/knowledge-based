@@ -1,0 +1,85 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>分散 Common Criteria を使用可能にしたシステム・ホストの構成ファイルを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmCCadmin</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmCCadmin.html#rmCCadmin__row-d3e154403" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmCCadmin</strong> コマンドは、Common
+Criteria 使用可能システムのシンボリック・リンクを実際のファイルで置き換えます。 ディレクトリー <strong>/etc/data.shared</strong> は除去されます。 <strong>-m</strong> フラグを使用すると、<strong>hd10sec</strong> ファイルシステムおよび <strong>/etc/data.master</strong> ディレクトリーも除去されます。 このオプションは、Common Criteria 使用可能システム内の他のすべてのホストが
+管理ホストを別のシステムで置き換えた場合、または Common Criteria 使用可能
+構成ファイルも除去した場合、その後でのみ使用すべきです。</p>
+ <p><strong>/etc/inittab</strong> 内のシステム初期化スクリプトのエントリーも除去され、
+このシステムをリブートすると、Common Criteria 使用可能モード用に構成されていないシステムになります。</p>
+ <p>このコマンドをマルチユーザー・モードで実行すると、
+Common Criteria 使用可能システムからのユーザー定義は保存されます。 このコマンドをシングルユーザー・モードで実行すると、
+Common Criteria 使用可能システムからのユーザー定義は除去され、
+root ユーザーのみが有効なユーザー ID になります。</p>
+ <p>このコマンドを実行した後は直ちにシステムをリブートし、変更を有効にする必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ホストは管理マスターとして構成されました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>Common Criteria 使用可能システム管理ホスト情報は、正常に除去されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>システムは Common Criteria 使用可能モードで操作するように構成されていませんでした。</dd>
+
+
+<dt>2</dt>
+
+<dd>システムのインストールで Common Criteria 使用可能オプションが使用されませんでした。</dd>
+
+
+<dt>3</dt>
+
+<dd>Common Criteria 使用可能システム管理ホスト情報の除去でエラーが起こりました。</dd>
+
+
+<dt>4</dt>
+
+<dd>無効なコマンド・ライン・オプションが使用されました。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/rmCCadmin</strong></td>
+
+<td><strong>rmCCadmin</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

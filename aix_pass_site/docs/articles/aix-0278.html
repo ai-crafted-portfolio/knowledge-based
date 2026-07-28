@@ -1,0 +1,100 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザー・セッションを開始するか、 <span>ワークロード・パーティション</span>内でコマンドを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>clogin </strong> <em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/clogin.html#clogin__row-d3e121115" target="_blank" rel="noopener noreferrer">WparName</a></em> [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/clogin.html#clogin__row-d3e121123" target="_blank" rel="noopener noreferrer">-l</a></strong> <em>User</em>] [ <em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/clogin.html#clogin__row-d3e121143" target="_blank" rel="noopener noreferrer">command</a> </em> [ <em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/clogin.html#clogin__row-d3e121151" target="_blank" rel="noopener noreferrer">args</a></em> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>clogin</strong> コマンドは、root ユーザーがログインしたり、 <span>ワークロード・パーティション</span>内でコマンドを実行したりするためのメカニズムを提供します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>clogin</strong> コマンドを実行すると、特にマルチバイト・ロケールで実行する場合に、一部のプログラムが正しく機能しないことがあります。 <strong>clogin</strong> コマンドは、緊急のシステム保守にのみ使用してください。</div>
+        </div>
+      </div></div>
+<p><strong>-l</strong> フラグを指定すると、 <span>ワークロード・パーティション</span>の <em>User</em> パラメーターを使用して指定したユーザーがセッションを開始したかのように、セッションが開始されます。 続けてコマンドが指定された場合、そのコマンドは、
+<em>User</em> 関連のログイン・シェルへのパラメーターとして起動された場合と同じように、実行されます。 <strong>clogin</strong> コマンドは <strong>su</strong> コマンドと似た操作を行うため、
+<strong>su</strong> コマンド関連の機能はすべて <strong>clogin</strong> コマンドに適用できます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> セッションが開始される疑似端末はグローバル環境に属しますが、端末で実行されるログイン・シェルは <span>ワークロード区画</span>に属します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>WparName</em></td>
+
+<td>ログイン先となる <span>ワークロード・パーティション</span> の名前。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ユーザー</em></td>
+
+<td><span>ワークロード・パーティション</span>にログインするためのユーザー名を指定します。 デフォルトは root です。 <em>command</em> パラメーターを指定する場合は、
+<strong>-l</strong> フラグと <em>User</em> パラメーターの両方を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><em>command</em></td>
+
+<td><span>ワークロード・パーティション</span>内で実行するコマンドを指定します。 このコマンドは、ユーザー関連のログイン・シェルへのパラメーターとして実行されます。</td>
+
+</tr>
+
+<tr>
+<td><em>args</em></td>
+
+<td><em>command</em> パラメーターで指定されたコマンドを実行する際に使用するオプション・パラメーターを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>アクセス制御</td>
+
+<td>root ユーザーのみがこのコマンドを実行できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>bucko</strong> という名前の <span>ワークロード・パーティション</span> にユーザー <strong>dan</strong>としてログインするには、次のコマンドを入力します。<div><div><pre><code>clogin bucko -l dan</code></pre></div><div></div></div></li>
+
+<li><strong>howdy</strong>という名前の <span>ワークロード・パーティション</span> で <strong>-T 1</strong> オプションをユーザー root として指定して <strong>/usr/bin/ps</strong> コマンドを実行するには、次のコマンドを入力します。<div><div><pre><code>clogin howdy -l root /usr/bin/ps -T 1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

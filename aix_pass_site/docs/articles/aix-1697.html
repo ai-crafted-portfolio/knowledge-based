@@ -1,0 +1,120 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル・システムにアクセスできる他のシステムに関する情報を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uuname</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuname.html#uuname__row-d3e159689" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuname.html#uuname__row-d3e159726" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uuname</strong> コマンドは、
+ローカル・システムにネットワーク化されたすべてのコンピューターのリストを表示する基本ネットワーク・ユーティリティー (BNU) コマンドです。 このアクセス可能システムのリストは、ローカル端末の画面に表示されます。</p>
+ <p>ローカル・システムが BNU によってリモート・システムと通信するには、
+以下のようにリスト・システムの条件が整っていなくてはなりません。</p>
+ <ul>
+<li><span></span>UNIX ベースのオペレーティング・システムを使用している。</li>
+
+<li><span></span>ローカル・システムに接続されている。 (電話回線が接続メディアとして使用できます)。</li>
+
+</ul>
+ <p>BNUは、ワークステーションとUNIX以外のオペレーティング・システムとの間の通信に使用できるが、そのような通信には追加のハードウェアやソフトウェアが必要になる場合がある。 BNU コマンドでアクセスできるリモート・システムは、BNU プログラムがインストールされ、BNU の <strong>Systems</strong> ファイル (デフォルトでは <strong>/etc/uucp/Systems</strong> ファイル、あるいは <strong>/etc/uucp/Sysfiles</strong> ファイル内に指定された 1 つ以上のファイル) にリストされていれば識別されます。</p>
+ <p><strong>uuto</strong> コマンドまたは <strong>uucp</strong> コマンドを使用して別のシステムにファイルをコピーする場合には、
+その前に <strong>uuname</strong> コマンドを発行してリモート・システムの正確な名前を確認してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>cu の Systems</strong>  ファイル (<strong>/etc/uucp/Sysfiles</strong> ファイルによって構成されたファイル) に入っているシステム名のみを表示します。 このフラグを省略すると、<strong>uucico の Systems</strong> ファイル (同じく <strong>/etc/uucp/Sysfiles</strong> ファイルによって構成されたファイル) に入っているシステムの名前が表示されます。 <strong>/etc/uucp/Sysfiles</strong> ファイルを使用して <strong>cu</strong> と <strong>uucico</strong> の構成を別個の <strong>Systems</strong> ファイルに分割しなければ、
+<strong>-c</strong>  フラグに関係なく <strong>/etc/uucp/Systems</strong> 内にリストされているすべてのシステムの名前が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>ローカル・システムの名前を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ローカル・システムに接続されているリモート・システムを識別するには、次のように入力します。<div> <div><div><pre><code>uuname</code></pre></div><div></div></div>システムは以下のようなリストを応答として表示します。<div><div><pre><code>arthur
+hera
+merlin
+zeus</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ローカル・システムの名前を識別するには、次のように入力します。<div>uuname  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuname.html#uuname__row-d3e159726" target="_blank" rel="noopener noreferrer">-l</a></div>システムは、以下のように応答します。<div> <div><div><pre><code>nostromo</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uuname</strong></td>
+
+<td><strong>uuname</strong> コマンドのパス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Systems</strong></td>
+
+<td>アクセス可能なリモート・システムが登録されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Sysfiles</strong><strong></strong></td>
+
+<td><strong>Systems</strong> ファイルとして使用する代替ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp</strong></td>
+
+<td>BNU 管理ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucppublic</strong></td>
+
+<td>転送待ちの BNU ファイルが入っています (公開ディレクトリー)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

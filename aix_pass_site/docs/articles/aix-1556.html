@@ -1,0 +1,621 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムのセキュリティーの状態を監査します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>検査モード</strong></p>
+ <p><strong>tcbck</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77874" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77886" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77892" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77898" target="_blank" rel="noopener noreferrer"><strong>-y </strong></a>} [ <strong>-i</strong> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77880" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a>] { <strong>ALL</strong> | <strong>tree</strong> | { <em>Name</em> ... <em>Class</em> ... } }</p>
+<p><strong>更新モード</strong></p>
+ <p><strong>tcbck</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77821" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77839" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>File</em> | <em>PathName Attribute</em><strong> =</strong><em> Value ...</em></p>
+ <p>または</p>
+ <p><strong>Tcbck</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77830" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77839" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em>ファイル</em> | { <em>パス名</em> ... | <em>クラス</em> ... }</p>
+ <p>または</p>
+ <p><strong>tcbck</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__row-d3e77862" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> /dev/<em>filename</em> /dev/<em>filename</em></p>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<dl>
+<dt>0</dt>
+
+<dd>ユーザー定義ファイルは適切です。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。または 1 つ以上のユーザー定義ファイルにエラーが発生しています。</dd>
+
+</dl>
+</div>
+ <div>以下のエラー・コードが戻されます。<dl>
+
+<dt>EINVAL (22)</dt>
+
+<dd>無効なコマンド・ライン引数</dd>
+
+
+<dt>ENOENT (2)</dt>
+
+<dd>1 つ以上のユーザー定義ファイルが存在しない</dd>
+
+
+<dt>ENTRUST (114)</dt>
+
+<dd>データベース・ファイル内のユーザー定義でのエラー</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><strong>tcbck</strong> コマンドは、<strong> /etc/security/sysck.cfg</strong> ファイルに定義されているファイルのインストールを検査することによって、システムのセキュリティー状態を監査します。sysckデータベース)。 <strong> /etc/security/sysck.cfg</strong> ファイル内の各ファイル定義には、正しいインストールを記述する属性を 1 つ以上入れることができます。 フラグやパラメーターを指定しないで起動すると、<strong> tcbck</strong> コマンドは、その構文の一覧表を出力します。</p>
+ <p>このtcbckデータベースは通常、トラステッド・コンピューティング・ベースの一部であるすべてのファイルおよびプログラムを定義しますが、root ユーザーまたはセキュリティー・グループのメンバーは、セキュリティー関連と見なされるファイルのみを定義することを選択できます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span></span>このコマンドは、そのメッセージを <strong>stderr</strong>に書き込みます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>以下のファイル定義を追加または更新します。sysckdatabase.</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>以下からファイル定義を削除します。sysckdatabase.</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>ファイル定義が <em>File</em> から読み取られるよう指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td><strong>tree</strong> オプションが指定されているときに、
+<strong>treeck_nodir</strong> 属性にリストされているディレクトリー下にあるファイルシステムを削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>(小文字の L) 管理者がトラステッド・コンピューティング・ベースで登録する <strong>/dev/</strong> ファイル用の <strong>sysck.cfg</strong> ファイルにエントリーを追加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>検査モードを指定し、エラーを報告するが修正はしないよう指示します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>syslog に出力を書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>検査モードを指定し、エラーを修正するが報告はしないよう指示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>検査モードを指定し、エラーを修正するかどうかを尋ねるプロンプトとともにエラーを報告するよう指示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>検査モードを指定し、エラーを修正しかつ報告するよう指示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>操作のモード</h2> <p><strong>tcbck</strong> コマンドには、検査モードと更新モードの、2 つの操作モードがあります。 各モードの説明は以下のとおりです。</p>
+<p><strong>検査モード</strong></p>
+ <p>検査モードでは、<strong>tcbck</strong> コマンドがインストールされたファイルに対してファイル定義を検査します。 以下の場所にあるすべてのファイル定義を確認できます。sysck<strong>ALL</strong> 値を指定してデータベース ( <strong>/etc/security/sysck.cfg</strong> ファイル) を指定するか、 <strong>tree</strong> 値を指定してファイル・システム・ツリー内のすべてのファイルを指定します。 特定のファイルを検査したい場合、<em>Name</em> パラメーターを使用して個々のファイルのパス名を指定するか、または <em>Class</em> パラメーターを使用して、複数のファイルを、監査などのようにクラス名で定義されている論理グループにグループ化することができます。 <strong>ALL</strong> または <strong>tree</strong> 値、あるいは <em>Class</em> または <em>Name</em> パラメーターによって識別される 1 つ以上のファイルのうちの 1 つを選択しなければなりません。</p>
+ <p><strong>tree</strong> 値が選択基準である場合、ファイル・システム・ツリー内のすべてのファイルが検査され、関連するすべてのファイルが以下の場所に定義されていることが確認されます。sysckdatabase. 定義されているファイルtcbckデータベースは、その定義に照らして検査されます。 次の場所にないファイル:tcbckデータベースは、以下の <em>いずれでもない</em></p>
+ <ul>
+<li><span></span> <strong>トラステッド・コンピューティング・ベース</strong> 属性が設定されていること。</li>
+
+<li><span></span> <strong>setuid</strong> または <strong>setgid</strong> を管理 ID にする。</li>
+
+<li><span></span>以下の場所にあるファイルにリンクするtcbckdatabase.</li>
+
+<li><span></span>装置特殊ファイルでなければなりません。</li>
+
+</ul>
+ <p><strong>tree</strong> 値と <strong>-t</strong> フラグを指定して、検査モードで <strong>tcbck</strong> コマンドを実行中にエラーが発生した場合、コマンドはエラー・メッセージを表示して、エラーを修正するかしないか、またはどのように修正するかを決定するようプロンプトを表示します。 そのファイルを削除しないか、または不正許可をオフにしないよう決定すると、そのデータベースを更新するかどうかのプロンプトが表示されます。 更新を要求すると、システムは、そのファイル名、リンク、または登録されていないデバイス名などの不足している情報を提供します。</p>
+ <p>検査モードを指定し、エラーの処理方法を識別するためには、フラグ (<strong>-n</strong>、<strong>-p</strong>、<strong>-t</strong>、<strong>-y</strong>) も同様に入れなければなりません。 <strong>/etc/security/sysck.cfg</strong> ファイル内に重複するスタンザがあると、エラーが報告されますが、修正はされません。</p>
+ <p>重要プロダクト・データベース (VPD) の更新とは、VPD マネージャーに対して各ファイルの <strong>type</strong>、<strong>checksum</strong>、および <strong>size</strong> 属性を定義することです。 この情報は正しいインストールを検査するために使用されます。 これらの属性が <strong>-f</strong> <em>File</em> に定義されていないと、それらはプログラムのインストール時、または更新時に計算されます。 <strong>checksum</strong> 属性は、VPD マネージャー用に特に定義された方法で計算されます。 ファイル属性について詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__fixerrors" target="_blank" rel="noopener noreferrer">エラーの修正</a> を参照してください。</p>
+ <p>更新時に修正されるファイル定義は、ファイルがトラステッド・コンピューティング・ベース (TCB) の一部であることを示す新しい定義だけです。 <em>File</em> パラメーターは、<strong>tcbck</strong> フォーマットのファイル定義を含み <strong>/etc/security/sysck.cfg</strong> ファイル内に定義されるスタンザ・ファイルです。 更新を終了すると、スタンザ・ファイル内のファイル定義に対してファイルを検査し、エラーを修正して報告します。</p>
+ <p><strong>setuid</strong> または <strong>setgid</strong> 特権を必要とするプログラムは、tcbck<strong>tcbck</strong> コマンドがチェック・モードで実行されると、データベースまたはこれらの特権はクリアされます。</p>
+<p><strong>更新モード</strong></p>
+ <p>更新モードでは、<strong>tcbck</strong> コマンドは、<em>File</em> パラメーター、<em>PathName</em> パラメーター、または <em>Class</em> パラメーターによって指定されたファイルについて、<strong>/etc/security/sysck.cfg</strong> ファイル内のファイル定義を追加 (<strong>-a</strong>)、削除 (<strong>-d</strong>)、または変更します。 <em>Class</em> パラメーターにより、複数のファイルを、監査などのようにクラス名で定義される論理グループにグループ化できます。 さらに、<strong>tcbck</strong> コマンドは、<strong>/etc/security/sysck.cfg</strong> ファイルから指定したスタンザを削除します。</p>
+ <p>更新モードでは、<strong>tcbck</strong> コマンド (<strong>-l</strong>) は、<strong>/etc/security/sysck.cfg</strong> ファイル内の指定した <strong>/dev</strong> エントリーに <strong>/dev/</strong> エントリー・ファイル定義を追加または修正します。 管理者はこのフラグを実行して <strong>sysck.cfg</strong> ファイルに、登録された新規作成デバイスを追加します。 新規デバイスが <strong>sysck.cfg</strong> ファイルに追加されていないと、ツリー・オプションは未登録デバイスについて警告を発します。</p>
+ <p><strong>-l</strong> フラグは、コマンド・ライン上にリストされたそれぞれの <strong>/dev/</strong> エントリー用にスタンザを作成します。 スタンザの情報は、<strong>/dev</strong> エントリーの現行状況から取り込まれます。 スタンザには以下のものが入っています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>デバイス名</div></th>
+
+<th><div>/dev/ エントリー名</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ファイルの種類</td>
+
+<td><strong>FILE</strong>、<strong>DIRECTORY</strong>、<strong>FIFO</strong>、<strong>SYMLINK</strong>、<strong>BLK_DEV</strong>、<strong>CHAR_DEV</strong>、<strong>MPX_DEV</strong> のいずれか。</td>
+
+</tr>
+
+<tr>
+<td>オーナー ID</td>
+
+<td>オーナー名</td>
+
+</tr>
+
+<tr>
+<td>グループ ID</td>
+
+<td>グループ名</td>
+
+</tr>
+
+<tr>
+<td>Permissions</td>
+
+<td>オーナー、グループ、その他の書き込み許可、読み込み許可、実行許可。 <strong>
+SUID</strong>、<strong>SGID</strong>、<strong>SVTX</strong> および <strong>TCB</strong> 属性ビット。</td>
+
+</tr>
+
+<tr>
+<td>ターゲット</td>
+
+<td>ファイルがシンボリック・リンクの場合、ターゲット・ファイルがリストされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>-a</strong> フラグで追加、または修正されるファイル定義は、コマンド・ラインまたはファイル内に <em>Attribute</em><strong>=</strong><em>Value</em> ステートメントとして指定することができます。 以下の属性が使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>acl</strong></td>
+
+<td>ファイル用のアクセス制御リスト。 値が<strong>ブランク</strong>の場合は、<strong>acl</strong> 属性は除去されます。 値を指定しないと、コマンドはアクセス制御リストで説明されているフォーマットに従って値を計算します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CLASS</strong></td>
+
+<td>ファイルの論理グループ。 値は、計算できないので、指定しなければなりません。 値が<strong>ブランク</strong>の場合は、<strong>class</strong> 属性は指定されたファイル・スタンザから除去されます。 値は <em>ClassName</em> [<em>ClassName</em>] です。</td>
+
+</tr>
+
+<tr>
+<td><strong>チェックサム</strong></td>
+
+<td>ファイルのチェックサム。 値が<strong>ブランク</strong>の場合は、<strong>checksum</strong> 属性は除去されます。 値を指定しないと、コマンドは <strong>sum</strong> コマンドで指定されたフォーマットに従って計算します。 値は、スペースを含む <strong>sum -r</strong> コマンドの出力です。</td>
+
+</tr>
+
+<tr>
+<td><strong>group</strong></td>
+
+<td>ファイル・グループ。 値が<strong>ブランク</strong>の場合は、<strong>group</strong> 属性は除去されます。 値を指定しないと、コマンドは値を計算し、それがグループ ID またはグループ名になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>リンク</strong></td>
+
+<td>このファイルに対するハード・リンク。 値が<strong>ブランク</strong>の場合は、<strong>links</strong> 属性は除去されます。 値は、計算できないので、指定しなければなりません。 値は、<em>Path</em> [,<em>Path</em> ...] で表される絶対パス名でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>モード</strong></td>
+
+<td>ファイル・モード。 値が<strong>ブランク</strong>の場合は、<strong>mode</strong> 属性は除去されます。 値を指定しないと、コマンドは値を計算し、それは 8 進数値または文字列 (<em>rwx</em>) となり、さらに <strong>tcb</strong>、<strong>SUID</strong>、<strong>SGID</strong> および <strong>SVTX</strong> 属性を持ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>owner</strong></td>
+
+<td>ファイルのオーナー。 値が<strong>ブランク</strong>の場合は、<strong>owner</strong> 属性は除去されます。 値を指定しないと、コマンドは値を計算しますが、
+それは、ユーザー ID またはユーザー名になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>プログラム</strong></td>
+
+<td>ファイル用の関連検査プログラム。 値が<strong>ブランク</strong>の場合は、<strong>program</strong> 属性は除去されます。 値は、計算できないので、指定しなければなりません。 値は絶対パス名でなければなりません。 フラグを指定すると、値は <em>Path</em> ,<em>Flag</em> のフォーマットで表さなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>symlinks</strong></td>
+
+<td>ファイルに対するシンボリック・リンク。 値が<strong>ブランク</strong>の場合は、<strong>symlinks</strong> 属性は除去されます。 値は、計算できないので、指定しなければなりません。 値は、<em>Path</em> [,<em>Path</em>..] で表される絶対パス名でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>size</strong></td>
+
+<td>バイト単位のファイルのサイズ。 値が<strong>ブランク</strong>の場合は、<strong>size</strong> 属性は除去されます。 値を指定しないと、コマンドは値を計算します。 この値は 10 進数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ソース</strong></td>
+
+<td>ファイルのソース。 値が<strong>ブランク</strong>の場合は、<strong>source</strong> 属性は除去されます。 値を指定しないと、適切なタイプの空ファイルが生成されます。 値は絶対パス名でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>type</strong></td>
+
+<td>ファイルのタイプ。 この値は<strong>ブランク</strong>にはできません。 値を指定しないと、コマンドは値を計算し、それが <strong>FILE</strong>、<strong>DIRECTORY</strong>、<strong>FIFO</strong>、<strong>BLK_DEV</strong>、<strong>CHAR_DEV</strong>、または <strong>MPX_DEV</strong> キーワードになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>/etc/security/sysck.cfg</strong> ファイル内に <strong>sysck</strong> スタンザを生成または修正することにより、<strong>tcbck</strong> コマンドの属性を追加、削除、または修正することができます。 以下の属性が使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>チェックサム</strong></td>
+
+<td>ファイルのチェックサム値を計算する、代替チェックサム・コマンドです。 システムはコマンドに各ファイルの名前を追加します。 値が<strong>ブランク</strong>の場合は、この代替 <strong>checksum</strong> 属性は除去されます。 値は、各ファイルに対して実行されるコマンド・ストリングです。 デフォルトのストリングは <strong>/usr/bin/sum -r &lt;</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>setgids</strong></td>
+
+<td>有効でない <strong>setgid</strong> プログラムがないかどうかを検査される管理グループ (200 より大きい ID 番号を持つグループ) の補足リストです。 値が<strong>ブランク</strong>の場合は、<strong>setgids</strong> 属性は除去されます。 値は、コンマで区切られたグループ名のリストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>setuids</strong></td>
+
+<td>有効ではない <strong>setuid</strong> プログラムがないかどうか検査される管理ユーザー (200 より大きい ID 番号を持つユーザー) の補足リストです。 値が<strong>ブランク</strong>の場合は、<strong>setuids</strong> 属性は除去されます。 値は、コンマで区切られたユーザー名のリストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>treeck_nodir</strong></td>
+
+<td><strong>tcbck</strong> コマンドによる検証から除外されるディレクトリーのリストです。 値がブランクの場合は、<strong>treeck_nodir</strong> 属性は除去されます。 値は、コンマで区切られたディレクトリーのリストです。 この属性に入っているディレクトリー内に存在するファイルシステムは除外<em>されません</em>。 これらのファイルシステムを除外するには <strong>-i</strong> フラグを使用してください。<p>このオプションは、<strong>tree</strong> オプションが指定されている場合にのみ使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>treeck_novfs</strong></td>
+
+<td>インストールされたファイルシステム・ツリーの検査時に、<strong>tcbck</strong> コマンドによる検証から除外されるファイルシステムのリストです。 値が<strong>ブランク</strong>の場合は、<strong>treeck_novfs</strong> 属性は除去されます。 値は、コンマで区切られたファイルシステムのリストです。<p>このオプションは、<strong>tree</strong> オプションが指定されている場合にのみ使用します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>これらの属性について詳しくは、 <strong>/etc/security/sysck.cfg</strong> ファイルを参照してください。標準的なスタンザについては、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcbck.html#tcbck__example" target="_blank" rel="noopener noreferrer">例</a> 」を参照してください。</p>
+ <p><em>Attributes</em> が値なしで指定されている場合、コマンドは、変更するファイルから値を計算しようとします。 <strong>type</strong> 属性の指定は必須ですが、他の属性は指定する必要はありません。</p>
+</section>
+
+<section><h2>エラーの修正</h2> <p>エラーを修正するために、<strong>tcbck</strong> コマンドは通常、属性を定義された値に再設定します。 以下の属性については、コマンドは以下で説明するようにそのアクションを修正します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>チェックサム</strong></td>
+
+<td>ファイルのアクセス制御リストをクリアすることによって、そのファイルを使用不可にしますが、それ以降の検査は停止しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>リンク</strong></td>
+
+<td>脱落しているハード・リンクをすべて作成します。 他のファイルに対してリンクが存在する場合、そのリンクは削除されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>プログラム</strong></td>
+
+<td>プログラムを起動します。そのプログラムは存在し、
+絶対パス名を持っていなければなりません。 エラーが起こるとメッセージが表示されますが、付随するアクションは実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>size</strong></td>
+
+<td>ファイルのアクセス制御リストをクリアすることによって、そのファイルを使用不可にしますが、それ以降の検査は停止しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ソース</strong></td>
+
+<td>ソース・ファイルを、<em>File</em> パラメーターで識別されたファイルにコピーします。 ソースが null の場合、既存ファイルはすべて削除され、正しい <strong>type</strong> のファイルが作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>symlinks</strong></td>
+
+<td>脱落しているシンボリック・リンクをすべて作成します。 他のファイルに対してリンクが存在する場合、そのリンクは削除されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>type</strong></td>
+
+<td>ファイルのアクセス制御リストをクリアすることによって、そのファイルを使用不可にし、それ以降の検査を停止します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>tcbck</strong> コマンドで <strong>-t</strong> フラグを指定すると、エラーを修正するかどうかをプロンプトが尋ねます。 もしあなたがyes、エラーが修正されました。 それ以外の応答をすると、エラーは修正されません。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドの実行 (x) アクセス権を root ユーザーとセキュリティー・グループのメンバーに対してのみ与えます。 コマンドは、setuid で root ユーザーに設定され、<strong>trusted computing base</strong> 属性を持っていなければなりません。</p>
+ <p><strong>アクセスされるファイル:</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/user</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/sysck.cfg</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td><strong>/usr/bin/aclget</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td><strong>/usr/bin/aclput</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td><strong>/usr/bin/sum</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>監査イベントは次のとおりです。</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>TCBCK_Check</strong></td>
+
+<td>ファイル、エラー、状況</td>
+
+</tr>
+
+<tr>
+<td><strong>TCBCK_Update</strong></td>
+
+<td>ファイル、関数</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>acl</strong>、 <strong>checksum</strong>、 <strong>class</strong>を使用して <strong>/bin/boo</strong> ファイルを追加するには、次のようにします。 <strong>グループ</strong>、 <strong>所有者</strong>、および <strong>プログラム</strong> の各属性tcbckデータベース、タイプ:<div> <div><div><pre><code>tcbck -a /bin/boo acl checksum class=audit group owner\
+program=/bin/boock</code></pre></div><div></div></div>実行結果のスタンザには上記で与えられた属性が含まれ、定義しない属性には計算された値が挿入されます。 データベースには以下のようなスタンザが含まれます。<div><div><pre><code>/bin/boo:
+       acl = 
+       checksum = 48235
+       class = audit
+       group = system
+       owner = root
+       program = /bin/boock
+       type = FILE          </code></pre></div><div></div></div>属性値はインストール定義に追加されますが、正しいかどうかは検査されません。 <strong>program</strong> 属性値はコマンド行から取得され、 <strong>checksum</strong> 属性値は <strong>checksum</strong> プログラムを使用して計算されます。その他のすべての属性値は、aclファイル i ノードから計算されます。</div>
+</li>
+
+<li><span></span>インストール時に拡張できるため、ファイルのサイズを検査してもデータベースに追加しないことを示すには、 <strong>/etc/passwd</strong> ファイルの次の例のように、 <strong>VOLATILE</strong> キーワードを使用します。<div> <div><div><pre><code>/etc/passwd:
+        type =  FILE
+        owner = root
+        group = system
+        size  = 1234,VOLATILE</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/bin/boo</strong> ファイル定義を削除するには、以下のようにします。tcbckデータベース、タイプ:<div> <div><div><pre><code>tcbck -d /bin/boo </code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下を含むすべての定義を削除します。class/auditを以下から取得します。tcbckデータベース、タイプ:<div> <div><div><pre><code>tcbck -d audit</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ファイル内のすべてのファイルを検査するには、tcbckデータベースを修正し、すべてのエラーを報告するには、次のように入力します。<div> <div><div><pre><code>tcbck -y ALL</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下を除外します。/calvinおよび/hobbesインストール済みファイル・システム・ツリーのセキュリティー監査中の検査からのファイル・システム。次のように入力します。<div> <div><div><pre><code>tcbck -a sysck treeck_novfs=/calvin,/hobbes </code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>セキュリティー監査中にディレクトリーを検査から除外するには、次のように入力します。<div> <div><div><pre><code>tcbck -a sysck treeck_nodir=/home/john</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>追加するにはjfhおよびjsl管理ユーザーとしてdevelopersインストール済みファイルのセキュリティー監査中に検査される管理グループとして、次のように入力します。<div> <div><div><pre><code>tcbck -a sysck setuids=jfh,jsl setgids=developers</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>新規に作成された <strong>/dev</strong> エントリーの <strong>sysck.cfg</strong> スタンザ・エントリーを作成/変更するには、以下のようにします。fooおよびbar、タイプ:<div> <div><div><pre><code>tcbck -l /dev/foo /dev/bar</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> これらの項目を追加することにより、トラステッド・コンピューティング・ベースの一部として登録することになります。</div>
+        </div>
+      </div></div>
+</div>
+ </li>
+
+</ol>
+ <div><div>
+        <div>
+          <div><span>注意:</span> 特殊文字「$」および「?」は、 このルーチンで使用できます。ファイル名で使用すると、あいまいなファイルなどの潜在的な問題が発生する可能性があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/tcbck</strong></td>
+
+<td><strong>tcbck</strong> コマンドに対するパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/sysck.cfg</strong></td>
+
+<td>システム構成データベースに対するパスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

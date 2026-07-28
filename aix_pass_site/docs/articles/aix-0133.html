@@ -1,0 +1,142 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムのデバッグ機能の状況を使用可能または使用不可にしたり、または表示したりします (あるいはその両方)。</p>
+</section>
+
+<section><h2>構文</h2><p>bosdebug [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59499" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59505" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59511" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59529" target="_blank" rel="noopener noreferrer"><strong>-K オン | オフ</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59582" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59601" target="_blank" rel="noopener noreferrer"><strong>-n サイズリスト</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__bigr" target="_blank" rel="noopener noreferrer"><strong>-R オン | オフ</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59582" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59588" target="_blank" rel="noopener noreferrer"><strong>-s サイズ・リスト</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59595" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a>]</p>
+<p>bosdebug [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59573" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59561" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> &lt;<em>ファイル</em>&gt;]</p>
+<p>bosdebug <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59613" target="_blank" rel="noopener noreferrer"><strong>[-h］</strong></a></p>
+<p>bosdebug <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59517" target="_blank" rel="noopener noreferrer"><strong>[-L］</strong></a></p>
+<p>bosdebug <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosdebug.html#bosdebug__row-d3e59535" target="_blank" rel="noopener noreferrer"><strong>[-o］</strong></a></p>
+ </section>
+
+<section><h2>説明</h2> <p><strong>bosdebug</strong> コマンドは、システムのデバッグ機能の状況を使用可能または使用不可にしたり、表示したりします (あるいはその両方)。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>バックトラック障害の状態情報のデータ収集を使用不可にします。 この情報は、カーネル・エラーの特定の種類をデバッグする際に役立ちます。 バックトラック障害の状態情報データ収集を使用不可にすると、
+特定の低ワークロードの環境ではパフォーマンスが少し向上しますが、
+問題分析のために重要なデータの保存が許可されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>その後のリブートのたびに、カーネル・デバッグ・プログラムをロードします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>その後のリブートのたびに、カーネル・デバッグ・プログラムをロードし、起動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>カーネル・デバッグ・プログラムおよびメモリー・オーバーレイ検出システムの現在の設定値を表示します。 表示される設定値は、次に <strong>bosboot -a</strong> コマンドおよび <strong>shutdown -r</strong> コマンドが実行されるまでは有効にならないことに注意してください。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K オン | オフ</strong></td>
+
+<td>カーネル・エクステンションの割り当てトラッキング状態を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>システムのデバッグ機能をすべてオフにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R オン | オフ</strong></td>
+
+<td>リアルタイム・カーネル・オプションを活動化または非活動化します。 <code>-R on</code> が指定されると、優先使用スレッドがリアルタイム・スレッドと見なされるときにカーネルが事前に余分な割り込みを
+生成するようになるため、CPU 間の優先使用要求への応答が迅速に行われるようになります。 この余分な割り込み (<em>
+MPC</em> と呼ばれる) が生成されない場合、優先使用スレッドは、定期的スケジュールの次のタイマー刻みまで、または一般に 10 ms まで、連続的に実行されます。<p>固定優先順位のポリシーで実行中のスレッドは、デフォルトでリアルタイムと見なされます。 プロセスが開始される前の環境で <code>RT_MPC=ON</code> がエクスポートされると、
+そのプロセスのスレッドもリアルタイムと見なされます。 余分な MPC 割り込みによって優先使用待ち時間は削減されますが、オーバーヘッドは追加されることに注意してください。 デフォルトの環境では、この追加のオーバーヘッドを考慮した上で <code>RT_MPC=ON</code> をエクスポートするようにしてください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> &lt; ファイル&gt;</td>
+
+<td><strong>kdb</strong> デバッガー印刷機能のカーネルにシンボル・ファイルをロードします。 シンボルをすぐにロードします。 リブートしないでください。 LFS 構造を印刷するシンボル・ファイルは、
+次のように作成されます。<div><div><pre><code># echo '#include &lt;sys/vnode.h&gt;' &gt; sym.c 
+# echo 'main() { ; }' &gt;&gt; sym.c 
+# cc -g -o sym sym.c -qdbxextra /* for 32 bit kernel */ 
+# cc -g -q64 -o sym sym.c -qdbxextra /* for 64 bit kernel */ </code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>すべてのシンボル (<strong>-l</strong> オプションを介してロードされている)
+をカーネル・メモリーからフラッシュします。 すぐにフラッシュされます。 リブートは必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td>メモリー・オーバーレイ検出システムを使用可能にします。 カーネル拡張およびデバイス・ドライバーのメモリー・オーバーレイは、システムの異常終了を引き起こします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s サイズ・リスト</strong></td>
+
+<td>これを指定すると、メモリー・オーバーレイ検出システムは、指定されたそれぞれの割り当てサイズをフルページにプロモートし、各割り当て後に次の後続ページを割り当てて隠します。 これにより、割り当てられたメモリーの末尾を越えた参照はシステム破損を引き起こします。 sizelist は、コンマで区切られたメモリー・サイズのリストです。 それぞれのサイズは 16 から 2048 の範囲内で、かつ 2 の累乗でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>これを指定すると、メモリー・オーバーレイ検出システムはすべての割り当てサイズをページ・サイズの次に大きな倍数 (4096) にプロモートしますが、後続のページを隠しません。 これにより、解放されたメモリーの参照によって破損が引き起こされる可能性は低くなりますが、割り当てられたメモリーの末尾を越えての読み取りまたは書き込みは、そのメモリーが解放されるまで、検出されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n サイズリスト</strong></td>
+
+<td>-s オプションと同じ効果を持ちますが、これは代わりにネットワーク・メモリーに対して機能します。 各サイズは 32 から 2048 の範囲でなければならず、2 の累乗でなければなりません。 これにより、ブート時に <strong>no</strong> コマンドの <strong>net_malloc_frag_mask </strong> 変数がオンになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h </strong></td>
+
+<td>このコマンドの使用法メッセージを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>このコマンドで行った変更は、<strong>bosboot</strong> コマンドおよび <strong>shutdown -r</strong> コマンドが実行されるまでは有効になりません (<strong>-l</strong> および <strong>-f</strong> オプションを除く)。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+</div></div>

@@ -1,0 +1,234 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>SMIT ダイアログを構築して、印刷キューとプリンターを作成します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>既存のプリンターの印刷キューを作成するには</dt>
+
+<dd><div><div><pre><code>piomkapqd -A AttachmentType -p Printer -d DeviceName -h Header [  -e ]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>プリンターおよび印刷キューを作成するには</dt>
+
+<dd><div><div><pre><code>piomkapqd -A AttachmentType -p Printer -v Device -s Subclass -r Adapter -h Header [  -e ]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>TTY に接続されたプリンターを作成するか、またはプリンター出力をファイルに割り当てて新しいキューを作成する</dt>
+
+<dd><div><div><pre><code>piomkapqd -A AttachmentType -p Printer {  -T TTYName | -f FileName } -h Header [  -e ]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>新規プリンターおよび印刷キューにユーザー定義の接続機構を使用するには</dt>
+
+<dd><div><div><pre><code>piomkapqd -A AttachmentType -p Printer [  -d DeviceName ] -c CmdExec -i DiscCmd -o ObjectID -h Header [  -e ]</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+ <p></p>
+</section>
+
+<section><h2>説明</h2> <p><span>piomkapqd</span> コマンドは、ユーザーが新しいプリンターと印刷キューを作成できるように、
+System Management Interface Tool (SMIT) ダイアログを作成します。 <span>piomkapqd</span> コマンドを指定すると、ユーザーがユーザー定義の接続タイプを SMIT プリンターまたはキュー定義ダイアログに追加できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-A</span> AttachmentType</td>
+
+<td>プリンターをデータ・ソースに接続するために使用される接続のタイプを指定します。 AttachmentType 変数に共通の値は、以下のとおりです。<dl>
+
+<dt><code>local</code></dt>
+
+<dd>ローカル接続タイプを指定します。</dd>
+
+
+
+<dt><code>ascii</code></dt>
+
+<dd>ASCII 接続タイプを指定します。</dd>
+
+
+
+<dt><code>file</code></dt>
+
+<dd>データを格納するファイルを指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> CmdExec</td>
+
+<td>SMIT コマンド <span>cmd_to_execute</span> の値を指定します。 このフラグは、ユーザー定義の接続ダイアログを作成するときに使います。 このフラグを指定しなければ、デフォルトとして <span>piomkpq</span> コマンドが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> DeviceName</td>
+
+<td><code>lp0</code> または <code>tty1</code> など、出力先となるデバイス、疑似デバイス、またはファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span></td>
+
+<td>既存の印刷キューをプリンターの出力に使用するように指定します。 <span>-e</span> を指定すると、<span>piomkapqd</span> コマンドを指定しても新しいキューを作成しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span> FileName</td>
+
+<td>出力が保管されているファイルの名前を示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span> ヘッダー</td>
+
+<td>作成する SMIT ダイアログの表題またはヘッダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> DiscCmd</td>
+
+<td>SMIT コマンド <span>cmd_to_discover</span> の値を指定します。 このフラグは、ユーザー定義の接続ダイアログを作成するときに使います。 このフラグを指定しない場合、<span>piomkapqd</span> コマンドのデフォルト値を使って、ダイアログを作成します。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> ObjectID</td>
+
+<td>ObjectID 変数の値と一致する ID を持つ SMIT オブジェクトを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> プリンター</td>
+
+<td><span>/usr/lib/lpd/pio/predef</span> ディレクトリーで定義されているプリンター・タイプ (例えば、 <code>ibm4019</code>) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> ParentAdapter</td>
+
+<td>プリンターの親アダプターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> サブクラス</td>
+
+<td>プリンターが属するサブクラスのタイプを指定します。 Subclass 変数に使用できる値は、以下のとおりです。<ul>
+<li><code>parallel</code></li>
+
+<li><code>rs232</code></li>
+
+<li><code>rs422</code></li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span> TTYName (TTYName)</td>
+
+<td>新しいプリンターまたはキューに接続された <code>TTY</code> の名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> デバイス</td>
+
+<td>ODM データベース内で定義されているようにデバイス・タイプを指定します。 <span>-v</span> フラグを指定すると、<span>/usr/lib/lpd/pio/predef</span> ディレクトリーに格納されていないプリンター定義を取り出すことができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>既存のローカル・プリンターに印刷キューを追加する SMIT ダイアログを作成するには、次のように入力します。<div>
+<div><div><pre><code>piomkapqd -A local -p ibm4019 -d lp0 -h 'Add a New Queue'</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><code>lp2</code> という名前の新規プリンターと、ローカルに接続された新規印刷キューを追加する SMIT ダイアログを作成するには、次のように入力します。<div>
+<div><div><pre><code>piomkapqd -A local -p ibm4019 -v ibm4019 -s rs232 -r sa0 -h 'Add New Printer'</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><code>TTY</code> に接続されているプリンターを追加する SMIT ダイアログを作成し、そのプリンター用の新しいキューを作成するには、次のように入力します。<div>
+<div><div><pre><code>piomkapqd -A tty -p ibm4039 -T tty12 -h 'Add TTY Printer'</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>出力をファイル名 <code>stuff</code> に送信し、新しいキューを作成する SMIT ダイアログを作成するには、次のように入力します。<div>
+<div><div><pre><code>piomkapqd -A file -p ibm4039 -f stuff -h 'Add Output File' -e</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>ユーザー定義のプリンター接続タイプを追加し、新しいキューを作成する SMIT ダイアログを作成するには、次のように入力します。<div>
+<div><div><pre><code>piomkapqd -A hpJetDirect -p hplj-4 [-d lp0] -c /usr/sbin/mkjetd -i /usr/bin/lsjd -o JetDirect -h 
+'Add New Attachment Type'</code></pre></div><div></div></div>
+
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/lib/lpd/pio/etc/piomkapqd</span></td>
+
+<td><span>piomkapqd</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

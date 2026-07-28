@@ -1,0 +1,57 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>sendmail の限定シェル。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>smrsh</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/smrsh.html#smrsh__smrsh_flag_c" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <span><span>コマンド</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>smrsh</span></span> コマンドは、 <span><span>sendmail</span></span> 構成ファイル内のプログラム・メーラーで <span><span>sh</span></span> コマンドを置き換えることを目的としています。 <span><span>smrsh</span></span> コマンドは、 <span><span>sendmail</span></span> コマンド構文を使用して実行できるプログラムを制限します。 これにより、全体のシステム・セキュリティーが改善されます。 <span><span>smrsh</span></span> は、 <span><span>sendmail</span></span> が別名ファイルまたは転送ファイルを経由せずにプログラムを実行する場合でも、プログラマーが実行できるプログラムのセットを制限します。</p>
+ <div><span><span>smrsh</span></span> コマンドでは、プログラムが <strong>/var/adm/sm.bin</strong> ディレクトリーになければなりません。 これにより、システム管理者は、 <span><span>smrsh</span></span> コマンドで実行できるプログラムを選択できます。 また、 <span><span>smrsh</span></span> コマンドは、エンド・ラン攻撃を防ぐために、コマンド行に次の文字を含むすべてのコマンドを拒否します:、&lt;、&gt;、|、;、&amp;、$、\r (&lt; RETURN&gt;)、または \n (&lt; NEWLINE&gt;)。<ul>
+<li>,</li>
+
+<li>&lt;</li>
+
+<li>&gt;</li>
+
+<li>|</li>
+
+<li>;</li>
+
+<li>&amp;</li>
+
+<li>$</li>
+
+<li>¥ r (&lt; RETURN&gt;)</li>
+
+<li>または \n (&lt; NEWLINE&gt;)</li>
+
+</ul>
+</div>
+ <p>プログラム上の初期パス名はストリップされ、<strong>/usr/ucb/vacation</strong>、<strong>/usr/bin/vacation</strong>、<strong> /home/server/mydir/bin/vacation</strong>、および <strong>vacation</strong> への転送は、実際にはすべて <strong>/var/adm/sm.bin/vacation</strong> に転送されます。 システム管理者は、<strong>/var/adm/sm.bin</strong> の転送は慎重に行う必要があります。 妥当な追加は、 <span><span>vacation(1)</span></span> および <span><span>procmail</span></span>などのユーティリティーです。 シェルまたはシェルに似たプログラム (例えば、 <span><span>perl</span></span>) を <strong>sm.bin</strong> ディレクトリーに含めないようにしてください。 これにより、任意のプログラムの実行は許可されませんが、 <strong>sm.bin</strong> ディレクトリー内のシェル・スクリプトまたは Perl スクリプトの使用は制限されません ( <strong>#!</strong> を使用)。 構文)。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>--c <span><span>コマンド</span></span></dt>
+
+<dd><span><span>command</span></span> によって指定されたプログラムを実行します。</dd>
+
+</dl>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/usr/sbin/smrsh</dt>
+
+<dd>smrsh コマンドのデフォルトの位置。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/var/adm/sm.bin</dt>
+
+<dd>制限付きプログラムのディレクトリー。</dd>
+
+</dl>
+</section>
+
+</div></div>

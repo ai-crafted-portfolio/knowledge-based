@@ -1,0 +1,190 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムまたはユーザーの言語設定を変更します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>デフォルトの言語設定を変更して、環境ファイルまたはプロファイル・ファイルを修正する場合。</strong></p>
+ <p><strong>chlang</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88101" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a><em>UID </em>|<em>Uname </em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88052" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a><em>MsgTransLst| </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88082" target="_blank" rel="noopener noreferrer"><strong>-M </strong></a>]<em>言語</em></p>
+<p><strong>デフォルトの言語設定を変更することなく、環境ファイルまたはプロファイル・ファイルを変更する場合。</strong></p>
+ <p><strong>chlang</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88101" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a><em>UID </em>|<em>Uname </em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88052" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a><em>MsgTransLst| </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88082" target="_blank" rel="noopener noreferrer"><strong>-M </strong></a></p>
+<p><strong>環境ファイルまたはプロファイル・ファイルから NLSPATH 設定を除去する場合。</strong></p>
+ <p><strong>chlang</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlang.html#chlang__row-d3e88031" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> [ <strong>-u </strong><em>UID </em>| <em>UName </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong> chlang</strong> コマンドは、システム全体または個々のユーザーについて言語設定を変更する高水準シェル・コマンドです。 呼び出し元の実効 ID が root であるときに、<strong>-u</strong> オプションを使用しなかった場合は、システム全体について <strong>/etc/environment</strong> ファイル内の言語設定が変更されます。 呼び出し元の実効 ID が root ではない場合、または <strong>-u</strong> オプションを使用した場合は、個々のユーザーについてそのユーザーの <strong>.profile</strong> ファイル内の言語設定が変更されます。</p>
+ <p>言語を指定してもオプションは指定しないで <strong>chlang</strong> を実行すると、<strong>LANG</strong> 環境変数は、指定した言語に設定されます。</p>
+ <p><strong>-m</strong> オプションを指定して chlang を実行すると、<strong>LANG</strong> 環境変数と <strong>NLSPATH</strong> 環境変数が設定されます。 また、<strong>-m</strong> フラグの <em>MsgTransLst</em> に指定した最初の値が <strong>Language</strong> パラメーターとは異なり、<strong>Language</strong> パラメーターでシステム提供の変換が可能になっている場合は、<strong>LC_MESSAGES</strong> 変数は、その最初の値に設定されます。</p>
+ <p><strong>-d</strong> オプションを指定して <strong>chlang</strong> を実行すると、<strong>NLSPATH</strong> 環境変数が除去されます。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span> <strong>chlang</strong> によって NLS 環境に対して行われた変更は、 <strong>/etc/environment</strong> またはユーザーの<strong> .profile</strong> のいずれかが変更されても即時には反映されません。 <strong>/etc/environment</strong> を変更するには、システムをリブートすることが必要です。 ユーザーの <strong>.profile</strong> を変更するには、ログインし直すか <strong>.profile</strong> ファイルを実行することが必要です。</li>
+
+<li><span></span>ユーザーの構成ファイルを変更する場合、ユーザーが C シェル (<strong>/usr/bin/csh</strong>) を使用すると、 <strong>.profile</strong> ファイルではなく <strong>.cshrc</strong> ファイルが変更されます。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>NLSPATH</strong> 環境変数を除去するときに使用します。 このオプションは、<strong>/etc/environment</strong> またはユーザーの <strong>.profile</strong> のいずれかから <strong>NLSPATH</strong> を除去します。 変更しようとするファイルに現在 <strong>NLSPATH</strong> が入っていないと、警告メッセージが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> MsgTransLst</em></td>
+
+<td><strong>NSLPATH</strong> 環境変数を変更するときに使用します。 <em>MsgTransLst</em> は、
+システムまたはユーザーに必要なメッセージ変換階層を示す、コロンで区切ったメッセージ変換値 (ロケール名) のリストです。 このリストの最初の言語が <strong>Language</strong> パラメーターと異なり、<strong>Language</strong> パラメーターに
+システム提供の変換値があるときは、<strong>LC_MESSAGES</strong> 環境変数は、
+その最初の値に設定されます。 リストの最初の言語テリトリーが設定しようとする言語と同じなら、<strong>LC_MESSAGES</strong> 環境変数は除去されます。 リスト内のすべてのエントリーは、<strong>NLSPATH</strong> 環境のハードコーディングされた
+ディレクトリーになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td><strong>LC_MESSAGES</strong> 環境変数をリセットし、次のようなデフォルトの変換階層に <strong>NLSPATH</strong> 環境変数を設定するときに使用します。<div> <div><div><pre><code>/usr/lib/nls/msg/%L/%N:
+/usr/lib/nls/msg/%L/%N.cat:</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> UID</em> または <em>UName</em></td>
+
+<td>個々のユーザーについて変更するときに使用します。 ユーザー ID 番号かユーザーのログイン名のいずれでもユーザーを指定できます。 <strong>chlang</strong> の実効 ID が root の場合は、root 自体も含めて特定のユーザー ID の言語環境を変更するには、<strong>-u</strong> パラメーターを使用する必要があります (この場合に <strong>-u</strong> パラメーターを使用しないと、root の <strong>.profile</strong> ではなく <strong>/etc/environment</strong>  ファイルが更新されます)。 実効 ID が root でない場合は、<strong>-u</strong> パラメーターは不要です。 -u パラメーターを指定するときは、呼び出し元の実効 ID と等しいものにする必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>言語</strong></td>
+
+<td>これは、LANG 環境変数のロケール設定値になる言語テリトリー (ロケール名) です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>これは、エラーが発生したことを示しています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>優先ロケールがノルウェー語で、優先順の言語翻訳がノルウェー語、スウェーデン語、および英語であるとします。 ユーザー <em>amcleod</em> のためにこのように設定するコマンドは、次のとおりです。<div> <div><div><pre><code>chlang -u amcleod -m no_NO:sv_SE:en_US no_NO</code></pre></div><div></div></div>以下の設定は、ユーザー <em>amcleod</em>の <strong>.profile</strong> で行われます。 <strong>Language</strong> パラメーターとしてメッセージ変換リストの最初の言語はノルウェー語であるので、<strong>LC_MESSAGES</strong> が <strong>chlang</strong> によって設定されることはありません。 <strong>LC_MESSAGES</strong> が設定されていると除去されます。<div><div><pre><code>LANG=no_NO
+  
+NLSPATH=/usr/lib/nls/msg/%L/%N:
+        /usr/lib/nls/msg/no_NO/%N:
+        /usr/lib/nls/msg/sv_SE/%N:
+        /usr/lib/nls/msg/en_US/%N:
+        /usr/lib/nls/msg/%L/%N.cat:
+        /usr/lib/nls/msg/no_NO/%N.cat:
+        /usr/lib/nls/msg/sv_SE/%N.cat:
+        /usr/lib/nls/msg/en_US/%N.cat</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>優先ロケールがフランス語であり、優先順の言語翻訳がカナダ・フランス語と英語であるとします。 root ユーザー以外のユーザーのためにこのように設定するには、次のように入力します。<div> <div><div><pre><code>chlang -m fr_CA:en_US fr_FR</code></pre></div><div></div></div><strong>chlang</strong> を起動するユーザーの <strong>.profile</strong> 内に次のように設定されます。 メッセージ変換リストの最初の言語は国/地域別情報 (ロケール) と異なるので、<strong>LC_MESSAGES</strong> は <strong>chlang</strong> によって設定します。<div><div><pre><code>LANG=fr_FR
+ 
+LC_MESSAGES=fr_CA
+ 
+NLSPATH=/usr/lib/nls/msg/%L/%N:
+        /usr/lib/nls/msg/fr_CA/%N:
+        /usr/lib/nls/msg/en_US/%N:
+        /usr/lib/nls/msg/%L/%N.cat:
+        /usr/lib/nls/msg/fr_CA/%N.cat:
+        /usr/lib/nls/msg/en_US/%N.cat</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>スペインのシステム管理者 (root 権限) が別の国のシステムを構成しており、マシンが新しい場所で正しく動作するようにデフォルトの言語環境を変更する必要があるとします。 <strong>/etc/environment</strong> ファイル内のデフォルトを変更するために、次のように入力します。<div> <div><div><pre><code>chlang -m es_ES es_ES</code></pre></div><div></div></div><strong>/etc/environment</strong> ファイル内に次のように設定されます。<div><div><pre><code>LANG=es_ES
+ 
+NLSPATH=/usr/lib/nls/msg/%L/%N:
+        /usr/lib/nls/msg/es_ES/%N:
+        /usr/lib/nls/msg/%L/%N.cat:
+        /usr/lib/nls/msg/es_ES/%N.cat</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chlang</strong></td>
+
+<td>言語コマンドを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/environment</strong></td>
+
+<td>すべてのプロセスの基本環境を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.profile</strong></td>
+
+<td>特定のユーザーの条件に合う環境を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

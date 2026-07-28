@@ -1,0 +1,99 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ドメインネームシステムセキュリティ拡張(DNSSEC)鍵の取り消しビットを設定する。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><span>dnssec-revoke</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-h" target="_blank" rel="noopener noreferrer"><span>-h</span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__r-flag" target="_blank" rel="noopener noreferrer"><span>r</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-v-level" target="_blank" rel="noopener noreferrer"><span>-v</span></a> レベル ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-V" target="_blank" rel="noopener noreferrer"><span>-V</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-K-dir" target="_blank" rel="noopener noreferrer"><span>-K</span></a> ディレクトリ] [ ディレクトリ [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-E-engine" target="_blank" rel="noopener noreferrer"><span>-E</span></a> エンジン］ [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-f" target="_blank" rel="noopener noreferrer"><span>-f</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-revoke.html#dnssec-revoke__flag-R" target="_blank" rel="noopener noreferrer"><span>-R</span></a>] {キー ファイル｝</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>dnssec-revoke</span> コマンドは、DNSSEC 鍵ファイルを読み取り、 <a href="https://www.ibm.com/links?url=https%3A%2F%2Fdatatracker.ietf.org%2Fdoc%2Fhtml%2Frfc5011.html" target="_blank" rel="noopener noreferrer">RFC 5011</a>で定義されている鍵に REVOKED ビットを設定し、現在取り消された鍵を含む鍵ファイルの新しいペアを作成します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-E</span> エンジン</td>
+
+<td><p>使用する暗号ハードウェアを指定します (該当する場合)。</p>
+
+<p>BIND 9 がOpenSSL,とともにビルドされる場合、このフラグには暗号アクセラレータまたはハードウェア・サービス・モジュールを駆動するOpenSSLエンジン識別子を設定する必要があります（通常はpkcs11）。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>強制的な上書きを意味し、取り消された鍵のアルゴリズムと鍵IDに一致する ファイルが存在する場合でも、「<span>dnssec-revoke</span>コマンドは新しい鍵ペアを書き込む。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td>使用法メッセージを表示して終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>-K</span> ディレクトリー</td>
+
+<td>鍵ファイルが存在しなければならないディレクトリーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span></td>
+
+<td>REVOKE ビットが設定された鍵の鍵タグを表示しますが、鍵は取り消しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>新しいキー・セット・ファイルが書き込まれた後で、元のキー・セット・ファイルを除去することを指示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span></td>
+
+<td>バージョン情報を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> レベル</td>
+
+<td>デバッグのレベルを設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+</div></div>

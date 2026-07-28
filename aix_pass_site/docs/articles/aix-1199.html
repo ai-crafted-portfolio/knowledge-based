@@ -1,0 +1,264 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>特権ファイルにアクセスできるように、特権エディターを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>pvi [ -l ] [ -R ] [ -w Number ] [ -c | + [ Subcommand ] ] [ File ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pvi</span> コマンドは、 <code>vi</code> エディターの特権バージョンである <span>pvi</span> エディターを呼び出して、 File パラメーターで指定されたファイルを編集します。 一度に 1 つのファイルのみを開くことができます。そのファイルは、特権ファイル・データベースで定義されたセキュリティー属性を持っていなければなりません。 エディターでファイルを表示できるのは、少なくとも 1 つの権限が、そのファイルの <code>readauths</code> 属性または <code>writeauths</code> 属性の権限の少なくとも 1 つと一致する場合のみです。 その場合にバッファーの内容の変更が可能になります。 エディターを使用してファイルに書き込むことができるのは、少なくとも 1 つの権限がファイルの <code>writeauths</code> 属性の権限の少なくとも 1 つと一致する場合のみです。 <span>pvi</span> コマンドによってオープンされたファイルは、オープン元と同じパスにしか書き込むことができません。</p>
+ <p><span>pvi</span> エディターの開始と終了はコマンド・モードで行いますが、テキストを追加または変更するには、テキスト入力モードに切り替える必要があります。 テキスト入力モードを開始するサブコマンドについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pvi.html#pvi__row-d3e116826" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> を参照してください。 いずれかの <span>:w</span> コマンドを使用してテキストをファイルに保存し、 <span>:q</span> コマンドを使用して <span>pvi</span> エディターを終了することができます。</p>
+ <p>この <span>pvi</span> コマンドで開始されるフルスクリーン表示エディターは、<code>ex</code> エディターを基にしています。 <span>pvi</span> エディターの中で <span>ex</span> サブコマンドを実行できます。 サブコマンドは表示画面上のカーソル位置で機能します。</p>
+ <p><span>pvi</span> エディターは、編集中のファイルのコピーを編集バッファーに作成します。 ファイルの内容は変更を保管しない限り変更されません。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <code>vi</code> エディターには、 <span>pvi</span> エディターでは使用できないいくつかの機能があります。 <code>vi</code> エディター上の情報を参照する場合、<span>-r</span> フラグ、<span>-t</span> フラグ、シェル・エスケープ、ユーザー定義マクロ、キー・マッピング、および <code>vi</code> オプションの永続設定は <span>pvi</span> エディターではサポートされないことを知っている必要があります。 一度に開くことができるバッファーは 1 つのみです。また、ファイルは開いたときと同じパスにのみ書き込むことができます。</div>
+        </div>
+      </div></div>
+
+<dl>
+
+<dt>エディターの制限</dt>
+
+<dd><p><span>pvi</span> エディターで扱える文字数には次の上限があります (1 バイト文字の数)。</p>
+
+<ul>
+<li>グローバル・コマンド・リスト当たり 256 文字</li>
+
+<li>1 つのシェル・エスケープ・コマンドには 2048 文字まで。</li>
+
+<li>1 つの文字列値オプションには 128 文字まで。</li>
+
+<li>1 つのタグ名には 30 文字まで。</li>
+
+<li>524,230 行が暗黙的に強制される。</li>
+
+<li>合計 2048 文字で 128 マップ・マクロ。</li>
+
+</ul>
+
+</dd>
+
+
+
+<dt>編集モード</dt>
+
+<dd><p><span>pvi</span> エディターの操作モードは次のとおりです。</p>
+
+
+<div><div><table><caption><span>表 1. 編集モード</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>command mode</code></td>
+
+<td><span>pvi</span> エディターはコマンド・モードで開始されます。 テキスト入力モードでテキストを訂正するサブコマンドを除くすべてのサブコマンドを呼び出すことができます。 サブコマンドの説明を表示するには、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pvi.html#pvi__pvi_subcommands" target="_blank" rel="noopener noreferrer"> <span>pvi</span> エディターのサブコマンド</a>」のトピックを参照してください。 コマンド・モードから呼び出すことができないサブコマンドを識別するには、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">入力モードでのテキストの変更</a>」を参照してください。 サブコマンドおよびその他のモードが終了すると、<span>pvi</span> エディターはコマンド・モードに戻ります。 1 つのサブコマンドを取り消すには、<code>Esc</code> キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><code>text input mode</code></td>
+
+<td>テキストの追加または変更のために許可されているコマンドを使用すると、<span>pvi</span> エディターはテキスト入力モードに入ります。 テキスト入力モードを開始するサブコマンドのリストについては、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">ファイルへのテキストの追加</a>」、およびコマンド・モードからテキストを変更するサブコマンド、 <code>C</code> サブコマンド、および <code>cx</code> サブコマンドを参照してください。 これらのサブコマンドの 1 つを入力した後、テキスト入力モードで機能するサブコマンドのいずれかを使用してテキストを編集することができます。 サブコマンドのリストを表示するには、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pvi.html#pvi__pvi_subcommands" target="_blank" rel="noopener noreferrer">pvi エディターのサブコマンド</a>」のトピックを参照してください。 テキスト入力モードからコマンド・モードに戻るには、<code>Esc</code> キーを押すか (通常の終了の場合)、または <code>Ctrl<code> + </code></code><code>C</code> キーを押します (<code>INTERRUPT</code> シグナルを作成する場合)。</td>
+
+</tr>
+
+<tr>
+<td><code>last line mode</code></td>
+
+<td>一部のサブコマンドは、画面の下部に表示される行に入力を読み取ります。 これらのサブコマンドには、接頭部がコロン (:)、スラッシュ (/)、および疑問符 (?) のサブコマンドが含まれます。 最初の文字を入力すると、 <span>pvi</span> エディターはカーソルを画面の下部に置き、残りのコマンド文字を入力できるようにします。 サブコマンドを実行するには、<code>Enter</code> を押します。 サブコマンドを取り消すには、<code>Ctrl</code> + <code>C</code> を押して、<code>INTERRUPT</code> シグナルを作成します。 コロン (:) を使用して最終行モードに入った場合、以下の文字は、カウントを指定するコマンドで使用すると特殊な意味を持ちます。<dl>
+
+<dt>%</dt>
+
+<dd>カーソル位置に関わりなくすべての行</dd>
+
+
+
+<dt>$</dt>
+
+<dd>最終行</dd>
+
+
+
+<dt>.</dt>
+
+<dd>現行行</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>pvi エディターのカスタマイズ</dt>
+
+<dd><p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">vi エディター・オプションの設定</a>の指示に従って、 <span>pvi</span> エディターを一時的にカスタマイズすることができます。</p>
+
+</dd>
+
+
+
+<dt>pvi エディターのサブコマンド</dt>
+
+<dd><div><span>pvi</span> エディターに適用できる <code>vi</code> エディター・サブコマンドに関する情報は、以下のリストにあります。<ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer"><code>vi</code> 一般サブコマンド構文</a>。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer"><code>vi</code> 画面を調整するためのサブコマンド</a>。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer"> <code>vi</code> エディターを使用したテキストの編集</a>。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer"> <code>vi</code> エディターを使用したファイルの操作</a>。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer"> <code>vi</code> エディターの中断と終了を行うためのサブコマンド</a>。</li>
+
+</ul>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 2. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span> [ Subcommand
+ ]</td>
+
+<td>編集が開始される前に <span>ex</span> エディター・サブコマンドを実行します。 このサブコマンドは、行指向型のテキスト・エディターを提供します。 Subcommand パラメーターにヌル・オペランドを指定する (例えば<code>-c ''</code> と指定する) と、エディターはファイルの最終行にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>エディターをリスト処理 (LISP) モードにします。 このモードでは、LISP モードのエディター・インデント、および <code>(, )</code>、 <code>{, }</code>、 <code>[[,</code> 、および <code>]]</code> サブコマンドが LISP で動作するように変更されます。 上記のサブコマンドは、指定された LISP 関数にカーソル位置を合わせます。 LISP サブコマンドについて詳しくは、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">文、段落、およびセクションへの移動</a>」を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span></td>
+
+<td><code>readonly</code> オプションを設定し、ファイルの上書きを防止します。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span>Number
+</td>
+
+<td>デフォルトのウィンドウ・サイズを Number パラメーターで指定された値に設定します。 これは低速回線上でエディターを使用する際に便利です。</td>
+
+</tr>
+
+<tr>
+<td><code>+</code> [ Subcommand
+ ]</td>
+
+<td><span>-c</span> サブコマンドと同じです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div>
+<dl>
+
+<dt>アクセス制御:</dt>
+
+<dd>このコマンドは、すべてのユーザーに実行 (x) アクセス権を付与します。</dd>
+
+
+
+<dt>役割ベースのアクセス制御</dt>
+
+<dd>このコマンドは、ユーザーが <code>readauths</code> または特権ファイル・データベース内の <code>writeauths</code> 権限リストの権限と一致する権限を持っている場合に、ファイルに対する読み取り権限を付与します。 このコマンドは、ユーザーが特権ファイル・データベース内の <code>writeauths</code> 権限リストにある権限と一致する権限を持っている場合にのみ、ファイルに対する <code>write</code> 権限を付与します。</dd>
+
+
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>特権エディターを呼び出して <code>plans</code> ファイルを編集するには、次のように入力します。<div><div><pre><code>pvi plans</code></pre></div><div></div></div>このコマンドは <span>pvi</span> エディターをコマンド・モードに置きます。 テキストを追加または変更するには、テキスト入力モードを入力するか、コマンド・モードで受け入れられるコマンドを使用する必要があります。</li>
+
+<li><span>pvi</span> エディターで作成したテキストを保存するには、<code>Esc</code> を押してテキスト入力モードを終了してから、次のように入力します。<div><div><pre><code>:w</code></pre></div><div></div></div></li>
+
+<li>テキスト入力モードの <span>pvi</span> エディターを終了するには、<code>Esc</code> を押してコマンド・モードに入ってから、次のように入力します。<div><div><pre><code>:q!</code></pre></div><div></div></div>エディターが既にコマンド・モードになっている場合は、終了 (<code>q!</code>) コマンドを出す前に <code>Esc</code> を押す必要はありません。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/pvi </span></td>
+
+<td><span>pvi</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/privfiles</span></td>
+
+<td>特権ファイルのセキュリティー属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

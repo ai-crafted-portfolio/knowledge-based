@@ -1,0 +1,1373 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>これは、入出力チューナブル・パラメーターを管理します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>ioo [ -p | -r [ -K ]] [ -y ]{ -o Tunable [ =NewValue ] } 
+</code></pre></div><div></div></div>
+<div><div><pre><code>ioo [ -p | -r [ -K ]] [ -y ] { -d Tunable } 
+</code></pre></div><div></div></div>
+<div><div><pre><code>ioo [ -p | -r [-K ]] [ -y ] -D
+</code></pre></div><div></div></div>
+<div><div><pre><code>ioo [ -p | -r | -K ] [  -F  ] -a
+</code></pre></div><div></div></div>
+<div><div><pre><code>ioo -h [ Tunable ]</code></pre></div><div></div></div>
+<div><div><pre><code>ioo [ -F ] [ -K ] -L [ Tunable ]</code></pre></div><div></div></div>
+<div><div><pre><code>ioo [ -F ] [ -K ] -x [ Tunable ]</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注：</span> <span>-o</span>、 <span>-d</span>、 <span>-x</span>、 <span>-L</span> のような複数のフラグを使用することができる。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>注：</span> <span>ioo</span> コマンドはrootユーザーのみが実行できる。</div>
+        </div>
+      </div></div>
+ <p><span>ioo</span> コマンドは入出力 (I/O) チューニング・パラメーターを構成します。 このコマンドは、すべてのI/Oチューニング・パラメータの現在または次のブート値を設定または表示します。 このコマンドを使用して、
+永続的な変更を行ったり、あるいは次のリブートまで変更を先送りすることも
+できます。 付随するフラグは、コマンドがパラメーターを設定するか表示するかを決定する。 <span>-o</span> フラグは、パラメーターの値を表示したり、パラメーターに新しい値を設定したりできます。</p>
+ <p>あるプロセスがファイルから順次読み出す場合、 <span>minpgahead</span> パラメータで指定される値は、条件が最初に検出されたときに先に読み出すページ数を決定する。 <span>maxpgahead</span> パラメーターで指定された値は、先行する順次読み取り数に関係なく、先読みされる最大ページ数を設定します。</p>
+ <p>オペレーティング・システムでは、ファイル・システムの「<code>bufstructs</code>（<code>numfsbuf</code>）の数と、ライト・ビハインド・アルゴリズム（<code>numclust</code>）で処理されるデータ量を調整することができる。</p>
+ <div><div>
+        <div>
+          <div><span>注：</span>システム全体に適用される調整可能変数は、ワークロード・パーティション内からは変更できない場合がある。</div>
+        </div>
+      </div></div>
+
+<dl>
+
+<dt>調整可能なパラメーターを変更した場合の効果</dt>
+
+<dd><span>ioo</span> コマンドを誤用すると、パフォーマンスの低下やオペレーティングシステムの障害を引き起こす可能性がある。 <span>ioo</span> コマンドを試す前に、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/performance/perf_ovw_vmm.html" target="_blank" rel="noopener noreferrer">Virtual Memory Manager の性能概要を</a>参照してください。<p>チューナブル・パラメーターの変更とその目的についての詳細は、チューナ<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ioo.html#ioocommand__tunparamstype" target="_blank" rel="noopener noreferrer">ブル・</a> パラメーターのセクションのチューナブル・パラメーターの特性を参照のこと。</p>
+<p>調整可能なパラメータの「診断」と「調整」のセクションが、あなたの状況に当てはまることを確認してください。 チューナブル・パラメーターの値を変更することで、システムのパフォーマンスが向上する可能性があります。</p>
+<p>Diagnosis（診断）セクションとTuning（チューニング）セクションの両方にN/Aしかない場合は、開発の指示がない限り、チューニング可能なパラメータを変更しないでください。 <span>AIX</span> の指示がない限り、調整可能なパラメータを変更しないでください。</p>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-h</span> [チューナブル］</td>
+
+<td>指定した調整可能パラメータに関するヘルプ情報を表示します。 tunableパラメータが指定されていない場合、 <span>-h</span> フラグは <span>ioo</span> コマンドの使用法を表示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span></td>
+
+<td>現在値、リブート値（フラグと共に使用した場合）、ライブアップデート値（フラグと共に使用した場合）を表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9058" target="_blank" rel="noopener noreferrer"><span>-r</span></a> リブート値(フラグと一緒に使用した場合)、ライブアップデート値(フラグと一緒に使用した場合) <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__schedo-rowK" target="_blank" rel="noopener noreferrer"><span>-K</span></a> フラグと併用時）、またはパーマネント値（フラグと併用時）を表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9028" target="_blank" rel="noopener noreferrer"><span>-p</span></a><code>tunable =
+value</code> フラグと併用時)を表示します。 パーマネント・オプションの場合、調整可能なパラメータの値は、そのリブート値と現在の値が等しい場合にのみ表示される。 そうでない場合は、<code>NONE</code> が値として表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> チューナブル</td>
+
+<td>指定された調整可能パラメータをデフォルト値にリセットする。 チューナブルパラメータがデフォルト値に設定されていないために変更する必要がある場合、以下の基準の1つ以上を満たすと、警告メッセージが表示され、チューナブルパラメータに変更は行われない：<ul>
+<li>調整可能なパラメータは、 <span>Bosboot</span> または <span>Reboot</span> のタイプである。</li>
+
+<li>tunableパラメータは <span>Incremental</span> 、デフォルト値から変更される。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9058" target="_blank" rel="noopener noreferrer"><span>-r</span></a> フラグは併用されない。</li>
+
+<li>調整可能なパラメータは <span>Reboot</span> 、ライブ・アップデートの操作全体でサポートされる。</li>
+
+</ul>
+<p>調整可能なパラメーターの種類については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ioo.html#ioocommand__tunparamstype" target="_blank" rel="noopener noreferrer">調整可能なパラメーターの</a>カテゴリーを参照。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-D</span></td>
+
+<td>すべての調整可能なパラメーターをデフォルト値にリセットする。 デフォルト値に設定されていないために変更しなければならない調整可能パラメータが、以下の基準の1つ以上に当てはまる場合、警告メッセージが表示され、調整可能パラメータに変更は行われない：<ul>
+<li>調整可能なパラメータは、 <span>Bosboot</span> または <span>Reboot</span> のタイプである。</li>
+
+<li>tunableパラメータは <span>Incremental</span> 、デフォルト値から変更される。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9058" target="_blank" rel="noopener noreferrer"><span>-r</span></a> フラグは併用されない。</li>
+
+<li>調整可能なパラメータは <span>Reboot</span> 、ライブ・アップデートの操作全体でサポートされる。</li>
+
+</ul>
+<p>調整可能なパラメーターの種類については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ioo.html#ioocommand__tunparamstype" target="_blank" rel="noopener noreferrer">調整可能なパラメーターの</a>カテゴリーを参照。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span></td>
+
+<td>を指定すると、制限された調整可能パラメータが強制的に表示される。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e8899" target="_blank" rel="noopener noreferrer"><span>-a</span></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e8978" target="_blank" rel="noopener noreferrer"><span>-L</span></a>または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9084" target="_blank" rel="noopener noreferrer"><span>-x</span></a> フラグを指定したときに表示される。 フラグを指定しない場合は <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__schedo-f" target="_blank" rel="noopener noreferrer"><span>-F</span></a> フラグを指定しない場合、制限されたチューナブルは含まれない。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e8993" target="_blank" rel="noopener noreferrer"><span>-o</span></a><span>-a</span>, <span>-x</span>, または <span>-L</span> フラグ。</td>
+
+</tr>
+
+<tr>
+<td><span>-K</span></td>
+
+<td><span>/etc/tunables/nextboot</span> ファイルと <span>/etc/tunables/nextliveupdate</span> ファイルの両方にチューナブル・パラメーター値を設定します。 <span>-K</span> フラグは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9058" target="_blank" rel="noopener noreferrer"><span>-r</span></a> フラグとともにのみ使用されます。<p>フラグを指定した場合、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__schedo-rowK" target="_blank" rel="noopener noreferrer"><span>-K</span></a> フラグを <span>-r</span> と <span>-d</span> フラグ、または <span>-r</span> と <span>-D</span> フラグで指定すると、調整可能なパラメータ値は <span>/etc/tunables/nextboot</span> と <span>/etc/tunables/nextliveupdate</span> ファイルのデフォルト値に設定され、次回のブートまたはライブアップデート操作時に使用されます。</p>
+<p><span>-K</span> フラグを <span>-L</span> または <span>-x</span> フラグと一緒に指定すると、 <span>ioo</span> コマンドはライブ・アップデートの値を表示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span> [チューナブル］</td>
+
+<td>1 つまたはすべてのチューナブル・パラメーターの特性を、以下の形式で、1 行に 1 つずつリストします。<div><div><pre><code>
+NAME                      CUR    DEF    BOOT   MIN    MAX    UNIT           TYPE 
+     DEPENDENCIES 
+------------------------------------------------------------------------------------
+minpgahead                2      2      2      0      4K     4KB pages         D 
+     maxpgahead 
+------------------------------------------------------------------------------------
+maxpgahead                8      8      8      0      4K     4KB pages         D 
+     minpgahead 
+------------------------------------------------------------------------------------ 
+pd_npages                 64K    64K    64K    1      512K   4KB pages         D 
+------------------------------------------------------------------------------------ 
+maxrandwrt                0      0      0      0      512K   4KB pages         D 
+------------------------------------------------------------------------------------ 
+numclust                  1      1      1      0             16KB/cluster      D 
+------------------------------------------------------------------------------------ 
+numfsbufs                 196    196    196                                    M 
+-------------------------------------------------------------------------------- 
+recoveryMode              1      1      1      0      1      N/A               D 
+-------------------------------------------------------------------------------- 
+... 
+where: 
+    CUR = current value 
+    DEF = default value 
+    BOOT = reboot value 
+    MIN = minimal value 
+    MAX = maximum value 
+    UNIT = tunable unit of measure 
+    TYPE = parameter type: D (for Dynamic), S (for Static), R (for Reboot),
+               B (for Bosboot), M (for Mount), I (for Incremental),
+               C (for Connect), and d (for Deprecated) 
+    DEPENDENCIES = list of dependent tunable parameters, one per line</code></pre></div><div></div></div><span>-K</span> フラグを <span>-L</span> フラグと一緒に指定すると、Live Update 値も表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> 
+Tunable [<span>=</span>NewValue ]</td>
+
+<td>これはチューナブル・パラメーターの値を表示したり新しい値に設定したりします。 <span> <span>-o</span> フラグを使用して動的調整パラメータの値を変更すると、 <span>/etc/tunables/usermodified</span> ファイルが新しい調整パラメータ値で更新される。</span> 変更したいチューナブルパラメータが、以下の基準の1つ以上に当てはまる場合、警告メッセージが表示され、チューナブルパラメータに変更は加えられません：<ul>
+<li>調整可能なパラメータは、 <span>Bosboot</span> または <span>Reboot</span> のタイプである。</li>
+
+<li>調整可能なパラメータは、 <span>Incremental</span> 型であり、その現在の値は指定された値より大きく、 <span>-r</span> フラグは併用されない。</li>
+
+<li>調整可能なパラメータは、 <span>Reboot</span> 型であり、調整可能なパラメータはライブ・アップデート操作全体でサポートされる。</li>
+
+</ul>
+<p>調整可能なパラメーターの種類については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ioo.html#ioocommand__tunparamstype" target="_blank" rel="noopener noreferrer">調整可能なパラメーターの</a>カテゴリーを参照。</p>
+<p>NewValueを指定せずに <span>-r</span> フラグを指定すると、調整可能パラメータのnextboot値が表示されます。 <span> <span>-K</span> フラグが、 NewValue なしで <span>-o</span> フラグと組み合わされて使用された場合、調整可能パラメータの次のライブアップデート値が表示される。</span> <span>-p</span> フラグが <span>-o</span> フラグとともに NewValue なしで使用された場合、調整可能なパラメーターの現在のブート値と次のブート値が同じ場合にのみ、値が表示される。 そうでない場合は、<code>NONE</code> が値として表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td><span>-o</span>、 <span>-d</span>、 <span>-D</span> フラグで指定した場合、変更が現在値とリブート値の両方に適用されることを指定します。 チューナブル・パラメーターは、現在の値とともに <span>/etc/tunables/nextboot</span> ファイルを更新することができる。 これらの組み合わせは、 <span>Reboot</span> および <span>Bosboot</span> タイプの調整可能なパラメーターには使用できない。 <span>Reboot</span> および <span>Bosboot</span> タイプのチューナブル・パラメーターの現在値は変更できない。<p>新しい値を指定せずに <span>-a</span> または <span>-o</span> フラグを指定すると、調整可能なパラメータの現在のブート値と次のブート値が同じ場合にのみ値が表示されます。 そうでない場合は、 <code>NONE</code> が調整可能な値として表示される。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td><span>-o</span>、 <span>-d</span>、 <span>-D</span> フラグとともに使用された場合に、 <span>reboot</span> パラメータ値に適用される変更を行う。 チューナブル・パラメーターにより、 <span>/etc/tunables/nextboot</span> ファイルを更新することができる。 <span>Bosboot</span> タイプの調整可能パラメータが変更された場合、ユーザーはコマンドを実行するよう促される。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html" target="_blank" rel="noopener noreferrer"><span>bosboot</span></a> コマンドを実行するよう促される。<p><span>-r</span> フラグが、新しい値を指定せずに <span>-a</span> または <span>-o</span> フラグとともに使用された場合、調整可能なパラメータの次のブート値が、現在の値の代わりに表示される。 <span> <span>-K</span> フラグとともに使用すると、変更は <span>/etc/tunables/nextboot</span> ファイルと <span>/etc/tunables/nextliveupdate</span> ファイルの両方に適用される。</span></p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span> [
+Tunable]</td>
+
+<td>以下のスプレッドシート形式を使用して、1行に1つずつ、1つまたはすべての調整可能パラメーターの特性を一覧表示する：<div><div><pre><code>tunable,current,default,reboot,min,max,unit,type,{dtunable} 
+
+
+where: 
+    current = current value 
+    default = default value 
+    reboot = reboot value
+    min = minimal value 
+    max = maximum value 
+    unit = tunable unit of measure 
+    type = parameter type: D (for Dynamic), S (for Static), R (for Reboot),
+               B (for Bosboot), M (for Mount), I (for Incremental),
+               C (for Connect), and d (for Deprecated) 
+    dtunable = space separated list of dependent tunable parameters</code></pre></div><div></div></div><span>-K</span> フラグを <span>-x</span> フラグと一緒に指定すると、Live Update 値も表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-y</span></td>
+
+<td><span>bosboot</span> コマンドが実行される前に、確認プロンプトを抑制します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><span>-o</span>、 <span>-d</span>、 <span>-D</span> フラグを使用して、制限された調整可能パラメータを変更すると、使用制限タイプの調整可能パラメータが変更されたという警告メッセージがユーザーに表示されます。 また、 <span>-r</span> または <span>-p</span> フラグを指定した場合、制限されたチューナブル・パラメータの変更の確認を求めるプロンプトが表示される。 さらに、システム再起動の際、 <span>-r</span> または <span>-p</span> フラグを指定するコマンドラインを使用することで、 <span>/etc/tunables/nextboot</span> ファイルにある制限付き調整可能パラメーターの存在が、デフォルト値とは異なる値に変更される。 制限された調整可能パラメータを変更すると、変更された調整可能パラメータのリストを特定するエラーログエントリーが発生する。</p>
+
+<div>調整可能なパラメータを変更する場合、以下の略語を使用して対応する値を示すことで、調整可能なパラメータ値を指定することができます：<div><div><table><caption><span>表2. 調整可能なパラメータ値の略語</span></caption><thead>
+<tr>
+<th><div>省略語</div></th>
+
+<th><div>2 の累乗</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>K</code></td>
+
+<td>2<sup>10</sup></td>
+
+</tr>
+
+<tr>
+<td><code>M</code></td>
+
+<td>2<sup>20</sup></td>
+
+</tr>
+
+<tr>
+<td><code>G</code></td>
+
+<td>2<sup>30</sup></td>
+
+</tr>
+
+<tr>
+<td><code>T</code></td>
+
+<td>2<sup>40</sup></td>
+
+</tr>
+
+<tr>
+<td><code>P</code></td>
+
+<td>2<sup>50</sup></td>
+
+</tr>
+
+<tr>
+<td><code>E</code></td>
+
+<td>2<sup>60</sup></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>従って、調整可能なパラメータ値1024を1Kと指定することもできる。</div>
+
+<p><span>-o</span>、 <span>-d</span>、 <span>-D</span> フラグを使用して、 <span>Mount</span> タイプの調整可能パラメータを変更すると、その変更は将来のマウントにのみ有効であるという警告メッセージがユーザーに表示されます。</p>
+
+<p><span>-o</span>、 <span>-d</span>、または <span>-D</span> フラグを使用して、 <span>Connect</span> 型の調整可能パラメータに変更すると、コマンドは再スタートする。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inetd.html" target="_blank" rel="noopener noreferrer"><span>inetd</span></a> コマンドを再起動し、その変更は今後のソケット接続に対してのみ有効であるという警告メッセージを表示する。</p>
+
+<p><span>-r</span> フラグのない <span>Bosboot</span> または <span>Reboot</span> タイプの調整可能パラメータを <span>-o</span>、 <span>-d</span>、または <span>-D</span> フラグで変更しようとすると、エラーメッセージが表示される。</p>
+
+<p><span>-o</span>、 <span>-d</span>、または <span>-D</span> フラグを使用し、 <span>-r</span> フラグを使用せずに、 <span>Incremental</span> タイプの調整可能パラメータの現在の値を、現在の値よりも小さい新しい値で変更しようとすると、エラーメッセージが表示されます。</p>
+
+</section>
+
+<section><h2>互換モード</h2>
+
+<p><span>pre520tune</span> と呼ばれる <span>sys0</span> 属性によって制御される pre-5.2 互換モードで調整可能パラメータを実行する場合、 <span>Bosboot</span> を除く調整可能パラメータのリブート値は意味をなさない。 pre-5.2 互換モードでは、ブート時には適用されない。</p>
+
+<p>pre-5.2の互換モードでは、チューニングパラメータへのリブート値の設定は、ブートシーケンス中に呼び出されるスクリプトにチューニングコマンドの呼び出しを埋め込むことで実現されます。 そのため、Rebootタイプのパラメータは、既存のスクリプトが引き続き動作するように、「<span>-r</span>フラグなしで設定することができる。</p>
+
+<p>pre-5.2 互換モードは、マシンを次のように移行すると自動的にオンになります。 <span>AIX 5.2</span>. 完全なインストレーションの場合、この機能はオフになり、調整可能なパラメーターのリブート値は、リブートシーケンス中に <span>/etc/tunables/nextboot</span> ファイルの内容を適用することで設定されます。 このモードでのみ、「<span>-r</span>」と「<span>-p</span>フラグが完全に機能する。 詳細については、『<span><em>Performance Tools Guide and Reference</em></span>』の<a href="https://www.ibm.com/docs/ja/ssw_aix_73/performancetools/idprftools_procmon.html" target="_blank" rel="noopener noreferrer">「Kernel Tuning</a>」を参照のこと。</p>
+
+</section>
+
+<section><h2>チューナブル・パラメーター</h2>
+
+<div>などのチューニング・コマンドで操作されるチューナブル・パラメーター。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/no.html" target="_blank" rel="noopener noreferrer"><span>no</span></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfso.html" target="_blank" rel="noopener noreferrer"><span>nfso</span></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vmo.html" target="_blank" rel="noopener noreferrer"><span>vmo</span></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ioo.html" target="_blank" rel="noopener noreferrer"><span>ioo</span></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/raso.html" target="_blank" rel="noopener noreferrer"><span>raso</span></a>および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html" target="_blank" rel="noopener noreferrer"><span>schedo</span></a> コマンドは、以下の調整可能なパラメーターカテゴリーに分類される：<div><div><table><caption><span>表3. 調整可能なパラメータ・カテゴリー</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>Dynamic</span></td>
+
+<td>調整可能なパラメータがいつでも変更できる場合。</td>
+
+</tr>
+
+<tr>
+<td><span>Static</span></td>
+
+<td>調整可能なパラメーターが絶対に変更できない場合。</td>
+
+</tr>
+
+<tr>
+<td><span>Reboot</span></td>
+
+<td>調整可能なパラメータが再起動時にのみ変更可能な場合。</td>
+
+</tr>
+
+<tr>
+<td><span>Bosboot</span></td>
+
+<td>調整可能なパラメータが、 <span>bosboot</span> コマンドを使用してマシンを再起動することでしか変更できない場合。</td>
+
+</tr>
+
+<tr>
+<td><span>Mount</span></td>
+
+<td>調整可能なパラメータの変更が、将来のファイルシステムまたはディレクトリマウントに対してのみ有効である場合。</td>
+
+</tr>
+
+<tr>
+<td><span>Incremental</span></td>
+
+<td>調整可能なパラメーターが、ブート時を除いて、漸増できる場合。</td>
+
+</tr>
+
+<tr>
+<td><span>Connect</span></td>
+
+<td>チューナブルパラメータを変更した場合、その変更は将来のソケット接続に対してのみ有効である。</td>
+
+</tr>
+
+<tr>
+<td><span>Deprecated</span></td>
+
+<td>チューナブル・パラメーターの変更が、現在のリリースの <span>AIX</span>.</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<div><span>Bosboot</span> タイプの調整可能パラメータについては、変更が実行されるたびに、チューニングコマンドは自動的に、そのコマンドを実行するかどうかをユーザーに尋ねます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bosboot.html" target="_blank" rel="noopener noreferrer"><span>bosboot</span></a> コマンドを実行するかどうかを自動的に尋ねる。 <span>Connect</span>、チューニング・コマンドは自動的にデーモンを再起動します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inetd.html" target="_blank" rel="noopener noreferrer"><span>inetd</span></a> デーモンを自動的に再起動する。<div><div>
+        <div>
+          <div><span>注：</span> <span>ioo</span> コマンドで管理される現在のパラメーターセットには、 <span>Static</span>、 <span>Dynamic</span>、 <span>Mount</span>、 <span>Incremental</span> タイプの調整可能なパラメーターのみが含まれる。</div>
+        </div>
+      </div></div>
+</div>
+
+<div>調整可能なパラメータのデフォルト値と値の範囲については、以下のコマンドを入力する：<div><div><pre><code>ioo -h</code></pre></div><div></div></div></div>
+
+<div>次の表は、調整可能なパラメーターとその説明の一覧である：<div><div><table><caption><span>表4. チューナブル・パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>aio_active</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>非同期I/O（AIO）カーネル拡張が使用され、固定されているかどうかを示す。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値 <span>1は</span>、AIOカーネル拡張が使用され、ピン留めされていることを示す。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>aio_maxreqs</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>一時点で未解決のままにしておくことができる非同期入出力要求の最大数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>指定された数には、進行中である入出力要求だけでなく、キューで開始を待機中の入出力要求も含まれます。 非同期I/Oリクエストの最大数は、 <span>/usr/include/sys/limits.h</span> ファイルで定義されている <code>AIO_MAX</code> フィールドの値より小さくすることはできないが、大きくすることはできる。 非同期I/Oの量が多いシステムでは、非同期I/O要求の最大数を <code>AIO_MAX</code> フィールドの値より大きくするのが適切である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>aio_maxservers</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>低速パスI/O要求に対応できるAIOサーバー（非同期I/O処理専用のカーネルプロセス）の最大数を指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値はCPUあたりの値である。 <span>aio_maxservers</span> の値が <span>aio_minservers</span> を下回ることはない。 一度に、 <span>aio_maxservers</span> 調整可能パラメーターの非同期I/Oリクエストの値を超えて進行することはできないので、この数によって可能なI/O同時実行が制限される。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>aio_minservers</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>スロー・パス入出力要求を処理するためにアクティブなままである AIO サーバー (非同期入出力処理専用のカーネル・プロセス) の最小数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値はCPUあたりの値である。 <span>aio_minservers</span> の値を <span>aio_maxservers</span> の値より大きくすることはできない。 カーネル・エクステンションがロードされる場合、現行の設定値またはデフォルトの設定値にかかわらず、AIO サーバーは作成されません。 この値により、AIO が使用されないシステムで最低限の AIO 占有スペースが許容されます。 I/O要求が開始されると、「<span>aio_maxservers</span>」で許容される最大値に達するまで、AIOサーバーが作成され、I/O要求に対応する。 <span>aio_minservers</span>超えると、サーバー数は「<span>aio_minservers</span>」を下回らない。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>aio_server_inactivity</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>AIO サーバーが入出力要求を処理せずにスリープする期間を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この制限時間を超えると、利用可能なサーバーの数が'<span>aio_minservers</span>よりも少なくならない限り、サーバーは終了する。 この場合、サーバーはスリープ状態に戻る。 この稀なケースにおけるサーバーのスリープ時間は、 <span>aio_server_inactivity</span> の現在値とデフォルト値で指定されている時間のうち、大きい方の時間である。 これはまれなケースであり、使用可能なサーバー数と入出力量との間にアンバランスが存在する場合があることを示します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>aio_delegateiotodriverkth</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>非同期I/OをVirtual Persistent MemoryvPMEM）ドライバのカーネルスレッドに委譲する閾値を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd><span>lio_listio</span>または「<span>lio_listio64</span>サブルーチンは、1回のコールで非同期I/Oリクエストのリストを開始する。 リスト内の非同期I/O要求の数が <span>aio_delegateiotodriverkth</span> 調整可能パラメータ値より大きく、基礎となるデバイスが <code>vPMEM</code> の場合、 <code>vPMEM</code> ドライバは <code>vPMEM</code> ドライバのカーネルスレッドに非同期I/Oを委譲し、パフォーマンスを向上させる。 <span>0を</span>指定すると、 <span>aio_delegateiotodriverkth</span> のチューナブル・パラメーターが無効になる。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>aio_queue_enhanced_search</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>キュー内のAIOリクエストを見つけるために、既存のアルゴリズムを使うか、拡張アルゴリズムを使うかを指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この調整可能なパラメータ値が <span>1に</span>設定されている場合、キュー内のAIOリク エストを見つけるために拡張検索アルゴリズムが使用される。 強化されたアルゴリズムにより、AIO検索要求のパフォーマンスが向上した。 アルゴリズムを切り替えるには、 <span>aio_queue_enhanced_search</span> 調整可能パラメーターを必要な値に設定し、システムを再起動する。 デフォルトでは、 <span>aio_queue_enhanced_search</span> 調整可能パラメータ値は <span>1</span> に設定され、拡張検索アルゴリズムが使用される。 調整可能なパラメータ値を <span>0に</span>設定すると、既存のアルゴリズムが使用される。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>dk_closed_path_recovery</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>MPIO ディスクがクローズされたときに「障害」状態であったマルチパス入出力 (MPIO) パスをリカバリーするためのサポートを有効または無効にします。 MPIO パスがリカバリーされるまで、リカバリー操作は、MPIO ディスクがクローズされた後で定期的に試みられます。 MPIOパスが故障状態にあり、かつMPIOディスクが既にクローズされている場合、この調整可能パラメータを <span>1に</span>設定しても、故障したMPIOパスは復旧できない。 以下のコマンドを使用することで、MPIOディスクのオープンとクローズ、および既にクローズされているMPIOディスクのMPIOパスのリカバリーを開始することができます：<div><div><pre><code>lsmpio -o -l hdiskX</code></pre></div><div></div></div>この機能はデフォルトで、AIX パス制御モジュール (PCM) でサポートされています。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値 <span>0は</span>、故障状態にあるMPIOパスの回復サポートを無効にする。 デフォルト値は <span>0</span> である。</dd>
+
+<dd>チューニング値を <span>1 に</span>設定すると、障害状態にある MPIO パスの復旧をサポートする。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>dk_lbp_enabled</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>AIX® オペレーティングシステムのシン・プロビジョニングとしても知られる論理ブロック・プロビジョニング（LBP）のサポートを有効または無効にします。 無効にすると、AIXはシンプロビジョニングされたディスクから使用されていないブロックを解放しようとしない。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値を <span>1 に</span>すると、LBP サポートが有効になる。 デフォルト値は <span>1</span> である。</dd>
+
+<dd>チューニング値 <span>0は</span> LBPサポートを無効にする。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>dk_lbp_num_bufs</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>LBP サポートに使用される事前割り振りバッファーのプールのサイズを定義します。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>チューニング</dt>
+
+<dd>ディスクドライバが一度に処理できる <code>unmap</code> 要求の最大数を制御する。 バッファー・プールは、システム全体のリソース・プールです。 シン・プロビジョニングされたディスクでは、一度にアクティブにできる <code>unmap</code> リクエストは1つだけです。 このパラメータのデフォルト値は64バッファである。 例えば、64個のバッファがある場合、32KB（64個のバッファ×512バイト＝32KB）の総ピン留めメモリがあることになる。 この調整可能な値は1～1024の範囲である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>dk_lbp_buf_size</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>LBP バッファー・プール内の各バッファーのサイズを定義します。 デフォルト値は 512 バイトです。 この値は4096（4KB）に変更することができ、その場合、4KBのブロックサイズをサポートするディスクに対してブロックを解放することができる。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>チューニング</dt>
+
+<dd>この調整可能パラメーターの調整値は、 AIX システムに接続されているディスクがサポートする最大のブロックサイズと同じでなければならない。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_atimeUpdateSymlink</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd><span>j2_atimeUpdateSymlink</span> tunableパラメータが <span>1に</span>設定されている場合、 JFS2 ファイルシステムシンボリックリンクのアクセス時間は、 <span>readlink</span> リクエストで更新される。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>値 <span>0は</span>、 JFS2 ファイルシステムのシンボリックリンクのアクセス時間が、 <span>readlink</span> リクエストで更新されないことを示す。 <span>j2_atimeUpdateSymlink</span> をオンにすることに関連したパフォーマンスの低下があるため、実際に必要な場合を除いて、このチューナブル・パラメーターを変更しないでください。 <span>SUSv3</span> は、 リクエスト時にアクセスタイムを更新する必要はない。 <span>readlink</span>  しかし、JFSや他の多くのプラットフォームは、 <span>readlink</span> 、アクセスタイムを更新する。 このチューナブルは、JFSや他のUNIX準拠システムとの互換性のために提供されている。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_dynamicBufferPreallocation</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>I/O操作中に一時的にデータを格納するために使用されるファイル・システム・バッファが不足している場合に、ファイル・システムが割り当てを行う16 Kスラブの数を指定する (<span>bufstructs</span>)。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd><span>16は</span> 256Kを表す。 ファイルシステムの再マウントは必要ない。 JFS2 ファイルシステムの <span>bufstructs</span> がダイナミックになった。 ページング・デバイス上で開始されるバッファの数は、 <span>j2_nBufferPerPagerDevice</span> 調整可能パラメータによって制御されるが、バッファはこの初期値以降、動的に割り当てられ、破棄される。 <code>vmstat -v</code> から） <span>fsbuf</span> なしでブロックされた外部ページャー・ファイルシステムI/Oの数が増加した場合、ファイルシステム上のI/O負荷が事前割り当ての速度を超えている可能性があるため、そのファイルシステムに対して <span>j2_dynamicBufferPreallocation</span> 調整可能パラメータを増加させる必要がある。 <span>0を</span>指定すると、ダイナミック・バッファ割り当てが完全に無効になる。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_inodeCacheSize</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムがインデックスノード（inode）キャッシュに使用するメモリ量を制御します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値は、使用量を明示的に示すものではなく、スケーリング係数である。 <span>j2_inodeCacheSize</span>調整可能パラメーターの値は、メインメモリーのサイズと組み合わせて、inodeキャッシュの最大メモリー使用量を決定するために使用される。 inodeキャッシュ・サイズのスケーリング・ファクターは、マシンのメモリと <span>j2_inodeCacheSize</span> チューナブル・パラメーターの値の積を4000で割った値として計算される。 <span>j2_inodeCacheSize</span>チューナブル・パラメーターのデフォルト値は200で、これはinodeキャッシュ・サイズがマシン・メモリーの5％を占めることを意味する。 動的メモリーを追加および除去しても、キャッシュのサイズは自動的に変更されません。 この調整可能パラメーターのデフォルト値は、AIXバージョン7.11で変更されたが、メインメモリーサイズが小さく、同時使用ユーザー数やオープンファイル数が多いシステムでは、旧デフォルト値の400の方がパフォーマンスが向上する可能性がある。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_maxPageReadAhead</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムでシーケンシャルアクセスされたファイルを処理する際に、先読みする最大ページ数を指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd><span>minfree</span> パラメータと <span>maxfree</span> パラメータの差は、常に <span>j2_maxPageReadAhead</span> チューナブルパラメータの値以上でなければならない。 <span>j2_maxPageReadAhead</span> 、調整可能なパラメータの値が大きくなると実行時間が短くなる場合は、他のアプリケーションのパフォーマンスが低下しないようにしてください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_maxRandomWrite</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムのライトビハインドアルゴリズムによって後続ページがディスクにフラッシュされる前に、ランダム書き込み操作がランダムアクセスメモリ（RAM）に蓄積される閾値を指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>ランダム後書きしきい値は、ファイルごとに設定されます。 このチューナブル・パラメーターは、 <span>syncd</span> デーモンによって大量のページがフラッシュアウトされる場合に有用である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_metadataCacheSize</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムがメタデータキャッシュに使用するメモリ量を制御します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>チューニング値は、使用量を明示的に示すものではなく、スケーリング係数である。 <span>j2_metadataCacheSize</span>チューナブル・パラメータの値は、メイン・メモリのサイズと組み合わせて使用され、メタデータ・キャッシュの最大メモリ使用量を決定する。 メタデータ・キャッシュ・サイズのスケーリング・ファクターは、マシンのメモリと <span>j2_metadataCacheSize</span> チューナブル・パラメーターの値の積を10000で割った値として計算される。 <span>j2_metadataCacheSize</span> チューナブル・パラメータのデフォルト値は200で、これはinodeメタデータ・サイズがマシン・メモリの最大2％を占めることを意味する。 動的メモリーを追加および除去しても、キャッシュのサイズは自動的に変更されません。 この調整可能パラメーターのデフォルト値は、AIXバージョン7.11で変更されたが、メインメモリーサイズが小さく、同時使用ユーザー数やオープンファイル数が多いシステムでは、旧デフォルト値の400の方がパフォーマンスが向上する可能性がある。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_minPageReadAhead</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステム上でシーケンシャルにアクセスされるファイルを処理する際に、先に読み込む最小ページ数を指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>大きな順次アクセスが数多く行われる場合には増やすと有効です。 他のアプリケーションのパフォーマンスが低下しないようにする。 I/Oパターンが純粋にランダムな場合は、 <span>0を</span>指定すると便利である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_nPagesPerWriteBehindCluster</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムのライトビハインド・アルゴリズムで処理されるクラスタごとのページ数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>I/O パターンが順次であるときに、I/O にスケジュールされる前に RAM に保持するページ数を増やす必要がある場合には、この値を増やすと有効です。 ストライピングされた論理ボリュームやディスクアレイを使用している場合は、増やすのが適切かもしれない。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_nRandomCluster</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFSのランダム・ライト・ビハインド・アルゴリズムでランダムとみなされるために必要な書き込み操作の間隔（クラスター単位）を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>I/Oパターンがランダムで、 <span>j2_maxRandomWrite</span> チューナブル・パラメータでランダム・ライト・ビハインドが有効になっている場合、I/Oがスケジュールされる前に、より多くのページをRAMに保持する必要がある場合に増やすと便利である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_recoveryMode</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステム書き込みエラーからの復旧動作を設定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>デフォルト値の <span>1は</span>、 JFS2 ファイルシステム書き込みエラーからの自動回復が設定されていることを示す。 値 <span>0は</span>、アンマウントされるまでファイルシステムがデグレード・モードのままであることを示す。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_syncByVFS</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムの同期処理の各呼び出し間の遅延を変更します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この調整可能なパラメーターにより、 JFS2 ファイルシステムを、標準の <span>sync</span> デーモン周期とは異なる速度で同期させることができる。 このチューナブルがゼロ以外の値に設定された場合、その秒数が、各 JFS2 ファイルシステムの同期処理の反復の間の遅延になります。 このチューナブルを使うことで、 <span>sync</span> デーモンがすべてのファイルシステムを同時に処理するため、 <span>sync</span> デーモンが広げることができるよりも同期操作を広げることができる。 また、ファイルシステム <span>sync</span> 操作を処理するスレッド数を変更することもできる。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_syncConcurrency</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>JFS2 ファイルシステムへのデータを同期するために実行されるスレッドの数を変更します。 各スレッドは一度に1つのファイルシステムを操作する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>マウントされているファイルシステムが多い場合、同期操作ですべてのファイルシステムをタイムリーに処理するには、この値を大きくする必要があるかもしれない。<div><div>
+        <div>
+          <div><span>注:</span> この値は、 <span>j2_syncByVFS</span> チューナブル・パラメーターがゼロ以外の値である場合にのみ有効です。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_syncDelayReport</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>ファイルシステムの同期に必要な時間が指定した秒数を超えた場合に通知する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>このチューナブル・パラメーターは、ファイルシステムの同期処理を完了するために許可される秒数を設定します。 その秒数を超えると、<span>syslog</span> ファイルにメッセージが生成されます。 このメッセージは単なる情報提供であり、シンク操作の他の動作を変更するものではありません。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_syncPageCount</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>1回の操作で <span>sync</span> システム・コールによってディスクに書き込まれる、ファイルの最大変更ページ数を設定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>ファイルシステムのキャッシングを使用するアプリケーションが実行され、多数のランダム書き込みを行う場合、同期操作時の長い遅延を避けるために、この設定値の調整が必要になる場合があります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>j2_syncPageLimit</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd><span>sync</span> システムコールが <span>j2_syncPageCount</span> 調整可能パラメータを使用する最大回数を設定する。 この調整可能パラメータは、 <span>j2_syncPageCount</span> 調整可能パラメータ値を増加させる前に書き込まれるページ数を制限し、同期操作の進捗を可能にする。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この調整可能なパラメータは、 <span>j2_syncPageCount</span> パラメータを設定する際に設定する必要があり、 <span>j2_syncPageCount</span> パラメータの変更による効果が十分でない場合は、増加させる必要がある。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>lvm_workQ_enhanced_search</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>論理ボリュームのワークキューでオーバーラップしたI/Oを見つけるために、既存の検索アルゴリズムを使用するか、拡張検索アルゴリズムを使用するかを指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd><span>lvm_workQ_enhanced_search</span> 調整可能パラメータ値が <span>1に</span>設定されている場合、論理ボリュームの作業キューでオーバーラップしたI/Oを見つけるために、拡張検索アルゴリズムが使用される。 そうでない場合は、既存のアルゴリズムが使われる。 この強化されたアルゴリズムにより、重複I/Oの検索性能が向上しました。</dd>
+
+<dd>アルゴリズムを切り替えるには、 <span>lvm_workQ_enhanced_search</span> 調整可能パラメータの値を必要な値に変更することで、論理ボリュームを閉じて再度開く必要があります。 デフォルトでは、この調整可能なパラメータ値は <span>0に</span>設定され、既存の検索アルゴリズムが使用される。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>lvm_bufcnt</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>ロウ物理 I/O の LVM バッファー数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>ストライピングされたRAW論理ボリュームに大きな書き込みを行うアプリケーションは、期待したスループットレートを得られない。 LVMは、大きなRAW I/Oを128KBずつの複数のバッファに分割する。 値 9 は、約 1 MB の入出力を追加のバッファーを待たずに処理できることを意味します。 システムがストライピングされたロウ論理ボリュームを持つように構成され、
+1.125 MB より大きい書き込みを実行中の場合、
+この値を増やすことでアプリケーションのスループットが向上することがあります。 システムが 1 MB より大きいロウ I/O を実行している場合、この値を増やすことが有効な場合があります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>maxpgahead</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>順次アクセスされるファイルが処理されるとき、先読みする最大ページ数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>このチューナブルパラメータ値は2のべき乗でなければならず、 <span>minpgahead</span> チューナブルパラメータ値以上でなければならない。 <span>time</span> コマンドを使用して、クリティカルなシーケンシャルI/O依存アプリケーションの経過実行時間を観察する。 カーネルの制限のため、最大値は512を超えないこと。 <span>minfree</span> と <span>maxfree</span> パラメーターの差は、常に <span>maxpgahead</span> 調整可能パラメーターの値以上でなければならない。 <span>maxpgahead</span> 、調整可能なパラメーターの値が大きくなるにつれて実行時間が短くなる場合は、他のアプリケーションを観察し、パフォーマンスが低下しないことを確認する。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>maxrandwrt</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>後書きアルゴリズムにより以降のページがディスクにフラッシュされる前に RAM で累積するランダム書き込みのしきい値 (4 KB ページ) を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>ランダム後書きしきい値は、1 ファイル当たりを基準にしています。 最大値は、最大ファイル・サイズ (ページ単位) を示します。 <code>vmstat n</code> 、一定間隔でページアウトとI/O待ち時間のピークが表示される場合（通常、同期デーモンがディスクにページを書き込んでいるとき）、値を変更することができる。 <span>syncd</span> コマンド実行時に多数のI/Oが発生する場合は、この値を <span>1</span> 以上に設定すると便利である。 値 <span>0は</span>、ランダム・ライト・ビハインドを無効にし、同期操作が発生するまでランダム・ライトがRAMに留まることを示す。 <span>maxrandwrt</span> チューナブル・パラメーターを設定することで、これらの書き込みが同期操作の前にディスクにフラッシュされるようになる。 しかし、同期操作の前に毎回ファイルがフラッシュされるため、パフォーマンスが低下する可能性がある。 このオプションを、スループット上での好みの対話式応答時間に調整してください。 閾値に達すると、それ以降のページはすべてディスクにフラッシュされる。 しきい値までのページは、同期操作が発生するまでRAMに留まる。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>numclust</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>VMMのシーケンシャルライトビハインドアルゴリズムで処理される16KBクラスタの数を指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>I/O パターンが順次であるときに、I/O にスケジュールされる前に RAM に保持するページ数を増やす必要がある場合には、この値を増やすと有効です。 ストライピングされた論理ボリュームやディスク・アレイを使用している場合は、増やすのが適切かもしれない。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>numfsbufs</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>ファイルシステム <span>bufstructs</span> の数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>ファイルシステムは再マウントする必要があります。 VMMが空いている「<span>bufstruct</span>」を待つ必要がある場合、開始I/Oが発行される前にプロセスをVMM待ちリストに入れ、「<span>bufstruct</span>利用可能になったらプロセスを起こす。 ストライピングされた論理ボリュームやディスク・アレイを使用している場合は、増やすのが適切かもしれない。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>pd_npages</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>ファイルを削除するとき、RAM から 1 つのチャンクで削除される必要のあるページ数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>最大値は、最大ファイル・サイズ (ページ単位) を示します。 ファイルが削除されている間、リアルタイムアプリケーションの応答時間が遅くなる。 このオプションの調整は、リアルタイム・アプリケーションだけに有効です。 リアルタイムの応答が重要な場合、
+RAM からのファイル・ページの削除をワークロード全体により均一に広げるようにしてオプションを調整すると、
+応答時間が改善されることがあります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_aio_active</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>AIO カーネル・エクステンションが使用され、ピンされているかどうかを指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>調整可能な値 <span>1は</span>、AIOカーネル拡張が使用され、固定されていることを示す。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_aio_maxreqs</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>一時点で未解決のままにしておくことができる非同期入出力要求の最大数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>指定された数には、進行中である入出力要求だけでなく、キューで開始を待機中の入出力要求も含まれます。 非同期入出力要求の最大数は、<code>/usr/include/sys/limits.h</code> ファイルに定義された AIO_MAX の値より小さくすることはできませんが、それより大きくすることはできます。 非同期I/Oの量が多いシステムでは、非同期I/O要求の最大数をAIO_MAXより大きくするのが適切である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_aio_maxservers</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>スロー・パス入出力要求を処理できる AIO サーバー (非同期入出力処理専用のカーネル・プロセス) の最大数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この調整可能なパラメーター値はプロセッサーごとの値である。 <span>posix_aio_maxservers</span> チューナブル・パラメータの値は、 <span>posix_aio_minservers</span> チューナブル・パラメータの値より小さくすることはできない。 一度に、 <span>posix_aio_minservers</span> 調整可能パラメーターの非同期I/Oリクエストの値を超えて進行することはできないので、この数によって可能なI/O同時実行が制限される。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_aio_minservers</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>スロー・パス入出力要求を処理するためにアクティブなままである AIO サーバー (非同期入出力処理専用のカーネル・プロセス) の最小数を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この調整可能なパラメータ値はCPUごとの値である。 <span>posix_aio_minservers</span> チューナブル・パラメータのチューナブル値は、 <span>posix_aio_maxservers</span> チューナブル・パラメータの値より大きくすることはできない。 カーネル・エクステンションがロードされる場合、現行の設定値またはデフォルトの設定値にかかわらず、AIO サーバーは作成されません。 この処理により、AIO が使用されないシステムで最低限の AIO 占有スペースが許容されます。 I/Oリクエストが開始されると、AIOサーバーは、 <span>posix_aio_maxservers</span> チューナブル・パラメーターで許容される最大値に達するまで、サービスを提供するために生成される。 <span>posix_aio_minservers</span> チューナブル・パラメータの値を超えると、サーバー数は <span>posix_aio_minservers</span> チューナブル・パラメータの値以下にならない。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_aio_server_inactivity</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>AIO サーバーが入出力要求を処理せずにスリープする期間を指定します。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>制限時間を超えると、サーバーは終了する。ただし、利用可能なサーバーの数が <span>posix_aio_minservers</span> tunable parameterの値より少なくなる場合を除く。 この場合、サーバーはスリープ状態に戻る。 このまれなケースでサーバーがスリープする時間は、 <span>posix_aio_server_inactivity</span> チューナブル・パラメータの現在値とデフォルト値で指定されている時間のうち、大きい方である。 これはまれなケースであり、使用可能なサーバー数と入出力量との間にアンバランスが存在する場合があることを示します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_aio_delegateiotodriverkth</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>非同期I/Oを vPMEM ドライバのカーネルスレッドに委譲する閾値を指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd><span>lio_listio</span>または「<span>lio_listio64</span>サブルーチンは、1回のコールで非同期I/Oリクエストのリストを開始する。 リスト内の非同期I/Oリクエスト数が <span>posix_aio_delegateiotodrPivuerproksteh</span> チューナブル・パラメータの値より大きく、基礎となるデバイスが <code>vPMEM</code> の場合、 <code>vPMEM</code> ドライバは <code>vPMEM</code> ドライバのカーネル・スレッドに非同期I/Oを委譲し、パフォーマンスを向上させる。 <span>0を</span>指定すると、 <span>posix_aio_delegateiotodrPivuerproksteh</span> のチューナブル・パラメーターが無効になる。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>posix_
+aio_queue_enhanced_search</span></td>
+
+<td><dl>
+
+<dt>目的</dt>
+
+<dd>キュー内のAIOリクエストを見つけるために、既存の検索アルゴリズムを使うか、拡張された検索アルゴリズムを使うかを指定する。</dd>
+
+
+
+<dt>チューニング</dt>
+
+<dd>この調整可能なパラメータ値が <span>1に</span>設定されている場合、キュー内のAIOリク エストを見つけるために、拡張検索アルゴリズムが使用される。 そうでない場合は、既存のアルゴリズムが使われる。 AIO検索要求の性能は、強化された検索アルゴリズムによって改善される。 アルゴリズムを切り替えるには、 <span>posix_ aio_queue_enhanced_search</span> 調整可能パラメーターを必要な値に設定し、システムを再起動する。 デフォルトでは、 <span>posix_aio_queue_enhanced_search</span> 調整可能パラメータ値は <span>1</span> に設定され、拡張検索アルゴリズムが使用される。 調整可能なパラメータ値を <span>0に</span>設定すると、既存のアルゴリズムが使用される。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</section>
+
+<section><h2>メモリー使用量および統計</h2>
+
+<ul>
+<li><div>ファイルシステムのメモリ使用量を表示するには、以下のコマンドを入力する：<div><div><pre><code>cat /proc/sys/fs/jfs2/memory_usage</code></pre></div><div></div></div></div>
+
+<p>これは、メタデータ・キャッシュ、'<span>inode</span>キャッシュ、および総メモリ使用量をバイト単位で返す。</p>
+
+</li>
+
+<li><div>ファイル・システムの統計情報を表示するには、以下のコマンドを入力する：<div><div><pre><code>cat /proc/sys/fs/jfs2/statistics</code></pre></div><div></div></div></div>
+
+<p>これは、<span>icache</span> ヒット、<span>icache</span> ミス、および <span>icache</span> 活動化の数を返します。</p>
+
+</li>
+
+<li><div>バッファ不足の値が表示された回数や、 <span>unmap</span> 操作に失敗した回数など、LBP サポートに関連するシステム統計を表示するには、以下のコマンドを入力します：<div><div><pre><code>cat/proc/sys/disk/lbp/statistics</code></pre></div><div></div></div></div>
+
+</li>
+
+</ul>
+
+
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>ioo</span> コマンドで管理されているチューナブル・パラメーターの現在値およびリブート値、範囲、単位、タイプ、依存関係を一覧表示するには、以下のコマンドを入力します：<div><div><pre><code>ioo -L </code></pre></div><div></div></div>
+</li>
+
+<li><div>調整可能パラメータ「<span>j2_recoveryMode</span>」の現在値、デフォルト値、リブート値、範囲、単位、およびタイプを一覧表示するには、以下のコマンドを入力する：<div><div><pre><code>ioo -L j2_recoveryMode</code></pre></div><div></div></div></div>
+
+<div>結果は以下の出力のようになる場合があります。<div><div><pre><code>NAME              CUR    DEF    BOOT   MIN    MAX    UNIT          TYPE
+-----------------------------------------------------------------------
+recoveryMode       1      1       1     0      1      n/a            D
+-----------------------------------------------------------------------</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><span>j2_nPagesPerWriteBehindCluster</span> tunableパラメータのヘルプ情報を表示するには、以下のコマンドを入力する：<div><div><pre><code>ioo -h j2_nPagesPerWriteBehindCluster </code></pre></div><div></div></div>
+</li>
+
+<li>次のリブート後に <span>maxrandwrt</span> チューナブル・パラメータを4に設定するには、以下のコマンドを入力する：<div><div><pre><code>ioo -r -o maxrandwrt=4</code></pre></div><div></div></div>
+</li>
+
+<li>すべての「<span>ioo</span>調整可能パラメーターを恒久的にデフォルトにリセットするには、以下のコマンドを入力する：<div><div><pre><code>ioo -p -D </code></pre></div><div></div></div>
+</li>
+
+<li>すべての <span>ioo</span> 調整可能パラメーターのリブート値を一覧表示するには、以下のコマンドを入力する：<div><div><pre><code>ioo -r -a</code></pre></div><div></div></div></li>
+
+<li><span>ioo</span> コマンドで管理されているチューナブル・パラメーターの現在値とリブート値、範囲、単位、タイプ、依存関係をスプレッドシート形式で一覧表示するには、以下のコマンドを入力します：<div><div><pre><code>ioo -x</code></pre></div><div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,481 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>NFS サーバーからディレクトリーをマウントします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/mknfsmnt</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146399" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a><em>PathName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146379" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em>RemoteDirectory</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146426" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a><em>RemoteHost</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146746" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> { <strong>rw</strong> |<strong> ロー</strong> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146611" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a><em>MountTypeName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146811" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> {<strong> fg</strong> |<strong> bg</strong> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146843" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146835" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146722" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146420" target="_blank" rel="noopener noreferrer"><strong>-H </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146856" target="_blank" rel="noopener noreferrer"><strong>-Y</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146849" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146868" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146862" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146393" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146387" target="_blank" rel="noopener noreferrer"><strong>-E </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146339" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146330" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146501" target="_blank" rel="noopener noreferrer"><strong>-j</strong></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146492" target="_blank" rel="noopener noreferrer"><strong>-J</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146696" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146687" target="_blank" rel="noopener noreferrer"><strong>-Q</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146413" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146407" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146729" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146642" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146434" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146348" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146633" target="_blank" rel="noopener noreferrer"><strong>-N </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146702" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a><em>TimesToRetry</em><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146710" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a><em> NumRetrans</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146357" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a><em>ReadBufferSize</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146368" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a><em>WriteBufferSize</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146648" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a><em>TimeOut</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146659" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a><em>PortNumber</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146778" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a><em>AcRegMin</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146767" target="_blank" rel="noopener noreferrer"><strong>-U </strong></a><em>AcRegMax</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146800" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a><em>AcDirMin</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146789" target="_blank" rel="noopener noreferrer"><strong>-V </strong></a><em>AcDirMax</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146735" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a><em>AcTimeOut</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146667" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a><em>NumBiods</em><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146510" target="_blank" rel="noopener noreferrer"><strong>-K </strong></a>{ <em>いずれも</em> | <em>2</em> | <em>3</em> | <em>4</em> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146544" target="_blank" rel="noopener noreferrer"><strong>-k </strong></a>{ <em>いずれも</em> | <em>ティーシーピー</em> | <em>udp</em> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146575" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146569" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146581" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a> <em>セキュリティ・メソッド</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknfsmnt.html#mknfsmnt__row-d3e146443" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> { <em>ディオ</em> | <em>cio</em> [,<em>シオール</em> ] } ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mknfsmnt</strong> コマンドは、<strong>/etc/filesystems</strong> ファイルへ追加するエントリーを構成し、ファイルシステムをマウントできるようにします。 マウントが永続的であれば、このエントリーは残ります。 マウントが一時的であれば、<strong>mount</strong> コマンドにフラグが直接指定されます。 マウントがソフトで、サーバーが応答しない場合に、システムはエラーを戻します。 マウントがハードであれば、クライアントはサーバーが応答するまで試行を継続します。 ハード・マウントはデフォルトのマウントです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong></td>
+
+<td>このファイルシステムの <strong>/etc/filesystems</strong> のエントリーは、ファイルシステムがシステム再始動時に自動的にマウントされることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td>このファイルシステムの <strong>/etc/filesystems</strong> のエントリーは、ファイルシステムがシステム再始動時に自動的にマウントされないよう指定します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>/etc/filesystems</strong> ファイルにエントリーを追加し、ファイルシステムをマウントしようとします。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> ReadBufferSize</em></td>
+
+<td><em>ReadBufferSize</em> 変数で指定したバイト数で読み取りバッファーのサイズを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> WriteBufferSize</em></td>
+
+<td><em>WriteBufferSize</em> 変数で指定したバイト数で書き込みバッファーのサイズを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> RemoteDirectory</em></td>
+
+<td>指定したパス名にマウントするディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>ハード・マウントでのキーボード割り込みを可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>ハード・マウントでのキーボード割り込みを不可能にします。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> PathName</em></td>
+
+<td>リモート・ディレクトリー用にマウント・ポイントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong></td>
+
+<td>ファイルシステム上で作成されたファイルまたはディレクトリーに、親ディレクトリーのグループ ID を継承させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>ファイルシステム上で作成された新規ファイルまたはディレクトリーに、
+親ディレクトリーのグループ ID を継承させません。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>ハード・マウントを作成します。これは、クライアントはサーバーが応答するまで再試行を継続することを意味します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> RemoteHost</em></td>
+
+<td>ディレクトリーをエクスポートする NFS サーバーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>エントリーを <strong>/etc/filesystems</strong> ファイルに追加させます。 ディレクトリーはマウントされません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>マウント用の入出力モードを指定します。 オプションは以下のとおりです。<dl>
+<dt><em>cio</em></dt>
+
+<dd>並行入出力モードを指定します。 並行リーダーおよびライターにマウントされるファイルシステムを指定します。 このファイルシステム内のファイル上での入出力は、ファイルが <strong>open()</strong>
+システム・コール内で指定された <strong>O_CIO</strong> でオープンされたかのように動作します。</dd>
+
+
+<dt><em>dio</em></dt>
+
+<dd>直接入出力モードを指定します。 ファイルシステムにおける入出力が、すべてのファイルが <strong>open()</strong> システム・コールで
+指定された <strong>O_DIRECT</strong> でオープンされたかのように作動することを指定します。</dd>
+
+
+<dt><em>cior</em></dt>
+
+<dd>読み取り専用による並行入出力モードを指定します。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>cio</strong> および <strong>dio</strong> オプションについて詳しくは、 <strong>mount</strong> コマンドを参照してください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-J</strong></td>
+
+<td><strong>acl</strong> がこのマウントで使用されることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong></td>
+
+<td><strong>acl</strong> がこのマウントで使用されないことを示します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td>この NFS のマウントで使用する NFS バージョンを指定します。 オプションは以下のとおりです。<dl>
+<dt><em>any</em></dt>
+
+<dd><span><span>mount</span></span> コマンドを使用して、正しい一致を判別します。 現在のデフォルト動作の説明については、 <span><span>mount</span></span> コマンドを参照してください。</dd>
+
+
+<dt>2</dt>
+
+<dd>NFS バージョン 2 を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd>NFS バージョン 3 を指定します。</dd>
+
+
+<dt>4</dt>
+
+<dd>NFS バージョン 4 を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>マウントに使用するトランスポート・プロトコルを指定します。 オプションは以下のとおりです。<dl>
+<dt><em>any</em></dt>
+
+<dd>mount コマンドを使用して、使用するプロトコルを選択します。 TCP プロトコルが優先プロトコルとなります。</dd>
+
+
+<dt><em>tcp</em></dt>
+
+<dd>TCP プロトコルを指定します。</dd>
+
+
+<dt><em>udp</em></dt>
+
+<dd>UDP プロトコルを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>L</strong></td>
+
+<td>ロック要求は、サーバーに接続することなく、ローカルに処理されることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>l</strong></td>
+
+<td>ロック要求がローカルに処理されないことを示します。 サーバーがロック要求を処理します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong> <em>セキュリティー・メソッド</em></td>
+
+<td>マウントを試行するときに使用するセキュリティー・メソッドのリスト。 UNIX、DES、Kerberos5、Kerberos5 with integrity、Kerberos5 with privacyに対応する、 「<code>sys</code>、「<code>dh</code>、「<code>krb5</code>、「<code>krb5i</code>、「<code>krb5p</code>値のカンマ区切りリスト。 複数の値が許可されますが、それが意味があるのは NFS バージョン 4 のマウントの場合だけです。 バージョン 2 または 3 のプロトコルのマウントに対して複数のメソッドが指定された場合、
+最初のメソッドが使用されます。 NFS バージョン 4 のマウントの場合は、リストされている順序でメソッドが試行されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> MountTypeName</em></td>
+
+<td>マウントするファイルシステムのタイプを指定します。 ファイルシステムのタイプは、<strong>/etc/filesystems</strong> ファイルの中に <strong>type</strong> 変数で指定されます。 <strong>mount -t</strong><em> MountTypeName</em> コマンドが発行されたとき、<em>MountTypeName</em> と同じタイプの現在マウントされていないファイルシステムをすべてマウントします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>指定されたオプションでディレクトリーをマウントしますが、<strong>/etc/filesystems</strong> ファイルを変更しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>マウントでより安全なプロトコルを使用しないことを指示します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> TimeOut</em></td>
+
+<td>NFS タイムアウトの長さを <em>TimeOut</em> 変数で指定した 10 分の 1 秒単位で示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> PortNumber</em></td>
+
+<td>サーバーのインターネット・プロトコル・ポート番号を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> NumBiods</em></td>
+
+<td>特定のファイルシステム上での作業を許可される <strong>biod</strong> デーモンの数を指定します。 <strong>biod</strong> デーモンはクライアント要求を処理します。 デーモンのデフォルト数は、NFS バージョン 2 では <code>7</code>、NFS バージョン 3 および NFS バージョン 4 では <code>32</code> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong></td>
+
+<td>posix pathconf 情報が交換されず、NFS バージョン 2 マウントで使用できないように要求します。 NFS サーバーでマウント・バージョン 2 <strong>rpc.mountd</strong> が必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>NFS バージョン 2 マウントとしてマウントされる場合は posix pathconf 情報が交換されないように指定します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> TimesToRetry</em></td>
+
+<td>マウントを再試行する回数を示します。 デフォルト値は 1000 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong><em> NumRetrans</em></td>
+
+<td>ソフト・マウントでは、このフラグは、要求がサーバーによって応答されない場合にその要求が送信されなければならない回数を指定します。 その要求が <em>NumRetrans</em> 回の送信後も応答されない場合、クライアントは要求を断念します。 このフラグを指定しない場合は、デフォルト値 3 が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>ソフト・マウントを作成します。これは、サーバーが応答しないときシステムはエラーを戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>より安全なプロトコルを使用するようマウントに指示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> AcTimeOut</em></td>
+
+<td>正規ファイルおよびディレクトリーに対する最短および最長許可時間を、<em>Actimeo</em> 変数で指定した秒数に設定します。 このフラグが指定される場合、他のキャッシュされた属性時間はオーバーライドされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>ディレクトリーが読み取り/書き込みあるいは読み取り専用であるかを指定します。<dl>
+<dt><strong>rw</strong></dt>
+
+<dd>ディレクトリーを読み取り/書き込みでマウントします。 このタイプがシステムのデフォルトです。</dd>
+
+
+<dt><strong>ro</strong></dt>
+
+<dd>ディレクトリーを読み取り専用でマウントします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> AcRegMax</em></td>
+
+<td>ファイル変更後、<em>AcRegMax</em> 変数で指定した秒数以下はキャッシュ内の属性を保持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> AcRegMin</em></td>
+
+<td>ファイル変更後、<em>AcRegMin</em> 変数で指定した秒数以上はキャッシュ内の属性を保持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong><em> AcDirMax</em></td>
+
+<td>ディレクトリー更新後、<em>AcDirMax</em> 変数で指定した秒数以下はキャッシュ内の属性を保持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> AcDirMin</em></td>
+
+<td>ディレクトリー更新後、<em>AcDirMin</em> 変数で指定した秒数以上はキャッシュ内の属性を保持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> ロケーション</em></td>
+
+<td>マウントをどこで行うべきかを示します。 <em>Location</em> 変数には次のいずれかの値を指定できます。<dl>
+<dt><strong>fg</strong></dt>
+
+<dd>フォアグラウンドでマウントが行われます。 これはデフォルト値です。</dd>
+
+
+<dt><strong>bg</strong></dt>
+
+<dd>バックグラウンドでマウントが行われます。 バックグラウンドを指定して、ディレクトリーをマウントする試みが失敗すると、マウントはもう一度バックグラウンドで再試行されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>サーバーが長いデバイス番号をサポートしないことを指定します。<p>このフラグを使用するのは、32 ビット長のデバイス番号を正しく処理しない NFS サーバーからマウントする場合です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>サーバーが長いデバイス番号をサポートすることを指定します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>このファイルシステムで suid と sgid プログラムが実行不可能であることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong></td>
+
+<td>このファイルシステムで suid と sgid プログラムが実行可能であることを示します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>このマウントを介したデバイス・アクセスが不許可であることを示します。つまり、このマウント・ポイントでデバイスをオープンしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>このマウントによるデバイス・アクセスが許可であることを示します。 これはデフォルト・フラグです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>リモート・ディレクトリーのマウントを追加するには、次のように入力します。</p>
+ <div> <div><div><pre><code>mknfsmnt -f /usr/share/man -d /usr/share/man -h host1</code></pre></div><div></div></div></div>
+ <p>この例では、mknfsmntコマンドはリモート・ディレクトリーをマウントします/usr/share/man日付/usr/share/man常駐するディレクトリーhost1.</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a><strong></strong></td>
+
+<td>システムの再始動時にマウントするリモート・ファイルシステムをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+</div></div>

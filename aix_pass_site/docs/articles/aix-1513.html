@@ -1,0 +1,159 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイル内の印刷可能文字列を検出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ストリング</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54138" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54138" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54163" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54172" target="_blank" rel="noopener noreferrer"><strong>T </strong></a><em>フォーマット</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54150" target="_blank" rel="noopener noreferrer"><strong>N </strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54219" target="_blank" rel="noopener noreferrer"><strong>-</strong><em>数値 </em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strings.html#strings__row-d3e54232" target="_blank" rel="noopener noreferrer"><em>ファイル </em></a>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>strings</strong> コマンドは、ファイル内で表示可能な文字列を探します。 文字列とは、改行文字または null 文字で終わる 4 文字以上の印刷可能文字の任意の順序列です。 <strong>strings</strong> コマンドは、ランダム・オブジェクト・ファイルを識別するのに便利です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> または<strong> -</strong></td>
+
+<td>データ部分だけではなく、ファイル全体で表示可能な文字列を検索します。 このフラグを省略すると、
+<strong>strings</strong> コマンドはオブジェクト・ファイルの初期化されたデータ・スペースでしか検索を行いません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 数値</em></td>
+
+<td>デフォルトの 4 文字以外の最小の文字列の長さを指定します。 文字列の長さの最大値は 4096 です。 このフラグは、<strong>-</strong><em>Number</em> フラグと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>前に 8 進オフセットが付いているファイル内の各文字列をリストします。 このフラグは、<strong>-t o</strong> フラグと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong><em> フォーマット</em></td>
+
+<td>前にファイルの先頭からのオフセットが付いている各文字列をリストします。 フォーマットは、<em>Format</em> 変数として使われている文字に応じて異なります。<dl>
+<dt><strong>d</strong></dt>
+
+<dd>オフセットを 10 進で書き出します。</dd>
+
+
+<dt><strong>O</strong></dt>
+
+<dd>オフセットを 8 進で書き出します。</dd>
+
+
+<dt><strong>x</strong></dt>
+
+<dd>オフセットを 16 進で書き出します。</dd>
+
+</dl>
+  <p></p><blockquote><span>“</span><strong>注:</strong> <strong>-o</strong> および <strong>-t</strong> <em>Format</em> フラグをコマンド・ラインで複数回定義すると、最後に指定したフラグによって <strong>strings</strong> コマンドの動作が制御されます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>数値</em></td>
+
+<td>デフォルトの 4 文字以外の最小の文字列の長さを指定します。 文字列の長さの最大値は 4096 です。 このフラグは、<strong>-n</strong> <em>Number</em> フラグと同じです。</td>
+
+</tr>
+
+<tr>
+<td><em>File</em></td>
+
+<td>検索対象のバイナリー・ファイルおよびオブジェクト・ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドが正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生したことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルを検索するには、次のように入力します。<div> <div><div><pre><code>strings strings</code></pre></div><div></div></div><strong>string</strong> コマンドは、以下を表示します。<div><div><pre><code>@(#)56
+1.17 com/cmd/scan/strings.c, cdmscan, bos320 5/7/92 10:21:20
+Standard input
+strings.cat
+/usr/mbin/strings
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+%7o
+%7d
+%7x
+%7o
+%7d</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>長さが 12 文字以上のストリングを検索するには、次のように入力します。<div> <div><div><pre><code>strings -12 strings</code></pre></div><div></div></div><strong>string</strong> コマンドは、以下を表示します。<div><div><pre><code>1.17 com/cmd/scan/strings.c, cdmscan, bos320 5/7/92 10:21:20
+Standard input
+/usr/mbin/strings
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>長さが 20 文字以上のストリングを検索し、オフセットを 16 進数で表示するには、次のように入力します。<div> <div><div><pre><code>strings -t x -n 20 strings</code></pre></div><div></div></div><strong>string</strong> コマンドは、以下を表示します。<div><div><pre><code>1017 1.17 com/cmd/scan/strings.c, cmdscan, bos320 5/7/92 10:21:20
+108c Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+10d8 Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+1124 Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+1170 Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]
+11bc Usage: strings [-a | -] [-o] [-t format] [-n | -#] [file...]</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

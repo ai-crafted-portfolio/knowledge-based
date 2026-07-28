@@ -1,0 +1,567 @@
+<div class="official-dom"><div>
+<div> <p></p><blockquote><span>“</span><strong>注:</strong> これは System V Print Subsystem コマンドです。<span>”</span></blockquote>
+<p></p>
+</div>
+
+<section><h2>目的</h2> <p>LP 印刷サービスで使用されるフィルターを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lpfilter</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64521" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>FilterName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64529" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <em>PathName</em></p>
+ <p><strong>lpfilter</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64521" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em>FilterName</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64514" target="_blank" rel="noopener noreferrer"><strong> -</strong></a></p>
+ <p><strong>lpfilter</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64521" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em>FilterName</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64537" target="_blank" rel="noopener noreferrer"><strong> -i</strong></a></p>
+ <p><strong>lpfilter</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64521" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em>FilterName</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64549" target="_blank" rel="noopener noreferrer"><strong> -x</strong></a></p>
+ <p><strong>lpfilter</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64521" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em>FilterName</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpfilter.html#lpfilter__row-d3e64543" target="_blank" rel="noopener noreferrer"><strong> -l</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lpfilter</strong> コマンドは、
+LP 印刷サービスで使用するフィルターの追加、変更、削除、およびリストを行う場合に使用します。 この種のフィルターは、ファイルのコンテンツ・タイプを、
+プリンターに受け入れられるコンテンツ・タイプに変換するのに使用します。</p>
+ <p><code>lpfilter -?</code> を入力した場合は、コマンド使用方法メッセージが表示され、0 が戻されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong> (ハイフン)</td>
+
+<td>標準入力の指定どおりに、フィルターを追加または変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> FilterName</em></td>
+
+<td>追加、変更、削除、またはリストするフィルターの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em> PathName</em></td>
+
+<td>ファイル・パス名の内容で指定されているとおりに、フィルターを追加または変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>オリジナルのフィルターを、オリジナルの設定にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>フィルターの記述をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>フィルターを削除します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>これらのフラグのいずれかを指定した <em>FilterName</em> の代わりに、パラメーター <strong>all</strong> を使用することができます。 <strong>-F</strong> フラグか <strong>-</strong> フラグに <strong>all</strong> を指定すると、
+要求されている変更がすべてのフィルターに加えられます。 <strong>-i</strong> フラグに <strong>all</strong> を指定すると、
+事前定義された設定が最初に使用されていたフィルターが、
+すべてオリジナルの設定に復元されるという効果があります。 <strong>-x</strong> フラグに <strong>all</strong> パラメーターを指定するとすべてのフィルターが削除され、
+<strong>-l</strong> フラグに指定するとすべてのフィルターのリストが作成されます。</p>
+<p><strong>フィルターの追加または変更
+</strong></p>
+ <p><strong>-f</strong> フラグで名前を指定されたフィルターが、
+フィルター・テーブルに追加されます。 フィルターが既存の場合は、その説明に変更が加えられ、
+入力データ中の新しい情報が反映されます。</p>
+ <p>フィルターの説明は、 <strong>-F</strong> フラグが指定されている場合は <em>PathName</em> から取得され、 <strong>-</strong> フラグが指定されている場合は標準入力から取得されます。 フィルターを定義したり変更を加えたりするには、
+これら 2 つのうちの 1 つを指定しなければなりません。 元々 LP 印刷サービスにより送信されたフィルターの名前を <strong>-i</strong> フラグに指定すると、
+オリジナルのフィルターの記述が復元されます。</p>
+ <p><strong>-F</strong> フラグか <strong>-</strong> フラグを指定して既存のフィルターに変更を加えると、
+新しい情報の中で指定されていない項目は未変更のまま残されます。 このコマンドを使用して新しいフィルターを追加する際には、
+指定されていない項目についてはデフォルト値が使用されます。</p>
+ <p>フィルターは、要求のタイプを、
+プリンターに受け入れられるデータ・ストリームに変換するのに使用します。 LP 印刷サービスは、指定された印刷要求について次の項目を認識します。</p>
+ <ul>
+<li>要求の内容</li>
+
+<li>プリンターの名前</li>
+
+<li>プリンターのタイプ</li>
+
+<li>プリンターに受け入れられるコンテンツ・タイプ</li>
+
+<li>要求のオリジネーターが求めている印刷のモード</li>
+
+</ul>
+ <p>この情報を使用して、フィルターかフィルターのパイプラインを検索し、
+その内容をプリンターに受け入れられるタイプに変換します。</p>
+ <p>次に、このコマンドに対する入力を示す項目のリストと、
+個々の項目の説明を示します。 リストはすべてコンマかスペースで区切られます。</p>
+ <ul>
+<li>入力タイプ: <em>content-type-list</em></li>
+
+<li>出力タイプ: <em>content-type-list</em></li>
+
+<li>プリンター・タイプ: <em>printer-type-list</em></li>
+
+<li>プリンター: <em>printer-list</em></li>
+
+<li>フィルター・タイプ: <em>filter-type</em></li>
+
+<li>コマンド: <em>shell-command</em></li>
+
+<li>フラグ: <em>template-list</em></li>
+
+</ul>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>入力タイプ</strong></td>
+
+<td>フィルターに受け入れられるコンテンツ・タイプを示します。 (デフォルトは any です。)</td>
+
+</tr>
+
+<tr>
+<td><strong>出力タイプ</strong></td>
+
+<td>フィルターが入力内容から作成できるコンテンツ・タイプを示します。 (デフォルトは any です。)</td>
+
+</tr>
+
+<tr>
+<td><strong>プリンター・タイプ</strong></td>
+
+<td>フィルターを使用できるプリンターのタイプを示します。 LP 印刷サービスにより、
+これらのタイプのプリンターだけがフィルターを使用できるように制限されます。 (デフォルトは any です。)</td>
+
+</tr>
+
+<tr>
+<td><strong>プリンター</strong></td>
+
+<td>フィルターを使用できるプリンターの名前を示します。 LP 印刷サービスにより、
+名前を指定されたプリンターだけがフィルターを使用できるように制限されます。 (デフォルトは <strong>any</strong>です。)</td>
+
+</tr>
+
+<tr>
+<td><strong>フィルター・タイプ</strong></td>
+
+<td>フィルターに <strong>slow (低速)</strong> フィルターまたは <strong>fast (高速)</strong> フィルターというマークを付けます。 低速フィルターは、通常は入力の変換に長時間を要します。 このフィルターはプリンターに接続せずに実行されるので、
+フィルターの実行中でもプリンターは拘束されません。 リモート・システム上のプリンターがリストされた場合、
+そのプリンターのフィルター・タイプの値は <strong>slow</strong> でなければなりません。 高速フィルターは、通常は入力を短時間で変換し、実行次にプリンターに接続されます。 この種のフィルターは、物理プリンターに接続して実行されるよう、
+インターフェース・プログラム IP に指定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>Command</strong></td>
+
+<td>フィルターを呼び出すために実行されるプログラムを指定します。 <em>shell-command</em> には、
+プログラムのフル・パス名と固定フラグが含まれていなければなりません。
+追加のフラグは、個々の印刷要求の特性に基づいて、"flags'' フィールド上に作成されます。 フィルターごとにこのコマンドを指定しなければなりません。<p>このコマンドは、データ・ストリームを標準入力として受け入れ、
+変換後のデータ・ストリームを標準出力中に作成しなければなりません。 したがって、単一のフィルターによって処理されないデータを変換するために、
+フィルター・パイプラインを作成できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>flags</strong></td>
+
+<td>LP 印刷サービスで使用されるテンプレートをコンマで区切ったリストを指定します。
+LP 印刷サービスは、このテンプレートを使用して、
+以下の表にリストされている各印刷要求の特性に基づいてフィルターに対するフラグを作成します。<p>通常、個々のテンプレートの形式は次のようになります。</p>
+  <p><em>keyword-pattern</em>=<em>置換</em></p>
+  <p><em>keyword</em> は、
+テンプレートによりフィルター固有のフラグにマップされる特性の名前です。
+以下の表に有効な各 <em>keyword</em> がリストされています。 <em>pattern</em> は、
+以下の表にリストされている形式のリテラル・パターンのうちの 1 つ、
+アスタリスク 1 つ (*)、または正規表現のいずれかです。 <em>pattern</em> と特性の値が合致する場合は、
+テンプレートは適切であり、フィルター固有のフラグの生成に使用されます。 <em>replacement</em> はフラグとして使用される値です。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>正規表現は、
+<strong>ed</strong> コマンドや <strong>vi</strong> コマンドで使用されるものと同じです。 これには ¥ (... が含まれます。 ¥) および ¥<em>n</em> 構造体。これらを使用して、 <em>パターン</em> の一部を抽出し、 <em>置換</em>および「&amp;」にコピーすることができます。 これは、 <em>パターン</em> 全体を <em>置換</em>にコピーするために使用できます。</p>
+ <p><em>置換</em> には ` ` * '' を含めることもできます。 また、 <strong>ed</strong> コマンドの ` ` &amp; '' と同様に、 <em>パターン</em>全体に置き換えられます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>lp フラグ</div></th>
+
+<th><div>属性</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>-T</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>コンテンツ・タイプ (入力)</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>INPUT</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>content-type</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>該当なし</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>コンテンツ・タイプ (出力)</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>OUTPUT</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>content-type</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>該当なし</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>プリンター・タイプ</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>用語</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>printer-type</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-d</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>プリンター名</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>PRINTER</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>printer-name</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-f、-o cpi=</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>文字ピッチ</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>CPI</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>整数</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-f、-o lpi=</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>行ピッチ</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>LPI</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>整数</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-f、-o length=</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>ページ長</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>LENGTH</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>整数</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-f、-o width=</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>ページ幅</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>WIDTH</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>整数</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-P</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>印刷ページ</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>PAGES</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>page-list</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-S</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>文字セット・プリント・ホイール</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>CHARSET</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>character-set-name  print-wheel-name</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-f</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>用紙名</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>FORM</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>form-name</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-y</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>モード</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>MODES</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>モード</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>-n</td>
+
+<td><dl>
+<dt>特性</dt>
+
+<dd>印刷部数</dd>
+
+
+<dt>キーワード</dt>
+
+<dd>COPIES</dd>
+
+
+<dt>有効なパターン</dt>
+
+<dd>整数</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>例えば、以下のテンプレートがあるとします。MODES landscape = -l<strong>-y ランドスケープ</strong> ・フラグを指定して印刷要求が実行依頼された場合、フィルターにフラグ <strong>-l</strong>が指定されることを示します。 もう 1 つの例として、テンプレートTERM
+* = -T *フィルターを使用する印刷要求に関連付けられている <em>printer-type</em> に対して、フィルターにフラグ <strong>-T</strong><em> printer-type</em> が与えられることを示します。</p>
+ <p>最後の例として、以下のテンプレートについて考えてみます。MODES
+prwidth\=\(.*\) = -w\1.ユーザーが<strong>lp-y prwidth=10</strong>というコマンドを実行したとする</p>
+ <p>前述の表に示されているように、
+LP 印刷サービスは <strong>-y</strong> フラグが <strong>MODES</strong> テンプレートによって処理されることを判別します。 この例では、パターン ``prwidth&amp;#xa5;=&amp;#xa5;(.*&amp;#xa5;)'' は、
+ユーザーが指定した <strong>prwidth=10</strong> と合致するので、
+<strong>MODES</strong> テンプレートは作業を行えます。 <em>replacement</em> が <strong>-w&amp;#xa5;1</strong> なので、
+LP 印刷サービスによりフィルター・フラグ <strong>-w10</strong> が生成されます。</p>
+ <p>LP 印刷サービスは、必要に応じて幾つかのフィルターを連結してフィルター・パイプラインを作成し、
+ユーザーのファイルやすべての印刷フラグを処理します。 印刷サービスがフィルター・パイプラインを作成した場合、
+パイプライン全体の入出力のタイプではなく、
+パイプライン中の各フィルターの入出力のタイプが、
+個々のフィルターで <strong>INPUT</strong> と <strong>OUTPUT</strong> の値として使用されます。</p>
+<p><strong>フィルターの削除</strong></p>
+ <p><strong>-x</strong> フラグを使用して、
+<em>FilterName</em> に指定したフィルターを LP フィルター・テーブルから削除します。</p>
+<p><strong>フィルターの記述のリスト
+</strong></p>
+ <p><strong>-l</strong> フラグを使用して、
+<em>FilterName</em> に名前を指定したフィルターの記述をリストします。 コマンドが正常に実行されると、次のメッセージが標準出力に送られます。</p>
+ <div> <div><div><pre><code>Input types: content-type-list
+   Output types: content-type-list
+   Printer types: printer-type-list
+   Printers: printer-list
+   Filter type: filter-type
+   Command: shell-command
+   flags: template-list</code></pre></div><div></div></div></div>
+ <p>コマンドが失敗すると、エラー・メッセージが標準エラー出力に送られます。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+</div></div>

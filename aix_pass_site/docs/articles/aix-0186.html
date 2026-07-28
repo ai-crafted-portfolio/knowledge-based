@@ -1,0 +1,127 @@
+<div class="official-dom"><div>
+<div> <div><div>
+        <div>
+          <div><span>注:</span> コンソール・ログは、 <strong>/</strong> ,<strong>/usr</strong> の下にのみ存在できます。<strong>/var</strong> または <strong>/tmp</strong> ディレクトリーのみ。</div>
+        </div>
+      </div></div>
+</div>
+
+<section><h2>目的</h2> <p>システム・コンソールを、システムの次回の始動時に有効になる、指定デバイスまたは指定ファイルにリダイレクトします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chcons</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcons.html#chcons__row-d3e78735" target="_blank" rel="noopener noreferrer"><strong>-a</strong><strong> login</strong></a>{<strong>=disable </strong>|<strong>=enable}</strong>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcons.html#chcons__row-d3e78750" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>console_logname=file</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcons.html#chcons__row-d3e78758" target="_blank" rel="noopener noreferrer"><strong> -a</strong></a><em>console_logsize=size</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcons.html#chcons__row-d3e78766" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>console_logverb=number</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcons.html#chcons__row-d3e78774" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>console_tagverb=number</em>]<em>PathName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chcons</strong> コマンドは、次のシステム始動時に有効なシステム・コンソールを変更します。 システム・コンソールの現在の動作は影響を受けません。</p>
+ <p><em>PathName</em>  パラメーターは、システム・コンソールになるデバイスまたはファイルに対する完全修飾パス名にする必要があります。</p>
+ <p><em>PathName</em> パラメーターで存在していないファイルを指定すると、<strong>chcons</strong> コマンドは、次のシステム始動時にそのファイルを作成します。 ファイルが存在しているときは、<strong>chcons</strong> コマンドは、すべてのコンソール・メッセージ出力をそのファイルに送信します。 正規ファイルの場合は、システムは、ログイン・プログラムを開始しません。</p>
+ <p>コンソール・パス名がキャラクター型デバイスのときは、システムは、ログイン・プログラムをそのデバイス上で開始します。 ログインは、コンソール上ですべての実行レベルで使用可能になります。 ログインが不要なときは、<strong>-a login=disable</strong> フラグを使用してください。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注意:</strong> コンソールがシステム上の唯一のログイン端末である場合は、 <strong>-a login=disable</strong> フラグを使用してシステムの次回の始動時にログインすることはできません。<span>”</span></blockquote>
+<p></p>
+<p><strong>追加情報</strong></p>
+ <p><strong>chcons</strong> コマンドは、次のシステム始動時にコンソール構成メソッドで使用されるように、指定した情報をデータベースに保管します。 このメソッドは、指定したデバイス・パス名を検査して、それがキャラクター・スペシャル・ファイルであるかどうか判別します。 それがキャラクター・スペシャル・ファイルではないか、または存在しないときは、デバイス・パス名はファイルであると見なされ、それに従ってコンソールが設定されます。 デバイス・パス名がキャラクター・スペシャル・ファイルのときは、コンソール構成メソッドは、ベース名を論理名として使用し、デバイス・データベース内のデバイス名を調べようとします。 デバイスが見つかってそれが使用可能になっていると、コンソールは、そのデバイスに設定されます。</p>
+ <p>デバイスが見つからないか、または見つかっても使用可能でないときは、新しいシステム・コンソール・デバイスの選択を要求するプロンプトを表示するコンソール検索ルーチンが実行されます。 デフォルトでは、S1 ポートの tty とすべてのグラフィック・ディスプレイがプロンプトを表示します。 S2 またはその他のポートでプロンプトを表示するには、<strong>/etc/consdef</strong> ファイルを変更する必要があります。</p>
+ <p>デバイスについて、<strong>inittab</strong> ファイル内のコンソール ID のエントリーは、コンソール・ログインが <strong>enable</strong> パラメーターで指定されたときはコンソールにログインできるよう、再生成アクションに設定されます。 これにより、ログインがすべての実行レベルで可能になります。 コンソール・ログインが <strong>disable</strong> パラメーターで指定されたとき、またはファイルがコンソールとして指定されるときは、<strong>inittab</strong> ファイル内のコンソール・エントリーは OFF アクションに設定され、ログインは、コンソール上ですべての実行レベルについて不可になります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <strong>login=</strong> [ <strong>無効</strong> | <strong>有効</strong> ]</td>
+
+<td>次のシステム始動時に、すべての実行レベルについてコンソールへのログインを可能または不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a console_logname=</strong><em>ファイル</em></td>
+
+<td>コンソール出力ログ・ファイルに使用する絶対パス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a console_logsize=</strong><em>サイズ</em></td>
+
+<td>コンソール出力ログ・ファイルのサイズ (単位: バイト) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -aconsole_logverb=</strong><em>番号</em></td>
+
+<td>コンソール出力ロギングの詳細レベルを指定します。 ゼロはロギングを使用不可にし、
+1 から 9 はロギングを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a console_tagverb=</strong><em>数値</em></td>
+
+<td>コンソール出力タグ付けの詳細レベルを指定します。 ゼロはタグ付けを使用不可にし、1 から 9 はタグ付けを使用可能にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>/tmp</strong> ディレクトリー内の <strong>console.out</strong> というファイルにシステム・コンソールを変更するには、次のように入力します。<div> <div><div><pre><code>chcons /tmp/console.out</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システム・コンソールを端末に変更するには、次のようにします。tty3論理名、以下を入力します。<div> <div><div><pre><code>chcons /dev/tty3</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システム・コンソールをシステムに関連した端末に変更するには、/dev/tty3コンソールでログインしていることを確認するには、次のように入力します。<div> <div><div><pre><code>chcons -a login=enable /dev/tty3</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システム・コンソールを端末に変更するには、次のようにします。tty0コンソールでのログインを無効にするには、次のように入力します。<div> <div><div><pre><code>chcons -a login=disable /dev/tty0</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>コンソールをデフォルトの物理 LFT ディスプレイに変更するには、次のように入力します。<div> <div><div><pre><code>chcons /dev/lft0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/dev/console</strong></td>
+
+<td>システム・コンソールのアクセス用のスペシャル・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/consdef</strong></td>
+
+<td>非デフォルト端末をコンソール・デバイスとして選択できるようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/chcons</strong></td>
+
+<td>コマンド・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

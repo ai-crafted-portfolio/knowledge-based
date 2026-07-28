@@ -1,0 +1,172 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>rlogin</strong> コマンドにサーバー機能を提供します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>rlogind</strong> デーモンは通常、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inetd.html" target="_blank" rel="noopener noreferrer"><strong>inetd</strong></a> デーモンによって開始されます。 これは、SRC コマンドを使用してコマンド・ラインから制御することもできます。</div>
+        </div>
+      </div></div>
+ <p><strong>/usr/sbin/rlogind</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rlogind.html#rlogind__row-d3e151600" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rlogind.html#rlogind__row-d3e151609" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rlogind.html#rlogind__row-d3e151615" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rlogind.html#rlogind__row-d3e151631" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rlogind.html#rlogind__row-d3e151637" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/rlogind</strong> デーモンは、
+<strong>rlogin</strong> リモート・ログイン・コマンドのサーバーです。 このサーバーはリモート・ログイン機能を提供します。</p>
+ <p><strong>rlogind</strong> デーモンの変更は、System Management Interface Tool (SMIT) または System Resource Controller (SRC) を使用して、<strong>/etc/inetd.conf</strong> ファイルまたは <strong>/etc/services</strong> ファイルを編集することによって行うことができます。 次のように入力します。rlogindコマンド行での使用は推奨されません。 <strong>rlogind</strong> デーモンは、
+<strong>/etc/inetd.conf</strong> ファイル内でコメントされていないときには、デフォルトで始動されます。</p>
+ <p><strong>rlogind</strong> デーモンは認識されないオプションを無視します。システムで <strong>syslog</strong> サービスが使用可能になっている場合は、<strong>syslog</strong> サービスを使用してこの情報を記録します。</p>
+ <p><strong>inetd</strong> デーモンは、/<strong>etc</strong>/<strong>inetd.conf</strong> ファイルと /<strong>etc</strong>/<strong>services</strong> ファイルから情報を取り出します。</p>
+ <p><strong>/etc/inetd.conf</strong> ファイルまたは /<strong>etc</strong>/<strong>services</strong> ファイルを変更したら、<strong>refresh</strong> <strong>-s inetd</strong> または <strong>kill</strong><strong> -1 </strong><em>InetdPID</em> コマンドを実行して、構成ファイルを変更したことを <strong>inetd</strong> デーモンに通知します。</p>
+
+<dl>
+
+<dt>サービス要求プロトコル</dt>
+
+<dd><p><strong>rlogind</strong> デーモンは、
+サービス要求を受信すると、以下のプロトコルを開始します。</p>
+
+<ol>
+<li><span></span> <strong>rlogind</strong> デーモンは、要求のソース・ポート番号を検査します。 ポート番号が 512 から 1023 の範囲になければ、
+<strong>rlogind</strong> デーモンは接続を終了します。</li>
+
+<li><span></span> <strong>rlogind</strong> デーモンは、初期接続要求のソース・アドレスを使用して、クライアント・ホストの名前を判別します。 名前を判別できなければ、
+<strong>rlogind</strong> デーモンはクライアント・ホスト・アドレスの小数点付き 10 進数を使用します。</li>
+
+</ol>
+
+</dd>
+
+
+
+<dt>エラー・メッセージ</dt>
+
+<dd><p><strong>rlogind</strong> デーモンに関連するエラー・メッセージは以下のとおりです。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>やり直してください。</strong></td>
+
+<td>サーバーが <strong>fork</strong> コマンドを実行しましたが失敗しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/shell:</strong></td>
+
+<td>シェルがありません。 シェル変数に指定されたシェルを開始できません。 シェル変数はプログラムでもある可能性があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong> pty</strong> 印刷速度増加機構を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>ホスト名ルックアップの健全性チェックを抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>ユーザーの <strong>$HOME/.rhosts</strong> ファイルに基づく認証を防止します。 ただし、
+<strong>/etc/passwd</strong> ファイルで指定した <strong>.rhosts</strong> ファイルが root のホーム・ディレクトリーにあるときには、root ユーザーが自動的にログインされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>転送レベルのキープアライブ・メッセージを使用不可にします。 デフォルトではメッセージは使用可能です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ソケット・レベルのデバッグをオンにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>rlogind</strong> デーモンは、<em>rlogin</em> という
+サービス名を持つ、PAM 使用可能アプリケーションです。 認証に PAM を使用するようにシステム全体の構成を設定するには、root ユーザーとして <strong>/etc/security/login.cfg</strong> の <strong>usw</strong> スタンザにある <strong>auth_type</strong> 属性の値を PAM_AUTH に変更します。</p>
+ <div>PAM が使用可能であるときに使用される
+認証メカニズムは、<strong>/etc/pam.conf</strong> 内の <strong>rlogin</strong> サービスの
+構成によって決まります。 <strong>rlogind</strong> デーモンは、<strong>auth</strong> モジュール・
+タイプ、<strong>account</strong> モジュール・タイプ、<strong>password</strong> モジュール・タイプ、
+および <strong>session</strong> モジュール・タイプ
+の <strong>/etc/pam.conf</strong> エントリーを必要とします。 <strong>/etc/pam.conf</strong> における <strong>rlogin</strong> サービスの推奨構成は、以下のとおりです。<div><div><pre><code>#
+# AIX rlogin configuration
+#
+rlogin auth      sufficient   /usr/lib/security/pam_rhosts_auth
+rlogin auth      required     /usr/lib/security/pam_aix
+
+rlogin account   required     /usr/lib/security/pam_aix
+
+rlogin password  required     /usr/lib/security/pam_aix
+
+rlogin session   required     /usr/lib/security/pam_aix</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>例</h2>
+<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>rlogind</strong> デーモンの引数は、SMIT を使用するか、または <strong>/etc/inetd.conf</strong> ファイルを編集することによって指定できます。</div>
+        </div>
+      </div></div>
+ <ol>
+<li><span></span> <strong>rlogind</strong> デーモンを始動するには、次のように入力します。<div>startsrc <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html" target="_blank" rel="noopener noreferrer">-t</a> rlogin</div>このコマンドは <strong>rlogind</strong> サブサーバーを始動します。</li>
+
+<li><span></span> <strong>rlogind</strong> デーモンを正常に停止するには、次のように入力します。<div>stopsrc <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopsrc.html" target="_blank" rel="noopener noreferrer">-t</a> rlogin</div>このコマンドは、保留状態の接続をすべて開始し、既存の接続を完了します。しかし、新しい接続の開始は行いません。</li>
+
+<li><span></span> <strong>rlogind</strong> デーモンおよびすべての <strong>rlogind</strong> 接続を強制的に停止するには、次のように入力します。<div>stopsrc -f -t rlogin</div>このコマンドによって、保留状態の接続と既存の接続がすべて即座に終了します。</li>
+
+<li><span></span> <strong>rlogind</strong> デーモンに関する簡略状況報告書を表示するには、次のように入力します。<div>lssrc <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssrc.html" target="_blank" rel="noopener noreferrer">-t</a> rlogin</div>このコマンドは、デーモンの名前、プロセス ID、および状態 (アクティブまたは非アクティブ) を返します。</li>
+
+</ol>
+</section>
+
+</div></div>

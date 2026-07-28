@@ -1,0 +1,410 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンド、デバイス、特権ファイル、プロセス、またはドメイン割り当てオブジェクトのセキュリティー属性を設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>セット属性</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18824" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>ロード・モジュール</em>]{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18758" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18773" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18815" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18788" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18800" target="_blank" rel="noopener noreferrer">-</a></strong>} <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e18845" target="_blank" rel="noopener noreferrer"><em>属性 = 値</em></a> [ <em>属性 = 値</em> ...] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsecattr.html#setsecattr__row-d3e19050" target="_blank" rel="noopener noreferrer"><em>名前</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>setsecattr</strong> コマンドは、<em>Name</em> パラメーターによって指定された、コマンド、デバイス、またはプロセスのセキュリティー属性を設定します。 このコマンドは、<em>Name</em> パラメーターを、<strong>-c</strong> (コマンド)、<strong>-d</strong> (デバイス)、<strong>-f</strong> (特権ファイル)、または <strong>-p</strong> (プロセス) のいずれのフラグが指定されるかに基づいて、コマンド、デバイス、特権ファイル、またはプロセスのいずれかとして解釈します。</p>
+ <div>システムを、<span><span>Name</span></span> パラメーターによって指定された以下のいずれかの値に構成すると、システムは、<strong>/etc/nscontrol.conf</strong> ファイルの対応するデータベース・スタンザの <strong>secorder</strong> 属性によって指定された順序で実行します。<ul>
+<li>複数ドメインからのデータベースを使用する</li>
+
+<li>特権コマンドのセキュリティー属性を設定する</li>
+
+<li>特権デバイスのセキュリティー属性を設定する</li>
+
+<li>特権ファイルのセキュリティー属性を設定する</li>
+
+<li>ドメイン割り当てオブジェクトのセキュリティー属性を設定する</li>
+
+</ul>
+</div>
+ <p>最初のマッチング・エントリーのみが変更されます。 残るドメインからの重複エントリーは変更されません。 特定のドメインからのエントリーを変更する場合は、<strong>-R</strong> フラグを使用します。 ドメイン内にマッチング・エントリーが検出されない場合は、最初のドメインに <em>Name</em> パラメーターの新規エントリーが作成されます。 特定のドメインにエントリーを追加する場合は、<strong>-R</strong> フラグを使用します。</p>
+ <p>属性の値を設定するには、<em>Attribute=Value</em> パラメーターによって属性名および新規の値を指定します。 属性をクリアするには、 <em>Attribute = Value</em> ペアの <code>Attribute=</code> を指定します。 値がリストである属性に増分変更を加えるには、 <em>Attribute = Value</em> のペアを <code>Attribute=+Value</code>または <code>Attribute=-Value</code>として指定します。 <code>Attribute=+Value</code> を指定すると、値は、属性の既存の値に追加されます。 <code>Attribute=-Value</code> を指定すると、値は、属性の既存の値から除去されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>システム上のコマンドのセキュリティー属性を設定するように指定します。 <span><span>Name</span></span> パラメーターを使用して指定するコマンド名が、特権コマンド・データベース内にない場合は、<strong>/etc/security/privcmds</strong> 特権コマンド・データベース内にコマンド・エントリーが作成されます。 属性がクリアされ、それがコマンドに設定された唯一の属性であると、コマンドは特権コマンド・データベースから除去されます。 特権コマンド・データベースに加えられた変更は、データベースが、<strong>setkst</strong> コマンドを使用してカーネル・セキュリティー・テーブルに送信されるまで使用されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>システム上のデバイスのセキュリティー属性を設定するように指定します。 <span><span>Name</span></span> パラメーターを使用して指定するデバイス名が、特権デバイス・データベース内にない場合は、<strong>/etc/security/privdevs</strong> 特権デバイス・データベース内にデバイス・エントリーが作成されます。 属性がクリアされ、それがデバイスに設定された唯一の属性であると、デバイスは特権デバイス・データベースから除去されます。 特権デバイス・データベースに加えられた変更は、データベースが、<strong>setkst</strong> コマンドを使用してカーネル・セキュリティー・テーブルに送信されるまで使用されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>システム上の特権ファイルのセキュリティー属性を設定するように指定します。 <em>Attribute=Value</em> のペアによって要求される変更が、<strong>/etc/security/privfiles</strong> 特権ファイル・データベースで行われます。 指定されたファイルが特権ファイル・データベース内にない場合は、データベース内にファイル・エントリーが作成されます。 属性がクリアされ、それがコマンドに設定された唯一の属性であると、コマンドは特権ファイル・データベースから除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>システム上のオブジェクトのセキュリティー属性を設定するように指定します。 <span><span>Name</span></span> パラメーターを使用して指定したオブジェクト名がドメイン・オブジェクト・データベースに
+ない場合は、<code>/etc/security/domobjs</code> ドメイン・オブジェクト・データベース内にオブジェクト・エントリーが作成されます。 消去している属性が、オブジェクトに設定された唯一の属性セットであった場合は、
+そのオブジェクト・エントリーはドメイン・オブジェクト・データベースから除去されます。 ドメイン・オブジェクト・データベースに加えられた変更は、そのデータベースが <strong>setkst</strong> コマンドを使用して
+カーネル・セキュリティー・テーブルに送信されるまで使用されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>システム上のアクティブなプロセスの数字プロセス ID (PID) が設定されることを指定します。 <em>Attribute=Value</em> のペアによって指定する変更は、指定されたアクティブなプロセスの状態に即時影響します。 変更は、データベース内に保管されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong> <em>ロード・モジュール</em></td>
+
+<td>セキュリティー属性の変更に使用するロード可能モジュールを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>属性 = 値</em></td>
+
+<td>オブジェクトのセキュリティー属性の値を設定します。 有効な属性名のリストは、<strong>-c</strong>、<strong>-d</strong>、<strong>-p</strong>、
+および <strong>-o</strong> の各フラグを使用して指定されたオブジェクト・タイプによって決まります。<div>特権コマンド・データベース (<strong>-c</strong>) フラグには、以下の属性を使用します。<dl>
+<dt>accessauths</dt>
+
+<dd>アクセス許可を指定します。 許可名のコンマで区切られたリストを指定します。 合計で 16 個の許可を指定できます。 指定した許可を持つユーザーは、このコマンドを実行できます。 この属性には、ALLOW_OWNER、ALLOW_GROUP、および ALLOW_ALL の 3 つの特殊な追加の値があり、これにより、コマンド所有者、グループ、またはすべてのユーザーは、アクセス許可の検査なしにコマンドを実行できます。</dd>
+
+
+<dt>authprivs</dt>
+
+<dd>許可特権を指定します。 プロセスに追加の特権を付与する、許可および特権のペアのリストを指定します。 以下の例に示すように、許可およびその対応する特権は等号 (=) によって分離され、個々の特権は正符号 (+) によって分離され、許可または特権のペアはコンマ (,) によって分離されます。<div><div><pre><code>auth=priv+priv+...,auth=priv+priv+...,...</code></pre></div><div></div></div>最大で 16 個の許可または特権のペアを指定できます。
+ロールを指定します。
+そのロールのユーザーは、コマンドを正常に実行できるようになる前に、認証される必要があります。 ロールのコンマ区切りリストを指定します。 各ロールは、それぞれ異なるユーザーによって認証される必要があります。例えば、どのユーザーも一度に複数のロールに対して認証を行うことはできません。</dd>
+
+
+<dt>authroles</dt>
+
+<dd>コマンドを正常に実行できるようになる前に認証される必要のあるユーザー・ロールを指定します。 複数のロールをリストする場合は、各ロールをコンマで区切ってください。 次に例を示します。<div><div><pre><code>authroles=so,isso</code></pre></div><div></div></div>各ロールは、それぞれ異なるユーザーによって認証される必要があります。 例えば、どのユーザーも複数のロールに対して認証を行うことはできません。</dd>
+
+
+<dt>innateprivs</dt>
+
+<dd>固有の特権を指定します。 コマンドの実行時にプロセスに割り当てられる特権の、コンマで区切られたリストを指定します。</dd>
+
+
+<dt>inheritprivs</dt>
+
+<dd>相続可能な特権を指定します。 子プロセスに受け渡される特権の、コンマで区切られたリストを指定します。</dd>
+
+
+<dt>euid</dt>
+
+<dd>コマンドの実行時に引き受ける有効ユーザー ID を指定します。</dd>
+
+
+<dt>egid</dt>
+
+<dd>コマンドの実行時に引き受ける有効グループ ID を指定します。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt>ruid</dt>
+
+<dd>コマンドの実行時に引き受ける実ユーザー ID を指定します。 有効な値は 0 のみです。 コマンドが <strong>accessauths</strong> 属性に特殊値 ALLOW_ALL を指定してすべてのユーザーにアクセスを提供する場合、この属性値は無視されます。</dd>
+
+
+<dt>secflags</dt>
+
+<dd>ファイル・セキュリティー・フラグを指定します。 セキュリティー・フラグのコンマで区切られたリストを指定します。 このフラグには、以下の値を使用します。<dl>
+
+<dt>FSF_EPS</dt>
+
+<dd>コマンドの実行時に、最大の特権セットが、有効な特権セットにロードされます。</dd>
+
+</dl>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div>特権デバイス・データベース (<strong>-d</strong>) フラグには、以下の属性を使用します。<dl>
+<dt>readprivs</dt>
+
+<dd>ユーザーまたはプロセスが、デバイスへの読み取りアクセスを行う場合に持つ必要がある特権の、コンマで区切られたリストを指定します。 最大 8 つの特権を指定できます。 ユーザーまたはプロセスは、デバイスから読み取るための、リストされたいずれかの特権を持つ必要があります。</dd>
+
+
+<dt>writeprivs</dt>
+
+<dd>ユーザーまたはプロセスが、デバイスへの書き込みアクセスを行う場合に持つ必要がある特権の、コンマで区切られたリストを指定します。 最大 8 つの特権を指定できます。 ユーザーまたはプロセスは、デバイスに書き込むための、リストされたいずれかの特権を持つ必要があります。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div>特権ファイル (<strong>-f</strong>) フラグには、以下の属性を使用します。<dl>
+<dt>readauths</dt>
+
+<dd>読み取りアクセス許可を指定します。 許可名のコンマで区切られたリストを指定します。 何らかの許可を持つユーザーは、ファイルを読み取れます。</dd>
+
+
+<dt>writeauths</dt>
+
+<dd>書き込みアクセス許可を指定します。 許可名のコンマで区切られたリストを指定します。 何らかの許可を持つユーザーは、ファイルを読み取ったり、あるいは書き込むことができます。</dd>
+
+</dl>
+</div>
+ <div>特権プロセス (<strong>-p</strong>) フラグには、以下の属性を使用します。<dl>
+<dt>eprivs</dt>
+
+<dd>有効な特権セットを指定します。 プロセスの場合にアクティブになる特権の、コンマで区切られたリストを指定します。 プロセスは、このセットから特権を除去し、最大の特権セットからの特権をその有効な特権セットに追加する場合があります。</dd>
+
+
+<dt>iprivs</dt>
+
+<dd>継承可能な特権セットを指定します。 子プロセスの有効かつ最大の特権のセットに渡される、コンマで区切られた特権のリストを指定します。 継承可能な特権セットは、限定特権セットのサブセットです。</dd>
+
+
+<dt>mprivs</dt>
+
+<dd>最大の特権セットを指定します。 プロセスがその有効な特権セットに追加できる特権の、コンマで区切られたリストを指定します。 最大の特権セットは、有効な特権セットのスーパーセットです。</dd>
+
+
+<dt>lprivs</dt>
+
+<dd>限定特権セットを指定します。 プロセス用の最大可能な特権セットを構成する特権の、コンマで区切られたリストを指定します。 限定特権セットは、最大特権セットのスーパーセットです。</dd>
+
+
+<dt>uprivs</dt>
+
+<dd>使用済み特権セットを指定します。 処理の存続中に使用される特権の、コンマで区切られたリストを指定します。 このセットは、主として <strong>tracepriv</strong> コマンドによって使用されます。</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td>ドメイン割り当てオブジェクト・データベース (<strong>-o</strong>) フラグには、以下の属性を使用します。<dl>
+<dt>domains</dt>
+
+<dd>オブジェクトが属するドメインのコンマ区切りリストを指定します。</dd>
+
+
+<dt>conflictsets</dt>
+
+<dd>オブジェクトへのアクセスから除外されるドメインのコンマ区切りリストを指定します。</dd>
+
+
+<dt>objtype</dt>
+
+<dd>オブジェクトのタイプを指定します。 有効な値は、device、netint、netport、および file です。</dd>
+
+
+<dt>secflags</dt>
+
+<dd>オブジェクトのセキュリティー・フラグを指定します。 有効な値は以下のとおり。<ul>
+<li><strong>FSF_DOM_ANY</strong>: この値は、プロセスがドメイン属性に指定されたドメインのいずれかを持つ場合に
+オブジェクトにアクセスできることを指定します。</li>
+
+<li><strong>FSF_DOM_ALL</strong>: プロセスがドメイン属性に指定されたすべてのドメインを持つ場合にのみ
+オブジェクトにアクセスできることを指定します。 secflags が指定されていない場合は、これがデフォルト値です。</li>
+
+</ul>
+ <p><strong>FSF_DOM_ANY</strong> と <strong>FSF_DOM_ALL</strong> は同時に指定できないフラグです。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><em>Name</em></td>
+
+<td>変更するオブジェクトを指定します。 <em>Name</em> パラメーターは、指定するフラグに従って解釈されます。 処理する名前は 1 つずつ指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>setsecattr</strong> コマンドは特権コマンドです。 これは、モードを 755 に設定した root ユーザーおよびセキュリティー・グループによって所有されます。 このコマンドを正常に実行するには、以下の許可のうちの少なくとも 1 つを持つロールを引き受ける必要があります。 トラステッド・プロセスの場合、
+監査システムは個別のプロセスのオブジェクト監査イベントをログに記録しません。 ただし、ユーザーはイベント監査を使用してイベントをキャプチャーすることができます。</p>
+ <div>  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>aix.security.cmd.set </strong></td>
+
+<td><strong>-c</strong> フラグを指定したコマンドの属性を変更する場合に必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>aix.security.device.set</strong></td>
+
+<td><strong>-d</strong> フラグを指定したデバイスの属性を変更する場合に必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>aix.security.file.set</strong></td>
+
+<td><strong>-f</strong> フラグを指定したデバイスの属性を変更する場合に必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>aix.security.proc.set</strong></td>
+
+<td><strong>-p</strong> フラグを指定したプロセスの属性を変更する場合に必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>aix.security.dobject.set</strong></td>
+
+<td><strong>-o</strong> フラグを指定したプロセスの属性を変更する場合に必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>アクセスされるファイル</h2> <div>  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>File</strong></td>
+
+<td><strong>モード</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/privcmds</strong></td>
+
+<td>rw</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/privdevs</strong></td>
+
+<td>rw</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/privfiles</strong></td>
+
+<td>rw</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domobjs</strong></td>
+
+<td>rw</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>以下に対して許可された特権のペアを設定します。/usr/sbin/mount次のコマンドを入力します。<div><div><pre><code>setsecattr -c authprivs=aix.fs.manage.mount=PV_FS_MOUNT /usr/sbin/mount</code></pre></div><div></div></div></li>
+
+<li>PPV_AU_WRITE および PV_DAC_W 特権を既存の書き込み特権セットに増分的に追加するには、以下のようにします。/dev/mydev次のコマンドを入力します。<div><div><pre><code>setsecattr -d writeprivs=+PV_AU_WRITE,PV_DAC_W /dev/mydev</code></pre></div><div></div></div></li>
+
+<li><strong>/etc/security/user</strong> ファイルの読み取り許可を設定するには、以下のコマンドを入力します。<div><div><pre><code>setsecattr -f readauths=aix.security.user.change /etc/security/user</code></pre></div><div></div></div></li>
+
+<li>PV_DAC_R 特権を、アクティブなプロセスの有効な特権セットから徐々に除去するには、以下のコマンドを入力します。<div><div><pre><code>setsecattr -p eprivs=-PV_DAC_R 35875</code></pre></div><div></div></div></li>
+
+<li>アクセス許可を設定するには、以下のようにします。/usr/sbin/mountLDAP で以下のコマンドを入力します。<div><div><pre><code>setsecattr -R LDAP -c accessauths=aix.fs.manage.mount /usr/sbin/mount </code></pre></div><div></div></div></li>
+
+<li>ネットワーク・インターフェース <strong>en0</strong> 上のドメインを設定するには、
+次のコマンドを入力します。<div><div><pre><code>setsecattr –o domains=INTRANET,APPLICATION conflictsets=INTERNET
+objtype=netint secflags=FSF_DOM_ANY en0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,126 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>128 ポート非同期サブシステムと接続デバイスの状況を監視します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>128 ポート・アダプターをすべて表示する</strong></p>
+ <p><strong>mon-cxma (mon-cxma)</strong></p>
+<p><strong>構文、スロット、バス情報を表示する</strong></p>
+ <p><strong>mon-cxma (mon-cxma)</strong>{<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mon-cxma.html#mon-cxma__row-d3e170507" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mon-cxma.html#mon-cxma__row-d3e170539" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a>}</p>
+<p><strong>特定のスロットとバス情報を表示する</strong></p>
+ <p><strong>mon-cxma (mon-cxma)</strong> {[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mon-cxma.html#mon-cxma__row-d3e170513" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a>[<em> LogFile</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mon-cxma.html#mon-cxma__row-d3e170494" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a>[<em> DeviceFile</em>]] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mon-cxma.html#mon-cxma__row-d3e170526" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>[<em> SlotNumber</em>]] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mon-cxma.html#mon-cxma__row-d3e170481" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a>[<em> BusNumber</em>]]}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mon-cxma</strong>コマンドは、<span>IBM</span>128ポート非同期アダプタに接続されたシリアル・デバイスとリモート非同期ノード（RAN）のステータスを監視する手段を提供するソフトウェア・ツールである。 このソフトウェアは、サブシステムの問題を判別するために使用されます。このソフトウェアには、ローカルでも、またモデムを介してリモートでもアクセスできます。 モデムを介したアクセスにおける唯一の制約事項は、モニター中の 128 ポート・アダプターにモデムを物理的に接続できないということです。</p>
+ <p>ユーザーがコマンド・ラインに <strong>mon-cxma</strong> コマンドを入力すると、システム内の 128 ポート・アダプターのうち使用可能なものがすべて自動的に検索され表示されます。 システム内のバスとスロットの位置が、アダプターごとに表示されるので、ユーザーはモニターするアダプターをそこから選択できます。</p>
+ <p>System Management Interface Tool (SMIT) <strong>smit 128psync</strong> 高速パスを使用して、「128 ポート非同期通信アダプター」メニューに直接進むことができます。 SMIT から実行している場合、<strong>mon-cxma</strong> コマンドはシステム内の 128 ポート・アダプターのうち使用可能なものをすべて自動的に表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>- <strong>b</strong> [ <em>BusNumber</em> ]</td>
+
+<td>デバイスのバス番号を指定します。 <em>BusNumber</em> の有効値は 0 から (n-1) です。ここで、n はシステムが所有するバスの数です。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>f</strong> [ <em>DeviceFile</em> ]</td>
+
+<td>デバイス・スペシャル・ファイルを指定します。 選択せずに、特殊なデバイス・ドライバーを表示するには、このファイルを使用します。 デフォルトのデバイス・スペシャル・ファイルは <strong>/dev/cxma0</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>構文情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>l</strong> [ <em>LogFile</em> ]</td>
+
+<td>(小文字の L) ログとして使用するファイルを指定します。 IMAGE キーが押されたときに画面上の情報を保管する場合にこのファイルを使用します。 デフォルトのログ・ファイルは <strong>/tmp/mon-cxma.log</strong> です。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>s</strong> [ <em>SlotNumber</em> ]</td>
+
+<td>デバイスのスロット番号を指定します。 <em>SlotNumber</em> の有効値は 0 から (n-1) です。ここで、n はシステムが所有するスロットの数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>すべてのスロットとバスの POS (プログラマブル選択オプション) レジスター値を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p><blockquote><span>“</span><strong>注:</strong><strong> -x</strong> フラグと <strong>-h</strong> フラグは、他のオプションを無視します。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドの実行に必要な root 権限</p>
+ <p>イベントの監査 : 該当しません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>SMITfastpath を使用して mon-cxma コマンドを実行するには、次のように入力します。<div> <div><div><pre><code>smit 128psync</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>128 ポート・アダプターをすべて表示するには、次のように入力します。<div> <div><div><pre><code>/usr/lbin/tty/mon-cxma</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lbin/tty/mon-cxma</strong></td>
+
+<td><strong>mon-cxma</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/mon-cxma.log</strong></td>
+
+<td>ログ・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

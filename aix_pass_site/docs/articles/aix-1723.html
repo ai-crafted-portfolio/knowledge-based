@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p><span><span>vsdchgserver</span></span> -現在サーバー・ノードとして機能しているノードから別のノードに、1 つ以上の仮想共用ディスクのサーバー機能を切り替えます。</p>
+</section>
+
+<section><h2>構文</h2> <div> <dl>
+<dt>vsdchgserver</dt>
+
+<dd><span><span>-g</span></span><span><span> vsd_global_volume_group_name。 </span></span><span><span>-p</span></span><span><span> プライマリノード</span></span></dd>
+
+
+<dt> </dt>
+
+<dd>[<span><span>-b</span></span><span><span> セカンダリノード］</span></span> [<span><span> -o</span></span><span><span> EIO_recovery］</span></span></dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span><span>vsdchgserver</span></span> コマンドを使用すると、1 次ノードで定義されたグローバル・ボリューム・グループのサービス機能を 2 次ノードに引き継がせるか、1 次ノードによって 2 次ノードから引き継がせることができます。 これにより、
+実際のディスクと接続されたノードの 1 つとの間のケーブルまたはアダプターが機能していない
+状態であっても、アプリケーションでは仮想共有ディスクの継続使用が可能となります。</p>
+ <p>リカバリー可能仮想共用ディスク・サブシステムは、 <span><span>-g</span></span> フラグで指定されたグローバル・ボリューム・グループ内の現在定義されている 1 次ノードと 2 次ノードを反転するために <span><span>vsdchgserver</span></span> コマンドが使用された場合にのみ、仮想共用ディスク・デバイスを自動的に更新します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt>-g</dt>
+
+<dd>特定ノード上で定義されたすべての仮想共有ディスクを表すボリューム・グループに対して、
+グローバル・ボリューム・グループ名を指定します。</dd>
+
+
+<dt>-p</dt>
+
+<dd>グローバル・ボリューム・グループに対する 1 次サーバー・ノード番号を指定します。</dd>
+
+
+<dt>-b</dt>
+
+<dd>グローバル・ボリューム・グループに対する 2 次ノード番号を指定します。 <strong>-b</strong> フラグを指定しない場合は、2 次ノード定義は除去されます。</dd>
+
+
+<dt>-o</dt>
+
+<dd>EIO エラーでリカバリーしない場合は <span><span>0</span></span>、EIO エラーでリカバリーする場合は <span><span>1</span></span>として指定します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <p>ありません。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、root 権限が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt>nonzero</dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+ </div>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでオンラインのノードから実行する必要があります。 オンラインのピア・ドメインに移動するには <strong>startrpdomain</strong> コマンドを使用します。 既存のピア・ドメイン内で、オンラインの特定ノードに移動するには <strong>startrpnode</strong>
+コマンドを使用します。 RSCT ピア・ドメインの作成と管理の詳細については、「RSCT: Administration Guide」を参照してください。</p>
+</section>
+
+<section><h2>標準出力</h2> <p>現行の RVSD サブシステム実行レベル。</p>
+</section>
+
+<section><h2>例</h2> <p>EIO リカバリーを使用して、グローバル・ボリューム・グループ node12vg 用の 1 次サーバー・ノードをノード 1 に、また 2 次ノードをノード 2 に変更するには、次のように入力します。</p>
+ <div><div><pre><code>vsdchgserver -g node12vg -p 1 -b 2 -o 1</code></pre></div><div></div></div></section>
+
+<section><h2>ロケーション</h2> <p><span><span>/opt/rsct/vsd/bin/vsdchgserver</span></span></p>
+</section>
+
+</div></div>

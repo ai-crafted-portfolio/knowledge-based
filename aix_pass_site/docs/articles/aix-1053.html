@@ -1,0 +1,247 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイル内の行に番号を付けます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>nl</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45321" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a><em> Type</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45381" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em> Type</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45402" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a><em> Type</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45440" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a><em> Number</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45364" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em> Delimiter</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45423" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><em> Number</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45470" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a><em></em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45521" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a><em> 数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45538" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a><em> 数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45500" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45507" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> Separator</em> ] [ <em>File</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>nl</strong> コマンドは、<em>File</em> パラメーター (デフォルトでは標準入力) を読み取り、入力データ内の各行に番号を付けて、その番号付き行を標準出力に書き出します。 出力では、<strong>nl</strong> コマンドはコマンド・ラインで指定されたフラグに従って行の左端に番号を付けます。</p>
+ <p>入力テキストは論理ページに書き込む必要があります。 各論理ページはヘッダー、本文、フッター部から構成されます (いずれかの部分に入力がなくてもかまいません)。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45500" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグを使用しない限り、 <strong>nl</strong> コマンドは、各論理ページの先頭の行番号をリセットします。 行番号付けフラグは、ヘッダー、本文、
+フッター部とは独立して設定できます (例えば、ヘッダーおよびフッター行に番号を付け、テキスト行には付けないようにできます)。</p>
+ <p>ファイル内では、次の区切り文字のみが入っている行を使って、
+論理ページの各部分の先頭を示すシグナルを送ります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>行の内容<em></em></div></th>
+
+<th><div>先頭</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>\:\:\:</strong></td>
+
+<td>ヘッダー</td>
+
+</tr>
+
+<tr>
+<td><strong>\:\:</strong></td>
+
+<td>本文</td>
+
+</tr>
+
+<tr>
+<td><strong>\:</strong></td>
+
+<td>フッター</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>コマンド・ラインではファイルを 1 つしか指定できません。 フラグとファイル名はどんな順序ででもリストできます。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>デフォルトではすべてのパラメーターが設定されます。 デフォルトの設定を変更する場合は、次のフラグを使用します。 <strong>-s</strong> フラグを除き、デフォルト値を表示させるには変数を指定しないで <strong>-n</strong> フラグを入力します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> タイプ</em></td>
+
+<td>番号を付ける本文の行を選択します。 <em>Type</em> 変数に指定できる値は次のとおりです。<dl>
+<dt><strong>a</strong></dt>
+
+<dd>すべての行に番号を付けます。</dd>
+
+
+<dt><strong>t</strong></dt>
+
+<dd>ブランク行や、タブなどの非グラフィック文字を含む行には番号を付けません。 (デフォルト)</dd>
+
+
+<dt><strong>n</strong></dt>
+
+<dd>どの行にも番号を付けません。</dd>
+
+
+<dt><strong>p</strong><em>パターン</em></dt>
+
+<dd><em>Pattern</em> 変数<em>で指定された行のみに番号を付けます。</em></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> 区切り文字</em></td>
+
+<td>論理ページ部の始めの区切り文字として <em>Delimiter</em> 変数で指定した 2 文字を使用します。 デフォルトの区切り文字は &amp;#xa5;: (円記号、コロン) です。 ASCII 文字 2 文字、1 バイト拡張文字 2 文字、
+または拡張文字 1 文字を指定できます。 <strong>-d</strong> フラグ<em>の後に 1 バイト文字を 1 つだけ入力すると、</em> 2 番目の文字はデフォルト (コロン) のままになります。 円記号を区切り文字として使用する場合は円記号を 2 つ (&amp;#xa5;&amp;#xa5;) 入力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> タイプ</em></td>
+
+<td>番号を付ける論理ページのフッターの行を選択します。 <em>Type</em> 変数に指定できる値は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45321" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> フラグの値と同じです。 <em>Type</em> 変数のデフォルト値は <strong>n</strong> です (行番号を付けない)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> タイプ</em></td>
+
+<td>番号を付ける論理ページのヘッダーの行を選択します。 <em>Type</em> 変数に指定できる値は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45321" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> フラグの値と同じです。 <em>Type</em> 変数のデフォルト値は <strong>n</strong> です (行番号を付けない)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> 数値</em></td>
+
+<td>論理ページの行番号を <em>Number</em> 変数に指定した数だけ増分します。 <em>Number</em> 変数のデフォルト値は 1 です。 <em>Number</em> 変数の範囲は、1 から 250 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 番号</em></td>
+
+<td>(L の小文字) <em>Number</em> パラメーターに指定した値の連続するブランク行数を、ブランク行の 1 行分として数える数として使用します。 例:-l3連続する 3 番目のブランク行ごとに番号が付けられます。 <em>Number</em> 変数のデフォルト値は 1 です。 このフラグは、 <strong>-ha</strong>、 <strong>-ba</strong>、または <strong>-fa</strong> オプションが設定されている場合に機能します。 <em>Number</em> 変数の範囲は、1 から 250 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> フォーマット</em></td>
+
+<td><em>Format</em> に指定した値を行番号付けフォーマットとして使用します。 指定できる値は次のとおりです。<dl>
+<dt><strong>ln</strong></dt>
+
+<dd>左に揃い、先行ゼロが抑制されます。</dd>
+
+
+<dt><strong>rn</strong></dt>
+
+<dd>右に揃い、先行ゼロが抑制されます (デフォルト)。</dd>
+
+
+<dt><strong>RZ</strong></dt>
+
+<dd>右に揃い、先行ゼロはそのままになります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p (-p)</strong><em></em></td>
+
+<td>論理ページ区切り文字の位置で番号付けを再開しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 区切り文字</em></td>
+
+<td><em>Separator</em> 変数で指定した文字でテキストと行番号を区切ります。 <em>Separator</em> 変数のデフォルト値はタブ文字です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> 数値</em></td>
+
+<td>論理ページの初期行番号を、<em>Number</em> 変数に指定した値に設定します。 <em>Number</em> 変数のデフォルト値は 1 です。 <em>Number</em> 変数の範囲は、0 から 32767 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 数値</em></td>
+
+<td><em>Number</em> 変数に指定した値を行番号の文字数として設定します。 <em>Number</em> 変数のデフォルト値は 6 です。 <em>Number</em> 変数の範囲は 1 から 20 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>非ブランク行だけに番号を付けるには、次のように入力します。<div> <div><div><pre><code>nl  chap1</code></pre></div><div></div></div>以下の番号付きリストが表示されます。chap1本文セクション内の非ブランク行のみに番号を付けます。 指定する場合は、chap1区切り文字 \:\:\ +: または \: が含まれていない場合は、ファイル全体が本文と見なされます。</div>
+</li>
+
+<li><span></span>すべての行に番号を付けます。<div> <div><div><pre><code>nl  -ba  chap1</code></pre></div><div></div></div>ここでは、ブランク行を含めて本文中のすべての行に番号が付けられます。 ほとんどの場合は、このフォーマットの <strong>nl</strong> コマンドで十分です。</div>
+</li>
+
+<li><span></span>別の行番号形式を指定するには、次のように入力します。<div> <div><div><pre><code>nl  -i10  -nrz  -s::  -v10  -w4  chap1</code></pre></div><div></div></div>これは、次の行に番号を付けます。chap110 で始まる (-v10) 数えて数えています (-i10)。 数値ごとに 4 桁が表示されます (-w4)、先行ゼロ (-nrz)。 行番号とテキストは、次の 2 つのコロンで区切られます。-s
+: :).</div>
+  <p>例えば、chap1次のテキストが含まれます。</p>
+  <div> <div><div><pre><code>A  not-so-important
+note  to  remember:
+ 
+You  can't  kill  time
+without  injuring  eternity.</code></pre></div><div></div></div>番号付きリストは次のようになります。<div><div><pre><code>0010::A  not-so-important
+0020::note  to  remember
+ 
+0030::You  can't  kill  time
+0040::without  injuring  eternity.</code></pre></div><div></div></div>ブランク行には番号が付いていないことに注意してください。 これを行うには、例 2 に示すように、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nl.html#nl__row-d3e45321" target="_blank" rel="noopener noreferrer"><strong>-ba</strong></a> フラグを使用します。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/nl</strong></td>
+
+<td><strong>nl</strong> コマンドを含みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

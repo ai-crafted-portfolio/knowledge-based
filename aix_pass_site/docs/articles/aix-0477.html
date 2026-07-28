@@ -1,0 +1,516 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>エラー・レコード・テンプレート・リポジトリーを更新します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>errupdate</strong> [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91817" target="_blank" rel="noopener noreferrer">-c</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91824" target="_blank" rel="noopener noreferrer">-f</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91831" target="_blank" rel="noopener noreferrer">-h</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91847" target="_blank" rel="noopener noreferrer">-n</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91854" target="_blank" rel="noopener noreferrer">-p</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91867" target="_blank" rel="noopener noreferrer">-q</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errupdate.html#errupdate__row-d3e91874" target="_blank" rel="noopener noreferrer">-y</a></strong> <em>FileName</em>] [ <em>ファイル</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>errupdate</strong> コマンドは、エラー・レコード・テンプレート・リポジトリーのエントリーを追加または削除したり、既存のエントリーのログやレポート、警告特性を変更します。 <strong>errupdate</strong> コマンドは、<em> File</em> パラメーターに指定したファイルから読み取ります。 <em>File</em> パラメーターを指定しないと、<strong>errupdate</strong> コマンドは標準入力から読み取り、標準出力に書き出します。</p>
+ <p>追加、削除、変更する各エントリーの前には、演算子を付けなければなりません。 有効な演算子は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>  +   </td>
+
+<td>エントリーを追加します (追加演算子)。</td>
+
+</tr>
+
+<tr>
+<td>  -   </td>
+
+<td>エントリーを削除します (削除演算子)。</td>
+
+</tr>
+
+<tr>
+<td>  =   </td>
+
+<td>エントリーのログ、レポート、警告特性を変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>入力ファイルのエントリーは、ブランク行で区切らなければなりません。</p>
+ <p>入力ファイル内のコメントは、テンプレート間に配置することができ、以下のように示されます。  *(アスタリスク) が表示されます。</p>
+ <p>エラー・テンプレートで <span>X/Open 移植性ガイド第 4 号</span> メッセージを使用する場合は、メッセージ・カタログを指定する必要があります。 これは、次のようなフォーマットの 1 行を用いて行うことができます。</p>
+ <div> <div><div><pre><code>&lt;*!catalog-name&gt;</code></pre></div><div></div></div></div>
+ <p>例 :</p>
+ <div> <div><div><pre><code>*!mycat.cat</code></pre></div><div></div></div></div>
+ <p>指定されたカタログは、別の「*!」が見つかるまで、後続のテンプレートにある <span>XPG4</span> メッセージに適用されます。 カタログ指定子が検出されました。 また、「*!」 指定子は、"catname" キーワードを使用して個々のテンプレート・ベースでオーバーライドすることができます。</p>
+ <p>カタログに対して絶対パス名が指定されない限り、メッセージ・カタログを検索する通常の規則が用いられます。 例えば、上記の例で、mycat.cat は <strong>/usr/lib/nls/msg/%L</strong> 内にあると見なされます。</p>
+ <p>追加するエントリーは、特定のフォーマットで定義する必要があります。 エラー・レコード・テンプレートの一般的なフォーマットは次のとおりです。</p>
+ <div> <div><div><pre><code>Error Record Template
+ 
+        + LABEL:
+                         Comment=
+                         Class=
+                         Log=
+                         Report=
+                         Alert=
+                         Err_Type=
+                         Err_Desc=
+                         Prob_Causes=
+                         User_Causes=
+                         User_Actions=
+                         Inst_Causes=
+                         Inst_Actions=
+                         Fail_Causes=
+                         Fail_Actions=
+                         Detail_Data= &lt;data_len&gt;, &lt;data_id&gt;,
+                         &lt;data_encoding&gt;</code></pre></div><div></div></div></div>
+ <p>さらに、 <span>XPG4</span> メッセージのカタログ名は、以下のもので指定できます。</p>
+ <div> <div><div><pre><code>catname = &lt;catalog&gt;</code></pre></div><div></div></div></div>
+ <p><span>XPG4</span> メッセージ、catname キーワード、および 8 個を超える詳細データ項目を含むテンプレートは、 <span>XPG4</span> テンプレートと呼ばれます。 <span>XPG4</span> テンプレートはアラート可能ではなく、エラー ID に対して若干異なる計算を使用します。</p>
+ <p>エラー・レコード・テンプレート・フィールドの説明は、次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Alert </td>
+
+<td>エラー・ログ・エントリーを SNA Generic Alert Architecture に準拠するプロセスで処理できることを示します。 このAlertフィールドは True または False に設定できます。 このフィールドをテンプレートから省略すると、値はデフォルトの「False」になります。 もしAlertフィールドが True に設定されている場合、 <strong>errupdate</strong> コマンドはテンプレートを追加しません。  Err_Desc,  Inst_Actions,  Fail_Cause, Fail_Actionsおよび  Detail_Data data_idフィールドは、SNA 総称アラート体系 ( GA27-3136資料) によって認識される値です。 使用されている値のいずれかが SNA 総称アラート体系によって認識されない場合、またはテンプレートが <span>XPG4</span> テンプレートであり、かつ、 Alertフィールドが True に設定されている場合、テンプレートを追加または更新するには <strong>P-</strong> フラグを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td>  Class   </td>
+
+<td>ハードウェアまたはソフトウェア内で発生したエラーが、オペレーター・メッセージであるか、または不定であるかを示します。 次のいずれかのクラス・ディスクリプターを指定する必要があります。<dl>
+<dt><strong>h</strong></dt>
+
+<dd>エラーがハードウェア障害であることを示します。</dd>
+
+
+<dt><strong>O</strong></dt>
+
+<dd>エラーがオペレーター・メッセージであることを示します。</dd>
+
+
+<dt><strong>S</strong></dt>
+
+<dd>エラーがソフトウェア障害であることを示します。</dd>
+
+
+<dt><strong>U</strong></dt>
+
+<dd>エラーが不定であることを示します。</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td>  Comment   </td>
+
+<td>エラー ID メッセージ・セット用に作成された <strong>#define</strong> ステートメントにコメントを含めるよう指定します。 コメントは 40 字以内で、二重引用符で囲まれていなければなりません。 40 字を超える長さのコメントは、自動的に切り捨てられます。 <strong>errupdate</strong> コマンドは、コメントを C 言語のコメント区切り文字の /* (スラッシュ、アスタリスク) と */ (アスタリスク、スラッシュ) で囲みます。</td>
+
+</tr>
+
+<tr>
+<td>Detail_Data</td>
+
+<td>エラーが発生するときにエラーと一緒にログに記録される検出モジュール名、センス・データ、戻りコードなどの詳細なデータを示します。 エラーと一緒に詳細なデータが何も記録されない場合、このフィールドはブランクのままにするか、<strong>data_len</strong> の値として 0 を指定することによって、詳細データ ID メッセージ・セットからのメッセージを表示できます。 各 <strong>Detail_Data</strong> フィールドには、
+次の 3 つの値をコンマで区切って指定する必要があります。<dl>
+<dt><strong>データ長</strong></dt>
+
+<dd><strong>data_id</strong> 値に関連するデータのバイト数。 <strong> data_len</strong> の値は、10 進数として解釈されます。 環境に依存するサイズを指定するには、「W」を使用します。 「W」は、エラーが 64 ビット環境で記録される場合は 8 バイトとして処理され、
+それ以外の場合は 4 バイトとして処理されます。<p></p><blockquote><span>“</span><strong>注:</strong> 詳細データの長さを計算している間は、
+「W」はそれぞれ 8 バイト長として処理され、大文字小文字は区別されません。<span>”</span></blockquote>
+<p></p>
+</dd>
+
+
+<dt><strong>data_id</strong></dt>
+
+<dd>詳細データの前のエラー・レポートに出力される、詳細データ ID メッセージ・セット「D」からのテキスト・メッセージを表します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。</dd>
+
+
+<dt><strong>データ・エンコード</strong></dt>
+
+<dd>詳細データがエラー・レポートにどのように出力されるかを示します。 有効な値は以下のとおり。<dl>
+<dt><strong>ALPHA</strong></dt>
+
+<dd>詳細データは、印刷可能な ASCII 文字列です。</dd>
+
+
+<dt><strong>dec</strong></dt>
+
+<dd>詳細データは、整数値のバイナリー表現と、10 進法に相当する値が出力されます。</dd>
+
+
+<dt><strong>LDEC (D)</strong></dt>
+
+<dd>詳細データは、64 ビット値のバイナリー表現と、10 進法に相当する値が出力されます。</dd>
+
+
+<dt><strong>HEX</strong></dt>
+
+<dd>詳細データは、16 進法で出力されます。</dd>
+
+</dl>
+  <p></p>
+</dd>
+
+</dl>
+  <p>最大 16  Detail_Data項目はテンプレートごとに指定できます。 1 つのエラーに対してログに記録されるデータ量は、
+<strong>/usr/include/sys/err_rec.h</strong> ファイルに定義されたエラー・レコードの最大の長さ (ERR_REC_MAX)
+を超えることはできません。 エラー・ログ・エントリーに入りきらないエラー・データは、他の場所に保存してください。 エラー・ログ・エントリーの詳細データには、エラー・データとエラー・ログ・エントリーとの関連付けに使用できる情報を入れてください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>  Err_Desc   </td>
+
+<td>発生したエラーを説明します。 このフィールドには、エラーの説明メッセージ ID を指定します。 この値は、エラーの説明メッセージ・セット「E」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+<tr>
+<td>  Err_Type   </td>
+
+<td>発生したエラーの重大度を示します。 次に示すフィールド・ディスクリプターのいずれか 1 つを指定する必要があります。<dl>
+<dt><strong>PERF</strong></dt>
+
+<dd>デバイスまたはコンポーネントの性能が許容水準以下に低下している状態 (パフォーマンス)</dd>
+
+
+<dt><strong>PERM</strong></dt>
+
+<dd>回復不可能な状態 (永続)</dd>
+
+
+<dt><strong>PEND</strong></dt>
+
+<dd>デバイスまたはコンポーネントを使用できないことが差し迫っている状態 (切迫)</dd>
+
+
+<dt><strong>TEMP</strong></dt>
+
+<dd>何回かの試行後、回復できた状態 (一時)</dd>
+
+
+<dt><strong>UNKN</strong></dt>
+
+<dd>エラーの重大度が判断できない状態 (不明)</dd>
+
+
+<dt><strong>情報</strong></dt>
+
+<dd>情報としてのエラー・ログ・エントリーの条件</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td>  Fail_Actions   </td>
+
+<td>障害に起因するエラーを訂正するための推奨処置を説明します。 最高 4 個までの、コンマで区切られた推奨処置メッセージ ID のリストを指定できます。 この値は、推奨処置メッセージ・セット「R」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 次の場合には, このフィールドはブランクでなければなりません。  Fail_Causesフィールドがブランクです。<p>リストされる推奨処置の順位は、処置に要する費用の大きさとエラーを訂正できる可能性によって決定されます。 費用がほとんどかからないか、あるいはまったくかからない処置 (システムに対する影響がほとんどないか、あるいはまったくない処置) を、常にリストの最初に挙げてください。 次に、エラーを訂正できる可能性が同じかほとんど同じものを費用のかからないものの順に列挙します。 同様に残りの処置も、この可能性の降順に従って並べてください。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>  Fail_Causes   </td>
+
+<td>発生したエラーの障害原因を示します。 障害原因は、リソース・エラーの結果、そうなった状態として定義されます。 このフィールドには、コンマで区切られた最高 4 個までの障害原因メッセージ ID を含むリストを指定できます。 この値は、障害原因メッセージ・セット「F」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 障害原因は、エラーを訂正できる可能性の降順に列挙します。 発生したエラーに適用できない場合は、このフィールドをブランクのままにすることができます。 このフィールドがブランクの場合には, 
+User_Causesまたは  Inst_Causesフィールドをブランクにすることはできません。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+<tr>
+<td>  Inst_Actions   </td>
+
+<td>インストール原因のエラーを訂正するための推奨処置を示します。 このフィールドでは、最高 4 個までのメッセージ ID をコンマで区切ってリストすることできます。 この値は、推奨処置メッセージ・セット「R」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 次の場合には, このフィールドはブランクでなければなりません。 
+Inst_Causesフィールドがブランクのままです。 リストされる推奨処置の順位は、処置に要する費用の大きさとエラーを訂正できる可能性によって決定されます。 費用がほとんどかからないか、あるいはまったくかからない処置 (システムに対する影響がほとんどないか、あるいはまったくない処置) を、常にリストの最初に挙げてください。 次に、エラーを訂正できる可能性が同じかほとんど同じものを、費用のかからないものの順に列挙します。 同様に残りの処置も、可能性の高いものから低いものの順に並べます。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+<tr>
+<td>  Inst_Causes   </td>
+
+<td>発生したエラーのインストール原因を示します。 インストール原因は、初期インストールまたはリソース設定の結果、そうなった状態として定義されます。 最高 4 個までの、コンマで区切られたインストール原因メッセージ ID を含むリストを指定できます。 この値は、インストール原因メッセージ・セット「I」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 インストール原因は、可能性の高いものから低いものの順番に列挙してください。 このフィールドは、発生したエラーに適用できない場合は、ブランクのまま残すことができます。 このフィールドをブランクのままにすると、  User_Causesまたは 
+Fail_Causesフィールドは非ブランクでなければなりません。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+<tr>
+<td>  LABEL   </td>
+
+<td>エラー・ログ・テンプレートごとに必要な、最高 19 文字の固有ラベルを指定します。 " を含む文字列 
+#define #ERRID_label Error_ID"。ここで、 <strong>エラー ID (Eror_ID)</strong> 値は、コマンド行で <strong>-h</strong> フラグが指定された場合に標準出力に書き込まれる、エラー・レコード・テンプレートに割り当てられた固有 ID です。<div><div>
+        <div>
+          <div><span>注:</span> <code>LABEL</code> フィールドが 19 文字を超える場合は、最初の 19 文字が受け入れられます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>  Log   </td>
+
+<td>エラー発生時に、そのエラーに関するエラー・ログ・エントリーを作成すべきかどうかを指定します。 ログ・フィールドは、「True」または「False」に設定できます。 このフィールドをテンプレートから省略すると、その値はデフォルトの「True」になります。 このフィールドを False に設定すると、  Reportおよび  Alertフィールドは無視されます。</td>
+
+</tr>
+
+<tr>
+<td>  Prob_Causes   </td>
+
+<td>発生したエラーに関する 1 つ以上の推定原因を示します。 最高 4 個までの、コンマで区切られた推定原因メッセージ ID を含むリストを指定できます。 この値は、推定原因メッセージ・セット「P」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 推定原因は、可能性の高いものから低いものの順番に列挙してください。 少なくとも 1 つは推定原因が必要です。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+<tr>
+<td>  Report   </td>
+
+<td>このエラーについてログに記録されたオカレンスを、エラー・レポートの出力時に報告すべきかどうかを指定します。 この  Reportフィールドは True または False に設定できます。 このフィールドをテンプレートから省略すると、その値はデフォルトの「True」になります。</td>
+
+</tr>
+
+<tr>
+<td>  User_Actions   </td>
+
+<td>ユーザー原因のエラーを訂正するための推奨処置を示します。 最高 4 個までの、コンマで区切られた推奨処置メッセージ ID のリストを指定できます。 この値は、推奨処置メッセージ・セット「R」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 次の場合には, このフィールドはブランクのままでなければなりません。 
+User_Causesフィールドがブランクのままです。 リストされる推奨処置の順位は、エラーに要する費用の大きさとエラーを訂正できる可能性によって決定されます。 費用がほとんどかからないか、あるいはまったくかからない処置 (システムに対する影響がほとんどないか、あるいはまったくない処置) を、常にリストの最初に列挙してください。 次に、エラーを訂正できる可能性が同じかほとんど同じものを、費用のかからないものの順に列挙します。 同様に残りの処置も、可能性の高いものから低いものの順に並べます。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+<tr>
+<td>  User_Causes   </td>
+
+<td>発生したエラーのユーザー原因を説明します。 ユーザー原因は、
+サービス部門に問い合わせなくても訂正できる状態として定義されます。 最高 4 個までの、
+コンマで区切られたユーザー原因メッセージ ID を含むリストを指定できます。 この値は、ユーザー原因メッセージ・セット「U」から、エラー発生時に表示されるテキスト・メッセージを指定します。 長さが 4 桁までの値は、無符号の 16 進数と解釈されます。 ユーザー原因は、可能性の高いものから低いものの順に列挙します。 このフィールドは、発生したエラーに適用できない場合は、ブランクのまま残すことができます。 このフィールドをブランクのままにすると、  Inst_Causesまたは  Fail_Causesフィールドは非ブランクでなければなりません。 このフィールドには、 <span>XPG4</span> スタイルのメッセージを指定することもできます。 これについては後述します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>catname は、現行テンプレートの <span>XPG4</span> メッセージを検索するために使用されるメッセージ・カタログを指定するために使用されます。 これにより、以前の「*!」で指定されたカタログがオーバーライドされます。 カタログ指定子。 <span>XPG4</span> メッセージを含むテンプレートには、catname または "*!" のいずれかを使用してカタログを指定する必要があります。 カタログ名は、引用符で囲む必要があります。 カタログに対して絶対パス名が指定されない限り、メッセージ・カタログを検索する通常の規則が用いられます。</p>
+ <p>例えば、</p>
+ <div> <div><div><pre><code>catname = "mycat.cat"</code></pre></div><div></div></div></div>
+ <p>が指定されているmycat.cat<strong>/usr/lib/nls/msg/ %L</strong>にあると想定されます。</p>
+ <p>エラーの説明、推定原因、ユーザー原因、インストール原因、障害原因、推奨処置、および詳細データ ID の各メッセージは、エラー・ログ・メッセージ・カタログに保持されているエラー・メッセージ ID、または <span>XPG4</span> メッセージのいずれかでなければなりません。</p>
+ <p>エラー・メッセージ ID は 4 桁までの 16 進数字から構成され、前に "0x" は付きません。 例えば、1234 または ABCD です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errmsg.html#errmsg" target="_blank" rel="noopener noreferrer"><strong>errmsg</strong></a> <strong> -w</strong>コマンドを使えば、これらのメッセージを識別子とともに表示することができる。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/errmsg.html#errmsg" target="_blank" rel="noopener noreferrer"><strong>エラー・メッセージ</strong></a> コマンドを使用して、新規メッセージを追加できます。</p>
+ <p><span>XPG4</span> メッセージは、以下の形式を使用して指定されます。</p>
+ <div> <div><div><pre><code>{&lt;set&gt;, &lt;number&gt;, &lt;"default text"&gt;}</code></pre></div><div></div></div></div>
+ <p>セット、番号、およびデフォルト・テキストは、すべて必須です。 記号メッセージ参照は、サポートされません。 また、 <span>XPG4</span> メッセージを含むテンプレートはアラート可能ではありません。</p>
+ <p><span>XPG4</span> メッセージには、メッセージ・カタログを指定する必要があります。 これは、「*!」のいずれかを使用して行われます。 カタログ指定子、または catname キーワード。</p>
+ <p>エラー・ログは、通常のエラー・メッセージ交換の機能のすべてをサポートするとは限りません。 エラー・ログ・テンプレートに使用する文字列は、いくつかの制約事項に適合していなければなりません。</p>
+ <ul>
+<li>変数代入は、サポートされません。 例えば、この文字列は、値を出力する形式指定子として使用することはできません。 文字列に含めることができるのは、書式制御文字の「&amp;#xa5;t」および「&amp;#xa5;n」のみです。</li>
+
+<li>デフォルトのテキスト文字列は 1KB、すなわち 1024 バイトを超えることはできません。</li>
+
+<li>エラーの説明は、非詳細レポートの 40 文字域に出力されることに注意する必要があります。 これらのレポートでは文字列のフォーマットは行われず、先頭 40 文字だけが出力されます。</li>
+
+<li>文字列には、末尾の改行を入れてはなりません。 これは errpt によって指定されます。</li>
+
+</ul>
+ <p>追加されるエントリーごとに、errupdate コマンドは <em>File</em>.h で指定したヘッダー・ファイルに書き込まれる固有の Error ID を割り当てます (この場合、<em>File</em> パラメーターは、errupdate コマンド入力ファイルの名前です)。 errupdate コマンドが標準入力から読み取り中の場合、  #defineステートメントは標準出力に書き込まれます。 以下に提供される値  Class,  Err_Desc,  Err_Type,  Fail_Actions,  Fail_Causes,  Inst_Actions,  Inst_Causes,  Prob_Causes,  User_Actions,  User_Causesフィールド、および  Detail_Data.data_id値は、そのエラーの固有のエラー ID を計算するために使用されます。 <span>XPG4</span> テンプレートの場合、ラベルも計算に含まれます。</p>
+ <p>以下の内容  Log,  Reportおよび  Alertフィールドは、固有のエラー ID の計算には含まれません。したがって、特定のエラーのログ、レポート、およびアラート特性は、 <strong>errupdate</strong> コマンドを使用して、エラー・レコード・テンプレート・リポジトリーに保管されているエラー項目定義でいつでも変更できます。 また、詳細データ・フィールドの data_len および data_encode の部分も使用されないことに注意してください。</p>
+ <p><strong>errupdate</strong> コマンドは、<em>File</em>.<strong>undo</strong> という名前の現行ディレクトリー内の取り消しファイルの作成も行います。 <strong>errupdate</strong> コマンドが標準入力から読み込んでいる場合は、<strong>undo</strong> ファイルは <strong>errids.undo</strong> ファイルに書き込まれます。 <strong>undo</strong> ファイルには、<strong>errupdate</strong> コマンドが行った変更を取り消すための、<strong>errupdate</strong> コマンドへの入力が含まれています。</p>
+ <p>エラー・レコード・テンプレート・リポジトリーの内容を表示する場合は、<strong>errpt</strong><strong>-t</strong> コマンドを使用することができます。 テンプレートは、実際のエラー・レポートのとおりに処理され出力されます。</p>
+ <p></p><blockquote><span>“</span><strong>注意:</strong> エラー・テンプレートを変更する場合は、
+これらのテンプレートが以後の更新で変更される可能性のあることに注意してください。 すべての変更の記録を保持し、システムを更新した場合は、
+その変更を再度適用する必要があります。 これは、通常は、新しいレベルのオペレーティング・システムに移行するなど、
+大幅なシステム更新を行った場合にのみ必要です。 また、そのような記録をとっておくと、再インストールの場合にテンプレートを変更することもできます。 記録を保持する最も簡単な方法は、テンプレートの変更を、
+常に 1 つの errupdate ソース・ファイルから行うことです。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>構文エラーがないか入力ファイルを調べます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>入力テンプレートのエラー ID と同一のエラー ID を持つテンプレートを含むすべてのテンプレートを更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>作成:   #defineエラー・テンプレートに割り当てられた各エラー ID のステートメント。 コマンド行でファイル名が指定された場合、ヘッダー・ファイル名は、指定されたファイル名に <strong>.h (ファイル)</strong>を付加したものになります。 それ以外の場合は、  #defineステートメントは標準出力に書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>エラー・レコード・テンプレート・リポジトリーへエラー・レコード・テンプレートが追加されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>以下を使用してテンプレートを追加または更新します。  AlertSNA 汎用アラート体系 (資料 GA27-3136) によって認識されないエラー記述、推定原因、ユーザー原因、ユーザー・アクション、インストール原因、インストール・アクション、障害原因、障害アクション、または詳細データ・データ ID の値を含むフィールドが True に設定されています。 <strong>errupdate</strong> コマンドは、このフラグを指定しなければ、これらの特性をもつテンプレートを追加できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>undo ファイルの作成を抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong><em> FileName</em></td>
+
+<td><em>FileName</em> パラメーターで指定したエラー・レコード・テンプレート・ファイルを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: なし。ただし、変更するテンプレート・ファイル
+(デフォルトでは /var/adm/ras/errtmplt) への書き込み権限を持っていなければなりません。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>項目を追加するには、以下の方法で入力ファイルに項目を定義します。<div> <div><div><pre><code>+ CDROM_ERR22:
+        Comment=        “Temporary CDROM read error”
+        Class=  H
+        Log=            True
+        Report= True
+        Alert=          False
+        Err_Type=       TEMP
+        Err_Desc=       E801
+        Prob_Causes=    5004
+        Fail_Causes=    E800, 6312
+        Fail_Actions=   1601, 0000
+        Detail_Data=    120, 11, HEX
+        Detail_Data=    4, 8058, DEC
+        Detail_Data=    4, 8059, DEC</code></pre></div><div></div></div></div>
+  <p>データを入力するには、次のように入力します。</p>
+  <div> <div><div><pre><code>errupdate &lt;input file&gt;</code></pre></div><div></div></div></div>
+</li>
+
+<li>エントリーのログ、レポート、およびアラートの特性を変更するには 99999999変更演算子 = (等号) を指定し、その後に固有のエラー ID と、変更する項目の新しい特性を指定します。<div>
+<div><div><pre><code>errupdate
+ =99999999:
+ Report = False
+ Log = True</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>エントリを削除するには 99999999エラー・レコード・テンプレート・リポジトリーから、削除演算子-(負符号) の後に、削除する項目の固有のエラー ID を指定します。<div>
+<div><div><pre><code>errupdate
+ -99999999:</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>この入力ストリームに指定された <span>XPG4</span> メッセージ・カタログを「*!」でオーバーライドするには、 "catname" キーワードを使用します。<div> <div><div><pre><code>*!mycat.cat</code></pre></div><div></div></div></div>
+  <p>* mycat.catこれ以降のすべての <span>XPG4</span> メッセージに使用されます。</p>
+  <p>* ただし、この 1 つを除きます。</p>
+  <div> <div><div><pre><code>+ CDROM_ERR23:
+         Comment=        "Temporary CDROM read error"
+         catname= "othercat.cat"
+         Class=  H
+         Log=            True
+         Report= True
+         Alert=          False
+         Err_Type=       TEMP
+         Err_Desc=       {1, 1, "CD ROM is broken"}
+         Prob_Causes=    {2, 1, "cause 1"},\
+                        {2, 2, "Cause 2"}
+         Fail_Causes=    E800, 6312
+         Fail_Actions=   1601, 0000
+         Detail_Data=    120, 11, HEX
+         Detail_Data=    4, 8058, DEC
+         Detail_Data=    4, 8059, DEC</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+ <p>カタログ othercat.cat は CDROM_ERR23 テンプレートのみに使用されます。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> テンプレートには、 <span>XPG4</span> メッセージと従来のエラー ID またはコード・ポイントの両方を含めることができます。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/include/sys/errids.h</strong></td>
+
+<td>エラー ID を含むヘッダー・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/sys/err_rec.h</strong></td>
+
+<td>エラーのログを記録するための構造を含むヘッダー・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

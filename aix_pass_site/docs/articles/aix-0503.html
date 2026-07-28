@@ -1,0 +1,466 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>AIX</span>のエラーログとBSDのシステムログに、障害や注目すべき状態に関する情報を記録する。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>/opt/rsct/bin/fclogerr { -e event &gt; -t error_template_label -i error_template_headerfile -r resource &gt; -s source_filename &gt; -p line_of_code_pos -v sidlevel &gt; -l lpp_name &gt;-a assoc_fid { [ &gt;-d detail_data_item[, &gt;detail_data_item,...] -x &gt; detail_data_type[,detail_data_type,...] -y detail_data_len[,detail_data_len,...] ] | [ &gt;-f detail_data_file] } -b BSD_syslog_message_text } | -h</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p>このインターフェースは、情報を記録したいスクリプトプログラムによって使用されます。<span>AIX</span>エラー ログと BSD システム ログ。 このデバイスに書き込まれた情報は、
+システム管理者またはシステム・オペレーターが、注意を必要とする、どのような障害状態または
+その他の注意すべき状態がシステムで発生したかを判別するときに使用します。 <span>AIX</span> エラー・ログおよび BSD システム・ログの目的は、どのような条件がどこで発生したかを検出するために条件を再作成することなく、条件の性質、影響、および応答をレポートから判別できるように、条件に関する十分な情報を記録することです。 何らかの直接的な介入が発生するまで持続する永続的な障害状態に遭遇したソフトウェア、またはシステム管理者に注意を喚起する必要がある状態に遭遇したソフトウェアは、<span>fclogerr</span>この情報を<span>AIX</span>エラー ログと BSD システム ログ。</p>
+ <p>スクリプトは、<span>fclogerr</span> を使用する前に、基本 FFDC 環境
+または FFDC エラー・スタック環境を作成するか継承して、この環境を
+確立しておく必要があります。 <span>fclogerr</span>情報を記録する<span>AIX</span>これらの環境が確立されていない場合でも、エラー ログと BSD システム ログが生成されますが、これらの環境のいずれかが存在しない限り、インターフェイスは FFDC 障害識別子を生成できません。</p>
+ <p>FFDC エラー・スタックを使用するように設計されているプロセスも <span>fclogerr</span> インターフェース
+を利用できます。また、解決するための管理者の注意または介入が必要な状態が発生する場合は、
+このインターフェースを利用する必要があります。</p>
+ <p>状況とそれが発生した場所を適切に特定するために、FFDCポリシーでは次のことを推奨しています。<span>fclogerr</span>スクリプトのソース コード モジュール内でインラインで呼び出され、条件が検出されたときに呼び出される必要があります。 <span>fclogerr</span>条件に遭遇したソース コードを識別して見つけるのに役立つソース コード ファイル名とコード行情報を記録します。 この情報を記録する必要がある場合は、<span>fclogerr</span> を
+サブルーチンまたは自動ロードされたルーチンから呼び出すことができます。
+ただし、この外部ルーチンが、場所に関する情報および障害に関する必要な詳細情報
+のすべてを入手できる場合に限られます。 外部記録ルーチンは、
+問題が検出された実際の場所を記録する必要があります。</p>
+ <p>それでも<span>fclogerr</span>情報を報告します<span>AIX</span>エラー ログと BSD システム ログでは、各記録デバイスに対してこのインターフェイスに異なるオプションを指定する必要があります。 詳細データ情報は、<span>AIX</span>エラー ログは BSD システム ログにも記録されません。BSD システム ログ情報は、さまざまなコマンド オプションを通じて提供されます。 このため、場合によって、<span>fclogerr</span> ユーザーは、
+この呼び出しで一部の情報を複写する必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt><span>-a</span></dt>
+
+<dd>このアプリケーションで使用されるソフトウェアによって報告され、現在記録されている状態の原因または影響を与えた障害状態の FFDC 障害 ID が含まれます。 この ID は、ソフトウェアの結果指示の一部として、このアプリケーションに戻されたはずです。 呼び出し元はここでこの識別子を提供するため、FFDC エラー スタックは、現在作成している障害レポートを以前に記録された障害レポートに関連付けることができます。 これにより、問題判別者は、
+このアプリケーションやその他のアプリケーションのさまざまな症状から、
+その他のソフトウェアの根本原因へと、障害の原因をトレースできるようになります。 その他のソフトウェア障害がこの状態の原因でない場合、あるいは、
+その他のソフトウェアが、結果情報の一部として FFDC 障害 ID を戻さなかった場合は、
+このオプションを省略する必要があります。</dd>
+
+
+<dt><span>-b</span></dt>
+
+<dd>BSD システム・ログに書き込まれる次のメッセージを指定します。</dd>
+
+
+<dt><span>-d</span></dt>
+
+<dd>状態に関する詳細情報を提供する1つ以上のデータ項目。詳細データを提供するために使用されます。<span>AIX</span>エラー ログ エントリ。 情報の詳細が長すぎる場合は、これらの詳細をファイルに書き込むことができます。
+このファイルの名前は、detail_data_file パラメーター
+として指定します。 詳細なデータファイル名が指定されている場合は、このオプションを省略する必要があります。 もし、詳細データまたは詳細データファイルパラメータが指定されているか有効と思われる場合、詳細データにはnull情報が記録されます。<span>AIX</span>エラーログ。<p>このオプションを使用して、複数のデータ項目を指定することができます。 各データ項目は、
+間にホワイト・スペース文字を入れずに、コンマ (,) で区切る必要があります。 データ項目に空白文字が埋め込まれている場合は、データ項目を二重引用符 (") で囲む必要があります。コマンドはフィールド区切り文字として解釈されるため、データ項目自体にコンマ (,) を含めることはできません。</p>
+
+<p>このオプションしなければならないを伴う<span>-x</span>そして<span>-y</span>オプション。</p>
+</dd>
+
+
+<dt><span>-e</span></dt>
+
+<dd>FFDC ログ・イベント・タイプを指定します。 現在有効な値は、FFDC_EMERG、FFDC_ERROR、FFDC_STATE、FFDC_TRACE、FFDC_RECOV、および FFDC_DEBUG です。 このコードは、ログに記録されるイベントのタイプ (緊急状態、永続状態、通知、デバッグ情報など) の一般的な説明を提供します。 および条件の重大度。 このオプションを指定しない場合は、イベント・タイプ FFDC_DEBUG が
+この問題レコードに割り当てられます。</dd>
+
+
+<dt><span>-f</span></dt>
+
+<dd>報告される状態に関する詳細を含むファイルの名前。 このオプションを使用するのは、
+詳細が長すぎて、<span>fclogerr</span> がアプリケーションに残した、100 バイト
+の残りの詳細データ情報内に記録できない場合、あるいは詳細情報を分析できる
+ユーティリティーがある場合です。 このファイルの内容は、<span>/var/adm/ffdc/dumps</span>ディレクトリに移動し、ファイルの新しい場所は、<span>AIX</span>エラー ログ エントリ。</dd>
+
+
+<dt><span>-h</span></dt>
+
+<dd>ヘルプ・メッセージを標準出力に表示し、終了します。 指定したオプションにかかわりなく、
+それ以外の処理は実行されません。</dd>
+
+
+<dt><span>-i</span></dt>
+
+<dd>エラーログテンプレート識別番号を含むヘッダーファイル（.h）の絶対パス名を指定します。エラーテンプレートラベル指定された<span>-l</span>オプション。 このテンプレートは、ノードのエラーログテンプレートリポジトリ（<span>/var/adm/ras/errtmplt</span> ）。このヘッダーファイルは、<span>errupdate</span>コマンドはソース コードのビルド手順の一部として実行され、ソフトウェアとともにノードにインストールされる LPP のパッケージに含まれている必要があります。 このオプションが指定されていない場合、またはスクリプトの実行時にヘッダーファイルが見つからない場合は、<span>fclogerr</span>独自のデフォルトエラーテンプレート（ラベルFFDC_DEF_TPLT_TR、識別子コード）を使用して障害情報を記録します。2B4F5CAB ）。</dd>
+
+
+<dt><span>-l</span></dt>
+
+<dd>出荷の際にこのソフトウェアが入っていたライセンス・プログラミング製品
+の短縮名を指定します。 この値は LPP の受け入れ可能名として、お客様および
+アプリケーション・サポート・サービスの両者に認識できるものでなければなりません。 このような値の例としては、PSSP、GPFS、 LoadLeveler®、および RSCT があります。 このオプションが指定されていないか無効である場合、文字列<code>PPS_PRODUCT</code>使用されている。</dd>
+
+
+<dt><span>-p</span></dt>
+
+<dd>ソース・コード・モジュール内の、状態がレポートされているコード行の場所を
+指定します。 提供される値は有効な整数値である必要があります。 状態を正しく識別し、位置指定するために、この値は、状態を検出したコード行
+にできるだけ近いものでなければなりません。 Korn シェル・スクリプト
+では <code>$LINENO</code> の値を使用することができます。 特殊な行カウント変数を提供していないスクリプト言語
+では、ここにシンボル値を指定することができます。この値を使用すると、
+開発者は、<span>fclogerr</span> が使用されている、ソース・コード内の
+スポットを探し出すことができます。 このオプションが無効であるか、指定されていない場合は、
+<code>0</code> の値が使用されます。</dd>
+
+
+<dt><span>-q</span></dt>
+
+<dd>このコマンドからの警告メッセージの生成を抑止します。 警告は、コマンドが不足している情報をデフォルトの情報に置き換える必要がある場合、またはコマンドが不足している情報をコピーできない場合に生成されます。詳細データファイルに<span>/var/adm/ffdc/dumps</span>ディレクトリ。</dd>
+
+
+<dt><span>-r</span></dt>
+
+<dd>ソフトウェア・コンポーネント名を指定します。 この名前は、
+レポートを作成するソフトウェアのシンボル名であり、お客様および
+アプリケーション・サポート・サービスの両者に認識できる名前でなければなりません。 文字列は 16 文字に制限されています。</dd>
+
+
+<dt><span>-s</span></dt>
+
+<dd>レポートされている状態が発生したコード行を含むソース・ファイル名を
+指定します。 Korn シェルおよび Borne シェルのスクリプトでは、
+このオプションに対する引数を <code>$0</code> に設定する必要があります。C シェル・スクリプトでは、
+この引数を <code>${0}</code> に設定します。 このオプションが指定されないか、無効の場合は、
+文字列 <code>unknown_file</code> が使用されます。</dd>
+
+
+<dt><span>-t</span></dt>
+
+<dd>に与えられた記号ラベルを示します<span>AIX</span>エラー ログ リポジトリ内のエラー ログ テンプレート。 エラー・ロギング・テンプレートを
+作成する <span>errupdate</span> コマンドは、このラベルを整数コードに
+マップするマクロを生成します。 このラベルは <code>ERRID_</code> の文字
+で始まり、最大長は 19 文字です。 このオプションが指定されていない場合、またはスクリプトの実行時にヘッダーファイルが見つからない場合は、<span>fclogerr</span>を呼び出す<code>errlogger</code>メッセージを作成するには<span>AIX</span>OPMSG テンプレートを使用してエラー ログを作成します。</dd>
+
+
+<dt><span>-v</span></dt>
+
+<dd>記録されている状態を検出したソース・コード・モジュールの SCCS バージョン番号
+を示します。 SCCS制御下でビルドされたソースコードの場合、これを次のように設定する必要があります。<code>"1.1"</code> (二重引用符が必要です)。 このオプションが指定されないか、無効の場合は、
+<code>unknown</code> の文字列が使用されます。</dd>
+
+
+<dt><span>-x</span></dt>
+
+<dd>指定されたデータ項目がどのように<span>-d</span>オプションは、この情報を記録する際に解釈される。<span>AIX</span>エラーログ。 これらの型は、<span>AIX</span>エラーログテンプレートは、<span>-t</span>オプション。 各タイプは、<span>-d</span> リストの対応するデータ項目をどのように解釈するか
+を示します。 このオプションの許容値は、ALPHA、HEX、および DEC です。 一致するタイプがリストされている必要があります<span>-x</span>各引数の引数<span>-d</span>リスト。<p>このオプションしなければならない供給される場合<span>-d</span>オプションが提供されます。</p>
+</dd>
+
+
+<dt><span>-y</span></dt>
+
+<dd><span>-d</span> オプションで指定したデータ項目 (バイト) の
+長さを示します。 これらの長さは、<span>AIX</span>エラーログテンプレートは、<span>-t</span>オプション。 一致するタイプがリストされている必要があります<span>-y</span>各引数の引数<span>-d</span>リスト。<p>このオプションしなければならない供給される場合<span>-d</span>オプションが提供されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt>file_name</dt>
+
+<dd>FFDC 障害 ID の検索対象となるファイルの名前。 複数のファイルを指定することができます。 ファイル名が指定されていない場合は、<span>fcfilter</span>標準入力から読み取ります。</dd>
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> <p><span>fclogerr</span> は正常完了時に、以下の終了状況コードを返します。</p>
+ <dl>
+
+<dt><span>0</span></dt>
+
+<dd><span>AIX</span> エラー・ログおよび BSD システム・ログに書き込まれる情報が正常にキューに入れられました。 レコードの FFDC 障害 ID は標準出力に表示されます。 この値を入手するには、呼び出し側は標準出力をキャプチャーする必要があります。</dd>
+
+
+<dt><span>※2</span></dt>
+
+<dd>ヘルプ情報が表示され、処理が終了しました。</dd>
+
+
+<dt><span>12</span></dt>
+
+<dd><span>AIX</span> エラー・ログに記録される情報も、FFDC 障害 ID もコマンドによって提供されません。 コマンド・ユーザーが、このコマンドに無効なオプションを
+指定しました。</dd>
+
+</dl>
+ <p>の上<span>AIX</span>以外のプラットフォーム<span>AIX</span>、<span>fclogerr</span>失敗が発生すると、次の終了ステータス コードが返されます。</p>
+ <dl>
+<dt><span>38</span></dt>
+
+<dd>このインシデントについては、BSD システム ログに記録されない可能性があります。 システム・ログに障害が発生しています。 <span>AIX</span> システムでは、レポートが <span>AIX</span> エラー・ログに記録されました。その他のシステムでは、これは障害と見なす必要があります。</dd>
+
+</dl>
+ <p>不完全な情報と一緒に <span>fclogerr</span> を指定すると、
+このコマンドは、欠落情報の代わりにデフォルト情報を
+使用し、FFDC エラー・スタックでレコードを作成するようにします。 これらの場合、警告が生成されます。また、<span>-q</span> オプション
+が指定されていない限り、警告メッセージが生成されます。 複数の警告状態が検出された場合、コマンドは、最も重大と判断した状態の終了状況コードを返します。 警告状態が検出されると、以下の終了状況コードが <span>fclogerr</span> から返されます。</p>
+ <dl>
+<dt><span>10</span></dt>
+
+<dd>コマンドユーザーが提供できなかった<span>-i</span>このコマンドのオプション、または引数として指定されたヘッダーファイル<span>-i</span>オプションが見つからない可能性があります。 このコマンドは、一般的な情報を<span>AIX</span>この場合、エラーログは、First Failure Data Captureのデフォルトテンプレート（ラベルFFDC_DEF_TPLT_TR、識別子コード2B4F5CAB ）。</dd>
+
+
+<dt><span>26</span></dt>
+
+<dd>詳細データ・ストリングおよび詳細データ・ファイルの両方がこのルーチンに
+指定されました。 このルーチンは、詳細データ・ストリングを選択し、詳細データ・ファイル
+を無視しました。</dd>
+
+
+<dt><span>28</span></dt>
+
+<dd>問題を検出するリソースの名前が指定されませんでした。 存在しないリソース名
+の代わりに、デフォルト・リソース名 <code>ffdc</code> が使用されます。</dd>
+
+
+<dt><span>29</span></dt>
+
+<dd>検出アプリケーション情報 (ソース・コード・ファイル名、
+ソース・コード・ファイル・バージョン、LPP 名、コード行の位置) のコンポーネントが、1 つ以上、
+指定されませんでした。 欠落情報の代わりにデフォルト情報が使用されます。</dd>
+
+
+<dt><span>32</span></dt>
+
+<dd>ファイル名は詳細データファイルパラメータがコピーされない可能性があります<span>/var/adm/ffdc/dumps</span>ディレクトリ。 FFDC エラー・スタック・エントリーには、このファイルの元のバージョンが引用されます。 このファイルの元のコピーを廃棄しないでください。</dd>
+
+
+<dt><span>33</span></dt>
+
+<dd><span>-e</span> オプションが指定されなかったか、
+このオプションで、有効な FFDC イベント・タイプが指定されませんでした。 この問題レコードには、イベント・タイプ <code>FFDC_DEBUG</code> が割り当てられています。</dd>
+
+
+<dt><span>34</span></dt>
+
+<dd>format パラメーターにメッセージが指定されませんでした。 この結果、この問題では、一般的なメッセージが BSD システム・ログに記録されました。</dd>
+
+
+<dt><span>35</span></dt>
+
+<dd>この問題についての詳細な情報が提供されませんでした。 問題の詳細を示す
+これらの詳細情報がないと、以後の問題分析が困難になる場合があります。</dd>
+
+
+<dt><span>36</span></dt>
+
+<dd>詳細データ・ストリングの長さが、 <span>AIX</span> エラー・ログ項目制限の容量を超えていました。 使用可能スペースに適合するように、詳細データが切り捨てられました。 この切り捨てによって、問題の一部の情報が失われた可能性があります。</dd>
+
+
+<dt><span>37</span></dt>
+
+<dd>このルーチンによって作成されたレポートに対して、FFDC エラー ID が構築されない可能性があります。 FFDC 障害 ID は標準出力に書き込まれませんが、問題に関する情報は <span>AIX</span> エラー・ログおよび BSD システム・ログに記録されました。</dd>
+
+
+<dt><span>38</span></dt>
+
+<dd>このインシデントについては、BSD システム ログに記録されない可能性があります。 システム・ログが使用可能でないか、システム・ログに問題が発生している可能性があります。 <span>AIX</span> システムでは、レポートが <span>AIX</span> エラー・ログに記録されました。その他のシステムでは、これは障害と見なす必要があります。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <p>この例では、Korn シェル・スクリプトがファイルの構成情報への
+アクセスを試みます。 この試みが失敗した場合、コードは失敗を記録します。<span>AIX</span>次のテンプレート ソース コードを使用してエラー ログを作成します。</p>
+ <dl>
+<dt></dt>
+
+<dd><div><div><pre><code>*! mymesgcat.cat
++ SP_FFDCEXMPL_ER:
+    Comment        = "Configuration Failed - Exiting"
+    Class          = S
+    Log       = true
+    Report         = true
+    Alert          = false
+    Err_Type  = PERM
+    Err_Desc  = {3, 10, "CONFIGURATION FAILURE - EXITING"}
+    Prob_Causes    = E89B
+    User_Causes    = E811
+    User_Actions   = 1056
+    Fail_Causes    = E906, E915, F072, 108E
+    Fail_Actions   = {5, 14, "VERIFY USER HAS CORRECT PERMISSIONS TO ACCESS FILE"},
+               {5, 15, "VERIFY CONFIGURATION FILE"}
+    Detail_Data    = 46, 00A2, ALPHA
+    Detail_Data    = 42, EB2B, ALPHA
+    Detail_Data    = 42, 0030, ALPHA
+    Detail_Data    = 16, EB00, ALPHA
+    Detail_Data    = 16, 0027, ALPHA
+    Detail_Data    = 4, 8183, DEC
+    Detail_Data    = 4, 8015, DEC
+    Detail_Data    = 60, 8172, ALPHA</code></pre></div><div></div></div></dd>
+
+</dl>
+ <p>この定義により、以下の <span>AIX</span> エラー・ロギング・テンプレートが生成されます。</p>
+ <dl>
+<dt></dt>
+
+<dd><div><div><pre><code>LABEL:            ERRID_SP_FFDCEXMPL_ER
+IDENTIFIER:        &lt;calculated by errupdate during source code build&gt;
+
+Date/Time:         &lt;filled in by AIX Error Log subsystem&gt;
+Sequence Number:   &lt;filled in by AIX Error Log subsystem&gt;
+Machine Id:        &lt;filled in by AIX Error Log subsystem&gt;
+Node Id:           &lt;filled in by AIX Error Log subsystem&gt;
+Class:             S
+Type:              PERM
+Resource Name:     &lt;filled in by -r option to fclogerr&gt;
+
+Description
+CONFIGURATION FAILURE - EXITING
+
+Probable Causes
+COULD NOT ACCESS CONFIGURATION FILE
+
+User Causes
+USER CORRUPTED THE CONFIGRATION DATABASE OR METHOD
+
+    Recommended Actions
+    RE-CREATE FILE
+
+Failure Causes
+COULD NOT ACCESS CONFIGURATION FILE
+PERMISSIONS ERROR ACCESSING CONFIGURATION DATABASE
+FILE READ ERROR
+FILE IS CORRUPT
+
+    Recommended Actions
+    VERIFY USER HAS CORRECT PERMISSIONS TO ACCESS FILE
+    VERIFY CONFIGURATION FILE
+
+Detail Data
+DETECTING MODULE
+&lt;filled in by fclogerr options&gt;
+ERROR ID
+&lt;The FFDC Failure Identifier created by fclogerr&gt;
+REFERENCE CODE
+&lt;The -a option value to fclogerr&gt;
+FILE NAME
+&lt;Must be supplied as part of -d option list to fclogerr&gt;
+FUNCTION
+&lt;Must be supplied as part of -d option list to fclogerr&gt;
+RETURN CODE&lt;Must be supplied as part of -d option list to fclogerr&gt;
+ERROR CODE AS DEFINED IN sys/errno.h
+&lt;Must be supplied as part of -d option list to fclogerr&gt;
+USER ID&lt;Must be supplied as part of -d option list to fclogerr&gt;</code></pre></div><div></div></div></dd>
+
+</dl>
+ <p>最初の3つの詳細データフィールドは、<span>fclogerr</span>パラメータで渡された情報からルーチンを実行します。 残りの詳細データは、<span>-d</span>オプションであり、提供されるデータのタイプは<span>-x</span>オプション。 次のソースコードの例は、これがどのように行われるか、そしてどのように行われるかを示しています。<span>fclogerr</span>情報を記録するために呼び出されます<span>AIX</span>エラー ログと BSD システム ログ。</p>
+ <dl>
+<dt></dt>
+
+<dd><div><div><pre><code>typeset CONFIG_FNAME
+typeset INBUF
+typeset MINUSDOPTS
+typeset MINUSXOPTS
+typeset MINUSYOPTS
+typeset FID
+integer MYCLIENT
+integer RC
+    :
+MYCLIENT=$$
+CONFIG_FNAME="/configfile.bin"
+exec 3&lt; $CONFIG_FNAME
+    :
+read -u3 INBUF
+RC=$?
+if ((RC != 0))
+then
+    # Create Detail Data Memory Block for AIX Error Log Template
+    # Need to know the EXACT structure of the Template to do this correctly.
+    #    Field 1 - filled in by fc_log_error
+    #    Field 2 - filled in by fc_log_error
+    #    Field 3 - filled in by fc_log_error
+    #    Field 4 - name of configuration file being used - 16 bytes
+    #    Field 5 - name of function call that failed - 16 bytes
+    #    Field 6 - return code from failing function - 4 byte integer
+    #    Field 7 - errno from failing function call (unused) - 4 byte integer
+    #    Field 8 - user ID using this software - remaining space (62 bytes)
+    # This source code supplied fields 4 through 8 in the "-d" option, and
+    # describes the data types for each in the "-x" option.
+    MINUSDOPTS=$CONFIG_FNAME
+    MINUSXOPTS="ALPHA"
+    MINUSYOPTS="16"
+    MINUSDOPTS="$MINUSDOPTS,read"
+    MINUSXOPTS="$MINUSXOPTS,ALPHA"
+    MINUSYOPTS="$MINUSYOPTS,16"
+    MINUSDOPTS="$MINUSDOPTS,$RC"
+    MINUSXOPTS="$MINUSXOPTS,DEC"
+    MINUSYOPTS="$MINUSYOPTS,4"
+    MINUSDOPTS="$MINUSDOPTS,0"
+    MINUSXOPTS="$MINUSXOPTS,DEC"
+    MINUSYOPTS="$MINUSYOPTS,4"
+    MINUSDOPTS="$MINUSDOPTS,$MYCLIENT"
+    MINUSXOPTS="$MINUSXOPTS,DEC"
+    MINUSYOPTS="$MINUSYOPTS,60"
+    FID=$(fclogerr -e FFDC_ERROR -t ERRID_SP_FFDCEXMPL_ER -i /usr/lpp/ssp/inc/
+myprog.h -r myprog -s myprog.ksh -p $LINEPOS -v "1.1" -l PSSP -d $MINUSDOPTS -x
+$MINUSXOPTS -y $MINUSYOPTS -b "myprog Configuration Failure - Exiting")
+    RC=$?
+    if ((RC == 0))
+    then
+         fcdispfid $FID
+         return 1
+    else
+         :
+    fi
+fi</code></pre></div><div></div></div></dd>
+
+</dl>
+ <p>さて、先ほどの例を少し変えて、同じものを使って考えてみましょう。<span>AIX</span>エラー ログ テンプレートですが、今回は外部コマンドを使用して、このソース コードが提供するファイルから構成データを取得します。 このコマンドは非ゼロの終了状況で終了し、障害状態を検出すると、
+FFDC 障害 ID を標準出力に表示します。 また、二重引用符の使い方を示すために、<span>-d</span>リストでは、構成ファイルの名前にスペースが埋め込まれています。</p>
+ <dl>
+<dt></dt>
+
+<dd><div><div><pre><code>typeset CONFIG_FNAME
+typeset INBUF
+typeset MINUSDOPTS
+typeset MINUSXOPTS
+typeset MINUSYOPTS
+typeset FID
+typeset OUTPUT
+integer MYCLIENT
+integer RC
+    :
+MYCLIENT=$$
+CONFIG_FNAME="This is a test"
+OUTPUT=$(configdabeast $CONFIG_FNAME)
+RC=$?
+if ((RC != 0))
+then
+    # Create Detail Data Memory Block for AIX Error Log Template
+    # Need to know the EXACT structure of the Template to do this correctly.
+    #    Field 1 - filled in by fc_log_error
+    #    Field 2 - filled in by fc_log_error
+    #    Field 3 - filled in by fc_log_error
+    #    Field 4 - name of configuration file being used - 16 bytes
+    #    Field 5 - name of function call that failed - 16 bytes
+    #    Field 6 - return code from failing function - 4 byte integer
+    #    Field 7 - errno from failing function call (unused) - 4 byte integer
+    #    Field 8 - user ID using this software - remaining space (62 bytes)
+    # This source code supplied fields 4 through 8 in the "-d" option, and
+    # describes the data types for each in the "-x" option.
+    MINUSDOPTS="\""$CONFIG_FNAME"\""
+    MINUSXOPTS="ALPHA"
+    MINUSYOPTS="16"
+    MINUSDOPTS="$MINUSDOPTS,configdabeast"
+    MINUSXOPTS="$MINUSXOPTS,ALPHA"
+    MINUSYOPTS="$MINUSYOPTS,16"
+    MINUSDOPTS="$MINUSDOPTS,$RC"
+    MINUSXOPTS="$MINUSXOPTS,DEC"
+    MINUSYOPTS="$MINUSYOPTS,4"
+    MINUSDOPTS="$MINUSDOPTS,0"
+    MINUSXOPTS="$MINUSXOPTS,DEC"
+    MINUSYOPTS="$MINUSYOPTS,4"
+    MINUSDOPTS="$MINUSDOPTS,$MYCLIENT"
+    MINUSXOPTS="$MINUSXOPTS,DEC"
+    MINUSYOPTS="$MINUSYOPTS,60"
+    FID=$(fclogerr -e FFDC_ERROR -t ERRID_SP_FFDCEXMPL_ER -i /usr/lpp/ssp/inc/
+myprog.h -r myprog -s myprog.ksh -p $LINEPOS -v "1.1" -l PSSP -d $MINUSDOPTS -x
+$MINUSXOPTS -y $MINUSYOPTS -a $OUTPUT -b "myprog Configuration Failure - Exiting")
+    RC=$?
+    if ((RC == 0))
+    then
+         fcdispfid $FID
+         return 1
+    else
+         :
+    fi
+fi</code></pre></div><div></div></div></dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2><p>このコマンドは、Reliable Scalable Cluster Technology (RSCT) ファイルセットの一部です。</p>
+</section>
+
+</div></div>

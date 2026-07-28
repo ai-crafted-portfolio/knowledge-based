@@ -1,0 +1,414 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>1 つ以上の条件に関する情報をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lscondition</span></span> [<span><span>-a</span></span>] [ <span><span>-m</span></span> | <span><span>-n</span></span> | <span><span>-e</span></span> ] [ <span><span>-C</span></span> | <span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-A</span></span>] [<span><span>-q</span></span>] <span>[<span><span>-U</span></span>]</span> [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>condition1</span></span> [<span><span>,</span></span><span><span>condition2</span></span><span><span>,</span></span>...]<span><span>:</span></span><span><span>node_name</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>lscondition</span></span> コマンドは、定義された条件に関する以下の情報をリストします。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>名前</td>
+
+<td>条件の名前。</td>
+
+</tr>
+
+<tr>
+<td>ノード</td>
+
+<td>条件のロケーション (管理ドメイン有効範囲またはピア・ドメイン有効範囲の場合)。</td>
+
+</tr>
+
+<tr>
+<td>MonitorStatus</td>
+
+<td>条件の状況。</td>
+
+</tr>
+
+<tr>
+<td>ResourceClass</td>
+
+<td>この条件によってモニターされるリソース・クラス。</td>
+
+</tr>
+
+<tr>
+<td>EventExpression</td>
+
+<td>この条件のモニターに使用される式。</td>
+
+</tr>
+
+<tr>
+<td>EventDescription</td>
+
+<td>「 <span><span>EventExpression</span></span> 」フィールドの説明。</td>
+
+</tr>
+
+<tr>
+<td>RearmExpression</td>
+
+<td>イベントの発生後、この条件に対するモニターを再始動するかどうかを決定する式。</td>
+
+</tr>
+
+<tr>
+<td>RearmDescription</td>
+
+<td>「 <span><span>RearmExpression</span></span> 」フィールドの説明。</td>
+
+</tr>
+
+<tr>
+<td>SelectionString</td>
+
+<td>この条件のモニターに含めるリソースを決定するために、 <span><span>ResourceClass</span></span> の属性に適用される選択ストリング。</td>
+
+</tr>
+
+<tr>
+<td>重大度</td>
+
+<td>条件の重大度。値は Critical (重大)、Warning (警告)、または Informational (通知) のいずれかになります。</td>
+
+</tr>
+
+<tr>
+<td>NodeNames</td>
+
+<td>条件が登録されているノードのホスト名。</td>
+
+</tr>
+
+<tr>
+<td>MgtScope</td>
+
+<td>条件をモニターする RMC 有効範囲。</td>
+
+</tr>
+
+<tr>
+<td>Toggle</td>
+
+<td>条件をイベントとリアーム・イベントとの間で切り替えるかどうかを指定します。</td>
+
+</tr>
+
+<tr>
+<td>Locked</td>
+
+<td>リソースがロックされるかアンロックされるかを指定します。</td>
+
+</tr>
+
+<tr>
+<td>EventBatchingInterval</td>
+
+<td>累積されたイベントが一緒にバッチされ、応答に送信される時点を判別するために使用される秒単位の時刻を指定します。 0 の値は、バッチ処理が使用されないことを示します。</td>
+
+</tr>
+
+<tr>
+<td>EventBatchingMaxEvents</td>
+
+<td>イベントの単一バッチに入れることができるイベントの最大数を指定します。 0 の値は、<strong>EventBatchingInterval</strong> の値が 0 でない場合、最大値がないことを示します。</td>
+
+</tr>
+
+<tr>
+<td>BatchedEventRetentionPeriod</td>
+
+<td>すべての関連付けられた応答スクリプトが実行された後に、バッチされたイベント・ファイルが保持される時間を時間単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td>BatchedEventMaxTotalSize</td>
+
+<td>保存されるバッチ・イベント・ファイル・サイズの合計が、条件ごとにメガバイト (MB) 単位の特定のサイズを超えることができないことを指定します。 RecordAuditLog 監査ログに対する  ERRM ログ項目の詳細のレベル (ALL、Error Only、または None) を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>すべての条件のリストを表示するには、条件名を指定せずに <span><span>lscondition</span></span> コマンドを入力します。 すべての条件名のリストが、各条件のモニター状況付きで返されます。 この場合のデフォルトの形式は表形式です。 条件名の後にノード名を指定すると、そのノードに定義されている条件だけが表示されます。 コロン (<span><span>:</span></span>) の後にノード名を指定することによって、ノード上のすべての条件をリストすることができます。 ノード名は、CT_MANAGEMENT_SCOPE 環境変数によって決められている管理有効範囲内のノードです。 管理有効範囲は、
+条件をリストするノードのリストを決定します。 Local 有効範囲の場合には、ローカル・ノードの条件のみがリストされます。 それ以外の場合には、ドメイン内のすべてのノードの条件がリストされます。</p>
+ <p>すべての条件名に関するすべての情報について、 <span><span>lscondition</span></span> コマンドで <span><span>-A</span></span> フラグを指定します。 <span><span>-A</span></span> フラグを指定すると、条件名が指定されていない場合に、条件に関するすべての情報がリストされます。 すべての条件に関するすべての情報が表示される場合には、長形式がデフォルト・フォーマットです。 モニター状況フラグ (<span><span>-e</span></span>、 <span><span>-m</span></span>、または <span><span>-n</span></span>) が指定されている場合は、その状況の条件がリストされます。</p>
+ <p>複数の条件を指定した場合、
+条件情報はその条件名が入力された順序でリストされます。</p>
+ <p>デフォルトでは、 <span><span>lscondition</span></span> コマンドで条件名を指定すると、その条件のすべての属性が表示されます。</p>
+<p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>このコマンドをクラスター内のすべてのノードに適用することを指定します。 クラスター有効範囲は、<strong>CT_MANAGEMENT_SCOPE</strong> 環境変数によって決定されます。 この環境変数が設定されていない場合、
+コマンドにとって有効な有効範囲になるまで、
+最初に管理ドメイン有効範囲 (存在する場合) を選択し、
+次にピア・ドメイン有効範囲 (存在する場合) を選択し、
+次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合、 <strong>CT_MANAGEMENT_SCOPE</strong> が設定されていない <span><span>lscondition
+-a</span></span> は、管理ドメインをリストします。 この場合、ピア・ドメインをリストするには、<strong>CT_MANAGEMENT_SCOPE</strong> を 2 に設定します。</dd>
+
+
+<dt>-A</dt>
+
+<dd>条件のすべての属性を表示します。</dd>
+
+
+<dt>-C</dt>
+
+<dd><span>条件に基づいて <span><span>mkcondition</span></span> コマンド・テンプレートを表示します。 このテンプレートと変更すると、新しい条件を作成できます。 複数の条件を指定すると、 </span> 各 <span><span>mkcondition</span></span> コマンドのテンプレートが別々の行に表示されます。 条件が無指定
+の場合は、このフラグは無視されます。 このフラグは、 <span><span>–l</span></span> フラグをオーバーライドします。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字フォーマットの出力を生成します。 デフォルトの区切り文字はコロン (<span><span>:</span></span>) です。 デフォルトの区切り文字を変更する場合は、 <span><span>–D</span></span> フラグを使用します。</dd>
+
+
+<dt>--D <span><span>デリミタ</span></span></dt>
+
+<dd>指定された区切り文字を使用する、区切り文字フォーマットの出力を生成します。 このフラグを使用して、デフォルトのコロン (:) 以外を指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。</dd>
+
+
+<dt>-e</dt>
+
+<dd>エラーがモニターされた条件のみをリストします。</dd>
+
+
+<dt>-l</dt>
+
+<dd>長形式の出力を生成します。 条件情報を別々の行に表示します。</dd>
+
+
+<dt>-m</dt>
+
+<dd>エラーなしでモニターされている条件のみをリストします。</dd>
+
+
+<dt>-n</dt>
+
+<dd>モニターされていない条件のみをリストします。</dd>
+
+
+<dt>-q</dt>
+
+<dd>条件が存在しない場合に、エラーを返しません。</dd>
+
+
+<dt>-t</dt>
+
+<dd>条件情報を別々の列に表示します (テーブル形式)。</dd>
+
+
+<dt>-U</dt>
+
+<dd>リソースがロックされるかどうかを指定します。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダー印刷を抑制します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>condition1</span></span> [<span><span>,</span></span><span><span>condition2</span></span><span><span>,</span></span>...]</dt>
+
+<dd>ホスト名 <span><span>node_name</span></span> に定義されている既存の条件の名前を指定します。 複数の
+条件名を指定できます。 このパラメーターには、条件名または条件名を示すサブストリングを指定できます。 サブストリングである場合には、そのサブストリングが含まれている定義済みの条件名がリストされます。</dd>
+
+
+<dt><span><span>ノード名</span></span></dt>
+
+<dd>条件が定義されているノードを指定します。 <span><span>node_name</span></span> を指定しないと、ローカル・ノードが使用されます。 <span><span>node_name</span></span> は、<strong>CT_MANAGEMENT_SCOPE</strong> 環境変数によって決定される有効範囲内のノードです。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>lscondition</span></span>を実行するには、 <span><span>IBM.Condition</span></span> リソース・クラスの読み取り権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「 <em><span>RSCT</span>: Administration Guide</em> 」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>イベント応答リソース・マネージャー (ERRM) のリソースの処理で、RMC デーモンとのセッションに使用する管理有効範囲を指定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用の<span>Reliable Scalable Cluster Technology(RSCT)</span>ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>以下の例は、スタンドアロン・システムに適用されます。<ol>
+<li>すべての条件とそれらのモニター状況をリストするには、次のコマンドを実行します。<div><div><pre><code>lscondition </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code> Name                      Node          MonitorStatus
+"FileSystem space used"   "nodeA"       "Monitored"
+"tmp space used"          "nodeA"       "Not monitored"
+"var space used"          "nodeA"       "Error"       
+</code></pre></div><div></div></div></li>
+
+<li>条件「FileSystem space used」についての一般情報を長形式でリストするには、次のコマンド
+を実行します。<div><div><pre><code>lscondition "FileSystem space used"</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name             = "FileSystem space used"
+Node             = "nodeA"
+MonitorStatus    = "Monitored"
+ResourceClass    = "IBM.FileSystem"
+EventExpression  = "PercentTotUsed &gt; 99"
+EventDescription = "Generate event when space used is
+                    greater than 99 percent full"
+RearmExpression  = "PercentTotUsed &lt; 85"
+RearmDescription = "Start monitoring again after it is
+                    less than 85 percent"
+SelectionString  = ""
+Severity         = "w"
+NodeNames        = "{}"
+MgtScope         = "l"
+Toggle           = "Yes"
+Locked           = "No" </code></pre></div><div></div></div></li>
+
+<li>条件「FileSystem space used」を作成するコマンドをリストするには、次のコマンド
+を実行します。<div><div><pre><code>lscondition -C "FileSystem space used"</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>mkcondition -r IBM.FileSystem -a PercentTotUsed \
+-e "PercentTotUsed &gt; 99" -E "PercentTotUsed &lt; 85" \
+-d "Generate event when space used is greater than 99 percent full" \
+-D "Start monitoring after it is less than 85 percent" \
+-S w "FileSystem space used"</code></pre></div><div></div></div></li>
+
+<li>名前にストリング <span><span>space</span></span> が含まれているすべての条件をリストするには、次のコマンドを実行します。<div><div><pre><code>lscondition space	</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name             = "FileSystem space used"
+MonitorStatus    = "Monitored"
+
+Name             = "tmp space used"
+MonitorStatus    = "Not Monitored"
+
+Name             = "var space used" 
+MonitorStatus    = "Monitored"
+
+
+</code></pre></div><div></div></div></li>
+
+<li>エラーになっている条件をリストするには、次のコマンドを実行します。<div><div><pre><code>lscondition -e	</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name               MonitorStatus      
+"var space used"   "Error"           
+ 	</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+ <div>次の例は、クラスター・システムに適用されます。<ol>
+<li>すべての条件とそれらのモニター状況をリストするには、次のコマンドを実行します。<div><div><pre><code>lscondition -a </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name                      Node        MonitorStatus
+"FileSystem space used"   "nodeA"     "Monitored"
+"tmp space used"          "nodeB"     "Not monitored"
+"var space used"          "nodeC"     "Error"       
+</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lscondition</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

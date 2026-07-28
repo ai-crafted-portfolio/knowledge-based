@@ -1,0 +1,368 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>システム監査を制御します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>audit { on [ panic | fullpath] | off | query | start | shutdown }{-@ wparname ...}</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2><p><span>audit</span>コマンドは、いくつかのオプションを通してシステム監査を制御する。 コマンドを入力するたびに、1つのオプションを含める。 <span>start</span>オプションと'<span>shutdown</span>オプションは、監査システムを起動・停止し、システム構成をリセットする。 <span>off</span>オプションと「<span>on</span>オプションは、システム構成に影響を与えることなく、監査システムの一時停止と再起動を行う。 <span>query</span>オプションでステータスを照会できる。</p>
+<p>監査システムは、以下の構成ファイルで設定されている指示に従います。</p>
+<ul>
+<li><span>/etc/security/audit/config</span></li>
+
+<li><span>/etc/security/audit/events </span></li>
+
+<li><span>/etc/security/audit/objects</span></li>
+
+<li><span>/etc/security/audit/bincmds</span></li>
+
+<li><span>/etc/security/audit/streamcmds</span></li>
+
+</ul>
+<p><span>-@</span> オプションは、 <span>WPAR</span>で実行する場合はサポートされません。</p>
+</section>
+
+<section><h2>オプション</h2><div> 
+<div><div><table><caption><span>表 1. <span>audit</span> コマンド・オプション</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>start</span></td>
+
+<td>監査サブシステムを始動します。 このオプションは、コンフィギュレーション・ファイルの指示を読み取り、以下のタスクを実行する：<dl>
+
+<dt><code>role</code> 監査</dt>
+
+<dd>現在システムでアクティブなすべての役割を監査します (それらの役割が <span>/etc/security/audit/config</span> ファイルの役割スタンザに構成されている場合)。</dd>
+
+
+
+<dt><code>object</code> 監査</dt>
+
+<dd><span>/etc/security/audit/objects</span>ファイルの監査イベント定義をカーネルに書き込み、オブジェクト監査イベントを定義する。<div><div>
+        <div>
+          <div><span>注:</span> いずれかのファイル・システム・オブジェクトの親ディレクトリーが存在しない場合、フラグは失敗し、 <span>ENOENT</span> エラーが発行されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><code>event</code> 監査</dt>
+
+<dd><span>/etc/security/audit/config</span> ファイル内の監査クラス定義をカーネルに書き込んで、監査クラスを定義します。</dd>
+
+
+
+<dt><code>bin</code> 監査</dt>
+
+<dd><span>auditbin</span>デーモンを、'<code>binmode=on</code> <span>/etc/security/audit/config</span>ファイルの bin スタンザにあるコンフィギュレーション情報に従って起動する。</dd>
+
+
+
+<dt><code>stream</code> 監査</dt>
+
+<dd>開始スタンザに '<code>streammode=on</code>含まれている場合、'<span>/etc/security/audit/config</span>ファイルのストリーム スタンザで定義されている通りに監査ストリームコマンドを開始する。<div><div>
+        <div>
+          <div><span>注意:</span>標準出力（<code>stdout</code>）と標準エラー（<code>stderr</code>）プロセスが起動時にクローズ されるまで、つまり、以下のコマンドが実行されるまで、ブート時やリモート シェル（rsh）からのストリーム監査の起動は避けてください： <code>audit start 1&gt;&amp;- 2&gt;&amp;-</code>.</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><code>fullpath</code> 監査</dt>
+
+<dd><code>FILE_Open</code>, '<code>FILE_Openxat</code>, '<code>FILE_Read</code>, '<code>FILE_Write</code>, '<code>FILE_Link</code>, '<code>FILE_Linkat</code>, '<code>FILE_Unlink</code>, '<code>FILE_Unlinkat</code>, '<code>FILE_Rename</code>, '<code>FILE_Renameat</code>, '<code>FILE_Owner</code>, '<code>FILE_Mode</code>, '<code>FILE_Fchmod</code>, '<code>FILE_Fchmodat</code>, '<code>FILE_Fchown</code>, '<code>FILE_Fchownat</code>, '<code>FILE_Truncate</code>, '<code>FILE_Symlink</code> のファイルまたは実行ファイルのフルパス名をキャプチャする、 <code>FILE_Symlinkat</code>, '<code>FILE_Setea</code>, '<code>FILE_Removeea</code>, '<code>FILE_Utimes</code>, '<code>FS_Chroot</code>, '<code>FILE_Mknod</code>, '<code>FILE_Mknodat</code>, '<code>FILE_Acl</code>, '<code>FILE_Facl</code>, '<code>FILE_Chpriv</code>, '<code>FILE_Fchpriv</code>, '<code>FILE_WriteXacl</code>, '<code>FILE_Revoke</code>, '<code>FILE_Frevoke</code>, '<code>PROC_Execute</code>, 及び '<code>PROC_LPExecute</code>監査イベントは、 '<span>/etc/security/audit/config</span>ファイルの開始スタンザが '<code>fullpath=on</code> を含む場合に発生する。</dd>
+
+
+
+<dt><code>user</code> 監査</dt>
+
+<dd>システムにログインしているすべてのユーザーを監査します (ユーザーが <span>/etc/security/audit/config</span> ファイルのユーザー・スタンザでセットアップされている場合)。</dd>
+
+
+
+<dt><code>audit</code> ロギング</dt>
+
+<dd><span>/etc/security/audit/config</span>ファイルの開始スタンザで定義されている監査ログのコンポーネントを有効にする。</dd>
+
+
+
+<dt><code>audit</code> 範囲</dt>
+
+<dd>カーネルが <span>/etc/security/audit/config</span> ファイルの <span>WPAR</span> 監査範囲 (WAR) スタンザでセットアップされている場合は、カーネルに書き込みます。</dd>
+
+
+
+<dt><code>global-initiated</code> <span>WPAR</span>監査</dt>
+
+<dd>WPAR が <span>/etc/security/audit/config</span> ファイルの WPARS スタンザに格納されている場合、それらを監査します。 監査は、コマンドに <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/audit.html#audit__audit_syntax_1" target="_blank" rel="noopener noreferrer"><span>-@</span> wparname</a> パラメーターを指定することによって、グローバル <span>WPAR</span> からのみ使用できます。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>shutdown</span></td>
+
+<td>監査記録の収集を停止し、カーネル・テーブルからクラスの定義を削除して構成情報をリセットする。 カーネル・バッファからのすべての監査レコードは、binファイルまたは監査ストリームにフラッシュされる。 この処理は、binmode audit '<span>/etc/security/audit/bincmds</span>ファイルとstreammode audit '<span>/etc/security/audit/streamcmds</span>ファイルのバックエンドコマンドの仕様に従って行われる。 監査データの収集は、次回 <code>audit start</code> コマンドが実行されるまで停止されます。 このオプションで「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/audit.html#audit__audit_syntax_1" target="_blank" rel="noopener noreferrer"><span>-@</span> wparname</a>パラメータを使用すると、指定した<span>WPAR</span>の監査が無効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>off</span></td>
+
+<td>監査システムを中断しますが、構成は引き続き有効です。 データ収集は、<code>audit on</code> コマンドが実行されるまで休止されます。 このオプションは「<span>-@</span>オプションをサポートしていない。</td>
+
+</tr>
+
+<tr>
+<td><span>on</span> [<span>panic</span> | <span>fullpath</span>]</td>
+
+<td>システムが正しく構成されていれば (例えば、最初に <code>audit start</code> コマンドが使用され、構成がまだ有効である場合など)、中断後に監査システムを再始動します。 コマンドが与えられたときに監査が開始されている場合、変更できるのはビンのデータ収集のみである。<p><span>-@</span>オプションはこのオプションではサポートされていない。</p>
+
+<p><span>panic</span> オプションを指定した場合は、bin データ収集が使用可能になっていても bin ファイルに書き込めないと、システムが突然停止します。 <span>panic</span> オプションは、 <span>WPAR</span>で実行する場合はサポートされません。</p>
+
+<p><span>fullpath</span>オプションを指定すると、'<code>FILE_Open</code>、'<code>FILE_Read</code>、'<span>FILE_Write</span>監査イベントは、ファイルのフルパス名をキャプチャする。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>query</span></td>
+
+<td>監査サブシステムの監査状況を照会します。 <span>-@</span>オプションを指定すると、このオプションはグローバルに開始された<span>WPAR </span>の監査ステータスを照会します。 このオプションは、監査サブシステムのステータスを以下の形式で表示します：<div>
+<div><div><pre><code>auditing on {panic | fullpath | tcp_enable_all_kevents} | auditing off
+  
+bin manager off |  is process number pid
+ 
+audit events:
+    audit class: audit event, audit event...
+audit objects:
+    object name: object mode: audit event </code></pre></div><div></div></div>
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+<dl>
+
+<dt>アクセス制御</dt>
+
+<dd><p>このコマンドは、rootユーザーとauditグループのメンバーに実行（x）アクセス権を与えなければならない。 このコマンドは、ルートユーザーに対して「<code>setuid</code>であり、信頼されたコンピューティング・ベース属性を持っていなければならない。</p>
+
+</dd>
+
+
+
+<dt>アクセスされるファイル</dt>
+
+<dd><div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>r</code></td>
+
+<td><span>/etc/security/audit/config</span></td>
+
+</tr>
+
+<tr>
+<td><code>r</code></td>
+
+<td><span>/etc/security/audit/objects</span></td>
+
+</tr>
+
+<tr>
+<td><code>x</code></td>
+
+<td><code>/usr/sbin/auditbin</code></td>
+
+</tr>
+
+<tr>
+<td><code>x</code></td>
+
+<td><code>/usr/sbin/auditstream</code></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>RBAC ユーザー</dt>
+
+<dd><div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><div>監査プロセスを開始するには、「<span>セキュリティ</span>における <span>監査のセットアップ</span>」の説明に従って監査システムを設定し、システム初期化ファイル（グローバル環境では「<span>/etc/rc</span>、<span>WPAR</span>では「<span>/etc/rc.bootc</span>）に以下の行を追加する：<div><div><pre><code>/usr/sbin/audit start 1&gt;&amp;- 2&gt;&amp;- </code></pre></div><div></div></div>
+</div>
+
+<p>システムを初期化するたびに、監査プロセスが構成どおりに始動します。</p>
+
+</li>
+
+<li>グローバル <span>WPAR</span>から <code>wpar1</code> という名前の <span>WPAR</span> の監査プロセスを開始するには、次のコマンドを入力します。<div><div><pre><code>/usr/sbin/audit start -@ wpar1</code></pre></div><div></div></div></li>
+
+<li><div>監査プロセスの動作を停止するには、以下のコマンドを入力する：<div><div><pre><code>/usr/sbin/audit shutdown</code></pre></div><div></div></div></div>
+
+<div>再び <code>audit start</code> コマンドを指定するまで、データ収集は停止したままになります。 オペレーティング・システム・カーネル内のクラスの構成は失われます。<div><div>
+        <div>
+          <div><span>注：</span>「<code>audit
+shutdown</code>コマンドは「<span>/etc/shutdown</span>ファイルにも含まれていなければならない。</div>
+        </div>
+      </div></div>
+</div>
+
+</li>
+
+<li><div>グローバル<span>WPAR</span>から「<code>wpar1</code>名前の<span>WPAR</span>の監査プロセスを停止するには、以下のコマンドを入力します：<div><div><pre><code>/usr/sbin/audit shutdown -@ wpar1</code></pre></div><div></div></div></div>
+
+<p>再び <code>audit start -@ wpar1</code> コマンドを指定するまで、データ収集は停止したままになります。 オペレーティング・システム・カーネル内のクラスの構成は失われます。</p>
+
+<div><div>
+        <div>
+          <div><span>覚えておいてください：</span> <code>audit shutdown</code>コマンドは、オプションなしで、グローバル<span>WPAR</span>から開始されたすべてのWPARの監査プロセスをシャットダウンする。</div>
+        </div>
+      </div></div>
+
+</li>
+
+<li>監査サブシステムを中断するには、次のコマンドを入力します。<div><div><pre><code>/usr/sbin/audit off</code></pre></div><div></div></div></li>
+
+<li><div><code>audit off</code>コマンドによって中断された監査プロセスを再開するには、以下のコマンドを入力する：<div><div><pre><code>/usr/sbin/audit on</code></pre></div><div></div></div></div>
+
+<p>システムが正しく設定されていれば、サスペンド状態は終了し、監査記録が再び生成される。</p>
+
+</li>
+
+<li><div>監査システムの状況を表示するには、次のコマンドを入力します。<div><div><pre><code>/usr/sbin/audit query</code></pre></div><div></div></div></div>
+
+<div>次のメッセージは「<code>audit query</code>ステータス・メッセージの例である：<div><div><pre><code>auditing on
+ 
+bin manager is process number 123
+ 
+audit events:
+    authentication- USER_Login, USER_Logout
+    administration- USER_Create, GROUP_Create
+ 
+audit objects:
+    /etc/security/passwd :
+      r = AUTH_Read
+    /etc/security/passwd : 
+      w = AUTH_Write </code></pre></div><div></div></div>この照会は、指定されたユーザーがログインまたはログアウトしたとき、指定された管理者がユーザーまたはグループを作成したとき、およびシステムが <span>/etc/security/passwd</span> ファイルに対する許可された読み取りまたは書き込み命令を受信したときに監査レコードが書き込まれたことをユーザーに通知します。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/security/audit/bincmds</span></td>
+
+<td>監査ビン・データを処理するためのシェル・コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/audit/config</span>               </td>
+
+<td>監査構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/audit/events</span></td>
+
+<td>監査イベントとそれぞれの証跡フォーマット仕様のリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/audit/objects</span></td>
+
+<td>各ファイル (オブジェクト) の監査イベントのリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/audit/streamcmds</span></td>
+
+<td>auditstream コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/rc</span></td>
+
+<td>システム初期化コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/sbin/audit</span></td>
+
+<td><span>audit</span> コマンドのパスが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

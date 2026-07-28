@@ -1,0 +1,73 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>PostScript ファイルのページ順序を反転し、印刷するページ範囲を選択します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>PSCREV</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrev.html#psrev__row-d3e114198" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/psrev.html#psrev__row-d3e114204" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>パゴスペック</em>,... ] [<strong> </strong><em>ファイル</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>psrev</strong> コマンドは、<em>File</em> 変数で指定したファイルのページ順序を逆にし、<em>Pagespec</em> パラメーターで指定したページを印刷します。 ファイルは、 PostScript ファイル構造化規則に準拠している必要があります。 <em>File</em> に値を指定しないと、<strong>psrev</strong> コマンドは標準入力から読み取ります。 <strong>psrev</strong> コマンドは、結果として生成されたファイルを標準出力へ書き出します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-R</strong></td>
+
+<td>ページ順序を逆にしません (指定すれば、ページをサブセットします)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>パゴスペック</em></td>
+
+<td>印刷すべきページの範囲 (または複数の範囲) を指定します。 <em>Pagespec</em> パラメーターはスペースなしの文字列です。 <em>パゴスペック</em> パラメーターは、単一ページ番号、または <em>N-M</em>という形式の範囲にすることができます。これは、<em> N</em> から <em>分</em>までのページを印刷します。 <em>-N (N)</em> は、文書の先頭から <em>N</em>ページまでを印刷します。 <em>M-</em> は、 <em>分</em> ページから文書の終わりまでを印刷します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次は、ページ範囲と逆順しない個別ページを示した <strong>psrev</strong> コマンドの使用例です。</p>
+ <div> <div><div><pre><code>psrev -R -s2-4,6</code></pre></div><div></div></div>  <div><div><pre><code>psrev -R -s2-4,6-8</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/tmp/RV*</strong></td>
+
+<td>入力がパイプ接続である場合の一時ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,1286 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム構成変数値を標準出力に書き出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>getconf</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136862" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> <em>指定</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136897" target="_blank" rel="noopener noreferrer"><em>SystemwideConfiguration</em></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136906" target="_blank" rel="noopener noreferrer"><em>PathConfiguration</em></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136888" target="_blank" rel="noopener noreferrer"><em>PathName</em></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136921" target="_blank" rel="noopener noreferrer"><em>DeviceVariable</em></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136915" target="_blank" rel="noopener noreferrer"><em>DeviceName</em></a> ]</p>
+ <p><strong>ゲットコンフ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__row-d3e136870" target="_blank" rel="noopener noreferrer">-a</a></strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>getconf</strong> コマンドは、 <em>SystemwideConfiguration</em> パラメーターを指定して呼び出され、 <em>SystemwideConfiguration</em> パラメーターで指定された変数の値を標準出力に書き込みます。</p>
+ <p><em>PathConfiguration</em> および <em>Pathname</em> パラメーターを指定して呼び出された <strong>getconf</strong> コマンドは、 <em>PathName</em> パラメーターによって指定されたパスの <em>PathConfiguration</em> パラメーターによって指定された変数の値を標準出力に書き込みます。</p>
+ <p><strong>-a</strong> フラグを指定して <strong>getconf</strong> コマンドを起動すると、
+すべてのシステム構成変数が標準出力に書き込まれます。</p>
+ <p><em>DeviceVariable</em> および <em>DeviceName</em> パラメーターを指定して呼び出された <strong>getconf</strong> コマンドは、 <em>DeviceName</em> パラメーターで指定されたデバイス・パスのディスク・デバイス名またはロケーションの値を標準出力に書き込みます。</p>
+ <p>指定した変数がシステム上で定義され、その値が <strong>confstr</strong> サブルーチンから使用可能であると記述されている場合、指定変数の値は次の構文で書き込まれます。</p>
+ <div> <div><div><pre><code>"%s\n", &lt;value&gt;</code></pre></div><div></div></div></div>
+ <p>それ以外の場合で、指定変数がシステム上で定義されていると、その値は次の構文で書き込まれます。</p>
+ <div> <div><div><pre><code>"%d\n", &lt;value&gt;</code></pre></div><div></div></div></div>
+ <p>指定した変数が有効であっても、システム上に定義されていなければ、標準出力に次のように書き出されます。</p>
+ <div> <div><div><pre><code>"undefined\n"</code></pre></div><div></div></div></div>
+ <p>変数名が無効であるか、またはエラーが発生すると、診断メッセージが標準エラーに書き出されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-v</strong><em> 仕様</em></td>
+
+<td>構成変数を判別する特定の仕様とバージョンを指定します。 このフラグを指定しないと、戻される値は、インプリメント・デフォルトの XBS5 準拠コンパイル環境に対応します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのシステム構成変数の値を標準出力に書き込みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>PathName</em></td>
+
+<td><em>PathConfiguration</em> パラメーターのパス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>SystemwideConfiguration</em></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__a130c12f3" target="_blank" rel="noopener noreferrer">システム構成変数</a>を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>PathConfiguration</em></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__a130c1319" target="_blank" rel="noopener noreferrer">システム・パス構成変数</a>を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>DeviceName</em></td>
+
+<td>デバイスのパス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>DeviceVariable</em></td>
+
+<td>デバイス変数を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>次の表の最初の列に表示されるシンボルを <strong>system_var</strong> オペランドとして
+使用すると、2 番目の列の値と一緒に呼び出したときに <strong>getconf</strong> コマンドによって <strong>confstr</strong> と同じ値が生成されます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>confstr</strong>に対するパラメーターとして使用される <strong>_CS_AIX_ARCHITECTURE</strong> および <strong>_CS_AIX_BOOTDEV</strong> 変数は、root ユーザーのみが使用できます。</div>
+        </div>
+      </div></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>system_var</div></th>
+
+<th><div>confstr 名前値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>BOOT_DEVICE</td>
+
+<td>_CS_AIX_BOOTDEV</td>
+
+</tr>
+
+<tr>
+<td>MACHINE_ARCHITECTURE</td>
+
+<td>_CS_AIX_ARCHITECTURE</td>
+
+</tr>
+
+<tr>
+<td>MODEL_CODE</td>
+
+<td>_CS_AIX_MODEL_CODE</td>
+
+</tr>
+
+<tr>
+<td>PATH</td>
+
+<td>_CS_PATH</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFF32_CFLAGS</td>
+
+<td>_CS_XBS5_ILP32_OFF32_CFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFF32_LDFLAGS</td>
+
+<td>_CS_XBS5_ILP32_OFF32_LDFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFF32_LIBS</td>
+
+<td>_CS_XBS5_ILP32_OFF32_LIBS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFF32_LINTFLAGS</td>
+
+<td>_CS_XBS5_ILP32_OFF32_LINTFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFFBIG_CFLAGS</td>
+
+<td>_CS_XBS5_ILP32_OFFBIG_CFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFFBIG_LDFLAGS</td>
+
+<td>_CS_XBS5_ILP32_OFFBIG_LDFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFFBIG_LIBS</td>
+
+<td>_CS_XBS5_ILP32_OFFBIG_LIBS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_ILP32_OFFBIG_LINTFLAGS</td>
+
+<td>_CS_XBS5_ILPBIG_OFF32_LINTFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LP64_OFF64_CFLAGS</td>
+
+<td>_CS_XBS5_LP64_OFF64_CFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LP64_OFF64_LDFLAGS</td>
+
+<td>_CS_XBS5_LP64_OFF64_LDFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LP64_OFF64_LIBS</td>
+
+<td>_CS_XBS5_LP64_OFF64_LIBS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LP64_OFF64_LINTFLAGS</td>
+
+<td>_CS_XBS5_LP64_OFF64_LINTFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LPBIG_OFFBIG_CFLAGS</td>
+
+<td>_CS_XBS5_LPBIG_OFFBIG_CFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LPBIG_OFFBIG_LDFLAGS</td>
+
+<td>_CS_XBS5_LPBIG_OFFBIG_LDFLAGS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LPBIG_OFFBIG_LIBS</td>
+
+<td>_CS_XBS5_LPBIG_OFFBIG_LIBS</td>
+
+</tr>
+
+<tr>
+<td>XBS5_LPBIG_OFFBIG_LINTFLAGS</td>
+
+<td>_CS_XBS5_LPBIG_OFFBIG_LINTFLAGS</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <p>次に示す環境変数は、<strong>getconf</strong> コマンドの実行に影響を与えます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>LANG</td>
+
+<td>設定されていない、または null である国際化対応変数のデフォルト値を指定します。 指定する場合は、LANG設定解除または NULL の場合は、実装依存の | デフォルト・ロケールの対応する値が使用されます。 国際化対応変数のいずれかに無効な値が設定されると、ユーティリティーは、変数が 1 つも定義されていないものとして動作します。</td>
+
+</tr>
+
+<tr>
+<td>LC_CALL</td>
+
+<td>空文字列以外の値に設定する場合は、ほかのすべての国際化対応変数の値を指定変更してください。</td>
+
+</tr>
+
+<tr>
+<td>LC_CTYPE</td>
+
+<td>テキスト・データのバイト・シーケンスを文字として解釈するのに使用するロケールを決めます (例えば、引数の複数バイト文字に対する単一バイト文字)。</td>
+
+</tr>
+
+<tr>
+<td>LC_MESSAGES</td>
+
+<td>標準エラーに書き出される診断メッセージの書式と内容に影響を与えるロケールを決めます。</td>
+
+</tr>
+
+<tr>
+<td>NLSPATH</td>
+
+<td>LC_MESSAGES の処理に使用するメッセージ・カタログの位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>全システム構成変数</h2> <p><em>SystemwideConfiguration</em> パラメーターは、システム全体で有効なシステム構成変数を指定します。 システム構成変数の値には次の 2 種類があります。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__a130c12f7" target="_blank" rel="noopener noreferrer">全システム構成変数</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getconf.html#getconf__a130c1301" target="_blank" rel="noopener noreferrer">システム標準構成変数</a></li>
+
+</ul>
+<p><strong>全システム構成変数</strong></p>
+ <p>全システム構成変数には、システムのあらゆる部分を満たす最小値が入っています。 次に示すリストに、<strong>getconf</strong> コマンドと一緒に使用する全システム構成変数の定義を示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>_CS_PATH</strong></td>
+
+<td>コマンドの検索に使用する <strong>PATH</strong> 環境変数の値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ARG_MAX</strong></td>
+
+<td>環境データを含む、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_bostechref/exec.html" target="_blank" rel="noopener noreferrer"><strong>exec</strong></a> サブルーチンの 1 つの引数の最大長 (バイト単位)。</td>
+
+</tr>
+
+<tr>
+<td><strong>BC_BASE_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドで <strong>obase</strong> 変数に使用できる最大値。</td>
+
+</tr>
+
+<tr>
+<td><strong>BC_DIM_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドによって配列内で許可されるエレメントの最大数。</td>
+
+</tr>
+
+<tr>
+<td><strong>BC_SCALE_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドで <strong>scale</strong> 変数に使用できる最大値。</td>
+
+</tr>
+
+<tr>
+<td><strong>BC_STRING_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドで受け入れられるストリング定数の最大長。</td>
+
+</tr>
+
+<tr>
+<td><strong>「CHARCLASS_NAME_MAX」</strong></td>
+
+<td>文字クラス名の最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>CHAR_BIT</strong></td>
+
+<td>タイプ<strong>文字</strong>内のビット数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>CHAR_MAX</strong></td>
+
+<td>タイプ<strong>文字</strong>の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>CHAR_MIN</strong></td>
+
+<td>タイプ<strong>文字</strong>の最小値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>CHILD_MAX</strong></td>
+
+<td>各実ユーザー ID の同時プロセスの最大数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>CLK_TCK</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/gettimer.html" target="_blank" rel="noopener noreferrer"><strong>time</strong></a> サブルーチンによって戻される 1 秒当たりのクロック・ティックの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>COLL_WEIGHTS_MAX</strong></td>
+
+<td>ロケール定義ファイルの <strong>LC_COLLATE</strong> ロケール・スタンザのエントリーに割り当てられた重みの最大数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>CS_PATH (CS_PATH)</strong></td>
+
+<td>コマンドの検索に使用する <strong>PATH</strong> 環境変数の値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>EXPR_NEST_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expr.html" target="_blank" rel="noopener noreferrer"><strong>expr</strong></a> コマンドによって括弧内にネストできる式の最大数。</td>
+
+</tr>
+
+<tr>
+<td><strong>INT_MAX</strong></td>
+
+<td><strong>int</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>INT_MIN</strong></td>
+
+<td><strong>int</strong> 型の最小値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LINE_MAX</strong></td>
+
+<td>ユーティリティーがテキスト・ファイル処理中と表示されたときの、コマンド入力行 (標準入力、またはその他のファイル) の最大長 (バイト単位) です。 この長さには、後続の改行文字を入れる余地が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>LONG_BIT</strong></td>
+
+<td><strong>long int</strong> 型のビット数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LONG_MAX</strong></td>
+
+<td><strong>long int</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LONG_MIN</strong></td>
+
+<td><strong>long int</strong> 型の最小値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>MB_LEN_MAX</strong></td>
+
+<td>サポートされるロケールの文字内の最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NGROUPS_MAX</strong></td>
+
+<td>各プロセスの同時的な 2 次的グループ ID の最大数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NL_ARGMAX (NL_ARGMAX)</strong></td>
+
+<td><strong>printf</strong> および <strong>scanf</strong> サブルーチンの
+呼び出しに使える最大桁です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NL_LANGMAX (NL_LANGMAX)</strong></td>
+
+<td>LANG 名に使える最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NL_MSGMAX</strong></td>
+
+<td>最大メッセージ数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>最大 NL_NMAX</strong></td>
+
+<td>N 対 1 の照合マッピングに使える最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NL_SETMAX</strong></td>
+
+<td>最大セット数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NL_TEXTMAX</strong></td>
+
+<td>メッセージ文字列に使える最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NZERO (ゼロ)</strong></td>
+
+<td>デフォルトのプロセス優先順位です。</td>
+
+</tr>
+
+<tr>
+<td><strong>OPEN_MAX</strong></td>
+
+<td>1 つのプロセスが一度にオープンできる最大ファイル数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>パス</strong></td>
+
+<td>コマンドの検索に使用されるコロンで区切られたパス・プレフィックスのシーケンスです。</td>
+
+</tr>
+
+<tr>
+<td><strong>RE_DUP_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ed.html" target="_blank" rel="noopener noreferrer"><strong>ed</strong></a> コマンドで <em>m</em> および <em>n</em> パラメーターなどの interval-notation パラメーターを使用するときに許可される正規表現の繰り返しの最大回数。</td>
+
+</tr>
+
+<tr>
+<td><strong>SCHAR_MAX</strong></td>
+
+<td><strong>signed char</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>SCHAR_MIN</strong></td>
+
+<td><strong>signed char</strong> 型の最小値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>SHRT_MAX</strong></td>
+
+<td><strong>short</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>SHRT_MIN</strong></td>
+
+<td><strong>short</strong> 型の最小値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>SSIZE_MAX</strong></td>
+
+<td><strong>ssize_t</strong> 型のオブジェクトの最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>STREAM_MAX</strong></td>
+
+<td>1 つのプロセスが同時にオープンできるストリーム数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>TMP_MAX</strong></td>
+
+<td><strong>tmpnam</strong> サブルーチンにより生成される固有のパス名の最小数です。 アプリケーションが <strong>tmpnam</strong> サブルーチンを確実に呼び出すことができる最大回数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>TZNAME_MAX</strong></td>
+
+<td>タイムゾーンの名前に使用できる最大バイト数です (<strong>TZ</strong> 環境変数の長さではありません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>UCHAR_MAX</strong></td>
+
+<td><strong>unsigned char</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>UINT_MAX</strong></td>
+
+<td><strong>unsigned int</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ULONG_MAX</strong></td>
+
+<td><strong>unsigned long int</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>USHRT_MAX</strong></td>
+
+<td><strong>unsigned short int</strong> 型の最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>WORD_BIT (WORD_BIT)</strong></td>
+
+<td>ワードまたは <strong>int</strong> 型のビット数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>KERNEL_BITMODE (KERNEL_BITMODE) </strong></td>
+
+<td>カーネルのビット・モードで、32 ビットまたは 64 ビットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>レルム・メモリー (REAL_MEMORY)</strong></td>
+
+<td>実メモリー・サイズです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ハードウェア・ビット・モード </strong></td>
+
+<td>マシン・ハードウェアのビット・モードで、32 ビットまたは 64 ビットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>MP_CAPABLE (MP_CAPABLE)</strong></td>
+
+<td>マシンの MP 機能です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>システム標準構成変数</strong></p>
+ <p>システム標準構成変数には、特定のシステム標準に必要な<em>最小</em> 値が入っています。 プレフィックス <strong>_POSIX_</strong>、<strong>POSIX2_</strong>、および <strong>_XOPEN_</strong> は、それぞれ POSIX 1003.1、POSIX 1003.2、および X/OPEN システム標準に必要なシステム特性の最小値が変数に入っていることを示します。 システム標準は、特定のシステム標準をサポートするためのシステム全体に渡る最小値です。 実際の構成値がこれらの標準を超える場合があります。 <strong>getconf</strong> コマンド用のシステム標準構成変数の定義は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>_POSIX_ARG_MAX</strong></td>
+
+<td>環境データを含む、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_bostechref/exec.html" target="_blank" rel="noopener noreferrer"><strong>exec</strong></a> サブルーチンの 1 つの引数の最大長 (バイト単位)。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_CHILD_MAX</strong></td>
+
+<td>各実ユーザー ID の同時プロセスの最大数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_JOB_CONTROL (_POSIX_JOB_CONTROL)</strong></td>
+
+<td>システムがジョブ制御をサポートする場合は、値 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_LINK_MAX</strong></td>
+
+<td>1 つのファイルへの最大リンク数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_MAX_CANON</strong></td>
+
+<td>端末正規入力キュー内の最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_MAX_INPUT</strong></td>
+
+<td>端末入力キュー内の許容最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_NAME_MAX</strong></td>
+
+<td>ファイル名の最大バイト数です (最後の null を除く)。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_NGROUPS_MAX</strong></td>
+
+<td>各プロセスの同時的な 2 次的グループ ID の最大数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_OPEN_MAX</strong></td>
+
+<td>1 つのプロセスが一度にオープンできる最大ファイル数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_PATH_MAX</strong></td>
+
+<td>パス名の最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_PIPE_BUF</strong></td>
+
+<td>パイプへの書き込み時にアトミックであることが保証される最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_SAVED_IDS</strong></td>
+
+<td>1 の値。 各プロセスには、保管された set-user-ID と保管された set-group-ID があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_SSIZE_MAX</strong></td>
+
+<td><strong>ssize_t</strong> 型のオブジェクト内に格納できる最大値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_STREAM_MAX</strong></td>
+
+<td>1 つのプロセスが同時にオープンできるストリーム数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_posix_timestamp_resolution。</strong></td>
+
+<td>ナノ秒単位でのすべてのファイル・タイム・スタンプのレゾリューション。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_TZNAME_MAX</strong></td>
+
+<td>タイムゾーンの名前に使用できる最大バイト数です (<strong>TZ</strong> 環境変数の長さではありません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_VERSION (_POSIX_VERSION)</strong></td>
+
+<td>オペレーティング・システムが準拠する POSIX 1 標準 (C 言語バインディング) のバージョンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>_XOPEN_CRYPT</strong></td>
+
+<td>システムが X/Open Encryption Feature Group をサポートする場合は、値 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_XOPEN_ENH_I18N</strong></td>
+
+<td>システムが X/Open Enhanced Internationalisation Feature Group をサポートする場合は、値 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>XOPEN_SHM (_XOPEN_SHM)</strong></td>
+
+<td>システムが X/Open Shared Memory Feature Group をサポートする場合は、値 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>XOPEN_VERSION</strong></td>
+
+<td>オペレーティング・システムが準拠する X/Open Portability Guide のバージョンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>xopen_xcu_version</strong></td>
+
+<td>オペレーティング・システムが準拠する X/Open Commands and Utilities 仕様のバージョンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>_XOPEN_XPG2</strong></td>
+
+<td>システムが X/Open Portability Guide, Volume 2, (1987 年 1 月) の XVS System Calls and Libraries をサポートする場合の値は 1 で、それ以外の場合は未定義です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_XOPEN_XPG3</strong></td>
+
+<td>システムが X/Open Specification (1992 年 2 月) System Interfaces and Headers, Issue 3 をサポートする場合の値は 1 で、それ以外の場合は未定義です。</td>
+
+</tr>
+
+<tr>
+<td><strong>_XOPEN_XPG4</strong></td>
+
+<td>システムが X/Open CAE Specification (1992 年 7 月) の System Interfaces and Headers, Issue 4 をサポートする場合の値は 1 で、それ以外の場合は未定義です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_BC_BASE_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドで <strong>obase</strong> 変数に使用できる最大値。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_BC_DIM_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドによって配列内で許可されるエレメントの最大数。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_BC_SCALE_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドで <strong>scale</strong> 変数に使用できる最大値。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_BC_STRING_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><strong>bc</strong></a> コマンドで受け入れられるストリング定数の最大長。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_CHAR_TERM</strong></td>
+
+<td>システムが端末タイプを少なくとも 1 つはサポート
+する場合の値は 1、それ以外の場合の値は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_COLL_WEIGHTS_MAX</strong></td>
+
+<td>ロケール定義ファイル内の <strong>LC_COLLATE</strong> ロケール変数のエントリーに割り当て可能な重みの最大数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_C_BIND</strong></td>
+
+<td>システムが POSIX 2 の C Language Binding Option をサポートする場合の値は 1 で、それ以外の場合は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_C_DEV</strong></td>
+
+<td>システムが POSIX 2 の C Language Development Utilities をサポートする場合の値は 1、それ以外の場合の値は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_C_VERSION</strong></td>
+
+<td>オペレーティング・システムが準拠する POSIX 2 標準 (C 言語バインディング) のバージョンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_EXPR_NEST_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expr.html" target="_blank" rel="noopener noreferrer"><strong>expr</strong></a> コマンドによって括弧内にネストできる式の最大数。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_FORT_DEV</strong></td>
+
+<td>システムが POSIX 2 の FORTRAN Development Utilities Option をサポートする場合の値は 1 で、それ以外の場合は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_FORT_RUN</strong></td>
+
+<td>システムが POSIX 2 の FORTRAN Runtime Utilities Option をサポートする場合の値は 1 で、それ以外の場合は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_LINE_MAX</strong></td>
+
+<td>コマンドがテキスト・ファイルを処理中として記述されたときの、コマンドの入力行 (標準入力または別ファイル) の最大長 (バイト単位) です。 この長さには、後続の改行文字を入れる余地が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_LOCALEDEF</strong></td>
+
+<td>システムが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/localedef.html" target="_blank" rel="noopener noreferrer"><strong>localedef</strong></a> コマンドによるロケールの作成をサポートする場合は、値 1。それ以外の場合は、未定義です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_RE_DUP_MAX</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ed.html" target="_blank" rel="noopener noreferrer"><strong>ed</strong></a> コマンドで <em>m</em> および <em>n</em> パラメーターなどの interval-notation パラメーターを使用するときに許可される正規表現の繰り返しの最大回数。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_SW_DEV</strong></td>
+
+<td>システムが Software Development Utilities Option をサポートする場合の値は 1、それ以外の場合の値は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_UPE</strong></td>
+
+<td>システムが POSIX 2 の User Portability Utilities Option をサポートする場合の値は 1 で、それ以外の場合は -1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>POSIX2_VERSION</strong></td>
+
+<td>システムがサポートする最新バージョンの POSIX 2 標準の承認日です。 日付は 6 桁の数で、最初の 4 桁は年、最後の 2 桁は月を示します。 さまざまなバージョンの POSIX 2 標準が IEEE 標準化委員会によって定期的に承認され、承認日は各バージョンを区別するために使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>システム・パス構成変数</h2> <p><em>PathConfiguration</em> パラメーターは、システム内のパスとパス構造の情報が値に含まれているシステム・パス構成変数を指定します。 これらの変数の定義は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>_POSIX_CHOWN_RESTRICTED</strong></td>
+
+<td><strong>chown</strong> () サブルーチンの実行は、該当する特権を持つプロセスに対して、またファイルのグループ ID をプロセスの実効グループ ID またはその補足グループ ID のいずれかに変更することに対して限定されます。 <em>PathName</em> パラメーターがディレクトリーを参照する場合、戻される値は、既存のディレクトリー、またはディレクトリー内で作成可能なディレクトリー以外の、任意のファイルに適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_NO_TRUNC (_POSIX_NO_TRUNC)</strong></td>
+
+<td>パス名が <em>NAME_MAX</em> 変数により指定された制限を超えると、エラーが生成されます。 <em>PathName</em> パラメーターがディレクトリーを参照する場合、戻される値はそのディレクトリー内のファイル名に適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>_POSIX_VDISABLE</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/termios.h.html" target="_blank" rel="noopener noreferrer"><strong>termios.h</strong></a> ファイルに定義されている端末特殊文字は、この文字値を使用して使用不可にすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>LINK_MAX</strong></td>
+
+<td>1 つのファイルへの最大リンク数です。 <em>PathName</em> パラメーターがディレクトリーを参照する場合、戻される値はそのディレクトリーに適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>MAX_CANON</strong></td>
+
+<td>端末正規入力待ち行列内の最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>MAX_INPUT</strong></td>
+
+<td>端末入力キュー内で使用できる空間の最大バイト数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NAME_MAX</strong></td>
+
+<td>ファイル名の最大バイト数です (最後の null を除く)。 <em>PathName</em> パラメーターがディレクトリーを参照する場合、戻される値はそのディレクトリー内のファイル名に適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>PATH_MAX</strong></td>
+
+<td>最後の null 文字を含めた、パス名の最大バイト数です。 <em>PathName</em> パラメーターがディレクトリーを参照する場合、指定したディレクトリーが作業ディレクトリーであるときは、戻される値は相対パス名の最大長です。</td>
+
+</tr>
+
+<tr>
+<td><strong>PIPE_BUF</strong></td>
+
+<td>パイプへの書き込み時にアトミックであることが保証される最大バイト数です。 <em>PathName</em> パラメーターが FIFO またはパイプを参照する場合、戻される値は参照先オブジェクトに適用されます。 <em>PathName</em> パラメーターがディレクトリーを参照する場合、戻される値は既存の FIFO、またはそのディレクトリー内で作成できる FIFO に適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ディスク・パーティション</strong></td>
+
+<td>ディスクの物理区画サイズです。<div><div>
+        <div>
+          <div><span>注:</span> <strong>DISK_PARTITION</strong> パス構成変数の場合、 <em>PathName</em> パラメーターには、情報を照会するディスクの完全パスを指定する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ディスク・サイズ</strong></td>
+
+<td>ディスク・サイズを MB で指定します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>DISK_SIZE</strong> パス構成変数の場合、 <span>PathName</span> パラメーターには、情報を照会するディスクの完全パスを指定する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>BLOCK_SIZE</strong></td>
+
+<td>ストレージ・デバイスのブロック・サイズをバイト単位で指定します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>BLOCK_SIZE</strong> パス構成変数の場合、 <span>PathName</span> パラメーターには、情報を照会するディスクの完全パスを指定する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>デバイス変数</h2> <p><em>DeviceVariable</em> パラメーターは、<em>DeviceName</em> パラメーター
+が <strong>/dev/hdisk0</strong> のようなデバイスのパスであることを示します。 ディスクの
+パスを指定すると、<strong>getconf</strong> コマンドは、ディスクのデバイス名または
+ロケーションを表示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ディスク・デバイス名</strong></td>
+
+<td>デバイス名またはデバイスのロケーションです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>指定された変数が有効で、現在の状態に関する情報が正常に書き込まれました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </section>
+
+<section><h2>例</h2> <ol>
+<li><strong>ARG_MAX</strong> 変数の値を表示するには、次のコマンドを入力します。<div> <div><div><pre><code>getconf ARG_MAX</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>/usr</strong> ディレクトリーの <strong>NAME_MAX</strong> 変数の値を表示するには、次のコマンドを入力します。<div> <div><div><pre><code>getconf NAME_MAX /usr</code></pre></div><div></div></div></div>
+</li>
+
+<li>次のシェル・コマンドのシーケンスは、未指定の戻り値をどのように処理するかを示しています。<div> <div><div><pre><code>if value=$(getconf PATH_MAX /usr)
+then
+     if [ "$value" = "undefined" ]
+     then
+             echo
+                   The value of PATH_MAX in /usr is undefined.
+     else
+             echo 
+                   The value of PATH_MAX in /usr is $value.
+     fi
+else
+     echo Error in the getconf command.
+fi</code></pre></div><div></div></div></div>
+</li>
+
+<li>コマンドを次のように入力したとします。<div> <div><div><pre><code>getconf _XBS5_ILP32_OFF32 </code></pre></div><div></div></div></div>
+  <p>書き込みを行わない-1\nまたはundefined\nを標準出力に出力し、次に次の形式のコマンドを入力します。</p>
+  <div> <div><div><pre><code>getconf -v XBS5_ILP32_OFF32 ... </code></pre></div><div></div></div></div>
+  <p>に対応する構成変数の値を決定します。XBS5_ILP32_OFF32<strong>c89</strong>、拡張記述で指定されたコンパイル環境。</p>
+</li>
+
+<li>コマンドを次のように入力したとします。<div> <div><div><pre><code>getconf _XBS5_ILP32_OFFBIG </code></pre></div><div></div></div></div>
+  <p>書き込みを行わない-1\nまたはundefined\nを標準出力に出力し、次に次の形式のコマンドを入力します。</p>
+  <div> <div><div><pre><code>getconf -v XBS5_ILP32_OFFBIG ... </code></pre></div><div></div></div></div>
+  <p>に対応する構成変数の値を決定します。XBS5_ILP32_OFFBIG<strong>c89</strong>、拡張記述で指定されたコンパイル環境。</p>
+</li>
+
+<li>コマンドを次のように入力したとします。<div> <div><div><pre><code>getconf _XBS5_LP64_OFF64 </code></pre></div><div></div></div></div>
+  <p>書き込みを行わない-1\nまたはundefined\n「 を標準出力に書き出すと、| 形式のコマンドは次のようになります。</p>
+  <div> <div><div><pre><code>getconf -v XBS5_LP64_OFF64 ... </code></pre></div><div></div></div></div>
+  <p>このコマンドは、拡張記述である c89 に指定した XBS5_LP64_OFF64 コンパイル環境に対応する構成変数の値を判別します。</p>
+</li>
+
+<li>コマンドを次のように入力したとします。<div> <div><div><pre><code>getconf _XBS5_LPBIG_OFFBIG </code></pre></div><div></div></div></div>
+  <p>書き込みを行わない-1\nまたはundefined\nを標準出力に出力し、次に次の形式のコマンドを入力します。</p>
+  <div> <div><div><pre><code>getconf -v _XBS5_LPBIG_OFFBIG </code></pre></div><div></div></div></div>
+  <p>このコマンドは、拡張記述である c89 に指定した XBS5_LPBIG_OFFBIG コンパイル環境に対応する構成変数の値を判別します。</p>
+</li>
+
+<li>root ユーザーとして、ディスク <code>hdisk0</code> のディスク・サイズを判別するには、次のコマンドを入力します。<div><div><pre><code>getconf DISK_SIZE /dev/hdisk0</code></pre></div><div></div></div></li>
+
+<li>実メモリー・サイズを判別するには、次のコマンドを入力します。<div><div><pre><code>getconf REAL_MEMORY</code></pre></div><div></div></div></li>
+
+<li>マシン・ハードウェアが 32 ビットであるか 64 ビットであるかを判別するには、次のコマンドを入力します。<div><div><pre><code>getconf HARDWARE_BITMODE</code></pre></div><div></div></div></li>
+
+<li>カーネルが 32 ビットであるか 64 ビットであるかを判別するには、次のコマンドを入力します。<div><div><pre><code>getconf KERNEL_BITMODE</code></pre></div><div></div></div></li>
+
+<li>ディスク <code>hdisk0</code> のデバイス名またはロケーションを判別するには、次のコマンドを入力します。<div><div><pre><code>getconf DISK_DEVNAME hdisk0</code></pre></div><div></div></div></li>
+
+<li>root ユーザーとして、ディスク <code>usbms0</code>のブロック・サイズを判別するには、次のコマンドを入力します。<div><div><pre><code>getconf BLOCK_SIZE /dev/usbms0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/getconf</strong></td>
+
+<td><strong>getconf</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/limits.h</strong></td>
+
+<td>システム構成変数を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/unistd.h</strong></td>
+
+<td>システム構成変数を定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,40 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルに関するクライアントの要求を処理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/biod</strong> <em>NumberOfBiods</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>biod</strong> デーモンは、このデーモンを呼び出すスクリプト
+についての旧バージョンとの互換性を確保するために保持されます。 このデーモンは、NFS クライアント・サブシステムの管理の際に実際的な役割を果たさなくなりました。 その代わり、NFS クライアントは、NFS サーバーへの入出力操作を行うためにその
+リソースを内部管理します。</p>
+ <p><em>NumberOfBiods</em> 引数を使用すると、これまでは、入出力操作を
+行うために NFS クライアントのスレッド・リソースを制御できるようになっていまし
+た。 この制御はもはや効力を持っていません。 入出力操作の <span><span>biod</span></span> スレッドの最大数は、マウント・オプションとして設定できます。 <span><span>biod</span></span>デーモンは、将来の<span>AIX</span>リリースでは削除されるかもしれない。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/rc.nfs</strong></td>
+
+<td>NFS および <span>NIS</span> デーモンの始動スクリプトが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,131 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムの rset の内容を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p>lsrset [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96345" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96248" target="_blank" rel="noopener noreferrer">-f</a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96254" target="_blank" rel="noopener noreferrer">-v</a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96260" target="_blank" rel="noopener noreferrer">-o</a> ] [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96320" target="_blank" rel="noopener noreferrer"><strong> -S</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96275" target="_blank" rel="noopener noreferrer">-r</a> <em>rsetname</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96296" target="_blank" rel="noopener noreferrer">-n</a> <em>namespace</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96308" target="_blank" rel="noopener noreferrer">-a</a> ]</p>
+ <p>または</p>
+ <p>lsrset [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96345" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96314" target="_blank" rel="noopener noreferrer">-P</a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96254" target="_blank" rel="noopener noreferrer">-v (V)</a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96260" target="_blank" rel="noopener noreferrer">-</a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrset.html#lsrset__row-d3e96266" target="_blank" rel="noopener noreferrer">P-</a> <em>PID</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsrset</strong> コマンドは、システム・レジストリーに保管されている rset、
+またはプロセスに付加された rset に含まれる情報を表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>rset のオーナー、グループ、およびモード・データを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細モード。 rset に含まれるリソース、rset のオーナー、グループ、およびモード・データを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>rset に含まれるオンライン・リソースのみを表示します。 デフォルトでは、すべてのリソースを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>PID</em></td>
+
+<td>このプロセスに付加された有効 rset を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>rsetname</em></td>
+
+<td>システム・レジストリーでこの名前を持つ rset を表示します。 名前は、"/" (スラッシュ) で区切られた namespace と <em>rsname</em> で構成されます。 <em>namespace</em> および <em>rsname</em> はどちらも最大 255 文字まで含むことができます。 rset 名の文字セット制限についての追加情報は、<strong>rs_registername()</strong> サービスを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>名前空間</em></td>
+
+<td>システム・レジストリー内のこの <em>namespace</em> のすべての rset を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td>システム・レジストリー内のすべての rset を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>指定したプロセスに付加された区画 rset を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>この rset に含まれるリソースが、 <span><span>execrset</span></span> または <span><span>attachrset</span></span> コマンドのいずれかを使用して <span><span>-S</span></span> ヒントでスケジュールされた場合に、そのリソースを表示します。 この rset は排他的 rset である必要はありません。 これは、 <span><span>attachrset</span></span> および <span><span>execrset</span></span> コマンドとは対照的です。これらのコマンドでは、 <span><span>-S</span></span> フラグを使用して排他的 rset を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>各ユーザー名およびグループ名の使用可能なすべての文字を、最初の 8 文字で切り捨てずに印刷します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム・レジストリー内のすべての rset の全リソースを表示するには、次のように入力します。<div><div><pre><code>lsrset -v -a</code></pre></div><div></div></div></li>
+
+<li>PID 28026 に付加された有効 rset の要約を表示するには、次のように入力します。<div><div><pre><code>lsrset -p 28026</code></pre></div><div></div></div></li>
+
+<li>PID 28026 に付加された有効 rset のオンライン・リソースを表示するには、次のように入力します。<div><div><pre><code>lsrset -o -p 28026</code></pre></div><div></div></div> </li>
+
+<li>PID 28026 に付加された有効 rset のすべてのリソースを表示するには、次のように入力します。<div><div><pre><code>lsrset -v -p 28026</code></pre></div><div></div></div></li>
+
+<li>システム・レジストリー内のすべての rset のオンライン・リソースを表示するには、次のように入力します。<div><div><pre><code>lsrset -a -o</code></pre></div><div></div></div></li>
+
+<li>システム・レジストリー内のすべての rset の全リソースを、
+拡張ユーザー名およびグループ名を付けて表示するには、次のように入力します。<div><div><pre><code>lsrset  -X -v -a
+</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/bin/lsrset</strong></td>
+
+<td><strong>lsrset</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

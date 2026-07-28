@@ -1,0 +1,202 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>最小特権 (LP) リソースを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <div>LP リソースを実行するには、次のように入力します。<ul>
+<li><span>ローカル・ノードの場合:</span><p><span><span>runlpcmd</span></span> <span><span><span>-N</span></span> <span><span>リソース名</span></span> │ <span><span>RunCmdName</span></span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>"</span></span><span><span>flags_and_parms</span></span><span><span>"</span></span>]</span></p>
+</li>
+
+<li>ドメイン内のすべてのノードで以下のように入力します。<p><span><span>runlpcmd</span></span> <span><span>-a</span></span> <span><span><span>-N</span></span> <span><span>リソース名</span></span> │ <span><span>RunCmdName</span></span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>"</span></span><span><span>flags_and_parms</span></span><span><span>"</span></span>]</span></p>
+</li>
+
+<li>ドメイン内の一部のノードで以下のように入力します。<p><span><span>runlpcmd</span></span> <span><span>-n</span></span> <span><span>host1</span></span> [<span><span>,</span></span><span><span>host2</span></span><span><span>,</span></span>...] <span><span><span>-N</span></span> <span><span>resource_name</span></span>│<span><span>RunCmdName</span></span>[<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>"</span></span><span><span>flags_and_parms</span></span><span><span>"</span></span>]。</span></p>
+</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span><span>runlpcmd</span></span> コマンドは LP リソースを実行します。これは、 <span>LP アクセス制御リスト (ACL)</span>内のアクセス権に基づいてユーザーにアクセス権限を付与する <span><span>root</span></span> コマンドまたはスクリプトです。 <span><span><span>runlpcmd</span></span>コマンドを使用して、特定の'<span><span>RunCmdName</span></span>値に対応するLPコマンドを、呼び出しユーザーの権限と一致するアク セス権限で呼び出すことができます。 <span><span>runlpcmd</span></span> が <span><span>-N</span></span> フラグを指定して呼び出されると、 <span><span>resource_name</span></span> パラメーターによって指定された LP コマンドが実行されます。 <span><span>flags_and_parms</span></span> パラメーターを使用してコマンド呼び出しに必要な
+すべてのパラメーターとフラグを指定します。</span> <span>このパラメーターを指定しないと、空ストリングが LP コマンドに渡されます。 これはデフォルトです。</span></p>
+ <p><span><span>CheckSum</span></span> 属性値が <span><span>0</span></span>の場合、 <span><span>runlpcmd</span></span> はエラー <span><span><span>ControlFlags</span></span> 値が <span><span>CheckSum</span></span>を検査するように設定されている場合。設定されていない場合、エラーは返されません。</span>を返します。 LP コマンドの実行前に LP コマンドの <span><span>ControlFlag</span></span> 属性が <span><span>CheckSum</span></span> の妥当性検査を行うように設定されていた場合、 <span><span>runlpcmd</span></span> はそのような検査を実行します。 このコマンドは、計算された <span><span>CheckSum</span></span> が対応する <span><span>CheckSum</span></span> 属性の値と一致する場合にのみ実行されます。 この 2 つが合致していない場合は、コマンドはリジェクトされます。 ただし、 <span><span>ControlFlags</span></span> 属性がデフォルト値に設定されている場合、 <span><span>CheckSum</span></span> 妥当性検査は実行されません。</p>
+ <p><span><span>RunCmdName</span></span>パラメータは、'<span><span>-N</span></span> <span><span>resource_name</span></span>フラグとパラメータの組み合わせと一緒に指定することができる。 ただし
+、<span><span>RunCmdName</span></span> パラメーターを使用する場合は、1 つの制限が
+適用されます。 複数のリソースが<span><span>RunCmdName</span></span>値と呼び出しユーザーのパーミッションにマッチする場合、'<span><span>runlpcmd</span></span>はエラーを返す。 <span><span>RunCmdName</span></span>値と呼び出しユーザーの権限に1つでも一致するものがあれば、'<span><span>runlpcmd</span></span> <span><span>RunCmdName</span></span>は正常に戻る。 この制限を回避するために、 <span><span>runlpcmd</span></span> では、 <span><span>-N</span></span> <span><span>resource_name</span></span> フラグとパラメーターの組み合わせを使用して、固有の名前を指定することによって LP コマンドを実行することもできます。</p>
+ <p>LP コマンドを呼び出す前に、 <span><span>runlpcmd</span></span> は <span><span>FilterScript</span></span> 値が存在するかどうかを検査します。 その場合、コマンド行で指定された <span><span>FilterArg</span></span> 値と <span><span>flags_and_parms</span></span> パラメーター・ストリングを <span><span>FilterScript</span></span>に渡します。 <span><span>FilterScript</span></span> が <span><span>0</span></span>を戻す場合、 <span><span>runlpcmd</span></span> は LP コマンドを呼び出します。 <span><span>FilterScript</span></span> の実行の結果がゼロ以外の値になった場合、 <span><span>runlpcmd</span></span> はエラーを返します。 <span><span>FilterScript</span></span> が空の場合、 <span><span>ControlFlags</span></span>に指定されている <span><span>runlpcmd</span></span> <span>いくつかの検査を行い</span> を実行してから、LP コマンドを直接呼び出します。</p>
+ <p>このコマンドの出力には、最後の行として <span><span>"RC=</span></span><span><span>return_code</span></span><span><span>"</span></span> が含まれる場合があります。</p>
+ <p>このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、 <span><span>-a</span></span> フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、 <span><span>-n</span></span> フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノードの 1 つ以上のリソースを変更します。 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数の設定によって、クラスターの有効範囲が決まります。 <span><span>CT_MANAGEMENT_SCOPE</span></span> が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol><span><span>runlpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数が設定されていないとします。 この場合、 <span><span>runlpcmd
+–a</span></span> は管理ドメインで実行されます。 ピア・ドメインで <span><span>runlpcmd
+–a</span></span> を実行するには、 <span><span>CT_MANAGEMENT_SCOPE</span></span> を <span><span>2</span></span>に設定する必要があります。</dd>
+
+
+<dt>--n <span><span>ホスト1</span></span><span>[</span><span><span>host2</span></span>,<span>...]。</span></dt>
+
+<dd>LP リソースを変更するドメインのノード (複数の場合もある) を
+指定します。 デフォルトでは、LP リソースは、ローカル・ノードで
+変更されます。 <span><span>–n</span></span> フラグは、管理ドメインまたはピア・ドメインでのみ有効です。 CT_MANAGEMENT_SCOPE 変数が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定値を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol>
+ <p><span><span>runlpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。</p>
+</dd>
+
+
+<dt>-<span><span>リソース名</span></span></dt>
+
+<dd>ドメイン内の 1 つ以上のノードで実行したい LP リソースの名前を指定します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>RunCmdName</span></span></dt>
+
+<dd>ドメイン内の 1 つ以上のノードで実行したい LP リソースの名前を指定します。</dd>
+
+
+<dt><span><span>"flags_and_parms</span></span> "</dt>
+
+<dd>LP コマンドまたはスクリプトの入力として
+必要な、フラグおよびパラメーターを指定します。 <span>このパラメーターを指定しないと、空ストリングが LP コマンドに渡されます。 これはデフォルトです。</span></dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div><span><span>runlpcmd</span></span> コマンドを実行するには、以下が必要です。<ul>
+<li><span><span>IBM.LPCommands</span></span> リソース・クラスの Class ACL 内の読み取り許可。</li>
+
+<li>Resource ACL の中の実行アクセス権。<p>代わりに、この許可が Resource Shared ACL の中に存在する場合は、Resource
+ACL が Resource Shared ACL の使用を指示できます。</p>
+</li>
+
+</ul>アクセス権は、連絡先システムの <span>LP ACL</span> で指定されています。 <span>それら</span>の変更については、 <span><span><span>lpacl</span></span> ファイル <span>LP ACL に関する一般情報</span></span> および「 <em>RSCT 管理ガイド</em> 」を参照してください。</div>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>リソースが見つかりません。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>RMC デーモンとのセッションに使用されるシステムを決めます。 <span><span>CT_CONTACT</span></span> がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の RMC デーモンと連絡を取ります。 この環境変数を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよびその管理有効範囲によって、処理される LP リソースが決まります。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>LP リソースを処理するために RMC デーモンとのセッションに使用される管理有効範囲を決定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+ <p>この環境変数が設定されていない場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 Reliable Scalable Cluster Technology (RSCT) ファイルセットの一部です。 <span>AIX</span>.</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>必須の入力フラグとパラメーター <span><span>-a -p User
+Group</span></span>を持つ <span><span>LP1</span></span>という LP リソースを実行するには、次のように入力します。<div><div><pre><code>runlpcmd LP1 "-a -p User Group"</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/runlpcmd</dt>
+
+<dd><span><span>runlpcmd</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+</div></div>

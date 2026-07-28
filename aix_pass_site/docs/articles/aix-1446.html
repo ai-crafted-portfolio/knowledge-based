@@ -1,0 +1,114 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>着信メールを処理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ローカル</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slocal.html#slocal__row-d3e27508" target="_blank" rel="noopener noreferrer"><strong>-詳細</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slocal.html#slocal__row-d3e27498" target="_blank" rel="noopener noreferrer"><strong>-noverbose </strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slocal.html#slocal__row-d3e27481" target="_blank" rel="noopener noreferrer"><strong>-デバッグ </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>slocal</strong> コマンドは、メッセージがユーザーに送信されるたびに一連のアクションを実行します。 ユーザーは <strong>slocal</strong> コマンドを始動できません。 <strong>slocal</strong> コマンドは、
+<strong>sendmail</strong> コマンドによって呼び出されます。</p>
+ <p><strong>sendmail</strong> コマンドは、<strong>$HOME/.forward</strong> ファイルで以下の行を見つけると、<strong>slocal</strong> コマンドを始動します。</p>
+ <div> <div><div><pre><code>/usr/lib/mh/slocal</code></pre></div><div></div></div></div>
+ <p>着信メッセージごとに、<strong>slocal</strong> コマンドは <strong>.maildelivery</strong> ファイルに指定されたアクションを実行します。 <strong>slocal</strong> コマンドが <strong>$HOME/.maildelivery</strong> <em>ファイル</em> を見つけられない場合は、<strong>slocal</strong> コマンドは <strong>/etc/mh/maildelivery</strong> デフォルト・ファイルを使用します。 送信要求が失敗した場合は、<strong>slocal</strong> コマンドは<strong> /usr/mail/$USER</strong> ファイルにメッセージを送信します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-debug</strong></td>
+
+<td>デバッグの情報を提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノーヴァーボーズ</strong></td>
+
+<td>システムが <strong>.maildelivery</strong> ファイル内のコマンドを実行するとき、情報を表示しません。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-verbose</strong></td>
+
+<td>システムが <strong>.maildelivery</strong> ファイル内のコマンドを実行するとき、情報を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/mh/mtstailor</strong></td>
+
+<td>MH コマンド定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/mh//.maildelivery</strong></td>
+
+<td>ローカル・メール送信に関するデフォルトの MH 指示が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.maildelivery</strong></td>
+
+<td>ローカル・メール送信に関する MH 指示をユーザーに提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.forward</strong></td>
+
+<td><strong>slocal</strong> コマンドを始動する行またはメールを転送するパスのいずれかが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/mh/mh_profile</strong></td>
+
+<td>MH パッケージをカスタマイズするパラメーターが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,107 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>mkramdisk</strong> コマンドが作成した
+RAM ディスクを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>RmramDisk</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmramdisk.html#rmramdisk__row-d3e164304" target="_blank" rel="noopener noreferrer"><em>RAM ディスク名</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmramdisk</strong> コマンドは、指定された RAM ディスク、およびその RAM ディスク用に
+作成されたデバイス・スペシャル・ファイルを除去します。 システムが再起動されると、
+RAM ディスクも除去されます。 デバイス・スペシャル・ファイルは、<span><span>rmramdisk</span></span> コマンドによってのみ削除できます。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>RAM ディスク名</em></td>
+
+<td>メモリーから除去される特定の RAM ディスクの名前。 指定されていない場合は、
+エラーが戻されます。 RAM ディスクの名前は <strong>rramdisk</strong><em>x</em>
+の形式で表されます。ここで、<em>x</em>
+は論理 RAM ディスク番号 (0 から 63) です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <div><div><pre><code>     # ls -l /dev/*ramdisk2
+     brw-------   1 root     system       38,  0 Aug 01 05:52 /dev/ramdisk2
+     crw-------   1 root     system       38,  0 Aug 01 05:52 /dev/rramdisk2
+</code></pre></div><div></div></div> <div>ramdisk2 を除去するには、次のように入力します。<div><div><pre><code>     # rmramdisk ramdisk2
+
+     # ls -l /dev/*ramdisk2
+     ls: 0653-341 The file /dev/*ramdisk2 does not exist.
+</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/rmramdisk</strong></td>
+
+<td><strong>rmramdisk</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

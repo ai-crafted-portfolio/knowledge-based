@@ -1,0 +1,130 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>汎用デバッグ・プログラムを提供します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>adb [ -k ] [ -l Directory ] [ -w ] [ ObjectFile [ CoreFile ] ]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2>
+
+<p><span>adb</span> コマンドは、プログラム用のデバッグ・コマンドを提供します。 このデバッグ・プログラムを使うと、オブジェクト・ファイルおよびコア・ファイルを検証し、プログラム実行のための制御された環境を用意することができます。</p>
+
+<p>通常、ObjectFile パラメーターは、記号テーブルが入っている実行可能プログラム・ファイルです。 ObjectFile パラメーターに記号テーブルを指定しなくても、ファイルを検証できますが、<span>adb</span> コマンドの記号機能は使用できません。 ObjectFile パラメーターのデフォルトは <span>a.out</span> です。</p>
+
+<p>CoreFile パラメーターは、 ObjectFile パラメーターを実行することによって生成されるコア・イメージ・ファイルです。 CoreFile パラメーターのデフォルトは <span>core</span> です。</p>
+
+<p><span>adb</span> は、実行中に、標準入力を受け入れて標準出力に書き出します。 <span>adb</span> コマンドは、Quit キーまたは Interrupt キーを認識しません。 これらのキーを使うと、<span>adb</span> コマンドは新しいコマンドを待つことになります。</p>
+
+<p>一般に、<span>adb</span> コマンドを要求するためのフォーマットは次のとおりです。</p>
+
+<div><div><pre><code>[Address] [,Count] [Command] [;]</code></pre></div><div></div></div>
+<p>ここで、Address と Count は式です。 Count 式のデフォルトは、1 の値です。 Address 式が指定されている場合、 <code>.</code> (ピリオド) 変数は Addressに設定されます。</p>
+
+<p>アドレスの解釈は、そのアドレスが使用されているコンテキストによって異なります。 サブプロセスをデバッグしている場合は、アドレスは、サブプロセスのアドレス・スペース内での通常の方法で解釈されます。</p>
+
+<p>複数のコマンドを同時に入力するには、コマンド間を <code>;</code> (セミコロン) で区切ります。</p>
+
+<p><span>adb</span> デバッグ・プログラムでは、次のものを多様な形で使用できます。</p>
+
+<ul>
+<li>式</li>
+
+<li>演算子</li>
+
+<li>サブコマンド</li>
+
+<li>変数</li>
+
+<li>アドレス</li>
+
+</ul>
+
+
+<div><div>
+        <div>
+          <div><span>注:</span> オブジェクト・ファイルに記号テーブルが含まれていないと、<span>adb</span> コマンドは、プログラムの静的変数、自動変数、および外部変数の値を表示できません。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-k</span></td>
+
+<td>カーネルがマッピングされます。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span> ディレクトリー</td>
+
+<td><code>$&lt; or $&lt;&lt;</code> で読み取られるファイルが検索されるディレクトリーを指定します。 デフォルトは <span>/usr/ccs/bin/adb</span> ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>読み取りと書き込みのために ObjectFile パラメーターおよび CoreFile パラメーターで指定したファイルをオープンします。 どちらかのファイルが存在していない場合は、このフラグによって該当のファイルが作成されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>戻り値</h2> <p><span>adb</span> デバッグ・プログラムは、現行のコマンドまたはフォーマットがないときに表示されます。 <span>adb</span> コマンドは、アクセス不能なファイル、構文エラー、およびコマンドの異常終了などを示します。 最後のコマンドが失敗したり、ゼロ以外の状況が戻されない限り、終了状況の値は 0 です。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/mem.html" target="_blank" rel="noopener noreferrer"><span>/dev/mem</span></a></td>
+
+<td>これは、特権仮想メモリーの読み取りおよび書き込みアクセスを提供します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/XCOFF.html" target="_blank" rel="noopener noreferrer"><span>a.out</span></a></td>
+
+<td>共通のアセンブラーおよびリンケージ・エディター出力を提供します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/core.html" target="_blank" rel="noopener noreferrer"><span>core</span></a></td>
+
+<td>このファイルには、エラー発生時のプロセスのイメージが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

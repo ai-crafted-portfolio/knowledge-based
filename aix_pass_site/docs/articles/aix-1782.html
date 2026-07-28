@@ -1,0 +1,114 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><strong>xmodem</strong> プロトコルを使用して、ファイルを転送し、
+非同期伝送中のデータ伝送エラーを検出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>xmodem</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodem.html#xmodem__row-d3e39408" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodem.html#xmodem__row-d3e39402" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> }<em> FileName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xmodem</strong> シェル・コマンドは、<em>FileName</em> パラメーターで指示されたファイルを、<strong>xmodem</strong> プロトコルを使って転送するために、非同期端末エミュレーション (ATE) プログラムと一緒に使用します。</p>
+ <p><strong>xmodem</strong> プロトコルは 8 ビットの転送プロトコルであり、データ伝送エラーを検知した後でデータを再送することができます。 データを受け取る準備ができたことを知らせるシグナルをリモート・システムが送信するまで、データ送信側のワークステーションは待機します。</p>
+ <p>受信側システムはデータを受け取ると、送信側システムに肯定応答を戻します。 ATE プログラムでは、受信側システム時刻が、ファイル転送が開始されてから 90 秒以内にデータを受け取らなければ、タイムアウトになります。</p>
+ <p><strong>xmodem</strong> コマンドを使って行う送受信は相補的操作です。 一方のシステムが受信する設定になっているとき、もう一方のシステムは必ず送信する設定になっていなければなりません。 <strong>Xモデム</strong> コマンドは、リモート・システム上で <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>送信</strong></a> サブコマンドまたはローカル・システム上の ATE <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/asynch_ate_connected.html" target="_blank" rel="noopener noreferrer">接続済みメインメニュー</a> からの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>受信</strong></a> サブコマンドと組み合わせて使用します。</p>
+ <p><strong>xmodem</strong> ファイル転送に割り込むには、Ctrl-X キー・シーケンスを押します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>DOS オペレーティング・システムでは、
+ASCII ファイルの各行の終了には、改行文字と復帰 (Ctrl-M) 文字が使用されます。 <span>UNIX</span>は、ASCIIファイルの各行を改行文字のみで終了する。 キャリッジリターン文字は、DOSファイルを<span>AIX</span>に転送するときに保持される。 <span><span>vi</span></span>テキストエディタは、サブコマンドを使用して、偽のCtrl-M文字を削除することができます<div><div><pre><code>:%s/&lt;Ctrl-V&gt;&lt;Ctrl-M&gt;//</code></pre></div><div></div></div>ここで、&lt; Ctrl-V&gt; と &lt; Ctrl-M&gt; はそれぞれ、入力された単一の制御文字を表します。 ただし、Ctrl-V はデフォルトの ATE MAINMENU_KEY であるため、ATE を介してログインしている間に <span><span>vi</span></span> サブコマンドを発行するには、ATE のデフォルトを変更する必要があります。</li>
+
+<li><span><span>xmodem</span></span> ファイル転送プロセスは、パケットの長さを 128 バイトにするために、最後に転送されたパケットに Ctrl-Z 文字を追加します。 そのため、転送されるほとんどのファイルの終わりに、Ctrl-Z 文字が追加されることになります。 DOS オペレーティング・システムでは、
+ASCII ファイルの終了に Ctrl-Z 文字が使用されます。 したがって、DOS から <span>AIX</span> に転送されるすべてのファイルは、少なくとも 1 つの Ctrl-Z 文字で終了します。 これらの余分な Ctrl-Z 文字は、 <span><span>vi</span></span> テキスト・エディターで除去できます。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ローカル・ワークステーションからデータを受信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ローカル・ワークステーションへデータを送信します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>xmodem プロトコルを使ってファイルを送る場合</strong></p>
+ <p>ファイルを送信するにはmyfile<strong>Xモデム</strong> プロトコルでは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>作成</strong></a> コマンドと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>接続</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>ディレクトリー</strong></a> サブコマンドを使用して、リモート・システムへの接続を確立します。</p>
+ <ol>
+<li>リモート・システムにログインした後、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/asynch_ate_keys.html" target="_blank" rel="noopener noreferrer">MAINMENU_KEY</a> (通常は Ctrl-Vkey シーケンス) を押してローカル・システム上の ATE に戻る前に、次のように入力します。<div> <div><div><pre><code>xmodem -r myfile</code></pre></div><div></div></div>シェル・コマンド行で指定します。 <strong>xmodem</strong> プロトコルが、リモート・システム上で受信モードを開始します。</div>
+</li>
+
+<li>MAINMENU_KEY を押してローカル・システム上の ATE へ戻ります。<p>「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/asynch_ate_connected.html" target="_blank" rel="noopener noreferrer">ATE Connected Main Menu</a> 」が表示されます。</p>
+</li>
+
+<li>「ATE Connected Main Menu (ATE 接続メインメニュー)」のプロンプトで、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>send</strong></a> サブコマンドを入力します。<div> <div><div><pre><code>s myfile</code></pre></div><div></div></div><strong>send</strong> サブコマンドは、ローカル・システムに送信するよう指示します。myfileリモート・システムに送信します。 ファイル転送後、「ATE Connected Main Menu」が表示されます。</div>
+</li>
+
+</ol>
+ <p><strong>xmodem プロトコルを使ってファイルを受け取る場合</strong></p>
+ <p>ファイルの受信infile<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>作成</strong></a> コマンドで <strong>Xモデム</strong> プロトコルを使用し、リモート・システムへの接続を確立する<strong> 接続</strong> または <strong>ディレクトリー</strong> サブコマンドを使用して、リモート・システムから。</p>
+ <ol>
+<li>リモート・システムへログインしてから、ローカル・システム上の ATE へ戻るために MAINMENU_KEY (通常は Ctrl-V キー・シーケンス) を押す前に、シェル・コマンド・ラインで下記のように入力します。<div> <div><div><pre><code>xmodem -s infile</code></pre></div><div></div></div>シェル・コマンド行で指定します。 <strong>xmodem</strong> プロトコルが、リモート・システム上で送信モードで開始します。</div>
+</li>
+
+<li>MAINMENU_KEY を押してローカル・システム上の ATE へ戻ります。<p>「ATE Connected Main Menu」が表示されます。</p>
+</li>
+
+<li>「ATE Connected Main Menu (ATE 接続メインメニュー)」のプロンプトで、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ate.html" target="_blank" rel="noopener noreferrer"><strong>receive</strong></a> サブコマンドを入力します。<div> <div><div><pre><code>r infile</code></pre></div><div></div></div><strong>receive</strong> サブコマンドは、ローカル・システムに受信を指示します。infileリモート・システムから。 ファイル転送後、「ATE Connected Main Menu」が表示されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/ate.def.html" target="_blank" rel="noopener noreferrer"><strong>ate.def</strong></a></td>
+
+<td>ATE のデフォルト値が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

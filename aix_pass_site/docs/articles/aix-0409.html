@@ -1,0 +1,188 @@
+<div class="official-dom"><div>
+<div>
+<p></p>
+</div>
+
+<section><h2>目的</h2>
+<p><span>DOS</span> ディスケットをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>dosformat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosformat.html#dosformat__row-d3e44269" target="_blank" rel="noopener noreferrer"><strong>-V </strong></a><em>ラベル </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosformat.html#dosformat__row-d3e44280" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em> デバイス </em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosformat.html#dosformat__row-d3e44382" target="_blank" rel="noopener noreferrer"><strong>-4 </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>dosformat</strong> コマンドは、 <span>DOS</span> フォーマットでディスケットをフォーマットします。</p>
+
+<p>3.5-inch ディスケットの場合、デフォルト・デバイスおよび <span>DOS</span> ディスケット・ドライブのフォーマットは <strong>/dev/fd0</strong> です。 通常、密度は 1.44MB か 2.88MB のいずれかで、ドライブがサポートする密度によって異なります。 他の DOS ディスケット・ドライブのフォーマットは、<strong>-D</strong> フラグまたは <strong>-4</strong> フラグを使用することによって実行されます。</p>
+
+<p>ボリューム・ラベルを指定するには、<strong>-V</strong> フラグを使用します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> このコマンドの目的は、このオペレーティング・システムと <span>DOS</span> システムとの間のファイル転送を容易にすることです。 <span>DOS</span> システム・スタートアップ・ファイルが入っている必要があるディスケットをフォーマットするためにこのコマンドを使用することはお勧めできません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-V</strong></td>
+
+<td><em>Label</em> パラメーターを <span>DOS</span> ボリューム・ラベルとしてディスケットに書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em>デバイス</em></td>
+
+<td>ディスケット・ドライブの種類とサイズを指定します。 <em>Device</em> パラメーターには、次の値を指定できます。<p>3.5 インチ、1.44MB (デフォルト)</p>
+ 
+<dl>
+<dt>/dev/fd0</dt>
+
+<dd>1.44MB (デフォルト)</dd>
+
+
+<dt>/dev/fd0h</dt>
+
+<dd>1.44MB</dd>
+
+
+<dt>/dev/fd0l</dt>
+
+<dd>720KB</dd>
+
+
+<dt>/dev/fd0.18</dt>
+
+<dd>1.44MB</dd>
+
+
+<dt>/dev/fd0.9</dt>
+
+<dd>720KB</dd>
+
+</dl>
+ 
+<p>3.5 インチ、2.88 メガのドライブの場合、次のように入力します。</p>
+ 
+<dl>
+<dt>/dev/fd0</dt>
+
+<dd>2.88MB (デフォルト)</dd>
+
+
+<dt>/dev/fd0h</dt>
+
+<dd>2.88MB</dd>
+
+
+<dt>/dev/fdol</dt>
+
+<dd>720KB</dd>
+
+
+<dt>/dev/fd0.36</dt>
+
+<dd>2.88MB</dd>
+
+
+<dt>/dev/fd0.18</dt>
+
+<dd>1.44MB</dd>
+
+
+<dt>/dev/fd0.9</dt>
+
+<dd>720KB</dd>
+
+</dl>
+ 
+<p>5.25 インチ、1.2 メガのドライブの場合、次のように入力します。</p>
+ 
+<dl>
+<dt>/dev/fd0</dt>
+
+<dd>1.2MB (デフォルト)</dd>
+
+
+<dt>/dev/fd0.15</dt>
+
+<dd>1.2MB</dd>
+
+
+<dt>/dev/fd0.9</dt>
+
+<dd>360KB</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-4</strong></td>
+
+<td>ディスケット・サイズを低密度に指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li><span></span> 3.5-inch、 1.44M-byte のディスケットをボリューム・ラベル「宿題」でフォーマットするには、次のように入力します。<div>
+<div><div><pre><code>dosformat -V homework</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> 5.25-inch、 360K-byte のディスケットをフォーマットするには、次のように入力します。<div>
+<div><div><pre><code>dosformat -D /dev/fd1.9</code></pre></div><div></div></div>または<div><div><pre><code>dosformat -D /dev/fd1 -4</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/dosformat</strong></td>
+
+<td><strong>dosformat</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

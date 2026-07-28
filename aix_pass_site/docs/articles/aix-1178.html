@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロキシー・マネージャー・サービス。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>proxymngr [ -config filename] [ -timeout seconds] [ -retries #] [ -verbose]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>proxymngr</span> (プロキシー・マネージャー) は、 <code>xfindproxy</code> (およびその他の類似のクライアント) からの要求を解決し、必要に応じて新規プロキシーを開始し、使用可能なプロキシー・サービスを追跡します。 プロキシー・マネージャーは、できるだけ既存のプロキシーを再利用しようとします。</p>
+ <p>プロキシー・マネージャーが取り扱うプロキシーには、管理プロキシーと非管理プロキシーの 2 つのタイプがあります。</p>
+ <p>管理プロキシーは、プロキシー・マネージャーの要求時に始動されるプロキシーです。</p>
+ <p>非管理プロキシーは、システム・ブート時に始動されるか、システム管理者によって手動で始動されます。 プロキシー・マネージャーにはその存在は知らされますが、プロキシー・マネージャーが非管理プロキシーを始動しようとすることはありません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-config</span></td>
+
+<td>デフォルト <span>proxymngr</span> config ファイルをオーバーライドします。 <span>proxymngr</span> config ファイルの詳細は、以下を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span>-timeout</span></td>
+
+<td>プロキシー・マネージャーが非管理プロキシーの検出を試行する間隔 (秒数) を設定します。 デフォルトは 10 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-retries</span></td>
+
+<td>プロキシー・マネージャーが非管理プロキシーを検出するために行う再試行の最大回数を設定します。 デフォルトは 3 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-verbose</span></td>
+
+<td>要求が受信され、プロキシーが始動されると、さまざまなデバッグ・レコードとトレース・レコードが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロキシー・マネージャー Config ファイル</h2> <p>プロキシー・マネージャーは、使用可能なプロキシー・サービスを記述するローカル構成ファイルを維持します。 この構成ファイルは、 <span>proxymngr</span>のインストール時に <code>/usr/X11R6.3/lib/X11/proxymngr/pmconfig</code> にインストールされます。 構成ファイルの場所は、 <span>-config</span> コマンド行フラグで上書きできます。</p>
+ <p>行を除いて、コメントの感嘆符で始まります。 構成ファイルの各行には、非管理プロキシー・サービスまたは管理プロキシー・サービスのいずれかが記述されています。</p>
+ <p>非管理プロキシーの場合のフォーマットは次のとおりです。</p>
+ <p><code>&lt;service-name&gt; unmanaged &lt;proxy-address&gt;</code></p>
+ <p>service-name は非管理プロキシー・サービスの名前であり、スペースを含めることはできません (例: <code>XFWP</code>)。 service-name は大/小文字を区別しません。</p>
+ <p>proxy-address は非管理プロキシーのネットワーク・アドレスです。 このアドレスのフォーマットは、service-name に特定されたものです。 例えば、<code>XFWP</code> サービスの場合、proxy-address は <code>firewall.x.org:100</code> などというようになります。</p>
+ <p>構成ファイル内に同じ非管理対象 service-nameを持つエントリーが複数ある場合、プロキシー・マネージャーは、構成ファイルに示されている順序でプロキシーを使用しようとします。</p>
+ <p>管理プロキシーの場合、フォーマットは次のとおりです。</p>
+ <p><code>&lt;service-name&gt; managed &lt;command-to-start-proxy&gt;</code></p>
+ <p>service-name は管理対象プロキシー・サービスの名前であり、スペースを含めることはできません (例: <code>LBX</code>)。 service-name は大/小文字を区別しません。</p>
+ <p>command-to-start-proxy は、プロキシーの新規インスタンスを開始するためにプロキシー・マネージャーによって実行されるコマンドです。 command-to-start-proxy にスペースが含まれている場合は、完全なコマンドを単一引用符で囲む必要があります。 必要に応じて、 command-to- start-proxy を使用して、リモート・マシン上でプロキシーを開始できます。 これを行うために使用するリモート実行メソッドの詳細はここでは紹介しません。</p>
+ <p>サンプル構成ファイルの例</p>
+ <div> <div><div><pre><code>               ! proxy manager config file
+               !
+               ! Each line has the format:
+               !    &lt;serviceName&gt; managed &lt;startCommand&gt;
+               !        or
+               !    &lt;serviceName&gt; unmanaged &lt;proxyAddress&gt;
+               !
+               lbx managed /usr/X11R6.3/bin/lbxproxy
+               !
+               ! substitute site-specific info
+               xfwp unmanaged firewall:4444</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>プロキシー・マネージャーの詳細</h2> <p>プロキシー・マネージャーが <code>xfindproxy</code> (または同様の別のクライアント) から要求を受け取る場合、そのアクションは問題の service-name によって異なります。</p>
+ <p>管理対象プロキシー・サービスの場合、プロキシー・マネージャーは、このサービスに対して既に実行されているプロキシーのいずれかが新規要求を処理できるかどうかを検出します。 そうでない場合、プロキシー・マネージャーは ( command-to-start-proxy を使用して) 呼び出し元を検出したプロキシーの新規インスタンスを開始しようとします。</p>
+ <p>非管理プロキシー・サービスの場合、プロキシー・マネージャーは構成ファイルを調べて、このサービスのすべての非管理プロキシーを検出します。 構成ファイル内に同じ非管理対象 service-nameを持つエントリーが複数ある場合、プロキシー・マネージャーは、構成ファイルに示されている順序でプロキシーを使用しようとします。 非管理プロキシーがどれもその要求に応えることができない場合、プロキシー・マネージャーは、(<span>-timeout</span> またはデフォルトの 10 で指定された) 構成可能な時間の間だけタイムアウトになり、その要求に応じる意志のある非管理プロキシーの検出を再度試みます。 再試行の回数は、 <span>-retries</span> 引数で指定することも、デフォルトの <code>3</code> を使用することもできます。 再試行が失敗した場合、プロキシー・マネージャーはエラーを呼び出し元に返す以外に選択肢はありません (プロキシー・マネージャーは非管理プロキシー・サービスを開始できないため)。</p>
+</section>
+
+</div></div>

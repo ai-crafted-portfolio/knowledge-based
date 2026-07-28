@@ -1,0 +1,139 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステム・クォータの整合性を検査します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>quotacheck</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotacheck.html#quotacheck__row-d3e126741" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotacheck.html#quotacheck__row-d3e126747" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotacheck.html#quotacheck__row-d3e126753" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotacheck.html#quotacheck__row-d3e126759" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotacheck.html#quotacheck__row-d3e126732" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <em>ファイル・システム ...</em> }</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>quotacheck</span></span> コマンドは、 <span><span>FileSystem</span></span> パラメーターで指定されたファイルシステムを調べ、現在のディスク使用量のテーブルを作成し、テーブル内の情報をファイル・システムのディスク割り当て量ファイルに記録された情報と比較します。 情報の不一致が検出された場合には、クォータ・ファイルが更新されます。 デフォルトでは、ユーザー・クォータとグループ・クォータが両方とも検査されます。</p>
+ <p>オプションの <span><span>-g</span></span> フラグは、グループ割り当て量のみを検査することを指定します。 オプションの <span><span>-u</span></span> フラグは、ユーザー割り当て量のみを検査することを指定します。 <span><span>-g</span></span> フラグと <span><span>-u</span></span> フラグの両方を指定することは、ユーザー割り当て量とグループ割り当て量の両方を検査するデフォルトの動作と同等です。 <span><span>-a</span></span> フラグは、ディスク・クォータが有効になっている <span><span>/etc/filesystem</span></span> ファイル内のすべてのファイルシステムが検査されることを指定します。</p>
+ <p>JFS と JFS2 の両方のファイルシステムの場合、オプションの <span><span>-d</span></span> フラグは、 <span><span>/etc/passwd</span></span> または <span><span>/etc/group</span></span>に存在せず、ファイルシステムに割り当てられていないすべてのユーザーまたはグループ ID の使用状況統計を削除します。 影響を受けるユーザーまたはグループは、 <span><span>repquota</span></span> コマンドによって表示される統計を持たなくなります。</p>
+ <p><span><span>quotacheck</span></span> コマンドは通常、サイレントに動作します。 <span><span>-v</span></span> フラグが指定されている場合、 <span><span>quotacheck</span></span> コマンドは、計算されたディスク・クォータと記録されたディスク・クォータの間の矛盾を報告します。</p>
+ <div>JFS の場合、 <span><span>quotacheck</span></span> コマンドは、 <span><span>/etc/filesystems</span></span> ファイル (デフォルトでは、ファイルの名前は <span><span>quota.user</span></span> および <span><span>quota.group</span></span> で、ファイルシステムのルートにあります) から割り当て量ファイル名を判別します。 JFS2の場合、これらのファイルの名前と場所は事前に決定されており、変更することはできません。 これらのファイルが存在しない場合は、 <span><span>quotacheck</span></span> コマンドによって作成されます。<div><div>
+        <div>
+          <div><span>注:</span> アクティブ・ファイル・システムに対して <span><span>quotacheck</span></span> コマンドを実行しないでください。 ファイル・システムに現行アクティビティーがある場合、 <span><span>quotacheck</span></span> を実行すると、誤ったディスク使用情報が生成される可能性があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong>/etc/filesystems</strong> にある、ディスク・クォータが使用可能なすべてのファイルシステムを
+検査します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span></td>
+
+<td>未定義で、割り振りを持たない ID の使用率統計を削除します (JFS と JFS2 の両方)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>グループ・クォータのみを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ユーザー・クォータのみを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>計算上のディスク・クォータと記録されたディスク・クォータとの間の相違を報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: root ユーザー権限を持つユーザーのみがこのコマンドを実行できます。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ユーザー・クォータおよびグループ・クォータを確認するには、/usrファイル・システム、タイプ:<div> <div><div><pre><code>quotacheck /usr</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>グループ・クォータのみを検査するには、/usrファイル・システム、タイプ:<div> <div><div><pre><code>quotacheck -g /usr</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>quota.usr</strong></td>
+
+<td>ユーザー・クォータを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>quota.group</strong></td>
+
+<td>グループ・クォータを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステム名およびロケーションが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>基本グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザー名が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

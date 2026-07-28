@@ -1,0 +1,580 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span><span>OS_install</span></span> オブジェクトに対してネットワーク・インストール操作を実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p>伝統的な使用法:</p>
+ <p><span><span>OS_install</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67257" target="_blank" rel="noopener noreferrer"><strong> -K</strong> <span><span>キーファイルパス名</span></span></a>]{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67276" target="_blank" rel="noopener noreferrer"><span><span>-o</span></span></a> <span><span>オペレーション</span></span> } [<strong> -F</strong>] [-a<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67218" target="_blank" rel="noopener noreferrer"><span><span>-</span></span></a> <span><span>attr=value</span></span>... ] {<span><span>オブジェクト名</span></span>}</p>
+ <p>システム・プラン・インストール用 (System Plan モード):</p>
+ <p><span><span>OS_install</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67257" target="_blank" rel="noopener noreferrer"><strong> -K</strong> <span><span>キーファイルパス名</span></span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67250" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> <span><span>sysplan</span></span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67343" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> <span><span>sysplan.xml</span></span> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67230" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a>] [<strong> -F</strong>]</p>
+ <p><span><span>OS_install</span></span> オブジェクトをリストする場合 (リスト・モード):</p>
+ <p><span><span>OS_install</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67266" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67332" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67298" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a><span><span> オブジェクトタイプ</span></span> | <span><span>オブジェクト名</span></span> ]</p>
+ <p>ネットワーク・デーモンの管理用:</p>
+ <p><span><span>OS_install</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67288" target="_blank" rel="noopener noreferrer"><strong> -S</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__row-d3e67322" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>OS_install</span></span> コマンドは、 <span><span>OS_install</span></span> オブジェクトに対してネットワーク・インストール操作を実行します。 操作のタイプは、<span><span>ObjectName</span></span> パラメーターで指定するオブジェクトのタイプによって異なります。 <span><span>ObjectName</span></span> パラメーターが指すオブジェクトは、 <span><span>Client</span></span>、 <span><span>OS_Resource</span></span>、 <span><span>Remote_Resource</span></span> 、または <span><span>Control_Host</span></span>の 4 つのタイプのいずれかです。 コマンド操作には、ネットワーク・インストールでクライアント・システムにオペレーション・システムをインストールできるようにする <span><span>OS_install</span></span> オブジェクトの作成と管理が含まれます。</p>
+ <p><span><span>OS_install</span></span> は、操作を指定する代わりに <span><span>-i sysplan</span></span> フラグを渡すことによって、システム・プラン・モードで実行することもできます。 この操作により、複数の <span><span>OS_install</span></span> 操作を単一の XML 文書に結合することができます。</p>
+ <p><span><span>Remote_Resource</span></span> オブジェクトに関連する操作では、 <span><span>ssh-keygen</span></span> コマンドで生成される SSH 鍵を構成する必要があります。 SSH キーは、ssh コマンドをローカル・プラットフォームおよびリモート・ソース・サーバー上で実行するのに必要です。 HMC 上では、SSH キーが入っているファイル <span><span>keyfile_path_name</span></span> のデフォルト名は、<span>/home/hscroot/ssh_keys</span> です。 このファイル名は、<strong>-K </strong>オプションによってオーバーライドすることができます。 他のプラットフォームでは、SSH キー・ファイル用のデフォルトのファイル名などありません。 他のプラットフォームで <strong>-K</strong> オプションを指定しない場合は、 <span><span>OS_install</span></span> コマンド・プロセスが SSH 鍵ファイルの標準パス名にアクセスできなければなりません。</p>
+ <p><span><span>OS_install</span></span> のリスト・モードは、 <span><span>OS_install</span></span> 環境内のオブジェクトの現行構成をリストするために使用されます。</p>
+ <p>HMC または IVM ネットワーク・デーモンは、 <span><span>OS_install</span></span> オブジェクトを変更せずに、 <strong>S</strong> および <strong>U</strong> オプションを使用して開始および停止することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span><span><span> attr=value</span></span></td>
+
+<td>指定された属性に指定された値を割り当てます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/OS_install.html#OS_install__OS_install_operations" target="_blank" rel="noopener noreferrer">操作</a> は、特定の操作の必須属性とオプション属性をリストしています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span></td>
+
+<td>すべての操作が完了した後、システム・プラン・モードで作成されたすべての <span><span>OS_install</span></span> オブジェクトを削除します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-F</span></span></td>
+
+<td><span><span>OS_install</span></span> 割り振り操作またはシステム・プランのインストール時に、必要に応じて既存のリモート・サーバー・クライアント・システム・オブジェクトのリセットを許可します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-i sysplan</span></span></td>
+
+<td>System Plan モードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-K </span></span> <span><span>鍵ファイル・パス名</span></span></td>
+
+<td>SSH キーが生成されるファイルの絶対パス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>デフォルトで、環境内のすべての <span><span>OS_install</span></span> オブジェクトをリストします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-o</span></span> <span><span>操作</span></span></td>
+
+<td><span><span>OS_install</span></span> オブジェクトに対して実行する操作を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-S</span></span></td>
+
+<td><span><span>OS_install</span></span> オブジェクトを変更せずにネットワーク・デーモンを開始します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span><span><span> オブジェクト・タイプ</span></span> ｜ <span><span>オブジェクト名</span></span></td>
+
+<td><span><span>-l</span></span> フラグによって返されるリストを、タイプ <span><span>object_type</span></span> のオブジェクトのみ、または <span><span>object_name</span></span>で指定された単一の <span><span>OS_install</span></span> オブジェクトに絞り込みます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-U</span></span></td>
+
+<td><span><span>OS_install</span></span> オブジェクトを変更せずにネットワーク・デーモンを停止します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td><span><span>-l</span></span> フラグによって戻されたリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-x</span></span> <span><span>sysplan.xml</span></span></td>
+
+<td>システム・プランを含んだ XML ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>操作</h2> <div> 
+<div><div><table><caption><span>表 2. 操作</span></caption><thead>
+<tr>
+<th><div>操作</div></th>
+
+<th><div>説明</div></th>
+
+<th><div>必須属性</div></th>
+
+<th><div>オプションの属性</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>define_client </span></span>[<span><span>-a</span></span><span><span> attr=値</span></span>...] {<span><span>クライアント・オブジェクト名</span></span>}</td>
+
+<td>新しいクライアント・オブジェクトを定義します。</td>
+
+<td><dl>
+
+<dt>ip_addr</dt>
+
+<dd>クライアントの IP アドレス。</dd>
+
+
+
+<dt>mac_addr</dt>
+
+<dd>クライアント・システムのネットワーク・インターフェースの MAC アドレス。</dd>
+
+
+
+<dt>ゲートウェイ</dt>
+
+<dd>クライアント・システムの IP ゲートウェイ・アドレス。</dd>
+
+
+
+<dt>subnet_mask</dt>
+
+<dd>クライアント・システムの IP サブネット・マスク。</dd>
+
+
+
+<dt>lpar</dt>
+
+<dd>クライアントをインストールするための <span>LPAR</span> 名 (netboot 操作の必須属性)。</dd>
+
+
+
+<dt>プロファイル</dt>
+
+<dd>クライアントに使用する <span>LPAR</span> プロファイル (netboot 操作には必須属性)。</dd>
+
+
+
+<dt>managed_system</dt>
+
+<dd><span>LPAR</span> を含む管理対象システムの名前 (netboot 操作の必須属性)。</dd>
+
+
+
+<dt>ctrl_host</dt>
+
+<dd>このクライアントの Hardware Control Host オブジェクトの名前 (netboot 操作に必須の属性)。</dd>
+
+
+</dl>
+
+</td>
+
+<td><dl>
+
+<dt>adapter_speed</dt>
+
+<dd>クライアント・システムのネットワーク・アダプターの速度。</dd>
+
+
+
+<dt>adapter_duplex</dt>
+
+<dd>クライアント・システムのネットワーク・アダプターの二重設定。</dd>
+
+
+
+<dt>disk_location</dt>
+
+<dd>クライアントをインストールするためのディスクの場所。</dd>
+
+
+
+<dt>vlan_tag</dt>
+
+<dd>仮想ネットワーク通信用のネットワーク・インストール中にイーサネット・フレームのタグ付けに使用する、仮想論理エリア・ネットワーク (VLAN) を指定します。 有効な値は 0 から 4094 です。</dd>
+
+
+
+<dt>vlan_pri</dt>
+
+<dd>仮想ネットワーク通信用のネットワーク・インストール中にイーサネット・フレームのタグ付けに使用する、仮想論理エリア・ネットワーク (VLAN) を指定します。 有効な値は 0 から 7 です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>define_resource </span></span> [<span><span>-a</span></span><span><span> attr=値</span></span>...] {<span><span>リソース・オブジェクト名</span></span>}</td>
+
+<td>新規 <span><span>OS_Resource</span></span> オブジェクトを定義します。</td>
+
+<td><dl>
+
+<dt>タイプ</dt>
+
+<dd><span>AIX</span>またはVIOS。</dd>
+
+
+
+<dt>バージョン</dt>
+
+<dd>OS バージョン。</dd>
+
+
+
+<dt>ロケーション</dt>
+
+<dd><span><span>OS_Resource</span></span> が存在する場所の絶対パス。</dd>
+
+
+
+<dt>ソース</dt>
+
+<dd>インストール・イメージのソース。</dd>
+
+
+</dl>
+
+</td>
+
+<td><dl>
+
+<dt>configfile</dt>
+
+<dd>インストール構成ファイル。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>define_remote_resource </span></span> [<span><span>-a</span></span><span><span> attr=値</span></span>...] {<span><span>リソース・オブジェクト名</span></span>}</td>
+
+<td>新規 <span><span>Remote_Resource</span></span> オブジェクトを定義します。</td>
+
+<td><dl>
+
+<dt>サーバー</dt>
+
+<dd>リモート・リソース・サーバーのホスト名。</dd>
+
+
+
+<dt>タイプ</dt>
+
+<dd><span>AIX</span> または <span>Linux®</span>。</dd>
+
+
+
+<dt>remote_identifier</dt>
+
+<dd>リモート・リソース・サーバー上のリソースまたはリソース・セットの名前。</dd>
+
+
+</dl>
+
+</td>
+
+<td><dl>
+
+<dt>communication_method</dt>
+
+<dd>SSH 通信方式をサポートします。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>define_ctrl_host </span></span>[<span><span>-a</span></span><span><span> attr=値</span></span>...] {<span><span>制御ホスト・オブジェクト名</span></span>}</td>
+
+<td>新しい Hardware Control_Host オブジェクトを定義します。</td>
+
+<td><dl>
+
+<dt>communication_method</dt>
+
+<dd>SSH 通信方式をサポートします。</dd>
+
+
+
+<dt>hostname</dt>
+
+<dd>制御ホストのホスト名 ( <span><span>OS_install</span></span> が HMC 制御ホストで実行されている場合は、ホスト名 <span>localhost</span> を指定できます)。</dd>
+
+
+
+<dt>タイプ</dt>
+
+<dd>hmc または ivm。</dd>
+
+
+</dl>
+
+</td>
+
+<td>なし。</td>
+
+</tr>
+
+<tr>
+<td><span><span>allocate</span></span> [<span><span>-F</span></span>] [<span><span>-a</span></span> <span><span>attr=value</span></span>...] {<span><span>クライアント・オブジェクト名</span></span>}</td>
+
+<td><span><span>OS_Resource</span></span> または <span><span>Remote_Resource</span></span> をクライアント・オブジェクトに割り振ります。 両方のオブジェクトが <span><span>OS_install</span></span> 環境に存在している必要があります。 クライアント・オブジェクトに既に <span><span>OS_Resource</span></span> または <span><span>Remote_Resource</span></span> が割り振られている場合は、エラーが発生します。</td>
+
+<td><dl>
+
+<dt>os_resource</dt>
+
+<dd>クライアント・オブジェクトに割り振る既存の <span><span>OS_Resource</span></span> または <span><span>Remote_Resource</span></span> オブジェクト。</dd>
+
+
+
+<dt>remote_resource</dt>
+
+<dd>クライアント・オブジェクトに割り振る既存の <span><span>Remote_Resource</span></span> オブジェクト。</dd>
+
+
+
+<dt>install_resource</dt>
+
+<dd>クライアント・オブジェクトに割り振る既存の <span><span>OS_Resource</span></span> または <span><span>Remote_Resource</span></span> オブジェクト。</dd>
+
+
+</dl>
+
+</td>
+
+<td><dl>
+
+<dt>config_file</dt>
+
+<dd>インストール構成ファイル ( <span><span>OS_Resource</span></span> オブジェクトに適用)。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>netboot</span></span> {<span><span>クライアント・オブジェクト名</span></span>}</td>
+
+<td>クライアント・オブジェクトのハードウェア制御ホストに対して、ネットワーク・ブートを開始するよう指示します。</td>
+
+<td>なし。</td>
+
+<td>なし。</td>
+
+</tr>
+
+<tr>
+<td><span><span>monitor_installation</span></span> {<span><span>クライアント・オブジェクト名</span></span>}</td>
+
+<td>クライアント・オブジェクトのインストール状況をモニターします。</td>
+
+<td>なし。</td>
+
+<td>なし。</td>
+
+</tr>
+
+<tr>
+<td><span><span>deallocate</span></span> {<span><span>クライアント・オブジェクト名</span></span>}</td>
+
+<td>割り振り操作によってクライアント・オブジェクトに割り振られた <span><span>OS_Resource</span></span> または <span><span>Remote_Resource</span></span> を割り振り解除します。</td>
+
+<td>なし。</td>
+
+<td>なし。</td>
+
+</tr>
+
+<tr>
+<td><span><span>remove</span></span> {<span><span>オブジェクト名</span></span>}</td>
+
+<td><span><span>OS_install</span></span> 環境からオブジェクトを除去します。</td>
+
+<td>なし。</td>
+
+<td>なし。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li>クライアント・オブジェクトを定義するには、以下のようなコマンドを入力します。<div> <div><div><pre><code>OS_install -o define_client -a ip_addr=128.0.64.117 -a mac_addr=ab:cc:de:10:23:45 -a \
+gateway=128.0.64.1 -a subnet_mask=255.255.255.0 -a ctrl_host=myhmc -a lpar=AIX1 -a \
+profile=AIX1 -a managed_system=myMngSys myclient01</code></pre></div><div></div></div></div>上述のクライアント・オブジェクトは、管理下のシステム内の論理区画です。</li>
+
+<li><span><span>OS_Resource</span></span> オブジェクトを定義するには、以下のようなコマンドを入力します。<div> <div><div><pre><code>OS_install -o define_resource -a location=/images/AIX/53ML3 -a type=AIX -a version=53ML3 my53resource</code></pre></div><div></div></div></div>
+</li>
+
+<li><span><span>Remote_Resource</span></span> オブジェクトを (HMC 用の <span><span>OS_install</span></span> デフォルト SSH 鍵ファイルを使用して) 定義するには、以下のようなコマンドを入力します。<div><div><pre><code>OS_install -o define_remote_resource -a server=MyNimServer -a type=AIX
+  -a remote_identifier=NimResGrp1 myRemoteResource</code></pre></div><div></div></div></li>
+
+<li><span><span>Remote_Resource</span></span> オブジェクトを ( <span>/home/hscroot/id_dsa</span> ファイルにある、以前に生成された <span>ssh-keygen</span> キーを使用して) 定義するには、次のように入力します。<div><div><pre><code>OS_install -K /home/hscroot/id_dsa -o define_remote_resource -a server=MyNimServer -a type=AIX -a 
+remote_identifier=NimResGrp1 myRemoteResource</code></pre></div><div></div></div></li>
+
+<li>例 2 で定義した <span><span>OS_Resource</span></span> オブジェクトをクライアント・オブジェクトに割り振るには、以下のようなコマンドを入力します。<div> <div><div><pre><code>OS_install -o allocate -a os_resource=my53resource myclient01</code></pre></div><div></div></div>または<div><div><pre><code>OS_install -o allocate -a install_resource=my53resource myclient01</code></pre></div><div></div></div></div>
+</li>
+
+<li>例 3 で定義した <span><span>Remote_Resource </span></span> オブジェクトをクライアント・オブジェクトに割り振り、既存のクライアントでリセットを許可するには、次のようなコマンドを入力します。<div><div><pre><code>OS_install -o allocate -F -a remote_resource=myRemoteResource myclient01</code></pre></div><div></div></div>または<div><div><pre><code>OS_install -o allocate -F -a install_resource=myRemoteResource myclient01</code></pre></div><div></div></div></li>
+
+<li>例 5 で割り当てられた <code>my53resource</code> クライアント・オブジェクトを割り当て解除するには、以下のように入力します。<div> <div><div><pre><code>OS_install -o deallocate myclient01</code></pre></div><div></div></div></div>
+</li>
+
+<li>Client オブジェクトの <span><span>ctrl_host</span></span> 属性に指定する <span><span>Control_Host</span></span> オブジェクトを定義するには、以下のようなコマンドを入力します。<div> <div><div><pre><code>OS_install -o define_ctrl_host -a type=hmc -a hostname=hmc_hostname -a communication_method=ssh myhmc</code></pre></div><div></div></div></div>上記の例では、最初の例の <span><span>ctrl_host</span></span> 属性と同じ名前を共有していますが、 <span><span>define_client</span></span> 操作では、 <span><span>ctrl_host</span></span> 属性に対して未定義の <span><span>Control_Host</span></span> オブジェクトを指定できます。 その場合、クライアント・オブジェクトの制御ホストは、クライアントの <span><span>netboot</span></span> 操作が実行される HMC または IVM でなければなりません。</li>
+
+<li><span><span>netboot</span></span> 操作を実行するには、次のように入力します。<div><div><pre><code>OS_install -o netboot myclient01</code></pre></div><div></div></div></li>
+
+<li><code>myclient01</code> インストール済み環境を表示するには、以下のように入力します。<div> <div><div><pre><code>OS_install -o monitor_installation myclient01</code></pre></div><div></div></div></div>
+</li>
+
+<li><code>my53resource</code> オブジェクトの定義を除去するには、次のように入力します。<div> <div><div><pre><code>OS_install -o remove my53resource</code></pre></div><div></div></div></div>
+</li>
+
+<li><code>myclient01</code> オブジェクトの定義を除去するには、次のように入力します。<div> <div><div><pre><code>OS_install -o remove myclient01</code></pre></div><div></div></div></div><span><span>OS_Resource</span></span> オブジェクトが指定されている場合、 <span><span>remove</span></span> 操作は、オブジェクトの <span><span>location</span></span> 属性で指定されたファイル・システム・ディレクトリーに存在する OS イメージを除去します。</li>
+
+</ol>
+</div>
+ <div>SSH の構成<ul>
+<li>SSH Rivest-Shamir-Adleman (RSA) キーを生成し、それを HMC HOME ディレクトリー内のアクセス可能な <span>ssh_keys</span> ファイルに入れるには、次のコマンドを入力します。<div><div><pre><code> ssh-keygen -t rsa -f /home/hscroot/ssh_keys</code></pre></div><div></div></div></li>
+
+<li>リモート・リソース・サーバーで、 <span>ssh-keygen</span> コマンドを使用して生成された <span>/home/hscroot/ssh_keys.pub</span> ファイルの内容を、リソース・サーバーの <span>.ssh/authorized_keys</span> ファイルに追加またはコピーします。</li>
+
+<li><span><span>OS_install</span></span> コマンドを使用してリモート HMC コントロール・ホストのターゲット・クライアントでネット・ブート操作を実行する場合は、リモート HMC で hscroot ユーザーとして以下のコマンドを入力することにより、 <span>ssh-keygen</span> コマンドを使用して生成された <span>/home/hscroot/ssh_keys.pub</span> ファイルの内容をリモート HMC hscroot ユーザーの <span>.ssh/authorized_keys2</span> ファイルに追加します。<div><div><pre><code>mkauthkeys -a '&lt;content_of_ssh_keys.pub&gt;'</code></pre></div><div></div></div></li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>場所</h2> 
+<div><div><table><caption><span>表 4. 場所</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/sbin/OS_install</span></span></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><span><span>/opt/osinstall</span></span></td>
+
+<td><span><span>OS_install </span></span> Perl モジュール・ファイルを含むディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><caption><span>表 5. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/var/osinstall</span></span></td>
+
+<td><span><span>OS_install</span></span> 環境の構成ファイルを含むディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/home/hscroot/ssh_keys</span></span></td>
+
+<td>HMC 上の SSH キー用のデフォルトのファイル名。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

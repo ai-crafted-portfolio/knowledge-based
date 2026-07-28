@@ -1,0 +1,133 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コア・ファイルの設定を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>chcore</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcore.html#chcore__row-d3e79170" target="_blank" rel="noopener noreferrer"><span><span>-R</span></span></a> <span><span>登録簿</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcore.html#chcore__row-d3e79107" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> {<code>on</code>|<code>off</code>|<code>default</code>}] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcore.html#chcore__row-d3e79154" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> {<code>on</code>|<code>off</code>|<code>default</code>}] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcore.html#chcore__row-d3e79129" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> {<span><span>パス</span></span>| default] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcore.html#chcore__row-d3e79138" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> {<code>on</code>|<code>off</code>|<code>default</code>}] [ <span><span>ユーザー名</span></span> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chcore.html#chcore__row-d3e79123" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>chcore</span></span> コマンドは、コア設定を変更するためのユーザー・インターフェースです。 これは次のようにして使用します。<div><div><pre><code>chcore [-R registry] options [username|-d]</code></pre></div><div></div></div>ここで、</div>
+ <div><span><span>options</span></span> は、次のうちの少なくとも 1 つ (複数の可能性がある) です。<div><div><pre><code>-c {on|off|default}</code></pre></div><div></div></div>コア圧縮に関する設定<div><div><pre><code>-p {on|off|default}</code></pre></div><div></div></div>コア・ロケーションに関する設定<div><div><pre><code>-l path</code></pre></div><div></div></div>使用するディレクトリーの
+指定<div><div><pre><code>-n {on|off|default}</code></pre></div><div></div></div>コアの命名に関する設定</div>
+ <p><span><span>-d</span></span> が指定されている場合、 <span><span>chcore</span></span> はシステムのデフォルト設定を変更します。 <span><span>-d</span></span> オプションは、指定された <span><span>username</span></span> および <span><span>registry</span></span>の指定と同時に使用することはできません。 <span><span>-d</span></span> も <span><span>username</span></span> も指定しない場合、 <span><span>chcore</span></span> は現行ユーザーの設定を変更します。 <span><span>-d</span></span> オプションと、別のユーザー (現行ユーザー以外) の設定を変更する機能は両方とも特権操作であり、root またはシステム権限を持つ別のユーザーのみが実行できます。 次のログイン・セッションまでは、加えられた変更は有効になりません。</p>
+ <p>代替識別および認証 (I &amp; A) メカニズムの属性を変更するには、 <strong>-R</strong> フラグを使用して I &amp; A ロード・モジュールを指定できます。 <strong>-R</strong> フラグが指定されていない場合、 <span><span>chcore</span></span> コマンドはデフォルトの属性を使用します。 ロード・モジュールは、<strong>/usr/lib/security/methods.cfg</strong> ファイルで定義されます。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> <span><span>chcore</span></span> コマンドによって変更されたコア設定は、システムのリブート後も持続します。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-c </span></span> {<code>on</code>|<code>off</code>|<code>default</code>}</td>
+
+<td>コア圧縮に関する設定</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span></td>
+
+<td>システムのデフォルトの設定値を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span> <span><span>パス</span></span></td>
+
+<td>保管コア・ファイルのディレクトリー・パス</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span> {<code>on</code>|<code>off</code>|<code>default</code>}</td>
+
+<td>コアの命名に関する設定</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span> {<code>on</code>|<code>off</code>|<code>default</code>}</td>
+
+<td>コア・ロケーションに関する設定</td>
+
+</tr>
+
+<tr>
+<td><span><span>-R</span></span> <span><span>レジストリー</span></span></td>
+
+<td>ロード可能な I&amp;A モジュールを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行できるのは、root ユーザーまたはシステム権限を持つ別のユーザーのみです。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ルート・ダンプ圧縮コア・ファイルによっていずれかのプロセスを実行させ、コア・ファイルのロケーションを
+システム・デフォルトにリストアする場合は、次のように入力します。<div><div><pre><code>chcore -c on -p default root </code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> デフォルトが指定されていない場合、コアは現行ディレクトリーにダンプされます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>システムのデフォルトのコア・パスを使用可能にする場合は、次のように入力します。<div><div><pre><code>chcore -p on -l /corefiles -d</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> <span><span>chcore -p off</span></span> を使用してコア・パスを明示的に無効にしないか、 <span><span>chcore -l</span></span> を使用してコア・パスをオーバーライドしないすべてのユーザーは、コア・ファイルをディレクトリー <span><span>/corefiles</span></span>にダンプします。 ユーザーにそのディレクトリーへの
+書き込み許可がなかったり、そのディレクトリーが存在しない場合は、コア・ファイルが生成されません。</div>
+        </div>
+      </div></div>
+ </li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/lib/security/methods.cfg</span></span></td>
+
+<td>ロード・モジュール定義が入ります。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/etc/security/user</span></span></td>
+
+<td>拡張ユーザー属性が入ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

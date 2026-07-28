@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>日付とタイム・スタンプの不整合を訂正することによって、
+接続時間アカウンティング・レコードを操作します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/acct/wtmpfix</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/wtmpfix.html#wtmpfix__row-d3e27776" target="_blank" rel="noopener noreferrer"><em>File</em></a><em> ... </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>wtmpfix</strong> コマンドは <strong>runacct</strong> プロシージャーによって呼び出され、 <strong>wtmp</strong> フォーマットのレコードを含む標準入力または <em>File</em>を調べます。 <strong>acctcon1</strong> または <strong>acctcon2</strong> コマンドが失敗する可能性のある問題を訂正します。 <strong>wtmpfix</strong> コマンドは、日付とタイム・スタンプの不整合を訂正し、訂正後のレコードを標準出力に書き出します。 <strong>acctcon1</strong> コマンド
+の実行時に、日付とタイム・スタンプが不整合である場合、<strong>acctcon1</strong> コマンドはエラーを生成し、処理を中止します。</p>
+ <p>また <strong>wtmpfix</strong> コマンドは、名前フィールドの妥当性を検査し、英数字文字、$ (ドル記号)、またはスペースだけで構成されていることを確認します。 名前が無効である場合には、<strong>wtmpfix</strong> コマンドはログイン名を <strong>INVALID</strong> に変更し、標準エラーに診断メッセージを書き出します。 このように、<strong>wtmpfix</strong> コマンドにより、<strong>acctcon2</strong> コマンドが失敗する可能性は少なくなります。</p>
+ <p>(システム始動時に、または<strong> date</strong> コマンドにより) 日付が設定されるたびに、一組の日付変更レコードを <strong>/var/adm/wtmp</strong> ファイルに書き出します。 最初のレコードは古い日付のレコードで、<em>old time</em> 文字列によって示されます。 <em>old time</em> 文字列は直線フィールドに入れられ、<strong>OLD_TIME</strong> フラグはタイプ・フィールドに入れられます。 2 番目のレコードは、新しい日付のレコードで、文字列 <em>new time</em> によって示されます。 文字列 <em>new time</em> は、直線フィールドに入れられ、
+<strong>NEW_TIME</strong> フラグはタイプ・フィールドに入れられます。 <strong>wtmpfix</strong> コマンドは、これらのレコードを使用して、
+ファイル内のすべての日付とタイム・スタンプを同期化します。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>ありません。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>File</em></td>
+
+<td><strong>wtmp</strong> フォーマットのレコードが入っていることを検査したいファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: これらのコマンドは <strong>
+adm</strong> グループのメンバーにのみ実行 (x) アクセスを認可します。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/var/adm/wtmp</strong> で日付とタイム・スタンプの不整合を修正して、<strong>dummy.file</strong> に修正したレコードを書き出すには、以下のように入力します。<div><div><pre><code>/usr/sbin/acct/wtmpfix  /var/adm/wtmp &gt; /tmp/dummy.file</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct/wtmpfix</strong></td>
+
+<td><strong>wtmpfix</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/wtmp</strong></td>
+
+<td>古い日付と新しい日付からなる日付変更レコードが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/utmp.h</strong></td>
+
+<td>理由、日付、時刻からなるヒストリー・レコードが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

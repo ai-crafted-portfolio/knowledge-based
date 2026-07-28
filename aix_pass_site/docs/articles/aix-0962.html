@@ -1,0 +1,143 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>現行システムまたは別のシステムでの再インストールのためにシステム状態を保管します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkszfile</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkszfile.html#mkszfile__row-d3e161280" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a>] [ <strong>-d 年</strong> ディレクトリー] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkszfile.html#mkszfile__row-d3e161214" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a>] [ <strong>-G</strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkszfile.html#mkszfile__row-d3e161259" target="_blank" rel="noopener noreferrer">-N (N)</a></strong> ] [<strong>-x (X)</strong> ファイル]</p>
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>重要:</span> <strong>mkszfile</strong> コマンドは、既存の <strong>/image.data</strong> ファイルを新しい情報で上書きします。</div>
+        </div>
+      </div></div>
+ <p><strong>mkszfile</strong> コマンドは、現行システム上または別のシステム上に再インストールできるようにシステム状態を保管します。 次のような情報が保管されます。</p>
+ <ul>
+<li>システム・インストール情報</li>
+
+<li>ルート・ボリューム・グループに関する論理ボリューム情報</li>
+
+<li>ファイルシステム情報</li>
+
+</ul>
+ <p>保管される情報により、<strong>bosinstall</strong> ルーチンはバックアップ前に存在したとおりの論理ボリューム情報を再作成することができます。</p>
+ <p><strong>mkszfile</strong> コマンドを使用すると、<strong>/image.data</strong> ファイルが作成されます。 このファイルの内容は、イメージを作成したシステムによって定義されます。 <strong>mksysb</strong> コマンドを呼び出す前に、<strong>/image.data</strong> ファイルを編集することができます。 この場合、<strong>mksysb</strong> コマンドは <strong>/image.data</strong> ファイル内で指定されたファイルシステムのみをバックアップするので、<strong>rootvg</strong> ファイルシステムに必要な条件が反映されます。</p>
+ <p>保管されたすべての情報は、リスト・コマンドを使用して取り出すことができます。 これらのコマンドのリストは、<strong>/image.data</strong> ファイルにコメントとして記録されています。したがって、ユーザーがこのファイルを編集しているときにこのリストを参照できます。</p>
+ <p>テープに入っているファイルを変更できません。 ただし、テープ内のデータ・ファイルを無効にするために、ユーザーは目的のファイルが入ったディスケットを作成することができます。</p>
+ <p><strong>mkszfile</strong> コマンドは、<strong>/tmp</strong> ファイルシステム上にブート・イメージに使用可能なフリー・スペースが 8 M バイト以上あることを確認します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong>mkszfile</strong> コマンドを実行する前に、<strong>/tmp</strong> ファイルにブート・イメージを保管できる十分なスペースがあることを確認してください。 このスペースは、バックアップ時とインストール時に必要になります。 <strong>/tmp</strong> ファイル内で必要なスペースの量を判別するには、<strong>bosboot
+-qad</strong> <em>rmt</em> または <strong>bosboot -qad</strong> <em>ipldevice</em> のいずれかのコマンドを発行します。</li>
+
+<li><strong>mkszfile</strong> コマンドを実行する前に <code>/dev/ipldevice</code> を除去すると、0301-150 bosboot エラーが発生します。 ほとんどの場合、このメッセージは無視してかまいません。 <strong>mkszfile</strong> コマンドが正常に実行されたかどうかは、戻りコードで確認してください。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ボリューム・グループ内の論理ボリュームごとに論理対物理区画のマッピングを指定するマップ・ファイルを作成します。 このマッピングを使用して、
+イメージの復元時に同じ論理対物理マッピングを割り当てることができます。 マップ・ファイルの位置は、
+論理ボリュームごとに <strong>/image.data</strong> ファイルの MAPFILE フィールドに保管されます。 <strong>mklv</strong> コマンドの発行前にインストール・ルーチンがマップを <strong>/tmp</strong> ファイルシステムに入れるので、
+マップ作成のための十分なスペースが <strong>/tmp</strong> ファイルシステム内に存在することになります。<p>例えば、<strong>hd7</strong> 論理ボリュームの場合、
+マップ・ファイルの位置は <strong>/tmp/vgdata/rootvg/hd7.map</strong> です。 <strong>hd7</strong> 論理ボリュームの <strong>/image.data</strong> ファイル内の MAPFILE フィールドは、次の項目の下にあります。MAPFILE=/tmp/vgdata/rootvg/hd7.map.</p>
+  <p>バックアップ・イメージ内のマップ・ファイルは、<strong>/bosinst.data</strong> ファイルおよび <strong>/image.data</strong> ファイルの後ろにコピーされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><span>ワークロード・パーティション</span> (<span>WPAR</span>) に属するファイルシステムを <strong>/image.data</strong> ファイル内の定義済み状態に組み込みます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>/image.data</strong> ファイルに組み込むには、定義済み状態の <span>WPAR</span> に属するすべてのファイルシステムが rootvg ボリューム・グループ内になければなりません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>必要に応じて <strong>/tmp</strong> を拡張します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>image.data</strong> ファイルを、/ ではなく指定されたディレクトリーに書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong></td>
+
+<td><strong>/image.data</strong> ファイルから WPAR ファイルシステムを除外します。 このフラグは、<strong>-N</strong> フラグと共に指定した場合は無効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> <em>file</em></td>
+
+<td>ファイルにリストされたファイルシステムを <strong>image.data</strong> ファイルから除外します。 ファイルシステムのマウント・ポイントは、1 行につき 1 つずつリストする必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span> 結果としてバックアップがシステムのリストアに使用できなくなる可能性があるため、ファイル・システムを除外する場合は注意してください。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/mkszfile</strong></td>
+
+<td><strong>mkszfile</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

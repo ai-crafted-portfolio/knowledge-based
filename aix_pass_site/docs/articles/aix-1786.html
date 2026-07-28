@@ -1,0 +1,125 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p><strong>xmtopas</strong> デーモンは記録機能の役目を果たし、xmtopas.cf 構成ファイルを介して制御されます。 このデーモンは、リアルタイムに近いネットワーク・ベース・データ・モニタリングと指定ノード上のローカル記録機能を同時に提供します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>Xmtopas</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40551" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40563" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>UDP_buffer_size</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40575" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>リモート間隔の最小値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40587" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>リモート・コンシューマー・タイムアウト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40610" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>サプライヤー・タイムアウト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40627" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>トレース・レベル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40642" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>最大ログ・ファイル・サイズ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40666" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>keep_alive_limit</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmtopas.html#xmtopas__row-d3e40678" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> <em>xmtopas_execution_priority</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xmtopas</strong> デーモンは通常、<strong>inetd</strong> デーモンによって開始されます。</p>
+
+<p><strong>xmtopas</strong> デーモンは、System Management Interface Tool (SMIT) を使用して変更するか、またはシステム・リソース・コントローラー (SRC) を使用して <span>/etc/inetd.conf</span> ファイルを編集することができます。 <strong>xmtopas</strong> デーモンを開始するには、 <span>/etc/inetd.conf</span> ファイル内の <strong>xmtopas</strong> デーモン・エントリーのコメントを外します。 <span>/etc/inetd.conf</span> ファイルに入力を指定することにより、 <strong>inetd</strong> デーモンに入力を送信することができます。 <span>/etc/inetd.conf</span> ファイルを更新した後、 <span>refresh -s inetd</span> コマンドまたは <span>kill -1 InetdPID</span> コマンド ( <strong>inetd</strong> デーモンの場合) を実行して、構成ファイルの変更を受け取ります。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>仮想入出力サーバー (VIOS) 上の <strong>inetd.conf</strong> ファイルの <strong>xmtopas</strong> エントリーを変更すると、移行後に新しいエントリーが追加されます。 移行前に、<strong>xmtopas</strong> エントリーをデフォルト・タイプ (例えば、<strong>xmtopas -p3</strong>) に置き換えておく必要があります。</li>
+
+<li>論理区画に動的な構成変更を加える場合、その変更を反映するためには <strong>xmtopas</strong> をリスタートする必要があります。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>xmtopas</strong> 記録構成ファイルの構文解析情報が <strong>xmtopas</strong> ログ・ファイルに書き込まれるようになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong> <em> UDP_buffer_size</em></td>
+
+<td>デーモンが UDP パケットを送信したり受信したりするために使用するバッファーのサイズを定義します。 バッファー・サイズは、4,096 バイトから 16,384 バイトまでを、バイト単位で指定する必要があります。 このバッファー・サイズによって、1 <strong>data_feed</strong> パケットで送信できるデータ値の最大数が決まります。 デフォルトのバッファー・サイズは 4096 バイトです。この場合は、1 パケットで 124 までのデータ値を送信できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em> 最小遠隔間隔</em></td>
+
+<td>データ送信が可能な最小の間隔を、ミリ秒単位で定義します。 デフォルトは 500 ミリ秒です。 100 ミリ秒から 5,000 ミリ秒までの値を指定できます。 指定された値は、100 ミリ秒の倍数に丸められます。 最小リモート間隔が指定されると、データ送信のためのすべての要求は、この値の倍数に丸められるようになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em> remove_consumer_timeout</em></td>
+
+<td>『<strong>xmtopas</strong> の開始および停止 (Life and Death of xmtopas)』のセクションに記述されているように、統計データの送信が停止した後の <strong>time_to_live</strong> を設定します。 続いて、分数を指定する必要があります。 値が 0 (ゼロ) 分の場合、デーモンは永久に活動状態のままになります。 デフォルトの <strong>time_to_live</strong> は 15 分です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>サプライヤー・タイムアウト</em></td>
+
+<td>ダイナミック・データ・サプライヤーが活動状態のときに、この値により非活動状態の秒数が設定されます。DDS の非活動状態がここで設定済みの秒数経過すると、SPMI は DDS が停止していると見なします。 このタイムアウト値を超えたときには、<strong>SiShGoAway</strong> フラグが共有メモリー領域内に設定され、SPMI はその領域から切断されます。 このフラグが設定されない場合、タイムアウト期間は 90 秒に設定されます。<p>タイムアウト期間のサイズは、共通の SPMI 共有メモリー領域内に保持されます。 保管される値は、<strong>xmtopas</strong> コマンドを含む、任意のデータ・コンシューマー・プログラムが要求する最大値です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em> トレース・レベル</em></td>
+
+<td>トレース・レベルを設定します。
+これにより、<strong>/var/perf/xmtopas.log1</strong> ログ・ファイルまたは <strong>/var/perf/xmtopas.log2</strong> ログ・ファイルに書き込まれるイベントのタイプが決まります。 このフラグの後に、0 から 9 までの数字を付ける必要があります。9 が最も詳細なトレース・レベルです。 デフォルトのトレース・レベルは 0 (ゼロ) です。この場合、イベントのトレースおよびロギングは使用不可ですが、エラー・メッセージはログに記録されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em> 最大ログファイル・サイズ</em></td>
+
+<td>ログ・ファイルの概算の最大サイズを指定します。 少なくとも <strong>time_to_live</strong> 分毎に、現在アクティブなログ・ファイルが <em>max_logfile_size</em> の値よりも大きいかどうか検査されます。 この値よりも大きい場合、現在のログ・ファイルはクローズされ、代替ログ・ファイル (まず長さがゼロにリセットされます) に対してロギングが続行されます。 ログ・ファイルには、<strong>/var/perf/xmtopas.log1</strong> と <strong>/var/perf/xmtopas.log2</strong> の 2 つがあります。 デフォルトの最大ファイル・サイズは 100,000 バイトです。 <em>max_logfile_size</em> の値を 5,000 バイトより小さくしたり、10,000,000 バイトより大きくしたりすることはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em> keep_alive_limit</em></td>
+
+<td><em>keep_alive_limit</em> 値の後に、60 から 900 までの秒数 (1 分から 15 分) を設定する必要があります。 デフォルトは 300 秒 (5 分) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> <em>xmtopas_execution_priority</em></td>
+
+<td><strong>xmtopas</strong> コマンドの実行優先順位を設定します。 お客様の環境で、<strong>xmtopas</strong> コマンドのデフォルトの実行優先順位が不適切な場合は、このオプションを使用してください。 一般に、このデーモンには可能な限り高い実行優先順位を設定する必要があります (より小さな数値を設定すれば、実行優先順位はより高くなります)。<p><span>IBM</span> <span>RS/6000</span>システム以外のシステムでは、<em>-x</em>フラグを使用して<strong>xmtopas</strong>コマンドのいい優先順位を設定します。 適切な優先順位の値は -20 から 19 です。 デフォルトは -20 です。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>xmtopas コマンドが使用するファイル</h2> <p><strong>xmtopas.res</strong> ファイルには、以下のエントリーを指定できます。</p>
+ <div><div><pre><code>docec:&lt;arguments&gt;
+docluster:cluster=&lt;cluster configuration file&gt;</code></pre></div><div></div></div> <p><strong>例</strong></p>
+ <div><div><pre><code>docec: availmem=5 unavailmem=2
+docluster: cluster=/etc/perf/xmtopasagg.cf</code></pre></div><div></div></div> <p>以下の新しいフィールドが <strong>xmtopas.res</strong> ファイルの <strong>docec</strong> エントリーに追加され、ハードウェア管理コンソール (HMC) の詳細を入手できるようになりました。</p>
+ <div><div><pre><code>managedsys=[Managed system name under which this partition is configured]
+hmc=[HMC name under which this partition is configured]</code></pre></div><div></div></div> <p>HMC プラットフォームで自動照会を構成できない場合は、ローカル区画に使用できないグローバル・データ・フィールドを、以下のオプションを使用して設定することができます。</p>
+ <div><div><pre><code>availmem = [Total amount of memory allocated to all partitions, in GB]
+unavailmem = [Total amount of memory unallocated from the HMC, in GB]
+availprocessor = [Total number of physical processors allocated for all partitions]
+unavailprocessor = [Total number of physical processors unallocated from the HMC]
+poolsize = [Defined Pool Size required if HMC Processor Utilization Authority restricts access]
+partitions = [Number of partitions defined on the HMC]
+reconfig = [Number of seconds between checking for HMC configuration changes. 
+Allowed values are 30, 60, 90, 120, 180, 240, 300 seconds. 
+The default is 60 seconds.]</code></pre></div><div></div></div> <p><strong>例</strong></p>
+ <div><div><pre><code>docec: hmc=hmcmac.in.ibm.com managedsys=cec1</code></pre></div><div></div></div></section>
+
+</div></div>

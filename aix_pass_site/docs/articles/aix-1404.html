@@ -1,0 +1,944 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロセッサーのスケジューラー・チューニング・パラメーターを管理します。</p>
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>schedo [ -p | -r [-K]] [-y] { -o Tunable[= Newvalue]} </code></pre></div><div></div></div>
+<div><div><pre><code>schedo [ -p | -r [-K]] [-y] { -d Tunable }</code></pre></div><div></div></div>
+<div><div><pre><code>schedo [ -p | -r [-K]] [-y] -D </code></pre></div><div></div></div>
+<div><div><pre><code>schedo [ -p | -r | -K] [-F] -a </code></pre></div><div></div></div>
+<div><div><pre><code>schedo -h [Tunable]</code></pre></div><div></div></div>
+<div><div><pre><code>schedo [-F] [-K] -L [Tunable] </code></pre></div><div></div></div>
+<div><div><pre><code>schedo [-F] [-K] -x [Tunable] </code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> 複数のフラグ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e8993" target="_blank" rel="noopener noreferrer"><span>-o</span></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e8920" target="_blank" rel="noopener noreferrer"><span>-d</span></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e9084" target="_blank" rel="noopener noreferrer"><span>-x</span></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__row-d3e8978" target="_blank" rel="noopener noreferrer"><span>-L</span></a> フラグを使用できます。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>注:</span> <span>schedo</span> コマンドは root のみが実行できます。</div>
+        </div>
+      </div></div>
+ <p><span>schedo</span> コマンドは、スケジューラー・チューニン
+グ・パラメーターを構成するときに使用します。 このコマンドは、すべ
+てのスケジューラー・チューニング・パラメーターについて、現行値また
+は次のブート値を設定または表示します。 このコマンドを使用して、
+永続的な変更を行ったり、あるいは次のリブートまで変更を先送りすることも
+できます。 コマンドがパラメーターを設定するのか表示するのかは、一緒に指定するフラグによって決まります。 <strong>-o</strong> フラグを
+使用すると、両方のアクションを実行します。 パラメーターの値を表示したり、パラメーターに新しい値を設定したりすることができます。</p>
+
+<dl>
+
+<dt>チューナブル・パラメーターの変更の影響を理解する</dt>
+
+<dd><p>このコマンドを誤用すると、パフォーマンスの低下またはオペレーティング・システム障害の原因となります。 <strong>schedo</strong> コマンドを使用してシステム・パラメーターを変更する前に、「 <span><em>パフォーマンス管理</em></span> 」の該当するチューニング・セクションを必ず確認してください。</p>
+
+<p>チューナブル・パラメーターを変更する前に、まず「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html#schedo__tunparam" target="_blank" rel="noopener noreferrer">チューナブル・パラメーター</a> 」セクションでそのすべての特性について注意深く読み、その目的を完全に理解するために「参照先」ポインターをたどる必要があります。</p>
+
+<p>次に、そのパラメーターの「診断」および「チューニング」のセクションをご使用の環境に実際に適用できるかどうか、そのパラメーターの値を変更するとシステムのパフォーマンスの向上に役立つかどうか、確認してください。</p>
+
+<p>Diagnosis（診断）セクションとTuning（チューニング）セクションの両方に「N/A」しかない場合は、<span>AIX</span>開発部からの特別な指示がない限り、このパラメータを変更してはならない。</p>
+
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>優先順位-計算パラメーター</dt>
+
+<dd><div>多くのユーザー・プロセスの優先順位は、そのプロセスが最近使用したプロセッサー時間の量によって変化します。 プロセッサー・スケジューラーの優先順位の計算は、 <strong>schedo</strong>、 <em>sched_R</em> 、および <em>sched_D</em>で設定される 2 つのパラメーターに基づいて行われます。 <em>sched_R</em> および <em>sched_D</em> 値は 30 秒 (1/32) です。つまり、スケジューラーが最近のプロセッサー使用に対するペナルティーとしてプロセスの優先順位の値に加算する量を計算するために使用する式は、以下のとおりです。<div><div><pre><code>CPU penalty = (recently used CPU value of the process) * (r/32)</code></pre></div><div></div></div></div>
+
+<div>また、1 秒に 1 回行われる、各プロセスで最近使用されたプロセッサー時間の再計算には、次の式が用いられます。<div><div><pre><code>new recently used CPU value = (old recently used CPU value of the process) * (d/32)</code></pre></div><div></div></div></div>
+
+<p>r (<em>sched_R</em> パラメーター) および d (<em>
+sched_D</em> パラメーター) のデフォルト値は、両方とも 16 です。 この点については、
+旧バージョンのオペレーティング・システムにおけるプロセッサー・スケジューリングの振る舞いが引き継がれています。 これらの値を試す前に、「パフォーマンス管理ガイド」のプロセッサー・スケジューラーのチューニングについてよく理解しておく必要があります。</p>
+
+</dd>
+
+
+
+<dt>メモリー・ロード制御パラメーター</dt>
+
+<dd><div>オペレーティング・システムのスケジューラーは、
+メモリーへの負荷が過剰になったときにプロセスを延期させることにより、メモリー・ロード制御を実行します。 延期されたプロセスは、スワップアウトされるわけではなく、現在のメ
+モリー所要量を満たすために必要なページを<em>スチールされた</em> 状態になります。 ページは、延期されているプロセスからスチールされるのが普通です。 メモリーへの負荷が過剰であると見なされるのは、次のような条件が満たされた場合です。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>p</em> * <em>時間</em></td>
+
+<td>ここで:<div><em>p</em> は、直近 1 秒間にページング・スペースに書き込まれたページ数です。<br> <em>h</em> は、 <span>v_repage_hi</span> パラメーターで指定された整数です。<br> <em>s</em> は、直近 1 秒間に発生したページ・スチールの数です。</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<div>プロセスが延期されるのは、メモリーへの負荷が過剰になり、次の条件が満たされた場合です。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>r</em> * <em>p f</em></td>
+
+<td>ここで:<div><em>r</em> r<br> <em>p</em> は、 <span>v_repage_proc</span> パラメーターで指定された整数です。<br> <em>f</em> は、最後の 1 秒間にプロセスで発生したページ・フォールトの数です。</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<p>なお、優先順位が固定されているプロセスやカーネル・プロセスは、延期されることはありません。</p>
+
+<p>repages とは、そのプロセスに属していて、そのプロセスから戻されてもすぐにまたそのプロセスで参照されるページの数を意味します。</p>
+
+<p>v_min_process パラメーターを使用して、マルチプログラミング・レベルの下限を指定することもできます。 そのようにすることで、
+プロセスが延期されている期間にアクティブなまま残されるプロセスをできるだけ少なくすることができます。 アクティブ・プロセスとは、実行可能であり、ページ入出力を待機しているプロセスのことです。 中断状態のイベントおよびプロセスを待機しているプロセスは、アクティブとは見なされません。また、待機プロセスはアクティブとは見なされません。</p>
+
+<p>システムがしきい値以下の状態を n 秒間続けた場合は、延期されていたプロセスが混合に戻されます。
+ここで n の値は、<span>v_sec_wait</span> パラメーターで指定します。 プロセスは、まずその優先順位に基づいて、次いで延期されている期間の長さに基づいて、システムに戻されます。</p>
+
+<p>これらの値を試す前に、「パフォーマンス管理ガイド」の「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/performance/vmm_tuning_schedo.html" target="_blank" rel="noopener noreferrer">schedo コマンドによる VMM メモリー・ロード制御のチューニング</a> 」について十分に理解しておく必要があります。</p>
+
+</dd>
+
+
+
+<dt>タイム・スライス増分パラメーター</dt>
+
+<dd><p><strong>schedo</strong> コマンドは、ディスパッチャーが呼び出されて次に実行するプロセスが選択されるまでの、
+オペレーティング・システムが許可する、特定のプロセスに与えられる実行時間 (タイム・スライス) の長さの変更にも使用できます。 この間隔のデフォルト値は、1 クロック・ティック (10 ミリ秒) です。 タイム・スライス・チューニング・パラメーターを使用すると、
+タイム・スライスの長さを大きくするためのクロック・ティックの数を指定できます。</p>
+
+<p><span>AIX バージョン 4</span>では、このパラメーターは SCHED_RR スケジューリング・ポリシーを持つスレッドにのみ適用されます。 スレッドのスケジューリング・ポリシーを参照してください。</p>
+
+</dd>
+
+
+
+<dt>fork () 再試行間隔パラメーター</dt>
+
+<dd><p>新規のプロセスを作成できるだけの十分なページング・スペースがないために <strong>fork</strong>()
+ サブルーチン・コールが失敗した場合、システムは、指定された時間待機した後コールを再試行します。 この間隔は、pacefork チューニング・パラメーターで設定します。</p>
+
+</dd>
+
+
+
+<dt>対称マルチスレッド化のための特殊な用語</dt>
+
+<dd><p>複数の実行キューがサポートされています。 このスキーマのもとでは、各プロセッサーにそれぞれ独自の実行キューがあります。 POWER5 プロセッサーは対称マルチスレッド化をサポートします。対称マルチスレッド化では、各物理プロセッサーに<em>ハードウェア・スレッド</em> と呼ばれる実行エンジンがそれぞれ 2 つずつあります。 各ハードウェア・スレッドは基本的に 1 つのプロセッサーと同等の働きをします。 対称マルチスレッド化はデフォルトで使用可能になっていますが、動的に使用不可にする (または再び使用可能にする) ことができます。 対称マルチスレッド化が使用可能な場合、各ハードウェア・スレッドはそれぞれ別個の実行キューにサービスを提供します。 例えば 4-way システムでは、対称マルチスレッド化が使用不可な場合や存在しない場合、グローバル実行キューの他に 4 つの実行キューがあります。 それに対し、対称マルチスレッド化が使用可能な場合はグローバル実行キューの他に 8 つの実行キューがあることになります。</p>
+
+<p>同じ物理プロセッサーに所属するハードウェア・スレッドは、<em>兄弟スレッド</em> と呼ばれます。 <em>1 次兄弟スレッド</em> は物理プロセッサーの最初のハードウェア・スレッドです。 <em>2 次兄弟スレッド</em> は物理プロセッサーの 2 番目のハードウェア・スレッドです。</p>
+
+</dd>
+
+
+
+<dt>仮想プロセッサー管理</dt>
+
+<dd><div>仮想プロセッサーは、区画内での作業の処理に必要な数より多く定義できます。 仮想プロセッサーをディスパッチするときのオーバーヘッドを減らすには、全体的なプロセッサー使用率を下げたり、仮想プロセッサーをなくすのではなく、使用する仮想プロセッサーの数を少なくします。 仮想プロセッサーは区画から動的に除去されるわけではありませんが、それらのプロセッサーは使用されず、追加の作業が発生したときにだけ再び使用されます。 各仮想プロセッサーで使用される物理プロセッサーの最大数は 1 台です。 必要な仮想プロセッサーの数は、物理プロセッサーの使用率と <strong>vpm_xvcpus</strong> チューナブルの和を切り上げて決定します。<div><div><pre><code>number = ceiling( p_util + vpm_xvcpus)</code></pre></div><div></div></div>ここで、<em>number</em> は必要な仮想プロセッサーの数、<em>p_util</em> は物理プロセッサーの使用率、<strong>vpm_xvcpus</strong> は使用可能にする追加の仮想プロセッサー数を指定するチューナブルです。 <em>number</em> が現在使用可能な仮想プロセッサーの数より少ない場合、仮想プロセッサーは使用不可に設定されます。 <em>number</em> が現在使用可能な仮想プロセッサーの数より多い場合、使用不可の仮想プロセッサーが使用可能に変更されます。 使用不可に設定された仮想プロセッサーに接続されているスレッドは、(使用不可であっても) その仮想プロセッサーで実行することができます。</div>
+
+</dd>
+
+
+
+<dt>ノード・ロード</dt>
+
+<dd><p><em>ノード負荷</em>、または単に<em>負荷</em> とは、256 で乗算されたグローバル実行キューを含め、すべての実行キューの平均実行キュー深さのことで、時間とともに強く平滑化されます。 例えば、256 の負荷とは、16 のプロセッサー (対称マルチスレッド化プロセッサーを含む) がある場合、過去数ミリ秒の間にシステムに約 16 の実行可能ジョブがあった、ということを意味します。</p>
+
+</dd>
+
+
+
+<dt>Power10 の entry スループット・モードの変更</dt>
+
+<dd><p>Power10 システムが共用プロセッサー・モードで稼働している場合、仮想プロセッサー管理 (逆転) のスループット・モードのデフォルト値は 2 です。 システムをPower10システムに移行する場合、またはPower10システムからシステムを移行する場合、およびそれ以降、AIX®オペレーティングシステムは、VPMのスループットモードのデフォルト値を自動的に変更します。 ブート操作時に、 AIX オペレーティング・システムは、LPAR が稼働しているサーバーのタイプに基づいて、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/schedo.html" target="_blank" rel="noopener noreferrer"><span>schedo</span></a> コマンドの <span>vpm_throughput_mode</span> チューナブル・パラメーターのデフォルト値を選択します。 AIX オペレーティング・システムによって選択された <span>vpm_throughput_mode</span> チューナブル・パラメーターの値は保存され、宛先サーバーで使用されます。 Power10 システムでは、次のコマンドを使用して、 <span>vpm_throughput_mode</span> チューナブル・パラメーターの推奨値 2 に切り替えることができます。</p>
+
+<div><div><pre><code>schedo -d vpm_throughput_mode</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> Power10 システムとの間でマイグレーションを行う場合、オペレーティング・システム・レベルを 7300-00、7200-05-03-2147、7200-04-05-2148、7100-05-09-2148 以降に移行することをお勧めします。 <span>schedo</span> コマンドを使用して <span>vpm_throughput_mode</span> チューナブル・パラメーターを変更できるようにするこの機能がない場合、オペレーティング・システム・レベルを 7200-05-00-2037、7200-04-03-2038、および 7100-05-07-2037 に更新すると、 <span>vpm_throughput_mode</span> チューナブル・パラメーターに設定された値がオーバーライドされる可能性があります。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>これは、すべてのチューナブル・パラメーターについて、現行値、リブート値 (<span>-r</span> オプションと一緒に使用される場合)、ライブ・アップデート値 (<span>-K</span> オプションと一緒に使用される場合)、または永続値 (<span>-p</span> オプションと一緒に使用される場合) を、<em>Tunable</em>=<em>Value</em> のペアで 1 行に 1 つずつ表示します。 永続オプションでは、
+パラメーターのリブート値と現在値が等しい場合、パラメーターに対して 1 つの値が表示されるだけです。 値が異なる
+場合は、値として <code>NONE</code> が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d </strong><em>チューナブル </em></td>
+
+<td><em>Tunable</em> パラメーターをそのデフォルト値にリセットします。 チューナブル・パラメーターを変更する必要がある場合
+(つまり、パラメーターの現行値がデフォルト値に設定されておらず、<strong>-r</strong> との組み合わせがない場合) は、変更されずに、警告が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>これは、すべての<em>チューナブル</em>・パラメーターをデフォルト値にリセットします。 デフォルト値に設定されていないために変更する必要がある<em>チューナブル</em>・パラメーターが、以下の基準セットの 1 つ以上を満たす場合は、警告メッセージが表示され、変更は行われません。
+変更しようとしていて、デフォルト値に設定されていないチューナブル・パラメーターが、以下の基準セットの 1 つ以上を満たす場合は、警告メッセージが表示され、そのパラメーターは変更されません。<ul>
+<li>チューナブルのタイプが <strong>Bosboot</strong> または <strong>Reboot</strong> である。</li>
+
+<li>チューナブルのタイプが、<strong>Incremental</strong> であり、そのチューナブルはデフォルト値から変更されたものであり、<strong>-r</strong> が組み合わせて使用されない。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Reboot</strong> であり、そのチューナブル・パラメーターはライブ・アップデート操作にわたってサポートされる。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>コマンド・ラインに <strong>-a</strong>、<strong>-L</strong> または <strong>-x</strong> オプションを指定する際に、制限付きチューナブル・パラメーターを強制的に表示して、チューナブルのすべてをリストします。 <strong>-F</strong> フラグを指定しない場合、制限付きチューナブルは、関連する表示オプションで明確に指定されない限り、組み込まれません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> [<em>チューナブル</em>]</td>
+
+<td><em>Tunable</em> パラメーターのヘルプを表示します
+(このパラメーターが指定されている場合)。 このパラメーターが指定されていない場合は、
+<strong>schedo</strong> コマンド使用ステートメントを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td><span>/etc/tunables/nextboot</span> ファイルと <span>/etc/tunables/nextliveupdate</span> ファイルの両方にチューナブル・パラメーター値を設定します。 <span>-K</span> フラグは、<span>-r</span> フラグと一緒の場合にのみ使用できます。<p><span>-r</span> フラグおよび <span>-d</span> (または <span>-D</span>) フラグと一緒に <span>-K</span> フラグを指定した場合、チューナブル・パラメーター値は、リブート操作時またはライブ・アップデート操作時に使用される <span>/etc/tunables/nextboot</span> ファイルおよび <span>/etc/tunables/nextliveupdate</span> ファイルにおけるデフォルト値に設定されます。</p>
+<p><span>-K</span> フラグを <span>-L</span> または <span>-x</span> フラグと一緒に指定すると、 <span>schedo</span> コマンドはライブ・アップデートの値を表示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> [ <em>チューナブル </em> ]</td>
+
+<td>以下の形式を使用して、1 つまたはすべてのチューナブル・パラメーターの特性を 1 行に 1 つずつリストします。 <span>-K</span> フラグを <span>-L</span> フラグと一緒に指定すると、Live Update 値も表示されます。<div><div><pre><code>
+NAME                   CUR    DEF    BOOT  MIN    MAX         UNIT          TYPE  
+     DEPENDENCIES  
+--------------------------------------------------------------------------------
+v_repage_hi             0      0      0      0      2047M                      D
+--------------------------------------------------------------------------------
+v_repage_proc           4      4      4      0      2047M                      D
+--------------------------------------------------------------------------------
+v_sec_wait              1      1      1      0      2047M     seconds          D
+--------------------------------------------------------------------------------
+...  
+where:  
+    CUR = current value  
+    DEF = default value  
+    BOOT = reboot value
+    MIN = minimal value  
+    MAX = maximum value  
+    UNIT = tunable unit of measure  
+    TYPE = parameter type: D (for Dynamic), S (for Static), R (for Reboot),
+           B (for Bosboot), M (for Mount), I (for Incremental), C (for Connect), and d (for Deprecated)  
+    DEPENDENCIES = list of dependent tunable parameters, one per line</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> <em>チューナブル </em>[<strong>=</strong><em>Newvalue</em>]</td>
+
+<td>これはチューナブル・パラメーターの値を表示したり新しい値に設定したりします。 <span> <span>/etc/tunables/usermodified</span>ファイルは、'<span>-o</span>フラグを使用してダイナミックチューナブルの値を変更するたびに、新しいチューナブルパラメータ値で更新される。</span> 変更したいチューナブル・パラメーターが以下の基準セットの 1 つ以上を満たす場合は、警告メッセージが表示され、パラメーターは変更されません。<ul>
+<li>チューナブル・パラメーターのタイプが <strong>Bosboot</strong> または <strong>Reboot</strong> である。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Incremental</strong> であり、現行値が指定値より大きく、<strong>-r</strong> フラグが組み合わせて使用されない。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Reboot</strong>であり、チューナブル・パラメーターがライブ・アップデート操作にわたってサポートされる。</li>
+
+</ul>
+<p>新しい値を指定せずに <strong>-o</strong> フラグと一緒に <strong>-r</strong> フラグを指定すると、チューナブルのリブート値が表示されます。 <span>新しい値を指定せずに <strong>-o</strong> フラグと一緒に <strong>-K</strong> フラグを指定すると、チューナブル・パラメーターの次のライブ・アップデート値が表示されます。</span> 新しい値を指定せずに <strong>-o</strong> フラグと一緒に <strong>-p</strong> フラグを指定すると、チューナブルの現行値とリブート値が同じ場合に限り、値が表示されます。 そうでない場合は、<code>NONE</code> が値として表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>-o</strong>、<strong>-d</strong>、
+または <strong>-D</strong> との組み合わせを使用した場合に、
+現行値とリブート値の両方に変更内容を適用します。
+つまり、<strong>/etc/tunables/nextboot</strong> ファイルの更新と
+現行値の更新を両方ともオンにします。 パラメーターのタイプが Reboot およ
+び Bosboot の場合は、現行値を変更できないので、この組み合わせは使用できません。<p>新しい値を使用せずに <strong>-a</strong> また
+は <strong>-o</strong> の組み合わせを使用すると、パラメーターの現
+行ブート値と次のブート値が同じ場合のみ値が表示されます。 値が異なる
+場合は、値として <code>NONE</code> が表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>-o</strong>、<strong>-d</strong>、また
+は <strong>-D</strong> との組み合わせを使用した場合に、変更内容をリブート値に適用します。
+つまり、<strong> /etc/tunables/nextboot</strong> ファイルの更新をオンにし
+ます。 Bosboot タイプのパラメーターを変更すると、bosboot を実行するように
+プロンプトが出されます。<p>新しい値を使用せずに <strong>-a</strong> または <strong>-o</strong> を指定して使用すると、チューナブルの現行値ではなく、次のブート値が表示されます。 <span><strong>-K</strong> フラグと一緒に使用すると、<span>/etc/tunables/nextboot</span> および <span>/etc/tunables/nextliveupdate</span> ファイルの両方に変更が適用されます。</span></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> [<em>チューナブル</em>]</td>
+
+<td>以下の (スプレッドシート) 形式を使用して、1 つまたはすべてのチューナブル・パラメーターの特性を 1 行に 1 つずつリストします。 <span>-K</span> フラグを <span>-x</span> フラグと一緒に指定すると、Live Update 値も表示されます。<div><div><pre><code>tunable,current,default,reboot,min,max,unit,type,{dtunable}
+
+where:  
+    current = current value  
+    default = default value  
+    reboot = reboot value
+    min = minimal value  
+    max = maximum value  
+    unit = tunable unit of measure  
+    type = parameter type: D (for Dynamic), S (for Static), R (for Reboot),  
+               B (for Bosboot),M (for Mount), I (for Incremental), 
+               C (for Connect), and d (for Deprecated)  
+    dtunable = space separated list of dependent tunable parameters</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td><strong>bosboot</strong> コマンドを実行する前に確認プロンプトを抑制します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> オプション <strong>-o</strong>, <strong>-d</strong>, および <strong>-D</strong> は、スケジューラー・チューナブル・パラメーターの値を変更しようとするため、 <span>ワークロード・パーティション</span> 内ではサポートされません。</div>
+        </div>
+      </div></div>
+ <p>制限付きチューナブル・パラメーターに (<strong>-o</strong>、<strong>-d</strong>、または <strong>-D</strong> オプションを指定して) 何らかの変更を加えると、限定使用タイプのチューナブル・パラメーターが変更された旨の警告メッセージが出されます。 コマンド・ラインで <strong>-r</strong> または <strong>-p</strong> オプションも指定していた場合は、変更を確認するプロンプトが出されます。 さらに、システム・リブートの際、そのデフォルト値とは異なる値に変更された (<strong>-r</strong> または <strong>-p</strong> オプションを指定したコマンド・ラインを使用して)、<strong>/etc/tunables/nextboot</strong> ファイルに表示される制限付きチューナブルによって、これらの変更されたチューナブルのリストを識別するエラー・ログ・エントリーが行われます。</p>
+ <div>チューナブルを変更するときは、単位を示すのに K、M、G、T、P および E などの省略語を使用して、チューナブル値を指定できます。 単位を参照してください。 以下の表に、接頭部と、数値省略語に関連する値を示します。<div><div><table><thead>
+<tr>
+<th><div>省略語</div></th>
+
+<th><div>2 の累乗</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>K</strong></td>
+
+<td>1024</td>
+
+</tr>
+
+<tr>
+<td><strong>M</strong></td>
+
+<td>1 048 576</td>
+
+</tr>
+
+<tr>
+<td><strong>G</strong></td>
+
+<td>1 073 741 824</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong></td>
+
+<td>1 099 511 627 776</td>
+
+</tr>
+
+<tr>
+<td><strong>P</strong></td>
+
+<td>1 125 899 906 842 624</td>
+
+</tr>
+
+<tr>
+<td><strong>E</strong></td>
+
+<td>1 152 921 504 606 846 976</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>したがって、1024 のチューナブル値は、1K のように指定されます。</div>
+ <p>Mount タイプのパラメーターを変更すると (<strong>-o</strong>、<strong>-d</strong>、
+または <strong>-D</strong> を使用)、これ以降のマウント操作にのみ
+変更内容が有効になることを示す警告メッセージが表示されます。</p>
+ <p>タイプ Connect のパラメーターを変更すると (<strong>-o</strong>、
+<strong>-d</strong>、または <strong>-D</strong> フラグを使用)、
+<strong>inetd</strong> が再始動され、
+その変更は将来のソケット接続についてのみ有効であることをユーザーに示す警告メッセージが表示されます。</p>
+ <p><strong>-r</strong> を使用せずに Bosboot または Reboot タイプの
+パラメーターを変更しようとすると (<strong>-o</strong>、<strong>-d</strong>、
+または <strong>-D</strong> を使用)、エラー・メッセージが表示されます。</p>
+ <p>新しい値を現行値よりも小さな値にして Incremental タイプのパラメーターの
+現行値を変更しようとすると (<strong>-o</strong>、<strong>-d</strong>、
+または <strong>-D</strong> を使用、<strong>-r</strong> を使用しない)、
+エラー・メッセージが表示されます。</p>
+</section>
+
+<section><h2>チューナブル・パラメーターのタイプ</h2> <div>チューニング・コマンド (<strong>no</strong>、 <strong>nfso</strong>、 <strong>vmo</strong>、 <strong>ioo</strong>、 <span><span>raso</span></span>、および <strong>schedo</strong>) によって操作されるすべてのチューナブル・パラメーターは、以下のカテゴリーに分類されました。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Dynamic</td>
+
+<td>パラメーターをいつでも変更できる場合</td>
+
+</tr>
+
+<tr>
+<td>Static</td>
+
+<td>パラメーターをいかなる時にでも変更できない場合</td>
+
+</tr>
+
+<tr>
+<td>Reboot</td>
+
+<td>パラメーターをリブート時にのみ変更できる場合</td>
+
+</tr>
+
+<tr>
+<td>Bosboot</td>
+
+<td>bosboot を実行してマシンをリブートする場合にのみパラメーターを変更できる場合</td>
+
+</tr>
+
+<tr>
+<td>Mount</td>
+
+<td>パラメーターの変更が将来のファイルシステムまたはディレクトリーのマウントにのみ有効である場合</td>
+
+</tr>
+
+<tr>
+<td>Incremental</td>
+
+<td>ブート時を除き、
+パラメーターを増やすことだけが可能な場合</td>
+
+</tr>
+
+<tr>
+<td>Connect</td>
+
+<td>パラメーターへの変更が、今後のソケット接続に対してのみ有効な場合</td>
+
+</tr>
+
+<tr>
+<td>Deprecated</td>
+
+<td>このパラメーターの変更が現行リリースの <span>AIX</span>でサポートされなくなった場合。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>タイプ Bosboot のパラメーターの場合は、変更が加えられるたびに、
+チューニング・コマンドは自動的に、
+<strong>bosboot</strong> コマンドを実行したいかどうかを尋ねるプロンプトを出します。 タイプ Connect
+のパラメーターの場合は、チューニング・コマンドは自動的に
+<strong>inetd</strong> デーモンを再始動します。</div>
+ <p><strong>schedo</strong> コマンドにより管理されるパラメーターの現行のセットは、
+Dynamic および Reboot タイプのみを含むことに注意してください。</p>
+</section>
+
+<section><h2>互換モード</h2> <p>5.2 より前の互換モード ( <strong>sys</strong>0 の <strong>pre520tune</strong> 属性で制御されます。 <span><em>パフォーマンス管理</em></span>の「 <strong><span>AIX 5.2</span> 互換モード</strong> 」を参照) で実行している場合、タイプ Bosboot のパラメーターを除き、パラメーターのリブート値はブート時に適用されないため、あまり意味がありません。</p>
+ <p>5.2 より前の互換モードでは、チューニング・パラメーターへのリブート値の設定は、
+ブート中に呼び出されるスクリプト内でチューニング・コマンドを呼び出すことにより行います。 したがって、タイプ <strong>Reboot</strong> のパラメーターは <strong>-r</strong> フラグ
+なしで設定できるので、既存のスクリプトは従来どおり作動します。</p>
+ <p>マシンが <span>AIX 5.2</span>にマイグレーションされると、このモードは自動的にオンになります。 完全なインストールの場合、これは OFF になり、パラメーターのリブート値は、
+リブート中に <strong>/etc/tunables/nextboot</strong> ファイルの内容を適用することにより設定されます。 <strong>-r</strong> およ
+び <strong>-p</strong> のフラグが完全に機能するのは、このモードのときだ
+けです。 詳しくは、「 <span><em>Performance Tools Guide and Reference</em></span> 」の「 <strong>カーネル・チューニング</strong> 」を参照してください。</p>
+</section>
+
+<section><h2>チューナブル・パラメーター</h2> <div>チューナブルのデフォルト値および値の範囲については、 <strong>schedo</strong> コマンド・ヘルプ (<strong>-h</strong> &lt;<span><span>tunable_parameter_name</span></span>&gt;) を参照してください。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>affinity_lim (affinity_lim)</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>SCHED_FIFO2 ポリシーがスレッドを優先しなくなるまでの介入ディスパッチの数を設定します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>スレッドがいったん SCHED_FIFO2 ポリシーで実行中になると、この変数のチューニングは、そのスレッドとワークロードのパフォーマンスに
+影響を与える場合と与えない場合があります。 理想的な値は試行錯誤によって決定する必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>big_tick_size (big_tick_size)</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>物理ティック間隔を設定し、CPU 間でティックを同期化します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd><strong>big_tick_size</strong> 値に 10 ミリ秒を掛けた数値がティック間隔で、100 に均等に分割されます。 このパラメーターを使用すると、システム統計の正確さが多少失われます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ded_cpu_donate_thresh。</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>専用プロセッサーの提供に対する使用率のしきい値を指定します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>提供が使用可能になっている専用プロセッサー区画では、
+アイドル状態のプロセッサー・キャパシティーを共有プロセッサー・プールに提供することで、共有プロセッサー区画で使用できるようになります。 専用プロセッサーの
+使用率がこのしきい値より少ない場合、専用プロセッサーは、アイドル状態のときに、
+ほかの区画が使用できるように提供されます。 専用プロセッサーの
+使用率がこのしきい値以上の場合、専用プロセッサーは、アイドル状態であっても、
+ほかの区画が使用できるように提供されることはありません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>修復された優先度グローバル</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>固定優先順位のスレッドをグローバル実行キュー上で保持します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>1 の場合に、固定優先順位のスレッドはグローバル実行キューに入れられます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>強制グループ (force_grq)</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>非 MPI スレッドをグローバル実行キューに保持します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>1 の場合に、MPI スレッドとバインド済みスレッドのみがローカル実行キューを使用します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ハッシュ命令</strong></td>
+
+<td><dl>
+
+<dt>目的:</dt>
+
+<dd>Power10 以降のシステムでサポートされるリターン・オリエンテッド・プログラミング (ROP) 保護命令を有効にします。</dd>
+
+
+
+<dt>チューニング:</dt>
+
+<dd>このチューナブル・パラメーターが 1 に設定されている場合、新しいプロセスに対して ROP 保護命令が有効になります。 このチューナブル・パラメーターを 0 に設定すると、新しいプロセスに対して ROP 保護命令が無効になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><strong>最大スピン</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>スリープに入る前にカーネル・ロック上でスピンする回数を設定します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>MP システムでこの値を大きくすると、アイドル時間が減る場合がありますが、
+状況によっては CPU 時間が浪費される場合もあります。 ユニプロセッサー・システムでこの値を大きくすることはお勧めできません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>pacefork</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>ページング・スペースの不足のために失敗した fork コールを再試行するまで待つクロック・ティックの数。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>システムがページング・スペースを使い果たし、プロセスを fork できないときに使用してください。 システムは失敗した fork を 5 回再試行します。 例えば、新規プロセスを作成できるだけの十分なページング・スペースがないために <strong>fork()</strong> サブルーチン・コールが
+失敗した場合、システムは、指定された数のクロック・ティックを待った後でコールを再試行します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>「proc_disk_stats」</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>プロセス有効範囲のディスク統計情報を、1 の値は使用可能にし、0 の値は使用不可にします。 デフォルト値は 1 で、範囲は 0 から 1 までです。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>プロセス有効範囲のディスク統計情報が不要な場合は使用不可にしておくと、パフォーマンスが向上します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>スケジュール _D</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>短期 CPU 使用率の減衰率を設定します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>デフォルトは、短期 CPU 使用率を毎秒 1/2 (16/32) ずつ減衰させることです。 この値を小さくすると、フォアグラウンド・プロセスはバックグラウンド・プロセスとの競合をより長い間避けることができます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>スケジュール _R</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>優先順位の計算における短期 CPU 使用率の加重係数を設定します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>コマンド <strong>ps al</strong> を実行してください。 PRI 列に、一部のバックグラウンド・プロセスの PRI 値 (NI 値&gt; 20) より高いフォアグラウンド・プロセス (NI 値が 20 のプロセス) の優先順位値があることが判明した場合は、r 値を減らすことができます。 デフォルトは、短期 CPU 使用率の 1/2 (16/32) を優先順位の計算に含めることです。 この値を小さくすると、フォアグラウンド・プロセスは競合でより優位になります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>tb_balance_S0</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>SMT コアのビジー・バランシングを制御します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>0 の値はバランシングが使用不可であることを示します。 1 の値は
+バランシングが MCM (S2 グループ) 内でのみ使用可能であることを示します。 2 の値は完全に使用可能であることを示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>tb_balance_S1</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>プロセッサーのビジー・バランシングを制御します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>0 の値はバランシングが使用不可であることを示します。 1 の値は
+バランシングが MCM (S2 グループ) 内でのみ使用可能であることを示します。 2 の値は完全に使用可能であることを示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>tb_閾値</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd><strong>thread_busy</strong> ロード・バランシングを最適化する目的で、スレッドをビジーとみなすティックの数。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>100 の値は 1 秒に相当します。 値 10 および 1000 は、それぞれ 0.1 秒および 10 秒に相当します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>タイム・スライス</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>スレッドが実行キューに書き戻される前に実行できる、クロック・ティックの数。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>timeslice 値を大きくすると、スレッドをディスパッチするときのオーバーヘッドを削減できます。 この値は、タイム・スライスでのクロック・ティックの合計数を示し、固定優先順位のプロセスのみに影響します。</dd>
+
+</dl>
+ </td>
+
+</tr>
+
+<tr>
+<td><strong>vpm_折り畳みポリシー</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>区画内のプロセッサー・フォールディングの仮想プロセッサー管理機能の適用を制御します。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>プロセッサー・フォールディングの仮想プロセッサー管理機能は、
+区画が共有プロセッサーを持つか専用プロセッサーを持つかに基づいて、使用可能または使用不可にすることができます。 さらに、区画が静的な省電力モードにあるとき、
+プロセッサー・フォールディングは共有プロセッサー区画と専用プロセッサー区画の両方で自動的に使用可能になります。</dd>
+
+</dl>
+ <p>プロセッサー・フォールディングが使用可能になっているときは、<strong>vpm_vxcpus</strong> チューナブルをプロセッサー・フォールディングの制御に
+使用することができます。</p>
+ <div>プロセッサー・フォールディングを制御するために、<strong>vpm_fold_policy</strong> 内には以下の 3 ビットがあります。<ul>
+<li>ビット 0 (0x1): このビットが 1 に設定されると、区画が共有プロセッサーを使用しているときにプロセッサー・フォールディングが使用可能になる
+ことを示します。</li>
+
+<li>ビット 1 (0x2): このビットが 1 に設定されると、区画が専用プロセッサーを使用しているときにプロセッサー・フォールディングが使用可能になる
+ことを示します。</li>
+
+<li>ビット 2 (0x4): このビットが 1 に設定されると、プロセッサー・フォールディングの自動設定は、区画が静的な省電力モードにあるときに
+使用不可になります。</li>
+
+</ul>
+</div>
+ <p>望ましい値を形成するために、ビット 0、ビット 1、およびビット 2 の値で OR 演算を行うことができます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> Advanced System Management Interface (ASMI) で <strong>「アイドル省電力 (Idle power saver)」</strong> オプションが <strong>「使用可能」</strong> に設定されていて、プロセッサー使用率が指定されたしきい値を下回る場合は、プロセッサーを低周波数または低電圧状態に設定できます。 また、実行時の <span>vpm_fold_policy</span> チューナブル・パラメーターを 0x3 に設定することもできます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>vpm_スループット_コア_しきい値</strong></td>
+
+<td><p><strong>vpm_throughput_mode</strong> パラメーターが受け入れられる前に展開する必要があるコアの数を指定します。 それまでは、システムは <strong>1</strong> に設定された <strong>vpm_throughput_mode</strong> パラメーターの値を用いて機能します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>vpm_スループットモード</strong></td>
+
+<td><p>基準化されたスループット・モードの SMT 活用の望ましいレベルを指定します。 値 <span>0</span> を指定すると、ロー・スループット・モードの動作になります。 値 <span>1</span>、<span>2</span>、または <span>4</span> を指定すると、基準化されたスループット・モードおよび SMT 活用の望ましいレベルが選択されます。</p>
+
+<p>Power10 以降のシステムでは、システムが共有プロセッサー・モードで稼働している場合、ガイド・スループット・モードのデフォルト値は <span>2</span> (スケール・スループット・モード) です。 専用プロセッサーモードおよび共有プロセッサーモードで動作しているPOWER9以前のシステムでは、VPM スループットモードのデフォルト値は<span>0（raw</span>スループットモード）です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>vpm_xvcpus</strong></td>
+
+<td><dl>
+<dt>目的:</dt>
+
+<dd>このチューナブルを -1 より大きい値に設定すると、スケジューラーは、区画の CPU 使用率に基づいて
+仮想プロセッサーを使用可能にしたり使用不可にしたりすることができます。</dd>
+
+
+<dt>チューニング:</dt>
+
+<dd>指定された値は、ワークロードを満たすために必要な仮想プロセッサーに加えて、
+使用可能にする仮想プロセッサーの数を示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2> <ol>
+<li>schedo コマンドで管理するすべてのチューナブル・パラメーターについて、現行値、リブート値、範囲、単位、タイプ、依存関係を表示するには、次のように入力します。<div><div><pre><code>schedo -L  </code></pre></div><div></div></div></li>
+
+<li><strong>schedo</strong> コマンドが管理するすべてのチューナブル・パラメーターの、現行値とリブート値、範囲、単位、タイプと依存関係をリスト (スプレッドシート形式) するには、次のように入力します。<div><div><pre><code>schedo -x</code></pre></div><div></div></div></li>
+
+<li>v_sec_wait をデフォルトにリセットするには、次のように入力します。<div><div><pre><code>schedo -d v_sec_wait </code></pre></div><div></div></div> </li>
+
+<li>sched_R のヘルプを表示するには、次のように入力します。<div><div><pre><code>schedo -h sched_R</code></pre></div><div></div></div>  </li>
+
+<li>v_min_process を次のリブート後に 4 に設定するには、次のように入力します。<div><div><pre><code>schedo -r -o v_min_process=4 </code></pre></div><div></div></div> </li>
+
+<li>すべての schedo チューナブル・パラメーターを永続的にデフォルトにリセットするには、
+次のように入力します。<div><div><pre><code>schedo -p -D </code></pre></div><div></div></div> </li>
+
+<li>すべての schedo パラメーターのリブート値を表示するには、次のように入力します。<div><div><pre><code>schedo -r -a</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

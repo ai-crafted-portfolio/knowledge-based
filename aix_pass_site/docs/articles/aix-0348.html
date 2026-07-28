@@ -1,0 +1,198 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>DHCP サーバーの状況を照会し、変更するのに使用します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>dadmin</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2094" target="_blank" rel="noopener noreferrer"><span>-?</span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2065" target="_blank" rel="noopener noreferrer"><span>-v</span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e1985" target="_blank" rel="noopener noreferrer"><span>-h</span></a> ホスト名] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2002" target="_blank" rel="noopener noreferrer"><span>-n</span></a> 間隔] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e1973" target="_blank" rel="noopener noreferrer"><span>-f</span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e1962" target="_blank" rel="noopener noreferrer"><span>-d</span></a> IpAddress | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2071" target="_blank" rel="noopener noreferrer"><span>-x</span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e1996" target="_blank" rel="noopener noreferrer"><span>-i</span></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2071" target="_blank" rel="noopener noreferrer"><span>-x</span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2041" target="_blank" rel="noopener noreferrer"><span>-s</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2047" target="_blank" rel="noopener noreferrer"><span>-t</span></a> <span>on</span>|<span>off</span>|値 | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2021" target="_blank" rel="noopener noreferrer"><span>-q</span></a> IpAddress | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2029" target="_blank" rel="noopener noreferrer"><span>-r</span></a> IpAddress | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e2010" target="_blank" rel="noopener noreferrer"><span>-p</span></a> IpAddress | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dadmin.html#dadmin__row-d3e1951" target="_blank" rel="noopener noreferrer"><span>-c</span></a> Clientld</p>
+</section>
+
+<section><h2>説明</h2> <p><span>dadmin</span> コマンドによって、DHCP 管理者は DHCP サーバー・データベースの状態を照会および変更することができます。 このコマンドを使用すると、管理者による、IP アドレスの状況に関する、ローカルまたはリモートでの DHCP サーバーの照会、IP アドレス・プールの照会、クライアントの照会、IP アドレス・マッピングの削除、サーバーのリフレッシュ、サーバーのトレース・レベルの変更が可能になります。</p>
+ <p><span>dadmin</span> コマンドは前のバージョンの DHCP サーバーと、それらのサーバーの IP アドレス状況をリストし、リフレッシュするための互換性があります。</p>
+ <p>IP アドレス情報の照会の際、<span>dadmin</span> コマンドは IP アドレスの状況を戻します。 また、IP アドレスの状況に応じて、<span>dadmin</span> コマンドはリース期間、リース開始時刻、最後のリース時刻、サーバーが DNS をサポートするかどうか、この IP アドレスに関するレコード更新、およびこの IP アドレスにマップされたクライアント ID を返す場合があります。</p>
+ <p>クライアント情報の照会の際、<span>dadmin</span> コマンドは、クライアントの IP アドレスと IP アドレスの状況、クライアントに IP アドレスが与えられた最後の時刻、ホスト名、およびクライアントが使用するドメイン・ネーム、さらにサーバーがこの IP アドレスの場合に DNS、レコード更新をサポートするかどうかを戻します。</p>
+ <div>サーバーのトレース・レベルを変更するとき、<span>dadmin</span> コマンドは、トレース・マスクのフォーマットでサーバー・トレース・レベルを設定し戻します。 このマスクはビット・ストリングを表します。各ビットは、特定のログ項目がサーバーによってトレースされているかどうかを表します (オンライン資料の「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/DHCP_Server.html" target="_blank" rel="noopener noreferrer"><span>“</span>DHCP サーバー構成ファイル<span>”</span></a> 」を参照してください)。 これらのログ項目を最も重要でないものから最も重要なものの順に
+挙げると、LOG_NONE、LOG_SYSERR、LOG_OBJERR、LOG_PROTOCOL および LOG_PROTERR (同じ値)、LOG_WARN、および LOG_CONFIG (同じ値)、LOG_EVENT、
+および LOG_PARSEERR (同じ値)、LOG_ACTION、LOG_INFM、LOG_ACNTING、LOG_STAT、LOG_TRACE、
+LOG_START、および LOG_RTRACE になります。<div><div>
+        <div>
+          <div><span>注:</span> LOG_START を無効にすることはできません。 そのことは、0x0800 から 0x1FFF までのマスクの範囲を意味しています。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span> ClientId</td>
+
+<td>DHCP サーバーには知られている特定のクライアントの状況を戻します。 ClientId は DHCP クライアントがそれ自体を識別するために使用したクライアント ID です。このフィールドは、16 進文字のみを使用するか、DHCP サーバーが使用する TYPE-STRING 表記を使用するかのいずれかの方法で指定することもできます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> IpAddress</td>
+
+<td>IP アドレス IpAddress に関連するリース情報を削除します。 その結果、アドレスは FREE 状態に移され、再度バインドに使用可能になります。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td><span>-d</span> フラグと一緒に使用されます。 <span>-f</span> フラグにより、アドレスの削除が強制的に行われ、プロンプトは出されません。 IP に関連するリース情報を削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span> ホスト名</td>
+
+<td>宛先 DHCP サーバーの指定に使用されます。 Hostname は、名前であっても IP アドレスであってもかまいません。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>DHCP サーバーを再初期化します。 このフラグは、サーバーにそのデータベースの同期をとるよう信号を送り、構成ファイルを再読み取りして始動し直します。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> interval
+</td>
+
+<td>サーバーの統計情報、要約、および要求されたインターバルを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> IpAddress</td>
+
+<td>サブネット内の各アドレスの状況を戻します。 IpAddress は、サブネットをリストに示すために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span> IpAddress</td>
+
+<td>特定の IP アドレスの状況を戻します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> IpAddress</td>
+
+<td>IP アドレスを <code>Free</code> 状態に置きます。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td>DHCP サーバーの構成プール内の各アドレスの状況を戻します。</td>
+
+</tr>
+
+<tr>
+<td><span>-t on|off|</span>値</td>
+
+<td>DHCP サーバーのトレース・レベルを変更します。 トレース値は、サーバーで使用中のトレース・マスクを表す 16 進フォーマットで、報告されます。 Value は、10 進または 16 進フォーマットで指定できます。 キーワード <span>on</span> または <span>off</span> によって、トレース・マスク内で、単一ビットが一度に使用可能もしくは使用不可になります。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>コマンドを冗長 (verbose) モードで実行します。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span></td>
+
+<td><span>dadmin</span> プロトコルのバージョン 1 を使用します。 <span>-x</span> フラグは、前のリリース DHCP サーバーに接続する場合に
+使用され、<span>-i</span> および <span>-s</span> フラグの場合にのみ有効です。 DHCPv6 サーバーに接続するときは <code>6</code> をつけ加えてください。</td>
+
+</tr>
+
+<tr>
+<td><span>-?</span></td>
+
+<td>使用法の構文を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span>dadmin</span> クライアントからの接続を保護するために、DHCP サーバーは、サーバー自体からの接続か、スーパーユーザーの <span>.rhosts</span> ファイルに含まれているリモート・システムからの接続だけを許可します。 通常のユーザーが DHCP サーバーのアドレス・マッピングを変更できないよう、管理者は、アクセスを許可されたシステムで適正なユーザーだけが <span>dadmin</span> コマンドを実行できるように制限する必要があります。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dadmin</span></td>
+
+<td><span>dadmin</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

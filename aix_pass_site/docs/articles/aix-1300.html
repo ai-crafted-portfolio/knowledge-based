@@ -1,0 +1,119 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ワークロード・マネージメント・クラスを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmclass</strong> [ <strong>-d</strong> <em>Config_Dir</em> ] [ <strong>-S</strong> <em>SuperClass</em> ] <em>名前</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmclass</strong> コマンドは、<em>Name</em> パラメーターによって識別されたスーパークラスまたはサブクラスを、
+クラス定義ファイル、クラス制限ファイル、およびクラス共有ファイルから除去します。 このクラスは既存のクラスでなければなりません。 事前定義の <strong>Default</strong> クラス、
+<strong>System</strong> クラス、および <strong>Shared</strong> クラスは除去できません。</p>
+ <p>さらに、<strong>Super</strong> スーパークラスを除去すると、
+<strong>/etc/wlm/</strong><em>Config_Dir</em><strong>/Super</strong> ディレクトリーと
+それに含まれているすべての WLM 属性ファイル (それが存在する場合) が除去されます。 ユーザー作成のサブクラス (<strong>Default</strong> および <strong>Shared</strong> 以外のサブクラス) がまだ残っていると、
+スーパークラスの除去は失敗します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> スーパークラスを除去できるのは root のみです。 スーパークラスの <strong>adminuser</strong> および <strong>admingroup</strong> 属性に
+指定されたユーザー名またはグループ名と一致するユーザー ID またはグループ ID を持つ root ユーザーまたは権限のあるユーザーのみが、
+このスーパークラスのサブクラスを除去できます。</div>
+        </div>
+      </div></div>
+ <p>通常、<strong>rmclass</strong> は、該当する WLM 属性ファイル内のクラスとその属性を削除し、
+この変更結果は、WLM の更新の後でのみ、<strong>wlmcntrl</strong> コマンドを使用して、
+メモリー内のクラス定義 (アクティブ・クラス) に適用されます。</p>
+ <p><strong>-d 年</strong> フラグを使用して構成名 (<em>構成ディレクトリー</em>) として空ストリングが渡された場合、クラスは WLM メモリー内データ構造でのみ削除され、プロパティー・ファイルは更新されません。 したがって、
+クラスがまだ WLM 構成に定義されたままになっている場合は、
+WLM の更新または始動の後で再作成されます。 このフラグは、主として、WLM API を使用してアプリケーションによってのみ
+メモリー内 WLM データ構造内に動的に作成されたクラス
+(例えば、アプリケーション失敗の後で何らかのクリーンアップを行うために) を除去するために使用されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、時間ベースの構成のセットには適用できません ( <strong>-d 年</strong> フラグを使用してセットを指定しないでください)。 現行構成がセットの場合、<strong>-d</strong> フラグを指定して、
+どの通常構成にコマンドを適用すべきかを指定する必要があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d 年</strong><em> ディレクトリーの構成</em></td>
+
+<td><strong>/etc/wlm/</strong><em>Config_dir</em> を属性ファイル用の代替ディレクトリーとして使用します。 このフラグを使用しない場合、<strong>/etc/wlm/current</strong> によって指し示されたディレクトリー内の構成ファイルが使用されます。 構成名として空ストリングが渡された場合 (-d "") クラスは WLM メモリー内データ構造でのみ削除され、構成ファイルは変更されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> SuperClass</em></td>
+
+<td>サブクラスを除去するときにスーパークラスの名前を指定します。 <strong>Super</strong> スーパークラスの <strong>Sub</strong> サブクラスを指定するには、
+次の 2 つの方法があります。<ol>
+<li>サブクラスのフルネームを <strong>Super.Sub</strong> として指定し、<strong>-S</strong> を使用しない。</li>
+
+<li><strong>-S</strong> フラグを指定してスーパークラス名を提供し、サブクラスの短縮名を使用する。<div> <div><div><pre><code>rmclass options -S Super  Sub</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>クラス</strong></td>
+
+<td>クラスの名前と定義が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>制限</strong></td>
+
+<td>リソース限度が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>共有</strong></td>
+
+<td>リソース共有が含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

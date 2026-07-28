@@ -1,0 +1,482 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Nonvolatile Memory Express (NVMe) 自己暗号化ドライブ (SED) を管理します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>プラットフォーム・キーストア（ PKS ）でユーザーPINを設定するには：<div><div><pre><code>nvmesed -K -l nvmeX -n user_pin [ -t tag]</code></pre></div><div></div></div></div>
+
+<div>ドライブを初期化して SED を有効にするには、以下のようにします<div><div><pre><code>nvmesed -I -l nvme# -s sid_pin -a admin_pin -u user_pin</code></pre></div><div></div></div></div>
+
+<div>ドライブを使用不可に戻すには、次のようにします。<div><div><pre><code>nvmesed -R -l nvme# -a &lt;admin_pin&gt;</code></pre></div><div></div></div></div>
+
+<div>ドライブを元のファクトリー状態 (OFS) に戻すには、次のようにします。<div><div><pre><code>nvmesed -O -l nvme# -s &lt;sid_pin&gt;</code></pre></div><div></div></div><div><div><pre><code>nvmesed -O -l nvme# -p psid_pin</code></pre></div><div></div></div></div>
+
+<div>ドライブのユーザー・ピンを変更するには、以下のようにします。<div><div><pre><code>nvmesed -C -l nvme# -a admin_pin -n new_admin_pin</code></pre></div><div></div></div><div><div><pre><code>nvmesed -C -l nvme# -u user_pin -n new_user_pin</code></pre></div><div></div></div><div><div><pre><code>nvmesed -C -l nvme# -s sid_pin -n new_sid_pin</code></pre></div><div></div></div><div><div><pre><code>nvmesed -C -l nvme# -s sid_pin -r </code></pre></div><div></div></div></div>
+
+<div>ドライブをアンロックするには:<div><div><pre><code>nvmesed -U -l nvme# -a admin_pin</code></pre></div><div></div></div><div><div><pre><code>nvmesed -U -l nvme# -u user_pin</code></pre></div><div></div></div></div>
+
+<div>SED の状況を照会するには、以下のようにします。<div><div><pre><code>nvmesed -Q -l nvme#</code></pre></div><div></div></div><div><div><pre><code>nvmesed -Q -l nvme# -a admin_pin</code></pre></div><div></div></div><div><div><pre><code>nvmesed -Q -l nvme# -u user_pin</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p>AIX 7.3 (テクノロジー・レベル 1) 以降、 AIX オペレーティング・システムは NVMe 自己暗号化ドライブ (SED) をサポートします。 NVMe SED は、シークレット・ピンを使用してユーザー・データを暗号化します。 このPINは、Power Systemsサーバー内の安全な不揮発性ストレージであるプラットフォーム・キーストア（ PKS ）に保存されます。 ピンはドライブの外部に保管されるため、ドライブが紛失したり盗まれたりしても、ドライブ内のデータはピンなしでは意味のないものになります。</p>
+
+<p>AIX デバイス・ドライバーは、必要に応じてドライブにピンを提供します。 <strong>nvmesed</strong> ユーザー・スペース・ユーティリティーは SED 管理を処理します。 このピンは、データの暗号化に使用されるメディア暗号鍵 (MEK) のようには使用できません。 MEK は、ピンが分かっている場合にのみ復号またはアンラップすることができます。 ドライブは、ハードウェア生成のプレーン・テキスト MEK を暗号化するためにピンを使用して作成されたラップされた MEK のみを保持します。 プレーン・テキスト MEK は、ドライブの外部からはアクセスできず、有効なピンが入力された後にのみドライブに存在します。</p>
+
+<p><code>nvmesed</code> コマンドは、以下の SED 機能を管理します。</p>
+
+<ul>
+<li>NVMe ドライブは、自己暗号化なしで出荷されます。 この状態は、元のファクトリー状態 (OFS) と呼ばれます。 <code>nvmesed</code> コマンドを使用して自己暗号化を有効にし、ピンでドライブ・データを保護することができます。 ほとんどの場合、自己暗号化はドライブ上の既存のデータを保持します。</li>
+
+<li><code>nvmesed</code> コマンドを使用すると、SED を初期化する前にドライブを元の状態に戻すことができます。 この使用法には、以下のケースが含まれます。<ul>
+<li>ドライブ上のすべてのユーザー・データを安全にパージして、OFS に戻ります。</li>
+
+<li>ユーザー・データを保持しながら、ピン制御の暗号化をオフにすることにより、SED を初期化する前の元の状態に戻します。</li>
+
+</ul>
+</li>
+
+</ul>
+
+<p><code>nvmesed</code> コマンドを使用して、ピンを定期的に変更することができます。 ドライブはピンを保管しませんが、指定されたピンが有効かどうかを判別できるように、ピンの暗号ハッシュのみを保管します。 したがって、ドライブ上のピンを変更すると、ドライブ上のピンの新しいハッシュがドライブに保管されます。 管理には、以下の権限とタイプのピンが含まれます。</p>
+
+<dl>
+
+<dt>セキュリティー ID (SID)</dt>
+
+<dd>SID 権限は、ドライブ所有者を表します。 自己暗号化ドライブ (SED) を使用可能にし、ドライブを OFS に戻すには、SID 権限が必要です。 SID ピンが失われた場合は、固定ピンであり、ドライブ・ラベルに印刷されているセキュリティー ID (PSID) ピンを指すポインターを使用して、ドライブを OFS に戻す必要があります。 SED を新規ドライブとして再度使用可能にすることにより、新しいピン・セットを設定できます。</dd>
+
+
+
+<dt>管理者</dt>
+
+<dd>管理者権限は、SED のデータ暗号化、電源オン・ロック、および各種アクセス制御ポリシーを管理します。 SED を使用可能にし、SED を元に戻し、ドライブをアンロックするには、管理者権限が必要です。</dd>
+
+
+
+<dt>ユーザー</dt>
+
+<dd>ロックされたデバイスは、ユーザー権限によってのみアンロックできます。 AIX オペレーティングシステムは、 PKS に、最も権限が制限されたユーザーPINのみを保存します。 さらに、管理者権限とユーザー権限の両方が SED ドライブの状況を照会できます。</dd>
+
+
+</dl>
+
+<p><code>nvmesed</code> ユーティリティーを使用するには、以下の前提条件を満たす必要があります。</p>
+
+<ul>
+<li>PKS Hardware Management Console （HMC）において、 AIX の論理パーティションに対して有効にする必要があります。</li>
+
+<li>論理区画は、 AIX 7.3 以降を実行している必要があります。</li>
+
+<li>ホストは、 <code>NVMe</code> SED をサポートする Power10 プロセッサー・ベースのサーバー (またはそれ以降) でなければなりません。</li>
+
+<li>ドライブは、SED をサポートする <code>NVMe</code> ドライブでなければなりません。 <code>NVMe</code> 以外の SED 対応ドライブでは、この要件は十分ではありません。</li>
+
+</ul>
+
+<p><code>nvmesed</code> ユーティリティーを使用するための以下のプラクティスを確認してください。</p>
+
+<ul>
+<li>3 つのピンはそれぞれ固有でなければならず、32 バイトの ASCII 文字で構成されていなければなりません。</li>
+
+<li>以前に使用したピンを含むすべてのピンの記録を維持し、将来の参照のためにピン・アクティビティーを追跡します。</li>
+
+<li>PKS ユーザーのPINのみを保存します。 AIX の論理パーティションには、1つのユーザーピンが含まれています。 論理区画内のすべてのドライブは、同じユーザー・ピンを使用できます。 したがって、管理を容易にするために、論理区画上で同じ SID および管理ピンを使用してください。 SIDおよびAdminピンはコマンド <code>nvmesed</code> 内で指定され、 PKS には保存されません。</li>
+
+</ul>
+
+<p>SED をサポートするシステムにドライブを移動する場合は、ドライブを再初期化する必要があります。 既存の SID と管理ピンがわかっている場合は、既存のデータを保持しながらドライブを再初期化できます。 データを保持できない場合は、SED を再度使用可能にする前に、ドライブを OFS に戻す必要があります。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>-a admin_pin</dt>
+
+<dd>既存の管理ピンを指定します。</dd>
+
+
+
+<dt>-C</dt>
+
+<dd>特定のドライブ上のピンを変更します。</dd>
+
+<dd>各権限は、現在のピンが指定されている場合は、それ自体のピンを変更することができます。</dd>
+
+
+
+<dt>-InvmeX | nvme#</dt>
+
+<dd><code>NVMe</code> ドライブを指定します。 nvmeX は、SED がサポートされている任意の使用可能なドライブです。 nvme# は、 <code>nvmesed</code> コマンドが実行される特定のターゲット・ドライブです。</dd>
+
+<dd><p>ユーザーピンを変更する前に（ドライブごとに1つずつ）、まず PKS で新しいピンを代替ピンとして設定することができます。 すべてのドライブのユーザーPINを新しいユーザーPINに変更した後、プライマリ PKS PINが新しいPINに変更されるため、代替PINを消去する必要があります。 PKS はSIDピンとAdminピンを保存しないため、これらのピンについては PKS との連携が必要ない場合があります。</p>
+
+</dd>
+
+
+
+<dt>-I</dt>
+
+<dd>ドライブを初期化して SED を使用可能にします。</dd>
+
+
+
+<dt>-K</dt>
+
+<dd>PKS に保存されるユーザー PIN を設定します。</dd>
+
+<dd>このフラグは、論理区画で初めて SED を使用可能にする前の最初のステップとして使用する必要があります。 すべてのドライブで共通のユーザーPINを選択し、 PKS に保存してください。</dd>
+
+
+
+<dt>-n ピン</dt>
+
+<dd>使用する必要がある新しい SID、管理者、またはユーザー PIN を指定します。</dd>
+
+
+
+<dt>-O</dt>
+
+<dd>ドライブを元のファクトリー状態 (OFS) に戻します。</dd>
+
+<dd>初期化時に設定された SID ピン、またはドライブ・ラベルに印刷された PSID ピンを指定する必要があります。 ドライブが正常に OFS に戻されると、SID、管理者、およびユーザーのピンがドライブ上で無効になります。 既存のデータはすべて暗号的に消去され、ドライブは新規ドライブと見なすことができます。</dd>
+
+
+
+<dt>-p psid_pin</dt>
+
+<dd>既存の PSID ピンを指定します。</dd>
+
+
+
+<dt>-Q</dt>
+
+<dd>SED 状況を照会します。</dd>
+
+
+
+<dt>-R</dt>
+
+<dd>SED を使用不可にし、ピンなしでデータにアクセスできるようにドライブを元に戻します。</dd>
+
+
+
+<dt>-r</dt>
+
+<dd>SID ピンを省略し、無保護データとピンなしでドライブを OFS に戻します。</dd>
+
+
+
+<dt>-s サイドピン</dt>
+
+<dd>既存の SID ピンを指定します。</dd>
+
+
+
+<dt>-t タグ</dt>
+
+<dd>PKS のピンを照会する際に使用される、そのピンの8文字の別名となるオプションのタグを指定します。 PKS このタグのみを表示し、32バイトのピンは表示しません。 タグは、ピンと簡単に相関させることができるように、固有でなければなりません。</dd>
+
+
+
+<dt>-u ユーザーピン</dt>
+
+<dd>PKS のピンを照会する際に使用される、そのピンの8文字の別名となるオプションのタグを指定します。 PKS このタグのみを表示し、32バイトのピンは表示しません。 タグは、ピンと簡単に相関させることができるように、固有でなければなりません。</dd>
+
+
+
+<dt>-U</dt>
+
+<dd>ドライブを手動でアンロックします。</dd>
+
+<dd>PKS ピンが利用できない場合、またはドライブに設定されたUserピンと一致しない場合、電源を入れ直してもドライブはロックされたままになります。 このフラグを使用して、初期化中に設定されたユーザー・ピンまたは管理ピンのいずれかを指定することにより、ドライブを手動でアンロックすることができます。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>エラー・メッセージ</h2>
+
+<div>
+<dl>
+
+<dt>start_session (xxx_sp) が失敗しました。 status=0x30/0x1</dt>
+
+<dd>このエラーは、ピンを変更した前のコマンドによってドライブが部分的に影響を受けた場合に発生します。このコマンドは後の段階で失敗します。</dd>
+
+
+</dl>
+
+</div>
+
+<dl>
+
+<dt>アンロックするための start_session (locking_sp) がありません。 status=0x30/0xc</dt>
+
+<dd>このエラーは、ドライブが SED 対応ではないが、要求されたアクションでドライブを SED 対応にする必要がある場合に発生します。 確認するには、 <code>Query (-Q)</code> オプションを使用します。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>start_session (xxx_sp) が失敗しました。 status=0x30/0x12</dt>
+
+<dd>このエラーは、ドライブが連続して複数回ピンの認証に失敗し、権限 (SID、管理者、またはユーザー) がロックアウトされた場合に発生します。<div><div>
+        <div>
+          <div><span>注:</span> 正しいピンが分からない場合は、 <code>nvmesed</code> コマンドを実行しないでください。 認証が複数回失敗し、このエラーが発生した場合、ドライブの電源サイクルが中断する可能性があるまで、有効なピンはアクセスを取得できません。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt># -Q -l nvme0</dt>
+
+<dd>このエラーは、 <code>nvme0</code> が SED 対応ドライブではなく、セキュリティー・プロトコルをサポートしていない場合に発生します。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>SED の保守要件</h2>SED については、以下の保守要件を考慮してください。<div>
+<dl>
+
+<dt><strong>名前空間管理</strong></dt>
+
+<dd>同じ SED 状態がドライブ全体に適用され、将来作成される名前空間を含むすべての名前空間によって共有されます。 名前空間が存在しない場合、ドライブは SED を使用可能または使用不可にすることができます。 特定の名前空間管理操作は、ロックされたドライブでは実行できません。 SED は、名前空間ごとに個別に使用可能または使用不可にすることはできません。</dd>
+
+
+</dl>
+
+</div>
+<dl>
+
+<dt><strong>フォーマット</strong></dt>
+
+<dd>ドライブがロックされている場合、(名前空間に対する) フォーマット操作は失敗します。</dd>
+
+
+</dl>
+<dl>
+
+<dt><strong>サニタイズ</strong></dt>
+
+<dd>サニタイズ操作は、ドライブ上のすべてのデータをパージするために使用されます。 SED 対応ドライブはサニタイズ・コマンドをオフにし、ドライブを OFS に戻すことによってデータをパージできます。</dd>
+
+
+</dl>
+<dl>
+
+<dt><strong>デバイス自己診断テスト (診断)</strong></dt>
+
+<dd>デバイス自己診断テストは、診断に使用されます。 ドライブがロックされている場合、ドライブのベンダーによっては、このコマンドは失敗する可能性があります。</dd>
+
+
+</dl>
+<dl>
+
+<dt><strong>別のシステムからの SED 対応ドライブの移動</strong></dt>
+
+<dd>ドライブを再初期化することをお勧めします。 ほとんどの場合、SID と管理ピンが分かっている場合は、既存のデータを保持しながらドライブを再初期化できます。 ドライブを AIX オペレーティング・システムで SED 用に使用可能にするには、ドライブを OFS に戻す必要があります (データを保持できない場合)。</dd>
+
+
+</dl>
+</section>
+
+<section><h2>鍵ストアの無効化</h2>
+
+<div>そのパーティションがSED対応ドライブを所有していない、または今後所有する予定がない場合は、HMCからキーストアを無効にする前に、すべての PKS ピンを消去する必要があります。 鍵ストアを無効にするには、以下のコマンドを実行して、区画をシャットダウンし、鍵ストア・サイズを 0 に設定します。<div><div><pre><code># erase primary pin (-i 0)
+nvmesed -K -l nvmeX -e -i 0</code></pre></div><div></div></div><div><div><pre><code>
+# erase alternate (secondary) pin (-i 1)
+nvmesed -K -l nvmeX -e -i 1</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>例</h2>
+
+<div>例でユーザー、管理者、および SID 権限用に選択されているピンは、AIX_PIN_USER、AIX_PIN_ADMIN、および AIX_PIN_SID です。 以前の使用可能化からのピン ( AIX 環境からのピンである場合も、そうでない場合もあります) は、OLD_PIN_USER、OLD_PIN_ADMIN、および OLD_PIN_SID として識別されます。<div><div>
+        <div>
+          <div><span>注:</span> デプロイメント時には 32 文字のピンを使用することをお勧めします。</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+<div>
+<ol>
+<li><div>新規ドライブで SED を使用可能にするには、以下の手順を実行します。<ol>
+<li>次のコマンドを実行して、ドライブが SED 対応でないことを確認します。<div><div><pre><code># nvmesed -Q -l nvme1
+nvme1: SED_Enabled = No PKS pin, Drive Locked = No</code></pre></div><div></div></div>コマンドの出力によると、 PKS ピンは存在しないことが示されています。 使用するユーザー・ピンを指定して同じ照会コマンドを実行すると、ドライブが SED 対応でないことがコマンド出力に表示されます。<div><div><pre><code># nvmesed -Q -l nvme1 -u AIX_PIN_USER
+nvme1: SED_Enabled = No, Drive Locked = No</code></pre></div><div></div></div></li>
+
+<li>次のコマンドを実行して、 PKS ピンを設定します：<div><div><pre><code># nvmesed -K -l nvme1 -n AIX_PIN_USER
+successfully set keystore pin (pri)</code></pre></div><div></div></div></li>
+
+<li>PKS ピンを指定せずにクエリコマンドを実行すると、コマンドの出力には、そのドライブがSED非対応であることが表示されます。<div><div><pre><code># nvmesed -Q -l nvme1
+nvme1: SED_Enabled = No, Drive Locked = No</code></pre></div><div></div></div></li>
+
+<li>以下のコマンドを実行して、 nvme1 ドライブで自己暗号化を有効にします。 操作が完了すると、ディスク記述は暗号化された状況で更新されます。 ドライブ上のデータは保持されます。 この例では、 nvme1 (hdisk1) ドライブの下に単一のディスクのみが存在します。 ただし、ディスクが使用中の場合、暗号化状況の更新は、ディスクが再構成されるか、システムがリブートされるまで判別できません。<div><div><pre><code># nvmesed -I -l nvme1 -s AIX_PIN_SID -a AIX_PIN_ADMIN -u AIX_PIN_USER
+start_session(admin), hsn=0x1234, tsn=0x1024
+MSID PIN, len = 32:83WX4EL50X2WYALH6KLWLM8MDLZN4FCK
+Locking SP state = 8
+max_ranges = 8
+initialization completed successfully, drive encryption is enabled.
+updating hdisk1...
+# nvmesed -Q -l nvme1
+nvme1: SED_Enabled = Yes, Drive Locked = No
+# lsdev|grep hdisk1
+hdisk1 Available 01-00 NVMe Encrypted 4K Flash Disk</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+
+</li>
+
+<li>SED 対応ドライブを別のシステムから AIX システムに移動するには、以下の手順を実行します。 この例では、別のシステムの既存のピン (OLD_PIN_XXX) は分かっていますが、そのピンは AIX システムで使用するピン (AIX_PIN_XXX) とは異なります。<ol>
+<li>以下のコマンドを実行して、自己暗号化状況を照会します。<div><div><pre><code># nvmesed -Q -l nvme1
+nvme1: SED_Enabled = Not Authorized, Drive Locked = No</code></pre></div><div></div></div>コマンドの出力に「Not Authorized」と表示されます。これは、ドライブに設定されているユーザーPINが、 PKS 内の AIX PINと一致しないことを意味します。 照会で SED_Enabled=Yes が返されるのは、ドライブが SED 対応の場合のみです。</li>
+
+<li>自己暗号化が AIX オペレーティング・システムに準拠しているかどうかを判別するには、ドライブ内のさまざまな SED 状態を検査するための有効なピンが必要です。 「SED_Enabled」フィールドに「No」以外の値が報告される場合、ドライブに何らかの形式の SED 使用可能化がある可能性があります。<div><div><pre><code>
+# nvmesed -Q -l nvme1 -u AIX_PIN_USER
+cannot start_session(locking_sp) to query, status=0x30/0x1
+nvme1: SED_Enabled = Not Authorized, Drive Locked = No</code></pre></div><div></div></div>このようなドライブが AIX システムで構成されている場合、コマンド出力には、正しいピンがないためにシステムがドライブのアンロックに失敗した可能性があることを示すエラーが記録されます。<div><div><pre><code>LABEL: NVME_ERR4
+Resource Name: nvme1
+Description
+NVME CONTROLLER SOFTWARE ERROR
+...
+ADDITIONAL INFORMATION
+Drive has unknown SED enablement and may lock up</code></pre></div><div></div></div></li>
+
+<li>以下のコマンドで AIX システムの AIX ピンを指定して、ドライブを再初期化します。 転送されるドライブに必要なピンが設定されている場合でも、 AIX システムでドライブを再初期化する必要があります。 既存の SID と管理ピンを使用する必要がありますが、 AIX ユーザー・ピンを適用します。<div><div><pre><code># nvmesed -I -l nvme1 -s OLD_PIN_SID -a OLD_PIN_ADMIN -u AIX_PIN_USER
+start_session(admin), hsn=0x1234, tsn=0x102f
+MSID PIN, len = 32:83WX4EL50X2WYALH6KLWLM8MDLZN4FCK
+Locking SP state = 9
+locking is active, trying re-init...
+reverted Locking SP back to inactive
+Locking SP state = 8
+max_ranges = 8
+initialization completed successfully, drive encryption is enabled.
+updating hdisk1...</code></pre></div><div></div></div>出力には「locking is active」と表示されます。これは、前の使用可能化がオフになってから再アクティブ化されたことを示します。</li>
+
+<li>以下のコマンドを実行して、 AIX ピンと一致するように SID ピンと管理ピンを変更します。<div><div><pre><code># nvmesed -C -l nvme1 -s OLD_PIN_SID -n AIX_PIN_SID
+change pin completed successfully.
+# nvmesed -C -l nvme1 -a OLD_PIN_ADMIN -n AIX_PIN_ADMIN
+change pin completed successfully.
+# nvmesed -Q -l nvme1
+nvme1: SED_Enabled = Yes, Drive Locked = No</code></pre></div><div></div></div></li>
+
+</ol>
+</li>
+
+<li><div>ドライブを OFS に戻すには、以下のコマンドを実行します。<div><div>
+        <div>
+          <div><span>注:</span> このプロセスでは、すべてのデータが失われます。 ドライブは、暗号化されていないことを示しています。</div>
+        </div>
+      </div></div>
+<div><div><pre><code># nvmesed -O -l nvme1 -s AIX_PIN_SID
+ofs completed successfully, drive is at factory default.
+updating hdisk1...
+# lsdev|grep hdisk1
+hdisk1 Available 01-00 NVMe 4K Flash Disk
+# nvmesed -Q -l nvme1
+nvme1: SED_Enabled = No, Drive Locked = No</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>SED 対応ドライブを非暗号化状態に戻し、ピン・ベースの保護を無効にするには、次のコマンドを実行します。<div><div><pre><code># nvmesed -R -l nvme1 -a AIX_PIN_ADMIN
+revert completed successfully, drive encryption is disabled.
+updating hdisk1...
+# nvmesed -Q -l nvme1
+nvme1: SED_Enabled = No, Drive Locked = No</code></pre></div><div></div></div>このコマンドは、既存のデータを保存します。 元に戻されたドライブは以前の SID ピンを保持しますが、管理ピンとユーザー・ピンは保持します。一方、OFS ドライブはピンを保持しません。 以下のコマンドを使用して、新しいピン・セットで OFS ドライブを再初期化しようとすると、SID ピン (AIX_PIN_SID) が既に設定されているため、コマンドはエラーを報告します。<div><div><pre><code># nvmesed -I -l nvme1 -u AIX_PIN_NEW_USER -a AIX_PIN_NEW_ADMIN -s AIX_PIN_NEW_SID
+start_session(admin), hsn=0x1234, tsn=0x10e8
+MSID PIN, len = 32:83WX4EL50X2WYALH6KLWLM8MDLZN4FCK
+start_session(admin_sp) failed, status=0x30/0x1
+cannot start session as SID, try another SID pin or reset to OFS</code></pre></div><div></div></div>再初期化コマンドで <strong>-s</strong> フラグを指定してピンを使用するか、 <strong>-C</strong> または <strong>-r</strong> フラグを使用してドライブのピンをクリアし、OFS ドライブの再初期化を試みることができます。<div><div><pre><code># nvmesed -C -l nvme1 -s AIX_PIN_SID -r
+reset sid pin successfully.
+# nvmesed -I -l nvme1 -u AIX_PIN_NEW_USER -a AIX_PIN_NEW_ADMIN -s AIX_PIN_NEW_SID
+start_session(admin), hsn=0x1234, tsn=0x10ed
+MSID PIN, len = 32:83WX4EL50X2WYALH6KLWLM8MDLZN4FCK
+Locking SP state = 8
+max_ranges = 8
+initialization completed successfully, drive encryption is enabled.
+updating hdisk1...</code></pre></div><div></div></div>既存の SID ピンを新しい SID ピンに変更するには、次のコマンドを入力します。<div><div><pre><code># nvmesed -I -l nvme1 -u AIX_PIN_NEW_USER -a AIX_PIN_NEW_ADMIN -s AIX_PIN_SID
+# nvmesed -C -l nvme1 -s AIX_PIN_SID -n AIX_PIN_NEW_SID</code></pre></div><div></div></div></div>
+
+</li>
+
+<li>不明なピンを持つ SED 対応ドライブを別のシステムから AIX システムに移動するには、以下の手順を実行します。<ol>
+<li>以下のコマンドを実行して、ドライブを OFS に戻します。<div><div><pre><code># nvmesed -O -l nvme1 -s AIX_PIN_SID
+cannot start_session(admin_sp) to ofs, status=0x30/0x1
+# nvmesed -O -l nvme1 -s OLD_PIN_SID
+cannot start_session(admin_sp) to ofs, status=0x30/0x1</code></pre></div><div></div></div></li>
+
+<li>ドライブ・ラベルに印刷されている PSID ピンを見つけ、以下のコマンドを実行します。<div><div><pre><code># nvmesed -O -l nvme1 -p QLUVL1FD3N8299FTM31VFH0ACTPUDHCN
+ofs completed successfully, drive is at factory default.
+updating hdisk1...</code></pre></div><div></div></div></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nvmesed.html#nvmesed__Example1" target="_blank" rel="noopener noreferrer">例 1</a>に示すように、自己暗号化を有効にします。</li>
+
+</ol>
+</li>
+
+<li>PKS のプライマリPINとしてAIX_PIN_USERが設定されている2台のSED対応ドライブのユーザーPINを変更するには、以下の手順を実行してください：<ol>
+<li>以下のコマンドを実行して、ドライブを照会し、暗号化の状態および PKS のプライマリピンとセカンダリピンの状態を確認します<div><div><pre><code># nvmesed -Q -l nvme1
+nvme1: SED_Enabled = Yes, Drive Locked = No
+# nvmesed -Q -l nvme2
+nvme2: SED_Enabled = Yes, Drive Locked = No
+# nvmesed -K -l nvme1 -d
+Keystore pin (pri): set on Wed Jun 22 11:17:28 2022
+Keystore pin (sec): erased</code></pre></div><div></div></div></li>
+
+<li>次のコマンドを実行して、 PKS のセカンダリPINを新しいPIN（AIX_PIN_NEW_USER）に設定します：<div><div><pre><code># nvmesed -K -l nvme1 -n AIX_PIN_NEW_USER -i 1
+successfully set keystore pin (sec)
+</code></pre></div><div></div></div>PKS のプライマリPINは、依然として以前のPINに設定されたままです。</li>
+
+<li>以下のコマンドを実行して、各ドライブのユーザー・ピンを変更します。<div><div><pre><code># nvmesed -C -l nvme1 -u AIX_PIN_USER -n AIX_PIN_NEW_USER
+change pin completed successfully.
+# nvmesed -C -l nvme2 -u AIX_PIN_USER -n AIX_PIN_NEW_USER
+change pin completed successfully.</code></pre></div><div></div></div></li>
+
+<li>次のコマンドを実行して、 PKS のプライマリPINを新しいPINに変更してください：<div><div><pre><code># nvmesed -K -l nvme1 -n AIX_PIN_NEW_USER -i 0
+successfully set keystore pin (pri)</code></pre></div><div></div></div></li>
+
+<li>PKS のセカンダリピンをクリアし、以下のコマンドを実行して、そのピンがクリアされ、 PKS のプライマリピンのみがセットされていることを確認してください：<div><div><pre><code># nvmesed -K -l nvme1 -e -i 1
+successfully cleared keystore pin (sec)
+# nvmesed -K -l nvme1 -d
+Keystore pin (pri): set on Wed Jun 22 11:33:09 2022
+Keystore pin (sec): erased</code></pre></div><div></div></div></li>
+
+<li>新しい PKS ピンを使用して各ドライブを照会し、以下のコマンドを実行して、SED_Enabledフィールドが「Yes」に設定されていることを確認してください：<div><div><pre><code># nvmesed -Q -l nvme1
+nvme1: SED_Enabled = Yes, Drive Locked = No
+# nvmesed -Q -l nvme2
+nvme2: SED_Enabled = Yes, Drive Locked = No</code></pre></div><div></div></div>古いピンが照会に使用されている場合、コマンドは失敗し、SED_enabled フィールドに「Not Authorized」と表示されます。</li>
+
+</ol>
+</li>
+
+</ol>
+
+</div>
+
+<section><h2>制限</h2>
+
+<p>SED対応ドライブは、そのパーティションのSEDドライブの内容にアクセスするためのキーを保存するために、 PKS に依存しています。 各パーティションには、固有の PKS キーを設定できます。 ただし、HMCでは同じパーティションに対して複数のプロファイルを設定できるため、同じ PKS のコンテンツが複数存在することになります。 したがって、HMCは、異なるプロファイル内の異なるブートディスク上に存在する複数のオペレーティングシステムインスタンスが、同じ PKS のコンテンツにアクセスすることを妨げません。 鍵は共有され、変更される可能性があります。 異なるオペレーティングシステムインスタンス間で、SED用のパーティションの PKS を共有することはサポートされていません。 SED 対応ドライブのオペレーティング・システムを新しいレベルに更新することができます。</p>
+
+</section>
+
+</div></div>

@@ -1,0 +1,159 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>STREAMS トレース・メッセージを出力します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ひも</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strace.html#strace__row-d3e52629" target="_blank" rel="noopener noreferrer"><em>中間</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strace.html#strace__row-d3e52635" target="_blank" rel="noopener noreferrer"><em>シド</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strace.html#strace__row-d3e52641" target="_blank" rel="noopener noreferrer"><em>レベル</em></a> ] ... </p>
+</section>
+
+<section><h2>説明</h2> <p><strong>strace</strong> コマンドは、パラメーターを指定しないと、すべてのドライバーおよびモジュールからの STREAMS イベント・トレース・メッセージをその標準出力に書き出します。 これらのメッセージは、STREAMS <strong>ログ</strong>・ドライバーから取得します。 パラメーターを指定する場合、トリプレットでなければなりません。 トリプレットはそれぞれ、トレースしているメッセージがそこから受け取ることになる指定モジュールまたはドライバー、サブ ID (通常マイナー・デバイスを示す)、および指定レベル以下の優先順位を示します。 このallその属性に制限がないことを示すために, どのメンバーにもトークンを使用することができます。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>MID</em></td>
+
+<td>STREAMS モジュール ID 番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>sid</em></td>
+
+<td>サブ ID 番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>レベル</em></td>
+
+<td>トレース優先順位を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>出力フォーマット</h2> <p>各トレース・メッセージ出力のフォーマットは以下のとおりです。</p>
+ <div> <div><div><pre><code>&lt;seq&gt; &lt;time&gt; &lt;ticks&gt; &lt;level&gt; &lt;flags&gt; &lt;mid&gt; &lt;sid&gt; &lt;text&gt;</code></pre></div><div></div></div>  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>&lt;seq&gt;</td>
+
+<td>トレース・シーケンス番号。</td>
+
+</tr>
+
+<tr>
+<td>&lt;time&gt;</td>
+
+<td><em>hh:mm:ss</em> 形式のメッセージの時刻。</td>
+
+</tr>
+
+<tr>
+<td>&lt;ticks&gt;</td>
+
+<td>システムが始動してからのマシン・ティックで表したメッセージの時刻。</td>
+
+</tr>
+
+<tr>
+<td>&lt;level&gt;</td>
+
+<td>トレースの優先順位。</td>
+
+</tr>
+
+<tr>
+<td>&lt;flags&gt;</td>
+
+<td>以下のうちのいずれか 1 つの値です。<dl>
+<dt><strong>E</strong></dt>
+
+<dd>メッセージも同様にエラー・ログにあります。</dd>
+
+
+<dt><strong>F</strong></dt>
+
+<dd>致命的エラーを示します。</dd>
+
+
+<dt><strong>N</strong></dt>
+
+<dd>メールをシステム管理者に送信しました。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>&lt;mid&gt;</td>
+
+<td>ソースのモジュール ID 番号。</td>
+
+</tr>
+
+<tr>
+<td>&lt;sid&gt;</td>
+
+<td>ソースのサブ ID 番号。</td>
+
+</tr>
+
+<tr>
+<td>&lt;text&gt;</td>
+
+<td>トレース・メッセージのフォーマットされたテキスト。<p>マルチプロセッサー・システムの場合: &lt;text&gt; は、以下の 2 つの部分で構成されます。</p>
+  <ul>
+<li>メッセージの所有者が送信したプロセッサーの番号。</li>
+
+<li>フォーマットされたテキスト自体。</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>strace</strong> コマンドは、いったん開始すると、ユーザーが終了するまで継続して実行されます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> パフォーマンス上の考慮事項から、STREAMS ログ・ドライバーを開くことができる <strong>strace</strong> コマンドは一度に 1 つのみです。 ログ・ドライバーは、コマンドの呼び出し時に指定されたトリプレットのリストを持っていて、このリストと考えられる各トレース・メッセージを比較して、このリストをフォーマットして <strong>strace</strong> プロセスに送信するべきかどうかを決定します。 このため、トリプレットのリストが長いと、STREAMS の稼働効率全体にさらに大きな影響を与えます。 <strong>strace</strong> コマンドの実行は、モジュールやドライバーが <strong>strace</strong> プロセスの送られるトレース・メッセージを生成するタイミングに最も大きな影響を与えます。 <strong>strace</strong> プロセスが処理できる速度より速くトレース・メッセージが生成されると、そのメッセージのいくつかは失われてしまいます。 この最後のケースでは、トレース・メッセージ出力のシーケンス番号を調べることによって判別できます。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>モジュール ID が以下のモジュールまたはドライバーからすべてのトレース・メッセージを出力します。41次のように入力します。<div> <div><div><pre><code>strace 41 all all</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>これらのトレース・メッセージをドライバーまたはモジュール ID から出力するには、以下のようにします。41サブIDあり0,1、または2:<div> <div><div><pre><code>strace 41 0 1 41 1 1 41 2 0</code></pre></div><div></div></div>サブ ID からのメッセージ0および1トレース・レベルが 1 以下でなければなりません。 サブ ID からのもの2トレース・レベルが 0 でなければなりません。</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

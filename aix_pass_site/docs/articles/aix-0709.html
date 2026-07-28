@@ -1,0 +1,195 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>非同期伝送モード (ATM) ネットワーク・プロトコルのローカル・エリア・ネットワーク (LAN) エミュレーション・クライアントに関する操作情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>レクスタット</strong> [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47049" target="_blank" rel="noopener noreferrer">-a 値</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47055" target="_blank" rel="noopener noreferrer">「-c」</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47061" target="_blank" rel="noopener noreferrer">-Q (Q)</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47067" target="_blank" rel="noopener noreferrer">-</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47073" target="_blank" rel="noopener noreferrer">-s</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47079" target="_blank" rel="noopener noreferrer">T</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47085" target="_blank" rel="noopener noreferrer">-v (V)</a></strong> ] <em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lecstat.html#sdlecstat__row-d3e47028" target="_blank" rel="noopener noreferrer">デバイス名 (Device_Name)</a></em></p>
+</section>
+
+<section><h2>説明</h2> <p>このコマンドは、ATM LAN エミュレーション・クライアント (LEC) 操作情報を、
+指定された LEC デバイス別に集めて表示します。 LEC デバイス名が入力されていない場合は、使用可能な LEC すべての統計情報が表示されます。 検索結果の幅を狭くするには、フラグを選択してください。 構成、LE_ARP キャッシュ・エントリー、仮想接続、統計情報など特定のカテゴリーの情報を表示することもできますし、
+すべての情報カテゴリーの表示を選択することもできます。</p>
+ <p>また、デバッグ・トレースをオン/オフに切り替え、
+統計情報カウンターをリセットすることもできます。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>Device_name</em></td>
+
+<td>LE クライアント・デバイスの名前。
+例えば <em>ent1</em>。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>LE クライアント情報をすべて要求します。 このフラグは、統計情報のカウンターをリセットしたりトレースを切り替えたりはしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>構成を要求します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>LE_ARP キャッシュを要求します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>読み取り後、統計情報カウンターをリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>統計情報カウンターを要求します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>全デバッグ・トレースをオン/オフに切り替えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>仮想接続のリストを要求します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>すべての有効な呼び出しに対して以下の情報が表示され、
+以下のフィールドが含まれています。</p>
+ <dl>
+<dt><strong>デバイス・タイプ</strong></dt>
+
+<dd>LAN エミュレーション・クライアントの説明を表示します (例: イーサネットまたはトークンリング)。</dd>
+
+
+<dt><strong>LAN MAC Address (LAN MAC アドレス)</strong></dt>
+
+<dd>LAN エミュレーション・クライアントの、
+6 バイトのイーサネットまたはトークンリング MAC アドレスを表示します。</dd>
+
+
+<dt><strong>ATM アドレス (ATM address)</strong></dt>
+
+<dd>LAN エミュレーション・クライアントの、
+20 バイトの非同期伝送モード (ATM) アドレスを表示します。</dd>
+
+
+<dt><strong>経過時間</strong></dt>
+
+<dd>統計情報が最後にリセットされてから経過したリアルタイムを表示します。</dd>
+
+
+<dt><strong>Driver Flags (ドライバー・フラグ)</strong></dt>
+
+<dd>現在の LAN エミュレーション・クライアント (LEC) デバイス・ドライバーの NDD 状況のフラグ。 状況フラグの例を次に示します。<div> <div><div><pre><code>Broadcast       Allowing broadcast packets.
+Dead            Requires re-open.
+Debug           Internal debug tracing enabled.
+Limbo           Attempting ELAN recovery.
+Running         Fully operational on the ELAN.
+Up              Device has been opened.</code></pre></div><div></div></div></div>
+</dd>
+
+
+<dt><strong>構成情報</strong></dt>
+
+<dd><strong>-a</strong> または <strong>-c</strong> フラグで選択されます。 ネットワーク管理者の事前構成属性と、
+LANE サーバーによって定義されている現在の ELAN 構成値を表示します。</dd>
+
+
+<dt><strong>Lane LE_ARP Table Entries (LANE LE_ARP テーブル・エントリー)</strong></dt>
+
+<dd><strong>-a</strong> または <strong>-q</strong> フラグで選択されます。 現在の LE クライアント ARP キャッシュを表示します。 エントリーのタイプと状態、リモート LAN MAC アドレスまたは経路ディスクリプター、
+リモート ATM アドレス、および説明値が含まれます。</dd>
+
+
+<dt><strong>タイプの例</strong></dt>
+
+<dd><div> <div><div><pre><code>BUS-PP              Broadcast and Unknown Server (point-to-point).
+BUS-MP              Broadcast and Unknown Server (multi-point).
+Data                Data (point-to-point).
+LES-PP              LE Server (point-to-point).
+LES-MP              LE Server (multi-point).</code></pre></div><div></div></div></div>
+</dd>
+
+
+<dt><strong>状態の例</strong></dt>
+
+<dd><div> <div><div><pre><code>Arping          Attempting to locate remote client/server via LE_ARP.
+Connected       Fully connected to the remote client/server.
+Flushing        Flushing the data path to the client/server.
+Known           Remote address is known but no connection yet.
+Unknown         Remote address in unknown and not able to LE_ARP yet.</code></pre></div><div></div></div></div>
+</dd>
+
+
+<dt><strong>Lane Servers and Statistics (LANE サーバーおよび統計情報)</strong></dt>
+
+<dd><strong>-a</strong> または <strong>-s</strong> フラグで選択します。 この LE クライアントの現在の送信統計情報、受信統計情報、および一般統計情報を表示し、
+また現行 LANE サーバーと使用可能な LANE サーバーの ATM アドレスも表示します。</dd>
+
+
+<dt><strong>Lane connections (LANE 接続)</strong></dt>
+
+<dd><strong>-a</strong> または <strong>-v</strong> フラグで選択されます。 この LE クライアントによって現在使用されている仮想接続のリストを表示します。 仮想のパスとチャネルの値、リモート ATM アドレス、
+および多少の説明値 (この接続がリモートで開始されたかどうか、この接続が重複接続かどうか、
+または別の LE クライアントがリモート・ステーションのプロキシーになっているかどうかなど) が含まれます。</dd>
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> <p>無効な <em>Device_Name</em> を指定すると、
+このコマンドによりエラー・メッセージが作成され、
+デバイスに接続できなかったことが示されます。 無効なデバイス・エラー・メッセージの例を次に示します。</p>
+ <div> <div><div><pre><code>LECSTAT: No LANE device configured.
+LECSTAT: Device is not a LANE device.
+LECSTAT: Device is not available.</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

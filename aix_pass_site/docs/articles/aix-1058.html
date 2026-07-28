@@ -1,0 +1,106 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンドをハングアップせずに実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>nohup</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nohup.html#nohup__row-d3e55097" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>pid</span></span> | <em> コマンド</em> [ <em>Arg </em>...] [ <strong>&amp;</strong> ]}</p>
+</section>
+
+<section><h2>説明</h2> <p><span>nohup</span> コマンドは、<span><span>Command</span></span> パラメーターおよび関連する <span><span>Arg</span></span> パラメーターで指定されたコマンドをハングアップ・シグナル (SIGHUP) をすべて無視して実行するか、<strong>-p</strong> オプションで指定されたプロセスを変更して SIGHUP シグナルをすべて無視するようにします。 SIGHUP は、プロセスの制御端末がクローズされたときにプロセスに送信されるシグナルです。</p>
+ <p><span>nohup</span> コマンドは、ログオフ後にバックグラウンドでプログラムを実行するために
+使用することもできます。 <span><span>nohup</span></span> コマンドをバックグラウンドで実行するには、コマンドの末尾に <span><span>&amp;</span></span> (アンパーサンド) を追加します。</p>
+
+<div>標準エラーが端末に表示され、標準出力が端末にも表示されず、ユーザーが指定した出力ファイル (デフォルト出力ファイルは <span><span>nohup.out</span></span>) にも送信されない場合、 <span>./nohup.out</span> ファイルと <span>$HOME/nohup.out</span> ファイルの両方が作成されず、エラー・メッセージを追加するために開かれることもありません。 <span>nohup</span> コマンドは、<span>nohup</span> コマンドで指定されたパラメーター・ユーティリティーを実行せず、終了状況 127 で終了します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-p</strong> <span><span>pid</span></span> オプションと <span><span>Command</span></span> オプションを一緒に指定することはできません。</div>
+        </div>
+      </div></div>-<strong>p</strong> <span><span>pid</span></span> フラグを使用すると、指定されたプロセスの出力は <span><span>nohup.out</span></span> ファイルにリダイレクトされません。</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-p</span></span> <span><span>PID</span></span></td>
+
+<td><span><span>pid</span></span> は、実行中のプロセスのプロセス ID です。 <span><span>nohup</span></span> コマンドは、すべてのハングアップ (SIGHUP) シグナルを無視するように、指定されたプロセスを変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>126</strong></td>
+
+<td><em>Command</em> パラメーターで指定されたコマンドを検出しましたが、呼び出すことができませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>127</strong></td>
+
+<td><span><span>nohup</span></span> コマンドでエラーが発生したか、 <em>Command</em> パラメーターで指定されたコマンドが見つかりませんでした。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>それ以外の場合、 <span><span>nohup</span></span> コマンドの終了状況は、 <em>Command</em> パラメーターで指定されたコマンドの終了状況です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ログアウト後にコマンドをバックグラウンドで実行するには、次のように入力します。<div>
+<div><div><pre><code>$ nohup find / -print &amp;</code></pre></div><div></div></div>このコマンドを入力すると、次のように表示されます。<div><div><pre><code>670
+$ Sending output to nohup.out</code></pre></div><div></div></div>プロセス ID 番号は、&amp; (アンパーサンド) によって始動されるバックグラウンド・プロセスのプロセス ID 番号に変わります。 メッセージSending output to nohup.out<strong>find/-print</strong> コマンドからの出力が <strong>nohup.out</strong> ファイルにあることを通知します。 <span><span>find</span></span> コマンドがまだ実行中であっても、これらのメッセージが表示された後でログオフすることができます。</div>
+</li>
+
+<li>コマンドをバックグラウンドで実行し、標準出力を異なるファイルにリダイレクトするには、
+次のように入力します。<div>
+<div><div><pre><code>$ nohup find / -print &gt;filenames &amp;</code></pre></div><div></div></div>この例では、<strong> find/-print</strong> コマンドを実行し、その出力を次の名前のファイルに保管します。filenamesプロセス ID とプロンプトのみが表示されます。<div><div><pre><code>677
+$</code></pre></div><div></div></div><span><span>nohup</span></span> コマンドは<em> Command</em> パラメーターで指定されたコマンドを開始するのに少し時間がかかるため、ログオフするまで待機してください。 早くログアウトしすぎると、<em>Command</em> パラメーターで指定したコマンドが実行されないことがあります。 <em>Command</em> パラメーターで指定したコマンドが始動されたら、ログアウトしても影響はありません。</div>
+</li>
+
+<li>複数のコマンドを実行するにはシェル・プロシージャーを使います。 例えば、次のようにシェル・プロシージャーを書いて<div>
+<div><div><pre><code>neqn math1 | nroff &gt; fmath1</code></pre></div><div></div></div>名前を付けます。 nnfmath1ファイル内のすべてのコマンドに対して <span><span>nohup</span></span> コマンドを実行できます。nnfmath1次のコマンドでファイルを作成します。<div><div><pre><code>nohup sh nnfmath1</code></pre></div><div></div></div></div>
+</li>
+
+<li>以下のものに実行権限を割り当てるとします。nnfmath1ファイルの場合は、次のコマンドを発行して同じ結果になります。<div> <div><div><pre><code>nohup nnfmath1</code></pre></div><div></div></div></div>
+</li>
+
+<li>以下を実行します。nnfmath1次のように入力します。<div>nohup nnfmath1  <br>
+&amp;</div>
+</li>
+
+<li>以下を実行します。nnfmath1Korn シェルでは、次のように入力します。<div> <div><div><pre><code>nohup ksh nnfmath1</code></pre></div><div></div></div></div>
+</li>
+
+<li>実行中のプロセスにすべてのハングアップ・シグナルを無視させるには、
+次のように入力します。<div><div><pre><code>nohup -p 161792</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

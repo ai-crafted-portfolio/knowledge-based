@@ -1,0 +1,632 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>論理ボリュームまたは物理ボリュームが、暗号化にキーサーバーのキー保護方式を使用する場合、暗号化キーサーバーに関連付けられたオブジェクトデータマネージャー（ ODM ）のデータベースエントリを管理します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>keysvrmgr action -t server_type [-h] { -a attribute=value ... } server_name</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<div>暗号化キーサーバーは、暗号化キー情報を安全に保管します。 AIX® （ 7.3 ）オペレーティングシステムは、( IBM Security® Guardium® Key Lifecycle Manager (GKLM)) および Key Protect ( IBM Cloud® Key Protect ) キー <code>keyserv</code> サーバーをサポートしています。 クライアントとサーバー間の証明書のやり取りにより、サーバー <code>keyserv</code> へのアクセスが保護されます。 APIキーやアクセストークンなどの Key Protect の認証情報は、 Key Protect （KP）サーバーへのアクセスを保護します。 論理ボリュームが暗号化にキーサーバーによるキー保護方式を使用する場合、暗号化キーサーバーに関する情報は ODM データベースに格納されます。 暗号鍵サーバーに関連付けられている ODM データベース・エントリーを管理するには、<span>keysvrmgr</span> コマンドを使用できます。<div><div>
+        <div>
+          <div><span>注：</span>AIX 7.3 Technology Level (TL) 4 Service Pack (SP) 1 以降、 IBM では、 Hyper Protect Crypto Services (HPCS) が非推奨となり、 IBM Cloud Key Protect Dedicated Server に置き換えられます。 この <span>keysvrmgr</span> コマンドのオプションでは <span>-t</span> 、有効な値として「 hpcs 」の代わりに「 kms 」が追加されました。 互換性の観点から、 hpcs 値は引き続き受け入れられていますが、 kms 値を使用する必要があります。 HPCSから Key Protect サーバーへ移行するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/lv_encryption.html#encrypting_logical_volumes__MigratingHPCS" target="_blank" rel="noopener noreferrer">「HPCSから Key Protect サーバーへの移行」</a> のセクションを参照してください。</div>
+        </div>
+      </div></div>
+</div>
+
+<div><span>IBM AIX 7.2</span> （テクノロジーレベル 5： TL5 ）以降では、 action パラメータを指定してコマンド <span>keysvrmgr</span> を実行することで、以下のいずれかの操作を実行できます：<ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keysvrmgr.html#keysvrmgr__keysvrmgr_add" target="_blank" rel="noopener noreferrer"><span>add</span></a>: キーサーバーのエントリを追加します。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keysvrmgr.html#keysvrmgr__keysvrmgr_modify" target="_blank" rel="noopener noreferrer"><span>modify</span></a>: 既存のキーサーバーのエントリを変更します。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keysvrmgr.html#keysvrmgr__keysvrmgr_remove" target="_blank" rel="noopener noreferrer"><span>remove</span></a>: キーサーバーのエントリを削除します。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keysvrmgr.html#keysvrmgr__keysvrmgr_show" target="_blank" rel="noopener noreferrer"><span>show</span>: キーサーバーのエントリに関する情報を表示します。</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keysvrmgr.html#keysvrmgr__keysvrmgr_verify" target="_blank" rel="noopener noreferrer"><span>verify</span></a>: KPサーバーのエントリを確認します。</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keysvrmgr.html#keysvrmgr__keysvrmgr_rekey" target="_blank" rel="noopener noreferrer"><span>rekey</span></a>: ODM 内の KP サーバーエントリ用の API キーを作成します。</li>
+
+</ul>
+</div>
+
+<p>server_name は、 ODM データベース内の ODM レコードを識別します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-t</span></td>
+
+<td>この <span>keysvrmgr</span> コマンドがサポートするキーサーバーの種類を指定します。<dl>
+
+<dt>keyserv</dt>
+
+<dd>IBM Security Key Lifecycle Manager</dd>
+
+
+
+<dt>kms</dt>
+
+<dd>IBM Cloud Key Protect</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span></td>
+
+<td>attribute_name = attribute_value のペアを指定します。 attribute_name は ODM 属性の名前であり、 attribute_value は ODM データベース・レコードに保存されている指定された ODM 属性の値です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>鍵サーバーの ODM 属性</h2>
+
+<div>Key Protect または <code>keyserv</code> サーバーと通信するには、以下の ODM 属性を使用できます。<div><div><table><caption><span>表2. ODM の主要なサーバー属性</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>svr_name</span></td>
+
+<td>ODM レコード内の <code>keyserv</code> サーバー・エントリーの名前を指定します。 <span>svr_id</span> この <span>svr_name</span> 属性は、 属性の値を生成します。</td>
+
+</tr>
+
+<tr>
+<td><span>svr_id</span></td>
+
+<td>ODM レコード内の <code>keyserv</code> サーバー・エントリーの ID を以下の形式で指定します。<div><div><pre><code>svr_name[:dev_grp]</code></pre></div><div></div></div><p><span>svr_name</span> 属性は、 <code>keyserv</code> サーバー項目の名前であり、 <span>dev_grp</span> 属性は、 IBM Security Key Lifecycle Managerに関連付けられているデバイス・グループの名前です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>dev_grp</span></td>
+
+<td>IBM Security Key Lifecycle Managerに関連付けられているデバイス・グループの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>svr_ip</span></td>
+
+<td><p>これは、次のフォーマットで暗号鍵サーバーの IP アドレスを指定します。</p>
+
+<div><div><pre><code>a.b.c.d</code></pre></div><div></div></div>
+<p>a、b、c、d の値は、0 から 255 の範囲内である必要があります。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>svr_port</span></td>
+
+<td>暗号鍵サーバーのポート値を指定します。 0 から 65535 までの範囲でポート値を指定できます。 暗号鍵サーバーのデフォルトのポート値は 5696 です。</td>
+
+</tr>
+
+<tr>
+<td><span>svr_cert</span></td>
+
+<td>暗号鍵サーバーに関連付けられている X.509 デジタル・サーバー証明書の絶対パスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>cli_cert</span></td>
+
+<td>AIX オペレーティング・システムに関連付けられた Public Key Cryptography Standards #12 (PKCS #12) クライアント証明書の絶対パスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>cert_pwd</span></td>
+
+<td>クライアント証明書のパスワード保護のタイプを指定します。 この属性には、以下の値を指定してください：<dl>
+
+<dt><span>y または Y</span></dt>
+
+<dd>コマンド実行時に AIX オペレーティング・システムがクライアント証明書のパスワードの入力を求めるプロンプトを出すことを指定します。</dd>
+
+
+
+<dt><span>n または N</span></dt>
+
+<dd>クライアント証明書がパスワードによって保護されないことを指定します。 <span>cert_pwd</span> 属性値は、デフォルトでは <span>n</span> または <span>N</span> です。</dd>
+
+
+
+<dt><span>p または P</span></dt>
+
+<dd>クライアント証明書のパスワードがプラットフォームのキーストア（ PKS ）に保存されることを指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</section>
+
+<section><h2>Key Protect サーバー「 ODM 」の属性</h2>
+
+<div>Key Protect サーバーと通信するには、以下の ODM 属性を使用できます：<div><div><table><caption><span>表3。 Key Protect サーバー「 ODM 」の属性</span></caption><thead>
+<tr>
+<th><div>ODM 属性</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>svr_name</span></td>
+
+<td>ODM レコード内の Key Protect サーバーエントリの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>inst_id</span></td>
+
+<td>Key Protect サーバーとの通信に使用されるインスタンスIDを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>api_key</span></td>
+
+<td>Key Protect サーバーとの通信に使用するAPIキーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>svr_region</span></td>
+
+<td><div>実際のAPIエンドポイントを取得するためにクエリを実行する URL を指定します。 Key Protect サーバーは、 URL という形式を採用しています<div><div><pre><code>https://[region endpoint]/crypto_v2</code></pre></div><div></div></div></div>
+
+<p>Key Protect について、ご利用のインスタンスのリージョン固有のエンドポイントの詳細については、 「<a>リージョンとエンドポイント</a> 」ページの 「<a>サービスエンドポイント</a> 」セクションをご覧ください。</p>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<div><code>hpcs</code>Key Protect サーバーの ODM エントリ用のAPIキーを作成するには、以下のアクセスポリシーが有効になっている必要があります：<ul>
+<li><code>iam-identity.serviceid-apikey.login</code></li>
+
+<li><code>iam-identity.user-apikey.login</code></li>
+
+<li><code>iam-identity.apikey.get</code></li>
+
+<li><code>iam-identity.apikey.create</code></li>
+
+<li><code>iam-identity.apikey.delete</code></li>
+
+<li><code>hs-crypto.secrets.read (for hpcs server)</code></li>
+
+<li><code>hs-crypto.secrets.create (for hpcs server)</code></li>
+
+<li><code>hs-crypto.secrets.list (for hpcs server)</code></li>
+
+<li><code>hs-crypto.secrets.delete (for hpcs server)</code></li>
+
+<li><code>kms.secrets.read (for Key Protect server)</code></li>
+
+<li><code>kms.secrets.create (for Key Protect server)</code></li>
+
+<li><code>kms.secrets.delete (for Key Protect server)</code></li>
+
+</ul>
+</div>
+
+</section>
+
+<section><h2>action パラメーター</h2>
+
+<dl>
+
+<dt>追加</dt>
+
+<dd><dl>
+
+<dt>構文</dt>
+
+<dd><div>ODM データベースにkey protect serverのエントリを追加するには、次のコマンドを入力してください：<div><div><pre><code>keysvrmgr add -t kms [-h] -a svr_name=value -a inst_id=value -a api_key=value -a svr_region=value</code></pre></div><div></div></div></div>
+
+<div>KeySvr の ODM データベースにサーバーエントリを追加するには <code>keyserv</code> 、次のコマンドを入力してください：<div><div><pre><code>keysvrmgr add -t keyserv [-h] -a svr_name=value [ -a dev_grp=value ] -a svr_ip=value [ -a svr_port=value ] -a svr_cert=value -a cli_cert=value [ -a cert_pwd=[y|Y|n|N|p|P] ]</code></pre></div><div></div></div>鍵サーバー ID は、 <code>svr_name[:dev_grp]</code> 形式で作成されます。</div>
+
+<p>AIX 7.3(テクノロジー・レベル 1) 以降、以下の構文は非推奨になりました。</p>
+
+<div><div><pre><code>keysvrmgr add [-h] -i server_ip [-p server_port] [-g sklm_device_group] -s server_cert_path -c client_cert_path [-P type] server_id</code></pre></div><div></div></div>
+<p>この action パラメーターは、以下のフラグとともに指定できます。</p>
+
+<dl>
+
+<dt><span>-i</span></dt>
+
+<dd>これは、次のフォーマットで暗号鍵サーバーの IP アドレスを指定します。<div><div><pre><code>a.b.c.d</code></pre></div><div></div></div>a、b、c、および d の各値は 0 から 255 までの範囲にあります。</dd>
+
+
+
+<dt><span>-p</span></dt>
+
+<dd>(オプション) これは、暗号鍵サーバーのポートを指定します。 ポート値は 0 から 65535 までの範囲で指定できます。 デフォルト値は 5696 です。</dd>
+
+
+
+<dt><span>-g</span></dt>
+
+<dd>（オプション） IBM Security Key Lifecycle Manager に関連付けられているデバイスグループ名を指定します。</dd>
+
+
+
+<dt><span>-s</span></dt>
+
+<dd>これは、暗号鍵サーバーに関連付けられている X.509 サーバー証明書の絶対パスを指定します。</dd>
+
+
+
+<dt><span>-c</span></dt>
+
+<dd>お使いのシステムに関連付けられている、Public Key Cryptography Standards #12 (PKCS #12) クライアント証明書の絶対パスを指定します。</dd>
+
+
+
+<dt><span>-P</span></dt>
+
+<dd>これは、クライアント証明書のパスワード保護のタイプを指定します。 このフラグに指定できる値は以下のとおりです。<dl>
+
+<dt><span>y</span><span> |Y</span></dt>
+
+<dd>コマンドの実行中に、クライアント証明書のパスワードの入力を求められます。</dd>
+
+
+
+<dt><span>n</span><span> |N</span></dt>
+
+<dd>クライアント証明書はパスワードで保護されていません。 この値はデフォルト値です。</dd>
+
+
+
+<dt><span>p</span><span> |P</span></dt>
+
+<dd>クライアント証明書のパスワードは、プラットフォームのキーストア（ PKS ）に保存されています。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt>サーバー ID</dt>
+
+<dd>これは、作成対象の暗号鍵サーバー・エントリーの ID を次のフォーマットで指定します。<div><div><pre><code>server_name[:device_group]</code></pre></div><div></div></div>ここで、 server_name はキーサーバーエントリの名前であり、 device_group は IBM Security Key Lifecycle Manager に関連付けられているデバイスグループの名前です。</dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>変更</dt>
+
+<dd><dl>
+
+<dt>構文</dt>
+
+<dd><div>以下のコマンドを入力して、 ODM エントリ（このエントリは、属性 <span>svr_name</span> の値によって識別されます）を、および <span>api_key</span> 属性の <span>inst_id</span> 新しい値を使用して変更します：<div><div><pre><code>keysvrmgr modify -t kms [-h] -a svr_name=value [ -a inst_id=value ] [ -a api_key=value ] [ -a svr_region=value ]</code></pre></div><div></div></div></div>
+
+<div>次のコマンドを入力して、属性の <span>svr_name</span> 値によって識別される ODM エントリを、属性、 <span>svr_port</span><span>svr_ip</span><span>dev_grp</span>、 <span>svr_cert</span>、 <span>cli_cert</span>、、および <span>cert_pwd</span> の新しい値を使用して変更するには、次のコマンドを実行してください：<div><div><pre><code>keysvrmgr modify -t keyserv [-h] -a svr_id=value [ -a dev_grp=value ] -a svr_ip=value [ -a svr_port=value ] [ -a svr_cert=value ] [ -a cli_cert=value ] [ -a cert_pwd=[y|Y|n|N|p|P] ]</code></pre></div><div></div></div></div>
+
+<p>AIX 7.3(テクノロジー・レベル 1) 以降、以下の構文は非推奨になりました。</p>
+
+<div><div><pre><code>keysvrmgr modify [-h] -i server_ip [-p server_port] [-s server_cert_path] [-c client_cert_path] [-P type] server_id</code></pre></div><div></div></div>
+<p>この action パラメーターは、以下のフラグおよび値とともに指定できます。</p>
+
+</dd>
+
+<dd><dl>
+
+<dt><span>-i</span></dt>
+
+<dd>これは、次のフォーマットで暗号鍵サーバーの IP アドレスを指定します。<div><div><pre><code>a.b.c.d</code></pre></div><div></div></div>a、b、c、および d の各値は 0 から 255 までの範囲にあります。</dd>
+
+
+
+<dt><span>-p</span></dt>
+
+<dd>(オプション) これは、暗号鍵サーバーのポートを指定します。 ポート値は 0 から 65535 までの範囲で指定できます。 デフォルト値は 5696 です。</dd>
+
+
+
+<dt><span>-s</span></dt>
+
+<dd>これは、暗号鍵サーバーに関連付けられている X.509 サーバー証明書の絶対パスを指定します。</dd>
+
+
+
+<dt><span>-c</span></dt>
+
+<dd>お使いのシステムに関連付けられている PKCS #12 クライアント証明書の絶対パスを指定します。</dd>
+
+
+
+<dt><span>-P</span></dt>
+
+<dd>これは、クライアント証明書のパスワード保護のタイプを指定します。 このフラグに指定できる値は以下のとおりです。<dl>
+
+<dt><span>y</span><span> |Y</span></dt>
+
+<dd>コマンドの実行中に、クライアント証明書のパスワードの入力を求められます。</dd>
+
+
+
+<dt><span>n</span><span> |N</span></dt>
+
+<dd>クライアント証明書はパスワードで保護されていません。 この値はデフォルト値です。</dd>
+
+
+
+<dt><span>p</span><span> |P</span></dt>
+
+<dd>クライアント証明書のパスワードは、プラットフォームのキーストア（ PKS ）に保存されています。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt>サーバー ID</dt>
+
+<dd>これは、変更対象の鍵サーバー・エントリーの ID を次のフォーマットで指定します。<div><div><pre><code>server_name[:device_group]</code></pre></div><div></div></div>ここで、 server_name は暗号化キーサーバーの名前、 device_group は IBM Security Key Lifecycle Manager に関連付けられているデバイスグループの名前です。</dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>remove</dt>
+
+<dd><dl>
+
+<dt>構文</dt>
+
+<dd><p>ODM データベースからキープロテクトサーバーのエントリを削除するには、次のコマンドを入力します</p>
+
+<div><div><pre><code>keysvrmgr remove [-h] -t kms server_name</code></pre></div><div></div></div>
+<p>ODM データベースから削除するキー保護サーバーの名前を指定する必要があります。</p>
+
+<div><code>keyserv</code> サーバー・エントリーを KeySvr ODM データベースから除去するには、以下のコードを使用します。<div><div><pre><code>keysvrmgr remove -t keyserv [-h] -a svr_id=value</code></pre></div><div></div></div>ODM データベースから除去したい <code>keyserv</code> サーバーの ID を指定する必要があります。</div>
+
+<p>AIX 7.3(テクノロジー・レベル 1) 以降、以下の構文は非推奨になりました。</p>
+
+<div><div><pre><code>keysvrmgr remove [-h] server_id</code></pre></div><div></div></div>
+<p>ODM データベースから削除するキーサーバーエントリのIDを指定してください。</p>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>show</dt>
+
+<dd><dl>
+
+<dt>構文</dt>
+
+<dd><div>ODM データベース内で、属性の <span>svr_name</span> 値が指定するキープロテクトサーバーエントリに関する情報を表示するには、次のコマンドを入力します<div><div><pre><code>keysvrmgr show [-h] -t kms server_name</code></pre></div><div></div></div></div>
+
+<div>KeySvrODM データベースにおいて、属性の <span>svr_id</span> 値で指定されたサーバー <code>keyserv</code> エントリに関する情報を表示するには、次のコードを使用します<div><div><pre><code>keysvrmgr show -t keyserv [-h] [ -a svr_id=value ]</code></pre></div><div></div></div></div>
+
+<p>AIX 7.3(テクノロジー・レベル 1) 以降、以下の構文は非推奨になりました。</p>
+
+<div><div><pre><code>keysvrmgr show [-h] server_id</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>verify</dt>
+
+<dd><dl>
+
+<dt>構文</dt>
+
+<dd><p>svr_name 属性の値で指定されている、 ODM データベース内のキープロテクトサーバーエントリに関する情報を確認するには、次のコマンドを入力してください：</p>
+
+<div><div><pre><code>kkeysvrmgr verify [-h] -t kms [ server_name ]</code></pre></div><div></div></div>
+<p>検証プロセスでは、 ODM レコードに追加された属性値を使用して、キー保護サーバーと通信を行います。</p>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>再入力</dt>
+
+<dd><dl>
+
+<dt>構文</dt>
+
+<dd><p>ODM 内のキー保護サーバーエントリ用の API キーを作成するには、次のコマンドを入力してください：</p>
+
+<div><div><pre><code>keysvrmgr rekey [-h] -t kms server_name</code></pre></div><div></div></div>
+<p>この新しいAPIキーは、既存のキーに取って代わるものです。</p>
+
+<p>この <span>server_name</span> 属性は、 ODM レコードを識別するために使用されます。 action パラメータは <span>rekey</span> 、 ODM レコードで利用可能な既存の属性を使用して、Key Protectサーバーと通信し、APIキーを作成します。 APIキーの作成に成功した場合、新しく作成されたAPIキーが ODM 内の既存のAPIキーに置き換えられます。 元のAPIキーは、キープロテクトサーバーから削除されません。</p>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><div>ODM データベース内にある鍵サーバー・エントリーに関する情報を表示するには、以下のコマンドを実行します。<div><div><pre><code># keysvrmgr show -t keyserv  
+List of key servers: 
+ID                          PWD     IP:PORT
+sklm1                       Y       10.11.12.13:5696
+sklm_server2                N       210.211.212.213:569</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>Key Protect インスタンスを含むサーバータイプについて <code>kms</code> 、既存の ODM エントリに関する情報を表示するには、次のコマンドを入力してください：<div><div><pre><code># keysvrmgr show -t kms
+List of key servers:
+SVR_NAME    REGION                                                          INST_ID                                
+kp-aix      https://us-east.kms.cloud.ibm.com/crypto_v2                     ad87c05a-79ff-4f51-a1ee-3cff2db5808b
+hp-aix      https://us-south.broker.hs-crypto.cloud.ibm.com/crypto_v2       f1a98698-a44f-4563-9149-d44494f5cb18</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>キー保護サーバー用の ODM エントリを追加するには、次のコマンドを入力してください：<div><div><pre><code># keysvrmgr add -t kms \
+-a inst_id="f1a98698-a44f-4563-9149-d44494f5cb18" \
+-a api_key="&lt;your IBM Cloud API Key&gt;" \
+ -a svr_region="https://us-east.kms.cloud.ibm.com/crypto_v2" &lt;name&gt;</code></pre></div><div></div></div></div>
+
+<p>name 変数の項目は、 <span>keysvrmgr show</span> コマンドの <span>svr_name</span> パラメーターの値として使用されます。 新たに形成された ODM エントリーは、他のすべての操作の name 変数によって参照されます。</p>
+
+</li>
+
+<li><div>キー保護サーバーに関する既存の ODM エントリを削除するには、次のコマンドを入力してください：<div><div><pre><code># keysvrmgr remove -t kms kp-aix
+KMS server kp-aix successfully removed</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>キー保護サーバーの既存の ODM エントリを確認するには、次のコマンドを入力してください：<div><div><pre><code># keysvrmgr verify -t kms kp-aix
+Start verifying the following ODM record:
+Server name: kp-aix
+Server region: https://us-east.kms.cloud.ibm.com/crypto_v2
+Instance id: f1a98698-a44f-4563-9149-d44494f5cb18
+ODM record kp-aix passed verification</code></pre></div><div></div></div></div>
+
+<div>検証処理が失敗した場合、次の画面のようなエラーメッセージが表示されます：<div><div><pre><code># keysvrmgr verify -t kms kp-aix
+Start verifying the following ODM record:
+Server name: kp-aix
+Server region: https://us-east.kms.cloud.ibm.com/crypto_v2
+Instance id: f1a98698-a44f-4563-9149-d44494f5cb18
+3020-0560 curl_easy_perform() failed: Empty reply from server
+ODM record kp-aix failed verification</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>ODM のエントリのAPIキーを再生成するには、次のコマンドを入力してください：<div><div><pre><code># keysvrmgr rekey -t kms kp-aix
+Start rekey the following ODM record:
+Server name: kp-aix
+Server region: https://us-east.kms.cloud.ibm.com/crypto_v2
+Instance id: f1a98698-a44f-4563-9149-d44494f5cb18
+Update succeeded for ODM record kp-aix:
+Old API_key: &lt;old API key&gt;
+New API_key: &lt;new API key&gt;
+Rekey succeeded for ODM record kp-aix</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>既存の ODM エントリの任意の属性を変更するには、次のコマンドを入力してください：<div><div><pre><code># keysvrmgr modify -t kms \
+-a api_key=&lt;new API key&gt; \
+-a inst_id=&lt;new Instance ID&gt; \ 
+-a svr_region=&lt;new region URL&gt; kp-aix
+KMS server kp-aix successfully modified</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>ODM エントリの変更内容を確認するには、次のコマンドを入力してください：<div><div><pre><code>keysvrmgr verify -t kms kp-aix</code></pre></div><div></div></div></div>
+
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt><span>/usr/sbin/keysvrmgr</span></dt>
+
+<dd><span>keysvrmgr</span> コマンドが入っています。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

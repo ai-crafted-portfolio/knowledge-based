@@ -1,0 +1,88 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたサーバーおよびユーザー項目の <span><span>/etc/cifs_fs/cifscred</span></span> ファイルに保管されている CIFS 資格情報を除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>rmcifscred</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmcifscred.html#rmcifscred__row-d3e155066" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> <span><span>RemoteHost</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmcifscred.html#rmcifscred__row-d3e155075" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> <span><span>ユーザー</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>rmcifscred</span></span> コマンドは、サーバー名とユーザー名を入力として使用します。 この入力に <span><span>/etc/cifs_fs/cifscred</span></span>にリストされている資格情報が含まれている場合、その資格情報は削除されます。 その後は、特定のユーザーが特定のサーバーにマウントする場合、パスワードの入力が必要となります。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-h</span></span> <span><span>RemoteHost</span></span></td>
+
+<td>リモート・ホスト (CIFS サーバー) の名前を指定します。 これは、ホスト名、IP アドレス、または完全修飾ドメイン名として指定することができます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span> <span><span>ユーザー</span></span></td>
+
+<td>指定されたサーバーの資格情報を <span><span>cifscred</span></span> ファイルから削除するユーザー名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>server1</code>にマウントする <code>user1</code> の <span><span>/etc/cifs_fs/cifscred</span></span> に保管されている資格情報を削除するには、次のように入力します。<div><div><pre><code>rmcifscred -h server1 -u user1 </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/sbin/rmcifscred</span></span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/etc/cifs_fs/cifscred</span></span></td>
+
+<td>CIFS 証明書を保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,135 @@
+<div class="official-dom"><div><section><h2>目的</h2>
+<p><span>finger</span> コマンドにサーバー機能を提供します。</p>
+</section>
+<section><h2>構文</h2>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>fingerd</span> デーモンは、通常、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inetd.html" target="_blank" rel="noopener noreferrer"><code>inetd</code></a> デーモンによって開始されます。 また、システム・リソース・コントローラー (SRC) コマンドを使用して、コマンド行から制御することもできます。</div>
+        </div>
+      </div></div>
+
+<div>
+<div><div><pre><code>fingerd [ -s] [ -f]</code></pre></div><div></div></div>
+</div>
+</section>
+<section><h2>説明</h2>
+<p><code>fingerd</code> デーモンは、いくつかのネットワーク・サイトで <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/finger.html#finger" target="_blank" rel="noopener noreferrer"><span>finger</span></a> コマンドへのインターフェースを提供する単純なプロトコルです。 <span>finger</span> コマンドは現行システムまたはユーザーに関する状況報告を返します。 その <span>fingerd</span> デーモンは、ポート79で Transmission Control Protocol （TCP）要求をリッスンします。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/services.html" target="_blank" rel="noopener noreferrer"><span>/etc/services</span></a> ファイルと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/inetd.conf.html" target="_blank" rel="noopener noreferrer">/<span>etc</span> /<span>inetd.conf</span></a> ファイル。</p>
+
+<p>デフォルトでは、<span>fingerd</span> デーモンは、個別のサイト・セキュリティーについて、<span>finger</span> 要求をほかのシステムへ転送しません。 <span>finger</span> 転送要求を受け取ると、 <span>fingerd</span> デーモンはメッセージ <code>Finger forwarding service denied</code> で <span>finger</span> コマンドに応答します。 システム管理者には、 <span>-f</span> フラグを使用して <span>fingerd</span> デーモンを実行するときに、デフォルトとして指転送をオンにするオプションがあります。</p>
+
+<p><span>fingerd</span> デーモンを変更するには、System Management Interface Tool (SMIT) または SRC を使用するか、 <span>/etc/inetd.conf</span> ファイルまたは <span>/etc/services</span> ファイルを編集します。 <code>fingerd</code> をコマンド・ラインに入力するのはお勧めしません。 デフォルトでは、<span>fingerd</span> デーモンは、<span>/etc/inetd.conf</span> ファイル内のコメントが解除されていれば始動されます。</p>
+
+<p><code>inetd</code> デーモンは、その情報を <span>/etc/inetd.conf</span> ファイルと <span>/etc/services</span> ファイルから取得します。</p>
+
+<p><span>/etc/inetd.conf</span> ファイルまたは <span>/etc/services</span> ファイルを変更した後、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/refresh.html" target="_blank" rel="noopener noreferrer"><code>refresh</code></a> <code>-s inetd</code> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/kill.html" target="_blank" rel="noopener noreferrer"><code>kill</code></a><code>-1</code>InetdPID コマンドを実行して、その構成ファイルに対する変更を <code>inetd</code> デーモンに通知します。</p>
+
+<p><span>fingerd</span> デーモンを実行するには、最低限の特権を持つユーザー ID が必要です。 <code>nobody</code> ID で、最低の許可を与えることができます。 <span>fingerd</span> デーモンに <code>nobody</code> ユーザー ID を与えることによって、fingerd デーモンがユーザーのホストで使用できるようになります。 <span>/etc/services</span> ファイルを変更して、使用するユーザー ID を反映させます。</p>
+
+<dl>
+
+<dt>システム・リソース・コントローラーを使用した <span>fingerd</span> デーモンの操作</dt>
+
+<dd><div><span>fingerd</span> デーモンは、<code>inetd</code> デーモンのサブサーバーです。 <span>fingerd</span> デーモンは <code>tcpip</code> SRC サブシステム・グループの
+メンバーです。 このデーモンは、<span>/etc/inetd.conf</span> ファイル内でコメントを外すと使用可能になり、次の SRC コマンドで操作できます。<div><div><table><caption><span>表 1. SRC コマンド</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html" target="_blank" rel="noopener noreferrer">startsrc</a></td>
+
+<td>サブシステム、サブシステム・グループ、またはサブサーバーを始動します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopsrc.html" target="_blank" rel="noopener noreferrer">stopsrc</a></td>
+
+<td>サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssrc.html" target="_blank" rel="noopener noreferrer">lssrc</a></td>
+
+<td>サブシステム、サブシステムのグループ、またはサブサーバーの状況を得ます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><caption><span>表 2. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-s</span></td>
+
+<td>ソケット・レベルのデバッグをオンにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><span>-f</span></td>
+<td>この <span>fingerd</span> デーモンについて finger の転送をオンにします。</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>例</h2>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>fingerd</span> デーモンの引数は、SMIT を使用するか、 <span>/etc/inetd.conf</span> ファイルを編集することによって指定できます。</div>
+        </div>
+      </div></div>
+
+<ol><li><span>fingerd</span> デーモンを始動するには、次のように入力します。<div>
+<div><div><pre><code>startsrc -t finger</code></pre></div><div></div></div>このコマンドによって、<span>fingerd</span> サブサーバーが始動します。</div>
+</li>
+<li><code>fingerd</code> デーモンを停止するには、通常、次のように入力します。<div>
+<div><div><pre><code>stopsrc -t finger</code></pre></div><div></div></div>このコマンドは、保留状態の接続をすべて開始し、既存の接続を完了します。しかし、新しい接続の開始は行いません。</div>
+</li>
+<li><span>fingerd</span> デーモンとすべての <span>fingerd</span> 接続を
+強制的に停止するには、次のように入力します。<div>
+<div><div><pre><code>stopsrc -f -t finger</code></pre></div><div></div></div>このコマンドによって、保留状態の接続と既存の接続がすべて即座に終了します。</div>
+</li>
+<li><span>fingerd</span> デーモンについての簡略状況報告を表示するには、
+次のように入力します。<div>
+<div><div><pre><code>lssrc -t finger</code></pre></div><div></div></div>このコマンドは、デーモンの名前、プロセス ID、および状態 (アクティブまたは非アクティブ) を返します。</div>
+</li>
+</ol>
+</section>
+</div></div>

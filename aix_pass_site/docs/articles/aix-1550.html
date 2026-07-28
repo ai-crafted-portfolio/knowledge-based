@@ -1,0 +1,51 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>他のユーザーと会話します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>talk</strong> {<em>User</em> | <em>User</em><strong>@</strong><em>Host</em> | <em>Host</em><strong>!</strong><em>User</em> | <em>Host</em><strong>.</strong><em>User</em> | <em>Host</em><strong>:</strong><em>User</em> } [ <em>Tty</em> ] [ <em>Pty</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/bin/talk</strong> コマンドによって、同じホスト上または異なるホスト上の 2 人のユーザーは対話式に会話をすることができます。 <strong>talk</strong> コマンドは、各ユーザーのディスプレイ上で送信ウィンドウと受信ウィンドウの両方をオープンします。 <strong>talk</strong> コマンドが他のユーザーの入力を表示している間に、各ユーザーが送信ウィンドウに入力することができます。</p>
+ <p>会話を開始するには、ローカル・ユーザーが <strong>talk</strong> コマンドを実行し、リモート・ユーザーのログイン ID を指定します。 リモート・ユーザーのログイン ID には NLS 文字を含めることができます。 リモート・ユーザーがリモート・ホスト上にいる場合は、ホストの名前も以下のいずれかの方法で指定しなければなりません。</p>
+ <div> <div><div><pre><code>User@Host
+Host!User
+Host.User
+Host:User</code></pre></div><div></div></div></div>
+ <p>完全ドメイン名を使用している場合、ユーザーとホストを指定する唯一の有効な形式は <em>User</em><strong>@</strong><em>Host</em> です。 例:michael@host17.dev.ibm.comユーザーとの会話を開始します。michaelホストhost17合計のdev.ibm.comします。</p>
+ <p>ローカル・ユーザーが会話を開始すると、リモート・ユーザーに会話への勧誘メッセージが送信されます。 ローカル・ユーザーが以下も指定する場合:tty招待メッセージは、指定された端末にのみ送信されます。 そうでない場合には、送信勧誘はリモート・ユーザーがログインしている端末に送られます。 これは通常コンソールですが、別の端末の場合もあります。 この送信勧誘を受け入れると、<strong>talk</strong> コマンドはローカル・ユーザーの端末に 2 つのウィンドウを表示し、リモート・ユーザーが送信勧誘に応答するまで進行メッセージを表示します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> リモート・ユーザーが <span>AIXwindows</span> を実行していて、他の端末が開いていない場合、 <strong>talk</strong> コマンドは招待を送信できません。<span>”</span></blockquote>
+<p></p>
+ <p>会話をしたい場合、リモート・ユーザーもまた、
+端末から <strong>talk</strong> コマンドを実行し、
+該当する場合は、ローカル・ユーザーのアカウント名とホスト名を指定しなければなりません。 リモート・ユーザーが送信勧誘を受け入れると、
+<strong>talk</strong> コマンドは各ユーザーの端末に 2 つのウィンドウを表示します。 1 つのウィンドウにはローカル・ユーザーが入力した内容を表示し、
+もう一方のウィンドウにはリモート・ユーザーが入力した内容を表示します。 会話を終了するには、
+いずれかのユーザーが割り込み (Ctrl-C) キー・シーケンスを押すと接続がクローズされます。 割り込みキー・シーケンスは <strong>stty</strong> コマンドを使用して表示され修正されます。</p>
+ <p>会話に参加しているユーザーが各国語サポート (NLS) 機能を使用している場合には、そのユーザーの端末が、NLS 文字出力をサポートしていなければなりません。 同様のことは、漢字機能を使用する会話にも当てはまります。すなわち、使用している端末が、漢字文字の出力をサポートしていなければなりません。</p>
+ <p><strong>talk</strong> コマンドは、バインド先の有効なアドレスを要求します。 リモート・マシンのホスト名は、<strong>ping</strong> コマンドなどの他のネットワーク・コマンドが使用できる稼働中のネットワーク・インターフェースにバインドされていなければなりません。 コンピューターにネットワーク・インターフェースがない場合、すなわちスタンドアロン・コンピューターである場合は、<strong>talk</strong> コマンドを機能させるため、そのホスト名をループバック・アドレス (127.0.0.1) にバインドしておく必要があります。 例えば、次の名前の 2 人のユーザーが、localおよびremoteスタンドアロン・マシンでは、 <strong>talk</strong> コマンドを使用して、次のように入力して会話を開始することができます。</p>
+ <div> <div><div><pre><code>talk remote@loopback</code></pre></div><div></div></div></div>
+ <p>宛先ユーザーremote応答:</p>
+ <div> <div><div><pre><code>talk local@loopback</code></pre></div><div></div></div></div>
+ <p><strong>talk</strong> コマンドの送信勧誘を不許可にするために、リモート・ユーザーは <strong>mesg</strong> コマンドを発行することができます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>talk</strong> コマンドは Talk 4.3 プロトコルを使用します。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>リモート・ホストにログインしているユーザーと対話するには、次のように入力します。<div> <div><div><pre><code>talk dale@host2</code></pre></div><div></div></div>この例では、ローカル・ユーザーはユーザーと対話する必要があります。daleログインしているユーザーhost2.</div>
+</li>
+
+<li><span></span>ユーザーがリモート・ホストのコンソールにログインしている場合にのみそのユーザーと対話するには、次のように入力します。<div> <div><div><pre><code>talk dale@host2 console</code></pre></div><div></div></div>ユーザーdaleコンソールにログインしている場合にのみ、このメッセージを受け取ります。host2.</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

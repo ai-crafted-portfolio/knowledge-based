@@ -1,0 +1,568 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>C 言語プログラムに潜在する問題がないかどうかをチェックします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>リンツ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49294" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49300" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49306" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49327" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49336" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49342" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>キー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49379" target="_blank" rel="noopener noreferrer"><strong>N </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49385" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>図書館</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49719" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a><em>DBCS</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49436" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49442" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49456" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49466" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49472" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a><em>クラス</em> [<em>クラス</em> ... ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49599" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49605" target="_blank" rel="noopener noreferrer"><strong>-MA </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49611" target="_blank" rel="noopener noreferrer"><strong>-Nd (N)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49625" target="_blank" rel="noopener noreferrer"><strong>-Nl (N)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49639" target="_blank" rel="noopener noreferrer"><strong>-Nn (N)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49653" target="_blank" rel="noopener noreferrer"><strong>-Nt (N)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49681" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a><em>ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49698" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em>名前</em> [<strong>=</strong><em>定義</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lint.html#lint__row-d3e49727" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a><em>名前</em> ] <em>ファイル</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lint</strong> コマンドは、コーディング・エラーや構文エラー、および不十分なコードや移植性のないコードがないかどうか、C および C++ 言語ソース・コードを検査します。 このプログラムは次の目的に使用できます。</p>
+ <ul>
+<li><span></span>ソース・コードとライブラリーの非互換性を識別します。</li>
+
+<li><span></span>コンパイラーよりも厳密に型検査規則を適用します。</li>
+
+<li><span></span>変数に関する潜在的な問題を識別します。</li>
+
+<li><span></span>機能に関する潜在的な問題を識別します。</li>
+
+<li><span></span>フロー制御に関する問題を識別します。</li>
+
+<li><span></span>エラーが発生したり非効率的になったりする可能性のある法的構造を識別します。</li>
+
+<li><span></span>未使用の変数および関数宣言を識別します。</li>
+
+<li><span></span>移植できない可能性のあるコードを識別します。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>lint</strong> コマンドで C++ 言語ファイルを検査するには、
+C Set++ コンパイラー・パッケージがなければなりません。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ul>
+ <p>ファイル間で使用する関数を検査し、ある場合には値を戻すが、ある場合には戻さない関数や、数やタイプが変化する引数で呼び出す関数、使われない値を持つ関数や、使われても戻さない値を持つ関数などを見つけます。</p>
+ <p><strong>lint</strong> コマンドは、ファイル名の拡張子を次のように解釈します。</p>
+ <ul>
+<li><strong>.c (C)</strong> で終わる <span></span><em>ファイル</em> 名は、C 言語のソース・ファイルです。</li>
+
+<li><strong>.C (C)</strong> で終わる <span></span><em>ファイル</em> 名は、C++ 言語のソース・ファイルです。</li>
+
+<li><span></span> <strong>.lnで</strong>終わる<em>ファイル</em>名は<strong>、</strong> <strong>-c</strong> フラグまたは <strong>-o</strong> フラグが使用されたときに生成される非ASIIファイルです。</li>
+
+</ul>
+ <p><strong>lint</strong> コマンドは他の接尾部を持つファイルについて警告し、それらを無視します。</p>
+ <p><strong>lint</strong> コマンドは、すべての <strong>.c</strong> ファイル、<strong>.C</strong> ファイル、<strong>.ln</strong> ファイル、および <strong>-l</strong> フラグで指定したライブラリーを取り込み、それらをコマンド・ラインに現れる順に処理します。 デフォルトでは、lint コマンドは標準の <strong>llib-lc.ln</strong> lint ライブラリーをファイルのリストの終わりに追加します。 しかし、ユーザーが <strong>-p</strong> フラグを選べば、<strong>lint</strong> コマンドは <strong>llib-port.ln</strong> の移植性のあるライブラリーを使います。 デフォルトでは、相互のファイル間に互換性があるかどうかについて、<strong>lint</strong> の 2 回目のパスがこのリストを検査します。
+しかし、<strong>-c</strong> フラグを指定すると、<strong>.ln</strong> と <strong>llib-l</strong><em>x</em><strong>.ln</strong> ファイルは無視されます。</p>
+ <p><strong>-c</strong> フラグと <strong>-o</strong> フラグを使うと、1 組の C および C++ 言語のソース・ファイル上で <strong>lint</strong> コマンドの使用を段階的に増やすことができます。 一般に、各ソース・ファイルに対して 1 回は、<strong>-c</strong> フラグと共に <strong>lint</strong> コマンドを使ってください。 これらを実行するたびに、<strong>.c</strong> ファイルに対応する <strong>.ln</strong> ファイルが作成され、そのソース・ファイルに関するすべてのメッセージが書き込まれます。 <strong>lint</strong> コマンドをすべてのソース・ファイルに対して別々に実行した後、もう一度 <strong>-c</strong> フラグなしで実行し、必要な <strong>-l</strong> フラグを付けてすべての <strong>.ln</strong> ファイルをリストしてください。 すると、すべてのファイルの間の矛盾が書き込まれます。 このプロシージャーは <strong>make</strong> コマンドを使うと正常に動作します。
+make コマンドは、前回検査された後に変更されたソース・ファイル上でのみ <strong>lint</strong> コマンドを実行させます。</p>
+ <p>プリプロセッサー記号 <strong>lint</strong> および <strong>LINT</strong> は、問題のあるコードを変更または除去するために <strong>lint</strong> コマンド用に定義されています。 したがって、記号 <strong>lint</strong> と <strong>LINT</strong> は <strong>lint</strong> で検査する予定のすべてのコードに対する予約語として考える必要があります。</p>
+ <p>C および C++ 言語のソース・プログラムに次のコメントを入れると、ソース・プログラムを検査するときに、<strong>lint</strong> コマンドの動作方法が変化します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/*NOTREACHED*/</strong></td>
+
+<td>到達不能コードについてのコメントを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/*VARARGS</strong><em>数値</em><strong>*/</strong></td>
+
+<td>次の古いスタイルの関数宣言が、引数の数の変化を検査するのを抑制します。
+最初の <em>Number</em> 引数のデータ・タイプは検査します。 <em>Number</em> の値を含めないと、<strong>lint</strong> コマンドは引数を検査しません (<em>Number</em>=0)。 ANSI の関数プロトタイプでは省略符号を使って、このコメントの機能ではなく、指定されていないパラメーターを示さなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>/*ARGSUSED*/</strong></td>
+
+<td>関数定義内で使われない関数パラメーターについての警告を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/*lintlibrary*/</strong></td>
+
+<td>このコメントをファイルの先頭に置くと、<strong>lint</strong> コマンドはファイル内の未使用の関数と関数パラメーターを識別しません。 これは、<strong>lint</strong> コマンドをライブラリー上で実行するときに使います。</td>
+
+</tr>
+
+<tr>
+<td><strong>/*NOTUSED*/</strong></td>
+
+<td>ファイル内の未使用の外部シンボル、関数および関数パラメーターについて、発生位置から警告し始めるのを抑制します。 <strong>/*LINTLIBRARY*/</strong> コメント指示語のスーパーセットですが、外部シンボルにも適用します。 これは、未使用の関数プロトタイプやその他の外部オブジェクト宣言についての警告を抑制するときに使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>/*NOTDEFINED*/</strong></td>
+
+<td>ファイル内の未定義の使用済み外部シンボルおよび関数について、発生位置から警告し始めるのを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/*LINTSTDLIB*/</strong></td>
+
+<td>関数プロトタイプ宣言を関数定義として表示させて、標準のプロトタイプ検査ライブラリーがヘッダー・ファイルから作られるようにします。 この指示語は暗黙に <strong>/*NOTUSED*/</strong> と <strong>/*LINTLIBRARY*/</strong> のコメント指示語を始動して警告ノイズ・レベルを減少させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>lint</strong> コマンドの警告メッセージにはファイル名と行番号が表示されます。 各ファイルが最初のパスを追加すると、各ファイルと各行番号についての警告が報告されます。</p>
+ <p><strong>-c</strong> フラグを指定しないと、<strong>lint</strong> コマンドはすべての入力ファイルから情報を収集し、その整合性について検査します。 この時点で、メッセージ・ステムが与えられたソース・ファイルからのものか、またはそのインクルード・ファイルからのものかが分からないときは、<strong>lint</strong> コマンドはソース・ファイル名の後に疑問符を付けて示します。</p>
+ <p>多数の標準ヘッダー・ファイルが入っている ANSI プログラムでは、<strong>-wD</strong> フラグを設定して未使用のプロトタイプについての警告を減らそうとしたり、<strong>-n</strong> フラグを設定して ANSI 標準ライブラリーに対する検査を使用不可にしようという試みがなされます。 非 ANSI プログラムの場合には、<strong>-wk</strong> フラグを指定して、関数プロトタイプがないときにもあまり頻繁に警告しないようにします。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>long 値を long ではない変数に代入するときのメッセージを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>到達不能な break ステートメントについてのメッセージを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>lint</strong> コマンドによって、コマンド・ライン上の <strong>.c</strong> ファイルごとに <strong>.ln</strong> ファイルが 1 個ずつ作成されるようにします。 これらの <strong>.ln</strong> ファイルは <strong>lint</strong> コマンドの最初のパスによって作成され、関数間の互換性については検査されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>(<strong>/usr/lpp//xlC/lib</strong> ディレクトリーにある) C++ ライブラリーの使用を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>バグや不適当なスタイルを検出したり、無駄を省く試みは行われません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em>キー</em></td>
+
+<td>追加の<strong> llib-l</strong><em>Key</em><strong>.ln</strong> lint ライブラリーが含まれます。 ユーザーは、コマンド・ラインで <strong>-lm</strong> を指定して、<strong>llib-lm.ln</strong> 数学ライブラリーの lint バージョンを含めるか、または、コマンド・ラインで <strong>-ldos</strong> フラグを指定して、<strong>llib-ldos.ln</strong> ライブラリーの lint バージョンを含めることができます。 多数のファイルを持つプロジェクトの一部としてファイルを検査する場合に、ローカル lint ライブラリーを含めるためにこのフラグを使います。 このフラグを指定すると、<strong>lint</strong> コマンドでの <strong>llib-lc.ln</strong> ライブラリーの使用が制限されません。 lint ライブラリーは <strong>/usr/ccs/lib</strong> ディレクトリー内になければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>標準ライブラリー、または移植性のある lint ライブラリーと互換性があるかどうかを検査することを抑制します。 この抑制は ANSI ライブラリーと拡張モード・ライブラリーの両方に適用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em>ライブラリー</em></td>
+
+<td><strong>lint</strong> コマンドによって <strong>llib-l</strong><em>Library</em><strong>.ln</strong> lint ライブラリーが作成できるようにします。 <strong>-c</strong> フラグを指定すると、<strong>-o</strong> フラグは無効になります。 作成された lint ライブラリーは <strong>lint</strong> コマンドの 2 回目のパスに与えられる入力です。 <strong>-o</strong> フラグは、単にこのファイルが指定された lint ライブラリーに保管されるようにします。 外部からのメッセージなしに <strong>llib-l</strong><em>Library</em><strong>.ln</strong> を作成するには、<strong>-x</strong> フラグを使います。 lint ライブラリー用のソース・ファイルが単に外部インターフェース (例えば、<strong>llib-lc</strong> ファイルが書き込まれる方法) である場合は、<strong>-v</strong> フラグが有用です。 また、これらのフラグ設定は <strong>lint</strong> コマンドのコメント行を使うと使用できるようになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>他の C 言語への移植性が検査されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>32 ビットから 64 ビットに移植するときに、問題のある割り当てを検査します。 次のケースのみを検査します。<ul>
+<li>32 ビットで正常に動作する一部の操作が 64 ビットでは問題を起こす場合があるので、すべてのシフト/マスク操作にはフラグが付けられます。</li>
+
+<li>割り当ての次のタイプに警告を与えます。<div> <div><div><pre><code>int = long
+int = ptr</code></pre></div><div></div></div></div>
+</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>使用されているが定義されていない、または定義されているが使用されていない関数や外部変数について、メッセージが表示されるのを抑制します。 より大きなプログラムのファイルのサブセット上で <strong>lint</strong> コマンドを実行するには、このフラグを使います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>使用されない関数パラメーターについて、メッセージが表示されるのを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>クラス</em> [<em>クラス ...</em>]<em></em></td>
+
+<td>警告クラスの報告を制御します。 すべての警告クラスはデフォルトではアクティブですが、<em>Class</em> 引数の一部として適切なオプションを含めることによって、個別に非アクティブにできます。 個々のオプションは次のとおりです。<dl>
+<dt><strong>a</strong></dt>
+
+<dd>非 ANSI 機能</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>符号なしの値との比較</dd>
+
+
+<dt><strong>d</strong></dt>
+
+<dd>宣言の整合性</dd>
+
+
+<dt><strong>h</strong></dt>
+
+<dd>発見的手法欠陥</dd>
+
+
+<dt><strong>k</strong></dt>
+
+<dd>K+R タイプのソース・コードを使用</dd>
+
+
+<dt><strong>l</strong></dt>
+
+<dd>long 値を long ではない変数へ代入</dd>
+
+
+<dt><strong>n</strong></dt>
+
+<dd>ヌル効果コード</dd>
+
+
+<dt><strong>O</strong></dt>
+
+<dd>未知の評価の順序</dd>
+
+
+<dt><strong>p</strong></dt>
+
+<dd>各種移植性に関すること</dd>
+
+
+<dt><strong>r</strong></dt>
+
+<dd>リターン・ステートメントの整合性</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd>ストレージ容量の検査</dd>
+
+
+<dt><strong>u</strong></dt>
+
+<dd>変数と関数の適切な使用方法</dd>
+
+
+<dt><strong>A</strong></dt>
+
+<dd>すべての警告を非アクティブにする</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>条件で発生する定数</dd>
+
+
+<dt><strong>D</strong></dt>
+
+<dd>外部宣言がまったく使用されない</dd>
+
+
+<dt><strong>O</strong></dt>
+
+<dd>使用されなくなった機能</dd>
+
+
+<dt><strong>P</strong></dt>
+
+<dd>関数プロトタイプが存在する</dd>
+
+
+<dt><strong>R</strong></dt>
+
+<dd>到達不能コードの検出</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>まったく使用されない外部宣言を持つ変数について、メッセージが表示されるのを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ma</strong></td>
+
+<td>ANSI C 言語標準規則を実施します。 デフォルトのモードは拡張 C モードと同じです。 ANSI モードはデフォルトの拡張モード C lint ライブラリーの代わりに標準 ANSI ライブラリー関数プロトタイプを前に付加します。 ANSI モードはより厳密なファイル間オブジェクト参照を実施し、定義リンケージ検査を行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nd</strong><em>数値</em></td>
+
+<td>寸法テーブルのサイズを <em>Number</em> に変更します。 <em>Number</em> 値のデフォルトは 2000 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nl</strong><em>数値</em></td>
+
+<td>タイプ・ノードの数を <em>Number</em> に変更します。 <em>Number</em> 値のデフォルトは 8000 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nn</strong><em>数値</em></td>
+
+<td>記号テーブルのサイズを <em>Number</em> に増加します。 <em>Number</em> 値のデフォルトは 1500 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nt</strong><em>数値</em></td>
+
+<td>ツリー・ノードの数を <em>Number</em> に変更します。 <em>Number</em> 値のデフォルトは 1000 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>また、<strong>lint</strong> コマンドは次の <strong>cpp</strong> コマンド (マクロ・プリプロセッサー) のフラグを認識します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-I</strong><em>ディレクトリー</em></td>
+
+<td>ディレクトリーのリストに <em>Directory</em> を追加します。
+<strong>lint</strong> コマンドはこのディレクトリー内で <strong>#include</strong> ファイルを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em>名前</em>[=<em>定義</em>]</td>
+
+<td><strong>#define</strong> ファイルによるかのように、 <em>「名前」</em>を定義します。 <em>Definition</em> のデフォルト値は 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong> <em>DBCS</em></td>
+
+<td>現行ロケールによって指定されたマルチバイト・モードを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em>名前</em></td>
+
+<td><em>Name</em> から初期の定義を除去します。
+ここで、<em>Name</em> は特定のプリプロセッサーによって定義された予約シンボルです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>C プログラムのエラーを検査するには、次のように入力します。<div> <div><div><pre><code>lint command.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>一部のメッセージを抑止するには、次のように入力します。<div> <div><div><pre><code>lint -v -x program.c</code></pre></div><div></div></div>これは、program.c未使用の関数パラメーター (<strong>-v</strong>) または未使用の外部 (<strong>-x</strong>) に関するエラー・メッセージは表示されません。</div>
+</li>
+
+<li><span></span>追加の lint ライブラリーに対してプログラムを検査するには、次のように入力します。<div> <div><div><pre><code>lint -lsubs program.c</code></pre></div><div></div></div>これは、program.c<strong>/usr/ccs/lib/llib-lc.ln</strong> 標準 lint ライブラリーと<strong> /usr/lib/llib-lsubs.ln</strong> lint ライブラリーの両方に対して。</div>
+</li>
+
+<li><span></span>ポータブル・ライブラリーおよび追加ライブラリーに対して検査するには、次のように入力します。<div> <div><div><pre><code>lint -lsubs -p program.c</code></pre></div><div></div></div>これは、program.c<strong>/usr/ccs/lib/llib-port.ln</strong> ポータブル lint ライブラリーと<strong> /usr/lib/llib-lsubs.ln</strong> lint ライブラリーの両方に対して。</div>
+</li>
+
+<li><span></span>非標準ライブラリーに対してのみ検査するには、次のように入力します。<div> <div><div><pre><code>lint -lsubs -n program.c</code></pre></div><div></div></div>これは、program.c<strong> /usr/lib/llib-lsubs.ln</strong>のみに対して。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/lint[12}</strong></td>
+
+<td>プログラム</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lansi</strong></td>
+
+<td>標準 ANSI 関数の宣言 (ソース)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lansi.ln</strong></td>
+
+<td>標準 ANSI 関数の宣言 (バイナリー・フォーマット)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lc</strong></td>
+
+<td>標準関数の宣言 (ソース)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lc.ln</strong></td>
+
+<td>標準関数の宣言 (バイナリー・フォーマット)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lcrses</strong></td>
+
+<td>curses 関数の宣言 (ソース)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lcrses.ln</strong></td>
+
+<td>curses 関数の宣言 (バイナリー・フォーマット)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lm</strong></td>
+
+<td>標準数学関数の宣言 (ソース)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-lm.ln</strong></td>
+
+<td>標準数学関数の宣言 (バイナリー・フォーマット)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-port</strong></td>
+
+<td>移植可能な関数の宣言 (ソース)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/llib-port.ln</strong></td>
+
+<td>移植可能な関数の宣言 (バイナリー・フォーマット)</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpp//xlC/lib</strong></td>
+
+<td>C++ ライブラリーが入っているディレクトリー</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/tmp/*lint*</strong></td>
+
+<td>一時ファイル</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンドが正常に実行するのに必要な特権をトレースします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>トレセプリフ</strong> [ -<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113675" target="_blank" rel="noopener noreferrer"><strong>D</strong></a> ] [ -<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113684" target="_blank" rel="noopener noreferrer">E</a></strong> ] [ -<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113712" target="_blank" rel="noopener noreferrer">F</a></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113727" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113759" target="_blank" rel="noopener noreferrer"><em>出力ファイル</em></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113753" target="_blank" rel="noopener noreferrer"><span><span>コマンド</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tracepriv.html#tracepriv__row-d3e113747" target="_blank" rel="noopener noreferrer"><span><span>引数</span></span></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tracepriv</strong> コマンドは、コマンドの実行時に使用を試みる特権を記録します。 <strong>tracepriv</strong> コマンドは、特権コマンド・データベースにエントリーが追加される際の、コマンドの調査に使用されます。 <strong>tracepriv</strong> コマンドは、<em>Command</em> パラメーターによって指定されたコマンドを、指定された引数によって (<span><span>args</span></span> パラメーターによって) 実行します。 一般に PV_ROOT 特権付きの <strong>tracepriv</strong> コマンドを実行するため、特権を使用する試みはすべて成功します。 この場合、<strong>tracepriv</strong> コマンドは、<em>Command</em>が、PV_ROOT 特権なしに正常に実行するのに必要な特権のすべてを追跡できます。 <em>Command</em> の実行後、またはコマンド内の <strong>exec</strong> サブルーチンの発生時に、使用される特権のリストが標準出力 (<strong>stdout</strong>) に書き込まれます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>コマンドに必要な特権を持つ <strong>truss</strong> コマンドの出力を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><strong>exec</strong> サブルーチンに従います。 <em>Command</em> パラメーターによって指定されたコマンドが <strong>exec</strong> サブルーチンを実行すると、 <strong>tracepriv</strong> コマンドは、それまで必要であった特権を報告し、(<strong>-a</strong> フラグが使用されている場合はそれらを設定し)、次に、新しい実行可能ファイルに関連する特権の記録 (および設定) を始めます。 <strong>exec</strong> サブルーチンによって実行されるファイルの UID 設定ビットが設定されていて、root に所有されていない場合、<strong>tracepriv</strong> コマンドはファイルの特権使用を正しくトレースできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><strong>fork</strong> サブルーチンに従います。 制御されるプロセスが <strong>fork</strong> サブルーチンを呼び出す場合は、<strong>tracepriv</strong> コマンドも、新規子プロセスによって使用される特権を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>標準出力 (<strong>stdout</strong>) ではなく、指定されたファイルに出力を書き込みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>引数</span></span></td>
+
+<td>引数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>コマンド</span></span></td>
+
+<td>コマンドを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>outputfile</em></td>
+
+<td>出力を記録するファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,303 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Korn シェルの制限付きバージョンを起動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rksh</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150558" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> ] [{ <span><span>+</span></span> | <span><span>-</span></span> } { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150511" target="_blank" rel="noopener noreferrer"><span><span>a</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150537" target="_blank" rel="noopener noreferrer"><span><span>e</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150546" target="_blank" rel="noopener noreferrer"><span><span>f</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150552" target="_blank" rel="noopener noreferrer"><span><span>h</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150579" target="_blank" rel="noopener noreferrer"><span><span>k</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150585" target="_blank" rel="noopener noreferrer"><span><span>m</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150591" target="_blank" rel="noopener noreferrer"><span><span>n</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150761" target="_blank" rel="noopener noreferrer"><span><span>p</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150789" target="_blank" rel="noopener noreferrer"><span><span>t</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150795" target="_blank" rel="noopener noreferrer"><span><span>u</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150801" target="_blank" rel="noopener noreferrer"><span><span>v</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150807" target="_blank" rel="noopener noreferrer"><span><span>x</span></span></a> }] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150597" target="_blank" rel="noopener noreferrer"><span><span>-o</span></span></a> <em>オプション ...</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150517" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> <em>ストリング</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rksh.html#rksh__row-d3e150771" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> | <em>ファイル</em> [ <em>パラメーター</em> ]]</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> <span><span>-</span></span> (マイナス) ではなく、 <span><span>+</span></span> (プラス) を使用してフラグを指定すると、フラグがオフになります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span><span>rksh</span></span> コマンドは、Korn シェルの制限付きバージョンを起動します。 これにより管理者は、ユーザーに対して制御されたシェル環境を
+提供することができます。 また、 <span><span>rksh93</span></span>と呼ばれる、拡張 Korn シェルで使用可能な <span><span>rksh</span></span> の制限付きバージョンもあります。</p>
+ <div>制限付きシェルでは、ユーザーは次のことは行えません。<ul>
+<li>現在の作業ディレクトリーの変更。</li>
+
+<li>SHELL、ENV または PATH 変数の設定。</li>
+
+<li><span><span>/</span></span> (スラッシュ) を含むコマンドのパス名を指定します。</li>
+
+<li><span><span>&gt;</span></span> (右キャレット)、 <span><span>&gt;|</span></span> (右キャレット、パイプ記号)、 <span><span>&lt;&gt;</span></span> (左キャレット、右キャレット)、または <span><span>&gt;&gt;</span></span> (2 つの右キャレット) を使用して、コマンドの出力をリダイレクトします。</li>
+
+</ul>
+</div>
+ </section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>定義されているすべての後続パラメーターを自動的にエクスポートします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span><em> ストリング</em></td>
+
+<td>Korn シェルに、<em>String</em> 変数からコマンドを読み取らせます。 このフラグは、<strong>-s</strong> フラグ
+あるいは <em>File</em>[<em>Parameter</em>] パラメーターとともに
+使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-e</span></span></td>
+
+<td><strong>ERR</strong> トラップが設定されていれば実行し、コマンドがゼロ以外の終了状況であれば終了します。 このモードは、プロファイルの読み取り中は使用不可です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-f</span></span></td>
+
+<td>ファイル名の置換を使用不可にする。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td>各コマンドが最初に行われたとき、トラッキングされる別名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-i</span></span></td>
+
+<td>シェルが対話式であることを示します。 対話式シェルは、シェル入出力が端末に接続されるかどうかも示します (<strong>ioctl</strong> サブルーチン
+によって決まるとおりです)。 この場合、<strong>TERM</strong> 環境変数は無視され (このため <strong>kill 0</strong> コマンド
+は対話式シェルを kill しません)、<strong>INTR</strong> シグナルが
+受け取られて無視されます (このため待ち状態が中断される場合があります)。 すべての場合において、シェルは <strong>QUIT</strong> シグナルを無視します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-k</span></span></td>
+
+<td>コマンド名の前にあるパラメーター割り当て引数のみでなく、環境内のすべてのパラメーター割り当て引数を
+コマンドに配置します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-m</span></span></td>
+
+<td>別のプロセス内でバックグラウンド・ジョブを実行し、完了時に 1 行を印刷します。 バックグラウンド・ジョブの終了状況が、完了メッセージの中で報告されます。 ジョブ制御付きのシステムでは、このフラグは対話式シェルの場合は自動的にオンになります。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span></td>
+
+<td>コマンドを読み取り、構文エラーがないか検査しますが、コマンドの実行はしません。 このフラグは、対話式シェルの場合は無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-o</span></span><em> オプション</em></td>
+
+<td>現行のオプション設定、およびユーザーが引数を指定しない場合はエラー・メッセージを、
+印刷します。 このフラグを使用して、次のオプションのいずれかを使用可能にすることができます。<dl>
+<dt>allexport</dt>
+
+<dd><strong>a</strong> フラグと同じ。</dd>
+
+
+<dt>errexit</dt>
+
+<dd><strong>-e</strong> フラグと同じです。</dd>
+
+
+<dt>bgnice</dt>
+
+<dd>より低い優先順位ですべてのバックグラウンド・ジョブを実行します。 これはデフォルトのモードです。</dd>
+
+
+<dt>emacs</dt>
+
+<dd>コマンド・エントリーに、emacs<em>-</em> スタイルのインライン・エディターを入力します。</dd>
+
+
+<dt>gmacs</dt>
+
+<dd>コマンド・エントリーに gmacs- スタイルのインライン・エディターを入力します。</dd>
+
+
+<dt>ignoreeof</dt>
+
+<dd>ファイル・マークが現れたときにシェルを終了しません。 <strong>exit</strong> コマンドを使用するか、または Ctrl-D キー・シーケンスを 11 回より多く
+押すことによりフラグをオーバーライドしてシェルを終了する必要があります。</dd>
+
+
+<dt>キーワード</dt>
+
+<dd><strong>-k</strong> フラグと同じです。</dd>
+
+
+<dt>markdirs</dt>
+
+<dd>ファイル名置換の結果であるすべてのディレクトリー名に、<strong> /</strong> (スラッシュ) を
+付加します。</dd>
+
+
+<dt>モニター</dt>
+
+<dd><strong>-m</strong> フラグと同じです。</dd>
+
+
+<dt>noclobber</dt>
+
+<dd>リダイレクトにより既存ファイルが切り捨てられないようにします。 このオプションを指定する場合は、リダイレクト記号 <strong>&gt;|</strong> (右キャレット、パイプ記号) を使用してファイルを切り捨てます。</dd>
+
+
+<dt>noexec</dt>
+
+<dd><strong>-n</strong> フラグと同じです。</dd>
+
+
+<dt>noglob</dt>
+
+<dd><strong>-f</strong> フラグと同じです。</dd>
+
+
+<dt>nolog</dt>
+
+<dd>ファンクション定義がヒストリー・ファイルに保管されないようにします。</dd>
+
+
+<dt>nounset</dt>
+
+<dd><strong>-u</strong> フラグと同じです。</dd>
+
+
+<dt>privileged</dt>
+
+<dd><strong>-p</strong> フラグと同じです。</dd>
+
+
+<dt>verbose</dt>
+
+<dd><strong>-v</strong> フラグと同じです。</dd>
+
+
+<dt>trackall</dt>
+
+<dd><strong>-h</strong> フラグと同じです。</dd>
+
+
+<dt>vi</dt>
+
+<dd>コマンド・エントリーに、vi<em>-</em>style インライン・エディターの
+挿入モードを入力します。 エスケープ文字 033 を入力することにより、
+エディターは移動モードに置かれます。 戻りによりこの行が送信されます。</dd>
+
+
+<dt>viraw</dt>
+
+<dd>各キャラクターを、vi モードで入力されたとおりに処理します。</dd>
+
+
+<dt>xtrace</dt>
+
+<dd><strong>-x</strong> フラグと同じです。</dd>
+
+</dl>
+  <p>単一の <strong>rksh</strong> コマンド・ラインに複数のオプションを設定することができます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span></td>
+
+<td>ログイン・シェルとしてシェルを使用時に、<strong>$HOME/.profile
+</strong> ファイルの処理を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span></td>
+
+<td><strong>rksh</strong> コマンドは標準入力からコマンドを読み取ります。 シェル出力は、特殊コマンドの出力を除き、ファイル記述子 2 に書き込まれます。 このパラメーターは、 <strong>「-c」</strong> フラグまたは <em>ファイル</em>[<em>パラメーター</em>] パラメーターと一緒に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span></td>
+
+<td>1 つのコマンドを読み込み、実行後、終了します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span></td>
+
+<td>置換の際に、設定解除パラメーターをエラーとして扱います。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td>シェル入力行を、読み込まれたとおりに印刷します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-x</span></span></td>
+
+<td>実行されたコマンドおよびその引数を印刷します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/rksh</strong></td>
+
+<td>制限付き Korn シェルへのパス名が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/sh*</strong></td>
+
+<td>シェルがオープンした時に作成された一時ファイルを含みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,296 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>任意精度の整数の算術演算を実行するための対話式卓上計算機を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>dc</span> [ File]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>dc</span> コマンドは、任意精度の算術演算を実行する計算機です。 <span>dc</span> コマンドは、ファイル終わり文字を読み取るまで、File パラメーターまたは標準入力から入力を取り込んで、
+標準出力に出力します。 <span>dc</span> コマンドは入力を受信すると、その値を評価して、評価を標準出力に書き込みます。 このコマンドは 10 進整数について演算を実行しますが、入力基数、出力基数、
+および保持される小数桁の数を指定できます。 <span>dc</span> コマンドは、
+スタックされた逆ポーランド表記法を用いる計算機として構成されています。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><span>bc</span></a> コマンドは、 <span>dc</span> コマンドのプリプロセッサーです。 表記法は挿入表記で、
+構文はプログラムに対して関数および制御構造を使用する C 言語に類似しています。</p>
+</section>
+
+<section><h2>サブコマンド</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>c</span></td>
+
+<td>スタックをクリアします。<span>dc</span> コマンドは、スタックのすべての値をポップします。</td>
+
+</tr>
+
+<tr>
+<td><span>d</span></td>
+
+<td>スタックの一番上の値の複製を作成します。</td>
+
+</tr>
+
+<tr>
+<td><span>f</span></td>
+
+<td>スタックのすべての値を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>i</span></td>
+
+<td>スタックの一番上の値をポップして、さらに入力するために、その値をその数の基数として使用します。</td>
+
+</tr>
+
+<tr>
+<td><span>I</span></td>
+
+<td>入力基数をスタックの一番上にプッシュします。</td>
+
+</tr>
+
+<tr>
+<td><span>k</span></td>
+
+<td>スタックの一番上をポップして、その値を非負スケール・ファクターとして使用します。 適切な桁数の数値が出力時に表示されて、乗算、除算、べき乗の間、保持されます。 スケール・ファクター、
+入力基数、および出力基数は、すべてが一緒に変更される場合は妥当です。</td>
+
+</tr>
+
+<tr>
+<td><span>l</span>X</td>
+
+<td>x 変数が示しているレジスター内の値をスタックにプッシュします。 x 変数が示すレジスターは変更されません。 レジスターはすべて、0 という値で始まります。</td>
+
+</tr>
+
+<tr>
+<td><span>L</span>X</td>
+
+<td>x 変数をスタックとして扱い、その一番上の値をメイン・スタックにポップします。</td>
+
+</tr>
+
+<tr>
+<td><span>o</span></td>
+
+<td>スタックの一番上の値をポップし、以降の出力のために、その値を基数として使用します。</td>
+
+</tr>
+
+<tr>
+<td><span>O</span></td>
+
+<td>出力基数をスタックの一番上にプッシュします。</td>
+
+</tr>
+
+<tr>
+<td><span>p</span></td>
+
+<td>スタックの一番上の値を表示します。 一番上の値は、変更されません。</td>
+
+</tr>
+
+<tr>
+<td><span>P</span></td>
+
+<td>スタックの一番上を文字列として解釈して、それを除去し、表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>q</span></td>
+
+<td>プログラムを終了します。 <span>dc</span> コマンドが文字列を実行中の場合は、
+再帰レベルを 2 レベルだけポップします。</td>
+
+</tr>
+
+<tr>
+<td><span>Q</span></td>
+
+<td>スタックおよび文字列実行レベルの一番上の値を、その値分だけポップします。</td>
+
+</tr>
+
+<tr>
+<td><span>s</span>X</td>
+
+<td>スタックの一番上をポップして、それを x という名前のレジスターに格納します。
+この x 変数は文字でもかまいません。</td>
+
+</tr>
+
+<tr>
+<td><span>S</span>X</td>
+
+<td>x 変数をスタックとして扱います。 メイン・スタックの一番上をポップして、
+x 変数が示すスタックにその値をプッシュします。</td>
+
+</tr>
+
+<tr>
+<td><span>v</span></td>
+
+<td>スタックの一番上のエレメントを、その平方根と置き換えます。 オプションに小数部分があれば、それは平方根に反映されますが、そうでない場合は、
+スケール・ファクターは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>x</span></td>
+
+<td>スタックの一番上のエレメントを文字列と見なし、
+それを <span>dc</span> コマンドの文字列として実行します。</td>
+
+</tr>
+
+<tr>
+<td><span>X</span></td>
+
+<td>スタックの一番上にある番号を、そのスケール・ファクターと置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><span>z</span></td>
+
+<td>スタック内のエレメントの数をスタックにプッシュします。</td>
+
+</tr>
+
+<tr>
+<td><span>Z</span></td>
+
+<td>スタックの一番上の数字を、その数字の桁数と置き換えます。</td>
+
+</tr>
+
+<tr>
+<td>Number</td>
+
+<td>指定した値をスタックにプッシュします。 Number は、0 から 9 桁の連続した文字列です。 負の数を指定するには、先頭に _ (下線) を付けます。 数字には小数点を入れることができます。</td>
+
+</tr>
+
+<tr>
+<td><span>+ -</span> / * % ^</td>
+
+<td>スタック上の最初の 2 つの値の加算 (+)、減算 (-)、乗算 (*)、除算 (/)、剰余計算 (%)、
+またはべき乗 (^) を実行します。 <span>dc</span> コマンドは、最初の 2 つの入力をスタックからポップして、
+それらの代わりに結果をスタックにプッシュします。 <span>dc</span> コマンドは、指数の小数部分を無視します。</td>
+
+</tr>
+
+<tr>
+<td>[String]</td>
+
+<td>大括弧で囲まれた String パラメーターを、スタックの一番上に取り込みます。</td>
+
+</tr>
+
+<tr>
+<td>[<span>=</span> | <span>&gt;</span> | <span>&lt;</span>] x</td>
+
+<td>スタックの最初の 2 つのエレメントをポップして、それらを比較します。 宣言された関係に従って、x 変数が示すレジスターを評価します。</td>
+
+</tr>
+
+<tr>
+<td><span>!</span></td>
+
+<td>行の残りの部分をオペレーティング・システムのコマンドとして解釈します。</td>
+
+</tr>
+
+<tr>
+<td><span>?</span></td>
+
+<td>1 行の入力を取り込んで実行します。</td>
+
+</tr>
+
+<tr>
+<td><span>;:</span></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><span>bc</span></a> コマンドは、配列操作にこれらの文字を使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>dc</span> コマンドを計算機として使用するには、次のコマンドを入力します。<div> <div><div><pre><code>You:    1 4 / p
+System: 0
+You:    1 k   [ Keep 1 decimal place ]s.
+        1 4 / p
+System: 0.2
+You:    3 k   [ Keep 3 decimal places ]s.
+        1 4 / p
+System: 0.250
+You:    16 63 5 / + p
+System: 28.600
+You:    16 63 5 + / p
+System: 0.235</code></pre></div><div></div></div>例に示すように、<span>dc</span> コマンドの中でコメントを使用できます。 コメントは大括弧で囲み、直後に <code>s.</code> 文字を続けることができます。 <code>[Comment]s.</code> の形式のコメントは、<span>dc</span> コマンドによって無視されます。 大括弧で囲まれたコメントだけが、スタックの上部に格納されます。</div>
+  <p><span>dc</span> コマンド式をキーボードから直接入力する場合は、Ctrl-D を押して <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><span>bc</span></a> コマンド・セッションを終了し、シェル・コマンド行に戻ります。</p>
+</li>
+
+<li><span>dc</span> プログラム・ファイルをロードして実行するには、次のコマンドを入力します。<div> <div><div><pre><code>You:    dc prog.dc
+        5 lf x p [ 5 factorial ]s.
+System: 120
+You:    10 lf x p [ 10 factorial ]s.
+System: 3628800</code></pre></div><div></div></div>この項目は、 <span>prog.c</span> プログラム・ファイルに保管されている <span>dc</span> プログラムを解釈してから、ワークステーション・キーボードから読み取ります。 このlf xレジスターに保管されている関数を評価します。fこれは、 <span>prog.c</span> プログラム・ファイルで次のように定義できます。<div><div><pre><code>[ f: compute the factorial of n ]s.
+[ (n = the top of the stack) ]s.
+[ If 1&gt;n do b; If 1&lt;n do r ]s.
+ [d 1 &gt;b d 1 &lt;r] sf
+[ Return f(n) = 1 ]s.
+ [d - 1 +] sb
+[ Return f(n) = n * f(n-1) ]s.
+ [d 1 - lf x *] sr</code></pre></div><div></div></div><span>dc</span> プログラム・ファイルは、任意のテキスト・エディター、または <span>bc</span> コマンドの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bc.html" target="_blank" rel="noopener noreferrer"><span>-c</span></a> (コンパイル) フラグを使用して作成できます。 キーボードから直接 <span>dc</span> コマンドを入力する場合は、
+Ctrl-D を押して <span>bc</span> コマンド・セッションを終了し、
+シェル・コマンド・ラインに戻ります。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/dc</span></td>
+
+<td><span>dc</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

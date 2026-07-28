@@ -1,0 +1,177 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザーの保護状態の環境をリセットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>setsenv</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setsenv.html#setsenv__row-d3e19703" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ]。 <em>NewEnvironment</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>setsenv</strong> コマンドは、ログインしている間に保護状態環境をリセットします。 保護状態環境は 1 セットの変数として定義されます。 これらの変数はカーネル内に保持され、<strong>SETUINFO</strong> システム・コールによってのみ変更できます。 <strong>setsenv</strong> コマンドは、<em>NewEnvironment</em> パラメーターで指定された変数を使用します。 このパラメーターは、ブランク・スペースで区切られた <em>EnvironmentVariable</em><strong>=</strong><em>Value</em> 定義で構成されています。 環境変数の情報については、<strong>environment</strong> ファイルを参照してください。</p>
+ <p>以下の環境変数は、<strong>setsenv</strong> コマンドでリセットできません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+
+<td>現在認証されているユーザー名。 これは現行プロセスの実ユーザー ID に対応します。</td>
+
+</tr>
+
+<tr>
+<td><strong>TTY</strong></td>
+
+<td>ログインした端末名。 これはプロセスの初期制御端末に対応します。 この変数は<em>完全ログイン</em> せずに開始されたプロセスに対しては設定できません。 完全ログインとは、<strong>getty</strong> コマンドで開始したログインのことです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ログ名</strong></td>
+
+<td>現行セッションが端末ログイン・プログラムから始動された場合、ログインに使用した名前。 セッションが端末から始動されなかった場合は、この変数は設定されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>定義された変数を使用せずに <strong>setsenv</strong> コマンドを入力した場合は、現在の保護状態が表示されます。 <strong>setsenv</strong> コマンドでは、制御端末のセキュリティー特性は変更されません。</p>
+ <p><strong>setsenv</strong> コマンドを実行すると、
+現行シェルが置き換えられ、新規のシェルが与えられます。 このコマンドは、正常に完了したかどうかに関係なくシェルを置き換えます。 したがって、このコマンドはエラー・コードを戻しません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>ユーザーがシステムにログインしたように、環境を再初期化します。 このフラグがなければ、環境は変更されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、標準ユーザー・プログラムでなければなりません。 このコマンドは、トラステッド・コンピューティング・ベース (TCB) にプログラムとしてインストールされなければなりません。 このコマンドは、
+<strong>setuid</strong> (SUID) ビットが設定されている root ユーザーが所有しなければなりません。</p>
+ <p>アクセスされるファイル:</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/environment</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/environ</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>USER_SetEnv</strong></td>
+
+<td>新規の環境文字列</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現在の環境変数を表示するには、次のように入力します。<div> <div><div><pre><code>setsenv</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>追加するには、PSEUDO=tom保護環境変数、次のように入力します。<div> <div><div><pre><code>setsenv PSEUDO=tom </code></pre></div><div></div></div>この例では、<strong>PSEUDO</strong> 保護環境変数用のユーザー名が設定されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/setsenv</strong></td>
+
+<td><strong>setsenv</strong> コマンドへのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/environment</strong></td>
+
+<td>各ユーザー用の環境情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/environ</strong></td>
+
+<td>各ユーザー用の特権環境情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

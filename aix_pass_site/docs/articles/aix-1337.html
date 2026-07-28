@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・レジストリーから rset を除去します。</p>
+</section>
+
+<section><h2>構文</h2> <div><div><pre><code>rmrset rsetname</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><strong>rmrset</strong> コマンドは、システム・レジストリーから rset または排他的 rset (xrset) を除去します。 <span><span>rmrset</span></span> コマンドを使用して xrset を削除すると、システム上の対応する CPU の状態が汎用モードに変更されます。 xrset の削除には root 権限が必要です。</p>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong><em>セット名</em></strong></td>
+
+<td>システム・レジストリーから除去する rset の名前。 名前は、"/" (スラッシュ) で区切られた <em>namespace</em> と <em>
+rsname</em> で構成されます。 <em>namespace</em> および <em>rsname</em> はどちらも最大 255 文字まで含むことができます。 rset 名の文字セット制限についての追加情報は、<strong>rs_registername()</strong> サービスを参照してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーは <code>root</code> 権限を持つか、または CAP_NUMA_ATTACH 機能と
+指定された rset への書き込み権限が必要です。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム・レジストリーから <strong>test/cpus0to7</strong> を除去するには、次のように入力します。<div><div><pre><code>rmrset test/cpus0to7</code></pre></div><div></div></div> </li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/rmrset</strong></td>
+
+<td><strong>rmrset</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

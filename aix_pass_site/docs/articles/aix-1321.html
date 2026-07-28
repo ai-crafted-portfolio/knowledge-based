@@ -1,0 +1,50 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムの構成を変更して、実行中の NFS デーモンを停止させます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/rmnfs</strong> [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfs.html#rmnfs__row-d3e161636" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfs.html#rmnfs__row-d3e161645" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnfs.html#rmnfs__row-d3e161627" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a><strong></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmnfs</strong> コマンドは、システムの再始動時に <strong>/etc/rc.nfs</strong> ファイルが実行されないように、
+システムの現行構成を変更します。 また、コマンドに現在実行中の NFS デーモンを停止するように指示できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>inittab</strong> ファイル内のエントリーを除去して、現在実行中の NFS デーモンを停止します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td><strong>inittab</strong> 内の、システム再始動時に NFS デーモンを始動するエントリーを除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>inittab</strong> ファイルを変更せずに即座に NFS デーモンを停止させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>すべての NFS デーモンを即座に停止させるには、以下のように入力します。</p>
+ <div> <div><div><pre><code>rmnfs -N</code></pre></div><div></div></div></div>
+ <p>このコマンドは <strong>inittab</strong> ファイルを変更しません。</p>
+</section>
+
+</div></div>

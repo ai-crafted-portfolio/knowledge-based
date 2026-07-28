@@ -1,0 +1,190 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>指定されたボリューム・グループに存在するすべての論理ボリュームのミラーリングを行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ミラー・グループ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mirrorvg.html#mirrorvg__row-d3e123111" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mirrorvg.html#mirrorvg__row-d3e123125" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mirrorvg.html#mirrorvg__row-d3e123096" target="_blank" rel="noopener noreferrer"><strong>-キュー </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mirrorvg.html#mirrorvg__row-d3e123031" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em> 部数</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mirrorvg.html#mirrorvg__row-d3e123048" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mirrorvg.html#mirrorvg__row-d3e123059" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>コピー</em><strong>=</strong><em>ミラー・プール</em> ] <em>ボリューム・グループ</em> [ <em>物理ボリューム ..</em>. ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mirrorvg</strong> コマンドは、指定のボリューム・グループ上の論理ボリュームすべてをとり、それらの論理ボリュームのミラーリングを実行します。 ボリューム・グループ内の個々の論理ボリュームごとに <strong>mklvcopy</strong> コマンドを実行すれば、これと同じ機能を手作業で実現できます。 <strong>mklvcopy</strong> の場合と同様に、データによってミラーリングされるターゲットの物理ドライブがボリューム・グループのメンバーになっていなければなりません。 ディスクをボリューム・グループに追加するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/extendvg.html" target="_blank" rel="noopener noreferrer"><strong>extendvg</strong></a> コマンドを実行します。</p>
+ <p>デフォルトでは、<strong>mirrorvg</strong> がボリューム・グループ内のいずれかのディスク上に論理ボリュームのミラーリングを実行しようとします。 ミラーリングにどのドライブを使用するか制御したい場合は、入力パラメーター <em>physicalvolume</em> にディスクのリストを含める必要があります。 厳密なミラーリングが適用されます。 また、<strong>mirrorvg</strong> は、ミラーリングされる論理ボリュームのデフォルト設定を使用して、その論理ボリュームのミラーリングを実行します。 ミラーリングの厳密さを緩めたい場合、またはミラーを作成するポリシーに影響を与えたい場合は、
+すべての論理ボリュームのミラーリングを <strong>mklvcopy</strong> コマンドによって手作業で実行する必要があります。</p>
+ <p><strong>mirrorvg</strong> を実行する場合、このコマンドのデフォルト動作では、コマンドがユーザーに戻る前にミラーの同期が完了していることが要求されます。 同期完了時をこのように遅くしないためには、<strong>-S</strong> または <strong>-s</strong> オプションを使用します。 また、デフォルト値である 2 つのコピーが常に使用されます。 2 以外の値を指定するには、<strong>-c</strong> オプションを使用します。</p>
+ <div><strong>制約事項:</strong><ul>
+<li>このコマンドを使用するには、root ユーザー権限を持っているか、あるいは <strong>system</strong> グループのメンバーでなければなりません。</li>
+
+<li><strong>mirrorvg</strong> コマンドは、スナップショット・ボリューム・グループでは使用できません。</li>
+
+<li>ファームウェア支援の活動状態のダンプ論理ボリュームを含むボリューム・グループでは、<strong>mirrorvg</strong> コマンドを使用することはできません。</li>
+
+</ul>
+</div>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <strong>mirrorvg</strong> コマンドは、複雑なエラー検査、ボリューム・グループ内でミラーリングする論理ボリュームの量、および新しいミラーリングされた論理ボリュームの同期化にかかる時間のために、完了までにかなりの時間がかかる場合があります。</div>
+        </div>
+      </div></div>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mirrorvg</strong> 高速パスを使用して実行することができます。</p>
+ </section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em> コピー</em></td>
+
+<td><strong>mirrorvg</strong> コマンドの実行が完了した後に各論理ボリュームが持っていなければならないコピーの最小部数を指定します。 <strong>mklvcopy</strong> を独立して使用することにより、一部の論理ボリュームで <strong>mirrorvg</strong> コマンドの実行後に指定される最小数よりも大きい数を持つことができます。 最小値は 2 で、3 が最大値です。 値が 1 の場合は、無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> 完全一致マップ</em></td>
+
+<td>元のコピーが並べられた正確な物理区画の順序で論理ボリュームのミラーリングを実行できます。 このオプションを使用するには、PhysicalVolume(s)ここに正確なマップ・コピーを配置する必要があります。 正確なマッピングを行うためのスペースが不足している場合、このコマンドは失敗します。 新たにドライブを追加するか、あるいは全ボリューム・グループの論理ボリューム・マッピングを満足する異なるドライブのセットを選択する必要があります。 ディスク全体を使用するかどうかに関係なく、指定されたディスクは、正確にミラーリングされるドライブのサイズ以上でなければなりません。 また、ミラーリング対象の論理ボリュームが既にミラーリングされている場合、このコマンドは失敗します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>copyn</em><strong>=</strong><em>ミラー・プール</em></td>
+
+<td>作成されるコピーにミラー・プールを割り当てます。 ミラー・プールは、<em>copyn</em><strong>=</strong><em>mirrorpool</em> パラメーターを使用してコピーに割り当てられます。 コピーごとにミラー・プールを指定します。 複数の <em>
+copyn</em><strong>=</strong><em>mirrorpool</em> ペアを指定するには、複数の <strong>-p </strong><em>copyn
+</em><strong>=</strong><em>mirrorpool</em> フラグを指定してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong><em> クォーラム保持</em></td>
+
+<td><strong>mirrorvg</strong> のデフォルトでは、ボリューム・グループの内容がミラーリングされた状態になると、ボリューム・グループのクォーラム (定足数) は使用不可になります。 ユーザーがミラーリングを完了した後にボリューム・グループのクォーラムの条件を保持したい場合は、このオプションをこのコマンドで使用する必要があります。 後でクォーラムを変更する場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chvg.html" target="_blank" rel="noopener noreferrer"><strong>chvg</strong></a> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> バックグラウンド同期</em></td>
+
+<td><strong>mirrorvg</strong> コマンドを即時に戻し、ボリューム・グループのバックグラウンド <strong>syncvg</strong> を開始します。 このオプションでは、どの時点でミラーリングが同期を完了しているかが明確ではありません。 しかし、ミラーの部分の同期が完了すると、ミラーの利用でオペレーティング・システムによって即時に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 同期の無効化</em></td>
+
+<td>ミラーのどのタイプの同期もとらずに <strong>mirrorvg</strong> コマンドを即時に戻します。 このオプションを使用すると、論理ボリュームのミラーが存在していても、<strong>syncvg</strong> コマンドとの同期がとれるまでは、オペレーティング・システムによって使用されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>以下は <strong>rootvg</strong> に関する説明です。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>rootvg ミラーリング</strong></td>
+
+<td><strong>rootvg</strong> ミラーリングが完了したら、<strong>bosboot</strong> および <strong>bootlist</strong> の 2 つの追加タスクを実行する必要があります。<p><strong>bosboot</strong> コマンドでは、新たにミラーリングされたドライブの Bootrec をカスタマイズする必要があります。 <strong>bootlist</strong> コマンドは、ミラーリングされたブート・プロセスをどのディスクまたはどの順序で開始するかをシステムに指示するために実行する必要があります。</p>
+ </td>
+
+</tr>
+
+<tr>
+<td><strong>non-rootvg ミラーリング</strong></td>
+
+<td>このボリューム・グループがミラーリングされていると、
+デフォルト・コマンドによって Quorum が非活動化されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>rootvg および non-rootvg ミラーリング</strong></td>
+
+<td>システム・ダンプ・デバイスは、1 次および 2 次ともにミラーリングを実行しないでください。 システムのなかには、ページング・デバイスとダンプ・デバイスが同じであるものがあります。 しかし、ほとんどのユーザーは、ページング・デバイスのミラーリングを希望します。 <strong>mirrorvg</strong> がダンプ・デバイスとページング・デバイスが同一のものであることを検出すると、論理ボリュームが自動的にミラーリングされます。<p><strong>mirrorvg</strong> がダンプ・デバイスとページング・デバイスが異なる論理ボリュームであることを検出すると、そのページング・デバイスは自動的にミラーリングされますが、ダンプ論理ボリュームはミラーリングされません。 ダンプ・デバイスは、<strong>sysdumpdev</strong> コマンドによって照会し、変更することができます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ボリューム・グループを三重にミラーリングするには、次のように入力します。<div> <div><div><pre><code>mirrorvg -c 3 workvg</code></pre></div><div></div></div>保持されている論理ボリューム内の論理区画workvg現在は 3 部あります</div>
+</li>
+
+<li><span></span>rootvg のデフォルト・ミラーリングを取得するには、次のように入力します。<div> <div><div><pre><code>mirrorvg rootvg</code></pre></div><div></div></div> rootvg現在は 2 部あります</div>
+</li>
+
+<li><span></span>ミラーリングされたボリューム・グループ内の不良ディスク・ドライブを交換するには、次のように入力します。<div> <div><div><pre><code>unmirrorvg workvg hdisk7
+reducevg workvg hdisk7
+rmdev -l hdisk7 -d
+replace the disk drive, let the drive be renamed hdisk7
+extendvg workvg hdisk7
+mirrorvg workvg</code></pre></div><div></div></div></div>
+  <p></p><blockquote><span>“</span><strong>注:</strong> この例では、デフォルトで、 <strong>mirrorvg</strong> は以下の場所に論理ボリュームのコピーを 2 つ作成しようとします。workvg. 交換されたディスク・ドライブ上に新しいミラーを作成しようとします。 ただし, 元のシステムが 3 重にミラー保護されている場合には, 新しいミラーが作成されていない可能性があります。hdisk7論理ボリュームに他のコピーが既に存在している可能性があります。<span>”</span></blockquote>
+<p></p>
+</li>
+
+<li><span></span>新しく作成したミラーをバックグラウンドで同期するには、次のように入力します。<div> <div><div><pre><code>mirrorvg -S -c 3 workvg</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <code>datavg</code>内に論理ボリュームの 2 番目と 3 番目のコピーを作成し、各ディスク上の物理区画マップが互いに正確に一致するようにするには、次のように入力します。<div> <div><div><pre><code>mirrorvg -m -c 3 datavg hdisk2 hdisk3</code></pre></div><div></div></div><code>datavg</code> によって保持される論理ボリューム内の論理区画は 3 つのコピーを持つようになりました。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+
+<td><strong>mirrorvg</strong> コマンドが入っているディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,149 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ディスク使用状況のアカウンティングを実行します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>acctdisk</code></pre></div><div></div></div>
+<div><div><pre><code>acctdusg [ -u File ] [ -p File ] [ -X ]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2>
+
+<p><span>acctdisk</span> コマンドおよび <span>acctdusg</span> コマンドは、<span>dodisk</span> コマンドによって呼び出され、ディスク使用状況のアカウンティングを実行します。 通常、このプロシージャーは、<span>cron</span> デーモンが <span>dodisk</span> コマンドを実行するときに開始されます。</p>
+
+
+<p>通常は、<span>diskusg</span> コマンドの出力が <span>acctdisk</span> コマンドの入力になります。 より完全ではあるが低速なバージョンのディスク・アカウンティングが必要な場合は、 <span>dodisk -o</span> コマンドを使用して、 <span>diskusg</span> コマンドではなく <span>acctdusg</span> コマンドを呼び出してください。</p>
+
+<p>集計は、ローカル・ユーザー用のローカル・ファイルシステムにあるファイルに関してだけ行われます。 リモート・ユーザー (YP クライアントやディスクレス・クライアントなど) をカウントするシステム管理者は、 <span>acctdusg -p</span> コマンドを使用できます。</p>
+
+<dl>
+
+<dt><span>acctdisk</span></dt>
+
+<dd><p><span>acctdisk</span> コマンドは、 <span>diskusg</span> または <span>acctdusg</span> コマンドの出力行を標準入力から読み取り、個々のレコードを合計アカウンティング・レコードに変換し、そのレコードを標準出力に書き出します。 これらのレコードは、<span>acctmerg</span> コマンドにより他のアカウント・レコードとマージされ、日次集計レポートが生成されます。</p>
+
+</dd>
+
+
+
+<dt><span>acctdusg</span></dt>
+
+<dd><p><span>acctdusg</span> コマンドは、低速で詳細なディスク集計が必要な場合に、<span>dodisk -o</span> コマンドにより呼び出されます。 それ以外の場合、 <span>dodisk</span> コマンドは <span>diskusg</span> コマンドを呼び出します。</p>
+
+<p><span>acctdusg</span> コマンドは、標準入力 ( <span>find / -print</span> コマンドからパイプ接続) からファイルのリストを読み取り、各ファイル所有者に割り振られたディスク・ブロック (間接ブロックを含む) の数を計算し、各ユーザーの個々のレコードを標準出力に書き出します。 デフォルトでは、コマンドは、ログイン名と番号を <span>/etc/passwd</span> ファイル内で検索します。 <span>-p</span> File フラグと変数を指定すれば、その他のファイルを検索できます。 各出力レコードは次のフォーマットになります。</p>
+
+<p><span>acctdusg</span> コマンドは、標準入力 ( <span>find / -print</span> コマンドからパイプ接続) からファイルのリストを読み取り、各ファイル所有者に割り振られたディスク・ブロック (間接ブロックを含む) の数を計算し、各ユーザーの個々のレコードを標準出力に書き出します。 デフォルトでは、コマンドは、ログイン名と番号を <span>/etc/passwd</span> ファイル内で検索します。 <span>-p</span> File フラグと変数を指定すれば、その他のファイルを検索できます。 各出力レコードは次のフォーマットになります。</p>
+
+<div>
+<div><div><pre><code>uid login #blocks</code></pre></div><div></div></div>
+</div>
+
+<p><code>#blocks</code> 値は、ユーザーが使用している 1 KB ブロックの数です。</p>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-p </span>ファイル</td>
+
+<td><span>/etc/passwd</span> ファイルを検索しないで、指定のファイルからログイン名と番号を検索します。</td>
+
+</tr>
+
+<tr>
+<td><span>-u </span>ファイル</td>
+
+<td>課金免除にするファイル名のレコードを、指定のファイルに入れます。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>長いユーザー名のサポートをオンにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: これらのコマンドは、 <span>adm</span> グループのメンバーにのみ実行 (x) アクセス権を付与します。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>通常のディスク・アカウンティング手順を開始するには、次のような行を <span>crontab</span> ファイルに追加して、 <span>cron</span> デーモンがディスク・アカウンティング・コマンドを自動的に実行するようにします。<div>
+<div><div><pre><code>0 2 * * 4 /usr/sbin/acct/dodisk </code></pre></div><div></div></div>この例では、 <span>dodisk</span> プロシージャーは <code>(0 2)</code> 毎週木曜日の <code>(4)</code> 午前 2 時に実行され、 <span>dodisk</span> プロシージャーは <span>diskusg</span> および <span>acctdisk</span> コマンドを呼び出して、ディスク使用量レコードを <span>/usr/adm/acct/nite/dacct</span> ファイルに書き込みます。</div>
+</li>
+
+<li>完全なディスク・アカウンティング・プロシージャーを開始する場合は、次のような行
+を <span>crontab</span> ファイルに追加して、<span>cron</span> デーモンが
+ディスク・アカウンティング・コマンドを自動的に実行するようにします。<div>
+<div><div><pre><code>0 2 * * 4 /usr/sbin/acct/dodisk -o</code></pre></div><div></div></div>この例では、 <span>dodisk</span> プロシージャーは午前 2 時に実行されます。 <code>(0 2)</code> 毎週木曜日 <code>(4)</code> 、および <span>dodisk</span> プロシージャーは、 <span>acctdusg</span> および <span>acctdisk</span> コマンドを呼び出して、ディスク使用レコードを <span>/var/adm/acct/nite/dacct</span> ファイルに書き込みます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/acct/acctdisk</span></td>
+
+<td><span>acctdisk</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/sbin/acct/acctdusg</span></td>
+
+<td><span>acctdusg</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/passwd</span></td>
+
+<td>このファイルには、ユーザーの基本属性が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/sbin/acct</span></td>
+
+<td>すべてのアカウント・コマンドが入ったディレクトリーです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

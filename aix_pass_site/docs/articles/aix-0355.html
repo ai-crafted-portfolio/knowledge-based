@@ -1,0 +1,84 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>動的 DNS (DDNS) 更新を保護するためのトランザクション署名 (TSIG) 用の鍵を生成します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><span>tsig-keygen</span>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__aflag" target="_blank" rel="noopener noreferrer"><span>-a</span></a> アルゴリズム] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__hflag" target="_blank" rel="noopener noreferrer"><span>-h</span></a>][名前］</p>
+
+<p><span>ddns-confgen</span>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__aflag" target="_blank" rel="noopener noreferrer"><span>-a</span></a> algorithm] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__hflag" target="_blank" rel="noopener noreferrer"><span>-h</span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__kflag" target="_blank" rel="noopener noreferrer"><span>-k</span></a> keyname] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__qflag" target="_blank" rel="noopener noreferrer"><span>-q</span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__sflag" target="_blank" rel="noopener noreferrer"><span>-s</span></a> name] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/ddns-confgen.html#ddns-confgen__zflag" target="_blank" rel="noopener noreferrer"><span>-z</span></a> zone] ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>tsig-keygen</span>」と「<span>ddns-confgen</span>コマンドは、TSIG署名に使える鍵を生成するユーティリティの呼び出しメソッドである。 生成された鍵は、ゾーンの動的なドメイン名システム(DNS)更新や「<span>rndc</span>コマンドチャネルの安全性を確保するために使用できる。</p>
+
+<p><span>tsig-keygen</span> コマンドを実行するときに、生成される鍵の名前として使用する必要があるドメイン・ネームを指定できます。 名前を指定しない場合、生成されるキーのデフォルト名は「<code>tsig-key</code>である。</p>
+
+<p><span>ddns-confgen</span>コマンドを実行すると、生成されたキーに、ダイナミックDNSをセットアップする際に「<span>nsupdate</span>」と「<span>named</span>コマンドで使用できる設定テキストと指示が添付される。 生成されたキーには、「<code>update-policy</code>ステートメントの例も添えられている。 この使用法は、コマンド・チャネル・セキュリティーをセットアップするための <span>rndc-confgen</span> コマンドと似ています。</p>
+
+<p><span>named</span>コマンドを実行し、「<code>nsupdate -l</code>コマンドを使ってローカルDDNSキーを設定することができる。 ただし、このコマンドは、ゾーンが'<code>update-policy local</code>コマンドで設定されている場合に使用できる。 <span>ddns-confgen</span> コマンドは、より詳細な構成が必要な場合にのみ実行してください。 例えば、 <span>nsupdate</span> コマンドをリモート・システムから使用する必要がある場合などです。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt><span>-a</span> アルゴリズム</dt>
+
+<dd>TSIGキーに使用しなければならないアルゴリズムを指定する。 以下のアルゴリズムが利用可能なオプションである：<ul>
+<li><code>hmac-md5</code></li>
+
+<li><code>hmac-sha1</code></li>
+
+<li><code>hmac-sha224</code></li>
+
+<li><code>hmac-sha256</code></li>
+
+<li><code>hmac-sha384</code></li>
+
+<li><code>hmac-sha512</code></li>
+
+</ul>デフォルトのオプションは「<code>hmac-sha256</code>である。 オプションは大文字小文字を区別せず、接頭辞「<code>hmac-</code>」は省略できる。</dd>
+
+
+
+<dt><span>-h</span></dt>
+
+<dd>オプションと引数の簡単な要約を出力します。</dd>
+
+
+
+<dt><span>-k</span> キー名</dt>
+
+<dd>DDNS認証鍵の鍵名を指定します。 <span>-s</span>または '<span>-z</span>フラグを指定しない場合、デフォルト値は '<code>ddns-key</code> となる。 そうでない場合、デフォルト値は'<code>ddns-key</code>後にオプションの引数が続く。 例えば、'<code>ddns-key.example.com</code>. キー名は、文字、数字、ハイフン、およびピリオドで構成される有効なドメイン・ネームの形式でなければなりません。</dd>
+
+
+
+<dt><span>-q</span> (<span>ddns_confgen</span> のみ)</dt>
+
+<dd>説明文や使用例を表示せず、キーのみを表示するクワイエットモードを有効にする。</dd>
+
+
+
+<dt><span>-s</span> name (<span>ddns_confgen</span> のみ)</dt>
+
+<dd>単一ホスト名の動的更新を示す構成例を生成します。 例 '<code>named.conf</code>テキストは、namename タイプを使用して、指定された名前に更新ポリシーを設定する方法を示しています。 デフォルトのキー名は「<code>ddnskey.name</code>である。 更新される名前がキー名と異なる可能性があるため、'<code>self</code>名前タイプは使用できない。 このフラグを「<span>-z</span>フラグと併用することはできない。</dd>
+
+
+
+<dt><span>-z</span> zone (<span>ddns_confgen</span> のみ)</dt>
+
+<dd>ゾーンの動的更新を示す構成例を生成します。 例の <code>named.conf</code> テキストは、 <code>zonesub</code> 名前タイプを使用して、指定されたゾーンの更新ポリシーを設定する方法を示しています。 そのゾーン内のサブドメイン名を更新することもできます。 このフラグを <span>-z</span> フラグと一緒に使用することはできません。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

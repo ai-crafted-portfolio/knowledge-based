@@ -1,0 +1,270 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>効率的に検索できるように、基本ユーザー・データベースを編成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Mkpasswd</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkpasswd.html#mkpasswd__row-d3e147931" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkpasswd.html#mkpasswd__row-d3e147937" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkpasswd.html#mkpasswd__row-d3e147943" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkpasswd.html#mkpasswd__row-d3e147949" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a>} |<em>索引名</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkpasswd</strong> コマンドは、特定のセキュリティー・ファイルに対して索引を生成します。 これらの索引は、<strong>getpwnam</strong>、<strong>getpwuid</strong>、<strong>getuserattr</strong>、および <strong>putuserattr</strong> の各ライブラリー・サブルーチンで使用されます。</p>
+ <p>この方法によって大規模なユーザー・ベース・システムのパフォーマンスを大幅に強化することができます。 <strong>/usr/include/usersec.h</strong> で定義された次の索引が作成されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/passwd.nm.idx:</strong></td>
+
+<td>ユーザー名をキーとして使用する <strong>/etc/passwd</strong> ファイルに対する索引。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd.id.idx:</strong></td>
+
+<td>ユーザー ID 番号がキーとして使用される <strong>/etc/passwd</strong> ファイルに対する索引。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/passwd.idx:</strong></td>
+
+<td><strong>/etc/security/passwd</strong> ファイルに対する索引。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/lastlog.idx:</strong></td>
+
+<td><strong>/etc/security/lastlog</strong> ファイルに対する索引。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span>エディターによって索引が作成されるセキュリティー・ファイルを変更すると、索引付けメカニズムが使用不可になります。</li>
+
+<li>データ・ファイルの索引付き読み取りは、そのファイルに対して対応する索引があり、その索引がそれより新しい場合に (Lastlog 索引を除いて)、自動的に行われます。</li>
+
+<li>索引付け機能をログインで使用するためには、<strong>mkpasswd</strong> コマンドが索引を生成していなければなりません。</li>
+
+<li>dbm ファイルを使用した前のハッシュ機能が、索引付け機能に置き換えられます。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-v</strong></td>
+
+<td>索引が作成されたかについて進捗状況を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>すべての索引を強制的に作成させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>すべての索引を削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>すべての索引を検査し、なんらかの問題がみられる場合に、作成し直します。</td>
+
+</tr>
+
+<tr>
+<td><em>IndexName</em></td>
+
+<td>特定の索引を強制的に作成させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: root ユーザーとセキュリティー・グループのメンバーのみが、このコマンドへの実行 (x) アクセス権を持ちます。 このコマンドは、root ユーザーに対して
+setuid にされるので、このコマンドはユーザー・データベースにアクセスします。 セキュリティー・グループのメンバーは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkpasswd.html#mkpasswd__ahn12461" target="_blank" rel="noopener noreferrer">「ファイル」</a> セクションにリストされているすべてのファイルにアクセスできる必要があります。 このコマンドには、<strong>トラステッド・コンピューティング・ベース</strong>属性が入っています。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+ <p>アクセスされるファイル:</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>モード</strong></td>
+
+<td><strong>File</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/passwd.nm.idx</strong><em>nnnn</em><strong>.tmp</strong> および <strong>/etc/passwd.id.idx</strong><em>nnnn</em><strong>.tmp</strong><p>この場合、<em>nnnn</em> はプロセス ID です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/passwd.idx</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/passwd.idx</strong><em> nnnn</em><strong>.tmp</strong><p>この場合、<em>nnnn</em> はプロセス ID です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/lastlog</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/lastlog.idx</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/lastlog.idx</strong><em> nnnn</em><strong>.tmp</strong><p>この場合、<em>nnnn</em> はプロセス ID です。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>セキュリティー・ファイルの索引付き読み取りを作成し、使用可能にするには、次のように入力します。<div> <div><div><pre><code>mkpasswd -f</code></pre></div><div></div></div></div>
+</li>
+
+<li>/etc/security/passwd ファイルのみの索引付きの読み取りを作成し、使用可能にするには、次のように入力します。<div> <div><div><pre><code>mkpasswd /etc/security/passwd.idx</code></pre></div><div></div></div></div>
+</li>
+
+<li>旧式化した索引や正しくない索引を検査し、作成し直すには、次のように入力します。<div> <div><div><pre><code>mkpasswd -c</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mkpasswd</strong></td>
+
+<td>mkpasswd コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/passwd.html" target="_blank" rel="noopener noreferrer"><strong>/etc/passwd</strong></a><strong></strong></td>
+
+<td>基本ユーザー属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/passwd</strong></td>
+
+<td>ユーザー・パスワード属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/lastlog</strong></td>
+
+<td>lastlog に関連した属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

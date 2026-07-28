@@ -1,0 +1,105 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムが、モバイル IPv6 ホーム・エージェントまたは対応するノードとして
+機能できるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rc.mobip6</strong> { <strong>開始</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rc.mobip6.html#rc.mobip6__row-d3e130011" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rc.mobip6.html#rc.mobip6__row-d3e130026" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> ] | <strong>停止</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rc.mobip6.html#rc.mobip6__row-d3e130017" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rc.mobip6.html#rc.mobip6__row-d3e130005" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> ] }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/etc/rc.mobip6</strong> ファイルはシェル・スクリプトであり、
+実行すると、システムがモバイル IPv6 ホーム・エージェントまたは対応する
+ノードとして機能できるようにします。 システム管理を使用して、システムを再始動するたびにモバイル IPv6 を開始
+するように構成した場合、スクリプトは再始動時に自動的に実行されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-F</strong></td>
+
+<td>IPv6 の転送を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>システムを、モバイル IPv6 ホーム・エージェントおよび対応するノードとして
+使用可能にします。 このフラグを指定しないと、システムは対応するノードとしてのみ使用可能になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>ndpd-router</strong> デーモンを停止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>IP セキュリティー認証の検査を使用可能にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、root 権限を持つか、または system グループのメンバーである必要があります。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>次の例は、システムをモバイル IPv6 ホーム・エージェントおよび対応するノードとして
+使用可能にします。<div><div><pre><code>/etc/rc.mobip6 start -H</code></pre></div><div></div></div></li>
+
+<li>次の例は、システムをモバイル IPv6 対応ノードとして
+使用可能にし、IP セキュリティー検査を使用可能にします。<div><div><pre><code>/etc/rc.mobip6 start -S</code></pre></div><div></div></div></li>
+
+<li>次の例は、システムのすべてのモバイル IPv6 および IPv6 ゲートウェイ機能を
+使用不可にします。<div><div><pre><code>/etc/rc.mobip6 stop -N -F</code></pre></div><div></div></div></li>
+
+<li>次の例は、システムのすべてのモバイル IPv6 機能を使用不可にするけれども、
+IPv6 ゲートウェイとしての機能は続行できるようにします。<div><div><pre><code>/etc/rc.mobip6 stop</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/rc.mobip6</strong></td>
+
+<td><strong>rc.mobip6</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

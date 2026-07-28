@@ -1,0 +1,156 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルを圧縮します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>pack [  -f] [  - ] File ...</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pack</span> コマンドは、 File パラメーターで指定されたファイルを圧縮形式で保管します。 入力ファイルは、元のファイル名に接尾部 <code>.z</code> が付いたパック・ファイルに置き換えられます。 呼び出し側プロセスに適切な特権がある場合、パック・ファイルのアクセス・モード、アクセス日と修正日、およびオーナーは、元のファイルと同じ値に保たれます。 入力ファイル名は付加する接尾部 <code>.z</code> のスペースを考慮して 253 バイト以下とします。 <span>pack</span> コマンドが正常終了すると、元のファイルは除去されます。 パックされたファイルは、 <span>compress</span> コマンドを使用して元の形式に復元できます。</p>
+ <p><span>pack</span> コマンドの終了値は、パックできなかったファイルの数です。 <span>pack</span> コマンドは以下の条件下ではパックを実行しません。</p>
+ <ul>
+<li>ファイルが既にパックされている。</li>
+
+<li>入力ファイル名が 253 バイトを超えている。</li>
+
+<li>ファイルにリンクがある。</li>
+
+<li>ファイルがディレクトリーである。</li>
+
+<li>ファイルがオープンできない。</li>
+
+<li>パックによって節約される記憶ブロックがない。</li>
+
+<li>File<code>.z</code> という名前のファイルは既に存在します。</li>
+
+<li><code>.z</code> ファイルを作成できない。</li>
+
+<li>処理中に入出力エラーが発生した。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-f</span></td>
+
+<td>File パラメーターで指定したファイルのパッキングを強制します。 このフラグは、ファイルによって効果がないものもありますが、ディレクトリー全体をパックするときは便利です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>File</td>
+
+<td>パックするファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><code>-</code></td>
+
+<td>File パラメーターで指定されたファイルに関する統計を表示します。 統計情報は、1 バイトごとに構築された Huffman 最小冗長コード・ツリーから計算されます。 コマンド・ラインでさらに <code>-</code> (マイナス符号) パラメーターを指定すると、次に指定されたファイルに対してこの機能のオン/オフが切り替えられます。 例 2 を参照してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+
+<td>ファイルが正常にパックされたことを示します。</td>
+
+</tr>
+
+<tr>
+<td><code>&gt;0</code></td>
+
+<td>エラーが発生したことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>chap1</code> および <code>chap2</code> という名前のファイルを圧縮し、改訂されたファイル名を表示するには、次のように入力します。<div>
+<div><div><pre><code>pack chap1 chap2</code></pre></div><div></div></div>圧縮バージョンは <code>chap1.z</code> および <code>chap2.z</code>に名前変更されます。 <span>pack</span> コマンドは、圧縮された各ファイルのサイズの減少率を表示します。</div>
+</li>
+
+<li>実行された圧縮の量に関する統計を表示するには、次のように入力します。<div><code>pack  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pack.html#pack__row-d3e69248" target="_blank" rel="noopener noreferrer">-</a>chap1  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pack.html#pack__row-d3e69248" target="_blank" rel="noopener noreferrer">- </a>chap2</code></div>これにより、ファイル <code>chap1</code> および <code>chap2</code> が圧縮され、
+ファイル <code>chap1</code> についての統計情報は表示されますが、<code>chap2</code> の統計情報は表示されません。 最初の <code>-</code> (負符号) パラメーターは統計表示をオンにし、2 番目の <code>-</code> パラメーターは統計表示をオフにします。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/pack</span></td>
+
+
+<td><span>pack</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

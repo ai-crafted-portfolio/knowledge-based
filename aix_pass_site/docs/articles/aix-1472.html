@@ -1,0 +1,522 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ファイルをソートしたり、既にソートされているファイルをマージしたり、ファイルを検査してソートされているかどうかを判別します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>ソート</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40353" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40359" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40365" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40371" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40377" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40383" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40493" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40499" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40522" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40540" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40505" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em> OutFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40529" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em> キャラクター</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40546" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em> ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40557" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong></a>[ <em>キロバイト数</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40596" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> <em>RecordSize</em> ] [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__a189c1e6" target="_blank" rel="noopener noreferrer"><strong>+</strong> </a>[ <em>スキップ</em> ] [ <strong>.</strong><em>スキップ</em> ] [ <strong>B</strong> ] [<strong> D</strong> ] [<strong> F</strong> ] [<strong> I</strong> ] [<strong> N</strong> ] [ <strong>R</strong> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__a189c1e6" target="_blank" rel="noopener noreferrer"><strong>-</strong> </a>[ <em>スキップ</em> ] [ <strong>.</strong><em>スキップ</em> ] [<strong> B</strong> ] [<strong> D</strong> ] [<strong> F</strong> ] [<strong> I</strong> ] [<strong> N</strong> ] [ <strong>R</strong> ] ] ] ... [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40389" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a><em> KeyDefinition</em> ] ... [ <em>ファイル ...</em> ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>sort</strong> コマンドは、<em>File</em> パラメーターで指定されたファイル内の行をソートし、その結果を標準出力へ書き出します。 <em> File</em> パラメーターが複数のファイルを指定する場合、<strong>sort</strong> コマンドはそれらのファイルを連結し、1 つのファイルとしてソートします。 ファイル名の代わりに <strong>-</strong> (負符号 (-)) を使用すると、標準入力が指定されます。 ファイル名を何も指定しないと、コマンドは標準入力をソートします。 出力ファイルは <strong>-o</strong> フラグで指定できます。</p>
+
+<p>フラグが何も指定されないと、<strong>sort</strong> コマンドは、現行ロケールの照合順序に基づいて入力ファイルの行全体をソートします。</p>
+
+<p><strong>ソート・キー</strong></p>
+
+<p>ソート・キーは、フィールド番号と桁番号で指定された入力行の一部分です。 フィールドは、フィールド・セパレーターで区切られた入力行の一部です。 デフォルトのフィールド・セパレーターは、1 つ以上の連続するブランク文字です。 しかし、これらのブランク文字は、ソート目的では以下のフィールドの一部と見なされます。 <strong>-b</strong> オプションを指定すると、これらの先行ブランク文字を無視できます。 <strong>-t</strong> フラグを使用して、別のフィールド・セパレーターを指定することもできます。 C 言語および英語のロケールの場合は、タブおよびスペース文字がブランク文字となります。</p>
+
+<p>ソート・キーを使用する場合、<strong>sort</strong> コマンドはまず、最初のソート・キーの内容に基づいてすべての行をソートします。 次に、最初のソート・キーと等しいすべての行が、2 番目のソート・キーの内容に基づいてソートされます。 このようにして次々にソートされます。ソート・キーは、コマンド・ラインに先に現れた順序で番号付けされます。 2 つの行がすべてのソート・キーに対して等しくソートされる場合、行全体が現行ロケールの照合順序に基づいて比較されます。</p>
+
+<p>フィールド内で桁を番号付けする場合、デフォルトのフィールド・セパレーターのブランク文字は、後に続くフィールドの一部として数えられます。 <strong>-t</strong> フラグで指定されたフィールド・セパレーター文字は、フィールドの一部として数えられません。 <strong>-b</strong> フラグを使用すると、先行ブランク文字は無視されます。</p>
+
+<p>ソート・キーは、以下の 2 つのメソッドを使用して定義できます。</p>
+
+<ul>
+<li><span></span><strong>-k</strong><em> KeyDefinition</em></li>
+
+<li><span></span><em>FSkip</em><strong>。</strong><em>CSkip</em> (廃止版)。</li>
+
+</ul>
+
+<p><strong>-k フラグを使用したソート・キー定義</strong></p>
+
+<p><strong>-k</strong> <em>KeyDefinition</em> フラグは、以下の形式を使用します。</p>
+
+<p>- <strong>k</strong> [<em> 開始</em>[<strong>.C</strong><em> スタート</em>]][<em> 修飾記号</em>][<strong> ,</strong><strong></strong> [<em> FEnd (終わり)</em>[<strong> .</strong><em>「CEnd」</em>]][<em> 修飾記号</em>]]</p>
+
+<p>ソート・キーは、<em>FStart</em> 変数で指定されたフィールドと <em>CStart</em> 変数で指定された桁で始まり、<em>FEnd</em> 変数で指定されたフィールドと <em>CEnd</em> 変数で指定された桁で終わるすべての文字を含みます。 <em>Fend</em> を指定しないと、行の最後の文字が想定されます。 <em>CEnd</em> を指定しないと、<em>FEnd</em> フィールドの最後の文字が想定されます。 <em>KeyDefinition</em> 変数の任意のフィールド番号または桁番号は省略できます。 デフォルト値は以下のとおりです。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>開始</em></td>
+
+<td>行の最初</td>
+
+</tr>
+
+<tr>
+<td><em>CStart (CStart)</em></td>
+
+<td>フィールドの最初の桁</td>
+
+</tr>
+
+<tr>
+<td><em>FEnd (終わり)</em></td>
+
+<td>行の最後</td>
+
+</tr>
+
+<tr>
+<td><em>CEND</em></td>
+
+<td>フィールドの最後の桁</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>フィールド間にスペースがあると、<strong>sort</strong> ではそれらを分離フィールドと見なします。</p>
+
+<p><em>Modifier</em> 変数の値は、1 つ以上の文字 ( <strong>b</strong>、 <strong>d</strong>、 <strong>f</strong>、 <strong>i</strong>) にすることができます。 <strong>n</strong>、または <strong>r</strong>。 修飾子は、それらが付加されているフィールド定義にのみ適用され、同じ文字のフラグと同じ効果があります。 修飾子文字 <strong>b</strong> は、それが付けられているフィールド定義の最後にのみ適用されます。 次に例を示します。</p>
+
+<div>
+<div><div><pre><code>-k 3.2b,3r</code></pre></div><div></div></div>
+</div>
+
+<p>上記の例では、3 番目のフィールドの 2 番目の非ブランク桁から始まり、3 番目のフィールドの最後までのソート・キーを使用して、照合順序と逆の順序でソートするように指定されています。 <em>FStart</em> 変数および <em>CStart</em> 変数が、行の最後を超えたり <em>FEnd</em> 変数や <em>CEnd</em> 変数の後ろにある場合、ソート・キーは無視されます。</p>
+
+<p>ソート・キーは同様に、以下の形式でも指定できます。</p>
+
+<p>[<strong>+</strong>[<em>FSkip1</em>] [<em>.CSkip1</em>] [<em>Modifier</em>]] [<strong>-</strong>[<em>FSkip2</em>] [<em>.CSkip2</em>] [<em>修飾子</em>]]</p>
+
+<p><strong>+</strong><em>FSkip1</em> 変数は、ソート・キーの最初のフィールドに達するまでにスキップするフィールド数を指定し、<strong>+</strong><em>CSkip</em> 変数は、そのフィールド内でソート・キーの最初の文字に達するまでにスキップする桁数を指定します。 <strong>-</strong><em>FSkip</em> 変数は、ソート・キーの<em>後</em> の最初の文字に達するまでにスキップするフィールド数を指定し、<strong>-</strong><em>CSkip</em> 変数は、そのフィールド内でスキップする桁数を指定します。 フィールドおよび桁のスキップ数はすべて省略できます。 デフォルトは以下のとおりです。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>FSkip1</em></td>
+
+<td>行の最初</td>
+
+</tr>
+
+<tr>
+<td><em>CSkip1</em></td>
+
+<td>ゼロ</td>
+
+</tr>
+
+<tr>
+<td><em>FSkip2</em></td>
+
+<td>行の最後</td>
+
+</tr>
+
+<tr>
+<td><em>CSkip2</em></td>
+
+<td>ゼロ</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><em>Modifier</em> 変数で指定された修飾子は、<strong>-k</strong> フラグのキー・ソート定義と同じです。</p>
+
+<p><strong>+</strong><em>FSkip1</em><strong>.</strong><em>CSkip1</em> 変数によって指定されるフィールド数と桁数は、それらの変数がソート・キーに達するまでにスキップするフィールド数および桁数を指定しているため、一般的には、ソート・キー自身のフィールド数および桁数よりも 1 小さい数です。 次に例を示します。</p>
+
+<div>
+<div><div><pre><code>+2.1b -3r</code></pre></div><div></div></div>
+</div>
+
+<p>上記の例では、3 番目のフィールドの 2 番目の非ブランク桁から始まり、3 番目のフィールドの最後までのソート・キーを使用して、照合順序と逆の順序でソートするように指定されています。 以下のステートメントを+2.1b2 つのフィールドをスキップしてから、先行ブランクともう 1 つの列をスキップすることを指定します。 <strong>+</strong><em>FSkip1</em><strong>.</strong><em>CSkip1</em> 変数が、行の最後を超えたり <strong>-</strong><em>FSkip2</em><strong>.</strong><em>CSkip2</em> 変数の後ろにある場合、ソート・キーは無視されます。</p>
+
+<p><strong>注:</strong> 1 行の最大フィールド数は 32 です。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div><div>
+        <div>
+          <div><span>注:</span> A <strong>-b</strong>, <strong>-d</strong>, <strong>-f</strong>, <strong>-i</strong>, <strong>-n</strong>, または、ソート・キー定義がすべてのソート・キーに適用される前に表示される <strong>-r</strong> フラグ。 <strong>b</strong>、<strong>-d</strong>、<strong>-f</strong>、<strong>-i</strong>、<strong>-n</strong>、<strong>-r</strong>フラグのいずれも、<strong>-k</strong><em> KeyDefinition</em>の後に単独で現れることはできない。もし、それらが修飾子として<em>KeyDefinition</em>変数に付加されている場合、付加されているソートキーにのみ適用される。 これらのフラグのうちの 1 つが <strong>+</strong><em>Fskip.Cskip</em> または <strong>-</strong><em>Fskip.Cskip</em> ソート・キー定義の後ろに続く場合は、フラグはそのソート・キーにのみ適用されます。</div>
+        </div>
+      </div></div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong></td>
+
+<td>現行ロケール内の照合順序ではなく ASCII 照合順序を使って、バイト単位でソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>先行スペースおよびタブを無視して、フィールドの最初または最後の桁を探します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>フラグ内で指定された順序規則に従って入力がソートされていることを検査します。 入力ファイルが正しくソートされていない場合は、ゼロ以外の値が戻されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>フラグ内で指定された順序規則に従って入力がソートされていることを検査します。ただし、障害がある場合、または <strong>-u</strong> オプションを使用して重複キーが検出された場合に警告メッセージが標準エラーに送信されないことを除きます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>辞書順でソートします。 文字、数字、スペースのみが比較の対象となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>比較する前にすべての小文字を大文字に変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>比較するときに、非出力文字をすべて無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> KeyDefinition</em></td>
+
+<td>ソート・キーを指定します。 <em>KeyDefinition</em> オプションのフォーマットは以下のとおりです。<p>[<em> 開始</em>[<strong>.C</strong><em> スタート</em>]][<em> 修飾記号</em>][<strong> ,</strong><strong></strong> [<em> FEnd (終わり)</em>[<strong> .</strong><em>「CEnd」</em>]][<em> 修飾記号</em>]]</p>
+
+<p>ソート・キーは、<em>FStart</em> 変数で指定されたフィールドと <em>CStart</em> 変数で指定された桁で始まり、<em>FEnd</em> 変数で指定されたフィールドと <em>CEnd</em> 変数で指定された桁で終わるすべての文字を含みます。 <em>Modifier</em> 変数の値は、 <strong>b</strong>、 <strong>d</strong>、 <strong>f</strong>、 <strong>i</strong>、 <strong>n</strong>、または <strong>r</strong>。 修飾子は、同じ文字のフラグに相当します。 キー定義に修飾子が付加されている場合は、
+フラグが適用されません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>複数の入力ファイルのマージのみを実行します。
+入力はソート済みであると見なされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>算術値を使って数値フィールドをソートします。 数値フィールドには、先行ブランク、オプションの負符号 (-)、10 進数、千の位取り記号、オプションの基数文字を含みます。 非数字を含むフィールドの数値ソートを実行すると、予想できない結果が起こる可能性があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutFile</em></td>
+
+<td>標準出力の代わりに <em>OutFile</em> パラメーターで指定されたファイルへ出力を指示します。 <em>OutFile</em> パラメーターの値は、<em>File</em> パラメーターと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>指定されたソートの順位を反転します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> 文字</em></td>
+
+<td><em>Character</em> を 1 つのフィールド・セパレーター文字として指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ソート・キーとオプションに従って等価としてソートされる行の各セットの、最初の行以外をすべて抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> ディレクトリー</em></td>
+
+<td>作成された一時ファイルのすべてを、<em>Directory</em> パラメーターで指定されたディレクトリーに入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong>[<em>キロバイト</em>]<em></em></td>
+
+<td><em>KB</em> パラメーターで指定された主ストレージのキロバイト数を使用して <strong>sort</strong> コマンドを開始し、必要に応じてストレージを追加します。 ( <em>KB</em> パラメーターに指定された値が最小ストレージ・サイトより小さいか、最大ストレージ・サイトより大きい場合は、代わりに最小値または最大値が使用されます。) <strong>-y</strong> フラグが省略されると、
+<strong>sort</strong> コマンドはデフォルトのストレージ・サイズを使って始動されます。 <strong>-y0</strong> フラグの場合は最小ストレージで始動され、<strong>-y</strong> フラグ (<em>Kilobytes</em> 値なし) の場合は最大ストレージで始動されます。 <strong>sort</strong> コマンドが使用するストレージの大きさは、パフォーマンスに大きく影響します。 大容量ストレージ内で小規模ファイルをソートすると、無駄が多くなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong><em> RecordSize</em></td>
+
+<td>ソート中のいずれかの行がデフォルトのバッファー・サイズより長い場合に、異常終了するのを防ぎます。 <span>デフォルトのバッファー・サイズは 20 KB です。</span> <strong>-c</strong> または <strong>-m</strong> フラグを指定すると、ソート・フェーズは省略され、システムのデフォルト・バッファー・サイズが使用されます。 ソートした行がデフォルトのサイズより長くなると、<span>sort</span> コマンドは異常終了します。 <strong>-z</strong> オプションは当該のソート・フェーズにおける最長行を記録するように指定するため、適当なバッファーをマージ・フェーズに割り当てることができます。 <em>RecordSize</em> 変数には、マージする最長行と同じかそれ以上のバイト値を指定しなければなりません。 <span>C ロケールにおいてサポートされる最大の行サイズは約 2M 文字で、C 以外のロケールでは 1M 文字です。 C ロケールでは、<strong>-z</strong> オプションは無効です。</span></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>すべての入力ファイルが正常に出力されたか、または <strong>-c</strong> が指定され、入力ファイルが正しくソートされました。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td><strong>-c</strong> オプションに基づいて、ファイルの順序が指定したとおりにならなかったか、または <strong>-c</strong> および <strong>-u</strong> オプションの両方を指定した場合に、2 つの入力行に同じキーが付いているのが見つかりました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;1</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><span></span>ソートするには、fruits<strong>LC_ALL</strong>、 <strong>LC_COLLATE</strong>、または <strong>LANG</strong> 環境変数が設定されたファイルEn_US次のように入力します。<div>
+<div><div><pre><code>LANG=En_US sort fruits</code></pre></div><div></div></div>このコマンド・シーケンスは、以下のものの内容を表示します。fruits昇順の辞書式順序でソートされたファイル。 スペース、数字、特殊文字を含めた各桁の文字が 1 つずつ比較されます。 例えば、次のようになります。fruitsファイルには次のテキストが含まれます<div><div><pre><code>banana
+orange
+Persimmon
+apple
+%%banana
+apple
+ORANGE</code></pre></div><div></div></div><strong>sort</strong> コマンドは、次のように表示します。<div><div><pre><code>%%banana
+ORANGE
+Persimmon
+apple
+apple
+banana
+orange</code></pre></div><div></div></div>ASCII 照合シーケンスでは、以下のようになります。%(パーセント記号) は大文字の前に付き、小文字の前に付きます。 現行ロケールが ASCII 以外の文字セットを使用している場合は、結果が異なることもあります。</div>
+</li>
+
+<li><span></span>辞書順にソートするには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40371" target="_blank" rel="noopener noreferrer">-d </a>fruits</div>このコマンド・シーケンスは、以下のものの内容をソートして表示します。fruits文字、数字、およびスペースのみを比較します。 もしfruitsファイルが例 1 と同じである場合、 <strong>sort</strong> コマンドは次のように表示します。<div>
+<div><div><pre><code>ORANGE
+Persimmon
+apple
+apple
+%%banana
+banana
+orange</code></pre></div><div></div></div><strong>-d</strong> フラグは、%(パーセント記号) 文字 (文字、数字、またはスペースではないため)%%banana使用:banana.</div>
+</li>
+
+<li><span></span>大文字および特殊文字を含む行を類似した小文字でグループ化するには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40371" target="_blank" rel="noopener noreferrer">-d </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40377" target="_blank" rel="noopener noreferrer">-f </a>fruits</div><strong>-d</strong> フラグは特殊文字を無視し、<strong>-f</strong> フラグは大文字と小文字の違いを無視します。 <strong>LC_ALL</strong>、 <strong>LC_COLLATE</strong>、または <strong>LANG</strong> 環境変数が次のように設定されているとします。C、以下の出力fruitsファイルの内容:<div>
+<div><div><pre><code>apple
+apple
+%%banana
+banana
+ORANGE
+orange
+Persimmon</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span></span>重複行を除去してソートするには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40371" target="_blank" rel="noopener noreferrer">-d</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40377" target="_blank" rel="noopener noreferrer">-f</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40540" target="_blank" rel="noopener noreferrer">-u</a> fruits</div><strong>-u</strong> フラグは <strong>sort</strong> コマンドに対して、
+重複行を除去してファイルの各行を固有にするように指示します。 このコマンド・シーケンスにより、以下のように表示されます。<div>
+<div><div><pre><code>apple
+%%banana
+ORANGE
+Persimmon</code></pre></div><div></div></div>重複しているだけではありませんapple削除されたが、bananaおよびORANGE同様に これらは削除されます。 <strong>-d</strong> フラグは、%%特殊文字と <strong>-f</strong> フラグは大/小文字の違いを無視します。</div>
+</li>
+
+<li><span></span>例 4 のようにソートして、大文字または句読点が異なる場合を除き、重複するインスタンスを削除するには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40540" target="_blank" rel="noopener noreferrer">-u </a>+0  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40371" target="_blank" rel="noopener noreferrer">-d </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40377" target="_blank" rel="noopener noreferrer">-f </a>+0 fruits</div>入力+0 -d -f実行されるのと同じタイプのソートを実行します-d -f例 3 にあります。 次に、+0は、同一でない行を区別するために別の比較を行います。 これによって <strong>-u</strong> フラグがこれらの重複を除去しないようにします。<p>指定されたfruits例 1 に示されているように, 追加されたファイルは,+0区別する%%bananaからbananaおよびORANGEからorangeただし、以下の 2 つのインスタンスは、apple同じものであるため、そのうちの 1 つが削除されます。</p>
+
+<div>
+<div><div><pre><code>apple
+%%banana
+banana
+ORANGE
+orange
+Persimmon</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span></span>フィールドを区切る文字を指定するには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40529" target="_blank" rel="noopener noreferrer">-t</a>: +1 vegetables</div>このコマンド・シーケンスは、vegetablesファイル。各行の最初のコロンに続くテキストを比較します。 この+1最初のフィールドを無視し、2 番目のフィールドの先頭から行の末尾までを比較するように<strong> sort</strong> コマンドに指示します。 この-t:フラグは、フィールドをコロンで区切るように <strong>sort</strong> コマンドに指示します。 指定する場合は、vegetablesの内容:<div>
+<div><div><pre><code>yams:104
+turnips:8
+potatoes:15
+carrots:104
+green beans:32
+radishes:5
+lettuce:15</code></pre></div><div></div></div><strong>LC_ALL</strong>、<strong>LC_COLLATE</strong>、<strong>LANG</strong> 環境変数を C に設定すると、<strong>sort</strong> コマンドは以下のように表示します。<div><div><pre><code>carrots:104
+yams:104
+lettuce:15
+potatoes:15
+green beans:32
+radishes:5
+turnips:8</code></pre></div><div></div></div>数字は数値順になっていないことに注意してください。 これは辞書順によるソートが各文字を左から右へ比較するために起こります。 言い換えれば3前に来る5、そのため32前に来る5.</div>
+</li>
+
+<li><span></span>数値をソートするには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40529" target="_blank" rel="noopener noreferrer">-t</a>: +1  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40499" target="_blank" rel="noopener noreferrer">-n </a>vegetables</div>このコマンド・シーケンスは、vegetables2 番目のフィールドに数値で表示されます。 もしvegetablesfile が例 6 と同じであれば、 <strong>sort</strong> コマンドは次のように表示します。<div>
+<div><div><pre><code>radishes:5
+turnips:8
+lettuce:15
+potatoes:15
+green beans:32
+carrots:104
+yams:104</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span></span>複数のフィールドをソートするには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40529" target="_blank" rel="noopener noreferrer">-t</a>: +1 -2  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40499" target="_blank" rel="noopener noreferrer">-n </a>+0 -1  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40522" target="_blank" rel="noopener noreferrer">-r </a>vegetables</div>または<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40529" target="_blank" rel="noopener noreferrer">-t</a>:  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40389" target="_blank" rel="noopener noreferrer">-k</a>2,2 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40499" target="_blank" rel="noopener noreferrer">n </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40389" target="_blank" rel="noopener noreferrer">-k</a>1,1 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40522" target="_blank" rel="noopener noreferrer">r </a>vegetables</div>このコマンド・シーケンスは、2 番目のフィールド (+1 -2 -n)。 その順序の中で、最初のフィールドをアルファベットの逆順にソートします (+0 -1 -r)。 <strong>LC_ALL</strong>、 <strong>LC_COLLATE</strong>、または <strong>LANG</strong> 環境変数が C に設定されている場合、出力は以下のようになります。<div>
+<div><div><pre><code>radishes:5
+turnips:8
+potatoes:15
+lettuce:15
+green beans:32
+yams:104
+carrots:104</code></pre></div><div></div></div>このコマンドは行を数値順でソートします。 2 つの行に同じ数値が含まれている場合は、アルファベットの逆順に表示されます。</div>
+</li>
+
+<li><span></span>元のファイルをソート済みテキストで置き換えるには、次のように入力します。<div>sort  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sort.html#sort__row-d3e40505" target="_blank" rel="noopener noreferrer">-o </a>vegetables vegetables</div>このコマンド・シーケンスは、ソートされた出力を次の場所に保管します。vegetablesファイル (-o
+vegetables).</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/sort</strong></td>
+
+<td><strong>sort</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/tmp</strong></td>
+
+<td><strong>sort</strong> コマンドの処理中の一時スペースです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/tmp</strong></td>
+
+<td>ファイルを <strong>/var/tmp</strong> で作成できない場合の、<strong>sort</strong> コマンドの処理中の一時スペースになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp</strong></td>
+
+<td><em>/var/tmp</em> または <strong>/usr/tmp</strong>にファイルを作成できない場合の、 <strong>sort</strong> コマンド処理中の一時スペース。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

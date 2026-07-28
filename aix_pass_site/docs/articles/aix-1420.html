@@ -1,0 +1,194 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>セッションのプロセス・グループ・セットをリセットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>setgroups</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17232" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17184" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>GroupSet</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17201" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em>GroupSet</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17212" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><strong></strong> [ <em>Group</em> ]] [ <em>GroupSet</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>setgroups</strong> コマンドは、デフォルトでは現行シェルに関するユーザーの現行グループ・セットおよびプロセス・グループ・セットを表示します。 ユーザーのグループ・セットは、ユーザー・データベース・ファイル内で定義されます。 フラグおよび <em>GroupSet</em> パラメーターを指定すると、このコマンドによって <em>GroupSet</em> パラメーターでリストしたプロセス・グループ・セットがリセットされます。 <em>GroupSet</em> パラメーターは、グループ名をコンマで区切ったリストです。 使用可能なグループは、ユーザー・データベース・ファイル内で定義されます。</p>
+ <p>また、<strong>setgroups</strong> コマンドを使用すると、現行グループ・セットについてグループを追加または削除できます。 <strong>-r</strong> フラグを使用すると、実グループ ID をリセットできます。 <em>Groupset</em> パラメーターを指定してもフラグを指定しなければ、<strong>setgroups</strong> コマンドによってすべてのグループがリセットされ、リスト内の最初のグループが実グループになります。 <strong>setgroups</strong> コマンドでは、制御端末のセキュリティー特性は変更されません。</p>
+ <p><strong>setgroups</strong> コマンドを実行すると、現行シェルは常に新規のシェルに置き換えられます。 このコマンドは、正常に実行されるかどうかに関係なくシェルを置き換えます。 したがって、このコマンドはエラー・コードを戻しません。</p>
+ <p><strong>setgroups -r</strong> コマンドは、<strong>newgrp</strong> コマンドと同じです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> GroupSet</em></td>
+
+<td><em> GroupSet</em> パラメーターで指定されたグループを、現行セッションに追加します。 新規のセットのグループ数は、<strong>NGROUPS_MAX</strong> グループ (<strong>limits.h</strong> ファイルに定義されている値) を超えてはなりません。 実グループ ID は変更されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> GroupSet</em></td>
+
+<td><em>GroupSet</em> パラメーターで指定されたグループを、現行セッションから除去します。 実グループが除去されると、現行セットにリストされている次のグループが実グループになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> グループ</em></td>
+
+<td>現行プロセスの実グループをリセットします。 <em>Group</em> パラメーターを指定せず、現在の実グループが 1 次グループでない場合、<strong>-r</strong> フラグは現在の実グループを除去し、実グループを元の 1 次グループにリセットします。 <em>Group</em> パラメーターを指定すると、この動作は <strong>newgrp</strong> コマンドと同じになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em></em></td>
+
+<td>セッションのグループ・セットを、元のログイン状態に再初期化します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、一般ユーザー・プログラムでなければなりません。 このコマンドは、トラステッド・コンピューティング・ベース (TCB) にプログラムとしてインストールされなければなりません。 このコマンドは、
+<strong>setuid</strong> (SUID) ビットが設定されている root ユーザーが所有しなければなりません。</p>
+ <p>アクセスされるファイル:</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/group</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>イベント</strong></td>
+
+<td><strong>情報</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>USER_SetGroups</strong></td>
+
+<td>realgroup<em>、</em> グループ・セット</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ユーザーとしてsah次のように入力すると、現在のグループ・メンバーシップとプロセス・グループ・セットを表示できます。<div> <div><div><pre><code>setgroups</code></pre></div><div></div></div>下記のような出力が表示されます。<div><div><pre><code>sah:
+
+   user groups = staff,payroll
+   process groups = staff,payroll</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>追加するには、finance現行セッションのプロセス・グループに対して、次のように入力します。<div>setgroups  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17184" target="_blank" rel="noopener noreferrer">-a  </a>finance</div>
+</li>
+
+<li><span></span>実グループを次のように設定するとします。finance次のように入力します。<div> <div><div><pre><code>setgroups finance,staff,payroll</code></pre></div><div></div></div>これは、finance実際のグループとして このstaffおよびpayrollグループが補足グループ・リストを構成します。</div>
+</li>
+
+<li><span></span>削除するには、payroll現行プロセス・グループ・セットからのグループ。次のように入力します。<div>setgroups  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17201" target="_blank" rel="noopener noreferrer">-d  </a>payroll</div>
+</li>
+
+<li><span></span>プロセス・グループ・セットをデフォルト・セットに戻すには、次のように入力します。<div>setgroups  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setgroups.html#setgroups__row-d3e17201" target="_blank" rel="noopener noreferrer"> - </a></div>これによって、現行セッションはログイン直前の元の状態にリセットされます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/setgroups</strong></td>
+
+<td><strong>setgroups</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>基本グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>基本ユーザー属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

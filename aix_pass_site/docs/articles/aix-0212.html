@@ -1,0 +1,241 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>最小特権 (LP) <span>リソース</span>の<span>属性</span>値を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <div>LP <span>リソース</span>の属性値を変更するための構文:<ul>
+<li><span>ローカル・ノードの場合:</span><p><span><span>chlpcmd</span></span> <span>[ <span><span>-l 0</span></span> | <span><span>1</span></span> ] [ <span><span>-c 0</span></span> | <span><span>1</span></span> | <span><span>2</span></span> | <span><span>3</span></span> ]</span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_name</span></span> <span><span><span>attr1</span></span><span><span>=</span></span><span><span>value1</span></span> [<span><span>attr2</span></span><span><span>=</span></span><span><span>value2</span></span>...]</span></p>
+  <p><span><span>chlpcmd</span></span><span><span>-r</span></span> [<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>リソース名</span></span></p>
+</li>
+
+<li>ドメイン内のすべてのノードで以下のように入力します。<p><span><span>chlpcmd</span></span> <span><span>-a</span></span> <span>[ <span><span>-l 0</span></span> | <span><span>1</span></span> ] [ <span><span>-c 0</span></span> | <span><span>1</span></span> | <span><span>2</span></span> | <span><span>3</span></span> ]</span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_name</span></span> <span><span><span>attr1</span></span><span><span>=</span></span><span><span>value1</span></span> [<span><span>attr2</span></span><span><span>=</span></span><span><span>value2</span></span>...]</span></p>
+  <p><span><span>chlpcmd</span></span><span><span>-a</span></span><span><span>-r</span></span> [<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>リソース名</span></span></p>
+</li>
+
+<li>ドメイン内の一部のノードで以下のように入力します。<p><span><span>chlpcmd</span></span> <span><span>-n</span></span> <span><span>host1</span></span> [<span><span>,</span></span><span><span>host2</span></span><span><span>,</span></span>...] <span>[ <span><span>-l 0</span></span> | <span><span>1</span></span> ] [ <span><span>-c 0</span></span> | <span><span>1</span></span> | <span><span>2</span></span> | <span><span>3</span></span> ]</span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_name</span></span> <span><span><span>attr1</span></span><span><span>=</span></span><span><span>value1</span></span> [<span><span>attr2</span></span><span><span>=</span></span><span><span>value2</span></span>...]</span></p>
+  <p><span><span>chlpcmd</span></span> <span><span>-n</span></span> <span><span>host1</span></span> [<span><span>,</span></span><span><span>host2</span></span><span><span>,</span></span>...] <span><span>-r</span></span> [<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>リソース名</span></span></p>
+</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span> <span><span>chlpcmd</span></span> コマンドを使用して、LP リソースの読み取り/書き込み属性値のいずれかを変更します。 <span><span>LP リソース</span></span></span> は、 <span>LP アクセス制御リスト (ACL)</span>内のアクセス権に基づいてユーザーにアクセス権限を付与する <span><span>root</span></span> コマンドまたはスクリプトです。 <span> <span><span>CheckSum</span></span> 属性を再計算して割り当てるには、 <span><span>-r</span></span> フラグを使用します。 <span><span>ControlFlags</span></span> 属性を変更するには、 <span><span>-c</span></span> フラグを使用します。 <span><span>Lock</span></span> 属性を変更するには、 <span><span>-l</span></span> フラグを使用します。 <span><span>attr</span></span><span><span>=</span></span><span><span>value</span></span> パラメーターを使用して、属性</span> <span><span>Name</span></span>、 <span><span>CommandPath</span></span>、 <span><span><span>RunCmdName</span></span>、 <span><span>FilterScript</span></span>、 <span><span>FilterArg</span></span></span>、および <span><span>Description</span></span>を変更します。</p>
+ <p>このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、 <span><span>-a</span></span> フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、 <span><span>-n</span></span> フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノードで <span><span><span>リソース名</span></span> の属性 <span>値</span></span> を変更します。 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数の設定によって、クラスターの有効範囲が決まります。 <span><span>CT_MANAGEMENT_SCOPE</span></span> が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol><span><span>chlpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数が設定されていないとします。 この場合、 <span><span>chlpcmd –a</span></span> は管理ドメインで実行されます。 ピア・ドメインで <span><span>chlpcmd –a</span></span> を実行するには、 <span><span>CT_MANAGEMENT_SCOPE</span></span> を <span><span>2</span></span>に設定する必要があります。</dd>
+
+
+<dt>--n <span><span>ホスト1</span></span><span>[</span><span><span>host2</span></span>,<span>...]。</span></dt>
+
+<dd>LP リソースを変更するドメインの中の 1 つ以上のノードを指定します。 デフォルトでは、LP リソースは、ローカル・ノードで
+変更されます。 このフラグが有効なのは、管理ドメインまたはピア・ドメインでのみです。 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol><span><span>chlpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。</dd>
+
+
+<dt>–r</dt>
+
+<dd>この LP リソースの <span><span>CheckSum</span></span> 属性値を再計算して割り当てます。 以下の場合に <span><span>-r</span></span> フラグを使用します。<ul>
+<li>この LP リソースが表すコマンドまたはスクリプトを変更したとき。</li>
+
+<li>コマンドまたはスクリプトがシステム上で使用可能になった後で、 <span><span>CheckSum</span></span> 値を <span><span>0</span></span> から正しい値に変更したい。</li>
+
+</ul>
+</dd>
+
+
+<dt>-l 0 <span>|</span> 1</dt>
+
+<dd>リソースをロックまたはアンロックします。 このフラグを使用すると、リソースが誤って削除されないようにすることができます。 デフォルト値は <span><span>0</span></span>です。これは、ロックが設定されていないことを意味します。 リソースをロックするには、 <span><span>chlpcmd -l 1</span></span>を使用します。</dd>
+
+
+<dt>--c0<span>│</span>1<span>│</span>2<span>│</span>3</dt>
+
+<dd>LP コマンドの制御機能を指定するために使用される <span><span>ControlFlags</span></span> 属性を設定します。 <span><span>ControlFlags</span></span> を指定しない場合、デフォルトで <span><span>1</span></span> に設定されます。 このフラグを使用して、次のいずれかの値を指定します。<dl>
+<dt>0</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証しません。</dd>
+
+
+<dt>1</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証しません。 これはデフォルトです。</dd>
+
+
+<dt>2</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証します。</dd>
+
+
+<dt>3</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証します。</dd>
+
+</dl>
+ <p><span><span>runlpcmd</span></span> コマンドを使用して LP リソースを実行しようとすると、 <span><span>ControlFlags</span></span> 属性の値によって、リソースによって表されるコマンドを実行する前に実行される検査が決まります。</p>
+ <p>このリリースの RSCT では、 <span><span>ControlFlags</span></span> 属性値は、 <span><span>CheckSum</span></span> 値が妥当性検査されるかどうかを指定します。</p>
+ <p>以前のリリースの RSCT では、 <span><span>ControlFlags</span></span> 属性値は、 <span><span>runlpcmd</span></span> への入力引数に特定の文字が存在することを許可しないかどうかも指定していました。 しかし、これらの文字の検査は<span>不要</span>と
+なりました。</p>
+ <p>以前のリリースの RSCT で定義された LP リソースとの互換性を維持するために、 <span><span>CheckSum</span></span> 値の妥当性検査に関しては、 <span><span>ControlFlags</span></span> 属性値は同じままです。 したがって、値 <span><span>0</span></span> および <span><span>1</span></span> は、 <span><span>CheckSum</span></span> 値が検証されないことを示し、値 <span><span>2</span></span> および <span><span>3</span></span> は、 <span><span>CheckSum</span></span> 値が検証されることを示します。</p>
+</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>リソース名</span></span></dt>
+
+<dd>変更する LP リソース名を指定します。</dd>
+
+
+<dt><span><span>属性 1</span></span>=<span><span>値 1</span></span> <span>[</span><span><span>属性 2</span></span>=<span><span>値 2</span></span><span>…]</span></dt>
+
+<dd>1 つ以上の読み取り/書き込み属性およびその新規の値を指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div><span><span>chlpcmd</span></span> コマンドを実行するには、以下が必要です。<ul>
+<li><span><span>IBM.LPCommands</span></span> リソース・クラスの Class ACL 内の読み取り許可。</li>
+
+<li>Resource ACL の中の書き込み許可。<p>代わりに、この許可が Resource Shared ACL の中に存在する場合は、Resource
+ACL が Resource Shared ACL の使用を指示できます。</p>
+</li>
+
+</ul>アクセス権は、連絡先システムの <span>LP ACL</span> で指定されています。 <span>それら</span>の変更については、 <span><span><span>lpacl</span></span> ファイル <span>LP ACL に関する一般情報</span></span> および「 <em>RSCT 管理ガイド</em> 」を参照してください。</div>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>リソースが見つかりません。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>RMC デーモンとのセッションに使用されるシステムを決めます。 <span><span>CT_CONTACT</span></span> がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の RMC デーモンと連絡を取ります。 <span><span>CT_CONTACT</span></span> が設定されていない場合、コマンドは、コマンドが実行されているローカル・システム上の RMC デーモンと連絡を取ります。 RMC デーモン・セッションのターゲットおよびその管理有効範囲によって、処理される LP リソースが決まります。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd><strong>CT_IP_AUTHENT</strong> 環境変数が存在する場合は、RMC デーモンは、IP ベース・ネットワーク認証を使用して、<strong>CT_CONTACT</strong> 環境変数が設定されている IP アドレスで指定されるシステム上の RMC デーモンと連絡を取ります。 <strong>CT_CONTACT</strong> が IP アドレスに設定されている場合のみ、<strong>CT_IP_AUTHENT</strong> が意味を持ちます。CT_IP_AUTHENT はドメイン・ネーム・システム (DNS) サービスに依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>LP リソースを処理するために RMC デーモンとのセッションに使用される管理有効範囲を決定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl><span><span>CT_MANAGEMENT_SCOPE</span></span> が設定されていない場合は、 <em>ローカル</em> ・スコープが使用されます。</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ローカル・ノード上のリソースを削除する前に、 <span><span>Lock</span></span> LP リソースの属性 <span><span>lpcommand1</span></span> を変更するには、次のように入力します。<div><div><pre><code>chlpcmd -l 0 lpcommand1</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> が管理ドメインにあり、 <span><span>CT_MANAGEMENT_SCOPE</span></span> が <span><span>3</span></span>に設定されているとします。 <span><span>nodeA</span></span>上の LP リソース <span><span>lpcommand2</span></span> の <span><span>CheckSum</span></span> 属性値を再計算するには、次のように入力します。<div><div><pre><code>chlpcmd -r -n nodeA lpcommand2</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/chlpcmd</dt>
+
+<dd><span><span>chlpcmd</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+</div></div>

@@ -1,0 +1,160 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>監査情報のビンを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>auditbin</strong></p>
+</section>
+
+<section><h2>説明</h2> <p>監査サブシステム内の <strong>auditbin</strong> デーモンは、監査イベント・データを交互に収集する一時ビン・ファイル <strong>bin1</strong> および <strong>bin2</strong> を管理します。 また、このコマンドは、データ・レコードのビンを処理のためにバックエンド・コマンドに配布します。</p>
+ <p>監査イベントが発生すると、オペレーティング・システム・カーネルは、ビン・ファイルにレコードを 1 つ書き込みます。 ビン・ファイルがいっぱいになると、<strong>auditbin</strong> デーモンは <strong>/etc/security/audit/bincmds</strong> ファイルを読み取り、そのファイル内に定義されているバックエンド・コマンドにビン・レコードを配布します。 <strong>/etc/security/audit/bincmds</strong> ファイルの各行には、パイプ結合したりリダイレクトしたりできる入出力を持つ 1 つ以上のコマンドが入っています。 <strong>auditbin</strong> デーモンは、各コマンドから <strong>$bin</strong> 文字列と <strong>$trail</strong> 文字列を検索し、これらの文字列を、現行ビン・ファイルおよびシステム証跡ファイルのパス名で置換します。</p>
+ <p><strong>auditbin</strong> デーモンは、各コマンドが各ビンを最低一度は検出するようにしますが、ビンへのアクセスを同期させることはしません。 すべてのコマンドの実行が終わると、ビン・ファイルはさらに後続の監査レコードを収集できる状態になります。</p>
+ <p>コマンドのどれかが失敗すると、<strong>auditbin</strong> デーモンは、データ・レコードの配布を中止し、root ユーザーまたは監査グループのメンバーがコマンドを停止するまで、60 秒間隔で <strong>/dev/tty</strong> デバイスにメッセージを送ります。</p>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アクセス制御</strong></p>
+ <p>このコマンドに対する実行 (x) アクセス権は、root ユーザーと監査グループのメンバーにのみ与えてください。 コマンドは、<strong>setuid</strong> で root ユーザーに設定され、<strong>trusted computing base</strong> 属性を持っていなければなりません。</p>
+<p><strong>アクセスされるファイル</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/audit/config</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/audit/bincmds</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td>定義済みの監査ビンと証跡ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td>すべての監査ビン処理コマンド</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>auditbin</strong> デーモンを構成するには、<strong>/etc/security/audit/config</strong> ファイルの始動スタンザとビン・スタンザを編集して、次の属性定義を組み込みます。<div> <div><div><pre><code>start:
+         binmode = on
+ 
+bin:
+         trail = /audit/trail
+         bin1 = /audit/bin1
+         bin2 = /audit/bin2
+         binsize = 25000
+         cmds = /etc/security/audit/bincmds</code></pre></div><div></div></div></div>
+</li>
+
+<li>監査証跡を処理するコマンドを定義するには、
+<strong>/etc/security/audit/bincmds</strong> ファイルを編集して、
+次のような 1 つ以上のコマンド・ラインを組み込みます。<div> <div><div><pre><code>/usr/sbin/auditcat -p -o $trail $bin
+  
+/usr/sbin/auditselect -e "event == USER_Login" \
+$bin | /usr/sbin/auditpr &gt;&gt; /etc/log </code></pre></div><div></div></div>最初のコマンド・ラインは、圧縮された監査ビンを監査証跡ファイルに追加します。 2 番目の行は、USER_Loginレコードを各ビン・ファイルから渡します。auditprコマンドを使用して、レコードを <strong>/etc/log</strong> ファイルに追加します。</div>
+</li>
+
+<li>バーチャル I/O サーバー・システムなどの集中管理された場所で監査レコードを取得するために、<strong>auditbin</strong> デーモンの仮想ログを使用可能にするには、<strong>/etc/security/audit/config</strong> ファイルのビン・スタンザに次の属性を追加します。<div> <div><div><pre><code>bin:
+		virtual_log = /dev/vlog0 </code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>/dev/vlog0</strong> デバイス・パスは例です。 実デバイス名は、接続された VIOS システムでの仮想ログの構成方法に基づき、各クライアント論理区画 (LPAR) で異なる場合があります。</div>
+        </div>
+      </div></div>
+ </div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/auditbin</strong></td>
+
+<td><strong>auditbin</strong> デーモンへのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/監査/bin</strong><em>X</em></td>
+
+<td>ビン番号を示す <em>x</em> を付けて、デフォルトのビン・コレクション・ファイルへのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/config</strong>                    </td>
+
+<td>監査システム構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/events</strong>                  </td>
+
+<td>システムの監査イベントが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/objects</strong>                  </td>
+
+<td>監査対象オブジェクト (ファイル) の監査イベントが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/bincmds</strong>                 </td>
+
+<td><strong>auditbin</strong> バックエンド・コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/streamcmds</strong>                </td>
+
+<td><strong>auditstream</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

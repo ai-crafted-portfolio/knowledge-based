@@ -1,0 +1,127 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソース・モニターおよび制御 (RMC) ACL ファイルを更新します。</p>
+ </section>
+
+<section><h2>構文</h2> <p><span><span>chrmcacl</span></span> [ <span><span>-a</span></span> │ <span><span>-d</span></span> │ <span><span>-r</span></span> │ <span><span>-h</span></span> ]</p>
+ </section>
+
+<section><h2>説明</h2> <p>このコマンドは、RMC ACL ファイル (<span><span>/var/ct/cfg/ctrmc.acls</span></span>) を更新するために使用します。 このファイルが存在しない場合、 <span><span>chrmcacl</span></span> はデフォルト ACL ファイルを <span><span>/opt/rsct/cfg/ctrmc.acls</span></span> から <span><span>/var/ct/cfg/ctrmc.acls</span></span>にコピーします。 このコマンドは、標準入力から更新情報を読み取ります。 この入力は ACL ファイル・フォーマットでなければなりません。そのため、1 つ以上のスタンザで構成されている必要があります。この場合、各スタンザは、スタンザ名で始まり、その後にゼロあるいはそれ以上のスタンザ行が続きます。 スタンザは、ブランク行、コメント行、別のスタンザ、またはファイルの終わりで終了します。 詳細については、「Administering RSCT」の RMC ACL ファイルの説明を参照してください。</p>
+ <p>フラグを指定しないと、 <span><span>chrmcacl</span></span> はスタンザ全体の追加、置換、または削除を行います。 入力スタンザが ACL ファイル内に存在していなければ、追加されます。 ACL ファイル内に入力スタンザと一致するものがある場合は、入力スタンザは、既存の ACL ファイル・スタンザと置き換わります。 入力スタンザにスタンザ行が含まれておらず、ACL ファイル内に入力スタンザと一致するものがある場合は、既存の ACL ファイル・スタンザは除去されます。</p>
+ <p><span><span>-a</span></span>、 <span><span>-r</span></span>、または <span><span>-d</span></span> フラグが指定されている場合、 <span><span>chrmcacl</span></span> は個々のスタンザ行の追加、置換、または削除を行います。 スタンザ行は、マッチング・スタンザ内のスタンザ行のユーザー ID およびオブジェクト・タイプ・トークンに基づいてマッチングされます。 マッチングは正確でなければなりません。すなわち、ワイルドカード・マッチングはありません。</p>
+ <p><span><span>-a</span></span> フラグを使用すると、入力スタンザ行に指定された許可が、ACL ファイル内の一致するスタンザ行の許可に追加されます。 この結果、アクセス権に有効な変更が生じた場合は、ACL ファイル内の新規アクセス権が更新されます。 ACL ファイル内にマッチング・スタンザ行がない場合は、入力スタンザ行は ACL ファイル内のマッチング・スタンザに追加されます。</p>
+ <p><span><span>-r</span></span> フラグを使用すると、入力スタンザ行は ACL ファイル内の一致するスタンザ行を無条件に置き換えます。 ACL ファイル内にマッチング・スタンザ行がない場合は、入力スタンザ行は ACL ファイル内のマッチング・スタンザに追加されます。 <span><span>-a</span></span> フラグおよび <span><span>-r</span></span> フラグの場合、入力スタンザが ACL ファイルに一致しなければ、完全な入力スタンザが ACL ファイルに追加されます。</p>
+ <p><span><span>-d</span></span> フラグを使用すると、ACL ファイル内のすべての一致するスタンザ行が削除されます。 その結果、ACL ファイル内のマッチング・スタンザにスタンザ行がない場合は、そのスタンザは ACL ファイルから除去されます。</p>
+ <p>このコマンドの副生成物として、各スタンザ内のスタンザ行は、最も具体的なユーザー ID およびオブジェクト・タイプから具体的でないユーザー ID およびオブジェクト・タイプに至るまで順序付けられます。</p>
+ <p><span><span>chrmcacl</span></span> コマンドは、他の RSCT コンポーネントによって使用されるファイル・ロックを使用して、更新をシリアライズし、ファイル破損を防止します。 したがって、ファイルを直接変更するのではなく、このコマンドを使用して ACL ファイルを更新することをお勧めします。</p>
+ <p>ACL ファイルが更新されると、前のバージョンが最初に <span><span>/var/ct/cfg/ctrmc.acls.orig</span></span>として保存されます。 有効な変更がない場合または何らかのエラーがある場合は、ACL ファイルは更新されません。</p>
+ <div>ACL ファイルへの変更は、次に RMC サブシステムが始動するときに有効になります。 ACL ファイルの変更を即時に有効にさせるには、次のコマンドを実行します。<div><div><pre><code>refresh -s ctrmc</code></pre></div><div></div></div></div>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>入力スタンザ行のアクセス権をマッチング ACL ファイル・スタンザ内のマッチング・スタンザ行に追加します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>マッチング ACL ファイル・スタンザ内のマッチング・スタンザ行を削除します。</dd>
+
+
+<dt>-r</dt>
+
+<dd>マッチング ACL ファイル・スタンザ内のマッチング・スタンザ行を入力スタンザ行と置き換えます。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用状況ステートメントを標準エラーに書き込みます。</dd>
+
+</dl>
+ </section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/opt/rsct/cfg/ctrmc.acls</dt>
+
+<dd><span><span>ctrmc.acls</span></span> ファイルのデフォルトの場所</dd>
+
+
+<dt>/var/ct/cfg/ctrmc.acls</dt>
+
+<dd>変更可能な <span><span>ctrmc.acls</span></span> ファイルの場所</dd>
+
+
+<dt>/var/ct/cfg/ctrmc.acls.orig</dt>
+
+<dd>変更可能な <span><span>ctrmc.acls</span></span> ファイルの前のバージョンの場所</dd>
+
+</dl>
+ </section>
+
+<section><h2>標準入力</h2> <p>このコマンドは、標準入力から更新情報を読み取ります。</p>
+ </section>
+
+<section><h2>標準エラー</h2> <p>エラー・メッセージは、標準エラーに書き込まれます。</p>
+ <p><span><span>-h</span></span> フラグが指定されている場合、このコマンド使用法ステートメントは標準エラーに書き込まれます。</p>
+ </section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>コマンドは正常終了しませんでした。</dd>
+
+</dl>
+</div>
+ </section>
+
+<section><h2>セキュリティー</h2> <p>特権制御: <span><span>root</span></span> ユーザーのみが、このコマンドに対する実行 (<span><span>x</span></span>) アクセス権限を持っている必要があります。</p>
+ </section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 Linux®、Solaris、および Windows 用の <span><span>rsct.core</span></span> ファイルセット ( AIX® および <span><span>rsct.core-3.1.0.0-0.</span></span><span><span>プラットフォーム</span></span><span><span>.rpm</span></span> パッケージ) の一部です。ここで、 <span><span>platform</span></span> は <span><span>i386</span></span>、 <span><span>ppc</span></span>、 <span><span>ppc64</span></span>、 <span><span>s390</span></span>、または <span><span>x86_64</span></span>です。</p>
+ </section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/install/bin/chrmcacl</dt>
+
+<dd></dd>
+
+</dl>
+ </section>
+
+<section><h2>例</h2><ol>
+<li><span><span>/var/ct/cfg/ctrmc.acls</span></span> ファイルに既に <span><span>IBM.Sensor</span></span> スタンザが含まれているが、 <span><span>OTHER</span></span> スタンザが含まれていない場合は、 <span><span>chrmcacl</span></span> に以下の入力を行います (フラグは指定しません)。<div><div><pre><code>IBM.Sensor
+    joe@Host1.CoX.com   *    rw
+    Host1.CoX.com       *    r
+
+OTHER
+    Host1.CoX.com       C    r</code></pre></div><div></div></div>コマンドが正常に完了すると、 <span><span>IBM.Sensor</span></span> スタンザが入力スタンザに置き換えられ、 <span><span>OTHER</span></span> スタンザがファイルに追加されます。</li>
+
+<li>例 1 の結果であり、 <span><span>chrmcacl</span></span> への以下の入力 (フラグを指定しない) が与えられた <span><span>/var/ct/cfg/ctrmc.acls</span></span> ファイルを使用します。<div><div><pre><code>IBM.Sensor
+
+OTHER
+    Host1.CoX.com       *    r</code></pre></div><div></div></div>コマンドが正常に完了すると、 <span><span>IBM.Sensor</span></span> スタンザが削除され、 <span><span>OTHER</span></span> スタンザが入力スタンザに置き換えられます。</li>
+
+<li>例 2 の結果であり、 <span><span>chrmcacl</span></span> への以下の入力 ( <span><span>-a</span></span> フラグを指定) が与えられた <span><span>/var/ct/cfg/ctrmc.acls</span></span> ファイルを使用します。<div><div><pre><code>OTHER
+    Host1.CoX.com       *    w</code></pre></div><div></div></div>ファイル内の <span><span>OTHER</span></span> スタンザは、次のようになります。<div><div><pre><code>OTHER
+    Host1.CoX.com       *    rw</code></pre></div><div></div></div>:NONE.</li>
+
+<li>例 3 の結果であり、例 3 と同じ <span><span>chrmcacl</span></span> への入力 ( <span><span>-r</span></span> フラグを指定) が与えられた <span><span>/var/ct/cfg/ctrmc.acls</span></span> ファイルの場合、ファイル内の <span><span>OTHER</span></span> スタンザは次のようになります。<div><div><pre><code>OTHER
+    Host1.CoX.com       *    w</code></pre></div><div></div></div>:NONE.</li>
+
+<li><span><span>/var/ct/cfg/ctrmc.acls</span></span> ファイルに以下のスタンザがあるとします。<div><div><pre><code>IBM.Sensor
+    joe@Host1.CoX.com   C    rw
+    joe@Host1.CoX.com   R    r
+    Host1.CoX.com       *    r</code></pre></div><div></div></div>および <span><span>chrmcacl</span></span> への以下の入力 ( <span><span>-d</span></span> フラグを指定):<div><div><pre><code>IBM.Sensor
+    joe@Host1.CoX.com   R    r</code></pre></div><div></div></div>ファイル内の <span><span>IBM.Sensor</span></span> スタンザは、次のようになります。<div><div><pre><code>IBM.Sensor
+    joe@Host1.CoX.com   C       rw
+        Host1.CoX.com   *       r</code></pre></div><div></div></div>:NONE.</li>
+
+</ol>
+</section>
+
+</div></div>

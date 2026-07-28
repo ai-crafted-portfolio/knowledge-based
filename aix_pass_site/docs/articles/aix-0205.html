@@ -1,0 +1,152 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>iSCSI ターゲット・データを変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>chiscsi </span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86893" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> <span><span>AdapterName</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86854" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a>'<span><span>static</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86941" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>TargetName</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86911" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> <span><span>PortNumber</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86884" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a> <span><span>IPaddress</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86923" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>password</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row_u" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> <span><span>username</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86932" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>NewTargetName</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86902" target="_blank" rel="noopener noreferrer"><span><span>-N</span></span></a> <span><span>NewPortNumber</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86875" target="_blank" rel="noopener noreferrer"><span><span>-I</span></span></a> <span><span>NewIPaddress</span></span>]</p>
+ <p><span><span>chiscsi</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86893" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> <span><span>AdapterName</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86854" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a>'<span><span>auto</span></span>'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86941" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>TargetName</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86923" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>password</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row_u" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> <span><span>username</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chiscsi.html#chiscsi__row-d3e86932" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>NewTargetName</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>chiscsi</span></span> コマンドは、 ODM内の iSCSI ターゲット・データを変更します。 ODM には 2 つのカテゴリーのデータが保管されています。 1つ目は、静的に設定された「iSCSIターゲットに対するもので、「<span>AIX</span>」がターゲットを発見するためには、関連する「iSCSIターゲットの情報（ターゲット名、IPアドレス、ポート番号など）がすべて指定されている必要がある。 iSCSI ターゲット・データの第 2 のカテゴリーは、iSCSI ターゲット・デバイス用です。自動的に構成できますが、ホストからの認証 (パスワードなど) が必要です。 これら2つのカテゴリーの iSCSI ターゲット・データは、次のように関連付けられる。 <span><span>static</span></span> と <span><span>auto</span></span> フラグで指定された <span><span>-g</span></span> フラグによって指定される。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-g</span></span> <span><span>グループ</span></span></td>
+
+<td>この iSCSI ターゲットが関連付けられるグループを指定します。 有効なグループは、 <span><span>static</span></span> と <span><span>auto</span></span>の 2 つです。 <span><span>static</span></span> グループは、このホストから自動的にディスカバーできない iSCSI ターゲット用です。それらに関連するすべての iSCSI ターゲット情報 (ターゲット名、IP アドレス、ポート番号など) を指定する必要があります。 <span><span>auto</span></span> グループは、自動的にディスカバーされるが、パスワードなどの認証情報を必要とする iSCSI ターゲット用です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-I</span></span> <span><span>NewIPaddress</span></span></td>
+
+<td>iSCSI ターゲットの IP アドレスが変更されている場合、新規 IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-i</span></span> <span><span>IP アドレス</span></span></td>
+
+<td>iSCSI ターゲットの IP アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span> <span><span>AdapterName</span></span></td>
+
+<td>この iSCSI ターゲットに接続される iSCSI TCP/IP Offload Engine (TOE) アダプターのアダプター名を指定します。 これはまた iSCSI ソフトウェア・ソリューション・デバイス用の iSCSI プロトコル・デバイスを指定することもできます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-N</span></span> <span><span>NewPortNumber</span></span></td>
+
+<td>iSCSI ターゲットのポート番号が変更されている場合、新規ポート番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span> <span><span>NewPortNumber</span></span></td>
+
+<td>iSCSI ターゲットがアクセスされる対象のポート番号を指定します。 デフォルトのポート番号は <code>3260</code> です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span> <span><span>パスワード</span></span></td>
+
+<td>この iSCSI ターゲットの新規パスワードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-T</span></span> <span><span>NewTargetName</span></span></td>
+
+<td>iSCSI ターゲット名が変更されている場合、新規ターゲット名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span> <span><span>TargetName</span></span></td>
+
+<td>iSCSI ターゲット名 (例えば、<code>iqn.sn9216.iscsi-hw1</code>) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span> <span><span>ユーザー名</span></span></td>
+
+<td>CHAP 認証に使用できる新しいチャレンジ・ハンドシェーク認証プロトコル (CHAP) ユーザー名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>chiscsi</span></span> コマンドは、root によってのみ実行可能です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>静的に構成された iSCSI ターゲットのパスワードを <code>my password</code>に変更するには、次のように入力します。<div><div><pre><code>chiscsi -l ics0 -g static -t qn.mds9216.iscsi_hw -n 3260 -i 10.1.2.116 -p "my password"
+</code></pre></div><div></div></div></li>
+
+<li>静的に構成された iSCSI ターゲットの IP アドレスを <code>10.1.3.141</code>に変更するには、次のように入力します。<div><div><pre><code>chiscsi -l ics0 -g static -t qn.mds9216.iscsi_hw -n 3260 -i 10.1.2.116 -I 10.1.3.141
+</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/sbin/chiscsi</span></span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>src/bos/usr/sbin/iscsia</span></span></td>
+
+<td>そこから iSCSI コマンドがビルドされる共通ソース・ファイルが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

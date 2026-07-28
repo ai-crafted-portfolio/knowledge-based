@@ -1,0 +1,1144 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>TCP/IP を使用するネットワークのネットワーク・インターフェース・パラメーターを構成または表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>構成</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4363" target="_blank" rel="noopener noreferrer"><em>インターフェース</em></a> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4342" target="_blank" rel="noopener noreferrer"><em>アドレス・ファミリー</em></a> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4330" target="_blank" rel="noopener noreferrer"><em>アドレス</em></a> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4357" target="_blank" rel="noopener noreferrer"><em>宛先アドレス </em></a> ] ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4426" target="_blank" rel="noopener noreferrer"><em>パラメーター</em></a>... ] ]</p>
+ <p><strong>構成</strong><em> インターフェース</em> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4293" target="_blank" rel="noopener noreferrer"><em>プロトコラ科</em></a> ] <em>インターフェース</em><em> プロトコラ科</em></p>
+ <p><strong>構成</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4239" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4266" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4251" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e4278" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> ] [ <em>プロトコラ科</em> ]</p>
+ <p><strong>構成</strong><em> インターフェース</em> [  <strong>tcp_low_rto</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ifconfig.html#ifconfig__row-d3e5268" target="_blank" rel="noopener noreferrer"><em>Rto</em></a> | <strong>-tcp_low_rto</strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ifconfig</strong> コマンドは、ネットワーク・インターフェースにアドレスを割り当てたり、現在のネットワーク・インターフェース構成情報を構成または表示するために使用することができます。 システム上にある各インターフェースのネットワーク・アドレスを定義するには、システム始動時に <strong>ifconfig</strong> コマンドを使用します。 また、システム始動後にインターフェースのアドレスや他のオペレーティング・パラメーターを再定義するためにも使用できます。 ネットワーク・インターフェース構成は実行中のシステム上に保持されており、システムを再始動するたびに再設定します。 <strong>ifconfig</strong> コマンドは、<strong>IFF_MULTICAST</strong> フラグを解釈し、このフラグが設定されていれば、その値を出力します。</p>
+ <p>インターフェースはそれぞれの命名方式を必要とすることもある異なるプロトコルによる送信を受信できます。 <em>addressfamily</em> パラメーターを指定する必要がありますが、その結果、残りのパラメーターの解釈が変わることがあります。 現在サポートされているアドレス・ファミリーは、<strong>inet</strong> および <strong>inet6</strong> です。</p>
+ <p>DARPA インターネット・ファミリーを示す <strong>inet</strong> の場合、アドレスはホスト名データベース、すなわち、<strong>/etc/hosts</strong> ファイルにあるホスト名か、インターネット標準ドット 10 進表記で表された DARPA IP アドレスです。</p>
+ <p>どのユーザーもネットワーク・インターフェースの状況を照会することができますが、インターフェースの構成を修正できるのは管理権限を持つユーザーだけです。</p>
+ <p><strong>ifconfig</strong> 機能は、オプションのパラメーターを指定しないと、ネットワーク・インターフェースの現行構成を表示します。</p>
+ <p>プロトコル・ファミリーを指定すると、<strong>ifconfig</strong> はそのプロトコル・ファミリーに特有な詳細だけを報告します。</p>
+ <p>スーパーユーザーだけがネットワーク・インターフェースの構成を変更できます。</p>
+ <p>無償 ARP が、イーサネット、トークンリング、および FDDI インターフェース用にサポートされます。 このサポートは、IP アドレスが割り当てられた場合に、ホストが他のシステムにホスト自身のアドレス (新規アドレス) を通知するために、新規アドレスに対する ARP 要求を送信して、他のシステムが ARP エントリーを直ちに更新できるようにすることを意味します。 これにより、ホストに重複 IP アドレスを検出させることにもなります。 ARP 要求に対する応答を入手した場合、エラーは <strong>/var/adm/ras/errlog</strong> に記録されます。これは、エラー ID <strong>AIXIF_ARP_DUP_ADDR</strong> に対して <strong>errpt</strong> コマンドを使用して (または SMIT インターフェースを使用して) 表示することができます。</p>
+ <div><strong>ifconfig</strong> コマンドは <strong>ifconfig.ib</strong> コマンドを呼び出します。 <strong>ifconfig.ib</strong> コマンドは、以下のようなインターフェース情報を表示します。<div><div><pre><code>ib0:flags=e3a0063&lt;UP,BROADCAST,NOTRAILERS,RUNNING,ALLCAST,MULTICAST,GROUPRT&gt;
+pmtu 2048 qkey 
+0x1e qpn 0x48 lid 0x5c hca iba0 port 1 inet 1.2.3.120 netmask 0xffffff00 broadcast 
+1.2.3.255 inet6 
+fe80::2:c903:1:1e8d/64 tcp_sendspace 262144 tcp_recvspace 262144 rfc1323 1</code></pre></div><div></div></div>インターフェースには、パス MTU (pmtu)、キュー・キー (qkey)、キュー・ペア番号 (qpn)、ローカル ID (lid)、ホスト・チャネル・アダプター (hca)、およびポート番号 (port) が表示されるようになりました。 この情報はデバッグ時または診断の実行時に役立ちます。</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>構成</strong> コマンドを使用してインターフェースの属性に対して行われた変更は、システムのリブート時にすべて失われます。</div>
+        </div>
+      </div></div>
+
+<p><strong>detach</strong> コマンドを <strong>ifconfig</strong> コマンドと一緒に指定した場合、他のすべてのオプションは無視されます。 <strong>detach</strong> コマンドを指定すると、<strong>ipconfig</strong> コマンド内の文字化けによるエラーが回避されます。 例えば、正しくないオプションが指定されていても、 <code>ifconfig en3 garbage
+detach</code> コマンドは正しく実行されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>オプションとして、インターフェース名の代わりに <strong>-a</strong> フラグを使用することができます。 このフラグを指定して <strong>ifconfig</strong> コマンドを実行すると、システム内のすべてのインターフェースについての情報が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>-d</strong> フラグはダウンしているインターフェースを表示します。 このフラグは、<strong>-a</strong> フラグまたは <strong>-l</strong> フラグと一緒にのみ使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>このフラグは、システム上の選択可能なインターフェースをすべてリストするために使用することができます (その他の追加情報は表示されません)。 このフラグは他のフラグおよびコマンドと併用することはできませんが、<strong>-d</strong> および <strong>-u</strong> とは併用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><strong>-u</strong> フラグは稼働しているインターフェースを表示します。 このフラグは、<strong>-a</strong> フラグまたは <strong>-l</strong> フラグと一緒にのみ使用できます。</td>
+
+</tr>
+
+<tr>
+<td><em>プロトコラ科</em></td>
+
+<td>このフラグは、<strong>tcp</strong>、<strong>udp</strong>、<strong>tcp6</strong>、<strong>udp6</strong>、<strong>icmp</strong>、
+および <strong>icmp6</strong> といったプロトコルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>アドレス</em></td>
+
+<td>ネットワーク・インターフェースのネットワーク・アドレスを指定します。 <strong>inet</strong> ファミリーの場合、<em>address</em> パラメーターはホスト名または標準ドット 10 進表記による IP アドレスのいずれかです。</td>
+
+</tr>
+
+<tr>
+<td><em>AddressFamily</em></td>
+
+<td>変更したいネットワーク・アドレス・ファミリーを指定します。 現在サポートされているアドレス・ファミリーは、<strong>inet</strong> および <strong>inet6</strong> です。 このパラメーターのデフォルトは、<strong>inet</strong> アドレス・ファミリーです。</td>
+
+</tr>
+
+<tr>
+<td><em>宛先アドレス</em></td>
+
+<td>2 地点間リンクのリモート側の通信相手のアドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>インターフェース</em></td>
+
+<td>表示または変更したいネットワーク・インターフェース設定値を指定します。 <strong>構成</strong> コマンドを使用する場合は、 <em>インターフェース</em> パラメーターを使用してインターフェースを指定する必要があります。 インターフェースの省略形には次のものがあります。<ul>
+<li>非同期伝送モード (ATM) を表す at</li>
+
+<li>標準イーサネットを表す en (inet)</li>
+
+<li>IEEE 802.3 イーサネットを表す et (inet)</li>
+
+<li>汎用経路指定カプセル化 (GRE) トンネル疑似インターフェースを表す gre (inet)</li>
+
+<li>Virtual Extensible LAN (Vxlan) カプセル化トンネル疑似インターフェースを表す vxl (inet)</li>
+
+<li>汎用ネットワーク仮想化カプセル化 (Geneve) トンネル疑似インターフェースを表す gne (inet)</li>
+
+<li>IPv4-over-IPv6 トンネル疑似インターフェースを表す gif (inet)</li>
+
+<li>トークンリングを表す tr (inet)</li>
+
+<li>X.25 を表す xt (inet)</li>
+
+<li>シリアル回線 IP を表す sl (inet)</li>
+
+<li>ループバックを表す lo (inet)</li>
+
+<li>シリアルを表す op (inet)</li>
+
+<li>仮想 IP アドレスを表す vi (inet)</li>
+
+<li>IP over InfiniBand を表す ib (inet)</li>
+
+<li>TAP 疑似イーサネットを表す tap</li>
+
+</ul>
+  <p>特定のインターフェースを識別するために省略形の後に数字を含めます (例えば、tr0).</p>
+  <p><em>interface</em> がまだロードされていない場合は、<strong>ifconfig</strong><em> interface</em> がそのインターフェースをロードし、<strong>netstat -in</strong> がリストします。 <em>interface</em> の状況照会を処理する際に、その照会処理を完了するために、指定したインターフェースがロードされます (まだロードされていない場合)。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>パラメーター</em></td>
+
+<td>次のパラメーター値が使えます。<dl>
+<dt><strong>ALIAS</strong></dt>
+
+<dd>インターフェースの追加ネットワーク・アドレスを設定します。 このパラメーターは、ネットワーク番号を変更するときに、以前のインターフェースあてのパケットを受け取るのに便利です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>allcast</strong></dt>
+
+<dd>ネットワーク上のすべてのリングにブロードキャストを行うようにトークンリング・インターフェースを設定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-オールキャスト</strong></dt>
+
+<dd>ローカル・リングのみにブロードキャストを行うようにトークンリング・インターフェースを限定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>エニーキャスト</strong></dt>
+
+<dd>(inet6 のみ) 指定したエニーキャスト・アドレスを追加します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-エニーキャスト</strong></dt>
+
+<dd>(inet6 のみ) 指定したエニーキャスト・アドレスを削除します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>arp</strong></dt>
+
+<dd><strong>構成</strong> コマンドが、ネットワーク・レベル・アドレスとリンク・レベル・アドレスの間のマッピングで <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/protocols_addr_resolution.html" target="_blank" rel="noopener noreferrer">アドレス解決プロトコル</a> を使用できるようにします。 <strong>arp</strong> 値がデフォルトです。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-arp</strong></dt>
+
+<dd>アドレス解決プロトコルを使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>権限</strong></dt>
+
+<dd>将来のために予約されています。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>ブリッジ (bridge)</strong></dt>
+
+<dd>将来のために予約されています。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-ブリッジ</strong></dt>
+
+<dd>将来のために予約されています。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>放送</strong><em> 住所</em></dt>
+
+<dd>(<strong>inet</strong> のみ) ネットワークへのブロードキャストに使用するアドレスを指定します。 デフォルトのブロードキャスト・アドレスは、ホスト部分がすべて 1 です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>チェックサム・オフロード</strong></dt>
+
+<dd>送信 TCP チェックサムをアダプターへオフロードすることを示すフラグを有効にします。 このコマンドは、チェックサム計算のオフロードを TCP が使用可能または使用不可にするかを動的に決定するインターフェースごとのカウンターをリセットします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-チェックサム・オフロード</strong></dt>
+
+<dd>送信 TCP チェックサムのオフロードを使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>作成</strong></dt>
+
+<dd>(TAP のみ) ネットワーク・インターフェースを作成します。 <strong>tap0</strong> のように特定のインターフェースを作成することも、<strong>ifconfig tap create</strong> のように、次に使用可能な TAP インターフェースを作成する <strong>tap</strong> オプションを指定することもできます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-パパ</strong></dt>
+
+<dd>(inet6 のみ) 重複する IPv6 アドレスのアドレス検出を行いません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-debug</strong></dt>
+
+<dd>ドライバー依存のデバッグ・コードを使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>削除</strong></dt>
+
+<dd>指定したネットワーク・アドレスを除去します。 このコマンドは、別名を誤って指定したときや、別名が不要になったときに使用します。 <strong>ns</strong> アドレスを誤って設定すると、ネットワーク・アドレスのホスト部分を指定する副次効果があります。 すべての <strong>ns</strong> アドレスを除去すると、ホスト部分を再指定できます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>destroy</strong></dt>
+
+<dd>(TAP のみ) ネットワーク・インターフェースを破棄します。 <strong>ifconfig</strong> コマンドは、指定したネットワーク・インターフェースをインターフェースのリストから削除します。 さらに、そのインターフェースおよび関連するすべての TAP ネットワーク・デバイスをオブジェクト・データ・マネージャー (ODM) から削除します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>装置</strong><em> デバイス名</em></dt>
+
+<dd>(ATM ネットワーク・インターフェースのみ)。 このインターフェースが関連しているデバイス名を指定します。 トークンリングやイーサネットとは異なり、ATM の場合は、インターフェースとデバイス間で 1 対 1 の対応はありません。 ATM では、個々のデバイスに対して 2 つ以上のインターフェースが対応する場合があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>detach</strong></dt>
+
+<dd>ネットワーク・インターフェース・リストからインターフェースを除去します。 最後のインターフェースが切り離されると、ネットワーク・インターフェース・ドライバー・コードがアンロードされます。 接続されたインターフェースのインターフェース経路を変更するには、そのインターフェースを切り離し、<strong>ifconfig</strong> を使用して再度追加する必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>Down</strong></dt>
+
+<dd>インターフェースに非アクティブ (<strong>down</strong>) のマークを付けます。このマークを付けると、システムはそのインターフェースを通じてメッセージを転送しようとしなくなります。 可能であれば、<strong>ifconfig</strong> コマンドはインターフェースも再設定してメッセージを受信できないようにします。 ただし、インターフェースを使う経路が自動的に使用不可にされるわけではありません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>eui64</strong></dt>
+
+<dd>(inet6 のみ) 実際の IPv6 アドレスを、指定されたアドレスの最後の 64 バイトをインターフェース ID で置き換えることにより計算します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>first</strong></dt>
+
+<dd>IPv6 アドレスをインターフェースの最初の場所に置き、それをアンバウンド・ソケットのソースとして選択します。 このパラメーターを使用するための構文は、次のとおりです。<div> <div><div><pre><code>ifconfig interface inet6 first address</code></pre></div><div></div></div></div>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>ファースタリアス</strong></dt>
+
+<dd>alias と同様ですが、アドレスをインターフェース・アドレス・リストの前にセットし、それをアンバウンド・ソケットのソースとして選択します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>グループ</strong><em> ID</em></dt>
+
+<dd>インターフェースのグループ ID リストにグループ ID を追加します。 このリストは、インターフェースに届いたパケットの転送時の経路を設定するときに使用します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-グループ</strong><em> ID</em></dt>
+
+<dd>インターフェースのグループ ID リストからグループ ID を除去します。 このリストは、インターフェースに届いたパケットの転送時の経路を設定するときに使用します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>hwloop</strong></dt>
+
+<dd>ハードウェアのループバックを使用可能にします。 ハードウェアのループバックは、インターフェースが処理するローカルにアドレッシングされたパケットを対応するアダプターで送出することを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>フループ</strong></dt>
+
+<dd>ハードウェアのループバックを使用不可にします。 ハードウェアのループバックは、インターフェースが処理するローカルにアドレッシングされたパケットを対応するアダプターで送出しなければならないことを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>Ipdst</strong></dt>
+
+<dd>リモート・ネットワーク宛ての <strong>ns</strong> パケットをカプセル化して、IP パケットを受信できるインターネット・ホストを指定します。 明示的な 2 地点間リンクが構築され、指定されたアドレスは宛先の <strong>ns</strong> アドレスとネットワークであると想定されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>ipv6dst</strong></dt>
+
+<dd>トンネルを使用して、IPv6 または IPv4 パケットをカプセル化している IPv6 パケットを受け取れる IPv6 ノードを指定するために使用します。 2 地点間トンネル・インターフェースの明示された転送先は、パケットの実際の転送先でない場合があります。 トンネルのエンドポイントで、カプセル解除されたパケットは最終的な宛先に転送されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>大容量送信</strong></dt>
+
+<dd>1 つの LPAR を使用可能にして、単一パケット内のラージ・データを別の LPAR に送信します。 これは、実アダプター上の <span><span>largesend</span></span> と同様に機能しますが、この場合は TCP セグメンテーションは行われません。 VIOS 上の SEA が <span><span>largesend</span></span>をサポートしている場合、LPAR は大容量データを送信できます。大容量データは SEA 上の実アダプターによってセグメント化されます。 <span><span>chdev</span></span> コマンドを使用して、SEA の <span><span>largesend</span></span> 属性を有効にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-ラルゲゼンド</strong></dt>
+
+<dd>仮想イーサネット上の <span><span>largesend</span></span> を使用不可にします。 この値が省略時の値です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>リンク [0-2]</strong></dt>
+
+<dd>インターフェースのリンク・レベルの特別な処理を可能にします。 この 3 つのオプションはインターフェースに特有なものです。 しかし、実質的には、これらは特別な操作モードを選択するために使用されます。 使用法の例は、シリアル回線インターネット・プロトコル (SLIP) 圧縮を使用可能にしたり、あるイーサネット・カード用のコネクター・タイプを選択したりすることです。 詳しくは、個別のドライバーのマニュアル・ページを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-リンク [0 から 2]</strong></dt>
+
+<dd>指定されたインターフェースのリンク・レベルでの特別な処理を使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>メトリック</strong><em> 数値</em></dt>
+
+<dd>インターフェースの経路指定メトリックを、<em>Number</em> 変数で指定した値に設定します。 デフォルトは 0 です。 経路距離は、経路指定プロトコル (<strong>routed</strong> デーモン) が使用します。 高位のメトリックを指定すると、経路の優先順位が下がります。 メトリックは、 宛先ネットワークまたはホストへの追加ホップとしてカウントされます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>モニター</strong></dt>
+
+<dd>基礎になっているアダプターを使用可能にして、リンク状況変更のインターフェース・レイヤーを通知する。 アダプターはリンク状況コールバック通知をサポートしている必要があります。 マルチパス経路指定が使用されている場合、リンクがダウンすると代替経路が選択されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-モニター</strong></dt>
+
+<dd>アダプター・リンク状況のモニターを使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>MTU</strong><em> 値</em></dt>
+
+<dd>システムの最大 IP パケット・サイズを指定します。 <em>Value</em> 変数には 60 から 65535 までの範囲の数値を指定できますが、これはメディアに応じて異なります。 インターフェース別の最大伝送単位 (MTU) 値については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/interfaces_autoconfig.html" target="_blank" rel="noopener noreferrer">ネットワーク・インターフェースの自動構成</a> を参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>ネットマスク</strong><em> マスク</em></dt>
+
+<dd>ネットワークをサブネットワークに細分化するために予約する必要のあるアドレス数を指定します。 このパラメーターは、<strong>inet</strong> アドレス・ファミリーにのみ使用することができます。<p><em>Mask</em> 変数には、ローカル・アドレスのネットワーク部分とサブネット部分の両方が含まれています。ローカル・アドレスはアドレスのホスト・フィールドから取り出されます。 マスクは、標準のインターネット小数点付き 10 進表記で 0xで始まる単一の 16 進数として指定することも、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/networks_TCPIP.html" target="_blank" rel="noopener noreferrer"><strong>/etc/networks</strong></a> ファイルにリストされている名前または別名で始めることもできます。</p>
+  <p>32 ビット・アドレスでは、 <em>マスク</em> 変数には、ネットワークおよびサブネット部分用に予約されているビット位置の 1s が含まれ、 <em>マスク</em> 変数には、ホストを指定するビット位置の 0s が含まれます。 <em>Mask</em> 変数には、少なくとも標準ネットワーク部分が入っています。 サブネット・セグメントは、ネットワーク・セグメントと隣接しています。</p>
+<p>IP アドレスを指定せずに <span>netmask</span> パラメーターを使用すると、指定したインターフェースの最初の IP アドレスのネットマスク値は更新されます。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>PVC</strong></dt>
+
+<dd>(ATM ネットワーク・インターフェースのみ)。 このインターフェースが相手固定接続 (PVC) タイプの仮想接続のみをサポートすることを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>パッケージ・チェーン</strong></dt>
+
+<dd>このインターフェースが、出力パス上でともにチェーニングされた複数のパケットを処理できること示すフラグを使用可能にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-pktchain</strong></dt>
+
+<dd>このインターフェースが、出力パス上でともにチェーニングされた複数のパケットを処理できることを示すフラグを使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>サービス・ C</strong><em> サーバー・アドレス</em></dt>
+
+<dd>(ATM ネットワーク・インターフェースのみ)。 このインターフェースがスイッチド・バーチャル・サーキット (SVC) と PVC の両タイプの仮想接続をサポートすることを指定します。 このパラメーターはさらに、このインターフェースが ARP クライアントであることを指定します。 <em>server_addr</em> は、このクライアントが使用する ARP サーバーの 20 バイトの ATM アドレスのリストです。 このアドレスは、xx.xx....xx. の形式で指定します。 最初の項目は 1 次 ARP サーバーと見なされ、残りの項目は 2 次 ARP サーバーと見なされます。 この 20 バイト ARP サーバー・アドレスのリストは、コンマで区切る必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>site6</strong></dt>
+
+<dd>IPv6 サイト番号をセットします (デフォルトは 0)。 このコマンドは、複数サイト・ノード上のサイトのローカル・アドレスでのみ使用してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>svc_s</strong></dt>
+
+<dd>(ATM ネットワーク・インターフェースのみ)。 このインターフェースが SVC と PVC の両タイプの仮想接続をサポートすることを指定します。 また、パラメーターは、インターフェースが論理 IP サブネットワーク (LIS) の ARP サーバーであることを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>セキュリティー</strong></dt>
+
+<dd>将来のために予約されています。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>snap</strong></dt>
+
+<dd>将来のために予約されています。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-スナップ</strong></dt>
+
+<dd>将来のために予約されています。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>tcp_low_rto</strong></dt>
+
+<dd>ギガビット・イーサネットおよび 10 ギガビット・イーサネットのような待ち時間の少ない高速ネットワークにおける TCP 接続に対しては、短い再送信タイムアウト (RTO) を使用可能にします。 ネットワークでパケットの欠落が発生する場合には、各 TCP 接続は RTO として <em>rto</em> 値を使用します。 <em>rto</em> 値は 0 - 3000 ms の範囲です。このランタイム・オプションは <strong>if_isno</strong> フラグ・フィールドに設定されなければなりません。 このフラグを有効にするには、<strong>use_isno</strong> オプションも設定する必要があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>TCP_NOCKSUM</strong></dt>
+
+<dd>インターフェースに接続されているサブネットのローカル・トラフィックについての TCP データのチェックサム検査を実行できないようにします。 TCP、UDP、IP の各プロトコル・ヘッダーのチェックサム検査は継続されます。 また、このインターフェースを介してリモート・ネットワークから読み取られた TCP データやリモート・ネットワークへ書き込まれた TCP データのチェックサム検査も継続されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-tcp_nocksum</strong></dt>
+
+<dd>インターフェースに接続されているサブネットのローカル・トラフィックについての TCP データのチェックサム検査を実行できるようにします。 この値が省略時の値です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>thread</strong></dt>
+
+<dd>(<strong>inet</strong> のみ) インターフェースの専用カーネル・スレッドを構成します。 このパラメーターは、複数の CPU を持つ SMP システムでのみ使用できます。 このパラメーターを設定すると入力パケットは、デバイス・ドライバーと入力 demuxer による処理の後、カーネル・スレッドに対するキューに入れられます。 入力パケットは、割り込みレベルで直接処理されるのではなく、IP および TCP または UDP の中でスレッドによって処理されることになります。 このパラメーターを設定することにより、アダプターが高速にもかかわらず割り込み処理中に CPU が 1 個しか使用されないことがボトルネックとなっていた場合に、
+他の CPU がカーネル・スレッドを実行している間に入力パケットを処理することが可能になって、スループットが改善されることがあります。 ワークロードによっては、このパラメーターは、スレッド・スケジューリング・ロードにより、パケット当たりロードを増加させ、その結果、CPU 使用率が上昇し、スループットがことによると低下する場合があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-スレッド</strong></dt>
+
+<dd>(<strong>inet</strong> のみ) <em>thread</em> パラメーターによって構成されているカーネル・スレッド・サポートを使用不可にします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>トンネル</strong></dt>
+
+<dd><div>トラステッド通信のための専用トンネルを構成します。 トンネルは、他のパケット・ヘッダーのペイロードとしてデータ・パケットを送信するために、2 つのトラステッド・ノードの間の仮想リンクを確立します。 トンネルは次のいずれかのタイプになります。<dl>
+<dt>汎用経路指定カプセル化 (GRE) トンネル</dt>
+
+<dd>トンネル端点のソースおよび宛先 IPv4 アドレスを引数として予期します。後には <strong>tunnel</strong> パラメーター値が続きます。 トンネルは 2 つの端点の間に作成されます。</dd>
+
+
+
+<dt>Vxlan カプセル化 (VXL) トンネル</dt>
+
+<dd>トンネル端点のソースおよび宛先 IPv4 アドレスを引数として予期します。後には <strong>tunnel</strong> パラメーター値が続きます。 トンネルは 2 つの端点の間に作成されます。</dd>
+
+
+
+<dt>Geneve カプセル化 (GNE) トンネル</dt>
+
+<dd>トンネル端点のソースおよび宛先 IPv4 アドレスを引数として予期します。後には <strong>tunnel</strong> パラメーター値が続きます。 トンネルは 2 つの端点の間に作成されます。</dd>
+
+
+<dt>IPv4 over IPv6 トンネル (GIF トンネル)</dt>
+
+<dd>トンネルのソース IPv6 アドレスを予期します。 このアドレスの後には、コンマで区切られた、宛先 IPv4 アドレスと宛先 IPv6 アドレスが続きます。 1 対多のトンネルの場合、各ターゲットはコンマで区切られます。</dd>
+
+</dl>
+</div>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>転送 <em>インターフェース</em></strong></dt>
+
+<dd>アドレスとその関連の静的ルートを <em>interface</em> から <em>tointerface</em> に転送します。 IPv6 の場合、このコマンドは <strong>ifconfig</strong> コマンドを使用して追加されたアドレスでのみ機能します。<p><code>ifconfig
+interface <span><span>addressfamily address</span></span> transfer
+tointerface</code></p>
+<div><div>
+        <div>
+          <div><span>注:</span> あるインターフェースから別のインターフェースに IP アドレスを転送する場合、および宛先インターフェースが IP アドレスが属する仮想 LAN (VLAN) の一部でない場合は、宛先インターフェースが構成されているアダプターに VLAN を追加する必要があります。</div>
+        </div>
+      </div></div>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>UP</strong></dt>
+
+<dd>インターフェースにアクティブ (<strong>up</strong>) のマークを付けます。 パラメーターは、インターフェースの最初のアドレスを設定するときに自動的に使用されます。 このパラメーターは、<strong>ifconfig down</strong> コマンドを発行した後でインターフェースを使用可能にするときにも使用できます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>VIPE_IFLIST</strong></dt>
+
+<dd>この <strong>vipa</strong> パラメーターを出力パケットでソース・アドレスとして使用する
+インターフェースのリストにインターフェースを追加します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>-vipa_iflist</strong></dt>
+
+<dd>この <strong>vipa</strong> を出力パケットでソース・アドレスとして使用するように
+構成されているインターフェースのリストからインターフェースを除去します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>scope addrscope ゾーン zoneid</strong></dt>
+
+<dd><em>addrscope</em> によって指定されたアドレス有効範囲における <em>zoneid</em> によって指定されたトポロジー・ゾーン内に、インターフェースを移動します。 IPv6 ゾーンは RFC 4007 で定義します。 このパラメーターは inet6 にのみ適用可能です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><em>Rto</em></td>
+
+<td>再送信タイムアウトをミリ秒で指定します。 この値の範囲は 0 - 3000 です。<p><strong>要件:</strong> <strong>構成</strong> コマンドを使用して <em>Rto</em> 値を設定する前に、 <strong>いいえ</strong> コマンドの <strong>タイマー・ホイール・ティック</strong> 値を設定する必要があります。 指定する <em>rto</em> の値は、設定されている <strong>
+timer_wheel_tick</strong> の値に等しいかまたはそれを 10 倍にした数値でなければなりません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>一般に Interface Specific Network Options (ISNO) と呼ばれる以下のネットワーク・オプションは、インターフェースごとに構成することができます。</p>
+ <dl>
+<dt><strong>rfc1323 [0 | 1]</strong></dt>
+
+<dd>RFC 1323、<em>TCP Extensions for High Performance</em> によって指定されたとおり、TCP 拡張を使用可能または使用不可にします。 値 1 は、このインターフェースを使用するすべての TCP 接続が RFC 拡張のネゴシエーションを試みることを指定します。 値 0 は、このインターフェースを使用するすべての接続の <strong>rfc1323</strong> を使用不可にします。 SOCKETS アプリケーションは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/communicationtechref/setsockopt.html" target="_blank" rel="noopener noreferrer"><strong>setsockopt</strong></a> サブルーチンを使用して、この ISNO および個々の TCP 接続でのグローバルな動作をオーバーライドすることができます。</dd>
+
+</dl>
+ <dl>
+<dt><strong>-rfc1323</strong></dt>
+
+<dd>このネットワークの <strong>rfc1323</strong> に対する ISNO の使用を除去します。 SOCKETS アプリケーションは、<strong>setsockopt</strong> サブルーチンを使用して、個々の TCP 接続上のグローバルな動作を指定変更することができます。</dd>
+
+</dl>
+ <dl>
+<dt><strong>tcp_mssdflt</strong><em> 番号</em></dt>
+
+<dd>リモート・ネットワークとの通信に使用する、デフォルトの最大セグメント・サイズを設定します。 このインターフェース上で通信する場合は、ソケットは、デフォルトの最大セグメント・サイズの値として <em>Number</em> を使用します。</dd>
+
+</dl>
+ <dl>
+<dt><strong>-tcp_mssdflt</strong></dt>
+
+<dd><strong>tcp_mssdflt</strong> オプションに対する ISNO の使用を除去します。 <strong>/usr/sbin/no</strong> を通じて操作されるグローバルな値が、その代わりに使用されます。</dd>
+
+</dl>
+ <dl>
+<dt><strong>tcp_recvspace</strong><em> サイズ</em></dt>
+
+<dd>データを受信するインターフェース・ソケット用のデフォルトのソケット・バッファー・サイズを指定します。 このバッファー・サイズは、TCP が使用するウィンドウ・サイズに影響します。 (詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/no.html" target="_blank" rel="noopener noreferrer"><strong>いいえ</strong></a> コマンドを参照してください。)</dd>
+
+</dl>
+ <dl>
+<dt><strong>-tcp_recvspace</strong></dt>
+
+<dd><strong>tcp_recvspace</strong> オプションに対する ISNO の使用を除去します。 その代わりにグローバルな値が使用されます。</dd>
+
+</dl>
+ <dl>
+<dt><strong>tcp_sendspace</strong><em> サイズ</em></dt>
+
+<dd>データを送信するインターフェース・ソケット用のデフォルトのソケット・バッファー・サイズを指定します。 このバッファー・サイズは、TCP が使用するウィンドウ・サイズに影響します。 (詳しくは、<strong>no</strong> コマンドを参照してください。)</dd>
+
+</dl>
+ <dl>
+<dt><strong>-tcp_sendspace</strong></dt>
+
+<dd><strong>tcp_sendspace</strong> オプションに対する ISNO の使用を除去します。 その代わりにグローバルな値が使用されます。</dd>
+
+</dl>
+ <dl>
+<dt><strong>tcp_nodelay [0 | 1］</strong></dt>
+
+<dd>このインターフェース上で TCP を使用するソケットが、データの送信時に Nagle アルゴリズムに従うかどうかを指定します。 デフォルトでは、TCP は Nagle アルゴリズムに従います。</dd>
+
+</dl>
+ <dl>
+<dt><strong>-tcp_nodelay</strong></dt>
+
+<dd><strong>tcp_nodelay</strong> オプションに対する ISNO の使用を除去します。</dd>
+
+</dl>
+ <div><blockquote><span>“</span><strong>ヒント:</strong> <strong>ifconfig</strong> コマンドを使用して設定するパラメーターは、次回のシステム再始動時に失われます。 パラメーターを永続的に変更するには、各インターフェースごとに <strong>chdev</strong> コマンドを使用してオブジェクト・データ・マネージャー (ODM) データベースを変更してください。 <strong>lsattr -E -l</strong> [<em>interface</em>]
+コマンドを使用してインターフェース属性を表示し、<strong>chdev -l</strong> [<em>interface</em>] <strong>-a</strong> [<em>attribute=value</em>] コマンドを使用して属性を変更します。 次に例を示します。<div> <div><div><pre><code>   lsattr -E -l en0
+   chdev -l en0 -a tcp_sendspace=65536</code></pre></div><div></div></div></div>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>シリアル・ライン IP インターフェースの状況を照会するには、次のコマンドを入力します。<div> <div><div><pre><code>ifconfig  sl1</code></pre></div><div></div></div>この例では、照会されるインターフェースは以下のとおりです。sl1コマンドの結果は、以下のような結果になります。<div><div><pre><code>sl1:  flags=51&lt;UP,POINTOPOINT,RUNNING&gt;
+            inet  192.9.201.3  --&gt;  192.9.354.7  netmask  ffffff00</code></pre></div><div></div></div></div>
+</li>
+
+<li>ローカル・ループバック・インターフェースを構成するには、次のコマンドを入力します。<div> <div><div><pre><code>ifconfig  lo0  inet  127.0.0.1  up</code></pre></div><div></div></div></div>
+</li>
+
+<li>ローカル・トークンリング・インターフェースに down のマークを付けるには、次のコマンドを入力します。<div><div><pre><code>ifconfig  tr0  inet  down</code></pre></div><div></div></div>この例では、マークを付けるインターフェースは以下のとおりです。token0.<div><div>
+        <div>
+          <div><span>注:</span> ネットワーク・インターフェースの構成を修正できるのは、root ユーザー権限を持つユーザーだけです。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>すべての接続に対して <strong>rfc1323</strong> をオフにするにはen5(グローバル値が 1 であると仮定した場合)、以下のコマンドを入力します。<div> <div><div><pre><code>ifconfig en0 rfc1323 0</code></pre></div><div></div></div></div>
+</li>
+
+<li>vipa を使用するインターフェースのリストを構成するには、次のコマンドを入力します。<div><div><pre><code>ifconfig vi0 vipa_iflist en0,en1,tr0</code></pre></div><div></div></div></li>
+
+<li>vipa を使用するように構成されているインターフェースを除去するには、次のコマンドを入力します。<div><div><pre><code>ifconfig vi0 -vipa_iflist en1,tr0</code></pre></div><div></div></div></li>
+
+<li>どのインターフェースが vipa (例えば、ここでは vi0) を使用するように構成されているかを知るには、次のコマンドを入力します。<div><div><pre><code>ifconfig vi0</code></pre></div><div></div></div></li>
+
+<li>リンク状況モニターを使用可能にするには、次のコマンドを入力します。<div><div><pre><code>ifconfig en0 monitor</code></pre></div><div></div></div>アダプター <code>ent0</code> のリンク状況が <code>down</code> に変化すると、アダプターはインターフェース・レイヤーに通知して、それによりインターフェースが <code>down</code> にマークされます。</li>
+
+<li>2 つのノードのインターフェース間に GRE トンネルを構成するには、以下のコマンドを入力します。<div><div><pre><code>ifconfig gre0 tunnel 9.3.149.70 9.3.149.121</code></pre></div><div></div></div>これにより、ローカル・インターフェース <code>9.3.149.70</code> とリモート・インターフェース <code>9.3.149.121</code>の間に GRE トンネルが作成されます。 トンネルのローカル・エンドは <code>gre0</code> で識別されます。</li>
+
+<li>2 つのノードのインターフェース間に Vxlan (VXL) トンネルを構成するには、以下のコマンドを入力します。<div><div><pre><code>ifconfig vxl0 tunnel 9.3.149.70 9.3.149.121</code></pre></div><div></div></div><p>このコマンドは、ローカル・インターフェース 9.3.149.70 とリモート・インターフェース 9.3.149.121 の間に Vxlan トンネルを作成します。 トンネルのローカル・エンドは <code>vxl0</code> で識別されます。</p>
+</li>
+
+<li>2 つのノードのインターフェース間に Geneve (GNE) トンネルを構成するには、以下のコマンドを入力します。<div><div><pre><code>ifconfig gne0 tunnel 9.3.149.70 9.3.149.121</code></pre></div><div></div></div><p>このコマンドは、ローカル・インターフェース 9.3.149.70 とリモート・インターフェース 9.3.149.121 の間に Geneve トンネルを作成します。 トンネルのローカル・エンドは <code>gne0</code> で識別されます。</p>
+</li>
+
+<li>IP アドレスを、新しく作成されたインターフェースと関連付けるには、次のコマンドを入力します。<div><div><pre><code>ifconfig gre0 10.10.10.1</code></pre></div><div></div></div>または<div><div><pre><code>ifconfig vxl0 10.10.11.1</code></pre></div><div></div></div>または<div><div><pre><code>ifconfig gne0 10.10.12.1</code></pre></div><div></div></div></li>
+
+<li>GRE トンネルに NAT を構成するには、次のコマンドを入力します。<div><div><pre><code>ifconfig gre0 nat toaddr 127.0.0.1 fromport 80 toport 8080 </code></pre></div><div></div></div>この例では、GRE パケットのオリジナルの宛先ポートは <code>80</code> であり、そしてコマンドが宛先ポートを <code>8080</code> へ、そして宛先アドレスを <code>127.0.0.1</code> へ変更しています。</li>
+
+<li>1 対多端点 (1 対多トンネル) 間で GIF トンネルを構成するには、次のコマンドを入力します。<div><div><pre><code>ifconfig gif0 10.10.10.1 netmask 255.255.255.0 tunnel  2000::4612:6995:6c4a:fa6e 
+10.10.10.10,2000::4612:6995:6c4a:fa6a 10.10.10.11,2000::4612:6995:6c4a:
+fa6b 15.15.15.1,2000::4612:6995:6c4a:f777</code></pre></div><div></div></div>このコマンドは、ソース (<code>2000::4612:6995:6c4a:fa6e</code>) と以下の 3 つのターゲットの間に 1 対多トンネルを作成します。<ul>
+<li><code>2000::4612:6995:6c4a:fa6a</code></li>
+
+<li><code>2000::4612:6995:6c4a:fa6b</code></li>
+
+<li><code>2000::4612:6995:6c4a:f777</code></li>
+
+</ul>またこのコマンドは、GIF インターフェースに <code>10.10.10.1</code> IP アドレスを構成します。</li>
+
+<li>2 つの端点の間に 1 対 1 の GIF トンネルを構成するには、次のコマンドを入力します。<div><div><pre><code>ifconfig gif0 10.10.10.1 netmask 255.255.255.0 tunnel  2000::4612:6995:6c4a:fa6e 
+10.10.10.10,2000::4612:6995:6c4a:fa66</code></pre></div><div></div></div>このコマンドは、ソース (<code>2000::4612:6995:6c4a:fa6e</code>) とターゲット (<code>2000::4612:6995:6c4a:fa66</code>) の間に GIF トンネルを作成します。 このコマンドは、GIF インターフェースに対する <span>10.10.10.1</span> IP アドレスも構成します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/host</strong></td>
+
+<td>ホスト名データベースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/networks</strong></td>
+
+<td>ネットワーク名が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

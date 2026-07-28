@@ -1,0 +1,232 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>C プリプロセッサーの <strong>make</strong> コマンドに対するインターフェース。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>イマク</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7344" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em>定義</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7375" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a><em>ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7424" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em>テンプレート</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7364" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7383" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7397" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7352" target="_blank" rel="noopener noreferrer"><strong>-e (E) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7441" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>imake</strong> コマンドは、テンプレート、cpp マクロ関数の集合、ディレクトリーごとの <strong>Imakefile</strong> 入力ファイルから、<strong>Makefile</strong> を生成します。 このコマンドは、構築する項目の記述とは別に、マシンへの依存性 (コンパイラー・オプション、代替コマンド名、特殊 <strong>make</strong> コマンドの規則など) を維持します。</p>
+ <p><strong>イマク</strong> は、コマンド行で渡された <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7375" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7344" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> フラグを使用して cpp を呼び出し、以下の 3 行を渡します。</p>
+ <div> <div><div><pre><code>#define IMAKE_TEMPLATE "Imake.tmpl"
+#define INCLUDE_MAKEFILE "Imakefile"
+#include IMAKE_TEMPLATE</code></pre></div><div></div></div></div>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7424" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/imake.html#imake__row-d3e7364" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> フラグをそれぞれ使用して、 <strong>Imake.tmpl</strong> および <strong>Imakefile</strong> をオーバーライドします。</p>
+ <p>IMAKE_TEMPLATE は、一般に以下のファイルを読み取ります。</p>
+ <ul>
+<li>パラメーターが cpp シンボルとして指定される、マシン依存型のパラメーター・ファイル</li>
+
+<li>サイト固有のパラメーター・ファイル</li>
+
+<li>変数を定義するファイル</li>
+
+<li><strong>make</strong> コマンド規則を生成するための cpp マクロ関数を含むファイル</li>
+
+<li>現行ディレクトリー内の (INCLUDE_IMAKEFILE によって指定されている) <strong>Imakefile</strong>。</li>
+
+</ul>
+ <p><strong>Imakefile</strong> ファイルはマクロ関数を使用して構築対象を示し、<strong>imake</strong> コマンドは適切な規則を生成します。</p>
+ <p>Imake 構成ファイルには、imake 変数と make 変数の 2 種類の変数が入っています。 imake 変数は、<strong>imake</strong> コマンドの実行時に cpp によって解釈されます。 規約により、imake 変数の大文字と小文字は区別されません。 make 変数は、後から <strong>make</strong> コマンドが解釈できるように、<strong>Makefile</strong> に書き込まれます。 規約により、make 変数は大文字です。</p>
+ <p>規則ファイル (通常は構成ディレクトリー内の <strong>Imake.rules</strong>) には、現行プラットフォームに従って設定されたさまざまな cpp マクロ関数が入っています。 <strong>imake</strong> コマンドは、文字列「@@」があると改行 (復帰) に置き換えて、複数行の make 規則を生成するマクロをサポートします。 例えば、以下のマクロは、</p>
+ <div> <div><div><pre><code>#define   program_target(program, objlist)        @@\
+program:  objlist                                 @@\
+          $(CC)  -o  $@  objlist  $(LDFLAGS)
+  </code></pre></div><div></div></div></div>
+ <p>呼び出し時program_target(foo,foo1.o
+foo2.o)拡張されます。:</p>
+ <div> <div><div><pre><code>foo:      foo1.o  foo2.o
+          $(CC)  -o  $@  foo1.o  foo2.o  $(LDFLAGS)</code></pre></div><div></div></div></div>
+ <p>cpp が複数のタブとスペースをシングル・スペースに減らすシステムでは、<strong>imake</strong> コマンドは必要なタブを元に戻そうとします (<strong>make</strong> コマンドはタブとスペースを区別します)。 このため、コマンド・ラインのすべてのコロン (:) の前には、円記号 (&amp;#xa5;) を付けてください。</p>
+<p><strong>使用 </strong></p>
+ <p><span>AIXwindows</span> は、ソース・ツリー内のフルビルドと外部ソフトウェアのビルドの両方に対して、広範囲にわたって <strong>イマク</strong> コマンドを使用します。 2 つの特殊変数 TOPDIR と CURDIR は、相対パス名を使用して参照先ファイルを作成しやすいように設定されています。 例えば、<strong>lib/X</strong> ディレクトリー内に (ソースの最上部に対して相対的な) <strong>Makefile</strong> を構築するために、以下のコマンドが自動的に生成されます。</p>
+ <div> <div><div><pre><code>%  ../.././config/imake  -I../.././config  \
+             -DTOPDIR=../../.  -DCURDIR=./lib/X</code></pre></div><div></div></div></div>
+ <p>ソース・ツリーの外で<span>AIXwindows</span>プログラムをビルドするには、UseInstalled,という特別なシンボルを定義し、TOPDIR変数とCURDIR変数を省略する。 構成ファイルが正しくインストールされている場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmkmf.html" target="_blank" rel="noopener noreferrer"><strong>xmkmf</strong></a> コマンドを使用できます。</p>
+ <p><strong>イマク</strong> コマンドは、 <span>AIXwindows</span>によって使用される以下のファイルを読み取ります。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> インデントされた形式は、他のファイルを含むファイルを示します。</div>
+        </div>
+      </div></div>
+</div>
+ <div> <div><div><pre><code>Imake.tmpl                  generic variables
+   site.def                 site-specific, BeforeVendorCF defined
+         *.cf               machine-specific
+             *Lib.rules     shared library
+   site.def                 site-specific, AfterVendorCF defined
+   Imake.rules              rules
+   Project.tmpl             X-specific variables
+         *Lib.tmpl          shared library variables
+Imakefile
+   Library.tmpl             library rules
+   Server.tmpl              server rules
+   Threads.tmpl              multi-thread rules</code></pre></div><div></div></div></div>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>site.def</strong> ファイルは、 <strong>*.cf</strong> ファイルの前と後の両方に 2 回組み込まれます。 ほとんどのサイトにおけるカスタマイズでは <strong>*.cf</strong> ファイルの後に指定しますが、コンパイラーの選択などは、他の変数設定を左右する場合があるので、前に指定する必要があります。<p>初めて <strong>site.def</strong> ファイルを含めるときに <strong>BeforeVendorCF</strong> 変数が定義され、2 回目に <strong>AfterVendorCF</strong> 変数が定義されます。 これらの記号を使う場合、<strong>site.def</strong> ファイル内のすべてのコードは、<strong>#ifdef</strong> マクロ内に配置しなければなりません。</p>
+</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-D</strong><em>定義</em></td>
+
+<td>ディレクトリー固有の変数を設定するために cpp に直接渡されます。 例えば、X Window はこのフラグを使用して、TOPDIR 変数をコア分布の最上部が入っているディレクトリーの名前に、CURDIR 変数を最上位に対して相対的な現行ディレクトリー名に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><strong>imake</strong> コマンドに生成済みの <strong>Makefile</strong> を実行するように示します。 デフォルトでは、この操作はユーザーが実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> filename</em></td>
+
+<td>ディレクトリーごとの入力ファイルの名前を指定します。 デフォルトは <strong>Imakefile</strong> ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em>ディレクトリー</em></td>
+
+<td>(i の大文字) imake テンプレートと構成ファイルが入っているディレクトリーを示すために、cpp に直接渡されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong><em> FileName</em></td>
+
+<td>現行ディレクトリー内に構成される <strong>.c</strong> ファイルの名前を指定します。 デフォルトは <strong>Imakefile.c</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> FileName</em></td>
+
+<td>生成する <strong>make</strong> 記述ファイルの名前を指定します。<strong>make</strong> コマンドは呼び出されません。 <em>FileName</em> 変数が <strong>-</strong> (ダッシュ) であれば、出力は <strong>stdout</strong> に書き込まれます。 デフォルトでは、<strong>Makefile</strong> が生成されますが、実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T (T)</strong><em>テンプレート</em></td>
+
+<td><strong>cpp</strong> コマンドが使用するマスター・テンプレート・ファイル名 (通常は -<strong>I</strong> で指定するディレクトリー内に入っています) を指定します。 デフォルトは <strong>Imake.tmpl</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>imake</strong> に対して、<strong>Makefile</strong> の生成に使用する <strong>cpp</strong> コマンド・ラインを出力するように示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <div> <div><div>
+        <div>
+          <div><span>注:</span> 以下の環境変数を設定することもできますが、 <strong>イマク</strong> コマンドの実行時にすぐには認識されない依存関係が導入されるため、これらの環境変数の使用は推奨されません。</div>
+        </div>
+      </div></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>イマケインクルード</strong></td>
+
+<td>定義する場合は、次のように C プリプロセッサーの include 引数を指定します。 次に例を示します。<div> <div><div><pre><code>-I/usr/include/local </code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>イマケCPP</strong></td>
+
+<td>定義する場合は、次のようにプリプロセッサー・プログラムへの有効なパスを指定します。 次に例を示します。<div> <div><div><pre><code>/usr/local/cpp</code></pre></div><div></div></div></div>
+  <p>デフォルトは <strong>/lib/cpp</strong> プログラムです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>イマケマケ</strong></td>
+
+<td><strong>/usr/local/make</strong> などの、<strong>make</strong> プログラムへの有効なパスを指定します。 デフォルトでは、<strong>imake</strong> は <strong>execvp</strong> サブルーチンを使用して見つけた <strong>make</strong> プログラムを使用します。 この変数は、-<strong>e</strong> フラグを指定した場合にのみ使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <div> <div><div><pre><code>imake -I/usr/lib/X11/config -DTOPDIR=/usr/lpp/X11/Xamples</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/tmp/tmp-imake.</strong><em> nnnnnn</em><strong></strong></td>
+
+<td>cpp プリプロセッサーの一時入力ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/tmp/tmp-make.</strong><em> nnnnnn</em></td>
+
+<td>make の一時入力ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/LIB/CPP</strong></td>
+
+<td>デフォルトの C プリプロセッサー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

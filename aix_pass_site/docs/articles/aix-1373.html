@@ -1,0 +1,168 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート・コマンドを実行するためにサーバー機能を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <div><div>
+        <div>
+          <div><span>注:</span> <strong>RShD</strong> デーモンは通常、 <strong>Inetd</strong> デーモンによって開始されます。 これは、SRC コマンドを使用してコマンド・ラインから制御することもできます。<p><strong>/usr/sbin/rshd </strong>[<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rshd.html#rshd__smallc" target="_blank" rel="noopener noreferrer">「-c」</a></strong>] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rshd.html#rshd__smalls" target="_blank" rel="noopener noreferrer">-s</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rshd.html#rshd__smallp" target="_blank" rel="noopener noreferrer">P</a></strong>]</p>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>説明</h2><p><strong>/usr/sbin/rshd</strong> デーモンは、
+<strong>rcp</strong> コマンドおよび <strong>rsh</strong>
+コマンドのサーバーです。 <strong>rshd</strong> デーモンを使用すると、シェル・コマンドをリモートで実行できます。 これらのコマンドは、トラステッド・ホスト上の特権を持つソケットからの要求に基づいています。 シェル・コマンドはユーザー認証を持つ必要があります。 <strong>rshd</strong> デーモンは、<strong>/etc/services</strong> ファイルに定義されているソケットでこの確認を待ちます。</p>
+ <p><strong>rshd</strong> デーモンの変更は、System Management Interface Tool (SMIT) または System Resource Controller (SRC) を使用して、<strong>/etc/inetd.conf</strong> ファイルまたは <strong>/etc/services</strong> ファイルを編集することによって行うことができます。 コマンド・ラインで<strong> rshd</strong> と入力することはお勧めできません。 <strong>rshd</strong> デーモンは、
+<strong>/etc/inetd.conf</strong> ファイル内にコメントされていないときに、デフォルトで始動されます。</p>
+<p><strong>inetd</strong> デーモンは、その情報を <strong>/etc/inetd.conf</strong> ファイルと <strong>/etc/services</strong> ファイルから取得します。</p>
+<p><strong>/etc/inetd.conf</strong> または <strong>/etc/services</strong> ファイルを変更した後、 <code>refresh -s inetd</code> または<code> kill -1 InetdPID </code>コマンドを実行して、 <strong>inetd</strong> デーモンにその構成ファイルの変更を通知します。</p>
+</section>
+
+<section><h2>サービス要求プロトコル</h2><p><strong>rshd</strong> デーモンは、サービス要求を受け取るときに、次のプロトコルを開始します。</p>
+ <ol>
+<li><strong>rshd</strong> デーモンは、
+要求の送信元ポート番号を検査します。 ポート番号が 512 から 1023 の範囲内にない場合、<strong>rshd</strong> デーモンは接続を終了します。</li>
+
+<li><strong>rshd</strong> デーモンが、ソケットから、
+null バイトまでの文字を読み取ります。 読まれた文字列は、ASCII 数 (基数 10) として解釈されます。 この数値がゼロ以外の場合、<strong>rshd</strong> デーモンは、標準エラーとして使用される 2 次局ストリームのポート番号としてこれを解釈します。 クライアント・ホスト上の指定されたポートに 2 番目の接続が作成されます。 ローカル・ホスト上のソース・ポートも、512 から 1023 の範囲内です。</li>
+
+<li><strong>rshd</strong> デーモンは、最初の接続要求の送信元アドレスを使用して、
+クライアント・ホストの名前を判別します。 名前を判別できない場合、<strong>rshd</strong> デーモンは、クライアント・ホストのアドレスのドット 10 進数を使用します。</li>
+
+<li><strong>rshd</strong> デーモンは、最初のソケットから、
+次の情報を検索します。<ul>
+<li>クライアント・ホスト上のユーザーのユーザー名として解釈される、16 バイトまでのヌル終了文字列。</li>
+
+<li>ローカル・サーバー・ホストで使用されるユーザー名として解釈される、16 バイトまでのヌル終了文字列。</li>
+
+<li>ローカル・サーバー・ホスト上のシェルに渡すコマンド・ラインとして解釈される、別のヌル終了文字列。</li>
+
+</ul>
+</li>
+
+<li><strong>rshd</strong> デーモンは、次のステップを使用して、
+ユーザーの妥当性検査を行おうとします。<ol>
+<li><strong>rshd</strong> デーモンは <strong>chdir</strong> サブルーチン内でローカル・ユーザー名を検索します。 ファイル内の調査またはディレクトリーの変更が正しく行われなかった場合、<strong>rshd</strong> デーモンは接続を終了します。</li>
+
+<li>ローカル・ユーザー ID がゼロ以外の値であれば、<strong>rshd</strong> デーモンは、<strong>/etc/hosts.equiv</strong> ファイルを検索して、クライアント・ワークステーションの名前がリストされているかどうかを確認します。 クライアント・ワークステーションが同等のホストとしてリストされている場合、<strong>rshd</strong> デーモンは、ユーザーの妥当性検査を行います。</li>
+
+<li><strong>$HOME/.rhosts</strong> ファイルが存在する場合、
+<strong>rshd</strong> デーモンは、<strong>.rhosts</strong> ファイルを検査して、
+ユーザーを認証しようとします。</li>
+
+<li><strong>$HOME/.rhosts</strong> の認証が正しく行われない場合、
+またはクライアント・ホストが同等のホストでない場合、<strong>rshd</strong> デーモンは接続を終了します。</li>
+
+</ol>
+</li>
+
+<li><strong>RShD</strong> デーモンがユーザーを検証した後、 <strong>RShD</strong> デーモンは初期接続時にヌル・バイトを戻し、コマンド・ラインをユーザーのローカル・ログイン・シェルに渡します。 次に、シェルでは、<strong> rshd</strong> デーモンにより確立されたネットワーク接続を継承します。</li>
+
+</ol>
+<p><strong>rshd</strong> デーモンは、System Management Interface Tool (SMIT) を使用するか、あるいは <strong>/etc/inetd.conf</strong> ファイルを変更することにより制御する必要があります。 コマンド行に <code>rshd</code> を入力することはお勧めしません。</p>
+</section>
+
+<section><h2>システム・リソース・コントローラーを使用した rshd デーモンの操作</h2>rshd デーモンは、システム・リソース・コントローラー (SRC) のサブシステムである inetd デーモンのサブサーバーです。 rshd デーモンは、tcpip SRC サブシステム・グループのメンバーです。 このデーモンは、デフォルトでは /etc/inetd.conf ファイルの定義により使用可能となり、また、以下の SRC コマンドを使用して操作することができます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>startsrc</strong></td>
+
+<td>サブシステム、サブシステムのグループ、サブサーバーのいずれかを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>stopsrc</strong></td>
+
+<td>サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>lssrc</strong></td>
+
+<td>サブシステム、サブシステムのグループ、またはサブサーバーの状況を得ます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2>
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>C</strong></td>
+
+<td>ホスト名ルックアップの健全性チェックを抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>p</strong></td>
+
+<td>非対話モードで <strong>RSH</strong> コマンドを発行するたびに、 <em>. プロファイル</em> ファイルを実行します。 このフラグを指定しないと、非対話式モードでの rsh コマンドのケースでは、<em>.profile</em> ファイルは稼働しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>s</strong></td>
+
+<td>ソケット・レベルのデバッグをオンにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><strong>rshd</strong> デーモンは、<em>rsh</em> というサービス名を持つ、PAM 使用可能アプリケーションです。 認証に PAM を使用するシステム規模の構成は、<strong>/etc/security/login.cfg</strong> ファイルの <strong>usw</strong> スタンザにある <strong>auth_type</strong> 属性の値を、root ユーザー と同じ <strong>PAM_AUTH</strong> 属性に変更することにより、設定されます。<div>PAM が使用可能であるときに使用される認証メカニズムは、/<strong>etc/pam.conf</strong> ファイル内の rsh サービスの構成によって決まります。 <strong>rshd</strong> デーモンは、<strong>auth</strong> モジュール・タイプ、<strong>account</strong> モジュール・タイプ、および <strong>session</strong> モジュール・タイプの <strong>/etc/pam.conf</strong> エントリーを必要とします。 <em>rsh</em> サービスの <strong>/etc/pam.conf</strong> ファイルで推奨される構成は、以下のとおりです。<div><div><pre><code>#
+# AIX rsh configuration
+#
+rsh auth      sufficient   /usr/lib/security/pam_rhosts_auth
+
+rsh account   required     /usr/lib/security/pam_aix
+
+rsh session   required     /usr/lib/security/pam_aix</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>例</h2><div><div>
+        <div>
+          <div><span>注:</span> <strong>rshd</strong> デーモンの引数は、SMIT を使用するか、 <strong>/etc/inetd.conf</strong> ファイルを編集することによって指定できます。</div>
+        </div>
+      </div></div>
+<ol>
+<li><strong>rshd</strong> デーモンを始動するには、
+次のように入力します。<div><div><pre><code>startsrc -t shell</code></pre></div><div></div></div>このコマンドは <strong>rshd</strong> サブサーバーを始動します。</li>
+
+<li><strong>rshd</strong> デーモンを停止するには、
+次のように入力します。<div><div><pre><code>stopsrc -t shell</code></pre></div><div></div></div>このコマンドは、保留状態の接続をすべて開始し、既存の接続を完了します。しかし、新しい接続の開始は行いません。</li>
+
+<li><strong>rshd</strong> デーモンおよびすべての <strong>rshd</strong> 接続を強制的に停止するには、以下のように入力します。<div><div><pre><code>stopsrc -t -f shell</code></pre></div><div></div></div>このコマンドによって、保留状態の接続と既存の接続がすべて即座に終了します。</li>
+
+<li><strong>rshd</strong> デーモンに関する簡潔なフォーマットの状況報告を表示するには、以下のように入力します。<div><div><pre><code>lssrc -t shell</code></pre></div><div></div></div>このコマンドは、デーモンの名前、プロセス ID、および状態 (アクティブまたは非アクティブ) を返します。</li>
+
+</ol>
+</section>
+
+</div></div>

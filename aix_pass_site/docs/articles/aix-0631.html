@@ -1,0 +1,218 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>物理ボリュームの集合から新しいボリューム・グループ定義をインポートします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>インポート・グループ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8420" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a><em> MajorNumber</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8450" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong></a> <em>VolumeGroup</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8323" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8315" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8428" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>] <strong>|</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8329" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> <em>VolumeGroup</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8393" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8375" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8399" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8384" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__importvgo" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a> ] <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__importvg_flagr" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ファイル名 ]</span> <em>PhysicalVolume</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>importvg</strong> コマンドは、以前にエクスポートされたボリューム・グループをシステムで認識できるようにします。 <em>PhysicalVolume</em> パラメーターは、ボリューム・グループを識別するために 1 つだけ物理ボリュームを指定します。
+<strong>importvg</strong> コマンドで、残りの物理ボリューム (同じボリューム・グループに属しているボリューム) を検索し、インポート内に含めます。 インポートされたボリューム・グループは、ボリューム・グループがコンカレント対応でない限り、自動的に変更されます。 事前に、<strong>varyonvg</strong> コマンドを使用してコンカレント対応ボリューム・グループをアクティブにしてからアクセスしてください。</p>
+ <p>ファイルシステムを持つボリューム・グループがインポートされると、<strong>/etc/filesystems</strong> ファイルが更新され、新しい論理ボリュームとマウント・ポイントの値が追加されます。 ボリューム・グループをインポートし、<strong>varyonvg</strong> コマンドでアクティブにした後、ファイルシステムをマウントする前に <strong>fsck</strong> コマンドを実行します。 ただし、マウント・ポイント情報については 128 文字を超えると、論理ボリューム制御ブロック (LVCB) から失われます。 この場合、<strong>importvg</strong> コマンドは <strong>/etc/filesystems</strong> ファイルを更新して、インポートされた論理ボリュームのスタンザを追加することができなくなります。 そのときには、手作業により <strong>/etc/filesystems</strong> ファイルを編集して、この論理ボリュームの新しいスタンザを追加してください。</p>
+ <p><strong>importvg</strong> コマンドは、システム内に既にその名前があるときは、論理ボリュームの名前を変更します。 このコマンドは、メッセージと新しい名前を標準エラーに出力し、新しい論理ボリューム名を追加して <strong>/etc/filesystems</strong> ファイルを更新します。 <strong>importvg</strong> コマンドでファイルシステム・ログの論理ボリュームが名前変更された場合は、名前変更された装置を認識するために、そのロギング用装置を使用するファイルシステムを手動で更新する必要があります。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span>このコマンドを使用するには、root ユーザー権限を持っているか、 <strong>システム</strong> グループのメンバーでなければなりません。</li>
+
+<li><strong>importvg</strong> プロセスの一部として、ボリューム・グループは、インポートされた後、システムにより自動的にオンに変更されます。 ただし、ボリューム・グループがコンカレント対応である場合、
+<strong>importvg</strong> コマンドは、インポートされたボリューム・グループを
+手動で <strong>varyonvg</strong> するように促すプロンプトが出されます。</li>
+
+<li>ミラー化されたストライピング論理ボリュームを持つボリュームグループを<span>AIX 4.3.3</span>より古いバージョンにバックポートすることはできません。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit importvg</strong> 高速パスを使用して実行することができます。</p>
+ </section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>このフラグは無視されます。 拡張コンカレント機能付きボリューム・グループのみが作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ボリューム・グループを強制的にオンラインに変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong><em>ボリュームグループ</em></td>
+
+<td>取り込まれたボリューム・グループに変更が加えられている場合にその内容を調べます。 このコマンドによって作成される新しい論理ボリュームには、
+<strong>-y</strong> フラグに示されるボリューム・グループ用のスペシャル・ファイル <strong>/dev</strong> の所有権、グループ ID、および許可をエミュレートします。 <strong>-L</strong> フラグは、実行時に、<strong>-F</strong> フラグおよび <strong>-n</strong> フラグを指定した場合と同等の機能を実行します。<p><strong>制約事項:</strong></p>
+ <ul>
+<li><strong>-L</strong> フラグを実行するシステムでは、ボリューム・グループはアクティブな状態であってはなりません。</li>
+
+<li>ボリューム・グループが vary on され、作動可能な状態になっているシステムでは、常にボリューム・グループのディスクをアンロックする必要があります。 <strong>varyonvg -b -u</strong> コマンドにより、ボリューム・グループのディスクをアンロックし、ボリューム・グループをアクティブな状態にして、使用することができます。</li>
+
+<li>指定する物理ボリューム名は有効で、認識可能な名前でなければなりません。また、指定するディスクは失われていたり、除去されていたりしてはなりません。</li>
+
+<li>論理ボリューム名が重複していると、このコマンドは異常終了します。 <strong>importvg</strong> の基本動作とは異なり、論理ボリューム名が重複している場合には名前は変更されません。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>簡略 <strong>importvg</strong> コマンドを実行できます。このコマンドは、同じボリューム・グループのメンバーであるディスクのみのボリューム・グループ用ディスクリプター領域を検査します。 そのため、このフラグを実行する場合は、ボリューム・グループに属するすべての物理ボリュームが有効で、認識可能であることを必ず確認してください。 ディスクが失われていたり、除去されていたりするボリューム・グループでこのフラグを使用すると、コマンドが異常終了するか、結果が矛盾する場合があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>imfs が失敗した場合には、<strong>importvg</strong>
+コマンドを失敗させるようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>このフラグを指定すると、ボリューム・グループがシステムにインポートされたときにボリュームの構成が変更されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>ボリューム・グループが別のいずれかのノードでオンに変更されているとしても、そのボリューム・グループを強制的に varyon します。<div><div>
+        <div>
+          <div><span>注：</span> AIX®61TL8以降のリリースでは、<strong>varionvg</strong>コマンドは、ボリュームグループのvarion状態でLVMメタデータとODMを更新します。 varyon 時に、<strong>varyonvg</strong> コマンドはこのデータを読み取り、別のノードでボリューム・グループが既に変更されている場合は失敗します。 <strong>Varyoffvg</strong> コマンドは、varyoff 時にボリューム・グループの varyon 状態をリセットします。 システムがボリューム・グループをオフに変更する前にクラッシュするか、ボリューム・グループが強制的にオフにされる場合、<strong>varyonvg</strong> コマンドはリブートの後失敗します。 このシナリオでは、 <strong>-O (O)</strong> フラグを使用して、ボリューム・グループを強制的に varyon します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>論理ボリューム特殊装置ファイルの所有権、グループ ID、および許可を復元します。 これらの値は、<strong>mklv</strong> および <strong>chlv</strong> コマンドの <strong>U</strong>、
+<strong>G</strong>、および <strong>P</strong> フラグを使用してセットされた場合にのみ復元されます。 このフラグは、拡張が容易な、ビッグ・タイプのボリューム・グループにのみ適用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> ファイル名</td>
+
+<td>ボリューム・グループのパフォーマンス・チューナブル・パラメーターを復元します。 このフラグを使用するには、<span>exportvg -b</span> コマンドの実行時にバックアップされたファイル名を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong><em> MajorNumber</em></td>
+
+<td>インポートされたボリューム・グループのメジャー番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>このフラグは無視されます。 拡張コンカレント機能付きボリューム・グループのみが作成されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注意:</strong> この項目は、 <strong>SRCMSTR</strong>を開始するために使用される項目の後に追加する必要があります。<span>”</span></blockquote>
+<p></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-y</strong><em> VolumeGroup</em><strong></strong></td>
+
+<td>新しいボリューム・グループに使う名前を指定します。 このフラグを使わなければ、システムは新しい名前を自動的に生成します。<p>ボリューム・グループ名に使用できる文字は、「A」から「Z」、「a」から「z」、「0」から「9」、「_」(下線)、「-」(負符号)、または「.」のみです。 。 このほかの文字はすべて無効と見なされます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ボリューム・グループをインポートするにはbkvg物理ボリュームからhdisk7次のように入力します。<div>importvg  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/importvg.html#importvg__row-d3e8450" target="_blank" rel="noopener noreferrer">-y bkvg</a> hdisk7 </div>
+  <p>ボリューム・グループbkvgシステムに認識されます。</p>
+</li>
+
+<li>マルチテール・システムで -L を指定する場合の例を以下に示します。<div> <div><div><pre><code>Node A has the volume group datavg varied on.
+Node B is aware of datavg, but it is not varied on.
+Node A: varyonvg -b -u datavg
+Node B: importvg -L datavg hdisk7
+Node A: varyonvg datavg</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+
+<td><strong>importvg</strong> コマンドが入っているディレクトリー</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp</strong></td>
+
+<td>コマンドの実行中に一時ファイルが格納されるディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

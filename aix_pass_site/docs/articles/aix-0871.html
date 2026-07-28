@@ -1,0 +1,92 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ストレージ・ファミリーに関する情報、および各ファミリーを管理するドライバー、またはストレージ・ファミリーを管理するドライバーを変更するドライバーに関する情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>manage_disk_drivers</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/manage_disk_drivers.html#manage_disk_drivers__row-d3e119442" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ]</p>
+ <p><strong>管理ディスク・ドライバー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/manage_disk_drivers.html#manage_disk_drivers__row-d3e119449" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> [ <em>装置</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/manage_disk_drivers.html#manage_disk_drivers__row-d3e119455" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> [ <span><span>ドライバー・オプション</span></span> ]</p>
+ <p><strong>manage_disk_drivers</strong> [ <strong>-h</strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>manage_disk_drivers</strong> コマンドは、ストレージ・ファミリーとそれぞれのファミリーを管理またはサポートするドライバーのリストを表示します。 ストレージ・ファミリーはストレージ・モデルです。 そのファミリー内のすべてのディスクは、同じドライバーによって管理されている必要があります。</p>
+
+<div>サポートされているドライバーには、マルチパス入出力 (MPIO) と非 MPIO の 2 つのタイプがあります。 多くのユーザーは MPIO 版のドライバー (<code>AIX_AAPCM</code>) を選択します (これはデフォルトの行動です)。 ただし、サード・パーティーのマルチパス・ドライバーがインストールされることがあります。 この場合は、組み込みの AIX® MPIO 機能を無効にすることをお勧めします。 この操作を実行するには、ドライバー・オプションとして <code>AIX_non_MPIO</code> オプションを選択します。<div><div>
+        <div>
+          <div><span>注:</span> すべてのストレージ・ファミリーが <code>AIX_non-MPIO</code> ドライバーをサポートしているわけではありません。</div>
+        </div>
+      </div></div>
+</div>
+
+<p><span>-d</span> フラグでストレージ・デバイス名を指定すると、 <span>manage_disk_drivers</span> コマンドは、サポートされている代替ドライバー (<span>-o</span> フラグで指定するドライバー) に、ドライバーの選択を変更します。</p>
+
+<p><span>manage_disk_drivers</span> コマンドは、ドライバーの変更を反映したオブジェクト・データ・マネージャー (ODM) データベースを保存し、システムを再始動して変更を有効にするためのメッセージを表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-l</strong></td>
+
+<td>すべてのストレージ・デバイスとそれらがサポートするドライバーをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>ドライバーを選択するときにストレージ・デバイス・ファミリーを指定します。<div><div>
+        <div>
+          <div><span>注:</span> このフラグを使用するには、 <span>-o</span> フラグが必要です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>選択されたストレージ・ファミリーに使用されるドライバーを指定します。<div><div>
+        <div>
+          <div><span>注:</span> このフラグを使用するには、 <span>-d</span> フラグが必要です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>NO_OVERRIDE ドライバー・オプション</h2>
+
+<p>現在のドライバー属性が NO_OVERRIDE に設定されている場合、 AIX オペレーティング・システムは代替パス制御モジュール (PCM) を選択します (例えば、ストレージ・ベンダー PCM がインストールされている場合)。</p>
+
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのストレージ・ファミリーおよびそれらがサポートするドライバーをリストするには、次のコマンドを入力してください。<div><div><pre><code>manage_disk_drivers -l</code></pre></div><div></div></div>システムは、次の例のようなメッセージを表示します。<div><div><pre><code>Device           Present Driver      Driver Options
+2810XIV          AIX_AAPCM           AIX_AAPCM,AIX_non_MPIO
+XIVCTRL          MPIO_XIVCTRL        MPIO_XIVCTRL,nonMPIO_XIVCTRL
+2107DS8K         NO_OVERRIDE         NO_OVERRIDE,AIX_AAPCM,AIX_non_MPIO
+IBMFlash         NO_OVERRIDE         NO_OVERRIDE,AIX_AAPCM,AIX_non_MPIO
+IBMSVC           NO_OVERRIDE         NO_OVERRIDE,AIX_AAPCM,AIX_non_MPIO</code></pre></div><div></div></div></li>
+
+<li>2810XIV デバイスを管理する <code>AIX_non_MPIO</code> オプションを使用するようにドライバーを変更するには、次のコマンドを入力します。<div><div><pre><code>manage_disk_drivers -d 2810XIV -o AIX_non_MPIO</code></pre></div><div></div></div>システムは、次の例のようなメッセージを表示します。<div><div><pre><code># manage_disk_drivers -d 2810XIV -o AIX_non_MPIO
+********************** ATTENTION *************************
+For the change to take effect the system must be rebooted</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

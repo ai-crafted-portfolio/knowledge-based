@@ -1,0 +1,86 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>  <p>BNU の <strong>Poll</strong> ファイルにリストされているシステムをポーリングします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uudemon.poll</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/uucp/uudemon.poll</strong> コマンドは、
+基本ネットワーク・ユーティリティー (BNU) で使用されるシェル・プロシージャーです。 <strong>uudemon.poll</strong> コマンドは、
+<strong>/etc/uucp/Poll</strong> ファイル、
+<strong>uudemon.hour</strong> コマンド、
+<strong>/var/spool/cron/crontabs/uucp</strong> ファイルとともに使用して、
+リモート・システムの呼び出しを開始します。</p>
+ <p><strong>uudemon.poll</strong> コマンドは、以下のアクションを実行します。</p>
+ <ul>
+<li><span></span> <strong>Poll</strong> ファイル (<strong>/etc/uucp/Poll</strong>) にリストされているシステムをポーリング (連絡先) します。</li>
+
+<li><span></span>作成コマンド (<strong>C. *</strong>) <strong>Poll</strong> ファイルにリストされているシステムのファイル。</li>
+
+</ul>
+ <p><strong>uudemon.poll</strong> コマンドを実行する時刻は、
+<strong>uudemon.hour</strong> コマンドを実行する時刻によって決まります。 一般的には、ポーリング・シェル・プロシージャーは、
+毎時間実行するプロシージャーの前に設定してください。 このようにスケジュールすると、<strong>cron</strong> デーモンが <strong>uudemon.hour</strong> コマンドを実行する前に、<strong>uudemon.poll</strong> コマンドによって必要なコマンド・ファイルを作成することができます。</p>
+ <div><strong>cron</strong> デーモンには、
+<strong>uudemon.hour</strong> コマンドを実行する 5 分から 10 分前に <strong>uudemon.poll</strong> コマンドを実行するように指示します。 このプロシージャーを自動的に実行させるには、
+<strong>/var/spool/cron/crontabs/uucp</strong> ファイル内の <strong>uudemon.poll</strong> コマンド・ラインの先頭からコメント文字 (#) を除去します。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>uudemon.poll</strong> コマンドは通常、コマンド行には入力されませんが、 <strong>cron</strong> デーモンによって実行されます。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>uudemon.poll</strong> シェル・プロシージャーを自動的に実行するには、 <strong>/var/spool/cron/crontabs/uucp</strong> ファイルを編集して、#(コメント文字) <strong>uudemon.poll</strong> コマンドを開始する行の先頭にあります。 変更:</p>
+ <div> <div><div><pre><code>#20,50 * * * * /usr/bin/sh -c "/usr/sbin/uucp/uudemon.poll &gt;  /dev/null"</code></pre></div><div></div></div></div>
+ <p>to:--&gt;</p>
+ <div> <div><div><pre><code>20,50 * * * * /usr/bin/sh -c "/usr/sbin/uucp/uudemon.poll &gt;  /dev/null"</code></pre></div><div></div></div></div>
+ <div>この20,50表記は分を表し, 4 つのアスタリスク (* * * *) は、それぞれ、時間、日、月、および曜日を表すプレースホルダーです。 したがって、この行は、 <strong>cron</strong> デーモンに対して、<strong> uudemon.poll</strong> コマンドを時間の 20 分後に実行し、時間の 50 分後に再度実行するように指示します (例えば、8:20 と 8:50 a.m)。 また、9:20 および 9:50 a.m.-every hour of every day.<div><div>
+        <div>
+          <div><span>注:</span> <span></span><strong> cron</strong> デーモンが <strong>uudemon.poll</strong> コマンドを実行する時刻を、 <strong>uudemon.hour</strong> コマンド用にセットアップした時刻に対応するように変更してください。 <strong>/var/spool/cron/crontabs/uucp</strong> ファイルに指定されたデフォルトでは、
+<strong>cron</strong> デーモンに対して、<strong>uudemon.hour</strong> コマンドを実行する 5 分前に <strong>uudemon.poll</strong> コマンドを実行するように指示します。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/uucp/*</strong></td>
+
+<td><strong>uudemon.poll</strong> コマンド、<strong>uudemon.hour</strong> コマンド、
+および BNU 用のすべての構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Poll</strong></td>
+
+<td>BNU プログラムがリモート・システムにポーリングしてタスクを開始する時刻を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/cron/crontabs/uucp</strong></td>
+
+<td><strong>uudemon.poll</strong> コマンドを含む、<strong>cron</strong> デーモン用の BNU ジョブをスケジュールします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

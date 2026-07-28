@@ -1,0 +1,455 @@
+<div class="official-dom"><div>
+<div> <div><div>
+        <div>
+          <div><span>注：</span>LDAP のユーザーがUID &gt; 2 ^ 31で作成された場合、この <span><span>lsldap</span></span> コマンドではそれが負の数として表示されます。</div>
+        </div>
+      </div></div>
+</div>
+
+<section><h2>目的</h2> <p>構成済み LDAP ディレクトリー・サーバーの命名サービス・オブジェクトを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lsldap</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsldap.html#lsldap__row-d3e84783" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a>] [ <span><span>エンティティー</span></span> [ <span><span>entry_name</span></span> | <span><span>filter</span></span> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p>この <span><span>lsldap</span></span> コマンドは、設定済みの LDAP ディレクトリサーバー上のネーミングサービスオブジェクトを表示します。 これは、デーモンを <span><span>secldapclntd</span></span> 介して LDAP サーバーにクエリを送信します。 特定のエンティティーの一部またはすべてのオブジェクトは、 <span><span>lsldap</span></span> コマンドによってリストすることができます。 デフォルトでは、 <span><span>lsldap</span></span> コマンドは、返されたオブジェクトの識別名 (DN) のみを表示します。 さらに、 <span><span>-a</span></span> フラグを使用して属性を表示できます。</p>
+ <div><span><span>lsldap</span></span> コマンドは、以下のエンティティーをサポートします。<div><div><table><thead>
+<tr>
+<th><div>エンティティー</div></th>
+
+<th><div>objectClass</div></th>
+
+<th><div>デフォルト属性名</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>aapolicies</td>
+
+<td>ibm-aixAccountingAdminPolicy</td>
+
+<td>ibm-aixAdminPolicyName</td>
+
+</tr>
+
+<tr>
+<td>aaprojects</td>
+
+<td>ibm-aixAccountingProject</td>
+
+<td>ibm-aixProjectName</td>
+
+</tr>
+
+<tr>
+<td>admkeystore</td>
+
+<td>ibm-usrkeystore</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>aixpert</td>
+
+<td>ibm-aixAixpert</td>
+
+<td>ibm-aixpertLabel</td>
+
+</tr>
+
+<tr>
+<td>aliases</td>
+
+<td>mailGroup</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>auditclass</td>
+
+<td>AIXAuditClassStanza</td>
+
+<td>auditclassstanza</td>
+
+</tr>
+
+<tr>
+<td>auditconfig</td>
+
+<td>AIXAuditConfig</td>
+
+<td>auditconfig</td>
+
+</tr>
+
+<tr>
+<td>authorizations</td>
+
+<td>ibm-authorization</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>自動マウント</td>
+
+<td>automountMap nisObject</td>
+
+<td>automountMapNamenisMapName</td>
+
+</tr>
+
+<tr>
+<td>bootparams</td>
+
+<td>bootableDevice</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>domains</td>
+
+<td>ibm-aixRBACdomain</td>
+
+<td>ibm-aixRBACdomainName</td>
+
+</tr>
+
+<tr>
+<td>domobjs</td>
+
+<td>ibm-aixRBACdomainObject</td>
+
+<td>ibm-aixRBACdomainObjectName</td>
+
+</tr>
+
+<tr>
+<td>efscookies</td>
+
+<td>ibm-efskscookies</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>ethers</td>
+
+<td>ieee802Device</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>グループ</td>
+
+<td>posixgroupAIXAccessGroup</td>
+
+<td>cngroupname</td>
+
+</tr>
+
+<tr>
+<td>grpkeystore</td>
+
+<td>ibm-grpkeystore</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>hosts</td>
+
+<td>ipHost</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>netgroup</td>
+
+<td>ipNetgroup</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>ネットワーク</td>
+
+<td>ipNetwork</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>passwd</td>
+
+<td>posixAccountAIXAccount</td>
+
+<td>uidusername</td>
+
+</tr>
+
+<tr>
+<td>privcmds</td>
+
+<td>ibm-privcmd</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>privdevs</td>
+
+<td>ibm-privdev</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>protocols</td>
+
+<td>ipProtocol</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>ロール</td>
+
+<td>aixaccessroles</td>
+
+<td>rolename</td>
+
+</tr>
+
+<tr>
+<td>rpc</td>
+
+<td>oncRpc</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>サービス</td>
+
+<td>ipService</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>privfiles</td>
+
+<td>ibm-privfile</td>
+
+<td>cn</td>
+
+</tr>
+
+<tr>
+<td>usrkeystore</td>
+
+<td>ibm-usrkeystore</td>
+
+<td>cn</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>automount エンティティーには 2 つのオブジェクト・クラスがあります。 <span><span>lsldap</span></span> コマンドは、 <span><span>nisMap</span></span> より優先順位の高い <span><span>automountMap</span></span> を処理します。 <span><span>automountMap</span></span> オブジェクトがない場合にのみ、常に <span><span>automountMap</span></span> オブジェクトを返し (検出された場合)、 nisMap オブジェクトを返します。</p>
+ <p><strong>passwd</strong> および group エンティティについては、この <span><span>lsldap</span></span> コマンドは LDAP クライアントの設定に従って正しいオブジェクトを返します。 ただし、オブジェクト・
+クラスに対応する正しい属性名を、<code>lsldap passwd attribute=value</code> 照会に
+合うように指定する必要があります。</p>
+ <p>コマンド・ラインからエンティティー名を指定しない場合、 <span><span>lsldap</span></span> コマンドは、エンティティーのコンテナー項目と、これらのコンテナーの兄弟であるその他の項目を表示します。 コンテナー・エントリーをリストするには、ユーザーは root アクセス権を持っている必要があります。</p>
+ <p><span><span>entry_name</span></span> パラメーターは、照会するオブジェクトの名前です。 例えば、エンティティーが <strong>passwd</strong> の場合は、<span><span>entry_name</span></span> はユーザー・アカウント名です。 <span><span>entry_name</span></span> パラメーターは、<code>default attribute name = entry_name</code> と同等です。 <span><span>lsldap</span></span> コマンドは、サブストリング検索のために <span><span>entry_name</span></span> 内の <code>*</code> ワイルドカードを受け入れます。 <span><span>entry_name</span></span> を指定しない場合は、すべてのエントリーが戻されます。</p>
+ <p><span><span>entry_name</span></span> の代わりに、<span><span>filter</span></span> を指定して、特定の基準に合致するエントリーを検索することもできます。 簡易フィルターを <span><span>attributename</span></span>=<span><span>attributevalue</span></span> として指定することが
+できます。ここで、<span><span>attributename</span></span> は LDAP 属性名です。</p>
+ <p><span><span>lsldap</span></span> コマンドは、結果を <span><span>stdout</span></span>に出力します。 <span><span>-a</span></span> フラグが指定されていない場合、 <span><span>lsldap</span></span> は、DN の形式で検出された項目を、各 DN をブランク行で区切って印刷します。 <span><span>-a</span></span> フラグが指定されている場合、各エントリーは ldif 形式で出力され、エントリー間にはブランク行が入ります。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>戻されたオブジェクトのすべての属性を表示します。 デフォルトでは、オブジェクトの DN のみが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>正常に実行されると、 <span><span>lsldap</span></span> コマンドは <code>0</code>を返します。 失敗すると、ゼロ以外の値が返され、以下のいずれかのエラー・メッセージが <span><span>stderr</span></span>に書き込まれます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>EIO</span></span></td>
+
+<td>接続エラー。</td>
+
+</tr>
+
+<tr>
+<td><span><span>EINVAL</span></span></td>
+
+<td>無効なパラメーターです。</td>
+
+</tr>
+
+<tr>
+<td><span><span>EPERM</span></span></td>
+
+<td>操作を実行するためのアクセス権がありません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>ENOMEM</span></span></td>
+
+<td>メモリーが不足しています。</td>
+
+</tr>
+
+<tr>
+<td>その他の <span><span>errno</span></span></td>
+
+<td>その他のエラー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>lsldap</span></span> コマンドは、どのユーザーでも実行できます。 このコマンドは root ユーザーおよび
+セキュリティー・グループによって所有され、アクセス権 555 が付与されます。</p>
+
+<p>特権のないユーザーが <code>netgroup</code> 対応 LDAP モジュールに対して <code>lsldap –a passwd</code> コマンドを実行した場合、<code>lsldap</code> コマンドは、<code>ldap.cfg</code> ファイル内で <code>DisplayNetgroupUserInfo</code> 属性が <code>no</code> に設定されていると、ユーザー情報を表示しません。 デフォルトでは、<code>lsldap</code> コマンドを実行すると、ユーザー特権に関係なく、<code>netgroup</code> 対応 LDAP モジュールにユーザー情報が表示されます。</p>
+ <p>root ユーザーが <span><span>-a</span></span> フラグを使用して <strong>passwd</strong> エンティティーをリストすると、 <span><span>lsldap</span></span> は検出されたユーザーのすべての属性を返します。 ただし、非特権ユーザーによって同じコマンドが実行された場合、 <span><span>lsldap</span></span> は、オブジェクト・クラス情報に加えて、 <span><span>lsuser</span></span> コマンドによって返されるのと同じ、一般的に読み取り可能な属性のみを返します。 他のすべてのエンティティーの場合、どのユーザーがこのコマンドを実行するかに関係なく、同じ出力が生成されます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ホスト・エンティティーのすべてのエントリーをリストするには、次のコマンドを入力します。<div><div><pre><code>lsldap hosts</code></pre></div><div></div></div>次のような情報が戻されます。<div><div><pre><code>dn: cn=myhost+ipHostNumber=192.3.193.46,ou=Hosts,cn=aixdata
+
+ 
+
+dn: cn=starfish+ipHostNumber=192.3.193.47,ou=Hosts,cn=aixdata
+
+ 
+
+dn: cn=loopback+ipHostNumber=127.0.0.1,ou=Hosts,cn=aixdata</code></pre></div><div></div></div></li>
+
+<li>ホスト <code>starfish</code> およびそのすべての属性をリストするには、次のコマンドを入力します。<div><div><pre><code>lsldap -a hosts starfish</code></pre></div><div></div></div>次のような情報が戻されます。<div><div><pre><code>dn: cn=starfish+ipHostNumber=192.3.193.47,ou=Hosts,cn=aixdata
+
+objectClass: top
+
+objectClass: ipHost
+
+objectClass: device
+
+ipHostNumber: 192.3.193.47
+
+cn: loopback
+
+cn: localhost</code></pre></div><div></div></div></li>
+
+<li>文字 <code>b</code> が名前の先頭に付くユーザーをリストするには、次のコマンドを入力します。<div><div><pre><code>lsldap passwd "b*"</code></pre></div><div></div></div>次のような情報が戻されます。<div><div><pre><code>dn: uid=bin,ou=people,cn=aixdata
+
+ 
+
+dn: uid=bob,ou=people,cn=aixdata</code></pre></div><div></div></div></li>
+
+<li>ユーザー <code>foo</code> およびその属性をリストするには、次のコマンドを入力します。<div><div><pre><code>lsldap -a passwd foo</code></pre></div><div></div></div>次のような情報が戻されます。<div><div><pre><code>dn: uid=foo,ou=people,cn=aixdata
+
+uid: foo
+
+objectClass: account
+
+objectClass: posixAccount
+
+objectClass: shadowAccount
+
+objectClass: top
+
+cn: foo
+
+uidNumber: 259
+
+gidNumber: 1
+
+homeDirectory: /home/foo
+
+loginShell: /usr/bin/ksh
+
+shadowlastchange: 12740
+
+userpassword: {crypt}rNnLQ9TAD2u/k
+
+shadowmin: 5</code></pre></div><div></div></div></li>
+
+<li><span><span>/usr/bin/ksh</span></span>を実行するユーザーをリストするには、次のコマンドを入力します。<div><div><pre><code>lsldap passwd loginshell=/usr/bin/ksh</code></pre></div><div></div></div>次のような情報が戻されます。<div><div><pre><code>dn: uid=bin,ou=people,cn=aixdata
+
+ 
+
+dn: uid=bob,ou=people,cn=aixdata
+
+ 
+
+dn: uid=foo,ou=people,cn=aixdata</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>制約事項</h2> <p><span><span>lsldap</span></span> コマンドは、 <span><span>secldapclntd</span></span> デーモンに依存して機能します。</p>
+</section>
+
+<section><h2>ロケーション</h2> <p><strong>/usr/sbin/lsldap</strong></p>
+</section>
+
+</div></div>

@@ -1,0 +1,853 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロジェクト・ベースの拡張アカウンティング・アクティビティーをサポートします。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>projctl add projname projnumber [comment] [ { -d projpath | -p [DN] } ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl merge sourceprojpath [ -d targetprojfile ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl rm projname [ { -d projpath | -p [DN] } ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl chg projname [ -p pid [, pid] ] [-f]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl exec projname &lt;cmd line&gt; [-f]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl chattr agg projname {-s|-u} [ { -d projpath | -p [DN] } ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl qpolicy [ -g [DN] ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl qprojs [-n]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl qproj [projectname]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl qapp appname</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl {chkusr | chkgrp | chkprojs | {{chkadm | chkall} [-d admpath]}}</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldusr [ -r ] [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldusr [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldgrp [ -r ] [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldgrp [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldprojs -g [ -r ] [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldprojs -g [DN] -d projpath </code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldprojs -p [DN] -d projpath </code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldprojs -g [DN] [ -f ] [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldprojs -p [DN] </code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldadm -g [name] [ -r ] [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldadm -g [name:]DN | name ] -d admpath</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldadm -p [ [name:]DN | name ] -d admpath</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldadm -g [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldadm -p [ [name:]DN | name ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ld [ -r ] </code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl ldall [ -d admpath ] [ -r ] [ -a ]</code></pre></div><div></div></div>
+</div>
+ <div>
+<div><div><pre><code>projctl unldall [ -f ] [ -a ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>projctl</span> コマンドのさまざまなサブコマンドは、
+新規プロジェクトの追加、新規プロジェクトの除去、および特定のアカウンティング・ポリシー
+のロードなどの、プロジェクト・ベースの拡張アカウンティング・アクティビティーを実行します。 <span>projctl</span> コマンドのこれらのさまざまなオプションについて、以下に説明します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><caption><span>表 1. フラグ </span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>システム・リブート時に自動的にポリシーをロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>通常は、参照するプロジェクト定義ファイルまたは管理ポリシー・ファイルがある場所からのパスを指定します。 <span>merge</span> サブコマンドで使用する場合は、マージされたプロジェクト定義を保管するターゲット・プロジェクト定義ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td><span>chg</span> および <span>exec</span> サブコマンドで指定されたポリシー規則をオーバーライドします。 <span>unldall</span> サブコマンドで呼び出されたときにプロセスに割り当てられているプロジェクトをクリアします。 <span>unldprojs</span> サブコマンドで呼び出されたときに、すべてのプロジェクト定義を強制的にアンロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span></td>
+
+<td>プロジェクトおよびポリシーが LDAP リポジトリーからダウンロードされることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>名前を基にしてプロジェクト定義のリストをソートします。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td><span>chg</span> サブコマンドで使用すると、プロジェクト割り当ての変更を必要とするプロセス ID のリストを渡します。 <span>add</span>、 <span>rm</span>、および <span>chattr</span> サブコマンドで使用する場合、プロジェクト定義を更新する LDAP DN を指定します。 <span>ld </span> および <span>unld</span> サブコマンドで使用する場合、プロジェクトおよびポリシーを LDAP リポジトリーにアップロードすることを指定します。 このフラグの引数は、プロジェクトおよびポリシーがアップロードされる DN を示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>ポリシーを再ロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td><span>projctl chattr agg</span> サブコマンドで使用され、
+プロジェクト集約プロパティーを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span></td>
+
+<td><span>projctl chattr agg</span> サブコマンドで使用され、
+プロジェクト集約プロパティーを使用不可にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>AdmPath</td>
+
+<td>管理ポリシー・ファイルを選択する場所からのパス。</td>
+
+</tr>
+
+<tr>
+<td>アプリ名</td>
+
+<td>必要とされるプロジェクト割り当てリストを持つアプリケーションの、
+絶対パス。</td>
+
+</tr>
+
+<tr>
+<td>cmd 行</td>
+
+<td><span>projctl
+exec</span> コマンドを介して実行されるコマンドの絶対パス。</td>
+
+</tr>
+
+<tr>
+<td>コメント</td>
+
+<td>プロジェクト・コメント。</td>
+
+</tr>
+
+<tr>
+<td>DN</td>
+
+<td>LDAP サーバー上のプロジェクトおよびポリシー・オブジェクトへの絶対パスを示す識別名。</td>
+
+</tr>
+
+<tr>
+<td>name</td>
+
+<td>LDAP サーバー上の代替管理ポリシー定義の名前。</td>
+
+</tr>
+
+<tr>
+<td>pid</td>
+
+<td>プロセス ID。</td>
+
+</tr>
+
+<tr>
+<td>PROJNAME </td>
+
+<td>プロジェクトの名前。</td>
+
+</tr>
+
+<tr>
+<td>プロジェクト番号</td>
+
+<td>プロジェクト用の数値。</td>
+
+</tr>
+
+<tr>
+<td>プロジェクト・パス</td>
+
+<td>プロジェクト定義ファイルを選択する場所からのパス。</td>
+
+</tr>
+
+<tr>
+<td>ソース・プロジェクト・パス</td>
+
+<td>マージするプロジェクト定義ファイルを選出する場所からのパス。</td>
+
+</tr>
+
+<tr>
+<td>ターゲットプロファイル</td>
+
+<td>プロジェクト定義がマージされるターゲット・プロジェクト定義ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>サブコマンド</h2>
+<dl>
+
+<dt>ADD サブコマンド</dt>
+
+<dd><p><span>add</span> サブコマンドは、プロジェクトの定義をプロジェクト定義ファイルに
+追加します。 <span>-d</span> フラグが指定されている場合、プロジェクト定義は、指定されたパスの下のプロジェクト定義ファイルに追加されます。 デフォルトでは、<span>/etc/project/projdef</span> システム・プロジェクト定義ファイルに
+追加されます。 これ以外のパスの下のプロジェクト定義ファイルは、<code>.projdef:</code> という
+名前にする必要があります。 新規プロジェクトがシステム・プロジェクト定義ファイルに追加され、プロジェクトが既にカーネルにロードされている場合は、指定された新規プロジェクトがカーネル・プロジェクト・レジストリーに追加されます。 それ以外の場合、項目はファイル内にのみ作成されます。 <span>add</span> サブコマンドは、プロジェクト名、プロジェクト番号、および
+プロジェクト・コメント用のオプション引数を、パラメーターとして入手します。 デフォルトでは、このコマンドを使用して作成されたすべてのプロジェクトについて、プロジェクトの集約プロパティーは <code>no</code> に設定されます。</p>
+
+<p><span>-p</span> が指定されている場合、新規プロジェクト定義は、LDAP サーバー上のデフォルト・プロジェクト DN または指定された DN に追加されます。 <span>-p</span> が指定されていない場合、 <code>.config</code> はソース情報を提供します。 <span>-p</span> オプションを実行するには、root 権限が必要です。</p>
+
+<div>プロジェクト定義ファイル内で <span>projctl add</span> によって作成される各項目の形式は、以下のとおりです。<div><div><pre><code>ProjectName:ProjectNumber:AggregationStatus::Comment</code></pre></div><div></div></div></div>
+
+<div>ファイル・フォーマットを説明するプロジェクト定義の例は、以下のとおりです。<div><div><pre><code>:: Project Definition File
+:: Dated: 23-JUN-2003
+AIX:3542:yes::To Classify AIX Legacy Applications
+Test_Project:0x10000:yes::To Classify Testing work</code></pre></div><div></div></div></div>
+
+</dd>
+
+
+
+<dt>chattr agg サブコマンド</dt>
+
+<dd><p><span>chattr agg</span> サブコマンドは、指定されたプロジェクトの集約プロパティーを
+使用可能にしたり使用不可にしたりします。 <span>-s</span> フラグが使用されると、集約は使用可能になります。 <span>-u</span> フラグが使用されると、集約は使用不可になります。 <span>-d</span> フラグが指定されている場合、プロジェクト定義は、指定されたパスの下のプロジェクト定義ファイルで更新されます。 デフォルトでは、システム・プロジェクト定義ファイル (<span>/etc/project/projdef</span>) が更新されます。 更新がシステム・プロジェクト定義ファイルに対するものであり、既にカーネルにロードされている場合は、指定された新規プロジェクトもカーネル・プロジェクト・レジストリーで更新されます。 それ以外の場合、変更はプロジェクト定義ファイルに対してのみ行われます。</p>
+
+<p><span>-p</span> が指定されている場合、プロジェクト定義は、デフォルトのプロジェクト DN または LDAP サーバー上の指定された DN で変更されます。 <span>-p</span> が指定されていない場合、 <code>.config</code> はソース情報を提供します。 <span>-p</span> オプションを実行するには、root 権限が必要です。</p>
+
+</dd>
+
+
+
+<dt>chg サブコマンド</dt>
+
+<dd><p><span>chg</span> サブコマンドにより、ユーザーは、自分のプロセス用に
+使用することが許可されているプロジェクトのリストを変更することができます。 対象とするプロジェクト名が、このサブコマンドの入力として指定されます。 プロセス ID が入力として提供される場合、それらのプロセスは指定されたプロジェクトの下に分類されます。 入力として提供されたプロセス ID がない場合、プロジェクト変更は、 <span>projctl</span> コマンドを開始したプロセスに対して行われます。</p>
+
+<p>デフォルトでは、<span>chg</span> サブコマンドは、使用可能なルールの有効範囲内で
+プロジェクト割り当てを変更します。 ルールをオーバーライドしてプロジェクトを直接にプロセスに割り当てる
+には、<span>-f</span> 強制オプションを指定する必要があります。</p>
+
+</dd>
+
+
+
+<dt>chk サブコマンド</dt>
+
+<dd><p><span>chk</span> サブコマンドは、さまざまなプロジェクト・ポリシーの
+妥当性を検査します。 サブコマンドは、プロジェクトおよびポリシーを安全にカーネルにロードできるように、
+これらを妥当性検査します。 さまざまなプロジェクト・ポリシーをサポートするために、
+いくつかの <span>chk</span> サブコマンドがあります。 サブコマンドを以下に示します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>chkadm</span></td>
+
+<td>管理ポリシーを妥当性検査します。 管理ポリシー・ファイルの中の各ルールは通常、4 つの属性を持ちます。
+すなわち、ユーザー ID、グループ ID、アプリケーション・パス、およびプロジェクト名です。 <span>chkadm</span> サブコマンドは、これらの属性が有効かどうかを検査し、ポリシーで検出されたエラーを報告します。 <span>-d</span> オプションが使用される場合、<span>chkadm</span> サブコマンドは、
+指定されたパスからの管理ポリシー・ファイルをルールの検査に使用します。 また、別名および一時プロジェクト定義ファイル (<span>.projdef</span>) も、
+必要な場合には使用します。 ルールで使用されるプロジェクトは、最初にシステム・プロジェクト定義ファイルで検索されます。 プロジェクトがシステム・プロジェクト定義ファイルで見付からない場合は、指定されたパスの
+下の <span>.projdef </span> ファイルが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>chkall</span></td>
+
+<td>上記のすべての検証アクティビティーを実行します。つまり、プロジェクト、ユーザー、グループ、および管理ポリシーを検証します。 <span>-d</span> オプションを使用すると、 <span>chkadll</span> サブルーチンは、指定されたパスにある管理ファイル、別名ファイル、およびプロジェクト定義ファイルを使用して、管理ポリシーを検証します。</td>
+
+</tr>
+
+<tr>
+<td><span>chkgrp</span></td>
+
+<td>グループ・ポリシーを妥当性検査します。 妥当性検査では、グループのプロジェクト・リストに妥当なプロジェクトが入っているか
+検査することが必要です。</td>
+
+</tr>
+
+<tr>
+<td><span>chkprojs</span></td>
+
+<td>システム・プロジェクト定義ファイルを妥当性検査します。 プロジェクト定義は、固有性、プロジェクト名と番号の妥当性、および属性の妥当性について検証されます。 プロジェクト名は POSIX 英数字ストリングであることが必要で、
+プロジェクト番号は 0x00000001 から 0x00ffffff の範囲内の数字であることが必要です。 プロジェクト番号は、10 進数か 16 進数のいずれかが可能です。 すべての 16 進数は、プレフィックス <code>0x</code> を持つことが必要です。 集約プロパティーは、<code>y</code> または <code>n</code> のいずれかが可能で、
+集約の状況を示します。 <span>chkprojs</span> サブコマンドは、プロジェクト定義に対してこれらすべての妥当性検査を実行し、プロジェクト定義で検出されたエラーを報告します。</td>
+
+</tr>
+
+<tr>
+<td><span>chkusr</span></td>
+
+<td>ユーザー・ポリシーを妥当性検査します。 妥当性検査では、ユーザーのプロジェクト・リストに妥当なプロジェクトが入っているか
+検査することが必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 管理ポリシー規則でワイルドカード文字が使用されている場合、 <span>chkadm</span> および <span>chkall</span> サブコマンドはワイルドカード文字を展開し、取得した出力を検証します。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+
+<dt>exec サブコマンド</dt>
+
+<dd><p><span>exec</span> サブコマンドは、ユーザーが、コマンドの処理対象となりうる
+プロジェクトのリストからのプロジェクト名のいずれかを使用して、
+任意のコマンドを起動することができるようにします。 <span>chg</span> オプションと同様に、ルールをオーバーライドし任意のプロジェクトを使用して
+コマンド・ラインを実行するために使用される、<span>-f</span> 強制オプションを使用する必要があります。 コマンドを割り当てる対象となりうるプロジェクトのリストを取得する
+には、<span>projctl qapp</span> サブコマンドを使用します。</p>
+
+</dd>
+
+
+
+<dt>ld サブコマンド</dt>
+
+<dd><div><span>ld</span> サブコマンドは、プロジェクトおよびポリシーのロードと再ロードのために
+使用されます。 特定のポリシーに対してロード操作を行うための、特定のロード・コマンドがあります。 このようなさまざまなサブコマンドを、以下に示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>ld</span></td>
+
+<td>システム起動時にロードされる必要のあるポリシーを、ロードします。 これは、ロードするポリシーを判別するために <span>/etc/project/.config</span> ファイルを参照します。 カーネルが既にいずれか 1 つのポリシーまたはプロジェクト定義でロードされている場合、このコマンドは単に戻ります。</td>
+
+</tr>
+
+<tr>
+<td><span>ldadm</span></td>
+
+<td>管理ポリシーをロードします。 <span>ldusr</span> サブコマンドおよび <span>ldgrp</span> サブコマンドと
+同様、<span>ldadm</span> も、プロジェクトがまだロードされていない場合は、
+最初にプロジェクトを検査してロードします。 次に、管理ポリシー・ルールを検証後にロードします。 <span>-d</span> オプションを使用すると、指定されたパスから管理ポリシー・ファイルが選択されます。 指定されたパスの下の別名および一時プロジェクト定義ファイルは、別名エントリーおよび
+プロジェクト・エントリーの存在を検査するために使用されます。 ポリシーがロードされた後、このサブコマンドは、管理ポリシー・ファイルを <span>/etc/project/.admin</span> にコピーすることも行います。 LDAP に関連する管理ポリシーのロードは、以下の <span>-p</span> 引数および <span>-g</span> 引数によって処理されます。<dl>
+
+<dt><code>projctl ldadm -g [name]</code></dt>
+
+<dd>LDAP リポジトリーを使用するカーネルに管理ポリシーをロードすることを指定します。 <span>-g</span> が指定されていない場合、ローカル管理ポリシー (<span>/etc/project/admin</span>) がカーネルにダウンロードされます。</dd>
+
+
+
+<dt><code>projctl ldadm -g [ [name:]DN | name ] -d
+admpath</code></dt>
+
+<dd>LDAP 管理ポリシーを、カーネルにダウンロードせずに、ローカル・ファイルにダウンロードすることを指定します。 ソース管理ポリシーは、指定された DN にあるか、 <span>ldap.cfg</span> ファイル内のアカウンティング DN を使用して検出されます。 <span>-d</span> パラメーターは、ポリシー・ファイル (プロジェクト、管理者、および別名) の書き込み先を指定するために使用します。 ターゲット・ロケーションが <span>/etc/project/</span>より下の場合、ファイルはシステムで使用される規則に従って書き込まれます。 ファイルは以下のものに書き込まれます。<ul>
+<li><span>/etc/project/admin</span>, <span>/etc/project/alias</span>, <span>/etc/project/projdef </span></li>
+
+<li><span>/etc/project/ldap/admin</span>, <span>/etc/project/ldap/alias</span>, <span>/etc/project/ldap/projdef</span></li>
+
+<li><span>/etc/project/projdef</span>, <span>/etc/project/alter/policyname/admin</span>, <span>.../alias</span></li>
+
+<li><span>/etc/project/ldap/projdef</span>, <span>/etc/project/ldap/alter/policyname/admin</span>, <span>.../alias</span></li>
+
+</ul>それ以外の場合は、この 3 つのファイルは、指定されたディレクトリーに書き込まれます。 <span>-g</span> オプションで明示的な DN が指定されている場合、プロジェクトはダウンロードされません。これは、プロジェクトが別の DN 上にある可能性もあるためです。 この場合、ユーザーはそれらを個別にダウンロードする必要があります。</dd>
+
+
+
+<dt><code>projctl ldadm -p [ [name:]DN | name ] -d
+admpath</code></dt>
+
+<dd>ディレクトリー localpath の管理ポリシーが LDAP サーバーにアップロードされることを指定します。 このコマンドは、 <span>localpath/.projdef</span> 一時プロジェクト定義ファイルで見つかったプロジェクトもアップロードします。 <span>-p</span> オプションを使用して明示的な DN を指定すると、プロジェクトが別の DN にある可能性があるため、管理ポリシーのみが LDAP サーバーにアップロードされます。 この場合、ユーザーは、それぞれの <span>.projdef </span> ファイルを適切な DN に明示的にアップロードする必要があります。 システムは、この DN の ID を認識しません。 <span>-g</span> または <span>-p</span> 引数を使用する場合は、 <span>-d</span> 引数を指定する必要があります。 <span>-r</span> および <span>-a</span> 引数は、 <span>-p</span> 引数と一緒に指定することはできません。 <span>-a</span> 引数が指定され、 <span>-g</span> 引数が指定されていない場合、 <span>.config</span> ファイル内の管理ポリシーがロードされます。 <span>-r</span> オプションを使用すると、ロードするポリシーの ID を判別するために <span>.active</span> ファイルが使用されます。 <span>-r</span> オプションと <span>-a</span> オプションを一緒に使用することはできません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>ldall</span></td>
+
+<td>ユーザー、グループ、および管理者の各ポリシーをカーネルにダウンロードします。 <span>ldusr</span> コマンドおよび <span>ldgrp</span> コマンドと同様に、このオプションは、プロジェクトに対してアカウンティング DN が指定されている場合に LDAP プロジェクトのダウンロードを試みます。これは、ユーザー・ポリシーおよびグループ・ポリシーがローカル・ユーザーまたは LDAP ユーザーに個別に関連付けられていないためです。 このコマンドは、ローカル管理ポリシーのダウンロードに加えて、構成済みの管理 DN を使用してデフォルトの管理ポリシーのダウンロードを試みます。</td>
+
+</tr>
+
+<tr>
+<td><span>ldgrp</span></td>
+
+<td>グループ・プロジェクト・ポリシーをロードします。 グループ・プロジェクト・ポリシーがまだロードされていない
+場合、<span>ldgrp</span> サブコマンドは最初にプロジェクトを検査してロードします。 それからすべてのグループのプロジェクト・リストの妥当性を検査し、ルールをロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>ldprojs</span></td>
+
+<td>システム・プロジェクト定義 <span>/etc/project/projdef</span> ファイルから、
+プロジェクト定義をロードします。 プロジェクトをロードする前に、ルールの妥当性を検査します。 ルールが有効であることが検出されると、ルールがロードされます。<dl>
+
+<dt><code>projctl ldprojs -g</code></dt>
+
+<dd>LDAP リポジトリーを使用してプロジェクト定義をカーネルにロードすることを指定します。</dd>
+
+
+
+<dt><code>projctl ldprojs -p</code></dt>
+
+<dd>プロジェクト定義を LDAP サーバーにアップロードすることを指定します。 <span>-g</span> および <span>-p</span> が指定されていない場合、ローカルに定義されたプロジェクト (<span>/etc/project/projdef</span>) がカーネルにロードされます。</dd>
+
+
+
+<dt><code>projctl ldprojs -g [DN] -d
+localpdfpath</code></dt>
+
+<dd>プロジェクトをカーネルにダウンロードせずに、LDAP リポジトリーからプロジェクト定義ファイルをローカル・ファイルにダウンロードすることを指定します。 <span>-d</span> 引数が指定されていない場合、プロジェクトは <span>/etc/project/ldap/projdef</span> にダウンロードされ、カーネルにダウンロードされます。 <span>-d</span> 引数は、指定された場所にファイルを作成するように指示しますが、カーネルにはダウンロードしません。 この場合、 <span>projdef</span> ファイルは、 <span>.projdef</span> ファイルではなく、指定された場所に作成されます。 ソース・プロジェクト定義は、指定された DN にあります。 あるいは、 <span>ldap.cfg</span> ファイルで構成されているアカウンティング DN を使用して、それらを検索することもできます。</dd>
+
+
+
+<dt><code>projctl ldprojs -d localpdfpath</code></dt>
+
+<dd>ローカル・プロジェクト定義ファイルをカーネルにロードします。</dd>
+
+
+
+<dt><code>projctl ldprojs -p [DN] -d
+localpdfpath</code></dt>
+
+<dd>指定されたパスにあるプロジェクト定義を LDAP サーバーにアップロードすることを指定します。 プロジェクト定義は、指定されたディレクトリーの <span>projdef</span> ファイルで使用可能になっている必要があります。 <span>-d</span> 引数は、 <span>-g</span> または <span>-p</span> で、指定された場所にファイルを作成するように指示されたが、カーネルにファイルをダウンロードしない場合に指定する必要があります。 この場合、 <code>projdef</code> 引数が使用されます。 このように、アップロード操作とダウンロード操作は、パラメーターの指定に関して対称にすることができます。 <span>-r</span> および <span>-a</span> 引数は、 <span>-p</span> 引数と一緒に指定することはできません。 <span>-a</span> 引数が指定され、 <span>-g</span> 引数が指定されていない場合、 <span>.config</span> ファイル内のプロジェクト・リポジトリーがロードされます。 <span>-r</span> オプションを使用すると、ロードするプロジェクト・リポジトリーを決定するために <span>.active</span> ファイルが使用されます。 <span>-r</span> オプションと <span>-a</span> オプションを一緒に使用することはできません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>ldusr</span></td>
+
+<td>ユーザー・プロジェクト・ポリシーをロードします。 グループ・プロジェクト・ポリシーがまだロードされていない
+場合、<span>lduser</span> サブコマンドは最初にプロジェクトを検査してロードします。 それからすべてのユーザーのプロジェクト・リストの妥当性を検査し、ルールをロードします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>-r</span> オプションを使用すると、上記のすべてのサブコマンドはそれぞれのポリシーを再ロードします。 <span>ld -r</span> サブコマンドは、カーネルを照会して、ロードされたポリシーの詳細を取得し、それらを再ロードします。 再ロードするポリシー・ファイルは、<span>/etc/project/.active</span> ファイルから
+参照されます。</li>
+
+<li>オプション <span>-d</span> と <span> -r</span>の両方を指定して <span>ldadm</span> サブコマンドと <span>ldall</span> サブコマンドを発行すると、 <span>-r</span> は無視されます。</li>
+
+<li>すべての <span>ld</span> サブコマンドは、
+ロードされたポリシーの詳細を使用して <span>/etc/project/.active</span> ファイルを更新します。 <span>-a</span> オプションが渡された場合、これらのサブコマンドは、<span>.active</span> ファイルを更新するのに加えて、<span>/etc/project/.config</span> ファイルも更新します。 <span>/etc/project/.config</span> ファイルは、システム・リブート時に自動的に
+ロードされるポリシーについて、詳細を提供します。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</div>
+
+</dd>
+
+
+
+<dt>MERGE サブコマンド</dt>
+
+<dd><p><span>merge</span> サブコマンドは、デフォルトで、指定されたパスの下のプロジェクト定義ファイルで定義されているプロジェクトを、システム・プロジェクト定義の <span>/etc/project/projdef</span> ファイルとマージします。 <span>-d</span> オプションを使用してターゲット・プロジェクト・ファイル名が渡されると、指定されたパスの下のプロジェクト定義がターゲット・プロジェクト定義ファイルとマージされます。 指定されたパスの下のターゲット・プロジェクト定義ファイルとプロジェクト定義ファイルの間に競合するエントリーがある場合、マージ操作は失敗します。 <span>merge</span> コマンドは、重複するエントリーがあればスキップして、
+ターゲット・プロジェクト定義ファイル内の固有なエントリーを維持します。</p>
+
+</dd>
+
+
+
+<dt>qapp サブコマンド</dt>
+
+<dd><p><span>qapp</span> サブコマンドは、現行環境内でアプリケーションが切り換える対象となりうる
+プロジェクトのリストを、表示します。 指定されたアプリケーションを開始させるのに使用できるすべてのプロジェクトのリストを、
+表示します。</p>
+
+</dd>
+
+
+
+<dt>qpolicy サブコマンド</dt>
+
+<dd><p><span>qpolicy</span> サブコマンドは、現在ロードされているポリシーを表示します。 このコマンドはカーネルを照会して、ロードされたポリシーのタイプに関する情報を取得し、
+それらを表示します。 <span>-g</span> が指定されている場合、このコマンドは、LDAP のデフォルト管理 DN または指定された DN からポリシーをリストします。</p>
+
+</dd>
+
+
+
+<dt>qproj サブコマンド</dt>
+
+<dd><p><span>qproj</span> サブコマンドは、引数として渡されたプロジェクト名の詳細を表示します。 引数が渡されない場合は、このサブコマンドは、呼び出しプロセスを割り当てる対象になりうる、
+システム内のすべてのプロジェクト定義をリストします。 表示形式は、 <span>qprojs</span> サブコマンドの表示形式と同じです。</p>
+
+</dd>
+
+
+
+<dt>qprojs サブコマンド</dt>
+
+<dd><p><span>qprojs</span> サブコマンドは、カーネル・レジストリーにロードされているすべてのプロジェクト定義のリストを表示します。 <span>-n</span> オプションは、プロジェクト名を基にソートされたリストを提供します。 表示には、プロジェクト名、プロジェクト番号、およびプロジェクトの集約状況が入っています。</p>
+
+</dd>
+
+
+
+<dt>rm サブコマンド</dt>
+
+<dd><p><span>rm</span> サブコマンドは、プロジェクト定義ファイルから、
+ローカルに定義されたプロジェクトの定義を除去します。 <span>-d</span> フラグが指定されている場合、プロジェクト定義は、指定されたパスの下のプロジェクト定義ファイルから除去されます。 デフォルトでは、システム・プロジェクト定義ファイル (<span>/etc/project/projdef</span>) から削除されます。 更新がシステム・プロジェクト定義ファイルに対するものであり、それが既にカーネルにロードされている場合、指定されたプロジェクトはカーネル・プロジェクト・レジストリーから除去されます。 そうでない場合、項目はファイルからのみ除去されます。</p>
+
+<div><span>-p</span> が指定されている場合、ソースは、プロジェクト定義が削除される LDAP です。 明示的な DN が指定されている場合、プロジェクト定義はその特定の DN から削除されます。 DN が渡されない場合は、 <span>ldap.cfg</span> ファイルで構成されているデフォルト DN が使用されます。 LDAP プロジェクトがロードされると、プロジェクト定義はカーネル・プロジェクト・レジストリーおよびローカル LDAP プロジェクト・ファイルからも削除されます。 それ以外の場合は、LDAP リポジトリーのみが更新されます。<div><div>
+        <div>
+          <div><span>注:</span> <span>-p</span> オプションと <span>-d</span> オプションを一緒に使用することはできません。 これらのオプションのいずれも指定されていない場合は、ソース情報を提供するために <span>.config</span> ファイルが使用されます。 このコマンドを実行するには、root 権限が必要です。</div>
+        </div>
+      </div></div>
+</div>
+
+</dd>
+
+
+
+<dt>unld サブコマンド</dt>
+
+<dd><div><span>unld</span> サブコマンドは、プロジェクト・ポリシーをアンロードするために使用されます。 <span>ld</span> サブコマンドと同様に、<span>unld</span> サブコマンドは、
+特定のポリシーをアンロードするために使用されます。 このようなさまざまなサブコマンドを、以下に示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>unldadm</span></td>
+
+<td>管理ポリシーをアンロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>unldall</span></td>
+
+<td>すべてのロードされたポリシーをアンロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>unldgrp</span></td>
+
+<td>グループ・ポリシーをアンロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>unldprojs</span></td>
+
+<td>プロジェクト定義のみをアンロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>unldusr</span></td>
+
+<td>ユーザー・ポリシーをアンロードします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>これらすべてのサブコマンドは、それぞれのポリシーがアンロードされた
+後に <span>.active</span> ファイルを更新します。</li>
+
+<li><span>-a</span> オプションが使用される場合、それぞれのポリシーのアンロード状況を
+使用して <span>/etc/project/.config</span> ファイルも更新されます。</li>
+
+<li><span>-g</span> パラメーターは、それぞれの LDAP リポジトリーをカーネルからアンロードすることを指定します。 <span>-g</span> が指定されていない場合、 <span>.active</span> ファイルに指定されているロード済みリポジトリーがアンロードされます。</li>
+
+<li>指定された LDAP リポジトリーを LDAP サーバーから除去するには、 <span>-p</span> オプションを指定する必要があります。</li>
+
+<li><span>unldadm</span> および <span>unsubcommand</span>では、 name パラメーターは管理 DN の管理ポリシー名を示します。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>コマンドは正常に終了しました。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>エラーが発生しました。<dl>
+
+<dt>1</dt>
+
+<dd>読み取り失敗、書き込み失敗、および malloc 失敗の場合のデフォルト・エラー戻りコード。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>EINVAL および ENOENT</dd>
+
+
+
+<dt>3</dt>
+
+<dd>EPERM および EACCES</dd>
+
+
+
+<dt>4</dt>
+
+<dd>EEXIST</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム・プロジェクト定義ファイルにプロジェクト <code>newproj</code> を追加するには、
+次のように入力します。<div><div><pre><code>projctl add newproj 34 "Test Project"</code></pre></div><div></div></div></li>
+
+<li>パス <code>/tmp/myproj</code> の下のプロジェクト定義ファイルから、
+プロジェクト <code>test1</code> を除去するには、次のように入力します。<div><div><pre><code>projctl rm test1 -d /tmp/myproj</code></pre></div><div></div></div></li>
+
+<li>プロジェクト <code>newproj</code> の集約状況を使用可能にするには、次のように入力します。<div><div><pre><code>projctl chattr agg newproj -s</code></pre></div><div></div></div></li>
+
+<li><span>ps</span> コマンドをプロジェクト <code>newproj</code> の下で実行し、
+既存のルールをオーバーライドするには、次のように入力します。<div><div><pre><code>projctl exec newproj "/usr/bin/ps" -f</code></pre></div><div></div></div></li>
+
+<li>現在ロードされたポリシーを検索するには、次のように入力します。<div><div><pre><code>projctl qpolicy</code></pre></div><div></div></div>出力:<div><div><pre><code>Project definitions are loaded.
+Project definition file name:  /etc/project/projdef
+User policies are loaded.</code></pre></div><div></div></div></li>
+
+<li>管理ポリシーをパス <code>/tmp/myproj</code> からロードするには、次のように入力します。<div><div><pre><code>projctl ldadm -d /tmp/myproj</code></pre></div><div></div></div></li>
+
+<li>すべてのプロジェクト・ポリシーを、今、およびシステム・リブート時にアンロードするには、
+次のように入力します。<div><div><pre><code>projctl unldall -a</code></pre></div><div></div></div></li>
+
+<li>別の DN (DN は <code>ou=projects,ou=aacct,ou=cluster1,cn=aixdata</code>) で LDAP リポジトリーに新規プロジェクトを追加するには、次のように入力します。<div><div><pre><code>projctl add newproj 34 -p ou=projects,ou=aacct,ou=cluster1,cn=aixdata</code></pre></div><div></div></div></li>
+
+<li>LDAP プロジェクトをデフォルト DN から <span>/etc/project/ldap</span> パスの下のローカル・ファイルにダウンロードするには、次のように入力します。<div><div><pre><code>projctl ldprojs -g -d /etc/project/ldap</code></pre></div><div></div></div></li>
+
+<li>デフォルト DN のラベル <code>newdef</code> の下に保管されている LDAP 管理ポリシーをカーネルにロードするには、次のように入力します。<div><div><pre><code>projctl ldadm -g newdef </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span>/usr/bin/projctl</span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/projctl</span></td>
+
+<td><span>projctl</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/project/projdef</span></td>
+
+<td>システム・プロジェクト定義ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/project/ldap/projdef</span></td>
+
+<td>デフォルトの LDAP プロジェクト定義ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/project/.active</span></td>
+
+<td>現在ロードされたポリシーの状況が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/project/.config</span></td>
+
+<td>システム・リブート時にロードされるポリシーの状況が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/ldap/ldap.cfg</span></td>
+
+<td><span>拡張アカウンティング</span> データを処理するための LDAP クライアント構成の詳細が含まれます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

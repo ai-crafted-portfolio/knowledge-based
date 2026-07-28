@@ -1,0 +1,583 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>永久インベントリー・スカウト (Inventory Scout) サーバー・デーモンを起動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>侵略者</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd__row-d3e22074" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd__row-d3e22083" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>ポートノ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd__row-d3e22095" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>バグ・サイズ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd__row-d3e22110" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>最大サイズ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd__row-d3e22119" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>タイムアウト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd__row-d3e22137" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> <em>ヴェルブレフ</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>invscoutd</strong> コマンドは、ユーザーのローカル・ネットワーク内の 1 つのマシン上に永続インベントリー・スカウト・サーバー・デーモンを実装します。 通常のクライアントは、ユーザーの Web ブラウザーで実行される Java アプレットであり、中央の Inventory Scout CGI アプリケーションからダウンロードされます。</p>
+ <p>デーモンの初期化処理には、コマンド・ライン・オプションと、インベントリー・スカウトの関係のローカル・ファイルを読むことが関係しています。 操作状態になった時点では、各クライアント/サーバー・トランザクションごとに、事前割り当てソケットからテキスト・ストリングを読んだり、同じソケットによってテキスト・レポートを戻したりすることが関係しています。</p>
+ <p>デーモンは、デーモンのアクションのレコードをログ・ファイルに保持します。 指定された冗長レベルに応じて違いますが、ログの行に含まれる可能性がある情報には、
+起動バナーとシャットダウン・バナー、呼び出しごとのトレース、詳細な内部プログラム・トレース、およびエラー・ステートメントがあります。 指定された冗長レベルによっては、起動バナーが <strong>stderr</strong> に書き込まれることもあります。</p>
+<p><strong>プロトコル</strong></p>
+ <p>デーモンのソケットとのクライアント接続には、インターネット TCP/IP プロトコルを使用します。 1 つのトランザクションの中では、呼び出し側クライアント・アプレットが、URL エンコード・テキスト・ストリングなどのアクション要求をサーバー・デーモンに送ります。 その要求は、任意の ASCII 制御文字 (x00 から x1F) によってなされ、それがその要求の処理のトリガーとなります。</p>
+ <p>要求によっては、クライアントが付加的なデータを渡すことが必要です。 そのような場合、その付加データは、アクション要求で指定されている長さ分の終了バイトの直後に置かれます。</p>
+ <p>1 つの例外 (ACTION=PING) を除き、サーバー・デーモンは、疑似 MIME 形式のテキスト・レポートを、同じソケット接続によって書き戻します。 エラー結果についても、疑似 MIME 形式が使用されます。 このデーモンは、ソケットをクローズすることによって、戻されるテキストとトランザクション自体とを終了し、その結果としてファイル終わり (EOF) 指示が呼び出し側クライアントに送られます。 クライアント側では、EOF を受け取ったなら、直ちに接続の自分の側のソケットをクローズしなければなりません。</p>
+<p><strong>URL エンコード・メッセージ</strong></p>
+ <div>アクション要求文字列は、標準的な URL エンコード文字列です。 次に例を示します。<div><div><pre><code>"ACTION=actionword&amp;NAME1=value1&amp;NAME2&amp;NAME3=word%xx+word+word\0"</code></pre></div><div></div></div></div>
+ 
+<div><span><strong>サポートされるフィールド名と値</strong></span><div><table><thead>
+<tr>
+<th><div>名前</div></th>
+
+<th><div>意味/用途</div></th>
+
+<th><div>サポートされる値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>アクション</td>
+
+<td>後述のアクション要求テーブルを参照してください。</td>
+
+<td>サポートされる値のリストは、アクション要求テーブルの左端の列によって構成されます。</td>
+
+</tr>
+
+<tr>
+<td>MRDM</td>
+
+<td>クライアントが、この情報を使用/要求する ACTION の (平文) パスワード
+を指定できるようにします。 この値については、大文字小文字が区別されます。</td>
+
+<td>任意の ASCII 文字列 (大文字小文字を区別する)。</td>
+
+</tr>
+
+<tr>
+<td>DATALEN</td>
+
+<td>この名前が存在している必要があるのは、ACTION 文字列終
+端バイトの直後に追加バイナリー・データが続いている場合であり、この名前が
+存在する必要がないのは、この終端バイトに追加データが続いていない場合です。 指定された整数値は、追加データのバイト数を指定します。 クライアントがこれより多くのデータを書き込もうとした場合、アクションが DATALEN パラメーターを受け入れず付加データがあってもそれを破棄する場合、
+またはアクション・プロセッサーで初期エラーが検出された場合、このデーモンは、未完了のままクライアントとサーバーの間のソケット・パイプをクローズすることがあります。 あるトランザクションで n が特定の最大値を超えている場合、直ちにエラー・コードが
+戻されます (<strong>-d</strong> コマンド・ライン・オプションを参照)。</td>
+
+<td><strong>-d</strong> コマンド・ライン・オプションの有無による暗黙的な
+値までの整数。</td>
+
+</tr>
+
+<tr>
+<td>お客様</td>
+
+<td>クライアントが、この情報を使用/要求する ACTION を独自に
+識別できるようにします。</td>
+
+<td>HMC 値は、インベントリー・スカウトに、HSC インベントリー・スカウト・
+マスターの制御下でのみ許可される特定のアクションの許可を指示します。</td>
+
+</tr>
+
+<tr>
+<td>モデル</td>
+
+<td>クライアントが、この情報を使用または要求する VPD 調査のためにサーバーの
+モデル番号をサーバーに通知できるようにします。</td>
+
+<td>25 文字までの ASCII 文字列 (一部のマシンについては
+制約があります)。</td>
+
+</tr>
+
+<tr>
+<td>SERIAL</td>
+
+<td>クライアントが、この情報を使用または要求する VPD 調査のためにサーバーの
+シリアル番号をサーバーに通知できるようにします。</td>
+
+<td>25 文字までの ASCII 文字列 (一部のマシンについては
+制約があります)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>フィールド名とその値との間は、等号 (=) で区切ります。</li>
+
+<li><strong>名前</strong>=<em>値</em> のペアは、&amp; 文字で区切られます。</li>
+
+<li><strong>Name</strong> フィールドでは、どんな場合でも大文字小文字が区別されません。</li>
+
+<li><em>Value</em> フィールドでは、特にドキュメントに示されているのでない限り、大文字小文字が区別されません。</li>
+
+<li><strong>ACTION</strong>=<em>keyword</em> の組は、常に存在しなければなりません。</li>
+
+<li>&amp; 記号と &amp; 記号の間の文字列に等号が含まれていない場合、それは値が空の名前 (<strong>Name</strong>) であると解析されます。</li>
+
+<li>スペース文字を入力したい場合は、その代わりに + (正符号) を入力します。</li>
+
+<li>バイナリー文字は、% 記号の後にちょうど 2 桁の 16 進数を指定したエスケープ・シーケンス (%xx) としてコーディングします。 そのようなエスケープ・シーケンスは、&amp;、= (等号)、+ (正符号) などの URL メタキャラクターを
+値 (Value) 内にコーディングする場合にも使用する必要があります。</li>
+
+<li>制御文字終了バイトは、常にクライアント側で送信する必要があります。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ 
+<div><span><strong>アクション要求</strong></span><div><table><thead>
+<tr>
+<th><div>アクション</div></th>
+
+<th><div>MRDM</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>PING</td>
+
+<td>不要</td>
+
+<td>デーモンは、ソケットを<em>直ちに</em> クローズし、クライアント側では直後が EOF になります。 これは、結果コードもなんらかのテキストも戻さない唯一のアクションです。 例:<div><div><pre><code>"action=ping\0"
+
+&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td>ECHO</td>
+
+<td>不要</td>
+
+<td>デーモンは、解析前の元の要求文字列で構成されるテキスト・レポートに続いて、改行を戻します。 パスワード (MRDM) は必須ではありませんが、含まれていた場合には、他のデータと共にそのままエコー出力されます。 付加データ (DATALEN) は必須ではありませんが、含まれていた場合には、要求文字列の後にそのままエコー出力されます。 ECHO 要求の場合、DATALEN は特に警告が出されることなく最大 2000 バイトで切り捨てられます。 例:<div><div><pre><code>"action=ECHO&amp;MRDM=xyz&amp;datalen=5\0abcde"
+
+"RESULT=0\n"
+"\n"
+"action=ECHO&amp;MRDM=xyz&amp;datalen=5\n"
+"abcde"&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td>URLDECODE</td>
+
+<td>不要</td>
+
+<td>デーモンは、解析後の要求文字列のテキスト・レポート、および
+それに続くデータの正確なコピーを戻します。 パスワード (MRDM) は必須ではありませんが、含まれていた場合には、構文解析されて戻されます。 追加データ (DATALEN) は必須ではありませんが、含まれていた場合には、構文解析されて戻されます。
+しかし、要求文字列の後の実際の追加データは廃棄されます。 レポートのうち番号の付いている各行は、元の文字列のうちの 1 つの Name=Value の組の構文解析結果を示しています。 例:<div><div><pre><code>"action=UrlDecode&amp;subaction=xyz\0"
+ 
+
+"RESULT=0\n"
+"\n"
+"  0: ACTION       UrlDecode\n"
+"  1: SUBACTION    xyz\n"
+&lt;EOF&gt;</code></pre></div><div></div></div> </td>
+
+</tr>
+
+<tr>
+<td>TESTPWD</td>
+
+<td>必須</td>
+
+<td>MRDM パスワードが有効なら、デーモンは RESULT=0 を戻します。 それ以外の場合は、 RESULT=2を返します。 付加データ (DATALEN) は受け入れられず、もしあればそれは廃棄されます。 例:<div><div><pre><code>"ACTION=TESTPWD&amp;MRDM=thepassword\0"
+ 
+"RESULT=0\n"
+"\n"
+&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td>VERSIONS</td>
+
+<td>不要</td>
+
+<td>デーモンは、インベントリー・スカウト自体の
+現行バージョン番号を報告します。 付加データ (DATALEN) は受け入れられず、もしあればそれは廃棄されます。 例:<div><div><pre><code>"ACTION=VERSIONS\0"
+ 
+"RESULT=0\n"
+"\n"
+"1.2.3.4\n"
+"5.6.7.8\n"
+&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td>CATALOG</td>
+
+<td>必須</td>
+
+<td>デーモンはスカウトのマイクロコード・カタログを、渡されたファイル・データで更新します。 パスワードとデータ長パラメーターの両方が要求文字列に含まれている必要があります。 デーモンは、このアクションのために必ずしも root として実行する必要はありませんが、 <strong>/var/adm/invscout/microcode/catalog.mic</strong>に対するファイル書き込み許可を持っている必要があります。 例:<div><div><pre><code>"ACTION=CATALOG&amp;MRDM=xyz&amp;DATALEN=17042\0"
+"...17042 bytes of ascii data..."
+
+"RESULT=0\n"
+"\n"
+&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td>MCODES</td>
+
+<td>必須</td>
+
+<td>デーモンは、マイクロコード調査オプションを実行します。 付加データ (DATALEN) は受け入れられず、もしあればそれは廃棄されます。 例:<div><div><pre><code>"ACTION=MCODES&amp;MRDM=xyz\0"
+ 
+"RESULT=0\n"
+"\n"
+"Report Line 1\n"
+"Report Line 2\n"
+    :
+    :
+"Report Line N\n"
+&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td>VPDS</td>
+
+<td>必須</td>
+
+<td>デーモンは、VPD 調査オプションを実行します。 付加データ (DATALEN) は受け入れられず、もしあればそれは廃棄されます。 例:<div><div><pre><code>"ACTION=VPDS&amp;MRDM=xyz\0"
+ 
+"RESULT=0\n"
+"\n"
+"Report Line 1\n"
+"Report Line 2\n"
+    :
+    :
+"Report Line N\n"
+&lt;EOF&gt;</code></pre></div><div></div></div></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>結果</strong></p>
+ <p>デーモンは、疑似 MIME 形式のテキストによる結果を戻します。 1 つの行データ自体に対して、1 つ以上の <strong>Name</strong>=<em>Value</em> の組からなるヘッダーを戻します。 <strong>Name</strong>=<em>Value</em> の最初の組は常に結果コードであり、その形式は <strong>RESULT</strong>=<em>number</em> です。 結果コードは、PING アクションを除くすべてのアクションにおいて常に戻されます。</p>
+ <p>Java アプレット・クライアントにのみ適用される内部スカウト結果コードは、以下の情報には記載されていません。</p>
+ <p>結果コードによっては、ヘッダー行の後にオプションのフリー・フォーム・テキストがあります。 フリー・フォーム・テキスト・レポートがある場合、その前にあるヘッダーは空行 (連続する 2 つの改行など) によって終了します。</p>
+ <p>どのイベントでも、結果レポートは、レポート・テキストの最後をソケットから読んだ後、EOF インジケーターで終了します。 EOF は、トランザクション自体の終了も意味しています。</p>
+ <div> 
+<div><span><strong>結果コード</strong></span><div><table><thead>
+<tr>
+<th><div>結果 =</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>完全に成功。</td>
+
+</tr>
+
+<tr>
+<td>1</td>
+
+<td>メモリー割り当てエラーのためにデーモンは異常終了しました。 これは、親サーバー・デーモンか、またはサービス子デーモンの 1 つのいずれかで発生する可能性があります。</td>
+
+</tr>
+
+<tr>
+<td>2</td>
+
+<td>必須パスワード (MRDM=password) が欠落しているか無効であるため、サービス子デーモンが異常終了しました。</td>
+
+</tr>
+
+<tr>
+<td>3</td>
+
+<td>アクション名とその値の組 (ACTION=keyword) が欠落しているか無効であるため、サービス子デーモンが異常終了しました。</td>
+
+</tr>
+
+<tr>
+<td>4</td>
+
+<td>サービス子デーモンがそのユーザー ID を <code>invscout</code> にリセットできなかったため、そのサービス子デーモンが異常終了しました。</td>
+
+</tr>
+
+<tr>
+<td>21</td>
+
+<td>ソケット入力バッファーのオーバーフローのため、サービス子デーモンが異常終了しました。 結果のうちテキスト・レポート部分は、デフォルト言語によるエラー・メッセージです。 クライアントは、要求文字列の長さを小さくするか、または、デーモンを kill した後、バッファー・サイズをもっと大きくしてから再開しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td>22</td>
+
+<td>ソケット読み取りエラーのため、サービス子デーモンが異常終了しました。 結果のうちテキスト・レポート部分は、デフォルト言語によるエラー・メッセージ (システムの入出力 errno 文字列を含む) です。 ログ・ファイル (logfile) エントリーにも、システムの errno 文字列が含められます。</td>
+
+</tr>
+
+<tr>
+<td>23</td>
+
+<td>ソケット読み取りタイムアウトのため、サービス子デーモンが異常終了しました。 結果のうちテキスト・レポート部分は、デフォルト言語によるエラー・メッセージです。 クライアント側は、要求文字列終了後に制御文字終了バイトを送る必要があり、常に DATALEN パラメーターに指定されているのと同じバイト数のデータを送る必要があります。 タイムアウト期間は、-t コマンド・ライン引数によって変更できます。</td>
+
+</tr>
+
+<tr>
+<td>24</td>
+
+<td>要求文字列読み取り中に予期しない EOF があったため、サービス子デーモンが異常終了しました。 結果のうちテキスト・レポート部分は、デフォルト言語によるエラー・メッセージです。 クライアント側は、ソケット接続をクローズする前に、要求文字列終了後に終了バイトを送る必要があります。</td>
+
+</tr>
+
+<tr>
+<td>25</td>
+
+<td>DATALEN パラメーターが必要なアクションで DATALEN パラメーターが欠落しているか無効であるため、サービス子デーモンが異常終了しました。 結果のうちテキスト・レポート部分は、デフォルト言語によるエラー・メッセージです。 付加的なバイナリー・データを渡すアクションでは、クライアントは URL エンコード要求文字列の後にデータの長さを送る必要があります。 また、そのようなアクションのうちの多くでは、DATALEN の値が特定の最大サイズ以下に制限されています。</td>
+
+</tr>
+
+<tr>
+<td>26</td>
+
+<td>権限エラーやディスク・スペース不足など、一般的なファイル入出力エラーのため、サービス子デーモンが異常終了しました。 結果のうちテキスト・レポート部分は、デフォルト言語によるエラー・メッセージです。 ほとんどの場合、サーバー・マシン側で入出力の問題が解決してからでなければ、クライアントがアクションを再試行することはできません。</td>
+
+</tr>
+
+<tr>
+<td>27</td>
+
+<td>バージョン番号が必要なアクティビティーにおいて、サービス子デーモンがそれを取り出すことができなかったため、そのサービス子デーモンが異常終了しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <p>ハイフン (-) で始まる引数を指定します。 フラグとその値の間にスペースを入れることはできません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong> -o</strong></td>
+
+<td>既存のログ・ファイルを上書きします。 <strong>-o</strong> フラグを指定しない場合、新しいログ・ファイルの行は既存のログ・ファイルに付加されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>P-</strong> <em>ポートノ</em></td>
+
+<td>このサーバーのポート番号をデフォルト値の 808 から <em>Port</em> に変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong> <em>バグ・サイズ</em></td>
+
+<td>インベントリー・スカウトのコマンドは、TCP/IP ソケットから読んで 1024 バイトの固定長バッファーに入れられる URL エンコード文字列として指定されます。 将来、プロトコルの変更に伴って読み取りバッファーが大きくなった場合は、<strong>-b</strong> フラグによってバッファー・サイズを <em>Bufsize</em> バイトに変更することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d 年</strong> <em>最大サイズ</em></td>
+
+<td>最大マイクロコード・カタログ・ファイル・サイズをデフォルト値 50000 から、指定の値に変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>タイムアウト</em></td>
+
+<td>クライアント・アプレットは、URL エンコード要求文字列の末尾に制御文字終了バイトを書き込むことによって、要求の終了を指示します。 <strong>invscoutd</strong> デーモンが一定のタイムアウト期間内に終了バイトを受け取らなかった場合、デーモンはトランザクションを異常終了し、ソケットをクローズします。 またクライアント側も、DATALEN パラメーターで指定される付加データのすべてのバイトを十分な速度で送信することによって、
+読み取るブロックとブロックの間でタイムアウトが発生することがないようにする必要があります。 <strong>-t</strong> オプションは、デフォルトのタイムアウト期間を 30 秒から <em>Timeout</em> 秒に変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v (V)</strong> <em>ヴェルブレフ</em></td>
+
+<td>ログ・ファイルと stderr に書き込まれる詳細の程度は、デーモンの冗長レベルによって異なります。 各レベルごとに、それより低いレベルに含まれるメッセージはそのレベルに含まれています。冗長レベルが高くなるほど、書き込まれるメッセージの数と種類が多くなります。 冗長レベルは、0 から 25 の整数です。 <strong>-v</strong> フラグは、冗長レベルをデフォルト値の 18 から <em>Verblev</em> に変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><span><strong>詳細レベル (Verbosity Levels)</strong></span><div><table><thead>
+<tr>
+<th><div>レベル</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>エラー・メッセージと状況メッセージは、どれも利用できません。</td>
+
+</tr>
+
+<tr>
+<td>5</td>
+
+<td>致命的エラー・メッセージだけが書き込まれます。 致命的エラーが発生すると、サーバーは落ちます。 普通、<em>Logfile</em> と stderr の両方に同じようなメッセージが書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td>10</td>
+
+<td>すべてのエラー・メッセージが書き込まれます。 その中には、致命的エラーだけでなくプロトコル・エラーなどの致命的でないエラーが含まれています。 致命的でないエラー・メッセージは、普通、<em>Logfile</em> だけに書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td>15</td>
+
+<td>このレベルには、起動バナーおよびシャットダウン・バナー・メッセージが含まれます。 単純なバナー・メッセージは、普通、<em>Logfile</em> と stderr の両方に書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td>18</td>
+
+<td>このレベルには、呼び出しトレース状況メッセージか含まれます。 クライアント呼び出しは、それぞれ単一のトレース・メッセージになります。 これは、<strong>invscoutd</strong> デーモンのデフォルトのレベルです。 トレース・メッセージは、<em>Logfile</em> だけに書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td>20</td>
+
+<td>このレベルには、プログラム・トレース・メッセージが含まれます。 プログラム・トレースは、かなり詳細なプログラム実行状況メッセージであり、多くの場合、デバッグのために使われます。 このレベルは、通常の実動用の実行には適していません。時間が経過するにつれて、<em>Logfile</em> が大量のテキストであふれてしまうためです。 トレース・メッセージは、<em>Logfile</em> だけに書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td>25</td>
+
+<td>これは、最高のレベルであり、高度なプログラム・デバッグ・メッセージが含まれます。 このレベルは、通常の実動用の実行には適していません。 トレース・メッセージは、<em>Logfile</em> だけに書き込まれます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>初期化が正常に実行されたことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>非ゼロ</strong></td>
+
+<td>初期化が正常に実行されなかったことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>デーモンは、実効ユーザー ID <code>0</code> (root) として実行する必要があります。 これは root によって所有され、他のすべてのユーザーがこのコマンドを起動できる
+ように "setuid" ビットを ON にしてインストールされます。 しかし、ある実行時点において、このデーモンのサービス子デーモンは、そのユーザー ID を
+認証ユーザー ID <code>invscout</code> にリセットします。 ホスト・システム上にユーザー <code>invscout</code> が作成されていないなら、このデーモンは実行されません。</p>
+ <p>デフォルトでは、ほとんどの操作についてクライアントは、平文パスワードを付随して送ることが必要です。 クライアントのパスワードが、認証ユーザー ID <code>invscout</code> のシステム・パスワードと一致していないなら、そのアクションは終了して戻りコードが戻されます。 認証ユーザー ID は変更できません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/invscoutd</strong></td>
+
+<td><strong>invscoutd</strong> コマンドの場所。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/password</strong></td>
+
+<td>ホスト・システム・パスワード・ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/invscout/microcode</strong></td>
+
+<td>マイクロコード関連アクションのディレクトリー。 マイクロコード・カタログ・ファイルの
+デフォルト位置。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/invscout/microcode/catalog.mic</strong></td>
+
+<td>デフォルトのマイクロコード・カタログ・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/invscout/invscout.log</strong></td>
+
+<td>ログ・ファイル</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

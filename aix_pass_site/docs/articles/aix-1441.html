@@ -1,0 +1,17 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>不要なファイルを除去して、ファイルシステムをクリーンアップします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>skulker - 古いファイルをディレクトリーから除去する</strong></p>
+</section>
+
+<section><h2>説明</h2> <p></p><blockquote><span>“</span><span></span><strong>重要:</strong> <strong>skulker</strong> コマンドは root ユーザーによって実行され、その目的はファイルを除去することであるため、予期しない結果が生じる可能性があります。 新規に <strong>skulker</strong> コマンドをインストールする前に、<strong>xargs</strong> <strong>-p</strong> コマンドを使用して追加部分を手作業で実行することによって、ファイル除去基準に追加された内容を検査してください。 新規の<strong> skulker</strong> コマンドによって、
+除去したいファイルだけが除去されることを確認してから、
+コマンドをインストールします。<span>”</span></blockquote>
+<p></p>
+ <p><strong>skulker</strong> コマンドは、ファイルシステムから古くなったファイルまたは不要なファイルを定期的に削除するために使用されます。 候補ファイルには、 <strong>/tmp</strong> ディレクトリー内のファイル、指定された経過時間より古いファイル、および以下のファイル・タイプが含まれます。 <strong>*.bak</strong>、 <strong>a.out</strong>、 <strong>core</strong>、検査、galley、 <strong>...*</strong>、 <strong>ed.hup</strong>、および 1 日より前のファイル。</p>
+ <p><strong>skulker</strong> コマンドは通常、オフピーク時に <strong>cron</strong> コマンドによって実行されるアカウンティング・プロシージャーの一部として毎日呼び出されます。 分散バージョン内に示されたパターンに従って、ローカル・ニーズに合うように <strong>skulker</strong> コマンドを修正します。 ローカル・ユーザーは、ファイル自動除去の基準について熟知していなければなりません。</p>
+ <p><strong>find</strong> コマンドと <strong>xargs</strong> コマンドは、<strong>skulker</strong> コマンドを使用するための強力な組み合わせです。 ファイル選択基準の大部分は、<strong>find</strong> 式を使用して簡単に表すことができます。 結果として作成されるファイル・リストは、セグメントされた後<strong> xargs</strong> コマンドを使って <strong>rm</strong> コマンドに挿入され、別のコマンドを使って各ファイルが削除された場合に予想されるオーバーヘッドを減らすことができます。</p>
+</section>
+
+</div></div>

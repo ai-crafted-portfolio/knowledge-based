@@ -1,0 +1,78 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p><strong>cdromd</strong> によって管理されるデバイスに以前マウントされたファイルシステムをアンマウントします。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>cdumount</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cdumount.html#cdumount__row-d3e69092" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cdumount.html#cdumount__row-d3e69082" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cdumount.html#cdumount__row-d3e69082" target="_blank" rel="noopener noreferrer"><strong>-?］ </strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cdumount.html#cdumount__row-d3e69098" target="_blank" rel="noopener noreferrer"><em>DeviceName</em></a></p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>cdumount</strong> コマンドは、適切なコマンドを <strong>cdromd</strong>
+デーモンに送信します。このデーモンは、<em>DeviceName</em> で指定されたデバイス上の
+ファイルシステムのアンマウントを試みます。</p>
+
+<p><strong>cdumount</strong> コマンドはメディアを排出しません。</p>
+</section>
+
+<section><h2>フラグ</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-h</strong> または <strong>-?</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>サイレント・モード (情報またはエラー・メッセージを書き出さない) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>DeviceName</em></td>
+
+<td>デバイス名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+<dl>
+<dt>0</dt>
+
+<dd>エラーはありません。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li><strong>cd0</strong> 上のファイルシステムをアンマウントするには、次のように入力します。<div><div><pre><code>cdumount cd0
+</code></pre></div><div></div></div></li>
+
+<li>エラー・メッセージを印刷せずに <strong>cd1</strong> 上のファイルシステムをアンマウントするには、
+次のように入力します。<div><div><pre><code>cdumount -q cd1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

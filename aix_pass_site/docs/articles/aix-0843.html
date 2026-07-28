@@ -1,0 +1,235 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>仮想プリンターの属性値を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LSRPRT</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105303" target="_blank" rel="noopener noreferrer"><strong>-q (Q)</strong></a><em> QueueName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105131" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em> DeviceName</em> { [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105152" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em> フォーマット</em> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105274" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105104" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a><em> 属性名</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105280" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> セクション名</em> ] ... | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105253" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105143" target="_blank" rel="noopener noreferrer"><strong>-D </strong></a>} ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsvirprt</strong> コマンドは、<em>PrintQueueName</em>  変数と <em>QueueDeviceName</em> 変数に割り当てられた仮想プリンターの属性値を表示します。</p>
+ <p><strong>lsvirprt</strong> コマンドと共にフラグを指定しなければ、このコマンドは対話式になります。 印刷キュー名のリストが表示され、印刷キュー名を選択するようにプロンプトが表示されます。 有効な印刷キュー名を選択すると、属性名の入力を求めるプロンプトが表示されます。 属性名に
+* (アスタリスク) を入力すると、すべての属性が表示されます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html" target="_blank" rel="noopener noreferrer"><strong>qprt</strong></a> コマンド・ライン・フラグのデフォルト値の属性名は、フラグ文字を入力することによって指定できます。 例えば、<strong>-w</strong> フラグ (ページ幅) のデフォルトの値を表示するには、
+<strong>w</strong> 属性名を入力します。 他の属性名はすべて 2 文字の長さでなければなりません。<span>”</span></blockquote>
+<p></p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit lsvirprt</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> AttributeName</em></td>
+
+<td>情報を表示する属性の名前を指定します。 このフラグは、<strong>-s</strong> フラグと共に使用できません。 <strong>-a</strong> フラグを複数回指定すると、複数の属性をリストできます。 <em>AttributeName</em> の値は、1 文字の名前 (例えば <strong>j</strong>)、単純な 2 文字の名前
+(例えば <strong>ci</strong>)、または複数の属性を指定する正規表現 (例えば <strong>^i.*</strong>) のいずれかです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> QueueDeviceName</em></td>
+
+<td>仮想プリンターが割り当てられるキュー・デバイスの名前を指定します。 このフラグはオプションですが、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105303" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> フラグが指定されている場合にのみ指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>特定のキューでサポートされるデータ・ストリームと、キューのデバイス名の変数の値を表示します。 <strong>-D</strong> フラグを指定すると、最初にデフォルトのデータ・ストリームが表示され、次にサポートされる他のデータ・ストリームがアルファベット順に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> フォーマット</em></td>
+
+<td>属性情報の表示フォーマットを指定します。 属性情報には、属性値、制限フィールド、および属性の記述が含まれます。 <em>Format</em> の値は、<strong>printf</strong> フォーマットで指定されます。 <strong>-f</strong><em> Format</em> オプションでは、次のような位置引数の事前定義済みセットもサポートされます。<div><div>
+        <div>
+          <div><span>注:</span> [*. *] は、以下のフォーマット値の必須要素ではありません。</div>
+        </div>
+      </div></div>
+ <dl>
+<dt><strong>%1 $</strong><span>[<em>*.*</em>]</span><strong>s</strong></dt>
+
+<dd>メッセージ・カタログ名</dd>
+
+
+<dt><strong>%2 $</strong>[<em>*.*</em>]<strong>日</strong></dt>
+
+<dd>メッセージ番号</dd>
+
+
+<dt><strong>%3 $</strong>[<em>*.*</em>]<strong></strong></dt>
+
+<dd>属性名</dd>
+
+
+<dt><strong>%4 $[</strong><strong>*.*</strong>]<strong></strong></dt>
+
+<dd>制限フィールド</dd>
+
+
+<dt><strong>%5 $</strong>[<em>*.*</em>]<strong></strong></dt>
+
+<dd>属性値</dd>
+
+
+<dt><strong>%6 $</strong>[<em>*.*</em>]<strong></strong></dt>
+
+<dd>属性の記述</dd>
+
+
+<dt><strong>%7$c</strong></dt>
+
+<dd>属性名の 2 番目の文字</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>コマンドを対話モードに設定します。 <strong>-i</strong> フラグと共に <strong>-q</strong> および <strong>-d</strong> フラグを指定しなければなりません。 値が <em>QueueName</em> および <em>DeviceName</em> 変数に割り当てられていると、キューとデバイス名の入力を求めるプロンプトは表示されず、属性名を対話式で入力することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>指定された属性のうち、ヌル以外の値を持つ属性だけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> SectionName</em></td>
+
+<td>指定されたキューとキュー・デバイスの仮想プリンター属性データベース内のセクション名を指定します。 <em>SectionName</em> の値は 2 つの下線で始まり、セクションを識別する 3 文字が入ります。 例えば、すべてのフラグ属性が入っているセクションの名前は <strong>__FLG</strong> です。 <strong>-s</strong> フラグを <strong>-a</strong> フラグと共に使用できません。 このオプションを繰り返して、複数の属性をリストできます。 <em>SectionName</em> 変数の値には、正規表現を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> PrintQueueName</em></td>
+
+<td>仮想プリンターが割り当てられている印刷キューの名前を指定します。 このフラグはオプションですが、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsvirprt.html#lsvirprt__row-d3e105131" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> フラグが指定されている場合にのみ指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>属性値を表示するには、以下のようにします。w(デフォルトのページ幅) およびsi(「要介入」メッセージを受け取るユーザー) に割り当てられている仮想印刷装置の属性mypro上のキュー・デバイスproq印刷キュー、以下を入力します。<div> <div><div><pre><code>lsvirprt -dmypro -qproq -a w -a si</code></pre></div><div></div></div>このコマンドの出力は次のようになります。<div><div><pre><code>Name            Description                      Value
+_w              COLUMNS per page                 136
+si              USERS to get intervention messages</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>例 1 と同じ属性を表示するが、フラグ値の入力を求めるプロンプトが出されるようにするには、次のように入力します。<div> <div><div><pre><code>lsvirpt</code></pre></div><div></div></div>このコマンドの出力は次のようになります。<div><div><pre><code>1       e4039c          @piobe            ibm4039 (PCL Emulation)
+2       e4039s          @piobe            ibm4039 (PostScript)
+3       fjzhp4s         jzfile            hplj-4 (PostScript)
+4       hpc14           hp@pc15           hplj-4 (PCL)
+...</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ヘッダー・パイプラインおよびトレーラー・パイプラインのセクション内の属性をリストするには、以下のようにします。queキューとdev以下のように入力します。<div> <div><div><pre><code>lsvirpt -qque -ddev -s__HTP</code></pre></div><div></div></div>このコマンドの出力は次のようになります。<div><div><pre><code>Name    Description                      Value
+sh      Pipeline for Header Page         %Ide/pioburst %F[H]
+                                         %Idb/H.ascii | 
+                                         %Ide/pioformat  
+                                         -@%Idd/%Imm 
+                                         -!%Idf/piof5202 -L! -J! 
+                                         %IsH
+st      Pipeline for Trailer Page        %Ide/pioburst %F[H]
+                                         %Idb/T.ascii | 
+                                         %Ide/pioformat 
+                                         -@%Idd/%Imm 
+                                         -!%Idf/piof5202-L!
+                                         -t%o%G_1%r%{14}%-%d 
+                                         %IsT</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>サポートされるすべてのデータ・ストリームをリストするには、queキューとdev以下のように入力します。<div> <div><div><pre><code>lsvirpt -qque -ddev -D</code></pre></div><div></div></div>このコマンドの出力は次のようになります。<div><div><pre><code>a ASCII
+p pass-through
+s PostScript</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>プリンター属性データベース内のすべての属性の名前と説明をリストするには、以下のようにします。queキューとdev特定の形式の装置の場合は、次のように入力します。<div> <div><div><pre><code>lsvirpt -qque -ddev -a'.*' -f' %3$5.5s: %6$s\\n'</code></pre></div><div></div></div>このコマンドの出力は次のようになります。<div><div><pre><code>__FLG:  Values That May Be Overridden With Flags
+_A:     stderr returned?
+_E:     Double spacing flag
+_F:     (not used) Font file name
+_H:     Name to Replace Host Name of Burst Page
+...</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>プリンター属性データベースのすべてのセクションをリストするには、以下のようにします。queキューとdev特定の形式の装置の場合は、次のように入力します。<div> <div><div><pre><code>lsvirpt -qque -ddev -a'__.*' -f'%3$s: %6$s\\n'</code></pre></div><div></div></div>このコマンドの出力は次のようになります。<div><div><pre><code>__FLG:  Values That May Be Overridden With Flags On the Command
+        Line
+__SYS:  Other Values Of Interest To the Streams Administrator
+__IDS:  Pipelines For Input Data Streams (2 char,1st="i",2nd=data
+        stream name)
+__PFL:  Flags Prohibited For Input Data Streams (2 char,1st="I", 
+        2nd=data stream name)
+__FIL:  Command Strings For Filter Flags (2 char, 1st="f",
+        2nd=flag)
+__DIR:  Directories
+...</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/lsvirprt</strong></td>
+
+<td><strong>lsvirprt</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/custom/*</strong></td>
+
+<td>仮想プリンター属性ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/ddi/*</strong></td>
+
+<td>ダイジェストした仮想プリンターの属性ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

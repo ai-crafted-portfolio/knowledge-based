@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>前日のアカウンティング情報の ASCII レポートをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/acct/prdaily</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/prdaily.html#prdaily__row-d3e97608" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/prdaily.html#prdaily__row-d3e97595" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a><strong> </strong>] [ <em>mmdd </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/prdaily.html#prdaily__row-d3e97589" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>prdaily</strong> コマンドは <strong>runacct</strong> コマンドによってコールされ、前日のアカウンティング・データの ASCII レポートをフォーマットします。 レポートは <strong>/var/adm/acct/sum/rprt</strong><em>mmdd</em> ファイル内にあり、<em>mmdd</em> はレポートの日付を指定します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>コマンド別に例外リソース使用状況を報告します。 このフラグは、当日のアカウンティング・データだけにしか使用できないことがあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> [<em>MMDD</em>]</td>
+
+<td>指定した日付の例外使用状況を、ログイン ID 別に報告します。 当日以外の日付を指定するには、<em>mmdd</em> 変数を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を処理します。 またこのフラグを使用すると、<strong>prdaily</strong> コマンドが <strong>/var/adm/acct/sum</strong> ディレクトリーではなく <strong>/var/adm/acct/sumx</strong> ディレクトリーを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、<strong>adm</strong> グループのメンバーのみに実行 (x) アクセス権限を与えます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct</strong></td>
+
+<td>アカウンティング・コマンドへのパス。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/acct/ptelus.awk</strong></td>
+
+<td>ログイン ID 別の例外使用状況に対する制限を計算します。 これはシェル・プロシージャーです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/acct/ptecms.awk</strong></td>
+
+<td>コマンド名別の例外使用状況の制限を計算します。 これはシェル・プロシージャーです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/sum</strong></td>
+
+<td>日次アカウント・レコードの累積ディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/sumx</strong></td>
+
+<td>長いユーザー名の処理が要求された場合の日次アカウント・レコードのための累積ディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

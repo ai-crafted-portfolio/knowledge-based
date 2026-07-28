@@ -1,0 +1,120 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージ・キュー、セマフォー・セット、または共有メモリーの ID を除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ipcrm</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26260" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><em> SharedMemoryID</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26274" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a><em> SharedMemoryKey</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26293" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a><em> MessageID</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26304" target="_blank" rel="noopener noreferrer"><strong>-Q </strong></a><em>MessageKey</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26334" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> SemaphoreID</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26345" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a><em> SemaphoreKey</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__ipcrmflag" target="_blank" rel="noopener noreferrer"><strong> -@</strong></a> <em>WparName</em>]</p>
+ <p><span><span>ipcrm</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26315" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26293" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26260" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26334" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>} [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__ipcrmflag" target="_blank" rel="noopener noreferrer"><strong> -@</strong></a> <em>WparName</em> ] <span><span>名前</span></span></p>
+ <p><span><span>ipcrm</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26315" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> - <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26356" target="_blank" rel="noopener noreferrer"><strong>u</strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26285" target="_blank" rel="noopener noreferrer"><strong> [-o</strong></a> <span><span>所有者</span></span> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__row-d3e26252" target="_blank" rel="noopener noreferrer"><strong>[-g</strong></a> <span><span>グループ</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcrm.html#ipcrm__ipcrmflag" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> ]。 <em>WparName</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ipcrm</strong> コマンドは、1 つ以上のメッセージ・キュー、セマフォー・セットまたは共有メモリー ID を除去します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> ワークロード・パーティション内で実行する場合、 <strong>-@</strong> オプションはサポートされません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-g</strong><em> グループ</em></td>
+
+<td>指定されたグループとマッチングする名前なしのセマフォーの除去を制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> SharedMemory 身分証明書</em></td>
+
+<td>共有メモリーの識別コード <em>SharedMemoryID</em> を除去します。 最後のタスク消去操作の後に、<em>SharedMemoryID</em> に関連する共有メモリー・セグメントとデータ構造体も除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> SharedMemoryKey</em></td>
+
+<td><em>SharedMemoryKey</em> キーによって作成された共有メモリー ID を除去します。 最後のタスク消去操作の後に、関連する共有メモリー・セグメントとデータ構造体も除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em> 所有者</em></td>
+
+<td>指定された所有者とマッチングする名前なしのセマフォーの除去を制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> MessageID</em></td>
+
+<td>メッセージ・キュー識別コード <em>MessageID</em> とそれに関連するメッセージ・キューおよびデータ構造体を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong><em> MessageKey</em></td>
+
+<td><em>MessageKey</em> キーで作成されたメッセージ・キュー ID とそれに関連するメッセージ・キューおよびデータ構造体を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>名前付き、または名前なしのリアルタイム・プロセス間通信オブジェクトを除去します。 指定されたリアルタイム・オブジェクトは、リアルタイム・メッセージ・キュー (<span><span>-q</span></span>)、リアルタイム共有メモリー (<span><span>-m</span></span>)、またはリアルタイム・セマフォー (<span><span>-s</span></span>) のいずれかであり、その <span><span>Name</span></span>によって識別されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> SemaphoreID</em></td>
+
+<td>セマフォー識別コード <em>SemaphoreID</em> とそれに関連するセマフォー・セットおよびデータ構造体を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> SemaphoreKey</em></td>
+
+<td><em>SemaphoreKey</em> キーで作成されたセマフォー ID とそれに関連するセマフォー・セットおよびデータ構造体を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>すべてのリアルタイム名前なしセマフォーを除去します。 破壊された名前なしセマフォー上のディスクリプターを使用すると、未指定の振る舞いを引き起こす場合があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-@</strong> <em>WparName</em></td>
+
+<td><span>ワークロード・パーティション</span> <em>WparName</em>内の指定されたプロセス間通信構成体を除去します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>msgctl</strong>、<strong>shmctl</strong>、<strong>semctl</strong> のそれぞれのサブルーチンに関する項で除去操作の詳細を説明しています。 ID とキーは、<strong>ipcs</strong> コマンドを使用して検索できます。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><em>SharedMemoryID</em> 18602 に関連する共有メモリー・セグメントを除去するには、次のように入力します。</p>
+ <div> <div><div><pre><code>ipcrm -m 18602</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

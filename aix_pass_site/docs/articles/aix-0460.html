@@ -1,0 +1,214 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>イベント管理サブシステムを始動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>emsvcsctrl</span></span> [<span><span>-a</span></span> | <span><span>-s</span></span> | <span><span>-k</span></span> | <span><span>-d</span></span> | <span><span>-c</span></span> | <span><span>-t</span></span> | <span><span>-o</span></span> | <span><span>-h</span></span> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>emsvcsctrl</span></span> は、イベント管理サブシステムを開始する制御スクリプトです。 イベント管理は RSCT の分散サブシステムで、<span>IBM</span> <span>RS/6000</span>サーバーに一連の高可用性サービスを提供します。 システム・リソースの状態の情報と、クライアント・プログラムにとって重要なリソースの状態に関する情報とを突き合わせて、イベントを作成します。 クライアント・プログラムでは、イベントを使用して、システム障害を検出し、障害から回復できるので、システムの可用性が高まります。 emsvcsctrl 制御スクリプトでは、イベント管理サブシステムの操作を制御します。 このサブシステムは、システム・リソース・コントローラー (SRC) の制御下にあり、emsvcs と呼ばれるサブシステム・グループに属します。 各サブシステムには、デーモンが関連付けられています。 emsvcsctrlスクリプトは、<span>AIX</span>リソースモニターサブシステムの動作も制御する。 このサブシステムは、SRC の制御下にあり、emsvcs サブシステム・グループに属します。 各サブシステムには、デーモンが関連付けられています。</p>
+ <div>イベント管理サブシステムおよび <span>AIX</span> リソース・モニター・サブシステムのインスタンスは、 HACMP/ES クラスター内の各ノードで実行されます。 操作の観点からすると、イベント管理サブシステム・グループは次のように編成されています。<dl>
+<dt>サブシステム</dt>
+
+<dd>イベント管理</dd>
+
+
+<dt>サブシステム・グループ</dt>
+
+<dd>emsvcs</dd>
+
+
+<dt>SRC サブシステム</dt>
+
+<dd>emsvcs サブシステムは、haemd デーモンに関連付けられています。</dd>
+
+
+<dt>emaixos</dt>
+
+<dd>emaixos は、harmad デーモンに関連付けられています。</dd>
+
+
+<dt>デーモン</dt>
+
+<dd>haemd デーモンは、イベント管理サービスを提供します。 harmad デーモンは、 <span>AIX</span> オペレーティング・システム・リソースのリソース・モニターです。</dd>
+
+</dl>
+</div>
+ <p>emsvcsctrl スクリプトは通常、コマンド・ラインから実行されるとは限りません。 通常は、システムのインストール時に、HACMP/ES 始動スクリプト・コマンドによって呼び出されます。</p>
+ <div>emsvcsctrl スクリプトは、イベント管理サブシステムの操作に対する各種制御を提供します。<ul>
+<li>サブシステムの追加、始動、停止、および削除</li>
+
+<li>サブシステムのクリーンアップ</li>
+
+<li>トレースのオンおよびオフ</li>
+
+</ul>
+</div>
+ <div><span><span>Adding the Subsystem:</span></span> -aフラグを指定すると、制御スクリプトは mkssys コマンドを使用して、イベント管理サブシステムと<span>AIX</span>リソース・モニタ・サブシステムを SRC に追加します。 制御スクリプトは次のように動作します。<ol>
+<li>emsvcs および emaixos サブシステムが停止していることを確認します。</li>
+
+<li>SRC から emsvcs および emaixos サブシステムを (まだ存在している場合に) 除去します。</li>
+
+<li>emsvcs サブシステムを SRC へ追加します。</li>
+
+<li>emaixos サブシステムを SRC へ追加します。</li>
+
+<li>mkgroup コマンドを使用して haemrm グループを追加します (ただし、まだ存在していない場合のみ)。 発生したエラーはすべて /var/ha/log/em.mkgroup という名前のログ・ファイルに書き込まれます。</li>
+
+<li>/var/ha/lck/haem および /var/ha/soc/haem ディレクトリーを作成します (ただし、まだ存在していない場合のみ)。 発生したエラーはすべて /var/ha/log/em.mkdir という名前のログ・ファイルに書き込まれます。</li>
+
+<li>イベント管理構成データベース (EMCDB) をインストール場所である /opt/rsct/install/config/em.HACMP.cdb から、その実行場所である /etc/ha/cfg/em.HACMP.cdb へコピーします。 コピーによってエラーが発生すると、そのエラーはログ・ファイル /var/ha/log/em.cp へ書き込まれます。</li>
+
+</ol>
+</div>
+ <p><span><span>Starting the Subsystem:</span></span> -sフラグが指定されている場合、制御スクリプトは startsrc コマンドを使用して、イベント管理サブシステム emsvcs と<span>AIX</span>リソース・モニター・サブシステム emaixos を起動します。</p>
+ <p><span><span>Stopping the Subsystem:</span></span> -kフラグが指定されている場合、制御スクリプトは stopsrc コマンドを使用してイベント管理サブシステム emsvcs と<span>AIX</span>リソース・モニター・サブシステム emaixos を停止します。</p>
+ <div><span><span>Deleting the Subsystem:</span></span> -dフラグを指定すると、制御スクリプトは rmssys コマンドを使用して、SRC からイベント管理サブシステムと<span>AIX</span>リソース・モニター・サブシステムを削除します。 制御スクリプトは次のように動作します。<ol>
+<li>emsvcs および emaixos サブシステムが停止していることを確認します。</li>
+
+<li>rmssys コマンドを使用して、SRC から emsvcs および emaixos サブシステムを除去します。</li>
+
+</ol>
+</div>
+ <div><span><span>Cleaning Up the Subsystems:</span></span> -cフラグが指定されると、制御スクリプトは停止し、SRC からすべてのシステム・パーティションのイベント管理サブシステムを削除します。 制御スクリプトは次のように動作します。<ol>
+<li>stopsrc -g emsvcs コマンドを使用して、サブシステム・グループ内のサブシステムのすべてのインスタンスを停止します。</li>
+
+<li>rmssys コマンドを使用して、サブシステム・グループ内のサブシステムのすべてのインスタンスを SRC から除去します。</li>
+
+<li>イベント管理構成データベース (EMCDB) を実行時位置である /etc/ha/cfg/em.HACMP.cdb から除去します。</li>
+
+</ol>
+</div>
+ <p><span><span>Turning Tracing On:</span></span> -tフラグが指定されると、コントロールスクリプトは、 haemtrconコマンドを使用して、haemdデーモンのトレースをオンにする。 また、traceson コマンドを使用して、harmad デーモンのトレースも使用可能にします。</p>
+ <p><span><span>Turning Tracing Off:</span></span> -oフラグが指定されると、コントロールスクリプトは、 haemtrcoffコマンドを使用して、haemdデーモンのトレースをオフにする。 また、tracesoff コマンドを使用して、harmad デーモンのトレースも使用不可にします。</p>
+ <p><span><span>Logging:</span></span> イベント管理デーモンは、実行中に、通常、 <span>AIX</span> エラー・ログにエントリーを書き込むことによって、操作およびエラーに関する情報を提供します。 それが不可能な場合は、エラーはログ・ファイル /var/ha/log/em.default.cluster_name に書き込まれます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>サブシステムを追加します。</dd>
+
+
+<dt>-s</dt>
+
+<dd>サブシステムを始動します。</dd>
+
+
+<dt>-k</dt>
+
+<dd>サブシステムを停止します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>サブシステムを削除します。</dd>
+
+
+<dt>-c</dt>
+
+<dd>サブシステムをクリーンアップします。</dd>
+
+
+<dt>-t</dt>
+
+<dd>サブシステムのトレース機能をオンにします。</dd>
+
+
+<dt>-o</dt>
+
+<dd>サブシステムのトレース機能をオフにします。</dd>
+
+
+<dt>-h</dt>
+
+<dd>使用法の情報を表示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>root</span></span>の実効ユーザー ID を使用して実行している必要があります。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt>1</dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、 HACMP 環境でのみ有効です。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>このコマンドは、エラー・メッセージを (必要に応じて) 標準エラーに書き込みます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>イベント管理サブシステムを SRC へ追加するには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -a</code></pre></div><div></div></div></div>
+</li>
+
+<li>イベント管理サブシステムを始動するには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -s</code></pre></div><div></div></div></div>
+</li>
+
+<li>イベント管理サブシステムを停止するには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -k</code></pre></div><div></div></div></div>
+</li>
+
+<li>イベント管理サブシステムを SRC から削除するには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -d</code></pre></div><div></div></div></div>
+</li>
+
+<li>イベント管理サブシステムをクリーンアップするには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -c</code></pre></div><div></div></div></div>
+</li>
+
+<li>イベント管理デーモンのトレース機能をオンにするには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -t</code></pre></div><div></div></div></div>
+</li>
+
+<li>イベント管理デーモンのトレース機能をオフにするには、次のように入力します。<div> <div><div><pre><code>emsvcsctrl -o</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <div> <dl>
+<dt>/opt/rsct/bin/emsvcsctrl</dt>
+
+<dd><span><span>emsvcsctrl</span></span> スクリプトが含まれています。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> <dl>
+<dt>/var/ha/log/em.default.cluster_name</dt>
+
+<dd>クラスター cluster_name 上の haemd デーモンのデフォルト・ログが含まれています。</dd>
+
+
+<dt>/var/ha/log/em.cp</dt>
+
+<dd>イベント管理構成データベースのコピー中に発生したエラーのログが入っています。</dd>
+
+
+<dt>/var/ha/log/em.trace.cluster_name</dt>
+
+<dd>クラスター名が cluster_name のクラスターに関する、haemd デーモンのトレース・ログが入っています。</dd>
+
+
+<dt>/var/ha/log/em.mkgroup</dt>
+
+<dd>haemrm グループの作成中に発生したエラーのログが入っています。</dd>
+
+
+<dt>/var/ha/log/em.mkdir</dt>
+
+<dd>/var/ha/lck/haem および /var/ha/soc/haem ディレクトリーの作成中に発生したエラーのログが入っています。</dd>
+
+</dl>
+</div>
+</section>
+
+</div></div>

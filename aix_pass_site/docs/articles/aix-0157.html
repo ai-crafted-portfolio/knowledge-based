@@ -1,0 +1,49 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Cisco Discovery Protocol (CDP) を使用して着信データ・パケットを受信し、物理的に接続された Cisco デバイスを発見します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>startsrc -s cdpd</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p>CDP は、デバイスに直接接続されている他の Cisco デバイスを発見するために Cisco デバイスで実行されるネットワーキング・アプリケーションで使用されます。 <span>AIX7 with 7200-05</span> 以降、CDP 機能は、「<span>cdpd</span>デーモンを使用してAIX®論理パーティションに実装されます。 <span>cdpd</span> デーモンは、CDP を使用して着信データを制御します。</p>
+
+<p>AIX 論理区画の <span>cdpd</span> デーモンおよびネットワーク・インターフェースを構成するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cdpctl.html" target="_blank" rel="noopener noreferrer"><span>cdpctl</span></a> コマンドを実行します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> CDP データ・パケットまたはメッセージは、Cisco デバイスに接続された物理インターフェースによってのみ受信でき、仮想インターフェースによって受信することはできません。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ul>
+<li>System Resource Controller (SRC) サブシステム経由で <span>cdpd</span> デーモンを開始するには、次のコマンドを入力します。<div><div><pre><code>startsrc -s cdpd</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>0513-059 The cdpd Subsystem has been started. Subsystem PID is 14745930.</code></pre></div><div></div></div></li>
+
+</ul>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt><span>/usr/sbin/cdpd</span></dt>
+
+<dd><span>cdpd</span> デーモンが入っています。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

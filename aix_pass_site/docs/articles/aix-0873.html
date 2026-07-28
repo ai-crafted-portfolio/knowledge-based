@@ -1,0 +1,199 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>マニュアル・ページのタイプセットを行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>マント</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120158" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> <em>メディア</em> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120128" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120140" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120149" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120209" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120218" target="_blank" rel="noopener noreferrer"><strong>-z </strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120224" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em> 名前</em> ] [ <em>troffFlags</em> ] [ <em>ファイル</em> ... | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mant.html#mant__row-d3e120277" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mant</strong> コマンドは、マニュアル・ページ・マクロ (<strong>man</strong> マクロ・パッケージ) を使用してマニュアル・ページをタイプセットします。 <em>File</em> パラメーターには
+<strong>mant</strong> コマンドで処理するファイルを指定します。 ファイルはすべてのフラグの後に表示します。 ファイル名が指定されないと、<strong>mant</strong> コマンドはフラグのリストを出力します。 <em>File</em> パラメーターに <strong>-</strong> (負符号) を指定すると、標準入力が読み取られます。</p>
+ <p><strong>mant</strong> コマンドには、<strong>tbl</strong> コマンド、<strong>cw</strong> コマンド、<strong>eqn</strong> コマンドによるプリプロセスを指定するフラグがあります。 <strong>troff</strong> コマンドからのフラグは <em>troffFlags</em> パラメーターで指定できます。</p>
+ <p>入力にストリングのみで構成される <strong>troff</strong> コマンドのコメント行が含まれている場合'\" x(単一引用符、円記号、二重引用符、 <em>x</em>)。ここで、xは、 <strong>c</strong>、<strong> e</strong>、および <strong>t</strong>の 3 つの文字の任意の組み合わせで、二重引用符と t の間には 1 つの文字スペースがあります。x入力は、コマンド行オプションに関係なく、それぞれ <strong>cw</strong> コマンド、<strong> eqn</strong> コマンド、および <strong>tbl</strong> コマンドの適切な組み合わせによって処理されます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> 出力するページの範囲を指定するには、 <strong>troff</strong> コマンドの <strong>-o</strong><em>List</em> フラグを使用します。 1 つ以上の <strong>-c</strong> フラグ、 <strong>-e</strong> フラグ、 <strong>-t</strong> フラグを指定して <strong>mant</strong> コマンドを呼び出す。 および <strong>-</strong> (マイナス) フラグは、 <strong>troff</strong> コマンドの <strong>-o</strong><em>List</em> フラグと一緒に指定します。broken pipe文書の最後のページが <em>List</em> 変数<em>で指定されていない場合のメッセージです。</em> この broken pipe メッセージは問題があることを示すものではないので、無視してかまいません。<span>”</span></blockquote>
+<p></p>
+ <p><strong>mant</strong> コマンドは <strong>troff</strong> コマンドとは異なり、
+次のフラグ、環境変数、またはデフォルト設定に従って、
+その出力を自動的に特定のポストプロセッサーにパイピングします (特にそうしないように要求されない限り)。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>ポストプロセッサーを使用しないことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>名前</em><strong></strong></td>
+
+<td><em>Name</em> 変数で指定されたプリンター用に出力を準備します。</td>
+
+</tr>
+
+<tr>
+<td><strong>タイプ・セット</strong></td>
+
+<td>システム環境に特定のプリンターを指定します。</td>
+
+</tr>
+
+<tr>
+<td>デフォルト</td>
+
+<td><strong>ibm3816</strong> に送信します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次のリストにないフラグは、<strong>troff</strong> コマンドかマクロ・パッケージかのどちらか適切な方に渡されます。 すべてのフラグはファイル名の指定より前に表示しなければなりません。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>すべてのフラグは、ファイル名より前に指定されていなければなりません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong>troff</strong>  コマンドの <strong>-a</strong> フラグを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>cw</strong> コマンドで入力ファイルをプリプロセスします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><strong>eqn</strong> コマンドで入力ファイルをプリプロセスします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> メディア</em></td>
+
+<td>用紙上のイメージ可能領域の大きさを判別するために、用紙サイズを指定します。 <em>Media</em> 変数で有効な値は以下のとおりです。<dl>
+<dt>A4</dt>
+
+<dd>用紙サイズ 8.3 X 11.7 インチ (210 X 297 mm) を指定します。</dd>
+
+
+<dt>A5</dt>
+
+<dd>用紙サイズ 5.83 X 8.27 インチ (148 X 210 mm) を指定します。</dd>
+
+
+<dt>B5</dt>
+
+<dd>用紙サイズ 6.9 X 9.8 インチ (176 X 250 mm) を指定します。</dd>
+
+
+<dt>EXEC</dt>
+
+<dd>用紙サイズ 7.25 × 10.5 インチ (184.2 × 266.7 mm) を指定します。</dd>
+
+
+<dt>LEGAL</dt>
+
+<dd>用紙サイズ 8.5 X 14 インチ (215.9 X 355.6 mm) を指定します。</dd>
+
+
+<dt>LETTER</dt>
+
+<dd>用紙サイズ 8.5 X 11 インチ (215.9 X 279.4 mm) を指定します。 これはデフォルト値です。</dd>
+
+</dl>
+  <p></p><blockquote><span>“</span><strong>注:</strong> <em>Media</em> 変数では大文字小文字の区別はありません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td><strong>tbl</strong> コマンドで入力ファイルをプリプロセスします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>ポストプロセッサーを使わずに出力を準備します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>名前</em></td>
+
+<td>指定のプリンターへの出力を準備します。 使用可能な <em>Name</em> 変数は次のとおりです。<dl>
+<dt><strong>ibm3812</strong></dt>
+
+<dd>3812 Pageprinter II</dd>
+
+
+<dt><strong>ibm3816</strong></dt>
+
+<dd>3816 Pageprinter</dd>
+
+
+<dt><strong>hplj (hplj)</strong></dt>
+
+<dd>Hewlett-Packard LaserJet II</dd>
+
+
+<dt><strong>ibm5587G</strong></dt>
+
+<dd>5587-G01 漢字プリンター・マルチバイト言語サポート</dd>
+
+
+<dt><strong>PSC</strong></dt>
+
+<dd>PostScript。</dd>
+
+
+<dt><strong>X100</strong></dt>
+
+<dd><span>AIXwindows</span> が表示されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>入力を標準入力から強制的に読み取ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

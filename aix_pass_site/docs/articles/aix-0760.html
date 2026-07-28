@@ -1,0 +1,80 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>ls-secldapclntd</strong> コマンドは、
+<strong>secldapclntd</strong> デーモン・プロセスの状況をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr /sbin/ls-secldapclntd</strong></p>
+</section>
+
+<section><h2>説明</h2> <div><strong>ls-secldapclntd</strong> コマンドは <strong>secldapclntd</strong>
+デーモンの状況をリストします。 戻される情報に組み込まれるのは次のとおりです。<ul>
+<li><strong>secldapclntd</strong> デーモンが通話している LDAP サーバー</li>
+
+<li>LDAP サーバーのポート番号</li>
+
+<li>使用されている LDAP プロトコルのバージョン</li>
+
+<li>ユーザーの基本 DN</li>
+
+<li>グループの基本 DN</li>
+
+<li>システム (ID) の基本 DN</li>
+
+<li>ユーザー・キャッシュ・サイズ</li>
+
+<li>使用されているユーザー・キャッシュ・サイズ</li>
+
+<li>グループ・キャッシュ・サイズ</li>
+
+<li>使用されているグループ・キャッシュ・サイズ</li>
+
+<li>キャッシュ・タイムアウト (存続時間) 値</li>
+
+<li><strong>secldapclntd</strong> から LDAP サーバーへのハートビート間隔</li>
+
+<li><strong>secldapclntd</strong> デーモンが使用するスレッド数</li>
+
+<li>使用中の認証メカニズム</li>
+
+<li>属性検索モード</li>
+
+<li>デフォルトのユーザー属性エントリー・ロケーション</li>
+
+<li>サーバーに対する LDAP クライアント要求のタイムアウト期間 (秒数)</li>
+
+<li>LDAP サーバーで使用するユーザー・オブジェクト・クラス</li>
+
+<li>LDAP サーバーで使用するグループ・オブジェクト・クラス</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>aix.security.ldap</strong> 権限のあるユーザーがこのコマンドの使用を許可されます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>1.<strong>secldapclntd</strong> デーモンの状況をリストするには、次のように入力します。<div><div><pre><code>/usr/sbin/ls-secldapclntd</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/ldap.cfg.html" target="_blank" rel="noopener noreferrer"><strong>/etc/security/ldap/ldap.cfg</strong></a></td>
+
+<td>サーバーに接続するために <strong>secldapclntd</strong> デーモンが必要とする情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

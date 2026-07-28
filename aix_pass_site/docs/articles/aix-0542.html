@@ -1,0 +1,192 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルまたはファイル構造を使ってプロセスを識別します。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>フューザー</strong> [[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126335" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__fuser-bigc" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a></span> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126356" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126412" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> ] |<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126344" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126383" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126365" target="_blank" rel="noopener noreferrer"><span><span>-K</span></span></a> { <span><span>シグナル番号</span></span> | <span><span>シグナル名</span></span> }] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126400" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fuser.html#fuser__row-d3e126406" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> ]<em>ファイル</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>fuser</strong> コマンドは、<em>File</em> パラメーターで指定されたローカルまたはリモート・ファイルを使用しているローカル・プロセスのプロセス番号を表示します。 ブロック特殊デバイスの場合は、コマンドがデバイス上のいずれかのファイルを使用するプロセスを表示します。</p>
+ <p>個々のプロセス番号の後には、そのプロセスのファイルの使い方を示す次のような文字が付けられます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>C</strong></td>
+
+<td>ファイルを現行ディレクトリーとして使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>e</strong></td>
+
+<td>ファイルをプログラムの実行可能なオブジェクトとして使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td>ファイルをルート・ディレクトリーとして使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>s</strong></td>
+
+<td>ファイルを共有ライブラリー (またはその他のロード可能なオブジェクト) として使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>プロセス番号は、各プロセス番号の間にスペースを挿入して 1 行で標準出力に書き出されます。 それぞれのファイル・オペランドごとに、改行文字が最後の出力の後で標準エラーに書き込まれます。 その他の出力はすべて標準エラーに書き込まれます。</p>
+ <p><strong>fuser</strong> コマンドは、
+関連ファイル・ディスクリプターがクローズされた mmap 領域を持つプロセスは検出しません。 また、FIFO (名前付きパイプ) を使用するプロセスは、FIFO が完全にオープンするまで検出されません。 例えば、オープン・システム呼び出しの完了を待っているプロセスは、<strong>fuser</strong> コマンドでは認識されません。</p>
+
+<p><span>fuser</span> コマンドは、ファイルシステムを使用しているプロセスを決定するのに使用します。 このファイルシステムがネットワーク・ファイルシステム (NFS) であり、NFS サーバーが応答していない場合、<span>fuser</span> コマンドがハングすることがあります。 この状態を回避するため、<code>FUSER_VERSION</code> 環境変数を 1 に設定することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td><em>File</em> が入っているファイルシステム内のすべてのオープン・ファイルについて報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td><span>File</span> パラメーターが指定するディレクトリーにマウントされたファイルシステム内にオープン・ファイルがあれば、それらのすべてのファイルについて報告します。 <span>File</span> パラメーターがマウント・ポイントではない場合、コマンドはエラーを報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td><em>File</em> を含むファイルシステムからリンク解除された (削除された) すべてのオープン・ファイル
+について報告します。 <strong>-V</strong> フラグと一緒に使用された場合は、削除されたファイルの i ノード番号とサイズも報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><em>File</em> のオープン・インスタンスについてのみ報告します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-K</span></span> <span><span>SignalNumber</span></span> | <span><span>SignalName</span></span></td>
+
+<td>指定のシグナルを各ローカル・プロセスに送信します。 root ユーザーのみが他のユーザーのプロセスを強制終了できます。 シグナルは、SIGKILLシグナルのKILLのような「シグナル名、または9のような「シグナル番号」として指定することができる。 SignalNameの有効な値は、「<span><span>kill -l</span></span>コマンドで表示される値である。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td><strong>SIGKILL</strong> シグナルを各ローカル・プロセスに送信します。 root ユーザーのみが他のユーザーのプロセスを強制終了できます。<div><div>
+        <div>
+          <div><span>注:</span> <span><span>fuser -k</span></span> または <strong>-K</strong> は、プログラムの実行開始直後に作成された新規プロセスを検出して強制終了することができない場合があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>プロセス番号の後に括弧付きでローカル・プロセス番号のログイン名を提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>詳細出力を提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td><strong>-c</strong> または <strong>-f</strong> と一緒に使用された場合は、
+標準の fuser 出力に加えて、実行可能で、かつ、ロード可能なオブジェクトを報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/etc/passwd</strong> ファイルを使用している、
+ローカル・プロセスのプロセス番号を表示するには、次のように入力します。<div> <div><div><pre><code>fuser /etc/passwd</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>/etc/filesystems</strong> ファイルを使用しているプロセスのプロセス番号とユーザー・ログイン名を表示するには、次のように入力します。<div> <div><div><pre><code>fuser -u /etc/filesystems</code></pre></div><div></div></div></div>
+</li>
+
+<li>所定のファイルシステムを使用しているすべてのプロセスを停止するには、
+次のように入力します。<div> <div><div><pre><code>fuser -k -x -u -c /dev/hd1 </code></pre></div><div></div></div>または<div><div><pre><code>fuser -kxuc /home</code></pre></div><div></div></div></div>
+  <p>いずれのコマンドもプロセス番号とユーザー名をリストした後、<strong>/dev/hd1 (/home)</strong> ファイルシステムを使用しているプロセスを停止します。 root ユーザーのみが他のユーザーに属するプロセスを停止できます。 <strong>/dev/hd1</strong> ファイルシステムを
+アンマウントしようとしていて、<strong>/dev/hd1</strong> ファイルシステムにアクセスしているプロセスがこれを阻止するのであれば、このコマンドを使用します。</p>
+</li>
+
+<li>あるファイルシステムから削除されたファイルを使用している、
+すべてのプロセスを表示するには、次のように入力します。<div> <div><div><pre><code>fuser -d /usr</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/dev/kmem</strong></td>
+
+<td>システム・イメージに使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/mem</strong></td>
+
+<td>同じく、システム・イメージに使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

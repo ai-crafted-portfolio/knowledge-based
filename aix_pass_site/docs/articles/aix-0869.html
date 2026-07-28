@@ -1,0 +1,174 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>sendmail</strong> 用のデータベース・マップを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>マクマップ</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118319" target="_blank" rel="noopener noreferrer">-C</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118370" target="_blank" rel="noopener noreferrer">-N (N)</a></strong> <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118310" target="_blank" rel="noopener noreferrer">「-c」</a></strong> <em>CacheSize</em> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118331" target="_blank" rel="noopener noreferrer">-d 年</a></strong> <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__sdmakemapud" target="_blank" rel="noopener noreferrer">-D</a></strong><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118343" target="_blank" rel="noopener noreferrer">-e (E)</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118349" target="_blank" rel="noopener noreferrer">「-f」</a></strong> <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118364" target="_blank" rel="noopener noreferrer">-</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118382" target="_blank" rel="noopener noreferrer">-</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118388" target="_blank" rel="noopener noreferrer">-</a></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118397" target="_blank" rel="noopener noreferrer">-s</a></strong> <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__sdmakemapt" target="_blank" rel="noopener noreferrer">T</a></strong><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118410" target="_blank" rel="noopener noreferrer">-ウー</a><strong><em></em></strong></strong> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118416" target="_blank" rel="noopener noreferrer">-v (V)</a></strong>] <em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118241" target="_blank" rel="noopener noreferrer">マップ・タイプ</a></em> <em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makemap.html#sdmakemap__row-d3e118272" target="_blank" rel="noopener noreferrer">マップ名</a></em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>makemap</strong> コマンドは、<strong>sendmail</strong> コマンドで、
+キー付きマップ・ルックアップによって使用されるデータベース・マップを作成します。 標準入力から入力を読み取り、指示された <em>Mapname</em> にそれらを出力します。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>MapType</em></td>
+
+<td>コンパイルの方法によって異なりますが、このコマンドは、最大で 3 つのデータベース・フォーマットを処理します。<dl>
+<dt>dbm</dt>
+
+<dd>DBM フォーマット・マップ。 これには、<strong>ndbm</strong> ライブラリーが必要とされます。</dd>
+
+
+<dt>btree</dt>
+
+<dd>B-Tree フォーマット・マップ。 これには、新しい Berkeley DB ライブラリーが必要とされます。</dd>
+
+
+<dt>hash</dt>
+
+<dd>ハッシュ・フォーマット・マップ。 これには、新しい Berkeley DB ライブラリーが必要とされます。</dd>
+
+</dl>
+  <p></p><blockquote><span>“</span><strong>注:</strong> すべての場合において、このコマンドは、標準入力から、
+空白文字によって区切られた 2 つの語からなる行を読み取ります。 最初の語はデータベース・キーで、2 番目の語は値です。 値には、パラメーターの置換を指示する %n 文字列が含まれる可能性があります。 リテラルのパーセントは、二重 (%%) でなければなりません。ブランク行と、# で始まる行は無視されます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>MapName</em></td>
+
+<td>マップの名前。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 別名データベースを作成するために <strong>makemap</strong> コマンドを使用しないでください。 <strong>sendmail</strong> コマンドが必要とするデータベースに特殊なトークンを入れる <strong>newaliases</strong> を使用してください。</div>
+        </div>
+      </div></div>
+ <p><strong>sendmail</strong> 構成ファイルで TrustedUser オプションが設定されており、<strong>makemap</strong> が root ユーザーとして呼び出される場合、生成されるファイルは指定されたトラステッド・ユーザーによって所有されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong> <em>CacheSize</em></td>
+
+<td>ハッシュおよび B-Tree のキャッシュ・サイズを使用することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td><strong>TrustedUser</strong> オプションの検索のために、指定された <strong>sendmail</strong> 構成ファイルを使用することを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>マップ内の重複キーを許可します。 これは、B-tree フォーマットのマップでのみ許可されます。 2 つの等しいキーが読み取られた場合、それらは両方ともマップに挿入されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>コメント (無視されます) を示すための、デフォルトの # に代わる文字を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>右側に空の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>キーの中のすべての大文字が小文字に変換される機能を使用不可にします。 このフラグは、<strong>sendmail.cf</strong> ファイルの <strong>K</strong> 行中の <strong>-f</strong> フラグと共に使用することを目的にしています。 この値は大文字には変換されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>サポートされるマップ・タイプをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>マップ内の文字列を終了させる NULL バイトを組み込みます。 このフラグは、sendmail.cf の <strong>K</strong> 行の <strong>-N</strong> フラグと一致しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>既存ファイルへの追加を指定します。 このフラグを使用すると、既存ファイルを増大させることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>既存のキーの置換を指定します。 通常、キーを繰り返すと、<strong>makemap</strong> コマンドは警告を出し、
+挿入操作を実行しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>作成されるマップに対する安全性検査を無視します。 これには、世界中から書き込み可能なディレクトリーにおけるハードまたはシンボリック・リンクに対する検査が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>空白文字の代わりに使用する区切り文字を指定します。 このフラグは、ファイルをダンプする場合にも使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>データベースの内容をマップ解除して標準出力にダンプします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>コマンドにその状況の冗長出力を指示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

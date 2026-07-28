@@ -1,0 +1,290 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>仮想ファイバー・チャネル (VFC) クライアント・アダプターに関する情報 (統計、状況、アクティビティーなど) を表示します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>vfcstat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_h" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_l" target="_blank" rel="noopener noreferrer"><strong>[-l</strong></a> ]</p>
+
+<p><strong>vfcstat</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_d" target="_blank" rel="noopener noreferrer"><strong>-d</strong> vfc_client_adapter</a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_f" target="_blank" rel="noopener noreferrer"><strong>-f</strong> 関数名</a> ]</p>
+
+<p><strong>vfcstat</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_d" target="_blank" rel="noopener noreferrer"><strong>-d</strong> vfc_client_adapter</a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_e" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_z" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ]</p>
+
+<p><strong>vfcstat</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_d" target="_blank" rel="noopener noreferrer"><strong>-d</strong> vfc_client_adapter</a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_s" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_z" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_c" target="_blank" rel="noopener noreferrer"><strong>-c</strong> no_of_times_to_run</a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_i" target="_blank" rel="noopener noreferrer"><strong>-i</strong> intervel_sec</a>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_F" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>vfcstat</span> コマンドは、仮想 FC アダプターの状態、状況、NPort ID、入出力キュー情報、読み取り/書き込み統計、ホスト (VIOS) とのバインディング情報、リンク・エラー、パス・タイムアウトなどの情報を報告します。 必要な情報はリアルタイムで取り出され、出力に表示されます。 統計やエラー件数などの詳細の一部をリセットできます。 <span>-F</span> オプションを使用して、スクリプトの目的でフォーマット済み出力の読み取り/書き込み統計情報を取得することもできます。 <span>vfcstat</span> コマンドは、指定された時間間隔における特定の回数の統計を表示します。 <span>vfcstat</span> コマンドは、仮想 FC クライアント・アダプターでのみ機能します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>--c no_of_times_to_run</dt>
+
+<dd>stats 関数を指定するときに <span>vfcstat</span> コマンドを実行する必要がある回数を指定します。 有効な値の範囲は 1 から 86400 です。</dd>
+
+
+
+<dt>--d vfc_client_adapter</dt>
+
+<dd>仮想 FC クライアント・アダプターの名前を指定します。</dd>
+
+
+
+<dt>-e</dt>
+
+<dd>リンクおよびパス・タイムアウト・イベントのエラー件数を表示します。</dd>
+
+
+
+<dt>--f 関数名</dt>
+
+<dd>出力を表示する機能を指定します。 仮想 FC クライアント・アダプターで使用可能な機能のリストについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vfcstat.html#vfcstat__vfcstat_example2" target="_blank" rel="noopener noreferrer">例 2</a>を参照してください。</dd>
+
+
+
+<dt>-F</dt>
+
+<dd>定様式統計出力を表示します。</dd>
+
+
+
+<dt>-h</dt>
+
+<dd>使用法とヘルプ情報を表示します。</dd>
+
+
+
+<dt>-インターレベル秒</dt>
+
+<dd><span>vfcstat</span> コマンドを複数回実行する間隔を指定します。 有効な値は、1 から 86400 秒の範囲です。 デフォルト値は 1 秒です。</dd>
+
+
+
+<dt>-l</dt>
+
+<dd>すべての仮想 FC クライアント・アダプターをリストします。</dd>
+
+
+
+<dt>-s</dt>
+
+<dd>読み取り/書き込み統計を表示します。</dd>
+
+
+
+<dt>-z</dt>
+
+<dd>統計またはエラー件数のメトリックをリセットします。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>すべての仮想 FC クライアント・アダプターをリストするには、次のコマンドを入力します。<div><div><pre><code># vfcstat -l</code></pre></div><div></div></div><div>出力は次の例のようになると考えられます。<pre><code>fcs0
+fcs1</code></pre>
+</div>
+</li>
+
+<li>特定の仮想 FC アダプターで使用可能なすべての機能をリストするには、次のコマンドを入力します。<div><div><pre><code># vfcstat  -d fcs0</code></pre></div><div></div></div>出力は次の例のようになると考えられます。<pre><code>activity
+capabilities
+hostinfo
+link
+nport_id
+status
+tunables
+wwpn</code></pre>
+</li>
+
+<li>特定の仮想 FC アダプターの状況を表示するには、次のコマンドを入力します。<div><div><pre><code># vfcstat  -d fcs0 -f status</code></pre></div><div></div></div>出力は次の例のようになると考えられます。<pre><code>State                 0x10 (ONLINE)
+Opened                true
+cfg_opn_state         0x0
+prev_cfg_channels     0
+flags                 0x1400 ( UP_AFTER_LPM, SCSI_FLOGIN )
+total_io_dma_size     0x20000000
+total_dma_size_used   0x19900000
+no_chs_reason_code    0x0 ( N/A )
+migrated_count        0
+online_time           61925950 (lbolt)
+UP time               498417 sec ( 5 days 18 hours 26 minutes 57 seconds )
+
+Admin Queue
+    active_cmds       0
+    spl_active_cmds   0
+    pending_cmds      0
+    spl_pending_cmds  0
+    resp_cmds         0
+
+SCSI Queue #1
+    active_cmds       0
+    spl_active_cmds   0
+    pending_cmds      0
+    spl_pending_cmds  0
+    resp_cmds         0
+...
+...</code></pre>
+</li>
+
+<li>特定の仮想 FC アダプターの統計を表示するには、次のコマンドを入力します。<div><div><pre><code># vfcstat  -d fcs0 -s</code></pre></div><div></div></div>出力は次の例のようになると考えられます。<pre><code>
+Current time                      : May 15 2023, 01:33:13.644
+Time since last reset             : 499015 sec ( 5 days 18 hours 36 minutes 55 seconds )
+
+SCSI Queue #1
+    Read reqs                     : 128
+    Read bytes                    : 10204
+    Write reqs                    : 29
+    Write bytes                   : 21034
+    No DMA res count              : 2
+    No SGE count                  : 2
+    h_send_dropped                : 1
+    h_send_busy                   : 1
+    No cmd res count              : 3
+
+SCSI Queue #2
+    Read reqs                     : 99
+    Read bytes                    : 17695
+    Write reqs                    : 44
+    Write bytes                   : 24125
+...
+...
+
+NVMe Queue #1
+    Read reqs                     : 990
+    Read bytes                    : 107695
+    Write reqs                    : 84
+    Write bytes                   : 234125
+    Domain Ceiling exceed count   : 1
+    No SGE count                  : 2
+    h_send_dropped                : 4
+    h_send_busy                   : 1
+    No cmd res count              : 3
+</code></pre>
+</li>
+
+<li>特定の仮想 FC クライアント・アダプターの統計をフォーマット済み出力で表示するには、次のコマンドを入力します。<div><div><pre><code># vfcstat  -d fcs0 -s -F</code></pre></div><div></div></div>出力は次の例のようになると考えられます。<pre><code>Current time=May 15 2023, 01:35:02.284
+Time since last reset=499124 sec ( 5 days 18 hours 38 minutes 44 seconds )
+Queue_Start
+Domain=SCSI	
+Queue number=1
+Read reqs=128
+Read bytes=10204
+Write reqs=29
+Write bytes=21034
+No DMA res count=2
+No SGE count=2
+h_send_dropped =1
+h_send_busy=1
+No cmd res count=3
+Queue_End
+
+Queue_Start
+Domain=SCSI
+Queue number=2
+Read reqs=99
+Read bytes=17695
+Write reqs=44
+Write bytes=24125
+...
+...
+...
+Queue_End
+...
+...
+
+Queue_Start
+Domain=NVMeOF
+Queue_number=1
+Read reqs=990
+Read bytes=107695
+Write reqs=84
+Write bytes=234125
+Domain Ceiling exceed count=1
+No SGE count=2
+h_send_dropped=4
+vfchost_resource_closed
+h_send_busy=1
+No cmd res count=3
+Queue_End</code></pre>
+</li>
+
+<li>特定の仮想 FC クライアント・アダプターの統計を 10 秒ごとに 5 回表示するには、次のコマンドを入力します。<div><div><pre><code># vfcstat -d fcs0 -s -c 5 -i 10</code></pre></div><div></div></div></li>
+
+<li>特定の仮想 FC アダプターの統計機能のすべてのフィールドをリセットするには、次のコマンドを入力します。<div><div><pre><code># vfcstat -d fcs0 -s -z</code></pre></div><div></div></div></li>
+
+<li>特定の仮想 FC アダプターのエラー件数を表示するには、次のコマンドを入力します。<div><div><pre><code># vfcstat  -d fcs0 -e</code></pre></div><div></div></div>出力は次の例のようになると考えられます。<pre><code>Current time                    : Mar 17 2023, 14:28:23.854
+Time since last reset           : 33041 sec ( 9 hours 10 minutes 41 seconds )
+
+Link Errors:
+           Total errors: 4
+        Last 10 minutes: 1
+        Last 60 minutes: 2
+          Last 24 hours: 4
+
+Path Timeouts:
+                  Domain: Admin
+          Total timeouts: 6
+         Last 10 minutes: 1
+         Last 60 minutes: 2
+           Last 24 hours: 6
+
+Path Timeouts:
+                  Domain: SCSI
+          Total timeouts: 2
+         Last 10 minutes: 0
+         Last 60 minutes: 1
+           Last 24 hours: 2
+
+Path Timeouts:
+                  Domain: NVMeOF
+          Total timeouts: 5
+         Last 10 minutes: 1
+         Last 60 minutes: 2
+           Last 24 hours: 5</code></pre>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/vfcstat</strong></td>
+
+<td><span>vfcstat</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

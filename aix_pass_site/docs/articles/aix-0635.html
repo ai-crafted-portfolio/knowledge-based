@@ -1,0 +1,111 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>参考文献一覧の逆索引を作成します。</p>
+ <p></p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Indxbib</strong><em> データベース</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>indxbib</strong>  コマンドは、<strong>lookbib</strong> コマンドおよび <strong>refer</strong>
+ コマンドが使用する特定のデータベース (またはファイル) の逆索引を作成します。 これらのファイルには、ブランク行で区切られた参考文献一覧参照 (または他の種類の情報) が含まれています。<div><div>
+        <div>
+          <div><span>注:</span> <strong>Indxbib</strong> コマンドは、データベースが現行作業ディレクトリーに存在することを予期します。</div>
+        </div>
+      </div></div>
+</div>
+ <p>参考文献一覧参照は、参考文献情報のフィールドを構成する行の集合です。 各フィールドは、<strong>%</strong> (パーセント記号) で始まる行から始まり、後にはキー文字、スペース文字、次にフィールドの内容が続きます。
+フィールドの内容は、次の <strong>%</strong> (パーセント記号) で始まる行まで続きます。 キー文字はすべて ASCII 文字です。</p>
+ <p><strong>indxbib</strong> コマンドは、<strong>/usr/lib/refer/mkey</strong> ファイルと <strong>/usr/lib/refer/inv</strong> ファイルを呼び出すためのシェル・スクリプトです。 最初のプログラム <strong>mkey</strong> は、以下の操作を実行します。</p>
+ <ol>
+<li>ワード (ブランクまたはタブで区切られた) を 6 文字に切り捨てます。</li>
+
+<li>大文字を小文字にマッピングします。</li>
+
+<li>3 文字よりも短いワードを破棄します。</li>
+
+<li>既存の <strong>ign</strong> ファイルに従って最も一般的に使用されるワードを破棄します。 英語ファイル <strong>/usr/lib/eign</strong> には一般的な英単語のリストが記載されています。 特定言語の一般的なワードで構成される <strong>ign</strong> という名前のファイルを、ユーザーが作成することもできますが、必須ではありません。 このファイルを作成する場合は、<strong>/usr/lib/nls/msg/$LANG</strong> ディレクトリー内に入れなければなりません。</li>
+
+<li>1900 より小さいか 2099 より大きい数字 (日付) を破棄します。<div><div>
+        <div>
+          <div><span>注:</span> 多くの分野が 1800s 以前で書かれた文献を参照しているため、すべての日付に索引を付ける必要があります。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+ <p>2 番目のプログラム <strong>inv</strong> は、エントリー・ファイル (<strong>.ia</strong>)、通知ファイル (<strong>.ib</strong>)、
+およびタグ・ファイル (<strong>.ic</strong>) を作業ディレクトリー内で作成します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/eign</strong></td>
+
+<td>処理中に <strong>indxbib</strong> コマンドが破棄する一般的なワードのデフォルト値のリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>データベース</em>.<strong>イア</strong></td>
+
+<td>エントリー・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>データベース</em>.<strong>IB</strong></td>
+
+<td>通知ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>データベース</em>.<strong>Ic</strong></td>
+
+<td>タグ・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>NLSPATH</strong></td>
+
+<td>メッセージ・カタログ・ファイルを探すディレクトリー名のリストを参照します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

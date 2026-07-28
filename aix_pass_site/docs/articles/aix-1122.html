@@ -1,0 +1,153 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>事前に定義したプリンター・データ・ストリーム定義を作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>piopredef</span> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piopredef.html#piopredef__row-d3e87229" target="_blank" rel="noopener noreferrer"><span>-r </span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piopredef.html#piopredef__row-d3e87207" target="_blank" rel="noopener noreferrer"><span>-d </span></a>QueueDeviceName <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piopredef.html#piopredef__row-d3e87218" target="_blank" rel="noopener noreferrer"><span>-q </span></a>PrintQueueName <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piopredef.html#piopredef__row-d3e87241" target="_blank" rel="noopener noreferrer"><span>-s </span></a>DataStreamType <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piopredef.html#piopredef__row-d3e87293" target="_blank" rel="noopener noreferrer"><span>-t </span></a>PrinterType</p>
+</section>
+
+<section><h2>説明</h2> <p><span>piopredef</span> コマンドは、仮想プリンターの定義から、事前定義プリンターのデータ・ストリームの定義を作成します。 これは、 <span>mkvirprt</span> コマンドの逆と考えることができます。このコマンドは、 <span>chvirprt</span> コマンドで表示され、サポートされていないプリンターの事前定義定義を作成するために <span>piopredef</span> コマンドで指定されます。</p>
+ <p>その後、新しい事前定義プリンター定義を <span>mkvirprt</span> コマンドで指定して、サポートされないプリンター・タイプ用の追加の仮想プリンターを同じコンピューター上に生成したり、他のコンピューターにトランスポートしてそこで使用したりすることができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-d </span>QueueDeviceName</td>
+
+<td>事前定義プリンターの定義を作成するために使用する、カスタマイズされた仮想プリンターの定義のスプーラーを QueueDeviceName 変数で指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-q </span>PrintQueueName</td>
+
+<td>事前定義プリンターの定義を作成するために使用する、仮想プリンターの定義のスプーラーを PrintQueueName 変数で指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td><span>-s</span> フラグおよび <span>-t</span> フラグが既存の定義済みプリンター定義を指定している場合、既存の定義を置き換える必要があることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s </span>DataStreamType</td>
+
+<td>作成する事前定義プリンター定義のプリンターを DataStreamType 変数で指定します。 データ・ストリームのタイプの例は、以下のとおりです。<dl>
+
+<dt><code>asc</code></dt>
+
+<dd><span>IBM</span>拡張アスキー</dd>
+
+
+
+<dt><code>gl</code></dt>
+
+<dd>Hewlett-Packard GL</dd>
+
+
+
+<dt><code>pcl</code></dt>
+
+<dd>Hewlett-Packard PCL</dd>
+
+
+
+<dt><code>ps</code></dt>
+
+<dd>PostScript</dd>
+
+
+
+<dt><code>630</code></dt>
+
+<dd>Diablo 630</dd>
+
+
+
+<dt><code>855</code></dt>
+
+<dd>Texas Instruments 855</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-t </span>PrinterType</td>
+
+<td>作成する事前定義プリンター定義のプリンター・タイプを指定します。 既存のプリンター・タイプには 4201-3、hplj-2、ti2115 などがあります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>
+<div><div>
+        <div>
+          <div><span>注:</span> フラグが指定されていない場合は、コマンド構文が表示されます。</div>
+        </div>
+      </div></div>
+
+</div>
+</section>
+
+<section><h2>例</h2> <p>仮想プリンターに対して既存の仮想プリンターの定義から新しく事前定義プリンターの定義を作成するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>piopredef -d mypro -q proq -s asc -t 9234-2</code></pre></div><div></div></div></div>
+ <p><code>proq</code> 印刷キュー上の <code>mypro</code> キュー・デバイスを割り当てられた仮想プリンターの属性をコピーして <code>9234-2</code> プリンター (<code>asc</code> データ・ストリーム) の新しい事前定義プリンターの定義を作成します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/piopredef</span></td>
+
+<td><span>piopredef</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lpd/pio/predef/*</span></td>
+
+<td>事前定義プリンターのデータ・ストリームの属性ファイル。 ファイル名は、<code>PrinterType.DataStreamType</code> のフォーマットになります。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/spool/lpd/pio/@local/custom/*</span></td>
+
+<td>カスタマイズされた仮想プリンターの属性ファイル。 ファイル名は、<code>PrintQueueName:QueueDeviceName</code> のフォーマットになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

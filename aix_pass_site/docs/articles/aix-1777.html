@@ -1,0 +1,299 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>パスワードが入力されるまで、ローカルの X ディスプレイをロックします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>XLOCK</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e37890" target="_blank" rel="noopener noreferrer"><strong>-バッチ・カウント</strong></a><strong> </strong><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e37936" target="_blank" rel="noopener noreferrer"><strong>-bg (B)</strong></a><em> 色 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e37945" target="_blank" rel="noopener noreferrer"><strong>-遅延</strong></a><strong> </strong><em>ユーザー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e37977" target="_blank" rel="noopener noreferrer"><strong>-表示</strong></a><strong> </strong><em>表示 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38001" target="_blank" rel="noopener noreferrer"><strong>-fg</strong></a><strong> </strong><em>色 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38010" target="_blank" rel="noopener noreferrer"><strong>-フォント</strong></a><strong> </strong><em>FontName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38026" target="_blank" rel="noopener noreferrer"><strong>-情報</strong></a><strong> </strong><em>TextString </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38038" target="_blank" rel="noopener noreferrer"><strong>-無効</strong></a><strong> </strong><em>TextString </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38049" target="_blank" rel="noopener noreferrer"><strong>-モード</strong></a><strong> </strong><em>ModeName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38205" target="_blank" rel="noopener noreferrer"><strong>+ モノ </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38205" target="_blank" rel="noopener noreferrer"><strong>-モノ </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38141" target="_blank" rel="noopener noreferrer"><strong>-ユーザー名</strong></a><strong> </strong><em>TextString </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38098" target="_blank" rel="noopener noreferrer"><strong>-ナイス</strong></a><strong> </strong><em>レベル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38214" target="_blank" rel="noopener noreferrer"><strong>+ ロックなし </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38214" target="_blank" rel="noopener noreferrer"><strong>-ロックなし </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38111" target="_blank" rel="noopener noreferrer"><strong>-パスワード</strong></a><strong> </strong><em>TextString </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38224" target="_blank" rel="noopener noreferrer"><strong>+ リモート </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38224" target="_blank" rel="noopener noreferrer"><strong>-リモート </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38164" target="_blank" rel="noopener noreferrer"><strong>+ 許可アクセス </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38164" target="_blank" rel="noopener noreferrer"><strong>-許可アクセス </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38181" target="_blank" rel="noopener noreferrer"><strong>+ 許可ルート </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38181" target="_blank" rel="noopener noreferrer"><strong>-許可ルート </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38190" target="_blank" rel="noopener noreferrer"><strong>+ エコキー </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38190" target="_blank" rel="noopener noreferrer"><strong>-エコキー</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38199" target="_blank" rel="noopener noreferrer"><strong>+ イネーブレスバー </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38199" target="_blank" rel="noopener noreferrer"><strong>-イネーブレーザ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38019" target="_blank" rel="noopener noreferrer"><strong>-ヘルプ</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38123" target="_blank" rel="noopener noreferrer"><strong>-飽和</strong></a><strong> </strong><em>値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38132" target="_blank" rel="noopener noreferrer"><strong>-タイムアウト</strong></a><strong> </strong><em>秒 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38236" target="_blank" rel="noopener noreferrer"><strong>+ 最初に使用 </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38236" target="_blank" rel="noopener noreferrer"><strong>-最初に使用 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38242" target="_blank" rel="noopener noreferrer"> <strong>+ V </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38242" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xlock.html#xlock__row-d3e38153" target="_blank" rel="noopener noreferrer"><strong>-検証</strong></a><strong> </strong><em>TextString </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xlock</strong> コマンドは、ユーザーがキーボードからパスワードを入力するまで X サーバーをロックします。 <strong>xlock</strong> コマンド実行中は、すべての新規サーバー接続が拒否されます。 スクリーンセーバーは使用不可になり、マウス・カーソルはオフになり、画面はブランクになりチェンジ・パターンが表示されます。 キーあるいはマウス・ボタンを押すと、<strong>xlock</strong> コマンドを始動したユーザーのパスワードの入力を要求するプロンプトが表示されます<strong>。</strong></p>
+ <p>正しいパスワードが入力されると画面がアンロックされ、X サーバーが復元されます。 パスワードを入力するときに、Ctrl-U および Ctrl-H がそれぞれ抹消および消去として使用可能となります。 ロックされた画面に戻るには、チェンジ・パターンの小アイコン・バージョンをクリックしてください。</p>
+ <p>適切に機能させるには、オペレーティング・システムがパスワードおよびアクセス制御ファイルへのアクセスを制限しているため、
+<strong>xlock</strong> は root 権限で実行されなければなりません。 <strong>xlock</strong> に root 許可を与えるには、下記のステップを実行します。</p>
+ <ol>
+<li><span></span>root としてログインします。</li>
+
+<li><span></span> <strong>xlock</strong> プログラム・ファイルが含まれているディレクトリーに移動します。</li>
+
+<li><span></span>以下の 2 つのコマンドを実行します。<ol>
+<li><span></span><strong>chown</strong><strong> ルート xlock</strong></li>
+
+<li><span></span><strong>chmod</strong><strong> u + s xlock</strong></li>
+
+</ol>
+</li>
+
+</ol>
+
+<dl>
+
+<dt>認証</dt>
+
+<dd><p><span>xlock</span> コマンドは Pluggable Authentication Module (PAM) 対応の X サーバー・コマンドで、ユーザーがパスワードを入力するまで X サーバーをロックします。 ローカルUNIX認証と、Xサーバーのロックを解除するためのPAM認証の両方をサポートしている。</p>
+
+<p>root ユーザー・アクセスを提供し、 <span>/etc/security/login.cfg
+</span> ファイルの <strong>usw</strong> スタンザの auth_type 属性の値を PAM_AUTH に変更することにより、認証に PAM を使用するようにシステム全体の構成を設定できます。</p>
+
+<div>PAM が有効であるときに使用される認証メカニズムは、<span>/etc/pam.conf</span> ファイル内のログイン・サービスの構成によって異なります。 <span>xlock</span> コマンドには、 <strong>auth</strong>、 <strong>account</strong>、 <strong>password</strong>、および <strong>session</strong> モジュール・タイプの <span>/etc/pam.conf</span> ファイル・エントリーが必要です。 <span>xlock</span> コマンドの <span>/etc/pam.conf</span> ファイル項目には、以下の構成をお勧めします。<div><div><pre><code>
+xlock               auth                 required           pam_aix
+
+xlock               account              required           pam_aix
+
+xlock               password             required           pam_aix      
+
+xlock               session              required           pam_aix</code></pre></div><div></div></div></div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-batchcount</strong><em> 数値</em><strong></strong></td>
+
+<td>バッチごとに行う処理の数を指定します。 <em>Number</em> は、モードによって参照するものが異なります。<dl>
+<dt><strong>qix (qix)</strong></dt>
+
+<dd>同じ色でレンダーする線の数を指します。</dd>
+
+
+<dt><strong>ホップ</strong></dt>
+
+<dd>同じ色でレンダーするピクセルの数を指します。</dd>
+
+
+<dt><strong>image</strong></dt>
+
+<dd>一度に画面にレンダーする Sun ロゴの数を指します。</dd>
+
+
+<dt><strong>ウォーム</strong></dt>
+
+<dd>ミツバチの数を指定します。</dd>
+
+
+<dt><strong>life</strong> および <strong>blank</strong></dt>
+
+<dd>適用されません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-bg</strong><em> 色</em><strong></strong></td>
+
+<td>パスワード画面上のバックグラウンドの色を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-delay</strong><em> 数値</em></td>
+
+<td>モードが、<strong>hopalong</strong> ピクセル、<strong>qix</strong> 線、<strong>life</strong> 生成、<strong>image</strong> ビット、および <strong>swarm</strong> モーションのバッチの間で遅延操作を行う速度をマイクロ秒で設定します。<p><strong>blank</strong> モードでは、キーボードとマウスは各遅延の後にのみ検査されるため、このフラグに小さな値を設定することが重要です。 遅延にゼロを設定すると、<strong>blank</strong> モードは何もしないため、マウスとキーボードの入力検査が間断なくループし、処理装置に余計な負荷がかかります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-display</strong><em> 表示</em><strong></strong></td>
+
+<td>X11 ディスプレイをロックするように設定します。 <strong>xlock</strong> コマンドは、サーバー上で使用できる画面をすべてロックし、ローカル・サーバー (<strong>unix:0</strong>、<strong>localhost:0</strong>、<strong>:0</strong> など) しかロックできないように制限します (<strong>-remote</strong> フラグが設定されていない場合)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fg</strong><em> 色</em><strong></strong></td>
+
+<td>パスワード画面上のテキストの色を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-フォント</strong><em> FontName</em><strong></strong></td>
+
+<td>プロンプト画面上で使用されるフォントを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>使用可能なオプションの簡潔な説明を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-インフォメーション</strong><em> TextString</em><strong></strong></td>
+
+<td>情報メッセージを定義します。 デフォルトは次のとおりです。Enter
+password to unlock; select icon to lock.</td>
+
+</tr>
+
+<tr>
+<td><strong>-無効</strong><em> TextString</em></td>
+
+<td>パスワード・メッセージを指定します。 デフォルトは次のとおりです。Invalid
+login.</td>
+
+</tr>
+
+<tr>
+<td><strong>-モード</strong><em> ModeName</em><strong></strong></td>
+
+<td>下記の 6 つのディスプレイ・モードの中から 1 つを指定します。<dl>
+<dt><strong>ブランク</strong></dt>
+
+<dd>何も表示しません。</dd>
+
+
+<dt><strong>ホップ</strong></dt>
+
+<dd><em>Scientific American</em> の 1986 年 9 月号の実平面フラクタルを表示します。</dd>
+
+
+<dt><strong>image</strong></dt>
+
+<dd>複数の Sun ロゴをランダムに表示します。</dd>
+
+
+<dt><strong>生命保険</strong></dt>
+
+<dd>Conway のライフ・ゲームを表示します。</dd>
+
+
+<dt><strong>qix (qix)</strong></dt>
+
+<dd>線が回転します。</dd>
+
+
+<dt><strong>ウォーム</strong></dt>
+
+<dd>スズメバチの後をミツバチの群れが追いかけます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ナイス</strong><em> NiceLevel</em><strong></strong></td>
+
+<td><strong>xlock</strong> プロセスのシステムの nice レベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-パスワード</strong><em> TextString</em><strong></strong></td>
+
+<td>パスワード・プロンプト文字列を指定します。 デフォルトは次のとおりです。Password:.</td>
+
+</tr>
+
+<tr>
+<td><strong>-saturation</strong><em> 値</em><strong></strong></td>
+
+<td>カラー・ランプ (色傾斜) の彩度を設定します。 値が 0 のときは中間調、1 のときは明彩色が設定されます。 値 0.4 はパステル調の色です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-timeout</strong><em> 秒</em><strong></strong></td>
+
+<td>パスワード画面がタイムアウトになる時間 (秒) を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ユーザー名</strong><em> TextString</em><strong></strong></td>
+
+<td>ユーザー名の前に表示するメッセージを指定します。 デフォルトは次のとおりです。Name:.</td>
+
+</tr>
+
+<tr>
+<td><strong>-検証</strong><em> TextString</em></td>
+
+<td>パスワードの妥当性検査中に表示されるメッセージを指定します。 デフォルトは次のとおりです。Validating login....</td>
+
+</tr>
+
+<tr>
+<td><strong>-/ + 許可アクセス</strong></td>
+
+<td>アクセス制御リストを使用不可にしますが、ローカル・サーバー上ではパスワードの入力を求めます。 <strong>xlock</strong> を <strong>-KILL</strong> コマンドで抹消する場合、アクセス制御リストは失われません。<p><strong>xlock</strong> コマンドをリモートで実行するときにもこのフラグが必要です。理由は、アクセス制御リストへのアクセスが制限されているからです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-/ + 許可ルート</strong></td>
+
+<td><strong>xlock</strong> コマンドを始動したユーザーの他に、root パスワードでもサーバーをアンロックできるようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-/ + エコー・キー</strong></td>
+
+<td><strong>xlock</strong> コマンドを画面「?」にエコー出力させます。 パスワード・プロンプトに入力された各キーの文字 (疑問符)。 デフォルトはエコーなしです。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-イネーブレス・サーバー</strong></td>
+
+<td>デフォルトのスクリーンセーバーを使用可能にします。 遅延パラメーターの値を大きく設定すると、ディスプレイが焼き付きを起こすことがあります。 このフラグは、その予防手段として使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-モノ</strong></td>
+
+<td><strong>xlock</strong> コマンドはモノクローム (黒白) のピクセルを表示します。デフォルトでは、カラー・ディスプレイにはカラーのピクセルを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-ロックなし</strong></td>
+
+<td><strong>xlock</strong> コマンドはパターン表示のみ行い、ディスプレイをロックしません。 キーを押すか、マウスをクリックすると、スクリーンセーバーが終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-リモート</strong></td>
+
+<td>X11 サーバーをリモート・ロックできるようにします。 このフラグは注意して使用しなければなりません。 このフラグの主な目的は、<strong>xlock</strong> コマンドをローカルで実行できない X11 端末をロックすることです。 他の人のワークステーションをロックした場合、そのワークステーションをアンロックするには、ロックした人のパスワードが必要になります。<strong>-remote</strong> オプションを使っても、他のシェルへの切り替えは使用可能です。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-最初に使用</strong></td>
+
+<td>パスワード画面を表示させたキー・ストロークを、パスワードの最初の入力文字として使用できるようにします。 デフォルトでは、最初のキー・ストロークは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/-v</strong></td>
+
+<td>マイナス記号を接頭部に使用すると、<strong>xlock</strong> コマンドにより、これから使用するオプションを詳細モードで指示できます。 デフォルトの接頭部はプラス記号です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

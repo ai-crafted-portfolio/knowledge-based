@@ -1,0 +1,1054 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ネットワーク上のトラフィックをダンプします。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>tcpdump</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79923" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79929" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-Bnew" target="_blank" rel="noopener noreferrer"><strong>-B</strong> <em>バッファサイズ</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79968" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79974" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79998" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80070" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80151" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80145" target="_blank" rel="noopener noreferrer">-K</a></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80162" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80183" target="_blank" rel="noopener noreferrer">-M</a></strong> <em>シークレット</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80244" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>ファイル</em> ]][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80192" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80198" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80213" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80223" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80238" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-Q" target="_blank" rel="noopener noreferrer"><strong>-Q</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-V" target="_blank" rel="noopener noreferrer"><strong> -V </strong></a>] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80262" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80276" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80315" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-T" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80346" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80352" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80361" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80406" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80418" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79935" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> <span><span>カウント</span></span> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e79944" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <span><span>ファイルサイズ</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80080" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <span><span>ファイル</span></span> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80092" target="_blank" rel="noopener noreferrer">-G</a></strong> <em>回転秒数</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80113" target="_blank" rel="noopener noreferrer"><strong>-i </strong></a> <em>インターフェース</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80282" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>スナップレン</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80388" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>ファイル</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80004" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> <span><span>アドレス</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80424" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a> <span><span>データリンクタイプ</span></span> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80437" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> <span><span>命令</span></span> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tcpdump.html#tcpdump__row-d3e80483" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> <span><span>ユーザー</span></span> ] [ <span><span>表現</span></span> ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span><span>tcpdump</span></span> コマンドは、ブール式に一致するネットワーク・インターフェース上のパケットのヘッダーを出力します。 <span><span>-w</span></span> フラグを指定してこのコマンドを実行すると、パケット・データをさらに分析するためにファイルに保存できます。 また、 <span><span>-r</span></span> フラグを指定してこのコマンドを実行すると、ネットワーク・インターフェースからパケットを読み取る代わりに、保存されたパケット・ファイルからデータを読み取ることができます。 いずれの場合も、式に一致するパケットのみが <span><span>tcpdump</span></span> コマンドによって処理されます。</p>
+
+<p><span><span>-c</span></span> フラグを指定して実行しない場合、 <span><span>tcpdump</span></span> は、SIGINT シグナル (通常は control-C) または SIGTERM シグナル (通常は <span><span>kill(1)</span></span> コマンド) によって割り込まれるまでパケットのキャプチャーを続けます。 <span><span>tcpdump</span></span> は、 <span><span>-c</span></span> フラグを指定して実行されると、SIGINT または SIGTERM シグナルによって割り込まれるか、指定された数のパケットが処理されるまで、パケットをキャプチャーします。</p>
+
+<div><span><span>tcpdump</span></span> コマンドは、すべてのパケットをキャプチャーした後、以下のカウントを返します。<dl>
+
+<dt>packets "received by filter"</dt>
+
+<dd>フィルター式にマッチするかどうかにかかわりなく、すべてのパケットをカウントします。</dd>
+
+
+
+<dt>packets "dropped by kernel"</dt>
+
+<dd>バッファー・スペースの不足のため除去されたパケットの数。</dd>
+
+
+</dl>
+</div>
+
+<p><strong>使用可能なプリミティブ</strong></p>
+
+<dl>
+
+<dt>dst host host</dt>
+
+<dd>パケットの IPv4/v6 宛先フィールドが host であれば True です。host はアドレスまたは名前のいずれかです。</dd>
+
+
+
+<dt>src host host</dt>
+
+<dd>パケットの IPv4/v6 ソース・フィールドが host であれば True です。</dd>
+
+
+
+<dt>host host</dt>
+
+<dd>パケットの IPv4/v6 ソースまたは宛先が host であれば True です。 上記の host 式では、いずれもキーワード ip、arp、rarp、または ip6 を前に付加することができます。例えば、ip host host は次の式と同等です。<div><div><pre><code>ether proto \ip and host host</code></pre></div><div></div></div>host が複数の IP アドレスを持つ名前の場合は、各アドレスが一致するかどうか検査されます。</dd>
+
+
+
+<dt>ether dst ehost</dt>
+
+<dd>イーサネット宛先アドレスが <code>ehost</code> であれば True です。 Ehost は、 <span><span>/etc/ethers</span></span> からの名前または数値のいずれかです (数値形式については、eザーズ (3N) を参照してください)。</dd>
+
+
+
+<dt>ether src ehost</dt>
+
+<dd>イーサネット・ソース・アドレスが <code>ehost</code> であれば True です。</dd>
+
+
+
+<dt>ether host ehost</dt>
+
+<dd>イーサネット・ソース・アドレスまたは宛先アドレスが <code>ehost</code> であれば True です。</dd>
+
+
+
+<dt>gateway host</dt>
+
+<dd>パケットが host をゲートウェイとして使用していた場合は True です。 例えば、イーサネット・ソース・アドレスまたはイーサネット宛先アドレスが host であって、IP ソースと IP 宛先がいずれも host でない場合です。 ホストは名前でなければならず、マシンのホスト名から IP アドレスへの解決メカニズム (ホスト名ファイル、DNS、NIS など) によって検出される必要があります。 およびマシンのホスト名からイーサネット・アドレスへの解決メカニズム (/etc/ethers, など) によって。 同等の式は ether host ehost です。host host は同等ではなく、host /ehost の名前または番号のいずれかと共に使用できます。 この構文は、現時点の IPv6 使用可能な構成では機能しません。</dd>
+
+
+
+<dt>dst net net</dt>
+
+<dd>パケットの IPv4/v6 宛先アドレスにネットワーク番号 net が付いていれば True です。</dd>
+
+
+
+<dt>src net net</dt>
+
+<dd>パケットの IPv4/v6 ソース・アドレスにネットワーク番号 net が付いていれば True です。</dd>
+
+
+
+<dt>net net</dt>
+
+<dd>パケットの IPv4/v6 ソース・アドレスまたは宛先アドレスのいずれかにネットワーク番号 net が付いていれば True です。</dd>
+
+
+
+<dt>net net mask netmask</dt>
+
+<dd>IP アドレスが特定のネットマスクを持つ net に一致すれば True です。 これは src または dst で修飾される場合があります。 IPv6 net の場合、
+この構文は無効です。</dd>
+
+
+
+<dt>net net/len</dt>
+
+<dd>IPv4/v6 アドレスがネットマスク len ビット幅の net に一致すれば True です。 src または dst で修飾できます。</dd>
+
+
+
+<dt>dst port port</dt>
+
+<dd>パケットが ip/tcp、ip/udp、ip6/tcp、または ip6/udp であって、宛先ポート値が port であれば True です。 ポートは、 <span><span>/etc/services</span></span> (tcp (4P) および udp (4P) を参照) で使用される番号または名前にすることができます。 名前を使用すると、ポート番号とプロトコルが検査されます。 番号
+または未確定名が使用されると、ポート番号のみが検査されます (例えば、dst port 513 を指定すると、tcp/login トラフィック
+と udp/who トラフィックの両方が出力され、port domain を指定すると、tcp/domain と udp/domain トラフィックの両方が
+出力されます)。</dd>
+
+
+
+<dt>src port port</dt>
+
+<dd>パケットのソース・ポート値が port であれば True です。</dd>
+
+
+
+<dt>port port</dt>
+
+<dd>パケットのソース・ポートまたは宛先ポートのいずれかが port であれば True です。 上記の port 式のいずれも、キーワード tcp または udp を前に付加することができます。例えば、tcp src port port とすることができ、これはソース・ポートが port である tcp パケットのみに一致します。</dd>
+
+
+
+<dt>less length</dt>
+
+<dd>パケットの長さが length 以下であれば True です。 これは len &lt;= length と同等です。</dd>
+
+
+
+<dt>greater length</dt>
+
+<dd>パケットの長さが length 以上であれば True です。 これは、len &gt;= length に相当します。</dd>
+
+
+
+<dt>ip proto protocol</dt>
+
+<dd>パケットがプロトコル・タイプ protocol の IP パケットであれば True です。 protocol には、番号、または名前 icmp、icmp6、igmp、igrp、pim、ah、esp、vrrp、udp、tcp の 1 つを使用できます。 ID tcp、udp、および icmp はキーワードでもあるので、円記号 (&amp;#xa5;) でエスケープする必要があることに注意してください。C シェルでは &amp;#xa5;&amp;#xa5; にします。 このプリミティブはプロトコル・ヘッダー・チェーンを追跡しないことに注意してください。</dd>
+
+
+
+<dt>ip6 proto protocol</dt>
+
+<dd>パケットがプロトコル・タイプ protocol の IPv6 パケットであれば True です。 このプリミティブはプロトコル・ヘッダー・チェーンを追跡しないことに注意してください。</dd>
+
+
+
+<dt>ip6 protochain protocol</dt>
+
+<dd>パケットが IPv6 パケットであって、そのプロトコル・ヘッダー・チェーンにタイプ protocol のプロトコル・ヘッダーがあれば True です。 例えば、ip6 protochain 6 は、プロトコル・ヘッダー・チェーンに TCP プロトコル・ヘッダーを持つ任意の IPv6 パケットに一致します。 パケットには、IPv6 ヘッダーと TCP ヘッダーの間に、例えば、認証ヘッダー、経路指定ヘッダー、またはホップ・バイ・ホップ・オプション・ヘッダーが含まれていることがあります。 このプリミティブによって発行される Berkeley Packet Filter (BPF) コードは複雑であり、 <span><span>tcpdump</span></span>の BPF オプティマイザー・コードでは最適化できないため、多少時間がかかる可能性があります。</dd>
+
+
+
+<dt>ip protochain protocol</dt>
+
+<dd>ip6 protochain protocol に相当します。 ただし、これは Ipv4 に使用されます。</dd>
+
+
+
+<dt>ether broadcast</dt>
+
+<dd>パケットがイーサネット・ブロードキャスト・パケットであれば True です。 ether キーワードはオプションです。</dd>
+
+
+
+<dt>ip broadcast</dt>
+
+<dd>パケットが IPv4 ブロードキャスト・パケットであれば True です。 すべてゼロとすべて 1 のブロードキャスト規約が検査され、捕そくが行われるインターフェースでサブネット・マスクが検索されます。<p>例えば取り込みが行われているインターフェースにネットマスクがないときのように、
+取り込みが行われているインターフェースのサブネット・マスクが使用不可の場合、
+この検査は正しく機能しません。</p>
+</dd>
+
+
+
+<dt>ether multicast</dt>
+
+<dd>パケットがイーサネット・マルチキャスト・パケットであれば True です。 ether キーワードはオプションです。 これは <code>ether[0] &amp; 1 != 0</code>の省略形です。</dd>
+
+
+
+<dt>ip multicast</dt>
+
+<dd>パケットが IP マルチキャスト・パケットであれば True です。</dd>
+
+
+
+<dt>ip6 multicast</dt>
+
+<dd>パケットが IPv6 マルチキャスト・パケットであれば True です。</dd>
+
+
+
+<dt>ether proto protocol</dt>
+
+<dd>パケットが ether タイプ protocol であれば True です。protocol には、番号、または名前 ip、 ip6、arp、rarp、atalk、aarp、decnet、sca、lat、mopdl、moprc、iso、stp、ipx、netbeui の 1 つを使用できます。 これらの ID はキーワードでもあるので、円記号 (&amp;#xa5;) でエスケープする必要があることに注意してください。<div>[FDDI (例えば、「fddi protocol arp」)、トークンリング (例えば、「tr protocol arp」)、および IEEE 802.11 無線 LAN (例えば、「wlan protocol arp」) の場合、これらのプロトコルの大部分ではプロトコル ID が 802.2 論理リンク制御 (LLC) ヘッダーから取られます。このヘッダーは、通常、FDDI ヘッダー、トークンリング・ヘッダー、または 802.11 ヘッダーの上部に階層化されます。 FDDI、トークンリング、または 802.11 に大部分のプロトコル ID のフィルタリングを行う場合、tcpdump は、カプセル化されたイーサネットについて、0x000000 の Organizational UnitIdentifier (OUI) のあるいわゆる SNAP 形式の LLC ヘッダーのプロトコル ID フィールドのみを検査します。パケットが 0x000000 の OUI のある SNAP 形式であるかどうかの検査は行いません。 例外は次のとおりです。<dl>
+
+<dt>ISO</dt>
+
+<dd><span><span>tcpdump</span></span> は、LLC ヘッダーの DSAP (宛先サービス・アクセス・ポイント) および SSAP (ソース・サービス・アクセス・ポイント) フィールドを検査します。</dd>
+
+
+
+<dt>stp and netbeui</dt>
+
+<dd><span><span>tcpdump</span></span> は LLC ヘッダーの DSAP を検査します。</dd>
+
+
+
+<dt>atalk</dt>
+
+<dd><span><span>tcpdump</span></span> は、 0x080007 の OUI と AppleTalk etype を使用した SNAP 形式のパケットを検査します。</dd>
+
+
+</dl>イーサネットの場合、 <span><span>tcpdump</span></span> は、これらのプロトコルのほとんどについてイーサネット・タイプ・フィールドを検査します。 例外は次のとおりです。<dl>
+
+<dt>iso、sap、および netbeui</dt>
+
+<dd><span><span>tcpdump</span></span> は、 802.3 フレームを検査してから、FDDI、トークンリング、および 802.11の場合と同様に LLC ヘッダーを検査します。</dd>
+
+
+
+<dt>atalk</dt>
+
+<dd><span><span>tcpdump</span></span> は、FDDI、トークンリング、および 802.11の場合と同様に、イーサネット・フレーム内の AppleTalk etype と SNAP フォーマット・パケットの両方を検査します。</dd>
+
+
+
+<dt>aarp</dt>
+
+<dd><span><span>tcpdump</span></span> は、OUI が 0x000000; のイーサネット・フレームまたは 802.2 SNAP フレーム内の AppleTalk ARP etype を検査します。</dd>
+
+
+
+<dt>ipx</dt>
+
+<dd><span><span>tcpdump</span></span> は、イーサネット・フレーム内の IPX etype、LLC ヘッダー内の IPX DSAP、IPX の 802.3-with-no-LLC-header カプセル化、および SNAP フレーム内の IPX etype を検査します。</dd>
+
+
+</dl>
+</div>
+</dd>
+
+
+
+<dt>decnet src host</dt>
+
+<dd>DECNET ソース・アドレスが host であれば True です。host は形式 10.123 のアドレス、または DECNET ホスト名の場合があります。 [DECNET ホスト名サポートは、DECNET を実行するように構成された Ultrix システムでのみ選択可能です。]</dd>
+
+
+
+<dt>decnet dst host</dt>
+
+<dd>DECNET 宛先アドレスが host であれば True です。</dd>
+
+
+
+<dt>decnet host host</dt>
+
+<dd>DECNET ソース・アドレスまたは宛先アドレスが host であれば True です。</dd>
+
+
+
+<dt>ifname interface</dt>
+
+<dd>パケットが指定されたインターフェースからのものとしてログに記録されたのであれば True です。</dd>
+
+
+
+<dt>on interface</dt>
+
+<dd>ifname modifier と同義。</dd>
+
+
+
+<dt>rnr num</dt>
+
+<dd>パケットが指定された PF 規則番号に一致するものとしてログに記録されたのであれば True です (OpenBSD の pf(4) により記録されたパケットにのみ適用)。</dd>
+
+
+
+<dt>rulenum num</dt>
+
+<dd>rnr modifier と同義。</dd>
+
+
+
+<dt>理由コード</dt>
+
+<dd>パケットが指定された PF 理由コードと共にログに記録されたのであれば True です。 既知のコードは、 match、bad-offset、fragment、short、normalize、memory (OpenBSD'sの'<span><span>pf(4)</span></span> によって記録されたパケットにのみ適用される) です。</dd>
+
+
+
+<dt>action act</dt>
+
+<dd>パケットがログに記録されたときに、PF が指定されたアクションを行ったのであれば True です。 既知のアクションは、パスとブロック (OpenBSD'sの'<span><span>pf(4)</span></span> によって記録されたパケットにのみ適用される)</dd>
+
+
+
+<dt>netbeui</dt>
+
+<dd>ip、ip6、arp、rarp、atalk、aarp、decnet、iso、stp、ipx。<p>以下の省略形です。</p>
+
+<div><div><pre><code>ether proto p</code></pre></div><div></div></div>ここで、<span><span>p</span></span> は上記のプロトコルの 1 つです。<p>lat、moprc、mopdl</p>
+
+<div>以下の省略形です。<div><div><pre><code>ether proto p</code></pre></div><div></div></div>ここで、<span><span>p</span></span> は上記のプロトコルの 1 つです。 <span><span>tcpdump</span></span> は現在、これらのプロトコルの解析方法を認識していないことに注意してください。</div>
+</dd>
+
+
+
+<dt>vlan <span><span>［vlan_id</span></span> ］</dt>
+
+<dd>パケットが IEEE 802.1Q VLAN パケットであれば True です。 <span><span>vlan_id</span></span> が指定されている場合、指定されている <span><span>vlan_id</span></span> があるパケットのみが True です。 式で最初に検出された <span><span>vlan</span></span> キーワードは、パケットが VLAN パケットであると仮定して、式の残りの部分のデコード・オフセットを変更することに注意してください。</dd>
+
+
+
+<dt>tcp、udp、icmp</dt>
+
+<dd>以下の省略形です。<div><div><pre><code>ip proto p or ip6 proto p</code></pre></div><div></div></div>ここで、<span><span>p</span></span> は上記のプロトコルの 1 つです。</dd>
+
+
+
+<dt>iso proto protocol</dt>
+
+<dd>パケットがプロトコル・タイプ protocol の OSI パケットであれば True です。 protocol には、番号、または名前 clnp、esis、または isis の 1 つを使用できます。</dd>
+
+
+
+<dt>clnp、esis、isis</dt>
+
+<dd>以下の省略形です。<ul>
+<li>iso proto p</li>
+
+</ul>ここで、<span><span>p</span></span> は上記のプロトコルの 1 つです。</dd>
+
+
+
+<dt>l1、l2、iih、lsp、snp、csnp、psnp</dt>
+
+<dd>IS-IS PDU タイプの省略形です。</dd>
+
+
+
+<dt>vpi <span><span>n</span></span></dt>
+
+<dd>仮想パス ID <span><span>n</span></span> の Solaris 上の SunATM の場合、パケットが ATM パケットであれば True です。</dd>
+
+
+
+<dt>VCI <span><span>n</span></span></dt>
+
+<dd>仮想チャネル ID <span><span>n</span></span> の Solaris 上の SunATM の場合、パケットが ATM パケットであれば True です。</dd>
+
+
+
+<dt>lane</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、ATM LANE パケットであれば True です。 式の中に最初の lane キーワードが検出されると、パケットが LANE エミュレートされたイーサネット・パケットまたは LANE LE 制御パケットであると想定されて、式の残りの部分で実行されるテストが変更されることに注意してください。 lane を指定しない場合は、テストは、パケットが LLC カプセル化パケットであるという想定の下で実行されます。</dd>
+
+
+
+<dt>llc</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、LLC カプセル化パケットであれば True です。</dd>
+
+
+
+<dt>oamf4s</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、セグメント OAM F4 フロー・セル (VPI=0 &amp; VCI=3) であれば True です。</dd>
+
+
+
+<dt>oamf4e</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、エンドツーエンド OAM F4 フロー・セル (VPI=0 &amp; VCI=4) であれば True です。</dd>
+
+
+
+<dt>oamf4</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、セグメントまたはエンドツーエンド OAM F4 フロー・セル (VPI=0 &amp; (VCI=3 | VCI=4)) であれば True です。</dd>
+
+
+
+<dt>oam</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、セグメントまたはエンドツーエンド OAM F4 フロー・セル (VPI=0 &amp; (VCI=3 | VCI=4)) であれば True です。</dd>
+
+
+
+<dt>metac</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、メタシグナル回路上 (VPI=0 &amp; VCI=1) にあれば True です。</dd>
+
+
+
+<dt>bcc</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、ブロードキャスト・シグナル回路上 (VPI=0 &amp; VCI=2) にあれば True です。</dd>
+
+
+
+<dt>sc</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、シグナル回路上 (VPI=0 &amp; VCI=5) にあれば True です。</dd>
+
+
+
+<dt>ilmic</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、ILMI 回路上 (VPI=0 &amp; VCI=16) にあれば True です。</dd>
+
+
+
+<dt>connectmsg</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、シグナル回路上にあり、Q.2931 Setup、Call Proceeding、Connect、Connect Ack、Release、または Release Done メッセージであれば True です。</dd>
+
+
+
+<dt>metaconnect</dt>
+
+<dd>Solaris 上の SunATM の場合、パケットが ATM パケットであって、メタシグナル回路上にあり、Q.2931 Setup、Call Proceeding、Connect、Release、または Release Done メッセージであれば True です。</dd>
+
+
+
+<dt>expr relop expr</dt>
+
+<dd>relop が &gt;、&lt;、&gt;=、&lt;=、=、!= のいずれかで、expr が整数定数 (標準の C 構文で表される)、通常のバイナリー演算子 [+、-、*、/、&amp;amp;、|]、長さ演算子、および特別なパケットのデータ・アクセサーで構成される演算式であるという関係が維持される場合は True です。 パケット内のデータにアクセスするには、以下の構文を使用します。<div><div><pre><code>proto [ expr : size ]</code></pre></div><div></div></div>proto は、ether、fddi、tr、wlan、ppp、slip、link、ip、arp、rarp、tcp、udp、icmp、または ip6 の 1 つであり、指標演算のプロトコル層を示します。 (ether、fddi、wlan、tr、ppp、slip、および link は、いずれもリンク層を参照します。) tcp、udp、およびその他の上層プロトコル・タイプは、IPv4 にのみ適用され、IPv6 には適用されない (これは将来修正されます) ことに注意してください。 指示されたプロトコル層に相対的なバイト・オフセットは、expr によって与えられます。 size はオプションであり、当該フィールド内のバイト数を示します。1、2、または 4 を使用できますが、デフォルトは 1 です。 長さ演算子はキーワード len で表され、パケットの長さを示します。<p>例えば、 <code>ether[0] &amp; 1 != 0</code> はすべてのマルチキャスト・トラフィックをキャッチします。 式 <code>ip[0] &amp; 0xf !=5</code> は、オプションを使用してすべての IP パケットをキャッチします。 式 <code>ip[6:2] &amp; 0x1fff = 0</code> は、フラグメント化されていないデータグラムとフラグメント化されたデータグラムのフラグメント・ゼロのみをキャッチします。 この検査は、tcp および udp 指標演算に暗黙的に適用されます。 例えば、tcp[0] は常に TCP ヘッダーの最初のバイトを意味し、中間フラグメントの最初のバイトを意味することはありません。</p>
+
+<p>一部のオフセットおよびフィールド値は、数値ではなく名前として表されることがあります。 使用可能なプロトコル・ヘッダー・フィールド・オフセットは、icmptype (ICMP タイプ・フィールド)、icmpcode (ICMP コード・フィールド)、および tcpflags (TCP フラグ・フィールド) です。</p>
+
+<p>次の ICMP タイプ・フィールドが使用可能です。icmp-echoreply、icmp-unreach、icmp-sourcequench、icmp-redirect、icmp-echo、icmp-routeradvert、
+icmp-routersolicit、icmp-timxceed、icmp-paramprob、icmp-tstamp、icmp-tstampreply、icmp-ireq、
+icmp-ireqreply、icmp-maskreq、icmp-maskreply。</p>
+
+<p>次の TCP フラグ・フィールドが使用可能です。tcp-fin、tcp-syn、tcp-rst、tcp-push、tcp-ack、tcp-urg。</p>
+</dd>
+
+
+</dl>
+
+<p><strong>プリミティブの結合</strong></p>
+
+<div>プリミティブと演算子を括弧で囲んだグループ (括弧はシェルに特有なもので、エスケープする必要があります)。<div><div><pre><code>          Negation (`!' or `not').
+
+          Concatenation (`&amp;&amp;' or `and').
+
+          Alternation (`||' or `or').</code></pre></div><div></div></div>この中で最優先されるのは否定です。 代替と連結の優先順位は同じで、左から右に関係付けられます。 ここで連結に必要なのは並置ではなく、明示とトークンであることに注意してください。</div>
+
+<p>キーワードを付けずに ID を指定すると、
+最後のキーワードが想定されます。 例えば、<code>not host vs and ace</code> は <code>not host vs and host ace</code> の省略形で、<code>not ( host vs or ace )</code> と混同しないようにする必要があります。</p>
+
+<p>式の引数は、単一の引数または複数の引数のいずれか都合のよい方として <span><span>tcpdump</span></span> に渡すことができます。 一般に、式にシェル・メタキャラクターが入っている場合は、引用符で囲んで単一の引数として渡す方が簡単です。 複数の引数は、構文解析前にスペースで連結されます。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>ネットワーク・アドレスおよびブロードキャスト・アドレスから名前への変換を試みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>各パケットを (リンク・レベル・ヘッダーを除いて) ASCII で出力します。 Web ページの取り込みに便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong> <em>バッファー・サイズ</em></td>
+
+<td>バッファー・サイズをキロバイト単位で示します。 それより小さい値でも受け入れられます。 バッファー・サイズが BPF で設定された最小値より小さい場合、実際のバッファー・サイズは無視され、Berkeley Packet Filter (BPF) で設定された値が使用されます。 <strong>-B</strong> オプションを指定しないと、バッファー・サイズのデフォルトは 32,768 になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong>
+ Count
+</td>
+
+<td>Count パケットを受信した後で終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong> <em>file_size</em></td>
+
+<td><em>savefile</em> にロー・パケットを書き込む前に、ファイルが現在 <em>file_size</em> より大きいかどうか検査し、大きい場合は現行の savefile を閉じて新しいファイルを開きます。 最初の <em>savefile</em> より後の savefile の名前には、<strong>-w</strong> フラグで指定された名前の後に番号が付きます。
+番号は 2 から始まり、上がっていきます。 <em>file_size</em> の単位は、百万バイト (1,048,576 バイトではなく 1,000,000 バイト) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>コンパイル済みのパケット・マッチング・コードを標準出力にダンプしてから停止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>システム上で使用でき、<strong>tcpdump</strong> がパケットを取り込めるネットワーク・インターフェースのリストを出力します。 ネットワーク・インターフェースごとに、番号とインターフェース名 (インターフェースのテキスト記述が続くこともある) が出力されます。 インターフェース名または番号を <em>-i</em> フラグに指定して、捕そくに使用するインターフェースを指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-dd</strong></td>
+
+<td>パケット・マッチング・コードを C プログラム・フラグメントとしてダンプします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ddd</strong></td>
+
+<td>パケット・マッチング・コードを 10 進数 (前にカウントが付く) としてダンプします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>各ダンプ行にリンク・レベルのヘッダーを出力します。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>E </strong><em>アドレス</em></td>
+
+<td><code>spi@ipaddr algo:secret</code> を使用して、<em>addr</em> にアドレッシングされ、セキュリティー・パラメーター・インデックス値 <code>spi</code> を含んでいる IPsec ESP パケットの暗号化解除を行います。 この組み合わせは、コンマまたは改行で分離して繰り返すことができます。<div><div>
+        <div>
+          <div><span>注:</span> IPv4 ESP パケットのシークレットの設定がサポートされるようになりました。</div>
+        </div>
+      </div></div>
+
+<p>アルゴリズムは、 <code>des-cbc</code>、 <code>3des-cbc</code>、 <code>blowfish-cbc</code>、 <code>rc3-cbc</code>、 <code>cast128-cbc</code>、または none にすることができます。 デフォルトは <code>des-cbc</code> です。 パケットの暗号化解除は、<strong>libcrypto</strong> がインストールされて LIBPATH 内にある場合にのみ機能します。</p>
+
+<p><code>secret</code> は、ESP 秘密鍵の ASCII テキストです。 前に <code>0x</code> が付くと、16 進数値が読み取られます。</p>
+
+<p>このオプションでは、RFC1827 ESP ではなく RFC2406 ESP が前提とされています。 このオプションはデバッグのみを目的としており、真の秘密鍵に使用することはお勧めできません。 IPsec 秘密鍵をコマンド・ラインで使用すると、<strong>ps(1)</strong> などの機会に他の人に見られる結果となります。</p>
+
+<p>上記の構文に加えて、<strong>tcpdump</strong> コマンドは構文ファイル名を使用して、
+指定されたファイルを読み取ることがあります。 このファイルは最初の ESP パケットを受信したときに開くので、<strong>tcpdump</strong> に与えることができる許可は、既に与えられていなければなりません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>外部 IPv4 アドレスを記号ではなく数値で出力します。<p>外部 IPv4 アドレスのテストは、IPv4 アドレスと、捕そくの実行に使用するインターフェースのネットマスクを使用して行われます。 そのアドレスまたはネットマスクが使用不可の場合、このオプションは正しく機能しません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong> <em>ファイル</em></td>
+
+<td>フィルター式の入力として <em>file</em> を使用します。 コマンド・ラインに入力された追加の式は無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong> <em>rotate_seconds</em></td>
+
+<td><strong>-w</strong> オプションによって指定されたダンプ・ファイルを、<em>rotate_seconds</em> 秒ごとに循環させます。 <strong>-C</strong> オプションと一緒に使用した場合、<em>size</em> 変数に指定された値に先に達すると、ファイル名は <em>file &amp;amp;lt;count&gt;</em> の形式になります。 そうでない場合、<em>rotate_seconds</em> 変数に指定された値の時間が経過すると、<strong>tcpdump</strong> コマンドはファイルを循環させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> インターフェース</em></td>
+
+<td><em>interface</em> を listen します。 指定されていない場合、<strong>tcpdump</strong> は、システム <em>interface</em> リスト内で、最下位の番号を持つ構成済みの <em>interface</em> (ループバックを除外) を検索します。 最も早い一致を選択することにより、結合が切断されます。<p><span><span>-D</span></span> フラグによって出力される <em>interface</em> 番号は、 <em>interface</em> 引数として使用できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td>TCP チェックサム計算をハードウェア内で実行するインターフェース上では、TCP チェックサムの検証をスキップします。 このフラグを使用しなければ、すべての発信 TCP チェックサムに不良のフラグが立てられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><em>stdout</em> 行がバッファーに入れられます。 データの捕そく中にそのデータを表示するのに役立ちます。 次に例を示します。<div><div><pre><code>tcpdump -l | tee dat
+  or  
+tcpdump -l   &gt;   dat &amp; tail -f dat</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>インターフェースに関する既知のデータ・リンク・タイプをリストして、終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m </strong><em>module</em></td>
+
+<td><em>module</em> ファイルから SMI MIB モジュール定義をロードします。 このオプションを複数回使用して、複数の MIB モジュールを <strong>tcpdump</strong> にロードできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td><strong>TCP-MD5</strong> オプション (Request for Comment (RFC) 2385) を使用して、TCP セグメント内で検出されたダイジェストを検証するための共有秘密鍵として、secret を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ホスト・アドレスとポート番号が名前に変換されるのを妨害します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>ホスト名のドメイン・ネームの修飾の出力を省略します。 例えば、<strong>tcpdump</strong> は <code>nic.ddn.mil</code> の代わりに <code>nic</code> を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td><strong>tcpdump</strong> がパケット・マッチング・コード最適化プログラムを実行しないようにします。 これは、最適化プログラムにバグがあると思われる場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>インターフェースがプロミスキャス・モードになるのを防ぎます。 インターフェースが他の何らかの理由でプロミスキャス・モードになっている可能性があることに注意してください。そのため、 <strong>-p</strong> を <code>ether host {local-hw-addr}</code> または <code>ether broadcast</code>の省略形として使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>高速出力。 出力されるプロトコル情報が少なくなるため、出力行が短くなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong></td>
+
+<td>記録されたパケットをトレースするフィルター・システムを使用可能にします。 ネットワーク通信サブシステムに関連する選択したシステム・イベントを記録するには、<span>AIX</span>トレース・デーモンを実行する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>file</em></td>
+
+<td><em>file</em> (<strong>-w</strong> オプションで作成された) からパケットを読み取ります。 <em>file</em> が "-" の場合は、標準入力が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>ESP/AH パケットは古い仕様に基づいていると想定されます。<p>(RFC1825 から RFC1829) これが指定されると、<strong>tcpdump</strong> はリプレイ予防フィールドを出力しません。 ESP/AH 仕様にはプロトコル・バージョン・フィールドがないため、<strong>
+tcpdump</strong> は ESP/AH プロトコルのバージョンを推測できません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>相対ではなく絶対の TCP シーケンス番号を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>snaplen</em></td>
+
+<td>デフォルトの 68 ではなく、各パケットからのデータの Snarf <em>snaplen</em> バイト数。68 バイトは、IP、ICMP、TCP、および UDP には十分ですが、ネーム・サーバーおよび NFS パケットからはプロトコル情報を切り捨てる場合があります (下記を参照)。 限定されたスナップショットのため切り捨てられたパケットは、[|<em>proto</em>] として出力に表示されます。ここで、<em>proto</em> は、切り捨てが発生したプロトコル・レベルの名前です。 処理するスナップショットの量を増やすと、パケットの処理時間が長くなり、パケット・バッファリングの量を効果的に減らせることに注意してください。 ただし、この場合、パケットが失われることがあります。 <em>snaplen</em> を、関心のあるプロトコル情報を取り込む最小数に
+制限してください。 <em>snaplen</em> を 0 に設定すると、パケット全部をキャッチするために必要な長さを使用することになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td><em>expression</em> で選択されたパケットが指定のタイプと解釈されるように強制します。 現在、既知のタイプは、cnfp (Cisco NetFlow プロトコル)、rpc (リモート・プロシージャー・コール)、rtp (Real-Time Applications プロトコル)、rtcp (Real-Time Applications 制御プロトコル)、snmp (Simple Network Management Protocol)、tftp (Trivial File Transfer プロトコル)、vat (Visual Audio Tool)、および wb (distributed White Board)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>各ダンプ行にタイム・スタンプを出力しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-tt</strong></td>
+
+<td>各ダンプ行にフォーマットされていないタイム・スタンプを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ttt</strong></td>
+
+<td>各ダンプ行について、現在の行と直前の行との差分 (マイクロ秒) を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-tttt</strong></td>
+
+<td>各ダンプ行について、日付が先行するデフォルト形式でタイム・スタンプを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ttttt</strong></td>
+
+<td>各ダンプ行について、現在の行と最初の行との差分 (マイクロ秒) を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>デコードされていない NFS ハンドルを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td><strong>-w</strong> オプションを介して出力を保管します。例: "packet-buffered"。 保存された各パケットは、出力バッファーがいっぱいになったときのみに出力ファイルに書き込まれるのではなく、
+保存された時点で出力ファイルに書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>やや詳細な出力を指定します。 例えば、存続時間、識別番号、全長、および IP パケット内のオプションが出力されます。 また、IP および ICMP ヘッダー・チェックサムの検査などの追加のパケット保全性検査が使用可能になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-vv</strong></td>
+
+<td><strong>-v</strong> よりさらに詳細な出力。 例えば、NFS から追加のフィールドが出力され、応答パケットが完全にデコードされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-vvv</strong></td>
+
+<td><strong>-vv</strong> よりさらに詳細な出力。 例えば、telnet SB ... SE オプションはフルで印刷されます。 <span><span>-X</span></span> では、Telnet オプションも 16 進数で出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>ソケット・デバッグ・フラグ (<strong>SO_DEBUG</strong> ソケット・オプション) およびソケット上のトレース・レベルを設定します。 このフラグは、<strong>-Q</strong> フラグと一緒に使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>file</em></td>
+
+<td>ロー・パケットを構文解析して出力する代わりに、<em>file</em> に書き込みます。 ロー・パケットは、後で <strong>-r</strong> フラグを使用して出力することができます。 <em>File</em> が「-」であれば、標準出力が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>各パケットを (リンク・レベル・ヘッダーを除いて) 16 進形式で出力します。 パケット全体と snaplen バイトのうち、小さい方が出力されます。 これは
+リンク層パケット全体であるため、埋め込むリンク層 (例えば、イーサネット) の場合は、
+必要な埋め込みより高位層パケットのほうが短い場合に
+埋め込みバイトも出力されることに注意してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-xx</strong></td>
+
+<td>レベル・ヘッダーを含めて各パケットを 16 進形式で出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>各パケットを (リンク・レベル・ヘッダーを除いて) 16 進形式と ASCII で出力します。 これは新しいプロトコルの分析にとても便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong><em> datalinktype</em></td>
+
+<td>パケットの取り込み中に使用するデータ・リンク・タイプを <span><span>datalinktype</span></span> に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong> <em>command</em></td>
+
+<td><strong>-C</strong> オプションまたは <strong>-G</strong> オプションと組み合わせて使用すると、指定したコマンドが、<strong>tcpdump</strong> コマンドによって <em>savefile</em> を対象に実行されます。 例えば、<strong>-z gzip</strong> または <strong>-z
+bzip2</strong> を指定すると、それぞれの <em>savefile</em> が <strong>gzip</strong> コマンドまたは <strong>bzip2</strong> コマンドを使用して圧縮されます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>tcpdump</strong> コマンドは、キャプチャー・プロセスに影響を与えないように、最も低い優先順位を使用して <strong>-z</strong> コマンドをキャプチャーと並行して実行します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong> <em>user</em></td>
+
+<td>指定されたユーザーのシステム特権で <strong>tcpdump</strong> コマンドを
+実行します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>パラメーター</h2>
+
+<dl>
+
+<dt><span><span>式</span></span></dt>
+
+<dd>ダンプされるパケットを選択します。 式が指定されている場合は、
+式が <code>true</code> であるパケットのみがダンプされます。
+式が指定されていない場合は、net 上のすべてのパケットがダンプされます。<div>expression は 1 つ以上のプリミティブから構成されます。 通常、プリミティブは、1 つ以上の修飾子が前に付いた ID (名前または番号) から構成されます。 次の 3 種類の修飾子があります。<ul>
+<li><span><span>type</span></span> 修飾子は、ID 名または番号が参照するプリミティブのタイプを示します。 可能な type は host、net、および port です。 例:「host foo」、「net 128.3」、「port 20」。 type 修飾子がない場合は、host であると想定されます。</li>
+
+<li><span><span>dir</span></span> 修飾子は、ID との間の特定の転送方向を指定します。 可能な方向は、src、dst、src or dst、および src and dst です。 dir 修飾子がない場合は、src or dst であると想定されます。 SLIP などのリンク層やその他のデバイス・タイプの場合、インバウンド修飾子およびアウトバウンド修飾子を使用して、望ましい方向を指定できます。</li>
+
+<li><span><span>proto</span></span> 修飾子は、一致を特定のプロトコルに制限します。 可能な proto は、fddi、tr、wlan、
+ip、ip6、arp、rarp、decnet、tcp、および udp です。 proto 修飾子がない場合は、type に整合するすべてのプロトコルであると想定されます。</li>
+
+</ul>
+</div>
+
+<p><span><span>fddi</span></span> は ether の別名です。 パーサーは、これを「指定されたネットワーク・インターフェース上で使用されるデータ・リンク・レベル」を意味するものとして扱います。 FDDI ヘッダーには、イーサネット式のソース・アドレスと宛先アドレスが含まれ、イーサネット式のパケット・タイプが含まれることもしばしばあります。そのため、類似したイーサネット・フィールドの場合と同様にこれらの FDDI フィールドによるフィルタリングが可能です。 FDDI ヘッダーにはこれ以外のフィールドも含まれますが、それらのフィールドはフィルター式では指定できません。</p>
+
+<p><span><span>fddi</span></span>と同様に、 <span><span>tr</span></span> および <span><span>wlan</span></span> は ether の別名です。 前のパラグラフの FDDI ヘッダーに関する記述は、トークンリング・ヘッダーおよび 802.11 無線 LAN ヘッダーにも当てはまります。 802.11 ヘッダーの場合、宛先アドレスは DA フィールド、ソース・アドレスは SA フィールドです。BSSID フィールド、RA フィールド、および TA フィールドはテストされていません。</p>
+
+<p>上記以外に、パターンに従わない特殊な「プリミティブ」キーワード (gateway、broadcast、less、
+greater) および演算式があります。 これらについては、いずれも以下で説明します。</p>
+
+<p>ワード <code>and</code>、<code>or</code>、および <code>not</code> を使用してプリミティブを組み合わせると、さらに複雑なフィルター式が作成されます。</p>
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>環境変数</h2>
+
+<div><span><span>-E</span></span> フラグを機能させるには、LIBPATH 環境変数を設定するか、 <span><span>libcrypto</span></span> ライブラリーを <span><span>/usr/lib</span></span> に設定する必要があります。 次に例を示します。<div><div><pre><code>ksh$ LIBPATH=/opt/freeware/lib tcpdump -E"algo:secret"</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>成功</td>
+
+</tr>
+
+<tr>
+<td>ゼロ以外</td>
+
+<td>エラー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p>ネットワーク・インターフェースからパケットを読み取るには、 <span><span>/dev/bpf*</span></span>(通常は root のみ) への読み取りアクセスが必要です。 ファイルからパケットを読み取るには、ファイル読み取り許可以外の特殊な特権は必要ありません。</p>
+
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>sundown に着信するすべてのパケットまたは sundown から発信されるすべてのパケットを出力するには、次のように入力します。<div><div><pre><code>tcpdump host sundown</code></pre></div><div></div></div></li>
+
+<li>helios と hot または ace のいずれかとの間のトラフィックを出力するには、次のように入力します。<div><div><pre><code>tcpdump host helios and \( hot or ace \)</code></pre></div><div></div></div></li>
+
+<li>ace と、helios 以外の任意のホストとの間のすべての IP パケットを出力するには、次のように入力します。<div><div><pre><code>tcpdump ip host ace and not helios</code></pre></div><div></div></div></li>
+
+<li>ローカル・ホストと、Berkeley にあるホストとの間のすべてのトラフィックを出力するには、次のように入力します。<div><div><pre><code>tcpdump net ucb-ether</code></pre></div><div></div></div></li>
+
+<li>インターネット・ゲートウェイ snup を通るすべての FTP トラフィックを出力するには、次のように入力します。<div><div><pre><code>tcpdump 'gateway snup and (port ftp or ftp-data)'</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> 式は、シェルが括弧を解釈しないように引用符で囲まれています。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>ローカル・ホストがソースでも宛先でもないトラフィックを出力するには (ローカル・ホストが別のネットワークへのゲートウェイの役割を果たしている場合、ローカル・ネットワークはソースでも宛先でもないことになります)、次のように入力します。<div><div><pre><code>tcpdump ip and not net localnet</code></pre></div><div></div></div></li>
+
+<li>非ローカル・ホストが関与する各 TCP 会話の開始パケットと終了パケット (SYN パケットと FIN パケット) を出力するには、次のように入力します。<div><div><pre><code>tcpdump 'tcp[tcpflags] &amp; (tcp-syn|tcp-fin) != 0 and not src and d dst net localnet'</code></pre></div><div></div></div></li>
+
+<li>ゲートウェイ snup を通して送信された 576 バイトを超える長さの IP パケットを出力するには、次のように入力します。<div><div><pre><code>tcpdump 'gateway snup and ip[2:2] &gt; 576'</code></pre></div><div></div></div></li>
+
+<li>イーサネット・ブロードキャストまたはマルチキャストを介さずに送信された IP ブロードキャスト・パケットまたはマルチキャスト・パケットを出力するには、次のように入力します。<div><div><pre><code>tcpdump 'ether[0] &amp; 1 = 0 and ip[16] &gt;= 224'</code></pre></div><div></div></div></li>
+
+<li>要求/応答をエコーしない (例えば、パケットを ping しない) すべての ICMP パケットを出力するには、次のように入力します。<div><div><pre><code>tcpdump 'icmp[icmptype] != icmp-echo and icmp[icmptype] != icmp-e choreply'</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>標準エラー</h2>
+
+<p>すべてのエラーと警告が <span><span>stderr</span></span>に送信されます。</p>
+
+</section>
+
+<section><h2>制限</h2>
+
+<p>夏時間調整の時刻変更にまたがってパケット・トレースを行うと、タイム・スタンプに偏りが生じます (時刻変更は無視されます)。</p>
+
+<p>トークンリング・ヘッダーのフィールド以外のフィールドにあるフィルター式は、
+ソース経路のトークンリング・パケットを正確に処理しません。</p>
+
+<p>802.11 ヘッダーのフィールド以外のフィールドにあるフィルター式は、To DS と From DS の両方が
+設定された 802.11 データ・パケットを正確に処理しません。</p>
+
+<p>ip6 proto はヘッダー・チェーンを追跡しなければなりませんが、現時点では行いません。 この動作のために ip6 protochain が提供されています。</p>
+
+<p>トランスポート層ヘッダーに対する演算式 (tcp[0] など) は、IPv6 パケットに対しては機能しません。 IPv4 パケットのみが処理されます。</p>
+
+<p>基礎となる BPF ドライバーが <span>WPAR</span> を認識しないため、パケット・トレースは <span>WPAR</span> 環境では機能しません。</p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/sbin/tcpdump</span></span></td>
+
+<td><span><span>tcpdump</span></span> コマンドの場所。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/lib/libpcap.a</span></span></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><span><span>/dev/bpf*</span></span></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><span><span>/opt/freeware/lib/libcrypto.a(libcrypto.so)</span></span></td>
+
+<td>オプション</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+</div></div>

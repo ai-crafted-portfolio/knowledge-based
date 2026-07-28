@@ -1,0 +1,99 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>イベント応答リソース・マネージャー (ERRM) によって生成されたイベント情報のログを、
+指定されたログ・ファイルに記録します。</p>
+</section>
+
+<section><h2>構文</h2> <p>ログイベント<span><span>-h</span></span><span><span>ログファイル</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>logevent</span></span> は、イベント応答リソース・マネージャー (ERRM) によってイベント発生時に ERRM が生成する環境変数にポストされるイベント情報をキャプチャーします。 このスクリプトは、イベント応答リソースによって実行されるアクションとして使用できます。 また、その他のユーザー定義アクションを作成するためのテンプレートとしても使用できます。 <span><span>logevent</span></span> スクリプトのメッセージが返される言語は、ロケール設定によって異なります。</p>
+ <div>ERRM 環境変数に関するイベント情報が戻されます。イベント情報には、以下も含まれます。<dl>
+<dt>Local Time</dt>
+
+<dd>このイベントまたはリアーム・イベントが監視される時刻。 ERRM が提供する実際の環境変数は ERRM_TIME です。 この値は表示前にローカライズされ、
+読み取り可能な形式に変換されます。</dd>
+
+</dl>
+</div>
+ <p>このスクリプトは、 <span><span>alog</span></span> コマンドを使用して、指定された <span><span>log_file</span></span>にイベント情報を書き込み、そこからイベント情報を読み取ります。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-h</dt>
+
+<dd>スクリプトの使用方法の文を標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>log_file</span></span></dt>
+
+<dd>イベント情報を記録する先のファイルの名前を指定します。 <span><span>log_file</span></span> パラメーターの絶対パスを指定する必要があります。<p><span><span>log_file</span></span> は循環ログとして扱われ、64KB の固定サイズを持ちます。 <span><span>log_file</span></span> がいっぱいになると、既存の最も古いエントリー上に新しいエントリーが上書きされます。</p>
+ 
+ <p><span><span>log_file</span></span> が既存の場合は、
+イベント情報はこのファイルに付加されます。 <span><span>log_file</span></span> が存在しない場合は作成され、イベント情報を書き込めるようにします。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>スクリプトは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>必須の <span><span>log_file</span></span> が指定されていません。</dd>
+
+
+<dt>2</dt>
+
+<dd><span><span>log_file</span></span> のパスが無効です。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <ul>
+<li>このスクリプトは、ERRM が稼働中のノードで実行しなければなりません。</li>
+
+<li>このスクリプトを実行するユーザーには、
+イベント情報のログ先の <span><span>log_file</span></span> への書き込み許可がなければなりません。</li>
+
+</ul>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、スクリプトの使用法ステートメントが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>情報をログに記録するには、 <span><span>/tmp/event.log</span></span> を次のように指定します。<div><div><pre><code>/opt/rsct/bin/logevent
+/tmp/event.log</code></pre></div><div></div></div><span><span>/tmp/event.log</span></span> ファイルは、コマンドの実行時に存在している必要はありません。</li>
+
+<li><span><span>/tmp/event.log</span></span> ファイルの内容を表示するには、次のコマンドを実行します。<div><div><pre><code>alog -f /tmp/event.log -o   </code></pre></div><div></div></div>以下の出力例は、 <span><span>/var</span></span> ファイル・システム (ファイル・システム・リソース) の警告イベントを示しています。<div><div><pre><code>=============================================================================
+Event reported at Mon Mar 27 16:38:03 2007
+
+Condition Name:                         /var space used
+Severity:                               Warning
+Event Type:                             Event
+Expression:                             PercentTotUsed&gt;90
+
+Resource Name:                          /var
+Resource Class Name:                    IBM.FileSystem
+Data Type:                              CT_UINT32
+Data Value:                             91</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/logevent</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

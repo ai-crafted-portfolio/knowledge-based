@@ -1,0 +1,70 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホスト上で TCP/IP に基づくネーム・サービスの構成解除を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmnamsv</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnamsv.html#rmnamsv__row-d3e161348" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmnamsv.html#rmnamsv__row-d3e161337" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a><em> FileName </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmnamsv</strong> 高水準コマンドは、ホストで TCP/IP ベースのネーム・サービスを構成解除します。 クライアントとして機能するホストのネーム・サービスを構成解除できます。</p>
+ <p>クライアント用のネーム・サービスを構成解除するために、
+<strong>rmnamsv</strong> コマンドは <strong>namerslv</strong> 低水準コマンドをコールして、<strong>/etc/</strong><strong>resolv.conf</strong> ファイル内のエントリーを構成解除するか、
+<strong>/etc/resolv.conf</strong> ファイルをデフォルト・ファイル名またはユーザー指定のファイル名に名前変更します。</p>
+ <p>また、System Management Interface Tool (SMIT) <strong>smit rmnamerslv</strong> 高速パスを使用してこのコマンドを実行することもできます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-F </strong><em>FileName</em></td>
+
+<td>システム構成データベースを <em>FileName</em> で指定されたファイル名に名前変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><strong>/etc/resolv.conf</strong> ファイル名を名前変更するときに、デフォルト・ファイル名 (<strong>/etc/resolv.conf.sv</strong>) を使うことを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/</strong><strong>リゾルバー v.conf</strong></td>
+
+<td>デフォルトのシステム構成データベースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

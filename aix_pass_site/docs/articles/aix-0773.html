@@ -1,0 +1,177 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ワークロード・マネージメント・クラスとその制限をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lsclass</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsclass.html#lsclass__row-d3e78114" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsclass.html#lsclass__row-d3e78145" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsclass.html#lsclass__row-d3e78157" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsclass.html#lsclass__row-d3e78173" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsclass.html#lsclass__row-d3e78123" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>Config_Dir</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsclass.html#lsclass__row-d3e78201" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a><em>SuperClass</em> ] <em>[クラス］</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsclass</strong> コマンドに引数を指定しない場合、
+1 行に 1 つずつのスーパークラスのリストを戻します。 クラス名を引数として指定すると、
+このコマンドはクラスを表示します。 <strong>-r</strong> (recursive) フラグか、
+または <strong>-S</strong><em> Superclass</em> フラグを使用すると、
+サブクラスが表示できます。</p>
+ <p>WLM が開始されると、
+空ストリングが <strong>-d</strong> フラグと共に構成の名前として渡される場合に、
+<strong>lsclass</strong> はメモリー内の WLM データ構造で定義されたクラスをリストします。</p>
+ <p><strong>lsclass</strong> コマンドは、
+特別なレベルの特権を必要とせず、
+すべてのユーザーがアクセスできます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> このコマンドに時間ベースの構成のセットが指定されている場合 ( <strong>-d</strong> フラグで指定されているか、現在の構成がセットであるため)、 <strong>lsclass</strong> コマンドは、コマンドの発行時に適用される (または適用される) 通常構成のクラスを戻します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-C</strong></td>
+
+<td>クラス属性と制限を、
+次のようにコロンで区切ったレコード・フォーマットで表示します。<div> <div><div><pre><code>lsclass -C myclass
+#name:description:tier:inheritance:authuser:authgroup:
+adminuser:admingroup:rset:CPUshares:CPUmin:
+CPUsoftmax:CPUhardmax:memoryshares:memorymin:
+memorysoftmax:memoryhardmax:diskIOshares:diskIOmin:
+diskIOsoftmax:diskIOhardmax:totalCPUhardmax:
+totalCPUunit:totalDiskIOhardmax:totalDiskIOunit:
+totalConnecttimehardmax:totalConnecttimeunit:
+totalProcesseshardmax:totalThreadshardmax:
+totalLoginshardmax:
+classRealMem:classRealMemunit:classVirtMem:
+classVirtMemunit:classLargePages:classLargePagesunit:
+procVirtMem:procVirtMemunit:localshm:vmenforce:delshm
+myclass::0:no::::::-:0:100:100:-:1:100:100:-:0:100:
+100:-:s:-:KB:-:s:-:-:-:-:KB:-:KB:-:KB:-:KB:no:proc:no
+
+</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> コンフィグ_ディレクトリ</em></td>
+
+<td><strong>/etc/wlm/</strong><em>Config_Dir</em> を定義ファイルの代替ディレクトリーとして使用します。 空ストリングが渡された場合 (例えば、次のようになります。-d
+""), <strong>lsclass</strong> は、メモリー内の WLM データ構造に定義されているクラスをリストします。 このフラグが存在しない場合は、<strong>/etc/wlm/current</strong> によって指し示されるディレクトリー内の現在の構成ファイルが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>クラス属性と制限のデフォルト値を、
+次のようにコロンで区切ったレコード・フォーマットで表示します。 <strong>-D</strong> と共に使用される他のすべてのフラグまたは引数は無視されます。 次に例を示します。<div> <div><div><pre><code>lsclass -D
+#name:description:tier:inheritance:authuser:
+authgroup:adminuser:admingroup:rset:CPUshares:CPUmin:
+CPUsoftmax:CPUhardmax:memoryshares:memorymin:
+memorysoftmax:memoryhardmax:diskIOshares:diskIOmin:
+diskIOsoftmax:diskIOhardmax:totalCPUhardmax:
+totalCPUunit:totalDiskIOhardmax:totalDiskIOunit:
+totalConnecttimehardmax:totalConnecttimeunit:
+totalProcesseshardmax:totalThreadshardmax:totalLoginshardmax:
+classRealMem:classRealMemunit:classVirtMem:
+classVirtMemunit:classLargePages:classLargePagesunit:
+procVirtMem:procVirtMemunit:localshm:vmenforce:delshm
+::0:no::::::-:0:100:100:-:0:100:100:-:0:100:100:-:s:-:
+KB:-:s:-:-:-:-:KB:-:KB:-:KB:-:KB:no:proc:no
+</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>出力をスタンザ・フォーマットで表示し、
+各スタンザはクラス名で識別されます。 <em>Attribute</em><strong>=</strong><em>Value</em> のそれぞれの対は、別々の行にリストされます。<div> <div><div><pre><code>Class:
+       attribute1=value
+       attribute2=value
+       attribute3=value</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>スーパークラスをそのすべてのサブクラスと共に、
+再帰的に表示します。 <strong>-r</strong>を指定した場合:<ul>
+<li><em>Class</em> が指定されない場合、
+<strong>lsclass</strong> はすべてのスーパークラスを、
+そのすべてのサブクラスと共に表示します。</li>
+
+<li>スーパークラスの名前が指定される場合、
+<strong>lsclass</strong> はスーパークラスを、
+そのすべてのサブクラスと共に表示します。</li>
+
+<li>サブクラスの名前が指定される場合、
+<strong>-r</strong> は無効です (サブクラスのみを表示します)。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> SuperClass</em></td>
+
+<td>コマンドの有効範囲を、
+指定したスーパークラスのサブクラスに制限します。 <strong>-S</strong> フラグを使用すると、
+サブクラスのみが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>クラス</strong></td>
+
+<td>クラスの名前と定義が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><strong>制限</strong></td>
+
+<td>クラスで強化された制限が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>共有</strong></td>
+
+<td>それぞれのクラスごとのリソース共有属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

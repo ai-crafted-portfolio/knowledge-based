@@ -1,0 +1,245 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プログラム・リストを読みやすいようにフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>VGRIND</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4869" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4875" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4881" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4887" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4908" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em>印刷装置</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4929" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em>名前</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4946" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4955" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4966" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a><em> ヘッダー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__row-d3e4985" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>言語</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vgrind.html#vgrind__a5v169" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>サイズ</em> ] [ <em>ファイル</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>vgrind</strong> コマンドは、<em>File</em> パラメーターで指定したプログラム・ソースを、<strong>troff</strong> コマンドを使用して読みやすいスタイルにフォーマット化します。 コメントはイタリック体、キーワードは太字で、また現在の関数名は各ページごとそのマージンにリストされます。</p>
+ <p><strong>vgrind</strong> コマンドは、フィルター・モードででも標準モードででも実行できます。</p>
+ <p>フィルター・モードの場合には、<strong>vgrind</strong> コマンドは、<strong>tbl</strong> コマンドによく似た形式のフィルターとして動作します。 標準入力は、以下の <strong>troff</strong> 式のマクロによって括弧に囲まれた行を除き、標準出力に直接渡されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.vS</strong></td>
+
+<td>処理を開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.vE</strong></td>
+
+<td>処理を終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>先行する行は、<strong>vgrind</strong> コマンドの規則に従ってフォーマットされます。 このフィルターからの出力は、出力用として <strong> troff</strong> コマンドに渡されます。 <strong>eqn</strong> コマンドや <strong>tbl</strong> コマンドの順序に決まりはありません。</p>
+ <p>標準モードの場合には、<strong>vgrind</strong> コマンドは入力ファイルを受け取り、それらを処理し、正しい順序で <strong>troff</strong> コマンド、適切な後処理プログラム、およびプリンターに渡します。</p>
+ <p>どちらのモードでも、<strong>vgrind</strong> コマンドは小数点で始まる行は変更せずに渡します。</p>
+ <p><strong>vgrind</strong> コマンドは、標準言語定義ファイル <strong>/usr/share/lib/vgrindefs</strong> または <strong>-d</strong> フラグで指定した代替ファイルのいずれかに定義した ASCII キーワードしかサポートしません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>強制的にフィルター・モードにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>強制的にキーワードのボールド化を停止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>フォーマットされたテキストが標準出力に渡されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>索引ファイルを読みやすいフォーマットで出力します。 索引ファイル自体は、現行ディレクトリー内の <strong>index</strong> ファイルを指定して <strong>vgrind</strong> コマンドを実行すると作成されます。 その後、 <strong>-x</strong> フラグと <em>File</em> パラメーターを指定して <strong>vgrind</strong> コマンドを実行することにより、関数定義の索引を実行できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em>プリントデヴ</em></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html" target="_blank" rel="noopener noreferrer"><strong>qprt</strong></a> コマンドを使用して、出力を <em>Printdev</em> プリンターに送信します。 このフラグを指定しない場合は、<strong>PRINTER</strong> 環境変数が使用されます。 <strong>PRINTER</strong> 環境変数が設定されていない場合は、システム・デフォルトが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>名前</em></td>
+
+<td><em>Name</em> パラメーターで指定された <strong>troff</strong> デバイスの出力を作成します。 出力は適切なポストプロセッサーを使用して送られます。 デフォルトは <strong>ibm3816</strong> 後処理プログラムです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>入力を標準入力から強制的に取り込みます (<strong>-f</strong> フラグを指定するとデフォルトとなります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em>ファイル</em></td>
+
+<td>代替の言語定義ファイルを指定します (デフォルトは <strong>/usr/share/lib/vgrindefs</strong> ファイル)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> ヘッダー</em></td>
+
+<td>すべての出力ページに、特定のヘッダーを指定します (デフォルトはファイル名です)。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-h</strong> フラグと <em>Header</em> 変数の間にはブランク・スペースが 1 つ必要です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em>言語</em></td>
+
+<td>使用する言語を指定します。 現在使用できる言語は、以下のとおりです。<dl>
+<dt><strong>C</strong></dt>
+
+<dd>C (デフォルト)。 行上の関数名の前にはスペース、タブ、またはアスタリスクしか入れることができません。 括弧付きのオプションも同じ行になければなりません。</dd>
+
+
+<dt><strong>csh</strong></dt>
+
+<dd>CSH。</dd>
+
+
+<dt><strong>p</strong></dt>
+
+<dd>PASCAL。 関数名は、<strong>function</strong> キーワードまたは <strong>procedure</strong> キーワードと同じ行になければなりません。</dd>
+
+
+<dt><strong>m</strong></dt>
+
+<dd>MODEL。 関数名は、<strong>isbeginproc</strong> キーワード句と同じ行になければなりません。</dd>
+
+
+<dt><strong>sh</strong></dt>
+
+<dd>SHELL。</dd>
+
+
+<dt><strong>r</strong></dt>
+
+<dd>RATFOR。</dd>
+
+
+<dt><strong>mod2</strong></dt>
+
+<dd>MODULA2.</dd>
+
+
+<dt><strong>yacc</strong></dt>
+
+<dd>YACC。</dd>
+
+
+<dt><strong>isp</strong></dt>
+
+<dd>ISP。</dd>
+
+
+<dt><strong>I</strong></dt>
+
+<dd>ICON。</dd>
+
+
+<dt><strong>-s</strong><em> サイズ</em></dt>
+
+<dd>出力で使用するポイント・サイズを指定します ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html" target="_blank" rel="noopener noreferrer"><strong>.ps</strong></a> 要求とまったく同じ)。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>索引</strong></td>
+
+<td>索引用のソースが作成されるファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/vgrind</strong></td>
+
+<td><strong>vgrind</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.vgrind</strong></td>
+
+<td>マクロ・パッケージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/vfontedpr</strong></td>
+
+<td>プリプロセッサーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/vgrindefs</strong></td>
+
+<td>言語記述が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

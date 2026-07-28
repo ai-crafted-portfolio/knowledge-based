@@ -1,0 +1,144 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p><span>AIXライブ・アップデート</span>中にサロゲート・パーティションを起動するために使用される'<span>/etc/inittab</span>ファイルに追加されるエントリのリストを管理する。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>サロゲート区画の <span>/etc/inittab</span> ファイルにエントリーを追加するには、次の構文を使用します。<div><div><pre><code>lvupdateInit -a [-i Identifier] { [ Identifier ] : [ RunLevel ] : [ Action ] : [ Command ] }</code></pre></div><div></div></div></div>
+
+<div>サロゲート区画の <span>/etc/inittab</span> ファイルに追加されるエントリーをリストするには、次の構文を使用します。<div><div><pre><code>lvupdateInit -l</code></pre></div><div></div></div></div>
+
+<div>サロゲート区画の <span>/etc/inittab</span> ファイルに追加されるエントリーをリストから削除するには、次の構文を使用します。<div><div><pre><code>lvupdateInit -r -i Identifier</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ライブ・アップデート</span> 操作は、サロゲート区画を開始して <span>ライブ・アップデート</span> 操作用に準備するために、カスタマイズされたルート・ボリューム・グループ (rootvg) を作成します。 サロゲート区画は、始動されると、カスタマイズされた <span>/etc/inittab</span> ファイル内のコマンド、および <span>/etc/rc.tcpip</span> などの他のスクリプトを実行します。 <span>/etc/inittab</span> ファイルは、モビリティー・フェーズ中に元の区画から移動されたサービスを除外するようにカスタマイズされています。</p>
+
+<p>元の区画で実行されている一部のサービスは、チェックポイントをとらないことを選択して、元の区画での実行を続行する可能性があります。 このような場合、このコマンドを使用して、そのサービスをサロゲート・パーティションの <span>/etc/inittab</span> ファイルに追加し、 <span>ライブ・アップデート</span> 操作中に再始動することができます。 <span>/etc/liveupdate/lvup_inittab</span> ファイルには、カスタマイズされた <span>/etc/inittab</span> ファイルに追加されるコマンド・エントリーのリストが入っています。</p>
+
+</section>
+
+<section><h2>パラメーター</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Identifier</td>
+
+<td>14 文字のパラメーターで、オブジェクトを固有に識別します。 Identifier は独自のものでなければなりません。 Identifier が固有でないと、コマンドは正常終了されません。</td>
+
+</tr>
+
+<tr>
+<td>RunLevel</td>
+
+<td>20 文字のパラメーターで、Identifier パラメーターを処理できる実行レベルを定義します。 <span>init</span> コマンドによって開始される各プロセスを、そのプロセスを開始できる 1 つ以上の実行レベルに割り当てることができます。</td>
+
+</tr>
+
+<tr>
+<td>Action</td>
+
+<td>20 文字のパラメーターで、指定した Command パラメーターの処理方法を <span>init</span> コマンドに通知します。 <span>init</span> コマンドによって認識される有効なアクションのリストについては、<span>mkitab</span> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td>Command</td>
+
+<td>実行されるシェル・コマンドを指定する 1024 文字のフィールド。<div><div>
+        <div>
+          <div><span>重要:</span> システム・ファイルが破損しないようにするには、 <span>stdin</span>ファイル、 <span>stdout</span>ファイル、および <span>stderr</span> ファイルをリダイレクト付きで Command パラメーターに指定するか、コマンド行によって実行されるプログラムによって明示的にオープンする必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td><span>/etc/liveupdate/lvup_inittab</span> ファイルにエントリーを追加します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> 識別子</td>
+
+<td>新しいエントリーの ID を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> 識別子</td>
+
+<td><span>/etc/liveupdate/lvup_inittab</span> ファイルからエントリーを削除します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td><span>/etc/liveupdate/lvup_inittab</span> ファイル内のエントリーをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>サロゲート区画で <span>ライブ・アップデート</span> 操作を開始するために使用される <span>/etc/inittab</span> ファイルにエントリーを追加するには、次のコマンドを入力します。<div><div><pre><code># lvupdateInit -a -i myserver  myserver:2:once:/opt/myapp/start_my_server</code></pre></div><div></div></div></li>
+
+<li>サロゲート区画の <span>/etc/inittab</span> ファイルからエントリーを削除するには、次のコマンドを入力します。<div><div><pre><code># lvupdateInit -r -i myserver</code></pre></div><div></div></div></li>
+
+<li>サロゲート区画の <span>/etc/inittab</span> ファイルに取り込まれるエントリーをリストするには、次のコマンドを入力します。<div><div><pre><code># lvupdateInit -l</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

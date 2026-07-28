@@ -1,0 +1,84 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>参考文献データベースをソートします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ソルトビブ</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sortbib.html#sortbib__row-d3e41302" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>キー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sortbib.html#sortbib__f9fbea4625mart" target="_blank" rel="noopener noreferrer"><em>データベース</em></a> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>sortbib</strong> コマンドは、ユーザー指定キーによる <strong>refer</strong> コマンド・キー文字を含むレコードのファイルをソートします。 レコードはブランク行で区切るか、. [(ピリオド、左大括弧) と.] で囲むことができます。 (ピリオド、右大括弧) 区切り文字ですが、2 つのスタイルを混在させることはできません。 <strong>sortbib</strong> コマンドは <em> Database</em> パラメーターで指定された各データベースを通して読み取り、別にソートされたキー・フィールドを取り出します。 ソートされたキー・フィールドにはファイル・ポインター、バイト・オフセット、対応するレコードの長さが含まれます。 これらのレコードはディスク・シークおよび読み取りを使って配布されるため、<strong>sortbib</strong> コマンドは標準入力を読むためのパイプライン内では使用できません。</p>
+ <p>デフォルトでは、 <strong>ソルトビブ</strong> コマンドは最初のコマンドのアルファベット順になります。%Aおよび%Dフィールドには、上級作成者と日付が含まれます。</p>
+ <p><strong>ソルトビブ</strong> コマンドは、以下の中の最後のワードでソートします。%A作成者の姓であると想定されるフィールド。 最後の位置にある単語。例えば、以下のようになります。jr.またはed前の名前がコンマで終わっている場合には,. は無視されます。 2 つの語からなる姓を持つ、または一般的ではない構造の名前の作成者は、スペース文字の代わりに <strong>&amp;#xa5;0</strong> を使う <strong>nroff</strong> のコマンド規則を使うことによって、正しくソートできます。 指定する%Qフィールドは次と類似しています:%Aただし、ソートは最後の単語ではなく最初の単語から開始します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> 作成者フィールドが欠落しているレコードは、タイトルでソートする必要があります。<span>”</span></blockquote>
+<p></p>
+ <p><strong>ソルトビブ</strong> コマンドは、以下の最後のワードでソートします。%D行 (通常は年)。 タイトルでソートする場合、先頭の記事は無視されます。%Tまたは%Jフィールド 無視された冠詞は、そのロケールに特定のもので、
+ロケール特定の <strong>refer</strong> <strong>メッセージ・カタログ</strong>内で指定されます。 このカタログ内では、冠詞は単一メッセージ内に含まれます。 各冠詞は任意の数の ASCII スペースまたはタブ文字で区切られます。 レコードにソート・キーとなるフィールドがない場合、<strong>sortbib</strong> コマンドはそのレコードを、そのフィールドを含む他のレコードの前に置きます。</p>
+ <p>1 回にソートできるデータベースは 16 までです。 4096 文字を超えるレコードは切り捨てられます。</p>
+ <p><em>Database</em> パラメーターには、<strong>sortbib</strong> コマンドがソート時に使用する、ユーザー指定キーによる <strong>refer</strong> コマンド・キー文字が記述されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-s</strong><em>キー</em><strong></strong></td>
+
+<td>ソートするフィールド・キーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>作成者、タイトル、および日付でソートするには、以下のようにします。<div> <div><div><pre><code>sortbib -sATD Database</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>作成者と日付でソートするには、以下のようにします。<div> <div><div><pre><code>sortbib -sA+D Database</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/tmp/Sbib</strong> <em>XXXXX</em><strong></strong></td>
+
+<td>一時ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/sort</strong></td>
+
+<td><strong>sort</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

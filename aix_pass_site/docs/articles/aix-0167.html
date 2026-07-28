@@ -1,0 +1,259 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>certlist</strong> は、1 つ以上の証明書の内容をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>certlist</strong> [<strong>-c</strong>] [<strong>
+-a</strong> attr [attr....] ]<em>tag</em> [<em>
+username</em>]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>certlist</strong> コマンドは、1 つ以上の証明書の内容をリストします。 <strong>-c</strong> オプションを使用すると、出力は、
+次のようにコロンで区切られたデータとしてフォーマットされ、
+属性名は直前の行の各フィールドに関連付けられます。<div><div><pre><code># name: attribute1: attribute2: ... 
+User: value1: value2: ... </code></pre></div><div></div></div><strong>-f</strong> オプションを使用すると、出力は、
+スタンザ・ファイル・フォーマットでフォーマットされ、
+ユーザー名属性はスタンザ名として与えられます。 <code>attribute=value</code> の各対は、次のように、個別の行にリストされます。<div><div><pre><code>user: 
+     attribute1=value 
+     attribute2=value 
+     attribute3=value </code></pre></div><div></div></div>これらのコマンド・ライン・オプションのいずれも選択しないと、属性は
+<code>attribute=value</code> の対として出力されます。</div>
+ <p><strong>-a</strong> オプションは、出力する 1 つ以上の証明書属性のリストを選択します。 ロード・モジュールによってサポートされる属性に加えて、それぞれの証明書ごとに、
+いくつかの疑似属性も提供されます。</p>
+ <div>次のような属性があります。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>auth_user</strong></td>
+
+<td>ユーザーの認証証明書。</td>
+
+</tr>
+
+<tr>
+<td><strong>distinguished_name</strong></td>
+
+<td>証明書内のユーザーの対象識別名。</td>
+
+</tr>
+
+<tr>
+<td><strong>代替名</strong></td>
+
+<td>証明書内のユーザーの対象代替名。</td>
+
+</tr>
+
+<tr>
+<td><strong>バリダフター (validafter)</strong></td>
+
+<td>ユーザーの証明書が有効になる日付。</td>
+
+</tr>
+
+<tr>
+<td><strong>有効期限</strong></td>
+
+<td>ユーザーの証明書が無効になる日付。</td>
+
+</tr>
+
+<tr>
+<td><strong>tag</strong></td>
+
+<td>この証明書を一意的に識別する名前。</td>
+
+</tr>
+
+<tr>
+<td><strong>発行者</strong></td>
+
+<td>証明書の発行者の識別名。</td>
+
+</tr>
+
+<tr>
+<td><strong>ラベル</strong></td>
+
+<td>この証明書を識別するプライベート鍵ストア内のラベル。</td>
+
+</tr>
+
+<tr>
+<td><strong>鍵ストア (keystore)</strong></td>
+
+<td>証明書の秘密鍵用のプライベート鍵ストアの場所。</td>
+
+</tr>
+
+<tr>
+<td><strong>serialNumber</strong></td>
+
+<td>証明書のシリアル番号。</td>
+
+</tr>
+
+<tr>
+<td><strong>検査済み</strong></td>
+
+<td>trueユーザーが秘密鍵を所有していることを示しています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>出力をコロンで区切ったレコードの形式で表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>出力をスタンザ形式で表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong> <em>属性</em></td>
+
+<td>表示する属性を 1 つ以上選択します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>tag</strong> パラメーターは、ユーザーの証明書のいずれを出力するかを選択します。 予約済みの値 <code>ALL</code> は、当該ユーザーの証明書をすべてリストすることを示します。</p>
+ <p><strong>username</strong>パラメータは、照会する<span>AIX</span>ユーザー名を指定する。 <strong>username</strong> パラメーターを指定しないで <strong>certdelete</strong> コマンドを起動すると、現行ユーザーの名前が使用されます。</p>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了の場合。</td>
+
+</tr>
+
+<tr>
+<td>EINVAL</td>
+
+<td>コマンドの形式が正しくないか、引数が無効の場合。</td>
+
+</tr>
+
+<tr>
+<td>ENOENT</td>
+
+<td>a) ユーザーが存在しない場合、
+b) タグが存在しない場合、c) ファイルが存在しない場合。</td>
+
+</tr>
+
+<tr>
+<td>EACCES</td>
+
+<td>属性をリストできない場合、例えば、
+呼び出し元にユーザーのデータベースへの <strong>read_access</strong> がない場合。</td>
+
+</tr>
+
+<tr>
+<td>EPERM</td>
+
+<td>ユーザー識別および認証が失敗した場合。</td>
+
+</tr>
+
+<tr>
+<td>エラー番号</td>
+
+<td>システム・エラーの場合。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>任意のユーザーがこのコマンドを実行して、証明書の属性をリストできます。 リストされた証明書を、
+別のユーザーが所有することもあります。</p>
+<p><strong>AUDIT</strong></p>
+ <p>このコマンドは、以下のイベント情報を記録します。</p>
+ <p>CERT_List &lt;<em>ユーザー名</em>&gt;</p>
+</section>
+
+<section><h2>例</h2> <div><div><pre><code>$ certlist -f -a verified keystore label signcert bob
+bob:
+      verified=false
+      keystore=file:/var/pki/security/keys/bob
+      label=signcert
+$ certlist -c -a validafter validbefore issuer signcert bob
+#name:validafter:validuntil:issuer
+bob:1018091201:1018091301:c=US,o=xyz
+$ certlist -f ALL bob
+bob:
+      auth_cert=logincert
+      distinguished_name=c=US,o=xyz,cn=bob
+      alternate_name=bob@xyz.com
+      validafter=0921154701
+      validuntil=0921154801
+      issuer=c=US,o=xyz
+      tag=logincert
+      verified=true
+      label=loginkey
+      keystore=file:/var/pki/security/keys/bob
+      serialnumber=03
+bob:
+      auth_cert=logincert
+      distinguished_name=c=US,o=xyz,cn=bob
+      alternate_name=bob@ibm.com
+      validafter=1018091201
+      validuntil=1018091301
+      issuer=c=US,o=xyz
+      tag=signcert
+      verified=false
+      label=signkey
+      keystore=file:/var/pki/security/keys/bob
+      serialnumber=02</code></pre></div><div></div></div></section>
+
+<section><h2>ファイル</h2> <p><strong>/usr/lib/security/pki/acct.cfg</strong></p>
+ <p><strong>/usr/lib/security/pki/policy.cfg</strong></p>
+</section>
+
+</div></div>

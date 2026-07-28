@@ -1,0 +1,86 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>順序付きの対の順不同リストをソートします (トポロジカル・ソート)。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tsort</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tsort.html#tsort__row-d3e137335" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <em>ファイル </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tsort</strong> コマンドは、<em>File</em> または標準入力から順序付けられた組の順不同リストを読み取り、完全な順序付けられたリストを構築して標準出力に書き出します。</p>
+ <p>入力 <em>File</em> には、ブランクで区切られた空でない文字列の組が入っていなければなりません。 異なる項目の組は相対順序を示します。 同じ項目の組は、存在するものの相対順序ではないことを示します。 <strong>tsort</strong> コマンドを使用すると、
+<strong>lorder</strong> コマンドの出力をソートできます。</p>
+ <p><em>File</em> に奇数のフィールドがあると、
+該当するエラー・メッセージが表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>—</strong></td>
+
+<td>(二重ハイフン) — フラグに続くすべての引数をファイル名として解釈します。 ファイル名が —である場合、tsort — — を使用してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/ccs/bin/tsort</strong></td>
+
+<td><strong>tsort</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/bin/tsort</strong></td>
+
+<td><strong>tsort</strong> コマンドへのシンボリック・リンクが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,173 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>動的ホスト構成プロトコル (DHCP) クライアントをインプリメントします。 アドレスおよび構成情報を DHCP サーバーに提供します。</p>
+</section>
+
+<section><h2>構文</h2><p>システム・リソース・コントローラー (SRC) を使用して DHCP クライアントを実装する</p>
+ <p><strong>startsrc</strong> <strong> -s dhcpcd</strong> [ <strong>-a</strong> Argument]  ...</p>
+<p>SRC を使用せずに DHCP クライアントを実装する</p>
+ <p><strong>DCPCD</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26005" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a> ConfigurationFile] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26016" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> IP アドレス] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26027" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> LeaseFile] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26038" target="_blank" rel="noopener noreferrer"><strong>N</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26044" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> OptionsFile] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26055" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26061" target="_blank" rel="noopener noreferrer"><strong>T </strong></a> 秒] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpcd.html#dhcpcd__row-d3e26072" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> 分]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>dhcpcd</span> デーモンは、DHCP プロトコルを使用して、IP (インターネット・プロトコル) アドレスとその他のパラメーターを設定することによって、DHCP をインプリメントします。</p>
+ <p><span>dhcpcd</span> デーモンは、通常、開始時に通常実行される <span>/etc/rc.tcpip</span> ファイルによって開始されます。 デフォルトで、それはコメント化され、システムの開始時には実行されません。 DHCP クライアントを使用可能にする System Management Interface Tool (SMIT) オプションがあります。</p>
+ <p><span>dhcpcd</span> デーモンは、その構成ファイルを読み取り、構成ファイル内に指定されたインターフェース用の IP アドレスとその他の構成オプションの開始と取得を試みます。 システムが始動しているとき、<span>dhcpcd</span> デーモンは、バックグラウンドで実行されます。 このデーモンは、既に受信したアドレスを必要に応じて更新します。</p>
+ <p><span>-i</span> フラグが使用されている場合、 <span>dhcpcd</span> デーモンは DHCP Inform モードでも実行されます。 このモードを使用して、クライアントは、IP アドレスを取得せずに DHCP サーバーから構成情報を取り出すことができます。 それは静的アドレスには便利ですが、印刷サーバーなどの動的項目やその他のオプションには便利ではありません。 IP アドレス・パラメーターを指定して <span>-i</span> フラグを使用する場合、<span>dhcpcd</span> デーモンは指定したアドレスについて 1 回実行されます。</p>
+ <p><span>refresh</span> コマンドは、<span>dhcpcd</span> デーモンに構成ファイルを再読み取りさせる場合に使用できます。 同じ応答を得るために、 <span><span>SIGHUP</span></span> を使用することもできます。</p>
+ <p><span>dhcpcd</span> デーモンのデフォルトの構成ファイルは、<span>/etc/dhcpcd.ini</span> です。 これには、ログおよびネットワーク・インターフェース情報が入っています。</p>
+ <p>SMIT の <span>smit usedhcp</span> 高速パスを使用して、このコマンドを実行できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-f</span> ConfigurationFile</td>
+
+<td>使用する構成ファイルを指定します。 デフォルトは <span>/etc/dhcpcd.ini</span> ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span>  IPAddress</td>
+
+<td><span>dhcpcd</span> デーモンが DHCP Inform モードを使用するように指定します。 IP アドレスは、どのインターフェースで構成情報を取得するかを DHCP に指示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span> LeaseFile</td>
+
+<td>別の lease ファイルを指定します。 この lease ファイルは、リース獲得時にクライア
+ントによって生成されます。 デフォルトでは、lease ファイルは <span>/etc/dhcpc.db</span> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>新規アドレスの受信時にインターフェースが再構成されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> OptionsFile</td>
+
+<td>options ファイルを指定します。 デフォルトでは、options ファイルは <span>/etc/dhcpc.opt</span> です。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>クライアント・デーモンを起動し、1 回実行してから停止させます。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span>seconds</td>
+
+<td>DHCP がそれ自体をバックグラウンドに配置するまでの待機秒数を指定します。 これによって、システムは DHCP サーバーが見つからない場合でもブートを続行できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span> 分</td>
+
+<td>時間を分単位で指定します。 DHCP クライアントは、このタイムアウト値の時間内にインターフェースのアドレスを構成できない場合 (例えば DHCP サーバーが使用可能でないため)、それ以降の試行を停止します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dhcpcd</span></td>
+
+<td><span>dhcpcd</span> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/dhcpcd.ini</span></td>
+
+<td>デフォルトのクライアント構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/services</span></td>
+
+<td>インターネット・サービスで使用するソケットおよびプロトコルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/inetd.conf</span></td>
+
+<td><span>inetd</span> デーモンにより制御されるサービスを定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

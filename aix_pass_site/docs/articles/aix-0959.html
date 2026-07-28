@@ -1,0 +1,87 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>エラー・メッセージ・ファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkstr</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkstr.html#mkstr__row-d3e160190" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] <em>MessageFile 接頭部ファイル</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkstr</strong> コマンドは、単一の C 送信元ファイル、または複数の送信元ファイルから除去できるエラー・メッセージのファイルを作成します。 このコマンドを使用すれば、送信元ファイルとの間で常にエラー・メッセージをスワップインおよび
+スワップアウトする必要がなくなるので、多数のエラー診断プログラムを含むプログラムのサイズを
+小さくし、プログラムなどを実行する際のシステム・オーバーヘッドを軽減できます。</p>
+ <p><strong>mkstr</strong>コマンドは、<em> File</em>パラメータで指定された各ファイルを処理<em>し、</em> <em>Prefix</em>パラメータで指定された名前の後に元の名前が続くファイルに、マサージされたバージョンのファイルを配置する。</p>
+ <p>送信元ファイル内のエラー・メッセージを処理し、<em>MessageFile</em> パラメーター によって指定されたファイルに入れるために、<strong>mkstr</strong> コマンドは、入力ストリーム内の文字列 <strong>`error("'</strong> のキーをオンにします。 <strong>'"'</strong> (2 つの二重引用符) で始まる文字列がメッセージ・ファイルに入れられ、その後にヌル文字と改行文字が続きます。 メッセージはヌル文字で終了するので、検索の際に便利です。 <strong>cat</strong> コマンドを使えば、改行文字によってエラー・メッセージ・ファイルの内容を見ることができます。</p>
+ <p>入力ファイルのメッセージ付きコピーにはファイルへの<strong> lseek</strong> ポインターが含まれています。このポインターは、次の例で示すように、適切な送信元ファイルに対するメッセージを検索するのに使用できます。</p>
+ <div> <div><div><pre><code>char efilname[] = "/usr/lib/pistrings";
+int    efil = -1;
+ 
+error(a1, a2, a3, a4)
+{
+    char buf[256];
+    if (efil &lt; 0) {
+        efil = open(efilname, 0);
+        if (efil &lt; 0) {
+oops:
+           perror(efilname);
+            exit(1);
+        }
+     }
+    if (lseek(efil,(long) a1,0) &lt;0|| 
+         read(efil,buf, 256) &lt;= 0)
+        goto oops;
+    printf(buf, a2, a3, a4);
+}</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>オプションの - (負符号) によって、大規模な mkstr プログラムの一部を再コンパイルする
+ために、<em>MessageFile</em> の終わりにエラー・メッセージが入れられます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行ディレクトリー C ソース・ファイルからのエラー・メッセージをファイルに書き込むには、以下のようにします。pistringsさらに、これらのファイルのソースの処理済みコピーを、接頭部が付いたファイル名に入れます。xx<em>:</em> と入力します。<div> <div><div><pre><code>mkstr pistrings xx *.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>追加のソース・ファイルからのエラー・メッセージをファイルに追加するには、以下のようにします。pistrings次のように入力します。<div> <div><div><pre><code>mkstr - pistrings xx newfile.c</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/ccs/bin/mkstr</strong></td>
+
+<td><strong>mkstr</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

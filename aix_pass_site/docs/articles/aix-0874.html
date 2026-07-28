@@ -1,0 +1,257 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージ・シーケンスの作成、変更、表示を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>マーク</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120506" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em>フォルダー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120525" target="_blank" rel="noopener noreferrer"><strong>-リスト </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120564" target="_blank" rel="noopener noreferrer"><strong>-順序</strong></a><em> 名前</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120600" target="_blank" rel="noopener noreferrer"><em>メッセージ</em>... </a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120472" target="_blank" rel="noopener noreferrer"><strong>-追加 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120492" target="_blank" rel="noopener noreferrer"><strong>-削除 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120587" target="_blank" rel="noopener noreferrer"><strong>-ゼロ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120549" target="_blank" rel="noopener noreferrer"><strong>-ゼロ以外 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120555" target="_blank" rel="noopener noreferrer"><strong>-パブリック </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120540" target="_blank" rel="noopener noreferrer"><strong>-ノプブリック </strong></a>] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mark</strong> コマンドは、メッセージ・シーケンスを作成、削除、追加、リストします。 <strong>mark</strong> コマンドは、デフォルトで、現行フォルダーに対するすべてのシーケンスとメッセージを表示します。 <strong>-add</strong> や
+<strong>-delete</strong> フラグを使用する場合、<strong>-sequence</strong> フラグも使用しなければなりません。 1 つのシーケンスからすべてのメッセージが削除されると、<strong>mark</strong> コマンドはフォルダーからそのシーケンス名を除去します。</p>
+ <p>新しいシーケンスを作成するには、<strong>-sequence</strong> フラグにこれから作成するシーケンスの名前を指定します。 <strong>mark</strong> コマンドを現行メッセージで始まるシーケンスを作成します。 デフォルトでは、<strong>mark</strong> コマンドは作成したシーケンスを現行フォルダーに置きます。 フォルダーを指定すると、そのフォルダーが現行フォルダーになります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-add</strong></td>
+
+<td>シーケンスにメッセージを追加します。 <strong>-add</strong> フラグはデフォルトです。 メッセージを指定しない場合、<strong>mark</strong> コマンドは現行のメッセージを使用します。<p></p><blockquote><span>“</span><strong>注:</strong> このフラグは <strong>-sequence</strong> フラグと共に使用しなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-delete</strong></td>
+
+<td>シーケンスからメッセージを削除します。 メッセージを指定しない場合、デフォルトで現行メッセージが削除されます。<p></p><blockquote><span>“</span><strong>注:</strong> このフラグは <strong>-sequence</strong> フラグと共に使用しなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong><em>フォルダー</em></td>
+
+<td>検査するフォルダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-list</strong></td>
+
+<td>シーケンスのメッセージを表示します。 デフォルトによって、<strong>-list</strong> フラグは、現行フォルダー用に定義されているシーケンス名とメッセージをすべて表示します。 ある特定のシーケンスを表示するには、<strong>-list</strong> フラグと共に <strong>-sequence</strong> フラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-非公開</strong></td>
+
+<td>シーケンスをユーザーの使用に制限します。 <strong>-nopublic</strong> フラグにより加わる制約はシーケンス内のメッセージではなく、シーケンスだけに適用されます。 このオプションは、他のユーザーにとってフォルダーが書き込み保護になっている場合のデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ゼロ以外</strong></td>
+
+<td>指定されたメッセージのみを追加または削除してシーケンスを変更します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-public</strong></td>
+
+<td>シーケンスを他のユーザーに使用できるようにします。 <strong>-public</strong> フラグは、保護されたメッセージを使用可能にはせず、シーケンスそのものだけを使用できるようにします。 このフラグは、他のユーザーにとってフォルダーが書き込み保護になっていない場合のデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-sequence</strong><em> 名前</em></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120525" target="_blank" rel="noopener noreferrer"><strong>-list</strong></a>, <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120472" target="_blank" rel="noopener noreferrer"><strong>-add</strong></a>のシーケンスを指定します。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120492" target="_blank" rel="noopener noreferrer"><strong>-delete</strong></a> フラグ。 シーケンス名として <strong>new</strong> を使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ゼロ</strong></td>
+
+<td>現在のメッセージを除くすべてのメッセージのシーケンスをクリアします。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120492" target="_blank" rel="noopener noreferrer"><strong>-delete</strong></a> フラグも指定すると、 <strong>-zero</strong> フラグは、メッセージを削除する前に、フォルダーからのすべてのメッセージをシーケンスに入れます。</td>
+
+</tr>
+
+<tr>
+<td><em>メッセージ</em></td>
+
+<td>シーケンスのメッセージを指定します。 同時に複数のメッセージを指定できます。 メッセージは、次によって識別されます。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージの番号</dd>
+
+
+<dt><strong>all</strong></dt>
+
+<dd>フォルダー内のすべてのメッセージ</dd>
+
+
+<dt><strong>cur</strong> または <strong>。</strong> (ピリオド)</dt>
+
+<dd>現行メッセージ (デフォルト)</dd>
+
+
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt>新規</dt>
+
+<dd>フォルダー内の新規のメッセージ</dd>
+
+
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ</dd>
+
+</dl>
+  <p><strong>-list</strong> フラグを使用した場合、<em>Messages</em> パラメーターのデフォルトは <strong>all</strong> です。 それ以外のフラグを使用した場合、デフォルトは現行メッセージです。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>次のエントリーは、<em>UserMHDirectory</em><strong>/context</strong> ファイルに入っています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Current-Folder:</td>
+
+<td>デフォルトの現行フォルダーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次のエントリーは、<strong>$HOME/.mh_profile</strong> ファイルに入っています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Path:</td>
+
+<td>MH ディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行フォルダーに定義されているすべてのシーケンスのリストを表示するには、次のように入力します。<div> <div><div><pre><code>mark</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>cur: 94
+test: 1-3 7 9</code></pre></div><div></div></div>この例では、次のメッセージがあります。94現行フォルダー内の現行メッセージ番号です。 呼び出されたメッセージ・シーケンスtestメッセージ番号を含む1,2,3,7および9.</div>
+</li>
+
+<li><span></span>以下に定義されているすべてのシーケンスのリストを表示します。meetings次のように入力します。<div>mark  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120506" target="_blank" rel="noopener noreferrer">+</a>meetings</div>システムは、以下のようなメッセージを表示します。<div> <div><div><pre><code>cur: 5
+dates: 12 15 19</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>新しいメッセージ・シーケンスを作成するには、以下のようにします。schedule現行フォルダーで、次のように入力します。<div>mark  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120564" target="_blank" rel="noopener noreferrer">-sequence </a>schedule </div>システムは、シェル・プロンプトを表示して、scheduleシーケンスが作成されました。 デフォルトでは、システムは現行メッセージを新しいシーケンスに追加します。</li>
+
+<li><span></span>メッセージを削除するには10を以下から取得します。scheduleシーケンスを入力します。<div>mark  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120564" target="_blank" rel="noopener noreferrer">-sequence </a>schedule 10  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mark.html#mark__row-d3e120492" target="_blank" rel="noopener noreferrer">-delete</a></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/mark</strong></td>
+
+<td><strong>mark</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

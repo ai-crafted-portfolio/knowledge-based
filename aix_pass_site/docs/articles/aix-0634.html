@@ -1,0 +1,518 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>C 言語プログラムを再フォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>インデント</strong><em> InputFile</em> [ <em>OutputFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9772" target="_blank" rel="noopener noreferrer"><strong>-不良 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9765" target="_blank" rel="noopener noreferrer"><strong>-不良 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9787" target="_blank" rel="noopener noreferrer"><strong>-nbap (Nbap) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9781" target="_blank" rel="noopener noreferrer"><strong>-バップ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9802" target="_blank" rel="noopener noreferrer"><strong>-ナッブ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9796" target="_blank" rel="noopener noreferrer"><strong>-bbb (B) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9817" target="_blank" rel="noopener noreferrer"><strong>-nbc (N) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9811" target="_blank" rel="noopener noreferrer"><strong>-bc (B) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9835" target="_blank" rel="noopener noreferrer"><strong>-BR </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9826" target="_blank" rel="noopener noreferrer"><strong>-ブル</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9850" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em>N</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9862" target="_blank" rel="noopener noreferrer"><strong>-cd (D)</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9891" target="_blank" rel="noopener noreferrer"><strong>-ncdb (N) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9876" target="_blank" rel="noopener noreferrer"><strong>-cdb (C) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9918" target="_blank" rel="noopener noreferrer"><strong>-nce (n) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9903" target="_blank" rel="noopener noreferrer"><strong>-チェ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9930" target="_blank" rel="noopener noreferrer"><strong>-CI</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9947" target="_blank" rel="noopener noreferrer"><strong>-CLI</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9964" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9981" target="_blank" rel="noopener noreferrer"><strong>-ディ</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10001" target="_blank" rel="noopener noreferrer"><strong>-ndj (N) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e9995" target="_blank" rel="noopener noreferrer"><strong>-ジ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10039" target="_blank" rel="noopener noreferrer"><strong>-ネイ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10011" target="_blank" rel="noopener noreferrer"><strong>-えい </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10051" target="_blank" rel="noopener noreferrer"><strong>-ファ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10077" target="_blank" rel="noopener noreferrer"><strong>-ンファ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10092" target="_blank" rel="noopener noreferrer"><strong>-nfc1 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10083" target="_blank" rel="noopener noreferrer"><strong>-fc1 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10098" target="_blank" rel="noopener noreferrer"><strong>I</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10115" target="_blank" rel="noopener noreferrer"><strong>-ニップ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10106" target="_blank" rel="noopener noreferrer"><strong>-イップ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10126" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10134" target="_blank" rel="noopener noreferrer"><strong>-lc (L)</strong></a><em>N</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10173" target="_blank" rel="noopener noreferrer"><strong>-nlp </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10148" target="_blank" rel="noopener noreferrer"><strong>-lp (L) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10185" target="_blank" rel="noopener noreferrer"><strong>-プロ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10206" target="_blank" rel="noopener noreferrer"><strong>-npcs </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10197" target="_blank" rel="noopener noreferrer"><strong>-pcs </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10227" target="_blank" rel="noopener noreferrer"><strong>-nps </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10218" target="_blank" rel="noopener noreferrer"><strong>-ps </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10248" target="_blank" rel="noopener noreferrer"><strong>-ニプスル </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10239" target="_blank" rel="noopener noreferrer"><strong>-プスル </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10267" target="_blank" rel="noopener noreferrer"><strong>-nsc (S) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10255" target="_blank" rel="noopener noreferrer"><strong>-SC </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10316" target="_blank" rel="noopener noreferrer"><strong>-インスブ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10291" target="_blank" rel="noopener noreferrer"><strong>-ソブ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10282" target="_blank" rel="noopener noreferrer"><strong>-nslb </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10276" target="_blank" rel="noopener noreferrer"><strong>-スラブ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10325" target="_blank" rel="noopener noreferrer"><strong>-セント </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10354" target="_blank" rel="noopener noreferrer"><strong>-トロフ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10372" target="_blank" rel="noopener noreferrer"><strong>-nv (N) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10366" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/indent.html#indent__row-d3e10334" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a><em>タイプ</em> ] ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>indent</strong> コマンドは、コマンドと共に入力されたフラグで指定されたとおりに、C プログラムを再フォーマットします。</p>
+ <p><em>InputFile</em> パラメーターだけを指定すると、再フォーマットされたファイルが <em>InputFile</em> パラメーターに書き込まれ、
+<em>InputFile</em> パラメーターのバックアップ・コピーが、現行ディレクトリーに <strong>.BAK</strong> ファイル名接尾部付きで書き込まれます。</p>
+ <p><em>OutputFile</em>パラメータを指定した場合<em>、</em><strong> indent</strong>コマンドはその名前が<em>InputFile</em>パラメータと異なることを確認する。</p>
+ <p><strong>indent</strong> コマンドのデフォルト値であるユーザー自身のプロファイルを設定するには、
+ログイン・ディレクトリーまたは現行ディレクトリー内に <strong>.indent.pro</strong> と呼ばれるファイルを作成します。 このファイルに、必要な数のフラグをスペース、タブ、または改行で区切って入力します。</p>
+ <p>現行ディレクトリー内の <strong>.indent.pro</strong> ファイルに含まれているフラグは、
+ログイン・ディレクトリー内のフラグをオーバーライドします (ただし、<strong>-T</strong><em>Type</em> フラグは例外で、累算します)。 <strong>indent</strong> コマンドが実行され、しかもプロファイル・ファイルが存在している場合は、そのプロファイル・ファイルが読み取られて、プログラムのデフォルトが設定されます。 ただし、コマンド・ラインにフラグを入力した場合には、プロファイルのフラグはオーバーライドされます。</p>
+<p><strong>コメントの扱い
+</strong></p>
+ <p><strong>indent</strong> コマンドは、
+コメントの開始マーカーの直後に <strong>-</strong> (ダッシュ) または <strong>*</strong> (アスタリスク) が付いているコメント (<strong>/*-</strong> または <strong>/**</strong>) を、
+アスタリスクで囲まれたコメントであると解釈します。 そのようなコメントの各行は、字下げ以外は変わらないままです。 コメントの 1 行目の字下げ変更に合わせて、各行の字下げも調整することができます。</p>
+ <p>それ以外のコメントは、すべてテキストとして扱われます。 <strong>indent</strong> コマンドは、可能な限り多くのワードを (ブランク、タブ、または改行で区切って) 各行に合わせることができます。 ブランク行はパラグラフを区切ります。</p>
+ <p>ブロック・コメントは、コードの右にはないコメントのことで、2 行以上にまたがります。</p>
+ <p>コードのある行にコメントを入れる場合、その開始部分は、<strong>-c</strong><em>n</em> フラグによって設定されたコメント欄に置かれます。 それ以外の場合、コメントは、コードが現在置かれている位置よりも字下げレベルが <em>n</em> 個低い位置で開始されます。
+その場合の <em>n</em> は、<strong>-d</strong><em>n</em> フラグによって指定されます。 ある行でコードがコメント欄まで及ぶ場合は、コメントはさらに右の位置から開始されます。 極端な場合は、右マージンが自動的に拡張されることがあります。</p>
+<p><strong>プリプロセッサー行の扱い
+</strong></p>
+ <p><strong>indent</strong> コマンドは通常、プリプロセッサー行だけを残します。 このコマンドが行う唯一の再フォーマットは、後書きコメントの整理です。 その場合は、組み込みコメントだけが残されます。 条件付きコンパイル (<strong>#ifdef</strong> 行と <strong>#endif</strong> 行の間のコード) が認識されると、
+<strong>indent</strong> コマンドはインストールされた構文上の特殊性を適切に補正しようとします。</p>
+<p><strong>C 構文の扱い
+</strong></p>
+ <p><strong>indent</strong> コマンドに組み込まれたパーサーは、フォーマットが不完全な構文や誤りのある構文に対処しようとします。 特に、以下のマクロ</p>
+ <div> <div><div><pre><code>#define forever for(;;)</code></pre></div><div></div></div></div>
+ <p>を使うと、正しく処理されます。 最良の結果を得るためには、ソースの構文を正しく記述して <strong>indent</strong> コマンドを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <p></p><blockquote><span>“</span><span></span><strong>注:</strong> フラグは、ファイル名の前または後に置くことができます。<span>”</span></blockquote>
+<p></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-不良</strong></td>
+
+<td>宣言の各ブロックの後を強制的にブランク行にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-不良</strong></td>
+
+<td>宣言の各ブロックの後のブランク行を抑制します。<strong>-bad</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-バップ</strong></td>
+
+<td>各プロシージャー本体の後ろを強制的にブランク行にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nbap (Nbap)</strong></td>
+
+<td>各プロシージャー本体の後ろのブランク行を抑制します。<strong>-bap</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bbb (B)</strong></td>
+
+<td>各ブロック・コメントの前を強制的にブランク行にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ナッブ</strong></td>
+
+<td>各ブロック・コメントの前のブランク行を抑制します。<strong>-bbb</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bc (B)</strong></td>
+
+<td>宣言内のそれぞれのコンマの後で強制的に改行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nbc (N)</strong></td>
+
+<td>宣言内のそれぞれのコンマの後の改行を抑制します。<strong>-bc</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ブル</strong></td>
+
+<td>複合ステートメント、構造体の初期化、および enum の初期化を次のようなフォーマットにします。<div> <div><div><pre><code>if (...)
+{
+   code
+}</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-br</strong></td>
+
+<td>複合ステートメント、構造体の初期化、および enum の初期化を次のようなフォーマットにします。<div> <div><div><pre><code> if (...) {
+    code
+}</code></pre></div><div></div></div></div>
+  <p>このフラグは、<strong>-bl</strong> フラグでオフにしない限り、アクティブです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>「-c」</strong><em>N</em></td>
+
+<td>コードのコメントが開始されるタブ位置を <em>n</em> 変数に設定します。 デフォルト値は 33 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-cd (D)</strong><em>N</em></td>
+
+<td>宣言のコメントが開始されるタブ位置を <em>n</em> 変数に設定します。 デフォルトでは、このフラグは <strong>-c</strong> フラグで定義される値を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-cdb (C)</strong></td>
+
+<td>ブランク行にコメント区切りを付けるようにします。<strong>-ncdb</strong> フラグでオフにしない限り、アクティブです。 <strong>-cdb</strong> フラグの影響が及ぶのはブロック・コメントだけであり、
+コードの右側のコメントに対しては機能しません。 結果としてのコメントは、次のようになります。<div> <div><div><pre><code>/*
+ * this is a comment
+ */</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ncdb (N)</strong></td>
+
+<td>ブランク行にコメント区切りを付けないようにします。 <strong>-ncdb</strong> フラグの影響が及ぶのはブロック・コメントだけであり、コードの右側のコメントに対しては機能しません。 結果としてのコメントは、次のようになります。<div> <div><div><pre><code>/* this is a comment */</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-チェ</strong></td>
+
+<td><strong>}</strong> (右中括弧) の直後に <strong>else</strong> ステートメントを置けるようにします。<strong>-nce</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nce (n)</strong></td>
+
+<td><strong>}</strong> (右中括弧) の直後に <strong>else</strong> ステートメントを置けないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-CI</strong><em>N</em></td>
+
+<td>継続行を、ステートメントの 1 行目の先頭から数えて <em>n</em> 位置まで字下げします。 <strong>-lp</strong> フラグが有効になっていない場合、小括弧内の式にはネストを表す特殊な字下げが追加されます。 デフォルトでは、このフラグは <strong>-i</strong> フラグで定義した値を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-CLI</strong><em>N</em></td>
+
+<td>case ラベルを、そこに入っているフラグ・ステートメントの右へ <em>n</em> 桁分字下げします。 「<strong>-cli0.5</strong>」と入力すると、case ラベルがタブ・ストップの半分だけ字下げされます。 小数部の引数が付けられるのは、このオプションだけです。 デフォルト値は <strong>-cli0</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d 年</strong><em>N</em></td>
+
+<td>コードの右にないコメントの配置を <em>n</em> 変数で制御します。 <strong>-d1</strong> フラグを指定すると、そのコメントはコードの左側に字下げレベル 1 で出力されます。 デフォルトでは、このフラグは <strong>-d0</strong> を使用し、コメントはコードと位置合わせされます。 コメントの字下げは、プログラム・コードと相対的なコメント行の位置に影響されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ディ</strong><em>N</em></td>
+
+<td>先行する宣言キーワードから ID を <em>n</em> 変数だけ字下げするための桁数を指定します。 デフォルトでは、このフラグは <strong>-di16</strong> を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ジ</strong></td>
+
+<td>宣言を左寄せにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ndj (N)</strong></td>
+
+<td>宣言を字下げします。<strong>-dj</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-えい</strong></td>
+
+<td>特殊な <strong>else</strong>-<strong>if</strong> 処理を使用可能にします。<strong>-nei</strong> フラグでオフにしない限り、アクティブです。 <strong>-ei</strong> フラグを使用すると、<strong>else</strong> ステートメントに続く <strong>if</strong> ステートメントが、
+先行する <strong>if</strong> ステートメントと同じように字下げされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ネイ</strong></td>
+
+<td>特殊な <strong>else</strong>-<strong>if</strong> 処理を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ファ</strong></td>
+
+<td>代入演算子を旧スタイルの C コードから ANSI フォーマットに反転します。 このフラグは、<strong>-nfa</strong> フラグでオフにしない限り、アクティブです。<p></p><blockquote><span>“</span><strong>注意:</strong> コードが ANSI コンパイラー用に書かれている場合は、コードの意味が変更される可能性があります。 例:A=-Bは、右記になりますA-=B.<span>”</span></blockquote>
+<p></p>
+  <p></p><blockquote><span>“</span><strong>注:</strong> 演算子間にはスペースを入れないでください。 ユーザーが減算の意味を示す場合は、反転が必要になります。また、ユーザーが A はマイナス B に等しいという意味を示す場合は、反転によって意味が変更されます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ンファ</strong></td>
+
+<td>演算子の反転を抑制します。 コードが ANSI コンパイラー用に書かれている場合は、このフラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fc1</strong></td>
+
+<td>カラム 1 から始まるコメントのフォーマットを使用可能にします。<strong>-nfc1</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nfc1</strong></td>
+
+<td>カラム 1 から始まるコメントのフォーマットを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>I</strong><em>N</em></td>
+
+<td>字下げレベルのサイズを設定します。 デフォルトでは、レベル・サイズは 8 桁です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イップ</strong></td>
+
+<td>字下げパラメーターの宣言を使用可能にします。<strong>-nip</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ニップ</strong></td>
+
+<td>字下げパラメーターの宣言を使用不可にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong><em>N</em></td>
+
+<td>コードの右側にあるコメントの位置の最大桁を設定します。 コメントが 1 行に収まらない場合は、最大 25 文字が出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-lc (L)</strong><em>N</em></td>
+
+<td>ブロック・コメント行の最大長を <em>n</em> 変数に設定します。 デフォルトでは、このフラグは <strong>-l</strong> フラグに指定された長さを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-lp (L)</strong></td>
+
+<td>継続行上の小括弧で囲まれたコードを位置合わせします。<strong>-nlp</strong> フラグでオフにしない限り、アクティブです。 ある行に 1 組の小括弧のうちの左括弧だけがある場合 (対応する右括弧がない場合)、継続行は左括弧の次の位置から始まります。<p><strong>-lp</strong> フラグが有効になっていると、継続行は次のように出力されます。</p>
+  <div> <div><div><pre><code>p1 = first_procedure(second_procedure(p2,p3),
+                     third_procedure(p4,p5));</code></pre></div><div></div></div></div>
+  <p>さらに 2 つの改行を挿入すると、次のようになります。</p>
+  <div> <div><div><pre><code>p1 = first_procedure(second_procedure(p2,
+                                      p3),
+                     third_procedure(p4,
+                                     p5));</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-nlp</strong></td>
+
+<td>継続行の小括弧で囲まれたコードを位置合わせしないまま残します。 <strong>-nlp</strong> フラグが有効になっていると、継続行は次のように出力されます。<div> <div><div><pre><code>p1 = first_procedure(second_procedure(p2,p3),
+         third_procedure(p4, p5));</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-プロ</strong></td>
+
+<td>プロファイル・ファイル <strong> ./.indent.pro</strong> および <strong>$HOME/.indent.pro</strong> が無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-pcs (P)</strong></td>
+
+<td>各プロシージャー・コール名とそれに続く<strong> (</strong> (左小括弧) の間に、スペースを挿入します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エヌピーエス</strong></td>
+
+<td>各プロシージャー・コール名とそれに続く<strong> (</strong> (左小括弧) の間のスペースを抑制します。<strong>-pcs</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ps</strong></td>
+
+<td><strong>-&gt;</strong> 演算子の後に、ポインターの両側にスペースを挿入します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エヌピーエス</strong></td>
+
+<td><strong>-&gt;</strong> 演算子に続くポインターの両側のスペースを抑止します。 <strong>-ps</strong> フラグでオフにしない限りアクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-プスル</strong></td>
+
+<td>定義しているプロシージャーの名前が左寄せされます。<strong>-npsl</strong> フラグでオフにしない限り、アクティブです。 プロシージャーのタイプが存在する場合は、そのまま前の行に残ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ニプスル</strong></td>
+
+<td>定義したプロシージャーの名前の左寄せを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-SC</strong></td>
+
+<td><strong>*</strong> (アスタリスク) をコメントの左に配置できるようにします。<strong>-nsc</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nsc (S)</strong></td>
+
+<td><strong>*</strong> (アスタリスク) をコメントの左に配置できないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-スラブ</strong></td>
+
+<td>コードの右側にない単一行のコメントをブロック・コメントとして扱います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エヌエスビー</strong></td>
+
+<td>コードの右側にない単一行のコメントをブロック・コメントとして扱わないようにします。<strong>-slb</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ソブ</strong></td>
+
+<td>オプションのブランク行を除去します。 <strong>-nbad</strong>、<strong>-nbap</strong>、<strong>-nbbb</strong> のいずれかのフラグと組み合わせると、機能します。 <strong>-bad</strong>、<strong>-bap</strong>、または <strong>-bbb</strong> フラグで挿入されたブランク行だけを除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-インスブ</strong></td>
+
+<td>オプションのブランク行を保存します。<strong>-sob</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-セント</strong></td>
+
+<td><strong>indent</strong> コマンドがその入力を stdin から取り込み、出力を stdout に送信するようになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>タイプ</em></td>
+
+<td>タイプ・キーワードのリストに <em>Type</em> 変数を追加します。 名前は、累算されます。つまり、<strong>-T</strong> を複数指定できます。 <strong>indent</strong> コマンドから最良の出力を得るには、<strong>typedef</strong> ステートメントによって定義されたプログラム内のすべてのタイプを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-トロフ</strong></td>
+
+<td><strong>troff</strong> が処理できるように C プログラムをフォーマットします。 <strong>vgrind</strong> コマンドによって作成されるリストに類似したリストを作成します。 出力ファイルを指定しないと、デフォルトはその場合のフォーマットではなく標準出力となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細モードをオンにします。これによって、1 行の入力がいつ 2 行以上の出力に分割されるのかが報告され、実行完了時にサイズに関する統計情報が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nv (N)</strong></td>
+
+<td>詳細モードをオフにします。<strong>-v</strong> フラグでオフにしない限り、アクティブです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>形式を設定するには、test.c<strong>インデント</strong> コマンドのデフォルト設定を使用してファイルを作成し、出力をnewtest.cファイル、入力:<div> <div><div><pre><code>indent test.c newtest.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>形式を設定するには、test.c宣言およびプロシージャー本体の各ブロックの後にブランク行が強制されるようにファイルを作成し、他のすべてのデフォルト設定を使用して、出力をnewtest.cファイル、入力:<div> <div><div><pre><code>indent test.c newtest.c -bad -bap</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>形式を設定するには、test.c<strong>インデント</strong> コマンドのデフォルト設定を使用してファイルを作成し、uint<strong>インデント</strong> コマンドに認識できるタイプ・キーワードとして、次のように入力します。<div> <div><div><pre><code>indent test.c newtest.c -Tuint</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>./.indent.pro</strong></td>
+
+<td>プロファイル・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.indent.pro</strong></td>
+
+<td>プロファイル・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/bin/indent</strong></td>
+
+<td><strong>indent</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

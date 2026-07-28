@@ -1,0 +1,499 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ファイルの内容を一度に 1 画面ずつ表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>その他</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171180" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171192" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171204" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171210" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171216" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171222" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171237" target="_blank" rel="noopener noreferrer"><strong>-N (N) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171327" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171353" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171368" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171470" target="_blank" rel="noopener noreferrer"><strong>-z </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171252" target="_blank" rel="noopener noreferrer"><strong>N </strong></a><em>数値</em> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171272" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a><em>サブコマンド</em><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171340" target="_blank" rel="noopener noreferrer"><strong>T </strong></a><em>タグ・ストリング</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171393" target="_blank" rel="noopener noreferrer"><strong>-W (W) </strong></a><em>オプション</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__row-d3e171459" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a><em>タブ</em> ] [ <em>ファイル</em> ...<em></em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>more</strong> コマンドは、ファイルを読み取り、そのテキストを一度に 1 画面ずつ表示します。 コマンドは、各画面の後で一時停止し、ワードを印刷します。More画面の下部に表示されます。 このときに復帰を押すと、<strong>more</strong> コマンドは次の行を表示します。 スペース・バーを押すと、<strong>more</strong> コマンドは別のフルスクリーンのテキストを表示します。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> 端末のモデルによっては、
+<strong>more</strong> コマンドを実行するとスクロールする代わりに画面を消去してしまうことがあります。<span>”</span></blockquote>
+<p></p>
+ <p>読み取るファイルの名前を指定する代わりに、長いディレクトリー・リストなどの標準出力を <strong>more</strong> コマンドへリダイレクトまたはパイプ接続することができます。 このコマンドは、パイプからではなくファイルから読み取る場合、そのプロンプトに % (パーセント記号) を追加します。 これにより、<strong>more</strong> コマンドが読み取ったファイルの割合を (行数ではなく文字数単位で) 表示します。</p>
+ <p><strong>more</strong> コマンドは端末を NOECHO モードに設定し、連続的な出力を可能にします。 <code>/</code> サブコマンドおよび <code>!</code> サブコマンドを除き、入力されたコマンドは通常端末には表示されません。 標準出力が端末ではない場合には、<strong>more</strong> コマンドは、一連のファイルのうちの各ファイル前にヘッダーが印刷されることを除き、<strong>cat</strong> コマンドのように機能します。</p>
+<p><strong>環境変数</strong></p>
+ <p>環境変数は、<strong>more</strong> コマンドの動作に影響を与えます。 <strong>/etc/environment</strong> ファイルと <strong>.ksh</strong>、<strong>.csh</strong>、
+<strong>.profile</strong> ファイルなどのシステム・プロファイル・ファイル内に、環境特性をいくつか設定することができます。</p>
+ <p><strong>more</strong> コマンドは、<strong>TERM</strong> 変数を使用して端末特性を決定します。 この変数が NULL であるか、または設定されていなければ、コマンドはデフォルトのターミナル・タイプを使用します。 <strong>/usr/share/lib/terminfo</strong> ディレクトリーには、端末特性の定義が入っています。</p>
+ <p>デフォルトでは、<strong>more</strong> コマンドのウィンドウ・サイズは、システム端末が表示可能なサイズより 2 行小さくなります。 このコマンドは、<strong>LINES</strong> 変数に基づいてデフォルトのウィンドウ・サイズを設定します。 また、<strong>-n</strong> フラグを追加すると、このコマンドを実行するたびに、ウィンドウ・サイズを簡単に調整することができます。</p>
+ <p>システム始動のたびに、優先構成で <strong>more</strong> コマンドをカスタマイズするには、<strong>MORE</strong> 変数を使用します。 この変数は、<strong>more</strong> コマンド・フラグを受け入れます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><span>フラグの説明</span><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>画面をスクロールしないようになるので、<strong>more</strong> コマンドが画面に出力している間、テキストが読みやすくなります。 端末に行末まで消去する機能がない場合は、
+<strong>-c</strong> フラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>メッセージを印刷します。More<strong>more</strong> コマンドの継続、終了、およびヘルプの提供を行うキーについてのプロンプトを画面の下部に表示します。 認識できないコマンドが使用された場合、端末のベルが鳴る代わりにエラー・メッセージが表示されます。 これは、未経験のユーザーに役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>最終ファイルの最終行を表示したら自動的に終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>デフォルトでは、検索パターン高輝度表示機能を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>大文字と小文字を区別せずにパターンを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>入力データの改ページを検出後に一時停止します。 <code>-l</code> フラグを使用しない場合、<strong>more</strong> コマンドは、コマンドを受け取るために <code>^L</code> (CTRL-L) 文字を含む行の後で停止します。 また、ファイルが FORMFEED で始まっている場合には、ファイルが印刷される前に画面がクリアされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>行番号が表示されないようにします。 デフォルト表示では行番号が表示され、極端に大きい入力ファイルの場合に <strong>more</strong> コマンドのパフォーマンスが低下することがあります。 行番号付け機能は、<strong>=</strong> サブコマンド内の行番号を表示して、その行番号をエディターに渡します (<strong>vi</strong> エディターの場合)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 数値</em></td>
+
+<td>指定した行数をウィンドウ内に表示するように <strong>more</strong> コマンドを構成します。 <strong>-n</strong> フラグを指定しなければ、デフォルトで、<strong>more</strong> コマンドは端末に表示可能な行数から 2 行差し引いた行数を表示します。 例えば、24 行の端末の場合、デフォルトでは 22 行です。 <code>-n</code> オプションは環境から取得された任意の値をオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> サブコマンド</em></td>
+
+<td><p><em>File</em> オペランドごとに、 <strong>more</strong> コマンドと指定されたサブコマンドを開始します。 例えば、<strong>more</strong><strong> -p</strong><strong> 50j</strong><strong> text1</strong><strong> text2</strong> と指定すると、<strong>text1</strong> ファイルの 50 行目が表示され、最初の操作を終了すると
+<strong>text2</strong> ファイルの 50 行目が表示されます。 <strong>more</strong> サブコマンドの説明については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/more.html#more__a180z94b47" target="_blank" rel="noopener noreferrer">「サブコマンド」</a> を参照してください。</p>
+ <p>そのコマンドが、行番号や正規表現検索のような位置決めコマンドの場合には、ファイルの中間行を書き出すことなしに、コマンドの最終結果を表示するように現在位置を設定します。 例として、次の 2 つのコマンドを示します。</p>
+ <p><code>more -p 1000j <em>filename</em></code></p>
+ <p><code>more
+-p 1000G <em>filename</em></code></p>
+ <p>上記のコマンドは同じ機能を持ち、ファイル検査中に発行された場合には、j が書き出し、画面をスクロールする行をパスして、現在位置の 1000  行で表示を開始します。</p>
+ <p>位置決めコマンドが失敗した場合には、ファイルの最初の行が現在位置になります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>出力内の複数の空白行を単一の空白行に圧縮します。 <strong>-s</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nroff.html" target="_blank" rel="noopener noreferrer"><strong>nroff</strong></a> コマンドからの出力を表示する場合に特に役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タグ・ストリング</em></td>
+
+<td>指定されたタグが入っているファイルの部分を表示します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html" target="_blank" rel="noopener noreferrer"><strong>ctags</strong></a> コマンドで作成されたタグを含むファイルに対してのみ機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><strong>more</strong> コマンドがバックスペース文字を印刷可能な制御文字 (^H (CTRL-H) と表示されます) として取り扱わないようにし、送信元ファイルの下線付き情報に対して、バックスペース動作、下線付け、反転ビデオ・テキストの作成をしないようにします。 また、<strong>-u</strong> フラグを指定すると、行末に復帰文字が付いている場合に、<strong>more</strong> コマンドにその文字を認識させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>非印字文字の図形変換を抑制します。 <strong>-v</strong> フラグを指定しなければ、<strong>more</strong> コマンドは ASCII 以外のすべての文字とほとんどの制御文字を図形として解釈します。ただし、タブ、バックスペース、リターンは除きます。 例えば、 <strong>-v</strong> フラグを使用しない場合、 <strong>more</strong> コマンドは非 ASCII 文字の Ctrl-x を次のように表示します。^Xおよび x asM-x.</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong><em> オプション</em></td>
+
+<td>指定した <em>Option</em> を拡張子として <strong>more</strong> コマンドに指定します。<dl>
+<dt><strong>通知</strong></dt>
+
+<dd><strong>more</strong> コマンドがファイルを表示する前に、端末初期化文字列 (<strong>ti</strong><strong> termcap</strong> または <strong>smcup</strong><strong> terminfo</strong> 機能) を送信しないようにします。 また、このオプションは、<strong>more</strong> コマンドが終了する前に、端末初期化解除文字列 (<strong>te</strong><strong> termcap</strong> または <strong>rmcup</strong><strong> terminfo</strong> 機能) を送信しないようにします。</dd>
+
+
+<dt><strong>タイト (tite)</strong></dt>
+
+<dd><strong>more</strong> コマンドに初期化文字列と初期化解除文字列を送信させます。 これはデフォルトです。</dd>
+
+</dl>
+  <p>これらのオプションが制御するのは、<strong>more</strong> コマンドが、指定した初期化文字列を送信するか、送信しないかについて制御します。この文字列が指定されていると、<strong>more</strong> コマンドが代替画面に切り替える端末もあります (X 端末など)。 画面が切り替わると、表示されていたファイルの画面が消去されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> タブ</em></td>
+
+<td>指定された <em>Tabs</em> 位置にタブ・ストップを設定します。 デフォルトのタブ設定は 8 桁です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>タブ、バックスペース、およびリターン制御文字を図形的に表示します。 <strong>-z</strong> フラグを指定すると、 <strong>more</strong> コマンドは Backspace 文字を次のように変換します。^H, 戻り値:^M、および Tab as^I.</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>サブコマンド</strong></p>
+ <p><strong>more</strong> コマンドがサブコマンドを受け入れるのは、コマンドが休止している場合および <strong>-p</strong> フラグのパラメーターとして指定している場合です。 多くのサブコマンドはオプションの整数をとります。ここではこの整数を
+<em>K</em> で表していますが、この整数を各サブコマンドの前にスペースを入れずに入力しなければなりません。 <strong>more</strong> コマンドは、一時停止状態でサブコマンドを即座に処理するので、Enter キーを押す必要はありません。</p>
+ <p><strong>more</strong> コマンドは次のサブコマンドを使用します。</p>
+ 
+<div><span>more コマンド</span><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>h</strong></td>
+
+<td><strong>more</strong> サブコマンドを説明するヘルプ画面を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>v</strong></td>
+
+<td><strong>vi</strong> エディターを始動して現行ファイルの現在の行を編集します。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong> または<strong> ^ L</strong></td>
+
+<td>ディスプレイを最新表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>R</strong></td>
+
+<td>ディスプレイを最新表示して、バッファーに入れられた入力を除去します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em> ] (スペース・バー)</td>
+
+<td>スペース・バーを押したときに、<em>K</em> 行分を順方向に移動します。 <em>K</em> の値を指定しないでスペース・バーを押すと、デフォルトで次画面全体が表示されます。 このスペース・バー・サブコマンドは、[<em>K</em> ]<strong>f</strong>、[<em>K</em> ]<strong>^F</strong>、または [<em>K</em> ]<strong>z</strong> と同じです。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>f</strong> または [<em>K</em>]<strong>^F</strong> または [<em>K</em>]<strong>z</strong></td>
+
+<td><em>K</em> 行分順方向に移動します。<em>K</em> の値を
+指定しなければ次画面に移動します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>b</strong> または [<em>K</em>]<strong>^ B</strong></td>
+
+<td><em>K</em> 行分逆方向に移動します。<em>K</em> の値を
+指定しなければ前画面に移動します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em> ]<strong>d</strong> または [<em>K</em> ]<strong>^D</strong></td>
+
+<td><em>K</em> 行分順方向に移動します。<em>K</em> の値を指定しない場合は、1/2 画面分順方向に移動します。 <em>K</em> の値を指定すると、<strong>more</strong> コマンドはそのセッションの <strong>d</strong> および <strong>u</strong> スクロール・サイズを <em>K</em> 行に設定します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em> ]<strong>u</strong> または [<em>K</em> ]<strong>^U</strong></td>
+
+<td><em>K</em> 行分逆方向に移動します。<em>K</em> の値を指定しない場合は、1/2 画面分逆方向に移動します。 <em>K</em> の値を指定すると、<strong>more</strong> コマンドはそのセッションの <strong>d</strong> および <strong>u</strong> スクロール・サイズを <em>K</em> 行に設定します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>j</strong> または [<em>K</em>](Enter) または [<em>K</em>]<strong>^E</strong></td>
+
+<td><em>K</em> 行分順方向に移動します。<em>K</em> の値を
+指定しなければ 1 行分順方向に移動します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em> ]<strong>k</strong> または [<em>K</em> ]<strong>^Y</strong></td>
+
+<td><em>K</em> 行分逆方向に移動します。<em>K</em> の値を
+指定しなければ 1 行分逆方向に移動します。</td>
+
+</tr>
+
+<tr>
+<td>[ <em>K</em><strong> ]g</strong></td>
+
+<td><em>K</em> の行番号を指定しないと、ファイルの先頭に移動します。 <em>K</em> のデフォルトは行番号 1 です。</td>
+
+</tr>
+
+<tr>
+<td>[ <em>K</em><strong> ]G</strong></td>
+
+<td><em>K</em> の行番号を指定しないと、ファイルの最終行へ移動します。 <em>K</em> のデフォルトはファイルの最終行です。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>p</strong> または [<em>K</em>]<strong>%</strong></td>
+
+<td>ファイル内で、そのファイル全体の <em>K</em> % の位置に移動します。 <em>K</em> のデフォルトは 1%、またはファイルの 1 行目です。</td>
+
+</tr>
+
+<tr>
+<td><strong>m</strong><em>a から z</em></td>
+
+<td>指定した文字で、ファイルの現在位置をマークします。</td>
+
+</tr>
+
+<tr>
+<td><strong>'</strong><em>a から z</em></td>
+
+<td>(単一引用符) 指定した文字でマークした位置まで移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>''</strong></td>
+
+<td>(2 つの単一引用符) 最後の大幅な移動 (1 ページより大きい移動) を行う前の位置に戻ります。 そのような移動が行われなかった場合は、ファイルの先頭に戻ります。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>/</strong><em>パターン</em></td>
+
+<td>(スラッシュ) 指定されたオカレンスの指定された文字パターンを、現行位置から順方向に検索します。 <em>K</em> のデフォルト値は最初のオカレンスです。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>/!</strong><em>パターン</em></td>
+
+<td>(スラッシュ、感嘆符) 指定されたオカレンスの指定された文字パターンが入っていない行を、現行位置から順方向に検索します。 <em>K</em> のデフォルト値は最初のオカレンスです。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>?</strong><em>パターン</em></td>
+
+<td>(疑問符) 指定されたオカレンスの指定された文字パターンを、現行位置から逆方向に検索します。 <em>K</em> のデフォルト値は最初のオカレンスです。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>?!</strong><em>パターン</em></td>
+
+<td>(疑問符、感嘆符) 指定されたオカレンスの指定された文字パターンが入っていない行を、現行位置から逆方向に検索します。 <em>K</em> のデフォルト値は最初のオカレンスです。</td>
+
+</tr>
+
+<tr>
+<td>[ <em>K</em><strong> ]n</strong></td>
+
+<td>最後の検索を繰り返し、パターンのオカレンスを指定します (または、検索サブコマンドに <strong>!</strong>が含まれている場合は、パターンを <em>含まない</em> オカレンスを指定します)。 <em>K</em> のデフォルト値は最初のオカレンスです。</td>
+
+</tr>
+
+<tr>
+<td><strong>:a</strong></td>
+
+<td><strong>more</strong> コマンド・ラインで指定したファイル (1 つ以上) をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>:f</strong> または <strong>^ G</strong> または <strong>=</strong></td>
+
+<td>現行ファイルについて次の情報を表示します。<ul>
+<li>ファイル名</li>
+
+<li>ファイル・リスト内のファイルの順序</li>
+
+<li>現在の行番号</li>
+
+<li>ファイル内の現行位置を示す割合</li>
+
+<li>現在表示されているバイト数と合計バイト数</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>:e</strong>[<em>File</em> ] または <strong>E</strong>[<em>File</em> ]</td>
+
+<td><strong>more</strong> コマンド・ラインでファイルが指定された場合は、そのファイルを調べます。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em> ]<strong>:n</strong> または [<em>K</em> ]<strong>N</strong></td>
+
+<td><strong>more</strong> コマンド行で指定したファイルのリストで、次のファイル ( <em>K</em>の値を指定しない場合) またはファイル <em>K</em> の順方向位置数のいずれかを調べます。</td>
+
+</tr>
+
+<tr>
+<td>[<em>K</em>]<strong>:p</strong> または [<em>K</em>]<strong>P</strong></td>
+
+<td><strong>more</strong> コマンド行で指定したファイルのリストで、前のファイル ( <em>K</em>の値を指定しない場合) またはファイル <em>K</em> の逆方向の位置数のいずれかを調べます。</td>
+
+</tr>
+
+<tr>
+<td><strong>:t</strong><em> タグ・ストリング</em></td>
+
+<td>指定されたタグが入っているファイルの部分を表示します。 このサブコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html" target="_blank" rel="noopener noreferrer"><strong>ctags</strong></a> コマンドで作成されたタグを含むファイルに対してのみ機能します。 <strong>:t</strong> サブコマンドは、<strong>-t</strong> フラグの対話型バージョンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>:q</strong> または <strong>q</strong> または<strong> Q</strong></td>
+
+<td><strong>more</strong> コマンドを終了します。</td>
+
+</tr>
+
+<tr>
+<td> <strong>:!</strong><em>コマンド</em> または <strong>!</strong><em>コマンド</em><strong></strong></td>
+
+<td>指定したコマンドを新しいシェルで開始します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>H</span></span></td>
+
+<td>検索パターン高輝度表示機能をオン/オフに切り替えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><span>終了状況</span><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>次の名前のファイルを表示するには、myfile次のように入力します。<div> <div><div><pre><code>more myfile</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span><strong> nroff</strong> コマンドからの出力を表示するには、次のように入力します。<div> <div><div><pre><code>ls -l | more</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>各ファイルを最後の画面から表示するには、次のように入力します。<div> <div><div><pre><code>more -p G file1 file2</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>100行目を現在位置として各ファイルを表示するには、次のように入力する：<div> <div><div><pre><code>more -p 100 file1 file2</code></pre></div><div></div></div>通常は、<strong>more</strong> コマンドによる表示の現在位置は、画面の 3 行目です。 この例では、画面の最初の行はファイルの 98 行目です。</div>
+</li>
+
+<li><span></span>各ファイルを表示するには、以下を含む最初の行から開始します。fooストリング、入力:<div> <div><div><pre><code>more -p /foo file1 file2</code></pre></div><div></div></div><strong>more</strong> コマンドは、この行を現行位置、つまり画面の 3 行目に表示します。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><span>ファイル</span><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/terminfo</strong></td>
+
+<td>端末情報データベースを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>
