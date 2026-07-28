@@ -1,0 +1,351 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ネットワーク・インストール管理 (NIM) クライアント・パッケージを構成します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>NIMクライアントパッケージを設定するには、次のコマンドを入力してください：<div><div><pre><code>niminit { -a name=Name -a pif_name=Pif -a master=Hostname } [ -a master_port=PortNumber ] [ -a registration_port=PortNumber ] [ -a cable_type=CableType | -a ring_speed=Speed ] [ -a iplrom_emu=Device ] [ -a platform=PlatformType ] [ -a netboot_kernel=NetbootKernelType ] [ -a adpt_add=AdapterAddress ] [ -a is_alternate= yes | no ] [ -a connect=value ] [ -a vlan_tag=value ] [ -a vlan_pri=value ] [ -c ]
+</code></pre></div><div></div></div></div>
+
+<div>ファイルを <span>/etc/niminfo</span> 再構築するには、次のコマンドを入力してください：<div><div><pre><code>niminit { -a name=Name -a master=Hostname -a master_port=PortNumber }
+</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p>この <span>niminit</span> コマンドは、コマンド <span>nimclient</span> を使用する前に、NIMクライアントパッケージの設定を行います。 <span>niminit</span> コマンドが必要な属性を受け取ると、 <span>niminit</span> コマンドを実行するマシンを表す新しいマシン・オブジェクトが作成される。 <span>niminit</span> コマンドが正常に完了すると、 <span>niminit</span> コマンドを実行したマシンは NIM 環境に参加できるようになる。</p>
+
+<p>NIMクライアント・パッケージが設定されたら、 <span>niminit</span> コマンドを実行して、クライアント上の <span>/etc/niminfo</span> ファイルを再構築することができます。 <span>/etc/niminfo</span> ファイルは <span>niminit</span> コマンドで使用される。 ユーザーが意図せずファイルを削除した場合、 <span>/etc/niminfo</span> ファイルを再構築しなければならない。</p>
+
+<p><span>niminit</span> <span>alternate_master</span> 。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/niminit.html#niminit__is_alternate" target="_blank" rel="noopener noreferrer"><span>is_alternate</span></a> 属性が <span>yesに</span>設定されている場合。 <span>alternate_master</span> オブジェクトを設定する前に、 <code>bos.sysmgt.nim.master</code> ファイルセットをインストールする必要があります。 <span>alternate_master</span> オブジェクトが設定された後、 <span>alternate_master</span> オブジェクトが登録されているプライマリシステムは、このマシン上で <span>alternate_master</span> オブジェクトの操作を実行することができる。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>属性の説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td><span>niminit</span> 、最大5つの属性を指定する。 このフラグは <span>-a</span> 、後続する「 <span>attribute</span>=value 」の各ペアの前に置かれます：<dl>
+
+<dt><span>name</span>= 名前</dt>
+
+<dd>NIMがワークステーションを識別するために使用する名前を指定します。 この値は必須です。</dd>
+
+
+
+<dt><span>pif_name</span>=ピフ</dt>
+
+<dd>すべての NIM コミュニケーションのネットワーク・インターフェースの名前を定義します。 この値は必須です。</dd>
+
+
+
+<dt><span>master</span>=ホスト名</dt>
+
+<dd>NIM マスターのホスト名を指定します。 クライアントはこのホスト名を Internet Protocol (IP)アドレスに解決しなければならない。 この値は必須です。</dd>
+
+
+
+<dt><span>master_port</span>=ポート番号</dt>
+
+<dd>NIM 通信に使用する <span>nimesis</span> デーモンのポート番号を指定します。</dd>
+
+
+
+<dt><span>cable_type</span>=ケーブルタイプ</dt>
+
+<dd>イーサネット・ケーブル・タイプを指定します。 <span>pif_name</span> 。 CableType 値を指定しなければならない。 有効な値は、 <span>bnc</span>、 <span>dix</span>、および <span>N/A</span> です。</dd>
+
+
+
+<dt><span>ring_speed</span>=スピード</dt>
+
+<dd>速度をMbps単位で指定する。 <span>pif_name</span> 属性がトークンリングネットワークを参照する場合、 Speed 値を指定しなければならない。 有効な値は <span>4と</span> <span>16</span> である。</dd>
+
+
+
+<dt><span>iplrom_emu</span>=デバイス</dt>
+
+<dd>読み取り専用メモリ（ROM）エミュレーション・イメージを含むデバイスを指定します。 ROMエミュレーション・イメージは、ネットワーク・インターフェイス経由での起動を内部でサポートしていないモデルに必要です。</dd>
+
+
+
+<dt><span>platform</span>=プラットフォームタイプ</dt>
+
+<dd>クライアントのマシンタイプに対応するプラットフォームを指定する。 <span>platform</span>=attribute が指定されていない場合は、デフォルトの <span>chrp</span> プラットフォームが使用されます。 対応プラットフォームは以下の通り：<dl>
+
+<dt><span>chrp</span></dt>
+
+<dd><span>PowerPC</span> CHRP（Common Hardware Reference Platform）アーキテクチャベースのマシン。</dd>
+
+
+
+<dt><span>rs6k</span></dt>
+
+<dd>マイクロ・チャネル・ベースのユニプロセッサー・モデル <span>AIX 5.1</span> およびそれ以前のモデル。</dd>
+
+
+
+<dt><span>rs6ksmp</span></dt>
+
+<dd>マイクロ・チャネル・ベースの対称型マルチプロセッサ・モデル <span>AIX 5.1</span> およびそれ以前のモデル。</dd>
+
+
+
+<dt><span>rspc</span></dt>
+
+<dd><span>PowerPC</span> のPCIバスベースのユニプロセッサ・マシン。 <span>AIX 5.1</span> およびそれ以前のマシン。</dd>
+
+
+
+<dt><span>rspcsmp</span></dt>
+
+<dd><span>PowerPC</span> PCIバスベースの対称型マルチプロセッサ・マシン。 <span>AIX 5.1</span> およびそれ以前。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt><span>adpt_add</span>= アダプター ・アドレス</dt>
+
+<dd>ネットワーク・アダプターに対応するハードウェア・アドレスを指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>registration_port</span>=ポート番号</dt>
+
+<dd>NIMクライアントの登録に使用するポート番号を指定します。<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>コマンドラインでポート番号を指定しない場合、NIM用の <span>/etc/services</span> ファイルにあるポート番号が使用される。 <span>/etc/services</span> ファイルに <code>NIM ports</code>、 <code>nim</code> 、 <code>nimreg</code> のエントリーがない場合、 <span>master_port</span> 属性には1058、 <span>registration_port</span> 属性には1059のデフォルト値が使用される。</li>
+
+<li><span>master_port</span> 属性と <span>registration_port</span> 属性に使用される値は、NIMマスターが使用する値と一致しなければならない。 NIMマスターが使用する値を表示するには、NIMマスター上でコマンド <span>lsnim -l
+master</span> を実行する。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><span>netboot_kernel</span>=NetbootKernelType</dt>
+
+<dd>ネットワーク経由でクライアントを起動する際に使用するカーネルの種類を指定します。 以下の値は、 <span>netboot_kernel</span> 属性値です：<dl>
+
+<dt><span>UP</span></dt>
+
+<dd>ユニプロセッサ・マシン用カーネル。 この値はデフォルト値です。</dd>
+
+
+
+<dt><span>MP</span></dt>
+
+<dd>マルチプロセッサ・マシン用カーネル。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt><span>is_alternate</span>= [ <span>はい</span> ｜ <span>いいえ</span> ]</dt>
+
+<dd><span>alternate_master</span> オブジェクトとして設定するには、 <span>is_alternate</span>= attributeを <span>yesに</span>設定する。</dd>
+
+
+
+<dt><span>connect</span>=価値</dt>
+
+<dd>NIMクライアントがNIMコマンドのリモート実行に使用する通信サービスを指定する。 この値の選択肢は、「 <span>shell</span> 」と <code>rsh</code> 「 <span>nimsh</span> 」です。 デフォルト設定は <span>connect</span><span>=</span> shell。 <span>connect</span>= 値はオプション。 <span>is_alternate</span>=attribute が <span>yes</span> に設定されている場合、 <span>nimsh</span> がデフォルト設定となり、これが唯一の有効な値となります。 <span>is_alternate</span> 属性はオプションです。</dd>
+
+
+
+<dt><span>vlan_tag</span>=価値</dt>
+
+<dd>VLAN タグ付けに使用する仮想論理エリア・ネットワーク (VLAN) の ID を指定します。 IDは、イーサネット・フレームが属するVLANを識別する。 このIDによって、ネットワーク管理者は、ネットワークをサブネットに割り当てるのではなく、クライアントの通信を論理的に整理することができる。 VLAN タグ付けの値は NIM によって、クライアントのネットワーク・ブートを実行するために使用されます。 VLAN タグ通信の構成は、値を使用する前に NIM の外部で処理する必要があります。 <span>vlan_tag</span> オプションの値域は 0-4094である。</dd>
+
+
+
+<dt><span>vlan_pri</span>=価値</dt>
+
+<dd>VLAN タギングに使用する VLAN プライオリティを指定します。 優先度値は、VLANタグとともに、そのイーサネットフレームが属するVLANを特定するために使用されます。 優先順位によって、ネットワーク管理者はネットワークをサブネットに割り当てるのではなく、クライアントの通信を論理的に整理することができる。 VLAN タグ付けの値は NIM によって、クライアントのネットワーク・ブートを実行するために使用されます。 VLAN タグ通信の構成は、値を使用する前に NIM の外部で処理する必要があります。 <span>vlan_pri</span> オプションの値の範囲は0-7である。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>NIMマスターのプッシュ操作中に、Secure Sockets Layer（ SSL ）認証を有効にします。<div><div>
+        <div>
+          <div><span>注:</span> <span>nimconfig -c</span> コマンドを使用して、NIMマスタにOpen Secure Sockets Layer ( OpenSSL ) 証明書を設定する。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<dl>
+
+<dt>アクセス制御</dt>
+
+<dd><span>niminit</span> コマンドを実行するには、root権限が必要です。</dd>
+
+
+
+<dt>RBACユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBACユーザーに注意：</span> このコマンドは特権操作を実行することができます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、 <span>セキュリティの</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベースを</a>参照してください。 このコマンドに関連する特権と権限のリストについては <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a> コマンドまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a> サブコマンドを参照してください。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>BOOTP 対応の初期プログラムローダー (IPL) ROM を搭載し、NIM 環境内で「scuba」として認識される必要があるマシン上で、NIM クライアントパッケージを設定するには、次のコマンドを入力します<div>
+<div><div><pre><code>niminit -a name=scuba -a pif_name=en0 -a cable_type=bnc \
+-a master=manta</code></pre></div><div></div></div>
+</div>
+<p>ここで、 <code>en0</code> はプライマリー・インターフェイスで、イーサネット・ケーブルのタイプは <code>bnc</code>。 このコマンドでは、ネットワークインストール通信のために、NIMマスターのホスト名として を指定し <code>manta</code> 、 ディレクトリ <span>/etc/services</span> にあるNIMポートを使用して、マシンがNIMマスターと通信することも指定します。</p>
+</li>
+
+<li>NIMマスターのホスト名として、ポート番号として 1058 を指定 <code>superman</code> して、削除されたファイルを <span>/etc/niminfo</span> 再構築するには、次のコマンドを入力してください：<div>
+<div><div><pre><code>niminit -a name=robin -a master=superman -a master_port=1058</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>PowerPC</span> のPCIバスベースのユニプロセッサシステムで、BOOTP対応のIPL ROMを搭載し、NIM環境内で として <code>starfish</code> 認識される必要があるマシン上で、 <span>AIX5.1</span> およびそれ以前のバージョンのNIMクライアントパッケージを設定するには、次のコマンドを入力します<div>
+<div><div><pre><code>niminit -a name=starfish -a pif_name=en0 -a cable_type=dix \
+-a master=whale -a master_port=1058 -a platform=rspc</code></pre></div><div></div></div>
+</div>
+<p><code>en0</code> はプライマリー・インターフェイスで、イーサネット・ケーブルのタイプは <code>dix</code>。 このコマンドでは、NIMクライアントパッケージが、NIMマスターのホスト名として、ポート番号として1058を使用して <code>whale</code> 、NIMマスターと通信することも指定されています。</p>
+</li>
+
+<li>NIM 環境内で <code>bluefish</code> として認識される必要があるマシン上で NIM クライアントを設定するには、次のコマンドを入力します：<div>
+<div><div><pre><code>niminit -a name=bluefish -a pif_name=at0 -a master=redfish \
+-a master_port=1058</code></pre></div><div></div></div>
+</div>
+<div>ここで、 <code>at0</code> はプライマリー・インターフェースである。 このコマンドでは、NIMクライアントがNIMマスターと通信する際、NIMマスターのホスト名として を指定し <code>redfish</code> 、ポート番号として1058を使用することも指定しています。<div><div>
+        <div>
+          <div><span>注：</span> 非同期転送モード（ATM）ネットワーク・インターフェースはネットワーク経由でのブートをサポートしないので、クライアントのサブネットに対応する汎用ネットワーク・オブジェクトがすでに定義されている場合、この操作はNIMマスタ上でマシン・オブジェクトを定義する。</div>
+        </div>
+      </div></div>
+</div>
+
+</li>
+
+<li><span>PowerPC</span> のPCIバスベースの対称型マルチプロセッサシステムであり、BOOTP対応のIPL ROMを搭載し、NIM環境内で として <code>jellyfish</code> 認識される必要があるマシン上で、 <span>AIX5.1</span> およびそれ以前のバージョン用のNIMクライアントを設定するには、次のコマンドを入力します<div>
+<div><div><pre><code>niminit -a name=jellyfish -a pif_name=en0 -a cable_type=dix \
+-a master=whale -a master_port=1058 -a platform=rspcsmp</code></pre></div><div></div></div>
+</div>
+<p><code>en0</code> はプライマリー・インターフェイスで、イーサネット・ケーブルのタイプは <code>dix</code>。 このコマンドでは、NIMクライアントがNIMマスターと通信する際、NIMマスターのホスト名として を指定し <code>whale</code> 、ポート番号として1058を使用することも指定しています。</p>
+</li>
+
+<li>IPL ROM エミュレーションを使用しているマシン上で、NIM 環境において <code>octopus</code> として認識される必要がある場合、デバイス <span>/dev/fd0</span> ・ディレクトリ内の NIM クライアント・パッケージを設定するには、次のコマンドを入力します<div>
+<div><div><pre><code>niminit -a iplrom_emu=/dev/fd0 -a name=octopus -a pif_name=tr0 \
+-a ring_speed=16 -a master=dolphin -a master_port=1700 \
+-a registration_port=1701</code></pre></div><div></div></div>
+</div>
+<p>ここで、 <code>tr0</code> はプライマリー・インターフェイスで、リング・スピードは16である。 このコマンドはまた、NIMマスタのホスト名として <code>dolphin</code> 、クライアント通信用に1700、クライアント登録用に1701のポート番号を使用して、マシンがNIMマスタと通信することを指定する。</p>
+</li>
+
+<li><code>en0</code>NIM 環境で「octopus」という名前で知られるマシンを NIM マスター <code>dolphin</code><span>alternate_master</span> のオブジェクトとして設定し、インターフェースを介して通信を行うには、次のコマンドを入力します：<div><div><pre><code>niminit -a is_alternate=yes -a name=octopus -a pif_name=en0 \ 
+-a cable_type=bnc -a master=dolphin</code></pre></div><div></div></div></li>
+
+<li>SSL の証明書をコピーし、クライアントの初期化時に SSL 認証を有効にするには、次のコマンドを入力してください：<div><div><pre><code>niminit -a name=octopus -a master=dolphin -a connect=nimsh -c -v</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注：</span> NIM通信については、NIMマスターの初期化時の SSL キーおよび証明書の設定は、Technology Level 2以降の AIX® 7.3 でサポートされています。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><caption><span>表2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/niminfo</span></td>
+
+<td>NIM が使用する変数が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

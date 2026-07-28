@@ -1,0 +1,121 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>エミュレーション例外割り込みの統計情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span></span><strong>Emstat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/emstat.html#emstat__row-d3e78579" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/emstat.html#emstat__row-d3e78588" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/emstat.html#emstat__row-d3e78555" target="_blank" rel="noopener noreferrer"><em>間隔</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/emstat.html#emstat__row-d3e78561" target="_blank" rel="noopener noreferrer"><em>度数</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>emstat</strong> コマンドは、エミュレーション例外割り込みの統計情報を表示します。 既存のアプリケーションまたはライブラリー (旧式のプロセッサー・アーキテクチャーから削除された命令を含む) を新しいプロセッサー上で実行すると、エミュレーション例外が発生することがあります。 この種の命令は、無効な命令プログラム例外の原因となる場合があるからです。 オペレーティング・システムはこのような例外割り込みをキャッチし、
+古い命令をエミュレートして、プログラムの機能を保守しますが、
+そのために、プログラムのパフォーマンスが低下することがあります。</p>
+ <p>マシンを最後にリブートしてからのエミュレーション例外割り込みのカウントと、
+現在のインターバルでのカウントが表示されます。 ユーザーは、オプションで、
+位置合わせ例外割り込みの統計情報を表示したり、
+個々のプロセッサー・エミュレーション統計情報を表示したりできます。</p>
+ <p>デフォルト出力では、毎秒ごとの統計情報が表示されます。 サンプリングの間隔と反復の回数を、 指定することもできます。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>間隔</em></td>
+
+<td>サンプルからサンプルまでの間隔。</td>
+
+</tr>
+
+<tr>
+<td><em>カウント</em></td>
+
+<td>反復の回数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>位置合わせ例外割り込みの統計情報を表示します。 このフラグは、<strong>-v</strong> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>個々のプロセッサーの統計情報を表示します。 このフラグは、<strong>-a</strong> フラグと一緒には使用できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>エミュレーションの統計情報を毎秒ごとに表示するには、次のように入力します。<div> <div><div><pre><code>emstat</code></pre></div><div></div></div></div>
+  <p>以下の出力が作成されます。</p>
+  <div> <div><div><pre><code>  Emulation  Emulation
+  SinceBoot      Delta
+    8845591          0
+    8845591          0
+    8845591          0
+    8845591          0
+    8845591          0
+    8845591          0
+  ...</code></pre></div><div></div></div></div>
+</li>
+
+<li>エミュレーションと位置合わせ例外割り込みの統計情報を 2 秒ごとに、
+合計 5 回表示するには、次のように入力します。<div> <div><div><pre><code>emstat -a 2 5</code></pre></div><div></div></div></div>
+  <p>以下の出力が作成されます。</p>
+  <div> <div><div><pre><code>  Alignment  Alignment  Emulation  Emulation
+  SinceBoot      Delta  SinceBoot      Delta
+   21260604          0   70091846          0
+   23423104    2162500   72193861    2102015
+   25609796    2186692   74292759    2098898
+   27772897    2163101   76392234    2099475
+   29958509    2185612   78490284    2098050</code></pre></div><div></div></div></div>
+</li>
+
+<li>エミュレーションの統計情報を、個々のプロセッサーにつき 5 秒ごとに表示するには、
+次のように入力します。<div> <div><div><pre><code>emstat -v 5</code></pre></div><div></div></div></div>
+  <p>以下の出力が作成されます。</p>
+  <div> <div><div><pre><code>  Emulation  Emulation  Emulation  Emulation
+  SinceBoot      Delta    Delta00    Delta01
+   88406295          0          0          0
+   93697825    5291530          0    5291530
+   98930330    5232505    5232505          0
+  102595591    3665261     232697    3432564
+  102595591          0          0          0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

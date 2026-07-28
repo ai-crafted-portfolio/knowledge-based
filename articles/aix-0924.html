@@ -1,0 +1,169 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p><strong>初期化</strong> コマンドを実行し、 <span>国家情報院</span> デーモンを始動してコントローラー・サーバーを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/mkmaster</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143855" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a><em>HostName</em>[<strong>,</strong><em>HostName</em>... ] ]。[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143872" target="_blank" rel="noopener noreferrer"><strong>-O </strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143878" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143884" target="_blank" rel="noopener noreferrer"><strong>-E </strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143896" target="_blank" rel="noopener noreferrer"><strong>-e </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143908" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143920" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143929" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143941" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143950" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143962" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143972" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143987" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkmaster.html#mkmaster__row-d3e143999" target="_blank" rel="noopener noreferrer"><strong>-N </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p>システムのドメイン・ネームが現在設定されている場合、 <strong>mkmaster</strong> コマンドは <strong>初期化</strong> コマンドを呼び出して、現行ドメインの <span>国家情報院</span> マップを作成します。 <strong>ypinit</strong> コマンドが正常終了した後、
+<strong>mkmaster</strong> コマンドは、
+<strong>ypserv</strong> コマンド、<strong>yppasswdd</strong> コマンド、
+<strong>ypupdated</strong> コマンド、<strong>ypbind</strong> コマンドに対して <strong>/etc/rc.nfs</strong> ファイル内の各エントリーからコメント文字を除去します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mkmaster</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>-<strong>s</strong><em> HostName</em>[<strong>,</strong><em>ホスト名 ...</em>]</td>
+
+<td>これは、このコントローラー・サーバーに対するワーカー・ホスト名を指定します。 このようなワーカー・ホストは、コントローラー・サーバーの構成後に構成されなければなりません。 <strong>mkmaster</strong> コマンドは、このリストに現行ホストを自動的に追加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>このドメイン用の既存のマップを上書きします。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>このドメインに対する既存マップを上書きしないようにします。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>新しいマップの作成中にエラーが発生した場合、以降のアクションを行わないようにします。 このフラグは、<strong>ypinit</strong> コマンドと <strong>mkmaster</strong> コマンドの両方に対して真です。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>エラーが発生する場合、<strong>ypinit</strong> コマンドおよび <strong>mkmaster</strong> コマンドを終了しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><strong>ypserv</strong> デーモンと共に <strong>yppasswdd</strong> デーモンを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>yppasswdd</strong> デーモンの始動を抑制します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td><strong>ypserv</strong> デーモンと共に <strong>ypupdated</strong> デーモンを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><strong>ypupdated</strong> デーモンの始動を抑制します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td><strong>ypserv</strong> デーモンと共に <strong>ypbind</strong> デーモンを始動します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>ypbind</strong> デーモンの始動を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>次のシステム再始動で適切なデーモンを始動するために <strong>/etc/rc.nfs</strong> ファイルを変更するように、<strong>mkmaster</strong> コマンドに指示します。 このコマンドを呼び出すと、<strong>ypinit</strong> コマンドが実行されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>ypinit</strong> コマンドを実行し、<strong>/etc/rc.nfs</strong> ファイルのエントリーからコメント文字を除去し、デーモンを始動します。 このフラグはシステム・デフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>ypinit</strong> コマンドを実行し、<strong>/etc/rc.nfs</strong> ファイルを変更せずに適切なデーモンを始動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>初期化</strong> コマンドを実行するには、現行ドメインの既存のマップを上書きし、host1およびhost3ワーカー・サーバーの場合:</p>
+ <div> <div><div><pre><code>mkmaster -s host1,host3 -O -p -u -B</code></pre></div><div></div></div></div>
+ <p>このコマンドは <strong>yppasswdd</strong> デーモンまたは <strong>ypupdated</strong> デーモンを始動しません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/yp/</strong><em>domainname</em> ディレクトリー</td>
+
+<td>NIS ドメイン用の NIS マップが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/rc.nfs</strong></td>
+
+<td>NFS および NIS デーモンの始動スクリプトが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

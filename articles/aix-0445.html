@@ -1,0 +1,627 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>初心者ユーザー用の簡単なライン・エディターを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>編集</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e69647" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <em>ファイル</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>edit</strong> コマンドは、ex エディターの簡易バージョンである、初心者用に設計されたライン・エディターを始動します。 編集エディターは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ed.html#ed" target="_blank" rel="noopener noreferrer">エド</a> エディター、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex" target="_blank" rel="noopener noreferrer">例</a> エディター、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">6</a> エディターを含むエディターのファミリーに属します。 edit エディターについての知識は、さらに進んだ機能を持つ他のエディターを学習するときに役立ちます。 ファイルの内容を編集するには、次のように入力します。<div><div><pre><code>edit  File</code></pre></div><div></div></div></div>
+ <p><em>File</em> パラメーターに既存のファイル名を指定すると、<strong>edit</strong> コマンドはそのファイルをバッファーにコピーして、その中の行数と文字数を表示します。 次に <strong>:</strong> (コロン) プロンプトを表示して、標準入力からサブコマンドを読み込む用意ができたことを示します。</p>
+ <p><em>File</em> パラメーターで指定したファイルがまだ存在しなければ、<strong>edit</strong> コマンドはそのことを表示して新しいファイルを作成します。 <em>File</em> パラメーターには複数のファイル名を指定することができます。その場合、<strong>edit</strong> コマンドは最初のファイルをバッファーにコピーして、後で使用するために残りのファイル名を引数リストに格納します。 <strong>w</strong> サブコマンドを使って変更を書き込むまで、edit エディターは、編集されるファイルに変更を加えません。</p>
+ <p>edit エディターは次の 2 つのモードのいずれかで動作します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>コマンド・モード</strong></td>
+
+<td>edit エディター・サブコマンドを認識して実行します。 edit エディターの開始時はコマンド・モードになっています。 開始時以外の時点でコマンド・モードに入るには、行の始めに <strong>.</strong> (ピリオド) だけを入力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>テキスト入力モード</strong></td>
+
+<td>edit エディター・バッファーにテキストを入力することができます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6ac" target="_blank" rel="noopener noreferrer"><strong>追加 (a)</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6b6" target="_blank" rel="noopener noreferrer"><strong>変更 (c)</strong></a> サブコマンド、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a362v02c1" target="_blank" rel="noopener noreferrer"><strong>挿入 (i)</strong></a> サブコマンドを使用して、テキスト入力モードに入ります。 テキスト入力モードを終了するには、行の始めに <strong>.</strong> (ピリオド) だけを入力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-r</strong></td>
+
+<td>エディターまたはシステムに誤動作があった場合、編集中のファイルを回復させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル内の行のアドレッシング</h2> <p>edit エディターは、次の 3 種類のアドレスを使用します。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6f7" target="_blank" rel="noopener noreferrer">行番号アドレス</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6f9" target="_blank" rel="noopener noreferrer">相対位置アドレス</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6fb" target="_blank" rel="noopener noreferrer">パターン・アドレス</a></li>
+
+</ul>
+<p><strong>行番号アドレス</strong></p>
+ <p>行番号アドレスは、ファイル内の行を行番号またはシンボル名で指定します。 この方法で行または行範囲のアドレスを指定するのが最も簡単です。</p>
+ <div>先頭行をそのシンボル名でアドレス指定するには、次のように入力します。<div><div><pre><code>.</code></pre></div><div></div></div></div>
+ <div>最終行をそのシンボル名でアドレス指定するには、次のように入力します。<div><div><pre><code>$</code></pre></div><div></div></div></div>
+ <p>また、行番号アドレスまたは記号アドレスをコンマまたはセミコロンで区切って、行の範囲を指定することもできます。 第 2 のアドレスは、範囲内で最初にアドレス指定した行より後ろにある行でなければなりません。</p>
+ <div>次に例を示します。<div><div><pre><code>1,5</code></pre></div><div></div></div></div>
+ <div>これにより、1 行目から 5 行目までがアドレス指定されます。<div><div><pre><code>.,$</code></pre></div><div></div></div></div>
+ <p>上記の場合は、先頭行から最終行までがアドレス指定されます。</p>
+<p><strong>相対位置アドレス</strong></p>
+ <p>edit エディターは、行を現在行に対して相対的にアドレス指定することができます。 -<em>Number</em> パラメーターまたは +<em>Number</em> パラメーターで始まるアドレスはそれぞれ、指定した数だけ現在行の前または後ろにある行をアドレス指定します。</p>
+ <div>次に例を示します。<div><div><pre><code>+8</code></pre></div><div></div></div></div>
+ <p>これにより、現在行から 8 行後の行がアドレス指定されます。</p>
+ <p>-<em>Number</em> アドレスまたは +<em>Number</em> アドレスとシンボル名を併用して、先頭行または最終行に対して相対的に行をアドレス指定することもできます。</p>
+ <div>次に例を示します。<div><div><pre><code>.+3</code></pre></div><div></div></div></div>
+ <div>これにより、先頭行から 3 行後の行がアドレス指定されます。<div><div><pre><code>$-10</code></pre></div><div></div></div></div>
+ <p>これにより、最終行から 10 行前の行がアドレス指定されます。</p>
+<p><strong>パターン・アドレス</strong></p>
+ <p>バッファー内で特定のパターンを検索して、行のアドレスを指定することができます。 edit エディターは、正方向または逆方向に検索し、<em>Pattern</em> パラメーターに一致するものがある最初の行で停止します。 必要であれば、検索処理は一致するものが見つかるまで、バッファーの終わりまたは先頭で折り返すか、あるいは現在行に戻ります。</p>
+ <div>正方向に検索するには、次のように入力します。<div><div><pre><code>/Pattern/</code></pre></div><div></div></div></div>
+ <div>逆方向に検索するには、次のように入力します。<div><div><pre><code>?Pattern?</code></pre></div><div></div></div></div>
+ <p><em>Pattern</em> パラメーターをコンマまたはセミコロンで区切って行の範囲を指定することもできます。 第 2 のアドレスは、範囲内で最初にアドレス指定した行より後ろにある行でなければなりません。</p>
+ <div>次に例を示します。<div><div><pre><code>Pattern,Pattern</code></pre></div><div></div></div></div>
+ <p>次の文字は、<em>Pattern</em> パラメーターの一部として使用すると特殊な意味を持ちます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>^</strong></td>
+
+<td><em>Pattern</em> パラメーターの最初の文字として使用すると、行の先頭に一致します。</td>
+
+</tr>
+
+<tr>
+<td><strong>$</strong></td>
+
+<td><em>Pattern</em> パラメーターの最後の文字として使用すると、行の終わりに一致します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>edit エディター・サブコマンドの使用法</h2> <p>edit エディター・サブコマンドは、 <strong>.</strong> で表される現在行に影響を与えます。 (ピリオド) です。 edit エディターの始動時には、現在行はバッファー内の最終行です。 バッファーを編集すると、現在行はサブコマンドの影響を受けた最後の行に変わります。 ファイルのさまざまな部分を処理するには、ファイル内で <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">異なる行をアドレス指定する方法</a> を行う方法を理解している必要があります。</p>
+ <p>edit エディター・サブコマンドを使用すると、次のタスクを実行できます。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6aa" target="_blank" rel="noopener noreferrer">テキストの追加</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6ec" target="_blank" rel="noopener noreferrer">現行ファイルの名前の変更</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6b4" target="_blank" rel="noopener noreferrer">テキストの変更</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6ba" target="_blank" rel="noopener noreferrer">テキストの削除</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6e5" target="_blank" rel="noopener noreferrer">現在のファイル名と状況の表示</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">テキストの表示と現在行の検索</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6e2" target="_blank" rel="noopener noreferrer">別のファイルの編集</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6f1" target="_blank" rel="noopener noreferrer">編集エディターの終了と終了</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6c6" target="_blank" rel="noopener noreferrer">一括変更</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6cb" target="_blank" rel="noopener noreferrer">テキストの移動またはコピー</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6ee" target="_blank" rel="noopener noreferrer">システム・クラッシュ後のファイルの保存</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6d0" target="_blank" rel="noopener noreferrer">テキストの保存</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6d3" target="_blank" rel="noopener noreferrer">テキストの置換</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6d7" target="_blank" rel="noopener noreferrer">変更の取り消し</a></li>
+
+</ul>
+<p><strong>テキストの追加 </strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p>[<em>住所</em>]<strong>追加</strong> (<strong>A</strong>) <em>テキスト</em> <strong>.</strong></p>
+</td>
+
+<td><em>Address</em> パラメーターを指定しない場合、入力したテキストは現在行の後に追加されます。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。<p>アドレスを指定すると、<strong>a</strong> サブコマンドは指定した行の後にテキストを追加します。 アドレス 0 を指定すると、<strong>a</strong> サブコマンドはバッファーの先頭にテキストを置きます。</p>
+  <p>テキストを入力するときは、各行の終わりで Enter キーを押してください。 テキストすべてを入力し終わったら、行の始めに <strong>.</strong> (ピリオド) だけを入力して、テキスト入力モードを終了し、コマンド・モードに戻ります。 <strong>1,$p</strong> サブコマンドを使用すると、バッファーの内容全体を表示できます。</p>
+  <div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>A</strong> サブコマンドは、テキストの配置が <strong>I</strong> サブコマンドとは異なります。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><p>[<em>住所</em>]<strong>挿入</strong> (<strong>I</strong>)<em>テキスト</em><strong>.</strong></p>
+</td>
+
+<td><em>Address</em> パラメーターを指定しない場合、現在行の前にテキストが挿入されます。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。<p>アドレスを指定すると、<strong>i</strong> サブコマンドは指定した行の前にテキストを挿入します。 アドレス 0 を指定することはできません。</p>
+  <p>テキストを入力するときは、各行の終わりに Enter キーを押してください。 テキストをすべて入力し終わったら、行の始めに <strong>.</strong> (ピリオド) だけを入力して、テキスト入力モードを終了し、コマンド・モードに戻ります。 <strong>1,$p</strong> サブコマンドを使用すると、バッファーの内容全体を表示できます。</p>
+  <div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>I</strong> サブコマンドは、テキストの配置が <strong>A</strong> サブコマンドとは異なります。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>現行ファイルの名前の変更 </strong></p>
+ <div>   
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ファイル</strong><em> ファイル</em></td>
+
+<td>現行ファイルの名前を、<em>File</em> パラメーターで指定した名前に変更します。 edit エディターは、このファイルが編集されたものとは見なしません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>テキストを変更する </strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p>[<em>Address1</em><strong>,</strong><em>Address2</em>]<strong>change</strong> (<strong>c</strong>)<strong>。</strong></p>
+ <p><em>text</em></p>
+</td>
+
+<td><em>Address</em> パラメーターを指定しないと、現在行が入力したテキストに置換されます。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。<p>アドレスを指定すると、<strong>c</strong> サブコマンドはアドレス指定した行または行範囲を置換します。 複数のアドレスをコンマで区切って、行の範囲を指定できます。</p>
+  <p>テキストを入力するときは、各行の終わりに Enter キーを押してください。 テキストをすべて入力し終わったら、行の始めに <strong>.</strong> (ピリオド) だけを入力して、テキスト入力モードを終了し、コマンド・モードに戻ります。 <strong>1,$p</strong> サブコマンドを使用すると、バッファーの内容全体を表示できます。 最後に入力した行が現在行になります。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>テキストの削除 </strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターと <em>Buffer</em> パラメーターはオプションです。 アドレスおよびバッファーを指定するときは、大括弧を入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>[<em>Address1</em><strong>,</strong><em>Address2</em>]<strong> 削除</strong> [<em>Buffer</em>] (<strong>d</strong>)</td>
+
+<td><em>Address</em> パラメーターを指定しないと、現在行が削除されます。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。<p>アドレスを指定すると、<strong>d</strong> サブコマンドはアドレス指定した行または行範囲を削除します。 複数のアドレスをコンマで区切って、行の範囲を指定できます。 最後に削除された行の次の行が現在行になります。</p>
+  <p>a から z までの小文字を入力してバッファーを指定すると、edit エディターはアドレス指定した行をそのバッファーに保存します。 大文字を指定すると、ed エディターはそのバッファーに行を追加します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70742" target="_blank" rel="noopener noreferrer"><strong>プー</strong></a> サブコマンドを使用して、削除された行をバッファーに戻すことができます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>現行ファイルの名前と状況の表示</strong></p>
+ <p>次のサブコマンドには、完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ファイル</strong> (<strong>F</strong>)</td>
+
+<td>現行ファイル名を次の関連情報と一緒に表示します。<ul>
+<li>最後の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70876" target="_blank" rel="noopener noreferrer"><strong>W</strong></a> サブコマンド以降にファイルが変更されたかどうか</li>
+
+<li>現在の行番号</li>
+
+<li>バッファー内の行数</li>
+
+<li>現在行の位置を示すバッファー内のパーセント</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>テキストの表示と現在行の検索</strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) のいずれかを使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>[<em>Address1</em>、<em>Address2</em>]<strong>number</strong> (<strong>nu</strong>)</td>
+
+<td>アドレス指定した行または行範囲の前に、そのバッファーの行番号が表示されます。 <em>Address</em> パラメーターを指定しないと、<strong>nu</strong> サブコマンドは現在行とその番号を表示します。<p>アドレスを指定すると、<strong>nu</strong> サブコマンドはアドレス指定した行または行範囲を表示します。 複数のアドレスをコンマで区切って、行の範囲を指定できます。 最後に表示された行が現在行になります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>[<em>Address1</em>,<em>Address2</em> ] <strong>print</strong> (<strong>p</strong>)</td>
+
+<td>アドレス指定した行または行範囲が表示されます。 <em>Address</em> パラメーターを指定しないと、<strong>p</strong> サブコマンドは現在行を表示します。<p>アドレスを指定すると、<strong>p</strong> サブコマンドはアドレス指定した行または行範囲を表示します。 複数のアドレスをコンマで区切って、行の範囲を指定できます。 最後に表示された行が現在行になります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>[<em>住所</em>]<strong>=</strong></td>
+
+<td>アドレス指定した行の行番号が表示されます。 <em>Address</em> パラメーターを指定しないと、
+<strong>=</strong> サブコマンドは現在行の行番号を表示します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>住所</em>]<strong>Z</strong></td>
+
+<td>アドレス指定した行で始まるテキストの画面が表示されます。 <em>Address</em> パラメーターを指定しないと、<strong>z</strong> サブコマンドは現在行で始まるテキスト画面を表示します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>住所</em>]<strong>Z-</strong></td>
+
+<td>アドレス指定した行が最下部に入っているテキストの画面が表示されます。 <em>Address</em> パラメーターを指定しないと、<strong>z-</strong> サブコマンドは現在行が最下部に入っているテキスト画面を表示します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>住所</em>]<strong>z。</strong></td>
+
+<td>アドレス指定した行が中央に入っているテキスト画面が表示されます。 <em>住所</em> パラメーターが指定されていない場合、 <strong>z。</strong> サブコマンドは、現在行が中央にあるテキストの画面を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>別のファイルの編集</strong></p>
+ <p>次のサブコマンドには、完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>編集</strong><em> ファイル</em> (<strong>E</strong>)</td>
+
+<td><em>File</em> パラメーターで指定した新しいファイル上で編集セッションを開始します。 エディターはまず、最後の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70876" target="_blank" rel="noopener noreferrer"><strong>書き込み (w)</strong></a> サブコマンド以降にバッファーが編集されたかどうかを検査します。<p>最後の <strong>w</strong> サブコマンドの後でファイルが編集されていると、edit エディターは警告メッセージを表示して <strong>e</strong> サブコマンドを取り消します。 それ以外の場合、edit エディターはエディター・バッファーの内容を削除し、指定したファイルを現行ファイルにして、新しいファイル名を表示します。</p>
+  <p>このファイルを編集できることを確認した後で、edit エディターはファイルをバッファーに読み込みます。 edit エディターは、エラーなしでファイルを読み込むと、読み込んだ行数と文字数を表示します。 最後に読み込まれた行が新しい現在行になります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>次の</strong> (<strong>N</strong>)</td>
+
+<td>コマンド・ライン引数リスト内で指定した次のファイルを、編集のためにバッファーにコピーします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>edit エディターの終了
+      </strong></p>
+ <p>次のサブコマンドには、完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>終了</strong> (<strong>Q</strong>)</td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70876" target="_blank" rel="noopener noreferrer"><strong>書き込み (w)</strong></a> サブコマンドを使用した後、編集セッションを終了します。 バッファーを変更し、変更結果を書き込んでいないと、警告メッセージが表示されて、編集セッションは終了されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>やめて!</strong> (<strong>Q!</strong>)</td>
+
+<td>編集セッションを終了します。最後の <strong>w</strong> サブコマンドの後にバッファーに対して行った変更内容は破棄されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>一括変更</strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>[ <em>住所1</em> <strong>,</strong><em> 住所2</em> ] <strong>グローバル/</strong><em> パターン</em><strong> /</strong><em> サブコマンドリスト</em> ( <strong>g</strong> )</td>
+
+<td>アドレス指定した行のうち、<em>Pattern</em> パラメーターに一致する各行にマークを付けます。 edit エディターは、マークされた各行について、<em>SubcommandList</em> パラメーターで指定した一連のサブコマンドのリストを実行します。<p><em>Address</em> パラメーターを指定しないと、<strong>g</strong> サブコマンドは現在行に対して機能します。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。</p>
+  <p>アドレスを指定すると、<strong>g</strong> サブコマンドはアドレス指定した行または行範囲に対して処理を行います。 複数のアドレスをコンマで区切って、行の範囲を指定できます。</p>
+  <p>単一のサブコマンド、またはサブコマンド・リスト内の最初のサブコマンドを、<strong>g</strong> サブコマンドと同じ行に入力します。 残りのサブコマンドそれぞれは別の行に入力する必要があります。この場合、各行 (最終行を除く) には <strong>&amp;#xa5;</strong> (円記号) を付けます。 デフォルトのサブコマンドは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70332" target="_blank" rel="noopener noreferrer"><strong>印刷 (p)</strong></a> サブコマンドです。</p>
+  <p>サブコマンド・リストには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6ac" target="_blank" rel="noopener noreferrer"><strong>追加 (a)</strong></a> サブコマンド、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a362v02c1" target="_blank" rel="noopener noreferrer"><strong>挿入 (i)</strong></a> サブコマンド、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6b6" target="_blank" rel="noopener noreferrer"><strong>変更 (c)</strong></a> サブコマンドと、それらに関連する入力を含めることができます。 この場合、最後のピリオドがコマンド・リストの最終行にある場合は、省略してもかまいません。</p>
+  <div> <div><div>
+        <div>
+          <div><span>注:</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e71027" target="_blank" rel="noopener noreferrer"><strong>元に戻す (u)</strong></a> サブコマンドと <strong>G</strong> サブコマンドをサブコマンド・リストに指定することはできません。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>テキストの移動またはコピー</strong></p>
+ <p>次のサブコマンドで、<em>Address1</em> パラメーターと <em>Address2</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 <em>Address3</em> パラメーターは必ず指定する必要があります。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) のいずれかを使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>[<em>Address1,Address2</em>]<strong>移動</strong><em> Address3</em> (<strong>分</strong>)</td>
+
+<td>アドレスまたはアドレスの範囲を指定しないと、<em>Address3</em> パラメーターで指定した行の後に、場合によっては、現在行が移動されます。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。<p>アドレスを指定すると、<strong>m</strong> サブコマンドはアドレス指定した行または行範囲を移動します。 複数のアドレスをコンマで区切って、アドレスの範囲を指定できます。 移動された行の先頭行が現在行になります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>[<em>Address1</em>,<em>Address2</em>]<strong>yank</strong> [<em>バッファー</em>] (<strong>ya</strong>)</td>
+
+<td>指定された 1 つ以上の行を <em>バッファー</em>にコピーします。これは、a から z までの単一の英字で指定されたオプション・パラメーターです。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70742" target="_blank" rel="noopener noreferrer"><strong>プー</strong></a> サブコマンドを使用して、これらの行を別のファイルに入れることができます。</td>
+
+</tr>
+
+<tr>
+<td>[<em>住所</em>]<strong>プット</strong> [<em>バッファー</em>] (<strong>プー</strong>)</td>
+
+<td>指定した <em>Buffer</em> パラメーターの内容を取り出し、現在行の後に配置します (アドレスを指定していない場合)。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。<p>アドレスを指定すると、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70742" target="_blank" rel="noopener noreferrer"><strong>プー</strong></a> サブコマンドは指定されたバッファーの内容を検索し、それをアドレス指定された行の後に入れます。 <em>Buffer</em> パラメーターを指定しないと、<strong>pu</strong> サブコマンドは最後に削除またはコピーされたテキストを復元します。</p>
+  <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70156" target="_blank" rel="noopener noreferrer"><strong>削除 (d)</strong></a> サブコマンドを指定した <strong>プー</strong> サブコマンドを使用すると、ファイル内の行を移動できます。また、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70715" target="_blank" rel="noopener noreferrer"><strong>ヤク (ya)</strong></a> サブコマンドを使用すると、ファイル間で行を重複させることができます。</p>
+ <p><strong>pu</strong> および <strong>ya</strong> サブコマンドは、マクロ内では使用できません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>システム誤動作後のファイルの保存</strong></p>
+ <div>  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>preserve</strong></td>
+
+<td>システムが誤動作した場合と同方式で、エディター・バッファーの現在の内容を保存します。 このサブコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70876" target="_blank" rel="noopener noreferrer"><strong>書き込み (w)</strong></a> サブコマンドの結果がエラーになり、作業を保存する方法が分からない場合に使用します。 ファイルを回復させるには、<strong>recover</strong> サブコマンドを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>リカバリー</strong><em> ファイル</em></td>
+
+<td><em>File</em> パラメーターで指定したファイルを、システムの保存領域から回復させます。 このサブコマンドは、システムがクラッシュした後、または <strong>preserve</strong> サブコマンドを実行した後に使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>テキストの保存 </strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>[<em>Address1</em>,<em>Address2</em>]<strong>write</strong> [<em>ファイル</em>] (<strong>w</strong>)</td>
+
+<td>アドレスを指定しないと、バッファーの内容全体を <em>File</em> パラメーターで指定したファイルに書き込みます。<p>アドレスを指定すると、<strong>w</strong> サブコマンドはアドレス指定した行または行範囲を、指定したファイルに書き込みます。 複数のアドレスをコンマで区切って、行の範囲を指定できます。 edit エディターは、書き込んだ行数と文字数を表示します。</p>
+  <p>ファイルを指定しないと、edit エディターは現行ファイル名を使用します。 <em>File</em> パラメーターが存在しなければ、エディターは新しいファイル・パラメーターを作成します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>テキストの置換    
+</strong></p>
+ <p>次のサブコマンドで、<em>Address</em> パラメーターはオプションです。 アドレスを指定するときは、大括弧は入力しないでください。 完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) のいずれかを使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p>[<em>Address1</em>,<em>Address2</em>] <strong>置換/</strong><em>パターン</em><strong>/</strong><em>置換</em><strong>/</strong> (<strong>s</strong>)</p>[<em>Address1</em>,<em>Address2</em> ]<strong>substitute/</strong><em>Pattern</em><strong>/</strong><em>Replacement</em>/<strong>g</strong></td>
+
+<td>アドレス指定した各行で、指定した <em>Pattern</em> パラメーターの最初のインスタンスを置換します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70580" target="_blank" rel="noopener noreferrer"><strong>グローバル (g)</strong></a> サブコマンドを <strong>S</strong> サブコマンドの末尾に追加することにより、 <em>パターン</em> パラメーターのすべてのインスタンスを置き換えることができます。<p>アドレスを指定しない場合、<strong>s</strong> サブコマンドは現在行に対して処理を行います。 バッファー内の正しい位置にない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6be" target="_blank" rel="noopener noreferrer">現在行の検索</a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a133z9ccd" target="_blank" rel="noopener noreferrer">アドレスの指定</a> が必要になることがあります。 アドレスを指定すると、<strong>s</strong> サブコマンドはアドレス指定した行または行範囲に対して処理を行います。 複数のアドレスをコンマで区切って、行の範囲を指定できます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>変更の取り消し</strong></p>
+ <p>次のサブコマンドには、完全なサブコマンドの形またはその省略形 (小括弧で囲まれている) を使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>取り消し</strong> (<strong>U</strong>)</td>
+
+<td>最後のバッファー編集サブコマンドによってバッファー内で行った変更を取り消して、変更前の状態に戻します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70876" target="_blank" rel="noopener noreferrer"><strong>書き込み (w)</strong></a> サブコマンドまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__row-d3e70443" target="_blank" rel="noopener noreferrer"><strong>編集 (e)</strong></a> サブコマンドを元に戻すことはできません。<div> <div><div>
+        <div>
+          <div><span>注:</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/edit.html#edit__a178a1f6c6" target="_blank" rel="noopener noreferrer"><strong>グローバル</strong></a> サブコマンドは、 <strong>U</strong> サブコマンドに対する単一のサブコマンドと見なされます。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

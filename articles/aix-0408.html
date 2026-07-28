@@ -1,0 +1,137 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>DOS</span> ファイルのディレクトリーをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dosdir</strong> [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e44017" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>[<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e44007" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a><strong> </strong>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e43970" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e43976" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e44065" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e44071" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e43988" target="_blank" rel="noopener noreferrer"><strong>-D </strong></a><em>Device </em>] [ <em>ファイル </em>| <em>ディレクトリー </em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dosdir</strong> コマンドは、指定された <span>DOS</span> ファイルまたはディレクトリーに関する情報を表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e43976" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> フラグを指定せずにディレクトリーを指定すると、 <strong>dosdir</strong> コマンドは、そのディレクトリー内のファイルに関する情報を表示します。</p>
+ <p><span>DOS</span> のファイル命名規則は、1 つの例外を除いて使用されます。 ¥ (円記号) 文字はオペレーティング・システムにとって特別な意味を持つ可能性があるため、 <span>DOS</span> パス名でサブディレクトリー名を指定する場合は、/(スラッシュ) 文字を区切り文字として使用してください。 <strong>dosdir</strong> コマンドは、ディスクを検査する前に、ファイルまたはディレクトリー名の小文字を大文字に変換します。 ファイル名はすべて絶対パス名 (相対パス名ではない) と見なされるので、
+最初の / (スラッシュ) は付ける必要はありません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのファイルに関する情報を出力します。 これには、. (ドット) ファイルおよび .. (ドット・ドット) ファイルだけでなく、 隠しファイルとシステム・ファイルが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>ディレクトリーが指定されている場合でも、<em>File</em> 値をファイルとして処理します。 <em>Directory</em> パラメーターにディレクトリーを指定すると、ディレクトリー内のファイルの情報ではなく、ディレクトリー自体の情報がリスト表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em>デバイス</em></td>
+
+<td><span>DOS</span> デバイスの名前を <strong>/dev/fd0</strong> または <strong>/dev/fd1</strong>として指定します。 デフォルト・デバイスは <strong>/dev/fd0</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dosdir.html#dosdir__row-d3e44017" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグを使用して、ファイルに割り当てられたクラスターのリストを書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>ファイルの作成日、サイズ (バイト単位)、属性を含むクラスターのリストを作成します。 サブディレクトリーのサイズは 0 バイトと指定されます。 属性は次のような意味を持っています。<dl>
+<dt><strong>A</strong> (アーカイブ)</dt>
+
+<dd>最後に変更されて以来、ファイルはバックアップされていません。</dd>
+
+
+<dt><strong>D</strong> (ディレクトリー)</dt>
+
+<dd>ファイルはサブディレクトリーであり、通常の <span>DOS</span> ディレクトリー検索には含まれません。</dd>
+
+
+<dt><strong>H</strong> (隠しファイル)</dt>
+
+<dd>このファイルは、通常の <span>DOS</span> ディレクトリー検索には含まれません。</dd>
+
+
+<dt><strong>R</strong> (読み取り専用)</dt>
+
+<dd>ファイルは変更できません。</dd>
+
+
+<dt><strong>S</strong> (システム)</dt>
+
+<dd>このファイルはシステム・ファイルであり、通常の <span>DOS</span> ディレクトリー検索には含まれません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>指定されたディレクトリーで始まるディレクトリー・ツリー全体をリスト表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ディスクのフォーマットに関する情報を、標準出力します。 デバイスが <span>DOS</span> ディスクであることを確認するには、このフラグを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>/dev/fd0</strong>上の <span>DOS</span> ファイルのディレクトリーを読み取るには、次のように入力します。</p>
+ <div> <div><div><pre><code>dosdir</code></pre></div><div></div></div></div>
+ <p>このコマンドは、ファイル名およびディスク・スペース情報を次のように出力します。</p>
+ <div> <div><div><pre><code>PG3-25.TXT
+PG4-25.TXT
+PG5-25.TXT
+PG6-25.TXT
+Free space: 312320 bytes</code></pre></div><div></div></div></div>
+ <p><strong>/dev/fd1</strong>上の <span>DOS</span> ファイルのディレクトリーを読み取るには、次のように入力します。</p>
+ <div> <div><div><pre><code>dosdir -D/dev/fd1</code></pre></div><div></div></div></div>
+ <p>このコマンドは、ファイル名およびディスク・スペース情報を次のように出力します。</p>
+ <div> <div><div><pre><code>PG7-25.TXT
+PG8-25.TXT
+PG9-25.TXT
+PG10-25.TXT
+Free space: 312320 bytes</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/dosdir</strong></td>
+
+<td><strong>dosdir</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

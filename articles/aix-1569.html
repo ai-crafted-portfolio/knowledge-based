@@ -1,0 +1,327 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>トリビアル・ファイル転送プロトコル (TFTP) を使用してホスト間でファイルを転送します。</p>
+</section>
+
+<section><h2>構文</h2> <p>{<strong>TFTP </strong>|<strong> UTFTP</strong>} { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2966" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2966" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2965" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2966" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2965" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>}<em> LocalName HostPort  RemoteName </em>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2967" target="_blank" rel="noopener noreferrer"><strong>ネタシイ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2968" target="_blank" rel="noopener noreferrer"><strong>画像</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2952" target="_blank" rel="noopener noreferrer"><span><span>blksize</span></span></a> <span><span>#</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2961" target="_blank" rel="noopener noreferrer"><span><span>timeout</span></span></a> <span><span>#</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2963" target="_blank" rel="noopener noreferrer"><span><span>tsize</span></span></a>]</p>
+<p><strong>対話形式の構文</strong></p>
+<p><strong>コマンド・ライン形式の構文</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/bin/tftp</strong> コマンドと <strong>utftp</strong> コマンドは、トリビアル・ファイル転送プロトコル (TFTP) を使用してホスト間でファイルを転送します。 TFTP は最小の転送プロトコルなので、<strong>tftp</strong> コマンドと <strong>utftp</strong> コマンドは <strong>ftp</strong> コマンドの機能をすべて備えているわけではありません。 例えば、<strong>tftp</strong> コマンドと <strong>utftp</strong> コマンドには、リモート・ファイルをリストする機能やリモート・ホストでディレクトリーを変更する機能はなく、限られたファイル・アクセス権限のみがリモート TFTP サーバーに与えられます。 <strong>utftp</strong> コマンドは、パイプで使用できる形式の <strong>tftp</strong> コマンドです。</p>
+ <p>リモート・ホストには、<strong>inetd</strong> デーモンが始動した <strong>tftpd</strong> デーモンと、<strong>tftpd</strong> デーモンのアクセスを制限する定義済みアカウントがなければなりません。 <strong>tftpd</strong> コマンドで定義したプロシージャーを使用して、TFTP 環境と nobody アカウントをセットアップします。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> ホストをセキュア・モードで操作している場合は、<strong>tftp</strong> コマンドと <strong>utftp</strong> コマンドは使用できません。<span>”</span></blockquote>
+<p></p>
+ <p><strong>tftp</strong> コマンドは、送信されたあらゆるブロック用の重複する肯定応答を無視し、エラー・パケットを送り、不適切な (将来の) ブロック番号を持つブロックが到着すると、終了します。 重複したデータ・ブロックも、既にそれらのブロックを受信していた場合には無視し、エラー・パケットを送信して終了します。</p>
+<p><strong>RFC2349 オプション・ネゴシエーション</strong></p>
+ <p><span><span>tftp</span></span> クライアントは、サーバーと TFTP オプション (ブロック・サイズ (<span><span>blksize</span></span>)、転送サイズ (<span><span>tsize</span></span>)、およびタイムアウト (<span><span>timeout</span></span>)) をネゴシエーションすることができます。 転送ブロック・サイズを大きくすると転送パフォーマンスが向上し、 <span><span>tsize</span></span> は転送前にファイル・サイズを報告して使用可能スペースを検査し、 <span><span>timeout</span></span> は再送タイムアウトをネゴシエーションします。 オプション・ネゴシエーションを実現するには、TFTP サーバーが RFC2349 をサポートしていることが必要です。</p>
+<p><strong>アクセス制御</strong></p>
+ <p><strong>/etc/tftpaccess.ctl</strong> ファイルで始まる行が検索されます。allow:またはdeny:. その他の行は無視されます。 ファイルが存在しない場合は、アクセスは許可されます。 許可されたディレクトリーとファイルにはアクセス可能ですが、禁止されたディレクトリーにはアクセスできません。 例えば、<strong>/usr</strong> ディレクトリーは許可されていますが、<strong>/usr/ucb</strong> ディレクトリーは許可されていないものとします。 このことは、<strong>/usr</strong> ディレクトリー内の <strong>/usr/ucb</strong> ディレクトリーを除くすべてのディレクトリーとファイルがアクセス可能であることを意味します。 <strong>/etc/tftpaccess.ctl</strong> ファイル内のエントリーは、絶対パス名でなければなりません。</p>
+ <p><strong>/etc/tftpaccess.ctl</strong> ファイルは、root ユーザーが書き込み専用で、すべてのユーザーが読み取り可能でなければなりません。groupsおよびothers(つまり、所有者root許可が 644 の場合)。 ユーザーnobody<strong>/etc/tftpaccess.ctl</strong> ファイルを読み取ることができなければなりません。 そうでないと、<strong>tftpd</strong> デーモンはファイルの存在を認識できず、全システムへのアクセスを許可します。 詳細な情報については、<strong>/usr/samples/tcpip</strong> ディレクトリー内にあるサンプルの <strong>tftpaccess.ctl</strong> ファイルを参照してください。</p>
+ <p>検索アルゴリズムは、<strong>tftp</strong> コマンドで使用されるローカル・パス名が絶対パス名であることを前提としています。 <strong>/etc/tftpaccess.ctl</strong> ファイルを検索して、以下を探します。allow:/ これは、ファイル・パス名から次のコンポーネントを追加することによって構成された各部分パス名を持つ、許可されたパス名を繰り返し検索します。 一致する最長パス名が許可パス名です。 その後、一致する最長許可パス名から開始して、禁止名に対して同じことを行います。</p>
+ <p>例えば、ファイル・パス名が <strong>/a/b/c</strong> であり、 <strong>/etc/tftpaccess.ctl</strong> ファイルに以下が含まれているとします。allow:/a/bおよびdeny:/a1 つの許可された一致が作成されます (/a/b) 以下で始まる拒否された一致はありません/a/b作成され、アクセスが許可されます。</p>
+ <p>I¥ f the <strong>/etc/tftpaccess.ctl</strong> file 収めるallow:/aおよびdeny:/a/b1 つの許可された一致が作成されます (/a) そして、1 つの拒否された試合は、/a(/a/b) 作成され、アクセスは拒否されます。 <strong>/etc/tftpaccess.ctl</strong> ファイルに以下のものが含まれているとします。allow:/a/bまた、deny:/a/b許可された名前が最初に検索されるため、アクセスは拒否されます。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> X ステーション、ディスクレス・クライアント、制限付きエントリーの詳しい情報と構成例については、<strong>/usr/samples/tcpip/tftpaccess.ctl</strong> ファイルを参照してください。<span>”</span></blockquote>
+<p></p>
+ <p><strong>tftp</strong> コマンドと <strong>utftp</strong> コマンドには 2 つの形式、つまり、対話型形式とコマンド・ライン形式があります。</p>
+<p><strong>対話型形式</strong></p>
+ <p>対話型形式では、<strong>tftp</strong> コマンドと <strong>utftp</strong> コマンドは単独で発行されるか、このセッション中のファイル転送に使用するデフォルト・ホストを指定する <em>Host</em> パラメーターを付けて発行されます。 <em>Port</em> パラメーターを付けて、<strong>tftp</strong> または <strong>utftp</strong> 接続でどのポートを使用するかを指定することもできます。<strong>/etc/services</strong> ファイルの <strong>mail</strong> で指定されているものなどを指定できます。 これらのコマンドのいずれかの対話式形式を入力すると、tftp&gt;プロンプトが表示されます。</p>
+ <p>データをリモート・ホストに転送すると、転送されたデータは <em>RemoteName</em> パラメーターで指定したディレクトリー内に配置されます。 リモート名は全ファイル名でなければなりません。また、リモート・ファイルは存在し、かつ他のファイルへの書き込み許可が設定済みでなければなりません。 <strong>tftp</strong> コマンドは、指定されたファイルにデータを書き込もうとします。 しかし、リモート TFTP サーバーがリモート・ファイルへの書き込みに該当する特権を持っていないか、またはファイルが存在していないと、転送は失敗します。 この状態は、
+<strong>tftpd</strong> デーモンを使用してオーバーライドすることができます。</p>
+<p><strong>コマンド・ライン形式</strong></p>
+ <p><strong>tftp</strong> コマンドと <strong>utftp</strong> コマンドのコマンド・ライン形式は等価ですが、<strong>utftp</strong> コマンドはローカル・ファイルを上書きしません。 <strong>tftp</strong> コマンドはファイルを上書きできますが、その前にプロンプトを表示します。 対話型でないので、<strong>utftp</strong> コマンドのコマンド・ライン形式は、パイプの <strong>tftp</strong> コマンドより有効です。 コマンド・ライン形式では、いずれのコマンドへの引数もすべてコマンド・ラインで指定し、プロンプトは表示されません。</p>
+</section>
+
+<section><h2>サブコマンド</h2> <p><strong>tftp</strong> サブコマンドと <strong>utftp</strong> サブコマンドは、対話型形式でもコマンド・ライン形式でも入力できます。</p>
+<p><strong>対話型形式で使用されるサブコマンド</strong></p>
+ <p>1 回tftp&gt;プロンプトが表示され、以下のサブコマンドを発行できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>?</strong> [<em>サブコマンド</em>]</td>
+
+<td>ヘルプ情報を表示します。 <em>Subcommand</em> パラメーターを指定すると、そのサブコマンドに関する情報のみが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ASCII</strong></td>
+
+<td><strong>mode ascii</strong> サブコマンドと同義です。</td>
+
+</tr>
+
+<tr>
+<td><strong>binary</strong></td>
+
+<td><strong>mode binary</strong> サブコマンドと同義です。 このサブコマンドは対話モードで使用します。 <strong>image</strong> サブコマンドは、<strong>mode binary</strong> サブコマンドと同じですが、コマンド・ラインで使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>blksize</strong> <span><span>バイト数</span></span></td>
+
+<td>サーバーとの <span><span>blksize</span></span> オプション・ネゴシエーションを使用可能にします。 ネゴシエーションが正常に行われると、これによって転送率を大幅に改善できます。 転送ブロック・サイズは必ず 8 オクテット以上でなければならず、最大 65464 オクテットまで可能です。 デフォルトは 512 オクテットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>connect</strong><em> ホスト</em> [<em>ポート</em>]</td>
+
+<td>ファイル転送用のリモート・ホスト、およびオプションのポートを設定します。 TFTP プロトコルは転送間の接続を維持しないので、
+<strong>connect</strong> サブコマンドは指定されたホストへの接続を作成しませんが、転送操作用に保管します。 リモート・ホストは、以前に指定したホストをオーバーライドする <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2956" target="_blank" rel="noopener noreferrer"><strong>get</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2958" target="_blank" rel="noopener noreferrer"><strong>put</strong></a> サブコマンドの一部として指定できるため、 <strong>connect</strong> サブコマンドは必要ありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>得る</strong><em> RemoteFile</em> [ <em>LocalFile</em> ]</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>get</strong><em> RemoteFile</em><em> RemoteFile</em><em> RemoteFile</em> [<em>RemoteFile </em>. . . ]</td>
+
+<td>リモート・ホストからローカル・ホストへ、単一ファイルまたはファイルセットを獲得します。 各 <em>RemoteFile</em> パラメーターは、以下の 2 つの方法のいずれかで指定できます。<ul>
+<li>デフォルト・ホストを既に指定してある場合はリモート・ホスト上に存在するファイル (<em>File</em>) として指定します。</li>
+
+<li>ホスト・ファイル (<em>Host</em>:<em>File</em>) として指定します。この <em>Host</em> はリモート・ホストで、<em>File</em> はローカル・システムにコピーするファイルの名前です。 この形式のパラメーターを使用すると、最後に指定した Host はこの <strong>tftp</strong> セッションの以降の転送用のデフォルト・ホストとなります。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>mode</strong><em> Type</em></td>
+
+<td>転送モードのタイプ (<em>Type</em>) を、<strong>ascii</strong> または <strong>binary</strong> に設定します。 転送モード <strong>ascii</strong> がデフォルトです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>置く</strong><em> LocalFile</em> [ <em>RemoteFile</em> ]</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>put</strong><em> LocalFile LocalFile LocalFile</em> [<em>LocalFile </em>. . . ] <em>RemoteDirectory</em>            </td>
+
+<td>ローカル・ホストからの単一ファイルまたはファイルのセットを、リモート・ホストに保管します。 <em>RemoteDirectory</em> パラメーターと <em>RemoteFile</em> パラメーターは以下の 2 つの方法のいずれかで指定できます。<ul>
+<li>デフォルト・ホストを既に指定してある場合は、リモート・ホストに存在するファイルまたはディレクトリーとして指定します。</li>
+
+<li><em>Host</em>:<em>RemoteFile</em> パラメーターとともに指定します。<em>Host</em> はリモート・ホストで、<em>RemoteFile</em> はリモート・システムのファイルまたはディレクトリーの名前です。 この形式のパラメーターを使用すると、最後に指定した Host はこの <strong>tftp</strong> セッションの以降の転送用のデフォルト・ホストとなります。</li>
+
+</ul>
+  <p>いずれの場合も、ローカル・ディレクトリー名とリモート・ディレクトリー名が同じであっても、リモート・ファイル名またはディレクトリー名は絶対パス名でなければなりません。 リモート・ディレクトリが指定された場合、リモート・ホストは<span>UNIX</span>マシンと見なされる。 <strong>put</strong> サブコマンドのデフォルト値は write-replace  (書き込み置換) ですが、
+write-create (書き込み作成) が可能になるように、
+<strong>tftpd</strong> デーモンにオプションを追加することができます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>quit</strong></td>
+
+<td><strong>tftp</strong> セッションを終了します。 EOF キー・シーケンスもプログラムを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>status</strong></td>
+
+<td>現在の転送モード (<strong>ascii</strong> または <strong>binary</strong>)、接続状況、タイムアウト値などの <strong>tftp</strong> プログラムの現在の状況を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>timeout</strong><em> 値</em></td>
+
+<td>合計送信タイムアウトを <em>Value</em> パラメーターで指定された秒数に設定します。 <em>Value</em> パラメーターは必ず 1 秒以上にしてください (デフォルトは 5 秒)。</td>
+
+</tr>
+
+<tr>
+<td><strong>trace</strong></td>
+
+<td>パケットのトレースをオンまたはオフにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>tsize</strong></td>
+
+<td>サーバーとの <span><span>tsize</span></span> オプション・ネゴシエーションを使用可能にします。 これによって、転送開始前にファイル・サイズを知ることができます。 割り当てが超過しているとエラーが戻され、ファイル転送は行われません。</td>
+
+</tr>
+
+<tr>
+<td><strong>verbose</strong></td>
+
+<td>ファイルの転送中に補足情報を表示する verbose モードをオンまたはオフにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>コマンド・ライン形式で使用するサブコマンド</strong></p>
+ <p>この形式では、以下の <em>Action</em> フラグが使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>-<strong>w</strong>または<strong> -p</strong></td>
+
+<td><em>LocalName</em> パラメーターで指定されたローカル・データを、<em>Host</em> パラメーターで指定されたリモート・ホスト上の <em>RemoteName</em> パラメーターで指定されたファイルに書き込み (すなわちプットし) ます。 <em>LocalName</em> パラメーターがファイル名ならば、<strong>tftp</strong> コマンドは指定されたローカル・ファイルを転送します。 <em>LocalName</em> パラメーターを - (ダッシュ) として指定すると、<strong>tftp</strong> コマンドはローカル標準入力からリモート・ホストにデータを転送します。 <em>LocalName</em> パラメーターが標準入力であれば、<strong>tftp</strong> コマンドはタイムアウト前にすべて入力できるように 25 秒を見込みます。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>r</strong>または<strong> -g</strong>または<strong> -o</strong></td>
+
+<td><em>Host</em> パラメーターで指定されたリモート・ホスト上で <em>RemoteName</em> パラメーターで指定されたファイルからリモート・データを読み取り (すなわち取り出して)、<em>LocalName</em> パラメーターで指定されたファイルに書き込みます。 <em>LocalName</em> パラメーターがファイル名ならば、<strong>tftp</strong> コマンドは指定されたローカル・ファイルにデータを書き込みます。 <strong>-r</strong> アクションと <strong>-g</strong> アクションに関しては、<strong>tftp</strong> コマンドは既存のローカル・ファイルに上書きする前に、確認を求めるプロンプトを表示します。 <strong>-o</strong> アクションに関しては、<strong>tftp</strong> コマンドはプロンプトを表示せずに既存のローカル・ファイルに上書きします。 <em>LocalName</em> パラメーターを - (ダッシュ) として指定すると、<strong>tftp</strong> コマンドはローカル標準出力にデータを書き出します。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>tftp -g</strong> コマンドと <strong>tftp -r</strong> コマンドは、既存のローカル・ファイルを上書きする前にプロンプトを表示するので、パイプで <strong>tftp</strong> コマンドを使用するのは実際的ではないことがあります。 <strong>utftp</strong> コマンドは、<strong>tftp</strong> コマンドと同じ <strong>-r</strong> アクションと <strong>-g</strong> アクションを実行しますが、ローカル・ファイルを上書きする前には停止するだけです。 したがって、<strong>utftp</strong> コマンドの方がパイプ内での使用には適しています。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>以下のファイル転送のモードの場合、<em>RemoteName</em>  パラメーターは他のファイルへの書き込み許可が設定済みのファイルの名前です。 <em>RemoteName</em> パラメーターにシェルの特殊文字を含める場合は、二重引用符 (" ") で囲まなければならないことに注意してください。</p>
+ <p>転送モードは以下のいずれかです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>NETASCII</strong></td>
+
+<td>8 ビットの転送バイトを 7 ビット ASCII 文字としてデータを転送します。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>image</strong></td>
+
+<td>データを変換せずに、8 ビットの転送バイトの 8 ビットのバイナリー・データ・バイトとして転送します。 2 台のホスト間で転送を行う場合は、<strong>image</strong> のほうが <strong>netascii</strong> よりも効率の良い転送を行います。 ワークステーションから異なるタイプのホストに ASCII ファイルを転送する場合には、<strong>netascii</strong> を使用することをお勧めします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>tftp</strong> コマンドの対話型形式とコマンド・ライン形式の相違点を以下の例で示します。</p>
+<p><strong>tftp コマンドの対話型形式の使用法</strong></p>
+ <p><strong>tftp</strong> コマンドを入力し、現在の状況を検査し、リモート・ホストに接続して、リモート・ホストからローカル・ホストにファイルを転送するには、次のように入力します。</p>
+ <div> <div><div><pre><code>tftp</code></pre></div><div></div></div></div>
+ <p>このtftp&gt;プロンプトが表示されます。 この後に <strong>status</strong> サブコマンドを入力します。 prompt:</p>
+ <div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2960" target="_blank" rel="noopener noreferrer">status</a></div>
+ <p>以下のようなメッセージが画面に表示されます。</p>
+ <div> <div><div><pre><code>Not connected.
+Mode: netascii   Verbose: off   Tracing: off
+Max-timeout: 25 seconds
+tftp&gt; _</code></pre></div><div></div></div></div>
+ <p>構成リフレッシュがtftp&gt;プロンプトが出されたら、 <strong>connect</strong> サブコマンドと、接続先のリモート・システムの名前を入力します。</p>
+ <div>tftp&gt;  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2953" target="_blank" rel="noopener noreferrer">connect </a>host1</div>
+ <p>このtftp&gt;に接続されていることを示すプロンプトが表示されます。host1. 以下をフォローしますtftp&gt;プロンプトが出されたら、 <strong>get</strong> サブコマンドを入力してファイルを転送します。updateリモート・ホストからローカル・ホストへ。</p>
+ <div> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2956" target="_blank" rel="noopener noreferrer">get </a>/home/alice/update update </div>
+ <p>この /home/aliceリモート・ホスト上のディレクトリーには、他のユーザーの読み取り許可が設定されている必要があります。 この/home/alice/updateからのファイルhost1が次に転送されました:updateローカル・システム上のファイル。 この例では、ユーザーは以下に接続されます。host1およびupdateファイルの転送元host1ローカル・ホストに送信します。</p>
+<p><strong>tftp コマンドのコマンド・ライン形式の使用法</strong></p>
+ <ol>
+<li>リモート・ホストからテキスト・ファイルをコピーしてローカル・ファイルに書き込むには、以下のように入力します。<div>tftp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2966" target="_blank" rel="noopener noreferrer">-g </a>newsched host1 /home/john/schedule<br>
+$ _</div>この例では、/home/john/scheduleファイルがリモート・ホストからコピーされましたhost1ローカル・ファイルに書き込まれます。newsched.</li>
+
+<li>リモート・ホストからファイルをコピーし、
+その出力をローカル・ホストの標準出力にリダイレクトするには、
+以下のように入力します。<div>tftp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2966" target="_blank" rel="noopener noreferrer">-g </a>- host3 /etc/hosts</div>コピーに成功すると、以下のような情報が画面に表示されます。<div> <div><div><pre><code>192.100.13.3 nameserver
+192.100.13.3 host2
+192.100.13.5 host1
+192.100.13.7 host3
+192.100.13.3 timeserver
+Received 128 bytes in 0.4 seconds
+$ _</code></pre></div><div></div></div>この例では、/etc/hosts リモート・ホストからのファイルhost3コピーされ、出力はローカル・ホストの標準出力にリダイレクトされます。</div>
+</li>
+
+<li>リモート・ホストからファイルをコピーし、<strong>grep</strong> コマンドにパイプ接続して、ローカル・ファイルに書き込むには、以下のように入力します。<div>utftp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2966" target="_blank" rel="noopener noreferrer">-g </a>- host1 /home/john/schedule | grep Jones &gt; jones.todo<br>
+$ _</div>この例では、/home/john/scheduleファイルがリモート・ホストからコピーされましたhost1。その後、このファイルは <strong>grep</strong> コマンドにパイプ接続され、ローカル・ファイルに書き込まれます。jones.todo.</li>
+
+<li>ファイルを別のシステムにコピーするには、以下のように入力します。<div>tftp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2965" target="_blank" rel="noopener noreferrer">-p </a>/home/jeanne/test host2 /tmp/test</div>コピーに成功すると、以下のような情報が画面に表示されます。<div> <div><div><pre><code>Sent 94146 bytes in 6.7 seconds</code></pre></div><div></div></div>この例では、/home/jeanne/testファイルが送信されました。/tmpリモート・ホスト上のディレクトリーhost2.</div>
+</li>
+
+<li>別のシステムにバイナリー・ファイルをコピーするには、以下のように入力します。<div>tftp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tftp.html#tftp__dt2mg2965" target="_blank" rel="noopener noreferrer">-p </a>core host3 /tmp/core image</div>コピーに成功すると、以下のような情報が画面に表示されます。<div> <div><div><pre><code>Sent 309295 bytes in 15 seconds</code></pre></div><div></div></div>この例では、バイナリー・ファイルcore現行ディレクトリーから送信されました。/tmpリモート・ホスト上のディレクトリーhost3.</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/tftpaccess.ctl</strong></td>
+
+<td>ファイルとディレクトリーへのアクセスを許可または禁止します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

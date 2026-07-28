@@ -1,0 +1,200 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>1 つの条件と 1 つ以上の応答との間のリンクを削除します。</p>
+</section>
+
+<section><h2>構文</h2> <p>条件と 1 つまたは複数の応答との間のリンクを削除する場合:</p>
+ <p><span><span>rmcondresp</span></span> [<span><span>-q</span></span>][<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>条件</span></span><span><span>:</span></span><span><span>ノード名</span></span> ] <span><span>[レスポンス</span></span><span><span> [レスポンス</span></span>...]] ]を指定する</p>
+ <p>1 つまたは複数の応答への、すべてのリンクを削除する場合:</p>
+ <p><span><span>rmcondresp</span></span> [<span><span>-q</span></span>] <span><span>-r</span></span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>response1</span></span> [<span><span>response2</span></span>...] [<span><span>:</span></span><span><span>node_name</span></span>]</p>
+ <p><span>条件/応答の関連付け</span>をロックまたはアンロックする場合:</p>
+ <p></p><div><span><span>rmcondresp</span></span> {<span><span>-U</span></span> | <span><span>-L</span></span>}[<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>条件</span></span><span><span>:</span></span><span><span>ノード名</span></span> ] <span><span>レスポンス</span></span><br></div>
+<p></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>rmcondresp</span></span> コマンドは、条件と 1 つ以上の応答との間のリンクを削除します。 <span>条件と応答の間のリンクは、<span><span>条件/応答の関連付け</span></span> と呼ばれます。</span> 条件が発生しても、応答はもう実行されません。 コマンド・パラメーターが応答のみで構成されることを指定するには、 <span><span>-r</span></span> フラグを使用します。 これは、このような応答の条件への全リンクを削除します。 条件が 1 つだけ指定されている場合は、
+条件に対するすべての応答へのリンクが除去されます。</p>
+ <p>システム・ソフトウェアが正しく動作するために特定の<span>条件/応答の関連付け</span>が必要な場合には、それをロックすることができます。 ロックされた <span>条件/応答関連付け</span> は、 <span><span>rmcondresp</span></span> コマンドでは除去できません。 <span><span>rmcondresp</span></span> コマンドで指定した <span>条件/応答の関連付け</span> がロックされている場合、その関連付けは削除されません。代わりに、この <span>条件/応答の関連付け</span> がロックされていることを通知するエラーが生成されます。 <span>条件/応答の関連付け</span>をアンロックするには、 <span><span>-U</span></span> フラグを使用できます。 しかし、<span>条件/応答の関連付け</span>はシステム・ソフトウェアの正常な動作のために必須であり、通常はロックされているので、これをアンロックする際は十分な注意が必要です。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-q</dt>
+
+<dd><em>condition</em> または <em>response</em> が
+存在しない場合、エラーを戻しません。</dd>
+
+
+<dt>-r</dt>
+
+<dd>コマンド・パラメーターすべてが応答であることを示します。 条件は指定されていません。 このコマンドは、指定された応答にリンクされているすべての条件から、<span>条件/応答の関連付け</span>を除去します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+
+<dt>-U</dt>
+
+<dd><span>条件/応答の関連付け</span>をアンロックして、その始動、停止、除去ができるようにします。 <span>条件/応答の関連付け</span>のロックはシステム・ソフトウェアが正しく動作するために必須であり、当然のことです。 このため、このリンクをアンロックする場合は、十分な注意が必要です。 <span><span>-U</span></span> フラグを使用して <span>条件/応答の関連付け</span> をアンロックする場合、このコマンドで他の操作を実行することはできません。</dd>
+
+
+<dt>-L</dt>
+
+<dd><span>条件/応答の関連付け</span>をロックし、その始動、停止、除去ができないようにします。 <span><span>-L</span></span> フラグを使用して <span>条件/応答関連付け</span> をロックすると、このコマンドでは他の操作を実行できません。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>条件</span></span></dt>
+
+<dd>応答にリンクされた条件の名前を指定します。 条件は、 <span><span>-r</span></span> フラグが使用されていない限り、常に最初に指定されます。</dd>
+
+
+<dt><span><span>response</span></span></dt>
+
+<dd>1 つまたは複数の応答の名前を指定します。 指定された条件への、
+指定された応答からのリンクが除去されます。</dd>
+
+
+<dt><span><span>ノード名</span></span></dt>
+
+<dd>条件が定義されているノードを指定します。 <span><span>-r</span></span> フラグが使用されている場合、これは応答が定義されているノードです。 <span><span>node_name</span></span> は、CT_MANAGEMENT_SCOPE 環境変数が決定する範囲内のノードです。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>rmcondresp</span></span>を実行するには、 <span><span>IBM.Association</span></span> リソース・クラスに対する書き込み権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>イベント応答リソース・マネージャー (ERRM) のリソースの処理で、RMC デーモンとのセッションに使用する管理有効範囲を指定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>以下の例は、スタンドアロン・システムに適用されます。<ol>
+<li>条件 <span>“</span>FileSystem space used<span>”</span> と応答 <span>“</span>Broadcast event on-shift<span>”</span>の間のリンクを削除するには、次のコマンドを実行します。<div><div><pre><code>rmcondresp "FileSystem space used" "Broadcast event on-shift"                              													</code></pre></div><div></div></div></li>
+
+<li>条件 <span>“</span>FileSystem space used<span>”</span> とそのすべての応答の間のリンクを削除するには、次のコマンドを実行します。<div><div><pre><code>rmcondresp "FileSystem space used"</code></pre></div><div></div></div></li>
+
+<li>条件 <span>“</span>FileSystem space used<span>”</span> と、応答 <span>“</span>Broadcast event on-shift<span>”</span> および <span>“</span>E-mail root anytime<span>”</span>との間のリンクを削除するには、次のコマンドを実行します。<div><div><pre><code>rmcondresp "FileSystem space used" "Broadcast event on-shift" "E-mail root anytime"                              												
+	</code></pre></div><div></div></div></li>
+
+<li>応答 <span>“</span>Broadcast event on-shift<span>”</span> とそれを使用するすべての条件との間のリンクを削除するには、次のコマンドを実行します。<div><div><pre><code>rmcondresp -r "Broadcast event on-shift"</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+ <div>以下の例は管理ドメインに適用されます。<ol>
+<li>管理サーバー上の条件 <span>“</span>FileSystem space used<span>”</span> と応答 <span>“</span>Broadcast event on-shift<span>”</span>の間のリンクを削除するには、管理サーバー上で次のコマンドを実行します。<div><div><pre><code>rmcondresp "FileSystem space used" "Broadcast event on-shift"                              													</code></pre></div><div></div></div></li>
+
+<li>管理対象ノード <span><span>nodeB</span></span> 上の条件 <span>“</span>FileSystem space used<span>”</span> と応答 <span>“</span>Broadcast event on-shift<span>”</span> および <span>“</span>E-mail root anytime<span>”</span>の間のリンクを削除するには、管理サーバーで次のコマンドを実行します。<div><div><pre><code>rmcondresp  "FileSystem space used":nodeB \
+"Broadcast event on-shift" "E-mail root anytime"                              												
+	</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+ <div>以下の例はピア・ドメインに適用されます。<ol>
+<li>条件 <span>“</span>FileSystem space used<span>”</span> on <span><span>nodeA</span></span> (ドメイン内) と応答 <span>“</span>Broadcast event on-shift<span>”</span> および <span>“</span>E-mail root anytime<span>”</span>の間のリンクを削除するには、ドメイン内の任意のノードで次のコマンドを実行します。<div><div><pre><code>rmcondresp "FileSystem space used":nodeA \
+"Broadcast event on-shift" "E-mail root anytime"                              												
+	</code></pre></div><div></div></div></li>
+
+<li>ドメイン内の <span><span>nodeA</span></span> のすべての条件と応答 <span>“</span>Broadcast event on-shift<span>”</span>の間のリンクを削除するには、ドメイン内の任意のノードで次のコマンドを実行します。<div><div><pre><code>rmcondresp -r "Broadcast event on-shift":nodeA        												
+	</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/rmcondresp</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

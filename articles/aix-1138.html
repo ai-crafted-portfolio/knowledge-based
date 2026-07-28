@@ -1,0 +1,209 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>サポートされているプロセッサーについての情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>PMLIST</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_h" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ]</p>
+ <p><strong>PMLIST</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_l" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_o" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <strong> T</strong> | <strong><strong>C</strong> </strong> | <strong>X</strong> ]</p>
+ <p><strong>PMLIST</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_s" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_e" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> <em>短縮名</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_c" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>カウンター</em> [ ,<em>イベント</em> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_g" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>グループ</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_s_l" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> <em>セット</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_d_l" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> <em>導出されたメトリック ID</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__row-d3e92681" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>メトリック・グループ</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__row-d3e92762" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> <em>変数</em> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_p" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>ProcessorType</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_s" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_d" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_o" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <strong>T</strong> | <strong>C</strong> | <strong>X</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pmlist.html#pmlist__pmlist_flags_f" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>フィルター</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>pmlist</strong> コマンドは以下の機能を実行します。<ul>
+<li>サポートされているプロセッサーのリストを表示します。</li>
+
+<li>指定されたプロセッサーについての情報の要約を表示します。</li>
+
+<li>指定されたプロセッサーのイベント・テーブルを表示します。</li>
+
+<li>指定されたプロセッサーの既存のイベント・グループを表示します。</li>
+
+<li>指定されたプロセッサーの既存のイベント・セットを表示します。</li>
+
+<li>イベント・セットおよび指定されて導出されたメトリックに対する数式を表示しま
+す。</li>
+
+<li>派生メトリック・ファイル内の変数をリストします。</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c -1</strong></td>
+
+<td>すべてのカウンターのすべてのイベントを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong> <em>カウンター</em></td>
+
+<td>指定したカウンター <em>Counter</em> のすべてのイベントを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong> <em>Counter</em>、<em>イベント</em></td>
+
+<td>指定したカウンター <em>Counter</em> の指定したイベント <em>Event</em> のリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>イベントの詳細記述を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D -1</strong></td>
+
+<td>サポートされる派生メトリックをすべて表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong> <span><span>DerivedMetricID</span></span></td>
+
+<td>指定された <span><span>DerivedMetricID</span></span>.</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong> <em>ShortName</em></td>
+
+<td>すべてのカウンターの指定した <em>ShortName</em> の説明を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>「-f」</strong> <strong>V</strong>,<strong>U</strong>,<strong>C</strong></td>
+
+<td>フィルターをコンマで区切ったリストとして、イベント・フィルターを指定します。 有効なフィルターは、<strong>v</strong> (検査済み)、<strong>u</strong> (未検査)、および <strong>c</strong> (要注意) です。 それらのフィルターは、イベントのテスト状況を表しています。 デフォルトのフィルターは <strong>v,u,c</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g -1</strong></td>
+
+<td>すべてのイベント・グループのリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>グループ</em></td>
+
+<td>指定したイベント・グループ <em>Group</em> を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>pmlist</strong> コマンドのヘルプ情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>サポートされているすべてのプロセッサー・タイプのリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <strong>-1</strong></td>
+
+<td>メトリック・グループ別にすべての派生メトリックをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>MetricGroup</em></td>
+
+<td>指定された <em>MetricGroup</em> に関連した派生メトリックをすべて表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> <strong>T</strong> | <strong>C</strong> | <strong>X</strong></td>
+
+<td><strong>pmlist</strong> コマンドの出力形式を指定します。 有効な出力形式は、<strong>t</strong> (テキスト形式)、<strong>c</strong> (CSV 形式)、<strong>x</strong> (XML 形式) のいずれかとして指定します。 デフォルトの出力形式はテキストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>ProcessorType</em></td>
+
+<td>プロセッサー・タイプを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>プロセッサー情報の要約を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S -1</strong></td>
+
+<td>サポートされるイベント・セットをすべて表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S (S)</strong> <span><span>セット</span></span></td>
+
+<td>指定されたイベント <span><span>Set</span></span> を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong> <strong>-1</strong></td>
+
+<td>派生メトリックの計算に使用する変数をすべて表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>V 値</strong> <em>変数</em></td>
+
+<td>指定された変数を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>サポートされているすべてのプロセッサーを表示するには、次のように入力します。<div><div><pre><code>pmlist -l</code></pre></div><div></div></div></li>
+
+<li>現在のプロセッサーの要約情報を表示するには、次のように入力します。<div><div><pre><code>pmlist -s</code></pre></div><div></div></div></li>
+
+<li>現在のプロセッサーの要約情報を CSV 形式で表示するには、次のように入力します。<div><div><pre><code>pmlist -s -o c</code></pre></div><div></div></div></li>
+
+<li>現在のプロセッサーのグループ番号 <code>62</code> を表示するには (現在のプロセッサーでイベント・グループがサポートされている場合)、次のように入力します。<div><div><pre><code>pmlist  -g 62</code></pre></div><div></div></div></li>
+
+<li><span>POWER4</span> プロセッサーのカウンター 1 のイベント 3 の詳細情報を表示するには、次のように入力します。<div><div><pre><code>pmlist -p POWER4 -c 1,3 -d</code></pre></div><div></div></div></li>
+
+<li>現在のプロセッサーのセット番号 2 を表示するには (現在のプロセッサーでイベント・セットがサポートされている場合)、次のように入力します。<div><div><pre><code>pmlist -S 2</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

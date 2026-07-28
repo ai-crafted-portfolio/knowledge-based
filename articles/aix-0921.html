@@ -1,0 +1,321 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>新規の最小特権 (LP) リソースを Resource Monitoring and Control (RMC) サブシステムに定義し、
+ユーザー・アクセス権を指定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>mklpcmd</span></span>[<span><span>-n</span></span> <span><span>host</span></span>] [<span><span>-l</span></span>]<span>[ '<span><span>-c 0</span></span>│ '<span><span>1</span></span>│ '<span><span>2</span></span>│ '<span><span>3</span></span>] [<span><span>–R</span></span> <span><span>RunCmdName</span></span>] [<span><span>-s</span></span> <span><span>FilterScript</span></span>] [<span><span>-A</span></span> <span><span>FilterArg</span></span>]</span>[<span><span>-h</span></span>] [<span><span>-TV</span></span>]<span><span>resource_name command_path</span></span> <span>[<span><span>ID perm</span></span>] ...</span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>mklpcmd</span></span> コマンドは、新しい LP リソースを Resource Monitoring and Control (RMC) サブシステムに定義します。 LP リソースは、 <span>LP アクセス制御リスト (ACL)</span>内のアクセス権に基づいてユーザーにアクセス権限を付与する <span><span>root</span></span> コマンドまたはスクリプトです。 <span><span>resource_name</span></span> パラメーターを
+使用して LP リソースを指定してください。 <span><span>command_path</span></span> パラメーターにより、LP アクセスを
+用いて実行できるコマンドまたはスクリプトを指定します。 コマンドまたはスクリプトの完全パス名を指定します。 リソースの作成時に <span><span>command_path</span></span> が存在する場合、LP リソース・マネージャーは <span><span>CheckSum</span></span> を計算し、 <span><span>CheckSum</span></span> 属性値を割り当てます。 <span><span>command_path</span></span> が存在しない場合、LP リソース・マネージャーは <span><span>0</span></span> を <span><span>CheckSum</span></span> 属性値として割り当てます。</p>
+ <p>LP リソースをロックするには、 <span><span>-l</span></span> フラグを使用します。 リソースを削除するためには、その前に
+そのリソースをアンロックする必要があります。 <span> <span><span>-c</span></span> フラグを使用して、リソースの制御設定を指定します。</span></p>
+ <p>また、 <span><span>mklpcmd</span></span> コマンドを使用して、リソースの作成時にユーザーの許可を指定することもできます。 このためには、そのリソースに関する管理者アクセス権を持っている必要があります。 管理者アクセス権により、各アクセス権を設定および編集することができます。 このコマンドを使用して、複数のユーザー ID とアクセス権を指定できます。 詳しくは、「 <span><span>Examples</span></span> 」セクションを参照してください。</p>
+ <p>このコマンドはどのノードでも実行できます。 管理ドメインまたはピア・ドメインでは、 <span><span>-n</span></span> フラグを使用して、 <span> <span><span>host</span></span>によって指定されたノード上に LP リソースを定義します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。</span></p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-<span><span>ホスト</span></span></dt>
+
+<dd>LP リソースを定義しようとするドメイン中のノードを指定します。 デフォルトでは、この LP リソースは、ロ
+ーカル・ノードで定義されます。 <span><span>–n</span></span> フラグは、管理ドメインまたはピア・ドメインでのみ有効です。 CT_MANAGEMENT_SCOPE 変数が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定値を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol>
+ <p><span><span>mklpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。</p>
+</dd>
+
+
+<dt>-l</dt>
+
+<dd>新規の LP リソースを、無意識に変更できないように、「ロック済み」として定義します。 <span><span>Lock</span></span> 属性が設定解除されるまで、リソースを RMC サブシステムから除去することはできません。<p>このフラグを指定しない場合は、新規リソースはロックされません。 <span>これはデフォルトです。</span></p>
+</dd>
+
+
+<dt>--c0<span>│</span>1<span>│</span>2<span>│</span>3</dt>
+
+<dd>LP コマンドの制御機能を指定するために使用される <span><span>ControlFlags</span></span> 属性を設定します。 <span><span>ControlFlags</span></span> を指定しない場合、デフォルトで <span><span>1</span></span> に設定されます。 このフラグを使用して、次のいずれかの値を指定します。<dl>
+<dt>0</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証しません。</dd>
+
+
+<dt>1</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証しません。 これはデフォルトです。</dd>
+
+
+<dt>2</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証します。</dd>
+
+
+<dt>3</dt>
+
+<dd><span><span>CheckSum</span></span> 値を検証します。</dd>
+
+</dl>
+ <p><span><span>runlpcmd</span></span> コマンドを使用して LP リソースを実行しようとすると、 <span><span>ControlFlags</span></span> 属性の値によって、リソースによって表されるコマンドを実行する前に実行される検査が決まります。</p>
+ <p>このリリースの RSCT では、 <span><span>ControlFlags</span></span> 属性値は、 <span><span>CheckSum</span></span> 値が妥当性検査されるかどうかを指定します。</p>
+ <p>以前のリリースの RSCT では、 <span><span>ControlFlags</span></span> 属性値は、 <span><span>runlpcmd</span></span> への入力引数に特定の文字が存在することを許可しないかどうかも指定していました。 しかし、これらの文字の検査は<span>不要</span>と
+なりました。</p>
+ <p>以前のリリースの RSCT で定義された LP リソースとの互換性を維持するために、 <span><span>CheckSum</span></span> 値の妥当性検査に関しては、 <span><span>ControlFlags</span></span> 属性値は同じままです。 したがって、値 <span><span>0</span></span> および <span><span>1</span></span> は、 <span><span>CheckSum</span></span> 値が検証されないことを示し、値 <span><span>2</span></span> および <span><span>3</span></span> は、 <span><span>CheckSum</span></span> 値が検証されることを示します。</p>
+</dd>
+
+
+<dt>-R <span><span>RunCmdName</span></span></dt>
+
+<dd>このリソースの <span><span>RunCmdName</span></span> 値を指定します。これは、 <span><span>runlpcmd</span></span> コマンドのパラメーターとして使用されます。</dd>
+
+
+<dt>--s <span><span>script_path</span></span></dt>
+
+<dd>フィルター・スクリプトの完全修飾パスを指定します。</dd>
+
+
+<dt>-<span><span>議論</span></span></dt>
+
+<dd>フィルター・スクリプトに渡される引数の文字列を指定します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>リソース名</span></span></dt>
+
+<dd>RMC サブシステムに定義される LP リソースの名前または ID です。</dd>
+
+
+<dt><span><span>コマンド・パス</span></span></dt>
+
+<dd>コマンドまたはスクリプトの完全修飾パス名です。</dd>
+
+
+<dt><span><span>ID perm</span></span> ...</dt>
+
+<dd>リソースの作成時にユーザー用のアクセス権を指定します。 このパラメーターはオプションです。<dl>
+<dt><span><span>ID</span></span></dt>
+
+<dd>ACL エントリーの<span>ユーザー ID</span> を指定します。 このパラメーターの有効な形式については、「 <span><span>lpacl</span></span> 」の「 <span><span>User identities</span></span> 」セクションを参照してください。</dd>
+
+
+<dt><span><span>永続</span></span></dt>
+
+<dd>ACL エントリーのユーザー・アクセス権を指定します。 このパラメーターは、以下の任意の値を組み合わせて構成することができます。<dl>
+
+<dt>r</dt>
+
+<dd>読み取り許可 ( <span><span>q</span></span>、 <span><span>l</span></span>、 <span><span>e</span></span>、および <span><span>v</span></span> 許可で構成)</dd>
+
+
+<dt>w</dt>
+
+<dd>書き込み許可 ( <span><span>d</span></span>、 <span><span>c</span></span>、 <span><span>s</span></span>、および <span><span>o</span></span> 許可で構成)</dd>
+
+
+<dt>a</dt>
+
+<dd>管理者アクセス権</dd>
+
+
+<dt>x</dt>
+
+<dd>実行アクセス権</dd>
+
+
+<dt>q</dt>
+
+<dd>照会アクセス権</dd>
+
+
+<dt>l</dt>
+
+<dd>列挙アクセス権</dd>
+
+
+<dt>e</dt>
+
+<dd>イベント・アクセス権</dd>
+
+
+<dt>v</dt>
+
+<dd>検証アクセス権</dd>
+
+
+<dt>d</dt>
+
+<dd>定義および<span>定義解除</span>アクセス権</dd>
+
+
+<dt>c</dt>
+
+<dd>リフレッシュ・アクセス権</dd>
+
+
+<dt>s</dt>
+
+<dd>設定アクセス権</dd>
+
+
+<dt>o</dt>
+
+<dd>オンライン、オフライン、およびリセット・アクセス権</dd>
+
+
+<dt>0</dt>
+
+<dd>アクセス権なし</dd>
+
+</dl>これらの許可の説明については、 <span><span>lpacl</span></span> 情報の <span><span>User permissions</span></span> セクションを参照してください。</dd>
+
+</dl>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div> <ul>
+<li>1 つ以上の <span><span>ID</span></span><span><span>:</span></span><span><span>perm</span></span> パラメーターを指定して <span><span>mklpcmd</span></span> コマンドを実行するには、以下が必要です。<ul>
+<li><span><span>IBM.LPCommands</span></span> リソース・クラスの Class ACL の中の読み取りおよび書き込み許可。</li>
+
+<li>Resource Initial ACL の中の読み取りおよび管理者アクセス権。<p>代わりに、これらの許可が Resource Shared ACL の中に存在する場合は、
+Resource Initial ACL が Resource Shared ACL の使用を指示できます。</p>
+</li>
+
+</ul>
+</li>
+
+<li><span><span>ID</span></span><span><span>:</span></span><span><span>perm</span></span> パラメーターを指定せずに <span><span>mklpcmd</span></span> コマンドを実行するには、 <span><span>IBM.LPCommands</span></span> リソース・クラスの Class ACL で書き込み権限が必要です。</li>
+
+</ul>アクセス権は、連絡先システムの <span>LP ACL</span> で指定されています。 <span>それら</span>の変更については、 <span><span><span>lpacl</span></span> ファイル <span>LP ACL に関する一般情報</span></span> および「 <em>RSCT 管理ガイド</em> 」を参照してください。</div>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>リソースが見つかりません。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>RMC デーモンとのセッションに使用されるシステムを決めます。 <span><span>CT_CONTACT</span></span> がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の RMC デーモンと連絡を取ります。 <span><span>CT_CONTACT</span></span> が設定されていない場合、コマンドは、コマンドが実行されているローカル・システム上の RMC デーモンと連絡を取ります。 RMC デーモン・セッションのターゲットおよびその管理有効範囲によって、処理される LP リソースが決まります。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>LP リソースを処理するために RMC デーモンとのセッションに使用される管理有効範囲を決定します。 管理有効範囲は、リソースの処理を行う場所となりうるターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+ <p>この環境変数が設定されていない場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ローカル・ノード上の <span><span>/tmp/user1/lpcmd1</span></span> というコマンドを指す <span><span>LP1</span></span> という LP リソースを作成するには、次のように入力します。<div><div><pre><code>mklpcmd LP1 /tmp/user1/lpcmd1 </code></pre></div><div></div></div></li>
+
+<li>管理ドメイン内の <span><span>/tmp/my_command1</span></span> on <span><span>nodeB</span></span> というコマンドを指す <span><span>LP2</span></span> という LP リソースを作成するには、次のように入力します。<div><div><pre><code>mklpcmd -n nodeB LP2 /tmp/my_command1 </code></pre></div><div></div></div></li>
+
+<li><span><span>ControlFlags</span></span> を <span><span>3</span></span> ( <span> <span><span>CheckSum</span></span> 値の検証</span>を意味します) に設定して <span><span>lp3</span></span> という LP リソースを作成するには、次のように入力します。<div><div><pre><code>mklpcmd -c 3 LP3 /tmp/cmd_lp3 </code></pre></div><div></div></div></li>
+
+<li><span><span>/tmp/testscript</span></span>を指し、 <span><span>RunCmdName</span></span> 値が <span><span>test</span></span>、 <span><span>FilterScript</span></span> 値が <span><span>/tmp/filterscr</span></span>、フィルター引数が <span><span>node1</span></span> および <span><span>node2</span></span>である <span><span>lp4</span></span> という LP リソースを作成するには、次のように入力します。<div><div><pre><code>mklpcmd -R test -f /tmp/filterscr -A "node1,node2" lp4 /tmp/testscript</code></pre></div><div></div></div></li>
+
+<li><span><span>/usr/bin/mkrsrc</span></span> を指し、ユーザー <span><span>user1@LOCALHOST</span></span> および <span><span>user2@LOCALHOST</span></span> に読み取り、書き込み、および実行の許可を与える <span><span>lp5</span></span> という LP リソースを作成するには、次のように入力します。<div><div><pre><code>mklpcmd lp5 /usr/bin/mkrsrc user1@LOCALHOST rwx  user2@LOCALHOST rwx</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/mklpcmd</dt>
+
+<dd><span><span>mklpcmd</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+</div></div>

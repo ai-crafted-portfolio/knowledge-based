@@ -1,0 +1,135 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ページング・スペースの特性を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lsps</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsps.html#lsps__row-d3e92418" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>| [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsps.html#lsps__row-d3e92406" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsps.html#lsps__row-d3e92412" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsps.html#lsps__row-d3e92400" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsps.html#lsps__row-d3e92455" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a>{ <em>lv</em> | <em>nfs</em> | <em>ps_helper</em>} | <em>PagingSpace</em> }}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsps</strong> コマンドは、ページング・スペースの特性を表示します。 <strong>lsps</strong> コマンドは、ページング・スペース名、物理ボリューム名、ボリューム・グループ名、サイズ、使用するページング・スペースの割合、そのスペースがアクティブであるか非アクティブであるか、およびページング・スペースが自動的に設定されるかどうかなどの特性を表示します。 <em>PagingSpace</em> パラメーターは、特性が表示されるページング・スペースを指定します。</p>
+ <p>NFS ページング・スペースの場合は、物理ボリューム名とボリューム・グループ名の代わりに、NFS サーバーのホスト名、およびページングに使用されるファイルのパス名が表示されます。</p>
+ <p><strong>-t</strong> フラグが指定されている場合、引数は、サード・パーティーのヘルパー実行プログラムであると想定されます。 ヘルパー実行可能プログラムが /sbin/helpers/pagespace パスにある場合は、すべての引数を渡し、<strong>-l</strong> フラグを指定して <strong>lsps</strong> コマンドによって作成されます。 ページ・スペースの特性の表示は、ヘルパー実行可能プログラムが行う必要があります。 ヘルパー・プログラムが /sbin/helpers/pagespace ディレクトリーにない場合、<strong>lsps</strong> コマンドは使用方法エラーを表示します。 ヘルパー実行可能ファイルは、成功した場合は 0 で、失敗に終わった場合は非ゼロで終了する必要があります。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit lsps</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>表示されるすべてのページング・スペースの特性を指定します。 サイズは MB 単位で表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>コロン・フォーマットで出力するように指定します。 コロン・フォーマットでは、
+ページング・スペースのサイズが論理区画単位で表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>リスト・フォーマットで出力するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>すべてのページング・スペースの要約特性を表示するように指定します。 この情報には、MB 単位の合計ページング・スペースと現在割り当てられ (使用され) ているページング・スペースの割合が含まれています。 <strong>-s</strong> フラグを指定すると、他のフラグはすべて無視されます。<div><div>
+        <div>
+          <div><span>注:</span> デバイスごとに 64 GB のページング・スペース制限があります。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 環境変数 <strong>PSALLOC=early</strong> を設定すると、早期ページング・スペース・アルゴリズムが使用されます。 この場合、<strong>-s</strong> フラグが指定する値は、1 つのページング・スペースについて戻される値や、すべてのページング・スペースに
+<strong>-a</strong> フラグを使用した場合の値とは異なります。 <strong>-s</strong> フラグが表示する値は、ページング・スペースが割り当てられて (使用されて) いるかどうかに関係なく、割り当てられた (保存された) ページング・スペースの割合です。 したがって、<strong>PSALLOC</strong> が初期 (early)
+に設定されていると、<strong>-s</strong> フラグで表示される割合は、通常 <strong>-a</strong> フラグで表示される値よりも大きくなります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>ページング・スペースの特性を指定します。 次の変数のいずれか 1 つが必要です。<dl>
+<dt><em>ラトビア</em></dt>
+
+<dd>論理ボリュームのページング・スペースの特性だけが表示されるように指定します。</dd>
+
+
+<dt><em>nfs</em></dt>
+
+<dd>NFS ページング・スペースの特性だけが表示されるように指定します。 出力される見出しが変更されると、NFS サーバーのホスト名、および NFS のページングに使用されるサーバー上にあるファイルのパス名が表示されます。</dd>
+
+
+<dt><em>ps_helper</em></dt>
+
+<dd>サード・パーティー・デバイスのヘルパー・プログラムの名前。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのページング・スペースの特性をリストするには、次のように入力します。<div>lsps  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsps.html#lsps__row-d3e92400" target="_blank" rel="noopener noreferrer">-a</a></div>
+ <p>これにより、すべてのページング・スペースの特性と、次のようなリストが表示されます。</p>
+ <div> <div><div><pre><code>Page Space   PhysicalVolume  Volume Group    Size   %Used  Active  Auto  Type  Chksum
+hd6           hdisk0          rootvg         512MB    1     yes     yes   lv     8</code></pre></div><div></div></div></div>
+</li>
+
+<li>ヘルパー・プログラム foo を使用してページング・スペース myps の特性を表示するには、次のコマンドを入力します。<div><div><pre><code>lsps -t foo myps</code></pre></div><div></div></div>
+<p>これにより、すべてのページング・スペースの特性と、次のようなリストが表示されます。</p>
+
+<div><div><pre><code>Page Space      Physical Volume   Volume Group    Size %Used Active  Auto  Type
+myps             mydisk            myvg            512MB     1    yes   yes    lv</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/swapspaces</strong></td>
+
+<td>ページング・スペース・デバイスおよびその属性を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

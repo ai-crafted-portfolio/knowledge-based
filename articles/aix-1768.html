@@ -1,0 +1,1115 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>XDMCP をサポートする X Display の集合を管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>エックスディーエム</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33170" target="_blank" rel="noopener noreferrer"><strong>-コンフィグ</strong></a><em> ConfigurationFile</em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33184" target="_blank" rel="noopener noreferrer"><strong>-デバッグ</strong></a><em> DebugLevel </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33207" target="_blank" rel="noopener noreferrer"><strong>-ノダエモン </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33219" target="_blank" rel="noopener noreferrer"><strong>-エラー </strong></a><em>ErrorLogFile </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33233" target="_blank" rel="noopener noreferrer"><strong>-リソース</strong></a><em> ResourceFile </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33247" target="_blank" rel="noopener noreferrer"><strong>-サーバー</strong></a><em> ServerEntry </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33261" target="_blank" rel="noopener noreferrer"><strong>-udpPort</strong></a><strong> </strong><em>PortNumber </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33281" target="_blank" rel="noopener noreferrer"><strong>-セッション</strong></a><em> SessionProgram </em>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__row-d3e33292" target="_blank" rel="noopener noreferrer"><strong>-エックスアーム</strong></a><em> ResourceSpecification </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xdm</strong> (X Display Manager) コマンドは、ローカル・ホストまたはリモート・サーバー上にある X Display の集合を管理します。 <strong>xdm</strong> コマンドの設計は、X 端末の必要性および X コンソーシアム規格 XDMCP (<em>X Display Manager 制御プロトコル</em>) に準拠しています。 <strong>xdm</strong> コマンドが提供するサービスは、文字端末における <strong>init</strong>、<strong>getty</strong>、および <strong>login</strong> コマンドが提供するサービスと似ています。つまり、xdm コマンドは、ログイン名とパスワードの入力を求め、ユーザーを認証し、セッションを実行するというサービスを提供します。</p>
+ <p><em>セッション</em> は、特定のプロセスの存続期間によって定義されます。
+つまり、従来の文字ベースの端末の世界では、ユーザーのログイン・シェルのことです。 しかし、<strong>xdm</strong> の世界では、任意のセッション・マネージャーを指します。 なぜなら、ウィンドウ操作環境では、ユーザーのログイン・シェル・プロセスは、接続に端末のようなインターフェースを持つ必要がないからです。 実際のセッション・マネージャーが使用できない場合は、通常、ウィンドウ・マネージャーや端末エミュレーターが<em>セッション・マネージャー</em> として使用されます。
+つまり、このプロセスの終了がユーザーのセッションの終了を意味します。</p>
+ <p>セッションが終了すると、<strong>xdm</strong> は X サーバーをリセットし、(必要であれば) プロセス全体を再始動します。</p>
+ <p><strong>xdm</strong> コマンドは、XDMCP 経由で <strong>Indirect</strong> 照会を受信すると、<strong>chooser</strong> プロセスを実行して、ディスプレイの代わりに XDMCP の <strong>BroadcastQuery</strong> を (指定されたホストには XDMCP Query) を実行し、XDMCP ディスプレイ管理機能を提供できるホストのメニューを表示します。 この機能は、ホスト・メニューを提供しない X 端末に役立ちます。</p>
+ <p><strong>xdm</strong> コマンドはユーザーが最初に目にするインターフェースを提供するため、使いやすく、特定のサイトの必要に応じて簡単にカスタマイズできるように設計されています。</p>
+ <p><strong>一般的な使用方法</strong></p>
+ <p><strong>xdm</strong> コマンドは、さまざまな環境で操作できるように設計されています。</p>
+ <div>最初に、<strong>xdm</strong> 構成ファイルをセットアップします。 次に、関連するすべてのファイルを入れるディレクトリー (通常は、<strong>/usr/lib/X11/xdm</strong>) を作成します。 下記は、構成ファイルの例です。<strong>xdm-config</strong> という名前を付けることにします。<div><div><pre><code>DisplayManager.servers:       /usr/lib/X11/xdm/Xservers
+DisplayManager.errorLogFile:  /usr/lib/X11/xdm/xdm-errors
+DisplayManager*resources:     /usr/lib/X11/xdm/Xresources
+DisplayManager*startup:       /usr/lib/X11/xdm/Xstartup
+DisplayManager*session:       /usr/lib/X11/xdm/Xsession
+DisplayManager.pidFile:       /usr/lib/X11/xdm/xdm-pid
+DisplayManager._0.authorize:  true
+DisplayManager*authorize:     false</code></pre></div><div></div></div></div>
+ <p>このファイルには、他のファイルへの参照が含まれます。 いくつかのリソースは、コンポーネントを区切る * (アスタリスク) で指定されています。 これらのリソースは、各ディスプレイに対して固有に作成することができ、* (アスタリスク) の部分にディスプレイの名前が入ります。しかし通常はあまり役には立ちません。 詳細については、次のページの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__resources" target="_blank" rel="noopener noreferrer">資料</a> セクションを参照してください。</p>
+ <p>最初のファイル <strong>/usr/lib/X11/xdm/Xservers</strong> には、<strong>XDMCP</strong> を使用しないで管理するディスプレイのリストが入っています。 ほとんどのワークステーションは 1 つのディスプレイ (番号 0 (ゼロ) が割り当てられている) しか持っていないため、このファイルは下記のような内容になります。</p>
+ <div> <div><div><pre><code>:0 Local local /usr/bin/X11/X -force</code></pre></div><div></div></div></div>
+ <p>これにより、<strong>/usr/bin/X11/X</strong> が継続して当該ディスプレイ上で動作し、連続したセッションのサイクルを管理します。</p>
+ <p><strong>/usr/lib/X11/xdm/xdm-errors</strong> ファイルには、<strong>xdm</strong> のエラー・メッセージ、
+および <strong>Xsetup</strong>、<strong>Xstartup</strong>、<strong>Xsession</strong>、<strong>Xreset</strong> のいずれかのスクリプトが標準エラーに書き込んだ出力が入っています。 <strong>xdm</strong> コマンドの始動に何らかの問題が発生した場合は、<strong>/usr/lib/X11/xdm/xdm-errors</strong> ファイルを検査して、<strong>xdm</strong> コマンドに原因があるかどうか確認します。</p>
+ <p>構成ファイルの次の項目 <strong>/usr/lib/X11/xdm/Xresources</strong> は、<strong>xrdb</strong> コマンドによって、リソース・データベースとしてディスプレイにロードされます。 認証ウィジェットは始動する前にこのデータベースを読み取るため、構成ファイルには通常、認証ウィジェット用のパラメーターが入っています。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>オプションで指定する値はすべて (<strong>-config</strong> で指定するものは除く)、構成ファイルの中でリソースとしても指定できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-コンフィグ</strong><em> ConfigurationFile</em></td>
+
+<td><strong>xdm</strong> コマンドの動作を制御するリソースを指定する構成ファイルに名前を付けます。 デフォルトは、<strong>/usr/lib/X11/xdm/xdm-config</strong> ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-デバッグ</strong><em> DebugLevel</em></td>
+
+<td><strong>DisplayManager.debugLevel</strong> リソースに対する数値を指定します。 ゼロ以外の値を指定すると、<strong>xdm</strong> はデバッグ・ステートメントを端末に出力し、<strong>DisplayManager.daemonMode</strong> リソースを使用不可にし、強制的に <strong>xdm</strong> を同期実行するようにします。 これらのエラー・メッセージはわかりにくいこともあります。 このような場合、<strong>xdm</strong> コマンドの X11R4 ソース・コードを検査して、エラーの意味を調べてください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nodaemon (デーモンなし)</strong></td>
+
+<td><strong>DisplayManager.daemonMode</strong> リソースに対する値として False (偽) を指定します。 これによって、デーモンの通常の動作を抑制します。この動作により <strong>xdm</strong> コマンドは最初の始動時にすべてのファイル・ディスクリプターをクローズし、制御端末との関連付けを無効にし、自分の実行をバックグラウンドに移します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エラー</strong><em> ErrorLogFile</em></td>
+
+<td><strong>DisplayManager.errorLogFile</strong> リソースに対する値を指定します。 このファイルには、<strong>xdm</strong> のエラーと、セッションの進行中に実行されたさまざまなスクリプトとプログラムが標準エラーに書き込んだ出力が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-リソース</strong><em> ResourceFile</em></td>
+
+<td><strong>DisplayManager*resources</strong> リソースに対する値を指定します。 このファイルは、<strong>xrdb</strong> コマンドによってロードされ、認証ウィジェットの構成パラメーターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-サーバー</strong><em> ServerEntry</em></td>
+
+<td><strong>DisplayManager.servers</strong> リソースに対する値を指定します。 このリソースの説明については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__serverspec" target="_blank" rel="noopener noreferrer">サーバー仕様</a> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-udpPort</strong><em> PortNumber</em></td>
+
+<td><strong>DisplayManager.requestPort</strong> リソースに対する値を指定します。 これにより、<strong>xdm</strong> コマンドが <strong>XDMCP</strong> 要求をモニターするポート番号が設定されます。 <strong>XDMCP</strong> は、登録されている定義済 UDP ポート 177 を使用します。 デバッグするとき以外、このリソースは変更しないでください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-セッション</strong><em> SessionProgram</em></td>
+
+<td><strong>DisplayManager*session</strong> リソースに対する値を指定します。 このリソースによって指定されるプログラムは、ユーザーのログイン後にセッションとして実行されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エックスアーム</strong><em> ResourceSpecification</em></td>
+
+<td>ほとんどの X ツールキット・アプリケーションと同様、任意のリソースを指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>リソース</h2> <p>X リソース・フォーマットの構成ファイルを使って、<strong>xdm</strong> のアクションをさまざまな段階において制御することができます。 <strong>xdm</strong> のアクションをすべてのディスプレイで変更するリソースもあれば、単一のディスプレイで変更するリソースもあります。 特定のディスプレイにアクションが関連する場合、リソース名の「DisplayManager」と最後のリソース名セグメントの間にディスプレイ名が挿入されます。 例えば、<strong>DisplayManager.expo_0.startup</strong> は、「expo:0」ディスプレイ上の始動シェル・ファイルを定義するリソース名です。 リソース・マネージャーは、リソース名とその値をコロンで区切り、リソース名の部分をドットで区切っています。しかし、<strong>xdm</strong> がリソース名を生成するときには、ドットとコロンの両方を下線に置き換えます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DisplayManager サーバー</strong></td>
+
+<td>複数のサーバー・エントリーから構成されるファイル名 (値がスラッシュで始まる場合は 1 行に 1 エントリー) を指定します。
+または、単一のサーバー・エントリーのファイル名を指定します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__serverspec" target="_blank" rel="noopener noreferrer">サーバー仕様</a> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.requestPort</strong></td>
+
+<td><strong>xdm</strong> コマンドが <strong>XDMCP</strong> の着信要求を listen するために使用する UDP ポート番号を示します。 システムをデバッグする必要がない限り、この値はデフォルトの 177 のままにしておいてください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.errorLogFile</strong></td>
+
+<td>コンソールではなく、指定したファイルにエラー・メッセージをリダイレクトします。 このファイルには、<strong>Xsetup</strong>、<strong>Xstartup</strong>、<strong>Xsession</strong>、および <strong>Xreset</strong> ファイルが標準エラーに送信した出力も入っています。したがって、上記スクリプトの例で発生した問題の解説もこのファイルに入ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.debugLevel</strong></td>
+
+<td>このリソースの整数値が 0 (ゼロ) より大きい場合、<strong>xdm</strong> コマンドは大量のデバッグ情報を出力します。 また、<strong>xdm</strong> コマンドはデーモン・モードをオフにします (デーモン・モードはデバッグ情報を廃棄し、
+root 以外のユーザーも xdm コマンドを実行できるモードで、概して役に立ちません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.daemonMode</strong></td>
+
+<td><strong>xdm</strong> コマンドは、どの端末にも関係のないデーモン・プロセスになろうとします。 これは、親プロセスを fork および離脱することによって終了し、次にファイル・ディスクリプターをクローズし、
+最後に制御端末を解放することによって行われます。 環境によっては (特に、デバッグ中は)、このモードが望ましくないことがあります。 このような場合、このリソースに False (偽) を設定し、この機能を使用不可にしてください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.pidFile</strong></td>
+
+<td>指定したファイルが作成され、主 <strong>xdm</strong> プロセスのプロセス ID が ASCII 表記で入ります。 また、<strong>xdm</strong> コマンドはファイル・ロック機能をこのファイルに使用し、同一コンピューターで複数のデーモンが実行されることを防ぎます (予期せぬ結果を引き起こすからです)。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.lockPidFile</strong></td>
+
+<td>複数 Display Manager の同時実行を防ぐファイル・ロック機能を <strong>xdm</strong> コマンドが使用するかどうかを制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.authDir</strong></td>
+
+<td>セッションの初期化中に <strong>xdm</strong> コマンドが許可ファイルを保管するディレクトリーを指定します。 デフォルトは、
+<strong>/usr/lib/X11/xdm</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.autoRescan</strong></td>
+
+<td>セッションが終了し、ファイルが変更された後で、<strong>xdm</strong> コマンドが構成、サーバー、アクセス制御、
+および認証キーの各ファイルを再スキャンするかどうかをブール値で決定します。 デフォルトは True (真) です。 主プロセスに <strong>SIGHUP</strong> シグナルを送信することによって、<strong>xdm</strong> デーモンに再度上記ファイルを読み取らせることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.removeDomainname</strong></td>
+
+<td><strong>XDMCP</strong> クライアント用のディスプレイ名を計算するとき、通常、ネーム・リゾルバーは端末に対して完全に修飾された端末のホスト名を作成します。 これは紛らわしいこともあります。このような場合、この変数を設定しておけば、ホスト名のドメイン・ネームがローカル・ホストのドメイン・ネームと同じ場合、<strong>xdm</strong> コマンドはホスト名のドメイン・ネームの部分を除去します。 デフォルト値は true です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.keyFile</strong></td>
+
+<td>XDM-AUTHENTICATION-1 スタイルの <strong>XDMCP</strong> 認証は、秘密鍵を <strong>xdm</strong> デーモンと端末の間で共有することを要求します。 このリソースには、このような値が入ったファイルを指定します。 このファイルの各エントリーは、ディスプレイ名と共有キーから構成されます。 デフォルトでは、<strong>xdm</strong> コマンドは XDM-AUTHENTICATION-1 をサポートしません。なぜなら、XDM-AUTHENTICATION-1 に必要なデータ暗号化規格 (DES) は、アメリカ合衆国の輸出制限のため、通常は配布できないからです。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.accessFile</strong></td>
+
+<td>許可されていない <strong>XDMCP</strong> サービスを防ぎ、<strong>XDMCP</strong> の <strong>IndirectQuery</strong> 要求の転送を許可するために、このファイルには、当該コンピューターへの直接アクセスが認められている、照会の転送先のホストのリストを持つホスト名のデータベースが入っています。 このファイルのフォーマットについては、XDMCP アクセス制御のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.exportList</strong></td>
+
+<td><strong>Xsetup</strong>、<strong>Xstartup</strong>、<strong>Xsession</strong>、および <strong>Xreset</strong> プログラムに渡される追加の環境変数のリストで、このリストは、ホワイト・スペースで区切られています。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.randomFile</strong></td>
+
+<td>許可キーのシード (seed) を生成するためにチェックサムを行うためのファイルです。 これは、頻繁に変更されるファイルである必要があります。 デフォルトは、<strong>/dev/mem</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.choiceTimeout</strong></td>
+
+<td>ユーザーが chooser からホストを選択した後、応答が表示されるまでに待機する時間を秒数で指定します。 ディスプレイが次のものを送信するとします。XDMCP IndirectQueryこの時間内に、要求は選択されたホストに転送されます。 そうでない場合には、新規のセッションからの要求と見なされ、chooser がもう一度提供されます。 デフォルトは 15 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.resources</strong></td>
+
+<td><strong>xrdb</strong> コマンドによってリソース・データベースとしてディスプレイの画面 0 のルート・ウィンドウにロードされるファイルの名前を指定します。 ログイン・ウィジェット、<strong>Xsetup</strong>、および <strong>chooser</strong> プログラムが、
+このファイルのリソースを使用します。 このリソース・データベースは、認証プロシージャーが開始される直前にロードされます。
+したがって、このリソース・データベースは、ログイン・ウィンドウの外観を制御することができます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__auth" target="_blank" rel="noopener noreferrer">認証クライアント</a> のセクションを参照してください。ここでは、このファイルに配置するのに適したさまざまなリソースについて説明しています。 このリソースにはデフォルト値はありませんが、
+<strong>/usr/lib/X11/xdm/Xresources</strong> が標準的に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.chooser</strong></td>
+
+<td>特殊ホスト名<strong> 選択機能</strong>にリダイレクトされる間接照会のホスト・メニューを提供するためにプログラムを実行することを指定します。 <strong>/usr/lib/X11/xdm/chooser</strong> がデフォルトです。 <strong>XDMCP アクセス制御</strong>のセクションと <strong>Chooser</strong> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.xrdb</strong></td>
+
+<td>リソースを読み込むために使用するプログラムを指定します。 デフォルトでは、<strong>xdm</strong> コマンドは <strong>/usr/bin/X11/xrdb</strong> を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.cpp</strong></td>
+
+<td><strong>xrdb</strong> コマンドが使用する C プリプロセッサーの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.setup</strong></td>
+
+<td>ログイン・ウィンドウを提供する前に (root として) 実行するプログラムを指定します。 このリソースは、ログイン・ウィンドウに関連するスクリーンの外観を変更するときや他のウィンドウを立ち上げるときに使用します (例えば、ここで <strong>xconsole</strong> を実行するなどです)。 デフォルトで実行するプログラムはありません。 通常ここで使用されるファイルは <strong>Xsetup</strong> です。 セクション <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__setup" target="_blank" rel="noopener noreferrer">セットアップ・プログラム</a>を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.startup</strong></td>
+
+<td>認証プロセスの成功後に (root として) 実行するプログラムを指定します。 デフォルトで実行するプログラムはありません。 通常ここで使用されるファイルは <strong>Xstartup</strong> です。 セクション <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__start" target="_blank" rel="noopener noreferrer">スタートアップ・プログラム</a>を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.session</strong></td>
+
+<td>実行するセッションを指定します (root としては実行しない場合)。 デフォルトでは、<strong>/usr/bin/X11/xterm</strong> が実行されます。 通常ここで使用される名前は <strong>Xsession</strong> スクリプトです。 セクション <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__session" target="_blank" rel="noopener noreferrer">セッション・プログラム</a>を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.reset</strong></td>
+
+<td>セッションの終了後に (root として) 実行するプログラムを指定します。 デフォルトで実行するプログラムはありません。 通常ここで使用される名前は <strong>Xreset</strong> スクリプトです。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__reset" target="_blank" rel="noopener noreferrer">プログラムのリセット。</a> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.openDelay</strong></td>
+
+<td>非一過性のサーバーをオープンしようとする際、連続するオープンの間に一時停止する時間の長さ (秒数) を指定することによって、 <strong>xdm</strong> コマンドの動作を制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.openRepeat</strong></td>
+
+<td>非一過性のサーバーをオープンしようとする際、オープンを試みる回数を指定することによって
+、<strong>xdm</strong> コマンドの動作を制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.openTimeout</strong></td>
+
+<td>非一過性のサーバーをオープンしようとする際、実際にオープンを試みる間待つ秒数 (つまり、<strong>connect(2)</strong> システム・コールで費やされる最大時間) を
+指定することによって、<strong>xdm</strong> コマンドの動作を制御します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DisplayManager.DISPLAY.startAttempts</strong></td>
+
+<td>非一過性のサーバーをオープンしようとする際、そのサーバーへの接続をあきらめるまでに繰り返されるプロセス全体の回数を指定し、<strong>xdm</strong> コマンドの動作を制御します。 Display Manager の、<strong>openRepeat</strong> リソースに指定された回数の試行が終わると、または、Display Manager の <strong>openTimeout</strong> リソースに指定された時間が経過するまで試行を繰り返すと、<strong>xdm</strong> コマンドは終了し、そのサーバーを再始動し、再度接続しようとします。 このプロセスは、<em>startAttempts</em> で指定された回数だけ繰り返されます。そして、このときディスプレイはアクティブでないと宣言され、使用不可になります。 この動作は一見任意の動作に見えますが、十分な経験とともに開発されたもので、ほとんどのシステムで有効です。 デフォルトは、<em>openDelay</em>が <strong>5</strong>、<em>openRepeat</em>が <strong>5</strong>、<em>openTimeout</em>が <strong>30</strong>、<em>startAttempts</em>が <strong>4</strong>である。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.pingInterval</strong></td>
+
+<td>リモート・ディスプレイを見失った時間を特定するために、<strong>xdm</strong> コマンドは X 接続と <strong>XSync</strong> 呼び出しを使って定期的にリモート・ディスプレイとの接続を確認 (ping) します。 このリソースには、接続を確認する (ping) 間隔 (分) を指定します。 デフォルトは 5 分です。 管理ホストから独立した形態で X 端末を頻繁に使用する場合は、この値を増やしてください。<div><div>
+        <div>
+          <div>端末が誤って使用不可にされた後でも、 <span>注:</span> <span>AIXwindows</span> セッションが引き続き存在する可能性があります。 <strong>xdm</strong> コマンドは、ローカルのディスプレイの接続については確認 (ping) しません。 NFS サービスに対してサーバーがハングし、接続の確認 (ping) に応答しなくなると、ワークステーション・セッションが終了することがあります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.pingTimeout</strong></td>
+
+<td>リモート・ディスプレイを見失った時間を特定するために、<strong>xdm</strong> コマンドは X 接続と <strong>XSync</strong> 呼び出しを使って定期的にリモート・ディスプレイとの接続を確認 (ping) します。 このリソースには、端末が要求に応答するまでの最大待ち時間 (分) を指定します。 端末が応答しなかった場合、そのセッションはアクティブでないと宣言され、終了します。 デフォルトは 5 分です。 管理ホストから独立した形態で X 端末を頻繁に使用する場合は、この値を増やしてください。<div><div>
+        <div>
+          <div>端末が誤って使用不可にされた後でも、 <span>注:</span> <span>AIXwindows</span> セッションが引き続き存在する可能性があります。 <strong>xdm</strong> コマンドは、ローカルのディスプレイの接続については確認 (ping) しません。 NFS サービスに対してサーバーがハングし、接続の確認 (ping) に応答しなくなると、ワークステーション・セッションが終了することがあります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.terminateServer</strong></td>
+
+<td>セッション終了時、X サーバーをリセットせずにキャンセルするかどうかを指定します。 このオプションは、サーバーが時間の制限を超えて実行し続ける傾向があるとき、サーバーの実行時間を制限するために使用できます。 デフォルト値は False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.userPath</strong></td>
+
+<td><strong>xdm</strong> コマンドがセッション用の <strong>PATH</strong> 環境変数に設定する値を指定します。 これは、コロンで区切られたディレクトリーのリストでなければなりません。詳細については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sh.html" target="_blank" rel="noopener noreferrer"><strong>Sh</strong></a> コマンド<span> <em>コマンド・リファレンス</em> での</span> を参照してください。 <strong>:/bin:/usr/bin:/usr/bin/X11:/usr/ucb</strong> は一般的な設定です。 デフォルト値は、構築時に<span>AIXwindows</span>システム構成ファイルの<strong>DefaultUserPath</strong>リソースで指定できる。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.systemPath</strong></td>
+
+<td><strong>xdm</strong> コマンドはこのリソースの値に、始動スクリプトおよびリセット・スクリプト用の <strong>PATH</strong> 環境変数を設定します。 このリソースのデフォルトは、構成時に、システム構成ファイルの <strong>DefaultSystemPath</strong> リソースで指定することができます。通常の設定は、<strong>/etc:/bin:/usr/bin:/usr/bin/X11:/usr/ucb</strong> です。 存在しないことに注意してください。 (ピリオド) (現行ディレクトリー) を使用します。 ルートもこれに従います。つまり、「トロイの木馬」的なシステム浸透スキーマを回避することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.systemShell</strong></td>
+
+<td><strong>xdm</strong> コマンドはこのリソースの値に、始動スクリプトおよびリセット・スクリプト用の <strong>SHELL</strong> 環境変数を設定します。 デフォルトは <strong>/bin/sh</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.failsafeClient</strong></td>
+
+<td>デフォルトのセッションの実行に失敗した場合に <strong>xdm</strong> コマンドが制御を戻す先のプログラムを指定します。 このプログラムは、引数なしで、そのセッションが使用するはずだった環境変数を使って実行されます (セッション・プログラムのセクションを参照してください)。 デフォルトは <strong>/usr/bin/X11/xterm</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.grabServer</strong><p><strong>DisplayManager.DISPLAY.grabTimeout</strong></p>
+</td>
+
+<td>セキュリティーの向上のため、<strong>xdm</strong> コマンドは、ログイン名とパスワードの読み取り中にサーバーとキーボードをグラブ (占有) します。 <strong>grabServer</strong> リソースは、ログイン名およびパスワード名の読み取り中にサーバーをグラブする必要がある場合に指定します。 False (偽) が設定されている場合、キーボードのグラブが成功した後、サーバーのグラブは解除されます。それ以外の場合はセッションが開始される直前までサーバーのグラブは解除されません。 デフォルト値は False です。 <strong>grabTimeout</strong> リソースには、グラブが成功するまでに <strong>xdm</strong> コマンドが待つ最大時間を指定します。 他のクライアントがサーバーをグラブしている場合、またはネットワーク待ち時間が長い場合は、
+グラブが失敗することがあります。 このリソースのデフォルト値は 3 秒です。この値を大きくする場合は注意が必要です。
+ユーザーがディスプレイ上のウィンドウに似ていると思い違いをすることがあるためです。 グラブが失敗すると、<strong>xdm</strong> コマンドはアクティブでなくなり、サーバーを再始動し (可能であれば)、セッションを再始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.authorize</strong><p><strong>DisplayManager.DISPLAY.authName</strong></p>
+</td>
+
+<td><strong>authorize</strong> は、<strong>xdm</strong> コマンドがローカル・サーバー接続の許可を作成および使用するかどうかをコントロールするブール・リソースです。 許可を使用する場合、<strong>xdm</strong> コマンドは、<strong>authName</strong> リソースの値として、ホワイト・スペースで区切られたリストで指示された許可機構を使用します。 <strong>XDMCP</strong> 接続は、サポートされる許可機構を動的に指定します。したがって、この場合 <strong>authName</strong> リソースは無視されます。 <strong>authorize</strong> リソースがディスプレイに設定され、許可が使用できない場合、ユーザーのログイン・ウィジェットに別のメッセージが表示されます。 デフォルトでは、<strong>authorize</strong> リソースは True (真)、<strong>authName</strong> は <strong>MIT-MAGIC-COOKIE-1</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.authFile</strong></td>
+
+<td><strong>xdm</strong> コマンドとサーバーが <strong>-auth</strong> サーバー・コマンド・ライン・オプションを使って許可データの通信に使用するファイルを指定します。 このファイルは簡単に除去することができるため、それによりサーバーの許可機構が使用不可になる恐れがあります。このためファイルを書き込み許可の制限されたディレクトリーに入れておく必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.authComplain</strong></td>
+
+<td>このリソースに False (偽) を設定した場合、ログイン・ウィンドウの <strong>unsecureGreeting</strong> が使用不可になります。 セクション <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__auth" target="_blank" rel="noopener noreferrer">認証クライアント</a> を参照してください。 デフォルトは True (真) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.resetSignal</strong></td>
+
+<td><strong>xdm</strong> コマンドがサーバーをリセットするために送信するシグナルの数です。 セクション <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__cont" target="_blank" rel="noopener noreferrer">サーバーの制御</a> を参照してください。 デフォルトは <strong>1 (SIGHUP)</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.termSignal</strong></td>
+
+<td><strong>xdm</strong> コマンドがサーバーを終了させるために送信するシグナルの数です。 セクション <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__cont" target="_blank" rel="noopener noreferrer">サーバーの制御</a> を参照してください。 デフォルトは <strong>15 (SIGTERM)</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.resetForAuth</strong></td>
+
+<td>許可ファイルのセットアップ後、<strong>xdm</strong> コマンドがサーバーに SIGHUP を送信するかどうかを指定します。SIGHUP を送信すると、新しい権限情報の読み取り中に追加のサーバーがリセットされます。 デフォルト値は False です。これは、すべての <span>AIXwindows</span> サーバーで機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DisplayManager.DISPLAY.userAuthDir</strong></td>
+
+<td><strong>xdm</strong> コマンドが通常のユーザー許可ファイル (<strong>$HOME/.Xauthority</strong>) に書き込めなくなったとき、このディレクトリーに固有なファイルを作成し、<strong>XAUTHORITY</strong> 環境変数にそのファイル名を設定します。 デフォルトでは、<strong>/tmp</strong> を使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>XDMCP アクセス制御</h2> <p><strong>xdm</strong> コマンドは、<strong>DisplayManager.accessFile</strong> リソースで指定されたデータベース・ファイルが提供する情報を使って、<strong>XDMCP</strong> サービスを要求するディスプレイからのアクセスを制御します。 このファイルには、下記の 3 つのエントリーが入っています。</p>
+ <ul>
+<li><span></span> <strong>直接</strong> および <strong>ブロードキャスト</strong> 照会への応答を制御する項目。</li>
+
+<li><span></span> <strong>間接</strong> 照会への応答を制御する項目。</li>
+
+<li><span></span>マクロ定義。</li>
+
+</ul>
+ <p><strong>Direct</strong> 照会エントリーには、ホスト名またはパターンが入っています。
+パターンとは、ホスト名と区別するために、1 つ以上のパターン・マッチング文字が入った文字列のことです。 * (アスタリスク) は、0 (ゼロ) 個以上の文字のシーケンス、および? (疑問符) は、任意の単一文字と一致します。 エントリーはディスプレイ・デバイスのホスト名と比較されます。 エントリーがホスト名の場合、ネットワーク・アドレスを使ってすべての比較が行われ、正しいネットワーク・アドレスに変換されたすべての名前が使用できます。 エントリーがパターンの場合、実際のホスト名だけが比較に使用されるため、別名と一致させるようなことはしないでください。 ホスト名またはパターンのいずれかの前に! (感嘆符) を指定すると、そのエントリーに一致するホストが除外されます。</p>
+ <p>Indirect (間接) エントリーにも、ホスト名かパターンが入っていますが、その後ろに <strong>Indirect</strong> 照会の送信先であるホスト名やマクロのリストが続きます。</p>
+ <p>マクロ定義には、マクロ名と、ホスト名のリストとそのマクロが展開する他のマクロが入っています。 ホスト名とマクロを区別するため、マクロ名の前に % (パーセント) 文字が付いています。 マクロはネストできます。</p>
+ <p>Indirect (間接) エントリーには、<strong>xdm</strong> コマンドに <strong>chooser</strong> コマンドを実行させて、接続先のホストのメニューを提供するように指示することもできます。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__chooser" target="_blank" rel="noopener noreferrer">チューザー</a>を参照してください。</p>
+ <p>特定のディスプレイ・ホストのアクセスを検査するとき、各エントリーが順番にスキャンされ、最初に一致したエントリーが応答を決定します。 例えば、<strong>Indirect</strong> エントリーのスキャン時には <strong>Direct</strong> 照会エントリーは無視されます。 <strong>Direct</strong> エントリーのスキャン時には <strong>Broadcast</strong> 照会エントリーは無視されます。</p>
+ <p>ブランク行は無視されます。 <strong>#</strong> は、コメント区切り文字として扱われ、その行の残りは無視されます。
+行末に &amp;#xa5; (円記号) を指定すると改行が無視され、間接ホストのリストを複数の行に渡って入力することができます。</p>
+ <p>下記に、<strong>Xaccess</strong> ファイルの例を示します。</p>
+ <div> <div><div><pre><code>#
+# Xaccess - XDMCP access control file
+#</code></pre></div><div></div></div>  <div><div><pre><code>#
+# Direct/Broadcast query entries
+#</code></pre></div><div></div></div>  <div><div><pre><code>!xtra.lcs.mit.edu       # disallow direct/broadcast service for xtra
+bambi.ogi.edu     # allow access from this particular display
+*.lcs.mit.edu     # allow access from any display in LCS</code></pre></div><div></div></div>  <div><div><pre><code>#
+# Indirect query entries
+#</code></pre></div><div></div></div>  <div><div><pre><code>%HOSTS          expo.lcs.mit.edu xenon.lcs.mit.edu \\
+               excess.lcs.mit.edu kanga.lcs.mit.edu</code></pre></div><div></div></div>  <div><div><pre><code>extract.lcs.mit.edu    xenon.lcs.mit.edu    #force extract to contact xenon
+!xtra.lcs.mit.edu         dummy     #disallow indirect access
+*.lcs.mit.edu     %HOSTS           #all others get to choose</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>Chooser</h2> <p>X 端末が <strong>Broadcast</strong> または <strong>Indirect</strong> 照会用のホスト・メニューを提供しない場合、<strong>chooser</strong> プログラムがこの役目を引き受けます。 <strong>Xaccess</strong> ファイル内で、<strong>CHOOSER</strong> を間接ホスト・リストの最初のエントリーに指定してください。 <strong>chooser</strong> プログラムは、リストの残りのホストそれぞれに <strong>Query</strong> 要求を送信し、それに応答するホストすべてにメニューを提供します。</p>
+ <p>また、このリストに <strong>BROADCAST</strong> という単語を指定すると、<strong>chooser</strong> は <strong>Broadcast</strong> 照会を送信し、再度、応答したホストすべてにメニューを提供します。</p>
+ <p>下記は、<strong>chooser</strong> を使った <strong>Xaccess</strong> ファイルの例です。</p>
+ <div> <div><div><pre><code>extract.lcs.mit.edu       CHOOSER   %HOSTS         #offer a menu of these hosts
+xtra.lcs.mit.edu          CHOOSER   BROADCAST      #offer a menu of all hosts</code></pre></div><div></div></div></div>
+ <p><strong>chooser</strong> で使用されるプログラムは、<strong>DisplayManager.DISPLAY.chooser</strong> リソースで指定します。 このプログラム用のリソースは、<strong>DisplayManager.DISPLAY.resources</strong> リソースで指定されたファイルに入れておくことができます。</p>
+ <p><strong>chooser</strong> は、Motif <strong>SelectionBoxWidget</strong> を使用してインストールされています。 リソース、ウィジェット名、またはガジェット名の詳細については、<strong>XmSelectionBoxWidget Class</strong> の資料を参照してください。</p>
+</section>
+
+<section><h2>サーバー仕様</h2> <p><strong>DisplayManager.servers</strong> というリソースは、サーバーの仕様を提供します。
+値が / (スラッシュ) で始まっている場合、サーバー仕様の入ったファイル名が 1 行に 1 つずつあります。</p>
+ <p>各仕様は、<strong>XDMCP</strong> を使わずに常に管理する必要のあるディスプレイを指定します。 それぞれ、最低でも 3 つの部分からなります。</p>
+ <ul>
+<li><span></span>表示名</li>
+
+<li><span></span>表示クラス</li>
+
+<li><span></span>表示タイプ</li>
+
+<li><span></span>ローカル・サーバーの場合、サーバーを始動するためのコマンド行。</li>
+
+</ul>
+ <p>ローカル・ディスプレイ番号 0 の一般的なエントリーは、下記のようになります。</p>
+ <div> <div><div><pre><code>:0 IBM-GT local /usr/bin/X11/X :0</code></pre></div><div></div></div></div>
+ <p>ディスプレイ・タイプには、下記の 2 種類があります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ローカル</td>
+
+<td>ローカル・ディスプレイ: <strong>&amp;#xa5;fIxdm&amp;#xa5;fP</strong> がサーバーを実行する必要があります。</td>
+
+</tr>
+
+<tr>
+<td>foreign</td>
+
+<td>リモート・ディスプレイ: <strong>&amp;#xa5;fIxdm&amp;#xa5;fP</strong> が実行中のサーバーへの X 接続をオープンします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>ディスプレイ名は、<strong>-display</strong> オプションで X プログラムに渡せるものである必要があります。 このストリングは、表示固有のリソース名を生成するために使用されるため、名前を一致させるように注意してください (例えば、" を使用します)。:0 local /usr/bin/X11/X
+:0「 " の代わりに`localhost:0 local /usr/bin/X11/X :0「 他のリソースが次のように指定されているとします。DisplayManager._0.session")。 ディスプレイ・クラス部分は、リソースのクラスとしてディスプレイ固有のリソースでも使用されます。 これは、同じようなディスプレイ (例えば、X 端末) が多くあり、リソースをグループ別にセットする場合に便利です。 XDMCP を使用するとき、ディスプレイには、ディスプレイ・クラスを指定する必要があります。個々の X 端末の説明書には、ユーザーのデバイスに対するディスプレイ・クラスの文字列が記載されているはずです。 説明書に記載されていない場合は、<strong>xdm</strong> コマンドをデバッグ・モードで実行し、ユーザーのデバイスに対して生成されるリソース文字列を調べてください。この中に、ディスプレイ・クラスを表す文字列が入っています。</p>
+</section>
+
+<section><h2>セットアップ・プログラム</h2> <p><strong>Xsetup</strong> ファイルは、サーバーのリセット後、ログイン・ウィンドウが提供される前に実行されます。 通常、このファイルはシェル・スクリプトです。 これは root として実行されるため、セキュリティーについては十分な注意が必要です。 これは、ルートをバックグラウンドに変更するか、ログイン・ウィジェットとともに画面に表示される他のウィンドウを始動するためのものです。 <strong>xdm</strong> はキーボードをグラブするため、他のウィンドウはキーボード入力を受け取ることができなくなります。 しかし、マウスを使って対話することが可能であるため、ここでは潜在的なセキュリティー・ホールに注意する必要があります。 <strong>DisplayManager.DISPLAY.grabServer</strong> が設定されている場合、<strong>Xsetup</strong> はまったくディスプレイと接続することができません。 このプログラムのリソースは、<strong>DisplayManager.DISPLAY.resources</strong> で指定されたファイルに入れておくこともできます。</p>
+ <p><strong>DisplayManager.exportList</strong> で指定されたものに加えて、下記の環境変数が渡されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DISPLAY</strong></td>
+
+<td>関連するディスプレイ名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>パス</strong></td>
+
+<td><strong>DisplayManager.DISPLAY.systemPath</strong> の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SHELL</strong></td>
+
+<td><strong>DisplayManager.DISPLAY.systemShell</strong> の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>XAUTHORITY (X)</strong></td>
+
+<td>許可ファイルに設定することを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>認証クライアント</h2> <p>MIT 認証ウィジェットは、標準 Motif ウィジェットからなる認証クライアントで置き換えられています。 下記のリストは、ウィジェット名 (およびそのウィジェット・クラス) を示しています。</p>
+ <div> <div><div><pre><code>outframe(xmFrameWidget)
+  inframe(xmFrameWidget)
+    main(XmFormWidget)
+      tframe(xmFrameWidget)
+        greeting(xmLabelGadget)
+      logoline(xmFormWidget)
+        dpyname(xmLabelWidget)
+      userline(xmRowColumnWidget)
+        userlabel(xmLabelWidget)
+        username(xmTextWidget)
+        passlabel(xmLabelWidget)
+        password(xmTextWidget)
+      failsafeline(xmFormWidget)
+        failsafe(xmToggleButtonWidget)
+      cancelline(xmFormWidget)
+        cancel(xmPushButtonWidget)
+      message(xmLabelWidget)</code></pre></div><div></div></div></div>
+ <p>認証クライアントは、キーボードから名前とパスワードの組を読み取ります。 このクライアントのリソースは、<strong>DisplayManager.DISPLAY.resources</strong> という名前のファイルに入れてください。 これらのリソースはすべて、
+適切なデフォルト値を持っているため、特に指定する必要はありません。 認証クライアント・リソースのデフォルト値に関する詳細については、該当するウィジェット・クラスの資料、および <strong>/usr/lib/X11/xdm/Xresources</strong> を参照してください。 下記のリソースも認証クライアントによってサポートされます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>XLOGIN*フォアグラウンド</strong></td>
+
+<td>フォアグラウンドに使用する色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*バックグラウンド</strong></td>
+
+<td>バックグラウンドに使用する色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*グリーティング</strong></td>
+
+<td>このウィンドウを識別する文字列を指定します。 デフォルトは <span>AIXwindows 環境</span>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*greetFont</strong></td>
+
+<td>あいさつメッセージを表示するフォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*frameColor</strong></td>
+
+<td>あいさつメッセージの表示に使用するバックグラウンドの色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*titleFont</strong></td>
+
+<td>タイトルの表示に使用するフォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*namePrompt</strong></td>
+
+<td>ユーザー名の入力を求めるプロンプトを表示する文字列を指定します。 Xrdb プログラムは、リソースの値の最後に付いているホワイト・スペースを取り除きます。 プロンプトの最後にスペースを入れる場合は、逆スラッシュでスペースをエスケープしてください。 デフォルトは「login」です。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*promptFont</strong></td>
+
+<td>両者の入力を求めるプロンプトに使用するフォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*failFont</strong></td>
+
+<td>フェイルセーフ・ボタンに使用するフォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*cancelFont</strong></td>
+
+<td>キャンセル・ボタンに使用するフォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*messageFontlist</strong></td>
+
+<td>失敗のメッセージを表示するのに使用するフォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*failColor</strong></td>
+
+<td>失敗のメッセージの表示に使用する色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*failTimeout</strong></td>
+
+<td>失敗メッセージを表示する時間 (秒) を指定します。 デフォルトは 30 秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*sessionArgument</strong></td>
+
+<td>セッション・プログラムに渡す引数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Xlogin*XmText 翻訳</strong></td>
+
+<td>このリソースは、認証クライアントに使用する変換を指定します。 変換の詳細については、X Toolkit の資料を参照してください。 デフォルトの変換テーブルは下記のとおりです。<div> <div><div><pre><code>Ctrl&lt;Key&gt;b: backward-character()\n\
+Ctrl&lt;Key&gt;a: beginning-of-line()\n\
+Ctrl&lt;Key&gt;e: end-of-line()\n\
+Ctrl&lt;Key&gt;f: forward-character()\n\
+Ctrl&lt;Key&gt;d: kill-next-character()\n\
+Ctrl&lt;Key&gt;k: kill-to-end-of-line()\n\
+Ctrl&lt;Key&gt;u: kill-to-start-of-line()\n</code></pre></div><div></div></div></div>
+  <p>XDM をセットアップして、Xresources に定義されている XmText 変換を置き換え、標準の XDM 変換を使用することが可能です。</p>
+<div><div>
+        <div>
+          <div>使用 ( <span>注:</span> U)&lt;Key&gt;osfHelp以前の表示は次のようになっていました。&lt;Key&gt;F1これは、Motif のデフォルト仮想バインディングが原因です。)</div>
+        </div>
+      </div></div>
+<div><div><pre><code>Xlogin*XmText.translations: #override\n\
+
+&lt;Key&gt;osfHelp:    set-session-argument(failsafe) finish-field()\n\
+Ctrl&lt;Key&gt;Return: set-session-argument(failsafe) finish-field()\n\
+Ctrl&lt;Key&gt;H:      delete-previous-character() \n\
+Ctrl&lt;Key&gt;D:      delete-character() \n\
+Ctrl&lt;Key&gt;B:      move-backward-character() \n\
+Ctrl&lt;Key&gt;F:      move-forward-character() \n\
+Ctrl&lt;Key&gt;A:      move-to-beginning() \n\
+Ctrl&lt;Key&gt;E:      move-to-end() \n\
+Ctrl&lt;Key&gt;K:      erase-to-end-of-line() \n\
+Ctrl&lt;Key&gt;U:      erase-line() \n\
+Ctrl&lt;Key&gt;X:      erase-line() \n\
+&lt;Key&gt;Return:     finish-field() \n
+&lt;Key&gt;BackSpace:  delete-previous-character() \n\
+&lt;Key&gt;Delete:     delete-previous-character() \n</code></pre></div><div></div></div> <p>一般の XmText アクションの他に、
+標準 XDM 変換と互換性を保つために、クライアントは下記のアクションもサポートします。</p>
+  <dl>
+<dt><strong>前の文字の削除</strong></dt>
+
+<dd>カーソルの前の文字を消去します。</dd>
+
+
+<dt><strong>削除文字</strong></dt>
+
+<dd>カーソルの後の文字を消去します。</dd>
+
+
+<dt><strong>逆方向移動文字</strong></dt>
+
+<dd>カーソルを逆方向に移動します。</dd>
+
+
+<dt><strong>前方移動文字</strong></dt>
+
+<dd>カーソルを順方向に移動します。</dd>
+
+
+<dt><strong>先頭に移動</strong></dt>
+
+<dd>カーソルを編集可能テキストの先頭に移動します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>末尾への移動</strong></dt>
+
+<dd>カーソルを編集可能テキストの終わりに移動します。</dd>
+
+
+<dt><strong>行の消去から行の終わりまで</strong></dt>
+
+<dd>カーソルの後のテキストをすべて消去します。</dd>
+
+
+<dt><strong>消去行</strong></dt>
+
+<dd>テキスト全体を消去します。</dd>
+
+
+<dt><strong>終了フィールド</strong></dt>
+
+<dd>カーソルが name フィールド内にあれば、password フィールドに移動します。
+カーソルが password フィールド内にあれば、現在の名前とパスワードの組を検査します。 名前とパスワードの組が有効であれば、<strong>xdm</strong> はセッションを開始します。 それ以外の場合は、失敗メッセージが表示され、プロンプトが再表示されます。</dd>
+
+
+<dt><strong>挿入文字</strong></dt>
+
+<dd>入力された文字を挿入します。</dd>
+
+
+<dt><strong>set-session-引数</strong></dt>
+
+<dd>始動時にセッションに渡される単一の語の引数を指定します。 セッション・プログラムおよび一般的な使用方法のセクションを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>始動プログラム</h2> <p>通常、<strong>Xstartup</strong> ファイルはシェル・スクリプトです。 これは root として実行されるため、実行時のセキュリティーには十分な注意が必要です。 このファイルには、<strong>/etc/utmp</strong> へのエントリーの追加、ファイル・サーバーからのユーザーのホーム・ディレクトリーのマウント、日付メッセージの表示、ログイン失敗時のセッションのキャンセルを行うコマンドが入っています。</p>
+ <p><strong>DisplayManager.exportList</strong> で指定された環境変数に加え、下記の変数が渡されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DISPLAY</strong></td>
+
+<td>関連するディスプレイ名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>home</strong></td>
+
+<td>ユーザーの初期作業ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>User</strong></td>
+
+<td>ユーザー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>パス</strong></td>
+
+<td><strong>DisplayManager.DISPLAY.systemPath</strong> の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SHELL</strong></td>
+
+<td><strong>DisplayManager.DISPLAY.systemShell</strong> の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>XAUTHORITY (X)</strong></td>
+
+<td>許可ファイルに設定することを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>スクリプトに渡される引数はありません。 <strong>xdm</strong> コマンドはこのスクリプトが終了するまで待機し、それからユーザー・セッションが始まります。 このスクリプトの終了値がゼロ以外の場合、<strong>xdm</strong> コマンドはセッションを中断し、他の認証サイクルを開始します。</p>
+</section>
+
+<section><h2>セッション・プログラム</h2> <p><strong>Xsession</strong> プログラムは、ユーザーのセッションのスタイルを確立します。 このプログラムは、許可ユーザーが許可することで実行します。</p>
+ <p><strong>DisplayManager.exportList</strong> で指定されたものに加えて、下記の環境変数が渡されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DISPLAY</strong></td>
+
+<td>関連するディスプレイ名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>home</strong></td>
+
+<td>ユーザーの初期作業ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>User</strong></td>
+
+<td>ユーザー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>パス</strong></td>
+
+<td><strong>DisplayManager.DISPLAY.userPath</strong> の値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SHELL</strong></td>
+
+<td>ユーザーのデフォルトのシェルを (<strong>getpwnam</strong> から) 指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>XAUTHORITY (X)</strong></td>
+
+<td>標準でない許可ファイルに設定することを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>ほとんどの場合、<strong>Xsession</strong> プログラムはインストール時に、ユーザーのホーム・ディレクトリー (<strong>$HOME</strong>) に <strong>.xsession</strong> というファイルがあるかどうか調べます (このファイルには、ユーザーがセッションとして使用したいコマンドが入っています)。 ユーザーが指定したセッションが存在しなければ、<strong>Xsession</strong> プログラムがシステムのデフォルト・セッションとしてインストールされます。 一般的な使用方法のセクションを参照してください。</p>
+ <p>'set-session-argument' アクションを使って、認証ウィジェットからこのプログラムに引数を渡すことができます。 これは、異なるスタイルのセッションを選択するときに使用します。 この機能を使うと、通常のセッションに失敗したときに、ユーザーはこのセッションからエスケープすることができます。 したがって、ユーザーは失敗したとき、システム管理者に照会しなくても自分の <strong>.xsession</strong> を修理することができます。 一般的な使用方法のセクションには、
+この機能についての説明があります。</p>
+</section>
+
+<section><h2>リセット・プログラム</h2> <p><strong>Xreset</strong> スクリプトは、ユーザーのセッションが終了したときに実行されます。 このスクリプトは root として実行されるため、<strong>Xstartup</strong> スクリプトの中で指定されたコマンドの効力を取り消すコマンド (<strong>/etc/utmp</strong> からエントリーを除去したり、ファイル・サーバーからディレクトリーをアンマウントしたりする) が入っている必要があります。 <strong>Xstartup</strong> に渡される環境変数は、<strong>Xreset</strong> にも渡されます。 このプログラムは、<strong>Xstartup</strong> プログラムとシンメトリックです。</p>
+</section>
+
+<section><h2>サーバーの制御</h2> <p><strong>xdm</strong> コマンドは、POSIX シグナルを使ってローカル・サーバーを制御します。 <strong>SIGHUP</strong> シグナルは、サーバーをリセットするとき、すべてのクライアント接続をクローズするとき、および他のクリーンアップ作業を行うときに使用されます。 <strong>SIGTERM</strong> シグナルは、サーバーをキャンセルするときに使用されます。 これらのシグナルが期待されたアクションを行わない場合、<strong>DisplayManager.DISPLAY.resetSignal</strong> および <strong>DisplayManager.DISPLAY.termSignal</strong> リソースで代替シグナルを指定することができます。</p>
+ <p><strong>XDMCP</strong> を使用しないリモート端末を制御する場合、<strong>xdm</strong> コマンドはディスプレイ上のウィンドウ階層を検索し、<strong>KillClient</strong> プロトコル要求を使って次のセッションのために端末のクリーンアップを試みます。 実際には、すべてのクライアントが非アクティブにならないことがありますが、
+これはウィンドウを作成したクライアントだけが通知されるためです。 <strong>XDMCP</strong> は、より確実な機構を提供します。つまり、<strong>xdm</strong> コマンドが初期接続をクローズすると、セッションは終了し、端末は他のすべての接続をクローズするよう要求されます。</p>
+</section>
+
+<section><h2>XDM の制御</h2> <p><strong>xdm</strong> コマンドは、2 つのシグナル <strong>SIGHUP</strong> と <strong>SIGTERM</strong> に応答します。 <strong>SIGHUP</strong> が送信されると、<strong>xdm</strong> は再度構成ファイル、アクセス制御ファイル、およびサーバー・ファイルを読み取ります。 サーバー・ファイルの場合、エントリーが追加または除去されたかどうかを通知します。 新しいエントリーが追加されていた場合、<strong>xdm</strong> コマンドは関連するディスプレイ上でセッションを開始します。 エントリーが除去されていた場合、そのエントリーは即座に使用不可になります。つまり、進行中のセッションは通知なしに終了され、新しいセッションは開始されません。</p>
+ <p><strong>SIGTERM</strong> が送信されると、<strong>xdm</strong> コマンドは進行中のすべてのセッションを停止し終了します。 これは、システムをシャットダウンするときに使用します。</p>
+ <p><strong>XDM</strong> コマンドは、コマンド行引数リストを編集することによって、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps.html" target="_blank" rel="noopener noreferrer"><strong>Ps</strong></a> コマンドで使用するさまざまなサブプロセスにマークを付けようとします。 <strong>xdm</strong> コマンドはこの作業のために余分なスペースを割り当てることができないため、妥当な長さのコマンド・ラインで <strong>xdm</strong> コマンドを始動してください (絶対パス名で十分です)。 ディスプレイにリソースを提供する各プロセスには、<strong>-display</strong> というマークが付けられます。</p>
+</section>
+
+<section><h2>その他の機能</h2> <p><strong>xdm</strong> コマンドでは、<strong>xinit</strong> コマンド・オプションまたは他の適切なデーモンを使用してコマンド・ラインにサーバーを指定すると一度に単一のセッションを実行することができます。</p>
+ <div> <div><div><pre><code>xdm -server ":0 local /usr/bin/X11/X :0 -force"</code></pre></div><div></div></div></div>
+ <p>また、ファイル・サーバーと複数の X 端末を実行することもできます。 この場合の構成は、<strong>Xservers</strong> ファイルが下記のようになる点を除いて、前の例と同じです。</p>
+ <div> <div><div><pre><code>        extol:0 VISUAL-19 foreign
+        exalt:0 NCD-19 foreign
+        explode:0 NCR-TOWERVIEW3000 foreign</code></pre></div><div></div></div></div>
+ <div>これにより <strong>xdm</strong> コマンドが上記 3 つの端末すべてのセッションを管理します。 シグナルを使用してこれらの端末を使用可能または使用不可にする方法については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xdm.html#xdm__cont_xdm" target="_blank" rel="noopener noreferrer">XDM の制御</a> のセクションを参照してください。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>XDM</strong> コマンドは、他のウィンドウ・システムとはうまく共存できません。 複数のウィンドウ・システムを同一ハードウェアで使用する場合は、<strong>xinit</strong> コマンドを使用してください。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>以下に示すサンプルの <strong>xstartup</strong> スクリプトは、ファイル <strong>/etc/nologin</strong> が存在している間はログインできないようにします。 ここでは何らかのメッセージを表示する用意がなく (ファイルを表示するコア X クライアントがない)、
+説明のないままログインが失敗する可能性があるため、この例のセットアップはお勧めしません。 つまり、これは完全な例ではなく、単に使用可能な機能をデモンストレーションするためのものです。<div> <div><div><pre><code>#!/bin/sh
+#
+# Xstartup
+#
+# This program is run as root after the user is verified
+#
+if [ \-f /etc/nologin ]; then
+        exit 1
+fi
+exit 0</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>この <strong>XSession (X)</strong> スクリプトは、前の <strong>X リソース</strong> ファイルの変換で指定された特殊な <strong>フェイルセーフ</strong> モードを認識して、通常セッションからのエスケープを提供します。<div> <div><div><pre><code>#!/bin/sh
+exec &gt; $HOME/.xsession-errors 2&gt;&amp;1
+case $# in
+1)
+        case $1 in failsafe)
+               exec aixterm -geometry 80x24-0-0
+               ;;
+        esac
+esac
+startup=$HOME/.xsession
+resources=$HOME/.Xresources
+if [ -f /usr/bin/X11/startx ]; then
+       exec /usr/bin/X11/startx -t -wait
+elif [ -f $startup]; then
+       exec $startup
+else
+       if [ -f $resources ]; then
+               xrdb -load $resources
+       fi
+       mwm &amp;
+       exec aixterm -geometry 80x24+10+10 -ls
+fi</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>XDM</strong> をシステム始動から起動させるには、root として次のように入力します。<div> <div><div><pre><code>/usr/lib/X11/xdm/xdmconf</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>リブート時に <strong>XDM</strong> を無効にするには、root として以下を入力します。<div> <div><div><pre><code>/usr/lib/X11/xdm/xdmconf -d</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>XDM</strong> を使用してディスプレイを管理する場合、認証手順により、許可されているクライアントのみがディスプレイに接続できるようになります。 X11 R4 および X11 R5 ライブラリーを使用して構築されたクライアントでは、このプロトコルが認識されます。 X11 R3 以前のライブラリーを使用して構築されたクライアントでは、この認証プロトコルがサポートされないため、<strong>xhost</strong> 許可を取得しなければ X サーバーには接続できません。 下記のように入力して、ローカル・クライアントへ接続することができます。<div> <div><div><pre><code>xhost =localhost</code></pre></div><div></div></div>または<div><div><pre><code>xhost =machine</code></pre></div><div></div></div>この場合、<em>machine</em> はローカル・クライアントのホスト名です。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/X11/xdm/xdm-config</strong></td>
+
+<td>デフォルトの構成ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/X11/xdm/Xaccess</strong></td>
+
+<td>デフォルトのアクセス・ファイル。許可されたディスプレイがリストされています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/X11/xdm/Xservers</strong></td>
+
+<td>デフォルトのサーバー・ファイル。管理すべき非 XDMCP サーバーがリストされています。</td>
+
+</tr>
+
+<tr>
+<td><strong>ホーム /.Xauthority</strong></td>
+
+<td>ユーザー許可ファイル。<strong>xdm</strong> は、クライアントが読み取るべきキーをこのファイルに保管します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/X11/xdm/chooser</strong></td>
+
+<td>デフォルトの chooser。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/X11/xrdb</strong></td>
+
+<td>デフォルトのリソース・データベース・ローダー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/X11/X</strong></td>
+
+<td>デフォルトのサーバー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/X11/xterm</strong></td>
+
+<td>デフォルトのセッション・プログラムとフェイルセーフ・クライアント。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/X11/xdm/A&lt;host&gt;\-&lt;suffix&gt;</strong></td>
+
+<td>許可ファイルのデフォルト位置。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,139 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>覚え書きメッセージを標準出力に書き出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>カレンダー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/calendar.html#calendar__row-d3e64726" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>calendar</strong> コマンドは、<strong>calendar</strong> ファイルを読み取り、ファイル内で今日または明日の日付が入っているすべての行を表示します。 <strong>calendar</strong> ファイルはユーザー作成ファイルであり、<strong>calendar</strong> コマンドを実行するディレクトリーと同じディレクトリー内にあることが必要です。 一般に、<strong>calendar</strong> ファイルはホーム・ディレクトリーに入っています。</p>
+ <p>金曜日に <strong>calendar</strong> コマンドを実行すると、<strong>calendar</strong> コマンドは、当日の金曜日のほか、後続の土曜日、日曜日、月曜日の日付の入った行もすべて表示します。 このコマンドでは、休日は認識されません。</p>
+ <p><strong>calendar</strong> コマンドは、<em>Month</em> <em>Day</em>、<em>Abbreviation</em> <em>Date</em>、<em>MonthNumeral</em><strong>/</strong><em>Date</em> などの日付形式を認識します。 これらの形式の例には、December 7、Dec 7、または 12/7 などがあります。 <strong>calendar</strong> コマンドは、/ (スラッシュ) の前の特殊文字 * (アスタリスク) も認識します。 例えば */7 と指定すると、毎月の 7 日として解釈されます。 <strong> calendar</strong> コマンドは、7/ *、7 December、7/12、* 7、DEC などの形式を認識しません。 &lt;</p>
+ <p>システム管理者がユーザー全員のために <strong>calendar</strong> ファイルを作成している場合は、ローカル <strong>calendar</strong> ファイルの先頭に次の行を追加すると、このファイルにアクセスできます。</p>
+ <div> <div><div><pre><code>#include &lt;FileName&gt;</code></pre></div><div></div></div></div>
+ <p><em>FileName</em> 変数の実際の値は、システム管理者によって決定されます。 このファイルの名前を <strong>calendar</strong> にする必要はありません。 <strong>calendar</strong> コマンドを実行すると、ローカルの <strong>calendar</strong> ファイルに格納された覚え書きと、<em>FileName</em> 変数で指定したファイルに格納された覚え書きが表示されます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>calendar</strong> ファイルに include ステートメントが含まれていると、 <strong>calendar</strong> コマンドは C プリプロセッサーを介して <strong>calendar</strong> ファイルを実行します。 <strong>calendar</strong> ファイルで include 文を使用するには、<strong>/usr/ccs/lib/cpp</strong> ファイルに入っている C プリプロセッサーをオペレーティング・システムにインストールする必要があります。</div>
+        </div>
+      </div></div>
+ <p>覚え書きサービスを利用するには、他のファイルについての読み取り許可が <strong>calendar</strong> ファイルにあることが必要です。 許可の設定については、<strong>chmod</strong> コマンドのセクションを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>ホーム・ディレクトリーに <strong>calendar</strong> ファイルがあるすべてのユーザーのために <strong>calendar</strong> コマンドを呼び出します。 <strong>calendar</strong> コマンドは、結果を標準出力に書き出す代わりに、<strong>mail</strong> コマンドを使用して覚え書きを送信します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>標準的な <strong>カレンダー</strong> ・ファイルは、以下のようになります。<div> <div><div><pre><code>*/25 - Prepare monthly report
+Aug. 12 - Fly to Denver
+aug 23 - board meeting
+Martha out of town - 8/23, 8/24, 8/25
+8/24 - Mail car payment
+sat aug/25 - beach trip
+August 27 - Meet with Simmons
+August 28 - Meet with Wilson</code></pre></div><div></div></div><strong>calendar</strong> コマンドを実行するには、次のように入力します。<div><div><pre><code>calendar</code></pre></div><div></div></div>今日が 8 月 24 日、金曜日であれば、<strong>calendar</strong> コマンドの表示は次のようになります。<div><div><pre><code>*/25 - Prepare monthly report
+Martha out of town - 8/23, 8/24, 8/25
+8/24 - Mail car payment
+sat aug/25 - beach trip
+August 27 - Meet with Simmons</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>include ステートメントを含む <strong>カレンダー</strong> ・ファイルは、次のようになります。<div> <div><div><pre><code>#include &lt;/tmp/out&gt;
+1/21 -Annual review
+1/21 -Weekly project meeting
+1/22 *Meet with Harrison in Dallas*
+Doctor's appointment - 1/23
+1/23 -Vinh's wedding</code></pre></div><div></div></div><strong>calendar</strong> コマンドを実行するには、次のように入力します。<div><div><pre><code>calendar</code></pre></div><div></div></div>今日が 1 月 21 日、水曜日であれば、<strong>calendar</strong> コマンドの表示は次のようになります。<div><div><pre><code>Jan.21 Goodbye party for David
+Jan.22 Stockholder meeting in New York
+1/21 -Annual review
+1/21 -Weekly project meeting
+1/22 *Meet with Harrison in Dallas*</code></pre></div><div></div></div><strong>calendar</strong> コマンドの結果は、以下のようになります。/tmp/outファイルに以下の行が含まれていました。<div><div><pre><code>Jan.21 Goodbye party for David
+Jan.22 Stockholder meeting in New York</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>HOME/カレンダー</strong></td>
+
+<td><strong>calendar</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/calprog</strong></td>
+
+<td>日付を決定するプログラムが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/cpp</strong></td>
+
+<td>C プリプロセッサーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>基本ユーザー属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

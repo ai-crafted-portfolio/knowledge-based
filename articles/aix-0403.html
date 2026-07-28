@@ -1,0 +1,151 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ドメインネームシステムセキュリティ拡張（DNSSEC）ゾーンを検証する。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><span>dnssec-verify</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__c" target="_blank" rel="noopener noreferrer"><span>-c</span></a> クラス] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__E" target="_blank" rel="noopener noreferrer"><span>-E</span></a> エンジン] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__I" target="_blank" rel="noopener noreferrer"><span>-I</span></a> input-format] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__o" target="_blank" rel="noopener noreferrer"><span>-o</span></a> origin] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__q" target="_blank" rel="noopener noreferrer"><span>-q</span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__v" target="_blank" rel="noopener noreferrer"><span>-v</span></a> レベル] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__V" target="_blank" rel="noopener noreferrer"><span>-V</span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__x" target="_blank" rel="noopener noreferrer"><span>-x</span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__z" target="_blank" rel="noopener noreferrer"><span>-z</span></a>] {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-verify.html#dnssec-verify__zonefile" target="_blank" rel="noopener noreferrer">zonefile</a>}</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>dnssec-verify</span>コマンドは、ゾーンに設定されたドメインネームシステム鍵(DNSKEY)リソース レコード(RR)の各アルゴリズムについて、ゾーンが完全に署名されていることを検証する。 次のセキュアレコード（NSEC）またはNSEC3チェーンが完了した。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span> class</td>
+
+<td>ゾーンのドメインネームシステム（DNS）クラスを指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-E</span> エンジン</td>
+
+<td><p>使用する暗号ハードウェアを指定します (該当する場合)。</p>
+
+<p>BIND 9 がOpenSSL,とともにビルドされる場合、このフラグには暗号アクセラレータまたはハードウェア・サービス・モジュールを駆動するOpenSSLエンジン識別子を設定する必要があります（通常はpkcs11）。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-I</span> 入力形式</td>
+
+<td>入力ゾーン・ファイルのフォーマットを設定します。 可能な形式は、 <code>text</code> (デフォルト) および <code>raw</code>です。 このオプションは、非テキスト形式の更新を含むダンプされたゾーンファイルを 独立に検証できるように、動的署名付きゾーンに対して使用される。 このオプションは、非ダイナミック・ゾーンでは役に立たない。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> 起点</td>
+
+<td>ゾーン起点を示します。 このフラグを指定しない場合、ゾーン・ファイルの名前が起点と見なされます。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> レベル</td>
+
+<td>デバッグのレベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span></td>
+
+<td>バージョン情報を表示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span></td>
+
+<td>出力を抑制するクワイエットモードを設定する。 このオプションをつけずに「<span>dnssec-verify</span>コマンドを実行すると、以下の情報が標準出力に出力される：<ul>
+<li>使用中のキーの数。</li>
+
+<li>ゾーンが正しく署名されていることを検証するために使用されるアルゴリズム。</li>
+
+<li>その他のステータス情報</li>
+
+</ul>このオプションでは、エラー以外の出力はすべて抑制され、終了コードは成功を示す。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span></td>
+
+<td>DNSKEY RRセットが鍵署名鍵(KSK)で署名されていることを検証する。 このフラグがない場合、アクティブな鍵はすべてDNSKEY RRをセットしているとみなされる。 このフラグが設定されている場合、ゾーン署名鍵が設定されたDNSKEY RRに 署名しなくてもエラーにはならない。 このオプションは、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-signzone.html" target="_blank" rel="noopener noreferrer"><span>dnssec-signzone</span></a>コマンドの「<span>-x</span>オプションに相当する。</td>
+
+</tr>
+
+<tr>
+<td><span>-z</span></td>
+
+<td><p>ゾーンが正しく署名されているかどうかを判断する際に、すべての アクティブ鍵のKSKフラグを無視しなければならないことを示す。 <span>-z</span>フラグが設定されていない場合、KSKフラグが設定された、破棄されていない 自己署名DNSKEYが各アルゴリズムで使用可能であると仮定される。 DNSKEY RRセット以外のRRセットは、KSKフラグが設定されていない別のDNSKEYで 署名される。</p>
+
+<p>このフラグが設定されている場合、BIND 9はKSKフラグの状態に関わらず、 各アルゴリズムに対して少なくとも1つの破棄されない自己署名DNSKEYを要求する。 他のRRセットは、自己署名鍵を含む同じアルゴリズ ムの、破棄されていない鍵で署名されていなければならない。 同じ鍵を両方の目的で使用できます。 このオプションは、「<span>dnssec-signzone</span>コマンドの「<span>-z</span>オプションに相当する。</p>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>パラメーター</h2>
+
+
+<div><div><table><caption><span>表2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>
+zonefile</td>
+
+<td>署名するゾーンを含むファイルを示す。</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+</div></div>

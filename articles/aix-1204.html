@@ -1,0 +1,382 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル認証情報が正しいかどうかを検証します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>pwdck { -p | -n | -t | -y } [-l]{ ALL | User ... }</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pwdck</span> コマンドは、 <code>ALL</code> ユーザーまたは User パラメーターで指定されたユーザーの定義を検査することによって、ユーザー・データベース・ファイル内のパスワード情報が正しいかどうかを検証します。 複数のユーザーを指定する場合は、名前の間にスペースを追加します。</p>
+ <div>
+<div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、そのメッセージを <code>stderr</code>に書き込みます。</div>
+        </div>
+      </div></div>
+
+</div>
+ <p>システムが誤った属性を修正する必要があるかどうかを示すフラグを選択します。 <span>/etc/passwd</span> ファイル内ではローカル定義ユーザーについて次の属性が検査されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>entry</code></td>
+
+<td>各項目が読み取り可能で、少なくとも 2 つの: (コロン) を含んでいることを確認します。 システムがエラーを修正すべきであると指示した場合には、エントリー全体が廃棄されます。</td>
+
+</tr>
+
+<tr>
+<td><code>passwd</code></td>
+
+<td>パスワード・フィールドが <code>!</code> (感嘆符) であることを確認します。 システムは、エラーを修正する必要があることを示すと、パスワード・フィールド内の情報を <span>/etc/security/passwd</span> ファイルに転送し、 <span>/etc/security/passwd</span> ファイル内の <code>lastupdate</code> 属性を更新してから、 <span>/etc/passwd</span> ファイル内のパスワード・フィールドを <code>an !</code> に置き換えます。一般的に、 <span>/etc/security/user</span> ファイル内で <code>minalpha</code>、 <code>minother</code>、または <code>
+minlen</code> のパスワード制限がゼロ以外の値に設定されている場合、パスワードが必要になります。</td>
+
+</tr>
+
+<tr>
+<td><code>user</code></td>
+
+<td>ユーザー名が 8 バイト以下の固有のストリングであることを確認します。 <code>a +</code> (正符号)、 <code>a :</code> (コロン)、 <code>a -</code> (負符号)、または <code>a ~</code> (波形記号) で始めることはできません。 ストリングに: (コロン) を含めることはできません。また、 <code>ALL</code>、 <code>default</code>、または <code>*</code> キーワードにすることもできません。 システムがエラーを修正すべきであると指示した場合には、このユーザーのエントリー行を <span>/etc/passwd</span> ファイルから取り除きます。 ユーザー名が + 記号または-記号で始まる場合、ユーザーはローカルに定義されず、検査は実行されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><span>/etc/security/passwd</span> ファイルで検査される属性は、以下のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>line</code></td>
+
+<td>各行が読み取り可能で、スタンザの一部であることを保証します。 無効な行があれば破棄されます。</td>
+
+</tr>
+
+<tr>
+<td><code>password</code></td>
+
+<td><code>password</code> 属性が存在していることと、システム上でパスワードが必要な場合はブランクでないことを保証します。 システムがエラーを修正すべきであると指示した場合には、パスワードは <code>*</code> (アスタリスク) に設定され、<code>lastupdate</code> 属性が破棄されます。<p>一般に、 <code>minalpha</code> または <code>minother</code> のいずれかのパスワード制限が <span>/etc/security/user</span> ファイルでゼロ以外の値に設定されている場合は、パスワードが必要です。 ユーザーの <code>flags</code> 属性で <code>NOCHECK</code> キーワードが指定されている場合、このユーザーのパスワードは不要であり、検査は無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>lastupdate</code></td>
+
+<td>有効な非ブランク・パスワードの <code>lastupdate</code> 属性が存在すること、およびその時刻が現在時刻より前であることを確認します。 システムがエラーを修正すべきであると指示すると、<code>password</code> 属性に応じて <code>lastupdate</code> 属性が破棄または更新されます。 <code>password</code> 属性が存在しない場合、またはブランクまたは * (アスタリスク) に等しい場合、 <code> lastupdate</code> 属性は破棄されます。 そうでなければ、<code>lastupdate</code> の時刻が現在の時刻に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><code>flags</code></td>
+
+<td>確実に、 <code> flags</code> 属性にキーワード <code>ADMIN</code>、 <code>ADMCHG</code>、および <code>NOCHECK</code>のみが含まれるようにします。 システムがエラーを修正すべきであると指示すると、未定義のフラグが削除されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><span>/etc/security/user</span> ファイルで検査される属性は、以下のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>auth1</code></td>
+
+<td>ローカル・ユーザーに対して定義されている各 SYSTEM;username 項目が、 <span>/etc/security/passwd</span> ファイル内に username 項目を持つようにします。 システムがエラーを修正すべきであると指示すると、存在しないエントリーごとに <span>/etc/security/passwd</span> ファイルに以下のフォーマットでスタンザが追加されます。<div>
+<div><div><pre><code>username:
+          password = *         </code></pre></div><div></div></div>
+</div>
+
+<p>ユーザー項目とデフォルト項目の両方が <code>/etc/security/user</code> ファイルから欠落している場合、システムは以下の値を想定し、 auth1 の検査を実行します。</p>
+
+<div>
+<div><div><pre><code>auth1 = SYSTEM;user                </code></pre></div><div></div></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <code>auth1</code> 属性は推奨されないため、使用しないでください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><code>auth2</code></td>
+
+<td>ローカル・ユーザーに対して定義された各 authname;username エントリーが、 <span>/etc/security/passwd</span> ファイル内に username エントリーを持つようにします。 システムがエラーを修正すべきであると指示すると、存在しないエントリーごとに 1 つずつエントリーが追加されます。<p>ユーザー項目とデフォルト項目の両方が <code>/etc/security/user</code> ファイルから欠落している場合、システムは以下の値を想定し、 <code>auth2</code> の検査を実行します。</p>
+
+<div>
+<div><div><pre><code>auth2 = NONE           </code></pre></div><div></div></div>
+</div>
+
+<p>ALL を指定すると、 <span>pwdck</span> コマンドは、 <span>/etc/security/passwd</span> ファイル内の各スタンザが、 <span>/etc/security/user</span> ファイル内の SYSTEM;username エントリーとしてのローカル・ユーザーの認証名に対応するようにします。 システムがエラーを修正する必要があることを示すと、 <span>/etc/security/user</span> ファイル内のユーザー名エントリーに対応しないスタンザは、 <span>/etc/security/passwd</span> ファイルから破棄されます。</p>
+
+<p><span>pwdck</span> コマンドは、更新時に <span>/etc/passwd</span> ファイルと <span>/etc/security/passwd</span> ファイルをロックします。 この 2 つのファイルのどちらかが別のプロセスによってロックされると、<span>pwdck</span> コマンドはファイルがアンロックされるのを数分間待機して、この状態が発生しなければ終了します。</p>
+
+<p><span>pwdck</span> コマンドは、現行の <span>pwdck</span> プロセスの実行中に、 <span>/etc/passwd</span> ファイルと <span>/etc/security/passwd</span> ファイルが別のプロセスによって変更されているかどうかを確認します。 システムがエラーを修正する必要があることを示すと、 <span>pwdck</span> コマンドは <span>/etc/passwd</span> ファイルと <span>/etc/security/passwd</span> ファイルを更新し、他のプロセスによって行われた変更を上書きする可能性があります。</p>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>pwdck</span> コマンドは、エラーを修正して報告するときに、ファイルに対するすべての拡張アクセス制御リスト (ACL) を使用不可にします。</div>
+        </div>
+      </div></div>
+
+<p>また、 <span>pwdck</span> コマンドは、データベース管理セキュリティー・ファイル (<span>/etc/passwd.nm.idx</span>、 <span>/etc/passwd.id.idx</span>、 <span>/etc/security/passwd.idx</span>、および <span>/etc/security/lastlog.idx</span>) が、対応するシステム・セキュリティー・ファイルより新しいかどうかを検査します。 <span>/etc/security/lastlog.idx</span> が <span>/etc/security/lastlog</span>より新しいものであってはならないことに注意してください。 データベース管理セキュリティー・ファイルが最新の状態でない場合は、root ユーザーが <span>mkpasswd</span> コマンドを実行するよう指示する警告メッセージが表示されます。</p>
+
+<p>一般に、<span>sysck</span> コマンドは、トラステッド・システムの検査の一部として <span>pwdck</span> コマンドをコールします。 また、このコマンドを入力できるのは、root ユーザーあるいはセキュリティー・グループのメンバーです。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <code>auth2</code> 属性は推奨されないため、使用しないでください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-l</span></td>
+
+<td>実行全体でファイルをロックします。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>エラーを修正せずに報告します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>エラーを報告せずに修正します。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span></td>
+
+<td>エラーを報告して、修正すべきかどうかを尋ねます。</td>
+
+</tr>
+
+<tr>
+<td><span>-y</span></td>
+
+<td>エラーを修正して報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+
+</section>
+
+<div>
+<dl>
+
+<dt>アクセス制御</dt>
+
+<dd>このコマンドは、root ユーザーおよびセキュリティー・グループのメンバーに実行 (x) アクセス権を付与する必要があります。 コマンドは、root ユーザーが認証情報の読み取りと書き込みができるように <code>setuid</code> し、<code>trusted computing base</code> 属性を持たなければなりません。</dd>
+
+
+
+<dt>アクセスされるファイル</dt>
+
+<dd><div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>rw</span></td>
+
+<td><span> /etc/passwd</span></td>
+
+</tr>
+
+<tr>
+<td><span>r</span></td>
+ 
+<td><span>/etc/security/user</span></td>
+
+</tr>
+
+<tr>
+<td><span>rw</span></td>
+ 
+<td><span>/etc/security/passwd</span></td>
+
+</tr>
+
+<tr>
+<td><span>r</span></td>
+ 
+<td><span>/etc/security/login.cfg</span></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>監査イベントは次のとおりです。</dt>
+
+<dd><div><div><table><caption><span>表 2. 監査イベントは次のとおりです。</span></caption><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>PASSWORD_Check</code></td>
+
+<td>ユーザー、エラー/修正、状況</td>
+
+</tr>
+
+<tr>
+<td><code>PASSWORD_Ckerr</code></td>
+
+<td>ファイル/ユーザー、エラー、状況</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+</div>
+
+<section><h2>例</h2> <ol>
+<li>すべてのローカル・ユーザーが有効なパスワードを持っていることを確認するには、次のように入力します。<div><code>pwdck  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pwdck.html#pwdck__row-d3e118778" target="_blank" rel="noopener noreferrer">-y</a> ALL</code></div>ここでは、エラーが報告されて解決されます。</li>
+
+<li>ユーザー <code>ariel</code> が <span>/etc/security/passwd</span> ファイル内に有効なスタンザを持っていることを確認するには、次のように入力します。<div><code>pwdck  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pwdck.html#pwdck__row-d3e118778" target="_blank" rel="noopener noreferrer">-y</a> ariel</code></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/pwdck</span></td>
+
+<td><span>pwdck</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/passwd</span></td>
+
+<td>実際のパスワードおよびセキュリティー情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/login.cfg</span></td>
+
+<td>構成情報とパスワード制約事項が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

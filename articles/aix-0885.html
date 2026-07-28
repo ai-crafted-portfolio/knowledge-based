@@ -1,0 +1,229 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>ブート・イメージ、ブート・レコード、サービス・レコードを作成します。 このコマンドは、ユーザー・レベルのコマンドでは <em>ない</em> ためサポートされません。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkboot</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125575" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> <em>装置</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125569" target="_blank" rel="noopener noreferrer"><strong>-b (B) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125589" target="_blank" rel="noopener noreferrer"><strong>-D </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125583" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125617" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125626" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125632" target="_blank" rel="noopener noreferrer"><strong>-I (I) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125653" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>LV デバイス</em> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125639" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a><em> カーネル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125595" target="_blank" rel="noopener noreferrer"><strong>-e (E) </strong></a><em>エクスパンダー</em> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125663" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125686" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125680" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125669" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a><em> オフセット</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125692" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkboot.html#mkboot__row-d3e125609" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>FileSystem</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkboot</strong> コマンドは、カーネルとファイルシステムを組み合わせてブート・イメージを作成します。 結果的に生成されるイメージは、標準出力に書き出されます。 このイメージは、該当するブート・レコード情報を使用して、ブート・デバイスにコピーされます。 ブート・イメージは、圧縮状態または非圧縮状態で、イメージの先頭にブート・レコードを付けるか、または付けずに作成することができます。 テープ用に作成されるイメージは、イメージ・ファイルの先頭にブート・レコードを付け、圧縮されます。 ディスク用のブート・イメージは、圧縮せずブート・レコードを付けないで作成できます。 ブート・レコードはディスクの先頭セクターに書き込まれます。 レコードには、そのディスク上のブート論理ボリュームに書き込まれたあとのイメージのサイズと位置に関する情報が入っています。</p>
+ <p>ブート論理ボリュームをミラーリングすると、<strong>mkboot</strong> コマンドはブート・イメージをブート論理ボリュームの各コピーに書き込むだけでなく、ミラーを構成する各物理ディスクにもブート・レコードを書き込みます。 <strong>mkboot</strong> コマンドがミラーリングされたブート論理ボリュームを少なくとも 1 つ更新できれば、エラーは戻りません。 ミラーリングされたブート論理ボリュームの各コピーからブートできるようにするには、<strong>bootlist</strong> コマンドを使用して各物理ディスクを指定しなければなりません。</p>
+ <p><strong>mkboot</strong> コマンドは通常、<strong>bosboot</strong> コマンドによって呼び出されます。 しかし、<strong>mkboot</strong> コマンドを 2 回目に実行すると、圧縮されたブート・イメージの先頭に拡張コードを置くことができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>保管ベース・フィールドをゼロにします。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>IPL レコードに必要なデバイスを指定します。 このフラグは必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>デバイス上のブート・レコードをゼロにします。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>ブート時に低レベル・デバッガーをロードします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> 拡張</em></td>
+
+<td>圧縮されたブート・イメージ・ファイルを作成するためのカーネル・エクステンション・コードを指定します。 <strong>-e</strong> フラグまたは <strong>-k</strong> フラグを指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> FileSystem</em></td>
+
+<td>ブート・ファイルシステムを指定します。 このフラグは必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>mkboot</strong> コマンドがブート・ヘッダーを更新しないようにします。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ブート・レコードの通常区画を書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong> (大文字の i)</td>
+
+<td>ブート時に低レベル・デバッガーを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> カーネル</em></td>
+
+<td>ブート・イメージ中のカーネルを指定します。 <strong>-k</strong> フラグまたは <strong>-e</strong> フラグを指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (L の小文字)<em> LVDev</em></td>
+
+<td>ロード可能なブート・コードの入った論理ボリューム・デバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>MP システム用のロック機能を有効にします。 MP カーネルを使用していないシステムでは、このフラグを指定しても効果はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> オフセット</em></td>
+
+<td>使用するアドレスを指定します。boot_pr_startブート・レコードのフィールド。 このフラグは、CD-ROM 用のブート・イメージを作成する場合に使用されます。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>読み取り専用ストレージ (ROS) エミュレーション・コードであるイメージを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ブート・レコードのサービス区画を書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>ブート・イメージの前に、ブート論理ボリュームの最初の 2 つのブロックを出力します。 このフラグは、ディスク・ブート・イメージにのみ適用できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: root ユーザーだけがこのコマンドを読み取り、実行できます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>デバイス <strong>/dev/hdisk0</strong>のカーネル <strong>/usr/lib/boot/unix</strong> および <strong>/tmp/bootfs</strong> ファイルシステムを使用して、圧縮されていないブート・イメージを作成するには、次のように入力します。<div> <div><div><pre><code>mkboot -d /dev/hdisk0 -k /usr/lib/boot/unix -f /tmp/bootfs \
+-b -i -s &gt; /tmp/boot.image</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ブート・レコードをクリアし、ディスク <strong>hdisk0</strong>の PVID を残すには、次のように入力します。<div> <div><div><pre><code>mkboot -d /dev/hdisk0 -c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>mkboot</strong> コマンドは、カーネルとランダム・アクセス・メモリー (RAM) ファイルシステムを組み合わせて 1 つのブート・イメージを作成しますが、 <strong>mkboot</strong> コマンドをもう一度実行して、圧縮ブート・イメージの先頭に拡張コードを入れることができます。 例えば、次のように入力します。<div> <div><div><pre><code>mkboot -b -d /dev/rmt0 -k unix -f ramfs | compress &gt; /tmp/image
+mkboot -b -i -s -d /dev/rmt0 -k bootexpand -f /tmp/image \
+&gt; bootfile</code></pre></div><div></div></div>ブート可能なテープの場合、各パラメーターの意味は次のとおりです。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>unix</td>
+
+<td>カーネルを指定します。</td>
+
+</tr>
+
+<tr>
+<td>ramfs</td>
+
+<td>RAM ディスク・ファイルシステムを指定します。</td>
+
+</tr>
+
+<tr>
+<td>compress</td>
+
+<td>圧縮または短縮ルーチンを指定します。</td>
+
+</tr>
+
+<tr>
+<td>bootexpand</td>
+
+<td>拡張またはカーネル非短縮ルーチンを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/include/sys/bootrecord.h</strong></td>
+
+<td>ブート・レコードの構造を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>参考文献一覧で参考文献を見つけます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lookbib</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lookbib.html#lookbib__row-d3e56796" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [ <em>データベース</em> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lookbib</strong> コマンドは <strong>indxbib</strong> コマンドで作った逆索引を使って参考文献を見つけます。 <strong>lookbib</strong> コマンドは、次のように入力されたキーワードを読み取ります。&gt;端末でプロンプトを出し、これらのキーワードをすべて含むレコードを検索します。 一致するものがない場合は、別のもの以外は何も返されません。 &gt;できます。</p>
+ <p><strong>lookbib</strong> コマンドは指示が必要かどうか尋ね、ユーザー定義の肯定応答を入力すると、簡単な情報を出力します。</p>
+ <p><em>Database</em> パラメーターは、参考文献の参照、索引、または同様のタイプの情報を含むファイルを指定します。 <strong>indxbib</strong> コマンド<em>によって作成された共通索引がある限り、複数のデータベースを検索することができます。</em> その場合、 <strong>indxbib</strong> コマンドに指定された最初のデータベース名のみが <strong>lookbib</strong> コマンド<em>に指定されます。</em></p>
+ <p><strong>lookbib</strong> コマンドは索引ファイル (<strong>.i[abc]</strong> ファイル) が見つからないと、最初のデータベースと同じ名前で接尾部を持たない参照ファイルを探します。 これにより、 <strong>Fgrep</strong> コマンド<em>.</em> での使用に適した <strong>.ig (I)</strong> 接尾部を持つファイルが作成されます。 次に、この <strong>fgrep</strong> コマンド・ファイルを使って参考文献を見つけます。 <strong>.ig</strong> ファイルを使うのは簡単ですが、<strong>.i[abc]</strong> ファイルを使った場合より時間がかかり、また複数の参照ファイルを使用することができません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-n</strong></td>
+
+<td>指示に対応するプロンプトをオフにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>データベース</em>。<strong>ia</strong></td>
+
+<td>エントリー・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>データベース</em>。<strong>ib</strong></td>
+
+<td>通知ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>データベース</em>。<strong>ic</strong></td>
+
+<td>タグ・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>データベース</em>。<strong>ig</strong></td>
+
+<td>出力ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

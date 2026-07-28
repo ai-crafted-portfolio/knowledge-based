@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>システムモデル（MTM 値）に加え、OS レベル、ファームウェアレベル、またはその両方に基づいて、 IBM Fix Level Recommendation Tool（FLRT）サーバーからサポートとライフサイクル情報を取得します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>life_cycle_data [ [ -L OSlevel | -F fw ] : -M MTM ] | [ -c client ] ]
+</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>life_cycle_data</span> コマンドは、 IBM FLRT サーバーからサポート情報とライフサイクル情報を取得する。 システムモデルに加えて、OSレベル、ファームウェアレベル、またはその両方を入力することができます。 入力がない場合、 <span>life_cycle_data</span> コマンドは、OSレベル、ファームウェア・レベル、およびシステム・モデルをシステムから自動的に収集する。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-L</span> OSレベル</td>
+
+<td>システムの AIX、VIOSレベルを指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span> エフダブリュー</td>
+
+<td>システムのファームウェア・レベルを指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span> MTM</td>
+
+<td>システムモデルを指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> クライアント</td>
+
+<td>Network Installation Manager (NIM)クライアントの名前を指定する。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>現在のシステムのサポートとライフサイクル情報をチェックするには、以下のコマンドを入力する：<div><div><pre><code>life_cycle_data</code></pre></div><div></div></div></li>
+
+<li>AIX /VIOS OSレベルとMTMレベルに基づいてサポートとライフサイクル情報を確認するには、次のコマンドを入力します：<div><div><pre><code>life_cycle_data -L 7300-01-01-2246 -M 8286-42A</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注意：</span> サービスパック（SP）が <span>00</span> であるOSレベルを指定した場合、 <span>life_cycle_data</span> コマンドは、 <code>eSupport</code> サーバーに対してOSレベルを検証する際に、4番目のフィールドを無視します。 <code>eSupport</code> サーバーには、SP <span>00</span> のサブレベルは表示されていない。 つまり、システムの AIX レベルが <code>7300-03-00-2446</code> として指定されている場合、 eSupport サーバーによって <code>7300-03-00</code> として扱われる。</div>
+        </div>
+      </div></div>
+
+</li>
+
+<li>ファームウェアとMTMレベルに基づくサポートとライフサイクル情報を確認するには、以下のコマンドを入力する：<div><div><pre><code>life_cycle_data -F VL950_098 -M 8286-42A</code></pre></div><div></div></div></li>
+
+<li>AIX /VIOS OSレベル、ファームウェア、MTMレベルに基づくサポートとライフサイクル情報を確認するには、以下のコマンドを入力します：<div><div><pre><code> life_cycle_data -L 7300-01-01-2246 -F VL950_098 -M 8286-42A</code></pre></div><div></div></div></li>
+
+<li>NIMクライアントのサポートおよびライフサイクル情報を確認するには、NIMサーバーから以下のコマンドを入力する：<div><div><pre><code>life_cycle_data -c "nim_client1 nim_client2"
+
+or
+
+life_cycle_data -c "nim_client1,nim_client2"</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

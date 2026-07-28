@@ -1,0 +1,127 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>アクティブな <span>ワークロード・パーティション</span>を非アクティブにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/stopwpar</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_h" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_ff" target="_blank" rel="noopener noreferrer"><span><span>-F</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_r" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_t" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a><span><span> 秒</span></span> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_n" target="_blank" rel="noopener noreferrer"><span><span>-N</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_v" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stopwpar.html#stopwpar__stopwpar_wparname" target="_blank" rel="noopener noreferrer"><span><span>WparName</span></span></a></p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>stopwpar</span></span> コマンドは、実行中の <span>ワークロード区画</span>を非活動化します。 これには、以下のタスクの停止が含まれます。<ul>
+<li><span>ワークロード・パーティション</span>内で実行中のプロセスの停止。</li>
+
+<li><span>ワークロード・パーティション</span>の WLM クラスのアンロード (ある場合)。</li>
+
+<li><span>ワークロード・パーティション</span>の IP アドレスの非アクティブ化 (ある場合)。</li>
+
+<li><span>ワークロード・パーティション</span>のファイル・システムをアンマウントします (存在する場合)。</li>
+
+<li>システム <span>ワークロード・パーティション</span>を再始動しています。</li>
+
+<li>アプリケーション <span>ワークロード・パーティション</span>を削除しています。</li>
+
+</ul>
+</div>
+ <div><span><span> stopwpar</span></span> コマンドは、以下の状況では失敗します。<ul>
+<li>指定された <span>ワークロード・パーティション</span> は存在しません。</li>
+
+<li><strong>kill</strong> コマンドで 1 つ以上のプロセスを停止できません (強制的に実行するには、 <span><span>-F</span></span> フラグを使用します)。</li>
+
+<li>1 つ以上のファイルシステムをアンマウントできません (強制するには、 <span><span>-F</span></span> フラグを使用します)。</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-F</span></span></td>
+
+<td><span>ワークロード・パーティション</span> を強制的に停止し、実行中のプロセスをより積極的にシグナル通知して、リモート・ファイル・システムをアンマウントします。 プロセスを停止できない場合、 <span>ワークロード区画</span> は <span><span>Broken</span></span> 状態のままになり、再始動できません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td>ハード・ストップを使用して、 <span>ワークロード・パーティション</span> サブシステムに終了をシグナル通知します。 ハード・ストップ使用時の、デフォルトのタイムアウト値は 60 秒です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-N</span></span></td>
+
+<td>タイムアウトなしにシャットダウン/停止が完了することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td>すべての停止操作が完了した後、 <span>ワークロード・パーティション</span> を再始動します。 これは、 <span><span>stopwpar</span></span> コマンドの後に <span><span>startwpar</span></span> コマンドを呼び出すのと同等です。 このフラグは、アプリケーション <span>ワークロード・パーティション</span>には無効です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span> <span><span>秒</span></span></td>
+
+<td>コマンドが失敗し、プログラムが終了するまでに、シャットダウン/停止が完了するのを待つタイムアウトの長さ (秒数) を指定します。 デフォルトは、シャットダウン/停止が完了しなかった場合に、600 秒後の失敗です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td>詳細出力を表示することを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>WparName</span></span></td>
+
+<td>停止する <span>ワークロード・パーティション</span> の名前。 このパラメーターは、コマンド・ラインの最後のパラメーターでなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: システム <span>ワークロード・パーティション</span>に対してこのコマンドを実行できるのは、root ユーザーのみです。 アプリケーション <span>ワークロード・パーティション</span>の場合、 <span>ワークロード・パーティション</span> (または root) の作成者のみがこのコマンドを実行できます。</p>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li><span><span>ロイ</span></span>という名前の <span>ワークロード・パーティション</span> を停止するには、次のように入力します。<div><div><pre><code>stopwpar roy</code></pre></div><div></div></div></li>
+
+<li>85 秒後に <span><span>ピント</span></span> と呼ばれる <span>ワークロード・パーティション</span> のシャットダウン処理を中止するには、次のように入力します。<div><div><pre><code>stopwpar -t 85 pinto</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+</div></div>

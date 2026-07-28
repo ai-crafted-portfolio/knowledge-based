@@ -1,0 +1,1998 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムを使用できるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>mount</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173381" target="_blank" rel="noopener noreferrer"><span>-f </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173387" target="_blank" rel="noopener noreferrer"><span>-n </span></a>ノード ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173460" target="_blank" rel="noopener noreferrer"><span>-o</span></a> オプション ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173398" target="_blank" rel="noopener noreferrer"><span>-p </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173404" target="_blank" rel="noopener noreferrer"><span>-r </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173434" target="_blank" rel="noopener noreferrer"><span>-v
+</span></a>vfsname ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-mountcmnduf" target="_blank" rel="noopener noreferrer"><span>-F </span></a>AltFSfile ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173414" target="_blank" rel="noopener noreferrer"><span>-t </span></a>type | [ device | node:ディレクトリー ] ディレクトリー | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173372" target="_blank" rel="noopener noreferrer"><span>all</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html#mount__row-d3e173359" target="_blank" rel="noopener noreferrer"><span>-a </span></a>] [<span>-V</span> [generic_options] special_mount_points ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>mount</span> コマンドは、オペレーティング・システムに命令を与えて、指定された位置 (マウント・ポイント) でファイルシステムを使用できるようにします。 さらに、 <span>mount</span> コマンドを使用して、ディレクトリーおよびファイル・マウントで構成される他のファイル・ツリーを作成することができます。 <span>mount</span> コマンドは、 directory パラメーターで指定されたディレクトリーに device または node:directory パラメーターを使用して、デバイスとして表されるファイル・システムをマウントします。 <span>mount</span> の実行が終了すると、指定されたディレクトリーが、新しくマウントされたファイル・システムのルート・ディレクトリーになります。</p>
+
+<p>root 権限を持つユーザー、またはマウント・ポイントへの書き込み権限を持つシステム・グループのメンバーであるユーザーのみが、ファイルまたはディレクトリーのマウントを実行できます。 ファイルまたはディレクトリーはシンボリック・リンクである可能性があります。 <span>mount</span> コマンドは、実効ユーザー ID ではなく実ユーザー ID を使用して、ユーザーが適切なアクセス権限を持っているかどうかを判別します。 システム・グループ・メンバーは、マウント・ポイントへの書き込みアクセス権と、 <span>/etc/filesystems</span> ファイルに指定されているマウントへの書き込みアクセス権があれば、デバイス・マウントを発行できます。 root ユーザー権限を持つユーザーは、任意の <span>mount</span> コマンドを発行することができます。</p>
+ <p>デバイスがシステム・グループに属し適切なアクセス権を持っている場合は、そのデバイスをマウントすることができます。 デバイスをマウントするとき、<span>mount</span> コマンドはブロック・デバイス名として device パラメーターを使用し、ファイルシステムをマウントするディレクトリーとして directory パラメーターを使用します。</p>
+ <div><span>mount</span> コマンドをフラグなしで入力すると、このコマンドはマウント済みのファイルシステムについて次の情報を表示します。<ul>
+<li>ノード (マウントがリモートの場合)。</li>
+
+<li>マウントされているオブジェクト。</li>
+
+<li>マウント・ポイント。</li>
+
+<li>仮想ファイル・システム・タイプ。</li>
+
+<li>マウントされた時刻。</li>
+
+<li>任意のマウント・オプション。</li>
+
+</ul>
+</div>
+ <p>directory または node:directory パラメーターのみを指定した場合、 <span>mount</span> コマンドは、ファイル・システム、ディレクトリー、またはファイルが ( <span>/etc/filesystems</span> ファイルに定義されているように) マウントされているディレクトリーまたはファイルの名前を指定します。 <span>mount</span> コマンドは関連するデバイス、ディレクトリー、またはファイルを探し、マウントします。 <span>mount</span> コマンドを使用すると、ディレクトリーまたはファイルに通常マウントされているものを覚えておく必要がないため、便利です。 ユーザーはデバイスだけを指定することもできます。 この場合、コマンドは <span>/etc/filesystems</span> ファイルからマウント・ポイントを取得します。</p>
+ <p><span>/etc/filesystems</span> ファイルには、マウント可能なファイル・システム、ディレクトリー、またはファイルごとにスタンザが含まれている必要があります。 このスタンザには、少なくともファイルシステムの名前と、ファイルシステムが常駐するデバイスまたはディレクトリー名のいずれかを指定する必要があります。 スタンザに mount 属性が含まれている場合、<span>mount</span> コマンドは関連付けられた値を使用します。 これは、マウント属性の 5 つの値 ( <span>automatic</span>、 <span>true</span>、 <span>false</span>、 <span>removable</span>、および <span>readonly</span>) を認識します。</p>
+ <p><span>mount all</span> コマンドを使うと、<span>mount=true</span> 属性を持つすべてのファイルシステムを通常の場所にマウントできます。 このコマンドは、
+一般にシステムの初期化時に使用されます。このようなマウント操作を自動マウント操作と呼びます。</p>
+ <p>デフォルトで、<span>mount</span> コマンドはファイルシステムのマウント後に <span>wlmcntrl</span> コマンドを実行して、カーネル内の現行割り当て規則をリフレッシュします。 状況によっては (例えば、多数のファイルシステムが一度にマウントされる場合や、ワークロード・マネージャー構成にアクセス不能なリモート・マウントに関する規則が存在する場合など)、マウント後に <span>wlmcntrl</span> を自動的に呼び出すことは望ましくない場合があります。</p>
+ <p>この動作をオーバーライドする場合は、環境変数 MOUNT_WLMCNTRL_SELFMANAGE を任意の値に設定します。 環境変数 MOUNT_WLMCNTRL_SELFMANAGE を任意の値に設定すると、マウント操作中に <span>wlmcntrl</span> コマンドが呼び出されなくなります。 カーネル内の現在の割り当て規則をリフレッシュするには、 <code>wlmcntrl -u -d ""</code> コマンドを手動で実行する必要があります。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/wlmcntrl.html" target="_blank" rel="noopener noreferrer"><span>wlmcntrl</span></a> コマンドを参照してください。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>cdromd</span> CD および DVD <span>automount</span> デーモンが使用可能になっている場合、これらのデバイスは <span>/etc/cdromd.conf</span> ファイルに指定されたとおりに自動的にマウントされます。 自動的にマウントされた CD または DVD をアンマウントするには、<span>cdumount</span> または
+<span>cdeject</span> コマンドを使用します。 CD/DVD <span>automount</span> デーモンを使用不可にするには、<span>stopsrc -s cdromd</span>
+を使用します。</li>
+
+<li>CacheFS の場合、ローカルにキャッシュされるリモート・ファイルシステムがエクスポートされるとき、ローカル・システムのルート ID がリモート・ホストの <code>nobody</code> (または、匿名ユーザーとしてリモート・ホストが使用する ID) に再マップされないようにする必要があります。 例えば、ホスト A が、ホスト B 上の CacheFS でマウントされたファイル・システム <span>/F</span> をエクスポートする必要がある場合、ホスト A 上の <span>/etc/exports</span> には、以下のようなエントリーが必要です。<div><div><pre><code>/F -rw,root=B
+or
+/F -ro,root=B</code></pre></div><div></div></div>上記のどちらであるかは、ローカル CacheFS マウントに使用されるマウント・オプションに依存します。</li>
+
+<li>読み取り専用論理ボリュームへの JFS ファイルシステムのマウントは、サポートされません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+
+<dl>
+
+<dt>JFS2 ファイルシステムでのマウントの使用</dt>
+
+<dd><p><span>mount</span> コマンドを使用して、ディレクトリー・ツリーとして JFS2 ファイルシステム
+のスナップショットにアクセスすることもできます。 device 上のスナップショットは、directory に読み取り専用としてマウントされます。 1 つのスナップショットをマウントできるのは 1 回のみです。 スナップショットが含まれている JFS2 ファイルシステムをマウントすると、
+スナップショットが活動化します。</p>
+
+
+<p>このコマンドは、System Management Interface Tool (SMIT) <code>smit mount</code> 高速パスを使用して実行することができます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>mount</span> コマンドが、リブート前にアンマウントされていなかったジャーナル・ファイルシステム (JFS) または拡張ジャーナル・ファイルシステム (JFS2) を検出すると、JFS または JFS2 ログ・レコードの再生が試行されます。 互換性のある JFS ファイル・システムを、以前のリリースのオペレーティング・システムを実行するシステムに移動するには、そのファイル・システムを移動する前に、常に完全にアンマウントする必要があります。 最初にアンマウントしないと、非互換の JFS ログ・デバイスになる可能性があります。 移動の結果として不明のログ・デバイスが生じる場合、ファイル・システムは、後のオペレーティング・システム・リリースを実行するシステムに戻される必要があり、 <span>fsck</span> はファイル・システム上で実行される必要があります。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td><span>true</span> マウント属性を含むスタンザを使用して、 <span>/etc/filesystems</span> ファイル内のすべてのファイル・システムをマウントします。</td>
+
+</tr>
+
+<tr>
+<td><span>all</span></td>
+
+<td><span>-a</span> フラグと同じです。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td>システムの初期化時に強制的にマウントを要求して、ルート・ファイルシステム上にマウントすることを可能にします。</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span> AltFSfile</td>
+
+<td><span>/etc/filesystems</span> ファイル以外の、代替ファイル・システムのファイルにマウントします。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> 
+Node</td>
+
+<td>マウントされるディレクトリーがどのリモート・ノード上にあるかを指定します。 ノードをコロンで区切られた IPv6 アドレスとして指定することができます。 ノードを <code>node:directory</code> 形式で指定する場合は、コロン区切りの IPv6 アドレスを大括弧で囲む必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>ファイルシステムを取り外し可能なファイルシステムとしてマウントします。 そのファイルシステムにオープン・ファイルがある間は、マウントされた取り外し可能なファイルシステムは、普通にマウントされたファイルシステムと同じように機能します。 ただし、オープン・ファイルがなければ (ファイルシステム上に現行ディレクトリーを持つ処理がなければ)、ファイルシステム内のすべてのファイルシステム・ディスク・バッファーはメディアに書き込まれ、オペレーティング・システムは、そのファイルシステムの構造を記憶しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td><span>/etc/filesystems</span> ファイル内の以前の指定や以前のコマンド行オプションに関係なく、ファイル・システムを読み取り専用ファイル・システムとしてマウントします。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> 
+type</td>
+
+<td><span>type</span>=type 属性を含み、マウントされていない、 <span>/etc/filesystems</span> ファイル内のすべてのスタンザをマウントします。 type パラメーターは、グループの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> ブフネーム</td>
+
+<td>ファイル・システムが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/vfs.html" target="_blank" rel="noopener noreferrer"><span>/etc/vfs</span></a> ファイルの vfsname パラメーターによって定義されることを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<dl>
+
+<dt>ファイル・システム固有のオプション</dt>
+
+<dd><div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span>  Options</td>
+
+<td>オプションを指定します。 コマンド行に入力するオプションは、コンマのみで区切る必要があります。 次のファイルシステム固有のオプションは、すべての仮想ファイルシステムのタイプに有効なわけではありません。<dl>
+
+<dt><span>atime</span></dt>
+
+<dd>アクセス時間の更新をオンにします。 <span>atime</span> オプションも <span>noatime</span> オプションも指定しない場合、 <span>atime</span> オプションがデフォルト値になります。</dd>
+
+
+
+<dt><span>bsy</span></dt>
+
+<dd>このオプションは、マウントされるディレクトリーがプロセスの現行作業ディレクトリーである場合に、マウント操作が行われないようにします。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>cio</span></dt>
+
+<dd>並行リーダーおよびライターにマウントされるファイルシステムを指定します。 このファイル・システム内のファイルに対する入出力は、 <span>open()</span> システム・コールで指定された <span>O_CIO</span> を使用してオープンされた場合と同じように動作します。 <span>cio</span> オプションを使用すると、CIO 以外の方法でアクセスできなくなります。 <span>cio</span> オプションを使用してマウントされたファイル・システムでは、キャッシュ入出力を使用することはできません。 <span>mmap()</span> および <span>shmat()</span> などのマッピング・コマンドは、 <span>cio</span> オプションを指定してマウントされたファイル・システム内のいずれかのファイルで使用されると、EINVAL で失敗します。 この副次作用の 1 つは、ローダーが <span>mmap()</span>を使用する可能性があるため、 <span>cio</span> マウント・ファイル・システムからバイナリーを実行できないことです。<div><div>
+        <div>
+          <div><span>注:</span> <span>cio</span> オプションを使用してファイル・システムをマウントする場合、すべてのアプリケーションがファイルのシリアライゼーションを管理する必要があります。 クォータには独自のシリアライゼーション・コードがあるため、クォータは <span>cio</span> オプションではサポートされません。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>dev</span></dt>
+
+<dd>このマウントからデバイスをオープンできるように指定します。 <span>dev</span> オプションも <span>nodev</span> オプションも指定しない場合、 <span>dev</span> オプションがデフォルト値になります。</dd>
+
+
+
+<dt><span>dio</span></dt>
+
+<dd>ファイル・システム上の入出力が、 <span>open()</span> システム・コールで指定された <span>O_DIRECT</span> を使用してすべてのファイルがオープンされたかのように動作することを指定します。<div><div>
+        <div>
+          <div><span>注:</span> <span>-odio</span> フラグまたは <span>-ocio</span> フラグを使用すると、特定のワークロードでパフォーマンスを向上させることができますが、これらのフラグを使用すると、これらのファイル・システムのファイル・キャッシングが妨げられることに注意する必要があります。 これらのファイル・システムでは先読みが使用不可になっているため、大規模順次読み取りのパフォーマンスが低下する可能性があります。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>fmode</span>=8 進数</dt>
+
+<dd>ファイルおよびディレクトリーのモードを指定します。 デフォルトは 755 です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>gid</span>=gid 。</dt>
+
+<dd>マウントされているファイルに割り当てられている GID を指定します。 デフォルトは <span>bin</span>です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>log</span>=LV 名</dt>
+
+<dd>次のファイルシステム操作をログに記録するファイルシステム・ロギング論理ボリューム名の絶対パス名を指定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>log</span>= NULL</dt>
+
+<dd><p>JFS2 ファイルシステムのメタデータのロギングとフラッシュをオフにします。 ファイルシステムがアンマウントされるまで、メタデータはディスクにフラッシュされません。 ファイルシステムがアンマウントされる前にシステムが異常停止すると、メタデータの変更は失われます。</p>
+
+<p>JFS2 ファイルシステムは、メタデータの整合性のためにログ情報に依存します。 アンマウント操作の進行中に、JFS2 ファイルシステムのメタデータ・フラッシュ・プロセス中にシステムが異常停止した場合、システムのリブート時にファイルシステムを整合性のある状態に回復することはできません。 この場合は、ファイルシステムを再作成する必要があります。</p>
+
+<div><div>
+        <div>
+          <div><span>重要:</span> データ損失のリスクがあるため、このフラグは注意して使用してください。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>maxpout</span>=値</dt>
+
+<dd>スレッドをスリープさせる必要がある、このファイル・システム上のファイルのページアウト・レベルを指定します。 <span>maxpout</span> オプションを指定する場合は、 <span>minpout</span> オプションも指定する必要があります。 値は負でなく、 <span>minpout</span>より大きくなければなりません。 デフォルトは、カーネル <span>maxpout</span> レベルです。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>minpout</span>=値</dt>
+
+<dd>スレッドを作動可能にする必要がある、このファイル・システム上のファイルのページアウト・レベルを指定します。 <span>minpout</span> を指定する場合は、 <span>maxpout</span> も指定する必要があります。 値は負であってはなりません。 デフォルトは、カーネル <span>minpout</span> レベルです。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>nBufferPerPagerDevice</span>=値</dt>
+
+<dd><p>ファイル・システムごとに JFS2 ファイル・システムのバッファー数を指定します。 <span>nBufferPerPagerDevice</span> マウント・オプションは、ページング・デバイス上で開始するファイル・システム・バッファーの数のみを指定します。 <span>nBufferPerPagerDevice</span> マウント・オプションが指定されていない場合、ファイル・システム・バッファーを割り振るために <span>j2_nBufferPerPagerDevice</span> チューナブル・パラメーターの値が使用されます。 <span>nBufferPerPagerDevice</span> マウント・オプションの範囲は、 <span>j2_nBufferPerPagerDevice</span> チューナブル・パラメーターの範囲と同じです。</p>
+
+<p><span>ioo</span> コマンドの <span>j2_dynamicBufferPreallocation</span> チューナブル・パラメーターは、 JFS2 ファイルシステムのファイルシステム・バッファーをシステムごとに指定するように調整する必要があります。 多数のファイル・システムがあるサーバーでは、ファイル・システムの並行入出力の数が他のファイル・システムの数より多い場合、システムがバッファー不足になる可能性があります。 現在、 <span>j2_nBufferPerPagerDevice</span> チューナブル・パラメーターの値を増やすと、すべてのファイル・システムに適用されます。 <span>j2_nBufferPerPagerDevice</span> チューナブル・パラメーターを大きい値に設定すると、1 つのファイル・システムのみが残りのファイル・システムより大きいバッファー値を必要とする場合に、大量の固定メモリーが使用されます。 このような場合は、 <span>nBufferPerPagerDevice</span> マウント・オプションを使用して、ファイル・システムごとに JFS2 ファイル・システムのファイル・システム・バッファーを指定できます。</p>
+
+<p><span>ioo</span> コマンドの <span>j2_dynamicBufferPreallocation</span> チューニング・パラメーターをチューニングした後、 <span>vmstat -v</span> コマンドを実行します。 <span>vmstat -v</span> コマンドの実行後に表示される出力で、 <code>number of
+external pager filesystem I/Os blocked with no fsbuf</code> カウンターを確認します。 このカウンターの値が急速に増加し、増加し続ける場合は、 <span>nBufferPerPagerDevice</span> マウント・オプションを使用して、ファイル・システムごとに JFS2 のファイル・システム・バッファーの数を指定できます。 カーネルは、空きバッファーを待機する必要がある場合、入出力操作の開始前にプロセスを待機リストに入れ、バッファーが使用可能になるとプロセスをウェイクアップします。 ストライプ論理ボリュームまたはディスク・アレイを使用している場合は、 JFS2 ファイルシステムのバッファー数を増やすことを検討してください。</p>
+
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>noatime</span></dt>
+
+<dd>アクセス時間の更新をオフにします。 このオプションを使用すると、多数のファイルが頻繁に読み取られ、めったに更新されないファイル・システムのパフォーマンスを向上させることができます。 このオプションを使用した場合、ファイルの最終アクセス時刻は判別できません。 <span>atime</span> オプションも <span>noatime</span> オプションも指定しない場合、 <span>atime</span> オプションがデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>nocase</span></dt>
+
+<dd>大文字小文字のマッピングをオフにします。 このオプションは、 <code>ISO
+9660:1998/HSG</code> 標準を使用する CDROM に役立ちます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>nodev</span></dt>
+
+<dd>このマウントからデバイスをオープンできないように指定します。 このオプションは、失敗すると <span>ENXIO</span> の値を戻します。 <span>dev</span> オプションも <span>nodev</span> オプションも指定しない場合、 <span>dev</span> オプションがデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>noguard</span></dt>
+
+<dd>PowerHA® またはその他のクラスタリング環境でサポートされない同時マウントからファイル・システムを保護する現行の <code>mountguard</code> 設定に関係なく、ファイル・システムをマウントします。 <code>mountguard</code> が <span>chfs</span> または <span>crfs</span> コマンドによって使用可能に設定されている場合、ファイル・システムが別のノードまたはシステムにマウントされていると思われると、そのファイル・システムをマウントすることはできません。 <span>noguard</span> オプションを指定すると、 <code>mountguard</code> 設定が一時的にオーバーライドされます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>norbr</span></dt>
+
+<dd>読み取り時に後で解放する機能をもたないファイルシステムをマウントします。 release-behind オプションを指定しない場合、 <span>norbrw</span> がデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>norbrw</span></dt>
+
+<dd>読み取り時に後で解放する機能と書き込み時に後で解放する機能の両方をもたないファイルシステムをマウントします。 release-behind オプションを指定しない場合、 <span>norbrw</span> がデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>norbw</span></dt>
+
+<dd>書き込み時に後で解放する機能をもたないファイルシステムをマウントします。 release-behind オプションを指定しない場合、 <span>norbrw</span> がデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>nosuid</span></dt>
+
+<dd>このマウント方法による <span>setuid</span> と <span>setgid</span> プログラムの実行を許可しないように指定します。 このオプションは、失敗すると <span>EPERM</span> の値を戻します。 <span>suid</span> オプションも <span>nosuid</span> オプションも指定しない場合、 <span>suid</span> オプションがデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>rbr</span></dt>
+
+<dd>読み取り時解放機能を使用してファイル・システムをマウントします。 このファイル・システムでファイルの順次読み取りが検出されると、ファイルによって使用される実メモリー・ページは、ページが内部バッファーにコピーされると解放されます。 release-behind オプションが指定されていない場合は、 <span>norbrw</span> がデフォルトです。<div><div>
+        <div>
+          <div><span>注:</span> <span>rbr</span> を指定すると、 <span>pdtentry</span> 構造体の <span>_devflags</span> フィールドに <span>D_RB_READ</span> フラグが最終的に設定されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>rbw</span></dt>
+
+<dd>書き込み時に後で解放する機能を持つファイル・システムをマウントします。 このファイル・システムでファイルの順次書き込みが検出されると、ファイルによって使用される実メモリー・ページは、ページがディスクに書き込まれると解放されます。 release-behind オプションが指定されていない場合は、 <span>norbrw</span> がデフォルトです。<div><div>
+        <div>
+          <div><span>注:</span> <span>rbw</span> を指定すると、 <span>D_RB_WRITE</span> フラグが設定されます。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>rbrw</span></dt>
+
+<dd>release-behind-when-reading 機能と release-behind-when-writing 機能の両方を使用してファイル・システムをマウントします。 release-behind オプションが指定されていない場合は、 <span>norbrw</span> がデフォルトです。<div><div>
+        <div>
+          <div><span>注:</span> <span>rbrw</span> を指定すると、 <span>D_RB_READ</span> フラグと <span>D_RB_WRITE</span> フラグの両方が設定されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>remount</span></dt>
+
+<dd>マウントされているファイルシステムのマウント・オプションを変更します。 JFS2 ファイルシステムの場合、remount オプションと共に以下のマウント・オプションを指定すると、マウントされているファイルシステムの設定を変更できます。 指定されていないマウント・オプションについては、ファイルシステムの、それに対応する現行設定に変更は行われません。<p><span>atime</span>, <span>noatime</span>; <span>dev</span>, <span>nodev</span>; <span>logdev</span>; <span>maxpout</span>, <span>minpout</span>; <span>rbr</span>, <span>norbr</span>; <span>rbw</span>, <span>norbw</span>; <span>rbrw</span>, <span>norbrw</span>, <span>rw</span>, <span>ro</span>, <span>rox</span>; <span>suid</span>, <span>nosuid</span>.</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>外部スナップショット・マウント・ファイル・システムを読み取り/書き込みファイル・システムに再マウントすることはできません。</li>
+
+<li><span>rw</span> および <span>ro</span> 再マウント・オプションは、データ管理アプリケーション・プログラミング・インターフェース (DMAPI) によって管理されるファイル・システムでは使用できません。</li>
+
+<li><span>logdev</span> を指定する場合、新しいログ・デバイスは既存のログ・デバイスと同じボリューム・グループ内になければなりません。 <span>logdev</span> オプションを指定した場合、外部ログ・デバイスを内部ログ・デバイスに (またはその逆に) 変更することはできません。 その機能を使用するには、 <span>chfs</span> コマンドで <span>logshuffle</span> オプションを使用します。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+<div>NFS では、3 つのタイプのマウント要求があります。<dl>
+
+<dt><code>duplicate mount</code></dt>
+
+<dd><span>mount</span> コマンドに指定されているノード、オブジェクト、マウント・ポイント、およびオプションが既存のマウントと同じ場合、<span>mount</span> コマンドは正常なマウントに関する情報を戻しますが、新規マウントは作成されません。</dd>
+
+
+
+<dt><code>new mount</code></dt>
+
+<dd>remount オプションが指定されていない場合、<span>mount</span> コマンドは新規マウントを作成します。 <span>mount</span> コマンドに指定されているノード、オブジェクト、マウント・ポイント、および定数オプションが既存のマウントと異なる場合は、remount オプションが指定されないと、<span>mount</span> コマンドは失敗します。</dd>
+
+
+
+<dt><code>remount</code></dt>
+
+<dd>ノード、オブジェクト、およびマウント・ポイントが最上位のマウントと同じだが remount オプションが異なる場合、再マウント操作によって既存のマウントのマウント・オプションが変更されます。 この場合、NFS が再マウント操作を実行します。<p>最上位のマウントの上には別のマウントはありません。 再マウント要求で変更できるオプションは次のとおりです。<span>acdirmax</span>、<span>acdirmin</span>、<span>acregmax</span>、<span>acregmin</span>、<span>actimeo</span>、<span>fastattr</span>、<span>grpid</span>、<span>hard</span>、<span>intr</span>、<span>noac</span>、<span>nocto</span>、<span>nodev</span>、<span>nointr</span>、<span>nosuid</span>、<span>posix</span>、<span>retrans</span>、<span>ro</span>、<span>rsize</span>、<span>rw</span>、<span>secure</span>、<span>sec</span>、<span>soft</span>、<span>timeo</span>、<span>wsize</span>、<span>biods</span>、<span>extraattr</span>、<span>nodircache</span>、<span>prefer</span>、<span>otwattr</span>、<span>maxgroups</span>、および <span>proto</span>。 その他のオプションは、定数オプションに分類されます。</p>
+</dd>
+
+
+</dl>
+</div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>ro</span></dt>
+
+<dd>マウントされたファイルが読み取り専用であることを指定します。これは、 <span>/etc/filesystems</span> ファイル内の以前のオプション指定、または以前のコマンド行オプションには関係ありません。 デフォルト値は <span>rw</span> です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>rw</span></dt>
+
+<dd>マウントされたファイルが、 <span>/etc/filesystems</span> ファイル内の以前のオプション指定または以前のコマンド行オプションに関係なく、読み取り/書き込みアクセス可能であることを指定します。 デフォルト値は <span>rw</span> です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>snapshot</span></dt>
+
+<dd>マウントされる device がスナップショットであることを指定します。 指定されたスナップショットのスナップ・ファイル・システムが既にマウントされている必要があります。そうでない場合は、エラー・メッセージが表示されます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>snapto</span>=スナップショット</dt>
+
+<dd>指定された JFS2 ファイルシステムをマウントする際のスナップショットの開始位置を snapshot の値で指定します。 snapshot パラメーターは、 snapshot パラメーターにスラッシュ (<code>/</code>) が含まれていない場合、つまりパス情報が含まれていない場合に、内部スナップショットの名前を指定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>suid</span></dt>
+
+<dd>このマウント方法による <span>setuid</span> と <span>setgid</span> プログラムの実行を許可するように指定します。 <span>suid</span> オプションも <span>nosuid</span> オプションも指定しない場合、 <span>suid</span> オプションがデフォルト値になります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>upcase</span></dt>
+
+<dd>大文字小文字のマッピングをデフォルトの小文字から大文字に変更します。 このオプションは、 <code>ISO 9660:1998/HSG</code> 標準を使用する CDROM に役立ちます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>uid</span>=UID</dt>
+
+<dd>マウントされているファイルに割り当てられている UID を指定します。デフォルトは bin です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>wrkgrp</span>=ワークグループ</dt>
+
+<dd>SMB サーバーが属しているワークグループを指定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>NFS 固有のオプション</dt>
+
+<dd><div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span>  Options</td>
+
+<td>オプションを指定します。 コマンド・ラインに入力するオプションは、スペースを入れずにコンマのみで区切る必要があります。 次の NFS 固有のオプションは、すべての仮想ファイルシステムのタイプに有効なわけではありません。<dl>
+
+<dt><span>acdirmax=</span>N</dt>
+
+<dd>キャッシュされた属性をディレクトリー更新後、最大 n 秒間は保持します。 デフォルトは 60 秒に設定されています。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acdirmin=</span>N</dt>
+
+<dd>キャッシュされた属性をディレクトリー更新後、最小 n 秒間は保持します。 デフォルトは 30 秒に設定されています。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acl</span></dt>
+
+<dd>この NFS マウントに対してアクセス制御リスト RPC プログラムを使用することによる要求。 <span>acl</span> オプションを使用すると、NFS サーバーが ACL RPC プログラムを提供している場合にのみ、そのプログラムが使用されます。 デフォルトは <span>noacl</span>です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acregmax=</span>N</dt>
+
+<dd>キャッシュされた属性をファイル修正後、最大 n 秒間は保持します。 デフォルトは 60 秒に設定されています。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acregmin=</span>N</dt>
+
+<dd>キャッシュされた属性をファイル修正後、最小 n 秒間は保持します。 デフォルトは 30 秒に設定されています。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>actimeo=</span>N</dt>
+
+<dd>正規ファイルとディレクトリーの最小時間と最大時間を n 秒に設定します。 このオプションを設定すると、<span>acregmin</span>、<span>acregmax</span>、<span>acdirmin</span> および <span>acdirmax</span> オプションのどの設定値も上書きします。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>bg</span></dt>
+
+<dd>最初の試行が失敗した場合は、バックグラウンドでマウントを試行します。 デフォルト値は<span>fg</span>です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>biods=</span><span><span>n</span></span></dt>
+
+<dd>NFS マウントに対して非同期入出力 RPC 要求を実行する <span>biod</span> スレッドの最大数を設定します。 設定できる最大値は <code>128</code> です。 128 より大きい値は、NFS クライアントでは 128 に制限されます。 NFS クライアントは、実行中の <span>biod</span> スレッドの数を、アクティビティーに基づいて最大数まで動的に管理します。 NFS プロトコルのデフォルトの最大値は、NFS バージョン 2 では <code>7</code>、NFS バージョン 3 およびバージョン 4 では <code>32</code> です。 これらのデフォルト値は、今後のリリースで変更される可能性があります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>cio</span></dt>
+
+<dd>並行リーダーおよびライターにマウントされるファイルシステムを指定します。 このファイル・システム内のファイルに対する入出力は、 <span>open()</span> システム・コールで指定された <span>O_CIO</span> を使用してオープンされたかのように動作します。 このオプションを使用すると、CIO 以外の方法でアクセスできなくなります。 <span>cio</span> オプションを使用してマウントされたファイル・システムでは、キャッシュ入出力を使用することはできません。 <span>mmap()</span> および <span>shmat()</span> などのマッピング・コマンドは、 <span>cio</span> オプションを指定してマウントされたファイル・システム内のいずれかのファイルで使用されると、EINVAL で失敗します。 この副次作用の 1 つは、ローダーが <span>mmap()</span>を使用する可能性があるため、 <span>cio</span> マウント・ファイル・システムからバイナリーを実行できないことです。<div><div>
+        <div>
+          <div><span>注:</span> <span>cio</span> オプションを使用してファイル・システムをマウントする場合、すべてのアプリケーションがファイルのシリアライゼーションを管理する必要があります。 クォータには独自のシリアライゼーション・コードがあるため、クォータは <span>cio</span> オプションではサポートされません。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>cior</span></dt>
+
+<dd>ファイルシステムで読み取り専用ファイルがオープンするのを許可するよう指定します。 このファイル・システム内のファイルに対する入出力は、 <span>open()</span> システム・コールで指定された <span>O_CIO | O_CIOR</span> を使用してオープンされたかのように動作します。 このオプションを使用すると、 <span>O_CIO | O_CIOR</span> および読み取り専用以外の方法でアクセスできなくなります。 <span>O_CIO</span> でのみ開こうとしても失敗します。 このオプションは、 <span>cio</span>と一緒にのみ使用できます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>dio</span></dt>
+
+<dd>ファイル・システム上の入出力が、 <span>open()</span> システム・コールで指定された <span>O_DIRECT</span> を使用してすべてのファイルがオープンされたかのように動作することを指定します。<div><div>
+        <div>
+          <div><span>注:</span> <span>-odio</span> フラグまたは <span>-ocio</span> フラグを使用すると、特定のワークロードでパフォーマンスを向上させることができますが、これらのフラグを使用すると、これらのファイル・システムのファイル・キャッシングが妨げられることに注意する必要があります。 これらのファイル・システムでは先読みが使用不可になっているため、大規模順次読み取りのパフォーマンスが低下する可能性があります。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>fastattr</span></dt>
+
+<dd>このオプションは、ファイルの属性が読み取られる前に、現在サーバーに書き込まれているファイルが送信されるという要件をバイパスします。 このオプションを使用すると、クライアントは、まだサーバーに到達していないファイル・データが問題なく書き込まれると想定するため、注意して使用する必要があります。 書き込みエラーがある場合、クライアントとサーバーは、ファイルの実際のサイズについて異なる意見を持っています。 同様に、クライアントは、別のクライアントによってファイルに加えられた属性の変更を認識しないため、2 つのクライアントが同じファイルに書き込みを行う環境では、このオプションを使用しないでください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>fg</span></dt>
+
+<dd>最初の試行が失敗すると、フォアグラウンドでマウントが試行されます。 デフォルト値は <span>fg</span> です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>grpid</span></dt>
+
+<dd>ファイル・システム上に作成されるすべてのファイルまたはディレクトリーに、親ディレクトリーのグループ ID を継承するように指示します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>hard</span></dt>
+
+<dd>サーバーが応答するまで要求を再試行します。 このオプションはデフォルト値です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>intr</span></dt>
+
+<dd>このオプションを使用すると、ハード・マウントでキーボード割り込みを行うことができます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>llock</span></dt>
+
+<dd>ファイルがローカルの NFS クライアントでロックするよう要求します。 <span>llock</span> オプションを使用すると、NFS ネットワーク・ファイルのロック要求は NFS サーバーに送られません。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>maxgroups=</span>N</dt>
+
+<dd>このオプションは、 <span>AUTH_UNIX</span> を使用した NFS RPC 呼び出しに、最大 n 個の情報メンバー・グループが含まれる可能性があることを示します。 このオプションを使用して、RPC プロトコル標準の 16 を超えるメンバー・グループの数を増やすことは、16 を超えるメンバー・グループをサポートするサーバーに対してのみ機能します。 そうしないと、クライアントでエラーが発生します。<p>16 より小さい値または 64 より大きい値は無視されます。 デフォルトでは、プロトコル規格で最大の 16 が順守されています。 <span>AIX</span>'NFSサーバーは、'<span>AIX「5Lバージョン「5.25200-01推奨メンテナンスパッケージ付き</span> で始まる最大 64 のグループを持つ '<span>AUTH_UNIX</span>クレデンシャルを受け入れ、処理する。 NFS クライアントによって送信されるメンバー・グループの実際の数は、関係するユーザーがメンバーであるグループの数によって異なり、 NFS クライアントのホスト名 ( <span>AUTH_UNIX</span> 情報に含まれています) の長さによって制限される場合があります。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>noac</span></dt>
+
+<dd><span>mount</span> コマンドが属性またはディレクトリーのキャッシュを実行しないように指定します。 このオプションを指定しなければ、配線上で <span>NFSPROC_GETATTR</span> リモート・プロシージャー・コール (RPC) を実行しなくてもすむように、ファイルとディレクトリーの属性 (許可、サイズ、タイム・スタンプを含む) がキャッシュされます。 <span>NFSPROC_GETATTR</span> RPC により、クライアントはサーバーに対して、ファイルとディレクトリーの属性を求めてプロンプトできるようになります。 <span>acregmin</span>、<span>acregmax</span>、<span>acdirmin</span> および <span>acdirmax</span> オプションは、キャッシュされた値が保持される期間を制御します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>noacl</span></dt>
+
+<dd>この NFS マウント要求に AIX Access Control List RPC プログラムを使用しないように指定します。 デフォルトは <span>noacl</span>です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>nointr</span></dt>
+
+<dd>ハード・マウントでのキーボード割り込みをさせないように指定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>port=</span>N</dt>
+
+<dd>サーバーのインターネット・プロトコル (IP) のポート番号を n に設定します。 デフォルト値は 2049 です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>posix</span></dt>
+
+<dd><code>pathconf</code> 情報が交換され、 NFS バージョン 2 マウントで使用可能になることを要求します。 NFS サーバーでマウント・バージョン 2 <span>rpc.mountd</span> が必要です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>proto=[udp|tcp]</span></dt>
+
+<dd>トランスポート・プロトコルを指定します。 デフォルトは <span>tcp</span>です。 <span>proto=[udp|tcp]</span> オプションを使用して、
+デフォルトを指定変更します。<p><span>vers=4</span>の場合、 <span>proto=udp</span> は指定できません。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>retrans=</span>N</dt>
+
+<dd>NFS 送信回数を n に設定します。 デフォルト値は 5 です。 <span>retrans</span> 設定は、 NFS クライアントが指定の UDP RPC 要求をファイル・システム操作のために NFS サーバーに再送する回数を決定します。 <span>retrans</span> 設定は、 NFS バージョン 2 および 3 のマウントを処理する場合、 NFS サーバー <span>rpc.mountd</span> ・サービスとの通信中には使用されません。 <span>rpc.mountd</span> への再試行は、 <span>retry</span> マウント・オプションによって制御されます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>retry=</span>N</dt>
+
+<dd>マウント試行回数を n に設定します。デフォルト値は 1000 です。 再試行回数値が 0 であれば、システムは 10,000 回再試行します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>rsize=</span>N</dt>
+
+<dd>読み取りバッファー・サイズを n バイトに設定します。 <span>AIX バージョン 6.1</span>以降では、 NFS プロトコルのバージョン 3 およびバージョン 4 を使用する場合、デフォルト値は 64 KB、最大値は 512 KB です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>secure</span></dt>
+
+<dd><span>mount</span> コマンドが NFS トランザクションにデータ暗号化規格 (DES) を使用するように指定します。 Data Encryption Standard (DES) は NFS バージョン 4 ではサポートされていません。代わりに krb5 を使用してください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td>  </td>
+
+<td><dl>
+
+<dt><span>sec</span>=フレーバー[:フレーバー...]</dt>
+
+<dd>マウント・ポイント下のファイルにアクセスするために使用できるセキュリティー・メソッドのリストを指定します。 許容されるフレーバー値は次のとおりです。<dl>
+
+<dt><span>SYS</span></dt>
+
+<dd><span>UNIX</span>認証。 この値はデフォルトのメソッドです。</dd>
+
+
+
+<dt><span>dh</span></dt>
+
+<dd>DES 認証。 Data Encryption Standard (DES) は NFS バージョン 4 ではサポートされていません。代わりに <span>krb5</span> を使用してください。</dd>
+
+
+
+<dt><span>krb5</span></dt>
+
+<dd>Kerberos. 認証専用。</dd>
+
+
+
+<dt><span>krb5i</span></dt>
+
+<dd>Kerberos. 認証と保全性。</dd>
+
+
+
+<dt><span>krb5p</span></dt>
+
+<dd>Kerberos. 認証、保全性、およびプライバシー。<p><span>secure</span> オプションは指定できますが、 <span>sec</span> オプションと一緒に指定することはできません。 <span>secure</span> オプションは非推奨になっており、将来のリリースで除去される可能性があります。 代わりに <span>sec=dh</span> を使用してください。</p>
+</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>sec</span>=[flavor1:...:flavorn]</dt>
+
+<dd><span>sec</span> オプションは、NFS マウント用のセキュリティー・フレーバー・リストを指定します。 使用可能なフレーバーは、 <span>des</span>、 <span>unix</span>、 <span>sys</span>、 <span>krb5</span>、 <span>krb5i</span>、および <span>krb5p</span>です。 このオプションは、 <span>AIX 5.3</span> 以降に適用されます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>shortdev</span></dt>
+
+<dd>32 ビット・デバイス・スペシャル・ファイルをサポートしないホストから、ファイルシステムをマウントすることを指定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>soft</span></dt>
+
+<dd>サーバーが応答しない場合、このオプションはエラーを返します。 デフォルト値は<span>hard</span>です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>timeo=</span>N</dt>
+
+<dd>ネットワーク・ファイルシステム (NFS) のタイムアウト期間を、10 分の n 秒に設定します。 TCP マウントの場合、
+デフォルトのタイムアウトは 100 (10 秒) です。 UDP マウントの場合、デフォルトのタイムアウトは 11 ( 1.1 秒) ですが、実行される NFS 操作によって異なります。 UDP マウントの場合、送信が失敗するたびにタイムアウトが増加し、最大値は 20 秒になります。 各伝送は 2 回試行され、その後でタイムアウト値が更新されます。 <span>timeo</span> オプションは、 NFS クライアントから NFS サーバー上の <span>rpc.mountd</span> サービスへの通信には適用されません。 <span>rpc.mountd</span>への呼び出し時には、30 秒のタイムアウトが使用されます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>vers=[2|3|4]</span></dt>
+
+<dd>NFS バージョンを指定します。 デフォルトは、クライアントとサーバーの間で使用される NFS プロトコルのバージョンで、両方のシステムで使用可能な最も高いバージョンです。 NFS サーバーが NFS バージョン 3 をサポートしない場合、 NFS マウントは NFS バージョン 2 を使用します。 NFS バージョンを選択するには、 <span>vers=[2|3|4]</span> オプションを使用します。 デフォルトでは、 NFS マウントは、指定されていない限り、 NFS バージョン 4 を使用しません。 <span>vers=4</span> は、 <span>AIX 5.3</span> 以降に適用されます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>wsize=</span>N</dt>
+
+<dd>書き込みバッファー・サイズを n バイトに設定します。 <span>AIX バージョン 6.1</span>以降では、 NFS プロトコルのバージョン 3 およびバージョン 4 を使用する場合、デフォルト値は 64 KB、最大値は 512 KB です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>CacheFS 固有のオプション</dt>
+
+<dd><p>CacheFS 固有のバージョンの <span>mount</span> コマンドでは、キャッシュ・ファイルシステムをマウントします。必要な場合は、このコマンドはそのバック・ファイルシステムを NFS マウントします。 また、キャッシュ・プロセスを制御するためのCacheFS-specificのオプションもいくつか用意されています。</p>
+
+<p>CacheFS ファイルシステムをマウントするには、 <span>-V</span> フラグの後に引数を付けて <span>mount</span> コマンドを使用します。 <span>mount</span> のフラグとして、以下を使用できます。</p>
+
+<div><span>-o</span> フラグに対する次の引数は、CacheFS マウント用の特別な引数です。 コマンド・ラインに入力するオプションは、スペースを入れずにコンマのみで区切る必要があります。<div><div>
+        <div>
+          <div><span>注:</span> <span>backfstype</span> 引数を指定する必要があります。</div>
+        </div>
+      </div></div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span></td>
+
+<td>オプションを指定します。<dl>
+
+<dt><span>acdirmax=</span>N</dt>
+
+<dd>ディレクトリー更新後、キャッシュされた属性が保持される時間が n 秒を超えないことを指定します。 n 秒前に、 CacheFS はバック・ファイルシステム上のディレクトリー変更時刻が変更されたかどうかを検査します。 バック・ファイル・システム上のディレクトリー変更時刻が変更されると、ディレクトリーに関するすべての情報がキャッシュからパージされ、新しいデータがバック・ファイル・システムから取得されます。 デフォルト値は 60 秒です。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acdirmin=</span>N</dt>
+
+<dd>キャッシュされた属性が、ディレクトリー更新後に、保持される最小秒数 (n) を指定します。 n 秒後に、 CacheFS はバック・ファイルシステム上のディレクトリー変更時刻が変更されたかどうかを検査します。 バック・ファイル・システム上のディレクトリー変更時刻が変更されると、ディレクトリーに関するすべての情報がキャッシュからパージされ、新しいデータがバック・ファイル・システムから取得されます。 デフォルト値は 30 秒です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acregmax=</span>N</dt>
+
+<dd>キャッシュされた属性が、ファイル修正後に、保持される最大秒数 n を指定します。 n 秒後に、すべてのファイル情報がキャッシュから除去されます。 デフォルト値は 30 秒です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>acregmin=</span>N</dt>
+
+<dd>キャッシュされた属性が、ファイル修正後に、保持される最小秒数 (n) を指定します。 n 秒後に、 CacheFS はバック・ファイルシステム上のファイル変更時刻が変更されたかどうかを検査します。 バック・ファイル・システム上のファイル変更時刻が変更されると、ファイルに関するすべての情報がキャッシュからパージされ、バック・ファイル・システムから新規データが取得されます。 デフォルト値は 30 秒です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>actimeo=</span>N</dt>
+
+<dd><span>acregmin</span>、<span>acregmax</span>、<span>acdirmin</span>、および <span>acdirmax</span> を n に設定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>backfstype=</span>file_system_type
+</dt>
+
+<dd>バック・ファイルシステムのファイルシステム・タイプ (例えば、nfs)。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>backpath=</span>パス</dt>
+
+<dd>バック・ファイルシステムが既にマウントされている場所を指定します。 この引数を指定しないと、CacheFS がバック・ファイルシステムのマウント・ポイントを決定します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>cachedir=</span>directory
+</dt>
+
+<dd>キャッシュ・ディレクトリーの名前。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>cacheid=</span>身分証明書</dt>
+
+<dd>ID は、キャッシュのインスタンスを指定するストリングです。 キャッシュ ID を指定しない場合、 CacheFS がキャッシュ ID を構成します。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>demandconst</span></dt>
+
+<dd>最大のキャッシュ整合性検査を使用可能にします。 デフォルトでは、定期的な整合性検査が使用可能になっています。 <span>demandconst</span> を
+使用可能にすると、すべての読み取りおよび書き込みごとに検査を行います。<div><div>
+        <div>
+          <div><span>注:</span> 特定の CacheFS を初めてマウントするときにこのオプションを使用する場合は、後続のマウントにもこのオプションを指定する必要があります。 このオプションの一貫性のある使用を強制する状態情報が、キャッシュ制御ファイルに保管されています。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>local_access</span></dt>
+
+<dd>このオプションを指定すると、フロント・ファイル・システムは、代わりにアクセス検査に使用されるモード・ビットを解釈するか、バック・ファイル・システムにアクセス許可を検査させます。 この引数をセキュア NFS と共に使用しないでください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>noconst</span></dt>
+
+<dd>キャッシュの整合性検査を使用不可にします。 デフォルトでは、定期的な整合性検査が使用可能になっています。 <span>noconst</span> は、バック・ファイル・システムが変更されていないことが分かっている場合にのみ指定してください。 <span>cfsadmin-s</span> を使用してキャッシュ整合性検査を実行しようとすると、エラーになります。 <span>demandconst</span> と <span>noconst</span> は同時には使用できません。<div><div>
+        <div>
+          <div><span>注:</span> 特定の CacheFS を初めてマウントするときにこのオプションを使用する場合は、後続のマウントにもこのオプションを指定する必要があります。 このオプションの一貫性のある使用を強制する状態情報が、キャッシュ制御ファイルに保管されています。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>purge</span></dt>
+
+<dd>指定したファイルシステムのキャッシュ情報をすべて除去します。<div><div>
+        <div>
+          <div><span>注:</span> 特定の CacheFS を初めてマウントするときにこのオプションを使用する場合は、後続のマウントにもこのオプションを指定する必要があります。 このオプションの一貫性のある使用を強制する状態情報が、キャッシュ制御ファイルに保管されています。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>rw | ro</span></dt>
+
+<dd><code>Read-write</code> (デフォルト) または <code>read-only</code>。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>suid | nosuid</span></dt>
+
+<dd>set-uid の実行を許可 (デフォルト) または不許可にします。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+
+<td><dl>
+
+<dt><span>write-around | non-shared</span></dt>
+
+<dd>CacheFS の書き込みモード。 <span>write-around</span> モード (デフォルト) は、 NFS と同じように書き込みを処理します。 バック・ファイル・システムへの書き込みが行われ、影響を受けたファイルがキャッシュからパージされます。 キャッシュ・ファイル・システムに書き込みを行っているユーザーが他にいないことが確実な場合は、 <span>non-shared</span> モードを使用できます。<div><div>
+        <div>
+          <div><span>注:</span> 特定の CacheFS を初めてマウントするときにこのオプションを使用する場合は、後続のマウントにもこのオプションを指定する必要があります。 このオプションの一貫性のある使用を強制する状態情報が、キャッシュ制御ファイルに保管されています。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt><span>mfsid</span></dt>
+
+<dd>グローバル表示をオンにします。 NFS v4 システムでは、サーバー・サイドでエクスポートされた名前空間をトラバースできます。 ファイルシステムを詳しく調べるには、このオプションを指定する必要があります。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>制約事項:</span> CacheFS のバックエンド・ファイルシステムが NFS v4の場合、 <span>mfsid</span> はオプションです。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span></td>
+
+<td>CacheFS ファイルシステムをマウントします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</dd>
+
+
+
+<dt>Server Message Block (SMB) クライアント・ファイルシステム固有のオプション</dt>
+
+<dd><div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span>  Options</td>
+
+<td>SMB クライアント・ファイルシステムをマウントするためのオプションを指定します。 コマンド・ラインに入力するオプションは、コンマのみで区切ってください。 コンマの前後にスペースを入れないでください。 以下のオプションが SMB クライアント・ファイルシステムに使用できます。<dl>
+
+<dt><span>fmode</span></dt>
+
+<dd>ファイルまたはディレクトリーを、アクセス権用の 8 進モードに設定します。 デフォルト値は 755 です。</dd>
+
+
+
+<dt><span>uid</span></dt>
+
+<dd>マウント操作中にユーザー ID をファイルに割り当てます。 デフォルト値は<code>root</code>です。</dd>
+
+
+
+<dt><span>gid</span></dt>
+
+<dd>マウント操作中にグループ ID をファイルに割り当てます。 デフォルト値は<code>system</code>です。</dd>
+
+
+
+<dt><span>wrkgrp</span></dt>
+
+<dd>SMB サーバーが属しているワークグループを指定します。 このパラメーターは、SMB クライアント・ファイルシステムをマウントするために必須です。</dd>
+
+
+
+<dt><span>port</span></dt>
+
+<dd>ポート番号を指定します。 有効な値は 445 と 139 です。 デフォルト値は 445 です。 ポート 139 は、指定したサーバー・アドレスが IPv4 形式の場合にのみサポートされます。<div><div>
+        <div>
+          <div><span>注:</span> <span>encryption</span> オプションは、指定されたポートが 139 の場合はサポートされません。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt><span>pver</span></dt>
+
+<dd>SMB サーバーとの通信に使用される SMB プロトコルのバージョンが指定されます。 有効な値は <code>2.1,3.0.2</code> と <code>auto</code> です。 値が <code>auto</code> の場合、指定した SMB サーバーに基づいて、SMB プロトコル・バージョン <code>2.1</code> またはバージョン <code>3.0.2</code> が使用されます。</dd>
+
+
+
+<dt><span>signing</span></dt>
+
+<dd>SMB クライアントのファイルシステムが SMB サーバー・ファイルシステムとの通信にデジタル署名を必要とするかどうかを指定します。 有効な値は <code>enabled</code> と <code>required</code> です。 このパラメーターを <code>enabled</code> に設定すると、SMB クライアント内のファイルシステムは、SMB サーバー内のファイルシステムが SMB サーバー内のファイルシステムとの通信にデジタル署名を必要としない限り、データ・パケットにデジタルに署名しません。 このパラメーターが <code>required</code>に設定されている場合、SMB クライアントのファイルシステムは、SMB サーバーのファイルシステムとの通信のためにデータ・パケットにデジタル署名する必要があります。 <span>mount</span> コマンドを使用して <span>signing</span> パラメーターの値を指定しない場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/smbctune.html" target="_blank" rel="noopener noreferrer"><span>smbctune</span></a> コマンドを使用して設定されたカーネルのチューナブル・パラメーター値からデフォルト値が使用されます。</dd>
+
+
+
+<dt><span>secure_negotiate</span></dt>
+
+<dd>SMB クライアントのファイルシステムがセキュア・ダイアレクト・ネゴシエーション機能を必要とするかどうかを指定します。 SMB Dialect 3.0.2 は、セキュリティー低下攻撃に対して保護するためにセキュア・ダイアレクト・ネゴシエーションを実装します。 有効な値は、<code>desired</code>、<code>required</code>、および <code>disabled</code> です。 <span>mount</span> コマンドを使用して値を指定しない場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/smbctune.html" target="_blank" rel="noopener noreferrer"><span>smbctune</span></a> コマンドを使用して設定されたカーネルのチューナブル・パラメーター値からデフォルト値が使用されます。</dd>
+
+
+
+<dt><span>encryption</span></dt>
+
+<dd>SMB クライアント内のファイルシステムが、データ暗号化を必要とするかどうかを指定します。 有効な値は、<code>desired</code>、<code>required</code>、および <code>disabled</code> です。 <span>mount</span> コマンドを使用して値を指定しない場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/smbctune.html" target="_blank" rel="noopener noreferrer"><span>smbctune</span></a> コマンドを使用して設定されたカーネルのチューナブル・パラメーター値からデフォルト値が使用されます。<div><div>
+        <div>
+          <div><span>注:</span> <code>encryption</code> オプションは、指定されたポートが 139 の場合はサポートされません。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> Options (続き)</td>
+
+<td><dl>
+
+<dt><span>spn</span></dt>
+
+<dd>SMB クライアントのマウント・ポイントで使用する必要がある <a href="https://www.ibm.com/links?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fwindows%2Fwin32%2Fad%2Fservice-principal-names" target="_blank" rel="noopener noreferrer">サービス・プリンシパル名</a> (SPN) を指定します。 <span>spn</span> パラメーターの形式は <span>cifs/&lt;smbServerHostName&gt;</span>です。ここで、 <span>smbServerHostName</span> は、SMB サーバーの完全修飾ドメイン名 (FQDN)、または Kerberos が SMB サーバーとして解決する名前です。 デフォルトでは、SPN は SMB クライアント・ファイルシステムによって <span>cifs/&lt;smbServerHostName&gt;</span>として自動的に構成されます。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><span>mount</span> コマンドで使用されるオプション (<code>pver, signing,
+secure_negotiate, or encryption</code>) が <span>-o</span> フラグを使用して指定されていない場合、 <span>mount</span> コマンド・オプションのデフォルト値は、カーネル・チューナブル・パラメーターの新しい値 (<code>smbc_protocol_version, smbc_signing,
+smbc_secure_negotiate, smbc_encryption</code>) を使用して初期化されます。 カーネル・チューナブル・パラメーターは、 <span>smbctune.conf</span> ファイルに定義されているチューナブル・パラメーターから初期化されます。 これらのパネルは、<span>smbctune</span> コマンドを使用して変更することもできます。</p>
+
+<div>下表に、<span>mount</span> コマンドのカーネル・チューナブル・パラメーターと、<span>smbctune.conf</span> ファイルで設定可能な、対応するカーネル・チューナブル・パラメーターを示します。<div><div><table><thead>
+<tr>
+<th><div><span>-o</span> フラグのオプション (mount コマンド)</div></th>
+
+<th><div><span>smbctune.con</span> ファイルの対応するカーネル・チューナブル・パラメーター</div></th>
+
+<th><div>有効値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>pver</span></td>
+
+<td><span>smbc_protocol_version</span></td>
+
+<td><code>2.1, 3.0.2, auto</code></td>
+
+</tr>
+
+<tr>
+<td><span>signing</span></td>
+
+<td><span>smbc_signing</span></td>
+
+<td><code>enabled, required</code></td>
+
+</tr>
+
+<tr>
+<td><span>secure_negotiate</span></td>
+
+<td><span>smbc_secure_negotiate</span></td>
+
+<td><code>desired, required, disabled</code></td>
+
+</tr>
+
+<tr>
+<td><span>encryption</span></td>
+
+<td><span>smbc_encryption</span></td>
+
+<td><code>desired, required, disabled</code></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><div>マウントされているファイルシステムをリストするには、次のコマンドを入力します。<div><div><pre><code>mount</code></pre></div><div></div></div>このコマンドにより、以下の出力のような出力が生成されます。<div><div><pre><code>node   mounted          mounted over  vfs    date              options   
+----   -------          ------------ ---  ------------   -------------------
+       /dev/hd0         /            jfs   Dec 17 08:04   rw, log  =/dev/hd8
+       /dev/hd3         /tmp         jfs   Dec 17 08:04   rw, log  =/dev/hd8
+       /dev/hd1         /home        jfs   Dec 17 08:06   rw, log  =/dev/hd8
+       /dev/hd2         /usr         jfs   Dec 17 08:06   rw, log  =/dev/hd8
+sue    /home/local/src  /usr/code    nfs   Dec 17 08:06   ro, log  =/dev/hd8</code></pre></div><div></div></div></div>
+
+<p><span>mount</span> コマンドは、ファイルシステムごとに、ノード名、デバイス名、マウント時のファイル名、仮想ファイルシステム・タイプ、マウントされた日時、およびオプションをリストします。</p>
+
+</li>
+
+<li><div>デフォルトのファイルシステムをすべてマウントするには、次のコマンドを入力します。<div><div><pre><code>mount all</code></pre></div><div></div></div></div>
+
+<p>このコマンド・シーケンスは、 <span>mount=true</span> 属性によってマークされた <span>/etc/filesystems</span> ファイル内のすべての標準ファイル・システムをマウントします。</p>
+
+</li>
+
+<li><div>リモート・ディレクトリーをマウントするには、次のコマンドを入力します。<div><div><pre><code>mount -n nodeA /home/tom.remote /home/tom.local</code></pre></div><div></div></div></div>
+
+<p>このコマンド・シーケンスは、 <code>nodeA</code> 上にある <span>/home/tom.remote</span> ディレクトリーをローカル <span>/home/tom.remote</span> ディレクトリーにマウントします。 この例では、デフォルトの VfsName パラメーター =<span>remote</span> が設定されていると想定されます。このパラメーターは <span>/etc/vfs</span> ファイル内に定義されていなければなりません。</p>
+
+</li>
+
+<li><div>特定のタイプのファイルまたはディレクトリーを <span>/etc/filesystems</span> ファイルからマウントするには、次のコマンドを入力します。<div><div><pre><code>mount -t remote</code></pre></div><div></div></div></div>
+
+<p>このコマンド・シーケンスは、 <span>type=remote</span> 属性を含むスタンザを持つ <span>/etc/filesystems</span> ファイル内のすべてのファイルまたはディレクトリーをマウントします。</p>
+
+</li>
+
+<li><div><span>/usr/abc</span> に既にNFSているファイル・システムをCacheFS-mountするには、以下のコマンドを入力します：<div><div><pre><code>mount -V cachefs -o backfstype=nfs,backpath=/usr/abc,
+cachedir=/cache1 server1:/user2 /xyz</code></pre></div><div></div></div></div>
+
+<div>mount コマンドの実行後に以下のような行が <span>/etc/mnttab</span> ファイルに表示されます。<div><div><pre><code>server1:/user2 /usr/abc nfs
+/usr/abc /cache1/xyz cachefs backfstype=nfs</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>スナップショットをマウントするには、次のコマンドを入力します。<div><div><pre><code>mount -o snapshot /dev/snapsb /home/janet/snapsb</code></pre></div><div></div></div></div>
+
+<p>このコマンドは、 <span>/dev/snapsb</span> デバイスに含まれているスナップショットを <span>/home/janet/snapsb</span> ディレクトリーにマウントします。</p>
+
+</li>
+
+<li><div>ファイルシステムをマウントし、スナップショットを作成するには、次のコマンドを入力します。<div><div><pre><code>mount -o snapto=/dev/snapsb /dev/sb /home/janet/sb</code></pre></div><div></div></div></div>
+
+<p>このコマンドは、 <span>/dev/sb</span> デバイスに含まれているファイル・システムを <span>/home/janet/sb</span> ディレクトリーにマウントし、そのファイル・システムのスナップショットを <span>/dev/snapsb</span> デバイス上に作成します。</p>
+
+</li>
+
+<li><div>ローカル・ファイルシステムとして SMB サーバー上のファイルにアクセスするには、次のコマンドを入力します。<div><div><pre><code>mount -v cifs -n pezman/user1/pass1 -o uid=201,fmode=750 /home /mnt</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>SMB クライアント・ファイルシステムをローカル・マウント・ポイントとしてマウントするには、次のコマンドを入力します。<div><div><pre><code>mount -v smbc -n llm140.xyz.com/cec102usr1/Passw0rd     \
+-o wrkgrp=SMB_21.FVT,port=445,signing=required /some_share /mnt</code></pre></div><div></div></div></div>
+
+<p>ここで、「<code>llm140.xyz.com</code>」はWindowsサーバー、「<code>cec102usr1</code>」はKerberosユーザー名、「<code>Passw0rd</code>」はKerberosユーザーのパスワード、「<code>SMB_21.FVT</code>」はワークグループ、「<code>some_share</code>」はWindowsシステム上の共有ポイント、「<code>/mnt</code>」はローカルマウントポイントである。</p>
+
+</li>
+
+<li><div>マウントされた読み取り専用 JFS2 ファイルシステムを読み取り/書き込みファイルシステムに再マウントするには、次のコマンドを入力します。<div><div><pre><code>mount -o remount,rw fsname</code></pre></div><div></div></div></div>
+
+</li>
+
+<li><div>代替ファイルシステムのファイル <span>/tmp/fs1</span> にすべてをマウントするには、次のコマンドを入力します。<div><div><pre><code>mount -F /tmp/fs1 all</code></pre></div><div></div></div></div>
+
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/filesystems</span></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/vfs</span></td>
+
+<td>仮想ファイルシステム・タイプの説明が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

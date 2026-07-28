@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>センサーまたはマイクロセンサーを Resource Monitoring and Control (RMC) サブシステムから除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>rmsensor</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_m" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_a" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_n" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> <span><span>host1</span></span>[<span><span>,</span></span><span><span>host2</span></span>...] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_bign" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> { <em>node_file</em> | "<em>-</em>"}] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_h" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_v" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmsensor.html#rmsensor__rmsensor_v" target="_blank" rel="noopener noreferrer"><span><span>-V</span></span></a>] <span><span>sensor_name1</span></span> [<span><span>sensor_name2</span></span>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmsensor</strong> コマンドは、 <strong>IBM®.Sensor</strong> リソース・クラスから 1 つ以上のセンサーを削除するか、 <strong>IBM.MicroSensor</strong> リソース・クラス。 マイクロセンサーの除去には <strong>-m</strong> フラグを使用します。</p>
+<p>センサーまたはマイクロセンサーをモニターしようとしている場合、モニター処理は停止されることになりますが、モニター処理用に定義されている、イベント応答のリソース・マネージャー (ERRM) リソースは除去されません。 ERRM リソースを除去するには、このセンサーまたはマイクロセンサーで使用していたモニター中のリソースに対して、コマンド <strong>rmcondition</strong>、<strong>rmresponse</strong>、または <strong>rmcondresp</strong> を使用します。</p>
+<p><strong>rmsensor</strong> コマンドは、どのノードでも実行されます。 ドメイン内のすべてのノードで <strong>rmsensor</strong> を実行したい場合は、<strong>-a</strong> フラグを使用します。 ドメイン内の一部のノードで <strong>rmsensor</strong> を実行したい場合は、
+<strong>-n</strong> フラグを使用します。 <strong>-n</strong> フラグを使用して複数のノード名を指定する代わりに、<strong>-N</strong> <em>node_file</em> フラグを使用して、ノード名がファイル内にあることを指示することができます。 標準入力からノード名を読み取るには、<strong>-N "-"</strong> を使用します。</p>
+<p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理と CSM <strong>nodegrp</strong> コマンドの使用については、「CSM: Administration Guide」および「CSM: Command and Technical Reference」を参照してください。</p>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノード上の、指定された名前と一致するセンサーを除去します。 クラスターの有効範囲は、CT_MANAGEMENT_SCOPE 環境変数によって決まります。 CT_MANAGEMENT_SCOPE が設定されていない場合、コマンドにとって有効な有効範囲になるまで、最初に管理ドメイン有効範囲 (存在する場合) を選択し、次にピア・ドメイン有効範囲 (存在する場合) を選択し、次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合、CT_MANAGEMENT_SCOPE が設定されていない <span><span>rmsensor -a</span></span> は管理ドメインで実行されます。 この場合、ピア・ドメインで実行するには CT_MANAGEMENT_SCOPE を 2 に設定します。</dd>
+
+
+<dt>-m</dt>
+
+<dd>除去するリソースがマイクロセンサー・リソースであることを指定します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-n <span><span>ホスト1</span></span> [<span><span>,ホスト2</span></span>...]</dt>
+
+<dd>センサーを除去するノードを指定します。 デフォルトでは、
+センサーはローカル・ノードから除去されます。 このフラグは、管理ドメインまたはピア・ドメインでのみ使用します。</dd>
+
+
+<dt>-N {<em>ノード</em>ファイル｜ "<em>-</em> "}」</dt>
+
+<dd>センサーの削除対象となるノードをリストしているファイルまたは標準入力を指定します。 このフラグの使用が適切なのは、クラスター・システム・マネージメント (CSM) またはピア・ドメイン・クラスターの中だけです。</dd>
+
+
+<dt>-v │ -V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>sensor_name1</span></span> <span>[</span><span><span>sensor_name2</span></span><span>...]</span></dt>
+
+<dd>除去する、1 つまたは複数のセンサーの名前を指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを使用してセンサーを除去するには、 <strong>IBM.Sensor</strong> リソース・クラスに対する書き込み権限が必要です。 このコマンドを使用してマイクロセンサーを削除するには、 <strong>IBM.MicroSensor</strong> リソース・クラス。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「<em>
+RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>フラグとパラメーターの間違った組み合わせが入力されました。</dd>
+
+
+<dt>6</dt>
+
+<dd>センサー・リソースが見つかりませんでした。</dd>
+
+
+<dt><span><span>n</span></span></dt>
+
+<dd>RMC サブシステムから戻される可能性のあるその他のエラーに基づくものです。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd><span><span>CT_CONTACT</span></span> 環境変数がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の Resource Monitoring and Control (RMC) デーモンと連絡を取ります。 この環境変数を設定しないと、コマンドは、
+そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドにより表示または変更されるリソースまたはリソース・クラスは、
+接続が確立されたシステム上で探されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するためのセッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。<div>有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</div>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、AIX® 用 rsct.core ファイルセットの一部です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>センサー <span><span>sensor1</span></span>を除去するには、次のように入力します。<div><div><pre><code>rmsensor sensor1</code></pre></div><div></div></div></li>
+
+<li><strong>/u/joe/common_nodes</strong> ファイルにリストされているノードから <strong>sensor1</strong> というセンサーをノードから除去するには、次のように入力します。<div><div><pre><code>rmsensor -N /u/joe/common_nodes sensor1</code></pre></div><div></div></div><div>この <strong>/u/joe/common_nodes</strong> には、以下のものが含まれます。<div><div><pre><code># common node file
+#
+node1.myhost.com    main node
+node2.myhost.com    backup node</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>IBM.usensor1</strong>というマイクロセンサーを除去するには、次のように入力します。<div><div><pre><code>rmsensor -m IBM.usensor1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/rmsensor</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

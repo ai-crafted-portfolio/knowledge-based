@@ -1,0 +1,50 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>spray</strong> コマンドで送信されたパケットを受信します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/lib/netsvc/spray/rpc.sprayd</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong> rpc.sprayd</strong> デーモンは、
+<strong>spray</strong> コマンドが送信したパケットを記録するサーバーです。 <strong>rpc.sprayd</strong> デーモンは通常、<strong>inetd</strong> デーモンによって始動されます。</p>
+<p><strong>UDP パフォーマンス</strong></p>
+ <p><strong>spray</strong> コマンドおよび <strong>rpc.sprayd</strong> デーモンによるユーザー・データグラム・プロトコル (UDP) のパフォーマンスは、以下の要因により影響を受ける可能性があります。</p>
+ <ul>
+<li><span></span>システム構成用にメモリー・バッファー (mbufs) を調整する方法。</li>
+
+<li><span></span> <strong>スプレー</strong> コマンドの UDP パケットの着信バースト・レート (つまり、フレーム間ギャップ)。</li>
+
+<li><span></span>その他のシステム・アクティビティー。 <strong>rpc.sprayd</strong> デーモンは通常のユーザー・プロセスとして実行されるため、他のアクティビティー (<strong>init</strong> プロセス、または <strong>syncd</strong> デーモンなど) により <strong>rpc.sprayd</strong> デーモンの動作が影響を受ける可能性があります。</li>
+
+<li><span></span> <strong>rpc.sprayd</strong> デーモン・プロセスの優先順位。 <strong>rpc.sprayd</strong> デーモンには、動的に算出される浮動的なプロセスの優先順位があります。</li>
+
+<li><span></span> <strong>rpc.sprayd</strong> デーモンが使用する受信ソケット・バッファーのサイズ。 さまざまなインプリメンテーション方法があり、使用するソケットのバッファー・サイズが異なるため、<strong>spray</strong> コマンドおよび <strong>rpc.sprayd</strong> デーモンを使用した UDP のパフォーマンスの計測は難しく、確定的ではありません。</li>
+
+</ul>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/inetd.conf</strong></td>
+
+<td>RPC デーモンと他の TCP/IP デーモンを始動する TCP/IP 構成ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

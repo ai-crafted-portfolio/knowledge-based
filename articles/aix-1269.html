@@ -1,0 +1,128 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>端末を初期化します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>reset</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143670" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> <em>C</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143695" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> <em>C</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143684" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>C</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143661" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143755" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143733" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143678" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143743" target="_blank" rel="noopener noreferrer"><strong>-Q</strong></a> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reset.html#reset__row-d3e143709" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> [ <em>識別子</em> ] [ ] :種類 <em>TestBaudRate</em> ] <strong>:</strong><em> タイプ</em> ]...... [<em>タイプ</em> ]..</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>reset</strong> コマンドは、<strong>tset</strong> コマンドへのリンクとなっています。 <strong>tset</strong> コマンドを <strong>reset</strong> コマンドとして実行すると、tset コマンドは端末依存処理を実行する前に以下のアクションを取ります。</p>
+ <ul>
+<li><span></span>クックドモードとエコーモードをオンに設定します。</li>
+
+<li><span></span>cbreak モードと Raw モードをオフにします。</li>
+
+<li><span></span>改行変換をオンにします</li>
+
+<li><span></span>特殊文字を適切な状態に復元します。</li>
+
+</ul>
+ <p>特殊文字が NULL または -1 として検出された場合には、デフォルト値にリセットされます。 <strong>tset</strong> コマンドに付けられるフラグは、すべて <strong>reset</strong> コマンドでも使用できます。</p>
+ <p><strong>reset</strong> コマンドは、プログラムが停止した後で端末が望ましくない状態になっているときに、最も有効です。 シーケンス&lt;LF&gt;reset&lt;LF&gt;(ここで、&lt; LF&gt; は Ctrl-J、改行) は、 <strong>リセット</strong> コマンドを正常に実行するために必要な場合があります。これは、復帰がこの状態では機能しない可能性があるためです。 この&lt;LF&gt;reset&lt;LF&gt;シーケンスが頻繁にエコーされることはありません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>決定した端末の名前が標準出力に出力されます。 これは、シェルによって取り込まれ、<strong>TERM</strong> 環境変数に入れられることになっています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e (E)</strong><em> 「C」</em></td>
+
+<td>すべての端末上で消去文字を C 変数で指定した文字に設定します。 デフォルトは、端末上のバックスペース文字で、通常は ^ (セディーユ) です。 文字 C を直接入力することも、^ (セディーユ) を使用して入力することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>端末初期化文字列の送信を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>I</strong><em> 「C」</em></td>
+
+<td><strong>-e</strong> フラグと類似していますが、消去文字ではなく割り込み文字を使用します。 C 変数はデフォルト ^C にセットされます。 このオプションに ^ 文字を使用することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k (K)</strong><em> 「C」</em></td>
+
+<td><strong>-e</strong> フラグと類似していますが、消去文字ではなく行消去文字を使用します。 C 変数のデフォルトは ^ X です。 <strong>-k (K)</strong> が指定されていない場合、強制終了文字は変更されません。 このオプションに ^ 文字を使用することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> 識別子テストボーレート</em><strong> :</strong><em> タイプ</em></td>
+
+<td><em>ID</em> パラメーター<em>.</em> で識別されるポートで通常使用される端末タイプ ( <em>タイプ</em> パラメーター内) を指定します。 存在しない ID は、すべての ID に一致します。 <em>TestBaudRate</em> パラメーターにボー・レートを、任意に指定することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>Berkeley 4.3 tty ドライバーを搭載したシステム上で、この端末について新規 tty ドライバー・モードを初期化する必要があることを指定します。 CRT の場合、CRTERASE モードおよび CRTKILL モードを設定するのは、ボー・レートが 1200 bps 以上である場合のみです。 詳しくは、<strong>tty</strong> ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong></td>
+
+<td>印刷を抑止します。Erase set toおよびKill
+set toメッセージ。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>決定した端末の名前に基づいて、<strong>TERM</strong> 環境変数を初期化する <strong>csh</strong> コマンドのシーケンスを出力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/terminfo/?/*</strong></td>
+
+<td>端末機能データベースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

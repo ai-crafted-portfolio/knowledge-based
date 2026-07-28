@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>定義済みのピア・ドメインを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>rmrpdomain</span></span> [<span><span>-f</span></span>][<span><span>-q</span></span>][<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>ピア_ドメイン</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>rmrpdomain</span></span> コマンドは、 <span><span>peer_domain</span></span> パラメーターで指定されたピア・ドメイン定義を除去します。 除去するピア・ドメインは、既に定義済みでなければなりません。 このコマンドは、ピア・ドメインに定義されているノードで実行する必要があります。 <span><span>rmrpdomain</span></span> は、ピア・ドメインに対してオンラインになっているノード上で実行されると、ピア・ドメインに対して定義されている、そのノードから到達可能なすべてのノード上のピア・ドメイン定義を除去します。 ピア・ドメインに定義されているが、到達できないノードについては、そのノードのローカル・ピア・ドメイン定義は除去されません。 ピア・ドメインがオンラインでない場合、またはノードがピア・ドメインに対してオンラインでない場合にローカル・ピア・ドメイン定義を除去するには、そのノードで <span><span>rmrpdomain</span></span> コマンドを実行し、 <span><span>-f</span></span> フラグを指定します。</p>
+ <p>ピア・ドメイン定義を除去する最も効率的な方法は、ピア・ドメインを確実にオンラインにすることです。 次に、ピア・ドメインに対してオンラインになっているノードから <span><span>rmrpdomain</span></span> コマンドを実行します。 <span><span>rmrpdomain</span></span> コマンドが実行されたノードから到達できないノードがある場合は、それらの各ノードで、 <span><span>-f</span></span> フラグを使用して <span><span>rmrpdomain</span></span> コマンドを実行します。 ノード自体が操作可能でない場合は、これは後で実行することができます。</p>
+ <p><span><span>-f</span></span> フラグは、サブシステムによるピア・ドメイン除去の拒否をオーバーライドするためにも使用する必要があります。 サブシステムは、例えばピア・ドメイン・リソースが使用中の場合、要求を拒否する可能性があります。 この状況で <span><span>-f</span></span> フラグを指定すると、ピア・ドメイン定義を除去する必要があることをサブシステムに示します。</p>
+ <p><span><span>rmrpdomain</span></span> コマンドは、構成クォーラムを必要としません。 したがって、このコマンドは、小サブクラスターに対して発行した場合も正常に実行されます。 後で、大サブクラスターがアクティブになるかもしれません。 その場合でも、ドメインは除去されます。</p>
+<p>Cluster-Aware AIX® (CAA) クラスターが構成されていて、このピア・ドメインがそれを表している場合、 <strong>rmrpdomain</strong> コマンドは、基礎となる CAA クラスターも削除します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-f</dt>
+
+<dd>ピア・ドメインを強制的に除去します。 以下の場合、ピア・ドメイン定義を除去するためにはこの強制フラグが必要です。<ul>
+<li>ノードがピア・ドメインにオンラインになっていない場合にローカル・ノードから除去する。</li>
+
+<li>サブシステムが、例えばリソースが割り当てられている時に、要求を拒否する場合。</li>
+
+</ul>
+     </dd>
+
+
+<dt>-q</dt>
+
+<dd>抑止モードを指定します。 ピア・ドメインが存在しない場合、コマンドはエラーを戻しません。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>ピア・ドメイン</span></span></dt>
+
+<dd>除去する、定義されたピア・ドメインの名前を指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>rmrpdomain</span></span> コマンドのユーザーには、ピア・ドメインに定義する各ノード上の <span><span>IBM.PeerDomain</span></span> リソース・クラスに対する書き込み権限が必要です。 デフォルトでは、ピア・ドメイン内のすべてのノードの <span><span>root</span></span> には、構成リソース・マネージャーを介してこのリソース・クラスに対する読み取りおよび書き込みアクセス権があります。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>ピア・ドメイン定義が存在しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドを実行するノードは、ピア・ドメインに定義されている必要があり、
+またピア・ドメインに定義されたすべてのノードに到達できるべきです。 ノードに到達できない場合、ノードのローカル・ピア・ドメイン定義は除去されません。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、AIX® 用 <strong>rsct.basic.rte</strong> ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準入力</h2> <p><span><span>-f
+"-"</span></span> <span>または <span><span>-F "-"</span></span></span> フラグを指定すると、このコマンドは標準入力から 1 つ以上のノード名を読み取ります。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>のピア・ドメイン定義を削除するには <span><span>ApplDomain</span></span> ここで <span><span>nodeA</span></span>, <span><span>nodeB</span></span>と <span><span>nodeC</span></span> が定義され、 <span><span>ApplDomainに</span></span>オンラインであり、すべてが互いに到達可能である。 <span><span>nodeA</span></span>, <span><span>nodeB</span></span>または <span><span>nodeC</span></span>:<div><div><pre><code>rmrpdomain ApplDomain</code></pre></div><div></div></div>
+</li>
+
+<li><span><span>nodeD</span></span> がピア・ドメインに対してオンラインでない場合、ピア・ドメインがオフラインである場合、またはピア・ドメインが存在しない場合に <span><span>nodeD</span></span> 上の <span><span>ApplDomain</span></span> のローカル・ピア・ドメイン定義を削除するには、 <span><span>nodeD</span></span>で次のコマンドを実行します。<div><div><pre><code>rmrpdomain -f ApplDomain</code></pre></div><div></div></div> </li>
+
+<li><span><span>ApplDomain</span></span> ( <span><span>nodeA</span></span>、 <span><span>nodeB</span></span>、および <span><span>nodeC</span></span> が定義されており、 <span><span>ApplDomain</span></span>に対してオンラインになっている) のピア・ドメイン定義を除去し、サブシステムが要求を拒否しないようにするには、 <span><span>nodeA</span></span>、 <span><span>nodeB</span></span>、または <span><span>nodeC</span></span>で以下のコマンドを実行します。<div><div><pre><code>rmrpdomain -f ApplDomain</code></pre></div><div></div></div> </li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/rmrpdomain</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <p><span><span>/etc/services</span></span> ファイルが変更されます。</p>
+</section>
+
+</div></div>

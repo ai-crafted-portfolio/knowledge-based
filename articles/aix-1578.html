@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>トラステッド・ネットワーク・サブシステムを初期化して、トラステッド・ネットワークのルール・データベースを維持します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ニニット</strong> [ -<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94122" target="_blank" rel="noopener noreferrer"><strong>V</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94128" target="_blank" rel="noopener noreferrer"><strong>分</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__tninit_init" target="_blank" rel="noopener noreferrer"><strong>初期化</strong></a> [ <span><span>ファイル名</span></span> ]</p>
+ <p><strong>tninit</strong> [ -<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94122" target="_blank" rel="noopener noreferrer"><strong>v</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94128" target="_blank" rel="noopener noreferrer"><strong>m</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__tninit_load" target="_blank" rel="noopener noreferrer"><strong>load</strong></a><span><span>filename</span></span></p>
+ <p><strong>tninit</strong> [ -<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94122" target="_blank" rel="noopener noreferrer"><strong>v</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94128" target="_blank" rel="noopener noreferrer"><strong>m</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__tninit_save" target="_blank" rel="noopener noreferrer"><strong>save</strong></a><span><span>filename</span></span></p>
+ <p><strong>tninit</strong> [ -<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94122" target="_blank" rel="noopener noreferrer"><strong>v</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__row-d3e94128" target="_blank" rel="noopener noreferrer"><strong>m</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tninit.html#tninit__tninit_disp" target="_blank" rel="noopener noreferrer"><strong>disp</strong></a><span><span>filename</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tninit</strong> コマンドは、トラステッド・ネットワーク・サブシステムを初期化して、システムの始動時にロードされる <strong>/etc/security/rules.host</strong> および <strong>/etc/security/rules.int </strong> ファイルを含む、トラステッド・ネットワークのルール・データベースを維持します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細モードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>新規データベースのロード時に、既存のホスト・ルールを維持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>init </strong>[ <span><span>ファイル名</span></span> ]</td>
+
+<td>トラステッド・ネットワーク・サブシステムを初期化します。 このパラメーターは、機密ラベル (SL) のローカル表記と、ネットワーク上の伝送内容間の変換を行うカーネルに、テーブルをロードします。 オプションで、<span><span>filename</span></span> パラメーターによるマッピングが入ったファイルの名前を指定できます。 ファイルを指定しない場合は、一連のハードコーディングされたマッピングが使用されます。 マッピングの例は、<strong>/usr/samples/tn/rfc1108.example</strong> ファイルに記載されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>load </strong><span><span>filename</span></span></td>
+
+<td>ルール・データベースをカーネルにロードします。 ファイル名の指定には、<em>filename</em> パラメーターを使用します。 このコマンドは、<code>.host</code> と <code>.int</code> 拡張子を追加して、データベースを構成する 2 つのファイルを獲得します。</td>
+
+</tr>
+
+<tr>
+<td><strong>save </strong><span><span>filename</span></span></td>
+
+<td>カーネル内のアクティブなルールを、データベースの 2 つのファイルに保管します。 ファイル名の指定には、<span><span>filename</span></span> パラメーターを使用します。 ファイル名に <code>.host</code> と <code>.int</code> 拡張子が追加されて、データベースを構成する 2 つのファイルを獲得します。</td>
+
+</tr>
+
+<tr>
+<td><strong>disp </strong><span><span>filename</span></span></td>
+
+<td>標準出力 (STDOUT) に指定されたデータベースを表示します。 ファイル名の指定には、<span><span>filename</span></span> パラメーターを使用します。 このコマンドは、<code>.host</code> と <code>.int</code> 拡張子を追加して、データベースを構成する 2 つのファイルを獲得します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>ファイル名</span></span></td>
+
+<td>ファイル名を指定します。 <code>init</code>、<code>load</code>、<code>save</code>、または <code>disp</code> は、ファイル名としては使用しないでください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>許可</h2> <p>ユーザーは、<strong>tninit</strong> コマンドを実行するには、<strong>aix.mls.network.init</strong> 許可が必要です。</p>
+</section>
+
+<section><h2>例</h2> <p>トラステッド・ネットワーク・サブシステムを初期化するには、以下のコマンドを入力します。</p>
+ <div><div><pre><code>tninint init</code></pre></div><div></div></div> <p>ルール・データベースをカーネルにロードするには、以下のコマンドを入力します。</p>
+ <div><div><pre><code>tninit load /etc/security/rules</code></pre></div><div></div></div> <p>カーネル内のアクティブなルールをデータベースの 2 つのファイルに保管するには、以下のコマンドを入力します。</p>
+ <div><div><pre><code>tninit save /etc/security/rules</code></pre></div><div></div></div> <p>指定されたルール・データベースを STDOUT 内に表示するには、以下のコマンドを入力します。</p>
+ <div><div><pre><code>tninit disp /etc/security/rules</code></pre></div><div></div></div></section>
+
+</div></div>

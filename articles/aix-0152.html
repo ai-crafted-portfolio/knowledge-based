@@ -1,0 +1,101 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>現行ディレクトリーを変更します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>cd</strong> [<em>ディレクトリー</em>]</p>
+
+<p>または</p>
+
+<p><strong>cd</strong><em> [ディレクトリa ディレクトリb］</em></p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>cd</strong> コマンドは、プロセスの現在の作業ディレクトリーを設定します。 ユーザーは、指定するディレクトリーでの実行 (検索) 許可が必要です。</p>
+
+<p>directory パラメーターを指定しないと、<strong>cd</strong> コマンドは、現在の作業ディレクトリーをログイン・ディレクトリー (<strong>ksh</strong> 環境と <strong>bsh</strong> 環境では <strong>$HOME</strong>、<strong>csh</strong> 環境では <strong>$home</strong>) に設定します。 指定したディレクトリー名が絶対パス名の場合は、そのディレクトリーが現在の作業ディレクトリーになります。 絶対パス名は、ルート・ディレクトリー <strong>を示す/(スラッシュ) で始まります。</strong> (ドット) は、現行ディレクトリー、または <strong>..</strong> を示します。 (ドット・ドット) 親ディレクトリーを示します。 ディレクトリー名が絶対パス名でない場合、<strong>cd</strong> コマンドは、<strong>$CDPATH</strong> シェル変数 (または <strong>$cdpath</strong> <strong>csh</strong> 変数) で指定したパスからの相対でディレクトリーを検索します。 <strong>cd</strong> コマンドがコンポーネントの検索に失敗した場合は、最後に検索されたコンポーネントの検索失敗を示すメッセージが出されます。 この変数の構文は、<strong>$PATH</strong> シェル変数 (または <strong>$path csh</strong> 変数) と同じであり、そのセマンティクスも似ています。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> シェルから <strong>/usr/bin/cd</strong> を実行しても、シェルの作業ディレクトリーは変更されません。 シェルの組み込み <strong>cd</strong> コマンドを使用する必要があります。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>現在の作業ディレクトリーをログイン (ホーム) ディレクトリーに変更するには、
+次のように入力します。<div>
+<div><div><pre><code>cd</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>任意のディレクトリーに変更するには、
+次のように入力します。<div>
+<div><div><pre><code>cd /usr/include</code></pre></div><div></div></div>これにより、現行ディレクトリーが次に変更されます。/usr/include.</div>
+</li>
+
+<li>ディレクトリー・ツリーを 1 レベル下がるには、
+次のように入力します。<div>
+<div><div><pre><code>cd sys</code></pre></div><div></div></div>現行ディレクトリーが以下の場合:/usr/includeこれには、以下のサブディレクトリーが含まれますsys、次に、/usr/include/sys現行ディレクトリーになります。</div>
+</li>
+
+<li>ディレクトリー・ツリーを 1 レベル上がるには、
+次のように入力します。<div>
+<div><div><pre><code>cd ..</code></pre></div><div></div></div>スペシャル・ファイル名。..(ドット) は、現行ディレクトリーの直前のディレクトリーを参照します。</div>
+</li>
+
+<li>2 つの directory パラメーターを指定すると、現在の作業ディレクトリーを示す文字列内の <strong>
+directorya</strong> は文字列 <strong>directoryb</strong> に置き換えられ、
+次に新規パスが現行ディレクトリーになります。 例えば、現在の作業ディレクトリーが以下のような場合、<div><div><pre><code>/home/directorya/sub1/sub2/sub3/sub4</code></pre></div><div></div></div>次のコマンドを入力すると、<div><div><pre><code>cd directorya directoryb</code></pre></div><div></div></div>現在の作業ディレクトリーが次のディレクトリー、<div><div><pre><code>/home/directoryb/sub1/sub2/sub3/sub4</code></pre></div><div></div></div>(存在する場合) に設定されます。 さらに、現在の作業ディレクトリーが以下のような場合、<div><div><pre><code>home/directorya/sub1/sub2/sub3/sub4 </code></pre></div><div></div></div>次のコマンドを入力すると、<div><div><pre><code>cd directorya directoryb/test</code></pre></div><div></div></div>現在の作業ディレクトリーが次のディレクトリー、<div><div><pre><code>home/directoryb/test/sub1/sub2/sub3/sub4</code></pre></div><div></div></div>(存在する場合) に設定されます。 同様に、現在の作業ディレクトリーが以下のような場合、<div><div><pre><code>/home/directoryb/test/sub1/sub2/sub3/sub4</code></pre></div><div></div></div>次のコマンドを入力すると、<div><div><pre><code>cd directoryb/test directorya</code></pre></div><div></div></div>現在の作業ディレクトリーが次のディレクトリー、<div><div><pre><code>home/directorya/sub1/sub2/sub3/sub4</code></pre></div><div></div></div>(存在する場合) に設定されます。</li>
+
+</ol>
+
+<p>サブディレクトリーはすべて同じ名前でなければなりません。</p>
+
+</section>
+
+</div></div>

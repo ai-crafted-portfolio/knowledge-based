@@ -1,0 +1,54 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>標準入力から 1 行読み取ります。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>行</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>line</strong> コマンドは標準入力から 1 行をコピーし、それを標準出力に書き出します。 このコマンドはファイルの終わりで終了値 1 を戻し、常に少なくとも改行文字を書き込みます。 このコマンドは、ワークステーションからの読み取り用にシェル・コマンド・ファイル内で使用します。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>入力時に EOF (ファイルの終わり) が発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>キーボードから 1 行を読み取り、それをファイルに追加するには、次のようにスクリプト・ファイルを作成してください。</p>
+ <div> <div><div><pre><code>echo 'Enter comments for the log:'
+echo ': \c'
+line &gt;&gt;log</code></pre></div><div></div></div></div>
+ <p>このシェル・プロシージャーはメッセージを次のように表示します。</p>
+ <div> <div><div><pre><code>Enter comments for the log:</code></pre></div><div></div></div></div>
+ <p>次に、ワークステーションのキーボードからテキスト行を 1 行読み取って、ログの最後に追加します。 このecho ': \c'コマンドはコロン・プロンプトを表示します。</p>
+</section>
+
+</div></div>

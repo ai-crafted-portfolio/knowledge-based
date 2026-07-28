@@ -1,0 +1,139 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>1 つ以上の新規ディレクトリーを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkdir</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdir.html#mkdir__row-d3e133731" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdir.html#mkdir__row-d3e133737" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><em> モード</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdir.html#mkdir__row-d3e133766" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>] <em>ディレクトリー ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkdir</strong> コマンドは、<em>Directory</em> パラメーターで指定された、1 つ以上のディレクトリーを作成します。 それぞれの新規ディレクトリーには、標準エントリー <strong>.</strong> (ドット) および <strong>..</strong> (ドット・ドット) 以外のすべてのエントリーをリストします。 <strong>-m</strong><em> Mode</em> フラグを指定すると、新しいディレクトリーに対する許可を指定することができます。 <strong>umask</strong> サブルーチンを使用すると、<strong>mkdir</strong> コマンドのデフォルト・モードを設定することができます。</p>
+ <p>新しいディレクトリーのオーナー ID およびグループ ID は、それぞれのプロセスの実効ユーザー ID および実効グループ ID に設定されます。 setgid ビット設定は親ディレクトリーから継承されます。 setgid ビットを変更するには、<strong>-m</strong> <em>Mode</em> フラグを指定するか、またはディレクトリーの作成後に <strong>chmod</strong> コマンドを発行します。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> 新しいディレクトリーを作成するには、
+親ディレクトリーにおける書き込み許可が必要です。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-e</strong></td>
+
+<td>暗号化継承を使用してディレクトリーを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> モード</em></td>
+
+<td>新しく作成するディレクトリーの許可ビットを <em>Mode</em> 変数で
+指定した値に設定します。 <em>Mode</em> 変数は、 <strong>chmod</strong> コマンドの <em>Mode</em> パラメーターと同じ値 (シンボル形式または数値形式) を取ります。<p><strong>-m</strong> フラグをシンボル形式で指定すると、op 文字 + (正符号) と - (負符号) は、想定される許可設定 a=rwx を基準にして解釈されます。 + はデフォルト・モードに許可を追加し、- はデフォルト・モードから許可を削除します。 許可ビットとフォーマットについての詳細は、<strong>chmod</strong> コマンドのセクションを参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>失われた中間パス名ディレクトリーを作成します。 <strong>-p</strong> フラグを指定しない場合、新しく作成されるディレクトリーのそれぞれの親ディレクトリーは既に存在していなければなりません。<p>中間ディレクトリーは、次の <strong>mkdir</strong> コマンドの自動呼び出しを通じて作成されます。</p>
+  <div> <div><div><pre><code>mkdir -p -m $(umask -S),u+wx $(dirname Directory) &amp;&amp;
+mkdir [-m Mode] Directory</code></pre></div><div></div></div></div>
+  <p>ここで、[-m Mode]<strong>mkdir</strong> コマンドの元の呼び出しで指定されたオプションを表します。</p>
+  <p><strong>mkdir</strong> コマンドは、既存のディレクトリーを指定する <em>Directory</em> パラメーターを無視します。 エラーは発行されません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>指定したすべてのディレクトリーが正常に作成されました。または、<strong>-p</strong> オプションが指定され、現時点では指定されたディレクトリーはすべて存在しています。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>新規ディレクトリーを作成するには、以下のようにします。Test現行作業ディレクトリーで、次のように入力します。<div> <div><div><pre><code>mkdir Test</code></pre></div><div></div></div>このTestディレクトリーはデフォルトの許可で作成されます。</div>
+</li>
+
+<li><span></span>新規ディレクトリーを作成するには、以下のようにします。Test以前に作成された rwxr-xr-x 許可を持つ/home/demo/sub1次のように入力します。<div> <div><div><pre><code>mkdir -m 755 /home/demo/sub1/Test</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>新規ディレクトリーを作成するには、以下のようにします。Testデフォルトの許可を持つ/home/demo/sub2次のように入力します。<div> <div><div><pre><code>mkdir -p /home/demo/sub2/Test</code></pre></div><div></div></div><strong>-p</strong> フラグは、/home,/home/demoおよび/home/demo/sub2ディレクトリー (まだ存在しない場合)。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/mkdir</strong></td>
+
+<td><strong>mkdir</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

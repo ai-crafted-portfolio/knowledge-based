@@ -1,0 +1,121 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>一定期間にわたってロールの使用情報を照会します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>roleqry</strong> {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/roleqry.html#roleqry__row-d3e172434" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/roleqry.html#roleqry__row-d3e172440" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/roleqry.html#roleqry__row-d3e172446" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/roleqry.html#roleqry__row-d3e172452" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> &lt; trailListfile&gt;] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/roleqry.html#roleqry__row-d3e172464" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> &lt; time_period_in_days&gt;]} ユーザー</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>roleqry</strong> コマンドは、指定された時間枠にわたってユーザーが使用するロール情報を照会します。</p>
+ <p><strong>-c</strong> フラグを指定すると、そのユーザーはロール情報と許可情報の監査に対応して構成されます。 <strong>rbacqry</strong> クラスが、許可とロールの監査に対するイベントを指定して、/etc/security/audit/config ファイルに追加されます。 ユーザーが既に監査状態にある場合 (ユーザー・エントリーが構成ファイルに存在)、<strong>rbacqry</strong> クラスがそのユーザーに追加されます。 そうでない場合、<strong>rbacqry</strong> クラス・パラメーターを指定してユーザー名が /etc/security/audit/config に追加されます。 <strong>-s</strong> フラグを指定した場合、そのユーザーは監査に対応します。 監査サブシステムが既にオンになっている場合、そのサブシステムは再始動されます。 監査サブシステムが既にオフになっている場合、その監査サブシステムは始動します。</p>
+ <div><strong>-q</strong> フラグを指定すると、ロール情報用に監査データが照会されます。 <strong>-t</strong> フラグを指定すると、その日付から現行システム日付までのロール使用状況が照会され、入手されます。 <strong>-t</strong> フラグが無指定の場合、
+監査がそのユーザーに対して使用可能になっていた期間のロール使用状況が入手されます。 このコマンドは、その時間枠の間に使用されたロールの全体セットを表示します。<div><div>
+        <div>
+          <div><span>注意：</span> <strong>roleqry</strong>コマンドは<span>AIX</span>の監査機能を利用する。 <strong>roleqry</strong> コマンドが期待したとおりに機能するには、監査処理をオンにし、ユーザー・セットアップに対応して構成を監査し、指定された時間枠の間に収集された監査データを監査する必要があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>このフラグを使用して、ロール使用状況を監査するためのユーザーを構成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>このフラグを使用して、監査サブシステムがオフ状態の場合にこのサブシステムを開始します。 監査サブシステムが既にオンになっている場合は、そのサブシステムのシャットダウンと再始動を行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>このフラグを使用して、一定期間を通じてロール使用状況の監査データを照会します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>このフラグを使用して、<em>trailListFile</em> から監査情報を入手するために監査証跡の名前を読み取ります。 監査証跡ファイルの名前は、テキスト行あたり 1 つの名前である必要があります。 <strong>-F</strong> フラグが指定されていない場合、監査情報の入手元のファイルとしてそのシステムの audit/trail ファイルがデフォルトで使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>このフラグを使用して、許可使用を得るために現在日付からの日数を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、root ユーザーに実行 (x) アクセス権を与えます。</p>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+ <div><strong>ファイル:</strong><ul>
+<li>/etc/security/roles</li>
+
+<li>audit/trail</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>Bob が使用するロールを照会するには、以下のコマンドを実行します。<div><div><pre><code>roleqry -q Bob</code></pre></div><div></div></div></li>
+
+<li>過去 20 日間に Simon が使用したロールを照会するには、以下のコマンドを実行します。<div><div><pre><code> roleqry -q -t 20 Simon</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

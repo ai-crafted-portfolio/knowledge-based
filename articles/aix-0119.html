@@ -1,0 +1,233 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルをスキャンします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>bfs</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bfs.html#bfs__row-d3e54717" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] <em>ファイル</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>bfs</strong> コマンドは、<em>File</em> パラメーターで指定されたファイルを読み取りますが、ファイルの処理は行いません。 ファイルをスキャンできますが編集することはできません。</p>
+ <p><strong>bfs</strong> コマンドは、基本的には <strong> ed</strong> コマンドの読み取り専用バージョンです。異なるのは、<strong>bfs</strong> コマンドでははるかに大きなファイルを処理することができ、サブコマンドが追加されているという 2 点だけです。</p>
+ <p>入力ファイルの最大長は 32,767 行 (1 行当たり最大 255 文字) です。 ファイルはバッファーにコピーされないため、<strong> bfs</strong> コマンドは通常、ファイルをスキャンするための<strong> ed</strong> コマンドよりも効率的です。 <strong>bfs</strong> コマンドが最も有効なのは、<strong>csplit</strong> コマンドを使って編集用に管理しやすい部分に分割される、大型ファイルのセクションを識別する場合です。</p>
+ <p><strong>P</strong> サブコマンドを入力すると、<strong>bfs</strong> コマンドは * (アスタリスク) のプロンプトを表示します。 もう一度 <strong>P</strong> サブコマンドを入力すると、プロンプト表示をオフにできます。 プロンプト表示がオンになっていると、<strong>bfs</strong> コマンドはエラー・メッセージを表示します。</p>
+ <p><strong>bfs</strong> コマンドは単一バイト環境でもマルチバイト環境でも実行できます。 言語環境は、シェルの <strong>LANG</strong> 環境変数 (<strong>/etc/environment</strong> ファイル内) の設定値によって決定されます。</p>
+<p><strong>正方向および逆方向で検索</strong></p>
+ <p><strong>bfs</strong> コマンドは、<strong>ed</strong> コマンドのセクションで説明されているすべてのアドレス式をサポートします。 また、<strong>bfs</strong> コマンドに対してファイルを正方向または逆方向に検索するように命令でき、循環を使うかどうかの指定もできます。 循環を使う正方向の検索を指定すると、<strong>bfs</strong> コマンドはファイルの終わりに達したあともファイルの先頭から検索を継続します。 循環を使う逆方向の検索を指定すると、先頭に達したあともファイルの終わりから逆方向の検索を継続します。 4 種類の検索を指定する記号は以下のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/</strong><em>パターン</em><strong>/</strong></td>
+
+<td>循環して正方向で <em>Pattern</em> を検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>?</strong><em>パターン</em><strong>?</strong></td>
+
+<td>循環して逆方向で <em>Pattern</em> を検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;</strong><em>パターン</em><strong>&gt;</strong></td>
+
+<td>循環せずに正方向で <em>Pattern</em> を検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&lt;</strong><em>パターン</em><strong>&lt;</strong></td>
+
+<td>循環せずに逆方向で <em>Pattern</em> を検索します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>bfs</strong> コマンドのパターン・マッチング・ルーチンは、<strong>ed</strong> コマンドで使用されるルーチンとは多少異なり、<strong>regcmp</strong> サブルーチンのセクションで説明する付加機能が含まれています。 また、マークの名前にも多少違いがあります。つまり、小文字の a から z のみを使用し、26 のマークすべてが記憶されています。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>ファイル・サイズの表示を抑制します。 一般に、<strong>bfs</strong> コマンドはスキャン中のファイルのサイズをバイト単位で表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>サブコマンド</h2> <p><strong>e</strong>、<strong>g</strong>、<strong>v</strong>、<strong>k</strong>、<strong>n</strong>、<strong>p</strong>、<strong>q</strong>、<strong>w</strong>、<strong>=</strong>、<strong> !</strong>、
+および null の各サブコマンドの機能は、
+<strong>ed</strong> コマンドのセクションで説明されているとおりです。 ただし、<strong>bfs</strong> コマンドではアドレスとサブコマンドの間にスペースを入れることはできません。 <strong>—</strong>、<strong>+++-</strong>、<strong>+++=</strong>、<strong>-12</strong>、<strong>+4p</strong> などのサブコマンドが使えます。 <strong>1</strong>,<strong>10p</strong> と <strong>1</strong>,<strong>10</strong> は、どちらも最初の 10 行を表示します。 <strong>f</strong> サブコマンドはスキャン中のファイルの名前のみを表示し、
+ファイル名を記憶しません。 <strong>w</strong> サブコマンドは、出力の逸脱、切り捨て、または圧縮から独立しています ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bfs.html#bfs__row-d3e54861" target="_blank" rel="noopener noreferrer"><strong>xo</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bfs.html#bfs__row-d3e54950" target="_blank" rel="noopener noreferrer"><strong>xt</strong></a>、 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bfs.html#bfs__row-d3e55117" target="_blank" rel="noopener noreferrer"><strong>xc</strong></a> サブコマンド)。 <em>圧縮出力</em> モードでは、ブランク行は抑制され、複数のスペースとタブは 1 スペースに置換されます。</p>
+ <p>次の追加サブコマンドが使えます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>xf</strong><em> ファイル</em></td>
+
+<td>指定したファイルから <strong>bfs</strong> のサブコマンドを読み取ります。 <strong>bfs</strong> コマンドでファイルの終わりに達するか、割り込み信号を受け取ったとき、またはエラーが発生すると、<strong>bfs</strong> コマンドは、<strong>xf</strong> サブコマンドが入っているファイルのスキャンを再開します。 これらの <strong>xf</strong> サブコマンドはレベル 10 までネストできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>xo</strong> [<em>ファイル</em>]</td>
+
+<td><strong>p</strong> サブコマンドと null サブコマンドからの出力を、指定されたファイルに送ります。このファイルは、ユーザー全員に読み取り/書き込みを許可する設定で作成されます。 <em>File</em> パラメーターを指定しないと、<strong>bfs</strong> コマンドは標準出力に書き出します。 ファイルにリダイレクトするたびに、必要に応じて既存のファイルが削除され、指定されたファイルが作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>:</strong><em>ラベル</em></td>
+
+<td>サブコマンド・ファイル内にラベルを配置します。 ラベルは改行文字で終わります。 <strong>:</strong> (コロン) とラベルの先頭の間のスペースは無視されます。 このサブコマンドを使うと、ラベルを参照する必要はないので、サブコマンド・ファイル
+にコメントを挿入できます。</td>
+
+</tr>
+
+<tr>
+<td>[<em>Address1</em>[<strong>,</strong><em>Address2</em>]]<strong> xb/</strong><em>パターン</em><strong>/</strong><em>ラベル</em></td>
+
+<td>指定された範囲の行の中でパターンが一致すると、指定したパターンが入っている行を現在行に設定して、現行コマンド・ファイル内の指定したラベルまで飛びます。 ジャンプは、以下の条件下では無効です。<ul>
+<li><em>Address1</em> パラメーターまたは <em>Address2</em> パラメーターの値が、ファイルの先頭行と最終行の間にない場合。</li>
+
+<li><em>Address2</em> の値が <em>Address1</em> の値より小さい場合。</li>
+
+<li>パターンが、指定した範囲の行 (先頭行と最終行を含む) のどれとも一致しない場合。</li>
+
+</ul>
+  <p>正しくないアドレスに関してエラー・メッセージを発行しないのはこのサブコマンドだけなので、このサブコマンドを使うと、他のサブコマンドを実行する前にアドレスが正しくないかどうかを検査できます。 サブコマンドは次のとおりです。</p>
+  <div> <div><div><pre><code>xb/^/label</code></pre></div><div></div></div></div>
+  <p>このサブコマンドは無条件ジャンプです。</p>
+  <p><strong>xb</strong> サブコマンドは、ワークステーション以外の場所から読み取る場合以外は使えません。 パイプから読み取る場合は、下方ジャンプしか実行できません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>xt</strong> [<em>数値</em>]</td>
+
+<td><strong>p</strong> サブコマンドと null サブコマンドからの出力を、指定した文字数まで切り捨てます。 <em>Number</em> パラメーターのデフォルト値は 192 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>15</strong>[<em>桁</em>] [<em>値</em>]</td>
+
+<td>指定した <em>Value</em> を <em>Digit</em> パラメーターに割り当てます。 <em>Digit</em> パラメーターの値は 0 から 9 までです。 <em>Digit</em> と <em>Value</em>の間には、1 つ以上のスペースを入れることができます。 次に例を示します。<div> <div><div><pre><code>xv5 100
+xv6 1,100p</code></pre></div><div></div></div></div>
+  <p>値を割り当てます。100変数に5および以下の値1,100p変数に6.</p>
+  <p>変数を参照するには、%(パーセント記号) が変数名の前にあります。 変数の上記の割り当てがあるとします。5および 6、以下の 3 つのサブコマンドを使用します。</p>
+  <div> <div><div><pre><code>1,%5p
+1,%5
+%6</code></pre></div><div></div></div></div>
+  <p>この 3 つのサブコマンドは、それぞれファイルの最初の 100 行を表示します。</p>
+  <p>特別な意味を逃れるために%の前に,\(円記号)。 次に例を示します。</p>
+  <div> <div><div><pre><code>g/".*\%[cds]/p</code></pre></div><div></div></div></div>
+  <p>この例では、<strong>printf</strong> 変数 (%c、%d、または %s) が入っている行を照合して表示します。</p>
+  <p><strong>xv</strong> サブコマンドを使うと、コマンド出力の先頭行を変数の値として割り当てることもできます。 そのためには、<em>Value</em> パラメーターの先頭文字を ! (感嘆符) にして、その後ろにコマンド名を続けます。 次に例を示します。</p>
+  <div> <div><div><pre><code>xv5 !cat junk</code></pre></div><div></div></div></div>
+  <p>最初の行を保管します。junk変数内のファイル5.</p>
+  <p>特別な意味を逃れるために!<em>Value</em>の先頭文字として、その前に\(円記号)。 次に例を示します。</p>
+  <div> <div><div><pre><code>xv7 \!date</code></pre></div><div></div></div></div>
+  <p>値を保管します!date変数内の7.</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>xbz</strong><em> ラベル</em></td>
+
+<td>シェル・コマンドから最後に保存された終了値を検査して、値が 0 であれば、現行コマンド・ファイル内の指定されたラベルまで飛びます。</td>
+
+</tr>
+
+<tr>
+<td><strong>xbn</strong><em> ラベル</em></td>
+
+<td>シェル・コマンドから最後に保存された終了値を検査して、値が 0 でなければ、現行コマンド・ファイル内の指定されたラベルまで飛びます。</td>
+
+</tr>
+
+<tr>
+<td><strong>xc</strong> [<em>スイッチ</em>]</td>
+
+<td>圧縮出力モードをオンまたはオフにします。 (圧縮出力モードでは、ブランク行が抑止され、複数のスペースとタブがシングル・スペースに置き換えられます。)<p><em>Switch</em> パラメーターの値が 1 であれば、<strong>p</strong> サブコマンドと null サブコマンドからの出力は圧縮されます。 <em>Switch</em> パラメーターの値が 0 であれば、出力は圧縮されません。 <em>Switch</em> パラメーターの値を指定しないと、<em>Switch</em> パラメーター (初期設定では 0) の現行値と反対の設定になります。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>次のような終了値が戻されます。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>ファイルまたはコマンドのエラーなしに、正常終了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/bfs</strong></td>
+
+<td><strong>bfs</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

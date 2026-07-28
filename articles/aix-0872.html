@@ -1,0 +1,238 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム上にインストールされたフォント・ファミリー・セットを更新または変更するために簡単なメニュー形式のインターフェースをユーザーに提供します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>managefonts</strong> スクリプトを実行するには、root ユーザー権限が必要です。 <strong>managefonts</strong> スクリプトは、<strong>/usr/lib/ps/ditroff.fonts/managefonts</strong> ファイルの中に入っています。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>構文</h2> <p><strong>managefonts</strong> [ <em>オプション</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>managefonts</strong> コマンドは、システムにインストールされたフォント・ファミリー・セットの更新または変更用に、簡単なメニュー形式のインターフェースを提供します。 コマンド・ライン引数がない場合、メニュー形式のインターフェースが使用されます。 メニューによる場合と同様な選択をコマンド・ライン引数を使用して指定することもできます。</p>
+ <p>フォント・ファミリーは、Text Formatter Services Package の TranScript Tools オプションと同時にシステムにインストールされます。 このデフォルトのセットアップでは、Times、Courier、および Helvetica のフォント・ファミリーを含む 13 種類の標準フォントが組み込まれます。 <strong>managefonts</strong> コマンドで呼び出されるプログラムを使用して、現在の構成を消去し、新しい構成にすることもできます。 次の定義済みパッケージとして提供されているフォント・ファミリーもいくつかあり、これらのフォント・ファミリーも上の方法でインストールできます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>時間ファミリーのみ</strong></td>
+
+<td>TranScript Tools オプションを実行するための最小構成です。</td>
+
+</tr>
+
+<tr>
+<td><strong>Standard13 パッケージ</strong></td>
+
+<td>このパッケージは、Times、Courier、および Helvetica フォント・ファミリーを構築します。 このパッケージは、TranScript と共にシステムにインストールされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>Standard35 パッケージ</strong></td>
+
+<td>Standard13 パッケージに、Avant Garde、Bookman、New Century Schoolbook、および Palatino フォント・ファミリーを追加したものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>すべてのフォント・ファミリー</strong></td>
+
+<td>このパッケージでは、インストール可能なフォント・ファミリーがすべてインストールされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>また、<strong>managefonts</strong> コマンドを使用して、複数の新しいフォント・ファミリーを同時に追加することもできます。 使用可能なフォントがメニューに表示され、ユーザーは構築したいフォント・ファミリーを選択するだけです。 このプログラムでは、既にインストールされているフォント・ファミリーの構築は行われません。</p>
+ <p><strong>managefonts</strong> コマンドには、フォント・ファミリーのインストールの際に、ユーザーを支援するヘルプ画面も組み込まれています。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span>フォント・ファミリーを直接削除することはできません。 フォント・ファミリーを削除するには、最初に希望するフォント・ファミリーの最小サブセットが入ったパッケージをインストールしなければなりません。 このパッケージをインストールした後、Individual Fonts Menu から一度に 1 つのフォント・ファミリーを追加することができます。 例えば、現在の構成が Times、Courier、
+Helvetica で、Times と Courier だけが必要な場合、<strong>managefonts</strong> プログラムで Times Only パッケージをインストールします。</li>
+
+<li><span></span> <strong>managefonts</strong> プログラムのメニュー項目と同等のコマンド行構文はありません。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+ <p>コマンド・ライン引数は、指定された順序で、左から右に実行されます。 次に <em>option</em> パラメーターに有効な値とそれらの意味を説明します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>init0</strong></td>
+
+<td>フォント・パッケージのインストールのための初期化を行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>clean</strong></td>
+
+<td>一時ファイルと以前にインストールされたフォントをすべて除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>すべて消去</strong></td>
+
+<td>一時ファイル、以前にインストールされたフォント、インストール済み TranScript の troff フォント・ファイルをすべて除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>デフォルト</strong></td>
+
+<td>Standard 13 フォントをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>standard13</strong></td>
+
+<td>Standard 13 フォントをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>standard35</strong></td>
+
+<td>Standard 35 フォントをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>all</strong></td>
+
+<td>使用可能なすべてのフォントをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>CourierFamily</strong></td>
+
+<td>Courier ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>HelveticaFamily</strong></td>
+
+<td>Helvetica ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>HelvNarrowFamily</strong></td>
+
+<td>Helvetica Narrow ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>AvantGardeFamily</strong></td>
+
+<td>Avant Garde ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>BookmanFamily</strong></td>
+
+<td>Bookman ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>GaramondFamily</strong></td>
+
+<td>Garamond ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>LubalinFamily</strong></td>
+
+<td>Lubalin ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>NewCenturyFamily</strong></td>
+
+<td>New Century ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>OptimaFamily</strong></td>
+
+<td>Optima ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>PalatinoFamily</strong></td>
+
+<td>Palatino ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>SouvenirFamily</strong></td>
+
+<td>Souvenir ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ZapfFamily</strong></td>
+
+<td>Zapf ファミリーをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>BaseFamily</strong></td>
+
+<td>Base ファミリー (Times Roman など) をインストールします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>標準 13 フォントをインストールするには、以下のようにします。<div> <div><div><pre><code>managefonts cleanall standard13</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>標準 35 フォントをインストールするには、以下のようにします。<div> <div><div><pre><code>managefonts cleanall standard35</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>すべてのフォントをインストールするには、以下のようにします。<div> <div><div><pre><code>managefonts cleanall all</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>Courier ファミリーをインストールするには、次のようにします (Times Roman または Base Family が事前にインストールされている必要があります)。<div> <div><div><pre><code>managefonts init0 CourierFamily clean</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

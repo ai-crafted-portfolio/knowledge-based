@@ -1,0 +1,73 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>送信前にメール・メッセージをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/bin/fmt</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fmt.html#fmt__row-d3e113442" target="_blank" rel="noopener noreferrer"><strong>-</strong><em>幅 </em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fmt.html#fmt__row-d3e113436" target="_blank" rel="noopener noreferrer"><em>ファイル</em></a> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>fmt</strong> コマンドは、連結された入力 <em>Files</em> (<em>Files</em> の指定がない場合は標準入力) を読み取るテキスト・フォーマッターを始動し、入力の行の長さを <strong>-</strong><em>Width</em> の値に設定したものを標準出力に生成します。 <strong>-</strong><em>Width</em> フラグによる値の指定がない場合は、72 文字のデフォルト値を使用します。 入力行の先頭のスペーシングは、ブランク行や語間のスペーシングと同じように、出力内に保存されます。</p>
+ <p><strong>fmt</strong> コマンドは通常、送信前のメール・メッセージをフォーマットしてメッセージの外観を整えるために使用します。 しかし、<strong>fmt</strong> コマンドは単純なフォーマット作業にも有効です。 例えば、vi エディターなどのテキスト編集プログラムのビジュアル・モードで <strong>!}fmt</strong> コマンドを実行すると、すべての行が <strong>-</strong><em>Width</em> フラグで指定した値に設定されるようにパラグラフがフォーマットされます。 <em>-Width</em> フラグによる値の指定がない場合は、72 文字のデフォルト値を使用します。 複雑なフォーマット操作の場合は、<strong>fmt</strong> より標準テキスト編集プログラムの方が適しています。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> メッセージに他のファイルからの組み込みメッセージまたは事前にフォーマットされた情報が含まれている場合は、 <strong>fmt</strong> コマンドを使用しないでください。 このコマンドは、組み込みメッセージの見出し情報をフォーマットします。
+フォーマット済みの情報のフォーマットが変更されてしまう場合があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>File</em></td>
+
+<td>フォーマットするファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>幅</em></td>
+
+<td>行の長さを指定します。 <em>Width</em> のデフォルト値は 72 文字です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>メール・エディターで作成したメッセージをフォーマットするには、次のように入力します。<div> <div><div><pre><code>~| fmt</code></pre></div><div></div></div>この~|は、メッセージの左マージンに入力されます。 次のコマンドを発行した後、~| fmtメッセージがフォーマット設定されます。 単語(continue)より多くの情報を入力したり、メッセージを送信したりできることを示すために表示されます。</div>
+</li>
+
+<li><span></span>ファイルをフォーマットして、出力を画面に表示するには、次のように入力します。<div> <div><div><pre><code>fmt file1</code></pre></div><div></div></div>この例では、以下のファイルを使用します。file1がフォーマット設定され、画面に表示されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/fmt</strong></td>
+
+<td><strong>fmt</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

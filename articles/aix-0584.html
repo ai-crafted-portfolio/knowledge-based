@@ -1,0 +1,28 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソース・モニターが更新するリソース変数のインスタンスを監視し、
+イベントを生成してそれをクライアント・プログラムに報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>haemd</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>haemd</span></span> (イベント・マネージャー) デーモンは、リソース・モニターによって更新されるリソース変数インスタンスを監視し、イベントを生成してクライアント・プログラムに報告します。</p>
+ <p><span><span>haemd</span></span> デーモンの 1 つのインスタンスは、クラスターのすべてのノードで実行されます。 <span><span>haemd</span></span> デーモンは、システム・リソース・コントローラー (SRC) の制御下にあります。</p>
+ <p>このデーモンは SRC の制御下にあるため、コマンド・ラインから直接始動することはできません。 これは通常、 <span><span>emsvcsctrl</span></span> コマンドによって開始されます。 デーモンを直接開始または停止する必要がある場合は、 <span><span>emsvcsctrl</span></span> コマンドを使用します。</p>
+ <p>SRC が <span><span>haemd</span></span> デーモンを作成すると、実際に開始されるプログラムは <span><span>haemd_HACMP</span></span>になります。 <span><span>haemd_HACMP</span></span> プログラムは、デーモンが必要とする情報を収集した後、 <span><span>haemd</span></span> プログラムを実行します。 つまり、 <span><span>haemd_HACMP</span></span> プログラムは、SRC によって作成されたプロセス内で <span><span>haemd</span></span> プログラムに置き換えられます。</p>
+ <p>イベント・マネージャー・デーモンについて詳しくは、 <span><span>emsvcsctrl</span></span> コマンドを参照してください。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このデーモンは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT) ファイルセットの一部です。</p>
+</section>
+
+<section><h2>ロケーション</h2> <div> <dl>
+<dt>/opt/rsct/bin/haemd</dt>
+
+<dd><span><span>haemd</span></span> デーモンの場所</dd>
+
+</dl>
+</div>
+</section>
+
+</div></div>

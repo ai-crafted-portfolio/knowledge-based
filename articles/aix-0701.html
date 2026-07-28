@@ -1,0 +1,78 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>各ユーザーがシステムに最後にログインした日付を報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/acct/lastlogin</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lastlogin.html#lastlogin__row-d3e39193" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lastlogin</strong> コマンドは、各ユーザーが最後にログインした日付を示す <strong>/var/adm/acct/sum/loginlog</strong> ファイルを更新します。 通常は、<strong>cron</strong> デーモンの制御下で実行される <strong>runacct</strong> デーモンがこのコマンドを呼び出し、日次レポートに情報を追加します。 しかし、<strong>lastlogin</strong> コマンドは、ADM グループのメンバーであるユーザーが入力することもできます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> 分散環境内のノード間でアカウンティング・ファイルを共用してはなりません。 各ノードに、いろいろなアカウント・ファイルの独自のコピーがなくてはなりません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-X</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を処理します。 また、このフラグを指定すると、<strong>lastlogin</strong> コマンドが <strong>/var/adm/acct/sum/loginlog
+</strong> ファイルではなく、<strong>/var/adm/acct/sumx/loginlog</strong> ファイルに書き込みをするようになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは ADM グループのメンバーのみ実行 (x) アクセスを認可します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct</strong></td>
+
+<td>アカウンティング・コマンドへのパス。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/wtmp</strong></td>
+
+<td>ログインおよびログアウトのヒストリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/sum</strong></td>
+
+<td>日次アカウント・レコードの累積ディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

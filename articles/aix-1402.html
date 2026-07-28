@@ -1,0 +1,86 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p>SCCS ファイルの 2 つのバージョンを比較します。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>SCCSDIFF</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccsdiff.html#sccsdiff__row-d3e8112" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>シディワン</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccsdiff.html#sccsdiff__row-d3e8126" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>SID2 (S)</em> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccsdiff.html#sccsdiff__row-d3e8103" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccsdiff.html#sccsdiff__row-d3e8140" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>数値 </em>] <em>ファイル </em>...</p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>sccsdiff</strong> コマンドは、
+ソース・コード制御システム (SCCS) ファイルの 2 つのバージョンを読み取り、比較を行い、
+その 2 つのバージョンの違いを標準出力に書き出します。 SCCS ファイルはいくつでも指定できますが、すべてのファイルに対して同じ引数が適用されます。</p>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>pr</strong> コマンドを通して出力をパイプ接続します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>SID1</em></td>
+
+<td>比較する <strong>sccsdiff</strong> コマンドの SCCS ファイルの差分の 1 つとして <em>SID1</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em>SID2 (SID2)</em></td>
+
+<td>比較する <strong>sccsdiff</strong> コマンドの SCCS ファイルのもう 1 つの差分として <em>SID2</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>数値</em></td>
+
+<td><strong>bdiff</strong> コマンドから <strong>diff</strong> コマンドに渡されるファイルのセグメント・サイズを指定します。 このオプションは、システム負荷が大きいために <strong>diff</strong> コマンドが失敗するときに役立ちます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<p>SCCS ファイルのバージョン 1.1 と 1.2 の違いを表示するには、以下のようにします。s.test.c次のように入力します。</p>
+
+<div>
+<div><div><pre><code>sccsdiff -r1.1 -r1.2 s.test.c</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/sccsdiff</strong></td>
+
+<td>SCCS<strong> sccsdiff</strong> コマンドが入っています。 <strong>sccsdiff</strong> コマンドは、ファイル名のマルチバイト文字セット (MBCS) データをサポートします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

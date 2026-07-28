@@ -1,0 +1,192 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムから MPIO 可能デバイスへのパスを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmpath</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162766" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em>名前</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162782" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>親</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162795" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>接続</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162757" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>PathID</em> ]</p>
+ <p><strong>rmpath</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162766" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em>名前</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162782" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>親</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162795" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>接続</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162737" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ ]。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162744" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ]</p>
+ <p><strong>RM パス</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmpath.html#rmpath__row-d3e162750" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmpath</strong> コマンドは、
+指定されたターゲット・デバイス (<strong>-l</strong> <em>Name</em>) に関連付けられた、
+1 つまたは複数のパスを構成解除し、さらに定義解除を行う可能性もあります。 除去されるパスのセットは、
+<strong>-l</strong> <em>Name</em>、<strong>-p</strong> <em>Parent</em>、および
+<strong>-w</strong> <em>Connection</em> フラグの組み合わせにより決まります。 このコマンドを実行した結果、デバイスに関連付けられたすべてのパスが構成解除または定義解除される場合は、このコマンドはエラーで終了し、パスの構成解除または定義解除は行われません。 このような場合は、ターゲット・デバイス自体を構成解除または定義解除するのではなく、
+<strong>rmdev</strong> コマンドを使用する必要があります。</p>
+ <p>デフォルトのアクションは、指定されたそれぞれのパスを構成解除しますが、
+システムからそれを完全に除去することはしません。 <strong>-d</strong> フラグを指定すると、
+<strong>rmpath</strong> コマンドは、システムからパス定義を (必要ならば) 構成解除し、
+さらに除去または削除します。</p>
+ <p><strong>rmpath</strong> コマンドは終了時に、状況メッセージを表示します。 パスを構成解除する時に、このコマンドは、
+いくつかのパスを構成解除できたけれども構成解除できないパスがあった (例えば、
+入出力処理を実行中のパスは構成解除できない) ということが起こりえます。</p>
+ <div><strong>rmpath</strong> コマンドは、操作の結果についての状況メッセージを提供します。 次に示すフォーマットのいずれかでメッセージが生成されます。<dl>
+<dt>path [ defined | deleted ]</dt>
+
+<dd>このメッセージは、1 つのパスが正常に構成解除または定義解除された場合に
+表示されます。 パスが正常に構成されると、メッセージ <code>path available</code> が表示されます。 パスが正常に構成されていない場合で、かつメソッドから明示的なエラー・コードが
+戻されない場合、メッセージ「<code>path defined</code>」が表示されます。</dd>
+
+
+<dt>paths [defined | deleted]</dt>
+
+<dd>このメッセージは、複数のパスが指定され、すべてのパスが正常に
+構成解除または定義解除された場合に表示されます。 <strong>-d</strong> フラグを指定しない場合、メッセージは「<code>paths defined</code>」になります。 <strong>-d</strong> フラグを指定すると、メッセージは <code>paths
+deleted</code>になります。</dd>
+
+
+<dt>some paths [ defined | deleted ]</dt>
+
+<dd>このメッセージは、複数のパスを指定したけれども、そのいくつかだけが
+正常に構成解除または定義解除された場合に表示されます。 <strong>-d</strong> フラグを指定しない場合、メッセージは「<code>some
+paths defined</code>」になります。 <strong>-d</strong> フラグを指定すると、メッセージは「<code>some paths deleted</code>」になります。</dd>
+
+
+<dt>no paths processed</dt>
+
+<dd>このメッセージは、選択基準に一致したパスがなかった場合に生成されます。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>指定されたパスをシステムから削除することを指示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>ロックしたデバイスでのパス削除操作の実行を強制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>PathID</em></td>
+
+<td>除去するパスに関連付けられたパス ID を示し、パスを一意的に識別するために使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>名前</em></td>
+
+<td>パスを除去するターゲット・デバイスの論理デバイス名を指定します。 除去するパスは、<strong>-p</strong> および <strong>-w</strong> フラグを使用して修飾されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>親</em></td>
+
+<td>除去するパスを修飾するときに使用する親デバイスの論理デバイス名を示します。 デバイスへのすべてのパスをこのコマンドで除去することはできませんから、
+このフラグまたは <strong>-w</strong> フラグ、
+あるいはその両方のフラグを指定しなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>接続</em></td>
+
+<td>除去するパスを修飾するために使用する接続情報を示します。 デバイスへのすべてのパスをこのコマンドで除去することはできないので、
+このフラグまたは <strong>-p</strong> フラグ、またはその両方のフラグを指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><em>特権制御</em>: root ユーザーおよびシステム・グループのメンバーのみが、
+このコマンドの実行権を持ちます。</p>
+ <div>監査イベントは次のとおりです。<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>DEV_Change</td>
+
+<td>rmpath、Unconfigure、&lt; unconfigure method arguments&gt;</td>
+
+</tr>
+
+<tr>
+<td>DEV_Change</td>
+
+<td>rmpath、Undefine、&lt; undefine method arguments&gt;</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>接続 <strong>5,0</strong> で、<strong>scsi0</strong> から <strong>
+hdisk1</strong> へのパスを構成解除するには、次のように入力します。<div><div><pre><code>rmpath -l hdisk1 -p scsi0 -w "5,0"</code></pre></div><div></div></div>次のようなメッセージが生成されます。<div><div><pre><code>path defined</code></pre></div><div></div></div></li>
+
+<li><strong>scsi0</strong> から <strong>
+hdisk1</strong> へのすべてのパスを構成解除するには、次のように入力します。<div><div><pre><code>rmpath -l hdisk1 -p scsi0</code></pre></div><div></div></div>すべてのパスが正常に構成解除されると、次のようなメッセージが生成されます。<div><div><pre><code>paths defined</code></pre></div><div></div></div>しかし、パスの一部だけが正常に構成解除された場合は、次のようなメッセージが生成されます。<div><div><pre><code>some paths defined</code></pre></div><div></div></div></li>
+
+<li>接続 <strong>5,0</strong> で、<strong>scsi0</strong> と <strong>hdisk1</strong> の間の
+パス定義を定義解除するには、次のように入力します。<div><div><pre><code>rmpath -d -l hdisk1 -p scsi0 -w "5,0"</code></pre></div><div></div></div>次のようなメッセージが生成されます。<div><div><pre><code>path deleted</code></pre></div><div></div></div></li>
+
+<li><strong>scsi0</strong> から <strong>
+hdisk1</strong> へのすべてのパスを構成解除するには、次のように入力します。<div><div><pre><code>rmpath -d -l hdisk1 -p scsi0</code></pre></div><div></div></div>次のようなメッセージが生成されます。<div><div><pre><code>paths deleted</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/rmpath</strong></td>
+
+<td><strong>rmpath</strong> コマンドが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

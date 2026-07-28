@@ -1,0 +1,215 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>snmpmibd</strong> Distributed Protocol Interface (DPI) バージョン 2 サブエージェント・デーモンをバックグラウンド・プロセスとして開始します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>SNMP (snmpmibd)</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpmibd.html#snmpmibd__row-d3e37692" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpmibd.html#snmpmibd__row-d3e37638" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> [<em>レベル</em>] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpmibd.html#snmpmibd__row-d3e37707" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em>ホスト名</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snmpmibd.html#snmpmibd__row-d3e37626" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>コミュニティ</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>snmpmibd</strong> コマンドは、 <strong>snmpmibd</strong> Distributed Protocol Interface (DPI) バージョン 2 (<strong>dpi2</strong>) サブエージェントを開始します。 このコマンドは root 権限を持つユーザーまたはシステム・グループのメンバーだけが発行できます。</p>
+ <p><strong>snmpmibd</strong> デーモンは、RFC 1592 によって定義された標準の Simple Network Management Protocol (SNMP) DPI バージョン 2.0 に準拠します。 これは、<strong>dpi2</strong> サブエージェントとして動作し、RFC 1592 セクション 3.1 に定義されている dpiPortForTCP.0 (1.3.6.1.4.1.2.2.1.1.1.0) を通じて <strong>dpi2</strong> エージェントと通信します。</p>
+ <p><span>管理情報ベース (MIB) は、RFC 1155(SMIv1) と RFC 2578(SMIv2) によって定義されています。
+</span></p>
+ <div><strong>snmpmibd</strong> コマンドが管理している特定の MIB 変数は、次の RFC によって定義されています。<dl>
+<dt>RFC 1213</dt>
+
+<dd>MIB-II</dd>
+
+
+<dt>RFC 1229</dt>
+
+<dd>汎用インターフェース MIB の拡張機能</dd>
+
+
+<dt>RFC 1231</dt>
+
+<dd>IEEE 802.5 トークンリング MIB</dd>
+
+
+<dt>RFC 1398</dt>
+
+<dd>イーサネットに類似のインターフェース・タイプの MIB</dd>
+
+
+<dt>RFC 1512</dt>
+
+<dd>FDDI MIB</dd>
+
+
+<dt>RFC 4022</dt>
+
+<dd>Transmission Control Protocol (TCP) の MIB</dd>
+
+
+<dt>RFC 4113</dt>
+
+<dd>ユーザー・データグラム・プロトコル (UDP) の MIB</dd>
+
+
+<dt>RFC 4292</dt>
+
+<dd>IP 転送テーブルの MIB</dd>
+
+
+<dt>RFC 4293</dt>
+
+<dd>インターネット・プロトコル (IP) の管理情報ベース</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> RFC1213 で定義されている「<strong>system</strong>」および「<strong>snmp</strong>」グループは、 <strong>snmpdmibd</strong> デーモンによって実装されません。 このグループをインプリメントするの
+は、<strong>snmpdv3</strong> エージェントです。</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>RFC 4292</strong> の場合は、変数への読み取り専用アクセスが提供されています。</p>
+ <p><strong>RFC 4293</strong> の場合は、<strong>ipv6IpForwarding</strong> 変数と <strong>ipv6IpDefaultHopLimit</strong> 変数に、読み取りおよび書き込みアクセスが提供されています。 他の MIB 変数には、読み取り専用アクセスが提供されています。 サーバーとエージェントは両方とも、<strong>SNMP v2c</strong> プロトコルまたはそれ以降を使用する必要があります。これは、この RFC に定義されている一部の変数が、<strong> SNMP v1</strong> プロトコルを使用してアクセスできないためです。</p>
+ <p><strong>snmpmibd</strong> デーモンは、通常
+は、<strong>/etc/rc.tcpip</strong> シェル・スクリプトが呼び出されて、
+システムを始動するときに実行されます。</p>
+ <p><strong>snmpmibd</strong> デーモンは、
+システム・リソース・コントローラー (SRC) を使用して制御されなければなりません。 コマンド・ラインから <strong>snmpmibd</strong> を実行しないでください。</p>
+ <div><strong>snmpmibd</strong> デーモンを操作するには、以下の SRC コマンドを使用してください。<dl>
+<dt>startsrc</dt>
+
+<dd>サブシステム、サブシステムのグループ、サブサーバーのいずれかを始動します。</dd>
+
+
+<dt>stopsrc</dt>
+
+<dd>サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。</dd>
+
+
+<dt>refresh</dt>
+
+<dd>サブシステムまたはサブシステムのグループに、適切な構成ファイルを再読み取りさせます。</dd>
+
+
+<dt>lssrc</dt>
+
+<dd>サブシステム、サブシステムのグループ、
+あるいはサブサーバーのトレースの状況を取得します。 <strong>lssrc</strong> コマンドの長時間状況形式を発行しているユーザーが root ユーザーでない場合は、コミュニティー名情報は表示されません。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong> <em>Community</em></td>
+
+<td>指定されたコミュニティー名を使用します。 -c フラグが指定されない場合、
+デフォルトのコミュニティー名は <strong>public</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> [<em>レベル</em>]</td>
+
+<td>トレース/デバッグのレベルを指定します。 次のレベルがあります。<dl>
+
+<dt>8</dt>
+
+<dd>DPI レベル 1</dd>
+
+
+<dt>16</dt>
+
+<dd>DPI レベル 2</dd>
+
+
+<dt>32</dt>
+
+<dd>内部レベル 1</dd>
+
+
+<dt>64</dt>
+
+<dd>内部レベル 2</dd>
+
+
+<dt>128</dt>
+
+<dd>内部レベル 3</dd>
+
+</dl>複数のトレース・レベルの数値を追加します。<p><strong>-d</strong> フラグが指定されていて、<em>level</em> が指定されていない場合、デフォルト・レベルは 56 となります。</p>
+ <p><strong>-d</strong> フラグを指定しないと、デフォルトのデバッグ・レベルは 0 となります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>ファイル</em></td>
+
+<td>非デフォルト構成ファイル。 -f フラグを指定しないと、デフォルトの
+構成ファイルは <strong>/etc/snmpmibd.conf</strong> となります。 このファイルのフォーマットについては、
+<strong>/etc/snmpmibd.conf</strong> ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> <em>ホスト名</em></td>
+
+<td>指定されたホストに要求を送信します。 <span><span><span>hostname</span></span> 属性の値には IPv4 アドレス、IPv6 アドレス、またはホスト名を使用できます。 </span><strong>-h</strong> フラグが指定されない場合、デフォルト宛先ホストはループバック (127.0.0.1) となります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>snmpmibd</strong> デーモンを始動するには、次のような
+コマンドを入力します。<div><div><pre><code>startsrc -s snmpmibd -a "-f /tmp/snmpmibd.conf"</code></pre></div><div></div></div>このコマンドにより、<strong>snmpmibd</strong> デーモンが始動し
+て、<strong>/tmp/snmpmibd.conf</strong> から構成ファイルを読み取ります。</li>
+
+<li><span><span>snmpmibd</span></span> デーモンを正常に停止するには、次のように入力します。<div><div><pre><code>stopsrc -s snmpmibd</code></pre></div><div></div></div>このコマンドにより、デーモン名、デーモンのプロセス ID、デーモンの状態 (アクティブか、非アクティブか) が戻されます。</li>
+
+<li><strong>snmpmibd</strong> デーモンから長形式の状況レポートを取得するには、
+以下のように入力します。<div><div><pre><code>lssrc -ls snmpmibd</code></pre></div><div></div></div>root ユーザーの場合は、この長形式の状況レポートに <strong>/etc/snmpmibd.conf</strong> の構成パラメーターが表示されます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/snmpmibd.conf</strong></td>
+
+<td>snmpmibd コマンドの構成パラメーターを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/mib.defs</strong></td>
+
+<td>SNMP エージェントおよびマネージャーが認識して処理する必要のある管理情報ベース (MIB) 変数が定義されています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

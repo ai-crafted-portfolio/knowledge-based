@@ -1,0 +1,153 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>トラステッド・シェルのコマンドを起動します。</p>
+</section>
+
+<section><h2>構文</h2> <p>Ctrl+X、Ctrl+R キーを順に押します。</p>
+ <p><strong>tsh</strong> コマンド</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tsh</strong> コマンドとは、Korn シェル (標準ログイン・シェル) よりも強力なセキュリティーを提供するコマンド・インタープリターのことです。 一般に、ユーザーが <strong>tsh</strong> シェルを呼び出すには、
+ログイン後にセキュア・アテンション・キー (SAK) シーケンス Ctrl+X、Ctrl+R を押します。 また、<strong>tsh</strong> シェルは <strong>/etc/passwd</strong> ファイル内にログイン・シェルとして定義して、
+起動することもできます。</p>
+ <p>SAK シーケンスを使用してトラステッド・シェルを起動するには、
+ユーザーが使用している端末上で SAK が使用可能でなければならず、
+またユーザーはトラステッド・パスの使用を許可されていなければなりません。 端末で SAK を使用可能にする方法については、「 <span><em>Operating system and device management</em></span> 」の「 <strong>Trusted Computing Base</strong> 」を参照してください。 ユーザーがトラステッド・パスにアクセスできるようにする方法については、 <strong>/etc/security/user</strong> ファイルおよび <strong>chuser</strong> コマンドを参照してください。</p>
+ <p><strong>tsh</strong> シェルを終了するには、<strong>logout</strong> コマンド、
+<strong>shell</strong> コマンド、<strong>su</strong> コマンドを使用します。 <strong>logout</strong> コマンドはログイン・セッションを終了させますが、
+その他のコマンドはユーザーの初期プログラムを実行してログイン・セッションを継続します。</p>
+ <p>トラステッド・シェルは、以下の点で Korn シェルと異なっています。</p>
+ <ul>
+<li><span></span>関数と別名の定義はサポートされていません。 別名定義は <strong>/etc/tsh_profile</strong> ファイル内でのみサポートされます。</li>
+
+<li><span></span> <strong>IFS</strong> および <strong>PATH</strong> 環境変数は再定義できません。</li>
+
+<li><span></span> <strong>tsh</strong> シェルから実行できるのは、トラステッド・プログラムだけです。</li>
+
+<li><span></span>履歴メカニズムはサポートされていません。</li>
+
+<li><span></span>使用される唯一のプロファイルは、 <strong>/etc/tsh_profile</strong> ファイルです。</li>
+
+<li><span></span>トラステッド・シェルには、以下の組み込みコマンドがあります。<div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>logout</strong></td>
+
+<td>ログイン・セッションを終了し、すべてのプロセスを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>シェル (shell)</strong></td>
+
+<td>ユーザーのログイン・セッションを初期化しなおします。 システムにログインするのと同じ効果があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>su</strong></td>
+
+<td>実効 ID を、そのシステムでのそのユーザーの ID にリセットし、別のトラステッド・シェルを実行します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</li>
+
+</ul>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは標準ユーザー・プログラムで、
+<strong>トラステッド・コンピューティング・ベース</strong>属性を備えています。</p>
+ <p>アクセスされるファイル:</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/tsh_profile</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>トラステッド・シェルを起動するには、セキュア・アテン
+ション・キー (SAK) である Ctrl+X、Ctrl+R キー・シーケンスを押します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/tsh</strong></td>
+
+<td><strong>tsh</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/tsh_profile</strong></td>
+
+<td>トラステッド・シェル用の初期化コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>基本ユーザー属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user</strong></td>
+
+<td>ユーザーの拡張属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/login.cfg</strong></td>
+
+<td>構成情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

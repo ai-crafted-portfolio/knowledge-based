@@ -1,0 +1,107 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル・ネットワーク上のリモート・ホストの状況を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>/usr/bin/rup</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rup.html#rup__row-d3e182028" target="_blank" rel="noopener noreferrer"><span>-h</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rup.html#rup__row-d3e182034" target="_blank" rel="noopener noreferrer"><span>-l</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rup.html#rup__row-d3e182040" target="_blank" rel="noopener noreferrer"><span>-t</span></a> ] [ ホスト ... ]</p>
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>rup</strong> コマンドは、ローカル・ネットワーク上でブロードキャストを行い、受信した応答を表示することにより、リモート・ホストの状況を表示します。 出力結果をソートしたい場合には、フラグを指定してください。 フラグを指定しないと、<strong>rup</strong> コマンドは応答を受信した順序どおりに表示します。 コマンド・ラインで複数のホストを指定すると、<strong>rup</strong> コマンドはフラグをすべて無視し、指定されたホストの順序どおりに出力結果を表示します。 <strong>inetd</strong> デーモンは必ず使用してください。</p>
+
+
+<div><div>
+        <div>
+          <div><span>注:</span><div>
+<ol>
+<li><span></span>ブロードキャスティングはゲートウェイを介して機能しません。 したがって、ホストを指定しない場合には、使用中のネットワーク上のホストだけが、<strong>rup</strong> コマンドに応答可能です。</li>
+
+<li><span></span>Load-平均統計はカーネルによって保持されません。 ロード平均は、このコマンドにより、常に 0 (ゼロ) として報告されます。</li>
+
+</ol>
+
+</div>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-h</strong></td>
+
+<td>表示内容を、アルファベット順にホスト名でソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>表示内容をロード平均でソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>表示内容を、ネットワーク上の実行時間の長さでソートします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ネットワーク上のすべてのホストの状況を調べ、リストをホスト名のアルファベット順にソートするには、次のように入力します。<div>/usr/bin/rup  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rup.html#rup__row-d3e182028" target="_blank" rel="noopener noreferrer">-h</a></div>
+</li>
+
+<li><span></span>各マシンの負荷平均に従って、ネットワーク上のすべてのホストのリストを表示するには、次のように入力します。<div>/usr/bin/rup  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rup.html#rup__row-d3e182034" target="_blank" rel="noopener noreferrer">-l</a> </div>
+</li>
+
+<li><span></span>ホストの状況を表示するには、次のように入力します。<div> <div><div><pre><code>/usr/bin/rup brutus </code></pre></div><div></div></div>この例では、 <strong>ロップ</strong> コマンドは、以下の名前のホストの状況を表示します。brutus.</div>
+</li>
+
+<li><span></span>ネットワーク上のすべてのホストの状況を、各マシンの実行時間の長さでソートして表示するには、次のように入力します。<div>/usr/bin/rup  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rup.html#rup__row-d3e182040" target="_blank" rel="noopener noreferrer">-t</a></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

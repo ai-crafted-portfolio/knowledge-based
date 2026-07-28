@@ -1,0 +1,87 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>特定のワークロード区画 (WPAR) のエラー・メッセージをログに記録します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>グローバル</strong></p>
+ <div><div><pre><code>wparerr –w  WparName [{-c &lt;cat file&gt; -s &lt;set no&gt; -n &lt;msg no&gt;}]  -S default_string args</code></pre></div><div></div></div> <p><strong>WPAR から</strong></p>
+ <div><div><pre><code>wparerr  [ -c  &lt;cat file&gt; -s &lt;set no&gt; -n &lt;msg no&gt;}]  -S default_string args</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><strong>wparerr</strong> コマンドは、特定の WPAR のエラー・メッセージをログに記録するメカニズムを提供します。 それぞれの WPAR は、最大 1 KB のエラー・メッセージを保持することができます。 新規のメッセージを記録するのに十分なスペースがあれば、このコマンドによってメッセージが記録されますが、十分なスペースがなければ失敗します。 <em>-w</em> オプションを WPAR の内部で使用してはなりません。 <em>-S</em> フラグの後のすべては、メッセージの引数として処理されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>-w</em></td>
+
+<td>ワークロード区画の名前を指定します。そのワークロード区画のメッセージがログに記録されます。</td>
+
+</tr>
+
+<tr>
+<td><em>-c</em></td>
+
+<td>変換に使用されるカタログ・ファイル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>-s</em></td>
+
+<td>カタログ・ファイル内のエラー・メッセージのメッセージ・セット番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>-n</em></td>
+
+<td>エラー・メッセージのメッセージ番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>-S</em></td>
+
+<td>デフォルトのメッセージ文字列を指定します。 <strong>printf</strong> サブルーチンの <em>Format</em> パラメーターと同じ構文に従います。 浮動小数点はサポートされません。</td>
+
+</tr>
+
+<tr>
+<td><em>args</em></td>
+
+<td>メッセージに対する引数があれば、それを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ul>
+<li>WPAR <em>mywpar</em> のメッセージをグローバルからログに記録するには、次のように入力します。<div><div><pre><code> wparerr –w mywpar –c wparerrs.msg –s 1 –n 12 –S “ %s failed with return value %d\n” lswpar -1</code></pre></div><div></div></div></li>
+
+<li>コマンドの失敗を WPAR の内部からログに記録するには、次のように入力します。<div><div><pre><code>wparerr –c wparerrs.msg –s 1 –n 5 –S “ %s application does not allow checkpoint\n” myapplication</code></pre></div><div></div></div></li>
+
+</ul>
+</section>
+
+</div></div>

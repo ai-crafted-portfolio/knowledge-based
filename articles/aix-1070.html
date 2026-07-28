@@ -1,0 +1,198 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ODM アプリケーション開発に必要な <strong>.c</strong> ファイル (ソース・ファイル) と <strong>.h</strong> ファイル (組み込みファイル) を作成し、空のオブジェクト・クラスを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>odmcreate</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/odmcreate.html#odmcreate__row-d3e65777" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/odmcreate.html#odmcreate__row-d3e65753" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/odmcreate.html#odmcreate__row-d3e65765" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a>]<em>ClassDescriptionFile</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>odmcreate</strong> コマンドは ODM クラス・コンパイラーです。 このコマンドは、ユーザーが特定のアプリケーションで使用したいオブジェクトを記述する ASCII ファイルを入力として使います。 <strong>odmcreate</strong> コマンドは実行の一部として空のオブジェクト・クラスを作成できます。</p>
+ <p><strong>odmcreate</strong> コマンドの出力は <strong>.h</strong> ファイル (組み込みファイル) です。
+このファイルには、ASCII の <em>ClassDescriptionFile</em> ファイルで定義されたオブジェクト・クラスに関する C 言語定義が入っています。 生成された組み込みファイルは、アプリケーションが ODM に保管されたオブジェクトにアクセスするときに使います。 <strong>odmcreate</strong> コマンドは <strong>.c</strong> ファイルも生成します。
+このファイルはコンパイルして、アプリケーションでバインドしなくてはなりません。 <strong>.c</strong> ファイルには、ODM が実行時に内部で使う構造体と定義が入っています。</p>
+ <p><em>ClassDescriptionFile</em> パラメーターは 1 つまたは複数のオブジェクト・クラスの記述を含む ASCII ファイルを指定します。 <em>ClassDescriptionFile</em> パラメーターの一般的な構文は以下のとおりです。</p>
+ 
+<div><div><table><caption><span>表 1. <em>ClassDescriptionFile</em>パラメータの構文</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ファイル</td>
+
+<td>: classes</td>
+
+</tr>
+
+<tr>
+<td>クラス</td>
+
+<td>: class | classes class</td>
+
+</tr>
+
+<tr>
+<td>クラス</td>
+
+<td>: head body tail</td>
+
+</tr>
+
+<tr>
+<td>head</td>
+
+<td>: <span>struct</span> <span>ClassName</span> {</td>
+
+</tr>
+
+<tr>
+<td>tail</td>
+
+<td>: }</td>
+
+</tr>
+
+<tr>
+<td>body</td>
+
+<td>: elements</td>
+
+</tr>
+
+<tr>
+<td>elements</td>
+
+<td>: elements | elements element</td>
+
+</tr>
+
+<tr>
+<td>element</td>
+
+<td>: <span>char</span> DescriptorName [ DescriptorSize ];<p><span>vchar</span> DescriptorName [ DescriptorSize ];</p>
+
+<p><span>binary</span> DescriptorName [ DescriptorSize ];</p>
+
+<p><span>short</span> DescriptorName ;</p>
+
+<p><span>long</span> DescriptorName ;</p>
+
+<p><span>long64</span> または <span>int64</span> または <span>ODM_LONG_LONG</span> DescriptorName ;</p>
+
+<p><span>method</span> DescriptorName ;</p>
+
+<p><span>link</span> StdClassName StdClassName ColName DescriptorName ;</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><em>ClassDescriptionFile</em> ファイルのデフォルトの接尾部は <strong>.cre</strong> です。 <strong>odmcreate</strong> コマンドに接尾部を指定しないと、<strong>.cre</strong> 接尾部が付加されます。 このファイルでは、<strong>-p</strong> フラグを指定して実行すると、C 言語のコメントを入れることができます。
+<strong>-p</strong> フラグを指定してこのファイルで C 言語プリプロセッサーを実行すると、プリプロセスできる <strong>#define</strong> 行および <strong>#include</strong> 行を取り込むことができます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> ODM データベースは 32 ビットのデータベースです。 long タイプは、クラス記述ファイルで使用される場合 32 ビット・データ・エントリーです。 long64 または int64 タイプは、クラス記述ファイルで使用される場合 64 ビット・データ・エントリーです。 生成されたファイルは 32 ビットと 64 ビットのアプリケーションの両方で同様に機能します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 2. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>空のオブジェクト・クラスだけを作成します。C 言語の <strong>.h</strong> ファイルと <strong>.c</strong> ファイルは生成しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>.c</strong> ファイルと <strong>.h</strong> ファイルだけを生成します。空のクラスは作成しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><em>ClassDescriptionFile</em> ファイルで C 言語プリプロセッサーを実行します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>という名前の<em>ClassDescriptionFile</em>ファイルがあると仮定するFileName.cre存在する場合、以下のコマンドはオブジェクト・クラスを作成します。</p>
+ <div> <div><div><pre><code>odmcreate FileName.cre</code></pre></div><div></div></div></div>
+ <p>以下は、FileName.creソース・ファイルおよび結果の <strong>.h (ファイル)</strong> ファイル:</p>
+ <div> <div><div><pre><code>/* This is an example odmcreate input file */
+/* FileName.cre */
+   
+       class Class2 {
+            char keys[32];
+            method card;
+            long cash;
+            };
+      class TstObj {
+            long a;
+            char b[80];
+            link Class2 Class2 card Class2Ln;
+            };
+   
+/* End of FileName.cre */
+   
+/* This is the generated header file FileName.h */
+  
+#include &lt;odmi.h&gt;
+   
+struct Class2 {
+     long _id;         /* unique object id within object class */
+     long _reserved;   /* reserved field */
+     long _scratch;    /* extra field for application use */
+     char keys[32];
+     char card[256];   /* method */
+     long cash;
+     };
+#define Class2_Descs 3
+   
+extern struct Class Class2_CLASS[];
+#define get_Class2_list (a,b,c,d,e) (struct Class2 * ) odm_get_list (a,b,c,d,e)
+   
+struct TstObj {
+     long _id;         /* unique object id within object class */
+     long _reserved;   /* reserved field */
+     long _scratch;    /* extra field for application use */
+     long a;
+     char b[80];
+     struct Class2 *Class2Ln;  /* link */
+     struct objlistinfo *Class2Ln_info; /* link */
+     char Class2Ln_Lvalue[256];        /* link */
+     };
+#define TstObj_Descs 3
+   
+extern struct Class TstObj_CLASS[];
+#define get_TstObj_list (a,b,c,d,e) (struct TstObj * ) odm_get_list (a,b,c,d,e)
+   
+/* End of generated header file FileName.h */</code></pre></div><div></div></div></div>
+ </section>
+
+</div></div>

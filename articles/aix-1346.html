@@ -1,0 +1,115 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>サブシステム・オブジェクト・クラスからサブシステム定義を除去します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>rmssys</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmssys.html#rmssys__row-d3e168663" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> サブシステム</em></p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>rmssys</strong> コマンドは、サブシステム・オブジェクト・クラスから既存のサブシステム定義を除去します。 また、除去対象となるサブシステム用に存在するサブサーバーと通知メソッド定義も除去します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-s</strong><em> サブシステム</em></td>
+
+<td>除去されるサブシステムを固有に識別する名前を指定します。 サブシステム・オブジェクト・クラス内で既知のサブシステム名を指定しなければ、<strong>rmssys</strong> コマンドは異常終了します。 <strong>rmssys</strong> コマンドは、このサブシステム用に定義されたサブサーバー定義を Subserver Type オブジェクト・クラスから除去し、
+このサブシステム用に定義された通知メソッド定義を通知オブジェクト・クラスから除去します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p>監査イベントの選択とグループ化、および監査イベント・データ収集の構成の詳細については、「<span>Security」</span>トピックの「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer">Setting Up Auditing</a>」を参照してください。</p>
+
+<p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/SRCsubsys</strong></td>
+
+<td>SRC サブシステム構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SRCsubsvr</strong></td>
+
+<td>SRC サブサーバー構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SRCnotify</strong></td>
+
+<td>SRC 通知メソッド・オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/SRC</strong></td>
+
+<td><strong>AF_UNIX</strong> ソケット・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/.SRC-unix</strong></td>
+
+<td>一時ソケット・ファイルの位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

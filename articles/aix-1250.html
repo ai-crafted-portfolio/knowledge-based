@@ -1,0 +1,194 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたディスク・セットに存在しているボリューム・グループを再作成します。 このボリューム・グループをインポートし、オンに構成変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>recreatevg</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137282" target="_blank" rel="noopener noreferrer"><code>-y</code></a> VGname ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137262" target="_blank" rel="noopener noreferrer"><code>-p</code></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137217" target="_blank" rel="noopener noreferrer"><code>-f</code></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137290" target="_blank" rel="noopener noreferrer"><code>-Y</code></a>Lv_プレフィックス <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137225" target="_blank" rel="noopener noreferrer"><code>-l</code></a>LvNameFile ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137242" target="_blank" rel="noopener noreferrer"><code>-L</code></a> ラベル_プレフィックス] [ Label_Prefix [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137253" target="_blank" rel="noopener noreferrer"><code>-n</code></a> ][<span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137271" target="_blank" rel="noopener noreferrer"><code>-V</code> MajorNumber</a></span> ][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__recreatevg_k" target="_blank" rel="noopener noreferrer"><code>-k</code></a>][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137202" target="_blank" rel="noopener noreferrer"><code>-d</code></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__recreatevg_O" target="_blank" rel="noopener noreferrer"><code>-O</code></a> ] PVname...</p>
+</section>
+
+<section><h2>説明</h2> <p><span>recreatevg</span> コマンドは、特定のボリューム・グループに属している別のディスク・セットから複写されたディスク・セットのボリューム・グループを再作成します。 このコマンドにより、ディスク複写プロセスによって発生する論理ボリューム管理 (LVM) のデータ構造および ID が重複するという問題が解決されます。 このコマンドは、メンバー・ディスクに新しい物理ボリューム ID  (PVID) を割り当てます。
+PVID もディスク複写機能によって複写されるからです。 同じように、複写された論理ボリューム・メンバーには、ユーザー指定の接頭部を含む新しい名前が付けられます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>recreatevg</span> コマンドは、
+コマンド・ラインに指定されていない物理ボリュームに一部または全部が存在するすべての論理ボリュームを除去します。 ミラーリングされた論理ボリュームは例外である可能性があります ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/recreatevg.html#recreatevg__row-d3e137217" target="_blank" rel="noopener noreferrer"><code>-f</code></a> フラグを参照)。</li>
+
+<li>コマンド・ラインに指定されたディスクにファイルシステムの論理ボリュームのログが存在していないと、<span>recreatevg</span> コマンドは警告を出します。</li>
+
+<li>入力リストと、ボリューム・グループ・ディスクリプター域 (VGDA) からコンパイルされたリストが一致しないと、
+<span>recreatevg</span> コマンドは失敗します。</li>
+
+<li>リスト中のディスク・セットの VGDA データは、整合性のあるものでなければなりません。 VGDA の問題は、<span>recreatevg</span> コマンドを使用しても修正されません。</li>
+
+<li>同時可能のボリューム・グループを再作成する場合、<span>recreatevg</span> コマンドが完了したとき、 そのボリューム・グループはオンに変更されません。 新しいボリューム・グループは手動でオンに変更する必要があります。</li>
+
+<li><span>recreatevg</span> コマンドは、元のパスフレーズ認証方式をボリューム・グループ内のすべての暗号化論理ボリュームで保持します。</li>
+
+<li><span>recreatevg</span> コマンドは、暗号化論理ボリュームの鍵ファイル認証方式を削除します。</li>
+
+<li>元の論理ボリュームに鍵サーバー認証方式があると、新しい暗号化論理ボリュームは自動的にアンロックされます。 元の論理ボリュームにプラットフォーム鍵ストア (PKS) 方式があり、新しい論理ボリュームがアンロックされていると、<span>recreatevg</span>
+コマンドは、PKS 鍵スロットが使用可能であれば、その PKS 方式を新しい論理ボリュームに追加します。</li>
+
+<li><span>recreatevg</span> コマンドは、鍵サーバー認証方式をボリューム・グループ内のすべての暗号化論理ボリュームから削除します。 鍵サーバー認証方式を保持するには、<span>-k</span> フラグを使用してください。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>-d</code></td>
+
+<td><code>d</code> フラグが指定された <span>recreatevg</span> コマンドは、VG を完全に作成し直す代わりに、指定のディスクに対して新規 PVID のみを作成し、その新規 PVID で LVM メタデータを更新します。 論理ボリューム (LV) の名前とラベルは変更されません。また、VG はインポートされません。 このフラグは、<code>-O</code> フラグ以外の他のフラグとは一緒に指定できません。</td>
+
+</tr>
+
+<tr>
+<td><code>-f</code></td>
+
+<td>ディスクのサブセットからボリューム・グループ (VG) を再作成します。 ディスクのこのサブセットに完全に存在するディスクおよび論理ボリューム (LV) のみが、再作成される VG に存在します。 オリジナルの VG からの他の全ディスクおよび LV は、再作成対象の VG の中では削除されることになります。<p>ミラーリングされた LV の場合、削除対象のディスク上に割り当てられた物理区画に伴う LV ミラー・コピーのみ削除されます。 そのため、ディスクのサブセットにコピーの 1 つが存在する場合、より少ないミラー・コピーを使用して、ミラーリングされた LV を再作成できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>-k</code></td>
+
+<td>鍵サーバー認証方式をボリューム・グループ内のすべての暗号化論理ボリュームで保持します。</td>
+
+</tr>
+
+<tr>
+<td><code>-l</code> LvNameFile</td>
+
+<td>論理ボリューム名を LvNameFile で指定された名前に変更します。 エントリーは <code>LV:NEWLV1</code> フォーマットになっていなければなりません。 LvNameFile に含まれていないすべての論理ボリュームは、
+デフォルトのシステム生成名で再作成されます。 NEWLV1 名を LvNameFile スタンザ内の LV 名と同じにして (<code>LV:NEWLV1</code>)、論理ボリュームを同じ名前のままにすることができます。</td>
+
+</tr>
+
+<tr>
+<td><code>-L</code>
+ Label_Prefix</td>
+
+<td>再作成される VG 上の論理ボリュームのラベルをこの接頭部に変更します。 マウント・ポイントの簡単な修正だけではスタンザを一意的に定義できない場合は、<span>/etc/filesystems</span> ファイル・パスを手動で修正する必要があります。 / (スラッシュ) を Label_Prefix に指定すると、
+論理ボリューム内のラベルは変更されません。</td>
+
+</tr>
+
+<tr>
+<td><code>-n</code></td>
+
+<td><span>recreatevg</span> の後でボリューム・グループをインポートするが、
+オフに構成変更することを指定します。 デフォルトがインポートされ、オンに構成変更されます。</td>
+
+</tr>
+
+<tr>
+<td><code>-p</code></td>
+
+<td>新規 PVID の自動生成を使用不可にします。 <code>-p</code> フラグを使用する場合は、
+重複した PVID がシステムに含まれていないことを確認する必要があります。 ハードウェア・ミラーリングされたすべてのディスクの PVID を固有な値に変更する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><code>-O</code></td>
+
+<td>ディスク上のメタデータにより、このボリューム・グループが別のノードでオンに変更されていることが示されている場合でも、ボリューム・グループを強制的に再作成してオンに変更します。 詳細については、<code>varyonvg</code> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><code>-V</code> MajorNumber</td>
+
+<td>ボリューム・グループのメジャー番号を自動的に生成するのではなく、指定することができます。</td>
+
+</tr>
+
+<tr>
+<td><code>-y</code> ブイジーネーム</td>
+
+<td>ボリューム・グループ名が自動生成されないように指定できるようにします。 ボリューム・グループ名はシステム内で固有でなければなりません。
+ボリューム・グループ名は 1 から 15 文字の範囲にすることができます。 ボリューム・グループ名は、他のデバイスのデバイス構成データベースの PdDv クラスに既に定義されている接頭部で始めることはできません。 新しいボリューム・グループ名は、
+標準出力に送信されます。</td>
+
+</tr>
+
+<tr>
+<td><code>-Y</code>  論理接頭部</td>
+
+<td>再作成されるボリューム・グループ上の論理ボリュームをこの接頭部で名前変更できるようにします。 接頭部と論理ボリューム名を合わせた長さは、15 文字以下でなければなりません。 この長さが 15 文字を超えると、論理ボリュームの名前はデフォルトの名前に変更されます。 デフォルトの名前は、以下の条件に従う必要があります。<ul>
+<li>デバイス構成データベースの PdDv クラスに既に定義されている接頭部で始めることはできません。</li>
+
+<li>既に別のシステムによって使用されている名前を使用することはできません。</li>
+
+</ul>Lv_Prefix に NA を指定すると、すべての論理ボリューム名は変更されないままで残ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>3 つの物理ボリュームが含まれたボリューム・グループを再作成するには、次のコマンドを入力します。<div> <div><div><pre><code>recreatevg hdisk1 hdisk2 hdisk3</code></pre></div><div></div></div>hdisk1、hdisk2、および hdisk3 上のボリューム・グループは、
+自動生成された名前 (表示されます) で再作成されます。</div>
+</li>
+
+<li>hdisk1 上のボリューム・グループを新規名 <span>testvg</span> で再作成するには、
+次のコマンドを入力します。<div> <div><div><pre><code>recreatevg -y testvg hdisk1</code></pre></div><div></div></div></div>
+</li>
+
+<li>hdisk14 上のボリューム・グループを再作成し、
+そのボリューム・グループ内のすべての論理ボリュームを再作成し、
+それらの論理ボリュームを接頭部 <span>newlv</span> で名前変更するには、
+次のコマンドを入力します。<div> <div><div><pre><code>recreatevg -Y newlv hdisk14</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin</span></td>
+
+<td><span>recreatevg</span> コマンドが存在するディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

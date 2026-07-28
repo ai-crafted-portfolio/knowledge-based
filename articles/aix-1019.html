@@ -1,0 +1,112 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・ニュース・エントリーを標準出力に書き出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>news</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13700" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13706" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13712" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> | <em>項目 ... </em>] </p>
+</section>
+
+<section><h2>説明</h2> <p><strong>news</strong> コマンドは、システム・ニュース・エントリーを標準出力に書き出します。 このコマンドは、システムに関するニュースを常にユーザーに通知します。 各ニュース・エントリーは <strong>
+/var/news</strong> ディレクトリーの別のファイルに入っています。 通常、ユーザーは、
+<strong>$HOME/.profile</strong> ファイルまたはシステムの <strong> /etc/profile</strong> ファイルに、
+<strong>-n</strong> フラグを付けた <strong>news</strong> コマンドを追加しておいて、ログイン時に毎回実行するようにします。 このディレクトリーに書き込み許可を持つユーザーは、ニュース・エントリーを作成できます。 読み取り許可がなくても、ニュース・エントリーを作成できます。</p>
+ <p>フラグを指定しないで <strong>news</strong> コマンドを実行する場合、<strong>/var/news</strong> ファイルのすべての現行ファイルを最新のものから表示します。 このコマンドで <strong>-a</strong> フラグを指定すると、すべてのニュース・エントリーが表示されます。 <strong>-n</strong> フラグを指定すると、読んでいないニュース・エントリーの名前のみが表示されます。 <strong>-s</strong> フラグを使用すると、未読のニュース・エントリーの数が表示されます。 また、<em>Item</em> パラメーターを使用すると、表示したいファイルを指定できます。</p>
+ <p>各ファイルの前に適切なヘッダーが付きます。 古いニュースの通知を避けるため、<strong>news</strong> コマンドは現在の時刻を保管します。 <strong>news</strong> コマンドは現在時刻が <strong>$HOME/.news_time</strong> ファイルの最終変更日付であると見なします。 ニュースを読むたびに、このファイルの修正時間は読んだ時間に変更されます。 この後に通知されたニュース・エントリーだけが現行ファイルと見なされます。</p>
+ <p>ニュース・エントリーが表示されているときに割り込み (Ctrl-C)
+キー・シーケンスを押すと、そのエントリーの表示は停止し、次のエントリーが表示されます。 Ctrl-C キー・シーケンスを再度押すと、<strong>news</strong> コマンドは終了します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> ニュース項目にはマルチバイト文字を含めることができます。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>現在の時間に関係なくニュース・エントリーをすべて表示します。 現在の時間は変わりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>内容を表示せずに現行ニュース・エントリー名を報告します。 現在の時間は変わりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>名前や内容を表示せずに現行ニュース・エントリー数を報告します。 現在の時間は変わりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>最後にニュースを読んだ後に投稿された項目を表示するには、次のように入力します。<div> <div><div><pre><code>news</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>すべてのニュース項目を表示するには、次のように入力します。<div>news  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13700" target="_blank" rel="noopener noreferrer">-a </a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html" target="_blank" rel="noopener noreferrer">pg</a></div>すべてのニュース項目には、一度に 1 ページが表示されます (| pg) (まだ読んでいないかどうかは関係ありません。</li>
+
+<li><span></span>まだ読んでいないニュース項目の名前をリストするには、次のように入力します。<div>news  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13706" target="_blank" rel="noopener noreferrer">-n</a></div>各名前は <strong>/var/news</strong> ディレクトリーのファイルです。</li>
+
+<li><span></span>特定のニュース項目を表示するには、次のように入力します。<div> <div><div><pre><code>news newusers services</code></pre></div><div></div></div>このコマンド・シーケンスは、newusersおよびservicesこれらは、<strong> news </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13706" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> コマンドによってリストされる名前です。</div>
+</li>
+
+<li><span></span>まだ読んでいないニュース項目の数を表示するには、次のように入力します。<div>news  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/news.html#news__row-d3e13712" target="_blank" rel="noopener noreferrer">-s</a></div>
+</li>
+
+<li><span></span>すべてのユーザーが読むニュースを投稿するには、次のように入力します。<div><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cp.html" target="_blank" rel="noopener noreferrer">cp </a>schedule /var/news</div>これにより、scheduleファイルをシステムの <strong>/var/news</strong> ディレクトリーに追加して、 <strong>/var/news/schedule</strong> ファイルを作成します。 これには、<strong>/var/news</strong> ディレクトリーに対する書き込み許可が必要です。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/news</strong></td>
+
+<td><strong>news</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/profile</strong></td>
+
+<td>システム・プロファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/news</strong></td>
+
+<td>システム・ニュース・エントリー・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.news_time</strong></td>
+
+<td><strong>news</strong> コマンドを最後に呼び出した日付を示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,99 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>ネットワーク・ファイルシステム (NFS) を用いてエクスポートされたディレクトリーの特性を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/lsnfsexp</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnfsexp.html#lsnfsexp__row-d3e89284" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnfsexp.html#lsnfsexp__row-d3e89290" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnfsexp.html#lsnfsexp__row-d3e89296" target="_blank" rel="noopener noreferrer"><em>ディレクトリー</em></a> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnfsexp.html#lsnfsexp__row-d3e89313" target="_blank" rel="noopener noreferrer">V 値</a></strong> <em>エクスポートされたバージョン</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnfsexp.html#lsnfsexp__row-d3e89302" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>エクスポート・ファイル</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsnfsexp</strong> コマンドは、
+NFS でエクスポートされたディレクトリーの特性を表示します。 <em>Directory</em> パラメーターは、
+表示対象のディレクトリーを指定します。 ディレクトリーを指定しなければ、
+NFS でエクスポートされたすべてのディレクトリーが表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>コロン・フォーマットで出力するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>(小文字の L) リスト・フォーマットで出力するように指定します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><em>directory</em></td>
+
+<td>表示対象のディレクトリーを指定します。 ディレクトリーを指定しなければ、
+NFS でエクスポートされたすべてのディレクトリーが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> エクスポート・ファイル</em></td>
+
+<td><strong>/etc/exports</strong> 以外の、
+使用するエクスポート・ファイルの絶対パス名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong> <em>
+Exported Version</em></td>
+
+<td>表示されるディレクトリーのバージョンを指定します。 有効なバージョン番号は 2、3、および 4 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> NFS で現在エクスポートされているすべてのディレクトリーをコロン・フォーマットでリストするには、次のように入力します。<div> <div><div><pre><code>lsnfsexp -c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> NFS で現在エクスポートされているすべてのディレクトリーをコロン・フォーマットでリストし、 <strong>/etc/exports</strong> 以外の指定されたパス名を使用するには、次のように入力します。<div> <div><div><pre><code>lsnfsexp -c -f /etc/exports.other</code></pre></div><div></div></div></div>
+</li>
+
+<li>バージョン 4 としてエクスポートされる <strong>
+/common/documents</strong> ディレクトリーのエントリーをリストするには、次のコマンドを入力します。<div><div><pre><code>lsnfsexp /common/documents -V 4</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/exports</strong></td>
+
+<td>サーバーがエクスポートできるディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,56 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Processes General Security Services API (GSSAPI) 認証は、Server Message Block (SMB) クライアント・ファイルシステムを要求します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>
+<div><div><pre><code>/usr/sbin/smbcd</code></pre></div><div></div></div>
+</div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>AIX</span> オペレーティング・システムにおける SMB クライアント・ファイルシステムは、SMB プロトコル・バージョン
+2.1 を使用してユーザー認証セッションを開始するために、Kerberos ベース GSSAPI を必要とします。 <span>AIX</span> オペレーティング・システムでは、GSSAPI は IBM® Network Authentication Service (NAS) バージョン 1.16.1.0以降のファイルセットのユーザー・スペース・ライブラリーによって提供されます。 このファイルセットは、<span>AIX</span> Expansion Pack にあります。</p>
+
+<p><span>smbcd</span> デーモンは、要求された Kerberos ベース GSSAPI に対して SMB クライアント・ファイルシステムを認証し、要求のタイプに基づいて、後で SMB クライアント・ファイルシステムの設定済み認証コンテキストを削除します。 SMB クライアント・ファイルシステムは、マウントまたはアンマウントの操作中にリモート共有 (ファイルとディレクトリー) にアクセスする要求、および一定間隔で、またはセッションの期限切れ後に、既存のセッションを再認証する要求を SMB サーバーに送信します。</p>
+
+<p><span>smbc.rte</span> ファイルセットがインストールされると、<span>smbcd</span> デーモンは、システム・リソース・コントローラー (SRC) マスター・プログラムで動作するように構成されます。 SRC コマンドにより、<span>smbcd</span> デーモンを停止および開始できます。 <span>smbcd</span> デーモンは、論理区画が開始されると自動的に開始されます。 <span>smbcd</span> デーモンが強制終了されると、SRC マスター・プログラムは <span>smbcd</span> デーモンを自動的に再始動します。 <span>smbcd</span> デーモンが実行されていないと、SMB サーバーでのセッションの認証も再認証も行うことができません。 それ以後、非認証セッションで SMB クライアント・ファイルシステム内のファイルにアクセスしようとしても、すべて失敗します。 <span>smbcd</span> デーモンは、<span>startsrc</span> コマンドを実行することによって直接開始できます。</p>
+
+<p><span>smbcd</span> デーモンが始動すると、 <span>smbcd</span> デーモンは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/smbctune.conf.html" target="_blank" rel="noopener noreferrer"><span>/etc/smbc/smbctune.conf</span></a> ファイルを解析し、ファイルからのチューナブル・パラメーターの最新値でカーネルを更新します。 このように、チューナブル・パラメーター値はシステム再始動操作間で保持されます。</p>
+
+<p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/smbctune.html" target="_blank" rel="noopener noreferrer"><span>smbctune</span></a> コマンドの <span>smbc_max_concurrent_mount</span> チューナブル・パラメーターを使用して、実行できる同時認証の数を判別できます。 <span>smbcd</span> デーモン状況を照会して、プロセス ID、状態、サブシステムなどの基本情報を判別できます。</p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt><span>/var/adm/smbc/unixsock</span></dt>
+
+<dd><span>smbcd</span>デーモンと '<code>smbclient</code>カーネル拡張とのプロセス間通信に使われる UNIX ソケットファイル。</dd>
+
+
+
+<dt><span>/var/adm/smbc/smbcgssd_krb5cc</span></dt>
+
+<dd>さまざまなユーザーの Kerberos 資格情報のキャッシュ・ファイルを含むディレクトリー。</dd>
+
+
+
+<dt><span>/var/locks/LCK..smbcd</span></dt>
+
+<dd><span>smbcd</span> デーモンのロック・ファイル。 ロック操作により、<span>smbcd</span> デーモンは、反復呼び出しで複数回実行されることがなくなります。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

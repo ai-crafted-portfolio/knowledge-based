@@ -1,0 +1,223 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>テキスト・ファイルのエディターです。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>例</strong>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92844" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>サブコマンド</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92855" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92861" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92870" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92879" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em>タグ</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92923" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92894" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a><em>数値</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92905" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92929" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92938" target="_blank" rel="noopener noreferrer"><strong>+</strong></a>[<em>サブコマンド</em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/ex.html#ex__row-d3e92953" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>[<em>ファイル</em>]] [<em>ファイル</em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ex</strong> コマンドは、ex エディターを始動します。 ex エディターは、<span>edit</span> コマンド・エディターを含むエディター・ファミリーの一部で、気軽に使える初心者向けの edit エディターと、フルスクリーン編集エディターである <span>vi</span> コマンド・エディターがあります。 vi エディターを直接呼び出せば、
+画面編集用の環境変数が設定できます。 ex エディターは、vi エディターのサブセットであり、vi エディターの画面編集機能にアクセスできるので、単純な行エディターよりもはるかに強力です。</p>
+ <p><em>File</em> パラメーターでは編集する 1 個または複数のファイルを指定します。 複数のファイル名を指定すると、ex エディターはそれらのファイルを指定された順番に編集します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>ユーザーのワークステーションの効率を決定するために、ex エディターは、
+ワークステーションの機能データベースである <strong>terminfo</strong> と、
+ユーザーが <strong>TERM</strong> 環境変数で指定したワークステーションのタイプを使用します。</li>
+
+<li><strong>ex</strong> コマンドは、特別な配慮をしなければ、
+現在行に影響を及ぼします。 ファイルのいろいろの部分を処理するには、
+ファイル内の行のアドレッシング方法を理解している必要があります。</li>
+
+<li>標準入力が端末デバイスでない場合は、<strong>-s</strong> フラグを指定したかのようになります。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>「-c」</strong><em> サブコマンド</em></td>
+
+<td>編集開始前に ex エディター・サブコマンドを実行します。 次のようにヌル・オペランドが入力された場合-c ''エディターは、現在行をファイルの一番下に配置します。 (通常、ex エディターは、現在行をファイルの先頭、あるいは指定されたタグまたはパターンに設定します。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>LISP コードを適切に字下げし、( ) (左右の小括弧)、{ } (左右の中括弧)、[[ ]] (左右 2 つずつの大括弧) の文字を、vi サブコマンドと解釈せずにテキストとして受け入れます。 このフラグは、ビジュアルとオープンの各モードでアクティブになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>ファイルが変更されないよう <strong>readonly</strong> オプションを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>すべての対話型ユーザー・フィードバックを抑止します。 このフラグを使用すると、ファイルの入力エラーと出力エラーが発生しても、有効なエラー・メッセージは生成されません。 このフラグは、<strong>-</strong> フラグと同様に機能します。 TERM の値と実装のデフォルトの端末タイプを無視し、その端末がオープン・モードまたはビジュアル・モードをサポートするタイプであると仮定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong><em> タグ</em></td>
+
+<td><em>Tag</em> パラメーターで指定されるタグの入ったファイルをロードし、そのタグの位置を現在行にしてエディターを起動します。 このフラグを使うには、最初に <strong>ctags</strong> コマンドを使って関数名とその位置からなるデータベースを作成する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em>数値</em></td>
+
+<td>デフォルトのウィンドウ・サイズを <em>Number</em> で指定された数に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>vi エディターを起動します。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>-v</strong> フラグを選択すると、画面編集機能やカーソル移動機能などのサブコマンドの拡張セットが使用可能になります。 <strong>vi</strong> コマンドのセクションを参照してください。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>エディターを詳細モードで起動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>すべての対話型ユーザー・フィードバックを抑止します。 このフラグを使用すると、ファイルの入出力エラーが発生しても、有効なエラー・メッセージは生成されません。 このフラグは、<strong>-s</strong> フラグと同様に機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong>[<em>サブコマンド</em>]</td>
+
+<td>指定されたエディター検索またはサブコマンドで編集を始めます。 パラメーターを入力しないと、<strong>+</strong><em>Subcommand</em> はファイルの最後に現在行を配置します。 通常、ex エディターは現在行をファイルの先頭、あるいは指定されたタグまたはパターンの位置に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> [<em>ファイル</em>]</td>
+
+<td>エディターかシステムがクラッシュした後でファイルを回復させます。 <em>File</em>  パラメーターを指定しないと、保存されている全ファイルのリストが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lbin/exrecover</strong></td>
+
+<td>回復サブコマンド</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/expreserve</strong></td>
+
+<td>保管サブコマンド</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.exrc</strong></td>
+
+<td>エディター始動ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>./.exrc</strong></td>
+
+<td>エディター始動ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/tmp/Ex</strong> <em>nnnnn</em></td>
+
+<td>エディター一時ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/tmp/</strong> <em>Rxnnnnn</em></td>
+
+<td>バッファーの一時ファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/preserve</strong></td>
+
+<td>保管ディレクトリー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

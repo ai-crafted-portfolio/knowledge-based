@@ -1,0 +1,703 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・アクティビティー情報の収集、報告、保管を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/sar</strong> [ { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e3956" target="_blank" rel="noopener noreferrer"><strong>-A </strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4261" target="_blank" rel="noopener noreferrer"><span><span>-M </span></span></a>] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e3987" target="_blank" rel="noopener noreferrer"><strong>-a 値 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4018" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4052" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4106" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4236" target="_blank" rel="noopener noreferrer"><strong>-k (K) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4285" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4383" target="_blank" rel="noopener noreferrer"><strong>-Q (Q) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4420" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4489" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4583" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4602" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4618" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4261" target="_blank" rel="noopener noreferrer"><span><span>-M </span></span></a>] } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4315" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a><em>プロセッサー ID</em><strong>,</strong> ... | <strong>すべて</strong> <span>| <strong>RST</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4689" target="_blank" rel="noopener noreferrer"><strong>[-O] </strong></a><em>{sortcolumn = col_name [, sortorder={asc|desc}] [, topcount = n]}]</em></span>] [ <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__sarat" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> <span><span>WPAR 名 </span></span>]</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4151" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a><span>[YYYYYMMDD] 時間</span> [ <strong>:</strong><em>Mm</em> [ <strong>:</strong><em>SS</em> ] ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4176" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4222" target="_blank" rel="noopener noreferrer"><strong>I</strong></a><em>秒</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4307" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4461" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><span>[YYYYYMMDD] 時間</span> [ <strong>:</strong><span>Mm</span> [<strong>:</strong><em>SS</em> ] ] ]<strong>[-x]</strong> [ <em>間隔</em> [ <em>数値</em> ] ]</p>
+ <p><strong>sar</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4721" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4733" target="_blank" rel="noopener noreferrer"><span>-o</span></a> <em>filename</em>]] [interval [count]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>sar</strong> コマンドは、
+オペレーティング・システム内の選択された累積アクティビティー状況カウンターの内容を標準出力に書き出します。 アカウンティング・システムは、<em>number</em> パラメーターと <em>interval</em> パラメーターの値に基づいて、
+秒単位で指定された間隔で、指定された回数だけ情報を書き込みます。 <em>number</em> パラメーターのデフォルト・サンプリング間隔は 1 秒です。 収集されたデータは、<strong>-o</strong><em> file</em> フラグによって指定されたファイルに保管することもできます。</p>
+ <p><strong>sar</strong> コマンドは、 <strong>-X</strong> オプションが指定されている場合に XML ファイルを生成します。</p>
+ <p><strong>sar</strong> コマンドは、以前にファイルに保管されていたレコードを抽出して標準出力に書き出します。 このファイルは、<strong>-f</strong> フラグで指定したファイルか、
+またはデフォルトの標準システム・アクティビティー・データ・ファイル (<strong>/var/adm/sa/sa</strong><em>dd</em> ファイル) です。
+この場合の <em>dd</em> パラメーターは現在日を表します。</p>
+ <p><strong>-P</strong> フラグが指定されなければ、
+<strong>sar</strong> コマンドはシステム全体の (すべてのプロセッサー間でグローバルな) 統計情報を報告します。
+統計情報はパーセントまたは合計として表される値の平均値です。 <strong>-P</strong> フラグが指定されると、
+<strong>sar</strong> コマンドは指定されたプロセッサーに関連するアクティビティーを報告します。 <strong>-P ALL</strong> フラグが指定されると、<strong>sar</strong> コマンドは個々のプロセッサーに関する統計情報を報告し、
+続いてシステム全体の統計情報を報告します。<span> <strong>-P ALL</strong> が <span>ワークロード・パーティション</span> 環境で使用され、 <span>WPAR</span> が <strong>rset</strong> レジストリーに関連付けられている場合、 リソース・セット統計およびシステム全体の統計が表示されます。リソース・セットに属するプロセッサーには、アスタリスク記号 (*) が接頭部として付きます。 </span></p>
+ <p>フラグを使用して、特定のシステム・アクティビティーに関する情報を選択できます。 フラグを指定しない場合は、システム <span>および <span>WPAR</span> </span>ユニット・アクティビティーのみを選択します。 また <strong>-A</strong> フラグを指定すると、すべてのアクティビティーが選択されます。 <span><span>sar</span></span> コマンドは、統計の印刷を開始する前に、プロセッサーの数と現在アクティブなディスクの数を表示します。</p>
+ <p>デフォルト・バージョンの <strong>sar</strong> コマンド (プロセッサー使用状況報告) は、
+システム・アクティビティーを調査するときに最初に実行する機能の 1 つになることがあります。
+その理由は、デフォルト・バージョンの sar コマンドは主なシステム・リソースをモニターするからです。 プロセッサー使用率が 100% に近い (ユーザー + システム) 場合、
+サンプルされたワークロードはプロセッサーの制約であることを示しています。 かなりの時間が入出力待ちに費やされている場合は、プロセッサーの実行がディスク入出力を待機してブロックされていることを意味します。 入出力は、必要なファイル・アクセスであるか、十分なメモリーがないためにページングに関連した入出力である可能性があります。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> システムが <em>リモート</em> ・ファイル・アクセスの待機に費やす時間は、入出力待ち時間に累積 <em>されません</em> 。 タスクの CPU 使用率と入出力待ち時間が比較的低く、応答時間が満足できるものでない場合は、リモート入出力の待機にどれだけの時間が費やされているかを調査することを検討してください。 リモート入出力待機に関する統計を提供する高水準コマンドはないため、トレース・データはこれを監視するのに役立つ場合があります。 <span><span>sar</span></span> コマンドの出力に影響を与える変更がシステム構成にある場合、 <span><span>sar</span></span> は、現在の反復までの平均値を出力してから、構成変更に関する警告メッセージを出力します。 次に、更新されたシステム構成情報を出力した後、出力を継続します。</div>
+        </div>
+      </div></div>
+</div>
+<p><strong>CPU ディスク入出力待ち時間の算出に使用するメソッド</strong></p>
+ <p>AIX® オペレーティング・システムには、ディスク入出力の待機に費やされたプロセッサー時間の割合 (<em>wio</em> 時間) を計算するために使用される方式に対する機能拡張が含まれています。 wio 時間は、コマンド <strong>sar</strong> (<em>%wio</em>)、
+<strong>vmstat</strong> (<em>wa</em>)、
+および <strong>iostat</strong> (<em>% iowait</em>) によって報告されます。</p>
+ <p>各プロセッサーでクロック割り込みが発生する (各プロセッサーで 1 秒間に 100 回) たびに、
+その最後の 10 ミリ秒を 4 つのカテゴリー (usr/sys/wio/idle) のうちのどれに入れるかが決定されます。 クロック割り込みが発生したときにプロセッサーが usr モードでビジー状態になっていた場合は、
+そのクロック・ティックは usr のカテゴリーに追加されます。 クロック割り込みが発生したときにプロセッサーが kernel モードでビジー状態になっていた場合は、
+そのクロック・ティックは sys のカテゴリーに追加されます。 プロセッサーがビジー状態になっていなかった場合は、
+ディスクに対して何らかの入出力が進行中であったかどうかを確認するために、調査が行われます。 ディスク入出力が進行中の場合、wio カテゴリーに 1 加算されます。 進行中のディスク入出力がなく、プロセッサーもビジー状態でなかった場合には、idle のカテゴリーにティックが追加されます。 I/O を待機しているスレッドの数に関係なく、すべてのアイドル・プロセッサーが wio として分類されることにより、wio 時間の膨張ビューが表示されます。 例えば、入出力を行うスレッドが 1 つしかないシステムは、プロセッサーの数に関係なく、90% を超える wio 時間を報告することができます。</p>
+ <p>AIX オペレーティング・システムは、アイドル状態のプロセッサーで未解決の入出力が開始された場合、そのプロセッサーを wio としてマークします。 このメソッドでは、入出力を扱うスレッドがごくわずかしかなく、
+システムの他の部分がアイドル状態になっている場合に、もっと低い wio 時間を報告できるようになりました。 例えば、プロセッサーが 4 つあり、入出力を扱うスレッドが 1 つあるシステムでは、
+最大でも 25% の wio 時間しか報告されません。 また、プロセッサーが 12 あり、入出力を扱うスレッドが 1 つあるシステムであれば、
+報告される wio 時間は最大で 8% になります。 NFS クライアントの読み取りや書き込みは VMM を通り、
+biod が VMM 内で入出力の完了を待つ時間が入出力の待ち時間として報告されるようになりました。</p>
+ <p>複数のサンプルと複数の報告が必要な場合は、<strong>sar</strong> コマンドに出力ファイルを指定した方が便利です。 <strong>sar</strong> コマンドからの標準出力データを以下のように送信します。 /dev/nullそして、バックグラウンド・プロセスとして <strong>sar</strong> コマンドを実行します。 以下のような構文になります。</p>
+ <div> <div><div><pre><code>sar -A -o data.file interval count &gt; /dev/null &amp;</code></pre></div><div></div></div></div>
+ <p>すべてのデータはバイナリー形式で取り込まれ、ファイルに保存されます (data.file)。 その後、 <strong>-f</strong> オプションを使用して、 <strong>sar</strong> コマンドでデータを選択的に表示することができます。</p>
+ <p><strong>sar</strong> コマンドは、<strong> sadc</strong> という名前のプロセスを呼び出し、
+システムのデータにアクセスします。 2 つのシェル・スクリプト (/usr/lib/sa/sa1および/usr/lib/sa/sa2) <strong>cron</strong> コマンドによって実行されるように構造化され、日次の統計とレポートを提供します。 サンプル・スタンザは、<strong> /var/spool/cron/crontabs/adm</strong> <strong>crontab</strong> ファイルに含まれています (ただしコメント化されています)。これには、<strong>cron</strong> デーモンがいつシェル・スクリプトを実行すべきかが指定されています。 このようにしてデータを収集すると、長期間にわたるシステムの使用方法を特性化し、ピーク使用時刻を判別するのに役立ちます。</p>
+ <p><strong>/etc/rc</strong> スクリプトの対応する行のコメントを外すことによって、システム開始時に、標準システム・アクティビティー日次データ・ファイルにダミー・レコードを挿入できます。 <span><span>sar</span></span> コマンド・レポートtime change
+not positiveプロセッサー時間が前のレコードより少ないレコードの場合。 これは、<strong>/etc/rc</strong> のダミー・レコード挿入行がコメントにされた状態でシステムをリブートする場合に発生します。</p>
+ <p><span>AIX 5.3</span>以降、'<span><span>sar</span></span>コマンドは、<span>マイクロ・パーティショニング</span>および<span>同時マルチスレッド</span>環境に関連する利用率メトリクス'<code>physc</code>および'<code>%entc</code>を報告する。 これらのメトリックは、 <span>Micro-Partitioning</span> 環境および <span>同時マルチスレッド化</span> 環境でのみ表示されます。 <code>physc</code> は、区画 (システム全体の使用率の場合) または論理プロセッサー ( <span><span>-P</span></span> フラグが指定されている場合) によって消費される物理プロセッサーの数を示し、 <code>%entc</code> は、割り振られたライセンス済みキャパシティー (システム全体の使用率の場合) または付与されたライセンス済みキャパシティー ( <span><span>-P</span></span> フラグが指定されている場合) のパーセンテージを示します。 区画がキャップ付きモードで稼働している場合は、区画は割り振られた容量を超える容量を獲得できません。 キャップなしモードの場合は、区画は実際に割り振られた容量を超える容量を獲得できます。 これを認可されたライセンス容量と呼びます。 <span><span>-P</span></span> フラグが指定されていて、未使用の容量がある場合、 <span><span>sar</span></span> は、未使用の容量を <code>cpu id</code> U の別個のプロセッサーとして印刷します。</p>
+ <p><span>AIX 6.1</span>以降、 <strong>sar</strong> コマンドは、 <span>ワークロード・パーティション</span> (<span>WPAR</span>) 環境に関連する使用率メトリック <code>%resc</code>を報告します。 <code>%resc</code> メトリックは、 <span>WPAR</span> が消費するプロセッサー・リソースの割合 (%) を示します。 このフィールドは、 <span>WPAR</span>でプロセッサー・リソース制限が適用されている場合にのみ表示されます。 <strong>sar</strong> <strong>-P</strong> コマンドは、 <code>R</code> <span>WPAR</span>のリソース・セット (RSET) 使用状況メトリックを報告します。</p>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span> <strong>sar</strong> コマンドは、ローカル・アクティビティーについてのみ報告します。</div>
+        </div>
+      </div></div>
+ <p>System Management Interface Tool (SMIT) <strong>
+smit sar</strong> 高速パスを使用しても sar コマンドを実行できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-@</strong> <span><span>wparname</span></span></td>
+
+<td><span> <strong>-@</strong> フラグは、コマンドがグローバル環境から <span>WPAR</span> でのプロセッサー使用を報告することを指定します。 <span><span>wparname</span></span> パラメーターは、報告する <span>WPAR</span> プロセッサー統計情報を指定します。 </span><div><div>
+        <div>
+          <div><span>注:</span> <strong>-@</strong> フラグは、 <span>ワークロード・パーティション</span>内で実行する場合はサポートされません。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>-@</strong> フラグを <strong>-d</strong>、 <strong>-r</strong>、 <strong>-y</strong>と一緒に使用しないでください。 <strong>-f</strong>、または <strong>-X</strong> フラグ。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td><strong>-P</strong> フラグを指定せずに <strong>-A</strong> フラグを使用することは、<strong>-abcdkmqruvwy</strong> を指定するのと同じです。 <strong>-P</strong> フラグを指定すると、
+<strong>-A</strong> は <strong>-acmuw</strong> を指定するのと同じです。 <span><span>-M</span></span> フラグを指定しない場合、ヘッダーは、最初の間隔のデータの前にグループ化された複数行に 1 回だけ出力されます。 このフラグを <span><span>-M</span></span> フラグと一緒に使用すると、反復のたびにデータの各行の前に適切なヘッダーが付きます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td>システム・ファイル・アクセス・ルーチンのいずれかが 1 秒間に呼び出された回数を指定するファイル・アクセス・システム・ルーチンの使用状況を報告します。 <strong>-P</strong> フラグとともに使用すると、指定した各プロセッサーに関する情報が表示されます。 以下の値が表示されます。<dl>
+<dt><strong>DIRBK/ 秒</strong></dt>
+
+<dd>特定のファイルのディレクトリー・エントリーを見付けるためにディレクトリー検索ルーチンによって読み取った 512 バイトのブロックの数。</dd>
+
+
+<dt><strong>イジェット/秒</strong></dt>
+
+<dd>複数のファイルシステム・タイプをサポートするいくつかの i ノード検索ルーチンに対する呼び出し。 <strong>iget</strong> ルーチンは、ファイルまたはデバイスの i ノード構造へのポインターを戻します。</dd>
+
+
+<dt><strong>ルックアッププーン/秒</strong></dt>
+
+<dd>パス名を与えられた v ノードのアドレスを探すディレクトリー検索ルーチンに対する呼び出し。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>1 秒あたりの転送、アクセス、およびキャッシュ (カーネル・ブロック・バッファー・キャッシュ) の各ヒット率に関して、バッファー・アクティビティーを報告します。 バージョン 3 のほとんどのファイルへのアクセスは、
+カーネル・ブロック・バッファーをバイパスするので、これらの統計情報は生成されません。 ただし、プログラムがブロック・デバイスまたは入出力用ロー・キャラクター型デバイスを開く場合は、
+従来のアクセス機構が使用されて、生成された統計情報が意味を持ちます。 以下の値が表示されます。<dl>
+<dt><strong>bread/s、bwrit/s</strong></dt>
+
+<dd>ブロック入出力の数を報告します。 これらの入出力は通常カーネルによって、ブロック・バッファー・キャッシュ領域を管理するために実行されます。
+詳細は <strong>lread/s</strong> 値の説明を参照してください。</dd>
+
+
+<dt><strong>lread/s、lwrit/s</strong></dt>
+
+<dd>論理入出力要求の数を報告します。 ブロック・デバイスに対して論理読み取りや書き込みが行われる場合、
+完全なブロック・サイズより小さい論理転送サイズが要求されることがあります。 システムは、物理デバイス装置の完全なブロックにアクセスし、
+これらのブロックをこの目的のために設定されたカーネル・バッファー (ブロック入出力キャッシュ領域) に入れます。 このキャッシュ領域はカーネルによって管理され、
+そのブロック・デバイスに対する複数の論理読み取りおよび書き込みが以前キャッシュからバッファーに入れられたデータにアクセスできるようになっています。したがって、そのデバイスへの実際の入出力を要求することはありません。 アプリケーションのブロック・デバイスに対する読み取りおよび書き込み要求は、統計情報上では論理読み取りおよび書き込みとして報告されます。 カーネルがキャッシュ領域の管理の中でブロック・デバイスに対して行ったブロック入出力は、ブロック読み取りおよびブロック書き込みとして報告されます。</dd>
+
+
+<dt><strong>pread/s、pwrit/s</strong></dt>
+
+<dd>ロー・デバイスに対する入出力操作の数を報告します。 ブロック・デバイスの場合、ロー・キャラクター型デバイスへの要求された入出力はバッファーに入れられません。 この入出力は直接そのデバイスに対して実行されます。</dd>
+
+
+<dt><strong>%rcache、%wcache</strong></dt>
+
+<dd>キャッシュ有効度 (キャッシュ・ヒット・パーセント) を報告します。 このパーセントは、[(100)x(lreads - breads)/(lreads)] として計算されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>システム・コールを報告します。 <strong>-P</strong> フラグとともに使用すると、指定した各プロセッサーに関する情報が表示されます。 以下の値が表示されます。<dl>
+<dt><strong>exec/s、fork/s</strong></dt>
+
+<dd><strong>fork</strong> システム・コールと <strong>exec</strong> システム・コールの総数を報告します。</dd>
+
+
+<dt><strong>sread/s、swrit/s</strong></dt>
+
+<dd>read/write システム・コールの総数を報告します。</dd>
+
+
+<dt><strong>rchar/s、wchar/s</strong></dt>
+
+<dd>read/write システム・コールによって転送された文字の総数を報告します。</dd>
+
+
+<dt><strong>scall/s (scall/s)</strong></dt>
+
+<dd>システム・コールの総数を報告します。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>ヒント:</span> <strong>sar</strong> コマンド自体は、実行間隔に応じて、かなりの数の読み取りおよび書き込みを生成することがあります。 <strong>sar</strong> コマンドがユーザーの統計情報全体のどのくらいを占めているかを知るには、ワークロードなしの <strong>sar</strong> 統計情報を実行してください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>各ブロック・デバイスのアクティビティーを報告します。
+ただし、XDC テープ・ドライブは例外で、この報告には含まれません。 次のデータが報告されます。<dl>
+<dt><strong>%busy</strong></dt>
+
+<dd>転送要求のサービスのためにデバイスがビジー状態になっていた時間の比率を報告します。</dd>
+
+
+<dt><strong>avque</strong></dt>
+
+<dd>ディスクへの送信待ちの要求の平均数を報告します。</dd>
+
+
+<dt><strong>read/s、write/s、blk/s</strong></dt>
+
+<dd>デバイスとの間の読み取り/書き込み転送数 (K バイト/秒) を報告します。</dd>
+
+
+<dt><strong>avwait、avserv</strong></dt>
+
+<dd>要求当たりの平均待ち時間およびサービス時間 (ミリ秒)。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span> <strong>-d</strong> フラグは、 <span>ワークロード・パーティション</span>では制限されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong> <span>[YYYYMMDD]</span> <span>hh</span> [: <span>mm</span> [: <span>ss</span> ]]</td>
+
+<td>レポートの終了時刻を設定します。 デフォルトの終了時間は 18:00 です。<ul>
+<li>年、月、および日を YYYYMMDD 形式で
+指定すると、<strong>-x</strong> フラグが暗黙的にオンになります。</li>
+
+<li>年、月、および日を YYYYMMDD 形式で指定しないと、
+この年、月、および日は、指定された時刻と一致するアクティビティー・データ・ファイル内の
+最初のレコードのものであると見なされます。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td><em>file</em> (<strong>-o</strong><em> file</em> フラグによって作成される) からレコードを抽出します。 <em>file</em> パラメーターのデフォルト値は、現在の日次データ・ファイル (<strong>/var/adm/sa/sa</strong><em>dd</em> ファイル) です。<div><div>
+        <div>
+          <div><span>制約事項:</span> [ <em>interval</em> [ <em>number</em> ]] パラメーターを指定すると、 <strong>-f</strong> フラグは無視されます。 <span> <strong>-f</strong> フラグは、 <span>ワークロード・パーティション</span>では制限されます。 </span></div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> 秒</em></td>
+
+<td><em>Seconds</em> パラメーターで指定した数にできる限り近い秒数でデータ・レコードを選択します。 このフラグを指定しないと、
+<strong> sar</strong> コマンドはデータ・ファイル内のすべての秒に関して報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>カーネル・プロセス活動を報告します。 以下の値が表示されます。<dl>
+<dt><strong>kexit/s (kexit/s)</strong></dt>
+
+<dd>カーネル・プロセスの 1 秒あたりの終了回数を報告します。</dd>
+
+
+<dt><strong>kproc-ov/s (kproc-ov/s)</strong></dt>
+
+<dd>プロセスのしきい値制限の強制によりカーネル・プロセスを作成できなかった回数を報告します。</dd>
+
+
+<dt><strong>ksched/s (ksched/s)</strong></dt>
+
+<dd>タスクに割り当てられたカーネル・プロセスの 1 秒あたりの回数を報告します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td>[<span><span>abckmqruvwy</span></span>] の少なくとも 2 つの組み合わせ、または <span><span>-A</span></span> フラグと共に使用された場合に、出力で複数のヘッダーを使用可能にします。 このモードでは、各反復のデータの各行の前に対応するヘッダーが付けられます。<div><div>
+        <div>
+          <div><span>制約事項:</span> このフラグは、[<span><span>interval</span></span> [<span><span>number</span></span>]] なしで使用された場合は無視されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>1 秒あたりのメッセージ (送受信) アクティビティーおよびセマフォー (作成、使用、および破棄) アクティビティーを報告します。 <strong>-P</strong> フラグとともに使用すると、指定した各プロセッサーに関する情報が表示されます。 以下の値が表示されます。<dl>
+<dt><strong>Msg/s</strong></dt>
+
+<dd>IPC メッセージ・プリミティブの数を報告します。</dd>
+
+
+<dt><strong>セマ秒</strong></dt>
+
+<dd>IPC セマフォー・プリミティブの数を報告します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> ファイル</em></td>
+
+<td>読み取りをバイナリー・フォーマットでファイルに保管します。 各読み取りは個別のレコード内に保管され、各レコードには読み取りの時間を識別するタグが付けられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> processoridentifier
+</em><strong>,</strong><em></em> ... | <strong>
+ALL</strong><span> |<strong>RST</strong></span></td>
+
+<td>指定したプロセッサー (複数の場合もある) のプロセッサーごとの統計情報を報告します。 <strong>ALL</strong> キーワードを指定すると、
+個々のプロセッサーの統計情報とすべてのプロセッサーに関するグローバルな統計情報が報告されます。 <span> <strong>RST</strong> オプションを指定すると、 <span>WPAR</span>に関連付けられた <strong>rset</strong> レジストリーに存在するプロセッサーの統計情報が報告されます。</span> 報告される統計を指定するフラグのうち、<strong>-a</strong>、<strong>-c</strong>、<strong>-m</strong>、<strong>-u</strong>、および <strong>-w</strong> フラグのみが、<strong>-P</strong> フラグ<span>と同時にグローバル環境で使用した場合に意味があります。 <span>WPAR</span> 環境では、 <strong>-P</strong> フラグ</span>と一緒にフラグを使用しないでください。<div><div>
+        <div>
+          <div><span>注:</span> <strong>sar</strong> コマンドが <span>WPAR</span> について報告する各プロセッサーの統計情報は、常にシステム全体に適用されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>キューの統計情報を報告します。 以下の値が表示されます。<dl>
+<dt><strong>runq-sz</strong></dt>
+
+<dd>サンプリング間隔における実行可能なカーネルスレッドの平均数。 実行可能なカーネルスレッドには、実行準備が整っているがまだ実行待ちの状態にあるスレッドと、実行中のスレッドが含まれる。</dd>
+
+
+<dt><strong>ルノック</strong></dt>
+
+<dd>実行キューが占有されている時間の割合を報告します。</dd>
+
+
+<dt><strong>swpq-sz</strong></dt>
+
+<dd>リソース、入力、または出力用の仮想メモリー・マネージャー・キューで待機中のカーネル・スレッドの平均数を報告します。</dd>
+
+
+<dt><strong>%sWPOCC</strong></dt>
+
+<dd>スワップ・キューが占有されている時間の割合を報告します。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>ヒント:</span> いずれかの列の値がブランクの場合は、関連付けられたキューが空であることを示します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ページング統計情報を報告します。 以下の値が表示されます。<dl>
+<dt><strong>サイクル/秒</strong></dt>
+
+<dd>1 秒あたりのページ置き換えサイクルの数を報告します。</dd>
+
+
+<dt><strong>障害/秒</strong></dt>
+
+<dd>1 秒あたりのページ不在の数を報告します。 これは、入出力を生成するページ不在の数ではありません。
+入出力なしで解決できるページ不在もあるからです。</dd>
+
+
+<dt><strong>スロット</strong></dt>
+
+<dd>ページング・スペース上のフリー・ページの数を報告します。</dd>
+
+
+<dt><strong>odio/s (オディオ/秒)</strong></dt>
+
+<dd>1 秒あたりの非ページング・ディスク入出力の数を報告します。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span> <strong>-r</strong> フラグは、 <span>ワークロード・パーティション</span>では制限されています。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>- <strong>s</strong><span> [YYYYMMDD]</span><span> hh</span> [ <span>:mm</span> [ <span>:ss</span> ]]である</td>
+
+<td>データの開始時刻を設定します。
+これにより、<strong>sar</strong> コマンドは指定した時刻またはそれ以降の時刻でタイム・タグされたレコードを抽出します。 デフォルトの開始時刻は、08:00 です。<ul>
+<li>年、月、および日を YYYYMMDD 形式で
+指定すると、<strong>-x</strong> フラグが暗黙的にオンになります。</li>
+
+<li>年、月、および日を YYYYMMDD 形式で指定しなかった場合、
+この年、月、および日は、指定された時刻と一致するアクティビティー・データ・ファイル内の
+最初のレコードのものであると見なされます。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>個々のプロセッサーの統計情報またはシステム全体の統計情報です。 <strong>-P</strong> フラグとともに使用すると、指定した各プロセッサーに関する情報が表示されます。 そうでない場合は、システム全体に関する情報のみが表示されます。
+<strong>-u</strong> フラグの情報はパーセントで表されるので、
+システム全体の情報は各プロセッサーの統計情報の単なる平均値です。 また、入出力待ち状態はプロセッサーごとに定義されるのではなく、システム単位で定義されます。 以下の値が表示されます。<dl>
+<dt><strong>%iドル</strong></dt>
+
+<dd>プロセッサー (複数の場合もある) が、
+未解決のディスク入出力要求がなくアイドル状態になっていた時間の割合を報告します。</dd>
+
+
+<dt><strong>%SYS</strong></dt>
+
+<dd>プロセッサー (複数の場合もある) が、
+システム (またはカーネル) レベルの実行に使用されていた時間の割合を報告します。</dd>
+
+
+<dt><strong>%uSR</strong></dt>
+
+<dd>プロセッサー (複数の場合もある) が、
+ユーザー (またはアプリケーション) レベルの実行に使用されていた時間の割合を報告します。</dd>
+
+
+<dt><strong>%wio (%wio)</strong></dt>
+
+<dd>システム上に未解決のディスク/NFS 入出力要求が存在していた期間のうち、
+プロセッサーがアイドル状態であった時間が占める割合 (%) を報告します。 前述の詳しい説明を参照してください。</dd>
+
+
+<dt>physc</dt>
+
+<dd>消費される物理プロセッサーの数を報告します。 このデータは、区画が提供のために専用で使用可能になっている場合、または共用プロセッサーまたは <span>同時マルチスレッド化</span> が使用可能になっている状態で実行されている場合に報告されます。</dd>
+
+
+<dt>%entc</dt>
+
+<dd>消費されるライセンス容量の百分率を報告します。 これは、区画がプロセッサー共有で稼働している場合にのみ報告されます。 このデータを計算する基になる時間基準が変動する場合があるため、ライセンス済みキャパシティーのパーセンテージが 100% を超えることがあります。 この超過はサンプリング間隔が短い場合にのみ目立ちます。</dd>
+
+
+<dt>%resc</dt>
+
+<dd>消費されるプロセッサー・リソースのパーセンテージを報告します。 このメトリックは、 <span>WPAR</span> 環境にのみ適用されます。 これは、 <span>WPAR</span> がプロセッサー・リソース制限を適用した場合にのみ報告されます。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>ヒント:</span><ul>
+<li><strong>sar</strong> コマンドは、他に特定のコンテンツ・オプションが要求されていない場合は、システム装置アクティビティーを報告します。 <span><span>-P</span></span> フラグが使用され、区画が共用プロセッサーで実行されている場合、および区画のキャパシティー使用量が割り振られている場合は、 <code>cpuid U</code> のプロセッサー行が報告され、システム全体の未使用キャパシティーが示されます。 区画がプロセッサーを共有してキャップなしモードで稼働している場合は、<code>%entc</code> は、認可されたライセンス容量の百分率を各プロセッサー行に報告し、割り振られたライセンス容量の百分率をシステム全体のプロセッサー行に報告します。 個別のプロセッサー使用状況統計情報は、実際の物理的使用量 (physc) に照らして計算されます。 システム全体の統計情報は、物理的消費量ではなく、ライセンスに対して計算されます。 しかし、上限なし区画の場合、システム全体の統計情報は、依然として実際の物理的使用量に対して計算されます。</li>
+
+<li>データを計算する際の時間基準は変わるため、 <strong>%utilization</strong> フィールド (<strong>%user</strong>、 <strong>%sys</strong>、<strong>%idle</strong>、および <strong> %wait</strong>) の総和は、100 パーセントを超える可能性があります。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>プロセス・テーブル、カーネル・スレッド、i ノード、およびファイル・テーブルの状況を報告します。 以下の値が表示されます。<dl>
+<dt><strong>file-sz、inod-sz</strong>、<strong> proc-sz</strong>、<strong>thrd-sz</strong></dt>
+
+<dd>各テーブルに使用されているエントリーの数を報告します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>システム切り替えアクティビティーを報告します。 <strong>-P</strong> フラグとともに使用すると、指定した各プロセッサーに関する情報が表示されます。 以下の値が表示されます。<dl>
+<dt><strong>pswch/s</strong></dt>
+
+<dd>1 秒あたりのコンテキストの切り替え数を報告します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>1 秒あたりの tty デバイス・アクティビティーを報告します。<dl>
+<dt><strong>canch/s (canch/s)</strong></dt>
+
+<dd>tty 正規入力キュー文字を報告します。 このフィールドは常に 0 (ゼロ) です。</dd>
+
+
+<dt><strong>エムディーエムエス</strong></dt>
+
+<dd>tty モデム割り込みを報告します。</dd>
+
+
+<dt><strong>出力/秒</strong></dt>
+
+<dd>tty 出力キュー文字を報告します。</dd>
+
+
+<dt><strong>ローチ/秒</strong></dt>
+
+<dd>tty 入力キュー文字を報告します。</dd>
+
+
+<dt><strong>取り消し/秒</strong></dt>
+
+<dd>tty 受信割り込みを報告します。</dd>
+
+
+<dt><strong>xmtin/s (xmtin/s)</strong></dt>
+
+<dd>tty 送信割り込みを報告します。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span> <strong>-y</strong> フラグは、 <span>ワークロード・パーティション</span>では制限されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>各エントリーの日時を表示します。 ユーザーが YYYYMMDD 形式で <strong>-s</strong> フラグまたは <strong>-e</strong> フラグに
+データを指定すると、必ず暗黙的に <strong>-x</strong> フラグがオンになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong><em>オプション</em></td>
+
+<td>ユーザーがコマンド・オプションを指定できるようにします。<p><strong>-O options=value ...</strong></p>
+ <p>以下はサポートされるオプションです。</p>
+ <ul>
+<li><strong>sortcolumn</strong> = <strong>sar</strong> コマンド出力でのメトリックの名前</li>
+
+<li><strong>sortorder</strong> = [asc|desc］</li>
+
+<li><strong>topcount</strong> = <strong>sar</strong> コマンドのソート済み出力で表示される CPU の数</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>XML 出力を生成します。 ユーザーが <strong>-o</strong> オプションを使用して別のファイル名を指定しない限り、デフォルトのファイル名は <strong>sar_DDMMYYHHMM.xml</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>XML 出力のファイル名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: これらのコマンドは <strong>
+adm</strong> グループのメンバーにのみ実行 (x) アクセスを認可します。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム装置アクティビティーを報告するには、次のコマンドを入力します。<div> <div><div><pre><code>sar</code></pre></div><div></div></div></div>
+</li>
+
+<li>次の 40 秒間、2 秒ごとに現行の TTY アクティビティーを報告するには、次のコマンドを入力します。<div>sar  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4618" target="_blank" rel="noopener noreferrer">-y</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4420" target="_blank" rel="noopener noreferrer">-r</a> 2 20</div>
+</li>
+
+<li>10 分間システム装置を監視してデータをソートするには、次のコマンドを入力してください。<div>sar  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4307" target="_blank" rel="noopener noreferrer">-o</a> temp 60 10</div>
+</li>
+
+<li>最初の 2 台のプロセッサーのプロセッサー・アクティビティーを報告するには、次のコマンドを入力します。<div>sar  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4489" target="_blank" rel="noopener noreferrer">-u</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4315" target="_blank" rel="noopener noreferrer">-P</a> 0,1</div>この出力は、以下のようになります。<div> <div><div><pre><code>cpu  %usr  %sys  %wio  %idle
+0      45    45     5      5
+1      27    65     3      5</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべてのプロセッサーおよびシステム全体について、メッセージ、セマフォー、およびプロセッサー・アクティビティーを報告するには、次のコマンドを入力します。<div>sar  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4489" target="_blank" rel="noopener noreferrer">-mu</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sar.html#sar__row-d3e4315" target="_blank" rel="noopener noreferrer">-P</a> ALL</div>プロセッサーが 4 つあるシステムでは、
+次のような出力が生成されます (最後の行は、すべてのプロセッサーを合わせたシステム全体の統計情報を示しています)。<div> <div><div><pre><code>cpu  msgs/s  sema/s  %usr  %sys  %wio  %idle
+0      7       2       45    45     5     5
+1      5       0       27    65     3     5
+2      3       0       55    40     1     4
+3      4       1       48    41     4     7
+-     19       3       44    48     3     5</code></pre></div><div></div></div></div>
+</li>
+
+<li>システム全体のすべてのプロセッサーについて、消費された物理プロセッサーと消費された資格を確認するには、以下のように、共用プロセッサー論理区画マシンで <span><span>sar</span></span> コマンドを実行します。<div><div><pre><code>sar -P ALL</code></pre></div><div></div></div>論理プロセッサーが 2 つあるシステムでは、次のものに似た出力が生成されます。(最後の 2 行は、すべてのプロセッサーに関するシステム全体の統計情報を示し、<code>cpuid U</code> の行は、システム全体の未使用容量を示します。)<div><div><pre><code>cpu    %usr    %sys    %wio   %idle   physc   %entc
+ 0        0       0       0     100    0.02     3.1
+ 1        0       0       0     100    0.00     1.0
+ U        -       -       0      96    0.48    96.0
+ -        0       0       0     100    0.02     4.0</code></pre></div><div></div></div></li>
+
+<li>次の 40 秒間、2 秒ごとに、システム呼び出し、カーネル・プロセス、およびページング・アクティビティーを、反復のたびに、3 行のデータごとの別々のヘッダーを付けて報告するには、次のコマンドを入力します。<div> <div><div><pre><code>sar -Mckr 2 20</code></pre></div><div></div></div></div>
+</li>
+
+<li>次の 40 秒間、2 秒ごとに、複数のヘッダーのセットを付けて、すべてのアクティビティーを報告するには、次のコマンドを入力します。<div> <div><div><pre><code>sar -MA 2 20</code></pre></div><div></div></div></div>
+</li>
+
+<li>グローバル環境から <span>WPAR</span> 内のプロセッサー使用統計情報を報告するには、次のコマンドを入力します。<div> <div><div><pre><code>sar -@ wparname</code></pre></div><div></div></div></div>
+</li>
+
+<li><span>WPAR</span>の内部から、 <span>WPAR</span> に関連付けられた <strong>rset</strong> レジストリー内にあるすべてのプロセッサーのプロセッサー・アクティビティーを報告するには、次のコマンドを入力します。<div> <div><div><pre><code>sar -P RST 1 1</code></pre></div><div></div></div></div>
+ <div>2 つの論理プロセッサーの RSET に関連付けられている <span>WPAR</span> では、前のコマンドによって以下のようなレポートが生成されます。<div><div><pre><code>19:34:39 cpu    %usr    %sys    %wio   %idle   physc
+19:34:40  0        0       2       0      98    0.54
+          1        0       0       0     100    0.46
+          R        0       1       0      99    1.00</code></pre></div><div></div></div></div>
+</li>
+
+<li><span>WPAR</span>内部からすべてのプロセッサー・アクティビティーを報告するには、次のコマンドを入力します。<div> <div><div><pre><code>sar -P ALL 1 1</code></pre></div><div></div></div></div>
+ <div>2 つの論理プロセッサーの RSET に関連付けられている <span>WPAR</span> では、前のコマンドによって以下のようなレポートが生成されます。<div><div><pre><code>19:34:39 cpu    %usr    %sys    %wio   %idle   physc
+19:34:40 *0        0       2       0      98    0.54
+         *1        0       0       0     100    0.46
+          R        0       1       0      99    1.00
+          -        0       1       0      99    1.00</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>-w</strong> フラグを指定して列 <strong>cswch/s</strong> のソート済み出力を表示するには、次のコマンドを入力します。<div><div><pre><code>sar -w -P ALL  -O sortcolumn=cswch/s 1 1 </code></pre></div><div></div></div></li>
+
+<li><strong>scall/s</strong> 列でソートされた上位 10 位以内の CPU をリストするには、次のコマンドを入力します。<div><div><pre><code>sar -c -O sortcolumn=scall/s,sortorder=desc,topcount=10 -P ALL 1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/sar</strong></td>
+
+<td><strong>sar</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/bin/sar</strong></td>
+
+<td><strong>sar</strong> コマンドに対するシンボリック・リンクを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/sa/sa</strong> <em>dd</em></td>
+
+<td>日次データ・ファイルを示します。
+ここでの <em>dd</em> パラメーターは、(月のうちの) 日を表す数字です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

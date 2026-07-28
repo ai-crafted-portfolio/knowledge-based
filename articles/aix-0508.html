@@ -1,0 +1,135 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>First Failure Data Capture エラー・スタック環境の存在を検査します。</p>
+</section>
+
+<section><h2>構文</h2> <div><span><span>/opt/rsct/bin/fcteststk</span></span> [<span><span>-q</span></span>] │ [<span><span>-h</span></span>]<div><div><pre><code></code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>説明</h2> <p><strong>fcteststk </strong> は、FFDC エラー・スタックを使用して、
+これらの機能が活動化されているかどうかを検査したいすべてのアプリケーション
+から呼び出すことができます。 このテストを行うことにより、
+アプリケーションは、<em>FFDC 環境</em> が確立されていないのに
+障害情報を収集するというパフォーマンス負荷を回避することができます。 このインターフェースは、主に、ライブラリー・ルーチンが使用するために提供されています。
+ライブラリー・ルーチンは、クライアント・アプリケーションが <em>FFDC 環境</em> を確立
+または継承したかどうかを知ることができないからです。</p>
+ <p>プロセスが、プロセス自身、プロセスが作成するすべてのスレッド、およびプロセスが作成する
+すべての子孫プロセスからの障害情報を FFDC エラー・スタックに記録したい場合、
+<em>FFDC エラー・スタック環境</em> はプロセスによって確立されます。 祖先プロセスから要求があったときだけ、プロセスが障害情報を FFDC エラー・スタック・ファイル
+に記録したい場合 (これ以外のときは、FFDC エラー・スタックに障害情報を記録しない) は、<em>FFDC エラー・スタック環境</em> は
+プロセスによって継承されます。 プロセスは <strong>fcinit </strong> を
+使用して、FFDC エラー・スタック環境を確立または継承します。</p>
+ <p>FFDC エラー・スタック環境では、FFDC エラー・スタック・ファイル
+が確保されるため、障害情報は、 <strong>/var/adm/ffdc/stacks</strong> ディレクトリー
+内のファイルに記録されます。 これらのファイルでは、<strong><em>script_name.PID.date_and_time</em></strong> の
+命名フォーマットが使用されます。<em>script_name</em> はスクリプト自身の
+名前、<em>PID </em> はスクリプトのプロセス ID、<em>date_and_time</em> は、
+スクリプトが実行されたときの日付/時刻です。 このスクリプトまたは
+このスクリプトの子プロセスが障害情報を FFDC エラー・スタックに記録するときは、
+障害情報は必ずこのファイルに記録されます。</p>
+ <p>アプリケーションは <strong>fcpushstk </strong> インターフェースを使用して、
+障害情報を FFDC エラー・スタックに記録します。 ただし、この情報を記録する前に、
+アプリケーションは情報をさまざまなロケーションから収集する必要があります。また、
+この情報の取得によって、アプリケーションの全体のパフォーマンスに影響がでる可能性が
+あります。 <em>FFDC エラー・スタック環境</em> が確立または継承されて
+いない場合は、アプリケーションはこの情報を収集する必要はありません。 パフォーマンスに
+対するこの影響を回避するために、アプリケーションは <strong>fcteststk </strong> を
+実行して、<em>FFDC エラー・スタック環境</em> が使用可能かどうかを調べ、
+使用可能な場合は、障害情報の収集を開始することができます。 <em>FFDC エラー・スタック環境</em> が存在しなければ、
+アプリケーションはこの情報の収集を回避することができます。</p>
+ <p><em>FFDC 環境</em> が存在する場合、FFDC エラー・スタックが <em>FFDC 環境</em>によって使用されているかどうかに関係なく、 <strong>fclogerr </strong> FFDC インターフェースを使用するプロセスは、 <strong>fclogerr </strong> を使用できます。 <strong>fclogerrが </strong>使用されるたびに、FFDCエラースタックが予約されたかどうかに関係なく、失敗情報は<span>AIX</span>エラーログとBSDシステムログに記録される。 <strong>fclogerr </strong> インターフェースを使用して情報
+を記録するアプリケーションは、FFDC エラー・スタックが使用中かどうかにかかわりなく、
+<em>常に</em> 障害情報を収集し、記録する必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td>このコマンドの使用方法に関するメッセージを表示します。 これ以上の処理は実行されません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-q</span></span></td>
+
+<td>このコマンドからの、FFDC 環境が確立されたかどうかを説明する出力を抑制します。 コマンド・ユーザーは、FFDC 環境がこの処理のために確立されたかどうかを判別する
+ために、コマンドの終了状況を検査する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><em>FFDC_Failure_ID (FFDC_Failure_ID)</em></dt>
+
+<dd><p>レポートを開始する障害の FFDC 障害 ID を指定します。 <strong>fcreport</strong> は、この障害についての障害情報、およびこのレポートによって
+関連する障害としてリストされるすべての障害についての障害情報を入手しようとします。 このコマンドには FFDC 障害 ID を 1 つしか指定できません。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>fcreport</span></span> は、 <span><span>rsh</span></span> を使用して、リモート・ノードに存在する可能性のある障害レポートを取得します。 ユーザーには、これらのリモート・ノードに対して <span><span>rsh</span></span> コマンドを実行するための十分な特権が必要です。 ユーザーがこの権限を持っていない場合、 <span><span>fcreport</span></span> は、ローカル・ノードに存在する限り、関連する障害のリストのみをトレースできます。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>FFDC エラー・スタック環境が存在します。</dd>
+
+
+<dt>2</dt>
+
+<dd>ヘルプ情報が表示され、処理が終了しました。</dd>
+
+
+<dt>12</dt>
+
+<dd>処理が実行されませんでした。 無効なオプションが指定されました。</dd>
+
+
+<dt>15</dt>
+
+<dd>この時点で FFDC エラー・スタック環境はクライアントによって確立または
+継承されていません。</dd>
+
+
+<dt>17</dt>
+
+<dd>FFDC エラー・スタック環境が破壊されていると判断されました。
+この環境は使用不能とみなされます。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <p>アプリケーションに対して FFDC エラー・スタック環境が存在するかどうかを検査するには、
+次のようにします。</p>
+ <dl>
+<dt></dt>
+
+<dd><div><div><pre><code>fcteststk -q
+if (($? == 0))
+then
+    # Collect failure information
+         :
+         :
+    # Use fcpushstk to record failure info
+         :
+         :
+fi</code></pre></div><div></div></div></dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2><p>このコマンドは、Reliable Scalable Cluster Technology (RSCT) ファイルセットの一部です。</p>
+</section>
+
+</div></div>

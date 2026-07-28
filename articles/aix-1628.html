@@ -1,0 +1,154 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>すべてのチューナブル・パラメーターをデフォルト値にリセットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>チューニング・デフォルト</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tundefault.html#tundefault__row-d3e138682" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tundefault.html#tundefault__tundefault-rowK" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a>] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tundefault.html#tundefault__row-d3e138673" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tundefault</strong> コマンドは、すべてのチューニング・コマンド (<strong>ioo</strong>、 <strong>vmo</strong>、 <strong>schedo</strong>、 <strong>no</strong>、 <strong>nfso</strong>、および <span><span>raso</span></span>) を <strong>-D</strong> フラグ付きで開始します。 これは、<strong>-r</strong>が指定されていない限り、<strong>Bosboot</strong>と<strong>Reboot</strong> タイプのパラメー タ、およびデフォルト値よりも大きな値に設定された<strong>Incremental</strong>タイプのパラメータを除 く、すべての<span>AIX</span>調整可能パラメータをデフォルト値にリセットする。 パラメーターを変更できない場合は、エラー・メッセージが
+表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-K</strong></td>
+
+<td>次のライブ・アップデート操作まで、チューナブル・パラメーターのデフォルト値へのリセット操作を据え置きます。 <span>-r</span> フラグが指定されると、<span>tundefault</span> コマンドは、<span>nextboot</span> ファイルおよび
+<span>nextliveupdate</span> ファイルに指定されたチューナブル・パラメーターをすべて、そのデフォルト値にリセットします。 <span>-r</span> フラグは、<span>/etc/tunables/nextboot</span> ファイルのスタンザを消去し、必要に応じて、<strong>bosboot</strong>
+操作を実行するよう指示し、変更内容を適用するにはリブート操作が必要であることを示す警告メッセージを表示します。 <span>-K</span> フラグは、<span>/etc/tunables/nextliveupdate</span> ファイルのスタンザとチューナブル・パラメーターのデフォルト値を
+<span>nextliveupdate</span> ファイルに追加します。 この更新済み <span>nextliveupdate</span> ファイルは、次のライブ・アップデート操作に使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>変更内容を永続的にします。すべてのチューナブル・パラメーターをデフォルト値にリセット
+し、<span>/etc/tunables/nextboot</span> ファイルを更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>デフォルト値へのリセットを次のリブートまで据え置きます。 これにより <span>/etc/tunables/nextboot</span> ファイルのスタンザが消去されて、必要に応じて <strong>bosboot</strong> を提案し、リブートが必要なことを警告するメッセージを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>チューナブル・パラメーターのタイプ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>Dynamic</td>
+
+<td>任意の時点で変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Static</td>
+
+<td>変更できません。</td>
+
+</tr>
+
+<tr>
+<td>Reboot</td>
+
+<td>リブート・シーケンス時にのみ変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Bosboot</td>
+
+<td>bosboot を実行してマシンをリブートした場合にのみ変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Mount</td>
+
+<td>変更内容は、今後マウントされるファイルシステムまたはディレクトリーについてのみ
+有効です。</td>
+
+</tr>
+
+<tr>
+<td>Incremental</td>
+
+<td>ブート時を除いて、増分できます。</td>
+
+</tr>
+
+<tr>
+<td>Connect</td>
+
+<td>変更内容は、将来のソケット接続についてのみ有効です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのチューナブル・パラメーターを永続的にそのデフォルト値にリセットするには、次のコマンドを入力します。<div><div><pre><code>tundefault -p</code></pre></div><div></div></div><p>チューニング・コマンドを起動するときに、すべてのコマンドに <strong>-Dp</strong> フラグ
+が付きます。 これにより、すべてのチューナブル・パラメーターをデフォルト値にリセットし
+ます。 さらに、
+<strong>/etc/tunables/nextboot</strong> ファイルを更新し
+ます。 このコマンドは、すべてのチューナブル・パラメーターを完全に永続的にデフォルト値にリセ
+ットします。</p>
+</li>
+
+<li>すべてのチューナブル・パラメーターの設定を次のリブートまで据え置くには、次のコマンドを入力します。<div><div><pre><code>tundefault -r </code></pre></div><div></div></div>このコマンドは、<strong>-Dr</strong> フラグを付けてすべてのチューニング・コマンドを呼び出します。 これにより、
+<strong>/etc/tunables/nextboot</strong> ファイルの
+スタンザを消去し、必要に応じて、<strong>bosboot</strong> を提案し、
+変更内容を有効にするにはリブートが必要なことを警告します。</li>
+
+<li>すべてのチューナブル・パラメーターの設定を次のリブートおよび次のライブ・アップデート操作まで据え置くには、次のコマンドを入力します。<div><div><pre><code>tundefault -r -K</code></pre></div><div></div></div>このコマンドは、<strong>-DrK</strong> フラグを付けてすべてのチューニング・コマンドを呼び出します。 このコマンドは、<span>/etc/tunables/nextboot</span> ファイルのスタンザを消去し、必要に応じて、<strong>bosboot</strong> 操作を提案し、変更内容を有効にするにはリブートが必要なことを警告します。 また、次のライブ・アップデート操作のためのチューナブル・パラメーターにデフォルト以外の値が設定されていた場合、このコマンドは、スタンザとデフォルト値を
+<span>/etc/tunables/nextliveupdate</span> ファイルに追加します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/tundefault</strong></td>
+
+<td><strong>tundefault</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/tunables/</strong></td>
+
+<td>すべてのチューナブル・ファイルを含みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

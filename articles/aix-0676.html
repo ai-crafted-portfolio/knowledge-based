@@ -1,0 +1,215 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムまたはライブ・ダンプ、あるいは実行中のカーネルの検査を可能にします。</p>
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>kdb -h </code></pre></div><div></div></div>
+<div><div><pre><code>kdb [ -c CommandFile ] [ -cp ] [ -i HeaderFile ] [ -l ] [ -script ] -w -u  KernelFile</code></pre></div><div></div></div>
+<div><div><pre><code>kdb [ -c CommandFile ] [ -cp ] [ -i HeaderFile ] [ -l ] [ -script ] [ -v ] [  SystemImageFile [  KernelFile [KernelModule ... ]]]</code></pre></div><div></div></div>
+<div><div><pre><code>kdb [ -c CommandFile ] [ -cp ] [ -i HeaderFile ] [ -l ] [ -script ] [ -v ] [ -m  SystemImageFile ] [ -u  KernelFile ] [ -k KernelModule ]</code></pre></div><div></div></div>
+<p></p>
+
+</section>
+
+<section><h2>説明</h2> <p><span>kdb</span> コマンドは、オペレーティング・システムの
+イメージまたは実行中のカーネルを検査するための対話式ユーティリティーです。 <span>kdb</span> コマンドは、システム内の制御構造の解釈およびフォーマットを行い、ダンプを検査するための各種の機能を提供します。</p>
+ <div>アクティブ・システムで <span>kdb</span> コマンドを使用する場合、<span>/dev/pmem</span> スペシャル・ファイルが使用されるため、root 権限が必要です。 アクティブ・システムで <span>kdb</span> コマンドを実行するには、次のように入力します。<div><div><pre><code>kdb</code></pre></div><div></div></div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 実行中のシステム上の現行プロセスのスタック・トレースが機能しません。</div>
+        </div>
+      </div></div>
+ <div>システム・イメージ・ファイルで <span>kdb</span> コマンドを起動するには、次のように入力します。<div><div><pre><code>kdb SystemImageFile</code></pre></div><div></div></div></div>
+ <p>kdb が開始すると、ユーザーのホーム・ディレクトリー内および現在の作業ディレクトリー内で <span>.kdbinit</span> ファイルを検索します。 これらの場所のいずれかに'<span>.kdbinit</span>ファイルが存在する場合、'<span>kdb</span>コマンドは、あたかも対話型kdbプロンプトで入力されたかのように、ファイル内のすべてのコマンドを実行する。 この両方の場所に <span>.kdbinit</span> ファイルが見つかった場合、ホーム・ディレクトリー内のファイルが最初に処理され、続いて現在の作業ディレクトリー内のファイルが処理されます (ただし、現行ディレクトリーがホーム・ディレクトリーである場合を除く。この場合はファイルが一度だけ処理されます)。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span> CommandFile</td>
+
+<td>始動スクリプト・ファイルの別の名前を指定します。 このオプションを使用すると、kdbは'<span>.kdbinit</span>ファイルではなく、ホームディレクトリとカレントディレクトリのCommandFileパラメータを検索する。</td>
+
+</tr>
+
+<tr>
+<td><span>-cp</span></td>
+
+<td>これを使用すると、始動スクリプト・ファイル内の各コマンドが実行されるときに、kdb はそのコマンドを出力します。 これは、'<span>.kdbinit</span>ファイルや、'<span>-c</span>フラグで指定されたその他のファイルのデバッグを助けるために使うことができる。 出力される各コマンドの前には、プラス (<code>+</code>) 符号が付きます。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td>コマンド・ラインの使用法に関する簡略ヘルプ・メッセージと、使用可能なコマンド・ライン・オプションの簡単なリストが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> HeaderFile</td>
+
+<td>HeaderFileパラメータで定義されたすべての C 構造体を kdb '<span>print</span>サブコマンドで使用できるようにする。 このオプションを使用するには、C コンパイラーがシステムにインストールされていなければなりません。 HeaderFile変数がコンパイルするために追加の'<span>.h</span>ファイルを必要とする場合、これらは別の'<span>-i</span>オプションでも指定しなければならないかもしれない。</td>
+
+</tr>
+
+<tr>
+<td><span>-k</span> モジュール</td>
+
+<td>指定されたModuleパラメータを、カーネル自体にないシンボル定義を解決するための 追加カーネルモジュールとして使うように、'<span>kdb</span>コマンドに指示する。 このオプションの使用は、KernelModuleパラメータでカーネルモジュールを指定することと同じである。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>インライン・ページャー (つまり、<code>more (^C to quit) ?</code> プロンプト) を kdb 内で使用できなくします。 この場合、kdbの'<code>set scroll</code>サブコマンドは何の効果もなく、スクロールの設定に関係なく、インラインページャーは常に無効になる。</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span> 画像</td>
+
+<td><span>kdb</span>コマンドに、指定されたImageパラメータをシステムイメージファイルとして使うように指示する。 このオプションの使用は、SystemImageFileパラメータでシステム・イメージ・ファイルを指定するのと同じである。</td>
+
+</tr>
+
+<tr>
+<td><span>-script</span></td>
+
+<td>kdb の始動時にインライン・ページャー (つまり、<code>more (^C to quit) ?</code> プロンプト) を使用不可にして、ほとんどの状況情報の出力を不可にします。 このオプションは、kdbのフロントエンドとして動作するスクリプトやその他のプログラムによる'<span>kdb</span>コマンドの出力の解析を容易にする。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> カーネル</td>
+
+<td>シンボル定義を解決するためのカーネルファイルとして、指定されたカーネルを使用するように '<span>kdb</span>コマンドに指示する。 このオプションの使用は、KernelFileパラメーターでカーネルを指定することと同じである。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td><span>kdb</span> コマンドを開始したときに、ダンプ・ファイル内のすべてのコンポーネント・ダンプ・テーブル (CDT) のリストを表示します。 CDT は、ダンプに実際に含まれるメモリー領域をリストします。 <span>kdb</span> コマンドが稼働中のシステムで使用された場合、このオプションは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>システム・イメージではなく、カーネル・ファイルを直接検査します。 通常、システム・イメージ・ファイルからメモリー位置を表示するすべての「<span>kdb</span>サブコマンドは、代わりにKernelFileから直接データを読み込む。 メモリーに書き込むサブコマンドは使用できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><caption><span>表2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>KernelFile</td>
+
+<td><span>kdb</span>コマンドがカーネルシンボル定義の解決に使用する<span>AIX</span>カーネルを指定する。 カーネル・ファイルが使用可能でなければなりません。 ダンプを検査する場合、カーネル・ファイルはシステム・ダンプまたはライブ・ダンプを取るときに使用されたカーネルと同じでなければなりません。 デフォルト値は<span>/unix</span>です。</td>
+
+</tr>
+
+<tr>
+<td>KernelModule</td>
+
+<td>カーネル・ファイル自体の中に見つからないシンボル定義を解決するために kdb が使用する追加のカーネル・モジュールのファイル名を指定します。</td>
+
+</tr>
+
+<tr>
+<td>SystemImageFile</td>
+
+<td>システム・イメージを含むファイルを指定します。 この値は、システム・ダンプかライブ・ダンプ、ダンプ・デバイスの名前、または <span>/dev/pmem</span>スペシャル・ファイルを示すことができます。 デフォルト値は <span>/dev/pmem</span> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次の例で、<span>kdb</span> コマンドの起動オプションを説明します。</p>
+ <ol>
+<li>デフォルトのシステム・イメージ・ファイルとカーネル・イメージ・ファイルを使用して <span>kdb</span> コマンドを起動するには、次のように入力します。<div><div><pre><code>kdb</code></pre></div><div></div></div> <p><span>kdb</span>プログラムは、(0)&gt;プロンプトを返し、サブコマンドの入力を待つ。</p>
+</li>
+
+<li><span>/var/adm/ras/vmcore.0</span>名前のダンプ・ファイルと「<span>/unix</span>」という名前のUNIXカーネル・ファイルを使って「<span>kdb</span>コマンドを実行するには、次のようにタイプする：<div><div><pre><code>kdb /var/adm/ras/vmcore.0 /unix</code></pre></div><div></div></div>
+<p><span>kdb</span>プログラムは、(0)&gt;プロンプトを返し、サブコマンドの入力を待つ。</p>
+</li>
+
+<li><span>/var/adm/ras/livedump/trc1.nocomp.200705222009.00</span>名前のライブ・ダンプ・ファイルと「<span>/unix</span>カーネル・ファイルを使って「<span>kdb</span>コマンドを起動するには、次のようにタイプする：<div><div><pre><code>kdb /var/adm/ras/livedump/trc1.nocomp.200705222009.00</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注意：</span>デフォルトのカーネルファイルは「<span>/unix</span>である。 システム・ダンプと違い、ライブ・ダンプでは、選択されたデータのみがあります。 例えば、ダンプに明示的に含まれたスレッドのカーネル・スレッド・データのみがあります。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/kdb</span></td>
+
+<td><span>kdb</span>コマンドを含む。</td>
+
+</tr>
+
+<tr>
+<td><span>/dev/pmem</span></td>
+
+<td>デフォルト・システム・イメージ・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>/unix</span></td>
+
+<td>デフォルト・カーネル・ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

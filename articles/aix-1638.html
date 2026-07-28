@@ -1,0 +1,85 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>IANA（Internet Assigned Numbers Authority）の最新のオルソンタイムゾーンデータベースを使用して、 AIX® システムのタイムゾーンデータベースを更新する。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>tzupg.pl</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<div><span>tzupg.pl</span> コマンドは、 <code>IANA</code> からの最新の <code>Olson time zone
+database</code> に基づいて、 AIX システムのタイムゾーン情報を更新する。 このコマンドは、グローバル・タイムゾーン定義の最新の変更がシステムに反映されるようにします。 <span>tzupg.pl</span> ツールは、オンラインとオフラインの両方のアップデートをサポートしています。 デフォルトでは、現在インストールされているタイムゾーン・データベースのバージョンが表示されます。<div><div>
+        <div>
+          <div><span>注：</span> <span>tzupg.pl</span> コマンドを実行するには、root または superuser 権限が必要です。</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<div><span>tzupg.pl</span> ツールはメインメニューを表示し、メインメニューから以下のオプションを選択するよう促します：<div><div><pre><code>$ tzupg.pl
+&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;-- ------------------ --&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;-- TZ AUTOMATION TOOL (Ver:xxxxx) --&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;-- ------------------ --&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;&gt;
+ 
+****&gt; MAIN MENU &lt;*****************
+Select an option:
+1. Update the timezone database
+2. Update the timezone database offline
+3. Print the updated zones
+4. Exit from the tool
+ 
+Enter your choice (1/2/3/4):
+</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span><dl>
+
+<dt>タイムゾーンデータベースの更新</dt>
+
+<dd>タイムゾーン・データベースの更新処理を開始する。 更新するバージョンを選択するプロンプトが表示されます。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>タイムゾーンデータベースの更新（オフライン）</dt>
+
+<dd>システムがインターネットに接続されていないときにタイムゾーンデータベースを更新する。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>更新されたゾーンの印刷</dt>
+
+<dd>AIX システムの以前のタイムゾーン・データベースと比較して更新されたタイムゾーンを表示します。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>ツールを終了します</dt>
+
+<dd><span>tzupg.pl</span> ツールを終了する。</dd>
+
+
+</dl>
+
+</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+</div></div>

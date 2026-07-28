@@ -1,0 +1,111 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>シリアル・ラインをネットワーク・インターフェースとして接続します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/slattach</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slattach.html#slattach__row-d3e26148" target="_blank" rel="noopener noreferrer"><em>TTYName</em></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slattach.html#slattach__row-d3e26123" target="_blank" rel="noopener noreferrer"><em>BaudRate </em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slattach.html#slattach__row-d3e26135" target="_blank" rel="noopener noreferrer"><em>DialString </em></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/slattach.html#slattach__row-d3e26129" target="_blank" rel="noopener noreferrer"><em>DebugLevel</em></a><em></em> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/slattach</strong> コマンドは、ネットワーク・インターフェースに TTY 回線を割り当てます。</p>
+ <p><strong>slattach</strong> コマンドは、システム始動中に <strong>/etc/rc.net</strong> ファイルによって実行され、System Management Interface Tool (SMIT) で定義されたシリアル・ライン・インターネット・プロトコル (SLIP) ネットワーク・インターフェースを自動的に構成します。 SLIP インターフェースは、この後の例のセクションに示すように、手作業でも構成できます。</p>
+ <p>直接接続された SLIP インターフェースでは、接続が切断されると手操作による介入ではなく自動的に再試行されます。 モデムを介して接続された SLIP インターフェースでは、接続が切断された場合は手作業でリダイヤルしなければなりません。 ユーザーが <strong>slattach</strong> コマンド・ラインにダイヤル文字列を指定する場合は、切断された接続を復元するためにはユーザーがコマンドとダイヤル文字列を再入力しなければなりません。</p>
+ <p>インターフェースを切り離すには、 <strong>slattach</strong> コマンドの終了後に <strong>ifconfig</strong><em> Interface</em><strong> down</strong> コマンドを実行します。 <em>Interface</em> パラメーターは、<strong>netstat</strong> コマンドによって表示される名前です。</p>
+ <p>コマンド・ラインから SLIP インターフェースを構成する場合は、該当するパラメーターを指定して SLIP インターフェース用に <strong>/usr/sbin/ifconfig</strong> コマンドを起動しなければなりません。また、このコマンドを正常に実行するには、SLIP tty 回線の伝送制御手順が使用可能でなければなりません。 SLIP tty 伝送制御手順が既にロードされているかどうかを検査するには、次のコマンドを実行します。strinfo -m | grep slip出力が表示されない場合には, モジュールはまだロードされていません。 次のコマンドを発行してモジュールをロードします。strload
+-m /usr/lib/drivers/slip.</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span>SLIP インターフェースが <strong>ifconfig</strong>を使用して構成された後、TTY に対する許可を持つすべてのユーザーが <strong>slattach</strong> コマンドを発行できます。</li>
+
+<li><span></span>接続を確立する前に、 <strong>slattach</strong> コマンドによって使用される tty デバイスを構成する必要があります。 また、BNU の <strong>/usr/lib/uucp/Devices</strong> ファイルに、tty デバイスのエントリーを作成する必要がある場合もあります。</li>
+
+<li><span></span>サンプル・シェル・スクリプト <strong>/usr/sbin/slipcall</strong>は、 <strong>slattach</strong> を呼び出してリモート・システムに接続するための簡易インターフェースを提供します。 <strong>slipcall</strong> は、SLIP tty 伝送制御手順をアクティブにする前にユーザーがログインしておくことを必要とする、ダイヤルイン SLIP ネットワークに接続するのに便利なコマンドです。 <strong>slipcall</strong> の基本構成では、
+<strong>sliplogin</strong> 構成を持つほかのオペレーティング・システムに接続し、
+呼び出されたシステムによって割り当てられたローカルおよびリモートのインターネット・アドレスとネットワーク・マスクを取り出します。 次に、リモート・システムの指定された値を使用して、ローカル・インターフェースを構成します。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>BaudRate</em></td>
+
+<td>接続の速度を設定します。 デフォルトの速度は 9600 です。</td>
+
+</tr>
+
+<tr>
+<td><em>DebugLevel</em></td>
+
+<td>必要なデバッグ情報のレベルを設定します。 0 から 9 の数字で指定します。 値 0 を指定した場合、デバッグ情報は報告されません。
+値 9 を指定した場合、最も多くのデバッグ情報が報告されます。 デフォルト値は 0 です。</td>
+
+</tr>
+
+<tr>
+<td><em>DialString</em></td>
+
+<td>Basic Networking Utility (BNU)<span>AIX</span>to<span>AIX</span>Copy Program (UUCP)の<strong>チャット</strong>構文を使用して、期待/応答シーケンスの文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>ttyname</em></td>
+
+<td>TTY 回線を指定します。 このストリングの形式は次のとおりです。 ttyxxまたは/dev/ttyxx.</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>SLIP ネットワーク・インターフェースを、以下のものに接続します。tty1ポートに直接接続するには、以下のコマンドを発行します。<div> <div><div><pre><code>slattach /dev/tty1</code></pre></div><div></div></div>このコマンドは、tty1SLIP によって使用されるネットワーク・インターフェースに対して。</div>
+</li>
+
+<li><span></span>SLIP ネットワーク・インターフェースを接続するtty1モデム接続を使用して、次のコマンドを発行します。<div> <div><div><pre><code>slattach /dev/tty1 9600 '""AT OK \pATF1 OK \pATDT34335 CONNECT""'</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/uucp/Devices</strong></td>
+
+<td>リモート接続に使用されるデバイスの定義をリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

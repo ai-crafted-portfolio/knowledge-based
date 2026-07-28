@@ -1,0 +1,80 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>keyserv</strong> デーモンを停止し、<strong>/etc/rc.nfs</strong> ファイルのエントリーにコメントを付けます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/rmkeyserv</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmkeyserv.html#rmkeyserv__row-d3e159765" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmkeyserv.html#rmkeyserv__row-d3e159777" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmkeyserv.html#rmkeyserv__row-d3e159792" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmkeyserv</strong> コマンドは、<strong>/etc/rc.nfs</strong> ファイルの <strong>keyserv</strong> デーモンに関するエントリーにコメントを付けます。 <strong>rmkeyserv</strong> デーモンは、<strong>stopsrc</strong> コマンドを使用して <strong>keyserv</strong> デーモンを停止します。</p>
+ <p>また、System Management Interface Tool (SMIT) <strong>smit rmkeyserv</strong> 高速パスを使用して実行することもできます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-I</strong></td>
+
+<td><strong>/etc/rc.nfs</strong> ファイルの <strong>keyserv</strong> デーモンに関するエントリーにコメントを付けます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>/etc/rc.nfs</strong> の <strong>keyserv</strong> デーモンに関するエントリーにコメントを付け、<strong>keyserv</strong> デーモンを
+停止します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>stopsrc</strong> コマンドを使用して <strong>keyserv</strong> デーモンを停止します。 このフラグは <strong>/etc/rc.nfs</strong> ファイルを変更しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>keyserv</strong> デーモンを始動させる <strong>/etc/rc.nfs</strong> ファイル内のエントリーにコメントを付けるには、以下のように入力します。</p>
+ <div> <div><div><pre><code>rmkeyserv -I</code></pre></div><div></div></div></div>
+ <p>このコマンドは、現在実行中のデーモンは停止しません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/rc.nfs</strong></td>
+
+<td>NFS および <span>NIS</span> デーモンの始動スクリプトが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

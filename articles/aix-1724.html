@@ -1,0 +1,70 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ノードまたは一連のノードの仮想共有ディスク情報を除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>vsdelnode</strong> <span><span>node_number</span></span> ...</p>
+</section>
+
+<section><h2>説明</h2> <p>このコマンドは、ノードまたは一連のノードに対し、仮想共有ディスクのデータを除去するために使用します。</p>
+ <p><strong>vsdelnode</strong> コマンドは、もはや仮想共有ディスクではない、
+リスト化されたノードを作成するので、仮想共有ディスクはノードからアクセスされる
+ことはありません。 このコマンドは、グローバル・ボリューム・グループ用のサーバーである
+すべてのノードに対して失敗します。</p>
+ <p>System Management Interface Tool (SMIT) を使用して、 <strong>vsdelnode</strong> コマンドを実行できます。 SMIT を使用するには、以下のように入力します。</p>
+ <div><div><pre><code>smit delete_vsd</code></pre></div><div></div></div> <p>さらに、「<strong>仮想共有ディスク・ノードの除去 (Delete Virtual Shared Disk Node)</strong>」情報オプションを選択します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt>-g</dt>
+
+<dd>特定ノード上で定義されたすべての仮想共有ディスクを表すボリューム・グループに対して、
+グローバル・ボリューム・グループ名を指定します。</dd>
+
+
+<dt>-p</dt>
+
+<dd>グローバル・ボリューム・グループに対する 1 次サーバー・ノード番号を指定します。</dd>
+
+
+<dt>-b</dt>
+
+<dd>グローバル・ボリューム・グループに対する 2 次ノード番号を指定します。 <strong>-b</strong> フラグを指定しない場合は、2 次ノード定義は除去されます。</dd>
+
+
+<dt>-o</dt>
+
+<dd>EIO エラーでリカバリーしない場合は <span><span>0</span></span>、EIO エラーでリカバリーする場合は <span><span>1</span></span>として指定します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> <dl>
+<dt><span><span>ノード番号</span></span></dt>
+
+<dd>除去した仮想共有ディスク情報を」持つノードのノード番号を指定します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、 <span><span>root</span></span> 権限が必要です。</p>
+</section>
+
+<section><h2>制約事項</h2> <p>リカバリー可能仮想共有ディスク・サブシステムは、削除中のノード (複数の場合
+もある) 上で停止しなければなりません。 そうでない場合、
+結果は予測不能です。 詳しくは、 <em>RSCT for <span>AIX 5L</span> Managing Shared Disks</em> を参照してください。</p>
+ <p>このコマンドは、ピア・ドメインでオンラインのノードから実行する必要があります。 オンラインのピア・ドメインに移動するには <strong>startrpdomain</strong> コマンドを使用します。 既存のピア・ドメイン内で、オンラインの特定ノードに移動するには <strong>startrpnode</strong>
+コマンドを使用します。 RSCT ピア・ドメインの作成と管理の詳細については、「<em>RSCT Administration
+Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <div>ノード <strong>
+ 3</strong> および <strong>6</strong> の仮想共有ディスクのノード情報を削除するには、
+次のように入力します。<div><div><pre><code>vsdelnode 3 6</code></pre></div><div></div></div> </div>
+</section>
+
+<section><h2>ロケーション</h2> <p><span><span>/opt/rsct/vsd/bin/vsdelnode</span></span></p>
+</section>
+
+</div></div>

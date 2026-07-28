@@ -1,0 +1,138 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>デバイス構成データベース内の基本カスタマイズ・デバイスに関する情報をブート・デバイスに保管します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>savebase</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savebase.html#savebase__row-d3e5191" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a><em>パス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savebase.html#savebase__row-d3e5183" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em> ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/savebase.html#savebase__row-d3e5199" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>savebase</strong> コマンドは、システム・ブートのフェーズ 1 で使用する基本デバイス用のカスタマイズ情報を保管します。 デフォルトでは、<strong>savebase</strong> コマンドはこの情報を <strong>/etc/objrepos</strong> ディレクトリーから取り出します。 ただし、<strong>-o</strong> フラグを使用して ODM ディレクトリーを指定すれば、
+このアクションをオーバーライドできます。 <span><span>savebase</span></span> コマンドは通常、パラメーターなしで実行されます。 これは、 <span><span>/dev/ipl_blv</span></span> スペシャル・ファイル・リンクを使用して、出力宛先を識別します。</p>
+ <p>または、<strong>-d</strong> フラグを使用して、
+宛先ファイルまたはデバイス (<strong>/dev/hdisk0</strong> デバイス・ファイルなど) を指定します。 特定の出力宛先を識別するために、 <span><span>-d</span></span> フラグは、 <span><span>savebase</span></span> が基本カスタマイズ・デバイス・データを書き込むファイルを識別します。 このファイルとして、通常ファイルまたはデバイス・スペシャル・ファイルを指定できます。 デバイス・スペシャル・ファイルは、ディスク・デバイス・スペシャル・ファイルまたはブート論理ボリューム・デバイス・スペシャル・ファイルのいずれかを識別します。</p>
+ <p>ディスク・デバイス・スペシャル・ファイルは、ディスク上にブート論理ボリュームが 1 つしかない場合に使用できます。 <span><span>savebase</span></span> コマンドは、指定されたディスクにブート論理ボリュームが 1 つだけ存在し、ブート可能であることを確認します。 どちらの条件も当てはまらない場合、 <span><span>savebase</span></span> は基本カスタマイズ・デバイス・データをディスクに保存せず、エラーで終了します。</p>
+ <p>ディスク上に第 2 のブート論理ボリュームがある場合は、そのブート論理ボリューム・デバイス・スペシャル・ファイルを宛先デバイスとして使用して、どのブート・イメージに基本カスタマイズ・デバイス・データを保管するかを識別する必要があります。 ブート論理ボリューム・デバイス・スペシャル・ファイルは、ディスク上にブート論理ボリュームが 1 つしかない場合でも使用できます。 <span><span>savebase</span></span> コマンドは、指定されたデバイス・スペシャル・ファイルがブート論理ボリュームであり、データを保存する前にブート可能であることを確認します。 これらの検査のいずれかが失敗すると、 <span><span>savebase</span></span> はエラーで終了します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>-m</span></span> フラグは、 <span><span>savebase</span></span> コマンドで使用されなくなりました。 互換性の理由から、このフラグは指定できますが、 <span><span>savebase</span></span> は事実上このフラグを無視します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> ファイル</em></td>
+
+<td>基本情報が書き込まれる宛先ファイルまたはデバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> パス</em></td>
+
+<td>デバイス構成データベースが入っているディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細出力を標準出力に書き出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>基本カスタマイズ情報を保管し、詳細出力を表示するには、次のように入力します。<div> <div><div><pre><code>savebase -v</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span><strong> /usr/lib/objrepos</strong> ディレクトリー以外の ODM ディレクトリーを指定するには、次のように入力します。<div> <div><div><pre><code>savebase -o /tmp/objrepos</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>基本カスタマイズ情報をブート・ディスクではなく <strong>/dev/hdisk0</strong> デバイス・ファイルに保管するには、次のように入力します。<div> <div><div><pre><code>savebase -d /dev/hdisk0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/include/sys/cfgdb.h</strong></td>
+
+<td>基本デバイスに対するブート・マスクのタイプを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/PdDv</strong></td>
+
+<td>システムがサポートする既知のデバイス・タイプすべてに関するエントリーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/CuDv</strong></td>
+
+<td>システム内で定義されたすべてのデバイス・インスタンスに関するエントリーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/CuAt</strong></td>
+
+<td>カスタマイズされたデバイス特定の属性情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/CuDep</strong></td>
+
+<td>他のデバイス・インスタンスに依存するデバイス・インスタンスを記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/CuDvDr</strong></td>
+
+<td>デバイス構成ライブラリー・ルーチンによる並列管理が必要な重要リソースに関する情報を保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

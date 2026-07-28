@@ -1,0 +1,175 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>端末の状態を管理できるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tsm</strong><em> ポート</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tsm</strong> コマンドは、トラステッド・パス内で使用されるポートを制御する端末状態マネージャーを起動します。 以下の機能があります。</p>
+ <ul>
+<li><span></span> <strong>getty</strong> コマンドによって実行される回線通信モードおよび規律機能を確立する。</li>
+
+<li><span></span>ユーザーのアカウントと ID の検証、および <strong>login</strong> コマンドによって実行される初期プロセス資格情報と環境機能の設定。</li>
+
+<li><span></span>ポートでセキュア・アテンション・キー (SAK) が使用可能であり、システム・ログイン・プログラムが使用されている場合は、トラステッド・パス管理を実行します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>tsm</strong> コマンドはコマンド行には入力しません。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+ <p>トラステッド・パスの管理は以下の 2 つのフェーズで実行されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>login</strong></td>
+
+<td>このフェーズは、ユーザーが正常にログインしていない場合に有効です。 セキュア・アテンション・キー (SAK) シグナルを検出すると、
+システムは getty ログイン・タイプの処理を再始動します。 ポートとユーザーがトラステッド・シェルをサポートする場合は、
+次にログインするとユーザーはトラステッド状態になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>シェル (shell)</strong></td>
+
+<td>ユーザー認証が成功するとこのフェーズになります。 コマンドはユーザーの <strong>tpath</strong> 属性に従って機能します。 有効な値は次のとおりです。<dl>
+<dt><strong>オン</strong></dt>
+
+<dd>標準トラステッド・パス管理を提供します。 セキュア・アテンション・キー (SAK) シグナルが検出された場合は、
+次にそのポートにアクセスしようとすると、
+<strong>tsm</strong> プロセスとその兄弟 (トラステッド・シェルを含む) を除き、
+ポートにアクセスするすべてのプロセスが終了します。 ポートは初期状態にリセットされ、トラステッドとしてマークされて、
+トラステッド・シェル・コマンド (<strong>tsh</strong> コマンド) が実行されます。</dd>
+
+
+<dt><strong>非 SSH</strong></dt>
+
+<dd>セキュア・アテンション・キー (SAK) シグナルが検出されるとユーザー・セッションが終了します。</dd>
+
+
+<dt><strong>常時</strong></dt>
+
+<dd>ユーザーは、トラステッド・パスから出ることはできません。 ユーザーのシェルは常にトラステッド・シェル (tsh) です。</dd>
+
+
+<dt><strong>nosak (nosak)</strong></dt>
+
+<dd>セキュア・アテンション・キー (SAK) が端末に対して使用不可になり、
+ユーザーの初期プログラムが実行されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>ホーム・ディレクトリーがまだない場合は、<strong>tsm</strong> コマンドを構成して、ログイン時にホーム・ディレクトリーを作成することができます。 <strong>tsm</strong> コマンドは <strong>mkuser.sys</strong> コマンドを呼び出してホーム・ディレクトリーを作成し、アカウントをカスタマイズします。 この機能を有効にするには、<strong>/etc/security/login.cfg</strong> ファイルにある <strong>usw</strong> スタンザの <strong>mkhomeatlogin</strong> 属性を真に設定します。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドはすべてのユーザーに対して実行 (X) アクセス権が与えられている必要があります。 コマンドは、setuid で root ユーザーに設定され、<strong>trusted computing base</strong> 属性を持っていなければなりません。</p>
+ 
+<div><span>アクセスされるファイル:</span><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/objrepos/CuAt</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/usr/lib/objrepos/PdAt</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/login.cfg</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/user</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <p>端末の状態管理を提供するtty0次の行を <strong>/etc/inittab</strong> ファイルに追加します。</p>
+ <div> <div><div><pre><code>tty0:2:respawn:/usr/sbin/tsm /dev/tty0</code></pre></div><div></div></div></div>
+ <p>これにより、ポートが初期化されます/dev/tty0ポートの特性をセットアップします。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/tsm</strong></td>
+
+<td><strong>tsm</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/login.cfg</strong></td>
+
+<td>構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user</strong></td>
+
+<td>拡張ユーザー属性が入ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

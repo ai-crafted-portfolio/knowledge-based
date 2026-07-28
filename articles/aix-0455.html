@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>現在のオペレーティング・システム・レベルのセキュリティ暫定修正が利用可能かどうかをチェックする。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>emgr_check_ifixes</code></pre></div><div></div></div>
+<div><div><pre><code>emgr_check_ifixes -D [ -d aixlevel:fw | -c NIM_clients ] [ -P path ]</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>emgr_check_ifixes</span> コマンドは、現在のオペレーティング・システム・レベルに対応するセキュ リティ暫定修正が利用可能かどうかを調べます。 また、 <span>emgr_check_ifixes</span> コマンドは、セキュリティー・アドバイザリーの署名を検証し、指定されている場合は特定のパスにインテリム・フィックスをダウンロードします。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-D </span></td>
+
+<td>利用可能な暫定修正プログラムをダウンロードします。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> エクスレベル:FW</td>
+
+<td>システムの AIX レベルとファームウェア・レベルを指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> NIM_クライアント</td>
+
+<td>NIMクライアントの名前を指定する。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> パス</td>
+
+<td>暫定修正をダウンロードするパスを指定します。 デフォルト・パスは <span>/tmp/ifix_$PID</span>です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>現在のオペレーティング・システム・レベルのセキュリティ暫定修正が利用可能かどうかを確認するには、以下のコマンドを入力します：<div>
+<div><div><pre><code>emgr_check_ifixes</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>現在のオペレーティング・システム・レベルのセキュリティ暫定修正が利用可能かどうかを確認し、バッチ・モードで暫定修正をダウンロードするには、以下のコマンドを入力します：<div>
+<div><div><pre><code>emgr_check_ifixes -D -P /tmp</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>特定の AIX およびファームウェア・レベルのセキュリティ暫定修正プログラムが利用可能かどうかを確認するには、以下のコマンドを入力します：<div><div><pre><code>emgr_check_ifixes -d 7300-01-01-2246:VL950_098</code></pre></div><div></div></div></li>
+
+<li>NIMクライアントのセキュリティ暫定修正の有無を確認するには、NIMサーバーから、クライアント名をカンマまたはスペースで区切って、次のコマンドを入力します：<div><div><pre><code>emgr_check_ifixes -c “nim_client1 nim_client2”</code></pre></div><div></div></div><div><div><pre><code>emgr_check_ifixes -c “nim_client,nim_client2”</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

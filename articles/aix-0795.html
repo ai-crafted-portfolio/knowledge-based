@@ -1,0 +1,317 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ドメイン内の 1 つ以上のノードの最小特権 (LP) リソースに関する情報をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <div>LP リソース情報を表示するには、次のように入力します。<ul>
+<li><span>ローカル・ノードの場合:</span><p><span><span>lslpcmd</span></span> [ <span><span>–A</span></span> | <span><span>resource_name1</span></span> [ <span><span>,</span></span> <span><span>resource_name2</span></span> <span><span>,</span></span> … ] <span><span>|</span> <span><span>–R</span></span> <span><span>RunCmdName1</span></span> [ <span><span>,</span></span> <span><span>RunCmdName2</span></span> <span><span>,</span></span> … ] ] </span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</li>
+
+<li>ドメイン内のすべてのノードで以下のように入力します。<p><span><span>lslpcmd</span></span> <span><span>-a</span></span> [ <span><span>–A</span></span> | <span><span>resource_name1</span></span> [ <span><span>,</span></span> <span><span>resource_name2</span></span> <span><span>,</span></span> … ] <span><span>|</span> <span><span>–R</span></span> <span><span>RunCmdName1</span></span> [ <span><span>,</span></span> <span><span>RunCmdName2</span></span> <span><span>,</span></span> … ] ] </span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</li>
+
+<li>ドメイン内の一部のノードで以下のように入力します。<p><span><span>lslpcmd</span></span> <span><span>-n</span></span> <span><span>host1</span></span> [<span><span>,</span></span><span><span>host2</span></span><span><span>,</span></span>...] [ <span><span>–A</span></span> | <span><span>resource_name1</span></span> [ <span><span>,</span></span> <span><span>resource_name2</span></span> <span><span>,</span></span> … ] <span><span>|</span> <span><span>–R</span></span> <span><span>RunCmdName1</span></span> [ <span><span>,</span></span> <span><span>RunCmdName2</span></span> <span><span>,</span></span> … ] ] </span> [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lslpcmd</span></span> コマンドは、ドメイン内の 1 つ以上のノード上の LP リソースに関する情報を表示します。 LP リソースは、 <span>LP アクセス制御リスト (ACL)</span>内のアクセス権に基づいてユーザーにアクセス権限を付与する <span><span>root</span></span> コマンドまたはスクリプトです。 <span>このコマンドは、 <span><span>resource_name1</span></span><span><span>,</span></span>[<span><span>resource_name2</span></span><span><span>,</span></span>... を指定して、1 つ以上の LP コマンドの属性を表示するために使用します。 パラメーターと組み合わせて使用する必要があります。 このパラメーターを省略すると、 <span><span>lslpcmd</span></span> コマンドはすべての LP コマンドの名前をリストします。 すべての LP コマンドとそのすべての属性および値をリストするには、 <span><span>–A</span></span> フラグを使用します。 <span><span>–R</span></span> フラグを使用して、特定の <span><span>RunCmdName</span></span> 値を持つ 1 つ以上の LP リソースをリストします。</span></p>
+ <div><span><span>lslpcmd</span></span> コマンドは、定義済み LP リソースに関する以下の情報をリストします。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>名前</td>
+
+<td>LP リソースの名前。</td>
+
+</tr>
+
+<tr>
+<td>CommandPath</td>
+
+<td>LP リソースの完全修飾パス。</td>
+
+</tr>
+
+<tr>
+<td>説明</td>
+
+<td>LP リソースの説明。</td>
+
+</tr>
+
+<tr>
+<td>Lock</td>
+
+<td>ロック設定。 有効な値は、 <span><span>0</span></span> (ロックが設定されていない) および <span><span>1</span></span> (ロックが設定されている) です。</td>
+
+</tr>
+
+<tr>
+<td>CheckSum</td>
+
+<td><span><span>CommandPath</span></span> が指し示す LP リソースの <span><span>CheckSum</span></span> 値。 LP リソースが存在しない場合、または LP リソースが使用可能になった後でユーザーが <span><span>CheckSum</span></span> 値を更新しなかった場合、LP リソース・マネージャーは値 <span><span>0</span></span> を割り当てます。</td>
+
+</tr>
+
+<tr>
+<td>RunCmdName</td>
+
+<td><span><span>runlpcmd</span></span> コマンドでパラメーターとして使用される LP リソース名です。</td>
+
+</tr>
+
+<tr>
+<td>FilterScript</td>
+
+<td>フィルター・スクリプトに至るパス。</td>
+
+</tr>
+
+<tr>
+<td>FilterArg</td>
+
+<td><span><span>FilterScript</span></span>に渡される引数のリスト。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </div>
+ <p>このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、 <span><span>-a</span></span> フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、 <span><span>-n</span></span> フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノード上の 1 つ以上の LP リソースに関する情報を表示します。 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数の設定によって、クラスターの有効範囲が決まります。 <span><span>CT_MANAGEMENT_SCOPE</span></span> が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol><span><span>lslpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、 <span><span>CT_MANAGEMENT_SCOPE</span></span> 環境変数が設定されていないとします。 この場合、 <span><span>lslpcmd
+–a</span></span> は管理ドメインで実行されます。 ピア・ドメインで <span><span>lslpcmd
+–a</span></span> を実行するには、 <span><span>CT_MANAGEMENT_SCOPE</span></span> を <span><span>2</span></span>に設定する必要があります。</dd>
+
+
+<dt>--n <span><span>ホスト1</span></span><span>[</span><span><span>host2</span></span>,<span>...]。</span></dt>
+
+<dd>LP リソースがリストされるドメインの中のノード (複数可) を指定します。 デフォルトでは、LP リソースは、ローカル・ノードで
+変更されます。 <span><span>–n</span></span> フラグは、管理ドメインまたはピア・ドメインでのみ有効です。 CT_MANAGEMENT_SCOPE 変数が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定値を使用します。<ol>
+<li>管理ドメイン (あれば)</li>
+
+<li>ピア・ドメイン (あれば)</li>
+
+<li>Local 有効範囲</li>
+
+</ol>
+ <p><span><span>lslpcmd</span></span> コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。</p>
+</dd>
+
+
+<dt>–A</dt>
+
+<dd>すべての LP リソース、およびその属性と値を表示します。</dd>
+
+
+<dt>–R</dt>
+
+<dd>同じ <span><span>RunCmdName</span></span> 値を持つ LP リソースのすべての属性を表示します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>resource_name1</span></span><span>[</span>,<span><span>resource_name2</span></span>、<span>...</span></dt>
+
+<dd>情報を表示したい 1 つ以上の LP リソースを指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div><span><span>lslpcmd</span></span> コマンドを実行するには、以下が必要です。<ul>
+<li><span><span>IBM.LPCommands</span></span> リソース・クラスの Class ACL 内の読み取り許可。</li>
+
+<li>Resource ACL の中の読み取り許可。<p>代わりに、この許可が Resource Shared ACL の中に存在する場合は、Resource
+ACL が Resource Shared ACL の使用を指示できます。</p>
+</li>
+
+</ul>アクセス権は、連絡先システムの <span>LP ACL</span> で指定されています。 <span>それら</span>の変更については、 <span><span><span>lpacl</span></span> ファイル <span>LP ACL に関する一般情報</span></span> および「 <em>RSCT 管理ガイド</em> 」を参照してください。</div>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>リソースが見つかりません。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>RMC デーモンとのセッションに使用されるシステムを決めます。 <span><span>CT_CONTACT</span></span> がホスト名または IP アドレスに設定されている場合、コマンドは指定されたホスト上の RMC デーモンと連絡を取ります。 <span><span>CT_CONTACT</span></span> が設定されていない場合、コマンドは、コマンドが実行されているローカル・システム上の RMC デーモンと連絡を取ります。 RMC デーモン・セッションのターゲットおよびその管理有効範囲によって、処理される LP リソースが決まります。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>LP リソースを処理するために RMC デーモンとのセッションに使用される管理有効範囲を決定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+ <p>この環境変数が設定されていない場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ローカル・ノード上のすべての LP リソースの名前をリストするには、次のように入力します。<div><div><pre><code>lslpcmd </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>lpcommand1
+lpcommand2
+</code></pre></div><div></div></div></li>
+
+<li>ローカル・ノード上のすべての LP リソースの名前と属性をリストするには、
+次のように入力します。<div><div><pre><code>lslpcmd -A</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name=lpcommand1
+CommandPath=/tmp/my_command
+Description=
+Lock=1
+CheckSum=112
+RunCmdName=lpcommand1
+FilterScript=
+FilterArg=
+----------------------------------
+Name=lpcommand2
+CommandPath=/tmp/cmds/this_command
+Description=
+Lock=0
+CheckSum=0
+RunCmdName=lpcommand2
+FilterScript=
+FilterArg=
+----------------------------------
+</code></pre></div><div></div></div></li>
+
+<li>ローカル・ノード上の LP リソース <span><span>lpcommand1</span></span> の属性をリストするには、次のように入力します。<div><div><pre><code>lslpcmd lpcommand1</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name=lpcommand1
+CommandPath=/tmp/my_command
+Description=
+Lock=1
+CheckSum=100
+RunCmdName=lpcommand1
+FilterScript=
+FilterArg=</code></pre></div><div></div></div></li>
+
+<li>ローカル・ノード上の <span><span>RunCmdName</span></span> 値が <span><span>rpower</span></span> である LP リソースの属性をリストするには、次のように入力します。<div><div><pre><code>lslpcmd -R rpower</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Name=lpcommand1
+CommandPath=/opt/csm/bin/rpower
+Description=
+Lock=1
+CheckSum=112
+RunCmdName=rpower
+FilterScript=/tmp/test1
+FilterArg=node1,node2,node3
+-------------------------------
+Name=lpcommand2
+CommandPath=/opt/csm/bin/rpower
+Description=
+Lock=0
+CheckSum=112
+RunCmdName=rpower
+FilterScript=/tmp/test1
+FilterArg=node4,node5,node6
+-------------------------------
+⋮</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lslpcmd</dt>
+
+<dd><span><span>lslpcmd</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+</div></div>

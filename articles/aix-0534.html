@@ -1,0 +1,164 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>FRCA を制御し、構成します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>frcactrl { load | unload }frcactrl open Ip_Address Port [ Virtual_Host ] Server_Name Virtual_Root Log_Filefrcactrl close Ip_Address Port [ Virtual_Host ]frcactrl loadfile Ip_Address Port [ Virtual_Host ] Document_Root File ...frcactrl stats [reset ] [ Interval ]frcactrl logging Ip_Address Port [Virtual_Host ] { on | off } [ Format ] [ CPU_Id ] frcactrl { start | stop } Ip_Address Port [ Virtual_Host ] frcactrl revaltimeout Ip_Address Port [ Virtual_Host ] [ Seconds ] frcactrl pctonintr [ Percentage ]frcactrl set { option=value }frcactrl getfrcactrl default [ option ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>frcactrl</span> コマンドは、FRCA カーネル拡張機能を制御し、構成します。 カーネル拡張機能は、FRCA を使用したい Web サーバーを始動する前に読み込む必要があります。</p>
+</section>
+
+<section><h2>サブコマンド</h2> <dl>
+<dt><span>load</span></dt>
+
+<dd>FRCA カーネル拡張機能がロードされていない場合に、これをロードします。</dd>
+
+
+<dt><span>unload</span></dt>
+
+<dd>FRCA カーネル拡張機能がロードされている場合に、これをアンロードします。</dd>
+
+
+<dt><code><span>open</span>
+Ip_Address Port [ Virtual_Host ] Server_Name
+Virtual_Root Log_File</code></dt>
+
+<dd>ポート Port 上に IP アドレスが Ip_Address で
+Server_Name という名前の FRCA インスタンスをオープンして構成します。 Virtual_Root パラメーターは、Web データが始動するディレクトリーを
+指定します。 リクエストは指定されたファイルに記録されます。ログファイル。 このファイル名は、完全修飾名にする必要があります。<div><div>
+        <div>
+          <div><span>注:</span> FRCA は 1 つのログ・ファイルのみをサポートします。 FRCA を備えたシステム上で複数の Web サーバーを実行する場合、すべての要求は同じファイルに記録されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt><code><span>close</span>
+Ip_Address Port [ Virtual_Host ]</code></dt>
+
+<dd>指定された IP アドレスとポートに関連付けられている FRCA インスタンスを閉じます。</dd>
+
+
+<dt><code><span>loadfile</span>
+Ip_Address Port [ Virtual_Host ] Document_Root
+File ...</code></dt>
+
+<dd>指定されたファイルを FRCA またはネットワーク バッファー キャッシュに読み込みます。 以前に FRCA インスタンスが開かれた IP とポート番号を、ドキュメント ルートおよびロードするファイルとともにここで指定する必要があります。</dd>
+
+
+<dt><code><span>stats</span> [ reset ] [ Interval ]</code></dt>
+
+<dd>FRCA 統計情報を表示します。 オプションの <span>reset</span> サブコマンドは、
+統計情報をゼロにクリアします。 Interval パラメーターで間隔 (秒数) を指定して、
+定期的に統計情報を表示することができます。</dd>
+
+
+<dt><code><span>logging</span>
+Ip_Address Port [ Virtual_Host ] { on | off } [
+Format ] [ CPU_Id ]</code></dt>
+
+<dd>指定されたFRCAインスタンスによって処理されるリクエストのログ記録をオンにします。 IPアドレスそしてポートオンまたはオフ。 フォーマットは、CLF、V-CLF、ECLF (共通ログ・フォーマット、仮想ホスト &amp;
+CLF、拡張 CLF) のいずれかです。 マルチプロセッサー・マシンで、オプションの 
+CPU_Id パラメーターを指定して、FRCA ロギング・スレッドを特定の CPU にバインドする
+こともできます。</dd>
+
+
+<dt><code><span>start</span>
+Ip_Address Port [ Virtual_Host ]</code></dt>
+
+<dd>カーネル get エンジンを有効にして、指定された IP とポートに送信された要求を処理できるようにします。</dd>
+
+
+<dt><code><span>stop</span>
+Ip_Address Port [ Virtual_Host ]</code></dt>
+
+<dd>指定した IP およびポートについて、カーネル取得エンジンを使用不可にします。</dd>
+
+
+<dt><code><span>revaltimeout</span>
+Ip_Address Port [ Virtual_Host ] [ Seconds
+]</code></dt>
+
+<dd>指定したアドレスおよびポートで、FRCA インスタンスの妥当性再検査のタイムアウト値を
+変更します。 タイムアウト値は秒で指定してください。</dd>
+
+
+<dt><code><span>pctonintr</span> [ Percentage ]</code></dt>
+
+<dd>割り込みコンテキストで消費できる CPU 時間の割合を制御します。 この値が低すぎると、FRCA は常に割り込みコンテキストで実行されるため、Web サーバーに要求をより頻繁に送信することになります。 任意の値<code>&gt;= 100</code>結果、FRCA は FRCA キャッシュにキャッシュされているすべての要求を処理します。</dd>
+
+
+<dt><code><span>set</span> {option=value}</code></dt>
+
+<dd>指定された FRCA オプションに値を設定します。 現在使用可能な唯一のオプションは
+<code>frca_hashsz</code> です。このオプションは、
+FRCA ハッシュ・テーブル内のスロット数を指定された値に設定します。 <code>frca_hashsz</code>
+のデフォルト値は 12841 です。 変更する場合、ハッシュ テーブル エントリがより均等に分散されるため、使用される値は素数である必要があります。</dd>
+
+
+<dt><code><span>get</span></code></dt>
+
+<dd>使用可能なすべての FRCA オプションならびにその現在値を表示します。 呼び出されるオプションは1つだけです<code>frca_hashsz</code>現在存在します。</dd>
+
+
+<dt><code><span>default</span> [option]</code></dt>
+
+<dd>すべてのオプションの値を、
+オプション名を指定せずに使用する際にデフォルト値に設定します。 オプション名が指定されている場合は、指定されたオプションの値のみがデフォルトに設定されます。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>open</span> サブコマンドの使用例を次に示します。<div><div><pre><code>frcactrl open 9.1.1.1 80 ici imgcache01 /htdocs /logs/frca.log bin</code></pre></div><div></div></div>
+<div><div><pre><code>frcactrl open 9.1.1.2 80 ici imgcache02 /htdocs /logs/frca.log bin</code></pre></div><div></div></div>これまでの例では<code>"ici"</code>は仮想ホスト名であり、ミラーの1つにアクセスするために使用できます。imgcache01またはimgcache02 。 Web サーバーが特定の IP アドレスにバインドされていない場合は、IP アドレスは 0.0.0.0 の可能性があります。</li>
+
+<li>IPアドレスに関連付けられたFRCAインスタンスを閉じるには9.1.1.1ポート80の場合は次のように入力します。<div><div><pre><code>frcactrl close 9.1.1.1 80</code></pre></div><div></div></div></li>
+
+<li>ファイルの内容を読み込むには<code>/a/b/c/d</code>そして<code>/a/b/c/</code>URL付きe<code>/d</code>そして<code>/e</code>、 タイプ：<div><div><pre><code>frcactrl loadfile /a/b/c /a/b/c/d e</code></pre></div><div></div></div></li>
+
+<li>FRCA 統計情報を表示するには、次のように入力します。<div><div><pre><code>frcactrl stats
+</code></pre></div><div></div></div>これにより、FRCA 統計情報が表示されます。 これらは次のようになります:<div><div><pre><code>       Total    Deferred       Cache       Cache    Resource
+    Requests    Requests        Hits      Misses      Errors
+ -----------------------------------------------------------
+  1024065396         227  1024065168           1           0</code></pre></div><div></div></div></li>
+
+<li>この例では、<span>start</span>仮想ホスト「ici」のサブコマンド:<div><div><pre><code>frcactrl start 9.1.1.1 80 ici</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> 仮想ホスト・パラメーターはオプションです。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>仮想ホスト「ici」上の IP アドレス 9.1.1.1 のポート 80 に対してカーネル取得エンジンを
+使用不可にするには、次のように入力します。<div><div><pre><code>frcactrl stop 9.1.1.1 80 ici</code></pre></div><div></div></div></li>
+
+<li>次の例は、IP アドレス 9.1.1.1 のポート 80 にある FRCA インスタンスの妥当性再検査タイムアウト値
+を 100 秒に設定します。<div><div><pre><code>frcactrl revaltimeout 9.1.1.1 80 100</code></pre></div><div></div></div></li>
+
+<li>CPU が割り込みコンテキストに CPU 時間の 98% を費やすようにするには、
+次のように入力します。<div><div><pre><code>frcactrl pctonintr 98</code></pre></div><div></div></div></li>
+
+<li><code>frca_hashsz</code> オプションの値を 24499 に設定するには、
+次のように入力します。<div><div><pre><code>frcactrl set frca_hashsz=24499</code></pre></div><div></div></div></li>
+
+<li>値を設定するには<code>frca_hashsz</code>デフォルトのタイプに変更:<div><div><pre><code>frcactrl default frca_hashsz</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <p><span>/usr/bin/frcactrl</span></p>
+</section>
+
+</div></div>

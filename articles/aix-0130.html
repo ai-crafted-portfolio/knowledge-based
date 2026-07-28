@@ -1,0 +1,171 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>インターネット・ブート・プロトコル・サーバーを設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ブートピーディー</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bootpd.html#bootpd__row-d3e58234" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bootpd.html#bootpd__row-d3e58249" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a><em>整数 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bootpd.html#bootpd__row-d3e58201" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a>[ <strong>-d </strong>...] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bootpd.html#bootpd__row-d3e58222" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bootpd.html#bootpd__row-d3e58261" target="_blank" rel="noopener noreferrer">C<em>オンフィグファイル </em></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bootpd.html#bootpd__row-d3e58270" target="_blank" rel="noopener noreferrer"><em>DumpFile </em></a>] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>bootpd</strong> コマンドは、インターネット・ブート・プロトコル・サーバーを設定します。</p>
+ <p><strong>bootpd</strong> デーモンは通常、<strong>inetd</strong> デーモンによって始動されます。 デフォルトの <strong>/etc/inetd.conf</strong> ファイルには、次の行が入っています。</p>
+ <div> <div><div><pre><code>bootps dgram udp wait root /usr/sbin/bootpd bootpd</code></pre></div><div></div></div></div>
+ <p>デフォルトでは、このエントリーにはコメントが付いています。 <strong>bootpd</strong> デーモンを <strong>inetd</strong> デーモンの使用可能サブサーバーのリストに追加するには、System Management Interface Tool (SMIT) を使用する方法があります。 <strong>bootpd</strong> デーモンを使用可能にするもう 1 つの方法は、 <strong>/etc/inetd.conf</strong> ファイルを編集して、bootps入力、および入力refresh -s inetdまたはkill -1 InetdPid構成ファイルに対する変更を <strong>inetd</strong> デーモンに通知します。 このようにしておくと、bootp 要求が届いたときに <strong>inetd</strong> デーモンによって <strong>bootpd</strong> デーモンが始動されます。 <strong>bootpd</strong> デーモンが、いったん始動されると、ブート要求の listen を続けます。 ただし、サーバーが前のブート要求から 15 分以内に次のブート要求を受信しないと、
+サーバーは終了してシステム・リソースを保護します。 この 15 分というタイムアウト値は、<strong>-t</strong> フラグを使用して変更できます。</p>
+ <p><strong>inetd</strong>を指定せずに <strong>bootpd</strong> デーモンを始動するには、-sフラグ。 このモードでは、<strong>bootpd</strong> デーモンが kill されるまで bootp 要求の listen を続けます。</p>
+ <p><strong>bootpd</strong> デーモンは始動時に、<strong>/etc/services</strong> ファイルを調べて使用するポート番号を検出し、次のエントリーを取り出します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>bootps</strong></td>
+
+<td>BOOTP サーバー listen ポート。</td>
+
+</tr>
+
+<tr>
+<td><strong>bootpc (ブート)</strong></td>
+
+<td>クライアントへの応答に使用される宛先ポート。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次に、<strong>bootpd</strong> デーモンはその構成ファイルを読み取ります。 構成ファイルを指定しない場合のデフォルトのファイルは <strong>/etc/bootptab</strong> です。 構成ファイルを読み取ると、<strong>bootpd</strong> デーモンは bootp 要求の listen と処理を開始します。 <strong>bootpd</strong> デーモンは、<strong>SIGHUP</strong> ハングアップ・シグナルを受信するか、bootp 要求パケットを受信して構成ファイルが更新されていることを検知すると、構成ファイルを再度読み取ります。 構成ファイルの読み取りが再実行されたとき、ホストが追加、削除、または変更されることがあります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>デバッグ出力のレベルを上げます。 このフラグは繰り返し使用できます。 以下の表は、使用できるデバッグ・レベルを表示します。<div> <div><div><pre><code>Debug Level  Syntax        Message
+1                -d           Only error messages.
+2                -d -d        Level 1 messages and messages indicating potential errors.
+3                -d -d -d ... Level 1 and level 2 and general information messages.</code></pre></div><div></div></div></div>
+  <p>デバッグ・レベルが &gt;0 に設定されていて、<strong>syslogd</strong> デーモン
+が実行中であれば、デバッグ・メッセージはすべて <strong>syslogd</strong> ログ・ファイルに
+出力されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td><strong>bootp</strong> 要求内のゲートウェイ IP アドレスを <strong>bootp</strong> 応答にも使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>bootpd</strong> コマンドをスタンドアロン設定で実行します。 このモードは、多くのホストを備える大規模ネットワークのインストールに使用します。<p>この場合、<strong>bootpd</strong> コマンドが終了することはないので、<strong>-t</strong> フラグを指定しても効果はありません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>別のタイムアウト値を分単位で指定します。以下に例を示します。-t20. 次のタイムアウト値:0永遠に意味します デフォルトのタイムアウト値は 15 分です。</td>
+
+</tr>
+
+<tr>
+<td><em>ConfigFile</em></td>
+
+<td>構成ファイルに指定します。 デフォルトの構成ファイルは <strong>/etc/bootptab</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><em>DumpFile</em></td>
+
+<td><strong>bootpd</strong> デーモンが bootp サーバー・データベースのコピーをダンプするファイルに指定します。 デフォルトのダンプ・ファイルは <strong>/etc/bootpd.dump</strong> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>bootpd デーモンをスタンドアロン・モードで始動するには、
+次のように入力します。<div> <div><div><pre><code>/usr/sbin/bootpd -s</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>bootpd</strong> デーモンを、
+スタンドアロン・モード、デバッグ・レベル 3、構成ファイル <strong>/etc/newconfig</strong> とダンプ・ファイル <strong>/etc/newdumpfile</strong> を指定して始動するには、
+次のように入力します。<div> <div><div><pre><code>/usr/sbin/bootpd -s -d -d -d /etc/newconfig /etc/newdumpfile</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/bootpd.dump</strong></td>
+
+<td>デフォルトの <strong>bootpd</strong> ダンプ・ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/bootptab</strong></td>
+
+<td>デフォルトの <strong>bootpd</strong> 構成ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/services</strong></td>
+
+<td>インターネット・サービスに使用するソケットおよびプロトコルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/inetd.conf</strong></td>
+
+<td><strong>inetd</strong> デーモンの構成情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

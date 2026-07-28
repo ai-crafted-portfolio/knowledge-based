@@ -1,0 +1,72 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>下線を引きます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ウル</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/ul.html#ul__row-d3e143215" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/ul.html#ul__row-d3e143228" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em> 端末 </em>] [ <em>ファイル </em>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ul</strong> コマンドは、<em>File</em> パラメーターで指定されたファイル (またはファイルが指定されていなければ標準入力) を読み取り、<strong>TERM</strong> 環境変数の指示に従って、
+下線を使用中の端末用の下線表示を示すシーケンスに変換します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-i</strong></td>
+
+<td><strong>ul</strong> コマンドは適切な _ (下線文字) を含む個々の行ごとに下線を表示するようにします。 CRT 端末上で <strong>nroff</strong> コマンドの出力ストリーム内にこの下線があるかどうかを調べるには、このフラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong><em> 端末</em></td>
+
+<td>環境に指定された端末タイプをオーバーライドします。 下線表示の適切なシーケンスを決めるために <strong>terminfo</strong> ファイルが読み取られます。 端末で下線表示が不可能でもスタンドアウト・モードが可能であれば、
+スタンドアウト・モードを使用します。 端末に重ね打ち機能または自動下線機能がある場合には、
+<strong>ul</strong> コマンドは <strong>cat</strong> コマンドのように動作し画面に表示します。 端末に下線機能がなく、その代替手段もない場合には、下線表示は無視されます。<p><strong>-t</strong> フラグを指定しないと、
+<strong>ul</strong> コマンドは <strong>TERM</strong> 環境変数で指定した端末タイプに変換します。 <em>Terminal</em> 変数の値が有効な端末タイプでない場合、
+<strong>ul</strong> コマンドはダム端末用に変換します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/terminfo/*</strong></td>
+
+<td>端末機能データベースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

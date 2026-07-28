@@ -1,0 +1,63 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>QoS (Quality of Service) Service Category または Policy Rule を除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p>Service Category を除去するには、次のように入力します。</p>
+ <p><strong>qosremove</strong> [<em>ServiceCategory</em>] <strong>サービス</strong></p>
+ <p>Policy Rule を除去するには、次のように入力します。</p>
+ <p><strong>qosremove [ ] ポリシー </strong><em>ServicePolicyRule</em><strong> ポリシー</strong></p>
+ <p>カーネルにインストールされたすべての Policies および Service カテゴリーを
+除去する場合:</p>
+ <p><strong>qosremove すべて</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>qosremove</strong> コマンドは、<strong>policyd.conf</strong> ファイル内の
+指定された Service Category または Policy Rule エントリー、
+および QoS Manager 内の関連するポリシーまたはサービスを除去します。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>正整数</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>sc01 サービスを除去するには、次のように入力します。<div> <div><div><pre><code>qosremove sc01 service</code></pre></div><div></div></div></div>
+</li>
+
+<li>pr01 ポリシーを除去するには、次のように入力します。<div> <div><div><pre><code>qosremove pr01 policy</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

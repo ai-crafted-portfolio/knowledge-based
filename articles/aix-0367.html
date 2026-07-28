@@ -1,0 +1,171 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>異なるドライブ上にある 2 つのファイルシステムを同時に検査および修理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dfsck</strong> [ <em>FlagList1 </em>] <em>FileSystem1</em> [ <em>FlagList2 </em>] <em>FileSystem2</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dfsck</strong> コマンドを使用すると、2 つの異なるドライブ上にある 2 つのファイルを同時に検査できます。 2 組のファイルシステムにフラグとパラメーターを渡すには、<em>FlagList1</em> と <em>FlagList2</em> パラメーターを使用します。 <em>FlagList1</em> および <em>FlagList2</em> の有効なフラグのリストについては、それらのフラグのセクションを参照してください。 フラグを引数の一部として指定する場合は、<strong>-</strong> (負符号) を使用して、ファイルシステム・グループのフラグを分離します。</p>
+ <p><strong>dfsck</strong> コマンドを使用すると、一度に 2 つの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html" target="_blank" rel="noopener noreferrer"><strong>fsck</strong></a> コマンドと対話することができます。 この場合の補助として、<strong>dfsck</strong> コマンドは各メッセージと一緒にファイルシステム名を表示します。 <strong>dfsck</strong> コマンドから質問に応答する場合は、応答の前に1または a2応答が 1 番目または 2 番目のファイル・システム・グループを参照しているかどうかを示します。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> ルート・ファイルシステムを検査するために <strong>dfsck</strong> コマンドを使用しないでください。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em>ブロック番号</em></td>
+
+<td>指定されたディスク・ブロックへの参照を検索します。 <strong>fsck</strong> コマンドは、指定されたブロックを含むファイルを検出するたびに、
+関連する i ノード番号とすべてのパス名を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>高速検査を行います。 通常は、正しい方法で電源を切らずにシステムを停止したために影響を受けるのは、
+そのときにマウントされているファイルシステムだけです。 <strong>-f</strong> フラグを指定すると、<strong>fsck</strong> コマンドは、
+正常にアンマウントされたファイルシステムの検査を行いません。 <strong>fsck</strong> コマンドは、ファイルシステム・スーパーブロック内の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filsys.h.html" target="_blank" rel="noopener noreferrer"><strong>s_fmod</strong></a> フラグを検査してこれを判別します。 このフラグはファイルシステムをマウントするたびに設定され、
+正常にアンマウントすると消去されます。 ファイルシステムが正常にアンマウントされれば、
+何も問題が発生するようなことはありません。 ほとんどのファイルシステムは正常にアンマウントされるため、
+このようなファイルシステムは検査されず、検査に要する時間が短縮できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em>i-ノード番号</em></td>
+
+<td>指定された i ノードへの参照を検索します。 <strong>fsck</strong> コマンドは、指定された i ノードのディレクトリー参照を検出するたびに、
+参照先への絶対パス名を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>想定:no<strong> fsck</strong> コマンドによって尋ねられるすべての質問に対する応答。指定されたファイルシステムを書き込み用にオープンしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> オプション</em></td>
+
+<td><strong>fsck</strong> コマンドにコンマで区切られたオプションを渡します。 これらのオプションは、インプリメントされたファイルシステムに固有なオプションと見なされます。
+ただし、現在、次の項目はすべてのファイルシステムでサポートされています。<dl>
+<dt><strong>マウント可能</strong></dt>
+
+<dd>対象のファイルシステムがマウント可能な (現在アンマウントされている) 場合、値 0 を返して <strong>fsck</strong> コマンドを正常終了させます。 ファイルシステムがマウント可能でない場合、<strong>fsck</strong> コマンドは値 8 を返して終了します。</dd>
+
+
+<dt><strong>マイタイプ</strong></dt>
+
+<dd>問題のファイルシステムが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a> ファイルに指定されているか、またはコマンド行の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html#fsck/row-d3e118477" target="_blank" rel="noopener noreferrer"><strong>-V</strong></a> フラグによって指定されているものと同じタイプの場合に、<strong> fsck</strong> コマンドを正常終了させます (0)。 その他の場合は 8 が返されます。 例:fsck -o
+mytype -V jfs<strong>/</strong> (ルート・ファイル・システム) がジャーナル・ファイル・システムの場合、/は 0 の値で終了します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>小さな問題についてのメッセージは表示せず自動的に修正します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html#fsck/row-d3e118508" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a> フラグとは異なり、ホールセール・ライセンスを認可しません。これは、システムが正常に始動したときに自動検査を実行するのに役立ちます。 システムが自動的に実行される場合は常に、システム始動手続きの一部として、このフラグを使用する必要があります。 グループ単位の並列検査も可能です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em>ファイル</em></td>
+
+<td><strong>fsck</strong> コマンドがテーブルを保持するための十分なメモリーを取得できない場合に、検査対象以外のファイルシステム上のスクラッチ・ファイルとして <em>File</em> パラメーターを指定します。 <strong>-t</strong> フラグを指定せず、
+<strong>fsck</strong> コマンドがスクラッチ・ファイルを必要としている場合には、
+fsck コマンドはスクラッチ・ファイル名を求めるプロンプトを表示します。 ただし、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html#fsck/row-d3e118436" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグを指定した場合は、 <strong>fsck</strong> コマンドは失敗します。 スクラッチ・ファイルがスペシャル・ファイルでなければ、<strong>fsck</strong> コマンド終了時に除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong><em> VfsName</em></td>
+
+<td><strong>/etc/filesystems</strong> ファイルを使用して記述を決定する代わりに、ファイルシステムの <em>VFSName</em> 変数によって指定された仮想ファイルシステムの記述を使用します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html#fsck/row-d3e118477" target="_blank" rel="noopener noreferrer"><strong>-V</strong></a> <em>VfsName</em> フラグがコマンド行で指定されない場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a> ファイルが検査され、マッチング・スタンザの <strong>vfs=</strong><em>属性</em> が正しいファイルシステム・タイプであると想定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td><strong>fsck</strong> コマンドが発行するすべての質問に対して、
+yes という応答が与えられるものと仮定します。 このフラグによって、
+<strong>fsck</strong> コマンドは必要と考えられるすべての処理を行います。 このフラグは、損傷の激しいファイルシステムだけに使用してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>2 個の異なるドライブ上の 2 つのファイルを同時に調べるには、
+次のように入力します。<div>dfsck  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html#fsck/row-d3e118436" target="_blank" rel="noopener noreferrer">-p </a>/dev/hd1 -  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsck.html#fsck/row-d3e118436" target="_blank" rel="noopener noreferrer">-p </a>/dev/hd7</div><strong>/dev/hd1</strong> と <strong>/dev/hd7</strong> デバイス上にあるファイルシステムが、異なる 2 個のドライブ上に置かれている場合、上記のコマンドは 2 つのファイルを同時に検査します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a> ファイルにあるファイルシステム名を指定することもできます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/dfsck</strong></td>
+
+<td><strong>dfsck</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>仮想ファイルシステムのタイプに関する記述が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/rc</strong></td>
+
+<td>システム始動時に実行されるコマンド (<strong>fsck</strong> コマンドなど) が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

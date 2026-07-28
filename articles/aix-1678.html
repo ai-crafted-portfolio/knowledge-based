@@ -1,0 +1,909 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザー定義が正しいかどうかを確認します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ウスロック</strong> { <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152821" target="_blank" rel="noopener noreferrer">-</a></strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152800" target="_blank" rel="noopener noreferrer">-b</a></strong> ] |  <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152830" target="_blank" rel="noopener noreferrer">N </a></strong>| <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152837" target="_blank" rel="noopener noreferrer">P-</a> </strong>| <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152844" target="_blank" rel="noopener noreferrer">T </a></strong>| <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152851" target="_blank" rel="noopener noreferrer">-y (Y) </a></strong>} { <strong>すべて</strong> | <em>ユーザー ..</em>. }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>usrck</strong> コマンドは、<strong>ALL</strong> ユーザー、
+または <em>User</em> パラメーターが指定するユーザーの定義を検査し、
+ユーザー・データベース・ファイル内のユーザー定義が正しいことを検証します。 複数のユーザーを指定する場合は、ユーザー名の間をスペース 1 つで区切らなければなりません。 フラグを指定して、システムが間違った属性を修正するべきかどうかを指示する必要があります。</p>
+ <p>最初に、コマンドが <strong>/etc/passwd</strong> ファイル内のエントリーを検査します。 システムがエラーを修正するべきであるとユーザーが指示すると、
+重複しているユーザー名は報告されて使用不可になります。 システム修正がないため、重複している ID が報告されるだけです。 エントリーのコロンで区切られたフィールドが 6 より少ない場合は、そのエントリーを報告しますが、
+修正はしません。 次に、<strong>usrck</strong> コマンドはほかのファイル内の特定のユーザー属性を検査します。</p>
+ <p><strong>usrck</strong> コマンドは、
+<strong>/etc/passwd</strong> ファイル内でリストされている各ユーザー名に <strong>/etc/security/user</strong>、
+<strong>/etc/security/limits</strong> および <strong>/etc/security/passwd</strong> のファイル内にスタンザを持っているかどうかを検証します。 <strong>usrck</strong> コマンドは、
+<strong>/etc/group</strong> ファイルにリストされている各グループ名が、
+<strong>/etc/security/group</strong> ファイル内にスタンザを持っているかどうかも検証します。 <strong>usrck</strong> コマンドは <strong>-y</strong> フラグを使用して、
+見つからないユーザー名およびグループ名のために、セキュリティー・ファイル内にスタンザを作成します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>このコマンドは、メッセージを <strong>stderr</strong> に書き込みます。</li>
+
+<li><em>domainlessgroups</em> 属性が設定されている場合、<strong>usrck</strong> コマンドは Lightweight Directory Access Protocol (LDAP) ユーザーにエラーをスローすることになります。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+ <p>すべてのユーザー属性のリストは以下のとおりで、検査する属性を示す表記を持っています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>account_locked</strong></td>
+
+<td>検査なし。 <strong>usrck</strong> コマンドはこの属性を True に設定し、アカウントを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>admgroups</strong></td>
+
+<td><strong>admgroups</strong> がユーザー・データベースで定義されているかどうかを調べるために検査し、ユーザーがシステムはエラーを修正しなければならないことを示すと、
+このコマンドが、データベース内に存在しないグループを除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>auditclasses</strong></td>
+
+<td><strong>auditclasses</strong> が <strong>/etc/security/audit/config</strong> ファイル内でユーザーのために定義されているかどうかを調べるために検査します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、このコマンドは、
+<strong>/etc/security/audit/config</strong> ファイル内で定義されていないすべての auditclasses を削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>auth1</strong></td>
+
+<td>1 次認証メソッド。 メソッドが NONE または SYSTEM でない場合は、
+<strong>/etc/security/login.cfg</strong> ファイルで定義する必要があり、
+プログラム属性が存在し、root ユーザーによって実行可能でなければなりません。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、ユーザーのアカウントを使用不可にします。<div><div>
+        <div>
+          <div><span>注:</span> <strong>auth1</strong> 属性は推奨されない属性であり、使用すべきではありません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>auth2</strong></td>
+
+<td>2 次認証メソッド。 メソッドが NONE または SYSTEM でない場合は、
+<strong>/etc/security/login.cfg</strong> ファイルで定義する必要があり、
+プログラム属性が存在し、root ユーザーによって実行可能でなければなりません。 システム修正はありません。<div><div>
+        <div>
+          <div><span>注:</span> <strong>auth2</strong> 属性は推奨されない属性であり、使用すべきではありません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>core</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 200 ブロックにリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>core_hard</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 200 ブロックにリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>cpu</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 120 秒にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>cpu_hard</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 120 秒にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>data</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 1272 ブロック (636K) にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>data_hard</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 1272 ブロック (636K) にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>dictionlist</strong></td>
+
+<td>辞書ファイルのリストを検査します。 システムがエラーを修正する必要があることを示すと、
+存在しないすべての辞書ファイルをユーザー・データベースから削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>expires</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+<tr>
+<td><strong>fsize</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 200 ブロックにリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>fsize_hard</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 200 ブロックにリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>gecos</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+<tr>
+<td><strong>histexpire</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>histsize</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>home</strong></td>
+
+<td>読み取りモードおよび検索モードで、ホーム・ディレクトリーの存在とそのディレクトリーへのアクセスの可能性を検査します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、ユーザーのアカウントを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>id</strong></td>
+
+<td>ユーザー ID の独自性を検査します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+<strong>/etc/passwd</strong> ファイル内の無効なエントリーを削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>login</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+<tr>
+<td><strong>loginretries</strong></td>
+
+<td>ユーザーが認められた数より多くログインに失敗したかどうかを検査します。 失敗した場合には、システムはユーザーのアカウントを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>logintimes</strong></td>
+
+<td>時間指定子のストリングが有効であるかどうかを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、ユーザーのアカウントを使用不可にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>maxage</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>maxexpired</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>maxrepeats</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>minage</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。 システムは、<strong>minage</strong> 属性が <strong>maxage</strong> 属性より大きいかどうかも示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>minalpha</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>mindiff</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>minlen</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>minother</strong></td>
+
+<td>値が適切であることを確認します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+値が大きすぎる場合には最大実行可能値に、小さすぎる場合には最小実行可能値に設定されます。 システムは、<strong>maxage</strong> 属性に加えて <strong>minage</strong> 属性が最大のパスワード・サイズより大きいかどうかも示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>name</strong></td>
+
+<td>ユーザー名の独自性と構成を検査します。 ユーザー名は、8 バイト以下の固有の文字列でなければなりません。 ユーザー名を、+ (正符号)、: (コロン)、- (負符号)、または ~ (ティルド) で始めることはできません。 + (正符号) または - (負符号) で始まる名前は、
+NIS (ネットワーク情報サービス) ドメイン内の名前と想定され、それ以上処理は実行されません。 ユーザー名は文字列内にコロン (:) を含むことはできず、
+<strong>ALL</strong> または <strong>default</strong> のキーワードであってもなりません。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、コマンドがユーザーのアカウントを使用不可にし、
+<strong>/etc/passwd</strong> ファイル内の無効なエントリーを削除します。<p><strong>usrck</strong> コマンドは、<strong>/etc/passwd</strong> ファイルにリストされる各ユーザー名には、
+<strong>/etc/security/user</strong>、<strong>/etc/security/limits</strong>、
+および <strong>/etc/security/passwd</strong> のファイル内にスタンザがあります。 このコマンドは、見つからないと識別される各ユーザー名にスタンザを追加します。 さらに、<strong>usrck</strong> コマンドは、
+<strong>/etc/group</strong> ファイルにリストされている各グループ名が、
+<strong>/etc/security/group</strong> ファイル内にスタンザを持つかどうかを検証します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>nofiles</strong></td>
+
+<td>値が適切であることを確認します。 センシブルでなければ、値を最小値の 200 にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>nofiles_hard</strong></td>
+
+<td>値が適切であることを確認します。 センシブルでなければ、値を最小値の 200 にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>pgrp</strong></td>
+
+<td>ユーザー・データベース内に 1 次グループがあるかどうかを検査します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、ユーザーのアカウントを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>pwdchecks</strong></td>
+
+<td>外部パスワード制限メソッドのリストを検査します。 ユーザーが、システムはエラーを修正しなければならないことを示すと、
+存在しないすべてのメソッドがユーザー・データベースから削除されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>pwdwarntime</strong></td>
+
+<td>値が適切であることを確認します。 そうでない場合は、システムが値を <strong>maxage</strong> 値と <strong>minage</strong> 値の差にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>rlogin</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+<tr>
+<td><strong>rss</strong></td>
+
+<td>検査を行い、値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 128 ブロック (64KB) にリセットします。 この値はシステムによって設定されるわけではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>rss_hard</strong></td>
+
+<td>検査を行い、値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 128 ブロック (64KB) にリセットします。 この値はシステムによって設定されるわけではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>シェル (shell)</strong></td>
+
+<td>実行モードでシェルの存在とアクセス可能性を検査します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、ユーザーのアカウントを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>stack</strong></td>
+
+<td>検査を行い、値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 128 ブロック (64KB) にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>stack_hard</strong></td>
+
+<td>検査を行い、値が適切であることを確認します。 そうでない場合は、このコマンドが値を最小値の 128 ブロック (64KB) にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>su</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+<tr>
+<td><strong>sugroups</strong></td>
+
+<td>ユーザー・データベース・ファイル内に <strong>sugroups</strong> があるかどうかを検査します。 ユーザーが、システムはエラーを修正しなければならないことを示すと、
+データベース内にないすべてのグループが削除されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>sysenv</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+<tr>
+<td><strong>tpath</strong></td>
+
+<td>検査を行い、<strong>tpath=always</strong> である場合には、
+<strong>shell</strong> 属性は承認された処理としてタグが付けられます。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+システムがエラーを検出する場合には、ユーザーのアカウントを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ttys</strong></td>
+
+<td>ユーザー・データベース・ファイル内に ttys があるかどうかを検査します。 ユーザーが、システムはエラーを修正しなければならないことを示すと、
+存在しないすべての ttys がユーザー・データベースから削除されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>usrenv</strong></td>
+
+<td>検査なし。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>修正に、ユーザーのアカウントを使用不可にすることが含まれる場合は、
+<strong>chuser</strong> コマンドを使用して、
+<strong>account_locked</strong> 属性の値を False にリセットします。 System Management Interface Tool (SMIT) を使用し、
+以下を入力して <strong>chuser</strong> コマンドを実行することができます。</p>
+ <div> <div><div><pre><code>smit chuser</code></pre></div><div></div></div></div>
+ <p>root ユーザーまたはセキュリティー・グループのメンバーは、
+<strong>account_locked</strong> 属性を除去するか、
+または <strong>account_locked</strong> 属性を False に設定することによって、
+再度ユーザーのアカウントを使用可能にすることができます。 root ユーザーのアカウントは、<strong>usrck</strong> コマンドによって、使用不可になります。</p>
+ <p>一般的に、<strong>sysck</strong> コマンドは、
+承認されたシステムのインストールを検証するパーツとして <strong>usrck</strong> コマンドを呼び出します。 <strong>usrck</strong> コマンドがユーザー・データベース内にエラーを検出する場合は、
+root ユーザーまたはセキュリティー・グループのメンバーが、
+<strong>grpck</strong> コマンドと <strong>pwdck</strong> コマンドの両方を実行する必要があります。</p>
+ <p><strong>usrck</strong> コマンドは、
+データベース管理セキュリティー・ファイル (<strong>/etc/passwd.nm.idx</strong>、
+<strong>/etc/passwd.id.idx</strong>、<strong>/etc/security/passwd.idx</strong>、
+および <strong>/etc/security/lastlog.idx</strong>) が最新のものであるか、
+または対応するシステム・セキュリティー・ファイルより新しいかどうかを調べるために検査します。 <strong>/etc/security/lastlog.idx</strong> が <strong>/etc/security/lastlog</strong> より
+新しくなくても受け入れられることに注意してください。 データベース管理セキュリティー・ファイルが最新の状態でない場合は、root ユーザーが <strong>mkpasswd</strong> コマンドを実行するよう指示する警告メッセージが表示されます。</p>
+ <p><strong>usrck</strong> コマンドは、指定されたユーザーがログインできるかどうかを検査します。 ログインの失敗が多すぎるため、あるいは、パスワードが失効しているために、
+ユーザーがログインできない場合は、<strong>usrck</strong> コマンドは、警告メッセージを発行し、
+ユーザーがログインできない理由を示します。 ユーザーがシステムはエラーを修正しなければならないことを示すと、
+ユーザーが上記の理由でログインできない場合には、システムはユーザーのアカウントを使用不可にします。</p>
+ <div><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152821" target="_blank" rel="noopener noreferrer">-l</a></strong> フラグを指定すると、 <strong>usrck</strong> コマンドはすべてのユーザーまたは <em>User</em> パラメーターで指定されたユーザーをスキャンして、ユーザーがシステムにアクセスできるかどうかを判別します。 ユーザーがアクセス可能かどうかの判断に使用する基準を、次の表に一覧して示します。<div><div><table><caption><span>表 1. ユーザーのアクセス可能性の基準</span></caption><thead>
+<tr>
+<th><div>基準</div></th>
+
+<th><div>説明</div></th>
+
+<th><div>原因</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+
+<td>ユーザー・アカウントがロックされています。</td>
+
+<td>ユーザーの <strong>
+account_locked</strong> 属性が <strong>true</strong> に設定されています。</td>
+
+</tr>
+
+<tr>
+<td>2</td>
+
+<td>ユーザー・アカウントが期限切れです。</td>
+
+<td>ユーザーの <strong>expires</strong> 属性が期限切れの値 (満了時刻) に設定されています。</td>
+
+</tr>
+
+<tr>
+<td>3</td>
+
+<td>ユーザーが連続して失敗したログインの試みが多過ぎます。</td>
+
+<td>ユーザーの <strong>unsuccessful_login_count</strong> 値が、ユーザーの <strong>loginretries</strong> 値より大きくなっています。</td>
+
+</tr>
+
+<tr>
+<td>4</td>
+
+<td>ユーザーにパスワードがありません。</td>
+
+<td>ユーザーの <strong>password
+</strong> フィールドが、<strong>/etc/password</strong> または <strong>/etc/security/password</strong> の中で「*」になっています。</td>
+
+</tr>
+
+<tr>
+<td>5</td>
+
+<td>ユーザーはこの日付/時刻にログインすることはできません。</td>
+
+<td>現在の日付/時刻は、ユーザーの <strong>logintimes</strong> 属性によって定義された有効な時間内に含まれていません。</td>
+
+</tr>
+
+<tr>
+<td>6</td>
+
+<td><strong>/etc/nologin</strong> ファイルが存在します。</td>
+
+<td><strong>/etc/nologin</strong> ファイルがあると、root 以外のユーザーがログインできません。</td>
+
+</tr>
+
+<tr>
+<td>7</td>
+
+<td>ユーザーのパスワードは期限切れになっており、システム管理者しかそのパスワードを変更できません。</td>
+
+<td>ユーザーのパスワードが期限切れになっており、ADMIN パスワード・フラグが設定されています。</td>
+
+</tr>
+
+<tr>
+<td>8</td>
+
+<td>ユーザーがホストへのログインを否認されました。</td>
+
+<td>ユーザーの <strong>
+hostallowedlogin</strong> および <strong>hostsdeniedlogin</strong> 属性により、現在のホストへのアクセスは認められません。</td>
+
+</tr>
+
+<tr>
+<td>9</td>
+
+<td>ユーザーがアプリケーションによってアクセスを否認されました。</td>
+
+<td>ユーザーの <strong>login</strong>、<strong>
+rlogin</strong>、および <strong>su</strong> 属性が偽に設定され、<strong>rcmds</strong> 属性はリジェクトするように設定されています。 これらの属性値の少なくとも 1 つ (ただし、すべてではない) が許可をリジェクトしている場合、システムはユーザーによって部分的にアクセス可能であると見なされます。</td>
+
+</tr>
+
+<tr>
+<td>10</td>
+
+<td>ユーザーは端末へのログインを否認されました。</td>
+
+<td>ユーザーの <strong>
+ttys</strong> 属性では、現在の端末へのアクセスは認められません。 システムはユーザーから部分的にアクセス可能と見なされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152800" target="_blank" rel="noopener noreferrer">-b</a></strong> フラグも指定されている場合、出力は、タブで区切られたユーザー名と 16 桁のビット・マスクの 2 つのフィールドで構成されます。 ビット・マスクの各桁は、上記のユーザーのアクセス可能性の基準の表に記載された各基準に対応し、基準 1 は右端の桁で表されます。 基準のビット位置を 1 に設定すると、そのユーザーに対するこの基準の検査は正常に行われません。 出力内の余分な桁は、後で使用できるように予約されています。</p>
+ <div>以下は、<strong>-l</strong> フラグを指定した <strong>
+usrck</strong> コマンドの例です。<div><div><pre><code># usrck -l testusr1 testusr2
+3001-689 The system is inaccessible to testusr1, due to the following:
+         User account is locked
+         User denied login to terminal.
+        
+3001-689 The system is inaccessible to testusr2, due to the following:
+         User account is expired.
+         User has too many consecutive failed login attempts.
+         User denied login to host.</code></pre></div><div></div></div></div>
+ <div>以下は、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152821" target="_blank" rel="noopener noreferrer">-l</a></strong> フラグと <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152800" target="_blank" rel="noopener noreferrer">-b</a></strong> フラグを指定した <strong>usrck</strong> コマンドの例です。<div><div><pre><code># usrck -lb testusr1 testusr2
+ testusr1       0000000000000001
+ testusr2       0000000001000110</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>システムにアクセスできないユーザーと、その理由を報告します。理由はビット・マスク形式で表示されます。 <strong>-b</strong> フラグを指定する場合は、<strong>-l</strong> フラグを指定する必要があります。<div><div>
+        <div>
+          <div><span>注:</span> ビット・マスクは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__usrck_crit10" target="_blank" rel="noopener noreferrer">基準 10</a> (ユーザーが端末へのログインを拒否した) を報告しません。これは、ユーザーがシステムにアクセスできないかどうかを判別する際の完全なシナリオと見なすことができないためです。 同様に、すべての属性値ではなく少なくとも 1 つの属性値が認証を拒否した場合、ビット・マスクは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__usrck_crit9" target="_blank" rel="noopener noreferrer">基準 9</a> (ユーザーがアプリケーションによるアクセスを拒否した) を報告しません。この基準は、4 つの属性値すべてが認証を拒否した場合にのみ報告されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>すべてのユーザー、または <em>User</em> パラメーターによって指定されたユーザーをスキャンして、ユーザーがシステムにアクセス可能かどうかを判断します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>エラーを修正せずに報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>エラーを報告せずに修正します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>エラーを報告して、修正すべきかどうかを尋ねます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>エラーを修正して報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>ユーザー定義ファイルは適切です。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。または 1 つ以上のユーザー定義ファイルにエラーが発生しています。 以下のエラー・コードが戻されます。<dl>
+
+<dt>EINVAL (22)</dt>
+
+<dd>無効なコマンド・ライン引数</dd>
+
+
+<dt>ENOENT (2)</dt>
+
+<dd>1 つ以上のユーザー定義ファイルが存在しない</dd>
+
+
+<dt>ENOTRUST (114)</dt>
+
+<dd>データベース・ファイル内のユーザー定義にエラーがある、またはユーザーがシステムにアクセスできない ( <span><span>-l</span></span> オプションによって検出される)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御 : このコマンドは、root ユーザーとセキュリティー・グループのメンバーに実行 (x) アクセス権限を与えます。 コマンドは、<strong>setuid</strong> で root ユーザーに設定され、<strong>trusted computing base</strong> 属性を持っていなければなりません。</p>
+ <p>アクセスされるファイル:</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/user</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/lastlog</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/limits</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/audit/config</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/login.cfg</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>USER_Check</strong></td>
+
+<td>ユーザー、属性エラー、状況</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>すべてのユーザーがユーザー・データベースに存在し、エラーが報告されている (ただし、修正されていない) ことを確認するには、次のように入力します。<div>usrck  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152830" target="_blank" rel="noopener noreferrer">-n </a>ALL </div>
+</li>
+
+<li><span></span>ユーザー・データベース・ファイルに存在せず、エラーが報告されているユーザーをユーザー定義から削除するには、次のように入力します。<div>usrck  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152851" target="_blank" rel="noopener noreferrer">-y </a>ALL  </div>
+</li>
+
+<li>システムにアクセスできないユーザーのリストを表示するには、次のように入力します。<div>usrck <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152821" target="_blank" rel="noopener noreferrer">-l</a> ALL</div>
+</li>
+
+<li>システムにアクセスできないユーザーのリストをビット・マスク形式で表示するには、次のように入力します。<div>usrck <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152821" target="_blank" rel="noopener noreferrer">-l</a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/usrck.html#usrck__row-d3e152800" target="_blank" rel="noopener noreferrer">-b</a> ALL</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/usrck</strong></td>
+
+<td><strong>usrck</strong> コマンドのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>etc/passwd</strong></td>
+
+<td>基本ユーザー属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user</strong></td>
+
+<td>ユーザーの拡張属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>基本グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/group</strong></td>
+
+<td>拡張グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/lastlog</strong></td>
+
+<td>ユーザーの最新ログイン属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/limits</strong></td>
+
+<td>ユーザーのプロセス・リソース制限が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/config</strong></td>
+
+<td>監査システム構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/login.cfg</strong></td>
+
+<td>構成情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

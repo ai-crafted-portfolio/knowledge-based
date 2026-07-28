@@ -1,0 +1,141 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>ライン・プリンターの規則に従って FORTRAN ファイルを出力します。</p>
+</section>
+
+<section><h2>構文</h2><div><div><pre><code>{ asa| fpr}
+[ File ...]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>asa</span> および <span>fpr</span> コマンドは、このオペレーティング・システムのライン・プリンター規則に準拠するように FORTRAN ファイルを印刷します。 どちらのコマンドも、FORTRAN 紙送り制御規則に従ってフォーマットされたファイルを、ライン・プリンター規則に従ってフォーマットされたファイルに変換するフィルターのように機能します。</p>
+ <p>File 変数は、<span>asa</span> コマンドおよび <span>fpr</span> コマンドが標準入力の代わりに読み取る入力ファイルの名前を指定します。 <span>asa</span> コマンドおよび <span>fpr</span> コマンドはこのファイルを読み取り、
+紙送り制御文字を認識可能なオペレーティング・システム文字で置換し、ファイルを標準出力に出力します。</p>
+ <p>どちらのコマンドも、入力ファイルの各行の最初の 1 文字を読み取り、その文字を解釈し、その文字の定義に従って行間隔を調整します。 先頭文字が <code>Blank</code>、 <code>0</code>、ダッシュ (<code>-</code>)、 <code>1</code>、または正符号 (<code>+</code>) のいずれかである場合、どちらのコマンドも以下を実行します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><code>Blank</code></td>
+
+<td>キャリッジを 1 行先送りして入力行を出力します。</td>
+
+</tr>
+
+<tr>
+<td><code>0</code></td>
+
+<td>キャリッジを 2 行先送りして入力行を出力します。</td>
+
+</tr>
+
+<tr>
+<td><code>-</code></td>
+
+<td>キャリッジを 3 行先送りして入力行を出力します。</td>
+
+</tr>
+
+<tr>
+<td><code>1</code></td>
+
+<td>キャリッジを次ページの先頭に先送りします。</td>
+
+</tr>
+
+<tr>
+<td><code>+</code></td>
+
+<td>キャリッジを先送りしないで、出力ファイルの最初のスペースから入力行の出力を開始します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div>これらのコマンドは、ブランク行は最初の文字がブランクの行であるものと解釈し、紙送り制御文字として現れるブランクを削除します。 定義されている制御文字以外の文字で始まる行は、ブランク文字で始まるものとして扱われます。 行の最初の 1 文字は出力されません。 このような行が現れると、該当の診断が標準エラーに表示されます。<div><div>
+        <div>
+          <div><span>注:</span> 170 文字より長い入力行の結果は未定義です。</div>
+        </div>
+      </div></div>
+
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><caption><span>表 1. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>以下の方法で <span>fpr</span> コマンドを使用して、FORTRAN コンパイラーによって作成された <span>a.out</span> ファイル内の紙送り制御文字を紙送り制御文字に変更し、結果のファイルを印刷します。<div>
+<div><div><pre><code>a.out | fpr | qprt</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span>asa</span> コマンドを使用して <span>f77.output</span> ファイルを実行し、紙送り制御文字を FORTRAN からオペレーティング・システムに変更し、結果のファイルを印刷するには、以下の方法で <span>asa</span> コマンドを使用します。<div>
+<div><div><pre><code>asa f77.output | qprt</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/ucb/fpr</span></td>
+
+<td><span>fpr</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/bin/asa</span></td>
+
+<td><span>asa</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

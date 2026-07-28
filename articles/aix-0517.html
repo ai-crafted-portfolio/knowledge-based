@@ -1,0 +1,1944 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムのパフォーマンスをモニターして、論理ファイル、および仮想記憶セグメント、論理ボリューム、および物理ボリュームのために I/O アクティビティーを報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>filemon</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e108979" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e108901" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><em> トレースファイル </em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e108933" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>Gensyms_File</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e108965" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><em> ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109103" target="_blank" rel="noopener noreferrer"><strong>-O <em>レベル</em></strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109402" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109411" target="_blank" rel="noopener noreferrer"><strong>-I <em>カウント:間隔</em></strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109008" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e108991" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>n</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109389" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109023" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109429" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> [ <em>WparList</em> | <strong>ALL</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109050" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>RootString</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__row-d3e109032" target="_blank" rel="noopener noreferrer"><strong>-A -x</strong></a><em> ユーザーコマンド</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>filemon</strong> コマンドでは、ファイルシステムと入出力システム・イベントのトレースがモニターされ、その期間のファイルと入出力アクセスのパフォーマンスについて報告されます。</p>
+ <p>通常モードでは、<strong>filemon</strong> コマンドはバックグラウンドで実行され、1 つ以上のアプリケーション・プログラムまたはシステム・コマンドを実行し、モニターします。 <strong>filemon</strong> コマンドは自動的に始動され、プログラムのファイルシステムと入出力イベントのトレースをリアルタイムでモニターします。 デフォルトでは、トレースは即時に開始します。オプションでユーザーが <strong>trcon</strong> コマンドを発行してからトレースを開始するようにも設定できます。 <strong>filemon</strong> コマンドの実行中に <strong>trcoff</strong> コマンドと <strong>trcon</strong> コマンドを実行して、モニターを必要に応じてオフにしたりオンにしたりできます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcstop.html" target="_blank" rel="noopener noreferrer"><strong>trcstop</strong></a> コマンドによってトレースが停止されると、 <strong>filemon</strong> コマンドによって入出力アクティビティー・レポートが生成され、終了します。</p>
+ <p>また、<strong>filemon</strong> コマンドでは、トレース機能によって以前に記録されたトレース・ファイルを処理することもできます。 ファイルと入出力アクティビティーの報告は、そのファイルに記録されているイベントに基づきます。</p>
+ <p>アプリケーションのファイルシステムのパフォーマンスについて詳細な情報を提供するために、<strong>filemon</strong> コマンドでは次の 4 つのレベルでファイルと入出力アクティビティーをモニターします。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>Logical file system (論理ファイルシステム)</td>
+
+<td><strong>filemon</strong> コマンドでは、論理ファイル上の論理入出力操作をモニターします。 モニター対象の操作には、すべての <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_bostechref/read.html" target="_blank" rel="noopener noreferrer"><strong>読み取り</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_bostechref/write.html" target="_blank" rel="noopener noreferrer"><strong>書き込み</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_bostechref/open.html" target="_blank" rel="noopener noreferrer"><strong>open</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_bostechref/lseek.html" target="_blank" rel="noopener noreferrer"><strong>lseek</strong></a> システム・コール。これにより、ファイルが既にメモリー内のバッファーに入れられているかどうかに応じて、実際の物理入出力が行われる場合と行われない場合があります。 入出力統計はファイル単位で保持されます。 非同期入出力システム呼び出しの呼び出しは、 <span><span>filemon</span></span> コマンドによってモニターされないため、 <span><span>filemon</span></span> 論理ファイル・レポートには非同期入出力 (AIO) 要求は含まれません。</td>
+
+</tr>
+
+<tr>
+<td>Virtual memory system (仮想記憶システム)</td>
+
+<td><strong>filemon</strong> コマンドでは、セグメントとディスク上のそれらのイメージ間の物理入出力操作 (つまりページング) をモニターします。 入出力統計はセグメント単位で保持されます。</td>
+
+</tr>
+
+<tr>
+<td>論理ボリューム</td>
+
+<td><strong>filemon</strong> コマンドでは、論理ボリューム上の入出力操作をモニターします。 入出力統計は論理ボリューム単位で保持されます。</td>
+
+</tr>
+
+<tr>
+<td>Physical volumes (物理ボリューム)</td>
+
+<td><strong>filemon</strong> コマンドでは、物理ボリューム上の入出力操作をモニターします。 このレベルでは、物理リソースの使用状況が取得されます。 入出力統計は物理ボリューム単位で保持されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>コマンド・ライン・フラグで指定したとおりに、これらの 4 つのレベルを組み合わせてモニターすることができます。 デフォルトでは、<strong>filemon</strong> コマンドによって、仮想記憶、論理ボリューム、物理ボリュームのレベルでの入出力操作だけがモニターされます。 これらのレベルはすべて、実際のディスク入出力に対する要求に関連するものです。</p>
+ <p><strong>filemon</strong> コマンドは、ファイル、論理ボリューム、および物理ボリュームについての稼働状況レポートも生成します。 この稼働状況レポートは、<strong>–O</strong> hot オプションを使用して生成できます。 このレポートは、
+自動オフライン・モードと手動オフライン・モードでのみサポートされています。 稼働状況レポートには、
+ファイル、論理ボリューム、および物理ボリュームに関する入出力操作統計が含まれます。 このレポートを使用すると、ファイル/論理ボリュームの稼働状況に基づくさまざまな入出力特性を使用して、どのファイルまたは論理ボリュームをどのドライブに移動するかを決定できます。 この稼働状況は、読み取り操作の数、読み取り操作ごとに読み取られたバイトの平均数、読み取りシーケンスの数、およびシーケンスの平均の長さに基づいて判別されます。</p>
+ <p><strong>filemon</strong> コマンドにより、その報告が標準出力または指定ファイルに書かれます。 デフォルトでは、この報告には、モニターしている各レベルの入出力アクティビティーの要約が含まれます。 詳細レポートの印刷は、<strong>-O detailed</strong> フラグが使用可能になっている場合のみ行われます。 要約レポートと詳細レポートの内容については、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/filemon.html#filemon__be9869d994raga" target="_blank" rel="noopener noreferrer">レポート</a> 」セクションで説明しています。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong>filemon</strong> コマンドによって生成される
+レポートは、長くなる場合があります。 したがって、出力ファイルにレポートを書き込むには、<strong>-o</strong> オプションを使用します。 アプリケーションによって物理デバイスがオープンされ、
+直接アクセスされるときには、完全な 512 バイト単位のブロックの読み取りおよび書き込みだけが、
+報告に反映されます。 デバイス・コマンドを実行してデバイスの状況を読み取るためにデバイス・ドライバーによって使用される「短い」読み書きは、無視されます。 CD-ROM は、ハード・ファイルとは異なり、同心円上の「トラック」も「シリンダー」もありません。 (ら旋上のトラックが 1 つあるだけです。) したがって、CD-ROM の場合は、シリンダーに関して距離の統計情報を報告することは不可能です。</li>
+
+<li><strong>-u</strong> フラグは、<strong>trace</strong> デーモン
+の始動前にオープンされたファイルに関するレポートを生成する場合に使用されます。 このデータには役に立つものもありますが、そのほとんどはデーモンやほかの無関係のアクティビティーに該当します。 このバックグラウンド情報は、大きなシステムの場合、特に多くなります。 <strong>/unix</strong> ファイルと実行中のカーネルが同じでない場合、
+カーネル・アドレスが正しくないので、<strong>filemon</strong> コマンドは終了します。 <strong>filemon</strong> コマンドをシェル・スクリプト内から使用する場合は、<strong>filemon</strong> 出力ファイルの内容を表示するまでに少し遅延が発生します。 <strong>filemon</strong> コマンドでこのレポートを作成するのに、数秒かかることがあります。</li>
+
+<li>入出力処理プログラムで相対パスを指定してファイルの読み取りまたは書き込みを行う場合、<strong>filemon</strong> コマンドはこの相対パスを <strong>filemon</strong> コマンドが実行されたディレクトリーとして解釈します。 このような場合、入出力アクティビティーの報告には、そのファイルのボリューム情報 (i ノード) が正しく表示されない可能性があります。 この問題を回避するには、すべての入出力処理プログラムで完全なパスを使用してください。</li>
+
+<li><span>filemon</span> コマンドは、ソリッド・ステート・ドライブ (SSD) ディスクをサポートしていません。 このため、<span>filemon</span> コマンドは SSD ディスクの統計情報を報告しません。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>システム・トレース機能</h2> <p><strong>filemon</strong> コマンドでは、システム・トレース機能を使って、
+未加工の入出力パフォーマンス・データを獲得します。 現在、トレース機能では 1 つの出力ストリームしかサポートしていません。 したがって、<strong>filemon</strong> またはトレース・プロセスは 1 つずつ実行されます。 別の <strong>filemon</strong> またはトレース・プロセスが既に実行中の場合、<strong>filemon</strong> コマンドは次のようなメッセージで応答します。</p>
+ <div> <div><div><pre><code>/dev/systrace: Device busy</code></pre></div><div></div></div></div>
+ <p>入出力が集中するアプリケーションをモニターする場合、<strong>filemon</strong> コマンドでは、トレース・イベントをリアルタイムに (トレース・イベントが生成されるのと同じ速さで) 処理できないことがあります。 このような状況が発生すると、次のエラー・メッセージ</p>
+ <div> <div><div><pre><code>Trace kernel buffers overflowed, N missed entries</code></pre></div><div></div></div></div>
+ <p>表示される場所stderrトレース・バッファーがいっぱいになっている間に失われたトレース・イベントの数を示します。 <strong>filemon</strong> コマンドでは、入出力アクティビティーのモニターが継続されますが、報告の正確性はある程度失われます。 オーバーフローを避ける 1 つの方法として、ファイルと入出力サブシステムをモニターするレベルを少なくする方法があります。生成されるトレース・イベントの数は、モニターするレベルの数に比例するためです。 さらに、<strong>-T</strong> オプションを使ってトレース・バッファー・サイズを増やし、オーバーフローが発生する前にトレース・イベントのバーストを調整する方法もあります。 ただし、トレース・バッファー・サイズを増やすことは、固定されたメモリーが増えるので、入出力やページングの動作に影響を及ぼすことがあるので注意してください。</p>
+ <p>メモリー制約のある (必要なメモリーが足りない) 環境では、<strong>-P</strong> オプションを使用すると、リアルタイムの <strong>filemon</strong> プロセスのテキストとデータ・ページをメモリーに固定できるので、ページがスワップアウトされません。 <strong>-P</strong> オプションを使用しないと、<strong>filemon</strong> プロセスがスワップアウトされるので、<strong>filemon</strong> コマンドの進行が遅れ、十分な速度でトレース・イベントを処理できないことがあります。 このような状況が発生すると、トレース・バッファーは前述のようにオーバーフローしてしまいます。 その結果、このプロセスを固定すると、アプリケーションで使用できるメモリーは減少します (<strong>filemon</strong> コマンドは大きいプログラムではありませんが、そのプロセス・イメージによって使用されるメモリーは 500KB までになります)。</p>
+ <p><strong>-i</strong><em> Trace_File</em> フラグと <strong>-n</strong><em> Gensyms_File</em> フラグを指定すると、<strong>trace</strong> コマンドで作成されたトレース・データ・ファイルを <strong>filemon</strong> コマンドによってオフライン処理することができます。 これらのフラグのいずれか一方が存在している場合には、もう一方も指定しなければなりません。 これらのフラグは、リモート・マシンからトレース・ファイルのポストプロセスをする場合や、
+ある時点でトレース・データ収集を実行し、別の時点でそのポストプロセスをする場合に役に立ちます。 システム負荷が大きく、<strong>filemon</strong> がトレース・フックを見逃している場合にも、
+これらのフラグは役に立ちます。 これらのフラグは、自動オフライン・モードに使用することができます。</p>
+ <p><strong>-r</strong> <em>RootString</em> フラグを使用する場合、<strong>-i</strong> <em>Trace_File</em> フラグと <strong>-n</strong> <em>Gensyms_File</em> フラグの使用は推奨されません。 <strong>-r</strong> <em>RootString</em> フラグはオフライン処理での使用のほかに、<strong>-A</strong> フラグと一緒に使用して自動オフライン・モードを使用可能にすることができます。</p>
+ <p><strong>gensyms</strong> ファイル (ファイルシステム情報が含まれています) は、トレース元のマシンから使用する必要があります。 また、システム・トレース・ファイルが作成されるのとほぼ同時に、
+<strong>gensyms</strong> を実行して、
+両者のシステム構成が同じになるようにするのも賢明な方法です。</p>
+ <p><strong>filemon</strong> に関係のある
+トレース・フックは、<strong>trace</strong> コマンドにより収集され、<strong>trace -j</strong> フラグで指定されます。 関係のあるトレース・フックが表示されるのは、<strong>-v</strong> フラグを使用して <strong>filemon</strong> を開始した場合です。 次に <strong>-F</strong> オプションを
+指定した <strong>gensyms</strong> コマンドが実行され、出力が <em>
+Gensyms_File</em> に保管されて、<strong>filemon</strong> の追加情報を収集します。 gensyms コマンド
+に <strong>-F</strong> オプションを指定すると、物理ボリュームおよび論理ボリュームに関する
+デバイス情報が収集されます。 このオプションは、オフラインの <strong>filemon</strong> によって
+使用される仮想ファイルシステム情報を収集する場合にも使用されます。 その後で、
+このファイルと <em>Gensyms_File</em> は、
+<strong>filemon</strong> に提供されることもあります。</p>
+</section>
+
+<section><h2>レポート</h2> <p><strong>filemon</strong> コマンドによって生成される各報告には、日付、マシン ID、モニター期間 (秒) を示すヘッダーがあります。 また、モニター期間中のプロセッサー使用率も報告されます。</p>
+ <p>次に、モニターする各ファイルシステム・レベルごとに要約報告が生成されます。 デフォルトでは、論理ファイルと仮想記憶についての報告は、転送されたデータの総量を調べて最もアクティブであった 20 個のファイルとセグメントに制限されます。 <strong>-v</strong> フラグを指定すると、すべてのファイルとセグメントについてのアクティビティーが報告されます。 各ファイル、セグメント、ボリュームについて、それぞれ 1 行に報告されます。 4 つの要約報告の各行の列を、次のリストで説明します。</p>
+<p><strong>最もアクティブなファイルの報告</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>列</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>#MBS</td>
+
+<td>ファイルとの間で転送された合計メガバイト数。 このフィールドに従って、行は降順にソートされます。</td>
+
+</tr>
+
+<tr>
+<td>#opns</td>
+
+<td>測定期間中にファイルがオープンされた回数。</td>
+
+</tr>
+
+<tr>
+<td>#rds</td>
+
+<td>ファイルに対して行われた読み取りシステム呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>#wrs</td>
+
+<td>ファイルに対して行われた書き込みシステム呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>file</td>
+
+<td>ファイルの名前 (詳細レポートでは絶対パス名)。</td>
+
+</tr>
+
+<tr>
+<td>volume:inode</td>
+
+<td>ファイルが入っているボリュームの名前とそのファイルの i ノード番号。 このフィールドを使って、ファイルと、仮想記憶入出力報告に表示される対応する永続セグメントを関連付けることができます。 このフィールドはブランクになっている場合があります (実行時に生成されてから削除された一時ファイルなどの場合)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>最もアクティブなセグメントの報告</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>#MBS</td>
+
+<td>セグメントに転送された、またはファイルから転送されたデータの合計数 (MB 単位)。 このフィールドに従って、行は降順にソートされます。</td>
+
+</tr>
+
+<tr>
+<td>#rpgs</td>
+
+<td>ディスクからセグメントに読み取られた (つまり、ページインされた) 4096 バイト単位のページ数。</td>
+
+</tr>
+
+<tr>
+<td>#wpgs</td>
+
+<td>セグメントからディスクに書き込まれた (ページアウトされた) 4096 バイト単位のページ数。</td>
+
+</tr>
+
+<tr>
+<td>segid</td>
+
+<td>セグメントの内部 ID。</td>
+
+</tr>
+
+<tr>
+<td>segtype</td>
+
+<td>セグメントのタイプ: 作業セグメント、永続セグメント (ローカル・ファイル)、クライアント・セグメント (リモート・ファイル)、ページ・テーブル・セグメント、システム・セグメント、またはファイル・システム・データ (ログ、ルート・ディレクトリー、.inode,.inodemap,.inodex,.inodexmap,.indirect,.diskmap).</td>
+
+</tr>
+
+<tr>
+<td>volume:inode</td>
+
+<td>永続セグメントの場合、関連ファイルを含むボリュームの名前とそのファイルの i ノード番号。 このフィールドは、永続セグメントをファイル入出力報告で表示される永続セグメントに対応するファイルに関連付けるために、使用します。 永続セグメントでない場合、このフィールドはブランクになります。<div><div>
+        <div>
+          <div><span>注:</span> 仮想メモリー分析ツール <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/svmon.html" target="_blank" rel="noopener noreferrer"><strong>svmon</strong></a> を使用すると、セグメント ID (segid) を指定して、セグメントに関する詳細情報を次のように表示することができます。<div><div><pre><code>svmon -S &lt;segid&gt;</code></pre></div><div></div></div> </div>
+        </div>
+      </div></div>
+ </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>最もアクティブな論理ボリュームの報告</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>util</td>
+
+<td>ボリュームの使用状況 (使用率)。 このフィールドに従って、行は降順にソートされます。</td>
+
+</tr>
+
+<tr>
+<td>#rblk</td>
+
+<td>ボリュームから読み取られた 512 バイト単位のブロックの数。</td>
+
+</tr>
+
+<tr>
+<td>#wblk</td>
+
+<td>ボリュームに書き込まれた 512 バイト単位のブロックの数。</td>
+
+</tr>
+
+<tr>
+<td>KB/sec</td>
+
+<td>合計の転送スループット (K バイト/秒)。</td>
+
+</tr>
+
+<tr>
+<td>volume</td>
+
+<td>ボリュームの名前。</td>
+
+</tr>
+
+<tr>
+<td>description</td>
+
+<td>ボリュームの内容: ファイルシステム名または論理ボリューム・タイプ (paging、jfslog、boot、または sysdump)。 また、ファイルシステムがフラグメント化されているか、圧縮されているかについても示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>最もアクティブな物理ボリュームの報告</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>util</td>
+
+<td>ボリュームの使用状況 (使用率)。 このフィールドに従って、行は降順にソートされます。</td>
+
+</tr>
+
+<tr>
+<td>#rblk</td>
+
+<td>ボリュームから読み取られた 512 バイト単位のブロックの数。</td>
+
+</tr>
+
+<tr>
+<td>#wblk</td>
+
+<td>ボリュームに書き込まれた 512 バイト単位のブロックの数。</td>
+
+</tr>
+
+<tr>
+<td>KB/sec</td>
+
+<td>合計のボリューム・スループット (K バイト/秒)。</td>
+
+</tr>
+
+<tr>
+<td>volume</td>
+
+<td>ボリュームの名前。</td>
+
+</tr>
+
+<tr>
+<td>description</td>
+
+<td>ボリュームのタイプ。以下に例を示します。120MB disk,355MB
+SCSI、またはCDROM SCSI.<div><div>
+        <div>
+          <div><span>注:</span> 論理ボリュームの入出力要求は、物理ボリュームの入出力要求の前に開始し、物理ボリュームの入出力要求の後に終了します。 そのため、論理ボリュームの総使用状況は、物理ボリュームの総使用状況より多く見えます。</div>
+        </div>
+      </div></div>
+ </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>最もアクティブなファイルのプロセスに関する報告</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>#MBS</td>
+
+<td>ファイルに転送された、またはファイルから転送されたデータの合計数 (MB 単位)。 このフィールドに従って、行は降順にソートされます。</td>
+
+</tr>
+
+<tr>
+<td>#opns</td>
+
+<td>測定期間中にファイルがオープンされた回数。</td>
+
+</tr>
+
+<tr>
+<td>#rds</td>
+
+<td>ファイルに対して行われた読み取りシステム呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>#wrs</td>
+
+<td>ファイルに対して行われた書き込みシステム呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>file</td>
+
+<td>ファイルの名前 (詳細レポートでは絶対パス名)。</td>
+
+</tr>
+
+<tr>
+<td>PID</td>
+
+<td>ファイルをオープンしたプロセスの ID。</td>
+
+</tr>
+
+<tr>
+<td>Process</td>
+
+<td>ファイルをオープンしたプロセスの名前。</td>
+
+</tr>
+
+<tr>
+<td>TID</td>
+
+<td>ファイルをオープンしたスレッドの ID。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>最もアクティブなファイルのスレッドに関する報告</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>#MBS</td>
+
+<td>ファイルに転送された、またはファイルから転送されたデータの合計数 (MB 単位)。 このフィールドに従って、行は降順にソートされます。</td>
+
+</tr>
+
+<tr>
+<td>#opns</td>
+
+<td>測定期間中にファイルがオープンされた回数。</td>
+
+</tr>
+
+<tr>
+<td>#rds</td>
+
+<td>ファイルに対して行われた読み取りシステム呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>#wrs</td>
+
+<td>ファイルに対して行われた書き込みシステム呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>file</td>
+
+<td>ファイルの名前 (詳細レポートでは絶対パス名)。</td>
+
+</tr>
+
+<tr>
+<td>TID</td>
+
+<td>ファイルをオープンしたスレッドの ID。</td>
+
+</tr>
+
+<tr>
+<td>Process</td>
+
+<td>ファイルをオープンしたプロセスの名前。</td>
+
+</tr>
+
+<tr>
+<td>PID</td>
+
+<td>ファイルをオープンしたプロセスの ID。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>最後に、モニターしている各ファイルシステム・レベルごとに詳細レポートが生成されます。 デフォルトでは、論理ファイルと仮想記憶についての報告は、転送されたデータの総量を調べて最もアクティブであった 20 個のファイルとセグメントに制限されます。 <strong>-v</strong> フラグを指定すると、すべてのファイルとセグメントについてのアクティビティーが報告されます。 各ファイル、セグメント、またはボリュームについて、それぞれ 1 つのエントリーに報告されます。</p>
+ <p>フィールドのなかには、1 つの値が報告されるものと、たくさんの値の分布を示す統計が報告されるものがあります。 例えば、応答時間統計には、モニターされた読み取りまたは書き込みの要求すべてについての統計が保持されます。 平均、最小、最大の応答時間、および応答時間の標準偏差が報告されます。 標準偏差は、個別の応答時間が平均からかけ離れている度合いを示すために使用されます。 サンプリングされた応答時間の約 3 分の 2 は、average
+- standard deviationおよびaverage + standard deviation応答時間の分布が広い範囲に分散している場合、標準偏差は平均応答時間と比較して大きくなります。 4 つの明細報告を、次のリストで説明します。</p>
+<p><strong>ファイル統計の詳細レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>FILE</td>
+
+<td>ファイルの名前。 可能であれば、絶対パス名が表示されます。</td>
+
+</tr>
+
+<tr>
+<td>volume</td>
+
+<td>ファイルが入っている論理ボリューム/ファイルシステムの名前。</td>
+
+</tr>
+
+<tr>
+<td>inode</td>
+
+<td>ファイルシステム内でのファイルの i ノード番号。</td>
+
+</tr>
+
+<tr>
+<td>opens</td>
+
+<td>モニター中にファイルがオープンされた回数。</td>
+
+</tr>
+
+<tr>
+<td>total bytes xfrd</td>
+
+<td>ファイルから読み取られた、またはファイルに書き込まれたバイトの合計数。</td>
+
+</tr>
+
+<tr>
+<td>reads</td>
+
+<td>ファイルに対して行われた読み取りコールの数。</td>
+
+</tr>
+
+<tr>
+<td>read sizes (bytes)</td>
+
+<td>バイト単位の読み取り転送サイズの統計 (avg/min/max/sdev)。</td>
+
+</tr>
+
+<tr>
+<td>read times (msec)</td>
+
+<td>ミリ秒単位の読み取り応答時間の統計 (avg/min/max/sdev)。</td>
+
+</tr>
+
+<tr>
+<td>writes </td>
+
+<td>ファイルに対して行われた書き込みコールの数。</td>
+
+</tr>
+
+<tr>
+<td>write sizes (bytes)</td>
+
+<td>書き込み転送サイズの統計。</td>
+
+</tr>
+
+<tr>
+<td>write times (msec)</td>
+
+<td>書き込み応答時間の統計。</td>
+
+</tr>
+
+<tr>
+<td>seeks</td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_bostechref/lseek.html" target="_blank" rel="noopener noreferrer"><strong>lseek</strong></a> サブルーチン呼び出しの数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>VM セグメント統計の詳細レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>SEGMENT</td>
+
+<td>内部セグメント ID。</td>
+
+</tr>
+
+<tr>
+<td>segtype</td>
+
+<td>セグメントの内容のタイプ。</td>
+
+</tr>
+
+<tr>
+<td>segment flags</td>
+
+<td>各種のセグメント属性。</td>
+
+</tr>
+
+<tr>
+<td>volume</td>
+
+<td>永続セグメントの場合は、対応するファイルが入っている論理ボリュームの名前。</td>
+
+</tr>
+
+<tr>
+<td>inode</td>
+
+<td>永続セグメントの場合は、対応するファイルの i ノード番号。</td>
+
+</tr>
+
+<tr>
+<td>reads</td>
+
+<td>セグメントに読み込まれた (つまり、ページインされた) 4096 バイト単位のページ数。</td>
+
+</tr>
+
+<tr>
+<td>read times (msec)</td>
+
+<td>ミリ秒単位の読み取り応答時間の統計 (avg/min/max/sdev)。</td>
+
+</tr>
+
+<tr>
+<td>read sequences</td>
+
+<td>読み取りシーケンスの数。 シーケンスとは、連続して読み取られた (ページインされた) ページの文字列のことです。 読み取りシーケンスの数は、順次アクセスの総計を示します。</td>
+
+</tr>
+
+<tr>
+<td>read seq. lengths</td>
+
+<td>読み取りシーケンスの長さを記述した統計 (ページ単位)。</td>
+
+</tr>
+
+<tr>
+<td>writes</td>
+
+<td>セグメントから書き込まれた (つまり、ページアウトされた) ページ数。</td>
+
+</tr>
+
+<tr>
+<td>write times (msec)</td>
+
+<td>書き込み応答時間の統計。</td>
+
+</tr>
+
+<tr>
+<td>write sequences</td>
+
+<td>書き込みシーケンスの数。 シーケンスとは、連続して書き込まれた (ページアウトされた) ページの文字列のことです。</td>
+
+</tr>
+
+<tr>
+<td>write seq.lengths</td>
+
+<td>書き込みシーケンスの長さを記述した統計 (ページ単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>論理/物理ボリューム統計の詳細レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>VOLUME</td>
+
+<td>ボリュームの名前。</td>
+
+</tr>
+
+<tr>
+<td>description</td>
+
+<td>ボリュームの記述。 (論理ボリュームを扱う場合は内容を記述し、物理ボリュームを扱う場合はタイプを記述する。)</td>
+
+</tr>
+
+<tr>
+<td>reads</td>
+
+<td>ボリュームに対して行われた読み取り要求の回数。</td>
+
+</tr>
+
+<tr>
+<td>read sizes (blks)</td>
+
+<td>512 バイト・ブロック単位の、読み取り転送サイズの統計 (avg/min/max/sdev)。</td>
+
+</tr>
+
+<tr>
+<td>read times (msec)</td>
+
+<td>ミリ秒単位の読み取り応答時間の統計 (avg/min/max/sdev)。</td>
+
+</tr>
+
+<tr>
+<td>read sequences</td>
+
+<td>読み取りシーケンスの数。 シーケンスとは、連続して読み取られた 512 バイト単位のブロックのことで、順次アクセスの総数を示します。</td>
+
+</tr>
+
+<tr>
+<td>read seq. lengths</td>
+
+<td>読み取りシーケンスの長さを記述した統計 (ブロック単位)。</td>
+
+</tr>
+
+<tr>
+<td>writes</td>
+
+<td>ボリュームに対して行われた書き込み要求の回数。</td>
+
+</tr>
+
+<tr>
+<td>write sizes (blks)</td>
+
+<td>書き込み転送サイズの統計。</td>
+
+</tr>
+
+<tr>
+<td>write times (msec)</td>
+
+<td>書き込み応答時間の統計。</td>
+
+</tr>
+
+<tr>
+<td>write sequences</td>
+
+<td>書き込みシーケンスの数。 シーケンスとは、連続して書き込まれた 512 バイト単位のブロックの文字列のことです。</td>
+
+</tr>
+
+<tr>
+<td>write seq. lengths</td>
+
+<td>書き込みシーケンスの長さを記述した統計 (ブロック単位)。</td>
+
+</tr>
+
+<tr>
+<td>seeks</td>
+
+<td>読み取りまたは書き込み要求の前に行われたシークの数。シークを必要とした読み取りと書き込みの総数に対するパーセントで表されます。</td>
+
+</tr>
+
+<tr>
+<td>seek dist (blks)</td>
+
+<td>シーク距離の統計 (512 バイトのブロック単位)。 通常の統計 (avg/min/max/sdev) に加え、初期シーク動作の距離 (ブロック 0 が開始位置と仮定する) が個別に報告されます。 このシーク距離の統計は大きくなる場合があるので、ほかの統計を壊さないように、個別に報告されます。</td>
+
+</tr>
+
+<tr>
+<td>seek dist (cyls)</td>
+
+<td>(ハード・ファイルのみ。) ディスク・シリンダー単位のシーク距離統計。</td>
+
+</tr>
+
+<tr>
+<td>time to next req</td>
+
+<td>ボリュームに対する連続した読み取りまたは書き込み要求間の時間の長さを記述した、
+ミリ秒単位の統計 (avg/min/max/sdev)。 この列は、ボリュームのアクセス率を示しています。</td>
+
+</tr>
+
+<tr>
+<td>throughput</td>
+
+<td>合計のボリューム・スループット (K バイト/秒)。</td>
+
+</tr>
+
+<tr>
+<td>utilization</td>
+
+<td>ボリュームが使用中の時間。 このフィールドに従って、この報告内のエントリーは降順にソートされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>プロセスに関する統計の詳細レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>Process Id</td>
+
+<td>ファイルをオープンしたプロセスの ID。</td>
+
+</tr>
+
+<tr>
+<td>Name</td>
+
+<td>オープンされたファイルの名前 (パスを含む)。</td>
+
+</tr>
+
+<tr>
+<td>Thread Id</td>
+
+<td>ファイルをオープンしたスレッドの ID。</td>
+
+</tr>
+
+<tr>
+<td>Total Bytes</td>
+
+<td>読み取られたバイトまたは書き込まれたバイトの合計数。</td>
+
+</tr>
+
+<tr>
+<td># of seeks</td>
+
+<td>シークの数。</td>
+
+</tr>
+
+<tr>
+<td># of reads</td>
+
+<td>読み取り操作の数。</td>
+
+</tr>
+
+<tr>
+<td>read errors</td>
+
+<td>読み取りエラーの数。</td>
+
+</tr>
+
+<tr>
+<td># of writes</td>
+
+<td>書き込み操作の数。</td>
+
+</tr>
+
+<tr>
+<td>Bytes Read</td>
+
+<td>読み取られたバイト数。<dl>
+<dt>分</dt>
+
+<dd>一度に読み取られた最小バイト数。</dd>
+
+
+<dt>avr</dt>
+
+<dd>一度に読み取られた平均バイト数。</dd>
+
+
+<dt>max</dt>
+
+<dd>一度に読み取られた最大バイト数。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>Bytes Written</td>
+
+<td>書き込まれたバイト数。<dl>
+<dt>分</dt>
+
+<dd>一度に書き込まれた最小バイト数。</dd>
+
+
+<dt>avr</dt>
+
+<dd>一度に書き込まれた平均バイト数。</dd>
+
+
+<dt>max</dt>
+
+<dd>一度に書き込まれた最大バイト数。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>Read Time</td>
+
+<td>読み取り操作に要する時間。</td>
+
+</tr>
+
+<tr>
+<td>Write Time</td>
+
+<td>書き込み操作に要する時間。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>スレッドに関する統計の詳細レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>Thread Id</td>
+
+<td>ファイルをオープンしたスレッドの ID。</td>
+
+</tr>
+
+<tr>
+<td>Name</td>
+
+<td>オープンされたファイルの名前 (パスを含む)。</td>
+
+</tr>
+
+<tr>
+<td>Process Id</td>
+
+<td>ファイルをオープンしたスレッドの ID。</td>
+
+</tr>
+
+<tr>
+<td>Total Bytes</td>
+
+<td>読み取られたバイトまたは書き込まれたバイトの合計数。</td>
+
+</tr>
+
+<tr>
+<td># of seeks</td>
+
+<td>シークの数。</td>
+
+</tr>
+
+<tr>
+<td># of reads</td>
+
+<td>読み取り操作の数。</td>
+
+</tr>
+
+<tr>
+<td>read errors</td>
+
+<td>読み取りエラーの数。</td>
+
+</tr>
+
+<tr>
+<td># of writes</td>
+
+<td>書き込み操作の数。</td>
+
+</tr>
+
+<tr>
+<td>Bytes Read</td>
+
+<td>読み取られたバイト数。<dl>
+<dt>分</dt>
+
+<dd>一度に読み取られた最小バイト数。</dd>
+
+
+<dt>avr</dt>
+
+<dd>一度に読み取られた平均バイト数。</dd>
+
+
+<dt>max</dt>
+
+<dd>一度に読み取られた最大バイト数。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>Bytes Written</td>
+
+<td>書き込まれたバイト数。<dl>
+<dt>分</dt>
+
+<dd>一度に書き込まれた最小バイト数。</dd>
+
+
+<dt>avr</dt>
+
+<dd>一度に書き込まれた平均バイト数。</dd>
+
+
+<dt>max</dt>
+
+<dd>一度に書き込まれた最大バイト数。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>Read Time</td>
+
+<td>読み取り操作に要する時間。</td>
+
+</tr>
+
+<tr>
+<td>Write Time</td>
+
+<td>書き込み操作に要する時間。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>照合報告フォーマット</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>ID</td>
+
+<td><dl>
+<dt>プロセス</dt>
+
+<dd>読み取りまたは書き込み操作を行ったプロセスの ID。</dd>
+
+
+<dt>スレッド</dt>
+
+<dd>読み取りまたは書き込み操作を行ったスレッドの ID。</dd>
+
+
+<dt>CPU</dt>
+
+<dd>読み取りまたは書き込み操作が実行された CPU の ID。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>transaction type</td>
+
+<td>トランザクションのタイプ (SCSI や SSA など)。</td>
+
+</tr>
+
+<tr>
+<td>time</td>
+
+<td><dl>
+<dt>bstart event</dt>
+
+<dd><strong>bstart</strong> イベントが開始した時間。</dd>
+
+
+<dt>iodone event</dt>
+
+<dd>入出力操作が完了した時間。</dd>
+
+
+<dt>duration</dt>
+
+<dd>入出力操作の合計所要時間。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>read/write</td>
+
+<td>操作のタイプ (読み取りまたは書き込み)。</td>
+
+</tr>
+
+<tr>
+<td>physical block address</td>
+
+<td>物理ブロック・アドレス。</td>
+
+</tr>
+
+<tr>
+<td>access pattern</td>
+
+<td>アクセス・パターンのタイプ (順次またはランダム)。</td>
+
+</tr>
+
+<tr>
+<td>physical block size</td>
+
+<td>物理ブロック・サイズ。</td>
+
+</tr>
+
+<tr>
+<td>volume name or address</td>
+
+<td><dl>
+<dt>物理</dt>
+
+<dd>物理ボリューム名またはアドレス。</dd>
+
+
+<dt>論理</dt>
+
+<dd>論理ボリューム名またはアドレス。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>Transaction index</td>
+
+<td>トランザクションを識別する固有の ID。</td>
+
+</tr>
+
+<tr>
+<td>time</td>
+
+<td><dl>
+<dt>イベント</dt>
+
+<dd>イベントが開始した時間。</dd>
+
+
+<dt>extend</dt>
+
+<dd>イベントが拡張された時間。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>ID</td>
+
+<td><dl>
+<dt>プロセス</dt>
+
+<dd>トランザクションを実行したプロセスの ID。</dd>
+
+
+<dt>スレッド</dt>
+
+<dd>トランザクションを実行したスレッドの ID。</dd>
+
+
+<dt>CPU</dt>
+
+<dd>トランザクションが実行された CPU の ID。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>protocol stage</td>
+
+<td>イベントの破壊を表示します。</td>
+
+</tr>
+
+<tr>
+<td>name</td>
+
+<td>デバイス、バッファー、またはブロックの名前、あるいはバイト数。</td>
+
+</tr>
+
+<tr>
+<td>address/count</td>
+
+<td>デバイス、バッファー、またはブロックのアドレス、あるいはバイト数。</td>
+
+</tr>
+
+<tr>
+<td>access pattern</td>
+
+<td>アクセス・パターンのタイプ (順次またはランダム)。</td>
+
+</tr>
+
+<tr>
+<td>label</td>
+
+<td>ボリューム・タイプまたは転送フラグ。</td>
+
+</tr>
+
+<tr>
+<td>values</td>
+
+<td>ボリューム名またはフラグ値。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>稼働状況レポート</strong></p>
+ <p>稼働状況レポートは、情報セクション、集計セクション、および稼働状況レポート・セクション
+の 3 つのセクションで構成されています。 情報セクションには、システム・モデル、使用された <strong>filemon</strong> コマンド、
+および使用された <strong>trace</strong> コマンドが含まれています。 集計セクションには、読み取りまたは書き込み操作の総数、要した時間の合計、読み取りまたは書き込みが行われたデータの合計、および CPU 使用率が含まれています。</p>
+<p><strong>ホット・ファイル・レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>Name</td>
+
+<td>ファイルの名前。</td>
+
+</tr>
+
+<tr>
+<td>Size</td>
+
+<td>ファイルのサイズ。 デフォルトの単位は MB です。 デフォルトの単位は、<strong>–O</strong> unit オプションで
+指定された単位によって指定変更されます。</td>
+
+</tr>
+
+<tr>
+<td>CAP_ACC</td>
+
+<td>アクセスされた容量。 この値は、ファイル内のアクセスされた固有データです。 デフォルトの単位は MB です。 デフォルトの単位は、<strong>–O</strong> unit オプションで
+指定された単位によって指定変更されます。</td>
+
+</tr>
+
+<tr>
+<td>IOP/#</td>
+
+<td>アクセスされたデータの単位当たりの入出力操作数。 データの単位は、<strong>–O</strong> unit オプションから
+取得されます。 デフォルト値は MB です。 この列の値の例は、 2560/T、 256/G、 0.256/M、 0.000/Kです。 文字 K、M、G、および T は、KB、MB、GB、および TB を表します。</td>
+
+</tr>
+
+<tr>
+<td>LV</td>
+
+<td>ファイルが属する論理ボリュームの名前。 この情報を
+取得できないと、<strong>"-"</strong> が報告されます。</td>
+
+</tr>
+
+<tr>
+<td>#ROP</td>
+
+<td>ファイルで発生した読み取り操作の総数。</td>
+
+</tr>
+
+<tr>
+<td>#WOP</td>
+
+<td>そのファイルで発生した書き込み操作の総数。</td>
+
+</tr>
+
+<tr>
+<td>B/ROP</td>
+
+<td>読み取り操作ごとに読み取られたバイトの &lt;最小、平均、最大&gt; 数。</td>
+
+</tr>
+
+<tr>
+<td>B/WOP</td>
+
+<td>書き込み操作ごとに読み取られたバイトの &lt;最小、平均、最大&gt; 数。</td>
+
+</tr>
+
+<tr>
+<td>RTIME</td>
+
+<td>読み取り操作ごとに要した &lt;最小、平均、最大&gt; 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td>WTIME</td>
+
+<td>書き込み操作ごとに要した &lt;最小、平均、最大&gt; 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td>Seqlen</td>
+
+<td>読み取りシーケンスの &lt;最小、平均、最大&gt; 長。</td>
+
+</tr>
+
+<tr>
+<td>#Seq</td>
+
+<td>読み取りシーケンスの数。 シーケンスとは、一連の 4K ページのことであり、このページが連続して読み取られます(ページインされる)。 読み取りシーケンスの数は、順次アクセスの総計を示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>ホット論理ボリューム・レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>Name</td>
+
+<td>論理ファイルの名前。</td>
+
+</tr>
+
+<tr>
+<td>Size</td>
+
+<td>論理ボリュームのサイズ。 デフォルトの単位は MB です。 デフォルトの単位は、–O unit オプションで
+指定された単位によって指定変更されます。 この値を取得できないと、“-“ が報告されます。</td>
+
+</tr>
+
+<tr>
+<td>CAP_ACC</td>
+
+<td>アクセスされた容量。 この値は、ファイル内のアクセスされた固有データです。 デフォルトの単位は MB です。 デフォルトの単位は、<strong>–O</strong> unit オプションで
+指定された単位によって指定変更されます。</td>
+
+</tr>
+
+<tr>
+<td>IOP/#</td>
+
+<td>アクセスされたデータの単位当たりの入出力操作数。 データの単位は、<strong>–O</strong> unit オプションから
+取得されます。 デフォルト値は MB です。 この列の値の例は、 2560/T、 256/G、 0.256/M、 0.000/Kです。 文字 K、M、G、および T は、それぞれ KB、MB、GB、および TB を表します。</td>
+
+</tr>
+
+<tr>
+<td>#Files</td>
+
+<td>この論理ボリューム内でアクセスされたファイル数。</td>
+
+</tr>
+
+<tr>
+<td>#ROP</td>
+
+<td>論理ボリュームで発生した読み取り操作の総数。</td>
+
+</tr>
+
+<tr>
+<td>#WOP</td>
+
+<td>その論理ボリュームで発生した書き込み操作の総数。</td>
+
+</tr>
+
+<tr>
+<td>B/ROP</td>
+
+<td>読み取り操作ごとに読み取られたバイトの &lt;最小、平均、最大&gt; 数。</td>
+
+</tr>
+
+<tr>
+<td>B/WOP</td>
+
+<td>書き込み操作ごとに読み取られたバイトの &lt;最小、平均、最大&gt; 数。</td>
+
+</tr>
+
+<tr>
+<td>RTIME</td>
+
+<td>読み取り操作ごとに要した &lt;最小、平均、最大&gt; 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td>WTIME</td>
+
+<td>書き込み操作ごとに要した &lt;最小、平均、最大&gt; 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td>Seqlen</td>
+
+<td>読み取りシーケンスの &lt;最小、平均、最大&gt; 長。</td>
+
+</tr>
+
+<tr>
+<td>#Seq</td>
+
+<td>読み取りシーケンスの数。 シーケンスとは、一連の 4K ページのことであり、このページが連続して読み取られます(ページインされる)。 読み取りシーケンスの数は、順次アクセスの総計を示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>ホット物理ボリューム・レポート</strong></p>
+ <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>COLUMN</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>Name</td>
+
+<td>物理ボリュームの名前。</td>
+
+</tr>
+
+<tr>
+<td>Size</td>
+
+<td>物理ボリュームのサイズ。 デフォルトの単位は MB です。 デフォルトの単位は、<strong>–O</strong> unit オプションで
+指定された単位によって指定変更されます。</td>
+
+</tr>
+
+<tr>
+<td>CAP_ACC</td>
+
+<td>アクセスされた容量。 この値は、ファイル内のアクセスされた固有データです。 デフォルトの単位は MB です。 デフォルトの単位は、<strong>–O</strong> unit オプションで
+指定された単位によって指定変更されます。</td>
+
+</tr>
+
+<tr>
+<td>IOP/#</td>
+
+<td>アクセスされたデータの単位当たりの入出力操作数。 データの単位は、<strong>–O</strong> unit オプションから
+取得されます。 デフォルト値は MB です。 この列の値の例は、 2560/T、 256/G、 0.256/M、 0.000/Kです。 文字 K、M、G、および T は、それぞれ KB、MB、GB、および TB を表します。</td>
+
+</tr>
+
+<tr>
+<td>#ROP</td>
+
+<td>物理ボリュームで発生した読み取り操作の総数。</td>
+
+</tr>
+
+<tr>
+<td>#WOP</td>
+
+<td>その物理ボリュームで発生した書き込み操作の総数。</td>
+
+</tr>
+
+<tr>
+<td>B/ROP</td>
+
+<td>読み取り操作ごとに読み取られたバイトの &lt;最小、平均、最大&gt; 数。</td>
+
+</tr>
+
+<tr>
+<td>B/WOP</td>
+
+<td>書き込み操作ごとに読み取られたバイトの &lt;最小、平均、最大&gt; 数。</td>
+
+</tr>
+
+<tr>
+<td>RTIME</td>
+
+<td>読み取り操作ごとに要した &lt;最小、平均、最大&gt; 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td>WTIME</td>
+
+<td>書き込み操作ごとに要した &lt;最小、平均、最大&gt; 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td>Seqlen</td>
+
+<td>読み取りシーケンスの &lt;最小、平均、最大&gt; 長。</td>
+
+</tr>
+
+<tr>
+<td>#Seq</td>
+
+<td>読み取りシーケンスの数。 シーケンスとは、連続して読み取られた 512 バイト単位のブロックの文字列のことです。 読み取りシーケンスの数は、順次アクセスの総計を示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>前述の各稼働状況レポートは、ソート・フィールドに基づいて複数回繰り返されます。</p>
+ <p>種々のソート・フィールドに基づいて、下記のような稼働状況レポートが出力されます。</p>
+ <ol>
+<li>キー・ファクターでソートされた稼働状況レポート</li>
+
+<li>CAP_ACC でソートされた稼働状況レポート</li>
+
+<li>IOP/# でソートされた稼働状況レポート</li>
+
+<li>#ROP でソートされた稼働状況レポート</li>
+
+<li>#WOP でソートされた稼働状況レポート</li>
+
+<li>RTIME でソートされた稼働状況レポート</li>
+
+<li>WTIME でソートされた稼働状況レポート</li>
+
+</ol>
+ <p>各レポートは、該当するソート・フィールドの降順にソートされます。</p>
+ <p><strong>–O hot=r</strong> オプションを指定すると、読み取り操作に基づくレポートおよびキー・ファクターに基づくレポートのみが生成されます。すなわち、レポート番号 1、4、および 6 が生成されます。</p>
+ <p><strong>–O hot=w</strong> オプションを指定すると、書き込み操作に基づくレポートおよびキー・ファクターに基づくレポートのみが生成されます。すなわち、レポート番号 1、5、および 7 が生成されます。</p>
+ <p>キー・ファクターは、次の列値 (<strong>#ROP</strong>、<strong>B/ROP</strong>、<strong>Seqlen</strong>、および <strong>#Seq</strong>) によって判別されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-i</strong><em> トレース・ファイル</em></td>
+
+<td>リアルタイム・トレース・プロセスからではなく、
+指定した <em>Trace_File</em> から入出力トレース・データを読み取ります。 <strong>filemon</strong> 報告では、トレース・ファイルに表されたシステムと期間についての入出力アクティビティーが要約されます。 このオプションは推奨されていません。 代わりに <strong>-r</strong> <em>RootString</em> フラグを使用してください。<p>報告の正確性を高めるために、トレース・ファイルには、<strong>filemon</strong> コマンドに必要なすべてのフックが入っている必要があります。</p>
+
+<p><strong>-n</strong> オプションも指定しなければなりません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 「Gensyms_File」</em></td>
+
+<td>オフライン・トレース処理のために <em>Gensyms_File</em> を指定します。 このファイルは、次のように、<strong>-f</strong> オプションを指定して gensyms コマンドを実行し、
+出力をファイルにリダイレクトすると作成されます。<div>
+<div><div><pre><code>gensyms -F &gt; file</code></pre></div><div></div></div><strong>-i</strong> オプションも指定しなければなりません。</div>
+
+<p><strong>-n</strong> フラグは廃止されました。 代わりに <strong>-r</strong> <em>RootString</em> フラグを使用してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> ファイル</em></td>
+
+<td>入出力アクティビティー・レポートを、 <strong>stdout</strong> ファイルではなく、指定された <em>File</em>に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>filemon</strong> コマンドを開始しますが、ユーザーが <strong>trcon</strong> コマンドを実行するまでトレースを開始しません。 デフォルトでは、トレースを即座に開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> n</em></td>
+
+<td>カーネルのトレース・バッファー・サイズを <span><span>n</span></span> バイトに設定します。 デフォルトのサイズは、CPU ごとに 64 000 バイトです。 必要であれば、バッファー・サイズを増やして、イベントのバーストを調整できます。 (典型的なイベント・レコード・サイズは 30 バイトです。)<div><div>
+        <div>
+          <div><span>注:</span> カーネル内のトレース・ドライバーは二重バッファリングを使用するため、実際にはサイズが <em>n</em> バイトのバッファーが 2 つ割り振られています。 また、これらのバッファーはメモリーに固定されているので、ページングの対象にはなりません。 バッファーを大きくすると、ページングやほかの入出力のパフォーマンスに影響を及ぼす場合があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>モニター・プロセスをメモリーに固定します。 <strong>-P</strong> フラグを指定すると、モニター期間中、<strong>filemon</strong> コマンドのテキストとデータ・ページがメモリーに固定されます。 このフラグは、メモリー制約のある環境で実行するときに、リアルタイム <strong>filemon</strong> プロセスがページアウトされないようにするためのものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>すべての情報をレポートに表示します。 <strong>-v</strong> フラグの最も重要な機能は、最もアクティブな論理ファイルとセグメントが最大 20 までという制限がなく、アクセスされたすべての論理ファイルとセグメントが入出力アクティビティーの報告に含まれることです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A -x</strong> <em>ユーザーコマンド</em></td>
+
+<td>自動オフライン・モードをオンにします。 <strong>-x</strong> フラグを <strong>-A</strong> フラグと一緒に使用する必要があります。この場合、トレースは指定のユーザー・コマンドがその実行を終了するまで収集されます。 ユーザー・コマンドの標準的な例は <code>sleep 10</code> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>RootString</em></td>
+
+<td>このフラグを <strong>-A</strong> フラグと組み合わせると、<strong>filemon</strong> コマンドはトレース・データを <strong>RootString.trc</strong> ファイルに保管し、<strong>gensyms</strong> ファイルを生成し、それを <strong>RootString.syms</strong> ファイルに保管します。 このオプションが <strong>-A</strong> フラグなしで使用可能になっている場合、<strong>filemon</strong> コマンドは <strong>RootString.trc</strong> ファイルと <strong>RootString.syms</strong> ファイルを後処理してオフライン報告を生成します。 このオプションを使用する場合、既存の <strong>-n</strong> フラグと <strong>-i</strong> フラグの使用は推奨されません。 <strong>filemon</strong> コマンドでは、バイナリー互換性のために <strong>-i</strong> フラグと <strong>-n</strong> フラグを引き続きサポートしています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong><em> レベル</em></td>
+
+<td>指定したファイルシステム・レベルだけをモニターします。 有効なコンマ区切りのオプションは次のとおりです。<dl>
+
+<dt>abbreviated</dt>
+
+<dd>簡略フォーマットでトランザクションのリスト (トランザクションごとに 1 行) を生成します (既存の subpar ツールに取って代わります)。 このオプションはオフライン・モードでのみサポートされ、他の <strong>-O</strong> オプションと組み合わせることはできません。</dd>
+
+
+
+<dt>collated</dt>
+
+<dd>照合フォーマットでトランザクションのリストを生成します。イベントはトランザクションごとにまとめて収集されます。 このオプションはオフライン・モードでのみサポートされ、他の <strong>-O</strong> オプションと組み合わせることはできません。</dd>
+
+
+
+<dt>detailed</dt>
+
+<dd>詳細レポートが統計要約モードとともに生成されます。<strong>abbreviated</strong> オプションまたは <strong>collated</strong> オプションと組み合わせることはできません。</dd>
+
+
+
+<dt>lf=num</dt>
+
+<dd>指定された数だけの論理ファイル・エントリーを表示します。<strong>-O abbreviated</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。</dd>
+
+
+
+<dt>vm=num</dt>
+
+<dd>指定された数だけの仮想メモリー・エントリーを表示します。<strong>-O abbreviated</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。</dd>
+
+
+
+<dt>lv=num</dt>
+
+<dd>指定された数だけの論理ボリューム・エントリーを表示します。<strong>-O abbreviated</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。</dd>
+
+
+
+<dt>pv=num</dt>
+
+<dd>指定された数だけの物理ボリューム・エントリーを表示します。<strong>-O abbreviated</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。</dd>
+
+
+
+<dt>hot=r|w</dt>
+
+<dd>稼働状況レポートを生成します。 <strong>hot=r</strong> が指定されると、
+読み取り操作のみに基づく稼働状況レポートが生成されます。 <strong>hot=w</strong> が指定されると、
+書き込み操作のみに基づく稼働状況レポートが生成されます。</dd>
+
+
+
+<dt>sz=num</dt>
+
+<dd>稼働状況レポート内で報告される、アクセスされたファイルの最大サイズを指定します。 この値の単位は、<strong>–O</strong> unit オプションによって指定されます。 デフォルトの単位は MB です。 <strong>unit={KB|MB|GB|TB}</strong> <strong>sz</strong> オプションで使用される単位と、稼働状況レポートの <strong>CAP_ACC</strong> フィールドおよび Size フィールドで使用される単位を指定します。</dd>
+
+
+
+<dt>th=num</dt>
+
+<dd>指定された数だけのスレッド統計エントリーを表示します。<strong>-O abbreviated</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。</dd>
+
+
+
+<dt>pr=num</dt>
+
+<dd>指定された数だけのプロセス統計エントリーを表示します。<strong>-O abbreviated</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。</dd>
+
+
+
+<dt>all=num</dt>
+
+<dd><strong>lf=num</strong>, <strong>vm=num</strong>, <strong>lv=num</strong>, <strong>pv=num</strong>, <strong>ts=num</strong> 。オプション <strong>lf</strong>、 <strong>vm</strong>、 <strong>lv</strong>、 <strong>pv</strong>の古い値を上書きします。 <strong>th</strong>、および <strong>pr</strong>。 このオプションは、 <strong>-O 装甲</strong> フラグまたは <strong>-O collated</strong> フラグと組み合わせることはできません。 <em>num</em> 引数が指定されない場合は、すべてのエントリーが表示されます。これがデフォルトのオプションです。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td> </td>
+
+<td><strong>vm</strong>、<strong>lv</strong>、および <strong>pv</strong> レベルは、<span><strong>filemon -O</strong> コマンドを <strong>-@</strong> フラグなしのグローバル WPAR で実行する場合はデフォルトで暗黙です。 <strong>lf</strong> レベルは、<strong>filemon -O </strong>コマンドを WPAR で実行するか、<strong>-@</strong> フラグを使用する場合はデフォルトで暗黙です。</span><p><em>num</em> 引数が指定されない場合は、デフォルトでそのセクションのすべてのエントリーが表示されます。 <em>num</em> 引数は、<strong>abbreviated</strong> フォーマットと <strong>collated</strong> フォーマットではサポートされておらず、統計要約でのみサポートされています。 <strong>-O detailed</strong> フラグが指定されている場合は、オンラインとオフラインの両方のモードの詳細レポートを含む統計要約フォーマットの報告になります。 <strong>filemon</strong> コマンドの操作のデフォルト・モードは、要約および詳細の統計報告から要約のみの統計報告に変更されています。 <strong>filemon</strong> コマンドがオプションなしで呼び出されたり、<strong>-O</strong> フラグと <strong>lf</strong>、<strong>vm</strong>、<strong>lv</strong>、<strong>pv</strong>、<strong>pr</strong>、<strong>th</strong>、または <strong>all</strong> オプションの組み合わせで呼び出された場合は、<strong>-O detailed</strong> フラグが指定されていない限り、要約報告のみが表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trace.html" target="_blank" rel="noopener noreferrer"><strong>trace</strong></a> デーモンの開始前に開かれたファイルについて報告します。 ファイル名の代わりに、プロセス ID (PID) とファイル・ディスクリプター (FD) が使用されます。<div><div>
+        <div>
+          <div><span>注:</span> PID および FD は再使用可能であるため、同じ名前フィールドで報告された異なるファイルを参照することができます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>稼働状況レポートを幅広フォーマットで印刷します。 このオプションは、<strong>–O</strong> hot オプションが指定されている場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong> <em>count: 間隔</em></td>
+
+<td>マルチスナップショット・トレースに使用される回数と間隔を指定します。 このオプションを指定すると、<strong>count</strong> 回のトレース・スナップショットが収集されます。この場合、あるスナップショットから次のスナップショットの間隔は <strong>interval</strong> 秒で指定します。 このオプションは、<strong>–O</strong> hot オプションが指定された、自動オフライン・モードでのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>@ [ </strong><em>WparList</em><strong> | すべて］</strong></td>
+
+<td>レポートは、引数で渡された WPAR のリストに制限されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ファイルシステムの仮想記憶、論理ボリューム、物理ボリュームの各レベルで物理入出力アクティビティーをモニターするには、次のように入力します。<div> <div><div><pre><code>filemon</code></pre></div><div></div></div><strong>filemon</strong> コマンドによって自動的にシステム・トレースが開始され、コマンド自体はバックグラウンドに入ります。 このコマンドの後に、この時点で実行するアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcstop</code></pre></div><div></div></div><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcstop.html" target="_blank" rel="noopener noreferrer"><strong>trcstop</strong></a> コマンドが発行されると、入出力アクティビティー・レポートが標準出力に表示されます (ただし、画面からスクロールする可能性があります)。 仮想記憶の入出力の報告は、多くの入出力が関連する 20 個のセグメントに制限されます。</div>
+</li>
+
+<li>すべてのファイル・システム・レベルでアクティビティーをモニターし、レポートをfmon.outファイル、入力:<div> <div><div><pre><code>filemon -o fmon.out -O all</code></pre></div><div></div></div><strong>filemon</strong> コマンドによって自動的にシステム・トレースが開始され、コマンド自体はバックグラウンドに入ります。 このコマンドの後に、この時点で実行するアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcstop</code></pre></div><div></div></div><strong>trcstop</strong> コマンドが発行されると、入出力活動報告書がfmon.out file. ファイルおよび入出力システムの 4 つのレベル (論理ファイル、仮想メモリー、論理ボリューム、および物理ボリュームの各レベル) すべてがモニターされます。 論理ファイルと仮想記憶の入出力の報告は、それぞれ、多くの入出力が関連する 20 個のファイルとセグメントに制限されます。</div>
+</li>
+
+<li>すべてのファイル・システム・レベルでアクティビティーをモニターし、詳細レポートをfmon.outファイル、入力:<div> <div><div><pre><code>filemon -v -o fmon.out -O all</code></pre></div><div></div></div><strong>filemon</strong> コマンドによって自動的にシステム・トレースが開始され、コマンド自体はバックグラウンドに入ります。 このコマンドの後に、この時点で実行するアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcstop</code></pre></div><div></div></div>この例は前の例と似ていますが、詳細レポートが以下の場所に生成される点が異なります。fmon.outを適用します。 主な違いは、<strong>filemon</strong> コマンドがトレースを開始するときに踏襲したステップが示されることと、要約と詳細レポートに 20 個のファイルとセグメントだけではなく、すべての入出力に関連する (おそらく多数の) すべてのファイルとセグメントが含まれることです。</div>
+</li>
+
+<li>以前に記録したトレース・セッションから取り出された入出力アクティビティーを報告するには、次のように入力します。<div> <div><div><pre><code>filemon -i trcfile | pg</code></pre></div><div></div></div>この例では、 <strong>filemon</strong> コマンドによって、入力ファイルからファイルシステム・トレース・イベントが読み取られます。trcfileトレース・データは既にファイルに取り込まれているため、 <strong>filemon</strong> コマンドは、アプリケーション・プログラムを実行するためにそれ自体をバックグラウンドに置くことはありません。 ファイル全体が読み取られると、仮想メモリー、論理ボリューム、および物理ボリューム・レベルの入出力アクティビティー・レポートが標準出力に表示されます (この例では、以下のようにパイプ接続されます)。pg).</div>
+</li>
+
+<li><strong>trcon</strong> と <strong>trcoff</strong> コマンドを使ってモニター期間を制御しながら、論理ボリュームと物理ボリュームの入出力アクティビティーだけをモニターするには、次のように入力します。<div> <div><div><pre><code>filemon -d -o fmon.out -O pv,lv</code></pre></div><div></div></div><strong>filemon</strong> コマンドによって自動的にシステム・トレースが開始され、コマンド自体はバックグラウンドに入ります。 このコマンドの後に、この時点で実行するモニターされないアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcon</code></pre></div><div></div></div>このコマンドの後に、この時点で実行したいモニター対象のアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcoff</code></pre></div><div></div></div>このコマンドの後に、この時点で実行するモニターされないアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcon</code></pre></div><div></div></div>このコマンドの後に、この時点で実行したいモニター対象のアプリケーション・プログラムとシステム・コマンドを入力してから、次のように入力します。<div><div><pre><code>trcstop</code></pre></div><div></div></div>この例では、<strong>-O</strong> フラグで、
+モニターを論理ボリュームと物理ボリュームだけに制限しています。 論理ボリュームと物理ボリュームに関連するトレース・イベントだけが使用可能です。 また、<strong>-d</strong> フラグを使用しているので、
+<strong>trcon</strong> コマンドが実行されるまでモニターは開始されません。 システム・トレースは、<strong>trcoff</strong> と <strong>trcon</strong> コマンドによって、断続的に行うことができます。したがって、特定の期間だけモニターできます。</div>
+</li>
+
+<li>オフライン・モードで <strong>filemon</strong> を実行するには、
+次のように、<strong>trace</strong> コマンドと <strong>gensyms</strong> コマンドを別々に実行し、
+次に、これらのコマンドからの出力を <strong>filemon</strong> コマンドへの入力として使用します。<div> <div><div><pre><code>trace -a -T 768000 -L 10000000 -o trace.out -j 000,000,001,002,003,005,006,139,102,10C,106,00A,107,
+101,104,10D,15B,12E,130,163,19C,154,3D3,1BA,1BE,1BC,10B,221,1C9,222,228,232,45B</code></pre></div><div></div></div>モニターしたアプリケーション・プログラムとシステム・コマンドを実行してから、
+次のように入力します。<div><div><pre><code>trcstop</code></pre></div><div></div></div><strong>gensyms</strong> ファイルを作成します。<div><div><pre><code>gensyms -F &gt; gensyms.out</code></pre></div><div></div></div>次に、<strong>-i</strong> と <strong>-n</strong> フラグの両方を
+指定して <strong>filemon</strong> を実行します。<div><div><pre><code>filemon -i trace.out -n gensyms.out -O all</code></pre></div><div></div></div></div>
+</li>
+
+<li>データの単位をメガバイトにして自動オフライン・モードで稼働状況レポートを生成するには、
+次のコマンドを使用します。<div><div><pre><code>filemon -O hot,unit=MB -r &lt;rootstring&gt; -A-x "&lt;user command&gt;" </code></pre></div><div></div></div></li>
+
+<li>3 回のトレース・スナップショットを 5 秒間隔で収集して稼働状況レポートを生成するには、
+次のコマンドを実行します。<div><div><pre><code>filemon -O hot -r &lt;rootstring&gt; -A-x "&lt;user command&gt;" -I 3:5</code></pre></div><div></div></div></li>
+
+<li>稼働状況レポートをオフライン・モードで生成するには、次のコマンドを使用します。<div><div><pre><code>filemon -r &lt;rootstring&gt; -O hot</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

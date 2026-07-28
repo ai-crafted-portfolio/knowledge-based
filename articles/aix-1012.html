@@ -1,0 +1,141 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク・キャッシング (netcd) デーモンのキャッシュを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>netcdctrl</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8427" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em> タイプ </em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8350" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a><em> タイプ</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8332" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em> ファイル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8341" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a><em> ファイル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8391" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8418" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> ファイル</em> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8403" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a><em> レベル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netcdctrl.html#netcdctrl__row-d3e8397" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>netcdctrl</strong> コマンドは以下の機能を提供します。<ul>
+<li>特定のキャッシュを ASCII フォーマットでダンプする。キャッシュ内容を読みやすい形式で出力します。</li>
+
+<li>特定のキャッシュをバイナリー・フォーマットでダンプする。 このバイナリー・フォーマットは、後で <strong>netcd</strong> デーモンを起動するときにキャッシュの再ロードに使用できます。 このダンプにより、キャッシュを最初から再ロードする必要がなくなります。</li>
+
+<li>キャッシュ使用状況の統計情報を表示する。 キャッシュはテーブルであり、これらのテーブルへのアクセスはハッシュ・アルゴリズムにより制御されます。 解像度とマップが与えられている場合、netcd 構成ファイルを使用してテーブルのサイズを決めるときにこの出力を利用できます。</li>
+
+<li>特定のキャッシュをフラッシュする。 指定されたキャッシュの内容が消去されてから、ローカル・キャッシュが再ロードされます。 それ以外のキャッシュは、リゾルバーの応答によって再ロードされます。</li>
+
+<li>ロギング・レベルを動的に変更する。</li>
+
+</ul>
+</div>
+ <div> <div><div>
+        <div>
+          <div><span>要件:</span> <strong>netcdctrl</strong> コマンドを発行するには、root 権限が必要です。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> <em>ファイル</em></td>
+
+<td>指定されたキャッシュの ASCII ダンプを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong> <em>ファイル</em></td>
+
+<td>指定されたキャッシュのバイナリー・ダンプを指定します (ローカル・キャッシュはダンプされません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong> <em>タイプ</em></td>
+
+<td>マップを指定します。 <em>type</em> パラメーターの値は、以下のいずれかになります。<ul>
+<li>hosts</li>
+
+<li>protocols</li>
+
+<li>サーバー</li>
+
+<li>ネットワーク</li>
+
+<li>netgroup</li>
+
+<li>Yellow Page マップ名 (例えば、passwd.byname または group.bygid)</li>
+
+<li>すべて</li>
+
+</ul>このフラグは、必ず <strong>-b</strong>、<strong>-a</strong>、<strong>-f</strong>、および <strong>-s</strong> の各フラグと一緒に使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>指定されたキャッシュをフラッシュします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>ヘルプ情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>レベル</em></td>
+
+<td><strong>netcd</strong> デーモンのロギング・レベルを変更します。 <em>level</em> 値は 0 から 7 までの整数でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>ファイル</em></td>
+
+<td>キャッシュ使用状況の統計情報を提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>タイプ</em></td>
+
+<td>解像度を指定します。 <em>type</em> パラメーターの値は、以下のいずれかになります。<ul>
+<li>ローカル</li>
+
+<li>dns</li>
+
+<li>nis</li>
+
+<li>yp</li>
+
+<li>ulm</li>
+
+<li><strong>netcd.conf</strong> ファイルにある特定のモジュール名</li>
+
+<li>すべて</li>
+
+</ul>このフラグは、必ず <strong>-b</strong>、<strong>-a</strong>、<strong>-f</strong>、および <strong>-s</strong> の各フラグと一緒に使用してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのキャッシュをフラッシュするには、次のように入力します。<div> <div><div><pre><code>netcdctrl -t all -e all -f</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべての NIS キャッシュをバイナリー・フォーマットでダンプするには、次のように入力します。<div> <div><div><pre><code>netcdctrl -t nis -e all -b /tmp/netcd_nis_binary_dump</code></pre></div><div></div></div></div>
+ </li>
+
+<li>ホストのローカル・キャッシュを ASCII フォーマットでダンプするには、次のように入力します。<div><div><pre><code>netcdctrl -t local -e hosts -a /tmp/netcd_dns_hosts</code></pre></div><div></div></div></li>
+
+<li>可能なトレースをすべて取得できるようにロギングのレベルを設定するには、次のように入力します。<div><div><pre><code>netcdctrl -l 7</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,215 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>C シェルを起動します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>CSH</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136885" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136873" target="_blank" rel="noopener noreferrer"><strong>V 値 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136907" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136894" target="_blank" rel="noopener noreferrer"><strong>-X (X) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136834" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136840" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136849" target="_blank" rel="noopener noreferrer"><strong>I</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136855" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136825" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong><em>ストリング </em></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136861" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136867" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/csh.html#csh__row-d3e136819" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [ <em>ファイル </em>[ <em>パラメーター </em>] ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p>C シェルは、対話式コマンド・インタープリターであり、C 言語に類似した構文を使用するコマンド・プログラミング言語です。 C シェルは、端末キーボードから対話式で、またはファイルからコマンドを実行します。 <strong>csh</strong> コマンドは C シェルを呼び出します。</p>
+
+<p><strong>csh</strong>  コマンドは、呼び出されるとまず最初にホーム・ディレクトリーを検索して、<strong>.cshrc</strong> ファイル (カスタマイズ済みのユーザー情報を格納するために使用されるファイル) があれば、このファイルの中のコマンドを実行します。 <strong>csh</strong> コマンドをログイン・シェルとして実行すると、このコマンドによって <strong>.cshrc</strong> ファイルと <strong>.login</strong> ファイルの中のコマンドが実行されます。</p>
+
+<p><strong>-i</strong>、<strong>-c</strong>、<strong>-s</strong>、<strong>-t</strong> のいずれのフラグも指定されておらず、<em>File</em> [<em>Parameter</em> ] が指定されている場合、シェルはフラグ引数の処理後、<em>File</em> [<em>Parameter</em> ] により識別されるスクリプト・ファイルを、このファイルに指定されているパラメーターもすべて含めて実行します。 指定するスクリプト・ファイルは、読み取り許可のあるファイルでなければなりません。<strong>setuid</strong> 設定および <strong>setgid</strong> 設定は、シェルによって無視されます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>-c</strong> または <strong>-s</strong> フラグを指定して <strong>csh</strong> コマンドを使用する場合は、スクリプト・ファイルを指定しないでください。</div>
+        </div>
+      </div></div>
+
+<p>スクリプト・ファイルを指定すると、コマンドはファイルを開き、考えられる再置換のためにスクリプト・ファイル名を保存します。$0(ドル記号、ゼロ)。 次に、<strong>csh</strong> によりスクリプトが実行されます。 その他に指定されているパラメーターにより、<strong>argv</strong> 変数が初期化されます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span>C シェルが既に実行されている場合は、次のように入力して <strong>.cshrc</strong> ファイルを再度読み取ることができます。 source Pathnameここで、 <em>Pathname</em> パラメーターは、 <strong>.cshrc</strong> ファイルへのパスです。</li>
+
+<li><span></span>リモート・オペレーションの問題を回避するために、 <strong>.cshrc</strong> ファイルには、シェルが対話式であることを示す <strong>$prompt</strong> 変数をテストしない限り、出力をエコーする関数を含めないでください。 このような関数が記述されていると、ローカル・コマンドから送られたコマンドの <strong>exec</strong> コマンドをリモート・システムが実行するときに、コマンドとシェルの両方が実行されます。 例:exec csh rcp -t Filename<strong>.cshrc</strong> ファイルを実行し、エコーされた出力を予期される応答として扱います。 <strong>$prompt</strong> 変数を調べるには、<strong>if</strong> 節を使用できます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<p>最初の引数が <strong>-</strong> (負符号) のシェルは、ログイン・シェルです。 C シェルのフラグは以下のように解釈されます。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>オプション処理を強制的に中断し、以降のすべてのシェル引数を非オプション引数として処理します。 このフラグを使用すると、混乱や障害なしに、オプションをシェル・スク
+リプトに渡すことができます。 このフラグを使用しないと、シェルは、実および実効ユーザーと実グループ ID が異なるスクリプトを実行することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>これよりあとに指定されている 1 つの引数からコマンドを読み取ります。 このフラグを指定する場合、必ずこの引数を指定してください。残りの引数は <strong>argv</strong> 変数に入れられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>呼び出されたコマンドが異常終了するか、終了状況がゼロ以外であった場合に、終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ホーム・ディレクトリー内の <strong>.cshrc</strong> ファイル内のコマンドを検索または実行せずに C シェルを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ワークステーションからの入力でない場合でも、最上位レベルの入力 (対話型シェル) を求めるプロンプトを表示します。 シェルの入出力をワークステーションに接続する場合は、シェルはこのフラグがなくても対話型となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>コマンドを解析するだけで実行しません。 このフラグを使うと、シェル・プロシージャーの構文を検査できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>標準入力からコマンド入力を取り込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>入力を 1 行だけ読み取って処理します。 &amp;#xa5; (円記号) を使うと、現在の行の終わりにある改行文字をエスケープして別の行に継続できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td><strong>.cshrc</strong> ファイルを実行する前に <strong>verbose</strong> シェル変数を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ヒストリーの代入後にコマンド入力がエコーされるように、<strong>verbose</strong> シェル変数を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td><strong>.cshrc</strong> ファイルを実行する前であっても <strong>echo</strong> シェル変数を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>すべての代入の終了後、実行直前にコマンドがエコーされるように <strong>echo</strong> シェル変数を設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.cshrc</strong></td>
+
+<td>各シェルの実行開始時に、シェルにより読み取られます。 <strong>.cshrc</strong> ファイルはユーザー定義ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.login</strong></td>
+
+<td>ログイン時に、<strong>.cshrc</strong> ファイルのあとにログイン・シェルにより読み取られます。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.logout</strong></td>
+
+<td>ログオフ時に、ログイン・シェルにより読み取られます。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/sh</strong></td>
+
+<td>デフォルト・シェルへのパスが記述されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/sh*</strong></td>
+
+<td><strong>&lt; &lt;</strong>の一時ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td><strong>~</strong><em>File</em> パラメーターのホーム・ディレクトリーのソースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

@@ -1,0 +1,68 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージ・カタログを作成して、変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ジェネキャット</strong><em> CatalogFile</em><em> SourceFile...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>gencat</strong> コマンドは、メッセージ・テキスト・ソース・ファイル (通常は <strong>*.msg</strong>) からメッセージ・カタログ・ファイル (通常は <strong>*.cat</strong>) を作成します。 <strong>gencat</strong> コマンドは、<em>SourceFile</em> パラメーターで指定したメッセージ・テキスト・ソース・ファイルを、<em>CatalogFile</em> パラメーターで指定したフォーマット済みのメッセージ・カタログにマージします。 メッセージをソース・ファイルに入力した後で、<strong>gencat</strong> コマンドを使ってソース・ファイルを処理し、メッセージ・カタログを作成してください。 <strong>gencat</strong> コマンドは、カタログ・ファイルが存在しなければ、カタログ・ファイルを作成します。 カタログ・ファイルが存在する場合は、<strong>gencat</strong> コマンドは新しいメッセージをそのカタログ・ファイルに追加します。</p>
+ <p>メッセージ・テキスト・ソース・ファイルはいくつでも指定できます。 <strong>gencat</strong> コマンドは、指定した順序で複数のソース・ファイルを 1 つずつ処理します。 連続する各ソース・ファイルによってカタログが変更されます。 セット番号とメッセージ番号が矛盾すると、<em>SourceFile</em> パラメーターに定義した新しいメッセージ・テキストによって、<em>CatalogFile</em> パラメーターに現在格納されている旧メッセージ・テキストが置き換えられます。 メッセージ番号の範囲は 1 から <strong>NL_MSGMAX</strong> です。 セット番号の範囲は 1 から <strong>NL_SETMAX</strong> です。</p>
+ <p><strong>gencat</strong> コマンドでは、記号メッセージ ID は受け入れられません。 記号メッセージ ID を使用する場合は、<strong>mkcatdefs</strong> コマンドを実行する必要があります。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>-</strong> (ダッシュ) 文字が <em>CatalogFile</em> パラメーターとして指定されている場合は、標準出力が使用されます。 <strong>-</strong> (ダッシュ) 文字が <em>SourceFile</em> パラメーターとして指定されている場合は、標準入力が使用されます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>以下を生成します。test.catソース・ファイルからのカタログtest.msg次のように入力します。</p>
+ <div> <div><div><pre><code>gencat test.cat test.msg</code></pre></div><div></div></div></div>
+ <p>このtest.msgファイルにシンボル ID が含まれていません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/gencat</strong></td>
+
+<td><strong>gencat</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

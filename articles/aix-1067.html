@@ -1,0 +1,503 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルを指定されたフォーマットで表示します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>出力をフォーマットするために type-string を使用してファイルを表示するには、以下のようにします。</dt>
+
+<dd><p><strong>オド</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__v_flag" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64305" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a><em> AddressBase </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64388" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a><em> 度数 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64349" target="_blank" rel="noopener noreferrer"><strong>-j (J)</strong></a><em> スキップ </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64405" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em> TypeString </em>... ] [ <em>ファイル </em>... ]</p>
+
+</dd>
+
+
+
+<dt>出力をフォーマットするためにフラグを使用してファイルを表示する</dt>
+
+<dd><p><strong>オド</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64720" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64732" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64738" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64777" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64783" target="_blank" rel="noopener noreferrer"><strong>-d 年 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64789" target="_blank" rel="noopener noreferrer"><strong>-D </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64795" target="_blank" rel="noopener noreferrer"><strong>-e (E) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64804" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64810" target="_blank" rel="noopener noreferrer"><strong>-F (R) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64819" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64825" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64832" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64838" target="_blank" rel="noopener noreferrer"><strong>-I (I) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64844" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64850" target="_blank" rel="noopener noreferrer"><strong>-L (L) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__o_flag" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__O_flag" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__p_flag" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__P_flag" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__s_flag" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__v1_flag" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__x_flag" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__X_flag" target="_blank" rel="noopener noreferrer"><strong>-X (X) </strong></a>] [ [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__S_flag" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a><strong> </strong>[ <em>N </em>]<strong> </strong>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__w_flag" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a><strong> </strong>[ <em>N </em>]<strong> </strong>] [ <em>ファイル </em>] [ [ <strong>+ </strong>] <em>オフセット</em> [ <strong>. </strong>| <strong>B </strong>| <strong>B </strong>] [ <strong>+ </strong>] <em>表示名 </em>[ <strong>. </strong>| <strong>B </strong>| <strong>B </strong>] ] [ <em>ファイル </em>... ]</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><strong>od</strong> コマンドは <em>File</em> パラメーターで指定されたファイルを指定されたフォーマットで表示します。 <em>File</em> パラメーターを指定しないと、<strong>od</strong> コマンドは標準入力を読みます。 -bcCDdFfOoSstvXx の各オプションを複数使用することで、複数のタイプを指定できます。</p>
+ <p>最初の構文フォーマットの場合、出力フォーマットは <strong>-t</strong> フラグで指定します。 フォーマットのタイプを指定しない場合は、<strong>-t o2</strong> がデフォルトとして使用されます。</p>
+ <p>2 番目の構文フォーマットの場合、出力フォーマットはフラグを組み合わせて指定します。 <em>Offset</em> パラメーターは、ファイル出力を開始するファイル内の位置を指定します。 デフォルトでは、<em>Offset</em> パラメーターは 8 進のバイトとして解釈されます。 <strong>の場合。</strong> (ドット) 接尾部が付加されると、パラメーターは 10 進数として解釈されます。パラメーターが先頭にある場合は、xまたは0x16 進数として扱われます。 <strong>b</strong> 接尾部をパラメーターに付加した場合、512 バイトのブロックとして解釈されます。
+<strong>B</strong> 接尾部をパラメーターに付加した場合、1024 バイトのブロックとして解釈されます。</p>
+ <p><em>Label</em> パラメーターは最初に表示されたバイトの疑似アドレスとして解釈されます。 使用する場合は、 <em>オフセット</em> パラメーターの後に <strong>( )</strong> (括弧) を付けて指定します。 接尾部の意味は <em>Offset</em> パラメーターの場合と同じです。</p>
+ <p><strong>od</strong> コマンドが標準入力を読む場合は、<em>Offset</em> パラメーターと<em> Label</em> パラメーターの前に <strong>+</strong> (プラス記号) を付けなくてはなりません。</p>
+ <p><strong>LANG</strong> や <strong>LC_ALL</strong> などの環境変数を設定すると、<strong>od</strong> コマンドの作用に影響します。</p>
+
+<p><strong>オド</strong> コマンドは、各入力ファイルを順次コピーし、それらを標準出力に書き込み、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64405" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>フラグを使用して指定された出力のタイプに従って入力データを変換します。 入力データ内のデフォルト・バイト数は、型指定子文字 <strong>d、o、u、</strong>または<strong> x</strong> のサイズに対応します。 これらの型指定子文字により、C プログラミング言語のデータ型 <strong>char</strong>、<strong>short</strong>、<strong>int</strong>、および <strong>long</strong> のバイト数に対応する、入力データ内のバイト数 (オプション) を指定できます。 バイト数はアプリケーション (任意のプログラム、または <strong>od</strong> コマンドを使用するユース・ケース) を使用して指定することもできます。
+文字 <strong>C</strong> は <strong>char</strong> データ型、文字 <strong>S</strong> は <strong>short</strong> データ型、文字 <strong>I</strong> は <strong>int</strong> データ型、文字 <strong>L</strong> は <strong>long</strong> データ型に使用します。 型指定子文字では、値 1、2、4、および 8 がサポートされています。
+これは、C プログラミング言語のデータ型が入力データのサイズに指定されない場合でも同様です。 型指定子文字では、C プログラミング言語の <strong>long long</strong> データ型のような 10 進数もサポートされます。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>最初のフォーマットのフラグは以下のとおりです。</p>
+ 
+<div><div><table><caption><span>表 1. 出力をフォーマットするために type-string を使用してファイルを表示するフラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong><em> AddressBase</em></td>
+
+<td>入力オフセット・ベースを指定します。 <em>AddressBase</em> 変数には以下の文字の 1 つを指定します。<dl>
+
+<dt><strong>d</strong></dt>
+
+<dd>オフセット・ベースを 10 進数で書きます。</dd>
+
+
+
+<dt><strong>O</strong></dt>
+
+<dd>オフセット・ベースを 8 進数で書きます。</dd>
+
+
+
+<dt><strong>x</strong></dt>
+
+<dd>オフセット・ベースを 16 進数で書きます。</dd>
+
+
+
+<dt><strong>n</strong></dt>
+
+<dd>オフセット・ベースを表示しません。</dd>
+
+
+</dl>
+
+<p><strong>-A n</strong> が指定されている場合を除き、出力行の前には、次に書き込まれるバイトの入力オフセット (入力ファイル間で累積されます) があります。 さらに、
+書き込まれた最後のバイトの後のバイトのオフセットは、すべての入力データが処理された後に表示されます。 <strong>-A</strong> address_base オプションおよび [offset_string] オペランドを指定しないと、入力オフセット・ベースは 8 進数で表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-j (J)</strong><em> スキップ</em></td>
+
+<td><p>出力を表示する前に <em>Skip</em> 変数によって指定されたバイト数をスキップします。 複数のファイルを指定する場合、<strong>od</strong> コマンドは出力を表示する前に連結した入力ファイルの指定バイト数をスキップします。 結合された入力が、少なくともスキップ・バイトの長さがない場合は、<strong>od</strong>
+コマンドは診断メッセージを標準エラーに書き込み、ゼロ以外の状況で終了します。</p>
+
+<p>デフォルトでは、<em>Skip</em> 変数の値は 10 進数として解釈されます。 先頭に 0x または 0X がある場合、オフセットは 16 進数として解釈され、先頭に 0 がある場合は、オフセットは 8 進数として解釈されます。 <em>スキップ</em> 変数に含まれる数値に文字 <strong>B</strong>、 <strong>K</strong>、または <strong>分</strong> が付加される場合、オフセットは、 <em>スキップ</em> 変数の値 (バイト単位) にそれぞれ 512、1024、または 1024 * 1024 を乗算した値に等しくなります。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-N (N)</strong><em> 度数</em></td>
+
+<td><em>Count</em> 変数で指定した入力バイト数までをフォーマットします。 デフォルトでは、<em>Count</em> 変数の値は 10 進数として解釈されます。 先頭に 0x または 0X がある場合は、16 進数として解釈されます。 先頭に 0 がある場合は、8 進数として解釈されます。 表示されるアドレスのベースは、<em>Count</em> オプションの引数のベースで暗黙指定されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> TypeString</em></td>
+
+<td>出力タイプを指定します。 <em>TypeString</em> 変数は、データを書き出すときに使用するタイプを指定する文字列です。 複数のタイプを同じ <em>TypeString</em> 変数に連結し、<strong>-t</strong> フラグを複数回指定できます。 出力行はタイプ指定文字を指定した順序で、指定された各タイプに対して書き込まれます。 <em>TypeString</em> 変数は以下の文字で構成することができます。<dl>
+
+<dt><strong>a</strong></dt>
+
+<dd>バイトを指定された文字として表示します。 これらの文字の対応する名前を使用して、0 から 01777 の範囲の少なくとも 7 ビットを持つバイトが書き込まれます。</dd>
+
+
+
+<dt><strong>C</strong></dt>
+
+<dd>バイトを文字として表示します。 <strong>c</strong> タイプ文字列によって変換されるバイト数は、<strong>LC_CTYPE</strong> ローカル・カテゴリーによって決まります。 印字可能なマルチバイト文字は、文字の最初のバイトに対応する領域に書き込まれます。
+2 文字のシーケンス <code>**</code> は、文字内の残りのバイトそれぞれに対応する領域に、
+文字が継続することを示して書き込まれます。 以下の非グラフィック文字が C 言語エスケープ・シーケンスとして使用されます。<div>
+<div><div><pre><code>\    Backslash
+\a   Alert
+\b   Backspace
+\f   Form-feed
+\n   New-line character
+\0   Null
+\r   Carriage return
+\t   Tab
+\v   Vertical tab</code></pre></div><div></div></div>
+</div>
+</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td></td>
+
+<td><dl>
+
+<dt><strong>d</strong></dt>
+
+<dd>バイトを符号付き 10 進数として表示します。 デフォルトでは、<strong>od</strong> コマンドは C 言語タイプ <strong>int</strong> の対応するバイト数を変換します。 <strong>d</strong> タイプの文字列の後には、出力タイプの各インスタンスによって変換されるバイト数を指定する符号なしの 10 進整数を指定できます。<p>オプションの <strong>C</strong>、<strong>I</strong>、
+<strong>L</strong>、<strong>S</strong> 文字を
+<strong>d</strong> オプションに付加し、
+それぞれ <strong>char</strong>、<strong>int</strong>、
+<strong>long</strong>、<strong>short</strong> タイプの項目に
+変換を適用するように指定できます。</p>
+</dd>
+
+
+
+<dt><strong>F</strong></dt>
+
+<dd>バイトを浮動小数点数として表示します。 デフォルトでは、<strong>od</strong> コマンドは C 言語のタイプ <strong>double</strong> の対応するバイト数を変換します。 <strong>f</strong> タイプの文字列の後には、出力タイプの各インスタンスによって変換されるバイト数を指定する符号なしの 10 進整数を指定できます。<p>オプションの <strong>F</strong>、<strong>D</strong>、<strong>L</strong> 文字を <strong>f</strong> オプションに付加し、それぞれ <strong>float</strong>、<strong>double</strong>、<strong>long</strong> <strong>double</strong> タイプの項目に変換を適用するように指定できます。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td></td>
+
+<td><dl>
+
+<dt><strong>O</strong></dt>
+
+<dd>バイトを 8 進数として表示します。 デフォルトでは、<strong>od</strong> コマンドは C 言語タイプ <strong>int</strong> の対応するバイト数を変換します。 <strong>o</strong> タイプの文字列の後には、出力タイプの各インスタンスによって変換されるバイト数を指定する符号なしの 10 進整数を指定できます。<p>オプションの <strong>C</strong>、<strong>I</strong>、<strong>L</strong>、<strong>S</strong> 文字を <strong>o</strong> オプションに付加し、それぞれ <strong>char</strong>、<strong>int</strong>、<strong>long</strong>、<strong>short</strong> タイプの項目に変換を適用するように指定できます。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td></td>
+
+<td><dl>
+
+<dt><strong>u</strong></dt>
+
+<dd>バイトを符号なし 10 進数として表示します。 デフォルトでは、<strong>od</strong> コマンドは C 言語タイプ <strong>int</strong> の対応するバイト数を変換します。 <strong>u</strong> タイプの文字列の後には、出力タイプの各インスタンスによって変換されるバイト数を指定する符号なしの 10 進整数を指定できます。<p>オプションの <strong>C</strong>、<strong>I</strong>、
+<strong>L</strong>、<strong>S</strong> 文字を
+<strong>u</strong> オプションに付加し、
+それぞれ <strong>char</strong>、<strong>int</strong>、
+<strong>long</strong>、<strong>short</strong> タイプの項目に
+変換を適用するように指定できます。</p>
+</dd>
+
+
+
+<dt><strong>x</strong></dt>
+
+<dd>バイトを 16 進数として表示します。 デフォルトでは、<strong>od</strong> コマンドは C 言語タイプ <strong>int</strong> の対応するバイト数を変換します。 <strong>x</strong> タイプの文字列の後には、出力タイプの各インスタンスによって変換されるバイト数を指定する符号なしの 10 進整数を指定できます。<p>オプションの <strong>C</strong>、<strong>I</strong>、<strong>L</strong>、<strong>S</strong> 文字を <strong>x</strong> オプションに付加し、それぞれ <strong>char</strong>、<strong>int</strong>、<strong>long</strong>、<strong>short</strong> タイプの項目に変換を適用するように指定できます。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>すべての入力データを書き出します。 デフォルトでは、直前の出力行と同じ出力行は出力されず、* (アスタリスク) 1 つだけを含む行に置き換えられます。 <strong>-v</strong> フラグを指定すると、すべての行が出力されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>2 番目のフォーマットのフラグは以下のとおりです。</p>
+ 
+<div><div><table><caption><span>表 2. 出力をフォーマットするためにフラグを使用してファイルを表示するフラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>バイトを文字として、その ASCII 名とともに表示します。 <strong>-p</strong> フラグも指定すると、偶数パリティーを持つバイトが下線付きで表示されます。 <strong>-P</strong> フラグを指定すると、奇数パリティーを持つバイトが下線付きで表示されます。 それ以外の場合、パリティーは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>バイトを 8 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>バイトを ASCII 文字として表示します。 以下の非グラフィック文字は C 言語エスケープ・シーケンスとして表示されます。<div>
+<div><div><pre><code>\    Backslash
+\a   Alert
+\b   Backspace
+\f   Form-feed
+\n   New-line character
+\0   Null
+\r   Carriage return
+\t   Tab
+\v   Vertical tab</code></pre></div><div></div></div>
+</div>
+
+<p>その他の文字は 3 桁の 8 進数として表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>拡張文字を標準印字可能な ASCII 文字として表示し (適切な文字によるエスケープ文字列使用)、マルチバイト文字を 16 進フォーマットで表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>16 ビットのワードを符号なし 10 進数値として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>long ワードを符号なし 10 進数値として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>長ワードを倍精度の浮動小数点として表示します。 ( <strong>-F (R)</strong> フラグと同じ)</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>long ワードを浮動小数点として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>長ワードを倍精度の浮動小数点として表示します。 ( <strong>-e (E)</strong> フラグと同じ)</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>16 ビットのワードを符号なし 16 進数値として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>long ワードを符号なし 16 進数値として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>16 ビットのワードを符号付き 10 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>(i の大文字) long ワードを符号付き 10 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>(L の小文字) long ワードを符号付き 10 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>long ワードを符号付き 10 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>16 ビットのワードを符号なし 8 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>long ワードを符号なし 8 進数値として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>-a</strong> 変換時の偶数パリティーを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><strong>-a</strong> 変換時の奇数パリティーを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>16 ビットのワードを符号付き 10 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S (S)</strong>[<em>N</em>]</td>
+
+<td>null バイトで終わる文字列を検索します。 <em>N</em> 変数は認識される最小の長さの文字列を指定します。 <em>N</em> 変数を省略すると、最小の長さは 3 文字となります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>すべての入力データを書き出します。 デフォルトでは、直前の出力行と同じ出力行は出力されず、* (アスタリスク) 1 つだけを含む行に置き換えられます。 <strong>-v</strong> フラグを指定すると、すべての行が出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w (W)</strong> [<em>N</em>]</td>
+
+<td>解釈して各出力行に表示する入力バイト数を指定します。 <strong>-w</strong> フラグを指定しないと、表示行ごとに 16 バイトが読み取られます。 <strong>-w</strong> フラグを <em>N</em> 変数なしで指定すると、表示行ごとに 32 バイトが読み取られます。 最大入力値は 4096 バイトです。 4096 バイトよりも大きい入力値は最大値に再割り当てされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>16 ビットのワードを 16 進数として表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>long ワードを符号なし 16 進数値として表示します。 (<strong>-H</strong> フラグと同じ)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>注:</strong> フラグの <strong>-I</strong> (i の大文字)、<strong>-l</strong> (L の小文字)、<strong>-L</strong> は同一です。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>すべての入力ファイルが正常に処理されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルを一度に 1 ページずつ 8 進数で表示するには、次のように入力します。<div> <div><div><pre><code>od a.out | pg</code></pre></div><div></div></div>このコマンドは、a.outファイルを 8 進形式で作成し、 <strong>PG</strong> コマンドを介して出力をパイプ接続します。</div>
+</li>
+
+<li><span></span>ファイルを一度に複数のフォーマットに変換するには、次のように入力します。<div> <div><div><pre><code>od -t cx a.out &gt; a.xcd</code></pre></div><div></div></div>このコマンドは、以下の内容を書き込みます。a.out16 進形式 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__a89c143" target="_blank" rel="noopener noreferrer"><strong>X</strong></a>) および文字形式 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__sbj1g4jeff" target="_blank" rel="noopener noreferrer"><strong>C</strong></a>) のファイルをa.xcdを適用します。</div>
+</li>
+
+<li><span></span>(最初の構文フォーマットを使用して) 中間からファイルの表示を開始するには、次のように入力します。<div> <div><div><pre><code>od -t acx -j 100 a.out</code></pre></div><div></div></div>このコマンドは、a.outファイルを、100バイト目から順に、名前付き文字（ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__a89c134" target="_blank" rel="noopener noreferrer"><strong>a</strong></a> ）、文字（ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__sbj1g4jeff" target="_blank" rel="noopener noreferrer"><strong>c</strong></a> ）、16進数（ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__a89c143" target="_blank" rel="noopener noreferrer"><strong>x</strong></a> ）のフォーマットで表示する。</div>
+</li>
+
+<li><span></span>(2 番目の構文フォーマットを使用して) ファイルの途中から開始するには、次のように入力します。<div>
+<div><div><pre><code>od -bcx a.out +100.</code></pre></div><div></div></div>これは <strong>a.out</strong> ファイルを100バイト目から8進数 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64732" target="_blank" rel="noopener noreferrer"><strong>（-b</strong></a> ）、文字 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__row-d3e64738" target="_blank" rel="noopener noreferrer"><strong>（-c</strong></a> ）、16進数 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/od.html#od__x_flag" target="_blank" rel="noopener noreferrer"><strong>（-x</strong></a> ）で表示する。 <strong>.</strong> (ピリオド) により 10 進数になります。 ピリオドを指定しない場合は、出力は 64  (8 進数 100) バイト目から始まります。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/od</strong></td>
+
+<td><strong>od</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

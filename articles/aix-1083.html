@@ -1,0 +1,60 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムのページ・サイズを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ページ・サイズ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pagesize.html#pagesize__flag_pagesize_a" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pagesize.html#pagesize__flag_pagesize_f" target="_blank" rel="noopener noreferrer">「-f」</a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>pagesize</strong> コマンドは、<strong>getpagesize</strong> サブルーチンによって戻されるメモリーのページ・サイズをバイト単位で出力します。 このコマンドはポータブル・シェル・スクリプトを作成する場合にシステムの互換性を実現するのに役立ちます。</p>
+ <p><strong>-a</strong> フラグを指定すると、
+<strong>pagesize</strong> コマンドはシステム上でサポートされるすべてのページ・サイズ値 (単位：バイト) を印刷します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>システム上でサポートされるすべてのページ・サイズ値 (単位：バイト) を印刷します。</dd>
+
+
+<dt>-f</dt>
+
+<dd>バイト表記のページ・サイズではなく、英字のサフィックスが付いたフォーマット済みページ・サイズ (例えば、4K) を印刷します。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム・ページ・サイズを調べるには、以下のように入力します。<div><div><pre><code>pagesize</code></pre></div><div></div></div> <p>システムは、例えば 4096 などバイト単位の数値を戻します。</p>
+</li>
+
+<li>フォーマット済みのページ・サイズを印刷するには、以下のように入力します。<div><div><pre><code>pagesize -f</code></pre></div><div></div></div> <p>システムはフォーマット済みのページ・サイズ (例えば、4K) を戻します。</p>
+</li>
+
+<li>サポートされるページ・サイズすべてを英字サフィックス付きで印刷するには、以下のように入力します。<div><div><pre><code>pagesize -af</code></pre></div><div></div></div> <div>システムはサポートされるすべてのページ・サイズを戻します。 次に例を示します。<div><div><pre><code>4K
+64K
+16M</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/pagesize</strong></td>
+
+<td><strong>pagesize</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

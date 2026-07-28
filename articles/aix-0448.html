@@ -1,0 +1,411 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>暗号化ファイルシステム (EFS) の鍵 (鍵ストア) のためのユーザーとグループのリポジトリーを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>efskeymgr <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72607" target="_blank" rel="noopener noreferrer">-?</a></strong></p>
+ <p><strong>efskeymgr <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72613" target="_blank" rel="noopener noreferrer">-Q (Q)</a></strong></p>
+ <p><strong>efskeymgr <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72620" target="_blank" rel="noopener noreferrer">V 値</a></strong></p>
+ <p><strong>ESSKEYMGR </strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72681" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> &lt;<em>グループ</em>&gt;</p>
+ <div><strong>efskeymgr <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72588" target="_blank" rel="noopener noreferrer">-P</a></strong> &lt; <em>Open-SSH 公開鍵ファイル</em> &gt;<div><div>
+        <div>
+          <div><span>注:</span> 公開鍵ファイルは、 <strong>~/.ssh/ ディレクトリー</strong> ディレクトリーにあります。</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72670" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a></p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72648" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a></p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72654" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> &lt;<em>CMD</em>&gt;</p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72632" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> &lt;<em>CMD</em>&gt; ]</p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72717" target="_blank" rel="noopener noreferrer"><strong>N</strong></a></p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72743" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> &lt;<em>モード</em>&gt;</p>
+ <p><strong>efskeymgr</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L</a> <em>load_module</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> &lt;<em>ks</em>&gt;] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> &lt;<em>pw</em>&gt;] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72783" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> &lt;<em>ks2</em>&gt;</p>
+ <p><strong>efskeymgr</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L</a> <em>load_module</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> &lt;<em>ks</em>&gt;] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> &lt;<em>pw</em>&gt;] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72767" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> &lt;<em>ks2</em>&gt;</p>
+ <p><strong>ESSKEYMGR</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72726" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> &lt;<em>アルゴ</em>&gt;</p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72694" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> &lt;<em>FP</em>&gt;</p>
+ <p><strong>ESSKEYMGR</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__efskeymgr_bigl" target="_blank" rel="noopener noreferrer">-L (L)</a> <em>ロード・モジュール</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72523" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72536" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> &lt;<em>K</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72529" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72576" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> &lt;<em>PW</em>&gt; ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskeymgr.html#efskeymgr__row-d3e72707" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> &lt;<em>ファイル</em>&gt;</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>efskeymgr</strong> コマンドは、EFS に必要なすべての鍵管理操作専用です。 EFS が <strong>efsenable</strong> コマンドを使用してシステムで使用可能になっていると、鍵ストア (公開鍵と秘密鍵のリポジトリー) が <strong> /var/efs</strong> ディレクトリーに作成されます。</p>
+ <p>ユーザー鍵ストアの初期パスワードは、ユーザーのログイン・パスワードです。 グループ鍵ストアと admin 鍵ストアは、パスワードではなく、アクセス・キーで保護されます。 アクセス・キーは、このグループに属するすべてのユーザー鍵ストア内に保管されます。</p>
+ <p>鍵ストアを開くと (ログイン時または <strong>efskeymgr</strong> コマンドで明示的に)、この鍵ストアに入っている秘密鍵がカーネルにプッシュされ、処理と関連付けられます。 アクセス・キーが鍵ストア内で見つかった場合は、対応する鍵ストアも開き、鍵が自動的にそのカーネルにプッシュされます。</p>
+ <div>鍵ストアは、admin モードと guard モードの 2 つの管理モードをサポートします。<dl>
+<dt>admin モード</dt>
+
+<dd>このモードに鍵ストアを設定すると、<strong>aix.security.efs</strong> RBAC 権限と admin 鍵ストアへのアクセス・キーを持つ EFS 管理者は、鍵ストアを開いて、パスワードのリセット、鍵の再生成、アクセス・キーの追加や削除などの管理を行うことができます。</dd>
+
+
+<dt>guard モード</dt>
+
+<dd>このモードに鍵ストアを設定すると、EFS 管理者は鍵ストアにアクセスできません。 このモードでは、鍵ストアへのパスワードを失うと、秘密鍵をリカバリーできません。</dd>
+
+</dl>
+</div>
+ <p>鍵ストアのパスワードがログイン・パスワードと同じ場合は、鍵ストアがログイン時に自動的に開き、その鍵がセッションで使用可能になります。 <strong>passwd</strong> コマンドが使用され、既存のパスワードが指定された場合、鍵ストアのパスワードはログイン・パスワードと同期します。 鍵ストアのパスワードが何らかの時点でログイン・パスワードと同期していない場合は、<strong>efskeymgr </strong>コマンドを使用して鍵ストアのパスワードを変更できます。 パスワードが同期化されないと、ログイン時に鍵が自動的にセッションと関連付けられません。</p>
+ <div>次のコマンドは、<em>cmd</em> コマンドの実行に対してのみ、EFS 証明書を認可したり、削除したりします。 <em>cmd</em> コマンドが戻ると、前のプロセスの証明書が復元されます。<div><div><pre><code>efskeymgr –o &lt;cmd&gt; and efskeymgr –c &lt;cmd&gt; </code></pre></div><div></div></div></div>
+ <div>秘密鍵が鍵ストアで再生成される場合、新規の秘密鍵が作成され、古い鍵には「deprecated」(非推奨) のマークが付きます。<div><div>
+        <div>
+          <div><span>注:</span> 新しい鍵はカーネルにプッシュされません。 新規の鍵をファイル操作に使用できるようにするには、<strong>efskeymgr</strong> コマンドを使用するか、セッションを閉じてから開いて、鍵ストアを再度開く必要があります。</div>
+        </div>
+      </div></div>非推奨の鍵は、ファイルの暗号化解除に使用できますが、ファイルの暗号化には使用できません。 非推奨の鍵は鍵ストアから除去できます。ただし、この場合、その古い鍵で暗号化されたファイルはすべてアクセス不能となります。</div>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> この EFS コマンドでは、デフォルト設定である役割ベースのアクセス制御 (RBAC) がシステム上で有効になっている必要があります。</div>
+        </div>
+      </div></div>
+</div>
+<p><strong>遅延オペレーション</strong></p>
+ <div>鍵ストアは、コマンドまたはアクションで直接変更できない場合があります。 この場合は、特殊ファイルが鍵ストアのディレクトリーに作成され、鍵ストアが次回開く際に解析されます。 この特殊ファイルは、Cookie と呼ばれます。 admin モードの鍵ストアの場合、Cookie は鍵ストアが開く際に自動的に解析されます (ログイン時または <strong>efskeymgr</strong> コマンドの実行時)。 guard モードの鍵ストアの場合、Cookie は自動的に解析されません。 ユーザーはその承認をその鍵ストアの変更ごとに与える必要があります。 セッションを開く際、1 つ以上のオペレーションが EFS 鍵ストアで保留中の場合はメッセージが表示されます。<ul>
+<li>秘密鍵を再生成する必要がある。</li>
+
+<li><strong>group</strong>/<em>group1</em> 鍵ストアへのアクセスを認可される。</li>
+
+</ul>
+</div>
+ <p><strong>efskeymgr -v</strong> コマンドを実行して、保留中のオペレーションを処理する必要があります。</p>
+ <div>以下のアクションが可能です。<ul>
+<li>Private key regeneration (秘密鍵の再生成)。 この結果、新規の秘密鍵が生成され、古い秘密鍵に「deprecated」(非推奨) のマークが付きます。</li>
+
+<li>New access key (新規のアクセス・キー)。 この Cookie を受け入れると、新規の鍵ストアへのアクセスを取得します (例えば、ユーザーが追加されたグループの鍵ストアなど)。</li>
+
+<li>Remove access key (アクセス・キーの削除)。 この Cookie を受け入れると (アクセス・キーがグループから削除される場合など)、鍵ストアへのアクセスを失います。</li>
+
+</ul>
+ <div><div>
+        <div>
+          <div><span>注:</span> 鍵ストアを開くフラグ (例えば、 <strong>-v (V)</strong> フラグ) を指定して <strong>ESSKEYMGR</strong> コマンドを実行すると、各 Cookie の処理方法を求めるプロンプトが出されます。 選択項目は次のとおりです。<ul>
+<li>Accept the cookie (Cookie の受け入れ): 鍵ストアが Cookie に応じて変更された後に、その Cookie が破棄されます。</li>
+
+<li>Postpone the cookie (Cookie の延期): 鍵ストアは変更されず、その Cookie は削除されません。 次回アクションについてのプロンプトが出されます。</li>
+
+<li>Delete the cookie (Cookie の削除): 鍵ストアは変更されず、その Cookie が削除されます。 <strong>efskeymgr</strong> コマンドを使用して、アクションを再実行する必要があります。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>一般フラグ</strong>:</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>詳細モード。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g </strong></td>
+
+<td>鍵ストアが開く際に保留中のオペレーションを処理しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k (K) </strong> <em>K</em></td>
+
+<td>オペレーションは、アクティブ・ユーザーの鍵ストアの代わりに <em>ks</em> 鍵ストアがターゲットになります。 <em>ks</em> 値は次のようになります。<dl>
+
+<dt>user/&lt;login&gt;</dt>
+
+<dd>ユーザー &lt;login&gt; 鍵ストア。</dd>
+
+
+<dt>group/&lt;grpname&gt;</dt>
+
+<dd>グループ &lt;grpname&gt; 鍵ストア。</dd>
+
+
+<dt>admin/</dt>
+
+<dd>EFS 管理鍵ストア。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L (L)</strong> <em>ロード・モジュール</em></td>
+
+<td>鍵ストアの操作に使用するロード可能モジュールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>P-</strong> <em>PW</em></td>
+
+<td>鍵ストアを開くために使用するパスワード。 これは <strong>ps</strong> コマンドなどを使用して他のユーザーが表示できてしまうため、このフラグの使用はお勧めしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> <em>ファイル名</em></td>
+
+<td><strong>~/.ssh/authorized_keys</strong> ディレクトリーにある OpenSSH ファイルに格納されているすべてのキーの公開鍵 Cookie をプッシュします。</td>
+
+</tr>
+
+<tr>
+<td><strong>コマンドの<strong>フラグ</strong></strong> (鍵ストア・ファイルへのアクセスなし):</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>-?</strong></td>
+
+<td>コマンド・ヘルプと出口を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>鍵の再生成に対してサポートされるアルゴリズムのリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>カーネル内でアクティブなプロセスの証明書に関連付けられた鍵を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>コマンド用フラグ</strong> (鍵ストアへの読み取り専用アクセス):</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>「-c」</strong> &lt;<em>CMD</em>&gt;</td>
+
+<td>カーネルからすべての鍵を削除し、<em>cmd</em> コマンドを実行します。 <em>cmd</em> コマンドが終了すると、鍵は復元されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>鍵ストアで保留中のすべてのオペレーションをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> &lt;<em>CMD</em>&gt;</td>
+
+<td>鍵ストアを開いて鍵をプッシュし、<em>cmd</em> コマンドを実行します。 <em>cmd</em> コマンドが終了すると、鍵は廃棄されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>鍵ストア・ファイルの内容を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>コマンド用フラグ</strong> (鍵ストアへの読み取り/書き込みアクセス):</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong> &lt;<em>グループ</em>&gt;</td>
+
+<td><em>group</em> グループの鍵ストアを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong> &lt;<em>FP</em>&gt;</td>
+
+<td>非推奨の秘密鍵を鍵ストアから削除します。 <em>fp</em> 値はキーの指紋です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e (E)</strong> &lt;<em>ファイル</em>&gt;</td>
+
+<td>鍵ストアをファイルにエクスポートします。 ファイルは PKCS#12 形式でエンコードされ、鍵ストアからの公開鍵と秘密鍵を含みます。 このファイルは、openssh などで使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ユーザー鍵ストアの場合は、鍵ストア用の新規パスワードについてのプロンプトを出します。 グループ鍵ストアの場合は、新規アクセス・キーを生成し、グループ・メンバーに送信します。 admin 鍵ストアの場合は、新規アクセス・キーを生成します。 その後で、鍵は <strong>efskeymgr</strong> コマンドを使用して EFS 管理者に送信されなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong> &lt;<em>アルゴ</em>&gt;</td>
+
+<td>鍵ストアの秘密鍵を再生成します。 <em>アルゴ</em> パラメーターの有効な値については、 <strong>-Q (Q)</strong> フラグを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> &lt;<em>モード</em>&gt;</td>
+
+<td>鍵ストアの管理モードを変更します。 <em>mode</em> 値は次のようになります。<dl>
+<dt>admin</dt>
+
+<dd>EFS 管理者は鍵ストアを管理できます。 保留中のオペレーションは自動的に適用されます。</dd>
+
+
+<dt>guard</dt>
+
+<dd>EFS 管理者は鍵ストアを管理できません。 保留中のオペレーションについてのプロンプトがユーザーに対して出されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>- <strong>S</strong> <em>&lt;ks2</em></td>
+
+<td><em>ks2</em> アクセス・キーを鍵ストアから削除します。 鍵ストアを次回開く際、<em>ks2</em> 秘密鍵は自動的にプッシュされません。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>s</strong> <em>&lt;ks2&gt;</em></td>
+
+<td>鍵ストアのアクセス・キーを <em>ks2</em> 鍵ストアに送信します。 <em>ks2</em> キーを次回開く際、鍵ストアの秘密鍵は自動的にロードされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に実行されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>コマンドの実行中にエラーが発生しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>※2</strong></td>
+
+<td>コマンド・ラインで構文エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>自分の鍵ストアの内容を表示するには、次のように入力します。<div><div><pre><code>efskeymgr –v</code></pre></div><div></div></div></li>
+
+<li>アクティブ・シェルに関連付けられた鍵を表示するには、次のように入力します。<div><div><pre><code>efskeymgr -V</code></pre></div><div></div></div></li>
+
+<li>自分の鍵ストアから秘密鍵を再生成するには、次のように入力します。<div><div><pre><code>efskeymgr –R RSA_1024</code></pre></div><div></div></div></li>
+
+<li>非推奨の鍵を削除するには、次のように入力します。<div><div><pre><code>efskeymgr –D dbb62547:d6925088:45357fd3:54cddbba:27b255a9</code></pre></div><div></div></div></li>
+
+<li>グループ「students」のアクセス・キーをユーザー「joe」へ送信するには、次のように入力します。<div><div><pre><code>efskeymgr –k group/students –s user/joe</code></pre></div><div></div></div></li>
+
+<li><strong>~/.ssh/authorized_keys</strong> ファイルにインストール済みの公開鍵が格納されているターゲットの鍵ストアに入っている、Open-SSH クライアント・ユーザーの Open-SSH 公開鍵 Cookie をプッシュするには、次のように入力します。<div><div><pre><code>efskeymgr  -P  ~/.ssh/authorized_keys</code></pre></div><div></div></div></li>
+
+<li>グループ鍵ストアを LDAP に直接作成するには、次のように入力します (構成されている場合)。<div><div><pre><code>efskeymgr -L LDAP -C staff</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/efs</strong></td>
+
+<td>すべての鍵ストアが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user</strong></td>
+
+<td>ユーザー鍵ストアの作成と管理のための EFS 属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/group</strong></td>
+
+<td>グループ鍵ストアの作成のための EFS 属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

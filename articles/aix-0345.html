@@ -1,0 +1,149 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルの行の分割に役立ちます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>カット</strong> {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151642" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a><em>リスト </em>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151708" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151654" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a><em>リスト </em>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151685" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>リスト </em>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151724" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151670" target="_blank" rel="noopener noreferrer"><strong>-d 年 </strong></a><em>キャラクター </em>] } [ <em>ファイル </em>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>cut</strong> コマンドは、ファイルの各行から、バイト、文字、フィールドをカットして、これらを標準出力に書き出します。 <em>File</em> パラメーターを指定しないと、<strong>cut</strong> コマンドは標準入力を読み取ります。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151642" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151654" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>のいずれかを指定する必要があります。 または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151685" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> フラグを指定します。 <em>List</em> パラメーターには、コンマ、ブランク、またはハイフンで区切られた整数番号の (昇順の) リストを指定します。 ハイフン・セパレーターは範囲を示します。 バイト、文字、またはフィールドを参照する <em>List</em> パラメーターの入力例を以下に示します。</p>
+ <div> <div><div><pre><code>1,4,7
+1-3,8
+-5,10
+3-</code></pre></div><div></div></div></div>
+ <p>ここで-51 番目から 5 番目までの短い形式です。3-3 番目から最後までの短い形式です。</p>
+ <p><strong>cut</strong> コマンドでフィールドをカットする場合、<em> List</em> パラメーターに指定したフィールド長を、フィールド別または行別に変更できます。 タブ文字などのフィールド区切り文字の位置が、フィールドの長さを決定します。</p>
+ <p><strong>grep</strong> コマンドを使用してファイル全体を水平方向にカットし、<strong>paste</strong> コマンドを使用してファイルを再度まとめることができます。 ファイル内の列の順序を変更するには、<strong>cut</strong> コマンドと <strong>paste</strong> コマンドを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> リスト</em></td>
+
+<td>バイト位置を指定します。 これらのバイト位置は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151708" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> フラグも指定されていない限り、マルチバイト文字境界を無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> リスト</em></td>
+
+<td>文字位置を指定します。 例えば、次のように指定すると、-c
+1-72,<strong>cut</strong> コマンドは、ファイルの各行の最初の 72 文字を書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> 文字</em></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151685" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> フラグを指定すると、 <em>Character</em> 変数で指定した文字をフィールド区切り文字として使用します。 スペース文字のように、
+シェルに対して特殊な意味を持つ文字は、引用符で囲まなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> リスト</em></td>
+
+<td>ファイル内で区切り文字で区切られると想定される一連のフィールドを指定します。デフォルトではタブ文字が区切り文字です。 例えば、次のように指定すると、-f 1,7,<strong>cut</strong> コマンドは、各行の最初と 7 番目のフィールドのみを書き出します。 行にフィールド区切り文字が含まれていない場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151724" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグを指定しない限り、 <strong>cut</strong> コマンドはそれらをそのまま渡します (表の副見出しに役立ちます)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>マルチバイト文字の分割を抑制します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151642" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> フラグと一緒にのみ使用してください。 文字の最後のバイトが <strong>-b</strong> フラグの <em>List</em> 変数で指定された範囲内にある場合は、その文字が書き込まれます。それ以外の場合は、その文字は除外されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>区切り文字が含まれていない行を抑制します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151685" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> フラグと一緒にのみ使用してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>すべての入力ファイルが正常に出力されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルの各行の複数のフィールドを表示するには、次のように入力します。<div>cut  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cut.html#cut__row-d3e151685" target="_blank" rel="noopener noreferrer">-f</a> 1,5 -d : /etc/passwd</div>この例では、システムのパスワード・ファイルのログイン名のフィールドと完全ユーザー名のフィールドが表示されます。 これらは 1 番目と 5 番目のフィールドです (-f 1,5) コロンで区切られています (-d :).<p>例えば、<strong>/etc/passwd</strong> ファイルの内容が以下のような場合、</p>
+  <div> <div><div><pre><code>su:*:0:0:User with special privileges:/:/usr/bin/sh
+daemon:*:1:1::/etc:
+bin:*:2:2::/usr/bin:
+sys:*:3:3::/usr/src:
+adm:*:4:4:System Administrator:/var/adm:/usr/bin/sh
+pierre:*:200:200:Pierre Harper:/home/pierre:/usr/bin/sh
+joan:*:202:200:Joan Brown:/home/joan:/usr/bin/sh</code></pre></div><div></div></div><strong>cut</strong> コマンドによる出力は以下のようになります。<div><div><pre><code>su:User with special privileges
+daemon:
+bin:
+sys:
+adm:System Administrator
+pierre:Pierre Harper
+joan:Joan Brown</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ブランクで区切られたリストを使用してフィールドを表示するには、次のように入力します。<div> <div><div><pre><code>cut -f "1 2 3" -d : /etc/passwd</code></pre></div><div></div></div><strong>cut</strong> コマンドによる出力は以下のようになります。<div><div><pre><code>su:*:0
+daemon:*:1
+bin:*:2
+sys:*:3
+adm:*:4
+pierre:*:200
+joan:*:202</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/cut</strong></td>
+
+<td><strong>cut</strong> コマンドが入っているファイルです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

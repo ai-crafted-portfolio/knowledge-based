@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>端末特性を照会します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>端末定義</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/termdef.html#termdef__row-d3e86231" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/termdef.html#termdef__row-d3e86237" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/termdef.html#termdef__row-d3e86243" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>termdef</strong> コマンドは、現行表示タイプ、アクティブ・ライン設定、現行桁設定を識別します。 これにより、フォントを切り替えるときに、行と桁をリセットするタスクと、ディスプレイを切り替えるときに <strong>TERM</strong> 環境変数をリセットするタスクが簡単になります。 <strong>terminfo</strong> データベースは、
+各ディスプレイごとにデフォルトの行の数と桁の数を定義しますが、
+行の数と桁の数は現在アクティブなフォントに応じて変化します。 また <strong>TERM</strong>
+環境変数は、現在アクティブなディスプレイを自動的に反映するわけではありません。</p>
+ <p><strong>termdef</strong>
+コマンドのフラグは互いに同時に指定してはいけません。 コマンドに複数のフラグを使用すると、<strong>termdef</strong> コマンドは、最初のフラグのみの現行値を識別して戻します。 他のすべてのフラグは無視されます。 例えば、<strong>termdef -lc</strong> コマンドは、現行ディスプレイのアクティブ・ライン設定のみを戻します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>現在の桁の値を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>現在の行の値を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>現行ディスプレイの名前を戻します (デフォルト・アクション)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>TERM</strong>
+環境変数の現行値を決定するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>termdef -c</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/termdef</strong></td>
+
+<td><strong>termdef</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

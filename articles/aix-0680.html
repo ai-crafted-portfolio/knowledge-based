@@ -1,0 +1,78 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ラベルで識別されたオブジェクト (鍵、証明書など) を鍵ストアから削除します。 ラベルが <code>ALL</code> の場合は、すべてのオブジェクトが削除されます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>keydelete</strong> [ <strong>-S</strong> <em>
+ServiceName</em> ] <strong>-l</strong> <em>Label</em> [ <strong>-p</strong> <em>PrivateKeystore</em> ] [ <em>
+UserName</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>keydelete</strong> コマンドは、
+<em>ラベル</em> で識別されたオブジェクト (鍵、証明書など) を削除します。 <em>ラベル</em> が <code>ALL</code> の場合は、すべてのオブジェクトが削除されます。 <strong>-S</strong> フラグは、
+鍵ストアからオブジェクトを削除するときに使用するエンド・エンティティー・サービスおよびライブラリーを指定します。 使用可能なサービスは、<strong>/usr/lib/security/pki/ca.cfg</strong> に定義されています。 <strong>keydelete</strong> は、<strong>-S</strong> を指定しないで起動されると、
+<strong>ローカル</strong>であるデフォルト・サービスを使用します。 <strong>/usr/ lib/security/pki/ca.cfg</strong> ファイルにエントリーを持たない <em>ServiceName</em> が指定されると、エラーが戻されます。</p>
+ <p><strong>-l</strong> フラグは指定する必要があります。 <em>ラベル</em> は可変長のテキスト・ストリングで、
+鍵ストア内の鍵を一致する公開鍵を含む証明書にマップするのに使用されます。 <em>ラベル</em> が <code>ALL</code> の場合は、鍵ストア内のすべてのオブジェクトが削除されます。</p>
+ <p><strong>-p</strong> フラグを指定しない場合は、ユーザー名のデフォルトの鍵ストア・ファイルが使用されます。 ユーザーのデフォルトの鍵ストア・ロケーションは <strong>/var/pki/security/keys/</strong>&lt;<em>UserName</em>&gt; です。</p>
+ <p><em>UserName</em> を指定しないと、現行ユーザーのユーザー名が使用されます。 ユーザーに、鍵ストアのパスワードのプロンプトが出されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-S</strong> <em>ServiceName</em></td>
+
+<td>使用するサービス・モジュールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ラベル</em></td>
+
+<td>追加される鍵に関連付けられたラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>PrivateKeystore</em></td>
+
+<td>送信元宛先鍵ストアのロケーションを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>引数</h2> <p><em>username</em> - 削除される鍵を所有するユーザーを指定します。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>これは特権 (set-UID root) コマンドです。</p>
+ <p>鍵ストアの内容をリストするには、ユーザーは秘密鍵の鍵ストアのパスワードを知っていなければなりません。</p>
+ <p><strong>Root</strong> およびグループ・セキュリティーに属する起動側は、
+誰の鍵ストアでもリストすることが許可されています。 ただし、鍵ストアへのパスワードを知っていなければ、この操作を正常に完了することはできません。 特権のないユーザーは、自らが所有する鍵ストアのみリストすることが許可されています。</p>
+<p><strong>AUDIT</strong></p>
+ <p>このコマンドは、以下のイベント情報を記録します。</p>
+ <p>KEY_削除 &lt;ユーザー<em>名</em></p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ラベル <strong>signcert</strong> が付けられた鍵ストア・オブジェクトを起動側のデフォルトの鍵ストアから削除するには、次のように入力します。<div><div><pre><code>keydelete -l signcert</code></pre></div><div></div></div></li>
+
+<li>起動側のデフォルトの鍵ストアからすべてのオブジェクトを削除するには、次のように入力します。<div><div><pre><code>keydelete -l ALL</code></pre></div><div></div></div></li>
+
+<li>ラベル <strong>signcert</strong> が付けられた鍵ストア・オブジェクトを鍵ストア <strong>/home/bob/ bob.keystore</strong>
+から削除するには、次のように入力します。<div><div><pre><code>keydelete -p /home/bob/bob.keystore -l signcert</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <p><strong>/usr/lib/security/pki/ca.cfg</strong></p>
+</section>
+
+</div></div>

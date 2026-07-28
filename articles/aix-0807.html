@@ -1,0 +1,290 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク・インストール管理 (NIM) 環境に関する情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>サポートされる NIM クラス、サブクラス、またはタイプのリストを表示する
+</strong></p>
+ <p><strong>Lsnim</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90175" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90181" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><strong></strong>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90128" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em>クラス</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90196" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a>]</p>
+<p><strong>事前定義された NIM 情報を表示する
+</strong></p>
+ <p><strong>Lsnim</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90175" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90181" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><strong></strong>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90128" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em>クラス</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90202" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>サブクラス</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90213" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em>タイプ</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90145" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90163" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90169" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90224" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a>]</p>
+ <p>または</p>
+ <p><strong>lsnim</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90175" target="_blank" rel="noopener noreferrer"><strong>-p|</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90181" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><strong></strong>}[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90109" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>属性</em> ].. [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90224" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a>]</p>
+<p><strong>操作に必要な属性を表示する
+</strong></p>
+ <p><strong>Lsnim</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90213" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em>タイプ</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90187" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a><em>操作</em></p>
+<p><strong>カスタマイズされたすべての NIM オブジェクトの情報を表示する
+</strong></p>
+ <p><strong>Lsnim</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90128" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em>クラス</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90202" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>サブクラス</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90213" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em>タイプ</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90145" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90163" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90169" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90224" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a>]</p>
+ <p>または</p>
+ <p><strong>lsnim</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90109" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em>属性</em> ].. [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90224" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a>]</p>
+<p><strong>特定の NIM オブジェクトの情報を表示する
+</strong></p>
+ <p><strong>lsnim</strong>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90145" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90169" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90109" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>属性</em> ..][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90224" target="_blank" rel="noopener noreferrer"><strong>-Z]</strong></a><em>ObjectName</em></p>
+ <p>または</p>
+ <p><strong>lsnim</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90187" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a><em>操作</em>] <em>ObjectName</em></p>
+<p><strong>特定の NIM マシンに使用可能なリソースの情報を表示する
+</strong></p>
+ <p><strong>lsnim</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90151" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90202" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> サブクラス</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90213" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em> タイプ</em> ] <em>オブジェクト名</em></p>
+<p><strong>NIM グループの情報を表示する</strong></p>
+ <p><strong>lsnim</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90139" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90157" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90109" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em> 属性</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90128" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><em> クラス</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90151" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90145" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90202" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> サブクラス</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnim.html#lsnim__row-d3e90213" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em> タイプ</em> ] <em>GroupObjectName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsnim</strong> コマンドは、NIM 環境の情報を表示します。 この情報は、事前定義とカスタマイズの 2 つの基本カテゴリーに分類されます。</p>
+ <p>事前定義情報は、NIM によって事前設定された値からなり、ユーザーが変更することはできません。 事前定義情報の例は次のとおりです。</p>
+ <ul>
+<li><span></span>NIM によってサポートされるオブジェクトのタイプ</li>
+
+<li><span></span>NIM がオブジェクトを編成するためのクラスおよびサブクラス</li>
+
+<li><span></span>NIM オブジェクトに対して実行できる操作。</li>
+
+<li><span></span>ユーザーが入力することができる属性</li>
+
+</ul>
+ <p>通常、NIM はこの情報を使用して操作中の決定を行います。 <strong>-p</strong> または <strong>-P</strong> フラグを使用すると、
+事前定義情報を表示できます。 <strong>-p</strong> フラグを指定するとデフォルトの値が表示され、
+<strong>-P</strong> フラグを指定するとヘルプ情報が表示されます。</p>
+ <p>カスタマイズ情報は、ユーザーが入力または変更した値から作成されます。 この情報は、NIM が動作する物理環境を表します。 カスタマイズ情報に関する部分は、
+グループ化されて<em>オブジェクト</em> を形成します。
+オブジェクトは、NIM データベース内でオブジェクト型とクラス別に編成されます。 オブジェクト・タイプの例をいくつか示します。diskless,pagingおよびstandalone. オブジェクト・クラスの 2 つの例を以下に示します。machinesおよびnetwork.</p>
+ <p>例えば、NIM 環境の一部であるスタンドアロン・ワークステーションは、
+固有のオブジェクトで表されます。 このオブジェクトは NIM によって次のものとして分類されます:standalonemachinesオブジェクト、ここでstandaloneオブジェクト・タイプを表します。machinesオブジェクト・クラスを表します。 フラグを指定せずにコマンド・ラインに <strong>lsnim</strong> コマンドを入力すると、
+カスタマイズされたすべてのオブジェクト情報が表示されます。</p>
+ <p>また、<strong>lsnim</strong> コマンドを使用すると、
+カスタマイズされたオブジェクト間の関係を表示できます。 <em>固定する</em> オブジェクトを選択してから (<em>Objectname</em> パラメーターで指定)、
+<strong>-c</strong>、
+<strong>-s</strong>、
+または <strong>-t</strong> フラグを指定して必要な関係を選択します。 表示される情報は、
+固定したオブジェクト型とクラスに応じて異なります。 例えば、<strong>spot</strong> というタイプのオブジェクトを選択すると、
+次に示すような関係を表示されます。</p>
+ <ul>
+<li>SPOT (Shared Product Object Tree) リソースを使用する <span></span>マシン。</li>
+
+<li>SPOT リソースにアクセスできる <span></span>ネットワーク。</li>
+
+</ul>
+ <p>関係が表示されない場合は、
+<strong>lsnim</strong> コマンドはフラグを表示します。
+このフラグを使用すると、通常は表示される出力にフィルターをかけることができます。 <strong>-a</strong>、
+<strong>-c</strong>、
+<strong>-O</strong>、
+<strong>-s</strong>、
+または <strong>-t</strong> フラグを使用すると、
+表示される情報の量を制限することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 属性</em></td>
+
+<td>指定した属性名に基づいて、表示される情報にフィルターをかけます。 使用可能な属性を以下に示します。<p>操作</p>
+  <p>サブクラス (subclass)</p>
+  <p>タイプ</p>
+  <p>クラス</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> クラス</em></td>
+
+<td>NIM オブジェクト・クラスを指定します。 <em>Objectname</em> パラメーターを指定しないでこのフラグを使用すると、
+そのクラスのオブジェクトの情報だけが表示されるように、情報にフィルターがかけられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>個別のメンバーの状態情報を持つグループ・オブジェクトの詳細リストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>詳細情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>クライアント・マシンによりアクセスされるリソースの情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>指定されたフラグ以外のフラグは、グループ・メンバーに適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>NIM 環境の SMIT インターフェースによって使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>NIM でサポートされる操作をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>デフォルトの値を使用して事前定義情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>事前定義されているデータのヘルプ情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> 操作</em></td>
+
+<td>指定された操作に必要な属性をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>NIM サブクラスのリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> サブクラス</em></td>
+
+<td>NIM サブクラスを指定します。 <em>ObjectName</em> パラメーターを指定しないでこのフラグを使用すると、そのサブクラスのオブジェクトの情報だけが表示されるように、
+情報にフィルターがかけられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>NIM オブジェクト型を指定します。 <em>Objectname</em> パラメーターを指定しないでこのフラグを使用すると、
+そのタイプのオブジェクトの情報だけが表示されるように、
+情報にフィルターがかけられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>情報をコロンで区切ったフォーマットで表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: <strong>lsnim</strong> コマンドを実行するには、
+ユーザーは root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>NIM オブジェクト・クラスのリストを表示するには、次のように入力します。<div> <div><div><pre><code>lsnim -p</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>NIM サブクラスのリストを表示するには、次のように入力します。<div> <div><div><pre><code>lsnim -p -S</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システムの NIM オブジェクト・タイプのリストを表示するには、 machinesオブジェクト・クラス、入力:<div> <div><div><pre><code>lsnim -p -c machines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>NIM オブジェクト・タイプに関するヘルプ情報を表示するには、 machinesオブジェクト・クラス、入力:<div> <div><div><pre><code>lsnim -P -c machines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>名前付き NIM 属性に関する詳細情報を表示するには、次のように入力します。 lpp_sourceおよびRstate次のように入力します。<div> <div><div><pre><code>lsnim -p -a lpp_source -a Rstate</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下に対して実行できる操作を表示します。 pagingオブジェクト・タイプ、入力:<div> <div><div><pre><code>lsnim -p -t paging -O</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>実行に必要な情報を表示するには、以下のようにします。 bos_instオブジェクトに対する操作 standaloneオブジェクト・タイプ、入力:<div> <div><div><pre><code>lsnim -t standalone -q bos_inst</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>カスタマイズされたすべてのオブジェクトに関する情報を表示するには、以下のようにします。 disklessオブジェクト・タイプ、入力:<div> <div><div><pre><code>lsnim -t diskless</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>カスタマイズされたオブジェクトをすべて表示するには、以下のようにします。 networksオブジェクト・クラス、入力:<div> <div><div><pre><code>lsnim -c networks</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>次の名前の NIM オブジェクトに関する詳細情報を表示するには、次のようにします。altoid次のように入力します。<div> <div><div><pre><code>lsnim -l altoid</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>名前付きオブジェクト間の関係を表示するには、以下のようにします。altoidおよびすべての NIM リソースを入力します。<div> <div><div><pre><code>lsnim -c resources altoid</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>適用できる操作のリストを表示するには、以下のようにします。altoid次のように入力します。<div> <div><div><pre><code>lsnim -O altoid</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>使用可能なリソースのリストを表示するには、以下のようにします。altoid次のように入力します。<div> <div><div><pre><code>lsnim -L altoid</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>マシン・グループのメンバーを表示するにはMacGrp1状態およびグループ除外状況の場合は、次のように入力します。<div> <div><div><pre><code>lsnim -g MacGrp1</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>リソース・グループのメンバーに関する基本情報を表示するResGrp1次のように入力します。<div> <div><div><pre><code>lsnim -m ResGrp1</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>マシン・グループのメンバーの詳細リストを表示するMacGrp1非表示の NIM 内部情報があれば、次のように入力します。<div> <div><div><pre><code>lsnim -m -Fl MacGrp1</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>マシン・グループのすべてのメンバーを表示するMacGrp1スポットが割り振られている場合は、次のように入力します。<div> <div><div><pre><code>lsnim  -ma spot MacGrp1</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/niminfo</strong></td>
+
+<td>NIM により使用される変数が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

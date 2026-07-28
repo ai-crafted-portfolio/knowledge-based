@@ -1,0 +1,215 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Server Message Block (SMB) クライアント・マウント・ポイントのマウント・オプション、サーバー名、共有名、または資格情報が変更されます。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>chsmbcmnt -f MountPoint [-d RemoteShare] [-h ServerName] 
+-c user [-p password] [-m MountTypeName] 
+[-A|-a] [-I|-B|-N] 
+[-t {rw|ro}] [-u uid] [-g gid] [-x fmode] 
+[-w wrkgrp] [-V {2.1|3.0.2|auto}] [-S {enabled|required}] 
+[-D {desired|required|disabled}] [-E {desired|required|disabled}] [-s spn] </code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>chsmbcmnt</span> コマンドは、<span>/etc/filesystems</span> ファイル内で定義されている SMB クライアント・マウント・ポイントのマウント・オプション、サーバー名、共有名、またはクリデンシャルを変更します。 SMB share はマウントされていなければ、<span>/etc/filesystems</span> ファイルの変更後にマウントされます。 SMB share が既にマウントされている場合、このコマンドは SMB share をアンマウントして新規オプションで再マウントを試み、<span>/etc/filesystems</span> ファイルは変更されます。 SMB share がまだ <span>/etc/filesystems</span> ファイルに定義されていない場合は、エラーが返されます。</p>
+
+<p>すべてのマウント・オプション (<span>-t, -u, -g, -x, -w, -V, -S, -D,
+-E</span>) のデフォルト値は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html" target="_blank" rel="noopener noreferrer"><span>mount</span></a> コマンドと同じです。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>-a</dt>
+
+<dd>これは、<span>/etc/filesystems</span> ファイル内の SMB クライアント・マウント・ポイントの新規 SMB クライアント・ファイルシステム・エントリーをシステム再始動後に自動的にマウントしてはならないことを指定します。 これがデフォルト設定です。</dd>
+
+
+
+<dt>-A</dt>
+
+<dd>これは、<span>/etc/filesystems</span> ファイル内の SMB クライアント・マウント・ポイントの新規 SMB クライアント・ファイルシステム・エントリーをシステム再始動後に自動的にマウントしなければならないことを指定します。</dd>
+
+
+
+<dt>-B</dt>
+
+<dd>これは、<span>/etc/filesystems</span> ファイル内の SMB クライアント・ファイルシステム・エントリーを変更し、指定のフラグとパラメーターを使用することで SMB クライアント・ファイルシステムの再マウントを試みます。 これがデフォルト設定です。</dd>
+
+
+
+<dt>--c ユーザー</dt>
+
+<dd>これは、SMB share にアクセスするために使用されなければならないユーザー名を指定します。</dd>
+
+
+
+<dt>-d RemoteShare</dt>
+
+<dd>これは、マウントされなければならない SMB サーバー上の共有名を指定します。</dd>
+
+
+
+<dt>-D {desired|required|disabled}</dt>
+
+<dd>これは、SMB クライアント・ファイルシステムでセキュア・ダイアレクト・ネゴシエーション機能が必要であるかどうかを指定します。 SMB Dialect 3.0.2 は、セキュリティー低下攻撃に対して SMB クライアントを保護するためにセキュア・ダイアレクト・ネゴシエーションを実施します。 有効な値は、<code>desired</code>、<code>required</code>、および <code>disabled</code> です。</dd>
+
+
+
+<dt>-E {desired|required|disabled}</dt>
+
+<dd>これは、SMB クライアント・ファイルシステムでデータ暗号化機能が必要であるかどうかを指定します。 有効な値は、<code>desired</code>、<code>required</code>、および <code>disabled</code> です。</dd>
+
+
+
+<dt>-f MountPoint</dt>
+
+<dd>これは、SMB share がマウントされなければならない場所となるパス名を指定します。</dd>
+
+
+
+<dt>-ギド</dt>
+
+<dd>これは、SMB クライアント・マウント・ポイントにあるファイルに割り当てられるグループ ID を指定します。 デフォルト値は 0 です。</dd>
+
+
+
+<dt>-h ServerName</dt>
+
+<dd>これは、リモート・ホストまたは SMB サーバーの名前を指定します。 この引数は、ホスト名、 IP アドレス、または完全修飾ドメイン・ネームとして指定できます。</dd>
+
+
+
+<dt>-I</dt>
+
+<dd>これは、<span>/etc/filesystems</span> ファイル内の SMB クライアント・ファイルシステム・エントリーを変更しますが、ディレクトリーの再マウントは行いません。</dd>
+
+
+
+<dt>-m MountTypeName</dt>
+
+<dd>これは、<span>/etc/filesystems</span> ファイルに追加される SMB クライアント・ファイルシステム・エントリーのマウント・タイプを定義します。 マウント・タイプは、 <span>mount</span> コマンドの <span>-t</span> フラグを使用して、特定のファイルシステムをマウントできるかどうかを決定します。 デフォルトでは、マウント・タイプの値は <span>/etc/filesystems</span> ファイルに追加されません。</dd>
+
+
+
+<dt>-N</dt>
+
+<dd>指定されたオプションを使用してディレクトリーをマウントしますが、<span>/etc/filesystems</span> ファイルは変更しません。</dd>
+
+
+
+<dt>-パスワード</dt>
+
+<dd>これは、特定 SMB サーバー上の特定ユーザーに対するアクセス権限を付与するために使用されるパスワードを指定します。 特定の資格情報 (サーバー名、ユーザー名、およびパスワード) が <span>smbcred</span> ファイルに追加されます。 パスワードは暗号化されます。 <span>-p</span> オプションが指定されず、資格情報が <span>smbcred</span> ファイルに存在しない場合は、パスワードの指定を求めるプロンプトがコマンド・ラインで出され、資格情報が <span>smbcred</span> ファイルに追加されます。 サーバーまたはユーザーのクリデンシャルが <span>smbcred</span> ファイルに既に存在する場合、このコマンドは、<span>smbcred</span> ファイル内のクリデンシャルを、このオプションを使用して指定された新しいクリデンシャルで変更します。</dd>
+
+
+
+<dt>-スプーン</dt>
+
+<dd>SMB クライアントのマウント・ポイントで使用する必要がある <a href="https://www.ibm.com/links?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fwindows%2Fwin32%2Fad%2Fservice-principal-names" target="_blank" rel="noopener noreferrer">サービス・プリンシパル名</a> (SPN) を指定します。 <span>spn</span> パラメーターの形式は <span>cifs/&lt;smbServerHostName&gt;</span>です。ここで、 <span>smbServerHostName</span> は、SMB サーバーの完全修飾ドメイン名 (FQDN)、または Kerberos が SMB サーバーとして解決する名前です。 デフォルトでは、SPN は SMB クライアント・ファイルシステムによって <span>cifs/&lt;smbServerHostName&gt;</span>として自動的に構成されます。</dd>
+
+
+
+<dt>-t {rw|ro}</dt>
+
+<dd>これは、SMB クライアント・ファイルシステムを読み取り専用としてマウントする必要があるかどうかを指定します。</dd>
+
+
+
+<dt>--u uid</dt>
+
+<dd>これは、マウント・ポイントにおいてファイルに割り当てられるユーザー ID を指定します。</dd>
+
+
+
+<dt>--x fモード</dt>
+
+<dd>これは、マウント・ポイントにおいてファイルに割り当てられる所有者、グループ、および他の許可ビットを指定します。</dd>
+
+
+
+<dt>--w wrkgrp</dt>
+
+<dd>SMB サーバーが属しているワークグループを指定します。</dd>
+
+
+
+<dt>-V {2.1|3.0.2|auto}</dt>
+
+<dd>SMB サーバーとの通信に使用される SMB プロトコルのバージョンが指定されます。 有効な値は、<code>2.1</code>、<code>3.0.2</code>、および <code>auto</code> です。</dd>
+
+
+
+<dt>-S {enabled|required}</dt>
+
+<dd>これは、SMB クライアント・ファイルシステムが SMB サーバーとの通信にデジタル署名を必要とするかどうかを指定します。 有効な値は <code>enabled</code> と <code>required</code> です。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<dl>
+
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ul>
+<li><code>/mnt</code> マウント・ポイントで定義されている SMB クライアント・マウント・ポイントのユーザー名を <code>user1</code> に変更するには、以下のコマンドを入力します。<div><div><pre><code>chsmbcmnt -f /mnt -c user1</code></pre></div><div></div></div></li>
+
+<li><span>/etc/filesystems</span> ファイル内の SMB クライアント・ファイルシステム・エントリーを変更し、変更したオプションで SMB クライアント・ファイルシステムを再マウントするには、以下のコマンドを実行します。<div><div><pre><code>chsmbcmnt -f /mnt -S enabled -E disabled</code></pre></div><div></div></div>このコマンドは、 <span>signing</span> パラメーターを <code>enabled</code> に設定し、 <span>encryption</span> パラメーターを <code>disabled</code>に設定して、 <span>/etc/filesystems</span> ファイル内の <span>/mnt</span> マウント・ポイントの SMB クライアント・ファイルシステム・エントリーを変更してから、ファイルシステムの再マウントを試みます。 マウント操作が失敗すると、このコマンドは <span>mount</span> コマンドの出力を表示します。 <span>/etc/filesystems</span> ファイル内の変更内容は保持されます。</li>
+
+</ul>
+
+</section>
+
+<section><h2>場所</h2>
+
+<p><span>/usr/sbin/chsmbcmnt</span></p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt>/etc/smbcred</dt>
+
+<dd>ここに SMB クライアント・ファイルシステムの資格情報が格納されます。</dd>
+
+
+
+<dt>/etc/filesystems</dt>
+
+<dd>これは、マウント・ポイントが含まれている SMB クライアント・ファイルシステム・エントリーを保管します。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

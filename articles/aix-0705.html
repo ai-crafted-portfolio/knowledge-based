@@ -1,0 +1,71 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>動的依存関係をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ldd </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/ldd.html#ldd__row-d3e46039" target="_blank" rel="noopener noreferrer"><em>FileName</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ldd</strong> コマンドは、すべての依存関係のパス名をリストします。 このコマンドは、有効な XCOFF ファイルのみに関する依存関係をレポートします。</p>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>FileName</em></td>
+
+<td>依存関係をリストするファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/usr/bin/dbx</strong> に関する依存関係を表示するには、次のように入力します。<div><div><pre><code>ldd /usr/bin/dbx</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>/usr/bin/dbx needs: 
+        /usr/lib/libc.a(shr.o) 
+        /usr/lib/libdbx.a(shr.o) 
+        /unix 
+        /usr/lib/libcrypt.a(shr.o) 
+        /usr/lib/libpthdebug.a(shr.o)</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/ldd</strong></td>
+
+<td><strong>ldd</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

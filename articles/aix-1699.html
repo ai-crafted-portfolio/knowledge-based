@@ -1,0 +1,119 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート BNU システムのポーリングを強行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uupoll</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupoll.html#uupoll__row-d3e160410" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a><em>グレード </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupoll.html#uupoll__row-d3e160424" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupoll.html#uupoll__fhlto376janb" target="_blank" rel="noopener noreferrer"><em>SystemName</em></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uupoll</strong> コマンドは、基本ネットワーク・ユーティリティー (BNU) に、
+<em>SystemName</em> パラメーターで指定したリモート・システムへのポーリングを強制的に実行させます。 通常このコマンドは <strong>cron</strong> デーモンによって実行されるか、
+または今すぐ強制的にジョブを実行したいユーザーによって実行されます。 これ以外の場合には、<strong>uudemon.poll</strong> コマンドによって <strong>/etc/uucp/Poll</strong> ファイルおよび <strong>/var/spool/cron/crontabs/uucp</strong> ファイルに指定した時刻にリモート・システムがポーリングされます。</p>
+ <p>通常 <strong>uucico</strong> デーモンがリモート・システムに接続するのは、
+<strong>Poll</strong> ファイルに指定した時刻またはリモート・システムのジョブがキューに入っているときだけです。 <strong> uupoll</strong> コマンドは、
+リモート・システムの null ジョブをキューに入れてから <strong>uucico</strong> デーモンを呼び出します。 これによって、<strong>uucico</strong> デーモンはすぐにリモート・システムに接続し、
+キューに入っているリモート・システムのジョブをすべて送信しようとします。 <strong>-g</strong> フラグは優先順位の高いジョブだけを送信するときに使用します。</p>
+ <p><strong>-n</strong> フラグを使用すると、
+<strong>uucico</strong> デーモンを始動しないで null ジョブをキューに入れることができます。 このオプションは以下の場合に使用してください。</p>
+ <ul>
+<li><span></span>デバッグのために <strong>uucico</strong> デーモンを呼び出す前に、ヌル・ジョブをキューに入れます。</li>
+
+<li><span></span>通常、 <strong>uucico</strong> デーモンが呼び出される直前にヌル・ジョブをキューに入れると、デーモンは指定されたシステムをポーリングしなければなりません。</li>
+
+</ul>
+ <p><em>SystemName</em> パラメーターが要求され、
+ポーリングするリモート・システムの名前が指定されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-g</strong><em>グレード</em></td>
+
+<td><strong>uupoll</strong> コマンドに対して、この呼び出しでは、
+(<em>Grade</em> パラメーターで) 指定されたグレードまたはそれ以上のジョブだけを送信するよう命令します。 グレードの低いジョブは、次にリモート・システムがポーリングされるまでキューに残ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>null ジョブをキューに入れますが、<strong>uucico</strong> デーモンは呼び出しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>cron</strong> デーモンを指定して <strong>uupoll</strong> コマンドを実行するには、次のようなエントリーを <strong>crontabs</strong> ファイルに入れます。<div> <div><div><pre><code>0  1,7,16  *  *  *  /usr/bin/uupoll hera</code></pre></div><div></div></div>これはシステムをポーリングしますhera0100 時 (1 a.m.)、 0700 時間 (7 a.m.)、 および 1600 時間 (4 p.m) 毎日。</div>
+</li>
+
+<li><span></span>ローカル・システムが特定の時刻に既に <strong>uucico</strong> デーモンを実行している場合は、 <strong>uucico</strong> デーモンが通常実行される直前にヌル・ジョブをキューに入れることができます。 例えば、ユーザーのシステムが <strong>uucico</strong> デーモンを 1 時間ごとに実行しているとき、
+以下のようなエントリーをユーザーの <strong>crontabs</strong> ファイルに入れます。<div>0  1,7,16  *  *  *  /usr/bin/uupoll  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupoll.html#uupoll__row-d3e160424" target="_blank" rel="noopener noreferrer">-n </a>zeus<br>
+0  5,12,21 *  *  *  /usr/bin/uupoll -n hera<br>
+5  *       *  *  *  /usr/sbin/uucp/uucico -r1</div>これは、リモート・サイトのヌル・ジョブを 1 時間ごとにキューに入れます。これらのジョブは、 <strong>uucico</strong> デーモンが 1 時間の 5 分後に実行されると、このデーモンによって処理されます。</li>
+
+<li><span></span> <strong>uucico</strong> デーモンにグレードのすべてのジョブを強制的に転送させるには、以下のようにします。Nシステムの場合はそれ以上zeus:<div>uupoll  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uupoll.html#uupoll__row-d3e160410" target="_blank" rel="noopener noreferrer">-g</a>N zeus</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uupoll</strong></td>
+
+<td><strong>uupoll</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Poll</strong></td>
+
+<td>BNU プログラムがリモート・システムにポーリングしてタスクを開始する時刻を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/cron/crontabs/uucp</strong></td>
+
+<td>リモート・システムの自動ポーリングをスケジュールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>システム名</em></td>
+
+<td>リモート・システムに転送されるファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

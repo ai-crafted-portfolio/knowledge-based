@@ -1,0 +1,1544 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ワークステーションの動作パラメーターの設定、リセット、報告を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Stty</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56807" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56813" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__options" target="_blank" rel="noopener noreferrer"><em>オプション</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>stty</strong> コマンドは、現在の標準入力であるデバイスに対して、いくつかの I/O オプションを設定します。 このコマンドは、現在の標準出力であるデバイスへ出力を書き出します。</p>
+ <p>このバージョンのオペレーティング・システムは、標準の <span>X/Open Portability Guide Issue 4</span> インターフェースを使用して端末を制御し、 POSIX および BSD インターフェースとの互換性を維持します。 <strong>stty</strong> コマンドは、POSIX と BSD 準拠のオプションをサポートしていますが、POSIX オプションを使用するようにしてください。 <strong>旧バージョンの BSD オプション</strong>とそれに対応する POSIX オプションのリストも掲載されています。</p>
+ <p>tty デバイスからの標準入力をリダイレクトするときは、次のように入力します。</p>
+ <div> <div><div><pre><code> stty -a &lt;/dev/ttyx</code></pre></div><div></div></div></div>
+ <p><strong>stty</strong> コマンド (POSIX) は、その tty の <strong>open()</strong> を待つ間、RS-232 キャリア検出シグナルが入るまで停止します。 この規則の例外が発生するのは、<strong>clocal</strong> または <strong>forcedcd</strong> (128 ポートのみ) オプションが設定されている場合です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのオプション設定の現在の状態を標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>別の <strong>stty</strong> コマンドで使用できる形式で、オプション設定を標準出力に書き出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>オプション</h2><p><strong>stty</strong> コマンドは、以下のカテゴリーのオプションをサポートします。</p>
+<ul>
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56879" target="_blank" rel="noopener noreferrer">制御モード</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57120" target="_blank" rel="noopener noreferrer">入力モード</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57314" target="_blank" rel="noopener noreferrer">出力モード</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57518" target="_blank" rel="noopener noreferrer">ローカル・モード</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__a5jbmi17fmanu" target="_blank" rel="noopener noreferrer">ハードウェア・フロー制御モード</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__contassgn" target="_blank" rel="noopener noreferrer">制御文字の割り当て</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__combination_modes" target="_blank" rel="noopener noreferrer">組み合わせモード</a></li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__window_size" target="_blank" rel="noopener noreferrer">ウィンドウ・サイズ</a></li>
+
+</ul>
+<div><strong>制御モード</strong><div><div><table><thead>
+<tr>
+<th><div>制御モード</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>CLOCAL</strong></td>
+
+<td>回線にモデム制御がないものと想定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クロカル</strong></td>
+
+<td>回線にモデム制御があるものと想定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CREAD</strong></td>
+
+<td>受信者を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クッレッド</strong></td>
+
+<td>受信者を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>CSTOPB</strong></td>
+
+<td>1 文字当たり 2 つのストップ・ビットを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ストップ</strong></td>
+
+<td>1 文字当たり 1 つのストップ・ビットを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>cs5</strong>, <strong>cs6</strong>, <strong>cs7</strong>, <strong>cs8</strong></td>
+
+<td>文字サイズを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>hup</strong>、 <strong>hupcl</strong></td>
+
+<td>最後のクローズ時にダイヤルアップ接続をハングアップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-hup</strong>、 <strong>-hupcl</strong></td>
+
+<td>最後のクローズ時にダイヤルアップ接続をハングアップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>PARENB</strong></td>
+
+<td>パリティーの生成および検出を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-括弧</strong></td>
+
+<td>パリティーの生成および検出を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>PARODD</strong></td>
+
+<td>奇数パリティーを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-奇数</strong></td>
+
+<td>偶数パリティーを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>0</strong></td>
+
+<td>電話回線を即座にハングアップします。</td>
+
+</tr>
+
+<tr>
+<td><em>speed</em></td>
+
+<td>ワークステーションの入出力速度を、<em>speed</em> で指定されたビット/秒の数に設定します。 すべての速度がどのハードウェア・インターフェースでもサポートされるとは限りません。 <em>speed</em> に有効な値は、<strong>50</strong>、<strong>75</strong>、<strong>110</strong>、<strong>134</strong>、<strong>200</strong>、<strong>300</strong>、<strong>600</strong>、<strong>1200</strong>、<strong>1800</strong>、<strong>2400</strong>、<strong>4800</strong>、<strong>9600</strong>、<strong>19200</strong>、<strong>19.2</strong>、<strong>38400</strong>、<strong>38.4</strong>、<strong>exta</strong>、および <strong>extb</strong> です。<div><div>
+        <div>
+          <div><span>注:</span> <strong> exta</strong>、 <strong>19200</strong>、および <strong>19.2</strong> は同義語です。 <strong>extb</strong>、 <strong>38400</strong>、および <strong>38.4</strong> は同義語です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>イスペード</strong><em> 速度</em></td>
+
+<td>ワークステーションの入力速度を、<em>speed</em> で指定されたビット/秒の数に設定します。 すべての速度がどのハードウェア・インターフェースでもサポートされるとは限りません。また、このオプションがどのハードウェア・インターフェースでもサポートされるとは限りません。 <em>speed</em> に指定できる値は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56988" target="_blank" rel="noopener noreferrer"><em>speed</em></a> オプションの場合と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ospeed</strong><em> 速度</em></td>
+
+<td>ワークステーションの出力速度を、<em>speed</em> で指定されたビット/秒の数に設定します。 すべての速度がどのハードウェア・インターフェースでもサポートされるとは限りません。また、このオプションがどのハードウェア・インターフェースでもサポートされるとは限りません。 <em>speed</em>  に有効な値は、<em>speed</em> オプションと同じです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<div><strong>入力モード</strong><div><div><table><thead>
+<tr>
+<th><div>入力モード</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>BRKINT</strong></td>
+
+<td>ブレーク時に INTR を送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>「-brkint」</strong></td>
+
+<td>ブレーク時に INTR を送信しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ICRNL</strong></td>
+
+<td>入力時に CR を NL にマップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イルンル</strong></td>
+
+<td>入力時に CR を NL にマップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>IGNBRK</strong></td>
+
+<td>入力時に BREAK を無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ignbrk (-ignbrk)</strong></td>
+
+<td>入力時に BREAK を無視しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>IGNCR</strong></td>
+
+<td>入力時に CR を無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イグクル</strong></td>
+
+<td>入力時に CR を無視しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>IGNPAR</strong></td>
+
+<td>パリティー・エラーを無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ignpar (-ignpar)</strong></td>
+
+<td>パリティー・エラーを無視しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>INLCR</strong></td>
+
+<td>入力時に NL を CR にマップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-インラクル</strong></td>
+
+<td>入力時に NL を CR にマップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>INPCK</strong></td>
+
+<td>パリティー検査を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-インペック</strong></td>
+
+<td>パリティー検査を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ISTRIP</strong></td>
+
+<td>入力文字を削除して 7 ビットにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イストリップ</strong></td>
+
+<td>入力文字を 7 ビットに削除しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>IUCLC</strong></td>
+
+<td>大文字の英字を小文字にマップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ユークルク</strong></td>
+
+<td>大文字の英字を小文字にマップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>IXANY</strong></td>
+
+<td>任意の文字で出力を再開できるようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イクサニー</strong></td>
+
+<td>START (Ctrl-Q キー・シーケンス) でのみ出力を再開できるようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>IXOFF</strong></td>
+
+<td>入力キューがほとんど空またはいっぱいになると、START/STOP 文字を送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イクソフ</strong></td>
+
+<td>START/STOP 文字を送信しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>IXON</strong></td>
+
+<td>START/STOP 出力制御を使用可能にします。 一度 START/STOP 出力制御を使用可能にすれば、Ctrl-S キー・シーケンスを押してワークステーションへの出力を停止し、Ctrl-Q キー・シーケンスを押して出力を再開できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イクソン</strong></td>
+
+<td>START/STOP 出力制御を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>イマックスベル (imaxbel)</strong></td>
+
+<td>入力がオーバーフローすると、BEL 文字をエコーし、最後の入力文字を破棄します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イマックスベル (-imaxbel)</strong></td>
+
+<td>入力がオーバーフローすると、すべての入力を破棄します。</td>
+
+</tr>
+
+<tr>
+<td><strong>PARMRK</strong></td>
+
+<td>パリティー・エラーに印を付けます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-パルマーク</strong></td>
+
+<td>パリティー・エラーに印を付けません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>出力モード</strong></p>
+
+<div><div><table><thead>
+<tr>
+<th><div>出力モード</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>bs0</strong>,<strong> bs1</strong></td>
+
+<td>バックスペースに対して、遅延のスタイルを選択します (<strong>bs0</strong> は遅延なしを示します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>cr0</strong>, <strong> cr1</strong>,<strong> cr2</strong>,<strong> cr3</strong></td>
+
+<td>CR 文字に対して、遅延のスタイルを選択します (<strong>cr0</strong> は遅延なしを示します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>ff0</strong>,<strong> ff1</strong></td>
+
+<td>用紙送りに対して、遅延のスタイルを選択します (<strong>ff0</strong> は遅延なしを示します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>nl0</strong>,<strong> nl1</strong></td>
+
+<td>NL 文字に対して、遅延のスタイルを選択します (<strong>nl0</strong> は遅延なしを示します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>OFILL</strong></td>
+
+<td>遅延に対して、充てん文字を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ofill (オフィル)</strong></td>
+
+<td>遅延に対してタイミングを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>OCRNL</strong></td>
+
+<td>CR 文字を NL 文字にマップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クラン</strong></td>
+
+<td>CR 文字を NL 文字にマップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>OLCUC</strong></td>
+
+<td>出力時に、小文字の英字を大文字にマップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-オルクック</strong></td>
+
+<td>出力時に、小文字の英字を大文字にマップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ONLCR</strong></td>
+
+<td>NL 文字を CR-NL 文字にマップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-オンクル</strong></td>
+
+<td>NL 文字を CR-NL 文字にマップしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ONLRET</strong></td>
+
+<td>端末上で、NL が CR として機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-オンレット</strong></td>
+
+<td>端末上で、NL は CR として機能しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ONOCR</strong></td>
+
+<td>カラム 0 に CR 文字を出力しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-オノクラ</strong></td>
+
+<td>カラム 0 に CR 文字を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>OPOST</strong></td>
+
+<td>出力を処理します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-オポスト</strong></td>
+
+<td>出力を処理しません。つまり、他のすべての出力オプションを無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>OFDEL</strong></td>
+
+<td>充てん文字として DEL 文字を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-削除 (-ofdel)</strong></td>
+
+<td>充てん文字として NUL 文字を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tab0</strong>,<strong> tab1</strong>,<strong> tab2</strong></td>
+
+<td>水平タブに対して、遅延のスタイルを選択します (<strong>tab0</strong> は遅延なしを示します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>tab3</strong></td>
+
+<td>タブ文字を可変数のスペースに拡張します。</td>
+
+</tr>
+
+<tr>
+<td><strong>vt0</strong>,<strong> vt1</strong></td>
+
+<td>垂直タブに対して、遅延のスタイルを選択します (<strong>vt0</strong> は遅延なしを示します)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><strong>ローカル・モード</strong><div><div><table><thead>
+<tr>
+<th><div>ローカル・モード</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>echo</strong></td>
+
+<td>入力されたすべての文字をエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エコー</strong></td>
+
+<td>文字をエコーしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>制御装置 (echoctl)</strong></td>
+
+<td>制御文字を ^X (Ctrl-X) としてエコーします。
+この X は、制御文字のコードに 8 進の 100 を追加して与えられた文字です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エコー</strong></td>
+
+<td>制御文字を ^X (Ctrl-X) としてエコーしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ECHOE</strong></td>
+
+<td>ERASE 文字を「バックスペース・スペース・バックスペース」という文字列としてエコーします。<div><div>
+        <div>
+          <div><span>注:</span> このモードは列の位置を追跡しないため、タブやエスケープ・シーケンスなどを消去すると、予期しない結果になる可能性があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-エコー</strong></td>
+
+<td>ERASE 文字をエコーせず、バックスペースのみをエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ECHOK</strong></td>
+
+<td>KILL 文字の後の NL 文字をエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エチョク</strong></td>
+
+<td>KILL 文字の後の NL 文字をエコーしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>エコー (echoke)</strong></td>
+
+<td>出力行上の個々の文字を消去することによって、KILL 文字をエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エコー (-echoke)</strong></td>
+
+<td>KILL 文字のみをエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ECHONL</strong></td>
+
+<td>NL 文字をエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エコンル (-echonl)</strong></td>
+
+<td>NL 文字をエコーしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ズボン (echoprt)</strong></td>
+
+<td>消去された文字を / (スラッシュ) および &amp;#xa5; (円記号) を付けて逆方向にエコーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エコパート</strong></td>
+
+<td>消去された文字を / (スラッシュ) および &amp;#xa5; (円記号) を付けて逆方向にエコーしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ICANON</strong></td>
+
+<td>正規入力を使用可能にします (正規入力により、ERASE 文字および KILL 文字による入力行の編集が可能になります)。 「 <span><em>通信プログラミングの概念</em></span>」の「伝送制御手順モジュール (ldterm)」の <strong>正規モード入力</strong> に関する説明を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-アイカノン</strong></td>
+
+<td>正規入力を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>IEXTEN</strong></td>
+
+<td>入力データのインストール定義関数を認識させるように指定します。 制御文字 (<strong>eol2、dsusp、reprint、discard、werase、lnext</strong>) を認識するためには、<strong>iexten</strong> が設定されていることが必要です。 これらのモードに関連する関数 (<strong>imaxbel</strong>、<strong> echoke</strong>、<strong> echoprt</strong>、および<strong> echoctl</strong>) の場合も、<strong>iexten</strong> が設定されている必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エクステン</strong></td>
+
+<td>入力データの導入定義関数を認識しないように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>isig</strong></td>
+
+<td>特殊制御文字 INTR、SUSP および QUIT に対する文字の検査を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-イシグ</strong></td>
+
+<td>特殊制御文字 INTR、SUSP および QUIT に対する文字の検査を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>NOFLSH</strong></td>
+
+<td>INTR、SUSP、または QUIT の制御文字の後にバッファーをクリアしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノフシュ</strong></td>
+
+<td>INTR、SUSP、または QUIT の制御文字の後にバッファーをクリアします。</td>
+
+</tr>
+
+<tr>
+<td><strong>pending</strong></td>
+
+<td>次に読み取り操作が保留になるか、または次に入力が到着したときに、ロー・モードから正規モードに切り替わった後で保留されている入力を再入力させます。 保留は内部状態ビットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>保留</strong></td>
+
+<td>テキストを保留しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>TOSTOP</strong></td>
+
+<td>バックグラウンド出力のための <strong>SIGTOU</strong> を送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-停止</strong></td>
+
+<td>バックグラウンド出力のための <strong>SIGTOU</strong> を送信しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>XCASE</strong></td>
+
+<td>入力時に大文字をエコーし、出力時に前に &amp;#xa5; (円記号) を付けて大文字を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エックスケース</strong></td>
+
+<td>入力時に大文字をエコーしません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>ハードウェア・フロー制御モード
+</strong></p>
+<div>これらのオプションは、 <span>X/Open Portability Guide Issue 4</span> 標準の拡張機能です。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>cdxon (cdxon)</strong></td>
+
+<td>出力時に CD ハードウェア・フロー制御モードを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-cdxon (-cdxon)</strong></td>
+
+<td>出力時に CD ハードウェア・フロー制御モードを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ctsxon (ctsxon)</strong></td>
+
+<td>出力時に CTS ハードウェア・フロー制御モードを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ctsxon (-ctsxon)</strong></td>
+
+<td>出力時に CTS ハードウェア・フロー制御モードを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ドトールオフ</strong></td>
+
+<td>入力時に DTR ハードウェア・フロー制御モードを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ドトールオフ</strong></td>
+
+<td>入力時に DTR ハードウェア・フロー制御モードを使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>ルツクオフ</strong></td>
+
+<td>入力時に RTS ハードウェア・フロー制御モードを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ルツクオフ</strong></td>
+
+<td>入力時に RTS ハードウェア・フロー制御モードを使用不可にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ </section>
+
+<section><h2>制御文字の割り当て</h2><p>文字列に制御文字を割り当てるには、以下のように入力します。</p>
+<div> <div><div><pre><code>stty Control String</code></pre></div><div></div></div></div>
+<div><em>Control</em> パラメーターとして、intr、 quit、 erase、 kill、 eof、 eol、 eol2、 start、 stop、 susp、 dsusp、 reprint、 discard、 werase、 lnext、 min、 または time 文字を指定できます。 (<strong>-icanon</strong> オプションには min または time 文字を使用してください)。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> min および time の値は、文字値ではなく整数値として解釈されます。</div>
+        </div>
+      </div></div>
+</div>
+<p><em>String</em> パラメーターには、 <code>c</code>などの任意の単一文字を指定できます。 この制御割り当ての例を以下に示します。</p>
+<div> <div><div><pre><code>stty stop c</code></pre></div><div></div></div></div>
+<p>制御文字を割り当てるもう 1 つの方法は、 &amp;#xa5;^ (円記号、脱字記号) から成る文字の並びの後に 1 文字が付いた文字列を入力する方法です。 ^ (脱字記号) の後の 1 文字が以下の表の <em>^</em>c (脱字記号、c) 欄にリストされている場合、対応する制御文字の値が設定されます。 例えば、? (疑問符) を使用して DEL 制御文字を割り当てるには、 (疑問符) 文字の場合は、ストリングを入力します。\^?(円記号、脱字記号、疑問符) 文字列を入力します。</p>
+<div> <div><div><pre><code>stty erase \^?</code></pre></div><div></div></div></div>
+<div>
+<div><span>stty における脱字記号制御文字</span><div><table><thead>
+<tr>
+<th><div>^c</div></th>
+
+<th><div>値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>a、A</strong></td>
+
+<td>&lt;SOH&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>b、B</strong></td>
+
+<td>&lt;STX&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>c, C</strong></td>
+
+<td>&lt;ETX&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>d、D</strong></td>
+
+<td>&lt;EOT&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>e、E</strong></td>
+
+<td>&lt;ENQ&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>f, F</strong></td>
+
+<td>&lt;ACK&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>g、G</strong></td>
+
+<td>&lt;BEL&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>h、H</strong></td>
+
+<td>&lt;BS&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>i、I</strong></td>
+
+<td>&lt;HT&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>j、J</strong></td>
+
+<td>&lt;LF&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>k、K</strong></td>
+
+<td>&lt;VT&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>l、L</strong></td>
+
+<td>&lt;FF&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>m、M</strong></td>
+
+<td>&lt;CR&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>n、N</strong></td>
+
+<td>&lt;SO&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>o、O</strong></td>
+
+<td>&lt;SI&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>p、P</strong></td>
+
+<td>&lt;DLE&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>Q、q</strong></td>
+
+<td>&lt;DC1&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>r、R</strong></td>
+
+<td>&lt;DC2&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>S、S</strong></td>
+
+<td>&lt;DC3&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>t、T</strong></td>
+
+<td>&lt;DC4&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>u、U</strong></td>
+
+<td>&lt;NAK&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>v、V</strong></td>
+
+<td>&lt;SYN&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>w、W</strong></td>
+
+<td>&lt;ETB&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>x、X</strong></td>
+
+<td>&lt;CAN&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>y、Y</strong></td>
+
+<td>&lt;EM&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>z、Z</strong></td>
+
+<td>&lt;SUB&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>[</strong></td>
+
+<td>&lt;ESC&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>\</strong></td>
+
+<td>&lt;FS&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>]</strong></td>
+
+<td>&lt;GS&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>^</strong></td>
+
+<td>&lt;RS&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>_</strong></td>
+
+<td>&lt;US&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>?</strong></td>
+
+<td>&lt;DEL&gt;</td>
+
+</tr>
+
+<tr>
+<td><strong>@</strong></td>
+
+<td>&lt;NUL&gt;</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<div>
+<div><div><table><thead>
+<tr>
+<th><div>結合モード</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>クックド</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58274" target="_blank" rel="noopener noreferrer"><strong>-raw</strong></a> オプションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>EK</strong></td>
+
+<td>ERASE 文字と KILL 文字を、それぞれ Ctrl-H および Ctrl-U キー・シーケンスに設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>evenp</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56957" target="_blank" rel="noopener noreferrer"><strong>括弧</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56923" target="_blank" rel="noopener noreferrer"><strong>cs7</strong></a>を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-evenp</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56957" target="_blank" rel="noopener noreferrer"><strong>括弧</strong></a> を使用不可にし、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56923" target="_blank" rel="noopener noreferrer"><strong>cs8</strong></a>を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>lcase</strong>、 <strong>LCASE</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57730" target="_blank" rel="noopener noreferrer"><strong>xcase</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57229" target="_blank" rel="noopener noreferrer"><strong>iuclc</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57399" target="_blank" rel="noopener noreferrer"><strong>olcuc</strong></a>を設定します。 大文字だけを使用するワークステーションに使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-lcase</strong>、 <strong>-LCASE</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57737" target="_blank" rel="noopener noreferrer"><strong>-xcase</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57235" target="_blank" rel="noopener noreferrer"><strong>-iuclc</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57406" target="_blank" rel="noopener noreferrer"><strong>-olcuc</strong></a>を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>nl</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57143" target="_blank" rel="noopener noreferrer"><strong>-icrnl</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57421" target="_blank" rel="noopener noreferrer"><strong>-onlcr</strong></a>を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nl</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57136" target="_blank" rel="noopener noreferrer"><strong>icrnl</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57414" target="_blank" rel="noopener noreferrer"><strong>onlcr</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57197" target="_blank" rel="noopener noreferrer"><strong>-inlcr</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57171" target="_blank" rel="noopener noreferrer"><strong>-igncr</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57392" target="_blank" rel="noopener noreferrer"><strong>-direcnl</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57434" target="_blank" rel="noopener noreferrer"><strong>-onlret</strong></a>。</td>
+
+</tr>
+
+<tr>
+<td><strong>オッドピー</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56957" target="_blank" rel="noopener noreferrer"><strong>括弧</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56923" target="_blank" rel="noopener noreferrer"><strong>cs7</strong></a>を使用可能にします。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56970" target="_blank" rel="noopener noreferrer"><strong>par奇数</strong></a>。</td>
+
+</tr>
+
+<tr>
+<td><strong>-oddp</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56957" target="_blank" rel="noopener noreferrer"><strong>括弧</strong></a> を使用不可にし、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56923" target="_blank" rel="noopener noreferrer"><strong>cs8</strong></a>を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>parity</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58093" target="_blank" rel="noopener noreferrer"><strong>evenp</strong></a> オプションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-parity</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58107" target="_blank" rel="noopener noreferrer"><strong>-evenp</strong></a> オプションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>正気 (sane)</strong></td>
+
+<td>パラメーターを妥当な値にリセットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>raw</strong></td>
+
+<td>ロー・モード入力 (消去、抹消、割り込みなどの入力処理を行いません) を使用可能にします。
+パリティー・ビットは逆に渡されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-raw</strong></td>
+
+<td>正規入力モードを使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>タブ</strong></td>
+
+<td>タブを保存します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-tabs</strong>、 <strong>tab3</strong></td>
+
+<td>出力時にタブをスペースに置き換えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<div>
+<div><div><table><thead>
+<tr>
+<th><div>ウィンドウ・サイズ</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>cols</strong><em> n</em>、<strong>columns</strong><em> n</em></td>
+
+<td>端末 (ウィンドウ) のサイズを、桁数 <em>n</em> で記録します。</td>
+
+</tr>
+
+<tr>
+<td><strong>行</strong><em> 数</em></td>
+
+<td>端末 (ウィンドウ) のサイズを、行数 <em>n</em> で記録します。</td>
+
+</tr>
+
+<tr>
+<td><strong>size</strong></td>
+
+<td>端末 (ウィンドウ) のサイズを、標準出力に表示します (最初に行、次に桁)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ </section>
+
+<section><h2>旧バージョンのオプション</h2> <div>以下の BSD オプションは、<strong>stty</strong> コマンドによってサポートされます。 それぞれ、推奨の POSIX オプションを記載してあります。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>all</strong></td>
+
+<td>現在のすべての設定を表示するには、 <strong>stty</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56807" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> コマンドを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>crt</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58262" target="_blank" rel="noopener noreferrer"><strong>sane</strong></a> オプションは、パラメーターを妥当な値にリセットするために使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>三頭</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57560" target="_blank" rel="noopener noreferrer"><strong>-echoe</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>crterase (crterase)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57550" target="_blank" rel="noopener noreferrer"><strong>echoe</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クレターゼ</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57560" target="_blank" rel="noopener noreferrer"><strong>-echoe</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>crtkill (crtkill)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57581" target="_blank" rel="noopener noreferrer"><strong>echoke</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クルトキル</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57567" target="_blank" rel="noopener noreferrer"><strong>echok</strong></a> オプションと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57588" target="_blank" rel="noopener noreferrer"><strong>-echoke</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>ctlecho (ctlecho)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57536" target="_blank" rel="noopener noreferrer"><strong>echoctl</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ctlecho (-ctlecho)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57543" target="_blank" rel="noopener noreferrer"><strong>-echoctl</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>10 進数 (DECCTLQ)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57247" target="_blank" rel="noopener noreferrer"><strong>-ixany</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-デクトク</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57241" target="_blank" rel="noopener noreferrer"><strong>ixany</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>偶数</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58093" target="_blank" rel="noopener noreferrer"><strong>evenp</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>偶数</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58107" target="_blank" rel="noopener noreferrer"><strong>-evenp</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>すべて</strong></td>
+
+<td>現在のすべての設定を表示するには、 <strong>stty</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56807" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> コマンドを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>リトアウト</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57458" target="_blank" rel="noopener noreferrer"><strong>-opost</strong></a> オプションを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-消灯</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57452" target="_blank" rel="noopener noreferrer"><strong>opost</strong></a> オプションを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>奇数</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58209" target="_blank" rel="noopener noreferrer"><strong>oddp</strong></a> オプションを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-奇数</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58227" target="_blank" rel="noopener noreferrer"><strong>-oddp</strong></a> オプションを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>pass8</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57222" target="_blank" rel="noopener noreferrer"><strong>-istrip</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-pass8</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57215" target="_blank" rel="noopener noreferrer"><strong>istrip</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>prterase (prterase)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57608" target="_blank" rel="noopener noreferrer"><strong>echoprt</strong></a> オプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>speed</strong></td>
+
+<td>現行設定を表示するには、<strong>stty</strong> コマンドを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>タンデム</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57253" target="_blank" rel="noopener noreferrer"><strong>ixoff</strong></a> オプションを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>タンデム (-tandem)</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e57260" target="_blank" rel="noopener noreferrer"><strong>-ixoff</strong></a> オプションを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ </section>
+
+<section><h2>例</h2> <ol>
+<li>ワークステーション構成の簡潔なリストを表示するには、以下のように入力します。<div> <div><div><pre><code>stty</code></pre></div><div></div></div>これによって、デフォルトではない設定がリストされます。</div>
+</li>
+
+<li>ワークステーション構成の完全なリストを表示するには、以下のように入力します。<div>stty  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e56807" target="_blank" rel="noopener noreferrer">-a</a></div>
+</li>
+
+<li>画面上でのリストのスクロールを停止するキー・シーケンスを使用可能にするには、以下のように入力します。<div> <div><div><pre><code>stty ixon ixany</code></pre></div><div></div></div>これによって、<strong>ixon</strong> モードが設定されます。
+このモードでは、Ctrl-S キー・シーケンスを押すことにより、ランナウェイ・リストのスクロールを停止できます。 <strong>ixany</strong> フラグを指定すると、任意のキーを押すことによりリスト表示を再開できます。 通常のワークステーション構成には、<strong>ixon</strong> および <strong>ixany</strong> フラグが含まれているので、これらのフラグを設定すると、再開に Ctrl-Q キー・シーケンスのみが使用できる Ctrl-S キー・シーケンスによって、リスト表示を停止できます。</div>
+</li>
+
+<li><span></span>構成が乱れた後にその構成をリセットするには、次のように入力します。<div>Ctrl-J stty  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/stty.html#stty__row-d3e58262" target="_blank" rel="noopener noreferrer">sane </a>Ctrl-J</div>コマンドの前後で Enter キーの代わりに Ctrl-J キー・シーケンスを押してください。 通常、システムは Enter キー処理を制御するパラメーターが破壊された場合に、Ctrl-J キー・シーケンスを認識します。<p>画面に表示される情報が異常となる場合や、Enter キーを押してもシステムが応答しないことが時々あります。 互換性のないパラメーターまたはユーザーが理解できないことを行うパラメーターを指定して <strong>stty</strong> コマンドを使用した場合に、このようなことが起こります。 また、画面指向のアプリケーションが異常終了し、ワークステーション構成をリセットする機会がない場合にも、発生します。</p>
+  <p><strong>stty sane</strong> コマンドを入力すると、妥当な構成が設定されますが、通常の構成とは多少異なる場合があります。</p>
+</li>
+
+<li><span></span>端末の構成を保管および復元するには、次のようにします。<div> <div><div><pre><code>OLDCONFIG=`stty -g`          # save configuration
+stty -echo                   # do not display password
+echo "Enter password: \c"
+read PASSWD                  # get the password
+stty $OLDCONFIG              # restore configuration</code></pre></div><div></div></div>このコマンドによって、ワークステーションの構成が保管され、エコーがオフになり、パスワードが読み取られ、元の構成が復元されます。</div>
+ <p><strong>stty</strong> <strong>-</strong><strong>echo</strong> コマンドを入力すると、エコーはオフになります。つまり、キーボードでパスワードを入力しても、パスワードは画面に表示されません。 このアクションは、メッセージを画面に表示する <strong>echo</strong> コマンドとは無関係です。</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>/ <strong>usr</strong> / <strong>bin</strong> / <strong>stty</strong></td>
+
+<td><strong>stty</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

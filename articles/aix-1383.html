@@ -1,0 +1,115 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート・マシンにログオンしたユーザーのリストを報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/bin/rusers</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183087" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183105" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183115" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183093" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183099" target="_blank" rel="noopener noreferrer"><strong>-i </strong></a>] [ <em>ホスト ...</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rusers</strong> コマンドは、リモート・コンピューターにログオンしたユーザーのリストを作成します。 <strong>rusers</strong> コマンドは、そのために、ローカル・ネットワーク上の各コンピューターに対してブロードキャストを行い、受信した応答を出力することにより、
+リストを作成します。 通常、システムは、受信した順序で応答を出力します。 この順序を変更するには、
+いずれかのフラグを指定します。 さらに、<em>Host</em> パラメーターを指定すると、<strong>rusers</strong> コマンドは、
+全ホストにブロードキャストを行うのではなく、指定された 1 台以上のホストを照会します。</p>
+ <p>デフォルトでは、各エントリーに、各コンピューターのユーザーのリストが含まれます。 これらのエントリーには、そのコンピューターにログインしている全ユーザーの名前が含まれます。 さらに、ユーザーが 1 分間以上システムに入力を行わないと、<strong>rusers</strong> コマンドは、そのユーザーのアイドル時間を報告します。</p>
+ <div>リモート・ホストが応答するのは、<strong>rusersd</strong> デーモンを実行している場合に限ります。このデーモンは通常、<strong>inetd</strong> デーモンから開始されます。<div><div>
+        <div>
+          <div><span>注:</span> ブロードキャスティングはゲートウェイを介して機能しません。 したがって、ホストを指定しない場合には、使用中のネットワーク上のホストだけが、<strong>rusers</strong> コマンドに応答可能です。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>ログインしているユーザーが存在しない場合でも、コンピューターのレポートを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>アルファベット順にホスト名でソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>アイドル時間でソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><strong>who</strong> コマンドと似た長めのリストを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ユーザー数でソートします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>リモート・マシンにログインしているネットワーク上のユーザーのリストを作成するには、次のように入力します。<div> <div><div><pre><code>rusers</code></pre></div><div></div></div></div>
+</li>
+
+<li>ユーザーのリストを、アルファベット順にホスト名でソートした形で作成するには、次のように入力します。<div>rusers  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183093" target="_blank" rel="noopener noreferrer">-h</a></div>
+</li>
+
+<li>ホスト上のユーザーのリストを作成するには、次のように入力します。<div>rusers  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183093" target="_blank" rel="noopener noreferrer">-h </a>pluto</div>この例では、 <strong>RUser</strong> コマンドは、以下の名前のホスト上のユーザーのリストを生成します。pluto.</li>
+
+<li>リモート・マシンにログインしているユーザーのリストを、各コンピューターのアイドル時間の長さでソートした形で作成するには、次のように入力します。<div>rusers  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183099" target="_blank" rel="noopener noreferrer">-i</a> </div>
+</li>
+
+<li>リモート・マシンにログインしているユーザーのリストを、ログイン・ユーザー数でソートした形で作成するには、次のように入力します。<div>rusers  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rusers.html#rusers__row-d3e183115" target="_blank" rel="noopener noreferrer">-u</a> </div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/inetd.conf</strong></td>
+
+<td>RPC デーモンと他の TCP/IP デーモンを始動する TCP/IP 構成ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

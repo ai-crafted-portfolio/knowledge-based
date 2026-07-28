@@ -1,0 +1,137 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ディスク使用状況とクォータを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>割り当て量</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quota.html#quota__row-d3e126419" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> [ <em>User </em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quota.html#quota__row-d3e126413" target="_blank" rel="noopener noreferrer"><strong>-g </strong></a>[<em> グループ </em>]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quota.html#quota__row-d3e126425" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quota.html#quota__row-d3e126431" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>quota</span></span> コマンドは、ディスク使用量と割り当て量を表示します。 デフォルトでは、または <span><span>-u</span></span> フラグを使用すると、ユーザー・クォータのみが表示されます。 <span><span>quota</span></span> コマンドは、<span><span> /etc/filesystems</span></span> ファイルにリストされているすべてのファイルシステムの割り当て量を報告します。 <span><span>quota</span></span> コマンドがゼロ以外の状況で終了した場合、1 つ以上のファイル・システムが割り当て量を超えています。</p>
+ <div>root ユーザーは、オプションの User パラメーターを指定して <span><span>-u</span></span> フラグを使用し、他のユーザーの制限を表示することができます。 root ユーザー権限を持たないユーザーは、オプションの Group パラメーターを指定した <span><span>-g</span></span> フラグを使用して、自分がメンバーであるグループの制限を表示できます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>JFS ファイル・システムでは、特定のユーザーが割り当て量を持っているファイル・システム内にそのユーザーがファイルを持っていない場合、このコマンドは以下のように表示します。quota:
+none表示されます。 ユーザーの実際の割り当て量は、ユーザーがファイル・システムにファイルを持っている場合、または <span><span>-v</span></span> フラグが指定されている場合に表示されます。 JFS2 の場合、すべてのケースでユーザーの実際のクォータが表示されます。</li>
+
+<li>JFS2 システムでは、root ユーザーはクォータによって制限を受けることがないため、root ユーザーの限界は常にゼロ (無制限) として表示されます。</li>
+
+<li>rpc.rquotad プロトコルは、NFS のグループ・クォータをサポートしていません。 このため、このプロトコルは
+NFS に対するグループ・クォータ情報を戻しません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-g</strong></td>
+
+<td>ユーザーのグループのクォータを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ユーザーのクォータを表示します。 このフラグはデフォルトのオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ストレージが割り当てられていないときのファイルシステム上のクォータを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>使用量がクォータを超えているファイルシステムについての情報のみを示す簡潔なメッセ
+ージを表示します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-q</strong> フラグは <strong>-v</strong> フラグよりも優先されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは root ユーザーと bin グループによって所有されています。</p>
+ <p>特権制御: このプログラムは、非特権ユーザーが個人クォータを見ることができるように、<strong>setuid</strong> するようになっています。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>割り当て量をユーザーとして表示するにはkeith、タイプ:<div> <div><div><pre><code>quota  </code></pre></div><div></div></div>シス
+テムは、次の情報を表示します。<div><div><pre><code>User quotas for user keith (uid 502):
+Filesystem  blocks  quota  limit  grace  Files  quota limit grace
+        /u      20     55     60            20     60    65</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ユーザーの root ユーザーとして割り当て量を表示するには、以下のようにします。davec、タイプ:<div> <div><div><pre><code>quota -u davec</code></pre></div><div></div></div>シス
+テムは、次の情報を表示します。<div><div><pre><code>User quotas for user davec (uid 2702):
+Filesystem  blocks  quota  limit  grace  files  quota limit grace
+        /u      48     50     60             7     60    60</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>quota.user</strong></td>
+
+<td>ユーザー・クォータを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>quota.group</strong></td>
+
+<td>グループ・クォータを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステム名およびロケーションが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,51 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムで使用できる特権を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lspriv</strong> [ <strong>-v</strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lspriv</strong> コマンドは、システムで使用できる特権を表示します。 <span>ワークロード区画</span> (<span>WPAR</span>) 内で実行する場合、 <strong>lspriv</strong> コマンドは、その区画で使用可能な特権のみを表示します。 <strong>-v</strong> フラグが指定されると、<strong>lspriv</strong> コマンドは特権記述も表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-v</strong></td>
+
+<td>特権ごとの特権記述を表示することを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>すべてのユーザーがシステム上で <strong>lspriv</strong> コマンドを実行することができます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システムで使用できるすべての特権を表示するには、次のコマンドを使用します。<div><div><pre><code>lspriv
+</code></pre></div><div></div></div>システムは、次の例に示すような出力を表示します。<div><div><pre><code>PV_ROOT
+PV_AU_
+PV_AU_ADD
+PV_AU_ADMIN
+PV_AU_READ
+...</code></pre></div><div></div></div></li>
+
+<li>システムで使用できるすべての特権およびそのテキスト記述を表示するには、次のコマンドを使用します。<div><div><pre><code>lspriv -v</code></pre></div><div></div></div>システムは、次の例に示すような出力を表示します。<div><div><pre><code>PV_ROOT Allows a process to pass any non-SU privilege check.
+PV_AU_ Equivalent to all Auditing privileges (PV_AU_*) combined.
+PV_AU_ADD Allows a process to record/add an audit record.
+PV_AU_ADMIN Allows a process to configure and query the audit system.
+PV_AU_READ Allows a process to read a file marked as an audit file.
+...</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

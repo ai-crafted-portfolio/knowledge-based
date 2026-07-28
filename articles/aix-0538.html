@@ -1,0 +1,2049 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムをデバッグします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>JFDB</strong><em> FileSystem</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__row-d3e118864" target="_blank" rel="noopener noreferrer"><strong>- ]</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>fsdb</strong> コマンドを使用すると、<em>FileSystem</em> パラメーターで指定したファイルシステムを検査、変更、デバッグすることができます。 このコマンドは、ブロック、i ノード、ディレクトリーなど、ファイルシステム・オブジェクトにアクセスできるようにします。 <strong>fsdb</strong> コマンドは、損傷したファイルシステムを検査し、補修します。 ファイルシステムのキー・コンポーネントは、記号により参照することができます。 この機能により、制御ブロック・エントリーを訂正したり、ファイルシステム・ツリーの階層を下降する手順を単純化できます。</p>
+ <p>ファイルシステムを検査するには、ブロック・デバイス名、ロウ・デバイス名、マウントされているファイルシステム名で指定します。 最後のケースでは、 <strong>fsdb</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/filesystems.html" target="_blank" rel="noopener noreferrer"><strong>/etc/filesystems</strong></a> ファイルを読み取って、関連するファイルシステム名を判別します。 マウントされているファイルシステムを変更することはできません。</p>
+ <p><strong>fsdb</strong> コマンドでは、
+JFS ファイルシステムと JFS2 ファイルシステムにそれぞれ別のインターフェースが用意されています。 以下で、JFS ファイルシステムでの <strong>fsdb</strong> の使用方法を説明します。 JFS2 サブコマンドについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__jfs2sub" target="_blank" rel="noopener noreferrer">JFS2 サブコマンド</a> を参照してください。</p>
+ <p>指定されているファイルシステムが JFS2 スナップショットである場合、<strong>fsdb</strong> コマンド
+は、スナップショット・スーパーブロック、スナップショット・マップ、ブロック・マップ xtree コピー、
+セグメント・ヘッダーの検査および修正を使用可能にします。 JFS2 スナップショット・サブコマンドについては、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__jfs2snapsub" target="_blank" rel="noopener noreferrer">JFS2 Snapshot サブコマンド</a> 」を参照してください。</p>
+ <p><strong>fsbd</strong> コマンドの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__a10193169" target="_blank" rel="noopener noreferrer">サブコマンド</a> を使用すると、ファイルシステム内の情報をアクセス、表示、または変更することができます。 サブコマンドに入力する数値は、前に 8 進数を示す 0 または 16 進数を示す 0x を付けなければ、
+デフォルトで 10 進数と見なされます。 すべてのアドレスは 16 進で出力されます。</p>
+ <p><strong>fsdb</strong> fsdb コマンドは一度に 1 ブロックずつ読み書きするので、未加工の入出力にもブロック入出力にも機能します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>i ノードおよびブロック・アドレスを検査するためのエラー検査ルーチンを使用不可にします。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__row-d3e119674" target="_blank" rel="noopener noreferrer"><strong>O</strong></a> サブコマンドは、これらのルーチンのオン/オフを切り替えます。 エラー検査ルーチンの実行中に、<strong>fsdb</strong> コマンドはスーパーブロックから重要なファイルシステム・データを読み取ります。 取り出された情報により、<strong>fsdb</strong> コマンドは各種ファイルシステム・オブジェクトに正常にアクセスし、各種のエラー検査を実行することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>サブコマンド</h2> <p><strong>fsdb</strong> サブコマンドは、ファイルシステム内で情報を見つけ、表示または変更するための要求です。 サブコマンドの主なカテゴリーは以下のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>カテゴリー</strong></td>
+
+<td><strong>FUNCTION</strong></td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__sq2li116ria" target="_blank" rel="noopener noreferrer">location</a></td>
+
+<td>ファイルシステム内の情報にアクセスします。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__rq2li1cria" target="_blank" rel="noopener noreferrer">Display</a></td>
+
+<td>ファイルシステム内の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__er2li212ria" target="_blank" rel="noopener noreferrer">変更</a></td>
+
+<td>ファイルシステム内の情報を変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>さらに、いくつかの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__a3t2li3aeria" target="_blank" rel="noopener noreferrer">各種</a> サブコマンドがあります。</p>
+<p><strong>ロケーション・サブコマンド</strong></p>
+ <p>位置サブコマンドには、次の 2 つのタイプがあります。</p>
+ <div> <div><div><pre><code>Number[ I | M | i | b ]</code></pre></div><div></div></div>  <div><div><pre><code>OR</code></pre></div><div></div></div>  <div><div><pre><code>dDirectorySlot</code></pre></div><div></div></div></div>
+ <p>第 1 のタイプは、番号と、その後にオプションとして続くアドレス指定で構成されています。 アドレス指定は、先行の番号をどのように解釈するかを定義します。 <em>Number</em> 変数の持つ 4 とおりの解釈に対して、4 つのアドレス指定があります。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>I</strong></td>
+
+<td>i ノード・マップ・ブロック番号</td>
+
+</tr>
+
+<tr>
+<td><strong>M</strong></td>
+
+<td>ディスク・マップ・ブロック番号</td>
+
+</tr>
+
+<tr>
+<td><strong>i</strong></td>
+
+<td>i ノード番号</td>
+
+</tr>
+
+<tr>
+<td><strong>b</strong></td>
+
+<td>フラグメント番号</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>アドレス指定に応じて (またはアドレス指定がないことにより)、このタイプの位置サブコマンドは次の情報にアクセスします。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>Number</em></td>
+
+<td><em>Number</em> 変数で指定された絶対バイト・オフセットにあるデータにアクセスします。</td>
+
+</tr>
+
+<tr>
+<td><strong>マップ</strong><em>ブロック番号</em></td>
+
+<td><em>MapBlockNumber</em> 変数で指定された i ノード・マップ・ブロックにアクセスします。</td>
+
+</tr>
+
+<tr>
+<td><strong>マップ</strong><em>ブロック番号M</em></td>
+
+<td><em>MapBlockNumber</em> 変数で指定されたディスク・マップ・ブロックにアクセスします。</td>
+
+</tr>
+
+<tr>
+<td><em>イノード</em><strong>番号</strong></td>
+
+<td><em>InodeNumber</em> 変数で指定された i ノードにアクセスします。</td>
+
+</tr>
+
+<tr>
+<td><em>フラグメント番号</em><strong>b</strong></td>
+
+<td><em>FragmentNumber</em> 変数で指定されたファイルシステム・ブロックにアクセスします。 フラグメント番号は、ブロック・アドレスとエンコードされた長さから成ります。 完全なフラグメント・アドレスの長さは 32 ビットです。 下位 28 ビットは開始フラグメント・アドレスです。 このフラグメント長は、残りの 4 ビットでエンコードされます。すなわち、ブロ
+ック全体より少ないフラグメント数でエンコードされます。 例えば、1024 バイトのフラグメントで構成されるファイルシステムでは、次のアドレスは、0x2000010f1KB ブロック番号で始まるブロックを参照します。0x10f長さは 2KB です。 対照的に、512 バイト・フラグメントのファイルシステムでは、アドレスは0x2000010f512 バイト・ブロックで始まるブロックを参照します。0x10f長さは 3072 (512 * 6) バイトです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>第 2 のタイプの位置サブコマンドは、ディレクトリーのエントリーにアクセスするために使用します。 このサブコマンドは、文字 <strong>d</strong> と後続のディレクトリー・スロット番号で構成されています。 ディレクトリー・スロット番号は、それに関連する i ノードのブロックごとに 0 から始まります。</p>
+ <p>このタイプの位置サブコマンドは、次の情報にアクセスします。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>d</em><strong>ディレクトリスロット</strong></td>
+
+<td><em>DirectorySlot</em> 変数で索引付けされている現在の i ノードのディレクトリー・エントリーにアクセスします。 割り当て済みのディレクトリー・エントリーのみを、この位置サブコマンドで操作することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>表示サブコマンド</strong></p>
+ <p>アドレス指定に関する情報を表示するには、次のように表示機能と表示フォーマットをそれぞれ 1 つずつ合わせて構成される表示サブコマンドを使用します。</p>
+ <p><strong>P</strong>[<em>数値</em>]{ <strong>I</strong> | <strong>D</strong> | <strong>O</strong> | <strong>E</strong> | <strong>C</strong> | <strong>B</strong> | <strong>Y</strong> | <strong>分</strong> | <strong>私は</strong> | <strong>X</strong> | <strong>S</strong> | <strong>D 日</strong> }</p>
+ <p>または</p>
+ <p><strong>F</strong>[<em>数値</em>]{ <strong>I</strong> | <strong>D</strong> | <strong>O</strong> | <strong>E</strong> | <strong>C</strong> | <strong>B</strong> | <strong>Y</strong> | <strong>分</strong> | <strong>私は</strong> | <strong>X</strong> | <strong>S</strong> | <strong>D 日</strong> }</p>
+ <p>表示機能は次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>p</strong></td>
+
+<td>汎用機能を示します。 汎用表示サブコマンドを使用すると、現行アドレスに関するデータが表示されます。 <strong>p</strong> 記号の後に数を入力すると、<strong>fsdb</strong> コマンドはエントリーの数を表示します。 また、ブロック境界のオーバーフローを検出するための検査が実行されます。 0 または * (アスタリスク) を入力すると、<strong>fsdb</strong> コマンドは現行フラグメントの終わりまでのすべてのエントリーを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>F</strong></td>
+
+<td>ファイル機能を示します。 ファイル表示サブコマンドを使用すると、現行 i ノードに関連するデータ・ブロックが表示されます。 <strong>f</strong> 記号の後に数を入力すると、<strong>fsdb</strong> コマンドはファイル・ブロックを表示します。 ブロック番号付けは 0 から始まります。 表示形式はブロック番号に従います。 ブロック番号を指定せずに <strong>f</strong> を入力すると、<strong>fsdb</strong> コマンドはデフォルトで現行 i ノードのブロック 0 を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>この 2 つの機能の表示フォーマットは次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>i</strong></td>
+
+<td>i ノードとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>d</strong></td>
+
+<td>ディレクトリーとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>O</strong></td>
+
+<td>8 進ワードとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>e</strong></td>
+
+<td>10 進ワードとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>C</strong></td>
+
+<td>文字として表示</td>
+
+</tr>
+
+<tr>
+<td><strong>b</strong></td>
+
+<td>8 進バイトとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>y</strong></td>
+
+<td>16 進バイトとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>M</strong></td>
+
+<td>ディスク・マップ・エントリーとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>I</strong></td>
+
+<td>i ノード・マップ・エントリーとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td>16 進ワードとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>S</strong></td>
+
+<td>単一間接ブロックとして表示</td>
+
+</tr>
+
+<tr>
+<td><strong>D</strong></td>
+
+<td>ダブル間接ブロックとして表示</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>選択した表示機能および表示フォーマットは、<strong>fsdb</strong> コマンドの処理中、明示的に変更されるまでは有効です。 指定したアドレスが適切な境界内に入らなかった場合、境界が不適当であることを示すエラー・メッセージが表示されます。</p>
+ <p><em>Number</em>、<em>MapBlockNumber</em><strong>I</strong>、<em>FragmentNumber</em> <strong>b</strong> 位置サブコマンドを使用して i ノード情報にアクセスすると、各バイト、ワード、ダブルワードを検査できます。 次のサブコマンドのうちの 1 つを入力して希望する表示モードを選択します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>B</strong></td>
+
+<td>バイト・モードで表示を開始</td>
+
+</tr>
+
+<tr>
+<td><strong>D</strong></td>
+
+<td>ダブルワード・モードで表示を開始</td>
+
+</tr>
+
+<tr>
+<td><strong>W</strong></td>
+
+<td>ワード・モードで表示を開始</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>情報内を前後に動くことができます。 境界は表示画面とともに前進し、最後に表示された項目のアドレスに残ります。 INTERRUPT キーを押せば、いつでも出力を終了させることができます。 次の記号を使うと、情報内を移動することができます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em> 数値</em></td>
+
+<td>現在有効になっている指定した単位数だけ前方に移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>数値</em></td>
+
+<td>現在有効になっている指定した単位数だけ後方に移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次の記号を使えば、現行アドレスを保存し、簡単にそのアドレスに戻ることができます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>&gt;</strong></td>
+
+<td>現行アドレスを保管します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&lt;</strong></td>
+
+<td>以前に保管されたアドレスに戻ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>サブコマンドの区切り文字としてドット、タブ、スペースを使えますが、16 進数として解釈される可能性のあるサブコマンドから 16 進数を区切る場合にのみ必要です。 Enter キーを押すと (ブランク行を入力する)、最後に表示されたデータ・タイプのサイズ分だけ、現行アドレスが増加されます。 つまり、アドレスが次のバイト、ワード、ダブルワード、ディレクトリー・エントリー、
+または i ノードに設定され、ファイルシステムの領域を進むことができます。</p>
+ <p><strong>fsdb</strong> コマンドは、データ・タイプに適切なフォーマットで情報を表示します。 バイト、ワード、ダブルワードは 16 進アドレスとして表示され、その後にそのアドレスの位置にあるデータが 16 進数で表示され、さらに等価の 10 進数が括弧内に表示されます。 <strong> fsdb</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__row-d3e119335" target="_blank" rel="noopener noreferrer"><strong>を追加します。B</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__row-d3e119341" target="_blank" rel="noopener noreferrer"><strong>。バイト値またはダブルワード値の表示を示すために、アドレスの末尾に D</strong></a> 接尾部を付けます。 10 進 i ノード番号とエントリー名の文字表現の前に、ディレクトリー・スロット・オフセットとしてディレクトリーを表示します。 また、各エレメントを記述するラベル付きフィールドとして i ノード番号を表示します。 環境変数は日付フィールドおよび時間フィールドのフォーマットを制御します。</p>
+<p><strong>変更サブコマンド</strong></p>
+ <p>フィールド指定 (i ノード内のフィールドとディレクトリー内のフィールドの場合) を使うと、アドレス指定に関連する情報を変更できます。 新しい値を割り当てる一般的なフォーマットは <em>mnemonic operator new-value</em> です。ここで、<em>mnemonic</em> パラメーターは次のリストで説明するいずれかのフィールドを表します。</p>
+ <p>次のニーモニックは、i ノード番号のフィールド名に使用され、現在作業中の i ノードを指します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>md</td>
+
+<td>許可モード</td>
+
+</tr>
+
+<tr>
+<td>ln</td>
+
+<td>リンク・カウント</td>
+
+</tr>
+
+<tr>
+<td>uid</td>
+
+<td>ユーザー番号</td>
+
+</tr>
+
+<tr>
+<td>gid</td>
+
+<td>グループ番号</td>
+
+</tr>
+
+<tr>
+<td>sz</td>
+
+<td>ファイル・サイズ</td>
+
+</tr>
+
+<tr>
+<td>a<em>Number</em></td>
+
+<td>データ・ブロック番号 (0 から 8)。この場合の <em>Number</em> パラメーターは位置サブコマンドでもかまいません。</td>
+
+</tr>
+
+<tr>
+<td>at</td>
+
+<td>アクセス時間</td>
+
+</tr>
+
+<tr>
+<td>mt</td>
+
+<td>変更時間</td>
+
+</tr>
+
+<tr>
+<td>maj</td>
+
+<td>メジャー・デバイス番号</td>
+
+</tr>
+
+<tr>
+<td>min</td>
+
+<td>マイナー・デバイス番号</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次のニーモニックは i ノードおよびディスク・マップに関するものです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>mf</td>
+
+<td>未使用マップ数</td>
+
+</tr>
+
+<tr>
+<td>ms</td>
+
+<td>マップ・サイズ</td>
+
+</tr>
+
+<tr>
+<td>mp</td>
+
+<td>永久割り当てビットマップ</td>
+
+</tr>
+
+<tr>
+<td>mw</td>
+
+<td>作業中割り当てビットマップ</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次のニーモニックはディレクトリー内のフィールド名に使用されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>rl</td>
+
+<td>ディレクトリー・エントリー・レコードの長さ</td>
+
+</tr>
+
+<tr>
+<td>nl</td>
+
+<td>ディレクトリー名の長さ</td>
+
+</tr>
+
+<tr>
+<td>nm</td>
+
+<td>ディレクトリー名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><em>Operator</em> パラメーターの有効な値は次のとおりです。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> ファイル・システムは、変更を試みる前にアンマウントする必要があります。<span>”</span></blockquote>
+<p></p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>=</strong></td>
+
+<td><em>New-Value</em> パラメーターの値を、指定された <em>Mnemonic</em> パラメーターに割り当てします。</td>
+
+</tr>
+
+<tr>
+<td><strong>=+</strong></td>
+
+<td><em>Mnemonic</em> パラメーターの値を、指定された <em>New-Value</em> パラメーターの値だけ増やします。 デフォルトの <em>New-Value</em> パラメーターの値は 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>=-</strong></td>
+
+<td><em>Mnemonic</em> の値を指定された <em>New-Value</em> の値だけ、減らします。 デフォルトの <em>New-Value</em> の値は 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>="</strong></td>
+
+<td><em>New-Value</em> パラメーターで指定された文字列を、
+指定された <em>Mnemonic</em> パラメーターに割り当てます。 現行の表示形式がディレクトリーの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fsdb.html#fsdb__row-d3e119243" target="_blank" rel="noopener noreferrer"><strong>d</strong></a> アドレス指定であり、ニーモニックが指定されていない場合は、ディレクトリー名が変更されます。 新しいディレクトリー名は前のディレクトリー名よりも長くすることはできません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>その他のサブコマンド</strong></p>
+ <p>その他のサブコマンドは次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>q</strong></td>
+
+<td>終了。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>x</strong> <em>n</em></td>
+
+<td>ディレクトリーを <em>n</em> バイト拡張します。
+<em>n</em> とディレクトリーの現行サイズの和が、現行ディレクトリーの
+フラグメントのサイズ (バイト) より大きくならないように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>!</strong></td>
+
+<td>シェルにエスケープします。</td>
+
+</tr>
+
+<tr>
+<td><strong>O</strong></td>
+
+<td>エラー検査を切り替えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>JFS2 サブコマンド
+</strong></p>
+ <p>これらのサブコマンドは、その完全名を指定して、
+あるいは名前のサブセットを使用することによって、入力できます。 少なくとも、太字の部分は入力しなければなりません。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>a</strong>[lter] &lt; block&gt; &lt; offset&gt; &lt; 16 進数ストリング&gt;</td>
+
+<td>ディスク・データを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong> b</strong>[マップ] [&lt; ブロック番号&gt;]</td>
+
+<td>ブロック割り当てマップを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>dir</strong>[ectory] &lt; i ノード番号&gt; [&lt; fileset&gt;] [R]</td>
+
+<td>ディレクトリー・エントリーを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>d</strong>[isplay] [&lt; block&gt; [&lt; offset&gt; [&lt; format&gt; [&lt; count&gt;]]]]</td>
+
+<td>データを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>dt</strong>[ree] {&lt; ブロック番号&gt; | &lt; i ノード番号&gt;{a | f } }</td>
+
+<td>dtree ノードを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>h</strong>[elp] [&lt; コマンド&gt;]</td>
+
+<td>サブコマンド上でヘルプを提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ia</strong>[g] [&lt; IAG number&gt;] [a | &lt; ファイルセット&gt;]</td>
+
+<td>IAG ページを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>im</strong>[ap] [a | &lt; ファイルセット&gt;]</td>
+
+<td>i ノード割り当てマップを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>i</strong>[ノード] [&lt; inode number&gt;] [a | &lt; fileset&gt;]</td>
+
+<td>i ノードを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>q</strong> [uit］</td>
+
+<td>fsdb を終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>su</strong>[パーブロック] [p | s]</td>
+
+<td>スーパーブロックを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong>[ツリー] {&lt; ブロック番号&gt; | &lt; i ノード番号&gt;{a | f}}</td>
+
+<td>xtree ノードを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <dl>
+<dt><strong>a</strong>[lter] &lt; block&gt; &lt; offset&gt; &lt; 16 進数ストリング&gt;</dt>
+
+<dd>ここで:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;offset&gt;</td>
+
+<td>ブロック内のオフセット (16 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;hex string&gt;</td>
+
+<td>16 進数の文字列</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>ディスク・データを変更します。 &lt; hex string&gt; には、偶数個の数字が含まれている必要があります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>b</strong>[マップ] [&lt; block numbers&gt;]</dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>ブロック割り当てマップを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> &lt; block number&gt; このブロック番号を記述する <strong>dmap</strong> ページを表示します</dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>m</strong></td>
+
+<td>現行ノードを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>u</strong></td>
+
+<td>上位レベル <strong>bmap</strong> ページに移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>l</strong></td>
+
+<td>左側の兄弟に移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td>右側の兄弟に移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>w</strong></td>
+
+<td>wmap を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>p</strong></td>
+
+<td>pmap を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>s</strong></td>
+
+<td>stree を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td>サブコマンド・モードを終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>dir</strong>[ectory] &lt; i ノード番号&gt; [&lt; fileset&gt;] [R]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;inode number&gt;</td>
+
+<td>ディレクトリーの i ノード番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;fileset&gt;</td>
+
+<td>番号。現在の番号はゼロでなければなりません。</td>
+
+</tr>
+
+<tr>
+<td>R</td>
+
+<td>すべてのサブディレクトリーを繰り返しリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>ディレクトリー・エントリーを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>d</strong>[isplay] [&lt; block&gt; [&lt; offset&gt; [&lt; format&gt; [&lt; count&gt;]]]]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;offset&gt;</td>
+
+<td>ブロック内のオフセット (16 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;format&gt;</td>
+
+<td>データを表示する形式 (下記を参照のこと)</td>
+
+</tr>
+
+<tr>
+<td>&lt;count&gt;</td>
+
+<td>表示するオブジェクトの番号 (10 進数)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>各種の形式でデータを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>形式は、以下のいずれかになります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>a</td>
+
+<td>ASCII</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td>i</td>
+
+<td>i ノード</td>
+
+<td>struct dinode</td>
+
+</tr>
+
+<tr>
+<td>I</td>
+
+<td>i ノード割り当てマップ</td>
+
+<td>iag_t</td>
+
+</tr>
+
+<tr>
+<td>s</td>
+
+<td>スーパーブロック</td>
+
+<td>struct superblock</td>
+
+</tr>
+
+<tr>
+<td>x</td>
+
+<td>16 進数</td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>dt</strong>[ree] {&lt; ブロック番号&gt; | &lt; i ノード番号&gt;{a | f}}</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block number&gt;</td>
+
+<td>dtree ページがあるブロック番号</td>
+
+</tr>
+
+<tr>
+<td>&lt;inode number&gt;</td>
+
+<td>ディレクトリーの i ノード番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>{a | f}</td>
+
+<td>'a' は、i ノード番号が集約 i ノードであることを示します。 'f' は、
+i ノード番号がファイルセット i ノードであることを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>ディレクトリー btree の root を表示し、btree をナビゲートするサブコマンド・モードに入ります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>m</td>
+
+<td>現在のノードを変更します。</td>
+
+</tr>
+
+<tr>
+<td>f</td>
+
+<td>フリー・リスト・エントリーを walk します。</td>
+
+</tr>
+
+<tr>
+<td>s</td>
+
+<td>指定されたスロット・エントリーを表示します。</td>
+
+</tr>
+
+<tr>
+<td>[0-9]+</td>
+
+<td>指定された stbl エントリーを表示します。</td>
+
+</tr>
+
+<tr>
+<td>t</td>
+
+<td>フォーマット済み stbl を表示します。</td>
+
+</tr>
+
+<tr>
+<td>u</td>
+
+<td>親ノード (親ディレクトリーではない) に移動します。</td>
+
+</tr>
+
+<tr>
+<td>d</td>
+
+<td>下位ノードに移動します。</td>
+
+</tr>
+
+<tr>
+<td>x</td>
+
+<td>サブコマンド・モードを終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>h</strong>[elp] [&lt; コマンド&gt;]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;command&gt;</td>
+
+<td>コマンド名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>ヘルプ・テキストを表示します。 パラメーターがない場合はすべてのコマンドを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>ia</strong>[g] [&lt; IAG number&gt;] [a | &lt; ファイルセット&gt;]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;IAG number&gt;</td>
+
+<td>IAG 番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>a</td>
+
+<td>集約 i ノード・テーブルを使用します。</td>
+
+</tr>
+
+<tr>
+<td>&lt;fileset&gt;</td>
+
+<td>ファイルセット番号 (現在のファイルセット番号はゼロでなければなりません)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>iag 情報を表示し、サブコマンド・モードに入ります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>e</td>
+
+<td>i ノード範囲マップを表示または変更します。</td>
+
+</tr>
+
+<tr>
+<td>m</td>
+
+<td>iag を変更します。</td>
+
+</tr>
+
+<tr>
+<td>p</td>
+
+<td>永続マップを表示または変更します。</td>
+
+</tr>
+
+<tr>
+<td>w</td>
+
+<td>作業マップを表示または変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt><strong>im</strong>[ap] [a | &lt; ファイルセット&gt;]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>a</td>
+
+<td>集約 i ノード・テーブルを使用します。</td>
+
+</tr>
+
+<tr>
+<td>&lt;fileset&gt;</td>
+
+<td>ファイルセット番号 (現在のファイルセット番号はゼロでなければなりません)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>指定された i ノード・マップを表示し、サブコマンド・モードに入ります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>e</td>
+
+<td>i ノード範囲マップを表示または変更します。</td>
+
+</tr>
+
+<tr>
+<td>m</td>
+
+<td>iag を変更します。</td>
+
+</tr>
+
+<tr>
+<td>p</td>
+
+<td>永続マップを表示または変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>i</strong>[ノード] [&lt; inode number&gt;] [a | &lt; fileset&gt;]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;inode number&gt;</td>
+
+<td>i ノード番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>a</td>
+
+<td>集約 i ノード・テーブルを使用します。</td>
+
+</tr>
+
+<tr>
+<td>fileset</td>
+
+<td>ファイルセット番号 (現在のファイルセット番号はゼロでなければなりません)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>i ノード情報を表示し、サブコマンド・モードに入ります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>m</td>
+
+<td>i ノードを変更します。</td>
+
+</tr>
+
+<tr>
+<td>t</td>
+
+<td>i ノードの b-tree を表示または変更します。</td>
+
+</tr>
+
+<tr>
+<td>e</td>
+
+<td>i ノードの EA を表示または変更します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>fsdb</strong> コマンドは、 <strong>v1</strong> と <strong>v2</strong> 拡張属性フォーマットの両方を認識します。 EA 表示時の動作は、i ノードが表示されるフォーマットによって異なります。<p><strong>v1</strong> の場合は、i ノードの EA の表示後、その
+<code>pxdTable</code> または <code>eaDirectory</code> エントリーを変更できます。 変更オプションを指定してから、 <code>pxdTable</code> または <code>eaDirectory</code> 標識およびテーブルへのオフセットを指定します。</p>
+ <p><strong>v2</strong> の場合は、EA は
+<strong>dtree</strong> サブコマンドのフォーマットを使用して表示されます。 その後で、EA についてさらに処理できるように、すべての
+<strong>dtree</strong> サブコマンドが使用可能になります。</p>
+</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>q</strong> [uit］</dt>
+
+<dd>fsdb を終了します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>su</strong>[パーブロック] [p | s]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>p</td>
+
+<td>1 次スーパーブロックを表示します。</td>
+
+</tr>
+
+<tr>
+<td>s</td>
+
+<td>2 次スーパーブロックを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>スーパーブロック・データを表示します。</dd>
+
+
+<dt><strong>x</strong>[ツリー] {&lt; ブロック番号&gt; | &lt; i ノード番号&gt;{a | f} }</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block number&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;inode number&gt;</td>
+
+<td>i ノード番号</td>
+
+</tr>
+
+<tr>
+<td>{a | f}</td>
+
+<td>'a' は、i ノード番号が集約 i ノードであることを示します。 'f' は、
+i ノード番号がファイルセット i ノードであることを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>xtree のノードの 1 つを表示し、xtree をナビゲートするサブコマンド・モードに入ります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>m</td>
+
+<td>現在のノードを変更します。</td>
+
+</tr>
+
+<tr>
+<td>u</td>
+
+<td>親ノードに移動します。</td>
+
+</tr>
+
+<tr>
+<td>d</td>
+
+<td>下位ノードに移動します。</td>
+
+</tr>
+
+<tr>
+<td>n</td>
+
+<td>右側の兄弟に移動します。</td>
+
+</tr>
+
+<tr>
+<td>p</td>
+
+<td>左側の兄弟に移動します。</td>
+
+</tr>
+
+<tr>
+<td>s</td>
+
+<td>表示する xad エントリーを選択します。</td>
+
+</tr>
+
+<tr>
+<td>x</td>
+
+<td>サブコマンド・モードを終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+</dl>
+<p><strong>JFS2 スナップショット・サブコマンド</strong></p>
+ <p>これらのサブコマンドは、その完全名を指定して、
+あるいは名前のサブセットを使用することによって、入力できます。 少なくとも、太字の部分は入力しなければなりません。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>a</strong>[lter] &lt; block&gt; &lt; offset&gt; &lt; 16 進数ストリング&gt;</td>
+
+<td>ディスク・データを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong> b</strong>[マップ]</td>
+
+<td>ブロック・マップ xtree コピーを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>d</strong>[isplay] [&lt; block&gt; [&lt; offset&gt; [&lt; format&gt; [&lt; count&gt;]]]]</td>
+
+<td>データを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>h</strong>[elp] [&lt; コマンド&gt;]</td>
+
+<td>サブコマンド上でヘルプを提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong>q</strong> [uit］</td>
+
+<td>fsdb を終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>st</strong>[able] [&lt; ブロック番号&gt;]</td>
+
+<td>要約スナップショット・テーブルを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>s</strong>[マップ] &lt; ブロック番号&gt;</td>
+
+<td>スナップショット・ビットマップを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>su</strong>[パーブロック]</td>
+
+<td>スーパーブロックを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <dl>
+<dt><strong>a</strong>[lter] &lt; block&gt; &lt; offset&gt; &lt; 16 進数ストリング&gt;</dt>
+
+<dd>ここで:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;offset&gt;</td>
+
+<td>ブロック内のオフセット (16 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;hex string&gt;</td>
+
+<td>16 進数の文字列</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>ディスク・データを変更します。 &lt; hex string&gt; には、偶数個の数字が含まれている必要があります。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>b</strong>[マップ]</dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>ブロック・マップ xtree コピーを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>d</strong>[isplay] [&lt; block&gt; [&lt; offset&gt; [&lt; format&gt; [&lt; count&gt;]]]]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;offset&gt;</td>
+
+<td>ブロック内のオフセット (16 進数)</td>
+
+</tr>
+
+<tr>
+<td>&lt;format&gt;</td>
+
+<td>データを表示する形式 (下記を参照のこと)</td>
+
+</tr>
+
+<tr>
+<td>&lt;count&gt;</td>
+
+<td>表示するオブジェクトの番号 (10 進数)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>各種の形式でデータを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>形式は、以下のいずれかになります。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>a</td>
+
+<td>ASCII</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td>s</td>
+
+<td>スナップショット・セグメント・ヘッダー</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td>t</td>
+
+<td>スナップショット・テーブル・ページ</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td>x</td>
+
+<td>xtree ページ</td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>h</strong>[elp] [&lt; コマンド&gt;]</dt>
+
+<dd> <div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;command&gt;</td>
+
+<td>コマンド名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd>サブコマンド上でヘルプを提供します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>q</strong> [uit］</dt>
+
+<dd>fsdb を終了します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>st</strong>[able] [&lt; ブロック番号&gt;]</dt>
+
+<dd>ここで:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block number&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>要約スナップショット・テーブルを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>s</strong>[マップ] [&lt; ブロック番号&gt;]</dt>
+
+<dd>ここで:<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>&lt;block number&gt;</td>
+
+<td>ブロック番号 (10 進数)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>スナップショット・ビットマップを表示します。</dd>
+
+
+<dt> </dt>
+
+<dd> </dd>
+
+
+<dt><strong>su</strong>[パーブロック]</dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>スーパーブロックを表示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次の例は、JFS ファイルシステム上で <strong>fsdb</strong> コマンドを始動した後に使用できる、
+サブコマンドを示したものです。</p>
+ <ol>
+<li>i ノードを表示するには、次のように入力します。<div> <div><div><pre><code>386i</code></pre></div><div></div></div>このコマンドは、i ノードを表示します。386i ノード形式。 これが現行 i ノードとなります。</div>
+</li>
+
+<li>現在の i ノードのリンク・カウントを以下の値に変更します。4次のように入力します。<div> <div><div><pre><code>ln=4</code></pre></div><div></div></div></div>
+</li>
+
+<li>現在の i ノードのリンク・カウントを次の値だけ増やします。1次のように入力します。<div> <div><div><pre><code>ln=+1</code></pre></div><div></div></div></div>
+</li>
+
+<li>現在の i ノードに関連するファイルの部分を表示するには、
+次のように入力します。<div> <div><div><pre><code>fc</code></pre></div><div></div></div>このコマンドを使用すると、現在の i ノードに関連したファイルのブロック 0 が、
+ASCII バイトで表示されます。</div>
+</li>
+
+<li>ディレクトリーのエントリーを表示するには、次のように入力します。<div> <div><div><pre><code>2i.fd</code></pre></div><div></div></div>これにより、現在の i ノードがルート i ノード (i ノード) に変更されます。2) 次に、その i ノードに関連した最初のブロック内のディレクトリー項目を表示します。 最後に表示される 1 つ以上のエントリーには、
+i ノード番号 0 (ゼロ) が付いている場合があります。 これらは、未使用のディレクトリー・ブロックです。このようなエントリーは、
+次の例のように操作することはできません。</div>
+</li>
+
+<li>ディレクトリー・ツリーの下位レベルに移動するには、次のように入力します。<div> <div><div><pre><code>d5i.fc</code></pre></div><div></div></div>このコマンドは, 現行の i ノードをディレクトリー項目と関連した i ノードに変更します。5ファイルの最初のブロックを ASCII テキストとして表示します。fc)。 ディレクトリー項目には 0 から始まる番号が付けられます。</div>
+</li>
+
+<li>ブロック番号が分かっているブロックを表示するには、
+次のように入力します。<div> <div><div><pre><code>1b.p0o</code></pre></div><div></div></div>このコマンドは、スーパーブロック (ブロック) を表示します。1) ファイル・システムの 8 進数。</div>
+</li>
+
+<li>ディレクトリー・エントリーの i ノードを変更するには、次のように入力します。<div> <div><div><pre><code>2i.a0b.d7=3</code></pre></div><div></div></div>このコマンドは, ディレクトリー項目の i ノードを変更します。7ルート・ディレクトリー (2i) 終了3この例は、複数の操作を 1 行に結合する方法も示しています。</div>
+</li>
+
+<li>ディレクトリー・エントリーのファイル名を変更するには、次のように入力します。<div> <div><div><pre><code>d7.nm="chap1.rec"</code></pre></div><div></div></div>このコマンドは, ディレクトリー項目の名前フィールドを変更します。7へchap1.rec.</div>
+</li>
+
+<li>現在の i ノードに関連するファイルの任意のブロックを表示するには、
+次のように入力します。<div> <div><div><pre><code>a2b.p0d</code></pre></div><div></div></div>このコマンドはブロックを表示します2ディレクトリー項目としての現行 i ノードの数。</div>
+</li>
+
+<li>ブロック 7 にある単一の間接ブロックの内容を表示するには、
+次のように入力します。<div> <div><div><pre><code>7b. p0S</code></pre></div><div></div></div>このコマンドは、
+ブロック 7 に単一の間接ブロックを持っている i ノードに割り当てられたブロック数を表示します。</div>
+</li>
+
+<li>ディスク・マップの最初のページを表示するには、次のように入力します。<div> <div><div><pre><code>OM</code></pre></div><div></div></div></div>
+</li>
+
+<li>永続ブロック割り当てマップの最初の 10 ワードを 16 進数で表示するには、
+次のように入力します。<div> <div><div><pre><code>mp1.p10x</code></pre></div><div></div></div>このコマンドは現行アドレスでの割り振りビットマップを表示します。例えば、0M。</div>
+</li>
+
+</ol>
+ <p>以下の例では、JFS2 ファイルシステム上で使用できるサブコマンドの一部を示しています。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> ファイルシステムを変更するために JFS2 サブコマンドを使用しないでください。</div>
+        </div>
+      </div></div>
+ <ol>
+<li>i ノードを表示するには、次のように入力します。<div><div><pre><code>inode 2</code></pre></div><div></div></div>このコマンドは、i ノード 2 を i ノード・フォーマットで表示します。</li>
+
+<li>ディレクトリーのエントリーを表示するには、次のように入力します。<div><div><pre><code>dir 2</code></pre></div><div></div></div>このコマンドは、i ノード 2 に関連付けられたディレクトリー・エントリーを表示します。</li>
+
+<li>ブロック番号が 0x1000 のブロックを表示するには、次のように入力します。<div><div><pre><code>display 0x1000</code></pre></div><div></div></div>このコマンドは、ファイルシステムのブロックを 16 進形式で表示します。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+
+<td><strong>fsdb</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステムに関する情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,198 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>オブジェクト・データ・マネージャー (ODM) データベースに格納された、キーボード属性を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chhwkbd</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86528" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>遅延</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86594" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><em> 繰り返し</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86490" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><em> ClickerVolume</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86450" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em> AlarmVolume</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86539" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> [ "KR" | "JP" | "TW" <em> </em>] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86605" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> [ 「nonum」 ] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chhwkbd</strong> ODM データベースに格納されている次のキーボード属性を変更します。</p>
+ <ul>
+<li><span></span>反復の遅延</li>
+
+<li><span></span>反復率</li>
+
+<li><span></span>クリッカー・ボリューム</li>
+
+<li><span></span>アラーム・ボリューム</li>
+
+<li><span></span>韓国語、日本語、および中国語のキーボード ID</li>
+
+<li><span></span>数字パッド・エミュレーションの使用可能/使用不可</li>
+
+</ul>
+ <p>キーボード属性の変更は、システム再起動時に有効になります。</p>
+ <p>System Management Interface Tool (SMIT) の <strong>smit chgkbd</strong> 高速パスを使用して、このコマンドを実行することもできます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> AlarmVolume</em><em></em></td>
+
+<td>指定した値にアラーム・ボリュームを設定します。 <em>AlarmVolume</em> 変数の値は、次のように定義されています。<dl>
+<dt>0</dt>
+
+<dd>オフ</dd>
+
+</dl>
+  <dl>
+<dt>1</dt>
+
+<dd>低</dd>
+
+</dl>
+  <dl>
+<dt>2</dt>
+
+<dd>中</dd>
+
+</dl>
+  <dl>
+<dt>3</dt>
+
+<dd>高</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> ClickerVolume</em></td>
+
+<td>指定した値にクリッカー音量を設定します。 <em>ClickerVolume</em> 変数の値は、次のように定義されています。<dl>
+<dt>0</dt>
+
+<dd>オフ</dd>
+
+</dl>
+  <dl>
+<dt>1</dt>
+
+<dd>低</dd>
+
+</dl>
+  <dl>
+<dt>2</dt>
+
+<dd>中</dd>
+
+</dl>
+  <dl>
+<dt>3</dt>
+
+<dd>高</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> 遅延</em></td>
+
+<td>指定した値にキーボードの反復遅延を設定します。 <em>Delay</em> 変数には、250、500、750、または 1000 ミリ秒の値を設定できます。 デフォルト値は 500 ミリ秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> ["KR" | "JP" | "TW"<em> </em>]</td>
+
+<td>次のキーボードについて拡張キーボード識別を可能にします。<dl>
+<dt>"KR"</dt>
+
+<dd>韓国語キーボード</dd>
+
+</dl>
+  <dl>
+<dt>"JP"</dt>
+
+<dd>日本語キーボード</dd>
+
+</dl>
+  <dl>
+<dt>"TW"</dt>
+
+<dd>中国語キーボード</dd>
+
+</dl>
+  <p>拡張キーボード識別を除去するには、値を指定しないで <strong>-m</strong> フラグを使用してください。</p>
+  <p></p><blockquote><span>“</span><strong>注意：</strong>このフラグは、<span>IBM</span> <span>RS/6000</span>106キーキーボードまたは<span>IBM</span> PS/2キーボードまたは同等のキーボードがワークステーションに取り付けられている場合にのみ有効である。<span>”</span></blockquote>
+<p></p>
+  <p>SMIT を使用してロケールを選択すると、<strong>-m</strong> フラグは自動的に設定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> 反復</em></td>
+
+<td>指定した値に反復速度を設定します。 <em>Repetition</em> 変数には、2 以上 30 以下の整数を設定できます。 デフォルト値は、11 字/秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> [「nonum」]</td>
+
+<td>数字パッド・エミュレーションを使用可能または使用不可にします。 数字パッド・エミュレーションを使用可能にするには、"nonum" パラメーターを指定します。 数字パッド・エミュレーションを使用不可にするには、値を指定しないで <strong>-t</strong> フラグを使用してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span>このフラグは、 <span>IBM</span> PS/2 キーボードまたは同等のキーボードがワークステーションに接続されている場合にのみ有効です。</li>
+
+<li><span></span>「nonum」は、数字キーパッドがないことを意味します。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>キーボード反復遅延速度を 250 ミリ秒に変更するには、次のように入力します。<div>chhwkbd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86528" target="_blank" rel="noopener noreferrer">-d</a> 250</div>
+</li>
+
+<li><span></span>キーボード反復速度を 1 秒当たり 30 文字に変更するには、次のように入力します。<div>chhwkbd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chhwkbd.html#chhwkbd__row-d3e86594" target="_blank" rel="noopener noreferrer">-r</a> 30</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chhwkbd</strong></td>
+
+<td><strong>chhwkbd</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

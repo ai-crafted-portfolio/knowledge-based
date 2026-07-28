@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ログインしているすべてのユーザーにメッセージを書き込みます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>wall</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/wall.html#wall__row-d3e16255" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/wall.html#wall__row-d3e16261" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> <em>グループ</em> ] [<em> メッセージ </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>wall</strong> コマンドは、ログインしているユーザー全員にメッセージを書き込みます。 <em>Message</em> パラメーターを指定しない場合には、<strong>wall</strong> コマンドは、ファイル終わり文字に達するまで、標準入力からメッセージを読み取ります。 その後、そのメッセージはログイン中のすべてのユーザーに送信されます。 メッセージの先頭には下記の見出しが付けられます。</p>
+ <div> <div><div><pre><code>Broadcast message from 
+user@node
+
+ (tty) at hh:mm:ss ...</code></pre></div><div></div></div></div>
+ <p>hh:mm:ssメッセージが送信された時、分、および秒を表します。</p>
+ <p>他のユーザーがセットアップしている保護機能をオーバーライドにするには、root ユーザー権限で操作する必要があります。 <strong>wall</strong> コマンドは、一般的に root ユーザーが全ユーザーに、システムのシャットダウンの近いことを通知するために使用されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><strong>wall</strong> コマンドはローカル・ノードにだけメッセージを送信します。</li>
+
+<li>メッセージにはマルチバイト文字を入れることができます。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>デフォルトの操作を実行します。 このフラグは、System V の互換性のために提供されます。 これは、メッセージをコンソールおよび疑似端末へブロードキャストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>グループ</em></td>
+
+<td>指定したグループにのみブロードキャストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/dev/tty</strong></td>
+
+<td>デバイスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

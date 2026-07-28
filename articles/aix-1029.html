@@ -1,0 +1,79 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>NFS V4 または RPCSEC-GSS を使用しているサーバーおよびクライアントからの、
+名前と ID との変換要求をサービスします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>nfsrgyd</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsrgyd.html#nfsrgyd__row-d3e17195" target="_blank" rel="noopener noreferrer"><span><span>-f </span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsrgyd.html#nfsrgyd__row-d3e17201" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <em>heartBeatInt</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>nfsrgyd</span></span> デーモンは、 NFS サーバーおよびクライアントに名前変換サービスを提供します。 NFS ストリング属性と <span>UNIX</span> 数値 ID との間の変換を実行するには、このデーモンが実行されている必要があります。</p>
+ <p>環境変数 <span><span>NFS_NOBODY_USER</span></span> および <span><span>NFS_NOBODY_GROUP</span></span> は、名前変換で使用される匿名ユーザーとグループ所有者の文字列に影響します。 これらの環境変数が設定されていない場合は、デフォルト値の <span><span>nobody</span></span> が使用されます。 これらは、 <span><span>/etc/environment</span></span>ファイルに設定することも、 <span><span>nfsrgyd</span></span> が開始される前にコマンド行に設定することもできます。</p>
+ <div><span><span>nfsrgyd</span></span> デーモンを実行する前に、ローカル NFS ドメインを設定する必要があります。 これは、 <span><span>chnfsdom</span></span> コマンドを使用して設定できます。<div><div>
+        <div>
+          <div><span>注:</span> <span><span>nfsrgyd</span></span> デーモンは一時ポートを使用します。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-f </span></span></td>
+
+<td>新規プロセスを作成し、名前変換キャッシュおよび出口をフラッシュします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-T</span></span></td>
+
+<td>以降の LDAP サーバー再接続の時間間隔を指定します。 有効な値は 60 から 3600 秒です。 デフォルト値は 300 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>nfsrgyd</span></span> デーモンは、 <span><span>/etc/rc.nfs</span></span> ファイルから開始されます。 以下のシステム・リソース・コントローラー (SRC) コマンドを使用して、 <span><span>nfsrgyd</span></span> デーモンを開始および停止することができます。<div><div><pre><code>startsrc -s nfsrgyd
+stopsrc -s nfsrgyd</code></pre></div><div></div></div></li>
+
+<li><span><span>chssys</span></span> コマンドを使用して <span><span>nfsrgyd</span></span> デーモンに渡されるパラメーターを変更するには、次のように入力します。<div><div><pre><code>chssys -s nfsrgyd -a "-T 360"</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>ヒント:</span> 変更は、デーモンが再始動されるまで有効になりません。 インターバルの値は <em>heartBeatInt</em> インターバルの値は <span><span>nfsrgyd</span></span> デーモンが再起動された後も</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーは root 権限が必要です。</p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/etc/environment</span></span></td>
+
+<td>NFS 環境変数が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

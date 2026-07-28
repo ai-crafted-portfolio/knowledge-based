@@ -1,0 +1,222 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>印刷ジョブをリモート・サーバーのキューに送ります。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rembak</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140621" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> <em>Server</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140581" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>Queue</em>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140600" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140500" target="_blank" rel="noopener noreferrer"><strong>-N </strong></a> <em>Filter</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140493" target="_blank" rel="noopener noreferrer"><strong>-L </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140572" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140593" target="_blank" rel="noopener noreferrer"><strong>-q </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140722" target="_blank" rel="noopener noreferrer"><strong>-x </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140453" target="_blank" rel="noopener noreferrer"><strong>-# </strong></a><em>JobNumber</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140646" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a> <em>UserName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140666" target="_blank" rel="noopener noreferrer"><strong>-X </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140554" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a><em>Option</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140634" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>Timeout</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140465" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140481" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> <em>DebugOutputFile</em>] [<em>File</em>... ] </p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rembak</strong> コマンドは、ジョブをリモート・サーバーに送ってキューに入れます。 要求として印刷ジョブ、状況要求、ジョブ取り消し要求、または、リモート・キューイング・システムを抹消する要求が使えます。 サーバーとキューのフラグが必要です。 ほかのフラグはすべてオプションで、必要な実行内容によって指定します。</p>
+ <p>このコマンドを呼び出せるのは、<strong>qdaemon</strong> コマンドだけです。 ユーザーがコマンド・ラインから入力するコマンドではありません。 印刷ジョブ要求の出し方、または System Manager Interface Tool (SMIT) を使用した印刷ジョブの要求方法については、<strong>enq</strong> コマンドのセクションを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-#</strong><em> JobNumber</em></td>
+
+<td>取り消したい <em>JobNumber</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>最初に制御ファイルリストを送信します。 <strong>lpd</strong> プロトコルにより、印刷ジョブを処理する 2 つのハンドシェーク・シーケンスが許可されます。 デフォルトは、最初にデータ・ファイル、続いて制御ファイルの送信で構成されます。 ほかのシーケンスでは、最初に制御ファイルを送信し、続いてデータ・ファイルを送信します。 <strong>-C</strong> を指定すると、<strong>rembak</strong> は、最初に制御ファイルを送信し、続いてデータ・ファイルを送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em> DebugOutputfile</em></td>
+
+<td><strong>rembak</strong> のデバッグ・オプションをオンにします。 出力ファイルが指定されないか、または出力ファイルの作成またはそれへの書き込みに何らかの問題があると、デバッグ・オプションは無視されます。 指定した出力ファイルが既に存在している場合、新しいデバッグ出力がこのファイルの終わりに追加されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>リモート・キューからの長い (詳細) 状況要求を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong><em> フィルター</em></td>
+
+<td>リモート・サーバーの機種を示します。 フィルター名の指定は、<strong>/etc/qconfig</strong> ファイル内の <strong>s_statfilter</strong> 属性で行います。 <em>filter</em> 変数には、以下のものがあります。<dl>
+
+<dt><strong>/usr/lib/lpd/aixshort</strong></dt>
+
+<dd>サーバーが別の<span>AIX</span>マシンであることを示す。</dd>
+
+
+<dt><strong>/usr/lib/lpd/aixv2short</strong></dt>
+
+<dd>サーバーが <span>AIX</span> バージョン 2 オペレーティング・システムの <span>RT</span> であることを示します。</dd>
+
+
+<dt><strong>/usr/lib/lpd/bsdshort</strong></dt>
+
+<dd>サーバーが bsd コンピューターであることを示します。</dd>
+
+
+<dt><strong>/usr/lib/lpd/attshort</strong></dt>
+
+<dd>サーバーが AT&amp;T コンピューターであることを示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> オプション</em></td>
+
+<td>リモート・サーバー上のバックエンドに送りたい <em>Option</em> を指定します。 (これらの <em>Options</em> は、<strong>rembak</strong> コマンドから渡されます。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>レンバク</strong> によって使用されるポート範囲が 1023 より小さいポートに制限されることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> 待ち行列</em></td>
+
+<td>印刷ジョブの送信先となるリモート・サーバーの <em>Queue</em> 名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>リモート・キューからの短い (簡略な) 状況要求を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>リモート・キューイング・システムを再始動します。<div><div>
+        <div>
+          <div><span>注:</span> オペレーティング・システムに要求を送信する場合は、
+<span>-R</span> フラグはサポートされません。 <strong>lpd</strong> デーモンはこのような要求をサポートしません。 ほかのシステムとの互換性のためだけに、<span>-R</span> フラグはサポートされます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> Server</em></td>
+
+<td>印刷要求の送信先となるリモート印刷 <em>Server</em> 名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> タイムアウト</em></td>
+
+<td><strong>rembak</strong> がリモート・サーバーからの確認を待つタイムアウト期間を分単位で設定します。 値が指定されないと、デフォルト・タイムアウトの 90 秒が設定されます。 このデフォルトは、タイムアウトが 0 または負の値のときも使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> UserName@HostName
+</em></td>
+
+<td><em>HostName</em> コンピューターから実行要求された <em>UserName</em> の印刷ジョブを取り消します。<div><div>
+        <div>
+          <div><span>注:</span> キューイング・システムはマルチバイトのホスト名をサポートしません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>リモート・サーバーが<span>AIX</span> 以外のマシンであっても、 <strong>レンバク</strong> コマンドが <strong>-</strong><em> オプション</em> をリモート・サーバーに送信することを指定します。 リモートが<span>AIX</span> 以外のマシンの場合、 <em>オプション</em> は <strong>-</strong> フラグなしで送信されます。 したがって、<strong>-o -abc</strong> は <strong>-abc</strong> として送信されます。<p>リモート・キュー上で <strong>-X</strong> フラグを使用するには、特定のキューに対する以下の行を <strong>/etc/qconfig</strong> ファイルに含めなければなりません。</p>
+  <div> <div><div><pre><code>backend = /usr/lib/lpd/rembak -X</code></pre></div><div></div></div></div>
+  <p>キュー上で -X を指定すると、<strong>qprt</strong>、<strong>lpr</strong> などのキュー・コマンドが機能しない場合があります。 <strong>enq</strong> コマンドを使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>ジョブ要求を取り消します。 要求を取り消すには、 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140453" target="_blank" rel="noopener noreferrer">-# </a></strong><em>JobNumber</em> フラグまたは <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rembak.html#rembak__row-d3e140646" target="_blank" rel="noopener noreferrer">-u </a></strong><em>UserName</em> フラグを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルを印刷するにはspinach,asparagusおよびbroccoliキュー上popeyeリモート・サーバー上olive<span>AIX</span> バージョン 2 オペレーティング・システムを使用する <span>RT</span> の場合は、次のように入力します。<div> <div><div><pre><code>rembak -S olive -P popeye -N /usr/lib/lpd/aixv2short spinach asparagus broccoli</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>詳細状況要求を発行するには、以下のようにします。oliveキューのpopeye次のように入力します。<div> <div><div><pre><code>rembak -S olive -P popeye -N /usr/lib/lpd/aixv2short -L</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ジョブ番号を取り消す23ユーザーによって実行依頼されたリモート・サーバー上sweetpeaマシンからblutoバージョン 3 マシンの場合は、次のように入力します。<div> <div><div><pre><code>rembak -S olive -P popeye -N /usr/lib/lpd/aixv2short -x -#23 -u sweetpea@bluto</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/lpd/rembak</strong></td>
+
+<td><strong>rembak</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/hosts.lpd</strong></td>
+
+<td>印刷要求を実行できるホスト名が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/hosts.equiv</strong></td>
+
+<td>印刷要求を実行できるホスト名が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

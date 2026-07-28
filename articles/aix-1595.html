@@ -1,0 +1,73 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>保証鍵の公開部分を表示できるユーザーを所有者のみに制限します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tpm_restrictpubek</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_restrictpubek.html#tpm_restrictpubek__row-d3e107315" target="_blank" rel="noopener noreferrer">-h</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_restrictpubek.html#tpm_restrictpubek__row-d3e107325" target="_blank" rel="noopener noreferrer">-</a></strong> [ <strong>なし | エラー | 情報 | デバッグ</strong> ] ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_restrictpubek.html#tpm_restrictpubek__row-d3e107338" target="_blank" rel="noopener noreferrer">-</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_restrictpubek.html#tpm_restrictpubek__row-d3e107348" target="_blank" rel="noopener noreferrer">-s</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_restrictpubek.html#tpm_restrictpubek__row-d3e107368" target="_blank" rel="noopener noreferrer">-v (V)</a></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tpm_restrictpubek</strong> コマンドは、保証鍵の公開部分を表示できるユーザーに関する状況を報告します。 これはデフォルトの動作であり、<strong>-s</strong> (または <strong>--status</strong>) オプションを使用してこの動作を指定することもできます。 この操作は所有者がクリアされるまで効力を保ち、この操作を行うと所有者パスワードの入力を求めるプロンプトが出されます。 <strong>-r</strong> (または <strong>--restrict</strong>) オプションを指定すると、保証鍵の公開部分を表示できるユーザーが所有者のみに制限されます (<strong>TPM_DisablePubekRead</strong> API により)。 このコマンドを実行すると、操作を完了するために所有者パスワードの入力を求めるプロンプトが出されます。 <strong>--status</strong> オプションと <strong>--restrict</strong> オプションは相互に排他的であり、コマンド・ラインで最後に指定されたオプションが適用されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-h</strong> (または <strong>-- help</strong>)</td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (または <strong>--log</strong>) [ <strong>none | error | info |
+debug</strong> ]</td>
+
+<td>ロギング・レベルを指定のとおり none、error、info、または debug に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> (または <strong>-- restrict</strong>)</td>
+
+<td>保証鍵の公開部分の表示を所有者のみに制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> (または <strong>-- status</strong>)</td>
+
+<td>保証鍵の公開部分を表示できるユーザーに関する状況を所有者に表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> (または <strong>-- unicode</strong>)</td>
+
+<td>TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、パスワードに対して Trusted Computing Group Software Stack (TSS) UNICODE エンコードを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong> (または <strong>-- version</strong>)</td>
+
+<td>コマンドのバージョン情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong> (または <strong>--well-known</strong>)</td>
+
+<td>現行の所有者パスワードがすべてゼロ (20 バイトのゼロ) からなる秘密である場合に、パスワードを新しいものに変更します。 変更する必要があるパスワード (所有者またはストレージ・ルート・キー、あるいは両方) を指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

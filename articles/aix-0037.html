@@ -1,0 +1,333 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>選択したプロセスに対するプロセス・アカウンティング・レコードの要約を表示します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>/usr/sbin/acct/acctcom</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3613" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3593" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> ファイル ] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3396" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3402" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3411" target="_blank" rel="noopener noreferrer">-c</a></strong> クラス名 ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3466" target="_blank" rel="noopener noreferrer"><strong>[-f</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3498" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3521" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3528" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3555" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3630" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3662" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3685" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3691" target="_blank" rel="noopener noreferrer">-w</a></strong> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3709" target="_blank" rel="noopener noreferrer"><span>-X</span></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3697" target="_blank" rel="noopener noreferrer"><strong>-W</strong></a> ]][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3423" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> 秒 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3490" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> グループ ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3507" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> 因子 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3547" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> 番号 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3534" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> 行 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3572" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> パターン ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3605" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> 秒 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3668" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> ユーザー ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3434" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> 時間 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3445" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> 時間 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3639" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> 時間 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3650" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> 時間 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3721" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> [ WparName ]] [ファイル...］</p>
+</section>
+
+<section><h2>説明</h2><p><span>acctcom</span> コマンドは、 File パラメーターで指定されたファイルからのプロセス・アカウント・レコードを、標準入力または <strong>/var/adm/pacct</strong> ファイルから読み取ります。 さらに、<span>acctcom</span> コマンドは、ユーザーが要求するレコードを標準出力に書き出します。 このコマンドは <strong>/usr/sbin/acct</strong> ディレクトリーに格納され、すべてのユーザーがアクセスできます。</p>
+<p>File パラメーターが指定されていなくて、プロセスをバックグラウンドで実行する場合のように、標準入力がワークステーションまたは <strong>/dev/null</strong> ファイルに割り当てられている場合は、<span>acctcom</span> コマンドは<strong> /var/adm/pacct</strong> ファイルを読み取ります。</p>
+<p>File パラメーターを指定すると、<span>acctcom</span> コマンドは、プロセス完了時刻の早い順に各ファイルを読み取ります。 通常は、<strong>/var/adm/pacct</strong> ファイルが、<span>acctcom</span> コマンドで検査する対象の現行ファイルになります。 <span>ckpacct</span> 、このファイルが大きくなりすぎないようにするため、多忙なシステムでは <strong>pacct</strong> ファイルがいくつも存在することがある。 現在のファイル以外はすべて、パス名 <strong>/var/adm/pacct</strong>? ここで ? (疑問符) は整数を表します。</p>
+<p>各レコードは 1 つの完了したプロセスを表します。 デフォルト表示は、コマンド名、ユーザー名、tty 名、開始時刻、終了時刻、実秒数、CPU 秒数、および平均メモリー・サイズ (KB) から成っています。 これらのデフォルト項目には、出力に次の見出しが付きます。</p>
+<div> <div><div><pre><code>COMMAND                    START   END    REAL    CPU     MEAN
+NAME    USER    TTYNAME    TIME    TIME   (SECS)  (SECS)  SIZE(K)</code></pre></div><div></div></div></div>
+<div>root ユーザーが実行したプロセスの場合は、プロセス名の前にシャープ (#) が付いています。 プロセスが既知のワークステーションに割り当てられていない場合（例えば、 <strong>cron</strong> デーモンがプロセスを実行する場合）、? (疑問符) が <span>TTYNAME</span> フィールドに表示されます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>acctcom</span> コマンドでは単に、終了したプロセスに関して報告
+するだけです。 アクティブ・プロセスについて調べたい場合は、<strong>ps</strong> コマンドを使用してください。</li>
+
+<li>指定された時刻が現在の時刻よりも遅い時刻の場合は、前日に発生したものと
+解釈されます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>選択されたプロセスに関する幾つかの平均統計値を表示します。 統計は、出力レコードのあとに表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>逆方向に読み取り、最新のコマンドを最初に表示します。 <span>acctcom</span> コマンドが標準入力を読み取っている場合には、このフラグには効力はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong> Classname</td>
+
+<td>指定のクラスに所属するプロセスを選択します。<div><div>
+        <div>
+          <div><span>注:</span> 削除されたクラスのアカウンティング・データを検索することはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong> Seconds
+</td>
+
+<td>合計 CPU 時間 (システム時間 + ユーザー時間) が Seconds 変数の指定値を超えているプロセスだけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e (E)</strong> 時刻</td>
+
+<td>指定時刻以前に存在していたプロセスを選択します。 時、分、秒の順序は、現行ロケールを使用して指定できます。 デフォルトの順序は hh:mm:ss です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E (E)</strong> 時刻</td>
+
+<td>指定時刻以前に終了したプロセスを選択します。 時、分、秒の順序は、現行ロケールを使用して指定できます。 デフォルトの順序は hh:mm:ss です。 <strong>-E (E)</strong> フラグと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3650" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> フラグの両方に同じ時刻を指定すると、 <strong>Acctcom</strong> コマンドは、指定された時刻に存在していたプロセスを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>以下に関連する 2 つの列を表示します。ac_flag<strong>acct.h</strong> ファイルのフィールド: 最初のフィールドは <strong>fork</strong> コマンドを使用してプロセスを作成することを示し、2 番目のフィールドはシステム終了値を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong>Group</td>
+
+<td>指定のグループに所属するプロセスを選択します。 グループ ID またはグループ名を指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>平均メモリー・サイズの代わりに、合計使用可能 CPU 時間のうちのプロセスが消費した時間の部分 (ホグ係数) を表示します。 このファクターは次のようにして計算されます。<div> <div><div><pre><code>(total CPU time) / (elapsed time)</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong> Factor</td>
+
+<td>Factor パラメーターの値を超えるプロセスだけを表示します。 このファクターはホグ係数と呼ばれ、次のようにして計算されます。<div> <div><div><pre><code>no(total CPU time) / (elapsed time)</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>読み取り操作または書き込み操作で転送された文字数 (入出力カウント) を示す列を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>メモリー・サイズではなく、
+合計の kcore 分 (実行時の分ごとに、
+使用されるキロバイト・セグメントのメモリー測定) を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> Line</td>
+
+<td>(L の小文字) ワークステーション <strong>/dev/</strong>Line に所属するプロセスだけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I (I)</strong> 数値</td>
+
+<td>(i の大文字) 指定の文字数を超える文字を転送するプロセスだけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>平均のメイン・メモリーのサイズを示します。 これはデフォルトです。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3498" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> フラグまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3528" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> フラグは、 <strong>-m (M)</strong> フラグをオフにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>N</strong> パターン</td>
+
+<td>Pattern 変数の値に一致するコマンドだけを表示します。Pattern は正規表現です。 正規表現の説明については、『<strong>ed</strong> コマンド』のセクションを参照してください。 <span>acctcom</span> コマンドでは、通常の文字のほかに、先行文字用の特殊記号として + (正符号) を使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> ファイル</td>
+
+<td>選択されたプロセス・レコードを、入力データ・フォーマットをそのまま使用して、指定のファイルにコピーします。 このフラグは、標準出力への書き出しを抑止します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3613" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> フラグと一緒に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O (O)</strong> 秒</td>
+
+<td>CPU システム時間が指定の秒数を超えているプロセスだけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>統計を表示しますが、出力レコードは表示しません。 統計は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3396" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> フラグを使用して表示されるものと同じです。 <strong>-Q (Q)</strong> フラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctcom.html#acctcom__row-d3e3593" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> フラグと一緒に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>CPU ファクターを表示します。 このファクターは次のようにして計算されます。<div> <div><div><pre><code>(user-time) / (system-time + user-time)</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> 時刻</td>
+
+<td>指定時刻以降に存在していたプロセスだけを表示します。 時、分、秒の順序は、現行ロケールを使用して指定できます。 デフォルトの順序は hh:mm:ss です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S (S)</strong> 時刻</td>
+
+<td>指定時刻以降に開始したプロセスだけを表示します。 時、分、秒の順序は、現行ロケールを使用して指定できます。 デフォルトの順序は hh:mm:ss です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>個別のシステムおよびユーザー CPU 時間を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ウー</strong> ユーザー</td>
+
+<td>指定のユーザーに所属するプロセスだけを表示します。 ユーザー 変数には、ユーザー ID、ユーザー ID に変換されるログイン名、および#root ユーザーによって実行されるプロセスを選択するには (ポンド記号)、または?(疑問符) は、不明なユーザー ID に関連付けられているプロセスを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>出力から列見出しを削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>プロセスが属するクラス名を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を印刷します。 またこの出力は 132 文字にまで広げられ、ユーザー名に追加スペースを使用できるようになっています。 <strong>-W</strong> オプションは、<strong>-X</strong> オプションとは同時に使用できません。 両方のフラグを使用すると、2 番目に指定されたフラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-X</span></span></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を印刷します。 また、ユーザー名は出力の最後の列に移動されます。 <strong>-X</strong> オプションは、<strong>-W</strong> オプションとは同時に使用できません。 両方のフラグを使用すると、2 番目に指定されたフラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-@</strong> [ WparName ]</td>
+
+<td><span>ワークロード・パーティション</span>ごとに、選択したプロセスのプロセス・アカウンティング・レコードの要約を表示します。 WparName パラメーターを使用して <span>ワークロード区画</span> を指定すると、指定した <span>ワークロード区画</span> のアカウンティング・レコードが表示されます。 <span>ワークロード・パーティション</span> を指定しない場合、すべての <span>ワークロード・パーティション</span> のアカウンティング・レコードが表示されます。 レコードごとに <span>ワークロード・パーティション</span> 名が表示されます。<p>ワークロード区画内で実行する場合、-@ オプションはサポートされません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「セキュリティー」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2><ol>
+<li>CPU 時間が 2 秒を超えるプロセスについての情報を表示する場合は、次のように
+入力します。<div> <div><div><pre><code>/usr/sbin/acct/acctcom -O 2 &lt; /var/adm/pacct</code></pre></div><div></div></div>プロセス情報は、<strong>/var/adm/pacct</strong> ファイルから読み取られます。</div>
+</li>
+
+<li>以下に属するプロセスに関する情報を表示します。finance次のように入力します。<div> <div><div><pre><code>/usr/sbin/acct/acctcom -g Finance &lt; /var/adm/pacct</code></pre></div><div></div></div>プロセス情報は、<strong>/var/adm/pacct</strong> ファイルから読み取られます。</div>
+</li>
+
+<li>ワークステーションに属し、午後5時以降に実行される <strong>/dev/console</strong> ワークステーションに属し、午後5時以降に実行されるプロセスの情報を表示するには、次のように入力する：<div>
+<div><div><pre><code>/usr/sbin/acct/acctcom -l /dev/console -s 17:00 </code></pre></div><div></div></div>デフォルトでは、プロセス情報は <strong>/var/adm/pacct</strong> ファイルから読み取られます。</div>
+</li>
+
+<li>8 文字を超えるユーザー名を持つマシン上のプロセスに関する全情報を表示するには、次のように入力します。<div><div><pre><code>/usr/sbin/acct/acctcom -X &lt; /var/adm/pacct</code></pre></div><div></div></div>プロセス情報は、<strong>/var/adm/pacct</strong> ファイルから読み取られます。</li>
+
+<li>内部で実行されるプロセスに関する情報を表示するには、次のようにします。warpathWPAR の場合は、以下のコマンドを使用します。<div><div><pre><code>acctcom -@ warpath &lt; /var/adm/pacct</code></pre></div><div></div></div>プロセス情報は、<strong>/var/adm/pacct</strong> ファイルから読み取られます。</li>
+
+<li>すべての WPAR で実行されているプロセスに関する情報を表示するには、
+次のコマンドを使用します。<div><div><pre><code>acctcom -@ &lt; /var/adm/pacct</code></pre></div><div></div></div>プロセス情報は、<strong>/var/adm/pacct</strong> ファイルから読み取られます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct/acctcom</strong></td>
+
+<td><span>acctcom</span> 。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/pacct</strong></td>
+
+<td>現行のプロセス・アカウンティング・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>グループの基本グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザーの基本属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

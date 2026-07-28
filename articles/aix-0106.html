@@ -1,0 +1,1208 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>ファイルでパターンに一致する行を検出し、検出された行に対して指定されたアクションを
+実行します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>awk</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48139" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48151" target="_blank" rel="noopener noreferrer"><strong>-F </strong></a><em>Ere</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48162" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a><em>Assignment</em> ] ... { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48122" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a><em>ProgramFile</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48246" target="_blank" rel="noopener noreferrer"><strong>'</strong><em>Program</em><strong>' </strong></a>} [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48234" target="_blank" rel="noopener noreferrer"><em>File </em></a>... | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e48200" target="_blank" rel="noopener noreferrer"><em>Assignment </em></a>... ] ] ...</p>
+</section>
+
+<section><h2>説明</h2><p><strong>awk</strong> コマンドは、ユーザー指定の一連の命令を使用し、ユーザー指定の拡張正規表現に照らして、一度に 1 行ずつ一組のファイルを比較します。 次に、この拡張正規表現と一致する行に対してアクションが実行されます。</p>
+<p><strong>awk</strong> コマンドによるパターン検索は、<strong>grep</strong> コマンドの場合より汎用性があり、ユーザーは入力テキスト行に対して複数のアクションを実行できます。 <strong>awk</strong> コマンド・プログラミング言語はコンパイルの必要がないので、変数、数字関数、文字列関数、および論理演算子を使用できます。</p>
+<p><strong>awk</strong> コマンドは、<strong>LANG</strong>、<strong>LC_ALL</strong>、
+<strong>LC_COLLATE</strong>、<strong>LC_CTYPE</strong>、<strong>LC_MESSAGES</strong>、
+<strong>LC_NUMERIC</strong>、<strong>NLSPATH</strong>、および <strong>PATH</strong> 環境変数から影響を受けます。</p>
+<p>この項目では、次のトピックについて説明します。</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a178c13c7" target="_blank" rel="noopener noreferrer">awk コマンドの入力</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a170c13c7" target="_blank" rel="noopener noreferrer">awk コマンドの出力</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a158c1368" target="_blank" rel="noopener noreferrer">レコードとフィールドによるファイル処理</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a158c1371" target="_blank" rel="noopener noreferrer">awk コマンド・プログラミング言語</a><ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a161c119e" target="_blank" rel="noopener noreferrer">パターン</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a171c125d" target="_blank" rel="noopener noreferrer">アクション</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a170c13db" target="_blank" rel="noopener noreferrer">変数</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a170c13eb" target="_blank" rel="noopener noreferrer">特殊変数</a></li>
+
+</ul>
+</li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a1049965" target="_blank" rel="noopener noreferrer">flags</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a1049968" target="_blank" rel="noopener noreferrer">例</a></li>
+
+</ul>
+</section>
+
+<section><h2>awk コマンドの入力</h2><p><strong>awk</strong> コマンドは、入力テキスト・ファイルとプログラム命令の 2 種類の入力を受け入れます。</p>
+<p><strong>入力テキスト・ファイル</strong></p>
+<p>検索とアクションは入力テキスト・ファイルに対して実行されます。 ファイルは次のようにして指定されます。</p>
+<ul>
+<li>コマンド・ラインで <em>File</em> 変数を指定する。</li>
+
+<li>特殊変数 <strong>ARGV</strong> と <strong>ARGC</strong> を変更する。</li>
+
+<li><em>File</em> 変数がない場合には標準入力を与える。</li>
+
+</ul>
+<p><em>File</em> 変数に複数のファイルが指定されている場合は、指定されている順にそれらのファイルが処理されます。</p>
+<p><strong>プログラム命令</strong></p>
+<p>ユーザーが指定した命令は、<strong>awk</strong> コマンドのアクションを制御します。 命令は、コマンド・ラインの <em>`Program</em>' 変数、または <strong>-f</strong> フラグと <em>ProgramFile</em> 変数で指定されたファイルの、どちらかから取り出されます。 複数のプログラム・ファイルが指定された場合には、指定された順にファイルが連結され、その結果としての命令の順番が使用されます。</p>
+</section>
+
+<section><h2>awk コマンドの出力</h2><p><strong>awk</strong> コマンドは、入力テキスト・ファイル内のデータから、次の 3 種類の出力を作成します。</p>
+<ul>
+<li>入力ファイルに変更を加えないで、選択したデータを標準出力に出力できます。</li>
+
+<li>入力ファイルの一部を選択して変更できます。</li>
+
+<li>入力ファイルの内容に変更を加えるかまたは変更を加えないで、選択したデータを変更して標準出力に出力できます。</li>
+
+</ul>
+<p>これらの 3 種類の出力のすべてを、同一のファイルに対して実行できます。 <strong>awk</strong> コマンドが認識するプログラミング言語を使用して、ユーザーは出力をリダイレクトすることができます。</p>
+</section>
+
+<section><h2>レコードとフィールドによるファイル処理</h2><p>ファイルは次の方法で処理されます。</p>
+<ol>
+<li><strong>awk</strong> は、指定された命令をスキャンし、入力ファイルを読み取る前に実行するように指定されたすべてのアクションを実行します。<p><strong>awk</strong> プログラミング言語の <strong>BEGIN</strong> ステートメントで、最初のレコードの読み取り前に実行する一連の命令を指定できます。 これは、特殊変数を初期化するときに特に役立ちます。</p>
+</li>
+
+<li>1 つのレコードが入力ファイルから読み取られます。<p>レコードは、レコード分離文字で区切られたデータの集合です。 レコード分離文字のデフォルト値は改行文字であり、この改行文字によってファイ
+ルの各行が別々のレコードになります。 <strong>RS</strong> 特殊変数を設定することによって、レコード分離文字を変更することができます。</p>
+</li>
+
+<li>レコードが、<strong>awk</strong> コマンドの命令で指定された各パターンと比較されます。<p>コマンド命令で、レコードの特定のフィールドを比較するよう指定することができます。 何も指定しないと、フィールドは空白 (ブランクまたはタブ) で区切られます。 各フィールドはフィールド変数によって参照されます。 レコードの最初のフィールドには <strong>$1</strong>  変数、2 番目のフィールドには <strong>$2</strong> 変数というように、変数が割り当てられます。 レコード全体には <strong>$0</strong> 変数が割り当てられます。 フィールド分離文字は、コマンド行で <strong>-F (R)</strong> フラグを使用するか、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a170c13eb" target="_blank" rel="noopener noreferrer"><strong>ファイル・システム</strong> 特殊変数</a>を設定することによって変更できます。 <strong>ファイル・システム</strong> 特殊変数は、ブランク、単一文字、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a10498fe" target="_blank" rel="noopener noreferrer">拡張正規表現</a>の値に設定できます。</p>
+</li>
+
+<li>レコードがあるパターンと一致した場合には、そのパターンに関連付けられたアクションがレコードに対して実行されます。</li>
+
+<li>レコードが各パターンと比較され、指定されたすべてのアクションが実行された後で、次のレコードが入力から読み取られます。この処理は、すべてのレコードが入力ファイルから読み取られるまで繰り返されます。</li>
+
+<li>複数の入力ファイルが指定された場合には、次のファイルがオープンされます。そして、すべての入力ファイルが読み取られるまで、これが繰り返されます。</li>
+
+<li>最後のファイルの最後のレコードが読み取られた後で、<strong>awk</strong> コマンドは、入力処理後に実行するように指定された命令を実行します。<p><strong>awk</strong> プログラミング言語の <strong>END</strong> ステートメントで、最後のレコードを読み取った後で実行するアクションを指定できます。 これは、<strong>awk</strong> コマンドにより実行された処理を示すメッセージを送信するために、特に役立ちます。</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>awk コマンド・プログラミング言語</h2><p><strong>awk</strong> コマンドのプログラミング言語は、次のフォーマットのステートメントで構成されています。</p>
+<p><em>パターン</em> { <em>Action</em> }</p>
+<p>レコードが指定された Pattern (パターン) と一致するか、またはそのパターンと一致するフィールドを持っている場合には、関連付けられた Action (アクション) が実行されます。 アクションなしでパターンを指定することができます。その場合、そのパターンが入った行全体が標準出力に書き出されます。 パターンなしで指定されたアクションは、すべての入力レコードに対して実行されます。</p>
+</section>
+
+<section><h2>パターン</h2><p><strong>awk</strong> コマンド言語構文に使用されるパターンは次の 4 種類です。</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a10498fe" target="_blank" rel="noopener noreferrer">正規表現</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a170c13da" target="_blank" rel="noopener noreferrer">関係式</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a171c1252" target="_blank" rel="noopener noreferrer">パターンの組み合わせ</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a171c125b" target="_blank" rel="noopener noreferrer">BEGIN パターンと END パターン</a>.</li>
+
+</ul>
+<p><strong>正規表現</strong></p>
+<p><strong>awk</strong> コマンドが使用する拡張正規表現は <strong>grep</strong> コマンドまたは <strong>egrep</strong> コマンドが使用する拡張正規表現と似ています。 拡張正規表現の最も単純なフォーマットは、スラッシュで囲まれた文字の文字列です。 例えば、次の名前のファイルがあるとします。testfile内容は以下のとおりです。</p>
+<div> <div><div><pre><code>smawley, andy
+smiley, allen
+smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</code></pre></div><div></div></div></div>
+<p>ここで、次のコマンド・ラインを入力するとします。</p>
+<div> <div><div><pre><code>awk '/smi/' testfile</code></pre></div><div></div></div></div>
+<p>ストリングのオカレンスを含むすべてのレコードを標準出力に出力します。smiこの例では、以下のプログラムは、'/smi/'<strong>アーク</strong> コマンドは、アクションのないパターンです。 出力は以下のようになります。</p>
+<div> <div><div><pre><code>smiley, allen
+smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</code></pre></div><div></div></div></div>
+<p>拡張正規表現は、次の特殊文字を使って形成します。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>文字</div></th>
+
+<th><div>関数</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong></td>
+
+<td><strong>+</strong> (正符号) の前の文字または拡張正規表現の 1 個以上のオカレンスが文字列内にある場合、その文字列は一致することを指定します。 コマンド・ライン:<div><div><div><pre><code>awk '/smith+ern/' testfile</code></pre></div><div></div></div></div>
+<p>文字を含む文字列を含むすべてのレコードを標準出力に出力します。smit、その後に 1 つ以上のh文字を使用して終了します。ernこの例の出力は、次のようになります。</p>
+<div> <div><div><pre><code>smithern, harry
+smithhern, anne</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>?</strong></td>
+
+<td>(疑問符) の前の文字または拡張正規表現のゼロ個または 1 個のオカレンスが文字列内にある場合、その文字列は一致することを指定します。 (疑問符) は文字列の中にあります。 コマンド・ライン:<div> <div><div><pre><code>awk '/smith?/' testfile</code></pre></div><div></div></div></div>
+<p>文字を含むすべてのレコードを標準出力に出力します。smit,後に 0 個または 1 個のインスタンスが続きます。h文字を含むことはできません。 この例の出力は次のようになります。</p>
+<div> <div><div><pre><code>smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>|</strong></td>
+
+<td>| (縦線) で区切られた文字列のどちらかが文字列内にある場合に、その文字列は一致することを指定します。 コマンド・ライン:<div> <div><div><pre><code>awk '/allen 
+| 
+alan /' testfile</code></pre></div><div></div></div></div>
+<p>ストリングを含むすべてのレコードを標準出力に出力します。allenまたはalanこの例の出力は、次のようになります。</p>
+<div> <div><div><pre><code>smiley, allen
+smith, alan</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>( )</strong></td>
+
+<td>文字列を正規表現でグループ化します。 コマンド・ライン:<div> <div><div><pre><code>awk '/a(ll)?(nn)?e/' testfile</code></pre></div><div></div></div></div>
+<p>次のストリングを持つすべてのレコードを標準出力に出力します。aeまたはalleまたはanneまたはallnneこの例の出力は、次のようになります。</p>
+<div> <div><div><pre><code>smiley, allen
+smithhern, anne</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>{</strong><em>分</em><strong>}</strong></td>
+
+<td>パターンのちょうど <em>m</em> 個のオカレンスが文字列内にある場合、その文字列は一致することを指定します。 コマンド・ライン:<div> <div><div><pre><code>awk '/l{2}/' testfile</code></pre></div><div></div></div></div>
+<p>これは、標準出力に次のように出力します。</p>
+<div> <div><div><pre><code>smiley, allen</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>{m</strong><em>,</em><strong> }</strong></td>
+
+<td>パターンの少なくとも <em>m</em> 個のオカレンスが文字列内にある場合、その文字列は一致することを指定します。 コマンド・ライン:<div> <div><div><pre><code>awk '/t{2,}/' testfile</code></pre></div><div></div></div></div>
+<p>これは、標準出力に次のように出力します。</p>
+<div> <div><div><pre><code>smitters, alexis</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>{</strong><em>m、n</em><strong>}</strong></td>
+
+<td>パターンの <em>m</em> から <em>n</em> までのオカランスが文字列内にある場合 (ここで <em>m</em> &lt;= <em>n</em>)、その文字列は一致することを指定します。 コマンド・ライン:<div> <div><div><pre><code>awk '/er{1, 2}/' testfile</code></pre></div><div></div></div></div>
+<p>これは、標準出力に次のように出力します。</p>
+<div> <div><div><pre><code>smithern, harry
+smithern, anne
+smitters, alexis</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>[</strong><em>ストリング</em><strong>]</strong></td>
+
+<td>正規表現が、大括弧内の <em>String</em> 変数で指定された文字と一致することを意味します。 コマンド・ライン:<div> <div><div><pre><code>awk '/sm[a-h]/' testfile</code></pre></div><div></div></div></div>
+<p>文字を含むすべてのレコードを標準出力に出力します。smその後に任意の文字がアルファベット順に続きます。aからhこの例の出力は、次のようになります。</p>
+<div> <div><div><pre><code>smawley, andy</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>[^</strong><em> ストリング</em><strong>]</strong></td>
+
+<td>[ ] (大括弧) 内で指定された文字列の先頭にある ^ (脱字記号) は、正規表現が大括弧内のどの文字とも <em>一致しない</em> ことを示します。 したがって、コマンド・ラインは次のようになります。<div> <div><div><pre><code>awk '/sm[^a-h]/' testfile</code></pre></div><div></div></div></div>
+<p>これは、標準出力に次のように出力します。</p>
+<div> <div><div><pre><code>smiley, allen
+smith, alan
+smithern, harry
+smithhern, anne
+smitters, alexis</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>~,!~</strong></td>
+
+<td>指定された変数が正規表現に一致する (ティルド) か、または一致しない (感嘆符とティルド) かを示す条件ステートメントを表します。 コマンド・ライン:<div> <div><div><pre><code>awk '$1 ~ /n/' testfile</code></pre></div><div></div></div></div>
+<p>最初のフィールドに文字が含まれているすべてのレコードを標準出力に出力します。n.この例の出力は次のようになります。</p>
+<div> <div><div><pre><code>smithern, harry
+smithhern, anne</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>^</strong></td>
+
+<td>フィールドまたはレコードの先頭を示します。 コマンド・ライン:<div> <div><div><pre><code>awk '$2 ~ /^h/' testfile</code></pre></div><div></div></div></div>
+<p>次の文字を持つすべてのレコードの標準出力に印刷します。h2 番目のフィールドの最初の文字として使用します。 この例の出力は次のようになります。</p>
+<div> <div><div><pre><code>smithern, harry</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>$</strong></td>
+
+<td>フィールドまたはレコードの終わりを示します。 コマンド・ライン:<div> <div><div><pre><code>awk '$2 ~ /y$/' testfile</code></pre></div><div></div></div></div>
+<p>次の文字を持つすべてのレコードの標準出力に印刷します。y2 番目のフィールドの最後の文字として使用します。 この例の出力は次のようになります。</p>
+<div> <div><div><pre><code>smawley, andy
+smithern, harry</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.</strong> (ピリオド)</td>
+
+<td>スペースの終わりにある、端末の改行文字以外の任意の 1 文字を示します。 コマンド・ライン:<div> <div><div><pre><code>awk '/a..e/' testfile</code></pre></div><div></div></div></div>
+<p>文字を含むすべてのレコードを標準出力に出力します。aおよび e が 2 文字で区切られています。 この例の出力は次のようになります。</p>
+<div> <div><div><pre><code>smawley, andy
+smiley, allen
+smithhern, anne</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>*</strong>(アスタリスク)</td>
+
+<td>ゼロ個または 1 個以上の任意の文字を示します。 コマンド・ライン:<div> <div><div><pre><code>awk '/a.*e/' testfile</code></pre></div><div></div></div></div>
+<p>文字を含むすべてのレコードを標準出力に出力します。aおよび e はゼロ個以上の文字で区切られます。 この例の出力は次のようになります。</p>
+<div> <div><div><pre><code>smawley, andy
+smiley, allen
+smithhern, anne
+smitters, alexis</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>¥</strong> (円記号)</td>
+
+<td>エスケープ文字。 拡張正規表現で特別な意味を持つ文字の前にエスケープ文字があると、その文字の特別な意味がなくなります。 例えば、次のコマンド・ラインの例を見てください。<div> <div><div><pre><code>/a\/\//</code></pre></div><div></div></div></div>
+<p>は、パターン a // と一致します。理由は、正規表現の区切り文字としてのスラッシュの通常の意味が、円記号により否定されるからです。 円記号自体を文字として指定するには、円記号を 2 個続けて使用します。 円記号とその使用法の詳細については、このあとのエスケープ・シーケンスの説明を参照してください。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>認識されるエスケープ・シーケンス</strong></p>
+<p><strong>awk</strong> コマンドは、<strong>awk</strong> コマンド自体が特殊文字として使用する幾つかのエスケープ・シーケンスの他に、C 言語規則で使われるほとんどのエスケープ・シーケンスを認識します。 エスケープ・シーケンスは次のとおりです。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>エスケープ・シーケンス</div></th>
+
+<th><div>表される文字</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>\"</td>
+
+<td>&amp;#xa5;" (二重引用符)</td>
+
+</tr>
+
+<tr>
+<td>\/</td>
+
+<td>/ (スラッシュ) 文字</td>
+
+</tr>
+
+<tr>
+<td>¥<em>ddd</em></td>
+
+<td>エンコードが 1 桁、2 桁、または 3 桁の 8 進整数で表される文字。<em>d</em> は各桁の 8 進数字を表します。</td>
+
+</tr>
+
+<tr>
+<td>\\</td>
+
+<td>&amp;#xa5; (円記号)</td>
+
+</tr>
+
+<tr>
+<td>\a</td>
+
+<td>警報文字</td>
+
+</tr>
+
+<tr>
+<td>\b</td>
+
+<td>バックスペース文字</td>
+
+</tr>
+
+<tr>
+<td>\f</td>
+
+<td>用紙送り文字</td>
+
+</tr>
+
+<tr>
+<td>\n</td>
+
+<td>改行文字 (次の注を参照)</td>
+
+</tr>
+
+<tr>
+<td>\r</td>
+
+<td>復帰文字</td>
+
+</tr>
+
+<tr>
+<td>\t</td>
+
+<td>タブ文字</td>
+
+</tr>
+
+<tr>
+<td>\v</td>
+
+<td>垂直タブ</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p><blockquote><span>“</span><strong>注:</strong> <strong>gsub</strong>、<strong>match</strong>、<strong>split</strong>、および <strong>sub</strong> 組み込み関数の場合を除き、拡張正規表現の突き合わせは入力レコードに基づいて行われます。 レコード分離文字 (デフォルトでは改行文字) を拡張表現に組み込むことはできず、レコード分離文字に一致する表現はありません。 レコード分離文字が改行文字でない場合は、改行文字の突き合わせができます。 先に述べた 4 つの組み込み関数では、テキスト文字列に基づいて突き合わせが行われるので、任意の文字 (レコード分離文字を含む) をパターンに組み込んで、そのパターンを適切な文字と突き合わせることができます。 ただし、<strong>awk</strong> コマンドを使用して突き合わせるすべての正規表現では、パターンの中に 1 個以上の NULL 文字が使用されていた場合、結果は予測できません。<span>”</span></blockquote>
+<p></p>
+<p><strong>関係式</strong></p>
+<p>関係演算子 &lt; (より小)、&gt; (より大)、&lt;= (より小か
+等しい)、&gt;= (より大か等しい)、= = (等しい)、および ! = (等しくない) を使用して、パターンを
+形成できます。 例えば、次のパターンを見てください。</p>
+<div> <div><div><pre><code>$1 &lt; $4</code></pre></div><div></div></div></div>
+<p>これは、最初のフィールドが 4 番目のフィールドより小さいレコードに一致します。 関係演算子は文字列値と共に使うこともできます。 次に例を示します。</p>
+<div> <div><div><pre><code>$1 =! "q"</code></pre></div><div></div></div></div>
+<p>最初のフィールドが次のフィールドではないすべてのレコードと一致します。qストリング値は、照合値で突き合わせることもできます。 次に例を示します。</p>
+<div> <div><div><pre><code>$1 &gt;= "d"</code></pre></div><div></div></div></div>
+<p>最初のフィールドが次の文字で始まるすべてのレコードに一致します。a,b,c、またはd他の情報が指定されていない場合、フィールド変数はストリング値として比較されます。</p>
+<p><strong>パターンの組み合わせ</strong></p>
+<p>次の 3 つのオプションを使用して、パターンを組み合わせることができます。</p>
+<ul>
+<li><span></span>範囲は、, (コンマ) で区切られた 2 つのパターンによって指定されます。 アクションは、最初のパターンと一致するレコードで始まるすべてのレコードに対して実行され、2 番目のパターンと一致するレコードまで (このレコードを含む) 続きます。 次に例を示します。<div> <div><div><pre><code>/begin/,/end/</code></pre></div><div></div></div>ストリングを含むレコードに一致します。begin、およびそれとストリングを含むレコードとの間のすべてのレコードend(ストリングを含むレコードを含む)end.</div>
+</li>
+
+<li>小括弧 ( ) は、パターンをまとめてグループ化します。</li>
+
+<li>ブール演算子 || (論理和)、&amp;&amp; (論理積)、および ! (論理否定) は、パターンを組み合わせて、真と評価する場合に一致し、それ以外の場合には一致しない式を形成します。 例えば、次のパターンを見てください。<div> <div><div><pre><code>$1 == "al" &amp;&amp; $2 == "123"</code></pre></div><div></div></div>最初のフィールドが以下のレコードと一致します。al2 番目のフィールドは123.</div>
+</li>
+
+</ul>
+<p><strong>BEGIN パターンと END パターン</strong></p>
+<p><strong>BEGIN</strong> パターンで指定したアクションは、入力を読み取る前に実行されます。 <strong>END</strong> パターンで指定したアクションは、すべての入力を読み取った後で実行されます。 複数の <strong>BEGIN</strong> パターンと <strong>END</strong> パターンを指定でき、指定した順序で処理されます。 プログラムのステートメントの中では、<strong>END</strong> パターンを <strong>BEGIN</strong> パターンの前に置くことができます。 プログラムが <strong>BEGIN</strong> ステートメントだけで構成されている場合は、アクションは実行されますが、入力は読み取られません。 プログラムが <strong>END</strong> ステートメントだけで構成されている場合は、すべてのアクションに先立って入力が読み取られます。</p>
+</section>
+
+<section><h2>アクション</h2><p>アクション・ステートメントには、次のように幾つかの種類があります。</p>
+<ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a171c1264" target="_blank" rel="noopener noreferrer">アクション・ステートメント</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a171c1266" target="_blank" rel="noopener noreferrer">組み込み関数</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a171c1334" target="_blank" rel="noopener noreferrer">ユーザー定義の関数</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a172c1f91" target="_blank" rel="noopener noreferrer">条件ステートメント</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a172c1fa6" target="_blank" rel="noopener noreferrer">出力アクション</a></li>
+
+</ul>
+<p><strong>アクション・ステートメント</strong></p>
+<p>アクション・ステートメントは { } (中括弧) で囲みます。 アクション・ステートメントをパターンなしで指定すると、すべてのレコードに対してアクションが実行されます。 中括弧内に複数のアクションを指定できますが、改行文字または ; (セミコロン) で区切る必要があります。ステートメントは、指定された順に処理されます。 アクション・ステートメントには次のものがあります。</p>
+<div><dl>
+<dt>算術ステートメント</dt>
+
+<dd>算術演算子 + (加算)、- (減算)、/ (除算)、^ (指数)、* (乗算)、% (モジュラス) が、次のフォーマットで使用されます。<div> <div><div><pre><code>Expression Operator Expression</code></pre></div><div></div></div></div>
+<p>したがって、次のステートメントのようになります。</p>
+<div> <div><div><pre><code>$2 = $1 ^ 3</code></pre></div><div></div></div></div>
+<p>これは、最初のフィールドの値の 3 乗を 2 番目のフィールドに割り当てます。</p>
+</dd>
+
+</dl>
+<dl>
+<dt>単項ステートメント</dt>
+
+<dd>単項 <strong>-</strong> (減算) および単項 <strong>+</strong> (加算) の働きは、次のように、C プログラミング言語の場合と同様です。<div> <div><div><pre><code>+Expression or -Expression</code></pre></div><div></div></div></div>
+</dd>
+
+</dl>
+<dl>
+<dt>増分ステートメントと減分ステートメント</dt>
+
+<dd>前置増分ステートメントと前置減分ステートメントの働きは、次のように、C プログラミング言語の場合と同様です。<div> <div><div><pre><code>++Variable or --Variable</code></pre></div><div></div></div></div>
+  <p>後置増分ステートメントと後置減分ステートメントの働きは、次のように、C プログラミング言語の場合と同様です。</p>
+  <div> <div><div><pre><code>Variable++ or Variable--</code></pre></div><div></div></div></div>
+</dd>
+
+</dl>
+<dl>
+<dt>代入ステートメント</dt>
+
+<dd>代入演算子 += (加算)、-= (減算)、/= (除算)、および *= (乗算) は、C プログラミング言語の場合と同様の働きをします。フォーマットは次のとおりです。<div> <div><div><pre><code>Variable += Expression</code></pre></div><div></div></div><div><div><pre><code>Variable -= Expression</code></pre></div><div></div></div><div><div><pre><code>Variable /= Expression</code></pre></div><div></div></div><div><div><pre><code>Variable *= Expression</code></pre></div><div></div></div></div>
+<p>例えば、次のステートメントがあるとします。</p>
+<div> <div><div><pre><code>$1 *= $2</code></pre></div><div></div></div></div>
+<p>これは、フィールド変数 <strong>$1</strong> にフィールド変数 <strong>$2</strong> を掛けて、新しい値を <strong>$1</strong> に割り当てます。</p>
+<p>代入演算子 ^= (指数) と %= (モジュラス) は、次のフォーマットになります。</p>
+<div> <div><div><pre><code>Variable1^=Expression1</code></pre></div><div></div></div></div>
+<p>および</p>
+<div> <div><div><pre><code>Variable2%=Expression2</code></pre></div><div></div></div></div>
+<p>これはそれぞれ、C プログラミング言語の次のステートメントと同じです。</p>
+<div> <div><div><pre><code>Variable1=pow(Variable1, Expression1)</code></pre></div><div></div></div></div>
+<p>および</p>
+<div> <div><div><pre><code>Variable2=fmod(Variable2, Expression2)</code></pre></div><div></div></div></div>
+<p>ここでpow<strong>ポウ</strong> サブルーチンです。fmod<strong>FMOD</strong> サブルーチンです。</p>
+</dd>
+
+</dl>
+<dl>
+<dt>文字列連結ステートメント</dt>
+
+<dd>文字列を並べて書くことにより、文字列値を連結することができます。 次に例を示します。<div> <div><div><pre><code>$3 = $1 $2</code></pre></div><div></div></div></div>
+  <p>これは、フィールド変数 <strong>$1</strong> と <strong>$2</strong> 内の文字列を連結したものを、フィールド変数 <strong>$3</strong> に割り当てます。</p>
+</dd>
+
+</dl>
+</div>
+<p><strong>組み込み関数</strong></p>
+<p><strong>awk</strong> コマンド言語は、算術関数、文字列関数、および汎用関数を使用します。 ファイルに書き込んだ後でそのファイルを同じプログラムの中で読み取れるようにするには、close サブルーチン・ステートメントが必要です。</p>
+<p><strong>算術関数</strong></p>
+<p>次の算術関数は、同じ名前の C 言語のサブルーチンと同じアクションを実行します。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>atan2(</strong><em> Y</em>, <em>X</em><strong> )</strong></td>
+
+<td><em>y</em>/<em>x</em> の逆正接を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>COS (</strong><em> X</em><strong> )</strong></td>
+
+<td><em>x</em> の余弦を戻します。<em>x</em> の単位はラジアンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>罪 (</strong><em> X</em><strong> )</strong></td>
+
+<td><em>x</em> の正弦を戻します。<em>x</em> の単位はラジアンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>exp (</strong><em> X</em><strong> )</strong></td>
+
+<td><em>x</em> の指数関数を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ログ (</strong><em> X</em><strong> )</strong></td>
+
+<td><em>x</em> の自然対数を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SQL (</strong><em> X</em><strong> )</strong></td>
+
+<td><em>x</em> の平方根を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>整数 (</strong><em> X</em><strong> )</strong></td>
+
+<td><em>x</em> の値を切り捨てて整数にして戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ランド (</strong><strong> )</strong></td>
+
+<td>乱数 <em>n</em> (0 &lt;= <em>n</em> &lt; 1) を返します。</td>
+
+</tr>
+
+<tr>
+<td><strong>srand(</strong> [<em>Expr</em>] <strong>)</strong></td>
+
+<td><strong>rand</strong> 関数のシード値を <em>Expr</em> パラメーターの値に設定します。<em>Expr</em> パラメーターを省略した場合は、時刻が使用されます。 直前のシード値が戻されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>文字列関数</strong></p>
+<p>次のような文字列関数があります。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>gsub (</strong><em> エーレ</em>, <em>複製</em>, [ <em>イン</em> ] <strong>)</strong></td>
+
+<td>正規表現のすべてのオカレンスを置換することを除いて、<strong>sub</strong> 関数とまったく同じ演算を実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>サブ (</strong><em> エーレ</em>, <em>複製</em>, [ <em>イン</em> ] <strong>)</strong></td>
+
+<td><em>In</em> パラメーターで指定された文字列の中の <em>Ere</em> パラメーターで指定された拡張正規表現の最初のオカレンスを、<em>Repl</em> パラメーターで指定された文字列で置き換えます。 <strong>sub</strong> 関数は、置換の数を戻します。 <em>Repl</em> パラメーターによって指定されたストリングに含まれる &amp;amp; (アンパーサンド) は、<em>In</em> パラメーターのストリングに置換されます。このパラメーターは、<em>Ere</em> パラメーターによって指定された拡張正規表現に一致します。 <em>In</em> パラメーターを指定しなかった場合は、デフォルト値としてレコード全体 (<strong>$0</strong> レコード変数) が置換されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>索引 (</strong><em> String1</em>, <em>String2</em><strong> )</strong></td>
+
+<td><em>String1</em> パラメーターで指定された文字列内部に <em>String2</em> パラメーターで指定された文字列がある場合に、String1 文字列内での String2 文字列の (1 から数えた) 位置を戻します。 <em>String2</em> パラメーターが <em>String1</em> パラメーター内部にない場合は、0 が戻されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>length [(</strong><em>String</em><strong>)]</strong></td>
+
+<td><em>String</em> パラメーターで指定された文字列の長さ (文字数) を戻します。 <em>String</em> パラメーターを指定しなかった場合は、レコード全体の長さ (<strong>$0</strong> レコード変数) が戻されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>blength [(</strong><em>String</em><strong>)]</strong></td>
+
+<td><em>String</em> パラメーターで指定された文字列の長さ (バイト数) を戻します。 <em>String</em> パラメーターを指定しなかった場合は、レコード全体の長さ (<strong>$0</strong> レコード変数) が戻されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>サブスター (</strong><em> ストリング</em>,<em> 分</em>, [ <em>N</em> ] <strong>)</strong></td>
+
+<td><em>N</em> パラメーターで指定された文字数を持つサブストリングを戻します。 サブストリングは、<em>String</em> パラメーターで指定された文字列から取られ、<em>M</em> パラメーターで指定された位置にある文字で始まっています。 <em>M</em> パラメーターは、<em>String</em> パラメーターの最初の文字と 1番目の文字で指定されます。 <em>N</em> パラメーターが指定されていない場合、サブストリングの長さは、<em>M</em> パラメーターで指定された位置から <em>String</em> パラメーターの終端までになります<em>。</em></td>
+
+</tr>
+
+<tr>
+<td><strong>一致 (</strong><em> ストリング</em>, <em>エーレ</em><strong> )</strong></td>
+
+<td><em>Ere</em>  パラメーターで指定された拡張正規表現が <em>String</em> パラメーターで指定された文字列内部にあれば、その位置を、先頭文字を 1 とした場合の文字の番号で戻します。<em>Ere</em> パラメーターの値が文字列内にない場合は、0 を戻します。 <strong>RSTART</strong> 特殊変数は戻り値に設定されます。 <strong>RLENGTH</strong> 特殊変数は、一致文字列の長さに設定されるか、または、一致する文字列が見つからない場合は -1 (負の 1) に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>split(</strong><em> String</em>, <em>A</em>, [<em>Ere</em>] <strong>)</strong></td>
+
+<td><em>String</em> パラメーターで指定されたストリングを配列エレメント <em>A</em>[1]、<em>A</em>[2]、. . .、<em>A</em>[<em>n</em>] に分割し、<em>n</em> 変数の値を戻します。 分割は、<em>Ere</em> パラメーターによって指定された拡張正規表現、または <em>Ere</em> パラメーターが指定されていない場合は現在のフィールド分離文字 (<strong>FS</strong> 特殊変数) を使用して行われます。 <em>A</em> 配列のエレメントは、特定のエレメントが数値も持つ必要があることがコンテキストにより指示されている場合を除き、文字列値で作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>トローワー (</strong><em> ストリング</em><strong> )</strong></td>
+
+<td><em>String</em> パラメーターで指定された文字列を、文字列内の大文字を小文字に変換して戻します。 大文字と小文字のマッピングは、現行ロケールの <strong>LC_CTYPE</strong> カテゴリーによって定義されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>タッパー (</strong><em> ストリング</em><strong> )</strong></td>
+
+<td><em>String</em> パラメーターで指定された文字列を、文字列内の小文字を大文字に変換して戻します。 大文字と小文字のマッピングは、現行ロケールの <strong>LC_CTYPE</strong> カテゴリーによって定義されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>sprintf(</strong><em>Format</em><strong>,</strong><em> Expr</em><strong>,</strong><em> Expr</em><strong>,</strong> . . . <strong>)</strong></td>
+
+<td><em>Expr</em> パラメーターで指定された式を、<em>Format</em> パラメーターで指定された <strong>printf</strong> サブルーチン形式文字列に従ってフォーマット設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>一般機能</strong></p>
+<p>次のような汎用関数があります。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>閉じる (</strong><em> 式</em><strong> )</strong></td>
+
+<td><strong>print</strong> または <strong>printf</strong> ステートメント、または同じ文字列値の <em>Expression</em> パラメーターを使用した <strong>getline</strong> 関数の呼び出しによってオープンされたファイルまたはパイプをクローズします。 ファイルまたはパイプが正常にクローズされると、0 が戻されます。クローズに失敗すると、ゼロ以外の値が戻されます。 ファイルに書き込んだ後でそのファイルを同じプログラムの中で読み取るには、<strong>close</strong> ステートメントが必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>システム (</strong><em>コマンド</em><strong> )</strong></td>
+
+<td><em>Command</em>  パラメーターで指定されたコマンドを実行して、その終了状況を戻します。 <strong>system</strong> サブルーチンと同じです。</td>
+
+</tr>
+
+<tr>
+<td><em>式</em> | <strong>getline</strong> [ <em>変数</em> ]</td>
+
+<td><em>Expression</em> パラメーターで指定されたコマンドの出力からパイプを通して入力されたストリームから、入力レコードを 1 つ読み取って、<em>Variable</em> パラメーターで指定された変数にそのレコードの値を割り当てます。 <em>Expression</em> パラメーターの値と同じ名前のコマンドにより現在オープンされているストリームがない場合は、そのようなストリームが作成されます。 作成されたストリームは、<em>Command</em> パラメーターを使用した <strong>popen</strong> サブルーチンへの呼び出しによって作成されたものと同等で、<em>Expression</em> パラメーターおよび <em>Mode</em> パラメーター・セットの値を <strong>r</strong> の値として使用します。 <strong>getline</strong> 関数に対する後続の各呼び出しでは、ストリームのオープン状態が維持される限り別のレコードを読み取り、<em>Expression</em> パラメーターは同じストリングとしてみなされます。 <em>Variable</em> パラメーターを指定しなかった場合は、<strong>$0</strong> レコード変数と <strong>NF</strong> 特殊変数の値は、ストリームから読み取られたレコードに設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>getline</strong> [ <em>Variable</em> ] <strong>&lt;</strong><em> Expression</em></td>
+
+<td><em>Expression</em> パラメーターで指定されたファイルから次の入力レコードを 1 つ読み取って、<em>Variable</em> パラメーターで指定された変数の値をそのレコードの値に設定します。 <strong>getline</strong> 関数に対する後続の各呼び出しでは、ストリームのオープン状態が維持される限り別のレコードを読み取り、<em>Expression</em> パラメーターは同じストリングとしてみなされます。 <em>Variable</em> パラメーターを指定しなかった場合は、<strong>$0</strong> レコード変数と <strong>NF</strong> 特殊変数の値は、ストリームから読み取られたレコードに設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>getline</strong> [ <em>変数</em> ]</td>
+
+<td><em>Variable</em> パラメーターで指定された変数の値を、現行の入力ファイルから取り出した次の入力レコードに設定します。 <em>Variable</em> パラメーターを指定しなかった場合は、<strong>$0</strong> レコード変数の値は、入力レコードの値に設定され、<strong>NF</strong>、<strong>NR</strong>、および <strong>FNR</strong> の各特殊変数も同様に設定されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p></p><blockquote><span>“</span><strong>注:</strong> どのフォーマットの <strong>getline</strong> 関数も、正常な入力の場合は 1 を戻し、ファイルの終わり (EOF) の場合は 0 を戻し、エラーの場合は -1 を戻します。<span>”</span></blockquote>
+<p></p>
+<p><strong>ユーザー定義の関数</strong></p>
+ <p>ユーザー定義関数は、次のフォーマットで宣言します。</p>
+<div> <div><div><pre><code>function Name (Parameter, Parameter,...)  { Statements }</code></pre></div><div></div></div></div>
+<p>関数は、<strong>awk</strong> コマンド・プログラム内のどこからでも参照でき、関数定義の前でも使用できます。 関数の有効範囲はグローバルです。</p>
+<p>関数パラメーターは、スカラーまたは配列のどちらかにできます。 パラメーター名だけは関数にとってローカルなものですが、その他のすべての変数名はグローバルです。 異なるエンティティーに同じ名前を使用することはできません。例えば、パラメーター名を、関数名または特殊変数として重複使用することはできません。 グローバルな有効範囲を持つ変数は、関数と同じ名前を共有することはできません。 スカラーと配列は、同じ有効範囲内で同じ名前を持つことはできません。</p>
+<p>関数定義の中のパラメーターの数は、関数を呼び出すときに使用されるパラメーターの数と一致していなくてもかまいません。 余分な仮パラメーターはローカル変数として使用できます。 余分なスカラー・パラメーターは、空文字列と等価の文字列値および数値 0 を使用して初期化されます。余分な配列パラメーターは空配列として初期化されます。</p>
+<p>関数を呼び出す場合、関数名と左括弧の間にはホワイト・スペースを入れません。 関数呼び出しはネストでき、再帰的です。 ネストされた関数呼び出しまたは再帰的関数呼び出しから戻ったとき、すべての呼び出し元関数のパラメーターの値は、参照により渡された配列パラメーターを除き、すべて元の状態のままでなければなりません。 <strong>return</strong> ステートメントを使用して値を戻すことができます。</p>
+<p>関数定義内部では、改行文字は { (左中括弧) の前と、} (右中括弧) の後に、入れても入れなくてもかまいません。</p>
+<p>関数定義の例を次に示します。</p>
+<div> <div><div><pre><code>function average ( g,n) 
+  {
+        for (i in g)
+           sum=sum+g[i]
+        avg=sum/n
+        return avg
+  } </code></pre></div><div></div></div></div>
+<p>関数 average には配列が渡されます。g、変数、n配列内のエレメントの数を指定します。 次に、この関数は平均を取得し、その値を戻します。</p>
+<p><strong>条件ステートメント</strong></p>
+<p><strong>awk</strong> コマンド・プログラミング言語のほとんどの条件ステートメントは、C プログラミング言語の条件ステートメントの構文および機能と同じです。 どの条件ステートメントでも、{ } (中括弧) を使ってステートメントをグループ化できます。 条件ステートメントの式の部分とステートメント部分の間には改行文字を入れても入れなくてもかまいません。また、{ } (中括弧) 内の複数のステートメントを区切るには、改行文字または ; (セミコロン) を使用します。 C 言語型の 6 つの条件ステートメントは次のとおりです。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>指定する場合は、</strong></td>
+
+<td>構文は次のとおりです。<p><strong>if</strong> ( <em>式</em> ) { <em>ステートメント}</em> [ <strong>else</strong><em> アクション</em> ]</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>while</strong></td>
+
+<td>構文は次のとおりです。<p><strong>while</strong> ( <em>式</em> ) { <em>ステートメント</em> }</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>FOR</strong></td>
+
+<td>構文は次のとおりです。<p><strong>for</strong> ( <em>Expression</em> ; <em>Expression</em> ; <em>Expression</em>) { <em>Statement</em> }</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>break</strong></td>
+
+<td><strong>break</strong> ステートメントを <strong>while</strong> ステートメントまたは<strong> for</strong> ステートメント内で使用すると、プログラム・ループが終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>続く</strong></td>
+
+<td><strong>continue</strong> ステートメントを <strong>while</strong> ステートメントまたは<strong> for</strong> ステートメント内で使用すると、プログラム・ループが次の反復に進みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>awk</strong> コマンド・プログラミング言語には C 言語の規則に従わない、次の 5 つの条件ステートメントがあります。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>For...in</strong></td>
+
+<td>構文は次のとおりです。<p><strong>対象:</strong> ( <em>変数</em><strong> 内</strong><em> 配列</em> ) { <em>ステートメント</em> }</p>
+  <p><strong>for</strong>...<strong>in</strong> ステートメントは、<em>Variable</em> パラメーターを、一度に 1 索引ずつ順不同で <em>Array</em> 変数の各索引値に設定し、反復するたびに、<em>Statement</em> パラメーターで指定されたアクションを実行します。 <strong>for</strong>...<strong>in</strong> ステートメントの例については、<strong>delete</strong> ステートメントを参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>以下の場合</strong></td>
+
+<td>構文は次のとおりです。<p><strong>条件</strong> ( <em>変数</em><strong> 内</strong><em> 配列</em> ) { <em>ステートメント</em> }</p>
+  <p><strong>if</strong>...<strong>in</strong> ステートメントは、<em>Array</em> エレメントが存在するかどうかを調べます。 <em>Array</em> エレメントが見つかると、ステートメントが実行されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>削除</strong></td>
+
+<td>構文は次のとおりです。<p><strong>削除</strong><em> 配列</em> [ <em>式</em> ]</p>
+  <p><strong>delete</strong> ステートメントは、<em>Array</em> パラメーターで指定された配列エレメントと <em>Expression</em> パラメーターで指定された索引の両方を削除します。 例えば、次のステートメントを見てください。</p>
+  <div> <div><div><pre><code>for (i in g)
+   delete g[i];</code></pre></div><div></div></div></div>
+  <p>すべての要素が削除されます。g[]array.</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>exit</strong></td>
+
+<td>構文は次のとおりです。<p><strong>exit</strong> [ <em>式</em> ]</p>
+  <p><strong>exit</strong> ステートメントは最初にすべての <strong>END</strong> アクションを発生順に呼び出し、<em>Expression</em> パラメーターによって指定された終了状況を使用して <strong>awk</strong> コマンドを終了します。 <strong>exit</strong> ステートメントが <strong>END</strong> アクション内部で発生すると、それ以上の <strong>END</strong> アクションは呼び出されません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>#</strong></td>
+
+<td>構文は次のとおりです。<p><strong>#</strong><em> コメント</em></p>
+  <p><strong>#</strong> ステートメントは注釈を入れます。 注釈は、必ず改行文字で終わらせる必要がありますが、行のどこからでも始めることができます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>次へ</strong></td>
+
+<td>現行の入力レコードの処理を停止して、次の入力レコードに進みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>出力ステートメント</strong></p>
+<p><strong>awk</strong> コマンド・プログラミング言語の 2 つの出力ステートメントは次のとおりです。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>印刷</strong></td>
+
+<td>構文は次のとおりです。<p><strong>print</strong> [ <em>ExpressionList</em> ] [<em> リダイレクト</em> ] [ <em>式</em> ]</p>
+  <p><strong>print</strong> ステートメントは、<em>ExpressionList</em> パラメーターで指定された各式の値を、標準出力に書き出します。 各式は <strong>OFS</strong> 特殊変数の現行値によって分離され、各レコードは <strong>ORS</strong> 特殊変数の現行値によって終了します。</p>
+  <p>出力は、<em>Redirection</em> パラメーターを
+使用してリダイレクトできます。このパラメーターでは、&gt; (より大)、&gt;&gt; (二重の
+より大)、および | (パイプ) によって、3 つの出力リダイレクトが指定
+できます。 <em>Redirection</em> パラメーターでは、出力をリダイレクトする方法を
+指定し、<em>Expression</em> パラメーターは、ファイルへの
+パス名 (<em>Redirection</em> パラメーターが &gt; または &gt;&gt; のとき) と
+コマンドの名前 (<em>Redirection</em> パラメーターが | のとき) のいずれかです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>printf</strong></td>
+
+<td>構文は次のとおりです。<p><strong>printf</strong><em> Format</em> [, <em>ExpressionList</em> ] [<em> リダイレクト</em> ] [ <em>Expression</em> ]</p>
+  <p><strong>printf</strong> ステートメントは、<em>ExpressionList</em> パラメーターで指定された式を、<em>Format</em> パラメーターで指定されたフォーマットで標準出力に書き出します。 <strong>printf</strong> ステートメントは、 <strong>printf</strong> コマンドとまったく同じように機能します。ただし、c変換指定 (%c)。 <em>Redirection</em> パラメーターおよび <em>Expression</em> パラメーターの機能は、<strong>print</strong> ステートメントの場合と同じです。</p>
+  <p>For thec変換指定: 引数に数値がある場合は、その値がエンコードされている文字が出力されます。 値が 0 であるか、または文字セットのどの文字のエンコードにも対応していない場合は、動作は不定です。 引数が数値でない場合は、文字列値の先頭文字が出力されます。文字列内に文字がまったく含まれていない場合の動作は不定です。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p><blockquote><span>“</span><strong>注:</strong> <em>Expression</em> パラメーターに <em>Redirection</em> パラメーター用のパス名を指定する場合は、<em>Expression</em> が必ず文字列として処理されるように、そのパラメーターを二重引用符で囲む必要があります。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>変数</h2><p>変数は、スカラー、フィールド変数、配列、または特殊変数のどれかです。 変数名の先頭に数字を使用することはできません。</p>
+<p>変数は、変数を参照するだけで使用できます。 関数パラメーターを除き、変数は明示的には宣言されません。 初期化されていないスカラー変数と配列エレメントは、数値 0 と null 文字列 (" ") の文字列値の両方を持っています。</p>
+<p>変数は、コンテキストに従って、数値または文字列値をとります。 各変数は、数値、文字列値、またはこの両方を持つことができます。 次に例を示します。</p>
+<div> <div><div><pre><code>x = "4" + "8"</code></pre></div><div></div></div></div>
+<p>以下の値を割り当てます。12変数にxストリング定数の場合、式は "" で囲む必要があります。 (二重引用符)。</p>
+<p>数字と文字列の間の明示的な変換はありません。 強制的に式を数値として処理するには、式に 0 を追加します。 式を文字列として処理するには、末尾に null 文字列 (" ") を追加します。</p>
+<p><strong>フィールド変数 (Field Variables)</strong></p>
+<p>フィールド変数は、<strong>$</strong> (ドル記号) とそれに続く数値または数値式で指定します。 レコードの最初のフィールドに <strong>$1</strong> 変数、2 番目のフィールドに <strong>$2</strong> 変数というように、順に割り当てられます。 <strong>$0</strong> フィールド変数はレコード全体に割り当てられます。 値を割り当てることによって、新しいフィールド変数を作成できます。 存在しないフィールド、つまり<strong> $NF</strong> フィールド変数の値より現行値が大きいフィールドに値を割り当てると、中間フィールドが (null 文字列に設定されて) 自動的に作成され、<strong>NF</strong> 特殊変数の値が増加し、<strong>$0</strong> レコード変数の値が自動的に再計算されます。 新規フィールドは、現行のフィールド分離文字 (つまり <strong>FS</strong> 特殊変数の値) で区切られます。 デフォルトのフィールド分離文字はブランクおよびタブです。 フィールド分離文字を変更するには、<strong>-F</strong> フラグを使用するか、または <strong>awk</strong> コマンド・プログラムの中で <strong>FS</strong> 特殊変数に別の値を割り当てます。</p>
+<p><strong>アレイ</strong></p>
+<p>配列は、最初は空であり、サイズが動的に変化します。 配列は、[ ] (大括弧) で囲んだ添え字を持つ変数によって表されます。 添え字つまりエレメント ID は、文字列の数字であり、結合配列の機能のタイプを示します。 例えば、次のプログラムを見てください。</p>
+<div> <div><div><pre><code>/red/  { x["red"]++ }
+/green/ { y["green"]++ }</code></pre></div><div></div></div></div>
+ <p>両方のカウントを増分します。redカウンターとgreenカウンター。</p>
+<p>配列は、幾つかのプログラミング言語の多次元配列と同様に、2 つ以上の添え字を使って索引付けできます。 <strong>awk</strong> コマンドのプログラミング配列は現実に 1 次元なので、コンマで区切られた添え字は、別の式の文字列値を連結し各式を <strong>SUBSEP</strong> 環境変数の値によって区切った、単一の文字列に変換されます。 したがって、次の 2 つの索引操作は同じです。</p>
+<div> <div><div><pre><code>x[expr1, expr2,...exprn]</code></pre></div><div></div></div></div>
+<p>および</p>
+<div> <div><div><pre><code>x[expr1SUBSEPexpr2SUBSEP...SUBSEPexprn]</code></pre></div><div></div></div></div>
+<p><strong>in</strong> 演算子を使用するときは、多次元の <em>Index</em> 値は括弧で囲む必要があります。 <strong>in</strong> 演算子の場合を除き、存在しない配列エレメントを参照すると、そのエレメントが自動的に作成されます。</p>
+</section>
+
+<section><h2>特殊変数</h2><p>次の変数は、<strong>awk</strong> コマンドの場合は特別な意味になります。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>argc</strong></td>
+
+<td><strong>ARGV</strong> 配列内のエレメント数。 この値は変更できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>argv</strong></td>
+
+<td>各メンバーに <em>File</em> 変数または <em>Assignment</em> 変数の 1 つが入っている配列。これらの変数は、コマンド・ラインから順に取り込まれ、0 から <strong>ARGC</strong> -1 までの番号が付きます。 各入力ファイルが終了すると、<strong>ARGV</strong> 配列の次のメンバーが次の入力ファイルの名前を与えます。ただし、次の場合を除きます。<ul>
+<li>次のメンバーが <em>Assignment</em> ステートメントの場合。この場合は、代入値を使って評価されます。</li>
+
+<li>次のメンバーが null 値の場合。この場合、そのメンバーはスキップされます。 <strong>ARGV</strong> 配列内の選択済み入力ファイルが入ったメンバーを null 値に設定することによって、プログラムでその入力ファイルをスキップすることができます。</li>
+
+<li>次のメンバーが <strong>ARGV</strong> [<strong>ARGC</strong> -1] の現行値である場合。<strong>awk</strong>  コマンドは、この値を入力ファイルの終わりと解釈します。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>CONVFMT (会話)</strong></td>
+
+<td>数字を文字列に変換する <strong>printf</strong> 構文 (<strong>OFMT</strong> 特殊変数を使用する出力ステートメントを除く)。 デフォルトは "% .6g" です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ENVIRON</strong></td>
+
+<td><strong>awk</strong> コマンドの操作環境を表す配列。 この配列の各エレメントは次のフォーマットになります。<p><strong>ENVIRON</strong> <strong>[</strong> <strong>"</strong><em> 環境変数名</em><strong> "</strong> <strong>]</strong> = <em>EnvironmentVariableValue</em></p>
+  <p><strong>awk</strong> コマンドが実行を開始すると値が設定され、
+<strong>ENVIRON</strong> 特殊変数が途中で変更されてもそれに関係なく、実行が終わるまでは同じ環境が使用されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ファイル名</strong></td>
+
+<td>現行の入力ファイルのパス名。 <strong>BEGIN</strong> アクションの実行中は、<strong>FILENAME</strong> の値は未定義です。 <strong>END</strong> アクションの実行中は、この値は最後に処理された入力ファイルの名前になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>FNR</strong></td>
+
+<td>現行ファイル内の現行入力レコードの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>FS</strong></td>
+
+<td>入力フィールド分離文字。 デフォルト値はブランクです。 入力フィールド分離文字がブランクの場合には、ロケール定義のスペースをいくつでも使ってフィールドを分離できます。 <strong>FS</strong> 特殊変数は、このほかに次の 2 つの値をとることができます。<ul>
+<li><strong>FS</strong> を単一の文字に設定すると、その文字が 1 つあるたびにフィールドが分離されます。</li>
+
+<li><strong>ファイル・システム</strong> を <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__a10498fe" target="_blank" rel="noopener noreferrer">拡張正規表現</a>に設定すると、拡張正規表現に一致するシーケンスが出現するたびにフィールドが分離されます。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>NF</strong></td>
+
+<td>現行レコード内のフィールド数 (最大 99)。 <strong>BEGIN</strong> アクション内では、<strong>NF</strong> 特殊変数は、<em>Variable</em> パラメーターが指定されていない <strong>getline</strong> 関数が先に実行されていない限り、未定義の状態です。 <strong>END</strong> アクションの内部では、<strong>NF</strong> 特殊変数は、<strong>END</strong> アクションを入力する前に、<em>Variable</em> パラメーターを指定せずに後続のリダイレクトされた <strong>getline</strong> 関数が実行されない限り、前回のレコード読み取り時の値を維持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>NR</strong></td>
+
+<td>現行の入力レコードの番号。 <strong>BEGIN</strong> アクション内では、<strong>NR</strong> 特殊変数の値は 0 です。 <strong>END</strong> アクション内では、この値は最後に処理されたレコードの番号です。</td>
+
+</tr>
+
+<tr>
+<td><strong>オFMT (FMT)</strong></td>
+
+<td>出力ステートメント内で数字を文字列に変換する <strong>printf</strong> 構文。 デフォルトは "%.6g" です。</td>
+
+</tr>
+
+<tr>
+<td><strong>OFS とは</strong></td>
+
+<td>出力フィールド分離文字 (デフォルトはスペース)。</td>
+
+</tr>
+
+<tr>
+<td><strong>RS</strong></td>
+
+<td>出力レコード分離文字 (デフォルトは改行文字)。</td>
+
+</tr>
+
+<tr>
+<td><strong>長さ</strong></td>
+
+<td><strong>match</strong> 関数で一致した文字列の長さ。</td>
+
+</tr>
+
+<tr>
+<td><strong>rs</strong></td>
+
+<td>入力レコード分離文字 (デフォルトは改行文字)。 <strong>RS</strong> 特殊変数が null の場合は、レコードは 1 つ以上のブランク行のシーケンスで分離されます。
+先頭または末尾のブランク行が、入力の始めまたは終わりで空のレコードになることはありません。
+また、<strong>FS</strong> 特殊変数の値にかかわらず、改行文字は常にフィールド分離文字です。</td>
+
+</tr>
+
+<tr>
+<td><strong>RSTART (R)</strong></td>
+
+<td><strong>match</strong> 関数によってマッチングされるストリングの開始位置 (1から番号付け)。 <strong>match</strong> 関数の戻り値と同等です。</td>
+
+</tr>
+
+<tr>
+<td><strong>SUBSEP</strong></td>
+
+<td>複数の添え字を分離します。 デフォルトは &amp;#xa5;031 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong><em> ProgramFile</em></td>
+
+<td><em>ProgramFile</em> 変数で指定されたファイルから、<strong>awk</strong> コマンドの命令を取得します。 <strong>-f</strong> フラグを複数回指定すると、ファイルを指定順に連結したものが命令セットとして使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>バッファーされないモードで出力を表示します。 このフラグが使用された場合、<strong>awk</strong> コマンドは出力をバッファーに入れません。 代わりに、出力を即座に表示します。 デフォルトでは、<strong>awk</strong> コマンドはバッファー付きモードで出力を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F (R)</strong><em> エーレ</em></td>
+
+<td><em>Ere</em> 変数で指定された拡張正規表現がフィールド分離文字として使用されます。 デフォルトのフィールド分離文字はブランクです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v (V)</strong><em> 割り当て</em></td>
+
+<td><strong>awk</strong> コマンドのプログラミング言語の変数に値を割り当てます。 <em>Assignment</em> パラメーターのフォーマットは <em>Name = Value</em> です。 <em>Name</em> 部分は変数名を示し、下線、数字、および英字を自由に組み合わせて指定できますが、先頭は英字または下線でなければなりません。 <em>Value</em> 部分も、下線、数字、および英字で構成され、文字列値と同様に、前後を " (二重引用符) で囲まれているものとして取り扱われます。 <em>Value</em> 部分が数値の場合は、変数にもその数値が割り当てられます。<p><strong>-v</strong> フラグで指定された割り当ては、<strong>BEGIN</strong> セクションを含めて、<strong>awk</strong> コマンドのプログラムのどの部分もまだ実行されないうちに行われます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>代入演算子</em></td>
+
+<td><strong>awk</strong> コマンドのプログラミング言語の変数に値を割り当てます。 <strong>-v</strong> フラグが指定された <em>Assignment</em> 変数と同じ形式と機能を持ちますが、それぞれが処理される時間だけが異なります。 <em>Assignment</em> パラメーターは、コマンド・ラインでこのパラメーターのあとに続く入力ファイル (<em>File</em> 変数で指定されたもの) の直前に処理されます。 複数の入力ファイルの先頭ファイルの直前に <em>Assignment</em> パラメーターを指定した場合は、割り当ては <strong>BEGIN</strong> セクション (もしあれば) の直後に処理されます。 <em>Assignment</em> パラメーターが最後のファイルのあとにある場合は、割り当ては <strong>END</strong> セクション (もしあれば) の前に処理されます。 入力ファイルを指定しなければ、割り当ては標準入力の読み取り時に処理されます。</td>
+
+</tr>
+
+<tr>
+<td><em>File</em></td>
+
+<td>処理用の入力が入っているファイルの名前を指定します。 <em>File</em> 変数を指定しなかった場合、または <strong>-</strong> (負) 符号を指定した場合は、標準入力が処理されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>'</strong><em>プログラム</em><strong>'</strong><em></em></td>
+
+<td><strong>awk</strong> コマンド用の命令が入っています。 <strong>-f</strong> フラグを指定しない場合は、<em>Program</em> 変数がコマンド・ラインの最初の項目でなければなりません。 また、' ' (単一引用符) で囲む必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2><p>このコマンドは、以下の終了値を戻します。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/awk.html#awk__row-d3e47526" target="_blank" rel="noopener noreferrer"><strong>出口 </strong>[ <em>式</em> ]</a> 条件ステートメントを使用して、プログラム内の終了状況を変更できます。</p>
+</section>
+
+<section><h2>例</h2><ol>
+<li>ファイルの中にある 73 文字以上の行を表示するには、次のように入力します。<div> <div><div><pre><code>awk  'length  &gt;72'  chapter1</code></pre></div><div></div></div>これにより、次の各行が選択されます。chapter1ファイルは 72 文字より長く、 <em>処置</em> が指定されていないため、これらの行を標準出力に書き込みます。 タブ文字は 1 バイトとして計算されます。</div>
+</li>
+
+<li>単語の間のすべての行を表示するには startおよびstop,組み込み "start"および "stop",次のように入力します。<div> <div><div><pre><code>awk  '/start/,/stop/'  chapter1</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>アーク</strong> コマンド・プログラムを実行するには、sum2.awk,ファイルを処理します。chapter1次のように入力します。<div> <div><div><pre><code>awk  -f  sum2.awk  chapter1</code></pre></div><div></div></div>以下のプログラムは、sum2.awk入力ファイルの 2 番目の列の数値の合計と平均を計算します。chapter1:<div><div><pre><code>    {
+       sum += $2
+    }
+END {
+       print "Sum: ", sum;
+       print "Average:", sum/NR;
+    }</code></pre></div><div></div></div>最初のアクションは、各行の 2 番目のフィールドの値を変数に追加します。sumすべての変数は、最初に参照されたときに 0 (ゼロ) の数値に初期化されます。 2 番目のアクションの前にパターン <strong>END</strong> があるので、2 番目のアクションはすべての入力ファイルの読み取りが終わってから実行されます。 <strong>NR</strong> 特殊変数は、平均計算に使用されるもので、読み取られたレコード数を示します。</div>
+</li>
+
+<li>最初の 2 つのフィールドを逆の順序で表示するには、次のように入力します。<div> <div><div><pre><code>awk '{ print $2, $1 }' chapter1</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>awk</strong> プログラムを以下に示します。<div><div><pre><code>awk -f sum3.awk chapter2</code></pre></div><div></div></div>ファイルの最初の 2 つのフィールドを印刷します。chapter2入力フィールドをコンマまたはブランク (あるいはその両方) で区切った後、最初の列を合計し、合計と平均を出力します。<div><div><pre><code>BEGIN  {FS = ",|[ \t]+"}
+       {print $1, $2}
+       {s += $1}
+END    {print "sum is",s,"average is", s/NR }               </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,299 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>監査ログのレコードをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p></p><div><span><span>lsaudrec</span></span> [<span><span>-l</span></span>] [<span><span>-a</span></span> | <span><span>-n</span></span> <span><span>node_name1</span></span>[<span><span>,</span></span><span><span>node_name2</span></span>] ...] [<span><span>-S</span></span> <span><span>subsystem_name</span></span><span></span>] <br> [<span><span>-s</span></span> <span><span>selection_string</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [ <span><span>field_name1</span></span> [<span><span>field_name2</span></span>...]</div>
+<p></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lsaudrec</span></span> コマンドは、監査ログ内のレコードをリストするために使用します。 監査ログは、システムのオペレーションに関する情報を記録するための機能です。 監査ログには、システムの通常オペレーションに関する情報のほか、失敗や他のエラーも含めることができます。 監査ログは、他システム・アクティビティーに関係したエラーの関連性を伝達
+することにより、エラー・ログの機能性を増大させます。 障害に関する詳細情報もすべて、AIX® エラー・ログに書き込まれます。</p>
+ <p>監査ログへのレコードの作成は、そのために用意されたサブシステムにより行われます。 例えば、イベント応答サブシステムは、
+管理者が定義した条件をモニターするためにバックグラウンドで実行され、
+条件が真になると、1 つまたは複数のアクションを起動します。 このサブシステムはバックグラウンドで実行されるため、
+発生したすべてのイベント・セットおよびイベントに対して取られたすべてのアクションの結果を、
+オペレーターまたは管理者が把握するのは困難です。 イベント応答サブシステムはそのアクティビティーを監査ログに記録するため、このコマンドにより管理者は、
+他のサブシステムのアクティビティーに加えてイベント応答サブシステムのアクティビティーを容易に表示できます。</p>
+ <p>監査ログ内の各レコードは名前付きフィールドを持っています。 各フィールドには、
+そのレコードに対応する状態に関する情報を提供する値が含まれています。 例えば、 <span><span>Time</span></span> という名前のフィールドは、シチュエーションが発生した時刻を示します。 各レコードは、一組の共通フィールドと一組のサブシステム固有のフィールドを持っています。 共通フィールドは、監査ログ内のすべてのレコードに含まれています。 サブシステム固有のフィールドはレコードごとに異なっています。 フィールドの名前が重要になるのは、サブシステム名と一緒に使用するときだけです。
+なぜならば、フィールドの名前は必ずしもすべてのシステムにわたって固有でないからです。 各レコードは、どのサブシステム固有のフィールドがレコードに含まれているかを定義し、
+かつ状態を記述するメッセージを生成するための書式制御文字列を定義するテンプレートから派生しています。 書式制御文字列は、レコード・フィールドを挿入として使用することもあります。 サブシステムは、通常、多くのテンプレートを持っています。</p>
+ <p>フィールド名を<em>選択文字列</em> 内の変数として使用し、
+表示されるレコードを選択できます。 選択文字列は、フィールド名、定数、および演算子からなる式です。 選択文字列の構文は、C プログラミング言語の式または SQL の "where" 文節と似ています。 選択文字列は、各レコードの参照フィールドを使用して、各レコードと突き合わされます。 一致するすべてのレコードが表示されます。 選択文字列は、 <span><span>-s</span></span> フラグで指定します。 選択文字列を指定する方法については、「<em>Administering RSCT</em>」ガイドを参照してください。</p>
+ <div>フィールド名をこのコマンドのパラメーター名として指定して、
+表示するフィールドやその表示順を選択することもできます。 共通フィールド名は、以下のとおりです。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>時刻</td>
+
+<td>レコードに対応する状況が発生した時刻。 値は 64 ビットの整数で、UNIX Epoch (00:00:00 GMT 01/01/1970) 以降のマイクロ秒数を表します。 時刻をより見やすいフォーマットで指定するには、
+以下の定数を参照してください。</td>
+
+</tr>
+
+<tr>
+<td>サブシステム</td>
+
+<td>レコードを生成したサブシステム。 これは文字列です。</td>
+
+</tr>
+
+<tr>
+<td>カテゴリー</td>
+
+<td>レコードを生成したサブシステムが決めた、監査レコードに対応する、
+状態の重要性を示します。 有効な値は、 <span><span>0</span></span> (通知) および <span><span>1</span></span> (エラー) です。</td>
+
+</tr>
+
+<tr>
+<td>SequenceNumber</td>
+
+<td>レコードに割り当てられる固有の 64 ビットの整数。 監査ログ内のレコードで、これと同じシーケンス番号を持つものはほかにありません。</td>
+
+</tr>
+
+<tr>
+<td>TemplateId</td>
+
+<td>同じ内容および書式制御文字列を持つレコードに割り当てられた、サブシステムに依存する ID。 この値は 32 ビットの無符号整数です。</td>
+
+</tr>
+
+<tr>
+<td>NodeName</td>
+
+<td>レコードが取得されたノードの名前。 このフィールド名は選択文字列で使用できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>式の定数のほかに、このコマンドでは日付および時刻に関する次の構文を使用できます。<dl>
+<dt><span><span>#mmddhhmmyyyy</span></span></dt>
+
+<dd>このフォーマットは、ここに示されているパターンに従って解釈される 10 進数文字のシーケンスからなっています。 パターン内のフィールドは、左から右へ、<span><span>mm</span></span> = 月、<span><span>dd</span></span> = 日、<span><span>hh</span></span> = 時間、<span><span>mm</span></span> = 分、<span><span>yyyy</span></span> = 年です。 例えば、 <span><span>#010523042004</span></span> は 2004 年 1 月 5 日 11:04 PM に対応します。 フィールドは右から左へ省略することができます。 存在しない場合、
+デフォルトとして、year = 現在の年、
+minutes = 0、hour = 0、day = 1、および month = 現在の月が使用されます。</dd>
+
+
+<dt><span><span>#-mmddhhmmyyyy</span></span> 年</dt>
+
+<dd>このフォーマットは上記のフォーマットと似ていますが、現在の日時に関連しています。 例えば、値 <span><span>#-0001</span></span> は 1 日前に対応し、値 <span><span>#-010001</span></span> は 1 カ月前と 1 時間前に対応します。 フィールドは、右から省略していき、0 で置き換えることができます。</dd>
+
+</dl>
+</div>
+ <p><span><span>-S</span></span> フラグを使用することにより、表示の対象となり、選択文字列と突き合わされる監査レコードを特定のサブシステムに制限することができます。 このフラグを指定すると、共通フィールド名の他に、サ
+ブシステム固有のフィールド名も選択文字列に使用できます。</p>
+ <p><span><span>-n</span></span> フラグを使用することにより、監査ログ・レコードが表示され、選択文字列と突き合わされるノードを、特定のノードのセットに制限することができます。 このフラグを指定すると、その検索範囲はリストアップされたノードの
+セットに限定されます。 指定しない場合、
+CT_MANAGEMENT_SCOPE 環境変数で決定される現行の管理有効範囲内で定義済みのノードすべてに対して検索が実行されます。</p>
+ <p>監査レコードは、テーブルで表示されます。 パラメーターとして指定されるフィールド名は、
+表示されるフィールドと各行に現れる順序を制御します。 デフォルトで表示される列は、日付および時刻、レコードを生成したサブシステムの名前、状況の重大度、
+および状況を説明する、サブシステム固有のメッセージです。 管理有効範囲がローカルでない場合は、ノード名が第 1 列に表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-l</dt>
+
+<dd>詳細出力を生成するように指示します。 詳細出力には、定様式メッセージ・テキストには組み込まれない、
+サブシステム固有のフィールドが組み込まれています。</dd>
+
+
+<dt>-a</dt>
+
+<dd>ドメイン内のすべてのノードから取り出したレコードを表示するように指示します。 <span><span>-n</span></span> フラグと <span><span>-a</span></span> フラグの両方を省略すると、ローカル・ノードからのレコードのみが表示されます。</dd>
+
+
+<dt>--n <span><span>ノード名1</span></span>[<span><span>node_name2</span></span>]...</dt>
+
+<dd>検査されて、指定された選択文字列に一致するなどの別の基準を満たした場合に表示される監査ログ・レコードを含むノードのリストを指定します。 ノード・グループ名を指定することもでき、これはノード名のリストに展開されます。 <span><span>-n</span></span> フラグと <span><span>-a</span></span> フラグの両方を省略すると、ローカル・ノードからのレコードのみが表示されます。</dd>
+
+
+<dt>--S <span><span>サブシステム名</span></span></dt>
+
+<dd>サブシステム名を指定します。 このフラグが存在すると、
+<span><span>subsystem_name</span></span> によって識別されるレコードのみが表示と見なされます。 表示されるレコードは、 <span><span>-s</span></span> フラグによってさらに制限することができます。 サブシステム名がスペースを含む場合は、単一引用符または二重引用符で囲む必要があります。<p>後方互換性のために、 <span><span>-n</span></span> フラグを使用してサブシステム名を指定できるのは、 <span><span>-a</span></span> および <span><span>-S</span></span> フラグが指定されて <em>いない</em> 場合 <em>のみ</em> です。</p>
+</dd>
+
+
+<dt>-<span><span>選択文字列</span></span></dt>
+
+<dd>選択文字列を指定します。 この文字列は、監査ログ内の各レコードに照らして評価されます。 選択文字列と一致するすべてのレコードが表示されます。 選択文字列にスペースが含まれる場合、そのサブシステム名は単一引用符か二重引用符で囲む必要があります。 選択文字列を指定する方法については、「<em>Administering RSCT</em>」ガイドを参照してください。<p>レコード内のフィールド名は式で使用できます。 <span><span>-S</span></span> フラグを指定しない場合は、共通フィールドの名前のみを使用できます。 共通フィールド名とそのデータ型のリストについては、<strong>説明</strong>のセクションを参照してください。 <span><span>-S</span></span> フラグが指定されている場合は、共通フィールド名だけでなく、指定されたサブシステムの任意のフィールドの名前も使用できます。</p>
+  <p>このフラグを省略すると、表示されるレコードは <span><span>-S</span></span> フラグによって異なります。 <span><span>-S</span></span> フラグを省略すると、監査ログのすべてのレコードが表示されます。 それ以外の場合は、 <span><span>-S</span></span> フラグによって識別されるサブシステムのすべてのレコードが表示されます。</p>
+</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダーを除外します (ヘッダーの印刷を抑止します)。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>field_name1</span></span> [<span><span>field_name2</span></span>...]</dt>
+
+<dd>表示する、監査ログ・レコード内の 1 つまたは複数のフィールドを指定します。 コマンド・ラインに指定したフィールド名の順序で表示されます。 フィールド名を指定しないと、 <span><span>Time</span></span>、 <span><span>Subsystem</span></span>、 <span><span>Severity</span></span>、および <span><span>Message</span></span> がデフォルトで表示されます。 管理有効範囲がローカルでない場合、デフォルトでは <span><span>NodeName</span></span> が最初の列として表示されます。 これらのフィールドおよびその他のフィールドの詳細については、
+<strong>説明</strong>のセクションを参照してください。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>-S</span></span> フラグを省略した場合に監査ログからレコードをリストするには、レコードをリストする各ノード上のターゲット・リソース・クラスへの読み取りアクセス権が必要です。 <span><span>-S</span></span> フラグが指定されている場合、レコードがリストされる各ノード上の <span><span>-S</span></span> フラグによって識別されるサブシステムに対応する、監査ログ・リソースへの読み取りアクセス権を持っている必要があります。</p>
+ <p>許可は、各ノード上に存在する RMC アクセス制御リスト (ACL) ファイルにより制御されます。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンを使用したセッションを行うシステムを判別します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットと管理有効範囲により、
+このコマンドにより影響されるリソース・クラスまたはリソースが決められます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンとのセッションに使用される管理有効範囲を ( <span><span>-a</span></span> および <span><span>-n</span></span> フラグとともに) 決定します。 管理有効範囲は、監査ログ・レコードをリストできることが可能なターゲット・ノードのセットを決定します。 <span><span>-a</span></span> および <span><span>-n</span></span> フラグが指定されていない場合は、ローカル・スコープが使用されます。 これらのフラグのいずれかを指定すると、CT_MANAGEMENT_SCOPE を
+使用して、管理有効範囲が直接決定されます。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>CT_MANAGEMENT_SCOPE 環境変数によって判別される現行の管理有効範囲内のすべてのノードの監査ログ中のすべてのレコードをリストするには、次を入力します。<div><div><pre><code>lsaudrec</code></pre></div><div></div></div></li>
+
+<li>CT_MANAGEMENT_SCOPE 環境変数によって決定される現行の管理有効範囲にあるすべてのノード上の、直前の時間にログインされた全レコードをリストするには、次のように入力します。<div><div><pre><code>lsaudrec -s "Time &gt; #-000001"</code></pre></div><div></div></div></li>
+
+<li>ノード <span><span>mynode</span></span> および <span><span>yournode</span></span>上のサブシステム <span><span>abc</span></span> の監査ログ内のすべてのレコードの時刻とシーケンス番号をリストするには、次のように入力します。<div><div><pre><code>lsaudrec -n mynode,yournode -S abc Time SequenceNumber</code></pre></div><div></div></div></li>
+
+<li>イベント応答リソース・マネージャー (ERRM) によって生成されるレコードをリストするには、次のように入力します。<div><div><pre><code>lsaudrec -SERRM</code></pre></div><div></div></div></li>
+
+<li><span><span>Condition1</span></span>という条件に関連するレコードをリストするには、次のように入力します。<div><div><pre><code>lsaudrec -SERRM -s"ConditionName=='Condition1'"</code></pre></div><div></div></div></li>
+
+<li><span><span>Condition1</span></span>からのイベントに関連するレコードをリストするには、次のように入力します。<div><div><pre><code>lsaudrec -SERRM -s"ConditionName=='Condition1' &amp;&amp; Etype==91"</code></pre></div><div></div></div></li>
+
+<li><strong>Condition1</strong> のリアーム・イベントに関連するレコードをリストするには、次のように入力します。<div><div><pre><code>lsaudrec -SERRM -s"ConditionName=='Condition1' &amp;&amp; Etype==92"</code></pre></div><div></div></div></li>
+
+<li>ローカル・ノード上の監査ログのセンサー・リソース・マネージャー・レコードをリストするには、
+次のように入力します。<div><div><pre><code>lsaudrec -SSSRM</code></pre></div><div></div></div><div>出力は次のようになります。<div><div><pre><code> 
+Time                 Subsystem   Category    Description
+11/10/05 21:52:32    SSRM        Error       The Command /SENSOR/sensor.ksh 1 
+                                             in Sensor SENSOR_NOUSER_1 execution fails.
+11/10/05 21:52:36    SSRM        Error       The Command /SENSOR/sensor.nocmd 1 in Sensor 
+                                             SENSOR_NOCMD_1 exits with error 127.
+ </code></pre></div><div></div></div></div>
+</li>
+
+<li>ローカル・ノード上の監査ログのセンサー・リソース・マネージャー・レコードを長形式でリストするには、
+次のように入力します。<div><div><pre><code>lsaudrec -l -SSSRM</code></pre></div><div></div></div>  <div>出力は次のようになります。<div><div><pre><code> 
+Time        = 11/10/05 21:52:32 243097
+Subsystem   = SSRM
+Category    = Error
+Description = The Command /SENSOR/sensor.ksh 1 in Sensor SENSOR_NOUSER_1 execution fails.
+ErrorMsg    = 2645-202 The user name "guest" that was specified for running the command does not exist.
+
+Time        = 11/10/05 21:52:36 361726
+Subsystem   = SSRM
+Category    = Error
+Description = The Command /SENSOR/sensor.nocmd 1 in Sensor SENSOR_NOCMD_1 exits with error 127.
+StandardOut =
+StandardErr = ksh: /u/diane/drmc/scripts/SENSOR/sensor.nocmd:  not found
+ </code></pre></div><div></div></div></div>
+</li>
+
+<li>エラー・レコードのみをリストするには、次のように入力します。<div><div><pre><code>lsaudrec -s"Category=1"</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <div> <dl>
+<dt>/opt/rsct/bin/lsaudrec</dt>
+
+<dd></dd>
+
+</dl>
+</div>
+</section>
+
+</div></div>

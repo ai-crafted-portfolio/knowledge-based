@@ -1,0 +1,259 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ローカル・システム上の RSCT ホスト・ベース認証 (HBA) セキュリティー機構の構成を検査します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>ctsvhbac</span></span> [[<span><span>-d</span></span> | <span><span>-h</span></span> | <span><span>-m</span></span> | <span><span>-s</span></span> ] | [ <span><span>-e</span></span> <span><span>msgnum</span></span>[,<span><span>msgnum</span></span>...] [ <span><span>-l</span></span> { <span><span>1</span></span> | <span><span>2</span></span> | <span><span>3</span></span> | <span><span>4</span></span> } | <span><span>-b</span></span> ] [ <span><span>-p</span></span> <span><span>pubkeyfile</span></span> ] [ <span><span>-q</span></span> <span><span>pvtkeyfile</span></span> ] [ <span><span>-t</span></span> <span><span>thlfile</span></span> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>ctsvhbac</span></span> コマンドは、RSCT ホスト・ベース認証 (HBA) セキュリティー機構の検査ユーティリティーです。 <span><span>ctsvhbac</span></span> コマンドを使用して、ローカル・システムに構成ファイルとクレデンシャル・ファイル、および秘密鍵やトラステッド・ホスト・リストなどの情報があり、HBA セキュリティー機構が使用する準備ができていることを確認します。</p>
+ <div>このコマンドは、HBA セキュリティー機構の構成に対して、
+以下の一連のテストを実行します。<ul>
+<li>HBA 機構の構成ファイルが使用可能であること、および処理可能であることを検査します。</li>
+
+<li>HBA 秘密鍵ファイルが存在していること、および処理可能であることを検査します。</li>
+
+<li>HBA 公開鍵ファイルが存在していること、および処理可能であることを検査します。</li>
+
+<li>ローカル・システムの秘密鍵と公開鍵が対になっていること、
+つまり、公開鍵が秘密鍵から導き出されたものと認識されていることを検査します。</li>
+
+<li>HBA トラステッド・ホスト・ファイルが存在していること、および処理可能であることを検査します。</li>
+
+<li>HBA トラステッド・ホスト・リストの内容を検査して、
+ローカル・ノードでサポートされるすべてのホスト名およびネットワーク・アドレスがあるかどうか確認し、トラステッド・ホスト・リスト・ファイルにそれらのエントリーが存在するかどうかを判別します。 ホスト名またはネットワーク・アドレスが検出されると、このコマンドは、
+既に実行されたテストで使用されたのと同じ公開鍵値が名前またはアドレス用にリストされていることを検査します。</li>
+
+</ul>
+</div>
+ <p>コマンド・ユーザーは、コマンドで使用する秘密鍵ファイル、公開鍵ファイル、
+およびトラステッド・ホスト・リスト・ファイルを指定することもできます。 デフォルトでは、この情報は、HBA セキュリティー機構の構成ファイルから抽出されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-b</dt>
+
+<dd>要約出力を生成します。 このオプションを使用すると、
+コマンドはテストの要約出力と検出されたエラーのみを表示します。 このオプションを指定しないでこのコマンドを再発行することにより、
+エラーの詳細を判別できます。 <span><span>-l</span></span> オプションが指定されている場合、このオプションは無視されます。</dd>
+
+
+<dt>-d</dt>
+
+<dd>このコマンドを正常に実行するために必要なプローブのリストを表示します。</dd>
+
+
+<dt>-e</dt>
+
+<dd>コマンドの実行中に表示しないエラー・メッセージのリストを指定します。 1 つ以上のメッセージを指定できます。 メッセージ番号のフォーマットは、xxxx-yyy です。 複数のメッセージは、空白文字を入れずにコンマ (,) で区切ります。</dd>
+
+
+<dt>-h</dt>
+
+<dd>このコマンドのヘルプ・メッセージを表示します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>クラスター・システム・マネージメント (CSM) プローブ・インフラストラクチャーで、
+出力の詳細レベルを設定できるようにします。 使用できるレベルは、次のとおりです。<dl>
+
+<dt>1</dt>
+
+<dd>詳細モード。 コマンド目的の要約と、すべてのテストの状況情報を表示します。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド目的の要約と、テストで検出されたアテンションまたはエラー条件を表示します。</dd>
+
+
+<dt>3</dt>
+
+<dd>テストで検出されたアテンションまたはエラー条件を表示します。</dd>
+
+
+<dt>4</dt>
+
+<dd>サイレント・モード。 テスト中に検出されたエラーを表示します。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-m</dt>
+
+<dd>コマンドとその目的の詳細記述を表示します。</dd>
+
+
+<dt>-p</dt>
+
+<dd>コマンドで使用する公開鍵ファイルのパス名を指定します。 このオプションを指定しない場合は、
+現在 HBA セキュリティー機構用に構成されている公開鍵ファイルが使用されます。</dd>
+
+
+<dt>-q</dt>
+
+<dd>コマンドで使用する秘密鍵ファイルのパス名を指定します。 このオプションを指定しない場合は、
+現在 HBA セキュリティー機構用に構成されている秘密鍵ファイルが使用されます。</dd>
+
+
+<dt>-s</dt>
+
+<dd>コマンドの目的の要約を表示します。</dd>
+
+
+<dt>-t</dt>
+
+<dd>コマンドで使用するトラステッド・ホスト・リスト・ファイルのパス名を指定します。 このオプションを指定しない場合は、
+現在 HBA セキュリティー機構用に構成されているトラステッド・ホスト・リスト・ファイルが使用されます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <p>なし。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>ctsvhbac</span></span> コマンドに対する許可は、 <span><span>bin</span></span> ユーザー・グループのメンバーにこのコマンドの実行を許可します。</p>
+</section>
+
+<section><h2>終了状況</h2> <div>終了状況は、CSM プローブ・インフラストラクチャーのルールに準拠しています。<dl>
+<dt>0</dt>
+
+<dd>問題が検出されませんでした。 表示されるメッセージは、通知メッセージであるか、
+マイナー・アラートを示しています。 管理操作は不要です。</dd>
+
+
+<dt>10</dt>
+
+<dd>問題は検出されませんでしたが、管理者が注意を払うべき項目が一部検出されました。 この終了状況が最も発生しやすいのは、
+ローカル・システムでサポートされる IP アドレスまたはホスト名が、
+トラステッド・ホスト・リストにリストされていない場合や、
+間違った公開鍵値でリストされている場合です。 この終了状況の場合は、システム管理者は出力を調べて、
+どの条件が検出されたか、また修正アクションが必要かどうかを判別する必要があります。<div>最も一般的に報告される条件を訂正するには、次のようにします。<ul>
+<li>トラステッド・ホスト・リスト内の IP アドレスまたはホスト名が、
+意図的に省略されていないことを確認します。 省略されていない場合は、ローカル・システム上のトラステッド・ホスト・リストを更新します。</li>
+
+<li>間違った公開鍵を使用しているローカル IP アドレスおよびホスト名のエントリーを修復します。</li>
+
+</ul>
+</div>
+</dd>
+
+
+<dt>20</dt>
+
+<dd>1 つ以上の問題が検出されました。 この終了状況は、以下の条件で発生します。<ul>
+<li>HBA セキュリティー機構の構成が間違っている。</li>
+
+<li>公開鍵と秘密鍵が対になっていない。</li>
+
+<li>ローカル・システムでサポートされる IP アドレスまたはホスト名値が、
+トラステッド・ホスト・リストに含まれていない。</li>
+
+</ul>
+ <p>これらの条件を訂正しない限り、HBA 機構を使用する認証要求は、
+このシステムではおそらく成功しません。 この終了状況の場合は、システム管理者はコマンド出力を調べ、
+報告された問題を識別して解決する必要があります。 報告された問題を訂正するには、コマンド出力にリストされている問題解決アドバイスに従います。</p>
+</dd>
+
+
+<dt>127</dt>
+
+<dd>このコマンドで予期しない障害が発生しました。 この終了状況の場合は、管理者は、
+このシステムで少なくとも 1 つのネットワーク・インターフェースが構成され、
+アクティブになっていることを検査する必要があります。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>制約事項</h2> <ul>
+<li>クラスター・セキュリティー・サービスがサポートするのは、独自のホスト ID フォーマットおよびトラステッド・ホスト・リスト・ファイル・フォーマットだけです。</li>
+
+<li>トラステッド・ホスト・リストを変更できるのは、このコマンドを使用する場合だけです。</li>
+
+<li>クラスター・セキュリティー・サービスには、クラスター全体を通じてトラステッド・ホスト・リストを作成、管理、および保守するための自動化されたユーティリティーは用意されていません。 これは、システム管理者またはクラスター管理ソフトウェアのいずれかに対する手順です。</li>
+
+</ul>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-l</span></span> フラグを指定すると、トラステッド・ホスト・リスト・ファイルの内容が標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>あらゆる検出済み障害条件に関する記述情報が標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>HBA セキュリティー機構を検査するには、次のように入力します。<div><div><pre><code>ctsvhbac</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>------------------------------------------------------------------------
+Host Based Authentication Mechanism Verification Check
+
+Private and Public Key Verifications
+
+      Configuration file:  /opt/rsct/cfg/ctcasd.cfg
+                  Status:  Available
+                Key Type:  rsa512
+                           RSA key generation method, 512-bit key
+
+        Private Key file:  /var/ct/cfg/ct_has.qkf
+                  Source:  Configuration file
+                  Status:  Available
+                Key Type:  rsa512
+                           RSA key generation method, 512-bit key
+
+         Public Key file:  /var/ct/cfg/ct_has.pkf
+                  Source:  Configuration file
+                  Status:  Available
+                Key Type:  rsa512
+                           RSA key generation method, 512-bit key
+
+              Key Parity:  Public and private keys are in pair
+
+Trusted Host List File Verifications
+
+  Trusted Host List file:  /var/ct/cfg/ct_has.thl
+                  Source:  Configuration file
+                  Status:  Available
+
+                Identity:  avenger.pok.ibm.com
+                  Status:  Trusted host
+
+                Identity:  9.117.10.4
+                  Status:  Trusted host
+
+                Identity:  localhost
+                  Status:  Trusted host
+
+                Identity:  127.0.0.1
+                  Status:  Trusted host
+
+Host Based Authentication Mechanism Verification Check completed</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/ctsvhbac</dt>
+
+<dd><span><span>ctsvhbac</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/opt/rsct/cfg/ctsec_map.global</dt>
+
+<dd>デフォルトの ID マッピング定義ファイルです。 このファイルには、RSCT クラスター・トラステッド・サービスが必要とする定義が含まれています。それらの定義は、これらのシステムがソフトウェアのインストール後すぐに適切に実行されるために必要なものです。 クラスター全体の ID マッピング定義ファイル <span><span>/var/ct/cfg/ctsec_map.global</span></span> がシステム上に存在する場合、このファイルは無視されます。 したがって、クラスター全体の ID マッピング定義ファイルが存在する場合、その定義ファイルにはこのファイル内の定義もすべて含まれている必要があります。</dd>
+
+
+<dt>/var/ct/cfg/ctsec_map.local</dt>
+
+<dd>クラスター全体の ID マッピング定義に対するローカル・オーバーライドです。 このファイル内の定義をクラスター内のノード間で共有することは期待されません。</dd>
+
+
+<dt>/var/ct/cfg/ctsec_map.global</dt>
+
+<dd>クラスター全体の ID マッピング定義です。 このファイルにはクラスター全体を通じて共通の ID マッピング定義が含まれていることが期待されます。 このファイルがシステムに存在する場合、デフォルトの ID マッピング定義ファイルは無視されます。 したがって、このファイルが存在する場合は、デフォルトの ID マッピング定義ファイル内でも検出される可能性のあるすべてのエントリーがこのファイルにも含まれている必要があります。</dd>
+
+</dl>
+</section>
+
+</div></div>

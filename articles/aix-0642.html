@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンド (BSD バージョンの <strong>install</strong> コマンド) をインストールします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/bin/installbsd</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13791" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13804" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> <em>Group</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13815" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> <em>Mode</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13826" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>Owner</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13837" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>]<em>BinaryFileDestination</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>installbsd</strong>コマンドは、<em>BinaryFile</em>パラメータで指定されたファイルを<em>Destination</em>パラメータで指定されたファイルまたはディレクトリに移動してインストールします<em>。</em> <strong>-c</strong> フラグを使用すると、<em>BinaryFile</em> はコピーされますが、移動はしません。 指定した <em>Destination</em> パラメーターがディレクトリーの場合は、<em>BinaryFile</em> はそのディレクトリーに移動します。 指定した <em>Destination</em> パラメーターが既にファイルとして存在する場合は、
+<strong>installbsd</strong> コマンドは <em>BinaryFile</em> を移動する前にファイルを除去します。 <strong>installbsd</strong> コマンドは、ファイルをそれ自体に移動することはありません。</p>
+ <p>/<strong>dev</strong>/<strong>null</strong> というファイルをインストールすると、空のファイルが作成されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td><em>BinaryFile</em> パラメーターで指定したファイルを、<em>Destination</em> パラメーターで指定したファイルまたはディレクトリーにコピーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> グループ</em></td>
+
+<td><em>Destination</em> パラメーターで指定したファイルのグループを指定します。 デフォルト・グループは staff です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> モード</em></td>
+
+<td><em>Destination</em> パラメーターで指定したファイルのモードを指定します。 デフォルト・モードは 755 です。 モードは、8 進数または記号値で指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em> 所有者</em></td>
+
+<td><em>Destination</em> パラメーターで指定したファイルのオーナーを指定します。 デフォルトのオーナーは root ユーザーです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><em>BinaryFile</em> パラメーターで指定したファイルを、インストール後に削除します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>fixit</strong> という新しいコマンドをインストールするには、次のように入力します。</p>
+ <div>installbsd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13791" target="_blank" rel="noopener noreferrer">-c</a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installbsd.html#installbsd__row-d3e13826" target="_blank" rel="noopener noreferrer">o</a> mike fixit /usr/bin</div>
+ <p>このコマンド・シーケンスは、プログラムをコピーして新規コマンドをインストールします。fixitへ/usr/bin/fixit、ユーザーによるmike所有者として</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>/<strong>ユーザー</strong>/<strong>粘液</strong>/<strong>インストール</strong></td>
+
+<td>/<strong>usr</strong>/<strong>bin</strong>/<strong>installbsd</strong> ファイルにハード・リンクしています。</td>
+
+</tr>
+
+<tr>
+<td>/<strong>ユーザー</strong>/<strong>ビン</strong>/<strong>インストール・ SD</strong></td>
+
+<td><strong>installbsd</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

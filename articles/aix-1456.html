@@ -1,0 +1,656 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム構成情報を収集します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>snap</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e32952" target="_blank" rel="noopener noreferrer">[<strong>-@</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e32958" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-z" target="_blank" rel="noopener noreferrer"><strong>[-z</strong></a> <em>"製品名=prd_name,..." | "class=myclass,..."</em>|<strong>ALL</strong>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-M" target="_blank" rel="noopener noreferrer"><strong>[-M</strong></a> <em>タイムアウト</em>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e32979" target="_blank" rel="noopener noreferrer"><strong>-A </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e32985" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e32991" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33006" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33036" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a>] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33048" target="_blank" rel="noopener noreferrer"><strong>-D </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33112" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-flexi" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33119" target="_blank" rel="noopener noreferrer"><strong>-g </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33134" target="_blank" rel="noopener noreferrer"><strong>-G </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33146" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33152" target="_blank" rel="noopener noreferrer"><strong>-k </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33158" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33164" target="_blank" rel="noopener noreferrer"><strong>-L </strong></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33189" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33198" target="_blank" rel="noopener noreferrer"><strong>-N </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33232" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33269" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33281" target="_blank" rel="noopener noreferrer"><strong>-R ] [ </strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33287" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33293" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33302" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33311" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a> <em>ファイル名</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__snap_u" target="_blank" rel="noopener noreferrer"><strong>[-u</strong></a> <em>user1</em>,....] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33347" target="_blank" rel="noopener noreferrer"><strong>-w </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__snap_upperx" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__snap-Y" target="_blank" rel="noopener noreferrer"><strong>-Y</strong></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33204" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a><em>OutputDevice</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33077" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>Dir</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33326" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a><em>Component</em>] [ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33213" target="_blank" rel="noopener noreferrer"><span><span>-O</span></span></a> <span><span>FileSplitSize</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33238" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>Files</em>] [<span><span>script1 script2</span></span>... | All | file<span><span>:filepath</span></span>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__snapbu" target="_blank" rel="noopener noreferrer"><strong>[-U</strong></a>]</p>
+ <p><strong>スナップ</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33092" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33170" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> <em>Nodelist</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33077" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>ディレクトリー</em> ]</p>
+<p><strong>snap</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-z" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> <strong>ADD</strong>[<em>"product_name=prod_name"</em> <em>"class=myclass"</em> <em>"/tmp/myprod_myscript -a"</em>]</p>
+<p><strong>スナップ</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-z" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> <strong>DELETE</strong> [<em>"product_name = prod_name"</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>snap</strong> コマンドは、システム構成情報を集めて、
+その情報を <strong>pax</strong> ファイルに圧縮します。 このファイルは、テープや DVD などのデバイスに書き込んだり、リモート・システムに転送したりすることができます。 <strong>snap</strong> コマンドによって集められた情報は、システム問題の識別および解決に必要になることがあります。<div><div>
+        <div>
+          <div><span>注:</span> <strong>snap</strong> コマンドを実行するには、root ユーザー権限が必要です。 圧縮されたイメージを DVD にコピーするには、<strong>snap -o /dev/cd0</strong> コマンドを使用してください。 イメージをテープにコピーするには、<strong>snap -o /dev/rmt0</strong> コマンドを使用してください。</div>
+        </div>
+      </div></div>
+</div>
+ <p>圧縮されたイメージをディスケットにコピーするには、<strong>snap -o /dev/rfd0</strong> コマンドを使用してください。 イメージをテープにコピーするには、<strong>snap -o /dev/rmt0</strong> コマンドを使用してください。</p>
+ <div>エラー・ログの内容を含め、すべてのシステム情報を収集するには、少なくとも 8 MB の一時ディスク・スペースが必要です。 <strong>snap -a</strong> コマンドですべてのシステム情報を収集しない場合は、必要なディスク・スペースはそれより少なくなります (選択するオプションに依存します)。<div><div>
+        <div>
+          <div><span>注：</span>ソフトウェア・サポートのためにスナップ・イメージを<span>IBM</span>に送信するためにテープを使用する場合、テープは以下のいずれかの形式でなければなりません：<ul>
+<li>8 mm、2.3 GB の容量</li>
+
+<li>8 mm、5.0 GB の容量</li>
+
+<li>4 mm、4.0 GB の容量</li>
+
+</ul>
+ <p>他の形式を使用すると、 <span>IBM</span> ソフトウェア・サポートが内容を調べることができなくなるか、遅れます。</p>
+</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>snap -g</strong> コマンドは、以下の情報を含む一般システム情報を収集します。</p>
+ <ul>
+<li>エラー報告</li>
+
+<li>カスタマイズされたオブジェクト・データ・マネージャー (ODM) データベースのコピー</li>
+
+<li>トレース・ファイル</li>
+
+<li>ユーザー環境</li>
+
+<li>物理メモリーおよびページング・スペースの量</li>
+
+<li>デバイスおよび属性情報</li>
+
+<li>セキュリティー・ユーザー情報</li>
+
+<li>システムの構成およびチューニング・パラメーター情報</li>
+
+</ul>
+ <p><strong>snap -g</strong> コマンドの出力は、<strong>/tmp/ibmsupt/general/general.snap</strong> ファイルに書き込まれます。</p>
+ <p><strong>snap</strong> コマンドは、
+<strong>snap</strong>  コマンドの出力用のデフォルト・ディレクトリーである <strong>/tmp/ibmsupt</strong> ディレクトリー内で使用可能なスペースを検査します。 <strong>-d</strong> フラグを使用して、出力を別のディレクトリーに書き込むことができます。 <strong>snap</strong> コマンドの出力を入れる十分なスペースがない場合は、ファイルシステムを拡張しなければなりません。</p>
+ <p><strong>snap</strong> コマンドを実行するたびに、情報が以前作成されたファイルに追加されます。 それまでに集めて保管されている情報を除去するには、<strong>-r</strong> フラグを使用してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-@</strong></td>
+
+<td>ワークロード区画情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td>HACMP 固有のデータを除くすべてのシステム構成情報を収集します。 HACMP固有のデータを収集するには、<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/snap.html#snap__row-d3e33092" target="_blank" rel="noopener noreferrer">snap-e</a></strong>オプションを実行する。<p>外部製品の登録済みデバッグ・データ・スクリプトの収集が実行され、それらのデータもシステム構成の一部として組み込まれます。これは、 <strong>-z </strong> フラグを使用して名前を指定することにより、選択された製品に限定することができます。</p>
+<p><strong>-a</strong> オプションには、少なくとも 8 MB の一時ディスク・スペースが必要です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong></td>
+
+<td>非同期 (TTY) 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>SSA 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td>SSA アダプター・ダンプのコレクションをバイパスします。 <strong>-b</strong> フラグも指定されている場合は、<strong>-B</strong> フラグのみが働きます。
+それ以外の場合は、<strong>-B</strong> フラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>圧縮 <strong>pax</strong> イメージ (<strong>snap.pax.gz</strong>) を作成します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-c</strong> フラグを使用する前に、このオプションで収集されない情報を <strong>snap</strong> ディレクトリー・ツリーにコピーする必要があります。 システムの問題を実証するためにテスト・ケースが必要な場合は、 <strong>pax</strong> ファイルを圧縮する前に、テスト・ケースを <span>/tmp/ibmsupt/testcase</span> ディレクトリーにコピーしてください。 ユーザーによって定義されたディレクトリーはすべて、<span>/tmp/ibmsupt/other</span> ディレクトリーに保存し、<strong>snap</strong> コマンドで圧縮する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>fwdump_dir ディレクトリー内のすべてのファイルを取り出します。 ファイルは「general」サブディレクトリーに置かれます。 <strong>-C</strong> snap オプションの動作は、<strong>-P*</strong> と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>ダンプおよび <strong>/unix</strong> 情報を集めます。 1 次ダンプ・デバイスが使用されます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong>bosboot -k</strong> を使用して、
+実行中のカーネルが /<strong>unix</strong> ではないと指定した場合は、間違ったカーネルが集まります。 ダンプを取得する際に /<strong>unix</strong> が使用中のカーネルであること、またはそれにリンクされていることを確認してください。</li>
+
+<li>ダンプ・ファイルがホスト・マシンにコピーされた場合、<strong>snap</strong> コマンドは、
+<strong>/tmp/ibmsupt/dump</strong> ディレクトリー内のダンプ・イメージを集めません。 代わりに、実際のダンプ・イメージへのリンクがダンプ・ディレクトリー内に作成されます。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> AbsolutePath</em><strong></strong></td>
+
+<td>オプションの <strong>snap</strong> コマンド出力ディレクトリーを識別します (<strong>/tmp/ibmsupt</strong> がデフォルトです)。 絶対パスを指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>HACMP 固有の情報を収集します。<div><div>
+        <div>
+          <div><span>注:</span> HACMP 固有のデータは、クラスターに属するすべてのノードから収集されます。 このフラグは、<strong>-m</strong> と <strong>-d</strong>
+を除く他のフラグとは併用できません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ファイルシステム情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>フラッシュ・アダプター情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td><strong>lslpp -hac</strong> コマンドの出力を集めます。これは、実際のオペレーティング・システム環境を再作成するために必要です。 出力を <strong>/tmp/ibmsupt/general/lslpp.hac</strong> ファイルに書き込みます。 また、一般的なシステム情報も収集して、その出力を <strong>/tmp/ibmsupt/general/general.snap</strong>  ファイルに書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong></td>
+
+<td>事前に定義された<strong>オブジェクト・データ・マネージャー</strong> (ODM) ファイルを、
+<strong>-g</strong> フラグを指定して収集した一般的な情報に含めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>インストールのデバッグ重要プロダクト・データ (VPD) 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>カーネル情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>プログラム言語情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>LVM 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>ノデリスト</em></td>
+
+<td>HACMP 情報を収集するためのノード名リスト (コンマ区切り)。<div><div>
+        <div>
+          <div><span>注:</span> 現在、このフラグは <strong>-e</strong> フラグと一緒の場合にのみ有効です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong> <em>タイムアウト</em></td>
+
+<td>スナップ・フレームワークが 1 つの登録済み外部製品デバッグ・データ・コマンドを強制終了するまで待つ、最大タイムアウト値を秒数で指定します。 デフォルトのタイムアウト値は 300 秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>ネットワーク・ファイルシステム</strong> (NFS) 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>必要とされるフリー・スペースのチェックを抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutputDevice</em><strong></strong></td>
+
+<td>圧縮されたイメージを指定されたデバイスにコピーします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-O</span></span> <em>FileSplitSize</em></td>
+
+<td><span><span>snap</span></span> 出力ファイルをより小さいファイルに分割できるようにするために使用します。 これらのファイルのサイズは、 <span><span>-O</span></span> オプションに対するパラメーターとして指定され、メガバイト単位で指定する必要があります。 このフラグは、 <span><span>-c</span></span> フラグが指定されている場合にのみ使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>プリンター情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> <em>ファイル</em></td>
+
+<td>指定された <em>Files</em> を <span><span>fwdump_dir</span></span> ディレクトリーから検索します。 <strong>-P *</strong> を指定した場合は、ディレクトリー内のすべてのファイルが収集されます。 ファイルは <span><span>general</span></span> サブディレクトリーに置かれます。 <strong>-C</strong> <span><span>snap</span></span> オプションは、 <strong>-P*</strong>と同じように動作します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>snap</strong> コマンドの出力を <strong>/tmp/ibmsupt</strong> ディレクトリーから除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>SCSI RAID 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>システム・ネットワーク体系 (SNA) 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>セキュリティー・ファイルを、<strong>-g</strong> フラグを指定して収集した一般的な情報に含めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td><strong>伝送制御プロトコル</strong>情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong> <em>ファイル名</em></td>
+
+<td>複数 CPU トレースのログ・ファイルをすべて集めます。 基本ファイル <strong>trcfile</strong> だけは、<strong>-g</strong> フラグで取り込まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> <em>user1,user2...</em></td>
+
+<td>シェルおよび System Management Interface Tool (SMIT) ヒストリーの収集対象となるユーザー名をコンマで区切って指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> コンポーネント</em><strong></strong></td>
+
+<td><strong>snap</strong> コマンドにより実行されたコマンドの出力を表示します。 指定した名前のファイルまたはファイル・グループを表示するために、このフラグを使用してください。<div><div>
+        <div>
+          <div><span>注:</span> Ctrl-C キー・シーケンスを押して、 <strong>snap</strong> コマンドに割り込みます。 次のようなオプションでプロンプトが戻されます。
+現在の操作に戻るには Enter キーを押してください。
+現在の操作を終了するには S キーを押してください。
+<strong>snap</strong> コマンドを完全に終了するには Q キーを押してください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>WLM 情報を集めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>X.25 (パケット・ベースの通信プロトコル) 情報を収集します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong></td>
+
+<td>InfiniBand 情報を集め、<span>/tmp/ibmsupt/IB</span> ディレクトリーに保存します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>外部製品のデバッグ・データ収集を促進します。<ul>
+<li><strong>ADD</strong> キーワードにより、外部製品は、デバッグ・データ収集スクリプトをスナップ・フレームワークに登録することができます。</li>
+
+<li><strong>DELETE</strong> キーワードにより、外部製品は、デバッグ・データ収集スクリプトのスナップ・フレームワークへの登録を解除することができます。</li>
+
+</ul>
+<p>製品名が <strong>product_name</strong> 属性に対するパラメーターとして指定されると、登録済みデバッグ・データ収集コマンドが実行されます。 複数の製品のデータを収集するには、必要な製品名を <strong>product_name</strong> 属性に指定します。</p>
+<p>クラス名が <strong>class</strong> 属性に対するパラメーターとして指定されると、そのクラスのすべての製品の登録済みデバッグ・コマンドが実行されます。 複数のクラスのデータを収集するには、必要なクラス名を <strong>class</strong> 属性に指定します。</p>
+<p><strong>ALL</strong> がパラメーターとして指定されると、すべてのクラスのすべての製品の登録済みデバッグ・データ収集コマンドが実行されます。</p>
+<p>いずれかのスクリプトが実行されると、システムは、<strong>SNAPDEBUGDATA</strong> 環境変数によって指し示されたリストに製品名を追加します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>ライブ・カーネル更新情報を収集し、それを <strong>/tmp/ibmsupt/liveupdate</strong> ディレクトリーに保存します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2><p><strong>引数</strong></p>
+ <p>実行するサード・パーティー・スクリプトの名前は、 <span><span>snap</span></span>に対するパラメーターとして指定されます。 パラメーターは、単一のワードの場合と、引用符で囲んだワードのリストの場合があります。 パラメーターを引用符で囲んだ場合、リスト内の最初のパラメーターはスクリプトの名前を表し、後続のワードはスクリプトに渡される引数を表します。</p>
+ <p><span><span>All</span></span> をパラメーターとして指定すると、スクリプト・リポジトリー内のすべてのスクリプトが実行されます。 この場合は、スクリプト・パラメーターが渡されない場合があります。</p>
+ <p><span><span>file:</span></span> キーワードが使用され、その直後にファイルへのパスがある場合、そのファイルが読み取られて、実行するスクリプトが取得されます。 ファイルの各行は、スクリプトと、そのスクリプトに対するオプション・パラメーターを表します。</p>
+<p><strong>snap スクリプト</strong></p>
+ <p>サード・パーティー・スクリプトは、 <span><span>/usr/lib/ras/snapscripts</span></span>で実行可能でなければならず、以下に示すガイドラインに従う必要があります。 パス 1 の間に呼び出された場合、スクリプトはそのサイズ見積もりを <span><span>snap</span></span>に返す必要があります。 パス 2 では、データを収集し、 <span><span>snap</span></span>の指定に従って保存します。</p>
+ <p>スクリプトは、環境変数 SNAPDIR、PASSNO、SCRIPTSIZE、および SCRIPTLOG を読み取って使用する必要があります。</p>
+<p>スクリプトまたはコマンドは、<strong>SNAPDEBUGDATA</strong> 変数を使用して、スナップ・スクリプトによって収集されたデバッグ・データを認識することもできます。 この変数は、<strong>snap</strong> コマンドの実行時のデータ収集に使用する製品のコンマで区切られた名前を含みます。</p>
+ <p>出力ファイルはすべて $SNAPDIR に書き込む必要があります。 これはスクリプトがその出力を保管するディレクトリーです。 PASSNO 変数には、スクリプトが呼び出される <span><span>snap</span></span> フェーズが含まれます。 最初のパスのときに、スクリプトは 2 度目のパスの間に書き込むデータの推定サイズを計算します。 次に、スクリプトは、$SCRIPTSIZE が指すファイルにその推定数値を書き込みます。 ファイルに
+保存される値は 10 進数でなければなりません。 <span><span>snap</span></span> は、スクリプトのすべてのデバッグ・データを保存する必要があるログ・ファイルにパスを渡します。 なぜなら、'<span><span>snap</span></span>標準出力と標準エラーをそれぞれ$SNAPDIR<strong>/</strong>'<em>スクリプト名</em>'<strong>.アウト</strong>と$SNAPDIR<strong>/</strong>'<em>スクリプト名</em>'<strong>.エラー</strong>'に保存するからである。</p>
+ <div>以下の例は、snap のスクリプトを示したものです。<div><div><pre><code>#!/usr/bin/ksh
+
+
+if [ "$PASSNO" = 1 ]
+then
+         (( size=99999 ))
+        .... 
+        # this is where code to do the size estimation should go.
+        ....
+        echo $size &gt; $SCRIPTSIZE
+
+else if [ "$PASSNO" = 2 ]
+then
+        # debug information should go to $SCRIPTLOG
+        echo "Debug Data" &gt;&gt; $SCRIPTLOG
+
+        # .....where the work to collect the data takes place
+        # ...
+
+        # The data collected should be written to $SNAPDIR        .
+        touch $SNAPDIR/foo_output1
+        touch $SNAPDIR/foo_output2
+fi
+fi</code></pre></div><div></div></div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 仮想 SCSI デバイスに関する情報を収集するには、 <strong>snap client_collect, all</strong> コマンドを実行します。 Virtual I/Oサーバーからデータを収集する必要がある場合は、Virtual I/Oサーバーの<strong>snap</strong>コマンドページ（<span>AIX</span>の <strong>snap</strong>コマンドとは異なる構文を使用）を参照してください。<div><strong>snap</strong> コマンドを <strong>-a</strong> または <strong>-g</strong> フラグを指定して実行する場合、以下のスクリプトを実行できます。<ul>
+<li><strong>-a</strong> フラグを指定して実行する場合: svCollect、client_collect、lsvirt</li>
+
+<li><strong>-g</strong> フラグを指定して実行する場合: svCollect、client_collect</li>
+
+</ul>
+</div>
+</div>
+        </div>
+      </div></div>
+<p><strong>snap 出力の分割</strong></p>
+ <p>分割されている場合、 <span><span>snap</span></span> の出力は次のようになります。</p>
+ <div><div><pre><code>% ls -l
+total 112048
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.hastings.020122055925.pax.gzaaa
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.hastings.020122055925.pax.gzaab
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.hastings.020122055925.pax.gzaac
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.hastings.020122055925.pax.gzaad
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.hastings.020122055925.pax.gzaae
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.hastings.020122055925.pax.gzaaf
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaag
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaah
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaai
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaaj
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaak
+-rw-------   1 root     system         3145728 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaal
+-rw-------   1 root     system         2234613 Feb 01 05:59 snap.fvt-zz4-lp3.020122055925.pax.gzaam</code></pre></div><div></div></div></section>
+
+<section><h2>サード・パーティー・スクリプトの実行</h2><p>外部製品のデバッグ・データ収集のコマンドまたはスクリプトは、スタンドアロン実行可能プログラムです。 このスクリプトは、ユーザー定義のデバッグ・データの収集に使用できるようにするために、スナップ・フレームワークに登録されます。 これらのスクリプトは、ユーザーの自由裁量により登録を解除することができます。</p>
+<p>システムで定義されている ODM クラスを以下に示します。</p>
+<div><div><div><pre><code>#define DEFAULTSIZE 256
+#define DATA_VALUESIZE 1024
+
+class snap_config {
+        char product_name[DEFAULTSIZE]; key
+        char class[DEFAULTSIZE];key
+        char command_path[DATA_VALUESIZE];
+        vchar sc_reserved1[DATA_VALUESIZE];
+        vchar sc_reserved2[DATA_VALUESIZE];
+}</code></pre></div><div></div></div></div>
+<div><dl>
+<dt>product_name</dt>
+
+<dd>製品の名前を指定します。 この同じ名前は、製品のデバッグ・データ収集スクリプトの登録解除に使用されます。</dd>
+
+
+<dt>クラス</dt>
+
+<dd>クラスは、ストレージ、ネットワーク、またはデータベースとすることができます。 製品を基にして適切なクラスを選択するか、またはユーザー独自のクラスを定義することができます。 クラスは、製品の種別に役立ちます。 <strong>スナップ・</strong>ドキュメントにあるその他のクラスを追加する場合は、IBM®のサービス担当者にお問い合わせください。</dd>
+
+
+<dt>command_path</dt>
+
+<dd>コマンドまたは実行可能プログラムならびにそのオプションのパス。 <strong>sc_reserved1</strong> および <strong>sc_reserved2</strong> が予約済みです。</dd>
+
+</dl>
+</div>
+<p><strong>サード・パーティー・デバッグ・スクリプトのスナップ・フレームワークへの登録</strong></p>
+<div>登録は、以下の 2 つの方法で行うことができます。<ol>
+<li>エントリーを追加するために <strong>odmadd</strong> コマンドを明示的に実行することができます。 このような場合:<ul>
+<li>スクリプトまたは実行可能プログラムを <span>/usr/lib/ras/snapscript/bin/&lt;productname&gt;</span> ディレクトリーにコピーする必要があります。</li>
+
+</ul>
+<div><strong>考慮点</strong>:<ol>
+<li><strong>odmadd</strong> コマンドを実行する前に次のコマンドを入力する必要があります。<div><div><pre><code>export ODMDIR=/usr/lib/objrepos</code></pre></div><div></div></div></li>
+
+<li><strong>odmadd</strong> コマンドの完了後に、<strong>ODMDIR</strong> コマンドの以前の値をリストアすることができます。</li>
+
+<li><strong>snap</strong> コマンドを引き続き実行できます。 例えば、<em>myfile</em> の内容を以下に示します。<div><div><pre><code>product_name=myprod
+class=myclass
+command_path=/usr/lib/ras/snapscripts/bin/prod_name/myscript1.sh -t 10
+export ODMDIR=/usr/lib/objrepos
+odmadd myfile</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+<div><div><div>
+        <div>
+          <div><span>注:</span> ODM に直接エントリーを作成するユーザーは、重複エントリーを処理する必要があります。これは、 <strong>snap</strong> コマンドが特定の製品名について 1 つのエントリーのみを処理するためです。 そのため、<strong>odmdelete</strong> コマンドは、<strong>odmadd</strong> コマンドの呼び出し前に実行する必要があります。</div>
+        </div>
+      </div></div>
+</div>
+</li>
+
+<li><strong>ADD</strong> キーワードは、 <strong>-z</strong> フラグと一緒に使用します。</li>
+
+</ol>
+</div>
+<div><div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>1.	デバッグ・バイナリーを変更または更新する場合、ユーザーは、最新のバイナリーでスナップ・リポジトリーを更新するためにコンポーネントを再登録する必要があります。</li>
+
+<li>2.	<strong>command_path</strong> 変数の一部として複数のコマンドを組み合わせることはサポートされません。 例えば、次の形式はサポートされません。<div><div><pre><code>command_path=&lt;path&gt;/ls|&lt;path&gt;/grep myfile </code></pre></div><div></div></div></li>
+
+<li>3. <strong>'</strong>、 <strong>&lt;</strong>、 <strong>| </strong> などの特殊文字は、 <strong>command_path</strong> 変数の値としてサポートされません。</li>
+
+</ul>
+</div>
+        </div>
+      </div></div>
+</div>
+<p><strong>サード・パーティー・デバッグ・スクリプトのスナップ・フレームワークからの登録解除</strong></p>
+<div>登録解除は、以下の 2 つの方法で行うことができます。<ol>
+<li><strong>odmdelete</strong> コマンドを使用して、製品の登録を解除します。 例:<div><div><pre><code>export ODMDIR=/usr/lib/objrepos
+odmdelete -o snap_config -q product_name=productname</code></pre></div><div></div></div></li>
+
+<li><strong>DELETE</strong> キーワードは、 <strong>-z</strong> フラグと一緒に使用します。 例:<div><div><pre><code>Snap -z DELETE product_name=productname</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム構成情報をすべて収集するには、次のコマンドを入力します。<div> <div><div><pre><code>snap -a</code></pre></div><div></div></div>このコマンドの出力は、<strong>/tmp/ibmsupt</strong> ディレクトリーに書き込まれます。</div>
+</li>
+
+<li><strong>/tmp/ibmsupt</strong> ディレクトリーに入っているすべてのファイルの <strong>pax</strong> イメージを作成するには、次のコマンドを入力します。<div> <div><div><pre><code>snap -c</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>lslpp -hac</strong> コマンドの出力を含む一般的なシステム構成情報を収集するには、次のコマンドを入力します。<div> <div><div><pre><code>snap -g -o /dev/rfd0</code></pre></div><div></div></div>出力は、<strong>/tmp/ibmsupt/general/lslpp.hac</strong> および <strong>/tmp/ibmsupt/general/general.snap</strong> ファイルに書き込まれます。 また、このコマンドは、システム情報を取り外し可能ディスケットにも書き込みます。</div>
+</li>
+
+<li>以下のコマンドを入力して、単一クラスターに属するノード <code>node1</code> および <code>node2</code> から HACMP 固有の情報を収集します。<div><div><pre><code>snap -e -m node1,node2</code></pre></div><div></div></div>出力は <strong>/tmp/ibmsupt/hacmp</strong> ディレクトリーに書き込まれます。</li>
+
+<li>スクリプト foo1、foo2、および foo3 があって、foo1 は引数をとらず、foo2 は 3 つの引数をとり、foo3 は 1 つの引数を取るとき、これらのスクリプトを実行するには、次のように入力します。<div><div><pre><code>snap  foo1 "foo2 -x -y 3" "foo3 6"</code></pre></div><div></div></div>出力は、宛先ディレクトリーがデフォルトの <span><span>/tmp/ibmsupt</span></span>であると想定して、 <span><span>/tmp/ibmsupt/snapscripts/foo1</span></span>、 <span><span>/tmp/ibmsupt/snapscripts/foo2</span></span> 、および <span><span>/tmp/ibmsupt/snapscripts/foo3</span></span> に書き込まれます。</li>
+
+<li><span><span>All</span></span> パラメーターを指定してすべてのスクリプトを実行するには、次のように入力します。<div><div><pre><code>snap All</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> この場合、パラメーターは渡されません。</div>
+        </div>
+      </div></div>
+ </li>
+
+<li>実行するスクリプトの名前とオプション・パラメーター・リストが入っているファイルへのパスを指定するには、次のように入力します。<div><div><pre><code>snap file:/tmp/scriptnames</code></pre></div><div></div></div>例 5 からスクリプトを実行するサンプル入力ファイルは、以下のとおりです。<div><div><pre><code>foo1 
+foo2 -x -y 3
+foo6</code></pre></div><div></div></div></li>
+
+<li><span><span>snap</span></span> 出力を 4MB ファイルに分割する必要がある場合は、次のように入力します。<div><div><pre><code>snap -a -c -O 4</code></pre></div><div></div></div></li>
+
+<li>ノード <code>node1</code> および <code>node2</code>から HACMP <span><span>snap</span></span> <span><span>-e</span></span> データのみを実行依頼するには、次のコマンドを入力します。<div><div><pre><code>snap -e -m node1,node2
+snap -c</code></pre></div><div></div></div>
+<p>サービス担当員の指示に従って、&lt;pax.gz&gt; ファイルを <span>IBM</span> に送信します。</p>
+</li>
+
+<li>ノード <code>node1</code> および <code>node2</code>からすべての <span><span>snap</span></span> データを実行依頼するには、以下のコマンドを入力します。<div><div><pre><code>snap -e -m node1,node2
+snap -a
+snap -c </code></pre></div><div></div></div>
+<p>サービス担当員の指示に従って、&lt;pax.gz&gt; ファイルを <span>IBM</span> に送信します。</p>
+</li>
+
+<li>製品 <strong>abc</strong>の <span>/usr/lpp/abc/debug_abc</span> ディレクトリーにあるデバッグ・スクリプトをクラス <strong>storage</strong> に登録するには、次のコマンドを入力します。<div><div><pre><code>snap -z ADD "product_name=abc" "class=storage" "command_path=/usr/lpp/abc/debug_abc -a"</code></pre></div><div></div></div></li>
+
+<li>製品 <strong>abc</strong> のデバッグ・スクリプトの登録を解除するには、次のコマンドを入力します。<div><div><pre><code>snap -z DELETE "product_name=abc"</code></pre></div><div></div></div></li>
+
+<li>複数の製品のデバッグ・データを収集するには、次のコマンドを入力します。<div><div><pre><code>snap -z "product_name=abc, product_name=def"</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/snap</strong></td>
+
+<td><strong>snap</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/ibmsupt</strong></td>
+
+<td><strong>snap</strong> コマンドの出力が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/ibmsupt/general/lslpp.hac</strong></td>
+
+<td><strong>lslpp -hac</strong> コマンドの出力が入っています。
+これは、実際のオペレーティング・システム環境を再作成するために必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/ibmsupt/general/general.snap</strong></td>
+
+<td><strong>snap -g</strong> コマンドで収集された一般的なシステム情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/ibmsupt/testcase</strong></td>
+
+<td>ユーザーのシステムの問題を明示するテスト・ケースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/ibmsupt/other</strong></td>
+
+<td>ユーザー定義のディレクトリーが含まれます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

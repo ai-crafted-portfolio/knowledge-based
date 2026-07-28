@@ -1,0 +1,134 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>関連付けマップを表示します。</p>
+ </section>
+
+<section><h2>構文</h2> <p><span><span>lsassocmap</span></span> [<span><span>-c</span></span> <span><span>association_class</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>エンドポイント</span></span>...]</p>
+ </section>
+
+<section><h2>説明</h2> <p><span><span>lsassocmap</span></span> コマンドは、クラスターで使用可能な関連クラス (各関連のエンドポイントを含む) を表示します。 CIM リソース・マネージャーに登録されている共通情報モデル (CIM) 関連クラスの名前とエンドポイントは、 <span><span>lscondresp</span></span> コマンドの出力と同様に、テーブル形式でリストされます。</p>
+ <p><span><span>lsassocmap</span></span> コマンドをパラメーターなしで指定すると、すべての関連クラス、エンドポイント、およびロールが表示されます。 <span><span>role</span></span> は、関連クラス定義にあるクラス参照属性の名前です。 ロールは、出力をフィルターに掛けるために、 <span><span>lsrsrcassoc</span></span> コマンドの <span><span>-o</span></span> および <span><span>-R</span></span> フラグに対するパラメーターとして使用できます。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsrsrcassoc.html" target="_blank" rel="noopener noreferrer">lsrsrcassoc コマンド</a> を参照してください。</p>
+ <p><span><span>-c</span></span> フラグは、表示される関連付けを、特定の関連クラスによって提供される関連のみに制限します。 <span><span>endpoint</span></span> パラメーターを使用することによって任意の数のクラスを指定できます。それらのクラスを参照 (エンドポイント) として含む関連付けのみが表示されます。</p>
+ </section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>エンドポイント</span></span><span>...</span></dt>
+
+<dd>1 つ以上のエンドポイント・クラスを指定します。 <span><span>endpoint</span></span>クラスの 1 つに対する参照を含む関連クラスのみが表示されます。</dd>
+
+</dl>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-c <span><span>アソシエーション・クラス</span></span></dt>
+
+<dd><span><span>association_class</span></span> の関連付けを表示します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用方法の文を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>標準エラーにコマンドのトレース・メッセージを書き込みます。 これはソフトウェア・サービス組織専用です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き出します。</dd>
+
+</dl>
+ </section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンド使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+ </section>
+
+<section><h2>標準エラー</h2> <p><span><span>-T</span></span> フラグが指定されている場合、このコマンド・トレース・メッセージは標準エラーに書き込まれます。</p>
+ </section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>指定された関連クラスが見つかりません。</dd>
+
+</dl>
+ </section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 AIX® Expansion Pack および Linux® オペレーティング・システム用の Reliable Scalable Cluster Technology (RSCT) パッケージの <span><span>rsct.exp</span></span> パッケージにある <span><span>rsct.exp.cimrm</span></span> ファイルセットの一部です。</p>
+ </section>
+
+<section><h2>ロケーション</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/opt/rsct/bin/lsassocmap</span></span></td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </section>
+
+<section><h2>例</h2><div>クラスター内で使用可能な関連付けを表示するには、次のコマンドを入力します。<div><div><pre><code>lsassocmap</code></pre></div><div></div></div>AIX プラットフォームの場合、以下の出力が表示されます。<div>
+<div><div><pre><code>
+Association Class              Role 1          Associator 1            Role 2         Associator 2           Node
+cimv2.IBMAIX_RunningOS         Antecedent      IBMAIX_OperatingSystem  Dependent      IBMAIX_ComputerSystem  c175nf14
+cimv2.IBMAIX_OSProcess         GroupComponent  IBMAIX_OperatingSystem  PartComponent  IBMAIX_UnixProcess     c175nf14
+cimv2.IBMAIX_CSProcessor       GroupComponent  IBMAIX_ComputerSystem   PartComponent  IBMAIX_Processor       c175nf14
+cimv2.IBMAIX_HostedFileSystem  GroupComponent  IBMAIX_ComputerSystem   PartComponent  CIM_FileSystem         c175nf14
+</code></pre></div><div></div></div>
+</div>その他のプラットフォームの場合、以下の出力が表示されます。<div>
+<div><div><pre><code>
+Association Class             Role 1          Associator 1           Role 2         Associator 2          Node
+cimv2.Linux_RunningOS         Antecedent      Linux_OperatingSystem  Dependent      Linux_ComputerSystem  c175nf14
+cimv2.Linux_OSProcess         GroupComponent  Linux_OperatingSystem  PartComponent  Linux_UnixProcess     c175nf14
+cimv2.Linux_CSProcessor       GroupComponent  Linux_ComputerSystem   PartComponent  Linux_Processor       c175nf14
+cimv2.Linux_HostedFileSystem  GroupComponent  Linux_ComputerSystem   PartComponent  CIM_FileSystem        c175nf14
+</code></pre></div><div></div></div>
+</div>
+</div>
+</section>
+
+</div></div>

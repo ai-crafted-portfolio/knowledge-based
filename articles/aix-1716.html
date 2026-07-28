@@ -1,0 +1,79 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>vi エディターを読み取り専用モードで始動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>表示</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8873" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em>サブコマンド</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8884" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8922" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><em> タグ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8937" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8948" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8909" target="_blank" rel="noopener noreferrer"><strong>-</strong> </a>[ <em>ファイル</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/view.html#view__row-d3e8954" target="_blank" rel="noopener noreferrer"><strong>+</strong> </a>[ <em>サブコマンド</em> ] ] [ <em>ファイル</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>view</strong> コマンドは、
+vi フルスクリーン・エディターを読み取り専用モードで始動します。 読み取り専用モードは、誤ってファイルを変更するのを避けるのに役立ちます。 読み取り専用モードをオーバーライドするには、!(感嘆符) を使用します。 <em>File</em> パラメーターには表示したいファイルの名前を指定します。 ファイル内での移動には、vi サブコマンドを使用します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html#vi" target="_blank" rel="noopener noreferrer"><strong>:q</strong></a> サブコマンドは、 <strong>view</strong> コマンドを終了するために使用します。 ファイルを変更する場合は、Esc キーを押して変更を保存できます。wq!.</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em>サブコマンド</em></td>
+
+<td>vi による表示を開始する前に、ex エディター・サブコマンドを実行します。 ヌル・オペランドを入力した場合は、次のようになります。-c ''エディターは、ファイルの最後の行にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>LISP 言語でプログラムを書くために設計された特殊機能を備えたバージョンの vi エディターに入ります。 このモードでは、vi エディターは LISP プログラミング用に適宜字下げされ、
+<strong>(</strong>、<strong> )</strong>、<strong> {</strong>、<strong> }</strong>、<strong> [[</strong> および <strong>]]</strong> などのサブコマンドは、LISP で正しく動作するように修正されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> [<em>ファイル</em>]</td>
+
+<td>エディターかシステムがクラッシュした後でファイルを回復させます。 <em>File</em> パラメーターを指定しない場合には、エディターはすべての保管ファイルのリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em>タグ</em></td>
+
+<td><em>Tag</em> パラメーターで指定したタグの入っているファイルを編集し、エディターをその定義に配置します。 このフラグを使用するには、最初に ctags コマンドを使用して関数名とそれらの位置のデータベースを作成する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em>数値</em></td>
+
+<td>デフォルトのウィンドウ・サイズを <em>Number</em> パラメーターで指定された値に設定します。 ユーザーの端末と低速の通信回線でエディターを実行しているシステムで通信するときに役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>最大行数設定値 1,048,560 を 1024 よりも大きい任意の値で上書きします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong>[<em>サブコマンド</em>]<strong></strong></td>
+
+<td>vi による表示を開始する前に、<em>Subcommand</em> パラメーターで指定した ex エディター・サブコマンドを実行します。 サブコマンドを指定しない場合は、ファイルの最終行にカーソルが移動します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

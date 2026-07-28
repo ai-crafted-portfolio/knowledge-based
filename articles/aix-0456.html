@@ -1,0 +1,59 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>個々のセキュリティー・パッチおよび暫定修正をダウンロードします。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>
+<div><div><pre><code>emgr_download_ifix [-L download_link] [-P path]</code></pre></div><div></div></div>
+</div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>emgr_download_ifix</span> コマンドは、指定された HTTP リンクから、現在のオペレー ティング・システム用の個別のセキュリティ・パッチと暫定的な修正プログラムを ダウンロードする。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>/tmp</span> ディレクトリーに十分なスペースがないと、 <span>emgr_download_ifix</span> コマンドが失敗する場合があります。 このコマンドを使用する前に、 <span>/tmp</span> ディレクトリーに十分なスペースがあることを確認してください。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>-L ダウンロードリンク</dt>
+
+<dd>中間修正のダウンロードに使用する HTTP リンクを指定します。</dd>
+
+
+
+<dt>-P パス</dt>
+
+<dd>セキュリティー暫定修正をダウンロードするためのパスを指定します。 デフォルト・パスは <span>/tmp/ifix_$PID</span>です。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><span>games_ifix</span> 暫定修正とそのシグニチャーを <span>/tmp/games</span> ディレクトリーにダウンロードするには、次のコマンドを入力します。<div>
+<div><div><pre><code>emgr_download_ifix -L https://aix.software.ibm.com/aix/efixes/security/games_ifix.tar -P /tmp/games</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+
+</section>
+
+</div></div>

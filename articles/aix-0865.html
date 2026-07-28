@@ -1,0 +1,93 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>Network Information Services</span> (<span>NIS</span>) データベース・マップを作成します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>マップを作成するには</strong></p>
+ <p><strong>/usr/sbin/makedbm</strong> [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makedbm.html#makedbm__row-d3e117187" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makedbm.html#makedbm__row-d3e117197" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><em> </em><span>エヌアイエス</span><em>入力ファイル </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makedbm.html#makedbm__row-d3e117206" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><em> </em><span>エヌアイエス</span><em>出力ファイル</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makedbm.html#makedbm__row-d3e117215" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em> </em><span>エヌアイエス</span><em>DomainName </em>] [<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makedbm.html#makedbm__row-d3e117224" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><em> </em><span>エヌアイエス</span><em>マスターネーム</em> ] <em>InputFile OutputFile</em></p>
+<p><strong>dbm フォーマット以外のマップを作成する</strong></p>
+ <p>/<strong>/usr/sbin/makedbm</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/makedbm.html#makedbm__row-d3e117233" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> <em>dbmFileName</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>makedbm</strong> コマンドは <span>NIS</span> マップを作成します。 この場合、<em>InputFile</em> パラメーター内で指定されたファイルを 2 つの出力ファイル <em>OutputFile.pag</em> と
+<em>OutputFile.dir</em> に変換します。 各入力ファイル内の各行は、単一のデータベース管理プログラム (DBM) レコードに変換されます。</p>
+ <p><strong>makedbm</strong> コマンドは、ほとんどの場合、 <span>NIS</span> マップを生成するために <strong>/var/yp/Makefile</strong> ファイルから呼び出されます。 <strong>/var/yp/Makefile</strong> ファイルの各行において、最初のスペースまたはタブまでのすべての文字がキーとなります。 行の残りは、値のデータです。 行が &amp;#xa5; (円記号)
+で終了する場合、そのレコードに対するデータは次の行に続きます。 <span>NIS</span> クライアントは、# (ポンド記号) 記号を解釈する必要があります。これは、 <strong>makedbm</strong> コマンドが # (ポンド記号) 記号をコメント文字として扱わないためです。 <em>InputFile</em> パラメーターが - (負符号) である場合、<strong>makedbm</strong> は標準入力から読み取ります。</p>
+ <p>このコマンドは、<strong>YP_LAST_MODIFIED</strong> キーを使って出力マップ内に特殊エントリーを生成します。
+このキーは、<em>InputFile</em> パラメーターで指定されたファイルが作成された日付、
+あるいは現在の時刻 (<em>InputFile</em> パラメーターが - (負符号) である場合) です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named.html" target="_blank" rel="noopener noreferrer"><strong>named</strong></a> ネーム・サーバーを使用して、マップをすべてのサーバーに伝搬します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td><strong>YP_INPUT_FILE</strong> キーを使って特殊エントリーを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td><strong>YP_OUTPUT_FILE</strong> キーを使って特殊エントリーを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>YP_DOMAIN_NAME</strong> キーを使って特殊エントリーを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><strong>YP_MASTER_NAME</strong> キーを使って特殊エントリーを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>DBM ファイルを元に戻します。 つまり、キーと値をシングル・スペースで区切って、1 行に 1 エントリーずつ DBM ファイルを出力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/var/yp/Makefile</strong></td>
+
+<td><span>NIS</span> マップを作成するための規則が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

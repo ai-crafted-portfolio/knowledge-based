@@ -1,0 +1,207 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定したメール・ディレクトリーに自動的にバグ・レポートを格納します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>bugfiler</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bugfiler.html#bugfiler__row-d3e63230" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bugfiler.html#bugfiler__row-d3e63242" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a><em>MessageMode</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bugfiler.html#bugfiler__row-d3e63214" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a><em>BugUserName</em>] [<em>MailDirectory</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>bugfiler</strong> コマンドは、バグ・レポートを自動的に代行受信し、要約して、<em>MailDirectory</em> 変数で指定されたディレクトリー内の適切なフォルダーに格納します。</p>
+ <p>メール配布プログラムは、<strong>/etc/aliases</strong> ファイル内の行から <strong>bugfiler</strong> コマンドを呼び出します。 行の構文を以下に示します。</p>
+ <div> <div><div><pre><code>bugs:"|/usr/lib/bugfiler $HOME/bugstuff"</code></pre></div><div></div></div></div>
+ <p>この例では、バグ・レポートは <strong>$HOME/bugstuff</strong> ディレクトリーに入ります。 ディレクトリーを指定しないと、<strong>bugfiler</strong> コマンドはデフォルトの <strong>$HOME/mail</strong> ディレクトリーにバグ・レポートを入れます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>bugfiler</strong> コマンドでデフォルト・ディレクトリーとして使用するには、 <strong>$HOME</strong>/<strong>mail</strong> ディレクトリーを作成する必要があります。<span>”</span></blockquote>
+<p></p>
+ <p><em>BugUserName</em>がbugsこの場合、<strong>/etc/aliases</strong>ファイルのエントリーには、次の例のように、<strong>-b</strong><em> BugUserName</em>フラグが含まれていなければならない：</p>
+ <div> <div><div><pre><code>hadley:"|/usr/lib/bugfiler -b hadley"</code></pre></div><div></div></div></div>
+ <p>この例では以下のようにします。hadleyが<em>BugUserName</em>として宣言され、すべてのバグ報告は<strong>/home/hadley/mail</strong>デフォルトディレクトリに置かれます。 <strong>bugfiler</strong> コマンドによって使用されるすべてのディレクトリーは、以下の所有者でなければなりません。hadley.</p>
+ <p><strong>bugfiler</strong>コマンドは標準入力からバグ報告を読み込み、各報告の<a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bugfiler.html#bugfiler__a298x970c" target="_blank" rel="noopener noreferrer">書式</a>をチェックし、受信を認めるメッセージ($HOME<em>/</em>MailDirectory/<strong>.ack</strong>ファイル)を送るか、不適切な書式であることを示す($<em>HOME</em>/MailDirectory/<strong>.format</strong>ファイル)。</p>
+ <p>不適切にフォーマットされたバグ・レポートは、 <strong>errors</strong> ディレクトリーにファイルされます。このディレクトリーは、 <strong>bugfiler</strong> コマンドによって <em>MailDirectory</em> 変数のサブディレクトリーとして作成されます。 バグ・レポートは、<strong>/usr/lib/bugformat</strong> ファイルにあるフォーマットでなくてはなりません。 <strong>/usr/lib/bugformat</strong> ファイルの呼び出しには、
+<strong>sendbug</strong> コマンドを使用します。 <strong>bugfiler</strong> コマンドは、有効なバグ・レポートを要約し、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/bugfiler.html#bugfiler__row-d3e63127" target="_blank" rel="noopener noreferrer"> で指定されたフォルダーにファイルします。Index:レポートの </a> 行。 ソース・ディレクトリー名。Index:行はメール・ディレクトリー内のディレクトリー名の 1 つと一致していなければなりません。 <strong>bugfiler</strong> コマンドは、<em>MailDirectory/</em><strong>summary</strong> ファイルに次の構文の行を追加します。</p>
+ <div> <div><div><pre><code>DirectoryName/MessageNumber IndexInformation SubjectInformation</code></pre></div><div></div></div></div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>bugfiler</strong> コマンドは転送されたメールを認識しません。 送信側ではなくフォワーダーに通知します。Reply-To: 行がレポートのヘッダーに組み込まれます。<span>”</span></blockquote>
+<p></p>
+<p><strong>バグ・レポートのフォーマット</strong></p>
+ <p>バグ・レポートは ARPA RFC 822 フォーマットでなければなりません。 <strong>sendbug</strong> コマンドには、バグ・レポートを正しいフォーマットで構成し、送信するための情報が入っています。</p>
+ <p>正しく索引を付けるために、レポートには次のヘッダー行が必要です。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>Date:</td>
+
+<td><strong>bugfiler</strong> コマンドがレポートを受信した日付を示します。</td>
+
+</tr>
+
+<tr>
+<td>From:</td>
+
+<td>送信側の有効な戻りアドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td>Subject:</td>
+
+<td>問題の簡単な要約を示します。</td>
+
+</tr>
+
+<tr>
+<td>Index:</td>
+
+<td>ソース・ディレクトリーとソース・ファイルのパス、バージョン番号、およびオプションで <strong>Fix</strong>  キーワードを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>バグ・レポートの本文には、次の行が必要です。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>Description:</td>
+
+<td>問題、提案、または苦情の詳細な説明が続きます。.</td>
+
+</tr>
+
+<tr>
+<td>Repeat-By:</td>
+
+<td>問題を再現するための手順を示します。</td>
+
+</tr>
+
+<tr>
+<td>Fix:</td>
+
+<td>新旧のソース・ファイルを比較する <strong>diff</strong> コマンド、
+または問題を解決する方法を示します。 以下を含める:Fix:行が表示されるのは、 <strong>Fix</strong> キーワードがIndex:行。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>バグ・レポートの再配布</strong></p>
+ <p>バグ・レポートは、<em>MailDirectory</em>/<strong>.redist</strong> ファイル内の索引情報に従って再配布できます。 この場合、<em>MailDirectory</em>/<strong>.redist</strong> ファイル内に、タブが後ろについた索引名で始まる行があるかどうかが調べられます。 索引名とタブの後ろには、バグ・レポートのコピーを受信するメール・アドレスのリストがコンマで区切られて続きます。 リストが複数行になるときは、最後の行以外のすべての行に &amp;#xa5; (円記号) を付けます。 次は、<strong>.redist</strong> ファイル内の索引情報の例です。</p>
+ <div> <div><div><pre><code>myindex   joe@hal,mary@mercutio,martha@banquo,sarah@mephisto,\
+dee@hamlet,dewayne@ceasar</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> BugUserName</em></td>
+
+<td>新しいユーザー ID を指定します。 <strong>-b</strong> <em>BugUserName</em> フラグを指定しないと、<strong>bugfiler</strong> コマンドはデフォルトとしてログイン名を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>デバッグ機能をオンにします。 <strong>-d</strong> フラグを指定すると、<strong>bugfiler</strong> コマンドはエラー・メッセージを標準出力に送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> MessageMode</em></td>
+
+<td>メッセージ保護を設定します。 <strong>-m</strong> <em>MessageMode</em> フラグは、<strong>bugfiler</strong> コマンドが作成したすべてのファイル対して、16 進フォーマットでファイル許可を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>bugfiler</strong> コマンドを 3 つのフラグすべてと共に使用し、 <em>MailDirectory</em> 変数を指定した場合の構文は、以下のとおりです。<div> <div><div><pre><code>hadley:"|/usr/lib/bugfiler -d -m 755 -b hadley 
+/home/hadley/bugdir"</code></pre></div><div></div></div><strong>/etc/aliases</strong> ファイルに配置すると、この行はデバッグを開始し、ファイル許可を次のように設定します。rwxr-xr-x、宣言hadleyを<em>BugUserName</em>とし、<strong>/home/hadley/bugdir</strong>ディレクトリを指定します。</div>
+</li>
+
+<li><span></span>バグ・レポートの例を以下に示します。<div> <div><div><pre><code>Date: Mon, 27 Nov 89 11:26:15 -600
+From: a@B
+Subject: Read not setting errno correctly
+Index: LFS/rdwr.c workstation 3.1
+ 
+Description: Read not setting errno correctly
+ 
+Repeat-By: Start an NFS daemon and it receives errors. Errno is
+zero.</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/</strong> <strong>別名</strong></td>
+
+<td>メール転送システム全体に有効な別名が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>ユーザー/sbin/sendmail</strong></td>
+
+<td>メール配布プログラムが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>メール・ディレクトリ</em>/<strong>概要</strong></td>
+
+<td>バグ・レポートの要約が入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>バグユーザー名</em>/<em>メール・ディレクトリ</em>/<strong>アッ</strong></td>
+
+<td>肯定応答で送信されるメッセージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>バグユーザー名</em>/<em>メール・ディレクトリ</em>/<strong>フォーマット</strong></td>
+
+<td>形式エラーが検出されたときに送信されるメッセージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>MailDirectory/</em><strong>.redist</strong></td>
+
+<td>バグ・レポートの再配布リストが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

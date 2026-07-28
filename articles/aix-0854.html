@@ -1,0 +1,223 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p><span>lvupdateRegScript</span>コマンドは、<span>AIXLive Update</span>操作中の通知ポイントで実行されるスクリプトを登録するために使用される。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>スクリプトを登録するには、次の構文を使用します。<div><div><pre><code>lvupdateRegScript  -a -n label -s script -d { orig | surr } -P phase -p priority</code></pre></div><div></div></div></div>
+
+<div>スクリプトを登録抹消するには、次の構文を使用します。<div><div><pre><code>lvupdateRegScript  -r -n label -d { orig | surr } -P phase [ -p priority ]</code></pre></div><div></div></div></div>
+
+<div>すべての登録済みスクリプトをリストするには、次の構文を使用します。<div><div><pre><code>lvupdateRegScript  -l</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p>スクリプトを登録できる有効なフェーズは次のとおりです。</p>
+
+<dl>
+
+<dt>LVUP_CHECK</dt>
+
+<dd><span>ライブ・アップデート</span> 操作の開始時に実行されます。 このフェーズにより、関連付けられたすべてのサービスが <span>ライブ・アップデート</span> 操作の準備ができている実行済みスクリプトが確実に実行されます。</dd>
+
+
+
+<dt>LVUP_PRE</dt>
+
+<dd>元のロジカル区画 (LPAR) でアプリケーションがフリーズされる前に実行されます。 このフェーズでは、アプリケーションがフリーズされる前に、実行されるスクリプトが必要に応じてデータを保存できます。</dd>
+
+
+
+<dt>LVUP_PRE_KERNEL</dt>
+
+<dd>元の LPAR でアプリケーションがフリーズされた後で、サロゲート LPAR でアプリケーションが再開される前に実行されます。 このフェーズは、元の LPAR で実行された後に、サロゲート LPAR で実行されます。</dd>
+
+
+
+<dt>LVUP_POST</dt>
+
+<dd>アプリケーションが再始動された後、サロゲート LPAR で実行されます。 これらのスクリプトは <code>chroot</code> 環境で実行されます。</dd>
+
+
+
+<dt>LVUP_ERROR</dt>
+
+<dd><span>ライブ・アップデート</span> 操作の <code>LVUP_CHECK</code> フェーズまたはそれ以降のフェーズでエラーが発生した場合に実行されます。</dd>
+
+
+
+<dt>LVUP_COMPLETE</dt>
+
+<dd><span>ライブ・アップデート</span> 操作の完了後にサロゲート LPAR で実行されます。 このフェーズには、元の LPAR の削除と、サロゲート LPAR の UUID のリセットが含まれます。 このフェーズに登録されたスクリプトは、<code>chroot</code> 環境で実行されます。</dd>
+
+
+</dl>
+
+<p><span>ライブ・アップデート</span> 操作中に、 <code>DR_CHECK</code> スクリプトが呼び出される前に、 <code>LVUP_CHECK</code> フェーズに登録されているスクリプトが実行されます。 フェーズ <code>LVUP_CHECK</code>、<code>LVUP_PRE</code>、<code>LVUP_PRE_KERNEL</code>、<code>LVUP_POST</code>、および
+<code>LVUP_COMPLETE</code> では、スクリプトは、元の論理区画とサロゲート論理区画で異なる特定の優先度の順序で実行されます。 元の LPAR では、順序は優先順位 1 から優先順位 10 になり、サロゲート LPAR では順序が逆になります。最初に優先順位 10 が実行され、次に優先順位 1 が実行されます。 <code>LVUP_ERROR</code> イベントの場合、スクリプトは逆の優先順位で実行されます。</p>
+
+<p>残りのフェーズに同じ方法が適用されます。</p>
+
+<p>スクリプト所有者は、スクリプトを元の LPAR またはサロゲート LPAR で実行する必要があるかどうかを指定する必要があります。 スクリプトが元の LPAR とサロゲート LPAR の両方で実行される場合は、元の LPAR に対して 1 回、サロゲート LPAR に対してもう 1 回、合計 2 回登録される必要があります。</p>
+
+<p>登録されたスクリプトが実行されると、成功を示す場合は 0、失敗した場合はゼロ以外の値が返されます。 <code>LVUP_CHECK</code> イベントまたは <code>LVUP_PRE</code> イベント中にスクリプトが失敗すると、 <span>ライブ・アップデート</span> 操作は失敗します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>lvupdateRegScript</span> コマンドで登録するスクリプトは、 <span>/</span>、 <span>/var</span>、 <span>/usr</span>、 <span>/opt</span>、 <span>/tmp</span>のいずれかのファイル・システムに存在している必要があります。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>パラメーター</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ラベル</td>
+
+<td>最大 80 文字のストリングで、特定のスクリプトを識別するラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td>script</td>
+
+<td>最大 1024 文字のストリングで、実行されるスクリプトを指定します。 ストリングには、スクリプトへの絶対パスのほか、必要な引数を含める必要があります。</td>
+
+</tr>
+
+<tr>
+<td>phase</td>
+
+<td>フェーズのセット <code>LVUP_CHECK</code>、<code>LVUP_PRE</code>、<code>LVUP_PRE_KERNEL</code>、<code>LVUP_POST</code>、<code>LVUP_ERROR</code>、および <code>LVUP_COMPLETE</code> のいずれかを指定するストリング。</td>
+
+</tr>
+
+<tr>
+<td>優先</td>
+
+<td>スクリプトを実行するための優先度を識別する 1 から 10 の整数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td><span>ライブ・アップデート</span> 操作中に実行するスクリプトを登録します。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> <code>orig</code> | <code>surr</code></td>
+
+<td>元の LPAR (<code>orig</code>) またはサロゲート LPAR (<code>surr</code>) のどちらの LPAR でスクリプトが実行されるかを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>登録されているスクリプトと関連ラベルをリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> ラベル</td>
+
+<td>登録済みスクリプトに関連付けるラベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> フェーズ</td>
+
+<td>スクリプトが呼び出されるフェーズを選択します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> 優先順位</td>
+
+<td>1 から 10 の優先度を指定します。 特定のフェーズに登録されたスクリプトは、最高 (1) から最低 (10) の優先度の順序で実行されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>スクリプトを登録抹消します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> 
+script</td>
+
+<td>実行するスクリプトを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><span>ライブ・アップデート</span> 操作中に呼び出されるように登録されているすべての通知スクリプトをリストするには、次のコマンドを入力します。<div><div><pre><code># lvupdateRegScript -l</code></pre></div><div></div></div></li>
+
+<li><span>ライブ・アップデート</span> 操作の <code>LVUP_PRE</code> イベント中に元の LPAR で実行するスクリプトを登録するには、次のコマンドを入力します。</li>
+
+<li><span>ライブ・アップデート</span> 操作の <code>LVUP_POST</code> イベント中にサロゲート LPAR で実行するスクリプトを登録するには、次のコマンドを入力します。<div><div><pre><code># lvupdateRegScript -a -n putFiles -s "/opt/myapp/bin/rest_files /var/myapp/data"
+                              -P LVUP_POST -p 10 -d surr</code></pre></div><div></div></div></li>
+
+<li><span>ライブ・アップデート</span> 操作中に呼び出されるように以前に登録されたスクリプトを除去するには、次のコマンドを入力します。<div><div><pre><code># lvupdateRegScript -r -n getFiles -d orig -P LVUP_PRE</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

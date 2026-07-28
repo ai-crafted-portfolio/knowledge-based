@@ -1,0 +1,44 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>タブをスペースに変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>タブ解除</strong> [ <em>FileName ... </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>untab</strong> コマンドは、
+<em>FileName</em> パラメーターで指定したファイルまたは標準入力を読み取り、
+入力に含まれるタブをスペース文字に置き換えます。 <em> FileName</em> パラメーターでファイルを指定すると、
+<strong>untab</strong> コマンドは、結果として作成されるファイルを元のファイルに書き戻します。 入力が標準入力である場合は、<strong>untab</strong> コマンドが標準出力に書き出します。 <strong>untab</strong> コマンドは、タブ・ストップが 9 桁目から始まり、
+9 桁ごとに設定されていることを前提としています。 <em>FileName</em> パラメーターで指定するファイルの長さは、
+<strong>PATH_MAX</strong>-9 バイトを超えることはできません。</p>
+</section>
+
+<section><h2>例</h2> <p>タブ文字を置換するには、Fileスペース文字を含むファイルの場合は、次のように入力</p>
+ <div> <div><div><pre><code>untab File</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/untab</strong></td>
+
+<td><strong>untab</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

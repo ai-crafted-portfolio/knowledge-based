@@ -1,0 +1,123 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>基本ネットワーク・ユーティリティー (BNU) のファイル・トランスポート・プログラムの作業をスケジュールします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ユーズド</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uusched.html#uusched__row-d3e161183" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em>デバッグレベル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uusched.html#uusched__row-d3e161203" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em>デバッグレベル </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uusched</strong> デーモンは、基本ネットワーク・ユーティリティー (BNU) のファイル・トランスポート・プログラムの作業をスケジュールします。 転送スケジュールの対象となるファイルは、
+<strong>/var/spool/uucp/</strong><em>SystemName</em> ディレクトリーのキューに入っているファイルです。 スケジューリング・デーモンは、
+作業をランダム化してから <strong>uucico</strong> デーモンを始動します。
+このデーモンがファイルを転送します。</p>
+ <p><strong>uusched</strong> デーモンは通常 <strong>uudemon.hour</strong> コマンドで始動されます。
+このコマンドは、
+<strong>/var/spool/cron/crontabs/uucp</strong> ファイルからの命令に基づき <strong>cron</strong> デーモンによって定期的に実行されるシェル・プロシージャーです。</p>
+ <p><strong>uusched</strong> デーモンは、デバッグ目的にコマンド・ラインからも実行することができます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>uusched</strong> デーモンを始動するときには、 <strong>/usr/sbin/uucp</strong> ディレクトリーに入っていなければなりません。あるいは、絶対パス名 <strong>/usr/sbin/uucp/uusched.</strong><span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-u</strong><em>デバッグレベル</em></td>
+
+<td><strong>uucico</strong>デーモンに<strong>-</strong><em>xDebugLevel</em>フラグとして渡す。 <em>DebugLevel</em>変数は0から9までの数字で、デフォルトは5である。 数値が高いほど詳細なデバッグ情報が得られ、ローカル・システムの画面に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em>デバッグレベル</em></td>
+
+<td><strong>uusched</strong> デーモンからのデバッグ・メッセージを出力します。 <em> DebugLevel</em> 変数は 0 から 9 までの数値で、デフォルトは 5 です。 数値が高いほど詳細なデバッグ情報が得られ、ローカル・システムの画面に表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>uusched</strong> デーモンをコマンド・ラインから始動するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>/usr/sbin/uucp/uusched &amp;</code></pre></div><div></div></div></div>
+ <p>これにより、<strong>uusched</strong> デーモンがバックグラウンド・プロセスとして始動されます。 (パス名をコマンド・ラインに指定していることに注意してください。)</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/locks</strong> <strong>/*</strong></td>
+
+<td>デバイスの重複使用とシステムの重複呼び出しを防ぐロック・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/uucp/*</strong></td>
+
+<td><strong>uusched</strong> デーモンおよび BNU 構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Devices</strong></td>
+
+<td>使用可能なデバイスについての情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Maxuuscheds</strong></td>
+
+<td>スケジュールされるジョブを制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Systems</strong></td>
+
+<td>アクセス可能なリモート・システムを記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/cron/crontabs/uucp</strong></td>
+
+<td><strong>uudemon.hour</strong> シェル・プロシージャーを含む、
+<strong>cron</strong> デーモンの BNU ジョブをスケジュールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/</strong><em>システム名</em><strong> /*</strong></td>
+
+<td>転送待ちのファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

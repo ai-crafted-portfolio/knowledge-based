@@ -1,0 +1,248 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム操作を終了します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>シャットダウン</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22671" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22677" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22694" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22703" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22709" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22734" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22751" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22757" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22773" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22782" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> <em>mmddHHMM</em> [ <em>YY</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22849" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22856" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22874" target="_blank" rel="noopener noreferrer"><strong>+</strong><em>時刻</em></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22894" target="_blank" rel="noopener noreferrer"><em>メッセージ</em></a><em></em> ] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>shutdown</strong> コマンドはオペレーティング・システムを停止します。 root ユーザー権限を持ったユーザーだけが、このコマンドを実行できます。 デフォルトのシャットダウンの間にはメッセージが表示され、システムのシャットダウンがまもなく起こることが (<strong>wall</strong> コマンドによって) ユーザーに通知されます。 ただし、ユーザーがシャットダウン完了メッセージを受け取るまでは、シャットダウンは完了しません。 シャットダウン完了メッセージが表示される前に、システムを再始動したり電源を切ったりしないでください。
+ファイルシステムが破壊される恐れがあります。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong>halt
+completedメッセージは、マルチポート・アダプターを介してシステムに接続されている場合、シャットダウンの起動元の tty には表示されません。<span>”</span></blockquote>
+<p></p>
+ <p>シャットダウン時間が近づくと、システム上のすべてのユーザーの端末に警告メッセージが表示されます。</p>
+ <p>指定された秒数の後 (デフォルトでは 60 秒)、システムはアカウンティング・プロセスおよびエラー・ログ・プロセスを停止し、エラー・ログにエントリーを書き込みます。 次に <strong>shutdown</strong> コマンドは、残りのプロセスを終了するために <strong>killall</strong> コマンドを実行し、さらにメモリー常駐のディスク・ブロックをフラッシュするために <strong>sync</strong> コマンドを実行します。 最後にファイルシステムをアンマウントして、
+<strong>halt</strong> コマンドを呼び出します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong><strong> shutdown</strong> コマンドを実行しているノードでファイルを開いているが、そのノードにログインしていないユーザーは、シャットダウンについて通知されません。<span>”</span></blockquote>
+<p></p>
+ <p>ユーザーがオペレーティング・システムに完全に停止するように要求すると、
+<strong>shutdown</strong> コマンドはすべてのプロセスを停止し、
+すべてのファイルシステムをアンマウントして、
+<strong>halt</strong> コマンドを呼び出します。</p>
+ <p>システム管理者は、<strong>/etc/rc.shutdown</strong> という名前のシェル・スクリプトにローカル用にカスタマイズされたシャットダウン手順を配置できます。 このスクリプトは、存在する場合はシャットダウンの開始時に実行します。 スクリプトが実行してもゼロ以外の戻りコードで失敗した場合は、シャットダウンは停止します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>重要:</strong> システムを保守モードにする場合は、<strong> /</strong> (ルート) ディレクトリーから<strong> shutdown</strong> コマンドを実行して、ファイル・システムをクリーンにアンマウントできるようにする必要があります。<span>”</span></blockquote>
+<p></p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> デフォルトでは、ソフトウェア制御が可能な電源機構を持つモデルに対して発行された場合、 <strong>shutdown</strong> コマンドはシステムをオフにします。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>システムを終了させ、分散モードからマルチユーザー・モードにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>ほかのユーザーに対するメッセージをバイパスして、システム・ダウンをできるだけ迅速に行い、
+高速でシャットダウンを行います。 <strong>+</strong><em>Time</em> [ <em>Message</em> ] オプションは、<strong>-F</strong> フラグが指定されている場合は無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>オペレーティング・システムを完全に停止します。
+<strong>-v</strong> フラグと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>対話モードを指定します。 対話式メッセージが表示され、シャットダウン中にユーザーに指示を出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>管理者が、システムをシャットダウン <em>せずに</em> <strong>シャットダウン</strong> 警告メッセージをブロードキャストできるようにします。 <strong>-k</strong> フラグを使用すると、メッセー
+ジの送信を除いて、その他のシャットダウン・アクティビティーは発生しま
+せん。 例えば、どのプロセスも終了せず、<strong>-l</strong> フラグが指定されていても、
+どのアクティビティーも <strong>/etc/shutdown.log</strong> に
+ログされず、<strong>/etc/rc.shutdown</strong> スクリプトが存在していても、実行することもありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>シャットダウンされるファイルシステム、デーモン、ユーザー・ログイン、
+ライセンス交付サービス、ネットワーク・インターフェースについての情報が含まれた、
+<strong>/etc/shutdown.log</strong> ファイルを作成/付加します。 このファイルは、シャットダウン失敗のイベントが発生したときに、診断やデバッグの目的に使用されます。<p></p><blockquote><span>“</span><strong>注:</strong> このフラグを使用するときは、
+<strong>shutdown</strong> コマンドがログを記録するのに十分なディスク・スペースがあることを確認してください。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>システムをダウンさせ、保守 (シングル・ユーザー) モードにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>パワーダウンせずにシステムを停止します。 これは無停電電源装置 (UPS) によって使用されます。<p></p><blockquote><span>“</span><strong>注:</strong> 永久停止を必要としないフラグと組み合わせて使用される場合、
+<strong>-p</strong> フラグは無効です。 他のオペランドが遅延パワーオンおよびリブートを要求した場合でも、電源はオフになります。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>reboot</strong> コマンドでシャットダウンした後、システムを再始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> mmddHHMM</em> [ <em>yy］</em></td>
+
+<td>システムを、即時シャットダウンしてから、<em>mmddHHMM</em> [ <em>yy</em> ] で指定された日付で再始動します。それぞれの意味は以下のとおりです。<dl>
+
+<dt><em>mm</em></dt>
+
+<dd>月を指定します。</dd>
+
+
+<dt><em>dd</em></dt>
+
+<dd>日を指定します。</dd>
+
+
+<dt><em>hh</em></dt>
+
+<dd>時間を指定します。</dd>
+
+
+<dt><em>MM</em></dt>
+
+<dd>分を指定します。</dd>
+
+
+<dt><em>yy</em></dt>
+
+<dd>年を指定します。</dd>
+
+</dl>
+  <p><strong>shutdown -t</strong> フラグは、
+<strong>-v</strong> オプションや <strong>-h</strong> オプションと一緒には使用できません。</p>
+  <p></p><blockquote><span>“</span><strong>注:</strong> このオプションは、シャットダウン時に自動的にパワーオフする電源装置と、後からのリブートを可能にするアラームを備えたシステムでのみサポートされます。 この機能を備えていないシステムは、シャットダウン直後に、停止したりリブートしたりすることがあります。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>このフラグは、診断において、フラッシュ・メモリーの更新とリブートに使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>オペレーティング・システムを完全に停止します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em>時間</em></td>
+
+<td><strong>shutdown</strong> コマンドがシステムを停止する時を指定します。 即時シャットダウンは、次の語で示されます。now画面に表示されます。 将来の時間は、+ 数字かまたは時間 : 分という 2 つのフォーマットのいずれかで指定されます。 前者の形式では、指定された時間 (分) の後にシステムが停止され、後者では指定された時刻 (24 時間制) に停止されます。 <em>Message</em> パラメーターが指定される場合は、<em>Time</em> パラメーターも指定されなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><em>Message</em></td>
+
+<td>メッセージを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>マシンの電源をオフにするには、次のように入力します。<div> <div><div><pre><code>shutdown</code></pre></div><div></div></div>これによってシステムがシャットダウンされます。
+ユーザー・プロセスおよび <strong>init
+</strong> プロセスが停止するまで 1 分間待機します。</div>
+</li>
+
+<li><span></span>ユーザーが行っている作業を終了し、システムを保守モードにするための時間をユーザーに与えるには、次のように入力します。<div>shutdown  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/shutdown.html#shutdown__row-d3e22751" target="_blank" rel="noopener noreferrer">-m</a> +2</div>これによって、2 分間待った後にシステムはマルチユーザー・モードから保守モードになります。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/shutdown</strong></td>
+
+<td><strong>shutdown</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

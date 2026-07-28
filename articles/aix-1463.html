@@ -1,0 +1,172 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ERRM イベントを SNMP エージェントに送信します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>snmpevent</span></span> [<span><span>-a</span></span> <span><span>host-name</span></span>] [<span><span>-c</span></span> <span><span>コミュニティー</span></span>] [<span><span>-h</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>snmpevent</span></span> スクリプトは、イベント応答リソース・マネージャー (ERRM) イベントの Simple Network Management Protocol (SNMP) トラップを、SNMP エージェントを実行しているホストに送信します。 エージェントはトラップ情報を SNMP トラップ内に
+フォーマットして、その構成ファイルに定義されている SNMP マネージャーに送信し
+ます。 このスクリプトは、事前定義された ERRM 応答 <span><span>Generate
+SNMP trap</span></span>によって呼び出されます。 イベントまたはリアーム・イベント情報は、ERRM イ
+ベントまたはリアーム・イベントが発生したときに生成される環境変数の ERRM に
+より取り込まれて通知されます。</p>
+ <p><span><span>snmpevent</span></span> スクリプトは、他のユーザー定義アクションを作成するためのテンプレートとしても使用できます。 イベント応答リソースがアクション・コマンドを実行する方法を理解するには、「 <span>RSCT Administration Guide</span> 」を参照してください。</p>
+ <div>以下のメッセージ・テンプレートは、イベントまたはリアーム・イベントが発生し、 <span><span>snmpevent</span></span> が定義済みの応答である場合に、トラップとして送信されます。<div><div><pre><code> [ERRM_COND_SEVERITY] [ERRM_TYPE] occurred:
+           Condition: [ ERRM_COND_NAME]
+           Node:  [ERRM_NODE_NAME]
+           Resource: [ERRM_RSRC_NAME]
+           Resource Class:  [ERRM_RSRC_CLASS_NAME]
+           Resource Attribute: [ERRM_ATTR_NAME]
+           Attribute Type: [ERRM_DATA_TYPE]
+           Attribute Value: [ERRM_VALUE]</code></pre></div><div></div></div></div>
+ <div>環境変数には次の定義があります。<dl>
+<dt>ERRM_COND_SEVERITY</dt>
+
+<dd>イベントまたはリアーム・イベントの原因となった条件リソースの重要度を
+指定します。 有効な値は Critical、Warning、または Informational です。</dd>
+
+
+<dt>ERRM_TYPE</dt>
+
+<dd>発生したイベントのタイプを指定します。 有効な値は event または rearm event です。</dd>
+
+
+<dt>ERRM_COND_NAME</dt>
+
+<dd>条件リソースの名前と、属性値を指定します。その属性値が変化してこのイベントまたはリアーム・イベントの原因となっています。</dd>
+
+
+<dt>ERRM_NODE_NAME</dt>
+
+<dd>このイベントまたはリアーム・イベントが発生したホスト名を指定します。</dd>
+
+
+<dt>ERRM_RSRC_NAME</dt>
+
+<dd>リソースの名前と属性を指定します。その属性が変化してこのイベントまたはリアーム・イベントの原因となっています。</dd>
+
+
+<dt>ERRM_RSRC_CLASS_NAME</dt>
+
+<dd>このイベントまたはリアーム・イベントの原因となったリソースが属する
+リソース・クラスの名前を指定します。</dd>
+
+
+<dt>ERRM_ATTR_NAME</dt>
+
+<dd>リソース属性の名前を指定します。そのリソース属性が変化してこのイベントまたはリアーム・イベントの原因となっています。</dd>
+
+
+<dt>ERRM_DATA_TYPE</dt>
+
+<dd>リソース属性のデータ・タイプを指定します。</dd>
+
+
+<dt>ERRM_VALUE</dt>
+
+<dd>リソース属性の名前を指定します。これが変化してこのイベントまたはリアーム・イベントの原因となっています。</dd>
+
+</dl>
+</div>
+ <p><span><span>snmpevent</span></span> コマンドは、これらの環境変数値をキャプチャーし、 <span><span>snmptrap</span></span> コマンドの呼び出しを介してトラップとして送信される汎用メッセージをフォーマットします。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-<span><span>ホスト名</span></span></dt>
+
+<dd><span>AIX</span>サブエージェントが接続するSNMPエージェントのホスト名を指定します。 デフォルトでは、
+このサブエージェントは、ローカル・ノード上で稼働中の SNMP エージェントに接続します。</dd>
+
+
+<dt>-c</dt>
+
+<dd>使用する SNMP コミュニティーを指定します。 これは、SNMP エージェントが受け入れることができる任意のストリングです。 デフォルトは <span><span>public</span></span>です。</dd>
+
+
+<dt>-h</dt>
+
+<dd>スクリプトの使用ステートメントを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>log_file</span></span></dt>
+
+<dd>イベント情報を記録する先のファイルの名前を指定します。 <span><span>log_file</span></span> パラメーターの絶対パスを指定する必要があります。<p><span><span>log_file</span></span> は循環ログとして扱われ、64KB の固定サイズを持ちます。 <span><span>log_file</span></span> がいっぱいになると、既存の最も古いエントリー上に新しいエントリーが上書きされます。</p>
+  <p><span><span>log_file</span></span> が既存の場合は、
+イベント情報はこのファイルに付加されます。 <span><span>log_file</span></span> が存在しない場合は作成され、イベント情報を書き込めるようにします。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>スクリプトは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>スクリプト実行時にエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このスクリプトは、ERRM が稼働中のノードで実行しなければなりません。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このスクリプトの使用法ステートメントが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>コマンド <span><span>/opt/rsct/bin/snmpevent</span></span> が、CSM 事前定義条件 <span><span>NodeChanged</span></span>に関連付けられたクリティカル通知応答のアクションであるとします。 これを行うには、 <span><span>mkcondresp</span></span> コマンドの後に <span><span>startcondresp</span></span> コマンドを指定します。 <span><span>/etc/snmpdv3.conf</span></span> ファイルは、トラップが送信される場所に構成する必要があります。 この例では、トラップを <span><span>9.117.16.246</span></span>に送信したい場合は、次のように <span><span>/etc/snmpdv3.conf</span></span> ファイルを作成します。<div><div><pre><code>VACM_GROUP group1 SNMPv1 public -
+
+VACM_VIEW defaultView        internet                   - included 
+-VACM_ACCESS  group1 - - noAuthNoPriv SNMPv1  defaultView - defaultView -
+
+NOTIFY notify1 traptag trap -
+
+#TARGET_ADDRESS Target1 UDP 127.0.0.1       traptag trapparms1 - - -
+TARGET_ADDRESS Target1 UDP 9.117.16.246       traptag trapparms1 - - -
+
+TARGET_PARAMETERS trapparms1 SNMPv1  SNMPv1  public  noAuthNoPriv -
+
+COMMUNITY public    public     noAuthNoPriv 0.0.0.0     0.0.0.0         -
+
+DEFAULT_SECURITY no-access - -
+
+logging         file=/usr/tmp/snmpdv3.log       enabled
+logging         size=0                          level=0
+
+smux            1.3.6.1.4.1.2.3.1.2.1.2         gated_password  # gated
+
+snmpd smuxtimeout=200 #muxatmd
+smux 1.3.6.1.4.1.2.3.1.2.3.1.1 muxatmd_password #muxatmd </code></pre></div><div></div></div>次に、 <span><span>snmpd</span></span> デーモンを再始動します。これを行うには、まず現在実行中の <span><span>snmpd</span></span> デーモンを強制終了してから、再始動します。<div><div><pre><code># ps -ef | grep snmpd
+    root  4570 12956   1 08:24:32  pts/0  0:00 grep snmpd
+    root 13810     1   0 08:11:04      -  0:00 snmpd
+# kill -9 13810
+# snmpd</code></pre></div><div></div></div>次に、ノード c175n08 の LparID 属性を 12 に変更します。<div><div><pre><code># chnode c175n08 LParID=12</code></pre></div><div></div></div>ここで、ノード <span><span>9.117.16.158</span></span> ( <span><span>/etc/snmpdv3.conf</span></span> ファイルで指定された SNMP マネージャーを持つノード) で、SNMP マネージャーは以下のような記録を行う必要があります。<div><div><pre><code>2002-07-15 09:09:25 c174tr1.ppd.pok.ibm.com [9.114.78.17] TRAP, SNMP v1, 
+community public
+        enterprises.ibm Enterprise Specific Trap (1) Uptime: 0:01:45.00
+        enterprises.ibm.ibmProd.191.1.6.1.0 = "Informational Event 
+occurred. Condition=NodeChanged Node=c174tr1.ppd.pok.ibm.com 
+Resource=c175n08.ppd.pok.ibm.com Resource Class=Node Resource 
+Attribute=Changed Attributes Attribute Type=CT_CHAR_PTR_ARRAY Attribute 
+Val={LParID} "</code></pre></div><div></div></div>  <p>出力内容は、SNMP マネージャーにより異なります。</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/snmpevent</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

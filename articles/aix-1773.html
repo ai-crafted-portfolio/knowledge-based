@@ -1,0 +1,181 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>X Window System を初期化します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>xinit</strong> [ [ <em>クライアント </em>] <em>オプション </em>] [ - - [ <em>サーバー </em>] [ <em>表示 </em>] <em>オプション </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xinit</strong> コマンドは、 <strong>/etc/init</strong> から X を直接始動できないシステム、または複数のウィンドウ・システムを使用する環境で、 <span>AIXwindows</span> サーバーと最初のクライアント・プログラムを始動します。 最初のクライアントが終了すると、<strong>xinit</strong> コマンドは X サーバーを停止し終了します。</p>
+ <p>コマンド・ラインに特定のクライアント・プログラムが指定されていない場合、<strong>xinit</strong> コマンドはクライアント・プログラムを始動するためのファイルを探します。 <strong>xinit</strong> コマンドは、<strong>$XINITRC</strong> 環境変数を探します。 ファイルが見つからなければ、このコマンドは次に <strong>$HOME/.xinitrc</strong> ファイルを探します。 それでもファイルが見つからなければ、このコマンドは下記のステップを実行します。</p>
+ <ol>
+<li><strong>xinit</strong> コマンドは、<strong> /usr/lib/X11/$LANG/xinitrc</strong> の隣に表示されます。.</li>
+
+<li>次に、<strong>/usr/lpp/X11/defaults/$LANG/xinitrc</strong> を探します。</li>
+
+<li>最後に、<strong>/usr/lpp/X11/defaults/xinitrc</strong> を探します。</li>
+
+</ol>
+ <p>上記のファイルがすべて見つからなかった場合、<strong>xinit</strong> は
+デフォルトで次のコマンドを使用します。</p>
+ <div> <div><div><pre><code>aixterm \-geometry +1+1 \-n login \-display :0</code></pre></div><div></div></div></div>
+ <p>コマンド・ラインに特定のサーバー・プログラムが指定されていない場合、<strong>xinit</strong> コマンドは下記のステップを実行します。</p>
+ <ol>
+<li><strong>xinit</strong> コマンドは、
+サーバーを始動するためのシェル・スクリプトとして実行するためのファイルを探します。 <strong>xinit</strong> コマンドはまず、<strong>$XSERVERRC</strong> 環境変数の中のファイルを探します。</li>
+
+<li>そのファイルがそこになければ、<strong>$HOME/.xserverrc</strong> ファイルを探します。</li>
+
+<li><strong>$HOME/.xserverrc</strong> ファイルが見つからなければ、
+次に、<strong>/usr/lpp/X11/defaults/xserverrc</strong> ファイルを探します。</li>
+
+<li>最後に、上記のファイルがすべて見つからなければ、<strong>xinit</strong> コマンドは、<strong>X</strong> コマンドを
+実行して X サーバーを始動し、デフォルトで次のコマンドを使用します。<div> <div><div><pre><code>X :0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+ <p>これは現在の検索パスに X という名前のプログラムがあることを前提としている点に注意してください。 しかし、サーバーは通常 X<em>displaytype</em> と命名されます。ここで、<em>displaytype</em> とはこのサーバーによって使用可能になるグラフィック・ディスプレイのタイプを指します。 したがって、サイトのシステム管理者は、コンピューターに適切なサーバーのタイプをリンクするか、あるいは、適切なサーバーで <strong>xinit</strong> コマンドを実行させるシェル・スクリプトを作成しなければなりません。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> マウスやタブレットなどの使用可能なポインター・デバイスを使用せずに <span>AIXwindows</span> を開始しようとすると、 <span>AIXwindows</span> は開きません。 デバイスを接続していても定義していなければ、システムはそのデバイスを認識しません。その逆も同様です。</div>
+        </div>
+      </div></div>
+</div>
+ <p>重要な点は、<strong>.xinitrc</strong> で実行するプログラムは、すぐに終了しないのであればバックグラウンドで実行し、他のプログラムを始動するのを妨げないようにしなければなりません。 しかし、寿命の長い最後に始動されたプログラム (通常はウィンドウ・マネージャーあるいは端末エミュレーター) はフォアグラウンドに残して、(ユーザーの終了および xinit の終了を指示する) スクリプトを終了させないようにします。</p>
+ <p>代替クライアントおよびサーバーはコマンド・ラインで指定することができます。 指定したいクライアント・プログラムおよびその引数は、<strong>xinit</strong> に対して最初のコマンド・ラインの引数として設定されなければなりません。 特定のサーバー・コマンド・ラインを指定するには、指定したいサーバー・コマンドが
+続く (クライアントおよび引数の後の) <strong>xinit</strong> コマンド・ラインに — (ハイフン 2 つ) を付けます。</p>
+ <p>クライアント・プログラム名とサーバー・プログラム名は、両方とも/(スラッシュ) または a で始まっていなければなりません。 (ピリオド) です。 そうでなければ、それらの名前はそれぞれの始動行に追加される引数として処理されます。 これにより、すべてのコマンド・ラインを再入力しないで引数 (例えば、フォアグラウンド・カラーおよびバックグラウンド・カラー) を追加できます。</p>
+ <p>明確なサーバー名が指定されず
+、— (ハイフン 2 つ) の後に続く最初の引数が : (コロン) の後に続く数字である場合には、<strong>xinit</strong> は、ゼロの代わりにその数字をディスプレイ番号として使用します。 残りのすべての引数はサーバーのコマンド・ラインに追加されます。</p>
+ <p>下記の環境変数が <strong>xinit</strong> コマンドで使用されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DISPLAY</strong></td>
+
+<td>この変数は、クライアントが接続するディスプレイの名前に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>XINITRC (XINITRC)</strong></td>
+
+<td>この変数は、初期ウィンドウを始動するシェル・コマンドを含む init ファイルを指定します。 デフォルトではホーム・ディレクトリー内の <strong>.xinitrc</strong> が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><em>オプション</em></td>
+
+<td>指定したクライアントで使用できるオプションのリストです。</td>
+
+</tr>
+
+<tr>
+<td><em>クライアント</em></td>
+
+<td>ユーザーが作業するクライアントを指定します。 例えば、xterm や aixterm です。 指定するクライアントは、. (ドット) か / (スラッシュ) で始まらなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><em>サーバー</em></td>
+
+<td>有効な X サーバーを指定します。 指定するサーバーは、. (ドット) か / (スラッシュ) で始まらなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>X という名前のサーバーを始動し、ユーザーの <strong>xinitrc</strong> プログラムがあれば
+それを実行するか、または <strong>aixterm</strong> コマンドを始動するには、次のように入力します。<div> <div><div><pre><code>xinit</code></pre></div><div></div></div></div>
+</li>
+
+<li>代替ディスプレイ上で特定のタイプのサーバーを始動するには、下記のように入力します。<div> <div><div><pre><code>xinit -- /usr/bin/X11/X qdss:1</code></pre></div><div></div></div></div>
+</li>
+
+<li>X という名前のサーバーを始動し、デフォルトの <strong>xinitrc</strong> コマンドまたは <strong>aixterm</strong> コマンドに引数を指定するには、下記のように入力します。<div> <div><div><pre><code>xinit -geometry =80x65+10+10 -fn 8x13 -j -fg white -bg navy</code></pre></div><div></div></div></div>
+</li>
+
+<li>コマンド <strong>/Xsun -l -c</strong> を使用してサーバーを始動し、デフォルトの <strong>xinitrc</strong> コマンドまたは <strong>aixterm</strong> コマンドに引数 <strong>-e widgets</strong> を追加するには、下記のように入力します。<div> <div><div><pre><code>xinit -e widgets -- ./Xsun -l -c</code></pre></div><div></div></div></div>
+</li>
+
+<li>引数 <strong>-a 2 -t 5</strong> でディスプレイ 1 の X という名前のサーバーを始動し、ローカル・ワークステーションに表示を戻すコマンド <strong>cpupig</strong> を実行するマシン <strong>fasthost</strong> のリモート・シェルを始動するには、下記のように入力します。<div> <div><div><pre><code>xinit /usr/ucb/rsh fasthost cpupig -display ws:1 -- :1 -a 2 -t 5</code></pre></div><div></div></div></div>
+</li>
+
+<li>以下のサンプルの <strong>.xinitrc</strong> スクリプトは、クロックと複数の端末を始動させ、ウィンドウ・マネージャーを最終アプリケーションとして実行させておきます。 ウィンドウ・マネージャーが正しく構成されていることを前提として、ユーザーは <strong>「終了」</strong> メニュー項目を選択して <span>AIXwindows</span> セッションを終了します。<div> <div><div><pre><code>xrdb -load $HOME/.Xresources
+xsetroot -solid gray &amp;
+xclock -g 50x50-0+0 -bw 0 &amp;
+xload -g 50x50-50+0 -bw 0 &amp;
+xterm -g 80x24+0+0 &amp;
+xterm -g 80x24+0-0 &amp;
+mwm</code></pre></div><div></div></div></div>
+</li>
+
+<li>共通の始動環境を作成したいサイトが、サイト共通の始動ファイルを参照するデフォルトの <strong>.xinitrc</strong> スクリプトを簡単に作成できる例を下記に示します。<div> <div><div><pre><code>#!/bin/sh . /usr/local/lib/site.xinitrc</code></pre></div><div></div></div></div>
+</li>
+
+<li>もう 1 つの方法は、特定のシェル・スクリプトで <strong>xinit</strong> コマンドを始動するスクリプトを記述することです。 このようなスクリプトは通常、名前が付けられます。x11,xstart、またはstartxこれは、初心者のユーザーに簡単なインターフェースを提供する便利な方法です。<div> <div><div><pre><code>#!/bin/sh xinit /usr/local/lib/site.xinitrc -- /usr/bin/X11/X bc</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.xinitrc</strong></td>
+
+<td>デフォルトのクライアント・スクリプト・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>aixterm</strong></td>
+
+<td><strong>.xinitrc</strong> がない場合にクライアントが実行するコマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>.xserverrc (.xserverrc)</strong></td>
+
+<td>デフォルトのサーバー・スクリプトが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td><strong>.xserverrc</strong> がない場合にサーバーが実行するコマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

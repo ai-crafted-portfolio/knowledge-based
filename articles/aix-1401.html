@@ -1,0 +1,332 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>SCCS コマンドの管理プログラムです。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>sccs</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccs.html#sccs__row-d3e7818" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccs.html#sccs__row-d3e7747" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em>Path</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sccs.html#sccs__row-d3e7765" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em>Path</em> ] <em>コマンド</em> [ <em>CommandFlags</em> ] <em>ファイル ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>sccs</strong> コマンドは、ソース・コード制御システム (SCCS) コマンドのセットをオペレーティング・システムに組み込むための管理プログラムです。 また、<strong>sccs</strong> コマンドを使用して、ファイルの所有権の割り当ておよび再割り当てを行うことができます (<strong>-r</strong> フラグを参照してください)。</p>
+ <p><strong>sccs</strong> コマンドは、フラグおよび引数を指定した <em>Command</em> をアクティブにします。 通常、各ファイルは、SCCS というディレクトリーに登録され、<strong>s.filename</strong> という名前が付けられます。 ディレクトリー SCCS は、作業ディレクトリーに相対して存在しているものと想定されます (<strong>-p</strong> フラグを使用しない場合)。</p>
+ <p>2 つのタイプのコマンドを、<strong>sccs</strong> コマンド構文に使用できます。 第 1 のタイプのコマンドは 14 種類の <strong>sccs</strong> コマンドで、プロンプトに対して入力できます。 第 2 のタイプのコマンドは疑似コマンドと呼ばれるもので、<strong>sccs</strong> コマンド構文の一部としてのみ使用できます。 12 種類の疑似コマンドがあります。これらのコマンドは以下のアクションを実行します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>編集</strong></td>
+
+<td><strong>get -e</strong> コマンドと同等です。</td>
+
+</tr>
+
+<tr>
+<td><strong>削除</strong></td>
+
+<td>指定されたファイルに対して <strong>delta</strong> コマンドを実行し、新しいバージョンを作成します。 ファイルの新しいバージョンは拡張された識別キーワードを持っており、編集不可です。<p>フラグ:</p>
+  <dl>
+
+<dt>-<strong>m</strong>、<strong>-p</strong>、<strong>-r</strong>、<strong>-s</strong>、<strong> -y</strong></dt>
+
+<dd><strong>delta</strong> コマンドに渡すことができます。</dd>
+
+
+<dt>-<strong>b</strong>、<strong> -c</strong>、<strong>-i</strong>、<strong>-l</strong>、<strong>-s</strong>、<strong>-x</strong></dt>
+
+<dd><strong>get</strong> コマンドに渡すことができます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>編集解除</strong></td>
+
+<td><strong>delget</strong> 疑似コマンドを指定するのと同じです。ただし、構文の <strong>get</strong> 部分には <strong>-e</strong> フラグが含まれます。 <strong>deledit</strong> 疑似コマンドは、ユーザーの現行編集セッションにチェックポイントを作成する場合に役立ちます。<p>フラグ:</p>
+  <dl>
+
+<dt>-<strong>m</strong>、<strong> -p</strong>、<strong> -r</strong>、<strong> -s</strong>、<strong> -y</strong></dt>
+
+<dd><strong>delta</strong> コマンドに渡すことができます。</dd>
+
+
+<dt>-<strong>b</strong>、<strong>-c</strong>、<strong> -i</strong>、<strong> -l</strong>、<strong> -s</strong>、<strong> -x</strong></dt>
+
+<dd><strong>get</strong> コマンドに渡すことができます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>作成</strong></td>
+
+<td>同じ名前のファイルから初期の内容をコピーして、SCCS ファイルを作成します。 ファイルの作成に成功すると、元のファイルは先頭にコンマが付けられて名前変更されます。 <strong>admin</strong> コマンドの場合のように、元のファイルを移動または除去する必要はありません。<p>フラグ:</p>
+  <p><strong>admin</strong> コマンドと同じフラグが使用可能です。 <strong>-i</strong> フラグが暗黙的に指定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>修正プログラム</strong></td>
+
+<td>指定されたデルタを除去しますが、変更のあったデルタのコピーをそのまま残します。 この疑似コマンドは、小さなコンパイラー・エラーを修正するのに役立ちます。 この疑似コマンドは、ファイルに対する変更のレコードを保持しません。<p>フラグ:</p>
+  <dl>
+<dt><strong>-r</strong> <em>SID</em></dt>
+
+<dd>必須フラグを示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>clean</strong></td>
+
+<td>現行ディレクトリー、または SCCS ファイルで再作成できる指定ディレクトリーから、すべてのファイルを除去します。 編集中のファイルは除去されません。<p>フラグ:</p>
+  <dl>
+<dt><strong>-b</strong></dt>
+
+<dd>編集中のファイルを判別するときに、分岐を無視します。 同じディレクトリー内で編集されている分岐は失われる場合があります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>編集解除</strong></td>
+
+<td><strong>unget</strong> コマンドと同等です。 <strong>get</strong> コマンドを使用したあとに行った変更は失われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>情報</strong></td>
+
+<td>編集中のファイルをすべてリストします。<p>フラグ:</p>
+  <dl>
+
+<dt><strong>-b</strong></dt>
+
+<dd>編集中のファイルを判別するときに、分岐を無視します。</dd>
+
+
+<dt><strong>-u</strong> [<em>引数</em>]</dt>
+
+<dd>自分または<em>Argument</em>パラメータで指定したユーザーが編集中のファイルのみを一覧表示します<em>。</em></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>check</strong></td>
+
+<td>編集中のファイルをすべて出力します。 ファイルが編集されている場合は、非ゼロの終了状況を戻します。 検査プログラムを makefile 内で使用し、バージョンをインストールする前にファイルが完了するかどうかを確認できます。 インストールを実行する前に、戻りコードを検査してください。<p>フラグ:</p>
+  <dl>
+
+<dt><strong>-b</strong></dt>
+
+<dd>編集中のファイルを判別するときに、分岐を無視します。</dd>
+
+
+<dt><strong>-u</strong> [<em>引数</em>]</dt>
+
+<dd>ユーザー自身、または <em>Argument</em> パラメーターによって指名されたユーザーが編集しているファイルのみをリストします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>TELL</strong></td>
+
+<td>各エントリーのあとに改行を付けて、編集中の全ファイルを標準出力にリストします。<p>フラグ:</p>
+  <dl>
+
+<dt><strong>-b</strong></dt>
+
+<dd>編集中のファイルを判別するときに、分岐を無視します。</dd>
+
+
+<dt><strong>-u</strong> [<em>引数</em>]</dt>
+
+<dd>ユーザー自身、または <em>Argument</em> パラメーターによって指名されたユーザーが編集しているファイルのみをリストします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>差分 (diffs)</strong></td>
+
+<td>編集しているプログラムの現行バージョンと以前のデルタとの違いを示します。<p>フラグ:</p>
+  <dl>
+
+<dt>-<strong>r</strong>、<strong> -c</strong>、<strong> -i</strong>、<strong> -x</strong>、<strong> -t</strong></dt>
+
+<dd><strong>get</strong> コマンドに渡すことができます。</dd>
+
+
+<dt>-<strong>l</strong>、<strong> -s</strong>、<strong> -e</strong>、<strong> -f</strong>、<strong> -h</strong>、<strong> -b</strong></dt>
+
+<dd><strong>diff</strong> (<strong>sccsdiff</strong> ではない) コマンドに渡すことができます。</dd>
+
+
+<dt><strong>-C</strong></dt>
+
+<dd><strong>diff</strong> (<strong>sccsdiff</strong> ではない) コマンドに、<strong>-c</strong> フラグとして渡すことができます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>print</strong> (<em>ファイル名</em>(<em>s</em>))<em></em></td>
+
+<td>指定されたファイルに関する<strong>詳細</strong>情報を出力します。<p><strong>PROJECTDIR</strong> 環境変数を設定する場合は、その値によって作業ディレクトリーが決まります。 この値が / (スラッシュ) で始まっている場合は、そのまま使用されます。 そうでない場合、この値は、そのホーム・ディレクトリーが <strong>src</strong> または <strong>source</strong> という名前のサブディレクトリーに関して調査されるユーザー名として解釈されます。 そのサブディレクトリーがある場合は、それが作業ディレクトリーとして使用されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em>パス</em></td>
+
+<td>SCCS ファイルの作業ディレクトリーを指定します。 デフォルトは現行ディレクトリーです。 <strong>-d</strong> フラグは、ファイルのパス名全体の前に付けられます。 <strong>PROJECTDIR</strong> 環境変数を設定し、さらに <strong>-d</strong> フラグを使用すると、作業ディレクトリーの決定時に、コマンド・ラインが環境値をオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>SCCS ファイルのパス名を指定します。 デフォルトは SCCS ディレクトリーです。 <strong>-p</strong> フラグは、パス名の最終コンポーネントの前に挿入されます。<p>コマンドのあとに指定されたフラグはすべて、実行中にそのコマンドに渡されます。 コマンド・フラグについては、該当するコマンドの説明を参照してください。</p>
+  <p>例:</p>
+  <p>sccs
+-d/x -py get a/b</p>
+  <p>これは以下のように変換されます。</p>
+  <div> <div><div><pre><code>get /x/a/y/s.b</code></pre></div><div></div></div></div>
+  <p>このオプションは、別名を作成するのに使用されます。 次に例を示します。</p>
+  <div> <div><div><pre><code>alias syssccs sccs -d/usr/src </code></pre></div><div></div></div></div>
+  <p>これにより、<strong>syssccs</strong> コマンドが、以下のように使用できる別名コマンドになります。</p>
+  <div> <div><div><pre><code>syssccs get cmd/who.c</code></pre></div><div></div></div></div>
+  <p>このコンテキストで使用されると、上記のコマンドは、<strong>/usr/src/cmd/SCCS</strong> ディレクトリーを検査して <strong>s.who.c</strong> ファイルを探します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>sccs</strong> コマンドは、<strong>sccs</strong> コマンドを設定する (<strong>set user id</strong> コマンドを使用して) ときの実効ユーザーとしてではなく、実ユーザーとして実行されます。<p><strong>admin</strong> コマンドのような一部のコマンドは、
+誰でも許可を変更できる <strong>set user id</strong> のようには実行できません。 そのようなコマンドは、常に実ユーザーとして実行されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>編集のためにファイルを入手し、それを編集してから、新しいデルタを作成するには、次のように入力します。<div> <div><div><pre><code>sccs get -e file.c
+ex file.c
+sccs delta file.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>別のディレクトリーからファイルを取得するには、次のように入力します。<div> <div><div><pre><code>sccs -p/usr/src/sccs/ get cc.c</code></pre></div><div></div></div>または<div><div><pre><code>sccs get /usr/src/sccs/s.cc.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ブランチ上にない編集中のファイルのリストを取得するには、次のように入力します。<div> <div><div><pre><code>sccs info -b</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/sccs</strong></td>
+
+<td><strong>sccs</strong> コマンドが入っています。sccs コマンドは SCCS コマンドの管理プログラムです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

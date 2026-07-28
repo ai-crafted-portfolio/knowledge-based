@@ -1,0 +1,151 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>DNS 構成ファイルの構文を検査します。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><span>named-checkconf </span>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e03" target="_blank" rel="noopener noreferrer"><span>-c</span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__hflag" target="_blank" rel="noopener noreferrer"><span>h</span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e2354" target="_blank" rel="noopener noreferrer"><span>j</span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e02" target="_blank" rel="noopener noreferrer"><span>l</span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e2369" target="_blank" rel="noopener noreferrer"><span>v</span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e2378" target="_blank" rel="noopener noreferrer"><span>z</span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e05" target="_blank" rel="noopener noreferrer"><span>-p</span></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e06" target="_blank" rel="noopener noreferrer"><span>-x</span></a> ]] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e2360" target="_blank" rel="noopener noreferrer"><span>-t</span></a> ディレクトリ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e2388" target="_blank" rel="noopener noreferrer">ファイル名</a></p>
+
+<div><div><pre><code></code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>named-checkconf</span> コマンドは、 <span>named.conf</span> 構成ファイルの構文を検査しますが、セマンティクスは検査しません。 <span>named.conf</span> 構成ファイルとそれに含まれるすべてのファイルが解析され、構文エラーがないか検査されます。 ファイルが指定されていない場合、デフォルトで <span>/etc/named.conf</span> ファイルが読み取られます。</p>
+
+<div><div>
+        <div>
+          <div><span>注意：</span>'<span>named</span>デーモンは、いくつかのファイル（'<code>rndc.key</code>や'<code>bind.keys)</code>など）を別々のパーサーコンテキストで読み込む。 <span>named-checkconf</span>コマンドはこれらのファイルを自動的にチェックしない。 これらのファイルに設定エラーがあると、たとえ '<span>named-checkconf</span>コマンドが成功しても、'<span>named</span>デーモンが失敗する可能性がある。 しかし、これらのファイルに対して明示的に'<span>named-checkconf</span>コマンドを実行することができる。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-h</span></td>
+
+<td>使用状況の要約を表示して終了する。</td>
+
+</tr>
+
+<tr>
+<td><span>-j</span></td>
+
+<td>ゾーンファイルのロード中に、ジャーナルが存在すればそれを読み込む。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>すべての構成済みゾーンをリストします。 出力の各行には、ゾーン名、クラス (例えば、IN)、ビュー、およびタイプ (例えば、1 次または 2 次) が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>コア構成のみを検査することを示します。 このフラグはプラグイン・モジュールのロードを抑止するため、プラグイン・ステートメントのすべてのパラメーターは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>非推奨オプションに関する警告メッセージを無視する。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>エラーが検出されなかった場合は、 <span>named.conf</span> 構成ファイルおよび組み込まれたファイルを正規形式で印刷します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named-checkconf.html#named-checkconf__row-d3e06" target="_blank" rel="noopener noreferrer"><span>-x</span></a>オプションも参照。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> ディレクトリ</td>
+
+<td>設定ファイルに含まれるディレクティブが処理されるように、ルートディレクトリを指定されたディレクトリに変更します。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td><span>named-checkconf</span> プログラムのバージョンを出力して終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span></td>
+
+<td>正規形式で構成ファイルを印刷するときに、共有秘密鍵を疑問符のストリング (<code>?</code>) に置き換えることによって、共有秘密鍵を覆い隠します。 このフラグを使用すると、 <span>named.conf</span> 構成ファイルおよび関連ファイルの内容を共有することができます。 例えば、個人情報を含まないバグレポートの提出などです。 このオプションは、 <span>-p</span> フラグなしでは使用できません。</td>
+
+</tr>
+
+<tr>
+<td><span>-z</span></td>
+
+<td><span>named.conf</span>設定ファイルにあるマスターゾーンファイルをチェックし、ロードする。</td>
+
+</tr>
+
+<tr>
+<td>ファイル名</td>
+
+<td>チェック対象の構成ファイル名を指定します。 指定しない場合、デフォルト値は <span>/etc/named.conf</span>です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常に完了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><span>1</span></td>
+
+<td>エラーを表します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+</div></div>

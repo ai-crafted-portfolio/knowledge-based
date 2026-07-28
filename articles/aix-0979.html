@@ -1,0 +1,42 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>モバイル IPv6 ホーム・エージェント・デーモンを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p>システム・リソース・コントローラーを使用してこのデーモンを実行する場合:</p>
+ <p><strong>startsrc -s mobip6reqd</strong></p>
+ <p>システム・リソース・コントローラーを使用しないでこのデーモンを実行する場合:</p>
+ <p><strong>mobip6reqd</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mobip6reqd</strong> デーモンは、
+システムをモバイル IPv6 ホーム・エージェントとして機能させるために実行しなければなりません。 このデーモンによって、ホーム・エージェントはモバイル・ノードに対する NDP プロキシーを実行できるようになります。 モバイル IPv6 ホーム・エージェントがシステム管理を使用して使用可能になっていれば、
+このデーモンは通常 <strong>/etc/rc.mobip6</strong> スクリプトで自動的に始動されます。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、root ユーザーまたはシステム・グループのメンバーでなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>次の例では、<strong>mobip6reqd</strong> デーモンが始動されます。<div><div><pre><code>startsrc -s mobip6reqd</code></pre></div><div></div></div></li>
+
+<li>次の例では、<strong>mobip6reqd</strong> デーモンが停止されます。<div><div><pre><code>stopsrc -s mobip6reqd</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

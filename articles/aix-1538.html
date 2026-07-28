@@ -1,0 +1,294 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>現行状態でない論理ボリュームのコピーを同期化します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>シンクヴイジー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67863" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67884" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67869" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67912" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>NumParallelLps</em> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67891" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67902" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__row-d3e67939" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> }<em> 名前 ...</em>{ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncvga" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>{ <em>すべて</em> | <em>pid1,pid2,..</em> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncvgr" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> { <em>すべて</em> | <em>pid1,pid2, ...</em> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncvgt" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> { <em>すべて</em> | <em>pid1,pid2, ...</em> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncvgn" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>vgName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncthrottle" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>SyncRate</em> [ -d { all | <em>pid1,pid2,..</em> } ]][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncvgq" target="_blank" rel="noopener noreferrer"><strong> -q</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__syncvgbq" target="_blank" rel="noopener noreferrer"><strong>-Q</strong></a>] }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>syncvg</strong> コマンドは、現行状態でない、オリジナル物理区画のコピーである物理区画を同期化します。 <strong>syncvg</strong> コマンドは、論理ボリューム名、物理ボリューム、ボリューム・グループ名が指定された <em>Name</em> パラメーターとともに使用されると、その論理ボリューム、物理ボリューム、ボリューム・グループに対して機能します。 同期処理では、ハードウェア特性とデータ量によっては時間が長くかかります。</p>
+ <p><strong>-f</strong> フラグを使用すると、有効な物理コピーが選択され、LPAR のほかのコピーが古くなっているかどうかに関係なく、それらの全コピーに波及されます。 論理ボリュームにミラー書き込み整合性リカバリーがない場合に、
+このフラグを使用することが必要となります。</p>
+ <div>使用不可にしない限り、ボリューム・グループ内のコピーは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/varyonvg.html" target="_blank" rel="noopener noreferrer"><strong>varyonvg</strong></a> コマンドによってボリューム・グループが活動化されるときに自動的に同期化されます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>syncvg</strong> コマンドが正常に実行されるためには、論理ボリュームの少なくとも 1 つの正常なコピーがアクセス可能でなければならず、このコピーを含む物理ボリュームが ACTIVE 状態でなければなりません。 <strong>-f</strong> オプションが使用される場合は、上記の条件
+がすべてのミラー・コピーに適用されます。</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>-P</strong> オプションを指定しない場合
+は、<strong>syncvg</strong> が <em>NUM_PARALLEL_LPS</em> 環境
+変数を検査します。 <em>NUM_PARALLEL_LPS</em> の値は、
+パラレルで同期化する LPAR の数を設定するのに使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> { <em>すべて</em> | <em>pid1,pid2, ...</em> }</td>
+
+<td>1 つ以上の同期操作を一時停止します。 この操作に以下のパラメーターを渡すことができます。<dl>
+
+<dt>すべて</dt>
+
+<dd>すべての同期操作を一時停止します。</dd>
+
+
+
+<dt>pid1,pid2,...</dt>
+
+<dd>一時停止するプロセス ID (PID) のコンマ区切りリストです。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>有効なコピーが選択され、LPAR のほかのコピーが古くなってい
+るかどうかに関係なく、それらの全コピーに波及されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>この sync 操作が完了するまで、
+このボリューム・グループをほかのアクティブな並行クラスター・ノードに書き込むことを延期します。 この <strong>-H</strong> フラグを使用する場合、<strong>-P</strong> フラグは
+クラスターのすべてのノードが <strong>-P</strong> フラグをサポートする必要はありません。 ボリューム・グループが並行モードでオンにされない場合、
+このフラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>標準入力から名前を読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em></em></td>
+
+<td><em>Name</em> パラメーターが論理ボリューム・デバイス名であることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><p><strong>-n</strong> <em>vgName</em></p>
+
+</td>
+
+<td>特定のボリューム・グループに関する同期操作を管理します。 このオプションは、<strong>-a</strong>、<strong>-r</strong>、<strong>-t</strong>、<strong>-q</strong>、および <strong>-Q</strong> の各オプションと一緒に指定する場合にのみ有効です。<dl>
+
+<dt>vgName</dt>
+
+<dd>ボリューム・グループ名。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em></em></td>
+
+<td><em>Name</em> パラメーターが物理ボリューム・デバイス名であることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> NumParallelLps</em></td>
+
+<td>並列に同期化された LPAR の数。 <em>NumParallelLps</em> の有効範囲は 1 から 32 までです。 <em>NumParallelLps</em> を、
+マシン、ボリューム・グループのディスク、
+システム・リソース、およびボリューム・グループ・モードに合わせて調整してください。<div>コンカレント・モードでボリューム・グループを変化させる場合、このボリューム・グループを変化させる他のすべてのクラスタ・ノードは少なくとも<span>AIX 4.3.0</span>でなければなりません。そうでない場合、<strong>syncvg</strong>はこのオプションを無視して続行します。<div><div>
+        <div>
+          <div><span>注:</span> 詳しくは、上記の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/syncvg.html#syncvg__desc" target="_blank" rel="noopener noreferrer">説明</a> を参照してください。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td>[- <strong>q</strong>]</td>
+
+<td>同期操作を照会します。 同期操作プロセス ID (PID) の詳細リストが返されます。 このフラグは、各同期動作の同期速度も出力します。 <em>SyncRate</em> オプションが <span>-T</span> フラグを使用して指定されない場合、このフラグは同期操作の現在の同期速度を表示します。</td>
+
+</tr>
+
+<tr>
+<td>[- <strong>Q</strong>]</td>
+
+<td>同期操作を照会します。 同期操作 PID のコンマ区切りリストが返されます。 このフラグは、各同期動作の同期速度も返します。 <em>SyncRate</em> オプションが <span>-T</span> フラグを使用して指定されない場合、このフラグは同期操作の現在の同期速度を表示します。</td>
+
+</tr>
+
+<tr>
+<td>{<strong>-r</strong> <em>すべて</em> | <em>pid1,pid2, ...</em> }</td>
+
+<td>1 つ以上の同期操作を再開します。 この操作に以下のパラメーターを渡すことができます。<dl>
+
+<dt>すべて</dt>
+
+<dd>すべての同期操作を再開します。</dd>
+
+
+
+<dt>pid1,pid2,...</dt>
+
+<dd>再開する PID のコンマ区切りリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>{<strong>-t </strong><em>すべて</em> | <em>pid1,pid2, ...</em> }</td>
+
+<td>1 つ以上の同期を終了します。 この操作に以下のパラメーターを渡すことができます。<dl>
+
+<dt>すべて</dt>
+
+<dd>すべての同期操作を終了します。</dd>
+
+
+
+<dt>pid1,pid2,...</dt>
+
+<dd>終了する PID のコンマ区切りリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>['<strong>-T</strong>'<em>SyncRate</em>[ '-d{ すべて｜ '<em>pid1,pid2,..</em>} ] ] ]</td>
+
+<td>現行の同期操作の同期速度を調整するか、進行中の 1 つ以上の同期操作を調整します。 この操作に以下のパラメーターを渡すことができます。<dl>
+
+<dt>SyncRate</dt>
+
+<dd>同期速度の調整を MB/秒単位で指定します。 <span>syncvg</span> コマンドは、一度に 1 つの論理トラック・グループ (LTG) を同期化します。 このパラメーターは、ボリューム・グループの LTG サイズの倍数で指定する必要があります。 <span>SyncRate</span> パラメーターが LTG サイズの倍数で指定されなかった場合、<span>syncvg</span> コマンドは、そのボリューム・グループの最も近い LTG サイズまで切り上げます。 <span>-d</span> フラグを指定しなかった場合、<span>syncvg</span> コマンドは現行の同期操作の同期速度を調整します。</dd>
+
+
+
+<dt><span>-d</span> すべて</dt>
+
+<dd>進行中のすべての同期操作について、同期速度を調整します。</dd>
+
+
+
+<dt><span>-d</span> pid1,pid2,…</dt>
+
+<dd>同期速度を調整する PID のコンマ区切りリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em></em></td>
+
+<td><em>Name</em> パラメーターがボリューム・グループ・デバイス名であることを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>物理ボリューム上のコピーを同期化するhdisk4およびhdisk5次のように入力します。<div><div><pre><code>syncvg -p hdisk4 hdisk5</code></pre></div><div></div></div></li>
+
+<li>ボリューム・グループ上のコピーを同期化するvg04およびvg05次のように入力します。<div><div><pre><code>syncvg -v vg04 vg05</code></pre></div><div></div></div></li>
+
+<li>同期化の状態を表示するには、次のように入力します。<div><div><pre><code>syncvg -q
+An output that is similar to the following example is displayed.
+VG Name    Status        Sync Rate     PID            Command
+tvg2       SYNCING       128M          8323316         /bin/ksh /usr/sbin/syncvg -l tvg2lv1
+tvg2       SYNCING       1M            7536758         /bin/ksh /usr/sbin/syncvg -l tvg2lv3
+tvg2       SYNCING       256M          6815782         /bin/ksh /usr/sbin/syncvg -l tvg2lv2
+tvg1       SYNCING       2G            7995416         /bin/ksh /usr/sbin/syncvg -l tvg1lv2
+tvg1       SYNCING       5M            2949162         /bin/ksh /usr/sbin/syncvg -l tvg1lv3
+tvg1       SYNCING       1G            7274582         /bin/ksh /usr/sbin/syncvg -l tvg1lv1
+</code></pre></div><div></div></div></li>
+
+<li><span>syncvg</span> コマンドを一時停止して、同期化の状態を表示するには、次のように入力します。<div><div><pre><code>syncvg -a all
+syncvg -q
+An output that is similar to the following example is displayed.
+VG Name    Status        Sync Rate     PID          Command
+tvg2       PAUSE         128M          8323316       /bin/ksh /usr/sbin/syncvg -l tvg2lv1
+tvg2       PAUSE         1M            7536758       /bin/ksh /usr/sbin/syncvg -l tvg2lv3
+tvg2       PAUSE         256M          6815782       /bin/ksh /usr/sbin/syncvg -l tvg2lv2
+tvg1       PAUSE         2G            7995416       /bin/ksh /usr/sbin/syncvg -l tvg1lv2
+tvg1       PAUSE         5M            2949162       /bin/ksh /usr/sbin/syncvg -l tvg1lv3
+vg1        PAUSE         1G            7274582       /bin/ksh /usr/sbin/syncvg -l tvg1lv1
+</code></pre></div><div></div></div></li>
+
+<li>現行の <span>syncvg</span> 操作を、vg00 という名前のボリューム・グループの同期速度 512 MB/秒と同期化するには、次のように入力します。<div><div><pre><code>syncvg -T 512 -v vg00</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/syncvg</strong></td>
+
+<td><strong>syncvg</strong> コマンドが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp</strong></td>
+
+<td>コマンドの実行中に一時ファイルが保存されるディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

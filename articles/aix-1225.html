@@ -1,0 +1,118 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステム・クォータをオンおよびオフに切り替えます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>quotaon</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127117" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127123" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127129" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127096" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <em>FileSystem ...</em> }</p>
+ <p><strong>quotaoff</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127117" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127123" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127129" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quotaon.html#quotaon__row-d3e127096" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <em>FileSystem ...</em> }</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>quotaon</span></span> コマンドは、 <span><span>FileSystem</span></span> パラメーターで指定された 1 つ以上のファイルシステムのディスク・クォータを使用可能にします。 指定されたファイル・システムは、 <span><span>/etc/filesystems</span></span> ファイルで割り当て量を使用して定義されている必要があり、マウントされている必要があります。 <span><span>quotaon</span></span> コマンドは、関連するファイル・システムのルート・ディレクトリーで <span><span>quota.user</span></span> および <span><span>quota.group</span></span> ファイルを検索し、見つからない場合はエラーを返します。<div><div>
+        <div>
+          <div><span>注:</span> JFS の場合のみ、デフォルトの割り当て量ファイル名 (<span><span>quota.user</span></span> および <span><span>quota.group</span></span>) が <span><span>/etc/filesystems</span></span> ファイルでオーバーライドされることがあります。 割り当て量ファイルは、 <span><span>/etc/filesystems</span></span> ファイルで絶対パスを指定することにより、割り当て量が有効なファイル・システムの外部に置くことができます。 JFS2 ファイルシステムの場合は、ファイル名をオーバーライドすることはできず、
+ファイルシステムのルート・ディレクトリーにあることが必要です。</div>
+        </div>
+      </div></div>デフォルトでは、ユーザー・クォータとグループ・クォータの両方が使用可能になります。 <span><span>-u</span></span> フラグは、ユーザー・クォータのみを使用可能にします。 <span><span>-g</span></span> フラグは、グループ・クォータのみを使用可能にします。 <span><span>-g</span></span> フラグと <span><span>-u</span></span> フラグの両方を指定することは、デフォルト (オプションを指定しない) と同等です。 <span><span>-a</span></span> フラグは、 <span><span>/etc/filesystems</span></span> ファイルによって示されるディスク・クォータを持つすべてのファイルシステムが使用可能であることを指定します。</div>
+ <p><span><span>quotaoff</span></span> コマンドは、1 つ以上のファイルシステムのディスク・クォータを使用不可にします。 デフォルト時は、ユーザー・クォータとグループ・クォータの両方が使用不可になります。 <span><span>-a</span></span>、 <span><span>-g</span></span>、および <span><span>-u</span></span> フラグは、 <span><span>quotaon</span></span> コマンドと同様に機能します。 <span><span>-v</span></span> フラグは、 <span><span>quotaon</span></span> および <span><span>quotaoff</span></span> コマンドによってクォータがオンまたはオフになっているすべてのファイルシステム内のクォータ・タイプ (ユーザーまたはグループ) ごとに、それぞれメッセージを出力します。</p>
+ <p><span><span>quota.user</span></span> および <span><span>quota.group</span></span> ファイルがユーザー <strong>root</strong> およびグループ <strong>system</strong>によって所有されていない場合は、エラー (<strong>EPERM</strong>) が戻されます。 これらのファイルの所有権の変更は、quotas がアクティブである間は、行えません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong>/etc/filesystems</strong> ファイルで示されているような、読み書きされ、しかもディスク・クォータを持っているすべてのファイルシステムを使用可能または使用不可にします。 <strong>-g</strong> フラグと使用すると、<strong>/etc/filesystems</strong> ファイルのグループ・クォータのみが使用可能または使用不可になります。
+また、<strong>-u</strong> フラグと使用すると、
+<strong>/etc/filesystems</strong> ファイルのユーザー・クォータのみが使用可能または使用不可になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>グループ・クォータのみを使用可能または使用不可にすることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ユーザー・クォータのみを使用可能または使用不可にすることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>クォータがオンまたはオフにされるファイルシステムごとにメッセージを出力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: root ユーザーのみがこのコマンドを実行できます。</p>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ユーザー・クォータを有効にするには、/usrファイル・システムの場合は、次の<div> <div><div><pre><code>quotaon -u /usr</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/etc/filesystems</strong> ファイル内のすべてのファイルシステムのユーザー・クォータとグループ・クォータを使用不可にして、メッセージを表示するには、次のように入力します。<div> <div><div><pre><code>quotaoff -v -a</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>quota.user</strong></td>
+
+<td>ユーザー・クォータを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>quota.group</strong></td>
+
+<td>グループ・クォータを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステム名およびロケーションが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

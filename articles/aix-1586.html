@@ -1,0 +1,77 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Trusted Platform Module (TPM) のアクティブ状態を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tpm_activate</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105311" target="_blank" rel="noopener noreferrer">-a 値</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105321" target="_blank" rel="noopener noreferrer">-h</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105331" target="_blank" rel="noopener noreferrer">I</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105341" target="_blank" rel="noopener noreferrer">-</a></strong> [ <strong>なし | エラー | 情報 | デバッグ</strong> ] ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105354" target="_blank" rel="noopener noreferrer">-s</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105364" target="_blank" rel="noopener noreferrer">T</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_activate.html#tpm_activate__row-d3e105374" target="_blank" rel="noopener noreferrer">-v (V)</a></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tpm_activate</strong> コマンドは、TPM のアクティブ状態に関する TPM フラグの状況を報告します。 これはデフォルトの動作であり、<strong>-s</strong> (または <strong>--status</strong>) オプションを使用してこの動作を指定することもできます。 TPM 状況を報告する際には、所有者パスワードの入力を求めるプロンプトが出されます。</p>
+ <p><strong>-a</strong> (または <strong>--active</strong>) オプションは、TPM をアクティブ状態に変更します (<strong>TPM_PhysicalSetDeactivated</strong> API により)。 この操作は永続的です。 この操作の許可には物理プレゼンスが必要であり、操作を有効にするにはシステム・リブート操作が必要です。</p>
+ <p><strong>-i</strong> (または <strong>--inactive</strong>) オプションは、TPM を非アクティブ状態に変更します (<strong>TPM_PhysicalSetDeactivated</strong> API により)。 この操作は永続的です。 この操作の許可には物理プレゼンスが必要であり、操作を有効にするにはシステム・リブート操作が必要です。 非アクティブ TPM はオフになっていると見なすこともできますが、<strong>tpm_takeownership</strong> コマンドは引き続き実行可能です。</p>
+ <p><strong>-t</strong> (または <strong>--temp</strong>) オプションを指定すると、TPM の非アクティブ化が即時に行われます (<strong>TPM_SetTempDeactivated</strong> API により) が、この非アクティブ化は現行ブート・サイクルの間のみ持続します。</p>
+ <p><strong>-s</strong> (または <strong>--status</strong>)、<strong>-a</strong> (または <strong>--active</strong>)、<strong>-i</strong> (または <strong>--inactive</strong>)、および <strong>-t</strong> (または <strong>--temp</strong>) の各オプションは相互に排他的であり、コマンド・ラインで最後に指定されたオプションが適用されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong> (または <strong>-- active</strong>)</td>
+
+<td>TPM をアクティブにします。 この操作は永続的です。 この操作の許可には物理プレゼンスが必要であり、操作を有効にするにはシステム・リブート操作が必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> (または <strong>-- help</strong>)</td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> (または <strong>-- inactive</strong>)</td>
+
+<td>TPM を非アクティブにします。 この操作は永続的です。 この操作の許可には物理プレゼンスが必要であり、操作を有効にするにはシステム・リブート操作が必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (または <strong>--log</strong>) [ <strong>none | error | info |
+debug</strong> ]</td>
+
+<td>ロギング・レベルを指定のとおり none、error、info、または debug に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> (または <strong>-- status</strong>)</td>
+
+<td>TPM アクティブ状態に関するフラグの状況を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> (または <strong>-- temp</strong>)</td>
+
+<td>現行ブート・サイクルの間のみ、TPM を非アクティブにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong> (または <strong>-- version</strong>)</td>
+
+<td>コマンドのバージョン情報を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

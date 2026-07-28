@@ -1,0 +1,72 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>nroff</strong> ファイルと<strong> troff</strong> ファイルを検査します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>checknr</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/checknr.html#checknr__row-d3e81430" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><strong>.</strong><em>Macro1</em><strong>。</strong><em>Macro2 ... </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/checknr.html#checknr__checknrc" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><strong>.</strong><em>Command1</em><strong>。</strong><em>コマンド</em>2 ... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/checknr.html#checknr__row-d3e81484" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/checknr.html#checknr__row-d3e81496" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <em>ファイル </em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>checknr</strong> コマンドは、<strong>nroff</strong> 入力ファイルまたは <strong>troff</strong> 入力ファイルのリストを検査し、開始区切り文字と終了区切り文字の不一致および認識されないコマンドに関する一定の種類のエラーを探します。 ファイルを指定しないと、<strong>checknr</strong> コマンドは、標準入力を検査します。</p>
+ <p>検査される区切り文字は以下のとおりです。</p>
+ <ul>
+<li><span></span>Font changes using the <strong>¥ f</strong><em>Newfont</em> ...<strong> ¥ f</strong>P.</li>
+
+<li><span></span> <strong>¥ s</strong><em>Newsize</em> ...<strong> ¥ s</strong>0 を使用してサイズを変更します。</li>
+
+<li><span></span>オープン・フォームおよびクローズ・フォームで提供されるマクロ ( <strong>など)。TS</strong> および <strong>。常に対になっていなければならない TE</strong> マクロ)。</li>
+
+</ul>
+ <p><strong>checknr</strong> コマンドは、<strong>ms</strong> マクロ・パッケージと <strong>me</strong> マクロ・パッケージの両方を処理できます。</p>
+ <p><strong>checknr</strong> コマンドは、<strong>checknr</strong> コマンドで作成される文書に使用することを目的としており、<strong>lint</strong> コマンドとよく似ています。 <strong>checknr</strong> コマンドは、<strong>&amp;#xa5;f</strong> コマンドと <strong>&amp;#xa5;s</strong> コマンドに対して次のような文書作成スタイルを要求します。つまり、各 <strong>&amp;#xa5;f</strong><em>Newfont</em> が <strong>&amp;#xa5;fP</strong> で終了し、各 <strong>&amp;#xa5;s</strong><em>Newsize</em> が <strong>&amp;#xa5;s0</strong> で終了していなくてはなりません。 このコマンドが次のフォントに直接移動したり、明示的に元のフォントやポイント・サイズを指定しようとすると、<strong>checknr</strong> コマンドからエラー・メッセージが生成されます。</p>
+ <p><em>File</em> には、開始区切り文字と終了区切り文字の不一致や認識されないコマンドに関するエラーを検査する <strong>nroff</strong> 入力ファイルまたは <strong>troff</strong> 入力ファイルを指定します。 デフォルトは標準入力です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a.</strong><em>マクロ1</em><strong>.</strong><em>マクロ2</em></td>
+
+<td>リストにマクロの対を追加します。 このフラグの後には、6 文字からなるグループが必要であり、このグループでマクロの対を定義します。 その 6 文字は、ピリオド、<em>Macro1</em>、もう 1 つのピリオド、および <em>Macro2</em> です。 例えば、<strong>.BS</strong> と <strong>.ES</strong> の対を定義するには、<strong>-a.BS.ES</strong> と指定します。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>-a</strong> フラグを使用して 1 文字のマクロ名を定義することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td>- <strong>c.</strong><em> コマンド1</em><strong>.</strong><em> コマンド2</em></td>
+
+<td>検査の対象とするコマンドを指定します。ここで指定したコマンドが未定義の場合、<strong>checknr</strong> コマンドはエラー・メッセージを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><strong>&amp;#xa5;f</strong> フォントの変更を <strong>checknr</strong> コマンドに無視させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>&amp;#xa5;s</strong> サイズの変更を <strong>checknr</strong> コマンドに無視させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>checknr</strong> コマンドは、条件などの特定の妥当な構成体を正しく認識しません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+</div></div>

@@ -1,0 +1,136 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムをリブートします。</p>
+</section>
+
+<section><h2>構文</h2> <p>{<strong> reboot</strong> |<strong> fastboot</strong> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reboot.html#reboot__row-d3e136642" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reboot.html#reboot__row-d3e136660" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reboot.html#reboot__row-d3e136669" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/reboot.html#reboot__row-d3e136687" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>mmddHHMM</em> [ <em>yy</em> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p>ほかのユーザーがシステムにログインしていなければ、<strong>reboot</strong> コマンドを使用してリブート操作を行うことができます。 <strong>lsattr</strong> コマンドと入力lsattr -D
+-l sys0デフォルト値は <strong>真</strong>です。 autorestart 属性値を <strong>false</strong> にリセットするには、<strong>/var/adm/wtmp</strong> ログイン・アカウント・ファイルを使用します。 <strong>-l</strong>、<strong> -n</strong>、または <strong>-q</strong> フラグが指定されていれば、これらのアクションは禁止されます。</p>
+ <p><strong>fastboot</strong> コマンドは、<strong>reboot</strong> コマンドを呼び出すことによってシステムをリブートさせます。 <strong>fsck</strong> コマンドがシステムの始動時に実行され、ファイルシステムを検査します。 このコマンドには BSD 互換性があります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-l</strong></td>
+
+<td>リブートをログに記録すること、またはアカウント・ファイルにシャットダウン・レコードを書き込むこともしません。 <strong>-l</strong> フラグは、アカウンティング・ファイルの更新を抑止しません。 <strong>-n</strong> フラグおよび <strong>-q</strong> フラグは <strong>-l</strong> を暗黙指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>sync</strong> コマンドを実行しません。 このフラグを使うと、ファイルシステムが損傷することがあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>最初に実行中のプロセスをシャットダウンせずにリブートします。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-Q (Q)</strong> フラグが使用されている場合、ファイルシステムの同期化は行われません。 ファイルシステムを同期化させたい場合には、
+<strong>sync</strong> コマンドを手動で実行するか、
+または <strong>shutdown -r</strong> コマンドを実行します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>システムを直ちにシャットダウンし、その後、指定された日付にシステムを再始動します。 有効な日付のフォーマットは以下のとおりです。<p><em>mmddHHMM</em> [ <em>yy］</em></p>
+<p>ここで:</p>
+<dl>
+
+<dt><em>mm</em></dt>
+
+<dd>月を指定します。</dd>
+
+
+
+<dt><em>dd</em></dt>
+
+<dd>日を指定します。</dd>
+
+
+
+<dt><em>hh</em></dt>
+
+<dd>時間を指定します。</dd>
+
+
+
+<dt><em>MM</em></dt>
+
+<dd>分を指定します。</dd>
+
+
+
+<dt><em>yy</em></dt>
+
+<dd>年を指定します (オプション)。 2 桁の数値は現行の世紀の年数の値 (システム時刻に基づく) を表しています。 例えば、システム時刻に基づく現行年が 1985 年である場合、99 は 1999 年を意味し、現行年が 2005 年である場合、99 は 2099 年を、04 は 2004 年を意味します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <div>リブートをログに記録せずにシステムをシャットダウンするには、以下のように入力します。<div><div><pre><code>reboot  -l</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/rc</strong></td>
+
+<td>システム始動スクリプトを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/wtmp</strong></td>
+
+<td>ログイン・アカウント・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,128 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>クライアントを定義し、NIM クライアント・オブジェクトに対する BOS インストール操作を初期化します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>nim_clients_setup</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nim_clients_setup.html#nim_clients_setup__row-d3e21494" target="_blank" rel="noopener noreferrer"><span><span>-m</span></span></a> <span><span>mksysb_resource</span></span>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nim_clients_setup.html#nim_clients_setup__row-d3e21515" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nim_clients_setup.html#nim_clients_setup__row-d3e21530" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nim_clients_setup.html#nim_clients_setup__row-d3e21555" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nim_clients_setup.html#nim_clients_setup__row-d3e21561" target="_blank" rel="noopener noreferrer"><span><span>-v</span></span></a> ] <span><span>client_object (s)</span></span></p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>nim_clients_setup</span></span> コマンドは、新規クライアント・オブジェクトを定義し、以下のタスクを実行して NIM 環境のクライアントの BOS インストール操作を初期化します。<ul>
+<li>環境変数 NIM_LICENSE_ACCEPT=yes をエクスポートします。<ul>
+<li>ネットワーク・インストール中にソフトウェア使用条件を受け入れるために使用。</li>
+
+</ul>
+</li>
+
+<li>変数項目 NSORDER=local, bind を <span><span>/etc/environment</span></span>に追加します。<ul>
+<li>ホストが <span><span>/etc/host</span></span>にのみ存在する場合に、ネーム・レゾリューションに必要です。</li>
+
+</ul>
+</li>
+
+<li><span><span>client.defs</span></span> ファイルを使用してクライアント・オブジェクトを定義します ( <span><span>-c</span></span> フラグが指定されている場合)。<ul>
+<li>ユーザーは、 <span><span>nim_clients_setup</span></span>を使用する前に、 <span><span>/export/nim/client.defs</span></span> ファイル内のスタンザを編集する必要があります。</li>
+
+</ul>
+</li>
+
+<li>クライアント・オブジェクトをインストール用に準備します。<ul>
+<li><span><span>-c</span></span> フラグを使用すると、定義されたクライアントがインストール用に初期化されます。</li>
+
+<li>クライアント・オブジェクトが指定されている場合、指定されたクライアントがインストール用に初期化されます。</li>
+
+<li><span><span>-c</span></span> またはクライアント・オブジェクトを省略すると、既存のすべての NIM クライアントがインストール用に初期化されます。</li>
+
+</ul>
+</li>
+
+<li>グループ名 <span><span>basic_res_grp</span></span> に含まれるリソースは、BOS インストール操作中にリソースとして使用されます。</li>
+
+</ul>
+ <div><div>
+        <div>
+          <div><span>注:</span><span><span>basic_res_grp</span></span> リソース・グループには、 <span><span>nim_master_setup</span></span> コマンドの実行中に作成されたリソースが取り込まれます。 このグループが存在しない場合は、 <span><span>nim_clients_setup</span></span> コマンドを使用する前に、NIM インストール・リソースを使用して定義する必要があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-m</span></span><span><span> mksysb_resource</span></span></td>
+
+<td>BOS インストールにおいて復元する代替バックアップ・イメージを指定します。 <span><span>mksysb_resource</span></span> の値は、新しい <span><span>mksysb</span></span> リソースを定義するために使用される NIM オブジェクト名または絶対パス・ロケーションを指定することができます。 デフォルトでは、 <span><span>mksysb</span></span> リソースは <span><span>basic_res_grp</span></span> NIM リソース・グループから割り当てられます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span></td>
+
+<td>ネイティブ (<span><span>rte</span></span>) インストールを有効にし、BOS インストール時にバックアップ・イメージ (<span><span>mksysb</span></span>) のリストアを無視します。 デフォルトでは、 <span><span>mksysb restore</span></span> は BOS インストール時に実行されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td><span><span>client.defs</span></span> ファイルからクライアント・オブジェクトを定義します。 <span><span>/export/nim/client.defs</span></span> ファイルが存在し、有効なクライアント定義情報を持っている必要があります。 <span><span>client.defs</span></span> ファイルは、 <span><span>nim_master_setup</span></span> コマンドの実行中に作成されます。 このファイルが存在しない場合は、サンプルの <span><span>client.defs</span></span> ファイルを <span><span>/usr/samples/nim/client.defs</span></span> からコピーして、ユーザーが編集することができます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td>BOS インストール操作の後、クライアント・オブジェクトをリブートします。 デフォルトでは、クライアントはリブートされません。 インストール用にリソースが割り当てられ、クライアントは希望するタイミングでリブートできます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-v</span></span></td>
+
+<td>コマンド実行時の詳細デバッグ出力を有効にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アクセス制御:</strong> <span><span>nim_clients_setup</span></span> コマンドを実行するには、root 権限が必要です。</p>
+</section>
+
+<section><h2>ロケーション</h2> <p><span><span>/usr/sbin/nim_clients_setup</span></span></p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>/export/nim/client.defs</span></span> ファイルからクライアント・オブジェクトを定義し、 <span><span>basic_res_grp</span></span> リソース・グループのリソースを使用して BOS インストール用に新しく定義されたクライアントを初期化し、クライアントをリブートしてインストールを開始するには、次のように入力します。<div><div><pre><code>nim_clients_setup -c -r</code></pre></div><div></div></div></li>
+
+<li>バックアップ・ファイル <span><span>/export/resource/NIM/530mach.sysb</span></span> をリストア・イメージとして使用して、BOS インストール用にクライアント client1 および client2 を初期化するには、次のように入力します。<div><div><pre><code>nim_clients_setup -m /export/resource/NIM/530mach.sysb \ client1 client2</code></pre></div><div></div></div></li>
+
+<li><span><span>basic_res_grp</span></span> リソース・グループからのリソースを使用して、ネイティブ (<span><span>rte</span></span>) BOS インストール用に NIM 環境内のすべてのクライアントを初期化するには、次のように入力します。<div><div><pre><code>nim_clients_setup -n</code></pre></div><div></div></div> </li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/etc/niminfo</span></span></td>
+
+<td>NIM により使用される変数が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

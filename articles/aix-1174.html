@@ -1,0 +1,133 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>パーソナル・プリンター・データ・ストリームを扱うプリンターにテキストをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>proff</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/proff.html#proff__row-d3e103567" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a><em>リスト </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/proff.html#proff__row-d3e103606" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em>プリンター </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/proff.html#proff__row-d3e103620" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/proff.html#proff__row-d3e103534" target="_blank" rel="noopener noreferrer"><em>nroffFlags </em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/proff.html#proff__row-d3e103546" target="_blank" rel="noopener noreferrer"><em>ファイル </em></a>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>プロフ</strong> コマンドは、ppd (パーソナル・プリンター・データ・ストリーム) をサポートするプリンター ( <span>キートライター</span> III プリンター、Quickwriter プリンター、および Proprinter プリンターなど) の場合に、指定されたファイルで <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nroff.html" target="_blank" rel="noopener noreferrer"><strong>NROFF</strong></a> コマンドを使用してテキストをフォーマットします。</p>
+ <p>ファイルを指定しないと、標準入力が読み取られます。 パラメーター値 <strong>-</strong> (マイナス) は、標準入力を指定します。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>nroffFlags</em></td>
+
+<td><strong>proff</strong> コマンドによって使用される <strong>nroff</strong> コマンドのフラグを指定し、ppds サポートのプリンター出力用にテキスト・ファイルをフォーマットします。</td>
+
+</tr>
+
+<tr>
+<td><em>File</em></td>
+
+<td><strong>proff</strong> コマンドが ppds をサポートするプリンター用にフォーマット設定するテキスト・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-L (L)</strong><em>リスト</em></td>
+
+<td>指定されたリストを <strong>qprt</strong> コマンド用のフラグとして渡します。<p>単一のフラグを <strong>qprt</strong> コマンドへ渡すには、<strong>-L</strong> フラグとそのすぐ後に
+渡されている <strong>nroff</strong> コマンドを続けて使用します。 次に例を示します。</p>
+  <div> <div><div><pre><code>-L-h. </code></pre></div><div></div></div></div>
+  <p>複数のフラグおよび文字列を <strong>lpr</strong> コマンドへ渡すには、以下のように <strong>-L</strong> フラグとそのすぐ後に " " (二重引用符) で囲んだフラグまたは文字列を続けて使用します。</p>
+  <div> <div><div><pre><code>-L"-h -r -m".</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em>プリンター</em></td>
+
+<td>出力を <strong>/etc/qconfig</strong> ファイルのエントリーに対応している指定プリンターへ送信します。 デフォルトは、<strong>PRINTER</strong> 環境変数がある場合にはそれから取り込みます。そうでない場合には、システムのデフォルト・キュー名が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>標準出力へ出力を送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>標準入力をフォーマット設定プロセスのソースとして使用するように指定します。<p>ほかのフラグはすべて <strong>nroff</strong> コマンドに渡されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>以下は、<span>IBM</span>Proprinterプリンターの出力を処理するための典型的なコマンドシーケンスである：</p>
+ <div> <div><div><pre><code>proff -t testfile</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>環境変数</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>PRINTER</strong></td>
+
+<td>使用したい印刷キューを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/nterm/tab.ppds</strong></td>
+
+<td>パーソナル・プリンターのデータ・ストリームを持つプリンター用のドライビング・テーブルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>キューおよびデバイスを記述します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

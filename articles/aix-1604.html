@@ -1,0 +1,180 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>IP パケットのネットワーク・ホストへの経路を出力します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>traceroute</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114065" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> <em>Max_ttl</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114073" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114079" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>Port</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114099" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>Nqueries</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114113" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__flagd" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__flagg" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> <em>gateway_addr</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114125" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>SRC_Addr</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114136" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a><em>TypeOfService</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114056" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <span><span>flow</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114163" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114175" target="_blank" rel="noopener noreferrer"><strong>-w </strong></a><em>WaitTime </em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114195" target="_blank" rel="noopener noreferrer"><em>Host</em></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/traceroute.html#traceroute__row-d3e114201" target="_blank" rel="noopener noreferrer"><em>PacketSize</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p></p><blockquote><span>“</span><span></span><strong>重要:</strong> <strong>traceroute</strong> コマンドは、ネットワークのテスト、測定、および管理で使用するためのものです。 主に手作業で障害を分離するために使用してください。 <strong>traceroute</strong> コマンドはネットワークに負荷をかけるため、通常の操作時や自動化スクリプトからは実行しないでください。<span>”</span></blockquote>
+<p></p>
+ <p><strong>traceroute</strong> コマンドは、IP パケットがインターネット・ホストに向かう経路をトレースします。これは、最大存続時間 (<em>Max_ttl</em> 変数) が小さい UDP プローブ・パケットを送信し、その過程で ICMP の <strong>TIME_EXCEEDED</strong> 応答をゲートウェイから listen することにより行います。 プローブは <em>Max_ttl</em> 値 1 ホップで始動され、ICMP <strong>PORT_UNREACHABLE</strong> メッセージが戻されるまで、その後一度に 1 ホップずつ増加されます。 ICMP <strong>PORT_UNREACHABLE</strong> メッセージは、ホストを見付けたという内容か、または、コマンドがトレースに与えられた最大ホップ数に到達したという内容のいずれかです。</p>
+ <p><strong>traceroute</strong> コマンドは、<em>Max_ttl</em> の設定ごとに 3 つのプローブを送信し、以下について記録します。</p>
+ <ul>
+<li><span></span><em>Max_ttl</em> 値</li>
+
+<li><span></span>ゲートウェイのアドレス</li>
+
+<li><span></span>正常終了した各プローブの往復時間</li>
+</ul>
+ <p>送信するプローブの数は、<strong>-q</strong> フラグを使用して増やすことができます。 プローブの返答が異なったゲートウェイから入ってきた場合、コマンドはそれぞれの応答システムのアドレスを表示します。 3 秒間のタイムアウト時間内にプローブから応答がない場合は、該当するプローブに対し * (アスタリスク) を表示します。</p>
+ <p><strong>traceroute</strong> コマンドは、Hops 値が 1 ホップ以下の場合に、往復時間の後に ! <em>Max_ttl</em> 値が 1 ホップ以下の場合は、往復時間の後に (感嘆符)。 1 ホップ以下の最大存続時間の値は通常、ICMP の応答方法における何らかの非互換性についての問題が、異なったネットワークのソフトウェアで処理されたことを表します。 この非互換性の問題は、普通は最後に使用した <em>Max_ttl</em> 値を倍にして再試行することにより解決できます。</p>
+ <p>往復表示の後に付けられるその他のコメントは以下のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>!高</strong></td>
+
+<td>ホスト到着不可能</td>
+</tr>
+<tr><td><strong>!未完成</strong></td>
+
+<td>ネットワーク到着不可能</td>
+</tr>
+<tr><td><strong>!P</strong></td>
+
+<td>プロトコル到着不可能</td>
+</tr>
+<tr>
+<td><strong>!セ</strong></td>
+<td>送信元経路指定障害</td>
+</tr>
+<tr><td><strong>!F</strong></td>
+<td>フラグメント化が必要</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+ <p>プローブの過半数がエラーで終った場合は、<strong>traceroute</strong> コマンドは終了します。</p>
+ <p><strong>traceroute</strong> コマンドに必要不可欠な唯一のパラメーターは、
+宛先ホスト名か IP 番号だけです。 <strong>traceroute</strong> コマンドは、
+発信インターフェースの最大伝送単位 (MTU) に基づいてプローブ・パケットの長さを判別します。 UDP のプローブ・パケットは、宛先ホストによって処理されるのを防ぐため、通常ではあり得ない値に設定されています。</p>
+</section>
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>ソケット・レベルのデバッグを可能にします。</td>
+
+</tr>
+<tr><td><strong>-f</strong> <span><span>flow</span></span></td>
+
+<td>IPv6 パケット・ヘッダーのフロー・ラベル・フィールドを設定します。 デフォルト値は 0 です。</td>
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>ゲートウェイ</em></td>
+
+<td>IP 発信元経路指定オプションで指定されたゲートウェイを経由して、発信パケットを送信します。 このフラグを使用するには、ご使用のルーターで IP 発信元経路指定が有効になっている必要があります。 このフラグは、IP バージョン 6 アドレスにのみ有効です。</td>
+
+</tr>
+<tr><td><strong>-m</strong><em> 最大 ttl</em></td>
+
+<td>出力プローブ・パケットに使用する最大存続時間 (ホップの最大数) を設定します。 デフォルトは、(TCP 接続に使用されるデフォルトと同じ) 30 ホップです。</td>
+</tr>
+<tr><td><strong>-n</strong></td>
+
+<td>ホップ・アドレスを、記号と数値ではなく、数値で表示します。 このフラグは、パス上で見付けた各ゲートウェイのネームサーバーのアドレス対名前の参照を保存します。</td>
+</tr>
+<tr>
+<td><strong>-p</strong><em> Port</em></td>
+<td>プローブに使用する基本 UDP ポート番号を設定します。 デフォルトでは 33434 です。 <strong>traceroute</strong> コマンドは、宛先ホストでの <em>base</em> から <em>base</em> + <em>nhops -</em> 1 のオープン UDP ポート範囲に依存します。 UDP ポートが使用できない場合、このオプションを使って未使用ポート範囲を選び出すことができます。</td>
+</tr>
+<tr><td><strong>-q</strong><em> Nクエリーズ</em></td>
+
+<td><strong>traceroute</strong> コマンドが各 <em>Max_ttl</em> 設定で送信するプローブの数を指定します。 デフォルトは 3 プローブです。</td>
+
+</tr>
+<tr><td><strong>-r</strong></td>
+<td>通常の経路指定テーブルをバイパスし、プローブ・パケットを接続ネットワーク上のホストへ直接送信します。 指定したホストが直接接続したネットワーク上にない場合、エラーが戻されます。 このオプションを使い、<strong>routed</strong> デーモンの経路指定テーブルに登録されていないインターフェースを介して、<strong>ping</strong> コマンドをローカル・ホストに対して発行することができます。</td>
+</tr>
+<tr><td><strong>-s</strong><em> ソースアドレス</em></td>
+
+<td>数値形式で示された次の IP アドレスを出力プローブ・パケットの送信元アドレスとして使用します。 複数の IP アドレスのあるホストでは、<strong>-s</strong> フラグを使って送信元アドレスを強制的にプローブ・パケットが送信されるインターフェースの IP アドレス以外にすることができます。 次の IP アドレスがコンピューターのインターフェース・アドレスの 1 つでない場合は、エラーが戻され、何も送信されません。</td>
+</tr>
+<tr><td><strong>-t</strong><em> TypeOfService</em></td>
+<td>プローブ・パケットの <em>TypeOfService</em> 変数を 0 から 255 の範囲の 10 進整数値に設定します。 デフォルトは 0 です。 このフラグを使用して、異なるサービス・タイプの結果が異なるパスになるかどうかを調査できます。 詳しくは、「 <span><em>Performance Tools Guide and Reference</em></span>」の「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/tcpip_protocols.html" target="_blank" rel="noopener noreferrer">TCP/IP Protocols</a> 」を参照してください。 便利な値は、<strong>-t</strong> <strong>16</strong> (低遅延) と <strong>-t</strong> <strong>8</strong> (高スループット) です。</td>
+</tr>
+<tr><td><strong>-v</strong></td>
+
+<td><strong>TIME_EXCEEDED</strong> および <strong>PORT_UNREACHABLE</strong> (詳細出力) 以外のパケットを受け取ります。</td>
+</tr>
+<tr><td><strong>-w</strong><em> WaitTime</em></td>
+
+<td>プローブに対する応答待ち時間 (秒) を設定します。 デフォルトは 3 秒です。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr>
+<td><em>Host</em></td>
+<td>宛先ホストをホスト名または IP 番号で指定します。 このパラメーターは必須です。</td>
+</tr>
+<tr>
+<td><em>PacketSize</em></td>
+<td>プローブのデータグラム長を指定します。 デフォルト・パケット・サイズは、
+発信インターフェースの MTU に基づいて <strong>traceroute</strong> により判別されます。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol><li>使用例と出力例を以下に示します。<div> <div><div><pre><code>[yak 71]% traceroute nis.nsf.net.
+traceroute to nis.nsf.net (35.1.1.48), 30 hops max, 56 byte packet
+ 1 helios.ee.lbl.gov (128.3.112.1) 19 ms 19 ms 0 ms
+ 2 lilac-dmc.Berkeley.EDU (128.32.216.1) 39 ms 39 ms 19 ms
+ 3 lilac-dmc.Berkeley.EDU (128.32.216.1) 39 ms 39 ms 19 ms
+ 4 ccngw-ner-cc.Berkeley.EDU (128.32.136.23) 39 ms 40 ms 39 ms
+ 5 ccn-nerif22.Berkeley.EDU (128.32.168.22) 39 ms 39 ms 39 ms
+ 6 128.32.197.4 (128.32.197.4) 40 ms 59 ms 59 ms
+ 7 131.119.2.5 (131.119.2.5) 59 ms 59 ms 59 ms
+ 8 129.140.70.13 (129.140.70.13) 99 ms 99 ms 80 ms
+ 9 129.140.71.6 (129.140.71.6) 139 ms 239 ms 319 ms
+10 129.140.81.7 (129.140.81.7) 220 ms 199 ms 199 ms
+11 nic.merit.edu (35.1.1.48) 239 ms 239 ms 239 ms</code></pre></div><div></div></div>2 行目と 3 行目は、2 番目のホップ・システム上のカーネルのバグ (lbl-csam.arpa) 存続時間がゼロのパケットを転送します。 ホスト名は、National Science Foundation Network (NSFNet) のため、6 行目から 10 行目までには印刷されません。129.140) ノードのアドレスから名前への変換を提供しません。</div>
+</li>
+
+<li>別の出力例を以下に示します。<div> <div><div><pre><code>[yak 72]% traceroute rip.Berkeley.EDU (128.32.131.22)
+traceroute to rip.Berkeley.EDU (128.32.131.22), 30 hops max
+ 1 helios.ee.lbl.gov (128.3.112.1) 0 ms 0 ms 0 ms
+ 2 lilac-dmc.Berkeley.EDU (128.32.216.1) 39 ms 19 ms 39 ms
+ 3 lilac-dmc.Berkeley.EDU (128.32.216.1) 19 ms 39 ms 19 ms
+ 4 ccngw-ner-cc.Berkeley.EDU (128.32.136.23) 39 ms 40 ms 19 ms
+ 5 ccn-nerif35.Berkeley.EDU (128.32.168.35) 39 ms 39 ms 39 ms
+ 6 csgw/Berkeley.EDU (128.32.133.254) 39 ms 59 ms 39 ms
+ 7 * * *
+ 8 * * *
+ 9 * * *
+10 * * *
+11 * * *
+12 * * *
+13 rip.Berkeley.EDU (128.32.131.22) 59 ms! 39 ms! 39 ms!</code></pre></div><div></div></div>この例では、12 のゲートウェイ・ホップ (13 番目は最終宛先) のちょうど半分がありません。 しかし、実際はこれらのホップはゲートウェイではありません。 宛先ホストである Sun OS3.5 を実行している Sun-3 ワークステーションが、
+到着データグラムの ttl をその ICMP 応答の ttl として使用したため、
+戻りパス上で応答がタイムアウトになりました。 ICMP は ICMP に対しては送信されないので、
+何の通知も受け取りません。 ! 各往復時間の後の (感嘆符) は、何らかのタイプのソフトウェアの非互換性の問題を示しています。 (原因は、<strong>traceroute</strong> コマンドがパス長の 2 倍の長さのプローブを出した後に診断されます。 宛先ホストは実際には単に 7 ホップ先でした。)</div>
+</li>
+</ol>
+</section>
+</div></div>

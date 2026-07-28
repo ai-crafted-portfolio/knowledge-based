@@ -1,0 +1,217 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>論理ボリュームにデータのコピーを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mklvcopy</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143349" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>位置</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143391" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> <em>範囲</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143424" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143430" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>マップ・ファイル</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143511" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>厳密</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143556" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong></a> <em>上限</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143474" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>コピー</em><strong>=</strong><em>ミラー・プール</em> ] <em>論理ボリューム</em> <em>部数</em> [<em>物理量</em>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mklvcopy</strong> コマンドは、<em>logicalvolume</em> の各論理区画内のコピー数を増加します。 これは、各論理区画に対する物理区画数の合計を <em>Copies</em> で指定された数に増加することによって達成されます。 <em>logicalvolume</em> パラメーターには、論理ボリューム名または論理ボリューム ID のいずれかを指定できます。 <em>physicalvolume</em> パラメーターを使用すると、新しいコピー用の物理区画を (ボリューム・グループ内の) 特定の物理ボリュームに割り当てるように要求することができます。それ以外の場合、ボリューム・グループ内のすべての物理ボリュームを割り当てに使用することができます。</p>
+ <p>このコマンドで変更された論理ボリュームは、新しい <strong>copy</strong> 特性として <em>copies</em> パラメーターを使用します。 新規コピー内のデータは、以下のいずれかが発生するまで同期化されません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__row-d3e143424" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> オプションが使用され、ボリューム・グループは <strong>varyonvg</strong> コマンドによって活動化されます。 あるいは、ボリューム・グループまたは論理ボリュームが <strong>syncvg</strong> コマンドによって明示的に同期化されます。 個別の論理区画は、書き込みに従って常に更新されます。</p>
+ <p>デフォルトの割り当てポリシーは、論理ボリュームのコピーごとに物理ボリュームの数を最小限とし、1 つのコピーに属する物理区画を可能な限り連続するよう配置し、その物理区画を <strong>-a</strong> フラグで指定した希望の領域に配置します。 また、デフォルトでは、論理区画の個々のコピーは、別々の物理ボリュームに配置されます。</p>
+ <div><strong>注:</strong><ul>
+<li>このコマンドを使用するには、<code>root</code> ユーザー権限を持っているか、<strong>system</strong> グループのメンバーでなければなりません。</li>
+
+<li><strong>mklvcopy</strong> コマンドは、スナップショット・ボリューム・グループでは
+許可されません。</li>
+
+<li>非常に厳密な割り当てポリシーを使用して論理ボリュームのコピーを作成する場合は、<strong>mklvcopy</strong> コマンドは最初に、ボリューム・グループ内の別のディスク・セットへの最初のミラー・コピーの物理区画マッピングの模倣を試みます。 物理ボリューム相互間および物理ボリューム内の割り当てポリシーが <strong>mklvcopy</strong> コマンドに対して引数として指定されている場合でも、このアルゴリズムはこれらのポリシーを無視します。 最初のコピーの物理区画マッピングを模倣できない場合は、通常の割り当てアルゴリズムが使用されます。このアルゴリズムは、物理ボリューム相互間および物理ボリューム内の割り当てポリシーを使用します。</li>
+
+</ul>
+</div>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mklvcopy</strong> 高速パスを使用して実行することができます。</p>
+ </section>
+
+<section><h2>フラグ</h2> <div><div>
+        <div>
+          <div><span>注:</span> <strong>-e</strong> フラグおよび <strong>-s</strong> フラグは、ストライプ論理ボリュームでは無効です。</div>
+        </div>
+      </div></div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 位置</em></td>
+
+<td>物理ボリューム内割り当てポリシーを設定します (物理ボリューム上の論理区画位置)。 <em>position</em> 変数は、次のいずれかになります。<dl>
+<dt><strong>m</strong></dt>
+
+<dd>各物理ボリュームの外部中央部分に論理区画を割り当てます。 これがデフォルトの位置です。</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>各物理ボリュームの中央部分に論理区画を割り当てます。</dd>
+
+
+<dt><strong>e</strong></dt>
+
+<dd>各物理ボリュームの外側の端の部分に論理区画を割り当てます。</dd>
+
+
+<dt><strong>ie</strong></dt>
+
+<dd>各物理ボリュームの内側の端の部分に論理区画を割り当てます。</dd>
+
+
+<dt><strong>im</strong></dt>
+
+<dd>各物理ボリュームの内部中央部分に論理区画を割り当てます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> 範囲</em></td>
+
+<td>物理ボリューム内割り当てポリシー (拡張される物理ボリュームの数。最良の配置になるボリュームを使用します) を設定します。 <em>range</em> 値は、 <em>upperbound</em> 変数 ( <strong>-u</strong> フラグで設定) によって制限され、以下のいずれかになります。<dl>
+
+<dt><strong>x</strong></dt>
+
+<dd>物理ボリューム間の最大数に割り当てます。</dd>
+
+
+<dt><strong>m</strong></dt>
+
+<dd>物理ボリューム間の最小数に論理区画を割り当てます。 これが、<strong>-e</strong> フラグのデフォルトです。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>新しい区画でデータと同期をとります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> マップ・ファイル</em></td>
+
+<td>割り当て対象の物理区画を正確に指定します。 区画は、<em>mapfile</em> パラメーターによって指定されたファイルにある順序で使用されます。 コピーに属するすべての物理区画が割り当てられてから、次のコピーに割り当てられます。 <em>mapfile</em> の形式は次のとおりです。<dl>
+<dt>PVname:PPnum1[-PPnum2]</dt>
+
+<dd>ここで、 <em>pvname</em> は物理ボリューム名です (例えば、hdisk0)。 これは、物理区画ごとに 1 つのレコード、または連続する物理区画の範囲です。</dd>
+
+
+<dt>PVname</dt>
+
+<dd>システムが指定した物理ボリューム名。</dd>
+
+
+<dt>PPnum</dt>
+
+<dd>物理区画番号。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>重要:</span> マップ・ファイルを使用する場合は、すべての LV 割り振りパラメーター (厳密さ、上限、ストライプ幅など) を理解し、それに従う必要があります。 マップ・ファイルを使用すると、LVM 割り当てルーチンで行われる検査が回避されます。 これは、ストライプ幅に準拠している通常のストライプ済み割り当てパターンをもっていると考えられているストライプ済み LV には重要なことです。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>copyn</em><strong>=</strong><em>ミラー・プール</em></td>
+
+<td>作成されるコピーにミラー・プールを割り当てます。 ミラー・プールは、<em>copyn</em><strong>=</strong><em>mirrorpool</em> パラメーターを使用してコピーに割り当てられます。 作成される各コピーのミラー・プールを指定します。 複数の <em>
+copyn</em><strong>=</strong><em>mirrorpool</em> ペアを指定するには、複数の <strong>-p </strong><em>copyn
+</em><strong>=</strong><em>mirrorpool</em> フラグを指定してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 厳密</em></td>
+
+<td>厳密な割り当てポリシーを決定します。 同じ物理ボリュームを共有できるように、または共有できないように、論理区画のコピーを割り当てることができます。 <em>strict</em> 変数は、以下のいずれかによって表されます。<dl>
+<dt><strong>y</strong></dt>
+
+<dd>厳密な割り当てポリシーを設定します。したがって、論理区画のコピーは、同一物理ボリュームを共有できません。 フラグ。</dd>
+
+
+<dt><strong>n</strong></dt>
+
+<dd>厳密な割り当てポリシーを設定しません。したがって、論理区画のコピーは、同一物理ボリュームを共有できます。</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd>非常に厳密な割り当てポリシーを設定します。したがって、1 つのミラーに割り当てられた区画は、
+別のミラーからの区画と物理ボリュームを共有することができません。 <strong>mklvcopy</strong> 動作に対する非常に厳密な割り当てポリシーのその他の影響については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mklvcopy.html#mklvcopy__mklvcopynote4" target="_blank" rel="noopener noreferrer">注 4</a> を参照してください。</dd>
+
+</dl>
+  <p></p><blockquote><span>“</span><strong>注:</strong>
+非常に厳密でない論理ボリュームから非常に厳密な論理ボリュームに変更する場合は、
+物理ボリュームを指定するか <strong>-u</strong> フラグを使用する必要があります。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> 上界</em></td>
+
+<td>新規割り当てに対して物理ボリュームの最大数を設定します。 <em>upperbound</em> 変数の値は、1 から VG 当たりの物理ボリュームの最大合計値の間で指定する必要があります。 極度の厳密さを使用する場合、
+上限は、ミラー・コピーごとに許される物理ボリュームの最大数を示します。 ストライプ済み論理ボリュームを使用する場合、上限は <em>stripewidth</em> の倍数でなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>論理ボリューム内の論理区画に物理区画を追加するlv01論理区画ごとに合計 3 つのコピーが存在するようにするには、次のように入力します。</p>
+ <div> <div><div><pre><code>mklvcopy lv01 3</code></pre></div><div></div></div></div>
+ <p>ディレクトリーによって表される論理ボリューム内の論理区画 lv01コピーが 3 枚あります</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mklvcopy</strong></td>
+
+<td><strong>mklvcopy</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

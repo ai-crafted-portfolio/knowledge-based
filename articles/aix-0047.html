@@ -1,0 +1,183 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルのアクセス制御情報を編集します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>acledit [ -t ACL_type  ] [ -v ] FileObject</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>acledit</span> コマンドを使用すると、 FileObject パラメーターで指定されたファイルのアクセス制御情報を変更することができます。 このコマンドは、現行のアクセス制御情報を表示し、ファイル所有者が <span>EDITOR</span> 環境変数で指定されたエディターを使用してその情報を変更できるようにします。 変更を確定する前に、確認のメッセージが表示されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>EDITOR</span> 環境変数は、完全なパス名で指定する必要があります。そうしないと、 <span>acledit</span> コマンドは失敗します。 ACL データの最大サイズは、ACL タイプによって異なります。</div>
+        </div>
+      </div></div>
+ <p>表示されるアクセス制御情報は、ファイル・システム・オブジェクトに関連付けられている ACL タイプによって異なります。 通常、情報には、所有者およびその他について表示されるアクセス制御項目が含まれます。 また、オブジェクトに関連付けられているファイル・モード・ビットが表示される場合もあります。</p>
+ <div>ファイルのアクセス制御情報の例を次に示します。<div><div><pre><code>attributes: SUID
+base permissions:
+    owner  (frank): rw-
+    group (system): r-x
+    others        : ---
+extended permissions:
+    enabled
+        permit    rw-    u:dhs
+        deny      r--    u:chas,    g:system
+        specify   r--    u:john,    g:gateway, g:mail
+        permit    rw-    g:account, g:finance</code></pre></div><div></div></div></div>
+ <div>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>acledit</span> コマンドがトラステッド・パスで動作している場合、エディターには <span>trusted process</span> 属性が設定されている必要があります。</div>
+        </div>
+      </div></div>
+
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-t</span></td>
+
+<td>このオプションの入力は、ACL 編集プロセスの最後に ACL データが保管される ACL タイプを指定します。 オプションが指定されていない場合、ファイル・システム・オブジェクトに現在関連付けられている ACL は、その ACL タイプ・フォーマットで編集されます。 このフラグで ACL タイプが指定されている場合、ユーザーは現在の ACL タイプを変更し、新しい ACL タイプ・フォーマットで ACL を保管しようとしていると想定されます。 このフラグが指定され、ACL タイプが現在存在するタイプと一致しない場合、ユーザーは、保存する前に ACL データの内容を変更して、新しい ACL タイプ固有のフォーマットにフォーマットする必要があります。 サポートされる ACL タイプは ACLX および NFS4 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>ACL 情報を詳細モードで表示します。 FS オブジェクトに関連付けられている ACL に関する詳細を説明するために、コメント行が追加されます。 これらのコメント行が生成されるのは、コマンドが実行され、しかもどこにも持続的に常駐しない
+ときです。 したがって、これに対して加えられた変更は、<span>acledit</span> の終了時に
+すべて失われます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+<dl>
+
+<dt>アクセス制御</dt>
+
+<dd>このコマンドは標準ユーザー・コマンドで、<span>trusted computing base</span> 属性を備えていなければなりません。</dd>
+
+
+
+<dt>イベントの監査</dt>
+
+<dd>監査サブシステムが適切に構成されており、かつ使用可能である場合、<span>acledit</span> コマンドを実行するたびに、
+次の監査レコードまたはイベントが生成されます。<div><div><table><caption><span>表 2. イベントの監査</span></caption><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>FILE_Acl</td>
+
+<td>アクセス制御をリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+
+
+<dt>アクセスされるファイル</dt>
+
+<dd><div><div><table><caption><span>表 3. アクセスされるファイル</span></caption><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+
+<td><span>/usr/bin/aclget</span></td>
+
+</tr>
+
+<tr>
+<td>x</td>
+
+<td><span>/usr/bin/aclput</span></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+
+<dt>RBAC ユーザー</dt>
+
+<dd><div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>例</h2> <p><span>plans</span> ファイルのアクセス制御情報を編集するには、以下のコマンドを入力する：</p>
+ <div> <div><div><pre><code>acledit plans</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/acledit</span></td>
+
+<td><span>acledit</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

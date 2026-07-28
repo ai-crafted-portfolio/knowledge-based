@@ -1,0 +1,278 @@
+<div class="official-dom"><div>
+<div> <p></p><blockquote><span>“</span><strong>注:</strong> これは System V Print Subsystem コマンドです。<span>”</span></blockquote>
+<p></p>
+</div>
+
+<section><h2>目的</h2> <p>(BSD) ライン・プリンター制御を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/ucb/lpc</strong> [ <em>Command</em> [ <em>Parameter</em> .. :NONE.</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lpc</strong> コマンドは、
+プリンターの操作を制御します。
+複数のプリンターを制御することもできます。 <strong>lpc</strong> コマンドを使用して、
+プリンターを始動または停止したり、
+プリンターのスプール・キューを使用不可または使用可能にしたりできます。
+また、キュー内のジョブの順序を配列し直したり、
+スプール・キューまたはプリンター・デーモンを含む各プリンターの状況を表示することもできます。</p>
+ <p><code>lpc -?</code> を入力した場合は、コマンド使用方法メッセージが表示され、0 が戻されます。</p>
+ <p>パラメーターを指定しないと、 <strong>lpc</strong> コマンドは対話式に実行され、以下のプロンプトが出されます。lpc&gt;. パラメーターを指定すると、 <strong>lpc</strong> コマンドは最初のパラメーターを実行する <em>コマンド</em> として解釈します。後続の各パラメーターは、そのコマンドの <em>パラメーター</em> と見なされます。 標準入力をリダイレクトして、
+<strong>lpc</strong> コマンドはファイルから <em>Command</em> を読み取ることができます。</p>
+ <p><em>Command</em> は、間違えようのないサブストリングに省略できます。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> <em>printer</em> パラメーターはプリンター名 (<strong>lw</strong>) で指定されます。
+<strong>lpr</strong> または <strong>lpq</strong> の指定方法とは異なります (<strong>-Plw</strong> ではない)。<span>”</span></blockquote>
+<p></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>?</strong> [ <em>コマンド</em>..]</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>help</strong> [ <em>コマンド</em> ..]</td>
+
+<td>パラメーター・リストで指定された各コマンドか、
+パラメーターが指定されない場合は認識されたコマンドのリストにあるコマンドの簡略説明を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>abort</strong> [ <strong>all</strong> | [ <em>Printer</em> .. :NONE.</td>
+
+<td>ローカル・ホスト上のアクティブのスプーリング・デーモンを即時に終了し、
+(新しいデーモンが <strong>lpr</strong> によって開始しないようにして) 指定されたプリンターの印刷を使用不可にします。 <strong>abort</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>clean</strong> [ <strong>all</strong> | [ <em>Printer</em> .. :NONE.</td>
+
+<td>ローカル・マシンの指定されたプリンター・キューから、
+デーモンがスプール・ディレクトリーに作成したすべてのファイルを除去します。 <strong>clean</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>disable</strong> [ <strong>all</strong> | [ <em>Printer</em> .. :NONE.</td>
+
+<td>指定されたプリンター・キューをオフにします。 これにより、
+<strong>lpr</strong> がキューに新規のプリンター・ジョブを入れないようにします。 <strong>disable</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>down</strong> [ <strong>all</strong> | [ <em>プリンター</em>.. ]] [ <em>メッセージ</em> ]</td>
+
+<td>指定されたプリンター・キューをオフにし、
+印刷を使用不可にして、
+<em>Message</em> をプリンター状況ファイルに書き込みます。 メッセージは引用される必要はありません。 残りのパラメーターは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/echo.html" target="_blank" rel="noopener noreferrer"><strong>echo</strong></a>のように扱われます。 これは通常、
+プリンターをダウンさせ、
+その理由を知らせるために使用されます (<strong>lpq</strong> は、
+<strong>status</strong> コマンドと同様、
+プリンターがダウン状態にあることを示します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>enable</strong> [ <strong>all</strong> | [ <em>プリンター</em>.. :NONE.</td>
+
+<td>リストされたプリンターのローカル・キューのスプーリングを使用可能にして、
+<strong>lpr</strong> が新規ジョブをスプール・キューに入れられるようにします。 <strong>enable</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>exit</strong></td>
+
+<td><strong>lpc</strong> を終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>quit</strong></td>
+
+<td><strong>lpc</strong> を終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>restart</strong> [ <strong>all</strong> | [ <em>プリンター</em>.... :NONE.</td>
+
+<td>新規のプリンター・デーモンの開始を試みます。 これは、異常条件のためにデーモンが、
+キューにジョブを残したまま予期せずに終了するときに使用できます。 このコマンドはだれでも実行できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>start</strong> [ <strong>all</strong> | [ <em>プリンター</em>... :NONE.</td>
+
+<td>印刷を使用可能にし、
+リストされたプリンターのスプーリング・デーモンを開始します。 <strong>start</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>status</strong> [ <strong>all</strong> | [ <em>プリンター</em>...]]</td>
+
+<td>ローカル・マシン上のデーモンおよびキューの状況を表示します。 このコマンドはだれでも実行できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>stop</strong> [ <strong>all</strong> | [ <em>プリンター</em>... :NONE.</td>
+
+<td>ジョブが完了し、印刷が使用不可になった後、
+スプーリング・デーモンを停止します。 <strong>stop</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>topq</strong><em> プリンター</em> [ <em>Job#</em>...] [ <em>User</em>...]</td>
+
+<td><em>Job#</em> によって指定された印刷ジョブ、
+または <em>User</em> に属するジョブをプリンター・キューの上部 (ヘッド) に移動します。 <strong>topq</strong> コマンドは特権ユーザーだけが使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>up</strong> [ <strong>all</strong> | [ <em>プリンター</em>...]]</td>
+
+<td>すべて使用可能にし、
+新規のプリンター・デーモンを開始します。 <strong>down</strong> の効果を取り消します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>/var/spool/lp/*</td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td>/var/spool/lp/system/pstatus</td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>エラー・コード</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>?Ambiguous command</strong></td>
+
+<td>複数のコマンドが同じ省略形を使用しています。</td>
+
+</tr>
+
+<tr>
+<td><strong>?無効なコマンド</strong></td>
+
+<td>コマンドまた省略語が認識できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>?特権コマンド</strong></td>
+
+<td>コマンドは特権ユーザーしか実行できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>lpc:</strong><em> printer</em><strong>: 印刷サービスに認識されないプリンター</strong></td>
+
+<td><em>printer</em> が System V LP データベース内に見つかりませんでした。 多くの場合タイプミスですが、
+プリンターがシステムに存在しない可能性もあります。 <strong>lptstat -p</strong> を使用して理由を調べてください。</td>
+
+</tr>
+
+<tr>
+<td><strong>lpc: スプーラーにキューを開くときにエラーが発生しました</strong></td>
+
+<td>ローカル・マシン上の <strong>lpsched</strong> への接続に失敗しました。 これは通常、ブート時に開始したプリンター・サーバーが非活動状態にあるか、
+またはハングしていることを意味しています。 プリンター・スプーラー・デーモン <strong>/usr/lib/lp/lpsched</strong> が実行中であるか確認してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>lpc: LP 印刷サービスにメッセージを送信できません</strong></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>lpc: LP 印刷サービスからメッセージを受信できません</strong></td>
+
+<td>これらのメッセージは、
+LP プリント・サービスが停止したことを示しています。 システム管理者の援助を得てください。</td>
+
+</tr>
+
+<tr>
+<td><strong>lpc: LP 印刷サービスから予期しないメッセージを受け取りました</strong></td>
+
+<td>ソフトウェアにエラーがある可能性があります。 システム管理者の援助を得てください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

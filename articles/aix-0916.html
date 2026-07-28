@@ -1,0 +1,288 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p><strong>/etc/inittab</strong> ファイル内でレコードを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkitab</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkitab.html#mkitab__row-d3e139376" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>ID</em> ] {[ <em>ID</em> ] <strong>:</strong> [ <em>RunLevel</em> ] <strong>:</strong> [ <em>アクション</em> ] <strong>:</strong> [ <em>コマンド</em> ]}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkitab</strong> コマンドは、<strong>/etc/inittab</strong> ファイルにレコードを追加します。 <em>Identifier</em><strong>:</strong><em>RunLevel</em><strong>:</strong><em>Action</em><strong>:</strong><em>Command</em> パラメーター文字列は、
+<strong> /etc/inittab</strong> ファイルに追加する新しいエントリーを指定します。 <strong>-i</strong><em> Identifier</em> フラグを使用すると、レコードを特定のレコードの後ろに挿入することができます。 このコマンドは、<em>Identifier</em> パラメーターで指定されたフィールドを見つけ、
+<strong>-i</strong><em> Identifier</em> フラグで指定されたレコードの後ろに新しいレコードを挿入します。</p>
+</section>
+
+<section><h2>パラメーター</h2> <p><em>Identifier</em><strong>:</strong><em>RunLevel</em><strong>:</strong><em>Action</em><strong>:</strong><em>Command</em> パラメーター文字列は、
+次のように <strong>/etc/inittab</strong> ファイル内のレコードを指定します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>Identifier</em></td>
+
+<td>14 文字のパラメーターで、オブジェクトを固有に識別します。 <em>Identifier</em> は独自のものでなければなりません。 <em>Identifier</em> が固有でないと、コマンドは正常終了されません。 <em>Identifier</em> を変更することはできず、変更しようとするとコマンドが正しく実行されません。</td>
+
+</tr>
+
+<tr>
+<td><em>RunLevel</em></td>
+
+<td>20 文字のパラメーターで、<em>Identifier</em> を処理できる実行レベルを定義します。 <strong>init</strong> コマンドで開始される各プロセスには、そのプロセスを開始できる 1 つ以上の実行レベルを割り当てることができます。</td>
+
+</tr>
+
+<tr>
+<td><em>Action</em></td>
+
+<td>20 文字のパラメーターで、指定した <em>Command</em> パラメーターの処理方法を <strong>init</strong> コマンドに通知します。 <strong>init</strong> コマンドが認識できるアクションは、次のとおりです。<dl>
+<dt><strong>respawn する</strong></dt>
+
+<dd>このレコードで識別されるプロセスが存在しない場合は、そのプロセスを開始します。 現在そのプロセスが存在する場合は、何も行うことなく <strong>/etc/inittab</strong> ファイルのスキャンを継続します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>WAIT</strong></dt>
+
+<dd><strong>init</strong> コマンドの実行レベルがこのレコードに対して指定したレベルになると、プロセスを開始してその終了を待ちます。 <strong>init</strong> コマンドが同じ実行レベルにある間は、<strong>/etc/inittab</strong>
+ファイルの以降の読み取りはすべて、このオブジェクトを無視します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>1 回</strong></dt>
+
+<dd><strong>init</strong> コマンドがこのレコードに指定された実行レベルに入ったとき、プロセスを始動し、停止するのを待ちません。停止したとき、プロセスは再始動されません。 そのプロセスの実行中にシステムが新しい実行レベルに
+入っても、プロセスは再始動されません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>ブート</strong></dt>
+
+<dd>このレコードを読み取るのは、システムがブートして、<strong>/etc/inittab</strong> ファイルを読み取るときだけです。 <strong>init</strong> コマンドはプロセスを始動します。 プロセスの停止を待ちません。プロセスが停止したとき、そのプロセスを再始動しません。 このプロセスの実行レベルはデフォルトのレベルにするか、起動時に <strong>init</strong> コマンドによって指定される実行レベルと一致していなければなりません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>ブート (bootwait)</strong></dt>
+
+<dd>このレコードを読み取るのは、システムがブートして、<strong>/etc/inittab</strong> ファイルを読み取るときだけです。 <strong>init</strong> コマンドはプロセスを始動します。 プロセスの停止を待ち、停止すると再始動しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>電源障害</strong></dt>
+
+<dd><strong>init</strong> コマンドが <strong>SIGPWR</strong> 電源障害シグナルを受信したときにのみ、このレコードで識別されたプロセスを開始します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>電源待機</strong></dt>
+
+<dd><strong>init</strong> コマンドが <strong>SIGPWR</strong> 電源障害シグナルを受信したときにのみ、このレコードで識別されたプロセスを開始し、そのプロセスが終了するまで待ってから、<strong>/etc/inittab</strong> ファイルの処理を継続します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>off</strong></dt>
+
+<dd>このレコードで識別されるプロセスが現在実行中のとき、警告シグナル <strong>SIGTERM</strong> を送信し、抹消シグナル <strong>SIGKILL</strong> を送信するまで 20 秒待ちます。 プロセスが存在しないときは、この行は無視されます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>保留</strong></dt>
+
+<dd>このレコードで識別されるプロセスが終了したときに、新しいプロセスを開始しません。 <strong>hold</strong> アクションは <strong>phold</strong> コマンドだけが始動できます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>オンデマンド</strong></dt>
+
+<dd>機能的には <strong>respawn</strong> と同じものです。 このレコードで識別されるプロセスが存在しない場合は、そのプロセスを開始します。 現在そのプロセスが存在する場合は、何も行うことなく <strong>/etc/inittab</strong> ファイルのスキャンを継続します。 <strong>a</strong>、<strong>b</strong> または <strong>c</strong>
+実行レベルを使用しているときは、このアクションを指定して、<strong>respawn</strong> アクションを実行します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>デフォルト (initdefault)</strong></dt>
+
+<dd><strong>init</strong> コマンドが初めに呼び出されたときだけ、このアクションの行が処理されます。 <strong>init</strong> コマンドは、この行を使用して、最初にどの実行レベルに入るかを決定します。 コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkitab.html#mkitab__row-d3e139066" target="_blank" rel="noopener noreferrer"><em>RunLevel</em></a> パラメーターで指定された最高実行レベルを取得し、それをコマンドの初期状態として使用することにより、これを行います。 <em>RunLevel</em> パラメーターが空の場合、その値は 0123456789 と解釈され、<strong>init</strong> コマンドは実行レベル <strong>9</strong> になります。 <strong>init</strong> コマンドは、<strong>inittab</strong> ファイル内に <strong>initdefault</strong> 行が見つからないと、初期プログラム・ロード (IPL) 時に、オペレーターに初期実行レベルを要求します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+<dt><strong>システム初期設定</strong></dt>
+
+<dd><strong>init</strong> コマンドがコンソールにアクセスしようと試みる前に、このレコードで識別されたプロセスを開始します。 例えば、デバイスの初期化にこれを使用することがあります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><em>Command</em></td>
+
+<td>1024 文字のフィールドで、シェル・コマンドを指定します。<div><div>
+        <div>
+          <div><span>重要:</span> システム・ファイルの破損を回避するために、 <strong>stdin</strong>、 <strong>stdout</strong>、 および <strong>stderr</strong> ファイルは、 <em>Command</em> パラメーターにリダイレクトとともに指定する必要があります。あるいは、コマンド行で実行されるプログラムによって明示的にオープンする必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-i</strong><em> ID</em></td>
+
+<td>新しいレコードが続く <strong>/etc/inittab</strong> ファイルのレコードを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>init</strong> コマンドに tty2でのログインを処理するように指示して、新規レコードを <strong>/etc/inittab</strong> ファイルに追加するには、次のように入力します。<div> <div><div><pre><code>mkitab "tty002:2:respawn:/usr/sbin/getty /dev/tty2"</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/etc/inittab</strong> ファイルに新規レコードを追加するには、次のようにします。 <strong>/usr/sbin/srcmstr</strong> ファイルの開始後に <strong>/etc/rc.tcpip</strong> ファイルを実行するように <strong>init</strong> コマンドに指示するには、次のように入力します。<div> <div><div><pre><code>mkitab -i srcmstr "rctcpip:2:wait:/etc/rc.tcpip &gt; /dev/console"</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>/etc/inittab</strong> ファイルに新規レコードを追加するには、次のようにします。 <strong>/etc/rc</strong> ファイルを実行し、その出力をブート・ログに送るように <strong>init</strong> コマンドに指示するには、次のように入力します。<div> <div><div><pre><code>mkitab ((rc:2:wait:/etc/rc 2&gt;&amp;1 | alog -tboot &gt; /dev/console))</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/inittab</strong></td>
+
+<td><strong>mkitab</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

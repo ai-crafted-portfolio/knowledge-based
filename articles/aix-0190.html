@@ -1,0 +1,210 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>デバイスの特性を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Chdev</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80091" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>名前</em> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80036" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>属性</em><strong>=</strong><em>値 ...</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80068" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>ファイル </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80085" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80111" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a><em>ParentName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80099" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80128" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__chdevbu" target="_blank" rel="noopener noreferrer"><strong>-U (U) </strong></a>][  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80122" target="_blank" rel="noopener noreferrer"><strong>-q (Q) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80141" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>ConnectionLocation</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80079" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chdev</strong> コマンドは、<strong>-l</strong><em> Name
+</em> フラグによって指定される特定のデバイス論理名を持つ、指定されたデバイスの特性を
+変更します。 デバイスには、定義済み (Defined)、停止 (Stopped)、または使用可能 (Available) の状態があります。 デバイスが Available 状態のときは、ある種の変更が実行できない場合があります。 デバイスの特性を変更するとき、コマンド・ラインと
+指定された <strong>-f </strong><em>File</em> フラグのいずれに
+フラグを指定してもかまいません。</p>
+<p><strong>-P</strong>、<strong>-U</strong>、および <strong>-T</strong> フラグのいずれも指定しないと、<strong>chdev</strong> コマンドは変更をデバイスに適用し、その変更を反映するようデータベースを更新します。 <strong>-P</strong> フラグを指定すると、変更を反映するようデータベースのみが更新され、デバイス自体は変更されないままになります。 これは、デバイスが使用中で変更できない場合に便利です。 デバイスが使用中の場合は、<strong>-P</strong> フラグによってデータベースを変更することができ、システムを再始動すると、その変更がデバイスに適用されます。</p>
+<p><strong>-U</strong> フラグを指定すると、変更を反映するようにデータベースが更新され、デバイスが「使用可能」状態のままでデバイスが変更されます。 このオプションは、デバイスが「使用可能」状態にあるときに更新できる属性に対してのみ適用できます。 <strong>-U</strong> フラグを指定すると、 <strong>-U</strong> フラグで指定された属性でデータベースが更新され、デバイスが使用可能状態にある間に更新できるすべての属性の現行値にデバイスが変更されます。 デバイスがこの属性タイプをサポートするかどうかを判断するには、<span>lsattr</span> コマンドを参照してください。</p>
+<p><strong>-T</strong> フラグは、変更をデータベースに反映することなく、デバイスを一時的に変更するために使用します。システムを再始動すると、デバイスはデータベースに記述されている特性に一時的に復帰します。 どのデバイスも <strong>-P</strong>、<strong>-U</strong>、および <strong>-T</strong> フラグをサポートするわけではありません。 デバイスが「定義済み」状態である場合は、変更が適用されるのはデータベースに対してのみです。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> 構成データベースを保護するために、 <strong>chdev</strong> コマンドは割り込み可能ではありません。 このコマンドを完了前に
+停止すると、データベースが破壊される恐れがあります。</div>
+        </div>
+      </div></div>
+ <p>System Management Interface Tool (SMIT) <strong>smit chdev</strong> 高速パスを使用して、デバイス特性を変更することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 属性</em><strong>=</strong><em>値</em></td>
+
+<td>特定の属性値を変更する場合に使用するデバイス属性値対を
+指定します。 <em>Attribute</em><strong>=</strong><em>Value</em> のパラメーターは、1 つの <strong>-a</strong> フラグに対して属性値の対を 1 組指定することも複数組指定することもできます。 1 つの <strong>-a</strong> フラグに属性値の対を複数指定するときは、対のリストを引用符で囲み、対と対の間にスペースを入れる必要があります。 例えば、次のように入力すると、-a Attribute=Valueフラグごとに 1 つの属性値のペアをリストします。-a 'Attribute1=Value1
+Attribute2=Value2'複数の属性値ペアをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>名前を指定された <em>File</em> パラメーターから必要なフラグを
+読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>ロックされたデバイスで変更操作を強制的に実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 名前</em></td>
+
+<td>特性が変更の対象となるカスタマイズ・デバイス・オブジェクト・クラス内の
+デバイス論理名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>実際にデバイスを変更することなく、デバイスの特性をカスタマイズ・デバイス・オブジェクト・クラスで永久に変更します。 これは、使用不可にすることができなくて、使用可能状態のときには変更することもできないデバイスの場合に便利です。 変更はデータベースに加えられ、変更がデバイスに適用されるのは、システムを
+リブートしたときです。 このフラグは、<strong>-t</strong> フラグと一緒には使用できません。 どのデバイスも <strong>-P</strong> フラグをサポートしているわけではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> ParentName</em></td>
+
+<td>カスタマイズ・デバイス・オブジェクト・クラス内の親デバイスの新しいデバイス論理名を
+指定します。 このフラグを使用するのは、デバイスの親を変更するときのみに
+してください。 どのデバイスも <strong>-P</strong> フラグをサポートしているわけではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>標準出力ならびに標準エラーからのコマンド出力メッセージを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>現在のシステム始動用のカスタマイズ・デバイス・オブジェクト・クラスを変更することなく、デバイスの特性を一時的に変更します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html#chdev__row-d3e80099" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> フラグと一緒には使用できません。 どのデバイスも <strong>-T</strong> フラグをサポートしているわけではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>デバイスを「使用可能」状態にしておいたままで、デバイスの特性を変更します。 このフラグは、<strong>-P</strong> または <strong>-T</strong> フラグと共には使用できません。 どのデバイスおよび属性も <strong>-U</strong> フラグをサポートしているわけではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> ConnectionLocation</em></td>
+
+<td>親に対するデバイスの新しい接続位置を指定します。 このフラグを使用するのは、デバイスの接続位置を変更するときのみにしてください。 どのデバイスも <strong>-w</strong> フラグをサポートしているわけではありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アクセス制御</strong></p>
+ <p>このコマンドに対する実行 (x) アクセス権は、root ユーザーと security グループのメンバーにのみ与えてください。</p>
+<p><strong>イベントの監査</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>監査イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DEV_Change</strong></td>
+
+<td><strong>cfgmgr</strong> コマンドが呼び出すメソッドに対するパラメーター。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>rmt0</code> 4mm SCSI テープ・ドライブの緩み取り命令を
+変更して、テープを挿入したり、ドライブの電源をオンにしたりするたびに、ドライブがテープを先頭まで
+巻き戻してから、終わりまで走行させた上で、先頭まで再度巻き戻すことがないようにする場合は、次のように
+入力します。<div><div><pre><code>chdev -l rmt0 -a ret=no</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>rmt0 changed</code></pre></div><div></div></div></li>
+
+<li><code>tok0</code> トークンリング・アダプターの 1 つ以上の属性を、<code>changattr</code> ファイルに記述されている事前設定値に変更する場合は、次のように入力します。<div><div><pre><code>chdev -l tok0 -f changattr</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>tok0 changed</code></pre></div><div></div></div></li>
+
+<li>使用状態にある <code>scsi0</code> SCSI アダプター (この SCSI アダプター
+は、このアダプターに接続された使用状態にあるディスク・ドライブが存在するため
+に、使用不可に変更できない) の SCSI ID を変更する
+場合は、次のように入力します。<div><div><pre><code>chdev  -l scsi0 -a id=6 -P</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>scsi0 changed</code></pre></div><div></div></div>アダプターへの変更を適用するには、システムをシャットダウンし、再始動します。</li>
+
+<li>定義済み <code>tty11</code> tty デバイスを <code>sa5</code> シリアル・アダプター上のポート 0 に移動する
+場合は、次のように入力します。<div><div><pre><code>chdev  -l tty11  -p sa5  -w 0</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>tty11 changed</code></pre></div><div></div></div></li>
+
+<li>各ユーザーごとに許可されるプロセスの最大数を 100 に変更する場合は、次のように
+入力します。<div><div><pre><code>chdev -l sys0 -a maxuproc=100</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>sys0 changed</code></pre></div><div></div></div></li>
+
+<li><code>alias4=10.3.4.3</code> オブジェクト・データ・マネージャー (ODM) エントリーを <code>en2</code> 標準イーサネット・ネットワーク・インターフェースから削除する場合は、次のように入力します。<div><div><pre><code>chdev -l en2 -a delalias4=10.3.4.3</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>en2 changed</code></pre></div><div></div></div></li>
+
+<li><code>alias6=fe80::20b4:40ff:fe00:f016/64</code> ODM エントリーを <code>en3</code> 標準イーサネット・ネットワーク・インターフェースから削除する場合は、次のように入力します。<div><div><pre><code>chdev -l en3 -a delalias6=fe80::20b4:40ff:fe00:f016/64</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>en3 changed</code></pre></div><div></div></div></li>
+
+<li>FC アダプター用に動的トラッキングを使用可能にするには、次のコマンドを入力します。<div><div><pre><code>chdev -l fscsix -a dyntrk=yes</code></pre></div><div></div></div></li>
+
+<li>FC アダプター用に <code>fast_fail</code> を使用可能にするには、次のコマンドを入力します。<div><div><pre><code>chdev -l fscsix -a fc_err_recov=fast_fail</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/chdev</strong></td>
+
+<td>コマンド・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

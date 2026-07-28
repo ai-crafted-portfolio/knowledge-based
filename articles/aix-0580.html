@@ -1,0 +1,42 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>GSS 操作のためのカーネル要求を処理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>/usr/sbin/gssd </span></span></p>
+</section>
+
+<section><h2>説明</h2> <p>Kerberos 5 などのいくつかの NFS セキュリティー・メソッドが、General Security
+Services (GSS) と呼ばれる、より一般的なメカニズムのもとに提供されています。 <span>AIX</span>では、GSSサービスは<span>IBM</span>Network Authentication Service（NAS）ファイルセット内のライブラリによって提供される。 NAS は拡張パックで出荷されます。 <span><span>gssd</span></span> デーモンは、これらの GSS サービスを NFS サーバー・カーネル・コードで使用できるようにします。 <span><span>gssd</span></span> デーモンが実行されていない場合、 Kerberos 5 などの GSS セキュリティー方式を使用して NFS 経由でファイルにアクセスする試みは失敗します。 <span><span>gssd</span></span> デーモンは、RPC プログラム番号 400234 を使用して登録します。</p>
+ <div><span><span>gssd</span></span> デーモンは、以下のシステム・リソース・コントローラー (SRC) コマンドを使用して開始および停止されます。<div><div><pre><code>startsrc -s gssd  
+stopsrc -s gssd</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/etc/nfs/hostkey</span></span></td>
+
+<td><span><span>keytab</span></span> ファイルの場所とホスト・プリンシパルを以下の形式で指定します。<div><div><pre><code>path to keytab file 
+host principal</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span><span>/etc/nfs/princmap</span></span></td>
+
+<td>以下のフォーマットでホスト・プリンシパルへのマッピングを指定します。<div><div><pre><code>principal1 alias1 alias2 alias3 
+principal2 alias1</code></pre></div><div></div></div>別名は、IP アドレスまたはホスト名とすることができます。
+プリンシパルは、Kerberos が保持しているホスト・キーと一致する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

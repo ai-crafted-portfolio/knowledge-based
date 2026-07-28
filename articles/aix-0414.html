@@ -1,0 +1,149 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ノードまたはデバイスを並行して ping します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ひたすら</strong> [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45841" target="_blank" rel="noopener noreferrer">-h</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45952" target="_blank" rel="noopener noreferrer">-v</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45779" target="_blank" rel="noopener noreferrer"> -a</a> </strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45934" target="_blank" rel="noopener noreferrer">-s</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45943" target="_blank" rel="noopener noreferrer">-S</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45921" target="_blank" rel="noopener noreferrer">-r</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45877" target="_blank" rel="noopener noreferrer">-i </a></strong><em>インターフェイス］</em> [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45958" target="_blank" rel="noopener noreferrer">-w</a></strong> "<strong> セレクトストール</strong>"] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45847" target="_blank" rel="noopener noreferrer">-H</a></strong> <em>ホストリスト</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45829" target="_blank" rel="noopener noreferrer">-f </a></strong><em>ファイル名</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45913" target="_blank" rel="noopener noreferrer">-N</a></strong> <em>ノードグループ...</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45811" target="_blank" rel="noopener noreferrer">-d</a></strong> <em>デバイス名...</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45820" target="_blank" rel="noopener noreferrer">-D</a> </strong> <em>デバイスグループ</em>] [[<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dping.html#dping__row-d3e45895" target="_blank" rel="noopener noreferrer">-n</a></strong>] <em>ノードリスト</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dping</strong> コマンドは、指定されたサーバーを ping します。 このコマンドは、ノード状況を取得するため、または Rational® Method Composer (RMC) とそのハートビートに問題があると考えられる場合に使用できます。 <strong>dping</strong> コマンドは、ノードまたはデバイスを並行して ping するのに使用されます。<strong>- Ping</strong> ノードは、シリーズの 2 つおきのノード・インターフェースに ping を実行します。 例えば、<strong>eth1</strong> または <strong>mryi0</strong> および <strong>- Direct</strong> ノードは、他のノードに ping を実行します。</p>
+</section>
+
+<section><h2>キーワード</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>すべてのノードを ping することを指定します。 このフラグは、<strong>-n</strong>、<strong>-N</strong>、<strong>-f</strong>、<strong>-d</strong>、<strong>-H</strong>、または <strong>-w</strong> フラグと組み合わせることはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>複数のノードからの同一の出力を省略して、出力を 1 回表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>デバイス名 ...</em></td>
+
+<td>ping する 1 つ以上のデバイスをコンマで区切って指定します。 アスタリスク文字 (*) は、すべてのデバイスを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong> <em>デバイス・グループ ...</em></td>
+
+<td>ping する 1 つ以上のデバイス・グループをコンマで区切って指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>ファイル名</em></td>
+
+<td>ノードのリストを含むファイルを指定します。 指定されたファイル名がダッシュ文字 (<strong>-</strong>) である場合、標準入力からリストが読み取られます。 ファイルには複数の行を含めることができ、各行にコンマまたはスペースで区切られた 1 つ以上のノードのホスト名またはノード範囲をリストすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong> <em>ホストリスト</em></td>
+
+<td>ping するホスト名をコンマまたはスペースで区切って指定します。 これらのホスト名は、定義済みの NIM ノードであってはなりません。 スペースで区切られたホスト名は、二重引用符で囲んで指定する必要があります。 <strong>-H</strong> フラグは、<strong>-n</strong>、<strong>-N</strong>、<strong>-f</strong>、<strong>-d</strong>、<strong>-w</strong>、または <strong>-a</strong> フラグと一緒に指定することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>インターフェース ..</em></td>
+
+<td>指定されたノードごとに、ping する 1 つ以上のネットワーク・インターフェースをコンマで区切って指定します。 このフラグは、<em>nodename-interface.domain</em> がノード上のそのネットワーク・アダプターの IP アドレスに解決されることを想定します。 <strong>dping</strong> を実行する前に、ホスト名の解決をセットアップしておく必要があります。 いずれかのホスト名が空ストリングである場合 (例えば、<strong>"eth1,eth2"</strong>)、このフラグは 1 次ホスト名も ping します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>ノード・リスト</em></td>
+
+<td>ping する 1 つ以上のノードのホスト名またはノード範囲をコンマまたはスペースで区切って指定します。 このフラグは、<strong>-N</strong> および <strong>-f</strong> と同時に使用できます。 ホスト名の値が指定される最後の引数である場合、<strong>-n</strong> を使用せずに指定できます。 ノード範囲について詳しくは、noderange ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N </strong><em>nodegroup ..</em></td>
+
+<td>コマンドを実行する 1 つ以上のノード・グループをコンマで区切って指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>再帰的に ping します。 このフラグは、正常に ping されたノードに対して <strong>dsh</strong> コマンドを実行します。 それらのノードから、<strong>dping</strong> コマンドで指定された残りのすべてのノードが ping されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>並行ではなく順次にノードを ping します。 このフラグは、<strong>-S</strong> フラグと同時には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>ping の結果の要約のみを表示します。 このフラグは、<strong>-S</strong> フラグと同時には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細モードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong> <em>セレクトストール</em></td>
+
+<td>選択文字列の "where" 節と一致するノードを表示します。 文字列全体を二重引用符で囲んで指定すると、属性値の文字列を単一引用符で囲んで指定することができます。 アスタリスク文字 (*) は、"where" 節が指定されなかった場合と同様にすべてのノードを示します。 <strong>-w</strong> フラグは、<strong>-n</strong>、<strong>-N</strong>、<strong>-f</strong>、<strong>-d</strong>、<strong>-H</strong>、または <strong>-a</strong> フラグと同時には指定できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、クラスター管理サーバーへの root アクセス権限が必要です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのノードを ping するには、次のように入力します。<div> <div><div><pre><code>dping -a  </code></pre></div><div></div></div>出力は以下のようになります。</div>
+ <p>node1.localdomain: ping (alive)</p>
+ <p>node2.localdomain: noping (unreachable)</p>
+ <p>node3.localdomain:
+ping (alive)</p>
+</li>
+
+<li><strong>group1</strong> <em>ノード・グループ</em> および <strong>eth1</strong> ノード・インターフェースを ping するには、次のように入力します。<div> <div><div><pre><code>dping -N group1 -i eth1   </code></pre></div><div></div></div>出力は以下のようになります。</div>
+ <p>node1-eth1.localdomain: ping (alive)</p>
+ <p>node2-eth1.localdomain: noping (unreachable)</p>
+   </li>
+
+<li>ホスト名 <strong>node1-eth2.clusters.com</strong> を ping するには、次のように入力します。<div> <div><div><pre><code>dping -i eth2 node1.clusters.com   </code></pre></div><div></div></div>出力は以下のようになります。</div>終了状況 0 (コマンドは正常に完了しました。) <strong>1 </strong>コマンドが失敗しました。 <strong>10</strong> (ノードまたはデバイスが指定されませんでした。)</li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,95 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>ローカルで定義されている特定の EFS ユーザー鍵ストアまたはグループ鍵ストアを ldif フォーマットで <strong>stdout</strong> に出力します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>efskstoldif <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskstoldif.html#efskstoldif__efskstoldif_d" target="_blank" rel="noopener noreferrer">-d</a></strong><em>baseDN</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskstoldif.html#efskstoldif__efskstoldif_u" target="_blank" rel="noopener noreferrer"><strong> [-u</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/efskstoldif.html#efskstoldif__efskstoldif_g" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ]{ALL | <em>名前</em><em> [名前</em> ]...}</p>
+</section>
+<section><h2>説明</h2> <p><strong>efskstoldif</strong> コマンドは、ローカルで定義されている EFS ユーザー鍵ストアまたはグループ鍵ストアのファイルからデータを読み取り、その結果を ldif フォーマットで <strong>stdout</strong> に出力します。 ファイルにリダイレクトする場合は、<strong>-b</strong> フラグを指定した <strong>ldapadd</strong> コマンドまたは <strong>ldif2db</strong> コマンドを使用して結果を LDAP サーバーに追加できます。</p>
+ <p><strong>efskstoldif</strong> コマンドは、 <strong>/etc/security/ldap/sectoldif.cfg</strong> ファイルを読み取って、データのエクスポート先となるユーザー、グループ、および Cookie サブツリーの名前を決定します。 <strong>efskstoldif</strong> コマンドは、ファイルに定義された USERKEYSTORE、GROUPKEYSTORE、EFSCOOKIES、および ADMINKEYSTORE タイプにのみデータをエクスポートします。 このファイルで指定される名前は、<strong>–d</strong> フラグで指定される基本識別名 (DN) の下にサブツリーを作成するために使用されます。 詳しくは、 AIX® バージョン 6.1 TL 4 の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/sectoldif.cfg.html" target="_blank" rel="noopener noreferrer">/etc/security/ldap/sectoldif.cfg</a> ファイルを参照してください。</p>
+ <p>LDIF 出力生成では、ユーザーまたはグループの <strong>efs_keystore_access</strong> 属性または <strong>efs_adminks_access</strong> 属性は参照されません。 値が「file」または「ldap」のいずれでも、LDIF フォーマットが生成されます。 ユーザー鍵ストアまたはグループ鍵ストアのいずれでも、ldif フォーマットが生成されます。これらの鍵ストアの Cookie がある場合は、それらに対しても ldif 生成が行われます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> ファイルに Cookie が存在する場合は、LDIF の生成も行われます。 システム管理者は、必要に応じて LDAP とファイル上の鍵ストア・エントリーに整合性があるかどうかを確認する必要があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-d</strong> <em> baseDN</em></td>
+<td>EFS 鍵ストアのデータを配置するための基本識別名 (DN) を指定します。</td>
+</tr>
+<tr><td><strong>-g ALL</strong><em>名前 ...</em></td>
+<td>次の引数で指定されるグループに対して出力を生成するようにコマンドに指示します。<dl><dt>すべて</dt>
+<dd>すべてのグループに対して出力を生成するように指定します。</dd>
+
+<dt>名前</dt>
+<dd>単一のグループ名またはブランクで区切ったグループ名のリストを指定します。</dd>
+</dl>
+</td>
+</tr>
+<tr><td><strong>-u ALL</strong><em>名前 ...</em></td>
+<td>次の引数で指定されるユーザーに対して出力を生成するようにコマンドに指示します。<dl><dt>すべて</dt>
+<dd>すべてのユーザーに対して出力を生成するように指定します。</dd>
+
+<dt>名前</dt>
+<dd>単一のユーザー名またはブランクで区切ったユーザー名のリストを指定します。</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>0</strong></td>
+<td>正常終了。</td>
+
+</tr>
+<tr><td><strong>&gt;0</strong></td>
+<td>エラーが発生しました。</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、root ユーザーのみに実行 (x) アクセス権限を与えます。</p>
+ <p><strong>RBAC ユーザーへの注意:</strong> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「 <em>セキュリティー</em>」の「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンド・データベース</a> 」を参照してください。 特権のリストおよびこのコマンドに関連する権限については、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドを参照してください。</p>
+</section>
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td>/etc/security/user</td>
+<td>ユーザー鍵ストアの作成と管理のための EFS 属性が入っています。</td>
+</tr>
+<tr><td>/etc/security/group</td>
+
+<td>ユーザー鍵ストアの作成と管理のための EFS 属性が入っています。</td>
+</tr>
+<tr><td>/var/efs</td>
+<td>すべての鍵ストアが入っています。</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>例</h2> <ol><li>すべてのユーザー鍵ストアおよびグループ鍵ストアの内容を cn=aixdata の基本 DN を使用して ldif フォーマットにエクスポートするには、次のコマンドを入力します。<div><div><pre><code>efskstoldif –d cn=aixdata</code></pre></div><div></div></div></li>
+<li>すべてのユーザー鍵ストアの内容を cn=aixdata の基本 DN を使用して ldif フォーマットにエクスポートするには、次のコマンドを入力します。<div><div><pre><code>efskstoldif –d cn=aixdata –u ALL</code></pre></div><div></div></div></li>
+<li>すべてのグループ鍵ストアの内容を cn=aixdata の基本 DN を使用して ldif フォーマットにエクスポートするには、次のコマンドを入力します。<div><div><pre><code>efskstoldif –d cn=aixdata –g ALL</code></pre></div><div></div></div></li>
+<li>選択したユーザー鍵ストアのみの内容を cn=aixdata の基本 DN を使用して ldif フォーマットにエクスポートするには、次のコマンドを入力します。<div><div><pre><code>efskstoldif –d cn=aixdata –u davis smith</code></pre></div><div></div></div>	</li>
+<li>選択したグループ鍵ストアのみの内容を cn=aixdata の基本 DN を使用して ldif フォーマットにエクスポートするには、次のコマンドを入力します。<div><div><pre><code>efskstoldif –d cn=aixdata –g finance managers</code></pre></div><div></div></div>	</li>
+</ol>
+</section>
+</div></div>

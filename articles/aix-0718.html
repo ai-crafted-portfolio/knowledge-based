@@ -1,0 +1,491 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ライブ・ダンプを開始します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>livedumpstart</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflage" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagh" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagp" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>pseudo-component</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagq" target="_blank" rel="noopener noreferrer"><span><span>-q</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagr" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagu" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagc" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> <span><span>component_path</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagl" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> <span><span>logical_alias</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagt" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <span><span>type</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflaguc" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>component_path</span></span> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagul" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span></a> <em>logical_alias</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/livedumpstart.html#livedumpstart__livedflagut" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>type</span></span> ] <em>attribute</em> [...]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>livedumpstart</span></span> コマンドは、ライブ・ダンプを開始するために使用します。 ダンプには 1 つ以上のコンポーネントを組み込むことができます。 直列化されたダンプのみが使用されます。 ダンプを 1 つのパスに限定することができます。 獲得されたデータはファイルシステムにダンプされ、ダンプはディレクトリーに入れられます。 ダンプを通知ダンプまたは重要ダンプとして指定することができます。</p>
+ <p>コンポーネントは、指定した順序でダンプされます。 <span><span>-C</span></span>、 <span><span>-L</span></span>、または <span><span>-T</span></span> のいずれかのフラグを使用して、障害のあるコンポーネントを指定します。 疑似コンポーネントの名前を指定することはできません。</p>
+ <p>データは、そのコンポーネントに対して設定した詳細レベルでダンプされます。システム・ダンプおよびライブ・ダンプの管理について詳しくは、 <span><span>dumpctrl</span></span> コマンドを参照してください。</p>
+ <p><span><span>-q</span></span> フラグを指定しないと、 <span><span>livedumpstart</span></span> コマンドはダンプの名前を含むメッセージを表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th colspan="3"><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-c</span></span> <span><span>[+] component_path [+] [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>コンポーネントのパス名別にコンポーネントを指定します。 <span><span>-c</span></span> フラグは複数回指定できます。</p>
+ <p>コンポーネント名の前に正符号 (+) を付けた場合は、当該コンポーネントおよびその祖先コンポーネントのデータがダンプされます。 コンポーネント名の後に正符号 (+) を付けた場合は、当該コンポーネントおよびその子孫コンポーネントのデータがダンプされます。</p>
+ <p>複数のパラメーターをコンポーネントに渡すことができます。 コンポーネント名の後にオプションの "+" <span><span>:parameter_list</span></span> を指定してください。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーターから構成されます。 このリストは、ブランクで区切ってグループ分けすることもできます。 コンポーネントおよびその祖先または子孫のコンポーネントが指定された場合には、パラメーターは当該コンポーネントにのみ渡され、祖先または子孫のコンポーネントには渡されません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-C</span></span> <span><span>[+] component_path [+] [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>コンポーネントのパス名別に障害のあるコンポーネントを指定します。 障害のあるコンポーネントは 1 つだけ指定できます。 したがって、 <span><span>-C</span></span>、 <span><span>-L</span></span>、および <span><span>-T</span></span> フラグのうち 1 つのみが許可され、そのコンポーネント指定は単一のコンポーネントを参照する必要があります。 <strong>-C basecomp+</strong> が指定され、かつ <strong>basecomp
+</strong> がライブ・ダンプを認識していない場合は、ライブ・ダンプを認識できるのは <strong>basecomp</strong> およびその子孫コンポーネントのうちの 1 つのコンポーネントに限られます。</p>
+ <div>しかし、<strong>basecomp</strong> がライブ・ダンプを認識している場合には、<strong>basecomp</strong> は障害のあるコンポーネントであり、複数のライブ・ダンプ認識の子孫コンポーネントがある可能性があります。<div><div>
+        <div>
+          <div><span>ヒント:</span> これらの規則は、コンポーネントとその祖先にも適用されます。</div>
+        </div>
+      </div></div>
+</div>
+ <p>コンポーネントの前に正符号 (+) を付けた場合は、当該コンポーネントとその祖先コンポーネントがダンプされます。 コンポーネントの後に正符号 (+) を付けた場合は、当該コンポーネントとその子孫コンポーネントがダンプされます。</p>
+ <p>パラメーターがコンポーネントに渡される場合は、コンポーネントとオプションの "+" の後に <span><span>:parameter_list</span></span> が付きます。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーター、またはブランクで区切られた keyword=parm_list ペアから構成されます。 詳細については、コマンド・ラインからのパラメーターの指定に関するセクションを参照してください。 コンポーネントおよびその祖先または子孫 (あるいはその両方) のコンポーネントが指定された場合には、パラメーターは当該コンポーネントにのみ渡され、祖先または子孫のコンポーネントには渡されないことに注意してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-e</span></span></td>
+
+<td colspan="3">指定されたコンポーネントまたは疑似コンポーネントが含まれているダンプのサイズの見積もりを表示します。<p>このフラグを使用すると、ダンプを開始することなくダンプのサイズの見積もりが得られます。 正確な見積もりを得るためには、ダンプに使用するのと同じコンポーネント、パラメーター、および明細レベルを使用してください。 見積もりには、圧縮係数が取り入れられます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td colspan="3">ヘルプ・テキストを表示します。 <span><span>-h</span></span> フラグを他のコンポーネントまたは疑似コンポーネントと一緒に指定すると、それらのコンポーネントのヘルプ・テキストが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span> <span><span>[+] logical_alias [+] [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>コンポーネントの論理別名別にコンポーネントを指定します。 複数の <span><span>-c</span></span>、 <span><span>-l</span></span>、および <span><span>-t</span></span> フラグを指定できます。</p>
+ <p>論理別名の前に正符号 (+) を付けた場合は、当該別名とその祖先別名がダンプされます。 論理別名の後に正符号 (+) を付けた場合は、当該別名とその子孫別名がダンプされます。</p>
+ <p>パラメーターがコンポーネントに渡される場合は、コンポーネントとオプションの "+" の後に <span><span>:parameter_list</span></span> が付きます。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーター、またはブランクで区切られた keyword=parm_list ペアから構成されます。 詳細については、コマンド・ラインからのパラメーターの指定に関するセクションを参照してください。 コンポーネントおよびその祖先または子孫 (あるいはその両方) のコンポーネントが指定された場合には、パラメーターは当該コンポーネントにのみ渡され、祖先または子孫のコンポーネントには渡されないことに注意してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-L</span></span> <span><span>[+] logical_alias [+] [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>コンポーネントの論理別名別に障害のあるコンポーネントを指定します。 障害のあるコンポーネントは 1 つだけ指定できます。 したがって、 <span><span>-C</span></span>、 <span><span>-L</span></span>、および <span><span>-T</span></span> フラグのうち 1 つのみが許可され、そのコンポーネント指定は単一のコンポーネントを参照する必要があります。 <strong>-L basecomp+</strong> が指定され、かつ <strong>basecomp
+</strong> がライブ・ダンプを認識していない場合は、ライブ・ダンプを認識できるのは <strong>basecomp</strong> およびその子孫コンポーネントのうちの 1 つのコンポーネントに限られます。</p>
+ <div>しかし、<strong>basecomp</strong> がライブ・ダンプを認識している場合には、<strong>basecomp</strong> は障害のあるコンポーネントであり、複数のライブ・ダンプ認識の子孫コンポーネントがある可能性があります。<div><div>
+        <div>
+          <div><span>ヒント:</span> これらの規則は、コンポーネントとその祖先にも適用されます。</div>
+        </div>
+      </div></div>
+</div>
+ <p>論理別名の前に正符号 (+) を付けた場合は、当該別名とその祖先別名がダンプされます。 論理別名の後に正符号 (+) を付けた場合は、当該別名とその子孫別名がダンプされます。</p>
+ <p>パラメーターがコンポーネントに渡される場合は、コンポーネントとオプションの "+" の後に <span><span>:parameter_list</span></span> が付きます。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーター、またはブランクで区切られた keyword=parm_list ペアから構成されます。 詳細については、コマンド・ラインからのパラメーターの指定に関するセクションを参照してください。 コンポーネントおよびその祖先または子孫 (あるいはその両方) のコンポーネントが指定された場合には、パラメーターは当該コンポーネントにのみ渡され、祖先または子孫のコンポーネントには渡されないことに注意してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td rowspan="15"><span><span>-p</span></span> <span><span>疑似コンポーネント [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>疑似コンポーネントを指定します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> 疑似コンポーネント (<span><span>-p</span></span>) は、障害のあるコンポーネントであってはなりません。</div>
+        </div>
+      </div></div>
+ <p>パラメーターが疑似コンポーネントに渡される場合は、その疑似コンポーネントの後に <span><span>:parameter_list</span></span> を付ける必要があります。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーター、またはブランクで区切られた keyword=parm_list ペアから構成されます。 詳細については、コマンド・ラインからのパラメーターの指定に関するセクションを参照してください。</p>
+ <p>次の表は、疑似コンポーネントについて説明したものです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>指定 </strong></td>
+
+<td><strong>パラメーター</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td>eaddr:hex,hex</td>
+
+<td>アドレスおよび長さ、16 進値</td>
+
+<td>カーネル有効アドレス別にメモリーをダンプします。</td>
+
+</tr>
+
+<tr>
+<td>context:addr=hex-eaddr | tid_t=hex-tid_t | cpu=dec-lcpu
+| bid=dec-bid</td>
+
+<td>hex-eaddr - コンテキスト (MST) 有効アドレス、hex-tid_t
+- カーネル・スレッド ID、dec-lcpu - 論理 cpu、dec-bid - cpu バインド ID</td>
+
+<td>カーネル・コンテキストをダンプします。 これには、軽量メモリー・トレース・データ、スタックおよびスレッドの状態情報が含まれます。</td>
+
+</tr>
+
+<tr>
+<td>tid_t:hex-tid</td>
+
+<td>16 進カーネル・スレッド ID</td>
+
+<td>カーネル・スレッド ID 別にカーネル・スレッドをダンプします。</td>
+
+</tr>
+
+<tr>
+<td>tid:dec-tid</td>
+
+<td>10 進カーネル・スレッド ID</td>
+
+<td>カーネル・スレッド ID 別にカーネル・スレッドをダンプします。この ID は 10 進数です。</td>
+
+</tr>
+
+<tr>
+<td>tslot:dec-slot</td>
+
+<td>10 進カーネル・スレッド・スロット番号</td>
+
+<td>カーネル・スレッド ID 別にカーネル・スレッドをダンプします。このスレッドは、10 進スロット番号で指定されます。</td>
+
+</tr>
+
+<tr>
+<td>pid_t:hex-pid</td>
+
+<td>16 進カーネル・プロセス ID</td>
+
+<td>プロセス ID 別にプロセスをダンプします。</td>
+
+</tr>
+
+<tr>
+<td>pid:dec-pid</td>
+
+<td>10 進プロセス ID</td>
+
+<td>プロセス ID 別にプロセスをダンプします。この ID は 10 進数です。</td>
+
+</tr>
+
+<tr>
+<td>pslot:dec-slot</td>
+
+<td>10 進プロセス・スロット番号</td>
+
+<td>プロセス ID 別にプロセスをダンプします。このプロセスは、10 進スロット番号で指定されます。</td>
+
+</tr>
+
+<tr>
+<td>errbuf</td>
+
+<td>パラメーターなし</td>
+
+<td>カーネル・エラー・ロギング・データをダンプします。</td>
+
+</tr>
+
+<tr>
+<td>mtrc:common-size, rare-size</td>
+
+<td>共通および特殊 10 進バッファー・サイズ</td>
+
+<td>軽量メモリー・トレース・データをダンプします。</td>
+
+</tr>
+
+<tr>
+<td>systrace:dec-size</td>
+
+<td>10 進バッファー・サイズ</td>
+
+<td>システム・トレース・データをダンプします。 バッファー・サイズが 0 の場合は、バッファー全体がダンプされます。</td>
+
+</tr>
+
+<tr>
+<td>comptrace:component, dec-length</td>
+
+<td>コンポーネント名およびデータの 10 進の量。 コンポーネントを別名とし、長さをゼロにして、バッファー全体をダンプすることができます。</td>
+
+<td>コンポーネント・トレース・データをダンプします。</td>
+
+</tr>
+
+<tr>
+<td>kernext:pathname</td>
+
+<td>エクステンションの絶対パス名</td>
+
+<td>このエクステンションのシンボル解決が許可されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-q</span></span></td>
+
+<td colspan="3">抑止モードを指定します。 メッセージは表示されません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td colspan="3">指定されたコンポーネントのすべてのサブコンポーネントのデータをダンプします。 このフラグを指定すると、後ろに "+" の付いたコンポーネントをすべて指定するのと同じことになります。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span> <span><span>[+] タイプ [+] [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>コンポーネントのタイプ別またはサブタイプ別にコンポーネントを指定します。 複数の <span><span>-c</span></span>、 <span><span>-l</span></span>、および <span><span>-t</span></span> フラグを指定できます。</p>
+ <p>タイプまたはサブタイプの前に正符号 (+) を付けた場合は、当該コンポーネントとその祖先コンポーネントがダンプされます。 タイプまたはサブタイプの後に正符号 (+) を付けた場合は、当該コンポーネントとその子孫コンポーネントがダンプされます。</p>
+ <p>パラメーターがコンポーネントに渡される場合は、コンポーネントとオプションの "+" の後に <span><span>:parameter_list</span></span> が付きます。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーター、またはブランクで区切られた keyword=parm_list ペアから構成されます。 詳細については、コマンド・ラインからのパラメーターの指定に関するセクションを参照してください。 コンポーネントおよびその祖先または子孫 (あるいはその両方) のコンポーネントが指定された場合には、パラメーターは当該コンポーネントにのみ渡され、祖先または子孫のコンポーネントには渡されないことに注意してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-T</span></span> <span><span>[+] タイプ [+] [:parameter_list]</span></span></td>
+
+<td colspan="3"><p>コンポーネントのタイプ別またはサブタイプ別に障害のあるコンポーネントを指定します。 障害のあるコンポーネントは 1 つだけ指定できます。 したがって、 <span><span>-C</span></span>、 <span><span>-L</span></span>、および <span><span>-T</span></span> フラグのうち 1 つのみが許可され、そのコンポーネント指定は単一のコンポーネントを参照する必要があります。 <strong>-T type+</strong> が指定され、かつ <span><span>type
+</span></span> がライブ・ダンプを認識していない場合は、ライブ・ダンプを認識できるのは <span><span>type</span></span> およびその子孫コンポーネントのうちの 1 つのコンポーネントに限られます。</p>
+ <div>しかし、タイプ <span><span>type</span></span> のコンポーネントがライブ・ダンプを認識している場合には、このコンポーネントは障害のあるコンポーネントであり、複数のライブ・ダンプ認識の子孫コンポーネントがある可能性があります。<div><div>
+        <div>
+          <div><span>ヒント:</span> これらの規則は、コンポーネントとその祖先にも適用されます。</div>
+        </div>
+      </div></div>
+</div>
+ <p>タイプまたはサブタイプの前に正符号 (+) を付けた場合は、当該コンポーネントとその祖先コンポーネントがダンプされます。 タイプの後に正符号 (+) を付けた場合は、当該コンポーネントとその子孫コンポーネントがダンプされます。</p>
+ <p>パラメーターがコンポーネントに渡される場合は、コンポーネントとオプションの "+" の後に <span><span>:parameter_list</span></span> が付きます。 <span><span>parameter_list</span></span> は、コンマで区切られた複数のパラメーター、またはブランクで区切られた keyword=parm_list ペアから構成されます。 詳細については、コマンド・ラインからのパラメーターの指定に関するセクションを参照してください。 コンポーネントおよびその祖先または子孫 (あるいはその両方) のコンポーネントが指定された場合には、パラメーターは当該コンポーネントにのみ渡され、祖先または子孫のコンポーネントには渡されないことに注意してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span></td>
+
+<td colspan="3">コンポーネントの階層において、指定したコンポーネントより上位のコンポーネントのデータをダンプします。 これは、前に "+" の付いたコンポーネントをすべて指定するのと同じことになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>コンポーネント名および別名を指定する際に、ワイルドカードを使用することができます。 指定するいずれのパラメーターも、合致するすべてのコンポーネントに渡されることを覚えておいてください。 <strong>all</strong> またはアスタリスク (*) を使用することはできません。</p>
+ <div><div>
+        <div>
+          <div><span>制約事項:</span> 障害のあるコンポーネントは 1 つしか指定できないため、 <strong>-C comp *</strong> は 1 つのコンポーネントにしか解決できません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>属性</h2> <div>ダンプの属性は、keyword=value ペアで指定されます。 この属性は、ダンプ・パラメーターの構成、ダンプ・ヘッダーの構成、および症状情報の編集に使用されます。 属性の変更は、<em>Attribute=Value</em> パラメーターを指定して行います。 適切な権限がある場合には、以下の必須属性を設定することができます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>symptom</strong>=<em>ストリング </em></td>
+
+<td>ダンプをさらに限定するために必要な症状ストリング詳細を指定します。 この文字列の最大長は 2047 文字です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>適切な権限がある場合には、以下のオプションのグループ属性を設定することができます。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>errcode</strong>=<em>コード</em></td>
+
+<td>症状ストリングにエラー・コードを指定します。 0x で始まる場合は値は 16 進数、0 で始まる場合は値は 8 進数です。それ以外の場合は 10 進数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>force=yes|no。</strong></td>
+
+<td>「yes」の場合は、重複検査を指定変更し、前のダンプと重複するかどうかに関係なく、データをダンプします。 デフォルトは「<strong>yes</strong>」です。これは、コマンド・ラインから実行されるいずれのダンプも、重複として扱われることはないためです。</td>
+
+</tr>
+
+<tr>
+<td><strong>LOG=Yes|No </strong></td>
+
+<td>ダンプの完了時にログ・エントリーを書き込むかどうかを指定します。 「<strong>yes</strong>」を指定した場合は、メッセージがエラー・ログに書き込まれます。 デフォルトは <strong>yes</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>NOForce</strong></td>
+
+<td>ソフトウェアによって開始されたライブ・ダンプ用です。 その日に開始された前回のダンプと重複している場合に、このダンプを開始するかどうかを指定します。 <strong>noforce</strong> 属性を指定すると、ダンプの重複がなくなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>nolog</strong></td>
+
+<td>ダンプの完了時にメッセージをエラー・ログに書き込むかどうかを指定します。 この属性を指定しない場合は、ダンプの完了およびエラーはログに記録されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>prefix</strong>=<em>接頭部</em></td>
+
+<td>ファイル名の接頭部を指定します。 この名前は 63 文字を超えることはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>priority</strong>=<em>優先順位</em></td>
+
+<td>ダンプの優先順位を指定します。 <strong>info</strong> または <strong>critical</strong>を指定できます。 デフォルトは <strong>critical</strong>です。 値 <strong>info</strong> を指定した場合は、ダンプが通知目的であることを示し、<strong>critical</strong> を指定した場合は、ダンプが問題のデバッグに必要であることを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>title</strong>=<em>ストリング </em></td>
+
+<td>オプションのダンプ・タイトルを指定します。最大 127 文字を指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>type</strong>=<em>タイプ </em></td>
+
+<td>システムをフリーズさせずにデータを収集するかどうかを指定します。<dl>
+<dt>serialized|ser</dt>
+
+<dd>ダンプ・データは、システムのフリーズ時に収集されます。 すべてのデータをダンプするには、複数回のフリーズを使用する必要が生じる場合があります。 これはデフォルトです。</dd>
+
+
+<dt>unserialized|unser</dt>
+
+<dd>データはシステムをフリーズさせずに収集されます。 すべてのデータをダンプするには、複数回のフリーズを使用する必要が生じる場合があります。 <strong>unserialized</strong> を指定した場合は、システムはデータの収集時にフリーズしません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>onepass (onepass)</strong></td>
+
+<td>すべてのデータが 1 つのパスのもとで収集されます。 すべてのデータが使用可能メモリーに収まらない場合は、ダンプは切り捨てられます。 必要な場合は、デフォルトではマルチパスを使用できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0 (ゼロ)</strong></td>
+
+<td><span><span>livedumpstart</span></span> コマンドは正常に完了し、ダンプの名前を含むメッセージを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>nonzero</strong></td>
+
+<td><span><span>livedumpstart</span></span> コマンドは失敗し、エラー・メッセージを生成します。 このコマンドは、次の条件のもとで失敗します。<ul>
+<li>1 つ以上のパラメーターが無効である。</li>
+
+<li>1 つ以上のコンポーネントが無効である。</li>
+
+<li>コンポーネントの中に、ライブ・ダンプ用に指定できるものがない。</li>
+
+<li>コンポーネントが、ライブ・ダンプの中からライブ・ダンプを取ろうとした。</li>
+
+<li>ライブ・ダンプが使用不可である。</li>
+
+<li>ダンプが既に存在している。 これは、<strong>force=no</strong> 属性を指定したときに起こる可能性があります。</li>
+
+<li>メモリーが不足している。</li>
+
+<li>この単一パス・ダンプでは、すべてのデータをバッファーに入れることはできない。</li>
+
+<li>プロセッサーが使用不可である時間が長すぎるため、このダンプは切り捨てられる。</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>root ユーザーのみがこのコマンドを実行できます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>デバイス <code>ent0</code>、およびコンポーネントの階層でこのデバイスより上位のコンポーネントのデータをダンプするには、次のコマンドを入力します。<div><div><pre><code>livedumpstart -L +ent0 symptom=foo</code></pre></div><div></div></div>障害のあるコンポーネントは <code>ent0</code> です。 これにより、<code>ent0.yymmddhhmm.00.DZ</code> という名前のダンプが作成されます。 これは直列化された重要ダンプです。<div><div>
+        <div>
+          <div><span>ヒント:</span> 障害のあるコンポーネントを指定する規則に従って、 <code>ent0</code> がライブ・ダンプを認識しないが、複数の祖先が認識する場合、このコマンドは失敗します。 <code>ent0</code> がライブ・ダンプを認識しておらず、祖先コンポーネントが 1 つだけある場合は、この祖先コンポーネントが障害のあるコンポーネントとして使用されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>プロセス <code>856</code> および <code>10272</code> のプロセス管理データの情報ダンプを作成するには、次のコマンドを入力します。<div><div><pre><code>livedumpstart -p pid:856 -p pid:10272 \
+              info prefix=mydump title="process dump" symptom="foo"
+</code></pre></div><div></div></div>ダンプの名前は <code>mydump.nocomp.yymmddhhmm.00.DZ</code> となります。 障害のあるコンポーネントを入れないようにしてください。<p></p>
+</li>
+
+<li>直列化されたワンパス・ダンプ (ここで、<code>foo</code> は障害のあるコンポーネント) を作成するには、次のコマンドを入力します。<div><div><pre><code>livedumpstart -C foo+:block=45ab8 -pcontext:tid_t=57B29 onepass symptom=bar
+</code></pre></div><div></div></div>このコマンドは <code>foo</code>、その子孫コンポーネント、およびカーネル・スレッド <code>57B29</code> のコンテキストをダンプします。 ダンプの名前は <code>foo.yymmddhhmm.00.DZ</code> となります。<p></p>
+</li>
+
+<li>サブシステムには、別名 <code>subsyst</code> をもつ親コンポーネントがあります。 また、ライブ・ダンプを認識するコンポーネントが 1 つだけあります。 このサブシステムの直列化ライブ・ダンプを作成するには、次のコマンドを使用することができます。<div><div><pre><code>livedumpstart -L subsyst+ title="Dump of subsystem subsyst" symptom=foo</code></pre></div><div></div></div> <p></p>
+</li>
+
+<li>プロセス <code>1234</code> が 0x45928 で始まる 0x400 バイトと一緒にダンプされるように指定するには、次のコマンドを入力します。<div><div><pre><code>livedumpstart -p tid:1234 -p eadder:45928,400 symptom=foo
+</code></pre></div><div></div></div>この例では、障害のあるコンポーネントは含まれていません。</li>
+
+</ol>
+</section>
+
+</div></div>

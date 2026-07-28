@@ -1,0 +1,464 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>NFS 外部 ID マッピングを変更します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>ユーザーおよびグループ関連外部 ID マッピングの場合</strong></p>
+ <p><span><span>chnfsim</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99388" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99451" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99470" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99511" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99493" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99433" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99445" target="_blank" rel="noopener noreferrer"><span><span>-i</span></span></a><span><span> アイデンティティ］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99458" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a><span><span> 名前 </span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99415" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a><span><span> ドメイン］</span></span></p>
+<p><strong>レルム・ドメイン間マッピングの場合</strong></p>
+ <p><span><span>chnfsim</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99388" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99451" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99511" target="_blank" rel="noopener noreferrer"><span>-x</span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99464" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a><span><span> レルム </span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99415" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a><span><span> ドメイン］</span></span></p>
+<p><strong>EIM を使用するためにシステムを構成する場合</strong></p>
+ <p><span><span>chnfsim</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99403" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99388" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99451" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99511" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99476" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <em>タイプ</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99439" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> <span><span>ホスト名</span></span>[:<span><span>ポート</span></span>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99421" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a> <span><span>EIM ドメイン</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99427" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> <span><span>EIM 接尾部</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99394" target="_blank" rel="noopener noreferrer"><span><span>-b</span></span></a> <span><span>管理 DN</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99499" target="_blank" rel="noopener noreferrer"><span><span>-w</span></span></a> <span><span>管理者パスワード</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99505" target="_blank" rel="noopener noreferrer"><span><span>-W</span></span></a> <span><span>アクセス・パスワード</span></span> ]</p>
+<p><strong>システムから EIM 構成を除去する場合</strong></p>
+ <p><span><span>chnfsim</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chnfsim.html#chnfsim__row-d3e99409" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>chnfsim</span></span> コマンドは、LDAP サーバーの EIM (エンタープライズ識別マッピング) 層を使用して、 NFS 外部 ID マッピングを管理します。 このコマンドを使用するには、 <span><span>bos.eim.rte</span></span> および <span><span>ldap.client</span></span> ファイルセットがインストールされている必要があります。 さらに、マシンを EIM LDAP サーバーにする場合は、 <span><span>ldap.server</span></span> ファイルセットもインストールする必要があります。</p>
+ <p>システム上の ID マッピングを変更したら、その後で <strong>nfsrgyd -f</strong> コマンドを実行して、システムの ID キャッシュをフラッシュしてください。</p>
+ <p>他の機能を使用する前に、まず、 <span><span>-c</span></span> フラグおよび <strong>-a</strong> フラグを使用して EIM を使用するようにシステムを構成する必要があります。 すべてのマッピング・データは、EIM LDAP サーバーに保管され、そこから
+検索されることになります。</p>
+ <p><span><span>chnfsim</span></span> コマンドは、 NFSの EIM 構成を追加、リスト、および除去するために使用します。 次に、 <span><span>chnfsim</span></span> コマンドを使用して、ユーザー ID とグループ ID に対する所有者と所有者グループのストリングを追加および削除します。 このコマンドによって、ユーザーまたはグループに
+関連した ID マッピングをリストすることができ、名前またはドメインに関連したマッピング ID を検索
+できます。</p>
+ <p><span><span>chnfsim</span></span> コマンドは、 Kerberos レルムを NFS ドメイン・マッピングに追加および除去するためにも使用され、現在のレルムからドメインへのマッピングをリストすることができます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>追加操作</td>
+
+</tr>
+
+<tr>
+<td><span><span>-b</span></span></td>
+
+<td>LDAP 管理者の識別名を指定します。 デフォルト値は<code>admin</code>です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td>構成操作</td>
+
+</tr>
+
+<tr>
+<td><span><span>-C</span></span></td>
+
+<td>EIM 構成を除去します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span></td>
+
+<td>NFS V4 所有者ストリングの NFS ドメイン部分を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-e</span></span></td>
+
+<td>NFS マッピングのために使用される EIM LDAP サーバーの EIM ドメインを
+指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-f</span></span></td>
+
+<td>NFS マッピングのために使用される EIM LDAP サーバーの EIM ディレクトリー接尾部を
+指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-g</span></span></td>
+
+<td>グループ・ベースの操作を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td>NFS マッピングのために使用される EIM LDAP サーバーのホスト名とポートを
+指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-i</span></span></td>
+
+<td>マッピング ID を指定します。 これは、特定の所有者または所有者グループを記述する固有のストリングです。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>リスト操作</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span></td>
+
+<td>NFS V4 所有者ストリングの所有者または所有者グループの名前を
+指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td>Kerberos レルムを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span></td>
+
+<td>検索操作</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span></td>
+
+<td>EIM LDAP サーバーのタイプを指定します。<dl>
+<dt>p | P</dt>
+
+<dd>1 次 LDAP サーバー。</dd>
+
+
+<dt>S | S</dt>
+
+<dd>2 次 (デフォルトの) LDAP サーバー。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span></td>
+
+<td>ユーザー・ベースの操作を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-w</span></span></td>
+
+<td>EIM 管理者パスワードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-W</span></span></td>
+
+<td>EIM アクセス専用ユーザー・パスワードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-x</span></span></td>
+
+<td>除去操作</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>アクション・マトリックス</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>Operation</strong></td>
+
+<td><strong>フラグ (括弧内はオプションのフラグ)</strong></td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td>システムの現行 EIM 構成を
+表示します。<dl>
+
+<dt>-a -t -h -e -f -w (-b -W)</dt>
+
+<dd>EIM 使用のためのシステムを
+構成します。 指定された <span><span>hostname</span></span> がローカル・システムの場合、 <span><span>-w</span></span> フラグは必須です。 <span><span>hostname</span></span> がローカル・システムでない場合は、少なくとも 1 つの <span><span>-w</span></span> または <span><span>-W</span></span> フラグを指定する必要があります。 複数の EIM LDAP レプリカ・サーバーに対して、NFS クライアントまたはサーバーを構成できます。</dd>
+
+</dl>
+ <dl>
+<dt>-l -h</dt>
+
+<dd>サーバー <em>hostname
+</em>[:<em>port</em>] の構成に関する詳しいリストを、構成ファイルから作成します。</dd>
+
+
+<dt>-x -h</dt>
+
+<dd>サーバー <em>hostname
+</em>[:<em>port</em>] の構成の詳細を、構成ファイルから削除します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td><dl>
+<dt>-u -i (-n -d)</dt>
+
+<dd>ユーザー・マッピング ID を追加します。 <span><span>-n</span></span> および <span><span>-d </span></span> フラグが指定されている場合、その ID マッピングはユーザー・マッピング ID に関連付けられます。</dd>
+
+
+<dt>-g -i (-n -d)</dt>
+
+<dd>グループ・マッピング ID を追加します。 <span><span>-n</span></span> および <span><span>-d </span></span> フラグが指定されている場合、その ID マッピングはグループ・マッピング ID に関連付けられます。</dd>
+
+
+<dt>-r -d</dt>
+
+<dd>レルム・ドメイン間マッピングを追加します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-x</span></span></td>
+
+<td><dl>
+<dt>-u -i (-n -d)</dt>
+
+<dd>ユーザー・マッピング ID を除去します。 <span><span>-n</span></span> および <span><span>-d </span></span> フラグが指定されている場合、その ID マッピングのみがユーザー・マッピング ID から除去されます。</dd>
+
+
+<dt>-g -i (-n -d)</dt>
+
+<dd>グループ・マッピング ID を除去します。 <span><span>-n</span></span> および <span><span>-d </span></span> フラグが指定されている場合、その ID マッピングのみがグループ・マッピング ID から除去されます。</dd>
+
+
+<dt>-r -d</dt>
+
+<dd>レルム・ドメイン間マッピングを除去します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>すべてのレルム・ドメイン間マッピングをリストします。<dl>
+<dt>-u -i</dt>
+
+<dd>指定されたユーザー・マッピング ID に関連したすべての ID マッピングを
+リストします。</dd>
+
+
+<dt>-g -i</dt>
+
+<dd>指定されたグループ・マッピング ID に関連したすべての ID マッピングを
+リストします。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span></td>
+
+<td><dl>
+<dt>-u -n -d</dt>
+
+<dd>指定された ID マッピングに関連したユーザー・マッピング ID を
+検索します。</dd>
+
+
+<dt>-g -n -d</dt>
+
+<dd>指定された ID マッピングに関連したグループ・マッピング ID を
+検索します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-C</span></span></td>
+
+<td><p>すべての EIM LDAP サーバー・エントリーを、構成ファイルから除去します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>要求は正常に行われました。</dd>
+
+
+<dt>EACCES</dt>
+
+<dd>データへのアクセスには不十分な許可。</dd>
+
+
+<dt>ENOENT</dt>
+
+<dd>マッピング ID、名前、ドメイン、またはレルムがデータベース内で検出されなかったか、または
+構成ファイルが検出されませんでした。</dd>
+
+
+<dt>EBUSY</dt>
+
+<dd>EIM サーバーが内部オブジェクトを割り当てることができません。</dd>
+
+
+<dt>ECONVERT</dt>
+
+<dd>データ変換エラー。</dd>
+
+
+<dt>EINVAL</dt>
+
+<dd>入力パラメーターが無効でした。</dd>
+
+
+<dt>ENOMEM</dt>
+
+<dd>メモリーの割り当てができません。</dd>
+
+
+<dt>ENOTCONN</dt>
+
+<dd>LDAP 接続が行われませんでした。</dd>
+
+
+<dt>EUNKNOWN</dt>
+
+<dd>不明な例外が発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>NFS に対する現行 EIM 構成を表示するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -c</code></pre></div><div></div></div>  </li>
+
+<li>NFS 外部 ID マッピングに対して EIM を使用するようにシステムを構成するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -c -a -t P -h foos.com -e nfs -f nfseim -w mypasswd -W access_passwd</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> 指定された <span><span>hostname</span></span> がローカル・システムの場合、 <span><span>chnfsim</span></span> コマンドは、EIM を実行するための LDAP サーバーもセットアップします。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>NFS 外部 ID マッピングに対して EIM を使用するようにクライアント・システムを構成するには、
+次のコマンドを使用します。<div><div><pre><code>chnfsim -c -a -t P -h foos.com -e nfs -f nfseim -W access_passwd</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> これにより、1 次 LDAP サーバーを使用してクライアントが構成されます (読み取り専用アクセス用)。 ここで指定したホスト名は、ローカル・システムではありません。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>構成ファイルから、サーバー構成の詳しいリストを作成するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -c -l -h foos.com:1080</code></pre></div><div></div></div></li>
+
+<li>構成ファイルからサーバー構成の詳細を削除するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -c -x -h foos.com:1080</code></pre></div><div></div></div></li>
+
+<li>「John Doe」が「jdoe@com.com」であると指定するユーザー ID マッピングを追加するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -a -u -i "John Doe" -n jdoe -d com.com </code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、「John Doe」の EIM ID を作成します (まだ存在していない場合)。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>「John Doe」が「jdoe@com.com」であると指定するユーザー ID マッピングを除去するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -x -u -i "John Doe" -n jdoe -d com.com</code></pre></div><div></div></div>  </li>
+
+<li>ユーザー「John Doe」のすべての ID マッピングを除去する場合は、次のコマンドを使用します。<div><div><pre><code>chnfsim -x -u -i "John Doe"</code></pre></div><div></div></div>  </li>
+
+<li>ユーザー「John Doe」のすべての ID マッピングをリストする場合は、次のコマンドを使用します。<div><div><pre><code>chnfsim -l -u -i "John Doe"</code></pre></div><div></div></div>  </li>
+
+<li>「realm1」が「domain1」にマップすることを指定するレルム・ドメイン間マッピングを追加する
+場合は、次のコマンドを使用します。<div><div><pre><code>chnfsim -a -r realm1 -d domain1</code></pre></div><div></div></div>  </li>
+
+<li>「realm1」が「domain1」にマップすることを指定するレルム・ドメイン間マッピングを除去する
+場合は、次のコマンドを使用します。<div><div><pre><code>chnfsim -x -r realm1 -d domain1</code></pre></div><div></div></div></li>
+
+<li>すべてのレルム・ドメイン間マッピングをリストする場合は、次のコマンドを使用します。<div><div><pre><code>chnfsim -l</code></pre></div><div></div></div></li>
+
+<li>「jdoe@com.com」に関連するユーザー・マッピング ID を検索するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -s -u -n jdoe -d com.com</code></pre></div><div></div></div> </li>
+
+<li>システムからすべての EIM 構成を除去するには、次のコマンドを使用します。<div><div><pre><code>chnfsim -C</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> これによって、基礎となる LDAP データベースまたはエントリーが削除されることはありません。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/sbin/chnfsim</span></span></td>
+
+<td><span><span>chnfsim</span></span> コマンドの場所。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+</div></div>

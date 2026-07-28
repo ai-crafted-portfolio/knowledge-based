@@ -1,0 +1,136 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>クラスター管理グループを定義します。</p>
+ </section>
+
+<section><h2>構文</h2> <p>グループを定義するには、次のようにします。</p>
+ <p><span><span>ctadmingroup</span></span> <span>[<span><span>-h</span></span>]</span> [<span><span>-TV</span></span>] <span><span>グループ名</span></span></p>
+ <p>グループを除去するには、次のようにします。</p>
+ <p><span><span>ctadmingroup</span></span><span><span>-u</span></span><span> [<span><span>-h</span></span></span>] [<span><span>-TV</span></span>] <span><span>[グループ名］</span></span></p>
+ </section>
+
+<section><h2>説明</h2> <p><span><span>ctadmingroup</span></span> コマンドは、クラスター管理グループを定義するために使用します。 このコマンドはトレース・ファイルのグループ所有権を設定します。従って、クラスター管理グループに属するユーザーには、Reliable Scalable Cluster Technology (RSCT) サブシステムが作成したトレース・ファイルを調べるアクセス権があります。 <span><span>ctadmingroup</span></span> は、既存のトレース・ファイルを新しい許可およびグループ所有権に変更します。 <span><span>ctadmingroup</span></span> コマンドの実行後に作成されるトレース・ファイルには、新しい許可が含まれています。 このコマンドは、指定されたグループを作成することもしなければ、ユーザーをグループに追加することもしません。単に、このグループのユーザーにトレース・ファイルへのアクセスを与えるのみです。</p>
+ <div>以下を指定して <span><span>ctadmingroup</span></span> コマンドを実行するとします。<ul>
+<li>別のグループ名、指定された新しいグループがクラスター管理グループとなり、前のグループに置き換わります。</li>
+
+<li><span>フラグ</span>・<span>オプション</span> なし、またはパラメーターなし、クラスター管理グループのグループ名と ID を表示します。 クラスター管理グループが定義されていない場合は、このコマンドは何の出力も出しません。</li>
+
+<li><span><span>-u</span></span> <span>flag</span><span>オプション</span>。クラスター管理グループを除去します。 グループが除去された後は、そのグループに属するユーザーはトレース・ファイルを調べることができなくなる可能性があります。 クラスター管理グループが定義されていない場合は、このコマンドは何の出力も出しません。</li>
+
+</ul>
+</div>
+ <p>セキュリティー・サブシステムのトレース・ファイルのロケーションが構成可能である。 トレース・ファイルの場所を判別するために、 <span><span>ctadmingroup</span></span> コマンドは、 <span><span>/var/ct/cfg/ctcasd.cfg</span></span> ファイル (存在する場合) および <span><span>/opt/rsct/cfg/ctcasd.cfg</span></span> ファイルに情報を要求します。</p>
+ </section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>グループ名</span></span></dt>
+
+<dd>クラスター管理グループの名前を指定します。 このグループは、グループ・データベース (例えば、<span><span>/etc/group</span></span>) に存在している必要があります。</dd>
+
+</dl>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-u</dt>
+
+<dd>クラスター管理グループを除去します。 グループが除去された後は、そのグループに属するユーザーはトレース・ファイルを調べることができなくなる可能性があります。 クラスター管理グループが定義されていない場合は、このコマンドは何の出力も出しません。</dd>
+
+
+<dt><span><span>-h</span></span></dt>
+
+<dd>コマンドの使用方法の文を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>標準エラーにコマンドのトレース・メッセージを書き込みます。 これはソフトウェア・サービス組織専用です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き出します。</dd>
+
+</dl>
+ </section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/etc/group</dt>
+
+<dd>グループ・データベース。</dd>
+
+
+<dt>/var/ct/cfg/ctgroups</dt>
+
+<dd>管理グループ名を格納し、対応するグループ ID をキャッシュに入れます。</dd>
+
+
+<dt>/var/ct/cfg/ctcasd.cfg</dt>
+
+<dd>クラスター・セキュリティー構成ファイルの 1 次ロケーション (セキュリティー・サブシステムのトレース・ファイルのロケーションを含む)。</dd>
+
+
+<dt>/opt/rsct/cfg/ctcasd.cfg</dt>
+
+<dd>クラスター・セキュリティー構成ファイルの 2 次ロケーション。 <span><span>/var/ct/cfg/ctcasd.cfg</span></span> ファイルが存在しない場合、 <span><span>ctadmingroup</span></span> コマンドはこのファイルから情報を要求します。</dd>
+
+</dl>
+ </section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>コマンド・ラインに指定されたグループ名がグループ・データベースにありません。</dd>
+
+
+<dt>2</dt>
+
+<dd>内部エラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定された<span>フラグ</span><span>・オプション</span>が正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたオペランドが正しくありません。</dd>
+
+</dl>
+ </section>
+
+<section><h2>セキュリティー</h2> <p><span><span>root</span></span> ユーザーのみがこのコマンドを実行できます。</p>
+ </section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> <span>flag</span><span>オプション</span> を指定すると、このコマンドの使用方法のステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+ </section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+ </section>
+
+<section><h2>制約事項</h2> <p>コマンドが実行された後、グループ名とグループ ID のマッピングが変更される場合、予期しない結果が発生します。</p>
+ </section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 Reliable Scalable Cluster Technology (RSCT) <span>AIX® のファイル・セット</span><span>Linux® のパッケージ</span>の一部です。</p>
+ </section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/ctadmingroup</dt>
+
+<dd></dd>
+
+</dl>
+ </section>
+
+<section><h2>例</h2><ol>
+<li><div>クラスター管理グループの名前と ID を表示するには、次の入力をします。<div><div><pre><code>ctadmingroup</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

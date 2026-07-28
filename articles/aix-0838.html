@@ -1,0 +1,156 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>TCP/IP 経由のNon-Volatile Memory Express（NVMe）ターゲットデータに関する情報を表示します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>lstcpnvme [ -l ProtocolDevice ] [ -g group ] [ -F format ]</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注：</span>AIX® 7.3 テクノロジーレベル 4 ( TL4 ) 以降、NVMe over TCP/IP プロトコルはテクノロジープレビューとしてのみ利用可能です。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p>この <span>lstcpnvme</span> コマンドは、Object Data Manager（ ODM ）からのNVMe over TCP/IP ターゲットデータに関する情報を表示します。 統計的に構成されたNVMe over TCP/IP のターゲットデータは、 ODM に保存されます。 AIX がNVMe over TCP/IP ターゲットのデータを検出するには、ディスカバリーコントローラのNVMe認定名（NQN）、IPアドレス、ポート番号など、関連するNVMe over TCP/IP ターゲット情報を指定する必要があります。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-F</span>  Format</td>
+
+<td>ユーザーが指定したフォーマットで出力を表示する。 カラム名の引用符付きリストで書式を指定する。 カラム名は英数字以外の文字または空白で区切られる。 区切り文字として空白を使用した場合、 <span>lstcpnvme</span> コマンドは、整列された列で出力を表示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span>Group</td>
+
+<td>TCP/IP 上のNVMeターゲットが関連付けられているグループを指定します。 「静的グループ」オプションがサポートされています。これは、このホストから自動的に検出されない、 TCP/IP 経由のNVMeターゲットデータ用です。 NVMe over TCP/IP ターゲットのデータを検出するには、検出対象のコントローラのNQN、IPアドレス、ポート番号など、関連するNVMe over TCP/IP ターゲット情報を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span>  ProtocolDevice</td>
+
+<td>NVMe over TCP/IP プロトコル対応デバイスの名前を表示します。 例えば、 <code>tcpnvmeX</code> はNVMeデバイスの名前である。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td><span>lstcpnvme</span> コマンドは正常に完了した。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td><span>lstcpnvme</span> コマンドがエラーを検出した。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p><span>lstcpnvme</span> 、rootユーザーのみが実行できる。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>tcpnvme0 デバイスのNVMe over TCP/IP ターゲットのデータ一覧を表示するには、次のコマンドを入力します：<div><div><pre><code>lstcpnvme -l tcpnvme0</code></pre></div><div></div></div><div>システムは以下の画面のような出力を表示する：<div><div><pre><code>tcpnvme0     172.20.20.12    4420       nqn.2014-08.org.nvmexpress.discovery    0xffff</code></pre></div><div></div></div></div>
+
+</li>
+
+<li>このホストのNVMe over TCP/IP ターゲットのデータを一覧表示するには、次のコマンドを入力してください：<div><div><pre><code>lstcpnvme</code></pre></div><div></div></div><div>システムは以下の画面のような出力を表示する：<div><div><pre><code>tcpnvme0     172.20.20.12    4420       nqn.2014-08.org.nvmexpress.discovery    0xffff
+tcpnvme1     172.20.20.14    4420       nqn.2014-08.org.nvmexpress.discovery    0xffff</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ロケーション</h2>
+
+<p>ファイルは <span>/usr/sbin/lstcpnvme</span> ディレクトリにある。</p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>src/bos/usr/sbin/tcpnvme</span></td>
+
+<td>この <span>src/bos/usr/sbin/tcpnvme</span> ディレクトリには、NVMe over TCP/IP コマンドが生成されるソースファイルが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+</div></div>

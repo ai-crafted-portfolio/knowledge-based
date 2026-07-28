@@ -1,0 +1,39 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>標準エラーにエラー・メッセージを書き出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>実行エラー</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>execerror</strong> コマンドは、実プログラムが正しくロードされない場合に、<strong>exec</strong> サブルーチンによって実行されます。 execerror コマンドには、実行中のファイルの名前と、ゼロ個または 1 個以上のローダー・エラー・メッセージの文字列が渡されます。 個々のローダー・エラー・メッセージの文字列には、エラー番号と、それに続くエラー・データが含まれます。</p>
+</section>
+
+<section><h2>例</h2> <p><strong>execerror</strong> コマンドは次のように使用します。</p>
+ <div> <div><div><pre><code>char *buffer[1024];
+buffer[0] = "execerror" ;
+buffer[1] = "name of program that failed to load";
+loadquery(L_GETMESSAGES, &amp;buffer[2], sizeof buffer -8);
+execvp("/usr/sbin/execerror",buffer);</code></pre></div><div></div></div></div>
+ <p>このサンプル・コードでは、アプリケーションは、メッセージが標準エラーに書き出された後に終了します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/execerror</strong></td>
+
+<td><strong>execerror</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

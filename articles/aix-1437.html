@@ -1,0 +1,741 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>PCI-X (Peripheral Component Interconnect-X) SCSI RAID コントローラーを使用および保守します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23277" target="_blank" rel="noopener noreferrer"><span><span>-A</span></span> -lhdisk# [-z <em>pdisk</em>] [-f </a>] ]</p>
+ <p><span><span>sisraidmgr</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23302" target="_blank" rel="noopener noreferrer"><span><span>-B </span></span>'-ladptr# '-bioa_opt [ '-rraid_level ]</a> ]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23367" target="_blank" rel="noopener noreferrer"><span><span>-C  </span></span>[-rraid_level-sstripe_size (in KB)-z <em>pdisk_list</em>] ]。 </a></p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23393" target="_blank" rel="noopener noreferrer"><span><span>-D </span></span> -ladptr#[-d <em>hdisk</em>|-e <em>serial_num </em>]</a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23421" target="_blank" rel="noopener noreferrer"><span><span>-F </span></span>[-z <em>pdisk_list </em>]</a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23437" target="_blank" rel="noopener noreferrer"><span><span>-H </span></span>[-z <em>pdisk_list </em>]</a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23450" target="_blank" rel="noopener noreferrer"><span><span>-I</span></span>[-z <em>pdisk_list </em>]</a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23463" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span> -ladptr# [-adisplay_opt [-vsisarray_opt-ppdisk_opt-jjbod_opt ] ] ] </a>。]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23463" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span> -lhdisk# [-adisplay_opt [-vsisarray_opt-ppdisk_opt ] ] ]</a>。]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23463" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span> -lpdisk# [-ppdisk_opt ] </a>] ]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23656" target="_blank" rel="noopener noreferrer"><span><span>-M</span></span> -ladptr#-o <em>cmd_opt</em></a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23695" target="_blank" rel="noopener noreferrer"><span><span>-P</span></span> -zdrive_list {<em>pdisks </em>|<em>hdisks</em>} </a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23727" target="_blank" rel="noopener noreferrer"><span><span>-R</span></span> -z <em>pdisk_list</em></a>]</p>
+ <p><span><span>sisraidmgr</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23740" target="_blank" rel="noopener noreferrer"><span><span>-S </span></span>-l アダプタ番号</a> ]</p>
+ <p><span><span>sisraidmgr</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23753" target="_blank" rel="noopener noreferrer"><span><span>-U </span></span>-z <em>pdisk_list</em></a> ]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23766" target="_blank" rel="noopener noreferrer"><span><span>-W </span></span>-l adptr#-o <em>cmd_opt</em></a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23805" target="_blank" rel="noopener noreferrer"><span><span>-X</span></span> -ladptr#-o <em>cmd_opt</em></a>]</p>
+ <p><span><span>sisraidmgr</span></span>[ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sisraidmgr.html#sisraidmgr__row-d3e23847" target="_blank" rel="noopener noreferrer"><span><span>-Y</span></span> -lhdisk# [-xcmd_opt ]</a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>sisraidmgr </span></span>コマンドは、PCI-X SCSI RAID コントローラー上の RAID アレイの作成、削除、および保守に使用されます。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <strong>sisraidmgr </strong>コマンドを実行する前に、「 <em>PCI-X SCSI RAID Controller Reference Guide for AIX® </em>」を参照し、ストレージ管理の概念に精通してください。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <em>System Management Interface Tool (SMIT)</em> <strong>smit pxdam</strong> 高速パスは、PCI-X SCSI RAID コントローラーを管理するための推奨方式です。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>重要:</span> サービス・タスクは特別なトレーニングを必要とし、非サービス担当員が実行してはなりません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-A</span></span></td>
+
+<td>既存のアレイにデバイスを追加します。 このオプションを使用すると、最適なパフォーマンスが得られなくなります。これは、組み込まれるデバイスにパリティーが含まれておらず、データの再ストライプが行われないからです。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アレイの論理名。</dd>
+
+
+
+<dt>--z <em>pディスク</em></dt>
+
+<dd>組み込むドライブ。</dd>
+
+
+
+<dt>-f</dt>
+
+<dd>組み込まれるディスクの数が分からない可能性がある (つまり、ディスク数が 0 の可能性がある) 状態で、組み込み操作を強制するオプション。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-B</span></span></td>
+
+<td>アダプターがサポートする内容に関する情報をリストします。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アダプターの論理名。</dd>
+
+
+
+<dt>-b ioa_support_opt</dt>
+
+<dd><dl>
+
+<dt>1</dt>
+
+<dd><strong>lname</strong> オプションに対してサポートされる RAID レベルを表示します。 これはデフォルト・オプションです。</dd>
+
+
+
+<dt>2</dt>
+
+<dd><strong>lname</strong> オプションおよび <strong>raid_level</strong> オプションに対してサポートされるストライプ・サイズを表示します。</dd>
+
+
+
+<dt>3</dt>
+
+<dd><strong>raid_level</strong> オプションの最小デバイス数を表示します。</dd>
+
+
+
+<dt>4</dt>
+
+<dd><strong>raid_level</strong> オプションの最大デバイス数を表示します。</dd>
+
+
+
+<dt>5</dt>
+
+<dd><strong>raid_level</strong> オプションのデバイス数の最小倍数を表示します。</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>-r raid_level</dt>
+
+<dd>この RAID レベルでサポートされるストライプ・サイズを表示します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-C</span></span></td>
+
+<td>RAID アレイを作成します。<dl>
+
+<dt>-r raid_level</dt>
+
+<dd>{ 0, 5, or 10 (RAID 1+0) }</dd>
+
+
+
+<dt>-s stripe_size (in KB)</dt>
+
+<dd>指定しない場合は、デフォルト (64 KB) が使用されます。</dd>
+
+
+
+<dt>--z <em>pdisk_list</em></dt>
+
+<dd>新規アレイに組み込まれる pdisk をリストします。 例えば、pdisk2、pdisk3、および pdisk4 を同じアダプターに接続する必要があることを指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-D</span></span></td>
+
+<td>RAID アレイを削除します。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アダプターの論理名。</dd>
+
+
+
+<dt>--d <em>hdisk</em></dt>
+
+<dd>削除するアレイの名前。</dd>
+
+
+
+<dt>--e <em>serial_num</em></dt>
+
+<dd>削除するアレイの通し番号。 このオプションは、アレイ名が不明な場合にのみ使用します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-F</span></span></td>
+
+<td>リカバリーのために pdisk をフォーマットします。 (フォーマット 522 バイトのフォーマット済みディスク)。<dl>
+
+<dt>--z <em>ドライブリスト</em></dt>
+
+<dd>フォーマットする pdisk のリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-H</span></span></td>
+
+<td>ホット・スペア・デバイスを追加します。<dl>
+
+<dt>-z pdisk_list</dt>
+
+<dd>ホット・スペア・デバイスにする pdisk のリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-I</span></span></td>
+
+<td>ホット・スペア・デバイスを除去します。<dl>
+
+<dt>-z pdisk_list</dt>
+
+<dd>ホット・スペア・デバイスの指定を解除する pdisk のリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-L</span></span></td>
+
+<td>拡張機能情報をリストします。<dl>
+
+<dt>-l lname</dt>
+
+<dd>情報を表示する対象のデバイス。 RAID アダプター (<em>sisioa0</em>)、RAID アレイ (<em>hdisk8</em>)、または物理ディスク (<em>pdisk5</em>) のいずれかです。</dd>
+
+
+
+<dt>-a display_opt</dt>
+
+<dd><dl>
+
+<dt>0</dt>
+
+<dd><strong>lname</strong> オプションの構成情報をすべて表示します。 これはデフォルト・オプションです。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>1</dt>
+
+<dd><strong>lname</strong> オプションの論理デバイス情報のみを表示します。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>2</dt>
+
+<dd><strong>lname</strong> オプションの物理デバイス情報のみを表示します。</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>-v sisarray_opt</dt>
+
+<dd><dl>
+
+<dt>0</dt>
+
+<dd>すべてのアレイを表示します。 これはデフォルトです。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>「<strong>Delete Array (アレイの削除)</strong>」オプションの候補であるアレイのみを表示します。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>「<strong>Rsync Protection (Rsync 保護)</strong>」オプションの候補であるアレイのみを表示します。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>追加デバイスを組み込む際の候補であるアレイのみを表示します。</dd>
+
+
+
+<dt>4</dt>
+
+<dd>アダプター情報のない ODM アレイのみを表示します。</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>-p pdisk_opt</dt>
+
+<dd><dl>
+
+<dt>0</dt>
+
+<dd>すべての pdisk を表示します。 これはデフォルトです。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>「<strong>Prepare (準備)</strong>」オプションの候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>「<strong>Start RAID (RAID の開始)</strong>」オプションの候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>「<strong>Add Hot Spare (ホット・スペアの追加)</strong>」オプションの候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>4</dt>
+
+<dd>「<strong>Remove Hot Spare (ホット・スペアの除去)</strong>」オプションの候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>5</dt>
+
+<dd>既存アレイへの追加の候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>6</dt>
+
+<dd>「<strong>Rebuild (再構築)</strong>」オプションの候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>7</dt>
+
+<dd>「<strong>Recovery Format (リカバリー・フォーマット)</strong>」オプションの候補である pdisk のみを表示します。</dd>
+
+
+
+<dt>8</dt>
+
+<dd>アダプター情報のない ODM pdisk のみを表示します。</dd>
+
+
+
+<dt>9</dt>
+
+<dd>「<strong>Unprepare (準備解除)</strong>」オプションの候補である pdisk のみを表示します (522 - 512)。</dd>
+
+
+
+<dt>10</dt>
+
+<dd>準備された場合は既存アレイへの追加の候補になる pdisk のみを表示します。</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>-j jbod_opt</dt>
+
+<dd><dl>
+
+<dt>0</dt>
+
+<dd>JBOD hdisk を表示しません。 これはデフォルト・オプションです。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>すべての JBOD hdisk を表示します。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>「<strong>Prepare (準備)</strong>」オプションの候補である JBOD hdisk のみを表示します (512 - 522)。</dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-M</span></span></td>
+
+<td>再充電可能バッテリーを保守します。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アダプターの論理名。</dd>
+
+
+
+<dt>-o cmd_option</dt>
+
+<dd>コマンド・オプションは以下のとおりです。<dl>
+
+<dt>0</dt>
+
+<dd>再充電可能バッテリーの情報を表示します。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>再充電可能バッテリー・エラーを強制的に発生させます。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>並行バッテリー交換の後、キャッシングを開始します。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>同時にバッテリーを始動するための候補を照会します。</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-P</span></span></td>
+
+<td>デバイスを準備します。つまり、アレイ候補の物理ディスクを作成します。<dl>
+
+<dt>-z drive_list</dt>
+
+<dd>アレイ候補になる JBOD hdisk または pdisk、あるいはその両方のリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-Q</span></span></td>
+
+<td>pdisk エラー抑止属性を設定またはクリアします。<dl>
+
+<dt>-z pdisk_list</dt>
+
+<dd>属性を適用またはクリアする対象の pdisk のリスト。</dd>
+
+
+
+<dt>-o cmd_option</dt>
+
+<dd>オンまたはオフにするエラー抑止ビットを指定する、1 バイトの 16 進数ストリング。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-R</span></span></td>
+
+<td>デバイスを再構築します。つまり、機能低下したアレイを再構成します。<dl>
+
+<dt>-z pdisk_list</dt>
+
+<dd>再構築する pdisk のリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-S</span></span></td>
+
+<td>アダプター・リンクの状況を表示します。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アダプターの論理名。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-U</span></span></td>
+
+<td>スタンドアロン物理ディスクを作成します。<dl>
+
+<dt>-z drive_lists</dt>
+
+<dd>スタンドアロン・ディスクとしてフォーマットする pdisk のリスト。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-W</span></span></td>
+
+<td>キャッシュ・ストレージを再利用します。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アダプターの論理名。</dd>
+
+
+
+<dt>-o cmd_option</dt>
+
+<dd>コマンド・オプションは以下のとおりです。<dl>
+
+<dt>0</dt>
+
+<dd>再利用操作が必要かどうかを判断するための照会を行います。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>不明なデータ損失に対する許可が必要かどうかを判断するための照会を行います。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>キャッシュ・ストレージの再利用を実行します。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>キャッシュ・ストレージの再利用を実行し、不明なデータ損失を許可します。</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-X</span></span></td>
+
+<td>アダプターの割り当てを変更します。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アダプターの論理名。</dd>
+
+
+
+<dt>-o cmd_option</dt>
+
+<dd>コマンド・オプションは以下のとおりです。<dl>
+
+<dt>0</dt>
+
+<dd>表示のみ。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>基本アダプターとして優先されます。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>操作に関する優先設定はありません。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>基本アダプターとして優先されます。 この値を設定すると、<strong>cfgmgr </strong> コマンドが実行されます。</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-Y</span></span></td>
+
+<td>アレイ保護を再同期します。<dl>
+
+<dt>-l lname</dt>
+
+<dd>アレイの論理名。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td><strong>sisraidmgr</strong> コマンドが操作を正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td><strong>sisraidmgr</strong> コマンドはエラーを検出しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御: このコマンドに対する実行 (x) アクセス権は、root ユーザーとシステム・グループのメンバーだけが持ちます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>使用法の情報を表示する場合:<div><div><pre><code># sisraidmgr -h</code></pre></div><div></div></div></li>
+
+<li>sissas0 という名前の PCI-X SCSI RAID コントローラー上のディスク・アレイ構成を表示する場合:<div><div><pre><code># sisraidmgr -L -l sissas0 -j3</code></pre></div><div></div></div></li>
+
+<li>ディスク・アレイで使用する 512 バイトのフォーマット済みドライブ (hdisk3 および hdisk4) を準備する場合:<div><div><pre><code># sisraidmgr -P -z 'hdisk3 hdisk4'</code></pre></div><div></div></div></li>
+
+<li>準備されたディスク (pdisk2 および pdisk5) 上でストライプ・サイズ 256K の RAID 0 アレイを作成する場合:<div><div><pre><code># sisraidmgr -C -r 0 -s 256 -z 'pdisk2 pdisk5'</code></pre></div><div></div></div></li>
+
+<li>コントローラー sissas0 上の RAID アレイ hdisk3 を削除する場合:<div><div><pre><code># sisraidmgr -D -l sissas0 -d hdisk3 </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/bin/sisraidmgr</span></span></td>
+
+<td><span><span>sisraidmgr</span></span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,333 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>定義済み条件の任意の属性を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p>条件の属性を変更するには、次のようにします。</p>
+ <p><span><span>chcondition</span></span> [ <span><span>-r</span></span> <span><span>resource_class</span></span> ] [ <span><span>-e "</span></span><span><span>event_expression</span></span><span><span>"</span></span> ] [ <span><span>-E "</span></span><span><span>rearm_expression</span></span><span><span>"</span></span> ] [ <span><span>-d "</span></span><span><span>event_description</span></span><span><span>"</span></span> ] [ <span><span>-D "</span></span><span><span>rearm_description</span></span><span><span>"</span></span> ] [ <strong>-b</strong> <em>interval</em>[<em><strong>,</strong>max_events</em>] [<strong>,</strong><em>retention_period</em>] [<strong>,</strong><em>max_totalsize</em>] [<span><span>-m l</span></span> | <span><span>m</span></span> <span>| <span><span>p</span></span> </span>] [<span><span>-n</span></span> <span><span>node_name1</span></span>[<span><span>,</span></span><span><span>node_name2</span></span>...]] [ <span><span>--qnotoggle</span></span> | <span><span>--qtoggle</span></span> ] [<span><span>-s "</span></span><span><span>selection_string</span></span><span><span>"</span></span>] [<span><span>-S c</span></span> | <span><span>w</span></span> | <span><span>i</span></span> ] [ <strong>-g 0</strong> | <strong>1</strong> | <strong>2</strong> ] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>条件</span></span>[<span><span>:</span></span><span><span>node_name</span></span>]</p>
+ <p>条件を名前変更するには、次のように入力します。</p>
+ <p><span><span>chcondition</span></span><span><span>-c</span></span><span><span> new_condition</span></span> [<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>条件[ ] 条件</span></span><span><span>:</span></span><span><span>ノード名］</span></span></p>
+ <p>条件をロックまたはアンロックするには、次のように入力します。</p>
+ <p><span><span>chcondition</span></span> { <span><span>-L</span></span> | <span><span>-U</span></span> } [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>条件</span></span>[<span><span>:</span></span><span><span>node_name</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>chcondition</span></span> コマンドは、定義された条件の属性を、指定された値に変更します。 条件の名前が <span><span>-c</span></span> フラグを使用して変更された場合、条件/応答の関連付けは変更されません。</p>
+ <p>システム・ソフトウェアを適切に機能させるために特定の条件が必要な場合、その条件は
+ロックされることがあります。 ロックされた条件はアンロックされない限り変更または取り除くことはできません。 <span><span>chcondition</span></span> コマンドで指定した条件がロックされている場合、その条件は変更されません。代わりに、条件がロックされていることを通知するエラーが生成されます。 条件をアンロックするには、 <span><span>-U</span></span> フラグを使用できます。 ただし、条件はシステム・ソフトウェアが
+適切に機能するために必須であり、通常ロックされているので、これをアンロックする際は
+注意が必要です。 条件を変更できないようにロックするには、 <span><span>-L</span></span> フラグを使用します。</p>
+ <p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理および CSM <span><span>nodegrp</span></span> コマンドの使用については、「 <em>CSM: 管理ガイド</em> 」および「 <em>CSM: コマンドおよびテクニカル・リファレンス</em> 」を参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-b <em>間隔</em>[,<em>最大イベント数</em>][,<em>保持期間</em>][,<em>最大合計サイズ</em>]</dt>
+
+<dd>1 つ以上のバッチ処理関連の属性を変更します。 コンマを使用して、属性値を区切ります。 値またはコンマの間にスペースを何も挿入しないでください。<p><em>interval</em> は、示された間隔でイベントを一緒にバッチすることを指定します。 バッチ処理は、間隔についてイベントが生成されなくなるまで継続します。 バッチ処理をオフにするには、0 の間隔を使用します。</p>
+<p><em>max_events</em> は、<em>max_events</em> のイベント数が生成されるまでイベントが一緒にパッチされることを指定します。 間隔が期限になる前に <em>max_events</em> のイベント数に到達する場合、間隔は再始動します。</p>
+<p><em>retention_period</em> は、保存期間を時間数で指定します。 バッチ処理されたイベント・ファイルは保存期間として指定された時間の間保存されます。 この時間に到達すると、ファイルは自動的に削除されます。</p>
+<p><em>max_totalsize</em> は、バッチ処理されたイベント・ファイルの合計サイズをメガバイト (MB) 単位で指定します。 バッチ処理されるイベント・ファイルは、このサイズに達するまで保存されます。 このサイズに達すると、ファイルは自動的に削除されます。</p>
+<p><em>max_events</em>、<em>retention_period</em>、および <em>max_totalsize</em> は、間隔が 0 より大きくない限り指定できません。 <em>interval</em> が 0 より大きく、<em>max_events</em> が 0 である場合、イベントの最大数は使用されません。</p>
+<p><em>retention_period</em> および <em>max_totalsize</em> が両方とも指定される場合、バッチ処理されたイベント・ファイルは、指定された時間またはサイズのうち、どちらかが最初に発生するまで保存されます。</p>
+<div>1 つ、2 つ、または 3 つの属性値を変更したい場合、変更したい値に先行する属性について有効値または空のフィールドを指定する必要があります。 変更したい値に後続する属性については値を指定する必要はありません。 例えば、保存期間の変更だけを行う必要がある場合は、<em>interval</em> にも <em>max_events</em> にも値を指定する必要があります。 属性を変更する必要がない場合、空のフィールドを指定することができます。 例えば、 <em>interval</em> および <em>max_events</em>の値を変更せずに保存期間を <code>36</code> 時間に変更するには、次のように入力します。<div><div><pre><code>chcondition -b ,,36</code></pre></div><div></div></div></div>
+</dd>
+
+
+<dt>--c <span><span>new_condition</span></span></dt>
+
+<dd>条件に新規名を割り当てます。 <span><span>new_condition</span></span> (現在の名前を置き換える) は、条件を識別する文字列です。 <span><span>new_condition</span></span> に 1 つ以上のスペースが含まれる場合は、
+引用符で囲む必要があります。 名前を NULL にすること、すべてスペースで構成すること、名前に二重引用符を含めることはできません。</dd>
+
+
+<dt>--e<span><span>"event_expression</span></span>"</dt>
+
+<dd>イベントがいつ発生するかを決定する<em>イベント式</em> を指定します。 イベント式は、 <span><span>resource_class</span></span>の動的属性 <span>または永続属性</span> 、数学的比較記号 (例えば、<span></span> または <span><span>&lt;</span></span>)、および定数で構成されます。 この式が真と評価された場合、イベントが生成されます。</dd>
+
+
+<dt>--E<span><span>"rearm_expression</span></span>"</dt>
+
+<dd><em>リアーム式</em> を指定します。 <span><span>event_expression</span></span> が真と評価されてイベントが生成された後で、
+リアーム式によって <span><span>event_expression</span></span> のモニター再開時期が決定されます。 一般に、リアーム式は、同じイベント評価に対して複数のイベントが生成されることを防ぎます。 リアーム式は、 <span><span>resource_class</span></span>の動的属性、数学比較記号 (<span><span>&gt;</span></span>など)、および定数で構成されます。</dd>
+
+
+<dt>--d<span><span>"event_description</span></span>"</dt>
+
+<dd>イベント式を記述します。</dd>
+
+
+<dt>--D<span><span>"rearm_description</span></span>"</dt>
+
+<dd>リアーム式を記述します。</dd>
+
+
+<dt>--g 0 | 1 | 2</dt>
+
+<dd>状態の監査ロギングを制御する細分度レベルを指定します。 細分度のレベルは、以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd>監査ロギングを使用可能にします。 ERRM は、監査ログにすべてのアクティビティーを書き込みます。 これはデフォルト値です。</dd>
+
+
+<dt>1</dt>
+
+<dd>エラー・ロギングのみを使用可能にします。 ERRM はエラーの場合のみ、監査ログに書き込みます。</dd>
+
+
+<dt>2</dt>
+
+<dd>監査ロギングを使用不可にします。 ERRM は監査ログにレコードを書き込みません。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-L</dt>
+
+<dd>変更または除去されないように条件をロックします。 <strong>-L</strong> フラグを使用して条件をロックしていると、このコマンドでは他の操作は実行できません。</dd>
+
+
+<dt>-m l | m | p</dt>
+
+<dd>条件を適用する管理有効範囲を指定します。 管理有効範囲は、条件の登録方法および
+選択文字列の評価方法を決定します。 有効範囲は現在の構成と異なっていてもかまいませんが、
+適切な有効範囲が選択されるまでモニターを開始することはできません。 有効な値は以下のとおりです。<dl>
+<dt>l</dt>
+
+<dd><em>local</em> 有効範囲を指定します。 この条件は、ローカル・ノード
+(条件が定義されているノード) のみに適用されます。 選択文字列を評価する際、ローカル・ノードのみが使用されます。</dd>
+
+
+<dt>-L</dt>
+
+<dd>変更または除去されないように条件をロックします。 <span><span>-L</span></span> フラグを使用して条件をロックする場合、このコマンドで他の操作を実行することはできません。</dd>
+
+
+<dt>m</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。 この条件は、
+管理ドメイン (条件が定義されているノードが属する) に適用されます。 管理ドメインのすべてのノードが、選択文字列の評価に使用されます。 管理ドメイン有効範囲を使用するには、条件が定義されているノードが管理サーバーでなければなりません。</dd>
+
+
+<dt>p</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。 この条件は、
+ピア・ドメイン (条件が定義されているノードが属する) に適用されます。 ピア・ドメイン内のすべてのノードが、
+選択文字列の評価に使用されます。</dd>
+
+</dl>
+</dd>
+
+
+<dt>--n <span><span>node_name1</span></span>[<span><span>,node_name2</span></span>...]</dt>
+
+<dd>この条件がモニターされるノード用のホスト名 (または複数のノードの場合はコンマで区切られたホスト名のリスト) を指定します。 ノード・グループ名を指定することもでき、これはノード名のリストに展開されます。<p><span><span>-n</span></span> フラグを使用する場合は、 <span><span>-m</span></span> フラグに値 <span><span>m</span></span> または <span><span>p</span></span> を指定する必要があります。 このようにして、ドメイン全体ではなく、特定ノードの条件をモニターできます。</p>
+  <p>ホスト名は現在の構成でオンラインである必要はありませんが、この条件がいったんモニターされた後は、ノードが存在していない場合はこの条件はエラーになります。 ノードが有効になるまで、条件はエラーのままです。</p>
+</dd>
+
+
+<dt>--qnotoggle</dt>
+
+<dd>イベント式とリアーム式との間のモニターの切り替えは行われませんが、その代わりにイベント式が常に評価されることを指定します。</dd>
+
+
+<dt>--qtoggle</dt>
+
+<dd>イベント式とリアーム式との間のモニターの切り替えが行われることを指定します。</dd>
+
+
+<dt>--r <span><span>リソースクラス</span></span></dt>
+
+<dd>この条件がモニターするリソース・クラスを指定します。 <span><span>lsrsrcdef</span></span> コマンドを使用して、リソース・クラス名をリストできます。</dd>
+
+
+<dt>--s<span><span>"selection_string</span></span>"</dt>
+
+<dd>すべての <span><span>resource_class</span></span> 属性に適用される選択文字列を指定して、
+<span><span>event_expression</span></span> でどのリソースをモニターするかを決定します。 デフォルトは、<span><span>resource_class</span></span> 内のすべてのリソースをモニターします。 選択文字列の評価に使用されるリソースは、管理有効範囲 ( <span><span>-m</span></span> フラグ) によって決定されます。 選択文字列は、二重引用符か単一引用符で囲む必要があります。 選択文字列を指定する方法については、「<em>RSCT: Administration Guide</em>」を参照してください。</dd>
+
+
+<dt>-S c │ w │ i</dt>
+
+<dd>イベントの重大度を指定します。<dl>
+<dt>c</dt>
+
+<dd>重大</dd>
+
+
+<dt>w</dt>
+
+<dd>警告</dd>
+
+
+<dt>i</dt>
+
+<dd>情報 (デフォルト)</dd>
+
+</dl>
+</dd>
+
+
+<dt>-U</dt>
+
+<dd>変更または除去できるように条件をアンロックします。 条件がロックされている場合、これは
+システム・ソフトウェアが適切に処理するのに不可欠であるからです。 このため、このリンクをアンロックする場合は、十分な注意が必要です。 <span><span>-U</span></span> フラグを使用して条件をアンロックする場合、このコマンドで他の操作を実行することはできません。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <div> <dl>
+<dt><span><span>条件</span></span></dt>
+
+<dd><span><span>node_name</span></span> に定義される既存の条件の名前を指定します。</dd>
+
+
+<dt><span><span>ノード名</span></span></dt>
+
+<dd>条件が定義されるドメイン内のノードを指定します。 <span><span>node_name</span></span> を指定しないと、ローカル・ノードが使用されます。 <span><span>node_name</span></span> は、CT_MANAGEMENT_SCOPE 環境変数が決定する範囲内のノードです。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>chcondition</span></span> コマンドのユーザーには、条件が定義されているノード上の <span><span>IBM.Condition</span></span> リソース・クラスへの書き込み許可が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「<em>
+RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>イベント応答リソース・マネージャー (ERRM) のリソースの処理で、RMC デーモンとのセッションに使用する管理有効範囲を指定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>以下の例は、スタンドアロン・システムに適用されます。<ol>
+<li>条件名を「FileSystem space used」から「Watch FileSystem space」に変更するには、
+次のコマンドを実行します。<div><div><pre><code>chcondition -c "Watch FileSystem space"  "FileSystem space used"</code></pre></div><div></div></div></li>
+
+<li>「tmp space used」という名前の条件に対するリアーム式およびリアームの説明を変更するには、
+次のコマンドを実行します。<div><div><pre><code>chcondition -E "PercentTotUsed &lt; 80" \
+-D "Start monitoring tmp again after it is less than 80 percent full" \       
+"tmp space used"</code></pre></div><div></div></div></li>
+
+<li>「File System space used」と呼ばれる条件に対して監査ログ情報の記録を使用不可にするには、次のコマンドを実行します。<div><div><pre><code>chcondition -g 2 "File System space used"</code></pre></div><div></div></div></li>
+
+<li>「File System space used」と呼ばれる条件に対するバッチ処理されるイベント・ファイルの最大サイズを 100 MB に変更するには、次のコマンドを実行します。<div><div><pre><code>chcondition -b ,,,100 "File System space used"</code></pre></div><div></div></div></li>
+
+<li>「File System space used」と呼ばれる条件に対してバッチ処理を使用不可にするには、次のコマンドを実行します。<div><div><pre><code>chcondition -b 0 "File System space used"</code></pre></div><div></div></div>このコマンドは、<em>max_event</em>、<em>retention_period</em>、および <em>max_totalsize</em> をリセットします (これらの値が前に指定された場合)。 必要に応じて、バッチ処理を再度使用可能にする場合は、これらの属性に値を指定する必要があります。</li>
+
+</ol>
+</div>
+ <div>管理ドメインに適用される以下の例で、コマンドが実行されるノードは管理サーバー上にあります。<ol>
+<li>管理サーバー上の「FileSystem space used」という名前の条件を変更して、スペース使用率が
+95% より大きいものがないか検査するには、次のコマンドを実行します。<div><div><pre><code>chcondition -e "PercentTotUsed &gt; 95" "FileSystem space used"</code></pre></div><div></div></div></li>
+
+<li><span><span>NodeB</span></span>の"NodeB FileSystemspace used" という名前の条件を変更して、95% を超えるスペー ス使用率をチェックするには、以下のコマンドを実行します：<div><div><pre><code>chcondition -e "PercentTotUsed &gt; 95" \ 
+"NodeB FileSystem space used":NodeB</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+ <div>次の例は、ピア・ドメインに適用されます。<ol>
+<li><span><span>NodeA</span></span>」に定義された"FileSystemspace used」という名前の条件を変更して、95%以上のスペース使用率をチェックするには、次のコマンドを実行する：<div><div><pre><code>chcondition -e "PercentTotUsed &gt; 95" \  
+"FileSystem space used":NodeA</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/chcondition</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

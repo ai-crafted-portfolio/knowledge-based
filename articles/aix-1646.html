@@ -1,0 +1,103 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>X Window System 用の UIM/X ユーザー・インターフェース管理システムを始動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uimx </strong><strong>[ </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uimx.html#uimx__row-d3e143046" target="_blank" rel="noopener noreferrer"><strong>-dir </strong><em>Path </em></a><strong>]</strong><strong> [ </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uimx.html#uimx__row-d3e143054" target="_blank" rel="noopener noreferrer"><strong>-file </strong><em>FileName</em></a><strong> </strong>] <strong>[ </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uimx.html#uimx__row-d3e143071" target="_blank" rel="noopener noreferrer"><strong>-workspace </strong><em>Name </em></a><strong>]</strong><strong> [ </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uimx.html#uimx__row-d3e143082" target="_blank" rel="noopener noreferrer"><strong>-xrm </strong><em>オプション </em></a><strong>]</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uimx</strong> コマンドは、X Window System の UIM/X ユーザー・インターフェース管理システムを始動します。 このコマンドは Motif 1.2 をサポートし、グラフィカル・ユーザー・インターフェース (GUI) 開発用の完全なプログラミング環境を提供します。 UIM/X は、C と C++ の両方でオブジェクト指向プログラミングをサポートします。</p>
+ <p>UIM/X は、Xt リソース構文を使用してインターフェースとプロジェクトを記述するテキスト・ファイルを保管しロードします。 また、UIL ファイルもロードします。 UIM/X は、C、C++、および UIL コードを生成します。 また、アプリケーションの makefile、メッセージ・カタログ、およびリソース・ファイルも生成します。</p>
+ <p>UIM/X には、組み込み C インタープリターと、以下のツールやエディターが含まれています。</p>
+ <ul>
+<li><span></span>Motif ウィジェットのパレット</li>
+
+<li>複雑なウィジェット階層を参照するための <span></span>ウィジェット・ブラウザー</li>
+
+<li>インターフェースを描画するための <span></span>WYSIWYG レイアウト・エディター</li>
+
+<li><span></span>ウィジェット・プロパティーの初期値を設定するためのプロパティー・エディター。初期値はリテラル値または C 式にすることができます。</li>
+
+<li>コールバック・コードを入力するための <span></span>コールバック・エディター</li>
+
+<li><span></span>イベント・エディター、アクション・エディター、および変換エディター</li>
+
+<li><span></span>メニューおよびメイン・ウィンドウ・エディター</li>
+
+<li>インターフェース用に生成されたコードを編集するための <span></span>宣言エディター</li>
+
+<li>生成されたメインプログラムおよび Make ファイルを編集するための <span></span>プログラム・レイアウト・エディター。このエディターを使用すると、メイン・イベント・ループに直接アクセスできます。</li>
+
+</ul>
+ <p>UIM/X は、2 つの演算モード (設計とテスト) をサポートします。 テスト・モードでは、組み込み C インタープリターを使用してアプリケーションの振る舞いをテストできます。 設計モードでは、C インタープリターは種々の UIM/X エディターに入力するコードの妥当性を検査します。</p>
+ <p>UIM/X は、X と Motif を使用してプログラミング・タスクを単純化する関数の便利なライブラリーを提供します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>ディレクトリー</strong><em> パス</em></td>
+
+<td>UIM/X の、パスへの現行ディレクトリーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ファイル</strong><em> FileName</em></td>
+
+<td>既存のプロジェクト、インターフェース、または <em>FileName</em> という名前のパレット・ファイルをロードします。 <em>FileName</em> には、絶対パス名現行ディレクトリーと関連するパス名、
+または <strong>-dir</strong> 値と関連するパス名を含めることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ワークスペース</strong><em> 名前</em></td>
+
+<td>UIM/X を <em>name</em> という名前の対応する CDE ワークスペースにロードします。</td>
+
+</tr>
+
+<tr>
+<td><strong>XRM</strong><em> オプション</em></td>
+
+<td>別の場合にはリソース・ファイルに書き込むこともあるリソース仕様 (<em>options</em>) を入力できるようにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: 任意のユーザー</p>
+ <p>アクセスされるファイル: なし</p>
+</section>
+
+<section><h2>例</h2> <p>UIM/X を始動するには、次のように入力します。</p>
+ <div> <div><div><pre><code>uimx</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/uimx2.8/bin/uimx</strong></td>
+
+<td><strong>uimx</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

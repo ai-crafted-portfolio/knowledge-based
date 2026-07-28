@@ -1,0 +1,70 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>マルチリンガル・フォントのディスケットからフォントをコピーします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>piofontin</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piofontin.html#piofontin__row-d3e83473" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em>PrinterType</em> - <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piofontin.html#piofontin__row-d3e83454" target="_blank" rel="noopener noreferrer"><strong>c</strong></a> <em>コードページ</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piofontin.html#piofontin__row-d3e83462" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>デバイス</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>piofontin</strong> コマンドは、マルチリンガル・フォントのディスケットから、<strong>/usr/lib/lpd/pio/fonts</strong> ラベルより 1 レベル下のディレクトリーにフォント・ファイルをコピーします。 フォント・ファイルがコピーされるディレクトリーは <em>PrinterType</em> パラメーターで指定した名前になります。 フォント・ファイルには、ファイルの命名規則に従って名前が付けられます。 名前は、以下のフォーマットになります。</p>
+ <div> <div><div><pre><code>codepage.typeface.pitch*10.quality</code></pre></div><div></div></div></div>
+ <p>root ユーザーだけが <strong>piofontin</strong> コマンドを使用できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>「-c」</strong><em> コード・ページ</em></td>
+
+<td>フォントについてコード・ページを指定します。 ギリシャ語のフォントの場合、この値は 851 であり、トルコ語のフォントでは、853 になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>ディスケット・ドライブのデバイス名を指定します。 このデフォルトは、<strong>-d/dev/fd0</strong> ラベルで、3.5 インチの標準ディスケット・ドライブです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> PrinterType</em></td>
+
+<td>フォントについてプリンターのタイプを指定します。 サポートされるプリンターのタイプは、4201-3、4202-3、4207-2、4208-2、2380、2381、2390、および 2391 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>コード・ページ 851 の 4201-3 フォントが入っているディスケットをディスケット・ドライブから読み取る/dev/fd1;入力:</p>
+ <div> <div><div><pre><code>piofontin 4201-3 851 /dev/fd1</code></pre></div><div></div></div></div>
+ <p>フォント・ファイルは <strong>/usr/lib/lpd/pio/fonts/4201-3</strong> ディレクトリーにコピーされます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/piofontin</strong></td>
+
+<td><strong>piofontin</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,78 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>プロダクト、lpp、ヒストリー、およびベンダー・データベースからエントリーを除去します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>vpddel</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vpddel.html#vpddel__m070601ksq" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <em>コンポーネント</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vpddel.html#vpddel__row-d3e13693" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>製品</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vpddel.html#vpddel__row-d3e13682" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>フィーチャー</em> } <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vpddel.html#vpddel__row-d3e13704" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> <em>V.R.M.F</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vpddel.html#vpddel__row-d3e13668" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> <em>宛先ディレクトリー</em></p>
+</section>
+
+<section><h2>説明</h2><p><strong>vpddel</strong> コマンドは、プロダクト、lpp、ヒストリー、およびベンダー・データベースからエントリーを除去します。 正しいエントリーを除去するために、vrmf および宛先ディレクトリーを指定する必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em> コンポーネント</em></td>
+
+<td>指定した <em>Component</em> を除去します。 <em>Component</em> の除去時には、VRMF も組み込む必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em> 宛先ディレクトリー</em></td>
+
+<td>除去する <em>Component</em> の宛先ディレクトリーを指定します。 宛先ディレクトリーが組み込まれていない場合、デフォルトの <strong>/opt</strong> が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> フィーチャー</em></td>
+
+<td>ベンダー・データベースから除去する <em>Feature</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> 製品</em></td>
+
+<td>ベンダー・データベースから除去する <em>Product</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> V.R.M.F</em></td>
+
+<td>VPD およびベンダー・データベースから削除する<em>コンポーネント</em> の、
+バージョン、リリース、変更、および修正レベルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <p><em>「コンポーネント」</em> を削除するには EPL2890198489Fproduct、history、lpp、および vendor データベースから、次のように入力します。</p>
+ <div> <div><div><pre><code>vpddel -c EPL2890198489F -v 1.2.3.0 -D /usr/lpp/Foo</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <p><span>/usr/sbin/vpddel</span></p>
+</section>
+
+</div></div>

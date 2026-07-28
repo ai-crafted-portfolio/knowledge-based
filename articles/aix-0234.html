@@ -1,0 +1,140 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ページング・スペースの属性を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chps</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103280" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>ps_helper</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103272" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>LogicalPartitions </em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103235" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>LogicalPartitions </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103260" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103243" target="_blank" rel="noopener noreferrer"><strong>-c </strong> </a><em>ChecksumSize </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103216" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>{ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__a339f9b07" target="_blank" rel="noopener noreferrer"><strong>y </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__a339f9b08" target="_blank" rel="noopener noreferrer"><strong>n </strong></a>}] <em>PagingSpace</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chps</strong> コマンドは、ページング・スペースの属性を変更します。 <em>PagingSpace</em> パラメーターは、変更するページング・スペースの名前を指定します。</p>
+ <p>ネットワーク・ファイルシステム (NFS) のページ
+ング・スペースのサイズを変更するには、サーバー上にあるファイルのサイズを最初に変
+更してから、<strong>swapon</strong> コマンドを使用してページング・スペースのサイズの変更をク
+ライアントに通知する必要があります。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> デバイスごとに 64 GB のページング・スペース制限があります。</div>
+        </div>
+      </div></div>
+ <p><strong>-t</strong> フラグが指定されている場合、引数は、サード・パーティーのヘルパー実行プログラムであると想定されます。 helper 実行可能ファイルが /sbin/helpers/pagespace パスに存在する場合、この実行可能ファイルは、すべての引数を引き渡し、<strong>chps</strong> コマンドを指定する <strong>-c</strong> フラグを立てて作成されます。 helper 実行可能ファイルがゼロを返した場合、/etc/swapspaces パスはそれに応じて変更されます。 helper 実行可能ファイルは属性を変更する必要があります。 helper プログラムが /sbin/helpers/pagespace パスに存在しない場合、<strong>chps</strong> コマンドは使用方法エラーを表示します。 ヘルパー実行可能ファイルは、成功した場合は 0 で、失敗に終わった場合は非ゼロで終了する必要があります。</p>
+ <p>System Management Interface Tool (SMIT) <strong>smit chps</strong> 高速パスを使用して、
+このコマンドを実行することもできます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> 1 次ページング・スペースは、ブート・レコードにハードコーディングされています。 したがって、1 次ページング・スペースは、システムの再始動時は常に活動化になります。 <strong>chps</strong> コマンドは 1 次ページング・スペースを非活動化にすることはできません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>次のシステム再起動時にページング・スペースを使用することを指定します。<dl>
+<dt><strong>y</strong></dt>
+
+<dd>次のシステム再起動時にページング・スペースをアクティブにすることを指定します。</dd>
+
+
+<dt><strong>n</strong></dt>
+
+<dd>次のシステム再起動時にページング・スペースを非アクティブにすることを指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> LogicalPartitions</em></td>
+
+<td>減らす論理区画の数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> ChecksumSize</em></td>
+
+<td>ページング・スペースに使用するチェックサムのサイズをビット単位で指定します。 有効なオプションは、0 (チェックサム使用不可)、8、16、および 32 です。 <strong>-c</strong> が指定されていない場合は、デフォルトの 0 になります。 このオプションを指定した <strong>chps</strong> コマンドは、 <strong>-f</strong> を使用しない限り、スワップされたページング・スペースでは失敗します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><strong>-c</strong> で設定したチェックサム・サイズが、ページング・スペースの次のスワップ・オンで使用されるように指定します。 <strong>-c</strong> を使用しない場合、またはページング・スペースがスワップオンされない場合は、このオプションは無効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> LogicalPartitions</em></td>
+
+<td>追加する論理区画の数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>helper プログラムを /sbin/helpers/pagespace ディレクトリーの下で使用することを指定します。<dl>
+<dt><em>ps_helper</em></dt>
+
+<dd>サード・パーティー・デバイスのヘルパー・プログラムの名前。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>サイズを変更するには、次のようにします。myvgページング・スペース、入力:<div>chps  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103272" target="_blank" rel="noopener noreferrer">-s</a> 4 myvg</div>これにより、論理区画が 4 つ追加されます。myvgページング・スペース。</li>
+
+<li>以下を定義します。PS02構成され、その後のシステム再始動時にアクティブになるページング・スペース。次のように入力します。<div>chps  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103216" target="_blank" rel="noopener noreferrer">-a y</a> PS02</div>これは、以下を指定します。PS02後続のシステム再始動時に、ページング・スペースをアクティブにする必要があります。</li>
+
+<li>チェックサム・サイズを設定するには、以下のようにします。myvg1 バイトにページングするには、次のように入力します。<div> chps  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103272" target="_blank" rel="noopener noreferrer">-c</a> 8 mypg </div>このように入力すると、myvg ページング・スペースがスワップオンされない場合、そのチェックサム・サイズが 8 ビットに設定されます。</li>
+
+<li>サイズを変更するには、次のようにします。myvgヘルパー・プログラム foo enter を使用したページング・スペース:<div> chps  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chps.html#chps__row-d3e103280" target="_blank" rel="noopener noreferrer">-t</a> foo –s4 myps </div>これにより、helper プログラム foo が呼び出され、4 つの論理区画が myps に追加されます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/swapspaces</strong></td>
+
+<td>ページング・スペース・デバイスおよびその属性を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,1312 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ユーザー属性を変更します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>チャウザー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chuser.html#chuser__row-d3e112849" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>ロード・モジュール</em> ] <em>属性</em><strong>=</strong><em>値 ... Name</em></p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<div><div>
+        <div>
+          <div><span>重要:</span> ご使用のシステムに Network Information Service (NIS) データベースがインストールされている場合は、 <strong>chuser</strong> コマンドを使用しないでください。</div>
+        </div>
+      </div></div>
+
+<p><strong>chuser</strong> コマンドは、
+<em>Name</em> パラメーターによって識別されるユーザーの属性を変更します。 ユーザー名は既に存在していなければなりません。 属性を変更するには、属性名と新しい値に <em>Attribute</em><strong>=</strong><em>Value</em> パラメーターを付けて指定してください。 以下のファイルには、このコマンドによって設定されたローカル・ユーザー属性が入っています。</p>
+
+<ul>
+<li><strong>/etc/passwd</strong></li>
+
+<li><strong>/etc/security/environ</strong></li>
+
+<li><strong>/etc/security/limits</strong></li>
+
+<li><strong>/etc/security/user</strong></li>
+
+<li><strong>/etc/security/user.roles</strong></li>
+
+<li><strong>/etc/security/audit/config</strong></li>
+
+<li><strong>/etc/group</strong></li>
+
+<li><strong>/etc/security/group</strong></li>
+
+</ul>
+
+<p>代替の ID および認証 (I &amp; A) メカニズムを持つユーザーの属性を変更するには、 <strong>-R</strong> フラグを使用して、ユーザーが定義されている I &amp; A ロード・モジュールを指定できます。 <strong>-R</strong> フラグが指定されていない場合、<strong>chuser</strong> コマンドは
+ユーザーをローカル・ユーザーとして扱います。 ロード・モジュールは、<strong>/usr/lib/security/methods.cfg</strong> ファイルで定義されます。</p>
+
+<p><strong>chuser</strong> コマンドで正しくない属性または属性値を 1 つ指定すると、コマンドは属性を変更しません。</p>
+
+<p>System Management Interface Tool (SMIT) <strong>smit chuser</strong> 高速パスを使用して、ユーザー特性を変更することができます。</p>
+
+<p>アカウントの ID を変更するとシステム・セキュリティーが脅かされる可能性があるため、変更しないようにしてください。 ただし、 <strong>chuser</strong> コマンドを使用して ID を変更した場合、ID 衝突検査は、 <span><span>/etc/security/login.cfg</span></span> ファイルの usw スタンザの <strong>dist_uniqid</strong> 属性によっても制御されます。 ID 衝突制御の動作は、<strong>mkuser</strong> コマンドで説明されている内容と同じです。</p>
+
+<p><strong>ユーザーの変更に関する制限</strong></p>
+
+<p>ユーザー情報の保全性を保証するために、<strong>chuser</strong> コマンドの使用にはある程度の制限が適用されます。 root ユーザーまたは UserAdmin 権限を持っているユーザーのみが、<strong>chuser</strong> コマンドを使用して、以下のタスクを実行することができます。</p>
+
+<ul>
+<li><strong>admin</strong> 属性を <strong>true</strong> に設定して、
+ユーザーを管理ユーザーにする。</li>
+
+<li>管理ユーザーの属性があれば変更します。</li>
+
+<li>1 ユーザーを管理グループに追加する。</li>
+
+</ul>
+
+<p>管理グループとは、<strong>admin</strong> 属性が <strong>true</strong> に設定されているグループです。 <strong>security</strong> グループのメンバー
+は、非管理ユーザーの属性を変更し、ユーザーを非管理グループに
+追加できます。</p>
+
+<p><strong>chuser</strong> コマンドが扱うのは、ローカル・ユーザー・データだけです。 これは、NIS および DCE のようなレジストリー・サーバーのデータを変更する場合には使用できません。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-R</strong><em> ロード・モジュール</em></td>
+
+<td>ユーザーの属性の変更に使用するロード可能 I&amp;A モジュールを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>属性</h2>
+
+<p>適切な権限を持っている場合には、以下のユーザー属性を設定できます。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>アカウント・ロック</strong><em></em></td>
+
+<td>ユーザー・アカウントがロックされているかどうかを示します。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>ユーザーのアカウントはロックされています。 値 <strong>yes</strong>、<strong>true</strong>、および <strong>always</strong> は同等です。 ユーザーは、システムへのアクセスを拒否されます。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>ユーザーのアカウントはロックされていません。 値 <strong>no</strong>、<strong>false</strong>、および <strong>never</strong> は同等です。 ユーザーは、システムへアクセスすることができます。 これはデフォルト値です。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>管理</strong><em></em></td>
+
+<td>ユーザーの管理状況を定義します。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>ユーザーは管理者です。 管理者として定義されたユーザーの属性を変更できるのは、root ユーザーだけです。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>ユーザーは管理者ではありません。 これはデフォルト値です。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>admgroups</strong></td>
+
+<td>ユーザーが管理するグループを定義します。 <em>domainlessgroups</em> 属性が <strong>/etc/secvars.cfg</strong> ファイルで設定されている場合、Lightweight Directory Access Protocol (LDAP) グループをローカル・ユーザーに割り当てることができます。また、逆も可能です。 詳しくは、「<strong>/etc/secvars.cfg</strong>」ファイルを参照してください。 <em>Value</em> パラメーターは、コンマで区切られたグループ名のリストです。</td>
+
+
+</tr>
+
+<tr>
+<td><strong>監査クラス</strong><em></em></td>
+
+<td>ユーザーの監査クラスを定義します。 Value パラメーターは、コンマで区切られたクラスのリスト、あるいはすべての監査クラスを示す値 <strong>ALL</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>auth1</strong><em></em></td>
+
+<td>ユーザーを認証するための 1 次メソッドを定義します。 <em>Value</em> パラメーターは、コンマで区切られた <em>Method</em> <strong>;</strong><em>Name</em> の対のリストです。 <em>Method</em> パラメーターは、認証メソッドの名前です。 <em>Name</em> パラメーターは、認証されるユーザーです。 <em>Name</em> パラメーターを指定しないと、呼び出し中のログイン・プログラムの名前が使用されます。<p>有効な認証メソッドは、<strong>/etc/security/login.cfg</strong> ファイルに定義されています。 デフォルトでは、SYSTEM メソッドとローカル・パスワード認証が使用されます。 NONE メソッドは、1 次認証検査が行われないことを示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>auth2</strong></td>
+
+<td>ユーザーの認証に使用される 2 次メソッドを定義します。 <em>Value</em> パラメーターは、コンマで区切られた <em>Method</em> <strong>;</strong><em>Name</em> の対のリストです。 <em>Method</em> パラメーターは、認証メソッドの名前です。 <em>Name</em> パラメーター値は、認証されるユーザーです。<p>この属性を指定しないと、デフォルト設定は NONE になり、2 次認証検査が行われないことを示します。 有効な認証メソッドは、<strong>/etc/security/login.cfg</strong> ファイルに定義されています。 <em>Name</em> パラメーターを指定しないと、呼び出し中のログイン・プログラムの名前が使用されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>機能</strong></td>
+
+<td><strong>login</strong> コマンドまたは <strong>su</strong>
+コマンドによってユーザーに認可する特権 (機能) を定義します。 有効な <strong>機能</strong> は以下のとおりです。<dl>
+
+<dt>CAP_AACCT</dt>
+
+<dd>実行された詳細アカウンティング操作です。</dd>
+
+
+
+<dt>CAP_ARM_APPLICATION</dt>
+
+<dd>プロセスは ARM (アプリケーション応答測定) サービスを使用することができます。</dd>
+
+
+
+<dt>CAP_BYPASS_RAC_VMM</dt>
+
+<dd>プロセスは VMM リソース使用方法上の制限をバイパスできます。</dd>
+
+
+
+<dt>CAP_EWLM_AGENT</dt>
+
+<dd>プロセスには、EWLMEnterprise Workload Manager）<span>AIX</span>サービスを使用する機能があります。 この機能は、通常は EWLM 製品の管理対象サーバー・コンポーネントを実行するユーザー ID にのみ認可されます。</dd>
+
+
+
+<dt>CAP_NUMA_ATTACH</dt>
+
+<dd>プロセスは特定のリソースにバインドすることができます。</dd>
+
+
+
+<dt>CAP_PROPAGATE</dt>
+
+<dd>機能はすべて子プロセスで継承されます。</dd>
+
+
+</dl>この値はコンマで区切った 0 以上の機能名のリストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>コア</strong><em></em></td>
+
+<td>ユーザーのプロセスが作成できる最大のコア・ファイルのソフト制限を指定します。 <em>Value</em> パラメーターは、512 バイトのブロックの数を表す整数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>コア圧縮</strong><em></em></td>
+
+<td>コア・ファイル圧縮を使用可能または使用不可にします。 この属性の有効値は、オンおよび
+オフです。 この属性の値がオンの場合は、圧縮が使用可能であり、そうでない場合は、圧縮が
+使用不可です。 この属性のデフォルト値は、オフ
+です。</td>
+
+</tr>
+
+<tr>
+<td><strong>core_hard</strong></td>
+
+<td>ユーザーのプロセスが作成できる最大のコア・ファイルを指定します。 Value パラメーターは、512 バイトのブロックの数を表す整数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>コア・ネーミング</strong><em></em></td>
+
+<td>コア・ファイル命名計画の選択項目の 1 つを選択します。 この属性の有効値は、オンおよび
+オフです。 値がオンの場合は、コア・ファイル命名
+が <code>core.<em>pid</em>.<em>time</em></code> の形式で
+使用可能になりますが、これは、<strong>CORE_NAMING</strong> 環境変数の場合と
+同じです。 値がオフの場合は、デフォルトの名前 <strong>core
+</strong> が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>コアパス</strong><em></em></td>
+
+<td>コア・ファイル・パス指定を使用可能または使用不可にします。 この属性の有効値は、オンおよび
+オフです。 この属性の値がオンの場合は、コア・ファイルは、<strong>core_pathname
+</strong> (フィーチャーが使用可能) によって指定されるディレクトリーに置かれることになり、そうでない
+場合は、コア・ファイルは、ユーザーの現在の作業ディレクトリーに
+置かれます。 この属性のデフォルト値は、オフ
+です。</td>
+
+</tr>
+
+<tr>
+<td><strong>コアパス名</strong><em></em></td>
+
+<td><strong>core_path</strong> 属性がオンに設定されている場合に、コア・ファイルを置くために使用される場所を指定します。 これが設定されておらず、<strong>core_path</strong> がオンに設定されている場合、コア・ファイルはユーザーの現行作業ディレクトリーに置かれます。 この属性は 256 文字に制限されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>CPU</strong><em></em></td>
+
+<td>ユーザーのプロセスが使用できるシステム装置時間の最大値 (秒数) のソフト制限を識別します。 <em>Value</em> パラメーターは整数です。 負の値はすべて無制限と見なされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>cpu_hard</strong></td>
+
+<td>ユーザーのプロセスが使用できるシステム装置時間の最大値 (秒数) を識別します。 Value パラメーターは整数です。 デフォルトの値は -1 で、制限がオフになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>デーモン</strong><em></em></td>
+
+<td>Name パラメーターで指定されたユーザーが <strong>cron</strong> デーモンまたは <strong>src</strong> (システム・リソース・コントローラー) デーモンを使用してプログラムを実行できるかどうかを指示します。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>ユーザーは、<strong>cron</strong> セッションおよび <strong>src</strong> セッションを開始できます。 これはデフォルトです。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>ユーザーは、<strong>cron</strong> セッションおよび <strong>src</strong> セッションを開始できません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>data</strong></td>
+
+<td>ユーザーのプロセスの最大データ・セグメントのソフト制限を指定します。 Value パラメーターは、512 バイトのブロックの数を表す整数です。 この属性の最小許容値は 1272 です。 指定-1 無制限にすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>data_hard</strong></td>
+
+<td>ユーザーのプロセスのための最大データ・セグメントを指定します。 Value パラメーターは、512 バイトのブロックの数を表す整数です。 この属性の最小許容値は 1272 です。 指定-1無制限にすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>dce_export</strong></td>
+
+<td>DCE エクスポート操作時に、DCE ユーザー情報をもつローカル・ユーザー情報を DCE レジストリーが上書きできるようにします。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>ローカル・ユーザー情報は上書きされます。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>ローカル・ユーザー情報は上書きされません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>デフォルトの役割</strong></td>
+
+<td>ユーザーのデフォルト・ロールを指定します。 <em>Value</em> パラメーターは、
+コンマで区切った有効なロール名のリストです。
+このパラメーターには、<strong>roles</strong> 属性でそのユーザーに対して割り当てたロールのみを入れることができます。 <strong>ALL</strong> キーワードを使用すると、
+そのユーザーのデフォルト・ロールが割り当てロール全部であることを示すことができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>辞書リスト</strong><em></em></td>
+
+<td>新しいパスワードを検査するときに構成制限により使用されるパスワード辞書を定義します。<p>パスワード辞書は、コンマで区切られた絶対パス名のリストで、左から右へ評価されます。 すべての辞書ファイルとディレクトリーは、root 以外のユーザーから書き込み保護する必要があります。 辞書ファイルは、1 行に 1 ワードずつフォーマット化されます。 ワードは 1 桁目で始まって改行文字で終わります。 パスワードには、7 ビットの ASCII ワードしか使用できません。</p>
+
+<div>ユーザー名は、辞書ファイルのキー・ワード <em>$USER</em> を指定したエントリーを追加することにより、パスワード・フィールドで不許可にすることができます。<div><div>
+        <div>
+          <div><span>注:</span> キーワード <em>$USER</em> は、辞書ファイル内の項目のワードまたはパターンの一部として使用することはできません。</div>
+        </div>
+      </div></div>
+</div>
+
+<p>辞書ファイルに記載されたパターンまたは正規表現に一致するパスワードはすべて許可されません。</p>
+
+<p>辞書ファイルのワードとパターンを区別するために、パターンは先頭文字として <em><em>*</em> </em> 付きで示されます。 例えば、管理者が <em>123</em> で終わるパスワードを不許可にしたい場合、この情報は次のようなエントリーとして辞書ファイルに記載する必要があります。</p>
+
+<p><em>*. * 123 (*. * 123)</em></p>
+
+<p>最初の部分 (<em>*</em>)
+はパターン・エントリーを示すために使用され、残りの部分 (<em>.*123</em>) はパターンを形成します。</p>
+
+<p>システム上にテキスト処理ツールをインストールする場合は、辞書ファイルを <strong>/usr/share/dict/words</strong> ファイルにすることをお勧めします。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>domains</strong></td>
+
+<td>ユーザーが所属するドメインのリストを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>expires</strong></td>
+
+<td>アカウントの有効期限を識別します。 Value パラメーターは、<em>MMDDhhmmyy</em> 形式の 10 文字の文字列です。この場合、<em>MM</em> は月、<em>DD</em> は日、<em>hh</em> は時刻、<em>mm</em> は分、<em>yy</em> は 1939 から 2038 年の下 2 桁です。 文字はすべて数字です。 <em>Value</em> パラメーターが 0 の場合、アカウントは無期限です。 デフォルトは 0 です。 詳しくは、 <strong>date</strong> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>fsize</strong></td>
+
+<td>ユーザーのプロセスが作成または拡張できる最大ファイルのソフト制限を指定します。 Value パラメーターは、512 バイトのブロックの数を表す整数です。 ファイルを 2Gより大きくするには、次のように指定します。-1この属性の最小値は 8192 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>fsize_hard</strong></td>
+
+<td>ユーザーのプロセスが作成または拡張できる最大ファイルを指定します。 Value パラメーターは、512 バイトのブロックの数を表す整数です。 ファイルを 2Gより大きくするには、次のように指定します。-1この属性の最小値は 8192 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>gecos</strong></td>
+
+<td>Name パラメーターにより指定されたユーザーに関する一般情報を提供します。 Value パラメーターは、コロン () が埋め込まれていないストリングです。:) 改行文字が埋め込まれていません。</td>
+
+</tr>
+
+<tr>
+<td><strong>グループ</strong></td>
+
+<td>ユーザーが所属するグループを識別します。 <em>domainlessgroups</em> 属性が <strong>/etc/secvars.cfg</strong> ファイルで設定されている場合、LDAP グループをローカル・ユーザーに割り当てることができます。また、逆も可能です。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/secvars.cfg.html" target="_blank" rel="noopener noreferrer"><strong>/etc/secvars.cfg</strong></a>を参照してください。 <em>Value</em> パラメーターは、コンマで区切られたグループ名のリストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>histexpire</strong></td>
+
+<td>ユーザーがパスワードを再利用できない期間 (週単位) を定義します。 この値は、10 進の整数文字列です。 デフォルトは 0 で、期間が設定されていないことを示します。 この属性変更できるのは、管理ユーザーだけです。</td>
+
+</tr>
+
+<tr>
+<td><strong>histsize</strong></td>
+
+<td>ユーザーが再利用できない以前のパスワードの数を定義します。 この値は、10 進の整数文字列です。 デフォルトは 0 です。 <span>この属性には、0 から 50 までの範囲の値を指定できます。</span> この属性変更できるのは、管理ユーザーだけです。</td>
+
+</tr>
+
+<tr>
+<td><strong>home</strong></td>
+
+<td>Name パラメーターにより指定されたユーザーのホーム・ディレクトリーを識別します。 <em>Value</em> パラメーターは絶対パス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>id</strong></td>
+
+<td>ユーザー ID を指定します。 <em>Value</em> パラメーターは、固有の整数文字列です。 この属性を変更するとシステム・セキュリティーが損なわれるので、
+この属性は変更しないでください。</td>
+
+</tr>
+
+<tr>
+<td><strong>login</strong></td>
+
+<td>ユーザーが <strong>login</strong> コマンドを使用してシステムにログインできるかどうかを示します。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>ユーザーは、システムにログインできます。 これはデフォルトです。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>ユーザーは、システムにログインできません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>loginretries</strong></td>
+
+<td>最後に正常にログインしてからシステムがアカウントをロックするまでに再試行できる不成功ログインの回数を定義します。 この値は、10 進の整数文字列です。 ゼロまたは負の値は、未制限であることを示します。 ユーザーのアカウントがロックされると、システム管理者がファイル <strong>/etc/security/lastlog</strong> 内でそのユーザーの unsuccessful_login_count 属性を loginretries よりも小さい値にリセットするまで、そのユーザーはログインできなくなります。 この属性をリセットするには、次のように入力します。<div>
+<div><div><pre><code>chsec -f /etc/security/lastlog -s username -a \  
+unsuccessful_login_count=0</code></pre></div><div></div></div>
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ロジンタイムズ</strong><em></em></td>
+
+<td>ユーザーがシステムへのアクセスを許可される日付と時間帯を定義します。 値は、次のいずれかのフォーマットのエントリーをコンマで区切ったリストです。<div>
+<div><div><pre><code>[!]:&lt;time&gt;-&lt;time&gt;
+ 
+[!]&lt;day&gt;[-&lt;day&gt;][:&lt;time&gt;-&lt;time&gt;]
+ 
+[!]&lt;month&gt;[&lt;daynum&gt;][-&lt;month&gt;[&lt;daynum&gt;]][:&lt;time&gt;-&lt;time&gt;]</code></pre></div><div></div></div>
+</div>
+
+<p>&lt;day&gt; の有効値は、mon、tues、w、THU、
+Friday、sat、および SUNDAY などです。 ただし、day の値は曜日の省略形として示しますが、省略形は曜日名と月名の両方について固有でなければなりません。 曜日の範囲は、Tuesday-Monday のように、2 週にまたがってかまいません。 曜日名では、大文字と小文字は区別されません。</p>
+
+<p>&lt;time&gt; の有効値は、24 時間方式で指定された時刻です。 時刻値の前には : (コロン) を付け、4 文字の文字列を指定します。 先行ゼロは必須です。 したがって、0800 (午前 8 時) は有効ですが、800 は無効です。 指定された時間帯だけのエントリー構成は、すべての日に適用されます。 開始時刻は終了時刻より前でなければなりません。 2 日にまたがる期間を指定することはできません。</p>
+
+<p>&lt; month&gt; に指定できる値は、Jan、F、March、apr、および s です。 月の値は省略された月として示します。ただし、省略形は、日の名前と月の名前の両方について固有でなければなりません。 月の範囲は、September-June のように、2 年にまたがってかまいません。 月名では、大文字と小文字は区別されません。</p>
+
+<p>&lt;daynum&gt; の有効値は、1 カ月の 1 日から 31 日が含まれます。 この値は、指定された月に対して検査されます。 月の値は、1 文字文字列または 2 文字文字列のどちらかに指定します。 daynum 値なしで月を指定すると、その月が指定した範囲の開始月か終了月であるかによって、それぞれ、月の第 1 日目か最終日を示します。</p>
+
+<p>接頭部が! のエントリー (感嘆符) は、システムへのアクセスを拒否し、DENY エントリーと呼ばれます。 ! が指定されていないエントリー 接頭部はアクセスを許可し、ACCESS エントリーと呼ばれます。 ! は、単一エントリーに適用されるものであり、各エントリーの先頭に付ける必要があります。 現在、システムごとに 200 のエントリーを指定できます。</p>
+
+<p>この属性は、各国別に設定することができます。 月名と曜日名は、システム用に設定されたロケール変数により指定された言語によって、入力および表示することができます。 月と曜日の値の相対順序も、各国別に設定することができます。
+&lt;month&gt;&lt;daynum&gt; フォーマットと &lt;daynum&gt;&lt;month&gt; フォーマットを使用できます。</p>
+
+<p>システムは、各エントリーを次の順序で評価します。</p>
+
+<ol>
+<li>すべての DENY エントリー。 エントリーがシステム時刻と一致すると、そのユーザーはアクセスが拒否され、ALLOW エントリーは処理されません。</li>
+
+<li>DENY エントリーが存在しない場合には、すべての ALLOW エントリー。 ALLOW エントリーがシステム時刻と一致すると、そのユーザーはアクセスを許可されます。 ALLOW エントリーがシステム時刻と一致しない場合には、そのユーザーはアクセスを拒否されます。 ALLOW エントリーが存在しなければ、そのユーザーはログインを許可されます。</li>
+
+</ol>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>maxage</strong></td>
+
+<td>パスワードの最長有効期間 (週単位) を定義します。 パスワードは、この時刻までに変更する必要があります。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最長有効期間がないことを示します。 範囲: 0 から 52</td>
+
+</tr>
+
+<tr>
+<td><strong>maxexpired</strong></td>
+
+<td>期限切れのパスワードを <strong>maxage</strong> 値以降に変更できる最長期間 (週単位) を定義します。 ここで定義された時刻以後は、管理ユーザーしかパスワードを変更できません。 この値は、10 進の整数文字列です。 デフォルトの値は -1 で、制限が設定されていることを示します。 <strong>maxexpired</strong> 属性を 0 に設定すると、パスワードが <strong>maxage</strong> 値に達したときに期限切れとなります。 <strong>maxage</strong> 属性を 0 に設定すると、<strong>maxexpired</strong> 属性は無視されます。 範囲: 0 から 52 (root ユーザーは <strong>maxexpired</strong> を免除されます)</td>
+
+</tr>
+
+<tr>
+<td><strong>maxrepeats</strong></td>
+
+<td>新しいパスワード内で 1 文字を反復できる最大回数を定義します。 値 0 では意味がないので、デフォルトの値 8 で最大数が存在しないことを示します。 この値は、10 進の整数文字列です。 範囲: 0 から 8</td>
+
+</tr>
+
+<tr>
+<td><strong>maxulogs</strong></td>
+
+<td>ユーザーごとの並行ログインの最大数を指定します。 あるユーザーの並行ログイン数が、許可されたログイン最大数を超えた場合、ログインは拒否されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>minage</strong></td>
+
+<td>パスワードが変更可能になるまでに経過する必要のある最低有効期間 (週単位) を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最低有効期間がないことを示します。 範囲: 0 から 52</td>
+
+</tr>
+
+<tr>
+<td><strong>minalpha</strong></td>
+
+<td>新しいパスワードに含める必要のある英字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から 8</td>
+
+</tr>
+
+<tr>
+<td><strong>mindiff</strong></td>
+
+<td>古いパスワードには含まれていない文字で、新しいパスワードに含める必要がある文字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から 8</td>
+
+</tr>
+
+<tr>
+<td><strong>minlen</strong></td>
+
+<td>パスワードの最小長を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小長がないことを示します。 許可される最大値は 8 です。 この属性は、詳細情報 <strong>minlen</strong> または <strong>'minalpha + minother'</strong>(あるいはその両方) によって決定されます。 <strong>'minalpha + minother'</strong> は 8 を超えることはできません。 <strong>'minalpha + minother'</strong> が 8 より大きい場合、<strong>minother</strong> の有効値は <strong>'8 - minalpha'</strong> に減らされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>minother</strong></td>
+
+<td>新しいパスワードに含める必要のある英字以外の文字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から 8</td>
+
+</tr>
+
+<tr>
+<td><strong>nofiles</strong></td>
+
+<td>ユーザー・プロセスが一度にオープンさせることができるファイル・ディスクリプターの数のソフト制限を定義します。 <strong>Value</strong> パラメーターは整数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>nofiles_hard</strong></td>
+
+<td>ユーザー・プロセスが一度にオープンさせることができるファイル・ディスクリプターの数のハード制限を定義します。 <strong>Value</strong> パラメーターは整数です。 デフォルト値は -1 で、システムによる許容最大値の制限を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>nproc</strong></td>
+
+<td>ユーザーが一度に実行させることができるプロセス数のソフト制限を定義します。 <em>「値」</em> パラメーターは、1 以上の整数です。 デフォルト値は -1 で、システムによる許容最大値の制限を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>nproc_hard</strong></td>
+
+<td>ユーザーが一度に実行させることができるプロセス数のハード制限を定義します。 <em>「値」</em> パラメーターは、1 以上の整数です。 デフォルト値は -1 で、システムによる許容最大値の制限を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>pgrp</strong></td>
+
+<td>ユーザーの 1 次グループを識別します。 <em>domainlessgroups</em> 属性が <strong>/etc/secvars.cfg</strong> ファイルで設定されている場合、LDAP グループを 1 次グループとしてローカル・ユーザーに割り当てることができます。また、逆も可能です。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/secvars.cfg.html" target="_blank" rel="noopener noreferrer"><strong>/etc/secvars.cfg</strong></a>を参照してください。 <em>Value</em> パラメーターには、有効なグループ名を指定する必要があります。null 値は指定できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>projects</strong></td>
+
+<td>ユーザーのプロセスを割り当てることができるプロジェクトのリストを
+定義します。 値は、コンマで区切られたプロジェクト名のリストで、左から右に
+評価されます。 プロジェクト名は、システム内で定義されている有効なプロジェクト名である
+必要があります。 無効のプロジェクト名がリストに検出された場合は、エラーとして
+報告されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>pwdchecks</strong></td>
+
+<td>新しいパスワードに関して実施されるパスワード制限メソッドを定義します。 値は、コンマで区切られたメソッド名のリストであり、左から右へ評価されます。 メソッド名は、絶対パス名か、実行可能なロード・モジュールの <strong>/usr/lib</strong> への相対パスのどちらかです。</td>
+
+</tr>
+
+<tr>
+<td><strong>プワイトワーンタイム</strong><em></em></td>
+
+<td>パスワードの変更が必要であることを示す警告がシステムによって表示されるまでの日数を定義します。 この値は、10 進の整数文字列です。 ゼロまたは負の値は、メッセージが表示されないことを示します。 値は、<strong>maxage</strong> 属性と <strong>minage</strong> 属性の差より小さくなければなりません。 この差より大きい値は無視され、<strong>minage</strong> 値に達するとメッセージが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>rcmds</strong></td>
+
+<td><span><span>r</span></span>コマンド (<span><span>rsh</span></span>、 <span><span>rexec</span></span>、および <span><span>rcp</span></span>) のリモート実行を制御します。 考えられる値は、次のとおりです。<dl>
+
+<dt><strong>許可</strong></dt>
+
+<dd>このユーザーにリモート・コマンド実行を許可します。 これはデフォルト値です。</dd>
+
+
+
+<dt><strong>拒否</strong></dt>
+
+<dd>このユーザーがリモート・コマンド実行を使用できるようにすることを拒否します。</dd>
+
+
+
+<dt><strong>ホスト・ログイン制御</strong></dt>
+
+<dd>リモート・コマンド実行の能力が <span><span>hostsallowedlogin</span></span> および <span><span>hostsdeniedlogin</span></span> 属性によって決定されることを指定します。 ユーザー (またはターゲット・ユーザー) がターゲット・システムへのログインを許可されている場合、そのユーザーはターゲット・システム上でリモート・コマンドを実行することのみが許可されます。 この値は、通常 LDAP などの中央ユーザー・データベース内に定義されているユーザーの場合に使用され、一部のシステムへのログインは許可されても、その他のシステムへのログインは許可されないことがあります。</dd>
+
+
+</dl>
+<dl>
+
+<dt>hostsallowedlogin</dt>
+
+<dd>ユーザーが指定されたホストにログインすることを許可します。</dd>
+
+
+</dl>
+<dl>
+
+<dt>hostsdeniedlogin</dt>
+
+<dd>ユーザーが指定されたホストにログインすることは許可されません。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span><span>rcmds</span></span> 属性は、リモート・コマンドの実行のみを制御します。 リモート・シェルを開くための <span><span>r</span></span>コマンド機能は制御しません。 このようなログイン機能は、 <span><span>rlogin</span></span>、 <span><span>hostsallowedlogin</span></span>、および <span><span>hostsdeniedlogin</span></span> 属性によって制御されます。</div>
+        </div>
+      </div></div>
+
+<p>非推奨の <span><span>ttys</span></span> 属性値 <code>!rsh</code>( <span><span>rcmds</span></span> 属性を <span><span>deny</span></span>に設定するのと実質的に同じです) は、後方互換性の目的で引き続きサポートされていますが、代わりに <span><span>rcmds</span></span> 属性を使用して <span><span>r</span></span>コマンドの実行を制御する必要があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>rlogin</strong></td>
+
+<td><strong>telnet</strong> コマンドまたは  <strong>rlogin</strong> コマンドを使用して、
+リモート・ロケーションからアカウントにアクセスできるようにします。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>ユーザー・アカウントにリモート・アクセスすることができます。 これは、デフォルトの <strong>rlogin</strong> 値です。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>ユーザーはリモート・アクセスできません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ロール</strong></td>
+
+<td>このユーザーの管理ロールを定義します。 <em>Value</em> パラメーターは、ロール名のリストであり、ロール名はそれぞれコンマで区切られています。</td>
+
+</tr>
+
+<tr>
+<td><strong>rss</strong><em></em></td>
+
+<td>ユーザーのプロセスで割り振り可能な物理メモリーの最大量のソフト制限です。 <em>Value</em> パラメーターは、512 バイト・ブロック単位で指定された 10 進整数ストリングです。 この値は、現在はシステムで適用されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>rss_hard</strong></td>
+
+<td>ユーザーのプロセスが割り当て可能な物理メモリーの最大量。 Value パラメーターは、割り当てる 512 バイト単位のブロック数で指定された 10 進整数文字列です。 この値は、現在はシステムで適用されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>シェル (shell)</strong></td>
+
+<td>セッション開始時にユーザー用に実行されるプログラムを定義します。 <em>Value</em> パラメーターは絶対パス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>スタック</strong><em></em></td>
+
+<td>ユーザーのプロセス用の最大プロセス・スタック・セグメントのソフト制限を指定します。 <em>Value</em> パラメーターは、割り当てる 512 バイト・ブロックの数を表す整数です。 この属性の最小許容値は 49 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>stack_hard</strong></td>
+
+<td>ユーザーのプロセスの最大プロセス・スタック・セグメントを指定します。 <span><span>Value</span></span> パラメーターは、割り当てる 512 バイト・ブロックの数を表す整数です。 この属性の最小許容値は 49 です。 このパラメーターの最大許容値は 2147483647 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>su</strong></td>
+
+<td><strong>su</strong> コマンドを使用して指定されたユーザー・アカウントに他のユーザーが切り替えられるかどうかを示します。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>TRUE</strong></dt>
+
+<dd>指定アカウントに他のユーザーが切り替わることができます。 これはデフォルトです。</dd>
+
+
+
+<dt><strong>FALSE</strong></dt>
+
+<dd>指定アカウントに他のユーザーが切り替わることはできません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>sugroups</strong></td>
+
+<td>指定されたユーザー・アカウントを切り替えるために <strong>su</strong> コマンドを使用できるグループを定義します。 <em>Value</em> パラメーターは、コンマで区切られたグループ名のリスト、あるいはすべてのグループを示す値 <strong>ALL</strong> です。 グループ名の前に感嘆符 (!) を付けると、そのグループは除外されます。 この属性が指定されていない場合には、すべてのグループが、<strong>su</strong> コマンドを使用してこのユーザー・アカウントに切り替えることができます。 <em>domainlessgroups</em> 属性が <strong>/etc/secvars.cfg</strong> ファイルで設定されている場合、LDAP グループをローカル・ユーザーに割り当てることができます。また、逆も可能です。 詳しくは、「<strong>/etc/secvars.cfg</strong>」ファイルを参照してください。<div><div>
+        <div>
+          <div><span>注:</span> ユーザーが複数のグループに属しており、いずれかのグループが感嘆符 (!) で指定されている場合、ユーザーは<strong> su</strong> コマンドを使用して、指定されたユーザー・アカウントにアクセスすることができません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>sysenv</strong></td>
+
+<td>システム状態 (保護) 環境を識別します。 <em>値</em> パラメーターは、 <strong>/etc/security/environ</strong> ファイルに指定されている、コンマ区切りの <em>属性</em><strong>=</strong><em>値</em> ペアのセットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>スレッド</strong></td>
+
+<td>ユーザー・プロセスが作成できるスレッドの最大数のソフト制限を指定します。 <em>Value</em> パラメーターは 1 以上の整数で、各ユーザー・プロセスが作成できるスレッドの数を表します。 この制限は、カーネルとユーザー・スペース <strong>pthread</strong> ライブラリーの両方によって実施されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>スレッド・ハード</strong></td>
+
+<td>ユーザー・プロセスが作成できるスレッドの最大可能数を指定します。 <em>Value</em> パラメーターは 1 以上の整数で、各ユーザー・プロセスが作成できるスレッドの数を表します。 この制限は、カーネルとユーザー・スペース <strong>pthread</strong> ライブラリーの両方によって実施されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ティーパス</strong><em></em></td>
+
+<td>ユーザーのトラステッド・パスの状況を示します。 可能な値は次のとおりです。<dl>
+
+<dt><strong>常時</strong></dt>
+
+<dd>ユーザーが実行できるのは、トラステッド・プロセスだけです。 これは、ユーザーの開始プログラムがトラステッド・シェルまたは他のトラステッド・プロセスの中にあることを意味しています。</dd>
+
+
+
+<dt><strong>tsh なし</strong></dt>
+
+<dd>ユーザーは、トラステッド・パス上にトラステッド・シェルを呼び出すことができません。 ユーザーがログイン後にセキュア・アテンション・キー (SAK) を入力すると、ログイン・セッションは終了します。</dd>
+
+
+
+<dt><strong>nosak (nosak)</strong></dt>
+
+<dd>セキュア・アテンション・キー (SAK) が、ユーザーが実行するすべてのプロセスについて使用不可になります。 この値は、ユーザーが SAK シーケンスを含んだバイナリー・データを転送する際に使用してください。 これはデフォルト値です。</dd>
+
+
+
+<dt><strong>オン</strong></dt>
+
+<dd>ユーザーは通常のトラステッド・パス特性を持ち、セキュア・アテンション・キー (SAK) を使ってトラステッド・パスを始動する (トラステッド・シェルに入る) ことができます。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ttys</strong></td>
+
+<td><em>Name</em> パラメーターで指定されたアカウントにアクセスできる端末を定義します。 <em>Value</em> パラメーターはコンマで区切られた絶対パス名のリスト、あるいはすべての端末を示す値 <strong>ALL</strong> です。 グループ名の前に ! (感嘆符) を付けると、その端末は除外されます。 この属性が指定されない場合には、すべての端末がそのユーザー・アカウントにアクセスできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>umask</strong></td>
+
+<td>ファイル許可を決定します。 この値は、作成するプロセスの許可と共に、ファイル作成時のファイルの許可を決定します。 デフォルトの値は 022 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ユーズレンブ</strong><em></em></td>
+
+<td>ユーザー状態 (無保護) 環境を定義します。 <em>値</em> パラメーターは、 <strong>/etc/security/environ</strong> ファイルに指定されている、コンマ区切りの <em>属性</em><strong>=</strong><em>値</em> ペアのセットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>fs_keystore_access (efs_keystore_access)</strong></td>
+
+<td>ユーザー鍵ストアのデータベース・タイプを指定します。 次の値を指定できます。<dl>
+
+<dt>ファイル</dt>
+
+<dd>そのユーザーに関連する <strong>/var/efs/users/<em>usrname
+</em>/keystore</strong> 鍵ストア・ファイルを作成します。</dd>
+
+
+
+<dt>なし</dt>
+
+<dd>鍵ストアは作成されません。 その他の鍵ストア属性も、すべて無効です。</dd>
+
+
+</dl>デフォルト値は <strong>file</strong>です。<p><strong>制約事項</strong>: この属性が有効なのは、システムで EFS を使用可能な場合のみです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>efs_adminks_access</strong></td>
+
+<td><strong>efs_admin</strong> 鍵ストアのデータベース・タイプを表します。 有効な値は <strong>file</strong> のみです。<p><strong>制約事項</strong>: この属性が有効なのは、システムで EFS を使用可能な場合のみです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>efs_initialks_mode</strong></td>
+
+<td>ユーザー鍵ストアの初期モードを指定します。 次の値を指定できます。<dl>
+
+<dt>admin</dt>
+
+<dd>root ユーザーまたは別のセキュリティー特権を持つシステム・ユーザーが、
+管理者キーを使用して鍵ストアを開き、鍵ストア・パスワードをリセットすることができます。</dd>
+
+
+
+<dt>guard</dt>
+
+<dd>root ユーザーは、管理者キーを使用して鍵ストアを開くことも、鍵ストア・パスワードをリセットすることもできません。</dd>
+
+
+</dl>デフォルト値は <strong>admin</strong>です。<p>この属性はユーザー鍵ストアの初期モードを指定します。 <strong>mkuser</strong> コマンドによって、この属性を使用することができます。 鍵ストアの作成後に、<strong>chuser</strong> コマンド、<strong>chgroup</strong> コマンド、
+または <strong>chsec</strong> コマンドを使用したり、手動で編集したりすることで属性値を変更しても、
+鍵ストアを一度削除してまた新しい鍵ストアを作成しなければ、鍵ストアのモードを変更できません。 鍵ストアのモードを変更するには、<strong>efskeymgr</strong> コマンドを使用します。</p>
+
+<p><strong>制約事項</strong>: この属性が有効なのは、システムで EFS を使用可能な場合のみです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><p><strong>ユーザーによる efs_allowksmode の変更</strong></p>
+
+</td>
+
+<td>モードを変更できるようにするかどうかを指定します。 次の値を指定できます。<ul>
+<li><strong>はい</strong></li>
+
+<li><strong>NO</strong></li>
+
+</ul>デフォルト値は<strong>yes</strong>です。<p><strong>制約事項</strong>: この属性が有効なのは、システムで EFS を使用可能な場合のみです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>fs_keystore_algo</strong></td>
+
+<td>鍵ストアの作成中にユーザーの秘密鍵を生成するために使用されるアルゴリズムを指定します。 次の値を指定できます。<ul>
+<li><strong>RSA_1024</strong></li>
+
+<li><strong>RSA_2048</strong></li>
+
+<li><strong>RSA_4096</strong></li>
+
+</ul>デフォルト値は <strong>RSA_1024</strong> です。<p><strong>mkuser</strong> コマンドによって、この属性を使用することができます。 鍵ストアの作成後に、<strong>chuser</strong> コマンド、<strong>chgroup</strong> コマンド、
+または <strong>chsec</strong> コマンドを使用したり、手動で編集したりすることでこの属性値を変更しても、
+鍵ストアを一度削除してまた新しい鍵ストアを作成しなければ、秘密鍵を再生成できません。 鍵のアルゴリズムを変更するには、<strong>efskeymgr</strong> コマンドを使用します。</p>
+
+<p><strong>制約事項</strong>: この属性が有効なのは、システムで EFS を使用可能な場合のみです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>efs_file_algo (efs_file_algo)</strong></td>
+
+<td>ユーザー・ファイル用の暗号化アルゴリズムを指定します。 次の値を指定できます。<ul>
+<li><strong>AES_128_CBC</strong></li>
+
+<li><strong>AES_128_ECB</strong></li>
+
+<li><strong>AES_192_CBC</strong></li>
+
+<li><strong>AES_192_ECB</strong></li>
+
+<li><strong>AES_256_CBC</strong></li>
+
+<li><strong>AES_256_ECB</strong></li>
+
+</ul>デフォルト値は <strong>AES_128_CBC</strong>です。<p><strong>制約事項</strong>: この属性が有効なのは、システムで EFS を使用可能な場合のみです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>minloweralpha </strong></td>
+
+<td>新しいパスワードに含める必要のある英小文字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から PW_PASSLEN まで。</td>
+
+</tr>
+
+<tr>
+<td><strong>minupperalpha </strong></td>
+
+<td>新しいパスワードに含める必要のある英大文字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から PW_PASSLEN まで。</td>
+
+</tr>
+
+<tr>
+<td><strong>mindigit</strong></td>
+
+<td>新しいパスワードに含める必要のある数字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から PW_PASSLEN まで。</td>
+
+</tr>
+
+<tr>
+<td><strong>minspecialchar</strong></td>
+
+<td>新しいパスワードに含める必要のある特殊文字の最小数を定義します。 この値は、10 進の整数文字列です。 デフォルトの値は 0 で、最小数がないことを示します。 範囲: 0 から PW_PASSLEN まで。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p><strong>アクセス制御</strong></p>
+
+<p>このコマンドに対する実行 (x) アクセス権は、root ユーザーとセキュリティー・グループにのみ与える必要があります。 このコマンドをプログラムとしてトラステッド・コンピューティング・ベース (TCB) にインストールする必要があります。 <strong>setuid</strong> (SUID) ビットが設定されている root ユーザーが、このコマンドを所有する必要があります。</p>
+
+<p><strong>イベントの監査</strong></p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>USER_Change</strong></td>
+
+<td>ユーザー、属性</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><strong>アクセスされるファイル</strong></p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/user</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/user.roles</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/limits</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/environ</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/audit/config</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/enc/LabelEncodings</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/domains</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。 このコマンドの全機能を使用する場合、ロールには <strong>accessauths</strong> に加えて以下の権限が必要です。<ul>
+<li><strong>aix.security.user.audit</strong></li>
+
+<li><strong>aix.security.role.assign</strong></li>
+
+<li><strong>aix.security.group.change</strong></li>
+
+</ul>
+</div>
+
+</section>
+
+<section><h2>制限</h2>
+
+<p>すべてのロード可能 I&amp;A モジュールがユーザーの属性の変更をサポートしているわけではありません。 ロード可能 I&amp;A モジュールがユーザーの属性の変更をサポートしていない場合は、エラーが表示されます。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>ユーザーを有効にするにはsmithリモート側でこのシステムにアクセスするには、次のように入力<div>
+<div><div><pre><code>chuser rlogin=true smith</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>有効期限を変更するには、davisユーザー・アカウントを 8 a.mに。 1995 年 5 月 1 日、次のように入力します。<div>
+<div><div><pre><code>chuser expires=0501080095 davis</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>追加davisグループにfinanceおよびaccounting、タイプ:<div>
+<div><div><pre><code>chuser groups=finance,accounting davis </code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>ユーザーを変更するにはdavisLDAP ロード・モジュールを使用して作成されたユーザーがリモート・アクセスを許可されないようにするには、次のように入力します。<div>
+<div><div><pre><code>chuser -R LDAP rlogin=false davis</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>ユーザーのドメインを変更するにはdavis、タイプ:<div>
+<div><div><pre><code>chuser domains=INTRANET,APPLICATION davis</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>ユーザーの役割を設定解除するにはdavis、タイプ:<div><div><pre><code>chuser roles=" " davis</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chuser</strong></td>
+
+<td><strong>chuser</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザーの基本属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>グループの基本属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/group</strong></td>
+
+<td>拡張グループ属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user</strong></td>
+
+<td>ユーザーの拡張属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user.roles</strong></td>
+
+<td>ユーザーの管理ロール属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/lastlog</strong></td>
+
+<td>ユーザーの最新ログイン属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/limits</strong></td>
+
+<td>ユーザーごとのリソース・クォータおよび制限を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/config</strong></td>
+
+<td>監査構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/environ</strong></td>
+
+<td>ユーザーの環境属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domains</strong></td>
+
+<td>システムの有効なドメイン定義が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

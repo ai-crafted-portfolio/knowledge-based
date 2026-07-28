@@ -1,0 +1,655 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・ダンプとライブ・ダンプを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>dumpctrl</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagk" target="_blank" rel="noopener noreferrer"><span>-k</span></a></p>
+ <p><span>dumpctrl</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagur" target="_blank" rel="noopener noreferrer"><span>-R</span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagl" target="_blank" rel="noopener noreferrer"><span>l</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflags" target="_blank" rel="noopener noreferrer"><span>s</span></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagup" target="_blank" rel="noopener noreferrer"><span>-P</span></a>]</p>
+ <p><span>dumpctrl</span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflags" target="_blank" rel="noopener noreferrer"><span>-s</span></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagc" target="_blank" rel="noopener noreferrer"><span>-c</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagbigc" target="_blank" rel="noopener noreferrer"><span>-C</span></a> comp-path-list ] [[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagl" target="_blank" rel="noopener noreferrer"><span>-l</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagbigl" target="_blank" rel="noopener noreferrer"><span>-L</span></a> comp-alias-list ] [[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagt" target="_blank" rel="noopener noreferrer"><span>-t</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagbigt" target="_blank" rel="noopener noreferrer"><span>-T</span></a> タイプ_サブタイプ ] [[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagr" target="_blank" rel="noopener noreferrer"><span>-r</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagu" target="_blank" rel="noopener noreferrer"><span>-u</span></a>]</p>
+ <p><span>dumpctrl</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagq" target="_blank" rel="noopener noreferrer"><span>-q</span>c</a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagc" target="_blank" rel="noopener noreferrer"><span>-c</span></a> comp-path-list ]。[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagl" target="_blank" rel="noopener noreferrer"><span>-l</span></a> コンプエイリアスリスト] [ comp-alias-list [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagt" target="_blank" rel="noopener noreferrer"><span>-t</span></a> タイプ_サブタイプ］ [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagr" target="_blank" rel="noopener noreferrer"><span>-r</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagu" target="_blank" rel="noopener noreferrer"><span>-u</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagp" target="_blank" rel="noopener noreferrer"><span>-p</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagup" target="_blank" rel="noopener noreferrer"><span>-P</span></a>]</p>
+ <p><span>dumpctrl</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagq" target="_blank" rel="noopener noreferrer"><span>-q</span>l</a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagp" target="_blank" rel="noopener noreferrer"><span>-p</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagup" target="_blank" rel="noopener noreferrer"><span>-P</span></a>]</p>
+ <p><span>dumpctrl</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagq" target="_blank" rel="noopener noreferrer"><span>-q</span>s</a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagp" target="_blank" rel="noopener noreferrer"><span>-p</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagup" target="_blank" rel="noopener noreferrer"><span>-P</span></a>]</p>
+ <p><span>dumpctrl</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagup" target="_blank" rel="noopener noreferrer"><span>-P</span></a>] [グローバル属性］</p>
+ <p><span>dumpctrl</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagc" target="_blank" rel="noopener noreferrer"><span>-c</span></a> comp-path-list ]。[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagl" target="_blank" rel="noopener noreferrer"><span>l</span></a> コンプエイリアスリスト] [ comp-alias-list [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagt" target="_blank" rel="noopener noreferrer"><span>-t</span></a> タイプ_サブタイプ］ [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagr" target="_blank" rel="noopener noreferrer"><span>-r</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagu" target="_blank" rel="noopener noreferrer"><span>-u</span></a>][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagn" target="_blank" rel="noopener noreferrer"><span>-n</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagp" target="_blank" rel="noopener noreferrer"><span>-p</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagup" target="_blank" rel="noopener noreferrer"><span>-P</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrlflagx" target="_blank" rel="noopener noreferrer"><span>-x</span></a>] [コンポーネントごとの属性 ]</p>
+</section>
+
+<section><h2>説明</h2> <div>ダンプ・コンポーネントには、次の 2 つのタイプがあります。<dl>
+<dt>component</dt>
+
+<dd>RAS インフラストラクチャーで指定されたコンポーネント ( <span><span>ras_register()</span></span> カーネル・サービスで作成されたもの) を参照します。</dd>
+
+
+<dt>legacy component</dt>
+
+<dd><span><span>dmp_add()</span></span> または <span><span>dmp_ctl()</span></span> カーネル・サービスで指定されたダンプ・コンポーネントを参照します。</dd>
+
+</dl>
+</div>
+ <p><span>dumpctrl</span> コマンドは、どのコンポーネントがライブ・ダンプまたはシステム・ダンプに登録されるかについての情報を入手し、ダンプ特性を照会して変更するために使用します。</p>
+ <p>コンポーネントは、絶対パス名、デバイス論理の別名、タイプまたはサブタイプで指定されます。 複数のコンポーネントまたはコンポーネント・リストを指定するために、複数のフラグを使用できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>少なくとも 1 つのフラグを指定する必要があります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th colspan="3"><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-c</span> コンポーネント・パス・リスト</td>
+
+<td colspan="3">コンポーネントをパス名で指定します。 ワイルドカードを使用できます。 <span>-c all</span> コマンドを使用すると、すべてのコンポーネントを指定できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-k</span></td>
+
+<td colspan="3">カーネルのダンプ・リストをリフレッシュします。 このフラグは、デフォルトで 5 分ごとに実行されます。 この期間は、root ユーザーの <span>crontab</span> コマンドを編集し、 <span>/usr/sbin/dumpctrl
+-k</span>の項目を変更することによって変更できます。 詳しくは、<span>crontab</span> コマンドを参照してください。 ダンプを手動で追加したり除去した場合は、その後に <span>dumpctrl -k</span> コマンドを実行する必要があります。<p>システムは、前回ファイルシステムに書き込めなかったダンプをヒープ内に保持している場合、それらのダンプの書き込みを試行し、この時点でそれらのストレージ・スペースを再利用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span> comp-alias-list </td>
+
+<td colspan="3">コンポーネントを別名で指定します。 ワイルドカードを使用できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td colspan="3">指定されたコンポーネントのサブコンポーネントをダンプします。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span> コマンド</td>
+
+<td colspan="3">ライブ・ダンプまたはシステム・ダンプの属性を照会します。<ul>
+<li><span>-qc</span> フラグは、コンポーネント固有のライブ・ダンプ属性とシステム・ダンプ属性を表示します。 <span>-qc</span> フラグを <span>-p</span> または <span>-P</span> フラグと一緒に使用すると、コンポーネントごとの永続的属性を照会できます。 <span>-qc</span> フラグは、<span>-c</span>、<span>-l</span>、<span>-t</span> のいずれのフラグも指定されていない場合、すべてのコンポーネントの属性を表示します。 言い換えると、 <span>-c
+all</span> がデフォルトです。<div>このコマンドの出力例を次に示します。<div><div><pre><code>dumpctrl -qc -r -l vmm -l proc
+
+--------------------------------------------------------------------------
+     Component name                       | Have | Live Dump | System Dump
+                                          |Alias |  /level   |  /level
+--------------------------------------------------------------------------
+vmm                                       | no   |  on/3     |  on/3
+     .pft                                 | no   |  on/3     |  on/3
+	 ...
+proc                                      | no   |  on/4     |  on/3
+     ...</code></pre></div><div></div></div></div>
+</li>
+
+<li><span>-ql</span> フラグはグローバル・ライブ・ダンプ設定をリストします。 <span>-ql</span> フラグを <span>-p</span> または <span>-P</span> フラグと一緒に使用すると、永続的なグローバル・ライブ・ダンプ設定を照会できます。</li>
+
+<li><span>-qs</span> type フラグは、グローバル・システム・ダンプ属性を表示します。 <span>-qs</span> を <span>-p</span> または <span>-P</span> フラグと一緒に使用すると、グローバル・システム・ダンプ属性を照会できます。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td colspan="3">コンポーネントの階層で指定されたコンポーネントの下にコンポーネントを組み込みます。</td>
+
+</tr>
+
+<tr>
+<td>-<span>Rx</span></td>
+
+<td colspan="3">ダンプ設定をそのデフォルトに復元します。 x には、ライブ・ダンプ設定では <code>l</code>、システム・ダンプ設定では <code>s</code> を指定できます。 これは、グローバルなダンプ設定のみをリセットします。 コンポーネントを個別に指定することはできません。 これらのすべての設定を再始動後も有効にするには、<span>-P</span> フラグと新しいブート・イメージが必要です。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> type_subtype </td>
+
+<td colspan="3">コンポーネントを type_subtype 名で指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td colspan="3">ダンプ・リポジトリーですべてのライブ・ダンプのパス名とタイトルをリストします。 コンポーネントが <span>-c</span>、<span>-l</span>、または <span>-t</span> フラグで指定されている場合は、指定されたコンポーネントのダンプのみが、表示されるダンプのリストに含まれます。 コンポーネントが <span>-C</span>、<span>-L</span>、または <span>-T</span> フラグで指定されている場合は、指定された障害のあるコンポーネントのダンプのみが、表示されるダンプのリストに含まれます。</td>
+
+</tr>
+
+<tr>
+<td><span>-C</span> コンポーネント・パス・リスト</td>
+
+<td colspan="3">コンポーネントをパス名で指定します。 ワイルドカードを使用できます。 予約名 <code>all</code> を使用してすべてのコンポーネントを指定することもできます。 <span>-C</span> フラグは、<span>-s</span> フラグとともに使用する場合のみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span> comp-alias-list </td>
+
+<td colspan="3">コンポーネントを別名で指定します。 ワイルドカードを使用できます。 <span>-L</span> フラグは、<span>-s</span> フラグとともに使用する場合のみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span> タイプ・サブタイプ </td>
+
+<td colspan="3">コンポーネントを type_subtype 名で指定します。 <span>-T</span> フラグは、<span>-s</span> とともに使用する場合のみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span></td>
+
+<td colspan="3">コンポーネントの階層で指定されたコンポーネントの上にコンポーネントを組み込みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><strong>Persistence フラグ</strong><div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-p</span></td>
+
+<td>変更内容は、新規に作成されるコンポーネントにのみ適用されます。これは <span>dumpctrl</span> コマンドの実行後に作成される RAS インフラストラクチャーのコンポーネントです。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span></td>
+
+<td>指定された変更を永続的なものにします。 変更内容は再始動後も有効のままです。 新しいブート・イメージが必要な場合は、それについて通知するメッセージが生成されます。 <span>-P</span> フラグが適用されるのは、コンポーネント属性、ライブ・ダンプのグローバルな使用可能化または使用不可化、グローバル・ライブ・ダンプのレベル、レガシー・コンポーネントの使用可能化または使用不可化、およびシステム・ダンプ・デバイスの指定です。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>変更内容は既存のコンポーネントに適用されます。 <span>-p</span> または <span>-P</span> のいずれも指定しない場合は、<span>-n</span> フラグがデフォルトです。 変更内容を現行のコンポーネントと新規作成のコンポーネントの両方に適用するには、<span>-n</span> フラグと <span>-p</span> フラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span></td>
+
+<td>この永続性の指定を削除します。 <span>-x</span> フラグは、永続 (<span>-P</span>) パーシスタンス仕様を削除します。 この指定は、当初 <span>-P</span> フラグで指定したのと同じ方法で指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>再帰的に下るカスタマイズ (<span>-r</span> フラグにより指定) は、他のすべてのカスタマイズよりも優先されます。この場合、再帰的に下るカスタマイズではない他のカスタマイズに対してそれらが指定される順序は関係ありません。</p>
+ <div>設定されたカスタマイズが不明だが、デフォルトのシステム設定を復元したい場合は、以下のいずれかのアクションを実行できます。<ul>
+<li><span>/var/adm/ras/raspertune</span>ファイルで、カスタマイズに関連する行を削除し、「<span>bosboot</span>コマンドを実行して<span>AIX</span>を再起動する。</li>
+
+<li><span>/var/adm/ras/raspertune</span> ファイルで、指定されている該当のフラグとパラメーターを見つけます。 <span>-x</span> フラグを使用して、そのカスタマイズを削除します。 <span>bosboot</span> コマンドを実行し、 <span>AIX</span>を再始動します。</li>
+
+</ul>
+</div>
+ <p>さまざまなダンプ属性がパーシスタンスとどのように対話するかについて詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__dumpctrl_atri" target="_blank" rel="noopener noreferrer">属性</a>」のライブ・ダンプとシステム・ダンプの属性表を参照してください。</p>
+</section>
+
+<section><h2>属性</h2> <div>ダンプ属性は <code>attribute=value</code> の形式を使用できます。 例:<div><div><pre><code>dumpctrl dir=/usr/dumps freespc=20</code></pre></div><div></div></div>この例では、ダンプ・ディレクトリーが <span>/usr/dumps</span>、フリー・スペースのしきい値が 20% に設定されています。</div>
+ <p><code>ldmpenable=yes</code>と同じ <span>ldmpon</span> 属性など、いくつかのショートカットが用意されています。</p>
+ <p>コンポーネントが指定されると、未知の属性が <span>RASCD_DMP_PASS_THROUGH</span> を使用してこれらのコンポーネントのコールバックに渡されます。</p>
+ <p>次の表では、ライブ・ダンプ属性を示します。</p>
+ 
+<div><div><table><caption><span>表 1. ライブ・ダンプ属性とデフォルト</span></caption><thead>
+<tr>
+<th><div>属性</div></th>
+
+<th><div>指定</div></th>
+
+<th><div>デフォルト値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>ldmpenable</span></td>
+
+<td>ライブ・ダンプを使用可能にするかを指定します。<p>使用可能な値は yes と no です。</p>
+ <p><code>ldmpenable=yes</code>の代わりに <span>ldmpon</span> 属性を使用し、 <code>ldmpenable=no</code>の代わりに <span>ldmpoff</span> 属性を使用することができます。</p>
+</td>
+
+<td>はい<p>詳しくは、以下の注 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__notes1" target="_blank" rel="noopener noreferrer">1</a>を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>dir</span></td>
+
+<td>ライブ・ダンプのディレクトリー名を指定します。</td>
+
+<td><span>/var/adm/ras/livedump </span></td>
+
+</tr>
+
+<tr>
+<td><span>freespc</span></td>
+
+<td>ライブ・ダンプのフリー・スペースのしきい値を 0 から 99 の 10 進数を使用して指定します。</td>
+
+<td>25 (25% の意味)</td>
+
+</tr>
+
+<tr>
+<td><span>ldmplevel</span></td>
+
+<td>ライブ・ダンプのレベルを 0 から 9 の 10 進数を使用して指定します。<p><code>ldmplevel=1,
+3, 7</code> の代わりに、 <span>ldmpminimal</span>、 <span>ldmpnormal</span>、または <span>ldmpdetail</span> 属性を指定できます。</p>
+</td>
+
+<td>3 (normal)<p>詳しくは、以下の注 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__notes1" target="_blank" rel="noopener noreferrer">1</a>を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>heapsz</span></td>
+
+<td>ライブ・ダンプのヒープ・サイズを 10 進数 (メガバイト) を使用して指定します。</td>
+
+<td>0<p>詳しくは、以下の注 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__notes2" target="_blank" rel="noopener noreferrer">2</a>を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>duptype</span></td>
+
+<td>重複ダンプの抑止タイプを指定します。 使用可能な値は次のとおりです。<ul>
+<li>すべて</li>
+
+<li>pre</li>
+
+<li>post</li>
+
+<li>なし</li>
+
+</ul>
+</td>
+
+<td>すべて</td>
+
+</tr>
+
+<tr>
+<td><span>maxfreeze</span></td>
+
+<td>推奨されるシステム・フリーズの最大インターバルを 10 進数 (ミリ秒) を使用して指定します。</td>
+
+<td>100 ms</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>次の表では、システム・ダンプ属性を示します。</p>
+ 
+<div><div><table><caption><span>表 2. システム・ダンプ属性とデフォルト</span></caption><thead>
+<tr>
+<th><div>属性</div></th>
+
+<th><div>指定</div></th>
+
+<th><div>デフォルト値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>sdmpenable</span></td>
+
+<td>システム・ダンプを使用可能にするかを指定します。<p>使用可能な値は yes と no です。</p>
+ <p><code>sdmpenable=yes</code> または <code>sdmpenable=no</code>の代わりに、 <span>sdmpon</span> または <span>sdmpoff</span> を指定することもできます。</p>
+</td>
+
+<td>はい<p>詳しくは、以下の注 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__notes3" target="_blank" rel="noopener noreferrer">3</a>を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>legacyenable</span></td>
+
+<td>ダンプのレガシー・コンポーネントを使用可能にするかを指定します。<p>使用可能な値は yes と no です。</p>
+ <p><code>legacyenable=yes</code> または <code>legacyenable=no</code>の代わりに、 <span>legacyon</span> または <span>legacyoff</span> を指定することもできます。</p>
+</td>
+
+<td>はい</td>
+
+</tr>
+
+<tr>
+<td><span>sdmplevel</span></td>
+
+<td>システム・ダンプのレベルを 0 から 9 の 10 進数を使用して指定します。<p><code>sdmplevel=1,
+3, 7</code> の代わりに、 <span>sdmpminimal</span>、 <span>sdmpnormal</span>、または <span>sdmpdetail</span> 属性を指定できます。</p>
+</td>
+
+<td>3 (normal)<p>詳しくは、以下の注 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dumpctrl.html#dumpctrl__notes4" target="_blank" rel="noopener noreferrer">4</a>を参照してください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>copydir</span></td>
+
+<td>コピー・ディレクトリーのパス名を指定します。</td>
+
+<td><span>/var/adm/ras </span></td>
+
+</tr>
+
+<tr>
+<td><span>forcecopy</span></td>
+
+<td><span>forcecopy</span> 属性を使用可能にするかを指定します。<p>使用可能な値は yes と no です。</p>
+ <p>ダンプをブート時にページング・スペースからコピーしなければならないときに、コピー・ディレクトリーにスペースがない場合は、<span>forcecopy</span> 値が yes になっていると、そのダンプを取り外し可能メディアにコピーするようにプロンプトが出されます。 この値が no になっていると、ダンプはコピーされずに、システムは通常どおりにブートします。ただし、ダンプは失われる可能性があります。</p>
+</td>
+
+<td>はい</td>
+
+</tr>
+
+<tr>
+<td><span>keyseq</span></td>
+
+<td>キー・シーケンスで常にダンプを行うかを指定します。<p>使用可能な値は yes と no です。</p>
+</td>
+
+<td>いいえ</td>
+
+</tr>
+
+<tr>
+<td><span>primary</span></td>
+
+<td>1 次ダンプ・デバイスのパス名を指定します。</td>
+
+<td><span>/dev/hd6</span> または <span>/dev/lg_dumplv </span></td>
+
+</tr>
+
+<tr>
+<td><span>secondary</span></td>
+
+<td>2 次ダンプ・デバイスのパス名を指定します。</td>
+
+<td><span> /dev/sysdumpnull </span></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>ldmpenable</span> 属性と <span>ldmplevel</span> 属性は、コンポーネントとともに指定するか、またはコンポーネントなしで指定することができます。 コンポーネントなしで指定すると、属性は対応するグローバル属性に適用されます。</li>
+
+<li><span>heapsz</span> 属性 (ヒープ・サイズ) を 0 に設定することができます。ダンプの初期化時に、システムは実メモリーの量に基づいてライブ・ダンプのヒープ・サイズを計算します。これは最小で 64 MB および実メモリーのサイズの 1/64 です。</li>
+
+<li><span>sdmpenable</span> 属性が指定されている場合は、コンポーネントを個別に指定する必要があります。 コンポーネントが指定されていない場合は、<span>sdmpenable</span> 属性を指定することはできません。システム・ダンプを使用不可にすることはできないためです。</li>
+
+<li><span>sdmplevel</span> 属性は、コンポーネントとともに指定するか、またはコンポーネントなしで指定することができます。 コンポーネントなしで指定すると、システム・デフォルト・レベルに適用されます。 <span>sdmplevel</span> がグローバル <span>sdmplevel</span> 値より大きなコンポーネントは、システム・ダンプには含まれません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ <p>次の表では、ライブ・ダンプ属性とその永続性を示します。</p>
+ 
+<div><div><table><caption><span>表 3. ライブ・ダンプ属性と永続性</span></caption><thead>
+<tr>
+<th><div>属性</div></th>
+
+<th><div>説明</div></th>
+
+<th><div>永続性</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>ldmpenable</span></td>
+
+<td>ライブ・ダンプが使用可能</td>
+
+<td>永続性フラグによって制御され、<span>-P</span> フラグには新しいブート・イメージが必要です。</td>
+
+</tr>
+
+<tr>
+<td><span>dir</span></td>
+
+<td>ライブ・ダンプのディレクトリー</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>freespc</span></td>
+
+<td>ライブ・ダンプのフリー・スペースのしきい値</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>ldmplevel</span></td>
+
+<td>ライブ・ダンプのレベル</td>
+
+<td>永続性フラグによって制御され、<span>-P</span> フラグには新しいブート・イメージが必要です。</td>
+
+</tr>
+
+<tr>
+<td><span>heapsz</span></td>
+
+<td>ライブ・ダンプのヒープ・サイズ</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>duptype</span></td>
+
+<td>重複ダンプの抑止タイプ</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>maxfreeze</span></td>
+
+<td>推奨されるシステム・フリーズの最大インターバル</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 永続性は、RAS インフラストラクチャー・コンポーネントに適用される場合にのみ属性に影響します。 また、永続性は、グローバルなライブ・ダンプのレベルとグローバルな使用可能状況または使用不可状況を制御します。</div>
+        </div>
+      </div></div>
+ <p>次の表では、システム・ダンプ属性とその永続性を示します。</p>
+ 
+<div><div><table><caption><span>表 4. システム・ダンプ属性と永続性</span></caption><thead>
+<tr>
+<th><div>属性</div></th>
+
+<th><div>説明</div></th>
+
+<th><div>永続性</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>sdmpenable</span></td>
+
+<td>システム・ダンプが使用可能</td>
+
+<td>永続性フラグによって制御され、<span>-P</span> フラグには新しいブート・イメージが必要です。</td>
+
+</tr>
+
+<tr>
+<td><span>legacyenable</span></td>
+
+<td>ダンプのレガシー・コンポーネント</td>
+
+<td>即時、および <span>-P</span> フラグによるシステムの再始動後に有効になります。 <span>-P</span> フラグに新しいブート・イメージは必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><span>sdmplevel</span></td>
+
+<td>システム・ダンプのレベル</td>
+
+<td>永続性フラグによって制御され、<span>-P</span> フラグには新しいブート・イメージが必要です。</td>
+
+</tr>
+
+<tr>
+<td><span>copydir</span></td>
+
+<td>コピー・ディレクトリー</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>forcecopy</span></td>
+
+<td>コピーできない場合はブート時メニューを提示する</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>keyseq</span></td>
+
+<td>キー・シーケンスで常にダンプを行う</td>
+
+<td>即時およびシステムの再始動後に有効になります。</td>
+
+</tr>
+
+<tr>
+<td><span>primary</span></td>
+
+<td>1 次ダンプ・デバイス</td>
+
+<td>即時、および <span>-P</span> フラグによるシステムの再始動後に有効になります。 <span>-P</span> フラグに新しいブート・イメージは必要ありません。</td>
+
+</tr>
+
+<tr>
+<td><span>secondary</span></td>
+
+<td>2 次ダンプ・デバイス</td>
+
+<td>即時、および <span>-P</span> フラグによるシステムの再始動後に有効になります。 <span>-P</span> フラグに新しいブート・イメージは必要ありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 永続性は、コンポーネントに適用される属性に影響します。</div>
+        </div>
+      </div></div>
+ <p><span>copydir, forcecopy, keyseq, primary</span>属性および <span>secondary</span> 属性は、 <span>-d</span>、 <span>-D</span>、 <span>-k</span>、 <span>-K</span>、 <span>-p</span>、および <span>-s</span> フラグで指定された <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sysdumpdev.html" target="_blank" rel="noopener noreferrer"><strong>sysdumpdev</strong></a> コマンドと同様に動作します。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>ゼロ以外</td>
+
+<td>エラーが発生しました。 このコマンドは、次の条件のもとで失敗します。<ul>
+<li>1 つ以上のパラメーターが無効である。</li>
+
+<li>1 つ以上の属性が無効である。</li>
+
+<li>コンポーネントを指定できない。</li>
+
+<li>少なくとも 1 つのコンポーネントを指定する必要がある。</li>
+
+<li>永続性の指定が見つからない。 (それは <span>-x</span> フラグで発生する場合があります。)</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドは、root ユーザーのみが実行できます。</p>
+</section>
+
+</div></div>

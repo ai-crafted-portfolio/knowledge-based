@@ -1,0 +1,140 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>一定期間にわたって許可の使用状況を照会します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>authqry</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/authqry.html#authqry__row-d3e44068" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/authqry.html#authqry__row-d3e44074" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/authqry.html#authqry__row-d3e44080" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/authqry.html#authqry__row-d3e44086" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> trailListFile ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/authqry.html#authqry__row-d3e44104" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> time_period_in_days ] } <em>user</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>authqry</strong> コマンドは、指定の時間フレームにわたってユーザーが使用する許可に関する情報を照会します。</p>
+ <p><strong>-c</strong> オプションを指定すると、ユーザーはロール情報と許可情報の監査用に構成されます。 クラス <strong>rbacqry</strong> が、許可とロールの監査に対するイベントを指定して、<strong>/etc/security/audit/config</strong> ファイルに追加されます。 ユーザーがすでに監査状態にある場合 (ユーザー・エントリーが構成ファイルに存在)、<strong>rbacqry</strong> クラスがそのユーザーに追加されます。 そうでない場合、<strong>rbacqry</strong> クラス・パラメーターを指定してユーザー名が <strong>/etc/security/audit/config</strong> に追加されます。</p>
+ <p><strong>-s</strong> オプションを指定すると、監査サブシステムが始動または再始動されます。</p>
+ <p><strong>-q</strong> オプションを指定すると、監査データが許可情報について照会されます。</p>
+ <p><strong>-t</strong> オプションを指定すると、<strong>-t</strong> オプションで指定した日付から現在のシステム日付までの許可の使用状況が照会されて取得されます。 <strong>-t</strong> オプションを指定しないと、当該ユーザーに対して監査が有効になっていた期間の許可の使用状況が取得されます。 このコマンドは、この時間フレーム中に使用された許可の完全なセットを表示します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>authqry</strong> コマンドは、 AIX®の監査機能を使用します。 <strong>authqry</strong> コマンドが期待どおりに機能するには、監査をオンにし、ユーザーの監査構成を有効にし、時間フレームを日数で指定する必要があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>許可の使用状況を監査するためにユーザーを構成するよう指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>監査サブシステムがオフ状態の場合に、このサブシステムを開始します。 すでにオンになっている場合は、再始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>指定の時間枠にわたり、許可の使用状況の監査データを照会するよう指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td><strong>-F</strong> オプションを指定すると、<em>trailListFile</em> から監査情報が取得するために監査証跡の名前が読み取られます。 監査証跡ファイルの名前は、テキスト行あたり 1 つでなければなりません。 <strong>-F</strong> オプションを指定しない場合、監査情報の入手元のファイルとして、デフォルトでシステムの <strong>/audit/trail</strong> ファイルが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>許可の使用状況を入手するために現在日付からの日数を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、root ユーザーのみに実行 (x) アクセス権を与えます。</p>
+ <p><strong>RBAC ユーザーの注意:</strong> このコマンドは特権操作を実行できます。 特権操作は特権ユーザーのみが実行できます。このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドを参照してください。</p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/security/authorizations</strong></td>
+
+<td></td>
+
+</tr>
+
+<tr>
+<td><strong>/audit/trail</strong></td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <div>Bob による許可を照会するには、以下の構文を使用します。<div><div><pre><code>authqry -q Bob</code></pre></div><div></div></div></div>
+ <div>Simon が過去 20 日間使用した許可を照会するには、以下の構文を使用します。<div><div><pre><code>authqry -q -t 20 Simon</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

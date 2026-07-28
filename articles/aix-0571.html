@@ -1,0 +1,238 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ポートの特性を設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>getty</strong> [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140985" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140997" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e141006" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140934" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140940" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> <em>HeraldString</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140955" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a> <em>motdFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140967" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> ]]] <em>PortName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>getty</strong> コマンドでは、端末装置の回線とポートが設定され、管理されます。 <strong>getty</strong> コマンドは、<strong>init</strong> コマンドによって実行されます。 <strong>getty</strong> コマンドは、Terminal State Manager プログラムにリンクされます。 Terminal State Manager プログラムからは、端末装置制御機能とログイン機能が組み合わせて提供されます。</p>
+ <p><strong>getty</strong> コマンドは、ホーム・ディレクトリーがない場合にログイン時にホーム・ディレクトリーを作成するように構成できます。 <strong>getty</strong> コマンドにより <strong>mkuser.sys</strong> コマンドが呼び出されて、ホーム・ディレクトリーの作成とアカウントのカスタマイズが実行されます。 この機能を有効にするには、<strong>/etc/security/login.cfg</strong> ファイルにある <strong>usw</strong> スタンザの <strong>mkhomeatlogin</strong> 属性を真に設定します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>getty</strong> コマンドは、コマンド行には入力しません。<span>”</span></blockquote>
+<p></p>
+ <p>Terminal State Manager プログラムを <strong>getty</strong> コマンドとして起動すると、次のような通常のポート管理機能が提供されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>双方向の使用</strong></td>
+
+<td>端末回線を使って接続を開始し、受け入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>回線速度</strong></td>
+
+<td>送受信のボー・レートを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>parity</strong></td>
+
+<td>パリティーを偶数、奇数、またはなしに設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>遅延</strong></td>
+
+<td>復帰、タブ、改行、用紙送りに関する遅延を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>文字セット・マッピング</strong></td>
+
+<td>大文字と小文字の区別、タブ、紙送り制御に関する文字セット・マッピングを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ロガー・プログラム</strong></td>
+
+<td>ユーザーがシステムへログインするときに使用するプログラムを指定します。 この属性を設定すると、セキュア・アテンション・キー (SAK) の処理が使用不可になります。 この属性を設定しない場合は、デフォルトの <strong>/usr/sbin/login</strong> が使用されます。 <strong>logger</strong> 属性は、オブジェクト・データ・マネージャー (ODM) データベースに入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>文字と行の消去</strong></td>
+
+<td>文字と行の消去に使用するキー・ストロークを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>エコー・モード</strong></td>
+
+<td>エコーをローカルまたはリモートに設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>getty</strong> コマンドを起動すると、次のステップで処理が実行されます。</p>
+ <ol>
+<li><span></span>ポート保護は、 ODM データベース内の<strong> owner</strong> 属性と <strong>protection</strong> 属性に従って設定されます。 これらの属性が指定されていない場合は、デフォルトの root および 622 が使用されます。</li>
+
+<li><span></span><em> PortName</em> パラメーターによって指定されたポートが開きます。 ポート上でキャリア検出が使用可能な場合は、キャリアが存在するか、別のプロセスによってポートを持つキャリアが失われるまで、オープンは完了しません。</li>
+
+<li><span></span>指定されたポートがロックされている可能性があります。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140997" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getty.html#getty__row-d3e140985" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> フラグを指定して <strong>getty</strong> コマンドを実行すると、ポートのロックが試行されます。 ポートが既にロックされている場合は、コマンドはポートが使用可能になるまで待機してから、終了します。 <strong>-r</strong> フラグを指定した場合、<strong>getty</strong> コマンドは、ポート上で 1 バイトのデータを受け取るまで待機してから、処理を続行します。</li>
+
+<li><span></span>端末属性は、指定されたポートの構成情報に従って設定されます。 システム設定によっては、この時点でセキュア・アテンション・キーの処理を使用可能にできます。</li>
+
+<li><span></span>herald メッセージは、指定されたポートに書き込まれます。</li>
+
+<li><span></span>ログイン名は、指定されたポートから読み取られます。 フレーム・エラーまたは中断が発生すると、<strong>getty</strong> コマンドによって、次の設定済み端末属性グループを使って、ステップ 4 と 5 が再度実行されます。 この使用頻度が最も高いのは、モデムのボー・レートを循環するときです。 ただし、任意の ODM フィールド (logmodesおよびrunmodes) ODM データベース内のコンマ区切り値のリストを入力することによって循環させることができます。</li>
+
+<li><span></span>端末モードは、以下に従ってリセットされます。runmodesおよびログイン名を指定します。 ログイン名が改行で終了していると、<strong>getty</strong> コマンドによって、復帰から改行へのマッピングがオンに設定されます。 すべての英文字が大文字の場合、可能であれば小文字でログインするように促され、小文字から大文字へのマッピングがオンになります。</li>
+
+<li><span></span>ロガー・パラメーターでプログラムを指定すると、そのプログラムが実行され、セキュア・アテンション・キー処理は使用不可になります。 それ以外の場合は、Terminal State Manager プログラムによって標準システム・ログインが実行されます。<div><div>
+        <div>
+          <div><span>注:</span> ユーザー・ログイン時にセキュア・アテンション・キー・シーケンスを入力すると、ユーザーはトラステッド・シェルにログインします (そのポートがトラステッドで、ユーザーがトラステッド・パスで許可されているシステムが構成されている場合)。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>デバッグ情報を提示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong> <em>HeraldString</em></td>
+
+<td>ログイン名のプロンプトを出すためにポートに書き込む代替の herald メッセージを指定します。 メッセージ文字列は 1 ワードにする必要があり、スペースを含めることはできません。 この文字列は <strong>/etc/security/login.cfg</strong> ファイルで定義された herald メッセージより優先します。 このオプションまたは <strong>login.cfg</strong> ファイルで文字列が何も指定されていないと、
+メッセージ・カタログからデフォルトの herald が使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong> <em>motdFile</em></td>
+
+<td>パスを day ファイルの代替メッセージに指定します。 これが指定されていないと、値はデフォルトにより <strong>/etc/motd</strong> になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td><strong>getty</strong> に <strong>/etc/utmp</strong> ファイルにあるプロセス ID
+のチェックをバイパスさせます。 その結果、最も低いログイン・シェル以外のプロセスは、<strong>exec</strong> <strong>
+getty</strong> を行うことができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ポートを共有 (両方向使用) できるようにします。 ロックに失敗すると、<strong>getty</strong> コマンドは、ロックが使用可能になるまで待機してから、終了します。 ロックに成功すると、<strong>getty</strong> コマンドは、ポートをロックした後でポート上で 1 バイトのデータを待機します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>ポートを共有 (両方向使用) できるようにします。 ロックに失敗すると、<strong>getty</strong> コマンドは、ロックが使用可能になるまで待機してから、終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td><strong>-u</strong> フラグと同じです。ただし、<strong>getty</strong>
+は、ロックが使用可能になるのを待ちません。 これは、ロックとは関係なく、ポートを使用可能にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このプログラムは、トラステッド・コンピューティング・ベース内のプログラムとしてインストールされ、任意のユーザーによる実行が可能で、<strong>setuid</strong> で root に設定されていなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <p>tty0 へのログ記録を使用可能にするには、<strong>/etc/inittab</strong> ファイルに次の行を追加します。</p>
+ <div> <div><div><pre><code>tty0:2:respawn: /usr/sbin/getty /dev/tty0</code></pre></div><div></div></div></div>
+ <p>このコマンドはポートを初期化します/dev/tty0ポートの特性をセットアップします。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/getty</strong></td>
+
+<td><strong>getty</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/locks</strong></td>
+
+<td>通信デバイスの複数使用とリモート・システムの複数の呼び出しを防止するロック・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/login</strong></td>
+
+<td><strong>login</strong> コマンド。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/login.cfg</strong></td>
+
+<td>ポート・ログイン構成が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/motd</strong></td>
+
+<td>ログインの後で表示される day のメッセージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/setmaps</strong></td>
+
+<td><strong>setmaps</strong> コマンド。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/utmp</strong></td>
+
+<td>システムにログインしたユーザーについての情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

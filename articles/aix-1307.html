@@ -1,0 +1,237 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システムからデバイスを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmdev</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157583" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157597" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> }<em>名前</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157550" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157630" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157560" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157577" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157612" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157618" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157571" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>注:</span> <strong>P-</strong> が指定されている場合、 <strong>-</strong> フラグは指定できません。 <strong>-R</strong> フラグを <strong>P-</strong> フラグと一緒に指定すると、このフラグは無視されます。</div>
+        </div>
+      </div></div>
+ <p><strong>rmdev</strong> コマンドは、
+<strong>-l</strong><em> Name</em> フラグを使用して、
+デバイス論理名で指定されたデバイスを構成解除するか、または構成解除して未定義にするという両方を
+行います。 デフォルト・アクションでは、
+デバイスを構成解除しますが、カスタマイズ・デバイス・オブジェクト・クラス内のデバイス定義は残します。</p>
+ <p><strong>-S</strong> フラグを指定すると、停止状態がサポートされるデバイスの場合は、
+<strong>rmdev</strong> コマンドはデバイスを停止状態に設定します。 <strong>-d</strong> フラグを指定すると、
+<strong>rmdev</strong> コマンドはカスタマイズ・デバイス・オブジェクト・クラスからデバイス定義を削除します (未定義)。 <strong>-d</strong> フラグを指定しなければ、<strong>rmdev</strong> コマンドはデバイスを定義済みの状態に設定します (構成解除)。 <strong>-R</strong> フラグを指定すると、<strong>rmdev</strong> コマンドはそのデバイスの子デバイスにも機能します。</p>
+ <p>すべての子デバイスを構成解除または削除するには、
+<strong>-p</strong> フラグを親デバイスの論理名と一緒に使用します。 子デバイスは、<strong>-R</strong> フラグで記述されたのと同じ
+再帰的方法で構成解除または削除されますが、指定されたデバイス自身は構成解除または削除されません。</p>
+ <div><div>
+        <div>
+          <div><span>注意:</span> 構成データベースを保護するために、 <strong>Rmdev</strong> コマンドは割り込み可能ではありません。 このコマンドを完了前に
+停止すると、データベースが破壊される恐れがあります。</div>
+        </div>
+      </div></div>
+ <p>このコマンドは、System Management Interface Tool (SMIT)<strong>smit rmdev</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>カスタマイズ・デバイス・オブジェクト・クラスからデバイス定義を除去します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157630" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> フラグと一緒に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td><em>File</em> パラメーターから必要なフラグを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>ロックしたデバイスでの削除操作の実行を強制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 名前</em></td>
+
+<td>カスタマイズ・デバイス・オブジェクト・クラス内の、<em>Name</em> パラメーターで示された論理デバイスを指定します。 このフラグは、<strong>-P</strong> フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>名前</em></td>
+
+<td>除去する必要がある子デバイスを保持する、
+カスタマイズ・デバイス・オブジェクト・クラス内の親論理デバイス (<em>Name</em> パラメーターで
+示される) を指定します。 このフラグは <strong>-l</strong> フラグとともに使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>標準出力ならびに標準エラーからのコマンド出力メッセージを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>デバイスおよびその子デバイスを構成解除するよう指定します。 <strong>-d</strong> または <strong>-S</strong> フラグとともに使うと、子デバイスは未定義または停止状態になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>デバイスに停止メソッドがある場合は、停止メソッドを呼び出してデバイスを使用不可にします。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmdev.html#rmdev__row-d3e157550" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> フラグと一緒に使用することはできません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御: このコマンドに対する実行 (x) アクセス権は、root ユーザーとシステム・グループのメンバーだけが持ちます。</p>
+ <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DEV_Stop</strong></td>
+
+<td>デバイス名</td>
+
+</tr>
+
+<tr>
+<td><strong>DEV_Unconfigure</strong></td>
+
+<td>デバイス名</td>
+
+</tr>
+
+<tr>
+<td><strong>DEV_Remove</strong></td>
+
+<td>デバイス名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>カスタマイズ・デバイス・オブジェクト・クラス内にデバイス定義を
+保存したまま、CD-ROM デバイス <code>cd0</code> を構成解除するには、以下のように入力します。<div><div><pre><code>rmdev  -l cd0</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>cd0 defined</code></pre></div><div></div></div></li>
+
+<li>CD-ROM デバイス <code>cd0</code> の定義をカスタマイズ・デバイス・オブジェクト・クラスから除去するには、
+以下のように入力します。<div><div><pre><code>rmdev  -d  -l cd0</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>cd0 deleted</code></pre></div><div></div></div></li>
+
+<li>カスタマイズ・デバイス・オブジェクト・クラス内にデバイス定義を
+保存したまま、<code>scsi1</code> SCSI アダプターおよびその子すべてを構成解除するには、
+以下のように入力します。<div><div><pre><code>rmdev  -R -l scsi1</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>rmt0 Defined
+hdisk1 Defined
+scsi1 Defined</code></pre></div><div></div></div></li>
+
+<li>カスタマイズ・デバイス・オブジェクト・クラス内にデバイス定義を
+残したまま、<code>scsi1</code> SCSI アダプターの子を構成解除するが、
+アダプター自体は構成解除しないようにするには、以下のように入力します。<div><div><pre><code>rmdev  -p scsi1</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>rmt0 Defined
+hdisk1 Defined</code></pre></div><div></div></div></li>
+
+<li>カスタマイズ・デバイス・オブジェクト・クラス内にデバイス定義を
+保存したまま、<code>pci1</code> PCI バスの子およびその下の他のすべてのデバイスを構成解除するには、
+以下のように入力します。<div><div><pre><code>rmdev  -p pci1</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>rmt0 Defined
+hdisk1 Defined
+scsi1 Defined
+ent0 Defined</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/rmdev</strong></td>
+
+<td><strong>rmdev</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

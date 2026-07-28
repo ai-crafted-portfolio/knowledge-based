@@ -1,0 +1,236 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>X Window System のディスプレイ・サーバーにフォントを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>xfs</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xfs.html#xfs__row-d3e35439" target="_blank" rel="noopener noreferrer"><strong>-config </strong></a><em>ConfigurationFile </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xfs.html#xfs__row-d3e35448" target="_blank" rel="noopener noreferrer"><strong>-ls</strong></a><strong> </strong><em>ListenSocket </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xfs.html#xfs__row-d3e35457" target="_blank" rel="noopener noreferrer"><strong>-port </strong></a><em>Number </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p>xfs は <span>AIXwindows</span> フォント・サーバーです。 <span>AIXwindows</span> ディスプレイ・サーバーにフォントを提供します。</p>
+ <p><strong>xfs</strong> サーバーは、下記のシグナルに応答します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>SIGTERM</strong></td>
+
+<td>フォント・サーバーが、すべて終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SIGUSR1</strong></td>
+
+<td>サーバーが、構成ファイルを再読み取りします。</td>
+
+</tr>
+
+<tr>
+<td><strong>SIGUSR2</strong></td>
+
+<td>サーバーが、保持しているキャッシュ・データをフラッシュします。</td>
+
+</tr>
+
+<tr>
+<td><strong>SIGHUP</strong></td>
+
+<td>サーバーが、すべてのアクティブな接続をクローズし、構成ファイルを再読み取りし、リセットします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>サーバーは通常、システム管理者によって実行され、<strong>/etc/rc.tcpip</strong> などのブート・ファイル経由で始動します。 ユーザーも、特定のフォント・セット用の専用フォント・サーバーを始動することができます。</p>
+ <p>構成言語は、キーワードと値の組のリストです。 各キーワードの後には、= (等号) および指定したい値を続けます。</p>
+ <p>次のリストに、認識されるキーワードと、および有効な値の型と説明を示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>#</strong></td>
+
+<td>1 桁目に位置する場合には、コメント文字。</td>
+
+</tr>
+
+<tr>
+<td><strong>catalogue (文字列のリスト)</strong></td>
+
+<td>フォント・パス・エレメント名の順序付けられたリスト。 現在のインプリメントでは、指定されたすべてのフォントが含まれる、単一のカタログ ("すべて") のみをサポートしています。</td>
+
+</tr>
+
+<tr>
+<td><strong>alternate-servers (文字列のリスト)</strong></td>
+
+<td>当該フォント・サーバーの代替サーバーのリスト。</td>
+
+</tr>
+
+<tr>
+<td><strong>client-limit (基数)</strong></td>
+
+<td>当該フォント・サーバーがサービスを拒否する前にサポートするクライアントの数。 これは、個別の各フォント・サーバーに対してロードをチューニングする際に便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>clone-self</strong><strong> (ブール)</strong></td>
+
+<td>client-limit に達したとき、このフォント・サーバーがサーバー自体のクローンを作成すべきかどうかを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>default-point-size</strong><strong> (基数)</strong></td>
+
+<td>サイズが指定されていないフォントに対するデフォルトのポイント・サイズを (デシポイントで) 指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>default-resolutions</strong><strong> (レゾリューションのリスト)</strong></td>
+
+<td>サーバーがデフォルトでサポートするレゾリューション。 この情報は、事前レンダリングを行う際の手掛かりとなり、レゾリューションの指定されていないスケール・フォントを置き換えます。<p>レゾリューションはコンマで区切られた、1 インチ当たりのピクセル数で示される <strong>x</strong> と <strong>y</strong> の組です。 複数のレゾリューションは、コンマで区切ります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>error-file (文字列)</strong></td>
+
+<td>エラー・ファイルのファイル名。 すべての警告とエラーは、ここに記録されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>port (基数)</strong></td>
+
+<td>サーバーが接続を listen する TCP ポート。 デフォルトは 7100 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>use-syslog (ブール)</strong></td>
+
+<td><strong>syslog</strong> 関数 (サポートされているシステム上に存在) をエラー時に使用するかどうかを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>deferglyphs (文字列)</strong></td>
+
+<td>遅延フェッチと glyphs のキャッシュに対するモードを設定します。 値:noneこれは、据え置きグリフが使用不可であることを意味します。all据え置きグリフがすべてのフォントに対して使用可能になっていることを意味します。16これは、据え置きグリフが 16 ビット・フォントに対してのみ使用可能になることを意味します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>下記のフォーマットの 1 つは、TCP 接続を受け入れるフォント・サーバーに名前を付けるために使用されるものです。</p>
+ <div> <div><div><pre><code>tcp/hostname:port
+tcp/hostname:port/cataloguelist</code></pre></div><div></div></div></div>
+ <p>hostname は、フォント・サーバーが実行中であるマシンの名前 (あるいは 10 進数アドレス) を指定します。 port は、フォント・サーバーが接続を listen している 10 進数の TCP ポートです。 cataloguelist は、セパレーターとしての '+' を含むカタログ名のリストです。 以下に例をいくつか示します。</p>
+ <div> <div><div><pre><code>tcp/expo.lcs.mit.edu:7100, tcp/18.30.0.212:7101/all</code></pre></div><div></div></div></div>
+ <p>下記のフォーマットの 1 つは、DECnet 接続を受け入れるフォント・サーバーに名前を付けるために使用されるものです。</p>
+ <div> <div><div><pre><code>decnet/nodename::font$objname
+decnet/nodename::font$objname/cataloguelist</code></pre></div><div></div></div></div>
+ <p>nodename は、フォント・サーバーが実行中であるマシンの名前 (あるいは 10 進数アドレス) を指定します。 objname は、正規の、大/小文字を区別しない、DECnet のオブジェクト名です。 cataloguelist は、セパレーターとしての '+' を含むカタログ名のリストです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-コンフィグ</strong><em> ConfigurationFile</em></td>
+
+<td>フォント・サーバーが使用する構成ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ls</strong><em> ListenSocket</em></td>
+
+<td>listen ソケットとして使用するために既にセットアップされた、ファイル・ディスクリプターを指定します。 このオプションは、フォント・サーバー自体が自動的にサーバー自体のコピーを spawn して追加の接続を操作するときにのみ、使用されるものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-port</strong><em> 番号</em></td>
+
+<td>サーバーが接続を listen する TCP ポート番号を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <div> <div><div><pre><code>#
+# sample font server configuration file
+#</code></pre></div><div></div></div>  <div><div><pre><code># allow a max of 10 clients to connect to this font server
+client-limit = 10</code></pre></div><div></div></div>  <div><div><pre><code># when a font server reaches its limit, start up a new one
+clone-self = on</code></pre></div><div></div></div>  <div><div><pre><code># alternate font servers for clients to use
+alternate-servers = hansen:7101,hansen:7102</code></pre></div><div></div></div>  <div><div><pre><code># where to look for fonts
+# the first is a set of Speedo outlines, the second is a set of 
+# misc bitmaps and the last is a set of 100dpi bitmaps
+#
+catalogue = /usr/lib/fonts/type1,
+   /usr/lib/X11/ncd/fonts/misc,
+   /usr/lib/X11/ncd/fonts/100dpi/</code></pre></div><div></div></div>  <div><div><pre><code># in 12 points, decipoints
+default-point-size = 120</code></pre></div><div></div></div>  <div><div><pre><code># 100 x 100 and 75 x 75
+default-resolutions = 100,100,75,75</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/X11/fs/config</strong></td>
+
+<td>デフォルトの構成ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

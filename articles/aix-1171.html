@@ -1,0 +1,67 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定したすべてのプロセスが終了するのを待ちます。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>procwait</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/procwait.html#procwait__row-d3e102608" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> ]. <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/procwait.html#procwait__row-d3e102614" target="_blank" rel="noopener noreferrer"><em>ProcessID</em></a>...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/proc</strong> ファイルシステムは、プロセスを制御するメカニズムを提供します。 また、プロセスとスレッドの現行状態に関する情報にもアクセスできますが、これはバイナリー形式です。 <strong>proctools</strong> コマンドは、いくつかの使用できる情報に基づいて ASCII レポートを提供します。</p>
+ <p>ほとんどのコマンドは、プロセス ID のリストまたは <strong>/proc/
+</strong><em>ProcessID</em> 文字列を入力とします。 したがって、シェル拡張 <strong>/proc/*</strong> を使用することにより、システム内のすべてのプロセスを指定できます。</p>
+ <p>proctools コマンドは、指定されたプロセスの <strong>/proc</strong> から情報を収集し、ユーザーに表示します。 <strong>proctools</strong> コマンドは <strong>procrun</strong> および <strong>procstop</strong> と同様に、<strong>/proc</strong> インターフェースを使用してプロセスを開始し、停止します。</p>
+ <p>コマンドが <strong>/proc</strong> から収集した情報は、
+プロセスの現行状態のスナップショットであり、
+したがって停止したプロセス以外は、刻々と変化します。</p>
+ <p><strong>procwait</strong> コマンドは、指定したすべてのプロセスが終了するのを待ちます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細出力を指定します。 レポートの宛先は標準出力です。</td>
+
+</tr>
+
+<tr>
+<td><em>ProcessID</em></td>
+
+<td>プロセス ID を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>プロセス 12942 が終了するのを待ち、状況を表示するには、次のように入力します。<div><div><pre><code>procwait -v 12942</code></pre></div><div></div></div>このコマンドの出力は以下のような情報です。<div><div><pre><code>12942 : terminated, exit status 0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong> /PROC</strong></td>
+
+<td><strong>/proc</strong> ファイルシステムが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

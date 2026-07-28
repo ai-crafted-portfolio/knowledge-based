@@ -1,0 +1,49 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p><strong>fsck</strong> コマンドの lost+found ディレクトリーを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mklost+found
+</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mklost+found</strong> コマンドは、
+現行ディレクトリーに lost + found ディレクトリーを作成します。 lost+found ディレクトリーには、いくつかの空ファイルが作成されますが、
+<strong>fsck</strong> コマンドの空スロットを作るため除去されます。 <strong>fsck</strong> コマンドは、孤立ファイルやディレクトリーを、
+割り当てられた i ノード番号と共に lost+found ディレクトリーに置くことによって、
+これらのファイルやディレクトリーを再接続します。 <strong>mklost+found</strong> コマンドは、通常必要ではありません。
+その理由は、新しいファイルシステムが作成されるときに <strong>fsck</strong> コマンドが自動的に mklost+found ディレクトリーを作成するためです。</p>
+</section>
+
+<section><h2>例</h2> <p><strong>fsck</strong> コマンドのために lost+found ディレクトリーを作成するには、
+次のように入力します。</p>
+ <div> <div><div><pre><code>mklost+found</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mklost+found</strong></td>
+
+<td><strong>mklost+found</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

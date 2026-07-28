@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>STREAMS アクティビティーに関する管理情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Strinfo</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strinfo.html#strinfo__row-d3e53908" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a><strong> |</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strinfo.html#strinfo__row-d3e53914" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>strinfo</strong> コマンドは、STREAMS、ドライバーとモジュール、またはストリーム・ヘッドと STREAMS 実行キューに関する、デバッグ用の情報を表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-m</strong></td>
+
+<td>STREAMS 内に存在するドライバーとモジュールに関する情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>アクティブなストリーム・ヘッド、および STREAMS モジュールとドライバー・サービス・プロシージャーが入っている実行キューに関する情報を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>使用中の STREAMS ドライバーおよびモジュールに関する情報を表示するには、次のように入力します。<div>strinfo  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strinfo.html#strinfo__row-d3e53908" target="_blank" rel="noopener noreferrer">-m</a></div>これにより、以下のようなリストが生成されます。<div> <div><div><pre><code>Device: 'sad', dcookie 0xf, flags:0x4, str 0x19a69e8
+Device: 'slog', dcookie 0x10, flags:0x4, str 0x19a6c18
+Device: 'rs', dcookie 0x11, flags:0x2, str 0x19bcb00
+Module: 'bufcall', flags:0x1, str 0x19a5c00
+Module: 'ldterm', flags:0x0, str 0x19cc858</code></pre></div><div></div></div>この例では、dcookieメジャー番号を示します。flagsフラグ構成を示します。 strSTREAMS テーブル・アドレスです。</div>
+</li>
+
+<li><span></span>アクティブなストリーム・ヘッドおよび STREAMS 実行キューに関する情報を表示するには、次のように入力します。<div>strinfo  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/strinfo.html#strinfo__row-d3e53914" target="_blank" rel="noopener noreferrer">-q</a></div>これにより、以下のようなリストが生成されます。<div> <div><div><pre><code>Active Stream Heads
+sth      sth_dev  sth_rq   sth_wq   sth_flag rq-&gt;q_first
+05a7ee00 00110001 05ad7000 05ad7074 00000818 00000000
+ 
+STREAMS Service Queue
+Queue 0x5ad7000 Flags 0x10</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>/<strong>ユーザー</strong>/<strong>保管箱</strong>/<strong>Strinfo</strong></td>
+
+<td><strong>strinfo</strong> コマンドを含みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

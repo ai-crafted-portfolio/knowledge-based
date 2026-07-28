@@ -1,0 +1,196 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>CAPP</span>/<span>EAL4 +</span> 構成で TCP ポートのセキュリティーを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1716" target="_blank" rel="noopener noreferrer"><span>aclflush</span></a></p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1617" target="_blank" rel="noopener noreferrer"><span>aclclear</span></a> サービス | ポート</p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1527" target="_blank" rel="noopener noreferrer"><span>acladd</span></a> サービス | [<span><span>-</span></span>] <span><span>addr</span></span> [/<span><span>prefix_length</span></span>] [<span><span>u:</span></span><span><span>user</span></span> | <span><span>uid</span></span> | <span><span>g:</span></span><span><span>group</span></span> | <span><span>gid</span></span>]</p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1623" target="_blank" rel="noopener noreferrer"><span>acldel</span></a> サービス | [<span><span>-</span></span>] <span><span>addr</span></span> [/<span><span>prefix_length</span></span>] [<span><span>u:</span></span><span><span>user</span></span> | <span><span>uid</span></span> | <span><span>g:</span></span><span><span>group</span></span> | <span><span>gid</span></span>]</p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1722" target="_blank" rel="noopener noreferrer"><span>aclls</span></a> サービス | ポート</p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1746" target="_blank" rel="noopener noreferrer"><span>setpriv</span></a> サービス | ポート</p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1752" target="_blank" rel="noopener noreferrer"><span>unsetpriv</span></a> サービス | ポート</p>
+ <p><span>dacinet</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dacinet.html#dacinet__row-d3e1740" target="_blank" rel="noopener noreferrer"><span>lspriv</span></a></p>
+</section>
+
+<section><h2>説明</h2> <p><span>dacinet</span> コマンドは、TCP ポートにおけるセキュリティーの管理に
+使用されます。 <span>dacinet</span> の各種機能の詳細については、
+『サブコマンド』のセクションを参照してください。</p>
+</section>
+
+<section><h2>サブコマンド</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>acladd</span></td>
+
+<td>ACL エントリーを、<span>dacinet</span> コマンドが使用するアクセス制御リストを保持しているカーネル・テーブルに追加します。 <span>acladd</span> サブコマンドのパラメーターの構文は、
+次のとおりです。<p>[<span>-</span>]addr[<span>/</span>長さ] [<span>u</span>:user|uid| <span>g</span>:group|gid]</p>パラメーターは、
+次のように定義されます。<dl>
+<dt>addr</dt>
+
+<dd>DNS ホスト名または IPv4 (または IPv6) アドレス。 アドレスの前の "-" は、この ACL エントリーが
+アクセスの許可ではなくアクセスの拒否に使用されることを意味します。</dd>
+
+
+<dt>length</dt>
+
+<dd>addr がホスト・アドレスではなくネットワーク・アドレスとして使用され、
+初めの length ビットが addr から取得されることを示します。</dd>
+
+
+<dt>u:ユーザー|uid</dt>
+
+<dd>オプションのユーザー ID。 uid を指定しない場合は、
+指定されたホストまたはサブネット上のすべてのユーザーにそのサービスへのアクセスが
+与えられます。 指定した場合は、指定されたユーザーにのみアクセスが与えられます。</dd>
+
+
+<dt>g:グループ|gid</dt>
+
+<dd>オプションのグループ ID。 gid を指定しない場合は、
+指定されたホストまたはサブネット上のすべてのユーザーにそのサービスへのアクセスが
+与えられます。 指定した場合は、指定されたグループにのみアクセスが与えられます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>aclclear</span></td>
+
+<td>指定されたサービスまたはポートの ACL をクリアします。</td>
+
+</tr>
+
+<tr>
+<td><span>acldel</span></td>
+
+<td>ACL エントリーを、<span>dacinet</span> コマンドが使用するアクセス制御リストを保持しているカーネル・テーブルから削除します。 <span>dacinet acldel</span> サブコマンドは、そのエントリーを ACL に追加するのに
+使用されたパラメーターと正確に一致するパラメーターの指定で発行された場合にのみ、
+ACL からエントリーを削除します。 <span>acldel</span> サブコマンドのパラメーターの
+構文は、次のとおりです。<p>[<span>-</span>]addr[<span>/</span>長さ] [<span>u</span>:user|uid| <span>g</span>:group|gid]</p>パラメーターは、
+次のように定義されます。<dl>
+<dt>addr</dt>
+
+<dd>DNS ホスト名または IPv4 (または IPv6) アドレス。 アドレスの前の "-" は、この ACL エントリーが
+アクセスの許可ではなくアクセスの拒否に使用されることを意味します。</dd>
+
+
+<dt>length</dt>
+
+<dd>addr がホスト・アドレスではなくネットワーク・アドレスとして使用され、
+初めの length ビットが addr から取得されることを示します。</dd>
+
+
+<dt>u:ユーザー|uid</dt>
+
+<dd>オプションのユーザー ID。 uid を指定しない場合は、
+指定されたホストまたはサブネット上のすべてのユーザーにそのサービスへのアクセスが
+与えられます。 指定した場合は、指定されたユーザーにのみアクセスが与えられます。</dd>
+
+
+<dt>g:グループ|gid</dt>
+
+<dd>オプションのグループ ID。 gid を指定しない場合は、
+指定されたホストまたはサブネット上のすべてのユーザーにそのサービスへのアクセスが
+与えられます。 指定した場合は、指定されたグループにのみアクセスが与えられます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>aclflush</span></td>
+
+<td>システムで定義されたすべての ACL をクリアし、
+すべての TCP ポートを接続要求 (ホストの root ユーザーからのものは除く) に対してアクセス不能にします。 また、
+任意のプロセスが 1024 より大きい任意のポートへバインドできるように、特権ポートもクリアします。</td>
+
+</tr>
+
+<tr>
+<td><span>aclls</span></td>
+
+<td>指定されたサービスまたはポートの ACL をリストします。 <span>dacinet aclls
+0</span> は、デフォルトの ACL をリストします。 認証処理については、論理的な観点から、
+デフォルトの ACL がそのサービスの ACL に付加されます。 その ACL 上のエントリーが
+そのサービスへ接続しようとしているユーザーに一致しない場合は、
+アクセスは拒否されます。 1 つ以上のエントリーが存在する場合は、接続要求者に一致する
+user|group@
+host|subnet を備えたリスト上の最初のものが、
+そのサービスへユーザーが接続可能であるかを決定します。 このようにして、
+グループの許可エントリーを追加する前に単にそのメンバーの拒否エントリーを追加することで、
+そのサービスへのアクセスを持つグループのメンバーに対して
+サービスを拒否することが可能になります。</td>
+
+</tr>
+
+<tr>
+<td><span>lspriv</span></td>
+
+<td>特権が永続的なものではない、
+特権を持つすべてのサービスまたはポートを
+リストします (つまり、1024 より大きいポート番号を持つ特権サービスのみをリストします)。</td>
+
+</tr>
+
+<tr>
+<td><span>setpriv</span></td>
+
+<td>指定されたサービスまたはポートを、
+スーパーユーザー特権を持つプロセスのみがそのポートにバインドでき
+そのポート上のサービスを提供するような、
+特権状態にします。 1024 より小さいポートは、永続的に特権を与えられているので
+無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>unsetpriv</span></td>
+
+<td>指定されたサービスまたはポートを、任意のプロセスがバインドできるような
+非特権状態にします。 そのポートに特権がマークされているかどうかにかかわらず、
+任意のプロセスも、現行の一時ポート範囲内の任意のポートに
+バインドすることができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dacinet</span></td>
+
+<td><span>dacinet</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,287 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロセスのシステム・コール、動的にロードされたユーザー・レベル機能のコール、
+受信されたシグナル、引き起こされたマシン・フォールトをトレースします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>truss</strong> [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134441" target="_blank" rel="noopener noreferrer">-f</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134411" target="_blank" rel="noopener noreferrer">-c</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134405" target="_blank" rel="noopener noreferrer">-a</a></strong>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134471" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134423" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134429" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134435" target="_blank" rel="noopener noreferrer">-e</a></strong>] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134453" target="_blank" rel="noopener noreferrer">-i</a></strong>] [ {<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134560" target="_blank" rel="noopener noreferrer">-t</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134635" target="_blank" rel="noopener noreferrer">-x</a></strong>} [<strong>!</strong>] <em>Syscall</em> [...] ] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134539" target="_blank" rel="noopener noreferrer">-s</a></strong> [<strong>!</strong>] <em>Signal</em> [...] ] [ {<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134476" target="_blank" rel="noopener noreferrer">-m</a></strong> }[<strong>!</strong>] <em>Fault</em>  [...]] [ {<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134578" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134521" target="_blank" rel="noopener noreferrer">-r</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134615" target="_blank" rel="noopener noreferrer">-w</a></strong>} [<strong>!</strong>] <em>FileDescriptor</em> [...] ] [ { } [<strong>!</strong>]<em>LibraryName</em> [...]:: [<strong>!</strong>]<em>FunctionName</em> [ ... ] ] [<strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134498" target="_blank" rel="noopener noreferrer">-o</a></strong><em> Outfile</em>] {<em>Command</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134506" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em> pid</em> [. . .]}[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134655" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>truss</strong> コマンドは指定のコマンドを実行するか、
+リストされたプロセス ID に接続して、
+システム・コール、受信されたシグナル、プロセスが引き起こしたマシン・フォールトのトレースを生成します。 トレース出力の各行は、<em>Fault</em>、<em>Signal</em> 名、
+<em>Syscall</em> 名のいずれかをパラメーターと戻り値で報告します。 システム・ライブラリーに定義済みのサブルーチンは、
+カーネルに対して行われたシステム・コールとまったく同じであるとは限りません。 <strong>truss</strong> コマンドは、これらのサブルーチンを報告せず、基礎となるシステム・コールを報告します。 可能な場合、システム・コール・パラメーターは、関連するシステム・ヘッダー・ファイルからの定義を使用して記号で表示されます。 パス名ポインターのパラメーターについては、<strong>truss</strong> は指し示されている文字列を表示します。 デフォルトでは、未定義のシステム・コールは、名前、8 つのすべての有効な引数、
+16 進形式の戻り値と一緒に表示されます。</p>
+
+<p><strong>-o</strong> フラグを <strong>truss</strong> で使用する場合、
+または標準エラーが非端末ファイルにリダイレクトされる場合は、
+<strong>truss</strong> はハングアップ、割り込みおよびシグナルのプロセスを無視します。 これによって、端末から <strong>interrupt</strong> シグナルと <strong>quit</strong> シグナルを受け取る対話式プログラムのトレースが促進されます。</p>
+
+<p>トレース出力が端末に送信され続ける場合や、
+既存のプロセスがトレースされる (<strong>-p</strong> フラグを使用して) 場合は、
+<strong>truss</strong> はすべてのトレースされているプロセスを解放して終了することによって、
+<strong>hangup</strong>、<strong>interrupt</strong>、
+および <strong>quit</strong> シグナルに応答します。 これによって、ユーザーは過度のトレース出力を終了させ、
+以前に存在していたプロセスを解放できるようになります。 解放されたプロセスは通常に機能し続けます。</p>
+
+<p>リスト引数を取るオプションの場合は、
+リストの指定可能なすべてのメンバーを指定する簡略表現として名前 <strong>all</strong> を使用できます。 リストが <strong>!</strong>で始まる場合は、 オプションの意味は否定されます (例えば、トレースではなく除外されます)。 同じオプションを複数回指定できます。 リスト中の同じ名前については、
+後続のオプション (右側にあるオプション) が前のオプション (左側にあるオプション) をオーバーライドします。</p>
+
+<p>ページ不在以外のマシン・フォールトが発生すると、
+フォールトを引き起こしたプロセスにシグナルが送付されます。 受信されたシグナルの報告は、そのシグナルがプロセスによってブロックされていない限り、
+マシン・フォールトの報告の直後に続きます。</p>
+
+<p>他の制御プロセスとの衝突を避けるために、<strong>truss</strong> は、
+検出したプロセスが <strong>/proc</strong> インターフェースを使用して別のプロセスによって制御されている場合は、
+そのプロセスをトレースしません。</p>
+
+<p>マルチプロセス用のトレース出力は、厳密な時間順に処理されるわけではありません。 例えば、パイプに対する読み取りは、対応する書き込みの前に報告されることがあります。 しかし、各プロセスについては、出力は厳密は時間順です。 トレース出力にはタブ文字が含まれていて、標準タブ停止位置は 8 つの位置ごとに設定されています。</p>
+
+<p>システムは、子のトレース中にユーザーごとのプロセス・スロットを使い尽くすことがあります。 これは、複数のプロセスのトレース中は、<strong>truss</strong> が、
+トレースされている各プロセス用の 1 つの制御プロセスとして実行され、
+指定のプロセスに使用されているプロセス・スロットの数が倍になるためです。 マルチプロセスに対してトレースを実行する前に、
+1 ユーザー当たり 25 のプロセスというシステムが課す通常の制限を考慮に入れる必要があります。</p>
+
+<p>オペレーティング・システムは、プロセスのトレースに特定のセキュリティー制限を強制します。 トレースするコマンドへのアクセス権がなければなりません。 <strong>set-uid</strong> および <strong>set-gid</strong> プロセスは、
+特権ユーザーだけがトレースできます。 <strong>truss</strong> コマンドは、特権ユーザーによって実行されない場合は、
+set-id または読み取り不能なオブジェクト・ファイルを実行するプロセスの制御を失います。 これらのトレースされないプロセスは、実行時点から truss とは関係なく通常どおり継続します。</p>
+
+<p>truss 出力に記載した lightweight processes (LWP) は、実際にはカーネル・
+スレッドです。 <strong>-l</strong> オプションを使用すると、トレース出力
+の各行に LWP ID (つまりスレッド ID) を表示します。</p>
+
+<p><span>AIX</span>ライブラリのユーザー・ライブラリ関数には、静的ロード関数呼び出しと動的ロード関数呼び出しの両方があります。 トレース
+に <strong>-u</strong> オプションを付けると、動的にロードした機能
+呼び出し専用に使用されます。</p>
+
+<p>動的ロード機能呼び出しに対するユーザー・レベルの機能呼び出しに
+は、<strong>-u</strong> オプションがあります。 このオプションを
+使用すると、機能呼び出しの開始/終了トレースを生成します。</p>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>各実行システム・コールで渡されるパラメーター文字列を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>トレース結果を 1 行ずつ表示するのではなく、
+トレースされたシステム・コール、フォールト、シグナルをカウントします。 トレースされたコマンドの終了後、または <strong>truss</strong> に割り込みが生じた時に、
+要約報告書が作成されます。 <strong>-f</strong> フラグも使用される場合は、
+子プロセス用にカウントにはトレースされたすべての Syscall、フォールト、シグナルが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>それぞれの出力行には、タイム・スタンプが組み込まれます。 表示される時刻は、トレース開始からの秒数です。 トレース出力の最初の行には、
+個別のタイム・スタンプの計測開始時刻となる基本時刻が表示されます。 デフォルトでは、
+タイム・スタンプは表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>それぞれの出力行には、デルタ時間が表示されます。 デルタ時間
+は、LWP (スレッド) が引き起こした前回のイベントから今回のイベントまでの経過時間を示し
+ます。 デフォルトでは、デルタ時間は表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>各実行システム・コールで渡される環境文字列を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><strong>fork</strong> システム・コールによって作成されたすべての子をトレースし、
+子のシグナル、フォールト、システム・コールをトレース出力に含めます。 通常、第 1 レベルのコマンドまたはプロセスがトレースされます。 <strong>-f</strong> フラグを指定すると、
+システム・コールを実行したプロセスまたはシグナルを受け取ったプロセスを表示する目的で、
+プロセス ID がトレース出力の各行に組み込まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>割り込み可能スリープ・システム・コールが表示されないようにします。 端末装置またはパイプに対する特定のシステム・コール (<strong>open</strong> や <strong>kread</strong> など) は、
+不定の期間に渡ってスリープ状態にすることができ、これらは割り込み可能です。 通常、<strong>truss</strong> は、システム・コールが 1 秒より長くスリープ状態になっている場合は、
+このようなスリープ・システム・コールを報告します。 次いで、システム・コールは完了時にもう一度報告されます。 <strong>-i</strong> フラグを指定すると、
+このようなシステム・コールが完了時に一度だけ報告されます。</td>
+
+</tr>
+
+<tr>
+<td>-l</td>
+
+<td>該当する LWP プロセスの ID (スレッド ID) と truss 出力を表示し
+ます。 デフォルトでは、LWP ID は出力には表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> [!]<em>障害</em></td>
+
+<td>プロセス内のマシン・フォールトをトレースします。 トレースの対象とするマシン・
+フォールトは、コンマで区切る必要があります。 フォールトは、名前または番号で指定できます
+(<strong>sys/procfs.h</strong> 見出しファイルを参照)。 リストが「!」で始まる場合 指定された障害はトレース対象から除外され、トレース出力には表示されません。 デフォルトは、<strong>
+-m</strong><code>all</code> <strong>-m</strong><code>!fltpage</code> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> 出力ファイル</em></td>
+
+<td>トレース出力に使用するファイルを指定します。 デフォルトでは、出力は標準エラーに行先指定されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><strong>truss</strong> に指定したパラメーターを、
+実行するコマンドとしてではなく既存のプロセスのプロセス ID のリストとして解釈します。 プロセスのユーザー ID とグループ ID がユーザーのユーザー ID とグループ ID と一致する場合、またはユーザーが特権ユーザーである場合は、<strong>truss</strong> は各プロセスを制御してプロセスのトレースを開始します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>r</strong> [<strong>!] </strong><em>FileDescriptor</em></td>
+
+<td>指定した任意のファイル・ディスクリプターによる読み取りの入出力バッファーのすべての内容を表示します。 出力は 1 行当たり 32 バイトにフォーマットされ、
+各バイトが ASCII 文字 (1 つのブランクが先頭にある) か、
+水平タブ (&amp;#xa5;t) や改行 (&amp;#xa5;n) などの制御文字の場合は 2 文字の C 言語エスケープ・シーケンスで表示されます。 ASCII 変換処理が不可能な場合は、バイトは 2 文字の 16 進数表記で表示されます。 読み取られた各トレースの入出力バッファーの最初の 12 バイトは、
+<strong>-r</strong> フラグを指定しない場合でも表示されます。 デフォルトは <strong>-r! all</strong>です。 </td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> [<strong>!</strong>] <em>シグナル</em></td>
+
+<td>トレースまたは除外する <em>Signals</em> のリスト表示を許可します。 リストに指定した (コンマで区切った) シグナルがトレースされます。 シグナルがプロセスによって無視されている (ただしブロックされていない) 場合でも、
+トレース出力は指定した各シグナルの受信を報告します。 ブロックされたシグナルは、プロセスによって解放されるまで受信されません。 シグナルは名前と番号のどちらによっても指定できます (sys/signal.h を参照)。 リストが「<strong>!</strong>」で始まる場合 リストされたシグナルは、トレース出力とともに表示されません。 デフォルトは <strong>-s all</strong>です。 </td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> [ <strong>!</strong> ] <em>システムコール</em></td>
+
+<td>システム・コールをトレース・プロセスに組み込んだりトレース・プロセスから除外します。 トレースするシステム・コールは、リストに指定してコンマで区切る必要があります。 リストが「<strong>!</strong>」で始まる場合 指定されたシステム・コールは、トレース出力から除外されます。 デフォルトは <strong>-tall</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> [!] [<em>LibraryName</em> [...]::[!]<em>FunctionName</em> [...] ]</td>
+
+<td><p>ユーザー・ライブラリーから動的にロードしたユーザー・レベルの機能呼び出しを
+トレースします。 <em>LibraryName</em> は、ライブラリー名をコン
+マで区切ったリストです。 <em>FunctionName</em> は、機能名を
+コンマで区切ったリストです。 どちらの場合も、名前には名前の突き合わせのメタキャラク
+ター (<strong>*</strong>、<strong>?</strong>、<strong>[]</strong>) を
+シェルによる解釈と同じ解釈で使用できますが、適用先はライブラリー/機能のネーム・スペースで、
+ファイルではありません。</p>
+ <p>最先端の <strong>!</strong> いずれかのリストで、トレースしないライブラリーまたは機能の名前の除外リストを指定します。 ライブラリーを除外すると、そのライブラリーのすべての機能が除外され
+ます。 ライブラリー除外の後に続く機能リストは無視されます。 複数
+の <strong>-u</strong> オプションを指定すると、左から右の順序で
+使用されます。 デフォルトでは、ライブラリー/機能の呼び出しはトレースされません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>- <strong>w</strong> [<strong>!] </strong><em>FileDescriptor</em></td>
+
+<td>リストされているファイル記述子のいずれかに対する書き込みごとに、入出力バッファーの内容を表示します ( <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/truss.html#truss__row-d3e134521" target="_blank" rel="noopener noreferrer">-r</a></strong>を参照)。 デフォルトは <strong>-w! all</strong>です。 </td>
+
+</tr>
+
+<tr>
+<td>- <strong>x</strong> [<strong>!</strong> ] <em>シスコール</em></td>
+
+<td>トレースされたシステム・コールの指定したパラメーターのデータを、
+シンボルではなくロー・フォーマット (通常は 16 進数) で表示します。 デフォルトは <strong>-x! all</strong>です。 </td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td><p>トレースされたシステム・コールの指定されたパラメーターのデータを、
+人間が読める形式で表示します。 サポートされるシステム・コールは、 <span>bind</span>、 <span>connect</span>、 <span>socketpair</span>、 <span>lseek</span>、 <span>creat</span>、 <span>access</span>、 <span>accept</span>、 <span>socket</span>、および <span>statx</span>です。</p>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>端末上の <strong>find</strong> コマンドのトレースを生成するには、次のようにタイプします。<div> <div><div><pre><code>truss find . -print &gt;find.out</code></pre></div><div></div></div></div>
+</li>
+
+<li>lseek、<strong>close</strong>、statx、open システム・コールをトレースするには、次のようにタイプします。<div> <div><div><pre><code>truss -t lseek,close,statx,open find . -print &gt; find.out</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>find</strong> コマンドの通常の出力にスレッド ID を表示するには、
+次のように入力します。<div><div><pre><code>truss -l find . -print &gt;find.out </code></pre></div><div></div></div></li>
+
+<li><strong>find</strong> コマンドの通常の出力にタイム・スタンプを表示するには、
+次のように入力します。<div><div><pre><code>truss -d find . -print &gt;find.out </code></pre></div><div></div></div></li>
+
+<li><strong>find</strong> コマンドの通常の出力にデルタ時間を表示するには、
+次のように入力します。<div><div><pre><code>truss -D find . -print &gt;find.out </code></pre></div><div></div></div></li>
+
+<li><strong>ls</strong> コマンドを実行したとき
+に、<strong>libc.a</strong> ライブラリーで <strong>malloc()</strong> 機能
+呼び出しをトレースして、<strong>strlen()</strong> 機能呼び出しを除外する
+には、次のように入力します。<div><div><pre><code>truss -u libc.a::malloc,!strlen ls </code></pre></div><div></div></div></li>
+
+<li><strong>ls</strong> コマンドを実行するときに、<strong>libc.a</strong> ライブラリー内で「m」で始まる名前のすべての機能呼び出しをトレースし、<strong>libc.a</strong> ライブラリー内の <strong>strlen()</strong> 機能呼び出しを除外するには、次のコマンドを入力します。<div><div><pre><code>truss -u libc.a::m*,!strlen ls </code></pre></div><div></div></div></li>
+
+<li><strong>ls</strong> コマンドを実行し、<strong>libc.a</strong> ライ
+ブラリーで、「m」で始まる名前について、すべての機能呼び出しをトレースするには、
+次のように入力します。<div><div><pre><code>truss -u libc.a::m* ls</code></pre></div><div></div></div></li>
+
+<li>ライブラリー <strong>libcurses.a</strong> からのすべての関数呼び出しをトレースし、実行可能プログラム <code>foo</code>の実行中に <strong>libc.a</strong> からの呼び出しを除外するには、次のように入力します。<div><div><pre><code>truss -u libcurses.a,!libc.a::* foo </code></pre></div><div></div></div></li>
+
+<li>実行可能ファイル <code>foo</code>の実行中に、 <strong>libcurses.a</strong> からの <strong>refresh ()</strong> 関数呼び出し、および <strong>libc.a</strong> からの <strong>malloc ()</strong> 関数呼び出しをトレースするには、次のように入力します。<div><div><pre><code> truss -u libc.a::malloc -u libcurses.a::refresh foo</code></pre></div><div></div></div></li>
+
+<li>システム・コール引数を人間が読める形式でトレースするには、次のように入力します。<div><div><pre><code>truss -X -t lseek,bind,statx,creat find . -print &gt; find.out</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <p><strong>/proc</strong> ファイル・システム</p>
+</section>
+
+</div></div>

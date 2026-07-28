@@ -1,0 +1,105 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>現行セッション中にメール通知を使用可能または使用不可にします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>biff </strong>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/biff.html#biff__row-d3e55805" target="_blank" rel="noopener noreferrer"><strong>y </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/biff.html#biff__row-d3e55811" target="_blank" rel="noopener noreferrer"><strong>n </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>biff</strong> コマンドは、メール到着時の通知を希望するかどうかをシステムに知らせるために使用します。 メール通知を使用可能にした場合、メールが到着すると、From および Subject のヘッダー行と、メッセージの先頭 7 行つまり 560 文字が画面に表示されます。 <strong>biff y</strong> コマンドによって指定される通知は、ユーザーがログインするたびに実行される <strong>$HOME/.login</strong> ファイルまたは <strong>$HOME/.profile</strong> ファイルに含まれる場合がよくあります。 <strong>biff n</strong> コマンドは、通知を使用不可にします。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>y</strong> および <strong>n</strong>に加えて、 <strong>yes</strong> および <strong>no</strong> を使用して、メール通知を有効または無効にすることができます。<span>”</span></blockquote>
+<p></p>
+ <p><strong>biff</strong> コマンドは非同期に動作します。 メールが到着したときに
+通知を受けるためには、以下の事項を確認しておいてください。</p>
+ <ol>
+<li><span></span>シェルでメッセージ許可設定がオンになっています (mesg y).</li>
+
+<li><span></span><strong>comsat</strong> は実行中です ( <strong>inetd</strong> デーモンによって開始されます)。</li>
+
+<li><span></span>通知が有効 (biff y).</li>
+
+</ol>
+ <p>同期通知の場合は、<strong>ksh</strong> コマンド、<strong>bsh</strong> コマンド、
+または <strong>csh</strong> コマンドのいずれかの <strong>MAIL</strong> 変数を使用してください。</p>
+</section>
+
+<section><h2>オプション</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>y</strong></td>
+
+<td>メール通知を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>n</strong></td>
+
+<td>メール通知を使用不可にします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現在の設定を表示するには、次のように入力します。<div> <div><div><pre><code>biff</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>現行の端末セッション中にメールが到着するたびに通知されるようにするには、 <strong>$HOME/.login</strong> ファイルまたは <strong>$HOME/.profile</strong> ファイルに次のステートメントを入力します。<div> <div><div><pre><code>biff y</code></pre></div><div></div></div>メールが到着すると、From および Subject のヘッダー行と、メッセージの最初の 7 行
+すなわち 560 文字が画面に表示されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.login</strong></td>
+
+<td>ログイン時に <strong>login</strong> シェルによって読み取られます。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.profile</strong></td>
+
+<td>始動プロセスとデーモンを制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/biff</strong></td>
+
+<td><strong>biff</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

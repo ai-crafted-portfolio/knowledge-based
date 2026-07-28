@@ -1,0 +1,283 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>日次アカウンティングを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>/usr/sbin/acct/runacct</span> [ mmdd [ 状態 ]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>runacct</strong> コマンドは、主な日次アカウンティングのシェル・プロシージャーです。 通常 <strong>runacct</strong> コマンドは、<strong>cron</strong> デーモンによって開始されると、現行日の接続、料金、ディスク、キューイング・システム (プリンター)、およびプロセスのアカウンティング・データ・ファイルを処理して、バイナリー日次レポート <strong>/var/adm/acct/nite(x)/dayacct</strong> を作成します。 また、 <strong>runacct</strong> コマンドは、ASCII 日次報告書 <strong>/var/adm/acct/sum (x) /rprt</strong><em>mmdd</em>を作成するため、または請求処理のために、 <strong>prdaily</strong> プロシージャーの要約ファイルを準備します。</p>
+ <p><strong>acctmerg</strong> コマンドは、アカウンティング期間の累積要約レポート <strong>/var/adm/acct/sum(x)/tacct</strong> に <strong>dayacct</strong> レポートを追加します。 <strong>tacct</strong> レポートは、月次レポート <strong>/var/adm/acct/fiscal(x)</strong> を作成するために、<strong>monacct</strong> コマンドが使用します。</p>
+ <p>このコマンドには、<strong> runacct</strong> プロシージャーを再始動させる場合にキーボードから入力する必要がある 2 つのパラメーターがあります。 日付パラメーター、<em>mmdd</em> を使用して、アカウンティングをどの日および月に対して再実行したいかを指定できます。 また、管理権限を持っているユーザーは、<em>State</em> パラメーターを使用して、どの状態からでも、<strong>runacct</strong> プロシージャーを再始動できます。 <strong>runacct</strong> プロシージャーの再始動、および障害からのリカバリーの詳細については、『runacct プロシージャーの再始動』を参照してください。</p>
+ <p><strong>runacct</strong> コマンドは、実行時エラーが発生した場合に、アクティブ・アカウント・ファイルと要約ファイルを保護し、説明メッセージを <strong>/var/adm/acct/nite(x)/active</strong> ファイルに書き込むことによって、その進行状況を記録します。 <strong>runacct</strong> プロシージャーにエラーが発生すると、メールが root ユーザーと adm ユーザーに送信され、プロシージャーが終了します。</p>
+ <p><strong>runacct</strong> プロシージャーでは、ディレクトリー <strong>/var/adm/acct/nite(x)</strong> 内に 2 つの一時ファイル <strong>lock</strong> と <strong>lock1</strong> が作成されます。<strong>runacct</strong> プロシージャーは、これらの一時ファイルを使用して、このプロシージャーに対して同時に 2 つのコールが行われないようにします。 また、このプロシージャーでは、1 日当たり 2 回以上起動されることがないように、(同じディレクトリー内にある) <strong>lastdate</strong> ファイルが使用されます。</p>
+ <p><strong>runacct</strong> コマンドは、処理を個別の再始動可能な状態に分割します。 このコマンドは、1 つの状態を完了させると、次の状態の名前を <strong>/var/adm/acct/nite/state</strong> ファイルに書き込みます。 <strong>runacct</strong> プロシージャーでは、下記の順序で、さまざまな状態が処理されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>State</div></th>
+
+<th><div>アクション</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>SETUP</strong></td>
+
+<td>アクティブ・アカウンティング・ファイルを作業ファイルへ移動させて、アクティブ・ファイルを再始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>WTMPFIX</strong></td>
+
+<td><strong>wtmp</strong> ファイルの整合性を検査し、必要な場合は、日付変更を修正します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CONNECT1</strong></td>
+
+<td><strong>acctcon1</strong> コマンドを呼び出して、接続セッション・レコードを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CONNECT2</strong></td>
+
+<td>接続セッション・レコードを、合計アカウンティング・レコードに変換します (<strong>tacct.h</strong> フォーマット)。</td>
+
+</tr>
+
+<tr>
+<td><strong>プロセス</strong></td>
+
+<td>プロセス・アカウンティング・レコードを、合計アカウンティング・レコードに変換します (<strong>tacct.h</strong> フォーマット)。</td>
+
+</tr>
+
+<tr>
+<td><strong>MERGE</strong></td>
+
+<td>接続アカウンティング・レコードとプロセス合計アカウンティング・レコードを組み合わせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>FEES</strong></td>
+
+<td><strong>chargefee</strong> コマンドの出力を合計アカウンティング・レコードに変換し (<strong>tacct.h</strong> フォーマットで)、それらを、接続およびプロセス合計アカウンティング・レコードと組み合わせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>DISK</strong></td>
+
+<td>ディスク・アカウンティング・レコードを、接続、プロセス、および料金合計アカウンティング・レコードと組み合わせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>キュー・スペース</strong></td>
+
+<td>キュー (プリンター) アカウンティング・レコードをソートして、それらを合計アカウンティング・レコードに変換し (<strong>tacct.h</strong> フォーマット)、さらに他の合計アカウンティング・レコードと組み合わせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>メルゲタCT</strong></td>
+
+<td><strong>daytacct</strong> レポート・ファイル内の日次合計アカウンティング・レコードを、 <strong>/var/adm/acct/sum/tacct</strong> レポート・ファイル内の要約合計アカウンティング・レコードとマージします。</td>
+
+</tr>
+
+<tr>
+<td><strong>CMS</strong></td>
+
+<td><strong>/var/adm/acct/sum(x)/cms</strong> ファイル内でコマンド要約を作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>USEREXIT</strong></td>
+
+<td><strong>/var/adm/siteacct</strong> シェル・ファイルがある場合は、それをこの時点でコールして、サイト依存処理を実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>cleanup</strong></td>
+
+<td>一時ファイルを削除して終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<dl>
+
+<dt>runacct プロシージャーの再始動</dt>
+
+<dd><p>障害が発生した後に、<strong>runacct</strong> コマンドを再始動するには、まず <strong>/var/adm/acct/nite(x)/active</strong> ファイルで診断メッセージを調べ、<strong>pacct</strong> または <strong>wtmp</strong> などの損傷データ・ファイルを修正します。 そして、<strong>runacct</strong> コマンドを再始動する前に、<strong>lock</strong> ファイルと <strong>lastdate</strong> ファイル (いずれも <strong>/var/adm/acct/nite(x)</strong> ディレクトリーに入っている) を除去します。 <strong>Runacct</strong> コマンドを再始動する場合は、 <em>MMDD</em> パラメーターを指定する必要があります。 このパラメーターでは、<strong>runacct</strong> コマンドがアカウンティングをどの月日に関して再実行するのかを指定します。 <strong>runacct</strong> プロシージャーでは、<strong>/var/adm/acct/nite(x)/statefile</strong> ファイルを読み取ることによって、処理用のエントリー・ポイントが決定されます。 このデフォルト・アクションをオーバーライドするには、 <strong>Runacct</strong> コマンド行で目的の <em>状態</em> を指定します。</p>
+
+<p>通常、SETUP <em>状態</em>で <strong>Runacct</strong> コマンドを再始動することはお勧めできません。 それよりも、セットアップ・アクションを手動で実行し、下記のように、WTMPFIX 状態を指定してアカウンティングを再始動してください。</p>
+
+<div>
+<div><div><pre><code>/usr/lib/acct/runacct mmdd WTMPFIX</code></pre></div><div></div></div>
+</div>
+
+<p><strong>runacct</strong> コマンドが PROCESS 状態で正しく動作しない場合は、最後の <strong>ptacct</strong> ファイルを除去します。不完全なものになるからです。</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-X</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を処理します。 また、<strong>-X</strong> フラグを使用すると、<strong>runacct</strong> コマンドとそれが呼び出すすべてのコマンドが、<strong>/var/adm/acct/sum</strong> および <strong>/var/adm/acct/nite</strong> ディレクトリーではなく、<strong>/var/adm/acct/sumx</strong> および <strong>
+/var/adm/acct/nitex</strong> ディレクトリーを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、<strong>adm</strong> グループのメンバーのみに実行 (x) アクセス権限を与えます。</p>
+ <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>システム・リソースの日次アカウンティング・プロシージャーを開始するには、以下のコマンド行を <strong>CronTab</strong> ファイルに追加して、 <strong>Runacct</strong> コマンドが<strong> クーロン</strong> デーモンによって自動的に実行されるようにします。<div> <div><div><pre><code>0 4 * * 1-6 /usr/sbin/acct/runacct 2&gt; \
+/var/adm/acct/nite/accterr </code></pre></div><div></div></div>長いユーザー名のサポートを指定して、日次アカウンティング手順を開始するには、crontab ファイルに次の行を追加します。<div><div><pre><code>0 4 * * 1-6 /usr/sbin/acct/runacct -X 2&gt; \
+/var/adm/acct/nitex/accterr </code></pre></div><div></div></div>この例は、<strong>cron</strong> デーモンが読み取って実行する命令を示しています。 <strong>runacct</strong> コマンドは、4 a.mに実行されます。(04) 毎週月曜日から土曜日 (1-6) すべての標準エラー出力を書き込みます (2&gt;) <strong>/var/adm/acct/nite(x)/accterr</strong> ファイルに書き込みます。 このコマンドは、通常 <strong>cron</strong> デーモンに与えられるアカウント命令の一例にすぎません。</div>
+</li>
+
+<li><span></span>コマンド行からシステム・リソースの日次アカウンティング・プロシージャーを開始する ( <strong>Runacct</strong> コマンドを開始する) には、次のように入力します。<div> <div><div><pre><code>nohup /usr/sbin/acct/runacct 2&gt; \
+/var/adm/acct/nite/accterr &amp;</code></pre></div><div></div></div><strong>cron</strong> デーモンによって <strong>runacct</strong> プロシージャーを自動的に始動させることをお勧めしますが (例 1 を参照)、キーボードからコマンドを入力してもかまいません。 <strong>Runacct</strong> コマンドはバックグラウンドで実行されます (&amp;)、すべての INTERRUPT および QUIT シグナルを無視し ( <strong>Nohup</strong> コマンド)、すべての標準エラー出力を書き込みます (2&gt;) <strong>/var/adm/acct/nite/accterr </strong>ファイルに追加します。</div>
+</li>
+
+<li><span></span>特定の日付のシステム・アカウンティング・プロシージャーを再始動するには、次のようなコマンドを入力します。<div> <div><div><pre><code>nohup /usr/sbin/acct/runacct 0601 2&gt;&gt; \
+/var/adm/acct/nite/accterr &amp; </code></pre></div><div></div></div>この例では、 <strong>Runacct</strong> を 6 月 1 日 (0601)。 <strong> runacct</strong> コマンドは、ファイル<strong> /var/adm/acct/nite(x)/statefile</strong> を読み取って、開始する状態を見つけます。 <strong>Runacct</strong> コマンドはバックグラウンドで実行されます (&amp;)。すべての INTERRUPT および QUIT シグナルを無視します (<strong>Nohup</strong>)。 標準エラー出力 (2) が末尾に追加されます (&gt;&gt;) <strong>/var/adm/acct/nite(x)/accterr </strong>ファイルの名前を指定します。</div>
+</li>
+
+<li><span></span>特定の日付の特定の状態でシステム・アカウンティング・プロシージャーを再始動するには、次のようなコマンドを入力します。<div> <div><div><pre><code>nohup /usr/sbin/acct/runacct 0601 MERGE 2&gt;&gt; \
+ /var/adm/acct/nite(x)/accterr &amp;</code></pre></div><div></div></div>この例では、 <strong>Runacct</strong> コマンドを 6 月 1 日 (0601)。MERGE 状態で開始します。 <strong>Runacct</strong> コマンドはバックグラウンドで実行されます (&amp;)。すべての INTERRUPT および QUIT シグナルを無視します ( <strong>Nohup</strong> コマンド)。 標準エラー出力 (2) が末尾に追加されます (&gt;&gt;) <strong>/var/adm/acct/nite(x)/accterr</strong> ファイルの</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/adm/wtmp</strong></td>
+
+<td>ログイン/ログオフ・ヒストリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/pacct*</strong></td>
+
+<td>プロセス・アカウンティング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/nite(x)/daytacct</strong></td>
+
+<td>ディスク使用状況アカウンティング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/qacct</strong></td>
+
+<td>アクティブ・キュー・アカウンティング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/fee</strong></td>
+
+<td>ユーザーに課される料金のレコード。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/sum(x)/*</strong></td>
+
+<td>コマンド・ファイルと合計アカウンティング要約ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/nite (x) /ptacct *.</strong><em>mmdd</em></td>
+
+<td><strong>pacct</strong> ファイルの連結バージョン。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/nite(x)/active</strong></td>
+
+<td><strong>runacct</strong> メッセージ・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/nite(x)/lock*</strong></td>
+
+<td><strong>runacct</strong> コマンドの同時呼び出しを防止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/nite(x)/lastdate</strong></td>
+
+<td><strong>runacct</strong> が実行された最後の日付が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/nite(x)/statefile</strong></td>
+
+<td>処理すべき現行状態が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

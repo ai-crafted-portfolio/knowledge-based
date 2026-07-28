@@ -1,0 +1,183 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>関連付けプロバイダーを使用してクラスと関連付けられたリソースのリストを取得します。</p>
+ </section>
+
+<section><h2>構文</h2> <p><span><span>lsrsrcassoc</span></span> [<span><span>-s
+"</span></span><span><span>source_selection_string</span></span><span><span>"</span></span>] [<span><span>-c</span></span> <span><span>association_class</span></span>] [<span><span>-d</span></span> <span><span>association_endpoint_class</span></span>] [<span><span>-S "</span></span><span><span>destination_selection_string</span></span><span><span>"</span></span>] [<span><span>-o</span></span> <span><span>role</span></span>] [<span><span>-R</span></span> <span><span>result_role</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>source_class_name</span></span> [<span><span>property_list</span></span>...]</p>
+ </section>
+
+<section><h2>説明</h2> <p><span><span>lsrsrcassoc</span></span> コマンドを使用すると、CIM リソース間の関係について知ることができます。</p>
+ <p>このコマンドは、共通情報モデル (CIM) リソース・マネージャーの関連照会メカニズムへのインターフェースです。 CIM リソース・マネージャーに登録された関連付けプロバイダーは、関連付けデータを取得するために呼び出されます。 <span><span>lsrsrcassoc</span></span>を使用する前に、 <span><span>lsassocmap</span></span> コマンドを実行して、Resource Monitoring and Control (RMC) サブシステムに認識されている関連クラスを調べると役立つ場合があります。</p>
+ <p><span><span>lsrsrcassoc</span></span> コマンドでソース・クラス名を指定する必要があります。 フラグを指定しないと、 <span><span>lsrsrcassoc</span></span> は、このクラスのすべてのリソースに関連したすべてのリソースを検索します。 どの関連付けリソースを表示するかフィルターに掛けるためにフラグを使用できます。</p>
+ <p>コマンド出力は、 <span><span>lsrsrc</span></span>の出力と似ています。 ソース・リソースと関連付けられたリソースは、出力の検索とフィルタリングを容易にするために、行ごとにクラス名と 1 つの属性が表示されます。</p>
+ </section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>ソース・クラス名</span></span></dt>
+
+<dd>関連付けでソース・クラスを指定します。</dd>
+
+
+<dt><span><span>プロパティー・リスト</span></span></dt>
+
+<dd>1 つ以上のプロパティー名を指定します。 関連付けリソースのこれらのプロパティー (または RMC の用語では属性) のみが表示されます。 このパラメーターを指定しない場合、すべてのプロパティー名が表示されます。</dd>
+
+</dl>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-s <span><span>ソース選択文字列</span></span></dt>
+
+<dd>選択文字列に一致するソース・クラスのリソースのみが、関連付けリソースの検索に使用されるよう指定します。</dd>
+
+
+<dt>-S <span><span>目的地選択文字列</span></span></dt>
+
+<dd>この選択文字列に一致する関連付けクラスのリソースのみが表示されるように指定します。</dd>
+
+
+<dt>-c <span><span>アソシエーション・クラス</span></span></dt>
+
+<dd>関連付け検索を、<span><span>association_class</span></span> を介してソース・クラスに結合されたリソースのみに制限します。</dd>
+
+
+<dt>-d <span><span>アソシエーション・エンドポイント</span></span></dt>
+
+<dd>関連付けリソースの検索を、このクラスのメンバーのみに制限します。</dd>
+
+
+<dt>-o <span><span>役割</span></span></dt>
+
+<dd>CIM 関連付けインターフェースは、<span><span>role</span></span> パラメーターを、関連付けのソース側のクラスを参照するプロパティーの名前として定義します。 このパラメーターの代表的な値は、"GroupComponent" または "PartComponent" です。ただし、特定の名前は、関連付けクラスの定義から由来する必要があります。</dd>
+
+
+<dt>-R <span><span>結果ロール</span></span></dt>
+
+<dd><span><span>-o</span></span> フラグと同様に使用されます。ただし、これは関連の宛先側を参照するプロパティーの名前です。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用方法の文を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>標準エラーにコマンドのトレース・メッセージを書き込みます。 これはソフトウェア・サービス組織専用です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き出します。</dd>
+
+</dl>
+ </section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンド使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージが標準出力に書き込まれます。</p>
+ </section>
+
+<section><h2>標準エラー</h2> <p><span><span>-T</span></span> フラグが指定されている場合、このコマンド・トレース・メッセージは標準エラーに書き込まれます。</p>
+ </section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>ソース・エンドポイント・クラスが見つかりませんでした。</dd>
+
+
+<dt>5</dt>
+
+<dd>宛先エンドポイント・クラスが見つかりませんでした。</dd>
+
+
+<dt>6</dt>
+
+<dd>関連クラスが見つかりませんでした。</dd>
+
+</dl>
+ </section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 AIX® Expansion Pack および Linux® オペレーティング・システム用 Reliable Scalable Cluster Technology (RSCT) パッケージの <span><span>rsct.exp</span></span> パッケージにある <span><span>rsct.exp.cimrm</span></span> ファイルセットの一部です。</p>
+ </section>
+
+<section><h2>ロケーション</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/opt/rsct/bin/lsrsrcassoc</span></span></td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ </section>
+
+<section><h2>例</h2><p>指定されたノード上の <span><span>cimv2.IBMAIX_OperatingSystem</span></span> および <span><span>cimv2.Linux_OperatingSystem</span></span> にそれぞれ関連付けられている <span><span>cimv2.IBMAIX_UnixProcess</span></span> ( AIXの場合) および <span><span>cimv2.Linux_UnixProcess</span></span> ( Linuxの場合) のインスタンスを表示するには、次のように入力します。</p>
+<div>AIXの場合:<div><div><pre><code>lsrsrcassoc -c cimv2.IBMAIX_OSProcess -s 'Name=~"c175nf14"' -S \
+'Name=~"emacs"' cimv2.IBMAIX_OperatingSystem Handle Parameters</code></pre></div><div></div></div>Linux の場合：<div><div><pre><code>lsrsrcassoc -c 
+cimv2.Linux_OSProcess -s 'Name=~"c175nf14"' -S \
+'Name=~"emacs"' cimv2.Linux_OperatingSystem Handle Parameters</code></pre></div><div></div></div>これらの例で:<ul>
+<li><span><span>-c</span></span> <span><span>cimv2.IBMAIX_OSProcess</span></span> および <span><span>-c
+cimv2.Linux_OSProcess</span></span> は、プロバイダーが使用される関連クラスです。</li>
+
+<li><span><span>-s 'Name=~"c175nf14"'</span></span> は、 <span><span>cimv2.IBMAIX_OperatingSystem</span></span> および <span><span>cimv2.Linux_OperatingSystem</span></span> インスタンスに対する選択文字列です (ノード <span><span>c175nf14</span></span>を表す OS インスタンスに関連付けられたオブジェクトのみが必要です)。</li>
+
+<li><span><span>-S 'Name=~"emacs"'</span></span> は、 <span><span>cimv2.IBMAIX_UnixProcess</span></span> および <span><span>cimv2.Linux_UnixProcess</span></span> オブジェクトに対する選択ストリングです。パターン <span><span>emacs</span></span> を含む <span><span>Name</span></span> 属性を持つオブジェクトのみが返されます。</li>
+
+<li>「ソース・オブジェクト」パラメーターである <span><span>cimv2.IBMAIX_OperatingSystem</span></span> および <span><span>cimv2.Linux_OperatingSystem</span></span>は、関連付けのクラスの 1 つです。</li>
+
+<li><span><span>Handle Parameters</span></span> は、プロバイダーが返すように要求されるプロパティーです。 <span><span>Handle</span></span> はプロセスの PID です。 <span><span>Parameters</span></span> は、プロセスの引数のリストです。</li>
+
+</ul>次の出力が表示されます。<div><div><pre><code>Resource Persistent Attributes for cimv2.IBMAIX_UnixProcess (or cimv2.Linux_UnixProcess)
+resource 1:
+Handle = "2781"
+Parameters = {"emacs", "-u", "foo.C"}
+resource 2:
+Handle = "2782"
+Parameters = {"emacs", "bar.C"}
+resource 3:
+Handle = "2783"
+Parameters = {"emacs","foo_bar.C"}
+resource 4:
+Handle = "2784"
+Parameters = {"emacs","bar_foo.C"}
+resource 5:
+Handle = "2785"
+Parameters = {"emacs","CIMRC.C"}
+resource 6:
+Handle = "26994"
+Parameters = {"emacs","lsassocmap.pl"}</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

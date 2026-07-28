@@ -1,0 +1,152 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>リソース・レコード (RR) を生成します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><span>dnssec-dsfromkey</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-1" target="_blank" rel="noopener noreferrer"><span>-1</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-2" target="_blank" rel="noopener noreferrer"><span>-2</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-a-alg" target="_blank" rel="noopener noreferrer"><span>-a</span></a> アルゴリズム ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-C" target="_blank" rel="noopener noreferrer"><span>-C</span></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-T" target="_blank" rel="noopener noreferrer"><span>-T</span></a> ttl] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-v-level" target="_blank" rel="noopener noreferrer"><span>-v</span></a> レベル] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-K" target="_blank" rel="noopener noreferrer"><span>-K</span></a> ディレクトリー] {keyfile}</p>
+
+<p><span>dnssec-dsfromkey</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-1" target="_blank" rel="noopener noreferrer"><span>-1</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-2" target="_blank" rel="noopener noreferrer"><span>-2</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-a-alg" target="_blank" rel="noopener noreferrer"><span>-a</span></a> アルゴリズム ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-C" target="_blank" rel="noopener noreferrer"><span>-C</span></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-T" target="_blank" rel="noopener noreferrer"><span>-T</span></a> ttl] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-v-level" target="_blank" rel="noopener noreferrer"><span>-v</span></a> level] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-c-class" target="_blank" rel="noopener noreferrer"><span>-c</span></a> class] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-A" target="_blank" rel="noopener noreferrer"><span>-A</span></a>] {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-f" target="_blank" rel="noopener noreferrer"><span>-f</span></a> file} [dnsname]</p>
+
+<p><span>dnssec-dsfromkey</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-1" target="_blank" rel="noopener noreferrer"><span>-1</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-2" target="_blank" rel="noopener noreferrer"><span>-2</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-a-alg" target="_blank" rel="noopener noreferrer"><span>-a</span></a> アルゴリズム ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-C" target="_blank" rel="noopener noreferrer"><span>-C</span></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-T" target="_blank" rel="noopener noreferrer"><span>-T</span></a> ttl] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-v-level" target="_blank" rel="noopener noreferrer"><span>-v</span></a> level] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-c-class" target="_blank" rel="noopener noreferrer"><span>-c</span></a> class] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-K" target="_blank" rel="noopener noreferrer"><span>-K</span></a> directory] {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-s" target="_blank" rel="noopener noreferrer"><span>-s</span></a>} {dnsname}</p>
+
+<p><span>dnssec-dsfromkey</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-h" target="_blank" rel="noopener noreferrer"><span>-h</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dnssec-dsfromkey.html#dnssec-dsfromkey__flag-V" target="_blank" rel="noopener noreferrer"><span>-V</span></a> ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<div><span>dnssec-dsfromkey</span>コマンドの'<span>-C</span>オプションは、委任署名者(DS)のリソースレコード署名(RR)または子譲 渡署名者(CDS)のRRを表示する。 デフォルトでは、鍵署名鍵（KSK）、すなわち257のフラグを持つ鍵のみが「<code>DS</code>レコードに変換される。 <span>-A</span>オプションには、DSレコードに変換するための、256個のフラグを持つゾーン 署名鍵(ZSK)を含める。 DS レコードへの変換には、取り消された鍵は含まれません。 入力キーは以下の方法で指定できる：<ul>
+<li>デフォルトでは、「<span>dnssec-dsfromkey</span>コマンドは、「<span>dnssec-keygen</span>コマンドで生成された 「<code>Knnnn.+aaa+iiiii.key</code>形式のファイル名を持つ鍵ファイルを読み込む。</li>
+
+<li><span>-f</span>オプションを指定した場合、'<span>dnssec-dsfromkey</span>コマンドはゾーンファイル、または'<code>DNSKEY</code>レコードのみを含むことができる部分ゾーンファイルからキーを読み込む。</li>
+
+<li><span>-s</span>オプションをつけると、「<span>dnssec-dsfromkey</span>コマンドは「<code>dnssec-keygen -C</code>コマンドによって生成された「<code>keyset-</code>ファイルを読み込む。</li>
+
+</ul>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+<dl>
+
+<dt><span>-1</span></dt>
+
+<dd>このオプションは、「<code>-a SHA1</code>アルゴリズム値の省略形である。</dd>
+
+
+
+<dt><span>-2</span></dt>
+
+<dd>このオプションは、「<code>-a SHA-256</code>アルゴリズム値の省略形である。</dd>
+
+
+
+<dt><span>-a</span> アルゴリズム</dt>
+
+<dd><p><code>DNSKEY</code>レコードを'<code>DS</code>レコードに変換する際に使用するダイジェストアルゴリズムを指定する。 このオプションを複数回使用すると、各「<code>DNSKEY</code>レコードに対して複数の「<code>DS</code>レコードを作成することができる。</p>
+
+<p>algorithmの値は'<code>SHA-1</code>、'<code>SHA-256</code>、'<code>SHA-384</code>いずれかでなければならない。 これらの値は大/小文字を区別せず、ハイフンは省略できます。 デフォルト値は「<code>SHA-256</code>である。</p>
+
+</dd>
+
+
+
+<dt><span>-A</span></dt>
+
+<dd><code>DS</code>レコードの生成にZSKを含める必要があることを示す。 このオプションを指定しないと、'<code>KSK</code>フラグが設定されているキーのみが'<code>DS</code>レコードに変換されて印刷される。 このフラグは、'<span>-f</span>フラグも使用している場合にのみ有効である。</dd>
+
+
+
+<dt><span>-c</span> class</dt>
+
+<dd>ドメインネームシステム（DNS）クラスを指定します。 デフォルト値は<code>IN</code>です。 このフラグは、'<span>-f</span>フラグまたは'<span>-s</span>フラグも使用している場合にのみ有効である。</dd>
+
+
+
+<dt><span>-C</span></dt>
+
+<dd><code>DS</code>レコードの代わりに'<code>CDS</code>生成する。</dd>
+
+
+
+<dt><span>-f</span>file</dt>
+
+<dd><p>このモードでは、'<span>dnssec-dsfromkey</span>コマンドの最終引数dnsnameは、 プライマリファイルが読み込めるゾーンのDNSドメイン名となる。 ゾーン名が file 引数の値と同じ場合は、 file 引数を省略できます。</p>
+
+<div>file引数の値が'<code>-</code>（ハイフン）の場合、ゾーンデータは標準入力から読み込まれる。 その後、 <span>dig</span> コマンドの出力を入力として使用できます。 次に例を示します。<div><div><pre><code>dig dnskey example.com | dnssec-dsfromkey -f - example.com</code></pre></div><div></div></div></div>
+
+</dd>
+
+
+
+<dt><span>-h</span></dt>
+
+<dd>使用法情報を印刷します。</dd>
+
+
+
+<dt><span>-K</span> ディレクトリー</dt>
+
+<dd>BIND 9 を指定して、指定されたディレクトリー内の鍵ファイルまたは <span>keyset-</span> ファイルを検索します。</dd>
+
+
+
+<dt><span>-s</span></dt>
+
+<dd><span>dnssec-dsfromkey</span>コマンドの最後のdnsname引数が、'<span>keyset-</span>ファイルを見つけるために使われる DNSドメイン名になる。</dd>
+
+
+
+<dt><span>-T</span> トル</dt>
+
+<dd>DS レコードの存続時間 (TTL) を指定します。 デフォルトでは、TTL は省略されています。</dd>
+
+
+
+<dt><span>-v</span> レベル</dt>
+
+<dd>デバッグのレベルを設定します。</dd>
+
+
+
+<dt><span>-V</span></dt>
+
+<dd>バージョン情報を印刷します。</dd>
+
+
+</dl>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<div><span>Kexample.com.+003+26160</span>キー・ファイルから「<code>SHA-256 DS RR</code>ビルドするには、以下のコマンドを入力する：<div><div><pre><code>dnssec-dsfromkey -2 Kexample.com.+003+26160</code></pre></div><div></div></div></div>
+
+<div>次の例に示すような出力が表示されます。<div><div><pre><code>example.com. IN DS 26160 5 2 3A1EADA7A74B8D0BA86726B0C227AA85AB8BBD2B2004F41A868A54F0C5EA0B94</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<p>鍵ファイルは、 <span>dnssec-keygen</span> コマンドによって生成された鍵 ID <code>Knnnn.+aaa+iiiii</code> または完全ファイル名 <code>Knnnn.+aaa+iiiii.key</code>によって指定できます。</p>
+
+<p>キーセットの名前は、ディレクトリ名、文字列「<code>keyset-</code>、dnsnameから作られる。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 鍵ファイルが存在する場合でも、 <span>「ファイルが見つかりません」</span>というエラーが返されることがあります。</div>
+        </div>
+      </div></div>
+
+</section>
+
+</div></div>

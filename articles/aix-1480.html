@@ -1,0 +1,201 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>1 つの論理ボリュームからコピーを分割して、分割したコピーから新しい論理ボリュームを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>分割コピー</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43783" target="_blank" rel="noopener noreferrer"><strong>-f </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__splitlvcopy_k" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43792" target="_blank" rel="noopener noreferrer"><strong>-y </strong><em>NewLogicalVolumeName </em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43803" target="_blank" rel="noopener noreferrer"><strong>-Y </strong><em>プリフィックス </em></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43835" target="_blank" rel="noopener noreferrer"><em>LogicalVolume</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43829" target="_blank" rel="noopener noreferrer"><em>コピー</em></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43841" target="_blank" rel="noopener noreferrer"><em>PhysicalVolume</em></a><em> </em>... ]</p>
+
+<p><strong>splitlvcopy</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43783" target="_blank" rel="noopener noreferrer"><strong>[-f </strong></a>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__splitlvcopy_k" target="_blank" rel="noopener noreferrer"><strong>[-k</strong></a>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43792" target="_blank" rel="noopener noreferrer"><strong>[-y </strong><em>NewLogicalVolumeName] </em></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43803" target="_blank" rel="noopener noreferrer"><strong>[-Y </strong><em>Prefix </em></a>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__mp" target="_blank" rel="noopener noreferrer"><strong>[-p</strong><em> ミラープール,...</em></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43835" target="_blank" rel="noopener noreferrer"><em>LogicalVolume</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/splitlvcopy.html#splitlvcopy__row-d3e43829" target="_blank" rel="noopener noreferrer"><em>コピー</em></a></p>
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>このコマンドを使用するには、<code>root</code> ユーザー権限を持っているか、システム・グループのメンバーでなければなりません。</li>
+
+<li><span>splitlvcopy</span> コマンドは、
+スナップショット・ボリューム・グループおよびスナップショット・ボリューム・グループが
+あるボリューム・グループ上では使用できません。</li>
+
+<li><span>splitlvcopy</span> コマンドは、パスフレーズ認証方式を、暗号化された元の論理ボリュームから新しい暗号化論理ボリュームにコピーします。</li>
+
+<li>元の論理ボリュームにプラットフォーム鍵ストア (PKS) 方式がある場合、<span>splitlvcopy</span> コマンドは、PKS 鍵スロットが使用可能であれば、新しい PKS 方式を新しい暗号化論理ボリュームに追加します。</li>
+
+<li><span>splitlvcopy</span> コマンドは、鍵サーバー方式を新しい暗号化論理ボリュームから削除します。 鍵サーバー方式を元の暗号化論理ボリュームからコピーするには、<span>-k</span> フラグを使用してください。</li>
+
+<li><span>splitlvcopy</span> コマンドは、鍵ファイル認証方式を新しい暗号化論理ボリュームから削除します。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <span>splitlvcopy</span> コマンドは、オープンしている論理ボリューム (マウントされたファイルシステムを含む論理ボリュームを含む) を分割することができますが、これは推奨されません。 この論理ボリュームが複数のプロセスにより同時にアクセスされると、<em>LogicalVolume</em> と <em>NewLogicalVolume</em> 間で整合性が失われる可能性があります。 オープンしている論理ボリュームを分割すると、このアクションに伴うデータ損失とデータ破壊のリスクを暗黙に受け入れることになります。 「potential corruption (データ破壊の可能性)」ウィンドウを回避するには、分割前に論理ボリュームをクローズし、分割前にファイルシステムをアンマウントします。</div>
+        </div>
+      </div></div>
+ <p><span>splitlvcopy</span> コマンドは、<em>LogicalVolume</em> の各 LPAR からコピーを除去し、そのコピーを用いて <em>NewLogicalVolume</em> を作成します。 <em>Copies</em> パラメーターは、分割後に <em>LogicalVolume</em> に残る物理区画の最大数を決定します。 したがって、分割前の <em>LogicalVolume</em> に 3 つのコピーがあり、<em>Copies</em> パラメーターが 2 ならば、分割後 <em>LogicalVolume</em> には 2 つのコピーがあり、<em>NewLogicalVolume</em> には 1 つのコピーがあります。 分割後の <em>LogicalVolume</em> および <em>NewLogicalVolume</em> のコピーの合計数が、分割前の <em>LogicalVolume</em> のコピー数を上回るように、論理ボリュームを分割できません。</p>
+ <p><em>NewLogicalVolume</em> は、すべて <em>LogicalVolume</em> と同じ論理ボリューム特性を持ちます。 <em>LogicalVolume</em> に論理ボリューム制御ブロックがない場合は、このコマンドに警告メッセージを伴って正常に完了し、論理ボリューム制御ブロックなしの <em>NewLogicalVolume</em> を作成します。</p>
+ <p>ファイルシステムを含む論理ボリュームを分割するときは、追加の考慮事項があります。 分割後、論理ボリュームは 2 つになりますが、 <em>LogicalVolume</em>を参照する <strong>/etc/filesystems</strong> ファイルには 1 つのエントリーしかありません。 ファイルシステムとして<em>NewLogicalVolume</em>にアクセスするには、<strong>/etc/filesystems</strong>に <em>NewLogicalVolume</em>を参照する別のマウントポイントを持つ追加エントリを作成する必要があります。 マウント・ポイントがまだ存在していない場合、新規ファイルシステムをマウントする前に、それを作成しておく必要があります。 加えて、<em>LogicalVolume</em> がオープンしている間に <em>NewLogicalVolume</em> が作成された場合、新しいファイルシステムをマウントするためには、<code>fsck /dev/NewLogicalVolume</code> コマンドを実行する必要があります。</p>
+ <p>System Management Interface Tool (SMIT) でこのコマンドを実行することはできません。 このコマンドにはメッセージ・カタログがサポートされないため、エラー・メッセージはメッセージ・カタログ番号なしの英語でのみ表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>確認を要求しないでオープンした論理ボリュームを分割することを指定します。 デフォルトでは、<strong>splitlvcopy</strong> は、オープンした論理ボリュームを分割する前に確認を要求します。 これには、オープンしたロー論理ボリュームと、マウントされたファイルシステムを含む論理ボリュームが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>鍵サーバー方式を、暗号化された元の論理ボリュームから新しい論理ボリュームにコピーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p </strong><em>ミラー・プール</em></td>
+
+<td>新しい論理ボリュームを作成するために論理ボリューム・コピーを分割する元のミラー・プールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y </strong><em>NewLogicalVolumeName</em></td>
+
+<td><em>LogicalVolume</em> からコピーを移動する新しい論理ボリュームの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y </strong><em>接頭部</em></td>
+
+<td>新規論理ボリュームのシステム生成名内の接頭部に代わって使用する <em>Prefix</em> を指定します。 接頭部は 13 文字以下でなければなりません。 名前は、他のデバイス用に既にデバイス構成データベース (Device Configuration Database) の <strong>PdDv</strong> クラスで定義された接頭部で始めることもできなければ、他のデバイスが既に使用している名前であってもなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>コピー部数</em></td>
+
+<td>分割後に論理ボリュームに残る物理区画の最大数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>LogicalVolume</em></td>
+
+<td>分割する論理ボリューム名もしくは論理ボリューム ID を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>PhysicalVolume</em></td>
+
+<td>コピーを除去する物理ボリューム名もしくは物理ボリューム ID を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御 : このコマンドを実行するには、root 権限を持つか、システム・グループのメンバーでなければなりません。</p>
+ <div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+ <p>イベントの監査 : 該当しません。</p>
+</section>
+
+<section><h2>例</h2>
+<ul>
+<li><p>それぞれの論理区画に現在 3 つのコピーを持つ、<strong>oldlv</strong> という名前の論理ボリュームに属する各論理区画の 1 つのコピーを分割し、論理ボリューム <strong>newlv</strong> を作成するには、次のコマンドを入力します。</p>
+
+<div>
+<div><div><pre><code>splitlvcopy -y newlv oldlv 2</code></pre></div><div></div></div>
+</div>
+
+<p>論理ボリューム <strong>oldlv</strong> 内の各 LPAR は、これで 2 つの物理区画を持つことになります。 論理ボリューム <strong>newlv</strong> 内の各 LPAR は現在 1 つの物理区画を持っています。</p>
+
+</li>
+
+<li><strong>mp2</strong> ミラー・プールおよび <strong>mp3</strong> ミラー・プールにある <strong>lv00</strong>
+論理ボリュームのコピーを分割し、論理ボリュームを作成するには、次のコマンドを入力します。<div><div><pre><code>splitlvcopy -p mp2,mp3 lv00 1</code></pre></div><div></div></div></li>
+
+</ul>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/splitlvcopy</strong></td>
+
+<td><strong>splitlvcopy</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp</strong></td>
+
+<td><strong>splitlvcopy</strong> コマンドの実行中に作成された一時ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

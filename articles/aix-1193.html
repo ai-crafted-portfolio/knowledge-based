@@ -1,0 +1,725 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Precision Time Protocol (1588-2008) デーモン (<span>ptpd</span>) を開始します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>
+<div><div><pre><code>/usr/sbin/ptpd [ -? ] [ -h ] [ -H ] [ -e setting ] [ -k ] [ -v ] [ -O ] [ -L ] [ -A ] [ -s ] [ -m ] [ -M ] [ -y ] [ -E ] [ -P ] [ -a ] [ -n ] [ -C ] [ -V ] [ -c file ] [ -R dir ] [ -f file ] [ -S file ] [ -d domain_number ] [ -u IP_address ] [ -r number ] [ -l file ] [ -i dev ]</code></pre></div><div></div></div>
+</div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ptpd</span> デーモンは、IEEE 1588-2008 標準で定義された Precision Time Protocol (PTP) バージョン 2 を実装します。 PTP は、LAN で接続されたコンピューターの正確な時間調整を行います。 このデーモンを root 権限で実行して、システム・クロックを操作し、より小さいポート番号を使用します。 <span>ptpd</span> デーモンは、IPv4 マルチキャスト、ユニキャスト、ハイブリッド・モード (混合)、およびイーサネット・モードの操作をサポートします。 <span>ptpd</span> デーモンは、ハードウェアの支援がなくても、マイクロ秒以下のレベルのタイミング精度を達成し維持できます。</p>
+
+<p><span>/etc/ptpd2.conf</span> 構成ファイル (デフォルト・ファイル) を使用して <span>ptpd</span> デーモンを構成します。 ショート (<span>-x</span>) フラグとロング (<span>--xxxxx</span>) フラグは、デーモンの操作に対する基本制御を提供し、基本 PTP プロトコル設定のみを提供します。 その他の設定は、<span>-h</span>、<span>-H</span>、および <span>-e</span> の各フラグで表示できます。</p>
+
+<p><span>ptpd</span> デーモンは、システム・リソース・コントローラー (SRC) からも、コマンド・ラインからも開始できます。</p>
+
+<p><span>ptpd</span> デーモンを操作するには、次の SRC コマンドを使用します。</p>
+
+<dl>
+
+<dt><code>startsrc</code></dt>
+
+<dd>サブシステム、サブシステム・グループ、またはサブサーバーを始動します。</dd>
+
+
+
+<dt><code>stopsrc</code></dt>
+
+<dd>サブシステム、サブシステムのグループ、またはサブサーバーを停止します。</dd>
+
+
+
+<dt><code>refresh</code></dt>
+
+<dd>サブシステム、またはサブシステムのグループに、再度、適切な構成ファイルを読み取らせます。</dd>
+
+
+
+<dt><code>lssrc</code></dt>
+
+<dd>サブシステム、サブシステムのグループ、またはサブサーバーの状況を取得します。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>ptpd</span> デーモンは、Network Time Protocol (NTP) および Simple Network Management Protocol (SNMP) 関連の機能をサポートしません。</div>
+        </div>
+      </div></div>
+
+<div><span>ptpd</span> デーモンでは、以下の用語を使用します。<dl>
+
+<dt><code>slave device</code></dt>
+
+<dd><span>ptpd</span> デーモンを実行しているシステム。master デバイスからのコマンドを受け入れ、システム時刻を同期化して、関連付けられた境界クロック時間に一致させます。</dd>
+
+
+
+<dt><code>master device</code></dt>
+
+<dd>同じネットワーク上の 1 つ以上の PTP スレーブ ・デバイスのセットと時刻を同期する境界クロックにバインドされているデバイス。</dd>
+
+
+
+<dt><code>grandmaster device</code></dt>
+
+ <dd>Best Master Clock アルゴリズムによって提供される最適なクロックを持つ マスター ・デバイス。 これは、他のすべての マスター ・デバイス (境界クロックとも呼ばれる) を同期化します。これにより、関連する スレーブ ・デバイスが更新され、同期化されます。 グランドマスター・クロックは、ベスト・マスター・クロックまたはベスト・クロックとも呼ばれます。</dd>
+
+
+</dl>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>ショート・フラグ</div></th>
+
+<th><div>ロング・フラグ</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td><span>--delay-override</span></td>
+
+<td>ワーカー状態のマスターによって通知された要求間隔の遅延をオーバーライドします。 このフラグは、<code>ptpengine</code> 属性を次の設定値に設定します。<div><div><pre><code>ptpengine:log_delayreq_override</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-A</span></td>
+
+<td><span>--auto-lock</span></td>
+
+<td>事前設定されたまたはポート・モード固有のロック・ファイル名を使用します。 このフラグは、<span>ptpd</span> デーモンの複数インスタンスを実行する場合に便利です。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> ファイル</td>
+
+<td><span>--config-file</span> ファイル</td>
+
+<td>構成ファイルのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-C</span></td>
+
+<td><span>--foreground</span></td>
+
+<td>フォアグラウンドで実行するコマンドを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:foreground=Y</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> <span>ptpd</span> デーモンが SRC から開始された場合、このオプションは無視されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> ドメイン番号 (domain_number)</td>
+
+<td><span>--domain</span> ドメイン番号 (domain_number)</td>
+
+<td>所属する PTP ドメイン番号を指定します。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:domain</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-D [DD]</span></td>
+
+<td><span>--debug</span></td>
+
+<td>デバッグ・レベルを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:debug_level</code></pre></div><div></div></div>デバッグ・レベル情報を増やすには、複数インスタンスを指定できます。 例えば、<span>-D</span> オプションは、最小デバッグ情報を指定します。 <span>-DD</span> オプションは、詳細デバッグ情報を指定します。 <span>-DDD</span> オプションは、最大デバッグ情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span> 設定</td>
+
+<td><span>--explain</span> 設定</td>
+
+<td>単一の設定のヘルプ情報を表示します。 このフラグは、<code>section</code> 属性を次のように設定します。<div><div><pre><code>section:key</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-E</span></td>
+
+<td><span>--e2e</span></td>
+
+<td>エンドツーエンド遅延検出を指定します。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:delay_mechanism=E2E</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-f</span> ファイル</td>
+
+<td><span>--log-file </span> ファイル</td>
+
+<td>ログ・ファイルへのパスを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:logfile</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td><span>--help</span></td>
+
+<td>ヘルプ画面を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-H</span></td>
+
+<td><span>--long-help</span></td>
+
+<td>すべての設定および動作の詳細ヘルプを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> 開発</td>
+
+<td><span>--interface</span> 開発</td>
+
+<td><span>ptpd</span> 実装に使用するインターフェースを指定します。 例えば、<code>en0</code> などです。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:interface</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-k</span></td>
+
+<td><span>--check-config</span></td>
+
+<td>PTP 構成と出口を検査します。 構成が正しい場合は 0 を返します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span> ファイル</td>
+
+<td><span>--lockfile</span> ファイル</td>
+
+<td>ロック・ファイルのパスを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:lock_file</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-L</span></td>
+
+<td><span>--ignore-lock</span></td>
+
+<td>ロック・ファイルの検査とロッキングをスキップします。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:ignore_lock</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-m</span></td>
+
+<td><span>--masterslave</span></td>
+
+<td>完全な IEEE 1588 インプリメンテーションを指定します。すなわち、マスター、スレーブ (孫でない場合) (ベスト・マスター) です。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:preset=masterslave</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-M</span></td>
+
+<td><span>--masteronly</span></td>
+
+<td>マスター専用モードを指定します。最良の GM でない場合はパッシブです。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:preset=masteronly</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td><span>--clock:no_adjust</span></td>
+
+<td>クロックを調整しないことを指定します。 このフラグは、<code>clock</code> 属性を次のように設定します。<div><div><pre><code>clock:no_adjust</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-O</span></td>
+
+<td><span>--default-config</span></td>
+
+<td>デフォルト構成と出口を表示します。 この出力は、構成ファイルとして使用できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td><span>--print-lockfile</span></td>
+
+<td>ロック・ファイルのパスと出口を出力します。 このフラグは、自動ロック・ファイルを使用する <code>init</code> スクリプトに役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span></td>
+
+<td><span>--p2p</span></td>
+
+<td>ピアツーピア遅延検出を指定します。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:delay_mechanism=P2P</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> 番号</td>
+
+<td><span>--delay-interval</span> 番号</td>
+
+<td>遅延要求メッセージ (ログ 2) の間隔を指定します。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:log_delayreq_interval</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-R</span> ディレクトリー</td>
+
+<td><span>--lock-directory</span> ディレクトリー</td>
+
+<td>ロック・ファイルを保管するディレクトリーを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:lock_directory</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-S</span> ファイル</td>
+
+<td><span> --statistics-file</span> ファイル</td>
+
+<td>統計ファイルのパスを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:statistics_file</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td><span>--slaveonly</span></td>
+
+<td>スレーブのみモードをオンにします。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:preset=slaveonly</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-u</span></td>
+
+<td><span>--unicast</span></td>
+
+<td>ユニキャスト・モード (ユニキャスト・ネゴシエーションなし) を指定し、すべてのメッセージを IP に送信します。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:ip_mode=unicast + ptpengine:unicast_address</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td><span>--version</span></td>
+
+<td>バージョン・ストリングと出口を出力します。</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span></td>
+
+<td><span>--verbose</span></td>
+
+<td>フォアグラウンドで実行するコマンドと、すべてのメッセージを標準出力に記録するコマンドを指定します。 このフラグは、<code>global</code> 属性を次のように設定します。<div><div><pre><code>global:verbose_foreground=Y</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> <span>ptpd</span> デーモンが SRC から開始された場合、このオプションは無視されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-y</span></td>
+
+<td><span>--hybrid</span></td>
+
+<td>ハイブリッド・モード (マルチキャストとユニキャストの操作の混合) を指定します。 同期と告知にマルチキャストを使用し、遅延要求と応答にユニキャストを使用します。 このフラグは、<code>ptpengine</code> 属性を次のように設定します。<div><div><pre><code>ptpengine:ip_mode=hybrid</code></pre></div><div></div></div></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>PTP デーモンのポート状態</h2>
+
+<p><span>ptpd</span> ポートには、以下の状態があります。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>State</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>init</code></td>
+
+<td>初期化中</td>
+
+</tr>
+
+<tr>
+<td><code>flt</code></td>
+
+<td>障害</td>
+
+</tr>
+
+<tr>
+<td><code>lstn_init</code></td>
+
+<td>listen 中 (初回)</td>
+
+</tr>
+
+<tr>
+<td><code>lstn_reset</code></td>
+
+<td>listen 中 (後続のリセット)</td>
+
+</tr>
+
+<tr>
+<td><code>pass</code></td>
+
+<td>パッシブ (ベスト・マスター以外、告知以外)</td>
+
+</tr>
+
+<tr>
+<td><code>uncl</code></td>
+
+<td>未調整</td>
+
+</tr>
+
+<tr>
+<td><code>slv</code></td>
+
+<td>ワーカー</td>
+
+</tr>
+
+<tr>
+<td><code>pmst</code></td>
+
+<td>事前マスター</td>
+
+</tr>
+
+<tr>
+<td><code>mst</code></td>
+
+<td>マスター (アクティブ)</td>
+
+</tr>
+
+<tr>
+<td><code>dsbl</code></td>
+
+<td>無効</td>
+
+</tr>
+
+<tr>
+<td><code>? (unk)</code></td>
+
+<td>不明な状態</td>
+
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>統計ログ・ファイルのフォーマット</h2>
+
+<div><span>ptpd</span> 統計ログを使用可能にすると、以下のオプションが選択可能です。<dl>
+
+<dt>ptpengine:log_statistics</dt>
+
+<dd>各受信 PTP パケットのログイン情報を更新します。</dd>
+
+
+
+<dt>ptpengine:statistics_file</dt>
+
+<dd>統計ログ・ファイルのロケーション・パスを指定します。<div><div>
+        <div>
+          <div><span>注:</span> このオプションは、統計収集を有効にします。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+</div>
+
+<p>統計ロギングが有効になっている場合に、同期および遅延の応答メッセージが受信されると、<span>ptpd</span> ワーカーはクロック同期情報をログに記録します。 <span>ptpd</span> デーモンがログを開始またはフラッシュすると、コメント行 (# で始まる) がログに記録され、すべての列の名前が入ります。 ログ・ファイルは comma-separated values (CSV) フォーマットで、統計ツールや表計算ソフトウェア・パッケージに簡単にインポートして、分析やグラフの作成が行えます。 <span>ptpd</span> デーモンを長期間、高いメッセージ送信率で実行すると、ログ・ファイルのサイズが増えます。 ログに記録されるメッセージの数を減らすには、<code>global:statistics_log_interval</code> 設定を使用して、ログ出力を構成済み間隔当たり 1 メッセージに制限できます。 統計ログ・ファイルのサイズと最大数も制御できます。</p>
+
+<p>統計ログ・ファイルの列の説明を以下に示します。</p>
+
+<dl>
+
+<dt>タイムスタンプ</dt>
+
+<dd>メッセージを受信した時刻。 日時情報は、 <code>global:statistics_timestamp_format</code> 設定に応じて、テキスト、UNIX タイム・スタンプ (小数秒を含む)、またはその両方の形式 (この場合は、追加のフィールドが追加されます) で表されます。 ログ・ファイルをプロット・ソフトウェアにインポートするときに、ソフトウェアが UNIX 時刻を理解できる場合は、タイム・スタンプ・フォーマットを <code>unix</code> または <code>both</code> に設定してください。これは、一部のソフトウェアが、日付と時刻をテキストから変換するときに秒の小数部分を解釈しないためです。</dd>
+
+
+
+<dt>State</dt>
+
+<dd>ポートの状態。 さまざまなポート状態について詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptpd.html#ptpd__ptpd_port_state" target="_blank" rel="noopener noreferrer">PTP デーモン・ポートの状態</a>を参照してください。</dd>
+
+
+
+<dt>Clock ID</dt>
+
+<dd>IEEE 1588 標準で定義されている、現在の最良マスターのポート ID。 ローカル・クロックがベスト・マスターである場合、この ID は、ローカル・クロックの ID です。 このパラメーターは、<code>clock_id</code> または <code>port</code> (ホスト) として表示されます。 ポートは、PTP クロック・ポート番号であり、User Datagram Protocol (UDP) ポート番号ではありません。 クロック ID は、MAC アドレスの中央に <code>0xfffe</code> を挿入して 48 ビット MAC アドレスから変換された、Extended Unique Identifier (EUI)-64 64 ビット ID です。</dd>
+
+
+
+<dt>One-way delay</dt>
+
+<dd>ワーカー状態にある <span>ptpd</span> デーモンが遅延要求と遅延応答のメッセージ交換から計算した片方向遅延 (または平均パス遅延) の現行値 (秒)。<div><div>
+        <div>
+          <div><span>注:</span> この値がゼロのままである場合は、遅延応答メッセージが受信されていないことを意味します。これは、ネットワークの問題が原因である可能性があります。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt>Offset from master</dt>
+
+<dd>マスター・デバイスからの現行のオフセット値 (秒単位)。 これは、ワーカー状態にある PTP エンジンのメイン出力です。 この値は、クロック・サーボ・アルゴリズムでのクロック修正のための入力となります。 通常、この値はワーカー・デバイスのパフォーマンスの見積もり時に測定されます。</dd>
+
+
+
+<dt>Slave to master</dt>
+
+<dd>遅延要求と遅延応答のメッセージ交換から抽出された中間オフセット値 (秒単位)。 この値は、片方向遅延の計算に使用されます。 最後の値がフィルターによってリジェクトされた場合、その前の値がログ・ファイルに表示されます。 遅延応答メッセージが受信されない場合、この値はゼロです。 <code>(0)</code></dd>
+
+
+
+<dt>Master to slave</dt>
+
+<dd>同期メッセージから抽出された中間オフセット値 (秒単位)。 この値は、マスター・デバイスからのオフセット値の計算に使用されます。 最後の値がフィルターによってリジェクトされた場合、その前の値がログ・ファイルに表示されます。</dd>
+
+
+
+<dt>Observed drift</dt>
+
+<dd>クロック制御比例積分 (PI) サーボ・モデルの統合アキュムレーターによって測定されるワーカー・クロックとマスター・クロックの間の周波数の差違。 クロック・オフセット値が安定すると、この値が安定するので、この値はクロックの安定度を検出するために使用されます。</dd>
+
+
+
+<dt><code>The last packet received</code></dt>
+
+<dd>このフィールドは、最後に受信したメッセージを表示します。 同期メッセージの場合は S を表示し、遅延応答メッセージの場合は D を表示します。 ワーカー・デバイスが D 項目をログに記録しない場合は、ネットワーク問題のためにワーカー・デバイスが遅延応答メッセージを受信していないことを意味しています。</dd>
+
+
+
+<dt><code>One-way delay mean</code></dt>
+
+<dd>片方向遅延とは、最後のサンプリング・ウィンドウで計算された遅延を意味します。</dd>
+
+
+
+<dt><code>One-way delay std dev</code></dt>
+
+<dd>最後のサンプリング・ウィンドウについて計算された片方向遅延の標準偏差。</dd>
+
+
+
+<dt><code>Offset from master mean</code></dt>
+
+<dd>最後のサンプリング・ウィンドウで計算されたマスター平均からのオフセット。</dd>
+
+
+
+<dt><code>Offset from master std dev</code></dt>
+
+<dd>最後のサンプリング・ウィンドウについて計算されたマスター標準偏差からのオフセット。</dd>
+
+
+
+<dt><code>Observed drift mean</code></dt>
+
+<dd>最後のサンプリング・ウィンドウについて計算された観測ドリフトまたはローカル・クロック周波数調整の平均</dd>
+
+
+
+<dt><code>Observed drift std dev</code></dt>
+
+<dd>最後のサンプリング・ウィンドウで計算された、観測されたドリフトまたはローカル・クロック周波数調整の標準偏差。 値が小さいほど、クロックの制御頻度が低いことを示します。 したがって、値がより安定しています。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> すべての統計測定値 (平均および標準偏差) は、 <span>--enable-statistics</span> フラグを使用して <span>ptpd</span> デーモンが作成された場合にのみ計算され、表示されます。 サンプリング期間の所要時間は、<code>global:statistics_update_interval</code> 設定を使用して制御されます。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>シグナルの処理</h2>
+
+<p><span>ptpd</span> デーモンは、以下のシグナルを処理します。</p>
+
+
+<div><div><table><caption><span>表 2. シグナルの処理</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>SIGHUP</code></td>
+
+<td>構成ファイルを再ロードし (デーモンによって使用される場合)、ログ・ファイルを再オープンします。 SRC の <span>refresh</span> サブコマンドは同じタスクを実行します。</td>
+
+</tr>
+
+<tr>
+<td><code>SIGUSR1</code></td>
+
+<td>サブシステムがワーカー状態にある場合、<span>ptpd</span> デーモンは強制的にクロックをマスター値から現行オフセット値にステップさせます。</td>
+
+</tr>
+
+<tr>
+<td><code>SIGUSR2</code></td>
+
+<td>すべての PTP プロトコル・カウンターを現行ログ・ターゲットにダンプします ( <code>ptpengine:sigusr2_clears_counters</code> 属性が設定されている場合は、カウンターをクリアします)。</td>
+
+</tr>
+
+<tr>
+<td><code>SIGINT|SIGTERM</code></td>
+
+<td>ログ・ファイルとその他のオープン・ファイルを閉じます。 また、ロック・ファイルをクリーンアップして終了します。</td>
+
+</tr>
+
+<tr>
+<td><code>SIGKILL</code></td>
+
+<td>非クリーン終了を強制します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>終了すると、<span>ptpd</span> デーモンは正常時には 0 を返します。これは、デーモン・モードで正常に開始したか、クリーンに終了したかのいずれかです。 <span>-k</span> (<span>--check-config</span>) オプションが使用されており、構成が正しかった場合も、値 0 が返されます。 エラー時には、ゼロ以外の終了コードが返されます。 <span>ptpd</span> デーモンが root 以外のユーザーによって開始された場合は、値 127 が返されます。 ロック・ファイル・エラー時、および <span>ptpd</span> デーモンをデーモンとして開始できない場合は、値 3 が返されます。 デーモンの開始時のメモリー割り振りエラーでは、値 2 が返されます。 構成エラー、ヘルプ・モードまたはパラメーターなしでの <span>ptpd</span> デーモンの実行、サブシステムの自動シャットダウン、ネットワーク始動エラーなど、その他のすべてのエラー条件では、値 1 が返されます。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>SRC で <span>ptpd</span> デーモンを開始するには、次のコマンドを入力します。<div><div><pre><code>startsrc -s ptpd</code></pre></div><div></div></div></li>
+
+<li>SRC で <span>ptpd</span> デーモンを停止するには、次のコマンドを入力します。<div><div><pre><code>stopsrc -s ptpd</code></pre></div><div></div></div></li>
+
+<li>SRC で <span>ptpd</span> デーモンをリフレッシュするには、次のコマンドを入力します。<div><div><pre><code>refresh -s ptpd</code></pre></div><div></div></div><span>ptpd</span> デーモンは構成ファイルを再ロードし (デーモンによって使用される場合)、ログ・ファイルを再オープンします。</li>
+
+<li><span>/etc/ptpd2.conf</span> パス内の構成ファイルが正しく構成されているかどうかを確認するには、次のコマンドを入力します。<div><div><pre><code>ptpd -k</code></pre></div><div></div></div></li>
+
+<li>単一の設定の意味を表示するには、次のコマンドを入力します。<div><div><pre><code>ptpd -e ptpengine:interface</code></pre></div><div></div></div>この出力は、<code>ptpengine:interface</code> 設定の意味を説明します。</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/ptpd2.conf</span></td>
+
+<td><span>ptpd</span> デーモン構成ファイルのデフォルト・パス。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/samples/tcpip/ptpd2/ptpd2.conf</span></td>
+
+<td><span>ptpd2.conf</span> 構成ファイルのサンプル・ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

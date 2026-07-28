@@ -1,0 +1,78 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>アーカイブ・ライブラリーをランダム・ライブラリーに変換します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ranlib</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ranlib.html#ranlib__row-d3e128151" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ranlib.html#ranlib__row-d3e128157" target="_blank" rel="noopener noreferrer"><strong>-X </strong>{<strong>32</strong>|<strong>64</strong>|<strong>32_64</strong>}]</a> <em>アーカイブ ... </em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ranlib</strong> コマンドは、各<em> Archive</em> ライブラリーをランダム・ライブラリーに変換します。 ランダム・ライブラリーとは、記号テーブルが入っているアーカイブ・ライブラリーのことです。</p>
+ <p><strong>-t</strong> オプションを指定すると、<strong>ranlib</strong> コマンドはアーカイブをタッチするだけで修正しません。 このコマンドは、アーカイブをコピーした後や、<strong>ld</strong> コマンドが古くなった記号テーブルに関してエラー・メッセージを表示しないように <strong>make</strong> コマンドの <strong> -t</strong> オプションを使用する場合に有効です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-t</strong></td>
+
+<td>指定されたアーカイブを修正せずにタッチします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X (X)</strong><em> モード</em></td>
+
+<td>オブジェクト・ファイル <strong>ranlib</strong> のタイプを調べることを指定します。 <em>mode</em> は次のいずれかでなければなりません。<dl>
+<dt>32</dt>
+
+<dd>32 ビットのオブジェクト・ファイルのみを処理します。</dd>
+
+
+<dt>64</dt>
+
+<dd>64 ビットのオブジェクト・ファイルのみを処理します。</dd>
+
+
+<dt>32_64</dt>
+
+<dd>32 ビットと 64 ビットのオブジェクト・ファイルを処理します。</dd>
+
+</dl>
+  <p>デフォルトでは、32 ビットのオブジェクト・ファイルを処理します (64 ビットのオブジェクトは無視します)。 <em>mode</em> は、<strong>OBJECT_MODE</strong> 環境変数を使用して設定することもできます。 例えば、<strong>OBJECT_MODE=64</strong> を使用すると、<strong>ranlib</strong> は 64 ビット・オブジェクトをすべて処理し、32 ビット・オブジェクトは無視します。 <strong>-X</strong> フラグは <strong>OBJECT_MODE</strong> 変数をオーバーライドします。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>アーカイブ・ファイルをランダム化するにはgenlib.a次のように入力します。</p>
+ <div> <div><div><pre><code>ranlib genlib.a</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/ccs/bin/ranlib</strong></td>
+
+<td><strong>ranlib</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

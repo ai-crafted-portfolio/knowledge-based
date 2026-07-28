@@ -1,0 +1,60 @@
+<div class="official-dom"><div>
+
+<section><h2>目的</h2><p>オペレーティング・システムのデフォルトのプリフェッチ特性を設定します。</p>
+</section>
+
+<section><h2>構文</h2><p>コンピューターのハードウェア・ストリームの特性を照会するには、次のように入力します。</p>
+<p><strong>dscrctl <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dscrctl.html#dscrctl__dscrctl_flag_q" target="_blank" rel="noopener noreferrer">-q</a></strong></p>
+<p>コンピューター上のオペレーティング・システムのデフォルトのプリフェッチの深さを一時的 (現行セッションのみ) または永続的 (再始動操作ごと) に設定するには、次のように入力します。</p>
+<p><strong>dscrctl </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dscrctl.html#dscrctl__dscrctl_flag_n" target="_blank" rel="noopener noreferrer"><strong>[-n</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dscrctl.html#dscrctl__dscrctl_flag_b" target="_blank" rel="noopener noreferrer"><strong>[-b</strong></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dscrctl.html#dscrctl__dscrctl_flag_s" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>dscr_value</em></p>
+<p>始動時にオペレーティング・システムのデフォルトのプリフェッチの深さに対する永続設定を取り消すには、次のように入力します。</p>
+<p><strong>dscrctl <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dscrctl.html#dscrctl__dscrctl_flag_c" target="_blank" rel="noopener noreferrer">-c</a></strong></p>
+</section>
+
+<section><h2>説明</h2><p><strong>dscrctl -q</strong> サブコマンドは、ハードウェア・ストリームの数、およびプラットフォームとオペレーティング・システムのデフォルトのプリフェッチの深さを表示します。 このサブコマンドはすべてのユーザーが実行できます。</p>
+<p><strong>dscrctl -s</strong> サブコマンドは、オペレーティング・システムのデフォルトのプリフェッチの深さを設定します。 このサブコマンドを実行するには、root 権限を持っている必要があります。 このデフォルト値を変更するには、現行セッションに対しては <strong>-n</strong> フラグ、始動時には <strong>-b</strong> フラグ、あるいは現行セッションと始動時の両方に対しては <strong>-n -b</strong> フラグを <strong>dscrctl</strong> コマンドと一緒に使用します。</p>
+<p><strong>dscrctl -c</strong> オプションにより、始動時にオペレーティング・システムのデフォルトのプリフェッチの深さ設定が取り消されます。 このオプションは <strong>dscrctl</strong> コマンドを <strong>/etc/inittab</strong> ファイルから除去することにより、次回の再始動後に有効になります。</p>
+ </section>
+
+
+<section><h2>フラグ</h2><dl>
+<dt>-q</dt>
+
+<dd>プラットフォームでサポートされるハードウェア・ストリームの数、およびファームウェアとオペレーティング・システムのデフォルトのプリフェッチの深さを表示します。</dd>
+
+
+<dt>-c</dt>
+
+<dd><strong>dscrctl</strong> コマンドを <strong>/etc/inittab</strong> ファイルから除去することにより、始動時にデフォルトのプリフェッチの深さの永続設定を取り消します。</dd>
+
+
+<dt>-n</dt>
+
+<dd>オペレーティング・システムのデフォルトのプリフェッチの深さに対する実行時の値を変更します。 このフラグは <strong>-s</strong> フラグと一緒に使用します。 この変更はブート操作後は持続されません。</dd>
+
+
+<dt>-b</dt>
+
+<dd><strong>dscrctl</strong> コマンドを <strong>/etc/inittab</strong> ファイルに追加することにより、ブート操作後も変更を持続させます。 このフラグは <strong>-s</strong> フラグと一緒に使用します。</dd>
+
+
+<dt>--s <em>dscr_value</em></dt>
+
+<dd>オペレーティング・システムのデフォルトのプリフェッチの深さに対する値を新規に定義します。 この値は、<code>0x</code> で始まっている場合を除き (この場合は 16 進数として扱われます)、10 進数として扱われます。</dd>
+
+</dl>
+</section>
+
+<div><h2>例</h2><ol>
+<li>現行セッションに対してオペレーティング・システムのデフォルトのプリフェッチの深さに対する値を 13 に設定するには、次のように入力します。<div><div><pre><code># dscrctl -n -s 13</code></pre></div><div></div></div></li>
+
+<li>ハードウェア・ストリーム・メカニズムの現在の設定を表示するには、次のように入力します。<div><div><pre><code># dscrctl -q</code></pre></div><div></div></div>次の出力が表示されます。<div><div><pre><code>Current DSCR settings:
+Data Streams Version = V2.06
+number_of_streams = 16
+platform_default_pd = 0x5 (DPFD_DEEP)
+os_default_pd = 0xd (DSCR_SSE | DPFD_DEEP)</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+
+</div></div>

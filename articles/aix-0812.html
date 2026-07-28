@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>データベースに格納されている印刷サービス情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LSPLTSV</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92169" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92181" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92175" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92187" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a><em>QEntry (Q) ...</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92199" target="_blank" rel="noopener noreferrer"><strong>-Z </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsprtsv</strong> 高水準コマンドは、事前定義およびカスタマイズされた TCP/IP ベースの印刷サービス情報を表示します。 カスタマイズまたは事前定義された印刷サービス情報を取り出すには <strong>lsprtsv</strong> コマンドを使います。</p>
+ <p><strong>lsprtsv</strong> コマンドは次の情報を表示します。</p>
+ <ul>
+<li><span></span>プリント・サーバーへのアクセス権を持つホスト名のリスト</li>
+
+<li><span></span>論理印刷キュー情報のみ</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>カスタマイズされた構成情報を取り出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>印刷サーバーを使えるホスト名のリストを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>事前定義された構成情報を取り出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em>QEntry ...</em><strong></strong></td>
+
+<td>指定された論理印刷キューと、ホスト上で使用可能なキューの属性を表示します。 <em>QEntry</em> 変数は、表示するキューの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>出力をコロン・フォーマットで作成するように指定します。 このフラグは、<strong>lsprtsv</strong> コマンドを SMIT 運用インターフェースから呼び出す場合に使います。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>プリント・サーバーへのアクセス権を持つすべてのホスト名を表示するには、次のように入力します。<div>$ lsprtsv  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92169" target="_blank" rel="noopener noreferrer">-c </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92175" target="_blank" rel="noopener noreferrer">-h</a></div>
+</li>
+
+<li><span></span>特定のクライアント・マシンで使用可能な論理プリンターを表示するには、次のように入力します。<div>lsprtsv  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92169" target="_blank" rel="noopener noreferrer">-c </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsprtsv.html#lsprtsv__row-d3e92187" target="_blank" rel="noopener noreferrer">-q </a>sahara</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

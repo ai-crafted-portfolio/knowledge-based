@@ -1,0 +1,209 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>1 つ以上のノードをピア・ドメイン定義に追加します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>addrpnode [-c] [-h] [-TV] node_name1 [node_name2 ...]</code></pre></div><div></div></div>
+<div><div><pre><code>addrpnode [-c] { -f │ -F { file_name │ "-" } } [-h] [-TV] [-M]</code></pre></div><div></div></div>
+<div><div><pre><code>addrpnode [-c] [-h] [-TV] node_name1 [@host_name1] [node_name2 [@host_name2] …]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2><span> <span>addrpnode</span> コマンドを実行する前に:</span><p>適切なセキュリティー環境をセットアップするには、
+ピア・ドメインに追加する各ノードで <span>preprpnode</span> コマンドを実行します。</p>
+<p><span>addrpnode</span> コマンドは、指定されたノードを、<span>addrpnode</span> コマンドが実行されるオンライン・ピア・ドメインに追加します。 このコマンドは、それらの新規ノードが追加されるピア・ドメインに対してオンラインになっているノードで実行しなければなりません。 1 つのノードを複数のピア・ドメインに定義できますが、オンラインにできるのは、1 つのピア・ドメインのみです。 ピア・ドメインに 1 つ以上のノードを追加するためには、半数を上回るノードがオンラインでなければなりません。</p>
+<p>ノードの 1 つにエラーが発生しても <span>addrpnode</span> コマンドの継続を可能にするには、<span>-c</span> フラグを使用します。</p>
+<p><span>addrpnode</span> コマンドは、
+追加されたノードをピア・ドメインでオンラインにしません。 これを行うには、<span>startrpnode</span> コマンドを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt><span>-c</span></dt>
+
+<dd>少なくとも 1 つのノードをピア・ドメインに追加できる間は、コマンドの処理を続行します。<p>デフォルトでは、いずれかのノードで <span>addrpnode</span> コマンドが失敗すると、すべてのノードで失敗します。 <span>-c</span> フラグを指定するとこの動作がオーバーライドされ、
+<span>addrpnode</span> コマンドは 1 つのノードで失敗しても残りのノードで実行されます。</p>
+</dd>
+
+
+<dt><span>-f</span> | <span>-F</span> <code>{</code> ファイル名 | <span>"-"</span> <code>}</code></dt>
+
+<dd>ファイルまたは標準入力からノード名を読み取ることを指定します。<p>ファイルからノード名を読み取るには、 <span>-f</span> file_name または <span>-F</span> file_name を使用します。 <span>-f "-"</span> または <span>-F "-"</span> を使用して、 <span>STDIN</span> を入力ファイルとして指定します。</p>
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>1 行につき 1 つのノード名を指定します。 コマンドは、ノード名の左側のブランク文字があっても無視します。</li>
+
+<li>番号記号 (#) を使用して、行の残りの部分 (または # が 1 桁目にある場合は行全体) がコメントであることを示します。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+<div>デフォルトでは、file_name にリストされるノードはすべて、以下のようになります。<ul>
+<li>グループ・サービスのグループ・リーダー候補ですか?</li>
+
+<li>クォーラム決定に使用されます。</li>
+
+<li>ピア・ドメイン・タイ・ブレーカー・メカニズムにアクセスできます。</li>
+
+</ul>
+</div>
+<div>ノード特性をカスタマイズするには、アットマーク (@) 制御文字を使用し、その後で以下の特殊文字のうち 1 つ以上を付けます。<dl>
+
+<dt>P | p</dt>
+
+<dd>ノードがグループ・サービスのグループ・リーダー候補であることを指定します。</dd>
+
+
+
+<dt>Q | q</dt>
+
+<dd>ノードがクォーラム・ノードであることを指定します。</dd>
+
+
+
+<dt>B｜b</dt>
+
+<dd>ノードがピア・ドメイン・タイ・ブレーカー・メカニズムにアクセスすることを指定します。 <code>B</code> または <code>b</code> は、クォーラム・ノードにのみ指定できます。</dd>
+
+
+
+<dt><code>!</code></dt>
+
+<dd>ノードが特定の特性を持っていないことを指定します。 例えば、<code>!Q</code> は、ノードがクォーラム・ノードでないことを指定します。</dd>
+
+
+</dl>
+</div>
+<div>ノードの特性をカスタマイズする場合、以下を考慮してください (ここで <code>x</code> は <code>P</code>、<code>Q</code>、または <code>B</code> です)。<ul>
+<li>1 行につき 1 つの <code>@</code> 制御文字のみを使用し、その後にノード名の直後およびコメントの前に 1 つ以上の特殊文字を続けます。</li>
+
+<li>ノードには <code>!QB</code> を指定しないでください。指定すると、エラーになります。</li>
+
+<li>ノード番号を使用する場合は、ノード名の後でコメントの前にそれを追加してください。 ノード番号は、ノード特性の指定の前にも後ろにも付けることができます。</li>
+
+<li>1 つ以上のノードに <code>x</code> が指定され、どのノードにも <strong></strong> が指定されていない場合、 <code>x</code> が指定されていないノードの値は <code>!x</code>であると想定されます。</li>
+
+<li>1 つ以上のノードに <code>!x</code> を指定し、いずれのノードにも <code>x</code> を指定しない場合は、<code>!x</code> が指定されていないノードには、値 <code>x</code> が指定されているものと想定されます。</li>
+
+<li><code>x</code> と <code>!x</code> を同じノード・ファイル内の異なるノードに指定する場合は、ファイル内のすべてのノードに <code>x</code> または <code>!x</code> が指定されている必要があります。</li>
+
+</ul>
+</div>
+</dd>
+
+
+<dt><span>-h</span></dt>
+
+<dd>コマンドの使用方法の文を標準出力に書き込みます。</dd>
+
+
+<dt><span>-M</span></dt>
+
+<dd>新しいノードのセキュリティー・コンプライアンス・モードがドメインと一致しているかどうかを検証します。 モードが一致しない場合、ノードは追加されません。 <span>-M</span> オプションが指定されておらず、ノードがドメインと互換性のある鍵タイプを使用している場合、ノードが追加され、その準拠モードがドメインと一致するように更新されます。</dd>
+
+
+<dt><span>-T</span></dt>
+
+<dd>標準エラーにコマンドのトレース・メッセージを書き込みます。 これはソフトウェア・サービス組織専用です。</dd>
+
+
+<dt><span>-V</span></dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt>node_name1 [node_name2 ... ]</dt>
+
+<dd>ピア・ドメイン定義に追加するノードを 1 つ以上指定します。 ノード名は IP アドレスか、DNS ホスト名の長いものまたは短いものです。 ノード名は IP アドレスに解決する必要があります。</dd>
+
+
+<dt>node_name1[@host_name1] [node_name2[@host_name2] ...]</dt>
+
+<dd><p>ノード名ならびにノードごとのホスト名を使用して、RPD に追加する必要があるノードを指定します。 node_name1 パラメーターはラベルに対応しますが、host_name1 パラメーターは IP アドレスあるいは DNS ホスト名のロング・バージョンまたはショート・バージョンです。 ホスト名は、連絡を取れるか、ping できる有効な値でなければなりません。</p>
+<p>HostName パラメーターが指定されておらず、Name パラメーターのみが <span>addrpnode</span> コマンドに指定されている場合、HostName パラメーターは Name パラメーターとして設定されます。 この場合、Name パラメーターは、IP アドレスあるいは DNS ホスト名のロング・バージョンまたはショート・バージョンに解決される必要があります。</p>
+<div>既存のピア・ドメインにノードを追加するには、次のコマンドを使用します。<div><div><pre><code>addrpnode node_name3@host_name3</code></pre></div><div></div></div><span>addrpnode -f /home/nodelst</span> コマンドを実行することもできます。ここで、 /home/nodelst のノード名は <code>node_name3@host_name3.in.ibm.com</code>です。</div>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span>addrpnode</span> コマンドのユーザーには、 <span>IBM.PeerDomain</span> リソース・クラスおよび <span>IBM.PeerNode</span> リソース・クラス。 これは、追加する各ノードで <span>preprpnode</span> コマンドを実行するとセットアップされます。 <span>preprpnode</span> コマンドを使用して、そのピア・ドメイン内でオンラインになっているすべてのノードの名前を指定してください。 これにより、追加されるノードに対して操作を実行するのに必要な権限がそれらのオンライン・ノードに与えられます。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt><span>0</span></dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt><span>1</span></dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt><span>※2</span></dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt><span>3</span></dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt><span>4</span></dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt><span>5</span></dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt><span>CT_CONTACT</span></dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt><span>CT_IP_AUTHENT</span></dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_CONTACT が IP アドレスに設定されている場合のみ、CT_IP_AUTHENT が意味を持ちます。CT_IP_AUTHENT はドメイン・ネーム・システム (DNS) サービスに依存しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、新規ノードを追加するピア・ドメイン内でオンラインになっているノード上で実行しなければなりません。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準入力</h2> <p><span>-f "-"</span> または <span>-F
+"-"</span> フラグを指定すると、このコマンドは標準入力から 1 つ以上のノード名を読み取ります。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span>-h</span> フラグが指定されると、コマンドの使用状況のステートメントが標準出力に書き出されます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ノード'<code>node_name2</code>と'<code>node_name3</code>ピアドメイン'<span>ApplDomain</span>'に追加するには、ピアドメイン'<span>ApplDomain</span>'に'<code>node_name1</code>がすでに定義され、オンラインになっている場合、'<code>node_name1</code>でコマンドを実行する：<div><div><pre><code>addrpnode node_name2 node_name3</code></pre></div><div></div></div></li>
+
+<li>ピアドメイン<span>ApplDomain</span>にノード'<code>node_name2</code>と'<code>node_name3</code>'とホスト名を追加するには、'<code>node_name1</code>がすでに定義され、ピアドメイン<span>ApplDomain</span>上でオンラインになっている場合、'<code>node_name1</code>でコマンドを実行する：<div><div><pre><code>addrpnode node_name2@host_name2 nodeC_name3@host_name3</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><span>/opt/rsct/bin/addrpnode</span></p>
+</section>
+
+</div></div>

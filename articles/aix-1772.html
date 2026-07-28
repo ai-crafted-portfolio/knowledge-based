@@ -1,0 +1,62 @@
+<div class="official-dom"><div><div>
+<p></p>
+</div>
+<section><h2>目的</h2>
+<p>現在のホストマシンで<span>拡張X-Windows</span>にアクセスする人を制御する。</p>
+</section>
+<section><h2>構文</h2>
+<p><strong>xhost</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xhost.html#xhost__row-d3e35962" target="_blank" rel="noopener noreferrer"><strong>+ </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xhost.html#xhost__row-d3e35970" target="_blank" rel="noopener noreferrer"><strong>-</strong> </a>] [ <em>名前 </em>]</p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>xhost</strong> コマンドは、X サーバーが接続を受け入れるコンピューターのリストに、ホスト名を追加、削除します。</p>
+
+<p>このコマンドはディスプレイが接続されているコンピューター上で実行しなければなりません。 <strong>-</strong><em>Host</em> パラメーターを使うと、アクセス・リストから名前を除去することができます。 アクセス・リストから現在の名前を除去しないようにしてください。 除去してしまった場合は、修正する前にシステムをログアウトしてください。</p>
+
+<p>変数を付けずに <strong>xhost</strong> コマンドを入力すると、現在、使用されている X サーバーへのアクセスを認められたホストの名前とアクセス可能かどうかを示すメッセージが表示されます。</p>
+
+<p>セキュリティーのため、アクセス制御を左右するオプションは<em>制御ホスト</em> からしか実行できません。 ワークステーションでは、サーバーと同じコンピューターになります。 X 端末では、ログイン・ホストになります。</p>
+
+<p>デフォルトでリモート名を使用可能にするには、その名前を <strong>/etc/X</strong><em>?</em><strong>.hosts</strong> ファイルで定義します。ここで、 <em>?</em> アクセスを有効にする表示番号です。</p>
+
+<p>例えば、次のように表示されます。jeanne:0は、デフォルトのホスト名を使用するシステム上の <strong>/etc/X0.hosts</strong> ファイルに定義されているシステムからアクセスできます。jeanne表示名とファイル名の両方で、0 は、定義されたリモート・システムが <span>拡張 X Window システム</span>を介してアクセスできる表示番号を示します。</p>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>+</strong><em>Name</em></td>
+<td>X サーバー・アクセス・リストに追加するホスト名を定義します (プラス記号の指定は任意です)。</td>
+</tr>
+<tr><td><strong>-</strong><em> 名前</em></td>
+
+<td>X サーバー・アクセス・リストから除去するホスト名を定義します。 既存の接続は切断されませんが、新規接続の試みは拒否されます。 現在のコンピューターは除去できますが、その後の接続 (その後再び追加する試みも含めて) はできません。 ローカル接続を復活するには、サーバーをリセットする方法しかありません (つまり、すべての接続を切断しなければなりません)。</td>
+</tr>
+<tr>
+<td><strong>+</strong></td>
+<td>アクセスに制限がないことを指定します。 アクセス制御がオフになります。</td>
+</tr>
+<tr><td><strong>-</strong></td>
+<td>アクセス制御がオンになります。<p>完全な <em>Name</em> は、以下に示す <em>family</em>:<em>name</em> の構文になっています。</p>
+ 
+<dl><dt>inet</dt>
+<dd>インターネット・ホスト</dd>
+<dt>ローカル</dt>
+
+<dd>空文字列である、1 つの名前のみを含みます。</dd>
+</dl>
+ 
+<p><strong>注:</strong> family は、大/小文字の区別が行われます。 名前のフォーマットは、family によって異なります。</p>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

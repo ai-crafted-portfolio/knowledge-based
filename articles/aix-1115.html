@@ -1,0 +1,46 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>PostScript プリンターを宛先とする特定の制御文字を変換します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>piofquote</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>piofquote</span> コマンドは、他のプリンターをエミュレートできる PostScript プリンターを宛先とする特定の制御文字を変換するフィルターです。 このコマンドは、標準入力からデータを読み取り、制御文字について検査し、それらを適宜変更します。 次にそのデータを標準出力へ書き出します。</p>
+ <p>少なくとも 1 バイトのデータが標準入力にある場合、 <span>piofquote</span> コマンドは、最初の入力データ・バイトが標準出力に書き込まれる前に、16 進数の 04 制御文字を標準出力に書き出します。 また、このコマンドは、 <code>end-of-file</code> が標準入力で認識されたときに、16 進数の 04 を標準出力に書き出します。</p>
+ <p>標準入力から読み取られる入力データで 16 進 01、03、04、05、11、13、14、または 1c 制御文字が検出された場合、制御文字の 16 進 40 ビットがオンになり、標準出力に書き込まれる前に制御文字に 16 進 01 文字が接頭部として付けられます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 1. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>standard input</code></td>
+
+<td>処理される入力データ・ストリーム。</td>
+
+</tr>
+
+<tr>
+<td><code>standard output</code></td>
+
+<td>変換された制御文字が入っている出力データ・ストリーム。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

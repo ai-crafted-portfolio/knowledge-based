@@ -1,0 +1,460 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>FDDI デバイス・ドライバーとデバイスの統計情報を表示します。</p>
+</section>
+<section><h2>構文</h2> <div>
+<div><div><pre><code>fddistat [ -r -t ] Device_Name</code></pre></div><div></div></div>
+</div>
+</section>
+<section><h2>説明</h2> <p><span>fddistat</span> コマンドは、指定された FDDI デバイス・ドライバーによって収集された統計を表示します。 フラグを指定しない場合は、デバイス・ドライバーの統計のみが表示されます。 このコマンドは、 <span>netstat</span> コマンドが <span>-v</span> フラグを指定して実行された場合にも呼び出されます。 <span>netstat</span> コマンドでは、<span>fddistat</span> コマンドのフラグは発行されません。</p>
+ <p>無効な Device_Name が指定された場合、 <span>fddistat</span> コマンドは、デバイスに接続できない可能性があることを示すエラー・メッセージを生成します。</p>
+</section>
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-r</span></td>
+
+<td>すべての統計を初期値にリセットします。 このフラグは、特権ユーザーのみが発行できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span></td>
+
+<td>一部のデバイス・ドライバーでデバッグ・トレースを切り替えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Device_name</td>
+
+<td>FDDI デバイスの名前 (例: <code>fddi0</code>)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>統計フィールド</h2> <div>
+<div><div>
+        <div>
+          <div><span>注:</span> アダプターによっては、
+特定の統計情報がサポートされない場合もあります。 サポートされない統計フィールドの値は常に 0 です。</div>
+        </div>
+      </div></div>
+
+</div>
+ <p><span>fddistat</span> コマンドの出力に表示される統計フィールドとその説明を以下に示します。</p>
+
+<dl>
+
+<dt>タイトル・フィールド</dt>
+
+<dd><div>
+
+<div><div><table><caption><span>表 3. タイトル・フィールド</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>Elapsed Time</code></td>
+
+<td>統計が最後にリセットされてから経過した実時間を表示します。 ハードウェア・エラーが検出されたときに、エラー・リカバリー中にデバイス・ドライバーによって統計の一部がリセットされる可能性があるため、統計間の時間差を反映するために、この状態が発生したときに出力の中央に別の経過時間が表示されることがあります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</dd>
+
+
+
+<dt>送信統計情報フィールド</dt>
+
+<dd><div>
+
+<div><div><table><caption><span>表 4. 送信統計情報フィールド</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>Packets</code></td>
+
+<td>デバイスによって正常に送信されたパケットの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Bytes</code></td>
+
+<td>デバイスによって正常に送信されたバイト数。</td>
+
+</tr>
+
+<tr>
+<td><code>Interrupt</code></td>
+
+<td>ドライバーがアダプターから受け取った送信割り込みの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Transmit Errors</code></td>
+
+<td>このデバイス上で発生した出力エラーの数。 このフィールドは、
+ハードウェアまたはネットワーク・エラーにより失敗した送信回数のカウンターです。</td>
+
+</tr>
+
+<tr>
+<td><code>Packets Dropped</code></td>
+
+<td>送信のためにデバイス・ドライバーによって受け入れられたパケットのうち、デバイスに (何らかの理由で) 提供されなかったパケットの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Max Packets on S/W Transmit Queue</code></td>
+
+<td>ソフトウェア送信キューに入れられたことのある発信パケットの最大数。</td>
+
+</tr>
+
+<tr>
+<td><code>S/W Transmit Queue Overflow</code></td>
+
+<td>ソフトウェア送信キューからあふれた発信パケットの数。</td>
+
+</tr>
+
+<tr>
+<td>Current S/W+H/W Transmit Queue
+Length</td>
+
+<td>ソフトウェア送信キューまたはハードウェア送信キュー上で保留されている発信パケットの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Broadcast Packets</code></td>
+
+<td>ブロードキャスト・パケットの数は、エラーなしで送信されます。</td>
+
+</tr>
+
+<tr>
+<td><code>Multicast Packets</code></td>
+
+<td>マルチキャスト・パケットの数は、エラーなしで送信されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</dd>
+
+
+
+<dt>受信統計情報フィールド</dt>
+
+<dd><div>
+
+<div><div><table><caption><span>表 5. 受信統計情報フィールド</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>Packets</code></td>
+
+<td>デバイスによって正常に受信されたパケット数。</td>
+
+</tr>
+
+<tr>
+<td><code>Bytes</code></td>
+
+<td>デバイスによって正常に受信されたバイト数。</td>
+
+</tr>
+
+<tr>
+<td><code>Interrupts</code></td>
+
+<td>ドライバーがアダプターから受け取った受信割り込みの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Receive Errors</code></td>
+
+<td>このデバイス上で発生した入力エラーの数。 このフィールドは、ハードウェアまたはネットワーク・エラーにより失敗した受信回数のカウンターです。</td>
+
+</tr>
+
+<tr>
+<td><code>Packets Dropped</code></td>
+
+<td>デバイス・ドライバーがこのデバイスから受信したパケットのうち、(何らかの理由で) ネットワーク・デマルチプレクサーに提供されなかったパケットの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Bad Packets</code></td>
+
+<td>デバイス・ドライバーによって受信 (つまり保管) された正しくないパケットの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Broadcast Packets</code></td>
+
+<td>エラーなしで受信されたブロードキャスト・パケットの数。</td>
+
+</tr>
+
+<tr>
+<td><code>Multicast Packets</code></td>
+
+<td>エラーなしで受信されたマルチキャスト・パケットの数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</dd>
+
+
+
+<dt>一般統計情報フィールド</dt>
+
+<dd><div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>No mbuf Errors</code></td>
+
+<td>mbufs をデバイス・ドライバーが利用できなかった回数。 これは、通常、
+インバウンド・パケットを処理するためにドライバーで mbuf バッファーを取得しなければならない場合、
+受信操作時に発生します。 要求されたサイズの mbuf プールが空の場合には、パケットが廃棄されます。 これを確認するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netstat.html" target="_blank" rel="noopener noreferrer"><span>netstat</span></a> <span>-m</span> コマンドを使用できます。</td>
+
+</tr>
+
+<tr>
+<td><code>SMT Error Word</code></td>
+
+<td>アダプターの SMT エラー状況。</td>
+
+</tr>
+
+<tr>
+<td><code>SMT Event Word</code></td>
+
+<td>アダプターの SMT イベント状況。</td>
+
+</tr>
+
+<tr>
+<td><code>Connection Policy Violation</code></td>
+
+<td>アダプターのリングへの接続状況。</td>
+
+</tr>
+
+<tr>
+<td><code>Port Event</code></td>
+
+<td>アダプターのポート状況。</td>
+
+</tr>
+
+<tr>
+<td><code>Set Count</code></td>
+
+<td>現在の設定カウント値。</td>
+
+</tr>
+
+<tr>
+<td><code>Adapter Check Code</code></td>
+
+<td>アダプターの最新のアダプター・チェック状況。</td>
+
+</tr>
+
+<tr>
+<td><code>Purged Frames</code></td>
+
+<td>使用可能なディスクリプターの欠如によりアダプターから削除された受信フレーム。</td>
+
+</tr>
+
+<tr>
+<td><code>ECM State Machine</code></td>
+
+<td>エンティティー調整管理状態のマシン。</td>
+
+</tr>
+
+<tr>
+<td><code>PCM State Machine: Port A</code></td>
+
+<td>1 次アダプター用物理接続管理の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>PCM State Machine: Port B</code></td>
+
+<td>2 次アダプター用物理接続管理の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>CFM State Machine: Port A</code></td>
+
+<td>1 次アダプター用構成管理の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>CFM State Machine: Port B</code></td>
+
+<td>2 次アダプター用構成管理の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>CF State Machine</code></td>
+
+<td>全体構成の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>MAC CFM State Machine</code></td>
+
+<td>MAC 用構成管理の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>RMT State Machine</code></td>
+
+<td>リング管理の状態マシン。</td>
+
+</tr>
+
+<tr>
+<td><code>Driver Flags</code></td>
+
+<td>オンになっているデバイス・ドライバーの内部状況フラグ。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+<section><h2>例</h2> <p><code>fddi0</code> のデバイス・ドライバー統計を表示するには、次のように入力します。</p>
+ <div> <div><div><pre><code>fddistat fddi0</code></pre></div><div></div></div></div>
+ <p>以下の出力が作成されます。</p>
+ <div> <div><div><pre><code>-------------------------------------------------------------
+FDDI STATISTICS (fddi0) :
+Elapsed Time: 0 days 0 hours 1 minutes 3 seconds</code></pre></div><div></div></div>  <div><div><pre><code>Transmit Statistics:                        Receive Statistics:
+--------------------                        -------------------
+Packets: 100                                Packets: 100
+Bytes: 113800                               Bytes: 104700
+Interrupts: 100                             Interrupts: 100
+Transmit Errors: 0                          Receive Errors: 0
+Packets Dropped: 0                          Packets Dropped: 0
+Max Packets on S/W Transmit Queue: 0        Bad Packets: 0
+S/W Transmit Queue Overflow: 0
+Current S/W+H/W Transmit Queue Length: 0</code></pre></div><div></div></div>  <div><div><pre><code>Broadcast Packets: 0                        Broadcast Packets: 0
+Multicast Packets: 0                        Multicast Packets: 0</code></pre></div><div></div></div>  <div><div><pre><code>General Statistics:
+-------------------
+No mbuf Errors: 0                            
+SMT Error Word: 00040080                    SMT Event Word: 000004a0
+Connection Policy Violation: 0000           Port Event: 0000
+Set Count Hi: 0000                          Set Count Lo: 0003
+Adapter Check Code: 0000                    Purged Frames: 0</code></pre></div><div></div></div>  <div><div><pre><code>ECM State Machine:        IN
+PCM State Machine Port A: CONNECT
+PCM State Machine Port B: ACTIVE
+CFM State Machine Port A: ISOLATED
+CFM State Machine Port B: CONCATENATED
+CF State Machine:         C_WRAP_B
+MAC CFM State Machine:    PRIMARY
+RMT State Machine:        RING_OP</code></pre></div><div></div></div>  <div><div><pre><code>Driver Flags: Up Broadcast Running 
+        Simplex DualAttachStation </code></pre></div><div></div></div></div>
+</section>
+</div></div>

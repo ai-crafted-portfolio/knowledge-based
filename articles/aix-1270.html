@@ -1,0 +1,236 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソースをリセットします。すなわち、リソースを強制的にオフライン状態に移動します。</p>
+ </section>
+
+<section><h2>構文</h2> <p>コマンド・ラインに入力したデータを使用して 1 つ以上のリソースをリセットするには、以下のように実行します。</p>
+ <p><span>resetrsrc -s "</span>selection_string<code>"</code> [ <code>-N</code> { node_file | <code>"-"</code> }] [<code>-h</code>] [<code>-TV</code>] resource_class [arg<code>=</code>value ...]</p>
+ <p><code></code><span><span>resetrsrc
+-r</span></span> [<code></code><span><span>-h</span></span>] [<code></code><span><span>-TV</span></span>] <span><span>resource_handle</span></span> [<span><span>arg</span></span><code></code><span><span>=</span></span><span><span>value ...</span></span>]</p>
+ <p>入力ファイルに事前定義されたコマンド引数を使用して 1 つ以上のリソースをリセットするには、以下のように実行します。</p>
+ <p><code></code><span><span>resetrsrc -f</span></span> <span><span>resource_data_input_file</span></span> <code></code><span><span>-s
+"</span></span><span><span>selection_string</span></span><span><span>"</span></span> [ <span><span>-N</span></span> { <span><span>node_file</span></span> | <span><span>"-"</span></span> }] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span></p>
+ <p><span><span>resetrsrc
+-f</span></span><span><span> リソースデータ入力ファイル </span></span><span><span>-r</span></span> [<span><span>-h</span></span>][<span><span>-TV</span></span>] <span><span>resource_handle</span></span></p>
+ <p>コマンド引数の名前とデータ・タイプを表示するには、次のように入力します。</p>
+ <p><span><span>resetrsrc
+-l</span></span> [<span><span>-h</span></span><span><span>リソースクラス</span></span></p>
+ </section>
+
+<section><h2>説明</h2> <p><span><span>resetrsrc</span></span> コマンドは、Resource Monitoring and Control (RMC) サブシステムが 1 つ以上のリソースを強制的にオフラインにすることを要求します。 要求は該当するリソース・マネージャーによって実行されます。</p>
+ <p>1 つ以上のリソースをリセットするには、 <span><span>-s</span></span> フラグを使用して、指定した選択文字列に一致するすべてのリソースを強制的にオフラインにします。 1 つの特定のリソースをリセットするには、 <span><span>-r</span></span> フラグを使用して、その特定のリソースを表すリソース・ハンドルを指定します。</p>
+ <p><span><span>selection_string</span></span>に複数のノード名を指定する代わりに、 <span><span>-N</span></span> <span><span>node_file</span></span> フラグを使用して、ノード名がファイル内にあることを示すことができます。 標準入力からノード名を読み取るには、 <span><span>-N
+"-"</span></span> を使用します。</p>
+ <p>指定されたリソース・クラスが追加のコマンド引数を受け入れるかどうかを判別するには、 <span><span>-l</span></span> フラグを使用します。</p>
+ <div>このコマンドが正常終了しても、リソースがオフラインになることが保証されるわけではなく、リソース・マネージャーが、このリソースのオフラインを強制するための要求を正常に受け取ったにすぎません。 リソースの動的属性 <span><span>OpState</span></span> をモニターして、いつリソースが強制的にオフラインになるかを判別します。 リソースがいつオフラインになるかを知るために、 <span><span>OpState</span></span> 属性を指定して、リソースのイベントを登録します。 あるいは、リソースがオフラインである ( <span><span>OpState</span></span> の値が <span><span>2</span></span>である) ことがわかるまで、 <span><span>lsrsrc</span></span> コマンドを断続的に実行してください。 次に例を示します。<div><div><pre><code>      
+lsrsrc -s 'Name == "/filesys1"' -t IBM.FileSystem Name OpState</code></pre></div><div></div></div></div>
+ <p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理および CSM <span><span>nodegrp</span></span> コマンドの使用については、「 CSM: Administration Guide 」および「 CSM: Command and Technical Reference」を参照してください。</p>
+ </section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>リソース・クラス</span></span></dt>
+
+<dd>強制的にオフラインにしたいリソースを含むリソース・クラスの名前を指定します。</dd>
+
+
+<dt><span><span>リソース・ハンドル</span></span></dt>
+
+<dd>強制的にオフラインにしたいリソースに対応するリソース・ハンドルを指定します。 有効なリソース・ハンドルのリストを取得するには、 <span><span>lsrsrc</span></span> コマンドを使用します。 リソース・ハンドルは、二重引用符で囲む必要があります。例えば、次のとおりです。<div><div><pre><code>"0x4017 0x0001 0x00000000 0x0069684c 0x0d4715b0 0xe9635f69"</code></pre></div><div></div></div></dd>
+
+
+<dt><span><span>引数</span></span>=<span><span>値 ...</span></span></dt>
+
+<dd>コマンド引数の名前と値のペアを 1 つ以上指定します。<dl>
+<dt><span><span>引数</span></span></dt>
+
+<dd>引数の名前を指定します。</dd>
+
+
+<dt><span><span>value</span></span></dt>
+
+<dd>この引数の値を指定します。 値のデータ・タイプは引数のデータ・タイプの定義と一致しなければなりません。</dd>
+
+</dl>コマンドの引数はオプションです。 <span><span>arg</span></span><span><span>=</span></span><span><span>value</span></span> のペアを入力する場合は、指定されたリソース・クラスのオフライン関数に定義されたコマンド引数ごとに、1 つの <span><span>arg</span></span><span><span>=</span></span><span><span>value</span></span> のペアがなければなりません。<p>特定のリソース・クラスのコマンド引数名とデータ・タイプのリストを取得するには、 <span><span>resetrsrc -l</span></span> を使用します。</p>
+	       </dd>
+
+</dl>
+ </section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-f <span><span>リソースデータ入力ファイル</span></span></dt>
+
+<dd>リソースの<span>引数</span>情報が含まれているファイルの名前を指定します。 以下のファイルの内容が表示されます。<div><div><pre><code>PersistentResourceArguments::                            
+argument1 = value1                                    
+argument2 = value2 </code></pre></div><div></div></div></dd>
+
+
+<dt>-l</dt>
+
+<dd>コマンド引数とデータ・タイプをリストします。 一部のリソース・マネージャーは、オフライン要求に渡された追加の引数を受け入れます。 このフラグを使用して定義済みのコマンド引数とコマンド引数値のデータ・タイプをリストします。</dd>
+
+
+<dt>-N <span>{</span> <span><span>node_file</span></span> <span>│</span> "-" <span>}</span></dt>
+
+<dd>ファイルまたは標準入力からノード名を読み取ることを指定します。 ノード名がファイル内にあることを示すには、 <span><span>-N</span></span> <span><span>node_file</span></span> を使用します。<ul>
+<li><span><span>node_file</span></span> では 1 行に 1 つのノード名を指定します。</li>
+
+<li>1 桁目の番号記号 (<span><span>#</span></span>) は、その行がコメントであることを示します。</li>
+
+<li>ノード名の前のブランク文字はすべて無視されます。</li>
+
+<li>ノード名の後の文字はすべて無視されます。</li>
+
+</ul>標準入力からノード名を読み取るには、 <span><span>-N "-"</span></span> を使用します。<p>CT_MANAGEMENT_SCOPE 環境変数は、クラスターの有効範囲を決定します。 CT_MANAGEMENT_SCOPE が設定されていない場合、コマンドにとって有効な範囲になるまで、最初に管理ドメイン有効範囲 (存在する場合) を選択し、次にピア・ドメイン有効範囲 (存在する場合) を選択し、次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合に CT_MANAGEMENT_SCOPE が設定されていないと、このコマンドは管理ドメインに適用されます。 このコマンドをピア・ドメインに適用する場合は、CT_MANAGEMENT_SCOPE を <span><span>2</span></span>に設定してください。</p>
+</dd>
+
+
+<dt>-r</dt>
+
+<dd>指定したリソース・ハンドルに一致する特定のリソースを強制的にオフラインにします。</dd>
+
+
+<dt>-s <span><span>"selection_string</span></span> "</dt>
+
+<dd>選択文字列を指定します。 選択文字列はすべて、
+二重または単一の引用符で囲まなければなりません。 選択文字列の中に二重引用符が含まれている場合は、選択文字列全体を単一の引用符で囲んでください。 次に例を示します。<div><div><pre><code>           
+-s 'Name == "testing"'                                   
+           
+-s 'Name ?= "test"'                                      </code></pre></div><div></div></div>永続属性のみを選択文字列にリストすることができます。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用方法の文を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>標準エラーにコマンドのトレース・メッセージを書き込みます。 これはソフトウェア・サービス組織専用です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージ <span>(使用可能なメッセージがある場合)</span> を標準出力に書き込みます。</dd>
+
+</dl>
+ </section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>CT_CONTACT 環境変数をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC (Resource Monitoring and Control) デーモンにアクセスします。 この環境変数を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドによって表示または変更されるリソース・クラスやリソースは、接続が確立されたシステム上にあります。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_CONTACT が IP アドレスに設定されている場合のみ、CT_IP_AUTHENT が意味を持ちます。CT_IP_AUTHENT はドメイン・ネーム・システム (DNS) サービスに依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するための
+セッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+ </section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンド使用状況ステートメントが標準出力に書き込まれます。 <span><span>-V</span></span> フラグを指定すると、このコマンドの詳細メッセージ (使用可能なメッセージがある場合) が標準出力に書き込まれます。</p>
+ </section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+ </section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>指定された選択文字列に一致するリソースが見つかりませんでした。</dd>
+
+</dl>
+ </section>
+
+<section><h2>セキュリティー</h2> <p><span><span>resetrsrc</span></span>を実行するには、 <span><span>resetrsrc</span></span> で指定された <span><span>resource_class</span></span> に対する書き込み権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「Administering RSCT」ガイドを参照してください。</p>
+ </section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、 Linux®、Solaris、および Windows 用の <span><span>rsct.core.rmc</span></span> ファイルセット ( AIX® および <span><span>rsct.core-3.1.0.0-0.</span></span><span><span>プラットフォーム</span></span><span><span>.rpm</span></span> パッケージ) の一部です。ここで、 <span><span>platform</span></span> は <span><span>i386</span></span>、 <span><span>ppc</span></span>、 <span><span>ppc64</span></span>、 <span><span>s390</span></span>、または <span><span>x86_64</span></span>です。</p>
+ </section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/resetrsrc</dt>
+
+<dd></dd>
+
+</dl>
+ </section>
+
+<section><h2>例</h2><div><span><span>nodeA</span></span>、 <span><span>nodeB</span></span>、および <span><span>nodeC</span></span>の 3 つの定義済みノードを持つ <span><span>foo</span></span> というピア・ドメインがあるとします。 <span><span>nodeA</span></span> には、 <span><span>ent0</span></span> と <span><span>ent1</span></span>の 2 つのイーサネット・カードがあります。<ol>
+<li><span><span>nodeA</span></span> がオンラインで、 <span><span>ent0</span></span> ( <span><span>nodeA</span></span>の場合) もオンラインであるとします。 <span><span>nodeA</span></span>で <span><span>ent0</span></span> を強制的にオフラインにするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>resetrsrc -s 'Name == "ent0"' IBM.EthernetDevice</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> および <span><span>nodeB</span></span> がオンラインで、 <span><span>ent0</span></span> ( <span><span>nodeA</span></span>上) もオンラインで、現在 <span><span>nodeB</span></span>にログオンしているとします。 <span><span>nodeA</span></span>で <span><span>ent0</span></span> を強制的にオフラインにするには、 <span><span>nodeB</span></span>で次のコマンドを実行します。<div><div><pre><code>resetrsrc -s 'NodeName == "nodeA" AND Name == "ent0"' IBM.EthernetDevice</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> および <span><span>nodeB</span></span> がオンラインで、ファイル・システム <span><span>/filesys1</span></span> が定義され、 <span><span>nodeB</span></span>にマウントされているとします。 <span><span>nodeB</span></span>で <span><span>/filesys1</span></span> を強制的にオフラインにするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>resetrsrc -s 'NodeName == "nodeB" AND Name == "/filesys1"' IBM.FileSystem</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> 上の <span><span>ent0</span></span> のリソース・ハンドルが以下のようになっているとします。<div><div><pre><code>0x406b 0x0001 0x00000000 0x0069564c 0x0dc1f272 0xb9de145e   </code></pre></div><div></div></div><span><span>nodeA</span></span>で <span><span>ent0</span></span> を強制的にオフラインにするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>resetrsrc -r "0x406b 0x0001 0x00000000 0x0069564c 0x0dc1f272 0xb9de145e"</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> および <span><span>nodeB</span></span>で <span><span>/tmp/common/node_file</span></span> ファイルを使用して <span><span>ent0</span></span> をリセットするには、以下のようにします。<div><div><pre><code># common node file
+#
+nodeA
+nodeB
+#</code></pre></div><div></div></div>次のように入力します。<div><div><pre><code>resetrsrc -s 'Name == "ent0"' -N /tmp/common/node_file \
+IBM.EthernetDevice</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+</div></div>

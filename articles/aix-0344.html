@@ -1,0 +1,1000 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザーが X アプリケーションのカスタマイズを行えるようにします。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>custom [  -h |  -e Browser |  [  -s ResourceFile ]  [  Application ] ]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><strong>custom</strong> コマンドは、アプリケーションのさまざまな外観をカスタマイズするためのカスタマイズ・ツールを始動します。</p>
+ <p>カスタマイズ・ツールではアプリケーションの外観を変更することができます。 カスタマイズ・ツールは、リソース値をユーザーの <strong>.Xdefaults</strong> ファイルに簡単に追加できる方法を提供します。 <em>リソース</em> とは、色、フォント、その他クライアント・アプリケーションのリソースをカスタマイズ可能にする属性などの、カスタマイズ可能な項目です。 各アプリケーションには独自のリソース・セットがあります。これらのリソースは <strong>app-custom</strong> ファイルに登録されています。 カスタマイズ・ツールには、アプリケーションの変更に使用できるリソースと、選択できるリソース値が記述してあります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンド・ライン・ヘルプを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> ブラウザー</em></td>
+
+<td>スタンドアロン・ブラウザーを 1 つ呼び出します。 <em>Browser</em> に指定できる値は <strong>color</strong>、<strong>font</strong>、<strong>cursor</strong>、および <strong>picture</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> ResourceFile</em></td>
+
+<td>リソースの設定のロード元および保管先となるリソース・ファイルを指定します。 <strong>-s</strong> フラグを指定しないと、デフォルトにより X サーバーの <strong>RESOURCE_MANAGER</strong> 属性に格納されているリソース・データベースから値がロードされます。 このデータベースが存在しない場合は、<strong>$HOME/.Xdefaults</strong> がロードされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>custom</strong> コマンドは、ほとんどの標準 X ツールキット・コマンド・ライン・オプションを解釈します。
+以下の表に、標準コマンド・ライン・オプションをリストします。</p>
+ 
+<div><span> <strong>custom</strong> コマンドの標準コマンド行オプション</span><div><table><thead>
+<tr>
+<th><div>オプション</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-bg</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*background</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>背景色</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-バックグラウンド</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*background</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>背景色</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-bd</strong> <sup>1</sup></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*borderColor</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>ボーダーの色</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ボーダーカラー</strong><sup>1</sup></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*borderColor</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>ボーダーの色</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-BW</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.borderWidth</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>ボーダーの幅 (ピクセル単位)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-borderWidth</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.borderWidth</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>ボーダーの幅 (ピクセル単位)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-display</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>. 表示</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>使用するサーバー</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-fn</strong> <sup>2</sup></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*FONT</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>フォント名</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>フォント</strong><sup>2</sup></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*FONT</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>フォント名</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-fg</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*foreground</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>フォアグラウンド・カラー</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>フォアグラウンド</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*foreground</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>フォアグラウンド・カラー</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>形状 (-geometry)</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.geometry</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>サイズおよび位置</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-iconic (-iconic)</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.iconic</dd>
+
+
+<dt>値</dt>
+
+<dd>オン</dd>
+
+
+<dt>設定</dt>
+
+<dd>アイコンとして開始</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-name</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.name</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>アプリケーションの名前</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-反転</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*reverseVideo</dd>
+
+
+<dt>値</dt>
+
+<dd>オン</dd>
+
+
+<dt>設定</dt>
+
+<dd>反転表示</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-RV</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*reverseVideo</dd>
+
+
+<dt>値</dt>
+
+<dd>オン</dd>
+
+
+<dt>設定</dt>
+
+<dd>反転表示</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>+ RV</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*reverseVideo</dd>
+
+
+<dt>値</dt>
+
+<dd>オフ</dd>
+
+
+<dt>設定</dt>
+
+<dd>反転表示せず</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-選択-</strong><strong> タイムアウト</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.selection-Timeout</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>選択タイムアウト</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-同期</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*synchronous</dd>
+
+
+<dt>値</dt>
+
+<dd>オン</dd>
+
+
+<dt>設定</dt>
+
+<dd>同期デバッグ・モード</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>+ 同期</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>*synchronous</dd>
+
+
+<dt>値</dt>
+
+<dd>オフ</dd>
+
+
+<dt>設定</dt>
+
+<dd>同期デバッグ・モード</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-タイトル</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>. タイトル</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>アプリケーションの名称</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-エックスアーム</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>value of argument</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>引数により異なる</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-xnllanguage</strong></td>
+
+<td><dl>
+<dt>リソース</dt>
+
+<dd>.xnlLanguage</dd>
+
+
+<dt>値</dt>
+
+<dd>次の引数</dd>
+
+
+<dt>設定</dt>
+
+<dd>ロケール</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>AIXwindows</span> ウィンドウ・マネージャーが実行されている場合、多くの場合、これらのオプションは <span>AIXwindows</span> アプリケーションに対して可視の影響を与えません。</li>
+
+<li>通常、Motif アプリケーションは上記のオプションには対応しません。</li>
+
+<li>* (アスタリスク) で始まるリソースは、アプリケーション内のすべてのウィジェットのリソースに同じ値を設定します。</li>
+
+<li>「.」で始まるリソース (期間) アプリケーションの上位シェル・ウィジェットのリソースのみを設定します。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>アプリケーション</em></td>
+
+<td>カスタマイズするアプリケーションの名前またはクラスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>カスタマイズ・ツールを開始し、プロンプトを使用してカスタマイズするアプリケーションを選択するには、以下を入力します。<div> <div><div><pre><code>custom</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>カスタマイズ・ツールを開始して、 <strong>xcalc</strong> アプリケーションの <strong>app-defaults</strong> ファイルを変更するには、以下のように入力します。<div><div><pre><code>custom -s 
+/usr/lib/X11/app-defaults/XCalc xcalc</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>リソース</h2> <p>カスタマイズ・ツールには、以下のアプリケーション・リソースがあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>listOfApps</strong></td>
+
+<td>開始ダイアログにアプリケーション名を表示するために使用します。 アプリケーション名とこのアプリケーションに対応する <strong>app-custom</strong> ファイルは、以下の構文を使用して対で示す必要があります。<div> <div><div><pre><code>Application:app-custom 
+[,Application:app-custom]...</code></pre></div><div></div></div></div>
+  <p>次に例を示します。</p>
+  <div> <div><div><pre><code>Custom.listOfApps: 
+xclock:XClock,custom:Custom</code></pre></div><div></div></div></div>
+  <p>最大 100 のアプリケーションを指定できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>colorEditor*rgbtxtPath</strong></td>
+
+<td>X サーバーが指定された色を定義するために使用する <strong>rgb.txt</strong> ファイルの絶対パス名を指定します。 デフォルト値は <strong>/usr/lib/X11/rgb.txt</strong> で、
+これはシステムに直接接続されているディスプレイ上で稼働している X サーバーに対して正しいパス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>windowSearchDepth</strong></td>
+
+<td>カスタマイズ・ツールは、アプリケーションの高水準シェル・ウィンドウを決定する必要があります。 カスタマイズ・ツールは、ルート・ウィンドウから開始し、デフォルトでは再帰的検索を 3 つのウィンドウの深さまで行います。 このデフォルトを変更するには、<strong>windowSearchDepth</strong> リソースを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>timeout</strong></td>
+
+<td>アプリケーションとの通信が確立されるまで、Instant Changes ボタンはぼかし表示になっています。 アプリケーションがカスタマイズ・ツールに接続するまでの待ち時間は、<strong>Custom*timeout</strong> リソースによって管理されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>resourceFile</strong></td>
+
+<td>リソース・ファイルとは、リソースの変更が保管されるファイルです。 デフォルトは <strong>$HOME/.Xdefaults</strong> です。 <strong>-s</strong> フラグを指定すると、この値をオーバーライドできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>appCustomPath</strong></td>
+
+<td>カスタマイズ・ツールが <strong>app-custom</strong> ファイルを検索するパスを指定します。 <strong>appCustomPath</strong> 文字列は、コロンで区切られた複数の有効なファイル名から構成されます。 各名前に、以下の値を代入することができます。<dl>
+
+<dt><strong>%N</strong></dt>
+
+<dd><strong>app-custom</strong> ファイルの名前 (通常はアプリケーションのクラス名と同じです)。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%T</strong></dt>
+
+<dd><strong>「app-custom」</strong></dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%L</strong></dt>
+
+<dd><strong>custom</strong> が実行されるロケール (地域)。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%L</strong></dt>
+
+<dd>ロケールの言語部分。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%t</strong></dt>
+
+<dd>ロケールの地域部分。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%c</strong></dt>
+
+<dd>ロケールのコード・セット。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%:</strong></dt>
+
+<dd>: (コロン)。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>%%</strong></dt>
+
+<dd>% (パーセント記号)。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><em>エン</em><strong>バー</strong></dt>
+
+<dd>指定された環境変数の値。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>${</strong><em> 環境変数</em><strong> }</strong></dt>
+
+<dd>指定された環境変数の値。</dd>
+
+
+</dl>
+
+<dl>
+
+<dt><strong>$$</strong></dt>
+
+<dd>$ (ドル記号)。</dd>
+
+
+</dl>
+
+<p><strong>appCustomPath</strong> のデフォルト値は、以下のとおりです。</p>
+
+<div><div><pre><code>$HOME/%L/%T/%N:\
+$HOME/%T/%N:\
+/usr/lib/X11/%L/%T/%N:\
+/usr/lib/X11/%T/%N</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>topEditHighlight</strong>、<strong>bottomEditHighlight</strong>、<strong>foregroundEditHighlight</strong>、<strong>backgroundEditHighlight</strong></td>
+
+<td>Browser ボタンは、ブラウザーが呼び出されると強調表示され、ブラウザーが取り消されるとこの強調表示が解除されます。 これらのリソースは、Browser ボタンのトップ・シャドー、ボトム・シャドー、前景、背景の強調表示カラーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>pictureEditor*editor</strong></td>
+
+<td>Pictures ブラウザー・ウィンドウの Edit Picture ボタンを押すと、ビットマップまたはピックスマップを編集できます。 エディターは、システム上に存在する別個のアプリケーションです。 これはユーザーの代わりに呼び出されます。 <strong>Custom*pictureEditor*editor</strong> リソースは、どのエディター・コマンドが呼び出されるかを判別します。 このリソースは、&amp;#xa5;n (円記号 'n') で区切られたコマンド・リストを受け入れます。 ユーザーが実行許可を持っている既存のプログラムを識別する最初のコマンドが使用されます。 Chosen Picture テキスト・フィールドのファイル名は、
+呼び出し時にパラメーターとしてエディターに渡されます。 このリソースのデフォルト設定は以下の通りです。</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div><div><pre><code>Custom*pictureEditor*editor: 
+/usr/dt/bin/dticon  -f \n                                                  
+/usr/lib/X11/bitmap</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div><div>
+        <div>
+          <div><span>注:</span> デフォルト・エディター <strong>/usr/dt/bin/dticon</strong> は、共通デスクトップ環境 (CDE) がインストールされている場合にのみ存在します。 このエディターは、ビットマップ (モノクローム・イメージ) とピックスマップ (カラー・イメージ) の両方を
+編集します。 <strong>dticon</strong> コマンドは、 <span>AIXwindows</span> バージョン 1.2.5で出荷された X Desktop (<strong>xdt</strong>) アプリケーションによって使用された X Pixmap バージョン 2 Enhanced (XPM2) フォーマット、または X Pixmap バージョン 3 (XPM3) のいずれかで保管されたビットマップを受け入れます。新しい XPG3 準拠フォーマットが使用されます。 ただし、
+ピックスマップ・イメージは XPM3 フォーマットで格納する必要があります。 CDE には、ピックスマップを XPM2 から XPM3 フォーマットに変換できる文書化されたツールが用意されています。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p><strong>/usr/bin/X11/bitmap</strong> コマンドは、XPM2 フォーマットまたは XPM3 フォーマットのビットマップを受け入れる、サポートされていないサンプル・プログラムです。 このコマンドでは、ピックスマップの編集はサポートされません。 <strong>bitmap</strong> コマンドを呼び出す前に、Bitmap app-defaults ファイルが <strong>/usr/lib/X11/app-defaults</strong> にインストールされていることを確認してください。 インストールされていない場合は、<strong>/usr/lpp/X11/Xamples/programs/bitmap</strong> ディレクトリー内で次のコマンドを実行します。</p>
+  <div> <div><div><pre><code>xmkmf;
+make install</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p>このツールをカスタマイズするために使用できるオブジェクト名 (およびオブジェクトのクラス名) を以下に示します。</p>
+  <div> <div><div><pre><code>custom (Custom)
+  startupDialog_popup (XmDialogShell)
+     startupDialog (XmSelectionBox)
+  helpDialog_popup (XmDialogShell)
+     helpDialog (XmForm)
+  saveDialog_popup (XmDialogShell)
+     saveDialog (XmSelectionBox)
+  colorEditor_popup (XmDialogShell)
+     colorEditor (XibmColorEditor)
+  fontEditor_popup (XmDialogShell)
+     fontEditor (XibmFontEditor)
+  pictureEditor_popup (XmDialogShell)
+     pictureEditor (XibmPictureEditor)
+  cursorEditor_popup (XmDialogShell)
+     cursorEditor (XibmCursorEditor)
+  selectmanyEditor_popup (XmDialogShell)
+     selectmanyEditor (XibmSelectManyEditor)
+  filenameEditor_popup (XmDialogShell)
+     filenameEditor (XmFileSelectionBox)
+  mainWindow (XmMainWindow)
+     menubar (XmRowColumn)
+     form (XmForm)
+        appClassLabel (XmLabel)
+        appClass (XmLabel)
+        groupMenuLabel (XmLabel)
+        groupMenu (XmRowColumn)
+        scrolledGroup (XmScrolledWindow)
+           scrolledGroupForm (XmForm)
+               (XmLabelGadget)
+               TypeField (XmTextField)
+               TypeButton (XmPushButton)</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p><em>Type</em> には、データ型値 color、
+font、
+picture、
+cursor、
+selectmany、
+filename、
+selectone、
+string、
+または number のうちの 1 つを指定できます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>これは、エラーが発生したことを示しています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/X11</span></td>
+
+<td>カスタム・パッケージのインストール後、実行する <strong>custom</strong> コマンドのパスです。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/X11/app-custom</span></td>
+
+<td>個々のアプリケーションに関する情報が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/X11/locale/app-custom</span></td>
+
+<td>特定のロケールに対応して変換された個々のアプリケーションに関する情報が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/X11/app-defaults/Custom</span></td>
+
+<td>カスタマイズ・ツールのデフォルト設定が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/lib/X11/locale/app-defaults/Custom</span></td>
+
+<td>特別な設定値を必要とするロケールで使用するための、カスタマイズ・ツール用のデフォルトの設定値が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

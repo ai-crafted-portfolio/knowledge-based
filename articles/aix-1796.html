@@ -1,0 +1,3177 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><div>X Window System の端末エミュレーターを提供します。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>xterm</strong> コマンドは、マサチューセッツ工科大学 (MIT) X Window System バージョン 11 リリース 6 から移植され、機能拡張はありません。 <strong>xterm</strong> コマンドは、グローバリゼーションをサポートしていません。 地域化または国際化された端末エミュレーターが必要な場合は、<strong>aixterm</strong> コマンドまたは <strong>dtterm</strong> コマンドを使用してください。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>構文</h2><p><strong>xterm</strong> [-<em>-Xtoolkitoption</em>... ] [-<em>オプション </em>...]</p>
+</section>
+
+<section><h2>説明</h2><p><strong>xterm</strong> プログラムは、X Window System の端末エミュレーターです。 このウィンドウ・システムを直接使用できないプログラムのために DEC VT102 および Tektronix 4014 互換端末を提供します。 基本となるオペレーティング・システムが端末サイズ変更機能をサポートしている場合、<strong>xterm</strong> プログラムはウィンドウのサイズが変更されると、その機能を使って、ウィンドウで実行中のプログラムにウィンドウが変更されたことを通知します。</p>
+ <p>VT102 および Tektronix 4014 端末はそれぞれ自分自身のウィンドウを持っているので、ユーザーは、1 つのウィンドウでテキストを編集しながら、同時に他のウィンドウでグラフィックスを見ることができます。 正しい縦横比 (高さ/幅) を維持するために、Tektronix のグラフィックスは、ウィンドウに適合する 4014 縦横比において最大のボックスに制限されます。 このボックスは、ウィンドウの左上に位置します。</p>
+ <p>両方のウィンドウを同時に表示できますが、キーボード入力や端末出力を受信する
+<em>アクティブ</em><em> ・ウィンドウ</em> と見なされるのは、
+そのうちの 1 つのみです。 テキスト・カーソルが現れるのはこのウィンドウの中です。 アクティブ・ウィンドウはエスケープ・シーケンスまたはメニューで選択することができます。このメニューは、VT102 ウィンドウの場合は「VT Options (VT オプション)」メニュー、4014 ウィンドウの場合は「Tek Options (Tek オプション)」メニューです。</p>
+</section>
+
+<section><h2>エミュレーション</h2> <p>VT102 エミュレーションはほぼ完全ですが、低速スクロール、VT52 モード、明滅文字属性、または横倍角および縦倍角文字セットはサポートしていません。 <strong>xterm</strong> コマンドを使用して機能する <strong>termcap</strong> ファイル・エントリーには、<strong>xterm</strong>、<strong>vt102</strong>、<strong>vt100</strong>、および「ansi」があります。<strong>xterm</strong> コマンドは自動的に <strong>termcap</strong> ファイル内でこのエントリーを順番に検索し、その後に <strong>TERM</strong> および <strong>TERMCAP</strong> 環境変数を設定します。</p>
+ <p><strong>xterm</strong> の特殊機能の多くは、
+標準 VT102 エスケープ・シーケンスとは異なる 1 組のエスケープ・シーケンスを使って、プログラム制御下で修正できる可能性があります。</p>
+ <p>Tektronix 4014 エミュレーションもほぼ完全です。 ウィンドウ・サイズに合わせた 12 ビット・グラフィックス・アドレッシングをサポートしています。 さらに、4 つのフォント・サイズと 5 つのライン・タイプもサポートします。 ライト・スルー (write-thru) モードとフォーカス解除 (defocused) モードはサポートしていません。</p>
+ <p>Tektronix のテキスト・コマンドおよびグラフィックス・コマンドは <strong>xterm</strong> コマンドによって内部的に記録されます。そして、COPY エスケープ・シーケンスを送信することで (または、後のセクションで説明するように Tektronix メニューから)、
+記録されたコマンドをファイルに書き込むこともできます。 このファイルの名前は、<strong>COPY</strong><em>yy</em><strong>-</strong><em>MM</em><strong>-</strong><em>dd</em><strong>.</strong><em>hh</em><strong>:</strong><em>mm</em><strong>:</strong><em>ss</em> のフォーマットです。<em>yy</em>、<em>MM</em>、<em>dd</em>、<em>hh</em>、<em>mm</em>、および <em>ss</em> は、それぞれ、コピーが実行された年、月、日、時、分、および秒を表します (このファイルは <strong>xterm</strong> コマンドが始動されたディレクトリーに作成されます。ログイン <strong>xterm</strong> の場合はホーム・ディレクトリーに作成されます)。</p>
+</section>
+
+<section><h2>その他の機能</h2> <p><strong>xterm</strong> コマンドは、ポインターがウィンドウの中に入ったとき (つまり、そのウィンドウを選択したとき)、自動的にテキスト・カーソルを強調表示します。そして、ポインターがウィンドウから出たとき (つまり、そのウィンドウの選択を解除したとき)、強調表示を解除します。 ウィンドウがフォーカス・ウィンドウの場合は、ポインターがどこにあっても、テキスト・カーソルは強調表示されます。</p>
+ <p>VT102 モードでは、ウィンドウのディスプレイ領域と同じサイズの代替画面バッファーをアクティブ化または非アクティブ化するエスケープ・シーケンスがあります。 代替画面バッファーを始動すると、現在の画面は保管され、代替画面と置き換わります。 ウィンドウの上部がスクロール
+された行の保管は、通常の画面が復元されるまではできません。</p>
+ <p><strong>termcap</strong> ファイルに <strong>xterm</strong> コマンドのエントリーを指定しておけば、<strong>vi</strong> コマンド・エディターで代替画面に切り替えて編集でき、vi を終了すると画面が復元されます。</p>
+ <p>VT102 モードおよび Tektronix モードには、ウィンドウの名前を変更するエスケープ・シーケンスがあります。</p>
+</section>
+
+<section><h2>オプション</h2> <p><strong>xterm</strong> 端末エミュレーターでは、標準 X ツールキットのすべてのコマンド・ライン・オプションと、さらに下記のオプションを使用できます (オプションが - でなく + で始まる場合、そのオプションはデフォルトの値に復元されます)。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-help</strong></td>
+
+<td><strong>xterm</strong> コマンドのオプションを説明するメッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-132</strong></td>
+
+<td>通常、80 桁モードと 132 桁モードを切り替える VT102 DECCOLM エスケープ・シーケンスは無視されます。 このオプションを指定すると、DECCOLM エスケープ・シーケンスが認識され、xterm ウィンドウのサイズが適切に変更されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ああ</strong></td>
+
+<td><strong>xterm</strong> コマンドに、常にテキスト・カーソルを強調表示させます。 デフォルトでは <strong>xterm</strong> コマンドは、フォーカスが失われたとき、またはポインターがウィンドウを離れたとき、テキスト・カーソルを強調表示しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ ア</strong></td>
+
+<td><strong>xterm</strong> コマンドに、フォーカスに従ってテキスト・カーソルを強調表示させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> 数値</em></td>
+
+<td>内部のボーダー (文字の外側の端とウィンドウのボーダーの距離) のサイズをピクセルで指定します。 デフォルトは 2 です。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>cc</strong><em> CharacterClassRange</em><em>:値</em>[<strong>,</strong>...]</td>
+
+<td>指定された範囲が示すクラスを単語による選択用に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-う</strong></td>
+
+<td>改行をライン・モード選択のときにカットしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ cn</strong></td>
+
+<td>改行をライン・モード選択のときにカットします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-cr</strong><em> 色</em></td>
+
+<td>テキスト・カーソルに使用する色を指定します。 デフォルトでは、テキストと同じフォアグラウンド・カラーが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-CU</strong></td>
+
+<td><strong>xterm</strong> コマンドに、タブで始まるウィンドウと同じ幅の行を正しく表示できない (先頭のタブが表示されない) という <strong>more</strong> プログラムのバグを回避させます。 もともとこのバグは <strong>curses</strong> 関数のカーソル移動パッケージによるものだと考えられていたので、このオプションの名前が付いています。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ cu (+ cu)</strong></td>
+
+<td><strong>xterm</strong> コマンドに、上記の <strong>more</strong> プログラムのバグを回避させません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> プログラム</em> [<em>引数</em>]</td>
+
+<td>xterm ウィンドウで実行するプログラム (およびそのコマンド・ライン引数) を指定します。 <em>-</em><strong>T</strong> オプションおよび <em>-</em><strong>n</strong> オプションをコマンド・ラインで指定していなければ、ウィンドウのタイトルとアイコンの名前もこのオプションに指定したプログラムの名前に設定します。<div><div>
+        <div>
+          <div><span>注:</span> これはコマンド行の最後のオプションでなければなりません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-fb</strong><em> フォント</em></td>
+
+<td>太字テキストを表示するときに使用するフォントを指定します。 このフォントは、通常のフォントと同じ高さと幅を持つ必要があります。 通常のフォントと太字フォントのいずれか 1 つしか指定していない場合、指定されたフォントを通常のフォントとして使用し、この場合の太字フォントは、指定されたフォントを重ね打ちすることで生成されます。 デフォルトでは、通常のフォントが重ね打ちされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td><strong>useInsertMode</strong> リソースをオンにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ i (+ i)</strong></td>
+
+<td><strong>useInsertMode</strong> リソースをオフにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong></td>
+
+<td><strong>xterm</strong> コマンドに高速スクロールを行わせます。 通常、テキストは一度に 1 行ずつスクロールされます。
+このオプションを指定すると、<strong>xterm</strong> コマンドは一度に複数行スクロールするため、表示が追いつかないという現象は起こりません。 特に、膨大な量のテキストを
+スキャンする場合は、<strong>xterm</strong> コマンドがきわめて速くなるため、
+このオプションを使用することを強くお勧めします。 この機能は、低速スクロール機能を制御する VT100 エスケープ・シーケンスおよび「VT Options (VT オプション)」メニューからでも制御できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+j</strong></td>
+
+<td><strong>xterm</strong> コマンドに高速スクロールを行わせません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ls</strong></td>
+
+<td>xterm ウィンドウで始動されるシェルがログイン・シェルであることを示します (つまり、<em>ArgumentVector</em> パラメーターの最初の文字にハイフンを指定すると、そのシェルはユーザーの <strong>.login</strong> または <strong>.profile</strong> ファイルを読み取ります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ls</strong></td>
+
+<td>始動されるシェルがログイン・シェルではないことを示します (つまり、通常のサブシェルになります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-mb</strong></td>
+
+<td><strong>xterm</strong> コマンドにユーザーの入力が行の右端近くに達したときに、マージン・ベルを鳴らします。 このオプションは、「VT Options (VT オプション)」メニューからでも制御できます。</td>
+
+</tr>
+
+<tr>
+<td><strong> + MB</strong></td>
+
+<td>マージン・ベルを鳴らしません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-mc</strong><em> ミリ秒</em></td>
+
+<td>マルチクリック選択間の最大時間間隔を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ms</strong><em> 色</em></td>
+
+<td>ポインター・カーソルに使用する色を指定します。 デフォルトではフォアグラウンド・カラーが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-nb</strong><em> 数値</em></td>
+
+<td>マージン・ベルを鳴らす (使用可能であれば) 行の右端からの文字数を指定します。 デフォルトは 10 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-rw</strong></td>
+
+<td>反転ラップアラウンドを使用します。 これによって、カーソルが行頭に来たときに、前行の行末に移動することができます。 この機能は長いシェル・コマンド・ラインを編集するときに非常に便利なので、使用することをお勧めします。 このオプションは、「VT Options (VT オプション)」メニューからでも制御できます。</td>
+
+</tr>
+
+<tr>
+<td><strong> + RW</strong></td>
+
+<td>反転ラップアラウンドを使用しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-畏れ多い</strong></td>
+
+<td>自動ラップアラウンドを使用します。 これにより、カーソルが行末に来てテキストが出力されたときに、次行の行頭に自動的に移動できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ アウ</strong></td>
+
+<td>自動ラップアラウンドを使用しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>xterm</strong> コマンドに非同期的にスクロールさせます。つまり、スクロール中に、画面は最新の情報を保持する必要がないことを意味します。 このオプションを指定しておくと、ネットワーク待ち時間が長いときにも、<strong>xterm</strong> コマンドは比較的高速に動作するので、通常は大規模なインターネットや多数のゲートウェイを介して実行するときに大変有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ 秒</strong></td>
+
+<td><strong>xterm</strong> コマンドに同期的にスクロールさせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-たんしょう</strong></td>
+
+<td>スクロールしてウィンドウの上に消えた行を保管し、消えた行を見るためのスクロール・バーを表示します。 このオプションは、「VT Options (VT オプション)」メニューからでも制御できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ SB</strong></td>
+
+<td>スクロール・バーを表示しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-SF</strong></td>
+
+<td>ファンクション・キーに対して、Sun Function Key エスケープ・コードを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ sf</strong></td>
+
+<td>ファンクション・キーに対して、標準のエスケープ・コードを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-シー</strong></td>
+
+<td>ウィンドウへ出力しても、画面の位置を自動的にスクロール領域の最下部まで移動させません。 このオプションは、「VT Options (VT オプション)」メニューからでも制御できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ SI</strong></td>
+
+<td>ウィンドウへ出力すると、ウィンドウは最下部までスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-スク</strong></td>
+
+<td>テキストの前の行を見るためにスクロール・バーを使用中にキーを押すと、
+ウィンドウは自動的にスクロール領域の最下部の通常の位置に移動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ スク</strong></td>
+
+<td>スクロール・バーを使用中にキーを押しても、ウィンドウは移動しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-sl</strong><em> 数値</em></td>
+
+<td>スクロールされて画面の上から消えた行を保管する行数を指定します。 デフォルトは 64 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>VT102 モードではなく Tektronix モードで <strong>xterm</strong> コマンドを始動します。 「Options」メニューを使ってこの 2 つのウィンドウ・モードを切り替えることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ t (+ t)</strong></td>
+
+<td>VT102 モードで <strong>xterm</strong> コマンドを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-tm</strong><em> ストリング</em></td>
+
+<td>端末設定キーワードとそれに続く機能にバインドされた文字を指定します (<strong>stty</strong> プログラムに似ています)。 指定できるキーワードは、<strong>intr</strong>、<strong>quit</strong>、<strong>erase</strong>、<strong>kill</strong>、<strong>eof</strong>、<strong>eol</strong>、<strong>swtch</strong>、<strong>start</strong>、<strong>stop</strong>、<strong>brk</strong>、<strong>susp</strong>、<strong>dsusp</strong>、<strong>rprnt</strong>、<strong>flush</strong>、<strong>weras</strong>、<strong>lnext</strong> です。 制御文字は ^<em>Character</em> (例えば、^c や ^u) で
+指定することができ、^? は Delete を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-tn</strong><em> 名前</em></td>
+
+<td><strong>TERM</strong> 環境変数に設定する端末タイプの名前を指定します。 この端末タイプは <strong>termcap</strong> データベースに存在し、「<strong>li#</strong>」および「<strong>co#</strong>」エントリーを持っている必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>「-ut」</strong></td>
+
+<td><strong>xterm</strong> コマンドに、<strong>/etc/utmp</strong> システム・ログ・ファイルに記録を書き込ませません。</td>
+
+</tr>
+
+<tr>
+<td><strong>[+ ut]</strong></td>
+
+<td><strong>xterm</strong> コマンドに、<strong>/etc/utmp</strong> システム・ログ・ファイルに記録を書き込ませます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ブイビー</strong></td>
+
+<td>ベルを鳴らす代わりに、ビジュアル・ベルを使用します。 Ctrl+G キー・シーケンス・シグナルを受信すると、
+端末のベルを鳴らす代わりに、ウィンドウをフラッシュさせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ vb</strong></td>
+
+<td>ビジュアル・ベルを使用しないことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-WF</strong></td>
+
+<td><strong>xterm</strong> コマンドに、サブプロセスを始動する前に、最初のウィンドウのマッピングが行われるまで待ち状態にさせます。そうすると、初期端末サイズ設定と環境変数が正確になります。 この後の端末サイズの変更を受け取るのは、アプリケーションの責任です。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ WF</strong></td>
+
+<td><strong>xterm</strong> コマンドに、サブプロセスを始動する前に待ち状態にさせません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>ウィンドウにコンソール出力を受信させることを示します。 このオプションは、すべてのシステムでサポートされているわけではありません。 コンソール出力を受信するには、コンソール・デバイスのオーナーで、
+そのデバイスに対する読み取りおよび書き込み許可を持っている必要があります。 コンソール画面上の <strong>xdm</strong> 下で X-Window を実行している場合、
+このオプションを有効にするには、セッション始動プログラムおよびセッション・リセット・プログラムを使って、
+明示的にコンソール・デバイスの所有権を変更する必要がある場合もあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong> <em>ccn</em><strong></strong></td>
+
+<td>ワーカー・モードで使用する疑似端末の名前の最後の 2 文字と、継承したファイル・ディスクリプターの番号を指定します。 このオプションは「%c%c%d」と解析されます。 このオプションによって、<strong>xterm</strong> コマンドは既存プログラムの入出力チャネルとして使用できるようになりますが、専用のアプリケーションの中で使用される場合もあります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>下記のコマンド・ライン引数は、古いバージョンとの互換性を保つために提供されます。 次のリリースでは X ツールキットが同じタスクを実行する標準オプションを提供するので、サポートされない可能性もあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>%</strong><em>GEOM</em></td>
+
+<td>Tektronix ウィンドウに適したサイズと位置を指定します。 <strong>*tekGeometry</strong> リソースを指定する場合の省略形です。</td>
+
+</tr>
+
+<tr>
+<td><strong>#</strong><em>GEOM</em></td>
+
+<td>アイコン・ウィンドウに適した位置を指定します。 <strong>*iconGeometry</strong> リソースを指定する場合の省略形です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> ストリング</em></td>
+
+<td><strong>xterm</strong> プログラムのウィンドウのタイトルを指定します。 <strong>-title</strong> と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> ストリング</em></td>
+
+<td><strong>xterm</strong> プログラムのウィンドウのアイコン名を指定します。 <strong>*iconName</strong> リソースを指定する場合の省略形です。 このオプションは、ツールキット・オプションの <strong>-name</strong> (この後を参照) とは異なるので注意してください。 デフォルトのアイコン名はアプリケーションの名前です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>フォアグラウンド・カラーとバックグラウンド・カラーをスワップすることで、反転表示をシミュレートします。 <strong>-rv</strong> と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 数値</em></td>
+
+<td>ウィンドウを囲むボーダーの幅をピクセル単位で指定します。 <strong>-borderwidth</strong> および <strong>-bw</strong> と同じです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>下記の標準 X ツールキット・コマンド・ライン引数は、通常 <strong>xterm</strong> コマンドで使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-bg</strong><em> 色</em></td>
+
+<td>ウィンドウのバックグラウンドに使用する色を指定します。 デフォルトは白です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bd</strong><em> 色</em></td>
+
+<td>ウィンドウのボーダーに使用する色を指定します。 デフォルトは黒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bw</strong><em> 数値</em></td>
+
+<td>ウィンドウを囲むボーダーの幅をピクセル単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fg</strong><em> 色</em></td>
+
+<td>テキストの表示に使用する色を指定します。 デフォルトは黒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fn</strong><em> フォント</em></td>
+
+<td>通常のテキストの表示に使用するフォントを指定します。 デフォルトは固定 (fixed) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-name</strong><em> 名前</em></td>
+
+<td>リソースを獲得するためのアプリケーション名を指定します。デフォルトの実行可能ファイルの名前ではありません。 <em>Name</em> パラメーターには指定できません。 (ドット) または * (アスタリスク) 文字。</td>
+
+</tr>
+
+<tr>
+<td><strong>-title</strong><em> ストリング</em></td>
+
+<td>ユーザーが選択すると、ウィンドウ・マネージャーによって表示されるウィンドウ・タイトルの文字列を指定します。 デフォルトのタイトルは、コマンド・ラインに指定した <strong>-e</strong> オプション以降の文字列であり、それ以外の場合はアプリケーションの名前になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-RV</strong></td>
+
+<td>フォアグラウンド・カラーとバックグラウンド・カラーをスワップすることで、反転表示をシミュレートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-geometry</strong><em> 形状</em></td>
+
+<td>VT102 ウィンドウの優先サイズと位置を指定します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X" target="_blank" rel="noopener noreferrer"><strong>X</strong></a> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-display</strong><em> 表示</em></td>
+
+<td>接続する X サーバーを指定します。<strong>X</strong> コマンドのセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エックスアーム</strong><em> ResourceString</em></td>
+
+<td>使用するリソース文字列を指定します。 個別のコマンド・ライン・オプションを持たないリソースの設定に特に有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-iconic (-iconic)</strong></td>
+
+<td><strong>xterm</strong> コマンドが、
+ウィンドウ・マネージャーにそれを通常のウィンドウとしてではなく、アイコンとして始動するように要求することを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>リソース</h2> <p>このプログラムではコア X ツールキットのすべてのリソース名とクラスに加え、下記のリソース名およびクラスも使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>iconGeometry</strong> (<strong>IconGeometry</strong> クラス)</td>
+
+<td>アプリケーションをアイコン化するときに適したサイズと位置を指定します。 すべてのウィンドウ・マネージャーがこれに従う必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>termName</strong> (<strong>TermName</strong> クラス)</td>
+
+<td><strong>TERM</strong> 環境変数に設定する端末タイプ名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>title</strong> (クラス <strong>Title</strong>)</td>
+
+<td>ウィンドウ・マネージャーがこのアプリケーションを表示するときに使用する文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ttyModes</strong> (<strong>TtyModes</strong> クラス)</td>
+
+<td>端末設定キーワードとそれにバインドされた文字列を指定します。 指定できるキーワードは、<strong>intr</strong>、<strong>quit</strong>、<strong>erase</strong>、<strong>kill</strong>、<strong>eof</strong>、<strong>eol</strong>、<strong>swtch</strong>、<strong>start</strong>、<strong>stop</strong>、<strong>brk</strong>、<strong>susp</strong>、<strong>dsusp</strong>、<strong>rprnt</strong>、<strong>flush</strong>、<strong>weras</strong>、<strong>lnext</strong> です。 制御文字は ^<em>Character</em> (例えば、^c や ^u) で指定することができ、^? は Delete を示します。 このリソースを使うと、<strong>xterm</strong> ウィンドウを始動するたびに <strong>stty</strong> プログラムを実行させる必要がないので、デフォルトの端末設定を変更するときに特に便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>useInsertMode</strong> (<strong>useInsertMode</strong> クラス)</td>
+
+<td>適切なエントリーを <strong>TERMCAP</strong> 環境変数に追加することにより、挿入モードの使用を強制します。 これは、システム termcap が壊れている場合に便利です。 デフォルトは <strong>false</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>utmpInhibit</strong> (<strong>UtmpInhibit</strong> クラス)</td>
+
+<td><strong>xterm</strong> がユーザーの端末を <strong>/etc/utmp</strong> に記録しようとするかどうかを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>sunFunctionKeys</strong> (<strong>SunFunctionKeys</strong> クラス)</td>
+
+<td>ファンクション・キーに対して、標準のエスケープ・シーケンスではなく、Sun Function Key エスケープ・コードを生成するかどうかを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>waitForMap</strong> (<strong>WaitForMap</strong> クラス)</td>
+
+<td>サブプロセスを始動する前に、<strong>xterm</strong> コマンドに初期ウィンドウのマッピングを待機させるかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>下記のリソースは、<strong>vt100</strong> ウィジェット (<strong>VT100</strong> クラス) の一部として指定します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>allowSendEvents</strong> (<strong>AllowSendEvents</strong> クラス)</td>
+
+<td>キーとボタンの合成イベント (X プロトコル <strong>SendEvent</strong> 要求を使用して生成する) を解釈するか廃棄するかどうかを指定します。 デフォルトは False (偽) で、合成イベントを廃棄することを意味します。 このようなイベントは大きな
+セキュリティー・ホールを作成する可能性があるので注意してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>alwaysHighlight</strong> (<strong>AlwaysHighlight</strong> クラス)</td>
+
+<td><strong>xterm</strong> コマンドに常にテキスト・カーソルを強調表示させるかどうかを指定します。 デフォルトでは、ポインターがウィンドウの外に移動したとき、またはウィンドウが入力フォーカスを失ったとき、テキスト・カーソルは強調表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>appcursorDefault</strong> (<strong>AppcursorDefault
+</strong> クラス)</td>
+
+<td>True (真) の場合、カーソル・キーは最初にアプリケーション・モードになります。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>appkeypadDefault</strong> (<strong>AppkeypadDefault
+</strong> クラス)</td>
+
+<td>True (真) の場合、キーパッド・キーは最初にアプリケーション・モードになります。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>autoWrap</strong> (<strong>AutoWrap</strong> クラス)</td>
+
+<td>自動循環を使用可能にするかどうかを指定します。 デフォルト値は True です。</td>
+
+</tr>
+
+<tr>
+<td><strong>bellSuppressTime</strong> (<strong>BellSuppressTime
+</strong> クラス)</td>
+
+<td>ベル・コマンドの送信後、次のベルを抑制する時間をミリ秒単位で指定します。 デフォルトは 200 です。 ゼロ以外の値を指定すると、最初のベルの処理が完了したことをサーバーが報告するまで次のベルが抑制されます。この機能は、ビジュアル・ベルで特に便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>boldFont</strong> (<strong>BoldFont</strong> クラス)</td>
+
+<td>重ね打ちの代わりに使用する太字フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>c132</strong> (<strong>C132</strong> クラス)</td>
+
+<td>VT102 DECCOLM エスケープ・シーケンスを使用するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>charClass</strong> (<strong>CharClass</strong> クラス)</td>
+
+<td>文字クラスのリストを指定します。
+このリストは、各要素がコンマで区切られ、[<em>low</em>-]<em>high</em>:<em>value</em> のフォーマットになっています。 これは、カット・アンド・ペーストを行うときに、
+どの文字の組を同じ文字として扱うかを決定するのに使用します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__char" target="_blank" rel="noopener noreferrer">文字クラス</a>を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>curses</strong> (クラス <strong>Curses</strong>)</td>
+
+<td><strong>curses</strong> 関数の最後の桁のバグを回避するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>cutNewline</strong> (<strong>cutNewline</strong> クラス)</td>
+
+<td><strong>false</strong> の場合、トリプル・クリックして行を選択しても、その行の最後の改行は含まれません。 <strong>true</strong> の場合、改行は選択されます。 デフォルトは <strong>true</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>cutToBeginningofLines</strong>(class<strong>CutToBeginningOfLine</strong>)</td>
+
+<td><strong>false</strong> の場合、トリプル・クリックして行を選択すると、現行ワードの次からしか選択されません。 <strong>true</strong> の場合、行全体が選択されます。 デフォルトは <strong>true</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>background</strong> (クラス <strong>Background</strong>)</td>
+
+<td>ウィンドウのバックグラウンドに使用する色を指定します。 デフォルトは白です。</td>
+
+</tr>
+
+<tr>
+<td><strong>foreground</strong> ( <strong>Foreground</strong>クラス)</td>
+
+<td>ウィンドウの中でテキスト表示に使用する色を指定します。 通常テキストの色で表示されるすべてを色変更するには、インスタンス名よりクラス名を設定するほうが簡単です。 デフォルトは黒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>cursorColor</strong> (クラス <strong>Foreground</strong>)</td>
+
+<td>テキスト・カーソルに使用する色を指定します。 デフォルトは黒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>eightBitInput</strong> (<strong>EightBitInput</strong> クラス)</td>
+
+<td>True (真) の場合、キーボードからのメタキャラクター入力が 8 番目のビットをオンにした単一文字として表されます。 False (偽) の場合、メタキャラクターの前に <strong>ESC</strong> が付いた 2 文字シーケンスに変換されます。 デフォルト値は True です。</td>
+
+</tr>
+
+<tr>
+<td><strong>eightBitOutput</strong> (<strong>EightBitOutput</strong> クラス)</td>
+
+<td>表示するときにホストから送信された 8 ビット文字をそのまま受け入れるか切り捨てるかを指定します。 デフォルト値は True です。</td>
+
+</tr>
+
+<tr>
+<td><strong>font</strong> (クラス <strong>Font</strong>)</td>
+
+<td>通常のフォントの名前を指定します。 デフォルトは固定 (fixed) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>font1</strong> (<strong>Font1</strong> クラス)</td>
+
+<td>1 番目の代替フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font2</strong> (<strong>Font2</strong> クラス)</td>
+
+<td>2 番目の代替フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font3</strong> (<strong>Font3</strong> クラス)</td>
+
+<td>3 番目の代替フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font4</strong> (<strong>Font4</strong> クラス)</td>
+
+<td>4 番目の代替フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font5</strong> (<strong>Font5</strong> クラス)</td>
+
+<td>5 番目の代替フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font6</strong> (<strong>Font6</strong> クラス)</td>
+
+<td>6 番目の代替フォントの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Geometry</strong> (クラス <strong>Geometry</strong>)</td>
+
+<td>VT102 ウィンドウに適したサイズと位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>hpLowerleftBugCompat</strong> (<strong>hpLowerleftBugCompat</strong> クラス)</td>
+
+<td><strong>xdb</strong> のバグを修正するかどうかを指定します。これは、termcap を無視して常に ESC F を送信して左下隅に移動します。 <strong>true</strong> にすると、<strong>xterm</strong> は、ESC F を画面の左下隅に移動する要求として解釈します。 デフォルトは <strong>false</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>internalBorder</strong> (クラス <strong>BorderWidth</strong>)</td>
+
+<td>文字とウィンドウのボーダーの間の距離をピクセル単位で指定します。 デフォルトは 2 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>jumpScroll</strong> (<strong>JumpScroll</strong> クラス)</td>
+
+<td>高速スクロールを使用するかどうかを指定します。 デフォルト値は True です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>loginShell</strong> (<strong>LoginShell</strong> クラス)</td>
+
+<td>シェルが当該ウィンドウ内でログイン・シェルとして始動するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>marginBell</strong> (<strong>MarginBell</strong> クラス)</td>
+
+<td>ユーザーが右マージン近くまで入力したときにベルを鳴らすかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>multiClickTime</strong> (<strong>MultiClickTime</strong> クラス)</td>
+
+<td>マルチクリック選択イベント間の最大時間をミリ秒単位で指定します。 デフォルトは 250 ミリ秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>multiScroll</strong> (<strong>MultiScroll</strong> クラス)</td>
+
+<td>非同期でスクロールを行うかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>nMarginBell</strong>(<strong>カラム</strong>クラス)</td>
+
+<td>マージン・ベルを鳴らす (使用可能であれば) 右マージンからの文字数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>pointerColor</strong> (クラス <strong>Foreground</strong>)</td>
+
+<td>ポインターのフォアグラウンド・カラーを指定します。 デフォルトは <strong>XtDefaultForeground</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>pointerColorBackground</strong>(クラス<strong>Background</strong>)</td>
+
+<td>ポインターのバックグラウンド・カラーを指定します。 デフォルトは <strong>XtDefaultBackground</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>pointerShape</strong> (クラス <strong>Cursor</strong>)</td>
+
+<td>ポインターの形状の名前を指定します。 デフォルトは <strong>xterm</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>resizeGravity</strong> (<strong>ResizeGravity</strong> クラス)</td>
+
+<td>ウィンドウのサイズを大きくしたり小さくしたりするときの動作に影響します。<strong> NorthWest</strong> は、画面上のテキストの最上行を固定することを指定します。 ウィンドウを短くした場合、行は最下部から消えていきます。ウィンドウを長くした場合、ブランク行が最下部に追加されます。<p>これは、MIT バージョン X11R4の動作と互換性があります。<strong> SouthWest</strong> (デフォルト) は、画面上のテキストの最下行を固定したままにすることを指定します。 ウィンドウを長くした場合、スクロールで画面から消えて保管されていた行がスクリーンに戻ってきます。ウィンドウを短くした場合、行は画面の最上部から消えていき、最上部の保管された行はドロップされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>reverseVideo</strong> (<strong>ReverseVideo</strong> クラス)</td>
+
+<td>反転表示をシミュレートするかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>reverseWrap</strong> (<strong>ReverseWrap</strong> クラス)</td>
+
+<td>逆循環を使用するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>saveLines</strong> (<strong>SaveLines</strong> クラス)</td>
+
+<td>スクロール・バーがオンになっているとき、画面の上から消えていく行の保管される行数を指定します。 デフォルトは 64 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>scrollBar</strong> (クラス <strong>ScrollBar</strong>)</td>
+
+<td>スクロール・バーを表示するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>scrollTtyOutput</strong>(クラス<strong>ScrollCond</strong>)</td>
+
+<td>端末へ出力すると、スクロール・バーが自動的にスクロール領域の最下部に移動するかどうかを指定します。 デフォルト値は True です。</td>
+
+</tr>
+
+<tr>
+<td><strong>scrollKey</strong> (クラス <strong>ScrollCond</strong>)</td>
+
+<td>キーを押すと、スクロール・バーが自動的にスクロール領域の最下部に移動するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>scrollLines</strong> (<strong>ScrollLines</strong> クラス)</td>
+
+<td><strong>scroll-back</strong> および <strong>scroll-forw</strong> アクションがデフォルトとして使用する行数を指定します。 デフォルト値は 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>signalInhibit</strong> (<strong>SignalInhibit</strong> クラス)</td>
+
+<td>「Main Options (メイン・オプション)」メニュー内の <strong>xterm</strong> へシグナルを送信するエントリーを禁止するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekGeometry</strong> (クラス <strong>Geometry</strong>)</td>
+
+<td>Tektronix ウィンドウに適したサイズと位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekInhibit</strong> (<strong>TekInhibit</strong> クラス)</td>
+
+<td>Tektronix モードに入るエスケープ・シーケンスを無視するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekSmall</strong> (<strong>TekSmall</strong> クラス)</td>
+
+<td>形状が明示的に指定されていない場合に、Tektronix モード・ウィンドウを最小のサイズで始動するかどうかを指定します。 これは画面の小さいディスプレイ上で <strong>xterm</strong> コマンドを実行するのに便利です。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekStartup</strong> (<strong>TekStartup</strong> クラス)</td>
+
+<td><strong>xterm</strong> を Tektronix モードで始動するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+<tr>
+<td><strong>titeInhibit</strong> (<strong>TiteInhibit</strong> クラス)</td>
+
+<td><strong>xterm</strong> が <strong>TERMCAP</strong> 文字列から、<strong>ti</strong> および <strong>te</strong> の <strong>termcap</strong> ファイル・エントリー (多数の画面指向プログラムの始動中に代替画面間を切り替えるのに使用するエントリー) を除去するかどうかを指定します。 このリソースが設定されていると、<strong>xterm</strong> コマンドは代替画面に切り替えるためのエスケープ・シーケンスも無視します。</td>
+
+</tr>
+
+<tr>
+<td><strong>translation</strong> ( <strong>Translations</strong>クラス)</td>
+
+<td>メニュー、選択、プログラムされた文字列などに対するキーとボタンの割り当てを指定します。 詳しくは、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__actions" target="_blank" rel="noopener noreferrer">アクション</a>」を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>visualBell</strong> (<strong>VisualBell</strong> クラス)</td>
+
+<td>Ctrl+G キー・シーケンス・シグナルを受信したとき、ベル音を鳴らす代わりに、
+ビジュアル・ベル (明滅) を使用するかどうかを指定します。 デフォルトは False です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>下記のリソースは、<strong>tek4014</strong> ウィジェット (<strong>Tek4014</strong> クラス) の一部として指定します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>width</strong> (クラス <strong>Width</strong>)</td>
+
+<td>Tektronix ウィンドウの幅をピクセル単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>height</strong> (クラス <strong>高さ</strong>)</td>
+
+<td>Tektronix ウィンドウの高さをピクセル単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>fontLarge</strong> (クラス <strong>Font</strong>)</td>
+
+<td>Tektronix ウィンドウで使用するラージ・フォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font2</strong> (クラス <strong>Font</strong>)</td>
+
+<td>Tektronix ウィンドウで使用するフォント番号 2 を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font3</strong> (クラス <strong>Font</strong>)</td>
+
+<td>Tektronix ウィンドウで使用するフォント番号 3 を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>fontSmall</strong> (クラス <strong>Font</strong>)</td>
+
+<td>Tektronix ウィンドウで使用するスモール・フォントを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>initialFont</strong> (<strong>InitialFont</strong> クラス)</td>
+
+<td>4 つの Tektronix フォントの中から最初に使用するフォントを指定します。 値は <strong>set-tek-text</strong> アクションのものと同じです。 デフォルトはラージ・フォントです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ginTerminator</strong> (<strong>GinTerminator</strong> クラス)</td>
+
+<td>GIN 報告または状況報告の後に続く文字を指定します。 指定可能なのは次の 3 つです。「none」は終端文字を何も送信しません。「CRonly」は CR を
+送信します。「CR&amp;EOT」は CR と EOT を送信します。 デフォルトは none です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>さまざまなメニューに指定するリソースについては、<strong>Athena</strong><strong> SimpleMenu</strong> ウィジェットに関する資料を参照してください。 下記のリストは、各メニューのエントリーに対する名前とクラスです。</p>
+ <p>「mainMenu」には、下記のエントリーがあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>securekbd</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>secure()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>allowsend</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>allow-send-events(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>redraw</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>redraw()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>line1</strong> (クラス <strong>SmeLine</strong>)</td>
+
+<td>セパレーターです。</td>
+
+</tr>
+
+<tr>
+<td><strong>suspend</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td>ジョブ制御をサポートするシステム上で <strong>send-signal(tstp)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>continue</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td>ジョブ制御をサポートするシステム上で <strong>send-signal(cont)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>interrupt</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>send-signal(int)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>hangup</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>send-signal(hup)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>terminate</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>send-signal(term)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>kill</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>send-signal(kill)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>line2</strong> (クラス <strong>SmeLine</strong>)</td>
+
+<td>セパレーターです。</td>
+
+</tr>
+
+<tr>
+<td><strong>quit</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>quit()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>「vtMenu」には、下記のエントリーがあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>scrollbar</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-scrollbar(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>jumpscroll</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-jumpscroll(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>reversevideo</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-reverse-video(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>autowrap</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-autowrap(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>reversewrap</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-reversewrap(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>autolinefeed</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-autolinefeed(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>appcursor</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-appcursor(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>appkeypad</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-appkeypad(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>scrollkey</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-scroll-on-key(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>scrollttyoutput</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-scroll-on-tty-output(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>allow132</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-allow132(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>cursesemul</strong> (クラス <strong>SmeBSB</strong>)<strong></strong></td>
+
+<td><strong>set-cursesemul(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>visualbell</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-visualbell(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>marginbell</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-marginbell(toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>altscreen</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td>このエントリーは現在使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>line1</strong> (クラス <strong>SmeLine</strong>)</td>
+
+<td>セパレーターです。</td>
+
+</tr>
+
+<tr>
+<td><strong>softreset</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>soft-reset()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>hardreset</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>hard-reset()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>clearsavedlines</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>clear-saved-lines()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>line2</strong> (クラス <strong>SmeLine</strong>)</td>
+
+<td>セパレーターです。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekshow</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-visibility(tek,toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekmode</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-terminal-type(tek)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>vthide</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-visibility(vt,off)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>「fontMenu」には、下記のエントリーがあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>fontdefault</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(d)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font1</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(1)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font2</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(2)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font3</strong> (クラス<strong> SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(3)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font4</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(4)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font5</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(5)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>font6</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(6)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>fontescape</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(e)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>fontsel</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-vt-font(s)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>「tekMenu」には、下記のエントリーがあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>tektextlarge</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-tek-text(l)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tektext2</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-tek-text(2)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tektext3</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-tek-text(3)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tektextsmall</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-tek-text(s)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>line1</strong> (クラス <strong>SmeLine</strong>)</td>
+
+<td>セパレーターです。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekpage</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>tek-page()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekreset</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>tek-reset()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekcopy</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>tek-copy()</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>line2</strong> (クラス <strong>SmeLine</strong>)</td>
+
+<td>セパレーターです。</td>
+
+</tr>
+
+<tr>
+<td><strong>vtshow</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-visibility(vt,toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>vtmode</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-terminal-type(vt)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>tekhide</strong> (クラス <strong>SmeBSB</strong>)</td>
+
+<td><strong>set-visibility(tek,toggle)</strong> アクションを呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>下記のリソースは、<strong>Athena</strong><strong> Scrollbar</strong> ウィジェットを指定するときに使用します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>thickness</strong> (<strong>Thickness</strong> クラス)</td>
+
+<td>スクロール・バーの幅をピクセル単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>background</strong> (クラス <strong>Background</strong>)</td>
+
+<td>スクロール・バーのバックグラウンドに使用する色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>foreground</strong> ( <strong>Foreground</strong>クラス)</td>
+
+<td>スクロール・バーのフォアグラウンドに使用する色を指定します。 スクロール・バーの<em>つまみ</em> は、フォアグラウンド・カラーとバックグラウンド・カラーがピクセルごとに交互に並んだ単純なパターンです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ポインターの使用方法</h2> <p>VT102 ウィンドウを作成した後、<strong>xterm</strong> コマンドを使用して、テキストを選択し、同一ウィンドウまたは異なるウィンドウにそれをコピーすることができます。</p>
+ <p>選択機能が呼び出されるのは、ポインター・ボタンを修飾子を付けずに使用したとき、および Shift キーを押しながらポインター・ボタンを使用したときです。 キーおよびボタンへの機能の割り当ては、リソース・データベースで変更することができます。</p>
+ <p>ポインター・ボタン 1 (通常は左ボタン) は、テキストをカット・バッファーに保管するのに使用します。 テキストの最初にカーソルを移動し、そこでボタンを押して、ボタンを押したまま、選択したい領域の最後までカーソルを移動し、そこでボタンを離します。 選択されたテキストは強調表示され、グローバル・カット・バッファーに保管され、ボタンを離したときに PRIMARY 選択が作成されます。</p>
+ <p>ダブルクリックするとワードを、3 回クリックすると行を選択できます。4 回クリックすると元 (文字) に戻ります。 マルチクリックは、ボタンを離してからボタンを押し下げるまでの時間によって決まります。したがって、選択の途中で選択の単位を変更することができます。 キーまたはボタンの割り当てによって X 選択の作成が指定される場合、<strong>xterm</strong> コマンドは選択のオーナーである限り、選択されたテキストを強調表示したままにします。</p>
+ <p>ポインター・ボタン 2 (通常は中央のボタン) は、PRIMARY 選択にテキストがあればそれを、「タイプ」(ペースト) します。PRIMARY 選択にテキストがない場合、カット・バッファーからキーボード入力として挿入します。</p>
+ <p>ポインター・ボタン 3 (通常は右ボタン) は、現在の選択を拡張します。 選択の左端より右端に近いところでこのボタンを押すと、選択の右側を拡張または縮小します。 選択を右側から縮小していき、選択の左端に達すると、<strong>xterm</strong> コマンドは選択の左端を拡張するものと認識し、選択を元の状態に戻し、選択の左端を拡張または縮小します。</p>
+ <p>その逆も適用されます。選択の右端より左端に近いところでこのボタンを押すと、選択の左側を拡張または縮小します。 選択の左側から縮小していき、選択の右端に達すると、<strong>xterm</strong> コマンドは選択の右端を拡張するものと認識し、
+選択を元の状態に戻し、選択の右端を拡張または縮小します。 拡張は、最後の選択または拡張が行われたときの選択単位モードで開始されます。マルチクリックで選択単位を変更することができます。</p>
+ <p>後書きの改行がないテキストをカット・アンド・ペーストすることによって、異なるウィンドウの複数の場所からテキストを取り出し、例えば、シェルへのコマンドを形成したり、プログラムの出力を取り出して好きなエディターの中に挿入したりすることができます。 カット・バッファーはさまざまなアプリケーション間でグローバルに共有されるため、内容が分かっている <span>“</span>ファイル<span>”</span> として認識してください。 端末エミュレーターおよび他のテキスト・プログラムでは、カット・バッファーをテキスト・ファイルとして扱います。つまりテキストは改行で区切られます。</p>
+ <p>スクロール領域には、現在ウィンドウに表示されている (強調表示されている) テキストについて、実際に保管されているテキストに対する相対的な位置と量が表示されます。 より多く (最大まで) のテキストを保管するに従い、強調表示された領域のサイズは小さくなります。</p>
+ <p>スクロール領域にポインターを合わせてボタン 1 をクリックすると、隣接する行をディスプレイ・ウィンドウの最上部に移動します。</p>
+ <p>ボタン 3 をクリックすると、ディスプレイ・ウィンドウの最上部の行をポインターの位置まで下げます。</p>
+ <p>ボタン 2 をクリックすると、スクロール・バーのポインターの位置に対応する、保管されたテキストの位置にディスプレイを移動します。</p>
+ <p>VT102 ウィンドウと異なり、Tektronix ウィンドウではテキストのコピーはできません。 Tektronix GIN モードでは可能ですが、このモードではカーソルが矢印から十字に変わります。 どれかキーを押すと、そのキーと十字カーソルの現在の座標が送信されます。 ボタン 1、2、3 をそれぞれクリックすると、おのおの文字 l、m、r が戻されます。テキストのコピーはできません。</p>
+ <p>Shift キーを押しながらポインター・ボタンを押すと、それぞれに対応する大文字が送信されます。 ポインター・ボタンとキーを区別するために、文字の高位ビットが設定されます (ただし、端末モードが RAW でない限り、このビットは通常ストリップされます。詳細については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tty.html" target="_blank" rel="noopener noreferrer"><strong>tty</strong></a> コマンドを参照してください)。</p>
+</section>
+
+<section><h2>メニュー</h2> <p><strong>xterm</strong> コマンドには、4 つのメニューがあります。
+「mainMenu」、「vtMenu」、「fontMenu」、および「tekMenu」です。 各メニューは、
+キーとボタンを正しく組み合わせて押すと開きます。 ほとんどのメニューは、横線で 2 つの部分に分けられています。 上半分には変更できる各種モードが入っています。 現在アクティブなモードの隣にチェック・マークが表示されます。 モードを 1 つ選択すると、その状態が切り替わります。 メニューの下半分にはコマンド・エントリーが入っています。コマンド・エントリーを 1 つ選択すると、選択された機能が実行されます。</p>
+ <p>ウィンドウ内で Ctrl キーを押しながらポインター・ボタン 1 を押すと、
+「xterm」メニューが開きます。 「mainMenu」には、VT102 および Tektronix ウィンドウの両方に適用される項目が入っています。 <strong>Secure Keyboard</strong> モードは、パスワードを入力したり、セキュリティーが整備されていない環境で重要なデータを入力したりするときに使用されます。</p>
+ <p>メニューのコマンド・セクション内で注目すべきエントリーは、
+「<strong>Continue</strong>」、「<strong>Suspend</strong>」、「<strong>Interrupt</strong>」、
+「<strong>Hangup</strong>」、「<strong>Terminate</strong>」、「<strong>Kill</strong>」です。
+それぞれ「<strong>SIGCONT</strong>」、「<strong>SIGTSTP</strong>」、「<strong>SIGINT</strong>」、
+「<strong>SIGHUP</strong>」、「<strong>SIGTERM</strong>」、「<strong>SIGKILL</strong>」シグナルを、
+<strong>xterm</strong> (通常はシェル) 下で実行中のプロセスのプロセス・グループに送信します。 <strong>Continue</strong> 機能は、ユーザーが誤って Ctrl+Z を押してプロセスを中断してしまったときに特に便利です。</p>
+ <p>「vtMenu」は、VT102 エミュレーションのさまざまなモードを設定します。
+このメニューは、VT102 ウィンドウ内で Ctrl キーを押しながらポインター・ボタン 2 を押すと開かれます。 このメニューのコマンド・セクションにおいて、「soft reset」エントリーはスクロール領域をリセットします。 この機能は、あるプログラムでスクロール領域が間違って設定されたままになっている場合に、特に便利です (VMS や TOPS-20 を使っているときにしばしば発生する問題です)。</p>
+ <p>「full reset」エントリーは、画面を消去し、タブを 8 桁ごとにリセットし、端末モード (循環や低速スクロールなど) を、<strong>xterm</strong> コマンドがコマンド・ライン・オプションを処理し終えた直後の初期状態にリセットします。</p>
+ <p>「fontMenu」は、VT102 ウィンドウで使用するフォントを設定します。 デフォルト・フォントと、リソースで設定されるいくつかの代替フォントに加えて、メニューには、Set Font エスケープ・シーケンスで最後に指定されたフォントが用意されています (以下を参照してください)。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__control" target="_blank" rel="noopener noreferrer">制御シーケンス</a>") フォント名としての現在の選択 (PRIMARY 選択が所有されている場合)。</p>
+ <p>「tekMenu」は、Tektronix エミュレーションのさまざまなモードを設定します。
+このメニューは、Ctrl キーを押しながらポインター・ボタン 2 を押すと開かれます。 このメニューのモード・セクションでは、現在選択されているフォント・サイズが検査されています。 コマンド・セクションの「<strong>PAGE</strong>」エントリーは、「Tektronix」ウィンドウを消去します。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>X-Window 環境には、さまざまな種類のセキュリティーがあります。 MIT サーバーは、<strong>xdm</strong> 下で実行され、
+多くの人に納得のいくセキュリティー・レベルを提供する「<em>magic cookie</em>」許可スキームを使用することができます。 ご使用のサーバーがサーバーへのアクセスを制御するためにホスト・ベースのメカニズムのみを使用している場合 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xhost.html#xhost" target="_blank" rel="noopener noreferrer"><strong>xhost</strong></a> コマンドを参照)、ホストへのアクセスを有効にすると、他のユーザーもその同じホスト上でクライアントを実行することが許可されると、アクティビティーをスヌープするために X プロトコルの基本サービスを使用するアプリケーションを実行できる可能性があります。 キーボードで入力したすべてのもののトランスクリプトをキャプチャーする可能性があります。</p>
+ <p>これは、パスワードや他の重要なデータを入力するときに特に関係してきます。 この問題に対する最善の解決方法は、ホスト・ベース制御より安全性の高い許可機構を使用することですが、<strong>xterm</strong> コマンドの中には、キーボード入力を保護するための簡単な機構があります。</p>
+ <p>xterm メニューには、 <strong>「セキュア・キーボード (Secure Keyboard)」</strong> 項目が含まれています。この項目を使用可能にすると、すべてのキーボード入力が ( <strong>GrabKeyboard</strong> プロトコル要求を使用して) <strong>xterm</strong> コマンドに <em>のみ</em> 送信されるようになります。 アプリケーションがパスワード (またはその他の重要なデータ) の入力を要求するプロンプトを表示したときに、メニューを使って <strong>Secure Keyboard</strong> を使用可能にし、データを入力し、最後に、もう一度メニューを使って <strong>Secure Keyboard</strong> を使用不可にします。</p>
+ <p>一度にキーボードを保護できる X クライアントは 1 つだけなので、<strong>Secure Keyboard</strong> を使用可能にしようとしても失敗することもあります。 このような場合、ベルが鳴ります。 「<strong>Secure Keyboard</strong>」が成功すると、フォアグラウンド・カラーとバックグラウンド・カラーが入れ替わります (「Modes (モード)」メニューの「<strong>Reverse Video</strong>」エントリーを選択したときと同じようになります)。「Secure Keyboard」を終了すると、再び色は入れ替わります。 色が<em>切り替わらなかった</em> 場合は、スプーフィングされている可能性を<em>疑って</em> ください。</p>
+ <p>ユーザーが実行しているアプリケーションがパスワードの入力を求める前にプロンプトを表示する場合、そのプロンプトが表示される<em>前</em> に Secure モードにしておくのが一番安全です。つまり、そのプロンプトが正しく (つまり、反転された色で) 表示されているかどうかを確認するようにすれば、盗まれる可能性は最小限に抑えられます。 また、もう一度メニューを出し、
+エントリーの隣にチェック・マークが表示されていることを確認することもできます。</p>
+ <p><strong>セキュア・キーボード</strong> ・モードは、xterm ウィンドウがアイコン化 (またはマップ解除) された場合、または <strong>セキュア・キーボード</strong> ・モードのときにウィンドウ・マネージャーの親を再設定 (タイトル・バーまたはその他の装飾をウィンドウの周囲に配置) した場合は、自動的に使用不可になります。 (これは、容易には克服できない X プロトコルの機能です。) このような状態が発生した場合、フォアグラウンド・カラーとバックグラウンド・カラーが元の状態に入れ替わり、警告のベルが鳴ります。</p>
+</section>
+
+<section><h2>文字クラス</h2> <p>マウスの中央のボタンを 2 回連続で素早くクリックすると、同じクラスのすべての文字 (文字、ホワイト・スペース、句読点) が選択されます。 人によって選択したいものが異なるため (例えば、ファイル名全体を選択するか、または個別のサブネームだけ選択するかなど)、
+デフォルトのマッピングは <strong>charClass</strong> (<strong>CharClass</strong> クラス) リソースを使って指定変更することができます。</p>
+ <p>このリソースは、
+<em>範囲</em>: <em>値</em> という対がコンマで区切られて連なったものです。 <em>範囲</em>は、設定する文字の ASCII コードに対応する 0 から 127 までの数字で、1 つの場合はその数字を、
+範囲を示す場合は<em>小さい数字 (low)</em>-<em>大きい数字 (high)</em> というフォーマットで指定します。 <em>値</em> は任意ですが、デフォルト・テーブルはリスト内で発生する最初の文字の文字番号を使います。</p>
+ <p>デフォルトのテーブルは下記のとおりです。</p>
+ <div> <div><div><pre><code>static int charClass[128] = {
+/* NUL  SOH  STX  ETX  EOT  ENQ  ACK  BEL */
+    32,   1,   1,   1,   1,   1,   1,   1,
+/*  BS   HT   NL   VT   NP   CR   SO   SI */
+     1,  32,   1,   1,   1,   1,   1,   1,
+/* DLE  DC1  DC2  DC3  DC4  NAK  SYN  ETB */
+     1,   1,   1,   1,   1,   1,   1,   1,
+/* CAN   EM  SUB  ESC   FS   GS   RS   US */
+     1,   1,   1,   1,   1,   1,   1,   1,
+/*  SP    !    "    #    $    %    &amp;    ' */
+    32,  33,  34,  35,  36,  37,  38,  39,
+/*   (    )    *    +    ,    -    .    / */
+    40,  41,  42,  43,  44,  45,  46,  47,
+/*   0    1    2    3    4    5    6    7 */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   8    9    :    ;    &lt;    =    &gt;    ? */
+    48,  48,  58,  59,  60,  61,  62,  63,
+/*   @    A    B    C    D    E    F    G */
+    64,  48,  48,  48,  48,  48,  48,  48,
+/*   H    I    J    K    L    M    N    O */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   P    Q    R    S    T    U    V    W */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   X    Y    Z    [    \    ]    ^    _ */
+    48,  48,  48,  91,  92,  93,  94,  48,
+/*   `    a    b    c    d    e    f    g */
+    96,  48,  48,  48,  48,  48,  48,  48,
+/*   h    i    j    k    l    m    n    o */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   p    q    r    s    t    u    v    w */
+    48,  48,  48,  48,  48,  48,  48,  48,
+/*   x    y    z    {    |    }    ~  DEL */
+    48,  48,  48, 123, 124, 125, 126,   1};</code></pre></div><div></div></div></div>
+ <p>例えば次のようなストリングがあるとします。33:48,37:48,45-47:48,64:48感嘆符、パーセント記号、ダッシュ、ピリオド、スラッシュ、および &amp; 文字を、文字および数字と同じように扱う必要があることを示します。 これは、電子メールのアドレスやファイル名をカット・アンド・ペーストするときに便利です。</p>
+</section>
+
+<section><h2>アクション</h2> <p><strong>vt100</strong> または <strong>tek4014</strong> ウィジェットの変換を変更することにより、キー (またはキーのシーケンス) を任意の文字列の入力用に再度割り当てることができます。 キーおよびボタン・イベント以外のイベント用に変換を変更することは望ましくなく、それをすると思わぬ動作を引き起こします。 下記のアクションは、vt100 または tek4014 変換リソース内での使用のために提供されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ベル (</strong>[<em>パーセント</em>]<strong>)</strong></td>
+
+<td>基本量の指定したパーセンテージ分だけ上下した時点で、キーボード・ベルを鳴らします。</td>
+
+</tr>
+
+<tr>
+<td><strong>無視 ()</strong></td>
+
+<td>イベントを無視しますが、特殊ポインター位置のエスケープ・シーケンスを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>挿入 ()</strong></td>
+
+<td>押されたキーに関連する文字または文字列を挿入します。</td>
+
+</tr>
+
+<tr>
+<td><strong>挿入-7 ビット ()</strong></td>
+
+<td><strong>insert()</strong> の同義語です。</td>
+
+</tr>
+
+<tr>
+<td><strong>挿入-8 ビット () </strong></td>
+
+<td>押されたキーに関連する文字または文字列の 8 ビット (メタ) バージョンを挿入します。 実際のアクションは、<strong>eightBitInput</strong> リソースの値によって異なります。</td>
+
+</tr>
+
+<tr>
+<td><strong>insert-selection (</strong><em>SourceName</em> [<strong>,</strong> ...]<strong>)</strong></td>
+
+<td><em>SourceName</em> パラメーターが示す選択部分またはカット・バッファー内で検索した文字列を挿入します。 選択元は、1 つ見つかるまで指定された順番で検査されます (大文字と小文字は区別されます)。 通常使用される選択には、PRIMARY、SECONDARY、CLIPBOARD があります。 カット・バッファーは通常、CUT_BUFFER0 から CUT_BUFFER7 まであります。</td>
+
+</tr>
+
+<tr>
+<td><strong>キー・マップ (</strong><em>Name</em><strong>)</strong></td>
+
+<td>リソース名が <em>Name</em> で、接尾部が <em>Keymap</em> (大文字と小文字は区別する) の新しい変換テーブルを動的に定義します。 None という名前を指定すると、元の変換テーブルを復元します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ポップアップ・メニュー (</strong><em>MenuName</em><strong>)</strong></td>
+
+<td>指定したポップアップ・メニューを表示します。 有効な名前 (大文字と小文字は区別されます) には、「mainMenu」、「vtMenu」、「fontMenu」、「tekMenu」があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>セキュア ()</strong></td>
+
+<td>「」という名前のセクションで説明されている <strong>セキュア・キーボード</strong> ・モードを切り替えます。 「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__security" target="_blank" rel="noopener noreferrer">Security</a>」。 mainMenuの <strong>securekbd</strong> エントリーから呼び出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>選択開始 ()</strong></td>
+
+<td>現在のポインターの位置からテキストの選択を開始します。 以下のタイトルのセクションを参照してください。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__point" target="_blank" rel="noopener noreferrer">ポインターの使用法</a>」を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>選択拡張 ()</strong></td>
+
+<td>ポインターをトラッキングし、選択部分を拡張します。 これは Motion イベントにのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>選択終了 (</strong><em>DestName</em> [<strong>,</strong> ...]<strong>)</strong></td>
+
+<td>現在選択しているテキストを、<em>DestName</em> で指定したすべての選択部分またはカット・バッファーへ入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>カーソル開始 (select-cursor-start ())</strong></td>
+
+<td>現在のテキスト・カーソル位置から選択を開始する点を除いて、<strong>select-start</strong> に似ています。</td>
+
+</tr>
+
+<tr>
+<td><strong>select-cursor-end(</strong><em>
+DestName</em> [<strong>,</strong> ...]<strong>)</strong></td>
+
+<td><strong>select-cursor-start</strong> と一緒に使用する必要があることを除いて、<strong>select-end</strong> に似ています。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-vt-font(</strong><em>
+d/1/2/3/4/5/6/e/s</em> [<strong>,</strong><em>NormalFont
+</em> [<strong>,</strong><em> BoldFont</em>]]<strong>
+)</strong></td>
+
+<td>現在 VT102 ウィンドウで使用中のフォントを設定します。 最初の引数は、使用するフォントを指定する単一文字です。<p><em>d</em> または <em>D</em> は、デフォルトのフォント (<strong>xterm</strong> コマンド始動時に使用される初期フォント) を示します。</p>
+ <p><em>1</em> から <em>6</em> までの数字は、<em>font1</em> から <em>font6</em> までのリソースで指定したフォントを示します。</p>
+ <p><em>e</em> または <em>E</em> は、エスケープ・コードを通じて設定された通常のフォントと太字フォントを示します (通常のフォントは 2 番目のアクション引数で、太字フォントは 3 番目のアクション引数でも指定することができます)。</p>
+ <p><em>s</em> または <em>S</em> は、2 番目のアクション引数で指定されたフォント選択 (<strong>xfontsel</strong> などのプログラムで作成された) を示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>拡張開始 ()</strong></td>
+
+<td><strong>select-start</strong> に似ていますが、現在のポインター位置に選択部分が展開されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>開始カーソル拡張 () (start-cursor-extend ())</strong></td>
+
+<td><strong>select-extend</strong> に似ていますが、現在のテキスト・カーソル位置に選択部分が展開されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ストリング (</strong><em>String</em><strong>)</strong></td>
+
+<td>入力されたかのように、指定したテキスト文字列を挿入します。 文字列にホワイト・スペース、非英数字などの文字が入っている場合は、引用符で囲む必要があります。 文字列引数が「0x」文字で始まる場合、その文字列は 16 進の文字定数と解釈されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>スクロールバック (</strong><em>カウント</em> [<strong>,</strong><em>単位</em>]<strong>)</strong></td>
+
+<td>テキスト・ウィンドウを上方にスクロールし、以前スクロールして画面最上部から消えたテキストを表示します。 <em>Count</em> 引数は、スクロールの<em>単位</em> (<em>page</em>、<em>halfpage</em>、<em>pixel</em>、<em>line</em> のいずれか) を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>scroll-forw (</strong><em>Count</em> [<strong>,</strong><em>Units</em>]<strong>)</strong></td>
+
+<td><strong>scroll-back</strong> に似ていますが、スクロールの方向が逆です。</td>
+
+</tr>
+
+<tr>
+<td><strong>allow-send-events (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>allowSendEvents</strong> リソースを設定または切り替えます。
+これは、「mainMenu」の「<strong>allowsends</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>再描画 ()</strong></td>
+
+<td>ウィンドウを再描画します。これは、「mainMenu」の「<strong>redraw</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>送信シグナル (</strong><em>SigName</em><strong>)</strong></td>
+
+<td><em>SigName</em> で指定されたシグナルを <strong>xterm</strong> サブプロセス (<em>-</em><strong>e</strong> コマンド・ライン・オプションで
+指定したシェルまたはプログラム) へ送信します。
+これは、「mainMenu」の「<strong>suspend</strong>」、「<strong>continue</strong>」、「<strong>interrupt</strong>」、「<strong>hangup</strong>」、「<strong>terminate</strong>」、「<strong>kill</strong>」エントリーから呼び出すこともできます。 使用できるシグナルの名前 (大/小文字を問わない) は、以下のとおりです。<dl>
+<dt>「<strong>tstp</strong>」(オペレーティング・システムがサポートしている場合)、</dt>
+
+<dd></dd>
+
+
+<dt>「<strong>suspend</strong>」(<strong>tstp</strong> と同じ)、</dt>
+
+<dd></dd>
+
+
+<dt>「<strong>cont</strong>」(オペレーティング・システムがサポートしている場合)、</dt>
+
+<dd></dd>
+
+
+<dt><strong>int</strong>、</dt>
+
+<dd></dd>
+
+
+<dt><strong>hup</strong>、</dt>
+
+<dd></dd>
+
+
+<dt><strong>term</strong>、</dt>
+
+<dd></dd>
+
+
+<dt><strong>quit</strong>、</dt>
+
+<dd></dd>
+
+
+<dt><strong>alrm</strong>、</dt>
+
+<dd></dd>
+
+
+<dt>「<strong>alarm</strong>」(「<strong>alrm</strong>」と同じ)、および</dt>
+
+<dd></dd>
+
+
+<dt><strong>kill</strong>。</dt>
+
+<dd></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>終了 ()</strong></td>
+
+<td><strong>SIGHUP</strong> をサブプログラムへ送信し、終了します。 これは、「mainMenu」の「<strong>quit</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>set-scrollbar (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>scrollbar</strong> リソースを切り替えます。
+これは、「vtMenu」の「<strong>scrollbar</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-jumpscroll (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>jumpscroll</strong> リソースを切り替えます。
+これは、「vtMenu」の「<strong>jumpscroll</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-reverse-video (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>reverseVideo</strong> リソースを切り替えます。
+これは、「vtMenu」の「<strong>reversevideo</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-autowrap (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td>長い行の自動折り返しを切り替えます。これは、「vtMenu」の「<strong>autowrap</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-reversewrap (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>reverseWrap</strong> リソースを切り替えます。
+これは、「vtMenu」の「<strong>reversewrap</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-autolinefeed (</strong><em>オン/オフ/切り替え</em><strong>)</strong></td>
+
+<td>改行の自動挿入を切り替えます。これは、「vtMenu」の「<strong>autolinefeed</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-appcursor (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td>アプリケーション・カーソル・キー・モードの処理を切り替えます。
+これは、「vtMenu」の「<strong>appcursor</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-appkeypad (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td>アプリケーション・キーパッド・モードの処理を切り替えます。これは、「vtMenu」の「<strong>appkeypad</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-scroll-on-key (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>scrollKey</strong> リソースを切り替えます。これは、「vtMenu」の「<strong>scrollkey</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-scroll-on-tty-output (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>scrollTtyOutput</strong> リソースを切り替えます。これは、「vtMenu」の「<strong>scrollttyoutput</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-allow132 (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>c132</strong> リソースを切り替えます。これは、「vtMenu」の「<strong>allow132</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-cursesemul (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>curses</strong> リソースを切り替えます。これは、「vtMenu」の「<strong>cursesemul</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-visual-bell (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>visualBell</strong> リソースを切り替えます。
+これは、「vtMenu」の「<strong>visualbell</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-marginbell (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td><strong>marginBell</strong> リソースを切り替えます。
+これは、「vtMenu」の「<strong>marginbel</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-altscreen (</strong><em>オン/オフ/トグル</em><strong>)</strong></td>
+
+<td>代替画面と現行画面を切り替えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ソフト・リセット ()</strong></td>
+
+<td>スクロール領域をリセットします。これは、「vtMenu」の「<strong>softreset</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ハード・リセット ()</strong></td>
+
+<td>スクロール領域、タブ、ウィンドウ・サイズ、カーソル・キーをリセットし、画面をクリアします。 このアクションは、「vtMenu」の「<strong>hardreset</strong>」エントリーからでも呼び出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>保管された行の消去 ()</strong></td>
+
+<td><strong>hard-reset</strong> (上記のエントリーを参照) を実行し、
+スクリーンの上部から見えなくなった、保存された行のヒストリーをクリアします。 これは、「vtMenu」の「<strong>clearsavedlines</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-terminal-type (</strong><em>タイプ</em><strong>)</strong></td>
+
+<td><em>Type</em> 文字列に従って、出力先を vt ウィンドウ、または tek ウィンドウにします。 このアクションは、「vtMenu」の「<strong>tekmode</strong>」エントリー、
+および「tekMenu」の「<strong>vtmode</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-visibility(</strong><em>
+vt/tek</em>, <em>On/Off/Toggle</em><strong>)</strong></td>
+
+<td>vt ウィンドウまたは tek ウィンドウを表示するかどうかを制御します。 これは、「vtMenu」の「<strong>tekshow</strong>」および「<strong>vthide</strong>」エントリー、または「tekMenu」の「<strong>vtshow</strong>」および「<strong>tekhide</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>set-tek-text (</strong><em>large/2/3/small</em><strong>)</strong></td>
+
+<td>Tektronix ウィンドウで使用されるフォントを設定します。設定する値は、
+引数に従って、<strong>tektextlarge</strong>、<strong>tektext2</strong>、<strong>tektext3</strong>、<strong>tektextsmall</strong> リソースの値です。 これは、「tekMenu」のリソース名と同じエントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>テスト・ページ ()</strong></td>
+
+<td>Tektronix ウィンドウをクリアします。これは、「tekMenu」の「<strong>tekpage</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>テスト・リセット ()</strong></td>
+
+<td>Tektronix ウィンドウをリセットします。これは、「tekMenu」の「<strong>tekreset</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>テスト・コピー ()</strong></td>
+
+<td>現行ウィンドウの内容を生成するために使用されるエスケープ・コードを、
+<strong>COPY</strong> という名前で始まる現行ディレクトリー内のファイルへコピーします。 これは、「tekMenu」の「<strong>tekcopy</strong>」エントリーから呼び出すこともできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>ビジュアル・ベル ()</strong></td>
+
+<td>ウィンドウを素早く点滅させます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>Tektronix ウィンドウには、下記のアクションもあります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ジン・プレス (</strong><em>l/L/m/M/r/R</em><strong>)</strong></td>
+
+<td>指定されたグラフィックス入力コードを送信します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>VT102 ウィンドウにおけるデフォルトの割り当ては、下記のとおりです。</p>
+ <div> <div><div><pre><code>Shift &lt;KeyPress&gt; Prior:     scroll-back(1,halfpage) \n\
+Shift &lt;KeyPress&gt; Next:      scroll-forw(1,halfpage) \n\
+Shift &lt;KeyPress&gt; Select:    select-cursor-start \
+                            select-cursor-end(PRIMARY,
+                            CUT_BUFFER0) \n\
+Shift &lt;KeyPress&gt; Insert:    insert-selection(PRIMARY,
+                            CUT_BUFFER0) \n\
+~Meta&lt;KeyPress&gt;:            insert-seven-bit \n\
+Meta&lt;KeyPress&gt;:             insert-eight-bit \n\
+!Ctrl &lt;Btn1Down&gt;:           pop-up menu(mainMenu) \n\
+!Lock Ctrl &lt;Btn1Down&gt;:      pop-up menu(mainMenu) \n\
+~Meta &lt;Btn1Down&gt;:           select-start \n\
+~Meta &lt;Btn1Motion&gt;:         select-extend \n\
+!Ctrl &lt;Btn2Down&gt;:           pop-up menu(vtMenu) \n\
+!Lock Ctrl &lt;Btn2Down&gt;:      pop-up menu(vtMenu) \n\
+~Ctrl ~Meta &lt;Btn2Down&gt;:     ignore \n\
+~Ctrl ~Meta &lt;Btn2Up&gt;:       insert-selection(PRIMARY,
+                            CUT_BUFFER0) \n\
+!Ctrl &lt;Btn3Down&gt;:           pop-up menu(fontMenu) \n\
+!Lock Ctrl &lt;Btn3Down&gt;:      pop-up menu(fontMenu) \n\
+~Ctrl ~Meta &lt;Btn3Down&gt;:     start-extend \n\
+~Meta &lt;Btn3Motion&gt;:         select-extend \n\
+&lt;BtnUp&gt;:                    select-end(PRIMARY, CUT_BUFFER0) \n\
+&lt;BtnDown&gt;:                  bell(0)</code></pre></div><div></div></div></div>
+ <p>Tektronix ウィンドウにおけるデフォルトの割り当ては、下記のとおりです。</p>
+ <div> <div><div><pre><code>~Meta&lt;KeyPress&gt;:            insert-seven-bit \n\
+Meta&lt;KeyPress&gt;:             insert-eight-bit \n\
+!Ctrl &lt;Btn1Down&gt;:           pop-up menu(mainMenu) \n\
+!Lock Ctrl &lt;Btn1Down&gt;:      pop-up menu(mainMenu) \n\
+!Ctrl &lt;Btn2Down&gt;:           pop-up menu(tekMenu) \n\
+!Lock Ctrl &lt;Btn2Down&gt;:      pop-up menu(tekMenu) \n\
+Shift ~Meta&lt;Btn1Down&gt;:      gin-press(L) \n\
+~Meta&lt;Btn1Down&gt;:            gin-press(l) \n\
+Shift ~Meta&lt;Btn2Down&gt;:      gin-press(M) \n\
+~Meta&lt;Btn2Down&gt;:            gin-press(m) \n\
+Shift ~Meta&lt;Btn3Down&gt;:      gin-press(R) \n\
+~Meta&lt;Btn3Down&gt;:            gin-press(r)</code></pre></div><div></div></div></div>
+ <p>下記の例は、<strong>keymap</strong> アクションを使って、一般的なタイプ作業入力用の特殊キーを追加する例です。</p>
+ <div> <div><div><pre><code>*VT100.Translations:          #override &lt;Key&gt;F13: keymap(dbx)
+*VT100.dbxKeymap.translations:
+ \
+
+    &lt;Key&gt;F14:    keymap(None) \n\
+    &lt;Key&gt;F17:    string("next") string(0x0d) \n\
+    &lt;Key&gt;F18:    string("step") string(0x0d) \n\
+    &lt;Key&gt;F19:    string("continue") string(0x0d) \n\
+    &lt;Key&gt;F20:    string("print ")
+                 insert-selection(PRIMARY,CUT_BUFFER0)</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>Environment</h2> <p><strong>xterm</strong> コマンドは、ユーザーが作成したウィンドウのサイズに、適切な <strong>TERM</strong> および <strong>TERMCAP</strong> 環境変数を設定します。 また、<strong>DISPLAY</strong> 環境変数を使用または設定して、使用するビットマップ・ディスプレイ端末を指定します。 <strong>WINDOWID</strong> 環境変数は、xterm ウィンドウの X のウィンドウ ID 番号に設定されます。</p>
+</section>
+
+<section><h2>バグ</h2> <p>システムによっては、大きなペーストが動作しない場合があります。 これは <strong>xterm</strong> コマンドのバグではなく、そのシステムの疑似ターミナル・ドライバーのバグです。 <strong>xterm</strong> コマンドが疑似ターミナルに送ることができるペーストの大きさは、疑似ターミナルがデータを受け取る速さによりますが、書き込み操作が成功したときにその旨を示す十分な情報を戻さない疑似ターミナル・ドライバーもあります。</p>
+ <p>多くのオプションは、<strong>xterm</strong> コマンドの始動後はリセットできません。</p>
+ <p>固定幅で文字セルのフォントのみがサポートされています。</p>
+</section>
+
+<section><h2>制御シーケンス</h2> <p>このセクションでは、<strong>xterm</strong> コマンドで使用可能な制御シーケンスをリストします。</p>
+ <p><strong>定義</strong></p>
+ <p>下記の情報は、このセクションでのキー・シーケンスを解釈する方法を示しています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong><em>C</em></strong></td>
+
+<td>リテラル文字 <em>c</em></td>
+
+</tr>
+
+<tr>
+<td><strong><em>C</em></strong></td>
+
+<td>単一 (必須) 文字</td>
+
+</tr>
+
+<tr>
+<td><strong><em>P<sub>s</sub></em></strong></td>
+
+<td>1 つ以上の数字からなる、単一の数値パラメーター (通常はオプション)</td>
+
+</tr>
+
+<tr>
+<td><strong><em>P<sub>
+m</sub></em></strong></td>
+
+<td><strong>;</strong> (セミコロン) で区切られた数個の単一数値パラメーターからなる複数数値パラメーター。</td>
+
+</tr>
+
+<tr>
+<td><strong><em>P<sub>
+t</sub></em></strong></td>
+
+<td>印刷可能文字からなるテキスト・パラメーター</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>VT100 モード</strong></p>
+ <p>このセクションの制御シーケンスのほとんどは、標準 VT102 制御シーケンスですが、それ以降の DEC VT 端末からの制御シーケンス
+もあります。 サポートされていない VT102 機能の主なものは低速スクロール、縦倍角文字、明滅文字、および VT52 モードです。</p>
+ <p>スクロールバーやウィンドウサイズなど、<em>xterm</em>に依存する機能を提供するための追加制御シーケンスもある。 DEC または ISO 6429 で指定されている機能については、その機能に割り当てられているコードが括弧で囲んであります。 文字セットを指定するエスケープ・コードは、ISO 2022 で指定されています。文字セットについては、ISO 2022 関連の資料を参照してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>制御シーケンス</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>BEL</strong></td>
+
+<td>ベル (Ctrl+G)</td>
+
+</tr>
+
+<tr>
+<td><strong>BS</strong></td>
+
+<td>バックスペース (Ctrl+H)</td>
+
+</tr>
+
+<tr>
+<td><strong>TAB</strong></td>
+
+<td>水平タブ (HT) (Ctrl+l)</td>
+
+</tr>
+
+<tr>
+<td><strong>LF</strong></td>
+
+<td>改行 (LF) または改行 (NL) (Ctrl+J)</td>
+
+</tr>
+
+<tr>
+<td><strong>VT</strong></td>
+
+<td>LF と同じ垂直タブ (Ctrl+K)</td>
+
+</tr>
+
+<tr>
+<td><strong>FF</strong></td>
+
+<td>LF と同じ改ページまたは改ページ (NP) (Ctrl+L)</td>
+
+</tr>
+
+<tr>
+<td><strong>CR</strong></td>
+
+<td>復帰 (Ctrl+M)</td>
+
+</tr>
+
+<tr>
+<td><strong>SO</strong></td>
+
+<td>シフトアウト (Ctrl + N)-&gt; 代替文字セットへの切り替え: G1 文字セットを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>SI</strong></td>
+
+<td>シフトイン (Ctrl + O)-&gt; 標準文字セットへの切り替え: G0 文字セットを呼び出します (デフォルト)。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong>#</strong><strong> 8</strong></td>
+
+<td>DEC 画面検査 (DCECALN)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong><strong> (</strong> <strong><em>C</em></strong></td>
+
+<td>G0 文字セット (ISO 2022) を指定<dl>
+
+<dt><strong><em>C</em></strong> = <strong>0</strong></dt>
+
+<dd>DEC 特殊文字および線画セット</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>A</strong></dt>
+
+<dd>グレートブリテンおよび北部アイルランド連合王国 (UK)</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>B</strong></dt>
+
+<dd>アメリカ合衆国 (USASCII)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong><strong> ) </strong><strong><em>C</em></strong></td>
+
+<td>G1 文字セット (ISO 2022) を指定<dl>
+
+<dt><strong><em>C</em></strong> = <strong>0</strong></dt>
+
+<dd>DEC 特殊文字および線画セット</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>A</strong></dt>
+
+<dd>グレートブリテンおよび北部アイルランド連合王国 (UK)</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>B</strong></dt>
+
+<dd>アメリカ合衆国 (USASCII)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong><strong> * </strong><strong><em>C</em></strong></td>
+
+<td>G2 文字セット (ISO 2022) を指定<dl>
+
+<dt><strong><em>C</em></strong> = <strong>0</strong></dt>
+
+<dd>DEC 特殊文字および線画セット</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>A</strong></dt>
+
+<dd>グレートブリテンおよび北部アイルランド連合王国 (UK)</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>B</strong></dt>
+
+<dd>アメリカ合衆国 (USASCII)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong><strong> + </strong><strong><em>C</em></strong></td>
+
+<td>G3 文字セット (ISO 2022) を指定<dl>
+
+<dt><strong><em>C</em></strong> = <strong>0</strong></dt>
+
+<dd>DEC 特殊文字および線画セット</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>A</strong></dt>
+
+<dd>グレートブリテンおよび北部アイルランド連合王国 (UK)</dd>
+
+
+<dt><strong><em>C</em></strong> = <strong>B</strong></dt>
+
+<dd>アメリカ合衆国 (USASCII)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC 7
+</strong></td>
+
+<td>カーソルを保存 (DECSC)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC 8
+</strong></td>
+
+<td>カーソルを復元 (DECRC)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong></td>
+
+<td>アプリケーション・キーパッド (DECPAM)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong></td>
+
+<td>標準キーパッド (DECNM)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC D
+</strong></td>
+
+<td>索引 (IND)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC E
+</strong></td>
+
+<td>次行 (NEL)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC H
+</strong></td>
+
+<td>タブ・セット (HTS)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC M
+</strong></td>
+
+<td>逆インデクシング (RI)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC N
+</strong></td>
+
+<td>G2 文字セット (SS2) のシングル・シフト選択: 次の文字にだけ影響</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC P (ESC P) </strong></td>
+
+<td>G3 文字セット (SS2) のシングル・シフト選択: 次の文字にだけ影響。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC O</strong> <strong><em>
+P<sub>t</sub></em></strong> <strong>ESC &amp;#xa5;</strong></td>
+
+<td>装置制御文字列 (DCS)。 xterm は DCS 機能をインプリメントしません; <strong><em>P<sub>t</sub></em></strong> は無視されます。 <strong><em>P<sub>t</sub></em></strong> は印刷可能文字である必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC Z (ESC Z) </strong></td>
+
+<td>端末装置識別機構 (DECID) を戻す。 <strong>ESC [</strong> <strong><em>c</em></strong> (DA) の廃止形式です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>@</strong></td>
+
+<td>文字の <strong><em>P<sub>s</sub></em></strong> (ブランク) 文字 (デフォルト=1) を挿入 (ICH)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>A</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 回 (デフォルト=1) カーソル・アップ (CUU)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>B</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 回 (デフォルト=1) カーソル・ダウン (CUD)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>C</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 回 (デフォルト=1) カーソル・フォワード (CUF)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>D</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 回 (デフォルト=1) (CUB) カーソル・バックワード。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong> <strong>H</strong></td>
+
+<td>カーソル位置 [行; 桁] (デフォルト=1) (CUP)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>J</strong></td>
+
+<td>ディスプレイ内の消去 (ED)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 0</dt>
+
+<dd>下を消去 (デフォルト)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1</dt>
+
+<dd>上を消去</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2</dt>
+
+<dd>全消去</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>K</strong></td>
+
+<td>行の消去 (EL)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 0</dt>
+
+<dd>右に向かって消去 (デフォルト)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1</dt>
+
+<dd>左に向かって消去</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2</dt>
+
+<dd>全消去</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>L</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 行 (デフォルト=1) 追加 (IL)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>M</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 行 (デフォルト=1) 削除 (DL)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>P</strong></td>
+
+<td><strong><em>P<sub>s</sub></em></strong> 文字 (デフォルト=1) 削除 (DCH)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong><strong> T</strong></td>
+
+<td>ハイライト・マウス・トラッキングを開始します。 パラメーターは、[<em>Func</em>;<em>Startx</em>;Starty;<em>
+FirstRow</em>;<em>LastRow</em>] です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__mouse" target="_blank" rel="noopener noreferrer">マウス・トラッキング</a>を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>c</strong></td>
+
+<td>SendDevice 属性 (DA) が <strong><em>P<sub>s</sub></em></strong> 文字 (デフォルト=1) 削除 (DCH)。<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> =<strong>0</strong> または省略</dt>
+
+<dd>端末からの要求属性<dl>
+<dt>ESC [? 1; 2 c</dt>
+
+<dd>("I am a VT100 with Advanced Video Option.")</dd>
+
+</dl>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong> <strong>f</strong></td>
+
+<td>水平または垂直位置 [行; 桁] (デフォルト= [1,1]) (HVP)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>g</strong></td>
+
+<td>タブ消去 (TBC)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 0</dt>
+
+<dd>現在の列をクリア (デフォルト)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 3</dt>
+
+<dd>全消去</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>m</sub></em></strong> <strong>h</strong></td>
+
+<td>設定モード (SM)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 4</dt>
+
+<dd>挿入モード (IRM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2 0</dt>
+
+<dd>自動改行 (LNM)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>m</sub></em></strong> <strong>l</strong></td>
+
+<td>リセット・モード (RM)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 4</dt>
+
+<dd>置換モード (IRM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2 0</dt>
+
+<dd>標準改行 (LNM)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>m</sub></em></strong> <strong>m</strong></td>
+
+<td>文字属性 (SGR)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 0</dt>
+
+<dd>Nomal (デフォルト)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1</dt>
+
+<dd>太字</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4</dt>
+
+<dd>下線</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 5</dt>
+
+<dd>明滅 (太字で表示)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 7</dt>
+
+<dd>反転</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>n</strong></td>
+
+<td>デバイス状況レポート (DSR)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 5</dt>
+
+<dd>状況報告<strong>ESC [ 0 n</strong> ("OK")</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 6</dt>
+
+<dd>カーソル位置 [行; 桁] を次のとおり報告 (CPR)<strong>ESC [ r ;</strong> <em>c</em> <strong>R</strong></dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2 0</dt>
+
+<dd>自動改行 (LNM)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>;</strong> <strong><em>P<sub>s</sub></em></strong><strong> r</strong></td>
+
+<td>スクロール領域 [トップ; ボトム] (デフォルト= ウィンドウのフルサイズ) を設定 (DECSTBM)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC</strong> <strong><em>P<sub>s</sub></em></strong> <strong>x</strong></td>
+
+<td>端末パラメーターを要求 (DECREQTPARM)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC [?</strong> <strong><em>P<sub>m</sub></em></strong> <strong>h</strong></td>
+
+<td>DEC プライベート・モード (DECSET)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 1</dt>
+
+<dd>アプリケーション・カーソル・キー (DECCKM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2</dt>
+
+<dd>文字セット G0-G3 に対して USASCII を指定。 (VT102 では、これは、<strong>xterm</strong> がサポートしていない VT52 モード (DECANM) を選択します。)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 3</dt>
+
+<dd>132 桁モード (DECCOLM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4</dt>
+
+<dd>低速スクロール (DECSCLM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 5</dt>
+
+<dd>反転表示 (DECSCNM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 6</dt>
+
+<dd>オリジン・モード (DECOM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 7</dt>
+
+<dd>循環モード (DECAWM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 8</dt>
+
+<dd>オートリピート・キー (DECARM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 9</dt>
+
+<dd>ボタンを押すときにマウス X と Y を設定する。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__mouse" target="_blank" rel="noopener noreferrer">マウス・トラッキング</a>を参照してください。</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 3 8</dt>
+
+<dd>Tektronix モードを入力 (DECTEK)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 0</dt>
+
+<dd>80 &lt;-&gt; 132 モードを許可</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 1</dt>
+
+<dd><strong>curses</strong> 機能固定</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 4</dt>
+
+<dd>マージン・ベルをオンにする</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 5</dt>
+
+<dd>逆循環モード</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 7</dt>
+
+<dd>代替画面バッファーを使用 (<strong>titelnhibit</strong> リソースによって使用不可にされていない場合)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1 0 0 0</dt>
+
+<dd>ボタンを押して放すときにマウス X と Y を設定する。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xterm.html#xterm__mouse" target="_blank" rel="noopener noreferrer">マウス・トラッキング</a>を参照してください。</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1 0 0 1</dt>
+
+<dd>Hilite マウス・トラッキングを使用。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC [?</strong> <strong><em>P<sub>m</sub></em></strong> <strong>l</strong></td>
+
+<td>DEC プライベート・モード・リセット (DECRST)<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 1</dt>
+
+<dd>標準カーソル・キー (DECCKM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 3</dt>
+
+<dd>80 桁モード (DECCOLM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4</dt>
+
+<dd>ジャンプ高速スクロール (DECSCLM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 5</dt>
+
+<dd>標準ビデオ (DECSCNM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 6</dt>
+
+<dd>標準カーソル・モード (DECOM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 7</dt>
+
+<dd>非循環モード (DECAWM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 8</dt>
+
+<dd>非オートリピート・キー (DECARM)</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 9</dt>
+
+<dd>ボタンを押すときにマウス X と Y を送信しない</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 0</dt>
+
+<dd>80 &lt;-&gt; 132 モードを許可しない</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 1</dt>
+
+<dd>非 <strong>curses</strong> 機能固定</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 4</dt>
+
+<dd>マージン・ベルをオフにする</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 5</dt>
+
+<dd>非逆循環モード</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 4 7</dt>
+
+<dd>標準画面バッファーを使用</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1 0 0 0</dt>
+
+<dd>ボタンを押すときと放すときにマウス X および Y を送信しない</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1 0 0 1</dt>
+
+<dd>Hilite マウス・トラッキングを使用しない。 xxx</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC [?</strong> <strong><em>P<sub>m</sub></em></strong> <strong>r</strong></td>
+
+<td>DEC プライベート・モード値を復元する。 以前に保存された <strong><em>P<sub>s</sub></em></strong> の値が復元されます。 <strong><em>P<sub>s</sub></em></strong> 値は DECSET と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC [?</strong> <strong><em>P<sub>m</sub></em></strong> <strong>s</strong></td>
+
+<td>DEC プライベート・モード値を保存する。 <strong><em>P<sub>s</sub></em></strong> 値は DECSET と同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC]?</strong> <strong><em>P <sub>s</sub></em></strong> <strong>;</strong> <strong><em>P <sub>t</sub></em></strong> <strong>BEL</strong></td>
+
+<td>テキスト・パラメーターを設定<dl>
+<dt><strong><em>P<sub>s</sub></em></strong> = 0</dt>
+
+<dd>アイコン名とウィンドウ・タイトルを <strong><em>P<sub>t</sub></em></strong> に変更</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 1</dt>
+
+<dd>アイコン名を <strong><em>P<sub>t</sub></em></strong> に変更</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 2</dt>
+
+<dd>ウィンドウ・タイトルを <strong><em>P<sub>t</sub></em></strong> に変更</dd>
+
+
+<dt><strong><em>P<sub>s</sub></em></strong> = 5 0</dt>
+
+<dd>フォントを <strong><em>P<sub>t</sub></em></strong> に設定</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC </strong> <strong><em>P<sub>t</sub></em></strong> <strong>ESC
+&amp;#xa5;</strong></td>
+
+<td>プライベート・メッセージ (PM)。 <strong>xterm</strong> は PM 機能をインプリメントしません; <strong><em>P<sub>t</sub></em></strong> は印刷可能文字である必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC _ </strong> <strong><em>
+P<sub>t</sub></em></strong> <strong>ESC &amp;#xa5;</strong></td>
+
+<td>アプリケーション・プログラム・コマンド (APC)。 プライベート・メッセージ (PM)。 <strong>xterm</strong> は APC 機能をインプリメントしません; <strong><em>P<sub>t</sub></em></strong> は無視されます。 <strong><em>P<sub>t</sub></em></strong> は印刷可能文字である必要はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC c </strong></td>
+
+<td>フル・リセット (RIS)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC N
+</strong></td>
+
+<td>G2 文字セットを選択 (LS2)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC o </strong></td>
+
+<td>G3 文字セットを選択 (LS3)</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC </strong></td>
+
+<td>GR として G3 文字セットを起動 (LS3R)。 <strong>xterm</strong> での可視効果はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC} (ESC}) </strong></td>
+
+<td>GR として G2 文字セットを呼び出す (LS2R)。 <strong>xterm</strong> での可視効果はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ESC </strong></td>
+
+<td>GR として G1 文字セットを呼び出す (LS1R)。 <strong>xterm</strong> での可視効果はありません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>XTERM 記述制約</strong></p>
+ <p><span>AIXバージョン 4</span>のDEC.TIファイルの xterm 端末の記述では、SGR 属性を使用して下線モードを提供しています。 SMUL および RMUL 属性は、現在、 <span>AIX バージョン 4</span>の XTERM 端末記述に定義されていません。 より汎用的な SGR という機能を使用します。</p>
+ <div> <div><div><pre><code>tput sgr x y</code></pre></div><div></div></div></div>
+ <p>ここで、<em>x</em> は 1 または 0 で、それぞれスタンドアウト・モードをオンまたはオフにします。<em>y</em> は 1 または 0 で、それぞれ下線モードをオンまたはオフにします。 SGR 機能について詳しくは、「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/terminfo.html" target="_blank" rel="noopener noreferrer"><strong>terminfo</strong></a> ファイル・フォーマット」を参照してください。</p>
+ <div> <div><div><pre><code>tput sgr 0 1    turn off standout; turn on underline
+tput sgr 0 0    turn off standout; turn off underline
+tput sgr 1 1    turn on standout; turn on underline
+tput sgr 1 0    turn on standout; turn off underline</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>マウス・トラッキング</h2> <p>マウス・ボタンを押したときにマウスの位置や他の情報を送信するように <strong>VT</strong> ウィジェットを設定することができます。 これらのモードは、通常、マウスを使用するエディターなどのフルスクリーン・アプリケーションで使用されます。</p>
+ <p>モードは 3 つあり、これらを同時に使用することはできません。それぞれのモードは DECSET (または DECRST) エスケープ・シーケンスの中の異なるパラメーターを使用することで切り替えられます。 <strong>xterm</strong> コマンドが生成するすべてのマウス追跡エスケープ・シーケンスに対するパラメーターは、<em>value</em>+040 の形で、常に単一文字の数値パラメーターに
+エンコードされます。 画面座標システムのベースは 1 です。</p>
+ <p>例: <strong>!</strong> は 1 です。 画面座標系は 1 ベースです。</p>
+ <p>X10 互換モードでは、マウスのボタンを押したとき、マウスを押した位置とそのボタンをエンコードしてからエスケープ・シーケンスを送信します。 これは、DECSET にパラメーター 9 を指定することで使用可能になります。 ボタンを押したとき、<strong>xterm</strong> コマンドは下記の「6 文字」を送信します。 <em>C</em>b はボタン 1 です。 <em>C</em>x および <em>C</em>y は、ボタンを押したときのマウスの <em>x</em> 座標と <em>y</em> 座標です。</p>
+ <p><strong>ESC [M</strong> <em>C<sub>b</sub>C<sub>x</sub>C<sub>y</sub></em></p>
+ <p>通常の追跡モードでは、ボタンを押したときと離したときの両方でエスケープ・シーケンスが送信されます。 修飾子情報も送信されます。 これは、DECSET にパラメーター 1000 を指定することで使用可能になります。 ボタンを押したとき、または離したとき、<strong>xterm</strong> コマンドは下記の"キー・シーケンス" を送信します。</p>
+ <p><strong>ESC [M</strong> <em>C<sub>b</sub>C<sub>x</sub>C<sub>y</sub></em></p>
+ <p><em>C</em><sub>b</sub> の下位 2 ビットは、ボタン情報をエンコードします。それぞれの意味は、0=MB1 が押された、1=MB2 が押された、2=MB3 が押された、3= 解放された、ということです。 上位ビットは、ボタンが押されたときに押し下げられ、一緒に追加された修飾子をエンコードします。 4=Shift, 8=Meta, 16=Control. <em>C</em><sub>x</sub> および <em>C</em><sub>y</sub> は、マウス・イベントの <em>x</em> 座標と <em>y</em> 座標です。 左上端は (1, 1) です。</p>
+ <p>マウス・ハイライト追跡は、まず、ボタンが押されたことをプログラムに通知し、ある範囲の行をプログラムから受信し、ボタンが離されるまでその範囲内でマウスがカバーしている領域を強調表示し、最後に、ボタンが離された座標をプログラムに送信します。 これは、DECSET にパラメーター 1001 を指定することで使用可能になります。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> このモードを使用するには、連携プログラムが必要です。そうしないと、 <strong>xterm</strong> コマンドがハングします。 ボタンが押されたとき、通常の追跡と同じ情報が生成されます。そして、<strong>xterm</strong> コマンドはプログラムからマウス追跡情報が送られてくるのを待ちます。 <em>下記の適切な</em><em>エスケープ・シーケンス</em><em> が疑似ターミナルから送信されてこなければ、すべての X イベントは無視されてしまいます。</em><p><strong>ESC [</strong> <em>P <sub>s</sub></em> <strong>;</strong> <em>P <sub>s</sub></em> <strong>;</strong> <em>P <sub>s</sub></em> <strong>;</strong> <em>P <sub>s</sub></em> <strong>;</strong> <strong>T</strong></p>
+</div>
+        </div>
+      </div></div>
+ <p>パラメーターは、<em>Func</em>、<em>Startx</em>、<em>Starty</em>、<em>FirstRow</em>、<em>LastRow</em> です。 <em>Func</em> パラメーターは、
+ゼロ以外の値の場合、ハイライト追跡を開始し、0 (ゼロ) の場合、ハイライト追跡を異常終了
+します。 <em>Startx</em> および <em>Starty</em> パラメーターは、ハイライトされた領域の
+開始 x 座標および y 座標を意味します。 終了位置はマウスに追従するが、<em>FirstRow</em>行の上に来ることはなく、常に<em>LastRow</em>行の上に来る。 (画面の最上部は行 1 です。) ボタンを放す
+と、<strong>xterm</strong> コマンドは終了位置を下記の 2 つのうちのいずれかの方法で報告します。開始座標と終了座標が有効なテキストの
+位置にある場合、<strong>xterm</strong> コマンドは「終了位置」を下記のように報告します。</p>
+ <p><strong>ESC [t </strong><em>C<sub>x</sub>C<sub>y</sub></em></p>
+ <p>どちらかの座標が行の終わりを超えている場合、 <strong>xterm</strong> コマンドは次のように <span>“</span>終了位置<span>”</span> を報告します。</p>
+ <p><strong>ESC [T </strong><em>C<sub>X</sub>C<sub>Y</sub></em><em>C<sub>X</sub>C<sub>Y</sub></em><em>C<sub>X</sub>C<sub>Y</sub></em></p>
+ <p>パラメーターは、<em>Startx</em>、<em>Starty</em>、
+<em>Endx</em>、<em>Endy</em>、<em>Mousex</em>、
+<em>Mousey</em> です。 <em>Startx</em>、<em>Starty</em>、
+<em>Endx</em>、<em>Endy</em> パラメーターは、
+領域の開始する文字位置および終了する文字位置を与えます。 <em>Mousex</em> および <em>Mousey</em> パラメーターは、
+ボタンを離したときのマウスの位置を与えます。これらの位置データの値が、 1 文字分の数値の大きさを超えることはありません。</p>
+ <p><strong>Tektronix 4014 モード</strong></p>
+ <p>このセクションのシーケンスのほとんどは、標準 Tektronix 4014 制御シーケンスです。 使用できない主な機能は、ライト・スルー (write-thru) モードとフォーカス解除 (defocused) モードです。 ここでは、さまざまな Tektronix プロット・モードで使用されるコマンドは説明せず、モードを切り替えるコマンドについて説明します。</p>
+</section>
+
+</div></div>

@@ -1,0 +1,1475 @@
+<div class="official-dom"><div>
+<div>
+<p>本書では、 <strong>/usr/bin/rdist</strong> ファイルにある古い <span>AIX</span> <strong>rdist</strong> コマンド、および新しい <strong>rdistd</strong> デーモンで使用される新しい <strong>/usr/sbin/rdist</strong> コマンドについて説明します。</p>
+
+</div>
+
+<section><h2>/usr/bin/rdist コマンド</h2>
+
+</section>
+
+<section><h2>目的</h2>
+
+<p>リモート・ファイル配布クライアント・プログラム。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<dl>
+
+<dt>配布ファイルを使用するには</dt>
+
+<dd><p><strong>RDist</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133046" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133058" target="_blank" rel="noopener noreferrer"><strong>-q (Q) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e132903" target="_blank" rel="noopener noreferrer"><strong>-b (B) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e132989" target="_blank" rel="noopener noreferrer"><strong>-D </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133067" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133015" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133021" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133077" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133089" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133106" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-f" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em> FileName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e132962" target="_blank" rel="noopener noreferrer"><strong>-d 年 </strong></a><em>引数</em><strong>=</strong><em>値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e133030" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a><em>ホスト </em>]<em> </em>... [ <em>名前 </em>]<em> </em>...</p>
+
+</dd>
+
+
+
+<dt>引数を小規模の配布ファイルとして解釈するには</dt>
+
+<dd><p><strong>RDist</strong> [ <strong>N </strong>] [ <strong>-Q (Q) </strong>] [ <strong>-b </strong>] [ <strong>-D </strong>] [ <strong>-R </strong>] [ <strong>-h </strong>] [ <strong>I </strong>] [ <strong>-v (V) </strong>] [ <strong>-w (W) </strong>] [ <strong>-y (Y) </strong>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e132909" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em> 名前 ...</em><strong> </strong>[ <em>ログイン</em><strong>@ </strong>] <em>ホスト</em> [ <strong>:</strong><em>目的地 </em>]</p>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>説明</h2>
+
+<div><div>
+        <div>
+          <div><span>注意:</span> <strong>RDist</strong> コマンドを使用して、<span>AIX</span> 以外のマシンに 2 ギガバイトより大きいサイズのファイルを送信しないでください。 送信すると、未定義の振る舞いという結果となり、まれにデータが失われることがあります。</div>
+        </div>
+      </div></div>
+
+<p><strong>rdist</strong> コマンドは、複数のホスト上でファイルの同一のコピーを維持します。 <strong>rdist</strong> コマンドは、オーナー、グループ、モード、および可能であればファイルの変更時刻を保存し、さらに実行中のプログラムも更新できます。 <strong>rdist</strong> コマンドは、以下のソースから指示を受け取ることができます。</p>
+
+<ul>
+<li><span></span>デフォルトの配布ファイル、 <strong>¥ HOME</strong> ディレクトリー内の <strong>DistFile</strong> ファイル。</li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e132995" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong> フラグ</a>によって指定された別の配布ファイル。</li>
+
+<li><span></span>配布ファイル内の変数定義を拡張またはオーバーライドするコマンド行引数。</li>
+
+<li><span></span>小さな配布ファイルとして機能するコマンド行引数。</li>
+
+</ul>
+
+<p><strong>-f</strong> フラグを使用しないと、<strong>rdist</strong> コマンドは、ユーザーの <strong>$HOME</strong> ディレクトリー内の <strong>distfile</strong> ファイルを探します。 <strong>distfile</strong> ファイルが見つからない場合は、<strong>Distfile</strong> ファイルを探します。</p>
+
+<p><em>Name</em> パラメーターで指定した値は、更新するファイルまたは実行するサブコマンドの名前として読み取られます。 コマンド・ラインに <em>Name</em> パラメーターの値を指定しないと、<strong>rdist</strong> コマンドは配布ファイルにリストされたすべてのファイルおよびディレクトリーを更新します。 <em>名前</em> パラメーターに <strong>-</strong> (負符号) を指定すると、 <strong>RDist</strong> コマンドは標準入力を使用します。 <em>Name</em> パラメーターで指定したファイルの名前がサブコマンドの名前と同じ場合は、
+<strong>rdist</strong> コマンドは <em>Name</em> パラメーターをサブコマンドと見なします。</p>
+
+<p><strong>rdist</strong> コマンドでは、<strong>.rhosts</strong> ファイルを各ホスト上で構成する必要があります。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/rhosts.html" target="_blank" rel="noopener noreferrer">TCP/IP のファイル・フォーマット</a><span> <em> ファイル参照</em> での</span> を参照してください。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span> <strong>rdist</strong> コマンドがリモート・マシン上の <strong>/usr/bin/rdist</strong> ディレクトリーに存在しない場合は、 <strong>/usr/bin/rdist</strong> ディレクトリーから <strong>rdist</strong> コマンドの実際の場所へのリンクを作成します。 この位置は、通常はディレクトリー <strong>/usr/ucb/rdist</strong> です。</li>
+
+<li><span></span>現在、 <strong>RDist</strong> コマンドは 7 ビット ASCII ファイル名のみを処理できます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>バイナリー比較を実行して、両者が異なる場合はファイルを更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><strong>rdist</strong> コマンドに残りの引数を小型配布ファイルとして解釈させます。 以下の引数が使用可能です。<dl>
+
+<dt><em>Name</em></dt>
+
+<dd>単一の名前、またはブランクで区切られた名前のリストです。 値としてファイルまたはサブコマンドが使えます。</dd>
+
+
+
+<dt>[<em>ログイン</em><strong>@</strong>]<em>ホスト</em></dt>
+
+<dd>更新対象となるコンピューターを指定し、オプションとして更新通知先のログイン名を指定します。</dd>
+
+
+
+<dt><em>宛先</em></dt>
+
+<dd><em>Name</em> 引数に単一の名前を指定した場合は、リモート・コンピューター上のファイルを指定します。複数の名前を指定した場合は、ディレクトリーを指定します。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>「-c」</strong> フラグは、 <strong>「-f」</strong>、 <strong>-d 年</strong>、または <strong>-m (M)</strong> フラグと一緒に使用しないでください。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d 年</strong><em> 引数</em><strong>=</strong><em>値</em></td>
+
+<td><em>Argument</em> 変数の値が <em>Value</em> 変数であることを定義します。 <strong>-d</strong> フラグは、<strong>distfile</strong> ファイル内の変数定義を定義または上書きします。 <em>Value</em> 変数は、空文字列、単一の名前、または括弧で囲まれ、タブまたはスペースで区切られた名前のリストとして指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>デバッグ出力をオンにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> filename</em></td>
+
+<td>配布ファイルの名前を指定します。 <strong>-f</strong> フラグを使用しなかった場合、デフォルト値は <strong>$HOME</strong> ディレクトリーの <strong>distfile</strong> ファイルまたは <strong>Distfile</strong> ファイルとなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>リンク自体ではなく、リンクが指すファイルをコピーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>未解決のリンクを無視します。 <strong>rdist</strong> コマンドは、転送中のファイルのリンク構造を維持し、すべてのリンクを見つけられなければ、ユーザーに警告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m (M)</strong><em> ホスト</em></td>
+
+<td>更新対象となるコンピューターを制限します。 <strong>-m</strong> <em>Host</em> オプションを複数回使用して、更新対象を <strong>distfile</strong> ファイル内にリストされたホストのサブセットに制限することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>サブコマンドを実行せずに印刷します。 <strong>-n</strong> フラグを使用して <strong>distfile</strong> ファイルをデバッグします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>抑止モードで操作します。 <strong>-q</strong> オプションは、標準出力への修正済みファイルの出力を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>無関係のファイルを除去します。 ディレクトリーを更新中であれば、リモート・ホスト上に存在してマスター・ディレクトリー内に存在しないファイルが除去されます。 <strong>-R</strong> フラグは、ディレクトリーの同一コピーを維持するときに使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ファイルがすべてのホスト上で最新の状態になっているかどうか検査します。古くなったファイルが表示されます。 ただし、<strong>rdist -v</strong> コマンドを実行しても、ファイルは変更されず、メールも送信されません。 このフラグを <strong>
+-b</strong> フラグと一緒に使用すると、このフラグが -b フラグをオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>ファイルの最新のコピーが古くなったファイルで置換されないようにします。 一般に、タイム・スタンプとサイズが異なる場合にファイルが更新されます。 <strong>-y</strong> フラグは、<strong>rdist</strong> コマンドがマスター・ファイルよりも新しいファイルを更新しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>ファイルのパス名全体を宛先ディレクトリー名に追加します。 通常、ファイル名を変更してコピー済みファイルのディレクトリー構造を保存するときに <strong>rdist</strong> コマンドが使用するのは、名前の最後のコンポーネントのみです。 ~ (ティルド) で始まるファイル名に <strong>-w</strong> フラグを使用すると、ホーム・ディレクトリー以外のすべてが宛先名に追加されます。 / (斜線) または ~ (ティルド) で始まらないファイル名は、宛先ユーザーのホーム・ディレクトリーを残りのファイル名のルート・ディレクトリーとして使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>配布ファイル (distfile ファイル)</h2>
+
+<p>配布ファイルは、コピーするファイル、配布の宛先ホスト、および <strong>rdist</strong> コマンドで配布するファイルの更新時に実行する操作を指定します。 通常、<strong>rdist</strong> コマンドは、<strong>$HOME</strong> ディレクトリーの <strong>distfile</strong> ファイルを使用します。 <strong>-f</strong> フラグを使用すると、別のファイルを指定できます。</p>
+
+<dl>
+
+<dt>エントリー・フォーマット</dt>
+
+<dd><p>配布ファイルの各エントリーは、以下のいずれかのフォーマットを取ります。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>VariableName </em><strong>= </strong><em>NameList</em></td>
+
+<td>配布ファイルのほかのエントリーに使用する変数 (<em>SourceList</em>、<em>DestinationList</em>、または <em>SubcommandList</em>) を定義します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>ラベル</em><strong>:</strong>] <em>SourceList </em><strong>-&gt; </strong><em>DestinationList SubcommandList</em></td>
+
+<td><strong>rdist</strong> コマンドに対して、<em>SourceList</em> 変数で指定したファイルを <em>DestinationList</em> 変数で指定したホストに配布するよう指示します。 配布ファイルのコマンドは追加機能を実行します。</td>
+
+</tr>
+
+<tr>
+<td>[<em>Label</em><strong>:</strong>]<em>SourceList </em><strong>:： </strong><em>TimeStampFile SubcommandList</em>                        </td>
+
+<td><strong>rdist</strong> コマンドに対して、指定日以降に変更があったファイルを更新するよう指示します。 配布ファイルのサブコマンドは追加機能を実行します。 <em>SourceList</em> 変数で指定した各ファイルは、タイム・スタンプ・ファイルよりも新しければ更新されます。 このフォーマットは、ファイルの復元に役立ちます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>ラベルの指定は任意で、部分的な更新の際にサブコマンドを識別するために使用します。</p>
+
+</dd>
+
+
+
+<dt>エントリー</dt>
+
+<dd><div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>VariableName</em></td>
+
+<td>配布ファイル内で使用する変数を識別します。</td>
+
+</tr>
+
+<tr>
+<td><em>NameList</em></td>
+
+<td>ファイルおよびディレクトリー、ホスト、またはサブコマンドのリストを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>SourceList</em></td>
+
+<td>配布用のマスター・コピーとして使用する、<strong>rdist</strong> コマンド用のローカル・ホスト上のファイルおよびディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>DestinationList</em></td>
+
+<td>ホストにファイルのコピーを受信するよう指示します。</td>
+
+</tr>
+
+<tr>
+<td><em>SubcommandList</em></td>
+
+<td>実行する配布ファイルのサブコマンドをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+<p><strong>rdist</strong> コマンドでは、改行文字、タブ、およびブランクをセパレーターとして扱います。 展開用の配布ファイル変数は、$ (ドル記号) で始まり、その後に単一文字または {} (中括弧) で囲まれた名前が続きます。 注釈は # (ポンド記号) で始まり、改行文字で終わります。</p>
+
+</dd>
+
+
+
+<dt>ソースおよび宛先のリスト・フォーマット</dt>
+
+<dd><p>配布ファイルのソース・リストおよび宛先リストは、以下に示したフォーマットで示されるように、ブランクで区切られたゼロまたは複数の名前から構成されます。</p>
+
+<p>[<em>Name1</em>] [<em>Name2</em>] [<em>Name3</em>] ...</p>
+
+<p><strong>rdist</strong> コマンドは、<strong>csh</strong> コマンドの場合と同様に、ローカル・ホスト上で以下のシェル・メタキャラクターを認識して展開します。</p>
+
+<ul>
+<li><span></span>[(左大括弧)</li>
+
+<li><span></span>] (右大括弧)</li>
+
+<li><span></span>{(左中括弧)</li>
+
+<li><span></span>} (右中括弧)</li>
+
+<li><span></span>((左括弧)</li>
+
+<li><span></span>) (右括弧)</li>
+
+<li><span></span>* (アスタリスク)</li>
+
+<li><span></span> (疑問符)</li>
+
+</ul>
+
+<p>これらの文字が展開されないようにするには、文字の前に &amp;#xa5; (円記号) を付けます。 さらに、<strong> rdist</strong> コマンドは、
+<strong>csh</strong> コマンドの場合と同様に、~ (ティルド) も展開しますが、ローカル・ホスト上および宛先ホスト上で別々に展開します。</p>
+
+</dd>
+
+
+
+<dt>配布ファイル・サブコマンド</dt>
+
+<dd><p>シェルへの複数のコマンドは、; (セミコロン) で区切る必要があります。 コマンドは、更新されるホスト上のユーザーのホーム・ディレクトリー内で実行されます。 プログラムを更新した後で専用データベースを再構築するときには、<strong>special</strong> サブコマンドを使用できます。</p>
+
+<p>配布ファイルのサブコマンド・リストには、以下のサブコマンドをゼロ個以上入れることができます。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>インストール</strong><em> オプション</em><em>OptionalDestName</em>]<strong>；</strong></td>
+
+<td>古いファイルおよびディレクトリーをコピーします。 <strong>rdist</strong> コマンドは、各ソース・ファイルまたはソース・ディレクトリーを宛先リスト内の各ホストにコピーします。 <em>Options</em> 変数で指定する使用可能なオプションは、<strong>rdist</strong> コマンド・フラグ <strong>-b</strong>、<strong>-h</strong>、<strong>-i</strong>、<strong> -R</strong>、<strong> -v</strong>、<strong>-w</strong>、および <strong>-y</strong> です。 これらのオプションは、<em>SourceList</em> 変数で指定したファイルにだけ適用されます。 <strong>-R</strong> フラグを使用すると、対応するファイル名がマスター・ホスト上になければ、空でないディレクトリーが除去されます。 <em>OptionalDestName</em> パラメーターはファイル名を変更します。<p><strong>install</strong> サブコマンドがサブコマンド・リストにない場合、または宛先名を指定していない場合には、ソース・ファイル名が使用されます。 リモート・ホスト上に存在しない場合には、パス名の下にディレクトリーが作成されます。 宛先ホストで使用するログイン名は、宛先名のフォーマットが <em>login</em><strong>@</strong><em>host</em> でなければ、ローカル・ホストと同じです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>通知</strong><em> 名前リスト</em><strong>;</strong></td>
+
+<td>更新ファイル、およびリストされた名前 (<em>NameList</em> パラメーター) に生じる可能性のあるエラーのリストをメールします。 名前に <strong>@</strong> (アットマーク) がなければ、宛先ホストがその名前に追加されます (<em>name</em><strong>@</strong><em>host</em>)。</td>
+
+</tr>
+
+<tr>
+<td><em> NameList</em><strong>を除く</strong><strong>；</strong></td>
+
+<td><strong>rdist</strong> コマンドは、<em>NameList</em> 変数で指定したファイルを除き、<em>SourceList</em> エントリーで指定したすべてのファイルを更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>except_pat</strong><em> NameList</em><strong>；</strong></td>
+
+<td><strong>rdist</strong> コマンドが、<em>NameList</em> 変数で指定したリストのメンバーと一致する文字列を含むすべてのファイルを更新しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>特殊</strong><em> NameList</em><strong> "</strong><em>String</em><strong>";</strong></td>
+
+<td><em>NameList</em> 変数によって指定されたファイルが更新またはインストールされた後に、リモート・ホスト上で実行されるシェル・コマンド ( <strong>"</strong><em>String</em><strong>"</strong> 変数) を指定します。 <em>NameList</em> 変数を省略すると、シェル・コマンドは更新またはインストールされたすべてのファイルに対して実行されます。 シェル変数 <strong>FILE</strong> は、<strong>rdist</strong> コマンドが <strong>"</strong><em>String</em><strong>"</strong> 変数を実行する前に、現行ファイル名に設定されます。 <strong>"</strong><em>String</em><strong>"</strong> 値は、<strong>" "</strong> (二重引用符) で囲む必要があり、配布ファイル内で複数行に渡って指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生したことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<dl>
+
+<dt>形式の例: VariableName = NameList</dt>
+
+<dd><ol>
+<li><span></span>更新するホストのファイルを示すには、以下のような行を入力します。<div>
+<div><div><pre><code>HOSTS =( matisse root@arpa )</code></pre></div><div></div></div>ここで、HOSTS変数が次のように定義されているmatisseおよびroot@arpa<strong>RDist</strong> コマンドは、ホスト上のファイルを更新します。matisseおよびroot@arpa. この変数を宛先リストとして使用することができます。</div>
+</li>
+
+<li><span></span> <em>SourceList</em> エントリーの値として使用する名前を示すには、次のような行を入力します。<div>
+<div><div><pre><code>FILES = ( /bin /lib/usr/bin /usr/games
+    /usr/include/{*.h,{stand,sys,vax*,pascal,machine}/*.h}
+       /usr/lib /usr/man/man? /usr/ucb /usr/local/rdist )</code></pre></div><div></div></div>ここで、FILES値は、 <em>SourceList</em> エントリーに使用されるファイルとして定義されます。</div>
+</li>
+
+<li><span></span>更新プロセスから除外するファイルを指定するには、以下のような行を入力します。<div>
+<div><div><pre><code>EXLIB = ( Mail.rc aliases aliases.dir aliases.pag crontab dshrc
+    sendmail.cf sendmail.fc sendmail.hf sendmail.st uucp vfont)</code></pre></div><div></div></div>ここで、EXLIB値は、更新プロセスから除外するファイルのリストとして定義されます。</div>
+</li>
+
+<li>すべてのファイルを <strong>/usr/src/bin</strong> から <strong>arpa</strong> にコピーするには、 <em>namelist</em> 変数を展開し、 <em>namelist</em> 変数にあるファイル以外のすべてのファイルを.o拡張としてコピーされます。<div>
+<div><div><pre><code>/usr/src/bin -&gt;arpa
+except_pat(\e\e.o\e ${&lt;namelist&gt; /SCCS\e ${&lt;namelist&gt;}</code></pre></div><div></div></div>
+</div>
+
+<p>または</p>
+
+<div>
+<div><div><pre><code>/usr/src/bin -&gt;arpa
+except_pat(\\.o\e ${&lt;namelist&gt; /SCCS\e ${&lt;namelist&gt;}</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><strong>/usr/src/bin</strong> から <strong>arpa</strong> にすべてのファイルをコピーするには、.oextension:<div>
+<div><div><pre><code>/usr/src/bin -&gt;arpa
+except_pat(\\.o\$ /SCCS\$</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+
+</dd>
+
+
+
+<dt>フォーマット: [label:] SourceList - DestinationList SubcommandList の例</dt>
+
+<dd><ol>
+<li><span></span>ファイルのソース・リストをホストの宛先リストにコピーするには、以下のような行を入力します。<div>
+<div><div><pre><code>${FILES} -&gt;${HOSTS}
+    install -R
+    except /usr/lib/${EXLIB}  ;
+    except /usr/games/lib  ;
+    special /usr/sbin/sendmail "/usr/sbin/sendmail.bz"  ;</code></pre></div><div></div></div>上記の行で、[<em>Label</em><strong>:</strong>] エントリーの指定は、任意であるため、ここには表示してありません。 $(ドル記号) および {} (中括弧) は、ファイル名の原因となります。FILES,HOSTSおよびEXLIB上記の例で指定されたリストに展開されます。 この例の残りの部分は、サブコマンド・リストを構成します。</div>
+</li>
+
+<li><span></span>[<em>表示名</em><strong>:</strong>] エントリーを使用するには、以下のように行を入力します。<div>
+<div><div><pre><code>srcsL:
+/usr/src/bin -&gt; arpa
+    except_pat (\e\e.o\e$ /SCCS\e$ ) ;</code></pre></div><div></div></div>
+</div>
+
+<p>ラベルは次のとおりです。srcsL:更新のためにこの項目を識別するために使用できます。 この/usr/src/binfile はコピーされ、ホストされるソースです。arpaコピーの宛先です。 3 行目は、サブコマンド・リストからのサブコマンドです。</p>
+</li>
+
+<li><span></span>タイム・スタンプ・ファイルを使用するには、以下のような行を入力します。<div>
+<div><div><pre><code>${FILES} :: stamp.cory
+    notify root@cory</code></pre></div><div></div></div>$(ドル記号) と {} (中括弧) によって、次のように名前が指定されます。FILES指定されたリストに展開されます。 タイム・スタンプ・ファイルは次のとおりです。stamp.cory最後の行は、サブコマンド・リストからのサブコマンドです。</div>
+</li>
+
+</ol>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/rdist</strong></td>
+
+<td><strong>rdist</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>
+$HOME/distfile</strong></td>
+
+<td><strong>rdist</strong> コマンドが読み取るサブコマンドのリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/rdist</strong></td>
+
+<td>更新リストが入っています。 これは一時ファイルです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>/usr/sbin/rdist コマンド</h2>
+
+<p>本書では、 <strong>/usr/bin/rdist</strong> ファイルにある古い <span>AIX</span> <strong>rdist</strong> コマンド、および新しい <strong>rdistd</strong> デーモンで使用される新しい <strong>/usr/sbin/rdist</strong> コマンドについて説明します。</p>
+
+</section>
+
+<section><h2>目的 (/usr/sbin/rdist)</h2>
+
+<p>ファイルをリモート側で配布するクライアント・プログラム</p>
+
+</section>
+
+<section><h2>構文 (/usr/sbin/rdist)</h2>
+
+<dl>
+
+<dt>配布ファイルを使用するには</dt>
+
+<dd><p>/usr/sbin/rdist [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-rdistF" target="_blank" rel="noopener noreferrer">-F (R) </a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134323" target="_blank" rel="noopener noreferrer">N</a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-A" target="_blank" rel="noopener noreferrer">-A </a> <em>数値 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134204" target="_blank" rel="noopener noreferrer">-a 値 </a> <em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134213" target="_blank" rel="noopener noreferrer">-d 年 </a> <em>変数 = 値</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134255" target="_blank" rel="noopener noreferrer">- </a> &lt; <em>ローカル・ logopts</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134271" target="_blank" rel="noopener noreferrer">-L (L) </a> &lt;<em>リモート・ logopts</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134240" target="_blank" rel="noopener noreferrer">「-f」 </a> <em>DistFile</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134293" target="_blank" rel="noopener noreferrer">-M (M) </a> <em>最大プロセッサー</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134308" target="_blank" rel="noopener noreferrer">-m (M)</a> <em> ホスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134335" target="_blank" rel="noopener noreferrer">- </a> <em>ダイストップ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134537" target="_blank" rel="noopener noreferrer">T </a> <em>タイムアウト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134508" target="_blank" rel="noopener noreferrer">P-</a> &lt;<em>rdist パス</em>&gt; ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134521" target="_blank" rel="noopener noreferrer">-P</a> &lt;<em>トランスポート・パス</em>&gt; ] [ <em>名前 </em>... ]</p>
+
+</dd>
+
+
+
+<dt>引数を小規模の配布ファイルとして解釈するには</dt>
+
+<dd><p>//usr/sbin/rdist-Fn-c <em>name</em>...<em>[ログイン@</em>]<em>ホスト</em>[<em>:dest］</em></p>
+
+</dd>
+
+
+
+<dt>古い rdist をサーバーとして起動するには</dt>
+
+<dd><p>/usr/sbin/rdist -サーバー</p>
+
+</dd>
+
+
+
+<dt>バージョン情報用</dt>
+
+<dd><p>/usr/sbin/rdist <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rdist.html#rdist__row-d3e134552" target="_blank" rel="noopener noreferrer">V 値</a></p>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>説明 (/usr/sbin/rdist)</h2>
+
+<div><strong>rdist</strong> は、複数のホストでファイルの同一のコピーを保守する
+プログラムです。 これは、オーナー、グループ、モード、および可能であればファイルの変更時刻を保存し、さらに実行中のプログラムを更新できます。 <strong>rdist</strong> コマンドは、以下のソースから指示を受け取ることができます。<ul>
+<li>現行ディレクトリー内の配布ファイル <strong>distfile</strong>。</li>
+
+<li><strong>distfile</strong> が - と指定されている場合は標準入力。</li>
+
+<li><strong>-f</strong> フラグを使用していない場合は、
+<strong>rdist</strong> は <em>distfile</em> および <em>
+Distfile</em> という名前のファイルを探します。</li>
+
+<li><strong>-c</strong> フラグを使用した場合は、末尾の引数は
+小さな <strong>distfile</strong> として解釈されます。 等しい <strong>distfile</strong> は以下のとおりです。<div><div><pre><code>( filename ... ) -&gt; [user@]host
+     install       [dest name] ;</code></pre></div><div></div></div></li>
+
+</ul>
+</div>
+
+<p><strong>name</strong> 引数が指定されていない場合、
+<strong>rdist</strong> は、<strong>
+distfile</strong> にリストされたすべてのファイルおよびディレクトリーを更新します。 これ以外の場合、引数は更新するファイルの名前、または実行するコマンドのラベル
+であると解釈されます。 ラベルとファイル名が矛盾する場合は、ラベルであると想定されます。 これらを一緒に使用し、特定のコマンドを使用して特定のファイルを更新することができます。</p>
+
+<p><strong>-Server</strong> オプションは、
+<strong>rdist</strong> の古いバージョン (<strong>rdist</strong> をサーバー・モードにするため、このオプションを使用) のための、後ろ向きの互換性を提供します。 <strong>-Server</strong> コマンド・ライン・オプションを使用して <strong>rdist
+</strong> を開始すると、<strong>rdist</strong> の古いバージョンを実行します。 このオプションは、古い <strong>rdist</strong> が
+<strong>/usr/bin/rdist</strong> にある場合のみ働きます。</p>
+
+<div><strong>rdist</strong> は任意のトランスポート・プログラムを使用して、
+それぞれのターゲット・ホストをアクセスします。 トランスポート・プログラムは、
+<strong>-P</strong> フラグを使用して、コマンド・ラインに指定することができます。 <strong>-P</strong> フラグを使用しないと、
+<strong>rsh</strong> がトランスポート・プログラムになります。 <strong>rsh</strong> メソッドを使用し、ターゲット・ホストが
+文字列 <strong>localhost</strong> であり、リモート・ユーザー名が
+ローカル・ユーザー名と同じ場合、<strong>rdist</strong> は
+次のコマンドの実行を試みます。<div><div><pre><code>/bin/sh -c rdistd -S</code></pre></div><div></div></div></div>
+
+<div>これ以外の場合、<strong>rdist</strong> は次のコマンドを実行します。<div><div><pre><code>rsh host -l remuser rdistd -S</code></pre></div><div></div></div></div>
+
+<p>前述の例では、 <em>ホスト</em> パラメーターはターゲット・ホストの名前、 <em>リマザー</em> は接続を確立するユーザーの名前、 <strong>Rdistd</strong> はターゲット・ホスト上での <strong>RDist</strong> サーバー・コマンドです。</p>
+
+<p>トランスポート・プログラムは、 <strong>RSH</strong>の構文と互換性がなければなりません。 そうではない場合には、このコマンド・ライン構文を理解するシェル・スクリプト内に、トランスポート・プログラムを含める必要があります。</p>
+
+<p>それぞれのターゲット・ホスト上で、<strong>rdist</strong> は以下のコマンドを実行します。</p>
+
+<div><div><pre><code>rdistd -S</code></pre></div><div></div></div>
+<p>または</p>
+
+<div><div><pre><code>&lt;rdistd path&gt; -S</code></pre></div><div></div></div>
+<p>上記の例では、 <strong>P-</strong> フラグが指定されています。 <strong>P-</strong> フラグが含まれていない場合、または &lt; rdistd path&gt; が単純なファイル名である場合、 <strong>Rdistd</strong> または &lt; rdistd path&gt; は、リモート (ターゲット) ホスト上で <strong>RDist</strong> を実行しているユーザーの <strong>パス</strong> 内のどこかになければなりません。</p>
+
+<div><strong>rdist</strong> コマンドは次の環境変数を使用します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>TMPDIR</strong></td>
+
+<td>使用する一時ディレクトリーの名前。 デフォルトは <strong>/tmp</strong>です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</section>
+
+<section><h2>フラグ (/usr/sbin/rdist)</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong> <em>数値</em></td>
+
+<td>ファイルシステムに最小限のフリー・ファイル (inodes) が存在する場合のみ、
+ファイルを更新またはインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong> <em>数値</em></td>
+
+<td>ファイルシステムに最小限のフリー・スペースが存在する場合のみ、
+ファイルを更新またはインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>
+var = value</em></td>
+
+<td><em>value</em> を変数 <em>
+var</em> に割り当てます。 このオプションは、<strong>distfile</strong> 内の変数定義を定義または変更するために使用します。 <em>Value</em> は、空の文字列、単一の名前、または括弧で囲まれ、
+タブまたはスペース (またはその両方) で区切られた名前のリストにすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>子プロセスを fork せずに、すべてのクライアントを順番に更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>ディストファイル</em></td>
+
+<td><strong>distfile</strong> を配布ファイルとして使用します。 <strong>distfile</strong> が - と指定されている場合は、標準入力から読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> ログオプション</em></td>
+
+<td>ローカルのロギング・オプションを設定します。 <em>Logopts</em>の構文について詳しくは、 <strong>メッセージ・ロギング</strong> のセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> <em>ロゴパーツ</em></td>
+
+<td>リモートのロギング・オプションを設定します。 <em>logopts</em> は、
+リモート・サーバーに値が渡される (<strong>rdistd</strong>) こと以外は、ローカル・ロギングと同じです。 <em>Logopts</em>の構文について詳しくは、 <strong>メッセージ・ロギング</strong> セクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong> <em>数値</em></td>
+
+<td>同時に実行する子 <strong>rdist</strong> プロセスの最大数を
+<em>num</em> に制限します。 デフォルト値は 4 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>マシン</em></td>
+
+<td>ファイルの更新を指定したマシンに制限します。 複数の <strong>-m</strong> 引数を指定し、更新を、
+<strong>distfile</strong> にリストされたホストのサブセットに制限することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>コマンドを表示しますが、実行はしません。 <strong>-n</strong> フラグを使用して <strong>distfile</strong> をデバッグします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> <em>ディストップツ</em></td>
+
+<td>dist オプションを使用可能にします。 <em>ディストップツ</em> は、オプションのコンマ区切りリストです。 <em>distopts</em> に有効な値は以下のものです。<dl>
+
+<dt>chknfs</dt>
+
+<dd>ターゲット・ファイルシステムが NFS の場合、ファイルを検査または更新しません。</dd>
+
+
+
+<dt>chkreadonly</dt>
+
+<dd>ターゲット・ホストのファイルが読み取り専用ファイルシステムに存在する場合、
+ファイルの検査も更新も行われません。</dd>
+
+
+
+<dt>chksym</dt>
+
+<dd>リモート・ホスト上のターゲットがシンボリック・リンクであるが、マスター・ホスト上にない場合、リモート・ターゲットはシンボリック・リンクになります。</dd>
+
+
+
+<dt>compare</dt>
+
+<dd>ファイルにバイナリー比較を実行して、両者が異なる場合はファイルを更新します。</dd>
+
+
+
+<dt>follow</dt>
+
+<dd>リンク自体ではなく、シンボリック・リンクが指すファイルをコピーします。</dd>
+
+
+
+<dt>ignlnks</dt>
+
+<dd>解決できないリンクを無視します。 この場合、<strong>
+rdist</strong> は通常、未解決のリンクについてユーザーに警告を出します。</dd>
+
+
+
+<dt>nochkowner</dt>
+
+<dd>ファイルが既に存在する場合、ユーザーの所有権を検査しません。 ファイル所有権は、ファイルの更新時にのみ設定されます。</dd>
+
+
+
+<dt>nochkgroup</dt>
+
+<dd>ファイルが既に存在する場合、グループの所有権を検査しません。 ファイル所有権は、ファイルの更新時にのみ設定されます。</dd>
+
+
+
+<dt>nochkmode</dt>
+
+<dd>ファイルおよびディレクトリー許可モードの検査をしません。 許可モードは、ファイルの更新時にのみ設定されます。</dd>
+
+
+
+<dt>nodescend</dt>
+
+<dd>ディレクトリーに再帰的に下降することはしません。 ディレクトリーの存在、所有権、およびモードだけが検査されます。</dd>
+
+
+
+<dt>noexec</dt>
+
+<dd><strong>a.out</strong> フォーマットの実行可能ファイルの検査または更新を行いません。</dd>
+
+
+
+<dt>numchkgroup</dt>
+
+<dd>グループ名ではなく数字のグループ ID (gid) を使用して、グループ所有権を検査します。</dd>
+
+
+
+<dt>numchkowner</dt>
+
+<dd>ユーザー名ではなく数字のユーザー ID (uid) を使用して、ユーザー所有権を検査します。</dd>
+
+
+
+<dt>quiet</dt>
+
+<dd>標準出力上で変更されるファイルの印刷を抑止します。</dd>
+
+
+
+<dt>remove</dt>
+
+<dd>リモート・ホスト上に存在するディレクトリー内のファイルで、
+ローカル・ホストのマスター・ディレクトリーに存在しないファイルをすべて除去します。</dd>
+
+
+
+<dt>savetargets</dt>
+
+<dd>更新されるファイルを除去するのではなく、保管します。 更新されるターゲット・ファイルは、まず最初に
+<strong>filename</strong> から <strong>
+filename.OLD</strong> に名前変更されます。</dd>
+
+
+
+<dt>sparse</dt>
+
+<dd>スパース・ファイルの検査を使用可能にします。 このオプションはある程度の追加の処理オーバーヘッドを必要とするので、
+スパース・ファイルを含んでいる可能性のあるターゲットにのみ使用可能にすべきです。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> <em>ディストップツ</em></td>
+
+<td><em>(dist オプションの続き)</em>:<dl>
+
+<dt>verify</dt>
+
+<dd>すべてのホストのすべての期限切れのファイルを表示しますが、
+ファイルは変更されず、メールも送信されません。</dd>
+
+
+
+<dt>whole</dt>
+
+<dd>宛先ディレクトリー名にファイル名全体を付加します。 通常、ファイルの名前変更には、名前の最後のコンポーネントのみが使用されます。 これにより、コピーされるファイルのディレクトリー構造が維持され、
+ディレクトリー構造が平たんになりません。 例えば、
+<strong>/path/dir1/f1</strong> および <strong>/path/dir2/f2</strong> の
+ファイルのリストを <strong>/tmp/dir</strong> に rdist すると、
+<strong>/tmp/dir/dir1/f1</strong> と <strong>/tmp/dir/dir2/f2</strong> ではなく、
+ファイル <strong>/tmp/dir/path/dir1/f1</strong> と
+<strong>/tmp/dir/path/dir2/f2</strong> が作成されます。</dd>
+
+
+
+<dt>younger</dt>
+
+<dd>ファイルは通常、<em>mtime</em> と
+<em>size</em> が一致しない場合に更新されます。 このオプションは、マスター・コピーよりも若いファイルを <strong>rdist
+</strong> が更新しないようにします。 これは、他のホスト上の、より新しいコピーが
+置き換えられるのを防ぐために使用することができます。 マスター・コピーよりも新しいファイルについては、警告メッセージが印刷されます。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>P-</strong> &lt;<em>rdist パス</em>&gt;</td>
+
+<td>ターゲット・ホスト上の指定されたパス内で <strong>rdistd</strong> サーバーを探します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> &lt;<em>rdist パス</em>&gt;</td>
+
+<td><em>transport-path
+</em> で指定されたトランスポート・プログラムを使用します。 <em>transport-path</em> は、可能なパス名をコロンで区切ったリストにすることができます。 この場合、存在するパスの最初のコンポーネントが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>タイムアウト</em></td>
+
+<td>リモート <strong>RDist</strong> サーバーからの応答を待機する <em>タイムアウト</em> 期間 (秒単位) を設定します。 デフォルトは 900 秒です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>バージョン情報を印刷して、終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>メッセージ・ログ</h2>
+
+<p><strong>rdist</strong> コマンドは、メッセージ機能のセットを提供し、
+各機能には、その機能に送信するメッセージのタイプを示す、
+メッセージ・タイプのリストが含まれます。 ローカル・クライアント (<strong>rdist</strong>) と
+リモート・サーバー (<strong>rdistd</strong>) はそれぞれ、
+どの機能にどのタイプのメッセージをログ記録するかについて、別のコピーを保守します。</p>
+
+<p><strong>-l</strong> <em>logopts</em> フラグは、
+クライアント上でローカルに使用するロギング・オプションを指定します。 <strong>-L
+</strong> <em>logopts</em> フラグは、
+リモート <strong>rdistd</strong> サーバーに渡すロギング・オプションを指定します。</p>
+
+<div><em>logopts</em> のフォーマットは以下のとおりです。<div><div><pre><code>facility=types:facility= types... </code></pre></div><div></div></div></div>
+
+<div>有効な機能名は以下のとおりです。<dl>
+
+<dt>stdout</dt>
+
+<dd>メッセージを標準出力に出力。</dd>
+
+
+
+<dt>ファイル</dt>
+
+<dd>メッセージはファイルに送信されます。 ファイル名は、 <code><strong>file</strong> =
+<em>filename</em> = <em>types</em></code>の形式で指定できます。</dd>
+
+
+
+<dt>syslog</dt>
+
+<dd>メッセージは <strong>syslogd</strong> 機能に送信されます。</dd>
+
+
+
+<dt>notify</dt>
+
+<dd>メッセージは内部 <strong>rdistnotify</strong> 機能に送信されます。 この機能は、<strong>distfile</strong> 内の <strong>notify</strong> と組み合わせて使用し、どのメッセージを <strong>notify</strong> アドレスにメールするかを指定します。</dd>
+
+
+</dl>
+</div>
+
+<div><em>types</em> は、メッセージ・タイプをコンマで区切って指定したリストにする必要があります。 指定する各メッセージ・タイプは、そのメッセージ・レベルを使用可能にします。 昇順方式を使用する
+<strong>syslog</strong> システム機能とは、この点が異なります。 有効なタイプを以下に示します。<dl>
+
+<dt>変更</dt>
+
+<dd>変更するものについて、メッセージをログに記録します。</dd>
+
+
+
+<dt>info</dt>
+
+<dd>一般情報をログに記録します。</dd>
+
+
+
+<dt>notice (通知)</dt>
+
+<dd>変更するものについて、一般情報のメッセージをログに記録します。 変更するものには、<strong>distfile</strong> には明示的に指定されていないが、
+特定のターゲットにインストールするために必要なディレクトリーを作成した、
+といったものも含まれます。</dd>
+
+
+
+<dt>nerror</dt>
+
+<dd>致命的ではない通常のエラーのメッセージをログに記録します。</dd>
+
+
+
+<dt>ferror</dt>
+
+<dd>致命的エラーのメッセージをログに記録します。</dd>
+
+
+
+<dt>警告</dt>
+
+<dd><strong>
+nerror</strong> タイプのメッセージほど重大ではないエラーについての警告をログに記録します。</dd>
+
+
+
+<dt>verbose</dt>
+
+<dd>通常よりも詳細であるが、デバッグ・レベルよりは少ないメッセージをログに記録します。</dd>
+
+
+
+<dt>デバッグ</dt>
+
+<dd>デバッグ情報をログに記録します。</dd>
+
+
+
+<dt>すべて</dt>
+
+<dd>デバッグ・メッセージを除くすべてをログに記録します。</dd>
+
+
+</dl>
+</div>
+
+</section>
+
+<section><h2>配布ファイル (/usr/sbin/rdist)</h2>
+
+<p>配布ファイルは、コピーするファイル、配布の宛先ホスト、および <strong>rdist</strong> コマンドで配布するファイルの更新時に実行する操作を指定します。</p>
+
+<dl>
+
+<dt>エントリー・フォーマット</dt>
+
+<dd><div>配布ファイルの各エントリーは、以下のいずれかのフォーマットを取ります。<dl>
+
+<dt>VariableName = NameList</dt>
+
+<dd>配布ファイルのほかのエントリーに使用する変数 (<em>SourceList</em>、<em>DestinationList</em>、または <em>SubcommandList</em>) を定義します。</dd>
+
+
+
+<dt>[ラベル:] SourceList -&gt; DestinationList SubcommandList</dt>
+
+<dd><strong>rdist</strong> コマンドに対して、<em>SourceList</em> 変数で指定したファイルを <em>DestinationList</em> 変数で指定したホストに配布するよう指示します。</dd>
+
+<dd>配布ファイルのコマンドは追加機能を実行します。</dd>
+
+
+
+<dt>[Label:] SourceList :: TimeStampFile SubcommandList</dt>
+
+<dd><strong>rdist</strong> コマンドに対して、指定日以降に変更があったファイルを更新するよう指示します。 配布ファイルのサブコマンドは追加機能を実行します。</dd>
+
+<dd><em>SourceList</em> 変数で指定した各ファイルは、タイム・スタンプ・ファイルよりも新しければ更新されます。</dd>
+
+
+</dl>
+</div>
+
+<p>ラベルはオプションです。 ラベルは、部分的更新用のコマンドを識別するために使用されます。</p>
+
+</dd>
+
+
+
+<dt>エントリー</dt>
+
+<dd><div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>VariableName</em></td>
+
+<td>配布ファイル内で使用する変数を識別します。</td>
+
+</tr>
+
+<tr>
+<td><em>NameList</em></td>
+
+<td>ファイルおよびディレクトリー、ホスト、またはサブコマンドのリストを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>SourceList</em></td>
+
+<td>配布用のマスター・コピーとして使用する、<strong>rdist</strong> コマンド用のローカル・ホスト上のファイルおよびディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>DestinationList</em></td>
+
+<td>ホストにファイルのコピーを受信するよう指示します。</td>
+
+</tr>
+
+<tr>
+<td><em>SubcommandList</em></td>
+
+<td>実行する配布ファイルのサブコマンドをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><strong>rdist</strong> コマンドでは、改行文字、タブ、およびブランクをセパレーターとして扱います。 展開用の配布ファイル変数は、$ (ドル記号) で始まり、その後に単一文字または中括弧で囲まれた名前が続きます。</p>
+
+<p>コメントはポンド記号 (#) で始まり、改行文字で終わります。</p>
+
+</dd>
+
+
+
+<dt>ソースおよび宛先のリスト・フォーマット</dt>
+
+<dd><div>配布ファイルのソース・リストおよび宛先リストは、以下に示したフォーマットで示されるように、ブランクで区切られたゼロまたは複数の名前から構成されます。<div><div><pre><code>[Name1] [Name2] [Name3] ...</code></pre></div><div></div></div></div>
+
+<div><strong>rdist</strong> コマンドは、<strong>csh</strong> コマンドの場合と同様に、ローカル・ホスト上で以下のシェル・メタキャラクターを認識して展開します。<ul>
+<li>[ 左大括弧</li>
+
+<li>] 右大括弧</li>
+
+<li>{ 左中括弧</li>
+
+<li>} 右中括弧</li>
+
+<li>( 左括弧</li>
+
+<li>) 右括弧</li>
+
+<li>* アスタリスク</li>
+
+<li>? 疑問符</li>
+
+</ul>
+</div>
+
+<p>これらの文字が展開されないようにするには、文字の前に円記号を付けます。 <strong>rdist</strong> コマンドは、
+<strong>csh</strong> コマンドと同様にティルドを展開しますが、
+ローカル・ホストと宛先ホストで別々に展開します。 ティルドで始まるファイル名に <strong>-o</strong> <em>
+whole</em> オプションを使用すると、ホーム・ディレクトリー以外のすべてが
+宛先名に付加されます。 / (斜線) または ~ (ティルド) で始まらないファイル名は、
+宛先ユーザーのホーム・ディレクトリーを残りのファイル名のルート・ディレクトリーとして使用します。</p>
+
+</dd>
+
+
+
+<dt>配布ファイル・サブコマンド</dt>
+
+<dd><p>シェルへの複数のコマンドは、; (セミコロン) で区切る必要があります。 コマンドは、更新されるホスト上のユーザーのホーム・ディレクトリー内で実行されます。 プログラムを更新した後で専用データベースを再構築するときには、special サブコマンドを使用できます。</p>
+
+<div>配布ファイルのサブコマンド・リストには、以下のサブコマンドをゼロ個以上入れることができます。<dl>
+
+<dt>install Options[OptionalDestName];</dt>
+
+<dd>古いファイルおよびディレクトリーをコピーします。 <strong>rdist</strong> コマンドは、各ソース・ファイルまたはソース・ディレクトリーを宛先リスト内の各ホストにコピーします。</dd>
+
+<dd><em>Options</em> 変数で指定する使用可能なオプションは、<strong>rdist</strong> コマンド・フラグ <strong>-b</strong>、<strong>-h</strong>、<strong>-i</strong>、<strong> -R</strong>、<strong> -v</strong>、<strong>-w</strong>、および <strong>-y</strong> です。</dd>
+
+<dd>これらのオプションは、<em>SourceList</em> 変数で指定したファイルにだけ適用されます。<p><strong>-R</strong> フラグを使用すると、対応するファイル名がマスター・ホスト上になければ、空でないディレクトリーが除去されます。 <em>OptionalDestName</em> パラメーターはファイル名を変更します。</p>
+<p>install サブコマンドがサブコマンド・リストにない場合、または宛先名を指定していない場合には、ソース・ファイル名が使用されます。 リモート・ホスト上に存在しない場合には、パス名の下にディレクトリーが作成されます。</p>
+<p>宛先ホストで使用するログイン名は、宛先名のフォーマットが login@host でなければ、ローカル・ホストと同じです。</p>
+</dd>
+
+
+
+<dt>notify NameList;</dt>
+
+<dd>更新ファイル、およびリストされた名前 (<em>NameList</em> パラメーター) に生じる可能性のあるエラーのリストをメールします。</dd>
+
+<dd>名前に @ (アットマーク) がなければ、宛先ホストがその名前に追加されます (name@host)。</dd>
+
+
+
+<dt>except NameList;</dt>
+
+<dd><strong>rdist</strong> コマンドは、<em>NameList</em> 変数で指定したファイルを除き、<em>SourceList</em> エントリーで指定したすべてのファイルを更新します。</dd>
+
+
+
+<dt>except_pat NameList;</dt>
+
+<dd><strong>rdist</strong> コマンドが、<em>NameList</em> 変数で指定したリストのメンバーと一致する文字列を含むすべてのファイルを更新しないようにします。</dd>
+
+
+
+<dt>special NameList "String";</dt>
+
+<dd><em>NameList</em> 変数で指定したファイルの更新またはインストール後にリモート・ホスト上で実行するシェル・コマンド ("String" 変数) を指定します。</dd>
+
+<dd><em>NameList</em> 変数を省略すると、シェル・コマンドは更新またはインストールされたすべてのファイルに対して実行されます。</dd>
+
+<dd>シェル変数 FILE は、<strong>rdist</strong> コマンドが "String" 変数を実行する前に、現行ファイル名に設定されます。</dd>
+
+<dd>変数 REMFILE には更新されたばかりのリモート・ファイルの絶対パス名が含まれ、変数 BASEFILE には更新されたばかりのリモート・ファイルのベース名が含まれます。</dd>
+
+<dd>"String" 値は二重引用符で囲む必要があり、配布ファイル内で複数行にまたがることができます。</dd>
+
+<dd></dd>
+
+
+
+<dt>cmdspecial NameList "String";</dt>
+
+<dd><strong>cmdspecial</strong> コマンドは <strong>special</strong> と似ていますが、
+各ファイルが更新されるたびにではなく、
+全体のコマンドが完了した後にのみ実行される点が異なります。</dd>
+
+<dd>シェル変数 FILES にはファイルのリストが含まれます。 FILES シェル変数内の各ファイル名はコロンで区切ります。</dd>
+
+
+</dl>
+</div>
+
+<p>NFS は、ホスト名が正符号 (+) で終わる場合は使用不可になります。 これは、
+<strong>-o</strong> <em>chknfs</em>
+オプションをこの 1 つのホストにだけ使用不可にすることと同等です。</p>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>終了状況 (/usr/sbin/rdist)</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>例 (/usr/sbin/rdist)</h2>
+
+<ol>
+<li>更新するホストのファイルを指定するには、以下のような行を入力します。<div><div><pre><code>HOSTS =( matisse root@arpa )</code></pre></div><div></div></div>
+<p>上記の例では、HOSTS 変数は matisse および root@arpa. として定義されます。 <strong>rdist</strong> コマンドは、ホスト matisse および root@arpa 上のファイルを更新します。</p>
+<p>この変数を宛先リストとして使用することもできます。</p>
+</li>
+
+<li>SourceList エントリーの値として使用する名前を指定するには、
+以下のような行を入力します。<div><div><pre><code>FILES = ( /bin /lib/usr/bin /usr/games
+    /usr/include/{*.h,{stand,sys,vax*,pascal,machine}/*.h}
+       /usr/lib /usr/man/man? /usr/ucb /usr/local/rdist )</code></pre></div><div></div></div>
+<p>上記の例では、FILES 値は、 <em>SourceList</em> エントリーに使用されるファイルとして定義されています。</p>
+</li>
+
+<li>更新処理から除外するファイルを指定するには、以下のような行を入力します。<div><div><pre><code>EXLIB = ( Mail.rc aliases aliases.dir aliases.pag crontab dshrc
+    sendmail.cf sendmail.fc sendmail.hf sendmail.st uucp vfont)</code></pre></div><div></div></div>
+<p>上記の例では、EXLIB 値は、更新処理から除外するファイルのリストとして定義されています。</p>
+</li>
+
+<li>/usr/src/bin から arpa にすべてのファイルをコピーして、namelist 変数を拡張し、それにより namelist 変数内にあるファイルと、拡張として .o を持つファイル以外の全ファイルがコピーされるようにするには、以下のような行を入力します。<div><div><pre><code>/usr/src/bin -&gt;arpa
+except_pat(\e\e.o\e ${&lt;namelist&gt; /SCCS\e ${&lt;namelist&gt;}</code></pre></div><div></div></div>
+<p>または</p>
+
+<div><div><pre><code>/usr/src/bin -&gt;arpa
+except_pat(\\.o\e ${&lt;namelist&gt; /SCCS\e ${&lt;namelist&gt;}</code></pre></div><div></div></div></li>
+
+<li>.o という拡張を持つファイル以外のすべてのファイルを /usr/src/bin から arpa にコピーするには、以下のような行を入力します。<div><div><pre><code>/usr/src/bin -&gt;arpa
+except_pat(\\.o\$ /SCCS\$</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>フォーマット: [label:] SourceList - DestinationList SubcommandList の例</h2>
+
+<ol>
+<li>ファイルのソース・リストをホストの宛先リストにコピーするには、以下のような行を入力します。<div><div><pre><code>${FILES} -&gt;${HOSTS}
+    install -R
+    except /usr/lib/${EXLIB}  ;
+    except /usr/games/lib  ;
+    special /usr/sbin/sendmail "/usr/sbin/sendmail.bz"  ;</code></pre></div><div></div></div>
+<p>上記の行で、[Label:] エントリーの指定は、任意であるため、ここには表示してありません。 $ (ドル記号) および {} (中括弧) によって、
+ファイル名  FILES、HOSTS、および EXLIB が前の例で指定したリストに展開されます。</p>
+<p>この例の残りの部分は、サブコマンド・リストを構成します。</p>
+</li>
+
+<li>[Label:] エントリーを使用するには、以下のような行を入力します。<div><div><pre><code>srcsL:
+/usr/src/bin -&gt; arpa
+    except_pat (\e\e.o\e$ /SCCS\e$ ) ;</code></pre></div><div></div></div>
+<p>ラベルは srcsL: で、更新の際にこのエントリーの識別に使用できます。 <strong>/usr/src/bin</strong> ファイルはコピー元のソースで、ホスト arpa はコピーの宛先です。</p>
+<p>3 行目は、サブコマンド・リストからのサブコマンドです。</p>
+</li>
+
+<li>タイム・スタンプ・ファイルを使用するには、以下のような行を入力します。<div><div><pre><code>${FILES} :: stamp.cory
+    notify root@cory</code></pre></div><div></div></div>
+<p>$ (ドル記号) および {} (中括弧) によって、
+FILES で指定した名前が指定したリストに展開されます。 タイム・スタンプ・ファイルは <strong>stamp.cory</strong> です。</p>
+<p>最終行は、サブコマンド・リストからのサブコマンドです。</p>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル (/usr/sbin/rdist)</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/rdist</strong></td>
+
+<td>バージョン 6.1.5 の <strong>rdist</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>DistFile</strong></td>
+
+<td>入力コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ TMPDIR/ rdist *</strong></td>
+
+<td>更新リスト用の一時ファイルです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

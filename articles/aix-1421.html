@@ -1,0 +1,179 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>カーネル・セキュリティー・テーブル (KST) のエントリーを設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>セックスト</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setkst.html#setkst__row-d3e17543" target="_blank" rel="noopener noreferrer"> <strong>-Q (Q)</strong> </a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setkst.html#setkst__row-d3e17537" target="_blank" rel="noopener noreferrer"> <strong>-b</strong> </a> |<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setkst.html#setkst__row-d3e17538" target="_blank" rel="noopener noreferrer"> <strong>-</strong> </a> |<a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setkst.html#setkst__row-d3e17549" target="_blank" rel="noopener noreferrer"> <strong>T</strong></a> <em>table1</em>, <em>table2</em>,...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>setkst</strong> コマンドは、セキュリティー・データベースを読み取り、データベースからの情報をカーネル・セキュリティー・テーブルにロードします。 デフォルトでは、セキュリティー・データベースのすべてが KST に送信されます。 あるいは、<strong>-t</strong> フラグを使用して、特定のデータベースを指定することもできます。 許可データベースのみが、指定する唯一のデータベースである場合、ロールおよび特権コマンド・データベースは、許可データベースに依存しているため、その更新は KST で行われます。</p>
+ <p><strong>setkst</strong> コマンドは、KST を更新する前にテーブルを検査します。 データベース内に重大エラーが検出されると、<strong>setkst</strong> コマンドは、<strong>stderr</strong> にメッセージを送ってユーザーに警告し、KST をリセットせずに終了します。 データベース内で検出されたエラーが小さい場合は、警告メッセージが表示され、エントリーはスキップされます。</p>
+ <p><strong>setkst</strong> コマンドは、システムが拡張 <span>役割ベースのアクセス制御</span> (<span>RBAC</span>) モードで動作している場合にのみ機能します。 システムが拡張 <span>RBAC</span> モードでない場合、コマンドはエラー・メッセージを表示して終了します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>システムのバックアップ・バイナリー・ファイルに保管される情報を KST にロードします。 バイナリー・ファイル内の情報がロードできない場合、テーブルはセキュリティー・データベースから再生成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><code>/etc/secvars.cfg</code> ファイルの <code>syslog</code> スタンザから
+<code>loglevel</code> 属性を読み取って、<code>loglevel</code> 属性値をカーネルに更新します。 <code>loglevel</code> 属性に有効な値は <code>all</code>、<code>crit</code>、および <code>none</code> です。 <code>loglevel</code> 属性に無効な値は、<code>setkst</code> コマンドでは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>抑止モードを指定します。 警告メッセージが発生しても、セキュリティー・データベースの構文解析時に表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>table1</em>、 <em>table2</em></td>
+
+<td>指定されたセキュリティー・データベースを KST に送信します。 <strong>-t</strong> フラグのパラメーターは、セキュリティー・データベースのコンマで区切られたリストです。 このフラグの値は、以下のとおりです。<dl>
+
+<dt>auth</dt>
+
+<dd>許可データベース</dd>
+
+
+<dt>role</dt>
+
+<dd>ロール・データベース</dd>
+
+
+<dt>cmd</dt>
+
+<dd>特権コマンド・データベース</dd>
+
+
+<dt>偏差</dt>
+
+<dd>特権デバイス・データベース</dd>
+
+
+<dt>dom</dt>
+
+<dd>ドメイン</dd>
+
+
+<dt>domobj</dt>
+
+<dd>ドメイン・オブジェクト</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><strong>setkst</strong> コマンドは特権コマンドです。 以下の許可を持つユーザーのみが、コマンドを正常に実行できます。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>aix.security.kst.set</strong></td>
+
+<td>コマンドを実行する場合に必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>アクセスされるファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>ファイル</div></th>
+
+<th><div>モード</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/security/authorizations</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/privcmds</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/privdevs</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/roles</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domains</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/domobjs</strong></td>
+
+<td>r</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/secvars.cfg</strong></td>
+
+<td>r</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>セキュリティー・データベースのすべてを KST に送信するには、以下のコマンドを入力します。<div><div><pre><code>setkst</code></pre></div><div></div></div></li>
+
+<li><strong>ロール</strong>および<strong>特権</strong>コマンド・データベースを KST に送信するには、以下のコマンドを入力します。<div><div><pre><code>setkst -t role,cmd</code></pre></div><div></div></div></li>
+
+<li>ドメイン・オブジェクトとドメイン・データベースを KST に送信するには、
+以下のコマンドを入力します。<div><div><pre><code>setkst -t domobj,dom</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

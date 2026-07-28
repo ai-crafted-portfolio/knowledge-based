@@ -1,0 +1,787 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルをキューに入れます。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>ファイルを処理する</strong></p>
+ <p><strong>エンキュー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80128" target="_blank" rel="noopener noreferrer"><strong> - </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80149" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> <em>CharacterPair</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80243" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80255" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80819" target="_blank" rel="noopener noreferrer"><strong>-G </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80300" target="_blank" rel="noopener noreferrer"><strong>-j (J) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80316" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a><em>テキスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80327" target="_blank" rel="noopener noreferrer"><strong>-M (M) </strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80338" target="_blank" rel="noopener noreferrer"><strong>N </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80355" target="_blank" rel="noopener noreferrer"><strong>-N (N) </strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80366" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>オプション</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer"><strong>-P </strong></a><em>待ち行列</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80392" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80398" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80413" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>"<em>ユーザー</em>" ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80432" target="_blank" rel="noopener noreferrer"><strong>-T (T) </strong></a><em>タイトル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80456" target="_blank" rel="noopener noreferrer"><strong>-Y (Y) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80483" target="_blank" rel="noopener noreferrer"><strong>-Z </strong></a><em>名前</em> ] <em>ファイル</em></p>
+<p><strong>印刷ジョブの優先順位を変更する</strong></p>
+ <p><strong>enq</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80503" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em> 数字</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80525" target="_blank" rel="noopener noreferrer"><strong>-#</strong></a><em>JobNumber</em></p>
+<p><strong>状況を表示するには</strong></p>
+ <p><strong>エンキュー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-q (Q) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer"><strong>-A </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80600" target="_blank" rel="noopener noreferrer"><strong>-L (L) </strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80726" target="_blank" rel="noopener noreferrer"><strong>-W (W) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80587" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80525" target="_blank" rel="noopener noreferrer"><strong>-#</strong></a><em> JobNumber</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80691" target="_blank" rel="noopener noreferrer"><strong>-ウー</strong> <em>名前</em> </a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80699" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a><em>秒</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80685" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>]</p>
+<p><strong>キューおよびキュー・デーモン状況を変更する</strong></p>
+ <p><strong>エンキュー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80765" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80803" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80819" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80883" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80893" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-Q (Q) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer"><strong>-A </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80914" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a> ]</p>
+<p><strong>オプションを取り消すには</strong></p>
+ <p><strong>エンキュー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80961" target="_blank" rel="noopener noreferrer"> <strong>-X (X)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80967" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a><em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80978" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em>プリンター</em> ]</p>
+<p><strong>印刷ジョブを保留、解放、または別のキューに移動する</strong></p>
+ <p><strong>enq</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81015" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81030" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81083" target="_blank" rel="noopener noreferrer"><strong>-Q</strong></a><em> 新規キュー</em> } { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80525" target="_blank" rel="noopener noreferrer"><strong>-#</strong></a><em> ジョブ番号</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81036" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em> キュー</em> ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81044" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em> ユーザー</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81036" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em> キュー</em> }</p>
+<p><strong>印刷ジョブをキューに入れて保留する</strong></p>
+ <p><strong>エンキュー</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81021" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> <em>ファイル ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>enq</strong> コマンドは、共有リソース (通常はプリンター・デバイス) に対する要求をキューに入れる汎用ユーティリティーです。 <strong>enq</strong> コマンドを使用すると、要求をキューに入れたり、取り消したり、要求の優先順序を変更したり、キューやデバイスの状況を表示できます。</p>
+ <p><strong>enq</strong> コマンドは、すべてのフラグが共に機能するわけではないため、5 つの異なった構文図を持っています。 これらのフラグの一部はファイル処理用で、<em>FileName</em>  をオプションとして受け取ります。 その他のフラグは、印刷ジョブの優先順位の変更、状況の表示、キューの状況またはキューのデーモンの変更、印刷ジョブの取り消しなどに使用されます。</p>
+ <p>特定のキュー上のファイルをエンキューするには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> フラグ (<strong>-P</strong><em> 待ち行列</em>) を使用します。 そのキューに対して複数のデバイスが使用されている場合、キューの名前の後にそのデバイス (<em>:device</em>) を指定して、特定のデバイスを要求することもできます。 デバイスを指定しない場合、ジョブは最初に使用可能となったデバイスに送信されます。 ファイルを指定しない場合、<strong>enq</strong> コマンドは標準入力をファイルにコピーして、それを印刷キューに入れます。</p>
+ <p><strong>enq</strong> コマンド要求は、その要求に関連するオペレーター・メッセージを持つことができます。 この機能は、分散環境や多くのユーザーを持つシステム上で役立ちます。 このメッセージは、そのジョブの印刷を始める前に、特別な用紙や違った色の用紙をプリンターに装着するなどの要求情報をプリンターのオペレーターに伝えます。 これらのメッセージは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80316" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> フラグおよび <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80327" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> フラグで指定されます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qdaemon.html" target="_blank" rel="noopener noreferrer"><strong>qdaemon</strong></a> コマンドは、 <strong>エンキュー</strong> コマンド要求を処理します。 <strong>qdaemon</strong> コマンドが要求とその関連メッセージを開始する準備ができると、システムは <strong>qdaemon</strong> プロセスが実行されるコンピューターのコンソールにメッセージを表示します。 メッセージのテキストにはプロンプトが付いていて、継続するように要求する信号を送る方法、または要求を取り消す方法を、プリンターのオペレーターに伝えます。</p>
+ <p><strong>enq -A</strong> コマンドで生成された表示には、リモート・キューに対する 2 つのエントリーが含まれています。 第 1 のエントリーには、クライアントのローカル・キューとローカル・デバイス名、
+およびその状況情報が含まれます。 第 2 のエントリーは第 1 のエントリーのすぐ後にあり、クライアントのローカル・キュー名 (再度) の後にリモート・キュー名が表示されます。 リモート・キューに対して実行依頼されたジョブは最初にローカル側に表示され、ジョブがリモート・マシン上で処理されるときにリモート・デバイスに移動します。</p>
+ <p>状況コマンドがリモート・ホストと交信する際に、コマンドがリモート・マシンからの応答を待つ間、画面が頻繁に停止するように見えます。 2 つのマシン間の接続を確立できない場合、コマンドは最終的にタイムアウトになります。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>ファイルをキューに入れるには、
+そのファイルへの読み取りアクセスを持っていなければなりません。 ファイルを削除するには ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80392" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> フラグを参照)、そのファイルが含まれているディレクトリーへの書き込み権限も必要です。</li>
+
+<li><strong>エンキュー</strong> コマンドを発行してから印刷するまでの間にファイルの変更を続行したい場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80243" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> フラグを使用する必要があります。</li>
+
+<li>ファイルをプリンター上のキューに入れるときには、
+フラグはどんな順序で指定してもかまいません。</li>
+
+<li><strong>-d</strong> および <strong>-G</strong> フラグは、
+即座に機能します。 コマンド・ライン上でこれらの 2 つのフラグの前にある構文エラーが報告されます。 コマンド・ライン上でこれらの 2 つのフラグの後にある構文エラーは無視されます。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2><p><strong>ファイル処理オプション</strong></p>
+ <p><strong>enq</strong> コマンドにファイル名のリストを提供すると、提供したファイルがすべてキューに入れられ、デフォルト・デバイスまたは指定したデバイス上でファイルの処理が行われます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td><strong>enq</strong> コマンドをフィルターとして機能させます。 ファイルを指定しないと、<strong>enq</strong> コマンドは自動的に標準入力を読み込みます。 ただし、ファイルを指定する場合、ダッシュ (<strong>-</strong>) を使用して、<strong>enq</strong> コマンドに標準入力を読み取らせるよう強制することができます。 ダッシュ (<strong>-</strong>) は、実際はフラグではなく、特別なタイプのファイル名です。 したがって、そのコマンド・ライン上で他のフラグをすべて指定した後に指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong><em> CharacterPair</em></td>
+
+<td><em>CharacterPair</em> の値に従って、次のようにバースト・ページの印刷を制御します。 (<strong>N</strong> = never, <strong>A</strong> = always, <strong>G</strong> = group。 先頭の文字はヘッダー、2 番目の文字はトレーラーを表します)。<dl>
+<dt>HT</dt>
+
+<dd>説明</dd>
+
+
+<dt><strong>nn</strong></dt>
+
+<dd>ヘッダーなし、トレーラーなし。</dd>
+
+
+<dt><strong>該当なし</strong></dt>
+
+<dd>ヘッダーなし、各ファイルにトレーラーあり。</dd>
+
+
+<dt><strong>さ</strong></dt>
+
+<dd>ヘッダーなし、ジョブの最後にトレーラーあり。</dd>
+
+
+<dt><strong>AN</strong></dt>
+
+<dd>各ファイルにヘッダーあり、トレーラーなし。</dd>
+
+
+<dt><strong>AA</strong></dt>
+
+<dd>ジョブの各ファイルにヘッダーとトレーラーあり。</dd>
+
+
+<dt><strong>ag</strong></dt>
+
+<dd>各ファイルにヘッダー、ジョブの後にトレーラーあり。</dd>
+
+
+<dt><strong>GN</strong></dt>
+
+<dd>ジョブの最初にヘッダー、トレーラーなし。</dd>
+
+
+<dt><strong>GA</strong></dt>
+
+<dd>ジョブの最初にヘッダー、各ファイルの後にトレーラーあり。</dd>
+
+
+<dt><strong>gg</strong></dt>
+
+<dd>ジョブの最初にヘッダー、ジョブの最後にトレーラーあり。</dd>
+
+</dl>
+  <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer"><strong>/etc/qconfig</strong></a> ファイル内のヘッダー・スタンザおよびトレーラー・スタンザは、バースト・ページのデフォルト処理を定義します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> リモート印刷環境では、デフォルトでヘッダー・ページが印刷され、トレーラー・ページは印刷されません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>ファイルをコピーします。 ディスク・スペースを節約するために、<strong>enq</strong> コマンドはファイル名を記憶しますが、実際にはファイル自体をコピーしません。 現行コピーが印刷されるのを待つ間に、ファイルの変更を継続したい場合には、<strong>-c</strong> フラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>エラー・メッセージおよびジョブ完了通知に対して、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/write.html" target="_blank" rel="noopener noreferrer"><strong>書き込み</strong></a> コマンドの代わりに <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mail.html" target="_blank" rel="noopener noreferrer"><strong>メール</strong></a> コマンドを使用することを指定します。 (このフラグを使用すると、プリンターからのフィードバックが向上するため、 PostScript アプリケーションの作成に役立ちます。) エラー・メッセージとジョブ完了メッセージ (両方とも <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piobe.html" target="_blank" rel="noopener noreferrer"><strong>ピオベ</strong></a> コマンドによって生成される)、およびプリンターから読み取られたすべてのデータもメールで返送されます。<p><strong>-C</strong> フラグはローカル印刷ジョブにのみ適用されます。 リモート・プリンターに送信されたジョブが完了したときに通知が必要な場合は、<strong>-n</strong> フラグを使用してメール・メッセージを受信します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> 何らかの方法で <strong>qdaemon</strong> およびプリンター・バックエンドからリダイレクトできないメッセージがいくつかあります。 それらのメッセージはシステム・エラーであり、/<strong>dev</strong>/<strong>console</strong> ファイルに直接送られます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong></td>
+
+<td>以下のメッセージを指定します。Job number is: nnn<em>,</em> ここで、nnn割り当てられたジョブ番号です。標準出力に表示されます。 そのメッセージは、ジョブがローカル印刷キューに渡された場合に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m (M)</strong><em> テキスト</em></td>
+
+<td><strong>enq</strong> コマンド要求と一緒にオペレーター・メッセージを渡します。 指定したテキストにはメッセージが入ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M (M)</strong><em> ファイル</em></td>
+
+<td><strong>enq</strong> コマンド要求と一緒にオペレーター・メッセージを渡します。 指定したファイルにはメッセージのテキストが入ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ジョブの終了を通知します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80413" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> フラグも使用されている場合、 <strong>エンキュー</strong> コマンドは、要求の対象となるユーザーにも通知します ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80413" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> フラグを参照)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong><em> 数値</em></td>
+
+<td><em>Number</em> が示す部数だけファイルを印刷します。 通常、ファイルは 1 回だけ印刷されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> オプション</em></td>
+
+<td>バックエンド固有のフラグがバックエンドに渡されるよう指定します。 したがって、各キューには、<strong>enq</strong> コマンド・ラインに組み込まれる可能性があってもこのセクションで説明されていないフラグが存在します。 これらのフラグのリストについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piobe.html" target="_blank" rel="noopener noreferrer"><strong>ピオベ</strong></a> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> 待ち行列</em></td>
+
+<td>ジョブが送信されるキューを指定します。 キュー上の特定のデバイスは、次のように入力して指定できます。-P Queue:Device.</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ファイルの印刷が正常に行われた後に、そのファイルを除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong><em> 数値</em></td>
+
+<td>現行ジョブの優先順位を <em>Number</em> に設定します。 このフラグは、ジョブの実行を要求するときに使用されます。 ジョブの実行依頼後に優先順位を変更するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80503" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> フラグを使用します。 数が大きいほど、優先順位も高くなります。 デフォルトの優先順位は 15 です。 大部分のユーザーの場合、最大優先順位は 20 で、root ユーザー権限を持つユーザーの場合は 30 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong> "<em>ユーザー</em>"</td>
+
+<td>送達のために出力に <em>User</em> というラベルを付けます。 通常、送達のために、出力には <strong>enq</strong> コマンド要求を発行したユーザーのラベルが付けられます。 <em>User</em> の値は、正規のユーザー ID の要件を満たす単一のワードであることが必要です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T (T)</strong><em> タイトル</em></td>
+
+<td>ヘッダー・ページにタイトルを付け、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> フラグが指定されている場合に表示します。 通常、ジョブのタイトルはファイル名となります。 <strong>エンキュー</strong> コマンドが標準入力から読み取る場合、ジョブ・タイトルは <strong>STDIN。#</strong> です。 ここで、 <strong>#</strong> は <strong>エンキュー</strong> コマンドのプロセス ID です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong></td>
+
+<td><strong>enq</strong> コマンドに対して、このフラグ以降のコマンド・ラインをすべて無視するように伝えます。 これは、キューが有効かどうかを検出するのに役立ちます ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer"><strong>/etc/qconfig</strong></a> ファイルにある場合)。 例えば、次のように入力します。enq -P lp4 -Yライン・プリンター <strong>lp4</strong> が有効なキューである場合は、終了値 0 で戻ります。それ以外の場合は、ゼロ以外の値が戻されます。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qdaemon.html" target="_blank" rel="noopener noreferrer"><strong>qdaemon</strong></a> コマンドに <strong>/etc/qconfig</strong> ファイルのリダイジェストを強制する場合にも役立ちます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong><em> 名前</em></td>
+
+<td>リモート印刷ジョブの発信元を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>印刷ジョブ優先順位オプション</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a 値</strong><em> 数値</em></td>
+
+<td>指定したジョブの優先順位を <em>Number</em> に変更します。 このフラグを指定して <strong>enq</strong> コマンドを入力する前に、ジョブが出力用に実行依頼されている必要があります。 優先順位の説明については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80398" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> フラグを参照してください。 ジョブ番号を指定するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80525" target="_blank" rel="noopener noreferrer"><strong>-#</strong></a> フラグを使用します。 このフラグは、ローカル印刷ジョブに対してのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-#</strong><em> JobNumber</em></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>enq-q</strong></a>コマンドまたは<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80503" target="_blank" rel="noopener noreferrer"><strong>enq</strong> <strong>-a</strong></a>コマンドで使用されるジョブ番号を指定し、ステータス出力に指定されたジョブのみを表示します。<div><div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>デフォルトの宛先プリンターを指定変更するには、
+<strong>-P</strong><em> Queue</em> を指定します。</li>
+
+<li>ジョブ 1、2、3 がプリンター・キューにあり、ジョブ 1 が実行中であるにもかかわらずジョブ 3 の状況を要求することを指定した場合、ジョブ 3 だけでなくジョブ 1 の状況情報も出力されます。</li>
+
+<li>存在しないジョブ番号を指定した場合、エラー・メッセージの代わりに、現在キューにある現行ジョブ番号が表示されます。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>状況表示オプション</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-A</strong></td>
+
+<td>すべてのキューの状況を提供します。 これは、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer"><strong>qconfig</strong></a>ファイルの各キューに対して、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>enq-q</strong></a>コマンドを一度だけ実行するようなものである。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qdaemon.html" target="_blank" rel="noopener noreferrer"><strong>qdaemon</strong></a> コマンドの制御下にないキューから状況情報を除外します。 この種のキューの状況は、フォーマットが異なる場合があります。 <strong>-e</strong> フラグは他のフラグと任意に組み合わせて使用することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>詳しい状況を指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80726" target="_blank" rel="noopener noreferrer"><strong>-W (W)</strong></a> フラグと一緒に使用できます。 <strong>-L</strong> フラグ
+と <strong>-W</strong> フラグが同時に使用されると、
+印刷ジョブの詳しい状況がセミコロンで区切られた形式で表示されます。 1 つの印刷ジョブの中で出力される複数のファイルを表示するには、<strong>-L</strong> フラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>デフォルトのキューの状況を表示します。 <strong>LPDEST</strong> および <strong>PRINTER</strong> 環境変数は、デフォルトのプリンターの名前を制御します。 <strong>LPDEST</strong> 環境変数に値が入っていると、その値が常に最初に使用されます。 <strong>LPDEST</strong> 変数に値が入っていない場合、<strong>enq</strong> コマンドは <strong>PRINTER</strong> 環境変数を使用します。 <strong>PRINTER</strong> 環境変数に値が入っていない場合は、<strong>enq</strong> コマンドはシステム・デフォルトを使用します。<div><div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>特定のキューの状況を表示するには、 <strong>-Q (Q)</strong> フラグとともに <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>待ち行列</em> フラグを使用します。</li>
+
+<li>宛先コマンド・ラインのオプションはすべて、<strong>LPDEST</strong> と <strong>PRINTER</strong> の両方の環境変数を指定変更します。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ファイルをリストせずに印刷キューの状況を入手します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> 名前</em></td>
+
+<td>印刷ジョブ状況のユーザー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w (W)</strong><em> 秒</em></td>
+
+<td>キューが空になるまで、指定された <em>秒</em> ごとに画面を更新して、キュー状況の継続出力を指定します ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lpq.html" target="_blank" rel="noopener noreferrer"><strong>LPQ</strong></a> コマンドを参照)。 キューが空になると、処理は停止します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> フラグ、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> フラグ、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80600" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> フラグのいずれかと一緒にのみ使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong></td>
+
+<td>幅の広い状況フォーマットをより長いキュー名、デバイス名、およびジョブ番号で指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80600" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> フラグと一緒に使用できます。 <strong>-L</strong> と <strong>-W</strong> の
+フラグが同時に使用されると、
+印刷ジョブの詳しい状況がセミコロンで区切られた形式で表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>キューおよびキュー・デーモン状況の変更オプション</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/digest.html" target="_blank" rel="noopener noreferrer"><strong>digest</strong></a> コマンドを <strong>/etc/qconfig</strong> ファイルに対して実行します。 要約 (digest) が完了すると、<strong>/etc/qconfig</strong> ファイルに加えられたすべての変更は、<strong>/etc/qconfig.bin</strong> ファイルに反映されます。 このオプションを実行するには、root ユーザー権限を持っていなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>enq</strong> コマンドでは、すべてのユーザーが使用できる前述のフラグの他に、root ユーザー権限を持つユーザーによって入力される次のフラグを使用できます。 root ユーザー権限とは、その人が root であるか、または <strong>printq</strong> グループに属していることを意味します。</p>
+<div><div>
+        <div>
+          <div><span>注:</span> 以下のフラグは、ローカル印刷ジョブでのみ使用できます。</div>
+        </div>
+      </div></div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-D</strong></td>
+
+<td>即時停止。 キューに関連しているデバイスの電源をオフにします。 <strong>qdaemon</strong> プロセスはジョブを装置に送信しなくなり、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>エンキュー</strong> <strong>-Q (Q)</strong></a> コマンドを入力するとその状況が DOWN として表示されます。 デバイスで実行中のジョブは終了されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong></td>
+
+<td>安全に停止。 現在実行中のジョブが終了した後に、<strong>qdaemon</strong> プロセスを終了します。 このフラグを使用する方法は、<strong>qdaemon</strong> プロセスを簡単に終了させる唯一の方法です。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/kill.html" target="_blank" rel="noopener noreferrer"><strong>強制終了</strong></a> コマンドを使用すると、キュー内のジョブが停止するなどの問題が発生する可能性があります。<p><strong>qdaemon</strong> プロセスを <strong>srcmstr</strong> の制御下で実行している場合 (デフォルト構成)、
+<strong>enq -G</strong> は、<strong>qdaemon</strong> が自動的に再始動するのを防ぎません。 デフォルトの構成を変更し、<strong>qdaemon</strong> プロセスの自動再始動を防ぐ <strong>chssys</strong> コマンドを使用する必要があります。 次のコマンド</p>
+  <div> <div><div><pre><code>chssys -s qdaemon -O</code></pre></div><div></div></div></div>
+  <p>を <strong>enq    -G</strong> コマンドの前に実行すれば、
+<strong>qdaemon</strong> コマンドが自動的に再始動されるのを防ぐことができます。</p>
+  <p>次のコマンド</p>
+  <div> <div><div><pre><code>startsrc -s qdaemon</code></pre></div><div></div></div></div>
+  <p>は、<strong>qdaemon</strong> プロセスを手動で再始動します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td>現在のすべてのジョブが強制終了されることを除き、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80803" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> フラグと同じように動作します。 抹消されたジョブはキューにそのまま残り、デバイスの電源が入れられたときに再度実行されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>詳しい状況を指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80726" target="_blank" rel="noopener noreferrer"><strong>-W (W)</strong></a> フラグと一緒に使用できます。 1 つの印刷ジョブの中で出力される複数のファイルを表示するには、<strong>-L</strong> フラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>キューに関連するデバイスを立ち上げます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qdaemon.html" target="_blank" rel="noopener noreferrer"><strong>qdaemon</strong></a>プロセスは再びジョブを送り、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer"><strong>enq-q</strong></a>コマンドを入力すると、そのステータスがreadyであることを示す。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 複数のデバイスがキューに関連付けられている場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80803" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> フラグ、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80883" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a> フラグ、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80914" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a> フラグを使用するときに、デバイスとキューを指定する必要があります。 例えば、次のように入力すると、-P
+lp:lpdそのキューに他の装置がない場合にのみ、同じ装置を指定します。</div>
+        </div>
+      </div></div>
+<p><strong>キャンセル・オプション</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-X</strong></td>
+
+<td>ジョブの印刷を取り消します。 ユーザーが root ユーザー権限を持っていれば、指定したキュー上のすべてのジョブが削除されます。 このフラグは、ローカル印刷ジョブに対してのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> 数値</em></td>
+
+<td><em>Number</em> で指定した番号のジョブの印刷を取り消します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> プリンター</em></td>
+
+<td>すべてのジョブまたは特定のジョブのジョブ番号を取り消したい<em>プリンター</em> を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注意:</span> root ユーザー権限があり、キューを指定しない場合、すべてのキュー上のすべてのジョブが削除されます。</div>
+        </div>
+      </div></div>
+<p><strong>印刷ジョブの保留および解放オプション</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-#</strong><em> JobNumber</em></td>
+
+<td>保留または解放する印刷ジョブの番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>指定した印刷ジョブを保留します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td><em>File</em> パラメーターで指定したファイルをキューに入れて保留します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>指定した印刷ジョブを解放します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> 待ち行列</em></td>
+
+<td>保留または解放する印刷キューを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ウー</strong><em> ユーザー</em></td>
+
+<td>印刷ジョブを保留または解放するユーザーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>印刷ジョブの移動オプション</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-#</strong><em> JobNumber</em></td>
+
+<td>移動する印刷ジョブの番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> 待ち行列</em></td>
+
+<td>移動する印刷キューを指定します。 <em>Queue</em> 変数の値は、キュー名、またはキュー: デバイス名のフォーマットで指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong><em> NewQueue</em></td>
+
+<td>印刷ジョブの移動先のターゲット・キューを指定します。 <em>NewQueue</em> 変数の値は、キュー名の形式、またはキュー: 装置名の形式にすることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ウー</strong><em> ユーザー</em></td>
+
+<td>移動する印刷ジョブのユーザーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ENQUE_admin</td>
+
+<td>キュー名、デバイス名、ジョブ名、ユーザー名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルを印刷するにはmemoデフォルト・プリンターでは、次のように入力します。<div> <div><div><pre><code>enq memo</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ファイルを印刷するにはprog.cページ番号を付けて、次のように入力します<div> <div><div><pre><code>pr prog.c | enq</code></pre></div><div></div></div><strong>pr</strong> コマンドは、各ページの先頭に見出しを付けます。この見出しには、ファイルが最後に変更された日付、ファイル名、およびページ番号が表示されます。 それから <strong>enq</strong> コマンドがファイルを印刷します。</div>
+</li>
+
+<li><span></span>標準入力から読み取るページ番号付きのファイルを印刷するには、次のように入力します。<div>pr x | enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer">-P</a> bill  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80338" target="_blank" rel="noopener noreferrer">-n</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80392" target="_blank" rel="noopener noreferrer">-r</a> fn1 - fn3</div>特別なファイル名であるダッシュ (<strong>-</strong>) は、<strong>enq</strong> コマンドに標準入力から読み込むように伝えます。 通常、コマンド・ラインにファイル名がある場合、<strong>enq</strong> コマンドは標準入力から読み込みを行いません。 また、これは印刷する順序も示しています。 <strong>PR</strong> コマンドは、ファイルのページ番号付きバージョンを作成します。xこれを <strong>enq</strong> コマンドに渡すと、その出力を含む一時ファイルが <strong>/var/spool/qdaemon</strong> ファイルに作成されます。<p><strong>エンキュー</strong> コマンドは、4 つのファイルを持つジョブを作成し、それを指定されたキューに実行依頼します。billを印刷します。fn1ファイルを 2 回。 次に、enq コマンドは <strong>pr</strong> コマンドの出力を、どのようなものでも印刷します。 最後に、ファイルを印刷します。fn34 つのファイルは、バースト・ページのために 1 つのジョブとして扱われます。 通知が送信されました (-nジョブが完了したときのフラグ)。 以降-rフラグが指定されました。fn1およびfn3ファイルはジョブの完了時に除去されます。 ダッシュ (<strong>-</strong>) ファイルによって作成された一時ファイルは、常に削除されます。</p>
+  <p><strong>pr</strong> コマンドは、各ページの先頭に見出しを付けます。この見出しには、ファイルが最後に変更された日付、ファイル名、およびページ番号が表示されます。 それから <strong>enq</strong> コマンドがファイルを印刷します。</p>
+</li>
+
+<li>ファイルを印刷するにはreportに構成されている次の使用可能な印刷装置に対して,fred以下のように入力します。<div> <div><div><pre><code>enq -P fred report</code></pre></div><div></div></div></div>
+</li>
+
+<li>接頭部で始まる複数のファイルを印刷するには、次のようにします。samに構成されている次の使用可能な印刷装置に対して,fred以下のように入力します。<div> <div><div><pre><code>enq -P fred sam*</code></pre></div><div></div></div>接頭部で始まるすべてのファイルsam1 つの印刷ジョブに組み込まれます。 <strong>-T</strong> フラグで他の値を指定していない限り、通常の状況コマンドでは、印刷ジョブのタイトル (この場合、キューの最初のファイルの名前) だけが表示されます。 印刷ジョブの中のすべてのファイルの名前を表示するには、詳細状況コマンド <strong>enq</strong><strong>-A</strong><strong>-L</strong> を使用します。</div>
+</li>
+
+<li>ファイルが印刷されるのを待っているかどうかについて、
+印刷キューを調べるには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer">-q</a></div>このコマンドは、ユーザーのデフォルト・キュー状況を表示します。 ファイルがまだ印刷されていない場合は、キュー状況のリストに表示されます。 システム・デフォルトのキューは、<strong>/etc/qconfig[.bin]</strong> ファイルの最初のキューとして定義されます。 ユーザーは、<strong>PRINTER</strong> 環境変数を設定しエクスポートして、デフォルトを指定変更できます。</li>
+
+<li>デフォルト以外のキューの状況を表示するには、次のようにします。lp0次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80628" target="_blank" rel="noopener noreferrer">-q</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer">-P</a> lp0</div>
+</li>
+
+<li>キューの詳細状況を表示するには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80600" target="_blank" rel="noopener noreferrer">-L</a></div>
+</li>
+
+<li>すべてのキューについて状況を表示するには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer">-A</a></div>
+</li>
+
+<li>すべてのキューについて詳細状況を表示するには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer">-A</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80600" target="_blank" rel="noopener noreferrer">-L</a></div>
+</li>
+
+<li>デフォルトのキューの状況を幅広いフォーマットで表示するには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80726" target="_blank" rel="noopener noreferrer">-W</a> </div>
+</li>
+
+<li>すべてのキューの幅広い状況を表示するには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80726" target="_blank" rel="noopener noreferrer">-W</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80573" target="_blank" rel="noopener noreferrer">-A</a> </div>
+</li>
+
+<li>ジョブ (ジョブは 1 つ以上のファイルを指す) の印刷を停止するには、
+次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80967" target="_blank" rel="noopener noreferrer">-x</a> 413</div>このコマンドは、ジョブの印刷の要求を取り消します。 番号は、<strong>enq -q</strong> コマンドを入力して得たリストに登録されているものです。 ジョブが印刷中である場合、プリンターは即座に停止します。 ジョブがまだ印刷されていない場合、印刷されないようキューから除去されます。 ジョブがキューにない場合、<strong>enq</strong> コマンドは次の出力のようなメッセージを表示します。<div> <div><div><pre><code>no such request from you -- perhaps it's done?</code></pre></div><div></div></div></div>
+</li>
+
+<li>プリンターをキュー・システムから切り離すには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer">-P</a> lp0:dlp0  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80803" target="_blank" rel="noopener noreferrer">-D</a></div>このコマンドを入力すると、 <strong>エンキュー</strong> コマンド要求がプリンターに送信されなくなります。lp0キュー。 ファイルが印刷中の場合は、終了するまで印刷されます。 <strong>enq</strong> コマンドを実行するには、<strong>qadm</strong> コマンドが実行できなければなりません。<div><div>
+        <div>
+          <div><span>注:</span> 指定されたキューにサービスを提供するプリンターの名前は、 <strong>/etc/qconfig[.bin]</strong> ファイルにあるデバイス・スタンザ名によって指定されます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>デフォルト・プリンターで <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piobe.html" target="_blank" rel="noopener noreferrer"><strong>ピオベ</strong></a> コマンド・バックエンドを使用して、ページ番号付きのファイルを印刷するには、次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80366" target="_blank" rel="noopener noreferrer">-o</a> -p filename </div>この-pフラグは、 <strong>エンキュー</strong> コマンドでは参照されません。 この-oflag は、 <strong>エンキュー</strong> コマンドに次の項目 (引用符で囲むことができます) を変更せずにバックエンドに渡すように指示します。 したがって、 <strong>エンキュー</strong> コマンドは、-p<strong>qdaemon</strong> プロセスにフラグを立て、それをバックエンド <strong>ピオベ</strong>に渡します。 この-pフラグを指定すると、 <strong>piobe</strong> は <strong>/usr/bin/pr</strong> フィルターを実行して、装置にデータを渡す前に文書にページ番号を適用します。 複数のオプションを、1 つの <span>-o</span> フラグが前に付いている引用符で囲んで指定できます。 また、複数のオプションを、引用符を使用せずに各オプションの前に <span>-o</span> フラグを付けて指定することもできます。</li>
+
+<li>次のような情報を持つ <strong>qconfig</strong> ファイルを仮定し、<div> <div><div><pre><code>qname:
+               device = fred
+fred:
+               file = /tmp/hello
+               backend = /usr/bin/sh /usr/bin/diff</code></pre></div><div></div></div>さらに次のようなコマンドを指定します。<div>rm /tmp/hello<br>
+touch /tmp/hello<br>
+pr /etc/hosts|enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer">-P</a> qname:fred - /etc/hosts</div><strong>qdaemon</strong> プロセスは、以下を実行します。/usr/bin/diff2 つの引数を持つプログラム。1 つは一時ファイル名で、もう 1 つは一時ファイル名です。/etc/hostsを適用します。 この 2 つのファイルの唯一の違いは、一方のファイルが <strong>pr</strong> コマンドで実行されたものである点です。 この/tmp/helloファイルには、2 つのファイルの違いが含まれています。 <strong>qdaemon</strong> プロセスは、以下のものを作成しません。/tmp/hello存在しない場合には, ファイルを使用してください。</div>
+</li>
+
+<li>次のコマンド<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80316" target="_blank" rel="noopener noreferrer">-m</a>'i want pink paper for this job' /etc/passwd</div>は、印刷ジョブが始まる直前に、指定したオペレーター・メッセージをオペレーターのコンソールに送信します。 オペレーターは、そのジョブを継続するか取り消すかを、このメッセージに応答する必要があります。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80327" target="_blank" rel="noopener noreferrer">-M</a> pink /etc/passwd</div>このコマンドは、同じことを行います。メッセージのみが、以下のファイルに含まれます。pink.</li>
+
+<li>次の中のすべてのジョブを取り消すには、fred以下のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80961" target="_blank" rel="noopener noreferrer">-X</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80381" target="_blank" rel="noopener noreferrer">-P</a> fred</div>このコマンドを入力したユーザーが root ユーザー権限を持っている場合は、fredキューが削除されます。 ユーザーが root ユーザー権限を持っていない場合は、そのユーザーのジョブだけがそのキューから削除されます。</li>
+
+<li>次の名前のファイルをキューに入れます。MyFileを返します。MyFileジョブ番号を<strong> JDF</strong> ファイルに入力します。次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e80300" target="_blank" rel="noopener noreferrer">-j</a> MyFile</div>
+</li>
+
+<li>印刷ジョブ番号を保留する310次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81015" target="_blank" rel="noopener noreferrer">-h</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81007" target="_blank" rel="noopener noreferrer">-#</a>310</div>印刷ジョブ番号の保留を解除するには、以下のようにします。310次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81030" target="_blank" rel="noopener noreferrer">-p</a> -#310</div>
+</li>
+
+<li>キュー上のすべての印刷ジョブを保留するlp0次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81015" target="_blank" rel="noopener noreferrer">-h</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81036" target="_blank" rel="noopener noreferrer">-P</a> lp0</div>リリースするには、lp0以下のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81030" target="_blank" rel="noopener noreferrer">-p</a> -P lp0</div>
+</li>
+
+<li>作成されたすべての印刷ジョブを保留するには、以下のようにします。fred次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81015" target="_blank" rel="noopener noreferrer">-h</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81044" target="_blank" rel="noopener noreferrer">-u</a> fred</div>作成された印刷ジョブをリリースするには、以下のようにします。fred次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81030" target="_blank" rel="noopener noreferrer">-p</a> -u fred</div>
+</li>
+
+<li>ジョブ番号を移動するには318キューへlp0次のように入力します。<div>enq  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81083" target="_blank" rel="noopener noreferrer">-Q</a> lp0  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enq.html#enq__row-d3e81064" target="_blank" rel="noopener noreferrer">-#</a>318</div>印刷ジョブの移動を制御するフラグは、印刷ファイルを保留するフラグと同様に機能します。 保留フラグと変数は、上記の例に示してあります。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/qdaemon</strong></td>
+
+<td>キューイング・デーモン。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer"><strong>/etc/qconfig</strong></a></td>
+
+<td>キューイング構成ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/qdir/*</strong></td>
+
+<td>キュー要求。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/stat/*</strong></td>
+
+<td>デバイスの状況に関する情報。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/qdaemon/*</strong></td>
+
+<td>キューに入れられたファイルの一時コピー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig.bin</strong></td>
+
+<td><strong>/etc/qconfig</strong> ファイルのダイジェストのバイナリー・バージョン。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

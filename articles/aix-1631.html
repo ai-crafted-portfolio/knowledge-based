@@ -1,0 +1,54 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロセス・アカウンティングをオンまたはオフにするための <strong>accton</strong> コマンドのインターフェースを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/acct/turnacct on </strong>| <strong>off </strong>| <strong>スイッチ</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>turnacct</strong> コマンドは、プロセス・アカウンティングをオンまたはオフにするための <strong> accton</strong> コマンドのインターフェースを提供します。 デフォルトがないため、プロセス・アカウンティングをオンまたはオフのいずれにするか指定しなければなりません。</p>
+ <p><strong>switch</strong> フラグはアカウンティングをオフにして、現在のアクティブ・データ・ファイル (<strong>/var/adm/pacct</strong>) を<strong> /var/adm/pacct</strong><em>incr</em> ファイル内の次の自由名に移動させます。この場合、<em>incr</em> は 1 から始まる数字で、<strong>pacct</strong> ファイルが 1 つ追加されるたびに 1 つずつ増加します。 <strong>pacct</strong> ファイルの移動後、<strong>turnacct</strong> コマンドはアカウンティングを再びオンにします。</p>
+ <p><strong>turnacct switch</strong> コマンドは通常、<strong>pacct</strong> データ・ファイルを管理可能な大きさに維持するため、<strong>cron</strong> デーモンの制御下で実行されている <strong>ckpacct</strong> コマンドにより呼び出されます。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、adm グループのメンバーのみに実行 (x) アクセス権限を与えます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct</strong></td>
+
+<td>アカウンティング・コマンドへのパスが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/pacct</strong></td>
+
+<td>プロセス・アカウンティングの現在のファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/pacct*</strong></td>
+
+<td><strong>pacct</strong> ファイルが大きくなりすぎる場合に使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

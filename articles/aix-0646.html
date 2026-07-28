@@ -1,0 +1,96 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>補足情報が入っているファイルの内容を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>inudocm</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inudocm.html#inudocm__row-d3e17858" target="_blank" rel="noopener noreferrer"><strong>-d</strong> </a><em>デバイス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inudocm.html#inudocm__row-d3e17872" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/inudocm.html#inudocm__e58f1fb985mart" target="_blank" rel="noopener noreferrer"><em>ProductName </em></a>... | <strong>all</strong> }</p>
+</section>
+
+<section><h2>説明</h2> <p></p><blockquote><span>“</span><span></span><strong>注:</strong> このコマンドは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/installp.html" target="_blank" rel="noopener noreferrer"><strong>インストール</strong></a> コマンドで使用され、README 情報を取得する方法としては推奨されません。<strong>(installp-i</strong>参照）<span>”</span></blockquote>
+<p></p>
+ <p><strong>inudocm</strong> コマンドは、補足情報を表示するために使用します。 メディア内に <strong>lpp.doc</strong> ファイル、<strong>lpp.instr</strong> ファイル、
+<strong>lpp.README</strong> ファイル、または <strong>README</strong> ファイルがあれば、すべて画面上に表示されます。</p>
+ <p><em>ProductName</em> パラメーターには検査したいソフトウェア・プロダクトの名前を指定します。 システムに登録されているすべてのソフトウェア・プロダクトの情報を表示するには <strong>all</strong> を指定します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>インストール・メディアの検索場所を指定します。 <em>Device</em> パラメーターには、
+テープやディスケット・ドライブなどのハードウェア・デバイス、インストール・イメージが入っているディレクトリー、またはインストール・イメージ・ファイルを指定できます。 デフォルト・デバイスは <strong>/dev/rfd0</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>抑制モードを指定して、プロンプトを抑制します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御: このコマンドを実行できるのは、root ユーザーだけです。</p>
+</section>
+
+<section><h2>例</h2> <p><strong>/dev/rfd0</strong> 上にある <strong>snaserv</strong> ソフトウェア・プロダクトの更新命令を表示するには、次のように入力します。</p>
+ <div> <div><div><pre><code>inudocm snaserv</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/inudocm</strong></td>
+
+<td><strong>inudocm</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpp/</strong><em> 製品名</em><strong> /lpp.instr</strong></td>
+
+<td>ソフトウェア・プロダクトの更新命令を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpp/</strong><em> 製品名</em><strong> /lpp.README</strong></td>
+
+<td>ソフトウェア・プロダクトの特殊な命令を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpp/</strong><em> 製品名</em><strong> /README</strong></td>
+
+<td>ソフトウェア・プロダクトの特殊な命令を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpp/</strong><em> 製品名</em><strong> /lpp.doc</strong></td>
+
+<td>ソフトウェア・プロダクトの資料の更新を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

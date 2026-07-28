@@ -1,0 +1,185 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>openpts ベリファイヤーからの認証要求に備えて、トラステッド・プラットフォーム・モジュール (TPM) から情報を収集します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>PC</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptsc.html#ptsc__row-d3e116140" target="_blank" rel="noopener noreferrer">オプション</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptsc.html#ptsc__row-d3e116087" target="_blank" rel="noopener noreferrer">コマンド</a></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ptsc</strong> コマンドは openpts コレクターです。 このコマンドは、TPM から (<strong>tscd</strong> インターフェースを介して) 測定値とイベントを収集し、リファレンス・マニフェスト (RM) を作成し、要求された場合にそれらを openpts ベリファイヤーに伝えるために使用されます。 システムが初めてトラステッド・ブート用に構成される際には、<strong>-i</strong> オプションを使用してコレクターを初期化する必要があります。 このオプションは、 <span>/var/ptsc/&lt;UUID&gt;/rm0.xml</span> ファイルに保管される UUID と関連 RM を生成します。 システムが変更されて新しい RM が必要な場合には、<strong>-u</strong> オプションを使用してベリファイヤーを再初期化する必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>コマンド</strong></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>openpts コレクターを初期化します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>起動を指定します (自己診断テストおよびタイム・スタンプの両方)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>自己診断テストを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>RM を更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong></td>
+
+<td>RM を自動的に更新します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D </strong></td>
+
+<td>ターゲットまたはすべてのオプションの構成設定を表示します。 これがデフォルト設定です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><strong>-M</strong> モードの場合</td>
+
+</tr>
+
+<tr>
+<td><strong>オプション</strong></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>「-c」</strong> <em>構成ファイル</em></td>
+
+<td>構成ファイルのロケーションを変更します。 デフォルトは <span>/etc/ptsc.conf</span> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> <em>名前 = 値</em></td>
+
+<td>プロパティーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>RM を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>すべてゼロの SRK 秘密情報を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>各種</strong></td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>情報を詳細モードで表示します。 複数の <strong>-V</strong> オプションは詳細度を高め、デバッグに使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/ptsc.conf</strong></td>
+
+<td>構成ファイル。 これは構成ファイルのデフォルト・ロケーションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/ptsc/rm-uuid</strong></td>
+
+<td>現行 RM の UUID。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/ptsc/uuid</strong></td>
+
+<td>コレクターの UUID。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/ptsc/&lt;UUID&gt;/rm0.xml</strong></td>
+
+<td>リファレンス・マニフェスト。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

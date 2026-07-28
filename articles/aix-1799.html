@@ -1,0 +1,232 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コンテキストのない文法仕様からなる入力データから、
+LALR(1) 解析プログラムを生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>yacc</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53532" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a><em>接頭部 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53581" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53596" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53614" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53626" target="_blank" rel="noopener noreferrer"><strong>-Nn (N)</strong></a><em>数値</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53638" target="_blank" rel="noopener noreferrer"><strong>-Nm (N)</strong></a><em>数値 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53650" target="_blank" rel="noopener noreferrer"><strong>-Nr (N)</strong><em>数値</em></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53658" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a><em>接頭部 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53703" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53715" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53764" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53774" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong><em>パス</em></a> ]<em> 文法</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>yacc</strong> コマンドは、コンテキストのない文法仕様を、LALR(1) 解析アルゴリズムを実行する単純なオートマトン用テーブル・セットに変換します。 文法があいまいなので、そのために優先順位の規則を使用して、あいまいな問題点を解決します。</p>
+ <p>関数 <strong>yyparse</strong> を生成するには、C 言語コンパイラーを使って出力ファイル <strong>y.tab.c</strong> をコンパイルしなければなりません。 この関数は字句解析プログラム <strong>yylex</strong> の他に <strong>main</strong> サブルーチンや、<strong>yyerror</strong> エラー処理サブルーチンと一緒にロードしなければなりません (これらのサブルーチンはユーザーが提供しなければなりません)。 <strong>yyparse</strong> サブルーチンが使うことのできる字句解析プログラムの作成には <strong>lex</strong> コマンドが便利です。 <strong>main</strong> および <strong>yyerror</strong> サブルーチンの簡略バージョンは、<strong>yacc</strong> ライブラリー、<strong>liby.a</strong> を通じて使用することができます。 また、<strong>yacc</strong> を使用して C++ 出力も生成できます。</p>
+ <p><strong>yacc</strong> で生成された C ファイル <strong>(y.tab.c)</strong> を <strong>-DYACC_MSG</strong> オプションでコンパイルすることで、メッセージ機能を使用するために必要なコードを含めることができます。 コンパイル中にこのオプションを使用すると、<strong>yyparse</strong> サブルーチンおよび <strong>YYBACKUP</strong> マクロによって生成されたエラー・メッセージは、<strong>yacc_user.cat</strong> カタログから抽出されます。</p>
+ <p>これによって、ユーザーは、英語圏でない地域において、英語以外の言語でエラー・メッセージを受信することができます。 カタログが見つからなかった場合、もしくはオープンできなかった場合には、<strong>yyparse</strong> および <strong>YYBACKUP</strong> サブルーチンは、デフォルトの英語メッセージを表示します。</p>
+ <p><strong>yacc</strong> コマンドは、<strong>LANG</strong>、<strong>LC_ALL</strong>、<strong>LC_CTYPE</strong>、<strong>LC_MESSAGES</strong> 環境変数によって影響を受けます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em> 接頭部</em></td>
+
+<td>すべての出力ファイル名の接頭部として、 <strong>Y</strong> の代わりに <em>接頭部</em> を使用します。 コード・ファイル <strong>y.tab.c</strong>、ヘッダー・ファイル <strong>y.tab.h</strong> (<strong>-d</strong> が指定されたときに作成されるファイル) および記述ファイル <strong>y.output</strong> (<strong>-v</strong> が指定されたときに作成されるファイル) は、それぞれ <em>Prefix</em>.<strong>tab.c</strong>、<em>Prefix</em>.<strong>tab.h</strong>、<em>Prefix</em>.<strong>output</strong> に変更されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>C++ コンパイラーで使用するために、<strong>y.tab.c</strong>  ファイルの代わりに <strong>y.tab.C</strong> ファイルを生成します。 入出力用の入出力ストリーム・ライブラリーを使用するには、マクロ <strong>_CPP_IOSTREAMS</strong> を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>ファイル <strong>y.tab.h</strong>を作成します。 これには、<strong> yacc</strong>割り当てのトークン・コードをトークン名に関連付ける<strong> #define</strong> ステートメントが含まれます。 これによって <strong>y.tab.c</strong> 以外のソース・ファイルが、このヘッダー・ファイルを含めることによってトークン・コードへアクセスできるようになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><strong>#line</strong> 構成体を <strong>y.tab.c</strong>に組み込みません。 これは、文法および関連するアクションが完全にデバッグされた後でのみ使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nn (N)</strong><em>数値</em><strong></strong></td>
+
+<td>トークンと非端末名の配列のサイズを <em>Number</em> に変更します。 デフォルト値は 8000 です。 有効値は、8000 より大きいもののみです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nm (N)</strong><em>数値</em><strong></strong></td>
+
+<td>メモリー状態の配列のサイズを <em>Number</em> に変更します。 デフォルト値は 40000 です。 有効値は、40000 より大きいもののみです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nr (N)</strong><em>数値</em></td>
+
+<td>大量の文法を処理するために、内部バッファーのサイズを変更します。 デフォルト値は 2000 です。 有効な値は、2000 よりも大きいもののみです。</td>
+
+</tr>
+
+<tr>
+<td><strong>P-</strong><em> 接頭部</em></td>
+
+<td><strong>yacc</strong> コマンドによって作成されるすべての外部名の接頭部として、 <strong>YY</strong> の代わりに <em>接頭部</em> を使用します。 影響を受ける外部名には、 <strong>yychar</strong>、 <strong>ユルヴァル</strong>、 <strong>yydebug</strong>、 <strong>yyparse ()</strong>、 <strong>Yylex ()</strong>、および <strong>yyerror ()</strong>があります。 (以前は、 <strong>P-</strong> を使用して代替パーサーを指定していました。現在は、 <strong>-y (Y)</strong><em>パス</em> を使用して代替パーサーを指定できます。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>yyparse</strong> 関数を複数の小さな関数に分割します。 そのサイズは文法の大きさにある程度比例するため、<strong>yyparse</strong> 関数はコンパイル、最適化、あるいは効率的実行に支障をきたすほど大きくなってしまうことがあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>実行時デバッグ・コードをコンパイルします。 デフォルトでは、<strong>y.tab.c</strong> がコンパイルされるときこのコードは含まれません。 ただし、実行時デバッグ・コードはプリプロセッサー・マクロ <strong>YYDEBUG</strong> に制御されます。 <strong>YYDEBUG</strong> が 0 以外の値をとるとき、<strong>-t</strong> フラグが使われているかどうかに関係なく、C コンパイラー (<strong>cc</strong>) にはデバッグ・コードが含まれます。 コンパイラーにデバッグ・コードを含めたくない場合には、<strong>YYDEBUG</strong> は 0 の値をとらなければなりません。 このコードをコンパイルしなければ、<strong>yyparse</strong> サブルーチンは稼働速度が速くなります。<p><strong>-t</strong> フラグを指定すると、デバッグ・コードがコンパイルされますが、実際にデバッグ・モードがオンになるわけではありません。 デバッグ出力を取得するには、C 言語宣言を追加して <strong>yydebug</strong> 変数を設定する必要があります。int yydebug=1<strong>yacc</strong> 文法ファイルの宣言セクションに追加するか、 <strong>dbx</strong>を使用して <strong>yydebug</strong> を設定します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ファイル <strong>y.output</strong> を準備します。 このファイルには読み取り可能な構文解析テーブルの記述と、あいまいな文法から生成された矛盾についての報告が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y (Y)</strong><em> パス</em></td>
+
+<td><em>Path</em> で指定したパーサーのプロトタイプを、デフォルトの <strong>/usr/lib/yaccpar</strong> ファイルの代わりに使用します。 (以前は、代替パーサーを指定するために <strong>-p</strong> を使用していました。)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><caption><span>表 2. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>以下のコマンドを実行します。<div> <div><div><pre><code>yacc grammar.y</code></pre></div><div></div></div>ファイル <strong>grammar.y</strong> から <strong>yacc</strong> 規則を取り出し、出力を <strong>y.tab.c</strong> に入れます。</div>
+</li>
+
+<li><span></span>以下のコマンドを実行します。<div>yacc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/yacc.html#yacc__row-d3e53596" target="_blank" rel="noopener noreferrer">-d </a>grammar.y</div>例 1 と同様に機能しますが、<strong>y.tab.h</strong> ファイルも生成します。
+このファイルには、<strong>grammar.y</strong> ファイル内で定義したトークンごとに、C スタイルの <strong>#define</strong> ステートメントが入っています。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>y.output</strong></td>
+
+<td>構文解析テーブルの読み取り可能な記述、およびあいまいな文法によって生成された矛盾の報告が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>y.tab.c</strong></td>
+
+<td>出力ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>y.tab.h</strong></td>
+
+<td>トークン名の定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>yacc.tmp</strong></td>
+
+<td>一時ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>yacc.debug</strong></td>
+
+<td>一時ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>yacc.acts</strong></td>
+
+<td>一時ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/yaccpar</strong></td>
+
+<td>C プログラム用パーサーのプロトタイプが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/liby.a</strong></td>
+
+<td>実行時ライブラリーが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

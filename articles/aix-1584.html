@@ -1,0 +1,339 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>トポロジー・サービス・サブシステムを始動します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><span><span>topsvcsctrl</span></span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104304" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104310" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104316" target="_blank" rel="noopener noreferrer"><span><span>-k</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104322" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104328" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104334" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104340" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104346" target="_blank" rel="noopener noreferrer"><span><span>-o</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104352" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> │ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/topsvcsctrl.html#topsvcsctrl__row-d3e104358" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> }</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span><span>topsvcsctrl</span></span> 制御スクリプトは、トポロジー・サービス・サブシステムの操作を制御します。 サブシステムは、システム・リソース・コントローラー (SRC) の制御下にあり、 <span><span>topsvcs</span></span>というサブシステム・グループに属します。 このスクリプトは、通常は HACMP/ES 始動プロセスが始動します。</p>
+
+<p>クラスターのすべてのノードでは、トポロジー・サービス・サブシステムのインスタンスが実行されています。</p>
+
+<div>操作の観点からは、トポロジー・サービス・サブシステム・グループは
+次のように編成されています。<dl>
+
+<dt>サブシステム</dt>
+
+<dd>トポロジー・サービス</dd>
+
+
+
+<dt>サブシステム・グループ</dt>
+
+<dd><span><span>topsvcs</span></span></dd>
+
+
+
+<dt>SRC サブシステム</dt>
+
+<dd><span><span>topsvcs</span></span><p><span><span>topsvcs</span></span> サブシステムは、 <span><span>hatsd</span></span> デーモンおよび <span><span>topsvcs</span></span> スクリプトに関連付けられています。 <span><span>topsvcs</span></span> スクリプトは、 <span><span>hatsd</span></span> デーモンを構成して開始します。 ノード上のサブシステム名は <span><span>topsvcs</span></span>です。 それぞれのノードに 1 つのサブシステム
+があり、そのノードが属するクラスターと関連付けられています。</p>
+</dd>
+
+
+
+<dt>デーモン</dt>
+
+<dd><span><span>hatsd</span></span><p>トポロジー・サービスを提供します。 <span><span>topsvcs</span></span> スクリプトは、 <span><span>hatsd</span></span> デーモンを構成して開始します。</p>
+</dd>
+
+
+</dl>
+</div>
+
+<p>通常、 <span><span>topsvcsctrl</span></span> スクリプトはコマンド行から実行されません。 通常
+は、HACMP/ES 始動コマンドが呼び出します。</p>
+
+<div><span><span>topsvcsctrl</span></span> スクリプトは、トポロジー・サービス・サブシステムを操作するためのさまざまな制御を提供します。<ul>
+<li>サブシステムの追加、始動、停止、および削除</li>
+
+<li>サブシステムのクリーンアップ (すべてのシステム区画からこれらを削除すること)。</li>
+
+<li>トレースのオンおよびオフ</li>
+
+<li>サブシステムをリフレッシュする。</li>
+
+</ul>これらの機能のいずれかを実行する前に、スクリプトは現在のクラスター名 ( <span><span>cllsclstr</span></span> コマンドを使用) とノード番号 ( <span><span>clhandle</span></span> コマンドを使用) を取得します。 ノード番号が <span><span>0</span></span>の場合、制御スクリプトは制御ワークステーションで実行されています。</div>
+
+<p>クリーンおよび構成解除の機能を除き、その他のすべての機能は現行システム区画内で実行されます。</p>
+
+<div><strong>サブシステムの追加:</strong> <span><span>-a</span></span> <span>フラグ</span> を指定すると、制御スクリプトは <span><span>mkssys</span></span> コマンドを使用してトポロジー・サービス・サブシステムを SRC に追加します。 制御スクリプトは次のように動作します。<ol>
+<li><span><span>topsvcs</span></span> サブシステムが停止していることを確認します。</li>
+
+<li><span><span>topsvcs</span></span> サブシステムを SRC から除去します (まだ存在している場合)。</li>
+
+<li><span><span>topsvcs</span></span> サブシステムを SRC に追加します。</li>
+
+</ol>
+</div>
+
+<p><strong>サブシステムの開始:</strong> <span><span>-s</span></span> <span>フラグ</span> を指定すると、制御スクリプトは <span><span>startsrc</span></span> コマンドを使用してトポロジー・サービス・サブシステム <span><span>topsvcs</span></span>を開始します。</p>
+
+<p><strong>サブシステムの停止:</strong> <span><span>-k</span></span> <span>フラグ</span> を指定すると、制御スクリプトは <span><span>stopsrc</span></span> コマンドを使用してトポロジー・サービス・サブシステム <span><span>topsvcs</span></span>を停止します。</p>
+
+<div><strong>サブシステムの削除:</strong> <span><span>-d</span></span> <span>フラグ</span> を指定すると、制御スクリプトは <span><span>rmssys</span></span> コマンドを使用して、SRC からトポロジー・サービス・サブシステムを除去します。 制御スクリプトは次のように動作します。<ol>
+<li><span><span>topsvcs</span></span> サブシステムが停止していることを確認します。</li>
+
+<li><span><span>rmssys</span></span> コマンドを使用して、 <span><span>topsvcs</span></span> サブシステムを SRC から除去します。</li>
+
+<li>これにより、 <span><span>/etc/services</span></span> ファイルからポート番号が削除されます。</li>
+
+</ol>
+</div>
+
+<div><strong>サブシステムのクリーンアップ:</strong> <span><span>-c</span></span> <span>フラグ</span> を指定すると、制御スクリプトは、すべてのクラスター区画のトポロジー・サービス・サブシステムを停止し、SRC から除去します。 制御スクリプトは次のように動作します。<ol>
+<li><span><span>stopsrc -g
+topsvcs</span></span> コマンドを使用して、クラスター内のサブシステムのすべてのインスタンスを停止します。</li>
+
+<li><span><span>topsvcs</span></span> サブシステムのすべての項目を <span><span>/etc/services</span></span> ファイルから除去します。</li>
+
+</ol>
+</div>
+
+<p><strong>トレースをオンにする:</strong> <span><span>-t</span></span> <span>フラグ</span> を指定すると、制御スクリプトは <span><span>traceson</span></span> コマンドを使用して、 <span><span>hatsd</span></span> デーモンのトレースをオンにします。</p>
+
+<p><strong>トレースをオフにする:</strong> <span><span>-o</span></span> <span>フラグ</span> を指定すると、制御スクリプトは <span><span>tracesoff</span></span> コマンドを使用して、 <span><span>hatsd</span></span> デーモンのトレースをオフにします (デフォルト・レベルに戻します)。</p>
+
+<p><strong>サブシステムのリフレッシュ:</strong> <span><span>-r</span></span> <span>フラグ</span> を指定すると、制御スクリプトは、 <span><span>topsvcs refresh</span></span> コマンドおよび <span><span>refresh</span></span> コマンドを使用して、サブシステムをリフレッシュします。 グローバル・オブジェクト・データ・マネージャー (ODM) にノードおよびアダプター
+構成の情報を再構築して、再構築した情報を読み取るようにデーモンに指示します。</p>
+
+<p><strong>ロギング:</strong> トポロジー・サービス・デーモン (<span><span>hatsd</span></span>) は、実行中に、 <span><span>/var/ha/log/topsvcs.</span></span><span><span>cluster_name</span></span>というログ・ファイルにエントリーを書き込むことによって、その操作とエラーに関する情報を提供します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>サブシステムを追加します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-s</span></span></td>
+
+<td>サブシステムを始動します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-k</span></span></td>
+
+<td>サブシステムを停止します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span></td>
+
+<td>サブシステムを削除します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td>サブシステムをクリーニングします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span></td>
+
+<td>すべての区画からトポロジー・サービス・サブシステムを除去します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span></td>
+
+<td>サブシステムのトレース機能をオンにします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-o</span></span></td>
+
+<td>サブシステムのトレース機能をオフにします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td>サブシステムをリフレッシュします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-h</span></span></td>
+
+<td>スクリプトの使用方法の文を標準出力に書き込みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p>このスクリプトを使用するには、 <span><span>root</span></span> の実効ユーザー ID を使用して実行する必要があります。</p>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<dl>
+
+<dt>0</dt>
+
+<dd>スクリプトが正常終了したことを示します。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>環境変数</h2>
+
+<div>
+<dl>
+
+<dt>HB_SERVER_SOCKET</dt>
+
+<dd>この環境変数は、このコマンドを実行する前に設定してください。 トポロジー・
+サービス・デーモンに接続するには、トポロジー・サービス・クライアントが
+使用する UNIX ドメイン・ソケットの場所にこの環境変数を設定する必要があります。 この環境変数は、 <span><span>/var/ha/soc/hats/server_socket.</span></span><span><span>partition name</span></span>に設定する必要があります。</dd>
+
+
+
+<dt>HA_SYSPAR_NAME</dt>
+
+<dd>HB_SERVER_SOCKET を設定しなかった場合は、HA_SYSPAR_NAME を区画名に設定
+する必要があります。</dd>
+
+
+</dl>
+
+</div>
+
+</section>
+
+<section><h2>制約事項</h2>
+
+<p>このコマンドは、 HACMP 環境でのみ有効です。</p>
+
+<p>このコマンドは、<span>IBM</span>サポートセンターの指示の<em>下</em>でのみ使用してください。</p>
+
+</section>
+
+<section><h2>標準出力</h2>
+
+<p><span><span>-h</span></span> <span>フラグ</span> を指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+
+</section>
+
+<section><h2>標準エラー</h2>
+
+<p>このスクリプトは、エラー・メッセージ (必要に応じて) を標準エラーに書き込みます。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>トポロジー・サービス・サブシステムを SRC に追加するには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -a</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>トポロジー・サービス・サブシステムを始動するには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -s</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>トポロジー・サービス・サブシステムを停止するには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -k</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>トポロジー・サービス・サブシステムを SRC から削除するには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -d</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>トポロジー・サービス・サブシステムをクリーンアップするには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -c</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>トポロジー・サービス・デーモンに対するトレースをオンにするには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -t</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>トポロジー・サービス・デーモンに対するトレースをオフにするには、次のように入力します。<div>
+<div><div><pre><code>topsvcsctrl -o</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>場所</h2>
+
+<dl>
+
+<dt>/opt/rsct/bin/topsvcsctrl</dt>
+
+<dd><span><span>topsvcsctrl</span></span> スクリプトが含まれています。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt>/var/ha/log/topsvcs。<span><span>cluster_name</span></span></dt>
+
+<dd><span><span>cluster_name</span></span> という名前のクラスター上の <span><span>hatsd</span></span> デーモンのログが入っています。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

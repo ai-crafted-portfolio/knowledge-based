@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>外部ホストがプログラムにアクセスするのを制御する 3 つの別々のシステム・データベース内のエントリーを直接操作します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>データベース・ファイル名項目を追加または削除するには</dt>
+
+<dd><p><span>ruser</span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182637" target="_blank" rel="noopener noreferrer"><span>-a </span></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182658" target="_blank" rel="noopener noreferrer"><span>-d </span></a>} { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182694" target="_blank" rel="noopener noreferrer"><span>-f</span></a> "UserName ..." | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182738" target="_blank" rel="noopener noreferrer"><span>-p</span></a>"HostName ..." | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182781" target="_blank" rel="noopener noreferrer"><span>-r</span></a>"HostName ..."}</p>
+
+</dd>
+
+
+
+<dt>データベース・ファイル内のすべての名前項目を削除または表示する</dt>
+
+<dd><p><span>ruser</span> {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182840" target="_blank" rel="noopener noreferrer"><span>-X</span> </a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182822" target="_blank" rel="noopener noreferrer"><span>-s </span></a>} {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182677" target="_blank" rel="noopener noreferrer"><span>-F</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182721" target="_blank" rel="noopener noreferrer"><span>-P</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182764" target="_blank" rel="noopener noreferrer"><span>-R </span></a>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182858" target="_blank" rel="noopener noreferrer"><span>-Z</span></a> ]</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><strong>ruser</strong> 低水準コマンドは、3 つの独立したシステム・データベースにエントリーを追加または削除します。 操作するデータベースは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182738" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182781" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182694" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> フラグを使用して決定されます。 また、<strong>ruser</strong> コマンドは、データベースのうちの 1 つに含まれる 1 つまたはすべてのエントリーを表示できます。 各データベースは、名前のリストになっています。 3 つのデータベースは下記のとおりです。</p>
+ <ul>
+<li><span></span><strong>/etc/</strong><strong>ftpusers</strong> ファイル</li>
+
+<li><span></span><strong>/etc/</strong><strong>hosts.equiv</strong> ファイル</li>
+
+<li><span></span><strong>/etc/</strong><strong>hosts.lpd</strong> ファイル<div><div>
+        <div>
+          <div><span>注:</span> <strong>P-</strong> オプションと <strong>-</strong> オプションを一緒に使用して、同時にデータベースに名前を追加することはできますが、 <strong>「-f」</strong> オプションを一緒に使用することはできません。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+<div>このコマンドを実行するには、System Management Interface Tool (SMIT) <strong>smit users</strong> 高速パスを使用するか、または次のように入力することもできます。<div><div><pre><code>smit rprint</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>名前をデータベースに追加します。 <strong>-a 値</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182738" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182781" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182694" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> のいずれかのフラグと一緒に使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>名前をデータベースから削除します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182738" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182781" target="_blank" rel="noopener noreferrer"><strong>-</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182694" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> のいずれかのフラグと一緒に使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td><strong>/etc/ftpusers</strong> ファイル内のすべてのエントリーを削除または表示します。 すべてのエントリーを削除するには、このフラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182840" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> フラグと一緒に使用します。 すべてのエントリーを表示するには、このフラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182822" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグと一緒に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f "</strong><em>ユーザー名...</em><strong>"</strong></td>
+
+<td>リモート FTP クライアントが使用できないローカル・ユーザー名のリストが入っている<strong> /etc/ftpusers</strong> データベースに、 <em>UserName</em> 変数で指定されたユーザー名を追加または削除します。 <strong>「-f」</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182637" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> フラグまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182658" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> フラグと一緒に使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><strong>/etc/hosts.lpd</strong> ファイル内のすべてのエントリーを削除または表示します。 すべてのエントリーを削除するには、このフラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182840" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> フラグと一緒に使用します。 すべてのエントリーを表示するには、このフラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182822" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグと一緒に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><strong>"</strong><em>ホスト名...</em><strong>"</strong></td>
+
+<td>どの外部ホストがユーザーのコンピューター上で出力できるかどうかを指定するデータベース内で、<em>HostName</em> 変数で指定されたホスト名の追加または削除を行います。 <strong>P-</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182637" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> フラグまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182658" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> フラグと一緒に使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td><strong>/etc/hosts.equiv</strong> ファイル内のすべてのエントリーを削除または表示します。 すべてのエントリーを削除するには、このフラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182840" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> フラグと一緒に使用します。 すべてのエントリーを表示するには、このフラグを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182822" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグと一緒に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r "</strong><em>ホスト名...</em><strong>"</strong><em></em></td>
+
+<td>マシン上でリモート・コマンド (<strong>rlogin</strong>、 <strong>rcp</strong>、 <strong>rsh</strong>、または <strong>print</strong>) を実行できる外部ホストを指定する <strong>/etc/hosts.equiv</strong> データベースに、 <em>HostName</em> 変数で指定されたホスト名を追加または削除します。 <strong>-</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182637" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> フラグまたは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182658" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> フラグと一緒に使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>データベース内のすべてのエントリーを表示します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182721" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182764" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182677" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> のいずれかのフラグと一緒に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>すべての名前をデータベースから削除します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182721" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182764" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182677" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> のいずれかのフラグと一緒に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td><strong>-s</strong> フラグは、<strong>-Z</strong> フラグを指定した場合に必要です。 <strong>-Z</strong> フラグを指定した場合、データベースの表示の前に簡潔なタイトルが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>どの外部ホストがローカル・コンピューター上で印刷できるかを指定する <strong>/etc/hosts.lpd</strong> データベースにエントリーを追加するには、コマンドを下記のフォーマットで入力します。<div>ruser  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182637" target="_blank" rel="noopener noreferrer">-a</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182738" target="_blank" rel="noopener noreferrer">-p</a> "host1"</div>この例では、外部ホストは以下のようになります。host1.</li>
+
+<li>印刷のみを制御するデータベース (<strong>/etc/hosts.lpd</strong>) のエントリーを削除し、
+さらに <strong>rlogin</strong> コマンド、<strong>rcp</strong> コマンド、および <strong>rsh</strong> コマンドのリモート・アクセスを制御するデータベース (<strong>/etc/hosts.equiv</strong>) から、
+同じ名前を削除するには、次のように入力します。<div>ruser  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182658" target="_blank" rel="noopener noreferrer">-d</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182781" target="_blank" rel="noopener noreferrer">-r</a> "host2"  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ruser.html#ruser__row-d3e182738" target="_blank" rel="noopener noreferrer">-p</a> "host1"</div>この例では、データベース・エントリーが削除されるホストは、以下のようになります。host1.</li>
+
+</ol>
+</section>
+
+</div></div>

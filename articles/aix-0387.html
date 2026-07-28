@@ -1,0 +1,67 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>指定されたパスの最後の部分を除いた部分をすべて標準出力に出力します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>dirname</strong><em> パス</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dirname</strong> コマンドは、指定されたパス名を読み取り、最後の / (スラッシュ) を除くすべてと、その後ろの文字を削除し、結果を標準出力に書き出します。 最後の / の後ろに文字がなければ、<strong>dirname</strong> コマンドは最後の / の 1 つ手前の / を使用し、その後ろに続くすべての文字を無視します。 <strong>dirname</strong> コマンドでは、次の規則に従ってパス名を作成します。</p>
+ <ol><li><em>Path</em> パラメーターが // (2 つのスラッシュ) の場合、
+または <em>Path</em> パラメーターがスラッシュ文字のみで構成される場合は、
+その文字列を単一の / (スラッシュ) に変更します。 ステップ 2 から 7 までをスキップします。</li>
+<li>指定されたパスから末尾の / を除去します。</li>
+<li><em>Path</em> パラメーター内に / 文字が残っていない場合は、パスを単一の <strong>. </strong>（ピリオド）。 ステップ 4 から 7 までスキップします。</li>
+<li>パスから、スラッシュ以外の末尾の文字を除去します。</li>
+
+<li>残りのパスが // (2 つのスラッシュ) であれば、
+ステップ 6 に進みます。</li>
+<li>パスから末尾の / 文字を除去します。</li>
+<li>残りのパスが空であれば、そのパスを単一の / に変更します。</li>
+</ol>
+ <p>例えば、次のように入力すると、</p>
+ <div> <div><div><pre><code>dirname // </code></pre></div><div></div></div></div>
+ <p>結果は単一になります/(スラッシュ)。 次のように入力します。</p>
+ <div> <div><div><pre><code>dirname /a/b/ </code></pre></div><div></div></div></div>
+ <p>結果/a. 入力:</p>
+ <div> <div><div><pre><code>dirname a </code></pre></div><div></div></div></div>
+ <p>結果は単一になります.(ピリオド) です。 次のように入力します。</p>
+ <div> <div><div><pre><code>dirname a/b </code></pre></div><div></div></div></div>
+ <p>結果はパス名になります。a.</p>
+ <p><strong>dirname</strong> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/basename.html" target="_blank" rel="noopener noreferrer"><strong>basename</strong></a> コマンドは、通常、シェル・プロシージャー内のコマンド置換の中で、指定された入力ファイル名の変形である出力ファイル名を指定するために使用されます。</p>
+</section>
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr>
+<td><strong>0</strong></td>
+<td>正常終了。</td>
+</tr>
+<tr><td><strong>&gt;0</strong></td>
+<td>エラーが発生しました。</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section><h2>例</h2> <p>別のファイルと同じディレクトリーにあるファイルの名前を作成するには、次のように入力します。</p>
+ <div> <div><div><pre><code>AOUTFILE=`dirname $TEXTFILE`/a.out</code></pre></div><div></div></div></div>
+ <p>これは、シェル変数を設定します。AOUTFILEと同じディレクトリー内にある<strong> a.out</strong> ファイルの名前にTEXTFILE.TEXTFILE<strong>/home/fran/prog.c</strong>の値。dirname $TEXTFILE<strong>/home/fran</strong> およびAOUTFILE<strong>/home/fran/a.out</strong>になります。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>/usr/bin/dirname</strong></td>
+<td><strong>dirname</strong> コマンドが入っています。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

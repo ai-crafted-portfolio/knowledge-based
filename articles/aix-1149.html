@@ -1,0 +1,210 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>一定期間にわたるすべてのカーネル・スレッドの CPU 使用率を報告します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>pprof { time | -I pprof.flow | -i tracefile | -d } [ -T bytes] [ -v ] [ -s ] [ -n ] [ -f ] [ -p ] [ -w ] [-r PURR] [-@ [WparList | ALL ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pprof</span> コマンドは、 <code>trace</code> ユーティリティーを使用して、一定の間隔内に実行されているすべてのカーネル・スレッドについて報告します。 未加工プロセス情報は、<code>pprof.flow</code> に保存され、
+5 つのレポートが生成されます。 <span>pprof</span> コマンドは、以前に生成された <code>Pprof.flow</code> を取り出してレポートを再生成することもできます。 フラグを指定しない場合、すべてのレポートが生成されます。</p>
+ <div>
+<dl>
+
+<dt>レポートのタイプ</dt>
+
+<dd><div><div><table><caption><span>表 1. レポートのタイプ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>pprof.cpu</code></td>
+
+<td>実際の CPU 時間によってソートされたすべてのカーネル・レベルのスレッドをリストします。 リストの内容: プロセス名、プロセス ID、親プロセス ID、開始および終了時のプロセス状態、スレッド ID、親スレッド ID、実際の CPU 時間、開始時刻、停止時刻、停止 - 開始。<p>引数のない <span>-@</span> フラグを選択した場合は、WPAR 名も提供されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>pprof.start</code></td>
+
+<td>開始時刻によってソートされたすべてのカーネル・スレッドをリストします。 リストの内容: プロセス名、プロセス ID、親プロセス ID、開始および終了時のプロセス状態、スレッド ID、親スレッド ID、実際の CPU 時間、開始時刻、停止時刻、停止 - 開始。<p>引数のない <span>-@</span> フラグを選択した場合は、WPAR 名も提供されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>pprof.namecpu</code></td>
+
+<td>各タイプのカーネル・スレッド (すべて同じ名前で実行可能) に関する情報をリストします。 リストの内容: プロセス名、スレッド数、CPU 時間、合計 CPU 時間の %。<p>引数のない <span>-@</span> フラグを選択した場合は、WPAR 名も提供されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>pprof.famind</code></td>
+
+<td>ファミリー別にグループ化されたすべてのプロセス (共通の祖先を持つプロセス) をリストします。 子プロセス名は、親に関してインデントされます。 リストの内容: 開始時刻、停止時刻、実際の CPU 時間、プロセス ID、親プロセス ID、スレッド ID、親スレッド ID、開始および終了時のプロセス状態、レベル、プロセス名。<p>引数のない <span>-@</span> フラグを選択した場合は、WPAR 名も提供されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><code>pprof.famcpu</code></td>
+
+<td>すべてのファミリー (祖先が共通しているプロセス) に関する情報をリストします。 ファミリーのプロセス名とプロセス ID は必ずしも祖先ではありません。 リストの内容: 開始時刻、プロセス名、プロセス ID、スレッド数、合計 CPU 時間。<p>引数のない <span>-@</span> フラグを選択した場合は、WPAR 名も提供されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 2. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-d</span></td>
+
+<td>ユーザーが、コマンド・ラインから <code>trcon</code> と <code>trcstop</code> を実行するのを待ちます。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span></td>
+
+<td><code>pprof.famcpu</code> および <code>pprof.famind</code> レポートを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> トレース・ファイル</td>
+
+<td><code>tracefile</code> からレポートを生成するように示します。 トレースには、以下のフックが含まれている必要があります。 <code>135,106,10C, 134,139,465,467,00A</code></td>
+
+</tr>
+
+<tr>
+<td><span>-I</span> pprof.flow</td>
+
+<td>以前に生成された <code>pprof.flow</code> からレポートを生成するように示します。 <code>pprof.namecpu</code> レポートを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td><code>pprof.namecpu</code> レポートを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td><code>pprof.cpu</code> レポートを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r PURR</span></td>
+
+<td>パーセントと CPU 時間の計算では、TimeBase ではなく PURR 時間を使用します。 経過時間の計算には影響しません。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span></td>
+
+<td><code>pprof.start</code> レポートを生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span></td>
+
+<td>トレース・カーネル・バッファー・サイズをバイト単位で設定します。 デフォルトは 32000 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>冗長モード (エクストラ詳細の表示) を設定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td><code>pprof.flow</code>を生成することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-@</span> [WparList | <code>ALL</code>]</td>
+
+<td>WPAR 情報を表示します。<dl>
+
+<dt><code>ALL</code></dt>
+
+<dd>すべての WPAR をリストします。</dd>
+
+
+
+<dt>WparList</dt>
+
+<dd>関心のある WPAR のコンマ区切りリストを指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>time</td>
+
+<td>システムをトレースする秒数を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>
+<div><div>
+        <div>
+          <div><span>注:</span> パフォーマンス分析ツールへの変更に関する最新情報については、
+<code>/usr/lpp/perfagent/README.perfagent.tools</code> を参照してください。</div>
+        </div>
+      </div></div>
+
+</div>
+</section>
+
+</div></div>

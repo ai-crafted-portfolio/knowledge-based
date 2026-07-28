@@ -1,0 +1,169 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>条件と 1 つ以上の応答との間のリンクを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>mkcondresp</span></span> [<span><span>-h</span></span>][<span><span>-TV</span></span><span><span>条件</span></span><span><span>:</span></span><span><span>ノード名］ </span></span><span><span>response1</span></span> [ <span><span>response2</span></span>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>mkcondresp</span></span> コマンドは、条件と 1 つ以上の応答との間のリンクを作成します。 条件と応答の間のリンクを、<em>条件/応答関連付け</em> と呼びます。 このコマンドは 1 つ以上の条件/応答関連付けを作成しますが、モニターを開始するわけではありません。 クラスター環境では、条件と応答は、同一のノードに定義する必要があります。 <span><span>startcondresp</span></span> コマンドを使用して、この条件とそれにリンクされている応答のモニターを後で開始することができます。</p>
+ <p>条件/応答の関連付けをロックするには、 <span><span>rmcondresp</span></span>、 <span><span>startcondresp</span></span>、または <span><span>stopcondresp</span></span> コマンドの <span><span>-L</span></span> フラグを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>条件</span></span></dt>
+
+<dd>応答にリンクする条件の名前を指定します。 必ず条件を最初に指定してください。</dd>
+
+
+<dt><span><span>ノード名</span></span></dt>
+
+<dd>条件を定義したドメイン内のノードを指定します。 <span><span>node_name</span></span> を指定しないと、ローカル・ノードが使用されます。 <span><span>node_name</span></span> は、CT_MANAGEMENT_SCOPE 環境変数が決定する範囲内のノードです。</dd>
+
+
+<dt><span><span>response1</span></span> [<span><span>response2</span></span>...]</dt>
+
+<dd>1 つ以上の応答名を指定します。 すべての応答は <span><span>condition</span></span> にリンクされます。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>mkcondresp</span></span>を実行するには、 <span><span>IBM.Association</span></span> リソース・クラスに対する書き込み権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「<em>
+RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>イベント応答リソース・マネージャー (ERRM) のリソースの処理で、RMC デーモンとのセッションに使用する管理有効範囲を指定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>以下の例は、スタンドアロン・システムに適用されます。<ol>
+<li>条件「FileSystem space used」を応答「Broadcast event on-shift」にリンクするには、
+次のコマンドを実行します。<div><div><pre><code>mkcondresp "FileSystem space used" "Broadcast event on-shift"                              													</code></pre></div><div></div></div></li>
+
+<li>条件「FileSystem space used」を応答「Broadcast event on-shift」
+および「E-mail root anytime」にリンクするには、次のコマンドを実行します。<div><div><pre><code>mkcondresp "FileSystem space used" "Broadcast event on-shift" "E-mail root anytime"                                												</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+ <div>以下の例は管理ドメインに適用されます。<ol>
+<li>管理サーバーの条件「FileSystem space used」を (同じく管理サーバーの) 応答「Broadcast event on-shift」にリンクするには、次のコマンドを管理サーバーで実行します。<div><div><pre><code>mkcondresp "FileSystem space used" "Broadcast event on-shift"                              													</code></pre></div><div></div></div></li>
+
+<li>管理サーバー上の条件「FileSystem space used」を応答
+「Broadcastevent on-shift」にリンクするには、
+次のコマンドをドメイン内のいずれかのノードで実行します。<div><div><pre><code>mkcondresp "FileSystem space used":nodeA "Broadcast event on-shift"                                												</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+ <div>この例は、ピア・ドメインに適用されます。<ol>
+<li>ノード'<span><span>nodeA</span></span>上の条件"FileSystemspace used」を応答「Broadcastevent on-shift」（同じく'<span><span>nodeA</span></span>上）にリンクするには、ドメイン内のノードの1つで以下のコマンドを実行する：<div><div><pre><code>mkcondresp "FileSystem space used":nodeA "Broadcast event on-shift"                                												</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/mkcondresp</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

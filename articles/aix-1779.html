@@ -1,0 +1,106 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>仮想キーの割り当てを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>xmbind</strong>[<strong>-display</strong><em> Host:Display:ScreenID] </em>[<em>FileName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xmbind</strong>コマンドは、<span>AIXwindows</span>アプリケーションの仮想キーバインディングを設定するX Windows Systemクライアントである。 このアクションは、<strong>mwm</strong> コマンドがその始動時に行うため、<strong>xmbind</strong> クライアントが必要になるのは、<strong>mwm</strong> コマンドが使用されていないときや、<strong>mwm</strong> コマンドを再始動せずに仮想キーの割り当てを変更したいときのみです。 ファイルが指定されていると、その内容は仮想キーの割り当てとして使用されます。 ファイルが指定されていない場合、ユーザーのホーム・ディレクトリー中の <strong>.motifbind</strong> ファイルが使用されます。 このファイルが見つからなければ、<strong>xmbind</strong> コマンドはデフォルトの仮想キーの割り当てをロードします。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-表示</strong><em> ホスト</em><strong>:</strong><em>ディスプレイ</em><strong>:</strong><em>スクリーンID</em></td>
+
+<td>使用するディスプレイを指定します。 <strong>-display</strong> オプションのパラメーターは次のとおりです。<dl>
+<dt><em>Host</em></dt>
+
+<dd>ネットワーク上の有効なシステムのホスト名を指定します。 状況によって、リモート・システムのユーザー名またはホスト名を指定することができます。</dd>
+
+
+<dt><em>Display</em></dt>
+
+<dd>出力の表示先システムのディスプレイ番号 (通常 0) を指定します。</dd>
+
+
+<dt><em>ScreenID</em></dt>
+
+<dd>出力の表示先の画面番号を指定します。 画面が 1 つのシステムでは 0 となります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>FileName</em></td>
+
+<td>仮想マウス・イベントと仮想キー・イベントの割り当てが入っているファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>これは、エラーが発生したことを示しています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

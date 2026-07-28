@@ -1,0 +1,41 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>定期的にハウスキーピングを行うために <strong>sendmail</strong> キューをクリーンアップします。</p>
+</section>
+<section><h2>構文</h2> <p><strong>/usr/lib/smdemon.cleanu</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>smdemon.cleanu</strong> コマンドは、<strong>sendmail</strong> コマンドのキューをクリーンアップして <strong>/var/spool/mqueue/log</strong> ファイルを維持管理するシェル・プロシージャーです。</p>
+ <p><strong>smdemon.cleanu</strong> コマンドを使用可能にする
+には、<strong>/var/spool/cron/crontabs/root</strong> ファイル内
+の <strong>smdemon.cleanu</strong> 行の先頭の # 文字を削除して
+コメント・ステートメントを除去しなければなりません。 <strong>/var/spool/mqueue</strong> ディレクトリーが存在しない場合は、<strong>/var/spool/cron/crontabs/root</strong> ファイルを変更しないでください。</p>
+ <div>各 <strong>smdemon.cleanu</strong> セッション用のログ・ファイルの平均サイズにログ・ファイルの数を乗じた値 (スペース) が、必要以上にスペースを使用しないように注意してください。 それぞれのニーズに合うように、ログ・ファイルの数を調整できます。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>smdemon.cleanu</strong> コマンドは通常、コマンド行には入力しません。 このコマンドは、<strong>cron</strong> デーモンによって実行されます。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+<section><h2>例</h2> <p><strong>smdemon.cleanu</strong> 手順を自動的に実行するには、<strong> /var/spool/cron/crontabs/root</strong> ファイルを編集して、以下のような <strong>smdemon.cleanu</strong> 行の先頭の # (コメント文字) を削除してください。</p>
+ <div> <div><div><pre><code># ulimit 5000; /usr/lib/smdemon.cleanu &gt; /dev/null</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>/var/spool/cron/crontabs/root</strong></td>
+
+<td><strong>smdemon.cleanu</strong> コマンドが実行される時間をスケジュールします。</td>
+
+</tr>
+<tr><td><strong>/var/spool/</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/mqueue.html" target="_blank" rel="noopener noreferrer"><strong>mqueue</strong></a></td>
+
+<td>メール・キュー内のメッセージに関連する <strong>log</strong> ファイルと一時ファイルが入っています。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+</div></div>

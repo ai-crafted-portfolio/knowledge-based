@@ -1,0 +1,212 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p>ソフトウェア・パッケージ <code>and/or</code> セット情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div>
+<dl>
+
+<dt>インストール済みパッケージに関する情報を表示するには</dt>
+
+<dd><div><div><pre><code>pkginfo [ -q] [ -x | -l] [ -r] [ -p | -i] [ -a Arch] [ -P Path ] [ -v Version] [ -c Category1,[Category2[, . . .]]] [ Pkginst [, Pkginst [, . . .]]]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>指定したデバイスに含まれるパッケージに関する情報を表示するには</dt>
+
+<dd><div><div><pre><code>pkginfo [ -d Device] [ -q] [ -x | -l] [ -a Arch] [ -P Path ] [ -v Version] [ -c Category1 [,Category2[, . . . ]]] [ PkginstPkginst [, Pkginst [, . . . ]]]</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>説明</h2>
+<p><span>pkginfo</span> は、システムにインストールされたソフトウェア・パッケージまたはセット
+(最初の形式で要求された場合)、もしくはディレクトリーにあるソフトウェア・パッケージまたはセット
+(2 番目の形式で要求された場合) に関する情報を表示します。 パッケージは、個別にインストールできる、関連するファイルおよび実行可能ファイルの集合です。 セットはセット・インストール・パッケージ (SIP) と呼ばれる特殊目的のパッケージと、
+そのセットのメンバーである 1 つまたは複数のパッケージのコレクションからなります。 SIP はセットのインストールを制御します。</p>
+
+<p>フラグを指定しないで <span>pkginfo</span> を実行すると、
+インストールされたパッケージのうち、カテゴリーの値が "set" ではない各パッケージ
+について (それが完全にインストールされているのか、部分的にインストールされているのかを
+問わず)、1 行ずつ情報が表示されます。 表示される情報には、1 次カテゴリー、パッケージ・インスタンス、およびパッケージの名前が含まれます。 <span>UNIX</span> System V リリース 4 より前に作成された <span>UNIX</span> ソフトウェア・パッケージの場合、 <span>pkginfo</span> はパッケージ名と省略形のみを表示します。</p>
+
+<p><span>-p</span> フラグおよび <span>-i</span> フラグは、 <span>-d</span> フラグと一緒に使用すると無意味です。 <span>-p</span> フラグと <span>-i</span> フラグは相互に排他的です。 <span>-x</span> フラグと <span>-l</span> フラグは相互に排他的です。</p>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-q</span></td>
+
+<td>抑止モードを使用可能にします。情報は何も表示されません。 このフラグは <span>-x</span>、<span>-l</span>、<span>-p</span>、
+および <span>-i</span> フラグをオーバーライドします。 (パッケージがインストールされているかどうかを照会するために、プログラムによって呼び出すことができます。)</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span></td>
+
+<td>指定されたパッケージについて、省略形、名前、および (使用可能な場合には) アーキテクチャーと
+バージョンを抽出し、表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>指定された 1 つ以上のパッケージに関する <code>"long format"</code> レポート (つまり、使用可能なすべての情報を含むレポート) を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>指定されたパッケージが再配置可能である場合には、そのパッケージのインストール・ベースを
+リストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>部分的にインストールされたパッケージに関する情報だけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>完全にインストールされたパッケージに関する情報だけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-a</span> 
+Arch</td>
+
+<td>パッケージのアーキテクチャーを Arch と指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> パス</td>
+
+<td>代替ルート・ディレクトリー・パスにインストールされているパッケージの情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span> バージョン</td>
+
+<td>パッケージのバージョンを Version と指定します。 互換性のあるすべてのバージョンは、バージョン名の前に波形記号 <code>"~"</code>を付けることによって要求できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> 「カテゴリー」 。</td>
+
+<td>このカテゴリー Categoryに属するパッケージに関する情報を表示します。 (カテゴリーは <span>pkginfo</span> ファイルのカテゴリー・フィールドで
+定義されます。詳細は、<span>pkginfo</span> ファイル・フォーマットを参照してください。) 複数のカテゴリーをコンマ区切りリストで指定することができます。 1 つのパッケージは、複数のカテゴリーが指定されている場合でも、1 つのカテゴリーだけに属している必要があります。 パッケージとカテゴリーの突き合わせでは、大文字小文字の区別は行われません。<p>指定されたカテゴリーが <code>"set"</code>の場合、 <span>pkginfo</span> は、インストール・パッケージ (SIP) の設定に関する情報を表示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>プッギンスト</td>
+
+<td>パッケージまたはセット名の省略形を指定するために使用される短ストリングを定義します。 ( <code>package instance</code> という用語は大まかに使用されます。インスタンス ID が含まれていないものも含め、 Pkginstのすべてのインスタンス化を指します。)<p>パッケージのすべてのインスタンスを示すには、示されているようにコマンド行を単一引用符で囲んで <code>'Pkginst.*'</code>を指定し、シェルが <code>"*"</code> 文字を解釈しないようにします。 ソース・メディアで使用可能なすべてのパッケージを参照するには、トークン <code>"all"</code> を使用します。</p>
+
+<p>Pkginst が SIP である場合、その SIP と関連付けられている
+パッケージに関する情報が表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span>  Device</td>
+
+<td>Device上にあるパッケージまたはセットからの情報を表示します。 Device は、ディレクトリーへの絶対パス名 ( <span>/var/tmp</span>など)、または標準入力から読み取られるデータ・ストリーム形式のパッケージを指定する <code>"-"</code> にすることができます。 デフォルト・デバイスはインストール先のスプール・ディレクトリー (<span>/var/spool/pkg</span>) です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+<div>このコマンドは、以下の終了値を戻します。<div><div><table><caption><span>表 2. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>スクリプトの正常終了です。</td>
+
+</tr>
+
+<tr>
+<td><span>1</span></td>
+
+<td>致命的なエラーです。 インストール・プロセスは終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2>
+<div>
+
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/var/spool/pkg</span></td>
+
+<td>デフォルトのスプール・ディレクトリー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

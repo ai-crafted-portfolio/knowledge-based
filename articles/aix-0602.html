@@ -1,0 +1,261 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホスト名をインターネット・プロトコル (IP) アドレスに解決するか、IP アドレスをホスト名に解決します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>host [-a] [-c Class ] [-d ] [-r ] [-t Type] [-v ] [-w ] Hostname | Address [Server]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>/usr/bin/host</span> コマンドは、HostName パラメーターを指定すると、ホスト・マシンの IP アドレスを戻し、Address パラメーターを指定するとホスト名を戻します。 ネーム・レゾリューション・サービスの構成によっては、 <span>host</span> コマンドは、 HostName パラメーターに関連付けられている別名も表示する場合があります。 ネーム・レゾリューション・サービスの例としては、 <code>local</code>、 <code>nis</code>、および <code>bind</code>があります。</p>
+ <p>ローカル・ホストが <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/protocols_applevel.html" target="_blank" rel="noopener noreferrer">ドメイン・ネーム・プロトコル</a>を使用している場合、ローカル・ネーム・サーバー・データベースまたはリモート・ネーム・サーバー・データベースは、ローカル <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/hosts.html" target="_blank" rel="noopener noreferrer"><span>/etc/hosts</span></a> ファイルを検索する前に照会されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td><code>-v -t *</code> を使用する場合と同等</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> class</td>
+
+<td>インターネット以外のデータを検索するときに調べるクラスを指定します。 有効なクラスは、次のとおりです。<dl>
+
+<dt>IN</dt>
+
+<dd>インターネット・クラス</dd>
+
+
+
+<dt>CHAOS</dt>
+
+<dd>カオス・クラス</dd>
+
+
+
+<dt>HESIOD</dt>
+
+<dd>MIT Althena Hesiod クラス</dd>
+
+
+
+<dt>ANY</dt>
+
+<dd>ワイルドカード (前述のもののいずれか)</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>デバッグ・モードをオンにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>再帰的処理を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> 
+type</td>
+
+<td>照会するレコードのタイプを指定します。 有効なタイプは、次のとおりです。<dl>
+
+<dt>A</dt>
+
+<dd>ホスト IP アドレス</dd>
+
+
+
+<dt>CNAME</dt>
+
+<dd>標準の別名</dd>
+
+
+
+<dt>HINFO</dt>
+
+<dd>ホスト・プロセッサーとオペレーティング・システム・タイプ</dd>
+
+
+
+<dt>キー</dt>
+
+<dd>セキュリティー・キー・レコード</dd>
+
+
+
+<dt>MINFO</dt>
+
+<dd>メールボックスまたはメール・リストの情報</dd>
+
+
+
+<dt>MX</dt>
+
+<dd>メール交換機能</dd>
+
+
+
+<dt>NS</dt>
+
+<dd>指定したゾーンのネームサーバー</dd>
+
+
+
+<dt>PTR</dt>
+
+<dd>照会が IP アドレスの場合はホスト名、それ以外の場合はその他の情報を指し示すポインター</dd>
+
+
+
+<dt>SIG</dt>
+
+<dd>署名レコード</dd>
+
+
+
+<dt>SOA</dt>
+
+<dd>ドメインの「権限の開始」情報</dd>
+
+
+
+<dt>TXT</dt>
+
+<dd>テキスト情報</dd>
+
+
+
+<dt>UINFO</dt>
+
+<dd>ユーザー情報</dd>
+
+
+
+<dt>WKS</dt>
+
+<dd>サポートされる定義済みサービス</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>詳細モード。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>DNS サーバーからの応答を永続的に待ちます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>アドレス</td>
+
+<td>ホスト名の解決に使うホスト・マシンの IP アドレスを指定します。 Address パラメーターは、小数点フォーマットによる有効な IP アドレスでなければなりません。</td>
+
+</tr>
+
+<tr>
+<td>HostName</td>
+
+<td>IP アドレスの解決に使用するホスト・マシン名を指定します。 HostName パラメーターには、固有のホスト名または予約済みホスト名 (nameserver、printserver、timeserver など、それらの名前が存在する場合) のいずれかが使用できます。</td>
+
+</tr>
+
+<tr>
+<td>サーバー</td>
+
+<td>照会に対するネーム・サーバーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>mephisto</code> という名前のホスト・マシンのアドレスを表示するには、次のコマンドを入力します。<div>
+<div><div><pre><code>host mephisto</code></pre></div><div></div></div>出力は、次の情報のようになります。<div><div><pre><code>mephisto is 192.100.13.5, Aliases: engr, sarah</code></pre></div><div></div></div></div>
+</li>
+
+<li>アドレスが <code>192.100.13.1</code> のホストを表示するには、次のコマンドを入力します。<div>
+<div><div><pre><code>host 192.100.13.1</code></pre></div><div></div></div>出力は、次の情報のようになります。<div><div><pre><code>mercutio is 192.100.13.1</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/hosts.html" target="_blank" rel="noopener noreferrer"><span>/etc/hosts</span></a></td>
+
+<td>ローカル・ネットワーク上のホストのインターネット・プロトコル (IP) 名とアドレスが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

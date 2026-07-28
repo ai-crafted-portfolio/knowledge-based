@@ -1,0 +1,142 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>磁気テープ・デバイスのリモート・アクセスを可能にします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>rmt</span></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmt</strong> コマンドを使用すると、磁気テープ・デバイスにリモート・アクセスすることができます。 リモート・ダンプおよび復元を行うプログラムは、リモート磁気テープ・プロトコル・モジュールとして <strong>rmt</strong> コマンドを使用します。 <strong>rmt</strong> コマンドは通常 <strong>rexec</strong> または <strong>rcmd</strong> サブルーチンによって開始されます。</p>
+ <p><strong>rmt</strong> コマンドは、磁気テープの操作に特有の要求を受け入れて、
+コマンドを実行し、状況を示して応答します。 応答はすべて ASCII 表記で、次の 2 つのフォーマットで行われます。 成功したコマンドは以下の応答を受け取ります。Axxx、ここで、xxx10 進数の ASCII 表記です。 失敗したコマンドは以下の応答を受け取ります。Eyyy error-message、ここで、yyy<strong>errno.h</strong> ファイルに記述されている可能性のあるエラー番号の 1 つ。error-message<strong>perror</strong> サブルーチンの呼び出しから印刷された、対応するエラー・ストリングです。 このプロトコルは以下のサブコマンドから構成されています。</p>
+</section>
+
+<section><h2>サブコマンド</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>O</strong><em> デバイスモード</em><strong></strong></td>
+
+<td><em>Mode</em>  パラメーターで指定したモードを使用して、<em>Device</em>  パラメーターで指定したデバイスをオープンします。 <em>Device</em>  パラメーターの値はフル・パス名です。また、<em>Mode</em> パラメーターの値は、<strong>open</strong> サブルーチンに渡すのに適した、
+10 進数の ASCII 表記です。 オープン・デバイスは、新しいオープン操作が行われる前にクローズされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>C</strong><em>装置</em><strong></strong></td>
+
+<td>オープン・デバイスをクローズします。 <em>Device</em> パラメーターで指定したデバイスは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>L</strong><em> オフセット</em><strong></strong></td>
+
+<td>指定されたパラメーターを使用して、<strong>lseek</strong> 操作を行います。 <strong>lseek</strong> サブルーチンは応答値を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>W</strong><em>カウント</em><strong></strong></td>
+
+<td>データをオープン・デバイスに書き込みます。 <strong>rmt</strong> コマンドは接続から、<em>Count</em> パラメーターによって指定されたバイト数を読み取り、途中にファイル終わりがあると終了します。 <strong>write</strong> サブルーチンは応答値を戻します。</td>
+
+</tr>
+
+<tr>
+<td><strong>R</strong><em>度数</em><strong></strong></td>
+
+<td><em>Count</em> パラメーターで指定したデータのバイト数をオープン・デバイスから読み取ります。 次に、 <strong>rmt</strong> コマンドは、要求された読み取り操作を実行し、次のように応答します。Azzz、ここで、zzz操作が成功した場合に読み取られたバイト数です。 読み取られたデータは次に送信されます。 読み取り操作が失敗すると、標準フォーマットのエラーが戻されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>I</strong><em> オペレーションカウント</em><strong></strong></td>
+
+<td>指定したパラメーターを使用して、<strong>STIOCTOP</strong> ioctl サブルーチンを実行します。 パラメーターは、以下の場所に配置する 10 進値の ASCII 表記として解釈されます。mt opおよびmt countioctl サブルーチンで使用される構造体のフィールド。 操作が終了すると、<em>Count</em> パラメーターの値が戻されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>その他のサブコマンドを指定すると、<strong>rmt</strong> コマンドは終了します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>R</strong> および <strong>W</strong> サブコマンドの場合、 <em>Count</em> パラメーターで指定されたバイト数が接続で処理できるバイト数を超えると、次のようになります。 データは、処理可能なサイズに切り捨てられます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/rmt</strong></td>
+
+<td><strong>rmt</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/sys/errno.h</strong></td>
+
+<td>発生する可能性のあるエラー番号を記述します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>
