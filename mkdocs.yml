@@ -15,3 +15,4 @@ plugins: []
 nav:
   - AIX 7.3: index.md
   - AIX 7.3 category: categories/c01/index.md
+  - DFSMS 磁気テープ: dfsmstape/index.html

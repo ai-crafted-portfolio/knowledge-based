@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="IBM z/OS 3.2 DFSMS Using Magnetic Tapesを原文に基づいて整理した日本語技術ガイド。IBM標準ラベル、ISO/ANSIラベル、非標準ラベル、ラベルなしテープ、テープライブラリーを解説します。">
+  <title>DFSMS 磁気テープ利用ガイド | OSKB</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/dfsmstape.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="menu-button" id="menu-button" type="button" aria-controls="toc" aria-expanded="false">目次</button>
+    <a class="brand" href="../">
+      <span class="brand-mark">OSKB</span>
+      <span class="brand-copy"><strong>IBM Systems Library</strong><small>OFFICIAL-FIRST / JAPANESE GUIDE</small></span>
+    </a>
+    <a class="product-switch" href="../"><span>AIX 7.3</span><strong>ライブラリーへ戻る</strong></a>
+  </header>
+
+  <div class="layout">
+    <aside class="toc" id="toc" aria-label="ページ内目次">
+      <div class="toc-heading"><span>z/OS 3.2</span><strong>DFSMS Magnetic Tapes</strong></div>
+      <nav>
+        <a href="#overview">このガイドについて</a>
+        <a href="#label-selection">ラベル方式の選び方</a>
+        <a href="#tape-layout">テープの基本構造</a>
+        <a href="#processing">割り振りと処理ルーチン</a>
+        <a href="#ibm-labels">IBM標準ラベル</a>
+        <a href="#iso-labels">ISO/ANSIラベル</a>
+        <a href="#nonstandard">非標準ラベル</a>
+        <a href="#unlabeled">ラベルなしテープ</a>
+        <a href="#other-systems">他システム作成テープ</a>
+        <a href="#tape-library">IBMテープライブラリー</a>
+        <a href="#external-labels">外部ラベルと文字変換</a>
+        <a href="#checklist">運用チェックリスト</a>
+        <a href="#glossary">用語集</a>
+        <a href="#source">原典</a>
+      </nav>
+      <div class="toc-status"><span>原文照合</span><strong>172 PDF pages</strong><small>SC23-6858-70 / 2025-09-30</small></div>
+    </aside>
+    <button class="scrim" id="scrim" type="button" aria-label="目次を閉じる"></button>
+
+    <main>
+      <article>
+        <header class="hero">
+          <div class="eyebrow">Z/OS 3.2 · DFSMS · TAPE PROCESSING</div>
+          <h1>DFSMS 磁気テープ利用ガイド</h1>
+          <p class="lead">IBM標準ラベル、ISO/ANSIラベル、非標準ラベル、ラベルなしテープを、OPEN・EOV・CLOSEの動きと運用上の判断点から読み解く日本語ガイドです。</p>
+          <div class="badges"><span>非公式日本語解説</span><span>原文PDF照合済み</span><span>z/OS 3.2</span></div>
+          <dl class="source-facts">
+            <div><dt>IBM文書番号</dt><dd>SC23-6858-70</dd></div>
+            <div><dt>原文更新日</dt><dd>2025-09-30</dd></div>
+            <div><dt>対象</dt><dd>テープ入出力・ラベル処理</dd></div>
+            <div><dt>構成</dt><dd>6章 + 5付録</dd></div>
+          </dl>
+        </header>
+
+        <section id="overview" class="section">
+          <div class="section-kicker">READ THIS FIRST</div>
+          <h2>このガイドについて</h2>
+          <div class="callout info">
+            <strong>位置づけ</strong>
+            <p>このページは、IBMの英語原文を逐語訳したものではありません。原文の章立て、ラベル形式、処理フロー、制約を保ちながら、運用判断に使えるよう日本語で再構成した解説です。フィールド長、出口仕様、メッセージ条件などを実装判断に使う場合は、必ず原典も確認してください。</p>
+          </div>
+          <p>磁気テープ処理では、データそのものだけでなく、ボリュームとデータセットを識別するラベル、データセット境界を表すテープマーク、JCLから作られるJFCB、プログラムのDCB/DCBE、RACFやDFSMSrmmの管理情報が協調します。OPENはこれらを突き合わせて入力対象を位置決めし、出力先を検証してヘッダーラベルを作成します。EOVはボリューム切り替えを、CLOSEはデータセット終端の確定を担当します。</p>
+          <div class="principles">
+            <div><span>01</span><strong>識別</strong><p>VOLSER、データセット名、シーケンス番号で、正しい媒体とデータセットかを確認します。</p></div>
+            <div><span>02</span><strong>記述</strong><p>HDR2などからRECFM、LRECL、BLKSIZE、記録方式を補完します。</p></div>
+            <div><span>03</span><strong>保護</strong><p>RACF、保存期限、DFSMSrmm、導入出口が上書き可否やマウント可否を制御します。</p></div>
+            <div><span>04</span><strong>境界</strong><p>テープマークとEOF/EOVラベルでデータセット終端とボリューム継続を区別します。</p></div>
+          </div>
+        </section>
+
+        <section id="label-selection" class="section">
+          <div class="section-kicker">CHAPTER 1 · PRINTED PAGES 1-14</div>
+          <h2>ラベル方式の選び方</h2>
+          <p>DD文のLABELパラメーターが、z/OSにどのラベル処理を要求するかを決めます。指定しない場合はIBM標準ラベルとして扱われます。</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>指定</th><th>方式</th><th>主な用途と注意</th></tr></thead>
+              <tbody>
+                <tr><td><code>SL</code></td><td>IBM標準ラベル</td><td>通常のz/OSテープ。VOL1、HDR1/HDR2、EOF/EOVをシステムが処理します。ラベル種別を省略した場合の既定です。</td></tr>
+                <tr><td><code>SUL</code></td><td>IBM標準 + ユーザーラベル</td><td>SLに加えてUHL/UTLを扱います。DCB出口リストにユーザーラベル処理ルーチンが必要です。</td></tr>
+                <tr><td><code>AL</code></td><td>ISO/ANSI標準ラベル</td><td>ASCIIベースの交換用ラベル。z/OSはVersion 3または4を作成します。</td></tr>
+                <tr><td><code>AUL</code></td><td>ISO/ANSI + ユーザーラベル</td><td>ALに任意個数のユーザーヘッダー/トレーラーラベルを加えます。ASCII文字制約に注意します。</td></tr>
+                <tr><td><code>NSL</code></td><td>非標準ラベル</td><td>導入先独自形式。OPEN/EOV/CLOSEへ組み込む導入ルーチンを自作・管理します。DFSMSrmmはサポートしません。</td></tr>
+                <tr><td><code>NL</code></td><td>ラベルなし</td><td>データレコードとテープマークのみ。内部ラベルによる媒体識別ができないため、外部ラベルとオペレーター確認への依存が増えます。</td></tr>
+                <tr><td><code>LTM</code></td><td>先頭テープマーク許容</td><td>他システム由来のラベルなしテープで、先頭データセット前のテープマークを検出して読み飛ばします。</td></tr>
+                <tr><td><code>BLP</code></td><td>ラベル処理のバイパス</td><td>NLに近い処理ですが、既存標準ラベルの確認も省略します。JES、RACF、DFSMSrmmで厳格に制限する前提の高リスク指定です。</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warning"><strong>BLPは通常運用の近道ではありません</strong><p>BLPではOPEN/CLOSE/EOVがラベルの有無を判断できず、正しい位置決めを利用者側が担います。RACFのTAPEVOLクラスとFACILITYクラスのICHBLP、JESのジョブクラス制御、DFSMSrmmの検証を組み合わせ、許可対象を限定します。</p></div>
+        </section>
+
+        <section id="tape-layout" class="section">
+          <div class="section-kicker">MEDIA STRUCTURE</div>
+          <h2>テープの基本構造</h2>
+          <p>ラベル付きテープは、ボリュームラベル、データセットヘッダー、データ、トレーラーをテープマークで区切ります。<code>EOF</code>はデータセットの完了、<code>EOV</code>は次ボリュームへの継続を表します。</p>
+          <div class="tape-diagram" aria-label="IBM標準ラベルの単一データセット単一ボリューム構造">
+            <div class="tape-label volume">VOL1</div><span>→</span>
+            <div class="tape-label header">HDR1</div><div class="tape-label header">HDR2</div>
+            <div class="tape-label optional">UHL</div><div class="tape-mark">TM</div>
+            <div class="tape-data">DATA SET</div><div class="tape-mark">TM</div>
+            <div class="tape-label trailer">EOF1</div><div class="tape-label trailer">EOF2</div>
+            <div class="tape-label optional">UTL</div><div class="tape-mark">TM</div><div class="tape-mark">TM</div>
+          </div>
+          <div class="legend"><span><i class="l-volume"></i>ボリューム</span><span><i class="l-header"></i>ヘッダー</span><span><i class="l-data"></i>データ</span><span><i class="l-trailer"></i>トレーラー</span><span><i class="l-optional"></i>任意</span></div>
+          <div class="comparison-grid">
+            <div><h3>単一データセット / 複数ボリューム</h3><p>途中ボリュームはEOFではなくEOVで終了し、次ボリュームでVOL1とヘッダーラベルを再構成してデータを継続します。最終ボリュームだけがEOFで閉じられます。</p></div>
+            <div><h3>複数データセット / 単一ボリューム</h3><p>各データセットが独立したHDR・データ・EOFの組を持ちます。次のHDR1は、直前データセットの終端にある2個目のテープマークを上書きして追加されます。</p></div>
+            <div><h3>複数データセット / 複数ボリューム</h3><p>ボリューム集合全体をアグリゲートとして扱います。データセットの位置は、個々のボリューム内だけでなく集合全体に対する論理シーケンスで管理します。</p></div>
+          </div>
+        </section>
+
+        <section id="processing" class="section">
+          <div class="section-kicker">ALLOCATION / OPEN / EOV / CLOSE</div>
+          <h2>割り振りと処理ルーチン</h2>
+          <h3>DCB/DCBEが完成する順序</h3>
+          <p>実行時の属性は、プログラムまたはコンパイラーが作るDCB/DCBE、DD文や動的割り振りから作られるJFCB、データクラス、既存ラベルから集められます。入力、INOUT、RDBACK、EXTEND、または<code>DISP=MOD</code>を伴う出力では、標準ラベルの情報がJFCBの空きフィールドへ前方向にマージされ、続いてJFCBからDCB/DCBEへ補完されます。出力では完成したDCBの情報がJFCBへ逆方向に反映され、新しいラベルの材料になります。</p>
+          <div class="flow" aria-label="テープ処理フロー">
+            <div><span>1</span><strong>ALLOCATE</strong><p>DD文、カタログ、SMSクラス、VOLUME/LABEL指定を解決</p></div>
+            <b>→</b><div><span>2</span><strong>OPEN</strong><p>ラベル検証、DCB補完、媒体確認、位置決め</p></div>
+            <b>→</b><div><span>3</span><strong>I/O</strong><p>BSAM/QSAM/EXCPで読み書き、ブロック数を追跡</p></div>
+            <b>→</b><div><span>4</span><strong>EOV</strong><p>終端検出、トレーラー作成/検証、次ボリュームへ切替</p></div>
+            <b>→</b><div><span>5</span><strong>CLOSE</strong><p>EOF確定、媒体解放、DFSMSrmmへ統計を記録</p></div>
+          </div>
+          <h3>データセット構成で変わる指定</h3>
+          <ul class="check-list">
+            <li><strong>連結:</strong> DD文の出現順に読みます。逆方向読み取りはできません。属性が異なる場合はDCBのunlike-attributes指定が必要です。</li>
+            <li><strong>ジョブステップ間の受け渡し:</strong> 装置種別、VOLSER、シーケンス番号、ラベル種別は引き継げますが、密度やレコード形式などの属性は自動では引き継がれません。</li>
+            <li><strong>複数ボリューム:</strong> 特定VOLSERを列挙するか、VOLSERを省略してスクラッチ要求にします。使用しなかった特定ボリュームまでカタログ登録すると、後の検索が不正確になります。</li>
+            <li><strong>複数データセット:</strong> 2番目以降はLABELのデータセットシーケンス番号、またはカタログの位置情報を使います。</li>
+            <li><strong>GDG:</strong> 相対世代名を使用できます。SMS管理の新世代では明示DCB属性、REFDD、LIKE、DATACLASが基礎になり、モデルDSCBは使用されません。</li>
+          </ul>
+          <div class="code-card"><div>JCL例 - IBM標準ラベルの入力</div><pre><code>//TAPEIN  DD  DSN=HLQ.INPUT.DATA,DISP=SHR,
+//             UNIT=TAPE,VOL=SER=TAPE01,
+//             LABEL=(1,SL),
+//             DCB=(RECFM=FB,LRECL=80,BLKSIZE=27920)</code></pre><p>環境の装置名、SMS方針、カタログ有無に合わせて調整する例です。</p></div>
+          <h3>ブロック数検証</h3>
+          <p>標準ラベルのBSAM/QSAM/EXCP処理では、読み取り終了時にトレーラーラベルの期待ブロック数と実績を照合します。カートリッジではハードウェアが保持する情報との追加照合も可能です。EXCPではDCB上のカウント維持と<code>REPOS=Y</code>が重要で、不一致はDCB ABEND出口またはABEND 117/237につながります。</p>
+        </section>
+
+        <section id="ibm-labels" class="section">
+          <div class="section-kicker">CHAPTER 2 · PRINTED PAGES 15-52</div>
+          <h2>IBM標準ラベル</h2>
+          <p>IBM標準ラベルは80文字の固定長レコードです。カートリッジと9トラックではEBCDIC、7トラックではBCDIC・偶数パリティー・変換オンで記録されます。先頭4文字がラベル種別を示します。</p>
+          <div class="label-cards">
+            <div><code>VOL1</code><strong>ボリュームラベル</strong><p>媒体先頭に1件。VOLSERと所有者情報を持ち、正しい媒体がマウントされたかを確認します。</p></div>
+            <div><code>HDR1</code><strong>データセットラベル1</strong><p>データセット名、VOLSER、ボリューム/データセットシーケンス、作成日・保存期限、保護情報などを記述します。</p></div>
+            <div><code>HDR2</code><strong>データセットラベル2</strong><p>RECFM、ブロック長、レコード長、記録方式など、データセット処理に必要な追加属性を記述します。</p></div>
+            <div><code>UHL1-8</code><strong>ユーザーヘッダー</strong><p>SULとDCB出口ルーチンを指定した場合に、HDR2の後へ最大8件を配置できます。</p></div>
+            <div><code>EOV1/2</code><strong>ボリューム終端</strong><p>データセットが次ボリュームへ続くことを示します。形式はHDRに対応し、EOV1にはブロック数が入ります。</p></div>
+            <div><code>EOF1/2</code><strong>データセット終端</strong><p>データセットの完了を示します。CLOSEが作成し、EOF1のブロック数を後の入力検証に利用します。</p></div>
+            <div><code>UTL1-8</code><strong>ユーザートレーラー</strong><p>SULと出口ルーチンを指定した場合に、標準トレーラーの後へ最大8件を配置できます。</p></div>
+          </div>
+          <h3>VOL1の主要領域</h3>
+          <div class="table-wrap compact"><table><thead><tr><th>位置</th><th>長さ</th><th>内容</th><th>処理上の意味</th></tr></thead><tbody>
+            <tr><td>1-3</td><td>3</td><td><code>VOL</code></td><td>標準ボリュームラベルであることを識別します。</td></tr>
+            <tr><td>4</td><td>1</td><td><code>1</code></td><td>同種ラベル集合内の番号です。</td></tr>
+            <tr><td>5-10</td><td>6</td><td>VOLSER</td><td>UCB/JFCBの要求値と照合します。短い値は左詰め・空白埋めです。</td></tr>
+            <tr><td>42-51</td><td>10</td><td>所有者コード</td><td>導入先、部門、所有者など。標準処理では検証されません。</td></tr>
+            <tr><td>その他</td><td>-</td><td>予約領域</td><td>テープでは未使用のVTOCポインターを含み、通常は空白で初期化します。</td></tr>
+          </tbody></table></div>
+          <h3>入力と出力の要点</h3>
+          <div class="two-column">
+            <div><h4>入力OPEN</h4><ol><li>VOL1のVOLSERを要求値と照合します。</li><li>論理データセットシーケンスでHDR1の位置まで進めます。</li><li>HDR1/HDR2を検証し、空いているDCB/JFCB属性を補完します。</li><li>SULならUHL出口を呼び出します。</li><li>テープマーク後からユーザーデータを読みます。</li></ol></div>
+            <div><h4>出力OPEN / EOV / CLOSE</h4><ol><li>既存VOL1、RACF権限、保存期限、上書き可否を確認します。</li><li>JFCB/DCBからHDR1/HDR2を作成します。</li><li>EOVではEOV1/2を書き、次ボリュームを検証してHDRを再作成します。</li><li>CLOSEではEOF1/2を書き、最終終端をテープマークで確定します。</li></ol></div>
+          </div>
+          <div class="callout"><strong>高速位置決め</strong><p>カートリッジでは、JFCBの高速位置決め標識とブロックIDを使ってデータセット先頭または末尾へ移動できます。DFSMSrmmはブロックIDを保存して再利用し、3590以降のテープ技術ではOPENが既定で高速位置決めを行います。</p></div>
+        </section>
+
+        <section id="iso-labels" class="section">
+          <div class="section-kicker">CHAPTER 3 · PRINTED PAGES 53-99</div>
+          <h2>ISO/ANSIラベル</h2>
+          <p>ISO/ANSIラベルは情報交換を目的とするASCII系ラベルです。z/OSはVersion 3またはVersion 4を作成し、Version 1は入力できますがVersion 3/4相当の検証は行いません。</p>
+          <div class="table-wrap"><table><thead><tr><th>観点</th><th>IBM標準</th><th>ISO/ANSI</th></tr></thead><tbody>
+            <tr><td>文字コード</td><td>EBCDIC（7トラックはBCDIC）</td><td>規格で許可されたASCII文字</td></tr>
+            <tr><td>ラベル長</td><td>80バイト固定</td><td>80バイト以上を許容。ただしz/OSの出力・再書き込みは80バイトで、超過部は失われます。</td></tr>
+            <tr><td>追加ボリュームラベル</td><td>VOL1のみを処理</td><td>VOL2-9、UVL1-9を受け入れますが、z/OSは作成せず、識別子と順序だけを確認します。</td></tr>
+            <tr><td>ユーザーラベル</td><td>UHL/UTL各最大8件</td><td>UHLa/UTLaは任意個数。連番である必要はありません。</td></tr>
+            <tr><td>追加HDR/EOF/EOV</td><td>HDR1/2、EOF1/2、EOV1/2</td><td>3-9も入力上許容しますが、z/OSは作成しません。</td></tr>
+            <tr><td>作成バージョン</td><td>該当なし</td><td>Version 3またはVersion 4。同一マルチボリューム内で混在不可です。</td></tr>
+            <tr><td>チェックポイント</td><td>条件に応じて再位置決め</td><td>ISO/ANSIテープがOPEN中はCHKPT取得不可です。</td></tr>
+          </tbody></table></div>
+          <h3>文字と変換</h3>
+          <p>Version 3のデータとVersion 3/4のラベルは基本ASCIIの制約を受けます。Version 4ではラベルにアンダースコアも使用できます。ASCII変換、CCSID変換、ブロックパディング、スパンレコード、ラベル検証出口の組み合わせを事前に設計してください。生のバイナリー、浮動小数点、パック10進数をVersion 3の交換媒体へそのまま載せる設計は避けます。</p>
+          <h3>アクセス保護と互換性</h3>
+          <p>RACFで保護されていないVersion 3/4媒体では、VOL1とHDR1のaccessibilityコードが導入出口の判断対象になります。出力時には密度だけでなくラベルバージョンの競合も検証されます。再ラベルにより80バイトを超える独自情報やVOL2-9/UVLが失われる可能性があるため、交換元の仕様を確認してから書き込みを許可します。</p>
+        </section>
+
+        <section id="nonstandard" class="section">
+          <div class="section-kicker">CHAPTER 4 · PRINTED PAGES 101-102</div>
+          <h2>非標準ラベル</h2>
+          <p>非標準ラベルは、IBM標準にもISO/ANSI標準にも従わない導入先独自形式です。長さ、形式、内容、個数は自由ですが、テープ先頭レコードをEBCDIC、BCDIC、ASCIIの標準<code>VOL1</code>にすることはできません。</p>
+          <div class="table-wrap compact"><table><thead><tr><th>タイミング</th><th>処理</th><th>メンバー名</th></tr></thead><tbody>
+            <tr><td>OPEN</td><td>入力ヘッダー</td><td><code>NSLOHDRI</code></td></tr>
+            <tr><td>EOV</td><td>入力ヘッダー</td><td><code>NSLEHDRI</code></td></tr>
+            <tr><td>OPEN</td><td>出力ヘッダー</td><td><code>NSLOHDRO</code></td></tr>
+            <tr><td>EOV</td><td>出力ヘッダー</td><td><code>NSLEHDRO</code></td></tr>
+            <tr><td>EOV</td><td>入力トレーラー</td><td><code>NSLETRLI</code></td></tr>
+            <tr><td>EOV</td><td>出力トレーラー</td><td><code>NSLETRLO</code></td></tr>
+            <tr><td>CLOSE</td><td>出力トレーラー</td><td><code>NSLCTRLO</code></td></tr>
+          </tbody></table></div>
+          <ul class="check-list">
+            <li>ルーチンはSYS1.LPALIBへ組み込みます。更新は許可されたシステムプログラマーがSMP/E管理で実施します。</li>
+            <li>DDRでボリューム検証する場合は、先頭48バイト以内で検証できる<code>NSLREPOS</code>が必要です。</li>
+            <li>OPEN用ボリュームラベルエディターは<code>OMODVOL1</code>、EOV用は<code>EMODVOL1</code>から開始します。</li>
+            <li>DFSMSrmmは非標準ラベル付きテープを管理対象としてサポートしません。</li>
+          </ul>
+        </section>
+
+        <section id="unlabeled" class="section">
+          <div class="section-kicker">CHAPTER 5 · PRINTED PAGES 103-108</div>
+          <h2>ラベルなしテープ</h2>
+          <p><code>NL</code>または<code>LTM</code>を指定したテープは、データレコードとテープマークだけで構成されます。z/OSが行う媒体検証は、先頭レコードがEBCDICまたはASCIIの標準<code>VOL1</code>でないことの確認に限られます。内部ラベルで媒体やデータセットを確実に同定できないため、外部ラベルとオペレーター確認が重要です。</p>
+          <div class="two-column">
+            <div><h4>NL</h4><p>先頭データセットの前にテープマークがない構成を前提にします。先頭がテープマークなら、空データセットが1件あるものとして次のデータセットをシーケンス2と解釈します。</p></div>
+            <div><h4>LTM</h4><p>先頭テープマークがあれば読み飛ばし、なければNLと同様に処理します。他システム由来のマルチボリューム媒体で、各ボリュームの先頭マークを吸収する用途に適します。</p></div>
+          </div>
+          <h3>位置決めとボリューム切り替え</h3>
+          <ul class="check-list">
+            <li>データセットシーケンス番号は1から65535です。省略または0なら、非カタログデータセットは1番目とみなします。</li>
+            <li>複数ボリュームでは、JCLまたはカタログに記録されたVOLSER列が切り替え判断の根拠です。テープマークが1個か2個かでは継続を判断しません。</li>
+            <li>同一ボリュームで同時にOPENできるデータセットは1件だけです。</li>
+            <li>RDBACKでは可変長レコード、連結データセット、7トラックのデータ変換などに制約があります。</li>
+            <li>要求前にラベルなし媒体を先行マウントすると識別できず、デマウント対象になり得ます。</li>
+          </ul>
+          <div class="callout danger"><strong>標準ラベルを破壊する可能性</strong><p>NL出力要求に標準ラベル付き媒体がマウントされた場合、RACF権限、パスワード、保存期限、オペレーター応答、導入出口、DFSMSrmmの判断を経て、標準ラベルをテープマークで上書きする処理へ進む可能性があります。出力ジョブではVOLSER、保存期限、スクラッチ状態、RACF権限を事前に確認してください。</p></div>
+        </section>
+
+        <section id="other-systems" class="section">
+          <div class="section-kicker">CHAPTER 6 · PRINTED PAGES 111-112</div>
+          <h2>他システムで作成したテープ</h2>
+          <h3>標準ラベル付き媒体</h3>
+          <p>ラベル形式が同じでも、フィールドの使い方が同じとは限りません。特にHDR1のデータセット識別子に空白や特殊文字が含まれる場合は、DD文のデータセット名を引用符で囲むか、JFCBを補正して一致させます。HDR2がない媒体でも、RECFM、BLKSIZE、LRECL、記録方式などをDD文またはDCBで補えば処理できます。</p>
+          <h3>非標準・ラベルなし媒体</h3>
+          <p>独自ラベルを処理するなら導入ルーチンが必要です。独自ラベルを無視してデータだけを読む場合はラベルなしとして扱い、シーケンス番号でラベル群を越えて位置決めします。ラベルなし媒体は、z/OSが認識できるテープマークでデータセットが区切られている必要があります。</p>
+          <h3>OS/400作成テープの短い可変長ブロック</h3>
+          <p>18バイト未満の可変長ブロックは互換性上の注意点です。OS/400が<code>X'80'</code>と<code>X'00'</code>でパディングした短いformat-Vブロックは、z/OSでABEND 002になる場合があります。非スパンレコードでも<code>RECFM=VS</code>または<code>RECFM=VBS</code>として、<code>X'80'</code>で始まるセグメント以降を無視させる回避策を検討できます。データ形式を確認したうえで検証環境から適用してください。</p>
+        </section>
+
+        <section id="tape-library" class="section">
+          <div class="section-kicker">APPENDIX A · PRINTED PAGES 113-114</div>
+          <h2>IBMテープライブラリー</h2>
+          <p>SMS管理下のテープライブラリーは、テープボリュームとドライブの名前付き集合です。TCDB（ICFカタログ）がライブラリーと媒体の在庫を保持し、DFSMSrmmが媒体上のデータセットと移動・スクラッチ状態を管理します。</p>
+          <div class="comparison-grid">
+            <div><h3>特定マウント</h3><p>JCL要求VOLSER、外部ラベル、内部VOL1がすべて一致する必要があります。不一致なら要求は失敗し、手動モードではデマウント後に再要求されます。</p></div>
+            <div><h3>非特定マウント</h3><p>カートリッジ種別ごとのスクラッチプールから選択します。内部/外部ラベル不一致や読取不能時の処置は、自動・手動モードとRACF保護状態で変わります。</p></div>
+            <div><h3>エラー分類</h3><p>検証で拒否されたスクラッチ媒体はエラーカテゴリーへ移され、原因が解消されるまで次のスクラッチ要求に選ばれません。</p></div>
+          </div>
+          <ul class="check-list">
+            <li>ライブラリー内の内部ラベルと外部ラベルは一意で、同じVOLSERでなければなりません。</li>
+            <li>VOLSERで使用できる文字は大文字A-Zと数字0-9です。</li>
+            <li>自動ライブラリーのIEC501A/IEC501E/IEC502Eは通常オペレーター画面ではなくシステムログへ記録されます。</li>
+            <li>手動モードの不一致ではIEC704Aが発行され、オペレーターは外部ラベル情報を供給するか媒体を拒否します。</li>
+          </ul>
+        </section>
+
+        <section id="external-labels" class="section">
+          <div class="section-kicker">APPENDICES B-D · PRINTED PAGES 115-131</div>
+          <h2>外部ラベル、コンポーネント対応、文字変換</h2>
+          <h3>外部ラベル</h3>
+          <div class="label-cards three">
+            <div><strong>リール/カートリッジ識別ラベル</strong><p>媒体受け入れ時に恒久接着し、一意のVOLSERと必要に応じて導入先識別を表示します。</p></div>
+            <div><strong>内容ラベル</strong><p>現在の内容を識別する一時ラベルです。保持でき、かつ交換時に容易にはがせる接着方法を使います。</p></div>
+            <div><strong>チェックポイント保護ラベル</strong><p>チェックポイントデータセットを含む媒体に一時表示し、誤使用を防ぎます。媒体搬送を妨げない大きさと位置にします。</p></div>
+          </div>
+          <p>鉛筆や消しゴムは媒体周辺に残留物を出すため使用せず、残りかすを生じにくいペンまたはフェルトペンを使用します。</p>
+          <h3>コンポーネント対応の読み方</h3>
+          <p>アセンブラー、リンケージエディター、DFSORT、ユーティリティー、各世代のCOBOLは、SL/AL、SUL/AUL、NSL、NL、BLP、属性の異なる連結データセットへの対応範囲が異なります。特にユーザーラベルとNSLは製品ごとの差が大きいため、ジョブ制御だけでなく使用プログラムの対応表も確認します。</p>
+          <h3>ASCII / EBCDIC変換</h3>
+          <p>システムの変換表は7ビットASCIIとEBCDICの対応を定義しますが、変換は常に可逆ではありません。ASCIIへ表現できないEBCDIC文字は<code>X'1A'</code>、EBCDICへ表現できないASCII文字は<code>X'3F'</code>へ置き換わります。往復変換が必要なデータでは、CCSIDと使用文字集合を先に固定し、置換文字の発生を監視してください。</p>
+        </section>
+
+        <section id="checklist" class="section">
+          <div class="section-kicker">OPERATIONAL CHECK</div>
+          <h2>運用チェックリスト</h2>
+          <div class="checklist-grid">
+            <div><h3>出力前</h3><ul><li>要求VOLSERと内部/外部ラベルが一致している</li><li>保存期限とDFSMSrmmのスクラッチ判定を確認した</li><li>RACFのUPDATE/ALTER権限を確認した</li><li>LABEL種別とユーザーラベル出口が一致している</li><li>複数ボリュームのVOLSER列とカタログ方針を確認した</li></ul></div>
+            <div><h3>入力前</h3><ul><li>ラベル方式、シーケンス番号、カタログ位置が一致している</li><li>HDR2がない場合のDCB属性を補っている</li><li>他システム媒体の文字コードとブロック形式を検証した</li><li>RDBACK、連結、可変長レコードの制約を確認した</li><li>ラベルなし媒体は外部識別とマウント手順を二重確認した</li></ul></div>
+            <div><h3>EOV/CLOSE後</h3><ul><li>ブロック数不一致やABEND 117/237がない</li><li>IEC501A/IEC501E/IEC704Aなどの応答履歴を確認した</li><li>DFSMSrmmのボリュームセットと統計が更新された</li><li>次ボリュームのRACF保護が同一セットへ継承された</li><li>エラーカテゴリーへ移動したスクラッチ媒体を是正した</li></ul></div>
+          </div>
+        </section>
+
+        <section id="glossary" class="section">
+          <div class="section-kicker">QUICK REFERENCE</div>
+          <h2>用語集</h2>
+          <dl class="glossary">
+            <div><dt>AVR</dt><dd>Automatic Volume Recognition。マウントされた標準ラベル付き媒体を自動認識します。</dd></div>
+            <div><dt>DFSMSrmm</dt><dd>媒体の検証、上書き防止、スクラッチ復帰、ライブラリー/保管場所間移動などを管理します。</dd></div>
+            <div><dt>EOV</dt><dd>End of Volume。データセットが次のボリュームへ継続する境界です。</dd></div>
+            <div><dt>EOF</dt><dd>End of File/Data Set。データセットそのものが完了した境界です。</dd></div>
+            <div><dt>JFCB</dt><dd>Job File Control Block。DD文や割り振り情報を保持し、DCBとラベルの橋渡しをします。</dd></div>
+            <div><dt>TCDB</dt><dd>Tape Configuration Data Base。テープライブラリーとボリュームの在庫を保持するICFカタログです。</dd></div>
+            <div><dt>テープマーク</dt><dd>データセットまたはラベル群の境界を示す装置制御上のマークで、仮想記憶へデータとして読み込まれません。</dd></div>
+            <div><dt>VOLSER</dt><dd>Volume Serial Number。通常1-6文字で媒体を一意に識別します。</dd></div>
+          </dl>
+        </section>
+
+        <section id="source" class="section source-section">
+          <div class="section-kicker">PRIMARY SOURCE</div>
+          <h2>原典</h2>
+          <p><strong>IBM z/OS 3.2 - DFSMS Using Magnetic Tapes</strong><br>Document number: SC23-6858-70 / Last updated: 2025-09-30</p>
+          <a class="source-link" href="https://www.ibm.com/docs/en/SSLTBW_3.2.0/pdf/idam300_v3r2.pdf" target="_blank" rel="noopener noreferrer">IBM公式PDFを開く <span>↗</span></a>
+          <p class="legal">IBM、z/OS、DFSMS、DFSMSrmm、RACFおよび関連する製品名はIBM Corporationの商標または登録商標です。このページはIBMによる公式翻訳ではありません。正確な仕様、適用条件、最新の保守情報はIBM公式資料を参照してください。</p>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const body = document.body;
+      const button = document.getElementById('menu-button');
+      const scrim = document.getElementById('scrim');
+      const links = [...document.querySelectorAll('.toc nav a')];
+      const close = () => { body.classList.remove('toc-open'); button.setAttribute('aria-expanded', 'false'); };
+      button.addEventListener('click', () => {
+        const open = body.classList.toggle('toc-open');
+        button.setAttribute('aria-expanded', String(open));
+      });
+      scrim.addEventListener('click', close);
+      links.forEach(link => link.addEventListener('click', close));
+      const sections = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      const observer = new IntersectionObserver(entries => {
+        const current = entries.filter(entry => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (!current) return;
+        links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current.target.id}`));
+      }, { rootMargin: '-18% 0px -72% 0px' });
+      sections.forEach(section => observer.observe(section));
+    })();
+  </script>
+</body>
+</html>
