@@ -146,7 +146,17 @@
         <section id="ibm-labels" class="section">
           <div class="section-kicker">CHAPTER 2 · PRINTED PAGES 15-52</div>
           <h2>IBM標準ラベル</h2>
-          <p>IBM標準ラベルは80文字の固定長レコードです。カートリッジと9トラックではEBCDIC、7トラックではBCDIC・偶数パリティー・変換オンで記録されます。先頭4文字がラベル種別を示します。</p>
+          <p>IBM標準ラベルは、<strong>1ラベルにつき80文字（通常は80バイト）の固定長レコード</strong>です。カートリッジと9トラックではEBCDIC、7トラックではBCDICで記録されます。先頭3バイトがラベル識別子、4バイト目がラベル番号で、両者を合わせた<code>VOL1</code>、<code>HDR1</code>、<code>HDR2</code>などの4文字でレコードの種類を判別します。</p>
+          <div class="callout info"><strong>HDR1とHDR2は、それぞれ80バイト</strong><p><code>HDR1</code>と<code>HDR2</code>を合わせて80バイトではありません。両者は連続して記録される別々の80バイト・レコードなので、標準ヘッダーだけで合計160バイトです。同様に、<code>EOF1</code>と<code>EOF2</code>、<code>EOV1</code>と<code>EOV2</code>もそれぞれ80バイトずつです。各ラベルレコードの後ろに固定長の余白を足すのではなく、以下のフィールド合計が厳密に80バイトになります。</p></div>
+          <div class="table-wrap compact"><table><caption>IBM標準ラベルの物理レコード単位</caption><thead><tr><th>レコード</th><th>長さ</th><th>配置</th><th>役割</th></tr></thead><tbody>
+            <tr><td><code>VOL1</code></td><td>80バイト</td><td>ボリューム先頭の第1レコード</td><td>ボリュームと所有者を識別します。</td></tr>
+            <tr><td><code>HDR1</code></td><td>80バイト</td><td>データセット直前</td><td>名前、順序、日付、保護、ブロック数領域を持ちます。</td></tr>
+            <tr><td><code>HDR2</code></td><td>80バイト</td><td>HDR1の直後</td><td>RECFM、BLKSIZE、LRECLなどの処理属性を持ちます。</td></tr>
+            <tr><td><code>UHL1-8</code></td><td>各80バイト</td><td>HDR2の後、テープマークの前</td><td>最大8件の利用者定義ヘッダーです。</td></tr>
+            <tr><td><code>EOV1/2</code></td><td>各80バイト</td><td>データセットが次ボリュームへ続く現ボリューム末尾</td><td>HDR1/2と同じフィールド配置を使う継続トレーラーです。</td></tr>
+            <tr><td><code>EOF1/2</code></td><td>各80バイト</td><td>データセットの最終末尾</td><td>HDR1/2と同じフィールド配置を使う完了トレーラーです。</td></tr>
+            <tr><td><code>UTL1-8</code></td><td>各80バイト</td><td>EOV2またはEOF2の後</td><td>最大8件の利用者定義トレーラーです。</td></tr>
+          </tbody></table></div>
           <div class="label-cards">
             <div><code>VOL1</code><strong>ボリュームラベル</strong><p>媒体先頭に1件。VOLSERと所有者情報を持ち、正しい媒体がマウントされたかを確認します。</p></div>
             <div><code>HDR1</code><strong>データセットラベル1</strong><p>データセット名、VOLSER、ボリューム/データセットシーケンス、作成日・保存期限、保護情報などを記述します。</p></div>
@@ -156,14 +166,76 @@
             <div><code>EOF1/2</code><strong>データセット終端</strong><p>データセットの完了を示します。CLOSEが作成し、EOF1のブロック数を後の入力検証に利用します。</p></div>
             <div><code>UTL1-8</code><strong>ユーザートレーラー</strong><p>SULと出口ルーチンを指定した場合に、標準トレーラーの後へ最大8件を配置できます。</p></div>
           </div>
-          <h3>VOL1の主要領域</h3>
-          <div class="table-wrap compact"><table><thead><tr><th>位置</th><th>長さ</th><th>内容</th><th>処理上の意味</th></tr></thead><tbody>
-            <tr><td>1-3</td><td>3</td><td><code>VOL</code></td><td>標準ボリュームラベルであることを識別します。</td></tr>
-            <tr><td>4</td><td>1</td><td><code>1</code></td><td>同種ラベル集合内の番号です。</td></tr>
-            <tr><td>5-10</td><td>6</td><td>VOLSER</td><td>UCB/JFCBの要求値と照合します。短い値は左詰め・空白埋めです。</td></tr>
-            <tr><td>42-51</td><td>10</td><td>所有者コード</td><td>導入先、部門、所有者など。標準処理では検証されません。</td></tr>
-            <tr><td>その他</td><td>-</td><td>予約領域</td><td>テープでは未使用のVTOCポインターを含み、通常は空白で初期化します。</td></tr>
-          </tbody></table></div>
+          <h3>VOL1 - 80バイトのフィールド仕様</h3>
+          <p><code>VOL1</code>はIBM標準ラベル付きテープの第1レコードです。VOLSER以外の多くは予約領域ですが、予約領域も含めて必ず80バイトを占めます。</p>
+          <div class="table-wrap compact"><table><caption>VOL1フィールドマップ（合計80バイト）</caption><thead><tr><th>位置</th><th>長さ</th><th>フィールド</th><th>内容と処理</th></tr></thead><tbody>
+            <tr><td>1-3</td><td>3</td><td>ラベル識別子</td><td><code>VOL</code>。標準ボリュームラベルであることを確認します。</td></tr>
+            <tr><td>4</td><td>1</td><td>ラベル番号</td><td>常に<code>1</code>。先頭3バイトと合わせて<code>VOL1</code>になります。</td></tr>
+            <tr><td>5-10</td><td>6</td><td>ボリューム通し番号</td><td>VOLSER。UCB/JFCBの要求値と照合します。6文字未満は左詰め・空白埋めです。</td></tr>
+            <tr><td>11</td><td>1</td><td>予約</td><td>空白またはゼロで初期化され、テープ処理では使用しません。</td></tr>
+            <tr><td>12-16</td><td>5</td><td>VTOCポインター</td><td>直接アクセス・ボリューム用。テープでは空白で、使用も検証もしません。</td></tr>
+            <tr><td>17-41</td><td>25</td><td>予約</td><td>将来用。通常は空白です。</td></tr>
+            <tr><td>42-51</td><td>10</td><td>所有者名/アドレス・コード</td><td>導入先、部門、所有者など。左詰め・空白埋めで、標準処理では検証しません。</td></tr>
+            <tr><td>52-80</td><td>29</td><td>予約</td><td>将来用。通常は空白です。</td></tr>
+          </tbody><tfoot><tr><th colspan="2">合計 80</th><td colspan="2">3 + 1 + 6 + 1 + 5 + 25 + 10 + 29</td></tr></tfoot></table></div>
+
+          <h3>HDR1 / EOV1 / EOF1 - 80バイトのフィールド仕様</h3>
+          <p>ラベル1はデータセットの識別、順序、作成・保存日、保護、ブロック数を保持します。位置1-3だけが<code>HDR</code>、<code>EOV</code>、<code>EOF</code>に変わり、4バイト目は常に<code>1</code>です。システム出力ではラベル1の直後に必ずラベル2が続きます。</p>
+          <div class="table-wrap"><table><caption>HDR1/EOV1/EOF1フィールドマップ（合計80バイト）</caption><thead><tr><th>位置</th><th>長さ</th><th>フィールド</th><th>内容と処理</th></tr></thead><tbody>
+            <tr><td>1-3</td><td>3</td><td>ラベル識別子</td><td><code>HDR</code>=データセット開始、<code>EOV</code>=次ボリュームへ継続、<code>EOF</code>=データセット完了。</td></tr>
+            <tr><td>4</td><td>1</td><td>ラベル番号</td><td>常に<code>1</code>。</td></tr>
+            <tr><td>5-21</td><td>17</td><td>データセット識別子</td><td>データセット名の右端17文字。17文字未満は左詰め・空白埋め。GDGなら<code>GxxxxVyy</code>を含みます。</td></tr>
+            <tr><td>22-27</td><td>6</td><td>データセット通し番号</td><td>データセットを含む最初のボリュームのVOLSER。マルチボリュームでも先頭VOLSERを保持します。</td></tr>
+            <tr><td>28-31</td><td>4</td><td>ボリューム・シーケンス</td><td>集合内の順番<code>0001</code>-<code>9999</code>。単一ボリュームは<code>0001</code>です。</td></tr>
+            <tr><td>32-35</td><td>4</td><td>データセット・シーケンス</td><td>ボリューム集合内の論理位置。通常は<code>0001</code>-<code>9999</code>、拡張表現では最大65535を扱います。</td></tr>
+            <tr><td>36-39</td><td>4</td><td>世代番号</td><td>GDGの絶対世代<code>0001</code>-<code>9999</code>。GDGでなければ空白です。</td></tr>
+            <tr><td>40-41</td><td>2</td><td>バージョン番号</td><td>GDGのバージョン<code>00</code>-<code>99</code>。GDGでなければ空白です。</td></tr>
+            <tr><td>42-47</td><td>6</td><td>作成日</td><td><code>cyyddd</code>形式。<code>c</code>は世紀コード、<code>yy</code>は年、<code>ddd</code>は通算日です。</td></tr>
+            <tr><td>48-53</td><td>6</td><td>保存期限</td><td><code>cyyddd</code>形式。出力時の上書き/スクラッチ可否に使われ、DFSMSrmmが判断を上書きする場合があります。</td></tr>
+            <tr><td>54</td><td>1</td><td>データセット保護</td><td><code>0</code>=パスワードなし、<code>1</code>=読み書き削除を保護、<code>3</code>=書き込み/削除を保護。RACF定義済みならパスワードは無視されます。</td></tr>
+            <tr><td>55-60</td><td>6</td><td>ブロック数・下位</td><td>トレーラーでは当該ボリューム上のブロック数の下位6桁。ヘッダーでは<code>000000</code>です。</td></tr>
+            <tr><td>61-73</td><td>13</td><td>システム・コード</td><td>作成システムを示す<code>IBM OS/VS 370</code>。標準処理では検証しません。</td></tr>
+            <tr><td>74-76</td><td>3</td><td>予約</td><td>空白。使用も検証もしません。</td></tr>
+            <tr><td>77-80</td><td>4</td><td>ブロック数・上位</td><td>999999ブロック超のトレーラーで上位最大4桁。ヘッダーでは空白です。</td></tr>
+          </tbody><tfoot><tr><th colspan="2">合計 80</th><td colspan="2">3 + 1 + 17 + 6 + 4 + 4 + 4 + 2 + 6 + 6 + 1 + 6 + 13 + 3 + 4</td></tr></tfoot></table></div>
+          <div class="callout"><strong>ブロック数は最大10桁</strong><p><code>EOV1</code>/<code>EOF1</code>では、位置77-80の上位4桁と位置55-60の下位6桁を連結してブロック数を表します。入力終了時、DCBで数えた実績とこの値を照合します。<code>HDR1</code>では下位がゼロ、上位が空白です。</p></div>
+
+          <h3>HDR2 / EOV2 / EOF2 - 80バイトのフィールド仕様</h3>
+          <p>ラベル2は、データの読み書きに必要なレコード形式と長さを中心に保持します。位置1-3だけが<code>HDR</code>、<code>EOV</code>、<code>EOF</code>に変わり、4バイト目は常に<code>2</code>です。入力OPENは、JFCBやDCBの未指定項目にこの情報を前方向にマージします。</p>
+          <div class="table-wrap"><table><caption>HDR2/EOV2/EOF2フィールドマップ（合計80バイト）</caption><thead><tr><th>位置</th><th>長さ</th><th>フィールド</th><th>内容と処理</th></tr></thead><tbody>
+            <tr><td>1-3</td><td>3</td><td>ラベル識別子</td><td><code>HDR</code>、<code>EOV</code>、<code>EOF</code>。</td></tr>
+            <tr><td>4</td><td>1</td><td>ラベル番号</td><td>常に<code>2</code>。</td></tr>
+            <tr><td>5</td><td>1</td><td>レコード形式</td><td><code>F</code>=固定長、<code>V</code>=可変長、<code>U</code>=未定義長。DCBのRECFMへマージします。</td></tr>
+            <tr><td>6-10</td><td>5</td><td>ブロック長</td><td>最大32760バイト。<code>00000</code>なら位置71-80の大ブロック長を使用します。</td></tr>
+            <tr><td>11-15</td><td>5</td><td>レコード長</td><td>Fは論理レコード長、Vは4バイトRDWを含む最大論理レコード長、Uはゼロです。</td></tr>
+            <tr><td>16</td><td>1</td><td>テープ密度</td><td>DD文のDEN相当コード。カートリッジでは<code>0</code>です。</td></tr>
+            <tr><td>17</td><td>1</td><td>データセット位置</td><td><code>0</code>=ボリューム切り替えなし、<code>1</code>=以前に切り替えあり。</td></tr>
+            <tr><td>18-34</td><td>17</td><td>ジョブ/ステップ識別</td><td>作成ジョブ名8バイト、<code>/</code>、ステップ名8バイトです。</td></tr>
+            <tr><td>35-36</td><td>2</td><td>記録方式</td><td>7トラックの変換/パリティーやIDRC圧縮などを表すコード。該当しない媒体は空白です。</td></tr>
+            <tr><td>37</td><td>1</td><td>制御文字</td><td><code>A</code>=ANSI、<code>M</code>=マシン制御文字、空白=制御文字なし。</td></tr>
+            <tr><td>38</td><td>1</td><td>予約</td><td>空白。使用も検証もしません。</td></tr>
+            <tr><td>39</td><td>1</td><td>ブロック属性</td><td><code>B</code>=ブロック化、<code>S</code>=スパン/標準、<code>R</code>=ブロック化+スパン/標準、空白=いずれもなし。位置5と組み合わせて解釈します。</td></tr>
+            <tr><td>40-41</td><td>2</td><td>予約</td><td>空白。使用も検証もしません。</td></tr>
+            <tr><td>42-47</td><td>6</td><td>装置通し番号</td><td>記録装置を識別する値。装置世代によりモデル番号、制御装置番号、装置アドレスなどの構成が異なります。</td></tr>
+            <tr><td>48</td><td>1</td><td>チェックポイント識別</td><td>安全なチェックポイント・データセットなら<code>C</code>、それ以外は空白です。</td></tr>
+            <tr><td>49-70</td><td>22</td><td>予約</td><td>空白。使用も検証もしません。</td></tr>
+            <tr><td>71-80</td><td>10</td><td>大ブロック長</td><td>32760バイトを超えるBLKSIZE。位置6-10がゼロのときに使用します。</td></tr>
+          </tbody><tfoot><tr><th colspan="2">合計 80</th><td colspan="2">3 + 1 + 1 + 5 + 5 + 1 + 1 + 17 + 2 + 1 + 1 + 1 + 2 + 6 + 1 + 22 + 10</td></tr></tfoot></table></div>
+
+          <h3>UHL1-8 / UTL1-8 - 80バイトのフィールド仕様</h3>
+          <div class="table-wrap compact"><table><caption>IBMユーザーラベルの共通形式（合計80バイト）</caption><thead><tr><th>位置</th><th>長さ</th><th>フィールド</th><th>内容と処理</th></tr></thead><tbody>
+            <tr><td>1-3</td><td>3</td><td>ラベル識別子</td><td><code>UHL</code>=ユーザーヘッダー、<code>UTL</code>=ユーザートレーラー。</td></tr>
+            <tr><td>4</td><td>1</td><td>ラベル番号</td><td><code>1</code>-<code>8</code>。最大8件であることをシステムが確認します。</td></tr>
+            <tr><td>5-80</td><td>76</td><td>利用者定義</td><td>アプリケーション固有情報。DCB出口リストに指定したユーザーラベル処理ルーチンが扱います。</td></tr>
+          </tbody><tfoot><tr><th colspan="2">合計 80</th><td colspan="2">3 + 1 + 76</td></tr></tfoot></table></div>
+
+          <h3>テープマークとの境界</h3>
+          <ul class="check-list">
+            <li><strong>VOL1から最初のHDR1まで:</strong> 間にテープマークはありません。</li>
+            <li><strong>ヘッダー群の後:</strong> テープマーク1個がヘッダー群の終端とデータ開始を示します。</li>
+            <li><strong>データの後:</strong> テープマーク1個がデータ終端とEOV/EOFトレーラー群の開始を示します。</li>
+            <li><strong>トレーラー群の後:</strong> テープマーク1個で群を閉じます。最終データセットが次ボリュームへ継続しない場合は、さらに2個目のテープマークが続きます。</li>
+          </ul>
           <h3>入力と出力の要点</h3>
           <div class="two-column">
             <div><h4>入力OPEN</h4><ol><li>VOL1のVOLSERを要求値と照合します。</li><li>論理データセットシーケンスでHDR1の位置まで進めます。</li><li>HDR1/HDR2を検証し、空いているDCB/JFCB属性を補完します。</li><li>SULならUHL出口を呼び出します。</li><li>テープマーク後からユーザーデータを読みます。</li></ol></div>
