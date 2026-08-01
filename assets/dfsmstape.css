@@ -77,10 +77,16 @@ code { padding:2px 5px; border-radius:3px; background:#edf0f3; color:#1b4f73;
 .principles p { margin:0; color:var(--muted); font-size:12px; }
 .table-wrap { margin:22px 0 28px; overflow-x:auto; border:1px solid var(--line); }
 table { width:100%; border-collapse:collapse; font-size:13px; }
+.table-wrap caption { padding:11px 14px; border-bottom:1px solid var(--line); background:#eef3f7;
+  color:#283746; font-size:12px; font-weight:700; text-align:left; }
 th,td { padding:12px 14px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
 th { background:#f2f4f7; color:#363b42; font:700 10px Consolas,monospace; letter-spacing:.03em; white-space:nowrap; }
 tbody tr:last-child td { border-bottom:0; }
 tbody tr:hover { background:#fafbfd; }
+.table-wrap tfoot th,.table-wrap tfoot td { border-top:1px solid #aeb8c3; border-bottom:0;
+  background:#f8fafc; color:#374151; font-size:11px; }
+.table-wrap td:first-child,.table-wrap td:nth-child(2) { white-space:nowrap; }
+#ibm-labels .table-wrap table { min-width:680px; }
 .compact td { padding:9px 12px; }
 .tape-diagram { margin:26px 0 14px; padding:22px; display:flex; align-items:stretch; gap:5px;
   overflow-x:auto; border:1px solid var(--line); background:#f8fafc; }
