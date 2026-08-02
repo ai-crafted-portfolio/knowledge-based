@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+現行の Network Information Service (
+NIS
+) ドメインの名前を表示または設定します。
+
+説明
+domainname
+コマンドは、現行
+NIS
+ドメインの名前を表示または設定します。 パラメーターを指定しない場合、
+domainname
+コマンドは現行
+NIS
+ドメインの名前を表示します。 通常、ドメインには、同一管理下のホストのグループが含まれています。
+domainname
+コマンドに引数を指定することによってドメインの名前を設定できるのは、root ユーザーだけです。
+
+構文
+/usr/bin/domainname [ DomainName ]
+
+例
+新しいドメインを設定するには、次のように入力します。
+domainname caesar
+この例では、
+domainname
+コマンドは、
+NIS
+ドメイン名を caesar に設定します。
+ユーザーのマシンが属しているドメインの名前を見つけるには、
+次のように入力します。
+domainname</pre>

@@ -1,0 +1,41 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム・トレース・パラメーターの変更と表示を行います。
+
+説明
+trcctl
+コマンドは、システム・トレースのデフォルト・パラメーターを表示または変更します。
+-l
+オプションが指定されている (またはパラメーターが指定されていない) 場合、
+trcctl
+は以下のように値を表示します。
+Default Buffer Size: 131072
+Default Log File Size: 1310720
+Default Log File: /var/adm/ras/trcfile
+Non-root User Buffer Size Maximum: 1048576
+Default Components Directory File: /var/adm/ras/trc_ct
+Default LMT Log Dir: /var/adm/ras/mtrcdir
+Restrict non-privileged users from using trace Channel-0: enable
+Restrict non-privileged users from using trcrpt Channel-0: enable
+デフォルトのバッファー・サイズとログ・ファイル・サイズは、最初はカーネルによって異なることに注意してください。 ただし、このコマンドを使用した後は、両方のカーネルに同じ値が有効になります。 他のパラメーターを使用すると、これらのデフォルト値を変更できます。 デフォルト値を変更するためには、ユーザーはシステム・グループのメンバーでなければなりません。
+trcctl
+で使用されるフラグの多くは、
+trace
+デーモンで使用されるフラグに対応しています。
+
+構文
+trcctl [ -d ディレクトリ -l -L LogfileSize -M LMT_log_dir -N NonrootUserBufferMax -o ログファイル -r -T BufferSize -R 無効にする | イネーブル -S 無効にする | イネーブル ]
+
+オプション
+フラグ
+項目 | 説明
+-d ディレクトリー | デフォルトのコンポーネント・トレース・ログのディレクトリー・パスを指定します。 デフォルト値は /var/adm/ras/trc_ct です。
+-l | 現行値をリストします。
+-L 値 | デフォルトのログ・ファイル・サイズを指定します。 元のデフォルト値は、32 ビット・カーネルの場合は 1310720 バイト、64 ビット・カーネルの場合は 2621440 バイトです。 -L とともに指定した場合、デフォルトは両方のカーネルに適用されます。
+-M LMT_log_dir | デフォルトの単純なメモリー・トレース・ログのディレクトリー・パスを指定します。 デフォルト値は /var/adm/ras/mtrcdir です。
+-N 値 | 最大バッファー・サイズを指定します。root 以外のユーザーも指定できます。 デフォルトは 1 MB (1048576 バイト) です。
+-o パス | デフォルトのログ・ファイル・パスを指定します。 デフォルト値は /var/adm/ras/trcfile です。
+-R 無効にする | イネーブル | チャネル 0 の trace 機能を特権ユーザーのみに制限します。 -R オプションを使用不可にすると、すべてのユーザーがチャネル 0 の トレース 機能を使用できるようになります。 デフォルト値は enable です。 詳しくは、以下を参照してください。 Security trcrpt コマンドのセクションを参照してください。
+-S 無効にする | イネーブル | チャネル 0 の trcrpt 機能を特権ユーザーのみに制限します。 -S オプションを使用不可にすると、すべてのユーザーがチャネル 0 の trcrpt 機能を使用できるようになります。 デフォルト値は enable です。 詳しくは、以下を参照してください。 Security trace コマンドのセクション
+-r | 元のデフォルト値に復元します。
+|
+-T 値 | デフォルトのトレース・バッファー・サイズを指定します。 元のデフォルト値は、32 ビットまたは 64 ビット・カーネルの場合 128 KB および 256 KB です。 -T とともに指定した場合、デフォルトは両方のカーネルに適用されます。</pre>

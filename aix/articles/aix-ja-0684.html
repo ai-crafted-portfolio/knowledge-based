@@ -1,0 +1,81 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+非同期伝送モード (ATM) ネットワーク・プロトコルのローカル・エリア・ネットワーク (LAN) エミュレーション・クライアントに関する操作情報を表示します。
+
+説明
+このコマンドは、ATM LAN エミュレーション・クライアント (LEC) 操作情報を、
+指定された LEC デバイス別に集めて表示します。 LEC デバイス名が入力されていない場合は、使用可能な LEC すべての統計情報が表示されます。 検索結果の幅を狭くするには、フラグを選択してください。 構成、LE_ARP キャッシュ・エントリー、仮想接続、統計情報など特定のカテゴリーの情報を表示することもできますし、
+すべての情報カテゴリーの表示を選択することもできます。
+また、デバッグ・トレースをオン/オフに切り替え、
+統計情報カウンターをリセットすることもできます。
+
+構文
+レクスタット [ -a 値 「-c」 -Q (Q) - -s T -v (V) ] デバイス名 (Device_Name)
+
+オプション
+フラグ
+項目 | 説明
+-a | LE クライアント情報をすべて要求します。 このフラグは、統計情報のカウンターをリセットしたりトレースを切り替えたりはしません。
+-c | 構成を要求します。
+-q | LE_ARP キャッシュを要求します。
+-r | 読み取り後、統計情報カウンターをリセットします。
+-s | 統計情報カウンターを要求します。
+-t | 全デバッグ・トレースをオン/オフに切り替えます。
+-v | 仮想接続のリストを要求します。
+すべての有効な呼び出しに対して以下の情報が表示され、
+以下のフィールドが含まれています。
+デバイス・タイプ
+LAN エミュレーション・クライアントの説明を表示します (例: イーサネットまたはトークンリング)。
+LAN MAC Address (LAN MAC アドレス)
+LAN エミュレーション・クライアントの、
+6 バイトのイーサネットまたはトークンリング MAC アドレスを表示します。
+ATM アドレス (ATM address)
+LAN エミュレーション・クライアントの、
+20 バイトの非同期伝送モード (ATM) アドレスを表示します。
+経過時間
+統計情報が最後にリセットされてから経過したリアルタイムを表示します。
+Driver Flags (ドライバー・フラグ)
+現在の LAN エミュレーション・クライアント (LEC) デバイス・ドライバーの NDD 状況のフラグ。 状況フラグの例を次に示します。
+Broadcast Allowing broadcast packets.
+Dead Requires re-open.
+Debug Internal debug tracing enabled.
+Limbo Attempting ELAN recovery.
+Running Fully operational on the ELAN.
+Up Device has been opened.
+構成情報
+-a
+または
+-c
+フラグで選択されます。 ネットワーク管理者の事前構成属性と、
+LANE サーバーによって定義されている現在の ELAN 構成値を表示します。
+Lane LE_ARP Table Entries (LANE LE_ARP テーブル・エントリー)
+-a
+または
+-q
+フラグで選択されます。 現在の LE クライアント ARP キャッシュを表示します。 エントリーのタイプと状態、リモート LAN MAC アドレスまたは経路ディスクリプター、
+リモート ATM アドレス、および説明値が含まれます。
+
+タイプの例
+BUS-PP Broadcast and Unknown Server (point-to-point).
+BUS-MP Broadcast and Unknown Server (multi-point).
+Data Data (point-to-point).
+LES-PP LE Server (point-to-point).
+LES-MP LE Server (multi-point).
+状態の例
+Arping Attempting to locate remote client/server via LE_ARP.
+Connected Fully connected to the remote client/server.
+Flushing Flushing the data path to the client/server.
+Known Remote address is known but no connection yet.
+Unknown Remote address in unknown and not able to LE_ARP yet.
+Lane Servers and Statistics (LANE サーバーおよび統計情報)
+-a
+または
+-s
+フラグで選択します。 この LE クライアントの現在の送信統計情報、受信統計情報、および一般統計情報を表示し、
+また現行 LANE サーバーと使用可能な LANE サーバーの ATM アドレスも表示します。
+Lane connections (LANE 接続)
+-a
+または
+-v
+フラグで選択されます。 この LE クライアントによって現在使用されている仮想接続のリストを表示します。 仮想のパスとチャネルの値、リモート ATM アドレス、
+および多少の説明値 (この接続がリモートで開始されたかどうか、この接続が重複接続かどうか、
+または別の LE クライアントがリモート・ステーションのプロキシーになっているかどうかなど) が含まれます。</pre>

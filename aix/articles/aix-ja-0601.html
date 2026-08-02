@@ -1,0 +1,143 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+C プリプロセッサーの
+make
+コマンドに対するインターフェース。
+
+説明
+imake
+コマンドは、テンプレート、cpp マクロ関数の集合、ディレクトリーごとの
+Imakefile
+入力ファイルから、
+Makefile
+を生成します。 このコマンドは、構築する項目の記述とは別に、マシンへの依存性 (コンパイラー・オプション、代替コマンド名、特殊
+make
+コマンドの規則など) を維持します。
+イマク
+は、コマンド行で渡された
+-I (I)
+または
+-D
+フラグを使用して cpp を呼び出し、以下の 3 行を渡します。
+#define IMAKE_TEMPLATE &quot;Imake.tmpl&quot;
+#define INCLUDE_MAKEFILE &quot;Imakefile&quot;
+#include IMAKE_TEMPLATE
+-T
+および
+-f
+フラグをそれぞれ使用して、
+Imake.tmpl
+および
+Imakefile
+をオーバーライドします。
+IMAKE_TEMPLATE は、一般に以下のファイルを読み取ります。
+パラメーターが cpp シンボルとして指定される、マシン依存型のパラメーター・ファイル
+サイト固有のパラメーター・ファイル
+変数を定義するファイル
+make
+コマンド規則を生成するための cpp マクロ関数を含むファイル
+現行ディレクトリー内の (INCLUDE_IMAKEFILE によって指定されている)
+Imakefile
+。
+Imakefile
+ファイルはマクロ関数を使用して構築対象を示し、
+imake
+コマンドは適切な規則を生成します。
+Imake 構成ファイルには、imake 変数と make 変数の 2 種類の変数が入っています。 imake 変数は、
+imake
+コマンドの実行時に cpp によって解釈されます。 規約により、imake 変数の大文字と小文字は区別されません。 make 変数は、後から
+make
+コマンドが解釈できるように、
+Makefile
+に書き込まれます。 規約により、make 変数は大文字です。
+規則ファイル (通常は構成ディレクトリー内の
+Imake.rules
+) には、現行プラットフォームに従って設定されたさまざまな cpp マクロ関数が入っています。
+imake
+コマンドは、文字列「@@」があると改行 (復帰) に置き換えて、複数行の make 規則を生成するマクロをサポートします。 例えば、以下のマクロは、
+#define program_target(program, objlist) @@\
+program: objlist @@\
+
+$(CC) -o $@ objlist $(LDFLAGS)
+呼び出し時
+program_target(foo,foo1.o
+foo2.o)
+拡張されます。
+:
+foo: foo1.o foo2.o
+$(CC) -o $@ foo1.o foo2.o $(LDFLAGS)
+cpp が複数のタブとスペースをシングル・スペースに減らすシステムでは、
+imake
+コマンドは必要なタブを元に戻そうとします (
+make
+コマンドはタブとスペースを区別します)。 このため、コマンド・ラインのすべてのコロン (:) の前には、円記号 (&amp;#xa5;) を付けてください。
+使用
+AIXwindows
+は、ソース・ツリー内のフルビルドと外部ソフトウェアのビルドの両方に対して、広範囲にわたって
+イマク
+コマンドを使用します。 2 つの特殊変数 TOPDIR と CURDIR は、相対パス名を使用して参照先ファイルを作成しやすいように設定されています。 例えば、
+lib/X
+ディレクトリー内に (ソースの最上部に対して相対的な)
+Makefile
+を構築するために、以下のコマンドが自動的に生成されます。
+% ../.././config/imake -I../.././config \
+-DTOPDIR=../../. -DCURDIR=./lib/X
+ソース・ツリーの外で
+AIXwindows
+プログラムをビルドするには、UseInstalled,という特別なシンボルを定義し、TOPDIR変数とCURDIR変数を省略する。 構成ファイルが正しくインストールされている場合は、
+xmkmf
+コマンドを使用できます。
+イマク
+コマンドは、
+AIXwindows
+によって使用される以下のファイルを読み取ります。
+注:
+インデントされた形式は、他のファイルを含むファイルを示します。
+Imake.tmpl generic variables
+site.def site-specific, BeforeVendorCF defined
+*.cf machine-specific
+*Lib.rules shared library
+site.def site-specific, AfterVendorCF defined
+Imake.rules rules
+Project.tmpl X-specific variables
+*Lib.tmpl shared library variables
+Imakefile
+Library.tmpl library rules
+
+Server.tmpl server rules
+Threads.tmpl multi-thread rules
+注:
+site.def
+ファイルは、
+*.cf
+ファイルの前と後の両方に 2 回組み込まれます。 ほとんどのサイトにおけるカスタマイズでは
+*.cf
+ファイルの後に指定しますが、コンパイラーの選択などは、他の変数設定を左右する場合があるので、前に指定する必要があります。
+初めて
+site.def
+ファイルを含めるときに
+BeforeVendorCF
+変数が定義され、2 回目に
+AfterVendorCF
+変数が定義されます。 これらの記号を使う場合、
+site.def
+ファイル内のすべてのコードは、
+#ifdef
+マクロ内に配置しなければなりません。
+
+構文
+イマク [ -D 定義 ] [ -I (I) ディレクトリー ] [ -T (T) テンプレート ] [ 「-f」 FileName ] [ -C FileName ] [ -s FileName ] [ -e (E) ] [ -v (V) ]
+
+オプション
+フラグ
+項目 | 説明
+-D 定義 | ディレクトリー固有の変数を設定するために cpp に直接渡されます。 例えば、X Window はこのフラグを使用して、TOPDIR 変数をコア分布の最上部が入っているディレクトリーの名前に、CURDIR 変数を最上位に対して相対的な現行ディレクトリー名に設定します。
+-e | imake コマンドに生成済みの Makefile を実行するように示します。 デフォルトでは、この操作はユーザーが実行します。
+-f filename | ディレクトリーごとの入力ファイルの名前を指定します。 デフォルトは Imakefile ファイルです。
+-I ディレクトリー | (i の大文字) imake テンプレートと構成ファイルが入っているディレクトリーを示すために、cpp に直接渡されます。
+-C FileName | 現行ディレクトリー内に構成される .c ファイルの名前を指定します。 デフォルトは Imakefile.c です。
+-s FileName | 生成する make 記述ファイルの名前を指定します。 make コマンドは呼び出されません。 FileName 変数が - (ダッシュ) であれば、出力は stdout に書き込まれます。 デフォルトでは、 Makefile が生成されますが、実行されません。
+-T (T) テンプレート | cpp コマンドが使用するマスター・テンプレート・ファイル名 (通常は - I で指定するディレクトリー内に入っています) を指定します。 デフォルトは Imake.tmpl です。
+-v | imake に対して、 Makefile の生成に使用する cpp コマンド・ラインを出力するように示します。
+
+例
+imake -I/usr/lib/X11/config -DTOPDIR=/usr/lpp/X11/Xamples</pre>

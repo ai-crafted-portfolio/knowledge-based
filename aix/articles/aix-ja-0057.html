@@ -1,0 +1,105 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム監査を制御します。
+
+説明
+audit
+コマンドは、いくつかのオプションを通してシステム監査を制御する。 コマンドを入力するたびに、1つのオプションを含める。
+start
+オプションと&#x27;
+shutdown
+オプションは、監査システムを起動・停止し、システム構成をリセットする。
+off
+オプションと「
+on
+オプションは、システム構成に影響を与えることなく、監査システムの一時停止と再起動を行う。
+query
+オプションでステータスを照会できる。
+監査システムは、以下の構成ファイルで設定されている指示に従います。
+/etc/security/audit/config
+/etc/security/audit/events
+/etc/security/audit/objects
+/etc/security/audit/bincmds
+/etc/security/audit/streamcmds
+-@
+オプションは、
+WPAR
+で実行する場合はサポートされません。
+
+構文
+audit { on [ panic | fullpath] | off | query | start | shutdown }{-@ wparname ...}
+
+例
+監査プロセスを開始するには、「
+セキュリティ
+における
+監査のセットアップ
+」の説明に従って監査システムを設定し、システム初期化ファイル（グローバル環境では「
+/etc/rc
+、
+WPAR
+では「
+/etc/rc.bootc
+）に以下の行を追加する：
+/usr/sbin/audit start 1&gt;&amp;- 2&gt;&amp;-
+システムを初期化するたびに、監査プロセスが構成どおりに始動します。
+グローバル
+WPAR
+から
+wpar1
+という名前の
+WPAR
+の監査プロセスを開始するには、次のコマンドを入力します。
+/usr/sbin/audit start -@ wpar1
+監査プロセスの動作を停止するには、以下のコマンドを入力する：
+/usr/sbin/audit shutdown
+再び
+audit start
+コマンドを指定するまで、データ収集は停止したままになります。 オペレーティング・システム・カーネル内のクラスの構成は失われます。
+注：
+「
+audit
+shutdown
+コマンドは「
+/etc/shutdown
+ファイルにも含まれていなければならない。
+グローバル
+WPAR
+から「
+wpar1
+名前の
+WPAR
+の監査プロセスを停止するには、以下のコマンドを入力します：
+/usr/sbin/audit shutdown -@ wpar1
+再び
+audit start -@ wpar1
+コマンドを指定するまで、データ収集は停止したままになります。 オペレーティング・システム・カーネル内のクラスの構成は失われます。
+覚えておいてください：
+audit shutdown
+コマンドは、オプションなしで、グローバル
+WPAR
+から開始されたすべてのWPARの監査プロセスをシャットダウンする。
+監査サブシステムを中断するには、次のコマンドを入力します。
+/usr/sbin/audit off
+audit off
+コマンドによって中断された監査プロセスを再開するには、以下のコマンドを入力する：
+/usr/sbin/audit on
+システムが正しく設定されていれば、サスペンド状態は終了し、監査記録が再び生成される。
+監査システムの状況を表示するには、次のコマンドを入力します。
+/usr/sbin/audit query
+次のメッセージは「
+audit query
+ステータス・メッセージの例である：
+auditing on
+bin manager is process number 123
+audit events:
+
+authentication- USER_Login, USER_Logout
+administration- USER_Create, GROUP_Create
+audit objects:
+/etc/security/passwd :
+r = AUTH_Read
+/etc/security/passwd :
+w = AUTH_Write
+この照会は、指定されたユーザーがログインまたはログアウトしたとき、指定された管理者がユーザーまたはグループを作成したとき、およびシステムが
+/etc/security/passwd
+ファイルに対する許可された読み取りまたは書き込み命令を受信したときに監査レコードが書き込まれたことをユーザーに通知します。</pre>

@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+電子メールによる送信で使用されるバイナリー・ファイルをエンコードします。
+
+説明
+uuencode
+コマンドは、バイナリー・ファイルを ASCII データに変換します。 これは、BNU (または uucp) メールを使用してファイルをリモート・システムに送信する前に役立ちます。
+uudecode
+コマンドは、
+uuencode
+コマンドで作成した ASCII データを変換して元のバイナリー形式に戻します。
+uuencode
+コマンドは、指定された
+SourceFile
+(デフォルトは標準入力) を取り込み、
+エンコードしたバージョンを標準出力に作成します。 エンコード処理には出力可能な ASCII 文字だけを使用し、リモート・システム上にバイナリー・イメージを再作成するために使用するファイルのモードおよび
+OutputFile
+ファイル名が組み込まれます。
+このファイルをデコードするには、
+uudecode
+コマンドを使用します。
+
+構文
+uuencode [ -m ] [ SourceFile ] OutputFile
+
+オプション
+フラグ
+項目 | 説明
+-m | MIME Base64 アルゴリズムを使用して出力をエンコードします。 -m が指定されない場合は、古い uuencode アルゴリズムが使用されます。
+
+例
+ファイルをエンコードするには、以下のようにします。
+unix
+ローカル・システムに送信し, それをユーザーにメールで送信してください。
+jsmith
+別のシステム上の
+mysys
+次のように入力します。
+uuencode unix unix | mail jsmith@mysys
+ファイルをエンコードするには、以下のようにします。
+/usr/lib/boot/unix
+ローカル・システム上で次の名前を使用します。
+pigmy.goat
+ファイル内の
+/tmp/con
+次のように入力します。
+uuencode /usr/lib/boot/unix pigmy.goat &gt; /tmp/con</pre>

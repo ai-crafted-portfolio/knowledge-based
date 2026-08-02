@@ -1,0 +1,93 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+vsdatalst
+- 仮想共有ディスク・サブシステム情報を表示します。
+
+説明
+いくつかの情報の種類のうちの 1 つを標準出力に表示するには、このコマンドを使用します。
+vsdatalst
+コマンドを実行するには、System Management Interface Tool (SMIT) を使用することができます。 SMIT を使用するには、以下のように入力します。
+smit list_vsd
+さらに、参照したい仮想共有ディスク SDR 情報の種類に関するオプションを選択します。
+
+構文
+vsdatalst {-g | -n | -v | -c}
+
+オプション
+フラグ
+vsdatalst
+の各呼び出しを使用して、次のフラグから 1 つだけを指定できます。
+-g
+以下のグローバル・ボリューム・グループ・データが表示されます。
+global_group_name
+、
+local_group_name
+、
+primary_server_node
+、
+secondary_server_node
+。 (これは、リカバリー可能仮想共有ディスク・サブシステムでのみ
+使用可能です。)
+eo_recovery
+リカバリー
+CVSD
+サーバー・リスト
+-n
+以下のノード・データを表示します。
+node_number
+、
+host_name
+、
+adapter_name
+、
+min_buddy_buffer_size
+、
+max_buddy_buffer_size
+、
+max_buddy_buffers
+。
+-v
+以下の定義データを表示します。
+vsd_name
+、
+logical_volume_name
+、
+global_group_name
+、
+minor_number
+。
+-c
+以下のクラスター情報を表示します。
+ノード番号
+クラスター名
+
+例
+グローバル・ボリューム・グループ・データを表示するには、次のように入力します。
+vsdatalst -g
+システムは、以下のようなメッセージを表示します。
+VSD Global Volume Group Information
+Server Node Numbers
+Global Volume Group name Local VG name primary backup eio_recovery recovery server_list vsd_type
+------------------------ ------------ ------- ------ ------------ -------- ----------- --------
+gpfs0gvg gpfs0vg 1 2 0 0 0 VSD
+gpfs1gvg gpfs1vg 2 1 0 0 0 VSD
+gpfs3gvg gpfs3vg 1 0 0 0 1:2 CVSD
+グローバル・ボリューム・グループ・データを表示するには、次のように入力します。
+vsdatalst -n
+システムは、以下のようなメッセージを表示します。
+VSD Node Information
+Buddy Buffer
+node VSD IP packet minimum maximum # maxbufs
+number host_name adapter size size size
+------ --------------- -------- --------- ------- ------- ---------
+1 host1 ml0 61440 4096 262144 128
+2 host2 ml0 61440 4096 262144 128
+グローバル・ボリューム・グループ・データを表示するには、次のように入力します。
+vsdatalst -v
+システムは、以下のようなメッセージを表示します。
+VSD Table
+VSD name logical volume Global Volume Group minor# size_in_MB
+------------------------------- --------------- ------------------------------- ------ ----------
+gpfs0vsd gpfs0lv gpfs0gvg 3 4096
+gpfs1vsd gpfs1lv gpfs1gvg 1 4096
+
+gpfs3vsd gpfs3lv gpfs3gvg 4 4096</pre>

@@ -1,0 +1,158 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+管理ドメインおよびピア・ドメインにおけるノードの状況を表示します。
+
+説明
+ノードにおいて
+rmcdomainstatus
+コマンドを実行すると、そのノードが含まれる管理ドメインおよびピア・ドメインにおけるノード状況が出力に表示されます。 出力が表示されない場合は、対象ノードがピア・ドメインのメンバーでも管理ドメインのメンバーでもありません。
+rmcdomainstatus
+コマンドの出力は次のフォーマットで表示されます。
+Domain status
+&lt;Token 1 of node status&gt; &lt;Token 2 of node status&gt; &lt;Node ID&gt; &lt;Internal node number&gt; &lt;Node name
+| IP address | IP address of the specified MCP&gt; &lt;PD_name&gt;/&lt;PD_status&gt; (n)
+rmcdomainstatus
+コマンド出力には以下の情報フィールドが表示されます。
+Domain status
+ドメインの現行状況が表示されます。 ドメイン状況は以下のように表示される可能性があります。
+Peer Domain Status
+ピア・ドメインの現行状況が表示されます。
+Management Domain Status: Managed Nodes
+管理ドメインにおけるノードで管理されているすべての管理対象ノードの現行状態が表示されます。
+Management Domain Status: Management Control Points (MCP)
+管理ドメインにおけるノードを管理しているすべての管理制御点 (MCP) の現行状態が表示されます。
+注:
+ノードの現在の状態によっては、出力に複数のセクションが含まれる場合があります。 つまり、ノードがピア・ドメインと管理ドメインの両方のメンバーである場合、出力には 2 つの個別の情報セクションが含まれます。
+Token 1 of node status
+以下のいずれかの状態を示すノード状況が指定されます。
+S
+出力内のテキストがピア・ドメインにおける現行ノードに関するものであることを示します。
+I
+管理ドメインの場合、この値はノードが
+Up
+状態にあることを示します。これは Resource Monitoring and Control (RMC) ハートビート・メカニズムによって決定されます。 ピア・ドメインの場合、この値は指定のノードにおける RMC デーモンが
+rmc_peers
+
+Group Services グループのメンバーであり、そのノードがピア・ドメインでオンラインになっていることを示します。
+i
+管理ドメインの場合、この値はノードが
+Pending Up
+状態にあることを示します。 2 つの RMC デーモン間で接続が確立されていますが、初期ハンドシェークが完了していません。
+注:
+i
+トークンは、管理ドメインの場合にのみ表示されます。
+O
+管理ドメインの場合、この値はノードが
+Down
+状態にあることを示します。これは RMC ハートビート・メカニズムによって決定されます。 ピア・ドメインの場合、この値は指定のノードにおける RMC デーモンが
+rmc_peers
+Group Services グループのメンバーではなくなったことを示します。
+X
+管理ドメインでは、この値は通信問題がディスカバーされたこと、およびに RMC デーモンが、指定のノードにある RMC デーモンとの通信を中断したことを示します。
+Z
+指定のノードの
+Up
+/
+Down
+状態が素早く変化しているため、RMC デーモンが、そのノードにある RMC デーモンとの通信を中断したことを示します。
+Token 2 of node status
+以下のいずれかの状態を示すノード状況が指定されます。
+S
+出力内のテキストがピア・ドメインにおける現行ノードに関するものであることを示します。
+A
+指定のノードに関するメッセージがキューに入れられていないことを示します。
+a
+指定されたノードがローカル RMC デーモンより低いレベルの RMC デーモンのバージョンを実行していることを除き、
+A
+値と同じ意味を示します。
+R
+指定のノードに関するメッセージがキューに入れられていることを示します。
+r
+指定されたノードがローカル RMC デーモンより低いレベルの RMC デーモンのバージョンを実行していることを除き、
+R
+値と同じ意味を示します。
+Node ID
+64 ビット・ノード ID (RSCT がこのノードにインストールされたときに作成されたもの) が指定されます。
+Internal node number
+RMC デーモンによって使用されている内部ノード番号が指定されます。
+Node name or IP address
+RMC サブシステムで識別されるノードの名前が指定されます。
+注:
+この値は、ノードがピア・ドメインまたは管理ドメインのメンバーである場合にのみ表示されます。
+IP address of the specified MCP
+
+指定の MCP について最初に構成された IP アドレスが指定されます。
+注:
+この値は、ノードが MCP の場合にのみ表示されます。
+PD_name/PD_status (n)
+-a
+フラグが使用されていないときに管理対象ノードから受信されたピア・ドメイン名およびピア・ドメイン状況が指定されます。
+注:
+この値は、ノードが MCP の場合にのみ表示されます。
+PD_name
+属性はオンライン・メンバーの管理対象ノードを持つピア・ドメインの名前です。
+PD_status
+属性はピア・ドメインの状況です。
+管理対象ノードがオフラインの場合、
+PD_name
+/
+PD_status
+属性は
+!/-
+として設定され、
+(n)
+属性は存在しません。 ピア・ドメイン状況が管理対象ノードから受信される場合、
+PD_name
+属性は
++
+として設定されます。
+n
+属性は、指定の管理対象ノードをメンバーとして持つピア・ドメインに含まれるオンライン・ノードの数です。
+
+構文
+rmcdomainstatus -s ctrmc [-a ip|IP]
+
+オプション
+フラグ
+-s ctrmc
+RSCT デーモン名を指定します。 RMC の場合の RSCT デーモン名は
+ctrmc
+です。
+-a IP|ip
+対象ノード上に構成されている IP アドレスをリストします。
+-a
+フラグで指定できる有効値は以下のとおりです。
+IP
+取得された構成済み IP アドレスをすべてリストします。
+ip
+ctrmc.srcntbl
+ファイル (ピア・ドメインの場合) および
+ctrmc.mntbl
+ファイル/
+ctrmc.mcptbl
+ファイル (管理ドメインの場合) に構成されている IP アドレスをリストします。
+
+例
+ピア・ドメインおよび管理ドメインにおけるノード状況を確認するには、次のコマンドを実行します。
+rmcdomainstatus -s ctrmc
+出力が表示されない場合は、対象ノードがピア・ドメインのメンバーでも管理ドメインのメンバーでもありません。
+対象ノードがピア・ドメインのメンバーである場合は、次の例のような出力が表示されます。
+Peer Domain Status
+I A 0x09898b3065189db6 0002 test1.ppd.pok.ibm.com
+S S 0x07e7287425d0becd 0001 test2.ppd.pok.ibm.com
+対象ノードが MCP である場合は、次の例のような出力が表示されます。
+Management Domain Status: Managed Nodes
+I a 0xbf1fb04e5b7d0b06 0001 test1 !/+
+I a 0x3a75dd6c235c428e 0002 test2 masMMtest/+ (1)
+I A 0x07e7287425d0becd 0003 test3 masfive/+ (2)
+I A 0x09898b3065189db6 0004 test4 masfive/+(2)
+対象ノードが管理対象ノードである場合は、次の例のような出力が表示されます。
+Management Domain Status: Management Control Points
+I A 0xef889c809d9617c7 0001 9.xx.xx.xxx
+取得された構成済み IP アドレスを現行ノード状況で表示するには、次のコマンドを実行します。
+rmcdomainstatus -s ctrmc -a IP
+次の例に示すような出力が表示されます。
+Peer Domain Status
+I A 0x4313b01f7aae13d9 0002 myrsct1.in.ibm.com
+S S 0xa15313e0cc675d54 0001 myrsct2.in.ibm.com
+Management Domain Status: Management Control Points
+I A 0x128a32b77a5d91cb 0001 10.xx.xx.xx (C)</pre>

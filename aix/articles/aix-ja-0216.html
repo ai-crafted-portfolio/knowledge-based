@@ -1,0 +1,77 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/services
+ファイルの内容を変更します。
+
+説明
+chservices
+コマンドは、
+/etc/services
+ファイルのエントリーを追加、削除、または変更します。 これらのエントリーは、DARPA インターネットで使用される既知のサービスに関連があり、
+inetd
+サーバーで使用される情報にも関連があります。
+inetd
+サーバーのエントリーは、システムがインターネット・サービス要求をどのように処理するかを決定します。
+chservices
+コマンドは、次に示す既知のサービスの項目を取り扱います。
+ServiceName
+変数によって指定された公式インターネット・サービス名。
+サービスに使用されるポート番号。
+port
+変数で指定します。
+サービスに使用される、
+protocol
+変数で指定されるトランスポート・プロトコル。
+サービスによって使用される、
+Alias
+変数で指定された非公式名のリスト。
+
+構文
+エントリーを追加または活動化する chservices [ -a ] -v ServiceName -p protocol -n port [ -u &quot; 別名 ... &quot; ] エントリーを変更するには、以下のようにします。 chservices -c -v ServiceName -p protocol -n port [ -V NewServiceName] [ -P NewProtocol] [ -N NewPort] [ -u &quot; Alias ... &quot; ] エントリーを非活動化する chservices -d -v ServiceName -p protocol -n port [ -V NewServiceName] [ -u Alias ... ]
+
+オプション
+フラグ
+項目 | 説明
+-a | /etc/services ファイル内のエントリーを追加または活動化します。 要求されたサービスがファイル内に存在する場合は、 -a フラグはその行のコメントを外します。 行が存在しなければ、 -a フラグはその行をファイルに追加します。 これはデフォルトのアクションです。
+-c | /etc/services ファイル内のエントリーを変更します。
+-d | /etc/services ファイル内の当該行をコメント化して、エントリーを非活動化します。
+-N NewPort | ソケット・ポート番号を指定します。
+-n ポート | ソケット・ポート番号を指定します。
+-P NewProtocol | 現行プロトコル名の新しいプロトコル名を指定します。
+-p プロトコル | プロトコルを指定します。
+-V NewName | 新しいサービス名を指定します。
+-v ServiceName | サービス名を指定します。
+-u &quot; 別名 ... &quot; | 別名のリストを指定します。
+“
+注:
+chservices
+コマンドを使用して変更された行にコメントを追加したり保持したりすることはサポートされていません。
+”
+
+例
+サービスを追加するには、以下のようにします。
+gregsapp
+、として
+udp
+ポート 1423 のサービスについては、次のように入力します
+chservices -a -v gregsapp -p udp -n 1423
+サービスを追加するには、以下のようにします。
+gregsapp
+、として
+udp
+ポート 1423 でのサービス、別名
+fredsapp
+次のように入力します。
+chservices -a -v gregsapp -p udp -n 1423 -u
+&quot;fredsapp&quot;
+指定されたサービスのポートを変更するには、以下のようにします。
+gregsapp
+以下を使用
+udp
+protocol に 1456 を入力します。
+chservices -c -v gregsapp -p udp -N 1456
+非アクティブ化するには、
+gregsapp
+サービス
+udp
+ポート 1456 をコメント化して、次のように入力します。
+chservices -d -v gregsapp -p udp -n 1456</pre>

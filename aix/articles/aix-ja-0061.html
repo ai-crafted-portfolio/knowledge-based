@@ -1,0 +1,44 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/security/audit/config
+監査構成ファイルを Lightweight Directory Access Protocol (LDAP) サーバー上の集中した場所へアップロードします。
+
+説明
+システム管理者は、
+auditldap
+コマンドを使用して、
+/etc/security/audit/config
+監査構成ファイルを LDAP サーバー上の集中化された 1 つの場所に保管することができます。 この構成ファイルを共有することにより、同様の環境で作動しているシステムは監査開始時に構成をダウンロードすることができます。 したがって、同様のセキュリティー要件を持つシステムは、LDAP で保管されている同じ監査構成に構成できます。
+注：
+既存の LDAP 環境では、
+auditldap
+コマンドは、実行中の LDAP クライアントのバインディング識別名（ bindDN ）およびバインディングパスワード（ bindPwD ）を使用して、 LDAP サーバー上に
+/etc/security/audit/config
+監査設定ファイルを保存します。
+
+構文
+auditldap [ -a|-u ] -D bindDN - w bindPwD [ -b baseDN ][ -f ファイル名 ] [-c ] [-v］ 監査 LDAP [ -? ]
+
+オプション
+フラグ
+項目 | 説明
+-a | 監査構成ファイルを LDAP サーバーに追加します。
+-b basedn | 監査構成ファイルが保管される、集中化された 1 つの場所を指定します。 /etc/security/audit/config 監査ファイルのアップロード中に baseDN パラメーターを指定した場合、 /etc/security/audit/config 監査ファイルは、 baseDN パラメーターで指定されたロケーションに保管されます。 それ以外の場合、ファイルはデフォルトの baseDN 値で指定された場所 (例えば、 cn=config, ou=audit,cn=aixdata ) に保管されます。
+-c | エラー時に操作を続行します。
+-D bindDN | LDAP サーバーに接続するのに使用されるバインディング識別名を指定します。
+-f filename | LDAP サーバーにアップロードされる監査構成ファイルの絶対パスを指定します。 このオプションを指定しない場合、 デフォルトでは /etc/security/audit/config ファイルが LDAP サーバーにアップロードされます。
+-u | LDAP サーバーに対する監査構成ファイルを更新します。
+-v | 詳細モードで表示します。
+-w bindPwD | 監査構成ファイルを LDAP サーバーに書き込むためのバインディング・パスワードを指定します。
+-? | コマンドの使用方法の説明文を表示します。
+
+例
+/etc/security/audit/config
+ファイルを
+ou=audit,cn=aixdata DN
+の下にアップロードするには、以下のコマンドを入力します。
+auditldap –u –D binddn -w secret –b ou=audit,cn=aixdata
+/etc/security/audit/config
+ファイルを
+ou=audit,cn=aixdata DN
+の下に追加するには、以下のコマンドを入力します。
+auditldap -a -D binddn -w secret -b ou=audit,cn=aixdata</pre>

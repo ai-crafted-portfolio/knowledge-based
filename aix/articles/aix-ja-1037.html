@@ -1,0 +1,70 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ネットワーク・インストール管理 (NIM) マスター・パッケージを初期化します。
+
+説明
+nimconfig
+コマンドは、他のNIMコマンドを使用する前にNIMマスターパッケージを初期化する。
+nimconfig
+コマンドの
+-a
+フラグを使用して適切な属性を指定すると、NIM 環境は以下のタスクを実行する：
+ObjectName
+変数で指定されるネットワークオブジェクトを定義します。 ネットワークオブジェクトは
+、Pif
+変数で指定されたNIMマスターのプライマリインターフェースが接続されているネットワークを表します。
+NIMマスタを新しく定義されたネットワーク・オブジェクトに接続することで、NIMマスタの定義を完了します。
+NIMマスターが自動的に管理するネットワークブートリソースを表すリソースオブジェクトを定義します。
+NIMマスターがカスタマイズを実行するために自動的に構築するカスタマイズスクリプトを表すリソースオブジェクトを定義します。
+NIMの中心的な通信コンポーネントである
+nimesis
+。
+
+構文
+NIM マスター・パッケージを初期化する nimconfig -a pif_name=Pif -a netname=Objectname [ -a master_port=PortNumber ] [ -a platform=Value ] [ -a registration_port=PortNumber ] [ -a ring_speed=Speed | -a cable_type=CableType ] [ -c ] NIM環境向けにSecure Sockets Layer（ SSL ）を設定するには nimconfig -c NIM環境における SSL の設定を解除するには nimconfig -C NIM HTTP 環境でNIMサービスを有効にする nimconfig -h NIM環境のNIM HTTP サービスを無効にする nimconfig -H /etc/niminfo ファイルを再ビルドするには nimconfig -r
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-a attribute= value | 以下の attribute= value ペアを割り当てる： pif_name =ピフ NIM マスターの 1 次ネットワーク・インターフェースを指定します。 この値は、 tr0 や en0 などの論理インターフェイス名でなければならない。 論理インターフェイスは使用可能な状態でなければならない。 master_port = ポート番号 NIMクライアント通信に使用される nimesis デーモンのポート番号を指定します。 platform = 値 platform 。 platform 属性の有効な値は以下の通りです： rs6K マイクロ・チャネル・ベースのユニプロセッサー・モデル AIX 5.1 およびそれ以前のモデル。 rs6ksmp マイクロ・チャネル・ベースの対称型マルチプロセッサ・モデル AIX 5.1 およびそれ以前のモデル。 rspc PowerPC PCI（ペリフェラル・コンポーネント・インターコネクト）バスベースのユニプロセッサーモデル。 AIX 5.1 およびそれ以前のモデル。 rspcsmp PowerPC のPCIバスベースの対称型マルチプロセッサ・モデル。 AIX 5.1 およびそれ以前のモデル。 netname = オブジェクト名 マスタのプライマリ・インターフェイスが接続するネットワークを表すネットワーク・オブジェクトを作成する際に、 nimconfig コマンドで使用する名前を指定します。 ring_speed = 速度 速度をMbps単位で指定する。 pif_name パラメータがトークンリングネットワークを参照する場合、この値を指定しなければならない。 有効な値は 4 および 16 です。
+
+-a （続き） | cable_type = ケーブルタイプ イーサネット・ケーブル・タイプを指定します。 pif_name がイーサネット・ネットワークを参照する場合は、この値が必要です。 有効な値は、 bnc 、 dix 、または N/A です。 registration_port = ポート番号 NIMクライアントの登録に使用するポート番号を指定します。 注： コマンドラインでポート番号を指定しない場合、NIMの /etc/services ファイルにあるポート番号が使用される。 /etc/services ファイルに NIM ポート nim および nimreg のエントリーがない場合、 master_port では 1058、 registration_port では 1059 のデフォルト値が使用されます。 ip_env = 6 Internet Protocol バージョン 4 ( IPv4 ) および Internet Protocol バージョン 6 ( IPv6 ) プロトコルのデュアルスタック実装を単一のインターフェイス定義上でサポートするように NIM 環境を設定する。 このオプションはネットワーク・オブジェクトを作成し、新しく作成されたネットワーク・オブジェクト情報を使ってセカンダリ・インターフェースを定義します。 ip_env オプションを指定する場合、以下のフラグが必要である： pif_name =ピフ NIMマスターのインターフェース名を指定します。 netname = オブジェクト名 IPv6 ネットワークを表す新規 ent オブジェクトの名前を指定します。 cable_type = ケーブルタイプ イーサネットケーブルのタイプを指定する。 注： デュアルスタック環境を設定する前に、 autoconf6 コマンドを実行し、 ndpd-host デーモンを起動する。
+
+-c | NIMマスターマシンにOpen Secure Sockets Layer（ OpenSSL ）がインストールされている場合、NIMクライアントとの通信時に使用する必要があるSecure Sockets Layer（ SSL ）キーおよび SSL 証明書を作成します。 操作完了後、 nimesis デーモンを再起動する。 SSL の証明書は、その後、コマンド nimclient -c を使用してNIMクライアントにコピーされます。 注： ルートファイルシステム内のファイルまたはディレクトリに ( /root ) という名前 root がある場合、 コマンドは nimconfig -c 以下の項目を作成または更新しません： 証明書は /ssl_nimsh/certs ディレクトリ /tftpboot/server.pem ファイル
+-C | NIM環境における SSL の設定を解除します。 操作完了後、 nimesis デーモンを再起動する。 NIMクライアントでは、` nimclient -C `コマンドを使用してセキュアなNIMサービスハンドラー（NIMSH）通信を無効化できます。
+-h | NIM HTTP 環境向けにNIMサービスを設定します。 NIM HTTP サービスに関する詳細情報は、 「プロトコル HTTP 経由での更新プログラムおよび新規 AIX パッケージのインストールにNIMを使用する」 トピックを参照してください。
+-H | NIM環境のNIM HTTP サービスの設定を解除する。
+-r | NIMデータベースに存在する情報を使用して、NIMマスターの /etc/niminfo ファイルを再構築する。 NIMマスターに bos.sysmgt.nim.master パッケージが設定されていない場合、 -r フラグは失敗する。 この -r フラグは、ユーザーが誤ってファイルを /etc/niminfo 削除してしまった場合に使用されます。
+
+例
+ネットワーク通信にトークンリングとデフォルトのNIMポートを使用してNIM環境を初期化するには、次のコマンドを入力してください：
+nimconfig -a pif_name=tr0 -a netname=net1 -a ring_speed=16
+イーサネットおよびデフォルトの NIM ポートを使用して NIM 環境を初期化するには、次のコマンドを入力してください：
+nimconfig -a pif_name=en0 -a master_port=1058 \
+-a netname = net2 -a cable_type=bnc
+NIMマスターがプライマリマシンとして設定されている場合、NIMマスター上でファイルを
+/etc/niminfo
+再構築するには、次のコマンドを入力してください：
+nimconfig -r
+ATM ネットワークインターフェースを使用して NIM マスターを初期化するには、次のコマンドを入力してください：
+nimconfig -a pif_name=at0 -a master_port=1058 -a netname=ATMnet
+注：
+ATMネットワークへのインターフェースはネットワーク経由のブートをサポートしないため、ATMネットワークインターフェース操作を使用してNIMマスターを初期化すると、マスターのサブネットに対応する汎用ネットワークオブジェクトが定義されます。
+NIMクライアントとの通信に TCP/IP のポート1060を、NIMクライアントの登録に TCP/IP のポート1061を使用するようにNIM環境を初期化するには、次のコマンドを入力してください：
+nimconfig -a pif_name=tr0 -a netname=net2 -a master_port=1060 \
+-a registration_port=1061 -a ring_speed=16
+NIM通信用の SSL キーおよび SSL 証明書を作成するには、次のコマンドを入力してください：
+nimconfig -c
+注意：
+このコマンドオプションを使用する前に、NIMマスターに OpenSSL。
+NIMマスターの初期化中に、NIM通信用の SSL キーおよび SSL 証明書を作成するには、次のコマンドを入力してください：
+nimconfig -a netname=net1 -a pif_name=en0 -a cable_type=N/A -a verbose=4 -c
+注：
+
+NIM通信において、NIMマスターの初期化中に SSL キーおよび SSL 証明書を設定する機能は、Technology Level 2以降の AIX® 7.3 でのみサポートされています。
+デュアルスタック環境を設定し、 ent6 ネットワークを作成し、セカンダリインターフェースを定義するには、次のコマンドを入力してください：
+nimconfig -a ip_env=6 -a netname=dualstack_v6 -a pif_name=en0 -a cable_type=N/A
+NIM 環境の NIM HTTP サービスを有効にするには、NIM サーバーで次のコマンドを入力してください：
+nimconfig -h
+NIM 環境の NIM HTTP サービスを無効にするには、NIM サーバーで次のコマンドを入力してください：
+nimconfig -H</pre>

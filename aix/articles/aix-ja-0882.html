@@ -1,0 +1,67 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+CacheFS ディレクトリーをマウントします。
+
+説明
+mkcfsmnt
+コマンドは、
+/etc/filesystems
+ファイルへ追加するエントリーを構成し、ファイルシステムをキャッシュ・ファイルシステムとして使用できるようにします。 マウントが永続的であれば、このエントリーは残ります。 マウントが一時的であれば、
+mount
+コマンドにフラグが直接指定されます。 CacheFS ファイルシステムを使用して、バッキング・ファイルシステムへのアクセスをキャッシュに書き込みます。 バッキング・ファイルシステムは通常、NFS マウントです。
+
+構文
+mkcfsmnt -d PathName -t { エヌエフエス | CDROM } ] [ -h RemoteHost ] [ -p { リモートディレクトリ | ローカルデバイス名 } ] [ -c CacheDirectory ] [ -o MountOptions ] [ -b BackingFileSystem ] [ -I | -B | -N ]
+
+オプション
+フラグ
+項目 | 説明
+-d PathName | キャッシュ・ディレクトリー用にマウント・ポイントを指定します。
+-t | キャッシュに書き込まれるファイルシステムを選択します。 NFS CacheFS ファイルシステムが NFS マウントによって支援されることを指定します。 cdrom CacheFS ファイルシステムが CDROM ファイルシステムによって支援されることを指定します。 (現在、 サポートされていません。)
+-h RemoteHost | ディレクトリーをエクスポートする NFS サーバーを指定します。
+-p RemoteDirectory | 指定したパス名にマウントするディレクトリーを指定します。 これは通常、NFS を使用してマウントされるリモート・ファイルシステム、または CDROM (現在、サポートされていません) の場合はローカル・デバイス名です。
+-c CacheDirectory | CacheFS ファイルシステムの位置を指定します。 これは、 cfsadmin コマンドの実行によって以前に作成されていなければなりません。
+-d RemoteDirectory | 指定したパス名にマウントするディレクトリーを指定します。
+-o MountOptions | バッキング・ファイルシステム・タイプに依存するマウント・オプションの、コンマで区切られた文字列を指定します。 例えば、NFS の場合は、オプションは、マウントするための -o オプション文字列によって通常指定されたものになります。 許容値については、 mount コマンド文書を参照してください。
+-b BackingFileSystem | バッキング・ファイルシステムを指定します (既にマウントされている場合)。 このフラグを指定しない場合は、 コマンドが一時マウント・ポイントでマウントを行います。 このフラグを指定しない場合は、 RemoteHost および RemoteDirectory を指定する必要があります。
+-I | エントリーを /etc/filesystems ファイルに追加させます。 ディレクトリーはマウントされません。
+-B | /etc/filesystems ファイルにエントリーを追加し、ファイルシステムをマウントしようとします。 このフラグはデフォルトです。
+-N | 指定されたオプションでディレクトリーをマウントしますが、 /etc/filesystems ファイルを変更しません。
+
+例
+CacheFS マウントを指定するには、次のように入力します。
+/usr/sbin/mkcfsmnt -t nfs -d /usr/share/man -p /usr/share/man -h host1 -c
+/cache/cache1 -o ro, intr -N
+この例では、
+mkcfsmnt
+コマンドは、次の場所にあるリモート・ディレクトリー
+/usr/share/man
+をキャッシュに入れます。
+host1
+ローカル
+/usr/share/man
+ディレクトリーにあります。 このキャッシュは、
+/cache/cache1
+(
+cfsadmin
+コマンドを使用して作成されたもの) に保持されます。
+-b
+フラグが指定されていないので、
+CacheFS は NFS 支援マウントの実行を引き受けます。
+/usr/sbin/mkcfsmnt -t nfs -d /usr/share/man -p /usr/share/man -h host1 -c /cache/cache1
+-b /backs/man -o ro, intr -N
+この例では、
+mkcfsmnt
+コマンドは、次の場所にあるリモート・ディレクトリー
+/usr/share/man
+をキャッシュに入れます。
+host1
+ローカル
+/usr/share/man
+ディレクトリーにあります。 このキャッシュは、
+/cache/cache1
+(
+cfsadmin
+コマンドを使用して作成されたもの) に保持されます。 バッキング・ファイルシステムは既に
+/backs/man
+に
+マウントされています。</pre>

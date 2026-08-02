@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+事前に定義したプリンター・データ・ストリーム定義を作成します。
+
+説明
+piopredef
+コマンドは、仮想プリンターの定義から、事前定義プリンターのデータ・ストリームの定義を作成します。 これは、
+mkvirprt
+コマンドの逆と考えることができます。このコマンドは、
+chvirprt
+コマンドで表示され、サポートされていないプリンターの事前定義定義を作成するために
+piopredef
+コマンドで指定されます。
+その後、新しい事前定義プリンター定義を
+mkvirprt
+コマンドで指定して、サポートされないプリンター・タイプ用の追加の仮想プリンターを同じコンピューター上に生成したり、他のコンピューターにトランスポートしてそこで使用したりすることができます。
+
+構文
+piopredef [ -r ] -d QueueDeviceName -q PrintQueueName -s DataStreamType -t PrinterType
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-d QueueDeviceName | 事前定義プリンターの定義を作成するために使用する、カスタマイズされた仮想プリンターの定義のスプーラーを QueueDeviceName 変数で指定します。
+-q PrintQueueName | 事前定義プリンターの定義を作成するために使用する、仮想プリンターの定義のスプーラーを PrintQueueName 変数で指定します。
+-r | -s フラグおよび -t フラグが既存の定義済みプリンター定義を指定している場合、既存の定義を置き換える必要があることを指定します。
+-s DataStreamType | 作成する事前定義プリンター定義のプリンターを DataStreamType 変数で指定します。 データ・ストリームのタイプの例は、以下のとおりです。 asc IBM 拡張アスキー gl Hewlett-Packard GL pcl Hewlett-Packard PCL ps PostScript 630 Diablo 630 855 Texas Instruments 855
+-t PrinterType | 作成する事前定義プリンター定義のプリンター・タイプを指定します。 既存のプリンター・タイプには 4201-3、hplj-2、ti2115 などがあります。
+注:
+フラグが指定されていない場合は、コマンド構文が表示されます。
+
+例
+仮想プリンターに対して既存の仮想プリンターの定義から新しく事前定義プリンターの定義を作成するには、以下のように入力します。
+piopredef -d mypro -q proq -s asc -t 9234-2
+proq
+印刷キュー上の
+mypro
+キュー・デバイスを割り当てられた仮想プリンターの属性をコピーして
+9234-2
+プリンター (
+asc
+データ・ストリーム) の新しい事前定義プリンターの定義を作成します。</pre>

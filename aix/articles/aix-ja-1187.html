@@ -1,0 +1,100 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ファイルを
+troff
+形式から PostScript 形式に変換します。
+
+説明
+psroff
+コマンドは、環境で
+troff
+コマンドを実行して PostScript プリンターで出力を生成するシェル・スクリプトです。
+psdit
+コマンドを使用して、
+troff
+中間出力を PostScript 形式に変換し、この出力を印刷用にスプールします。 ファイルを指定しないと、標準入力が使用されます。
+任意の PostScript 言語コマンドまたはファイルを
+troff
+文書に組み込むには、
+psdit
+コマンドを参照してください。
+PostScript フォント情報
+「 PostScript Fonts for Transcript」表には、 TranScript コマンドで使用できるフォントが示されています。 このフォントは、
+enscript
+コマンドを使用するときは長名で使用でき、
+psroff
+コマンドか
+troff
+コマンドを使用するときは省略名で使用できます。 次のテーブルは、フォントのデフォルト・セットを宣言するときに使用する
+psroff
+コマンド (省略名) です。 英字は大文字と小文字が区別されます。
+PostScript フォント (トランスクリプト用)
+ロング・ネーム (ショート・ネーム) | フォント・ファミリー
+AvantGarde-Book (ag) | AvantGarde
+AvantGarde-Demi (Ag) | AvantGarde
+AvantGarde-DemiOblique (AG) | AvantGarde
+AvantGarde-BookOblique (aG) | AvantGarde
+Bookman-Demi (Bo) | Bookman
+Bookman-DemiItalic (BO) | Bookman
+Bookman-Light (bo) | Bookman
+Bookman-LightItalic (bO) | Bookman
+Courier (C) | Courier
+Courier-Bold (CB) | Courier
+Courier-BoldOblique (CO) | Courier
+Courier-Oblique (CO) | Courier
+Garamond-Bold (Ga) | Garamond
+Garamond-BoldItalic (GA) | Garamond
+Garamond-Light (ga) | Garamond
+Garamond-LightItalic (gA) | Garamond
+Helvetica (H) | Helvetica
+
+Helvetica-Bold (HB) | Helvetica
+Helvetica-Oblique (HO) | Helvetica
+Helvetica-BoldOblique (HD) | Helvetica
+Helvetica-Narrow (hn) | Helvetica
+Helvetica-Narrow-Bold (Hn) | Helvetica
+Helvetica-Narrow-BoldOblique (HN) | Helvetica
+Helvetica-Narrow-Oblique (hN) | Helvetica
+LubalinGraph-Book (lu) | Lubalin
+LubalinGraph-BookOblique (lU) | Lubalin
+LubalinGraph-Demi (Lu) | Lubalin
+LubalinGraph-DemiOblique (LU) | Lubalin
+項目 | 説明
+NewCenturySchlbk (NC) | NewCentury
+NewCenturySchlbk-Bold (Nc) | NewCentury
+NewCenturySchlbk-Italic (nC) | NewCentury
+NewCenturySchlbk-Roman (nc) | NewCentury
+Optima (op) | Optima
+Optima-Bold (Op) | Optima
+Optima-BoldOblique (OP) | Optima
+Optima-Oblique (oP) | Optima
+Palatino-Bold (PB) | Palatino
+Palatino-BoldItalic (PX) | Palatino
+Palatino-Italic (PI) | Palatino
+Palatino-Roman (PA) | Palatino
+Souvenir-Demi (Sv) | Souvenir
+Souvenir-DemiItalic (SV) | Souvenir
+Souvenir-Light (sv) | Souvenir
+Souvenir-LightItalic (sV) | Souvenir
+Times-Bold (TB) | Times
+Times-BoldItalic (TD) | Times
+Times-Italic (TI) | Times
+Times-Roman (TR) | Times
+Symbol (S) | (なし)
+
+ZapfChancery-MediumItalic (ZC) | Zapf
+ZapfDingbats | (なし)
+
+構文
+psroff [ -t] [ -dQueue ] [ -nNumber ] [ -tTitle ] [ -DFontDirectory ] [ -FFontFamily ] [ -PFlag ] [ troffFlags ] [ File ... ]
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-D FontDirectory | 標準フォント・ディレクトリーではなく、インストール手順で構成された指定フォント・ディレクトリーでフォント・ファミリー・ディレクトリーを検索します。 troff コマンドで -F フラグを模倣するには、このフラグと -F フラグの両方を使用する必要がある場合があります。
+-d キュー | Queue パラメーターで指定したキューに出力を入れます。 -d フラグを使用しない場合には、 psroff コマンドが出力をデフォルトのキューに入れ、最初のキューが qdaemon に対して認識されます。 このフラグは、スプーラー印刷によって認識されます。
+-F FontFamily | Times デフォルト・ファミリーではなく、 R フォント、 I フォント、 B フォント、または BI フォントに指定されたフォント・ファミリーを使用します。 Times、Courier、Helvetica フォント・ファミリーはユーザーの現場で定義され、他のフォントも同様に使用できます。 ユーザーが使用するプリンターが、ユーザーの選ぶフォント・ファミリーを持っていることを確認してください。 このフラグは、 troff コマンドの -F フラグを変更します。 troff command -F フラグを使用する場合は、 troff コマンドを直接実行するか、代わりに -D フラグを使用する必要があります。
+-n Number | Number パラメーターで指定された数の出力コピーが作成されます。 デフォルトは 1 部です。 このフラグは、スプーラー印刷によって認識されます。
+-P フラグ | Flag パラメーターをスプーラーへ渡します。 これは、スプーラーのフラグと psroff コマンドを使用したフラグの間で矛盾がある場合に便利です。
+-t | PostScript 出力をプリンターにスプーリングするのではなく、標準出力に送信します。 このフラグは、 troff コマンドの -t フラグを変更します。 troff command -t フラグが必要な場合は、 troff コマンドを直接実行する必要があります。
+-t タイトル | 最初のバナー・ページで使用するジョブ名を設定します。 デフォルトでは、最初の入力ファイルの名前が使用されます。 このフラグは、スプーラー印刷によって認識されます。</pre>

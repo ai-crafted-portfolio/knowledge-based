@@ -1,0 +1,93 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+termcap
+ファイルを
+terminfo
+ディスクリプター・ファイルに変換します。
+
+説明
+captoinfo
+コマンドは、
+termcap
+ソース・ファイルを
+terminfo
+ソース・ファイルに変換して画面に表示します。
+termcap
+ファイル・フォーマットは古いフォーマットです。
+termcap
+ファイルと
+terminfo
+ファイルは、主に機能名とエントリー構文が異なります。 したがって、
+captoinfo
+コマンドは、構文の変換と用語の置換のみを行います。 また、このコマンドは、nc のような古い
+termcap
+機能や D3 のような 2 文字の
+termcap
+名を取り除きます。
+captoinfo
+コマンドは、デフォルトでは
+TERM
+環境変数で指定した端末の
+termcap
+記述を変換します。 このコマンドは、
+/etc/termcap
+ファイルから端末の記述を読み取って、
+terminfo
+スタイルの記述を出力します。
+Filename
+パラメーターを指定すると、このコマンドは、そのファイル内のすべての記述を
+terminfo
+フォーマットに変換します。
+captoinfo
+コマンドの出力をファイルにリダイレクトすることができます。
+
+構文
+captoinfo [ -w 数値 ] [ -v ] [ -V ] [ -1 ] [ FileName ...]
+
+オプション
+フラグ
+項目 | 説明
+-v | 詳細モードをオンにします。
+-V | バージョン番号を表示します。
+-w 数値 | terminfo エントリーの行幅を定義します。 captoinfo コマンドは、出力行でできる限り多くの terminfo フィールドをこの幅の中に収めます。 terminfo フィールドは、機能名とそれに対応する値からなっています。 -w フラグを指定する場合は、 Number パラメーターを指定する必要があります。 デフォルトでは、行幅は 60 です。 注: 指定した幅が小さすぎてフィールドが 1 つも入らない場合、このコマンドは、1 行ごとに 1 つのフィールドを表示します。 指定した幅が 0 または負である場合は、行幅は 60 に設定されます。
+-1 | 1 行ごとに 1 つの terminfo フィールドを表示します。
+
+例
+termcap
+ファイル
+Wyse50.tc
+を
+terminfo
+ファイルに変換し、画面に結果を表示するには、次のように入力します。
+captoinfo Wyse50.tc
+termcap
+ファイル
+Wyse50.tc
+を
+terminfo
+ファイルに変換し、結果を保管するには、次のように入力します。
+captoinfo Wyse50.tc &gt; Wyse50.ti
+1 行につき 1 つの
+terminfo
+フィールドを表示し、詳細情報を表示するには、次のように入力します。
+captoinfo -1 -v Wyse50.tc
+TERM
+環境変数によって定義された ibm3101 端末の
+terminfo
+記述を作成するには、次のように入力します。
+captoinfo -w 40
+captoinfo
+コマンドは、
+/etc/termcap
+ファイル内の ibm3101 記述を
+terminfo
+記述に変換し、40 文字幅の記述を生成します。 このコマンドの出力は、以下のようになります。
+ibm|ibm3101|3101|i3101|IBM 3101-10,
+am, xon,
+cols#80, lines#24,
+bel=^G, clear=\EK, cr=\r, cub1=\b,
+cud1=\n, cuf1=\EC,
+cup=\EY%p1%&#x27;\s&#x27;%+%c%p2%&#x27;\s&#x27;%+%c,
+cuu1=\EA, ed=\EJ, el=\EI,
+home=\EH, ht=\t, ind=\n,
+kcub1=\ED, kcud1=\EB, kcuf1=\EC,
+kcuu1=\EA,</pre>

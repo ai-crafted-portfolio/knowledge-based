@@ -1,0 +1,111 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ローカルで定義したユーザーとグループを ldif 形式
+で
+stdout
+に出力します。
+
+説明
+sectoldif
+コマンドは、ローカルに定義されたユーザーと
+グループを読み取り、その結果を ldif 形式で
+stdout
+に
+出力します。 ファイルにリダイレクトすると、
+ldapadd
+コマンドまたは
+ldif2db
+コマンドを使用して、LDAP サーバーに結果を追加できます。
+-S
+オプションは、ldif 出力に使用するスキーマ・タイプを指定し
+ます。
+sectoldif
+コマンドには、3 つのスキーマ・タイプを
+使用できます。
+AIX
+-
+AIX
+スキーマ
+(aixaccount
+および
+aixaccessgroup
+オブジェクトクラス)
+RFC2307
+: RFC 2307 スキーマ (
+posixaccount
+、
+shadowaccount
+、および
+posixgroup
+オブジェクト・クラス)
+RFC2307
+AIX
+-完全な
+AIX
+サポートを備えた RFC 2307 スキーマ (
+posixaccount
+、
+shadowaccount
+、
+posixgroup
+オブジェクト・クラス、および
+aixauxaccount
+オブジェクト・クラスと
+aixauxgroup
+オブジェクト・クラス)。
+sectoldif
+コマンドは、LDAP サーバーのセットアップ時
+に
+mksecldap
+コマンドで呼び出されて、ユーザーおよびグループをエクスポートします。
+sectoldif
+の出力を使用して、追加のユーザーおよびグループを他のシステムから LDAP サーバーにエクスポートする場合は、特別な注意が必要です。
+ldapadd
+コマンドと
+ldif2db
+コマンドは、エントリーを追加するとき、エントリー名 (ユーザー名またはグループ名) のみを検査し、数値 ID は検査しません。
+sectoldif
+出力を使用して複数のシステムからのユーザーおよびグループをエクスポートすると、1 つの数値 ID を複数のアカウントが共有することになり、セキュリティー違反となります。
+sectoldif
+コマンドは、
+/etc/security/ldap/sectoldif.cfg
+ファイルを読み取って、ユーザー、グループ、およびデータのエクスポート先となるシステム・サブツリーの名前を決めます。
+sectoldif
+コマンドは、データを USER タイプ、GROUP タイプ、および SYSTEM タイプのみにエクスポートします。 ファイルで指定された名前は、
+-d
+フラグで指定された基本 DN の下のサブツリーの作成に使用されます。 詳しくは、
+
+/etc/security/ldap/sectoldif.cfg
+ファイルの文書を参照してください。
+
+構文
+sectoldif-d baseDN [ -S schematype ] [ -u username ]
+
+オプション
+フラグ
+項目 | 説明
+-d baseDN | ユーザーとグループのデータを置くための基本 DN を指定します。
+-S スキーマ・タイプ | LDAP サーバーのユーザー/グループ・エントリーを表すのに使用される LDAP スキーマを指定します。 有効な値は、 AIX 、 RFC2307、および RFC2307 AIX です。 デフォルトは AIX です。
+-U username | 特定ユーザーを出力するように指定します。
+
+例
+ローカルで定義されているすべてのユーザーとグループを出力するには、
+次のように入力します。
+sectoldif -d cn=aixsecdb,cn=aixdata -S rfc2307aix
+これでローカルに定義されているすべてのユーザーとグループが ldif 形式
+で
+stdout
+に出力されます。 ユーザー・エントリーと
+グループ・エントリーの表記には rfc2307aix スキーマ・タイプが使用され
+ます。 基本 DN は
+cn=aixsecdb, cn=aixdata
+に設定されます。
+ローカルに定義されたユーザー foo だけを出力するには、次のように入力します。
+sectoldif -d cn=aixsecdb,cn=aixdata -u foo
+これでローカルに定義されたユーザー foo が ldif 形式
+で
+stdout
+に出力されます。
+-S
+オプションを指定しない場合、foo の ldif 出力を表すために、デフォルトの
+AIX
+スキーマ・タイプが使用されます。</pre>

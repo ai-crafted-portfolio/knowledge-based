@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+CacheFS を用いてキャッシュされたデータの整合性を検査します。
+
+説明
+fsck
+コマンドの CacheFS バージョンは、キャッシュ・ディレクトリーの整合性を検査します。 デフォルトでは、検出した CacheFS の問題を修正します。 対話モードはありません。 CacheFS ファイルシステムで
+fsck_cachefs
+の呼び出しの最も可能性が高いのは、ブート時に
+/etc/rc.nfs
+のエントリーから実行される場合です。
+
+構文
+fsck_cachefs [ -m ] [ -o noclean ] cache_directory
+
+オプション
+フラグ
+項目 | 説明
+-m | 検査はしますが、修復は行いません。
+-ノクリーン | 問題があると疑う理由がない場合でも、強制的にキャッシュを検査します。
+
+例
+強制的にキャッシュ・ディレクトリーの検査を行うには、次のように入力します。
+fsck_cachefs -o noclean /cache3</pre>

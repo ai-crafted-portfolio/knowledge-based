@@ -1,0 +1,76 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プロジェクト・ベースの拡張アカウンティング・アクティビティーをサポートします。
+
+説明
+projctl
+コマンドのさまざまなサブコマンドは、
+新規プロジェクトの追加、新規プロジェクトの除去、および特定のアカウンティング・ポリシー
+のロードなどの、プロジェクト・ベースの拡張アカウンティング・アクティビティーを実行します。
+projctl
+コマンドのこれらのさまざまなオプションについて、以下に説明します。
+
+構文
+projctl add projname projnumber [comment] [ { -d projpath | -p [DN] } ] projctl merge sourceprojpath [ -d targetprojfile ] projctl rm projname [ { -d projpath | -p [DN] } ] projctl chg projname [ -p pid [, pid] ] [-f] projctl exec projname &lt;cmd line&gt; [-f] projctl chattr agg projname {-s|-u} [ { -d projpath | -p [DN] } ] projctl qpolicy [ -g [DN] ] projctl qprojs [-n] projctl qproj [projectname] projctl qapp appname projctl {chkusr | chkgrp | chkprojs | {{chkadm | chkall} [-d admpath]}} projctl ldusr [ -r ] [ -a ] projctl unldusr [ -a ] projctl ldgrp [ -r ] [ -a ] projctl unldgrp [ -a ] projctl ldprojs -g [ -r ] [ -a ] projctl ldprojs -g [DN] -d projpath projctl ldprojs -p [DN] -d projpath projctl unldprojs -g [DN] [ -f ] [ -a ] projctl unldprojs -p [DN] projctl ldadm -g [name] [ -r ] [ -a ] projctl ldadm -g [name:]DN | name ] -d admpath projctl ldadm -p [ [name:]DN | name ] -d admpath projctl unldadm -g [ -a ] projctl unldadm -p [ [name:]DN | name ] projctl ld [ -r ] projctl ldall [ -d admpath ] [ -r ] [ -a ] projctl unldall [ -f ] [ -a ]
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-a | システム・リブート時に自動的にポリシーをロードします。
+-d | 通常は、参照するプロジェクト定義ファイルまたは管理ポリシー・ファイルがある場所からのパスを指定します。 merge サブコマンドで使用する場合は、マージされたプロジェクト定義を保管するターゲット・プロジェクト定義ファイルを指定します。
+-f | chg および exec サブコマンドで指定されたポリシー規則をオーバーライドします。 unldall サブコマンドで呼び出されたときにプロセスに割り当てられているプロジェクトをクリアします。 unldprojs サブコマンドで呼び出されたときに、すべてのプロジェクト定義を強制的にアンロードします。
+-g | プロジェクトおよびポリシーが LDAP リポジトリーからダウンロードされることを指定します。
+-n | 名前を基にしてプロジェクト定義のリストをソートします。
+-p | chg サブコマンドで使用すると、プロジェクト割り当ての変更を必要とするプロセス ID のリストを渡します。 add 、 rm 、および chattr サブコマンドで使用する場合、プロジェクト定義を更新する LDAP DN を指定します。 ld および unld サブコマンドで使用する場合、プロジェクトおよびポリシーを LDAP リポジトリーにアップロードすることを指定します。 このフラグの引数は、プロジェクトおよびポリシーがアップロードされる DN を示します。
+-r | ポリシーを再ロードします。
+-s | projctl chattr agg サブコマンドで使用され、 プロジェクト集約プロパティーを使用可能にします。
+-u | projctl chattr agg サブコマンドで使用され、 プロジェクト集約プロパティーを使用不可にします。
+
+例
+システム・プロジェクト定義ファイルにプロジェクト
+newproj
+を追加するには、
+次のように入力します。
+projctl add newproj 34 &quot;Test Project&quot;
+パス
+/tmp/myproj
+の下のプロジェクト定義ファイルから、
+プロジェクト
+test1
+を除去するには、次のように入力します。
+projctl rm test1 -d /tmp/myproj
+プロジェクト
+newproj
+の集約状況を使用可能にするには、次のように入力します。
+projctl chattr agg newproj -s
+ps
+コマンドをプロジェクト
+newproj
+の下で実行し、
+既存のルールをオーバーライドするには、次のように入力します。
+projctl exec newproj &quot;/usr/bin/ps&quot; -f
+現在ロードされたポリシーを検索するには、次のように入力します。
+projctl qpolicy
+出力:
+Project definitions are loaded.
+Project definition file name: /etc/project/projdef
+User policies are loaded.
+管理ポリシーをパス
+/tmp/myproj
+からロードするには、次のように入力します。
+projctl ldadm -d /tmp/myproj
+すべてのプロジェクト・ポリシーを、今、およびシステム・リブート時にアンロードするには、
+次のように入力します。
+projctl unldall -a
+別の DN (DN は
+ou=projects,ou=aacct,ou=cluster1,cn=aixdata
+) で LDAP リポジトリーに新規プロジェクトを追加するには、次のように入力します。
+projctl add newproj 34 -p ou=projects,ou=aacct,ou=cluster1,cn=aixdata
+LDAP プロジェクトをデフォルト DN から
+/etc/project/ldap
+パスの下のローカル・ファイルにダウンロードするには、次のように入力します。
+projctl ldprojs -g -d /etc/project/ldap
+デフォルト DN のラベル
+newdef
+の下に保管されている LDAP 管理ポリシーをカーネルにロードするには、次のように入力します。
+projctl ldadm -g newdef</pre>

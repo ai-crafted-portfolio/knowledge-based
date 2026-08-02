@@ -1,0 +1,70 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ピア・ドメイン全体にわたって、仮想共有ディスク・サブシステムが使用するディスク・リソースを表示する出力結果を生成します。
+
+説明
+ピア・ドメイン全体に渡るディスク使用状況を検査するにはこのコマンドを使用します。
+
+構文
+vsdsklst [ -v ] [ -d ] { -a | -n node_number [, node_number2, ...]}
+
+オプション
+フラグ
+-v
+ボリューム・グループおよびそれに関連付けられた仮想共有ディスクの
+ディスク使用状況のみを表示します。
+-d
+ボリューム・グループおよびそれに関連付けられた実際のディスクの
+ディスク使用状況のみを表示します。
+-a
+システムまたはシステム区画内のすべてのノードについて、指定された情報を
+表示します。
+-
+ノード番号
+情報が表示される 1 つ以上のノード番号をリストします。
+
+例
+次のコマンドの場合:
+vsdsklst -dv -a
+ノード 1 もしくは 2 で定義されたボリューム・グループおよび仮想共有ディスクを持つ
+システムで以下の情報を表示します。
+c164n12.ppd.pok.ibm.com: Node Number:2; Node Name:c164n12.ppd.pok.ibm.com
+c164n12.ppd.pok.ibm.com: Volume group:rootvg; Partition Size:32; Total:271; Free:168
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk0; Total:271; Free:168
+c164n12.ppd.pok.ibm.com: Volume group:testvg is not varied on.
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk5;
+c164n12.ppd.pok.ibm.com: Volume group:test1vg; Partition Size:4; Total:537; Free:534
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk2; Total:537; Free:534
+c164n12.ppd.pok.ibm.com: VSD Name:vsd1n2[testnewlv21n2]; Size:1
+c164n12.ppd.pok.ibm.com: VSD Name:vsd2n2[testlv1n2]; Size:346112.25
+c164n12.ppd.pok.ibm.com: VSD Name:vsd3n2[testlv2n2]; Size:346112.25
+c164n12.ppd.pok.ibm.com: Volume group:vg1 is not varied on.
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk9;
+c164n12.ppd.pok.ibm.com: Volume group:sharkvg is not varied on.
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk7;
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk10;
+
+c164n12.ppd.pok.ibm.com: Volume group:bdhclvg; Partition Size:32; Total:134; Free:102
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk13; Total:134; Free:102
+c164n12.ppd.pok.ibm.com: Volume group:gpfs0vg; Partition Size:8; Total:536; Free:0
+c164n12.ppd.pok.ibm.com: Physical Disk:hdisk12; Total:536; Free:0
+c164n12.ppd.pok.ibm.com: VSD Name:gpfs0vsd[gpfs0lv]; Size:352256.75
+c164n12.ppd.pok.ibm.com: Not allocated physical disks:
+c164n12.ppd.pok.ibm.com: Physical disk:hdisk1
+c164n12.ppd.pok.ibm.com: Physical disk:hdisk3
+c164n12.ppd.pok.ibm.com: Physical disk:hdisk4
+c164n12.ppd.pok.ibm.com: Physical disk:hdisk6
+c164n12.ppd.pok.ibm.com: Physical disk:hdisk11
+c164n12.ppd.pok.ibm.com: Physical disk:hdisk15
+c164n11.ppd.pok.ibm.com: Node Number:1; Node Name:c164n11.ppd.pok.ibm.com
+c164n11.ppd.pok.ibm.com: Volume group:rootvg; Partition Size:32; Total:271; Free:172
+c164n11.ppd.pok.ibm.com: Physical Disk:hdisk0; Total:271; Free:172
+c164n11.ppd.pok.ibm.com: Volume group:bdhclvg; Partition Size:32; Total:134; Free:102
+c164n11.ppd.pok.ibm.com: Physical Disk:hdisk9; Total:134; Free:102
+
+c164n11.ppd.pok.ibm.com: VSD Name:bdhcvsd1n1[lvbdhcvsd1n1]; Size:45056
+c164n11.ppd.pok.ibm.com: Volume group:testvg; Partition Size:16; Total:134; Free:70
+c164n11.ppd.pok.ibm.com: Physical Disk:hdisk13; Total:134; Free:70
+c164n11.ppd.pok.ibm.com: Not allocated physical disks:
+c164n11.ppd.pok.ibm.com: Physical disk:hdisk1
+c164n11.ppd.pok.ibm.com: Physical disk:hdisk2
+c164n11.ppd.pok.ibm.com: Physical disk:hdisk3</pre>

@@ -1,0 +1,114 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+クーロン・ジョブの実行依頼、編集、リスト、除去を実行します。
+
+説明
+crontab
+コマンドは、cron ジョブの実行のほか、編集、リスト、除去を行います。 cron ジョブとは、
+cron
+デーモンによりスケジュールされ、一定の周期で実行されるジョブです。 cron ジョブの実行を要求するには、
+crontab
+コマンドに
+-e
+フラグを指定します。
+crontab
+コマンドは、編集セッションを起動します。この編集セッションで、
+crontab
+ファイルを作成できます。 crontab ファイルに、各 cron ジョブのエントリーを作成します。 各エントリーは
+cron
+デーモンによって受け入れ可能なフォーマットで作成する必要があります。 エントリーの作成については、
+crontab ファイルのエントリー・フォーマット
+を参照してください。
+エントリーの作成が完了してファイルを終了すると、
+crontab
+コマンドによりこのファイルは
+/var/spool/cron/crontabs
+ディレクトリーにコピーされ、現行ユーザー名と同じ名前のファイルに保管されます。
+crontabs
+ディレクトリーに現行ユーザー名が付いたファイルが既に存在している場合は、
+crontab
+コマンドはこの既存のファイルを上書きします。
+あるいは、
+File
+パラメーターを指定して
+crontab
+ファイルを作成することもできます。 既に crontab ファイルが存在している場合、このファイルは
+cron
+デーモンによって受け入れ可能なフォーマットでなければなりません。 crontab ファイルが存在していない場合は、
+crontab
+コマンドによりエディターが起動されます。 この時
+EDITOR
+環境変数が指定されていると、この変数に指定されているエディターが起動されます。 指定されていない場合は、
+crontab
+コマンドは
+vi
+エディターを起動します。
+crontab
+ファイルの内容を表示するには、
+crontab
+コマンドに
+-l
+フラグを指定します。 既存のファイルを除去するには、
+-r
+フラグを指定します。
+オプションの
+UserName
+パラメーターは、
+crontab
+ファイルのオーナーまたは root ユーザーが、
+編集、出力、除去、または特定ユーザーの cron ジョブの状況を確認するために使用できます。
+UserName
+が無効である場合は、エラー・メッセージが生成されてプログラムが終了します。
+オプションの
+UserName
+パラメーターが指定されていない場合は、
+crontab
+
+フラグは root ユーザーと現行ユーザーに使用可能です。
+
+構文
+crontab [ -e [ UserName ]| -l [ UserName ]| -r [ UserName ]| -v [ UserName ] | ファイル］
+
+オプション
+フラグ
+項目 | 説明
+-e UserName | 有効な UserName に対して crontab ファイルが存在しない場合は、ユーザーの crontab ファイルのコピーを編集するか、空のファイルを作成して編集します。 編集が完了すると、そのファイルはユーザーの crontab ファイルとして、 crontab ディレクトリーにコピーされます。
+-l UserName | ユーザーの crontab ファイルを表示します。
+-r UserName | crontab ディレクトリーからユーザーの crontab ファイルを除去します。
+-v UserName | ユーザーの cron ジョブの状況を表示します。
+
+例
+次の名前のファイルをコピーするには
+mycronjobs
+/var/spool/cron/crontabs
+ディレクトリーに、次のように入力します。
+crontab mycronjobs
+ファイル
+は、次のようにコピーされます。
+/var/spool/cron/crontabs/&lt;username&gt;
+ここで、&lt;
+username
+&gt; は現在のユーザー名です。
+毎正時に時刻をコンソールに書き込む場合は、次のように入力します。
+0 * * * * echo The hour is `date` .
+&gt;/dev/console
+calendar
+コマンドを 6:30 a.mに実行します。 毎週月曜日、水曜日、および金曜日に、次のように入力します。
+30 6 * * 1,3,5 /usr/bin/calendar
+当該年を通して毎日 6:30 に
+calendar
+コマンドを実行する場合は、次のように
+入力します。
+30 6 * * * /usr/bin/calendar
+以下のスクリプトを実行します。
+maintenance
+毎年 8 月の真夜中に、次のように入力します。
+0 0 * 8 * /u/harry/bin/maintenance
+コマンドに対する標準入力のテキストを定義する場合は、次のように入力します。
+0 16 * 12 5 /usr/sbin/wall%HAPPY HOLIDAY!%Remember to
+turn in your time card.
+%
+(パーセント記号) の後に続くテキストにより、
+wall
+コマンドへの標準入力は以下のように定義されます。
+HAPPY HOLIDAY!
+Remember to turn in your time card.</pre>

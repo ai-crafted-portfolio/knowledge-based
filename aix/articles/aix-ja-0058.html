@@ -1,0 +1,72 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+監査情報のビンを管理します。
+
+説明
+監査サブシステム内の
+auditbin
+デーモンは、監査イベント・データを交互に収集する一時ビン・ファイル
+bin1
+および
+bin2
+を管理します。 また、このコマンドは、データ・レコードのビンを処理のためにバックエンド・コマンドに配布します。
+監査イベントが発生すると、オペレーティング・システム・カーネルは、ビン・ファイルにレコードを 1 つ書き込みます。 ビン・ファイルがいっぱいになると、
+auditbin
+デーモンは
+/etc/security/audit/bincmds
+ファイルを読み取り、そのファイル内に定義されているバックエンド・コマンドにビン・レコードを配布します。
+/etc/security/audit/bincmds
+ファイルの各行には、パイプ結合したりリダイレクトしたりできる入出力を持つ 1 つ以上のコマンドが入っています。
+auditbin
+デーモンは、各コマンドから
+$bin
+文字列と
+$trail
+文字列を検索し、これらの文字列を、現行ビン・ファイルおよびシステム証跡ファイルのパス名で置換します。
+auditbin
+デーモンは、各コマンドが各ビンを最低一度は検出するようにしますが、ビンへのアクセスを同期させることはしません。 すべてのコマンドの実行が終わると、ビン・ファイルはさらに後続の監査レコードを収集できる状態になります。
+コマンドのどれかが失敗すると、
+auditbin
+デーモンは、データ・レコードの配布を中止し、root ユーザーまたは監査グループのメンバーがコマンドを停止するまで、60 秒間隔で
+/dev/tty
+デバイスにメッセージを送ります。
+
+構文
+auditbin
+
+例
+auditbin
+デーモンを構成するには、
+/etc/security/audit/config
+ファイルの始動スタンザとビン・スタンザを編集して、次の属性定義を組み込みます。
+start:
+binmode = on
+bin:
+trail = /audit/trail
+bin1 = /audit/bin1
+bin2 = /audit/bin2
+binsize = 25000
+cmds = /etc/security/audit/bincmds
+監査証跡を処理するコマンドを定義するには、
+/etc/security/audit/bincmds
+ファイルを編集して、
+次のような 1 つ以上のコマンド・ラインを組み込みます。
+/usr/sbin/auditcat -p -o $trail $bin
+/usr/sbin/auditselect -e &quot;event == USER_Login&quot; \
+$bin | /usr/sbin/auditpr &gt;&gt; /etc/log
+最初のコマンド・ラインは、圧縮された監査ビンを監査証跡ファイルに追加します。 2 番目の行は、
+USER_Login
+レコードを各ビン・ファイルから渡します。
+auditpr
+コマンドを使用して、レコードを
+/etc/log
+ファイルに追加します。
+バーチャル I/O サーバー・システムなどの集中管理された場所で監査レコードを取得するために、
+auditbin
+デーモンの仮想ログを使用可能にするには、
+/etc/security/audit/config
+ファイルのビン・スタンザに次の属性を追加します。
+bin:
+virtual_log = /dev/vlog0
+注:
+/dev/vlog0
+デバイス・パスは例です。 実デバイス名は、接続された VIOS システムでの仮想ログの構成方法に基づき、各クライアント論理区画 (LPAR) で異なる場合があります。</pre>

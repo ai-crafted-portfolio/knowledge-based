@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+条件と 1 つ以上の応答との間のリンクを作成します。
+
+説明
+mkcondresp
+コマンドは、条件と 1 つ以上の応答との間のリンクを作成します。 条件と応答の間のリンクを、
+条件/応答関連付け
+と呼びます。 このコマンドは 1 つ以上の条件/応答関連付けを作成しますが、モニターを開始するわけではありません。 クラスター環境では、条件と応答は、同一のノードに定義する必要があります。
+startcondresp
+コマンドを使用して、この条件とそれにリンクされている応答のモニターを後で開始することができます。
+条件/応答の関連付けをロックするには、
+rmcondresp
+、
+startcondresp
+、または
+stopcondresp
+コマンドの
+-L
+フラグを使用します。
+
+構文
+mkcondresp [ -h ][ -TV 条件 : ノード名］ response1 [ response2 ...]
+
+オプション
+フラグ
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+以下の例は、スタンドアロン・システムに適用されます。
+条件「FileSystem space used」を応答「Broadcast event on-shift」にリンクするには、
+次のコマンドを実行します。
+mkcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+条件「FileSystem space used」を応答「Broadcast event on-shift」
+および「E-mail root anytime」にリンクするには、次のコマンドを実行します。
+mkcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot; &quot;E-mail root anytime&quot;
+以下の例は管理ドメインに適用されます。
+管理サーバーの条件「FileSystem space used」を (同じく管理サーバーの) 応答「Broadcast event on-shift」にリンクするには、次のコマンドを管理サーバーで実行します。
+mkcondresp &quot;FileSystem space used&quot; &quot;Broadcast event on-shift&quot;
+管理サーバー上の条件「FileSystem space used」を応答
+「Broadcastevent on-shift」にリンクするには、
+次のコマンドをドメイン内のいずれかのノードで実行します。
+mkcondresp &quot;FileSystem space used&quot;:nodeA &quot;Broadcast event on-shift&quot;
+この例は、ピア・ドメインに適用されます。
+ノード&#x27;
+nodeA
+上の条件&quot;FileSystemspace used」を応答「Broadcastevent on-shift」（同じく&#x27;
+nodeA
+上）にリンクするには、ドメイン内のノードの1つで以下のコマンドを実行する：
+mkcondresp &quot;FileSystem space used&quot;:nodeA &quot;Broadcast event on-shift&quot;</pre>

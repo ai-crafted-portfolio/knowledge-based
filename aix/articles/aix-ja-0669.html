@@ -1,0 +1,47 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+リモート・コマンドを実行するためにサーバー機能を提供します。
+
+説明
+/usr/sbin/krshd
+デーモンは、Kerberos 認証を使用する
+rcp
+および
+rsh
+コマンドのためのサーバーです。
+krshd
+デーモンは、シェル・コマンドをリモートで実行できるようにします。 これらのコマンドは、トラステッド・ホスト上の特権を持つソケットからの要求に基づいています。 シェル・コマンドはユーザー認証を持つ必要があります。
+krshd
+デーモンは、
+/etc/services
+ファイルに定義された kshell ソケットで listen します。
+krshd
+デーモンの変更は、System Management Interface Tool (SMIT) またはシステム・リソース・コントローラー (SRC) を使用して、
+/etc/inetd.conf
+ファイルまたは
+/etc/services
+ファイルを編集することによって行うことができます。 コマンド・ラインで
+krshd
+を入力することはお勧めできません。
+krshd
+デーモンは、
+/etc/inetd.conf
+ファイルでコメント化されていない場合、デフォルトで開始されます。
+inetd
+デーモンは、その情報を
+/etc/inetd.conf
+ファイルと
+/etc/services
+ファイルから取得します。
+/etc/inetd.conf
+または
+/etc/services
+ファイルを変更した後、
+refresh -s inetd
+または
+kill 1 InetdPID
+コマンドを実行して、
+inetd
+デーモンに構成ファイルの変更について知らせます。
+
+構文
+/usr/sbin/krshd “ 注: rshd デーモンは、通常 inetd デーモンにより開始されます。 これは、SRC コマンドを使用してコマンド・ラインから制御することもできます。 ”</pre>

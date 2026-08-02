@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+診断ランタイム・オプションを表示します。
+
+説明
+diaggetrto
+コマンドは、
+1 つ以上の診断ランタイム・オプションの値を表示します。
+diaggetrto
+コマンドを使用して、
+以下のランタイム・オプションを表示することができます。
+Display Diagnostic Mode Selection Menus
+このオプションがオフの場合は、診断は問題判別モードでのみ実行されます。 デフォルトはオンです。
+Include Advanced Diagnostics
+このオプションがオンの場合は、診断は、タスク選択メニューまたはコマンド・ラインから実行されるときに、
+拡張モードで実行されます。 デフォルトはオフです。
+Number of days used to search error log
+このオプションは、
+エラー・ログ・エントリーが診断によって分析されなくなるまでの経過日数を制御するためのものです。 デフォルトは 7 です。
+Display Progress Indicators
+このオプションがオンの場合は、
+進行標識をサポートする診断アプリケーションが進行標識を表示します。 デフォルトはオンです。
+Diagnostic Event Logging
+このオプションがオンの場合は、
+診断アプリケーションがイベントをログします。 デフォルトはオンです。
+Diagnostic Event Log file size
+このオプションは、診断イベント・ログの最大サイズを制御するためのものです。 許容サイズの増分は、100 キロバイト単位で行われます。 デフォルトは 100K です。
+
+構文
+diaggetrto [[ -a ] [ -d ] [ -l ] [ -m ] [ -n ] [ -p ] [ -s ]]
+
+オプション
+フラグ
+項目 | 説明
+-a | Include Advanced Diagnostics の値を表示します。
+-d | Diagnostic Event Logging の値を表示します。
+-l | Diagnostic Event Log file size の値を表示します。
+-m | Display Diagnostic Mode Selection Menus の値を表示します。
+-n | Number of days used to search error log の値を表示します。
+-p | Display Progress Indicators の値を表示します。
+-s | すべての診断ランタイム・オプションを表示します。
+
+例
+診断イベント・ログ・サイズを表示するには、次のように入力します。
+/usr/lpp/diagnostics/bin/diaggetrto -l
+進行標識がオンになっているかどうかを検査し、かつ診断イベント・ロギングがオンになっているかどうかを検査するには、
+次のように入力します。
+/usr/lpp/diagnostics/bin/diaggetrto -p -d
+エラー・ログを検索する日数を表示するには、次のように入力します。
+/usr/lpp/diagnostics/bin/diaggetrto -n</pre>

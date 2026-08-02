@@ -1,0 +1,60 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+トレース・イベント・グループを操作します。
+
+説明
+trcevgrp
+コマンドは、
+トレース・イベント・グループを操作するのに使用します。 トレース・イベント・グループの追加、削除、または変更を行うには、
+そのシステム・グループ内にいなければなりません。 タイプが
+reserved
+のイベント・グループを変更または削除することは
+できません
+。
+バージョン
+AIX
+より古いバージョンでは
+AIX 6.1
+では、3桁のフックIDしか指定できない。
+AIX 6.1
+以降では、4 桁のフック ID を指定できます。
+
+構文
+イベント・グループをリストします。 trcevgrp -l [ イベント・グループ [...]] イベント・グループを除去します。 trcevgrp -r [ イベント・グループ [...]] イベント・グループを追加します。 trcevgrp -a -d &quot; group-description &quot; -h &quot; hook-list &quot; event-group イベント・グループを更新します。 trcevgrp -u [ -d &quot; group-description &quot;] [ -h &quot; フック・リスト &quot;] イベント・グループ ]
+
+オプション
+フラグ
+項目 | 説明
+-a [ -d group-description | -h hook-list ] | 新しいイベント・グループを作成します。 指定できるイベント・グループ名は 1 つだけです。 -a フラグを使用する場合は、 -d description および -h hook-list の両方を指定する必要があります。 -d か -h のどちらかを指定しなければ、 エラーが生成されます。
+-d group-description | フック記述を指定します。 すべての新しいグループに記述が必要です。
+-h hook-list | フック・リストはトレース・フック ID から成り立っています。 -a フラグを使用する場合、 -h フラグが必要です。 イベント・グループを更新する ( -u フラグ) 場合、 フック・リスト (指定されている場合) には、 そのグループのすべてのフック ID が含まれていなければなりません。 リスト・パラメーター項目はコンマで区切るか、 または二重引用符で囲んでからコンマやブランクで区切ることができます。
+-l event-group | 指定されたグループは、標準出力に対してリストされます。 イベント・グループが指定されていない場合、 すべてがリストされます。 リスト作成のフォーマットは以下のとおりです。 group name - group-description (type) 「hook list」 以下の例で、グループのリストを示します。 * -l tidhk - Hooks needed to display thread name (reserved) &quot;106,10C,134,139,465&quot; * -l gka - GENERAL KERNEL ACTIVITY (files,execs,dispatches) (reserved) &quot;106,10C,134,139,465,107,135,15b,12e,116,117,200,20E,20F&quot; * -l mydriver - My Driver (files,execs,dispatches) (reserved) &quot;106,1AB1,0AC0&quot;
+-r event-group | 指定したイベント・グループを除去します。
+
+-u [ -d &quot; group-description &quot; | -h &quot; hook-list &quot; ] event-group | イベント・グループに関する情報を更新するのに使用します。 -d description か -h hook-list のいずれかを指定しなければなりません。
+
+例
+すべてのイベント・グループのリストを取得するには、
+以下のコマンドを入力します。
+trcevgrp -l
+新しいグループを追加するには、
+以下のコマンドを入力します。
+trcevgrp -a -d &quot;my group description&quot; -h &quot;500,501,502&quot; mygrp
+これにより、
+mygrp
+というグループが追加され、
+my
+group description
+という説明が付けられ、
+500
+、
+501
+、および
+502
+というフックが付けられます。
+mygrp
+に別のフックを追加するには、
+以下のコマンドを入力します。
+trcevgrp -u -d &quot;my group description&quot; -h &quot;500,501,502,503&quot; mygrp
+注:
+すべてのフック ID を指定する必要があります。
+イベント・グループが現在保持されている SWserveAt ODM データベースのファイル。</pre>

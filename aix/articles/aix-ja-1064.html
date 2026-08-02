@@ -1,0 +1,51 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+作成されたオブジェクト・クラスにオブジェクトを追加します。
+
+説明
+odmadd
+コマンドは 1 つまたは複数の
+InputFile
+ファイルを入力とし、スタンザ・ファイルで検出されたデータとともにオブジェクトをオブジェクト・クラスに追加します。 各
+InputFile
+ファイルは、オブジェクト・クラスに追加するオブジェクトを記述するデータを含む ASCII ファイルです。 ファイルが指定しないと、入力は stdin (標準入力) から取得されます。
+追加先のクラスは ASCII 入力ファイルで指定されます。 このファイルの一般フォーマットは以下のとおりです。
+class1name:
+descriptor1name = descriptor1value
+descriptor2name = descriptor2value
+descriptor3name = descriptor3value
+class2name:
+descriptor4name = descriptor4value
+.
+入力ファイルには
+&amp;#xa5;
+(&amp;#xa5;) を入れることができます。これは C 言語の場合と同様に処理されます。 入力ファイル内の文字列値とメソッド値は必ず &quot; &quot; (二重引用符) で囲みます。 ディスクリプター値は複数行にまたがって指定できます。
+
+構文
+odmadd [ InputFile ...]
+
+例
+odmadd
+コマンドが使用する ASCII 入力ファイルは以下のようになります。
+Fictional_Characters:
+Story_Star = &quot;Cinderella&quot;
+Birthday = &quot;Once upon a time&quot;
+Age = 19
+Friends_of = Cinderella
+Enemies_of = &quot;Cinderella&quot;
+Friend_Table:
+Friend_of = &quot;Cinderella&quot;
+Friend = &quot;Fairy godmother&quot;
+Friend_Table:
+Friend_of = &quot;Cinderella&quot;
+Friend = &quot;Mice&quot;
+Enemy_Table:
+Enemy_of = &quot;Cinderella&quot;
+Enemy = &quot;Wicked sisters&quot;
+Enemy_Table:
+Enemy_of = &quot;Cinderella&quot;
+Enemy = &quot;Mean stepmother&quot;
+前のファイルの名前が以下の場合、
+NewObjects
+次のコマンドは、オブジェクトを既存のオブジェクト・クラスに追加します。
+odmadd NewObjects
+html を参照してください。</pre>

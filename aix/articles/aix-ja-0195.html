@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ローカル NFS レルム・ドメイン間マッピングを変更します。
+
+説明
+chnfsrtd
+コマンドは、システムのローカル・レルム・ドメイン間マッピングを管理します。 ローカル・レルム・ドメイン間マッピングは、
+/etc/nfs/realm.map
+ファイルに保管されます。
+注:
+現在のレルム・ドメイン間マッピングをリストするには、
+chnfsdom
+コマンドを使用します。
+
+構文
+chnfsrtd [ -a RealmDomain ] [ -e OldRealm OldDomain NewRealm NewDomain ] [ -r RealmDomain ]
+
+オプション
+フラグ
+項目 | 説明
+-a RealmDomain | 新しいレルム・ドメイン間マッピングを追加します。
+-e OldRealm OldDomain NewRealm NewDomain | 既存のレルム・ドメイン間マッピングを編集します。
+-r RealmDomain | レルム・ドメイン間マッピングを除去します。
+
+例
+新しいレルム・ドメイン間マッピングを追加する場合は、次のように入力します。
+chnfsrtd -a realm1 domain1
+このコマンドは以下を追加します。
+realm1 domain1
+を
+/etc/nfs/realm.map
+ファイルに追加します。
+レルム・ドメイン間マッピングを除去する場合は、次のように入力します。
+chnfsrtd -r realm2 domain2
+このコマンドは、
+realm2 domain2
+/etc/nfs/realm.map
+ファイルから (そのマッピングが存在する場合)。
+既存のレルム・ドメイン間マッピングを編集する場合は、次のように入力します。
+chnfsrtd -e realm3 domain3 realm4 domain4
+このコマンドは、
+realm3 domain3
+マッピング
+realm4 domain4
+/etc/nfs/realm.map
+ファイル内 (そのマッピングが存在する場合)。</pre>

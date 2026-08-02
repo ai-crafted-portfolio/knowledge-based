@@ -1,0 +1,40 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+/etc/inittab
+ファイル内のレコードを変更します。
+
+説明
+chitab
+コマンドは、
+/etc/inittab
+ファイル内のレコードを変更します。 パラメーター文字列
+Identifier
+:
+Run Level
+:
+Action
+:
+Command
+は、
+/etc/inittab
+ファイルに対する新しいエントリーです。 このパラメーター文字列の
+Identifier
+部分のフィールドを使用して、特定のレコードを検索できます。 このコマンドは、指定した
+Identifier
+を検索し、そのレコードを変更します。
+“
+注:
+chitab
+コマンドは、
+/etc/inittab
+ファイルのエントリーをコメント化することはできません。
+”
+
+構文
+chitab { 識別子 : RunLevel : アクション : コマンド }
+
+例
+レコードの実行レベルを変更するには、以下のようにします。
+tty2
+次のように入力します。
+chitab &quot;tty002:23:respawn:/usr/sbin/getty /dev/tty&quot;
+追加するレコードにスペースまたはタブがあるときは、引用符が必要です。</pre>

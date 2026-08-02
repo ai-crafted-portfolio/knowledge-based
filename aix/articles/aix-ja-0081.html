@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+バッテリー情報の制御または照会を行います。
+
+説明
+battery
+コマンドは、バッテリーの制御または照会を行います。
+-d
+オプションを指定せずに
+battery
+コマンドを呼び出すと、次のバッテリー情報が表示されます。
+battery type: NiCd or NiMH
+current battery usage: charging, discharging, in use, fully charged
+battery capacity
+current remaining capacity
+full charge count
+-d
+オプションを指定して
+battery
+コマンドを呼び出すと、上記のほかに次のバッテリー情報も表示されます。
+discharge quantity
+discharge time
+バッテリーの容量の 50% を使い、そのつど (約 20 から 30 回) 充電すると、そのバッテリーは容量の 50% までしか使用できなくなります。 これは、
+バッテリーのメモリー効果
+と呼ばれるものです。 この場合、そのバッテリーを放電して (空にして) 再充電すると、再び 100% まで使用できるようになります。
+
+構文
+battery [ -d ]
+
+オプション
+フラグ
+項目 | 説明
+-d | バッテリーを放電して、バッテリーのメモリー効果をリセットします。
+
+例
+現在のバッテリー状況を表示するには、次のように入力します。
+battery
+以下のような結果が表示されます。
+battery type: NiMH
+current battery usage: in use
+battery capacity: 3200 (mAH)
+current remaining capacity: 1800 (mAH) [57%]
+full charge count: 3</pre>

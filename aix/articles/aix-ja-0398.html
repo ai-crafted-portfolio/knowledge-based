@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+System V 印刷サブシステムの印刷キュー要求を使用可能にします。
+
+説明
+dslpenable
+および
+dslpdisable
+コマンドは、待ち状態にされている印刷処理要求からの印刷キューを使用可能または使用不可にするのに使用します。
+enable
+や
+disable
+コマンドとは異なり、
+ディレクトリーを使用可能なコマンドは、ディレクトリー・サービスが使用可能であれば、リモート印刷システムを制御できます。 これは、
+これらのコマンドがディレクトリー・サーバー上の印刷キュー・オブジェクトに直接書き込むためです。
+
+構文
+使用不可 PrintQueueName
+
+例
+印刷キュー hpcolor を使用可能にするには、次のように入力します。
+dslpenable hpcolor</pre>

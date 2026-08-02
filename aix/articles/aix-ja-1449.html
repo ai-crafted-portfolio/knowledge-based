@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+定期的にハウスキーピングを行うために
+sendmail
+キューをクリーンアップします。
+
+説明
+smdemon.cleanu
+コマンドは、
+sendmail
+コマンドのキューをクリーンアップして
+/var/spool/mqueue/log
+ファイルを維持管理するシェル・プロシージャーです。
+smdemon.cleanu
+コマンドを使用可能にする
+には、
+/var/spool/cron/crontabs/root
+ファイル内
+の
+smdemon.cleanu
+行の先頭の # 文字を削除して
+コメント・ステートメントを除去しなければなりません。
+/var/spool/mqueue
+ディレクトリーが存在しない場合は、
+/var/spool/cron/crontabs/root
+ファイルを変更しないでください。
+各
+smdemon.cleanu
+セッション用のログ・ファイルの平均サイズにログ・ファイルの数を乗じた値 (スペース) が、必要以上にスペースを使用しないように注意してください。 それぞれのニーズに合うように、ログ・ファイルの数を調整できます。
+注:
+smdemon.cleanu
+コマンドは通常、コマンド行には入力しません。 このコマンドは、
+cron
+デーモンによって実行されます。
+
+構文
+/usr/lib/smdemon.cleanu
+
+例
+smdemon.cleanu
+手順を自動的に実行するには、
+/var/spool/cron/crontabs/root
+ファイルを編集して、以下のような
+smdemon.cleanu
+行の先頭の # (コメント文字) を削除してください。
+# ulimit 5000; /usr/lib/smdemon.cleanu &gt; /dev/null</pre>

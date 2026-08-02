@@ -1,0 +1,51 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+installp
+コマンドの簡単なコピー操作を行います。 このコマンドは、
+installp
+コマンドおよびインストール・スクリプトにより使用されます。
+
+説明
+inucp
+コマンドは、
+StartDirectory
+にルートがあるファイル・ツリー内のファイルを
+FinalDirectory
+ルート上の適切な場所にコピーします。
+既に
+FinalDirectory
+ファイル・ツリーに存在するファイルを置き換える前に、
+inurecv
+コマンドが必要とするまでそのファイルを保管しておくため、
+inusave
+コマンドを実行する必要があります。
+ListFile
+パラメーターには、
+ProductName
+のすべてのファイルのリストを 1 行に 1 つずつ指定します。
+ListFile
+は、プロダクトがコピーを必要とするファイルの相対パスが入っているファイルの絶対パス名です。
+ProductName
+パラメーターには、コピーするソフトウェア・プロダクトの名前を指定します。
+
+構文
+inucp -s StartDirectory [ -e FinalDirectory ] ListFile ProductName
+
+オプション
+フラグ
+項目 | 説明
+-e FinalDirectory | ファイルのコピー先であるファイル・ツリーのルートを指定します。 FinalDirectory にはファイル・ツリーのベースを指定してください。 このフラグが指定されなかった場合、デフォルト・ディレクトリーは / (ルート) ディレクトリーです。
+-s StartDirectory | ファイルのコピー元であるファイル・ツリーのルートを示します。
+環境変数
+項目 | 説明
+INUEXPAND (拡張数) | このコピーを実行する上で必要ならファイルシステムを拡張する場合 (つまり -X フラグが渡された場合)、 installp コマンドによってこのフラグが 1 に設定されます。 ファイルシステムを拡張しない場合は、0 に設定されます。 この環境変数が設定されていない場合、デフォルトではファイルシステムは拡張されません。
+INUTEMPDIR | installp コマンドにより、このフラグが現在の一時ディレクトリーのパスに設定されます。 このフラグが設定されていない場合、デフォルトは /tmp となります。
+
+例
+/usr/lpp/X11/inst_root/al
+リストに登録されているすべてのファイルを
+/usr/lpp/X11/inst_root
+ファイル・ツリーからルート・ディレクトリーへコピーするには、
+次のように入力します。
+inucp
+-s
+/usr/lpp/X11/inst_root /usr/lpp/X11/inst_root/al X11</pre>

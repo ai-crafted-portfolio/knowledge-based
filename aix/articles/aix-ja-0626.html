@@ -1,0 +1,214 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+インストール・プロシージャーの間にインストールまたは更新されるファイルを保管します。 このコマンドは、
+installp
+コマンドおよびインストール・スクリプトにより使用されます。
+
+説明
+inusave
+コマンドは、
+ListFile
+パラメーターで指定されたファイルに登録されているファイルおよびアーカイブ・ファイルを
+ProductName
+で指定されたソフトウェア・プロダクト用に保管します。
+inusave
+コマンドは、
+installp
+コマンドと共に使用するように設計されています。
+inusave
+コマンドは、
+/usr/lpp/
+PackageName
+/
+FilesetName
+/V.R.M.F.save
+ディレクトリーを作成します (まだ存在しない場合)。ここで、
+Level
+は
+vv.rr.mmmm.ffff
+の形式を持ち、
+vv
+= バージョン、
+rr
+= リリース、
+mmmm
+= モディフィケーション、さらに
+ffff
+= フィックスです。 インストール・プロシージャーにより保管されたファイルが、このディレクトリー内に保管されます。 保管ディレクトリーは
+INUSAVEDIR
+環境変数によって定義されます。
+インストールの / (ルート)、
+/usr
+、
+/usr/share
+部分を保管するディレクトリーは、以下のようになります。
+/lpp/
+パッケージ名
+/
+ファイルセット名
+/V.R.M.F.save
+,
+&#x27;
+/usr/lpp/
+&#x27;
+パッケージ名
+&#x27;
+/
+&#x27;
+ファイルセット名
+&#x27;
+/V.R.M.F.save
+、および
+/usr/share/lpp/
+パッケージ名
+/
+ファイルセット名
+/V.R.M.F.save
+それぞれ、
+installp
+コマンドによって設定している場合です。
+installp
+コマンドは、これらの 3 つのディレクトリーごとに
+inusave
+を呼び出します。 現行コピーが存在する場合、
+ListFile
+パラメーターには、保管されるファイルが登録されているファイルの絶対パス名を指定します。
+ListFile
+で指定したファイル内のリストにファイルが既に存在する場合、
+inusave
+コマンドはこのファイルを
+$INUSAVEDIR/update
+.n
+ファイルにコピーします。
+n
+は
+inusave
+コマンドによって割り当てられる整数です。 ファイルが存在しない場合、
+inusave
+コマンドは
+ListFile
+パラメーター内のこのエントリーが、
+新しいファイルまたはこのセクションで後述するアーカイブ・プロシージャーによってアーカイブ保存または処理されるファイルであると見なします。
+inusave
+コマンドは、
+$INUSAVEDIR/update.list
+
+ファイル内の保管ファイルのリストを管理します。 このファイルは、保管ファイルごとに 1 つのエントリーを持つスタンザ・ファイルです。
+update.list
+ファイルのエントリーの例を次に示します。
+/usr/bin/chkey:
+update.n = update.1
+option = bosnet.nfs.obj
+_id = 209
+_reserved = 0
+_scratch = 0
+lpp_id = 72
+private = 0
+file_type = 0
+format = 1
+loc0 = /usr/bin/chkey
+size = 7800
+checksum = 44561
+/usr/bin/domainname:
+update.n = update.2
+option = bosnet.nfs.obj
+_id = 210
+_reserved = 0
+_scratch = 0
+lpp_id = 72
+private = 0
+file_type = 0
+format = 1
+loc0 = /usr/bin/domainname
+size = 2526
+checksum = 12439
+上記の例で、
+/usr/bin/chkey
+(スタンザ名) は保管されたオリジナルのファイルの名前で、
+update.1
+はコピー先である
+$INUSAVEDIR
+ディレクトリー内のファイルの名前です。 ファイル
+/usr/bin/chkey
+は、ソフトウェア・プロダクト
+bosnet
+のインストール可能なオプションである
+bosnet.nfs.obj
+に属しています。 スタンザ名とスタンザ内の最初の 2 項目 (update.n と option) は、スタンザごとに
+update.list
+ファイル内に存在します。 スタンザ内の残りの項目は、ソフトウェア重要プロダクト・データ (SWVPD) データベースからの情報で、スタンザによってそれぞれ異なる場合もあります。
+有効なアーカイブ制御ファイル
+lpp.acf
+があれば、アーカイブされた構成要素ファイルは現行ディレクトリーに保管されます。
+lpp.acf
+ファイルが存在する場合、
+inusave
+コマンドは
+ListFile
+で指定されたファイルに登録されている各ファイル名と
+lpp.acf
+内の構成要素ファイル名とを比較します。 一致しているものが見つかると、
+inusave
+コマンドは
+ar
+コマンドを使用して、関連アーカイブ・ファイルからその構成要素ファイルを取り出します。 そしてそのファイルを
+
+$INUSAVEDIR/archive
+.n
+ファイルに移動します。
+n
+は
+inusave
+コマンドによって選択される整数です。
+inusave
+コマンドは、
+$INUSAVEDIR/archive.list
+ファイルに保管されている取り出されたファイルのリストを管理します。 このファイルは、保管された構成要素ファイルごとに 1 つのエントリーを持つスタンザ・ファイルです。
+archive.list
+ファイルのエントリーの例を次に示します。
+/prodx.filea:
+archive.n = archive.1
+arc_name = /usr/lib/productx/libprodx.a
+option = productx.option1.obj
+_id = 833
+_reserved = 0
+_scratch = 0
+lpp_id = 7
+private = 0
+file_type = 0
+format = 1
+loc0 = /prodx.filea
+loc1 = &quot;h11,h12&quot;
+loc2 =
+&quot;/usr/lpp/productx.filea/s11,/usr/lpp/productx.filea/s12&quot;
+size = 1611
+checksum = 62793
+上記の例で、
+/prodx.filea
+(スタンザ名) は、保管されたオリジナルの構成要素ファイルの名前であり、
+archive.1
+はコピー先である
+$INUSAVEDIR
+ディレクトリー内のファイルの名前です。
+/usr/lib/productx/libprodx.a
+は、
+lpp.acf
+アーカイブ制御ファイル内に定義されたアーカイブ・ファイルの絶対パス名です。 構成要素ファイル
+/prodx.filea
+は、
+ソフトウェア・プロダクト
+productx
+のインストール可能なオプションである
+productx.option1.obj
+に属しています。 スタンザ名とスタンザ内の最初の 3 つの項目 (archive.n、arc_name、option) は、
+archive.list
+ファイル内の各スタンザに存在します。 スタンザ内の残りの項目は SWVPD データベースからの情報で、スタンザによってそれぞれ異なる場合もあります。
+
+構文
+イヌサセイブ ListFile ProductName
+
+例
+snaserv
+プログラムの
+snaserv.al
+ファイルに登録されているすべてのファイルを保管するには、次のように入力します。
+inusave /usr/lpp/snaserv/snaserv.al snaserv</pre>

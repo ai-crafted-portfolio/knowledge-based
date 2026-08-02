@@ -1,0 +1,70 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+artexremset
+コマンドは、1 つ以上のリモート・システムで
+artexset
+コマンドを実行します。
+
+説明
+artexremset
+は、サーバーによって提供された指定のプロファイルを持つ各クライアント上、または LDAP サーバー上に保管されたプロファイルを持つ各クライアント上で、
+artexset
+コマンドを実行する機能を提供します。 したがって、ローカルの
+artexset
+コマンドに指定されたすべてのコマンド・オプションは、各クライアントのローカルの
+artexset
+コマンドに直接伝えることができるように、サーバーも提供する必要があります。
+artexremset
+コマンドは、NIM マスター上でのみ実行されます。 プロファイルが NIM マスター上にある場合、
+artexremset
+コマンドは、そのプロファイルをリモート・クライアント・マシンにコピーした後、クライアントに
+artexset
+コマンドの実行を要求します。
+-L
+オプションを指定した場合、指定されたプロファイル名は、LDAP 内に存在するプロファイルへのパス名とみなされます。 したがって、NIM マスターからクライアントにコピーされるプロファイルはありません。 その代わりに、LDAP パス名がカスタム・スクリプト・ファイルにパックされるので、ローカルの
+artexset
+コマンドは、
+ldap://
+接頭部が LDAP ファイルを表すことを理解する必要があります。
+デフォルトでは、
+artexremset
+コマンドの終了状況は、すべてのリモート
+artexset
+コマンドの累積の &quot;OR&quot; です。
+-D
+オプションを指定すると、個別の各 NIM コマンドの結果が取り込まれ、個別の各ノードと関連付けられて、
+stdout
+リストに表示されます。
+
+構文
+artexremset [ [ [ [ [-q] [-c] [-r] [-R] ] | -t | -p] [-l {dynamic | noreboot | reboot | all} ] ] | -b | -x | -u] [-L] [-D] profile {clientname | nim_mac_group} artexremset [-q] [-c] [-r] [-R] [-l {dynamic | noreboot | reboot | all} ] [-L] [-D] profile {clientname | nim_mac_group} artexremset [-l {dynamic | noreboot | reboot | all} ] -t [-L] [-D] profile {clientname | nim_mac_group} artexremset [-l {dynamic | noreboot | reboot | all} ] -p [-L] [-D] profile {clientname | nim_mac_group} artexremset -b [-L] [-D] profile {clientname | nim_mac_group} artexremset -x [-D] {clientname | nim_mac_group} artexremset -u [-D] {clientname | nim_mac_group}
+
+オプション
+フラグ
+項目 | 説明
+-q | 致命的でない警告メッセージを無視するよう指示します。
+-c | artexset コマンドが値を設定し、その値がシステムに正しく適用されたか検査するよう指示します。
+-r | -c オプションで、すべてのパラメーターが正しく適用されたとは限らないことが示された場合に、 -r オプションは、指定された profile のパラメーター値をその元の状態にロールバックするよう指示します。 これを行うために、このコマンドは latest_rollback.xml ファイルに保管されている値を適用します。
+-l { dynamic | noreboot | リブート | all } | コマンドを適用するレベルを指示します。 -l フラグには次のオプションがあります。 dynamic 変数は、非中断パラメーターのみに適用することを示します。 noreboot 変数は、リブートを必要としないすべてのパラメーターに適用し、必要に応じてリソースをリサイクルすることを示します。 reboot 変数は、リブート制約を持つパラメーターのみに適用することを示します。 all 変数は、リブートを必要とするものも含めて、すべてのパラメーターに適用することを示します。
+-R | ロールバック・プロファイルを作成しないよう指定します。
+-b | マスター・プロファイル (ブート・プロファイルとも呼ばれる) を使用可能にするよう指示します。
+-x | マスター・プロファイル (ブート・プロファイルとも呼ばれる) を使用不可にするよう指示します。 このフラグは -b オプションとは反対のものです。 -x オプションを指定すると、プロファイル・パラメーターは不要となります。
+-t | ランタイム・システムで認識されたときに、 profile にリストされている値が有効なチューナブルかどうかテストするよう指示します。
+-p | システムとは異なる、プロファイルからのパラメーターおよび値を含んだ XML 出力を生成します。 このオプションは、比較がプロファイルとシステムの間で行われたときにだけ有効です。
+
+-u | 最後に適用されたプロファイルのパラメーター値を、最後に artexset コマンドが出される前の状態にロールバックするよう指示します。 これを行うために、このコマンドは /etc/security/artex/latest_rollback.xml ファイルに保管されている値を適用します。 -u オプションを指定すると、プロファイル・パラメーターは不要となります。
+-L | 各 AIX® Runtime Expertクライアントに対し、プロファイル文字列で指定された LDAP リポジトリからプロファイルをダウンロードするよう指示します。
+-D | 個別の各ノードに関連付けられたリモート artexset コマンドの結果を出力するよう指示します。
+
+例
+次の例では、NIM マスター上にあるプロファイルを使用して、クライアント・マシンで
+artexset
+コマンドを実行する方法を説明します。
+artexremset nim_profile.xml client1
+次の例では、LDAP サーバー上にあるプロファイルを使用して、複数のクライアント・マシンで
+artexset
+コマンドを実行する方法を説明します。
+artexremset –L ldap://profile1.xml client1 mac_group1 client2
+次の例では、個別の各クライアント・マシンに関連付けられたリモート
+artexset
+コマンドの結果を出力する方法を説明します。
+artexremset –D profile1.xml client1 client2</pre>

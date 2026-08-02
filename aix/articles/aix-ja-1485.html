@@ -1,0 +1,66 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+start-secldapclntd
+スクリプトは、
+secldapclntd
+LDAP クライアント・デーモンを開始するために使用されます。
+
+説明
+start-secldapclntd
+スクリプト
+は、
+secldapclntd
+デーモンが実行されていない場合に、
+このデーモンを開始します。
+secldapclntd
+デーモンが既に
+実行中の場合はなにもしません。 このスクリプト
+は、
+secldapclntd
+デーモンを開始する前に、
+前回の
+secldapclntd
+デーモン・プロセスから
+ポートマッパー登録 (があった場合にこれを) 除去します。 この操作に
+より、ポートマッパー登録の失敗が原因で新規デーモン・プロセスの開
+始が失敗するのを防止します。
+
+構文
+/ /usr/sbin/start-secldapclntd [ -C CacheSize ] [ -p NumOfThread ] [ -t CacheTimeOut ] [ -T HeartBeatIntv ] [ -o ldapTimeOut ]
+
+オプション
+フラグ
+デフォルトでは、
+/etc/security/ldap/ldap.cfg
+ファ
+イルに指定されている構成情報を
+secldapclntd
+デーモン
+が起動時に読み取ります。
+secldapclntd
+プロセスを
+開始するときに、コマンド・ラインに次のオプションを使用すると、コマンド・ラインのオプション
+が
+/etc/security/ldap/ldap.cfg
+ファイルの値を上書きします。
+項目 | 説明
+-C CacheSize | secldapclntd デーモンが使用するキャッシュ・エントリーの 最大数を、CacheSize に指定された数に設定します。 ユーザー・キャッシュ・エントリー数の有効な範囲は 100 から 65536 です。 デフォルト値は 1000 です。 グループ・キャッシュ・エントリーの有効な範囲は 10 から 65536 です。 デフォルト値は 100 です。 start-secldapclntd コマンドで -C オプションを使用してユーザー・キャッシュ・エントリーを設定すると、グループ・キャッシュ・エントリーはユーザー・キャッシュ・エントリーの 10% に設定されます。
+-o ldapTimeOut | LDAP クライアントからサーバーへの要求のタイムアウト期間 (秒)。 この値は、クライアントが LDAP サーバーからの応答を待つ時間の長さを決定します。 有効範囲は 0 から 3600 (1 時間) です。 デフォルトは 60 秒です。 この値を 0 に設定すると、タイムアウトが使用不可になり、クライアントは無期限に待つことを強制されます。
+-p NumOfThread | secldapclntd デーモンが使用するスレッド の数を、 NumOfThread に設定します。 有効範囲は 1 から 256 です。 デフォルトは 10 です。
+-t CacheTimeout | キャッシュが CacheTimeout 秒で期限切れになるように設 定します。 有効範囲は 60 から 3600 秒です。 デフォルトは 300 秒です。
+-T HeartBeatIntv | このクライアントと LDAP サーバーの間の ハートビートの時間間隔を設定します。 有効な値は 60 から 3,600 秒です。 デフォルト値は 300 です。
+
+例
+secldapclntd
+デーモンを開始するには、次のように入力します。
+/usr/sbin/start-secldapclntd
+20 個のスレッドを使用し、キャッシュのタイムアウト値を 600 秒に設定して
+secldapclntd
+を開始する場合は、次のように入力します。
+/usr/sbin/start-secldapclntd -p 20 -t 600
+これらの値は
+/etc/security/ldap/ldap.cfg
+ファイルに指定し
+て、
+secldapclntd
+プロセスを開始するたびにこれらの値が使
+用されるようにすることをお勧めします。</pre>

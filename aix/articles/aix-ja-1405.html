@@ -1,0 +1,43 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+SCTP の制御と構成を行います。
+
+説明
+sctpctrl
+コマンドは、SCTP カーネル・エクステンションの制御と構成に使用します。 このコマンドは、SCTP カーネル・エクステンションのロードおよびアンロードに使用できます。 また、SCTP データのダンプ、および各種の SCTP チューナブルの設定または検索にも使用できます。 さらに、
+sctpctrl
+コマンドを使用して、SCTP 固有のネットワーク統計情報の読み取りおよびリセットを行うこともできます。
+
+構文
+sctpctrl { load | ダンプ | set } sctpctrl 統計 [ reset ] [ interval ] sctpctrl set { name = value | デフォルト [ 名前 ]} sctpctrl get [ 名前 ]
+
+例
+SCTP カーネル・エクステンションをロードするには、次のように入力します。
+sctpctrl load
+SCTP 統計情報をリセットするには、次のように入力します。
+sctpctrl stats reset
+このコマンドは、すべての SCTP 統計情報をゼロにリセットします。
+SCTP チューナブルの値を取得するには、次のように入力します。
+sctpctrl get
+すべての SCTP チューナブルとその値がリストされます。 次に出力例を示します。
+sctp_assoc_maxerr = 10
+sctp_cookie_life = 60
+sctp_delack_timer = 4
+sctp_dontdelayack = 1
+sctp_ecn = 1
+sctp_ephemeral_high = 65535
+sctp_ephemeral_low = 32768
+sctp_instreams = 2048
+sctp_maxburst = 8
+sctp_outstreams = 10
+sctp_path_maxerr = 5
+sctp_pmtu_discover = 1
+sctp_rttmax = 60
+sctp_rttmin = 1
+sctp_recvspace = 65536
+sctp_sendspace = 65536
+sctp_send_fewsacks = 0
+sctp_path_maxerr
+を値
+6
+に設定するには、次のように入力します。
+sctpctrl set sctp_path_maxerr=6</pre>

@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+カーネルのクレデンシャル・キャッシュから該当する Generic Security Service API (GSSAPI) クレデンシャルを廃棄するように、ネットワーク・ファイルシステム (NFS) カーネル拡張子に通知します。
+
+説明
+nfsauthreset
+コマンドは、プロセス認証グループ (PAG) がプロセスで設定されているかどうかに応じて、キャッシュされたコンテキストにマークを付けます。 プロセスで PAG が設定されている場合は、同じユーザー ID (UID) と PAG を持つキャッシュされた GSSAPI コンテキストに破棄のマークを付けます。 PAG が設定されていない場合は、同じ UID を持つキャッシュされた GSSAPI コンテキストに破棄のマークを付けます。
+
+構文
+nfsauthreset
+
+例
+kinit
+コマンドおよび
+kdestroy
+コマンドを指定した後で、キャッシュされたカーネル・クレデンシャルを破棄するには、次のように入力します。
+nfsauthreset</pre>

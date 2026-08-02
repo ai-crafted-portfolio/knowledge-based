@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プロキシーが使用可能化されている Cachefs の構成済み、マウント済みのインスタンスを除去します。
+
+説明
+指定された Cachefs マウントがアンマウントされます。 対応する NFS クライアント・マウントもアンマウントされます。 最終的に、
+ローカル・ファイルシステムに作成されたすべてのキャッシュ情報が除去されます。
+注:
+Cachefs インスタンスが NFSエクスポートの場合、
+rmnfsproxy
+を実行する前に、まずそのインスタンスをアンエクスポートする必要があります。
+
+構文
+/usr/sbin/rmnfsproxy Cachefs_mount_point
+
+例
+既に構成済みの
+/proj1_cached
+Cachefs インスタンスを除去するには、次のように入力します。
+rmnfsproxy /proj1_cached</pre>

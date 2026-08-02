@@ -1,0 +1,56 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+mkcatdefs
+コマンドからの出力データをパイプ経由で
+gencat
+コマンドに渡します。
+
+説明
+runcat
+コマンドは、
+mkcatdefs
+コマンドを呼び出して、メッセージ・カタログ・ソース・データ (
+mkcatdefs
+からの出力) を、
+gencat
+プログラムにパイプ接続します。
+SourceFile
+パラメーターで指定されたファイルには、記号 ID 付きのメッセージ・テキストが入っています。
+mkcatdefs
+プログラムは
+CatalogName
+パラメーターを使用して、
+CatalogName
+値の末尾に
+_msg.h
+を追加することによってシンボリック定義ファイルの名前を生成し、
+CatalogName
+値の先頭に
+MF_ (2)
+を追加することによってカタログ・ファイルのシンボル名を生成します。 定義ファイルは、
+アプリケーション・プログラムに含めなければなりません。 カタログ・ファイルのシンボル名は、
+ライブラリー関数 (例えば、
+catopen
+サブルーチン) の中で使用できます。
+CatalogFile
+パラメーターは、
+gencat
+コマンドによって作成されたカタログ・ファイルの名前です。 このパラメーターを指定しない場合、
+gencat
+コマンドは、
+CatalogName
+値の末尾に
+.cat
+を追加して、カタログ・ファイルの名前を指定します。 このファイル名は、
+catopen
+ライブラリー関数の中で使用することもできます。
+
+構文
+runcat CatalogName SourceFile [ CatalogFile ]
+
+例
+以下の名前のカタログを生成します。
+test.cat
+メッセージ・ソース・ファイルから
+test.msg
+次のように入力します。
+runcat test test.msg</pre>

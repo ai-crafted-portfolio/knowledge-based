@@ -1,0 +1,610 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+仮想構成データと論理構成データをバックアップするには、指定されたイメージをインストールし、 Virtual I/O Server （VIOS）の仮想構成データと論理構成データを復元します。
+
+説明
+viosupgrade
+コマンドを実行すると、以下の処理がバックグラウンドで実行される：
+バックアップ
+仮想構成データと論理構成データをバックアップして、新規インストール後にVIOSパーティションが回復できるようにします。
+インストール
+提供されたVIOSイメージから新しいVIOSパーティションをインストールします。
+復元
+VIOSパーティションの仮想構成データと論理構成データをリストアする。
+注:
+viosupgrade
+コマンドを使用する場合、論理パーティションのインストールと設定は、アップグレード操作中に一度だけ行うことができます。
+viosupgrade
+コマンドを実行すると、デフォルトでは以下のセキュリティ設定が保存・復元される：
+ログイン属性とパスワードを持つユーザーアカウントとグループ。
+ユーザーの役割、権限、特権コマンドデータベース（privcmds）、特権デバイスデータベース（privdevs）、特権ファイル（privfiles）、ドメインなどの役割ベースのアクセス制御（RBAC）構成。
+ログインと認証の設定。
+AIX サブシステムの構成を監査する。
+信頼された実行ポリシーとデータベース。
+IPSecフィルターとトンネル設定。
+軽量ディレクトリアクセスプロトコル（ LDAP ）のクライアント設定。
+オープンセキュア・ソケット・レイヤー（ OpenSSL ）、 Open Secure Shell プロトコル（ OpenSSH ）、 Kerberos コンフィギュレーション。
+セキュリティ設定の一部は、VIOSの旧バージョンから復元されます。 VIOSの最新バージョンでは、いくつかの新しいセキュリティ設定が有効になっています。 残りのセキュリティ・コンフィギュレーションについては、旧バージョンと新バージョンを統合する。
+以前のバージョンと現在のバージョンの両方が使用されていないセキュ リティ・コンフィギュレーションは、
+/usr/ios/security/saveconf
+ディレクトリに保存される。 設定ファイルを手動で見直し、マージすることができます。
+
+構文
+bosinst タイプのアップグレード操作を実行するには、次の構文を使用します。 viosupgrade -t bosinst -n hostname -m ios_mksysbname -p spotname { -a RootVGCloneddisk: ... | -r RootVGInstallDisk: ... | -s } [ -c ] [ -e resources: ... ] [ -F skipclusterstate ] [ -v ] altdisk タイプのアップグレード操作を実行するには、次の構文を使用します。 viosupgrade -t altdisk -n hostname -m ios_mksysbname -a RootVGInstallDisk: ... [ -c ] [ -e resources: ... ] [ -F Options: ... ] [ -v ] [ -g filename ] [ -P post_install_script ] [ -k pre_restore_script ] [ -X options: ... ] [ -u ] [ -bg ] [ -noprompt options,... ] bosinst タイプまたは altdisk タイプのアップグレード操作を複数のノードに対して実行するには、次の構文を使用します。 viosupgrade -t { bosinst | altdisk } -f filename [ -v ] 起動されたアップグレード操作の状況を確認するには、次の構文を使用します。 viosupgrade -q { [ -n hostname | -f filename ] } [ -S ] ios_mksysb イメージ・ファイルを International Organization for Standardization (ISO) イメージ・ファイルから作成するには、次の構文を使用してください。 viosupgrade -I ISOImage1:ISOImage2 -w directoryPath -x iosmksysbResourceName [ -y spotResourceName ]
+
+オプション
+フラグ
+フラグ名 | 説明
+-a | インストール用の 1 つ以上の代替ディスクを指定します。 インストールの種類に応じて、以下のいずれかのアクションが実行されます： bosinst タイプのインストール： 提供されたディスクは、現在の rootvg ディスクのクローンに使用される。 マイグレーション・プロセスの完了後、現在の rootvg ディスクに提供されたイメージがインストールされます。 指定されたディスクは、マイグレーション・プロセスが行われる前の VIOS レベルになります。 altdisk タイプのインストール： 提供されたディスクは、提供されたイメージをインストールするために使用される。 VIOSパーティション上の現在の rootvg ディスクは、インストールプロセス中に影響を受けません。 代替ディスクのインストール中、VIOS 区画は実行状態のままになります。
+-c | クラスタ・レベルのバックアップおよびリストア操作の実行を指定します。 注： -c フラグは、共有ストレージプール（SSP）クラスタの一部である VIOS では必須です。
+-e | インストール後に適用する構成リソースを指定します。 この属性に有効な値は resolv_conf , script , fb_script , file_res , image_data , log です。 注: file_res オプションは bosinst タイプのインストールにのみ適用され、 altdisk タイプのインストー ルには対応していません。 -e フラグを指定しなかったり、 /etc/resolv.conf と /etc/hosts ファイルが指定した設定リソースに含まれていない場合、アップグレード処理では、インストール処理の前にこれらのファイルを現在のシステムからバックアップします。 バックアップされたファイルは、マイグレーション操作の間にリストアされます。
+
+-f | VIOS ノードのリストを含むファイル名を指定します。 このファイルの値とフィールドは、特定の順序と形式で指定する必要があります。 フォーマットの詳細は、 /usr/samples/nim/viosupgrade.inst ファイルで指定され、カンマで区切られる。 -f オプションでインストール可能なノードの最大数は 30 です。 VIOS イメージはノード上に同時にインストールされます。 インストール状況はノードごとに表示されます。 SSP クラスタの場合は、個々のノードで viosupgrade コマンドを実行する必要があります。 SSPクラスタのノード数（ n ）のうち、同時にアップグレードできるのは最大で n-1 。 したがって、少なくとも1つのノードがクラスタ内で常にアクティブであり、アップグレードプロセスの一部ではないことを確認する必要があります。 注： 指定されたフォーマットですべての情報を入力する。 空白またはオプションのフィールドには値を指定しないでください。 交互に表示される vg と rootvg ディスクで空白になっているフィールドは、ユーザーからの SKIP オプションを示す。
+
+-F オプション | viosupgrade のインストールを続行するために、特定のデフォルトパラメータを上書きする。 viosupgrade のインストールでは、以下のオプションがサポートされます。 スキップ・クラスタステート VIOSアップグレード操作を複数のVIOSノードで同時にトリガーできるように、SSPクラスタ状態の検証をスキップします。 注： すべてのSSPクラスタ・ノードが同時に DOWN 状態にならないようにしてください。 そうでないと、SSP クラスター・サービスは永続的に非アクティブになることがあります。 スキップデバイス名 デフォルトでは、 viosupgrade コマンドは、新しい rootvg ボリュームグループのデバイス名を保持することができます。 このオプションにより、デフォルトの動作を上書きし、デバイス名を保持しないようにすることができる。 デフォルトでは、以下のデバイス名が保持される： vhost vfchost アダプター機器 hdisk 装置名 fcnvme nvme デバイス fscsi 装置 iSCSI 装置 仮想および物理ネットワーク・アダプター・デバイス 共有イーサネット・アダプター（SEA） 仮想ローカルエリアネットワーク（VLAN）デバイス 注： デバイス名はデフォルトで表示され、 skipdevname オプションはVIOSバージョン 4.1.1.00 以降でサポートされています。 以前のバージョンでは、 -devname オプションを使ってデバイス名を保持する。 FORCECopy フラグとともにファイル名に指定されたファイルのリストを、新しくインストールされた ディスクのそれぞれのパスにコピーする。 -g フラグで指定されたファイルのリストを、新しくインストールされた rootvg ディスクのそれぞれのパスにコピーする。 注: –F forcecopy オプションで指定するファイル名は、 –F forcecopy=&lt;file&gt; 形式でなければならない。 forcecopy オプションは -g フラグなしで適用できるのは、 –F forcecopy=&lt;filename&gt; オプションでファイルを指定した場合だけである。 フラグと -g フラグと –F forcecopy=&lt;filename&gt; オプションの両方が、ファイルのリストを持つファイル名で指定された場合、フラグを持つファイルは、 ディレクトリにコピーされる。 -g フラグの付いたファイルは /home/padmin/backup_files ディレクトリ
+
+にコピーされる。 –F forcecopy= オプションをつけたファイルは、それぞれのディレクトリにコピーされる。 システムレベル・ファイルのコピーには、 forcecopy オプションを使用しないでください。 この -g フラグは、 -F forcecopy オプションなしで、バックアップ・ファイルを新しい rootvg ボリューム・グループの /home/padmin/backup_files ディレクトリにコピーします。 /home/padmin/backup_files ディレクトリのバックアップファイルの内容を、新しい rootvg ボリュームグループの対応するディレクトリにマージする。
+
+-F オプション （続き） | スキップリストア viosupgrade コマンドのインストール操作が完了し、新しくインストールされた rootvg ディスクから VIOS が起動された後、VIOS メタデータ構成の復元操作をスキップします。 注: バックアップ・ファイルの詳細は、 viosupgrade コマンドの出力に表示されます。 このバックアップ・ファイルを使用して、VIOS メタデータ構成を手動でリストアできます。 VIOS メタデータ構成をリストアするには、 viosupgrade -o restore -A args= &lt;viosbr arguments&gt; コマンドを実行します。 リストア中にVIOSが再起動することがあります。 または、 viosbr -restore コマンドを使用して、VIOS メタデータ構成を復元することもできます。 VIOSを手動で再起動する必要があります。 スキップセックフグ VIOS Security設定ファイルのリストアをスキップします。
+-g ファイル名 | 現在のシステムからバックアップし、新しいVIOSインストールイメージに保存する必要があるファイルのリストを含むファイルを指定します。 各行には、単一のファイル名とそのパスを含める必要があります。 複数のファイルは、個別に新規行に指定する必要があります。
+-I | ios_mksysb リソースの作成に使用する ISO イメージファイルを指定します。
+-k 復元前スクリプト | システム構成の復元前に実行されるスクリプト名を指定します。 注: フラグを -k フラグは -F フラグは使用できません 。 pre_restore_scriptに 関連する依存関係がある場合、それらのファイルまたは依存関係が newrootvg ボリューム・グループにコピーされていることを確認する必要があります。 -g フラグを使用するか、スクリプトのマウントパスを使用して、それらのファイルまたは依存関係がボリュームグループにコピーされていることを確認する必要があります。 pre_restore_script からゼロ以外の値が返された場合、アップグレード操作は失敗のメッセージとともに終了します。 問題を解決し、ターゲットVIOSマシンで -o rerun オプションを使用して操作を再実行する必要があります。
+
+-m | 指定した VIOS インストールの Network Installation Management (NIM) Master サーバー上の IOS_MKSYSB リソース名を指定します。
+-n | VIOS アップグレード操作を実行するターゲット VIOS ホスト名を指定します。
+-p | NIMインストール用の共有製品オブジェクトツリー（SPOT）のリソースオブジェクト名を指定します。
+-P インストール後スクリプト | VIOSメタデータ構成リストアプロセスが成功した後に、スクリプトファイルを指定して実行する。 注: -P 旗を -F skiprestore オプション。
+-q | VIOS アップグレード操作の状況を照会します。
+-r | 指定したイメージをインストールする新しい rootvg ディスクを指定する。 -r フラグを指定すると、既存の rootvg ディスクは使用されず、新しいディスクがインストー ルに使用されます。
+-S | VIOS アップグレード操作の詳細サマリーを提供します。 オプションは -q オプションを -S フラグとともに使用しなければならない。
+-s | 現在の rootvg ディスクの代替ディスクへの複製をスキップし、現在の rootvg ディスクへの VIOS インストールを続行する。 ストレージ・ディスクが使用できない場合は、 -s フラグを指定してインストールを続行できます。
+-t | NIM サーバーからのインストールのタイプを指定します。 サポートされているインストールの種類は、 bosinst と altdisk です。 bosinst 現在の rootvg ディスクへの新規インストールを示す。 altdisk 代替ディスクでの新規インストールを示します。 新しいインストールは、VIOSパーティション上の現在の rootvg ディスクに影響を与えません。 現在の rootvg ディスクがある VIOS パーティションは、代替ディスクのインストール中も実行状態のままです。
+-u | VIOSパーティションにインストールされた root ボリュームグループをアクティブにするには、VIOSを手動で再起動する必要があることを指定します。 VIOSがSSPクラスタ内にある場合、クラスタサービスはVIOSを再起動するまで down 。 注記: 新しくインストールされた root ボリュームグループで VIOS メタデータのリストアプロセスを完了するには、VIOS を再起動する必要があります。
+
+-v | VIOS ホストがインストールの準備ができているかどうかを検証します。 -v フラグは、検証のためにのみ指定する必要があり、インストール・イメージのプレビューにのみ使用できます。
+-bg | バックグラウンドで実行するコマンドを指定する。
+-w | 新しい ios_mksysb イメージ・ファイルを作成する先のディレクトリー・パスを指定します。
+-x | 作成される ios_mksysb イメージ・ファイルの名前を指定します。
+-X オプション | mksysb イメージのインストールから除外しなければならないシステムファイルまたは構成設定のリストを指定します。 以下のファイルタイプを除外することができます： プロファイル /usr/ios/cli/.profile ファイルを示す。 ルートクロン Cronタブのルートエントリーを示す。 KSHRC home/padmin/.kshrc ファイルを示す。 SSHキー システムファイルで使用される padmin ユーザーの Secure Shell (SSH) キーを示す。 PASSWD padmin パスワードを示す。 ルートUSRFS rootvg ディスク上のユーザーファイルシステムを示す。 チューナブル /etc/tunables チューナブルを示す。
+-y | ios_mksysb リソースから作成されなければならない、新しい SPOT リソースを指定する。
+
+-noprompt オプション | VIOS アップグレードインストール操作を続行するためのユーザープロンプトを上書きします。 -noprompt フラグが使用されている場合、 viosupgrade コマンドは自動的にすべてのユーザープロンプトを受け付ける。 -noprompt フラグを使用して以下のオプションを指定し、個々のユーザープ ロンプトを受諾または拒否することができる： additionalfs=Y|N additionalfs=Y|N オプションを使用すると、 viosupgrade コマンドが現在の VIOS ノードまたは新しい VIOS ノードを含む mksysb イメージファイルに追加のファイルセットを検出した場合に、インストールを許可または拒否できます。 以下のファイルセットは、VIOSアップグレードインストール操作中にチェックされます： devices.fcp.disk.ibm.mpio devices.sddpcm EMC.CLARiiON.fcp.MPIO.rte EMC.Symmetrix.fcp.MPIO.rte skiplv=Y|N viosupgrade コマンドで移行できない論理ボリュームが見つかった場合、 skiplv=Y|N オプションを使用して、インストールを許可または拒否することができます。 マウントポイントを持たない論理ボリュームや、ジャーナルファイルシステム（JFS）タイプの論理ボリュームは移行できません。 注： additionalfs=Y|N と skiplv=Y|N オプションはコンマで区切って一緒に使うことができる。 いずれかのオプションが指定されている場合、アップグレード処理の一環として、もう一方のオプションを指定する必要があります。
+
+例
+bosinst
+タイプのインストールを使用して VIOS アップグレード操作を検証するには、次のコマンドを入力します：
+viosupgrade -v -t bosinst -n systemA -m mksysbA -p spotA -s
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+で、インストールのタイプは
+bosinst
+である。
+bosinst
+メソッドを使用して VIOS アップグレード操作を検証するには、次のコマンドを入力します：
+viosupgrade -v -t bosinst -n clusternodeA -m mksysbA -p spotA -r hdisk1:hdisk2 -c -e resolv_conf:script
+ここで、ターゲットクラスタ VIOS ノードは
+clusternodeA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+、NIM リソースは
+resolv_conf
+と script、インストールのタイプは
+bosinst
+、提供される新しい
+rootvg
+ディスクは
+hdisk1
+と
+hdisk2
+です。
+現在の
+rootvg
+のクローニングをスキップして、
+bosinst
+メソッドを使用して VIOS アップグレー ド作業を実行するには、次のコマンドを入力します：
+viosupgrade -t bosinst -n systemA -m mksysbA -p spotA -s
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+で、インストールのタイプは
+bosinst
+である。
+注：
+インストール後、新しい
+rootvg
+ディスクは現在の
+rootvg
+ディスクになります。
+提供されたディスクにインストールする
+bosinst
+メソッドを使用して VIOS アップグレード操作を実行するには、次のコマンドを入力します：
+viosupgrade -t bosinst -n systemA -m mksysbA -p spotA -r hdisk1:hdisk2
+ここで、ターゲット VIOS ノードは
+systemA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+、インストールタイプは
+bosinst
+、提供される新しい
+rootvg
+ディスクは
+hdisk1
+と
+hdisk2
+である。
+注：
+
+再インストール後、新しい
+rootvg
+ディスクは付属のディスクにあります。
+提供された代替ディスクに現在の
+rootvg
+ディスクをバックアップして、
+bosinst
+方式を使用して VIOS アップグレード操作を実行するには、次のコマンドを入力します：
+viosupgrade -t bosinst -n systemA -m mksysbA -p spotA -a hdisk3:hdisk4
+提供されたディスクで
+bosinst
+法を使用してSSPクラスタVIOSアップグレード操作を実行するには、以下のコマンドを入力します：
+viosupgrade -t bosinst -n clusternodeA -m mksysbA -p spotA -r hdisk1:hdisk2 -c
+ここで、対象となるクラスタVIOSノードは
+clusternodeA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+、インストールのタイプは
+bosinst
+、新しい
+rootvg
+用に提供されるディスクは
+hdisk1
+と
+hdisk2
+。
+bosinst
+方式および指定された NIM リソースを使用して、VIOS アップグレード操作を実行できます。 また、提供された代替ディスクに現在の
+rootvg
+のバックアップを作成することもできます。 これら3つの操作をすべて実行するには、以下のコマンドを入力する：
+viosupgrade -t bosinst -n systemA -m mksysbA -p spotA -a hdisk3:hdisk4 -e resolv_conf:script:fb_script
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+、インストールタイプは
+bosinst
+、提供される代替
+rootvg
+ディスクは
+hdisk3
+および
+hdisk4
+、提供されるNIMリソースは
+resolv_conf
+、
+script
+および
+fb_script
+。
+altdisk
+メソッドを使用して VIOS アップグレード操作を検証するには、次のコマンドを入力します：
+viosupgrade -v -t altdisk -n systemA -m mksysbA -a hdisk3:hdisk4
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージ名は
+mksysbA
+、代替ディスクは
+hdisk3
+、
+hdisk4
+
+、インストールのタイプは
+altdisk
+である。
+altdiskを
+使用してVIOSアップグレードを実行するには、以下のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk3:hdisk4
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージ名は
+mymksysbA
+、インストールのタイプは
+altdisk
+、提供される代替
+rootvg
+ディスクは
+hdisk3
+と
+hdisk4
+。
+altdisk
+法を使用してSSPクラスタVIOSアップグレード操作を実行するには、以下のコマンドを入力します：
+viosupgrade -t altdisk -n clusternodeA -m mksysbA -a hdisk3:hdisk4:hdisk5 -c
+ここで、ターゲット・クラスタ・ノードは
+clusternodeA
+、
+mksysb
+イメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、提供される代替
+rootvg
+ディスクは
+hdisk3
+、
+hdisk4
+、および
+hdisk5
+である。
+bosinst
+メソッドを使用して、提供されたファイル内の1つまたは複数のVIOSノードのアップグレード動作を検証するには、次のコマンドを入力します：
+viosupgrade -v -t bosinst -f &quot;/usr/samples/nim/viosupgrade.inst&quot;
+提供されたファイル内のVIOSノードに対して、
+bosinst
+メソッドを使用してアップグレード操作を実行するには、次のコマンドを入力します：
+viosupgrade -t bosinst -f &quot;/usr/samples/nim/viosupgrade.inst&quot;
+ターゲットVIOSノードが
+systemA
+、
+mksysb
+イメージ名が
+mksysbA
+、スポット名が
+spotA
+、提供される代替
+rootvg
+が
+hdisk3
+、
+hdisk4
+、インストールのタイプが
+bosinst
+、VIOSノード情報を含むファイルが
+/usr/samples/nim/viosupgrade.inst
+、ファイルには以下のデータが含まれている必要があります：
+systemA, mksysbA, spotA, ,hdisk3:hdisk4
+提供されたSSPクラスタVIOSノードのアップグレード操作を
+bosinst
+メソッドでファイル内で実行するには、以下のコマンドを入力します：
+
+viosupgrade -t bosinst -f &quot;/usr/samples/nim/viosupgrade.inst&quot;
+ターゲットクラスタのVIOSノードが
+clusternodeA
+、
+mksysb
+イメージ名が
+mksysbA
+、スポット名が
+spotA
+、インストールのタイプが
+bosinst
+、VIOSノード情報を含むファイルが
+/usr/samples/nim/viosupgrade.inst
+の場合、ファイルには以下のデータが含まれている必要があります：
+clusternodeA, mksysbA, spotA, , , , c,
+ファイル内の提供された VIOS ノードに対して
+altdisk
+方式でアップグレード操作を実行するには、次のコマンドを入力します：
+viosupgrade -v -t altdisk -f &quot;/usr/samples/nim/viosupgrade.inst&quot;
+bosinst
+法を使用してVIOSアップグレード操作を実行し、現在の
+rootvg
+ディスクから新しくインストールされたイメージにファイルをリストアするには、次のコマンドを入力します：
+viosupgrade -t bosinst -n systemA -m mksysbA -p spotA -s -e file_res
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージ名は
+mksysbA
+、スポット名は
+spotA
+、
+file_res
+オプションは
+file_res_user
+、インストールのタイプは
+bosinst
+である。
+ios_mksysb
+イメージ・ファイルおよび SPOT リソースを ISO イメージ・ファイルから作成するには、次のコマンドを実行してください。
+viosupgrade -I /home/padmin/dvdimage.v1.iso:/home/padmin/dvdimage.v2.iso -w /home/myNewIosMksysbImageDir
+-x myIosMkysysbRes -y mySPOTResource
+ここで、
+/home/padmin/dvdimage.v1.iso
+および
+/home/padmin/dvdimage.v2.iso
+は
+ISO イメージ・ファイル、
+/home/myNewIosMksysbImageDir
+は
+ios_mksysb
+イメージ・ファイルが作成されるディレクトリー、
+myIosMkysysbRes
+は作成される
+ios_mksysb
+
+イメージ・ファイルの名前、
+mySPOTResource
+は作成される SPOT リソースの名前です。
+指定したディスク上で
+bosinst
+法を使用してVIOSアップグレード操作を実行し、SSPクラスタ状態の検証をオーバーライドするには、以下のコマンドを入力します：
+viosupgrade -t bosinst -n systemA -m mksysbA -p spotA -r hdisk1:hdisk2 -F skipclusterstate -c
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysbA
+は
+mksysb
+イメージの名前、
+spotA
+はSPOTリソースの名前、インストールのタイプは
+bosinst
+、指定された新しい
+rootvg
+ディスクは
+hdisk1
+と
+hdisk2
+。
+altinst
+メソッドを使用して VIOS アップグレード操作を実行し、現在の
+rootvg
+ディスクから
+/home/padmin/backup_files
+ディレクトリに新しくインストールされた VIOS イメージにファイルをコピーするには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk3:hdisk4 -g file_list_name
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+のイメージ名は
+mymksysbA
+、インストールのタイプは
+altdisk
+、代替
+rootvg
+ディスクは
+hdisk3
+および
+hdisk4
+、
+file_list_name
+ファイルは、新しい
+rootvg
+イメージにコピーする必要があるファイルのリストを含むファイルである。
+altinst
+メソッドを使用して VIOS アップグレード操作を実行し、現在の
+rootvg
+ディスクから新しくインストールされた
+rootvg
+ディスクの各ディレクトリにファイルをコピーするには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk3:hdisk4 -g file_list_name -F forcecopy
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージのイメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、代替
+rootvg
+ディスクは
+hdisk3
+および
+hdisk4
+、
+file_list_name
+
+ファイルは、新しい
+rootvg
+イメージにコピーする必要があるファイルのリストを含むファイルです。
+altinst
+法を使用してVIOSアップグレード操作を実行し、新しいrootvgディスク上でVIOSメタデータ構成のリストア処理が成功した後にスクリプトを実行するには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -P &lt;post_install_script&gt;
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージのイメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、代替
+rootvg
+ディスクは
+hdisk1
+および
+hdisk2
+、
+post_install_script
+は実行しなければならないスクリプトです。
+altinst
+メソッドを使用して VIOS アップグレード操作を実行し、新しい
+rootvg
+ディスク上の仮想デバイスのリストア処理の前にスクリプトを実行するには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -k &lt;pre_restore_script&gt;
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージのイメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、代替
+rootvg
+ディスクは
+hdisk1
+および
+hdisk2
+、
+pre_restore_script
+は実行しなければならないスクリプトです。
+altinst
+メソッドを使用して VIOS アップグレード操作を実行し、コマンドをバックグラウンドで実行するには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -bg
+ここで、ターゲットVIOSノードは
+systemA
+、
+mksysb
+イメージのイメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、代替
+rootvg
+ディスクは
+hdisk1
+と
+hdisk2
+。
+altinst
+メソッドを使用して VIOS アップグレード操作を実行し、
+file_list_name
+ファイルからファイルのリストを
+/home/padmin/backup_files
+ディレクトリにコピーし、
+file_list_name2
+
+ファイルからファイルのリストをそれぞれのパスにコピーするには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 –g file_list_name –F forcecopy=file_list_name2
+ターゲットVIOSノードは
+systemA
+、イメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、新しい
+rootvg
+ディスクは
+hdisk1
+、
+hdisk2
+。
+file_list_name
+ファイルには、
+/home/ padmin/backup_files
+ディレクトリにある新しい
+rootvg
+イメージにコピーする必要があるファイルのリストが含まれています。
+file_list_name2
+ファイルには、新しい
+rootvg
+イメージにコピーする必要があるファイルのリストが、それぞれのパスに含まれています。
+additionalfs=Y|N
+と
+skiplv=Y|N
+オプションなしで
+-noprompt
+フラグを使うには、以下のコマンドを入力する：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -noprompt
+ターゲットVIOSノードは
+systemA
+、イメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、新しい
+rootvg
+ディスクは
+hdisk1
+、
+hdisk2
+。
+altinst
+メソッドを使用して VIOS アップグレード操作を実行し、
+additionalfs=Y|N
+および
+skiplv=Y|N
+オプションで
+-noprompt
+フラグを使用するには、次のコマンドを入力します：
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -noprompt skiplv=Y,additionalfs=N
+viosupgrade -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -noprompt skiplv=Y
+ターゲットVIOSノードは
+systemA
+、イメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、新しい
+rootvg
+ディスクは
+hdisk1
+、
+hdisk2
+。
+altinst
+メソッドを使用して VIOS アップグレード操作を検証し、
+
+file_list_name2
+ファイル内のファイルリストをそれぞれのパスにコピーし、新しい
+rootvg
+ディスク上のリストア操作をスキップするには、次のコマンドを入力します：
+viosupgrade -v -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -F forcecopy=file_list_name2:skiprestore
+ここで、ターゲットVIOSノードは
+systemA
+、イメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、新しい
+rootvg
+ディスクは
+hdisk1
+、
+hdisk2
+、
+file_list_name2
+ファイルは、新しい
+rootvg
+イメージにコピーする必要があるファイルのリストをそれぞれのパスに含むファイルである。
+SSHKEYSなどのシステムファイルやルートCronタブエントリを除外する
+altinst
+法を使用してVIOSアップグレード動作を確認するには、次のコマンドを入力します：
+viosupgrade -v -t altdisk -n systemA -m mksysbA -a hdisk1:hdisk2 -X SSHKEYS:ROOTCRON
+ターゲットVIOSノードは
+systemA
+、イメージ名は
+mksysbA
+、インストールのタイプは
+altdisk
+、新しい
+rootvg
+ディスクは
+hdisk1
+、
+hdisk2
+。</pre>

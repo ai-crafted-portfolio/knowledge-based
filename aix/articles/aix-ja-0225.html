@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Object Data Manager ( ODM ) から Non-Volatile Memory Express (NVMe) over TCP/IP ターゲットデータを変更します。
+
+説明
+注：
+AIX® 7.3 テクノロジー・レベル4（ TL4 ）から、NVMe over TCP/IPプロトコルはテクノロジー・プレビューとしてのみ利用できるようになりました。
+chtcpnvme
+コマンドは、Object Data Manager ( ODM ) の NVMe over TCP/IP ターゲット・データを変更します。 統計的に設定されたNVMe over TCP/IPデータは、 ODM に保存されます。 AIX が NVMe over TCP/IP ターゲット・データを検出するには、ディスカバリ・コントローラの NVMe 適 格名（NQN）、IP アドレス、ポート番号など、関連する NVMe over TCP/IP ターゲット情報を指定する必要があります。
+
+構文
+chtcpnvme -l ProtocolDevice -g group -t DiscoveryControllerNQN -n PortNumber -i IPaddress [ -T NewDiscoveryControllerNQN ] [ -N NewPortNumber ] [ -I NewIPaddress ]
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-g Group | NVMe over TCP/IPターゲットが関連付けられているグループを指定します。 これは、このホストから自動検出されないNVMe over TCP/IPターゲット・データ用です。 NVMe over TCP/IPターゲット・データを検出するには、ディスカバリー・コントローラNQN、IPアドレス、ポート番号など、関連するNVMe over TCP/IPターゲット情報を指定する必要があります。
+-i IPAddress | NVMe over TCP/IPターゲットデータのIPアドレスを指定します。
+-I NewIPaddress | NVMe over TCP/IPターゲットデータの新しいIPアドレスを指定します。
+-l ProtocolDevice | NVMe over TCP/IPプロトコルのデバイス名を指定します。 例: tcpnvme X
+-n PortNumber | NVMe over TCP/IPターゲットにアクセスするポート番号を指定します。 デフォルトのポート番号は4420である。
+-N NewPortNumber | NVMe over TCP/IPターゲットにアクセスする新しいポート番号を指定します。
+-t DiscoveryControllerNQN | NVMe-oF Discovery ControllerのNQNを指定する。
+-T NewDiscoveryControllerNQN | NVMe over Fabrics ( NVMe-oF ) Discovery Controller の新しい NQN を指定します。
+
+例
+以下のコマンドを入力して、静的に構成されたNVMe over TCP/IPターゲットのIPアドレスを次のように変更します。 10.1.3.141:
+chtcpnvme -l tcpnvme0 -g static -t nqn.2014-08.org.nvmexpress.discovery -n 4420 -i 10.32.154.107 -I 10.1.3.141</pre>

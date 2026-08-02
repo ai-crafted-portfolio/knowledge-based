@@ -1,0 +1,465 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+セキュリティ認証とデータ管理のために、
+AIX
+システムをLDAP（Lightweight Directory Access Protocol）サーバーまたはクライアントとして設定します。
+
+説明
+mksecldap
+。
+IBM
+Directoryサーバーとクライアントを設定し、セキュリティ認証とデータ管理を行う。
+注:
+クライアント（
+-c
+フラグ）とサーバー（
+-s
+フラグ）オプションを同時に使用することはできません。 サーバーをセットアップする際、サーバーとクライアントとしてのシステムをセットアップするために、そのシステム上で
+mksecldap
+コマンドを2回実行する必要があるかもしれない。
+LDAPサーバー設定ファイルの名前と場所は、インストールされているLDAPソフトウェアのバージョンによって異なります。 LDAPソフトウェアの詳細については、インストールされたリリースのLDAPソフトウェアのドキュメントを参照してください。
+サーバーのセットアップ
+LDAPサーバーとバックエンド IBM® DB2® ソフトウェアがインストールされていることを確認する。
+mksecldap
+コマンドを LDAP サーバー・セットアップを目的に実行するために、IBM Db2 を事前に構成しておく必要はありません。
+mksecldap
+コマンドを実行してサーバーをセットアップすると、以下の操作が実行される：
+ldapdb2
+をデフォルトのインスタンス名として、 DB2 インスタンスを作成する。
+もし
+IBM
+ディレクトリ・サーバー 6.0 またはそれ以降が設定されている場合、
+ldapdb2
+というデフォルト名のLDAPサーバー・インスタンスが作成される。 キー stash ファイルの作成に使用される暗号化シードの入力を求めるプロンプトが表示されます。 入力暗号化シードは少なくとも12文字でなければならない。
+ldapdb2
+をデフォルトのデータベース名として、 DB2 データベースを作成する。 データベースが存在する場合、
+mksecldap
+コマンドはステップ1とステップ2をバイパスする。 LDAPサーバーが他の用途に設定されている場合、データベースは存在する。
+mksecldap
+。
+AIX
+を使用します。
+ディレクトリ情報ツリー（DIT）のベース識別名（DN（サフィックス））を作成する。 ベースDNは、
+dc
+、
+o
+、
+ou
+、
+c
+、
+cn
+のように、これらの属性のいずれかで始まる必要があります。 ベースDNがコマンドラインから与えられない場合、デフォルトのサフィックスは
+cn=aixdata
+に設定され、ユーザーまたはグループデータは
+cn=aixdata
+DNの下に置かれる。 これ以外の場合、
+mksecldap
+コマンドは、
+-d
+
+オプションを指定したユーザー提供の DN を使用します。 ユーザーとグループは、
+sectoldif
+コマンドを使用して LDAP にエクスポートされます。 デフォルトでは以下のDITが作成される：
+&lt;user supplied suffix&gt;
+|
+--------------------------
+| |
+ou=People ou=Groups
+-u
+NONE
+フラグを指定しない場合は、ローカル・ホストのセキュリティ・データベース・ファイルから LDAP データベースにデータをエクスポートします。
+-u
+NONE
+を指定すると、
+mksecldap
+コマンドは
+ou=People
+と
+ou=Group
+コンテナを作成しない。 ユーザーとグループはエクスポートされません。
+-S
+オプションに応じて、
+mksecldap
+コマンドは、以下の LDAP スキーマのいずれかを使用してユーザーまたはグループをエクスポートします：
+AIX
+スキーマ (
+aixaccount
+と
+aixaccessgroup
+オブジェクトクラス)
+RFC2307
+RFC 2307スキーマ（
+posixaccount
+、
+shadowaccount
+、
+posixgroup
+オブジェクトクラス）
+RFC2307AIX
+RFC 2307スキーマを完全
+AIX
+を完全にサポートするスキーマ (
+posixaccount
+,
+shadowaccount
+,
+posixgroup
+,
+aixauxaccount
+,
+aixauxgroup
+オブジェクトクラス)。
+LDAP サーバーの管理者 DN およびパスワードを設定します。
+-n
+オプションが使用されている場合、指定したポートを listen するようにサーバーを設定します。 デフォルトのポートは
+389
+である。 また、トランスポート・レイヤー・セキュリティ（TLS）はこのポートをデフォルト・ポートとして使用する（セキュア・ソケット・レイヤー（SSL）の場合は636）。
+LDAP モジュール構成によって
+/usr/lib/security/methods.cfg
+ファイルを更新します。 コマンドラインから
+-i
+オプションを入力すると、LDAPA認証専用モジュールと、LDAPAが認証用、データベース・モジュールが識別用の複合ロード・モジュール（例えば、
+-i
+files
+オプションを指定した場合はLDAPAファイル）が設定される。
+-x
+と &#x27;
+-X
+
+オプションが指定されている場合は、プロキシエントリを作成する。 プロキシエントリーを使用して、ベースDN用のACLを作成する。 デフォルトのACLは
+/etc/security/ldap/proxyuser.ldif.template
+。 クライアントシステムはプロキシエントリを使用してサーバーにバインドする。 詳細については、
+クライアントのセットアップ
+セクションを参照してください。
+このサーバーとクライアント間の安全なデータ転送のために、
+-k
+オプションが指定されている場合、SSL または TLS を使用するようにサーバーを設定する。
+GSKitv8
+ファイルセットをインストールし、このセットアップ用の SSL または TLS キーを作成します。
+GSKitv8
+ファイルセットは、AIX® 7.3拡張パック DVD をマウントした後でインストールできます。
+/usr/ccs/lib/libsecldapaudit.a
+LDAP サーバー・プラグインをインストールします。 このプラグインは
+AIX
+LDAPサーバーの監査をサポートします。
+LDAPサーバーを起動または再起動する。
+再起動後にLDAPサーバーが起動するように、
+/etc/inittab
+ファイルにLDAPサーバープロセス(
+slapd
+)を追加します。
+注：
+「
+-U
+オプションは、サーバー設定ファイルの以前の設定をリセットする。 データベースに対しては何の影響も与えません。
+mksecldap
+コマンドが最初に実行されると、サーバー設定ファイルのコピーが 「
+/etc/security/ldap
+ディレクトリに2つ保存される。 サーバー設定ファイルの一方のコピーの名前には
+.save.orig
+が、もう一方のコピーの名前には
+.save
+が付加される。
+mksecldap
+コマンドの後続の各実行の際に、
+現行のサーバー構成だけが
+.save
+ファイルとして保管されます。 アンドゥ・オプションは、サーバー構成ファイルを、
+.save
+コピーを使用して復元します。 で
+AIX 5.3
+では、
+mksecldap
+-s
+を連続して開始し、複数のサフィックスを作成して入力することが可能です。 複数のサフィックスが作成され入力された場合、初期設定ファイルに戻すには、
+.save.orig
+ファイルを手動で復元する必要があります。
+クライアントのセットアップ
+LDAPクライアントファイルセットがインストールされ、LDAPサーバーがセットアップされ、実行されていることを確認してください。
+
+mksecldap
+コマンドは、クライアントのセットアップ中に以下のステップを実行する：
+1つまたは複数のLDAPサーバーのホスト名を保存します。
+サーバーのユーザー基本 DN およびグループ基本 DN を保存します。 コマンド・ラインから
+-d
+オプションが与えられない場合、
+mksecldap
+コマンドはLDAPサーバーを検索し、
+aixaccount
+、
+aixaccessgroup
+、
+posixaccount
+、
+posixgroup
+、
+aixauxaccount
+オブジェクト・クラスを検索し、ベースDNを設定する。 サーバーに複数のユーザーベースまたはグループベースがある場合は、
+-d
+オプションに相対識別名（RDN）を指定する必要があります。
+mksecldap
+、ベースDNをそのRDN内のものに設定することができる。
+クライアントのセットアップ中に
+posixaccount
+オブジェクトクラスが見つかった場合、
+mksecldap
+コマンドはサーバーから以下のエンティティのベース DN を検索して保存します：
+hosts
+networks
+services
+netgroups
+protocols
+rpc
+authorizations
+roles
+privcmds
+privdevs
+privfiles
+usrkeystore
+grpkeystore
+efscookies
+admkeystore
+domains
+domobjs
+LDAPサーバーが使用するスキーマ・タイプを決定する。 スキーマ・タイプは、
+AIX
+固有のスキーマ、&#x27;
+RFC
+2307
+スキーマ、
+AIX
+を完全にサポートする&#x27;
+RFC 2307
+スキーマ、またはMicrosoft Services for UNIX3.0スキーマである。 そこで、
+/etc/security/ldap/ldap.cfg
+ファイルにオブジェクト・クラスとアトリビュート・マップを設定する。
+mksecldap
+コマンドは他のスキーマ・タイプを認識しない。 クライアントは手動で設定する必要があります。
+Microsoft™ services for UNIX® 3.0 スキーマが Active Directory (AD) サーバー上で非推奨の場合、
+-g
+フラグを指定すると、Unix スキーマはまだサポートされます。
+-g
+および
+-I
+
+フラグが追加されたのは、Windows Server 2012R2 から非推奨となった Identity Management for Unix (IDMU Unix 属性プラグイン)を使用せずに、Microsoft Active Directory (MSAD) でユーザーとグループを管理するための AIX LDAP クライアントをサポートするためである。
+このホストとLDAPサーバー間の安全なデータ転送のためのSSLまたはTLSを設定します。 クライアントSSLまたはTLSキーとキーパスワードを事前に作成しておく。 クライアントのSSLまたはTLSが機能するためには、サーバーがSSLまたはTLSを使用するように設定されている必要があります。 SSLまたはTLS機能を使用するには、
+GSKitv8
+ファイルセットのインストールが必要です。
+GSKitv8
+ファイルセットは、AIX 7.3 拡張パック DVD のマウント後にインストールできます。
+BIND パスワードを暗号化します。
+LDAP サーバーのバインド DN およびパスワードを保管します。 DNとパスワードのペアはLDAPサーバー上に存在しなければならない。 バインドDNとパスワードが与えられていない場合、
+mksecldap
+コマンドは匿名バインドを使用する。 無名バインドでは、一部のデータが LDAP サーバーから戻されない可能性があります。 匿名バインドを選択する前に、LDAP管理者に連絡してください。
+オプションで指定した構成値を、クライアントのセットアップ・フラグ・セクション内に定義済みとして設定します。
+オプションで、ユーザーのリストまたは LDAP を使用するすべてのユーザーのリストを、
+/etc/security/user
+ファイルの SYSTEM 行を変更することによって設定します。 LDAPログインの有効化の詳細については、
+Noteを
+参照してください。
+クライアント・デーモン・プロセス(
+secldapclntd
+コマンド)を起動する。
+クライアント側のデーモン・プロセスを
+/etc/inittab
+ファイルに追加し、再起動後にこのデーモンが起動するようにする。
+注:
+すべてのクライアント構成データは、
+/etc/security/ldap/ldap.cfg
+構成ファイルに保存されます。
+-U
+オプションは、
+/etc/security/ldap/ldap.cfg.save
+ファイルに保存されているコンフィギュレーションでファイルを置き換えることによって、
+
+/etc/security/ldap/ldap.cfg
+ファイルに以前のセットアップをリセットする。 デフォルトのスタンザ
+/etc/security/user
+のSYSTEMを
+LDAP
+に設定すると、LDAPユーザーのみがシステムにログインできるようになる。 SYSTEM を
+LDAP
+または
+compat
+に設定すると、LDAP
+ユーザーとローカル・ユーザーはどちらもシステムにログインできるようになります。
+
+構文
+サーバーをセットアップするには mksecldap -s -a adminDN -p adminpasswd -S schematype [ -d baseDN ] [ -n port ] [ -k SSLkeypath ] [ -w SSLkeypasswd ] [ -x proxyDN -X proxypasswd ] [ -u NONE ] [ -v LDAPVersion ] [ -U ] [ -j &lt;ssl|tls|ssltls|none|sslonly&gt; ] クライアントを設定するには mksecldap -c -h serverlist -a bindDN -p bindpwd [ -d baseDN ] [ -n serverport ] [ -k SSLkeypath ] [ -w SSLkeypasswd ] [ -t cachetimeout ] [ -C cachesize ] [ -P NumberofThreads ] [ -T heartBeatInt ] [ -M searchMode ] [ -D defaultEntry ] [ -A authType ] [ -i databaseModule ] [ -u userlist ] [ -U ] [ -j &lt;ssl|tls&gt; ] [ -g [ -I domainID ]]
+
+オプション
+フラグ
+サーバーのセットアップ
+項目 | 説明
+-a AdminDN | LDAP サーバー管理者 DN を指定します。
+-d baseDN | AIX サブツリーの接尾部または基本 DN を指定します。 デフォルトは cn=aixdata です。
+-j &lt; ssl | tls | ssltls | none | sslonly &gt; ] | LDAP クライアントとの通信中に使用される暗号化接続タイプを指定します。 有効な値はSSL、TLS、SSLTLS、SSLのみ。 -j フラグを指定せずに -k と -w フラグを指定した場合、デフォルトの接続タイプは SSL になります。
+-k SSLキーパス | サーバーの SSL または TLS キー・データベースへの絶対パスを指定します。
+-n ポート | LDAP サーバーが listen するポート番号を指定します。 デフォルトのポート番号は、非SSLの場合は 389 、SSLの場合は 636 である。
+-p adminpasswd | 管理者 DN の平文パスワードを指定します。
+-S スキーマタイプ | LDAPサーバーでユーザーとグループのエントリーを表現するために使用されるLDAPスキーマを指定します。 有効な値は AIX, RFC2307, RFC2307AIX です。
+-s | コマンドはサーバーをセットアップするために実行される。
+-w SSLkeypasswd | SSL または TLS 鍵データベースのパスワードを指定します。
+-U | 以前のサーバー・セットアップを LDAP 構成ファイルに戻すように指定します。 データベースへの影響はありません。
+-u NONE | ユーザーおよびグループをローカル・システムから移行しないように指定します。 有効な値は NONE です。 他の値はすべて無視されます。 -u オプションを指定すると、 mksecldap コマンドは ou=People と ou=Group コンテナを作成せず、ユーザーとグループをエクスポートしない。 このオプションでは、 -S オプションは必要ない。
+-v LDAPVersion | 構成する LDAP サーバー・ファイルセットの特定のバージョンを示します。 値は #.#の 形式でなければならない、 この # は数値です。 例えば、 6.0 などです。 -v フラグを指定しない場合、 mksecldap コマンドは、インストールされている LDAP サーバー・ファイルセットの最新バージョンを設定する。
+
+-X proxypasswd | プロキシー DN のパスワードを指定します。
+-x proxyDN | プロキシー・エントリーの DN を指定します。 クライアントシステムは、プロキシエントリを使用してこのサーバーにバインドする。
+クライアント設定
+項目 | 説明
+-a bindDN | LDAP サーバーにバインドする DN を指定します。 DN は LDAP サーバー上になければなりません。 authtype 、 unix_authの 場合 bindDN 変数がLDAPサーバー上のユーザーのパスワード・フィールドへの読み取りアクセス権を持っていなければならない。 -a オプションをつけない場合、 mksecldap コマンドは匿名バインドを設定する。 注: 一部のデータは、匿名バインドで LDAP サーバーから取得されない場合があります。 匿名バインドの詳細については、LDAPサーバーの管理者に問い合わせてください。
+-A authType | ユーザーの認証に使用する認証メカニズムを指定します。 有効な値は unix_auth と ldap_auth です。 デフォルト値は unix_auth である。 以下は値の定義である： unix_auth LDAPサーバーからユーザーのパスワードを取得し、ローカルで認証を実行する。 ldap_auth LDAPサーバーにバインドする。 認証用のパスワードを平文で送信する。 注： ldap_auth タイプの認証を使用する場合は、SSLまたはTLSを使用してください。認証中にパスワードがLDAPサーバーにクリア・テキストで送信されるためです。
+-c | クライアントをセットアップするためにコマンドが実行されていることを示す。
+-C キャッシュサイズ | クライアント側デーモンのキャッシュで使用できるユーザー・エントリーの最大数を指定します。 有効な値は、ユーザーキャッシュの場合、 100から 65536の 範囲である。 デフォルト値は 1000 である。 グループキャッシュの有効範囲は 100から 65536まで 。 デフォルト値は 1000 である。 -C オプションを使用して start-secldapclntd コマンドでユーザー・キャッシュ・エントリーを設定した場合、グループ・キャッシュはユーザー・キャッシュの10%に設定される。
+
+-D defaultEntryLocation | デフォルトのエントリーのロケーションを指定します。 有効な値は ldapと local である。 デフォルト値は ldap である。 以下は値の定義である： LDAP すべての属性のデフォルト値には、LDAPのデフォルトエントリを使用します。 ローカル すべての属性のデフォルト値には、ローカルの /etc/security/user ファイルのデフォルト・スタンザを使用します。
+-d baseDN | 基本 DN を指定して、 mksecldap コマンドがユーザー基本 DN またはグループ基本 DN を検索するようにします。 コマンドラインで指定しない場合は、データベース全体が検索される。
+-g | Microsoft Active DirectoryをLDAPサーバーとして使用する場合に、ユーザーID（UID）またはグループID（GID ）を生成するidgeneration 機能を有効にします。
+-h サーバーリスト | ホスト名（サーバーとバックアップ・サーバー）をカンマ区切りで指定します。
+-I domainID | -g フラグが設定されている場合に、UIDまたはGIDの生成に使用しなければならないドメイン識別子を指定します。 domainID 値の範囲は 1 ～ 99 です。 のデフォルト値は1である。 domainID のデフォルト値は 1 である。 これにより、ドメイン間でのユニークなIDが容易になる。 注意： クライアント設定中、 -g フラグで -I フラグを設定しなかった場合、デフォルト値 1 が domainID . 一意の domainID 値は、設定されたADドメインごとに割り当てられなければならない。 ADドメインの一意 domainID は、生成されるUIDまたはGIDがADドメイン間で一意であることを保証するために、クライアント構成全体で同じでなければならない。
+-i databaseModule | 複合ロード・モジュールの認証専用モジュール（LDAPA）としての LDAP の構成を指定します。 この databaseModule オプションは複合ロード・モジュールのデータベース・モジュールを指定する。
+-j &lt; SSL | TLS &gt; | LDAP サーバーとの通信中に使用される暗号化接続タイプを指定します。 有効な値は SSL および TLS です。 -k フラグおよび -w フラグが -j フラグなしに指定される場合、デフォルトの接続タイプは SSL です。
+
+-k SSLキーパス | クライアント SSL または TLS 鍵データベースへの絶対パスを指定します。
+-M searchMode | リトリーブするユーザー属性とグループ属性のセットを指定します。 有効な値は ALLと OS である。 デフォルト値は ALL 。 以下は値の定義である： all エントリーのすべての属性を取得します。 OS エントリーのオペレーティング・システム必須属性のみを取得する。 電話番号のような非OS属性、バイナリ画像は返されません。 注： OSは、エントリーにOSに要求されていない属性や大きな値を持つ属性が多い場合にのみ使用する。 例えば、LDAPサーバーによるソートの手間を省くために、バイナリデータを使用する。
+-n サーバーポート | LDAP サーバーが listen するポート番号を指定します。
+-p バインドパスワード | LDAP サーバーへのバインドに使用する bindDN のクリアテキス トパスワードを指定します。
+-P NumberofThreads | クライアント側デーモンが使用するスレッド数を指定する。 有効な値の範囲は 1 ～ 256 である。 デフォルト値は 10 。
+-t キャッシュタイムアウト | キャッシュ・エントリーの期限の最大時間長を指定します。 有効な値の範囲は 60 秒から 3600 秒である。 デフォルト値は 300 秒。 キャッシュを無効にするには、この値を 0に する。 注: cachetimeout 属性は、 usercachetimeout 属性および groupcachetimeout 属性の値をセットアップするために使用されます。 AIX 7.3 以降、 cachetimeout 属性は非推奨です。 代わりに、 usercachetimeout 属性と groupcachetimeout 属性を使用できます。
+-T heartBeatInt | このクライアントと LDAP サーバー間のハートビートの時間間隔を指定します。 有効な値の範囲は 60 秒から 3600 秒である。 デフォルト値は 300 である。
+
+-u userlist | LDAP 認証で有効にするユーザ名をカンマ区切りで指定します。 このユーザーリストのレジストリとシステム属性は、LDAPサーバーを使用するように設定されている。 クライアント上のユーザーを有効にするには ALLを 指定します。 注： /etc/security/user ファイルの default stanza の system 属性を LDAP サーバーに設定すると、LDAP ユーザーのみがログインできるようになる。 システム属性がLDAPまたはcompatに設定されている場合、LDAPユーザーとローカルユーザーがシステムにログインできるようになる。
+-U | 直前のクライアント・セットアップを LDAP クライアント構成ファイルに戻すように指定します。
+-w SSLkeyfilepath | クライアント SSL または TLS 鍵データベースのパスワードを指定します。
+
+例
+のLDAPサーバーをセットアップするには、 RFC2307
+AIX
+のLDAPサーバーを設定するには、次のコマンドを入力する：
+mksecldap -s -a cn=admin -p adminpwd -S rfc2307aix
+このコマンドは、LDAPサーバーの管理者DNを
+cn=admin
+、パスワードを
+adminpwdとして
+、LDAPサーバーをセットアップする。 ユーザーとグループのデータは、 RFC2307AIX スキーマを使用して、ローカルファイルからデフォルトの
+cn=aixdata
+サフィックスにエクスポートされます。
+デフォルト以外のベースDNとSSLセキュア通信でLDAPサーバーをセットアップするには、以下のコマンドを入力する：
+mksecldap -s -a cn=admin -p adminpwd -d o=mycompany,c=us -S rfc2307 -k /usr/ldap/serverkey.kdb
+-w keypwd
+このコマンドは、LDAPサーバー管理者DNが
+cn=admin
+、パスワードが
+adminpwd
+であるLDAPサーバーを設定する。 ユーザーとグループのデータは、 RFC2307 スキーマを使用して、ローカルファイルから
+o=mycompany
+,
+c=us
+サフィックスにエクスポートされます。 LDAPサーバーは、
+/usr/ldap/serverkey.kdb
+ファイルに保存されているキーを使用してSSL通信を行います。
+keypwd
+キーにパスワードを入力する。
+RFC2307AIXスキーマ・タイプのLDAPサーバーをセットアップし、プロキシ・アカウントを作成するには、以下のコマンドを入力する：
+mksecldap -s -a cn=admin -p adminpwd -d c=us -S rfc2307aix -x cn=proxy,c=us -X proxypwd
+このコマンドは、LDAPサーバー管理者DNが
+cn=admin
+、パスワードが
+adminpwd
+であるLDAPサーバーを設定する。 ユーザーとグループのデータは、 RFC2307AIX スキーマを使用して、ローカルファイルから
+c=us
+サフィックスにエクスポートされます。 DNが「
+cn=proxy
+、「
+c=us
+、パスワードが「
+proxypwd」
+であるプロキシIDが設定される。
+/etc/security/ldap/proxy.ldif.template
+ファイルで指定された ACL は、
+cn=proxy
+と
+
+c=us
+DN に対してサーバー上で適用される。
+以前のサーバー設定を取り消すには、以下のコマンドを入力する：
+mksecldap -s -U
+このコマンドは、サーバー設定ファイルに対する前回の設定を取り消す。
+注意：
+安全のため、このコマンドは以前のセットアップで作成されたデータベース・エントリやデータベースを削除しません。 データベース・エントリーが不要な場合は、手動で削除してください。
+server1.ibm.com
+」と「
+server2.ibm.com
+LDAPサーバーを使うようにクライアントを設定するには、次のコマンドを入力する：
+mksecldap -c -a cn=admin -p adminpwd -h server1.ibm.com,server2.ibm.com
+LDAP サーバーの管理者 DN およびパスワードを提供し、
+このクライアントがサーバーに認証されるようにします。
+mksecldap
+コマンドは、使用するスキーマ・タイプについてLDAPサーバーにコンタクトし、クライアントをセットアップする。 コマンド・ラインから
+-d
+オプションを指定しないと、
+サーバー DIT 全体でユーザー基本 DN とグループ基本 DN が検索されます。
+server3.ibm.com
+LDAPサーバーとSSLを使って通信するようにクライアントを設定するには、以下のコマンドを入力する：
+mksecldap -c -a cn=admin -p adminpwd -h server3.ibm.com -d o=mycompany,c=us
+-k /usr/ldap/clientkey.kdb -w keypwd -u user1,user2
+このコマンドは、例3と同様にLDAPクライアントをセットアップしますが、SSL通信を使用します。
+mksecldap
+コマンドは、&#x27;
+o=mycompany
+、&#x27;
+c=us
+RDN からユーザーベース DN とグループベース DN を検索する。 アカウント user1 および user2 は LDAP を介して認証するように構成されます。
+注：
+-u
+ALL
+オプションは、LDAPユーザーがこのクライアントにログインできるようにします。
+クライアントが「
+server4.ibm.com
+」と会話し、プロキシバインドで「
+ldap_auth
+認証を使用するように 設定するには、以下のコマンドを入力する：
+
+mksecldap -c -a cn=proxy,c=us -p proxypwd -h server4.ibm.com -A ldap_auth
+このコマンドは、「
+cn=proxy
+、「
+c=us
+DNでLDAPサーバーにバインドするLDAPクライアントを設定する。 管理者DNは使用されないため、クライアントに付与されるアクセスは、
+cn=proxy
+、
+c=us
+DNに対してLDAPサーバー上で設定されたACLに依存する。 クライアントは、比較のためにパスワードを平文でLDAPサーバーに送信する
+ldap_auth
+-タイプ認証を使用するように設定されている。
+注：
+ldap_auth
+-type認証を使用する場合は、SSLまたはTLSを使用する。 認証中、パスワードは平文でLDAPサーバーに送信される。
+以前のクライアント設定を取り消すには、以下のコマンドを入力します：
+mksecldap -c -U
+このコマンドは、&#x27;
+/etc/security/ldap/ldap.cfg
+ファイルへの前回のセットアップを取り消す。 このコマンドは、&#x27;
+/etc/security/user
+ファイルから&#x27;
+SYSTEM=LDAP
+と&#x27;
+registry=LDAP
+エントリーを削除しない。
+LDAPを認証専用モジュールとして使用し、ユーザー識別にファイルを使用してクライアントをセットアップするには、以下のコマンドを入力する：
+mksecldap -c -a cn=admin -p adminpwd -h server1.ibm.com -i files -A ldap_auth
+このコマンドは、LDAPAモジュールをユーザー認証に使用し、ファイルをユーザー識別に使用する、LDAPAファイル複合ロード・モジュールを設定する。 認証は
+ldap_authに
+設定されている。
+クライアントをデフォルトの
+domainID
+1 を
+設定するには、以下のコマンドを入力する：
+mksecldap -c -a cn=admin -p adminpwd -h server1.in.ibm.com -d o=mycompany,c=us -A ldap_auth -g
+クライアントを明示的
+domainID
+11で
+クライアントを構成するには、以下のコマンドを入力する：
+mksecldap -c -a cn=admin -p adminpwd -h server1.in.ibm.com -d o=mycompany,c=us -g -I 11</pre>

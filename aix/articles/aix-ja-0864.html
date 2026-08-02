@@ -1,0 +1,76 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム上にインストールされたフォント・ファミリー・セットを更新または変更するために簡単なメニュー形式のインターフェースをユーザーに提供します。
+“
+注:
+managefonts
+スクリプトを実行するには、root ユーザー権限が必要です。
+managefonts
+スクリプトは、
+/usr/lib/ps/ditroff.fonts/managefonts
+ファイルの中に入っています。
+”
+
+説明
+managefonts
+コマンドは、システムにインストールされたフォント・ファミリー・セットの更新または変更用に、簡単なメニュー形式のインターフェースを提供します。 コマンド・ライン引数がない場合、メニュー形式のインターフェースが使用されます。 メニューによる場合と同様な選択をコマンド・ライン引数を使用して指定することもできます。
+フォント・ファミリーは、Text Formatter Services Package の TranScript Tools オプションと同時にシステムにインストールされます。 このデフォルトのセットアップでは、Times、Courier、および Helvetica のフォント・ファミリーを含む 13 種類の標準フォントが組み込まれます。
+managefonts
+コマンドで呼び出されるプログラムを使用して、現在の構成を消去し、新しい構成にすることもできます。 次の定義済みパッケージとして提供されているフォント・ファミリーもいくつかあり、これらのフォント・ファミリーも上の方法でインストールできます。
+項目 | 説明
+時間ファミリーのみ | TranScript Tools オプションを実行するための最小構成です。
+Standard13 パッケージ | このパッケージは、Times、Courier、および Helvetica フォント・ファミリーを構築します。 このパッケージは、TranScript と共にシステムにインストールされます。
+Standard35 パッケージ | Standard13 パッケージに、Avant Garde、Bookman、New Century Schoolbook、および Palatino フォント・ファミリーを追加したものです。
+すべてのフォント・ファミリー | このパッケージでは、インストール可能なフォント・ファミリーがすべてインストールされます。
+また、
+managefonts
+コマンドを使用して、複数の新しいフォント・ファミリーを同時に追加することもできます。 使用可能なフォントがメニューに表示され、ユーザーは構築したいフォント・ファミリーを選択するだけです。 このプログラムでは、既にインストールされているフォント・ファミリーの構築は行われません。
+managefonts
+コマンドには、フォント・ファミリーのインストールの際に、ユーザーを支援するヘルプ画面も組み込まれています。
+“
+注:
+
+フォント・ファミリーを直接削除することはできません。 フォント・ファミリーを削除するには、最初に希望するフォント・ファミリーの最小サブセットが入ったパッケージをインストールしなければなりません。 このパッケージをインストールした後、Individual Fonts Menu から一度に 1 つのフォント・ファミリーを追加することができます。 例えば、現在の構成が Times、Courier、
+Helvetica で、Times と Courier だけが必要な場合、
+managefonts
+プログラムで Times Only パッケージをインストールします。
+managefonts
+プログラムのメニュー項目と同等のコマンド行構文はありません。
+”
+コマンド・ライン引数は、指定された順序で、左から右に実行されます。 次に
+option
+パラメーターに有効な値とそれらの意味を説明します。
+項目 | 説明
+init0 | フォント・パッケージのインストールのための初期化を行います。
+clean | 一時ファイルと以前にインストールされたフォントをすべて除去します。
+すべて消去 | 一時ファイル、以前にインストールされたフォント、インストール済み TranScript の troff フォント・ファイルをすべて除去します。
+デフォルト | Standard 13 フォントをインストールします。
+standard13 | Standard 13 フォントをインストールします。
+standard35 | Standard 35 フォントをインストールします。
+all | 使用可能なすべてのフォントをインストールします。
+CourierFamily | Courier ファミリーをインストールします。
+HelveticaFamily | Helvetica ファミリーをインストールします。
+HelvNarrowFamily | Helvetica Narrow ファミリーをインストールします。
+AvantGardeFamily | Avant Garde ファミリーをインストールします。
+BookmanFamily | Bookman ファミリーをインストールします。
+GaramondFamily | Garamond ファミリーをインストールします。
+LubalinFamily | Lubalin ファミリーをインストールします。
+NewCenturyFamily | New Century ファミリーをインストールします。
+
+OptimaFamily | Optima ファミリーをインストールします。
+PalatinoFamily | Palatino ファミリーをインストールします。
+SouvenirFamily | Souvenir ファミリーをインストールします。
+ZapfFamily | Zapf ファミリーをインストールします。
+BaseFamily | Base ファミリー (Times Roman など) をインストールします。
+
+構文
+managefonts [ オプション ]
+
+例
+標準 13 フォントをインストールするには、以下のようにします。
+managefonts cleanall standard13
+標準 35 フォントをインストールするには、以下のようにします。
+managefonts cleanall standard35
+すべてのフォントをインストールするには、以下のようにします。
+managefonts cleanall all
+Courier ファミリーをインストールするには、次のようにします (Times Roman または Base Family が事前にインストールされている必要があります)。
+managefonts init0 CourierFamily clean</pre>

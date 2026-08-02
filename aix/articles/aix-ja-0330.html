@@ -1,0 +1,19 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+rset をプロセスから切り離します。
+
+説明
+detachrset
+コマンドは、rset をプロセスから切り離します。 rset をプロセスから切り離すと、プロセスがシステム内の任意のプロセッサーまたはメモリー領域
+(あるいはその両方) を使用できるようになります。
+
+構文
+detachrset [ -P ] pid
+
+オプション
+フラグ
+項目 | 説明
+-P | 区画 rset を指定されたプロセスから切り離します ( pid )。
+
+例
+プロセス 21414 から rset を切り離すには、次のように入力します。
+detachrset 21414</pre>

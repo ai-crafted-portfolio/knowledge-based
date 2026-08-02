@@ -1,0 +1,92 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+リカバリー可能仮想共有ディスク・サブシステムの
+rvsd
+デーモンのアクティビティーを照会および管理します。
+
+説明
+このコマンドを使用して、リカバリー可能仮想共有ディスク・サブシステムの情報の表示、クォーラムに必要なノードの数の変更、
+およびサブシステムの状況の変更を行います。
+
+構文
+ha.vsd { adapter_recovery [オン | オフ] | debug [オフ] | Mksrc | 照会 | クォーラム N | QSRC | リフレッシュ [noquorum] | リセット | クォーラムのリセット | RMSRC | 開始 | 停止 | トレース [オフ] }
+
+オプション
+フラグ
+-a
+すべての仮想共有ディスクを指定します。
+-v
+の vsd_name_list
+コンマで区切られた 1 つ以上の仮想共有ディスク名を指定します。
+-n
+ノード・リスト
+コンマで区切られた、1 つ以上のノード番号を指定します。
+
+例
+リカバリー可能仮想共有ディスク・サブシステムを停止し、再始動するには、次のように入力します。
+ha.vsd reset
+システムは次のメッセージを戻します。
+Waiting for the rvsd subsystem to exit.
+rvsd subsystem exited successfully.
+Starting rvsd subsystem.
+rvsd subsystem started PID=xxx.
+クォーラムを RSCT ピア・ドメインの 5 つのノードへ変更するには、次のように入力します。
+ha.vsd quorum 5
+システムは次のメッセージを戻します。
+Quorum has been changed from 8 to 5.
+rvsd サブシステムを照会するには次のように入力します。
+ha.vsd query
+システムは、以下のようなメッセージを表示します。
+Subsystem Group PID Status
+rvsd rvsd 18320 active
+rvsd(vsd): quorum= 9/4, active=1, state=idle, isolation=member,
+NoNodes=10, lastProtocol=nodes_failing,
+adapter_recovery=on, adapter_status=up,
+RefreshProtocol has never been issued from this node,
+Running function level 4.1.0.0.
+ここで:
+quorum
+クォーラムは仮想共有ディスクが活動化される前に
+グループを結合しなければならないノードまたはサーバー・ノードの総数です。 上記のシステム出力で、
+quorum 9/4
+は、ノードの総数 (9) とサーバー・ノードの数 (4) を示します。
+アクティブ
+結合されているグループの活動化状況を示します。
+0:
+グループは活動状態にありません (クォーラムは条件が満たされていません)。
+1:
+グループはアクティブであり共有ディスクは活動状態にあります。
+state
+実行中の現行プロトコルを示します。
+isolation
+グループ・メンバーシップ状況を示します。
+isolated:
+グループの「結合化」は計画されていません。
+proposed:
+グループの「結合化」が計画されています。
+メンバー :
+グループのメンバー (プロバイダー) です。
+NoNodes
+グループを結合したノードの数を示します。
+
+lastProtocol
+グループ全体に渡って実行された最後のプロトコルを示します。
+adapter_recovery
+通信アダプター・リカバリー・サポートを次のように示します。
+日付:
+アダプター・リカバリーは使用可能です。
+オフ:
+アダプター・リカバリーは使用不可です。
+adapter_status
+通信アダプター状況を次のように示します。
+アップ:
+アダプターは作動しています。
+ダウン:
+アダプターは停止しています。
+不明:
+アダプター状況は認識できません。
+RefreshProtocol ...
+リフレッシュ・プロトコルがこのノードから発行されているかを示します。 発行されていれば、成功またはエラーの日付および時刻が表示されます。
+Running function level
+サブシステムが実行されている機能レベルが、バージョン、リリース、
+変更、修正レベル形式 (vrmf) で示されます。 (サブシステムの機能レベルを低いままで共存させていると、
+機能レベルを削減して実行する場合に制限が生じることがあります。)</pre>

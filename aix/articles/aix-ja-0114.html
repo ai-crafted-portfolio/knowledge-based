@@ -1,0 +1,126 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+覚え書きメッセージを標準出力に書き出します。
+
+説明
+calendar
+コマンドは、
+calendar
+ファイルを読み取り、ファイル内で今日または明日の日付が入っているすべての行を表示します。
+calendar
+ファイルはユーザー作成ファイルであり、
+calendar
+コマンドを実行するディレクトリーと同じディレクトリー内にあることが必要です。 一般に、
+calendar
+ファイルはホーム・ディレクトリーに入っています。
+金曜日に
+calendar
+コマンドを実行すると、
+calendar
+コマンドは、当日の金曜日のほか、後続の土曜日、日曜日、月曜日の日付の入った行もすべて表示します。 このコマンドでは、休日は認識されません。
+calendar
+コマンドは、
+Month
+Day
+、
+Abbreviation
+Date
+、
+MonthNumeral
+/
+Date
+などの日付形式を認識します。 これらの形式の例には、December 7、Dec 7、または 12/7 などがあります。
+calendar
+コマンドは、/ (スラッシュ) の前の特殊文字 * (アスタリスク) も認識します。 例えば */7 と指定すると、毎月の 7 日として解釈されます。
+calendar
+コマンドは、7/ *、7 December、7/12、* 7、DEC などの形式を認識しません。 &lt;
+システム管理者がユーザー全員のために
+calendar
+ファイルを作成している場合は、ローカル
+calendar
+ファイルの先頭に次の行を追加すると、このファイルにアクセスできます。
+#include &lt;FileName&gt;
+FileName
+変数の実際の値は、システム管理者によって決定されます。 このファイルの名前を
+calendar
+にする必要はありません。
+calendar
+コマンドを実行すると、ローカルの
+calendar
+ファイルに格納された覚え書きと、
+FileName
+変数で指定したファイルに格納された覚え書きが表示されます。
+注:
+calendar
+ファイルに include ステートメントが含まれていると、
+calendar
+コマンドは C プリプロセッサーを介して
+calendar
+ファイルを実行します。
+calendar
+ファイルで include 文を使用するには、
+/usr/ccs/lib/cpp
+ファイルに入っている C プリプロセッサーをオペレーティング・システムにインストールする必要があります。
+覚え書きサービスを利用するには、他のファイルについての読み取り許可が
+calendar
+
+ファイルにあることが必要です。 許可の設定については、
+chmod
+コマンドのセクションを参照してください。
+
+構文
+カレンダー [ - ]
+
+オプション
+フラグ
+項目 | 説明
+- | ホーム・ディレクトリーに calendar ファイルがあるすべてのユーザーのために calendar コマンドを呼び出します。 calendar コマンドは、結果を標準出力に書き出す代わりに、 mail コマンドを使用して覚え書きを送信します。
+
+例
+標準的な
+カレンダー
+・ファイルは、以下のようになります。
+*/25 - Prepare monthly report
+Aug. 12 - Fly to Denver
+aug 23 - board meeting
+Martha out of town - 8/23, 8/24, 8/25
+8/24 - Mail car payment
+sat aug/25 - beach trip
+August 27 - Meet with Simmons
+August 28 - Meet with Wilson
+calendar
+コマンドを実行するには、次のように入力します。
+calendar
+今日が 8 月 24 日、金曜日であれば、
+calendar
+コマンドの表示は次のようになります。
+*/25 - Prepare monthly report
+Martha out of town - 8/23, 8/24, 8/25
+8/24 - Mail car payment
+sat aug/25 - beach trip
+August 27 - Meet with Simmons
+include ステートメントを含む
+カレンダー
+・ファイルは、次のようになります。
+#include &lt;/tmp/out&gt;
+1/21 -Annual review
+1/21 -Weekly project meeting
+1/22 *Meet with Harrison in Dallas*
+Doctor&#x27;s appointment - 1/23
+1/23 -Vinh&#x27;s wedding
+calendar
+コマンドを実行するには、次のように入力します。
+calendar
+今日が 1 月 21 日、水曜日であれば、
+calendar
+コマンドの表示は次のようになります。
+Jan.21 Goodbye party for David
+Jan.22 Stockholder meeting in New York
+1/21 -Annual review
+1/21 -Weekly project meeting
+1/22 *Meet with Harrison in Dallas*
+calendar
+コマンドの結果は、以下のようになります。
+/tmp/out
+ファイルに以下の行が含まれていました。
+Jan.21 Goodbye party for David
+Jan.22 Stockholder meeting in New York</pre>

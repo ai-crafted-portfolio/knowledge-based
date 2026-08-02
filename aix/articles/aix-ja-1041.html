@@ -1,0 +1,207 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+これによりシステム管理者は NIM オブジェクトのインストール・インベントリーに基づきフィックスを集め、集計し、比較し、ダウンロードできるようになります。
+
+説明
+niminv
+コマンド (Network Install Manager Inventory) を使用すると、システム管理者は以下のタスクを実行できます。
+種々の NIM オブジェクトのインストール・インベントリーを集める。
+種々の NIM オブジェクトのインストール・インベントリーを集計する。
+種々の NIM オブジェクトのインストール・インベントリーを比較する。
+種々の NIM オブジェクトのインストール・インベントリーに基づきフィックスをダウンロードする。
+niminv
+コマンドは、インストール情報を含む任意の NIM オブジェクトを使用できます。 このようなオブジェクトの例としては、スタンドアロン・クライアント・オブジェクト、SPOT オブジェクト、
+lpp_source
+オブジェクト、および
+mksysb
+オブジェクトがあります。
+niminv
+コマンドを使用すると、以下の利点があります。
+ソフトウェア・インストール・インベントリーと並行して、ハードウェア・インストール・インベントリーが集められる。
+データ・ファイルが、容易に認識できる命名規則を使用して保管される。
+インストール・インベントリーを持つすべての NIM オブジェクトを使用できる。
+当コマンドは、すべての管理対象 NIM オブジェクトの全体的なビューを提供する。
+niminv
+によって表示される情報は、以下のいずれかの要因によって制限されます。
+実際には物理デバイスを持たないオブジェクト (SPOT オブジェクト、
+lpp_source
+オブジェクト、および
+mksysb
+オブジェクトなど) については、ソフトウェア・インストール・インベントリーのみが提供されます。
+クライアント・オブジェクトのソフトウェアおよびハードウェア・インストール・インベントリーについては、リモート・システム上のコマンドが提供可能なものに限定する。
+ダウンロードするフィックスの認識は、フィックス・バックエンド・サーバーに基づくものとする。 詳細については、
+Using the Software Service
+Management menu (including SUMA)
+を参照してください。
+
+構文
+インストール・インベントリーを取得する場合： niminv -o invget -a targets = object1,object2, ... [ -a location = path ] [ -a colonsep = yes | no ] インストール・インベントリーを集計する場合： niminv -o invcon -a targets = object1,object2, ... [ -a base = highest | lowest ] [ -a location = path ] [ -a colonsep = yes | no ] インストール・インベントリーを比較する場合： niminv -o invcmp -a targets = object1,object2, ... [ -a base = object | any ] [ -a location = path ] 集計インベントリーに基づきフィックスを取得する場合： niminv -o fixget -a targets = object1,object2, ... [ -a download = yes | no ] [ -a lp_source = object ] [ -a location = path ] -a newlppname = 名前
+
+オプション
+フラグ
+項目 | 説明
+-a 属性 = 値 | 属性と値を指定します。 サポートされる属性と値は、その操作に基づきます。
+-o 操作 | 操作を指定します。 以下に示す操作が現在、サポートされています。 fixget インストール・インベントリーに基づき、最新のフィックスを集めます。 この操作は、以下の属性をサポートします。 targets (必須) フィックス収集の基本となる、コンマで区切られた NIM オブジェクトのリスト。 lpp_source (オプション) フィックスをダウンロードするためのフィルターとして使用する NIM lpp_source オブジェクト。 ロケーションおよび newlppname 属性が使用されない場合、この lpp_source オブジェクトは、フィックスのダウンロード先にもなります。 ロケーション (オプション) フィックスを保管するディレクトリー。 この属性は、 lpp_source 属性に指定されたオブジェクトにフィックスをダウンロードしない場合にのみ使用してください。 この属性は、 newlppname 属性と一緒にのみ使用できます。 newlppname (オプション) ロケーションに作成する lpp_source の NIM オブジェクト名です。 この属性は、 location 属性と一緒にのみ使用できます。 指定する値は、明確で、しかも NIM 環境で現在、未使用のものでなければなりません。 download (オプション) コマンドにフィックスをダウンロードさせるかどうかを指示します。 lpp_source または location フィールドが指定されておらず、この属性の値が yes である場合、フィックスは suma コマンドによってデフォルトの場所にダウンロードされます。 注: suma コマンドは、 suma 構成の MaxFSSize フィールドに従ってファイル・システム・スペースを増やします。
+
+-o operation (続き) | invcmp インストール・インベントリーを比較します。 この操作は、以下の属性をサポートします。 targets (必須) インストール・インベントリーを比較する、コンマで区切られた NIM オブジェクトのリスト。 base (必須) 比較のベースとして使用する NIM オブジェクト、またはキーワード any 。 NIM オブジェクトを与えた場合、オブジェクト内のインストール・インベントリーが、表示されるデータの唯一の決定物となり、基本オブジェクト内のインベントリーのみがターゲット・オブジェクト内のインベントリーと比較されます。 キーワード any は、ターゲットのインストール・インベントリーを使用するようにコマンドに強制します。 ロケーション (オプション) データ・ファイルを保管するディレクトリー。 このオプションを使用すると、各インベントリーは conglomerate 基本オブジェクト . ターゲット・オブジェクト・リスト . タイムスタンプ という形式で保存されます。ここで、 基本オブジェクト は比較に使用される基本オブジェクトの NIM 名 (またはキーワード any )、 ターゲット・オブジェクト・リスト はコロンで区切られ、オブジェクトの NIM 名をソートしたリスト、 タイムスタンプ はコマンドが実行された時刻 ( 年、月、日、時、分、秒 ) です。 ディレクトリーが存在しない場合は、 それが作成されます。 デフォルトは、データの画面への表示です。
+
+-o operation (続き) | invcon インストール・インベントリーを集計します。 この操作は、以下の属性をサポートします。 targets (必須) インストール・インベントリーを集計するための、NIM オブジェクトのコンマで区切られたリスト。 base (オプション) 集計インベントリーが最高のソフトウェア・レベル、または最低のソフトウェア・レベルのいずれに基づくかを指定します。 ロケーション (オプション) データ・ファイルを保管するディレクトリー。 このオプションを使用すると、各インベントリーは base . target_object_list という形式で保存されます。 timestamp 。ここで、 base は、コングロマリットが最高レベルまたは最低レベルに基づいていることを示します。 target_object_list は、コロンで区切られ、オブジェクトの NIM 名をソートしたリストです。 timestamp は、コマンドが実行された時刻 ( year month day hour minute second ) です。 ディレクトリーが存在しない場合は、 それが作成されます。 デフォルトは、データの画面への表示です。 colonsep (オプション) コマンドにコロンで区切られた出力を作成させるかどうかを指示します。 デフォルトは no です。 invget インストール・インベントリーを集めます。 この操作は、以下の属性をサポートします。 targets (必須) インストール・インベントリーを集めるための、コンマで区切られた NIM オブジェクトのリスト。 ロケーション (オプション) データ・ファイルを保管するディレクトリー。 このオプションを使用すると、各インベントリーは conglomerate . target_object_name . timestamp という形式で保存されます。ここで、 target_object_name はオブジェクトの NIM 名、 timestamp はコマンドが実行された時刻 ( year month day minute second ) です。 ディレクトリーが存在しない場合は、 それが作成されます。 デフォルトは、データの画面への表示です。 colonsep (オプション) コマンドにコロンで区切られた出力を作成させるかどうかを指示します。 デフォルトは no です。
+
+例
+2 つのクライアントのインストール・インベントリーを収集し、出力を
+/tmp/inventory
+に保存するには、次のように入力します。
+niminv -o invget -a targets=client1,client2 -a location=/tmp/inventory
+以下のような出力が表示されます。
+Installation Inventory for client1 saved to
+/tmp/inventory/inventory.client1.060406140453.
+Installation Inventory for client2 saved to
+/tmp/inventory/inventory.client2.060406140453.
+ファイル内の情報は、
+lslpp -L
+の出力に似ています。
+2 つのクライアントのインストール・インベントリーを複合し、出力を
+/tmp/inventory
+に保存するには、次のように入力します。
+niminv -o invcon -a targets=client1,client2 -a location=/tmp/inventory
+以下のような出力が表示されます。
+Installation Inventory for client1 saved to
+/tmp/inventory/conglomerate.client1:client2.060406140500.
+ファイル内の情報は、
+lslpp -L
+の出力に似ています。
+mksysb
+、SPOT、および
+lpp_source
+のインストール・インベントリーをマスターに現在インストールされているものと比較し、その出力を
+/tmp/inventory
+に保管するには、次のように入力します。
+niminv -o invcon -a targets=mksysb1,spot1,lpp_source1 -a base=master -a \
+location=/tmp/inventory
+以下のような出力が表示されます。
+Installation Inventory for client1 saved to
+/tmp/inventory/comparison.master.mksysb1:spot1:lpp_source1.060406140610.
+ファイル内の情報は列形式でリストされます。 比較に含まれるのは、
+master 上のインストール・インベントリーのみです。
+
+先の例と同じ比較を行い、しかも任意のオブジェクトのソフトウェアも含める場合は、以下のように入力します。
+niminv -o invcon -a targets=mksysb1,spot1,lpp_source1,master -a base=any -a \
+location=/tmp/inventory
+以下のような出力が表示されます。
+Installation Inventory for client1 saved to
+/tmp/inventory/comparison.any.mksysb1:spot1:lpp_source1.060406140733.
+ファイル内の情報は列形式でリストされます。 比較には、
+任意のターゲット・オブジェクト内のすべてのインストール・インベントリーが含まれます。
+mksysb
+、SPOT、および
+lpp_source
+の最も低いインストール環境に基づいてダウンロードできるフィックスを表示するには、次のように入力します。
+niminv -o fixget -a targets=mksysb1,spot1,lpp_source1
+以下のような出力が表示されます。
+****************************************
+Performing preview download.
+****************************************
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/Java14.debug.1.4.1.0.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/Java14.debug.1.4.1.7.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.00100100.com.5.2.0.50.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.00100300.diag.5.2.0.75.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.00100f00.rte.5.2.0.85.bff
+
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.13100560.rte.5.2.0.85.bff
+Summary:
+6 downloaded
+0 failed
+0 skipped
+mksysb
+、SPOT、および
+lpp_source
+の最小インストールに基づいて最新のフィックスをダウンロードするには、次のように入力します。
+niminv -o fixget -a targets=mksysb1,spot1,lpp_source1 -a download=yes
+以下のような出力が表示されます。
+Extending the /usr filesystem by 30 blocks.
+File System size changed to 8126464
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/Java14.debug.1.4.1.0.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/Java14.debug.1.4.1.7.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.00100100.com.5.2.0.50.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.00100300.diag.5.2.0.75.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.00100f00.rte.5.2.0.85.bff
+Download SUCCEEDED: /usr/sys/inst.images/installp/ppc/devices.pci.13100560.rte.5.2.0.85.bff
+Summary:
+6 downloaded
+0 failed
+0 skipped
+注:
+デフォルトのダウンロード・パス (
+suma
+コマンドで指定) に既に含まれているインストールは、再度ダウンロードされることはありません。 この例のデフォルトのダウンロード・パスは
+/usr/sys/inst.images
+でした。 デフォルトのダウンロード・パスの場所について詳しくは、
+suma
+
+コマンドを参照してください。
+mksysb
+、SPOT、および
+lpp_source
+内の最も低いインストール済み環境に基づく最新のフィックスを既存の
+lpp_source
+にダウンロードするには、次のように入力します。
+niminv -o fixget -a targets=mksysb1,spot1,lpp_source1 -a download=yes -a \
+lpp_source=lpp_source2
+以下のような出力が表示されます。
+Download SUCCEEDED: /nim/lpps/lpp_source2/installp/ppc/Java14.debug.1.4.1.0.bff
+Download SUCCEEDED: /nim/lpps/lpp_source2/installp/ppc/Java14.debug.1.4.1.7.bff
+Summary:
+2 downloaded
+0 failed
+0 skipped
+注:
+lpp_source2
+に既に含まれているインストールは、再度ダウンロードされることはありません。 この例では、
+filesets
+デバイスは
+lpp_source2
+に既に存在しています。
+既存の
+lpp_source
+内のファイルセットをフィルターに掛けながら、
+mksysb
+、SPOT、および
+lpp_source
+内の最も低いインストール済み環境に基づく最新のフィックスを新しい
+lpp_source
+にダウンロードするには、次のように入力します。
+niminv -o fixget -a targets=mksysb1,spot1,lpp_source1 -a download=yes -a \
+location=/nim/lpps/newlpp1 -a newlppname=newlpp1
+以下のような出力が表示されます。
+Download SUCCEEDED: /nim/lpps/newlpp1/installp/ppc/Java14.debug.1.4.1.0.bff
+Download SUCCEEDED: /nim/lpps/newlpp1/installp/ppc/Java14.debug.1.4.1.7.bff
+Summary:
+2 downloaded
+0 failed
+0 skipped
+注:
+lpp_source2
+に既に含まれているインストールは、再度ダウンロードされることはありません。 この例では、
+filesets
+デバイスは
+lpp_source2
+に既に存在しています。
+mksysb
+
+、SPOT、および
+lpp_source
+内の最も低いインストール済み環境に基づく最新のフィックスを新しい
+lpp_source
+にダウンロードするには、次のように入力します。
+niminv -o fixget -a targets=mksysb1,spot1,lpp_source1 -a download=yes -a \
+location=/nim/lpps/newlpp2 -a newlppname=newlpp2
+以下のような出力が表示されます。
+Download SUCCEEDED: /nim/lpps/newlpp2/installp/ppc/Java14.debug.1.4.1.0.bff
+Download SUCCEEDED: /nim/lpps/newlpp2/installp/ppc/Java14.debug.1.4.1.7.bff
+Download SUCCEEDED: /nim/lpps/newlpp2/installp/ppc/devices.pci.00100100.com.5.2.0.50.bff
+Download SUCCEEDED: /nim/lpps/newlpp2/installp/ppc/devices.pci.00100300.diag.5.2.0.75.bff
+Download SUCCEEDED: /nim/lpps/newlpp2/installp/ppc/devices.pci.00100f00.rte.5.2.0.85.bff
+Download SUCCEEDED: /nim/lpps/newlpp2/installp/ppc/devices.pci.13100560.rte.5.2.0.85.bff
+Summary:
+6 downloaded
+0 failed
+0 skipped</pre>

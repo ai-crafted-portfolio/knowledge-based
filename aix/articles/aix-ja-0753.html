@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ワークロード・マネージメント・クラスとその制限をリストします。
+
+説明
+lsclass
+コマンドに引数を指定しない場合、
+1 行に 1 つずつのスーパークラスのリストを戻します。 クラス名を引数として指定すると、
+このコマンドはクラスを表示します。
+-r
+(recursive) フラグか、
+または
+-S
+Superclass
+フラグを使用すると、
+サブクラスが表示できます。
+WLM が開始されると、
+空ストリングが
+-d
+フラグと共に構成の名前として渡される場合に、
+lsclass
+はメモリー内の WLM データ構造で定義されたクラスをリストします。
+lsclass
+コマンドは、
+特別なレベルの特権を必要とせず、
+すべてのユーザーがアクセスできます。
+注:
+このコマンドに時間ベースの構成のセットが指定されている場合 (
+-d
+フラグで指定されているか、現在の構成がセットであるため)、
+lsclass
+コマンドは、コマンドの発行時に適用される (または適用される) 通常構成のクラスを戻します。
+
+構文
+lsclass [ -C | -D | -f ] [ -r ] [ -d Config_Dir ] [ -S SuperClass ] [クラス］
+
+オプション
+フラグ
+項目 | 説明
+-C | クラス属性と制限を、 次のようにコロンで区切ったレコード・フォーマットで表示します。 lsclass -C myclass #name:description:tier:inheritance:authuser:authgroup: adminuser:admingroup:rset:CPUshares:CPUmin: CPUsoftmax:CPUhardmax:memoryshares:memorymin: memorysoftmax:memoryhardmax:diskIOshares:diskIOmin: diskIOsoftmax:diskIOhardmax:totalCPUhardmax: totalCPUunit:totalDiskIOhardmax:totalDiskIOunit: totalConnecttimehardmax:totalConnecttimeunit: totalProcesseshardmax:totalThreadshardmax: totalLoginshardmax: classRealMem:classRealMemunit:classVirtMem: classVirtMemunit:classLargePages:classLargePagesunit: procVirtMem:procVirtMemunit:localshm:vmenforce:delshm myclass::0:no::::::-:0:100:100:-:1:100:100:-:0:100: 100:-:s:-:KB:-:s:-:-:-:-:KB:-:KB:-:KB:-:KB:no:proc:no
+-d コンフィグ_ディレクトリ | /etc/wlm/ Config_Dir を定義ファイルの代替ディレクトリーとして使用します。 空ストリングが渡された場合 (例えば、次のようになります。 -d &quot;&quot; ), lsclass は、メモリー内の WLM データ構造に定義されているクラスをリストします。 このフラグが存在しない場合は、 /etc/wlm/current によって指し示されるディレクトリー内の現在の構成ファイルが使用されます。
+
+-D | クラス属性と制限のデフォルト値を、 次のようにコロンで区切ったレコード・フォーマットで表示します。 -D と共に使用される他のすべてのフラグまたは引数は無視されます。 次に例を示します。 lsclass -D #name:description:tier:inheritance:authuser: authgroup:adminuser:admingroup:rset:CPUshares:CPUmin: CPUsoftmax:CPUhardmax:memoryshares:memorymin: memorysoftmax:memoryhardmax:diskIOshares:diskIOmin: diskIOsoftmax:diskIOhardmax:totalCPUhardmax: totalCPUunit:totalDiskIOhardmax:totalDiskIOunit: totalConnecttimehardmax:totalConnecttimeunit: totalProcesseshardmax:totalThreadshardmax:totalLoginshardmax: classRealMem:classRealMemunit:classVirtMem: classVirtMemunit:classLargePages:classLargePagesunit: procVirtMem:procVirtMemunit:localshm:vmenforce:delshm ::0:no::::::-:0:100:100:-:0:100:100:-:0:100:100:-:s:-: KB:-:s:-:-:-:-:KB:-:KB:-:KB:-:KB:no:proc:no
+-f | 出力をスタンザ・フォーマットで表示し、 各スタンザはクラス名で識別されます。 Attribute = Value のそれぞれの対は、別々の行にリストされます。 Class: attribute1=value attribute2=value attribute3=value
+
+-r | スーパークラスをそのすべてのサブクラスと共に、 再帰的に表示します。 -r を指定した場合: Class が指定されない場合、 lsclass はすべてのスーパークラスを、 そのすべてのサブクラスと共に表示します。 スーパークラスの名前が指定される場合、 lsclass はスーパークラスを、 そのすべてのサブクラスと共に表示します。 サブクラスの名前が指定される場合、 -r は無効です (サブクラスのみを表示します)。
+-S SuperClass | コマンドの有効範囲を、 指定したスーパークラスのサブクラスに制限します。 -S フラグを使用すると、 サブクラスのみが表示されます。</pre>

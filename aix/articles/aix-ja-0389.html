@@ -1,0 +1,74 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+installp
+ソフトウェア・パッケージの信頼できるインストールおよび更新のためのデータのシグニチャー・ブロックを作成します。
+
+説明
+dsblkgen
+コマンドは、
+cat
+コマンドを使用して
+installp
+フォーマットのソフトウェア・パッケージに追加できるデータのシグニチャー・ブロックを出力ファイルに作成します。
+installp
+パッケージには、
+「デジタル署名ポリシー」
+オプションが
+none
+以外の値に設定された AIX® トラステッド更新およびインストールのデジタル署名情報が含まれています。
+dsblkgen
+コマンドを実行する前に、秘密鍵とともに OpenSSL コマンド・ライン・ツールの
+openssl
+コマンドを実行して、
+installp
+パッケージから署名ファイルを取得する必要があります。 署名ファイルは、
+signature_file
+パラメーターで指定されたファイルに保存されます。 公開鍵は、秘密鍵に加えて、 AIX オペレーティング・システム上に存在している必要があります。 AIX オペレーティング・システム上の公開鍵のパスが
+/etc/security/certificates/my_public_key.pem
+の場合、
+file_certificate
+パラメーターの値は
+/etc/security/certificates/my_public_key.pem.
+です。
+
+構文
+dsblkgen [ -f PEM|DER|LOC ] signature_file file_certificate signature_block
+
+オプション
+フラグ
+-f
+署名付きデジタル証明書のタイプを指定します。
+-f
+フラグの有効な値は、
+PEM
+、
+DER
+、および
+LOC
+です。 署名付きデジタル証明書のタイプが
+PEM
+または
+DER
+の場合、
+file_certificate
+パラメーターによって指定されるファイルには、署名付きデジタル証明書が含まれている必要があります。 署名付きデジタル証明書のタイプが
+LOC
+の場合、
+file_certificate
+パラメーターは、システム上の署名付きデジタル証明書の絶対パスです。
+
+例
+installp
+パッケージからシグニチャー・ブロックを作成するには、次のコマンドを入力します。
+# dsblkgen -f LOC signature_file file_certificate signature_block
+cat
+コマンドを使用して、
+installp
+パッケージにシグニチャー・ブロックを追加できます。
+「デジタル署名ポリシー」
+オプションが
+none
+以外の値に設定されている場合、 AIX オペレーティング・システムは、
+installp
+パッケージのインストール時に、
+signature_block
+パラメーターのデータに基づいてイメージを検証します。</pre>

@@ -1,0 +1,59 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+サブシステムまたはサブシステムのグループの状況を正規形式で入手します。
+
+説明
+nlssrc
+コマンドを使用して、サブシステムまたはサブシステムのグループの状況を正規形式で取得します。 AIX® プラットフォームの場合、
+nlssrc -c
+コマンドを使用して、
+lssrc
+コマンドから、サポートされるサブシステムの言語に依存しない出力を取得します。 状況は、インストールされた言語のロケールに関係なく、英語で表示されます。
+-c
+フラグが存在しない場合、
+nlssrc
+コマンドは、デーモンのロケールを使用する
+lssrc
+コマンドを呼び出します。
+
+構文
+nlssrc [ -h host ] -a nlssrc [ -h host ] -g group_name nlssrc [ -h host ] [-l ] [-c ] -s subsystem_name nlssrc [ -h host ] [-l ] [-c ] -p subsystem_pid nlssrc の最初の 2 つの使用法の構文は、 lssrc とまったく同じ出力を生成します。 最後の 2 つの使用法の構文では、正規形式の出力が lssrc として生成されます。
+
+オプション
+フラグ
+項目 | 説明
+-a | 定義されたすべてのサブシステムの現行状況をリストします。
+-c | サポートされるサブシステムの正規 lssrc 出力を要求します。
+-g グループ名 | 状況を入手するサブシステムのグループを指定します。 group_name パラメーターがサブシステム・オブジェクト・クラスに 含まれていない場合、コマンドは失敗します。
+-h ホスト | この状況アクションが要求される外部ホストを指定します。 ローカル・ユーザーは、 root として実行している必要があります。 リモート・システムは、 リモートのシステム・リソース・コントローラー (SRC) 要求を受け入れるように構成されている必要があります。 つまり、 -r フラグを指定して srcmstr デーモン ( /etc/inittab を参照) を開始し、リモート要求を許可するように /etc/hosts.equiv ファイルまたは .rhosts ファイルを構成する必要があります。
+-l | サブシステムが現在の状況を長形式で送信するように、要求します。 長い状況は状況の要求をサブシステムに送信することを必要とします。 状況を戻すのはサブシステムの責任です。
+-p サブシステム_PID | 状況を入手する subsystem_pid パラメーターの特定のインスタンス または、状況サブサーバー要求を入手するサブシステムの特定のインスタンスを指定します。
+-s サブシステム名 | 状況を入手するサブシステムを指定します。 subsystem_name パラメーターは、 サブシステムの実際の名前または同義語名にすることができます。 subsystem_name パラメーターがサブシステム・オブジェクト・クラスに 含まれていない場合、コマンドは失敗します。
+
+例
+ctsubsys
+というサブシステムから
+nlssrc
+の出力を英語で取得するには、次のように入力します。
+nlssrc -c -ls ctsubsys
+次の例は、同じ情報を異なるフォーマットで示しています。
+nlssrc -ls ctsubsys (locale-dependent)
+Subsystem Group PID Status
+ctsubsys ctsubsys 6334 active
+2 locally-connected clients. Their PIDs:
+15614 23248
+HA Subsystem domain information:
+Domain established by node 5
+Number of groups known locally: 1
+Number of Number of local
+Group Name providers providers/subscribers
+ha_filesys 7 1 0
+nlssrc -ls ctsubsys -c (canonical form)
+Number of local clients: 2
+PIDs: 15614 23248
+HA Subsystem domain information:
+Domain established by node 5.
+Number of known local groups: 1
+Group Name: ha_filesys
+Providers: 7
+Local Providers: 1
+Local Subscribers: 0</pre>

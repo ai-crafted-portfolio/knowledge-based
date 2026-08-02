@@ -1,0 +1,54 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ロール属性を変更します。
+
+説明
+chrole
+コマンドは、
+Name
+パラメーターによって識別されるロールの属性を変更します。 このロール名は、既に存在するものでなければなりません。 属性を変更するには、属性名と新しい値に
+Attribute
+=
+Value
+パラメーターを付けて指定してください。
+chrole
+コマンドで正しくない属性または属性値を 1 つ指定すると、コマンドは属性を変更しません。
+このコマンドは、System Management Interface Tool (SMIT)
+smit chrole
+高速パスを使用して実行することもできます。
+ロール・データベースに対して複数のドメインを使用するようにシステムが構成されている場合、
+/etc/nscontrol.conf
+ファイルのロール・データベース・スタンザの
+secorder
+属性に指定された順序に従って、
+ロールの変更が行われます。 最初に一致したロールのみが変更されます。 残りのドメインからの重複するロールは、変更されません。 特定のドメインからのロールを変更するには、
+-R
+フラグを使用します。
+システムが拡張
+ロール・ベース・アクセス制御
+(
+RBAC
+) モードで稼働している場合、ロール・データベースに対して行われた変更は、データベースが
+setkst
+コマンドによってカーネル・セキュリティー・テーブルに送信されるまで、セキュリティー上の考慮事項には使用されません。
+
+構文
+chrole [ -R load_module ] Attribute = Value ... Name
+
+オプション
+フラグ
+項目 | 説明
+-R ロード・モジュール | ロールの変更に使用するロード可能モジュールを指定します。
+
+例
+許可を変更するには、以下のようにします。
+ManagePasswds
+役割
+aix.security.passwd
+次のコマンドを使用します。
+chrole authorizations=aix.security.passwd ManagePasswds
+許可を変更するには、以下のようにします。
+ManagePasswds
+LDAP での役割
+aix.security.passwd
+次のコマンドを使用します。
+chrole -R LDAP authorizations=aix.security.passwd ManagePasswds</pre>

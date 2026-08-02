@@ -1,0 +1,50 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ハングマン (言葉当てゲーム) を開始します。
+
+説明
+hangman
+コマンドは、標準辞書から最低 7 文字のワードを 1 つ選択します。
+File
+パラメーターは、
+代替辞書を指定します。 ユーザーは、そのワードに含まれる文字を一度に 1 つずつ推測してワードを当てます。 間違えても 7 回まで答えられます。
+ハングマンを開始すると、以下のように表示されます。
+guesses: word: ....... errors: 0/7
+guess:
+この
+guesses
+推測に使用した文字を表示します。 推測されるすべての文字が後にリストされます
+guesses
+.
+word: .......
+ミステリー・ワード内の文字数を表示します。 この例では、7 つの
+.
+(ピリオド) があるので、このワードの文字数は 7 文字となります。 文字を正確に推測すると、ゲームは適切な
+.
+正しい文字が使用されています。 この
+errors: 0/7
+正しくない推測の数を表示します。 次の場所に手紙の推測を入力します。
+guess:
+できます。 次に例を示します。
+guesses: word: .......... errors: 0/7
+guess: q
+guesses: q word: .......... errors: 1/7
+guess: a
+guesses: aq word: .a....a... errors: 1/7
+guess: b
+guesses: abq word: .a....a... errors 2/7
+guess: j
+guesses: abjq word: .a....a... errors: 3/7
+guess: s
+guesses: abjqs word: .a....a..s errors: 3/7
+guess: z
+guesses: abjqsz word: .a....a..s errors: 4/7
+guess: y
+guesses: abjqsyz word: .a....a..s errors: 5/7
+guess: k
+guesses: abjkqsyz word: .a....a..s errors: 6/7
+guess: x
+the answer was calculates, you blew it
+ゲームを終了するには、割り込み (Ctrl-C) またはファイルの終わり (Ctrl-D) キー・シーケンスを押します。
+
+構文
+hangman [ ファイル ]</pre>

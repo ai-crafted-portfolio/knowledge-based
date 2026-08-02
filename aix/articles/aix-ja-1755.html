@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+特定のワークロード区画 (WPAR) のエラー・メッセージをログに記録します。
+
+説明
+wparerr
+コマンドは、特定の WPAR のエラー・メッセージをログに記録するメカニズムを提供します。 それぞれの WPAR は、最大 1 KB のエラー・メッセージを保持することができます。 新規のメッセージを記録するのに十分なスペースがあれば、このコマンドによってメッセージが記録されますが、十分なスペースがなければ失敗します。
+-w
+オプションを WPAR の内部で使用してはなりません。
+-S
+フラグの後のすべては、メッセージの引数として処理されます。
+
+構文
+グローバル wparerr –w WparName [{-c &lt;cat file&gt; -s &lt;set no&gt; -n &lt;msg no&gt;}] -S default_string args WPAR から wparerr [ -c &lt;cat file&gt; -s &lt;set no&gt; -n &lt;msg no&gt;}] -S default_string args
+
+オプション
+フラグ
+項目 | 説明
+-w | ワークロード区画の名前を指定します。そのワークロード区画のメッセージがログに記録されます。
+-c | 変換に使用されるカタログ・ファイル名を指定します。
+-s | カタログ・ファイル内のエラー・メッセージのメッセージ・セット番号を指定します。
+-n | エラー・メッセージのメッセージ番号を指定します。
+-S | デフォルトのメッセージ文字列を指定します。 printf サブルーチンの Format パラメーターと同じ構文に従います。 浮動小数点はサポートされません。
+args | メッセージに対する引数があれば、それを指定します。
+
+例
+WPAR
+mywpar
+のメッセージをグローバルからログに記録するには、次のように入力します。
+wparerr –w mywpar –c wparerrs.msg –s 1 –n 12 –S “ %s failed with return value %d\n” lswpar -1
+コマンドの失敗を WPAR の内部からログに記録するには、次のように入力します。
+wparerr –c wparerrs.msg –s 1 –n 5 –S “ %s application does not allow checkpoint\n” myapplication</pre>

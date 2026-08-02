@@ -1,0 +1,86 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プロセスがオープンしたすべてのファイル・ディスクリプターの情報をレポートします。
+
+説明
+/proc
+ファイルシステムは、プロセスを制御するメカニズムを提供します。 また、プロセスとスレッドの現行状態に関する情報にもアクセスできますが、これはバイナリー形式です。
+proctools
+コマンドは、いくつかの使用できる情報に基づいて ASCIIi レポートを提供します。
+ほとんどのコマンドは、プロセス ID のリストまたは
+/proc/
+ProcessID
+文字列を入力とします。 したがって、シェル拡張
+/proc/*
+を使用することにより、システム内のすべてのプロセスを指定できます。
+proctools コマンドは、指定されたプロセスの
+/proc
+から情報を収集し、ユーザーに表示します。
+proctools
+コマンドは procrun および procstop と同様に、
+/proc
+インターフェースを使用してプロセスを開始し、停止します。
+コマンドが
+/proc
+から収集した情報は、
+プロセスの現行状態のスナップショットであり、
+したがって停止したプロセス以外は、刻々と変化します。
+通常ファイルには、そのファイルのオープンに使用されたモードに基づく権限があります。 通常ファイ以外のどのファイルにも、0 アクセス・モードがあります。
+procfiles
+コマンドは、プロセスがオープンしたすべてのファイル・ディスクリプターの情報をレポートします。
+-n
+オプションを使用すると、対応するファイル名も表示します。
+
+構文
+procfiles [ -F ] [ -n ] [ -c ]. ProcessID ...
+
+オプション
+フラグ
+項目 | 説明
+-c | 列フォーマットで出力を表示します。
+-F | 別のプロセスが制御を持っていたとしても、 強制的に procfiles がターゲット・プロセスの制御を得るようにします。
+-n | ファイル・ディスクリプターが参照するファイル名を印刷します。
+ProcessID | プロセス ID を指定します。
+
+例
+プロセス 11928 がオープンしたファイル・ディスクリプターの状況と制御情報を表示するには、
+次のコマンドを入力します。
+procfiles 11928
+このコマンドの出力は以下のような情報です。
+11928 : -sh
+Current rlimit: 2000 file descriptors
+0: S_IFCHR mode:0622 dev:10,4 ino:2584 uid:100 gid:100 rdev:28,1
+O_RDONLY
+1: S_IFCHR mode:0622 dev:10,4 ino:2584 uid:100 gid:100 rdev:28,1
+O_RDONLY
+2: S_IFCHR mode:0622 dev:10,4 ino:2584 uid:100 gid:100 rdev:28,1
+O_RDONLY
+63: S_IFREG mode:0600 dev:10,8 ino:311 uid:100 gid:100 rdev:40960,10317
+O_RDONLY size:2574
+プロセス 15502 がオープンしたファイル・ディスクリプターの名前、状況、制御情報を表示するには、次のコマンドを入力します。
+procfiles -n 15502
+このコマンドの出力は以下のような情報です。
+15502 : /home/guest/test
+Current rlimit: 2000 file descriptors
+0: S_IFCHR mode:0622 dev:10,4 ino:2584 uid:100 gid:100 rdev:28,1
+O_RDONLY
+1: S_IFCHR mode:0622 dev:10,4 ino:2584 uid:100 gid:100 rdev:28,1
+O_RDONLY
+2: S_IFCHR mode:0622 dev:10,4 ino:2584 uid:100 gid:100 rdev:28,1
+O_RDONLY
+3: S_IFREG mode:0644 dev:10,7 ino:26 uid:100 gid:100 rdev:0,0
+O_RDONLY size:0 name:/tmp/foo
+プロセス 278684 がオープンしたファイル・ディスクリプターの状況と制御情報を表示するには、
+次のコマンドを入力します。
+procfiles -c 278684
+このコマンドの出力は以下のような情報です。
+278684 : -ksh
+
+Current rlimit: 2000 file descriptors
+--------------------------------------------------------------------------------
+FD TYPE MODE DEV/RDEV UID GID OPMOD INODE
+--------------------------------------------------------------------------------
+0 c --------- 10, 4(19, 0) root system R-W 16385
+1 c --------- 10, 4(19, 0) root system R-W 16385
+2 c --------- 10, 4(19, 0) root system R-W 16385
+61 - rw-r--r-- 10, 7 root system R-W 32
+63 - rw------- 10, 4 root system R-W | A 1051</pre>

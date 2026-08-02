@@ -1,0 +1,124 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ODM アプリケーション開発に必要な
+.c
+ファイル (ソース・ファイル) と
+.h
+ファイル (組み込みファイル) を作成し、空のオブジェクト・クラスを作成します。
+
+説明
+odmcreate
+コマンドは ODM クラス・コンパイラーです。 このコマンドは、ユーザーが特定のアプリケーションで使用したいオブジェクトを記述する ASCII ファイルを入力として使います。
+odmcreate
+コマンドは実行の一部として空のオブジェクト・クラスを作成できます。
+odmcreate
+コマンドの出力は
+.h
+ファイル (組み込みファイル) です。
+このファイルには、ASCII の
+ClassDescriptionFile
+ファイルで定義されたオブジェクト・クラスに関する C 言語定義が入っています。 生成された組み込みファイルは、アプリケーションが ODM に保管されたオブジェクトにアクセスするときに使います。
+odmcreate
+コマンドは
+.c
+ファイルも生成します。
+このファイルはコンパイルして、アプリケーションでバインドしなくてはなりません。
+.c
+ファイルには、ODM が実行時に内部で使う構造体と定義が入っています。
+ClassDescriptionFile
+パラメーターは 1 つまたは複数のオブジェクト・クラスの記述を含む ASCII ファイルを指定します。
+ClassDescriptionFile
+パラメーターの一般的な構文は以下のとおりです。
+表 1. ClassDescriptionFile パラメータの構文
+項目 | 説明
+ファイル | : classes
+クラス | : class | classes class
+クラス | : head body tail
+head | : struct ClassName {
+tail | : }
+body | : elements
+elements | : elements | elements element
+element | : char DescriptorName [ DescriptorSize ]; vchar DescriptorName [ DescriptorSize ]; binary DescriptorName [ DescriptorSize ]; short DescriptorName ; long DescriptorName ; long64 または int64 または ODM_LONG_LONG DescriptorName ; method DescriptorName ; link StdClassName StdClassName ColName DescriptorName ;
+ClassDescriptionFile
+
+ファイルのデフォルトの接尾部は
+.cre
+です。
+odmcreate
+コマンドに接尾部を指定しないと、
+.cre
+接尾部が付加されます。 このファイルでは、
+-p
+フラグを指定して実行すると、C 言語のコメントを入れることができます。
+-p
+フラグを指定してこのファイルで C 言語プリプロセッサーを実行すると、プリプロセスできる
+#define
+行および
+#include
+行を取り込むことができます。
+注:
+ODM データベースは 32 ビットのデータベースです。 long タイプは、クラス記述ファイルで使用される場合 32 ビット・データ・エントリーです。 long64 または int64 タイプは、クラス記述ファイルで使用される場合 64 ビット・データ・エントリーです。 生成されたファイルは 32 ビットと 64 ビットのアプリケーションの両方で同様に機能します。
+
+構文
+odmcreate [ -p ] [ -c | -h ] ClassDescriptionFile
+
+オプション
+フラグ
+表 2. フラグ
+項目 | 説明
+-c | 空のオブジェクト・クラスだけを作成します。C 言語の .h ファイルと .c ファイルは生成しません。
+-h | .c ファイルと .h ファイルだけを生成します。空のクラスは作成しません。
+-p | ClassDescriptionFile ファイルで C 言語プリプロセッサーを実行します。
+
+例
+という名前の
+ClassDescriptionFile
+ファイルがあると仮定する
+FileName.cre
+存在する場合、以下のコマンドはオブジェクト・クラスを作成します。
+odmcreate FileName.cre
+以下は、
+FileName.cre
+ソース・ファイルおよび結果の
+.h (ファイル)
+ファイル:
+/* This is an example odmcreate input file */
+/* FileName.cre */
+class Class2 {
+char keys[32];
+method card;
+long cash;
+};
+class TstObj {
+long a;
+char b[80];
+link Class2 Class2 card Class2Ln;
+};
+/* End of FileName.cre */
+/* This is the generated header file FileName.h */
+#include &lt;odmi.h&gt;
+struct Class2 {
+long _id; /* unique object id within object class */
+long _reserved; /* reserved field */
+long _scratch; /* extra field for application use */
+char keys[32];
+char card[256]; /* method */
+long cash;
+};
+#define Class2_Descs 3
+extern struct Class Class2_CLASS[];
+#define get_Class2_list (a,b,c,d,e) (struct Class2 * ) odm_get_list (a,b,c,d,e)
+struct TstObj {
+long _id; /* unique object id within object class */
+long _reserved; /* reserved field */
+long _scratch; /* extra field for application use */
+long a;
+char b[80];
+struct Class2 *Class2Ln; /* link */
+struct objlistinfo *Class2Ln_info; /* link */
+
+char Class2Ln_Lvalue[256]; /* link */
+};
+#define TstObj_Descs 3
+extern struct Class TstObj_CLASS[];
+#define get_TstObj_list (a,b,c,d,e) (struct TstObj * ) odm_get_list (a,b,c,d,e)
+/* End of generated header file FileName.h */</pre>

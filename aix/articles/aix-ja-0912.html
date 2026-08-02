@@ -1,0 +1,28 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+fsck
+コマンドの lost+found ディレクトリーを作成します。
+
+説明
+mklost+found
+コマンドは、
+現行ディレクトリーに lost + found ディレクトリーを作成します。 lost+found ディレクトリーには、いくつかの空ファイルが作成されますが、
+fsck
+コマンドの空スロットを作るため除去されます。
+fsck
+コマンドは、孤立ファイルやディレクトリーを、
+割り当てられた i ノード番号と共に lost+found ディレクトリーに置くことによって、
+これらのファイルやディレクトリーを再接続します。
+mklost+found
+コマンドは、通常必要ではありません。
+その理由は、新しいファイルシステムが作成されるときに
+fsck
+コマンドが自動的に mklost+found ディレクトリーを作成するためです。
+
+構文
+mklost+found
+
+例
+fsck
+コマンドのために lost+found ディレクトリーを作成するには、
+次のように入力します。
+mklost+found</pre>

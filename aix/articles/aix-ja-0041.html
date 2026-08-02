@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ATM (非同期転送モード) インターフェースを含め、アドレス解決を表示および変更します。
+
+説明
+ARP
+コマンドは、
+ネットワークと通信の管理
+の
+住所
+で使用されるインターネットからアダプターへのアドレス変換テーブルを表示および変更します。
+arp
+コマンドは、
+HostName
+変数に指定されたホストについて、現行の ARP エントリーを表示します。 ホストは、インターネットのドット 10 進数表記を使って名前または番号で指定できます。
+
+構文
+ARP エントリーの表示 arp { [ -t ifType ] HostName | -a [ n ] [ /dev/kmem ]} ARP ATM エントリーの表示 arp { -t atm HostName | -a [ n ] [ /dev/kmem ] [ pvc | svc ]} ARP エントリーの削除 arp [ -t ifType ] -d HostName PVC ARP ATM エントリーの削除 arp -t atm -d pvc vpi: vci if ifName ARP エントリーの作成 arp [ -t ifType ] -s タイプ HostName AdapterAddress [ ルート ] [ 一時 ] [ pub ] SVC ARP ATM エントリーの作成 arp -t atm -s HostName AdapterAddress [ temp ] PVC ARP ATM エントリーの作成 arp -t atm -s pvc vpi: vci { HostName | if ifName} [ no-llc ] [ no-arp ] [ temp ] 別のファイルからの ARP エントリーのインポート arp [ -t ifType ] -f FileName [ タイプ ]
+
+オプション
+フラグ
+項目 | 説明
+-a | { [ -t ifType ] HostName | -a [ n ] [ /dev/kmem ] } のフォーマットで使用した場合 現行の ARP エントリーをすべて表示します。 カーネル・メモリーに関する ARP 情報を表示するには、 -a /dev/kmem フラグを指定します。 n 修飾子を指定すると、ホスト名の検索が抑制されます。 { -t atm HostName | -a [ n ] [ /dev/kmem ] [ pvc | svc ] } のフォーマットで使用した場合 pvc を指定すると、ATM PVC (パーマネント・バーチャル・サーキット) タイプの仮想回線だけが表示され、 svc を指定すると、ATM SVC (スイッチド・バーチャル・サーキット) タイプのバーチャル・サーキットだけが表示されます。 pvc | svc パラメーターを省略した場合は、すべての ATM 仮想回線が表示されます。
+-d | [ -t ifType ] -d HostName のフォーマットで使用した場合 ユーザーが root ユーザー権限を持っている場合に、 HostName 変数に指定されているホストに関するエントリーを削除します。 -t atm -d pvc vpi:vci if ifName のフォーマットで使用した場合 ホスト名ではなく vpi:vci を指定することにより、PVC ARP エントリーを削除します。 vpi:vc i 変数は、削除する仮想回線を指定します。 ifname 変数は、どの ATM インターフェースで仮想回線を削除するのか (そのインターフェースの名前) を指定します。
+
+-f filename [ Type ] | FileName 変数に指定されたファイルを読み取り、ARP テーブル内に複数のエントリーを設定します。 ファイル内のエントリーは必ず以下のフォーマットにしてください。 [Type] HostName AdapterAddress [Route] [temp] [pub] ここで Type ハードウェア・アドレスのタイプを指定します。 コマンド・ラインから arp を呼び出すときにアドレス・タイプを指定する場合は、ファイル・エントリー内ではアドレス・タイプを指定しないでください。 これ以外の場合は、各ファイル・エントリーにアドレス・タイプを指定する必要があります。 有効なハードウェア・アドレス・タイプは次のとおりです。 ether イーサネット・インターフェースの 802.3 802.3 インターフェースの場合 fddi ファイバー分散データ・インターフェース用 802.5 トークンリング・インターフェースの場合 hf ホスト・ファブリック・インターフェースの HostName リモート・ホストを指定します。 AdapterAddress このホスト用のアダプターのハードウェア・アドレスを、コロンで区切った 6 個の 16 進バイトとして指定します。 ローカル・ハードウェア・アドレスを表示するには、 netstat -v コマンドを使います。 Route トークンリング・ヘッダーまたは FDDI ヘッダー内の定義に従って、トークンリング・インターフェースまたはファイバー分散データ・インターフェース (FDDI) の経路を指定します。 temp この ARP テーブル・エントリーが一時エントリーであることを指定します。 この引数を省略すると、テーブル・エントリーは永久エントリーになります。 pub このテーブル項目を公開すること、およびこのシステムが要求に応答する ARP サーバーとして機能することを指定します。 HostName ただし、ホスト・アドレスがそれ自体のアドレスではありません。 “ 注: ATM の場合は、 -f フラグはサポートされません。 ”
+
+-s | [ -t ifType ] -s Type HostName AdapterAddress [ Route ] [ temp ] [ pub ] のフォーマットで使用した場合 AdapterAddress 変数に指定されたアダプター・アドレスを使って、 HostName 変数に指定されたホスト用として、 Type 変数に指定されたタイプの ARP エントリーを作成します。 root 権限を持つユーザーのみが、 -s フラグを使用できます。 アダプター・アドレスは、コロンで区切られた 6 つの 16 進バイトとして指定 します。 この行は以下のフォーマットでなければなりません。 Type HostName AdapterAddress [Route] [temp] [pub] この場合、 Type 、 HostName 、 AdapterAddress 、 Route 、 temp 、および pub パラメーターの目的と定義は、 -f フラグのパラメーターと同じです。 -t atm -s Type HostName AdapterAddress [ temp ] のフォーマットで使用した場合 ATMAddress 変数に指定された ATM アドレスを使って、 HostName 変数に指定されたリモート・ホスト用として、SVC タイプの ARP エントリーを作成します。 ATM アドレスは、コロンで区切られた 20 個の 16 進バイトとして指定されま す。 このエントリーを作成すると、この IP ステーションは、IP アドレスを解決するためには ARP サーバー・メカニズムを使用しません。 -t atm -s Type pvc vpi:vci { HostName | if ifName } [ no-llc ] [ no-arp ] [ temp ] のフォーマットで使用した場合 vpi:vci に指定された PVC を使って、 HostName 変数に指定されたリモート・ホスト用として、PVC タイプの ARP エントリーを作成します。 宛先 Hostname またはローカル ifname のどちらか一方は指定する必要があります。 no-llc フラグは、この仮想回線で LLC/SNAP カプセル化を使用しないことを指定します。その場合は、宛先 Hostname を指定する必要があります。 no-arp フラグは、この仮想回線で ARP プロトコルを使用しないことを指定します。その場合は、宛先 Hostname を指定する必要があります。 temp
+
+パラメーターは、この ARP テーブル・エントリーが一時エントリーであることを指定します。この引数を省略すると、永続テーブル・エントリーになります。
+
+-t ifType | -t iftype フラグは、ネットワーク・インターフェースのタイプを指定します。 このフラグは、次のインターフェースの場合のみ必須です。 at (ATM の場合) ib (InfiniBand の場合)
+
+例
+次にシステムが再始動されるまで
+ARP
+マッピング・テーブルに単一の項目を追加するには、次のように入力します。
+arp -s 802.3 host2 0:dd:0:a:85:0 temp
+ARP
+コマンドを使用して、指定されたホストのマップ・テーブル・エントリーを削除するには、次のように入力します。
+arp -d host1 flag
+atm ホストの arp エントリーを表示する場合
+host1
+、タイプ:
+arp -t atm -a host1
+atm ホストの PVC arp エントリーを追加するには
+host2
+、タイプ:
+arp -t atm -s atm pvc 0:20 host2
+インターフェースの PVC arp エントリーを追加するには
+at0
+、タイプ:
+arp -t atm -s atm pvc 0:20 if at0</pre>

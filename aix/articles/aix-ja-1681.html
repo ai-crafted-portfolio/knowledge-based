@@ -1,0 +1,89 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+BNU で必要なファイルとディレクトリーがあるかどうか検査します。
+
+説明
+uucheck
+コマンドは、
+基本ネットワーク・ユーティリティー (BNU) 機能に必要なファイルおよびディレクトリーがあるかどうかを確認します。 また、
+/etc/uucp/Permissions
+ファイルのエラーの一部も検査します。
+“
+注:
+uucheck
+コマンドは、ファイル・モードおよびディレクトリー・モードが正しいかどうか、または
+/etc/uucp/Permissions
+ファイルに重複するログイン名やマシン名などのエラーがないかどうかを検査しません。
+”
+BNU プログラムのインストール後、コマンド・ラインから
+uucheck
+コマンドを発行し、
+ユーザーのサイトの BNU 機能を構成したり、
+/etc/uucp/Permissions
+ファイルなどの BNU 機能の一部を変更します。
+“
+注:
+コマンド行で
+UUCHECK
+コマンドを使用できるのは、root ユーザー権限を持つユーザーのみです。
+”
+
+構文
+uucheck [ -v] [ -x DebugLevel]
+
+オプション
+フラグ
+項目 | 説明
+-v | BNU が /etc/uucp/Permissions ファイルを解釈する方法についての詳細説明を表示します。
+-x デバッグレベル | デバッグ情報を表示します。 DebugLevel 変数の有効範囲は、0 から 9 で、デフォルトは 5 です。 数値が大きいほど、より詳細な情報が表示されます。
+
+例
+BNU プログラムが
+/etc/uucp/Permissions
+ファイルをどのように解釈するかを調べるには、次のように入力します。
+uucheck
+-v
+フラグは、
+uucheck
+コマンドに BNU ファイルの存在を確認するよう指示し、BNU プログラムが
+/etc/uucp/Permissions
+ファイルを解釈する方法についての詳細説明を表示します。 出力は、以下のようになります。
+*** uucheck: Check Required Files and Directories
+*** uucheck: Directories Check Complete
+*** uucheck: Check /etc/uucp/Permissions file
+** LOGNAME PHASE (when they call us)
+When a system logs in as: (unostro)
+We DO allow them to request files.
+We WILL send files queued for them on this call.
+They can send files to
+/
+They can request files from
+/
+Myname for the conversation will be plague.austin..
+PUBDIR for the conversation will be
+/var/spool/uucppublic.
+** MACHINE PHASE (when we call or execute their uux requests)
+When we call system(s): (nostromo)
+We DO allow them to request files.
+They can send files to
+/
+They can request files from
+/
+Myname for the conversation will be plague.austin..
+PUBDIR for the conversation will be
+/var/spool/uucppublic.
+Machine(s): (nostromo)
+CAN execute the following commands:
+command (ALL), fullname (ALL)
+*** uucheck: /etc/uucp/Permissions Check Complete
+
+上記の許可については、
+/etc/uucp/Permissions
+ファイルを参照してください。
+UUCHECK
+コマンドを使用してデバッグするには、次のように入力します。
+uucheck
+-x
+8
+この
+-x8
+フラグは、広範なデバッグ出力を生成します。</pre>

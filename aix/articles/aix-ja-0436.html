@@ -1,0 +1,193 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+テキスト・ファイルを印刷用に PostScript 形式に変換します。
+
+説明
+enscript
+コマンドは、テキスト・ファイルを読み取り、それを PostScript フォーマットに変換し、そのファイルを PostScript プリンターで印刷するためにスプールします。 このコマンドを使用すると、フォント、見出し、限定フォーマット・オプション、スプーリング・オプションを指定できます。
+次に例を示します。
+enscript -daleph bubble.txt
+は、aleph というプリンター上で
+bubble.txt
+ファイルを印刷します。
+enscript -2r finder.c
+は、デフォルトのプリンターで
+finder.c
+ファイルの二段組の横長リストを印刷します。
+ENSCRIPT
+環境変数は、デフォルトの指定に使用されます。
+ENSCRIPT
+の値は、引数がコマンド・ラインに表示される前に、引数の文字列として解釈されます。 次に例を示します。
+ENSCRIPT=&#x27;-fTimes-Roman8&#x27;
+これにより、デフォルトの本体の書体のサイズとフォントを 8 ポイントの Times Roman に設定します。
+psdit
+コマンドと
+enscript
+コマンドに対する各種メディア・サイズを含む情報は、ファイル
+/usr/lib/ps/MediaSizes
+に入っています。
+MediaSizes
+ファイルの各エントリーに必要な情報は、 TranScriptで使用される PostScript プリンターに一致する
+PostScript Printer Description
+(
+PPD
+) ファイルから取得できます。
+PPD
+ファイルは Adobe Systems, Incorporated から入手できます。
+PPD
+ファイルから取り出されたサイズは、ポイントと呼ばれるプリンターの尺度で表示されます。 プリンターの 1 ポイントは、1 インチの 1/72 です。
+ASCII 文字の
+*
+(アスタリスク) で始まる
+MediaSizes
+ファイル内の行は、
+コマンド・ラインで
+enscript
+コマンドおよび
+psdit
+コマンドに提供されているメディア・サイズ名に一致する場合、すべて無視されます。
+MediaSizes
+ファイルの各エントリーには、8 つまたは 9 つのフィールドが含まれます。 最初の 8 つのフィールドは、すべてのエントリーに必須です。 9 番目のフィールドはオプションです。 フィールドはホワイト・スペースで区切られます。 各エントリーのフィールドは、次のとおりです。
+フィールド名 | 説明
+
+EntryName | enscript コマンドまたは psdit コマンドを使って、 -M フラグで指定されるメディア名と照合する文字列が入っています。
+MediaWidth | ポイント数で表したメディアの幅を指定します。
+MediaDepth | ポイント数で表したメディアの上下幅を指定します。
+ImageableLLX | ポイント数で表したイメージ可能な左下隅の x 座標を指定します。
+ImageableLLY | ポイント数で表したイメージ可能な左下隅の y 座標を指定します。
+ImageableURX | ポイント数で表したイメージ可能な右上隅の x 座標を指定します。
+ImageableURY | ポイント数で表したイメージ可能な右上隅の y 座標を指定します。
+PageRegionName | イメージ可能域のサイズを識別するために、特定のプリンターの PostScript シーケンスを指定します。
+PaperTrayName | 特定のプリンターが特定の用紙/メディア・トレイを選択するための PostScript シーケンスを指定します。 このフィールドはオプションです。 注: シーケンスは、複数の PostScript 演算子または両方の単語にすることができます。 PageRegionName フィールドおよび PaperTrayName 設定します。 このようなシーケンスを指定するには、ASCII キャラクターの &quot; (二重引用符) を使用して、シーケンス全体を区切ります。
+次の表は、
+MediaSizes
+ファイルのフィールド・エントリーの例です。
+名前 | フィールド値
+Letter | 幅 612 Depth 792 llx 18 lly 17 urx 597 ury 776 ページ- 領域- 名 Letter 用紙名/トレイ名 Letter
+Legal | 幅 612 Depth 1008 llx 18 lly 17 urx 597 ury 992 ページ- 領域- 名 Legal 用紙名/トレイ名 Legal
+PostScript フォント情報
+「 PostScript フォント (トランスクリプト用)」テーブルには、enscript コマンドに使用できるフォントが表示されます。 フォント名は、
+-F
+および
+-f
+encscipt
+コマンド・フラグで指定します。 英字は大文字と小文字が区別されます。
+PostScript フォント (トランスクリプト用)
+フォント名 | フォント・ファミリー
+
+AvantGarde-Book | AvantGarde
+AvantGarde-Demi | AvantGarde
+AvantGarde-DemiOblique | AvantGarde
+AvantGarde-BookOblique | AvantGarde
+Bookman-Demi | Bookman
+Bookman-DemiItalic | Bookman
+Bookman-Light | Bookman
+Bookman-LightItalic | Bookman
+Courier | Courier
+Courier-Bold | Courier
+Courier-BoldOblique | Courier
+Courier-Oblique | Courier
+Garamond-Bold | Garamond
+Garamond-BoldItalic | Garamond
+Garamond-Light | Garamond
+Garamond-LightItalic | Garamond
+Helvetica | Helvetica
+Helvetica-Bold | Helvetica
+Helvetica-Oblique | Helvetica
+Helvetica-BoldOblique | Helvetica
+Helvetica-Narrow | Helvetica
+Helvetica-Narrow-Bold | Helvetica
+Helvetica-Narrow-BoldOblique | Helvetica
+Helvetica-Narrow-Oblique | Helvetica
+LubalinGraph-Book | Lubalin
+LubalinGraph-BookOblique | Lubalin
+LubalinGraph-Demi | Lubalin
+LubalinGraph-DemiOblique | Lubalin
+フォント名 | フォント・ファミリー
+Miryam-Iso | Miryam Iso
+Miryam-IsoBold | Miryam Iso
+Miryam-IsoBoldItalic | Miryam Iso
+Miryam-IsoItalic | Miryam Iso
+NarkissimIso | Narkissim Iso
+NarkissimIso-Bold | Narkissim Iso
+NarkissimIso-BoldItalic | Narkissim Iso
+
+NarkissimIso-Italic | Narkissim Iso
+NarkissTamIso | Narkiss Tam Iso
+NarkissTamIso-Bold | Narkiss Tam Iso
+NarkissTamIso-BoldItalic | Narkiss Tam Iso
+NarkissTamIso-Italic | Narkiss Tam Iso
+NewCenturySchlbk | NewCentury
+NewCenturySchlbk-Bold | NewCentury
+NewCenturySchlbk-Italic | NewCentury
+NewCenturySchlbk-Roman | NewCentury
+Optima | Optima
+Optima-Bold | Optima
+Optima-BoldOblique | Optima
+Optima-Oblique | Optima
+Palatino-Bold | Palatino
+Palatino-BoldItalic | Palatino
+Palatino-Italic | Palatino
+Palatino-Roman | Palatino
+Rokaa | Rokaa
+Rokaa-Bold | Rokaa
+Rokaa-BoldItalic | Rokaa
+Rokaa-Italic | Rokaa
+フォント名 | フォント・ファミリー
+設定 | 設定
+Setting-Bold | 設定
+Setting-BoldItalic | 設定
+Setting-Italic | 設定
+ShalomIso | ShalomIso Iso
+ShalomIso-Bold | ShalomIso Iso
+ShalomIso-BoldItalic | ShalomIso Iso
+ShalomIso-Italic | ShalomIso Iso
+Souvenir-Demi | Souvenir
+Souvenir-DemiItalic | Souvenir
+Souvenir-Light | Souvenir
+Souvenir-LightItalic | Souvenir
+Times-Bold | Times
+Times-BoldItalic | Times
+Times-Italic | Times
+Times-Roman | Times
+Typing | Typing
+Typing-Bold | Typing
+Typing-BoldItalic | Typing
+
+Typing-Italic | Typing
+シンボル | (なし)
+ZapfChancery-MediumItalic | Zapf
+ZapfDingbats | (なし)
+
+構文
+エンスクリプト [ -1 -2 -c -g -k -l -m -o -q -r -B -G -K -R ] [ -b ヘッダー ] [ -f フォント ] [ -f0 コードセット : フォント ] [ -f1 コードセット : フォント ] [ -p 出力 ] [ -F Hfont ] [ -F0 コードセット : フォント ] [ -F1 コードセット : フォント ] [ -L 行数 ] [ -M MediaName ] [ -X CodesetName ] [ SpoolerOptions ] [ ファイル ... ]
+
+オプション
+フラグ
+項目 | 説明
+-1 | 1 段組に設定します (デフォルト)。
+-2 | 2 段組に設定します。
+-c | ページ幅より長い行を切り捨てます。 通常、長い行はそのページの次の行に折り返されます。
+-g | このフラグを指定しても何も実行されませんが、 -g フラグは下位互換性を保つために引き続き使用できるようになっています。
+-k | 用紙をあらかじめフィードできるようにします (プリンターがサポートしている場合)。 これによって、ページ間でプリンターを作動させられるので、単純なドキュメント (1 つのフォントでプログラムのリストを作成するなど) をいくらか速く印刷することができます。
+-l | ライン・プリンターをシミュレートして、ページを 66 行の長さにし、ヘッダーを省略します。
+-m | ファイルが印刷された後に、メールを送信します。
+-o | enscript コマンドがあるフォントのセット内で文字を見つけることができなければ、その文字を表示します。
+-q | enscript コマンドに実行中の内容を報告させないようにします。 enscript コマンドは、ページ数、送信先、省略された文字などに関して報告を行いません。 致命的エラーだけは、標準エラー出力に報告されます。
+-r | 出力を 90 度回転させます (横長モード)。 このフラグは、幅広いページを必要とする出力や、 -2 フラグと一緒に使用するプログラム・リストの作成などに使用します。 次の例は、プログラム・リストを作成する方法を示しています。 enscript -2r File . . .
+-B | ページ見出しを省略します。
+-G | 装飾モードで印刷します。ページ見出し、日付、ページ番号が目立つスタイルで印刷されます (パフォーマンスは多少低下します)。
+-K | ページをあらかじめフィードする機能を使用不可にします (デフォルト)。
+-R | ポートレイト・モード (回転しない) で印刷します。これはデフォルトです。
+-b ヘッダー | ページ見出しに使用する文字列を Header 変数の値に設定します。 デフォルトのヘッダーは、ファイル名、最終修正日、およびページ番号から構成されています。
+
+「-f」 フォント | 各ページの本文に使用されるフォントを設定します。 2 段組の回転モードが使用されない場合のデフォルトは、Courier10 で、使用される場合のデフォルトは Courier7 となります。 注: PostScript フォント名（Times-Roman、 Times-BoldItalic, Helvetica、Courier など）。 ポイント・サイズ (1 ポイント = 1/72 インチ)。 フォントは次のように設定されます。Courier-Bold8 は 8 ポイントの Courier Bold で、Helvetica12 は 12 ポイントの Helvetica を表します。
+-f0 コード・セット : フォント | PostScript ファイルに書き込まれる文字コード・セット名、および各ページの本文に使用される SBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル /usr/lib/ps/transcript.conf によって決まります。
+-f1 コード・セット : フォント | PostScript ファイルに書き込まれる文字コード・セット名と、各ページの本文に使用される MBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル /usr/lib/ps/transcript.conf によって決まります。
+P- アウト | PostScript ファイルが、印刷のためにスプールされるのではなく、指定されたファイルに書き込まれるようにします。 特殊なケースとして、次のように入力すると、 PostScript ファイルが標準出力に送信されます。 -p -
+-F (R) フォント | ページ見出しに使用されるフォントを設定します。 デフォルトは Courier Bold10 です。 注: フォント仕様には、次の 2 つの部分があります。 PostScript フォント名（Times-Roman、 Times-BoldItalic, Helvetica、Courier など）。 ポイント・サイズ (1 ポイント = 1/72 インチ)。 フォントは次のように設定されます。Courier-Bold8 は 8 ポイントの Courier Bold で、Helvetica12 は 12 ポイントの Helvetica を表します。
+
+-F0 コード・セット : フォント | PostScript ファイルに書き込まれる文字コード・セット名、および各ページのヘッダーに使用される SBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル /usr/lib/ps/transcript.conf によって決まります。
+-F1 コード・セット : フォント | これは、 PostScript ファイルに書き込まれる文字コード・セット名と、各ページのヘッダーに使用される MBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル /usr/lib/ps/transcript.conf によって決まります。
+-L (L) 線 | 1 ページに印刷する最大行数を設定します。 エンスクリプト コマンドは通常、ポイント・サイズに基づいてページに書き込む行数を計算します。 ( -L (L) フラグによって要求されたページ当たりの書き込み数よりも少ない場合があります。)
+-M メディア名 | 紙のイメージ可能区域の量を決定するのに使用されるメディア名を指定します。 提供される名前は、 MediaSizes ファイルのエントリーと一致します。 以下に例を示します。 -M legal イメージ可能な領域としてリーガル・サイズの紙を要求します。 このフラグを使用しない場合、デフォルトのサイズは文字サイズで、幅は 8.5 インチ、奥行きは 11.0 インチ (21.6 セント) です。 27.9 セントの幅。 deep)。
+-X コードセット名 | 入力データのコード・セットを指定します。 デフォルトでは、入力コード・セットは nl_langinfo サブルーチンによって決定されます。 このフラグが使用される場合、コード・セットは CodesetName によって決定されます。</pre>

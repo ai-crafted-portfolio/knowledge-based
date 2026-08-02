@@ -1,0 +1,234 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+最小特権 (LP) リソースのアクセス制御を表示します。
+
+説明
+lslpracl
+コマンドは、最小特権 (LP) リソースに関連付けられたアクセス制御リスト (ACL) を表示します。 ACL 項目に含まれているアクセス権限が表示されます。 Resource ACL は、LP リソースに対するアクセス権限を制御します。 LP リソース名が指定されていない場合、すべての LP リソースに対する Resource ACL が指定され、すべての LP リソースに対する Resource ACL がリストされます。 デフォルトでは、このコマンドは情報をテーブル形式 (
+-t
+) で表示します。
+このコマンドは、以下の ACL 情報を表示します。
+フィールド | 説明
+名前 | LP リソースの名前。 ネットワーク ID の説明については、 lpacl 情報 を参照してください。
+ID | ユーザーのネットワーク ID。
+Permissions | Identity に許可されている許可。 有効な値は以下のとおりです。 a 管理者アクセス権 r 読み取り許可 ( e 、 l 、 q 、および v 許可で構成) w 書き込み許可 ( c 、 d 、 o 、および s 許可で構成) x 実行アクセス権 c リフレッシュ・アクセス権 d 定義および 定義解除 アクセス権 e イベント・アクセス権 l 列挙アクセス権 o オンライン、オフライン、およびリセット・アクセス権 q 照会アクセス権 s 設定アクセス権 v 検証アクセス権 0 アクセス権なし
+NodeName | LP リソースのロケーション (管理ドメイン有効範囲またはピア・ドメイン有効範囲)。
+PeerDomain | LP リソースが定義されている RSCT ピア・ドメインの名前。 このフィールドは、 -p フラグが指定されている場合に表示されます。
+Resource ACL が、Resource Shared ACL が LP リソースへのアクセスを制御することを示している場合、ID は
+Uses
+Resource Shared ACL
+として表示され、許可値はありません。
+-L
+フラグを使用して、表示されている Resource ACL によって使用されている Resource Shared ACL を表示します。
+このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、
+-a
+フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、
+-n
+
+フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。
+
+構文
+LP リソースのアクセス制御を表示するには: ローカル・ノードの場合: lslpracl [ -l | -i | -t | -d | -D 区切り文字 ] [ -L ] [ -p ] [ -E ] [ -x ] [ -h ] [ -TV ] [ name ] ドメイン内のすべてのノードで以下のように入力します。 lslpracl -a [ -l | -i | -t | -d | -D 区切り文字 ] [ -L ] [ -p ] [ -E ] [ -x ] [ -h ] [ -TV ] [ name ] ドメイン内の一部のノードで以下のように入力します。 lslpracl { -n host1 [ , host2 , ...] } [ -l | -i | -t | -d | -D 区切り文字 ] [ -L ] [ -p ] [ -E ] [ -x ] [ -h ] [ -TV ] [ name ]
+
+オプション
+フラグ
+-a
+ドメイン内のすべてのノードの Resource ACL を表示します。
+CT_MANAGEMENT_SCOPE
+環境変数の設定によって、クラスターの有効範囲が決まります。
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。
+管理ドメイン (あれば)
+ピア・ドメイン (あれば)
+Local 有効範囲
+lslpracl
+コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、
+CT_MANAGEMENT_SCOPE
+環境変数が設定されていないとします。 この場合、
+lslpracl
+–a
+は管理ドメインで実行されます。 ピア・ドメインで
+lslpracl
+–a
+を実行するには、
+CT_MANAGEMENT_SCOPE
+を
+2
+に設定する必要があります。
+-i
+適切な編集後に、
+chlpracl
+コマンドへのファイル入力として使用できる形式でテンプレートを生成します。
+-l
+情報を別々の行に表示します (長形式)。
+-t
+情報を別々の列に表示します (テーブル形式)。 これはデフォルトです。
+-d
+区切り文字を使用して情報を表示します。 デフォルトの区切り文字は
+パイプ記号 (
+|
+)
+です。 デフォルトの区切り文字を変更する場合は、
+-D
+フラグを使用します。
+-D
+デリミタ
+指定した区切り文字を使用して情報を表示します。 例えば、表示する情報に
+パイプ・シンボル
+が含まれている場合、このフラグを使用して、デフォルトの
+パイプ・シンボル (
+|
+)
+以外の区切り文字を指定します。 このフラグを使用すると、1 文字以上の区切り文字を指定できま
+す。
+-n
+ホスト1
+[
+,
+host2
+,
+…]
+Resource ACL の表示元の、ドメイン内のノードを指定します。 デフォルトでは、Resource ACL は、ローカル・ノードで
+表示されます。 このフラグが有効なのは、管理ドメインまたはピア・ドメインでのみです。
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、最初に管理ドメイン有効範囲が選択され (存在する場合)、次にピア・ドメイン有効範囲が選択され (存在する場合)、次にローカル有効範囲が選択され (コマンドに対して有効範囲が有効になるまで) ます。 コマンドは、最初に見つかった有効な有効範囲に対して 1 回実行されます。
+-L
+
+Resource ACL でアクセスが Resource Shared ACL によって制御されていると示されている場合、Resource Shared ACL のアクセスを表示します。
+-p
+LP リソースが定義されている RSCT ピア・ドメインの名前を表示します。
+-E
+読み取り許可を
+r
+ではなく
+elqv
+として表示し、書き込み許可を
+w
+ではなく
+cdos
+として表示します。
+-x
+ヘッダーを除外します (ヘッダーの印刷を抑止します)。
+-h
+コマンドの使用方法の文を標準出力に書き込みます。
+-T
+標準エラーにコマンドのトレース・メッセージを書き込みます。
+-V
+コマンドの詳細メッセージを標準出力に書き出します。
+
+例
+LP リソース
+lpcommand1
+on
+nodeA
+の Resource ACL を表形式でリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl lpcommand1
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name Identity Permissions NodeName
+lpcommand1 joe@LOCALHOST rx nodeA
+lpcommand1 bill@0x374bdcbe384ed38a rx nodeA
+lpcommand1 jane@0x374bdcbe384ed38a rwax nodeA
+LP リソース
+lpcommand1
+(
+nodeA
+) の Resource ACL を長形式でリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl -l lpcommand1
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name lpcommand1, NodeName nodeA
+Identity = joe@LOCALHOST
+Permissions = rx
+Identity = bill@0x374bdcbe384ed38a
+Permissions = rx
+Identity = jane@0x374bdcbe384ed38a
+Permissions = rwax
+LP リソース
+lpcommand1
+on
+nodeA
+の Resource ACL を区切り文字で区切られている形式でリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl -d lpcommand1
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name|Identity|Permissions|NodeName
+lpcommand1|joe@LOCALHOST|rx|nodeA
+lpcommand1|bill@0x374bdcbe384ed38a|rx|nodeA
+lpcommand1|jane@0x374bdcbe384ed38a|rwax|nodeA
+アクティブ・ドメイン内の LP リソース
+lpcommand1
+の Resource ACL をリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl -a lpcommand1
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name Identity Permissions NodeName
+
+lpcommand1 joe@LOCALHOST rx nodeA.pok.ibm.com
+lpcommand1 bill@0x374bdcbe384ed38a rx nodeA.pok.ibm.com
+lpcommand1 jane@0x374bdcbe384ed38a rwax nodeA.pok.ibm.com
+lpcommand1 joe@LOCALHOST rx nodeB.pok.ibm.com
+lpcommand1 jane@0x374bdcbe384ed38a rwax nodeB.pok.ibm.com
+nodeA
+上のすべての LP リソースの Resource ACL をリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name Identity Permissions NodeName
+lpcommand1 joe@LOCALHOST rx nodeA
+lpcommand1 bill@0x374bdcbe384ed38a rx nodeA
+lpcommand1 jane@0x374bdcbe384ed38a rwax nodeA
+lpcommand2 jim@LOCALHOST rx nodeA
+lpcommand2 jane@0x374bdcbe384ed38a rwax nodeA
+lpcommand3 mary rwax nodeA
+lpcommand4 bob@LOCALHOST rx nodeA
+lpcommand4 sam@0x374bdcbe384ed38a rwax nodeA
+アクティブ・ドメイン内の LP リソース
+lpcommand1
+の Resource ACL をリストし、ピア・ドメイン名をリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl -ap lpcommand1
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name Identity Permission NodeName PeerDomain
+lpcommand1 joe@LOCALHOST rx nodeA.pok.ibm.com PD1
+lpcommand1 bill@0x374bdcbe384ed38a rx nodeA.pok.ibm.com PD1
+lpcommand1 jane@0x374bdcbe384ed38a rwax nodeA.pok.ibm.com PD1
+
+lpcommand1 joe@LOCALHOST rx nodeB.pok.ibm.com PD1
+lpcommand1 jane@0x374bdcbe384ed38a rwax nodeB.pok.ibm.com PD1
+LP リソース
+lpcommand2
+(
+nodeA
+) の Resource ACL をリストするには、
+nodeA
+で次のコマンドを実行します。
+lslpracl lpcommand2
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name Identity Permissions NodeName
+lpcommand2 Uses Resource Shared ACL nodeA
+LP リソース
+lpcommand2
+(
+nodeA
+) の Resource ACL をリストし、Resource Shared ACL が使用されている場合はそれを表示するには、
+nodeA
+で次のコマンドを実行します。
+lslpracl -L lpcommand2
+次の出力が表示されます。
+Resource ACLs for LPRM
+Name Identity Permissions NodeName
+lpcommand2 bill@0x374bdcbe384ed38a rx nodeA
+lpcommand2 jane@0x374bdcbe384ed38a rwax nodeA</pre>

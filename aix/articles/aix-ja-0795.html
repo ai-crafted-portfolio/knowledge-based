@@ -1,0 +1,87 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+指定された接続タイプまたはデバイスを受け入れることができる親デバイスを表示します。
+
+説明
+lsparent
+コマンドは、デバイス構成データベースから、
+-l
+ChildName
+フラグで指定されたデバイスを子デバイスとして受け入れることができるデバイス、または、
+-k
+ChildConnectionKey
+フラグで指定されたタイプの子デバイス接続を受け入れることができるデバイスをリストします。
+デフォルトの出力は、以下のいずれかの方法で表示できます。
+-C
+フラグを使用して、
+カスタマイズ・デバイス・オブジェクト・クラスにあるデバイスのデフォルトの出力情報を表示します。
+出力情報は名前、状態、ロケーション、および記述です。
+-P
+フラグを使用して、
+事前定義デバイス・オブジェクト・クラスにあるデバイスのデフォルトの出力情報を表示します。
+出力情報はクラス、タイプ、サブクラス、および記述です。
+この 2 つのデフォルトの出力をオーバーライドするには、
+-F
+Format
+フラグを使い、ユーザー指定フォーマットの文字列で出力を表示します。
+Format
+パラメーターは、列名を非英数字で区切ったか、または終了させた引用符付きリストです。
+フラグは、コマンド行で指定することも、
+-f
+フラグを使用して指定した
+File
+パラメーターから指定することもできます。
+
+構文
+まばらな { -C | -P } { -k (K) 子接続キー | - 子の名前 } [ 「-f」 ファイル ] [ -F (R) フォーマット ] [ -h ] [ -H ]
+
+オプション
+フラグ
+項目 | 説明
+-C | カスタマイズ・デバイス・オブジェクト・クラス内のデバイスについての情報をリストします。 カスタマイズ・デバイス・オブジェクト・クラスと事前定義デバイス・オブジェクト・クラスからの情報の両方を表示できます。 このフラグは、 -P フラグと一緒には使用できません。
+-f ファイル | 必要なフラグを File 変数から読み取ります。
+-F フォーマット | 出力をユーザー指定のフォーマットで表示します。ここで、 Format 変数は、 事前定義デバイス・オブジェクト・クラスまたはカスタマイズ・デバイス・オブジェクト・クラスからの列名を 非英数字で区切ったか、または非英数字で終了している、引用符付きリストです。 空白文字がセパレーターとして使用されている場合は、 lsparent コマンドは、位置合わせされた列に出力を表示します。 2 つのオブジェクト・クラス内の列名の他に、特殊名 description を使ってデバイスのテキストによる説明を表示できます。
+-H | 出力される列の上にヘッダーを表示します。
+-h | コマンドの使用メッセージを表示します。
+-k ChildConnectionKey | 子デバイスのデバイス・サブクラス名を識別する接続キーを指定します。 このフラグは、 -l フラグと一緒には使用できません。
+-l ChildName | 使用可能な子デバイスの論理名を指定します。 このフラグは、 -k フラグと一緒には使用できません。
+-P | 事前定義デバイス・オブジェクト・クラス内のデバイスについての情報をリストします。 カスタマイズ・デバイス・オブジェクト・クラスと事前定義デバイス・オブジェクト・クラスからの情報の両方を表示できます。 このフラグは、 -C フラグと一緒に使用することはできません。
+
+例
+カスタマイズ・デバイス・オブジェクト・クラス内で、RS-232 デバイスを受け入れることができる親デバイスをリストするには、
+次のように入力します。
+lsparent -C -k rs232
+システムは、以下のようなメッセージを表示します。
+sa0 Available 01-S1 Standard I/O Serial Port
+sa1 Available 01-S2 Standard I/O Serial Port
+sa2 Available 10-68 IBM 8-Port EIA-232/RS-422A (PCI) Adapter
+sa3 Available 10-70 IBM 8-Port EIA-232/RS-422A (PCI) Adapter
+sa4 Available 10-78 IBM 8-Port EIA-232/RS-422A (PCI) Adapter
+sa5 Available 20-58 IBM 8-Port EIA-232/RS-422A (PCI) Adapter
+事前定義デバイス・オブジェクト・クラス内で、RS-232 デバイスを受け入れることができる親デバイスのタイプをリストするには、
+次のように入力します。
+lsparent -P -k rs232
+システムは、以下のようなメッセージを表示します。
+adapter pnp501 isa_sio Standard I/O Serial Port
+adapter 4f111100 pci IBM 8-Port EIA-232/RS-422A (PCI) Adapter
+concentrator 16c232 sync_pci 16-Port RAN EIA-232 for 128-Port Adapter
+concentrator 16e232 sync_pci 16-Port Enhanced RAN EIA-232 for 128-Port Adapter
+カスタマイズ・デバイス・オブジェクト・クラス内で、
+テープ装置
+rmt0
+を子デバイスとして受け入れることができる親デバイスをリストするには、次のように入力します。
+lsparent -C -l rmt0
+システムは、以下のようなメッセージを表示します。
+scsi2 Available 20-60 Wide/Ultra-2 SCSI I/O Controller
+scsi3 Available 20-61 Wide/Ultra-2 SCSI I/O Controller
+
+scsi1 Available 10-88 Wide/Ultra-2 SCSI I/O Controller
+scsi0 Available 10-60 Wide/Fast-20 SCSI I/O Controller
+事前定義デバイス・オブジェクト・クラス内で、
+テープ装置
+rmt0
+を子デバイスとして受け入れることができる親デバイスをリストするには、次のように入力します。
+lsparent -P -l rmt0
+システムは、以下のようなメッセージを表示します。
+adapter sym896 pci Wide/Ultra-2 SCSI I/O Controller
+adapter sym895 pci Wide/Ultra-2 SCSI I/O Controller
+adapter sym875 pci Wide/Fast-20 SCSI I/O Controller</pre>

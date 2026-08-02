@@ -1,0 +1,212 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+時間ベースのワークロード・マネージャー (WLM) 構成のセットを管理します。
+
+説明
+confsetcntrl
+コマンドは、以下の操作をサポートします。
+初期デフォルトの通常の構成を使用して、新規構成セットを作成する。
+既存の構成セットを削除する (これには構成セット・ディレクトリーおよびその
+.times
+ファイルと
+description
+ファイルを含みますが、そのセットの通常の構成には影響しません)。
+構成および関連した時間範囲を構成セットに追加または構成セットから除去する。
+構成および関連した時間範囲をすべて構成セットから除去する。
+構成セット・ファイルを検査する。
+セット内に含まれる構成をすべて、関連した時間範囲と共にリストする。
+注:
+構成セットを作成、削除、または変更できるのは root ユーザーのみですが、すべてのユーザーがリストまたは確認できます。
+時刻範囲
+時間範囲は、プロセスを分類し、アカウンティングおよび調整を行うために WLM
+が関連した構成を使用する、曜日および時刻を示すために使用されます。
+時間範囲は、曜日の範囲 (0 は日曜日、6 は土曜日を表す) および時刻の範囲 (24
+時間形式で時 (00-23) と分を指定) で表します。 この 2 つの範囲は、コンマで区切ります。 それぞれの範囲内では、値は負符号 (-) で区切られ、
+値が折り返す (1 番目の値が 2 番目の値より大きい) 場合もあります。
+曜日の範囲を省略する場合もありますが、これは曜日を問わず週のすべての日を意味します。 この範囲には両端の値を含みます。 さらに、範囲が 1 日のみの場合もあります。
+例えば、1 は有効で、1-1 を意味します。
+時刻の範囲を省略する場合もありますが、これは 1 日中を意味します。 ほかの場合は、開始時刻と終了時刻を指定する必要があります。 時と分はコロンまたはドットで区切ります。 終了時刻は範囲には含まれないので、24:00 は有効な終了時刻ですが、
+12:00-12:00 は空であり、無効です。
+曜日または時刻の範囲の少なくとも 1 つを指定しなければなりません。 単一の負符号 (-)
+は有効な時間範囲ですが、これは特殊なケースです。デフォルトの時間範囲と呼ばれ、
+ほかに定義済みの時間範囲がある場合、常にその外側にあることを意味します。 これは、すべての時間を指定すること (例えば、0-6,00:00-24:00) とは異なります。
+WLM が活動化を必要とする構成を検索できるようにするには、週のいつでも利用可能な構成が
+
+1 つだけ存在していなければなりません。 デフォルトの時間範囲は、セットを作成する際に追加され、
+利用可能な構成が、ある期間なくなる事態が生じないようにするのに役立ちます。 時間範囲を追加する場合は、相互にオーバーラップしないように指定する必要があります。
+時間範囲の例を次に示します。
+1-4,8:00-17:00
+月曜日から木曜日の午前 8 時から午後 5 時
+5-0,22:00-6:00
+金曜日、土曜日、日曜日の、真夜中から午前 6 時および午後 10 時から真夜中
+3
+水曜日
+14:00-16:30
+毎日午後 2 時から午後 4 時 30 分
+-
+デフォルトの時間範囲
+
+構文
+confsetcntrl -C ConfigurationSet DefaultConfig confsetcntrl { -D | -R }. ConfigurationSet confsetcntrl [ -d ConfigurationSet ] { -a | -r } 構成 TimeRange confsetcntrl [ -d ConfigurationSet ][ -l | -c ]
+
+オプション
+フラグ
+項目 | 説明
+-a 構成 TimeRange | 所定の TimeRange の間、構成セットに Configuration を追加します。 Configuration は既存の WLM の通常の構成でなければなりません。 この構成は、異なる時間範囲に関連したセットに、数回現れることがあります。 注: この操作のために時刻範囲に一貫性がない場合でも、変更は実行されますが、さらに変更が必要であることを示す警告が報告されます。
+-c | 構成セットの構成/時間範囲のすべての対を検査します。
+-C ConfigurationSet DefaultConfig | デフォルトの時間範囲を持つ DefaultConfig 初期構成を使用して、 構成セット ConfigurationSet を作成します。 (デフォルトの時間範囲は、常にその他の明示的時間範囲の外側にあることを意味します。 1 セットに 1 つだけ指定できます。) DefaultConfig は既存の WLM の通常の構成でなければなりません。
+-d ConfigurationSet | 代替構成セットを指定します。 これを指定しないと、現在の構成セットがこのコマンドのターゲットとなります。
+-D ConfigurationSet | 構成セット ConfigurationSet を削除します。
+-l | 構成セットの構成/時間範囲のすべての対を検査し、リストします。 フラグを指定しない場合、これはデフォルトの操作です。
+-r 構成 TimeRange | 構成セットから Configuration および TimeRange の対を除去します。 この対が構成セットに存在するものと想定しています。 注: この操作のために時刻範囲に一貫性がない場合でも、変更は実行されますが、さらに変更が必要であることを示す警告が報告されます。
+-R ConfigurationSet | 構成セット ConfigurationSet を消去します ( ConfigurationSet から構成/時間範囲の対をすべて除去します)。 結果として構成セットの状態に整合性がなくなり、さらに変更が必要となるので、 この操作はお勧めできません。
+
+例
+次に、
+lswlmconf
+コマンド、
+confsetcntrl
+コマンド、
+wlmcheck
+コマンド、および
+wlmcntrl
+コマンドを使用
+して WLM 構成を表示、変更、および使用する方法を示します。
+WLM 構成を検索するには、次のように入力します。
+lswlmconf
+このコマンドの出力は、次のようになります。
+standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads
+現在の WLM 構成を表示するには、次のように入力します。
+lswlmconf -c
+出力は次のようになります。
+fvtlimits
+構成セットを表示するには、
+-s
+フラグを付けた
+lswlmconf
+を使用して、次のように入力します。
+lswlmconf -s
+この例の構成には構成セットが含まれていないので、このコマンドを入力すると、一致する構成が見つからなかったことを示すメッセージが生成されます。
+デフォルトの構成として「standard」を使用して構成セットを作成するには、次のように入力します。
+confsetcntrl -C confset1 standard
+lswlmconf
+コマンドを使用して新規構成セットを表示するには、次のように入力します。
+lswlmconf -s
+これで、このコマンドは、以下の出力を生成します。
+confset1
+時間範囲を指定して「confset1」の「fvtlimits」構成を平日
+(月曜日から金曜日) 使用するには、次のように入力します。
+confsetcntrl -d confset1 -a fvtlimits 1-5
+この構成を午前中のみ使用したいとします。 時間範囲は変更できません。 代わりに、時間範囲を除去して、新しい時間範囲を作成する必要があります。
+まず、次のようにして古い時間範囲を除去します (
+confsetcntrl
+は、「
+locale
+day
+」または「
+locale
+abday
+」コマンドによって報告された曜日を受け入れます)。
+confsetcntrl -d confset1 -r fvtlimits monday-friday
+それから、次のように、新しい時間範囲を作成します。
+confsetcntrl -d confset1 -a fvtlimits 1-5,8:00-12:00
+日曜日に「fvtregul」構成を使用するためにもう 1 つ時間範囲を追加するには、
+次のように入力します。
+
+confsetcntrl -d confset1 -a fvtregul 0
+構成セット「confset1」を表示するには、次のように入力します。
+confsetcntrl -d confset1
+この例で、このコマンドは、次の出力を生成します。
+fvtlimits:
+time = &quot;1-5,8:00-12:00&quot;
+fvtregul:
+time = &quot;0&quot;
+standard:
+time = &quot;-&quot;
+デフォルトの構成として「template」を使用して「confset2」という構成セットを作成するには、
+次のように入力します。
+confsetcntrl -C confset2 template
+構成「fvtsynt」を毎晩使用するように「confset2」を変更するには、次のように入力します。
+confsetcntrl -d confset2 -a fvtsynt 18:00-10:00
+通常の構成のリストを表示するには、次のように入力します。
+lswlmconf -r
+この例で、このコマンドは次の出力を作成します (この例で、通常の構成のリストは
+変わっていないことを示しています)。
+standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads
+しかし、お分かりのように、この例で構成セットのリストは、
+次のコマンドの出力によって示されるように変更されています。
+lswlmconf -s
+この例で、このコマンドは、次の出力を作成します。
+confset1
+confset2
+date
+コマンドが構成セット「confset2」での現在時刻を「Tue Jul 16 18:55:10 EET 2002」と報告した場合に、
+その時点でどの構成がアクティブとなるかを表示するには、次のように入力します。
+lswlmconf -d confset2 -l
+この例で、このコマンドは、次の出力を生成します。
+confset2/fvtsynt
+別の時刻にどの構成がアクティブとなるかを表示することもできます。 日曜日の午前 9:00 にアクティブな構成を表示するには、次のように入力します。
+lswlmconf -l -t 0,9:00
+この例で、このコマンドは、次の出力を作成します。
+standard
+template
+fvtrules
+fvtlimits
+fvtregul
+fvtdfct
+fvtsynt
+fvtthreads
+confset1/fvtregul
+confset2/fvtsynt
+
+構成セットのみについてこの情報を表示するには、次のように入力します。
+lswlmconf -s -l -t 0,9:00
+この例で、このコマンドは、次の出力を作成します。
+confset1/fvtregul
+confset2/fvtsynt
+構成セット「confset2」を除去するには、次のように入力します。
+confsetcntrl -D confset2
+この例で、
+lswlmconf -s
+は、次の出力を生成します。
+confset1
+構成セット「confset1」を検査するには、
+wlmcheck
+コマンドを使用して次のように入力します。
+wlmcheck -d confset1
+この例で、このコマンドは、次の出力を作成します。
+WLM is not running.
+Checking classes and rules for &#x27;confset1&#x27; configuration...
+fvtlimits/System
+fvtlimits/Default
+fvtlimits/Shared
+fvtlimits/login
+fvtregul/System
+fvtregul/Default
+fvtregul/Shared
+standard/System
+standard/Default
+standard/Shared
+上の例で使用した構成セット「confset1」を使用して開始するには、次のように入力します。
+wlmcntrl -a -d confset1
+コマンド
+lswlmconf -c
+は、次の出力を生成します。
+confset1
+アクティブな通常の構成を表示するコマンド
+lswlmconf -cl
+は、次の出力を生成します。
+confset1/standard</pre>

@@ -1,0 +1,74 @@
+[
+  {
+    "row_id": "NEW-AIX73-CAT-0147",
+    "command": "cancel",
+    "title": "cancel コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-0335",
+    "command": "ctscfg",
+    "title": "ctscfg コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-0499",
+    "command": "fastboot",
+    "title": "fastboot コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-0642",
+    "command": "init",
+    "title": "init コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1320",
+    "command": "rmitab",
+    "title": "rmitab コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1360",
+    "command": "rmvfs",
+    "title": "rmvfs コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1382",
+    "command": "rsyslogd",
+    "title": "rsyslogd コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1383",
+    "command": "rtcd",
+    "title": "rtcd コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  },
+  {
+    "row_id": "NEW-AIX73-CAT-1632",
+    "command": "tsig-keygen",
+    "title": "tsig-keygen コマンド",
+    "status": "SOURCE_GAP",
+    "reason": "MCP snapshot lacks both Japanese and English core sections.",
+    "source_url": ""
+  }
+]

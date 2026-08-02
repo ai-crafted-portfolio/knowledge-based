@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+実行を一定の時間、中断します。
+
+説明
+sleep
+コマンドは、少なくとも
+Seconds
+パラメーターで指定された時間、プロセスの実行を延期します。
+Seconds
+パラメーターに指定される時間の範囲は、1 から
+MAXINT
+(2、147、483、647) 秒までです。
+
+構文
+sleep 秒
+
+例
+一定の時間が経過した後でコマンドを実行するには、次のように入力します。
+(
+echo &quot;SYSTEM SHUTDOWN IN 10 MINUTES!&quot; | wall
+sleep 300; echo &quot;SYSTEM SHUTDOWN IN 5 MINUTES!&quot; | wall
+sleep 240; echo &quot;SYSTEM SHUTDOWN IN 1 MINUTE!&quot; | wall
+sleep 60; shutdown
+)&amp;
+このコマンド・シーケンスは、システムがシャットダウンされる 10 分、5 分、および 1 分前に、すべてのユーザーに警告を発します。
+コマンドを一定の間隔で実行するには、次のように入力します。
+while true
+do
+date
+sleep 60
+done
+このシェル・プロシージャーは、1 分ごとに日時を表示します。 それを停止するには、割り込みキー・シーケンスを押してください。</pre>

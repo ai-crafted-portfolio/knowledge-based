@@ -1,0 +1,80 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+インターフェースおよびホストについて、規則、フラグ、およびセキュリティー・ラベルの追加、除去、または照会を行います。
+
+説明
+netrule
+コマンドは、インターフェースおよびホストの規則仕様のリスト、照会、追加、および除去を行います。 システム・デフォルト・インターフェース規則はインターフェース名を使用して設定されます。
+i-
+フラグを使用してインターフェース規則を除去すると、そのインターフェースにはデフォルト・インターフェース規則が適用されます。 デフォルト・インターフェース規則は、
+tninit load
+コマンドを使用して設定することもできます。
+注:
+インターフェースのインターフェース・ルールは常に存在する必要があるため、削除操作はインターフェース・ルールをデフォルトの状態に設定します。 コマンド・ライン・フラグは、すべて構文ステートメントに示す順序で指定する必要があります。
+
+構文
+ネットルール h l [ i | o | i o ] ネットルール h q { i | o } src_host_rule_specification dst_host_rule_specification netrule h - [ i | o ] [ u ] [ src_host_rule_specification dst_host_rule_specification ] ネトルーレ 時間 + { I | O } [ U ] src_host_rule_specification dst_host_rule_specification [ フラグ ][ RIPSO/CIPSO オプション ] セキュリティー・ラベル情報 (security_label_information) ネットルール i l netrule i q インターフェース netrule i - [ u ] [ interface ] netrule i + [ u ] インターフェース [ flags ] [ RIPSO/CIPSO オプション ] security_label_information ネットルール e q netrule e { on | off }
+
+オプション
+フラグ
+項目 | 説明
+e { on | オフ } | システムが受け入れない着信パケットに ICMP エラー応答を送信するポリシーを設定します。 この設定はデフォルトではオフであり、オンにするには、このフラグで設定する必要があります。 h フラグまたは i フラグを設定するときは、 e フラグは設定できません。
+h | netrule コマンドの対象がホストであることを指定します。 i フラグまたは e フラグを設定するときは、 h フラグは設定できません。
+i | netrule コマンドの対象がインターフェースであることを指定します。 h フラグまたは e フラグを設定するときは、 i フラグは設定できません。
+l | インターフェースまたはホストに関する規則をすべてリストします。
+O | ホスト発信規則を指定します (ホスト規則の場合のみ)。
+q | インターフェース、ホスト規則、またはエラー応答設定の状況を照会します。
+u | ホスト規則またはインターフェース規則が正常に追加または除去された後、 /etc/security/rules.host ファイルおよび /etc/security/rules.int ファイルを更新することを指定します。
++ | インターフェース規則またはホスト規則を追加します。
+- | インターフェース規則またはホスト規則を除去します。
+インターフェース | インターフェース名を指定します。
+src_host_rule_specification (src_host_rule_specification) | このパラメーターのフォーマットは次のとおりです。 src_host [/ mask][ = proto [:start_port_range [:end_port_range]]] 要件: 各フィールドの間にスペースまたはタブがあります。 src_host ソースの IPv6 アドレス、または IPv4 アドレス、またはホスト名。 マスク サブネット・マスク番号。最上位ビットを含めて、設定されているビットの数を示します。 例えば、IPv4 アドレスの場合、24 は 255.255.255.0 を意味します。 proto プロトコル。 start_port_range 範囲が始まる特定のポート番号またはポート名。 end_port_range 範囲が終わる特定のポート番号またはポート名。
+
+dst_host_rule_specification | このパラメーターのフォーマットは次のとおりです。 dst_host [/ mask][ = proto [:start_port_range [:end_port_range]]] 要件: 各フィールドの間にスペースまたはタブがあります。 dst_host 宛先の IPv6 アドレス、または IPv4 アドレス、またはホスト名。 マスク サブネット・マスク番号。最上位ビットを含めて、設定されているビットの数を示します。 例えば、IPv4 アドレスの場合、24 は 255.255.255.0 を意味します。 proto プロトコル。 start_port_range 範囲が始まる特定のポート番号またはポート名。 end_port_range 範囲が終わる特定のポート番号またはポート名。
+flags | このパラメーターのフォーマットは次のとおりです。 -d drop ドロップ AIX Trusted Networkは、すべてのパケットをドロップするように設定できる。 以下のいずれかの値を指定できます。 r すべてのパケットをドロップする。 n すべてのパケットをドロップしない (インターフェース・デフォルト)。 i インターフェース・デフォルトを使用する (ホスト・デフォルト、ホストのみ)。 -f rflag:tflag 国旗 着信 (受信) パケットのセキュリティー・オプション要件。 以下のいずれかの値を指定できます。 r Revised Interconnection Protocol Security Option (RIPSO) のみ。 c Commercial Internet Protocol Security Option (CIPSO) のみ。 e RIPSO または CIPSO のいずれか。 n RIPSO と CIPSO のいずれも使用しない (システム・デフォルト)。 a 制限なし。 i インターフェース・デフォルトまたはシステム・デフォルトを使用する (デフォルト)。 フラグ 発信 (送信) パケットのセキュリティー・オプションの処理。 以下のいずれかの値を指定できます。 r RIPSO を送信する。 c CIPSO を送信する。 n セキュリティー・オプションを送信しない (インターフェース・デフォルト)。 i インターフェース・デフォルトを使用する (ホスト・デフォルト、ホストのみ)。
+
+RIPSO/CIPSO オプション | このパラメーターのフォーマットは次のとおりです。 - rpafs =PAF_field[ ,PAF_field ...] IPSO パケットの受信に使用する PAF フィールドを指定します。 これは受け入れられる PAF フィールドのリストです。 最大 256 フィールドを指定できます。 PAF_field : NONE | PAF [+ PAF ...] PAF のコレクションである PAF フィールドを指定します。 1 つの PAF フィールドに次の 5 つの PAF を含めることができます。 GENSER SIOP-ESI SCI NSA DOE PAF フィールドは、正符号 ( + ) で区切られたこれらの値の組み合わせです。 例えば、GENSER と SCI の両方を含む PAF フィールドは、GENSER + SCI として表されます。 PAF を 1 つも含まない PAF フィールドを指定するには、PAF フィールド NONE を使用します。 - epaf=PAF_field システムが受け入れなかった着信 IPSO パケットに対するエラー応答に接続される PAF フィールドを指定します。 - tpaf=PAF_field 発信パケットの IPSO オプションに組み込まれる PAF フィールドを指定します。 -DOI = doi CIPSO パケットの解釈ドメイン (DOI) を指定します。 着信パケットはこの DOI を持つ必要があり、発信パケットはこの DOI を与えられます。 -tags= tag [ ,tag ...]（タグ.. tag = 1 | 2 | 5 受け入れられて CIPSO オプションによる送信が可能なタグのセットを指定します。 これは、1、2、および 5 の組み合わせです。 例えば、1,2 はタグ 1 と 2 を使用可能にします。
+
+セキュリティー・ラベル情報 (security_label_information) | このパラメーターのフォーマットは次のとおりです。 +min +max +default | -s input_file 規則を追加するときに適用される標準出力 (SL) を指定します。 また、 -s フラグを指定して、ファイルに SL を次の順序で含めることができます (1 行に 1 つずつ指定します)。 min SL max SL default SL このファイルにコメントを入れることはできません。 複数の行が必要な場合は、行末に円記号 (&amp;#xa5;) を使用します。 ファイルを使用しない場合は、最小レベル、最大レベル、およびデフォルト・レベル (マークなしパケットの暗黙レベル) の機密ラベルを正符号 (+) で区切ってリストします。
+
+例
+ホスト着信規則を追加し、ホスト着信規則がカーネルに正常に追加された後でローカル・データベースを更新するには、次のように入力します。
+netrule h+iu 9.3.149.25 9.41.86.19 +impl_lo +ts all +pub
+ホスト発信規則を追加するには、次のように入力します。
+netrule h+o 9.41.86.19 9.3.149.25 -s /tmp/rule
+または:
+impl_lo
+ts all
+pub
+入力
+/tmp/rule
+ファイルの内容は次のようになります。
+impl_lo
+ts \
+all
+pub
+ホストからすべての着信 UDP パケットをドロップするには、次のように入力します。
+netrule h+i 192.0.0.5 =udp 9.41.86.19 =udp -dr +impl_lo +impl_lo +impl_lo
+すべてのホスト規則を除去し、ローカル・データベースを更新するには、次のように入力します。
+netrule h-u
+すべてのホスト規則をリストするには、次のように入力します。
+netrule hl
+すべてのインターフェース規則をリストするには、次のように入力します。
+netrule il
+インターフェース規則を追加するには、次のように入力します。
+netrule i+ en0 -dn -fa:n +public +ts +secret
+特定のホスト規則を除去するには、次のように入力します。
+netrule h-i 192.0.0.5 =udp 9.41.86.19 =udp
+特定のホスト規則を追加するには、次のように入力します。
+netrule h+i 9.41.86.19 /24 =tcp :ftp :telnet 9.3.149.6 /28 +public +ts +secret
+デフォルト・インターフェース規則を設定するには、次のように入力します。
+netrule i+ default -dn -fa:n +impl_lo +ts all +impl_lo
+デフォルト・インターフェース規則をシステム・デフォルト「すべてのパケットをドロップ」に設定するには、次のように入力します。
+netrule i- default
+CIPSO パケットを送信し、CIPSO パケットのみを受信するようにインターフェースを設定するには、次のように入力します。
+netrule i+ en0 -fc:c +impl_lo +ts all +impl_lo
+
+CIPSO または RIPSO のいずれかを受信し、PAF 値、CIPSO DOI、および CIPSO フラグを持つ RIPSO パケットを送信するようにインターフェースを設定するには、次のように入力します。
+netrule i+ en0 -fe:r -rpafs=SCI,NSA+DOE -epaf=SCI -tpaf=NSA -DOI=0x010
+-tags=1,2 +impl_lo +ts all +impl_lo
+無効な着信パケットに ICMP 応答を送信する全システム・ポリシーを設定するには、次のように入力します。
+netrule e on</pre>

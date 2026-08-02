@@ -1,0 +1,23 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+システム・セキュリティー・フラグを表示します。
+
+説明
+getsecconf
+コマンドは、システム・セキュリティー・フラグを表示します。 オプションを指定しないで呼び出すと、
+getsecconf
+コマンドはシステムが稼働しているモードに関連したセキュリティー・フラグを表示します。
+
+構文
+getsecconf { -c | -o }
+
+オプション
+フラグ
+項目 | 説明
+-c | CONFIGURATION モードを指定します。
+-o | OPERATIONAL モードを指定します。
+
+例
+CONFIGURATION (構成) モードでシステム・セキュリティー・フラグを表示するには、次のように入力します。
+getsecconf –c
+OPERATIONAL (動作) モードでシステム・セキュリティー・フラグを表示するには、次のように入力します。
+getsecconf –o</pre>

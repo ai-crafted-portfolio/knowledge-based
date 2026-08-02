@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+仮想プリンターの属性のフォーマットと編集の方法を提供します。
+
+説明
+pioattred
+コマンドは、仮想プリンターの属性をフォーマットし、属性を編集する方法を提供します。 具体的には、プリンター定義ファイル内の属性は、
+and/or
+-o
+フラグで指定されたアクションに従って編集することができます。 フォーマットされた属性は、標準出力
+stdout
+に書き込まれます。 属性は、
+VISUAL
+環境変数で指定されたエディターで編集されます。 仮想プリンターの定義ファイルは、
+/var/spool/lpd/pio/@local/custom/*
+ディレクトリーにあるものと想定されます。
+
+構文
+pioattred -q PrintQueueName -d QueueDeviceName [ -o Action] [ -a Attribute]
+
+オプション
+フラグ
+表 1. フラグ
+項目 | 説明
+-a Attribute | 仮想プリンターの定義ファイルの属性名を指定して、フォーマットまたは編集を行います。 このフラグは、何度も指定できます。
+-d QueueDeviceName | 仮想プリンター定義の QueueDeviceName スプーラーを指定して、フォーマットまたは編集を行います。
+-o アクション | pioattred コマンドが仮想プリンター定義に対して実行する必要があるアクションを指定します。 このフラグを省略した場合、 pioattred コマンドは 0 (ゼロ) の値を想定します。 0 指定された属性をフォーマットします。 その結果は stdout に行きます。 1 指定された 1 つ以上の属性をフォーマットして編集します。 VISUAL 環境変数で指定されたエディターを使用します。 VISUAL 環境変数にエディターが指定されていない場合、vi エディターを使用します。 属性を編集中にエラーが起きた場合には、そのエラーのある属性を一時ファイルに保管し、エラーを示す戻りコードを戻します。 以下の値は、属性の編集後にエラー戻りコードが戻された場合に使用されます。 2 属性を再編集します。 仮想プリンター定義は、エラーが発生したときに残されていた状態です。 3 エラーを無視し、編集した属性を仮想プリンターの定義に保管します。 4 クリーンアップして、 pioattred コマンドの開始前の状態にしておきます。
+-q PrintQueueName | 仮想プリンター定義の PrintQueueName スプーラーを指定して、フォーマットまたは編集を行います。
+
+例
+queue: quedev 仮想プリンター定義内の
+ci
+属性および
+sh
+属性をフォーマットするには、次のように入力します。
+pioattred -q queue -d quedev -o 0 -a ci -a sh
+または
+pioattred -q queue -d quedev -a ci -a sh
+queue: quedev 仮想プリンター定義内のすべての属性をフォーマットするには、次のように入力します。
+pioattred -q queue -d quedev -o 0
+または
+pioattred -q queue -d quedev
+queue: quedev 仮想プリンター定義の
+st
+属性を編集するには、次のように入力します。
+pioattred -q queue -d quedev -o 1 -a st</pre>

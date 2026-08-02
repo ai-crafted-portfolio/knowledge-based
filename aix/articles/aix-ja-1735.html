@@ -1,0 +1,62 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+ログインしているすべてのユーザーにイベントまたはリアーム・イベントをブロードキャストします。
+
+説明
+wallevent
+スクリプトは、イベントまたはリアーム・イベントが発生したときに、そのイベントまたはリアーム・イベントに関するメッセージを、現在ホストにログインしているすべてのユーザーにブロードキャストします。 イベントまたはリアーム・イベントの情報は、イベントまたはリアーム・イベントが発生すると、イベント応答リソース・マネージャーから生成される環境変数で、イベント応答リソース・マネージャーによって収集され、追加されます。 このスクリプトは、イベント応答リソースによって実行されるアクションとして使用できます。 また、その他のユーザー定義アクションを作成するためのテンプレートとしても使用できます。
+wallevent
+スクリプトのメッセージが返される言語は、ロケール設定によって異なります。
+メッセージは、このスクリプトが応答アクションであるイベントまたはリアーム・イベントが発生したときにログインしていたすべてのユーザーのコンソールに、次のフォーマットで表示されます。
+Broadcast message from user@host (tty) at hh:mm:ss...
+severity event_type occurred for Condition condition_name
+on the resource resource_name of resource_class_name at hh:mm:ss mm/dd/yy
+The resource was monitored on node_name and resided on {node_names}.
+ERRM 環境変数に関するイベント情報が戻されます。
+また、イベント情報には以下も含まれます。
+Local Time
+このイベントまたはリアーム・イベントが監視される時刻。 ERRM が提供する実際の環境変数は ERRM_TIME です。 この値は表示前にローカライズされ、
+読み取り可能な形式に変換されます。
+このスクリプトは、環境変数の値を取り込み、
+wall
+コマンドを使用して、現在ログインしているユーザー・コンソールにメッセージを書き込みます。
+
+構文
+wallevent [ -c ] [ -h ]
+
+オプション
+フラグ
+-c
+ERRM イベントの
+ERRM_VALUE
+をブロードキャストするように
+wallevent
+に指示します。 この
+-c
+フラグが指定されると、
+wallevent
+SNMP トラップメッセージが送信されます。
+-h
+スクリプトの使用方法の文を標準出力に書き込みます。
+
+例
+wallevent
+スクリプトがクリティカル通知応答の事前定義アクションであり、リソース
+/var
+の
+/var space used
+条件に関連付けられているとします。 この条件に定義されたイベント式のしきい値に達すると、イベントが発生します。 クリティカル通知の応答が行われ、
+wallevent
+が実行されます。 ログインしているすべてのユーザーのコンソールに、次のメッセージが表示されます。
+Broadcast message from joe@neverland.com (pts/6) at 18:42:03...
+Critical event occurred for Condition /var space used
+on the resource /var of filesys of IBM.FileSystem at 18:41:50 03/28/02
+The resource was monitored on c174n05 and resided on {c174n05}.
+リソース
+/var
+の
+/var space used
+条件に対してリアーム・イベントが発生すると、ログインしているすべてのユーザーのコンソールに以下のメッセージが表示されます。
+Broadcast message from joe@neverland.com (pts/6) at 18:42:03...
+Critical rearm event occurred for Condition /var space used
+on the resource /var of filesys of IBM.FileSystem at 18:41:50 03/28/02
+The resource was monitored on c174n05 and resided on {c174n05}.</pre>

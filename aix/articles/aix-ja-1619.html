@@ -1,0 +1,104 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+信頼された署名データベース（TSD）と信頼された実行（TE）機能を管理する。
+
+説明
+trustchk
+コマンドは以下のような場合に使用できる：
+トラステッド・シグニチャー・データベースの管理
+システムのセキュリティー状態を監査する
+トラステッド実行メカニズムの使用可能化
+トラステッド実行のためのさまざまなポリシーの構成
+TROJAN 検出のためのシステムのスキャン
+Trusted Execution (TE) ポリシーを使用したソフトウェアまたは暫定修正のインストール
+
+構文
+TSDにファイルを追加するには trustchk [ -R module name ] -s &lt;private key file&gt; -v &lt;certificate file&gt; [ -P ] -a [tree] { filename [ size=VOLATILE ] [ hardlinks=value ] [ symlinks=value ]...| -f filename } TSDにファイルを追加するには trustchk [ -R module name ] -s &lt;private key file&gt; -v &lt;certificate file&gt; [ -P ] -a [tree] { filename [ size=VOLATILE ] [ hardlinks=value ] [ symlinks=value ]...| -f filename } TSDからファイルを削除するには trustchk -d { filename...| ALL | -f filename } TSDを照会するには trustchk -q { filename...| ALL |-f filename } 新しいハッシュ・アルゴリズムに切り替えるには trustchk -g [ SHA1 | SHA256 | SHA512 ] システムスキャンへ trustchk [ -i ] [ -x ] { -n | -t | -y } tree [dirpath…….] ポリシーを設定するには trustchk [ -@ { WparName | ALL } ] -p { [ TE [ = ON | OFF ] ] [ CHKEXEC [ = ON | OFF ] ] [ CHKSHLIB [ = ON | OFF ] ] [ CHKSHOBJS [ = ON | OFF ] ] [ CHKSCRIPT [ = ON | OFF ] ] [ CHKKERNEXT [ = ON | OFF ] ] [ SIG_VER [ = ON | OFF ] ] [ STOP_UNTRUSTD [ = ON | OFF | TROJAN ] ] [ STOP_ON_CHKFAIL [ = ON | OFF ] ] [ LOCK KERN POLICIES [ = ON | OFF ] ] [ TEP [ = ON | OFF | PathList ] ] [ TLP [ = ON | OFF | PathList [ TSD_FILES_LOCK [ = ON | OFF | EXVOL] ] [ TSD_LOCK [ = ON | OFF ] ] } システム監査へ trustchk [ -r ] { -n | -t | -y } { filename... | ALL } } 代替TSDファイルを使用するには trustchk -F TSDFile { -a | -d | -g | -q | -y | -n | -t } TSD trustchk コマンドを更新するには trustchk -u &lt;filename&gt;[&lt;attr&gt;=value] trustchk -k -s &lt;private key file&gt; -v certificate file [ -N ] { [ -D ] &quot;OU = distinguished name&quot;} 注： プラス記号（+）は、 -D オプションの識別名でのみ使用できる特殊文字である。 以下の例では、プラス記号（+）を識別名の特殊文字として使用する方法を示しています： trustchk -k -s sign-key -v verify-key -N -D &quot;OU=IT + OU=jj, OU=zlab037.austin.ibm.com&quot; 他の形式ではプラス記号（+）は使用できません。
+
+オプション
+フラグ
+表3. フラグ
+項目 | 説明
+-a ファイル名 | ファイル定義を TSD に追加します。 絶対ファイル名を指定した場合、定義はファイルから読み込まれるか（ -f オプション）、コマンドによって計算される。 ファイル名には以下のパラメータを指定できる： size =ボラ タイル ファイルのサイズを指定します。 この属性は VOLATILE 値を使う。 VOLATILE 値は、この定義が属するファイルが揮発性であることを示す。 ファイルの内容は頻繁に変わる。 したがって、監査時には、このファイルのサイズ、ハッシュ値、署名をチェックしてはならない。 hardlinks =価値 trustchk コマンドが単独で計算できないファイルへのハードリンクを提供する。 symlinks =価値 ファイルに対するシンボリック・リンクを提供します。 -tree -a フラグとともにディレクトリ名を指定すると、 trustchk コマンドデータベースに再帰的にスタンザを追加する。 ファイル名を指定すると、そのファイル名のスタンザが追加される。 このパラメータは、 -a フラグとともに使用する。 TSDに通常のファイルを追加するには、秘密鍵、またはパスフレーズやパスワード保護なしの PKCS#8 形式の ASN.1/DER ファイルの -s フラグで署名鍵を指定する必要がある。 ASN.1/DER ファイルの -v フラグで、関連する証明書を指定する。 関連する証明書には、ファイルの署名を検証するために使用される公開鍵が含まれている。 指定したデジタル証明書は、 /etc/security/certificates ファイルに保存される証明書にコピーされる。 システム監査時に電子証明書を使用して、ファイルの署名を検証することができる。 デバイス、ディレクトリ、FIFOなど、通常のファイル以外を追加する場合、秘密鍵と証明書は必要ありません。
+-d | TSD からファイル定義を削除する。 TSDからスタンザを削除する必要があるファイル名をコマンドラインで指定するか、 -f フラグで指定できるファイルに配置する。
+-D | コマンドライン・インターフェースから発行者 DN とサブジェクト DN を入力するには、 -D フラグと -k フラグを使用します。
+
+-f Filename | ファイル定義が、 filename パラメータで指定されたファイルから読み込まれなければならないことを指定する。 ファイル名またはスタンザ名はコロンで終わらなければならない。 外部ファイルの各ファイル名エントリーの間に空白行を挿入する。
+-F | 異なる TSD ファイルが参照として使用されることを指定します。 -F フラグは -a 、 -d 、 -g 、 -q 、 -n 、 -t 、 -y フラグと併用できる。
+-g [ SHA1 | SHA256 | SHA512 ] | TSD を新規ハッシュ・アルゴリズムに移行します。 ファイル定義の hash_value フィールドは再計算され、TSDで更新される。 -g フラグは以下のようなアルゴリズムをサポートしている。 SHA1 , SHA256 そして SHA512 . アクティブなアルゴリズムを表示するには、アルゴリズム名を指定せずに、 -g フラグを指定する必要があります。
+-i | NFS -マウントされたファイルシステムのスキャンを無視する。 -i フラグは、 -n , -t , -y フラグ、および tree パラメータと共にのみ使用する。
+-k | trustchk コマンドを使用して証明書および秘密鍵ファイルを生成します。 -s 、 -v フラグで鍵ファイル名と証明書ファイル名を指定する必要がある。 生成された鍵は、 -s および -v フラグによって指定されるファイルに保存されます。
+-n | 監査モードを指定し、エラーを報告しなければならないことを示す。 TSD 内の属性間のすべての不一致、および実際のファイル・パラメーターが、 stderr. エラー・ファイルに印刷されます。 ALL パラメータを使用して、TSD のエントリをチェックする。 システム全体またはディレクトリをスキャンして TROJAN を検出するには、 tree パラメータと併用する。
+
+-p | トラステッド実行ポリシーを構成します。 例えば、 policyA=ON のように、コマンドラインからポリシーの設定をオンにすることができます。 現在の状態を取得するには、ポリシー名を指定します。たとえば、 trustchk -p CHKEXEC 。 TE=ON オプションは、 TE ポリシーに関連しない TEP と TLP ポリシー以外のポリシーを有効にする。 TEP 、 TLP ポリシーを自動的にオンまたはオフにすることができます。 TEP=ON オプションは TEP を有効にし、 TLP=ON オプションは TLP 機能を有効にする。
+-P | 秘密鍵ファイルの暗号化または復号化に使用するパスワードの入力を求めるプロンプトが表示されます。 -a フラグとともに -P フラグを指定することができる。 trustchk -a コマンドで -P フラグを指定すると、秘密鍵ファイルの復号化に使用するパスワードの入力が求められる。
+-q | ファイル名の TSD を照会します。 セキュリティ属性の全リストを表示する。例えば、指定されたファイル名のスタンザ。 TSDのエントリを検索するには、ファイルパス名をリストする代わりに、 ALL パラメータを使用する。
+-r | 権限と特権のみをチェックすることを指定する。 このフラグは、拡張 RBAC システムでのみ有効である。 TSDのエントリーをチェックするには、 ALL フラグを使用する。
+-R モジュール名 | TSD ポリシーと TE ポリシーの値は、ローカルコピーではなく、指定されたモジュールから取得しなければならないことを指定します。
+-s | ファイルをTSDに追加する際に、そのファイルの署名計算に使用する署名鍵を指定する。 署名鍵はRSA秘密鍵で、パスフレーズやパスワードで保護されていない PKCS#8 形式の ASN.1/DER 。
+-t | 監査モードを指定し、エラーが修正されなければならないかどうかを尋ねるプロンプトとともに報告されなければならないことを示す。 TSDのエントリーをチェックするには、 ALL オプションを使用する。 システム全体またはディレクトリをスキャンして、 TROJAN を検出するには、 tree パラメータを使用する。
+
+-u | TSD 内の指定された属性の値を更新します。 trustchk -u コマンドを使用して rbac の属性を変更した場合は、 setkst を明示的に実行する必要がある。 これにより、カーネル・テーブルが更新されます。 注： -u フラグは、 Owner 、 group 、 mode 、 Hardlinks 、 symlinks 、 accessauths 、 innateprivs 、 inheritprivs 、 authprivs 、 secflags 、 t_innateprivs 、 t_inheritprivs 、 t_secflags 、 t_authprivs 、 t_accessauths 、 type などの属性をサポートしている。
+-v | -s フラグを使用して、署名鍵に関連付けられる検証証明書を指定する。 検証証明書は、 /etc/security/certificate ファイルに保存される証明書にコピーされ、監査中にファイル署名を検証するために使用される。 新しい証明書は、ストア内の同じ証明書 ID を持つ既存の証明書を上書きする。 検証証明書は ASN.1/DER 形式である。
+-x | -x フラグは、 -n 、 -t 、 -y フラグと、 tree パラメータでのみ使用すること。 シンボリック・リンクに従いません。
+-y | 監査モードを指定し、エラーを修正して報告しなければならないことを示す。 ALL パラメータを使用して、TSD のエントリをチェックする。 システム全体またはディレクトリをスキャンして TROJAN を検出するには、 tree パラメータとともに -y フラグを使用する。 注意： -y オプションを誤用すると、 trustchk コマンドが不一致に遭遇した場合、ファイルが使用できなくなる可能性がある。
+-@ WparName | システム WPAR の TE ポリシーを一覧表示します。
+
+例
+/home/guest/privkey.der
+ファイルにある秘密鍵と、
+/home/guest/certificate.der
+ファイルにある関連証明書を使用して、
+/usr/bin/ls
+ファイルに新しいファイル定義を追加するには、以下のコマンドを入力する：
+trustchk -s /home/guest/privkey.der -v /home/guest/certificate.der
+-a /usr/bin/ls
+前の例と同じ秘密鍵と証明書のペアを使用して、ファイルを揮発性ファイルとして
+TSD
+に追加するには、以下のコマンドを入力する：
+trustchk -s /home/guest/privkey.der -v /home/guest/certificate.der
+-a /usr/bin/passwd size=VOLATILE
+最初の例と同じ秘密鍵と証明書のペアを使用して、
+TSD
+に
+/usr/local/bin/ls
+hardlink
+を持つファイル
+/usr/bin/ls
+を追加するには、以下のコマンドを入力する：
+trustchk -s /home/guest/privkey.der -v /home/guest/certificate.der
+-a /usr/bin/ls hardlinks=/usr/local/bin/ls
+ファイル
+/usr/bin/logname
+を削除する場合は、以下のコマンドを入力します。
+trustchk -d /usr/bin/logname
+ファイル
+/home/guest/filedef.in
+に格納されたファイル定義を追加する場合は、以下のコマンドを入力します。
+trustchk -s /home/guest/privkey.der
+-v /home/guest/certificate.der
+-a -f /home/guest/filedef.in
+ロードのたびにTSDにリストされた実行可能ファイルをチェックするポリシーを有効にするには、次の手順を実行します：
+ポリシーを設定するには、次のコマンドを入力する：
+trustchk -p CHKEXEC=ON
+ポリシーを有効にするには、次のコマンドを入力する：
+trustchk -p TE=ON
+TSDに属するファイルの整合性をチェックするには、以下のコマンドを入力する：
+trustchk -n ALL
+TSD に対して現在アクティブな hash アルゴリズムの値を印刷するには、以下のコマンドを入力します。
+trustchk -g
+
+1 つの WPAR のすべてのポリシーをリストするには、以下のコマンドを入力します。
+trustchk -@ &lt;wpar&gt; -p
+すべての WPAR のすべてのポリシーをリストするには、以下のコマンドを入力します。
+trustchk -@ ALL -p
+システム全体をTROJAN検出レポートのためだけにスキャンするには、以下のコマンドを入力する：
+trustchk -n tree
+TROJAN検出のために
+dir /usr
+のみをスキャンし、自動的に修正するには、以下のコマンドを入力する：
+trustchk -y /usr
+TROJAN検出のために、 NFS マウント・ファイルシステムを除くシステム全体をスキャンし、対話的に修正するには、以下のコマンドを入力する：
+trustchk -i -t tree
+ローカル・コピーの代わりに LDAP サーバーから値を取り込むには、
+以下のコマンドを入力します。
+trustchk -R LDAP -p</pre>

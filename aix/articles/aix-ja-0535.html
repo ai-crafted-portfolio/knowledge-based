@@ -1,0 +1,46 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+指定した基準に一致するデバイスをリストします。
+
+説明
+指定した基準に一致するデバイスをリストします。 基準は、式の形式で指定します。
+getdev
+コマンドは、システム上のすべてのデバイスまたは
+指定したリストのデバイスを検査することができます。
+
+構文
+getdev [ -a ] [ -e ] [ 基準 ] [ ]。 DeviceList ]
+
+オプション
+フラグ
+項目 | 説明
+-a | すべての基準に一致するデバイスが、このコマンドによって生成されるリストに組み込まれることを 指定します。 基準が定義されていない場合には、 -a フラグは無効になります。
+-e | devicelist に指定されているデバイスを getdev コマンドにより生成されるリストから除外することを指定します。 -e フラグ を指定しないと、 devicelist 内のデバイスのみが生成されます。 このフラグ は、デバイスが指定されていない場合には無視されます。
+
+例
+すべてのデバイスを表示するには、次のように入力します。
+getdev
+タイプが「logical_volume」であるデバイスをリストするには、次のように入力します。
+getdev type=logical_volume
+タイプが「logical_volume」でないデバイスをリストするには、次のように入力します。
+getdev type!=logical_volume
+タイプが「logical_volume」であるか、または別名が「sys0」であるデバイスをリストするには、
+次のように入力します。
+getdev type=logical_volume alias=sys0
+出力は次のようになります。
+hd1
+hd2
+hd3
+hd4
+...
+sys0
+タイプが「logical_volume」で、別名が「lv01」であるデバイスをリストするには、
+次のように入力します。
+getdev -a type=logical_volume alias=lv01
+status
+属性が定義されているデバイスを表示するには、
+次のように入力します。
+getdev status:*
+desc
+属性が定義されていないデバイスを表示するには、
+次のように入力します。
+getdev desc!:*</pre>

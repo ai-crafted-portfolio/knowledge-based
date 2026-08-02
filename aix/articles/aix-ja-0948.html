@@ -1,0 +1,168 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Server Message Block (SMB) クライアント・マウント・ポイントを
+/etc/filesystems
+ファイルに追加し、マウント操作を実行します。
+
+説明
+mksmbcmnt
+コマンドは、
+/etc/filesystems
+ファイルに追加される SMB クライアント・ファイルシステム・エントリーを作成します。 その際、
+mksmbcmnt
+コマンドはその SMB クライアント・ファイルシステムをマウントします。
+mksmbcmnt
+コマンド・オプションは解析されて
+crfs
+コマンドに渡され、crfs コマンドは SMB エントリーを
+/etc/filesystems
+ファイルに追加します。
+すべてのマウント・オプション (
+-t, -u, -g, -x, -w, -V, -S, -D,
+-E
+) のデフォルト値は、
+mount
+コマンドと同じです。
+
+構文
+mksmbcmnt -f MountPoint -d RemoteShare -h ServerName -w wrkgrp -c user [-p password] [-m MountTypeName] [-A|-a] [-I|-B|-N] [-t {rw|ro}] [-u uid] [-g gid] [-x fmode] [-V {2.1|3.0.2|auto}] [-S {enabled|required}] [-D {desired|required|disabled}] [-E {desired|required|disabled}] [-s spn]
+
+オプション
+フラグ
+-a
+/etc/filesystems
+ファイル内の SMB クライアント・マウント・ポイントの新規 SMB エントリーを、システムの再始動後に自動的にマウントしないようにすることを指定します。 これがデフォルト設定です。
+-A
+/etc/filesystems
+ファイル内の SMB クライアント・マウント・ポイントの新規 SMB エントリーを、システムの再始動後に自動的にマウントするようにすることを指定します。
+-B
+/etc/filesystems
+ファイルにエントリーを追加し、SMB クライアント・ファイルシステムのマウントを試行します。 これがデフォルト設定です。
+--c
+ユーザー
+これは、SMB share にアクセスするために使用されなければならないユーザー名を指定します。
+-d
+RemoteShare
+これは、マウントされなければならない SMB サーバー上の共有名を指定します。
+-D {desired|required|disabled}
+これは、SMB クライアント・ファイルシステムでセキュア・ダイアレクト・ネゴシエーション機能が必要であるかどうかを指定します。 SMB Dialect 3.0.2 は、セキュリティー低下攻撃に対して SMB クライアントを保護するためにセキュア・ダイアレクト・ネゴシエーションを実施します。 有効な値は、
+desired
+、
+required
+、および
+disabled
+です。
+-E {desired|required|disabled}
+これは、SMB クライアント・ファイルシステムでデータ暗号化が必要であるかどうかを指定します。 有効な値は、
+desired
+、
+required
+、および
+disabled
+です。
+-f
+MountPoint
+これは、SMB share がマウントされなければならない場所となるパス名を指定します。
+-
+ギド
+これは、SMB クライアント・マウント・ポイントにあるファイルに割り当てられるグループ ID を指定します。 デフォルト値は 0 です。
+-h
+ServerName
+これは、リモート・ホストまたは SMB サーバーの名前を指定します。 この引数は、ホスト名、 IP アドレス、または完全修飾ドメイン・ネームとして指定できます。
+-I
+/etc/filesystems
+ファイルに SMB クライアント・ファイルシステム・エントリーを追加しますが、ディレクトリーはマウントされません。
+-m
+MountTypeName
+/etc/filesystems
+
+ファイルに追加されるエントリーのマウント・タイプを定義します。 マウント・タイプは、
+mount
+コマンドの
+-t
+フラグを使用して、特定のファイルシステムをマウントできるかどうかを決定します。 デフォルトでは、マウント・タイプの値は
+/etc/filesystems
+ファイルに追加されません。
+-N
+指定されたオプションを使用してディレクトリーをマウントしますが、
+/etc/filesystems
+ファイルは変更しません。
+-
+パスワード
+これは、特定 SMB サーバー上の特定ユーザーに対するアクセス権限を付与するために使用されるパスワードを指定します。 特定の資格情報 (サーバー名、ユーザー名、およびパスワード) が
+smbcred
+ファイルに追加されます。 パスワードは暗号化されます。
+-p
+オプションが指定されず、資格情報が
+smbcred
+ファイルに存在しない場合は、パスワードの指定を求めるプロンプトがコマンド・ラインで出され、資格情報が
+smbcred
+ファイルに追加されます。 SMB サーバーまたはユーザーの資格情報が
+smbcred
+ファイルに存在する場合、このオプションは無視され、既存の資格情報がマウント操作に使用されます。
+-
+スプーン
+SMB クライアントのマウント・ポイントで使用する必要がある
+サービス・プリンシパル名
+(SPN) を指定します。
+spn
+パラメーターの形式は
+cifs/&lt;
+smbServerHostName
+&gt;
+です。ここで、
+smbServerHostName
+は、SMB サーバーの完全修飾ドメイン名 (FQDN)、または Kerberos が SMB サーバーとして解決する名前です。 デフォルトでは、SPN は SMB クライアント・ファイルシステムによって
+cifs/&lt;
+smbServerHostName
+&gt;
+として自動的に構成されます。
+-t {rw|ro}
+これは、SMB クライアント・ファイルシステムを読み取り専用としてマウントする必要があるかどうかを指定します。
+--u
+uid
+これは、SMB クライアント・マウント・ポイントにあるファイルに割り当てられるユーザー ID を指定します。
+--x
+fモード
+これは、SMB クライアント・マウント・ポイントにおいてファイルに割り当てられる所有者、グループ、および他の許可ビットを指定します。
+--w
+wrkgrp
+SMB サーバーが属しているワークグループを指定します。
+-V {2.1|3.0.2|auto}
+
+SMB サーバーとの通信に使用される SMB プロトコルのバージョンが指定されます。 有効な値は、
+2.1
+、
+3.0.2
+、および
+auto
+です。
+-S {enabled|required}
+これは、SMB クライアント・ファイルシステムが SMB サーバーとの通信にデジタル署名を必要とするかどうかを指定します。 有効な値は
+enabled
+と
+required
+です。
+
+例
+/mnt
+マウント・ポイントを使用して SMB クライアント・ファイルシステム・エントリーを
+server1
+上の
+share1
+SMB share に追加し、
+user1
+として認証するには、次のコマンドを入力します。
+mksmbcmnt -f /mnt -d share1 -h server1 -c user1
+/etc/filesystems
+ファイルに SMB クライアント・ファイルシステム・エントリーを追加し、デフォルト・オプションを使用して SMB クライアント・ファイルシステムをマウントするには、以下のコマンドを実行します。
+mksmbcmnt -f /mnt -d /share -h host.xyz.com -c braz2lpa2usr1 -w SMB_WRKGRP
+このコマンドは、
+/etc/smbcred
+ファイルにパスワードがまだ追加されていない場合に、パスワードの入力を求めるプロンプトを出します。 マウント操作が失敗すると、このコマンドは
+mount
+コマンドの出力を表示します。
+/etc/filesystems
+ファイル内の変更内容は保持されます。
+/etc/filesystems
+ファイルに SMB クライアント・ファイルシステム・エントリーを 追加し、デジタル署名が必須に設定された SMB クライアント・ファイルシステムをマウントするには、以下のコマンドを実行します。
+mksmbcmnt -f /mnt -d /share -h host.xyz.com -c braz2lpa2usr1 -w SMB_WRKGRP -S required</pre>

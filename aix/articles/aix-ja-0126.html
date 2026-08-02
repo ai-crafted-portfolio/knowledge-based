@@ -1,0 +1,63 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+Cisco Discovery Protocol (CDP) を使用して着信データ・パケットまたはメッセージを受信する
+cdpd
+デーモンを制御し、物理的に接続された Cisco デバイスを発見します。
+
+説明
+CDP は、メディアやネットワークから独立した層 2 (データ・リンク層) プロトコルです。 CDP は、デバイスに直接接続されている他の Cisco デバイスを発見するために Cisco デバイスで実行されるネットワーキング・アプリケーションで使用されます。
+7200-05 AIX7
+の 以降、CDP 機能は、CDP を使用して受信データ・パケットまたはメッセージを受信する 「
+cdpd
+デーモンを使用して、AIX®論理パーティションに実装されます。 次のコマンドを実行すると、System Resource Controller (SRC) サブシステムは
+cdpd
+デーモンを開始します。
+startsrc -s cdpd
+cdpctl
+コマンドは、物理的に接続された Cisco デバイスに関する情報を含む CDP を使用して着信データ・パケットまたはメッセージを受信するように AIX 論理区画上のネットワーク・インターフェースを構成することにより、
+cdpd
+デーモンを制御します。
+cdpctl
+コマンドはまた、接続された Cisco デバイスからブロードキャストされたデータ・パケットまたはメッセージを検出することによって、物理的に接続された Cisco デバイスと、関連する構成設定を発見します。
+注:
+CDP 機能は、CDP メッセージを受信し、物理的に接続されたデバイスのみをディスカバーするために、 AIX オペレーティング・システムに実装されています。 CDP データ・パケットは、Cisco デバイスに接続された物理インターフェースでのみ受信でき、仮想インターフェースでは受信できません。
+
+構文
+cdpctl subcommand device_name
+
+例
+cdpctl
+コマンドの使用方法を表示するには、次のコマンドを入力します。
+cdpctl
+AIX 論理区画内のすべての CDP 対応デバイスおよびネットワーク・インターフェースをリストするには、次のコマンドを入力します。
+cdpctl list
+次の例に示すような出力が表示されます。
+CDP capturable devices on the system:
+en0
+en2
+CDP を使用して物理的に接続された Cisco デバイスから着信データ・パケットまたはメッセージを受信できるネットワーク・インターフェースを AIX 論理区画に追加するには、次のコマンドを入力します。
+cdpctl add en0
+次の例に示すような出力が表示されます。
+Successfully added port en0
+Waiting for CDP advertise (default 60 seconds)......
+Device ID : sw-yyyyyycisco92300.xxx.xxxx.xxx.com(XXXXXXXKQ)
+Address : 9.x.y.z
+Port ID : Ethernet1/49
+Capabilities
+: Router Level 3
+: Level 2 Switch
+: IGMP snooping
+Cisco switch OS Version : Cisco Nexus Operating System (NX-OS) Software, Version 9.2(3)
+Platform : N9K-C92300YC
+Native VLAN ID : 1
+Trusted Bitmap : N/A
+AVVID untrusted ports : N/A
+Duplex : Full
+MTU : 1500
+System Name : sw-xxxxxx92300
+System Object ID : N/A
+Management Addresses : 9.x.y.z
+CDP を使用してデータ・パケットとメッセージを受信するように構成された AIX 論理区画上のネットワーク・インターフェースをリストするには、次のコマンドを入力します。
+cdpctl show portlist
+次の例に示すような出力が表示されます。
+en0
+en1</pre>

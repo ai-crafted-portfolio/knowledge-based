@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+国家情報院
+の構成を削除します。
+
+説明
+RMYP
+コマンドは、
+国家情報院
+を機能させるために使用されるシステムからすべてを除去します。 例えば、
+rmyp
+コマンドは、
+NIS
+デーモンの
+/etc/rc.nfs
+ファイル内のすべての
+NIS
+マップおよびすべてのエントリーを除去します。
+このコマンドは、System Management Interface Tool (SMIT)
+smit rmyp
+高速パスを使用して実行できます。 このコマンドは、
+システム管理インターフェース・ツール (SMIT
+) を使用して実行できます。 SMIT を使用するには、以下のように入力します。
+smit rmyp
+
+構文
+/usr/sbin/rmyp { -s | -c }
+
+オプション
+フラグ
+項目 | 説明
+-s | システムからサーバー構成を除去します。
+-c | システムからクライアント構成を除去します。</pre>

@@ -1,0 +1,53 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+AIXライブ・アップデート
+中にサロゲート・パーティションを起動するために使用される&#x27;
+/etc/inittab
+ファイルに追加されるエントリのリストを管理する。
+
+説明
+ライブ・アップデート
+操作は、サロゲート区画を開始して
+ライブ・アップデート
+操作用に準備するために、カスタマイズされたルート・ボリューム・グループ (rootvg) を作成します。 サロゲート区画は、始動されると、カスタマイズされた
+/etc/inittab
+ファイル内のコマンド、および
+/etc/rc.tcpip
+などの他のスクリプトを実行します。
+/etc/inittab
+ファイルは、モビリティー・フェーズ中に元の区画から移動されたサービスを除外するようにカスタマイズされています。
+元の区画で実行されている一部のサービスは、チェックポイントをとらないことを選択して、元の区画での実行を続行する可能性があります。 このような場合、このコマンドを使用して、そのサービスをサロゲート・パーティションの
+/etc/inittab
+ファイルに追加し、
+ライブ・アップデート
+操作中に再始動することができます。
+/etc/liveupdate/lvup_inittab
+ファイルには、カスタマイズされた
+/etc/inittab
+ファイルに追加されるコマンド・エントリーのリストが入っています。
+
+構文
+サロゲート区画の /etc/inittab ファイルにエントリーを追加するには、次の構文を使用します。 lvupdateInit -a [-i Identifier] { [ Identifier ] : [ RunLevel ] : [ Action ] : [ Command ] } サロゲート区画の /etc/inittab ファイルに追加されるエントリーをリストするには、次の構文を使用します。 lvupdateInit -l サロゲート区画の /etc/inittab ファイルに追加されるエントリーをリストから削除するには、次の構文を使用します。 lvupdateInit -r -i Identifier
+
+オプション
+フラグ
+項目 | 説明
+-a | /etc/liveupdate/lvup_inittab ファイルにエントリーを追加します。
+-i 識別子 | 新しいエントリーの ID を指定します。
+-r 識別子 | /etc/liveupdate/lvup_inittab ファイルからエントリーを削除します。
+-l | /etc/liveupdate/lvup_inittab ファイル内のエントリーをリストします。
+
+例
+サロゲート区画で
+ライブ・アップデート
+操作を開始するために使用される
+/etc/inittab
+ファイルにエントリーを追加するには、次のコマンドを入力します。
+# lvupdateInit -a -i myserver myserver:2:once:/opt/myapp/start_my_server
+サロゲート区画の
+/etc/inittab
+ファイルからエントリーを削除するには、次のコマンドを入力します。
+# lvupdateInit -r -i myserver
+サロゲート区画の
+/etc/inittab
+ファイルに取り込まれるエントリーをリストするには、次のコマンドを入力します。
+# lvupdateInit -l</pre>

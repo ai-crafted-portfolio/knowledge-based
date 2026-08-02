@@ -1,0 +1,235 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+リソースまたはリソース・クラスの定義情報を表示します。
+
+説明
+lsrsrcdef
+コマンドは、リソースまたはリソース・クラスの定義、あるいはリソースまたはリソース・クラスの永続属性定義または動的属性定義を表示します。 デフォルトでは、
+コマンド行に
+attr
+パラメーターが指定されていない場合、このコマンドは
+public
+属性の定義を表示します。 このデフォルトをオーバーライドするには、
+-p
+フラグを使用するか、表示する属性の名前を指定します。
+このコマンドは、属性の記述を表示しません。 属性の定義と説明を表示するには、
+-e
+フラグを指定します。
+
+構文
+リソース の場合 定義を表示するには、次のようにします。 lsrsrcdef [ -p property ] [ -e ] [ -s ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] 永続属性の定義を表示するには、次のようにします。 lsrsrcdef -A p [ -p プロパティー ] [ -e ] [ -s ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] 動的属性の定義を表示するには、次のようにします。 lsrsrcdef -A d [ -p プロパティー ] [ -e ] [ -s ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] リソース・クラス の場合 定義を表示するには、次のようにします。 lsrsrcdef -c [ -p プロパティー ] [ -e ] [ -s ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] 永続属性の定義を表示するには、次のようにします。 lsrsrcdef -c -A p [ -p property ] [ -e ] [ -s ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] 動的属性の定義を表示するには、次のようにします。 lsrsrcdef -c -A d [ -p property ] [ -e ] [ -s ] [ -l | -i | -t | -d | -D delimiter ] [ -x ] [ -h ] [ -TV ] resource_class [ attr ...] すべてのリソース・クラス名のリストを表示するには、次のようにします。 lsrsrcdef
+
+オプション
+フラグ
+-
+p｜d
+属性タイプを指定します。 永続属性の定義または動的属性の定義を表示できます。 リソース・クラスの永続属性定義または動的属性定義を表示するには、このフラグを
+-c
+フラグと一緒に使用します。
+p
+永続属性のみを表示します。
+d
+動的属性のみを表示します。
+-c
+リソース・クラス定義を表示します。 リソース・クラスの永続属性定義を表示するには、このフラグを
+-A p
+フラグと一緒に指定します。 リソース・クラスの動的属性定義を表示するには、このフラグを
+-A d
+フラグと一緒に指定します。
+-d
+区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更するには、
+-D
+フラグを使用します。
+--D
+デリミタ
+指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外のものを指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。
+-e
+拡張形式を指定します。 デフォルトでは、定義の記述は表示されません。 定義と記述の両方を表示するには、このフラグを指定します。
+-i
+resource_data_input_file
+のテンプレートを生成します。このテンプレートは、適切な編集を行った後、
+mkrsrc
+コマンドへの入力として使用できます。 出力は長い (スタンザ) フォーマットで表示されます。 リソースの定義に使用できるすべての必須およびオプションの属性が表示されます。 属性のデータ・タイプは、
+attr=value
+ペアとなった値として表示されます。 このフラグを使用する場合は、
+lsrsrcdef
+コマンドの出力をファイルに送ることをお勧めします。 このフラグは、
+-s
+および
+-A
+d
+フラグをオーバーライドします。
+-l
+「長い」フォーマット (1 行ごとに 1 つのエントリー) を指定します。 これは、デフォルトの表示形式です。
+lsrsrcdef -l
+コマンドがリソース・クラス名を指定せずに発行された場合、コマンドが定義済みリソース・クラス名のリストを返すときに、このフラグは無視されます。
+--p
+プロパティ
+指定された
+property
+を持つ属性の属性定義を表示します。 デフォルトでは、
+public
+属性の定義のみが表示されます。 プロパティーに関係なくすべての属性定義を表示するには、
+-p 0
+フラグを使用します。
+
+永続属性:
+0x0001
+read_only
+0x0002
+reqd_for_define
+(必須)
+0x0004
+inval_for_define
+(無効)
+0x0008
+option_for_define
+(オプション)
+0x0010
+selectable
+0x0020
+public
+動的属性:
+0x0020
+public
+属性に 10 進値または 16 進値を指定することができます。 1 つ以上のプロパティーを持つすべての属性の属性定義を要求するには、対象のプロパティーを一緒に「OR」してから、
+-p
+フラグで「OR」演算された値を指定します。 例えば、
+reqd_for_define
+または
+option_for_define
+のいずれかであるすべての永続属性の属性定義を要求するには、次のように入力します。
+lsrsrcdef -p 0x0a
+-s
+構造化データ定義を表示します。 構造化データ定義を展開して、構造化データ属性の各エレメント
+の定義が表示されるようにするには、このフラグを指定します。
+-t
+表形式を指定します。 属性ごとにそれぞれ別個の列に表示され、1 行に 1 個のリソースが表示されます。
+-x
+ヘッダー印刷を抑制します。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。 ソフトウェア・サービスの編成の使用の場合のみです。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+システム上に定義されているすべてのリソース・クラスの名前を表示するには、次のように入力します。
+lsrsrcdef
+出力は次のようになります。
+class_name
+&quot;IBM.ATMDevice&quot;
+&quot;IBM.Association&quot;
+&quot;IBM.AuditLog&quot;
+&quot;IBM.AuditLogTemplate&quot;
+&quot;IBM.Condition&quot;
+&quot;IBM.EthernetDevice&quot;
+&quot;IBM.EventResponse&quot;
+...
+リソース IBM®のリソース・クラス定義を表示します。ホスト、次のように入力します。
+lsrsrcdef -c IBM.Host
+出力は次のようになります。
+Resource Class Definition for: IBM.Host
+resource class 1:
+class_name = &quot;IBM.Host&quot;
+class_id = 8
+properties = {&quot;has_rsrc_insts&quot;,&quot;mtype_subdivided&quot;}
+display_name = &quot;&quot;
+description = &quot;&quot;
+locator = &quot;NodeList&quot;
+class_pattr_count = 1
+class_dattr_count = 3
+class_action_count = 0
+pattr_count = 6
+dattr_count = 47
+action_count = 0
+error_count = 0
+rsrc_mgr_count = 1
+rsrc_mgrs 1:
+mgr_name = &quot;IBM.HostRM&quot;
+first_key = 1
+last_key = 1
+リソース IBM.Host、次のように入力します。
+lsrsrcdef -c -A p -p 0 IBM.Host
+出力は次のようになります。
+Resource Class Persistent Attribute Definitions for: IBM.Host
+attribute 1:
+program_name = &quot;Variety&quot;
+display_name = &quot;&quot;
+group_name = &quot;&quot;
+properties = {&quot;read_only&quot;,&quot;inval_for_define&quot;}
+description = &quot;&quot;
+attribute_id = 0
+group_id = 255
+data_type = &quot;uint32&quot;
+variety_list = {{1..1}}
+variety_count = 1
+default_value = 0
+
+リソース IBM.Host、次のように入力します。
+lsrsrcdef -A p -p 0 -e IBM.Host
+出力は次のようになります。
+Resource Persistent Attribute Definitions for: IBM.Host
+attribute 1:
+program_name = &quot;Name&quot;
+display_name = &quot;Name&quot;
+group_name = &quot;General&quot;
+properties = {&quot;reqd_for_define&quot;,&quot;public&quot;,&quot;selectable&quot;}
+description = &quot;Identifies the current name of the host
+as returned by command.&quot;
+attribute_id = 0
+group_id = 0
+data_type = &quot;char_ptr&quot;
+variety_list = {{1..1}}
+variety_count = 1
+default_value = &quot;&quot;
+attribute 2:
+program_name = &quot;ResourceHandle&quot;
+display_name = &quot;Resource Handle&quot;
+group_name = &quot;Internal&quot;
+properties = {&quot;read_only&quot;,&quot;inval_for_define&quot;,&quot;selectable&quot;}
+description = &quot;A globally unique handle that identifies the host.
+Every resource is assigned a resource handle,
+which is used internally for identifying and
+locating each resource. The resource handle
+is fixed in size and avoids the problems of
+name space collisions across different types
+of resources.&quot;
+attribute_id = 1
+group_id = 255
+data_type = &quot;rsrc_handle_ptr&quot;
+variety_list = {{1..1}}
+variety_count = 1
+
+default_value = &quot;0x0000 0x0000 0x00000000 0x00000000 0x00000000 0x00000000&quot;
+attribute 3:
+program_name = &quot;Variety&quot;
+display_name = &quot;Variety&quot;
+group_name = &quot;Internal&quot;
+...
+リソース IBM.Host、次のように入力します。
+lsrsrcdef -A d IBM.Host
+出力は次のようになります。
+Resource Dynamic Attribute Definitions for: IBM.Host
+attribute 1:
+program_name = &quot;ProcRunQueue&quot;
+display_name = &quot;&quot;
+group_name = &quot;&quot;
+properties = {&quot;public&quot;}
+description = &quot;&quot;
+attribute_id = 1
+group_id = 1
+data_type = &quot;float64&quot;
+variable_type = 0
+variety_list = {{1..1}}
+variety_count = 1
+init_value = 0
+min_value = 0
+max_value = 100
+expression = &quot;(ProcRunQueue - ProcRunQueue@P) &gt;= (ProcRunQueue@P * 0.5)&quot;
+expression_description = &quot;&quot;
+rearm_expression = &quot;ProcRunQueue &lt; 50&quot;
+rearm_description = &quot;&quot;
+PTX_name = &quot;&quot;
+attribute 2:
+...</pre>

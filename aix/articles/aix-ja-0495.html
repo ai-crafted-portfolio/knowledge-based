@@ -1,0 +1,138 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+finger
+コマンドにサーバー機能を提供します。
+
+説明
+fingerd
+デーモンは、いくつかのネットワーク・サイトで
+finger
+コマンドへのインターフェースを提供する単純なプロトコルです。
+finger
+コマンドは現行システムまたはユーザーに関する状況報告を返します。 その
+fingerd
+デーモンは、ポート79で Transmission Control Protocol （TCP）要求をリッスンします。
+/etc/services
+ファイルと
+/
+etc
+/
+inetd.conf
+ファイル。
+デフォルトでは、
+fingerd
+デーモンは、個別のサイト・セキュリティーについて、
+finger
+要求をほかのシステムへ転送しません。
+finger
+転送要求を受け取ると、
+fingerd
+デーモンはメッセージ
+Finger forwarding service denied
+で
+finger
+コマンドに応答します。 システム管理者には、
+-f
+フラグを使用して
+fingerd
+デーモンを実行するときに、デフォルトとして指転送をオンにするオプションがあります。
+fingerd
+デーモンを変更するには、System Management Interface Tool (SMIT) または SRC を使用するか、
+/etc/inetd.conf
+ファイルまたは
+/etc/services
+ファイルを編集します。
+fingerd
+をコマンド・ラインに入力するのはお勧めしません。 デフォルトでは、
+fingerd
+デーモンは、
+/etc/inetd.conf
+ファイル内のコメントが解除されていれば始動されます。
+inetd
+デーモンは、その情報を
+/etc/inetd.conf
+ファイルと
+/etc/services
+ファイルから取得します。
+/etc/inetd.conf
+ファイルまたは
+/etc/services
+ファイルを変更した後、
+refresh
+-s inetd
+または
+kill
+-1
+InetdPID
+コマンドを実行して、その構成ファイルに対する変更を
+inetd
+デーモンに通知します。
+fingerd
+デーモンを実行するには、最低限の特権を持つユーザー ID が必要です。
+nobody
+ID で、最低の許可を与えることができます。
+fingerd
+デーモンに
+nobody
+ユーザー ID を与えることによって、fingerd デーモンがユーザーのホストで使用できるようになります。
+/etc/services
+ファイルを変更して、使用するユーザー ID を反映させます。
+
+システム・リソース・コントローラーを使用した
+fingerd
+デーモンの操作
+fingerd
+デーモンは、
+inetd
+デーモンのサブサーバーです。
+fingerd
+デーモンは
+tcpip
+SRC サブシステム・グループの
+メンバーです。 このデーモンは、
+/etc/inetd.conf
+ファイル内でコメントを外すと使用可能になり、次の SRC コマンドで操作できます。
+表 1. SRC コマンド
+項目 | 説明
+startsrc | サブシステム、サブシステム・グループ、またはサブサーバーを始動します。
+stopsrc | サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。
+lssrc | サブシステム、サブシステムのグループ、またはサブサーバーの状況を得ます。
+
+構文
+注: fingerd デーモンは、通常、 inetd デーモンによって開始されます。 また、システム・リソース・コントローラー (SRC) コマンドを使用して、コマンド行から制御することもできます。 fingerd [ -s] [ -f]
+
+オプション
+フラグ
+表 2. フラグ
+項目 | 説明
+-s | ソケット・レベルのデバッグをオンにします。
+項目 | 説明
+-f | この fingerd デーモンについて finger の転送をオンにします。
+
+例
+注:
+fingerd
+デーモンの引数は、SMIT を使用するか、
+/etc/inetd.conf
+ファイルを編集することによって指定できます。
+fingerd
+デーモンを始動するには、次のように入力します。
+startsrc -t finger
+このコマンドによって、
+fingerd
+サブサーバーが始動します。
+fingerd
+デーモンを停止するには、通常、次のように入力します。
+stopsrc -t finger
+このコマンドは、保留状態の接続をすべて開始し、既存の接続を完了します。しかし、新しい接続の開始は行いません。
+fingerd
+デーモンとすべての
+fingerd
+接続を
+強制的に停止するには、次のように入力します。
+stopsrc -f -t finger
+このコマンドによって、保留状態の接続と既存の接続がすべて即座に終了します。
+fingerd
+デーモンについての簡略状況報告を表示するには、
+次のように入力します。
+lssrc -t finger
+このコマンドは、デーモンの名前、プロセス ID、および状態 (アクティブまたは非アクティブ) を返します。</pre>

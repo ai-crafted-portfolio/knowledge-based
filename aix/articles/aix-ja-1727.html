@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+vsdelvg
+- 仮想共有ディスクのグローバル・ボリューム・グループ情報を
+除去します。
+
+説明
+仮想共有ディスクのグローバル・ボリューム・グループ情報を除去するにはこのコマンドを使用します。 任意の仮想共有ディスクがグローバル・ボリューム・グループに定義されている場合、
+-f
+が指定されていないと、
+vsdelvg
+コマンドは
+失敗します。
+-f
+が指定された場合、該当する仮想共有ディスクは、
+削除される仮想共有ディスクのノード上に定義された状態で、すべて構成解除されます。
+vsdelvg
+コマンドを実行するには、System Management Interface Tool (SMIT) を使用することができます。 SMIT を使用するには、以下のように入力します。
+smit delete_vsd
+さらに、「
+仮想共有ディスクのグローバル・ボリューム・グループ情報の除去 (Delete Virtual Shared Disk Global Volume
+Group Information)
+」オプションを選択します。
+
+構文
+vsdelvg [ -f ] global_group_name ...
+
+オプション
+フラグ
+-f
+このグローバル・ボリューム・グループ上で定義された仮想共有ディスクを、
+すべて強制的に除去します。
+
+例
+グローバル・ボリューム・グループ
+vg1n1
+を除去するには、次のように入力します。
+vsdelvg vg1n1</pre>

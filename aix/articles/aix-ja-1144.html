@@ -1,0 +1,72 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+PPP (Point-to-Point プロトコル) サブシステムが使用できるようにリモート・システムとの非同期接続を確立します。
+
+説明
+pppdial
+コマンドは、非同期デバイスにリモート・システムとの接続を確立する機能を提供します。 これは、ダイアログをモデムおよびリモート・システムとともに PPP フレームの送信先に実行するための手段として
+pppattachd
+デーモンとともに使用されます。
+pppdial
+コマンドは、ダイアログが発生するデバイスとして、標準入力 (stdin) および標準出力 (stdout) を使用します。
+エラーおよびメッセージは
+syslog
+機能を使用してログに記録されます。
+
+構文
+pppdial [ -t TimeOut ] [ -v ] [ -d VerboseFile ] -f ChatFile
+
+オプション
+フラグ
+項目 | 説明
+-d VerboseFile | チャット・アクティビティー記録を VerboseFile に記録します。 VerboseFile が存在しない場合は、 pppdial コマンドによって作成されます。 VerboseFile が存在する場合は、 pppdial コマンドは既存ファイルに出力を追加します。
+-f ChatFile | tty デバイスに発生するダイアログを含むファイルを指定します。 ChatFile の内容は、基本ネットワーキング・ユーティリティー (BNU)/ UNIX to UNIX Copy Program (UUCP) の構文に準拠しています。
+-t TimeOut | チャット・アクティビティーの Expect フェーズの間にタイムアウトになるまで待機すべき秒数を指定します。
+-v | syslog 機能を使用して、チャット・アクティビティーを記録します。
+
+例
+リモート・システムとの接続を確立するには、コマンド・ラインに以下のように 1 行で入力してください。
+/usr/sbin/pppattachd client ip /dev/tty0 connect &quot;/usr/sbin/pppdial
+-v -f /home/pppuser/dialer.file&quot;
+次の名前の
+ChatFile
+/home/pppuser/dialer.file
+の内容:
+&#x27;&#x27;
+atdt4311088
+CONNECT
+\\d\\n
+ogin
+pppuser
+ssword
+pppuserpwd
+それぞれの意味は以下のとおりです。
+&#x27;&#x27; Expect a nul string
+atdt4311088 Send the modem the dial command
+4311088 is the phone number to dial
+CONNECT Expect connect from the modem
+\\d\\n Delay for 1 second then send a new line
+ogin Expect the string ogin
+pppuser Send the string pppuser
+pppuser is the user id on the remote system
+ssword Expect the string ssword
+pppuserpwd Send the string pppuserpwd
+pppuserpwd is the password of the user pppuser on the
+remote system
+リモート・システムにはユーザーが必要です
+pppuser
+パスワードで定義された
+pppuserpwd
+さらに、以下を含む
+$HOME/.profile
+があります。
+exec pppattachd server ip ipv6 2&gt;/dev/null
+これは、大変単純化された例です。 この例では、PPP サブシステムがクライアントおよびサーバー (またはリモート) の両システムで実行中であることが必要です。 この例では、クライアント・システムにモデムが定義されている必要があります。
+/dev/tty0
+.
+ChatFile
+には、ダイヤルする番号 4311088 が含まれています。 リモート・システムにはまた、パスワードで定義されるユーザーおよびリモート・システムで PPP 接続を始動する
+.profile
+がなければなりません。 装置 (
+/dev/tty0
+
+), 電話番号, ユーザー, ユーザー・パスワード, および PPP 接続を開始するメカニズムは可変であり, サーバー・システム上の現行値を反映していなければなりません。</pre>

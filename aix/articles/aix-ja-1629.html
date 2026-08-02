@@ -1,0 +1,105 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+チューナブル・パラメーター値をファイルから復元します。
+
+説明
+tunrestore
+コマンドは、ファイル内に保管されているすべての
+チューナブル・パラメーター値を復元します。
+tunrestore -f
+Filename
+で
+は、
+Filename
+にすぐに適用します。
+Filename
+に表示されているすべてのチューナブルは、このファイルに定義されている
+値に設定されます。
+Filename
+に表示されていないチューナブル
+は変更されません。 明示的に
+DEFAULT
+に設定されている
+チューナブルは、それぞれのデフォルト値に設定されます。
+tunrestore -r -f
+Filename
+では、
+次のブート時に
+Filename
+に適用されます。 このため
+には、指定ファイルに矛盾がないかどうかを検査して (
+tuncheck
+を実行するのと同様)、ファイルを
+/etc/tunables/nextboot
+にコピーします。 bosboot が必要な場合は、これを実行するようユーザーに提案されます。
+tunrestore -r -K -f
+Filename
+コマンドは、指定された
+nextboot
+ファイルおよび
+nextliveupdate
+ファイルにあるチューナブル・パラメーターをすべて復元します。 このコマンドは、指定されたファイルの不整合を (
+tuncheck
+コマンドの実行と同様に) 検査して、そのファイルを
+/etc/tunables/nextboot
+ファイルおよび
+/etc/tunables/nextliveupdate
+ファイルにコピーします。 必要に応じて、このコマンドは
+bosboot
+操作を実行するよう指示します。
+tunrestore -R
+は、リブート時にのみ使用します。
+nextboot
+ファイルに定義された値に設定されていないチューナブル・パラメーターがすべて変更されます。
+nextboot
+ファイルにリストされていないチューナブルは、そのデフォルト値に強制的に変更されます。 アクション、警告、およびエラーは、
+すべて
+/etc/tunables/lastboot.log
+ファイルに記録されます。 制限付きチューナブルに変更が加えられると、変更された制限付きチューナブルを制御するすべてのチューナブル・コマンドのリスト、および
+/etc/tunables/lastboot.log
+ファイルへの参照を含む、システム
+errlog
+エントリーが追加されることに注意してください。
+さらに、
+/etc/tunables/lastboot
+という新しいチューナブル・
+
+ファイルが自動的に生成されます。 そのファイルには、数値を指定したすべてのチューナブル
+があります。 デフォルト値を表す値は、コメントでマークされます。
+DEFAULT VALUE
+。制限付きチューナブルのデフォルト値と異なる値は、コメントでマークされます。
+#
+RESTRICTED not at default value
+新しいチューナブル・ファイルの info スタンザには、
+/etc/tunables/lastboot.log
+ファイルのチェックサムが含まれており、
+lastboot/lastboot.log
+ファイルのペアを識別できます。
+
+構文
+tunrestore [ - [ -K (K) ]] 「-f」 ファイル名 tunrestore -R 制限： tunrestore-R は inittab からのみ呼び出せる。
+
+オプション
+フラグ
+項目 | 説明
+-f ファイル名 | 適用するチューナブル・ファイルの名前を指定します。 この名前に「 / 」(スラッシュ) 文字が含まれていない場合は、 この名前は /etc/tunables に関連しています。
+-K | /etc/tunables/nextboot ファイルおよび /etc/tunables/nextliveupdate ファイルを、指定されたファイルにリストされているチューナブル・パラメーター値で更新します。
+-r | /etc/tunables/nextboot ファイルを、指定されたファイルにリストされているチューナブル・パラメーター値で更新します。
+-R | ブート時に /etc/tunables/nextboot を復元します。
+
+例
+/etc/tunables/mytunable
+内のすべてのチューナブル値
+を復元します。
+tunrestore -f mytunable
+/etc/tunables/mytunable
+を検証し、このファイルを新規
+nextboot
+ファイルとするには、次のように入力します。
+tunrestore -r -f mytunable
+/etc/tunables/mytunable
+ファイルを検証し、このファイルを新規の
+nextboot
+ファイルおよび
+nextliveupdate
+ファイルとするには、次のコマンドを入力します。
+tunrestore -r -K -f mytunable</pre>

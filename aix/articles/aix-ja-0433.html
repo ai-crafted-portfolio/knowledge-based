@@ -1,0 +1,24 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+プリンター・キュー・デバイスを使用可能にします。
+
+説明
+enable
+コマンドは、
+PrinterName
+パラメーターで指定したプリンター・キュー・デバイスをオンライン状態にするか、またはプリンター・キュー・デバイスをそのシステムで使用可能にします。
+注:
+このコマンドを実行するには、root ユーザー権限を持っているか、
+または印刷キュー・グループに属している必要があります。
+次のように入力したとします。
+enable -?
+システムは、以下のエラー・メッセージを表示します。
+enq: (FATAL ERROR): 0781-048: Bad queue or device name: -?
+
+構文
+enable PrinterName...
+
+例
+印刷キュー・デバイスを使用可能にするには
+lp0:lpd0
+次のように入力します。
+enable lp0:lpd0</pre>

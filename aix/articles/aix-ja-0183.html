@@ -1,0 +1,206 @@
+<!doctype html><meta charset="utf-8"><pre class="official-markdown">目的
+最小特権 (LP) Resource Shared ACL のアクセス制御を変更します。
+
+説明
+chlprsacl
+コマンドは、Resource Shared ACL に関連付けられているアクセス制御リスト (ACL) を変更します。 このコマンドにより、ユーザーを Resource Shared ACL に追加するか、またはユーザーをこの ACL から削除することができます。 この ACL により、以下のことが可能です。
+この ACL を使用して、Resource Shared ACL が制御を持つことを Resource ACL が指示するときに LP リソースへのアクセスを制御します。
+1 つ以上の LP リソースへのアクセスを制御することができます。
+LP リソースへのアクセス権を定義する ACL エントリーから構成することができます。
+IBM.LPCommands
+クラスの各ノードには、1 つの Resource Shared ACL が存在します。
+chlpracl
+コマンドは、LP リソースへのアクセスが Resource Shared ACL によって制御されることを示すために使用されます。
+chlpriacl
+コマンドは、Resource Initial ACL を変更することによって、新たに作成された LP リソースへのアクセスが Resource Shared ACL によって制御されることを示すために使用されます。
+アクセス指定を Resource Shared ACL に追加するには、ID とその ID が持つアクセ
+ス権を指定します。 ID とアクセス権のペアを、複数個指定できます。 複数の ID を追加する場合で、それらの ID がすべて同じ許可を持つ場合は、
+-l
+フラグを使用して、コマンドの形式が ID とそれに続く単一の許可 (すべての ID に適用される) のリストであることを示します。
+-o
+フラグを使用すると、コマンドで指定された ID とアクセス権によって既存のアクセス権が上書きされます。 この ACL の中の事前定義のアクセス指定は削除されます。
+Resource Shared ACL からアクセス権を削除するには、
+-d
+フラグを使用して、削除する ID を指定します。
+アクセス権がファイルに指定されていることを示すには、
+-f
+フラグを使用します。 このファイルの各行が、ID とその ID のアクセス権となります。
+-d
+フラグを
+-f
+フラグと一緒に使用すると、各行には ID のみが必要になります。 最初のスペースの後にあるものはすべて無視されます。
+
+このコマンドはどのノードでも実行できます。 ドメイン内のすべてのノードでこのコマンドを実行する場合は、
+-a
+フラグを使用します。 ドメイン内のノードのサブセットでこのコマンドを実行する場合は、
+-n
+フラグを使用します。 それ以外の場合、このコマンドはローカル・ノードで実行されます。
+
+構文
+1 つ以上のアクセス指定を Resource Shared ACL に追加するか、または 1 つ以上 のアクセス指定を用いて Resource Shared ACL を上書きする場合: chlprsacl [ -a | -n host1 [ , host2 , ...] ] [ -o ] [ -h ] [ -TV ] ID_1 perm1 [ ID_2 perm2 ] … 1 つ以上のアクセス指定を Resource Shared ACL に追加するか、またはすべて同 じアクセス権を使用した 1 つ以上のアクセス指定を用いて Resource Shared ACL を上書きする場合: chlprsacl [ -a | -n host1 [ , host2 , ...] ] -l [ -o ] [ -h ] [ -TV ] ID_1 [ ID_2 ...] 永続 1 つ以上のアクセス指定を Resource Shared ACL から削除する場合: chlprsacl [ -a | -n host1 [ , host2 , ...] ] -d [ -h ] [ -TV ] ID_1 [ ID_2 ...] アクセス指定を Resource Shared ACL に追加する (またはアクセス指定をこの ACL から削除する)、あるいはファイルの中に指定されているアクセス指定を用いて Resource Shared ACL を上書きする場合: chlprsacl [ -a | -n host1 [ , host2 , ...] ] [ -o | -d ] -f file_name [ -h ] [ -TV ] アクセス権が許可されないように Resource Shared ACL を設定する場合: chlprsacl [ -a | -n host1 [ , host2 , ...] ] -x [ -h ] [ -TV ]
+
+オプション
+フラグ
+-a
+ドメイン内のすべてのノードの Resource Shared ACL を変更します。
+CT_MANAGEMENT_SCOPE
+環境変数の設定によって、クラスターの有効範囲が決まります。
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、LP リソース・マネージャーは次の順序で有効範囲設定を使用します。
+管理ドメイン (あれば)
+ピア・ドメイン (あれば)
+Local 有効範囲
+chlprsacl
+コマンドは、LP リソース・マネージャーが最初に検出した有効な有効範囲に対して 1 回実行されます。 例えば、管理ドメインとピア・ドメインが存在し、
+CT_MANAGEMENT_SCOPE
+環境変数が設定されていないとします。 この場合、
+chlprsacl –a
+は管理ドメインで実行されます。 ピア・ドメインで
+chlprsacl –a
+を実行するには、
+CT_MANAGEMENT_SCOPE
+を
+2
+に設定する必要があります。
+-d
+指定された ID の ACL エントリーを Resource Shared ACL から削除します。
+-
+ファイル名
+アクセス指定が
+file_name
+の中に入っていることを意味します。 このファイルの各行は、ID とその ID のアクセス権から構成されます。
+-d
+フラグを
+-f
+フラグと一緒に使用すると、各行には ID のみが必要になります。 最初のスペースの後にあるものはすべて無視されます。
+-l
+ID とそれに続く 1 つのアクセス権 (すべての ID に対応して使用する) のリストがあることを示します。
+--n
+ホスト1
+[
+host2
+,
+...]。
+Resource Shared ACL を変更するドメインのノードを指定します。 デフォルトでは、Resource Shared ACL は、ローカル・ノードで
+変更されます。 このフラグが有効なのは、管理ドメインまたはピア・ドメインでのみです。
+CT_MANAGEMENT_SCOPE
+が設定されていない場合、最初に管理ドメイン有効範囲が選択され (存在する場合)、次にピア・ドメイン有効範囲が選択され (存在する場合)、次にローカル有効範囲が選択され (コマンドに対して有効範囲が有効になるまで) ます。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。
+-o
+指定された ACL エントリーにより Resource Shared ACL の既存のすべての ACL エントリーが
+
+上書きされることを示します。 Resource Shared ACL の中のすべての ACL エントリーは削除されます。
+-x
+Resource Shared ACL を使用する LP リソースへの全アクセスを拒否するように、Resource Shared ACL を設定します。 Resource Shared ACL の中のすべての ACL エントリーは削除されます。
+-h
+コマンドの使用ステートメント (使用法) を標準出力に書き込みます。
+-T
+コマンドのトレース・メッセージを標準エラーに書き込みます。
+-V
+コマンドの詳細メッセージを標準出力に書き込みます。
+
+例
+nodeA
+の Resource Shared ACL でユーザー
+joe
+on
+nodeA
+に実行許可を与えるには、
+nodeA
+で以下のいずれかのコマンドを実行します。
+chlprsacl joe@NODEID x
+chlprsacl joe@LOCALHOST x
+nodeA
+および
+nodeB
+は、ピア・ドメイン内にあります。
+nodeB
+上の Resource Shared ACL に対する実行許可をユーザー
+joe
+on
+nodeB
+に付与するには、
+nodeA
+上で以下のコマンドを実行します。
+chlprsacl -n nodeB joe@LOCALHOST x
+この例では、
+joe@LOCALHOST
+の代わりに
+joe@NODEID
+を指定すると、
+nodeA
+上の
+joe
+に、
+nodeB
+上の Resource Shared ACL に対する実行許可が付与されます。
+nodeA
+上の
+joe
+実行権限、
+nodeA
+上の
+bill
+管理者権限、および
+nodeA
+上の Resource Shared ACL に対する読み取り権限をユーザーに付与するには、
+nodeA
+上で次のコマンドを実行します。
+chlprsacl joe@LOCALHOST x bill@LOCALHOST ra
+ユーザー
+joe
+on
+nodeA
+に、
+nodeA
+上の Resource Shared ACL に対する実行権限を付与し、これが許可される唯一のアクセス権限になるように現在の ACL を上書きするには、
+nodeA
+で以下のコマンドを実行します。
+chlprsacl -o joe@LOCALHOST x
+joe
+、
+bill
+、および
+jane
+on
+nodeA
+のユーザーに
+nodeA
+on
+nodeA
+の Resource Shared ACL に対する読み取り権限と書き込み権限を付与するには、次のコマンドを
+nodeA
+で実行します。
+chlprsacl -l joe@LOCALHOST bill@LOCALHOST jane@LOCALHOST rw
+nodeA
+の Resource Shared ACL から
+joe
+on
+nodeA
+のアクセス権限を削除するには、
+nodeA
+で次のコマンドを実行します。
+chlprsacl -d joe@LOCALHOST
+nodeA
+上の
+/mysecure/aclfile
+という名前のファイル内にあるアクセス権のリストを
+nodeA
+上の Resource Shared ACL に追加するには、
+
+nodeA
+で次のコマンドを実行します。
+chlprsacl -f /mysecure/aclfile
+/mysecure/aclfile
+on
+nodeA
+の内容は、以下のようになります。
+joe@LOCALHOST x
+bill@LOCALHOST rw
+jane@LOCALHOST rwa
+nodeA
+で Resource Shared ACL を設定して、
+nodeA
+上でそれを使用する LP リソースへのすべてのアクセスを拒否するようにするには、
+nodeA
+で次のコマンドを実行します。
+chlprsacl -x</pre>
