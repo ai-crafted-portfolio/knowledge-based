@@ -1,0 +1,99 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>エラー・テンプレートを使用してエラーをログに記録します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/lib/ras/ras_logger</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ras_logger.html#ras_logger__row-d3e129482" target="_blank" rel="noopener noreferrer"><strong>-y</strong> <em>テンプレート・ファイル</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>ras_logger</strong> コマンドは、
+データをログに記録する方法を決めるエラーのテンプレートを使用して、
+標準入力に提供された 1 つのエラーをログに記録します。 入力のフォーマットを以下に示します。<div><div><pre><code>error_label 
+resource_name 
+64_bit_flag 
+detail_data_item1 
+detail_data_item2 
+...</code></pre></div><div></div></div><strong>error_label</strong> フィールドは、テンプレートで定義された
+エラーのラベルです。 <strong> resource_name</strong> フィールドの長さは 16 文字までです。 <strong>64_bit_flag</strong> フィールドの値は、
+32 ビット・エラーの場合は 0、64 ビット・エラーの場合は 1 です。 <strong>detail_data</strong> フィールドは、
+テンプレート内の <strong>Detail_Data</strong> 項目に対応します。</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>
+-y</strong> <em>template-file</em></td>
+
+<td><strong>
+/var/adm/ras/errtmplt</strong> デフォルト・ファイル以外のテンプレート・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>エラーをログに記録します。 テンプレートは以下のとおりです。<div><div><pre><code> + FOO: 
+		Catname = "foo.cat"
+		Err_Type = TEMP
+		Class = O
+		Report = TRUE
+		Log    = TRUE
+		Alert  = FALSE
+		Err_Desc = {1, 1, "Error FOO"}
+		Prob_Causes = {1, 2, "Just a test"}
+		User_Causes = {1, 2, "Just a test"}
+		User_Actions = {1, 3, "Do nothing"}
+		Detail_Data = 4, {2, 1, "decimal"} ,DEC
+		Detail_Data = W, {2, 1, "hex data"} ,HEX
+		Detail_Data = 100, {2, 1, "long string"} ,ALPHA </code></pre></div><div></div></div><strong>tfile</strong> ファイル内の
+ras_logger 入力は以下のとおりです。<div><div><pre><code>FOO
+resource
+0
+15
+A0
+hello world
+</code></pre></div><div></div></div><strong>/usr/lib/ras/ras_logger &lt; tfile</strong> コマンドを実行します。 これは、リソース名が <strong>resource</strong> である  FOO エラーをログに記録します。 詳細データは、decimal 15 にセットされた 4 バイト、
+0xa0 にセットされた 16 進データの 4 バイト、および文字列 "hello world" からなります。 64 ビット・フラグの値が 1 の場合、16 進データは 8 バイトが 0xa0 にセットされます。</li>
+
+<li>複数項目の 10 進数値です。 テンプレートは以下のとおりです。<div><div><pre><code>+ FOO:
+		Catname = "foo.cat"
+		Err_Type = TEMP
+		Class = O
+		Report = TRUE
+		Log    = TRUE
+		Alert  = FALSE
+		Err_Desc = {1, 1, "Error FOO"}
+		Prob_Causes = {1, 2, "Just a test"}
+		User_Causes = {1, 2, "Just a test"}
+		User_Actions = {1, 3, "Do nothing"}
+		Detail_Data = 8, {2, 1, "decimal"} ,DEC
+		Detail_Data = W, {2, 1, "hex data"} ,HEX
+		Detail_Data = 100, {2, 1, "long string"} ,ALPHA</code></pre></div><div></div></div><p><strong>ras_logger</strong> コマンドは、<strong>tfile</strong> ファイルに以下を入力します。</p>
+<div><div><pre><code>FOO
+resource 
+0 
+15 -15 
+A0 
+hello world</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> 通常、10 進数データは、 <strong>errpt</strong> コマンドによって、それぞれ 4 バイトを使用する 2 つの別個の値として表示されます。 したがって、入力は 15 および -15 を含みます。 これが <strong>errpt</strong> コマンドの表示方法です。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

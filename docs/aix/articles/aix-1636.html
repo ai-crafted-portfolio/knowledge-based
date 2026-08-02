@@ -1,0 +1,100 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>他のフォント・ファイルを BDF フォント・ファイルに変換します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>twconvfont</strong> [ <strong>-v </strong><em>CodePage </em>] [ <strong>-f </strong><em>Source </em>] [ <strong>-t </strong><em>ターゲット </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p>twconvfont コマンドは、1 つのフォント・ファイル・タイプを BDF フォント・ファイルに変換します。 サポートされているコード・ページは SOPS、PS55、および ET です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f </strong><em>ソース</em></td>
+
+<td>変換するフォント・ファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t </strong><em>ターゲット</em></td>
+
+<td>変換されたフォント・ファイルの名前を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v </strong><em>CodePage</em></td>
+
+<td>変換するコード・ページのタイプを指定します。 <em>CodePage</em> は以下のものにすることができます。<p><strong>SOPS</strong></p>
+  <p><strong>PS55</strong></p>
+  <p><strong>ET</strong>。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+ <p>イベントの監査 : 該当しません。</p>
+</section>
+
+<section><h2>例</h2> <p>フォント・ファイルを変換するにはUSRFONT.C12名前を持つ SOPS タイプのコード・ページの BDF フォント・ファイルにuser.bdf次のように入力します。</p>
+ <div> <div><div><pre><code>twconvfont -v SOPS -f USRFONT.C12 -t user.bdf</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/lpp/tls/bin/twconvfont</strong></td>
+
+<td><strong>twconvfont</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

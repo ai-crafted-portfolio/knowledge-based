@@ -1,0 +1,134 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>マニュアル用の cat ファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>キャットマン</strong> [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/catman.html#catman__row-d3e66949" target="_blank" rel="noopener noreferrer"><strong>N</strong></a><strong></strong> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/catman.html#catman__row-d3e66959" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/catman.html#catman__row-d3e66965" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/catman.html#catman__row-d3e66874" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a><em> パス</em> ]<em></em> [ <em>セクション ...</em> ]<em></em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>catman</strong> コマンドは、<strong>nroff</strong> コマンド入力ファイルから、オンライン・マニュアルの事前にフォーマットされたバージョンを作成します。 <strong>catman</strong> コマンドはマニュアルの各ページを検査し、事前にフォーマットされたバージョンが欠落しているか古くなっているページを再作成します。 何らかの変更があった場合は、<strong>catman</strong> コマンドは、コマンド <strong>whatis</strong> のデータベースを再作成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-M</strong><em> パス</em></td>
+
+<td><em>Path</em> 変数で指定したディレクトリー (デフォルトでは <strong>/usr/share/man</strong> ディレクトリー) のセットにあるマニュアルのページを更新します。
+<em>Path</em> 変数の形式は、ディレクトリー名のリストをコロン (:) で区切ったものです。 次に例を示します。<div> <div><div><pre><code>'/usr/local/man:/usr/share/man'</code></pre></div><div></div></div></div>
+  <p>環境変数 <strong>MANPATH</strong> を設定すると、その値がデフォルトのパスとして使用されます。 <strong>nroff</strong> コマンド・ソース・ファイルに次のような行が入っている場合、</p>
+  <div> <div><div><pre><code>' .so manx/yyy.x'</code></pre></div><div></div></div></div>
+  <p>シンボリック・リンクが <strong>catx</strong> ディレクトリー内で適切な事前にフォーマットされたマニュアル・ページに対して作成されます。 これにより、<strong>rdist</strong> コマンドを使用して、関連マシンのグループに事前にフォーマットされたマニュアル・ページを簡単に配布できます。</p>
+  <p><strong>nroff</strong> コマンド・ソースは、すべてのマシンに配布する必要はないので、関連ディスク・スペースが節約できます。</p>
+  <p>例えば、(mach1 から mach5 までの) マシンが 5 台あるローカル・ネットワークには、マニュアル・ページ <strong>nroff</strong> コマンド・ソースとともに mach3 があるとします。 mach3 は、毎晩、<strong>cron</strong> デーモンを使用して <strong>catman</strong> コマンドを実行し、
+その後で、次に示すような内容の <strong>distfile</strong> ファイルを使用して <strong>rdist</strong> コマンドを実行します。</p>
+  <div> <div><div><pre><code>MANSLAVES = (mach1 mach2 mach4 mach5)
+MANUALS = (/usr/share/man/cat[1-8no] /usr/share/man/whatis)
+${MANUALS}    -&gt;    ${MANSLAVES}
+install -R;
+notify root;</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>whatis</strong> コマンド・データベースが作成されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>再作成されるか更新されなければならないマニュアル・ページの再作成または更新を行うことなく、その名前を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td><strong>/usr/share/man/cat?/*.*</strong> のバークレー・ソフトウェア・ディストリビューション (BSD) スタイルのマニュアル・ページを読む および <strong>/usr/share/man/man?/*.*</strong> 次に、ハイパーテキスト情報ベースを読み取り、 <strong>/usr/share/man/whatis</strong> データベースを作成します。<p><strong>ヒント</strong>: 基本の EN_US 文書ファイルセットがシステムにインストールされている場合、
+<strong>whatis</strong> データベースを完全に構築するには、en_US にロケールを設定します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>マニュアル・セクション 1、2、3 のみを更新するには、次のように入力します。</p>
+ <div> <div><div><pre><code>catman 123</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lbin/getNAME</strong></td>
+
+<td><strong>whatis</strong> データベースを作成するコマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/man</strong></td>
+
+<td>デフォルトのマニュアル・ディレクトリーの場所を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/man/man?/*.*</strong></td>
+
+<td>ロウ・データ (<strong>nroff</strong> コマンド入力) のマニュアル・セクションが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/man/cat?/*.*</strong></td>
+
+<td>事前にフォーマットされたマニュアル・ページが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/man/whatis</strong></td>
+
+<td><strong>whatis</strong> コマンド・データベースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/mkwhatis</strong></td>
+
+<td><strong>whatis</strong> コマンド・データベースを作成するためのコマンド・スクリプトが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,58 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイル・ディスクリプターを持たないソケットを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>rmsock</span> アドレス TypeofAddress</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmsock</strong> コマンドは、ファイル・ディスクリプターを持たないソケットを除去します。 このコマンドは、socket、tcpcb、inpcb、ripcb、または rawcb アドレスを受け入れ、
+それをソケット・アドレスに変換します。 すべてのプロセス内のすべてのオープン・ファイルは、
+ソケットと一致しているかどうかを検出するために検査されます。 一致しているファイルが見つかると、
+ソケット <strong>linger</strong> オプションが指定されているかどうかに関係なく、
+そのソケットについてアボート・アクションが実行されます。 ソケットが保持しているポート番号が解放されます。 一致が見つかると、そのファイル・ディスクリプターとオーナー・プロセスの状況がユーザーに表示されます。 その結果は <strong>syslogd</strong> にパスされ、
+<strong>/var/adm/ras/rmsock.log</strong> ファイルに記録されます。</p>
+ <p>除去するソケットがどのアクティブ・プロセスにも保持されていないが、既存の状態のプロセスが存在する場合、 <span><span>rmsock</span></span> は指定されたソケットを除去しません。これは、ソケットが既存の状態のプロセスによって保持される可能性があるためです。 既存プロセスによって保留されているソケットは、それらのプロセスが完全に終了した時点でクリーンアップされます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ソケットをそのソケット・アドレスから除去するには、以下のように入力します。<div> <div><div><pre><code>rmsock 70054edc socket</code></pre></div><div></div></div></div>
+  <p>ソケットの型を指定する必要はありません。 ソケットの型には、
+tcpcb、udp、raw、または routing ソケットがあります。</p>
+</li>
+
+<li>ソケットをその inpcb アドレスから除去するには、以下のように入力します。<div> <div><div><pre><code>rmsock 70054edc inpcb</code></pre></div><div></div></div></div>
+</li>
+
+<li>ソケットをその tcpcb アドレスから除去するには、以下のように入力します。<div> <div><div><pre><code>rmsock 70054ecc tcpcb</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+
+<td><strong>rmsock</strong> コマンドが常駐しているディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/ras/rmsock.log</strong></td>
+
+<td><strong>rmsock.log</strong> ファイルが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

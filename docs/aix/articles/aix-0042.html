@@ -1,0 +1,128 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロセス・アカウンティング・プロシージャーを実行します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>acctprc1 [ InFile ]</code></pre></div><div></div></div>
+<div><div><pre><code>acctprc2 [ -X] </code></pre></div><div></div></div>
+<div><div><pre><code>accton [ [-@] OutFile ]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>acctprc1</span>、 <span>acctprc2</span>、および <span>accton,</span> の 3 つの <span>acctprc</span> コマンドは、プロセス・アカウンティング・シェル・プロシージャーを実行するために <span>runacct</span> コマンドによって呼び出されます。</p>
+ <p><span>acctprc1</span> コマンドは、<span>acct</span> フォーマットの標準入力からレコードを読み取り、ユーザー ID に対応するログイン名を追加して、ASCII レコードを標準出力に書き出します。 このレコードには、ユーザー ID、ログイン名、基本 CPU 時間、非基本 CPU 時間、転送された文字の合計数 (1024 バイト単位)、読み書きされたブロックの合計数、および各プロセスの平均メモリー・サイズ (64 バイト単位) が含まれます。</p>
+ <p>InFile パラメーターを指定すると、 <code>utmp</code> 形式のログイン・セッションのリストが含まれます。このリストは、ユーザー ID とログイン名でソートされます。 File パラメーターが指定されていない場合、 <span>acctprc1</span> は <span>/etc/passwd</span> パスワード・ファイルからログイン名を取得します。  InFile パラメーターの情報は、ユーザー ID を共有するさまざまなログイン名を区別するのに役立ちます。</p>
+ <p><span>acctprc2</span> コマンドは、 <span>acctprc1</span> コマンドによって書き込まれたレコードを (標準入力から) 読み取り、ユーザー ID と名前で要約し、ソートされた要約を合計アカウンティング・レコードとして標準出力に書き込みます。</p>
+ <p><span>accton</span> コマンドをパラメーターなしで使用した場合は、プロセスのアカウンティングはオフになります。 OutFile パラメーター (既存ファイル) を指定すると、プロセスのアカウンティングがオンになり、カーネルはレコードをそのファイルに追加します。 プロセス・アカウンティングを開始するには、 OutFile パラメーターを指定します。 OutFile パラメーターは、<span>accton</span> コマンドでは作成されません。 OutFile パラメーターで指定するファイルは、適切なグループ、所有者、および許可を持つファイルでなければなりません。 多くのシェル・スクリプトでは、<span>/var/adm/pacct</span> ファイルが想定されています。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-X</span></td>
+
+<td>最初の 8 文字に切り捨てずに、ユーザー名ごとに使用可能なすべての文字を処理します。 またこのフラグを使用すると、<span>acctprc2</span> コマンドが、<code>tacct</code> バイナリー・レコードではなく <code>tacctx</code> フォーマットのバイナリー・レコードを作成します。<div><div>
+        <div>
+          <div><span>注:</span> このフラグは、 <span>acctprc2</span> コマンドでのみ使用できます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>-@</td>
+
+<td><span>ワークロード・パーティション</span> プロセス・アカウンティング・レコードをグローバル WPAR アカウンティング出力ファイルに組み込みます。 このオプションは、 <span>ワークロード・パーティション</span>内では無効です。</td>
+
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: これらのコマンドは <span>
+adm</span> グループのメンバーにのみ実行 (x) アクセスを認可します。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>バイナリー・ファイル内の各プロセス・アカウンティング・レコードにユーザー名を追加し、そのレコードを ASCII ファイル名 <span>out.file</span>に変換するには、以下のコマンドを入力するか、シェル・スクリプトで行を使用します。<div>
+<div><div><pre><code>/usr/sbin/acct/acctprc1 &lt; /var/adm/pacct &gt;out.file</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>例 1 の ASCII 出力ファイルの合計アカウンティング・レコードを作成する場合は、コマンドを次のように
+入力するか、またはこれと同じ行をシェル・スクリプトで使用します。<div> <div><div><pre><code>/usr/sbin/acct/acctprc2 &lt; out.file &gt; \
+/var/adm/acct/nite/daytacct </code></pre></div><div></div></div>この結果生成されるファイルは、<span>tacct</span> フォーマットのバイナリー合計アカウンティング・ファイルで、ユーザー ID 別にソートされた個々のレコードが入っています。 ファイル <span>/var/adm/acct/nite/daytacct</span> は、<span>acctmerg</span> コマンドにより他の合計アカウント・レコードとマージされ、<span>/var/adm/acct/sum/tacct</span> ファイル内に日計要約レコードを生成します。</div>
+</li>
+
+<li>アカウンティング・プロセスをオフにするには、次のコマンドを入力します。<div>
+<div><div><pre><code>/usr/sbin/acct/accton</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/acct/acctprc1</span></td>
+
+<td><span>acctprc1</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/sbin/acct/acctprc2</span></td>
+
+<td><span>acctprc2</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/sbin/acct/accton</span></td>
+
+<td><span>accton</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/accton</span></td>
+
+<td>実際の <span>accton</span> コマンド・ディレクトリーへのシンボリック・リンク。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/passwd</span></td>
+
+<td><span>acctprc1</span> コマンドで使用されるユーザー ID を含め、基本ユーザー属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

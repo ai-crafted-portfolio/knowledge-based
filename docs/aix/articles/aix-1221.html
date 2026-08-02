@@ -1,0 +1,111 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ユーザーの知識をテストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>クイズ</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quiz.html#quiz__row-d3e125709" target="_blank" rel="noopener noreferrer"><strong>-i </strong></a><em>ファイル </em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/quiz.html#quiz__row-d3e125781" target="_blank" rel="noopener noreferrer"><strong> -t </strong></a>| <em>Category1 Category2 </em>}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>quiz</strong> コマンドは、さまざまな選択可能対象について連想知識テストを行います。 <em>Category1</em> から選択されたエントリーについて質問し、<em>Category2</em> からの解答を期待します。 カテゴリーを指定しないと、<strong>quiz</strong> コマンドは使用可能なカテゴリーをリストし、指示を出してから、シェル・プロンプトに戻ります。</p>
+ <p>Enter キーを押すたびに、ゲームは正解を表示します。 問題がなくなるか、割り込み (Ctrl-C) キー・シーケンスまたはファイル終わり (Ctrl-D) キー・シーケンスを押すと、ゲームは得点を報告して終了します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-i </strong><em>ファイル</em></td>
+
+<td>標準索引ファイルの代わりに、指定された <em>File</em> を使用します。<div><blockquote><span>“</span><strong>注:</strong> 以下の構文説明では、大括弧は一般にエントリーがオプションであることを示します。 ただし、太字体の大括弧または中括弧は、構文のリテラル部分として入力しなければなりません。 エントリーの垂直リストは、そこから 1 つ選択しなければならないことを示します。 <em>File</em> 内の行には、以下の構文を使用しなければなりません。<div> <div><div><pre><code>line       = category [:category] . . .
+category   = alternate [ |alternate ] . . .
+alternate  = [primary]
+primary    = character
+           [category]
+           option
+option     = {category}</code></pre></div><div></div></div></div>
+<span>”</span></blockquote>
+</div>
+  <p>索引ファイル内で、各行の最初のカテゴリーは情報ファイル名を指定しなければなりません。 情報ファイルには、クイズ問題を収めたファイルの名前が入っています。 それ以外のカテゴリーは、情報ファイルの各行に保管されているデータの順序と内容を指定します。 情報ファイル内のクイズ・データには、同じ構文を使用します。</p>
+  <p>&amp;#xa5; (&amp;#xa5;) はエスケープ文字です。これを使用すると、構文上重要な文字を引用符で囲んだり、行に改行文字 (&amp;#xa5;<em>n</em>) を挿入できます。 問題またはその解答がブランクであれば、<strong>quiz</strong> コマンドは問題を出しません。 構造 <strong>a|ab</strong> は情報ファイル内では機能しません。 <strong>a{b}</strong>を使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>チュートリアルを提供します。 誤答された問題を繰り返し、次々に新しい問題を紹介します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ラテン語から英語へのテストを開始するには、次のように入力します。<div> <div><div><pre><code>/usr/games/quiz latin english</code></pre></div><div></div></div>ゲームは、ラテン語の単語を表示して、ユーザーが英語の訳を入力するまで待機します。</div>
+</li>
+
+<li><span></span>英語からラテン語へのクイズを開始するには、以下のように入力します。<div> <div><div><pre><code>/usr/games/quiz english latin</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ラテン・イングリッシュ・クイズをセットアップするには、索引ファイルに以下の行を追加します。<div> <div><div><pre><code>/usr/games/lib/quiz/latin:latin:english</code></pre></div><div></div></div>この行は、<strong>/usr/games/lib/quiz/latin</strong> ファイルにラテン語と英語のカテゴリーに関する情報が入っていることを指定します。</div>
+  <p>新しいカテゴリーは、標準索引ファイル <strong>/usr/games/lib/quiz/index</strong> またはユーザー独自の索引ファイルに追加できます。 独自の索引ファイルを作成する場合は、 <strong>I</strong><em>ファイル</em> フラグを指定して <strong>クイズ</strong> コマンドを実行し、クイズ・トピックのリストを入力します。</p>
+</li>
+
+<li><span></span>以下に、サンプル情報ファイルを示します。<div> <div><div><pre><code>cor:heart
+sacerdos:priest{ess}
+quando:when|since|because
+optat:{{s}he |it }[desires|wishes]\|
+desire|wish
+alb[us|a|um]:white</code></pre></div><div></div></div>この情報ファイルにはラテン語と英語の単語が入っています。 各ラテン語の単語と英語訳は : (コロン) で区切られます。 { } (中括弧) で囲まれたエントリーはオプションです。 | (縦線) で区切られたエントリーは、どちらを入力しても正解です。 縦線で区切られたエントリーをグループ化するには、[ ] (大括弧) を使用します。</div>
+  <p>最初の行は回答のみを受け入れます heartラテン語に対応してcor2 番目の値は次のいずれかを受け入れ priestまたはpriestess応答としてsacerdos. 3 番目の行は受け入れられます。when,since、またはbecauseの場合quando.</p>
+  <p>4 行目の末尾に付いている &amp;#xa5; (&amp;#xa5;) は、このエントリーが次行まで継続することを示します。 つまり、4 行目と 5 行目は、2 行で 1 つのエントリーとなっています。 このエントリーは、以下に対する応答として以下のいずれかを受け入れます。optat:</p>
+  <div> <div><div><pre><code>she desires it desires desire
+she wishes it wishes wish
+he desires desires
+he wishes wishes</code></pre></div><div></div></div>ラテン語から英語へのクイズを開始すると、サンプル情報ファイルの最後の行に、ラテン語の意味を尋ねるように <strong>クイズ</strong> コマンドが指示されます。albus. 英語からラテン語へのクイズを開始すると、 <strong>クイズ</strong> コマンドは次のように表示します。whiteおよび受け入れalbus,alba、またはalbumということになります。</div>
+  <p>{ (left brace), } (右中括弧)、[(左大括弧)、]、(右大括弧)、または | (垂直バー) のいずれかの文字が質問項目にある場合、<strong> クイズ</strong> コマンドは、|すべてのオプション・グループを表示します。 したがって、このサンプルの 4 番目の定義に対する英語からラテン語への質問は、次のようになります。she desires.</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/games/lib/quiz/index</strong></td>
+
+<td>クイズ・カテゴリー用のデフォルト索引ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/games/lib/quiz/*</strong></td>
+
+<td>特定ファイルの内容を指定する時に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/games</strong></td>
+
+<td>システム・ゲームのロケーション。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

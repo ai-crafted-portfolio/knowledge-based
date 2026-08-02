@@ -1,0 +1,177 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ソケットのソケット・デバッグ・フラグ (<strong>SO_DEBUG</strong> ソケット・オプション) とトレース・レベルを設定または設定解除します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>sodebug</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sodebug.html#sodebug__row-d3e39368" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sodebug.html#sodebug__row-d3e39377" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> [ <em>level</em> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sodebug.html#sodebug__row-d3e39402" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <em>pid</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sodebug.html#sodebug__row-d3e39411" target="_blank" rel="noopener noreferrer"><span><span>-s</span></span></a> <em>sockaddr</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sodebug.html#sodebug__row-d3e39420" target="_blank" rel="noopener noreferrer"><span><span>-t</span></span></a> <em>type</em> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>sodebug</span></span> コマンドは、アクティブ・ソケット上のソケット・デバッグ・フラグおよびトレース・レベルを設定、設定解除、またはリストします。</p>
+ <p>ソケット・デバッグ・フラグ ( <strong>SO_DEBUG</strong> ソケット・オプションとも呼ばれる) がソケットに対して設定されている場合、このソケット上のイベントは <span><span>trace</span></span> コマンドを使用してトレースできます。</p>
+ <p><span><span>-l</span></span> オプションを使用して、システム上に既に存在するソケットにソケット・デバッグ・フラグを設定することができます。 <span><span>-l</span></span> オプションは、特定のソケットのトレース・レベルも設定します。</p>
+ <p><span><span>sodebug</span></span> コマンドがオプションなしで実行されると、各アクティブ・ソケットのソケット・デバッグ・フラグ状況およびトレース・レベルが表示されます。</p>
+ <p><span><span>trace</span></span> および <span><span>trpt</span></span> コマンドは、トレース・レベルに基づいて情報を収集します。</p>
+ <div>次の表では、トレース・フック ID 25A (TCPDBG) のトレース・レベルに基づいて収集される情報を示します。<div><div><table><thead>
+<tr>
+<th><div> </div></th>
+
+<th><div>分</div></th>
+
+<th><div>標準</div></th>
+
+<th><div>詳細</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>tcp_debug データ
+(td_time、
+td_act、
+td_ostate、
+td_tcb、
+family
+および
+td_req)</td>
+
+<td> </td>
+
+<td>X</td>
+
+<td>X</td>
+
+</tr>
+
+<tr>
+<td>tcpip ヘッダー</td>
+
+<td> </td>
+
+<td>X</td>
+
+<td>X</td>
+
+</tr>
+
+<tr>
+<td>tcpcb のアドレス</td>
+
+<td> </td>
+
+<td>X</td>
+
+<td>X</td>
+
+</tr>
+
+<tr>
+<td>すべての tcpcb フィールド</td>
+
+<td> </td>
+
+<td> </td>
+
+<td>X</td>
+
+</tr>
+
+<tr>
+<td>ソケットのアドレス</td>
+
+<td> </td>
+
+<td>X</td>
+
+<td>X</td>
+
+</tr>
+
+<tr>
+<td>すべてのソケット・フィールド</td>
+
+<td> </td>
+
+<td> </td>
+
+<td>X</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>ソケット・デバッグ・フラグとトレース・レベルの設定または設定解除は、以下の説明のように行うこともできます。<ol>
+<li>次のコマンドを実行すると、システム上でそれ以降に作成されるすべてのソケットでソケット・デバッグ・フラグが使用可能に設定されます。<div><div><pre><code>no -o sodebug=1</code></pre></div><div></div></div></li>
+
+<li>inetd.conf 内にあるサービスの wait/nowait フィールドで <strong>|DEBUG</strong>[<strong>=</strong><em>level</em>] を指定すると、特定のサービスに対するソケット・デバッグをオンにすることができます。 トレース・レベルは <strong>min</strong>、<strong>normal</strong>、または <strong>detail</strong> のいずれかに設定できます。 レベルを指定しない場合のデフォルト・レベルは <strong>
+normal</strong> です。</li>
+
+<li><span><span>no</span></span> コマンドの <strong>sodebug_env</strong> パラメーターを使用し、プロセス環境で <strong>export SODEBUG=</strong><em>level</em> を指定することによって、プロセスによって作成される後続のすべてのソケットに対してソケット・デバッグをオンまたはオフに設定することができます。 トレース・レベルは <strong>min</strong>、<strong>normal</strong>、または <strong>detail</strong> のいずれかに設定できます。</li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>sodebug</strong> コマンドのヘルプを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> [<em>レベル</em>]</td>
+
+<td>トレース・レベルを指定します。 レベルとして有効な値は、<strong>none</strong>、<strong>min</strong>、<strong>normal</strong>、および <strong>detail</strong> です。 レベルを指定しない場合のデフォルトのトレース・レベルは <strong>
+normal</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>PID</em></td>
+
+<td>プロセスのプロセス ID を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> ソックアドレス</em></td>
+
+<td>ソケット・アドレス、ソケットの inpcb のアドレス、またはソケットの tcpcb のアドレスによってソケットを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>タイプ</em></td>
+
+<td><strong>-s</strong> <em>sockaddr</em> オプションによって指定するアドレスのタイプを指定します。 有効な値は、<strong>socket</strong>、<strong>inpcb</strong>、および <strong>tcpcb</strong> です。 デフォルト値は <strong>socket</strong>です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>sodebug</strong> コマンドを実行するには root 権限が必要です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ソケット f100090002d0a800 のデバッグ・フラグとソケット・トレース・レベルを表示するには、次のように入力します。<div><div><pre><code>sodebug -s f100090002d0a800</code></pre></div><div></div></div> <div>出力は、次の例のようになります。<div><div><pre><code>socket address : f100090002d0a800 , sodebug flag : 0 , trace level : none(0)</code></pre></div><div></div></div></div>
+</li>
+
+<li>トレース・レベルを normal に設定し、デバッグ・フラグを 1 に設定するには、次のように入力します。<div><div><pre><code>sodebug -s f100090002d0a800 -l normal</code></pre></div><div></div></div> <div>出力は、次の例のようになります。<div><div><pre><code>Setting new values for trace level and debug flag
+socket address : f100090002d0a800 , sodebug flag : 1 , trace level : normal(3)</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

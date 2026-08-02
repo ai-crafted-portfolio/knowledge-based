@@ -1,0 +1,52 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホスト・マシンの TCP/IP の構成を除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>rmtcpip</span></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmtcpip </strong>コマンドはホスト・マシン上の
+TCP/IP の構成を除去します。 このコマンドの基本機能は以下のとおりです。</p>
+ <ul>
+<li>ネットワーク・インターフェース構成を除去します。</li>
+
+<li><strong>/etc/rc.tcpip</strong>
+をインストールされた初期状態に復元します。</li>
+
+<li><strong>/etc/hosts</strong> をインストールされた初期状態に復元します。</li>
+
+<li><strong>/etc/resolv.conf </strong>ファイルを除去します。</li>
+
+<li>デフォルトおよび静的経路を除去します。</li>
+
+<li>ホスト名をローカル・ホストに設定します。</li>
+
+<li>ホスト ID  127.0.0.1 にセットします。</li>
+
+<li>構成データベースをインストールされた初期状態にリセットします。</li>
+
+</ul>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>デフォルトで <strong>/etc/rc.tcpip</strong> にコメント化されたデーモンのうち、
+このコマンドを出した時点で実行中のデーモンが停止します。</li>
+
+<li><strong>/etc/hosts </strong>ファイルのユーザーのバージョンは、
+インストール時の状態に復元されている <strong>etc/hosts </strong>ファイルに保管される前に、
+<strong>/etc/hosts.save</strong> に保管されます。</li>
+
+<li><strong>/etc/resolv.conf</strong> ファイルのバージョンが
+<strong>/etc/resolv.conf.save</strong> として保管されてから、
+<strong>/etc/resolv.conf </strong>ファイルが除去されます。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ </section>
+
+<section><h2>セキュリティー</h2><p>このコマンドは root からのみ実行できます。</p>
+</section>
+
+</div></div>

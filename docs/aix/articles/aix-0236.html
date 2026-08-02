@@ -1,0 +1,88 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>キューの名前を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>チャック</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chque.html#chque__row-d3e104004" target="_blank" rel="noopener noreferrer"><strong>-Q (Q) </strong></a><em>名前</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chque.html#chque__row-d3e103974" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a><em></em><strong> '</strong><em>属性</em><strong>=</strong><em>値</em><strong>'</strong> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chque</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chque.html#chque__row-d3e104004" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> フラグで指定された <strong>qconfig</strong> ファイル内のスタンザを変更することによって、キュー名を変更します。 このスタンザにおいて、コマンド・ラインで指定された <em>Attribute</em> <strong>=</strong> <em>Value</em> ペアのいずれかに一致する属性は、コマンド・ラインに入力された属性で置き換えられます。 一致する属性がないときは、<em>Attribute</em> <strong>=</strong> <em>Value</em> ペアはスタンザの末尾に追加されます。 デバイス属性は変更できません。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit chque</strong> 高速パスを使用しても実行できます。</p>
+ <div> <div><div>
+        <div>
+          <div><span>推奨:</span> <strong>/etc/qconfig</strong> ファイルを編集するには、 <strong>chque</strong>、 <strong>mkque</strong>、 <strong>rmque</strong>、 <strong>chquedev</strong>、 <strong>mkquedev</strong>、および <strong>rmquedev</strong> コマンドまたは SMIT。 さらにこれらのコマンドは、忙しくない時間またはオフピーク時に実行することをお勧めします。</div>
+        </div>
+      </div></div><strong>/etc/qconfig</strong> ファイルの手動による編集が必要な場合は、最初に <strong>enq -G</strong> コマンドを実行し、すべてのジョブが処理された後でキューイング・システムと <strong>qdaemon</strong> を停止することができます。 その後、<strong>/etc/qconfig</strong> ファイルを編集し、新規構成を使用して <strong>qdaemon</strong> を再始動することができます。</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><strong> '</strong><em>属性</em><strong> =</strong><em> 値</em>'<strong></strong></td>
+
+<td><strong>'</strong><em>Attribute</em> <strong>=</strong> <em>Value</em><strong>'</strong> を追加するか、コマンド・ラインに入力した値で置き換えるかを指定します。 有効な属性のリストについては、<strong>/etc/qconfig</strong> ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> 名前</em></td>
+
+<td>キューの現在の <em>名前</em> と、変更する <strong>qconfig</strong> ファイル内のスタンザの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <p>ホストの名前を以下のように変更します。fredキューのlp0次のように入力します。</p>
+ <div>chque  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chque.html#chque__row-d3e104004" target="_blank" rel="noopener noreferrer">-q</a>lp0  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chque.html#chque__row-d3e103974" target="_blank" rel="noopener noreferrer">-a</a> 'host = fred'</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chque</strong></td>
+
+<td><strong>chque</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

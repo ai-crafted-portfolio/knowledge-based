@@ -1,0 +1,118 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルのアクセス時刻と変更時刻を更新します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>settime</strong> [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/settime.html#settime__row-d3e20125" target="_blank" rel="noopener noreferrer"><em>MMddhhmm</em>[<em>yy</em> ]</a> ] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/settime.html#settime__row-d3e20101" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>ReferenceFile</em> ]] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/settime.html#settime__row-d3e20160" target="_blank" rel="noopener noreferrer"><em>ファイル</em></a> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>settime</strong> は、デフォルトでは、現行のアクセス時刻と
+変更時刻を使用して、引数ファイルを更新します。 ファイルが存在しない
+場合は、ファイルは作成されません。 ファイルが存在しない
+場合も、<strong>settime</strong> コマンドは自動的に操作を継続します。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> 2038 年以降のすべての日付は、 <strong>settime</strong> コマンドでは無効です。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f</strong> <em>ReferenceFile</em></td>
+
+<td>現在時刻の代わりに、<em>ReferenceFile</em> の該当時刻を使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>MMddhhmm</em> [ <em>yy</em> ]</td>
+
+<td><strong>settime</strong> コマンドの時刻形式
+は、<em>MMddhhmm</em> また
+は <em>MMddhhmmyy</em> です。
+ここで <em>MM</em> は 2 桁による月の
+表記、<em>dd</em> は 2 桁による日付の
+表記、<em>hh</em> は 2 桁による時間の
+表記、<em>mm</em> は 2 桁による分数の
+表記、<em>yy</em> は 2 桁による年の表記です。</td>
+
+</tr>
+
+<tr>
+<td><em>File</em></td>
+
+<td>1 つのファイルの名前を指定するか、またはスペースで区切ったファイル・リストを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+ <p><strong>settime</strong> の戻りコードは、時刻を正常に修正でき
+なかったファイルの数です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ファイル「infile」のアクセス時刻と変更時刻を現在時刻に更新するには、
+次のように入力します。<div><div><pre><code>settime infile </code></pre></div><div></div></div></li>
+
+<li>ファイル「infile」のアクセス時刻と変更時刻を「reffile」と
+同じにするには、次のように入力します。<div><div><pre><code>settime -f reffile infile</code></pre></div><div></div></div></li>
+
+<li>複数のファイルのアクセス時刻と変更時刻を更新するには、次のように入力します。<div><div><pre><code>settime file1 file2 file3 </code></pre></div><div></div></div></li>
+
+<li>ファイルのアクセス時刻と変更時刻を 2002 年 4 月 9 日 23 時 59 分に更新するには、
+次のように入力します。<div><div><pre><code>settime 0409235902 infile</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/settime</strong></td>
+
+<td><strong>settime</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

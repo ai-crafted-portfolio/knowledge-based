@@ -1,0 +1,305 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>競合</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124485" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em>フォルダー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124418" target="_blank" rel="noopener noreferrer"><strong>-draftfolder </strong></a><strong>+</strong><em>フォルダー</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124582" target="_blank" rel="noopener noreferrer"><strong>-nodraftfolder</strong></a><em> フォルダー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124524" target="_blank" rel="noopener noreferrer"><em> メッセージ </em></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124429" target="_blank" rel="noopener noreferrer"><strong>-draftmessage </strong></a><em>メッセージ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124468" target="_blank" rel="noopener noreferrer"><strong>-ファイル</strong></a> <em>ファイル</em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124448" target="_blank" rel="noopener noreferrer"><strong>-エディター </strong></a><em>編集者</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124593" target="_blank" rel="noopener noreferrer"><strong>-noedit (編集不可)</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124496" target="_blank" rel="noopener noreferrer"><strong>-形式</strong></a><em> FormFile </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124618" target="_blank" rel="noopener noreferrer"><strong>-使用 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124602" target="_blank" rel="noopener noreferrer"><strong>-マウス</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124609" target="_blank" rel="noopener noreferrer"><strong>-nowhatnowproc (処理なし) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124624" target="_blank" rel="noopener noreferrer"><strong>-whatnowproc (whatnowproc) </strong></a><em>プログラム </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>comp</strong> コマンドは、メッセージの作成と修正を行うためのエディターを始動します。 <strong>comp</strong> コマンドは、ヘッダー・テンプレート <strong>/etc/mh/components</strong> ファイルを提供します。 デフォルトでは、指定されたエディターは <em>UserMhDirectory</em><strong>/draft</strong> ファイルを作成します。 <strong>draft</strong> ファイルが既に存在する場合、<strong>comp</strong> コマンドは既存のファイルの置き換えまたは使用を許可するかどうかについて、プロンプトを表示します。 許可についてのプロンプトを表示しないで既存の <strong>draft</strong> ファイルを編集するには、<strong>-use</strong> フラグを指定します。</p>
+ <p>エディターを始動すると、各メッセージ・ヘッダー・フィールドに値を入力するように促されます。 <strong>comp</strong> コマンドは、ヘッダー・フィールド用に、<em>UserMhDirectory</em><strong>/components</strong> ファイル内の定義を使用します。 このファイルが存在しない場合、<strong>/etc/mh/components</strong> ファイルが使われます。 代わりのヘッダー・フォーマットを指定するために、<strong>-form</strong> または <strong>+</strong><em>Folder</em> フラグを使うことができます。</p>
+ <p>エディターを終了するには Ctrl-D シーケンスを使います。 エディターを終了すると、 <strong>comp</strong> コマンドは次のように応答します。What now?できます。 このプロンプトから、<strong> whatnow</strong> サブコマンドのいずれかを指定することができます。 サブコマンドのリストを参照するときは、Enter を押してください。 これらのサブコマンドを使って、引き続きメッセージを構成したり、
+メッセージの配置を指示したり、または <strong>comp</strong> コマンドの処理を終了することができます。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> 送信時にメッセージを識別できるように、
+メッセージのヘッダーと本文の間にダッシュだけの行またはブランク行を 1 行入れておく必要があります。<span>”</span></blockquote>
+<p></p>
+ <p>既存のドラフト・メッセージを指定する場合、
+<strong> -file</strong>、<strong>-draftfolder</strong>、
+および<strong> -draftmessage</strong> フラグを使用します。 <strong>-draftfolder +</strong><em>Folder</em> フラグの後に <em>Message</em> パラメーターを付けると、
+<strong>-draftmessage</strong> フラグを指定したのと同じことになります。 必要に応じて、デフォルトを定義することができます。Draft-Folder:メッセージ・ハンドラー (MH) <strong>$HOME/.mh_profile</strong> ファイル内のエントリー。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-draftfolder +</strong><em>フォルダー</em></td>
+
+<td>ドラフト・メッセージを含むフォルダーを識別します。 メッセージがこのフラグで指定されていない場合、デフォルト・メッセージは <strong>new</strong> になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-draftmessage</strong><em> メッセージ</em></td>
+
+<td>ドラフト・メッセージを識別します。 <strong>-draftfolder +</strong><em>Folder</em> フラグの後に <em>Message</em> 変数を指定することは、 <strong>-draftmessage</strong> フラグを指定することと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-editor</strong><em> エディター</em></td>
+
+<td>メッセージを構成するための初期エディターを指定します。 <strong>-editor</strong> フラグを指定しない場合、 <strong>comp</strong> コマンドは、以下によって指定されたデフォルト・エディターを選択します。Editor:<strong>$HOME/.mh_profile</strong> ファイル内のエントリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>-file</strong><em> ファイル</em></td>
+
+<td>指定されたファイルにドラフト・メッセージを入れます。 <em>File</em> 変数の絶対パス名を指定しないと、<strong>comp</strong> コマンドはユーザーの MH ディレクトリーにファイルを入れます。 ファイルが指定されると、<strong>comp</strong> コマンドはドラフトを後処理するように促します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong><em>フォルダー・メッセージ</em></td>
+
+<td>指定されたフォルダー内のファイルからヘッダー情報を使用します。 フォルダーを指定しておいてメッセージを指定しなかったときは、<strong>comp</strong> コマンドは現行メッセージをデフォルトとして使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-フォーム</strong><em> FormFile</em></td>
+
+<td><em>FormFile</em> 変数で指定されたヘッダー・フィールドを使用します。 <strong>comp</strong> コマンドは <em>FormFile</em> 内の各行をフォーマット文字列として扱います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>Message</em></td>
+
+<td>メッセージを指定します。 メッセージを指定するには、次の参照を使用します。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージ番号。</dd>
+
+</dl>
+  <dl>
+<dt><strong>cur</strong> または <strong>。</strong> (ピリオド)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+</dl>
+  <dl>
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+</dl>
+  <dl>
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+</dl>
+  <dl>
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+</dl>
+  <dl>
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノドラフトフォルダー</strong></td>
+
+<td>ドラフトを <em>UserMhDirectory</em><strong>/draft</strong> ファイルに入れます。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-noedit (編集しない)</strong></td>
+
+<td>初期編集を抑制します。 このフラグを指定すると、以下を受け取ります。What now?できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-マウス</strong></td>
+
+<td>新しいメッセージを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ナウハットナウプロック</strong></td>
+
+<td>エディターおよびエディターとの対話を防止します。What now?できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-使用</strong></td>
+
+<td>既存のメッセージ・ドラフトの構成を続けます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-whatnowproc</strong><em> プログラム</em></td>
+
+<td>指定されたプログラムを始動し、構成タスクを簡易化します。 <strong>whatnow</strong> コマンドを <em>Program</em> 変数の値として指定すると、 <strong>comp</strong> コマンドは内部 <strong>whatnow</strong> プロシージャーを開始します。 <strong>whatnow</strong>というファイル名のプログラムの代わりに使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが <em>UserMhDirectory</em><strong>/.mh_profile</strong> ファイルに入力されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Draft-Folder:</td>
+
+<td>ドラフトを入れるデフォルトのフォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Editor:</td>
+
+<td>デフォルトの初期エディターを設定します。</td>
+
+</tr>
+
+<tr>
+<td>fileproc:</td>
+
+<td>メッセージをリファイルするプログラムを指定します。</td>
+
+</tr>
+
+<tr>
+<td>Msg-Protect:</td>
+
+<td>新しいメッセージ・ファイル用の保護レベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Path:</td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td>whatnowproc:</td>
+
+<td>プロンプトを出すために使用するプログラムを指定します。What now? という質問プロンプトを表示するときに使用するプログラムを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>新しいメッセージを構成するには、以下のように入力します。<div> <div><div><pre><code>comp</code></pre></div><div></div></div>システムは、メッセージ・フィールドに情報を入力するように促します。 フィールド入力を省略するには Enter キーを押します。 ヘッダー情報を入力してから、メッセージ本文のテキストを入力します。</div>
+  <p>メッセージの構成が終わり、エディターを終了するには、Ctrl-D シーケンスを押します。 画面に次のプロンプトが表示されます。</p>
+  <div> <div><div><pre><code>What now?</code></pre></div><div></div></div>Enter キーを押すと <strong>whatnow</strong> サブコマンドのリストが表示されます。 メッセージを送信する場合は、以下の後に <strong>send</strong> サブコマンドを入力します。What now?できます。</div>
+</li>
+
+<li>新規メッセージを作成するには、vi次のように入力します。<div>comp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124448" target="_blank" rel="noopener noreferrer">-editor </a>vi</div>
+</li>
+
+<li>メッセージを使用してメッセージを作成するには8合計のschedules次のように入力します。<div>comp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124485" target="_blank" rel="noopener noreferrer">+</a>schedules 8  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124618" target="_blank" rel="noopener noreferrer">-use</a></div>
+</li>
+
+<li>メッセージの下書きを使用してメッセージを作成するには、以下のようにします。/home/mike/partsファイル、入力:<div>comp  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/comp.html#comp__row-d3e124468" target="_blank" rel="noopener noreferrer">-file </a>/home/mike/parts</div>システムはファイルを後処理するようにプロンプトを表示します。 オプションをリストするには、Enter キーを押します。 適切なオプションを選択してください。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>UserMhDirectory</strong><em>/コンポーネント</em></td>
+
+<td>ユーザーのデフォルト・メッセージ形式を指定します。 (そのフォーマットが既に存在するときは、システムのデフォルト・メッセージ形式が無効になります。)</td>
+
+</tr>
+
+<tr>
+<td><strong>UserMhDirectory</strong><em>/ドラフト</em></td>
+
+<td>現行のドラフト・メッセージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>ユーザーの MH プロファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/mh/components</strong></td>
+
+<td>システムのデフォルト・メッセージ形式を識別します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/comp</strong></td>
+
+<td><strong>comp</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

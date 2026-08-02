@@ -1,0 +1,131 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>1 つ以上のページング・スペースを非アクティブにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>スワップオフ</strong><em> DeviceName</em><em> {デバイス名｝</em></p>
+</section>
+
+<section><h2>説明</h2> <div><strong>swapoff</strong> コマンドは、1 つ以上のページ
+ング・スペースを非アクティブにします。 ページング・スペース
+は、<em>DeviceName</em> で指定します。<div><div>
+        <div>
+          <div><span>注:</span> デバイスごとに 64 GB のページング・スペース制限があります。</div>
+        </div>
+      </div></div>
+</div>
+ <p>非アクティブにするには、
+以下の条件を満たしていなければなりません。</p>
+ <ul>
+<li><strong>swapon</strong> コマンドを使用して、
+ページング・スペースを既に活動開始している。</li>
+
+<li>残りのページング・スペースに十分なスペース存在している。 残りのページング・デバイスには、現在のシステム全体でのページング・スペースの使用量と <strong>npswarn</strong> 値を収容するのに十分なスペースが必要です。</li>
+
+</ul>
+ <div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、 <span>ワークロード・パーティション</span>内で実行する場合はサポートされません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>VALUE</strong></td>
+
+<td><strong>description</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>0</strong></td>
+
+<td>非活動化が正常に行われ、
+ページング状態は INACTIVE 状態に設定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>1</strong></td>
+
+<td>以下のメッセージが表示されます。<div> <div><div><pre><code>swapoff: Cannot deactivate paging space DeviceName</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>※2</strong></td>
+
+<td>残りのページング・スペースに十分なスペースがないので、
+非活動化は行われず、
+以下のメッセージが表示されます。<div> <div><div><pre><code>"swapoff: Cannot deactivate paging space DeviceName :
+There is not enough space in the file system."</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>3</strong></td>
+
+<td>ページング・スペースのユーザー・ページで入出力エラーが発生し、
+以下のメッセージが表示されます。<div> <div><div><pre><code>swapoff: Deactivation of paging space  DeviceName suspended:
+I/O errors encountered on user backing pages.</code></pre></div><div></div></div></div>
+  <p>推奨処置を以下に示します。</p>
+  <ul>
+<li>エラー・ログを調べます。</li>
+
+<li><strong>chps</strong> コマンドを使用して、
+次のリブート時にページング・スペースを非アクティブにします。</li>
+
+<li>システムをリブートします。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>4</strong></td>
+
+<td>ページング・スペースのシステム・ページで入出力エラーが発生し、
+以下のメッセージが表示されます。<div> <div><div><pre><code>swapoff: Deactivation of paging space DeviceName suspended:
+I/O errors encountered on system backing pages.  The system may crash.</code></pre></div><div></div></div></div>
+  <p>推奨処置を以下に示します。</p>
+  <ul>
+<li>エラー・ログを調べます。</li>
+
+<li><strong>chps</strong> コマンドを使用して、
+次のリブート時にページング・スペースを非アクティブにします。</li>
+
+<li>システムをリブートします。</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+</div></div>

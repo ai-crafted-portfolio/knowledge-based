@@ -1,0 +1,550 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プロセス間通信機能の状況を報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ipcs</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27103" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27157" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27170" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27176" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27151" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27091" target="_blank" rel="noopener noreferrer"><strong>-1</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27041" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27062" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27068" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27123" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27136" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27164" target="_blank" rel="noopener noreferrer">-r</a></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27185" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27215" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27074" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> <em>CoreFile</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27109" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> <em>カーネル </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__row-d3e27224" target="_blank" rel="noopener noreferrer"><strong>-X @</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipcs.html#ipcs__ipcsflagat" target="_blank" rel="noopener noreferrer"><strong></strong></a> [ <em>WparName</em> ]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ipcs</strong> コマンドは、アクティブなプロセス間通信機能についての情報を標準出力へ書き出します。 フラグを指定しない場合、
+<strong>ipcs</strong> コマンドは現在アクティブになっているメッセージ・キュー、共有メモリー・セグメント、セマフォー、リモート・キュー、ローカル・キュー・ヘッダーに関する情報を簡略形式で書き出します。</p>
+ <p><strong>ipcs</strong> コマンドの列見出しと列の意味を、以下に示します。 括弧内の文字は、対応する見出しを表示するためのフラグを表します。 指定子 <strong>all</strong> は、見出しが常に表示されることを表します。 これらのフラグは、各機能に関してどのような情報を提供するかを決定するだけです。 どの機能をリストするかについては、決定しません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>T</strong></td>
+
+<td>(<strong>all</strong>) 機能のタイプ。 次の 3 つの機能タイプがあります。<dl>
+<dt><strong>q</strong></dt>
+
+<dd>メッセージ・キュー</dd>
+
+
+<dt><strong>m</strong></dt>
+
+<dd>共有メモリー・セグメント</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd>セマフォー (semaphore)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>id</strong></td>
+
+<td>(<strong>all</strong>) 機能エントリーの ID。</td>
+
+</tr>
+
+<tr>
+<td><strong>キー</strong></td>
+
+<td>(<strong>all</strong>) 機能エントリーを作成するために、
+<strong>msgget</strong> サブルーチン、<strong>semget</strong> サブルーチン、または <strong>shmget</strong> サブルーチンのパラメーターとして使用されるキー。<p></p><blockquote><span>“</span><strong>注:</strong> 共有メモリー・セグメントが除去されると、そのセグメントのキーは、セグメントに付加されたすべてのプロセスが切り離されるまで <strong>IPC_PRIVATE</strong> に変更されます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>モード</strong></td>
+
+<td>(<strong>all</strong>) 機能アクセス・モードおよびフラグ。 モードは 11 個の文字で構成され、次のように解釈されます。<p>最初の 2 つの文字として次のものがあります。</p>
+  <dl>
+
+<dt><strong>R</strong></dt>
+
+<dd><strong>msgrcv</strong> システム・コール時にプロセスが待ち状態になっています。</dd>
+
+
+<dt><strong>S</strong></dt>
+
+<dd><strong>msgsnd</strong> システム・コール時にプロセスが待ち状態になっています。</dd>
+
+
+<dt><strong>D</strong></dt>
+
+<dd>関連する共有メモリー・セグメントが除去されています。 セグメントに付加されている最後のプロセスがセグメントから切り離されると、この表示は消えます。</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>最初に付加されたプロセスが実行されるときに、関連する共有メモリー・セグメントがクリアされます。</dd>
+
+
+<dt><strong>-</strong></dt>
+
+<dd>対応する特殊フラグが設定されていません。</dd>
+
+</dl>
+  <p>次の 9 文字は、それぞれが 3 ビットずつの 3 セットとして解釈されます。 最初のセットは、所有者の許可を参照します。
+2 番目のセットは、機能エントリーのユーザー・グループに属する他のユーザーの許可を参照します。
+最後のセットは、その他のすべてのユーザーの許可を参照します。 各セット内で、最初の文字は読み取りの許可を、2 番目の文字は機能エントリーの書き出しまたは変更の許可を示します。現在は、最後の文字は使用されません。</p>
+  <p>許可は次のように示されます。</p>
+  <dl>
+<dt><strong>r</strong></dt>
+
+<dd>読み取り許可が与えられている場合</dd>
+
+
+<dt><strong>w</strong></dt>
+
+<dd>書き込み許可が与えられている場合</dd>
+
+
+<dt><strong>a</strong></dt>
+
+<dd>変更許可が与えられている場合</dd>
+
+
+<dt><strong>-</strong></dt>
+
+<dd>示された許可は <em>与えられていません</em>。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>owner</strong></td>
+
+<td>(<strong>all</strong>) 機能エントリーのオーナーのログイン名</td>
+
+</tr>
+
+<tr>
+<td><strong>グループ</strong></td>
+
+<td>(<strong>all</strong>) 機能エントリーを所有するグループの名前。</td>
+
+</tr>
+
+<tr>
+<td><strong>CREATOR</strong></td>
+
+<td>(<strong>a</strong>、<strong>c</strong>) 機能エントリーの作成者のログイン名。</td>
+
+</tr>
+
+<tr>
+<td><strong>CGROUP</strong></td>
+
+<td>(<strong>a</strong>、<strong>c</strong>) 機能エントリーの作成者のグループ名。<p></p><blockquote><span>“</span><strong>注:</strong> <strong>OWNER</strong>、<strong>GROUP</strong>、<strong>CREATOR</strong>、
+および <strong>CGROUP</strong> に対しては、
+ログイン名の代わりにユーザー ID とグループ ID が表示されます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>CBytes</strong></td>
+
+<td>(<strong>a</strong>、<strong>o</strong>) 関連するメッセージ・キューで現在未処理になっているメッセージのバイト数。</td>
+
+</tr>
+
+<tr>
+<td><strong>QNUM</strong></td>
+
+<td>(<strong>a</strong>、<strong>o</strong>) 関連するメッセージ・キューで現在未処理になっているメッセージの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>キュー・バイト</strong></td>
+
+<td>(<strong>a</strong>、<strong>b</strong>) 関連するメッセージ・キューで未処理になっているメッセージに使用できる最大バイト数</td>
+
+</tr>
+
+<tr>
+<td><strong>LSPID (L)</strong></td>
+
+<td>(<strong>a</strong>、<strong>p</strong>) 関連するキューにメッセージを送った最後のプロセスの ID。 最後のメッセージがキューを保持するノード以外のノードのプロセスから送られた場合、<strong>LSPID</strong> は送信元プロセスの PID ではなく、
+メッセージを実際にキューに入れたカーネル・プロセスの PID です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LRPID (RPID)</strong></td>
+
+<td>(<strong>a</strong>、<strong>p</strong>) 関連するキューからメッセージを受け取った最後のプロセスの ID。 最後のメッセージをキューを保持するノード以外のノードのプロセスから受け取った場合、<strong>LRPID</strong> は受信先プロセスの PID ではなく、
+実際にキューにあるメッセージを受け取ったカーネル・プロセスの PID です。</td>
+
+</tr>
+
+<tr>
+<td><strong>stime</strong></td>
+
+<td>(<strong>a</strong>、<strong>t</strong>) 最後のメッセージが、関連するキューに送られたときの時刻。 リモート・キューの場合、これはサーバーの時刻です。 ローカル・クロックとサーバー・クロック間の時間帯の違いに対する補正は実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>RTIME</strong></td>
+
+<td>(<strong>a</strong>、<strong>t</strong>) 最後のメッセージを関連するキューから受け取ったときの時刻。 リモート・キューの場合、これはサーバーの時刻です。 ローカル・クロックとサーバー・クロック間の時間帯の違いに対する補正は実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>CTIME</strong></td>
+
+<td>(<strong>a</strong>、<strong>t</strong>) 関連するエントリーが作成または変更された時刻。 リモート・キューの場合、これはサーバーの時刻です。 ローカル・クロックとサーバー・クロック間の時間帯の違いに対する補正は実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>ナッチ</strong></td>
+
+<td>(<strong>a</strong>、<strong>o</strong>) 関連する共有メモリー・セグメントに接続されたプロセスの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>セグスズ</strong></td>
+
+<td>(<strong>a</strong>、<strong>b</strong>) 関連する共有メモリー・セグメントのサイズ (バイト単位)。</td>
+
+</tr>
+
+<tr>
+<td><strong>cpid</strong></td>
+
+<td>(<strong>a</strong>、<strong>p</strong>) 共有メモリー・エントリーの作成者のプロセス ID。</td>
+
+</tr>
+
+<tr>
+<td><strong>lpid</strong></td>
+
+<td>(<strong>a</strong>、<strong>p</strong>) 共有メモリー・セグメントを接続するか切り離すための最後のプロセスのプロセス ID。</td>
+
+</tr>
+
+<tr>
+<td><strong>ATIME</strong></td>
+
+<td>(<strong>a</strong>、<strong>t</strong>) 関連する共有メモリー・セグメントに対して最後の接続が完了した時刻。</td>
+
+</tr>
+
+<tr>
+<td><strong>dtime</strong></td>
+
+<td>(<strong>a</strong>、<strong>t</strong>) 関連する共有メモリー・セグメントに対して最後の切り離しが完了した時刻。</td>
+
+</tr>
+
+<tr>
+<td><strong>NSEMS (N)</strong></td>
+
+<td>(<strong>a</strong>、<strong>b</strong>) セマフォー・エントリーに関連するセット内のセマフォーの数。</td>
+
+</tr>
+
+<tr>
+<td><strong>OTIme</strong></td>
+
+<td>(<strong>a</strong>、<strong>t</strong>) セマフォー・エントリーに関連するセットに対し最後のセマフォー操作が完了した時刻。</td>
+
+</tr>
+
+<tr>
+<td><strong>SID</strong></td>
+
+<td>(<strong>S</strong>) 共有メモリー・セグメント ID。 <strong>SID</strong>は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/svmon.html" target="_blank" rel="noopener noreferrer"><strong>スモン</strong></a> <strong>-S (S)</strong> コマンドへの入力として使用できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>このコマンドは、マルチバイト文字セットをサポートします。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong>-b</strong>、<strong>-c</strong>、<strong>-o</strong>、<strong>-p</strong>、<strong>-t</strong> の各フラグを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>メッセージ・キューの場合のキュー上のメッセージの最大バイト数、共有メモリーのセグメントのサイズ、各セマフォー・セット内のセマフォーの数を書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>機能を作成したユーザーのログイン名およびグループ名を書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong><em>コアファイル</em></td>
+
+<td><strong>/dev/mem</strong> ファイルの代わりに、 <em>CoreFile</em> パラメーターで指定されたファイルを使用します。 <em>CoreFile</em> パラメーターは、Ctrl- (左) Alt-Pad1 キー・シーケンスによって作成されたメモリー・イメージ・ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-1</strong></td>
+
+<td>このフラグを <strong>-S</strong> フラグと共に使用すると、アンラップされた
+ <strong>SID</strong> のリストを書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>アクティブな共有メモリー・セグメントに関する情報を書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N (N)</strong><em>カーネル</em></td>
+
+<td>指定された <em>Kernel</em> を使用します (デフォルトは <strong>/usr/lib/boot/unix</strong> ファイル)。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>次の使用状況情報を書き出します。<ul>
+<li>キュー上のメッセージの数</li>
+
+<li>メッセージ・キューのキュー上のメッセージの総バイト数</li>
+
+<li>共有メモリー・セグメントに接続されたプロセスの数</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>次のプロセス番号情報を書き出します。<ul>
+<li>メッセージ・キュー上のメッセージを受け取った最後のプロセスのプロセス番号</li>
+
+<li>メッセージ・キューにメッセージを送信した最後のプロセスのプロセス番号</li>
+
+<li>作成プロセスのプロセス番号</li>
+
+<li>共有メモリー・セグメントに対する接続または切り離しを行う最後のプロセスのプロセス番号</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>共有メモリー ID に関連した SID (セグメント ID) のリストを、
+セグメントにピンされたバイト数およびセグメントがラージ・ページ使用可能か否かの指示
+に従って書き出します。 セグメントがラージ・ページ使用可能である場合には 'Y' と表示され、そうでない場合には '-' と
+表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>アクティブなメッセージ・キューに関する情報を書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ポータブル・オペレーティング・システム・インターフェース (POSIX) のリアルタイム・プロセス間通信オブジェクトに関する情報を書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>アクティブなセマフォー・セットに関する情報を書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>共有メモリー ID に接続されている <strong>SID</strong> のリストを書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>次の時刻情報を書き出します。<ul>
+<li>すべての機能についてのアクセス権を変更した最後の制御操作の時刻</li>
+
+<li>メッセージ・キューに対する最後の <strong>msgsnd</strong> と <strong>msgrcv</strong> の時刻</li>
+
+<li>共有メモリーに対する最後の <strong>shmat</strong> と <strong>shmdt</strong> の時刻</li>
+
+<li>セマフォー・セットに対する最後の <strong>semop</strong> の時刻</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td><strong>-t</strong> フラグの出力を日付を付けて書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、それぞれのユーザー名、所有者のグループ名、
+作成者、所有者グループ、作成者グループの使用可能なすべての文字を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-@</strong> [ <em>WparName</em> ]</td>
+
+<td><span>ワークロード・パーティション</span>のプロセス間通信機能の状況を報告します。 WparName を指定すると、その特定の <span>ワークロード・パーティション</span>のプロセス間通信機能の状況が表示されます。 WparName が指定されていない場合、すべてのアクティブな <span>ワークロード・パーティション</span>について、プロセス間通信機能の状況が表示されます。 オブジェクトに関連付けられた <span>ワークロード・パーティション</span> の名前が表示されます。<p><em>WparName</em> として <strong>Global</strong> を指定すると、そのオペレーティング・システム環境のみの IPC オブジェクト情報が表示されます。ただし、その環境からホストされているワークロード区画の IPC 情報は表示されません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong> -C</strong> フラグまたは <strong>-N</strong> フラグのいずれかを指定した場合、実効 UID/GID と実 UID/GID は <strong>ipcs</strong> コマンドを呼び出したユーザーの実 UID/GID に設定されます。</li>
+
+<li><strong>ipcs</strong> の実行中に値が変更される可能性もあります。ipcs が与える情報の精度が保証されるのは、それが検索された時点のみです。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>入力からの出力例ipcsフラグなし:</p>
+ <div> <div><div><pre><code>IPC status from /dev/mem as of Mon Aug 14 15:03:46 1989
+T    ID         KEY        MODE       OWNER     GROUP
+Message Queues:
+q       0    0x00010381 -Rrw-rw-rw-   root      system
+q   65537    0x00010307 -Rrw-rw-rw-   root      system
+q   65538    0x00010311 -Rrw-rw-rw-   root      system
+q   65539    0x0001032f -Rrw-rw-rw-   root      system
+q   65540    0x0001031b -Rrw-rw-rw-   root      system
+q   65541    0x00010339--rw-rw-rw-    root      system
+q       6    0x0002fe03 -Rrw-rw-rw-   root      system
+Shared Memory:
+m   65537    0x00000000 DCrw-------   root      system
+m  720898    0x00010300 -Crw-rw-rw-   root      system
+m   65539    0x00000000 DCrw-------   root      system
+Semaphores:
+s  131072    0x4d02086a --ra-ra----   root      system
+s   65537    0x00000000 --ra-------   root      system
+s 1310722    0x000133d0 --ra-------   7003      30720</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/boot/unix</strong></td>
+
+<td>システム・カーネル・イメージを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/mem</strong></td>
+
+<td>メモリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>グループ名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/sys/ipc.h</strong></td>
+
+<td>ヘッダー・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

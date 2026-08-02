@@ -1,0 +1,301 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ロール属性を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>chrole</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chrole.html#chrole__row-d3e105438" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>load_module</em>] <em> Attribute</em><strong>=</strong><em>Value ... Name</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chrole</strong>  コマンドは、
+<em>Name</em> パラメーターによって識別されるロールの属性を変更します。 このロール名は、既に存在するものでなければなりません。 属性を変更するには、属性名と新しい値に <em>Attribute</em><strong>=</strong><em>Value</em> パラメーターを付けて指定してください。</p>
+ <p><strong>chrole</strong> コマンドで正しくない属性または属性値を 1 つ指定すると、コマンドは属性を変更しません。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit chrole</strong> 高速パスを使用して実行することもできます。</p>
+ <p>ロール・データベースに対して複数のドメインを使用するようにシステムが構成されている場合、
+<strong>/etc/nscontrol.conf</strong> ファイルのロール・データベース・スタンザの <strong>secorder</strong> 属性に指定された順序に従って、
+ロールの変更が行われます。 最初に一致したロールのみが変更されます。 残りのドメインからの重複するロールは、変更されません。 特定のドメインからのロールを変更するには、<strong>-R</strong> フラグを使用します。</p>
+ <p>システムが拡張 <span>ロール・ベース・アクセス制御</span> (<span>RBAC</span>) モードで稼働している場合、ロール・データベースに対して行われた変更は、データベースが <strong>setkst</strong> コマンドによってカーネル・セキュリティー・テーブルに送信されるまで、セキュリティー上の考慮事項には使用されません。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-R</strong> <em>ロード・モジュール</em></td>
+
+<td>ロールの変更に使用するロード可能モジュールを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>属性</h2> <p>適切な権限を持っている場合には、以下のユーザー属性を設定できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>auditclasses</strong></td>
+
+<td>ロールの監査クラスのリスト。 <em>Value</em> パラメーターは、コンマで区切られたクラスのリスト、あるいはすべての監査クラスを示す値 ALL です。</td>
+
+</tr>
+
+<tr>
+<td><strong>認証モード</strong></td>
+
+<td><strong>swrole</strong> コマンドが使用された場合にロールを引き受けるために必要な認証を指定します。 次の値を指定できます。<dl>
+<dt>なし</dt>
+
+<dd>認証は不要です。</dd>
+
+
+<dt>INVOKER</dt>
+
+<dd>ロールを引き受けるためには、<strong>swrole</strong> コマンドの呼び出し側がそれ自体のパスワードを入力する必要があります。 <strong>INVOKER</strong> 値がデフォルト値です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>許可</strong></td>
+
+<td><strong>rolelist</strong> 属性のロールで定義されている権限を超えた属性のロールに必要な追加権限のリスト。 <em>Value</em> パラメーターは、権限名のリストであり、権限名はそれぞれコンマで区切られています。</td>
+
+</tr>
+
+<tr>
+<td><strong>dfltmsg (dfltmsg)</strong></td>
+
+<td>メッセージ・カタログを使用していない場合に使用する、デフォルトのロール記述テキストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>グループ</strong></td>
+
+<td>このロールを有効に使用するためにユーザーが属している必要のあるグループのリスト。 この属性は、情報提供のみであり、当該ユーザーを自動的にグループの表示のメ
+ンバーにするものではありません。 <em>Value</em> パラメーターは、グループ名の表示であり、グループ名はそれぞれコンマで区切られています。</td>
+
+</tr>
+
+<tr>
+<td><strong>ホスト可能なドロッレ</strong></td>
+
+<td><strong>setkst</strong> コマンドを使用してロール定義をカーネル・ロール・テーブルにダウンロードできるホストを指定します。 この属性は、ロール属性が複数のホストによって共有されるネットワーク環境で使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>ホストの使用不可化</strong></td>
+
+<td><strong>setkst</strong> コマンドを使用してロール定義をカーネル・ロール・テーブルにダウンロードできないホストを指定します。 この属性は、ロール属性が複数のホストによって共有されるネットワーク環境で使用されることを目的としています。</td>
+
+</tr>
+
+<tr>
+<td><strong>id</strong></td>
+
+<td>ロールに対する固有の数字の ID を指定します。 <strong>id</strong> 属性を指定する必要があります。<p><strong>重要</strong>: ロールをユーザーに割り当てた後で、この属性値を変更しないでください。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>メッセージ・カタログ</strong></td>
+
+<td>システム・ロールの 1 行の説明を保持するメッセージ・カタログのファイル名が入っています。 <em>Value</em> パラメーターは文字列です。</td>
+
+</tr>
+
+<tr>
+<td><strong>msgnum</strong></td>
+
+<td>ロールの記述用のメッセージ・カタログに入れる索引が入っています。 <em>Value</em> パラメーターは整数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>msgset</strong></td>
+
+<td>メッセージ・カタログ内のロール記述を含むメッセージ設定が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>rolelist</strong></td>
+
+<td>このロールが意味するロールを表示します。 <em>Value</em> パラメーターは、ロール名のリストであり、ロール名はそれぞれコンマで区切られています。<p><strong>-R</strong> フラグと一緒に指定されると、<span>nscontrol.conf</span> ファイル内のロール・スタンザは <strong>-R</strong> フラグによってオーバーライドされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>画面</strong></td>
+
+<td>各種の SMIT 画面にロールをマップできるようにする SMIT 画面 ID を表示します。 <em>Value</em> パラメーターは、SMIT 画面 ID のリストであり、ID はそれぞれコンマで区切られています。</td>
+
+</tr>
+
+<tr>
+<td><strong>可視性</strong></td>
+
+<td>システムに対するロールの可視性状況を指定します。 <em>Value</em> パラメーターは整数です。 使用できる値は、次のとおりです。<dl>
+
+<dt><strong>1</strong></dt>
+
+<dd>ロールは、使用可能であり、表示され、しかも選択可能です。 このロールに含まれている権限は、ユーザーに適用されます。 当該属性が存在しなかったり、値が入っていない場合、デフォルトの値は 1 です。</dd>
+
+
+<dt><strong>0</strong></dt>
+
+<dd>ロールは、使用可能で、存在するとおりに表示されますが、ビジュアル・インターフェースでは選択<em>できません</em>。 このロールに含まれている権限は、ユーザーに適用されます。</dd>
+
+
+<dt><strong>-1</strong></dt>
+
+<dd>ロールは使用不可です。 このロールに含まれている権限は、ユーザーに適用 <em>されません</em>。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><strong>chrole</strong> コマンドは特権コマンドです。 コマンドを正常に実行するには、以下の権限をもつロールを引き受ける必要があります。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>aix.security.role.change</strong></td>
+
+<td>コマンドを実行する場合に必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>イベントの監査</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div><strong>イベント</strong></div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ROLE_Change</strong></td>
+
+<td>ロール、属性</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>アクセスされるファイル</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div><strong>モード</strong></div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/roles</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/etc/security/user.roles</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>許可を変更するには、以下のようにします。ManagePasswds役割aix.security.passwd次のコマンドを使用します。<div><div><pre><code>chrole authorizations=aix.security.passwd ManagePasswds</code></pre></div><div></div></div></li>
+
+<li>許可を変更するには、以下のようにします。ManagePasswdsLDAP での役割aix.security.passwd次のコマンドを使用します。<div><div><pre><code>chrole -R LDAP authorizations=aix.security.passwd ManagePasswds </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/security/roles</strong></td>
+
+<td>ロールの属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/user.roles</strong></td>
+
+<td>ユーザーのロール属性が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

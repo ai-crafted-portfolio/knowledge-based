@@ -1,0 +1,277 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソースまたはリソース・クラスのアクション定義を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><em>リソース</em> のアクション定義を表示するには、次のようにします。</p>
+ <p><span><span>lsactdef</span></span> [<span><span>-p</span></span> <span><span>property</span></span>] [<span><span>-s i</span></span> | <span><span>o</span></span>] [<span><span>-e</span></span>] [<span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [ <span><span>action1</span></span> [ <span><span>action2</span></span> ...] ]</p>
+ <p><em>リソース・クラス</em> のアクション定義を表示するには、次のようにします。</p>
+ <p><span><span>lsactdef</span></span> <span><span>-c</span></span> [<span><span>-p</span></span> <span><span>プロパティー</span></span>] [<span><span>-s i</span></span> | <span><span>o</span></span>] [<span><span>-e</span></span>] [<span><span>-l</span></span> | <span><span>-i</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class</span></span> [ <span><span>action1</span></span> [ <span><span>action2</span></span> ...] ]</p>
+ <p>すべてのリソース・クラス名を表示するには、以下のようにします。</p>
+ <p><span><span>lsactdef</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lsactdef</span></span> コマンドは、リソースまたはリソース・クラスのアクション定義のリストを表示します。 デフォルトでは、このコマンドは<em>リソース</em> のアクション定義を表示します。 <em>リソース・クラス</em> のアクション定義を表示するには、 <span><span>-c</span></span> フラグを指定します。</p>
+ <p>コマンド行にアクションを指定しない場合、このコマンドは <span><span>public</span></span>として定義されているアクションのみを表示します。 このデフォルトをオーバーライドするには、 <span><span>-p</span></span> フラグを使用するか、表示する定義があるアクションの名前をコマンド行で指定します。</p>
+ <p>このアクションの呼び出し時に入力として必要な構造化データ定義を表示するには、 <span><span>-s i</span></span> フラグを指定します。 このアクションを呼び出した結果の出力にリンクされた構造化データ定義を表示するには、 <span><span>-s o</span></span> フラグを指定します。</p>
+ <p>デフォルトでは、このコマンドはアクションの記述を表示しません。 アクションの定義と説明を表示するには、 <span><span>-e</span></span> フラグを指定します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-c</dt>
+
+<dd><span><span>resource_class</span></span> のアクション定義を表示します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更する場合は、 <span><span>-D</span></span> フラグを使用します。</dd>
+
+
+<dt>--D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外の区切り文字を指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。</dd>
+
+
+<dt>-e</dt>
+
+<dd>拡張形式を指定します。 アクション定義とともに記述も表示します。</dd>
+
+
+<dt>-i</dt>
+
+<dd>入力フォーマットを指定します。 <span><span>resource_data_input_file</span></span> のテンプレートを生成します。 出力は長い (スタンザ) フォーマットで表示されます。 属性の SD エレメント・データ・タイプは、<span><span>attr=value</span></span> として表示されます。 このフラグを使用する場合は、 <span><span>lsactdef</span></span> コマンドの出力をファイルに送ることをお勧めします。 このフラグは、 <span><span>-s o</span></span> フラグをオーバーライドします。</dd>
+
+
+<dt>-l</dt>
+
+<dd>「長い」フォーマット (1 行ごとに 1 つのエントリー) を指定します。 これは、デフォルトの表示形式です。 <span><span>lsactdef</span></span> コマンドが <span><span>-l</span></span> フラグを指定して発行されたが、リソース・クラス名が指定されていない場合、コマンドが定義済みリソース・クラス名のリストを返すときに <span><span>-l</span></span> フラグは無視されます。</dd>
+
+
+<dt>--p <span><span>プロパティ</span></span></dt>
+
+<dd>指定された <span><span>property</span></span> を持つアクションを表示します。 デフォルトでは、共用アクションの定義のみが表示されます。 アクション・プロパティーに関係なくすべてのアクション定義を表示するには、 <span><span>-p 0</span></span> フラグを使用します。<div><strong>アクション・プロパティー:</strong><dl>
+
+<dt>0x0001</dt>
+
+<dd><span><span>long_running</span></span></dd>
+
+
+<dt>0x0002</dt>
+
+<dd><span><span>public</span></span></dd>
+
+</dl>
+</div>
+ <div>属性に 10 進値または 16 進値を指定することができます。 1 つ以上のプロパティーを持つすべてのアクションのアクション定義を要求するには、対象のプロパティーを一緒に「OR」してから、 <span><span>-p</span></span> フラグで「OR」演算された値を指定します。 例えば、 <span><span>long_running</span></span> または <span><span>public</span></span>であるすべてのアクションのアクション定義を要求するには、次のように入力します。<div><div><pre><code>-p 0x03</code></pre></div><div></div></div></div>
+</dd>
+
+
+<dt>-s i | o</dt>
+
+<dd>アクション入力またはアクション応答のための構造化データ定義を表示します。<dl>
+<dt>i</dt>
+
+<dd>アクション入力構造化データ定義を表示します。 これはデフォルトです。</dd>
+
+
+<dt>o</dt>
+
+<dd>アクション応答 (出力) 構造化データ定義を表示します。</dd>
+
+</dl>
+</dd>
+
+
+<dt>-t</dt>
+
+<dd>表形式を指定します。 属性ごとにそれぞれ別個の列に表示され、1 行に 1 個のリソースが表示されます。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダー印刷を抑制します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 ソフトウェア・サービスの編成の使用の場合のみです。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>リソース・クラス</span></span></dt>
+
+<dd>表示したいアクション定義があるリソース・クラスの名前を指定します。 <span><span>resource_class</span></span> を指定しない場合、すべてのリソース・クラス名のリストが表示されます。</dd>
+
+
+<dt><span><span>action1</span></span> [<span><span>action2…</span></span>]</dt>
+
+<dd>1 つ以上のアクションを指定します。 <span><span>resource_class</span></span> を指定する場合、ゼロまたは 1 以上のアクション名を指定することができます。 アクションを 1 つも指定しない場合、<span><span>resource_class</span></span> のすべてのアクション定義が表示されます。 どのアクションをどんな順序で表示するかを制御するには、特定のアクション名を入力してください。 複数のアクション名を区切るには、ブランク・スペースを使用します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>lsactdef</span></span>を実行するには、 <span><span>lsactdef</span></span> で指定された <span><span>resource_class</span></span> に対する読み取り権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルとその変更方法については、「<em>RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>CT_CONTACT 環境変数をホスト名または IP アドレスに設定すると、
+コマンドは指定されたホストの RMC (Resource Monitoring and Control) デーモンにアクセスします。 この環境変数を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドにより表示または変更されるリソースまたはリソース・クラスは、
+接続が確立されたシステム上で探されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するための
+セッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのリソース・クラスの名前をリストするには、次のように入力します。<div><div><pre><code>lsactdef</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>class_name
+"IBM.Association"     
+"IBM.AuditLog"        
+"IBM.AuditLogTemplate"
+"IBM.Condition"       
+"IBM.EventResponse"   
+"IBM.Host"            
+"IBM.Program"         
+"IBM.Sensor"          
+"IBM.ManagedNode"     
+... </code></pre></div><div></div></div></li>
+
+<li>リソース・クラスIBM®.AuditLog,のパブリック・リソース・アクション定義を一覧表示するには、次のように入力します：<div><div><pre><code>lsactdef IBM.AuditLog</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Action Definitions for
+class_name: IBM.AuditLog
+action 1:
+        action_name    = "GetRecords"
+        display_name   = ""
+        description    = ""
+        properties     = {"public"}
+        confirm_prompt = ""
+        action_id      = 0
+        variety_list   = {{1..1}}
+        variety_count  = 1
+        timeout        = 0
+action 2:
+        action_name    = "DeleteRecords"
+        display_name   = ""
+        description    = ""
+        properties     = {"public"}
+        confirm_prompt = ""
+        action_id      = 1
+        variety_list   = {{1..1}}
+        variety_count  = 1
+        timeout        = 0
+....</code></pre></div><div></div></div></li>
+
+<li>リソース・クラスIBM.AuditLog,アクションGetRecords,のリソースに対するアクションの起動に必要な構造化データ定義をリストするには、次のように入力します：<div><div><pre><code>lsactdef -s i IBM.AuditLog GetRecords</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Action Input for: IBM.AuditLog
+action_name GetRecords:
+sd_element 1:
+        element_name      = "MatchCriteria"
+	display_name      = ""
+	description       = ""
+        element_data_type = "char_ptr"
+	element_index     = 0 
+sd_element 2:
+        element_name      = "IncludeDetail"
+	display_name      = ""
+	description       = ""
+        element_data_type = "uint32"
+        element_index     = 1
+	</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lsactdef</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

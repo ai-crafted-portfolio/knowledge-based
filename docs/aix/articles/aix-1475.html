@@ -1,0 +1,259 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>英語のスペルのエラーを検出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>spell</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e41946" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e41990" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e41996" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42029" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42035" target="_blank" rel="noopener noreferrer"><strong>-x </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e41952" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em> HashList</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e41967" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a><em> HistoryList</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42014" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> HashStop</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42041" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em> WordList</em> ] [ <em>ファイル</em> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>spell</strong> コマンドは、<em>File</em> 変数で示されたファイル内の単語を読み取り、これをスペル・リスト内の単語と比較します。 スペル・リスト内のものと一致しないワード、またはスペル・リスト内のワードから派生した単語 (特定の活用形、接頭部、接尾部を適用した結果) は、標準出力に書き出されます。 ファイル名を指定しないと、<strong>spell</strong> コマンドは標準入力を読み取ります。</p>
+ <p><strong>spell</strong> コマンドは <strong>deroff</strong> コマンドと同様に、<strong>troff</strong>、<strong>tbl</strong>、<strong>eqn</strong> コードを無視します。</p>
+ <p>スペル・リストの適用範囲は均等ではありません。 自分のファイルの中で使う特殊語については、独自の辞書を作成してください。 独自の辞書は、ソートされた単語のリストが 1 行に 1 つずつ含まれたファイルです。 独自の辞書を作成するには、<strong>spellin</strong> コマンドを使用してください。</p>
+ <p>代替スペル・リスト、ヒストリー・リスト、ストップ・リストを含むファイルは、<strong>-d</strong>、<strong>-f</strong>、<strong>-h</strong> フラグに続くファイル名パラメーターによって指定できます。 すべての出力のコピーはヒストリー・ファイル内に累積されます。</p>
+ <p>以下の 3 つのプログラムは、<strong>spell</strong> コマンドによって使用されるハッシュ・リストを維持管理および検査するのに役立ちます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lbin/spell/hashmake</strong></td>
+
+<td>標準入力からのワード・リストを読み取り、対応する 9 桁のハッシュ・コードを標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/spellin</strong><em> 番号</em></td>
+
+<td>指定された <em>Number</em> のハッシュ・コードを標準入力から読み取り、圧縮されたスペル・リストを標準出力へ書き出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/hashcheck</strong><em> SpellingList</em></td>
+
+<td>圧縮された <em>SpellingList</em> を読み取り、その中のすべてのワードに対する 9 桁のハッシュ・コードを再作成し、そのコードを標準出力へ書き出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><em> File</em> パラメーターは、<strong>spell</strong> コマンドが読み取ってスペル・リストと比較するファイルを指定します。 ファイル名を指定しない場合、このコマンドは標準入力を読み取ります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>英国式つづりを検査します。 しかし、このフラグは英国式つづりの妥当なプロトタイプを提供するものではありません。 語形変化、接頭部、接尾部を適用して、スペル・ディクショナリーから一致するものを導き出すアルゴリズムは、米国英語式のスペルに基づいています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> HashList</em></td>
+
+<td>代替スペル・リストとして <em>HashList</em>  ファイルを指定します。 デフォルトは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42172" target="_blank" rel="noopener noreferrer"><strong>/usr/share/dict/hlist [ab]</strong></a>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> HistoryList</em></td>
+
+<td>代替ヒストリー・リストとして <em>HistoryList</em> ファイルを指定します。
+このファイルはすべての出力を累積するために使われます。 デフォルトは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42184" target="_blank" rel="noopener noreferrer"><strong>/usr/lbin/spell/spellhist</strong></a>です。<p></p><blockquote><span>“</span><strong>注:</strong> <em>HistoryList</em> ファイルは読み取りおよび書き込み許可が指定された既存のファイルでなければなりません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>組み込みファイルの処理を抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>すべての組み込みファイルのチェーンに従います (<strong>.so</strong> および <strong>.nx</strong> フォーマット・コマンド)。 このフラグの指定がない場合、<strong>spell</strong> コマンドは <strong>/usr/lib</strong> で始まるもの以外のすべての組み込みファイルのチェーンに従います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> HashStop</em></td>
+
+<td>代替ストップ・リストとして <em>HashStop</em> ファイルを指定します。
+このファイルは、これがなければ見逃されてしまうつづりの誤りにフィルターをかけるために使われます。 デフォルトは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42178" target="_blank" rel="noopener noreferrer"><strong>/usr/share/dict/hstop</strong></a>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>スペル・リストにないすべてのワードを表示し、そのワードに近い意味の派生語を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>取り出されたすべての近い意味の語幹を、= (等号) を使って表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong><em> WordList</em></td>
+
+<td><em>WordList</em> に追加のワード・スペルがあるかどうかを検査します。<em> WordList</em> は、ワードのソート・リストを 1 行に 1 つずつ含む、ユーザーが指定するファイルの名前です。 このフラグを使うと、各ジョブごとに正しくスペルされた単語のセットを (<strong>spell</strong> コマンド自体のスペル・リストに加えて) 指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>これは、エラーが発生したことを示しています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>スペルをチェックするには、次のように入力します。<div> <div><div><pre><code>spell chap1 &gt;mistakes</code></pre></div><div></div></div>これにより、次のファイルが作成されますmistakes見つかったすべての単語を含むchap1システムのスペル・ディクショナリーに入っていません。 この中には、<strong> spell</strong> コマンドが認識しない正しくつづられたワードもあることがあります。 ワード・リストは長くなる可能性があるので、<strong>spell</strong> コマンドの出力はファイルに保存してください。</div>
+</li>
+
+<li><span></span>英国のつづりを検査するには、次のように入力します。<div>spell  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e41946" target="_blank" rel="noopener noreferrer">-b </a>chap1 &gt;mistakes</div>これは、chap1英国の辞書に対して疑問のある単語をmistakes。</li>
+
+<li><span></span> <strong>spell</strong> コマンドがどのようにワードを派生させるかを調べるには、次のように入力します。<div>spell  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42029" target="_blank" rel="noopener noreferrer">-v </a>chap1 &gt;deriv</div>これによって、辞書の中にそれ自体のワードは見つからないものの、辞書から派生語として取り出せる単語がリストされます。 派生語を作成するために使われる接頭語および接尾語は、各単語ごとに示されます。 辞書の中にまったく出てこない単語もリストされます。</li>
+
+<li><span></span>追加のワード・リストに対してスペルを検査するには、次のように入力します。<div>spell  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/spell.html#spell__row-d3e42041" target="_blank" rel="noopener noreferrer">+newwords </a>chap1</div>これにより、以下の単語のスペルが検査されます。chap1システム・ディクショナリーおよびnewwords.newwordsファイルは、ワードをアルファベット順に 1 行に 1 つずつリストします。 このファイルは ed エディターなどのテキスト・エディターを使って作成でき、<strong>sort</strong>  コマンドを使ってアルファベット順に並び変えます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/dict/hlist[ab]</strong></td>
+
+<td>アメリカ式とイギリス式の両方のハッシュされたスペル・リストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/dict/hstop</strong></td>
+
+<td>ハッシュされたストップ・リストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/spellhist</strong></td>
+
+<td>ヒストリー・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/compress</strong></td>
+
+<td>ヒストリー・ファイルを圧縮するための実行可能なシェル・プログラムが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/hashmake</strong></td>
+
+<td>スペル・リストからハッシュ・コードを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/spellin</strong><em> 番号</em></td>
+
+<td>ハッシュ・コードからスペル・リストを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/hashcheck</strong><em> SpellingList</em></td>
+
+<td>圧縮されたスペル・リストからハッシュ・コードを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/spellinprg</strong></td>
+
+<td><strong>spellin</strong> ファイルによって呼び出されるメインプログラムです。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lbin/spell/spellprog</strong></td>
+
+<td>スペルを検査します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

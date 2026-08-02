@@ -1,0 +1,369 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><span>ctsyschk</span> コマンドは、Reliable Scalable Cluster Technology (RSCT) クラスターをノード上に作成しているときに発生した問題を識別します。</section>
+
+<section><h2>構文</h2>
+
+<p><span>ctsyschk</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagV" target="_blank" rel="noopener noreferrer">V 値</a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagU" target="_blank" rel="noopener noreferrer">-U (U)</a> <span>username</span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagP" target="_blank" rel="noopener noreferrer">-P</a> <span>password</span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagC" target="_blank" rel="noopener noreferrer">-C</a> <span>cluster_type</span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagi" target="_blank" rel="noopener noreferrer">I</a> <span>ip-addr-type</span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagp" target="_blank" rel="noopener noreferrer">P-</a> <span>checking_subsys_port</span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagm" target="_blank" rel="noopener noreferrer">-m (M)</a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flagn" target="_blank" rel="noopener noreferrer">N</a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__flags" target="_blank" rel="noopener noreferrer">-s</a> <span>session_auth_type</span>] node_name1 [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctsyschk.html#ctsyschk__nodename" target="_blank" rel="noopener noreferrer"><span>node_name2...</span></a>]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>ctsyschk</span> コマンドは、さまざまな RSCT ベースのクラスタリング・ソリューションにおいて問題を発生させる可能性がある、システム設定およびネットワーキング動作を検証します。 オプションを付けずに <span>ctsyschk</span> コマンドを実行すると、コマンドの使用法が出力として表示されます。 ホスト名の指定なしで <span>ctsyschk</span> コマンドを実行すると、このコマンドは、ローカル・システム設定を検査します。 1 つ以上のホスト名または IP アドレスを指定すると、 <span>ctsyschk</span> コマンドは <span><span>ssh</span></span> または <span><span>rsh</span></span>などのリモート・シェル・コマンドを実行して、リモート・ターゲットから収集します。 <span>ctsyschk</span> コマンドは、ローカル・ノード、使用可能なインターフェースとノード ID、およびリモート・ノード上のポート番号可用性に関する情報を使用して、RSCT クラスターでの作成における座標を決定します。</p>
+
+<div>リモート・コマンドを実行するためには、<span>ctsyschk</span> コマンドは、ユーザーが以下のいずれかをセットアップすることを必要とします。<ul>
+<li>パスワードなしの <span><span>ssh/rsh</span></span></li>
+
+<li><span><span>tcl/tk</span></span> は、コマンドが実行されるノード上で予期します。 この場合、ユーザー名には -U オプション (デフォルトでは <span><span>root</span></span> ) を使用し、すべてのノードへのリモート・ログインのパスワードを指定するには -P オプションを使用する必要があります。<div><div>
+        <div>
+          <div><span>制限:</span> リモート・ログインが機能するためには、すべてのノードが同じユーザー名とパスワードを持っている必要があります。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>-V</dt>
+
+<dd><span>ctsyschk</span> コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+
+
+<dt>-U username</dt>
+
+<dd>リモート・ログインのためのユーザー名を指定します。 デフォルト・ユーザーは <span><span>root</span></span>です。 複数のノードが入力となっている場合、すべてのノードにおいてユーザー名は 1 つでなければなりません。</dd>
+
+
+
+<dt>-P password</dt>
+
+<dd>リモート・ユーザーのパスワードを指定します。 パスワードなしのリモート・ログイン ( <span><span>rsh</span></span> または <span><span>ssh</span></span>) が設定されていない場合は、 -U オプションで指定されたユーザー名のパスワードを指定する必要があります。 ユーザー名が指定されていない場合は、 <span><span>root</span></span> ユーザーのパスワードを指定する必要があります。 複数のノードが入力となっている場合、すべてのノードにおいて、リモート・ログイン用のパスワードは 1 つでなければなりません。</dd>
+
+
+
+<dt>-C cluster_type</dt>
+
+<dd>クラスター・タイプを指定します。 有効な値は次のとおりです。<dl>
+
+<dt>p (ピア・ドメイン)</dt>
+
+<dd><div><span>ctsyschk</span> コマンドが <span>cluster_type</span> オプション p で実行されると、以下の項目が検査されます。<ul>
+<li>指定された入力ノード間に IPv4 接続または IPv6 接続が存在するかどうか。</li>
+
+<li>入力ノードにおける Resource Monitoring and Control (RMC) ポート、High Availability Group Services (HAGS) ポート、または Host Access
+Transformation Service (HATS) ポートの可用性。</li>
+
+<li>指定された入力ノード間において、ファイアウォールが RMC ポートに構成されているかどうか。</li>
+
+<li>ノード間の最大伝送単位 (MTU) サイズの互換性。</li>
+
+<li>入力ノードにおけるノード ID の固有性。</li>
+
+</ul>
+</div>
+
+</dd>
+
+
+
+<dt>m (管理ドメイン)</dt>
+
+<dd><div><span>ctsyschk</span> コマンドが <span>cluster_type</span> オプション m で実行されると、以下の項目が検査されます。<ul>
+<li>RMC ポートの可用性 (論理区画 (LPAR) とハードウェア管理コンソール (HMC) との間で、RMC ポートにファイアウォールが構成されているかどうかを判別)。</li>
+
+<li>LPAR と HMC との間の MTU サイズ互換性。</li>
+
+</ul>
+ </div>
+
+</dd>
+
+
+
+<dt>a (ピア・ドメインおよび管理ドメイン)</dt>
+
+<dd><div><span>ctsyschck</span> コマンドが <span>cluster_type</span> オプション a で実行されると、以下の項目が検査されます。<ul>
+<li>指定された入力ノード間に IPv4/IPv6 接続が存在するかどうか。</li>
+
+<li>指定された入力ノードでの RMC/HAGS/HATS ポートの可用性。</li>
+
+<li>指定された入力ノード間において、ファイアウォールが RMC ポートに構成されているかどうか。LPAR 上の RMC ポートの可用性も検査されます。</li>
+
+<li>LPAR と HMC との間で、ファイアウォールが RMC ポートに構成されているかどうか。</li>
+
+</ul>
+ </div>
+
+</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+
+</section>
+
+<div>
+<dl>
+
+<dt>-p checking_subsys_port</dt>
+
+<dd>ポートの可用性を検査するサブシステムを指定します。 有効な値は次のとおりです。<dl>
+
+<dt>r</dt>
+
+<dd>RMC ポート。</dd>
+
+
+
+<dt>s</dt>
+
+<dd>HATS ポートおよび HAGS ポート</dd>
+
+
+
+<dt>a</dt>
+
+<dd>すべてのポート (RMC、HAGS、および HATS)<p>デフォルト RMC ポートは 657 です。 <span>ctsyschck</span> コマンドが -r オプションで実行されると、このコマンドは、デフォルト・ポートがアプリケーション用に使用されるか、またはファイアウォールが RMC ポートに構成されているかを判別します。 トポロジー・サービス用のデフォルト・ポートは 12347 で、グループ・サービス用のデフォルト・ポートは 12348 です。 <span>ctsyschck</span> コマンドが s オプションで実行されると、これらのデフォルト・ポートが、使用できるよう解放されているかどうかが検査されます。 デフォルト・ポートが解放されていない場合、警告メッセージまたはエラー・メッセージが表示されます。</p>
+</dd>
+
+
+</dl>
+ </dd>
+
+
+
+<dt>-i ip_addr_type</dt>
+
+<dd>IP アドレス・タイプを指定します。 有効な値は次のとおりです。<dl>
+
+<dt>4</dt>
+
+<dd>IPv4 インターフェース<p><span>ctsyschck</span> コマンドがインターフェース値 4 で実行されると、このコマンドは、有効な IPv4 インターフェースおよび互換サブネットを入力ノード上で検査します。 同じサブネット ID を持つサブネットには、互換性があります。 2 つのノードに、共通のサブネット ID を持つサブネットがない場合、<span>ctsyschck</span> コマンドは、それらのサブネットに関する情報を報告します。</p>
+<p>コマンドの結果に応じて、考えられるネットワーク構成を変更し、RSCT クラスターを作成することができます。</p>
+</dd>
+
+
+
+<dt>6</dt>
+
+<dd>IPv6 インターフェース<p><span>ctsyschck</span> コマンドが値 6 で実行されると、このコマンドは、非リンク・ローカル・インターフェースおよび有効な IPv6 インターフェースを検査します。IPv6 インターフェースのサブネット互換性検証を行うわけではありません。</p>
+<div><div>
+        <div>
+          <div><span>注:</span> リモート・ノード上の有効なインターフェースに関する情報を確認するには、 <span><span>rsh</span></span> または <span><span>ssh</span></span> プロトコルが使用されます。 <span><span>rsh</span></span> または <span><span>ssh</span></span> プロトコルの使用法は、 CT_SYSCHK_SHELL 環境変数によって異なります。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+
+<dt>a</dt>
+
+<dd>IPv4 インターフェースおよび IPv6 インターフェースの可用性を検査します。</dd>
+
+
+</dl>
+</dd>
+
+
+
+<dt>–m</dt>
+
+<dd><p><span>ctsyschk</span> コマンドは、いくつかの条件に基づいて、指定された入力ノード間で互換性のある MTU サイズを検査します。</p>
+
+<p>ツールが、ノード間において有効な IPv4 通信パスを識別していること。 有効な通信パスが存在すれば、その間のインターフェース名を使用して、MTU サイズの互換性検査が実行されます。</p>
+
+</dd>
+
+
+
+<dt>-n</dt>
+
+<dd><p>ノード ID 検査が実行されるかどうかを指定します。</p>
+
+<p>この検査は、複数のノードに対して有効です。 1 つのノードを指定すると、この検査は実行されません。デフォルト状況 <code>success</code> が返されます。</p>
+
+<p><span>ctsyschk</span> コマンドが -n オプションで、複数のノード名が入力として指定されて実行されると、このコマンドは、指定されたすべてのノードにおけるノード ID の固有性を検査します。</p>
+
+</dd>
+
+
+
+<dt>-s</dt>
+
+<dd><p>検証する RMC セッション認証タイプを指定します。 有効な値は次のとおりです。</p>
+
+<dl>
+
+<dt>u</dt>
+
+<dd>ローカル・ノードからリモート・ノードへの非認証 RMC セッション。 例えば、この u オプションは、リモート・ノードの <span><span>IBM.HostPublic</span></span> リソース・クラスの照会を試みます。</dd>
+
+
+
+<dt>a</dt>
+
+<dd>ローカル・ノードからリモート・ノードへの認証済み RMC セッション。 例えば、この a オプションは、リモート・ノードの <span><span>IBM.Host</span></span> リソース・クラスの照会を試みます。</dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+
+</div>
+
+<section><h2>パラメーター</h2>
+
+<dl>
+
+<dt>node_name1 [node_name2...]</dt>
+
+<dd><span>ctsyschk</span> コマンドの実行によってピア・ドメイン定義に組み込まれるノードを指定します。 このノード名は、ドメイン・ネーム・システム (DNS) ホスト名のロング・ネームまたはショート・ネームです。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>環境変数</h2>
+
+<div>
+<dl>
+
+<dt>CT_SYSCHK_SHELL</dt>
+
+<dd>リモート・ノードに到達するためのシェル。 <span><span>ssh</span></span> および <span><span>rsh</span> </span> は、リモート・ノードに接続するために使用されるシェルの 2 つの例です。</dd>
+
+
+
+<dt>CT_SYSCHK_TS_PORT</dt>
+
+<dd>HATS 用のユーザー構成ポート。 この環境変数が設定されていると、デフォルト・ポート 12347 は使用されません。</dd>
+
+
+
+<dt>CT_SYSCHK_GS_PORT</dt>
+
+<dd>HAGS 用のユーザー構成ポート。 この環境変数が設定されていると、デフォルト・ポート 12348 は使用されません。</dd>
+
+
+</dl>
+
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<dl>
+
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>指定されたノード間に有効な IP 接続はありません。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>指定されたノード間に互換サブネットは存在しません。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>ポート検査が失敗しました。</dd>
+
+
+
+<dt>4</dt>
+
+<dd>ファイアウォール設定によって、先に進むために必要な通信が許可されていません。</dd>
+
+
+
+<dt>5</dt>
+
+<dd><code>NodeId</code> は、指定されたノードにわたって固有ではありません。</dd>
+
+
+
+<dt>6</dt>
+
+<dd>指定されたノード間で互換性のない MTU サイズが検出されました。</dd>
+
+
+
+<dt>7</dt>
+
+<dd>接続障害が発生しました。 リモート・ノードに到達できません。</dd>
+
+
+
+<dt>8</dt>
+
+<dd>その他のエラー。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>制約事項</h2>
+
+<div>
+<ul>
+<li>このコマンドの実行元のノードから、すべての入力ノードが到達可能でなければなりません。入力ノード名はいずれも、IP アドレスにしないでください。</li>
+
+<li><span>ctsyschk</span> コマンドは、 AIX® オペレーティング・システム用の RSCT ファイルセットの一部です。</li>
+
+<li>-h フラグが指定されると、コマンドの使用法ステートメントが標準出力に書き込まれます。 すべての詳細メッセージが標準出力に書き込まれます。</li>
+
+<li>すべてのエラー・メッセージが標準エラーに書き込まれます。</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<div><h2>例</h2>
+
+<ol>
+<li>ノード nodeA および nodeB がピア・ドメインを形成できるかどうかを確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -C p nodeA nodeB
+</code></pre></div><div></div></div></li>
+
+<li>IPV4 通信パスがノード nodeA とノード nodeB との間に存在するかどうかを確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -i 4 nodeA nodeB</code></pre></div><div></div></div></li>
+
+<li>HMC ノード nodeH と LPAR ノード nodeA との間の管理ドメイン互換性を確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -C m nodeH nodeA</code></pre></div><div></div></div></li>
+
+<li>ノード nodeA とノード nodeB との間の RMC 接続を確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -s {u/a} nodeA nodeB</code></pre></div><div></div></div></li>
+
+<li>ノード nodeA とノード nodeB との間の、ピア・ドメインを形成するための MTU 互換性を確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -m -C p nodeA nodeB</code></pre></div><div></div></div></li>
+
+<li>ローカル・ノード上での RMC ポート、HAGS ポート、および HATS ポートの可用性を確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -p a -C p</code></pre></div><div></div></div></li>
+
+<li>ノード nodeA および nodeB がピア・ドメインを形成できるかどうかを確認するには、次のコマンドを実行します。<div><div><pre><code>ctsyschk -p a -C p</code></pre></div><div></div></div></li>
+
+</ol>
+
+</div>
+
+</div></div>

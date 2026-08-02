@@ -1,0 +1,108 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p><span>Network Information Services</span> (<span>NIS</span>) が使用する <strong>netid.byname</strong> マップのデータを生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>NIS</span> マップを作成するには、以下のようにします。</p>
+ <p><strong>/usr/sbin/mknetid</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknetid.html#mknetid__row-d3e144713" target="_blank" rel="noopener noreferrer"><strong>-q (Q)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknetid.html#mknetid__row-d3e144720" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em><em>PasswordFile</em></em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknetid.html#mknetid__row-d3e144729" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>GroupFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknetid.html#mknetid__row-d3e144738" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em><em>HostsFile</em></em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mknetid.html#mknetid__row-d3e144747" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>NetidFile</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>mknetid</strong> コマンドを使用して、
+<strong>netid.byname</strong> NIS マップ用のデータを生成します。 このコマンドはコマンド・ラインで指定されたファイルを構文解析し、対応する NETID キーと値を構築します。 ユーザーは次のエントリーを受け取ります。<div><div><pre><code>unix.&lt;uid&gt;@&lt;domainname&gt; &lt;uid&gt;:&lt;gid1&gt;,&lt;gid2&gt;,...</code></pre></div><div></div></div>ホストは次のエントリーを受け取ります。<div><div><pre><code>unix.&lt;hostname&gt;@&lt;domainname&gt; 0:&lt;hostname&gt;</code></pre></div><div></div></div>使用されるドメイン名は、<strong>mknetid</strong> の実行時にシステムで構成されるものと同じです。 生成されたデータは <strong>stdout</strong> に送信されます。 それぞれの行にはエントリーが 1 つ含まれ、キーとデータがスペースで区切られて入っています。</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-q</strong></td>
+
+<td>quiet モード - データについての警告を報告しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>PasswordFile</em></td>
+
+<td>ユーザーのリストを読み取るために使用される passwd ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>GroupFile</em></td>
+
+<td>グループ・メンバーシップのリストを読み取るために使用される groups ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> <em>HostsFile</em></td>
+
+<td>ホスト名のリストを読み取るために使用される hosts ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>NetidFile</em></td>
+
+<td>組み込まれる NETID の追加エントリーを読み取るファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/var/yp/Makefile</strong></td>
+
+<td><strong>mknetid</strong> は、
+<strong>/var/yp/Makefile</strong> を使用して NIS データベースを再構築するときに最もよく使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd </strong></td>
+
+<td><em>PasswordFile</em> がある場所。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/groups</strong></td>
+
+<td><em>GroupFile</em> がある場所。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/hosts</strong></td>
+
+<td><em>HostsFile</em> がある場所。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/netid</strong></td>
+
+<td><em>NetidFile</em> がある場所。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

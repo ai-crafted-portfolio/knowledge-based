@@ -1,0 +1,61 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span><span>nfs</span></span> クライアントのホストからプリンシパルへのマッピングを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>/usr/sbin/nfshostmap</span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfshostmap.html#nfshostmap__row-d3e15729" target="_blank" rel="noopener noreferrer"><span><span>-a</span></span></a><span><span> ホスト名 alias1 alias2 </span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfshostmap.html#nfshostmap__row-d3e15741" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a><span><span> ホスト名 </span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfshostmap.html#nfshostmap__row-d3e15753" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a><span><span> ホスト名 alias1 alias2 </span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfshostmap.html#nfshostmap__row-d3e15765" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a></p>
+</section>
+
+<section><h2>説明</h2> <p>別名として定義されているすべてのホストは、サーバーに対する <span><span>kerberos</span></span> 要求の構成時に、 <span><span>hostname</span></span> として定義されているホストにマップされます。 これは、例えば、サーバーにインターフェース <span><span>wizard.sub.austin.ibm.com</span></span> および <span><span>wizard.austin.ibm.com</span></span>がある場合に役立ちます。このサーバーの <span><span>kerberos</span></span> プリンシパルが <span><span>wizard.austin.ibm.com</span></span>である場合、クライアント上で実行される <span><span>nfshostmap
+-a wizard.austin.ibm.com wizard.sub.austin.ibm.com</span></span> がこの問題を処理します。</p>
+ <p>これにより、始動時に <span><span>gssd</span></span> デーモンによって読み取られる <span><span>/etc/nfs/princmap</span></span>が変更されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span><span><span> ホスト名 alias1 alias2</span></span></td>
+
+<td>別名からのマッピングを <span><span>hostname</span></span> に追加します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span> <span><span>ホスト名</span></span></td>
+
+<td><span><span>hostname</span></span> のすべての別名を削除します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-e</span></span><span><span> ホスト名 alias1 alias2</span></span></td>
+
+<td><span><span>hostname</span></span> の以前のマッピングをすべて除去し、指定された
+別名リストで置き換えます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>システム上のそれぞれのファイルの既存の状態を印刷します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+</div></div>

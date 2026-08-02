@@ -1,0 +1,181 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Non-Volatile Memory Express (NVMe over TCP/IP) ターゲットデータを Object Data Manager ( ODM ) に追加します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>mktcpnvme -l ProtocolDevice -g group -t DiscoveryControllerNQN -n PortNumber -i IPaddress</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注：</span> AIX® 7.3 テクノロジー・レベル4（ TL4 ）から、NVMe over TCP/IPプロトコルはテクノロジー・プレビューとしてのみ利用できるようになりました。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p><span>mktcpnvme</span> コマンドは、NVMe over TCP/IP ターゲットデータを ODM に追加します。 統計的に設定されたNVMe over TCP/IPデータは、 ODM に保存されます。 AIX が NVMe over TCP/IP ターゲット・データを検出するには、NVMe over TCP/IP ターゲットの関連情報（検出コントローラの NVMe 適合名（NQN）、IP アドレス、ポート番号など）を指定する必要があります。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><p><span>-g</span>Group</p>
+
+</td>
+
+<td><p>NVMe over TCP/IPターゲットデータが関連付けられているグループを指定します。 これは、このホストから自動検出されないNVMe over TCP/IPターゲット・データ用です。 NVMe over TCP/IPターゲット・データを検出するには、ディスカバリー・コントローラNQN、IPアドレス、ポート番号など、関連するNVMe over TCP/IPターゲット情報を指定する必要があります。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><p><span>-i</span>  IPAddress</p>
+
+</td>
+
+<td><p>NVMe over TCP/IPターゲットのIPアドレスを指定します。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><p><span>-l</span> ProtocolDevice</p>
+
+</td>
+
+<td><p>NVMe over TCP/IPプロトコルのデバイス名を指定します。 例えば、 <code>tcpnvmeX</code>。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><p><span>-n</span> PortNumber</p>
+
+</td>
+
+<td><p>NVMe over TCP/IPターゲットにアクセスするポート番号を指定します。 デフォルトのポート番号は4420である。</p>
+
+</td>
+
+</tr>
+
+<tr>
+<td><p><span>-t</span> DiscoveryControllerNQN</p>
+
+</td>
+
+<td><p>NVMe over Fabrics ( NVMe-oF ) Discovery Controller の NQN を指定します。</p>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<p>このコマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td><span>mktcpnvme</span> コマンドは正常に完了した。</td>
+
+</tr>
+
+<tr>
+<td><span>&gt;0</span></td>
+
+<td><span>mktcpnvme</span> コマンドがエラーを検出した。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p><span>mktcpnvme</span> 、rootユーザーのみが実行できる。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<div>以下のコマンドを入力して、静的に構成された NVMe over TCP/IP ターゲットを追加します：<div><div><pre><code>mktcpnvme -l tcpnvme0 -g static -t nqn.2014-08.org.nvmexpress.discovery -n 4420 -i 10.32.154.107</code></pre></div><div></div></div></div>
+
+</section>
+
+<section><h2>場所</h2>
+
+<p>ファイルは <span>/usr/sbin/mktcpnvme</span> ディレクトリにある。</p>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>src/bos/usr/sbin/tcpnvme</span></td>
+
+<td><span>src/bos/usr/sbin/tcpnvme</span> ディレクトリには、NVMe over TCP/IP コマンドをビルドするための共通ソースファイルが含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+</div></div>

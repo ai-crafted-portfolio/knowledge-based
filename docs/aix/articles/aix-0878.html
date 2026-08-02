@@ -1,0 +1,188 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>メッセージとフォルダーの絶対パス名を出力します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>MHPATH</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhpath.html#mhpath__row-d3e121961" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em>フォルダー</em> ] [ <em>メッセージ</em> [ ,<em>メッセージ</em> ] ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mhpath</strong> がコマンドは、メッセージとフォルダーのパス名をリストします。 デフォルトでは、現行フォルダーのパス名がリストされます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em>フォルダー</em><strong></strong></td>
+
+<td>パス名を表示するフォルダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>メッセージ</em></td>
+
+<td>パス名をリストするメッセージを指定します。 <em>Messages</em> パラメーターには、複数のメッセージを指定したり、メッセージの範囲を指定したり、単一メッセージを指定できます。 次を参照して、メッセージを指定してください。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージ番号。 複数のメッセージを指定する場合、各メッセージ番号をコンマで区切ります。 メッセージの範囲を指定するときは、範囲の上限と下限の番号をハイフンでつなげて指定します。<p></p><blockquote><span>“</span><strong>注:</strong> 範囲を指定するとき、<strong>new</strong> 変数は使用できません。<span>”</span></blockquote>
+<p></p>
+</dd>
+
+
+<dt><em>sequence</em></dt>
+
+<dd>ユーザーが指定するメッセージ・グループ。 認識される値には以下のものが含まれます。<dl>
+<dt><strong>all</strong></dt>
+
+<dd>フォルダー内のすべてのメッセージ</dd>
+
+
+<dt><strong>cur</strong> または <strong>。</strong> (ピリオド)</dt>
+
+<dd>現行メッセージ。</dd>
+
+
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt><strong>NEW</strong></dt>
+
+<dd>次に組み込まれるメッセージにシステムが割り当てるパス名</dd>
+
+
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ</dd>
+
+</dl>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが <em>UserMhDirectory</em><strong>/.mh_profile</strong> ファイルに入力されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Current-Folder:</td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Path:</td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行フォルダーのパス名をリストするには、次のように入力します。<div> <div><div><pre><code>mhpath</code></pre></div><div></div></div>システムは、次のようなメッセージで応答します。<div><div><pre><code>/home/tom/Mail/inbox</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>メッセージのパス名をリストします。2から4<strong>ソース</strong> フォルダーで、次のように入力します。<div>mhpath  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mhpath.html#mhpath__row-d3e121961" target="_blank" rel="noopener noreferrer">+</a>source 2-4</div>システムは、次のようなメッセージで応答します。<div> <div><div><pre><code>/home/tom/Mail/source/2
+/home/tom/Mail/source/3
+/home/tom/Mail/source/4</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>現行フォルダーに追加される次のメッセージにシステムが割り当てるパス名をリストするには、次のように入力します。<div> <div><div><pre><code>mhpath new</code></pre></div><div></div></div>システムは、次のようなメッセージで応答します。<div><div><pre><code>/home/tom/Mail/source/5</code></pre></div><div></div></div>この例では、次のメッセージはメッセージになります。5ユーザー内tomの現行フォルダー,/home/tom/Mail/source.</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>ユーザーの MH プロファイルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/mhpath</strong></td>
+
+<td><strong>mhpath</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

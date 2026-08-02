@@ -1,0 +1,948 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたバージョンのソース・コード制御システム (SCCS) のファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>SCCS ファイルの読み取り専用バージョンを作成する</strong></p>
+ <p><strong>取得</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136108" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136221" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136233" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136258" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136279" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136029" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a><em>カットオフ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136126" target="_blank" rel="noopener noreferrer"><strong>I</strong></a><em> リスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136271" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>SID</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136285" target="_blank" rel="noopener noreferrer"><strong>T </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136305" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a><em>リスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136291" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a><em>ストリング</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136179" target="_blank" rel="noopener noreferrer"><strong>- </strong></a> [ <strong>P</strong> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136209" target="_blank" rel="noopener noreferrer"><strong>-L (L) </strong></a> ] <em>ファイル</em> ...</p>
+<p><strong>SCCS ファイルの編集可能バージョンを作成する</strong></p>
+ <p><strong>取得</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136052" target="_blank" rel="noopener noreferrer"><strong>-e (E) </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136146" target="_blank" rel="noopener noreferrer"><strong>-k (K) </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136004" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136279" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136029" target="_blank" rel="noopener noreferrer"><strong>「-c」 </strong></a><em>カットオフ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136126" target="_blank" rel="noopener noreferrer"><strong>I </strong></a><em>リスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136271" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>SID</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136285" target="_blank" rel="noopener noreferrer"><strong>T </strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136305" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a><em>リスト</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136179" target="_blank" rel="noopener noreferrer"><strong>- </strong></a> [ <strong>P</strong> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136209" target="_blank" rel="noopener noreferrer"><strong>-L (L) </strong></a>] <em>ファイル</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>get</strong> コマンドでは、指定したバージョンのソース・コード制御システム (SCCS) ファイルが読み取られ、指定したフラグに従って ASCII テキスト・ファイルが作成されます。 次に、 <strong>get</strong> コマンドは、各テキスト・ファイルを、元の SCCS ファイルと同じ名前を持ち、 <strong>を持たないファイルに書き込みます。</strong> 接頭部 ( <strong>g ファイル</strong>)。</p>
+ <p>フラグとファイルは任意の順序で指定できます。また、すべてのフラグは、指定したすべてのファイルに適用されます。 <em>File</em> パラメーターにディレクトリーを指定すると、<strong> get</strong> コマンドは <strong>で始まるディレクトリー内のすべてのファイルに対して要求されたアクションを実行します。</strong> 接頭部。 <em>File</em> パラメーターに <strong>-</strong> (負符号) を指定すると、<strong> get</strong> コマンドは標準入力を読み取り、各行を SCCS ファイルの名前として解釈します。 <strong>get</strong> コマンドでは、ファイル終わり文字が読み取られるまで入力が読み取られます。</p>
+ <p>実効ユーザーが SCCS ファイルが入っているディレクトリー内で書き込み許可を持っていても、実ユーザーが書き込み許可を持っていなければ、<strong>-e</strong> フラグを使うときに 1 つのファイルしか命名できません。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>get</strong> コマンドは、 <strong>w</strong> フラグで指定されたファイル名とストリング・データに対してマルチバイト文字セット (MBCS) をサポートします。</div>
+        </div>
+      </div></div>
+<p><strong>読み取り専用ファイル・バージョンの作成</strong></p>
+ <p><strong>get</strong> コマンドでは、読み取り専用バージョンと編集可能バージョンのファイルが作成されます。 アプリケーションでファイル内容の変更が必要でない場合は、読み取り専用バージョンのファイルを使用してください。 読み取り専用バージョンのソース・コード・ファイルはコンパイルできます。 また、読み取り専用バージョンからテキスト・ファイルを表示したり印刷したりすることができます。</p>
+ <p>識別キーワードを使用するときには、編集可能バージョンと読み取り専用バージョンの違いが重要です。 <em>識別キーワード</em> とは、<strong>get</strong> コマンドによってファイルが読み取り専用として検索されるときに、一種のテキスト値に展開される記号です。 編集可能バージョンでは、キーワードは展開されません。 識別キーワードは SCCS ファイル内のどこにでも入れることができます。 識別キーワードの詳細については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/prs.html" target="_blank" rel="noopener noreferrer"><strong>prs</strong></a> コマンドを参照してください。</p>
+<p><strong>SCCS ファイル</strong></p>
+ <p><strong>s.</strong> が含まれているファイルに加えて、 接頭部 ( <strong>s-file</strong>)。 <strong>get</strong> コマンドはいくつかの補助ファイルを作成します。 <strong>g-file</strong>、 <strong>l-file</strong>、 <strong>p-file</strong>、 および <strong>z-file</strong>。 これらのファイルはタグで識別されます。このタグとは、ハイフンの前の文字のことです。 <strong>get</strong> プログラムは、先行 <strong>を置き換えることによって補助ファイルの名前を指定します。</strong> 適切なタグを持つ SCCS ファイル名。ただし、 <strong>g-file</strong>は除きます。g-file は <strong>を除去することによって名前が付けられます。</strong> 接頭部。 したがって、ファイル名が <strong>s.sample</strong> であれば、
+補助ファイル名は <strong>sample</strong>、<strong>l.sample</strong>、
+<strong>p.sample</strong>、<strong>z.sample</strong> となります。</p>
+ <p>これらのファイルの用途は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>S ファイル (s-file)</strong></td>
+
+<td>オリジナル・ファイルのテキストと、ファイルに対して行われた変更内容 (デルタ) が定義されています。 また、ファイル内容を変更できるユーザー、変更したユーザー、変更時期、変更内容に関する情報も入っています。 このファイルは読み取り専用なので、ユーザーが直接編集することはできません。 ただし、ユーザーが編集できる <strong>g ファイル</strong>を作成するときに SCCS コマンドに必要となる情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>g ファイル</strong></td>
+
+<td><strong>-r</strong> フラグで指定した SCCS ファイル・バージョン (または、デフォルトでは最新のトランク・バージョン) のテキストが入っている ASCII テキスト・ファイルです。 このファイルはユーザーが直接編集できます。 すべての変更を行った後でファイルの新しいデルタを作成する場合は、そのファイルに対して <strong>delta</strong> コマンドを実行できます。 <strong>get</strong> コマンドでは、現行ディレクトリー内に <strong>g ファイル</strong>が作成されます。<p><strong>-g</strong> フラグまたは <strong>-p</strong> フラグを指定しなければ、<strong>get</strong> コマンドの実行時には必ず g ファイルが作成されます。 ファイルを所有するのは実ユーザーです (実効ユーザーではありません)。 <strong>-k</strong> フラグまたは <strong>-e</strong> フラグを指定しなければ、ファイルは読み取り専用となります。 <strong>-k</strong> フラグまたは <strong>-e</strong> フラグを指定すると、オーナーは <strong>g ファイル</strong>の書き込み許可を持つことになります。 <strong>g ファイル</strong>を作成するには、現行ディレクトリー内への書き込み許可が必要です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>l ファイル</strong></td>
+
+<td><strong>-l</strong> フラグを指定すると、<strong>get</strong> コマンドによって <strong>l ファイル</strong>が作成されます。 <strong>l ファイル</strong>は読み取り専用ファイルです。 このファイルには、<strong>g ファイル</strong>の生成時に適用されたデルタを示すテーブルが入っています。 <strong>l ファイル</strong>を作成するには、現行ディレクトリー内の書き込み許可が必要です。 <strong>l ファイル</strong>内の行は次のような書式になっています。<ul>
+<li>デルタが適用されればブランク文字、適用されなければアスタリスク。</li>
+
+<li>デルタが適用された場合、または適用されずに無視された場合は、ブランク文字。 デルタが適用されず、かつ無視されなかった場合は、アスタリスクが表示されます。</li>
+
+<li>デルタが適用された特別な理由、または適用されなかった特別な理由を示す次のコード。<dl>
+<dt><em>ブランク・スペース</em></dt>
+
+<dd>通常どおり組み込まれたか、または除外された</dd>
+
+
+<dt><strong>I</strong></dt>
+
+<dd><strong>-i</strong> フラグを使って組み込まれた</dd>
+
+
+<dt><strong>x</strong></dt>
+
+<dd><strong>-x</strong> フラグを使って除外された</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd><strong>-c</strong> フラグを使ってカットオフされた</dd>
+
+</dl>
+</li>
+
+<li>SID</li>
+
+<li>ファイルの作成日時</li>
+
+<li>デルタを作成したユーザーのログイン名</li>
+
+</ul>
+  <p>コメントと変更要求 (MR) データは、水平タブ文字の 1 字分字下げされて次行に続きます。 ブランク行で各エントリーを終了します。 例えば、<strong>-c</strong> フラグを使ったデルタのカットオフの場合、l ファイル内のエントリーは次のようになります。</p>
+  <div> <div><div><pre><code>**C 1.3 85/03/13 12:44:16 pat</code></pre></div><div></div></div></div>
+  <p>また、最初のデルタに関するエントリーは次のようになります。</p>
+  <div> <div><div><pre><code>1.1 85/02/27 15:42:20 pat
+date and time created 85/02/27 15:42:20 by pat</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>p ファイル</strong></td>
+
+<td><strong>-e</strong> フラグまたは <strong>-k</strong> フラグを指定すると、<strong>get</strong> コマンドによって <strong>p ファイル</strong>が作成されます。 <strong>p ファイル</strong>では、<strong>get -e</strong> コマンドからの結果情報が <strong>delta</strong> コマンドに渡されます。 また、それ以降は <strong>delta</strong> コマンドが実行されるか、SCCS ファイル内で結合編集キー文字 (<strong>j</strong>) を設定するまで、<strong>p ファイル</strong>は同じ SID について <strong>get</strong><strong> -e</strong> コマンドが実行されないようにします。 <strong>j</strong> キー文字を使うと、同じ SID に対して複数の <strong>get</strong> コマンドを実行できます。 <strong>p ファイル</strong>は、SCCS <em>ファイル</em> が入っているディレクトリー内で作成します。 SCCS ディレクトリー内で <strong>p ファイル</strong>を作成するには、そのディレクトリーの書き込み許可が必要です。 <strong>p ファイル</strong>の許可コードは、コードのオーナー以外の全ユーザーに対しては読み取り専用で、実効ユーザーが所有します。 <strong>p ファイル</strong>をオーナーが直接編集することはできません。 <strong>p ファイル</strong> には、以下のものが含まれます。<ul>
+<li>現在の SID</li>
+
+<li>新たに作成されるデルタの SID</li>
+
+<li>ユーザー名</li>
+
+<li><strong>get</strong> コマンドの日時</li>
+
+<li><strong>-i</strong> フラグ (ただし、存在する場合のみ)</li>
+
+<li><strong>-x</strong> フラグ (ただし、存在する場合のみ)</li>
+
+</ul>
+  <p><strong>p ファイル</strong>には、ファイルについて保留中の各デルタに関する優先情報を持つエントリーが入っています。 2 つの行が同一の新しいデルタ SID に入ることはありません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>z ファイル</strong></td>
+
+<td><strong>z ファイル</strong>は、同時更新に対するロック機構です。 <strong>z ファイル</strong>には、このファイルを作成した <strong>get</strong> コマンドの 2 進プロセス番号が入っています。 このファイルは、SCCS ファイルが入っているディレクトリー内で作成し、<strong>get</strong> コマンドを実行中にだけ存在します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>get</strong> コマンドを使用すると、アクセス中の SID と SCCS ファイルから作成された行数が表示されます。 <strong>-e</strong> フラグを指定すると、SID がアクセスされてから行数が作成されるまでに実行されたデルタの SID が表示されます。 複数ファイル、ディレクトリー、標準入力のいずれかを指定すると、<strong>get</strong> コマンドによって各ファイルの処理前にファイル名が表示されます。 <strong>-i</strong> フラグを指定すると、 <strong>get</strong> コマンドはワードの下に含まれるデルタをリストします。Included<strong>-x</strong> フラグを指定すると、 <strong>get</strong> コマンドは単語の下に除外されたデルタをリストします。Excluded.</p>
+ <p>次の表に、<strong>get</strong> コマンドによって取り出されるファイルの SID と保留中の SID の両方がどのように判別されるかを示します。 「指定された SID」の欄には、<strong>-r</strong> フラグを使って SID を指定するさまざまな方法を示します。 最初の欄にはまた、<strong>get -e</strong> コマンドと一緒に <strong>-b</strong> フラグを使用するかどうかを含め、
+考えられるさまざまな条件を示します。 「取り出された SID」の欄には、<strong>g ファイル</strong>を構成するファイルの SID を示してあります。 「作成されるデルタの SID」の欄には、<strong>delta</strong> コマンドを適用したときに作成されるバージョンの SID を示してあります。</p>
+ 
+<div><span>SID の判別</span><div><table><thead>
+<tr>
+<th><div>指定された SID</div></th>
+
+<th><div>検索された SID</div></th>
+
+<th><div>作成されるデルタの SID</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>なし <sup>1</sup><dl>
+<dt>-b を使用したか?</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R のデフォルトは mR <sup>2</sup></dd>
+
+</dl>
+</td>
+
+<td>mR.mL</td>
+
+<td>mR.(mL+1)</td>
+
+</tr>
+
+<tr>
+<td>なし <sup>1</sup><dl>
+<dt>-b を使用したか?</dt>
+
+<dd>はい</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R のデフォルトは mR</dd>
+
+</dl>
+</td>
+
+<td>mR.mL</td>
+
+<td>mR.mL.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R&gt;mR</dd>
+
+</dl>
+</td>
+
+<td>mR.mL</td>
+
+<td>R.1 <sup>3</sup></td>
+
+</tr>
+
+<tr>
+<td>R<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R=mR</dd>
+
+</dl>
+</td>
+
+<td>mR.mL</td>
+
+<td>mR.(mL+1)</td>
+
+</tr>
+
+<tr>
+<td>R<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>はい</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R&gt;mR</dd>
+
+</dl>
+</td>
+
+<td>mR.mL</td>
+
+<td>mR.mL.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>はい</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R=mR</dd>
+
+</dl>
+</td>
+
+<td>mR.mL</td>
+
+<td>mR.mL.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>該当なし</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>R&lt;mR で、R は存在しない</dd>
+
+</dl>
+</td>
+
+<td>hR.mL <sup>4</sup></td>
+
+<td>hR.mL.(mB+1) .1</td>
+
+</tr>
+
+<tr>
+<td>R<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>該当なし</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>リリース内のトランク後続オペレーション &gt; R で R が存在する</dd>
+
+</dl>
+</td>
+
+<td>R.mL</td>
+
+<td>R.mL.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R.L.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>トランク後続オペレーションなし</dd>
+
+</dl>
+</td>
+
+<td>R.L.</td>
+
+<td>R.(L+1)</td>
+
+</tr>
+
+<tr>
+<td>R.L.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>はい</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>トランク後続オペレーションなし</dd>
+
+</dl>
+</td>
+
+<td>R.L.</td>
+
+<td>R.L(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R.L.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>該当なし</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>リリース内のトランク後続オペレーション &gt; R または = R</dd>
+
+</dl>
+</td>
+
+<td>R.L.</td>
+
+<td>R.L.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R.L.B.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>分岐後続オペレーションなし</dd>
+
+</dl>
+</td>
+
+<td>R.L.B.mS</td>
+
+<td>R.L.B.(mS+1)</td>
+
+</tr>
+
+<tr>
+<td>R.L.B.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>はい</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>分岐後続オペレーションなし</dd>
+
+</dl>
+</td>
+
+<td>R.L.B.mS</td>
+
+<td>R.L.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R.L.B.S.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>分岐後続オペレーションなし</dd>
+
+</dl>
+</td>
+
+<td>R.L.B.S.</td>
+
+<td>R.L.B.(S+1)</td>
+
+</tr>
+
+<tr>
+<td>R.L.B.S.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>はい</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>分岐後続オペレーションなし</dd>
+
+</dl>
+</td>
+
+<td>R.L.B.S.</td>
+
+<td>R.L.(mB+1).1</td>
+
+</tr>
+
+<tr>
+<td>R.L.B.S.<dl>
+<dt>-b を使用したか?</dt>
+
+<dd>該当なし</dd>
+
+
+<dt>その他の条件</dt>
+
+<dd>分岐後続オペレーション</dd>
+
+</dl>
+</td>
+
+<td>R.L.B.S.</td>
+
+<td>R.L.(mB+1).1</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> SID 判別テーブルで、文字 R、L、B、および S は、SID のリリース、レベル、ブランチ、およびシーケンスの各コンポーネントです。 文字 <em>m</em> は最大を表します。</div>
+        </div>
+      </div></div>
+<p><sup>1</sup> <strong>-d</strong> (デフォルト SID) フラグがファイルに存在しない場合にのみ適用されます ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/admin.html" target="_blank" rel="noopener noreferrer"><strong>admin</strong></a> コマンドを参照)。</p>
+ <p><sup>2</sup>
+mR は既存の最新のリリースを示します。</p>
+ <p><sup>3</sup>
+新しいリリース内で最初のデルタが強制的に作成されます。</p>
+ <p><sup>4</sup>
+hR は、指定された、存在しないリリース R よりも前の既存の最新リリースです。</p>
+ <p><strong>識別キーワード</strong></p>
+ <p>識別情報は、発生時に識別キーワードがその値に置き換えられることによって、SCCS ファイルから取り出されたテキストに挿入されます。 SCCS ファイルに格納されたテキストには、次のキーワードを使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>キーワード</div></th>
+
+<th><div>値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>%M% (%M%)</strong></td>
+
+<td>モジュール名: ファイル内の <strong>m</strong> フラグの値、または <strong>が指定されている SCCS ファイルの名前 (指定されていない場合)。</strong> は除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>%I% (%I%)</strong></td>
+
+<td>取り出されたテキストの SCCS 識別コード (SID) (<em>%R%.%L%</em> または <em>%R%.%L%.%B%.%S%</em>)</td>
+
+</tr>
+
+<tr>
+<td><strong>%R% (%R%)</strong></td>
+
+<td>免責。</td>
+
+</tr>
+
+<tr>
+<td><strong>%L% (%L%)</strong></td>
+
+<td>レベル。</td>
+
+</tr>
+
+<tr>
+<td><strong>%B% (%B%)</strong></td>
+
+<td>分岐</td>
+
+</tr>
+
+<tr>
+<td><strong>%S% (%S%)</strong></td>
+
+<td>順序。</td>
+
+</tr>
+
+<tr>
+<td><strong>%D% (%D%)</strong></td>
+
+<td><em>YY/MM/DD</em>形式の現在日付。</td>
+
+</tr>
+
+<tr>
+<td><strong>%H% (%H%)</strong></td>
+
+<td>現在日付。形式は <em>MM/DD/YY</em>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>%T% (%T%)</strong></td>
+
+<td><em>HH:MM: SS</em>形式の現在時刻。</td>
+
+</tr>
+
+<tr>
+<td><strong>%E% (%E%)</strong></td>
+
+<td>最新の適用デルタが作成された <em>YY/MM/DD</em> フォーマットの日付</td>
+
+</tr>
+
+<tr>
+<td><strong>%G% (%G%)</strong></td>
+
+<td>最新の適用デルタが作成された <em>MM/DD/YY</em> フォーマットの日付</td>
+
+</tr>
+
+<tr>
+<td><strong>01:51:20</strong></td>
+
+<td>最新の適用デルタが作成された <em>HH:MM:SS</em> フォーマットの時刻</td>
+
+</tr>
+
+<tr>
+<td><strong>%Y% (%Y%)</strong></td>
+
+<td>モジュール・タイプ: SCCS ファイル内の <strong>t</strong> フラグの値</td>
+
+</tr>
+
+<tr>
+<td><strong>%F% (%F%)</strong></td>
+
+<td>SCCS ファイル名</td>
+
+</tr>
+
+<tr>
+<td><strong>%P% (%P%)</strong></td>
+
+<td>SCCS の絶対パス名</td>
+
+</tr>
+
+<tr>
+<td><strong>%Q% (%Q%)</strong></td>
+
+<td>ファイル内の <strong>-q</strong> フラグの値</td>
+
+</tr>
+
+<tr>
+<td><strong>%C% (%C%)</strong></td>
+
+<td>現在行番号 . . . . . . このキーワードは、次のようなプログラムによって出力されるメッセージを識別するためのものです。this should not have happenedエラー・メッセージ <strong>%C%</strong> は、すべての行にシーケンス番号を付けるためのものではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>%Z% (%Z%)</strong></td>
+
+<td>4 文字のストリング@(#)<em>what</em> によって認識可能。</td>
+
+</tr>
+
+<tr>
+<td><strong>%W% (%W%)</strong></td>
+
+<td><em>what</em> ストリングを構成するための省略表現。%W%
+ =  %Z%%M%&lt;tab&gt;%I%</td>
+
+</tr>
+
+<tr>
+<td><strong>%A% (%A%)</strong></td>
+
+<td><em>what</em> ストリングを構成するためのもう 1 つの省略表現は、以下のとおりです。%A%
+ =  %Z%%Y%  %M%  %I%%Z%</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>作成されるデルタに新しい分岐内の SID を持たせるように指定します。 新しい SID には、SID 判別表に示された規則に従って番号が付けられます。 <strong>-b</strong> フラグは、<strong>-e</strong> フラグとのみ併用できます。 このフラグが必要なのは、リーフ・デルタ (後続オペレーションがないデルタ) から分岐するときだけです。 リーフ以外のデルタでデルタを作成しようとすると、<strong>b</strong> ヘッダー・フラグが設定されていなくても、自動的に分岐することになります。 SCCS ファイル内で <strong>b</strong> ヘッダー・フラグを指定しなければ、このファイルは分岐できないので、<strong>-b</strong> フラグは <strong>get</strong> コマンドによって無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> カットオフ</em></td>
+
+<td>カットオフの日時を <em>YY[MM[DD[HH[MM[SS]]]]]</em> のフォーマットで指定します。 <strong>get</strong> コマンドでは、g ファイル内で指定されたカットオフ後に作成された SCCS ファイルには、デルタが組み込まれません。 <em>Cutoff</em> 変数に指定されていない項目のデフォルト値は、許容最大値になります。 したがって、年 (YY) だけを使ってカットオフ日時を指定すると、その年の最後の月、日、時間、分、秒を指定したことになります。 <em>Cutoff</em> 変数の日時の項目を 2 桁ずつ区切るには、数値以外の文字を使用します。 これにより、次のようにさまざまな方法で日時を指定できます。<div> <div><div><pre><code>-c85/9/2,9:00:00
+-c"85/9/2 9:00:00"
+"-c85/9/2 9:00:00"</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>作成中の g ファイルが、<strong>get</strong> コマンドを適用するユーザーによって編集されることを示します。 変更内容は、後で <strong>delta</strong> コマンドを使って記録します。 <strong>get -e</strong> コマンドは、<strong>delta</strong> コマンドを実行するまでは、
+ほかのユーザーがさらに <strong>get -e</strong> コマンドを実行して同じ SID の第 2 の g ファイルを編集できないように、p ファイルを作成します。 ファイルの所有者は、 <strong>-fj</strong> フラグを指定した <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/admin.html" target="_blank" rel="noopener noreferrer"><strong>admin</strong></a> コマンドを使用して同じ SID を共同編集できるようにすることにより、この制限をオーバーライドできます。 許可を持つほかのユーザーは、<strong>-e</strong> フラグを付けずに <strong>get</strong> コマンドを使うことによって、読み取り専用コピーを作成できます。 <strong>get</strong><strong> -e</strong> コマンドでは、SCCS ファイル内の上限、下限、許可ユーザーのリストで指定された SCCS ファイルの保護が強制的に実行されます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/admin.html" target="_blank" rel="noopener noreferrer"><strong>admin</strong></a> コマンドを参照してください。<div><div>
+        <div>
+          <div><span>注：誤って</span> <strong>get</strong><strong> -e</strong> コマンドで作成したgファイルを誤って壊してしまった場合は、 <strong>get -k</strong> コマンドでファイルを再作成することができる。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td><strong>g ファイル</strong>が実際に作成されるのを抑止します。 <strong>-g</strong> フラグは主に、<strong>l ファイル</strong>を作成するときや、特定の SID の存在を検証したりするときに使用します。 このフラグを <strong>-e</strong> フラグと併用しないでください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> リスト</em></td>
+
+<td><strong>g ファイル</strong>の作成時に組み込まれるデルタのリストを指定します。 SID リストのフォーマットは、個々の SID をコンマで区切ったものと、2 つの SID をハイフンで区切って示される SID 範囲との組み合わせです。 次の 2 つのコマンド・ラインはいずれも同じ SID を指定します。<div> <div><div><pre><code>get -e -i1.4,1.5,1.6 s.file
+get -e -i1.4-1.6 s.file</code></pre></div><div></div></div></div>
+  <p>前述の表の「指定された SID」の欄の書式を使って、デルタの SCCS 識別コードを指定できます。 <strong>get</strong> コマンドは、部分的な SID が「取り出された SID」欄に記載されているとおりに解釈します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td><strong>g ファイル</strong>内の識別キーワードがその値に置き換えられるのを抑止します。 <strong>-k</strong> フラグは <strong>-e</strong> フラグによって暗黙指定されます。 <strong>get</strong><strong> -e</strong> コマンドを使って作成した <strong>g ファイル</strong>を誤って破壊してしまった場合は、<strong>-e</strong> フラグの代わりに <strong>-k</strong> フラグを付けて <strong>get</strong> コマンドを再実行すると、
+g ファイルを作成し直すことができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> [ <strong>p</strong> ]</td>
+
+<td>デルタの要約を l ファイルに書き込みます。 <strong>-lp</strong> を指定すると、デルタの要約は標準出力に書き出され、<strong>get</strong> コマンドによって <strong>l ファイル</strong>は作成されません。 このフラグは、現在使用中の g ファイルを作成するときにどのデルタを使ったかを判別するときに使用します。 <strong>l ファイル</strong>の形式については、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/sccsfile.html" target="_blank" rel="noopener noreferrer"><strong>sccsfile</strong></a> ファイルを参照してください。 また、<strong>-L</strong> フラグも参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>デルタの要約を標準出力に書き出します。 <strong>-L</strong> フラグの指定は、<strong>-lp</strong> フラグを使用するのと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><strong>g ファイル</strong>の各テキスト行の前に、その行を SCCS ファイルに挿入したデルタの SID を書き込みます。 フォーマットは次のとおりです。<p>SID tab line of text</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>g ファイル</strong>内の各テキスト行の前に <strong>%M%</strong> キーワードの値を書き込みます。 書式は、<strong>%M%</strong> の値の後に水平タブが付き、その後にテキスト行が続きます。 <strong>-m</strong> フラグと <strong>-n</strong> フラグの両方を使用すると、書式は次のようになります。<p>%M%
+value tab SID tab line of text</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>SCCS ファイルから作成されたテキストを標準出力に書き出しますが、g ファイルを作成しません。 <strong>-s</strong> フラグと <strong>-p</strong> フラグを共に使用しなければ、通常は標準出力に送られるすべての情報出力が、標準エラーに送られます。 この場合、通常は標準出力に送られる出力はどこにも表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> SID</em></td>
+
+<td>作成される SCCS ファイル・バージョンの SCCS 識別文字列 (SID) を指定します。 SID 判別表には、作成されるファイルのバージョンと、指定された SID の機能として保留中のデルタの SID を示してあります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>通常は標準出力に書き込まれるすべての出力を抑止します。 エラー・メッセージ (標準エラー出力に書き込まれる) は、影響を受けません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>指定されたリリース、または指定されたリリースとレベルで最も新しく作成されたデルタにアクセスします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> ストリング</em></td>
+
+<td>編集を意図していない g ファイルの <strong>%W%</strong> キーワードの代わりに <em>String</em> 値を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> リスト</em></td>
+
+<td><strong>g ファイル</strong>の作成時にデルタの指定されたリストを除外します。 SID リスト・フォーマットについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/get.html#get__row-d3e136126" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> フラグを参照してください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次の説明と例は、読み取り専用バージョンのファイルと編集可能バージョンのファイルとの違いを示しています。</p>
+ <ol>
+<li><span></span>ファイル内の現在日付と SID を印刷するには、ファイルに以下のシンボルを入れます。<div> <div><div><pre><code>%H% %I%</code></pre></div><div></div></div><strong>%H%</strong> は現在の日付を表す記号で、<strong>%I%</strong> は SID を表す記号です。 <strong>get</strong> コマンドでは、ファイルを編集可能バージョンとして取り出すと、記号をファイル内に残して、テキスト値には置き換えません。</div>
+</li>
+
+<li><span></span>以下の <strong>get</strong> コマンドの例では、ファイルのバージョンが指定されていないため、最も高い SID を持つバージョンが作成されます。<div> <div><div><pre><code>$ ls
+s.test.c
+$ get s.test.c
+3.5
+59 lines
+$ ls
+s.test.c test.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>次の2つの例では <strong>-r</strong> フラグは取得するバージョンを指定する：<div> <div><div><pre><code>$ get -r1.3 s.test.c
+1.3
+67 lines
+ 
+$ get -r1.3.1.4 s.test.c
+1.3.1.4
+50 lines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>SID のリリース番号のみを指定した場合、 <strong>get</strong> コマンドは、そのリリース番号内で最も高いレベルのファイルを検索します。<div> <div><div><pre><code>$ get -r2 s.test.c
+2.7
+21 lines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>指定された SID が既存の最大 SID より大きい場合、 <strong>get</strong> コマンドは既存の最大 SID を取得します。 指定した SID が既存の最低 SID より小さい場合は、SCCS によってエラー・メッセージが書き込まれます。 次の例では、リリース 7 が既存の最新リリースです。<div> <div><div><pre><code>$ get -r9 s.test.c
+7.6
+400 lines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>-t</strong> フラグは、指定されたリリースまたはレベルの最上位バージョンを取得します。 最上位のバージョンとは、位置に関係なく最も新しく作成されたデルタのことです。 次の例では、リリース 3 内で既存の最上位デルタは 3.5 で、最も新しく作成されたデルタは 3.2.1.5 です。<div> <div><div><pre><code>$ get -t -r3 s.test.c
+3.2.1.5
+46 lines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>前の例では、 <strong>get</strong> コマンドを使用して読み取り専用ファイルを取得します。 編集して新しいデルタの作成に使えるファイルのコピーを作成するには、<strong>get</strong> コマンドで <strong>-e</strong> フラグを使用します。 <strong>get -e</strong> コマンドの効果を取り消して、デルタを作成する前にファイルに対して行った変更内容を廃棄するには、<strong>unget</strong> を使用します。 次の例は、<strong>-e</strong> フラグの使用方法を示します。<div> <div><div><pre><code>$ ls
+s.test.c
+$ get -e s.test.c
+1.3
+new delta 1.4
+67 lines
+$ ls
+p.test.c s.test.c test.c</code></pre></div><div></div></div>作業ファイルは以下のとおりです。test.cこのファイルを編集し、 <strong>delta</strong> コマンドを使用して変更を保存すると、SCCS は次の SID を使用して新しいデルタを作成します。1.4. ファイルp.test.cファイル・バージョンを追跡するために SCCS によって使用される一時ファイルです。</div>
+  <p>前の例では、<strong>-r</strong> フラグを使って特定のバージョンを取得しました。 リリースを想定1最も高い既存のリリースとそのデルタです。1.3既に存在しており、リリース内で最も高い差分です。以下の 3 つの <strong>get</strong> コマンドの使用法は同等です。</p>
+  <div> <div><div><pre><code>$ get -e s.test.c
+$ get -e -r1 s.test.c
+$ get -e -r1.3 s.test.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>新しい (より大きい値の) リリース番号の使用を開始するには、 <strong>-r</strong> フラグを使用してファイルを取得し、既存の最も大きいリリース番号より大きいリリース番号を指定します。 次の例では、リリース 2 がまだ存在していません。<div> <div><div><pre><code>$ get -e -r2 s.test.c
+1.3
+new delta 2.1
+67 lines</code></pre></div><div></div></div><strong>delta</strong> コマンドによって SCCS ファイルに変更内容が格納される場合、<strong>get</strong> コマンドによって、作成される新しいデルタのバージョンが示されることに注目してください。</div>
+</li>
+
+<li><span></span>ブランチ・デルタを作成するには、 <strong>-r</strong> フラグを使用して、ブランチが発生するリリースとレベルを指定します。 次の例では、デルタ1.3および1.4既に存在します。<div> <div><div><pre><code>$ get -e -r1.3 s.test.c
+1.3
+new delta 1.3.1.1
+67 lines</code></pre></div><div></div></div>これと同じ方法を使って、分岐上でデルタを作成します。</div>
+  <p>ファイルを編集するには、<strong>get -e</strong> コマンドを使ってファイル・バージョンを取得し、<strong>delta</strong> コマンドを使って変更内容を保管します。 複数の異なる編集可能バージョンの SCCS ファイルを存在させることができますが、その場合は各バージョンが異なるディレクトリー内になければなりません。 <strong>delta</strong> コマンドを使用せずに (<strong>get</strong> コマンドを使って) 同じ編集可能ファイル・バージョンを同じディレクトリーに複数入れようとすると、SCCS によってエラー・メッセージが書き出されます。</p>
+  <p>同じ編集可能ファイル・バージョンを複数回取得するには、<strong>admin</strong> コマンドを使って SCCS ファイル内に <strong>j</strong> ヘッダー・フラグを設定します。 次に、<strong>-f</strong> フラグを使って <strong>j</strong> オプションを設定します。 これにより、各 <strong>get</strong> コマンドごとに別々のファイルを作成して、異なるディレクトリーから同じ SID を複数回取得できます。 各ファイルの起点は 1 つの SID ですが、SCCS によってそれぞれに固有の新しい SID が提供されます。</p>
+</li>
+
+<li><span></span>次の例では、 <strong>pwd</strong> コマンドは現行ディレクトリーを表示します。 次に、<strong>admin</strong> コマンドを使って <strong>j</strong> オプションが設定されます。<div> <div><div>
+        <div>
+          <div><span>注:</span> この例のコマンドを発行するには、両方のディレクトリーで書き込み権限が必要です。</div>
+        </div>
+      </div></div>
+</div>
+ <div> <div><div><pre><code>$ pwd
+/home/marty/sccs
+$ admin -fj s.test.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>次に、 <strong>get</strong> コマンドを使用して、ファイルの最新バージョンを取得します。<div> <div><div>
+        <div>
+          <div><span>注:</span> この例のコマンドを発行するには、両方のディレクトリーで書き込み権限が必要です。</div>
+        </div>
+      </div></div>
+</div>
+  <div> <div><div><pre><code>$ get -e s.test.c
+1.1
+new delta 1.2
+5 lines</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> /home/new ディレクトリーに移動して、 <strong>get</strong> コマンドを再度発行します。<div> <div><div>
+        <div>
+          <div><span>注:</span> この例のコマンドを発行するには、両方のディレクトリーで書き込み権限が必要です。</div>
+        </div>
+      </div></div>
+</div>
+ <div> <div><div><pre><code>$ cd /home/new
+$ get -e /home/marty/sccs/s.test.c
+1.2
+new delta 1.1.1.1
+5 lines</code></pre></div><div></div></div>SCCS は 2 つのデルタを作成することに注意してください。1.2および1.1.1.1、以下の単一のオリジナル・ファイル・バージョンから1.1. <strong>p.test.c</strong> ファイルを調べます。 このファイルは、現在使用中の各バージョンごとに個別のエントリーを表示します。 <strong>delta</strong> コマンドまたは <strong>unget</strong> コマンドを使って両方のファイル・バージョンを処理するまで、<strong>p.test.c</strong> ファイルはそのままディレクトリー内に残ります。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/get</strong></td>
+
+<td><strong>get</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

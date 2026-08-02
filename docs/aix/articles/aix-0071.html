@@ -1,0 +1,333 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>リンケージ・エディターが使う索引付きライブラリーを保守します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>ar</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27436" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27495" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27457" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27516" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27561" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27597" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27445" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27582" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27694" target="_blank" rel="noopener noreferrer"><strong>-z </strong></a>] {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27469" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27526" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27573" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27621" target="_blank" rel="noopener noreferrer"><strong>-x </strong></a>} [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27630" target="_blank" rel="noopener noreferrer"> <strong>-X </strong> {<strong>32</strong>|<strong>64</strong>|<strong>32_64</strong>|<strong>d64</strong>| <strong>any</strong>}]</a> <em>ArchiveFile</em> [ <em>File </em>... ]</p>
+<p><strong>ar</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27436" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27495" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27457" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27516" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27561" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27597" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27445" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27582" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27694" target="_blank" rel="noopener noreferrer"><strong>-z </strong></a>] {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27507" target="_blank" rel="noopener noreferrer"><strong>-m </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27544" target="_blank" rel="noopener noreferrer"><strong>-r </strong></a>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27588" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a>] } [ {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27414" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27425" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27481" target="_blank" rel="noopener noreferrer"><strong>-i </strong></a>} <em> PositionName </em> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27630" target="_blank" rel="noopener noreferrer"> <strong>-X </strong> {<strong>32</strong>|<strong>64</strong>|<strong>32_64</strong>|<strong>d64</strong>|<strong>any</strong>}]</a>   <em>ArchiveFile File</em> ...</p>
+<p><strong>ar</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27436" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27495" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27457" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27516" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27561" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27597" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27445" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27582" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27694" target="_blank" rel="noopener noreferrer"><strong>-z </strong></a>] {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27451" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27538" target="_blank" rel="noopener noreferrer"><strong>-q </strong></a>} [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27630" target="_blank" rel="noopener noreferrer"> <strong>-X </strong> {<strong>32</strong>|<strong>64</strong>|<strong>32_64</strong>|<strong>d64</strong>|<strong>any</strong>}]</a> <em>ArchiveFile</em><em> File</em> ...</p>
+<p><strong>ar</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27436" target="_blank" rel="noopener noreferrer"><strong>-c </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27495" target="_blank" rel="noopener noreferrer"><strong>-l </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27597" target="_blank" rel="noopener noreferrer"><strong>-v </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27445" target="_blank" rel="noopener noreferrer"><strong>-C </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27582" target="_blank" rel="noopener noreferrer"><strong>-T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27694" target="_blank" rel="noopener noreferrer"><strong>-z </strong></a>] {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27457" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27516" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27561" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27615" target="_blank" rel="noopener noreferrer"><strong>-w </strong></a>} [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27630" target="_blank" rel="noopener noreferrer"><strong>-X </strong> {<strong>32</strong>|<strong>64</strong>|<strong>32_64</strong>|<strong>d64</strong>|<strong>any</strong>}]</a> <em>ArchiveFile</em></p>
+</section>
+
+<section><h2>説明</h2><p><strong>ar</strong> コマンドは、リンケージ・エディターが使う索引付きライブラリーを保守します。 <strong>ar</strong> コマンドは、1 つ以上の指定されたファイルを組み合わせて、<strong>ar</strong> アーカイブ・フォーマットで書かれた単一のアーカイブ・ファイルにします。 <strong>ar</strong> コマンドは、ライブラリーを作成するときに、移送可能なフォーマットのヘッダーを作成します。また、ライブラリーを作成または更新するときには、記号テーブルを再構築します。 索引付きアーカイブと記号テーブルのフォーマットと構造については、<strong>ar</strong> ファイル・フォーマット・エントリーのセクションを参照してください。</p>
+<p><strong>ar</strong> コマンドが認識するファイル・フォーマットは 2 つあります。 ビッグ・アーカイブ・フォーマット <strong>ar_big</strong> はデフォルトのファイル・フォーマットで、32 ビットと 64 ビットの両方のオブジェクト・ファイルをサポートします。 スモール・アーカイブ・フォーマットは、<span>AIX 4.3</span>より古いバージョンで認識されるアーカイブを作成するために使用できる<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27457" target="_blank" rel="noopener noreferrer"><strong>。</strong></a> 64 ビット・オブジェクトをスモール・フォーマット・アーカイブに追加する場合は、<strong>-g</strong> を指定した場合を除き、<strong>ar</strong> コマンドはまずそれをビッグ・フォーマットに変換します。 デフォルトでは、<strong>ar</strong> は 32 ビット・オブジェクト・ファイルだけを処理します。
+アーカイブの 64 ビット・オブジェクト・ファイルは無視されます。 この動作を変更するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/ar.html#ar__row-d3e27630" target="_blank" rel="noopener noreferrer"><strong>-X (X)</strong></a> フラグを使用するか、 <strong>オブジェクト・モード</strong> 環境変数を設定します。</p>
+</section>
+
+<section><h2>フラグ</h2><p><strong>ar</strong> コマンドでは、<strong>cClosTv</strong> セットからオプションのフラグを幾つでも指定できます。 フラグ・セット <strong>dhmopqrstwx</strong> からは、フラグを 1 つ指定する必要があります。 <strong>-m</strong> または <strong>-r</strong> フラグを選択する場合は、位置決めフラグ (<strong>-a</strong>、<strong>-b</strong>、または <strong>-i</strong>) も指定できます。<strong>-a</strong>、<strong>-b</strong>、または <strong>-i</strong> フラグの場合は、<em>ArchiveFile</em> (<em>PositionName</em>) の中のファイルの名前も指定する必要があります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> PositionName</em></td>
+
+<td>指定されたファイルを、<em>PositionName</em> パラメーターに指定されている既存のファイルのあとに配置します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> PositionName</em></td>
+
+<td>指定されたファイルを、<em>PositionName</em> パラメーターに指定されている既存のファイルの前に配置します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td><em>library</em> の作成時に生成される通常メッセージを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>抽出されたファイルによってファイルシステム内の類似名のファイルが置換されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>ライブラリーから指定のファイルを削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>アーカイブのメンバーを、未使用スペースの量を最小限にして最大限のローダー効率を確保するような順序で配置します。 ほとんどすべての場合、<strong>-g</strong> フラグは、アーカイブのメンバーを、論理的にリンクされている順序に従って物理的に配置します。 その結果生成されるアーカイブは常にスモール・フォーマットで書き込まれるので、このフラグを使うことにより、ビッグ・フォーマットのアーカイブをスモール・フォーマットのアーカイブに変換することができます。 64 ビットの <strong>XCOFF</strong> オブジェクトを含むアーカイブは、スモール・フォーマットで作成したり、スモール・フォーマットに変換したりすることはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>指定のファイルのメンバー・ヘッダー内の修正時刻を、現在の日時に設定します。 ファイル名を指定しなかった場合は、<strong>ar</strong> コマンドはすべてのメンバー・ヘッダーのタイム・スタンプを設定します。 このフラグは、<strong>-z</strong> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> PositionName</em></td>
+
+<td>指定のファイルを、<em>PositionName</em> パラメーターに指定されている既存のファイルの前に配置します (<strong>-b</strong> と同じ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><strong>TMPDIR</strong> ディレクトリー (デフォルトでは、<strong>/tmp</strong>) ではなく、現行 (ローカル) ディレクトリーの中に一時ファイルを配置します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>指定のファイルをライブラリー内の別の位置に移動します。 デフォルトでは、指定のファイルをライブラリーの終わりに移動します。 他の位置を指定するには、位置決めフラグ (<strong>abi</strong>) を使います。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>アーカイブのメンバーを、未使用スペースの量を最小限にして最大限のローダー効率を確保するような順序で配置します。 ほとんどすべての場合、<strong>-o</strong> フラグは、アーカイブのメンバーを、論理的にリンクされている順序に従って物理的に配置します。 その結果生成されるアーカイブは常にビッグ・アーカイブ・フォーマットで書き込まれるので、このフラグを使うことにより、スモール・フォーマットのアーカイブをビッグ・フォーマットのアーカイブに変換することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><em>Files</em> パラメーターに指定されたファイルの内容を、標準出力に書き出します。ファイルを指定しなければ、<em>ArchiveFile</em> パラメーターに指定されているすべてのファイルの内容が書き出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>指定のファイルをライブラリーの終わりに追加します。 同じファイルを 2 回指定すれば、そのファイルをライブラリーに 2 回入れることができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>指定されたファイルが既にライブラリー内にある場合は、そのファイルを置換します。 指定されたファイルは、ライブラリー内で交換対象のファイルと同じ位置を占めるので、
+位置決めフラグを使用しても効果はありません。 <strong>-u</strong> フラグ (更新) と共に <strong>-r</strong> フラグを使用した場合は、最後にライブラリー・ファイルに追加された後で修正されたファイルだけを置換します。<p>指定されたファイルがライブラリー内にないときは、<strong>ar</strong> コマンドはそのファイルを追加します。 この場合は、位置決めフラグにより配置が変化します。 位置を指定しなければ、新しいファイルはライブラリーの終わりに追加されます。 同じファイルを 2 回指定すると、そのファイルをライブラリーに 2 回入れることができます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>ar</strong> コマンドがライブラリーの内容を修正したかどうかに関係なく、無条件にライブラリー記号テーブルを再生成させます。 このフラグは、ライブラリーに対して <strong>strip</strong> コマンドを使用した後で、ライブラリー記号テーブルを復元するために使います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>ライブラリーの内容のテーブルを標準出力に書き出します。 ファイル名を指定した場合は、指定したファイルだけが表示されます。 ファイルを指定しなければ、<strong>-t</strong> フラグはライブラリー内のすべてのファイルを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>アーカイブ・メンバー名が、ファイルシステムがサポートしている長さよりより長い場合に、ファイル名の切り捨てができるようにします。 ファイルシステムは、アーカイブ・メンバー名の最大長である 255 文字に等しい長さの名前をサポートしているので、このオプションは効力がありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>最後にコピーされた後で変更されたファイルだけをコピーします (上記の <strong>-r</strong> フラグの説明を参照)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>新しいライブラリーの作成に関して、ファイル単位の詳細な記述を標準出力に書き出します。 このフラグを <strong>-t</strong> フラグと共に使うと、<strong>ls -l</strong> コマンドの場合と同様の長形式のリストが表示されます。 <strong>-x</strong> フラグと共に使用した場合は、各ファイルの前に名前が表示されます。 <strong>-h</strong> フラグと共に使用した場合は、メンバー名と更新された修正時刻が出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>アーカイブ記号テーブルを表示します。 各記号は、記号が定義されているファイルの名前と共に出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>指定されたファイルを現行ディレクトリーにコピーすることにより、それらのファイルを抽出します。 これらのコピーは、ライブラリー内に残っているオリジナル・ファイルと同じ名前になります。 ファイルを 1 つも指定しなければ、<strong>-x</strong> フラグはライブラリー内のすべてのファイルをコピーします。 このプロセスによってライブラリーが変更されることはありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X (X)</strong><em> モード</em></td>
+
+<td><strong>ar</strong> によって検査するオブジェクト・ファイルのタイプを指定します。 <em>mode</em> は次のいずれかでなければなりません。<dl>
+<dt><strong>32</strong></dt>
+
+<dd>32 ビットのオブジェクト・ファイルのみを処理します。</dd>
+
+
+<dt><strong>64</strong></dt>
+
+<dd>64 ビットのオブジェクト・ファイルのみを処理します。</dd>
+
+
+<dt><strong>32_64</strong></dt>
+
+<dd>32 ビットと 64 ビットのオブジェクト・ファイルを処理します。</dd>
+
+
+<dt>d64</dt>
+
+<dd>不連続 64 ビット XCOFF ファイル (マジック番号 == U803XTOCMAGIC) を検査します。</dd>
+
+
+<dt>任意</dt>
+
+<dd>サポートされるオブジェクト・ファイルをすべて処理します。</dd>
+
+</dl>デフォルトでは、32 ビットのオブジェクト・ファイルを処理します (64 ビットのオブジェクトは無視します)。 <em>mode</em> は、<strong>OBJECT_MODE</strong> 環境変数を使用して設定することもできます。 例えば、<strong>OBJECT_MODE=64</strong> を指定したとすれば、<strong>ar</strong> はすべての 64 ビット・オブジェクトを処理し、32 ビット・オブジェクトは無視します。 <strong>-X</strong> フラグは <strong>OBJECT_MODE</strong> 変数をオーバーライドします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>アーカイブの一時コピーを作成し、要求されるすべての変更をコピーに対して実行します。 すべての操作が正常に完了したら、アーカイブの作業用コピーは、元のコピーの上にコピーされます。 このフラグは、<strong>-h</strong> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><em>ArchiveFile</em></td>
+
+<td>アーカイブ・ファイル名を指定します。これは必須です。</td>
+
+</tr>
+
+<tr>
+<td><em>MemberName ...</em></td>
+
+<td>個々のアーカイブ・メンバーの名前。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2><p>このコマンドは、以下の終了値を戻します。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2><ol>
+<li><span></span>ライブラリーを作成するには、次のように入力します。<div> <div><div><pre><code>ar -v -q lib.a strlen.o strcpy.o</code></pre></div><div></div></div>もしlib.aライブラリーが存在しない場合、このコマンドはライブラリーを作成し、ファイルのコピーをそのライブラリーに入力します。strlen.oおよびstrcpy.o. がlib.aライブラリーが存在している場合には, このコマンドは重複したメンバーを検査せずに新しいメンバーを終わりに追加します。 <strong>v</strong> フラグは詳細モードを設定します。このモードでは、<strong>ar</strong> コマンドは進行中に進行状況レポートを表示します。</div>
+</li>
+
+<li><span></span>ライブラリーの目次をリストするには、次のように入力します。<div> <div><div><pre><code>ar -v -t lib.a</code></pre></div><div></div></div>このコマンドは, システムの目次をリストします。lib.aライブラリを表示し、<strong>ls-l</strong>コマンドの出力に似た長いリストを表示する。 メンバー・ファイル名だけを出力するには、<strong>-v</strong> フラグを省略します。</div>
+</li>
+
+<li><span></span>ライブラリーに対して新しいメンバーを置換または追加するには、次のように入力します。<div> <div><div><pre><code>ar -v -r lib.a strlen.o strcat.o</code></pre></div><div></div></div>このコマンドは、メンバーを置き換えます。strlen.oおよびstrcat.o.lib.aは, 例 1 に示すように作成されています。strlen.oメンバーが置き換えられます。 次の名前のメンバーstrcat.oはまだ存在していないので, ライブラリーの終わりに追加されます。</div>
+</li>
+
+<li><span></span>新規メンバーを挿入する場所を指定するには、次のように入力します。<div> <div><div><pre><code>ar -v -r -b strlen.o lib.a strcmp.o</code></pre></div><div></div></div>このコマンドは以下を追加します。strcmp.oファイルの前に新しいメンバーを配置するstrlen.oメンバー。</div>
+</li>
+
+<li><span></span>メンバーが変更された場合にそのメンバーを更新するには、次のように入力します。<div> <div><div><pre><code>ar -v -r -u lib.a strcpy.o</code></pre></div><div></div></div>このコマンドは, 既存のデータを置き換えます。strcpy.oメンバー、ただしファイルの場合のみstrcpy.oが最後にライブラリーに追加されてから変更されています。</div>
+</li>
+
+<li><span></span>ライブラリー・メンバーの順序を変更するには、次のように入力します。<div> <div><div><pre><code>ar -v -m -a strcmp.o lib.a strcat.o strcpy.o</code></pre></div><div></div></div>このコマンドは、メンバーを移動します。strcat.oおよびstrcpy.o次の直後の位置にstrcmp.oメンバー。 以下の相対順序strcat.oおよびstrcpy.oメンバーは保持されます。 つまり、以下のようになります。strcpy.oメンバーの前にstrcat.o移動前のメンバーは移動しますが、それでも変わりません。</div>
+</li>
+
+<li><span></span>ライブラリー・メンバーを抽出するには、次のように入力します。<div> <div><div><pre><code>ar -v -x lib.a strcat.o strcpy.o</code></pre></div><div></div></div>このコマンドは、メンバーをコピーします。strcat.oおよびstrcpy.o名前付きの個々のファイルにstrcat.oおよびstrcpy.o、それぞれ。</div>
+</li>
+
+<li><span></span>メンバーを抽出して名前変更するには、次のように入力します。<div> <div><div><pre><code>ar -p lib.a strcpy.o &gt;stringcopy.o</code></pre></div><div></div></div>このコマンドは、メンバーをコピーします。strcpy.o名前の付いたファイルにstringcopy.o.</div>
+</li>
+
+<li><span></span>メンバーを削除するには、次のように入力します。<div> <div><div><pre><code>ar -v -d lib.a strlen.o</code></pre></div><div></div></div>このコマンドは、メンバーを削除します。strlen.oを以下から取得します。lib.aライブラリー。</div>
+</li>
+
+<li><span></span> <strong>LD</strong>コマンドを使用して作成された複数の共有モジュールからアーカイブ・ライブラリーを作成するには、次のように入力します。<div> <div><div><pre><code>ar -r -v libshr.a shrsub.o shrsub2.o shrsub3.o ...</code></pre></div><div></div></div>このコマンドは, 次の名前のアーカイブ・ライブラリーを作成します。libshr.a指定された共有モジュールからshrsub.o,shrsub2.o,shrsub3.oなどがあります。 コンパイルしてリンクするには、main使用するプログラムlibshr.aアーカイブ・ライブラリーの場合は、次のコマンドを使用します。<div><div><pre><code>cc -o main main.c -L/u/sharedlib -lshr</code></pre></div><div></div></div>このmainプログラムは現在実行可能です。 以下によって参照されるすべてのシンボルmainに含まれているプログラムlibshr.aアーカイブ・ライブラリーに据え置き解決のマークが付けられました。 <strong>-</strong> フラグは、以下のことを指定します。libshr.aライブラリーでシンボルを検索します。</div>
+</li>
+
+<li><strong>lib.a</strong> の内容を出力する (ただし 32 ビットのオブジェクト・ファイルは無視する) には、次のように入力します。<div> <div><div><pre><code>ar -X64 -t -v lib.a</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>lib.a</strong> から 32 ビットのオブジェクト・ファイルを抽出するには、次のように入力します。<div> <div><div><pre><code>ar -X32 -x lib.a</code></pre></div><div></div></div></div>
+</li>
+
+<li>32 ビット、64 ビット、さらに非オブジェクトも含めて、<strong>lib.a</strong> 内のすべてのファイルを出力するには、次のように入力します。<div> <div><div><pre><code>ar -X32_64 -t -v lib.a</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/tmp/ar*</strong></td>
+
+<td>一時ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

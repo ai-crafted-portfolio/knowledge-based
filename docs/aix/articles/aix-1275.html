@@ -1,0 +1,151 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>バックアップ・ソースからファイルを復元します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>restorevgfiles</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146767" target="_blank" rel="noopener noreferrer"><strong>-b</strong> <em>ブロック</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146782" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong> <em>装置</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146803" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146818" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146824" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146833" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong> <em>パス</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146848" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.html#restorevgfiles__row-d3e146866" target="_blank" rel="noopener noreferrer"><em>ファイル・リスト</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>restorevgfiles</strong> コマンドは、テープ、ファイル、CD-ROM、
+またはこれらのボリューム・グループ・バックアップ・ソースからファイルを復元します。 <strong>restorevgfiles
+</strong> コマンドは、複数の
+CD、DVD、USB ディスク、またはテープなどのマルチボリューム・バックアップにも作用します。</p>
+ <p><strong>restorevgfiles</strong> コマンド、または <strong>listvgbackup-r</strong>
+コマンドは、同一の操作を実行するので、交換可能であることを考慮する必要があります。 <strong>restorevgfiles</strong> コマンドは自動的に <strong>-r</strong> フラグを適用します。 <strong>-r</strong> フラグは冗長ですが、
+互換性を目的として保存され、指定した場合、
+通常にない振る舞いの原因にはなりません。 <strong>-r</strong> フラグの完全な説明は、
+<strong>listvgbackup</strong> コマンドを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong> <em>ブロック</em></td>
+
+<td><em>blocks</em> パラメーターによって定義されたように、1 回の入力操作で読み取る 512 バイト単位のブロック数を指定します。 <em>blocks</em> パラメーターが指定されない場合、読み取るブロックのデフォルト値は 100 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>デバイス</em></td>
+
+<td>バックアップ (ファイル、テープ、CD-ROM、またはその他のソース) を含むデバイスのタイプを <em>device</em> パラメーターで定義されたように指定します。 <strong>-f</strong> が指定されない場合、<em>device</em> のデフォルトは <strong>/dev/rmt0</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong>-b</strong> <em>block</em> フラグで定義されたように、テープ・バックアップの物理ブロック・サイズを検査します。 バックアップの読み取りの必要に応じて、ブロック・サイズを変更できます。 <strong>-a</strong> フラグが有効なのは、テープ・バックアップが使用された場合のみです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ACL、PCL、または拡張属性を復元しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>バックアップ・ソースがユーザー・ボリューム・グループで、<strong>rootvg</strong>
+でないことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> <em>パス</em></td>
+
+<td>ファイルが復元されるディレクトリー・パスを <em>path</em> パラメーターで定義されたように指定します。 <strong>-d</strong> パラメーターを使用しない場合には、現在の作業ディレクトリーが使用されます。 これは、現在の作業ディレクトリーが root の場合に問題となります。 root の代わりに、一時フォルダーに書き込むことをお勧めします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>デバッグ出力を生成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>ファイル・リスト</em></td>
+
+<td>復元されるファイルのリストを識別します。 現行ディレクトリーに関連するファイルの絶対パスは、
+スペースで区切ったリストに指定する必要があります。 特に指定されない限り、指定されたディレクトリー中のすべてのファイルが復元されます。 ディレクトリー中のすべてのファイルを復元する場合には、root の代わりに一時フォルダーに書き込むことをお勧めします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/dev/cd1</strong> で保存されたバックアップを読み取り、
+<strong>/data/myfiles</strong> ディレクトリーに全ファイルを保管するには、次を入力します。<div><div><pre><code>restorevgfiles -f /dev/cd1 -s -d /data/myfiles</code></pre></div><div></div></div></li>
+
+<li>一度に 20 個の 512 バイト・ブロックでデフォルト・デバイスから
+vg ユーザー・バックアップを読み取り、<strong>/myapp/app.h</strong>
+ファイルを現行ディレクトリーに復元するには、次を入力します。<div><div><pre><code>restorevgfiles -b 20 -s ./myapp/app.h</code></pre></div><div></div></div></li>
+
+<li><strong>/dev/cd1</strong> で保管されたバックアップを読み取り、
+<strong>/myapp/app.c</strong> ファイルを
+<strong>/data/testcode </strong> ディレクトリーに復元するには、次を入力します。<div><div><pre><code>restorevgfiles -f /dev/cd1 -s -d /data/testcode ./myapp/app.c</code></pre></div><div></div></div></li>
+
+<li><strong>/dev/usbms0</strong> に保存されているバックアップを読み取り、すべてのファイルを <strong>/data/myfiles</strong> ディレクトリーに復元するには、次のコマンドを入力します。<div><div><pre><code>restorevgfiles -f /dev/usbms0 -s -d /data/myfiles</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/restorevgfiles</strong></td>
+
+<td><strong>restorevgfiles</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

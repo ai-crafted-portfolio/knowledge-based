@@ -1,0 +1,827 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>アクティビティーをモニターし、ネットワークの入出力とネットワークに関連する CPU の使用量の統計情報を報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span></span><strong>NetPMON</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e8897" target="_blank" rel="noopener noreferrer"><strong>-</strong> <em>ファイル</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e8846" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e9011" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong> <em>N</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e8985" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e9004" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e9031" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] <span>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__por126_npm_459231" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <strong>パージ</strong></span>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e8909" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong> <em>ReportType</em></a> <em> ...</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e8859" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>トレース・ファイル</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e8879" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> <em>Gensyms_File (X)</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon__row-d3e9038" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> [<em>WparList</em> | <strong>すべて</strong>] ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>netpmon</strong> コマンドは、システム・イベントのトレースをモニターし、モニター時間中にネットワークのアクティビティーおよびパフォーマンスについて報告します。 デフォルトでは、<strong>netpmon</strong> コマンドはバックグラウンドで実行し、
+一方で 1 つまたは複数のアプリケーション・プログラムまたはシステム・コマンドが実行およびモニターされます。 <strong>netpmon</strong> コマンドは、リアルタイムで自動的にネットワーク関連のシステム・イベントのトレースを始動し、モニターします。 デフォルトでは、トレースは即座に開始されます。オプションでユーザーが <strong>trcon</strong> コマンドを発行してからトレースを開始するようにも設定できます。 <strong>trcstop</strong> コマンドによりトレースを停止すると、
+<strong>netpmon</strong> コマンドは指定されたレポートすべてを生成してから終了します。</p>
+ <p><strong>netpmon</strong> コマンドはオフライン・モードでも機能しますので、
+前に生成されたトレース・ファイルでも使用できます。 このモードでは、<strong>gensyms</strong> コマンドによって生成されたファイルも必要です。 gensyms ファイルは、トレースが停止した直後に、同一マシン上に生成されているはずです。 オフライン・モードで実行されている場合、<strong>netpmon</strong> コマンドは
+ソケットによって使用されるプロトコルを認識することができないため、
+これにより、ソケット報告で使用可能な詳しさのレベルが制限されます。</p>
+ <p><strong>netpmon</strong> コマンドは以下のシステム実行状況を報告します。</p>
+ <dl>
+<dt>CPU の使用状況</dt>
+
+<dd><strong>netpmon</strong> コマンドは、すべてのスレッドおよび割り込みハンドラーによる CPU の使用状況をモニターします。 また、この使用状況のうちどれくらいがネットワーク関連のアクティビティーによるものかを予測します。</dd>
+
+
+<dt>ネットワークのデバイス・ドライバーの入出力</dt>
+
+<dd><strong>netpmon</strong> コマンドは、トークンリングとファイバー分散データ・インターフェース (FDDI) のネットワーク・デバイス・ドライバーによる入出力操作をモニターします。 送信入出力の場合に、使用率、キューの長さ、および宛先ホストもモニターします。 受信 ID については、このコマンドは demux レイヤーの時間もモニターします。</dd>
+
+
+<dt>インターネット・ソケット・コール</dt>
+
+<dd><strong>netpmon</strong> コマンドは、インターネット・ソケット内の
+すべての <strong>send</strong>、<strong>recv</strong>、<strong>sendto</strong>、<strong>recvfrom</strong>、<strong>read</strong>、
+および <strong>write</strong> サブルーチンをモニターします。 以下のそれぞれのプロトコル・タイプについて、プロセス単位で統計情報を報告します。<ul>
+<li><span></span>Internet Control Message Protocol (ICMP)</li>
+
+<li><span></span>Transmission Control Protocol (TCP)</li>
+
+<li><span></span>User Datagram Protocol (UDP)</li>
+
+</ul>
+</dd>
+
+
+<dt>NFS の入出力</dt>
+
+<dd><strong>netpmon</strong> コマンドは、クライアント・ネットワーク・システム (NFS) ファイル、クライアントの NFS リモート・プロシージャー・コール (RPC) 要求、および NFS サーバーの読み取りまたは書き込み要求に関する <strong>read</strong> および <strong>write</strong>
+サブルーチンをモニターします。 このコマンドは、プロセスごと、またはオプションのスレッドごと、および、各サーバーのファイルごとにサブルーチン統計情報を報告します。 <strong>netpmon</strong> コマンドはさらにサーバーごとにクライアントの RPC
+統計情報を報告し、クライアントごとにサーバーの読み取りおよび書き込み統計情報を報告します。</dd>
+
+</dl>
+ <p>コマンド・ライン・フラグを使用して、前述のレポート・タイプを組み合わせて指定できます。 デフォルトでは、すべてのレポートが作成されます。</p>
+ <div><blockquote><span>“</span><strong>注:</strong> <span></span> <strong>netpmon</strong> コマンドによって作成されるレポートは、かなり長くなることがあります。 したがって、レポートを出力ファイルに書き込むときには常に、<strong>-o</strong> フラグを使用する必要があります。 <span></span> <strong>netpmon</strong> コマンドは、システム・トレース機能を使用してパフォーマンス・データを取得します。 トレース機能がサポートするのは、1 つの出力ストリームだけです。 したがって、一度に 1 つの <strong>netpmon</strong> プロセスまたは <strong>trace</strong>
+プロセスしか活動化できません。 別の <strong>netpmon</strong> プロセスまたは
+<strong>trace</strong> プロセスを既に実行中の場合、<strong>netpmon</strong>
+コマンドは次のメッセージで応答します。<div> <div><div><pre><code>/dev/systrace: Device busy</code></pre></div><div></div></div></div>
+  <p>かなりのネットワーク集中アプリケーションをモニターしている場合、<strong>netpmon</strong>
+コマンドはトレース・イベントをそれらがリアルタイムで作成されるのと同じ速さで使い尽くせないことがあります。 このような状況が発生すると、次のエラー・メッセージ</p>
+  <div> <div><div><pre><code>Trace kernel buffers overflowed, N missed entries</code></pre></div><div></div></div></div>
+  <p>が標準エラーで表示され、トレース・バッファーがいっぱいになった間に失われたトレース・イベントの数が示されます。 <strong>netpmon</strong> コマンドは、ネットワーク・アクティビティーのモニターを継続しますが、
+レポートの正確さはある程度損なわれます。 オーバーフローを避ける方法の 1 つは、<strong>-T</strong> フラグを使用して、トレース・バッファー・サイズを大きくして、オーバーフローの前にトレース・イベントの大規模なバーストを用意しておくことです。 オーバーフローの問題を完全に回避するための別の方法として、netpmon を
+オフライン・モードで実行することもできます。</p>
+  <p>メモリー制約環境 (メモリーの需要が供給を超えてしまう)
+で実行しているときは、<strong>-P</strong> フラグを使用して、
+リアルタイムの <strong>netpmon</strong> プロセスのテキストおよびデー
+タ・ページをメモリー内に固定できます。こうしておくと、
+それらのページがスワップアウトされることはありません。 <strong>-P</strong> フラグを使用せず、
+<strong>netpmon</strong> プロセスをスワップアウト可能にしてお
+くと、<strong>netpmon</strong> コマンドの進行が遅延して、このコマンド
+がトレース・イベントを十分なスピードで処理できず、トレース・バッファーのオーバ
+ーフローを防げません。</p>
+  <p><strong>/unix</strong> ファイルと実行中のカーネルが同じでないと、
+カーネル・アドレスが正しくないため、<strong>netpmon</strong>
+コマンドは終了します。</p>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td><strong>netpmon</strong> コマンドは始動しますが、ユーザーが <strong>trcon</strong> コマンドの実行を完了するまでトレースは遅れます。 デフォルトでは、トレースを即座に開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> トレース・ファイル</em></td>
+
+<td>稼働中のシステムの代わりに <strong>trace</strong> コマンドで作成されたファイル <em>Trace_File</em> からトレース・レコードを読み取ります。 トレース・ファイルは、最初に <strong>trcpt -r</strong> コマンドを使用して
+未加工フォーマットで書き直さなければなりません。 このフラグは <strong>-n</strong> フラグと一緒でなければ使用することができません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>「Gensyms_File」</em></td>
+
+<td><strong>gensyms</strong> コマンドによって作成されたファイル <em>Gensyms_File</em> から、必要なマッピング情報を読み取ります。 <strong>-i</strong> フラグを使用するときには、このフラグは必須です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> ファイル</em></td>
+
+<td>標準出力ではなく、指定した <em>File</em> にレポートを書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong><em> ReportType...</em></td>
+
+<td>指定したタイプのレポートを作成します。 有効なレポート・タイプは以下のとおりです。<dl>
+<dt><strong>cpu</strong></dt>
+
+<dd>CPU 使用率</dd>
+
+
+<dt><strong>dd</strong></dt>
+
+<dd>ネットワーク・デバイス・ドライバー入出力。 このレポートは、オンライン・モードのワークロード・パーティション (WPAR) 内、または「<code>-@ <em>WparList</em></code>」フラグを指定したグローバル WPAR 内では使用できません。</dd>
+
+
+<dt><strong>so</strong></dt>
+
+<dd>インターネット・ソケット・コールの入出力</dd>
+
+
+<dt><strong>NFS</strong></dt>
+
+<dd>NFS I/O (すべてのバージョン)</dd>
+
+
+<dt><strong>nfs2</strong></dt>
+
+<dd>NFS バージョン 2 I/O</dd>
+
+
+<dt><strong>nfs3</strong></dt>
+
+<dd>NFS バージョン 3 I/O</dd>
+
+
+<dt><strong>nfs4</strong></dt>
+
+<dd>NFS バージョン 4 I/O</dd>
+
+
+<dt><strong>all</strong></dt>
+
+<dd>すべてのレポートが作成されます。 これは、<strong>-@</strong> フラグを指定せずにグローバル WPAR で <strong>netpmon</strong> コマンドが実行される場合のデフォルト値です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>モニター・プロセスをメモリーに固定します。 このフラグを指定すると、
+モニター期間の間は <strong>netpmon</strong> テキストおよびデータのページがメモリー内に固定されます。 このフラグは、メモリー制約環境で実行しているときに、リアルタイムの
+<strong>netpmon</strong> プロセスがメモリー・スペースを超えて実行しないようにするときに使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r PURR (-r PURR)</strong></td>
+
+<td>パーセントと CPU 時間の計算では、TimeBase ではなく PURR 時間を使用します。 経過時間の計算には影響しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>CPU レポートをスレッドごとに表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em> n</em></td>
+
+<td>カーネルのトレース・バッファー・サイズを <em>n</em> バイトに設定します。 デフォルトのサイズは 64000 バイトです。 必要であれば、バッファー・サイズを増やして、イベントのバーストを調整できます。 (通常のイベント・レコード・サイズは 30 バイトくらいです。)<p></p><blockquote><span>“</span><strong>注:</strong> カーネルのトレース・ドライバーはダブル・バッファリングを使用します。したがって、実際には <em>n</em> バイトのサイズが割り当てられた 2 つのバッファーが存在します。 これらのバッファーはメモリー内に固定されるので、ページングに左右されることはありません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>すべての情報をレポートに表示します。 最大 20 個のアクティブ・プロセスおよびアクティブ・ファイルだけではなく、すべてのプロセスおよびアクセスされたすべてのリモート・ファイルがレポートに入ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-@</strong> [ <em>WparList</em> | <strong>すべて</strong> ]</td>
+
+<td>引数として渡された WPAR のリストにレポートを限定することを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>レポート</h2> <p><strong>netpmon</strong>
+コマンドで作成するレポートはヘッダーから始まります。ヘッダーでは、日付、マシン ID、およびモニター期間の長さ (秒単位) が識別されます。 ヘッダーの後に、指定したすべてのレポート・タイプについて 1 組の要約および詳細なレポートが続きます。</p>
+<p><strong>CPU の使用レポート</strong></p>
+ <p><strong>Process CPU Usage Statistics (プロセスの CPU 使用統計情報):</strong>
+各行にはプロセスに関連した CPU の使用状況について記述されています。 詳細オプションを指定しない限り、最大 20 個までの活動化プロセスしかリストされません。 レポートの一番下には、すべてのプロセスの CPU 使用状況が合計され、
+CPU アイドル時間が報告されます。</p>
+ <dl>
+
+<dt>Process </dt>
+
+<dd>プロセス名</dd>
+
+
+<dt>PID </dt>
+
+<dd>プロセス ID 番号</dd>
+
+
+<dt>CPU Time </dt>
+
+<dd>このプロセスで使用した CPU 時間の合計</dd>
+
+
+<dt>CPU % </dt>
+
+<dd>このプロセスに関する CPU の使用状況 (合計時間のパーセント)</dd>
+
+
+<dt>Network CPU % </dt>
+
+<dd>このプロセスがネットワーク関連コードを実行するのに費やした時間 (合計時間のパーセント)</dd>
+
+
+<dt>Thread CPU Usage Statistics </dt>
+
+<dd><strong>-t</strong> フラグを使用すると、上記の各プロセス行の直後に、そのプロセスが所有する各スレッドの
+CPU 状況を記述する行が続きます。 これらの行のフィールドは、プロセスの場合と同じですが、
+name フィールドが異なります。 (スレッドには名前が付いていません。)</dd>
+
+</dl>
+ <p><strong>第 1 レベル割り込みハンドラー使用統計情報:</strong> 各行には、第 1 レベル割り込みハンドラー (FLIH) に関連した CPU の使用状況について記述されています。 レポートの一番下には、すべての FLIH の CPU 使用状況が合計されています。</p>
+ <dl>
+<dt>FLIH </dt>
+
+<dd>第 1 レベル割り込みハンドラーの説明</dd>
+
+
+<dt>CPU Time </dt>
+
+<dd>この FLIH で使用した CPU 時間の合計</dd>
+
+
+<dt>CPU % </dt>
+
+<dd>この割り込みハンドラーに関する CPU の使用状況 (合計時間のパーセント)</dd>
+
+
+<dt>Network CPU % </dt>
+
+<dd>この割り込みハンドラーがネットワーク関連イベントを実行するのに費やした時間 (合計時間のパーセント)</dd>
+
+</dl>
+ <p><strong>2 次レベル割り込みハンドラー:</strong> 各行には、2 次レベル割り込みハンドラー (SLIH) に関連した CPU の使用状況について記述されています。 レポートの一番下には、すべての SLIH の CPU 使用状況が合計されています。</p>
+ <dl>
+<dt>SLIH </dt>
+
+<dd>2 次レベル割り込みハンドラーの説明</dd>
+
+
+<dt>CPU Time </dt>
+
+<dd>この SLIH で使用した CPU 時間の合計</dd>
+
+
+<dt>CPU % </dt>
+
+<dd>この割り込みハンドラーに関する CPU の使用状況 (合計時間のパーセント)</dd>
+
+
+<dt>Network CPU % </dt>
+
+<dd>この割り込みハンドラーがネットワーク関連イベントを実行するのに費やした時間 (合計時間のパーセント)</dd>
+
+</dl>
+<p><strong>要約ネットワーク・デバイス・ドライバー・レポート</strong></p>
+ <p><strong>ネットワーク・デバイス・ドライバー統計情報 _ デバイス別:</strong> 各行には、ネットワーク・デバイスに関連した統計情報が記述されています。</p>
+ <dl>
+<dt>Device </dt>
+
+<dd>デバイスに関連付けられたスペシャル・ファイルのパス名</dd>
+
+
+<dt>Xmit Pkts/s </dt>
+
+<dd>このデバイスによって送信される 1 秒あたりのパケット数</dd>
+
+
+<dt>Xmit Bytes/s </dt>
+
+<dd>このデバイスによって送信される 1 秒あたりのバイト数</dd>
+
+
+<dt>Xmit Util </dt>
+
+<dd>このデバイスの使用中の時間 (合計時間のパーセント)</dd>
+
+
+<dt>Xmit Qlen </dt>
+
+<dd>このデバイスで送信されるのを待機中の要求の数 (期間を通じての平均で、現在送信中のトランザクションを含む)</dd>
+
+
+<dt>Recv Pkts/s </dt>
+
+<dd>このデバイスによって受信される 1 秒あたりのパケット数</dd>
+
+
+<dt>Recv Bytes/s </dt>
+
+<dd>このデバイスによって受信される 1 秒あたりのバイト数</dd>
+
+
+<dt>Recv Demux </dt>
+
+<dd>demux レイヤーで費やした時間の合計時間に占める比率</dd>
+
+</dl>
+ <p><strong>ネットワーク・デバイス・ドライバー送信統計情報 _ 宛先別:</strong> 各行には、特定の宛先ホストに関連した送信通信量がデバイス・ドライバー・レベルで記述されます。</p>
+ <p>各ホストが同一サブネット上にある場合、その宛先ホスト名が表示されます。 各ホストが異なるサブネットにある場合、その宛先ホストは ARP プロトコルによって解決され、ブリッジ、ルーター、またはゲートウェイとなる可能性があります。</p>
+ <dl>
+<dt>Host </dt>
+
+<dd>宛先ホスト名。 * (アスタリスク) は、ホスト名が決められないときの送信に使用します。</dd>
+
+
+<dt>Pkts/s </dt>
+
+<dd>このホストによって送信される 1 秒あたりのパケット数</dd>
+
+
+<dt>Xmit Bytes/s </dt>
+
+<dd>このホストによって送信される 1 秒あたりのバイト数</dd>
+
+</dl>
+<p><strong>要約インターネット・ソケット・レポート</strong></p>
+ <ul>
+<li><em>オンライン・モード</em>: <strong>各インターネット・プロトコル
+に関するソケット・コール統計情報 _ プロセス別</strong>: 各行には、特定プロセスに関連した、
+このプロトコル・タイプのソケットにおける <strong>read/write</strong> サブルーチン・アクティビティー量が
+記載されます。 詳細オプションを指定しない限り、最大 20
+個までのプロセスしかリストされません。 レポートの一番下には、
+このプロトコルのすべてのソケット・コールが合計されています。</li>
+
+<li><em>オフライン・モード</em> : <strong>各プロセスに関する
+ソケット・コール統計情報</strong>: 各行には、特定プロセスに関連したソケットに
+おける <strong>read/write</strong> サブルーチン・アクティビティー量が記載されます。 詳細オプションを指定しない限り、最大 20
+個までのプロセスしかリストされません。 レポートの一番下には、すべてのソケット・コールが合計されています。</li>
+
+</ul>
+ <dl>
+<dt>Process </dt>
+
+<dd>プロセス名</dd>
+
+
+<dt>PID </dt>
+
+<dd>プロセス ID 番号</dd>
+
+
+<dt>Read Calls/s or Read Ops/s </dt>
+
+<dd>このタイプのソケットでこのプロセスによって作成された、1 秒当たりの <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html" target="_blank" rel="noopener noreferrer"><strong>read</strong></a> 、 <strong>recv</strong> 、および <strong>recvfrom</strong> サブルーチンの数。</dd>
+
+
+<dt>Read Bytes/s </dt>
+
+<dd>上記の呼び出しで要求される 1 秒当たりのバイト数</dd>
+
+
+<dt>Write Calls/s or Write Ops/s </dt>
+
+<dd>このタイプのソケット上で、このプロセスによって 1 秒あたりで呼び出され
+る <strong>write</strong>、<strong>send</strong>、
+および <strong>sendto</strong> サブルーチンの数。</dd>
+
+
+<dt>Write Bytes/s </dt>
+
+<dd>このプロセスによってこのプロトコル・タイプのソケットに書き込まれる秒当たりのバイト数</dd>
+
+</dl>
+<p><strong>要約 NFS レポート</strong></p>
+ <p><strong>各サーバーの NFS クライアント統計情報 _ ファイル別:</strong> 各行には、このサーバーからリモートにマウントされたファイルに関連した <strong>read</strong>/<strong>write</strong>
+サブルーチンのアクティビティー量が記述されます。 詳細オプションを指定しない限り、最大 20 個のファイルしかリストされません。 レポートの一番下には、このサーバーのすべてのファイルの呼び出しが合計されています。</p>
+ <dl>
+<dt>File </dt>
+
+<dd>単純ファイル名</dd>
+
+
+<dt>Read Calls/s or Read Ops/s </dt>
+
+<dd>このファイルに関する 1 秒あたりの <strong>read</strong> サブルーチンの数</dd>
+
+
+<dt>Read Bytes/s </dt>
+
+<dd>上記の呼び出しで要求される 1 秒当たりのバイト数</dd>
+
+
+<dt>Write Calls/s or Write Ops/s </dt>
+
+<dd>このファイルに関する 1 秒あたりの <strong>write</strong> サブルーチンの数</dd>
+
+
+<dt>Write Bytes/s </dt>
+
+<dd>このファイルに書き込まれる秒当たりのバイト数</dd>
+
+</dl>
+ <p><strong>NFS クライアント RPC 統計情報 _ サーバー別:</strong> 各行には、特定の NFS サーバーに対してこのクライアントが行う NFS リモート・プロシージャー・コールの数が記述されます。 レポートの一番下には、すべてのサーバーの呼び出しが合計されています。</p>
+ <dl>
+
+<dt>Server </dt>
+
+<dd>サーバーのホスト名。 (ホスト名が決められない RPC の呼び出しには、* (アスタリスク) を使用します。)</dd>
+
+
+<dt>Calls/s or Ops/s </dt>
+
+<dd>このサーバーに対して行われる 1 秒あたりの NFS RPC 呼び出しの数。</dd>
+
+</dl>
+ <p><strong>NFS クライアント統計情報 _ プロセス別:</strong> 各行には、特定プロセスに関連した <strong>read</strong>/<strong>write</strong>
+サブルーチンのアクティビティー量が記述されています。 詳細オプションを指定しない限り、最大 20
+個までのプロセスしかリストされません。 レポートの一番下には、すべてのプロセスの呼び出しが合計されています。</p>
+ <dl>
+
+<dt>Process </dt>
+
+<dd>プロセス名</dd>
+
+
+<dt>PID </dt>
+
+<dd>プロセス ID 番号</dd>
+
+
+<dt>Read Calls/s or Read Ops/s </dt>
+
+<dd>このプロセスで行われる 1 秒あたりの  NFS <strong>read</strong> サブルーチンの数</dd>
+
+
+<dt>Read Bytes/s </dt>
+
+<dd>上記の呼び出しで要求される 1 秒当たりのバイト数</dd>
+
+
+<dt>Write Calls/s or Write Ops/s </dt>
+
+<dd>このプロセスで行われる 1 秒あたりの  NFS <strong>write</strong> サブルーチンの数</dd>
+
+
+<dt>Write Bytes/s </dt>
+
+<dd>このプロセスによって NFS マウント・ファイルに書き込まれる 1 秒当たりのバイト数</dd>
+
+</dl>
+ <p><strong>NFS サーバー統計情報 _ クライアント別:</strong> 各行には、特定クライアントのためにこのサーバーが処理する NFS アクティビティー量が記述されています。 レポートの一番下には、すべてのクライアントの呼び出しが合計されています。</p>
+ <dl>
+<dt>Client </dt>
+
+<dd>クライアントのホスト名</dd>
+
+
+<dt>Read Calls/s or Read Ops/s </dt>
+
+<dd>このクライアントのために処理される 1 秒あたりのリモート読み取り要求の数</dd>
+
+
+<dt>Read Bytes/s </dt>
+
+<dd>このクライアントの読み取り呼び出しによって要求される 1 秒当たりのバイト数</dd>
+
+
+<dt>Write Calls/s or Write Ops/s </dt>
+
+<dd>このクライアントのために処理される 1 秒あたりのリモート書き込み要求の数</dd>
+
+
+<dt>Write Bytes/s </dt>
+
+<dd>このクライアントによって書き込まれる 1 秒当たりのバイト数</dd>
+
+
+<dt>Other Calls/s or Ops/s </dt>
+
+<dd>このクライアントのために処理される 1 秒あたりの他のリモート要求の数</dd>
+
+</dl>
+</section>
+
+<section><h2>明細レポート</h2> <p>明細レポートは、指定のレポート・タイプのいずれかで作成されます。 これらのレポート・タイプについて、ほとんどの要約レポートの代わりに明細レポートが作成されます。 明細レポートには、要約レポートのエントリーごとに 1 つのエントリーが記載され、さらにそのエントリーに関連したトランザクションのタイプごとの統計情報が記載されます。</p>
+ <p>トランザクション統計情報は、該当タイプのトランザクション数のカウントから構成され、その後に応答時間およびサイズ配布データ (適切であれば) が付けられます。 配布データは、標準偏差だけではなく、平均値、最小値、および最大値から構成されます。 値の約 3 分の 2 はaverage - standard deviationおよびaverage + standard
+deviation. サイズはバイト単位で報告されます。 応答時間はミリ秒単位で報告されます。</p>
+ <p><strong>2 次レベル割り込みハンドラー CPU 使用統計情報明細 :</strong></p>
+ <dl>
+<dt>SLIH  </dt>
+
+<dd>2 次レベル割り込みハンドラーの名前</dd>
+
+
+<dt>Count  </dt>
+
+<dd>このタイプの割り込みの数</dd>
+
+
+<dt>CPU Time (Msec) </dt>
+
+<dd>このタイプの割り込み処理のための CPU 使用量統計情報</dd>
+
+</dl>
+ <p><strong>ネットワーク・デバイス・ドライバーの詳細統計情報 _ デバイス別:</strong></p>
+ <dl>
+<dt>Device </dt>
+
+<dd>デバイスに関連付けられたスペシャル・ファイルのパス名</dd>
+
+
+<dt>Recv Packets </dt>
+
+<dd>このデバイスによって受信されたパケット数</dd>
+
+
+<dt>Recv Sizes (Bytes)</dt>
+
+<dd>受信パケットのサイズ統計情報</dd>
+
+
+<dt>Recv Times (msec)</dt>
+
+<dd>受信パケットの処理のための応答時間統計情報</dd>
+
+
+<dt>Xmit Packets </dt>
+
+<dd>このホストに送信されたパケット数</dd>
+
+
+<dt>Demux Times (msec)</dt>
+
+<dd>demux レイヤーで受信したパケットの処理に関する時間統計情報</dd>
+
+
+<dt>Xmit Sizes (Bytes)</dt>
+
+<dd>送信パケットのサイズ統計情報</dd>
+
+
+<dt>Xmit Times (Msec)</dt>
+
+<dd>送信パケットの処理のための応答時間統計情報</dd>
+
+</dl>
+ <p><strong>ネットワーク・デバイス・ドライバー統計情報明細 _ ホスト別:</strong></p>
+ <dl>
+<dt>Host </dt>
+
+<dd>宛先ホスト名</dd>
+
+
+<dt>Xmit Packets </dt>
+
+<dd>このデバイスで送信されたパケット数</dd>
+
+
+<dt>Xmit Sizes (Bytes)</dt>
+
+<dd>送信パケットのサイズ統計情報</dd>
+
+
+<dt>Xmit Times (Msec)</dt>
+
+<dd>送信パケットの処理のための応答時間統計情報</dd>
+
+</dl>
+ <p><strong>各インターネット・プロトコルでのソケット・コール統計情報明細 (プロセス別</strong>): (<em>オンライン</em>・モード) <strong>各プロセスのソケット・コール統計情報明細</strong>: (<em>オフライン</em>・モード)</p>
+ <dl>
+
+<dt>Process </dt>
+
+<dd>プロセス名</dd>
+
+
+<dt>PID </dt>
+
+<dd>プロセス ID 番号</dd>
+
+
+<dt>Reads </dt>
+
+<dd>このタイプのソケットでこのプロセスによって作成された <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/read.html" target="_blank" rel="noopener noreferrer"><strong>read</strong></a> 、 <strong>recv</strong> 、 <strong>recvfrom</strong> 、および <strong>recvmsg</strong> サブルーチンの数</dd>
+
+
+<dt>Read Sizes (Bytes)</dt>
+
+<dd><strong>read</strong> 呼び出しのサイズ統計情報</dd>
+
+
+<dt>Read Times (Msec)</dt>
+
+<dd><strong>read</strong> 呼び出しの応答時間統計情報</dd>
+
+
+<dt>Writes  </dt>
+
+<dd>このタイプのソケットでこのプロセスによって行われ
+る <strong>write</strong>、<strong>send</strong>、<strong>sendto</strong>、
+および <strong>sendmsg</strong> サブルーチンの数。</dd>
+
+
+<dt>Write Sizes (Bytes)</dt>
+
+<dd><strong>write</strong> 呼び出しのサイズ統計情報</dd>
+
+
+<dt>Write Times (Msec)</dt>
+
+<dd><strong>write</strong> 呼び出しの応答時間統計情報</dd>
+
+</dl>
+ <p><strong>各サーバーの NFS クライアント統計情報明細 _ ファイル別:</strong></p>
+ <dl>
+<dt>File </dt>
+
+<dd>ファイル・パス名</dd>
+
+
+<dt>Reads  </dt>
+
+<dd>このファイルについての NFS <strong>read</strong> サブルーチンの数</dd>
+
+
+<dt>Read Sizes (Bytes)</dt>
+
+<dd><strong>read</strong> 呼び出しのサイズ統計情報</dd>
+
+
+<dt>Read Times (Msec)</dt>
+
+<dd><strong>read</strong> 呼び出しの応答時間統計情報</dd>
+
+
+<dt>Writes </dt>
+
+<dd>このファイルについての NFS <strong>write</strong> サブルーチンの数</dd>
+
+
+<dt>Write Sizes (Bytes)</dt>
+
+<dd><strong>write</strong> 呼び出しのサイズ統計情報</dd>
+
+
+<dt>Write Times (Msec)</dt>
+
+<dd><strong>write</strong> 呼び出しの応答時間統計情報</dd>
+
+</dl>
+ <p><strong>NFS クライアント統計情報明細 _ サーバー別:</strong></p>
+ <dl>
+<dt>Server </dt>
+
+<dd>サーバーのホスト名</dd>
+
+
+<dt>Calls </dt>
+
+<dd>このサーバーに対して行われた NFS クライアントの RPC 呼び出しの数</dd>
+
+
+<dt>Call Times (Msec)</dt>
+
+<dd>RPC 呼び出しの応答時間</dd>
+
+</dl>
+ <p><strong>NFS クライアント統計情報明細 _ プロセス別:</strong></p>
+ <dl>
+<dt>Process </dt>
+
+<dd>プロセス名</dd>
+
+
+<dt>PID </dt>
+
+<dd>プロセス ID 番号</dd>
+
+
+<dt>Reads </dt>
+
+<dd>このプロセスで行われた NFS <strong>read</strong> サブルーチンの数</dd>
+
+
+<dt>Read Sizes (Bytes)</dt>
+
+<dd><strong>read</strong> 呼び出しのサイズ統計情報</dd>
+
+
+<dt>Read Times (Msec)</dt>
+
+<dd><strong>read</strong> 呼び出しの応答時間統計情報</dd>
+
+
+<dt>Writes  </dt>
+
+<dd>このプロセスで行われた NFS <strong>write</strong> サブルーチンの数</dd>
+
+
+<dt>Write Sizes (Bytes)</dt>
+
+<dd><strong>write</strong> 呼び出しのサイズ統計情報</dd>
+
+
+<dt>Write Times (Msec)</dt>
+
+<dd><strong>write</strong> 呼び出しの応答時間統計情報</dd>
+
+</dl>
+ <p><strong>NFS サーバー統計情報明細 _ クライアント別:</strong></p>
+ <dl>
+<dt>Client </dt>
+
+<dd>クライアントのホスト名</dd>
+
+
+<dt>Reads </dt>
+
+<dd>このクライアントから受信された NFS 読み取り要求の数</dd>
+
+
+<dt>Read Sizes (Bytes) </dt>
+
+<dd>読み取り要求のサイズ統計情報</dd>
+
+
+<dt>Read Times (Msec)</dt>
+
+<dd>読み取りの応答時間統計情報</dd>
+
+
+<dt>Writes  </dt>
+
+<dd>このクライアントから受信された NFS 書き込み要求の数</dd>
+
+
+<dt>Write Sizes (Bytes) </dt>
+
+<dd>書き込み要求のサイズ統計情報</dd>
+
+
+<dt>Write Times (Msec)</dt>
+
+<dd>書き込み要求の応答時間統計情報</dd>
+
+
+<dt>Other Calls </dt>
+
+<dd>このクライアントから受信された他の NFS 要求の数</dd>
+
+
+<dt>Other Times (Msec)</dt>
+
+<dd>他の要求の応答時間統計情報</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>あるアプリケーション・プログラムの実行時にネットワーク・アクティビティーをモニターし、
+すべてのレポート・タイプを生成するには、以下のように入力します。<div> <div><div><pre><code>netpmon
+&lt;run application programs and commands here&gt;
+trcstop</code></pre></div><div></div></div></div>
+  <p><strong>netpmon</strong> コマンドは、自動的にシステム・トレースを開始し、それ自体をバックグラウンドに置きます。 この時点で、アプリケーション・プログラムおよびシステム・コマンドを実行できます。 <strong>trcstop</strong>
+コマンドを発行すると、すべてのレポートが標準出力上に表示されます。</p>
+</li>
+
+<li>CPU および NFS レポート・タイプを生成し、レポートをnmon.outファイル、タイプ:<div> <div><div><pre><code>netpmon -o nmon.out -O cpu,nfs
+&lt;run application programs and commands here&gt;
+trcstop</code></pre></div><div></div></div></div>
+  <p><strong>netpmon</strong> コマンドは即座にシステム・トレースを開始します。 <strong>trcstop</strong> コマンドが発行されると、入出力アクティビティー・レポートがnmon.outを適用します。 CPU および NFS のレポートだけが生成されます。</p>
+</li>
+
+<li>すべてのレポート・タイプを生成し、詳細出力をnmon.outファイル、タイプ:<div> <div><div><pre><code>netpmon -v -o nmon.out
+&lt;run application programs and commands here&gt;
+trcstop</code></pre></div><div></div></div></div>
+  <p>多量の出力を指定すると、<strong>netpmon</strong> コマンドはトレースを開始するのに取る手順を示します。 要約レポートおよび明細レポートには、20 個のアクティビティー・ファイルおよびプロセスだけでなく、すべてファイルおよびプロセスが含まれます。</p>
+</li>
+
+<li><strong>netpmon</strong> コマンドをオフライン・モードで使用するには、
+次のように入力します。<div> <div><div><pre><code>trace -a
+run application programs and commands here
+trcoff
+gensyms &gt; gen.out
+trcstop
+netpmon -i tracefile -n gen.out -o netpmon.out</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

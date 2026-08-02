@@ -1,0 +1,127 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>1 つのファイルを複数のファイルに分割します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>ファイルを、指定した行数の複数のファイルに分割する</strong></p>
+ <p><strong>split</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/split.html#split__row-d3e43429" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em>LineCount </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/split.html#split__row-d3e43394" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>SuffixLength </em>] [ <em>ファイル </em>[ <em>Prefix </em>]]</p>
+<p><strong>ファイルを、指定したバイト数の複数のファイルに分割する</strong></p>
+ <p><strong>split</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/split.html#split__row-d3e43402" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>数値</em> [ <strong>k </strong>| <strong>m</strong> ] [ <strong>-a</strong><em> SuffixLength </em>] [ <em>File </em>[ <em>Prefix </em>]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>split</strong> コマンドは、指定されたファイルを読み取り、それを 1000 行単位で出力ファイルに書き込みます。 最初の出力ファイルの名前は、指定された接頭部 (デフォルト時は <em>x</em>) を接尾部 <em>aa</em> と組み合わせて作成され、2 番目の出力ファイルの名前は、指定された接頭部を接尾部 <em>ab</em> と組み合わせて作成されます。以降、<em>zz</em> (最大 676 ファイル) まで辞書順に同様の方法で作成されます。 接尾部の文字数およびその結果決まる出力名のファイル数は、<strong>-a</strong> フラグを使って増やすことができます。</p>
+ <p><strong>PATH_MAX</strong> -2 バイト (または <strong>-a</strong> フラグが指定されている場合は <strong>PATH_MAX</strong> - <em>SuffixLength</em> バイト) より長い <em>Prefix</em> を指定することはできません。 <strong>PATH_MAX</strong> 変数は、<strong>/usr/include/sys/limits.h</strong> ファイルに定義されているとおり、最大の長さのパス名をシステムに指定します。</p>
+ <p>入力ファイルを指定しなかったり、- (負符号 (-)) のファイル名を指定すると、<strong>split</strong> コマンドは標準入力を読み取ります。</p>
+ <p><strong>split</strong> コマンドは、すべての通常のテキストまたはバイナリー・ファイルに使用できます。 ファイルは、分割後に、<strong>cat</strong> コマンドを使用して元の形式に復元でき、ファイル・フラグメントは自動順序でリストされます。</p>
+</section>
+
+<section><h2>フラグ</h2> <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>-b</strong> フラグと <strong>-l</strong> フラグは相互に排他的です。<span>”</span></blockquote>
+<p></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> SuffixLength</em></td>
+
+<td>出力名ファイルの接尾部を構成するのに使用する文字数を指定します。 文字数により、出力ファイルの名前の組み合わせの数が決定されます。 デフォルトは 2 文字です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> 数値</em></td>
+
+<td>ファイルを <em>Number</em> 変数で指定したバイト数ずつに分割します。 <em>Number</em> 変数の最後に <em>k</em> (キロバイト) または <em>m</em> (メガバイト) の乗数を付け加えることにより、ファイルはそれぞれ <em>Number</em>*1024 バイトまたは <em>Number</em>*1,048,576 バイトに分割されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> LineCount</em></td>
+
+<td>個々の出力ファイルの行数を指定します。 デフォルトは 1000 行です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に実行されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルを 1000 行のセグメントに分割するには、次のように入力します。<div> <div><div><pre><code>split book</code></pre></div><div></div></div>この分割例book1000 行のセグメントにxaa, xab, xacなどがあります。</div>
+</li>
+
+<li><span></span>ファイルを 50 行のセグメントに分割し、ファイル名接頭部を指定するには、次のように入力します。<div> <div><div><pre><code>split -l 50 book sect</code></pre></div><div></div></div>この分割例book指定された 50 行のセグメントにsectaa,sectab,sectacなどがあります。</div>
+</li>
+
+<li><span></span>ファイルを 2KB セグメントに分割するには、次のように入力します。<div> <div><div><pre><code>split -b 2k book</code></pre></div><div></div></div>この例では、ブックを次の名前の 2 * 1024 バイト・セグメントに分割します。xaa,xab,xacなどがあります。</div>
+</li>
+
+<li><span></span>ファイルを 676 を超えるセグメントに分割するには、次のように入力します。<div> <div><div><pre><code>split -l 5 -a 3 book sect</code></pre></div><div></div></div>この例では、ブックを次の名前の 5 行セグメントに分割します。sectaaa,sectaab,sectaacなど、以下のようになります。sectzzz(最大 17,576 個のファイル)。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/split</strong></td>
+
+<td><strong>split</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

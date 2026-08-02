@@ -1,0 +1,84 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Diablo 630 印刷ファイルを PostScript 形式に変換します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ps630</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps630.html#ps630__row-d3e112485" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em>ボディフォント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps630.html#ps630__row-d3e112493" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps630.html#ps630__row-d3e112507" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>ピッチ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ps630.html#ps630__row-d3e112515" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a><em>太字フォント</em> ] [ <em>ファイル </em>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ps630</strong> コマンドは、 PostScript プリンターで印刷するために、Diablo 630 フォーマットの印刷ファイルを PostScript フォーマットに変換します。 <em>File</em> 変数を指定しないと、<strong>ps630</strong> コマンドは標準入力から読み取ります。 デフォルトでは、 PostScript ファイルは標準出力に送信されます。</p>
+ <p><strong>ps630</strong> コマンドは、<strong>-Txerox</strong> フラグで作成した <strong>nroff</strong> ファイルを変換することができます。 活字ホイールのエミュレーション情報は、オプションとして指定できます。 フ ォ ン ト 指定 （太字用 と 通常用） は PostScript フ ォ ン ト 名 （Times-Roman, Times-Bold, Courier-Bold, Courier-BoldOblique 等）。 1 インチ当たり 10、12、または 15 文字を選択することができます。</p>
+ <p>アプリケーションによっては、文字を 2 回打つことによって太字を作るものもあります。 このタイプの太字は、 PostScript フォーマットに変換されません。 適切な Diablo コマンド・シーケンス (Esc-0) を打つことによって生まれた太字効果だけが、太字文字を作ります。</p>
+ <p><strong>ps630</strong> コマンドの出力では、ページを逆にすることができません。 アプリケーションによってページ幅の調整が行われていない場合には、Times-Roman と Helvetica は狭いフォントなので、詰められて見える可能性があります。</p>
+ <p>以下の Diablo 630 コマンドは、サポートされません。</p>
+ <ul>
+<li><span></span>印刷抑止</li>
+
+<li><span></span>HY-プロット</li>
+
+<li><span></span>拡張文字セット</li>
+
+<li><span></span>プリント・ホイール情報またはプログラム・モードのダウンロード</li>
+
+<li><span></span>11 インチ以外のページの長さ</li>
+
+<li><span></span>ペーパー・フィーダー・コントロール</li>
+
+<li><span></span>ハマー・エネルギー制御</li>
+
+<li><span></span>リモート診断</li>
+
+<li><span></span>逆方向印刷制御。<p><strong>注:</strong> 反転印刷のための Diablo 630 コマンドがサポートされます。</p>
+</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>「-f」</strong><em>ボディフォント</em></td>
+
+<td>通常の印刷に使用されるフォントを設定します。 デフォルトは Courier です。</td>
+
+</tr>
+
+<tr>
+<td><strong>P-</strong><em>ファイル</em></td>
+
+<td>PostScript ファイルが、標準出力ではなく<em> File</em> パラメーターで指定されたファイルに書き込まれるようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>ピッチ</em></td>
+
+<td>印刷用タイプのサイズを選択します (太字と正規の両フォントがこのサイズにスケールされます)。 ピッチは 1 インチ当たりの文字数であり、10、12、または 15 のいずれかとします。 デフォルトは 12 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F (R)</strong><em>太字フォント</em></td>
+
+<td>太字タイプに使用されるフォントを設定します。 デフォルトは Courier-Bold です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>各国文字サポート</h2> <p>html を参照してください。</p>
+</section>
+
+</div></div>

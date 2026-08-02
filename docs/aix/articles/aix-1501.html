@@ -1,0 +1,146 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>オンラインのピア・ドメインをオフラインにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>stoprpdomain</span></span> [<span><span>-f</span></span>] [<span><span>-h]</span></span> <span>[<span><span>-w </span>[-s <span>秒</span>]</span>]</span> [<span><span>-TV</span></span>] <span><span>peer_domain</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>stoprpdomain</span></span> コマンドは、ピア・ドメイン内で現在オンラインになっているすべてのノードをオフラインにします。 ピア・ドメイン定義は、ノードから削除しません。</p>
+ <p>このコマンドは、ピア・ドメイン内でオンラインとなっているノードから実行する
+必要があります。 ピア・ドメインに対してオフラインとなっているノード上で
+このコマンドを実行すると、なにも実行されません。</p>
+<p>Cluster-Aware AIX® (CAA) クラスターが構成されている場合、CAA 環境のピア・ドメイン操作が存在し、CAA クラスターの存続期間中はオンラインであるため、アクションは実行されません。</p>
+ <p>ピア・ドメインをオフラインにする要求のサブシステムによる拒否をオーバーライドするには、 <span><span>-f</span></span> フラグを使用する必要があります。 ディスクが共有されている場合など、ピア・ドメイン・リソースが使用中
+の場合は、サブシステムが要求をリジェクトすることがあります。 この状況で <span><span>-f</span></span> フラグを指定すると、リソースの状態に関係なくピア・ドメインをオフラインにする必要があることをサブシステムに示します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-f</dt>
+
+<dd>サブシステムがそうでなければ受諾しない場合でも、サブシステムに停止要求を
+受諾するように強制します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-s</dt>
+
+<dd><strong>-s</strong> フラグを <strong>-w</strong> フラグと一緒に使用する場合に、コマンドが完了する前にピア・ドメインがオフラインになるのを待つ時間 (秒単位) を指定します。 待ち時間がその秒数を超えると、コマンドは戻りますが、オフライン操作は継続します。 デフォルト値は 300 秒 (5 分) です。 ピア・ドメインがオフラインになるまでコマンドが戻ってはならないことを指定するには 0 を使用します (待ち状態でタイムアウトなし)。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+
+<dt>-w</dt>
+
+<dd>コマンドが完了する前にピア・ドメインがオフラインになるのを待ちます。 待ち時間を秒単位で指定するには、<strong>-s</strong> フラグを使用します。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>ピア・ドメイン</span></span></dt>
+
+<dd>オフラインにするオンライン中のピア・ドメインの名前を指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>stoprpdomain</span></span> コマンドのユーザーには、ピア・ドメインに定義されている各ノード上の <span><span>IBM.PeerDomain</span></span> リソース・クラスに対する書き込み権限が必要です。 デフォルトでは、ピア・ドメイン内のすべてのノードの <span><span>root</span></span> には、構成リソース・マネージャーを介してこのリソース・クラスに対する読み取りおよび書き込みアクセス権があります。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>ピア・ドメイン定義が存在しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでオンラインのノードで実行する必要があります。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、AIX® オペレーティング・システム用の <strong>rsct.basic.rte</strong> ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準入力</h2> <p><span><span>-f
+"-"</span></span> または <span><span>-F "-"</span></span> フラグを指定すると、このコマンドは標準入力から 1 つ以上のノード名を読み取ります。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <div>これらの例では、 <span><span>nodeA</span></span> は定義されたノードの 1 つであり、 <span><span>ApplDomain</span></span>に対してオンラインです。<ol>
+<li><span><span>ApplDomain</span></span> をオフラインにするには、 <span><span>nodeA</span></span>で次のコマンドを実行します。<div><div><pre><code>stoprpdomain ApplDomain</code></pre></div><div></div></div> </li>
+
+<li>停止要求がどのサブシステムによっても拒否されないようにしながら <span><span>ApplDomain</span></span> をオフラインにするには、 <span><span>nodeA</span></span>で以下のコマンドを実行します。<div><div><pre><code>stoprpdomain -f ApplDomain</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/stoprpdomain</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

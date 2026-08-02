@@ -1,0 +1,55 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルに端末の画面のダンプをとれるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>キャプチャー</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/capture.html#capture__row-d3e66151" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> ] [ <em>File</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>capture</strong> コマンドを使用すると、ユーザーの端末に表示されている内容をすべてファイルにダンプすることができます。 画面は、<em>File</em> パラメーターで指定したファイルに出力されるか、または、ファイルを指定しない場合に <strong>screen.out</strong> ファイルに出力されます。 <strong>-a</strong> フラグを指定すると、<strong>capture</strong> コマンドは画面の内容をファイルに追加します。</p>
+ <p><strong>capture</strong> コマンドは、画面をファイルにダンプするために、VT100 端末をエミュレートするシェルを作成し、画面に表示されている内容のレコードを保守します。 作成されるシェルを決定するのは、<strong>SHELL</strong> 環境変数です。 <strong>SHELL</strong> 環境変数を設定しない場合、<strong>/usr/bin/bsh</strong> シェルがデフォルトのシェルになります。 <strong>TERM</strong> 環境変数が次のように設定されている。TERM=vt100<strong>capture</strong> コマンドの実行中に、プログラムが使用中の端末タイプを要求した場合、ユーザーは次のように入力する必要があります。vt100.</p>
+ <p>画面ダンプを実行するためのデフォルトのキー・ストロークは、
+Ctrl-P キー・シーケンスです。 このキー・ストロークを変更するには、希望する画面ダンプ・キーの 3 桁の 8 進値に <strong>SCREENDUMP</strong> 環境変数を設定します。 例えば、SCREENDUMP 環境変数を以下のように設定します。</p>
+ <div> <div><div><pre><code>SCREENDUMP=014</code></pre></div><div></div></div></div>
+ <p>これにより、画面ダンプ・キー・ストロークは Ctrl-L に変更されます。 次のように入力して、 <strong>SCREENDUMP</strong> 環境変数を設定しようとしています。^Lまたは'\014'エラー・メッセージが表示されます。</p>
+ <p>画面キャプチャー・プロセスを停止するには、Ctrl-D キー・シーケンスを使用するか、または次のように入力します。exitシステムは次のメッセージを表示します。You are NO LONGER emulating a vt100 terminal.</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>画面の内容を、指定したファイルに追加するか、または、ファイルを指定しない場合は <strong>screen.out</strong> ファイルに追加します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/capture</strong></td>
+
+<td><strong>capture</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

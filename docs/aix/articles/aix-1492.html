@@ -1,0 +1,162 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>サブシステム、サブシステム・グループ、またはサブサーバーを始動します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>サブシステムを開始する</strong></p>
+ <p><strong>開始 rc</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48011" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <em>引数</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48022" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> <em>環境</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48059" target="_blank" rel="noopener noreferrer"><strong>-h</strong> </a><em>ホスト</em>] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48102" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>サブシステム</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48048" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>グループ</em>}</p>
+<p><strong>サブサーバーを始動する</strong></p>
+ <p><strong>startsrc</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48059" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <em>ホスト</em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48117" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>タイプ</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48082" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>オブジェクト</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48094" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> <em>SubsystemPID</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>startsrc</strong> コマンドは、サブシステムまたはサブシステム・グループの始動要求、あるいはサブサーバーを始動するサブシステムにパケットを渡す要求をシステム・リソース・コントローラー (SRC) に送信します。</p>
+ <p>サブサーバーの始動要求が SRC に渡されて、そのサブサーバーが所属しているサブシステムがアクティブ状態でないと、SRC はサブシステムを始動し、サブサーバーの始動要求をサブシステムに転送します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 引数</em></td>
+
+<td>サブシステムの実行時にサブシステムに渡される引数文字列を指定します。 この文字列はコマンド・ラインから渡され、サブシステムのオブジェクト・クラスからコマンド・ラインの引数に追加されます。 指定される <em>Argument</em> 文字列は、最大 1200 文字で、これを超えるとコマンドは正しく実行されません。 コマンドの引数は、シェルが使用する規則と同じ規則に従って、SRC によってサブシステムに渡されます。 引用符付き文字列は、単一の引数として渡され、引用符付き文字列の外にあるブランクは、引数を区切ります。 引用符は単一引用符でも二重引用符でも使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> 環境</em></td>
+
+<td>サブシステムの実行時にサブシステム環境に入れられる環境文字列を指定します。 指定される <em>Environment</em> 文字列は最大 1200 文字で、これを超えるとコマンドは正しく実行されません。 シェルで使用される規則と同じ規則を使用して、SRC はサブシステムの環境をセットアップします。<p>引用符付き文字列は単一の環境変数に割り当てられ、引用符付き文字列の外にあるブランクは設定される各環境変数を区切ります。 次に例を示します。-e
+"HOME=/tmp TERM=dumb MESSAGE=\"Multiple word message\""設定されるHOME=/tmp最初のものとしてTERM=dumb2 番目のMESSAGE="Multiple word message"サブシステムの 3 番目の環境変数として使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> グループ</em></td>
+
+<td>始動されるサブシステムのグループを指定します。 <em>Group</em> 名がサブシステム・オブジェクト・クラスに含まれていないと、このコマンドは正しく実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> ホスト</em></td>
+
+<td>この始動アクションが要求される外部ホストを指定します。 ローカル・ユーザーは、"root" として実行中でなければなりません。 リモート・システムは、リモート・システム・リソース・コントローラー要求を受け入れるように構成しておく必要があります。 つまり、
+<strong>srcmstr</strong> デーモン (<strong>/etc/inittab</strong> を参照) を <strong>-r</strong> フラグで開始し、かつ、リモート要求を許可するよう <strong>/etc/hosts.equiv</strong> ファイルまたは <strong>.rhosts</strong> ファイルを構成しておく必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> オブジェクト</em></td>
+
+<td>サブサーバーのオブジェクトが文字の文字列としてサブシステムに渡されることを指定します。 <em>Object</em> 文字列の妥当性は、サブシステムが判別します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> SubsystemPID</em></td>
+
+<td>サブサーバーの始動要求が渡されるサブシステムの特定のインスタンスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> S<em>サブシステム</em></td>
+
+<td>始動されるサブシステムを指定します。 <em>Subsystem</em> には、実サブシステム名またはサブシステムの同義語名を使用できます。 <em>Subsystem</em> がサブシステムのオブジェクト・クラスに含まれていないと、このコマンドは正しく実行されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>サブサーバーが始動されることを指定します。 <em>Type</em> がサブサーバーのオブジェクト・クラスに含まれていないと、このコマンドは正しく実行されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>引数と環境変数を指定してサブシステムを始動するには、次のように入力します。<div>startsrc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48102" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48011" target="_blank" rel="noopener noreferrer">-a</a> "-D DEBUG"  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48022" target="_blank" rel="noopener noreferrer">-e</a> "TERM=dumb HOME=/tmp"</div>これにより、 srctestサブシステム"TERM=dumb","HOME=/tmp"環境内で"-D DEBUG"サブシステムに対する 2 つの引数として使用できます。</li>
+
+<li><span></span>外部ホストでサブシステム・グループを開始するには、次のように入力します。<div>startsrc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48048" target="_blank" rel="noopener noreferrer">-g</a> tcpip  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48059" target="_blank" rel="noopener noreferrer">-h</a> zork</div>これにより、サブシステム内のすべてのサブシステムが開始されます。tcpip上のグループzorkNONE:</li>
+
+<li><span></span>サブサーバーを始動するには、次のように入力します。<div>startsrc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48117" target="_blank" rel="noopener noreferrer">-t</a> tester</div>これにより、サブサーバー開始要求が、サブサーバー開始要求を所有するサブシステムに送信されます。testerサブシステム。</li>
+
+<li><span></span>コマンド引数を使用してサブシステムを始動するには、次のように入力します。<div>startsrc  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48102" target="_blank" rel="noopener noreferrer">-s</a> srctest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/startsrc.html#startsrc__row-d3e48011" target="_blank" rel="noopener noreferrer">-a</a> "-a 123 -b \"4 5 6\""</div>この場所"-a"最初の議論として"123"2 番目として"-b"3 番目として"456"4 番目の引数としてsrctestサブシステム。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/SRCsubsys</strong></td>
+
+<td>SRC サブシステム構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/SRCsubsvr</strong></td>
+
+<td>SRC サブサーバー構成オブジェクト・クラスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/services</strong></td>
+
+<td>インターネット・サービスに使われるソケットとプロトコルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/SRC</strong></td>
+
+<td><strong>AF_UNIX</strong> ソケット・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/.SRC-unix</strong></td>
+
+<td>一時ソケット・ファイルの位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

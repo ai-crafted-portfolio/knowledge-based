@@ -1,0 +1,96 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>デバイス用のソフトウェア・サポートをインストールします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>devinstall</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/devinstall.html#devinstall__row-d3e22773" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>ファイル </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/devinstall.html#devinstall__row-d3e22787" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em>デバイス</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/devinstall.html#devinstall__row-d3e22807" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/devinstall.html#devinstall__row-d3e22816" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>devinstall</strong> コマンドは、デバイス用のソフトウェア・サポートをインストールします。 <span><span>-f</span></span> フラグで指定されたファイルにリストされているソフトウェア・パッケージをインストールします。</p>
+ <p>初期ソフトウェア・インストール後に追加するほとんどの新しいデバイスの場合、新しいデバイスに必要なソフトウェアは、<strong>cfgmgr</strong> コマンドの <strong>-i</strong> フラグを使用してインストールできます。</p>
+ <p>マシンの始動に必要なデバイスを新しいデバイスで置き換えることがあります。 例えば、ルート・ボリューム・グループをサポートする SCSI アダプター・カード、またはコンソールをサポートするグラフィックス・アダプター・カードに換えることがあります。 この場合、この新しいデバイスに必要なソフトウェア・サポートをインストールするまで、マシンは通常モードで始動しません。 マシンを始動するには、システムの電源を切り、ハードウェアに添付されている指示に従って新しいハードウェアをインストールします。 次に、マシンを保守モードで始動します。 始動プロセス中に、新しいアダプターが検出され、
+<strong>/tmp/device.pkgs</strong> ファイルが作成されます。このファイルには、新しいハードウェアのサポートに必要なソフトウェア・パッケージの名前が書き込まれます。 一度マシンを保守モードにすれば、<strong>devinstall</strong> コマンドを実行して新しいデバイスに必要なソフトウェアをインストールできます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>インストールするパッケージのリストが入っているファイルを指定します。 一般に、これは <strong>cfgmgr</strong> コマンドによって生成される <strong>/tmp/device.pkgs</strong> ファイルです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>インストール・メディアがある場所を指定します。 ここでは、テープやディスケットなどのハードウェア・デバイス、インストール・イメージが入っているディレクトリー、
+またはインストール・イメージそのものを指定することができます。 インストール・メディアが<span>IBM</span>Installationテープまたは<span>IBM</span>Corrective Serviceテープの場合、テープ・デバイスはno-rewind-on-closeおよびno-retension-on-openとして指定する必要があります。 高密度テープの場合は <strong>/dev/rmt0.1</strong>、
+または低密度テープの場合は <strong>/dev/rmt0.5</strong> がこの例です。 <span>IBM</span>提供のテープ以外の場合は、テープ提供者によって指定されたオプションを使用してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><strong>/var/adm/dev_pkg.fail</strong> ファイルを上書きします。 このファイルには、正常にインストールされなかったすべてのパッケージのリストが入っています。
+このリストを使用すると、異なるソースからのリカバリーまたはインストールが容易になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細オプションを指定します。このオプションにより、<strong>devinstall</strong> コマンドは処理中に詳細情報を表示するようになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>devinstall</strong> コマンドは、コマンド・ラインで指定したファイルに示されているデバイス・パッケージをインストールします。 また、このコマンドは、<strong>-I</strong> "acXge <strong>/var/adm/ras/devinst.log</strong>" を指定すると、
+<strong>geninstall</strong> コマンドを実行します。
+ここで、a (apply)、c (commit)、X (extend fs)、g (auto_include)、e (log) はフラグを表し、
+<strong>/var/adm/ras/devinst.log </strong> は、ログ・ファイルの絶対パス名です。 (これらのフラグの詳細については、<strong>geninstall</strong> コマンドのセクションを参照してください。) <strong>devinstall</strong> コマンドは、<strong>geninstall</strong> コマンドによって生成された要約ファイルを調べて、
+各パッケージのインストール試行の結果を検査し、この情報に基づいて 2 つのファイルを作成します。 <strong>/var/adm/dev_pkg.fail</strong> ファイルには、インストールできなかったパッケージ (ある場合) が記録されます。 <span><span>/var/adm/dev_pkg.success</span></span> ファイルには、正常にインストールされたすべてのパッケージがリストされます。</p>
+</section>
+
+<section><h2>戻り値</h2> <p>戻り値 0 は、パッケージが 1 つもインストールされなかったことを示します。</p>
+ <p>戻り値 1 は、パッケージが少なくとも 1 つは正常にインストールされたことと、<strong>bosboot</strong> コマンドを実行されることを示します。</p>
+ <p>戻り値 2 は、 <span><span>devinstall</span></span> コマンドが失敗したことを示します。</p>
+ <p><span><span>/var/adm/dev_pkg.success</span></span> ファイルには、正常にインストールされたパッケージがリストされます。 <strong>/var/adm/dev_pkg.fail</strong> ファイルには、インストールに失敗したパッケージが記録されます。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>特権制御 : このコマンドを実行できるのは、root ユーザーだけです。</p>
+</section>
+
+<section><h2>例</h2> <p>ソフトウェアをインストールして、マシンをデバイス・インストール・テープから始動させ、保守モードにした後で、新しいデバイスをサポートするには、次のように入力します。</p>
+ <div> <div><div><pre><code>devinstall -f /../tmp/device.pkgs -d /dev/rmt0.1</code></pre></div><div></div></div></div>
+ <p>次に、<strong>bosboot</strong> コマンドを実行します。</p>
+ <div> <div><div><pre><code>bosboot -ad /dev/ipldevice</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/dev/rmtn</strong></td>
+
+<td>ロー・ストリーミング・テープ・インターフェースを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,127 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたパケット・トレース・ファイルからパケット・トレース・レポートを生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/ipreport</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27740" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27770" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27758" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27776" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ]。 <em>LogFile</em></p>
+ <p><strong>/usr/sbin/ipreport</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27734" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27740" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27758" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27770" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27776" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27782" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27797" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27804" target="_blank" rel="noopener noreferrer"><strong>-x (X)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27822" target="_blank" rel="noopener noreferrer"><strong>-1</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27764" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27788" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27725" target="_blank" rel="noopener noreferrer"><strong>-c カウント</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27746" target="_blank" rel="noopener noreferrer"><strong>-j pktnum</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/ipreport.html#ipreport__row-d3e27810" target="_blank" rel="noopener noreferrer"><strong>-X バイト</strong></a> ] <em>トレース・ファイル</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/ipreport</strong> コマンドは、<strong>iptrace</strong> コマンドが生成した、指定されたトレース・ファイルからトレース・レポートを生成します。 <em>LogFile</em> パラメーターには、インターネット・プロトコルのトレースの結果が入っているファイルの名前を指定します。 このファイルは <strong>iptrace</strong> コマンドによって作成されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong> <em>カウント</em></td>
+
+<td>パケットの数を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>チェックサムを検証します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>EBCDIC フォーマットでトレース・レポートを生成します。 デフォルトのフォーマットは ASCII です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-j (J)</strong> <em>パッケージ番号</em></td>
+
+<td><em>pktnum</em> 変数によって指定されたパケット番号にジャンプします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>異なる出力フォーマットの比較を容易にするためのパケット番号が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>名前を解決しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>リモート・プロシージャー・コール (RPC) パケットをデコードします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>パケットのすべての行の先頭部分に対してプロトコル指定を書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>スニファー上に入力ファイルを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>入力ファイルを <strong>tcpdump</strong> 形式で表します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>パケットを 16 進形式で出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X (X)</strong> <em>バイト数</em></td>
+
+<td>16 進ダンプを <em>bytes</em> 変数によって決定された値に制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-1</strong></td>
+
+<td>AIX® バージョン 3.1 オペレーティング・システムで生成される互換性トレースを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

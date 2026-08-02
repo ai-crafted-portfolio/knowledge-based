@@ -1,0 +1,120 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>JFS2 ファイルシステムのスナップショットを作成するためのインターフェースを提供し、そのスナップショットのバックアップを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <div><div><pre><code>backsnap [ -R ] { -m MountPoint -s size=Size | -n snapshotName } [ BackupOptions ] FileSystem</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p>JFS2 ファイルシステムのスナップショットを作成するためのインターフェースを提供し、そのスナップショットのバックアップを実行します。 <span><span>restore</span></span> コマンドを使用して、バックアップを取得できます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-m</strong> <em>MountPoint</em></td>
+
+<td>作成された外部スナップショットがマウントされる場所のパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>このコマンドによって作成されたスナップショットを、バックアップの完了時に除去することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <strong>size</strong>=<em>サイズ</em></td>
+
+<td>外部スナップショット用の新規論理ボリュームを作成するために、サイズを指定します。<p><em>Size</em> 属性の値の後に文字 M が続く場合、その値はメガバイト単位の値とみなされます。 この値の後に文字 G が続く場合、その値はギガバイト単位の値とみなされます。 この値の後に文字 T が続く場合、その値はテラバイト単位の値とみなされます。 この値の後に文字 P が続く場合、その値はペタバイトとして扱われます。 それ以外の場合、この値は 512 バイト・ブロック単位の値とみなされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>snapshotName</em></td>
+
+<td>作成する内部スナップショットの名前を指定します。 内部スナップショットを使用するには、
+JFS2 ファイルシステムが使用可能である必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>BackupOptions</em></td>
+
+<td>スナップショットのバックアップの実行時には、他のすべてのオプションは <strong>backup</strong> コマンドに渡されます。 少なくとも、必要なバックアップのタイプだけは必ず指定しなければなりません。<p>名前で指定するバックアップの場合は、そのバックアップに使用するデバイスと一緒に <strong>-i</strong> オプションも指定しなければなりません。</p>
+ <p>i ノードで指定する<strong>バックアップ</strong>の場合は、そのバックアップに使用するデバイスと一緒にレベル・オプション -[0-9] も指定しなければなりません。</p>
+ <p><span><span>restore</span></span> コマンドを使用して、バックアップを取得します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>FileSystem</em></td>
+
+<td>そのスナップショットを作成し、バックアップをとる JFS2 ファイルシステムを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/home/janet/sb</strong> ファイルシステムのスナップショットを作成し、それを名前で指定してバックアップするには、次のように入力します。<div><div><pre><code> backsnap -m /tmp/snapshot/janetsb -s size=16M -i -f/dev/rmt0 /home/janet/sb </code></pre></div><div></div></div>このコマンドは、サイズが 16 メガバイトの論理ボリュームを作成してから、その新規作成した論理ボリューム上に <strong>/home/janet/sb</strong> ファイルシステムのスナップショットを作成します。 次に、そのスナップショットを <strong>/tmp/snapshot/janetsb</strong> にマウントし、そのファイルシステム内のファイルおよびディレクトリーを名前で指定して <strong>/dev/rmt0</strong> デバイスにバックアップします。</li>
+
+<li><span><span>/home/janet/sb</span></span> ファイル・システムのスナップショットを作成し、そのスナップショットに対して i ノードごとにバックアップを実行するには、次のように入力します。<div><div><pre><code> backsnap -R -m /tmp/snapshot/janetsb -s size=16M -0 -f /dev/rmt0 /home/janet/sb </code></pre></div><div></div></div>このコマンドは、サイズが 16 メガバイトの論理ボリュームを作成してから、その新規作成した論理ボリューム上に <strong>/home/janet/sb</strong> ファイルシステムのスナップショットを作成します。 次に、そのスナップショットを <strong>/tmp/snapshot/janetsb</strong> にマウントし、そのスナップショット内のデータを i ノードで指定して <strong>/dev/rmt0</strong> デバイスにバックアップします。 バックアップが完了すると、そのスナップショットは削除されます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/backsnap</strong></td>
+
+<td><strong>backsnap</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

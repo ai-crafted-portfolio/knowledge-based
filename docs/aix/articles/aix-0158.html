@@ -1,0 +1,130 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>Cisco Discovery Protocol (CDP) を使用して着信データ・パケットまたはメッセージを受信する <span>cdpd</span> デーモンを制御し、物理的に接続された Cisco デバイスを発見します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>cdpctl subcommand device_name</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<div>CDP は、メディアやネットワークから独立した層 2 (データ・リンク層) プロトコルです。 CDP は、デバイスに直接接続されている他の Cisco デバイスを発見するために Cisco デバイスで実行されるネットワーキング・アプリケーションで使用されます。 <span>7200-05 AIX7</span>の 以降、CDP 機能は、CDP を使用して受信データ・パケットまたはメッセージを受信する 「<span>cdpd</span>デーモンを使用して、AIX®論理パーティションに実装されます。 次のコマンドを実行すると、System Resource Controller (SRC) サブシステムは <span>cdpd</span> デーモンを開始します。<div><div><pre><code>startsrc -s cdpd</code></pre></div><div></div></div><span>cdpctl</span> コマンドは、物理的に接続された Cisco デバイスに関する情報を含む CDP を使用して着信データ・パケットまたはメッセージを受信するように AIX 論理区画上のネットワーク・インターフェースを構成することにより、 <span>cdpd</span> デーモンを制御します。 <span>cdpctl</span> コマンドはまた、接続された Cisco デバイスからブロードキャストされたデータ・パケットまたはメッセージを検出することによって、物理的に接続された Cisco デバイスと、関連する構成設定を発見します。<div><div>
+        <div>
+          <div><span>注:</span> CDP 機能は、CDP メッセージを受信し、物理的に接続されたデバイスのみをディスカバーするために、 AIX オペレーティング・システムに実装されています。 CDP データ・パケットは、Cisco デバイスに接続された物理インターフェースでのみ受信でき、仮想インターフェースでは受信できません。</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+<section><h2>サブコマンド</h2>
+
+<dl>
+
+<dt>リスト</dt>
+
+<dd>AIX 論理区画上の CDP 対応ネットワーク・インターフェースのリストを表示します。 CDP 対応のネットワーク・インターフェースとは、CDP を使用して着信データ・パケットまたはメッセージを受信するようにネットワーク・インターフェースを構成可能であることを意味します。</dd>
+
+<dd>構文: <code>cdpctl list</code></dd>
+
+
+
+<dt>追加</dt>
+
+<dd>CDP 対応の Cisco デバイスまたはネットワーク・インターフェースを AIX 論理区画に追加します。</dd>
+
+<dd>構文: <code>cdpctl add device_name</code></dd>
+
+
+
+<dt>show portlist</dt>
+
+<dd>CDP を使用して着信データ・パケットまたはメッセージを受信するように構成されたネットワーク・インターフェースのリストを表示します。</dd>
+
+<dd>構文: <code>cdpctl show portlist</code></dd>
+
+
+
+<dt>show port</dt>
+
+<dd>構成済み CDP 対応ネットワーク・インターフェースで受信された CDP 情報 (スイッチ機能やルーター機能など) を表示します。</dd>
+
+<dd>構文: <code>cdpctl show port device_name</code></dd>
+
+
+
+<dt>remove</dt>
+
+<dd>構成済みネットワーク・インターフェースが、接続された Cisco デバイスから CDP を使用して着信データ・パケットもメッセージも受信できなくなるよう、そのネットワーク・インターフェースを削除します。</dd>
+
+<dd>構文: <code>cdpctl remove device_name</code></dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ul>
+<li><span>cdpctl</span> コマンドの使用方法を表示するには、次のコマンドを入力します。<div><div><pre><code>cdpctl</code></pre></div><div></div></div></li>
+
+<li>AIX 論理区画内のすべての CDP 対応デバイスおよびネットワーク・インターフェースをリストするには、次のコマンドを入力します。<div><div><pre><code>cdpctl list</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<pre><code>CDP capturable devices on the system:
+en0
+en2</code></pre>
+</li>
+
+<li>CDP を使用して物理的に接続された Cisco デバイスから着信データ・パケットまたはメッセージを受信できるネットワーク・インターフェースを AIX 論理区画に追加するには、次のコマンドを入力します。<div><div><pre><code>cdpctl add en0</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<pre><code>Successfully added port en0
+Waiting for CDP advertise (default 60 seconds)......
+
+Device ID                  : sw-yyyyyycisco92300.xxx.xxxx.xxx.com(XXXXXXXKQ)
+Address                    : 9.x.y.z
+Port ID                    : Ethernet1/49
+Capabilities
+                           : Router Level 3
+                           : Level 2 Switch
+                           : IGMP snooping
+Cisco switch OS Version    : Cisco Nexus Operating System (NX-OS) Software, Version 9.2(3)
+Platform                   : N9K-C92300YC
+Native VLAN ID             : 1
+Trusted Bitmap             : N/A
+AVVID untrusted ports      : N/A
+Duplex                     : Full
+MTU                        : 1500
+System Name                : sw-xxxxxx92300
+System Object ID           : N/A
+Management Addresses       : 9.x.y.z</code></pre>
+</li>
+
+<li>CDP を使用してデータ・パケットとメッセージを受信するように構成された AIX 論理区画上のネットワーク・インターフェースをリストするには、次のコマンドを入力します。<div><div><pre><code>cdpctl show portlist</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<pre><code>en0
+en1</code></pre>
+</li>
+
+</ul>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<dl>
+
+<dt><span>/usr/sbin/cdpd</span></dt>
+
+<dd><span>cdpd</span> デーモンが入っています。</dd>
+
+
+
+<dt><span>/usr/sbin/cdpctl</span></dt>
+
+<dd><span>cdpctl</span> コマンドが入っています。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

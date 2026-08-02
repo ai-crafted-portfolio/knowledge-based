@@ -1,0 +1,120 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・トレース・パラメーターの変更と表示を行います。</p>
+</section>
+
+<section><h2>構文</h2>
+
+<p><span><span>trcctl</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115606" target="_blank" rel="noopener noreferrer"><span><span>-d</span></span></a> <span><span>ディレクトリ</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115618" target="_blank" rel="noopener noreferrer"><span><span>-l</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115624" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span></a> <span><span>LogfileSize</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115636" target="_blank" rel="noopener noreferrer"><span><span>-M</span></span></a> <span><span>LMT_log_dir</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115648" target="_blank" rel="noopener noreferrer"><span><span>-N</span></span></a> <span><span>NonrootUserBufferMax</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115657" target="_blank" rel="noopener noreferrer"><span><span>-o</span></span></a> <span><span>ログファイル</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__smallr" target="_blank" rel="noopener noreferrer"><span><span>-r</span></span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__row-d3e115675" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> <span><span>BufferSize</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__bigR" target="_blank" rel="noopener noreferrer"><span><span>-R</span></span></a> <span><span>無効にする</span></span>|<span><span>イネーブル</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcctl.html#trcctl__bigS" target="_blank" rel="noopener noreferrer"> <span><span>-S</span></span></a> <span><span>無効にする</span></span>|<span><span>イネーブル</span></span>]</p>
+
+</section>
+
+<section><h2>説明</h2> <div><span><span>trcctl</span></span> コマンドは、システム・トレースのデフォルト・パラメーターを表示または変更します。 <span><span>-l</span></span> オプションが指定されている (またはパラメーターが指定されていない) 場合、 <span><span>trcctl</span></span> は以下のように値を表示します。<div><div><pre><code>Default Buffer Size: 131072 
+Default Log File Size: 1310720 
+Default Log File: /var/adm/ras/trcfile 
+Non-root User Buffer Size Maximum: 1048576
+Default Components Directory File: /var/adm/ras/trc_ct
+Default LMT Log Dir: /var/adm/ras/mtrcdir
+Restrict non-privileged users from using trace Channel-0:  enable
+Restrict non-privileged users from using trcrpt Channel-0: enable </code></pre></div><div></div></div>デフォルトのバッファー・サイズとログ・ファイル・サイズは、最初はカーネルによって異なることに注意してください。 ただし、このコマンドを使用した後は、両方のカーネルに同じ値が有効になります。 他のパラメーターを使用すると、これらのデフォルト値を変更できます。 デフォルト値を変更するためには、ユーザーはシステム・グループのメンバーでなければなりません。 <span><span>trcctl</span></span> で使用されるフラグの多くは、 <span><span>trace</span></span> デーモンで使用されるフラグに対応しています。</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-d</span></span> <span><span>ディレクトリー</span></span></td>
+
+<td>デフォルトのコンポーネント・トレース・ログのディレクトリー・パスを指定します。 デフォルト値は <span><span>/var/adm/ras/trc_ct</span></span>です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-l</span></span></td>
+
+<td>現行値をリストします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-L</span></span> <span><span>値</span></span></td>
+
+<td>デフォルトのログ・ファイル・サイズを指定します。 元のデフォルト値は、32 ビット・カーネルの場合は 1310720 バイト、64 ビット・カーネルの場合は 2621440 バイトです。 <span><span>-L</span></span>とともに指定した場合、デフォルトは両方のカーネルに適用されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-M</span></span><span><span> LMT_log_dir</span></span></td>
+
+<td>デフォルトの単純なメモリー・トレース・ログのディレクトリー・パスを指定します。 デフォルト値は <span><span>/var/adm/ras/mtrcdir</span></span>です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-N</span></span> <span><span>値</span></span></td>
+
+<td>最大バッファー・サイズを指定します。root 以外のユーザーも指定できます。 デフォルトは 1 MB (1048576 バイト) です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-o</span></span> <span><span>パス</span></span></td>
+
+<td>デフォルトのログ・ファイル・パスを指定します。 デフォルト値は <span><span>/var/adm/ras/trcfile</span></span>です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-R</span></span> <span><span>無効にする</span> </span> | <span><span>イネーブル</span></span></td>
+
+<td>チャネル 0 の <strong>trace</strong> 機能を特権ユーザーのみに制限します。 <span><span>-R</span></span> オプションを使用不可にすると、すべてのユーザーがチャネル 0 の <strong>トレース</strong> 機能を使用できるようになります。 デフォルト値は <span><span>enable</span></span>です。 詳しくは、以下を参照してください。Security<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trcrpt.html" target="_blank" rel="noopener noreferrer"><span>trcrpt</span></a> コマンドのセクションを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-S </span></span><span><span>無効にする</span> </span>| <span><span>イネーブル</span></span></td>
+
+<td>チャネル 0 の <strong>trcrpt</strong> 機能を特権ユーザーのみに制限します。 <span><span>-S</span></span> オプションを使用不可にすると、すべてのユーザーがチャネル 0 の <strong>trcrpt</strong> 機能を使用できるようになります。 デフォルト値は <span><span>enable</span></span>です。 詳しくは、以下を参照してください。Security<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/trace.html" target="_blank" rel="noopener noreferrer"><span>trace</span></a> コマンドのセクション</td>
+
+</tr>
+
+<tr>
+<td><span><span>-r</span></span></td>
+
+<td>元のデフォルト値に復元します。</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td> </td>
+
+</tr>
+
+<tr>
+<td><span><span>-T</span></span> <span><span>値</span></span></td>
+
+<td>デフォルトのトレース・バッファー・サイズを指定します。 元のデフォルト値は、32 ビットまたは 64 ビット・カーネルの場合 128 KB および 256 KB です。 <span><span>-T</span></span>とともに指定した場合、デフォルトは両方のカーネルに適用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div><span><span>-N</span></span>、 <span><span>-L</span></span>、および <span><span>-T</span></span> オプションのパラメーターとして「k」、「m」、または「#k」、「#m」を使用すると、 <span><span>trcctl</span></span> はこれらをそれぞれのバイト合計に変換します。<ul>
+<li>k = 1024</li>
+
+<li>m = 1048576</li>
+
+</ul>「k」または「m」のみを使用すると、 <span><span>trcctl</span></span> は、それぞれ 1 キロバイトまたは 1 メガバイトを意味すると想定します。 root ユーザーは次のようにコマンドを実行できます。<div><div><pre><code>trcctl -L 10m -N m -T 256k</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーはシステム・グループのメンバーでなければなりません。</p>
+</section>
+
+</div></div>

@@ -1,0 +1,80 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>X Window System 環境で使用される簡単なダイアログを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dtscript</strong> [<strong>-xrm</strong><em> オプション</em>] [<strong>-dir</strong><em> Path</em>] [<strong>-file</strong><em> FileName</em>] [<strong>-workspace</strong><em> WorkspaceName</em>]</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>-xrm</strong><em> オプション</em> を使用する場合は、他のフラグの前に指定する必要があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>説明</h2> <p>デスクトップ・スクリプトでは、ユーザーがパレットからダイアログにドラッグ・アンド・ドロップする Motif ウィジェットのサブセットがサポートされます。 ダイアログ内では、どのウィジェットでも移動またはサイズ変更することができます。 また、用意された特殊エディターを使用して、ウィジェットの属性を編集することもできます。</p>
+ <p>ウィジェットに必要な動作を与えるため、コールバックを入力できます。 ダイアログが完了すると、デスクトップ・スクリプトはそのダイアログの dtksh コードを生成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-dir</strong><em> パス</em></td>
+
+<td>File Select ダイアログに表示されているデスクトップ・スクリプトの現行ディレクトリーを <em>Path</em> に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ファイル</strong><em> FileName</em></td>
+
+<td>呼び出された既存のダイアログ <em>FileName</em> をロードします。 <em>FileName</em> 引数は、絶対パス名、現行ディレクトリーを基準としたパス名、または <strong>-dir</strong> 値に関連したパス名のいずれかで指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ワークスペース</strong><em> WorkspaceName</em></td>
+
+<td>デスクトップ・スクリプトを、それに対応する CDE ワークスペースにロードします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-xrm</strong><em> オプション</em></td>
+
+<td>すべての指定 (<em>options</em>) を入力できます。このフラグを使わなければ、このような指定はリソース・ファイルに入力しなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>ウィンドウからデスクトップ・スクリプトを起動するには、次のように入力します。</p>
+ <div> <div><div><pre><code>dtscript</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/dt/bin/dtscript</strong></td>
+
+<td><strong>dtscript</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,77 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルの<strong>トラステッド・コンピューティング・ベース</strong>属性を変更または照会します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ChTCP</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtcb.html#chtcb__row-d3e111721" target="_blank" rel="noopener noreferrer"><strong>オン</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtcb.html#chtcb__row-d3e111730" target="_blank" rel="noopener noreferrer"><strong>オフ</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chtcb.html#chtcb__row-d3e111739" target="_blank" rel="noopener noreferrer"><strong>照会</strong></a> } <em>ファイル</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chtcb</strong> コマンドは、 <em>File</em> パラメーターで指定されたファイルの <strong>トラステッド・コンピューティング・ベース</strong> (TCB) 属性を変更または照会します。 有効な代替値は、次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>オン</strong></td>
+
+<td><strong>trusted computing base</strong> 属性を使用可能にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>off</strong></td>
+
+<td><strong>trusted computing base</strong> 属性を使用不可にします。</td>
+
+</tr>
+
+<tr>
+<td><strong>照会</strong></td>
+
+<td><strong>trusted computing base</strong> 属性の値を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>このコマンドは、トラステッド・パスで実行してください。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御 : このコマンドは、root ユーザーとセキュリティー・グループのメンバーに実行 (x) アクセス権限を与えます。 このコマンドには<strong>トラステッド・コンピューティング・ベース</strong>属性がなければなりません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>以下を識別します。plansトラステッド・コンピューティング・ベース (TCB) の一部としてファイルを作成するには、 <strong>トラステッド・コンピューティング・ベース</strong> 属性をon値を指定するには、次のように入力<div> <div><div><pre><code>chtcb on plans </code></pre></div><div></div></div>このplansトラステッド・パスからファイルを実行できるようになりました。</div>
+</li>
+
+<li><span></span>照会するには、以下のようにします。plansファイルがトラステッド・コンピューティング・ベース (TCB) の一部である場合は、次のように入力します。<div> <div><div><pre><code>chtcb query plans</code></pre></div><div></div></div>状況が表示されると、次のことがわかります。plansTCB 属性が <strong>on</strong> 値に設定されている場合、ファイルはトラステッド・コンピューティング・ベースの一部です。</div>
+</li>
+
+<li><span></span>削除するには、plansトラステッド・コンピューティング・ベース (TCB) からのファイルの場合は、次のように入力します。<div> <div><div><pre><code>chtcb off plans</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/chtcb</strong></td>
+
+<td><strong>chtcb</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

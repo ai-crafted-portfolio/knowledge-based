@@ -1,0 +1,116 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>キーボード・マップ・ファイルを入力メソッド・キーマップ・ファイルにコンパイルします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>鍵圧縮 &lt;</strong><em>ファイル内</em><strong> &gt;</strong><em>出力ファイル</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>keycomp</strong> コマンドは、標準入力からキーボードのテキスト形式の記述を読み取り、キーをマップするバイナリー・ファイルを標準出力に作成します。 このバイナリー・ファイルは、キー・ストロークを文字列に変換する入力メソッドで使用されます。</p>
+ <p>キーボード状態と呼ばれる <em>修飾キー</em> の組み合わせを指定することにより、文字や文字列をキーボード上のキーに<em>割り当てる</em> ことができます。あるいは、特定のキーを指定し、割り当てを解除する (何も戻さない) 組み合わせとして提示することもできます。 すべての入力キーは <em>キー・シンボル</em>で表されます。これは、 <span>AIXwindows</span> 環境でキーボード入力を表すために通常使用されるキー・シンボルを表します。</p>
+ <p>キーボード上でキーを押す場合、修飾キーを任意に組み合わせることができますが、通常、キーはより小さい状態セットにマップされます。 この状態マッピングは指定できます。</p>
+<p><strong>Keycomp ソース・ファイル</strong></p>
+ <p><strong>keycomp</strong> コマンドで使用される入力ファイル
+は 1 行または複数行から構成されます。 行の各項目はスペースで区切られます。 各行は keysym または keysym の 16 進値で開始されます。 16 進値は、 <span>AIXwindows</span> 環境でのキーボード入力を表します。 keysym に続く項目は、Ctrl、Alt、Shift、Lock、Alt Graphic の各キーの特定の組み合わせの割り当てを表します。</p>
+ <p>項目には次のいずれかを使用できます。</p>
+ <ul>
+<li>単一引用符で囲まれた文字</li>
+
+<li>二重引用符で囲まれた文字列</li>
+
+<li>他の keysym にマッピングできる keysym</li>
+
+<li>入力がアンバインド済みであることを示す <strong>U</strong></li>
+
+</ul>
+ <p>文字項目および文字列項目には、1 バイトの 16 進 (<strong>&amp;#xa5;x</strong><em>XX</em>)、8 進 (<strong>&amp;#xa5;o</strong><em>OOO</em>)、10 進 (<strong>&amp;#xa5;d</strong><em>DDD</em>) の表記を使用できます。</p>
+<p><strong>キーボード状態</strong></p>
+ <p>修飾キー (Shift、Lock、Ctrl、Alt、Alt Graphics キー) はキーボードの状態を変更します。 これらのキーは、入力 keysym に対応する行から 1 つの項目を選択するために使用されます。 各ビットが修飾キーに対応しており、ビットの組み合わせである値がキーボードの状態を示します。 修飾キーの重要度は、Shift、
+Lock、Ctrl、Alt、Alt Graphic 修飾キーの順序で高くなります。</p>
+ <p>ビットの組み合わせまたはキーボードの状態値が、行の 1 項目にマップされます。 マッピングは、以下で始まる行によって定義されます。 %Mコントロールには数値のみを含めることができます。 以下の後の最初の数値%Mcontrol は項目番号です。 この最初の数字の次に並ぶ数字はキーボードの状態を表し、これらがすべて項目に割り当てられます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/k_commands/keycomp.html#keycomp__keycompxmp" target="_blank" rel="noopener noreferrer">例</a>を参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>&lt;ファイル</strong><em>内</em></td>
+
+<td><strong>keycomp</strong> コマンドでコンパイルされるソース・ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>&gt;アウト</em><strong>ファイル</strong></td>
+
+<td>作成されるキーマップ・ファイルの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>以下は、以下の行の例です。XK_akeysym 入力:<div><div><pre><code>XK_a'a'  XK_A  XK_A  XK_a  '\x01'  U  "hello"</code></pre></div><div></div></div> <p>各項目の後に , (コンマ) を付けることができますが、これは必須ではありません。 項目の後にコンマが付いているかどうかにかかわらず、スペースまたはタブを使用して各項目を区切らなければなりません。</p>
+ <p>ブランク行および # 文字で始まる行はすべて無視されますが、制御ステートメントの行は例外と見なされて無視されません。 # が単一引用符または二重引用符で囲まれた文字列内になければ、# と次の行の間にあるテキストはすべて無視されます。 したがって、項目が 1 つしかない行末にコメントを入れることもできます。</p>
+</li>
+
+<li>次の行は、キーボード状態 Ctrl、Ctrl+Shift、および Ctrl+Shift+Lock がすべて 3 番目の項目に
+割り当てられることを示しています。<div><div><pre><code>%M 3      4 5 7</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/include/x11/keysymdef.h</strong></td>
+
+<td>標準の keysym 定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/include/x11/aix_keysym.h</strong></td>
+
+<td>固有の keysym 定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/keycomp</strong></td>
+
+<td><strong>keycomp</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/nls/loc/*.imkeymap.src</strong></td>
+
+<td>imkeymap ソースの情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/nls/loc/*.imkeymap</strong></td>
+
+<td>keysym または修飾キーを文字列にマップします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

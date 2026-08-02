@@ -1,0 +1,154 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>これは Advanced Crypto Facility (ACF) のチューナブル・パラメーターを管理します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div><div><pre><code>acfo [-d] | [-d -t tunable_name]</code></pre></div><div></div></div>
+<div><div><pre><code>acfo -R</code></pre></div><div></div></div>
+<div><div><pre><code>acfo -r tunable_name</code></pre></div><div></div></div>
+<div><div><pre><code>acfo -p [-R | -r -t tunable_name] | [-t tunable_name=value]</code></pre></div><div></div></div>
+<div><div><pre><code>acfo -t tunable_name=value</code></pre></div><div></div></div>
+<div><div><pre><code>acfo [-h] | [-h -t tunable_name]</code></pre></div><div></div></div>
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>acfo</span> コマンドは、ACF の現行チューナブル・パラメーターと永続チューナブル・パラメーターを表示または変更できます。 ACF チューナブル・パラメーターは、Public Key Cryptography Standard (PKCS) #11 によって指定されるカーネル暗号 API でネスト (NX) アクセラレーションまたはメモリー内暗号アクセラレーションを使用する必要があるかどうかを決定します。</p>
+
+<p>現在、 NX アクセラレーションおよびメモリー内暗号アクセラレーションでは、PKCS #11 サブシステムに対して Advanced Encryption Standard
+(AES) のみがサポートされています。</p>
+
+<p>NX暗号アクセラレーションは、POWER7+プロセッサーベースのサーバーでサポートされています。 インコア暗号アクセラレーションは、POWER8プロセッサー搭載サーバー以降でサポートされる。 サーバーがメモリー内暗号アクセラレーションをサポートしていない場合は、メモリー内暗号アクセラレーションはオンにできません。</p>
+
+<p>カーネル暗号 API は、暗号化ファイル・システム (EFS)、IP セキュリティー (IPSec)、論理ボリューム暗号化、カーネル・エクステンション、および AIX® PKCS #11 API オブジェクト <span>/usr/lib/pkcs11/ibm_pks11.so</span>を使用するユーザー・スペース・アプリケーションで使用されます。</p>
+
+<p><span>acfo</span> コマンドの実行時には、PKCS #11 デバイス・ドライバーがアクティブになっていなければなりません。</p>
+
+<p>永続チューナブル・パラメーター値は、リブート操作中にチューナブル・パラメーターが保持する値です。 永続チューナブル・パラメーター値は、ODM データベースに保管されます。 CFG_INIT コマンドがチューナブル・パラメーターを初期化するために実行される場合、これらの値は PKCS #11 デバイス・ドライバーによって使用されます。</p>
+
+<div><span>acfo</span> コマンドは、システム全体のチューナブル・パラメーターにのみ影響します。
+そのため、<span>acfo</span> コマンドはワークロード区画 (WPAR) 環境ではサポートされません。<div><div>
+        <div>
+          <div><span>注:</span> 複数のカーネル暗号操作が進行中の場合、管理者は NX またはメモリー内の暗号アクセラレーション設定を変更してはなりません。 <span>acfo</span> コマンドの <span>-p</span> パラメーターを使用して加速設定を永続的に変更してから、論理区画を再始動して変更を適用します。</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<dl>
+
+<dt>-a</dt>
+
+<dd>これは、すべての ACF チューナブル・パラメーターの値を 1 行に 1 つずつ表示します。</dd>
+
+
+
+<dt>-d</dt>
+
+<dd>これは、ACF チューナブル・パラメーターの名前と現行値をすべて表示します。 <span>-d</span> フラグを <span>-t</span> フラグと一緒に使用した場合、<span>acfo</span> コマンドは指定のチューナブル・パラメーターの現行値を表示します。</dd>
+
+
+
+<dt>-h</dt>
+
+<dd>これは、コマンドとその引数に関するヘルプ情報を表示します。 <span>-t</span> フラグを <span>-h</span> フラグと一緒に使用した場合、このコマンドは特定チューナブル・パラメーターに関するヘルプ情報を表示します。</dd>
+
+
+
+<dt>-p</dt>
+
+<dd>これは、チューナブル・パラメーターの現行値とリブート値を永続的に変更します。 <span>-p</span> フラグを指定しない場合は、チューナブル・パラメーターの現行値のみが変更されます。
+変更はリブート操作には適用されません。</dd>
+
+
+
+<dt>-R</dt>
+
+<dd>これは、すべてのチューナブル・パラメーターをデフォルト値にリセットします。</dd>
+
+
+
+<dt>--r チューナブル</dt>
+
+<dd>これは、指定のチューナブル・パラメーターをデフォルト値にリセットします。</dd>
+
+
+
+<dt>-t チューナブル [=新しい値]</dt>
+
+<dd>これは、指定のチューナブル・パラメーターの現行値を表示するか、またはそのチューナブル・パラメーターを指定の値に設定します。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>チューナブル・パラメーター</h2>
+
+<p>AFC チューナブル・パラメーターのデフォルト値および値範囲については、<span>acfo</span>
+<span>-h</span>
+<span>-t</span>
+tunable_name コマンドを実行してください。 有効なチューナブル・パラメーター名を以下に示します。</p>
+
+<dl>
+
+<dt>nx_enabled</dt>
+
+<dd>これは NX 暗号アクセラレーションを指定します。 値が 1 の場合は、NX 暗号アクセラレーションが有効になります。
+値が 0 の場合は、NX 暗号アクセラレーションが無効になります。</dd>
+
+
+
+<dt>min_sz</dt>
+
+<dd>これは、NX 暗号アクセラレーションに適した最小データ・サイズ (バイト) を指定します。 アクセラレーション要求において、必要となるデータが指定の最小値より小さい場合は、汎用 CPU によって実行される暗号ソフトウェア・メソッドなどのソフトウェア実装が使用されます。 このチューナブル・パラメーターは、NX 暗号アクセラレーションに関してのみ適用できます。</dd>
+
+
+
+<dt>in_core_enabled</dt>
+
+<dd>これはメモリー内暗号アクセラレーションを指定します。 値が 1 の場合は、メモリー内暗号アクセラレーションが有効になります。
+値が 0 の場合は、メモリー内暗号アクセラレーションが無効になります。 このチューナブル・パラメーターは nx_enabled チューナブル・パラメーターに優先します。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>acfo</span> コマンドを実行できるのは root ユーザーのみです。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>AFC チューナブル・パラメーター名と、対応する現行値をすべて表示するには、以下のコマンドを実行します。<div><div><pre><code>acfo -d
+nx_enabled              : 1.
+min_sz                  : 1024.
+in_core_enabled         : 0.</code></pre></div><div></div></div></li>
+
+<li>AFC NX 暗号アクセラレーションの最小データ・サイズを 1024 バイトの非永続値に設定するには、以下のコマンドを実行します。<div><div><pre><code>acfo -t min_size=1024</code></pre></div><div></div></div></li>
+
+<li>NX 暗号アクセラレーションを永続的にオフにするには、以下のコマンドを実行します。<div><div><pre><code>acfo -p -t nx_enabled=0</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

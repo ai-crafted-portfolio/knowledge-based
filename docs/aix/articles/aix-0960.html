@@ -1,0 +1,396 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ルート・ボリューム・グループのインストール可能なイメージを、ファイルまたはブータブル・テープ上に作成します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>mksysb [ -a ] [ -A ] [ -b number ] [ -e  ] [ -F  filename ] [ -i ] [ -m ] [ -p ] [ -P ] [ -t argument ] [ -v ]  [ -V ] [ -x file ] [ -X ] [ -Z ] [ -G | -N ] [ -M ] [ -T ] [ -C ] device | file
+</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>mksysb</span> コマンドは、ルート・ボリューム・グループ（rootvg）として知られるオペレーティング・システムのバックアップを作成します。 システムが破損した場合、 <span>mksysb</span> コマンドで作成したバックアップを使用して、オペレーティング・システムを元の状態に再インストールすることができます。 バックアップをテープまたはユーザー定義ファイルシステム（UDFS）対応メディアに作成した場合、バックアップはブート可能です。 バックアップには、バックアップからインストールするために必要なインストールプログラムが含まれています。</p>
+ <div><div>
+        <div>
+          <div><span>メモ：</span> 両方のインスタンスがマウントされている <code>multibos</code> 環境の場合、 <span>alt_disk_mksysb</span> コマンドのみを使用してバックアップをリストアできます。</div>
+        </div>
+      </div></div>
+ <p><span>mksysb</span> イメージを使って別のシステムを復元することができます。</p>
+ <p>ファイルシステムイメージはバックアップファイル形式である。 テープ・フォーマットには、ブート・イメージ、 <code>bosinstall</code> イメージ、空の目次に続いてシステム・バックアップ（ルート・ボリューム・グループ）イメージが含まれる。 <code>rootvg</code> イメージはバックアップファイル形式で、データファイルとオプションのマップファイルから始まる。</p>
+ <p><span>mksysb</span> コマンドが使用するデータファイルのひとつに、 <span>/bosinst.data</span> データファイルがある。 <span>/bosinst.data</span> ファイルが存在しない場合は、 <span>/var/adm/ras/bosinst.data</span> ファイルがルート (<span>/</span>) にコピーされる。 <span>mksysb</span> コマンドは、 <span>bosinst.data</span> ファイル内の <code>target_disk_data</code> スタンザを更新し、 <span>mksysb</span> コマンドが実行されるシステムのルート・ボリューム・グループにあるディスクと一致させる。</p>
+ <p>カスタマイズした <span>/bosinst.data</span> ファイルを使用していて、更新される <code>target_disk_data</code> スタンザが不要な場合は、 <span>/save_bosinst.data_file</span> ファイルを作成する必要があります。 <span>/save_bosinst.data_file</span> ファイルが存在する場合、 <span>mksysb</span> コマンドは <span>/bosinst.data</span> ファイルを更新しない。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>mksysb</span> コマンドを実行する際、システムの活動が最小限であることを確認してください。</li>
+
+<li><span>mksysb</span> コマンドが作成するイメージには、ローデバイス上のデータやユーザー定義のページングスペース内のデータは含まれません。</li>
+
+<li>リモートマウントされた <span>/usr</span> ファイルシステムを使用している場合、 バックアップイメージからシステムを再インストールすることはできません。</li>
+
+<li><span>mksysb</span> コマンドは、 <span>/dev/netbios</span> ファイルや製品に同梱されていないデバイス・ドライバなど、特別な機能のデバイス・コンフィギュレーションをすべてリストアできない場合があります。</li>
+
+<li><span>backup</span> コマンドを使って <span>mksysb</span> コマンドを実行すると、アーカイブ・イメージが作成される。 <span>mksysb</span> コマンドは、バックアップされた拡張ジャーナル・ファイル・システム ( JFS2 ) の拡張属性 (EA) フォーマットを保存します。 情報の保存には <span>/usr/bin/mkszfile</span> シェルスクリプトを使用する。</li>
+
+<li><span>mksysb</span> コマンドを実行する前に <code>/dev/ipldevice</code> ファイルを削除すると、 <code>0301-150 bosboot</code> エラーが発生する。 このメッセージは無視してください。 リターン・コードは、 <span>mksysb</span> コマンドが成功したことを示す。</li>
+
+<li>テープバックアップを作成し、ファイルシステムを暗号化するには、 <span>-Z</span> フラグを使用する。 暗号化されたファイルシステムを含むテープバックアップイメージからシステムを再インストールすることはできません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ <p>オペレーティング・システムのバックアップをCDに作成するには <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkcd.html" target="_blank" rel="noopener noreferrer"><span>mkcd</span></a> コマンドを参照してください。 <span>オペレーティング・システムのバックアップをDVDに作成するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkdvd.html" target="_blank" rel="noopener noreferrer"><span>mkdvd</span></a> コマンドを参照してください。</span></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>拡張属性またはネットワーク・ファイルシステム・バージョン 4 (NFS4) のアクセス制御リスト (ACL) をバックアップしません。</td>
+
+</tr>
+
+<tr>
+<td><span>-A</span></td>
+
+<td>データ管理 API (DMAPI) ファイルシステム・ファイルをバックアップします。</td>
+
+</tr>
+
+<tr>
+<td><span>-b</span>  Number</td>
+
+<td>1 回の出力操作で書き込む 512 バイト単位のブロック数を指定します。 <span>backup</span> ・コマンドがテープ・デバイスに書き込む場合、デフォルトではバックアップ用に100ブロックが使用される。<p>書き込みサイズは、ブロック数にブロック・サイズを掛け合わせたものです。 テープ・デバイスに書き込む <span>backup</span> コマンドのデフォルトの書き込みサイズは、名前によるバックアップの場合、51200（100×512）である。 書き込みサイズは、テープの物理ブロック・サイズの偶数倍でなければならない。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-C</span></td>
+
+<td><span>mksysb</span> イメージを作成するときに、 <span>/usr/lpp/bos.alt_disk_install/boot_images/bosboot.disk.chrp</span> ブート・イメージを新しいブート・イメージに置き換えることができるかどうかを指定します。<div>カーネルに影響する暫定修正がシステムにインストールされており、 <span>alt_disk_mksysb</span> コマンドを使って <span>mksysb</span> イメージをインストールしたい場合は、 <span>-C</span> フラグを使用します。 <span>–C</span> フラグを使いたい場合は、 <span>bos.alt_disk_install.boot_images</span> ファイルセットがシステムにインストールされている必要がある。 <span>–C</span> フラグを使用する場合、 <span>image.data</span> ファイルを新規にビルドするには、 <span>–i</span> フラグを指定する必要がある。 新しい <span>bosboot.disk.chrp</span> イメージは、<span>mksysb</span> イメージ作成の終わりに元のイメージに置き換えられます。 NIMリソースの定義時に <span>mksysb</span> イメージを作成する場合、 <span>-C</span> フラグは使用できません。 <code>multibos</code> 基本オペレーティング・システム (BOS) スタンバイ・インスタンスは、<span>-C</span> フラグの影響を受けません。<div><div>
+        <div>
+          <div><span>注：</span> <span>-X</span> フラグと <span>-C</span> フラグを併用することで、 <span>/usr</span> ファイルシステムのサイズを大きくして、新しいブートイメージを含めることができます。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span></td>
+
+<td><span>/etc/exclude.rootvg</span> ファイルにリストされているファイルをバックアップから除外する。 除外規則は、<span>grep</span> コマンドのパターン・マッチング規則に準拠します。<p>特定のファイルをバックアップから除外したい場合は、 <span>/etc/exclude.rootvg</span> ファイルを ASCII エディターで作成してください。 システムバックアップイメージに含めないファイル名のパターンを入力します。 このファイルのパターンは、 <span>grep</span> コマンドのパターンマッチング規約に入力され、バックアップから除外するファイルを決定する。 <span>/etc/exclude.rootvg</span> ファイルにリストされているファイルを除外したい場合は、 <code>Exclude Files</code> フィールドを選択し、 <code>Tab</code> キーを押してデフォルト値を <span>yes</span> に変更する。</p>
+<div>次に例を示します。<ol>
+<li>スクラッチと呼ばれるディレクトリの内容をすべて除外するには、excludeファイルを以下のように編集する：<div><div><pre><code>/scratch/</code></pre></div><div></div></div></li>
+
+<li><span>/tmp</span> として知られるディレクトリの内容を除外し、パス名に <span>/tmp</span> ディレクトリを含む他のディレクトリを除外しないようにするには、除外ファイルを以下のように編集する：<div><div><pre><code>^./tmp/</code></pre></div><div></div></div>これにより、<span>/tmp</span> ディレクトリーのすべての内容が除外されますが、ファイルシステムの <span>/tmp</span> マウント・ポイントは保持されます。 <span>/var</span>、 <span>/adm</span>、 <span>/sw</span>、 <span>/tmp</span> ファイルシステムなど、他のディレクトリやそのコンテンツは削除されない。</li>
+
+</ol>
+</div>現在の作業ディレクトリ(<code>.</code>)に関連するファイルがバックアップされる。 検索が行頭の文字列と一致することが重要なファイルやディレクトリを除外するには、検索文字列の最初の文字としてキャレット文字（^）を使い、その後にドット文字（<code>.</code> ）を続け、除外するファイル名またはディレクトリを続ける。<p>除外するファイル名やディレクトリが他のファイル名やディレクトリの部分文字列である場合、キャレット文字の後にドット文字（<code>^.</code> ）を使用する必要があります。これは、検索が行頭から開始されなければならないことを示す。</p>
+<p>行末で検索を終了しなければならないことを示すには、ドル記号 (<code>$</code>) を使用しなければならない。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span> ファイル名</td>
+
+<td>以前に作成した <span>mksysb</span> イメージを指定します。そのイメージからバックアップ・テープが作成されます。 バックアップ・テープをブート可能にすることを試行します。 <span>-F</span> フラグはテープ・デバイスと一緒に使用しなければならない。</td>
+
+</tr>
+
+<tr>
+<td><span>-G</span></td>
+
+<td>システム・バックアップから WPAR ファイルシステムを除外します。 <span>-G</span> フラグは、 <span>-N</span> フラグとは併用できない。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td><span>/image.data</span> ファイルを生成する <span>mkszfile</span> コマンドを呼び出します。 <span>/image.data</span> ファイルには、ボリュームグループ、論理ボリューム、ファイルシステム、ページングスペース、物理ボリュームの詳細が含まれている。 この情報は、将来インストール・プロセスで使用できるように、バックアップに入れられます。<p><span>-i</span> フラグを使用しない場合、システム・バックアップを復元するのに必要な十分な容量を含まない古い <span>/image.data</span> ファイルが保存される可能性があります。</p>
+<div><div>
+        <div>
+          <div><span>注：</span> <span>mkszfile</span> コマンドを実行する前に、 <span>/tmp</span> ファイルにブートイメージを保存できる十分なスペースがあることを確認してください。 <span>/tmp</span> 、バックアップやインストールを行う際に必要となります。 <span>/tmp</span> ファイル内で必要なスペースの量を判別するには、次のコマンドを入力します。<div><div><pre><code>bosboot -q -a -d device</code></pre></div><div></div></div><span>/dev/usbms0</span> ファイルという名前のUDFS対応デバイスを使用している場合、 <span>/dev/usbms0</span> デバイスは <span>bosboot</span> コマンドでサポートされていないため、デバイス名として <span>/dev/cd0</span> ファイルを指定する必要があります。 <span>mksysb</span> コマンドで <span>-X</span> フラグを使用する場合、 <span>/tmp</span> ファイルに必要なスペースの量を判別するために <span>bosboot</span> コマンドを実行する必要はありません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span></td>
+
+<td><span>-m</span> フラグを付けて <span>mkszfile</span> コマンドを呼び出し、マップファイルを生成する。<div><div>
+        <div>
+          <div><span>注：</span> <span>-i</span> フラグの機能を実行するには、 <span>-m</span> フラグを使用しなければならない。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span></td>
+
+<td><span>multibos</span> コマンドとの使用が意図されているバックアップ・ファイルを作成します。 <span>-M</span> フラグは、<code>/</code>、<span>/usr</span>、<span>/var</span>、および <span>/opt</span> ファイルシステムをバックアップします。 システムを再インストールするためにバックアップを使用しないでください。 <span>bos.alt_disk_install.boot_images</span> ファイルセットをシステム・レベルにインストールする。</td>
+
+</tr>
+
+<tr>
+<td><span>-N</span></td>
+
+<td>システムバックアップで定義された状態の<span>ワークロードパーティション</span><span> （WPAR</span> ）に属するファイルシステムを含む。<div><div>
+        <div>
+          <div><span>注：</span> ファイルシステムをバックアップに含めるには、定義された状態の <span>WPARに</span>属するファイルシステムが、 <code>rootvg</code> ボリュームグループに存在する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>バックアップされるファイルのソフトウェアパッキングを無効にします。 磁気テープ・ドライブのなかには、独自のパッキングおよび圧縮アルゴリズムを使用するものもあります。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span></td>
+
+<td><span>/etc/exclude_packing.rootvg</span>、<span>/etc/exclude_packing.vgname</span>、または <span>/etc/exclude_packing.WPARname</span> の各ファイルに 1 行ずつリストされたファイルをパックされないように除外します。<p>例えば、 <span>mksysb</span> コマンドのバックアップ中に、 <span>/etc/filesystems</span> と <span>/usr/bin/zcat</span> ファイルがパックされないようにするには、 <span>/etc/exclude_packing.type</span> ファイルを編集して、連続する行に <span>/etc/filesystems</span> と <span>/usr/bin/zcat</span> を追加する必要があります。</p>
+<div>この場合、 <span>/etc/exclude_packing.type</span> ファイルは以下のようにしなければならない：<div><div><pre><code>/etc/filesystems
+/usr/bin/zcat</code></pre></div><div></div></div></div>
+<p><span>-P</span> フラグと <span>-p</span> フラグは互いに排他的である。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> argument
+</td>
+
+<td><span>-F</span> フラグで指定された <span>mksysb</span> ファイルからブートイメージを作成するために使用されるディレクトリまたはファイルシステムへのパスを指定します。 <span>-F</span> フラグとともに <span>-t</span> フラグを使用しない場合、ブートイメージはデフォルトで <span>/tmp</span> ファイルに作成されます。 約 100 MB のフリー・スペースが必要です。 ブート・イメージが作成された後にこのスペースは解放されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span></td>
+
+<td>スナップショットを使用して rootvg のバックアップを作成します。 このコマンドは、JFS2 ファイルシステムにのみ適用されます。<p><span>-T</span> フラグを指定して、ボリューム・グループ・バックアップの作成にスナップショットを使用すると、外部 JFS2 スナップショットが作成されます。 スナップショットは、 JFS2 ファイルシステムのポイント・イン・タイムのイメージを可能にし、システムを一時的に非アクティブな状態にする必要はありません。 スナップショットのサイズは、ファイルシステムのサイズの2％から15％です。 スナップショット論理ボリュームは、バックアップが完了すると削除されます。 ただし、ファイルシステムに既に他のスナップショットがある場合は、スナップショットは除去されません。 ファイルシステムに内部スナップショットがある場合、外部スナップショットは作成できず、スナップショットはファイルシステムのバックアップ作成には使用されません。 <span>-T</span> フラグの使用は、バックアップされているボリューム・グループ内に存在する JFS ファイルシステムには影響を及ぼしません。 これらのファイルシステムは、以前に行われていたのと同じ方法でバックアップされます。</p>
+<p><span>-T</span> フラグを指定する場合は、<span>-i</span> フラグも指定する必要があります。 <span>-i</span> フラグを指定しなかった場合、古い <span>/image.data</span> ファイルが十分なスペース要件を持たないことがあります。 そのため、スナップショットにデータを保存する際に障害が発生する可能性があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>詳細モード。 バックアップされるファイルをリストで示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span></td>
+
+<td>テープ・バックアップを検証します。 <span>-V</span> フラグを指定すると、 <span>mksysb</span> コマンドがバックアップ・テープ上の各ファイルのファイル・ヘッダを検証し、読み取りエラーが発生した場合はそれを報告する。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span>file</td>
+
+<td>ファイルでリストされたファイルシステムをシステム・バックアップから除外します。 ファイルシステムのマウント・ポイントは、1 行につき 1 つずつリストする必要があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>必要に応じて、<span>/tmp</span> ファイルシステムを自動的に拡張するように指定します。 <span>/tmp</span> ファイルシステムは、ブート可能バックアップをテープに作成する場合、ブート・イメージのために場所を空けるように拡張する必要のある場合があります。</td>
+
+</tr>
+
+<tr>
+<td><span>-Z</span></td>
+
+<td>すべてのファイル、ディレクトリ、およびファイルシステムの暗号化ファイルシステム（ EFS ）情報がバックアップされないように指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<div><div>
+        <div>
+          <div><span>重要:</span> オペレーティング・システムのバックアップからファイル・システムを除外する場合は、 <span>-x</span> フラグを使用する際に注意してください。 結果のバックアップをシステムのリストアのために使用できなくなる可能性があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>デバイス | ファイル</td>
+
+<td>デバイスまたはファイルの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div>このコマンドは、以下の終了値を戻します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong><span>0</span></strong></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong><span>1</span></strong></td>
+
+<td><span>mksysb</span> コマンドの使用でエラーが発生しました。</td>
+
+</tr>
+
+<tr>
+<td><span>※2</span></td>
+
+<td><span>savevg</span> コマンドの使用でエラーが発生しました。 <span>savevg</span> コマンドは <span>mksysb</span> コマンドへのリンクである。</td>
+
+</tr>
+
+<tr>
+<td><span>3</span></td>
+
+<td>ファイルシステムがマウントされる前にエラーが発生しました。</td>
+
+</tr>
+
+<tr>
+<td><span>4</span></td>
+
+<td>罠のために退場。</td>
+
+</tr>
+
+<tr>
+<td><span>5</span></td>
+
+<td>スペースがなかったため、退場。</td>
+
+</tr>
+
+<tr>
+<td><span>6</span></td>
+
+<td>ボリュームグループ名が有効でなかったため、終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>システム・バックアップを生成し、 <span>mkszfile</span> コマンドで生成された <span>/image.data</span> ファイルを <span>/dev/rmt0</span> ファイルという名前のテープ・デバイスに作成するには、以下のコマンドを入力します：<div>
+<div><div><pre><code>mksysb -i /dev/rmt0</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>システム・バックアップを生成し、 <span>mkszfile</span> コマンドで生成されたマップ・ファイルを含む <span>/image.data</span> ファイルを、 <span>/dev/rmt1</span> ファイルという名前のテープ・デバイスに作成するには、以下のコマンドを入力します：<div>
+<div><div><pre><code>mksysb -m /dev/rmt1</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>新しい <span>/image.data</span> ファイルでシステム・バックアップを作成するが、 <span>/home/user1/tmp</span> ディレクトリのファイルを除外するには、 <span>/home/user1/tmp/</span> 行を含む <span>/etc/exclude.rootvg</span> ファイルを作成し、以下のコマンドを入力する：<div>
+<div><div><pre><code>mksysb -i -e /dev/rmt1</code></pre></div><div></div></div>このコマンドは <span>/home/user1/tmp</span> ディレクトリをバックアップするが、そこに含まれるファイルはバックアップしない。</div>
+</li>
+
+<li><span>/mksysb_images/node1</span> ファイルという名前のシステム・バックアップ・ファイルと、そのイメージ用の新しい <span>/image.data</span> ファイルを生成するには、以下のコマンドを入力します：<div>
+<div><div><pre><code>mksysb -i /mksysb_images/node1</code></pre></div><div></div></div>
+</div>
+<div><div>
+        <div>
+          <div><span>注意：</span> このファイルはブート可能ではないため、ネットワークインストール管理（NIM）を使用してのみインストールできます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li><span>mkszfile</span> コマンドを単独で実行し、テープ・デバイス <span>/dev/rmt0</span> にシステム・バックアップを生成した後、ファイル・ヘッダーの可読性を検証するために、以下のコマンドを入力する：<div><div><pre><code>mksysb  /dev/rmt0 -V</code></pre></div><div></div></div></li>
+
+<li><span>multibos</span> コマンドで使用する <span>/mksysb_images/mksysb1</span> ファイルという名前のシステム・バックアップ・ファイルを作成し、そのイメージの <span>/image.data</span> ファイルを作成するには、以下のコマンドを入力します：<div><div><pre><code>mksysb -iM /mksysb_images/mksysb1</code></pre></div><div></div></div></li>
+
+<li>システム・バックアップを生成し、 <span>mkszfile</span> コマンドで生成された <span>/image.data</span> ファイルを、 <span>/dev/usbms0</span> ファイルという名前の UDFS 対応デバイスに作成するには、以下のコマンドを入力します：<div><div><pre><code>mksysb -i /dev/usbms0</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注：</span> ボリューム・グループのバックアップの詳細については <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/listvgbackup.htm" target="_blank" rel="noopener noreferrer"><span>listvgbackup</span></a> コマンドを参照してください。 ボリューム・グループのバックアップから個々のファイルをリストアするには <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/restorevgfiles.htm" target="_blank" rel="noopener noreferrer"><span>restorevgfiles</span></a> コマンドを参照してください。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/mksysb</span></td>
+
+<td><span>mksysb</span> 。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

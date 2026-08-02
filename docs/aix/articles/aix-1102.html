@@ -1,0 +1,410 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルをディスプレイに合わせてフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>pg</strong> [ <strong>- </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77925" target="_blank" rel="noopener noreferrer"><em>番号</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77849" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77861" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77867" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77876" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77885" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em> 文字列</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77902" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77911" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77917" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em> 行番号</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77933" target="_blank" rel="noopener noreferrer"><strong>+</strong></a> / <em>パターン</em><strong> /</strong> ] [ <em>ファイル...</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>pg</strong> コマンドは <em>File</em> パラメーターからファイル名を読み取り、そのファイルを一度に 1 画面ずつ標準出力に書き出します。 <strong>-</strong> (ダッシュ) を <em>File</em> パラメーターとして指定する場合、またはオプションを付けずに <strong> pg</strong> コマンドを実行する場合、<strong>pg</strong> コマンドを使用して標準入力を読み込みます。 各画面には、プロンプトが表示されます。 Enter キーを押した場合、別のページが表示されます。 <strong>pg</strong> コマンドと一緒にサブコマンドを使うと、ファイル内のデータの見直し、または検索を行うことができます。</p>
+ <p>ワークステーションの属性を決めるために、<strong>pg</strong> コマンドを使用して、<strong> TERM</strong> 環境変数で指定されたワークステーション・タイプのファイルをスキャンします。 デフォルトは、<strong>dumb</strong> タイプです。</p>
+ <p><strong>pg</strong> コマンドが一時停止して、プロンプトを出したら、サブコマンドを入力できます。 これらのサブコマンドの中には、表示画面をファイルの特定のロケーションに変更するもの、テキスト内で特定パターンの検索のいくつかを変更するもの、<strong>pg</strong> コマンドが機能する環境を変更するものがあります。</p>
+<p><strong>ファイル内の位置の変更</strong></p>
+ <p>以下のサブコマンドは、ファイル内の選択した個所を表示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>ページ</em></td>
+
+<td><em>Page</em> パラメーターで指定したページを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong><em>数値</em></td>
+
+<td><em>Number</em> の値を加えたページを現在のページに表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>数値</em></td>
+
+<td>現在のページから <em>Number</em> の値を引いたページを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>l</strong></td>
+
+<td>(L の小文字) ディスプレイを下方に 1 行スクロールします。</td>
+
+</tr>
+
+<tr>
+<td><em>数値</em><strong>L</strong></td>
+
+<td><em>Number</em> パラメーターで指定した行を画面の最上部に表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+</strong><em>数値</em><strong>L</strong></td>
+
+<td>指定された行数だけ画面表示を下方にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>数値</em><strong>L</strong></td>
+
+<td>指定された行数だけ画面表示を上方にスクロールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>d</strong></td>
+
+<td>画面の半分を下方にスクロールします。 Ctrl-D キー・シーケンスを押すと、<strong>d</strong> サブコマンドと同様に機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>画面の半分を上方にスクロールします。 <strong>-</strong>Ctrl-D キー・シーケンスを押すと、<strong>-d</strong> サブコマンドと同様に機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>Ctrl-L</strong></td>
+
+<td>現在のページを再表示します。 1 つの . (ドット) は、<strong>Ctrl-L</strong> キー・シーケンス
+・サブコマンドと同様に機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>$</strong></td>
+
+<td>ファイル内の最後のページを表示します。 パイプラインからの入力には、このサブコマンドは使用
+しないでください。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>テキスト・パターンの検索</strong></p>
+ <p>以下のサブコマンドは、テキスト内のテキスト・パターンを検索します。 (<strong>ed</strong> コマンドに記述されたパターンも使用できます。) これらは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77876" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> フラグが使用されている場合でも、常に改行文字で終了する必要があります。</p>
+ <p>次のような式の中で、[k.a-z]k.マイナスは、a から z のように、現在の照合シーケンスに従って範囲を暗黙指定します。 照合順序は、
+文字範囲での使用のための等価クラスを定義します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>[</strong><em>数値</em><strong>]</strong><em>/パターン/</em></td>
+
+<td><em>数値</em> 変数<em>.</em> で指定された<em> パターン</em> 値のオカレンスを検索します。 検索は、現行ページの直後から始まり、現行ファイルの終わりまで循環しないで続きます。 <em>Number</em> 変数のデフォルトは 1 です。</td>
+
+</tr>
+
+<tr>
+<td><em>数値</em><strong>?</strong><em>パターン</em><strong>?</strong></td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td> <em>数値</em><strong>^</strong><em>パターン</em><strong>^</strong></td>
+
+<td><em>Number</em> 変数で指定した<em> Pattern</em> の値のオカレンスを逆方向に向かって検索します。 検索は、現行ページの直前から始まり、現行ファイルの冒頭まで循環なしに続きます。 <em>Number</em> 変数のデフォルトは 1 です。 <code>^</code> 表記は、 <code>?</code> 表記を適切に処理しない 100 個の端末を追加する場合に役立ちます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>検索後、<strong>pg</strong> コマンドを指定すると、画面の最上部に一致するパターンを持つ行が表示されます。 検索コマンドに接尾部 <strong>m</strong> または<strong> b</strong> を追加することによって、表示位置を変更できます。 接尾部 <strong>m</strong> を指定すると、後続のどのサブコマンドの実行時にも画面の中央に、一致するパターンを持つ行が表示されます。 接尾部 <strong>b</strong> を指定すると、後続のどのサブコマンドの実行時にも画面の下部に一致するパターンを持つ行が表示されます。 接尾部 <strong>t</strong> を指定すると、画面の最上部に一致するパターンを持つ行が再表示されます。</p>
+<p><strong>pg 環境の変更</strong></p>
+ <p>以下のサブコマンドを使用して、<strong>pg</strong> コマンドの環境を変更できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>[</strong><em>数値</em><strong>:NONE.</strong></td>
+
+<td><em>Number</em> 変数で指定した数だけ、コマンド・ラインの次のファイルの検査を開始します。 <em>Number</em> 変数のデフォルトは、1 番目です。</td>
+
+</tr>
+
+<tr>
+<td><strong>[</strong><em>数値</em><strong>:NONE.</strong></td>
+
+<td><em>Number</em> 変数で指定した数だけ、コマンド・ラインの直前のファイルの検査を開始します。 <em>Number</em> 変数のデフォルトは、1 番目です。</td>
+
+</tr>
+
+<tr>
+<td><strong>[</strong><em>数値</em><strong>:NONE.</strong></td>
+
+<td>テキストの別のウィンドウを表示します。 <em>Number</em> 変数を指定すると、ウィンドウ・サイズが指定した行数に設定されます。 このサブコマンドは、<strong>[</strong><em>Number</em><strong>]z</strong> サブコマンドと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>[</strong><em>数値</em><strong>] z (z)</strong></td>
+
+<td>テキストの別のウィンドウを表示します。 <em>Number</em> 変数を指定すると、ウィンドウ・サイズが指定した行数に設定されます。 このサブコマンドは、<strong>[</strong><em>Number</em><strong>]w</strong> サブコマンドと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>S</strong><em> ファイル</em></td>
+
+<td>指定したファイルに入力データを保存します。 検査しようとする現行ファイル
+だけが保存されます。 <strong>-n</strong> フラグを指定した場合でも、このコマンドは、必ず改行文字で終わらなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>h</strong></td>
+
+<td>使用可能なサブコマンドを省略した要約を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>q</strong> または <strong>Q</strong></td>
+
+<td><strong>pg</strong> コマンドを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>!</strong><em>コマンド</em></td>
+
+<td>指定したコマンドを<strong> SHELL</strong> 環境変数で指定したシェルに送ります。 これを使用できない場合には、デフォルトのシェルが使われます。 このコマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pg.html#pg__row-d3e77876" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> フラグが使用されている場合でも、常に改行文字で終わらなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注意:</strong><span>”</span></blockquote>
+<p></p>
+ <ol>
+<li><span></span>キー・シーケンス QUIT WITH DUMP (CTRL-\) または INTERRUPT (Ctrl-C) を押すと、出力の一部が失われます。これは、 <strong>QUIT (終了)</strong> シグナルを受け取ると、出力キューで待機している文字がパージされるためです。</li>
+
+<li><span></span>ワークステーション・タブが 8 桁ごとに設定されていないと、予期しない結果が生じる可能性があります。</li>
+
+</ol>
+ <p>ワークステーションに出力を送信しているときはいつでも、キー・シーケンス QUIT WITH DUMP または INTERRUPT を押すことができます。 こうすると、<strong>pg</strong> コマンドを指定することによって、出力の送信が停止し、プロンプトが表示されます。 その場合は、コマンド・プロンプトから上記のサブコマンドのいずれかを入力できます。</p>
+ <p>標準出力がワークステーションでない場合、それぞれのファイルの前にヘッダーが表示されることを除いて、<strong>pg</strong> コマンドは、<strong> cat</strong> コマンドと同じ動作をします。</p>
+ <p>ワークステーション入力の待機中に、キー・シーケンス INTERRUPT を押すと、
+<strong>pg</strong> コマンドは実行を停止します。 プロンプト間でこれらのシグナルは現行タスク
+に割り込み、ユーザーはプロンプト・モードに置かれます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>カーソルをホーム・ポジションに移動し、それぞれのページの前の画面をクリアします。 このフラグは、以下の場合は無視されます。clear_screen<strong>ターミフォ</strong> ファイルでワークステーション・タイプのフィールドが定義されていません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>各ファイルの終わりで一時停止しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>行を分割しません。 通常、<strong>pg</strong> コマンドは画面幅よりも長い行を分割します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>pg</strong> コマンド文字を入力すると処理を停止します。 通常、コマンドは改行文字で終わらせなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>P-</strong><em> ストリング</em></td>
+
+<td>指定した文字列をプロンプトとして使用します。 <em>String</em> に <strong>%d</strong>  値が含まれる場合、その値はプロンプトの現行ページ番号で置き換えられます。 デフォルトのプロンプトは、<strong>:</strong> (コロン) です。 指定した文字列にスペースが含まれる場合、文字列を引用符で囲まなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>"!"
+</strong> サブコマンドが使用された場合に、シェル・エスケープを防ぎます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>すべてのメッセージとプロンプトを強調表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>+行</strong><em>番号</em></td>
+
+<td>指定した行番号から始めます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em>数値</em></td>
+
+<td>ウィンドウ内の行数を指定します。 24 行入るワークステーションの場合、
+デフォルトは 23 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>+/</strong><em>パターン</em><strong>/</strong></td>
+
+<td>指定したパターンを含む最初の行から始めます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>ファイルの内容を 1 ページずつ見るには、以下のように入力します。</p>
+ <div> <div><div><pre><code>pg filename</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/pg</strong></td>
+
+<td><strong>pg</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/terminfo/*</strong></td>
+
+<td>端末タイプを定義する <strong>terminfo</strong> ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/tmp/pg*</strong></td>
+
+<td><strong>pg</strong> コマンドを使用したときに作成される一時ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

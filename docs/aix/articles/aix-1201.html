@@ -1,0 +1,75 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ローカル認証情報が正しいかどうかを検証します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>pwck</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pwck</span> コマンドは、すべてのユーザーの定義を検査し、
+ユーザー・データベース・ファイル内のパスワード情報が正しいことを検証します。 <span>pwck</span> コマンドは、 <span>-n</span> オプションおよび <span>ALL</span> オプションを指定して <span>pwdck</span> コマンドを内部的に呼び出します。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt><span>0</span></dt>
+
+<dd>コマンドは正常に終了しました。</dd>
+
+
+<dt><span>&gt;0</span></dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <div>
+<dl>
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべてのユーザーおよび管理者がユーザー・データベースに存在することを検証し、
+エラーを報告させる (しかし、修正はしない) には、次のように入力します。<div><div><pre><code>pwck</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><caption><span>表 1. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/pwck</span></td>
+
+<td><span>pwck</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

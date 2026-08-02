@@ -1,0 +1,118 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>圧縮ファイルを標準出力に展開します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>zcat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/z_commands/zcat.html#zcat__row-d3e58478" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/z_commands/zcat.html#zcat__row-d3e58493" target="_blank" rel="noopener noreferrer"><strong>-V </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/z_commands/zcat.html#zcat__row-d3e58511" target="_blank" rel="noopener noreferrer"><em>ファイル ...</em></a><em> </em>]</p>
+</section>
+
+<section><h2>説明</h2><p><strong>zcat</strong> コマンドにより、ユーザーは圧縮ファイルを圧縮解除せずに展開して表示することができます。 <strong>zcat</strong> コマンドでは、展開したファイルの名前の変更を行ったり、<strong>.Z</strong> 拡張子を除去したりはしません。 <strong>zcat</strong> コマンドは、展開した出力を標準出力に書き出します。</p>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-n</strong></td>
+
+<td>圧縮されたファイルから、圧縮されたファイルのヘッダーを省きます。<div><div>
+        <div>
+          <div><span>注:</span> ファイルが <strong>-n</strong> オプションを使用して圧縮されている場合は、 <strong>-n</strong> オプションを使用してください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>現行バージョンおよびコンパイル・オプションを標準エラーに書き込みます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>ファイル ...</em></td>
+
+<td>展開する圧縮ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>戻り値</h2> <p><strong>zcat</strong> コマンドが状況 1 で終了した場合、下記のいずれかのイベントが発生している可能性があります。</p>
+ <ul>
+<li><span></span> <strong>compress</strong> コマンドで入力ファイルが作成されませんでした。</li>
+
+<li><span></span>入力ファイルを読み取ることができないか、出力ファイルを書き込むことができません。</li>
+
+</ul>
+ <p>エラーが発生していない場合は、終了状況は 0 になります。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p></p>
+ <p>To view thefoo.Zファイルを圧縮解除せずに、次のように入力します。</p>
+ <div> <div><div><pre><code>zcat foo.Z</code></pre></div><div></div></div></div>
+ <p>圧縮されていない内容foo.Zファイルは標準出力に書き込まれます。 ファイルの名前の変更は行われません。</p>
+</section>
+
+</div></div>

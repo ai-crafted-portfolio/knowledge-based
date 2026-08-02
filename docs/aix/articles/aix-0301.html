@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>論理ボリュームの内容を新しい論理ボリュームにコピーします。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>新しい論理ボリュームにコピーする </strong></p>
+ <p><strong>cplv</strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__row-d3e131417" target="_blank" rel="noopener noreferrer"><strong>[-v</strong></a><em> VolumeGroup] </em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__row-d3e131428" target="_blank" rel="noopener noreferrer"><strong>[-y</strong></a><em> NewLogicalVolume| </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__row-d3e131436" target="_blank" rel="noopener noreferrer">-Y</a><em> Prefix </em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__cplv_I" target="_blank" rel="noopener noreferrer"><strong>[-I</strong></a>]<em>SourceLogicalVolume</em></p>
+<p><strong>既存の論理ボリュームにコピーする </strong></p>
+ <p><strong>cplv </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__row-d3e131369" target="_blank" rel="noopener noreferrer"><strong>-e </strong></a><em>DestinationLogicalVolume</em><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__row-d3e131411" target="_blank" rel="noopener noreferrer"><strong>[-f </strong></a>]<em>SourceLogicalVolume</em></p>
+</section>
+
+<section><h2>説明</h2> <div><div>
+        <div>
+          <div><span>注意:</span> データが入っている大きい論理ボリュームから小さい論理ボリュームにコピーしないでください。 これを実行すると、一部のデータ (スーパーブロックなど) がコピーされないので、その
+結果ファイルシステムが破壊されます。 <strong>cplv</strong> が新しい論理ボリュームを作成し、
+ボリューム・グループがコンカレント・モードで vary on されている場合は、
+このコマンドは失敗します。</div>
+        </div>
+      </div></div>
+ <div><strong>cplv</strong>コマンドは、<em> SourceLogicalVolume</em>の内容を新規または既存の<em> DestinationLogicalVolume</em> に<strong> コピー</strong>します。 <em>SourceLogicalVolume</em>  パラメーターは、論理ボリューム名または論理ボリューム ID となります。 <strong>cplv</strong> コマンドは、デフォルトの構文を使うと、システムが生成する名前で新しい論理ボリュームを作成します。 システムが生成する名前は表示されます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>ストライピングされた論理ボリュームをコピーする場合、
+コピー先の論理ボリュームが存在しなければ、
+ソース論理ボリュームのストライピングされたブロック・サイズとストライプ幅を含む、
+同一のコピーが作成されてからデータがコピーされます。</li>
+
+<li>ストライピングされた論理ボリュームをコピーする場合、
+異なるストライプ・ブロック・サイズとストライプ幅を指定して <strong>mklv</strong> コマンドを使ってコピー先論理ボリュームを作成してある場合、
+またはコピー先がストライピングされた論理ボリュームでない場合は、
+新しい特性が保守され、データはソース論理ボリュームからコピーされます。</li>
+
+<li>このコマンドを使用するには、root ユーザー権限を持っているか、あるいは <strong>system</strong> グループのメンバーでなければなりません。</li>
+
+<li><span>cplv</span> コマンドは、スナップショット・ボリューム・グループでは使用できません。</li>
+
+<li><em>SourceLogicalVolume</em>が jfs またはjfs2タイプの場合、'<span>cplv</span>コマンドを実行する前に、 ファイル・システムが正常にアンマウントされ、新しく作成されたファイル・システムで<strong>fsck が</strong>正常に実行されなければならない。 新規ファイルシステムをマウントする前に <strong>fsck</strong> コマンドを実行すると、
+スーパーブロック内に含まれるロギング用装置が依然として元のファイルシステムを参照するため、エラーが戻されます。 <strong>fsck</strong> の実行前に新規ファイルシステムをマウントし、新規ロギング用装置が作成されるようにしてください。</li>
+
+<li>新しい論理ボリュームは、元の論理ボリュームと同じ暗号化ポリシーに従います。</li>
+
+<li><span>cplv</span> コマンドは、パスフレーズ認証方式を、暗号化された元の論理ボリュームから新しい論理ボリュームにコピーします。 新しいパスフレーズ認証方式を追加するには、<span>-I</span> フラグを使用します。</li>
+
+<li>元の論理ボリュームにプラットフォーム鍵ストア (PKS) 認証方式があり、PKS 鍵スロットが使用可能である場合、<span>cplv</span> コマンドは PKS 方式を新しい論理ボリュームに追加します。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</div>
+ <p>このコマンドは、System Management Interface Tool  (SMIT) <strong>smit cplv</strong> 高速パスによって実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-e</strong></td>
+
+<td><em>DestinationLogicalVolume</em> に既存の論理ボリュームを指定し、存在しなくても作成されないことを指定します。 <em>DestinationLogicalVolume</em>  が <em>SourceLogicalVolume</em> より小さい場合、余分な論理区画はコピーされません。 このフラグを使うと、<em>DestinationLogicalVolume</em> 内に既に存在していたデータが破壊されます。 このため、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cplv.html#cplv__row-d3e131411" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> フラグが追加されない限り、ユーザー確認が必要です。 データを不注意に上書きしないように、<em> DestinationLogicalVolume</em>  の <em>Type</em> 特性は <strong>copy</strong> でなければなりません。 <em>Type</em> 特性<em>を変更するには、</em> <strong>chlv</strong> コマンドを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ユーザーに確認せずに既存の論理ボリュームをコピーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>これは、新しいパスフレーズ認証方式を新しい論理ボリュームに追加します。 これは、標準入力から新しいパスフレーズを読み取ります。 このフラグを使用する場合は、新しい論理ボリュームについてのみパスフレーズ認証方式を追加できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> VolumeGroup</em></td>
+
+<td>新しい論理ボリュームが入るボリューム・グループを指定します。 このフラグを指定しないと、新しい論理ボリュームは、<em>SourceLogicalVolume</em> と同じボリューム・グループの中に入ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong><em> NewLogicalVolume</em></td>
+
+<td>新しい論理ボリュームに関して、システム生成名の代わりに使う名前を指定します。 論理ボリューム名はシステム全体で固有となる名前でなければならず、1 文字から 15 文字までの範囲で指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong><em> 接頭部</em></td>
+
+<td>新しい論理ボリュームに関してシステム生成名を構築するときに使う接頭部を指定します。 接頭部は 13 文字以下でなければなりません。 この名前は、他のデバイスに関してデバイス構成データベース内の
+PdDv クラス内で定義済みの接頭部で始めることはできません。また、別のデバイスが既に使っている名前は使えません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>論理ボリュームの内容をコピーするfslv03新規論理ボリュームに対して、次のように入力します。<div><div><pre><code>cplv fslv03</code></pre></div><div></div></div>新規論理ボリュームが作成され、以下と同じボリューム・グループに配置されます。fslv03名前はシステムによって指定されます。</li>
+
+<li>論理ボリュームの内容をコピーするfslv03ボリューム・グループ内の新規論理ボリュームへのvg02、タイプ:<div><div><pre><code>cplv  -v vg02 fslv03</code></pre></div><div></div></div><code>fslv03</code> はコピー元の論理ボリューム名です。 これは必須フィールドです。 新規論理ボリュームが作成され、名前が付けられ、ボリューム・グループに追加されます。vg02.</li>
+
+<li>論理ボリュームの内容をコピーするlv02より小さい既存の論理ボリュームにlvtesユーザー確認を必要とせずに、次のように入力します。<div><div><pre><code>cplv  -e lvtest  -f lv02</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+
+<td><strong>cplv</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

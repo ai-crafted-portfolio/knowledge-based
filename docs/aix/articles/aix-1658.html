@@ -1,0 +1,80 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span><span>unfencevsd</span></span> -1 つのノードまたはノード・グループで実行されているアプリケーションが、それらのノードで実行されているアプリケーションから以前に隔離された仮想共用ディスクまたは仮想共用ディスク・グループにアクセスできるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>unfencevsd</span></span> {<span><span>-a</span></span> | <span><span>-v</span></span> <span><span>vsd_name_list</span></span>} {<span><span>-n</span></span> <span><span>node_list</span></span> [<span><span>-f</span></span>]}</p>
+</section>
+
+<section><h2>説明</h2> <p>特定の環境化で、システムはノードが作動不能になったと判断し、
+ノードが実際には作動可能であるが、同一のアプリケーションを実行している
+他のノードとの通信からはカットオフされている時に、リカバリー手順を開始することがあります。 この場合、
+リカバリーが完了して、そのアプリケーションを実行している他のノードが問題ノードを作動可能と認識するまでは、
+問題ノードに、それが通常管理している仮想共有ディスクへの要求の処理を許可してはなりません。 <span><span>fencevsd</span></span> コマンドは、問題のノードがその仮想共用ディスクの要求を満たすことができないようにします。 <span><span>unfencevsd</span></span> コマンドを使用すると、fenced ノードが仮想共用ディスクへのアクセスを取り戻すことができます。</p>
+ <p>このコマンドは、
+ピア・ドメイン内でオンラインとなっている任意のノードから実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt>-a</dt>
+
+<dd>すべての仮想共有ディスクを指定します。</dd>
+
+
+<dt>-f</dt>
+
+<dd>分離されたノードがそれ自身を分離解除することを許可します。</dd>
+
+
+<dt>-<span><span>ノードリスト</span></span></dt>
+
+<dd>コンマで区切られた 1 つ以上のノード番号を指定します。</dd>
+
+
+<dt>-<span><span>vsd_name_list</span></span></dt>
+
+<dd>コンマで区切られた 1 つ以上の仮想共有ディスク名を指定します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <p>なし。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、root 権限が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <div> <dl>
+<dt>0</dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt>nonzero</dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+ </div>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでオンラインのノードから実行する必要があります。 オンラインのピア・ドメインに移動するには <strong>startrpdomain</strong> コマンドを使用します。 既存のピア・ドメイン内で、オンラインの特定ノードに移動するには <strong>startrpnode</strong>
+コマンドを使用します。 RSCT ピア・ドメインの作成と管理の詳細については、「RSCT: Administration Guide」を参照してください。</p>
+</section>
+
+<section><h2>標準出力</h2> <p>現行の RVSD サブシステム実行レベル。</p>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li>ノード 5 を、仮想共有ディスク vsd1 および vsd2 から分離解除するには、次のように入力します。<div><div><pre><code>unfencevsd -v vsd1,vsd2 -n 5</code></pre></div><div></div></div></li>
+
+<li><span><span> unfencevsd</span></span> コマンドをノード 7 から入力する必要があるときに、仮想共用ディスク vsd1 および vsd2 からノード 7 を分離解除するには、次のように入力します。<div><div><pre><code>unfencevsd -v vsd1,vsd2 -n 7 -f</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+</section>
+
+<section><h2>場所</h2> <p><strong>/opt/rsct/vsd/bin/unfencevsd</strong></p>
+</section>
+
+</div></div>

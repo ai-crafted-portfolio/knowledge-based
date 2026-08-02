@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+<p>区画ディレクトリーを削除します。</p>
+</section>
+
+<section><h2>構文</h2>
+<p><strong>PDRMDIR</strong> <em>ディルネーム</em> ...</p>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>pdrmdir</strong> コマンドは、<em>dirname</em> パラメーターで指定された区画ディレクトリーを削除します。 通常のユーザーは、任意アクセス制御 (DAC)、必須アクセス制御 (MAC)、および必須保全性制御 (MIC) アクセス権によってディレクトリーの削除を許可されている場合に、区画ディレクトリーを削除できます。 <strong>aix.mls.pdir.rmdir</strong> 権限のあるユーザーは、DAC、MAC、および MIC アクセス権をオーバーライドできます。</p>
+
+<p><strong>pdrmdir</strong> コマンドは、空の区画サブディレクトリーのみを除去し、区画サブディレクトリー内のファイルまたはディレクトリーは除去しません。 区画ディレクトリーは、すべての区画サブディレクトリーが除去されてディレクトリーが空になった後で除去されます。 ファイルが存在する場合は、区画ディレクトリーの除去は失敗します。</p>
+</section>
+
+<section><h2>セキュリティー</h2>
+<p>すべてのユーザーが <strong>pdrmdir</strong> コマンドを実行できます。 特定の機能を正常に実行するためには、ユーザーは以下の権限を持っていなければなりません。</p>
+
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>aix.mls.pdir.rmdir</strong></td>
+
+<td>DAC、MAC、および MIC アクセス権を無視してパス内のディレクトリーを除去するために必要です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+<p><strong>pdrmdir</strong> コマンドは、以下の終了値を戻します。</p>
+
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li>区画ディレクトリーを削除するには、次のように入力します。<div><div><pre><code>pdrmdir partdir</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2>
+
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/pdrmdir</strong></td>
+
+<td><strong>pdrmdir</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

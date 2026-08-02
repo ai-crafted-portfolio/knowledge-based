@@ -1,0 +1,256 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>BNU 操作の状況を報告し、BNU 操作を制限付きで制御できるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uustat</strong> [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162110" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a><em>Number </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162076" target="_blank" rel="noopener noreferrer"><strong>-a </strong></a>|<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162082" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a><em> JobID </em>|<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162104" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><strong> </strong>|<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162118" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>|<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162127" target="_blank" rel="noopener noreferrer"><strong>-q </strong></a>|<strong> </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162150" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><em> JobID </em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162166" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> システム </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162180" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em> ユーザー </em>]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uustat</strong> コマンドは、
+各種 BNU 命令の状況情報を表示する基本ネットワーク・ユーティリティー (BNU) コマンドです。 BNU 要求の状態をモニターするときに便利なコマンドです。</p>
+ <p>また、リモート・システム上で実行待ち状態にある BNU ジョブに対し限定付きの制御を行うときも <strong>uustat</strong> コマンドを使用します。 適切なフラグを指定してこのコマンドを発行すると、
+他のシステムとの BNU 接続の一般的な状態を検査することができ、
+<strong>uucp</strong> コマンドと <strong>uuto</strong> コマンドで出されたコピー要求を取り消すことができます。</p>
+ <p>フラグなしで <strong>uustat</strong> コマンドを発行すると、
+前回の保留中のキューのクリーンアップ以降に現在のユーザーが発行したすべての BNU 要求の状態が報告されます。 この状態報告は、以下のフォーマットで表示されます。</p>
+ <div> <div><div><pre><code>jobid date/time status system_name user_ID size file</code></pre></div><div></div></div></div>
+ <p>BNU キューには、以下の 2 種類があります。</p>
+ <ul>
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162127" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> フラグを指定してアクセスされる現行キューには、1 つ以上の指定されたコンピューター上で実行するためにキューに入れられているか、または現在実行中の BNU ジョブがリストされます。</li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162076" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> フラグを使用してアクセスされる保留キューは、設定された期間内に実行されなかったすべてのジョブをリストします。<p>設定時間が経過したら、保留のキュー内にある項目は、
+BNU <strong>uucleanup</strong> コマンドを使用して手作業で削除するか、
+または <strong>cron</strong> デーモンで開始する <strong>uudemon.cleanu</strong> などのコマンドで自動的に削除します。</p>
+</li>
+
+</ul>
+ <p>最近接続していなかったシステムにファイルを送信するときには、
+そのリモート・システムが故障していたり、サービス停止中であることが考えられますから、
+<strong>uustat</strong> コマンドを使用して最後のアクセスがいつ行われたかを調べることをお勧めします。</p>
+</section>
+
+<section><h2>フラグ</h2> <p>以下のフラグは同時には使用できません。 <strong>uustat</strong> コマンドには一度に 1 つのフラグだけを使用してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>元の BNU コマンドを発行したユーザーが誰であるかに関係なく、
+保留中のキュー内のジョブの情報をすべて表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em>ジョブID</em></td>
+
+<td><em>JobID</em> 変数で指定した BNU プロセスを取り消します。 このフラグを使用するユーザーは、
+取り消される <strong>uucp</strong> 要求を実行したユーザーか、
+root 権限で操作しているかのいずれかでなくてはなりません。<p>このフラグは、そのジョブがまだローカル・マシン上にあるうちでないとプロセスを取り消すことができません。 BNU がジョブを実行するためにリモート・システムに移動した後は、<strong>-k </strong><em>JobID</em> フラグを用いてリモート・ジョブを取り消すことはできません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>指定されたシステムに、BNU コマンドを使って、最近に試みられた接続操作の状態を報告します。 BNU 要求が完了すると、状態報告は正しく実行されます。 ジョブが完了しない場合、状態報告はログインの失敗を知らせるエラー・メッセージとなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 数値</em></td>
+
+<td>BNU 状態情報を収集できるコンピューター数を指定できます。 指定数は Systems ファイル内のコンピューター数と等しいかまたはそれ以上でなければなりません。 デフォルトは 200 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>ロック・ファイル内のすべての PID 番号に対して <strong>ps -flp</strong> (プロセス状況: 指定したプロセス ID の完全な詳細形式のリスト) を実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>各システムで現在実行キューにあるジョブをリストします。 これらのジョブは、実行待ち、またはプロセスの実行中です。 システム用の状況ファイルがあるときは、その日時、状況情報が通知されます。 ジョブが終了すると、BNU はジョブ・リストを現在のキューから除去します。<p>状況報告書で、 <strong>C. *</strong> の番号の横にある括弧内の番号。 (コマンド) ファイルまたは <strong>X.*</strong> (execute) ファイルは、最も古い <strong>C. *</strong> の経過日数を表します。 または<strong> X.*</strong> ファイルを使用してください。 <strong>retry</strong> フィールドは、ログインの失敗、ファイルのロック、
+またはデバイスの使用不可などの理由で、BNU がコマンドの実行を試みたが失敗した回数を表します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em>ジョブID</em></td>
+
+<td><em>JobID</em> 変数で指定した保留のキュー内のファイルに現在の日時で印を付けます。 このフラグは、ジョブの変更時間が指定の期間に達するまでクリーンアップ命令によってファイルが削除されないようにするときに使用します。<p>以下のフラグのいずれか、または両方を <strong>uustat</strong> コマンドと一緒に指定することができます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> システム</em></td>
+
+<td><em>System</em> 変数で指定したワークステーションについての BNU 要求の状態を報告します。 <em>System</em> 名には ASCII 文字以外は使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> ユーザー</em></td>
+
+<td>すべてのワークステーションについて、
+<em>User</em> 変数で指定したユーザーによる BNU 要求の状態を報告します。 <em>User</em> 名には ASCII 文字以外は使用できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>保留キューにあるすべての BNU ジョブの状況を表示するには、次のように入力します。<div>uustat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162076" target="_blank" rel="noopener noreferrer">-a</a></div>システムは、次のようなメッセージで応答します。<div> <div><div><pre><code>heraC3113   11/06-17:47 S  hera    amy  289   D.venus471afd8
+zeusN3130   11/06-09:14 R  zeus    geo  338   D.venus471bc0a
+merlinC3120 11/05-16:02 S  merlin  amy  828   /home/amy/tt
+merlinC3119 11/05-12:32 S  merlin  msg  rmail amy</code></pre></div><div></div></div> 
+<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+
+<td>操作のジョブ ID</td>
+
+</tr>
+
+<tr>
+<td><strong>※2</strong></td>
+
+<td>BNU コマンドの発行日時</td>
+
+</tr>
+
+<tr>
+<td><strong>3</strong></td>
+
+<td>ジョブがファイルの送信か受信によって、S か R になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>4</strong></td>
+
+<td>コマンドが入力されたシステムの名前</td>
+
+</tr>
+
+<tr>
+<td><strong>5</strong></td>
+
+<td>コマンドを発行したユーザーのユーザー ID</td>
+
+</tr>
+
+<tr>
+<td><strong>6</strong></td>
+
+<td>フィールドのサイズ、またはリモート・コマンドの名前</td>
+
+</tr>
+
+<tr>
+<td><strong>7</strong></td>
+
+<td>ファイルの名前。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>ファイルのサイズを指定すると、出力例の最初の 3 行に示すようにファイル名も表示されます。 ファイル名は、以下のように、ユーザーが指定した名前にすることができます。/home/amy/ttエントリー、または BNU がリモート実行に関連したデータ・ファイルに内部的に割り当てる名前。例えば、次のようなものがあります。D.venus471afd8.</div>
+</li>
+
+<li><span></span>現行キュー内のすべてのジョブの状況を表示するには、次のように入力します。<div>uustat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162127" target="_blank" rel="noopener noreferrer">-q</a></div>システムは、次のようなメッセージで応答します。<div>
+<div><div><pre><code>merlin  3C       07/15-11:02   NO DEVICES AVAILABLE
+hera    2C       07/15-10:55   SUCCESSFUL
+zeus    1C (2)   07/15-10:59   CAN'T ACCESS DEVICE</code></pre></div><div></div></div>この出力は、 <strong>C. *</strong> の数を示します。 (command) ファイルは各システムを待機しています。 括弧内の数値(2)この例の 3 行目は、 <strong>C. *</strong> ファイルは 2 日間キューに入っています。 日時は、システムとの現在の対話を表し、その後に対話状態の報告が続きます。</div>
+</li>
+
+<li><span></span>ロック・ファイル内のすべてのプロセス ID を表示するには、次のように入力します。<div>uustat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162118" target="_blank" rel="noopener noreferrer">-p</a></div>システムは、次のようなメッセージで応答します。<div> <div><div><pre><code>LCK..tty0:  881
+LCK.S.0:  879
+LCK..hera:  881
+F   S UID  PID  PPID  C  PRI NI ADDR SZ  WCHAN    STIME    TTY
+101 S uucp 881  879   26 39  39 370  296 3fffe800 09:57:03  -
+TIME  COMD
+0:00  UUCICO  -r1  -shera
+101 S uuc  879  1     11 33  39 770  156 8d874    09:57:02  -
+0:00  /usr/sbin/uucp/uusched</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>現行キュー内のジョブを取り消すには、まずそのジョブ ID を判別してから、ジョブを取り消すコマンドを発行します。 ジョブ ID を確認するには、以下のように入力します。<div>uustat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162076" target="_blank" rel="noopener noreferrer">-a</a></div>システムは、次のようなメッセージで応答します。<div> <div><div><pre><code>heraC3113   11/06-17:47  S  hera    amy  289  D.venus471afd8
+merlinC3119 11/06-17:49  S  merlin  geo  338  D.venus471bc0a</code></pre></div><div></div></div>以下の ID を持つジョブを取り消します。heraC3113、タイプ:<div>uustat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162082" target="_blank" rel="noopener noreferrer">-k </a>heraC3113</div>
+</div>
+</li>
+
+<li><span></span>システムによって要求されたジョブの状況を報告するhera、タイプ:<div>uustat  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uustat.html#uustat__row-d3e162166" target="_blank" rel="noopener noreferrer">-s </a>hera</div>システムは、次のようなメッセージで応答します。<div> <div><div><pre><code>heraN1bd7  07/15-12:09  S  hera  amy  522    /usr/amy/A
+heraC1bd8  07/15-12:10  S  hera  amy   59    D.3b2a12ce4924
+heraC3119  07/15-12:11  S  hera  amy  rmail   msg</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/locks</strong></td>
+
+<td>デバイスの複数使用を抑制するロック・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/uustat</strong></td>
+
+<td>コマンドのパス名です。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp</strong></td>
+
+<td>BNU 状態情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

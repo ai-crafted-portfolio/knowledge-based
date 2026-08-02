@@ -1,0 +1,92 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホスト・ファイルをネットワーク・ライブラリー・ルーチンが使うフォーマットに変換します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/htable</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/htable.html#htable__row-d3e156300" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><em> connected-nets</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/htable.html#htable__row-d3e156320" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a><em> local-nets</em> ] <em>入力ファイル</em></p>
+ <div><div><div>
+        <div>
+          <div><span>注:</span> コンマの両側にスペースを入れないでください。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><strong>htable</strong> コマンドは、RFC 810 内で指定された構文のホスト・ファイルを、ネットワーク・ライブラリー・ルーチンが使うフォーマットに変換します。 変換により、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/hosts.html" target="_blank" rel="noopener noreferrer"><strong>/etc/hosts</strong></a> ファイル、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/networks_TCPIP.html" target="_blank" rel="noopener noreferrer"><strong>/etc/networks</strong></a> ファイル、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/gateways.html" target="_blank" rel="noopener noreferrer"><strong>/etc/gateways</strong></a> ファイルの 3 つのファイルが作成されます。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/communicationtechref/gethostbyname.html" target="_blank" rel="noopener noreferrer"><strong>Gethostbyname</strong></a> サブルーチンは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/named.html" target="_blank" rel="noopener noreferrer"><strong>名前付き</strong></a> デーモンが使用されていない場合に、ホスト名をアドレスにマップするために <strong>ホスト</strong> ファイルを使用します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/communicationtechref/getnetent.html" target="_blank" rel="noopener noreferrer"><strong>GetNetent</strong></a> サブルーチンは、ネットワーク名を数値にマップするために <strong>ネットワーク</strong> ファイルを使用します。</p>
+ <p><strong>ゲートウェイ</strong> ファイルは、パッシブ・インターネット・ゲートウェイを識別するために <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/routed.html" target="_blank" rel="noopener noreferrer"><strong>経路指定</strong></a> デーモンによって使用されます。</p>
+ <p>現行ディレクトリー内にローカルの <strong>hosts</strong> ファイル、<strong>networks</strong> ファイル、または <strong>gateways</strong> ファイル (それぞれ、<strong>localhosts</strong>、<strong>localnetworks</strong>、または <strong>localgateways</strong>) がある場合、そのファイルの内容がプレフィックスとして出力ファイルに追加されます。 <strong>htable</strong>  プログラムは、これらのファイルのうち <strong>gateways</strong> ファイルのみを解釈します。 内容にプレフィックスが追加されるので、サイトで通常はマスター・データベース内に存在しないローカル・エントリーの保守が可能になります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong> <em>connected-nets
+</em></td>
+
+<td>ネットワーク経路指定デーモンで <strong>gateways</strong> ファイルを使用する場合、ホストが直接接続しているネットワークのリストを指定します。 ネットワークはコンマで区切り、ネットワーク名または標準のインターネット・ドット表記を使用します (例:-c   arpanet,128.32,LocalEthernet)。 <strong>HTABLE</strong> コマンドには、指定されたいずれかのネットワークに直接接続されているゲートウェイ、または接続されたネットワーク上の別のゲートウェイから到達できるゲートウェイのみが含まれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>local-nets
+</em></td>
+
+<td><strong>htable</strong> コマンドでローカルと見なされるネットワークのリストを指定します。 <strong>localhosts</strong> ファイルからのみ、ローカル・ネットワーク上のホストに関する情報を取り出します。 ネットワークはコンマで区切り、ネットワーク名または標準のインターネット・ドット表記を使用します (例:-l
+  128.32,local-ether-net)。 <strong>ローカル・ホスト</strong> ファイルが入力ファイル (コマンド行で指定したファイル) の項目をオーバーライドできるように、メイン・データベースのローカル・ホストの項目は省略されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/</strong><em> 現在のディレクトリ</em><strong> / ローカルゲートウェイ</strong></td>
+
+<td>ローカル・ゲートウェイ情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/</strong><em> 現在のディレクトリ</em><strong> / ローカルホスト</strong></td>
+
+<td>ローカル・ホスト名情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/</strong><em> 現在のディレクトリ</em><strong> / ローカルネットワーク</strong></td>
+
+<td>ローカル・ネットワーク情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

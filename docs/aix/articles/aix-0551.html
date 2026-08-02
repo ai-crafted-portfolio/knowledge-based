@@ -1,0 +1,252 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>さまざまなパッケージ・フォーマットのソフトウェア製品をインストールする汎用インストーラー。 例えば、installp、RPM、SI、ISMP などです。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>geninstall</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132740" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>Media</em>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132809" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> <em>installpFlags</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132774" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132970" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132952" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>ResponseFileLocation</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132754" target="_blank" rel="noopener noreferrer"><strong>[-e</strong></a> <em>LogFile</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132946" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132803" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132983" target="_blank" rel="noopener noreferrer"><strong>-Y</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132995" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a>] [ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132748" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a>] {<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132780" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> <em>ファイル</em>|<em>インストールリスト</em>]。ファイル | インストールリスト｝</p>
+ <p>または</p>
+
+<p><strong>geninstall</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__geninstall-rowk" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132740" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> メディア ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132946" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132983" target="_blank" rel="noopener noreferrer"><strong>-Y (Y)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132780" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> ファイル | インストール・リスト | <code>all</code> | <code>update_all</code> ]</p>
+
+<p>または</p>
+ <p><strong>geninstall</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132977" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132754" target="_blank" rel="noopener noreferrer"><strong>[-e</strong></a> <em>LogFile</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132774" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132970" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132952" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>ResponseFileLocation</em>] [ '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132748" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132780" target="_blank" rel="noopener noreferrer"><strong>{-f</strong></a> <em>File</em>|<em>Uninstall_List</em>...}</p>
+ <p>または</p>
+ <p><strong>geninstall</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132937" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132740" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>メディア</em> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132754" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> <em>LogFile</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132748" target="_blank" rel="noopener noreferrer"><span><span>-D</span></span></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p>現在の <strong>installp</strong> フラグをすべて受け入れ、
+それらを <strong>installp</strong> に渡します。 フラグの一部 (例えば <strong>-L</strong>) は、
+メディア上のすべての製品を表示するために、過負荷になっています。 ISMP パッケージ製品に関係のないフラグは無視されます。 これにより、プログラム (NIM など) は、
+<strong>installp</strong> フラグを常に <strong>geninstall</strong> に送信し続けることができますが、
+使用されるのは関係のあるフラグだけです。</p>
+ <p><span><span>geninstall</span></span> コマンドを使用すると、 <span><span>/etc/check_config.files</span></span>にリストされている構成ファイルに対してどのような変更が行われたかを簡単に確認できます。 <span><span>geninstall</span></span> のインストールまたは更新操作中にこれらのファイルが変更されると、新旧のファイルの違いが <span><span>/var/adm/ras/config.diff</span></span>に記録されます。 <span><span>/etc/check_config.files</span></span> が古いファイルの保存を要求した場合、古いファイルは <span><span>/var/adm/config</span></span> ディレクトリーにあります。</p>
+ <div><span><span>/etc/check_config.files</span></span> ファイルは、編集することができ、変更された古い構成ファイルを保管するか ( <code>s</code>で示される)、削除するか ( <code>d</code>で示される) を指定するために使用できます。以下の形式になります。<div><div><pre><code>d /etc/inittab</code></pre></div><div></div></div></div>
+ <p><strong>geninstall</strong> コマンドのインストール・アクティビティーの要約が、
+<strong>/var/adm/sw/geninstall.summary</strong> に保管されています。 このファイルには、<strong>installp</strong> でインストールしたファイルセットと、ISMP で
+インストールしたコンポーネントのリストが、コロンで区切られて入っています。 これは主として、サイレント・インストールの要約情報を提供するために使用されます。</p>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span> <strong>README.ISMP</strong> ファイル ( <strong>/usr/lpp/bos</strong> ディレクトリー内)。ISMP パッケージのインストールおよび応答ファイルの使用について詳しく知ることができます。 また、 <strong>geninstall</strong> コマンドは、並行更新を含む <span>暫定修正</span> ファイルをインストールすることができます。 並行更新を含む暫定修正は、インストール・イメージを含むディレクトリー内の <strong>cupdates</strong> というサブディレクトリーに置かれなければなりません。これで <strong>geninstall</strong> コマンドは更新を適切にインストールします。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d </strong><em>Device または Directory</em></td>
+
+<td>インストールするイメージが入ったデバイスまたはディレクトリーを指定します。<div><span>geninstall</span> コマンドは、以下のパスにあるイメージを検索します。<ul>
+<li><span>/mount_point/installp/ppc</span> (installp パッケージ)</li>
+
+<li><span>/mount_point/RPMS/ppc</span> (RPM パッケージ)</li>
+
+<li><span>/mount_point/emgr/ppc</span>(<span>AIX</span> 用中間修正パッケージ)</li>
+
+<li><span>/mount_point/ISMP/ppc</span> ( <span>AIX</span>用の ISMP パッケージ)</li>
+
+</ul>パスが存在しない場合、<span>geninstall</span> コマンドは特定のデバイスのベース・ディレクトリーにあるイメージを検索します。 イメージ名の前にイメージ・タイプを示すプレフィックスが付いていない場合、<span>geninstall</span> コマンドはイメージのタイプを識別します。</div>
+<p>パスが存在し、どのパスにもイメージがなく、しかもイメージがプレフィックスを含んでいない場合、イメージは RPM フォーマットのイメージとして扱われます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-D</span></span></td>
+
+<td>デバッグ・モードを指定します。 このフラグは、このスクリプトをデバッグするためのものです。 これにより大量の出力が作成されるため、通常の操作にこれを使用すべきではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e </strong>
+<em>logfile</em></td>
+
+<td>イベント・ログ作成機能を使用可能にします。 <strong>-e</strong> フラグを指定することにより、
+<strong>geninstall</strong> コマンド出力の特定部分を <em>LogFile
+</em> 変数で指定したファイルに追加することができます。 <em>LogFile</em> 変数には、既存の書き込み可能ファイルを指定しなければなりません。
+また、そのファイルが存在するファイルシステムには、ログを保管するだけのスペースが必要です。 ログ・ファイルには折り返しはありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>デフォルトのロケーションに ISMP 応答記録ファイルを作成します。
+これは製品インストール・ファイルを含むディレクトリーです。 このオプションを指定する際は、
+ISMP インストールまたはアンインストールを対話式で
+完全に実行する必要があります。 結果の応答ファイルを使用すると、
+それ以降同じ製品をインストールまたはアンインストールする際に
+同じオプションが提供されます。 応答記録ファイルを作成することにより、結果的に製品がインストールまたはアンインストールされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>ターゲット・ロケーションにコピーするイメージのリストを入れるファイルを指定します。 <span><span>installp</span></span>、RPM、および ISMP イメージには、それぞれ <span><span>I:</span></span>、 <span><span>R:</span></span>、および <span><span>J:</span></span>という接頭部を付ける必要があります。 暫定修正パッケージの接頭部として <span><span>E:</span></span>を付けます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>既にインストールされているパッケージを再インストールしたり、現在インストールされている
+バージョンより古いパッケージをインストールします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em> installpFlags</em></td>
+
+<td><strong>installp</strong> コマンドを呼び出す際に使用する、
+<strong>installp</strong> フラグを指定します。 <strong>installp</strong> のインストール操作時に使用されるフラグは、
+<strong>a</strong>、<strong>b</strong>、<strong>c</strong>、
+<strong>D</strong>、<strong>e</strong>、<strong>E</strong>、
+<strong>F</strong>、<strong>g</strong>、<strong>I</strong>、
+<strong>J</strong>、<strong>M</strong>、<strong>N</strong>、
+<strong>O</strong>、<strong>p</strong>、<strong>Q</strong>、
+<strong>q</strong>、<strong>S</strong>、<strong>t</strong>、
+<strong>v</strong>、<strong>V</strong>、<strong>w</strong>、
+<strong>X</strong> フラグです。 インストール時に使用されない <strong>installp</strong> フラグは、
+<strong>C</strong>、<strong>i</strong>、<strong>r</strong>、
+<strong>z</strong>、<strong>A</strong>、
+および <strong>l</strong> フラグです。 これらの機能を実行するには、
+<strong>installp</strong> コマンドを直接呼び出さなければなりません。 <strong>-u</strong>、<strong>-d</strong>、<strong>-L</strong>、
+<strong>-f</strong> フラグは、<strong>-I</strong> フラグの外側で指定してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>IBM AIX 7.2 テクノロジー・レベル 1 以降でこのフラグを使用すると、 <span>AIX Live Update</span> 操作を使用して、Service Pack (SP)、テクノロジー・レベル (TL)、グループまたは個々の更新、および <code>LU CAPABLE</code>のマークが付いた暫定修正をアップグレードできます。 暫定修正が <code>LU CAPABLE</code> であるかどうかを判別するために、インストールのプレビューを実行できます。 <span>ライブ・アップデート</span> 操作を開始する前に、システム上の既存の更新をすべてコミットする必要があります。 <span>ライブ・アップデート</span> 操作は常に、プロセス中に適用されるすべての更新をコミットし、必要なファイル・システムを展開し、必要なソフトウェアをインストールします。 <span>ライブ・アップデート</span> 操作中は、他のすべてのインストール・プロセスを開始できません。<div><div>
+        <div>
+          <div><span>注:</span> <span>ライブ・アップデート</span> 操作に更新のインストールが含まれている場合は、 <span>ライブ・アップデート</span> 操作に進む前に、実行可能なシステム・バックアップを取る必要があります。 <span>「ライブ・アップデート」</span> 操作では、バックアップ・イメージは作成されません。</div>
+        </div>
+      </div></div>
+<p>ご使用の環境で以下のタスクを実行すると、 <span>ライブ・アップデート</span> 操作は失敗します。</p>
+<ul>
+<li>ワークロード区画 (wpar) 環境、multibos 環境、または代替ディスク環境などの特殊な環境で暫定修正をインストールする。</li>
+
+<li>オペレーティング・システムをインストールする。</li>
+
+<li>必須オペレーティング・システム論理ボリューム (<span>/</span>、<span>/var</span>、<span>/opt</span>、<span>/usr</span>、<span>/etc</span>) およびブート論理ボリュームの論理ボリューム名が、デフォルトの論理ボリューム名として使用されていない。</li>
+
+</ul>
+<p><span>「ライブ・アップデート」</span> 操作には、 <span>/var/adm/ras/liveupdate/lvupdate.data</span> ファイルに指定されている追加の入力が必要です。 このファイルについて詳しくは、<span>/var/adm/ras/liveupdate/lvupdate.template</span>を参照してください。</p>
+<p>更新が正常に適用およびコミットされ、 <span>ライブ・アップデート</span> ・プロセスが失敗した場合は、 <span>-k</span> フラグのみを指定して <span>geninstall</span> コマンドを実行することにより、 <span>ライブ・アップデート</span> ・プロセスを再実行できます。 このシナリオでは、コマンドにデバイスとソフトウェアを含める必要はありません。</p>
+<p>AIX®7200-01以降では、SMITまたはお好みの方法でアップデートや暫定的な修正を適用してコミットし、'<span>-d</span>フラグを使用せずに<span>ライブ・アップデート</span>を実行できるため、システムを再起動する必要はありません。</p>
+<p><span>geninstall</span> <span>-k</span> 操作は、RPM パッケージを更新するわけではありません。 LKU 操作を実行する前に、RPM パッケージを更新する必要があります。</p>
+<p><code>all</code> オプションは、<span>-d</span> フラグで指定されたデバイスまたはディレクトリーにあるすべてのソフトウェアをインストールします。 このプロセスは、そのソフトウェアが以前にシステムにインストールされていなかった場合でも、<span>-d</span> フラグによって指定されたソフトウェア・ソースにあるすべてのソフトウェアをインストールします。 <code>update_all</code> オプションは、既にシステムにインストールされている、指定されたソフトウェアの上位バージョンだけをインストールします。 <code>update_all</code> オプションは、既存のソフトウェアの新規バージョンが新規ソフトウェアを必要とする場合にのみ、新規ソフトウェアをインストールします。</p>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>ライブ・アップデート</span> 操作を実行するには、 <span>bos.liveupdate.rte</span> ファイルセットがインストールされている必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>メディアの内容を表示します。 出力フォーマットは <strong>installp -Lc</strong> フォーマットと同じで、
+ISMP および RPM フォーマット製品の末尾にはフィールドが追加されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>指定されたアクションのプリインストール検査をすべて実行することにより、アクションのプレビューを実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong> <em>ResponseFileLocation</em></td>
+
+<td>応答ファイルまたは応答ファイル・テンプレートの代替ロケーションの指定を許可します。 デフォルトのロケーションは、製品インストール・ファイルを含むディレクトリーです。 このフラグは、応答ファイルの記録またはテンプレートを、
+別のロケーションに作成するために使用できます。 <em>ResponseFileLocation</em> は、ファイル名でもディレクトリー名でもかまいません。 <em>ResponseFileLocation</em> がディレクトリーの場合は、
+このディレクトリーは既存のものでなければなりません。 <em>ResponseFileLocation</em>
+が既存のディレクトリーでない場合は、ファイル名を指定したものと見なされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>デフォルトのロケーションに ISMP 応答ファイル・テンプレートを作成します。
+このロケーションは製品インストール・ファイルを含むディレクトリーです。 作成されたテンプレートを使って、希望するオプションを指定し、
+同じ製品の今後のインストールまたはアンインストール用の応答ファイルを作成することができます。 応答ファイル・テンプレートを作成することによって、結果的に製品がインストールまたはアンインストール
+されることはありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>指定されたソフトウェアのアンインストールを実行します。 ISMP 製品の場合、
+ベンダーのデータベースにリストされているアンインストーラーが呼び出され、
+プレフィックス「J:」が付けられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong></td>
+
+<td>インストールされるソフトウェアの必要なソフトウェア・ライセンス契約に同意します。 このフラグは、<strong>-I</strong> オプションを付けた、<strong>installp</strong> フラグとしても
+受け入れられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td><strong>geninstall</strong> に、インストールをサイレント・モードで起動するよう指示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li>ドライブ <code>cd0</code> の CD メディア上にある製品をすべてインストールするには、次のように入力します。<div><div><pre><code>geninstall -d /dev/cd0 all</code></pre></div><div></div></div><p>メディア上に ISMP イメージがある場合には、グラフィカル・インターフェースが提供されます。 <strong>installp</strong>、SI、または RPM イメージの場合は、<strong>installp</strong> イメージが複数の CD にまたがっていない限り、プロンプトなしでインストールされます。</p>
+</li>
+
+<li><span>/images/emgr/ppc</span> ディレクトリーにある <span>IV12345.160101.epkg.Z</span> という名前の暫定修正をインストールするには、次のコマンドを入力します。<div><div><pre><code>geninstall -d /images IV12345.160101.epkg.Z</code></pre></div><div></div></div><div><div>
+        <div>
+          <div><span>注:</span> <span>/images/emgr/ppc</span> ディレクトリーが存在するが、パッケージが <span>/images</span> ディレクトリー (<span>/images/IV12345.160101.epkg.Z</span>) にある場合、 <span>geninstall</span> コマンドはそのパッケージを暫定修正と見なさず、RPM 形式のイメージとしてインストールしようとします。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/geninstall.html#geninstall__row-d3e132740" target="_blank" rel="noopener noreferrer"><span>-d</span></a> フラグを参照してください。</div>
+        </div>
+      </div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div>
+<ul>
+<li><span>/usr/sbin/gencopy</span></li>
+
+<li><span>/usr/sys/inst.data/sys_bundles</span></li>
+
+<li><span>/usr/sys/inst.data/user_bundles</span></li>
+
+</ul>
+</div>
+</section>
+
+</div></div>

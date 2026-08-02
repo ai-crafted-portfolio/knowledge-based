@@ -1,4 +1,4 @@
----
+﻿---
 hide:
   - navigation
   - toc
@@ -23,7 +23,7 @@ hide:
 
 - __[AIX 7.3](aix/index.html)__
 
-    技術項目 920 件
+    技術項目 1804 件
 
     QA 100.0% ／ 手順 100.0%
 
@@ -276,3 +276,4 @@ hide:
 - [TSO / ISPF / SDSF 入門](articles/zos/tso-ispf-fundamentals.md)
 - [USS（UNIX System Services）入門](articles/zos/uss-fundamentals.md)
 - [CICS 入門 — オンライン基盤の基礎](articles/zos/cics-fundamentals.md)
+

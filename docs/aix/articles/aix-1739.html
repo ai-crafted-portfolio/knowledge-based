@@ -1,0 +1,147 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プログラムのソース、バイナリー、またはマニュアルの位置を探します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>所在</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18889" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18876" target="_blank" rel="noopener noreferrer"><strong>-b </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18882" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18895" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>] [ { {  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18958" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a><strong> </strong>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18934" target="_blank" rel="noopener noreferrer"><strong>-B </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18946" target="_blank" rel="noopener noreferrer"><strong>-M (M) </strong></a>} <em>ディレクトリー </em>... }...  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whereis.html#whereis__row-d3e18970" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] <em>ファイル </em>... </p>
+</section>
+
+<section><h2>説明</h2> <p><strong>whereis</strong> コマンドは、指定されたファイルのソース、バイナリー、およびマニュアルの各セクションの位置を探し出します。 名前を与えると、最初に先行パス名コンポーネントと形式 <em>.ext</em>  (例えば <strong>.c</strong>) のすべての (単一の) 後書き拡張子が取り除かれます。 <strong>s.</strong> の接頭部 ソース・コード制御システム ( <strong>SCCS</strong>を参照) を使用した結果も説明されています。 次に、コマンドは要求されたプログラムを標準ロケーション・リストから見つけようとします。</p>
+ <p>無効なオプションを入力すると、使用方法メッセージが戻ります。 その他の場合、診断はありません。</p>
+</section>
+
+<section><h2>フラグ</h2> <p><strong>-b, -s,</strong><strong>
+-m</strong><strong> ,-u </strong>フラグのいずれかを与えると、
+<strong>whereis</strong> コマンドは、それぞれバイナリー・セクション、ソース・セクション、マニュアル・セクション、または異常セクションのみ (またはそのうちの 2 つ) を検索します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong></td>
+
+<td>ファイルのバイナリー・セクションを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>ファイルのマニュアル・セクションを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ファイルのソース・セクションを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>異常ファイルを検索します。 ファイルは、要求された各タイプのエントリーが 1 つなければ、異常と見なされます。 <code>whereis
+-m -u *</code> と入力すると、現行ディレクトリー内に文書のないファイルが要求されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>-B、-M、</strong><strong>-S</strong> フラグを使用すると、<strong>whereis</strong> コマンドが検索する場所を変更または制限できます。 プログラムは実行速度を上げるために <strong>chdir</strong> サブルーチンを使用するので、<strong>-M、-S</strong> および <strong>-B</strong> フラグのディレクトリー・リストの既定パス名は絶対パス名でなくてはなりません。つまり、<strong>/</strong> (スラッシュ) で始まるパス名を指定しなければなりません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>-b</strong> と同様です。ただし、検索対象にディレクトリーを追加します。 <strong>whereis</strong> コマンドがバイナリーの検索を行う場所を変更または制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td><strong>-m</strong> と同様です。ただし、検索対象にディレクトリーを追加します。 <strong>whereis</strong> コマンドがマニュアル・セクションの検索を行う場所を変更または制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td><strong>-s</strong> と同様です。ただし、検索対象にディレクトリーを追加します。 <strong>whereis</strong> コマンドがソースの検索を行う場所を変更または制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>最後の<strong> -M、-S</strong>、または <strong>-B</strong> ディレクトリー・リストを終了し、ファイル名の開始シグナルを送信します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>/usr/ucb</strong> ディレクトリー内のファイルのうち、<strong>/usr/man/man1</strong>
+ディレクトリー内で文書化されていないもの、あるいは <strong>/usr/src/cmd</strong> ディレクトリー内にソースがないものをすべて探すには、下記のように入力します。</p>
+ <div> <div><div><pre><code>cd /usr/ucb
+whereis -u -M /usr/man/man1 -S /usr/src/cmd -f *</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/man/*</strong></td>
+
+<td>マニュアル・ファイルが入っているディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/sbin</strong>、 <strong>/etc</strong>、 <strong>/usr/</strong>{<strong>lib</strong>、<strong>bin</strong>、<strong>ucb</strong>、<strong>lpp</strong>}</td>
+
+<td>バイナリー・ファイルが入っているディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/src/*</strong></td>
+
+<td>ソース・コード・ファイルが入っているディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

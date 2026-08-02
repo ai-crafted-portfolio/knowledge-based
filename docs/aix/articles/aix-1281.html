@@ -1,0 +1,97 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>国家情報院</span> マップ内のネットワーク・グループ・ファイル内のユーザーおよびホストのリストを逆にします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/revnetgroup</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/revnetgroup.html#revnetgroup__row-d3e148938" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/revnetgroup.html#revnetgroup__row-d3e148947" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a>} [ <em>ファイル </em>]</p>
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>revnetgroup</strong> コマンドは、
+ホストおよびユーザーが <strong>/etc/netgroup</strong> ファイル内でリストされている順序を逆にします。 <strong>revnetgroup</strong> コマンドは、 <strong>/var/yp/Makefile</strong> ファイルから呼び出され、 <strong>netgroup.byuser</strong> または <strong>netgroup.byhost</strong> <span>NIS</span> マップを作成するための出力を生成します。 この出力ファイルの各行は、ホスト名またはユーザー名とドメイン名を連結することによって形成されたキーで始まります。 キーの後には、ホストまたはユーザーが属しているグループのリストが続きます。 リストの先頭にはタブが付き、各グループはコンマで区切られます。</p>
+
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span></span> グループのリストは、汎用グループ (ネットワーク内のすべてのユーザーを含むグループ) の名前を使用しません。 汎用グループは * (アスタリスク) の下にリストされます。</div>
+        </div>
+      </div></div>
+
+<p><strong>revnetgroup</strong> コマンドは、デフォルトの <strong>/etc/netgroup</strong> ファイルが必要でなければ、
+オプションのファイル名を使用します。 この機能により、ユーザーはカスタム・ネットワーク・グループ・マップを作成しやすくなります。</p>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>netgroup.byhost</strong> マップを作成するための出力を生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><strong>netgroup.byuser</strong> マップを作成するための出力を生成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>/etc/netgroup</strong> ファイルがホスト名の前にユーザー名をリストするようにするには、 <strong>/var/yp/Makefile</strong> 内の該当するスタンザを次のように変更します。<div> <div><div><pre><code>revnetgroup -u</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>新規ネットワーク・グループ・ファイルを作成するには、以下のようにします。newgroup<strong>/etc</strong> ディレクトリーで、 <strong>/var/yp/Makefile</strong> 内の該当するスタンザを次のように変更します。<div> <div><div><pre><code>revnetgroup -h newgroup</code></pre></div><div></div></div>この例で使用されている <strong>-h</strong> フラグは、新しい <strong>/etc/newgroup</strong> ファイルの中でホスト名がユーザー名の前にリストされるようにします。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/netgroup</strong></td>
+
+<td>ネットワーク・グループ内のユーザーとホストのリストが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/yp/Makefile</strong></td>
+
+<td><span>国家情報院</span> マップを作成するための規則が含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

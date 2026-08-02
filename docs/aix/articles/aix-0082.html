@@ -1,0 +1,354 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>Active System Optimizer (ASO) のチューナブル・パラメーターを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>asoo</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34248" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34287" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__asoo-rowK" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34333" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34214" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><em> 調整可能</em> [= <em>新しい値</em> ]}</p>
+ <p><strong>asoo</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34248" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34287" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__asoo-rowK" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a> ]] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34333" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a> ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34134" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em> 調整可能</em> }</p>
+ <p><strong>アズー</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34248" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34287" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__asoo-rowK" target="_blank" rel="noopener noreferrer"><strong>-K (K)</strong></a>]] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34333" target="_blank" rel="noopener noreferrer"><strong>-y (Y)</strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34157" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a></p>
+ <p><strong>asoo</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34248" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34287" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__asoo-rowK" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34175" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34119" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a></p>
+ <p><strong>アズー</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34193" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a>] [<em>チューナブル</em>]</p>
+ <p><strong>asoo</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34175" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__asoo-rowK" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34204" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> [<em>Tunable</em>]</p>
+ <p><strong>asoo</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34175" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__asoo-rowK" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34321" target="_blank" rel="noopener noreferrer"><strong>-x </strong></a>[<em>Tunable</em>]</p>
+ <div><div>
+        <div>
+          <div><span>注意：-</span> <strong>o</strong>、<strong>-d</strong>、<strong>-x</strong>、<strong> -L</strong>など、複数のオプションを指定することができる。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>説明</h2><p><strong>asoo</strong> コマンドは、ASO チューナブル・パラメーターを構成するのに使用されます。 このコマンドは、すべての ASO チューナブル・パラメーターについて、現在値またはリブート値を設定または表示します。 また、永続的な変更を行ったり、変更を次のリブート操作まで保留したりします。</p>
+<p>コマンドがパラメーターを設定するのか表示するのかは、一緒に指定するフラグによって決まります。 <strong>-o</strong> フラグを
+使用すると、両方のアクションを実行します。 パラメーターの値を表示したり、パラメーターに新しい値を設定したりすることができます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>アズー</strong> コマンドを正しく使用しないと、重大なパフォーマンス低下またはオペレーティング・システム障害が発生する可能性があります。</div>
+        </div>
+      </div></div>
+ <p>チューナブル・パラメーターを変更する前に、その目的を完全に理解するために、まず「チューナブル・パラメーター」セクションでチューナブル・パラメーターの特性のすべてについて注意して読み、「参照」ポインターがあればこれに従ってください。 次に、このパラメーターについての「診断」セクションおよび「チューニング」セクションがご使用のシステムの状況に実際に当てはまるかどうか、また、このパラメーターの値を変更することがシステムのパフォーマンスの向上に役立つかどうかを確認する必要があります。 Diagnosis（診断）セクションとTuning（チューニング）セクションの両方に<strong>N/A</strong>しかない場合は、<span>AIX</span>から特に指示がない限り、このパラメータを変更しないでください。</p>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>これは、すべてのチューナブル・パラメーターについて、現行値、リブート値 (<span>-r</span> オプションと一緒に使用される場合)、ライブ・アップデート値 (<span>-K</span> オプションと一緒に使用される場合)、または永続値 (<span>-p</span> オプションと一緒に使用される場合) を、<em>Tunable</em>
+<strong>=</strong>
+<strong><em>Value</em></strong> のペアで 1 行に 1 つずつ表示します。 永続オプションの場合、パラメーターの値はそのリブート値と現行値が等しい場合のみ表示されます。 値が異なる場合は、値として NONE が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> チューナブル</em></td>
+
+<td>これは、<em>チューナブル</em>・パラメーターをデフォルト値にリセットします。 <em>チューナブル</em>・パラメーターはデフォルト値に設定されていないために変更が必要ですが、チューナブル・パラメーターが以下の基準セットの 1 つ以上を満たす場合は、警告メッセージが表示され、パラメーターは変更されません。<ul>
+<li>チューナブル・パラメーターのタイプが <strong>Bosboot</strong> または <strong>Reboot</strong> である。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Incremental</strong> であり、そのチューナブル・パラメーターはデフォルト値から変更されたものであり、<strong>-r</strong> フラグが組み合わせて使用されない。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Reboot</strong> であり、そのチューナブル・パラメーターはライブ・アップデート操作にわたってサポートされる。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>これは、すべての<em>チューナブル</em>・パラメーターをデフォルト値にリセットします。 デフォルト値に設定されていないために変更が必要な <em>Tunable</em> が以下の基準のセットの 1 つ以上を満たしている場合、警告メッセージが表示され、変更は行われません。<ul>
+<li>チューナブルのタイプが <strong>Bosboot</strong> または <strong>Reboot</strong> である。</li>
+
+<li>チューナブルのタイプが、<strong>Incremental</strong> であり、そのチューナブルはデフォルト値から変更されたものであり、<strong>-r</strong> が組み合わせて使用されない。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Reboot</strong> であり、そのチューナブル・パラメーターはライブ・アップデート操作にわたってサポートされる。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>すべてのチューナブル・パラメーターをリストするために <strong>-a</strong>、<strong>-L</strong>、または <strong>-x</strong> オプションが単独でコマンド・ラインに指定されている場合、制限付きチューナブル・パラメーターを強制的に表示させます。 <strong>-F</strong> フラグが指定されない場合は、表示オプションで制限付きチューナブル・パラメーターを明確に指定しない限り、制限付きチューナブル・パラメーターは表示されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> Tunable</em></td>
+
+<td>チューナブル・パラメーターが指定されている場合は、そのヘルプを表示します。 それ以外の場合は、<strong>asoo</strong> コマンドの使用法を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong></td>
+
+<td><span>/etc/tunables/nextboot</span> ファイルと <span>/etc/tunables/nextliveupdate</span> ファイルの両方にチューナブル・パラメーター値を設定します。 <span>-K</span> フラグは、<span>-r</span> フラグと一緒の場合にのみ使用できます。<p><span>-r</span> フラグおよび <span>-d</span> (または <span>-D</span>) フラグと一緒に <span>-K</span> フラグを指定した場合、チューナブル・パラメーター値は、リブート操作時またはライブ・アップデート操作時に使用される <span>/etc/tunables/nextboot</span> ファイルおよび <span>/etc/tunables/nextliveupdate</span> ファイルにおけるデフォルト値に設定されます。</p>
+<p><span>-K</span> フラグを <span>-L</span> または <span>-x</span> フラグと一緒に指定すると、 <span>asoo</span> コマンドは Live Update 値を表示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong><em> Tunable</em></td>
+
+<td>以下の形式を使用して、1 つまたはすべてのチューナブル・パラメーターの特性を 1 行に 1 つずつリストします。 <span>-K</span> フラグを <span>-L</span> フラグと一緒に指定すると、Live Update 値も表示されます。<div><div><pre><code>NAME          CUR     DEF    BOOT    MIN      MAX    UNIT    TYPE
+    DEPENDENCIES
+-----------------------------------------------------------------
+aso_active      1      1       1       0       1     boolean    D
+-----------------------------------------------------------------
+where:
+	CUR = current value
+	DEF = default value
+	BOOT = reboot value
+	MIN = minimal value
+	MAX = maximum value
+	UNIT = tunable unit of measure
+	TYPE = parameter type: D (for Dynamic), S (for Static), R (for Reboot),
+	     B (for Bosboot), M (for Mount), I (for Incremental),
+	     C (for Connect), and d (for Deprecated)
+       DEPENDENCIES = list of dependent tunable parameters, one per line</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> チューナブル = [<em>NewValue</em>]</td>
+
+<td>これはチューナブル・パラメーターの値を表示したり新しい値に設定したりします。 <span> <span>/etc/tunables/usermodified</span>ファイルは、'<span>-o</span>フラグを使用してダイナミックチューナブルの値を変更するたびに、新しいチューナブルパラメータ値で更新される。</span> 変更したいチューナブル・パラメーターが以下の基準セットの 1 つ以上を満たす場合は、警告メッセージが表示され、パラメーターは変更されません。<ul>
+<li>チューナブル・パラメーターのタイプが <strong>Bosboot</strong> または <strong>Reboot</strong> である。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Incremental</strong> であり、現行値が指定値より大きく、<strong>-r</strong> フラグが組み合わせて使用されない。</li>
+
+<li>チューナブル・パラメーターのタイプが <strong>Reboot</strong>であり、チューナブル・パラメーターがライブ・アップデート操作にわたってサポートされる。</li>
+
+</ul>
+<p>新しい値を指定せずに <strong>-o</strong> フラグと一緒に <strong>-r</strong> フラグを指定すると、チューナブルのリブート値が表示されます。 <span><strong>-K</strong> フラグを <strong>-o</strong> フラグと一緒に指定し、新しい値を指定しないと、<span>nextliveupdate</span> ファイル内のタイプ <strong>Live Update</strong> のチューナブル・パラメーターの値が表示されます。</span> 新しい値を指定せずに <strong>-o</strong> フラグと一緒に <strong>-p</strong> フラグを指定すると、チューナブルの現行値とリブート値が同じ場合に限り、値が表示されます。 そうでない場合は、<code>NONE</code> が値として表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td><p><strong>-p</strong> オプションが新しい値と組み合わせられずに使用される場合は、<em>tunable</em> パラメーターの現行値とリブート値が等しい場合のみ、値が表示されます。 値が異なる場合は、値として NONE が表示されます。</p>
+ <p><strong>-o</strong>、<strong>-d</strong>、または <strong>-D</strong> オプションを組み合わせて使用すると、このフラグにより、変更は現行値とリブート値の両方に適用されます。 つまり、このフラグにより、現行値の更新機能をオンにすることに加えて、<strong>/etc/tunables/nextboot</strong> ファイルの更新機能もオンにします。 これらの組み合わせは <strong>Reboot</strong> および <strong>Bosboot</strong> タイプのパラメーターには使用できません。それらの現行値は変更できないためです。</p>
+ <p>新しい値を指定せずに、<strong>-a</strong> または <strong>-o</strong> オプションを指定する場合は、パラメーターの現行値とリブート値が等しい場合のみ、値が表示されます。 値が異なる場合は、値として NONE が表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><p><strong>-r</strong> オプションを <strong>-o</strong>、<strong>-d</strong>、または <strong>-D</strong> オプションと組み合わせて使用すると、このフラグにより、変更はリブート値に適用されます。例えば、<strong>/etc/tunables/nextboot</strong> ファイルの更新機能がオンになります。 タイプが <strong>Bosboot</strong> のどのパラメーターを変更する場合も、
+<strong>bosboot</strong> コマンドを実行するようにプロンプトが出されます。</p>
+
+<p>これが新しい値を指定せずに <strong>-a</strong> フラグまたは <strong>-o</strong> フラグと一緒に使用されると、現行値ではなくチューナブル・パラメーターのリブート値が表示されます。 <span><strong>-K</strong> フラグと一緒に使用すると、<span>/etc/tunables/nextboot</span> および <span>/etc/tunables/nextliveupdate</span> ファイルの両方に変更が適用されます。</span></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> [<em>チューナブル</em>]</td>
+
+<td>以下の (スプレッドシート) 形式を使用して、1 つまたはすべてのチューナブル・パラメーターの特性を 1 行に 1 つずつリストします。 <span>-K</span> フラグを <span>-x</span> フラグと一緒に指定すると、Live Update 値も表示されます。<div><div><pre><code>tunable,current,default,reboot,min,max,unit,type,{dtunable}
+
+where:
+       current = current value
+       default = default value
+       reboot = reboot value
+       min = minimal value
+       max = maximum value
+       unit = tunable unit of measure
+       type = parameter type: D (for Dynamic), S (for Static), R (for Reboot),
+	    B (for Bosboot), M (for Mount), I (for Incremental),
+	    C (for Connect), and d (for Deprecated)
+       dtunable = list of dependent tunable parameters</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td><strong>bosboot</strong> コマンドの実行前に、確認を求めるプロンプトの出力を抑止します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>制限付きチューナブル・パラメーターに (<strong>-o</strong>、<strong>-d</strong>、または <strong>-D</strong> オプションを指定して) 何らかの変更を加えると、制限付き使用タイプのチューナブル・パラメーターが変更されたという内容の警告メッセージが出されます。 コマンド・ラインで <strong>-r</strong> または <strong>-p</strong> オプションも指定した場合は、変更の確認を求めるプロンプトが出されます。 さらに、システムのリブート時に、デフォルト値とは異なる値に変更された制限付きチューナブル・パラメーター (コマンド・ラインで <strong>-r</strong> または <strong>-p</strong> オプションを指定) が <strong>/etc/tunables/nextboot</strong> ファイルに存在することで、変更されたチューナブル・パラメーターのリストを示すエラー・ログ・エントリーが生成されます。</div>
+</section>
+
+<section><h2>チューナブル・パラメーターのタイプ</h2> <p>チューニング・コマンド (<strong>no</strong>、<strong>nfso</strong>、<strong>vmo</strong>、<strong>ioo</strong>、<strong>schedo</strong>、<strong>raso</strong>、および <strong>asoo</strong>) で取り扱われるすべてのチューナブル・パラメーターは、下記のカテゴリーに分類されています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Dynamic</td>
+
+<td>パラメーターをいつでも変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Static</td>
+
+<td>パラメーターをいかなる時にでも変更できません。</td>
+
+</tr>
+
+<tr>
+<td>Reboot</td>
+
+<td>パラメーターをリブート操作時にのみ変更できます。</td>
+
+</tr>
+
+<tr>
+<td>Bosboot</td>
+
+<td><strong>bosboot</strong> コマンドの実行とシステムのリブートでのみパラメーターの変更が可能です。</td>
+
+</tr>
+
+<tr>
+<td>Mount</td>
+
+<td>パラメーターの変更は、今後のファイルシステムまたはディレクトリーのマウントに対してのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td>Incremental</td>
+
+<td>ブート時にパラメーターの追加のみ可能です。</td>
+
+</tr>
+
+<tr>
+<td>Connect</td>
+
+<td>パラメーターの変更は、今後のソケット接続に対してのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td>Deprecated</td>
+
+<td>このパラメーターに対する変更は、 <span>AIX</span>の現行リリースではサポートされなくなりました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>Bosboot</strong> タイプのパラメーターに関しては、変更が実行される時はいつも、チューニング・コマンドが自動的にユーザーにプロンプトを出して <strong>bosboot</strong> コマンドを実行するかどうかを尋ねます。 <strong>Connect</strong> タイプのパラメーターに関しては、チューニング・コマンドが自動的に <strong>inetd</strong> デーモンを再始動させます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>アズー</strong> コマンドによって管理されるパラメーターの現行セットには、動的およびリブート・タイプのチューナブル・パラメーターのみが含まれます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>チューナブル・パラメーター</h2> <p>チューナブル・パラメーターのデフォルト値および値の範囲については、<strong>asoo</strong> コマンド (<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/asoo.html#asoo__row-d3e34193" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a>&lt;<em>tunable_parameter_name</em>&gt;) のヘルプ情報を参照してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>aso_active</strong></td>
+
+<td><dl>
+<dt>目的</dt>
+
+<dd>ASO を使用不可にします。</dd>
+
+</dl>
+<dl>
+<dt>チューニング</dt>
+
+<dd><p>0 の値は ASO が使用不可であることを示します。 1 の値は ASO が使用可能であることを示します。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>DEBUG_LEVEL</strong></td>
+
+<td><dl>
+<dt>目的</dt>
+
+<dd>ASO のデバッグ・レベルを変更します。</dd>
+
+</dl>
+<dl>
+<dt>チューニング</dt>
+
+<dd><p>-1 の値 (デフォルト) は、デバッグ情報が収集されないことを示します。 -1 より大きな値は、このチューナブル・パラメーターによって指定されたレベル以下のデバッグ情報が収集されることを示します。 収集されたデータの位置は、<strong>/etc/syslog.conf</strong> ファイルの <strong>aso.debug</strong> エントリーによって指定されています。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<span>lssecattr</span> コマンドまたは <span>getcmdattr</span> サブコマンドを参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>asoo</strong> コマンドが管理するすべてのチューナブル・パラメーターの現行値、リブート値、範囲、単位、タイプ、および依存関係をリストするには、次のように入力します。<div> <div><div><pre><code>asoo -L</code></pre></div><div></div></div></div>
+ </li>
+
+<li><strong>asoo</strong> コマンドが管理するすべてのチューナブル・パラメーターの、現行値、リブート値、範囲、単位、タイプ、および依存関係をリスト (スプレッドシート形式) するには、次のように入力します。<div> <div><div><pre><code>asoo -x</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>aso_active </strong>チューナブル・パラメーターをデフォルトにリセットするには、次のように入力します。<div> <div><div><pre><code>asoo -d aso_active</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>aso_active</strong> チューナブル・パラメーターのヘルプ情報を表示するには、次のように入力します。<div> <div><div><pre><code>asoo -h aso_active</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべての <strong>asoo</strong> チューナブル・パラメーターを永続的にデフォルトにリセットするには、次のように入力します。<div> <div><div><pre><code>asoo -p -D</code></pre></div><div></div></div></div>
+</li>
+
+<li>すべての <strong>asoo</strong> パラメーターのリブート値をリストするには、次のように入力します。<div> <div><div><pre><code>asoo -r -a</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

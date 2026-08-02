@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Trusted Platform Module (TPM) の使用可能状態を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>tpm_enable</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106392" target="_blank" rel="noopener noreferrer">-e (E)</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106402" target="_blank" rel="noopener noreferrer">-d 年</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106412" target="_blank" rel="noopener noreferrer">-h</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106422" target="_blank" rel="noopener noreferrer">-</a></strong> [ <strong>なし | エラー | 情報 | デバッグ</strong> ] ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106435" target="_blank" rel="noopener noreferrer">-</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106445" target="_blank" rel="noopener noreferrer">-s</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106455" target="_blank" rel="noopener noreferrer">-ウー</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106465" target="_blank" rel="noopener noreferrer">-v (V)</a></strong> ] [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tpm_enable.html#tpm_enable__row-d3e106475" target="_blank" rel="noopener noreferrer">-z</a></strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tpm_enable</strong> コマンドは、TPM の使用可能状態に関する TPM フラグの状況を報告します。 これはデフォルトの動作であり、<strong>-s</strong> (または <strong>--status</strong>) オプションを使用してこの動作を指定することもできます。 TPM 状況レポートを要求する場合は、所有者パスワードの入力を求めるプロンプトが出されます。</p>
+ <p><strong>-e</strong> (または <strong>--enable</strong>) オプションは、システム TPM を使用可能状態に変更します (<strong>TPM_OwnerSetDisable</strong> API により)。 この操作は永続的で、この操作を行うと所有者パスワードの入力を求めるプロンプトが出されます。</p>
+ <p><strong>-d</strong> (または <strong>--disable</strong>) オプションは、システム TPM を使用不可状態に変更します (<strong>TPM_OwnerSetDisable</strong> API により)。 この操作は永続的で、この操作を行うと所有者パスワードの入力を求めるプロンプトが出されます。 使用不可の TPM はオフになっていると見なすことができ、<strong>tpm_takeownership</strong> コマンドを実行することはできません。</p>
+ <p><strong>-f</strong> (または <strong>--force</strong>) オプションは、所有者パスワードのプロンプトをオーバーライドし、操作の許可は物理プレゼンスに依存して行われます (<strong>TPM_PhysicalEnable</strong> および <strong>TPM_PhysicalDisable</strong> API により)。</p>
+ <p><strong>--enable</strong>、<strong>--disable</strong>、および <strong>--status</strong> の各オプションは相互に排他的であり、コマンド・ラインで最後に指定されたオプションが適用されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-e</strong> (または <strong>-- enable</strong>)</td>
+
+<td>TPM を使用可能にします。 この操作は永続的で、この操作を行うと所有者許可を求めるプロンプトが出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong> (または <strong>--disable</strong>)</td>
+
+<td>TPM を使用不可にします。 この操作は永続的で、この操作を行うと所有者許可を求めるプロンプトが出されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong> (または <strong>-- help</strong>)</td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> (または <strong>--log</strong>) [ <strong>none | error | info |
+debug</strong> ]</td>
+
+<td>ロギング・レベルを指定のとおり none、error、info、または debug に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> (または <strong>-- owner</strong>)</td>
+
+<td>所有者許可のプロンプトをオーバーライドし、アクションの許可には物理プレゼンスを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> (または <strong>-- status</strong>)</td>
+
+<td>TPM 使用可能状態に関するフラグの状況を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> (または <strong>-- unicode</strong>)</td>
+
+<td>TSS ポップアップ・ボックスを使用するアプリケーションに適合するように、パスワードに対して Trusted Computing Group Software Stack (TSS) UNICODE エンコードを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong> (または <strong>-- version</strong>)</td>
+
+<td>コマンドのバージョン情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong> (または <strong>--well-known</strong>)</td>
+
+<td>現行の所有者パスワードがすべてゼロ (20 バイトのゼロ) からなる秘密である場合に、パスワードを新しいものに変更します。 変更する必要があるパスワード (所有者またはストレージ・ルート・キー、あるいは両方) を指定する必要があります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

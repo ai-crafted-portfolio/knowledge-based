@@ -1,0 +1,102 @@
+<div class="official-dom"><div><section><h2>目的</h2><p>メールの受信側が不在であることを示すメッセージを送信側に戻します。</p>
+</section>
+<section><h2>構文</h2><p><strong>休暇</strong> [ { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vacation.html#vacation__row-d3e2718" target="_blank" rel="noopener noreferrer"><strong> -I (I) </strong></a>| <em>ユーザー</em> } ] | [ { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vacation.html#vacation__row-d3e2736" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em> 数値</em> [ <em>単位</em> ] | <em>ユーザー</em> } ]</p>
+</section>
+<section><h2>説明</h2><div><strong>vacation</strong> コマンドは、メール・メッセージの送信側にメッセージを戻して、受信側が不在であることを送信側に通知します。 この使用目的は <strong>$HOME/.forward</strong> ファイルの中に入っており、メッセージを受信しながら一方でメッセージを送信側に戻すことができます。<div><div>
+        <div>
+          <div><span>注:</span> Sendmail バージョン 8.9.3 以降のリリースでは、 <em>以下のいずれかの</em> 条件が存在する場合に <strong>.forward</strong> ファイルを無視するようにセキュリティーが強化されています。<ul><li><strong>.forward</strong> ファイルは、グループまたはワールド書き込み可能許可を持ちます。</li>
+<li><strong>.forward</strong> ファイルのどの親ディレクトリーも、グループまたはワールド書き込み可能許可を持ちます。</li>
+</ul><strong>.forward</strong> ファイルが無視されたため、vacation プログラムが作動していないと考えられる場合は、許可を確認してください。 <strong>.forward</strong> ファイルのどの親ディレクトリーにも
+グループまたはワールド書き込み可能許可を持たせる必要がある場合は、sendmail 構成ファイル内の DontBlameSendmail オプションに正しい値を設定してください。</div>
+        </div>
+      </div></div>
+</div>
+<p><strong>vacation</strong> コマンドの実行にあたっては、各送信側に戻すメッセージが <strong>$HOME/.vacation.msg</strong> ファイルに入っていることを前提とします。 このファイルが存在しない場合、<strong>vacation</strong> コマンドは、システム全体のデフォルトの不在メッセージ・ファイルである <strong>/usr/share/lib/vacation.def</strong> を探します。 これは、以下のような必要なヘッダーを含む、メッセージ全体でなければなりません。FromまたはSubject。デフォルトでは、このメッセージは、メールを送信する各ユーザーに 1 週間に 1 回だけ送信されます。 メッセージを送信する間隔を変更するには、<strong>-f</strong> フラグを使用します。 メッセージを送信するユーザーの名前は、<strong>$HOME/.vacation.pag</strong> ファイルおよび <strong>$HOME/.vacation.dir</strong> ファイルに保存されます。 これらのファイルは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vacation.html#vacation__row-d3e2718" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> (大文字の i) フラグを使用してユーザー ID に対して <strong>vacation</strong> コマンドが初期化されるときに作成されます。</p>
+<p><strong>-I</strong> フラグが指定されていない場合、 <strong>vacation</strong> コマンドは標準入力から最初の行を読み取ります。From送信側を判別するために使用します。 標準入力に使用できるテキストがなければ、このコマンドはエラー・メッセージを戻します。 正しくフォーマットされたすべての受信メールには、From行。 次の場合には, メッセージは送信されません。Fromヘッダー行は、メッセージの送信元であることを示します。Postmaster、MAILER-DAEMON、または初期の場合From行にはストリング-REQUEST@またはPrecedence: bulkまたはPrecedence: junk行がヘッダーに組み込まれます。</p>
+</section>
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-I</strong></td>
+<td><strong>$HOME/.vacation.pag</strong> ファイルおよび <strong>$HOME/.vacation.dir</strong> ファイルを初期化します。 <strong>$HOME/.forward</strong> ファイルを変更する前に、このフラグを使用して <strong>vacation</strong> コマンドを実行します。</td>
+</tr>
+<tr>
+<td><strong>-f</strong><em>数値</em><strong> [</strong><em>単位</em><strong> ]</strong></td>
+
+<td>不在メッセージを繰り返し送信する間隔を指定します。 <em>Number</em> パラメーターは整数値で、<em>Unit</em> パラメーターは時間の単位を指定します。 <em>Unit</em> パラメーターには、以下のいずれかの値を指定できます。<dl><dt><strong>s</strong></dt>
+<dd>秒</dd>
+<dt><strong>m</strong></dt>
+<dd>分</dd>
+<dt><strong>h</strong></dt>
+<dd>時</dd>
+<dt><strong>d</strong></dt>
+<dd>日間</dd>
+<dt><strong>w</strong></dt>
+<dd>週数</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>-f</strong> フラグは、 <strong>-I</strong> フラグと一緒に使用することはできません。</div>
+        </div>
+      </div></div>
+</section>
+<section><h2>例</h2><ol>
+<li>受信側が不在であることを告げるメッセージを送信側に戻すには、<strong>vacation</strong> コマンドを使用する前に、<strong>$HOME/.vacation.pag</strong> ファイルと <strong>$HOME/.vacation.dir</strong> ファイルを
+初期化する必要があります。 これらのファイルを初期化するには、次のように入力します。<div>vacation  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vacation.html#vacation__row-d3e2718" target="_blank" rel="noopener noreferrer">-I</a></div>
+</li>
+
+<li><strong>.forward</strong> ファイルを変更します。 例えば、Mark は、次のステートメントを <strong>.forward</strong> ファイルに入力します。<div><div><pre><code>mark,|"/usr/bin/vacation mark"</code></pre></div><div></div></div>送信側は、<strong>$HOME/.vacation.msg</strong> ファイルに入っているメッセージを受信するか、それがないときは、<strong>/usr/share/lib/vacation.def</strong> ファイルにあるデフォルト・メッセージを受信します。 どちらのファイルも存在しなければ、メール・メッセージの送信側には自動的にメッセージは送信されず、エラー・メッセージは生成されません。 これらのファイルのいずれかが存在する場合、送信者は以下から 1 つの不在メッセージを受け取ります。mark送信されるメッセージの数に関係なく、1 週間当たりmark送信側から</li>
+<li><strong>.forward</strong> ファイルに次のエントリーが入っているものと仮定します。<div><div><pre><code>mark, |"/usr/bin/vacation -f10d mark"</code></pre></div><div></div></div>送信者は、以下から 1 つの不在メッセージを受け取ります。mark送信されるメッセージの数に関係なく、10 日ごとmark送信側から</li>
+<li>デフォルトの不在メッセージと違うメッセージを作成するには、<strong>$HOME/.vacation.msg</strong> ファイルを作成し、このファイルにメッセージを追加します。 次の例は、不在メッセージを示しています。<div><div><pre><code>From: mark@odin.valhalla (Mark Smith)
+Subject: I am on vacation.
+Delivered-By-The-Graces-Of: the Vacation program
+I am on vacation until October 1. If you have something urgent, 
+please contact Jim Terry &lt;terry@zeus.valhalla&gt;.
+   --mark</code></pre></div><div></div></div></li>
+<li>不在メッセージを取り消すには、<strong>$HOME</strong> (ログイン) ディレクトリーから <strong>.forward</strong> ファイル、
+<strong>.vacation.dir</strong> ファイル、<strong>.vacation.pag</strong> ファイル、および <strong>.vacation.msg</strong> ファイルを除去します。<div><div><pre><code>rm .forward .vacation.dir .vacation.pag .vacation.msg</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+<section><h2>ファイル</h2><div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/forward.html" target="_blank" rel="noopener noreferrer"><strong>$HOME/.forward</strong></a><strong></strong></td>
+
+<td>受信側がメールを転送したい相手の名前が入っています。</td>
+</tr>
+<tr><td><strong>/usr/share/lib/vacation.def</strong></td>
+
+<td>システム全体のデフォルトの <strong>vacation</strong> メッセージが入っています。</td>
+
+</tr>
+<tr><td><strong>$HOME/.vacation.dir</strong></td>
+
+<td><strong>vacation</strong> コマンドの使用中に、受信側にメールを送信してきたユーザーの名前が入っています。</td>
+</tr>
+<tr><td><strong>$HOME/.vacation.msg</strong></td>
+<td>受信側の個人の <strong>vacation</strong> メッセージが入っています。</td>
+</tr>
+<tr><td><strong>$HOME/.vacation.pag</strong></td>
+<td><strong>vacation</strong> コマンドの使用中に、受信側にメールを送信してきたユーザーの名前が入っています。</td>
+</tr>
+<tr><td><strong>/usr/bin/vacation</strong></td>
+<td><strong>vacation</strong> コマンドが入っています。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

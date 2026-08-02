@@ -1,0 +1,88 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>システム・セキュリティー・フラグを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>getsecconf</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getsecconf.html#getsecconf__row-d3e140018" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getsecconf.html#getsecconf__row-d3e140024" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>getsecconf</strong> コマンドは、システム・セキュリティー・フラグを表示します。 オプションを指定しないで呼び出すと、<strong>getsecconf</strong> コマンドはシステムが稼働しているモードに関連したセキュリティー・フラグを表示します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong></td>
+
+<td>CONFIGURATION モードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>OPERATIONAL モードを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p><strong>getsecconf</strong> コマンドは次の終了値を返します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常実行。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>CONFIGURATION (構成) モードでシステム・セキュリティー・フラグを表示するには、次のように入力します。<div><div><pre><code>getsecconf –c</code></pre></div><div></div></div></li>
+
+<li>OPERATIONAL (動作) モードでシステム・セキュリティー・フラグを表示するには、次のように入力します。<div><div><pre><code>getsecconf –o</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/getsecconf </strong></td>
+
+<td><strong>getsecconf</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

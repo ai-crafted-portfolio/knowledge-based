@@ -1,0 +1,98 @@
+<div class="official-dom"><div>
+<div> </div>
+
+<section><h2>目的</h2> <p>プリンターまたはプロッターのキュー・デバイス名を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>チケデフ</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104356" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a><em>名前</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104345" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em>名前</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104325" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a><strong>'</strong><em>属性</em><strong> =</strong><em> 値</em>'... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chquedev</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104345" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a>によって指定された <strong>qconfig</strong> ファイル内のデバイス・スタンザを変更することによって、プリンターまたはプロッターのキュー・デバイス名を変更します。 および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104356" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> フラグ。 このスタンザにおいて、コマンド・ラインで指定された <strong>'</strong><em>Attribute</em> <strong>=</strong> <em>Value</em>' フラグに一致する属性は、コマンド・ラインに入力された属性に置き換えられます。 一致する属性がないときは、<strong>'</strong><em>Attribute</em> <strong>=</strong> <em>Value</em><strong>'</strong> はスタンザの末尾に追加されます。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT)
+<strong>smit chquedev</strong> 高速パスを使用しても実行できます。</p>
+ <div> <div><div>
+        <div>
+          <div><span>推奨:</span> <strong>/etc/qconfig</strong> ファイルを編集するには、 <strong>chque</strong>、 <strong>mkque</strong>、 <strong>rmque</strong>、 <strong>chquedev</strong>、 <strong>mkquedev</strong>、および <strong>rmquedev</strong> コマンドまたは SMIT。 さらにこれらのコマンドは、忙しくない時間またはオフピーク時に実行することをお勧めします。</div>
+        </div>
+      </div></div><strong>/etc/qconfig</strong> ファイルの手動による編集が必要な場合は、最初に <strong>enq -G</strong> コマンドを実行し、すべてのジョブが処理された後でキューイング・システムと <strong>qdaemon</strong> を停止することができます。 その後、<strong>/etc/qconfig</strong> ファイルを編集し、新規構成を使用して <strong>qdaemon</strong> を再始動することができます。</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><strong> '</strong><em>属性</em><strong> =</strong><em> 値</em><strong>'</strong></td>
+
+<td>変更または追加するスタンザ行を指定します。 有効な属性のリストについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/qconfig.html" target="_blank" rel="noopener noreferrer"><strong>qconfig</strong></a> ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> 名前</em></td>
+
+<td>変更するキューのデバイス <em>Name</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> 名前</em></td>
+
+<td>デバイス・スタンザを変更するキュー <em>Name</em> を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <p>変更するには、ps上のデバイス・スタンザlp0行を入れるためのキュー'backend        =        piobe -x -y'次のように入力します。</p>
+ <div>chquedev  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104356" target="_blank" rel="noopener noreferrer">-q</a>lp0  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104345" target="_blank" rel="noopener noreferrer">-d</a> ps  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chquedev.html#chquedev__row-d3e104325" target="_blank" rel="noopener noreferrer">-a</a> 'backend        =        piobe -x -y'</div>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> この例の <strong>-x</strong> フラグおよび <strong>-y</strong> フラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piobe.html" target="_blank" rel="noopener noreferrer"><strong>piobe</strong></a> コマンドのフラグです。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chquedev</strong></td>
+
+<td>chquedev コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

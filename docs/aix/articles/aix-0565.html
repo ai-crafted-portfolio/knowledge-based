@@ -1,0 +1,105 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>コマンド・ラインの引数を処理し、有効なオプションを検査します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>getopts</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getopts.html#getopts__row-d3e139683" target="_blank" rel="noopener noreferrer"><em>OptionString</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getopts.html#getopts__row-d3e139703" target="_blank" rel="noopener noreferrer"><em>名前</em></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/getopts.html#getopts__row-d3e139712" target="_blank" rel="noopener noreferrer"><em>引数</em></a> ...]</p>
+</section>
+<section><h2>説明</h2> <p><strong>getopts</strong> コマンドは、Korn/POSIX シェル組み込みコマンドの 1 つで、パラメーターのリストからオプションとオプション引数を検索します。 オプションは、<strong>+</strong> (正符号) または <strong>-</strong> (負符号) で始まり、その後ろに 1 文字が続きます。 <strong>+</strong> または <strong>-</strong> で始まらないオプションは、<em>OptionString</em> を終了します。 <strong>getopts</strong> コマンドは、起動されるたびに、次のオプションの値を <em>Name</em> に設定し、処理対象の次の引数のインデックスをシェル変数 <strong>OPTIND</strong> に設定します。 シェルが呼び出されるたびに、 <strong>オPTIND</strong> は 1 に初期設定されます。 オプションが <strong>+</strong>で始まる場合、 <em>名前</em>の値の前に <strong>+</strong> が付加されます。</p>
+ <p><em>OptionString</em> の文字の後ろに <strong>:</strong> (コロン) を付けると、そのオプションが引数を持つと想定されます。 オプションにオプション引数が必要な場合、<strong>getopts</strong> コマンドでは、オプション引数を変数 <strong>OPTARG</strong> に設定します。</p>
+ <p><em>OptionString</em> に含まれていないオプション文字が見つかった場合、あるいは見つかったオプションに必要なオプション引数が存在しない場合には、次の処理が行われます。</p>
+ <ul><li><span></span> <em>OptionString</em> が <strong>:</strong> (コロン) で始まっていない場合、<ul><li><span></span><em>名前</em> は、 <strong>?</strong> に設定されます。 (疑問符) 文字に設定されます。</li>
+<li><span></span><strong>_ 翻訳不要 _OPTARG</strong>. 設定解除されます。</li>
+<li><span></span>診断メッセージが標準エラーに書き込まれます。</li>
+</ul>
+</li>
+</ul>
+ <p>この状態は、引数が起動側アプリケーションに提供されたという形で検出されたエラーと考えられますが、<strong>getopts</strong> コマンドの処理上のエラーではありません。上記に述べたように、診断メッセージが書き込まれますが、終了状況はゼロとなります。</p>
+ <ul><li><span></span> <em>OptionString</em> が <strong>:</strong> (コロン) で始まる場合、<ul><li><span></span><em>名前</em> は、 <strong>?</strong> に設定されます。 (疑問符) 文字または必須オプションの欠落を表す <strong>:</strong> (コロン) 文字に設定されます。</li>
+
+<li><span></span><strong>_ 翻訳不要 _OPTARG</strong> は、見つかったオプション文字に設定されます。</li>
+<li><span></span>出力は標準エラーに書き込まれません。</li>
+</ul>
+</li>
+</ul>
+ <p>以下のいずれかがオプションの終わりを識別します。特殊オプション <strong>-</strong><strong> -,</strong> が、 <strong>-</strong>または <strong>+</strong>で始まらない引数を検出したか、エラーを検出した。</p>
+ <p>オプションの終了時には、次のことが行われます。</p>
+ <ul><li><span></span> <strong>getopts</strong> コマンドは、ゼロより大きい戻り値で終了します。</li>
+<li><span></span><strong>_ 翻訳不要 _OPTARG</strong> は、最初の非オプション引数の索引に設定されます。ここで、最初の <strong>-</strong><strong> -</strong> 引数は、それより前にオプション以外の引数がない場合はオプション引数と見なされ、オプション以外の引数がない場合は値 $# + 1 と見なされます。</li>
+<li><span></span><em>名前</em> は、 <strong>?</strong> に設定されます。 (疑問符) 文字に設定されます。</li>
+
+</ul>
+</section>
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><em>OptionString</em></td>
+<td><strong>getopts</strong> コマンドによって認識されるオプション文字の文字列を指定します。 文字の後ろにコロンが続く場合には、そのオプションが引数を持つと想定されます。引数は、オプションから離して指定しなければなりません。 オプションと引数は、ブランクで区切ります。 <em>OptionString</em> の先頭文字により、オプション文字が不明な場合、またはオプション引数が存在しない場合に、<strong>getopts</strong> コマンドによって行われる処理が決まります。<p></p><blockquote><span>“</span><strong>注:</strong> 疑問符とコロンの文字は、アプリケーションでオプションの文字として使用しないでください。 英数字以外のその他の文字を使用すると、結果は保証されていません。<span>”</span></blockquote>
+<p></p>
+</td>
+</tr>
+<tr><td><em>Name</em></td>
+<td><strong>getopts</strong> コマンドによって、見つけられたオプション文字に設定されます。</td>
+</tr>
+<tr><td><em>引数</em> ...</td>
+<td>ホワイト・スペースで区切られた 1 つ以上の文字列で、<strong>getopts</strong> コマンドによって、有効なオプションであるかどうかが検査されます。 <em>Argument</em> を省略すると、定位置パラメーターが使用されます。<p></p><blockquote><span>“</span><strong>注:</strong> 一般的に、<em>Argument</em> を <strong>getopts</strong> コマンドの一部として指定することはありませんが、スクリプトのデバッグ時に役に立つ場合があります。<span>”</span></blockquote>
+
+<p></p>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr>
+<td><strong>0</strong></td>
+<td><em>OptionString</em> によって指定されたオプション、または指定されなかったオプションが検出されました。</td>
+</tr>
+<tr>
+<td><strong>&gt;0</strong></td>
+<td>オプションの終了、あるいはエラーが発生しました。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol><li><span></span>以下の <strong>getopts</strong> コマンドは、以下を指定します。a,bおよびcは有効なオプションであり, そのオプションは,aおよびc引数があります:<div> <div><div><pre><code>getopts a:bc: OPT</code></pre></div><div></div></div></div>
+</li>
+<li><span></span>以下の <strong>getopts</strong> コマンドは、以下を指定します。a,bおよびc有効なオプションであることを示します。aおよびb引数を持ち、 <strong>getopts</strong> が以下の値を設定します。OPT<strong>?</strong> へ コマンド行で未定義のオプションが検出された場合:<div> <div><div><pre><code>getopts :a:b:c OPT</code></pre></div><div></div></div></div>
+</li>
+<li><span></span>以下のスクリプトは、引数を解析して表示します。<div> <div><div><pre><code>aflag=
+bflag=
+ 
+while getopts ab: name
+do
+            case $name in
+            a)     aflag=1;;
+            b)     bflag=1
+                          bval="$OPTARG";;
+            ?)     printf "Usage: %s: [-a] [-b value] args\n" $0
+                          exit 2;;
+           esac
+done
+ 
+if [ ! -z "$aflag" ]; then
+           printf "Option -a specified\n"
+fi
+ 
+if [ ! -z "$bflag" ]; then
+           printf 'Option -b "%s" specified\n' "$bval"
+fi
+ 
+shift $(($OPTIND -1))
+printf "Remaining arguments are: %s\n" "$*"</code></pre></div><div></div></div></div>
+</li>
+</ol>
+</section>
+</div></div>

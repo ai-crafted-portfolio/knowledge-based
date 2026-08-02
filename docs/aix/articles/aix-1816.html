@@ -1,0 +1,403 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p><span>zic</span>コマンドはタイムゾーンコンパイラを提供する。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>zic [ -v ] [ -p Posixrules ] [ -d Directory ] [ -L Leapseconds ] [ -b bloat ] [ -r [@lo][/@hi] ] [ -R @hi] [ --version ] [ --help ] [ FileName ...] </code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2><p><span>zic</span>コマンドは、コマンドラインで指定されたファイルのテキストを処理し、この入力で指定された時間変換バイナリファイルを作成する。 ファイル名として - (ハイフン) を指定すると、標準入力からタイムゾーン情報が処理されます。</p>
+ <p>指定ファイル内の入力行は、フィールドから構成されています。 フィールドの区切り文字には、任意の数の空白文字を使用できる。 入力ファイル内のポンド記号 (#) は、
+コメントを表し、ポンド記号が現れる行の最後まで続きます。 ホワイトスペース文字とポンド記号は、フィールドの一部として使用する場合、ダブルクォーテーション（"）で囲むことができる。 ブランク行は無視されます。</p>
+ <div>ルール行は次のような形式です。<div><div><pre><code>Rule  NAME  FROM   TO   TYPE   IN   ON   AT   SAVE   LETTER/S</code></pre></div><div></div></div></div>
+ <div>以下は、ルールラインを構成するフィールドである：<dl>
+
+<dt><span>NAME</span></dt>
+
+<dd>このフィールドには、このルールが適用されるルール・セットのランダムな名前を指定します。</dd>
+
+
+
+<dt><span>FROM</span></dt>
+
+<dd>このフィールドは、ルールが適用される最初の年を示す。 <span>minimum</span> (min) を指定すると、
+最小の年を表示可能な時刻値で表します。 <span>maximum</span> (max) を指定すると、
+最大の年を表示可能な時刻値で表します。</dd>
+
+
+
+<dt><span>TO</span></dt>
+
+<dd>この欄には、ルールが適用される最終年度を記入する。 このオプションは、有効な時間値として、または<span>最小</span>値と<span>最大</span>値を指定することで示される。 <span>only</span> を指定すると、
+「<span>FROM</span>」フィールドの値を繰り返すことができます。</dd>
+
+
+
+<dt><span>TYPE</span></dt>
+
+<dd>このフィールドは、ルールが適用される年のタイプを示す。<div><span>TYPE</span> フィールドには、下記の値が入ります。<dl>
+
+<dt><span>'-'</span></dt>
+
+<dd>「<span>FROM</span>」から「<span>TO</span>」までの (両端を含めた) すべての年に、ルールを適用します。</dd>
+
+
+
+<dt><span>uspres</span></dt>
+
+<dd>このルールはアメリカ大統領選挙の年に適用される。</dd>
+
+
+
+<dt><span>nonpres</span></dt>
+
+<dd>このルールは、アメリカ大統領選挙の年以外にも適用される。</dd>
+
+
+</dl>
+</div>
+
+</dd>
+
+
+
+<dt><span>IN</span></dt>
+
+<dd>このフィールドは、ルールの発効月を表す。 月名は省略可能。</dd>
+
+
+
+<dt><span>ON</span></dt>
+
+<dd>このフィールドは、ルールの発効日を表す。 以下は認められている形式である：<ul>
+<li><span>lastFri</span> は、その月の最後の金曜日を表します。</li>
+
+<li><span>lastMon</span> は、その月の最後の月曜日を表します。</li>
+
+<li>月の曜日を表す数字。 例えば、5 はその月の 5 番目の日を表します。</li>
+
+<li><span>lastSun</span> は、その月の最後の日曜日を表します。</li>
+
+<li><span>Sun&gt;=8</span>は、8日以降の最初の日曜日を表す。</li>
+
+<li><span>Sun&lt;=25</span> は25日以前の最後の日曜日。</li>
+
+</ul>曜日の名前は、省略形でも、フルスペルでも可能です。 <span>ON</span>フィールド内のスペースはサポートされていません。</dd>
+
+
+
+<dt><span>AT</span></dt>
+
+<dd>ルールの適用が有効となる時刻を表します。 以下は認められている形式である：<ul>
+<li>時間を時間で表した数値。 例えば、2 は 2 時間を表します。</li>
+
+<li>2:00は午前2時を時分表示。</li>
+
+<li>15:00は、24時間形式の時間フォーマットで午後3時を表す。</li>
+
+<li>1:28:14は、時・分・秒の形式で1時間28分14秒を示す。</li>
+
+</ul>これらの形式の後に、指定された時刻が現地の壁掛け時計の時刻の場合は<span>w</span>を、指定された時刻が現地の標準時の場合は<span>s</span>を付けることができる。 <span>w</span> または <span>s</span> が無い場合は、
+壁掛け時計 (wall-clock) 時間と見なします。<p>3 つ以上のローカル時間がある領域では、
+最も早い遷移時間ルールの「<span>AT</span>」フィールドでローカル標準時間を用いてください。
+それによってタイムゾーンのバイナリー結果として保存される最初の遷移時間が確かに正確なものとなります。</p>
+</dd>
+
+
+
+<dt><span>SAVE</span></dt>
+
+<dd>このフィールドは、ルールが有効なときに、ローカル標準時に加算される時間を表す。 このフィールドは「<span>AT</span>フィールドと同じフォーマットである。 <span>w</span>と <span>s</span>の接尾辞はこのフィールドでは無効である。</dd>
+
+
+
+<dt>LETTER/S</dt>
+
+<dd>このフィールドは、このルールが有効なときに使用されるタイムゾーン略語の可変部分を提供する。 このフィールドに <span>-</span> (ハイフン) が含まれると、可変部は null になります。 <span>S</span> 文字は <span>EST</span> を
+表すために使用され、<span>D</span> 文字は <span>EDT</span> を表すために使用されます。</dd>
+
+
+</dl>
+</div>
+ <div>ゾーン行は次のような形式です。<div><div><pre><code>Zone   NAME   GMTOFF   RULES/SAVE   FORMAT   [UNTIL]</code></pre></div><div></div></div></div>
+ <div>以下は、ゾーンラインを構成するフィールドである：<dl>
+
+<dt><span>NAME</span></dt>
+
+<dd>タイムゾーンの名前を指定します。 <span>NAME</span>フィールドで指定される名前は、そのゾーンの時間変換情報を含む ファイルを作成するために使用される名前である。</dd>
+
+
+
+<dt><span>GMTOFF</span></dt>
+
+<dd>このゾーンで標準時間を得るために GMT へ追加する時間量を指定します。 このフィールドは、ルール行の「<span>AT</span>」や「<span>SAVE</span>」フィールドと同じ形式です。 GMT から時間を減算する必要がある場合は、
+フィールドの最初に負符号を付けてください。</dd>
+
+
+
+<dt><span>RULES/SAVE</span></dt>
+
+<dd>そのタイムゾーンで適用されるルールの名前、または代わりに現地標準時に加算する時間の量を示す。 このフィールドの値が <span>-</span> (ハイフン) である場合は、
+標準時間が常にタイムゾーンに適用されます。</dd>
+
+
+
+<dt><span>FORMAT</span></dt>
+
+<dd>このタイムゾーンで使用される、タイムゾーンの省略形を指定します。 <span>%s</span> 文字は、タイムゾーンの省略形の可変部の場所を示すために使用されます。</dd>
+
+
+
+<dt><span>UNTIL</span></dt>
+
+<dd>GMT オフセットまたはルールが地域によって変わる時刻を指定します。 年、月、日、時刻で指定します。 このフィールドが指定された場合、タイムゾーン情報は指定されたGMTオフセットから生成され、指定された時刻までルールが変更される。</dd>
+
+
+</dl>次の行は継続行でなければならない。 継続行は、前の行の'<span>UNTIL</span>フィールドで指定された時刻から始まる情報を、前の行が使用するファイルに配置する。 この行は、ゾーン行と同じ形式ですが、<span>Zone</span> という文字列と、名前が省略されているところが異なります。 継続行は、ゾーン行と同じように「<span>UNTIL</span>フィールドを含むことができ、次の行がさらなる継続行であることを示す。</div>
+ <div>リンク行は次のような形式です。<div><div><pre><code>Link    LINK-FROM    LINK-TO</code></pre></div><div></div></div></div>
+
+<p><span>LINK-TO</span> <span>LINK-FROM</span>フィールドはゾーン行の'<span>NAME</span>フィールドとして表示 されなければならない。</p>
+ <p>継続行以外は、行は、どの順に入力してもかまいません。</p>
+ <p><code>time_t</code> <span>zic</span>コマンドには、1901年12月14日以前の日付を含む入力をコンパイルするという制限がある。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-b</span> 膨満感</td>
+
+<td>bloat 変数で指定されたバイナリデータを提供し、これは以前のバージョンのソフトウェアと互換性があります。 bloat 変数の有効な値は以下の通りです：<dl>
+
+<dt><span>FAT</span></dt>
+
+<dd><span>fat</span>オプションは、バイナリーファイルに追加のデータエントリーを生成する。 これらのエントリーは、古いバージョンのソフトウェアの潜在的なバグや非互換性に対処するものです。 例えば、古いバージョンのソフトウェアが、64ビットで生成されたデータを正しく処理していない場合などである。</dd>
+
+
+
+<dt><span>スリム</span></dt>
+
+<dd><span>slim</span>オプションは、古いバージョンのソフトウェアのバグや非互換性を特定するのに役立つ、より小さなバイナリファイルを生成します。 このバイナリファイルは、バグや非互換性を回避するものではない。 bloat変数のデフォルト値は<span>slim</span>オプションである。</dd>
+
+
+</dl>
+<div><div>
+        <div>
+          <div><span>注：</span>「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/z_commands/zic.html#zic__rflag" target="_blank" rel="noopener noreferrer"><span>-r</span></a>オプションを使ってバイナリーファイルのサイズを変更することもできる。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> ディレクトリ</td>
+
+<td>標準ディレクトリ '<span>/usr/share/lib/zoneinfo/</span>ではなく、ディレクトリディレクトリに時間変換情報を含むファイルを作成する。</td>
+
+</tr>
+
+<tr>
+<td><span>--help</span></td>
+
+<td>短い使用方法メッセージを表示して終了します。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span> TimeZone</td>
+
+<td>TimeZoneタイムゾーンをローカルタイムとして使用する。 <span>zic</span>コマンドは、あたかもそのファイルに次のようなリンクが含まれているかのように動作する：<div><div><pre><code>Link   timezone  localtime</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-L</span> リープセコンド</td>
+
+<td><span>leapseconds</span>ファイルからうるう秒情報を読み込む。 このオプションが使用されていない場合、うるう秒情報は出力に表示されません。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span> ポジックスルール</td>
+
+<td>POSIX 形式のタイムゾーン環境変数を扱う場合は、posixrules 規則を使用します。 <span>zic</span> コマンドは、
+ファイルが次の例のようなリンクを含んでいるかのように動作します。<div><div><pre><code>Link timezone posixrules</code></pre></div><div></div></div></td>
+
+</tr>
+
+<tr>
+<td><span>-r</span> [ @lo ][ / @hi]</td>
+
+<td><p><span>-r</span>フラグは、出力バイナリファイルの適用範囲を、lo変数とhi変数で指定された範囲のタイムスタンプに限定する。 loと hi変数の値は、EPOCH（1970-01-01 00:00:00協定世界時）からの秒数を符号付き10進数で表したものである。 範囲はlo変数の値を含むが、hi変数の値は含まない。 loおよびhi変数が指定されていない場合、デフォルトの範囲は極端な値になる。 loおよびhi変数が指定されていない場合、出力バイナリ・ファイルは UT オフセット 0 と省略形 -00 を使用する。 例えば、'<code>zic -r @0</code>コマンドは、非負のタイムスタンプ（EPOCH後の時間）のバイナリデータを返す。 <code>zic -r @0/@2147483648</code>コマンドは、31ビットの符号付き整数に収まる非負のタイムスタンプのバイナリデータを返す。 GNU dateを持つプラットフォームでは、'<code>zic -r @$(date +%s)</code>コマンドは、指定された日付より前のタイムスタンプを対象とするバイナリデータを除外する。</p>
+
+<p><span>-r</span>フラグを使うと、出力バイナリファイルのサイズが小さくなる。 しかし、タイムスタンプ範囲の境界を表現する必要があるため、出力バイナリファイルのサイズが大きくなる可能性がある。 hi変数の値によって、タイムゾーン情報フォーマット（<code>TZif</code>）ファイルに、拡張された'<code>POSIX TZ</code>フォーマット文字列で表す代わりに、pre-hi遷移のための明示的なエントリーが含まれるようになった場合、出力バイナリファイルのサイズが増大する可能性がある。</p>
+
+<div><div>
+        <div>
+          <div><span>注：</span>「<a href="https://www.ibm.com/docs/ja/ssw_aix_73/z_commands/zic.html#zic__bflag" target="_blank" rel="noopener noreferrer"><span>-b slim</span></a>オプションを使えば、バイナリーファイルのサイズを小さくすることもできる。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span> @こんにちは</td>
+
+<td>フラグ <span>-R</span> は、EPOCHからの秒数でhi 変数の指定値未満のタイムスタンプに対して、冗長な末尾明示遷移を生成します。 これらの遷移は、拡張 <code>POSIX TZ</code> 文字列を用いてより簡潔に表現できる。 フラグ <span>-R</span> は、表されるタイムスタンプに影響を与えません。 非標準の <code>TZif</code> リーダーで拡張 POSIX タイムゾーン文字列を無視する場合には、フラグ <span>-R</span> を使用して対応できます。 ただし、このオプションは出力バイナリファイルのサイズを増加させます。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>データ・ファイルに表示される年が、システム時間値で表現可能な年の範囲（GMT1970年1月1日午前0時00分00秒からGMT2038年1月19日午前3時14分07秒）外の場合にメッセージを表示する。</td>
+
+</tr>
+
+<tr>
+<td><span>--version</span></td>
+
+<td>ファイルのバージョン情報を表示し、終了します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><caption><span>表 2. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>FileName</td>
+
+<td>時間変換情報を含むファイルの作成を指定する入力行を含むファイル。 FileName が <span>-</span> (ハイフン) である場合は、標準入力が読み取られます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ルール行は次のような形式です。<div><div><pre><code>Rule  USA  1970    max    -    Sep   Sun&lt;=14 3:00   0     S </code></pre></div><div></div></div></li>
+
+<li>ゾーン行は次のような形式です。<div><div><pre><code>Zone    Turkey          3:00    Turkey          EET%s</code></pre></div><div></div></div></li>
+
+<li>リンク行は次のような形式です。<div><div><pre><code>Link    MET     CET</code></pre></div><div></div></div></li>
+
+<li>入力タイムゾーン情報を含む'<span>timezone.infile</span>ファイルをコンパイルし、バイナリ値を 標準タイムゾーン'<span>/usr/share/lib/zoneinfo/</span>ディレクトリに置くには、次のようにタイプする：<div><div><pre><code>zic timezone.infile</code></pre></div><div></div></div>
+</li>
+
+<li>入力タイムゾーン情報を含む'<span>timezone.infile</span>ファイルをコンパイルし、バイナリ値を '<span>-d</span>オプションで指定したディレクトリに置くには、次のようにタイプする：<div><div><pre><code> zic -d tzdir timezone.infile </code></pre></div><div></div></div>
+</li>
+
+<li>タイムゾーン入力ファイルのコンパイル中に、年数の範囲が正しくない場合に警告を出すには、次のようにタイプする：<div><div><pre><code>zic -v timezone.infile </code></pre></div><div></div></div>
+</li>
+
+<li>入力タイムゾーン情報を含む'<span>format.zi</span>ファイルをコンパイルし、バイナリ値を'<span>-d</span>フラグで指定されたディレクトリに置くには、以下のコマンドを入力する：<div><div><pre><code>zic -d /usr/share/lib/zoneinfo /usr/share/lib/tz/format.zi</code></pre></div><div></div></div><div><span>format.zi</span>ファイルには、入力されたタイムゾーンに関する情報がDATAFORM形式で含まれている。 このフォーマットには以下の有効なオプションがある：<ul>
+<li><span>main.zi</span>: このオプションは、'<span>.zi</span>ファイルのデフォルトの DATAFORM フォーマットである。</li>
+
+<li><span>vanguard.zi</span>: このオプションは、負のオフセット値をサポートする最新のDATAFORMフォーマットである。</li>
+
+<li><span>rearguard.zi</span>: この DATAFORM フォーマットは負のオフセット値をサポートしない。</li>
+
+</ul>
+</div>
+<p>DATAFORMフォーマットの詳細については、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/z_commands/zic.html#zic__dataform" target="_blank" rel="noopener noreferrer">DATAFORMフォーマット</a>の項を参照のこと。</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>DATAFORM フォーマット</h2>
+
+<p>makefileの新しいDATAFORMフォーマットマクロは、データフォーマットが改良されたときにダウンストリームでの混乱を最小限にするために、3つのソースデータフォーマットを提供します。</p>
+
+<div>DATAFORMフォーマット・マクロは、以下のソース・データ・フォーマットを提供します：<ul>
+<li><span>メイン：</span>このDATAFORMフォーマットは、'<span>africa</span>データ・フォーマット・ファイルまたは他の類似したデータ・フォーマット・ファイルに類似したファイルからデータ・フォーマットをインストールする。 このオプションはデフォルトのフォーマットである。 <span>メイン</span>フォーマットの要素は、将来的には<span>後衛</span>フォーマットに移行しなければならない。</li>
+
+<li><span>vanguard：</span>このDATAFORMフォーマットは、ブリーディングエッジフォーマットのデータフォーマットをインストールします。 <span>前衛</span>フォーマットの要素は、将来的には<span>メイン</span>フォーマットに移行しなければならない。</li>
+
+<li><span>後衛：</span>このDATAFORMフォーマットは、反復的な改良によって成熟するのに時間がかかった最先端のフォーマットからデータフォーマットをインストールする。</li>
+
+</ul>
+</div>
+
+<p>現在、<span>主戦</span>と <span>後衛</span>のフォーマットは同じで、2018年のカレンダーと一致している。 <span>ヴァンガード・フォーマット</span>には、負のオフセット値をサポートする特別な機能がある。 <span>前衛</span>フォーマットのこの機能により、夏はアイルランド標準時（IST、UTC+01）、冬はグリニッジ標準時（UTC）に従うアイルランドのサポートが向上する。 <code>tzcode</code>ライブラリーは長い間、負のオフセット値をサポートしてきたが、すぐに「<span>メイン</span>フォーマットに移行しなければならない。 しかし、一部のダウンストリーム・パーサーは負のオフセット値をサポートしていないため、「<code>tzcode</code>ライブラリーはすぐに<span>リアガード・フォーマット</span>に移行しないかもしれない。</p>
+
+<p>DATAFORMフォーマット・マクロのビルド手順は、'<span>vanguard.zi</span>、'<span>main.zi</span>、'<span>rearguard.zi</span>という名前の3つのファイルを作成する。 <span>vanguard.zi</span>、'<span>main.zi</span>、'<span>rearguard.zi</span>各ファイルは同じデータを表しているが、些細な食い違いがあるかもしれない。 これらのファイルは、下流のデータ・ユーザー向けである。 負のオフセット値をサポートしていない「<code>zoneinfo</code>パーサーは、「<span>rearguard.zi</span>データ・フォーマット・ファイルの使用を開始し、負のオフセット機能が<span>ヴァンガード・データ・フォーマット</span>から <span>メイン・</span>データ・フォーマットに移行したときに影響を受けないようにしなければならない。 新しい負のオフセット値をサポートするブリードエッジ「<code>zoneinfo</code>パーサーは、「<span>vanguard.zi</span>データ形式ファイルを使用することができる。</p>
+
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt><span>0</span></dt>
+
+<dd>コマンドは正常に終了しました。</dd>
+
+
+<dt><span>&gt;0</span></dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><caption><span>表 3. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/zic</span></td>
+
+<td>SystemV <span>zic</span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/share/lib/zoneinfo</span></td>
+
+<td><span>zic</span>コマンドで作成されるファイルに使われる標準ディレクトリ。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/share/lib/tz/</span></td>
+
+<td><span>zic</span>コマンドによるDATAFORMフォーマットをサポートするための'<span>.zi</span>ファイルを含む。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

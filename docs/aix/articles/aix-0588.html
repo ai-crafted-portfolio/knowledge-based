@@ -1,0 +1,171 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>イベント・マネージャー・デーモンのトレースをオンにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>haemtrcon -s</span></span><span><span> サブシス名 </span></span><span><span>-a</span></span><span><span> トレースリスト</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>haemtrcon</span></span> コマンドは、イベント・マネージャー・デーモンの指定されたアクティビティーのトレースをオンにするために使用します。 トレース出力はシステム区画のイベント管理トレース・ログに置かれます。 <span><span>regs</span></span>、 <span><span>dinsts</span></span>、 <span><span>iolists</span></span>、および <span><span>olists</span></span> パラメーターを使用すると、一回限りのトレースが実行されます。 指定された情報はトレース・ログに入れられますが、それ以上のトレースは行われません。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-<span><span>クラスタ名</span></span></dt>
+
+<dd>イベント管理サブシステムの名前を指定します。 ノードでは、 <span><span>cluster_name</span></span> は <span><span>emsvcs</span></span>です。 このフラグとパラメーターは指定しなければなりません。</dd>
+
+
+<dt>-<span><span>トレースリスト</span></span></dt>
+
+<dd>トレース・パラメーターのリストを指定します。 各パラメーターはトレースをオンにするアクティビティーのタイプを指定します。 少なくとも 1 つのパラメーターを指定する必要があります。 複数のパラメーターを指定するときは、各パラメーターをコンマで区切る必要があります。 リストにブランクを入れてはなりません。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <div>次のトレース・パラメーターを指定できます。<dl>
+<dt>init</dt>
+
+<dd>イベント・マネージャー・デーモンの初期化をトレースします。</dd>
+
+
+<dt>config</dt>
+
+<dd>構成ファイルからの情報をダンプします。</dd>
+
+
+<dt>insts</dt>
+
+<dd>デーモンが処理するリソース変数インスタンスをトレースします。</dd>
+
+
+<dt>rmctrl</dt>
+
+<dd>リソース・モニター制御をトレースします。</dd>
+
+
+<dt>cci</dt>
+
+<dd>クライアント通信 (内部) インターフェースをトレースします。</dd>
+
+
+<dt>emp</dt>
+
+<dd>イベント・マネージャー・プロトコルをトレースします。</dd>
+
+
+<dt>obsv</dt>
+
+<dd>リソース変数監視をトレースします。</dd>
+
+
+<dt>evgn</dt>
+
+<dd>イベント生成と通知をトレースします。</dd>
+
+
+<dt>reg</dt>
+
+<dd>イベント登録と登録解除をトレースします。</dd>
+
+
+<dt>pci</dt>
+
+<dd>ピア通信 (内部) インターフェースをトレースします。</dd>
+
+
+<dt>msgs</dt>
+
+<dd>デーモンが受け取るメッセージおよびデーモンが発行するメッセージをすべてトレースします。</dd>
+
+
+<dt>照会</dt>
+
+<dd>デーモンが処理する照会をトレースします。</dd>
+
+
+<dt>gsi</dt>
+
+<dd>グループ・サービス (内部) インターフェースをトレースします。</dd>
+
+
+<dt>eval</dt>
+
+<dd>式の評価をトレースします。</dd>
+
+
+<dt>rdi</dt>
+
+<dd>高信頼性デーモン (内部) インターフェースをトレースします。</dd>
+
+
+<dt>sched</dt>
+
+<dd>内部スケジューラーをトレースします。</dd>
+
+
+<dt>shm</dt>
+
+<dd>共有メモリー管理アクティビティーをトレースします。</dd>
+
+
+<dt>すべて</dt>
+
+<dd>すべてのアクティビティーをトレースします。</dd>
+
+
+<dt>all_but_msgs</dt>
+
+<dd>メッセージ以外のすべてのアクティビティーのトレースを停止します。 メッセージ・アクティビティーは msgs 引数によって定義されます。</dd>
+
+
+<dt>regs</dt>
+
+<dd>現在登録されているイベントをトレースします。</dd>
+
+
+<dt>dinsts</dt>
+
+<dd>デーモンが認識しているすべてのリソース変数インスタンスをトレースします。</dd>
+
+
+<dt>iolists</dt>
+
+<dd>即時監視リストをトレースします。</dd>
+
+
+<dt>olists</dt>
+
+<dd>監視リストをトレースします。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>制約事項</h2> <p>通常の操作ではこのコマンドは使用しないでください。 このコマンドは、<span>IBM</span>サポートセンターの指示の下でのみ使用してください。 これはデバッグのための情報を提供し、
+イベント管理サブシステムまたはシステム区画内で実行されているもののパフォーマンスを低下させる可能性があります。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、Reliable Scalable Cluster Technology (RSCT) ファイルセットの一部です。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>クラスター・ノードの 1 つに関してイベント管理サブシステムのすべてのトレースをオンにするには、
+そのノードにログインして次のように入力します。<div> <div><div><pre><code>haemtrcon -s emsvcs -a all</code></pre></div><div></div></div></div>
+</li>
+
+<li>あるクラスター・ノードに関してイベント管理サブシステムの初期化と構成のすべてのトレースをオンにするには、
+そのノードにログインして次のように入力します。<div> <div><div><pre><code>haemtrcon -s emsvcs -a init,config</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <div> <dl>
+<dt>/opt/rsct/bin/haemtrcon</dt>
+
+<dd><span><span>haemtrcon</span></span> コマンドの場所</dd>
+
+</dl>
+</div>
+</section>
+
+</div></div>

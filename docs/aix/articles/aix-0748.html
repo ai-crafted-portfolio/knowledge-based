@@ -1,0 +1,64 @@
+<div class="official-dom"><div>
+<div> <p></p><blockquote><span>“</span><strong>注:</strong> これは System V Print Subsystem コマンドです。<span>”</span></blockquote>
+<p></p>
+</div>
+
+<section><h2>目的</h2> <p>印刷要求を移動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lpmove</strong><em> 要求数</em><em> 宛先</em></p>
+ <p><strong>lpmove</strong><em> Destination1</em><em> Destination2</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lpmove</strong> コマンドは、
+<strong>lp</strong> によってキューに入れられた要求を、
+LP の宛先間で移動します。 このコマンドは、
+特定の <em>Request</em> を、
+指定した <em>Destination</em> に移動します。 <em>Requests</em> は、
+<strong>lp</strong> によって戻された要求 ID です。 <em>Destination1</em> にあるすべての要求を、
+<em>Destination2</em> に移動することもできます。 この <strong>lpmove</strong> コマンドの形式により、
+<strong>lp</strong> は <em>Destination1</em> にあるすべての新しい要求をリジェクトします。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> 要求を移動するとき、
+<strong>lpmove</strong> は新しい宛先の受け入れ状況を確認しません。 また、移動した要求の要求 ID は変更されないので、
+その要求を見つけることができます。 <strong>lpmove</strong> コマンドは新しい宛先で処理できないオプション (つまり、
+コンテンツ・タイプや必須形式のこと) を持つ要求は移動しません。<span>”</span></blockquote>
+<p></p>
+ <p>要求が最初、クラスやまた特殊な宛先 <strong>any</strong> のキューに入れられていて、
+<strong>lpmove</strong> の最初の形式が使用された場合、
+要求の宛先は <em>New-Ddestination</em> に変更されます。 したがって、影響を受ける要求は <em>New-Destination</em> でのみ印刷可能であり、元の宛先が <strong>any</strong>であった場合は、クラスの他のメンバーやその他の受け入れ可能なプリンターでは印刷できません。</p>
+ <p><code>lpmove -?</code> を入力した場合は、コマンド使用方法メッセージが表示され、0 が戻されます。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/spool/lp/*</strong></td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,187 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Network Terminal Accelerator (NTX) のアダプター・メモリーの内容をホスト・ファイルにダンプします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>HPC ダンプ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hps_dump.html#hps_dump__row-d3e156011" target="_blank" rel="noopener noreferrer"> <strong>「-f」 </strong><em>名前 </em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hps_dump.html#hps_dump__row-d3e156022" target="_blank" rel="noopener noreferrer"> <strong>-d 年 </strong><em>装置 </em></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>hps_dump</strong> コマンドは、ローダー・インターフェースを使用して、すべてのメモリーをアダプター・ボードからファイルへアップロードします。 それにより、後の分析やデバッグ用のシステムのスナップショットが生成されます。 ファイルの最初の 1024 バイトには、以下の項目が含まれます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>80</td>
+
+<td>バージョンを含む識別文字列。</td>
+
+</tr>
+
+<tr>
+<td>80</td>
+
+<td>ホスト・システムからのメモリー・ダンプの日時。</td>
+
+</tr>
+
+<tr>
+<td>80</td>
+
+<td>コメント。</td>
+
+</tr>
+
+<tr>
+<td>268</td>
+
+<td>ホスト・アダプターからのログ・テーブル。</td>
+
+</tr>
+
+<tr>
+<td>32</td>
+
+<td>システム・アドレス・テーブル。</td>
+
+</tr>
+
+<tr>
+<td>8</td>
+
+<td>メモリー・ダンプの開始アドレスと終了アドレスの範囲。</td>
+
+</tr>
+
+<tr>
+<td>476</td>
+
+<td>1024 バイトの合計埋め込みバイト。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong><em> 名前</em></td>
+
+<td>メモリー・ダンプの名前を指定します。 デフォルトのファイル名 <strong>./hpscore</strong> を指定変更するには、このオプションを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> デバイス</em></td>
+
+<td>アダプターのロウ・デバイスのファイル名を指定します。 デフォルトのデバイス名 <strong>/dev/rhp0</strong> を指定変更するには、
+このオプションを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+ <p>監査イベント: 適用外。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>デフォルト・アダプターのメモリー・ダンプを現行ディレクトリー内のファイル <strong>hpscore</strong> に取得するには、次のように入力します。<div> <div><div><pre><code>hps_dump</code></pre></div><div></div></div></div>
+</li>
+
+<li>デフォルト・アダプターのメモリー・ダンプを、デフォルト・アダプターの現行ディレクトリー内のファイル <span>hpsdebug</span> に取得するには、次のように入力します。<div> <div><div><pre><code>hps_dump -f hpsdebug</code></pre></div><div></div></div></div>
+</li>
+
+<li>アダプター <strong>/dev/rhp1</strong> のメモリーを、
+デフォルトのアダプターの現行ディレクトリー内のファイル <strong>hpsdebug</strong> にメモリー・ダンプするには、
+次のように入力します。<div> <div><div><pre><code>hps_dump -f hpsdebug -d /dev/rhp1</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/hps_dump</strong></td>
+
+<td><strong>hps_dump</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/dev/rhp0</strong></td>
+
+<td>デフォルトの NTX ロウ・デバイスのファイル名。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

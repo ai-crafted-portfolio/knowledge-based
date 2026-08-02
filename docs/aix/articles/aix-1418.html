@@ -1,0 +1,57 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ネットワーク上のホストの時刻および日付を設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/setclock</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/setclock.html#setclock__row-d3e16684" target="_blank" rel="noopener noreferrer"><em>TimeServer </em></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/setclock</strong> コマンドは、ネットワーク・タイム・サーバーから時刻を取得します。
+root ユーザー権限を持つユーザーが実行する場合は、ローカル時刻および日付を設定します。</p>
+ <p><strong>setclock</strong> コマンドは、タイム・サーバーからの最初の応答を取得して、
+そこで見つかったカレンダー・クロックの読み取りを変換し、ローカルの日付および時刻を表示します。 <strong>setclock</strong> コマンドが root ユーザーによって実行される場合には、
+標準ワークステーションのエントリー・ポイントを呼び出して、システムの日付および時刻を設定します。</p>
+ <p>タイム・サーバーが応答しなかったり、ネットワークが動作可能でない場合、
+<strong>setclock</strong> コマンドはその主旨のメッセージを表示して、
+システムの現在の日付および時刻の設定を変更しません。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>inetd</strong> デーモンを実行するすべてのホストは、タイム・サーバーとして機能することができます。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>TimeServer</em></td>
+
+<td>TIME 要求を行うネットワーク・ホストのホスト名またはアドレス。 <strong>setclock</strong> コマンドは、タイム・サーバー・ホストにインターネット TIME サービス要求を送信します。 <em>TimeServer</em> の名前が省略されると、<strong>setclock</strong> コマンドはデフォルトのタイム・サーバーに要求を送信します。 DOMAIN 環境のデフォルトのタイム・サーバーは、ネームサーバーによって指定されます。 それ以外の場合は、デフォルトのタイム・サーバーは <strong>/etc/hosts</strong> ファイルに指定されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span><strong> /etc/hosts</strong> ファイルで指定されたタイム・サーバー・ホストを使用して日時を表示するには、次のように入力します。<div> <div><div><pre><code>setclock
+Sat Mar 11 15:31:05 1988</code></pre></div><div></div></div><strong>setclock</strong> コマンドは、正しい日付と時刻を表示します。</div>
+</li>
+
+<li><span></span>日時を設定するには、次のように入力します。<div> <div><div><pre><code>su root
+setclock host1
+Thu Jan 12 15:24:15 1990</code></pre></div><div></div></div>タイム・サーバーからの時刻を設定する前に、 <strong>su</strong> コマンドを使用するか、root ユーザーとしてログインする必要があります。host1.</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

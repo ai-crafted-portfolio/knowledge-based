@@ -1,0 +1,1119 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>アーカイブ・ファイルのメンバーを取り出して書き込み、リストします。ファイルおよびディレクトリー階層をコピーします。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>アーカイブされたファイルのメンバー・ファイルをリストする</dt>
+
+<dd><div><div><pre><code>pax [  -c | -n] [-d] [-U ] [  -v] [  -H |  -L ] [-f  Archive] [  -s ReplacementString... ] [-x Format] [-o Options] [ -Z ] [Pattern... ]</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt>-rフラグを使ってアーカイブファイルを展開するには</dt>
+
+<dd><p><span>pax</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74606" target="_blank" rel="noopener noreferrer"><span>-r</span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73560" target="_blank" rel="noopener noreferrer"><span>-c </span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73653" target="_blank" rel="noopener noreferrer"><span>-n </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73569" target="_blank" rel="noopener noreferrer"><span>-d </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73613" target="_blank" rel="noopener noreferrer"><span>-i </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73625" target="_blank" rel="noopener noreferrer"><span>-k </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74691" target="_blank" rel="noopener noreferrer"><span>-U</span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74703" target="_blank" rel="noopener noreferrer"><span>-u </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74719" target="_blank" rel="noopener noreferrer"><span>-v </span></a>] [ <code>
+<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73601" target="_blank" rel="noopener noreferrer">-H</a></code> | <code>
+<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73640" target="_blank" rel="noopener noreferrer">-L</a></code> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73581" target="_blank" rel="noopener noreferrer"><span>-f </span></a>Archive] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73662" target="_blank" rel="noopener noreferrer"><span>-o </span></a>Options] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74519" target="_blank" rel="noopener noreferrer"><span>-p </span></a>ストリング... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74612" target="_blank" rel="noopener noreferrer"><span>-s </span></a>ReplacementString... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74740" target="_blank" rel="noopener noreferrer"><span>-x </span></a>フォーマット]<span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74809" target="_blank" rel="noopener noreferrer"> <span>-Z</span> </a>]</span> [パターン ...]</p>
+
+</dd>
+
+
+
+<dt>-wフラグを使ってアーカイブファイルを書き込むには</dt>
+
+<dd><p><span>pax</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74734" target="_blank" rel="noopener noreferrer"><span>-w</span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73569" target="_blank" rel="noopener noreferrer"><span>-d </span></a>] [<code> </code> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73613" target="_blank" rel="noopener noreferrer"><span>-i </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74682" target="_blank" rel="noopener noreferrer"><span>-t </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74691" target="_blank" rel="noopener noreferrer"><span>-U</span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74703" target="_blank" rel="noopener noreferrer"><span>-u </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74719" target="_blank" rel="noopener noreferrer"><span>-v </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74800" target="_blank" rel="noopener noreferrer"><span>-X </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73601" target="_blank" rel="noopener noreferrer"><span>-H</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73640" target="_blank" rel="noopener noreferrer"><span>-L</span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73575" target="_blank" rel="noopener noreferrer"><span>-E</span></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73493" target="_blank" rel="noopener noreferrer"><span>-b </span></a>ブロッキング] [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73482" target="_blank" rel="noopener noreferrer"><span>-a </span></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73581" target="_blank" rel="noopener noreferrer"><span>-f </span></a>アーカイブ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73662" target="_blank" rel="noopener noreferrer"><span>-o </span></a>オプション] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74612" target="_blank" rel="noopener noreferrer"><span>-s </span></a>ReplacementString... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74740" target="_blank" rel="noopener noreferrer"><span>-x </span></a>Format]<span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74809" target="_blank" rel="noopener noreferrer"> <span>-Z</span> </a>]</span> [ File...]</p>
+
+</dd>
+
+
+
+<dt>-rフラグと-wフラグを使ってファイルをコピーするには</dt>
+
+<dd><p><span>pax</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74606" target="_blank" rel="noopener noreferrer"><span>-r</span></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74734" target="_blank" rel="noopener noreferrer"><span>-w</span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73569" target="_blank" rel="noopener noreferrer"><span>-d </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73613" target="_blank" rel="noopener noreferrer"><span>-i </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73625" target="_blank" rel="noopener noreferrer"><span>-k </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73634" target="_blank" rel="noopener noreferrer"><span>-l </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74682" target="_blank" rel="noopener noreferrer"><span>-t </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74691" target="_blank" rel="noopener noreferrer"><span>-U</span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74703" target="_blank" rel="noopener noreferrer"><span>-u </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74719" target="_blank" rel="noopener noreferrer"><span>-v </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74800" target="_blank" rel="noopener noreferrer"><span>-X </span></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73601" target="_blank" rel="noopener noreferrer"><span>-H</span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73640" target="_blank" rel="noopener noreferrer"><span>-L</span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74519" target="_blank" rel="noopener noreferrer"><span>-p </span></a>String... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e73662" target="_blank" rel="noopener noreferrer"><span>-o </span></a>オプション] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74612" target="_blank" rel="noopener noreferrer"><span>-s </span></a>ReplacementString... ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74740" target="_blank" rel="noopener noreferrer"><span>-x </span></a>Format]<span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pax.html#pax__row-d3e74809" target="_blank" rel="noopener noreferrer"> <span>-Z</span> </a>]</span> [File ...] Directory</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <div>pax は portable archive interchange の略です。 <span>pax</span> コマンドは、アーカイブ・ファイルのメンバー・ファイルを取り出して書き込みます。
+アーカイブ・ファイルのメンバー・ファイルのリストを書き込み、ディレクトリーの階層をコピーします。 <span>-r</span> フラグと <span>-w</span> フラグはアーカイブ操作のタイプを指定します。<div><div>
+        <div>
+          <div><span>注:</span> <span>pax</span> リストア中のスパース・ファイルが表示されます。 NULL が入っている区域で、調整済みでサイズ指定された区域をファイルがブロックしている場合、<span>pax</span> によってそれらのファイルシステム・ブロック用の物理スペースが割り当てられることはありません。 バイト単位でのファイルのサイズは変わりませんが、ファイルシステム内で実際に使われるスペースは NULL 以外の区域用になります。</div>
+        </div>
+      </div></div>
+</div>
+
+<dl>
+
+<dt>アーカイブ・ファイルのメンバー・ファイルのリスト (リスト・モード)</dt>
+
+<dd><p><span>-r</span> フラグも <span>-w</span> フラグも指定されない場合、<span>pax</span> コマンドは、標準入力から読み取られたアーカイブ・ファイルのすべてのメンバー・ファイルをリストします。 Pattern パラメーターを指定すると、指定したパターンに一致するパス名を持つメンバー・ファイルだけが標準出力に書き出されます。 指定されたファイルがディレクトリーの場合は、そのディレクトリーに含まれているファイル階層も取り出されます。 <span>-r</span> フラグも <span>-w</span> フラグも指定されない場合は、<span>-c</span>、<span>-d</span>、<span>-f</span>、<span>-n</span>、<span>-s</span>、および <span>-v</span> フラグと Pattern パラメーターを指定できます。</p>
+
+</dd>
+
+
+
+<dt>-rフラグを使ったアーカイブファイルの展開（読み込みモード）</dt>
+
+<dd><p><span>-r</span> フラグは指定するが、<span>-w</span> フラグは指定しない場合、<span>pax</span> コマンドは標準入力から読んだアーカイブ・ファイルのすべてのメンバー・ファイルを取り出します。 Pattern パラメーターを指定すると、指定したパターンに一致するパス名を持つメンバー・ファイルだけが標準出力に書き出されます。 指定されたファイルがディレクトリーの場合は、そのディレクトリーに含まれているファイル階層も取り出されます。 <span>-r</span> フラグは、<span>-c</span>、<span>-d</span>、<span>-f</span>、<span>-i</span>、<span>-k</span>、<span>-n</span>、<span>-s</span>、<span>-u</span>、<span>-v</span> フラグ、および Pattern パラメーターと一緒に指定できます。</p>
+
+<p>取り出したファイルのアクセス時間および修正時間は、アーカイブ・ファイルの場合と同じです。 抽出されたファイルのファイル・モードは、ユーザーのデフォルトのファイル作成モード (<code>umask</code>) の影響を受けない限り、アーカイブされたときと同じです。 抽出されたファイルの <code>S_ISUID</code> ビットと <code>S_ISGID</code> ビットがクリアされます。</p>
+
+<p>アーカイブ・メンバーを取り出すのに中間ディレクトリーが必要な場合には、<span>pax</span> コマンドは、<code>S_IRWXU</code>、<code>S_IRWXG</code>、<code>S_IRWXO</code> のマスクの値のビット単位の包含 OR として設定されたアクセス権を持つディレクトリーを作成します。</p>
+
+<p>選択したアーカイブ・フォーマットがリンクされるファイルの指定をサポートする場合、そのアーカイブ・フォーマットが取り出されたときにそれらのファイルをリンクできないとエラーになります。</p>
+
+</dd>
+
+
+
+<dt>-wフラグを使ったアーカイブファイルの書き込み（書き込みモード）</dt>
+
+<dd><p><span>-w</span> フラグを指定して <span>-r</span> フラグを指定しない場合、<span>pax</span> コマンドは、File パラメーターで指定されたファイルの内容をアーカイブ・フォーマットで標準出力に書き出します。 File パラメーターを指定しないと、コピーするファイルのリストが標準入力から 1 行に 1 つずつ読み取られます。 File パラメーターがディレクトリーを指定する場合は、そのディレクトリーに含まれるすべてのファイルが書き込まれます。 <span>-w</span> フラグは、<span>-a</span>、<span>-b</span>、<span>-d</span>、<span>-f</span>、<span>-i</span>、<span>-o</span>、<span>-s</span>、<span>-t</span>、<span>-u</span>、<span>-v</span>、<span>-x</span>、<span>-X</span> フラグ、および File パラメーターと一緒に指定できます。</p>
+
+</dd>
+
+
+
+<dt>-rフラグと-wフラグを使ったファイルのコピー（コピーモード）</dt>
+
+<dd><p><span>-r</span> フラグと <span>-w</span> フラグをともに指定する場合、<span>pax</span> コマンドは、File パラメーターで指定されたファイルを Directory パラメーターで指定された出力先ディレクトリーにコピーします。 ファイルを指定しないと、コピーするファイルのリストが、1 行に 1 つずつ標準入力から読み取られます。 指定されたファイルがディレクトリーの場合は、そのディレクトリーに含まれているファイル階層もコピーされます。 <span>-r</span> フラグと <span>-w</span> フラグは、 <span>-d</span>、 <span>-i</span>、<span>-k</span>、<span>-l</span>、<span>-o</span>、 <span>-p</span>、<span>-s</span>、<span>-t</span>、<span>-u</span>、 <span>-v</span>、<span>-X</span> フラグ、および File パラメーターと一緒に指定できます。 Directory パラメーターは必ず指定してくだ
+さい。</p>
+
+<p>コピーされたファイルは、アーカイブ・ファイルに書き込まれ、その後で取り出された内容と同じですが、元のファイルとコピーされたファイルの間にハード・リンクがある点が異なります。</p>
+
+</dd>
+
+
+
+<dt>-oフラグを使ったアーカイブ・アルゴリズムの変更</dt>
+
+<dd><p><span>-o</span> フラグを使用して、キーワードと値の組に従ってアーカイブ・アルゴリズムを修正します。 キーワードと値の組は、正しいアーカイブ・フォーマットに準拠している必要があります。 有効なキーワードとその動作のリストは、後で、<span>-o</span> フラグの説明のところに出てきます。</p>
+
+</dd>
+
+
+
+<dt>その他の注意事項</dt>
+
+<dd><p>読み取りモードまたはコピー・モードでは、アーカイブ・メンバーを取り出すために中間ディレクトリーが必要である場合、<span>pax</span> コマンドは <code>mkdir()</code> サブルーチンに類似したアクションを実行します。この場合、パス引数として中間ディレクトリーが使用され、モード引数として値 <code>S_IRWXU</code> が使用されます。</p>
+
+<p>指定されたパターンまたはファイル・オペランドが少なくとも 1 つのファイルまたはアーカイブ・メンバーと一致しない場合、<span>pax</span> は、一致しなかったそれぞれのファイルまたはアーカイブ・メンバーごとに診断メッセージ 1 つずつを標準エラーに書き込み、エラー状況を表して終了します。</p>
+
+<p>スキャン・ディレクトリーでは、<span>pax</span> コマンドは、最後に訪問されたファイルの祖先である、既に訪問されているディレクトリーを入力することによって、無限ループを検出します。 無限ループを検出すると、<span>pax</span> コマンドは診断メッセージを標準エラーに書き込み、終了します。</p>
+
+<p><span>pax</span> コマンドが読み取りモードまたはリスト・モードのときは、<span>-x pax</span> アーカイブ・フォーマットを使用することにより、拡張ヘッダー・レコード内のファイル名、リンク名、所有者名、または他のフィールドを <span>pax</span> UTF8 コード・セット・フォーマットから現在のコード・セットとロケールに変換することはできません。 <span>pax</span> コマンドは、診断メッセージを標準エラーに書き込み、<span>-o invalid=</span> オプションで記述されている通りにファイルを処理してから、アーカイブ内の次のファイルを処理します。</p>
+
+<p><span>AIX 5.3</span>では、'<span>pax</span>コマンドはデフォルトで拡張属性を無視する。 <span>-U</span> オプションは、ACL を含む拡張属性をアーカイブまたは復元するように <span>pax</span> に通知します。 <span>-pe</span> オプションは ACL を保持します。 <span>-pe</span> オプションが指定されていて、pax が ACL を保存できない場合、診断メッセージが標準エラーに書き込まれますが、抽出されたファイルは削除されません。 ゼロ以外の終了コードが返されます。 <span>pax</span> アーカイブ・ファイルの拡張属性項目には、新しいレコード・タイプが必要です。</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>変数</h2> <div> 
+<div><div><table><caption><span>表 1. 変数</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>directory</td>
+
+<td>ファイルをコピーするとき、出力先ディレクトリーのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td>File</td>
+
+<td>コピーまたはアーカイブするファイルのパスを指定します。 File パラメーターと一致するファイルがない場合、<span>pax</span> コマンドは、エラーを検出して終了し、診断メッセージを書きます。</td>
+
+</tr>
+
+<tr>
+<td>pattern</td>
+
+<td>アーカイブ・メンバーの 1 つまたは複数のパスに一致するパターンを指定します。 &amp;#xa5; (円記号) は、Pattern パラメーターでは識別されず、このためにその後の文字が意味を持たなくなります。 Pattern パラメーターを指定しない場合、すべてのメンバーがアーカイブで選択されます。<p>Pattern パラメーターが指定されているが、指定されたパターンに一致するアーカイブ・メンバーが見つからない場合、<span>pax</span> コマンドは、エラーを検出して終了し、診断メッセージを書きます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 2. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>アーカイブの最後にファイルを追加します。<div><div>
+        <div>
+          <div><span>注:</span> ストリーミング磁気テープ装置では、追加機能は許可されません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-b</span> ブロッキング</td>
+
+<td>出力用のブロックのサイズを指定します。 Blocking パラメーターは正の 10 進整数値を指定し、この値がブロックごとのバイト数を指定します。 POSIX2 に準拠するアプリケーションでは、32256 を超えるブロック・サイズ値を指定してはなりません。 デバイスおよびアーカイブ・フォーマットによってはブロック化が制限されることがあります。 ブロック化は、入力時に自動的に決定されます。 アーカイブを作成する場合のデフォルト・ブロック化は、アーカイブ・フォーマットによって左右されます。 (<span>-x</span> フラグの定義を参照。)<p>Blocking パラメーターは、以下のいずれかの値を受け入れます。</p>
+
+<dl>
+
+<dt>整数<code> b</code></dt>
+
+<dd>バイト単位のブロック・サイズが、Integer パラメーターの値に 512 を掛けた値を指定した正の 10 進整数になるように指定します。</dd>
+
+
+
+<dt>整数<code> k</code></dt>
+
+<dd>バイト単位のブロック・サイズが、Integer パラメーターの値に 1024 を掛けた値を指定した正の 10 進整数になるように指定します。</dd>
+
+
+
+<dt>整数<code> m</code></dt>
+
+<dd>バイト単位のブロック・サイズが、Integer パラメーターの値に 1024 x 1024 を掛けた値を指定した正の 10 進整数になるように指定します。</dd>
+
+
+
+<dt>整数<code>+</code>整数</dt>
+
+<dd>バイト単位のブロック・サイズが、Integer パラメーターで指定した正の 10 進整数の合計になるように指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>Pattern パラメーターで指定されたファイルを除く、すべてのファイル・メンバーまたはアーカイブ・メンバーを突き合わせます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>コピー、アーカイブ、または取り出しが行われるディレクトリーが、ディレクトリーの内容ではなく、ディレクトリーに一致するようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-E</span></td>
+
+<td>新規のアーカイブまたは既存のアーカイブにファイルが追加される際に、
+長いユーザー名およびグループ名が切り捨てられないようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span> アーカイブ</td>
+
+<td>標準入力 (<span>-w</span> フラグを指定しない場合) または標準出力 (<span>-w</span> フラグは指定するが <span>-r</span> フラグは指定しない場合) の代わりに使用するアーカイブ・ファイルのパスを指定します。 <span>-a</span> フラグのオプションと一緒に指定すると、アーカイブに書き込まれるすべてのファイルがアーカイブの最後に追加されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-H</span></td>
+
+<td>ディレクトリーを参照するシンボリック・リンクがコマンド・ラインに指定されている場合、<span>pax</span> は、リンクの名前をファイル階層の名前として使用して、そのリンク内で参照されているディレクトリー内にルートがあるファイル階層をアーカイブします。 デフォルトでは、<span>pax</span> は、シンボリック・リンクそのものをアーカイブします。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span></td>
+
+<td>ファイルまたはアーカイブの名前を対話型で変更します。 Pattern パラメーターに一致するそれぞれのアーカイブ・メンバー、または File パラメーターに一致するファイルについては、ファイルまたはアーカイブ・メンバーの名前を含むディスプレイ・デバイスにプロンプトが表示されます。 そこで、1 行がディスプレイ・デバイスから読み取られます。 この行が空である場合には、ファイルまたはアーカイブ・メンバーはスキップされます。 この行が単一のピリオドで構成されている場合、その名前を修正せずにファイルまたはアーカイブ・メンバーが処理されます。 そうでない場合には、その名前がその行の内容に置換されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-k</span></td>
+
+<td><span>pax</span> コマンドが既存ファイルに書き込むのを防ぎます。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td>ファイルをコピーするときに、ファイルをリンクします。 可能な場合にはいつでも、ソース・ファイルと出力先ファイルの階層間にハード・リンクが設けられます。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span></td>
+
+<td>ディレクトリーを参照するシンボリック・リンクがコマンド・ラインに指定されたか、ファイル階層のスキャン中に検出された場合、<span>pax</span> は、リンクの名前をファイル階層の名前として使用して、そのリンク内で参照されているディレクトリー内にルートがあるファイル階層をアーカイブします。 デフォルトでは、<span>pax</span> は、シンボリック・リンクそのものをアーカイブします。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>それぞれの Pattern パラメーターに一致する最初のアーカイブ・メンバーを選択します。 それぞれのパターンについて、複数のアーカイブ・メンバーが一致することはありません。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span>  Options</td>
+
+<td>Options パラメーターとして指定したキーワードと値の組に従って、アーカイブ・アルゴリズムを変更します。 キーワードと値の組は以下のフォーマットでなくてはなりません。<p>キーワード: = 値、キーワード: = 値、...</p>
+
+<p>キーワードによっては、それぞれの説明で示されているように、特定のファイル・フォーマットにだけ適用されるものがあります。 処理されているファイル・フォーマットに適用できないキーワードを使用しても、<span>pax</span> によって無視されます。</p>
+
+<p>キーワードの前にはホワイト・スペースを設けることができます。 値 フィールドは、ゼロ個以上の文字で構成されます。 値内では、リテラル・コンマの前に円記号 (¥) を付ける必要があります。 オプション では、最後の文字としてのコンマ、または最後の文字としての空白文字が後に続くコンマは無視されます。 <span>-o</span> オプションは複数指定できます。 複数の <span>-o</span> オプションに指定したキーワードが矛盾する場合は、コマンド・ライン・シーケンス内で後の方に出てくるキーワードと値が優先されます。 それより前の値は無視されます。</p>
+
+<p>次のキーワードと値の組は、示されたファイル形式の場合にサポートされます。</p>
+
+<p><code>datastream</code>=pathname,<code>datastr_size</code>=size (すべてのファイル形式に適用されます。)</p>
+
+<p><code>datastream</code> キーワードは、着信アーカイブ・ファイルがファイル・フォーマットではなく、標準入力デバイスからのデータ・ストリームであることを示します。 したがって、データは、 <span>-x</span> フラグで認識される形式で通常のファイルとしてアーカイブする必要があります。 データ・ストリームのファイル名は、pathname パラメーターで指定される必要があり、コマンドを起動した人の ID、グループ ID、ファイル・モードの <code>umask</code> が含まれている必要があります。</p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注:</span> <code>datastream</code> キーワードには、デフォルトの変数サイズがありません。 変数サイズを指定しなくてはなりません。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p><code>datastr_size</code> キーワードは、データ・ストリーム入力のサイズ (バイト単位) を 10 進数で示します。 <span>pax</span> コマンドは、size パラメーターを読む前にファイル終わり (EOF) に達すると、アーカイブ・ファイルを null 値で埋めます。 null 値の場合、アーカイブ・ファイルのサイズは size パラメーターで指定したものと同じになります。 アーカイブ・ファイル内のデータが指定したサイズを超えると、<span>pax</span> コマンドは size パラメーターで指定されたサイズになるようにアーカイブ・ファイルを切り捨てます。 また、<span>pax</span> コマンドは入力の取り出しを停止してアーカイブ・ファイルをクローズします。</p>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注:</span> キーワードの組については複数のインスタンスを指定できます。 同じキーワードに異なる値を割り当てると、<span>pax</span> コマンドはそのキーワードに最後に割り当てた値を使用して <span>-o</span> フラグを実行します。</div>
+        </div>
+      </div></div>
+
+</div>
+
+<p><code>delete</code>=pattern ( <span>-x
+pax</span> 形式にのみ適用されます。)</p>
+
+<p><span>pax</span> は、書き込みモードまたはコピー・モードで使用される場合、それが作成する拡張ヘッダー・レコードからの pattern とマッチングするキーワードをすべて省略します。 読み取りモードまたはリスト・モードで使用される場合、<span>pax</span> は、その拡張ヘッダー・レコード内の pattern とマッチングするキーワードをすべて無視します。 いずれの場合も、マッチングは標準のシェル・パターン・マッチング表記を使用して行われます。 例えば、<code>-o delete=security.*</code> は、セキュリティー関連情報を抑止します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span> Options (続き)</td>
+
+<td><p> </p>
+  <p><code>exthdr.name</code>=string (<span>-x pax</span> フォーマットのみに適用されます。)</p>
+  <p>このキーワードを使用すると、拡張ヘッダー・レコードの <code>ustar</code> ヘッダー・ブロックに書き込まれる名前をユーザーが制御できます。 この名前は、以下の文字置換が行われた後の string の内容です。</p>
+  <dl>
+<dt>string に組み込む内容:</dt>
+
+<dd>置換後の内容:</dd>
+
+
+<dt>%d</dt>
+
+<dd>ファイルのディレクトリー名。変換されたパス名に対する <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dirname.html" target="_blank" rel="noopener noreferrer"><span>dirname</span></a> ユーティリティーの結果に相当します。</dd>
+
+
+<dt>%f</dt>
+
+<dd>ファイルのファイル名。変換されたパス名に対する <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/basename.html" target="_blank" rel="noopener noreferrer"><span>basename</span></a> ユーティリティーの結果に相当します。</dd>
+
+
+
+<dt>%p</dt>
+
+<dd><span>pax</span> プロセスのプロセス ID。</dd>
+
+
+<dt>%%</dt>
+
+<dd>% 記号文字。</dd>
+
+</dl>
+
+<p>string 内で上記以外の % 文字を使用すると、未定義の結果が生じます。 <span>-o</span>の 「オプション」 リストでキーワードと値のペアが <code>-o exthdr.name=string</code>として指定されていない場合、 <span>pax</span> は名前のデフォルト値を <code>%d/PaxHeaders.%p/%f</code>と見なします。</p>
+  <p><code>globexthdr.name=</code>string (<span>-x pax</span> フォーマットのみに適用されます。)</p>
+  <p>適切なオプションを指定して書き込みモードまたはコピー・モードで使用すると、 <span>pax</span> は、以前のバージョンの <span>pax</span>で通常のファイルとして扱われる <code>ustar</code> ヘッダー・ブロックを持つグローバル拡張ヘッダー・レコードを作成します。 このキーワードによって、ユーザーが、グローバル拡張ヘッダー・レコードの <code>ustar</code> ヘッダー・ブロック内に書き込まれる名前を制御できます。 この名前は、次の文字置換が行われた後の string の内容です。</p>
+  <dl>
+<dt>string  に組み込む内容:</dt>
+
+<dd>置換後の内容:</dd>
+
+
+<dt><code>%n</code></dt>
+
+<dd>1 で始まる、アーカイブ内のグローバル拡張ヘッダー・レコードのシーケンス番号を表す整数。</dd>
+
+
+<dt><code>%%</code></dt>
+
+<dd>% 文字</dd>
+
+</dl>
+  <p>string 内で上記以外の % 文字を使用すると、未定義の結果が生じます。 このキーワードと値の組が <span>-o</span> Options リストで指定されていない場合、その名前のデフォルト値は次のようになります。</p>
+  <p><code>$TMPDIR/GlobalHead.%n</code></p>
+  <p>ここで、<code>$TMPDIR</code> は <code>TMPDIR</code> 環境変数の値、または <code>TMPDIR</code> が設定されていない場合は <code>/tmp</code> です。</p>
+  <p><code>invalid</code>=action ( <span>-x
+pax</span> 形式にのみ適用されます。)</p>
+  <p>このキーワードによって、ユーザーが、次の状態の拡張ヘッダー・レコード内で値を検出したときに <span>pax</span> が取るアクションを制御できます。</p>
+  <ul>
+<li>読み取りモードまたはコピー・コードの場合に、宛先階層内で無効である。</li>
+
+<li>リスト・モードの場合に、コード・セットと現行ロケール内に書き込むことができない。</li>
+
+</ul>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span> Options (続き)</td>
+
+<td><p><span>pax</span> は次の無効値を認識します。</p>
+  <ul>
+<li>読み取りモードまたはコピー・モードの場合に、宛先階層で無効な文字エンコードを含むファイル名またはリンク名。 (例えば、名前に組み込み NULL を含めることができます。)</li>
+
+<li>読み取りモードまたはコピー・モードの場合に、出力先階層で可能な最大長を超えるファイル名またはリンク名 (パス名のコンポーネントか、パス名全体のどちらかの場合)。</li>
+
+<li>リスト・モードの場合に、コード・セットおよび現行ロケールに書き込むことができない文字列値 (ファイル名、リンク名、ユーザー名など)。</li>
+
+</ul>
+  <p>次に示す、action 引数の相互排他的な値がサポートされています。</p>
+  <ul>
+<li><code>bypass</code><p>読み取りモードまたはコピー・モードの場合、<span>pax</span> はファイルをバイパスして、それにより出力先階層への変更は行われません。 リスト・モードの場合、<span>pax</span> は、そのファイルについて要求された有効値をすべて書き込みますが、無効値を書き込むためのメソッドは指定されていません。</p>
+</li>
+
+<li><code>rename</code><p>読み取りモードまたはコピー・モードの場合、<span>pax</span> は、無効なファイル名またはリンク名を持つ各ファイルごとに <span>-i</span> フラグが有効であるものとした働きをして、ユーザーが対話式に置換名を指定できるようにします。 リスト・モードでは、<span>pax</span> は <code>bypass</code> アクションとまったく同じ動作をします。</p>
+</li>
+
+<li><code>UTF8</code><p>読み取り、コピー、またはリスト・モードで使用される場合に、拡張ヘッダー・レコード内のファイル名、リンク名、オーナー名などのフィールドがすべて、<code>pax UTF8</code> コード・セット形式から現行コード・セットおよびロケールに変換できない場合、<span>pax</span> はその名前に実際の UTF8 エンコードを使用します。</p>
+</li>
+
+<li><code>write</code><p>読み取りモードまたはコピー・モードの場合、<span>pax</span> は、ファイルを書き込んで、名前の変換または切り捨てを行います。これは、有効名を持つ既存ファイルが上書きされるかどうかに関係なく行われます。 リスト・モードでは、<span>pax</span> は <code>bypass</code> アクションとまったく同じ動作をします。</p>
+  <p><span>-o invalid=</span>action が指定されない場合、<span>pax</span> は、<code>bypass</code> アクションが指定されたときと同様の働きをします。 <span>-o
+invalid=</span>アクション によって許可される可能性のある既存ファイルの上書きは、許可 (<span>-p</span>) および変更時刻 (<span>-u</span>) の制限に従い、 <span>-k</span> フラグも指定されている場合は抑止されます。</p>
+</li>
+
+</ul>
+  <p><code>linkdata</code> (<span>-x pax</span> フォーマットのみに適用されます。)</p>
+  <p>書き込みモードでは、ファイルが、アーカイブに内容が書き込まれているファイルへのハード・リンクであっても、<span>pax</span> コマンドは、そのファイルの内容をアーカイブに書き込みます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-o</span> Options (続き)</td>
+
+<td><p><code>listopt</code>=format (すべてのファイル形式に適用されます。)</p>
+  <p>このキーワードは、<span>-v</span> オプションがリスト・モードで指定されているときに生成される目次の出力形式を指定します。 このキーワードと値の組は、混同されないように、<span>-o</span> フラグ以降の唯一または最後のキーワードと値の組として使用しなければなりません。オプションと引数の組の残りの部分にある文字はすべて、フォーマット文字列の一部として見なされます。 複数の <span>-o listopt=format</span> オプションが指定されている場合、フォーマット・ストリングは単一の連結ストリングと見なされ、コマンド行の順序で評価されます。 詳しくは、 <code>List-Mode Format Specifications</code> のセクションを参照してください。</p>
+  <p><code>times</code> (<span>-x
+pax</span> フォーマットのみに適用されます。)</p>
+  <p><span>pax</span> は、書き込みモードまたはコピー・モードで使用される場合、各ファイルごとに atime、ctime、および mtime 拡張ヘッダー・レコードを組み込みます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<dl>
+
+<dt>拡張ヘッダー・キーワード</dt>
+
+<dd><p>(<span>-x pax</span> フォーマットのみに適用されます。)</p>
+
+<p><span>-x pax</span> フォーマットが指定されている場合、以下のリストで定義されているキーワードおよび値を、2 つのモードのいずれかで、 <span>-o</span> フラグのパラメーターとして使用できます。</p>
+
+</dd>
+
+<dd><dl>
+
+<dt>KEYWORD=VALUE</dt>
+
+<dd><p>書き込みモードまたはコピー・モードで使用される場合、これらのキーワードと値の組は、新しいアーカイブのグローバル拡張ヘッダー・レコードに書き込まれます。 読み取りモードまたはリスト・モードで使用される場合、これらのキーワードと値の組は、読み取られるアーカイブのグローバル拡張ヘッダー・レコード内にそれらの組がある場合と同様の働きをします。 どちらの場合も、その値は、指定されたキーワードの個々の拡張ヘッダー・レコード内で値が割り当てられていない、すべてのファイルに適用されます。</p>
+
+</dd>
+
+
+
+<dt>キーワード<code>:</code>=値</dt>
+
+<dd><p>書き込みモードまたはコピー・モードで使用される場合、これらのキーワードと値の組は、新しいアーカイブの各ファイルの拡張ヘッダー・レコードに書き込まれます。 読み取りモードまたはリスト・モードで使用される場合、これらのキーワードと値の組は、読み取られるアーカイブの各ファイルの拡張ヘッダー・レコード内にそれらの組がある場合と同様の働きをします。 どちらの場合も、その値は、グローバルまたはファイル特定の拡張ヘッダー・レコードにある指定のキーワードの値をすべてオーバーライドします。</p>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>atime</dt>
+
+<dd><p>後に続くファイル (1 つまたは複数) のファイル・アクセス時間。ファイルの stat 構造体の st_atime メンバーの値と同じ。</p>
+
+</dd>
+
+
+
+<dt>文字セット</dt>
+
+<dd><p>文字セットの名前は、後続のファイルのデータをエンコードするために設定されます。 このテーブルのエントリーは、既知の標準を参照するために定義されます。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>value</div></th>
+
+<th><div>標準</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>ISO-IR 646 1990</code></td>
+
+<td>ISO/IEC 646 IRV</td>
+
+</tr>
+
+<tr>
+<td><code>ISO-IR 8859 1 1987</code></td>
+
+<td>ISO 8859-1</td>
+
+</tr>
+
+<tr>
+<td><code>ISO-IR 8859 2 1987</code></td>
+
+<td>ISO 8859-2</td>
+
+</tr>
+
+<tr>
+<td><code>ISO-IR 10646 1993</code></td>
+
+<td>ISO/IEC 10646</td>
+
+</tr>
+
+<tr>
+<td><code>SO-IR 10646 1993 UTF8</code></td>
+
+<td>ISO/IEC 10646, UTF8 encoding</td>
+
+</tr>
+
+<tr>
+<td><code>BINARY</code></td>
+
+<td>なし</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>エンコードは、情報のためにのみ拡張ヘッダーに組み込まれます。 <span>pax</span> は、記述されているとおりに使用される場合、ファイル・データを他のエンコードに変換しません。 BINARY エントリーは、エンコードされていないバイナリー・データを示します。</p>
+
+</dd>
+
+
+
+<dt><code>comment</code></dt>
+
+<dd><p>コメントとして使用される一連の文字。 <span>pax</span> は値フィールド内の文字をすべて無視します。</p>
+
+</dd>
+
+
+
+<dt><code>ctime</code></dt>
+
+<dd><p>以下のファイルのファイル作成時間。ファイルの stat 構造体の st_ctime メンバーの値と同じ。</p>
+
+</dd>
+
+
+
+<dt><code>gid</code></dt>
+
+<dd><p>ファイルを所有するグループのグループ ID。10 進数で表わす。 このレコードは、以下のヘッダー・ブロックの gid フィールドをオーバーライドします。 <span>pax</span> は、書き込みモードまたはコピー・モードで使用されると、グループ ID が 99,999,999 を超えるファイルごとに、gid 拡張ヘッダー・レコードを 1 つずつ組み込みます。</p>
+
+</dd>
+
+
+
+<dt><code>gname</code></dt>
+
+<dd><p>後続のファイルのグループ。グループ・データベース内のグループ名としてフォーマット設定されています。 このレコードは、後に続くヘッダー・ブロックの gid フィールドと gname フィールド、および gid 拡張ヘッダー・レコードをオーバーライドします。 読み取り、コピー、またはリスト・モードで使用されると、<span>pax</span> は、ヘッダー・レコードの UTF8 エンコードからの名前を、受信システム上のグループ・データベースに適した文字セットに変換します。 いずれかの UTF8 文字が変換できない場合に、<span>-o invalid=UTF8</span> オプションが指定されていないと、未定義の結果が生じます。 <span>pax</span> は、書き込みモードまたはコピー・モードで使用されると、グループ名がポータブル文字セットの文字と数字だけで表すことができないファイルごとに、gname 拡張ヘッダー・レコードを 1 つずつ組み込みます。</p>
+
+</dd>
+
+
+
+<dt><code>hdrcharset</code></dt>
+
+<dd><div>拡張ヘッダー・レコード <code>gname</code>、<code>linkpath</code>、<code>path</code>、および <code>uname</code> の値フィールドをエンコードするために使用される文字セットの名前。 次の表にあるエントリーは、既知の標準を参照するために定義されています。 発信元と受信側の間で追加の名前が一致する場合があります。<div><div><table><thead>
+<tr>
+<th><div>value</div></th>
+
+<th><div>標準</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>ISO-IR106462000UTF-8</code></td>
+
+<td>ISO/IEC 10646、UTF-8 エンコード</td>
+
+</tr>
+
+<tr>
+<td><code>BINARY</code></td>
+
+<td>なし</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div><code>hdrcharset</code> 拡張ヘッダーレコードが指定されていない場合は、拡張ヘッダーレコード内の値をすべてエンコードするためにデフォルト文字セット (ISO/IEC 10646-1:2000 標準 UTF-8 エンコード) が使用されます。</div>
+
+<p><code>BINARY</code> エントリーは、影響を受けたファイルの拡張ヘッダーに記録されるすべての値が、基本のシステムからの未エンコード・バイナリー・データであることを示しています。</p>
+
+</dd>
+
+
+
+<dt>リンク・パス</dt>
+
+<dd><p>前にアーカイブされた別のファイル (タイプを問わず) に対して作成されるリンクのパス名。 このレコードは、以下の <code>ustar</code> ヘッダー・ブロックの linkname フィールドをオーバーライドします。</p>
+
+<p>後に続く <code>ustar</code> ヘッダー・ブロックが、作成されるリンクのタイプ (ハードまたはシンボリック) を決定します。 後者の場合、リンク・パス値が、そのシンボリック・リンクの内容になります。 <span>pax</span> は、リンクの名前 (シンボリック・リンクの内容) を、UTF8 エンコードからローカル・ファイルシステムに適した文字セットに変換します。</p>
+
+<p>書き込みモードまたはコピー・モードで使用される場合、<span>pax</span> は、パス名全体を NULL 以外のポータブル文字セットのメンバーで表すことができない各リンクのリンク・パス拡張ヘッダー・レコードを組み込みます。</p>
+
+</dd>
+
+
+
+<dt><code>mtime</code></dt>
+
+<dd><p>後に続くファイル (1 つまたは複数) のファイル修正時間。ファイルの stat 構造体の st_mtime メンバーの値と同じ。 このレコードは、後に続くヘッダー・ブロック (1 つまたは複数) の mtime フィールドをオーバーライドします。 変更時間は、そのプロセスに、復元するために適切な特権があれば復元されます。</p>
+
+</dd>
+
+
+
+<dt><code>path</code></dt>
+
+<dd><p>後に続くファイル (1 つまたは複数) のパス名。 このレコードは、後に続くヘッダー・ブロック (1 つまたは複数) の name フィールドと prefix フィールドをオーバーライドします。 <span>pax</span> は、ファイルのパス名を、UTF8 エンコードからローカル・ファイルシステムに適した文字セットに変換します。 <span>pax</span> は、書き込みモードまたはコピー・モードで使用されると、パス名を NULL 以外のポータブル文字セットのメンバーだけで表すことができないファイルごとに、path 拡張ヘッダー・レコードを 1 つずつ組み込みます。</p>
+
+</dd>
+
+
+
+<dt><code>realtime</code>.すべて</dt>
+
+<dd><p>real time が接頭部として付いたキーワードは、将来の POSIX リアルタイム標準化のために予約されます。 <span>pax</span> はそれらを認識しますが、何もせずに無視します。</p>
+
+</dd>
+
+
+
+<dt><code>security</code>.すべて</dt>
+
+<dd><p>security が接頭部として付いたキーワードは、将来の POSIX セキュリティー標準化のために予約されます。 <span>pax</span> はそれらを認識しますが、何もせずに無視します。</p>
+
+</dd>
+
+
+
+<dt><code>size</code></dt>
+
+<dd><p>ファイルのサイズはオクテット単位で、ISO/IEC 646 の数字を使用して 10 進数で表されます。 このレコードは、後に続くヘッダー・ブロック (1 つまたは複数) の size フィールドをオーバーライドします。 <span>pax</span> は、書き込みモードまたはコピー・モードで使用されると、サイズ値が 999,999,999,999 を超えるファイルごとに、拡張ヘッダー・レコードのサイズを組み込みます。</p>
+
+</dd>
+
+
+
+<dt><code>uid</code></dt>
+
+<dd><p>ファイルを所有するユーザーのユーザー ID。ISO/IEC 646 の数字を使用して 10 進数で表されます。 このレコードは、後に続くヘッダー・ブロック (1 つまたは複数) の uid フィールドをオーバーライドします。 <span>pax</span> は、書き込みモードまたはコピー・モードで使用されると、オーナー ID が 99,999,999 を超えるファイルごとに、uid 拡張ヘッダー・レコードを 1 つずつ組み込みます。</p>
+
+</dd>
+
+
+
+<dt><code>uname</code></dt>
+
+<dd><p>ユーザー・データベースでユーザー名としてフォーマットされている、以下のファイルの所有者。 このレコードは、後に続くヘッダー・ブロックの uid フィールドと uname フィールド、および uid 拡張ヘッダー・レコードをオーバーライドします。 読み取り、コピー、またはリスト・モードで使用されると、<span>pax</span> は、ヘッダー・レコード内の UTF8 エンコードからの名前を、受信システム上のデータベースに適した文字セットに変換します。 いずれかの UTF8 文字が変換できない場合に、<span>-o invalid=UTF8</span> オプションが指定されていないと、未定義の結果が生じます。 書き込みモードまたはコピー・モードで使用する場合、 <span>pax</span> は、ユーザー名全体をポータブル文字セットの文字と数字で表すことができないファイルごとに、uname 拡張ヘッダー・レコードを組み込みます。</p>
+
+<p>value フィールドの長さがゼロの場合、ヘッダー・ブロック・フィールド、以前に入力された拡張ヘッダー値、または同じ名前のグローバル拡張ヘッダー値のどれかが削除されます。</p>
+
+<p>拡張ヘッダー・レコード (または <span>-o</span> オプションと引数の組の中) のキーワードが、<code>ustar</code> ヘッダー・ブロック内の対応するフィールドをオーバーライドまたは削除  すると、<span>pax</span> はそのヘッダー・ブロック・フィールドの内容を無視します。</p>
+
+</dd>
+
+
+
+<dt><code>Extended header keyword precedence</code></dt>
+
+<dd><p>(<span>-x pax</span> フォーマットのみに適用されます。)</p>
+
+<p>このセクションでは、さまざまなヘッダー・レコードとファイル、およびコマンド・ライン・オプションを、アーカイブ内のファイルに適用するように選択する場合の優先度について説明します。 <span>pax</span> は、読み取りモードまたはリスト・モードで使用すると、次のシーケンスでファイル属性を判別します。</p>
+
+<ol>
+<li><span>-o delete</span>=keyword-prefix が使用される場合、影響を受ける属性は、ステップ (7) が適用可能であればこのステップから判別されます。使用されない場合は無視されます。</li>
+
+<li><span>-o keyword</span>:=NULL が使用される場合、影響を受ける属性は無視されます。</li>
+
+<li><span>-o keyword</span>:=value が使用される場合、影響を受ける属性には値が割り当てられます。</li>
+
+<li>ファイル特定の拡張ヘッダー・レコードに value が存在する場合、影響を受ける属性には値が割り当てられます。 拡張ヘッダー・レコード同士が競合する場合、ヘッダー内で最後に指定されたものが優先されます。</li>
+
+<li><span>-o keyword</span>=value が使用される場合、影響を受ける属性には値が割り当てられます。</li>
+
+<li>グローバル拡張ヘッダー・レコードに値が存在する場合、影響を受ける属性には値が割り当てられます。 グローバル拡張ヘッダー・レコード同士が競合する場合、グローバル・ヘッダー内で最後に指定されたものが優先されます。</li>
+
+<li>上記以外の場合、属性は、<code>ustar</code> ヘッダー・ブロックから判別されます。</li>
+
+</ol>
+
+</dd>
+
+<dd><div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>-p</code> ストリング</td>
+
+<td>取り出すときに保存するかまたは破棄する 1 つまたは複数のファイル特性を指定します。 String パラメーターは、文字 <code>a</code>、 <code>e</code>、 <code>m</code>、 <code>o</code>、および <code>p</code>で構成されます。 同じストリング内で複数の特性を連結し、複数の <code>-p</code> フラグを指定することができます。 指定フラグには、以下のような意味があります。<dl>
+
+<dt><code>a</code></dt>
+
+<dd>ファイル・アクセス時間を保存しない</dd>
+
+
+
+<dt><code>e</code></dt>
+
+<dd><p>ユーザー ID、グループ ID、ファイル・モード、アクセス時間、変更時間、および ACL を保存する</p>
+
+</dd>
+
+
+
+<dt><code>m</code></dt>
+
+<dd>ファイル変更時間を保存しない</dd>
+
+
+
+<dt><code>o</code></dt>
+
+<dd>ユーザー ID とグループ ID を保存する</dd>
+
+
+
+<dt><code>p</code></dt>
+
+<dd>ファイル・モードを保存する</dd>
+
+
+</dl>
+
+<p><span>-e</span> フラグも <span>-o</span> フラグも指定しない場合、またはユーザー ID とグループ ID がいずれの理由でも保存されない場合、<span>pax</span> コマンドは、ファイル・モードの <code>S_ISUID</code> ビットと <code>S_ISGID</code> ビットを設定しません。 これらの項目のいずれかの保存が失敗すると、<span>pax</span> コマンドは診断メッセージを標準エラーに書きます。 項目のいずれかの保存に失敗すると、終了状況に影響を及ぼしますが、取り出されたファイルが削除されることはありません。 指定されたフラグが重複するか互いに矛盾する場合は、最後に指定されたフラグが優先されます。 例えば、 <code>-p eme</code> が指定されている場合、ファイル変更時刻が保持されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>標準入力からアーカイブ・ファイルを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> ReplacementString</td>
+
+<td>PatternまたはFileパラメータで指定されたファイル名またはアーカイブメンバ名を、置換表現ReplacementString に従って、'<span>ed</span>コマンドの構文で変更する。 置換式は、以下のようなフォーマットになります。<p><code><span>-s</span>
+/old/new/[gp]</code></p>
+
+<p>ここで (<span>ed</span> コマンドの場合と同様に)、old は基本正規表現であり、new には <code>&amp;</code> (アンパーサンド)、&amp;#xa5;<code>n</code> (<code>n</code> は数値) 逆参照、または副次式のマッチングを入れることができます。 old 文字列には改行文字も入れることができます。</p>
+
+<p>すべての非 null 文字を区切り文字として使用できます (例では / (円記号) が区切り文字です)。 複数の <span>-s</span> フラグ式を指定できます。式は指定された順序で適用され、最初の正常な置換で終了します。 オプションのフッター <code>g</code> 文字は <span>ed</span> コマンドの場合と同様に機能します。 オプションのフッター <code>p</code> 文字を使用すると、成功した置換が標準エラーに書き込まれます。 空文字列と置換されるファイルまたはアーカイブ・メンバー名は、アーカイブの読み取りおよび書き込み時には無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span></td>
+
+<td>入力ファイルのアクセス時間を、<span>pax</span> コマンドによって読まれる以前と同じ時間にします。</td>
+
+</tr>
+
+<tr>
+<td><span>-U</span></td>
+
+<td>ACL および拡張属性のアーカイブおよび抽出を
+実行します。 属性には、アクセス制御リスト (ACL) も含まれます。 ACL タイプ
+が ターゲット・ファイルシステムでサポートされていない場合は、ターゲット・ファイルシステムでサポートされている ACL タイプに
+変換されます。 EA がファイル・システムでサポートされていない場合、EA はコピーされません。 アーカイブのメンバーをリストする場合、このオプションは、指定された拡張属性の名前と、アーカイブ・イメージの一部である各ファイルに関連付けられた ACL のタイプをリストします。</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span></td>
+
+<td>同じ名前を持つ既存のファイルまたはアーカイブ・メンバーより古いファイルを無視します。<ul>
+<li>ファイルを取り出すときは、アーカイブ・メンバーがファイルより新しいものであれば、ファイルシステムにあるファイルと同じ名前のアーカイブ・メンバーが取り出されます。</li>
+
+<li>ファイルをアーカイブ・ファイルに書き込むときは、ファイルがアーカイブ・メンバーより新しいものであれば、ファイルシステムにあるファイルと同じ名前のアーカイブ・メンバーが取り替えられます。 <span>-a</span> フラグを指定した場合、これは、アーカイブに付加されることによって行われます。 それ以外の場合、アーカイブ内の実際の置換またはアーカイブへの追加によってこれが行われるかどうかは指定されません。</li>
+
+<li>ファイルを出力先ディレクトリーにコピーするときは、ソース階層内のファイルの方が新しければ、出力先階層のファイルがソース階層のファイルによって、あるいはソース階層のファイルとのリンクによって、置き換えられます。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>プロセスに関する情報を書き込みます。 <span>-r</span> フラグも <span>-w</span> フラグも指定しない場合は、<span>-v</span> フラグが詳細な目次を作成します。そうでなければ、アーカイブ・メンバー・パス名が標準エラーに書き込まれます。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span></td>
+
+<td>指定されたアーカイブ・フォーマットで標準出力へファイルを書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span> フォーマット</td>
+
+<td><code>ustar</code> であるデフォルト・フォーマットを使って、出力アーカイブ・フォーマットを指定します。 <span>pax</span> コマンドは、以下のフォーマットを認識します。<dl>
+
+<dt><span>pax</span></dt>
+
+<dd><span>pax</span> 交換フォーマット。 文字特殊アーカイブ・ファイル用のこのフォーマットのデフォルト・ブロック化値は
+10240 です。 512 から 32256 まで、512 刻みでブロック化値がサポートされます。</dd>
+
+
+
+<dt><code>cpio</code></dt>
+
+<dd>拡張 <code>cpio</code> 交換フォーマット。 文字特殊アーカイブ・ファイル用のこのフォーマットのデフォルト・ブロック化値は 5120 です。 512 から 32256 まで、512 刻みでブロック化値がサポートされます。</dd>
+
+
+
+<dt><code>ustar</code></dt>
+
+<dd>拡張 <code>tar</code> 交換フォーマット。 文字特殊アーカイブ・ファイル用のこのフォーマットのデフォルト・ブロック化値は
+10240 です。 512 から 32256 まで、512 刻みでブロック化値がサポートされます。<ul>
+<li><code>Filename</code>: <span>pax</span> コマンドは、システムによって定義された <code>PATH_MAX</code> 制限に達するまでのパスとファイル名の長さをサポートします。 パスとファイル名の入力の長さが <code>PATH_MAX</code> 制限を超えると、値はアーカイブされません。</li>
+
+<li><code>gid or uid</code>: <span>pax</span> コマンドは、 <code>UINTMAX</code> 制限に達するまで <code>gid</code> および <code>uid</code> の値をサポートします。 <code>UINTMAX</code> 制限より大きな値は切り捨てられます。</li>
+
+</ul>
+</dd>
+
+
+</dl>
+
+<p>既存のアーカイブ・フォーマットとは異なるフォーマットでアーカイブ・ファイルを追加しようとすると、<span>pax</span> コマンドは、ゼロ以外の終了状況ですぐに終了します。</p>
+
+<p>コピー・モードでは、<span>-x</span> フォーマットが無指定
+の場合、<span>pax</span> は <span>-x pax</span> が指定された場合と同様の働きをします。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>パス名で指定したファイル階層を移動するとき、<span>pax</span> コマンドは異なるデバイス ID を持つディレクトリーへ降りることはありません。</td>
+
+</tr>
+
+<tr>
+<td><span>-Z</span></td>
+
+<td>暗号化ファイルまたはディレクトリーの暗号化ファイルシステム (EFS) 情報をアーカイブします。 デフォルトでは EFS 情報が取り出されます。 アーカイブのメンバーがリストされると、 <span>-Z</span> フラグでアーカイブされた暗号化ファイルおよびディレクトリーのファイル・モードの後に <code>e</code> 標識が表示され、その他のファイルの場合はハイフン (-) が表示されます。<div><div>
+        <div>
+          <div><span>注:</span> <span>-Z</span> フラグで作成されたアーカイブは、 <span>AIX 6.1</span> 以降のリリースでのみ復元できます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグの相互作用および処理順序</h2> <p>ファイルまたはアーカイブ・メンバーの名前で動作するフラグ (<span>-c</span>、<span>-i</span>、<span>-n</span>、<span>-s</span>、<span>-u</span>、および <span>-v</span>) は、以下のように相互作用します。</p>
+ <ul>
+<li>ファイルを抽出するとき、アーカイブ・メンバーは、 <span>-c</span>、 <span>-n</span>、および <span>-u</span> フラグによって変更されたユーザー指定の pattern パラメーターに従って選択されます。 次に、<span>-s</span> および <span>-i</span> フラグは、その順序で、選択されたファイルの名前を変更します。 <span>-v</span> フラグは、それらの変更の結果作成された名前を書き込みます。</li>
+
+<li>ファイルをアーカイブ・ファイルに書き込む場合、またはファイルをコピーする場合は、<span>-n</span> フラグ (コピー・モードの場合はこのオプションは無効) と <span>-u</span> フラグで変更されたユーザー指定のパス名に従って、ファイルが選択されます。 次に、<span>-s</span> および <span>-i</span> フラグは、その順序で、それらの変更の結果作成された名前を変更します。 <span>-v</span> フラグは、その変更の結果作成された名前を書き込みます。</li>
+
+<li><span>-u</span> フラグと <span>-n</span> フラグの両方が指定されている場合、 <span>pax</span> コマンドは、比較対象のファイルより新しい場合を除き、選択されたファイルを考慮しません。</li>
+
+</ul>
+</section>
+
+<section><h2>リスト・モード・フォーマットの仕様</h2> <p><span>-o listopt=</span>format オプションを指定したリスト・モードでは、
+フォーマット引数は、選択された各ファイルごとに適用されます。 <span>pax</span> は、選択された各ファイルごとに <code>listopt</code> 出力に改行文字を追加します。 フォーマット引数は、<code>printf()</code> で説明されたフォーマット文字列として使用されますが、次の例外があります。</p>
+ <ol>
+<li>シーケンス keyword は、フォーマット変換指定子の前に置くことができます。 変換引数は、keyword の値によって定義されます。 サポートされるキーワードは次のとおりです。<ul>
+<li><code>ustar</code> および <code>cpio</code> ヘッダー・ブロックの任意のフィールド名エントリー。</li>
+
+<li>拡張ヘッダーに対して定義されているか、拡張ヘッダー内で拡張として提供されているキーワード。</li>
+
+</ul>
+
+<p>例えば、シーケンス <code>%(charset)s</code> は、拡張ヘッダー内の文字セットの名前の文字列値です。</p>
+
+<p>キーワード変換引数の結果は、末尾 NULL のない、適用可能ヘッダー・フィールドまたは拡張ヘッダーからの値です。</p>
+
+<p>変換引数として使用されるすべてのキーワード値は、 UTF8 エンコード方式から、ローカル・ファイル・システム、ユーザー・データベースなどに適した文字セットに変換されます (該当する場合)。</p>
+</li>
+
+<li>追加の変換文字 <code>T</code>は、時刻形式を指定します。 <code>T</code> 変換文字の前にシーケンス keyword=subformatを付けることができます。ここで、 subformat は、 <code>date</code> コマンドで許可される日付形式です。 デフォルト・キーワードは <code>mtime</code> で、デフォルト・サブフォーマットは %b %e %H:%M %Y です。</li>
+
+<li>追加の変換文字 <code>M</code>は、 <code>ls -l</code> コマンドで表示されるファイル・モード・ストリングを指定します。 keyword を省略すると、<code>mode</code> キーワードが使用されます。 例えば、<code> %.1M</code> は、 <code>ls -l</code> コマンドの entry type フィールドに対応する単一文字を書き込みます。</li>
+
+<li>追加の変換文字 <code>D</code>は、該当する場合、ブロック・ファイルまたは特殊ファイルの装置を指定します。 これが適用可能でない場合に keyword を指定すると、この変換は %keyword u と同じになります。 適用されず、 keyword が省略された場合、この変換は <code>&lt;space&gt;</code>と同等です。</li>
+
+<li>追加の変換文字 <code>F</code>は、パス名を指定します。 <code>F</code> 変換文字の前には、コンマで区切られたキーワードのシーケンスを付けることができます。<p>キーワード、キーワード...</p>
+
+<p>null でない全キーワードの値は連結され、それぞれが / で区切られます。 デフォルトは、キーワード・パスが定義されている場合は path です。
+それ以外の場合、デフォルトは prefix,name です。</p>
+</li>
+
+<li>追加の変換文字 <code>L</code>は、シンボリック・リンク拡張を指定します。 現在のファイルがシンボリック・リンクである場合、%L は次のように拡張されます。<p><code>"%s -&gt; %s"</code>、 value_of_keyword、 contents_of_link</p>
+
+<p>シンボリック・リンクでない場合、%L 変換文字は %F と同じです。</p>
+</li>
+
+</ol>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><caption><span>表 3. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><code>&gt;0</code></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div>
+<dl>
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>olddir</code> ディレクトリー階層を <code>newdir</code> にコピーするには、以下のように入力します。<div> <div><div><pre><code>mkdir newdir</code></pre></div><div></div></div>  <div><div><pre><code>pax -rw olddir newdir</code></pre></div><div></div></div></div>
+</li>
+
+<li>現行ディレクトリーの内容をテープ・ドライブにコピーするには、以下のように入力します。<div> <div><div><pre><code>pax -wf /dev/rmt0</code></pre></div><div></div></div></div>
+</li>
+
+<li>ファイル <code>xxx</code> を <code>XXX</code> としてアーカイブし、正常に置き換えられたものを表示するには、以下のいずれかのコマンドを入力します。<div><ul>
+<li><div><div><pre><code>pax -wvf/dev/rfd0 -s /xxx/XXX/p xxx</code></pre></div><div></div></div></li>
+
+<li><div><div><pre><code>pax -wvf/dev/rfd0 -s/x/X/gp xxx</code></pre></div><div></div></div></li>
+
+</ul>
+ </div>
+</li>
+
+<li>標準入力からファイルを読み、指定したサイズでデータ・ストリーム・ファイルにダンプするには、以下のように入力します。<div> <div><div><pre><code>dd if=/dev/hd6 bs=36b count=480 | pax -wf /dev/rfd0 -o
+datastream=_filename_,datastr_size=_size_</code></pre></div><div></div></div></div>
+</li>
+
+<li>アーカイブ <span>pax.ar</span> 内のファイルを指定された形式でリストするには、次のように入力します。<div><div><pre><code>pax -v -o listopt="start %F end" -f pax.ar</code></pre></div><div></div></div></li>
+
+<li>アーカイブ <span>pax.ar</span> を <span>pax</span> 形式で作成するには、次のように入力します。<div><div><pre><code>pax -wf pax.ar -x pax file1</code></pre></div><div></div></div></li>
+
+<li>新しいパスを使用して、アーカイブ <span>pax.ar</span> から <span>pax</span> フォーマットでファイルを抽出するには、次のように入力します。<div><div><pre><code>pax -rvf pax.ar -x pax -o path=newfilename</code></pre></div><div></div></div></li>
+
+<li>シンボリック・リンクの内容を、ソースから宛先にコピーするには、次のように入力します。<div><div><pre><code>pax -rwL srclink destdir</code></pre></div><div></div></div></li>
+
+<li>アーカイブからグループ名 <code>bin</code> のファイルを抽出するには、次のように入力します。<div><div><pre><code>pax -rvf pax.ar -x pax -o gname=bin</code></pre></div><div></div></div></li>
+
+<li>抽出時に <span>pax</span> 形式のアーカイブからのパス名を無視するには、次のように入力します。<div><div><pre><code>pax -rvf pax.ar -o delete=path</code></pre></div><div></div></div></li>
+
+<li>アーカイブの作成時に、長いユーザー名およびグループ名が切り捨てられないようにするには、
+次のように入力します。<div><div><pre><code>pax -wEf file.pax file</code></pre></div><div></div></div></li>
+
+<li><code>olddir</code> ディレクトリー階層を、ファイルに関連する ACL および EA 付き
+で <code>newdir</code> にコピーするには、次のように入力します。<div><div><pre><code>mkdir newdir
+
+pax -rUw olddir newdir</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 4. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/bin/pax</span></td>
+
+<td><span>pax</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

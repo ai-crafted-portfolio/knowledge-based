@@ -1,0 +1,336 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p><strong>artexget</strong> コマンドは、指定のプロファイルまたはシステムから構成およびチューニング・パラメーターの情報をリストします。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>Artexget</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_v" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_sd" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_p" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_r" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_n" target="_blank" rel="noopener noreferrer"><strong>N</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_i" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> {<strong>動的</strong> | <strong>破壊的</strong> | <strong>リブート</strong>}] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_f" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> {<strong>テキスト</strong> |<strong>CSV</strong> | <strong>XML</strong>}] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_m" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>コメント</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_bv" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> <em>バージョン</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__row-d3e30194" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>カテゴリー</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__row-d3e30234" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em> レベル</em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__row-d3e30399" target="_blank" rel="noopener noreferrer"><em>プロファイル</em></a></p>
+<p><strong>Artexget</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_q" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_sd" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_p" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_r" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_n" target="_blank" rel="noopener noreferrer"><strong>N</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_i" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> {<strong>動的</strong> | <strong>破壊的</strong> | <strong>リブート</strong>}] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_f" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> {<strong>テキスト</strong> |<strong>CSV</strong> | <strong>XML</strong>}] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_m" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>コメント</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__artexget_bv" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> <em>バージョン</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__row-d3e30194" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>カテゴリー</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__row-d3e30234" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><em> レベル</em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/artexget.html#artexget__row-d3e30399" target="_blank" rel="noopener noreferrer"><em>プロファイル</em></a></p>
+</section>
+
+<section><h2>説明</h2><p><strong>artexget</strong> コマンドは、プロファイルまたはシステムから構成およびチューニング・パラメーターの情報をリストします。 オプション <strong>-p</strong>、<strong>-r</strong>、または <strong>-n</strong> のいずれも指定しない場合、このコマンドはパラメーターと値の対を引数 <em>profile</em> から出力します。 <strong>-r</strong> オプションを指定した場合、このコマンドはシステムからパラメーターの現行値を出力します。 <strong>-n</strong> オプションを指定した場合、このコマンドは、次のシステム再起動後にパラメーターの値を出力します。 <strong>-p</strong> オプションを指定した場合、このコマンドは、プロファイル内の <code>applyType</code> 属性値に基づいて、パラメーターの現行値または次のシステム再起動後のパラメーターの値のいずれかを出力します。</p>
+<p>このコマンドで、選択基準に基づいてパラメーターのサブセットをリストすることもできます。 選択基準を指定しない場合、このコマンドはプロファイル内にリストされたすべてのパラメーターのリストを出力します。 動的選択基準 (<code>-l dynamic</code>) を指定した場合、このコマンドは、変更を有効にするためにリブートや中断を伴うアクションを必要としないパラメーターのリストを出力します。 中断を伴うアクションとしては、サービスの停止と再開、またはファイルシステムのアンマウントとマウントなどがあります。 中断を伴う選択基準 (<code>-l
+disruptive</code>) が指定されている場合、コマンドは、変更を有効にするために中断を伴うアクションを必要とするパラメーターのリストを出力します。 選択基準リブート (<code>-l reboot</code>) を指定した場合、このコマンドは、変更を有効にするためにリブートを必要とするパラメーターのリストを出力します。</p>
+<p>このコマンドは、出力結果を異なる 3 つのフォーマットで <code>stdout</code> に表示します。 この出力は、リダイレクター (&gt;) を使用してファイルに保存することができます。出力形式のいずれも指定されていない場合、出力は XML 形式で表示されます。 コンマ区切り値 (CSV) 形式 (<code>-f csv</code>) を指定した場合は、CSV 形式で表示され、これを使用してスプレッドシートで開くことができます。 テキスト形式 (<code>-f txt</code>) を指定した場合、出力は読み取り可能な、テーブルの形式で表示されます。</p>
+<p>プロファイルにはユーザー・コメントとバージョンを追加できます。 <strong>-m</strong> オプションをコメントとともに指定すると、そのコメントが出力プロファイルに含まれます。 <strong>-V</strong> オプションをユーザー改訂番号とともに指定すると、出力プロファイルのバージョン番号が更新され、改訂番号がユーザーの指定した改訂番号に変更されます。 それ以外の場合、出力プロファイルのバージョン番号の改訂番号は 1 つ増分されます。</p>
+<p>指定のプロファイルは、相対パスまたは絶対パスを使用してローカル・ファイルシステムに置かれるか、LDAP (Lightweight Directory Access Protocol) サーバーに置かれる場合があります。</p>
+</section>
+
+<section><h2>フラグ</h2><div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td><span>artexset</span> コマンドの <strong>-d</strong> フラグと一緒に使用すると、パラメーターのすべてのインスタンスを同じ値に設定するプロファイルを作成します。 出力プロファイルには、<strong>-d </strong>フラグが使用されない場合に同じ値を共有することになるすべてのインスタンスに使用するパラメーターのみが含まれます。したがって、その他のパラメーターはプロファイルから除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>出力フォーマットを指定します。 <strong>-f</strong> フラグには、以下の変数があります。<ul>
+<li><em>txt</em> 変数は、プレーン・テキスト形式を指定します。</li>
+
+<li><em>csv</em> 変数は、コンマ区切り値形式を指定します。</li>
+
+<li><em>xml</em> 形式は、XML 形式を指定します。 これは、デフォルトのフォーマットです。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> categories</em></td>
+
+<td>指定されたコンマ区切りのカテゴリー・リストに関するデバッグ・メッセージを表示します。 このオプションは新規のカタログ・ファイルを作成する際に役立ちます。 以下のカテゴリーを使用できます。<ul>
+<li><strong>ALL</strong>: 以下のカテゴリーをすべて含みます。</li>
+
+<li><strong>COMMANDS</strong>: 実行中の AIX® コマンドに関する情報を表示します。</li>
+
+<li><strong>DISCOVERY</strong>: 実行中のディスカバリー・コマンドに関する情報を表示します。</li>
+
+<li><strong>THREADS</strong>: フレームワーク内で実行中のスレッドに関する情報を表示します。</li>
+
+<li><strong>PARSING</strong>: プロファイル・ファイルおよびカタログ・ファイルの構文解析に関する情報を表示します。</li>
+
+<li><strong>FLOW</strong>: 操作の進行に関する情報を表示します。</li>
+
+</ul>
+<div><div>
+        <div>
+          <div><span>注:</span> デフォルトのカテゴリーは ALL です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>レベル</em></td>
+
+<td>デバッグ・トレースの詳細度を 0 (デバッグ・トレースなし) から 3 (最大詳細レベル) の範囲で整数で指定します。 デフォルト・レベルは 0 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> { <em>dynamic</em> | <em>disruptive</em> | <em>reboot</em> }</td>
+
+<td>出力結果にどのチューナブル値をリストするかを示します。 <strong>-l</strong> フラグには次のオプションがあります。<ul>
+<li><em>dynamic</em> 変数は、条件なしで、変更が即時有効になるチューナブル・パラメーターのリストを出力することを示します。</li>
+
+<li><em>disruptive</em> 変数は、変更を有効にするためにサービスの中断やリソースのリサイクルなどの、中断を伴う操作を必要とするチューナブル・パラメーターのリストを出力することを示します。</li>
+
+<li><em>reboot</em> 変数は、変更を有効にするためにシステムのリブートを必要とするチューナブル・パラメーターのリストを出力することを示します。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>comment </em></td>
+
+<td>これを使用すると、ユーザーはプロファイルにコメントを追加できます。 <strong>-m</strong> フラグを使用すると、指定されたコメントが前のコメントを上書きします。 これはオプション・フラグです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>次のシステム再起動後にパラメーターの値をリストします。 <strong>-p</strong>、<strong>-r</strong>、または <strong>-n</strong> オプションを指定しないと、プロファイルによって記述されるチューナブル値がリストされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>プロファイル内の <code>applyType</code> 属性値に基づいて、パラメーターの現行値または次のシステム再起動後のパラメーターの値のいずれかをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q </strong></td>
+
+<td>これを使用すると、ユーザーは致命的でない警告メッセージを無視することができます。 無視されたメッセージは、画面上に表示されません。 これはオプション・フラグです。<div><div>
+        <div>
+          <div><span>注:</span> このフラグは、<strong>-v (V)</strong> フラグと一緒に使用することはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>稼働中のシステムでの現行値をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v </strong></td>
+
+<td><strong>artexget</strong> コマンドの処理中に実行される AIX コマンドによって生成される警告メッセージとエラー・メッセージを表示します。 メッセージは、<code>stderr</code> に表示されます。 これはオプション・フラグです。<div><div>
+        <div>
+          <div><span>注:</span> このフラグは、 <strong>-Q (Q)</strong> フラグと一緒に使用することはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong> <em>version</em></td>
+
+<td>結果プロファイルのユーザー改訂番号を設定します。 デフォルトにより、エントリー・プロファイルのユーザー改訂番号が増分されます。 フラグ <strong>-V</strong> を使用すると、指定されたユーザー改訂番号が、プロファイルのバージョン番号内の既存の改訂番号を上書きします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2>
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>プロファイル</em></td>
+
+<td>これは必須ファイルです。 指定されたファイルにはチューナブル・パラメーターのリストが含まれます。 標準入力のプロファイル名として - (ダッシュ) を指定することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p>アクセス制御: このコマンドは、実行 (x) 権限を root ユーザーとセキュリティー・グループ・メンバーにのみ付与します。 このコマンドは、トラステッド・コンピューティング・ベース (TCB) にプログラムとしてインストールされなければなりません。 このコマンドは、
+<strong>setuid</strong> (SUID) ビットが設定されている root ユーザーが所有しなければなりません。</p>
+<div><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。 このコマンドの全機能を使用する場合、ロールには <strong>accessauths</strong> に加えて以下の権限が必要です。<ul>
+<li><strong>aix.security.user.audit</strong></li>
+
+<li><strong>aix.security.role.assign</strong></li>
+
+<li><strong>aix.security.group.change</strong></li>
+
+<li><strong>aix.security.user.change</strong></li>
+
+</ul>
+</div>
+<p>アクセスされるファイル:</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>モード</div></th>
+
+<th><div>ファイル</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/passwd</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/user</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/user.roles</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/limits</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/environ</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>rw</strong></td>
+
+<td><strong>/etc/security/group</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>r</strong></td>
+
+<td><strong>/usr/lib/security/artexget.default</strong></td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td><strong>/usr/lib/security/artexget.sys</strong></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>監査イベントは次のとおりです。</p>
+
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>USER_Create</strong></td>
+
+<td>ユーザー</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>次の例では、LDAP サーバーに保管される <code>profile1.xml</code> プロファイルからパラメーターと値の対を出力する方法を説明します。</p>
+ <div><div><pre><code>artexget ldap://profile1.xml</code></pre></div><div></div></div> <p>次の例では、次のシステム再起動後に、<code>local_profile.xml</code> プロファイルを使用してシステムからパラメーターの値を出力する方法を説明します。</p>
+ <div><div><pre><code>artexget -n local_profile.xml</code></pre></div><div></div></div> <p>次の例では、<code>local_profile.xml</code> プロファイルを使用して、システムからパラメーターの現行値をテキスト形式で出力する方法を説明します。</p>
+ <div><div><pre><code>artexget -r -f txt local_profile.xml</code></pre></div><div></div></div></section>
+
+</div></div>

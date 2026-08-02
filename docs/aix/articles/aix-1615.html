@@ -1,0 +1,8342 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>タイプセット・デバイスでの印刷のためテキストをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>トロフ</strong> [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e118885" target="_blank" rel="noopener noreferrer">-a 値 </a></strong>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e118913" target="_blank" rel="noopener noreferrer">I</a> </strong>] [<strong>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119048" target="_blank" rel="noopener noreferrer">-Q (Q)</a> </strong>] [<strong>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119260" target="_blank" rel="noopener noreferrer">-z </a></strong>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e118892" target="_blank" rel="noopener noreferrer">-F (R)</a></strong><em> ディレクトリー </em>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e118970" target="_blank" rel="noopener noreferrer">N</a></strong><em> 数値 </em>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e118982" target="_blank" rel="noopener noreferrer">-</a></strong><em> リスト </em>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119060" target="_blank" rel="noopener noreferrer">-</a></strong><em> ANumber (A) </em>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119075" target="_blank" rel="noopener noreferrer">-s</a></strong><em> 数値 </em>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119084" target="_blank" rel="noopener noreferrer">-T (T)</a></strong><em> 名前 </em>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119206" target="_blank" rel="noopener noreferrer">-mm (M)</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119195" target="_blank" rel="noopener noreferrer">-私</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119217" target="_blank" rel="noopener noreferrer">-MPTX</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119228" target="_blank" rel="noopener noreferrer">-ミリ秒</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119183" target="_blank" rel="noopener noreferrer">-マン</a></strong> | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119239" target="_blank" rel="noopener noreferrer">-mv (M) </a></strong>] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e118920" target="_blank" rel="noopener noreferrer">-M (M)</a></strong> <em>メディア</em> ] [ <em>ファイル </em>... | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e119272" target="_blank" rel="noopener noreferrer">- </a></strong>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>troff</strong> コマンドは、1 つ以上のファイルを読んで、
+フォトタイプセッターまたはそれに相当するデバイス上で印刷できるようにテキストをフォーマットします。 次に、目的のデバイスに対する <strong>troff</strong> コマンドの出力のポストプロセスを行うために、
+ポストプロセッサーが必要になります。 付随する <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__example" target="_blank" rel="noopener noreferrer">例</a>を参照してください。</p>
+ <p>ファイルが指定されていない場合は、oroh .. <strong>-</strong> (マイナス) フラグは最後のパラメーターではなく、標準入力がデフォルトで読み取られます。</p>
+ <p>3812 プリンター、3816 プリンター、および Hewlett-Packard LaserJet Series II プリンターのデフォルトのフォントが、
+そのプリンターの固有フォントです。 これらのプリンターでは追加フォントも使用できます。追加フォントは <strong>troff</strong> <strong>.fp</strong> ディレクティブを使用してロードできます。 これらの追加フォントはホスト上のディレクトリー <strong>/usr/lib/font/dev</strong>Printer/<strong>bitmaps</strong> に保管されており、
+必要に応じてプリンターにダウンロードします。</p>
+<p><strong>Typefaces</strong></p>
+ <div>3 つの異なる書体が、4 つのスタイルで提供されています。 以下の表は、書体、スタイル、
+および <strong>troff</strong> コマンドがフォントにアクセスするために使用する名前の対応を示しています。<div><div>
+        <div>
+          <div><span>注:</span> このセットのフォントは、Donald E Knuth によって開発された Computer Modern 文字フォームに基づいています。 (Knuth, Donald: <em>Computer Modern Typefaces</em> (Addison-Wesley, 1986)) を参照。</div>
+        </div>
+      </div></div>
+</div>
+ <div> <div><div><pre><code>Typeface      Regular     Italic       Bold        Italic</code></pre></div><div></div></div>  <div><div><pre><code>Roman         cr          cR           Cr          CR</code></pre></div><div></div></div>  <div><div><pre><code>Sans Serif    cs          cS           Cs          CS</code></pre></div><div></div></div>  <div><div><pre><code>Typewriter    ct          cT           Ct          CT</code></pre></div><div></div></div>  <div><div><pre><code>troff special sp</code></pre></div><div></div></div></div>
+ <p>これらのフォントは、すべて標準の 15 個の troff サイズ、すなわち、6、7、8、9、10、11、12、14、
+16、28、20、22、24、28、36 ポイントで提供されます。</p>
+ <p>例:.fp 1
+Crローマ字の太字フォントを 1 桁目にロードします。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e131842" target="_blank" rel="noopener noreferrer">.tl</a></strong> 要求は、 <strong>troff</strong> コマンドへの入力の最初の中断作成要求の前には使用できません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>印刷可能で、ASCII に相当する形でフォーマットされた結果を標準出力に送ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em>ディレクトリー</em></td>
+
+<td>デフォルトの <strong>/usr/lib/font/dev</strong>Name ディレクトリーではなく、
+Directory/<strong>dev</strong>Name ディレクトリーのフォント情報にアクセスします (<em>Name</em> は <strong>-T</strong> フラグで指定します)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ファイルがなくなると標準入力を読みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> メディア</em></td>
+
+<td>用紙上のイメージ可能領域の大きさを判別するために、用紙サイズを指定します。 <em>Media</em> 変数で有効な値は以下のとおりです。<dl>
+<dt>A4</dt>
+
+<dd>用紙サイズ 8.3 X 11.7 インチ (210 X 297 mm) を指定します。</dd>
+
+
+<dt>A5</dt>
+
+<dd>用紙サイズ 5.83 X 8.27 インチ (148 X 210 mm) を指定します。</dd>
+
+
+<dt>B5</dt>
+
+<dd>用紙サイズ 6.9 X 9.8 インチ (176 X 250 mm) を指定します。</dd>
+
+</dl>
+ <dl>
+<dt>EXEC</dt>
+
+<dd>用紙サイズ 7.25 × 10.5 インチ (184.2 × 266.7 mm) を指定します。</dd>
+
+
+<dt>LEGAL</dt>
+
+<dd>用紙サイズ 8.5 X 14 インチ (215.9 X 355.6 mm) を指定します。</dd>
+
+
+<dt>LETTER</dt>
+
+<dd>用紙サイズ 8.5 X 11 インチ (215.9 X 279.4 mm) を指定します。 これはデフォルト値です。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <em>Media</em> 変数では大文字小文字の区別はありません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em>数値</em></td>
+
+<td><em>Number</em> 変数で指定された値を使って最初の印刷ページに番号を付けます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em>リスト</em></td>
+
+<td><em>List</em> 変数で指定されたページだけを印刷します。
+List は以下のように、ページ番号と範囲をコンマで区切ったリストです。<ul>
+<li><em>Start-Stop</em> の範囲は、<em>Start</em> から <em>Stop</em> までのページの印刷を意味します。 次に例を示します。9-15ページ 9 から 15 までを印刷します。</li>
+
+<li>最初の <em>-Stop</em> は、先頭ページからページ <em>Stop</em> までの印刷を意味します。</li>
+
+<li>最後の <em>Start-</em> は、ページ <em>Start</em> から最終ページまでの印刷を意味します。</li>
+
+<li>ページ番号と範囲を組み合わせると、指定したページが印刷されます。 次に例を示します。-3,6-8,10,12-先頭から 3 ページ目、6 から 8 ページ目、10 ページ目、12 ページ目から末尾までを印刷します。<div><div>
+        <div>
+          <div><span>注:</span> このフラグをパイプラインで使用すると (例えば、 <strong>pic</strong>、<strong> eqn、</strong> または <strong>tbl</strong> コマンドを 1 つ以上使用すると)、以下のようになります。broken pipe文書の最後のページが <em>List</em> 変数に指定されていない場合は、メッセージが表示されます。 この broken pipe メッセージは問題があることを示すものではないので、無視してかまいません。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td><strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e132248" target="_blank" rel="noopener noreferrer">.rd</a></strong> 要求の同時入出力モードを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em>アンナンバー</em></td>
+
+<td><em>A</em> 変数で指定されたレジスターを指定の数値に設定します。 <em>A</em> 変数の値は、1 文字の ASCII 名でなくてはなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>数値</em></td>
+
+<td>指定されたページ数ごとにタイプセッターを停止させる出力を生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>名前</em></td>
+
+<td>指定のプリンターへの出力を準備します。 フォトタイプセッターまたはそれに相当する印刷装置は、オペレーティング・システム国際拡張文字に以下の <em>Name</em> 変数を使用しています。 デフォルトは <strong>ibm3816</strong>です。<div><div>
+        <div>
+          <div><span>注:</span> 次のようなメッセージが表示されます。bad point size装置が指定されたポイント・サイズをサポートしていない場合。 <strong>troff</strong> コマンドは最も近い有効ポイント・サイズを使ってフォーマットを継続します。</div>
+        </div>
+      </div></div>
+ <dl>
+
+<dt><strong>正規 (canonls)</strong></dt>
+
+<dd>Canon Lasershot LBP-B406S/D/E,A404/E,A304E</dd>
+
+
+<dt><strong>ibm3812</strong></dt>
+
+<dd>3812 Pageprinter II</dd>
+
+
+<dt><strong>ibm3816</strong></dt>
+
+<dd>3816 Pageprinter</dd>
+
+
+<dt><strong>hplj (hplj)</strong></dt>
+
+<dd>Hewlett-Packard LaserJet II</dd>
+
+</dl>
+ <dl>
+<dt><strong>ibm5585H-T</strong></dt>
+
+<dd>5585-H01 中国語 (繁体字) サポート</dd>
+
+
+<dt><strong>ibm5587G</strong></dt>
+
+<dd>5587-G01、5584-H02、5585-H01、5587-H01、5589-H01 Kanji Printer マルチバイト言語サポート</dd>
+
+
+<dt><strong>PSC</strong></dt>
+
+<dd>PostScript プリンター。</dd>
+
+
+<dt><strong>X100</strong></dt>
+
+<dd><span>AIXwindows</span> が表示されます。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>troff</strong> コマンドの <strong>-T</strong><em>Name</em> フラグを使用する代わりに、 <strong>TYPESETTER</strong> 環境変数を上記のいずれかの値に設定することもできます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-男性</strong></td>
+
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__manmacro" target="_blank" rel="noopener noreferrer">man</a></strong> マクロ処理パッケージを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-私</strong></td>
+
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__memacro" target="_blank" rel="noopener noreferrer">me</a></strong> マクロ処理パッケージを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-MM</strong></td>
+
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__mmmacro" target="_blank" rel="noopener noreferrer">mm</a></strong> マクロ処理パッケージを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エムピーティーエックス</strong></td>
+
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__mptxmacro" target="_blank" rel="noopener noreferrer">mptx</a></strong> マクロ処理パッケージを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ms</strong></td>
+
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__msmacro" target="_blank" rel="noopener noreferrer">ms</a></strong> マクロ処理パッケージを選択します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-mv</strong></td>
+
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__mvmacro" target="_blank" rel="noopener noreferrer">mv</a></strong> マクロ処理パッケージを選択します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>マクロについて詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__macropkg" target="_blank" rel="noopener noreferrer">フォーマット・ツールのマクロ・パッケージ</a> 」を参照してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-Z</strong></td>
+
+<td><strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e132808" target="_blank" rel="noopener noreferrer">.tm</a></strong> (ワークステーション・メッセージ) 要求によって生成されたメッセージだけを印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>入力を標準入力から強制的に読み取ります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>タイプ・セット</strong></td>
+
+<td>特定の印刷装置の情報を保持します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>troff</strong> コマンドの例を以下に示します。</p>
+ <div> <div><div><pre><code>troff -Tibm3812 File | ibm3812 | qprt</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フォーマット・ツールのためのマクロ・パッケージ</h2> <p>以下のマクロ・パッケージは、テキスト・フォーマット・システム内のフォーマット・ツールの一部です。詳細は次ページ以降を参照してください。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__manmacro" target="_blank" rel="noopener noreferrer">マン</a></strong></td>
+
+<td>これを使用すると、オンラインのブック・ページから独自のブック・ページを作成できます。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__memacro" target="_blank" rel="noopener noreferrer">自分</a></strong></td>
+
+<td>用紙をフォーマットするためのマクロを提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__mmmacro" target="_blank" rel="noopener noreferrer">mm</a></strong></td>
+
+<td><strong>nroff</strong> および <strong>troff</strong> フォーマット・プログラムを使用して文書をフォーマットします。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__mptxmacro" target="_blank" rel="noopener noreferrer">MPTX</a></strong></td>
+
+<td>順列索引をフォーマットします。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__msmacro" target="_blank" rel="noopener noreferrer">ミリ秒</a></strong></td>
+
+<td>各種のスタイルの記事、論文、著書のフォーマット機能を提供します。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__mvmacro" target="_blank" rel="noopener noreferrer">mv</a></strong></td>
+
+<td><strong>troff</strong> コマンドを使用して、英語表示のグラフとスライドをタイプセットします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>nroff および troff コマンド用 man マクロ・パッケージ</h2> <p><strong>男性</strong> マクロ・パッケージは、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nroff.html" target="_blank" rel="noopener noreferrer">NROFF</a></strong> コマンドまたは <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff" target="_blank" rel="noopener noreferrer">トロフ</a></strong> コマンドのいずれかを使用して処理されたオンライン・マニュアル・ページからユーザーが独自のマニュアル・ページを作成できるようにするために提供されています。 <strong>man</strong> マクロ・パッケージは、<strong>nroff</strong> コマンドまたは <strong>troff</strong> コマンドのいずれかと一緒に使用します。</p>
+ <p><strong>man</strong> マクロ・パッケージ内には、以下の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92bf5" target="_blank" rel="noopener noreferrer">フォーマット・マクロ</a>、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92c0b" target="_blank" rel="noopener noreferrer">ストリング</a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92c0f" target="_blank" rel="noopener noreferrer">レジスター</a> のリストに加え、特殊マクロ、ストリング、数値レジスターが存在します。 <strong>troff</strong> コマンドで事前定義した名前と <strong>d</strong>、<strong>m</strong>、<strong>y</strong> 数値レジスターを除き、このような内部名の形式はすべて <em>SymbolAlpha</em> となります。<em>Symbol</em> は <strong>)</strong>、<strong>]</strong>、<strong>}</strong> のいずれかで、<em>Alpha</em> は任意の英数字です。</p>
+ <p><strong>man</strong> マクロ・パッケージは Roman フォントだけを使用します。 エントリーの入力テキストにその他のフォントを求める要求 (例えば、<strong>.I</strong> フォーマット・マクロ、<strong>.RB</strong> 要求、<strong>&amp;#xa5;fI</strong> 要求など) が含まれている場合は、対応するフォントをマウントする必要があります。</p>
+<p><strong>フォーマット・マクロ</strong></p>
+ <p>以下のマクロは、<strong>man</strong> マクロ・パッケージを使用してフォーマットしたブック・ページの特性を変更するのに使用します。</p>
+ <p>タイプ・フォントおよびサイズは、各パラグラフの前と、フォントおよびサイズ設定マクロ (例えば、<strong>.I</strong> フォーマット・マクロ、<strong>.SM</strong> フォーマット・マクロ、<strong>.B</strong> フォーマット・マクロ) の処理後に、デフォルト値にリセットされます。</p>
+ <p>タブ・ストップは、 <strong>以外のフォーマット・マクロによって使用されることも設定されることもありません。DT</strong> フォーマット・マクロおよび <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92bf6" target="_blank" rel="noopener noreferrer">。TH</a></strong> フォーマット・マクロ。</p>
+ <dl>
+<dt><strong>B</strong> [<em>テキスト</em>]</dt>
+
+<dd>テキストをボールドにします。<p><em>Text</em> 変数は 6 桁までのワードを表します。ワード内に文字スペースを入れるには、" " (二重引用符) を使用します。 変数が空の場合、この処理は印刷するテキストが入っている次の入力テキスト行に適用されます。 例えば、行全体をイタリックにするには <strong>.I</strong> フォーマット・マクロを使用し、
+行全体を縮小ボールドのテキストにするには、<strong>.SM</strong> および <strong>.B</strong> フォーマット・マクロを使用します。 デフォルトでは、<strong>nroff</strong> コマンドのハイフン付けはオフですが、
+<strong>troff</strong> コマンドではオンのままです。</p>
+</dd>
+
+
+<dt><strong>.DT (T)</strong></dt>
+
+<dd>デフォルトのタブ設定値を、<strong>nroff</strong> コマンドでは 5 en ごとに、<strong>troff</strong> コマンドでは 7.2 en ごとに復元します。</dd>
+
+
+<dt><strong>HP</strong> [<em>インデント</em>]</dt>
+
+<dd><em>Indent</em>変数<em>によって指定されたように、ハング・インデントで段落を開始します。</em><p><em>Indent</em> 変数を省略すると、
+<em>Indent</em> の直前の値が使用されます。 この値は、<strong>.TH</strong> フォーマット・マクロ、
+<strong>.P</strong> フォーマット・マクロ、<strong>.RS</strong> フォーマット・マクロによってデフォルト (<strong>nroff</strong> コマンドでは 5 en、<strong>troff</strong> コマンドでは 7.2 en) に設定され、<strong>.RE</strong> フォーマット・マクロによって復元されます。 <em>Indent</em> のデフォルト単位は en です。</p>
+</dd>
+
+
+<dt><strong>I</strong> [<em>テキスト</em>]</dt>
+
+<dd>テキストをイタリックにします。<p><em>Text</em> 変数は 6 桁までのワードを表します。ワード内に文字スペースを入れるには、" " (二重引用符) を使用します。 変数が空の場合、この処理は印刷するテキストが入っている次の入力テキスト行に適用されます。 例えば、行全体をイタリックにするには <strong>.I</strong> フォーマット・マクロを使用し、
+行全体を縮小ボールドのテキストにするには、<strong>.SM</strong> および <strong>.B</strong> フォーマット・マクロを使用します。 デフォルトでは、<strong>nroff</strong> コマンドのハイフン付けはオフですが、
+<strong>troff</strong> コマンドではオンのままです。</p>
+</dd>
+
+
+<dt><strong>IP</strong> [<em>タグ</em>] [<em>Indent</em>]</dt>
+
+<dd><strong>.TP</strong> <em>Indent</em> マクロに <em>Tag</em> 変数を指定したものと同じです。<em>Tag</em> 変数の値が <strong>NULL</strong> の場合、字下げされたパラグラフを開始します。 このマクロは、タグの付かない字下げされたパラグラフを生成するのによく使用されます。<p><em>Indent</em> 変数を省略すると、
+<em>Indent</em> の直前の値が使用されます。 この値は、<strong>.TH</strong> フォーマット・マクロ、
+<strong>.P</strong> フォーマット・マクロ、<strong>.RS</strong> フォーマット・マクロによってデフォルト (<strong>nroff</strong> コマンドでは 5 en、<strong>troff</strong> コマンドでは 7.2 en) に設定され、<strong>.RE</strong> フォーマット・マクロによって復元されます。 <em>Indent</em> のデフォルト単位は en です。</p>
+</dd>
+
+
+<dt><strong>.P</strong></dt>
+
+<dd>通常のフォント、ポイント・サイズ、インデントでパラグラフを開始します。 <strong>.PP</strong> マクロは <strong>mm</strong> マクロ・パッケージの <strong>.P</strong> マクロと同義です。</dd>
+
+
+<dt><strong>PD</strong> [<em>番号</em>]</dt>
+
+<dd>パラグラフ間の間隔を <em>Number</em> パラメーターで指定した垂直スペースの数に設定します。 デフォルトの <em>Number</em> 変数値は、<strong>troff</strong> コマンドでは 0.4v、<strong>nroff</strong> コマンドでは 1v です。</dd>
+
+
+<dt><strong>PM</strong> [<em>標識</em>]</dt>
+
+<dd>以下のような所有権のマーキングを設定します。<div> 
+<div><div><table><thead>
+<tr>
+<th><div>インディケーター</div></th>
+
+<th><div>マーキング</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>P</strong></td>
+
+<td>PRIVATE</td>
+
+</tr>
+
+<tr>
+<td><strong>N</strong></td>
+
+<td>NOTICE</td>
+
+</tr>
+
+<tr>
+<td><em>Indicator</em> を指定しない</td>
+
+<td>所有権のマーキングをオフにする</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+</dd>
+
+
+<dt><strong>RE</strong> [<em>番号</em>]</dt>
+
+<dd><em>Number</em> 変数で指定されたインデント・レベルの位置にある相対インデント (<strong>.RS</strong>) を終了します。 <em>Number</em> 変数値を省略すると、直前の浅いインデント・レベルに戻ります。</dd>
+
+
+<dt><strong>RI</strong><em> Character1Character2...</em></dt>
+
+<dd>Roman の <em>Character1</em> とイタリックの <em>Character2</em> を結合し、
+最大 6 セットの <em>Character1Character2</em> でこの 2 種類のフォントを交換します。 同様のマクロは、Roman、イタリック、ボールドのいずれか 2 つの組み合わせ (<strong>.IR</strong>、<strong>.RB</strong>、<strong>.BR</strong>、<strong> .IB</strong>、<strong> .BI</strong> マクロ) で交換を行います。</dd>
+
+
+<dt><strong>RS</strong> [<em>インデント</em>]</dt>
+
+<dd>相対インデント (最初は 0) を増加します。 すべての出力は、<em>Indent</em> 変数で指定した左マージンから余分の単位数だけ字下げされます。<p><em>Indent</em> 変数を省略すると、
+<em>Indent</em> の直前の値が使用されます。 この値は、<strong>.TH</strong> フォーマット・マクロ、
+<strong>.P</strong> フォーマット・マクロ、<strong>.RS</strong> フォーマット・マクロによってデフォルト (<strong>nroff</strong> コマンドでは 5 en、<strong>troff</strong> コマンドでは 7.2 en) に設定され、<strong>.RE</strong> フォーマット・マクロによって復元されます。 <em>Indent</em> のデフォルト単位は en です。</p>
+</dd>
+
+
+<dt><strong>.SH</strong> [<em>テキスト</em>]</dt>
+
+<dd>サブヘッド・テキスト<em>を配置します。</em><p><em>Text</em> 変数は 6 桁までのワードを表します。ワード内に文字スペースを入れるには、" " (二重引用符) を使用します。 変数が空の場合、この処理は印刷するテキストが入っている次の入力テキスト行に適用されます。 例えば、行全体をイタリックにするには <strong>.I</strong> フォーマット・マクロを使用し、
+行全体を縮小ボールドのテキストにするには、<strong>.SM</strong> および <strong>.B</strong> フォーマット・マクロを使用します。 デフォルトでは、<strong>nroff</strong> コマンドのハイフン付けはオフですが、
+<strong>troff</strong> コマンドではオンのままです。</p>
+</dd>
+
+
+<dt><strong>.SM</strong> [<em>テキスト</em>]</dt>
+
+<dd>テキストをデフォルトのポイント・サイズよりも 1 ポイント小さくします。<p><em>Text</em> 変数は 6 桁までのワードを表します。ワード内に文字スペースを入れるには、" " (二重引用符) を使用します。 変数が空の場合、この処理は印刷するテキストが入っている次の入力テキスト行に適用されます。 例えば、行全体をイタリックにするには <strong>.I</strong> フォーマット・マクロを使用し、
+行全体を縮小ボールドのテキストにするには、<strong>.SM</strong> および <strong>.B</strong> フォーマット・マクロを使用します。 デフォルトでは、<strong>nroff</strong> コマンドのハイフン付けはオフですが、
+<strong>troff</strong> コマンドではオンのままです。</p>
+</dd>
+
+
+<dt><strong>.SS</strong> [<em>テキスト</em>]</dt>
+
+<dd>サブサブヘッド・テキスト<em>を配置します。</em><p><em>Text</em> 変数は 6 桁までのワードを表します。ワード内に文字スペースを入れるには、" " (二重引用符) を使用します。 変数が空の場合、この処理は印刷するテキストが入っている次の入力テキスト行に適用されます。 例えば、行全体をイタリックにするには <strong>.I</strong> フォーマット・マクロを使用し、
+行全体を縮小ボールドのテキストにするには、<strong>.SM</strong> および <strong>.B</strong> フォーマット・マクロを使用します。 デフォルトでは、<strong>nroff</strong> コマンドのハイフン付けはオフですが、
+<strong>troff</strong> コマンドではオンのままです。</p>
+</dd>
+
+
+<dt><strong>TH</strong> [<em>タイトル</em>] [<em>セクション</em>] [<em>注釈</em>] [<em>名前</em>]</dt>
+
+<dd>タイトルおよびエントリーの見出しを設定します。 このマクロは <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92c09" target="_blank" rel="noopener noreferrer">を呼び出します。DT</a></strong> フォーマット・マクロ。<div> 
+<div><div><table><thead>
+<tr>
+<th><div>変数</div></th>
+
+<th><div>マーキング</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>TITLE</em></td>
+
+<td>役職</td>
+
+</tr>
+
+<tr>
+<td><em>セクション</em></td>
+
+<td>セクション番号</td>
+
+</tr>
+
+<tr>
+<td><em>注釈</em></td>
+
+<td>特別なコメント</td>
+
+</tr>
+
+<tr>
+<td><em>Name</em></td>
+
+<td>新しいブック名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><strong> .TH</strong> フォーマットのマクロ値に、"" で囲まれていない文字スペースが含まれている場合、 (二重引用符)、不規則ドットが出力に表示されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt><strong>TP</strong> [<em>インデント</em>]</dt>
+
+<dd>ハンギング・タグの付いた字下げされたパラグラフを開始します。 テキストが入っている次の入力行はタグです。 タグが適切でない場合には別の行に印刷されます。<p><em>Indent</em> 変数を省略すると、
+<em>Indent</em> の直前の値が使用されます。 この値は、<strong>.TH</strong> フォーマット・マクロ、
+<strong>.P</strong> フォーマット・マクロ、<strong>.RS</strong> フォーマット・マクロによってデフォルト (<strong>nroff</strong> コマンドでは 5 en、<strong>troff</strong> コマンドでは 7.2 en) に設定され、<strong>.RE</strong> フォーマット・マクロによって復元されます。 <em>Indent</em> のデフォルト単位は en です。</p>
+</dd>
+
+</dl>
+<p><strong>文字列</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>\*R</strong></td>
+
+<td>商標の追加 (Reg.) <strong>nroff</strong> コマンドの場合は登録商標記号、 <strong>troff</strong> コマンドの場合は登録商標記号です。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ *S</strong></td>
+
+<td>デフォルトのタイプ・サイズに変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (Tm</strong></td>
+
+<td>商標インジケーターを追加します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>レジスター</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>IN</strong></td>
+
+<td>小ヘッダーに関連付けられているインデントの左マージン。 デフォルトは、<strong>troff</strong> コマンドでは 7.2 en、
+<strong>nroff</strong> コマンドでは 5 en です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LL</strong></td>
+
+<td><strong>IN</strong> レジスターで指定した値を含む行の長さ。</td>
+
+</tr>
+
+<tr>
+<td><strong>pd</strong></td>
+
+<td>現在のパラグラフ間の間隔。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>flags</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-rs1</strong></td>
+
+<td>幅 6.5 インチ、長さ 10 インチのテキスト域を持つ幅 8.5 インチ、
+長さ 11 インチのデフォルトのページ・サイズを、幅 4.75 インチ、
+長さ 8.375 インチのテキスト域を持つ幅 6 インチ、長さ 9 インチのページ・サイズに縮小します。 このフラグはまた、デフォルトのタイプ・サイズを 10 ポイントから 9 ポイントに、
+縦方向の行送りを 12 ポイントから 10 ポイントに縮小します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>例</strong></p>
+ <ol>
+<li>ファイルを処理するにはyour.book 定様式出力をローカル・ライン・プリンターにパイプ接続します。qprt,タイプ:<div> <div><div><pre><code>nroff -Tlp -man your.book | qprt -dp </code></pre></div><div></div></div></div>
+</li>
+
+<li>ファイルを処理するmy.book およびdept.bookこれは、テーブルを含み、フォーマット設定された出力をローカル・ライン・プリンターにパイプ接続します。qprt,タイプ:<div> <div><div><pre><code>tbl my.book dept.book | nroff -Tlp -man | col -Tlp | qprt -dp</code></pre></div><div></div></div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 出力が送信される前に、以下のようにします。qprt<strong>tbl</strong> コマンドで使用される逆行送りを処理するために、最初に <strong>col</strong> コマンドでフィルターに掛けられます。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>ファイルを処理するにはgroup画像、グラフ、表を含む、<span>IBM</span>3816プリンターで処理するためのフォーマットされた出力を準備します：<div> <div><div><pre><code>grap group | pic | tbl | troff -Tibm3816 -man \
+  | ibm3816 | qprt -dp</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><strong>man</strong> マクロ・パッケージを使って作成したブック・ページがオンライン機能を目的としている場合には、
+<strong>grap</strong> コマンドまたは <strong>pic</strong> コマンドなどの <strong>troff</strong> コマンドを必要とするコンポーネントは使用しないでください。</li>
+
+<li><strong>grap</strong> コマンドは <strong>pic</strong> コマンドのプリプロセッサーであるため、<strong>pic</strong> コマンドより先に実行します。
+この逆の順序ですと正しくフォーマットされません。</li>
+
+<li><strong>col</strong> コマンドは、
+<strong>tbl</strong> コマンドのフィルターとしては必要ありません。
+つまり、タイプセット文書には逆方向の行送りは不要です。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>nroff および troff コマンド用 me マクロ・パッケージ</h2> <p><strong>nroff</strong> コマンドおよび <strong>troff</strong> コマンドのマクロ定義の <strong>me</strong> パッケージは、
+各種フォーマットによる技術文書のためのフォーマット機能を提供します。 場合によっては、 <strong>nroff</strong> 出力を後処理するために <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/col.html" target="_blank" rel="noopener noreferrer">col</a></strong> コマンドが必要になることがあります。</p>
+ <p>マクロ要求は、「 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a362v07e" target="_blank" rel="noopener noreferrer">me Requests</a></strong>」の以下のセクションで定義されています。 このパッケージとともに使用すると、
+予測できない結果が生じることが考えられる <strong>nroff</strong>/<strong>troff</strong> 要求が多くあります。 しかし、以下の要求は最初の <strong>.pp</strong> 要求の後に使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>BP</strong></td>
+
+<td>新しいページを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.br</strong></td>
+
+<td>ここで出力行を中断します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ce</strong> [<em>数値</em>]</td>
+
+<td>指定された次の行数の中央揃えを行います。 デフォルトは 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ls</strong> [<em>数値</em>]</td>
+
+<td>行間隔を設定します。 テキストは、<em>Number</em> を 1 に設定するとシングル・スペースで、
+2 に設定するとダブルスペースで行送りされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.na」</strong></td>
+
+<td>右マージンを揃えないままにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sp</strong> [<em>番号</em>]</td>
+
+<td>指定した数だけスペース行を挿入します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sz</strong> [<em>+</em>]<em>数値</em></td>
+
+<td>指定された数をポイント・サイズに追加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ul</strong> [<em>数値</em>]</td>
+
+<td>指定された次の行数に下線を引きます。 デフォルトは 1 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p>
+ <p>式およびテーブルのための <strong>eqn</strong>、<strong>neqn</strong>、
+<strong>refer</strong>、<strong>tbl</strong> コマンドのプリプロセッサーの出力は、
+入力として使用できます。</p>
+<p><strong>me 要求</strong></p>
+ <p><strong>me</strong> マクロに使用できるすべてのマクロ、文字列、数値レジスターを以下に示します。 選択した <strong>troff</strong> コマンド、レジスター、関数も含まれています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>¥ (スペース)</strong></td>
+
+<td>埋め込み不可のスペースを定義します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\“</strong></td>
+
+<td>行の終わりにコメントを付けます (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*#</strong></td>
+
+<td>オプションの遅延テキスト・タグ文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>\$</strong><em>Number</em></td>
+
+<td><em>Number</em> 変数で指定した値を補間します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($0</strong></td>
+
+<td>セクションの深さを定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.$0</strong></td>
+
+<td>セクションのタイトルが印刷された後に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($1</strong></td>
+
+<td>最初のセクション番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.$1</strong></td>
+
+<td>深さ 1 のセクションの印刷前に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($2</strong></td>
+
+<td>2 番目のセクション番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>. $2</strong></td>
+
+<td>深さ 2 のセクションの印刷前に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($3</strong></td>
+
+<td>3 番目のセクション番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>$3</strong></td>
+
+<td>深さ 3 のセクションの印刷前に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($4</strong></td>
+
+<td>4 番目のセクション番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>4 ドル</strong></td>
+
+<td>深さ 4 のセクションの印刷前に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($5</strong></td>
+
+<td>5 番目のセクション番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ 5</strong></td>
+
+<td>深さ 5 のセクションの印刷前に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n($6</strong></td>
+
+<td>6 番目のセクション番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>6 ドル</strong></td>
+
+<td>深さ 6 のセクションの印刷前に開始されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>. $C</strong></td>
+
+<td>章の冒頭で呼び出されます (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.$H</strong></td>
+
+<td>テキストのヘッダーを指定します (ユーザー定義可能マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($R</strong></td>
+
+<td>ディスプレイ内に相対垂直スペーシングを定義します (デフォルトで定義された数値レジスターのため、
+変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($c</strong></td>
+
+<td>現在の列のヘッダーを定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>. $c</strong></td>
+
+<td>章のタイトルを印刷します (デフォルトで定義されたマクロのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n (</strong></td>
+
+<td>遅延テキスト番号を指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($f</strong></td>
+
+<td>脚注番号を指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.$f</strong></td>
+
+<td>フッターを印刷します (デフォルトで定義されたマクロのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.$h</strong></td>
+
+<td>ヘッダーを印刷します (デフォルトで定義されたマクロのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($i</strong></td>
+
+<td>パラグラフ単位のインデントを定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($l</strong></td>
+
+<td>列幅を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n($m</strong></td>
+
+<td>有効な列の数を指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*($n</strong></td>
+
+<td>セクション名を指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($p</strong></td>
+
+<td>番号付きパラグラフの番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.$p</strong></td>
+
+<td>セクションの見出しを印刷します (デフォルトで定義されたマクロのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n ($r</strong></td>
+
+<td>テキスト内に相対垂直スペーシングを定義します (デフォルトで定義された数値レジスターのため、
+変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n (</strong></td>
+
+<td>列インデントを定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong></strong></td>
+
+<td>脚注をテキストから切り離します (デフォルトで定義されたマクロのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\n%</strong></td>
+
+<td>現行ページ番号を定義します (デフォルトで定義された数値レジスターのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\&amp;</strong></td>
+
+<td>0 幅の文字を指定します。コントロールを隠すのに便利です (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ (</strong><em>XX</em></td>
+
+<td><em>XX</em> 変数で指定した特殊文字を補間します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(b</strong></td>
+
+<td>ブロックを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(c</strong></td>
+
+<td>センター・ブロックを開始します (マクロ)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.(d</strong></td>
+
+<td>遅延テキストを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(f</strong></td>
+
+<td>脚注を開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(l</strong></td>
+
+<td>リストを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(q</strong></td>
+
+<td>引用を開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(x</strong><em>Index</em></td>
+
+<td>指定された索引内の索引付きの項目を開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.(z</strong></td>
+
+<td>浮動キープを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)b</strong></td>
+
+<td>ブロックを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.) C</strong></td>
+
+<td>センター・ブロックを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)d</strong></td>
+
+<td>遅延テキストを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)f</strong></td>
+
+<td>脚注を終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)l</strong></td>
+
+<td>リストを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)q</strong></td>
+
+<td>引用を終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)x</strong></td>
+
+<td>索引項目を終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.)z</strong></td>
+
+<td>浮動キープを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ *</strong><em>String</em></td>
+
+<td><em>String</em> 変数で指定した値を補間します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ *</strong><em>String1String2</em></td>
+
+<td><em>String1String2</em> 変数で指定した値を補間します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\**</strong></td>
+
+<td>オプションの脚注タグ文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.</strong><em>++mH</em></td>
+
+<td>文書のセクションを定義するマクロ。 <em>m</em> 変数で指定した値で文書の各部分を定義します。 <em>m</em> 変数には以下の値を指定できます。<dl>
+<dt><strong>C</strong></dt>
+
+<dd>章を定義します。</dd>
+
+
+<dt><strong>A</strong></dt>
+
+<dd>付録を定義します。</dd>
+
+
+<dt><strong>P</strong></dt>
+
+<dd>予備情報 (概要および目次など) を定義します。</dd>
+
+</dl>
+ <dl>
+<dt><strong>B</strong></dt>
+
+<dd>参考文献を定義します。</dd>
+
+
+<dt><strong>RC</strong></dt>
+
+<dd>各章の 1 ページから番号を付け直す章を定義します。</dd>
+
+
+<dt><strong>RA</strong></dt>
+
+<dd>1 ページから番号を付け直す付録を定義します。</dd>
+
+</dl>
+  <p><em>H</em> パラメーターは新しいヘッダーを定義します。 その中にスペースがある場合は、ヘッダー全体を引用符で囲む必要があります。 ヘッダーに章番号を入れたい場合は、文字列 <strong>&amp;#xa5;&amp;#xa5;&amp;#xa5;n(ch</strong> を使用します。 例えば、付録 A.1、 A.2、... に番号を付けるには、次のようにします。 タイプ:.++ RA '''\\\n(ch.%'.各セクション (章や付録など) の前には、<strong>.+c</strong> 要求を入れる必要があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>. + c</strong><em>タイトル</em></td>
+
+<td>章 (または付録。例えば <strong>.++</strong> マクロで設定されたもの) を開始します。 <em>Title</em> 変数で指定した値は章のタイトルとなります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*,</strong></td>
+
+<td>かぎ形記号を指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\-</strong></td>
+
+<td>マイナス符号を指定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*-</strong></td>
+
+<td>3/4 em のダッシュを指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ 0</strong></td>
+
+<td>埋め込み不可の数字幅のスペースを定義します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.1c</strong></td>
+
+<td>単一列出力に復帰します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.2c</strong></td>
+
+<td>2 列出力を開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*:</strong></td>
+
+<td>ウムラウトを指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*&lt;</strong></td>
+
+<td>添え字を開始します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*&gt;</strong></td>
+
+<td>添え字を終了します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>JA</strong></td>
+
+<td>式を終了します。 式の後のスペースは <strong>eqn</strong> コマンドまたは <strong>neqn</strong> コマンドによって生成されます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.EQ (エキュー)</strong><em>XY (X)</em></td>
+
+<td>式を開始します。つまり、中断してスペースを追加します。 <em>Y</em> 変数で指定した値は式番号です。 オプションの <em>X</em> 変数の値には以下のいずれかを指定できます。<dl>
+<dt><strong>I</strong></dt>
+
+<dd>式を字下げします (デフォルト)。</dd>
+
+
+<dt><strong>L</strong></dt>
+
+<dd>式を左寄せします。</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>式を中央揃えします (マクロ)。</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ L'</strong><em>Distance</em><strong>'</strong></td>
+
+<td>指定した距離の縦線描画関数を指定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>PE</strong></td>
+
+<td>pic ピクチャーを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>PF</strong></td>
+
+<td>フライバック付きの pic ピクチャーを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.PS (S)</strong></td>
+
+<td>pic ピクチャーを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.TE</strong></td>
+
+<td>テーブルを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.th</strong></td>
+
+<td>テーブルのヘッダーを終了します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>TS</strong><em> X</em></td>
+
+<td>テーブルを開始します。 <em>X</em> 変数の値が <strong>H</strong> の場合、
+そのテーブルには繰り返し見出しがあります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*[</strong></td>
+
+<td>スーパースクリプトを開始します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\n(.$</strong></td>
+
+<td>オプションの数をマクロに定義します (デフォルトで定義された数値レジスターのため、
+変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n (.i</strong></td>
+
+<td>現在のインデントを指定します (デフォルトで定義された数値レジスターのため、変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n (.l</strong></td>
+
+<td>現在行の長さを指定します (デフォルトで定義された数値レジスターのため、変更できません)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>¥ n (.s</strong></td>
+
+<td>現在のポイント・サイズを指定します (デフォルトで定義された数値レジスターのため、
+変更できません)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*(</strong>4</td>
+
+<td>揚音アクセントを指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*(`</strong></td>
+
+<td>抑音符号 (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\(</strong>4</td>
+
+<td>揚音アクセントを指定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\(`</strong></td>
+
+<td>抑音符号を指定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*]</strong></td>
+
+<td>スーパースクリプトを終了します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\^</strong></td>
+
+<td>1/12 em の狭いスペースを指定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*^</strong></td>
+
+<td>脱字記号を指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.</strong><em>acAuthorNumber</em></td>
+
+<td>ACM スタイル出力のセットアップを行います。 <em>Author</em> 変数には 1 人または複数の作成者名を指定します。 <em>Number</em> 変数には全ページ数を指定します。 最初の初期化前に使用する必要があります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>広告</strong></td>
+
+<td>テキスト調整を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.af」</strong></td>
+
+<td>フォーマットをレジスターに代入します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>午前</strong></td>
+
+<td>マクロに追加します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ar (.ar)</strong></td>
+
+<td>ページ番号をアラビア数字で設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>として</strong></td>
+
+<td>文字列に追加します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>b</strong><em> X</em></td>
+
+<td><em>X</em> 変数で指定した値をボールド体で印刷します。 <em>X</em> 変数を省略すると、ボールド体テキストが後に続きます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ba +</strong><em>数値</em></td>
+
+<td>指定した <em>Number</em> 値だけベース・インデントを増加させます。 パラグラフなどの標準テキスト上のインデントを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.bc (.bc)</strong></td>
+
+<td>新しい列を開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.bi</strong><em> X</em></td>
+
+<td>非充てんモードでのみ、<em>X</em> パラメーターで指定した値をボールド・イタリックで印刷します。 <em>X</em> パラメーターを使用しないと、
+ボールド・イタリックのテキストが後に続きます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(bi</strong></td>
+
+<td>ブロック・インデントを表示します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.bl</strong></td>
+
+<td>ページの冒頭であっても、ブランク行を要求します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(bm</strong></td>
+
+<td>ボトム・タイトル・マージンを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>BP</strong></td>
+
+<td>ページを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.br</strong></td>
+
+<td>中断を設定します。つまり、改行します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(bs</strong></td>
+
+<td>ブロックの前スペーシングまたは後スペーシングを表示します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(bt</strong></td>
+
+<td>キープのしきい値をブロック化します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.bu (.bu)</strong></td>
+
+<td>黒丸の付いたパラグラフを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.bx</strong><em> X</em></td>
+
+<td>非充てんモードでのみ、<em>X</em> 変数で指定した値をボックス内に印刷します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\c</strong></td>
+
+<td>入力を継続します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ce (.ce)</strong></td>
+
+<td>行の中央揃えを行います (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(ch</strong></td>
+
+<td>現在の章番号を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.de (.de)</strong></td>
+
+<td>マクロを定義します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(df</strong></td>
+
+<td>フォントを表示します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ds</strong></td>
+
+<td>文字列を定義します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(dw</strong></td>
+
+<td>現在の曜日を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (dw</strong></td>
+
+<td>現在の曜日を定義します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(dy</strong></td>
+
+<td>現在の日付を定義します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\e</strong></td>
+
+<td>&amp;#xa5; (円記号) の印刷可能バージョンを指定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.f '</strong><em>X</em><strong>'</strong><em>「Y」</em><strong>'</strong><em>Z ()</em><strong>'</strong></td>
+
+<td>偶数ページのフッターを <em>XYZ</em> 変数で指定した値に設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.eh</strong><em>X</em><strong>'</strong><em>「Y」</em><strong>'</strong><em>Z ()</em><strong>'</strong></td>
+
+<td>偶数ページのヘッダーを <em>XYZ</em> 変数で指定した値に設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.el (.el)</strong></td>
+
+<td>if/else 条件の else の部分を指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ep (.ep)</strong></td>
+
+<td>ページを終了します (マクロ)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>&amp;#xa5;n(es</strong></td>
+
+<td>式の前スペースまたは後スペースを指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ f</strong><em>Font</em></td>
+
+<td>インライン・フォント変更を指定した <em>Font</em> 変数の値に設定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ f (</strong><em>Fontf</em></td>
+
+<td>インライン・フォント変更を指定した <em>Fontf</em> 変数の値に設定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.fc (.fc)</strong></td>
+
+<td>フィールド文字を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(ff</strong></td>
+
+<td>脚注フォントを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.fi (.fi)</strong></td>
+
+<td>出力行を埋めます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(fi</strong></td>
+
+<td>脚注インデント (最初の行のみ) を指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(fm</strong></td>
+
+<td>フッター・マージンを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.fo」</strong><em>X</em><strong>'</strong><em>Y</em><strong>'</strong><em>Z</em><strong>'</strong></td>
+
+<td>フッターを <em>XYZ</em> 変数で指定した値に設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(fp</strong></td>
+
+<td>脚注ポイント・サイズを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(fs</strong></td>
+
+<td>脚注の前スペースを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(fu</strong></td>
+
+<td>右マージンからの脚注インデントを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ h '</strong><em>Distance</em><strong>'</strong></td>
+
+<td>指定した距離のローカル水平移動を設定します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.hc (.hc)</strong></td>
+
+<td>ハイフン付き文字を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.へ</strong><em>X</em><strong>'</strong><em>Y</em><strong>'</strong><em>Z</em><strong>'</strong></td>
+
+<td>ヘッダーを <em>XYZ</em> 変数で指定した値に設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.hl (.hl)</strong></td>
+
+<td>横線を描画します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(hm</strong></td>
+
+<td>ヘッダー・マージンを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.hx (.hx)</strong></td>
+
+<td>次ページのヘッダーおよびフッターを抑制します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.hy (.hy)</strong></td>
+
+<td>ハイフン付きモードを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>i</strong><em> X</em></td>
+
+<td><em>X</em> 変数で指定した値をイタリック体にします。 <em>X</em> 変数を省略すると、イタリック体テキストが後に続きます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>ie</strong></td>
+
+<td>if/else 条件の else の部分を指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>もし</strong></td>
+
+<td>条件を指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(ii</strong></td>
+
+<td>インデント・パラグラフのインデントを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.in」</strong></td>
+
+<td>インデント (一時的)。パーベイシブ (マクロ) の場合は、 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e121308" target="_blank" rel="noopener noreferrer">.ba</a></strong> マクロを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ip</strong><em> X Y</em></td>
+
+<td><em>X</em> 変数で指定したハンギング・タグを付けてインデント・パラグラフを開始します。 インデントは <em>Y</em> 変数で指定した en 値となります。 デフォルトは 5 です (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>9</strong></td>
+
+<td>インデントを行いますが、中断しません (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ l'</strong><em>Distance</em><strong>'</strong></td>
+
+<td>指定した距離の横線描画関数を開始します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.lc</strong></td>
+
+<td>先行反復文字を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>lh</strong></td>
+
+<td>ローカル文字ヘッドを補間します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>すべて</strong></td>
+
+<td>行の長さを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.lo (.lo)</strong></td>
+
+<td>フォームのローカル・マクロのファイルを読み込みます。 .*x. 初期化の前に使用する必要があります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.lp</strong></td>
+
+<td>左寄せパラグラフを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (lq</strong></td>
+
+<td>左の引用符を指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ls (.ls)</strong></td>
+
+<td>複数行スペーシングを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.m1</strong></td>
+
+<td>ページの先頭からヘッダーまでのスペースを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.m2</strong></td>
+
+<td>ヘッダーからテキストまでのスペースを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.m3</strong></td>
+
+<td>テキストからフッターまでのスペースを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.m4</strong></td>
+
+<td>フッターからページの最後までのスペースを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.mc</strong></td>
+
+<td>マージン文字を挿入します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.mk</strong></td>
+
+<td>垂直位置をマークします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(mo</strong></td>
+
+<td>月を定義します (数値レジスター)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>¥ * (mo</strong></td>
+
+<td>現在の月を定義します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n</strong><em>X</em></td>
+
+<td><em>X</em> 変数値で指定した数値レジスターを補間します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n (</strong><em>XX</em></td>
+
+<td><em>XX</em> 変数で指定した数値レジスターを補間します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.n1</strong></td>
+
+<td>マージン内の数値行を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.n2</strong></td>
+
+<td>マージン内の数値行を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.na」</strong></td>
+
+<td>テキスト調整をオフにします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ne</strong><em>数値</em></td>
+
+<td>指定した行数の垂直スペースを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.nf</strong></td>
+
+<td>出力行を未充てんのままにします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.nh</strong></td>
+
+<td>ハイフン付けをオフにします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.np (.np)</strong></td>
+
+<td>番号付きパラグラフを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.nr</strong></td>
+
+<td>数値レジスターを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ns (.ns)</strong></td>
+
+<td>非スペース・モードを指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*o</strong></td>
+
+<td>スーパースクリプトの丸 (ノルウェー語の A など) を指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>'のうちの.'</strong><em>X</em><strong>'</strong><em>「Y」</em><strong>'</strong><em>Z ()</em><strong>'</strong></td>
+
+<td>奇数フッターを <em>XYZ</em> 変数で指定した値に設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>おっと</strong><em>X</em><strong>'</strong><em>「Y」</em><strong>'</strong><em>Z ()</em><strong>'</strong></td>
+
+<td>奇数ヘッダーを <em>XYZ</em> 変数で指定した値に設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.pa (.pa)</strong></td>
+
+<td>ページを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.pd (.pd)</strong></td>
+
+<td>遅延テキストを印刷します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(pf</strong></td>
+
+<td>パラグラフ・フォントを指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(pi</strong></td>
+
+<td>パラグラフ・インデントを指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.pl」</strong></td>
+
+<td>ページの長さを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.pn</strong></td>
+
+<td>次のページ番号を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.po (.po)</strong></td>
+
+<td>ページ・オフセットを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(po</strong></td>
+
+<td>ページ・オフセットをシミュレートします (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.PP</strong></td>
+
+<td>パラグラフを開始します。最初の行を字下げします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(pp</strong></td>
+
+<td>パラグラフのポイント・サイズを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(ps</strong></td>
+
+<td>パラグラフの前スペースを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.q</strong></td>
+
+<td>引用符付きを指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (qa</strong></td>
+
+<td>すべてが対象です (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * qe</strong></td>
+
+<td>存在します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(qi</strong></td>
+
+<td>引用のインデントを設定します。また、行を短縮します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(qp</strong></td>
+
+<td>引用のポイント・サイズを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(qs</strong></td>
+
+<td>引用の前スペースまたは後スペースを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.r</strong></td>
+
+<td>Roman テキストが後に続くように設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.rb</strong></td>
+
+<td>実ボールド・フォントを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.re」</strong></td>
+
+<td>タブをデフォルト値にリセットします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.rm (.rm)</strong></td>
+
+<td>マクロまたは文字列を除去します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>rn</strong></td>
+
+<td>マクロまたは文字列の名前を変更します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ro (ファイル)</strong></td>
+
+<td>ページ番号を Roman で設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (rq</strong></td>
+
+<td>右の引用符を指定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.rr</strong></td>
+
+<td>レジスターを除去します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.rs</strong></td>
+
+<td>レジスターを復元します (マクロ)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.rt (.rt)</strong></td>
+
+<td>垂直位置に戻ります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ s</strong><em>Size</em></td>
+
+<td>インライン・サイズを指定のサイズに変更します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sc (.sc)</strong></td>
+
+<td>ファイルから特殊文字および区別的発音記号を読み取ります。 初期化の前に使用する必要があります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(sf</strong></td>
+
+<td>セクション・タイトル・フォントを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.</strong><em>shLevelTitle</em></td>
+
+<td>セクション・ヘッダーが後に続くように指定します。フォントは自動的にボールドになります。 <em>Level</em> 変数にはセクションのレベルを指定します。 <em>Title</em> 変数にはセクションのタイトルを指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(si</strong></td>
+
+<td>相対ベースのセクションごとのインデントの深さを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sk (.sk)</strong></td>
+
+<td>次のページをブランクのままにします。 この先は 1 ページだけ記憶されます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.</strong><em> smX</em></td>
+
+<td><em>X</em> 変数で指定した値をそれより小さいポイント・サイズで設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.so</strong></td>
+
+<td>ソース入力ファイルを指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ n (so</strong></td>
+
+<td>追加のセクション・タイトルのオフセットを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sp</strong></td>
+
+<td>垂直スペースを指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(sp</strong></td>
+
+<td>セクション・タイトルのポイント・サイズを指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(ss</strong></td>
+
+<td>セクションの前スペースを指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sx</strong></td>
+
+<td>セクションの深さを変更します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sz +</strong><em>数値</em></td>
+
+<td>指定したポイント数だけポイント・サイズを増やします (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>タ</strong></td>
+
+<td>タブ・ストップを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.tc</strong></td>
+
+<td>タブ反復文字を設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (td</strong></td>
+
+<td>今日の日付を設定します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>n (tf</strong></td>
+
+<td>タイトル・フォントを指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.th</strong></td>
+
+<td>論文フォーマットで用紙を作成します。 初期化の前に使用する必要があります (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ti (.ti)</strong></td>
+
+<td>一時インデント (次の行のみ) を指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.tl (.tl)</strong></td>
+
+<td>3 部からなるタイトルを指定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(tm</strong></td>
+
+<td>トップ・タイトル・マージンを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.tp</strong></td>
+
+<td>タイトル・ページを開始します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(tp</strong></td>
+
+<td>タイトルのポイント・サイズを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.tr (.tr)</strong></td>
+
+<td>変換します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>u</strong><em> X</em></td>
+
+<td><strong>troff</strong> コマンドにおいても、<em>X</em> 変数で指定された値を下線付けします。 非充てんモードのみです (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>あー</strong></td>
+
+<td>セクション・ヘッダーが後に続くように設定します。フォントは自動的にボールドになります。 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e122294" target="_blank" rel="noopener noreferrer">.sh</a></strong> マクロと似ていますが、番号なし (マクロ) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>ヌル</strong></td>
+
+<td>次の行に下線を引きます (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ v'</strong><em>Distance</em><strong>'</strong></td>
+
+<td>指定した距離のローカル垂直移動 (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*v</strong></td>
+
+<td>チェコ語の v を e に変換します (文字列)。</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ w '</strong><em>String</em><strong>'</strong></td>
+
+<td>指定した文字列の幅を戻します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>xl</strong></td>
+
+<td>ローカル行の長さを設定します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.xp</strong><em>索引</em></td>
+
+<td>指定した索引を印刷します (マクロ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(xs</strong></td>
+
+<td>索引項目の前スペースを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(xu</strong></td>
+
+<td>右マージンからの索引インデントを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(yr</strong></td>
+
+<td>年 (最後の 2 桁のみ) を指定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>&amp;#xa5;n(zs</strong></td>
+
+<td>浮動キープの前スペースまたは後スペースを設定します (数値レジスター)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\{</strong></td>
+
+<td>条件付きグループを開始します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\|</strong></td>
+
+<td>1/6 em の狭いスペース (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\}</strong></td>
+
+<td>条件付きグループを終了します (<strong>troff</strong> コマンドの組み込み関数)。</td>
+
+</tr>
+
+<tr>
+<td><strong>\*~</strong></td>
+
+<td>ティルドを指定します (文字列)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p>
+ <p>P. Allman による「<em>-ME Reference Manual</em>」を参照してください。</p>
+</section>
+
+<section><h2>mm、mmt、nroff、troff コマンド用 mm マクロ・パッケージ</h2> <p><strong>mm</strong> マクロ・パッケージは、広範囲にわたる各種の文書フォーマット (例えば、
+メモ、レター、レポート) のテキストをフォーマットするマクロを提供します。 文書をタイプして編集する方法は、
+本質的にはその文書が後で端末またはフォトタイプセッターでフォーマットされるかどうかには関係ありません。</p>
+ <p><strong>nroff</strong> 出力を後処理するには、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/col.html" target="_blank" rel="noopener noreferrer">col</a></strong> コマンドが必要になる場合があります。 特定要件については、<strong>col</strong> コマンドを参照してください。</p>
+ <p><strong>mm</strong> マクロおよび追加情報は、以下の見出しのセクションに要約してあります。</p>
+ <ul>
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92a9d" target="_blank" rel="noopener noreferrer">フォーマル・メモリー・マクロの開始</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92ab9" target="_blank" rel="noopener noreferrer">ビジネス・レター・マクロ</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92ac9" target="_blank" rel="noopener noreferrer">終了マクロ (末尾情報)</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92ae3" target="_blank" rel="noopener noreferrer">段落</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92ae8" target="_blank" rel="noopener noreferrer">セクション見出し</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92af5" target="_blank" rel="noopener noreferrer">リスト</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b04" target="_blank" rel="noopener noreferrer">表示、テーブル、等式、および脚注</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b1e" target="_blank" rel="noopener noreferrer">ページのヘッダーとフッター</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b29" target="_blank" rel="noopener noreferrer">その他のマクロ</a></li>
+
+<li><span></span><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b38" target="_blank" rel="noopener noreferrer">mm</a></strong> レジスター</li>
+
+<li><span></span><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b6e" target="_blank" rel="noopener noreferrer">mm</a></strong> ストリング</li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b72" target="_blank" rel="noopener noreferrer">ストリング名</a></li>
+
+<li><span></span><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92b8a" target="_blank" rel="noopener noreferrer">予約名</a>。</li>
+
+</ul>
+<p><strong>正式メモの開始マクロ
+</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ND</strong><em> 日付</em></td>
+
+<td>新しい日付を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>TL</strong> [<em>ChgNumber</em>] [<em>FileNumber</em>]</td>
+
+<td>タイトル情報を設定します。 次の行のテキストを文書のタイトルとして使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>AF</strong> [<em>CompanyName</em>]</td>
+
+<td>作成者の会社名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>天文単位</strong><em> 名前</em> [<em>イニシャル</em>] [<em>ロケーション</em>] [<em>部門</em>] [<em>拡張</em>] [<em>部屋</em>] [<em>オプション ...</em>]</td>
+
+<td>作成者の情報を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>AT</strong><em> AuthorTitle</em> [<em>...</em>]</td>
+
+<td>署名者の名前の後に続くタイトル (オプションは 9 つまで) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>TM</strong> [<em>数値</em>]</td>
+
+<td>技術メモ番号を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>AS</strong> [<strong> 0 | 1 | 2</strong> ] [<em>インデント</em>]</td>
+
+<td>技術メモおよび公開された文書の場合のみ、要約を開始します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>表紙および最初のページの要約</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>表紙のみの要約</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>ファイルの表紙のメモのみの要約</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.AE (航空)</strong></td>
+
+<td>要約を終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong></strong></td>
+
+<td><strong>に続くファイル・カバー・シートのメモで許可される表記を開始します。AS</strong><strong> 2/.AE</strong> マクロのペア ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92ac9" target="_blank" rel="noopener noreferrer">「マクロの終了」</a>を参照)。</td>
+
+</tr>
+
+<tr>
+<td><strong>NE</strong></td>
+
+<td><strong>に続くファイル・カバー・シートのメモで許可される表記を終了します。AS 2/.AE</strong> マクロのペア ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92ac9" target="_blank" rel="noopener noreferrer">「マクロの終了」</a>を参照)。</td>
+
+</tr>
+
+<tr>
+<td><strong>OK</strong> [<em>キーワード ...</em>]</td>
+
+<td>ほかのキーワードを指定します (オプションは 9 つまで)。</td>
+
+</tr>
+
+<tr>
+<td><strong>MT</strong> [<em>タイプ</em>] [<em>タイトル</em>]</td>
+
+<td>文書タイプを設定します。<dl>
+<dt>”“</dt>
+
+<dd>タイプなし</dd>
+
+
+<dt><strong>0</strong></dt>
+
+<dd>タイプなし (内部レター)</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>ファイルのメモ</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>プログラマーの注</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>技術者の注</dd>
+
+
+<dt><strong>4</strong></dt>
+
+<dd>公開された文書</dd>
+
+
+<dt><strong>5</strong></dt>
+
+<dd>外部レター</dd>
+
+
+<dt><em>"ストリング</em>“</dt>
+
+<dd>指定した文字列が印刷されます。</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><em>TITLE</em></td>
+
+<td>ページ番号が前に付けられたユーザー提供のテキスト</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>ビジネス・レター・マクロ
+</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>WA</strong></td>
+
+<td>筆者のアドレスを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.WE (航空)</strong></td>
+
+<td>筆者のアドレスを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LO CN</strong> [<em>表記</em>]</td>
+
+<td>機密メモを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LO RN</strong> [<em>表記</em>]</td>
+
+<td>リファレンス・メモを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong></strong></td>
+
+<td>内部 (受け取り人) のアドレスを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong></strong></td>
+
+<td>内部 (受け取り人) のアドレスを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LO AT</strong> [<em>表記</em>]</td>
+
+<td>注意行を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LO SA</strong> [<em>表記</em>]</td>
+
+<td>あいさつを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LO SJ</strong> [<em>表記</em>]</td>
+
+<td>主題行を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LT</strong> [{none<strong> BL SB FB SP</strong>}]</td>
+
+<td>ビジネス・レターのタイプを指定します。<dl>
+<dt>なし</dt>
+
+<dd>ブロック化</dd>
+
+
+<dt><strong>BL</strong></dt>
+
+<dd>ブロック化</dd>
+
+
+<dt><strong>SB</strong></dt>
+
+<dd>セミブロック化</dd>
+
+
+<dt><strong>FB</strong></dt>
+
+<dd>全ブロック化</dd>
+
+
+<dt><strong>SP</strong></dt>
+
+<dd>簡略化</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>マクロの終了 (後書き情報) 
+</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>FC</strong> [<em>クローズ</em>]</td>
+
+<td>正式な結辞を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.SG</strong> [<em>イニシャル</em>] [<strong>1</strong>]</td>
+
+<td>署名行を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.NS</strong> [{<strong>" "0 1 2 3 4 5 6 7 8 9 10 11 12 13</strong> <em> String</em>}]</td>
+
+<td>表記を開始します。<dl>
+<dt><strong>” “</strong></dt>
+
+<dd> </dd>
+
+
+<dt> </dt>
+
+<dd>コピー</dd>
+
+
+<dt><strong>0</strong></dt>
+
+<dd>コピー</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>コピー (アタッチメントあり)</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>コピー (アタッチメントなし)</dd>
+
+</dl>
+ <dl>
+<dt><strong>3</strong></dt>
+
+<dd>アタッチメント (1 つ)</dd>
+
+
+<dt><strong>4</strong></dt>
+
+<dd>アタッチメント (複数)</dd>
+
+
+<dt><strong>5</strong></dt>
+
+<dd>同封物 (1 つ)</dd>
+
+
+<dt><strong>6</strong></dt>
+
+<dd>同封物 (複数)</dd>
+
+</dl>
+ <dl>
+<dt><strong>7</strong></dt>
+
+<dd>独立した表紙</dd>
+
+
+<dt><strong>8</strong></dt>
+
+<dd>レター</dd>
+
+
+<dt><strong>90万</strong></dt>
+
+<dd>メモ</dd>
+
+
+<dt><strong>10</strong></dt>
+
+<dd>コピー (複数のアタッチメントあり)</dd>
+
+</dl>
+ <dl>
+<dt><strong>11</strong></dt>
+
+<dd>コピー (複数のアタッチメントなし)</dd>
+
+
+<dt><strong>12</strong></dt>
+
+<dd>要約のみ</dd>
+
+
+<dt><strong>13</strong></dt>
+
+<dd>完全なメモ</dd>
+
+
+<dt><em>STRING</em></dt>
+
+<dd>コピー先 (<em>String</em>)。</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>NE</strong></td>
+
+<td>表記を終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>AV</strong><em> 名前</em> [<strong>1</strong>]</td>
+
+<td>承認の署名を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>CS</strong> [<em>ページ</em>] [<em>その他</em>] [<em>合計</em>] [<em>イチジク</em>] [<em>Tbls (T)</em>] [<em>参照</em>]</td>
+
+<td>表紙を印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.TX (T)</strong></td>
+
+<td>目次のタイトルのユーザー出口を呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>TY</strong></td>
+
+<td>目次のヘッダーのユーザー出口を呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>. TC (TC)</strong> [<em>スレフ</em>] [<em>スペーシング</em>] [<em>トレフ</em>] [<em>タブ</em>] [<em>H1</em>] [<em>H2</em>] [<em>H3</em>] [<em>H4</em>] [<em>H5</em>]</td>
+
+<td>目次を印刷します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>paragraphs</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong></strong> [{<strong>0 1 2</strong>}]</td>
+
+<td>パラグラフを開始します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>左寄せ (デフォルト)</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>インデント</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>インデント (<strong>.H</strong>、<strong>.LE</strong>、<strong>.DE</strong> の後以外)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>セクション・ヘッダー
+</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>H</strong> {<strong>1 2 3 4 5 6 7</strong>} [<em>HeadingText</em>] [<em>FootnoteMark</em>]</td>
+
+<td>番号付きの見出しを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>HU</strong><em> HeadingText</em></td>
+
+<td>番号の付かない見出しを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>HM</strong> {<strong>1 0001 A I i</strong>}<strong>...</strong></td>
+
+<td>見出しマーク・スタイルを指定します。<dl>
+<dt><strong>1</strong></dt>
+
+<dd>アラビア数字</dd>
+
+
+<dt><strong>0001</strong></dt>
+
+<dd>先行 0 (ゼロ) が付いたアラビア数字</dd>
+
+
+<dt><strong>A</strong></dt>
+
+<dd>英大文字</dd>
+
+
+<dt><strong>a</strong></dt>
+
+<dd>英小文字</dd>
+
+
+<dt><strong>I</strong></dt>
+
+<dd>大文字のローマ数字</dd>
+
+
+<dt><strong>i</strong></dt>
+
+<dd>小文字のローマ数字</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>HX</strong> [<em>Dlev</em>] [<em>Rlev</em>] [<em>HeadingText</em>]</td>
+
+<td>見出しの前にユーザー定義の終了マクロを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>HY</strong> [<em>Dlev</em>] [<em>Rlev</em>] [<em>HeadingText</em>]</td>
+
+<td>見出しの途中でユーザー定義の終了マクロを呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>HZ</strong> [<em>Dlev</em>] [<em>Rlev</em>] [<em>HeadingText</em>]</td>
+
+<td>見出しの後でユーザー定義の終了マクロを呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>lists</strong></p>
+ <p>リスト開始マクロに最終オプション [<strong>1</strong>] がある場合は、
+項目間にスペースは入りません。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>AL</strong> [{<strong>1 A a I i</strong>}] [<em>TextIndent</em>] [<strong>1</strong>]</td>
+
+<td>自動的に増分リスト (<strong>1</strong>) を開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>BL</strong> [<em>TextIndent</em>] [<strong>1</strong>]</td>
+
+<td>黒丸リストを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DL</strong> [<em>TextIndent</em>] [<strong>1</strong>]</td>
+
+<td>ダッシュ・リストを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>ML</strong> <em> マーク</em> [<em>TextIndent</em>] [<strong>1</strong>]</td>
+
+<td>各リストの項目に指定のマークでタグが付けられているリストを開始します。 <em>TextIndent</em> の値が <strong>NULL</strong> であるか省略されている場合は、
+[<em>Mark</em>- width + 1] に設定されます。 3 番目の引数を指定した場合、リスト内の項目はブランク行で区切られません。</td>
+
+</tr>
+
+<tr>
+<td><strong>RL</strong> [<em>TextIndent</em>] [<strong>1</strong>]</td>
+
+<td>リファレンス・リストを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>VL</strong><em> TextIndent</em> [<em>MarkIndent</em>] [<strong>1</strong>]</td>
+
+<td>可変タグ・リストを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LI</strong> [<em>マーク</em>] [<strong>1</strong>]</td>
+
+<td>リスト項目を開始します。<strong>1</strong> は、
+<em>Mark</em> 変数値が現在のマークの前に付けられることを意味します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LE</strong> [<strong>1</strong>]</td>
+
+<td>リスト項目を終了します。<strong>1</strong> は、
+リストの後にブランク行を出力することを意味します。 デフォルトではブランク行はありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>LB</strong><em> TextIndent</em> <em>MarkIndent</em><em> パッド・タイプ</em> [<em>マーク</em>] [{<strong>0 1</strong>}] [{<strong>0 1</strong>}]</td>
+
+<td>リストを開始します。<p><em>Type</em> 変数の値は次のとおりです。</p>
+  <dl>
+<dt> </dt>
+
+<dd><strong>1=. 2=) 3=() 4=[] 5=&lt;&gt; 6={}</strong>.</dd>
+
+</dl>
+  <p></p>
+  <p>6 番目のオプション</p>
+  <dl>
+
+<dt><strong>0</strong></dt>
+
+<dd>各リスト項目の前にブランク行はありません。</dd>
+
+</dl>
+  <p>7 番目のオプション</p>
+  <dl>
+
+<dt><strong>0</strong></dt>
+
+<dd>リストの前にブランク行はありません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>LC [</strong><em>レベル</em><strong>]</strong></td>
+
+<td>リスト状況を <em>Level</em> 変数値まで消去します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>表示、テーブル、式、脚注
+</strong></p>
+ <p><strong>DS</strong> [{<strong>0 1 2 3</strong> }] [{<strong>0 1</strong>}] [<em>数値</em>]</p>
+ <dl>
+
+<dt><strong>DS</strong> [{<strong>L I C CB</strong>}] [{<strong>N F</strong>}] [<em>数値</em>]</dt>
+
+<dd>静的表示を開始します。<dl>
+<dt><strong>0</strong> または <strong>L</strong></dt>
+
+<dd>インデントなし</dd>
+
+
+<dt><strong>1</strong> または <strong>I</strong></dt>
+
+<dd>左からのインデント</dd>
+
+
+<dt><strong>2</strong> または <strong>C</strong></dt>
+
+<dd>各行の中央揃え</dd>
+
+
+<dt><strong>3</strong> または <strong>CB</strong></dt>
+
+<dd>ブロックとしての中央揃え</dd>
+
+
+<dt><strong>0</strong> または <strong>N</strong></dt>
+
+<dd>表示しない</dd>
+
+
+<dt><strong>1</strong> または <strong>F</strong></dt>
+
+<dd>表示</dd>
+
+
+<dt><em>Number</em></dt>
+
+<dd><em>Number</em> パラメーターで指定したスペース数だけ右からインデント</dd>
+
+</dl>
+</dd>
+
+</dl>
+ <p><strong>DF</strong> [{<strong>0 1 2 3</strong> }] [{<strong>0 1</strong>}] [<em>数値</em>]</p>
+ <dl>
+<dt><strong>DF</strong> [{<strong>L I C CB</strong>}] [{<strong>N F</strong>}] [<em>数値</em>]</dt>
+
+<dd>浮動表示を開始します。<dl>
+<dt><strong>0</strong> または <strong>L</strong></dt>
+
+<dd>インデントなし</dd>
+
+
+<dt><strong>1</strong> または <strong>I</strong></dt>
+
+<dd>左からのインデント</dd>
+
+
+<dt><strong>2</strong> または <strong>C</strong></dt>
+
+<dd>各行の中央揃え</dd>
+
+
+<dt><strong>3</strong> または <strong>CB</strong></dt>
+
+<dd>ブロックとしての中央揃え</dd>
+
+
+<dt><strong>0</strong> または <strong>N</strong></dt>
+
+<dd>表示しない</dd>
+
+
+<dt><strong>1</strong> または <strong>F</strong></dt>
+
+<dd>表示</dd>
+
+
+<dt><em>Number</em></dt>
+
+<dd><em>Number</em> パラメーターで指定したスペース数だけ右からインデント</dd>
+
+</dl>
+</dd>
+
+
+<dt> </dt>
+
+<dd></dd>
+
+
+<dt><strong>DE</strong></dt>
+
+<dd>表示を終了します。</dd>
+
+
+<dt><strong>FG</strong> [<em>タイトル</em>] [<em>オーバーライド</em>] [<strong>0 1 2</strong>]</dt>
+
+<dd><em>Override</em> 変数の値がデフォルトの番号を置き換えるかまたは拡張します。 図のタイトルを指定します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd><em>Override</em> 値が接頭部として使用されます。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd><em>Override</em> 値が接尾部となります。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd><em>Override</em> 置換値が代替値となります。</dd>
+
+</dl>
+</dd>
+
+
+<dt> </dt>
+
+<dd></dd>
+
+
+<dt><strong>TS</strong> [<strong>H</strong>]</dt>
+
+<dd>テーブルを開始します。<dl>
+<dt><strong>h</strong></dt>
+
+<dd>複数ページのテーブル</dd>
+
+</dl>
+</dd>
+
+
+<dt> </dt>
+
+<dd></dd>
+
+
+<dt><strong></strong> [<strong>N</strong>]</dt>
+
+<dd>オプション <strong>H</strong> から <strong>.TS</strong> までを指定するときに使用しなければなりません。<dl>
+
+<dt><strong>N</strong></dt>
+
+<dd>新規ページの冒頭以外の場合に、テーブル・ヘッダーを抑制します。</dd>
+
+</dl>
+</dd>
+
+
+<dt><strong>.TE</strong></dt>
+
+<dd>テーブルを終了します。</dd>
+
+
+<dt><strong>TB</strong> [<em>タイトル</em>] [<em>オーバーライド</em>] [<strong>0 1 2</strong>]</dt>
+
+<dd><em>Override</em> 変数の値がデフォルトの番号を置き換えるかまたは拡張します。 表のタイトルを指定します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd><em>Override</em> 値が接頭部として使用されます。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd><em>Override</em> 値が接尾部となります。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd><em>Override</em> 置換値が代替値となります。</dd>
+
+</dl>
+</dd>
+
+
+<dt><strong>EX</strong> [<em>タイトル</em>] [<em>オーバーライド</em>] [<strong>0 1 2</strong>]</dt>
+
+<dd><em>Override</em> 変数の値がデフォルトの番号を置き換えるかまたは拡張します。 提示タイトルを指定します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd><em>Override</em> 値が接頭部として使用されます。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd><em>Override</em> 値が接尾部となります。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd><em>Override</em> 置換値が代替値となります。</dd>
+
+</dl>
+</dd>
+
+
+<dt><strong>EQ</strong> [<em>ラベル</em>]</dt>
+
+<dd>指定したラベルを使用して式の表示を開始します。</dd>
+
+
+<dt><strong>JA</strong></dt>
+
+<dd>式の表示を終了します。</dd>
+
+
+<dt><strong>EC</strong> [<em>タイトル</em>] [<em>オーバーライド</em>] [<strong>0 1 2</strong>]</dt>
+
+<dd><em>Override</em> 変数の値がデフォルトの番号を置き換えるかまたは拡張します。 式のタイトルを指定します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd><em>Override</em> 値が接頭部として使用されます。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd><em>Override</em> 値が接尾部となります。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd><em>Override</em> 置換値が代替値となります。</dd>
+
+</dl>
+</dd>
+
+
+<dt><strong>FS</strong> [<em>ラベル</em>]</dt>
+
+<dd>指定したラベルをインジケーターとして使用して脚注を開始します。 デフォルトは番号付き脚注です。</dd>
+
+
+<dt><strong>FE</strong></dt>
+
+<dd>脚注を終了します。</dd>
+
+
+<dt><strong>FD</strong> [{<strong>0 1 2 3 4 ... 11</strong>}] [<strong>1</strong> ]</dt>
+
+<dd>脚注のフォーマットを設定します。<p>最初のオプション:</p>
+  <p>脚注テキストのフォーマット・スタイルを設定します。 <strong>mmt</strong> コマンドのデフォルトは 0 です。 <strong>mm</strong> コマンドのデフォルトは 10 です。 値については、以下の表を参照してください。</p>
+  <p>2 番目のオプション:</p>
+  <p>第 1 レベルの見出し上の脚注カウンターをリセットします。</p>
+  
+<div><div><table><thead>
+<tr>
+<th><div>.FD Arg.</div></th>
+
+<th><div>Format</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.nh</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.ad</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>1</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.hy</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.ad</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>2</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.nh</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.na</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>3</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.hy</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.na</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>4</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.nh</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.ad</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>5</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.hy</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.ad</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>6</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.nh</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.na</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>7</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.hy</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.na</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>いいえ</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>左</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>8</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.nh</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.ad</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>右側</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>9</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.hy</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.ad</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>右側</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>10</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.nh</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.na</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>右側</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>11</td>
+
+<td><dl>
+<dt>ハイフン</dt>
+
+<dd><span><span>.hy</span></span></dd>
+
+
+<dt>行末調整</dt>
+
+<dd><span><span>.na</span></span></dd>
+
+
+<dt>テキストのインデント</dt>
+
+<dd>はい</dd>
+
+
+<dt>ラベル位置調整</dt>
+
+<dd>右側</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</dd>
+
+</dl>
+ <p></p>
+<p><strong>ページ・ヘッダーおよびページ・フッター
+</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>PH "'</strong><em>左</em><strong>'</strong><em>中央</em><strong>'</strong><em>右</em><strong>'"</strong></td>
+
+<td>ページ・ヘッダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>OH "'</strong><em>左</em><strong>'</strong><em>中央</em><strong>'</strong><em>右</em><strong>'"</strong></td>
+
+<td>奇数ページ・ヘッダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>EH "'</strong><em>左</em><strong>'</strong><em>中央</em><strong>'</strong><em>右</em><strong>'"</strong></td>
+
+<td>偶数ページ・ヘッダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>PF "'</strong><em>左</em><strong>'</strong><em>中央</em><strong>'</strong><em>右</em><strong>'"</strong></td>
+
+<td>ページ・フッターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>OF "'</strong><em>左</em><strong>'</strong><em>中央</em><strong>'</strong><em>右</em><strong>'"</strong></td>
+
+<td>奇数ページ・フッターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>EF "'</strong><em>左</em><strong>'</strong><em>中央</em><strong>'</strong><em>右</em><strong>'"</strong></td>
+
+<td>偶数ページ・フッターを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>BS</strong></td>
+
+<td>ボトム・ブロックを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.BE (E)</strong></td>
+
+<td>ボトム・ブロックを終了します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.PX (X)</strong></td>
+
+<td>ページ・ヘッダーのユーザー出口を呼び出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.TP (P)</strong></td>
+
+<td>ページ・マクロの先頭を呼び出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>その他のマクロ
+</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.B</strong> [<em>
+Option</em>] [<em>Prev-Font-option</em>]</td>
+
+<td>ボールドで印刷します (オプションは 6 つまで)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.I</strong> [<em>
+Option</em>] [<em>Prev-Font-option</em>]</td>
+
+<td>イタリックで印刷します (オプションは 6 つまで)。
+<strong>nroff</strong> コマンドの場合は下線が引かれます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.R</strong></td>
+
+<td>Roman フォントに戻ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>PM</strong> [<em>オプション</em>]</td>
+
+<td>所有権のマーキングを設定します。 <strong>.PM</strong> マクロにオプションを指定しない場合は、
+所有権のマーキングをオフにします。 <strong>/usr/lib/macros/string.mm</strong> ファイルには、
+所有権のマーキングがいくつか入っています。 このファイルはユーザー要件に合わせて編集する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>.RD</strong> [<em>
+Prompt</em>] [<em>Diversion</em>] [<em>String
+</em>]</td>
+
+<td>コード・マクロを停止します。 <em>Prompt</em> 変数は、スペースの入らないユーザー定義の文字列でなくてはなりません。 <em>Diversion</em> 変数を指定すると、入力されたテキストを保存できます。 <em>String</em> 変数には、プロンプトの後に入力される最初の行が入ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>.RP</strong> [{<strong>
+0 1</strong> }] [{<strong>0 1 2 3</strong>}]</td>
+
+<td>リファレンス・ページを作成します。<p>最初のオプション:</p>
+ <dl>
+<dt><strong>0</strong></dt>
+
+<dd>リファレンス・カウンターをリセットします (デフォルト)。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>リファレンス・カウンターをリセットしません。</dd>
+
+</dl>
+ <p>2 番目のオプション:</p>
+ <dl>
+<dt><strong>0</strong></dt>
+
+<dd>後で <strong>.SK</strong> マクロが行われます (デフォルト)。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>後で <strong>.SK</strong> マクロは行われません。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>前に <strong>.SK</strong> マクロは行われません。</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>前にも後にも <strong>.SK</strong> マクロは行われません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.RS/.RF</strong></td>
+
+<td>自動的にリファレンスに番号が付けられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.WC</strong> [{<strong>
+N WF -WF FF -FF WD -WD FB -FB</strong>}]</td>
+
+<td>2 列を使用する場合の脚注および表示の幅を制御します。<dl>
+<dt><strong>N</strong></dt>
+
+<dd>通常モード (<strong> -WF</strong>、<strong>-FF</strong>、<strong>-WD</strong>)。</dd>
+
+
+<dt><strong>WF</strong></dt>
+
+<dd>脚注は常に広幅です。</dd>
+
+
+<dt><strong>-WF</strong></dt>
+
+<dd>脚注はページ・スタイルに従います。</dd>
+
+
+<dt><strong>FF</strong></dt>
+
+<dd>最初の脚注によってそのページの残りの脚注の幅が決まります。</dd>
+
+
+<dt><strong>-ff</strong></dt>
+
+<dd>脚注は <strong>WF</strong> または <strong>-WF</strong> オプションの設定に従います。</dd>
+
+
+<dt><strong>WD</strong></dt>
+
+<dd>表示は常に広幅です。</dd>
+
+
+<dt><strong>-WD</strong></dt>
+
+<dd>表示はページ・スタイルに従います。</dd>
+
+
+<dt><strong>FB</strong></dt>
+
+<dd>浮動表示によって改ページが行われます (デフォルト)。</dd>
+
+
+<dt><strong>FB (FB)</strong></dt>
+
+<dd>浮動表示による改ページは行われません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.SP</strong> [<em>回線</em>]</td>
+
+<td>何行か下方にスキップします。</td>
+
+</tr>
+
+<tr>
+<td><strong>.SK</strong> [<em>数値</em>]</td>
+
+<td>指定されたページ数をスキップします。 (デフォルトは 1です。)</td>
+
+</tr>
+
+<tr>
+<td><strong>OP</strong></td>
+
+<td>奇数ページまで中断します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.2C</strong></td>
+
+<td>出力を 2 列で印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.1C</strong></td>
+
+<td>出力を 1 列で印刷します (復元される通常の行幅)。</td>
+
+</tr>
+
+<tr>
+<td><strong>.SA</strong> [<em>オプション</em>]</td>
+
+<td>右マージンの位置調整を設定します。<p>オプション:</p>
+  <dl>
+
+<dt><strong>0</strong></dt>
+
+<dd>デフォルトを <strong>off</strong> に設定します (<strong>nroff</strong> コマンドのデフォルト)。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>デフォルトを <strong>on</strong> に設定します (<strong>troff</strong> コマンドのデフォルト)。</dd>
+
+</dl>
+  <p>オプションを指定しないと、マクロは現在のデフォルトに復帰します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.SM</strong><em>
+ String1</em> [<em>String2</em>] [<em>String3
+</em>]</td>
+
+<td><em>String3</em> 変数値を省略した場合は <em>String1</em> 変数値のサイズを 1 ポイントずつ減らします。それ以外の場合は、<em>String2</em> 変数値のサイズを 1 ポイントずつ減らします。</td>
+
+</tr>
+
+<tr>
+<td><strong>HC</strong><em> 文字</em></td>
+
+<td>ハイフン付け文字を <em>Character</em> 変数値に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.S</strong> [ <em>PointSize</em> ][ <em>VerticalSpacing</em> ]</td>
+
+<td>ポイント・サイズおよび垂直スペーシングを設定します (<strong>troff</strong> コマンドのみ)。<p>デフォルト:</p>
+  <p>ポイント・サイズ = <strong>10p</strong></p>
+  <p>垂直スペーシング = <strong>12p</strong></p>
+  <p>オプション 1 および 2:</p>
+  <dl>
+<dt><em>Number</em></dt>
+
+<dd>新しい値</dd>
+
+
+<dt><em>+/-Number (+/-数値)</em></dt>
+
+<dd>現在の値まで増分</dd>
+
+
+<dt><strong>D</strong></dt>
+
+<dd>デフォルト。</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>現在の値</dd>
+
+
+<dt><strong>P</strong></dt>
+
+<dd>前の値</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>VM</strong> [<em>上</em>] [<em>下</em>]</td>
+
+<td>可変垂直マージンを設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.nP</strong></td>
+
+<td>パラグラフ上の 2 行インデントを開始します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>以下のマクロはフォントを交互に切り換えるためのもので、
+どのマクロも 1 つから 6 つまでのオプションを取ります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong></strong></td>
+
+<td>イタリック (<strong>nroff</strong> の場合は下線) とボールドを交互に切り換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>BI</strong></td>
+
+<td>ボールドとイタリックを交互に切り換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>RI</strong></td>
+
+<td>Roman とイタリックを交互に切り換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>IR</strong></td>
+
+<td>イタリック (<strong>nroff</strong> の場合は下線) と Roman を交互に切り換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>RB (RB)</strong></td>
+
+<td>Roman とボールドを交互に切り換えます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.BR (R)</strong></td>
+
+<td>ボールドと Roman を交互に切り換えます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>mm レジスター</strong></p>
+ <p>レジスター名の後に * (アスタリスク) が続く場合、そのレジスターは、コマンド行から ( <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mm.html" target="_blank" rel="noopener noreferrer">mm</a></strong> コマンドの例を参照)、またはフォーマッターが <strong>mm</strong> マクロ定義を読み取る前のいずれかの方法で設定できます。 以下のリストでは、括弧内に示された数値はデフォルト値です。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>A * (A)</strong></td>
+
+<td>事前印刷用紙の処理</td>
+
+</tr>
+
+<tr>
+<td><strong>AU</strong></td>
+
+<td>第 1 ページの作成者情報の禁止 (1)</td>
+
+</tr>
+
+<tr>
+<td><strong>C * (C)</strong></td>
+
+<td>コピー・タイプ (コピー元や草案など) (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>CL</strong></td>
+
+<td>目次レベル (2)</td>
+
+</tr>
+
+<tr>
+<td><strong>CP</strong></td>
+
+<td>図、テーブル、式、提示の配置 (1)</td>
+
+</tr>
+
+<tr>
+<td><strong>D *</strong></td>
+
+<td>デバッグ・フラグ (0) 1 に設定した場合、<strong>mm</strong> コマンドは、
+通常は致命的であるエラーが発生した場合でも処理を継続します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DE</strong></td>
+
+<td>浮動表示の後にページ替えをします (0)。</td>
+
+</tr>
+
+<tr>
+<td><strong>Df</strong></td>
+
+<td>1 に設定すると、浮動表示用にレジスターをフォーマットします (5)。</td>
+
+</tr>
+
+<tr>
+<td><strong>ds</strong></td>
+
+<td>静的表示の前スペースおよび後スペース (1)。</td>
+
+</tr>
+
+<tr>
+<td><strong>E *</strong></td>
+
+<td>Subject/Date/From フィールドのフォントを制御します (0)。0 = ボールド。1 = Roman。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>ボールド (0)</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>Roman</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>EC</strong></td>
+
+<td>式カウンター</td>
+
+</tr>
+
+<tr>
+<td><strong>EJ</strong></td>
+
+<td>見出しのページ替えフラグ (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>Eq</strong></td>
+
+<td>式ラベルの配置 (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>元</strong></td>
+
+<td>提示カウンター</td>
+
+</tr>
+
+<tr>
+<td><strong>FG</strong></td>
+
+<td>図カウンター</td>
+
+</tr>
+
+<tr>
+<td><strong>FS</strong></td>
+
+<td>垂直脚注の分離 (1)</td>
+
+</tr>
+
+<tr>
+<td><strong>H1...H7</strong></td>
+
+<td>見出しカウンター</td>
+
+</tr>
+
+<tr>
+<td><strong>hb</strong></td>
+
+<td>見出し中断レベル (<strong>.H</strong> および <strong>.HU</strong> の後) (2)</td>
+
+</tr>
+
+<tr>
+<td><strong>hc</strong></td>
+
+<td><strong>.H</strong> および <strong>.HU</strong> の見出し中央揃えレベル (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>こんにちは</strong></td>
+
+<td>見出し一時インデント (<strong>.H</strong> および <strong>.HU</strong> の後) (1)</td>
+
+</tr>
+
+<tr>
+<td><strong>HS</strong></td>
+
+<td>見出しスペース・レベル (<strong>.H</strong> および <strong>.HU</strong> の後) (2)</td>
+
+</tr>
+
+<tr>
+<td><strong>HT</strong></td>
+
+<td>見出しタイプ:<dl>
+<dt><strong>0</strong></dt>
+
+<dd>連結番号 (0)</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>単一番号 (0)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>HU</strong></td>
+
+<td>番号なし見出しの見出しレベル (2)</td>
+
+</tr>
+
+<tr>
+<td><strong>HY</strong></td>
+
+<td>ハイフン制御:<dl>
+<dt><strong>0</strong></dt>
+
+<dd>ハイフン付けなし (0)</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>ハイフン付けあり</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>L * (L)</strong></td>
+
+<td>ページの長さ (66v)</td>
+
+</tr>
+
+<tr>
+<td><strong>LE</strong></td>
+
+<td>目次の後の式のリスト (0):<dl>
+<dt><strong>0</strong></dt>
+
+<dd>印刷しません</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>印刷。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>LF</strong></td>
+
+<td>目次の後の図のリスト (0):<dl>
+<dt><strong>0</strong></dt>
+
+<dd>印刷しません</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>印刷。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>LI</strong></td>
+
+<td>リスト・インデント (<strong>troff</strong> コマンドは 5)
+(<strong>nroff</strong> コマンドは 6)</td>
+
+</tr>
+
+<tr>
+<td><strong>Ls</strong></td>
+
+<td>項目間にスペーシングが行われるまでリスト・レベルを下げます (6)。</td>
+
+</tr>
+
+<tr>
+<td><strong>Lt (Lt)</strong></td>
+
+<td>目次の後のテーブルのリスト (0):<dl>
+<dt><strong>0</strong></dt>
+
+<dd>印刷しません</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>印刷</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>LX</strong></td>
+
+<td>目次の後の提示のリスト (1):<dl>
+<dt><strong>0</strong></dt>
+
+<dd>印刷しません</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>印刷。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>N * (N *)</strong></td>
+
+<td>番号付けスタイル (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>NP</strong></td>
+
+<td>番号付きパラグラフ:<dl>
+<dt><strong>0</strong></dt>
+
+<dd>番号なし</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>番号付き (0)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>O *</strong></td>
+
+<td>ページのオフセット。</td>
+
+</tr>
+
+<tr>
+<td><strong>OC</strong></td>
+
+<td>目次のページ番号付けスタイル:<dl>
+<dt><strong>0</strong></dt>
+
+<dd>小文字のローマ数字</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>アラビア数字 (0)</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>/</strong></td>
+
+<td>図表タイトル・スタイル (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>P</strong></td>
+
+<td>ページ番号。<strong>mm</strong> コマンドによって管理されます (0)。 レジスターは 0 の値または正の整数を受け入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>Pi</strong></td>
+
+<td>パラグラフ・インデント (5)</td>
+
+</tr>
+
+<tr>
+<td><strong>PS</strong></td>
+
+<td>パラグラフ・スペーシング (1)</td>
+
+</tr>
+
+<tr>
+<td><strong>PT</strong></td>
+
+<td>パラグラフ・タイプ (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>Pv (Pv)</strong></td>
+
+<td>PRIVATE ヘッダー:<dl>
+<dt><strong>0</strong></dt>
+
+<dd>PRIVATE を印刷しません。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>第 1 ページのみ。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>※2</strong></td>
+
+<td>すべてのページ (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>RF</strong></td>
+
+<td>リファレンス・カウンター。<strong>.RS</strong> マクロで使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>S * (S)</strong></td>
+
+<td><strong>troff</strong> コマンドのデフォルトのポイント・サイズ (10)</td>
+
+</tr>
+
+<tr>
+<td><strong>SI</strong></td>
+
+<td>表示インデント (5)</td>
+
+</tr>
+
+<tr>
+<td><strong>T *</strong></td>
+
+<td><strong>nroff</strong> コマンド出力デバイスのタイプ (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>TB</strong></td>
+
+<td>テーブル・カウンター</td>
+
+</tr>
+
+<tr>
+<td><strong>U * (U)</strong></td>
+
+<td><strong>.H</strong> および <strong>.HU</strong> の下線付けスタイル (<strong>nroff</strong> コマンド) (0)</td>
+
+</tr>
+
+<tr>
+<td><strong>W *</strong></td>
+
+<td>ページの幅 (行およびタイトルの長さ)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>mm 文字列</strong></p>
+ <p>以下のエスケープ・シーケンスを使用して特殊文字列を印刷します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>\*x</strong></td>
+
+<td>単一文字の名前 (<strong>x</strong>) を持つ文字列の場合</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (xx</strong></td>
+
+<td>2 文字の名前 (<strong>xx</strong>) を持つ文字列の場合</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>ストリング名</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>BU</strong></td>
+
+<td>中黒</td>
+
+</tr>
+
+<tr>
+<td><strong>CI</strong></td>
+
+<td>目次内の見出しレベルのインデント</td>
+
+</tr>
+
+<tr>
+<td><strong>DT</strong></td>
+
+<td>現在の日付。 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/LC_TIME.html" target="_blank" rel="noopener noreferrer">LC_TIME</a></strong> カテゴリーのロケール設定で指定されたロケール固有の日付形式が、デフォルト設定として使用されます。 これは、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_bostechref/strftime.html" target="_blank" rel="noopener noreferrer">strftime</a></strong> サブルーチンの <strong>%x</strong> フォーマット指定子に対応します。 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e122723" target="_blank" rel="noopener noreferrer">を使用します。現在日付を変更する ND</a></strong> マクロ。</td>
+
+</tr>
+
+<tr>
+<td><strong>EM</strong></td>
+
+<td>Em ダッシュ</td>
+
+</tr>
+
+<tr>
+<td><strong>F</strong></td>
+
+<td>脚注の番号付け</td>
+
+</tr>
+
+<tr>
+<td><strong>HF</strong></td>
+
+<td>見出しレベル・フォント文字列:<dl>
+<dt><strong>1</strong></dt>
+
+<dd>Roman</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>イタリック</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>ボールド (2 2 2 2 2 2 2)</dd>
+
+</dl>
+  <p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>HP</strong></td>
+
+<td>いろいろな見出しレベルのポイント・サイズ</td>
+
+</tr>
+
+<tr>
+<td><strong>LE</strong></td>
+
+<td>式のリストのタイトル</td>
+
+</tr>
+
+<tr>
+<td><strong>LF</strong></td>
+
+<td>図のリストのタイトル</td>
+
+</tr>
+
+<tr>
+<td><strong>Lt (Lt)</strong></td>
+
+<td>テーブルのリストのタイトル</td>
+
+</tr>
+
+<tr>
+<td><strong>LX</strong></td>
+
+<td>提示のリストのタイトル</td>
+
+</tr>
+
+<tr>
+<td><strong>RE</strong></td>
+
+<td><strong>mm</strong> マクロの SCCS SID</td>
+
+</tr>
+
+<tr>
+<td><strong>RF</strong></td>
+
+<td>リファレンス番号</td>
+
+</tr>
+
+<tr>
+<td><strong>RP</strong></td>
+
+<td>リファレンス・ページのタイトル</td>
+
+</tr>
+
+<tr>
+<td><strong>TM</strong></td>
+
+<td>商標</td>
+
+</tr>
+
+<tr>
+<td><strong>`</strong></td>
+
+<td>抑音符号</td>
+
+</tr>
+
+<tr>
+<td><strong>'</strong></td>
+
+<td>揚音アクセント</td>
+
+</tr>
+
+<tr>
+<td><strong>^</strong></td>
+
+<td>脱字記号</td>
+
+</tr>
+
+<tr>
+<td><strong>~</strong></td>
+
+<td>ティルド</td>
+
+</tr>
+
+<tr>
+<td><strong>:</strong></td>
+
+<td>小文字のウムラウト</td>
+
+</tr>
+
+<tr>
+<td><strong>;</strong></td>
+
+<td>大文字のウムラウト</td>
+
+</tr>
+
+<tr>
+<td><strong>,</strong></td>
+
+<td>かぎ形記号</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>予約名</strong></p>
+ <p>独自の文字列、マクロ、レジスターを定義する場合は、1 つの小文字から構成される名前か、
+1 つの小文字の後に小文字以外の文字を付けて構成される名前のいずれかだけを使用してください。 <strong>c2</strong> および <strong>nP</strong> という名前は例外で、
+これらの名前は予約済みです。</p>
+</section>
+
+<section><h2>nroff および troff コマンド用 mptx マクロ・パッケージ</h2> <p><strong>mptx</strong> マクロ・パッケージは、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/ptx.html" target="_blank" rel="noopener noreferrer">ptx</a></strong> コマンドによって作成される順列索引のフォーマット設定に使用される <strong>.xx</strong> マクロの定義を提供します。 <strong>mptx</strong> マクロ・パッケージは、
+ヘッダーやフッターなどほかのフォーマット機能は提供しません。 そのような機能が必要な場合は、
+<strong>mptx</strong> マクロ・パッケージを <strong>mm</strong> マクロ・パッケージと一緒に使用します。 この場合、次のように <strong>-mm</strong> コールの後に <strong>-mptx</strong> オプションを呼び出します。</p>
+ <p><strong>nroff -mm -mptx </strong><em>ファイル ... </em>|<em> プリンター</em></p>
+</section>
+
+<section><h2>nroff および troff コマンド用 ms マクロ・パッケージ</h2> <p><strong>nroff</strong> コマンドおよび <strong>troff</strong> コマンドのマクロ定義の ms パッケージは、
+各種のスタイルの記事、論文、著書のためのフォーマット機能を提供します。 場合によっては、出力をポストプロセスするために <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/col.html" target="_blank" rel="noopener noreferrer">col</a></strong> コマンドが必要になることがあります。</p>
+ <p>マクロ要求は、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__vfp5240holl" target="_blank" rel="noopener noreferrer">ms</a></strong> 要求セクションで定義されます。 このパッケージとともに使用すると、
+予測できない結果が生じることが考えられる <strong>nroff</strong> および <strong>troff</strong> コマンド要求が多くあります。 ただし、以下のリストの最初の 4 つの要求は初期化後に使用でき、
+最後の 2 つの要求は初期化前に使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>BP</strong></td>
+
+<td>新しいページを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.br</strong></td>
+
+<td>出力行を中断します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ce</strong> [<em>数値</em>]</td>
+
+<td>指定した次の行数の中央揃えを行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ls</strong> [<em>数値</em>]</td>
+
+<td>行間隔を設定します。 <em>Number</em> 変数の値を、シングル・スペース・テキストの場合は 1 に、
+ダブルスペース・テキストの場合は 2 に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>「.na」</strong></td>
+
+<td>右マージンの位置合わせをオフにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>.sp</strong> [<em>番号</em>]</td>
+
+<td>指定した数だけスペース行を挿入します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p>
+ <p><strong>&amp;#xa5;f</strong> マクロと <strong>&amp;#xa5;s</strong> マクロによってフォントおよびポイント・サイズを変更することもできます。 例:\fIword\fR イタリック体word. <strong>tbl</strong>、 <strong>eqn</strong>、および <strong>refer</strong> コマンド・プリプロセッサーの式、表、および参照の出力は、入力として受け入れられます。</p>
+ <p>距離のフォーマットは、組み込み数値レジスターによって <strong>ms</strong> マクロ内で制御できます。 例えば、以下の数値レジスターは行長を 6.5 インチに設定します。</p>
+ <div> <div><div><pre><code>.nr LL 6.5i</code></pre></div><div></div></div></div>
+ <p><strong>ms</strong> マクロ・レジスターについて詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__fxo5holl" target="_blank" rel="noopener noreferrer"><strong>ms</strong> Registers</a>を参照してください。</p>
+<p><strong>ms 要求</strong></p>
+ <p>外部 <strong>ms</strong> マクロ要求を以下に示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>AB</strong> [<strong>X</strong>]</td>
+
+<td><p>要約を開始します。 <strong>X</strong> がない場合、要約にラベルは付きません。</p>
+ <p>初期値:<strong> -</strong></p>
+ <p>中断:<strong> yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.AE (航空)</strong></td>
+
+<td>要約を終了します。<p>中断:<strong> yes</strong>初期値:<strong>  -</strong></p>
+ <p>中断:<strong> yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>AI</strong><em>名前</em></td>
+
+<td>作成者の所属。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>午前</strong></td>
+
+<td>アクセント・マーク定義を設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>AU</strong><em>名前</em></td>
+
+<td>作成者の名前を設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong></strong> [<strong>X</strong>]</td>
+
+<td><strong>X</strong> をボールド体にします。 <strong>X</strong> がない場合、ボールド体に切り換えます。<p>初期値<strong>:-</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.B1</strong></td>
+
+<td>テキストのボックス化を開始します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.B2</strong></td>
+
+<td>テキストのボックス化を終了し、それを印刷します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>BT</strong></td>
+
+<td>ページの最後にボトム・タイトルを印刷します。<p>初期値:<strong> date</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.BX エックス</strong></td>
+
+<td>ワード <strong>X</strong> をボックス内に印刷します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.CM</strong></td>
+
+<td>ページ間のマークをカットします。<p>初期値:<strong> if t</strong></p>
+ <p>中断:<strong> no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>CT</strong></td>
+
+<td>章タイトルを指定します。ページ番号を CF (TM) に移動します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>DA</strong> [<strong>X</strong>]</td>
+
+<td>日付 <strong>X</strong> を強制的にページのボトムに入れます。 <strong>X</strong> がない場合は、日付は当日となります。<p>初期値:<strong> if n</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>DE</strong></td>
+
+<td>すべての種類の表示 (未充てんのテキスト) を終了します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.DS × Y</strong></td>
+
+<td>キープ付き表示を開始します。 <strong>X</strong>=I、L、C、B。<strong>Y</strong>= インデント。<p>初期値:<strong> I</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ID: Y</strong></td>
+
+<td>キープなしの表示を字下げします。<strong>Y</strong>= インデント。<p>初期値:<strong> 8n、.5i</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>旧</strong></td>
+
+<td>キープなしの左表示を設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>CD</strong></td>
+
+<td>キープなしの表示の中央揃えを行います。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.BD (B)</strong></td>
+
+<td>ブロック表示。ブロック全体の中央揃えを行います。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.EF エックス</strong></td>
+
+<td>偶数ページ・フッター <strong>X</strong> を設定します (<strong>troff</strong> コマンド、
+<strong>.tl</strong> 要求に関しては 3 個所)。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.EH X (X)</strong></td>
+
+<td>偶数ページ・ヘッダー <strong>X</strong> を設定します (<strong>troff</strong> コマンド、
+<strong>.tl</strong> 要求に関しては 3 個所)。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>JA</strong></td>
+
+<td><strong>eqn</strong> コマンドで作成した式の表示を終了します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>EQ</strong> [<strong>X</strong>] [<strong>Y</strong>]</td>
+
+<td>式を取り出します。 <strong>X</strong>=L、I、C で、<strong>Y</strong> は式番号です。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>FE</strong></td>
+
+<td>ページのボトムに脚注を入れるのを終了します。<p>初期値:<strong> -</strong></p>
+ <p>中断<strong>: いいえ</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>FP (FP)</strong></td>
+
+<td>脚注パラグラフに番号を付けます。番号は再定義できます。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>FS</strong><strong> [X］</strong></td>
+
+<td>脚注を開始します。<strong>X</strong> はオプショナルの脚注ラベルです。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>HD</strong></td>
+
+<td>オプションのページ・ヘッダーをヘッダー・マージンの下に設定します。<p>初期値:<strong> undef</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong></strong> [<strong>X</strong>]</td>
+
+<td><strong>X</strong> をイタリック体で印刷します。
+<strong>X</strong> がない場合は、イタリック・フォント <strong>.ft 2</strong> と同じです。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>IP X Y</strong></td>
+
+<td>Iハンギング・タグ <strong>X</strong> でパラグラフをインデントします。 <strong>Y</strong> はインデントするスペースを指定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>IX X Y</strong></td>
+
+<td><strong>X</strong> や <strong>Y</strong> などのワードに 5 つまでのレベルの索引を付けます。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>KE</strong></td>
+
+<td>すべての種類のキープを終了します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>KF (KF)</strong></td>
+
+<td>浮動キープを開始します。テキストの残りを充てんします。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>KS</strong></td>
+
+<td>キープを開始します。文書の単位を単一ページ上に一緒に保存します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>. LG</strong></td>
+
+<td>より大きい型のサイズを設定します。ポイント・サイズを 2 ずつ増やします。 <strong>troff</strong> コマンドの場合にのみ有効です。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>LP</strong></td>
+
+<td>左ブロック・パラグラフを開始します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>MC エックス</strong></td>
+
+<td>複数の列を設定します。 <strong>X</strong> は列幅です。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>ND</strong> [<strong>X</strong>]</td>
+
+<td>ページ・フッター内に日付がないように指定します。
+<strong>X</strong> は隠す日付です。<p>初期値:<strong> if t</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>NH X Y (NH X Y)</strong></td>
+
+<td>番号付きヘッダーを設定します。<strong>X</strong>= レベル。
+<strong>X</strong>=0 リセット、
+<strong>X</strong>=S で、<strong>Y</strong> に設定。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>NEL (航空)</strong></td>
+
+<td>ポイント・サイズをデフォルトに戻します。 <strong>troff</strong> コマンドにのみ有効です。<p>初期値: <strong>10p</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.OF X (X)</strong></td>
+
+<td>奇数ページ・フッター <strong>X</strong> を設定します (<strong>me</strong> マクロ、<strong>.tl</strong> 要求に関しては 3 個所)。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.OH エックス</strong></td>
+
+<td>奇数ページ・ヘッダー <strong>X</strong> を設定します (<strong>me</strong> マクロ、<strong>.tl</strong> 要求に関しては 3 個所)。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.P1</strong></td>
+
+<td>最初のページにヘッダーを印刷します。<p>初期値:<strong> if TM</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.PP</strong></td>
+
+<td>パラグラフの最初の行を字下げします。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong></strong></td>
+
+<td>ページの先頭にページ・タイトルを印刷します。<p>初期値:<strong> %</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.PX エックス</strong></td>
+
+<td>索引 (目次) を印刷します。<strong>X</strong>= タイトルを抑制しません。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>QP</strong></td>
+
+<td>パラグラフを引用符で囲みます (インデントおよび短縮)。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>R</strong> [<strong>X</strong>]</td>
+
+<td>Roman フォントに戻ります。 Roman フォントで印刷します。 <strong>X</strong> がない場合は、フォント <strong>.ft1</strong> と同じです。<p>初期値:<strong> on</strong></p>
+ <p>中断<strong>: いいえ</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.RE (E)</strong></td>
+
+<td>(相対インデントの終了レベルを) 取り去ります。 <strong>.RS</strong> 要求と一緒に使用します。<p>初期値:<strong> 5n</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>RP</strong> [<strong>X</strong>]</td>
+
+<td>公開された文書のフォーマットでタイトル・ページを印刷します。
+<strong>X</strong> がない場合は、最初のページのタイトルを停止します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.RS (システム)</strong></td>
+
+<td>1 つのインデント・レベル (相対インデントの開始レベル) で右シフトを行います。 <strong>.IP</strong> 要求と一緒に使用します。<p>初期値:<strong> 5n</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.SG</strong></td>
+
+<td>署名行を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.SH (.SH)</strong></td>
+
+<td>番号なしセクション・ヘッダーを (ボールド体で) 設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.SM (.SM)</strong></td>
+
+<td>より小さい型のサイズを設定します。ポイント・サイズを 2 ずつ減らします。 <strong>troff</strong> コマンドにのみ有効です。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>TA</strong></td>
+
+<td>タブを 8n、 16n、... に設定します。 ( <strong>nroff）</strong>; 5n, 10n,... (<strong>troff</strong>)。<p>初期値:<strong> 8n</strong>、<strong>5n</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>TC X</strong></td>
+
+<td>目次を最後に印刷します。<strong>X</strong>= タイトルを抑制しません。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.TE</strong></td>
+
+<td><strong>tbl</strong> コマンドによって処理したテーブルを終了します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.th</strong></td>
+
+<td>テーブルの複数ページ・ヘッダーを終了します。 <strong>.TS</strong> H 要求と一緒に使用しなければなりません。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.TL (L)</strong></td>
+
+<td>(ボールド体で、2 ポイント大きく) タイトル行を設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>TM</strong></td>
+
+<td>UC バークレー論文モードを設定します。<p>初期値:<strong> off</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>TS の X</strong></td>
+
+<td>テーブルを開始します。 <strong>X</strong> が H の場合、テーブルはすべてのページにヘッダーを印刷します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>UL X</strong></td>
+
+<td><strong>troff</strong> コマンドの場合でも <strong>X</strong> に下線を引きます。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>UX X</strong></td>
+
+<td><strong>X</strong> <span>ユニックス</span>を設定する。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.XA X Y (X)</strong></td>
+
+<td>別の索引項目を設定します。
+<strong>X</strong>= ページで、何もない場合は <strong>X</strong>= なし。<p>初期値: <strong>-</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>XE</strong></td>
+
+<td>索引項目または一連の <strong>.IX</strong> 要求項目を終了します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>XP の場合:</strong></td>
+
+<td>パラグラフの最初の行を字下げしません。ほかの行は字下げします。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>XS × Y</strong></td>
+
+<td>索引項目を開始します。
+<strong>X</strong>= ページ、何もない場合は <strong>X</strong>= なし、<strong>Y</strong>= インデント。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.1C</strong></td>
+
+<td>次のページから 1 列フォーマットを開始します。<p>初期値:<strong> on</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.2C</strong></td>
+
+<td>2 列フォーマットを開始します。<p>初期値: <strong>-</strong></p>
+ <p>中断: <strong>yes</strong></p>
+ <p>リセット: <strong>yes</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.]-</strong></td>
+
+<td><strong>refer</strong> コマンド・リファレンスの先頭を設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.[0</strong></td>
+
+<td>分類不可タイプのリファレンスの終わりを設定します。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.[N</strong></td>
+
+<td>新聞記事の場合、<strong>N</strong>=1。 本の場合、<strong>N</strong>=2。 本の記事の場合、<strong>N</strong>=3。<p>初期値:<strong> -</strong></p>
+ <p>中断: <strong>no</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>ms レジスター</strong></p>
+ <p>以下に、数値レジスターおよびそれらのデフォルト値を示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>PS</strong></td>
+
+<td>ポイント・サイズを設定します。 パラグラフに有効です。 デフォルトは 10 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>VS</strong></td>
+
+<td>垂直スペーシングを設定します。 パラグラフに有効です。 デフォルトは 12 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LL</strong></td>
+
+<td>行長を設定します。 パラグラフに有効です。 デフォルトは 6i です。</td>
+
+</tr>
+
+<tr>
+<td><strong>LT</strong></td>
+
+<td>タイトルの長さを設定します。 次のページから有効です。 デフォルトは <strong>LL</strong> レジスターの値です。</td>
+
+</tr>
+
+<tr>
+<td><strong>FL</strong></td>
+
+<td>脚注の長さを設定します。 次の <strong>.FS</strong> 要求から有効です。 デフォルトは 5.5i です。</td>
+
+</tr>
+
+<tr>
+<td><strong>pd</strong></td>
+
+<td>パラグラフの距離を設定します。 パラグラフに有効です。 デフォルトは 1v (<strong>nroff</strong> の場合) または .3v (<strong>troff</strong> の場合) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>DD</strong></td>
+
+<td>表示距離を設定します。 表示に有効です。 デフォルトは 1v (<strong>nroff</strong> の場合) または .5v (<strong>troff</strong> の場合) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>PI</strong></td>
+
+<td>パラグラフ・インデントを設定します。 パラグラフに有効です。 デフォルトは 5n です。</td>
+
+</tr>
+
+<tr>
+<td><strong>QI</strong></td>
+
+<td>引用インデントを設定します。 次の <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e127328" target="_blank" rel="noopener noreferrer">で有効になります。QP</a></strong> 要求。 デフォルトは 5n です。</td>
+
+</tr>
+
+<tr>
+<td><strong>FI</strong></td>
+
+<td>脚注インデントを設定します。 次の <strong>.FS</strong> 要求から有効です。 デフォルトは 2n です。</td>
+
+</tr>
+
+<tr>
+<td><strong>PO</strong></td>
+
+<td>ページ・オフセットを設定します。 次のページから有効です。 デフォルトは 0 (ゼロ) (<strong>nroff</strong> の場合) または 1i (<strong>troff</strong> の場合) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>HM</strong></td>
+
+<td>ヘッダー・マージンを設定します。 次のページから有効です。 デフォルトは 1i です。</td>
+
+</tr>
+
+<tr>
+<td><strong>FM</strong></td>
+
+<td>フッター・マージンを設定します。 次のページから有効です。 デフォルトは 1i です。</td>
+
+</tr>
+
+<tr>
+<td><strong>FF</strong></td>
+
+<td>脚注のフォーマットを設定します。 次の <strong>.FS</strong> 要求から有効です。 デフォルトは 0 (ゼロ) です (1、2、3 も使用できます)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>数値レジスターの値をリセットするときは、必ず適切な単位を指定するようにしてください。 行長はただの 7 ではなく 7i に設定しますが、
+これによって 1 行に 1 文字で出力されることになります。 <strong>FF</strong> レジスターを 1 に設定すると、
+脚注のスーパースクリプト付けが抑制されます。 これを 2 に設定すると、さらに最初の行のインデントが抑制されます。 <strong>FF</strong> レジスターを 3 に設定すると、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92c02" target="_blank" rel="noopener noreferrer">.<strong>IP</strong></a> 要求のような脚注パラグラフが生成されます。</p>
+ <p>以下に、<strong>ms</strong> マクロで使用できる文字列レジスターを示します。 これらの文字列レジスターは、テキスト内の任意の場所で使用できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>\*Q</strong></td>
+
+<td>左引用符 (<strong>nroff</strong> では <strong>"</strong>、<strong>troff</strong> では <strong>' '</strong>)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*U</strong></td>
+
+<td>右引用符 (<strong>nroff</strong> では <strong>"</strong>、<strong>troff</strong> では <strong>' '</strong>)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*-</strong></td>
+
+<td>ダッシュ ( <strong>NROFF</strong>の場合は<strong>—</strong> 、 <strong>トロフ</strong>の場合は <strong>-</strong> )</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (MO</strong></td>
+
+<td>月</td>
+
+</tr>
+
+<tr>
+<td><strong>¥ * (DY</strong></td>
+
+<td>日 (現在の日付)</td>
+
+</tr>
+
+<tr>
+<td><strong>\**</strong></td>
+
+<td>脚注に自動的に番号が付けられます</td>
+
+</tr>
+
+<tr>
+<td><strong>\*'</strong></td>
+
+<td>揚音アクセント (文字の前)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*`</strong></td>
+
+<td>抑音符号 (文字の前)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*^</strong></td>
+
+<td>脱字記号 (文字の前)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*,</strong></td>
+
+<td>かぎ形記号 (文字の前)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*:</strong></td>
+
+<td>ウムラウト (文字の前)</td>
+
+</tr>
+
+<tr>
+<td><strong>\*~</strong></td>
+
+<td>ティルド (文字の前)</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e126432" target="_blank" rel="noopener noreferrer">で使用可能な拡張アクセント・マーク定義を使用する場合。AM</a></strong> 要求の場合、これらのストリングは、アクセントを付ける文字の前ではなく後に来る必要があります。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>浮動キープおよび正規キープは同じスペースに転換されるので、これらを混合できません。</li>
+
+<li>日付形式は米国に制限されています。 英語の形式。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>mvt および troff コマンド用 mv マクロ・パッケージ</h2> <p>このパッケージは、いろいろなサイズによるビュー・グラフおよび投射式スライドのタイプセットを簡略化します。 いくつかのマクロで透過性の作成に必要なフォーマット設定作業のほとんどを行うことはできますが、<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff" target="_blank" rel="noopener noreferrer">troff</a></strong>、<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tbl.html#tbl" target="_blank" rel="noopener noreferrer">tbl</a></strong>、<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pic.html" target="_blank" rel="noopener noreferrer">pic</a></strong>、および <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/grap.html" target="_blank" rel="noopener noreferrer">grap</a></strong> の各コマンドの機能全体を使用すれば、より難しい作業も行えます。</p>
+ <p>出力はほとんどの端末、特に Tektronix 4014 上でプレビューすることができます。 このデバイスの場合、 <strong>-rX1</strong> フラグを指定します (このフラグは、 <strong>-D4014</strong> フラグを指定してこのコマンドを呼び出すと、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mvt.html" target="_blank" rel="noopener noreferrer">MvT</a></strong> コマンドによって自動的に指定されます)。 ほかの端末で出力をプレビューするには、<strong>-a</strong> フラグを指定します。</p>
+ <p><strong>mv</strong> マクロについては、以下の見出しに要約されています。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92bb7" target="_blank" rel="noopener noreferrer">Foil-Start マクロ</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92bba" target="_blank" rel="noopener noreferrer">レベル・マクロ</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92bbf" target="_blank" rel="noopener noreferrer">テキスト制御マクロ (Text-Control Macros)</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a151z92bc4" target="_blank" rel="noopener noreferrer">Default-Setting Macros (デフォルト設定マクロ)</a>。</li>
+
+</ul>
+<p><strong>Foil-Start マクロ</strong></p>
+ <p>以下の 9 つのマクロでは、
+名前の最初の文字 (<strong>V</strong> または <strong>S</strong>) によって、
+それぞれビュー・グラフかスライドかが区別されます。
+2 番目の文字はそれぞれ、フォイルが正方形 (<strong>S</strong>)、
+狭い幅 (<strong>w</strong>)、低い高さ (<strong>h</strong>)、
+広い幅 (<strong>W</strong>)、高い高さ (<strong>H</strong>) であることを示します。 スライドは対応するビュー・グラフよりも狭くなります。 長い寸法の短い寸法に対する比率は、ビュー・グラフよりもスライドの方が大きくなります。 結果として、スライド・フォイルをビュー・グラフに使用することはできますが、
+ビュー・グラフをスライド・フォイルに使用することはできません。 一方、ビュー・グラフは少し大きなテキストに適応させることができます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.VS</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td>正方形のビュー・グラフを開始します。 フォイル・サイズは 7 インチ × 7 インチです。 フォイル開始マクロは、すべての変数 (インデントやポイント・サイズなど) を初期デフォルト値にリセットしますが、
+前のフォイル開始マクロから継承された <em>FoilID</em> 変数および <em>Date</em> 変数の値はリセットしません。 <strong>。VS</strong>マクロは <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e128559" target="_blank" rel="noopener noreferrer">も呼び出します。</a></strong> マクロ。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Vw</strong>,<strong>
+ .Vh</strong>,<strong>.VW</strong>,<strong> .VH</strong>, <strong>
+.Sw</strong>,<strong> .Sh</strong>,<strong> .SW</strong>,<strong>
+ .SH</strong></td>
+
+<td><strong>.VS</strong> マクロと同じですが、
+これらのマクロはビュー・グラフ (<strong>V</strong>) またはスライド (<strong>S</strong>) を開始する点が異なります。開始されるビュー・グラフまたはスライドは、狭い幅 (<strong>w</strong>)、低い高さ (<strong>h</strong>)、広い幅 (<strong>W</strong>)、高い高さ (<strong>H</strong>) です。<p>以下のマクロをお勧めします。</p>
+  <ul>
+<li>正方形のビュー・グラフおよびスライドの場合には <strong>.VS</strong>。</li>
+
+<li>35 ミリのスライドの場合には <strong>.Sw</strong> (必要に応じて<strong> .Sh</strong>)。</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.Vw</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 5 インチ×横 7 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Vh</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 7 インチ×横 5 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Vw</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 5.4 インチ×横 7 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Vh</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 9 インチ×横 7 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Sw</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 5 インチ×横 7 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Sh</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 7 インチ×横 5 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Sw</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 5.4 インチ×横 7 インチです。</td>
+
+</tr>
+
+<tr>
+<td><strong>.Sh</strong> [<em>
+FoilNumber</em>] [<em>FoilID</em>] [<em>Date
+</em>]</td>
+
+<td><strong>.VS</strong> マクロと同じですが、フォイル・サイズが縦 9 インチ×横 7 インチです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>。VW</strong> および <strong>.SW</strong> フォイルは、幅 9 インチ、高さ 7 インチを想定しています。 しかし、通常タイプセッター用紙は横幅が 8 インチなので、
+<strong>.VW</strong> フォイルと <strong>.SW</strong> フォイルは縦 5.4 インチ×横 7 インチで印刷され、ビュー・グラフとして使用する前に 9/7 のファクターで拡大する必要があります。</div>
+        </div>
+      </div></div>
+<p><strong>レベル・マクロ</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong></strong> [<em>X</em>]</td>
+
+<td>最初のインデント・レベル (左マージン) の後に続くテキストを配置します。 <em>X</em> 変数を指定すると、先行テキストから半行スペーシングが削除されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>B</strong> [<em>マーク</em> [<em>サイズ</em>]]</td>
+
+<td>2 番目のインデント・レベルの後に続くテキストを配置します。 テキストの前には指定のマーク (デフォルトは大きな中黒) が付けられます。 <em>Size</em> 変数は、<em>一般の</em> ポイント・サイズ (デフォルトは 0) を基準にして、
+そのマークのポイント・サイズに対する増分または減分を指定します。 <em>Size</em> 変数の値を 100 にすると、
+そのマークのポイント・サイズは <em>Mark</em> 変数のデフォルト値と同じになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>C</strong> [<em>マーク</em> [<em>サイズ</em>]]</td>
+
+<td><strong>.B</strong> マクロと同じですが、3 番目のインデント・レベルとなります。 <em>Mark</em> 変数のデフォルト値は em ダッシュです。</td>
+
+</tr>
+
+<tr>
+<td><strong>D</strong> [<em>マーク</em> [<em>サイズ</em>]]</td>
+
+<td><strong>.B</strong> マクロと同じですが、4 番目のインデント・レベルとなります。 <em>Mark</em> 変数のデフォルト値は小さい中黒です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>テキスト制御マクロ (Text-Control Macros)</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>I</strong> [+ /-] [<em>インデント</em>] [A [X]]</td>
+
+<td>現在のテキスト・インデントを変更します (タイトルには影響しません)。 寸法を指定しない限り、指定のインデントの単位はインチです。 デフォルトは 0 です。 <em>Indentation</em> 変数が署名されている場合、それは増分または減分です。 <em>A</em> 変数を指定すると、<strong>.A</strong> マクロが呼び出され、
+<em>X</em> 変数 (ある場合) がこのマクロに渡されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.S</strong> [<em>サイズ</em>] [<em>長さ</em>]</td>
+
+<td>ポイント・サイズおよび行長を設定します。 <em>Size</em> 変数に指定した値はポイント・サイズです (デフォルトは前の値)。 <em>Size</em> 変数値が 100 の場合、
+ポイント・サイズは現在のフォイル開始マクロの<em>初期</em> デフォルト値に復帰します。 <em>Size</em> 変数を指定すると、それは増分または減分となります (デフォルトは、
+<strong>.VS</strong>、<strong>.VH</strong>、
+<strong>.SH</strong> マクロの場合は 18、その他のフォイル開始マクロの場合は 14 となります)。 <em>Length</em> 変数には行長を指定します (寸法を指定する場合以外はインチ単位で指定する。デフォルトは <strong>.Vh</strong> マクロの場合は 4.2、<strong>.Sh</strong> マクロは 3.8、
+<strong>.SH</strong> マクロは 5、その他のフォイル開始マクロは 6 インチ)。</td>
+
+</tr>
+
+<tr>
+<td><strong>T</strong><em> ストリング</em></td>
+
+<td><em>String</em> 変数値を、中央揃えの拡大されたタイトルとして印刷します。</td>
+
+</tr>
+
+<tr>
+<td><strong>U</strong><em> String1</em>[<em>String2</em>]</td>
+
+<td><em>String1</em> 変数値に下線を引き、
+<em>String2</em> 変数値 (指定した場合) をそれに連結します。 この操作の使用はお勧めしません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>デフォルト設定マクロ</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DF</strong> [<em>数値名</em>]<strong>...</strong></td>
+
+<td>フォントの位置を設定します。 フォイル入力テキスト内にそれを表示できません。
+つまり、フォイルの入力テキストの後で、次のフォイル開始マクロの前に指定する必要があります。 指定された数値は、 <em>Name</em> 変数<em>によって指定されたフォントの位置です。</em> <strong>。DF</strong> マクロは、次のように最大 4 組の <em>Number Name</em> 変数を取ります。1 H. 最初の <em>Name</em> 変数は、優先フォントを指定します。 例えば、<strong>.DF 1 H 2 I 3 B 4 S</strong> のように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>DV</strong> [<em>A</em>] [<em>B</em>] [<em>C</em>] [<em>D</em>]</td>
+
+<td>インデント・レベル間の垂直スペーシングを変えます。 <em>A</em>、<em>B</em>、<em>C</em>、
+<em>D</em> 変数で指定した値はそれぞれ <strong>.A</strong>、
+<strong>.B</strong>、<strong>.C</strong>、
+<strong>.D</strong> マクロのスペーシングです。 すべての非 NULL パラメーターに寸法を指定する必要があります。 NULL パラメーターを指定しても対応するスペーシングは変わりません。 デフォルト設定値は <strong>.DV .5v .5v .5v 0v</strong> です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+ <p><strong>.S</strong>、<strong>.DF</strong>、<strong>.DV</strong>、
+<strong>.U</strong> マクロを実行しても中断はありません。 <strong>.I</strong> マクロでは、複数の変数で呼び出した場合にだけ中断が生じます。 その他のマクロではすべて中断が生じます。</p>
+ <p><strong>mv</strong> マクロ・パッケージでは、以下に示す大文字も、
+それぞれ小文字の <strong>troff</strong> コマンド要求の同義語として認識されます。</p>
+ <ul>
+<li><strong>AD</strong></li>
+
+<li><strong>.BR (R)</strong></li>
+
+<li><strong>CE</strong></li>
+
+<li><strong>.FI (映画)</strong></li>
+
+<li><strong>.HY (H)</strong></li>
+
+<li><strong>該当なし</strong></li>
+
+<li><strong>NF (NF)</strong></li>
+
+<li><strong>NH (自動車)</strong></li>
+
+<li><strong>.NX (航空)</strong></li>
+
+<li><strong>.so</strong></li>
+
+<li><strong>.sp</strong></li>
+
+<li><strong>TA</strong></li>
+
+<li><strong>TI</strong></li>
+
+</ul>
+ <p><strong>Tm</strong> 文字列は商標記号を生成します。</p>
+<p><strong>環境変数 (environment variable)</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>LANG</strong></td>
+
+<td>ロケールの同等値を決定します。yyes または no の照会の場合。 使用できる肯定応答は、ロケール変数 <strong>YESSTR</strong> で定義します。 <strong>LANG</strong> を設定しない場合、または空ストリングを設定した場合には、
+デフォルトの C ロケールからの <strong>YESSTR</strong> が使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>nroff および troff コマンド用 nroff および troff 要求</h2> <p>以下の <strong>nroff</strong> および <strong>troff</strong> 要求は、
+指定された作業ファイルまたは標準入力に取り込まれます。 <strong>nroff</strong> および <strong>troff</strong> 要求は、
+<strong>nroff</strong> または <strong>troff</strong> コマンドでファイルまたは標準入力を処理するときにフォーマット出力の特性を制御します。 <strong>nroff</strong> および <strong>troff</strong> 要求は機能ごとに以下のセクションに分けられます。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__du33f0jbar" target="_blank" rel="noopener noreferrer">数値パラメーター入力 (Numerical Parameter Input)</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__azbdb190gsc" target="_blank" rel="noopener noreferrer">フォントと文字サイズの制御</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__ccdb210gsc" target="_blank" rel="noopener noreferrer">ページ制御</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a9ddb270gsc" target="_blank" rel="noopener noreferrer">テキストの充てん、調整、および中央揃え</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__azedb130gsc" target="_blank" rel="noopener noreferrer">縦方向の間隔</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__jkv8210gsc" target="_blank" rel="noopener noreferrer">行の長さとインデント</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a6lva180gsc" target="_blank" rel="noopener noreferrer">マクロ、文字列、逸脱、および位置トラップ</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__rgdb270gsc" target="_blank" rel="noopener noreferrer">数値レジスター</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__pgdb130gsc" target="_blank" rel="noopener noreferrer">タブ、リーダー、およびフィールド</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__hhdb370gsc" target="_blank" rel="noopener noreferrer">入力および出力の規則と文字変換</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a6idb1b0gsc" target="_blank" rel="noopener noreferrer">Hyphenation</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__rzta300gsc" target="_blank" rel="noopener noreferrer">3 部構成のタイトル</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a4jdb310gsc" target="_blank" rel="noopener noreferrer">出力行の番号付け</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__tjdb370gsc" target="_blank" rel="noopener noreferrer">入力の条件付き受け入れ</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__ojdb3b0gsc" target="_blank" rel="noopener noreferrer">環境の切り替え</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a7kdb310gsc" target="_blank" rel="noopener noreferrer">標準入力からの挿入</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__bkdbb0gsc" target="_blank" rel="noopener noreferrer">入出力ファイルの切り替え</a></li>
+
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__skdb310gsc" target="_blank" rel="noopener noreferrer">各種</a></li>
+
+</ul>
+ <p><em>+Number</em> として記述される数値変数は、次のように表します。</p>
+ <ul>
+<li><em>Number</em> 変数自体は絶対値です。</li>
+
+<li><em>+Number</em> 変数は現在の設定値を大きくします。</li>
+
+<li><em>-Number</em> 変数は現行値に関連する変数を小さくします。<div><div>
+        <div>
+          <div><span>注:</span> すべての数値パラメーターについて、数値は ASCII アラビア数字のみを使用して表現されます。</div>
+        </div>
+      </div></div>
+</li>
+
+</ul>
+ <p>このコマンドの最後に記載した注は、注の内容が当てはまる特定の要求の場合について参照してください。</p>
+<p><strong>数値パラメーター入力 (Numerical Parameter Input)</strong></p>
+ <p><strong>nroff</strong> および <strong>troff</strong> 要求はいずれも、
+以下の表に示す追加のスケール・インジケーターとともに数値入力を受け入れます。
+ここで、<em>S</em> は現在のタイプ・サイズ (ポイント)、
+<em>V</em> は現在の垂直ライン・スペーシング (基本単位)、
+<em>C</em> は公称文字幅 (基本単位) を示します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>インディケーター</div></th>
+
+<th><div>意味</div></th>
+
+<th><div>基本 nroff 単位数</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>i</span></span></td>
+
+<td>インチ (troff の場合はマシン依存)</td>
+
+<td>240</td>
+
+</tr>
+
+<tr>
+<td><span><span>c</span></span></td>
+
+<td>センチメートル</td>
+
+<td>240x50/127</td>
+
+</tr>
+
+<tr>
+<td><span><span>P</span></span></td>
+
+<td>パイカ = 1/6 インチ</td>
+
+<td>240/6</td>
+
+</tr>
+
+<tr>
+<td><span><span>m</span></span></td>
+
+<td>Em = S ポイント</td>
+
+<td><em>C</em></td>
+
+</tr>
+
+<tr>
+<td><span><span>n</span></span></td>
+
+<td>En = Em/2</td>
+
+<td><em>C (Emと同じ)</em></td>
+
+</tr>
+
+<tr>
+<td><span><span>p</span></span></td>
+
+<td>ポイント = 1/72 インチ</td>
+
+<td>240/72</td>
+
+</tr>
+
+<tr>
+<td><span><span>u</span></span></td>
+
+<td>基本単位</td>
+
+<td>1</td>
+
+</tr>
+
+<tr>
+<td><span><span>v</span></span></td>
+
+<td>垂直ライン・スペーシング</td>
+
+<td><em>V</em></td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__troff_note_smallk" target="_blank" rel="noopener noreferrer"><strong>K</strong></a></td>
+
+<td>幅半角カナ</td>
+
+<td><em>C</em></td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__troff_note_bigk" target="_blank" rel="noopener noreferrer"><strong>K</strong></a></td>
+
+<td>幅全角漢字</td>
+
+<td><em>C</em> 2 つ</td>
+
+</tr>
+
+<tr>
+<td><em>none</em></td>
+
+<td>デフォルト</td>
+
+<td> </td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>非漢字出力デバイスを選択した場合、en 幅が使用されます。</li>
+
+<li>非漢字出力デバイスを選択した場合、em 幅が使用されます。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+ <p><strong>nroff</strong> 要求の場合、em と en は両方とも <em>C</em> と等しく、
+出力デバイスに依存します。よく使われる値は 1/10 と 1/12 インチです。 <strong>nroff</strong> 要求内の実際の文字幅はすべて同じである必要はなく、<strong>- &gt;</strong> などの事前定義ストリングで構成された文字は、多くの場合、余分に大きくなることがあります。</p>
+ <p>日本語サポート: <strong>nroff</strong> コマンドからの出力ではすべての漢字や一部のカタカナなど全角の日本語文字はすべて、
+<em>C</em> 2 つと同じ固定幅になります。 一部のカタカナなど半角の日本語文字はすべて、<em>C</em> 1 つと同じ固定幅になります。</p>
+ <p>水平に配置された制御文字、垂直に配置された制御文字、および要求 <strong>.nr</strong>、
+<strong>.if</strong>、<strong>.ie</strong> のスケーリングは以下のとおりです。</p>
+ <div> <div><div><pre><code>Orientation         Default             Request or Function
+                    Measure
+
+Horizontal          Em (m)              .ll, .in, .ta, .lt,
+                                        .po, .mc, \h, \l
+
+Vertical            Vertical line       .pl, .wh, .ch, .dt,
+                    space (v)           .sp, .sv, .ne, .rt, \v
+                                        \x, \L
+
+Register-oriented   Basic unit (u)      .nr, .if. .ie
+or Conditional
+
+Miscellaneous       Point (p)           .ps, .vs, \H, \s</code></pre></div><div></div></div></div>
+ <p>その他の要求はすべてスケール・インジケーターを無視します。 適切にスケールされた数値を既に含む数値レジスターが数値入力を提供するように解釈される場合は、
+適切でないデフォルトのスケーリングが追加されるのを防ぐためユニット・スケール・インジケーター <strong>u</strong> を付加する必要があります。 <em>Number</em> は小数を指定することができますが、
+最終的に基本単位の整数値に丸めて保管されます。</p>
+<p><strong>フォントと文字サイズの制御</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.bd</strong><em> フォント番号</em></td>
+
+<td><strong>nroff</strong>を使用するときに、指定されたフォントの文字を指定の回数だけ重ね打ちすることで人為的に太字にするか、<strong>troff</strong>を使用するときには <em>Number </em>-1 の基本単位で区切って各文字を 2 回出力することによって、その文字を人為的に太字にします。 <em>Number</em> 変数を指定しない場合は、ボールド・モードはオフとなります。 <em>Font</em> 値は ASCII フォント名またはフォント位置でなくてはなりません。 <strong>nroff</strong> コマンドの場合、
+<strong>.bd</strong> 要求のデフォルト設定は 3 3 で、
+これは位置 3 にあるフォントの文字 (通常はボールド) を 3 回重ね打ちすることを指定します (つまり、合計 4 回打つ)。<p>フォント名自体は、フォント位置を置き換えることができます。例えば、<strong>.bd</strong><strong> I 3</strong> などです。 <em>Number</em> 変数は、機能的には <strong>nroff</strong> コマンドの <strong>- u</strong> フラグと同一です。 (ボールド・モードは文字を物理的に印字するときに有効でなくてはなりません。) この要求は、<strong>.b</strong> 通常数値レジスターの内容に影響することがあります。</p>
+  <p>ボールド・モードは、物理的な出力時にも有効であるか、再度有効にしなければなりません。 例えば、DASI 300 などのプリンターによってローカルで制御可能な場合は、
+<strong>nroff</strong> コマンドのボールド・モードをオフにできません。</p>
+  <p>初期値: Off</p>
+  <p>値を指定しない場合:<strong> -</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.bd S</strong><em> フォント番号</em></td>
+
+<td>指定されたフォントが現在のフォントである場合に特殊フォントの文字をボールドにします。 モードは、文字を物理的に印刷するときに有効でなくてはなりません。 <em>Font</em> 値は ASCII フォント名またはフォント位置でなくてはなりません。 モードは、物理的な出力時にも有効であるか、再度有効にしなければなりません。<p>初期値: Off</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.cs</strong><em> フォント番号 M</em></td>
+
+<td>一定の文字スペース (幅) モードを <em>Font</em> 変数値 (マウントされている場合) に設定します。 各文字の幅は <em>Number</em> 変数を 36 em で割ることで指定した値となります。 <em>M</em> 変数を指定しない場合は、em の幅は文字のポイント・サイズになります。
+<em>M</em> 変数を指定した場合は、
+幅は <em>M</em> 変数マイナス・ポイントで指定した値となります。 実際の幅がこのスペースよりも大きい文字を含め、
+該当する文字はすべてこのスペースに中央揃えされます。 指定フォントが現在のフォントである場合の特殊フォント文字も同様に扱います。 <em>Font</em> 値は ASCII フォント名またはフォント位置でなくてはなりません。 <em>Number</em> 変数を指定しない場合は、モードはオフとなります。 モードは、文字を物理的に印刷するときに有効でなくてはなりません。 この要求は <strong>nroff</strong> コマンドによって無視されます。 関連する値は現在の環境の一部です。 モードは、物理的な出力時にも有効であるか、再度有効にしなければなりません。<p>初期値: Off</p>
+  <p>値を指定しない場合:<strong> -</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.fp</strong><em> フォント番号</em>[ <em>File </em>]</td>
+
+<td>フォントの位置を指定します。 これは指定フォントが <em>Number</em> 変数によって指定された位置にマウントされていることを示します。 <em>Font</em> 変数は 1 文字か 2 文字の ASCII フォント名でなくてはなりません。<div><div>
+        <div>
+          <div><span>重要:</span> <em>Font</em> 変数が指定されていない場合、これはリカバリー不能エラーです。</div>
+        </div>
+      </div></div>
+ <p><strong>.fp</strong> 要求は、3 番目のオプション変数である <em>File</em> 変数を受け入れます。これは、指定されたフォント<em>を含むファイルの実際のパス名です。</em> <em>File</em> 変数の値は任意の有効なファイル名とすることができ、
+拡張文字を入れることができます。</p>
+  <p>日本語サポート<strong>:</strong> <em>File</em> の値は任意の有効なファイル名とすることができます。 値はタイプセッターまたはプリンターに依存します。</p>
+  <p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ft</strong><em> フォント</em></td>
+
+<td>フォント・スタイルを指定フォントに変更します。
+<em>Font</em> の値が数値の場合は、その位置にマウントされたフォントに変更します。 または、<strong>&amp;#xa5;f</strong><em>Font</em> コマンドを埋め込みます。 フォント名 <strong>P</strong> は前のフォントを意味します。 <em>Font</em> 変数値は ASCII フォント名またはフォント位置としなければなりません。<p>2 文字のフォント名を使用する場合は、代替の <strong>.ft</strong>、<strong>&amp;#xa5;f</strong> の形式で指定します。 関連する値は現在の環境の一部です。 値はタイプセッターまたはプリンターに依存します。</p>
+  <p>初期値: Roman</p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ps</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>ポイント・サイズを +/-<em>Number</em> 変数で指定した値に設定します。 任意の正のサイズの値を要求することができますが、無効なサイズを指定すると、
+最も近い有効なサイズが使用されます。 サイズ 0 の場合は前のサイズが使用されます。 ほかに、<strong>&amp;#xa5;s</strong><em>Number</em> または <strong>&amp;#xa5;s</strong>+/-<em>Number</em> を使用できます。<em>Number</em> の値が 2 桁の場合は、<strong>&amp;#xa5;s(</strong><em>Number</em> または <strong>&amp;#xa5;s</strong>+/-<strong>(</strong><em>Number</em> を使用します。 以前のバージョンの <strong>troff</strong> コマンドとの互換性を保つため、この形式は <em>n </em>= <strong>10</strong>、<strong>11</strong>、<strong>12</strong>、<strong>14</strong>、<strong>16</strong>、<strong>18</strong>、<strong>20</strong>、<strong>22</strong>、<strong>24</strong>、<strong>28</strong>、<strong>36</strong> の 2 桁の値の場合に有効です。<p>この要求は <strong>nroff</strong> コマンドによって無視されます。 関連する値は現在の環境の一部です。</p>
+  <p>初期値: 10 ポイント</p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ss</strong><em> 数値</em></td>
+
+<td>スペース文字サイズを、指定の数を 36 em で割った値に設定します。 このサイズは調整したテキストの最小ワード・スペーシングです。 この要求は <strong>nroff</strong> コマンドによって無視されます。 関連する値は現在の環境の一部です。<p>初期値: 12/36 em</p>
+  <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>ページ制御</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.bp</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>中断ページを指定します。 現行ページは排出され、新しいページが開始されます。 +/-<em>Number</em> 変数を指定した場合、その値は新しいページ番号になります。 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130232" target="_blank" rel="noopener noreferrer">.ns</a></strong> 要求も参照してください。<p>この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています <strong>「</strong> 」 (「<strong>.</strong>」の代わり) 中断機能を抑止します。</p>
+  <p>初期値: <em>Number</em>=<strong>1</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.mk</strong><em> 登録</em></td>
+
+<td>現在の垂直位置 (または現在の逸脱の位置) を内部レジスター (現在の逸脱レベルと関連する) または指定レジスター (指定されている場合) に保管します。 <em>Register</em> 変数は数値レジスターの ASCII 名です。 モードまたは関連する値は現在の逸脱レベルと関連します。 詳しくは、 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e129875" target="_blank" rel="noopener noreferrer">.rt</a></strong> 要求を参照してください。<p>初期値: なし</p>
+  <p>値を指定しない場合: Internal</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ne</strong><em> 番号 D</em></td>
+
+<td>指定した垂直スペースが必要なことを示します。 必要なページ・スペース (<em>Number</em>) が次のトラップまでの距離 (<em>D</em>) より大きい場合、サイズ <em>D</em> の前方垂直スペースが発生し、トラップが生じます。 ページに残りのトラップがない場合、<em>D</em> 変数で指定したサイズは、
+ページの下部までの距離となります。 次のトラップまでの距離 (<em>D</em>) が 1 つの垂直行スペース (<strong>v</strong>) より小さい場合は、トラップが生じる前に、さらに別の行が出力されることがあります。 逸脱時には、<em>D</em> で指定されたサイズは、逸脱トラップまでの距離 (このトラップがある場合)、または非常に大きいサイズとなります。<p><em>D</em> の値は通常 <strong>.t </strong><em>Number</em> レジスターに保存されます。 モードまたは関連する値は現在の逸脱レベルと関連します。</p>
+  <p>初期値: <em>Number</em>=<strong>1</strong><em>V</em></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.pl</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>ページ長さを +/-<em>Number</em> 変数値に設定します。 内部の制約は <strong>nroff</strong> コマンドでは約 136 インチですが、
+<strong>troff</strong> コマンドの場合はデバイスの種類によって異なります。 <strong>troff</strong> コマンドに適切な最大値は 75 インチです。 現在のページ長さは <strong>.p</strong> レジスターで使用可能です。<p>初期値: 11 インチ</p>
+  <p>値を指定しない場合: 11 インチ</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.pn</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>次のページ (作成された場合) のページ番号が +/-<em>Number</em> 変数で指定されたページ番号となるように指定します。 <strong>.pn</strong> 要求は、テキストを最初に印刷する前、
+または改ページが起こって最初のページのページ番号に影響を与える前に行わなくてはなりません。 現在のページ番号は <strong>%</strong> レジスターにあります。<p>初期値: <em>Number</em>=<strong>1</strong></p>
+  <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.po</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>ページ・オフセットを指定します。 現在の左マージンは +/-<em>Number</em> 変数値に設定されます。 <strong>troff</strong> コマンドの初期値では左マージンは 1 インチとなっています。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__jkv8210gsc" target="_blank" rel="noopener noreferrer">「行の長さとインデント」</a>を参照してください。 現在のページ・オフセットは、<strong>.o</strong> レジスターで使用可能です。<p>初期値: <strong>nroff</strong> コマンドの場合 <strong>0</strong>、<strong>troff</strong> コマンドの場合 <strong>1</strong></p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.rt</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>現在の逸脱の指定された垂直位置に上方にだけ戻ります。 +/-<em>Number</em> 変数値を (現在の位置と相対的に) 指定した場合、
+位置はページの上部または逸脱から +/-<em>Number</em> で指定した値となります。 <em>Number</em> 変数を指定しない場合は、
+位置は前の <strong>.mk</strong> 要求によって指定されます。 モードまたは関連する値は現在の逸脱レベルと関連します。<p><strong>.sp</strong> 要求は、すべての場合に <strong>.rt</strong> 要求の代わりに使用できます。
+これは、例えば文字列 <strong>.mk</strong> <em>Register </em>. . . <strong>.sp</strong>|&amp;#xa5;<strong>n</strong>R<strong>u</strong> を使用するときなど、明示的なレジスターに保管されている絶対位置にスペーシングを行うことによって可能です。</p>
+  <p>初期値: なし</p>
+  <p>値を指定しない場合: Internal</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>テキストの充てん、調整、および中央揃え</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.ad</strong><em> インディケーター</em></td>
+
+<td>行のアジャストを開始します。 充てんモードがオンでなければ、アジャストは充てんモードがオンになるまで据え置かれます。 <em>Indicator</em> 変数を指定する場合は、
+アジャストのタイプは以下のリストに示すように変更されます。<dl>
+<dt>インディケーター</dt>
+
+<dd><strong>アジャストの種類</strong></dd>
+
+
+<dt><strong><em>l</em></strong></dt>
+
+<dd>左マージンのみ調整します。</dd>
+
+
+<dt><strong><em>R</em></strong></dt>
+
+<dd>右マージンのみ調整します。</dd>
+
+
+<dt><strong><em>C</em></strong></dt>
+
+<dd>中央揃え。</dd>
+
+
+<dt><strong><em>b</em></strong> または <strong><em>n</em></strong></dt>
+
+<dd>左右マージンを調整します。</dd>
+
+
+<dt>ブランク</dt>
+
+<dd>アジャストしません。</dd>
+
+</dl>
+  <p></p>
+  <p>アジャスト・インジケーターは、<strong>.j</strong> レジスターから入手した数値にすることもできます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>日本語サポート:</strong></p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>インディケーター</div></th>
+
+<th><div>アジャストの種類</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>k</em></td>
+
+<td>禁則処理を有効にします (<strong>.ad n</strong>、<strong>.ad b</strong>、<strong>.ad l</strong> で無効にする)。<p>通常、日本語のテキスト行は、行を開始または終了する文字に関係なくマージンまで充てんされます。 禁則処理を有効にした場合、行末に左括弧がきたり、行頭に右括弧や句読点がくることを禁止します。 行が左括弧で終わる場合は、その行は短いままで左括弧は次の行の先頭に送られます。 行が右括弧や句読点で始まる場合は、直前の行を長くし、右括弧や句読点で終わるようにします。 漢字に対応していない出力デバイスで日本語の禁則処理を指定しても無効です。</p>
+  <p>関連する値は現在の環境の一部です。</p>
+  <p>初期値: Adjust、both</p>
+  <p>値を指定しない場合: Adjust</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.br</strong></td>
+
+<td>中断を指定します。 現在作成中の行の充てんを停止し、アジャストせずに出力します。 スペース文字で始まるテキスト行と空のテキスト行 (ブランク行) も改行されます。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ce</strong> [<em>数値</em>]</td>
+
+<td>現在の行長からインデントをマイナスした範囲で指定数の次の入力テキスト行を中央揃えします。 <em>Number</em> 変数が 0 の場合は、残りのカウントはクリアされます。 それぞれの <em>Number</em> 変数入力行の後で改行されます。 入力行が長すぎる場合は左寄せされます。 関連する値は現在の環境の一部です。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています <strong>' </strong>"("<strong>.</strong>" の代わり) 中断機能を抑止します。<p>初期値: Off</p>
+  <p>値が指定されていない場合: <em>Number</em>=<strong>1</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.fi (.fi)</strong></td>
+
+<td>以降の出力行を充てんします。 <strong>.u</strong> レジスターの値は、充てんモードでは 1、非充てんモードでは 0 となります。 関連する値は現在の環境の一部です。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています <strong>' </strong>"("<strong>.</strong>" の代わり) 中断機能を抑止します。<p>初期値: Fill</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>「.na」</strong></td>
+
+<td>非アジャスト・モードを指定します。 アジャストは行いません。右マージンはそろいません。 <strong>.ad</strong> 要求のアジャストの種類は変わりません。 充てんモードをオンにした場合は出力行は充てんされます。 関連する値は現在の環境の一部です。<p>初期値: なし</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.nf</strong></td>
+
+<td>非充てんモードを指定します。 以降の出力行の充てんも行末調整も行いません。 入力テキスト行は現在の行長に関係なく直接出力行にコピーされます。 関連する値は現在の環境の一部です。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています '<strong> </strong>"("<strong>.</strong>" の代わり) 中断機能を抑止します。<p>初期値: Fill</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>縦方向の間隔</strong></p>
+ <div>  
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ブランク・テキスト行</strong></td>
+
+<td>中断し、<strong>.sp</strong><strong>1</strong> 要求と同様にブランク行を 1 行出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ls</strong><em> 数値</em></td>
+
+<td>行スペーシングを +/-<em>Number</em> 変数で指定した値に設定します。 <em>Number</em> <strong>-1</strong> <em>V</em><strong>s</strong> (ブランク行) 変数値が、各出力テキスト行に追加されます。 テキストまたは前に付加したブランク行がトラップ位置に達した場合は、付加されたブランク行は省略されます。 関連する値は現在の環境の一部です。<p>初期値: <strong>1</strong></p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ns (.ns)</strong></td>
+
+<td>スペースなしモードを有効にします。 このモードになると、次のページ番号のない <strong>.sp</strong> および <strong>.bp</strong> 要求は禁止されます。 スペースなしモードは、1 行の出力が行われる場合に、
+または <strong>.rs</strong> 要求によって解除されます。 この要求では通常中断が発生します。<p>初期値: スペース</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.OS</strong></td>
+
+<td>保存した垂直スペースを出力します。 スペースなしモードは無効になります。 前の <strong>.sv</strong> 要求によって要求された垂直スペースのブロックを出力するために使用します。<p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.rs</strong></td>
+
+<td>スペーシングを回復します。 スペースなしモードは無効になります。 この要求では通常中断が発生します。<p>初期値: なし</p>
+  <p>値を指定しない場合:<strong> -</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.sp</strong><em> 番号</em></td>
+
+<td>いずれかの方向に垂直にスペースを空けます。 <em>Number</em> 変数値が負の場合は後方 (上方) に移動し、
+ページの上部までとなります。 前方 (下方) への移動は、最も近いトラップまでになります。 スペースなしモードが有効な場合、スペーシングは行われません。 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130232" target="_blank" rel="noopener noreferrer">.ns</a></strong> および <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130277" target="_blank" rel="noopener noreferrer">.rs</a></strong> 要求を参照してください。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 "'" ("." ではなく) を使用してこの要求を呼び出しています。 中断機能を抑止します。<p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: <strong>1</strong><em>V</em></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.sv</strong><em> 数値</em></td>
+
+<td>指定サイズの連続した垂直ブロックを保存します。 次のトラップまでの距離が <em>Number</em> 変数値より大きい場合、
+指定された垂直スペースが出力されます。 スペースなしモードは無効になります。 この距離が指定された垂直スペースより小さい場合、垂直スペースは即時には出力されませんが、後の出力のために記憶されます ( <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130256" target="_blank" rel="noopener noreferrer">.os</a></strong> 要求を参照してください)。 以降の <strong>.sv</strong> 要求は記憶されている <em>Number</em> 変数値を上書きします。<p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: <em>Number</em>=<strong>1</strong><em>V</em></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.vs</strong><em> 番号</em></td>
+
+<td>垂直ベースライン・スペーシング・サイズ <em>V</em> を <em>Number</em> 変数に設定します。 <strong>&amp;#xa5;x</strong> <em>N</em> を使用すると、一時的な余分垂直スペースを指定できます。 関連する値は現在の環境の一部です。<p>初期値: <em>Number</em> 変数は、<strong>nroff</strong> コマンドの場合 1/16 インチ、<strong>troff</strong> コマンドの場合 12 ポイントです。</p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>行の長さとインデント</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.in</strong> [+/-]<em>Number</em></td>
+
+<td>インデントを +/-<em>Number</em> 変数値に設定します。 インデントは各出力行の前に付加されます。 関連する値は現在の環境の一部です。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています <strong>「</strong> 」 (「<strong>.</strong>」の代わり) 中断機能を抑止します。<p>初期値: <em>Number</em>=<strong>0</strong></p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ll</strong> [+ /-]<em>数値</em></td>
+
+<td>行長を +/-<em>Number</em> 変数の値に設定します。 <strong>troff</strong> コマンドでは行長の最大 + ページ・オフセットはデバイスに依存します。 関連する値は現在の環境の一部です。<p>初期値: 6.5 インチ</p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ti</strong> [+ /-]<em>数値</em></td>
+
+<td>一時的なインデントを指定します。 次の出力テキスト行は現在のインデントに対して +/-<em>Number</em> 変数で指定した値の位置に字下げされます。 <em>Number</em> 変数値が負の場合は、現在のインデントから後方にスペーシングし、
+結果のインデントの値は 0 となりますが (現在のページ・オフセットに対して)、
+現在のページ・オフセットより小さくすることはできません。 一時的なインデントは要求の後の 1 出力行にのみ適用されます。
+<strong>.i</strong> レジスターに書き込まれている現在のインデントの値は変わりません。<p>関連する値は現在の環境の一部です。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています <strong>「</strong> 」 (「<strong>.</strong>」の代わり) 中断機能を抑止します。</p>
+  <p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>マクロ、文字列、逸脱、および位置トラップ</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.am</strong><em> Macro1</em> [ <em>Macro2</em> ]</td>
+
+<td><em>マクロ 1</em>に追加します。 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130648" target="_blank" rel="noopener noreferrer">.de</a></strong> 要求のバージョンを追加します。 <em>Macro1</em> 変数と <em>Macro2</em> 変数はいずれも、
+1 文字または 2 文字の ASCII 文字でなくてはなりません。 <em>Macro2</em> は逸脱を終了するための終了シーケンスです。<p>初期値:<strong> -</strong></p>
+  <p>値が指定されていない場合: <strong>.</strong><em>Macro2</em><strong>=..</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.as</strong><em> StringName ストリング</em></td>
+
+<td>指定されたストリングを、 <em>StringName</em> 変数で指定された値に追加します。 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130736" target="_blank" rel="noopener noreferrer">.ds</a></strong> 要求の付加されたバージョンです。 <em>StringName</em> 変数値は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ch</strong><em> マクロ</em> [<em>Number</em>]</td>
+
+<td>指定マクロのトラップ位置を <em>Number</em> 変数で指定した値に変更します。 <em>Number</em> 変数を指定しない場合は、トラップ (ある場合) は除去されます。 <em>Macro</em> 変数値は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.da</strong> [<em>マクロ</em>]</td>
+
+<td>転送し、指定されたマクロに追加し、 <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__row-d3e130709" target="_blank" rel="noopener noreferrer">.di</a></strong> 要求のバージョンを追加します。 <em>Macro</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。 モードまたは関連する値は現在の逸脱レベルと関連します。<p>初期値: -</p>
+  <p>値を指定しない場合: 現在の逸脱を終了します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.de</strong><em> Macro1</em> [ <em>Macro2</em> ]</td>
+
+<td><em>Macro1</em> 変数で指定した値を定義または再定義します。 マクロの内容は次の入力行から始まります。 入力行はコピー・モードで <em>.Macro2</em> で始まる行で定義が停止されるまでコピーされます。 <em>Macro2</em> 変数がない場合、定義は "<strong>..</strong>" で始まる行で停止されます。 停止するマクロが異なるか、含まれる定義ターミネーターが隠されている場合、
+マクロには <strong>.de</strong> 要求を組み込むことができます。 「<strong>..</strong>」 「<strong>\\</strong> 」として隠蔽することができます。 which copies as "<strong>¥ ...</strong>" 「<strong>..</strong>」として再読み取りされます。 <em>Macro1</em> 変数と <em>Macro2</em> 変数はそれぞれ、
+1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値:<strong> -</strong></p>
+  <p>値が指定されていない場合: <strong>.</strong><em>Macro2</em><strong>=..</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.di</strong> [<em>マクロ</em>]</td>
+
+<td>出力を指定マクロに逸脱します。 通常のテキスト処理は、ページ・オフセットを除き逸脱時に行われます。 <strong>.di</strong> または <strong>.da</strong> 要求が変数なしであった場合に逸脱は終了します。 このような特殊な要求は、逸脱をネストした場合は表示されません。 <em>Macro</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。 モードまたは関連する値は現在の逸脱レベルと関連します。<p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: End</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ds</strong><em> StringName ストリング</em></td>
+
+<td><em>StringName</em> 変数で指定した文字列に <em>String</em> 変数で指定した値が含まれるように定義します。 <em>String</em> の最初の二重引用符は最初に空白を入れるために削除されます。 <em>StringName</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ds </strong><em>StringName </em>^A &lt;<em>SetNumber</em>&gt;  &lt;<em>MessageNumber</em>&gt;  [^A”&lt;<em>DefaultMessage</em>&gt; “] [^A&lt;<em>Argument</em>&gt; ^B&lt;<em>Argument</em>&gt; ^B &lt;<em>Argument</em>&gt;...]</td>
+
+<td>言語に依存しない文字列定義のためにメッセージ・カタログを使用できるように、
+代替の <strong>.ds</strong> 構文を提供します。<p>ロケール特定のカタログ内のメッセージ <em>SetNumber</em> および <em>MessageNumber</em> に基づき、
+メッセージ・カタログはコピー・モードで読み取られ、対応するメッセージは <em>StringName</em> 変数に入れられます。 メッセージ・セットとメッセージ番号を指定する初期シーケンスは下位互換性のために省略可能です。 ASCII コード Control-A (<strong>^A</strong>) を使用して、メッセージ識別、
+デフォルト・メッセージ、オプションの引数リストを区切ります。 ASCII コード Control-B (<strong>^B</strong>) を使用して、
+個別のオプションの引数リストを区切ります。</p>
+ <p>次の例では、</p>
+ <div> <div><div><pre><code>.ds {c ^A2 41^A”ERROR: (%1$s) input line \
+%2$s“ ^A\n(.F^B\n(.c</code></pre></div><div></div></div></div>
+ <p>2メッセージ・セット番号です。</p>
+ <p>41メッセージ番号です。</p>
+ <p>引用符内のテキスト (”<em>. . .</em>“)はデフォルト・メッセージです。</p>
+ <p>\n(.F現在の入力ファイルの名前です。</p>
+ <p>\n(.c入力ファイルから読み取られた行の数です。</p>
+ <p><strong>troff</strong> コマンドを以下の条件で実行する場合を考えます。</p>
+ <ul>
+<li>セット 2 および番号 41 のメッセージがデフォルト・メッセージと一致する。</li>
+
+<li>現在の入力ファイルは以下のとおりです。paper.doc</li>
+
+<li><strong>.ds</strong> 指示は入力ファイルの 124 行目にある。</li>
+
+</ul>
+ <p>ストリング{c次のように定義されます。</p>
+ <div> <div><div><pre><code>ERROR: (paper.doc)input line 123</code></pre></div><div></div></div></div>
+ <p>ほかの例を以下に示します。</p>
+ <div> <div><div><pre><code>.ds {c ^A2 41
+/* Without optional default message */
+
+.ds {c ^A2 41^A”ERROR: (%1$s) input file \
+%2$s“ /* Without optional arguments */</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><p>セット番号とメッセージ番号をともに 0 に設定した場合は、
+現在の日付が現在の地域のフォーマットで戻ります。 ユーザー定義の日付フォーマット文字列はデフォルト・メッセージ・フィールドに定義することができます。 ユーザー定義の書式制御ストリングは、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_bostechref/strftime.html" target="_blank" rel="noopener noreferrer">StrfTime</a></strong> 関数 <span> <em>テクニカル・リファレンス: 基本オペレーティング・システムおよび拡張機能</em> での</span>で概説されている変換仕様に準拠している必要があります。</p>
+ <p>次の例を示します。</p>
+ <div> <div><div><pre><code>.ds DT^A0 0</code></pre></div><div></div></div></div>
+ <p>現在日付が 1991 年 7 月 10 日 (英語 U.Sロケール) の場合、DTとして定義されます。7/10/91.</p>
+ <div> <div><div><pre><code>.ds DT^A0 0^A”Today is %B %d, %Y“</code></pre></div><div></div></div></div>
+ <p>現在日付が 1991 年 7 月 10 日 (英語 U.Sロケール) の場合、DTとして定義されます。Today is July 10,
+1991.</p>
+ <p>2 番目の構文メソッドは一般的に使用するためのものではありません。 内部で生成されるメッセージの国際化対応を容易にするためシステムに付属の <strong>nroff</strong> および <strong>troff</strong> マクロ・ファイルに使用します。</p>
+ <p>初期値: <strong>-</strong></p>
+ <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.dt</strong><em> 数値マクロ</em></td>
+
+<td>指定マクロを開始するために、現在の逸脱の <em>Number</em> 変数で指定された位置に逸脱トラップをインストールします。 ほかの <strong>.dt</strong> 要求は逸脱トラップを定義し直します。 変数を指定しない場合は、逸脱トラップは除去されます。 <em>Macro</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。 モードまたは関連する値は現在の逸脱レベルと関連します。<p>初期値: <strong>-</strong></p>
+ <p>値を指定しない場合: Off</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.em</strong><em> マクロ</em></td>
+
+<td>すべての入力が終了したときに指定マクロを呼び出します。 最後に処理したファイルの終わりに指定マクロの内容がある場合と同じように実行されます。 指定マクロは 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値: なし</p>
+ <p>値を指定しない場合: なし</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.it</strong><em> 数値マクロ</em></td>
+
+<td><em>Number</em> 変数で指定したテキスト入力行数を読み取った後に (制御行または要求行は数えません) 指定マクロを呼び出すように入力行カウント・トラップを設定します。 テキストは、インライン・テキスト、あるいは明示的 (インライン・コールによる) または暗示的 (トラップによる) に呼び出したマクロによって提供されるテキストとすることができます。 <em>Macro</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。 関連する値は現在の環境の一部です。<p>初期値: <strong>-</strong></p>
+ <p>値を指定しない場合: Off</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.rm</strong><em> 名前</em></td>
+
+<td>指定した要求、マクロ、文字列を除去します。 <em>Name</em> 変数値が名前リストから除去され、関連する記憶スペースが解放されます。 以降のリファレンスは無効になります。 <em>Name</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値: <strong>-</strong></p>
+ <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>rn</strong><em> Name1</em><em> Name2</em></td>
+
+<td><em>Name1</em> 変数で指定した要求、マクロ、文字列を、<em>Name2</em> 変数で指定した値に変更します。 <em>Name1</em> および <em>Name2</em> 変数値は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値: 無視されます。</p>
+ <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.wh</strong><em> 数値マクロ</em></td>
+
+<td><em>Number</em> 変数で指定したページ位置に指定マクロを呼び出すためにトラップをインストールします。 <em>Number</em> 変数に負の値を指定した場合は、ページの最後の行から数えるものと解釈します。 <em>Number</em> 変数で指定したページ位置に以前に埋め込んだマクロは、<em>Macro</em> 変数値に置換されます。 <em>Number</em> 変数が 0 の場合は、ページの上部を示します。 <em>Macro</em> 変数を指定しない場合は、<em>Number</em> 変数で指定されたページ位置にある最初のトラップが除去されます (ある場合)。 <em>Macro</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値: <strong>-</strong></p>
+ <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>数値レジスター</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.af</strong><em> レジスター</em><em> Indicator</em></td>
+
+<td><em>Indicator</em> 変数で指定したフォーマットを指定レジスターに割り当てます。 <em>Register</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。 使用可能なフォーマット <em>Indicator</em> 変数値は以下のとおりです。<dl>
+<dt>インディケーター</dt>
+
+<dd>番号の順序</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>0,1,2,3,4,5, . . .</dd>
+
+
+<dt><strong>001</strong></dt>
+
+<dd>000,001,002,003,004,005, . . .</dd>
+
+
+<dt><strong>i</strong></dt>
+
+<dd>0,i,ii,iii,iv,v, . . .</dd>
+
+
+<dt><strong>I</strong></dt>
+
+<dd>0,I,II,III,IV,V, . . .</dd>
+
+
+<dt><strong>a</strong></dt>
+
+<dd>0,a,b,c, . . . ,z,aa,ab, . . . ,zz,aaa, . . .</dd>
+
+
+<dt><strong>A</strong></dt>
+
+<dd>0,A,B,C, . . . ,Z,AA,AB, . . . ,ZZ,AAA, . . .</dd>
+
+</dl>
+  <p></p>
+  <p><em>N</em> 桁のアラビア形式インジケーター (例えば 000000001) は、<em>N</em> 桁のフィールド幅を意味します。 読み取り専用レジスターと幅機能は常にアラビア数値を扱います。</p>
+  <p>日本語サポート<strong>:</strong> 次の値は日本語の漢数字出力のフォーマットのための文字幅を指定します。</p>
+  <dl>
+<dt><strong>k</strong></dt>
+
+<dd>数字は漢数字としてフォーマットされます。 非漢字コード・セットを指定している場合にこれを要求すると、警告メッセージが出力され、
+<strong>1</strong> フォーマットが使用されます。<p>初期値: Arabic</p>
+  <p>値を指定しない場合:<strong> -</strong></p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.nr</strong><em> 登録</em> +/-<em>Number1 Number2</em></td>
+
+<td>以前の値 (ある場合) に対して、+/-<em>Number</em> 変数で指定した値を指定レジスターに割り当てます。 自動増分の増分値は <em>Number2</em> 変数値に設定されます。 <em>Register</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.rr</strong><em> 登録</em></td>
+
+<td>指定レジスターを除去します。 多数のレジスターを動的に作成する場合、新しいレジスターのための内部記憶スペースを再度確保するために必要のないレジスターを除去することが必要になる場合があります。 <em>Register</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>タブ、リーダー、およびフィールド</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.fc</strong><em> 区切り文字標識</em></td>
+
+<td>フィールド区切り文字を指定区切り文字に設定します。
+埋め込みインジケーターはスペース文字または指定インジケーターに設定されます。 変数を設定しない場合は、フィールドの機能はオフになります。 <em>Delimiter</em> 変数値と <em>Indicator</em> 変数値は ASCII 文字でなくてはなりません。<p>初期値: Off</p>
+ <p>値を指定しない場合: Off</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.lc</strong><em> 文字</em></td>
+
+<td>リーダー繰り返し文字を指定文字に設定するか、指定を取り消します。 <em>Character</em> 変数値は 1 文字の ASCII 文字でなくてはなりません。 関連する値は現在の環境の一部です。<p>初期値: <strong>.</strong></p>
+ <p>値を指定しない場合: なし</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ta</strong><em> 停止</em> [<em>Type</em>]<em>...</em></td>
+
+<td>タブ・ストップを設定します<em>。</em> デフォルトのタブ・ストップは、<strong>nroff</strong> コマンドの場合 8 文字おきに、
+<strong>troff</strong> コマンドの場合 1/2 インチおきに設定されます。 スペースで区切ると、複数の <em>StopType</em> の対を指定できます。<strong>+</strong> (正符号) が前に付いた値は前のストップ値に対する増分として扱われます。<p>指定するタブの種類は、タブ・ストップでテキストをどのようにアジャストするかを決定します。 <em>Type</em> 変数値は以下のとおりです。</p>
+  <dl>
+<dt><strong>Type</strong></dt>
+
+<dd><strong>調整</strong></dd>
+
+
+<dt><strong>R</strong></dt>
+
+<dd>右寄せ</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>中央揃え</dd>
+
+
+<dt><strong>ブランク</strong></dt>
+
+<dd>左寄せ</dd>
+
+</dl>
+  <p>関連する値は現在の環境の一部です。</p>
+  <p>初期値: <strong>nroff</strong> コマンドの場合 8 en、<strong>troff</strong> コマンドの場合 0.5 インチ</p>
+  <p>値を指定しない場合: なし</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.tc</strong><em> 文字</em></td>
+
+<td>タブ繰り返し文字を指定文字に設定するか、指定を取り消します。 <em>Character</em> 変数値は 1 文字の ASCII 文字でなくてはなりません。 関連する値は現在の環境の一部です。<p>初期値: なし</p>
+  <p>値を指定しない場合: なし</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>入出力規則および文字変換</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.cc</strong><em> 文字</em></td>
+
+<td>基本的な制御文字を指定文字に設定するか、"<strong>.</strong>" にリセットします。 <em>Character</em> 変数値は 1 文字の ASCII 文字でなくてはなりません。 関連する値は現在の環境の一部です。<p>初期値: <strong>.</strong></p>
+  <p>値を指定しない場合: <strong>.</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.cu</strong> [<em>数値</em>]</td>
+
+<td><strong>.ul</strong> 要求の応用で、各文字に下線を引き、
+影響を受ける入力行で行の中断が起こらないようにします。 つまり、<strong>.cu</strong> 要求に続く各出力スペースは、
+埋め込みができないスペースと似ています。 <strong>.cu</strong> 要求は <strong>troff</strong> コマンドの <strong>.ul</strong> 要求と同じです。 関連する値は現在の環境の一部です。<p>初期値: Off</p>
+  <p>値が指定されていない場合: <em>Number</em>=<strong>1</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.c2</strong><em> 文字</em></td>
+
+<td>改行なし制御文字を指定された文字に設定するか、または ” <strong>' </strong>“ にリセットします。<em>Character</em> 変数値は ASCII 文字でなければなりません。 関連する値は現在の環境の一部です。<p>初期値: <strong>'</strong></p>
+  <p>値を指定しない場合: <strong>'</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ec</strong><em> 文字</em></td>
+
+<td>エスケープ文字を <strong>&amp;#xa5;</strong> (円記号) か、
+または <em>Character</em> 変数で指定した値 (ある場合) に設定します。 <em>Character</em> 変数値は 1 文字の ASCII 文字でなくてはなりません。<p>初期値: <strong>\</strong></p>
+  <p>値が指定されていない場合: <strong>\</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>eo</strong></td>
+
+<td>エスケープ機能をオフにします。<p>初期値: On</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.lg</strong> [<em>数値</em>]</td>
+
+<td><em>Number</em> 変数の値が存在しないかゼロ以外の場合は、合字モードをオンにします。<em>Number</em> 変数の値が 0 の場合は、合字モードをオフにします。 <em>Number</em> 変数値が 2 の場合は、2 文字の合字のみが自動的に呼び出されます。 要求、マクロ、文字列、レジスター、ファイル名の場合と、コピー・モードの場合、連字モードは禁止されます。 この要求は <strong>nroff</strong> コマンドでは無効です。<p>初期値: On (<strong>troff</strong> コマンドの場合)</p>
+  <p>値を指定しない場合: On</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.tr</strong><em> Character1 Character2 Character3 Character4</em></td>
+
+<td>特に <em>Character1</em> 変数で指定した文字値を <em>Character2</em> 変数値に、<em>Character3</em> 変数で指定した文字値を <em>Character4</em> 変数値に変換します。 奇数の文字数を指定する場合は、最後の文字がスペース文字にマップされます。 整合性を保つため、特定の変換が入力時から出力時まで有効でなくてはなりません。 指定する文字はすべて ASCII 文字でなくてはなりません。 <strong>.tr</strong> 要求を設定し直すには、この要求の後に前の変数を指定します。<p>例えば、次の<strong>.tr</strong> 要求は、</p>
+  <div> <div><div><pre><code>.tr aAbBc&lt;C,&gt; </code></pre></div><div></div></div></div>
+  <p>次のように入力してリセットすることができます。</p>
+  <div> <div><div><pre><code>.tr aabbcc</code></pre></div><div></div></div></div>
+  <p>これは論理出力まで有効でなくてはなりません。</p>
+  <p>初期値: なし</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ul</strong> [<em>数値</em>]</td>
+
+<td><em>Number</em> 変数によって指定される入力テキスト行の数だけ、<strong>nroff</strong> コマンドで下線を付けます (または <strong>troff</strong>コマンドでイタリック体にします)。 実際には下線付きのフォントに切り替え、現在のフォントを後で復元するために保存します。 <strong>.ul</strong> 要求が有効なとき、ほかのフォントの変更が有効になりますが、
+復元可能なのは最後の変更だけです。 <strong>.tl</strong> 要求で生成した出力はフォント変更による影響を受けますが、
+<em>Number</em> 変数値は減分されません。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__rzta300gsc" target="_blank" rel="noopener noreferrer">「3 部構成のタイトル」</a>のセクションを参照してください。 指定した値が 1 より大きい場合、トラップ・コール・マクロがそのスパン内にテキスト行を提供するリスクがあります。
+環境切り替えによりこれを防止することができます。<p>関連する値は現在の環境の一部です。</p>
+  <p>初期値: Off</p>
+  <p>値が指定されていない場合: <em>Number</em>=<strong>1</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.uf</strong><em> フォント</em></td>
+
+<td>フォント・セットに <em>Font</em> 変数で指定した値まで下線を引きます。 <strong>nroff</strong> コマンドの場合、
+<em>Font</em> 変数は 1 の位置 (初期には Times Roman) とすることはできません。 <em>Font</em> 変数は ASCII フォント名でなくてはなりません。<p>初期値: Italic</p>
+  <p>値を指定しない場合: Italic</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>Hyphenation</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.hc</strong><em> 文字</em></td>
+
+<td>ハイフン処理インジケーター文字を、<em>Character</em> 変数で指定した値か、
+デフォルトに設定します。 インジケーターは出力には表示されません。 <em>Character</em> 変数値は 1 文字の ASCII 文字でなくてはなりません。 関連する値は現在の環境の一部です。<p>初期値: <strong>\%</strong></p>
+  <p>値を指定しない場合: <strong>\%</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.hw</strong><em> Word1...</em></td>
+
+<td>負符号を埋め込むことによって、ワードの中のハイフンを付けるポイントを指定します。 最後に s が付くワードも含めるものとします。
+つまり、<em>dig-it</em> は <em>dig-its</em> も含みます。 このリストは最初と各接尾部の削除後に検査されます。 使用可能なスペースは 1024 文字で、約 50 から 100 ワードになります。<p>初期値:</p>
+  <p>値を指定しない場合: 無視されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.hy</strong><em> 数値</em></td>
+
+<td>指定した値が 1 に等しいかそれより大きい場合、自動ハイフン処理を有効にします。
+指定した値が 0 に等しい (<strong>.nh</strong> 要求に等しい) 場合、自動ハイフン処理を無効にします。 指定した値が 2 の場合は、最後の行は (トラップを発生させる行) ハイフン処理が行われません。 指定した値が 4 または 8 の場合は、それぞれワードの最後または最初の 2 文字は分割されません。 これらの値は、加算されます。例えば値が 14 の場合、3 つの制約すべて (2 と等しい数、4 と等しい数、8 と等しい数) を呼び出します。<p>関連する値は現在の環境の一部です。</p>
+  <p>初期値: ハイフン処理を行わない。</p>
+  <p>値を指定しない場合: ハイフン処理を行う。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.nh</strong></td>
+
+<td>自動ハイフン処理を行いません。 関連する値は現在の環境の一部です。<p>初期値: ハイフン処理を行わない。</p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>3 部構成のタイトル</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.lt</strong> [+ /-] [<em>数値</em>]</td>
+
+<td>+/-<em>Number</em> 変数で指定したタイトル値の長さを設定します。 行長とタイトル長さは独立しています。 インデントはタイトルには適用されませんが、ページ・オフセットは適用されます。 関連する値は現在の環境の一部です。<p>初期値: 6.5 インチ</p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.pc</strong><em> 文字</em></td>
+
+<td>ページ番号文字を指定文字に設定するか、除去します。 ページ番号レジスターは % のままです。 <em>Character</em> 変数値は 1 文字の ASCII 文字でなくてはなりません。<p>初期値: <strong>%</strong></p>
+  <p>値を指定しない場合: Off</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.tl</strong><em> '左' 中央 '右'</em></td>
+
+<td><em>Left</em>、<em>Center</em>、<em>Right</em> 変数によって指定された文字列を現在のタイトル長さでそれぞれ左寄せ、中央揃え、右寄せします。 文字列は空でもよく、重ねることができます。 ページ番号文字 (初期値は <strong>%</strong>) がいずれかのフィールドにある場合は、
+<strong>%</strong> レジスターに割り当てられたフォーマットを持つ現在のページ番号と置き換えられます。 文字列に表示されない ASCII 文字は文字列区切り文字として使用することができます。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>出力行番号付け</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.nm </strong>[+ /-] [<em>数値</em>] [<em>M</em>]<em> </em>[<em>S</em>] [<em>I</em>]</td>
+
+<td>行番号モードを有効にします。 <em>M</em> 変数を指定した場合、<em>M</em> 変数値の倍数である行番号だけが印刷されます。 <em>M</em> 変数値を指定しない場合、各行番号が出力されます (デフォルトは <em>M</em>=<strong>1</strong>)。 行番号モードが有効な場合、3 桁のアラビア数字とスペース 1 個が出力テキスト行の前に付加されます。 したがって、テキスト行は 4 桁のスペースで相対位置設定されますが、行長は保持されます。 <em>S</em> 変数を指定すると、行番号とテキストの間に表示するスペースの桁数が指定されます (デフォルトは <em>S</em>=<strong>1</strong>)。 <em>I</em> 変数を指定すると、行番号の前に字下げするスペース数が指定されます (デフォルトは <em>I</em>=<strong>0</strong>)。<p>関連する値は現在の環境の一部です。</p>
+  <p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: Off</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.nn</strong><em> 数値</em></td>
+
+<td>行番号付けを中止します。 指定された行番号は番号付けされません。 関連する値は現在の環境の一部です。<p>初期値:<strong> -</strong></p>
+  <p>値が指定されていない場合: <em>Number</em>=<strong>1</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+<p><strong>入力の条件付き受け入れ</strong></p>
+ <p><em>Condition</em> 変数は以下の 1 文字の名前のいずれかを指定します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>O</strong></td>
+
+<td>現在のページ番号が奇数の場合</td>
+
+</tr>
+
+<tr>
+<td><strong>e</strong></td>
+
+<td>現在のページ番号が偶数の場合</td>
+
+</tr>
+
+<tr>
+<td><strong>t</strong></td>
+
+<td>フォーマッターが <strong>troff</strong> コマンドの場合</td>
+
+</tr>
+
+<tr>
+<td><strong>n</strong></td>
+
+<td>フォーマッターが <strong>nroff</strong> コマンドの場合</td>
+
+</tr>
+
+<tr>
+<td><strong>.if</strong><em> 条件の任意</em></td>
+
+<td><em>Condition</em> 変数で指定した値が真の場合は、<em>Anything</em> 変数で指定した値を入力として受け入れます。複数行の場合は <strong>&amp;#xa5;{</strong><em>Anything</em><strong>&amp;#xa5;}</strong> を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.if</strong><em> !すべて条件</em></td>
+
+<td><em>Condition</em> 変数で指定した値が偽の場合は、<em>Anything</em> 変数で指定した値を入力として受け入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.if</strong><em> 数値指定</em></td>
+
+<td><em>Number</em> 変数で指定した値が 0 より大きいことを表現に指定した場合、<em>Anything</em> 変数で指定した値を入力として受け入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.if</strong><em> !ナンバー・エニシング</em></td>
+
+<td><em>Number</em> 変数で指定した値が 0 より小さいか等しいことを表現に指定した場合、<em>Anything</em> 変数で指定した値を入力として受け入れます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.if</strong><em> 'String1'String2' 任意</em></td>
+
+<td><em>String1</em> 変数値が <em>String2</em> 変数値と同じである場合、<em>Anything</em> 変数で指定した値を入力として受け入れます。 <em>String1</em> 変数と <em>String2</em> 変数に指定されていない非ブランクの ASCII 文字は区切り文字として使用することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.if</strong><em> !'String1'String2' Anything</em></td>
+
+<td><em>String1</em> 変数値が <em>String2</em> 変数値と同じでない場合、<em>Anything</em> 変数で指定した値を入力として受け入れます。 <em>String1</em> 変数と <em>String2</em> 変数に指定されていない非ブランクの ASCII 文字は区切り文字として使用することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.el</strong><em> すべて</em></td>
+
+<td><strong>if/else</strong> 条件の <strong>else</strong> の部分を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ie</strong><em> 条件なし</em></td>
+
+<td><em>Condition</em> 変数の値に依存する <strong>if/else</strong> の条件の <strong>if</strong> 部分を指定します。 前の形式の <strong>.if</strong> 要求とともに使用することができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>環境の切り替え</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.ev</strong><em> 環境</em></td>
+
+<td>指定環境に切り替えます。 <em>Environment</em> 変数によって指定される値は、0、1、または 2 でなければなりません。 スイッチングはプッシュ・ダウン方式で行われるため、前の環境をリストアするには、特定の参照ではなく、<strong>.ev</strong> 要求を使用して実行する必要があります。<p>初期値: <em>Environment</em>=0</p>
+  <p>値を指定しない場合: 前の値</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>標準入力からの挿入</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.ex (.ex)</strong></td>
+
+<td><strong>nroff</strong> コマンドまたは <strong>troff</strong> コマンドを終了します。 テキスト処理はすべての入力が終了したときと同じように停止します。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合:<strong> -</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.rd</strong><em> プロンプト</em></td>
+
+<td>1 行に 2 つの改行文字が見つかるまで標準入力からの挿入を読み取ります。 標準入力がユーザーのキーボードの場合、指定プロンプト (または ASCII BEL 文字) がユーザーの端末に書き出されます。 <strong>.rd</strong> 要求はマクロと同じように働き、追加の変数を <em>Prompt</em> 変数の後に指定することができます。<p>初期値: <strong>-</strong></p>
+  <p>値を指定しない場合: <em>Prompt</em>=ASCII BEL 文字</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>入出力ファイルの切り替え</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.cf</strong><em> ファイル</em></td>
+
+<td>指定ファイルの内容をそのまま <strong>troff</strong> コマンド出力ファイルにこの時点で書き込みます。 ファイルの動作によって現在の水平および垂直位置を回復しない限り問題が発生します。<p>初期値:<strong> -</strong></p>
+ <p>値を指定しない場合:<strong> -</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.lf</strong><em> 数値ファイル</em></td>
+
+<td>現在の行数 (<em>Number</em> 変数で指定) と現在のファイル (<em>File</em> 変数で指定) の <strong>troff</strong> コマンドの解釈を、エラー・メッセージで使用するために修正します。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.nx</strong><em> ファイル</em></td>
+
+<td>指定ファイルを入力ファイルとして使用します。 現在のファイルは終了したものと見なし、入力は直ちに指定ファイルに切り替えます。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: ファイルの終わり</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.pi</strong><em> プログラム</em></td>
+
+<td>出力を指定プログラムに送ります。 この要求は印刷が行われる前に発行しなければなりません。 変数は指定プログラムに送られません。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.so</strong><em> ファイル</em></td>
+
+<td>ソース・ファイルを切り替えます。 一番上の入力 (ファイル読み取り) レベルは指定ファイルに切り替わります。 このファイルが終了すると、入力は再び元のファイルからとなります。 <strong>.so</strong>  要求はネストすることができます。<p><strong>.so</strong> 要求があった場合、指定ファイルの処理は直ちに実行されます。 元のファイルの処理 (例えば、有効なマクロなど) は中止されます。</p>
+  <p>ファイルは、<strong>.so</strong> 要求によって呼び出される前に必要に応じて処理しなければなりません。 <strong>eqn</strong>、<strong>tbl</strong>、<strong>pic</strong>、<strong>grap</strong> コマンドは、<strong>.so</strong> 要求によってオブジェクト・ファイルを処理するために使用されません。</p>
+  <p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<p><strong>各種</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.ab</strong><em> テキスト</em></td>
+
+<td><em>Text</em> 変数で指定した値を診断出力 (通常は端末) に出力し、処理を中止して終了します。 テキストがない場合は、次のメッセージが表示されます。User Abort出力バッファーがフラッシュされます。 この要求は対話型デバッグで出力を強制するために使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>.ab</strong> ^A&lt;<em>SetNumber</em>&gt; &lt;<em>MessageNumber</em>&gt;  [^A”&lt;<em>Default</em>&gt; “]  [^A&lt;<em>Argument</em>&gt; ^B&lt;<em>Argument</em>&gt; ^B&lt;<em>Argument</em>&gt;...]</td>
+
+<td>言語に依存しない異常終了メッセージのためメッセージ・カタログを使用することができるように代替構文を提供します。 診断出力 (通常は端末) にパラメーターで指定された適切なメッセージを出力し、それ以上の処理を実行せずに終了します。 パラメーターがない場合、次のようなメッセージ・カタログが出力されます。<div> <div><div><pre><code>troff: User Abort, line no. file filename</code></pre></div><div></div></div></div>
+  <p>出力です。 出力バッファーはフラッシュします。 この要求は対話型デバッグで出力を強制するために使用します。</p>
+  <p>ロケール特定のカタログ内のメッセージ <em>SetNumber</em> 変数および <em>MessageNumber</em> 変数に基づいて、
+メッセージ・カタログがコピー・モードで読み取られ、
+対応するメッセージがユーザーの端末に書き出されます。 メッセージ・セットとメッセージ番号を指定する初期シーケンスは下位互換性のために省略可能です。 ASCII コード Control-A (^A) メッセージ ID、デフォルト・メッセージ、およびオプションの引数リストを区切ります。 ASCII コード Control-B (^B) 個々のオプション引数リストを区切ります。</p>
+  <p>次の例では、</p>
+  <div> <div><div><pre><code>.ab ^A2 42^A”Processing has been terminated \
+ at line %1$s.“^A\n(c.</code></pre></div><div></div></div></div>
+  <p>2メッセージ・セット番号です。</p>
+  <p>42メッセージ番号です。</p>
+  <p>引用符内のテキスト”...“はデフォルト・メッセージです。</p>
+  <p>\n(c.入力ファイルから読み取られた行の数です。</p>
+  <p><strong>troff</strong> コマンドを次の条件で実行する場合を考えてみます。</p>
+  <ul>
+<li>設定されたメッセージ2および数値42デフォルト・メッセージと一致します。</li>
+
+<li><strong>.ab</strong> ディレクティブはオンラインです。124in the input file.</li>
+
+</ul>
+  <p>次のメッセージがユーザーの端末に表示されます。</p>
+  <div> <div><div><pre><code>Processing has been terminated at line 123.</code></pre></div><div></div></div></div>
+  <p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: ユーザー・キャンセル</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>Dt</strong><em> パラメーター</em></td>
+
+<td><strong>nroff</strong> または <strong>troff</strong> 要求内で日付を戻すためのフォーマットを定義します。 デフォルトでは、オプションの <em>Parameter</em>を指定しないと、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/LC_TIME.html" target="_blank" rel="noopener noreferrer">LC_TIME</a></strong> カテゴリーの現行ロケール設定によって指定されたロケール固有の日付形式が使用されます。 これは、以下に対応します。”%x“<strong>strftime</strong>のフォーマット指定子。 <em>パラメーター</em> は、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_bostechref/strftime.html" target="_blank" rel="noopener noreferrer">StrfTime</a></strong> 関数 <span> <em>テクニカル・リファレンス: 基本オペレーティング・システムおよび拡張機能</em> での</span>で使用される書式制御ストリングと同じ書式制御ストリングです。 フォーマット指定子の完全なリストについては、この関数を参照してください。<p>例:</p>
+  <div> <div><div><pre><code>.Dt ”%A, %B %d, %Y (%T)“</code></pre></div><div></div></div></div>
+  <p>英語圏のロケールに次の出力が提供されます。</p>
+  <div> <div><div><pre><code>Thursday, January 31, 1991 (10:40:00)</code></pre></div><div></div></div></div>
+  <p>この%A形式は、ロケール固有の曜日名に置き換えられます。 この%B形式は、ロケール固有の月の名前に置き換えられます。 この%d形式は、2 桁の形式の日付に置き換えられます。 この%Y形式は、10 進数の世紀を持つ年に置き換えられます。 この%T形式は、時 (24 時間クロック)、分、および秒 (10 進数) の時刻に置き換えられます。 このフォーマットは、うるう秒と二重うるう秒に対応します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.fl</strong></td>
+
+<td>出力バッファーをフラッシュします。 この要求は通常、<strong>.br</strong> 要求と同様の改行を生成します。 制御文字 " を使用してこの要求を呼び出しています <strong>「</strong> 」 (「<strong>.</strong>」の代わり) 中断機能を抑止します。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.ig</strong><em> マクロ</em></td>
+
+<td>入力行を無視します。 <strong>.ig</strong> 要求は <strong>.de</strong> 要求と同じように働きますが、入力は破棄されます。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/troff.html#troff__a6lva180gsc" target="_blank" rel="noopener noreferrer">「マクロ、文字列、逸脱、および位置トラップ」</a>を参照してください。 入力はコピー・モードで読み取られ、自動的に増分されるレジスターは影響を受けます。 <em>Macro</em> 変数は 1 文字または 2 文字の ASCII 文字でなくてはなりません。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>.</strong><em>Macro</em>=<strong>..</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.mc</strong> [<em>文字</em>] [<em>N</em>]</td>
+
+<td>指定された文字をマージン文字として使用し、指定された距離 (<em>N</em>) を、空ではないテキスト行の後のマージンの右側に表示します (<strong>.tl</strong> 要求によって作成されたものを除く)。 出力行が長すぎる場合は (非充てんモードで発生することがある)、文字が行に付加されます。 <em>N</em> 変数を指定しない場合は前の <em>N</em> 変数を使用します。 最初の <em>N</em> 変数は、<strong>nroff</strong> コマンドの場合 0.2 インチで、
+<strong>troff</strong> コマンドの場合 1 em です。<p>関連する値は現在の環境の一部です。</p>
+  <p>初期値: <strong>nroff</strong> の場合 2 インチ、<strong>troff</strong> の場合 1 em</p>
+  <p>値を指定しない場合: Off</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.pm</strong> [<em>文字</em>]</td>
+
+<td>マクロを出力します。 すべての定義済みマクロおよび文字列の名前とサイズはユーザーの端末に出力されます。 ASCII 英数字を変数として指定した場合、サイズの合計だけが出力されます。 サイズは 128 文字の単位で指定します。<p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: すべて</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.sy</strong><em> コマンド</em> [<em>Flags</em>]</td>
+
+<td>指定したコマンドは実行されますが、その出力はこの時点ではキャプチャーされません。 指定コマンドの標準入力はクローズされます。 出力は後で処理するため出力ファイルに明示的に保存しなければなりません。 多くの場合、<strong>.sy</strong> 指示の後には、直前のコマンドの結果を組み込むために <strong>.so</strong> 指示が続きます。<p>次に例を示します。</p>
+  <div> <div><div><pre><code>.sy date &gt; /tmp/today
+Today is
+.so /tmp/today</code></pre></div><div></div></div></div>
+  <p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: <strong>-</strong></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>.tm</strong><em> ストリング</em></td>
+
+<td>指定した文字列がユーザー端末に出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.tm </strong>^A&lt;<em>SetNumber</em>&gt; &lt;<em>MessageNumber</em>&gt;  [^A”&lt;<em>DefaultMessage</em>&gt; “]  [^A&lt;<em>Argument</em>&gt; ^B &lt;<em>Argument</em>&gt; ^B&lt;<em>Argument</em>&gt; ...]</td>
+
+<td>ロケール特定のカタログ内のメッセージ・セット番号およびメッセージ番号に基づいて、
+メッセージ・カタログがコピー・モードで読み取られ、対応するメッセージがユーザーの端末に書き出されます。 メッセージ・セットとメッセージ番号を指定する初期シーケンスは下位互換性のために省略可能です。 ASCII コード Control-A^Aメッセージ ID、デフォルト・メッセージ、およびオプションの引数リストを区切ります。 ASCII コード Control-B^B個々のオプション引数リストを区切ります。<p>次の例では、</p>
+  <div> <div><div><pre><code>.tm ^A2 23^A”The typesetter is %1$s.On line 
+%2$s.“^A\*(.T^B\n(c.</code></pre></div><div></div></div></div>
+  <p>2メッセージ・セット番号です。</p>
+  <p>23メッセージ番号です。</p>
+  <p>引用符内のテキスト”...“はデフォルト・メッセージです。</p>
+  <p>\*(.T<strong>-T</strong>の値に対する troff の最初の引数です。</p>
+  <p>\n(c.入力ファイルから読み取られた行の数です。</p>
+  <p><strong>troff</strong> コマンドを次の条件で実行する場合を考えてみます。</p>
+  <ul>
+<li>設定されたメッセージ2および数値23デフォルト・メッセージと一致します。</li>
+
+<li>コマンド・ラインには、デバイスで <strong>-T</strong> オプションを使用する <strong>troff</strong> があります。PSC.</li>
+
+<li><strong>.tm</strong> ディレクティブはオンラインです。539in the input file.</li>
+
+</ul>
+  <p>次のメッセージがユーザーの端末に表示されます。</p>
+  <div> <div><div><pre><code>The typesetter is psc. On line 538.</code></pre></div><div></div></div></div>
+  <p>ロケール特定のメッセージ・カタログは <strong>/usr/lib/nls/msg/$LANG/macros.cat</strong> にあります。</p>
+  <p>初期値:<strong> -</strong></p>
+  <p>値を指定しない場合: 改行</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span><p>以下の注は <strong>nroff</strong> 要求と <strong>troff</strong> 要求に該当します。 該当する要求内で番号で参照します。</p>
+<ol>
+<li><strong>.L</strong> 文字列レジスターにはすべてのカテゴリーの現在のプログラム・ロケール値が入っています。</li>
+
+<li><strong>.m</strong> ストリング・レジスターには、 <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/globalization/nls_kickoff.html" target="_blank" rel="noopener noreferrer">LC_MESSAGES</a></strong> カテゴリーのロケール値が入ります。</li>
+
+<li><strong>.t</strong> 文字列レジスターには <strong>LC_TIME</strong> カテゴリーのロケール値が入っています。</li>
+
+<li><strong>.L</strong>、<strong>.t</strong>、<strong>.m</strong> 文字列レジスターは特定の環境値にアクセスできますが、その他の環境変数にアクセスする場合さらに一般的な方法を使用することができます。 例えば <strong>TED</strong> 環境変数をエクスポートする場合、次の <strong>troff</strong> コマンドは、<div> <div><div><pre><code>.sy echo .ds z $TED &gt;x
+.so x
+.sy rm x</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</div>
+ <p><em>z</em> 文字列レジスターに <strong>$TED</strong> の値が入るように設定します。</p>
+<p><strong>環境変数</strong></p>
+ <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/globalization/nls_kickoff.html" target="_blank" rel="noopener noreferrer">LC_ALL (LC_ALL)</a></strong></td>
+
+<td>すべてのロケール・カテゴリーに使用するロケールを指定します。 ほかのロケール環境変数の設定はオーバーライドされます。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/globalization/nls_kickoff.html" target="_blank" rel="noopener noreferrer">LC_MESSAGES</a></strong></td>
+
+<td><strong>LC_MESSAGES</strong> カテゴリーのロケール値を指定します。 これは、<strong>LC_ALL</strong> 環境変数が設定されていない場合に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/LC_TIME.html" target="_blank" rel="noopener noreferrer">LC_TIME</a></strong></td>
+
+<td><strong>LC_TIME</strong> カテゴリーのロケール値を指定します。 これは、<strong>LC_ALL</strong> 環境変数が設定されていない場合に使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>LANG</strong></td>
+
+<td>すべてのロケール・カテゴリーに使用するロケール値を指定します。 これは上記の環境変数のいずれも設定されていない場合に使用します。 この環境変数はロケールを指定するために最もよく使われます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.*</strong></td>
+
+<td>標準マクロ・ファイルを指すポインターが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/macros/*</strong></td>
+
+<td>標準マクロ・ファイルを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.an</strong></td>
+
+<td><strong>man</strong> マクロ・パッケージを指すポインターが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/macros/an</strong></td>
+
+<td><strong>man</strong> マクロ・パッケージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.e</strong> ファイル</td>
+
+<td><strong>me</strong> マクロ定義ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/me</strong> ディレクトリー</td>
+
+<td>マクロ定義ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.m</strong></td>
+
+<td><strong>mm</strong> マクロ・パッケージを指すポインターが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/macros/mmn</strong></td>
+
+<td><strong>mm</strong> マクロ・パッケージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/macros/mmt</strong></td>
+
+<td><strong>mm</strong> マクロ・パッケージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.ptx</strong></td>
+
+<td>マクロ・パッケージを指します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/macros/ptx</strong></td>
+
+<td>マクロ・パッケージが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.x</strong></td>
+
+<td>マクロ定義ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/ms</strong></td>
+
+<td><strong>ms</strong> マクロ定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/tmac/tmac.v</strong></td>
+
+<td>マクロ定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/macros/vmca</strong></td>
+
+<td>マクロ定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/nls/msg/$LANG/macros.cat</strong></td>
+
+<td><strong>mm</strong>、<strong>me</strong>、<strong>ms</strong>、<strong>mv</strong> マクロ・パッケージのロケール特定のメッセージ・カタログが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/font/dev*/*</strong></td>
+
+<td>フォント幅テーブルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/tmp/trtmp*</strong></td>
+
+<td>一時ファイルを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p></p>
+</section>
+
+</div></div>

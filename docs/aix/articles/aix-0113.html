@@ -1,0 +1,73 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>バッテリー情報の制御または照会を行います。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>battery</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/battery.html#battery__row-d3e50706" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>battery</strong> コマンドは、バッテリーの制御または照会を行います。 <strong>-d</strong> オプションを指定せずに <strong>battery</strong> コマンドを呼び出すと、次のバッテリー情報が表示されます。</p>
+ <div> <div><div><pre><code>battery type: NiCd or NiMH
+current battery usage: charging, discharging, in use, fully charged
+battery capacity
+current remaining capacity
+full charge count</code></pre></div><div></div></div></div>
+ <p><strong>-d</strong> オプションを指定して <strong>battery</strong> コマンドを呼び出すと、上記のほかに次のバッテリー情報も表示されます。</p>
+ <div> <div><div><pre><code>discharge quantity
+discharge time</code></pre></div><div></div></div></div>
+ <p>バッテリーの容量の 50% を使い、そのつど (約 20 から 30 回) 充電すると、そのバッテリーは容量の 50% までしか使用できなくなります。 これは、<em>バッテリーのメモリー効果</em> と呼ばれるものです。 この場合、そのバッテリーを放電して (空にして) 再充電すると、再び 100% まで使用できるようになります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong></td>
+
+<td>バッテリーを放電して、バッテリーのメモリー効果をリセットします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: 任意のユーザー</p>
+ <p>イベントの監査 : 該当しません。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現在のバッテリー状況を表示するには、次のように入力します。<div> <div><div><pre><code>battery</code></pre></div><div></div></div>以下のような結果が表示されます。<div><div><pre><code>battery type: NiMH
+current battery usage: in use
+battery capacity: 3200 (mAH)
+current remaining capacity: 1800 (mAH) [57%]
+full charge count: 3</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/battery</strong></td>
+
+<td><strong>battery</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

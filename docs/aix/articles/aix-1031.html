@@ -1,0 +1,131 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンドを低い優先順位あるいは高い優先順位で実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>nice</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nice.html#nice__row-d3e18295" target="_blank" rel="noopener noreferrer"><strong>-</strong> </a><em>インクリメント</em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nice.html#nice__row-d3e18308" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a><em> インクリメント </em>] <em>コマンド</em> [ <em>引数 ...</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>nice</strong> コマンドを使用すると、コマンドを通常よりも低い優先順位で実行できます。 <em>Command</em> パラメーターは、システム上の実行可能ファイルの名前です。 <em>Increment</em> 値を指定しなければ、<strong>nice</strong> コマンドはデフォルトで 10 ずつ増分します。 現在よりも高い優先順位でコマンドを実行するには、root ユーザー権限を持っていなければなりません。 通常、プロセスの優先順位はその nice の値で表されます。</p>
+ <p>nice の値として、-20 から 19 までの値を指定することができ、この場合 19 が最も低い優先順位です。 例えば、コマンドが通常は優先順位 10 で実行される場合に、増分値 5 を指定すると、そのコマンドは現在よりも低い優先順位 15 で実行され、実行速度が低下します。 該当する権限を持たないユーザーがコマンドの優先順位を上げようとしても、<strong>nice</strong> コマンドはエラー・メッセージを戻しません。 コマンドの優先順位は変更されず、システムは正常にコマンドを始動します。</p>
+ <p>nice の値は、実行中のプロセスの現在の優先順位を計算するためにシステムに使用されます。 <strong>-l</strong> フラグを指定して <strong>ps</strong> コマンドを使用すると、コマンドの nice の値が表示されます。 nice の値は、<strong>ps</strong> コマンド出力の <strong>NI</strong> 見出しの下に表示されます。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>csh</strong> コマンドには、 <strong>nice</strong>という名前の組み込みコマンドが含まれています。 <strong>/usr/bin/nice</strong> コマンドと、<strong>csh</strong> コマンドの <strong>nice</strong> コマンドが同じように機能するとは限りません。 <strong>csh</strong> コマンドの <strong>nice</strong> コマンドについては、<strong>csh</strong> コマンドを参照してください。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong><em>増分</em></td>
+
+<td>コマンドの優先順位を上方または下方に増分します。 正または負の数値を指定できます。 正の増分値を指定すると、優先順位が低くなります。 負の増分値を指定すると、優先順位が高くなります。 負の増分を指定できるのは、root 権限を持つユーザーだけです。 nice の値が -20 から 19 までの範囲を超えるような増分値を指定すると、nice の値は上限の値に設定されます。 このフラグは <strong>-n</strong> <em>Increment</em> フラグと同じです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 増分</em></td>
+
+<td>このフラグは <strong>-</strong><em>Increment</em> フラグと同じです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p><em>Command</em> パラメーターで指定されたコマンドを開始すると、
+<strong>nice</strong> コマンドの終了状況は、<em>Command</em> パラメーターで指定されたコマンドの終了状況になります。 それ以外の場合、<strong>nice</strong> コマンドは以下のいずれかの値を戻して終了します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>1-125</strong></td>
+
+<td><strong>nice</strong> コマンドでエラーが発生しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>126</strong></td>
+
+<td><em>Command</em> パラメーターで指定されたコマンドを検出しましたが、呼び出すことができませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>127</strong></td>
+
+<td><em>Command</em> パラメーターで指定されたコマンドを検出できませんでした。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>非常に低い優先順位を指定するには、次のように入力します。<div> <div><div><pre><code>nice -n 15 cc -c *.c &amp;</code></pre></div><div></div></div>この例では、<strong>cc</strong> コマンドが <strong>nice</strong> コマンドで設定したデフォルト優先順位よりも低い優先順位で、バックグラウンドで実行されます。</div>
+</li>
+
+<li><span></span>非常に高い優先順位を指定するには、次のように入力します。<div> <div><div><pre><code>nice --10 wall &lt;&lt;end
+System shutdown in 2 minutes!
+end</code></pre></div><div></div></div>この例では、<strong>wall</strong> コマンドがどのユーザー・プロセスよりも高い優先順位で実行され、システムで実行中のその他の作業すべての処理速度が低下します。 この&lt;&lt;endおよびendこの例の一部では、 <em>here document</em>を定義します。これは、コマンドの標準入力として、終了行の前に入力されたテキストを使用します。</div>
+  <p></p><blockquote><span>“</span><strong>注:</strong> root ユーザー権限がないと、このコマンドを実行しても、<strong>wall</strong> コマンドは通常優先順位で実行されます。<span>”</span></blockquote>
+<p></p>
+</li>
+
+<li><span></span>コマンドを低い優先順位で実行するには、次のように入力します。<div> <div><div><pre><code>nice cc -c *.c</code></pre></div><div></div></div>この例で、<strong>cc</strong> コマンドは低い優先順位で実行されます。</div>
+  <p></p><blockquote><span>“</span><strong>注:</strong> これは、コマンドをバックグラウンドで実行しません。 ワークステーションで他の作業を行うことはできません。<span>”</span></blockquote>
+<p></p>
+</li>
+
+<li><span></span>低優先順位のコマンドをバックグラウンドで実行するには、次のように入力します。<div> <div><div><pre><code>nice cc -c *.c &amp;</code></pre></div><div></div></div>この例で、<strong>cc</strong> コマンドは低い優先順位でバックグラウンドで実行されます。 <strong>cc</strong> コマンドの実行中に、ワークステーションで他のコマンドを実行できます。 バックグラウンド (非同期) 処理の詳細については、「 <span><em>Operating system and device management</em></span>」の「 <strong>シェル</strong> 」を参照してください。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/nice</strong></td>
+
+<td><strong>nice</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,92 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルを解凍します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>unpack</strong><em> ファイル ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>unpack</strong> コマンドは、<strong>pack</strong> コマンドによって作成されたファイルを解凍します。 <strong> unpack</strong> コマンドは、指定されたファイルごとに <em>File</em><strong>.z</strong>というファイルを検索します。 このファイルがパック・ファイルの場合、 <strong>unpack</strong> コマンドはそれを拡張バージョンに置き換えます。 <strong> unpack</strong> コマンドは、 <em>File</em>から<strong> .z</strong> 接尾部を除去して、新しいファイル名を指定します。 ユーザーが root 権限を持っている場合は、新規ファイルのアクセス・モード、アクセス時刻、
+修正時刻、オーナーおよびグループは、もとのファイルと同じです。 ユーザーが root 権限を持っていないと、アクセス・モード、
+アクセス時刻および修正時刻はもとのファイルと同じですが、
+オーナーとグループについては新しいものを取得します。</p>
+ <p><strong>unpack</strong> コマンドは、<strong>.z</strong> で終わるファイルに対してのみ作動します。 結果として、<strong>.z</strong> で終わっていないファイル名を指定すると、<strong>unpack</strong> コマンドは接尾部を追加し、ディレクトリーでその接尾部を持つファイル名を検索します。</p>
+ <p><strong>unpack</strong> コマンドがアンパックできなかったファイルの数が終了値となります。 以下のいずれかが生じた場合には、ファイルをアンパックできません。</p>
+ <ul>
+<li><span></span>ファイル名 ( <strong>.z</strong>を除く) が 253 バイトを超えています。</li>
+
+<li><span></span>ファイルを開くことができません。</li>
+
+<li><span></span>ファイルはパック・ファイルではありません。</li>
+
+<li><span></span>アンパックされたファイル名を持つファイルが既に存在します。</li>
+
+<li><span></span>アンパック・ファイルを作成できません。<p></p><blockquote><span>“</span><strong>注 :</strong> アンパックしているファイルがリンクされている場合、
+<strong>unpack</strong> コマンドは、警告を標準エラーに書き出します。 新規アンパック・ファイルは、アンパックする前のパック・ファイルとは違った i ノードを持っています。 しかしパック・ファイルのもとの i ノードにリンクされたその他のファイルはすべて、存在し続け、
+パックされたままです。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ul>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に実行されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>パック・ファイルをアンパックするには、以下のように入力します。</p>
+ <div> <div><div><pre><code>unpack chap1.z chap2</code></pre></div><div></div></div></div>
+ <p>これによりパック・ファイルが拡張されます chap1.zおよびchap2.z、およびそれらを次の名前のファイルに置き換えます。chap1およびchap2<strong>unpack</strong> コマンド・ファイル名は、 <strong>.z</strong> 接尾部を付けても付けなくてもかまいません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/unpack</strong></td>
+
+<td><strong>unpack</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

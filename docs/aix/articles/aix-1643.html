@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>UDF ファイルシステム上のラベルをフェッチおよび変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>udflabel</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/udflabel.html#udflabel__row-d3e142607" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>デバイス</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/udflabel.html#udflabel__row-d3e142616" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em> ラベル</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>udflabel</strong> コマンドは、UDF ボリューム名を表示および
+変更します。 ラベルが提供されない場合は、デバイス上の現行 UDF ボリューム名を
+表示します。 ラベルが提供された場合は、デバイス上の現行 UDF ボリューム名を
+新しいラベルに設定します。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong> <em>デバイス</em></td>
+
+<td>UDF ボリュームが含まれているデバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ラベル</em></td>
+
+<td>現行 UDF ボリューム上にラベルを設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/dev/cd1</strong> デバイス上の現行ラベルを変更するには、次のコマンドを入力します。<div><div><pre><code>udflabel -d /dev/cd1 -l hello</code></pre></div><div></div></div></li>
+
+<li><strong>/dev/cd1</strong> デバイス上の現行ラベルを表示するには、
+次のコマンドを入力します。<div><div><pre><code>udflabel -d /dev/cd1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/udflabel</strong></td>
+
+<td><strong>udflabel</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/libudf.a</strong></td>
+
+<td><strong>udflabel</strong> コマンドによって呼び出されるライブラリー・ルーチンが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

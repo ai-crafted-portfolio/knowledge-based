@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>hosts ファイルから、LDAP データ交換形式 (LDIF) ファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>hosts2ldif</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hosts2ldif.html#hosts2ldif__row-d3e153624" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><em>InputFile</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hosts2ldif.html#hosts2ldif__row-d3e153632" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><em>OutputFile</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hosts2ldif.html#hosts2ldif__row-d3e153640" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>SearchBase</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/hosts2ldif</strong> コマンドは、
+<strong>/etc/hosts</strong> ファイル、
+あるいは <strong>/etc/hosts</strong> に似た別のファイルから、
+LDAP データ交換形式を作成します。 フラグを指定しない場合、 <strong>/etc/hosts</strong> ファイルは、以下のコマンドを使用して <strong>/tmp/hosts.ldif</strong> のLDIFファイルを作成するために使用されますcn=hostsbaseDNとして指定します。</p>
+ <p>このコマンドによって作成される LDIF ファイルは、 SecureWay ディレクトリー・スキーマに準拠し、 <strong>ldap</strong> メカニズムのセットアップに使用されます。 <strong>ldap</strong> メカニズムはサポートされていますが、<strong>ldap</strong> メカニズムではなく、<strong>nis_ldap</strong> メカニズムの使用をお勧めします。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-i</strong><em> InputFile</em></td>
+
+<td>入力に使用する hosts ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutputFile</em></td>
+
+<td>出力に使用する LDIF ファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> SearchBase</em></td>
+
+<td>LDAP サーバー上で、ホスト・テーブルの baseDN を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/etc/hosts</strong> ファイルから <strong>/home/ldifhosts</strong> を作成するには、
+次のように入力します。<div> <div><div><pre><code>hosts2ldif -o /home/ldifhosts</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>/home/hosts.bak</strong> ファイルから、
+<strong>/tmp/hosts.ldif</strong> を作成するには、次のように入力します。<div> <div><div><pre><code>hosts2ldif -i /home/hosts.bak</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>/home/ldifhosts</strong> を <strong>/etc/hosts</strong> ファイルから作成するには、次のようにします。cn=hosttabを baseDN, ：<div> <div><div><pre><code>hosts2ldif -o /home/ldifhosts -s cn=hosttab</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/hosts</strong></td>
+
+<td>ローカル・ネットワーク上のホストのインターネット・プロトコル (IP) 名とアドレスが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

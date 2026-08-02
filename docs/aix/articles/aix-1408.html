@@ -1,0 +1,223 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>2 つのファイルを比較し、その違いを横に並べて表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>sdiff</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11049" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11179" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11055" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><strong> </strong><em>OutFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11185" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a><em> Number </em>] <em>File1</em><em> File2</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>sdiff</strong> コマンドは、<em>File1</em> および<em> File2</em> パラメーターで指定されたファイルを読み取り、<strong>diff</strong> コマンドを使用してそれらを比較し、結果を横並びフォーマットで標準出力に書き出します。 <strong>sdiff</strong> コマンドは、2 つのファイルの各行が同一であれば、間に一連のスペースを入れて、これらの行を表示します。 <em>File1</em> パラメーターで指定されたファイルにのみ行が存在する場合は、スペースのフィールドに &lt; (より小記号) を表示し、 <em>File2</em> パラメーターで指定されたファイルにのみ行が存在する場合は、&gt; (より大記号) を表示します。 | (縦線) は異なる線を表します。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11055" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> フラグを指定すると、 <strong>sdiff</strong> コマンドは、 <em>File1</em> および <em>File2</em> パラメーターで指定されたファイルをマージし、3 番目のファイルを作成します。</p>
+ <p><strong>注:</strong> <strong>sdiff</strong> コマンドは、<strong>diff -b</strong> コマンドを呼び出して 2 つの入力ファイルを比較します。 <strong>-b</strong> フラグを指定すると、
+<strong>diff</strong> コマンドは後続のスペースとタブ文字を無視して、
+他のスペース文字列を等しいものと見なします。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-l</strong></td>
+
+<td>行が同一の場合に、左側だけを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutFile</em></td>
+
+<td><em>File1</em> および <em>File2</em> パラメーターで指定された 2 つのファイルの 1 行ずつの組み合わせを制御して、<em>OutFile</em> 変数で指定された第 3 のファイルを作成します。 以下のサブコマンドがこのファイルの作成を制御します。<dl>
+<dt><strong>e</strong></dt>
+
+<dd>空のファイルから <strong>ed</strong> コマンドを始動します。</dd>
+
+
+<dt><strong>e b</strong> または <strong>e |</strong></dt>
+
+<dd>両側から <strong>ed</strong> コマンドを始動します。</dd>
+
+
+<dt><strong>e l</strong> または <strong>e &lt;</strong></dt>
+
+<dd>左側から <strong>ed</strong> コマンドを始動します。</dd>
+
+
+<dt><strong>e r</strong> または <strong>e&gt;</strong></dt>
+
+<dd>右側から <strong>ed</strong> コマンドを始動します。</dd>
+
+
+<dt><strong>l</strong></dt>
+
+<dd>出力ファイルに左側を追加します。</dd>
+
+
+<dt><strong>r</strong></dt>
+
+<dd>出力ファイルに右側を追加します。</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd>同一行の表示を中止します。</dd>
+
+
+<dt><strong>v</strong></dt>
+
+<dd>同一行の表示を開始します。</dd>
+
+
+<dt><strong>q</strong></dt>
+
+<dd>以下のいずれかの機能を実行します。<ul>
+<li><strong>ed</strong> コマンドを終了します。</li>
+
+<li><strong>ed</strong> コマンドを実行中でなければ、<strong>sdiff</strong> コマンドを終了します。</li>
+
+<li>両方のコマンドを終了します。 このアクションは、出力ファイルに組み合わせる行がなくなったときに発生します。</li>
+
+</ul>
+  <p><strong>ed</strong> コマンドを終了するたびに、<strong>sdiff</strong> コマンドは実行結果として編集されたファイルを <em>OutFile</em> 変数で指定されたファイルの終わりに書き込みます。 終了前に変更結果を保管しなければ (Ctrl-C キー・シーケンスを押すなど)、<strong>sdiff</strong> コマンドは初期入力を出力ファイルに書き込みます。</p>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>同一行を表示しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 数値</em></td>
+
+<td>出力行の幅を設定します。 <em>Number</em> 変数のデフォルト値は 130 文字です。 <em>Number</em> 変数の最大幅は 2048 です。 <em>Number</em> 変数の最小幅は 20 です。 2048 よりも大きい値を指定すると、<strong>sdiff</strong> コマンドは 2048 を使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <div><strong>sdiff</strong> コマンドは、以下の終了値を戻します。<div><div><table><caption><span>表 1. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>2</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>2 つのファイルの比較を印刷するには、次のように入力します。<div> <div><div><pre><code>sdiff chap1.bak chap1 </code></pre></div><div></div></div><strong>sdiff</strong> コマンドは、以下の各行を比較する横並びリストを表示します。chap1.bakおよびchap1ファイルのみ。</div>
+</li>
+
+<li><span></span>異なる行だけを表示するには、次のように入力します。<div>sdiff  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11179" target="_blank" rel="noopener noreferrer">-s </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11185" target="_blank" rel="noopener noreferrer">-w </a>80 chap1.bak chap1</div><strong>sdiff</strong> コマンドによって、ワークステーションに違いが表示されます。 この-w 80フラグおよび変数は、ページ幅を 80 桁に設定します。 この-sフラグは、両方のファイルで同一の行が表示されないことを示します。</li>
+
+<li><span></span>2 つのファイルの一部を選択的に結合するには、次のように入力します。<div>sdiff  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11179" target="_blank" rel="noopener noreferrer">-s </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11185" target="_blank" rel="noopener noreferrer">-w </a>80  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/s_commands/sdiff.html#sdiff__row-d3e11055" target="_blank" rel="noopener noreferrer">-o </a>chap1.combo chap1.bak chap1</div><strong>sdiff</strong> コマンドは、chap1.bakおよびchap1ファイルを、以下の名前の新規ファイルにchap1.combo<strong>sdiff</strong> コマンドは、異なる行のグループごとに、どのグループを保持するか、または <strong>ed</strong> コマンドを使用して編集するかどうかを確認するプロンプトを出します。</li>
+
+<li><span></span>2 つのファイルを結合して編集するには、staff.janおよびstaff.apr結果を以下に書き込みます。staff.year示されているステップを実行してください。<p>このstaff.janファイルには以下の行が含まれます。</p>
+  <div> <div><div><pre><code>Members of the Accounting Department
+Andrea
+George
+Karen
+Sam
+Thomas</code></pre></div><div></div></div>このstaff.aprファイルには以下の行が含まれます。<div><div><pre><code>Members of the Accounting Department
+Andrea
+Fred
+Mark
+Sam
+Wendy</code></pre></div><div></div></div></div>
+  <ol>
+<li><span></span>以下のコマンドを入力します。<div> <div><div><pre><code>sdiff -o staff.year staff.jan staff.apr</code></pre></div><div></div></div><strong>sdiff</strong> コマンドは、以下の内容の比較を開始します。staff.janおよびstaff.apr結果をファイルに書き込みます。staff.year。 <strong>sdiff</strong> コマンドを実行すると、以下のように表示されます。<div><div><pre><code>Members of the Accounting Dept   Members of the Accounting Dept
+Andrea                            Andrea
+George                          | Fred
+%</code></pre></div><div></div></div>% (パーセント記号) は、コマンド・プロンプトです。</div>
+</li>
+
+<li><span></span> <strong>ed</strong> コマンドを使用して出力ファイルの編集を開始するには、 <strong>e b</strong> サブコマンドを入力します。<p><strong>sdiff</strong> コマンドは、組み合わせ中のバイト数を示す一連の数値を表示します。 この場合、バイト・カウントは次のようになります。23.</p>
+</li>
+
+<li><span></span> <strong>q</strong> サブコマンドを入力して <strong>ed</strong> コマンドを終了し、2 つのファイルの結合と編集を続行します。 <strong>sdiff</strong> コマンドを実行すると、以下のように表示されます。<div> <div><div><pre><code>Sam                              Sam
+Thomas                          | Wendy
+  </code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>e b</strong> サブコマンドを再度入力します。 元の 2 つのファイルの行のセットを出力ファイルに組み合わせるたびに、<strong>ed</strong> コマンドを実行しなければなりません。 このインスタンスのバイト・カウントは、以下のとおりです。13.</li>
+
+<li><span></span> <strong>q</strong> サブコマンドを入力して、変更を保存します。 2 つのファイルのすべての行が出力ファイルに組み合わされると、
+<strong>q</strong> サブコマンドは <strong>ed</strong> および <strong>sdiff</strong> コマンドを終了します。</li>
+
+</ol>このstaff.yearファイルには現在以下が含まれています。<div> <div><div><pre><code>Members of the Accounting Department
+Andrea
+George
+Karen
+Fred
+Mark
+Sam
+Thomas
+Wendy</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/sdiff</strong></td>
+
+<td><strong>sdiff</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,59 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メールボックス・ディレクトリーを設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>install_mh</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install_mh.html#install_mh__row-d3e13506" target="_blank" rel="noopener noreferrer"><strong>-自動</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install_mh.html#install_mh__row-d3e13512" target="_blank" rel="noopener noreferrer"><strong>-ヘルプ</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>install_mh</strong> コマンドは、メールボックス・ディレクトリーを設定します。 <strong>install_mh</strong> コマンドは、ユーザーが始動するコマンドではありません。 <strong>install_mh</strong> コマンドは、他のプログラムによってのみ呼び出されます。</p>
+ <p><strong>install_mh</strong> コマンドは、任意のメッセージ・ハンドラー (MH) コマンドを初めて実行するときに、自動的に始動します。 <strong>install_mh</strong> コマンドは、メール・ディレクトリーの名前の入力を求めてきます。 ディレクトリーが存在しない場合は、<strong>install_mh</strong> コマンドは、ディレクトリーを作成するかどうか照会してきます。 肯定応答を受け取ると、 <strong>install_mh</strong> コマンドは <strong>$HOME/.mh_profile</strong> ファイルを作成し、Path:プロファイル項目が含まれています。 このエントリーは、使用しているメールボックスの場所を、MH ディレクトリーである <em>UserMHDirectory</em> へのディレクトリー・パスを指定することにより識別します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-auto</strong></td>
+
+<td>何も入力を求めずに標準的な MH パスを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

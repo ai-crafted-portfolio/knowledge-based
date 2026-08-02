@@ -1,0 +1,117 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>仮想プリンターの定義の属性値を整理してメモリー・イメージに入れ、メモリー・イメージをファイルに格納します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/lpd/pio/etc/piodigest</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piodigest.html#piodigest__row-d3e82973" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>DataStreamType</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piodigest.html#piodigest__row-d3e82928" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>DeviceName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piodigest.html#piodigest__row-d3e82947" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a><em>DirectoryPath</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piodigest.html#piodigest__row-d3e82960" target="_blank" rel="noopener noreferrer"><strong>-q </strong></a><em>PrintQueueName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piodigest.html#piodigest__row-d3e83001" target="_blank" rel="noopener noreferrer"><strong>-t </strong></a><em>PrinterType</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/piodigest.html#piodigest__row-d3e82915" target="_blank" rel="noopener noreferrer"><strong>-d </strong></a><em>QueueDeviceName</em>] {<em>ColonFileName</em>|<strong>-</strong>}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>piodigest</strong> コマンドは、コロン・ファイルから仮想プリンターの属性値を取り出し、取り出した属性値およびその索引テーブルのメモリー・イメージを構築し、その構築したメモリー・イメージをファイルに書き込みます。 ファイルにあるメモリー・イメージは、プリンター・フォーマッターおよび <strong>piobe</strong> コマンド (印刷ジョブ・マネージャー) によって、アクセスする場合に使用できます。 また、このコマンドは、指定されたキューとキュー・デバイスのためのオブジェクト・
+データ・マネージャー (ODM) スタンザを作成します。 ODM スタンザは、System Management Interface Tool (SMIT) のダイアログで使用します。 <strong>zV</strong> と呼ばれる属性が指定され、かつその属性に <strong>+</strong> の値が入っている場合は、<strong>piodigest</strong> コマンドは、コロン・ファイルに指定されたすべての属性に対して構文、参照、および制限の妥当性検査を行います。</p>
+ <p>仮想プリンターの定義バージョンを初めてカスタマイズするときか、後で変更するときは必ず、<strong>piodidgest</strong> コマンドを呼び出してください。 <strong>piodigest</strong> コマンドを呼び出すたびに、1 つの仮想プリンターの定義について属性値を要約します。</p>
+ <p><em>ColonFileName</em> パラメーターは、コロン・フォーマットでの入力ファイルの名前です。 コロン・ファイルには、1 つの仮想プリンターの属性値が入っています。 <em>ColonFileName</em>パラメータに<strong>-（</strong>ダッシュ）を指定すると、コロンファイルを標準入力から読み込むことを示す。</p>
+ <p>生成される出力ファイル名は、以下の書式になります。</p>
+ <div> <div><div><pre><code>PrinterType.DataStreamType.DeviceName.PrintQueueName:QueueDeviceName</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> QueueDeviceName</em></td>
+
+<td>仮想プリンター (キュー・デバイス) の名前を指定します。<p>このフラグを指定しない場合、入力コロン・ファイルの <strong>mv</strong> 属性によって指定された仮想プリンター名が想定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> DeviceName</em></td>
+
+<td>次のような印刷装置の名前を指定します。lp0ライン・プリンター 0 の場合、またはlp1ライン・プリンター 1 の場合。<p>このフラグを指定しない場合、入力コロン・ファイルの <strong>mn</strong> 属性で指定されたデバイス名が想定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> DirectoryPath</em></td>
+
+<td>出力ファイルが生成されるディレクトリーのパス名を指定します。<p>このフラグを指定しない場合、<strong>/var/spool/lpd/pio/@local/ddi</strong> ディレクトリーが想定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> PrintQueueName</em></td>
+
+<td>仮想プリンターが割り当てられている印刷キューの名前を指定します。<p>このフラグを指定しない場合、入力コロン・ファイルの <strong>mq</strong> 属性によって指定される印刷キュー名が想定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> DataStreamType</em></td>
+
+<td>プリンターのデータ・ストリーム・タイプを指定します。 データ・ストリーム・タイプの例は、<strong>asc</strong><span>IBM</span>拡張ASCII）、<strong>ps</strong>PostScript）、<strong>pcl</strong>（HP PCL）、および<strong>630</strong>（Diablo 630）である。<p>このフラグを指定しない場合、入力コロン・ファイルの <strong>md</strong> 属性によって指定されたデータ・ストリーム・タイプが想定されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> PrinterType</em></td>
+
+<td>プリンター・タイプを指定します。 例:4201-3およびti2115.<p>このフラグを指定しない場合、入力コロン・ファイルの <strong>mt</strong> 属性によって指定されたプリンターのタイプが想定されます。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>要約された仮想プリンター定義を生成するには、以下のように入力します。</p>
+ <div> <div><div><pre><code>piodigest -d mypro -n lp0 -q proq -s asc -t 4201-3</code></pre></div><div></div></div></div>
+ <p>システムに割り当てられた仮想印刷装置の属性値mypro上のキュー・デバイスproq印刷キューはダイジェストされ、 <strong>/var/spool/lpd/pio/@local/ddi</strong> <strong></strong> ディレクトリーの <strong>4201-3.asc.lp0.proq:mypro</strong> という名前のファイルに保管されます。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/spool/lpd/pio/@local/ddi/*</strong></td>
+
+<td>要約された仮想プリンターの定義が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lpd/pio/etc/piodigest</strong></td>
+
+<td><strong>piodigest</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

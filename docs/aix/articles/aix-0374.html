@@ -1,0 +1,121 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>動的ホスト構成プロトコル (DHCP) サーバーをインプリメントします。 アドレスおよび構成情報を DHCP クライアントに提供します。</p>
+</section>
+
+<section><h2>構文</h2><p>システム・リソース・コントローラー (SRC) を使用して DHCP クライアントに情報を提供する</p>
+ <p><strong>startsrc</strong><strong> -s dhcpsd</strong> [ <strong>-a</strong>  Argument ]
+[ <strong>-a</strong>  Argument ] ...</p>
+<p>SRC を使用せずに DHCP クライアントに情報を提供する</p>
+ <p><strong>dhcpsd </strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dhcpsd.html#dhcpsd__row-d3e27144" target="_blank" rel="noopener noreferrer"><strong>[-f</strong></a>ConfigurationFile ]</p>
+</section>
+
+<section><h2>説明</h2> <p>DHCP サーバーは動的アドレスの割り当ておよび割り当ての保守を扱います。 さらに、追加構成情報の配布も行います。 <span>dhcpsd</span> デーモンはバックグラウンドで実行され、サーバー情報のデータベースを保守します。
+そのデータベースには、ロギング・パラメーター、IP
+(インターネット・プロトコル) アドレス範囲、その他の構成情報、およびアクセシビリティー情報が入っています。 初期データベースは構成ファイルで指定されます。 構成ファイルには、DHCP クライアントの構成を開始するためのすべてのデータが入っています。</p>
+ <p>DHCP サーバーは、提供したアドレスとその持ち主のデータベースを保守します。 これらのデータベースは、<span>/etc/dhcpsd.ar</span> ファイルおよび <span>/etc/dhcpsd.cr</span> ファイルで保持されます。 始動時に、サーバーは構成ファイルを読み取って、使用可能アドレスの初期データベースをセットアップします。 サーバーは、 <span>refresh</span> コマンドまたは <span><span>SIGHUP</span></span> シグナルを受け入れて、構成ファイルを再読み取りします。</p>
+ <div>DHCP サーバーは <span>/etc/services</span> ファイルを読み取り、要求の受信に使用する必要があるポートを判別します。 デフォルトのサービスは <span>dhcps</span> です。 これは、<span>bootpd</span> デーモンが使用するポートと同じなので、実行できるデーモンは 1 つだけ (<span>dhcpsd</span> または <span>bootpd</span> のいずれか) です。 <span>dhcpsd</span> デーモンを選択する場合は、 <span>/etc/inetd.conf</span> ファイルから <span>bootp</span> をコメント化し、コマンド行に refresh
+-s inetd と入力する必要があります。<div><div>
+        <div>
+          <div><span>注:</span> <span>bootpd</span> デーモンが実行中の場合は、デーモンを開始する前にこのプログラムを停止する必要があります。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-f</span> ConfigurationFile</td>
+
+<td>使用する構成ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドを実行するには、root 権限を持っていなければなりません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/dhcpsd</span></td>
+
+<td><span>dhcpsd</span> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/services.html" target="_blank" rel="noopener noreferrer"><span>/etc/services</span></a></td>
+
+<td>インターネット・サービスで使用するソケットおよびプロトコルを定義します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/inetd.conf.html" target="_blank" rel="noopener noreferrer"><span>/etc/inetd.conf</span></a></td>
+
+<td><span>inetd</span> デーモンにより制御されるサービスを定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

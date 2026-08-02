@@ -1,0 +1,56 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>実行を一定の時間、中断します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>sleep </strong><em>秒</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>sleep</strong> コマンドは、少なくとも <em>Seconds</em> パラメーターで指定された時間、プロセスの実行を延期します。 <em>Seconds</em> パラメーターに指定される時間の範囲は、1 から <strong>MAXINT</strong> (2、147、483、647) 秒までです。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>実行が少なくとも <em>Seconds</em> 秒間正常に延期されたか、または <strong>SIGALRM</strong> シグナルが受信されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>一定の時間が経過した後でコマンドを実行するには、次のように入力します。<div> <div><div><pre><code>(
+echo  "SYSTEM SHUTDOWN IN 10 MINUTES!" | wall
+sleep 300; echo "SYSTEM SHUTDOWN IN 5 MINUTES!" | wall
+sleep 240; echo "SYSTEM SHUTDOWN IN 1 MINUTE!" | wall
+sleep 60; shutdown
+)&amp;</code></pre></div><div></div></div>このコマンド・シーケンスは、システムがシャットダウンされる 10 分、5 分、および 1 分前に、すべてのユーザーに警告を発します。</div>
+</li>
+
+<li><span></span>コマンドを一定の間隔で実行するには、次のように入力します。<div> <div><div><pre><code>while true
+do
+ date
+ sleep 60
+done</code></pre></div><div></div></div>このシェル・プロシージャーは、1 分ごとに日時を表示します。 それを停止するには、割り込みキー・シーケンスを押してください。</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

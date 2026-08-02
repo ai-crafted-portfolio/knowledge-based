@@ -1,0 +1,153 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>XKB キーボード記述をコンパイルします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>XKBPP</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36597" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36606" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36615" target="_blank" rel="noopener noreferrer"><strong>-ドフツ</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36621" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> <em>ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36630" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36639" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> <em>名前</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36647" target="_blank" rel="noopener noreferrer"><strong>-マージ</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36653" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>OutputFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36661" target="_blank" rel="noopener noreferrer"><strong>-OPT</strong></a> <em>部品</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36703" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36711" target="_blank" rel="noopener noreferrer"><strong>-同期</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36718" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>レベル</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36726" target="_blank" rel="noopener noreferrer"><strong>-xkb (X)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xkbcomp.html#xkbcomp__row-d3e36735" target="_blank" rel="noopener noreferrer"><strong>-xkm</strong></a> ] <em>ソース</em> [ <em>目的地</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xkbcomp</strong> コマンドは、
+XKB キーマップをいくつかの出力フォーマットの 1 つに変換する、キーマップ・コンパイラーです。 <strong>xkbcomp</strong> の最も一般的な使用法は、
+XKB 使用可能な X サーバーまたはユーティリティーによって直接読み取ることのできるコンパイル済みキーマップ・ファイル (拡張子 <strong>.xkm</strong>) を作成することです。 このキーマップ・コンパイラーによって、
+C ヘッダー・ファイルまたは XKB ソース・ファイルも作成できます。 <strong>xkbcomp</strong> によって生成される C ヘッダー・ファイルは、
+組み込みデフォルト・キーマップを必要とする X サーバーまたはユーティリティーによってインクルードできます。 <strong>xkbcomp</strong> によって生成される XKB ソース・ファイルは
+完全に解決されており、
+XKB キーマップを通常構成するファイルが正しく組み合わされているかを確認するため、
+またはキーマップの完全な記述の入った単一のファイルを作成するために使用できます。</p>
+ <p><em>Source</em> は X ディスプレイか、
+<strong>.xkb</strong> または <strong>.xkm</strong> ファイルを指します。
+<em>destination</em> のフォーマットは、
+明示的に指定されない限り、ソースのフォーマットによって決まります。 <strong>.xkb</strong> (キーマップ・ソース) ファイルをコンパイルすると、
+デフォルトでは <strong>.xkm</strong> (コンパイルされたキーマップ・ファイル) が生成されます。 ソースが <strong>.xkm</strong> ファイルまたは X ディスプレイの場合、
+<strong>xkbcomp</strong> はデフォルトでキーマップ・ソース・ファイルを生成します。</p>
+ <p><em>Destination</em> が X ディスプレイの場合、
+ディスプレイのキーマップはコンパイルされたキーマップによって更新されます。</p>
+ <p><em>destination</em> の名前は、
+通常はソースの名前から算出され、
+適切な拡張子が付けられます。 いくつかのマップが入ったファイルから単一のマップをコンパイルする場合、
+<strong>xkbcomp</strong> は使用されるマップの名前に適切な拡張子が付けることによって、
+宛先ファイル名を構成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>キーボード情報をすべて表示し、
+暗黙の情報または派生した情報をコメントとして示します。 <strong>.xkb</strong> フォーマット出力にのみ影響します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>出力として C ヘッダー・ファイル (拡張子 <strong>.h</strong>) を生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-dflts</strong></td>
+
+<td>存在していないコンポーネント (キー名など) のデフォルトを算出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em> ディレクトリー</em></td>
+
+<td>キーマップ記述によってインクルードされるファイルを探す、
+トップレベルのディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>コマンド・ラインにリストされるファイルの<em>マップ</em> ・パターンを指定するマップをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> 名前</em></td>
+
+<td>複数の項目によってファイルからコンパイルされるマップを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-マージ</strong></td>
+
+<td>コンパイルされた情報をサーバーからのマップとマージします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> 名前</em></td>
+
+<td>生成される出力ファイルの名前を指定します。 デフォルトは、
+ソース・ファイルの名前に、出力フォーマットに応じて適切な拡張子を付けたものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-opt</strong><em> パーツ</em></td>
+
+<td>オプショナル・パーツを指定します。 オプション・パーツのコンパイル・エラーは致命的なエラーではありません。 <em>Parts</em> は、
+文字 <strong>c</strong>、
+<strong>g</strong>、<strong>k</strong>、
+<strong>s</strong>、<strong>t</strong> の組み合わせで構成されます。
+<strong>c</strong> は互換性マップ、
+<strong>g</strong> は形状、
+<strong>k</strong> はキー・コード、
+<strong>s</strong> はシンボル、
+および <strong>t</strong> はタイプを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong><em> ディレクトリー</em></td>
+
+<td>相対パス名のルート・ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-同期</strong></td>
+
+<td>X 要求を強制的に同期します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> レベル</em></td>
+
+<td>コンパイル中の警告レポートを制御します。 警告レベルを 0 にするとすべての警告が無効になります。
+警告レベルを 10 にするとすべての警告が有効になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エックスケービー</strong></td>
+
+<td>キーボードのソース記述を出力 (拡張子 <strong>.xkb</strong>) として生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-xkm</strong></td>
+
+<td>コンパイルされたキーマップ・ファイルを出力 (拡張子 <strong>.xkm</strong>) として生成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,191 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>アクティブ状況からメッセージを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>RMM</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmm.html#rmm__row-d3e160992" target="_blank" rel="noopener noreferrer"><strong>+</strong> </a><em>フォルダー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmm.html#rmm__row-d3e161000" target="_blank" rel="noopener noreferrer"><em>メッセージ</em></a><em></em> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>rmm</strong> コマンドは、メッセージの名前を変更することによりアクティブ状況からそのメッセージを除去します。 メッセージの名前を変更するために、
+システムは現行メッセージ番号の先頭に , (コンマ) を付けます。 メッセージ・ハンドラー (MH) ・パッケージは非アクティブ・ファイルを使えません。 ただし、システム・コマンドは引き続き非アクティブ・ファイルを操作できます。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>RMM</strong> コマンドは、現行メッセージを変更しません。</div>
+        </div>
+      </div></div>
+</div>
+ <p>非アクティブ・メッセージは定期的に削除する必要があります。 <strong>crontab</strong> ファイル内にエントリーを入れれば、
+コンマで始まるファイルのすべてを自動的に削除できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em>フォルダー</em></td>
+
+<td>名前を変更するメッセージが入っているフォルダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>メッセージ</em></td>
+
+<td>名前を変更するメッセージを指定します。 複数のメッセージ、メッセージの範囲、または単一メッセージを指定できます。 メッセージを指定するには、次の参照を使用します。<dl>
+<dt><em>Number</em></dt>
+
+<dd>メッセージの番号</dd>
+
+
+<dt><em>sequence</em></dt>
+
+<dd>ユーザーが指定するメッセージ・グループ。 認識される値には以下のものが含まれます。<dl>
+<dt><strong>all</strong></dt>
+
+<dd>フォルダー内のすべてのメッセージ。</dd>
+
+
+<dt><strong>cur</strong> または <strong>。</strong> (ドット)</dt>
+
+<dd>現行メッセージ。 これはデフォルトです。</dd>
+
+
+<dt><strong>first</strong></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><strong>last</strong></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt><strong>次へ</strong></dt>
+
+<dd>現行メッセージの次のメッセージ</dd>
+
+
+<dt><strong>prev</strong></dt>
+
+<dd>現行メッセージの直前のメッセージ</dd>
+
+</dl>
+</dd>
+
+
+<dt> </dt>
+
+<dd></dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<div><div>
+        <div>
+          <div><span>注:</span> MH の場合は、このフラグ名を省略することはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行フォルダー内の現行メッセージを除去するには、次のように入力します。<div> <div><div><pre><code>rmm</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>メッセージを削除するには2から5を以下から取得します。sales次のように入力します。<div>rmm  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rmm.html#rmm__row-d3e160992" target="_blank" rel="noopener noreferrer">+</a>sales 2-5</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーは、<em>UserMhDirectory</em><strong>/.mh_profile</strong> に入力します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>Current-Folder:</td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td>Path:</td>
+
+<td>を指定する。 <em>UserMhDirectory</em>.</td>
+
+</tr>
+
+<tr>
+<td>rmmproc:</td>
+
+<td>メッセージをフォルダーから除去するときに使用するプログラムを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>MH ユーザー・プロファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/rmm</strong></td>
+
+<td><strong>rmm</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

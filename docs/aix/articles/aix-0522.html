@@ -1,0 +1,72 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><code>go fish card game</code>を再生します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>fish</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><code>go fish game</code> の目的は、同じ顔の値を持つ 4 つのカードのブックを累積することです。 このゲームでは、プログラム (対戦相手) と交互に相手のカードを要求します。 相手が要求された値のカードを 1 つ以上持っている場合、相手はそれを引き渡さなければなりません。 そうでない場合は、相手から <code>GO FISH!</code>というプロンプトが出され、未処理のカードのプールからカードが描画されます。 要求したカードを描画すると、もう一度描画することになります。 本が作られると、それらはテーブルの上に置かれる。 残りのカードがなくなるまで再生が続行されます。 本が一番多い選手がその試合に勝つ。 <span>fish</span> コマンドは、勝者を知らせて終了します。</p>
+ <p><span>fish</span> コマンドは、再生を開始する前に <code>instructions?</code> というプロンプトを出します。 ゲームの説明を参照する場合は、「<code>Y</code> (はい)」を入力してください。</p>
+ <p>ゲームの最初に <code>p</code> を入力すると、プロ・レベルのゲームができます。 デフォルトではアマチュア・レベルのゲームになります。</p>
+ <p>ゴー・フィッシュをするときには、相手がプロンプトを出すときに必要なカードを入力します。</p>
+ <div> <div><div><pre><code>you ask me for: </code></pre></div><div></div></div></div>
+ <p>上記のプロンプトに Enter キーだけを押すと、相手の手のカードの枚数と配られていないカードの枚数が表示されます。</p>
+ <p>ゲーム・ディスプレイ</p>
+ <ul>
+<li>あなたの現在の手 (あなたが蓄積した本を含む)</li>
+
+<li><code>GO FISH!</code> というプロンプト</li>
+
+<li><code>GO FISH!</code> プロンプトの後に描画されるカード</li>
+
+<li>相手があなたに求めているカード</li>
+
+<li>完成した本 (あなたまたはあなたの相手の)</li>
+
+<li>あなたまたはあなたの相手が別の推測を受けるときに要求されたカード。</li>
+
+</ul>
+</section>
+
+<section><h2>例</h2> <p>次に、<span>fish</span> の画面表示の例を示します。</p>
+ <div> <div><div><pre><code>your hand is: A 5 5 7 10 J Q
+you ask me for: 5
+I say "GO FISH!"
+You draw A
+I ask you for: 5
+Made a book of 5's
+I get another guess
+I ask you for 6
+You say "GO FISH!"
+your hand is: A A 7 10 J Q
+you ask me for:</code></pre></div><div></div></div></div>
+ <p>プレイの途中でゲームを終了するには、割り込みキー・シーケンス (Ctrl-C) を押します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 1. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/games</span></td>
+
+<td>システム・ゲームの場所。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

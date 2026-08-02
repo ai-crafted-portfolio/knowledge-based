@@ -1,0 +1,241 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>メッセージ・セキュリティー・サービス (MSS) キー・ファイルの内容を表示および管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>ctmsskf</span></span> {<span><span>-a</span></span> | <span><span>-d</span></span> | <span><span>-l</span></span> | <span><span>-h</span></span>} [<span><span>-f</span></span> <span><span>key_file</span></span>] [<span><span>-t</span></span> <span><span>key_type</span></span>] [<span><span>-v</span></span> <span><span>key_version</span></span>] [<span><span>-k</span></span> <span><span>key_value</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>ctmsskf</span></span> コマンドは、メッセージ・セキュリティー・サービス (MSS) タイプのキー・ファイルの内容を表示および管理します。 このコマンドは、キー・ファイルに対するキーの追加と削除、またはキー・ファイルの内容のリストに使用します。</p>
+
+<dl>
+
+<dt>鍵の追加:</dt>
+
+<dd><div>このコマンドを使用してキー・ファイルにキー・エントリーを追加する場合は、以下の項目を指定する必要があります。<ul>
+<li>キーを追加するキー・ファイルの名前</li>
+
+<li>追加するキーのタイプ</li>
+
+<li>キー・ファイルに追加するキーのバージョン (オプション)</li>
+
+<li>16 桁のキーの値</li>
+
+</ul>
+
+</div>
+
+<p>このコマンドは、指定したキー・ファイルが存在しない場合にはそのファイルを作成します。 指定された鍵ファイルが <em>存在する</em> 場合、 <span><span>ctmsskf</span></span> コマンドは、新しい鍵に指定された鍵タイプが、ファイル内に既に記録されている鍵で使用されているタイプと一致しているかどうかを検査します。 既存のキー・ファイルに追加できるのは、同一タイプのキーのみです。 キーがファイルに正常に追加されると、そのキーのバージョンは<em>アクティブ・キー・バージョン</em> となります。 <span><span>-v</span></span> <span><span>key_version</span></span> フラグを使用して鍵バージョンを指定すると、 <span><span>key_version</span></span> が新しいバージョン番号として使用され、アクティブ・バージョンになります。 <span><span>key_version</span></span>
+を指定しなければ、前のアクティブ・キー・バージョン番号より 1 つ大きいキー・バージョン値を使用してキーが追加されます。</p>
+
+<p>存在しているキーのバージョンは交換できません。 鍵の既存のバージョンを置き換えたり、鍵の既存のバージョンの値を変更したりするには、まず <span><span>-d</span></span> フラグを使用してその鍵バージョンを削除してから、 <span><span>-a</span></span> フラグを使用して再度追加する必要があります。 既存のキー・ファイル内のキーで使用中のバージョン番号を使用したキーを追加しようとすると、コマンドはエラーを戻します。 一般に、キーの交換は現在アクティブなキーの値でのみ実行する必要があります。
+なぜなら、古いキー・バージョンの値を変更すると古いキー・バージョンがアクティブになってしまいます。</p>
+
+<p>キー・バージョンは任意の順序でキー・ファイルに追加できるので、最も大きいキー・バージョン番号が現在アクティブなキー・バージョンかどうかはわかりません。 ファイルに対して現在アクティブな鍵バージョンを判別するには、 <span><span>-l</span></span> フラグを使用します。</p>
+
+</dd>
+
+
+
+<dt>鍵の削除:</dt>
+
+<dd><div>このコマンドを使用してキー・エントリーをキー・ファイルから削除する場合は、以下の項目を指定する必要があります。<ul>
+<li>キーを削除するキー・ファイルの名前</li>
+
+<li>削除するキーのタイプ (オプション)</li>
+
+<li>削除するキーのバージョン (オプション)</li>
+
+</ul>このコマンドは、指定されたキーが空か、存在しないか、または適切なヘッダーを持っていない場合は、エラーを戻します。 キー・タイプが指定されていて、それがヘッダー内のキー・タイプと一致しない場合は、エラーを戻します。 キー・バージョンが指定されている場合は、その指定されたバージョンに対応するレコードを見つけて、それをファイルからパージします。 そのようなレコードが存在しない場合は、エラーを戻します。 キー・バージョンが指定されていない場合は、非アクティブとしてマークされたレコードだけをパージします。</div>
+
+</dd>
+
+
+
+<dt>鍵ファイルの内容のリスト:</dt>
+
+<dd><div>このコマンドを使用してキー・ファイルの内容をリストする際には、次の情報が表示されます。<ul>
+<li>キー・ファイルのヘッダー。</li>
+
+<li>キー・ファイル内のキーのリスト。<div>各キーに対し次の情報が表示されます。<ul>
+<li>レコードが非アクティブかどうかの表示</li>
+
+<li>キーのバージョン</li>
+
+<li>キーのタイプ</li>
+
+<li>16 桁のキーの値</li>
+
+</ul>
+</div>
+</li>
+
+</ul>
+</div>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt>-a</dt>
+
+<dd>キーをキー・ファイルに追加します。 <span><span>-f</span></span>、 <span><span>-k</span></span>、および <span><span>-t</span></span> フラグも指定する必要があります。</dd>
+
+
+<dt>-d</dt>
+
+<dd>キー・ファイルからキーを削除します。 <span><span>-f</span></span> および <span><span>-v</span></span> フラグも指定する必要があります。 <span><span>-t</span></span> フラグが指定されている場合、コマンドは、鍵ファイルのタイプが指定された鍵タイプと同じであるかどうかを検査します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>キー・ファイルの内容をリストします。 <span><span>-f</span></span> フラグも指定する必要があります。 <span><span>-v</span></span> フラグが指定されている場合、コマンドは指定されたバージョン番号と一致するキーのみをリストします。</dd>
+
+
+<dt>--f <span><span>key_file</span></span></dt>
+
+<dd>キー・ファイルの名前を指定します。 このキー・ファイルは、MSS API またはこのコマンドによって作成された有効なキー・ファイルでなければなりません。</dd>
+
+
+<dt>--t <span><span>キータイプ</span></span></dt>
+
+<dd>追加するキーのタイプを指定します。 その指定したキー・ファイルが空でない場合、指定したキー・タイプがそのキー・ファイルのヘッダー内のキー・タイプと一致するかどうかが検査されます。 有効なキー・タイプ値は、 <span><span>3des_md5</span></span>、 <span><span>aes256_md5</span></span>、 <span><span>des_cbc</span></span>、 <span><span>des_md5</span></span>、 <span><span>rsa512_sha</span></span>、および <span><span>rsa1024_sha</span></span>です。</dd>
+
+
+<dt>--v <span><span>key_version</span></span></dt>
+
+<dd>キーのバージョンを指定します。</dd>
+
+
+<dt>--k <span><span>key_value</span></span></dt>
+
+<dd>16 桁のキーの値を指定します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>キー・ファイルのファイルシステム許可は、そのファイルを所有しているアプリケーションによって判別されます。 起動者がそのファイルをオープンするのに十分な権限を持っていない場合、このコマンドは失敗します。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>4</dt>
+
+<dd>呼び出し元がこのコマンドを正しくない方法で起動しました。必須フラグおよびパラメーターが省略されているか、または相互に排他的なフラグが同時に使用されています。 このコマンドは要求を処理せずに終了しました。</dd>
+
+
+<dt>6</dt>
+
+<dd>このコマンドの操作中にメモリー割り当て要求が失敗しました。 このコマンドは要求されたアクションを完了できませんでした。</dd>
+
+
+<dt>9</dt>
+
+<dd><span><span>-a</span></span> フラグが指定された場合、コマンドは、 <span><span>-v</span></span> フラグで指定されたバージョン番号と同じバージョン番号を使用する鍵を鍵ファイル内で検出しました。 <span><span>-d</span></span> フラグが指定された場合、コマンドは、 <span><span>-v</span></span> フラグで指定されたバージョン番号を使用して鍵ファイル内の鍵を見つけることができませんでした。 キー・ファイルは変更されませんでした。</dd>
+
+
+<dt>21</dt>
+
+<dd>キー・ファイルを検出できませんでした。 <span><span>-f</span></span> フラグによって指定された鍵ファイルのパス名が正しいことを確認してください。</dd>
+
+
+<dt>27</dt>
+
+<dd><span><span>-t</span></span> フラグによって指定された鍵タイプが、 <span><span>-f</span></span> フラグによって指定されたファイルに保管されている鍵のタイプと一致しません。 要求されたアクションは実行されませんでした。</dd>
+
+
+<dt>30時間まで</dt>
+
+<dd><span><span>ctmsskf</span></span> は、鍵ファイルの排他使用を取得できませんでした。 このコマンドの別のインスタンスが同一のファイルを実行し、変更を試みている可能性があります。
+あるいは、このキー・ファイルを使用するプロセスが、ファイルを検査している可能性があります。 後で、コマンドを再実行してください。</dd>
+
+
+<dt>36</dt>
+
+<dd>コマンドのユーザーはキー・ファイルの内容を変更するための十分なアクセス権を持っていません。</dd>
+
+
+<dt>37</dt>
+
+<dd>キー・ファイルが破壊されているようです。 <span><span>-l</span></span> フラグを使用してファイルの内容をリストし、ファイルが破損しているかどうかを確認してください。 エラー・メッセージが表示した問題解決アドバイスに従ってリカバリー・アクションをとってください。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、MSS フォーマットのキー・ファイルに対してのみ機能します。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 <span><span>-i</span></span> フラグを指定すると、使用可能な鍵生成方式のリストが表示されます。 <span><span>-l</span></span> フラグを指定すると、鍵ファイルから 1 つ以上の鍵が表示されます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>あらゆる検出済み障害条件に関する記述情報が標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>鍵ファイル <span><span>/my_key_file</span></span>に含まれている鍵を表示するには、次のように入力します。<div> <div><div><pre><code>ctmsskf -l -f /my_key_file</code></pre></div><div></div></div></div>
+</li>
+
+<li>バージョン 9 の鍵を鍵ファイル <span><span>/my_key_file</span></span>から表示するには、次のように入力します。<div> <div><div><pre><code>ctmsskf -l -v 9 -f /my_key_file</code></pre></div><div></div></div></div>
+</li>
+
+<li>鍵ファイル <span><span>/my_key_file</span></span>に鍵を追加するには、次のように入力します。<div> <div><div><pre><code>ctmsskf -a -t des_cbc -f /my_key_file -k 16_digit_value</code></pre></div><div></div></div></div>
+</li>
+
+<li>鍵ファイル <span><span>/my_key_file</span></span>から鍵を削除するには、次のように入力します。<div> <div><div><pre><code>ctmsskf -d -f /my_key_file -v 10</code></pre></div><div></div></div></div>
+</li>
+
+<li>鍵ファイル <span><span>/my_key_file</span></span>内のすべての非アクティブ鍵を削除するには、次のように入力します。<div> <div><div><pre><code>ctmsskf -d -f /my_key_file</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/ctmsskf</dt>
+
+<dd><span><span>ctmsskf</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/opt/rsct/cfg/ctcasd.cfg</dt>
+
+<dd><span><span>ctcasd</span></span> デーモンのデフォルト構成</dd>
+
+
+<dt>/var/ct/cfg/ctcasd.cfg</dt>
+
+<dd><span><span>ctcasd</span></span> デーモンの構成。これは、システム管理者が変更できます。</dd>
+
+
+<dt>/var/ct/cfg/ct_has.pkf</dt>
+
+<dd>ノード用のクラスター・セキュリティー・サービス公開鍵ファイルのデフォルトの場所</dd>
+
+
+<dt>/var/ct/cfg/ct_has.qkf</dt>
+
+<dd>ノード用のクラスター・セキュリティー・サービス秘密鍵ファイルのデフォルトの場所</dd>
+
+
+<dt>/var/ct/cfg/ct_has.thl</dt>
+
+<dd>ノード用のクラスター・セキュリティー・サービス・トラステッド・ホスト・リストのデフォルトの場所</dd>
+
+</dl>
+</section>
+
+</div></div>

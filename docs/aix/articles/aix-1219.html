@@ -1,0 +1,883 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>印刷ジョブを開始します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>qprt</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123701" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>PreviewOption</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123740" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a><em> レベル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123791" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>BottomMargin</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123799" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a><em> 値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123841" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123855" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123885" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>InputDataType</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123938" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> " <em>ユーザー</em> "<em></em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123955" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a> <em>EmphasizedOpt</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123977" target="_blank" rel="noopener noreferrer"><strong>-E</strong></a> <em>DblHigh</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123999" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em> フィルター</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124028" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a><em> 名前</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124042" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a><em> 開始</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124065" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a><em> 座標</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124089" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> <strong>"</strong><em> ヘッダー</em><strong> "</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124127" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> <strong>"</strong><em> ホスト名</em><strong> "</strong><em></em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124139" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a><em> インデント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124175" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> <em>FontPath</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124189" target="_blank" rel="noopener noreferrer"><strong>-j</strong></a><em> 初期化</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124217" target="_blank" rel="noopener noreferrer"><strong>-J</strong></a><em> 復元</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124238" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a><em> 色</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124246" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a><em> 圧縮</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124268" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a><em> 長さ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124279" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> <em>LineWrap</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124306" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><em> メッセージ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124318" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a> <em>MessageFile</em> ファイル ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124326" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124344" target="_blank" rel="noopener noreferrer"><strong>-N</strong></a> <em>NumberCopies</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124352" target="_blank" rel="noopener noreferrer"><strong>-O</strong></a> <em>PaperHand</em> 種類 ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124379" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em> ピッチ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124403" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em> キュー</em> [ <strong>:</strong><em> キューデバイス</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124523" target="_blank" rel="noopener noreferrer"><strong>-Q</strong></a><em> 値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124478" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a><em> 品質</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124540" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124547" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a><em> 優先度</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124573" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>NameType</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124584" target="_blank" rel="noopener noreferrer"><strong>-S</strong></a><em> 速度</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124605" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <em>TopMargin</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124613" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <strong>"</strong><em> タイトル</em><strong> "</strong><em></em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124631" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> <em>PaperSrc</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124658" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a> <em>Directional</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124679" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> <em>LinesPerIn</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124696" target="_blank" rel="noopener noreferrer"><strong>-V</strong></a> <em>Vertical</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124717" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>PageWidth</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124729" target="_blank" rel="noopener noreferrer"><strong>-W</strong></a> <em>DblWide</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124751" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> <em>LineFeed</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124779" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> <em>CodePage</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124791" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a> <em>DblStrike</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124812" target="_blank" rel="noopener noreferrer"><strong>-Y</strong></a> <em>Duplex</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124839" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> <em>Rotate</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124881" target="_blank" rel="noopener noreferrer"><strong>-Z</strong></a> <em>FormFeed</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123630" target="_blank" rel="noopener noreferrer"><strong>-#</strong></a> { <strong>j</strong> | <strong>h</strong> | <strong>v</strong> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123658" target="_blank" rel="noopener noreferrer"><strong>-=</strong> <em>OutputBin</em></a> ]{ <em>File</em> | <strong>-</strong> } <em>...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>qprt</strong> コマンドは、印刷ジョブを作成し、これをキューに入れて <em>File</em> パラメーターで指定されたファイルを印刷します。 標準入力からのファイルを印刷するには、ファイル名の代わりに <strong>-</strong> (ダッシュ) を指定します。 複数のファイルを指定すると、複数ファイルで 1 つの印刷ジョブが作成されます。 <strong>qprt</strong> コマンドは、指定された順序でファイルを印刷します。</p>
+ <p>ファイルを印刷するには、このファイルに対する読み取りアクセス権を持っていなければなりません。 <strong>-r</strong> フラグを使用すると、ファイルを印刷した後で取り除くことができます。 ファイルを除去するには、そのファイルが入っているディレクトリーに対する書き込みアクセス権を持っていなければなりません。 <strong>qprt</strong> コマンドに印刷ジョブ完了を通知させたい場合は、<strong>-n</strong> フラグを指定します。</p>
+ <p><strong>-B</strong> フラグを <strong>-D</strong>、<strong>-H</strong>、
+および <strong>-T</strong> フラグとともに使用すると、バースト・ページをカスタマイズすることができます。 バースト・ページは、印刷ジョブの先頭、終わり、またはその両方にマークを付けます。 印刷ジョブの先頭と終わりにバースト・ページでマークを付けるには、<strong>-B aa</strong> フラグを使用します。</p>
+ <p>すべてのフラグはオプションであり、どのような順序で指定してもかまいません。 <strong>qprt</strong> コマンドは、フラグとその引数との間のスペースを無視します。 <strong>-</strong> (ダッシュ) の後に引数を持たないフラグをグループ化することができます。 すべてのフラグとその引数を指定してから、<em>File</em> パラメーターを指定しなければなりません。</p>
+ <p>このコマンドを実行するときに、System Management Interface Tool (SMIT) の <strong>smit qprt</strong> 高速パスを使用することもできます。</p>
+ <p>このコマンドでリストされたフラグおよび引数の中には、特定のプリンター・タイプに対して無効なものもあります。 オプションを使うと問題が発生する場合は、SMIT を使用して <strong>qprt</strong> コマンドのステートメントを実行前に調べることができます。 「 <span><em>プログラミングの一般概念: プログラムの作成とデバッグ</em></span>」の「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/generalprogramming/smit.html" target="_blank" rel="noopener noreferrer">システム管理インターフェース・ツール (SMIT)</a> 」を参照してください。 また、使用中のプリンターがサポートするオプションについては、そのプリンターの解説書を参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-#{j|h|v}</strong></td>
+
+<td>特殊な機能性を指定します。 <em>Value</em> 変数に有効な値は以下のとおりです。<dl>
+<dt><strong>j</strong></dt>
+
+<dd>指定した印刷ジョブのジョブ番号を表示します。</dd>
+
+
+<dt><strong>h</strong></dt>
+
+<dd>印刷ジョブをキューに入れますが、HELD 状態で保持します。</dd>
+
+
+<dt><strong>v</strong></dt>
+
+<dd>指定したプリンター・バックエンド・フラグの値の妥当性を検査します。 妥当性検査プロセスの一部として、このコマンドはフラグ値の違法性検査、タイプ検査、範囲検査、リスト検査、他のタイプの妥当性検査を行います。 一般に、バックエンド・フラグ値の妥当性検査を行うと、印刷ジョブが処理される段階になってからではなく、印刷ジョブを実行要求した時点で違法なフラグが識別されるので便利です。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-=</strong><em> OutputBin</em></td>
+
+<td>印刷ジョブに出力ビンの宛先を指定します。 このフラグを指定しないと、プリンター・ドライバーからのデフォルト値が使用されます。<p><em>OutputBin</em> に使用可能な値は次のとおりです。</p>
+  <dl>
+
+<dt><strong>0</strong></dt>
+
+<dd>トップ・プリンター・ビン</dd>
+
+
+<dt><strong>1</strong> - <strong>49</strong></dt>
+
+<dd>大容量出力 (HCO) ビン 1 から 49</dd>
+
+
+<dt><strong>&gt;49</strong></dt>
+
+<dd>プリンター特定出力ビン</dd>
+
+</dl>
+  <p></p><blockquote><span>“</span><strong>注:</strong> 有効な出力ビンは、プリンターに依存しています。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong><em> PreviewOption</em></td>
+
+<td>実際にファイルを印刷せずに印刷ジョブのパラメーター値を事前に調べます。 <em>PreviewOption</em> 変数には、 <strong>0</strong> または <strong>1</strong> を指定できます。 <strong>0</strong> を指定すると、<strong>qprt</strong> コマンド・プレビューは通常の印刷処理を表示します。 <strong>1</strong> を指定すると、コマンドはフラグ値と、入力データ・タイプをプリンターが期待するデータ・タイプに変換するためのフィルター・パイプラインのリストを戻します。 これらのフラグ値は、構成データベースから取り出されるデフォルトのコマンド・ライン・フラグの値であり、コマンド・ラインでフラグ・パラメーターを指定するとオーバーライドされます。<p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123885" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> フラグに指定された (またはデフォルト設定された) <em>InputDataType</em> 変数に有効なフラグのみが表示されます。 実際の印刷ではなく印刷ジョブのスプーリングにのみ関連するフラグ値は表示されません。 スプーリング・フラグのデフォルト値はそのフラグの説明とともに表示されます。 フラグ値がプリンターでサポートされるかどうかは検査されません。</p>
+  <p>フィルターのパイプラインは、プリンターに送られる前に印刷ファイルからのデータを処理するフィルター・コマンド (およびフィルター・コマンドに渡されるフラグ値) を示します。 フィルター・コマンドごとに記述を再検討して、実行されるフィルター操作のタイプを判定できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong><em> レベル</em></td>
+
+<td>診断出力のレベルを指定します。 診断出力は、フィルターのパイプラインが印刷ファイル、ヘッダー・ページ、またはトレーラー・ページを処理するときに起こるエラーを診断するのに有効です。 診断出力は印刷ジョブを実行要求したユーザーにメールされます。 以下のいずれかのレベルを指定できます。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>生成された標準エラー出力を破棄します。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>標準エラー出力を生成したフラグ値、標準エラー出力、およびパイプライン全体を戻します。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>エラーが検出されるかどうかに関係なく、フラグ値、標準出力エラー (もしあれば)、およびパイプライン全体を戻します。 エラーが検出されると、印刷ジョブが終了します。</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>値が <strong>2</strong> の場合と似ていますが、ファイルは印刷されません。</dd>
+
+</dl>
+  <p>望ましい値は <strong>1</strong> です。 パイプライン内のフィルターが標準エラーへの出力を生成する場合は、エラーが検出されなくても (例えば、状況情報が出力されなくても) <strong>0</strong> が有効です。 問題が発生したときに標準エラー出力が生成されない場合でも、問題を診断するには <strong>2</strong> か <strong>3</strong> が有効です。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> BottomMargin</em></td>
+
+<td>下部マージンを指定します。
+下部マージンとは、各ページの下部に残されるブランク行の数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong><em> 値</em></td>
+
+<td>バースト・ページを印刷します。 <em>Value</em> 変数は、2 文字の文字列です。 1 番目の文字はヘッダー・ページに適用されます。 2 番目の文字はトレーラー・ページに適用されます。 有効な値は次のとおりです。<dl>
+<dt><strong>a</strong></dt>
+
+<dd>各印刷ジョブ内のファイルごとに必ず (ヘッダーまたはトレーラー) ページを印刷します。</dd>
+
+
+<dt><strong>n</strong></dt>
+
+<dd>(ヘッダーまたはトレーラー) ページを決して印刷しません。</dd>
+
+
+<dt><strong>g</strong></dt>
+
+<dd>各印刷ジョブ (ファイル・グループ) ごとに (ヘッダーまたはトレーラー) ページを印刷します。</dd>
+
+</dl>
+  <p>例えば、<strong>-B ga</strong> フラグを指定すると、各印刷ジョブの開始時にヘッダー・ページが印刷され、各印刷ジョブの各ファイルの後でトレーラー・ページが印刷されます。</p>
+  <p></p><blockquote><span>“</span><strong>注:</strong>  リモート印刷環境では、デフォルトは、サーバー上のリモート・キューにより求められます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>各印刷ファイルをコピーし、コピーから印刷します。 このフラグは、<strong>qprt</strong> コマンドが発行された後、ただし印刷ジョブが完了する前に、印刷ファイルまたは複数の印刷ファイルを変更したい場合に指定されます。<p>このフラグを指定しなかったときに、印刷ジョブが実行要求されたのと同じノード上で印刷される場合、印刷ファイルのコピーは作成されません。 <em>File</em> パラメーターで指定したファイルから直接印刷されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-C</strong></td>
+
+<td>ユーザーがログインしていても、印刷ジョブで生成されたメッセージをそのユーザーにメールします。 デフォルトでは、<strong>qprt</strong> コマンドはメッセージをコンソール上に表示します。<p><strong>-C</strong> フラグはローカル印刷ジョブにのみ適用されます。 リモート・プリンターに送信されたジョブが完了したときに通知が必要な場合は、<strong>-n</strong> フラグを使用してメール・メッセージを受信します。</p>
+  <p></p><blockquote><span>“</span><strong>注:</strong> どのようなやり方をしても、<strong>qdaemon</strong> およびプリンター・バックエンドからリダイレクトできないメッセージがあります。 これらのメッセージは <strong>/dev/console</strong> ファイルに直接送られます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> InputDataType</em></td>
+
+<td>印刷する 1 つまたは複数のファイルの入力データ・タイプを識別します。 印刷ファイルは、入力データ・タイプとプリンターが期待するデータ・タイプに基づいて、プリンターに送られる前にフィルターを通過 (パススルー) します (必要な場合)。 以下のいずれかの入力データ・タイプを指定できます。<dl>
+<dt><strong>a</strong></dt>
+
+<dd>拡張 ASCII</dd>
+
+
+<dt><strong>C</strong></dt>
+
+<dd>PCL</dd>
+
+
+<dt><strong>d</strong></dt>
+
+<dd>Diablo 630</dd>
+
+
+<dt><strong>g</strong></dt>
+
+<dd>Hewlett-Packard GL</dd>
+
+
+<dt><strong>p</strong></dt>
+
+<dd>パススルー (変更されずにプリンターに送られます)</dd>
+
+
+<dt><strong>s</strong></dt>
+
+<dd>PostScript</dd>
+
+</dl>
+  <p>選択したプリンターが指定の入力データ・タイプをサポートしない場合、<em>および</em> フィルターが使用できないために印刷ファイルのデータ・タイプをプリンターがサポートするデータ・タイプに変換できない場合は、印刷ジョブが終了し、エラー・メッセージが表示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em> 「ユーザー」</em></td>
+
+<td>送達のために出力に <em>User</em> というラベルを付けます。 通常、出力には <strong>qprt</strong> コマンド要求を発行している人のユーザー名へ送ることを表すラベルが付けられます。 <em>User</em> の値は、通常のユーザー ID と同じ要求を満たす単一のワードでなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> EmphasizedOpt</em></td>
+
+<td>強調印刷を以下のいずれかに設定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>強調印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>強調印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong><em> DblHigh</em><strong></strong></td>
+
+<td>縦倍角印刷を以下のいずれかに設定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>縦倍角印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>縦倍角印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> フィルター</em><strong></strong></td>
+
+<td>印刷ファイルをプリンターに送る前に通過 (パススルー) させるフィルターを識別します。 この ID は、<strong>lpr</strong> コマンドで使用できるフィルター・フラグに類似しています。 使用可能なフィルター ID は、<strong>pr</strong> フィルターを起動
+する <strong>p</strong>、<strong>troff</strong> コマンドからの出力を処理
+する <strong>n</strong>、および制御文字を印刷できるように
+する <strong>l</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em> 名前</em></td>
+
+<td>印刷用に使用される文字イメージが入っている X フォント・ファイルのリストを指定します。 リスト内のエントリーはコンマで区切らなければなりません。 <em>Name</em> パラメーターの値として、絶対パス名、フォント別名、または XLFD 名を使用できます。 <strong>-F</strong> Name フラグは、MBCS プリンター・キューにのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> 開始</em></td>
+
+<td>印刷開始ページ番号を指定します。 このフラグは、印刷ファイルがフォーマット設定される (例えば、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123885" target="_blank" rel="noopener noreferrer"><strong>-d a</strong></a> フラグを使用して) 場合にのみ認識されます。 パススルー ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123885" target="_blank" rel="noopener noreferrer"><strong>-d p</strong></a> フラグ)、 PostScript ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123885" target="_blank" rel="noopener noreferrer"><strong>-d s</strong></a> フラグ)、および既にフォーマットされているその他のタイプのデータについては認識されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong><em> コーディネート</em></td>
+
+<td>用紙の端まで印刷できないレーザー・プリンター上でページを印刷する方法を示します。 <em>Coordinate</em> 変数には以下のいずれかの値を使用します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>ページ全体の座標システム。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>印刷ページの座標システム。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><strong> "</strong><em>ヘッダー</em><strong>"</strong></td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123999" target="_blank" rel="noopener noreferrer"><strong>-f p</strong></a> フラグも指定されている場合に <strong>pr</strong> コマンドが使用するヘッダー・テキストを指定します。 このフラグを指定しなければ、<strong>pr</strong> コマンドは印刷ファイル名をヘッダーとして使用します。<p>このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123841" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> フラグも指定した場合に役立ちます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123841" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> フラグを指定すると、 <strong>pr</strong> コマンドがデフォルト・ヘッダーとして使用する印刷ファイル名は、スプーラーによって生成された一時ファイルの名前になります。 <strong>qprt</strong> コマンドで指定したファイル名の代わりに使用します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong><strong> "</strong><em>ホスト名</em><strong>"</strong></td>
+
+<td>ヘッダー・ページ上のホスト名を設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> インデント</em></td>
+
+<td>指定したスペース数だけ各行を字下げさせます。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124717" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> フラグで指定したページ幅に <em>Indent</em> 変数を組み込む必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em> FontID</em></td>
+
+<td>(i の大文字) フォント ID を指定します。 フォント ID を指定すると、ピッチ ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124379" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグ) およびタイプ・スタイル ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124573" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> フラグ) がオーバーライドされます。 <strong>-I</strong><em>FontID</em> コマンドは、単一バイト・コード・セットの印刷キューにのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong><em> フォントパス</em></td>
+
+<td>(i の大文字) は、フォント別名あるいは XLFD 名が付けられたフォント・ファイルを指定する場合に <strong>-F</strong> フラグに必要なフォント・パスのリストをコンマで区切って指定します。 <em>FontPath</em> フラグは、MBCS プリンター・キューにのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-j</strong><em> イニシャル</em></td>
+
+<td>各ファイルを印刷する前に、プリンターを初期化します。 以下のいずれかの値を指定できます。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>初期化されません。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>完全に初期化されます。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>エミュレーター選択のみ。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-J</strong><em> 復元</em></td>
+
+<td>印刷ジョブの終了時にプリンターを復元します。 以下のいずれかの値を指定できます。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>印刷ジョブの終了時に復元します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>印刷ジョブの終了時に復元しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> 色</em></td>
+
+<td>印刷時の色を指定します。 一般的な値は黒、赤、青、緑などです。 どのような色がサポートされているか、および特定の色に割り当てられているリボン位置については、プリンターの解説書を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-K</strong><em> 圧縮</em><strong></strong></td>
+
+<td>縮刷機能を以下のいずれかに設定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>縮刷機能を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>縮刷機能を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> 長さ</em></td>
+
+<td>(L の小文字) ページ長を設定します。 <em>Length</em> 変数が 0 であれば、ページ長は無視され、出力は単一の連続ページとして扱われます。 ページ長は上下のマージンを含み、用紙の印刷可能長を示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong><em> LineWrap</em><strong></strong></td>
+
+<td>1 行がページ幅より長い場合の行のラップを、以下のいずれかの値で設定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>長い行は次行にラップします。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>長い行は右マージンで切り捨てます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-m</strong><strong> "</strong><em>メッセージ</em><strong>"</strong></td>
+
+<td>印刷ジョブがプリンターに割り当てられ、印刷開始準備が整ったときに、コンソールに表示されます。 コンソールでメッセージが確認されるまで、印刷ジョブは処理されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> MessageFile</em></td>
+
+<td>メッセージ・テキストが入っているファイルを識別します。 このテキストは、印刷ジョブがプリンターに割り当てられ、印刷開始準備が整ったときに、コンソールに表示されます。 コンソールでメッセージが確認されるまで、印刷ジョブは処理されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>印刷ジョブの完了時にユーザーに通知します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123938" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> <strong>"</strong><em>User</em><strong>"</strong> フラグも指定されている場合は、指定されたユーザーにも通知されます。 デフォルトでは、印刷ジョブが完了してもユーザーには通知されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong><em> NumberCopies</em></td>
+
+<td>印刷する部数を指定します。 このフラグを指定しなければ、一部のみが印刷されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong><em> PaperHand</em></td>
+
+<td>入力用紙処理のタイプを以下のいずれかの値に設定します。<dl>
+<dt><strong>1</strong></dt>
+
+<dd>手動 (一度に 1 枚ずつ挿入します)</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>連続用紙</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>紙送り</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> ピッチ</em></td>
+
+<td>1 インチ当たりの文字数を設定します。 <em>Pitch</em> の一般的な値は 10 と 12 です。 印刷される文字の実際のピッチは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124246" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a> (圧縮) フラグおよび <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124729" target="_blank" rel="noopener noreferrer"><strong>-W</strong></a> (ダブル幅) フラグの値の影響も受けます。<p>PostScript プリンターで ASCII ファイルを印刷する場合は、このフラグによって文字ポイント・サイズが決まります。 1 以上の正の数値を指定できます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> キュー</em> [: <em>キューデバイス</em> ]</td>
+
+<td>印刷キュー名とオプションのキュー・デバイス名を指定します。 このフラグが指定されない場合、次の条件が発生します。<ul>
+<li><strong>LPDEST</strong> 環境変数が設定されている場合は、<strong>qprt</strong> コマンドは <strong>LPDEST</strong> 変数で指定されたキュー名を使用します。 この環境変数を設定すれば、
+<strong>PRINTER</strong> 変数も設定した場合でも、この値が必ず使用されます。</li>
+
+<li><strong>PRINTER</strong> 変数が設定されており、<strong>LPDEST</strong> 変数が設定されていなければ、<strong>qprt</strong> コマンドは <strong>PRINTER</strong> 環境変数で指定されたキュー名を使用します。 コマンド・ラインに宛先オプションが指定された場合には、<strong>LPDEST</strong> 環境変数と <strong>PRINTER</strong> 環境変数が両方ともオーバーライドされます。</li>
+
+<li><strong>LPDEST</strong> 変数も <strong>PRINTER</strong> 変数も設定されていない場合、<strong>qprt</strong> コマンドはシステム・デフォルト・キュー名を使用します。 (システム・デフォルト・キュー名は、<strong>/etc/qconfig</strong> ファイルで定義された最初のキュー名です。) <em>QueueDevice</em> 変数を指定しなければ、キュー用に構成された最初の使用可能プリンターが使用されます。<p></p><blockquote><span>“</span><strong>注:</strong> 複数のプリンターが同じ印刷キューに構成されており、そのうちの 1 つ以上がユーザーのファイルを印刷するのに適切でない場合には、<em>QueueDevice</em> 変数を使用する必要があります。 そうでなければ、スプーラーが最初に使用可能なプリンターを割り当てます。<span>”</span></blockquote>
+<p></p>
+</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em> 品質</em></td>
+
+<td>印刷品質を以下のいずれかに設定します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>高速フォント</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>ドラフト品質</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>レターに近い品質</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>拡張品質</dd>
+
+
+<dt><strong>300</strong></dt>
+
+<dd>1 インチ当たり 300 ドット (dpi)</dd>
+
+
+<dt><strong>600</strong></dt>
+
+<dd>600 dpi</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Q</strong><em> 値</em></td>
+
+<td>用紙サイズを設定します。 用紙サイズのための <em>Value</em> は、プリンターに依存しています。 一般的な値としては、レターサイズの用紙を表す <strong>1</strong>、リーガル・サイズの用紙を表す <strong>2</strong> などがあります。 特定の用紙サイズに割り当てられている値については、該当するプリンターの解説書を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>印刷ジョブが完了してから印刷ファイルを除去します。 このフラグを指定しなければ、印刷ファイルは除去されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong><em> 優先度</em></td>
+
+<td>印刷ジョブの優先順位を設定します。 <em>Priority</em> 変数の値が大きいほど、印刷ジョブの優先順位が上位になります。 デフォルトの優先順位値は <strong>15</strong> です。 優先順位の最大値は、ほとんどのユーザーについては <strong>20</strong> ですが、
+root ユーザー特権を持つユーザーおよびシステム・グループ (グループ 0) については <strong>30</strong> です。<p></p><blockquote><span>“</span><strong>注:</strong> このフラグは、リモート印刷ジョブを要求する場合には使用できません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> NameType</em></td>
+
+<td><em>NameType</em> 変数を使用してタイプ・スタイルを指定します。 タイプ・スタイル例としては、courier と prestige があります。 タイプ・スタイルの選択肢は、プリンターのタイプに応じて異なります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> 速度</em></td>
+
+<td>高速印刷を以下のいずれかに設定します。<dl>
+
+<dt><strong>+</strong></dt>
+
+<dd>高速印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>高速印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> TopMargin</em></td>
+
+<td>上部マージンを指定します。
+上部マージンとは、各ページの上部に残されるブランク行の数です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><strong> "</strong><em>タイトル</em><strong>"</strong></td>
+
+<td><em>Text</em> 変数を使用して印刷ジョブのタイトルを指定します。 このフラグを指定しなければ、<strong>qprt</strong> コマンド・ラインの最初のファイル名が印刷ジョブのタイトルとして使用されます。 印刷ジョブのタイトルは、ヘッダー・ページ上、およびキューの状況に関する照会に対する応答に表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong><em> PaperSrc</em></td>
+
+<td>用紙ソースを以下のいずれかに設定します。<dl>
+<dt><strong>1</strong></dt>
+
+<dd>1次</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>代替</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>封筒</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> 方向</em></td>
+
+<td>単一方向印刷を以下のいずれかに設定します。<dl>
+
+<dt><strong>+</strong></dt>
+
+<dd>単一方向印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>単一方向印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong><em> LinesPerIn</em></td>
+
+<td>行密度を 1 インチ当たりの行数に設定します。 <em>LinesPerIn</em> 変数の一般的な値は <strong>6</strong> と <strong>8</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong><em> 垂直</em></td>
+
+<td>垂直印刷を以下のいずれかに設定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>垂直印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>垂直印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> PageWidth</em></td>
+
+<td>ページ幅を文字数単位で設定します。 ページ幅には、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124139" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> フラグで指定された字下げスペースの数を含める必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-W</strong><em> DblWide</em><strong></strong></td>
+
+<td>倍角印刷を以下のいずれかに設定します。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>倍角印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>倍角印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> LineFeed</em></td>
+
+<td>自動改行または自動復帰を指定します。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>改行、垂直タブ、復帰を変更しません。</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>復帰ごとに 1 行だけ改行を追加します。</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>改行ごとおよび垂直タブごとに 1 回だけ復帰を追加します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong><em> CodePage</em><strong></strong></td>
+
+<td>コード・ページ名を与えます。 <em>CodePage</em> 変数の有効な値は、ISO8859-1 から ISO8859-9、IBM-943、
+IBM-eucJP、IBM-eucKR、IBM-eucTW、および UTF-8 です。 ユーザーのロケール定義で指定されたコード・ページがデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong><em> DblStrike</em></td>
+
+<td>二重印刷を以下のいずれかに設定します。<dl>
+
+<dt><strong>+</strong></dt>
+
+<dd>二重印刷を使用します。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>二重印刷を使用しません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Y</strong><em> 二重</em></td>
+
+<td>両面印刷を指定します。 両面印刷は、用紙の裏表を印刷に使用します。 以下のいずれかの値を設定できます。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>シンプレックス</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>両面印刷、長辺がとじ代</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>両面印刷、短辺がとじ代</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-z</strong><em> 回転</em></td>
+
+<td>ページ・プリンターの出力を、<em>Value</em> 変数で指定された 1/4 回転の倍数だけ右回りに回転させます。 長さ (<strong>-l</strong>) 値と幅 (<strong>-w</strong>) 値は、これに応じて自動的に調整されます。<dl>
+<dt><strong>0</strong></dt>
+
+<dd>縦長</dd>
+
+
+<dt><strong>1</strong></dt>
+
+<dd>右向き横長</dd>
+
+
+<dt><strong>※2</strong></dt>
+
+<dd>下向き縦長</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>左向き横長</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong><em> FormFeed</em></td>
+
+<td>各印刷ファイルの後に改ページをプリンターに送ります。 以下のいずれかを指定できます。<dl>
+<dt><strong>+</strong></dt>
+
+<dd>改ページ・コマンドを送ります。</dd>
+
+
+<dt><strong>!</strong></dt>
+
+<dd>用紙送りコマンドをプリンターに送りません。 このオプションを使うと、この印刷ジョブで生成される最後の出力ページから、次の印刷ジョブが始まることがあるので、注意して使ってください。 また、連続用紙に印刷するプリンターは、以降のページで用紙の上部を判別できないことがあります。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>キューに入れるには、myfileデフォルト値を使用して、デフォルト印刷キュー用に構成された最初の使用可能なプリンターで印刷するには、次のように入力します。<div> <div><div><pre><code>qprt myfile</code></pre></div><div></div></div></div>
+</li>
+
+<li>ファイルを特定のキューに入れて、デフォルト以外のフラグ値を使用せずに印刷し、
+印刷ジョブの実行要求時にフラグ値の妥当性を検査するには、以下のように入力します。<div>qprt  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123999" target="_blank" rel="noopener noreferrer">-f</a> p  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123955" target="_blank" rel="noopener noreferrer">-e</a> +  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124403" target="_blank" rel="noopener noreferrer">-P</a> fastest  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124540" target="_blank" rel="noopener noreferrer">-r</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124326" target="_blank" rel="noopener noreferrer">-n</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123855" target="_blank" rel="noopener noreferrer">-C</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e123630" target="_blank" rel="noopener noreferrer">-#v</a> somefile</div>このコマンド行は、somefile<strong>PR</strong> コマンド ( <strong>-f P (P)</strong> フラグ) を使用してファイルし、 <strong>最速</strong> という名前のキュー用に構成された最初の使用可能なプリンターで強調モード ( <strong>-[e] +</strong> フラグ) を使用してそのファイルを印刷します ( <strong>-P 最速</strong> フラグ)。 <strong>-#v</strong> フラグにより、印刷ジョブがバックエンドに渡される前に、このコマンドに関連するすべてのフラグが有効かどうかが確認されます。 ファイルは印刷後に除去され (<strong>-r</strong> フラグ)、印刷ジョブを実行要求したユーザーには印刷ジョブの完了がメール (<strong>-C</strong> フラグ) によって通知されます (<strong>-n</strong> フラグ)。</li>
+
+<li>印刷するためのmyfile法的サイズの用紙に、次のように入力します。<div>qprt  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qprt.html#qprt__row-d3e124523" target="_blank" rel="noopener noreferrer">-Q2</a> myfile</div>
+</li>
+
+<li>以下をエンキューするには、myfileジョブ番号を戻すには、次のように入力します。<div> <div><div><pre><code>qprt -#j myfile</code></pre></div><div></div></div></div>
+</li>
+
+<li>宛先キューMyFileそして、次のように入力します。<div> <div><div><pre><code>qprt -#h MyFile</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>キューとキュー・デバイス構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/qprt</strong></td>
+
+<td><strong>qprt</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

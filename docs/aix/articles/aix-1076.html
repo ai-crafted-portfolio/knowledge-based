@@ -1,0 +1,186 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート・システムの登録および認証を許可します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>公開</strong> [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66806" target="_blank" rel="noopener noreferrer">I</a></strong> [<strong>「-f」</strong> ] | [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66867" target="_blank" rel="noopener noreferrer">-v (V)</a></strong>] | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66841" target="_blank" rel="noopener noreferrer">-</a></strong> | <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66793" target="_blank" rel="noopener noreferrer">-D</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66799" target="_blank" rel="noopener noreferrer">-h</a></strong> ] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66877" target="_blank" rel="noopener noreferrer">V 値</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66858" target="_blank" rel="noopener noreferrer">-ウー</a></strong>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66816" target="_blank" rel="noopener noreferrer">-</a></strong> <em>ユーザー名</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66829" target="_blank" rel="noopener noreferrer">P-</a></strong> <em>ポート</em>] [<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/openpts.html#openpts__row-d3e66781" target="_blank" rel="noopener noreferrer">「-c」</a> </strong><em>構成ファイル</em>] <strong>ホスト</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>openpts</strong> コマンドを使用すると、システム (ベリファイヤー) がリモート <strong>host</strong> (コレクター) に接続し、そのコレクターがトラステッド・ブートを実行したかどうかを判別することができます。 マシンは、コレクターのトラステッド・プラットフォーム・モジュール (TPM) がベリファイヤーによって保守されている基準測定値セット (リファレンス・マニフェスト) に対して整合性をもつと確認された場合に、トラステッド・ブートを実行したとみなされます。 基準測定値セットを獲得するために、ベリファイヤーはまず <strong>-i</strong> オプションを使用してコレクターを登録する必要があります。 登録の後、ベリファイヤーは保全性レポートに示されている現行値と基準セットとを比較するデフォルトの <strong>-v</strong> オプションを使用して、コレクターを認証することができます。 この操作の成功または失敗は、失敗の理由とともにユーザーに報告されます。 認証失敗の原因となる操作の例としては、異なるデバイスからのブート、ブート・フラグの変更、ブート・イメージの変更があげられます。</p>
+ <p>コレクターの状態で更新が処理中になっている場合 (例えば、次のブート操作に影響を与える OS のアップグレード)、それらの更新が認証中に報告されます。 ユーザーには、新しい値を受け入れるか拒否するかのプロンプトが出されます。 <strong>-u </strong>オプションを使用すれば、更新を自動的に受け入れることができます。 認証要求は、コレクターとベリファイヤーの間の通信メカニズムとして、セキュア・シェル (SSH) を使用します。 <strong>公開</strong> コマンドは、 <strong>-</strong> ( <span>SSH</span> コマンド・ユーザー名の場合) や <strong>P-</strong> (ポートの場合) などのパラメーターを使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>「-c」</strong> <em>構成ファイル</em></td>
+
+<td>使用する構成ファイルを指定します。 デフォルトは <span>~/.openpts/openpts.conf</span> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D </strong></td>
+
+<td>ターゲットおよびすべてのオプションの構成設定を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンド使用方法の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>I</strong> [<em>「-f」</em>]</td>
+
+<td>新規のコレクター区画を登録するか、既存のコレクターの登録を強制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>- </strong> <em>ユーザー名</em></td>
+
+<td><span>ssh</span> コマンド・ユーザー名を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>ポート</em></td>
+
+<td><span>ssh</span> コマンド・ポート番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ターゲット・システムに関する情報をすべて除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u </strong></td>
+
+<td><strong>yes </strong>オプションのプロンプトを出さずに、コマンドがコレクターからマニフェストの更新を受け入れられるようにします。 デフォルトは no です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v (V)</strong> (<strong>デフォルト</strong>)</td>
+
+<td>既存のリファレンス・マニフェストに対してコレクターを検査します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>情報を詳細モードで表示します。 複数の <strong>-V</strong> オプションによって詳細度が増します。 これはデータのデバッグに使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong> ~/.openpts/ </strong></td>
+
+<td>このディレクトリーは、すべての構成およびリモート・ホスト情報のデフォルト・ロケーションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/openpts.conf</strong></td>
+
+<td>ベリファイヤーの構成。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/uuid</strong></td>
+
+<td>ベリファイヤーの UUID ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/ir.xml</strong></td>
+
+<td>リモート・ホストから受け取った最後の保全性レポート。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/newrm_uuid</strong></td>
+
+<td>新しいリファレンス・マニフェストの UUID ファイル (例えば、システム更新後の次のブート操作用のもの)。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/policy.conf</strong></td>
+
+<td>リモート・ホストのプロパティーを検査するポリシー。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/rm_uuid</strong></td>
+
+<td>リファレンス・マニフェストの UUID ファイル。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/UUID/rmN.xml</strong></td>
+
+<td>リモート・ホストのリファレンス・マニフェスト。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/target.conf</strong></td>
+
+<td>リモート・ホストの構成。</td>
+
+</tr>
+
+<tr>
+<td><strong>~/.openpts/UUID/vr.properties</strong></td>
+
+<td>保全性レポートから派生したリモート・ホストのプラットフォーム・プロパティー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

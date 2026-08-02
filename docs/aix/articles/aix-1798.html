@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>拡張 X-Window のウィンドウのダンプ・イメージを取り出して表示します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>クワッド</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53157" target="_blank" rel="noopener noreferrer"><strong>イン </strong></a><em>FileName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53171" target="_blank" rel="noopener noreferrer"><strong>-クリックしない</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53143" target="_blank" rel="noopener noreferrer"><strong>-幾何学</strong></a><em> 幾何学</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53120" target="_blank" rel="noopener noreferrer"><strong>-表示</strong></a><em> 表示</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53165" target="_blank" rel="noopener noreferrer"><strong>-新規</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53202" target="_blank" rel="noopener noreferrer"><strong>-標準</strong></a><strong> </strong><em>MapType</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53189" target="_blank" rel="noopener noreferrer"><strong>-生</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53229" target="_blank" rel="noopener noreferrer"><strong>-ビス</strong></a><strong> ビジュアル・タイプ </strong>|<strong> ビジュアル ID</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53151" target="_blank" rel="noopener noreferrer"><strong>-ヘルプ</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53195" target="_blank" rel="noopener noreferrer"><strong>-RV</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53177" target="_blank" rel="noopener noreferrer"><strong>-プレーン</strong></a><em> 数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53132" target="_blank" rel="noopener noreferrer"><strong>-fg</strong></a><em> 色</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwud.html#xwud__row-d3e53109" target="_blank" rel="noopener noreferrer"><strong>-bg (B) </strong></a><em>色</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xwud</strong> コマンドは、拡張 X-Window のウィンドウ・ダンプ・イメージを取り出します。 これを行うには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xwd.html#xwd" target="_blank" rel="noopener noreferrer"><strong>XWD</strong></a> コマンドによって以前に作成された、特別にフォーマットされたダンプ・ファイルに保管されたイメージをウィンドウに表示します。 ダンプ・ファイルのフォーマットは、<strong>XWDFile.h</strong> ファイルによって決まります。</p>
+ <p>フラグを使用して、カラー・ディスプレイ、ウィンドウのサイズと位置、入力フィールド、およびビジュアル・クラスまたは ID を指定することができます。 また、表示したいイメージの単一ビット平面を選択することもできます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-bg (B)</strong><em> 色</em></td>
+
+<td>ビットマップ・イメージ (またはイメージの単一平面) が表示される場合に、イメージ内の <strong>0</strong> (ゼロ) のビットに表示する色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-display</strong><em> 表示</em></td>
+
+<td>接続先のサーバーを指定します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/X.html#X" target="_blank" rel="noopener noreferrer"><strong>X</strong></a> コマンドを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-fg</strong><em> 色</em></td>
+
+<td>ビットマップ・イメージ (またはイメージの単一平面) が表示される場合に、イメージ内の <strong>1</strong> のビットに表示する色を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-geometry</strong><em> 形状</em></td>
+
+<td>ウィンドウのサイズと位置を指定します。 通常は位置のみを指定し、サイズはデフォルト値をイメージの実際のサイズにしておきます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>有効なオプションの簡単な説明を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-で</strong><em> FileName</em></td>
+
+<td>コマンド・ラインで入力ファイルを指定します。 入力ファイルを指定しなければ、標準入力が想定されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-new</strong></td>
+
+<td>イメージ表示用の新しいカラー・マップを作成します。 イメージ特性がディスプレイの特性と一致する場合は、このフラグを使用するとイメージの画面表示速度が高速になりますが、新しいカラー・マップを使用しなければなりません (ほとんどの端末では、他のウィンドウがテクニカラーになります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-クリックしない</strong></td>
+
+<td>ウィンドウ内のボタンをクリックしたときに、アプリケーションが終了しないようにします。 文字 q または Q あるいは Ctrl-C キー・シーケンスを入力すると、アプリケーションを終了することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-プレーン</strong><em> 数値</em></td>
+
+<td>表示したいイメージの単一ビット平面を選択します。 平面には番号が付いており、最下位有効ビットが 0 (ゼロ) です。 このフラグを使用して、印刷のために <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr" target="_blank" rel="noopener noreferrer"><strong>XPR</strong></a> コマンドに渡すプレーンを決定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-raw</strong></td>
+
+<td>スクリーン上に現在存在するカラー値でダンプ・イメージを表示します。 このフラグは、元のウィンドウが引き続き表示されている間に、最初に表示した同じ画面にイメージを逆ダンプするときに便利です。 これにより、イメージの画面表示が高速になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-RV</strong></td>
+
+<td>ビットマップ・イメージ (またはイメージの単一平面) を表示する場合のフォアグラウンド・カラーとバックグラウンド・カラーをスワップします。 このフラグは、ピクセル値が 0 と 1 のカラー・センスがディスプレイ上で反転されているビットマップ・イメージを表示するときに便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-標準</strong><em> MapType</em></td>
+
+<td>指定された標準カラー・マップを使用してイメージを表示します。 タイプを大文字に変換し、先行 <strong>RGB_</strong> と後続 <strong>_MAP</strong> を追加すると、マップ・タイプを得ることができます。 一般的なマップ・タイプは <strong>best</strong>、<strong>default</strong>、<strong>gray</strong> です。 標準カラー・マップの作成については、 <strong>/usr/lpp/X11/Xamples/clients/xstdcmap</strong> を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ビス</strong><strong> ビジュアル・タイプ</strong> | <strong>ビジュアル ID</strong></td>
+
+<td>特定のビジュアル・タイプまたはビジュアル ID を指定します。 デフォルトでは、<strong>best</strong> のタイプを取り出すか、または <strong>default</strong> を指定できます。また、default を指定すると、ルート・ウィンドウのカラー・マップと同じクラスになります。<p><strong>StaticGray</strong>、<strong>GrayScale</strong>、<strong>StaticColor</strong>、<strong>PseudoColor</strong>、<strong>DirectColor</strong>、<strong>TrueColor</strong> の中から、特定のクラスを指定することができます。 ソース・イメージと同じクラスを使用するには、<strong>Match</strong> を指定します。</p>
+  <p>正確なビジュアル ID (サーバーに特定の ID) を、16 進数 (先行 0x 付き) または 10 進数として指定してください。 この文字列では、大文字と小文字は区別されません。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>環境変数</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>DISPLAY</strong></td>
+
+<td>デフォルト・ディスプレイを取り出します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>ダンプ・ウィンドウから特定のファイルを取り出すには、下記のように入力します。</p>
+ <div> <div><div><pre><code>xwud -in FileName</code></pre></div><div></div></div></div>
+</section>
+
+</div></div>

@@ -1,0 +1,316 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>System V 印刷サブシステムに対してディレクトリーを使用可能な印刷サービスを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dslpadmin</strong> [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50879" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>PrintQueueName</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50587" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> <em>QueueDescription</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50804" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>LocalQueueName</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50817" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <strong>バナー</strong> | <strong>ノバナー</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50568" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a> <strong>郵便</strong> | <strong>なし</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50605" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <em>FaultRecovery</em> ] [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50864" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>PhysicalPrinterName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50939" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>NetworkEntityName</em> ] ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50864" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>PhysicalPrinterName</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50973" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>PrinterType</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50706" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <em>所在地</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50721" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a> <em>PDLLリスト</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50879" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>PrintQueueName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50864" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>PhysicalPrinterName</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50678" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> <em>ContentType</em> ] [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50654" target="_blank" rel="noopener noreferrer"><strong>-i</strong></a> <em>InterfaceScript</em> ] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50772" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> [ <strong>スタンダード</strong> | <strong>追記</strong> ] ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50817" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <em>PrintOptions</em> ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50879" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>PrintQueueName</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50678" target="_blank" rel="noopener noreferrer"><strong>-I</strong></a> <em>ContentType</em> ] ] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50879" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>PrintQueueName</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50939" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> <em>NetworkEntityName</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50548" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>PrintSystemDNSName</em> | <em>PrinterSystemAddress</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50954" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> <strong>ビーエスディー</strong> | <strong>HPNP</strong> ]]</p>
+ <p><strong>dslpadmin</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50879" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> <em>PrintQueueName</em>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50992" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> <em>PhysicalPrinterName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e51007" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a> <em>ObjectRDN</em>] ]</p>
+ <p><strong>dslpadmin</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e51025" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> <em>PrintQueueName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e51035" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> <em>PhysicalPrinterName</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50930" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>NetworkEntityName</em>]</p>
+ <p><strong>dslpadmin</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dslpadmin.html#dslpadmin__row-d3e50648" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>dslpadmin</strong> コマンドは、
+ディレクトリーを使用可能な印刷サービスを構成するために、以下の機能を実行する際に使用されます。<ul>
+<li>システムに印刷キューおよび物理プリンターを追加する。</li>
+
+<li>印刷キューおよび物理プリンターを変更する。</li>
+
+<li>システムから印刷キューおよび物理プリンターを除去する。</li>
+
+<li>ネットワーク・プリンターのためのネットワーク・エンティティー・オブジェクトを追加および削除する。</li>
+
+</ul>
+</div>
+ <p>dslpadmin コマンドは、
+<strong>lpadmin</strong> (これはディレクトリー指向ではない) で提供される機能のディレクトリー指向バージョンを提供し、
+従来型の「フラット・ファイル」構成システムを継続して使用します。 両方のシステムが使用されている場合は、
+プリンター・サブシステムは、ディレクトリー内で最初に見つかった情報を採用することに注意してください。 2 つの構成システム間で命名の矛盾が起きないように保証するのは、
+管理者の責任です。</p>
+ <p>ディレクトリーを使用可能なコマンドは、
+DN (Distinguished Name: 識別名) ではなく RDN (Relative Distinguished Name: 相対識別名) を使用します。 例えば、DNが"<code>cn=test,ou=printq,ou=print,cn=aixdata</code>"のディレクトリ対応キューを作成する場合、<em>PrintQueueName</em>にはRDN "test" だけを使用します。</p>
+ <p>管理者が印刷キューをホストするシステム上にいない印刷キューを構成する場合、 <strong>-i</strong> の <em>InterfaceScript</em> パラメーターと <strong>-T</strong> の <em>PrinterType</em> パラメーターは検査されません。 これは、
+リモート・システムにはチェックのためにアクセスすることができないからです。 そのため、
+指定された <em>InterfaceScript</em> および <em>PrinterType</em> が確実にリモートのホスティング・システム上に存在するようにするのは、
+管理者の責任です。</p>
+ <p>1 つのコマンド・ラインには、<strong>-q</strong>、<strong>-P</strong>、<strong>-s</strong> フラグの任意の組み合わせ、または <strong>-x</strong>、<strong>-X</strong>、<strong>-r</strong> フラグの任意の組み合わせを含めることができますが、いずれか 1 つの組み合わせのみが可能です。 複数のディレクトリー・オブジェクトが同時に作成または変更される場合は、
+3 つのオブジェクト・タイプ (プリンター、印刷キュー、ネットワーク・エンティティー) 間に適切なリンクがセットアップされます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>-<strong>a</strong> <em>PrinterSystemDNSName</em>｜<em>PrinterSystemAddress</em></td>
+
+<td>DNS 名またはネットワーク・アドレスをシステムに関連付けます。 指定された引数が IPv4 または IPv6 アドレスとして解釈できる場合は、これはアドレスであり、
+解釈できない場合は DNS 名が想定されます。 -a フラグは、
+<strong>-s</strong> で指定されたネットワーク・エンティティー・オブジェクトを変更させるか、
+あるいはまだ存在していない場合は作成させます。 管理者は、新しい印刷システム・オブジェクトを追加する代わりに、既存の<span>UNIX</span>システム・オブジェクトを変更しないように、ネットワーク・エンティティ・オブジェクトに一意な名前が付けられるようにしなければならない。 このフラグは <strong>-s</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-A</strong> [ <strong>メール</strong> | <strong>なし</strong> ]</td>
+
+<td>印刷要求が失敗した場合に、メールによるメッセージを生成するよう印刷システムに指示します。 このメールは、
+その物理プリンターのオーナー、
+またはそのプリンターにオーナーがいないか、
+ユーザーがメール・アドレスを持っていない場合には、
+その印刷キューをホスティングするシステムの root ユーザーに送付されます。 デフォルトは <strong>none</strong>です。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong> <em>QueueDescription</em></td>
+
+<td><strong>-q</strong> フラグで指定された印刷キュー・オブジェクトについて、
+記述コメントを定義します。 この記述は、
+ユーザーが <strong>lpstat</strong> コマンドを使用して印刷キューの完全な説明を要求した際に、常に表示されます。 ホワイト・スペースを含む文字列は、
+二重引用符で囲む必要があります。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong> <em>FaultRecovery</em></td>
+
+<td>印刷キューの障害リカバリー・モードを定義します。 このフラグは、
+印刷キュー上のプリンターが印刷要求を印刷している時に障害に遭った場合に使用されるリカバリーを指定します。 <em>FaultRecovery</em> の値は、
+次のいずれかを指定できます。<dl>
+<dt>続く</dt>
+
+<dd>印刷が停止したページの先頭から印刷を継続します。 自動的に継続するには、
+その前にフィルターが障害の除去を待つ必要があります。</dd>
+
+
+<dt>beginning</dt>
+
+<dd>要求の印刷を再び先頭から開始します。</dd>
+
+
+<dt>待ち</dt>
+
+<dd><em>PhysicalPrinterName</em> での印刷を使用不可にし、
+管理者またはユーザーが印刷を再び使用可能にするのを待機します。<p>待機中に、印刷要求の停止を実行依頼した管理者かユーザーは、
+変更要求を送出して、印刷を再開する場所を指定できます。 印刷が使用可能となる前に変更要求が発行されなければ、
+フィルターで可能とされる場合は停止したページのトップから印刷が再開され、
+そうでない場合は要求は始めから印刷されます。</p>
+</dd>
+
+</dl><em>FaultRecovery</em> のデフォルト値は <strong>beginning</strong> です。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>簡潔なヘルプ画面を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>InterfaceScript</em></td>
+
+<td>指定された印刷キューを介してアクセスされた際の、
+プリンターの <em>InterfaceScript</em> のパス名。 このフラグは、
+<strong>-P</strong> フラグが指定されていない場合は無効です。 通常、
+インターフェース・スクリプトはユーザーによって提供されます。 このフラグは、<strong>-m</strong> も指定されている場合は使用できません。 このフラグは、<strong>-q</strong> フラグと <strong>-P</strong> フラグの両方を必要とします。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>I</strong> <em>ContentType</em>[,<em>ContentType</em>, ...]</td>
+
+<td>印刷キューのコンテンツ・タイプを指定します。 印刷キューが、
+リスト内のコンテンツ・タイプでの印刷要求を処理できるようにします。 リスト内に複数の <em>ContentType</em> を含める場合は、
+<em>ContentType</em> パラメーターはコンマ (,) で区切る必要があります。 フォーマットの詳細な説明については、
+<strong>lpadmin</strong> のマニュアル・ページを参照してください。 これは、
+<strong>-P</strong> フラグおよび <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong> <em>ロケーション</em></td>
+
+<td>プリンターのロケーションを定義します。 これは、プリンターが物理的にどこに位置しているかを示す文字列で、
+例えば "Building X, Room 6" などとなります。 これは、
+<strong>dslpsearch</strong> コマンドによって検索できます。 この値は、1 回設定されると、
+上書きのみが可能で、削除はできません。 このフラグは <strong>-P</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> <em>PDL</em>[、 <em>PDL</em>、...]</td>
+
+<td>そのプリンターがサポートする
+Page Description Language (PDL) のリストを指定します。 これは、そのプリンターがサポートする PDL を公示するのに使用され、
+<strong>dslpsearch</strong> コマンドを使用して検索できます。 <strong>AUTOSW</strong>、<strong>PCL</strong>、
+<strong>PCLXL</strong>、<strong>POSTSCRIPT</strong>、<strong>TEXT</strong>、<strong>ESCP</strong>、
+<strong>PJL</strong>、<strong>SIMPLE</strong>、および <strong>OTHER</strong> PDL がサポートされています。 既存の物理プリンター・オブジェクトの変更に <strong>-L</strong> フラグが使用される場合は、
+このリストが既存のリストを置き換えます。 このフラグは <strong>-P</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> [ <strong>標準</strong> | <strong>PS</strong> ]</td>
+
+<td>指定された印刷キューを介してアクセスされた際の、
+プリンターのモデル・インターフェース・プログラム。 これは、
+その印刷キューに使用されるモデル・インターフェース・スクリプトを選択します。 物理プリンター・オブジェクトが作成され、
+<strong>-m</strong> フラグおよび <strong>-i</strong> フラグのどちらも指定されていない場合は、
+デフォルトは <strong>standard</strong> です。 このフラグは、
+<strong>-i</strong> も指定されている場合は使用できません。 このフラグは、<strong>-q</strong> フラグと <strong>-P</strong> フラグの両方を必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong> <em>LocalQueueName</em></td>
+
+<td>印刷キューのローカル名を定義します。 通常、この名前がキューの RDN と異なるのは、キューがディレクトリー非対応ホスト上にある場合のみです。 これは、
+受信側システム上の印刷キューを識別するために、
+着信リモート・ネットワーク接続によって使用されます。 デフォルト値は、印刷キューの RDN です。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong> [ <strong>バナー</strong> | <strong>nobanner</strong> ]</td>
+
+<td>この印刷キューによってバナー・ページが常に生成されるかどうかを定義します。 デフォルト値である
+<strong>banner</strong> はすべての印刷要求に対してバナー・ページが印刷されるよう強制し、
+<strong>nobanner</strong> は、ユーザーにより、バナー・ページが印刷されないように指定して印刷ジョブをサブミットすることを可能にします。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>o</strong> <em>PrintOption</em> <em>=値</em>[, ...]</td>
+
+<td>印刷オプションの値を指定します。 <strong>-o</strong> フラグで使用可能な印刷オプションの詳しい説明については、
+<strong>lpadmin</strong> の文書を参照してください。 このフラグは、<strong>-q</strong> フラグと <strong>-P</strong> フラグの両方を必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> <em>PhysicalPrinterName</em></td>
+
+<td>物理プリンター・オブジェクトを作成または変更します。 <em>PhysicalPrinterName</em>引数は、プリンタオブジェクトの RDN を指定する。 そのオブジェクトがまだ存在していない場合は、
+<strong>dslpadmin</strong> はそれを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong> <em>PrintQueueName</em></td>
+
+<td><strong>dlspadmin</strong> が印刷キュー・オブジェクトを作成または変更します。 <em>PrintQueueName</em>引数は、印刷キューオブジェクトのRDNを指定する。 新しい印刷キューを追加する場合、追加される印刷キューの<em>NetworkEntityName</em>と <em>PhysicalPrinterName</em>をコマンドに認識させるために、<strong>-s</strong>と <strong>-P</strong>フラグを指定する必要があります。 その印刷キュー・オブジェクトが存在しない場合は、
+<strong>dslpadmin</strong> はそれを作成します。<p>1 つのコマンド・ラインには、<strong>-q</strong>、<strong>-P</strong>、<strong>-s</strong> フラグの任意の組み合わせ、または <strong>-x</strong>、<strong>-X</strong>、<strong>-r</strong> フラグの任意の組み合わせを含めることができますが、いずれか 1 つの組み合わせのみが可能です。 複数のディレクトリー・オブジェクトが同時に作成または変更される場合は、
+3 つのオブジェクト・タイプ (プリンター、印刷キュー、ネットワーク・エンティティー) 間に適切なリンクがセットアップされます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>NetworkEntityName</em></td>
+
+<td>ネットワーク・エンティティー・システム・オブジェクトを削除します。 非プリンター・システム・オブジェクトを削除しないように、
+注意が必要です。 確実に正しいオブジェクトが削除されるようにするのは、
+管理者の責任です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>NetworkEntityName</em></td>
+
+<td>その印刷キューにホスティングするネットワーク・エンティティー・システム・オブジェクトを指定します。 <strong>-a</strong> も指定された場合は、
+そのオブジェクトは作成または変更されます。 <em>NetworkEntityName</em>引数は、現在のディレクトリ・コンテキスト内のオブジェクトの RDN を指定する。 ネットワーク・エンティティー・オブジェクトは、
+リモート・クライアントが印刷キューにアクセスするのに使用する必要があるネットワーク・アドレスを定義します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>t</strong> [ <strong>BSD</strong> | <strong>HPNP</strong> ]</td>
+
+<td>この「ネットワーク・プリンター」の印刷キューに使用される印刷プロトコルを定義します。 再試行およびタイムアウトの値は、
+それらのネットワーク・プリンター用のデフォルト値に設定されます。 これらの値を変更するには、
+<strong>dslpprotocol</strong> コマンドを使用する必要があります。 このフラグは、
+BSD または HPNP プロトコルをサポートするネットワーク・プリンターに対してのみ使用する必要があることに注意してください。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>T</strong> <em>PrinterType</em>[,<em>PrinterType</em>, ...]</td>
+
+<td>プリンター・タイプのリスト。 これは、例えば "hplaserjet" などのように、
+そのプリンターを 1 つ以上のプリンター・タイプのものであると識別します。 詳細については、<strong>lpadmin</strong> のマニュアル・ページを参照してください。 このフラグは <strong>-P</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> <em>PhysicalPrinterName</em></td>
+
+<td>指定された物理プリンターを、
+そのオブジェクトは削除せずに、印刷キュー (<strong>-q</strong> フラグで指定される) からリンク解除します。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong> <em>ObjectRDN</em></td>
+
+<td>物理プリンターまたは印刷キュー・オブジェクト (<em>ObjectRDN</em> で指定される) のいずれかを、
+そのオブジェクトは削除せずに、印刷キュー (<strong>-q</strong> フラグで指定される) からリンク解除します。 このフラグは <strong>-q</strong> フラグを必要とします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> <em>PrintQueueName</em></td>
+
+<td>印刷キュー・オブジェクトを削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong> <em>PhysicalPrinterName</em></td>
+
+<td>物理プリンター・オブジェクトを削除します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>成功を示します。</dd>
+
+
+<dt>255 (または -1)</dt>
+
+<dd>構成におけるエラーを示します。 エラーまたは障害について説明するエラー・メッセージが表示されます。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <p>以下の例は、ユーザーがディレクトリー対応 <span>UNIX</span> システムにログオンしている場合の dslpadmin コマンドの使用法を示しています。</p>
+ <ol>
+<li>以下では、BSD リモート印刷プロトコルを使用する HP LaserJet ネットワーク・プリンターを追加します。印刷キュー RDN は「denlj5n」、物理プリンター RDN は「denplj5n」です。 これは、プリントキューに "HPJetDirectPostScript)"、プリンタタイプに "PS-b"、モデルインターフェイススクリプトに "PS "という説明を与えます。 このプリンターは、ネットワーク・アドレス "p_hplj.ibm.com" を持ちます。<div><div><pre><code>dslpadmin -q denlj5n -P denplj5n -T PS-b -D "HP JetDirect (Postscript)" \
+-I PS -m PS -A mail -o nobanner  -s denslj5n -a p_hplj.ibm.com -t BSD</code></pre></div><div></div></div>この印刷システムは、
+この印刷キューに対するコンテンツ・タイプ PS の印刷要求を許可し、
+バナー・ページを使用不可にすることを許可します。</li>
+
+<li>以下は、HPNP リモート印刷プロトコルを使用し、印刷キュー RDN に「dehpnp」、物理プリンター RDN に「dephpnp」を指定して、HP LaserJet PostScript ネットワーク・プリンターを追加します。 これは、"HPNP (PCL)" の記述、
+プリンター・タイプ "hplaserjet"、およびモデル・インターフェース・スクリプト "standard" を印刷キューに指定しています。 このプリンターは、ネットワーク・アドレス "p_hplj.ibm.com" を持ちます。<div><div><pre><code>dslpadmin -q dehpnp -P dephpnp -T hplaserjet -D "HPNP (PCL)" -I pcl \
+-m standard -A mail -s deshpnp -a p_hplj.ibm.com -t HPNP</code></pre></div><div></div></div>この印刷システムは、
+この印刷キューに対するコンテンツ・タイプ PCL の印刷要求を許可し、
+バナー・ページ無しが要求された場合は要求を拒否します。 プリンターの障害が発生した場合は、
+この印刷システムはプリンターのオーナーにメールを送付します。</li>
+
+<li>以下は、HP LaserJet PostScript プリンターを削除します。<div><div><pre><code>dslpadmin -x delj5n  -X deplj5n</code></pre></div><div></div></div></li>
+
+<li>次の例では、HPNP プリンターを削除します。<div><div><pre><code>dslpadmin -x dehpnp  -X dephpnp -r deshpnp</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

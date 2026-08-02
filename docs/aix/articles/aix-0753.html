@@ -1,0 +1,229 @@
+<div class="official-dom"><div>
+<div> <p><strong>lprm</strong>コマンドには、<span>AIX</span>プリント・サブシステム<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lprm.html#lprm__lprmppc" target="_blank" rel="noopener noreferrer"><strong>lprm</strong></a>とSystem Vプリント・サブシステム<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lprm.html#lprm__lprmia64" target="_blank" rel="noopener noreferrer"><strong>lprm</strong></a>の情報が含まれています。</p>
+ <p><strong><span>AIX</span> 印刷サブシステムの lprm コマンド</strong></p>
+</div>
+
+<section><h2>目的</h2> <p>ライン・プリンターのスプール・キューからジョブを除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lprm</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lprm.html#lprm__row-d3e69802" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>プリンター</em> ] [ <em>JobNumber</em> ] [ <em>UserName ...</em> ] [ <strong>-</strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lprm</strong> コマンドは、
+1 つ以上のジョブをプリンターのスプール・キューから除去します。</p>
+ <p>ジョブ番号、<strong>-</strong> (負符号) フラグ、
+またはユーザー名を 1 つも指定せずに <strong>lprm</strong> コマンドを実行することはできません。</p>
+ <p><em>UserName</em> パラメーター、
+または名前のリストを指定すると、
+<strong>lprm</strong> コマンドはそのユーザー (1 つ以上) に属するキュー内のジョブを除去しようとします。</p>
+ <p>個別のジョブの <em>JobNumber</em> を指定して、
+そのジョブをキューから除去することができます。 このジョブ番号は、
+<strong>lpq</strong> コマンドを使用して入手します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-</strong></td>
+
+<td>ユーザーの所有しているすべてのジョブを除去します。 root ユーザー権限を持つユーザーは、
+このフラグを使用してキューからすべてのジョブを除去できます。 このフラグはリモート印刷に対しては有効ではありません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong><em> プリンター</em></td>
+
+<td>特定の <em>Printer</em> 変数に関連したキューを指定します。 このフラグが指定されない場合、次の条件が発生します。<ul>
+<li><strong>LPDEST</strong> 環境変数が設定されている場合は、
+<strong>lprm</strong> は <strong>LPDEST</strong> 変数により指定された値を使用します。 この環境変数を設定すれば、
+<strong>PRINTER</strong> 変数も設定した場合でも、この値が必ず使用されます。</li>
+
+<li><strong>PRINTER</strong> 変数により設定されており、
+<strong>LPDEST</strong> 変数が設定されていない場合は、
+<strong>lprm</strong> は <strong>PRINTER</strong> 環境変数により指定された値を使用します。</li>
+
+</ul>
+  <p><strong>LPDEST</strong> 変数も <strong>PRINTER</strong> 変数も設定されていなければ、
+<strong>lprm</strong> コマンドはデフォルトのキューからジョブを除去します。</p>
+  <p></p><blockquote><span>“</span><strong>注:</strong> コマンド・ラインの宛先オプションはいずれも、<strong>LPDEST</strong> と <strong>PRINTER</strong> の両方の環境変数をオーバーライドします。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ジョブ番号を除去する13デフォルトのプリンター・キューから、次のように入力します。<div> <div><div><pre><code>lprm 13</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ジョブ番号を除去する13プリンター・キューからlp0次のように入力します。<div>lprm  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lprm.html#lprm__row-d3e69802" target="_blank" rel="noopener noreferrer">-P</a> lp0 13</div>
+</li>
+
+<li><span></span>特定のユーザーのジョブをプリンター・キューから除去するには、次のように入力します。<div> <div><div><pre><code>lprm guest</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/lprm</strong></td>
+
+<td><strong>lprm</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>System V 印刷サブシステムの lprm コマンド</h2><p></p>
+ </section>
+
+<section><h2>目的 (System V)</h2> <p>(BSD) プリンター・キューからジョブを除去します。</p>
+</section>
+
+<section><h2>構文 (System V)</h2> <p><strong>/usr/bin/lprm</strong> [ <strong>-P</strong><em> プリンター</em> ] [-] [ <em>ジョブ番号</em>...] [ <em>ユーザー名</em>...]</p>
+</section>
+
+<section><h2>説明 (System V)</h2> <p><strong>lprm</strong> コマンドは、
+プリンターのスプール・キューから 1 つ、
+または複数のジョブを除去します。 スプール・ディレクトリーはユーザーから保護されているので、
+<strong>lprm</strong> は通常、
+ユーザーがジョブを除去するための唯一の方法です。</p>
+ <p>引数を何も指定しない場合、
+<strong>lprm</strong> は現在アクティブになっているジョブを削除します。
+ただし、そのジョブは <strong>lprm</strong> を呼び出したユーザーが所有するジョブです。</p>
+ <p>特権ユーザーが <em>username</em> を指定すると、
+<strong>lprm</strong> はそのユーザーに属するすべてのジョブを除去します。</p>
+ <div>引数にジョブ番号 (これは <strong>lpq</strong> を使用して入手できる) を指定することにより、
+特定のジョブを除去できます。 次に例を示します。<div><div><pre><code>   lpq  -Phost
+   host is ready and printing
+   Rank         Owner   Job     Files           Total Size
+   active       wendy   385     standard input  35501 bytes
+   lprm -Phost 385</code></pre></div><div></div></div></div>
+ <p><strong>lprm</strong> は除去するすべてのファイル名を報告し、
+除去するジョブがない場合は何も起こりません。</p>
+ <p><strong>lprm</strong> は、
+ジョブのキャンセル要求を印刷スプーラー <strong>LPSCHED</strong> に送信します。</p>
+ <p>引数を指定せずに <strong>lprm</strong> コマンドを発行すると、
+間違ったアクティブ・ジョブが除去するものとして見なされてしまう可能性があります。 <strong>lpq</strong> コマンドと <strong>lprm</strong> の実行の間のインターバルに、
+キュー内の次のジョブがアクティブになる場合があります。
+ユーザーがそのジョブを所有する場合、意図せずに除去してしまう可能性があります。 これを避けるには、
+所有する重要なジョブが次の行にあるとき、
+<strong>lprm</strong> にジョブ番号を付けます。</p>
+ <p>他のホストから実行依頼された印刷ジョブを除去できるのは、特権ユーザーだけです。</p>
+</section>
+
+<section><h2>フラグ (System V)</h2> <dl>
+<dt><strong>-P</strong><strong><strong><em>プリンター</em></strong></strong></dt>
+
+<dd>特定のプリンターと関連したキューを指定します。 これを指定しない場合は、
+環境内の <strong>PRINTER</strong> 変数の値が使用されます。 この変数が設定されていない場合、
+デフォルト・プリンターのキューが使用されます。</dd>
+
+
+<dt><strong>-</strong></dt>
+
+<dd>ユーザーが所有するすべてのジョブを除去します。 特権ユーザーが呼び出すと、
+スプール内のすべてのジョブが除去されます。 ジョブの所有権は、
+<strong>lpr</strong> コマンドが実行されたマシン上のユーザーのログイン名およびホスト名によって決められます。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー (System V)</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>ファイル (System V)</h2> <dl>
+<dt><strong>/var/spool/lp/*</strong></dt>
+
+<dd>スプーリング・ディレクトリー</dd>
+
+</dl>
+</section>
+
+<section><h2>エラー・コード (System V)</h2> <dl>
+<dt>lprm:<em> 印刷装置</em>: unknown printer</dt>
+
+<dd><em>printer</em> が System V LP データベース内に見つかりませんでした。 多くの場合タイプミスですが、
+プリンターがシステムに存在しない可能性もあります。 <strong>lpstat -p</strong> を使用してプリンターの状況を確認してください。</dd>
+
+
+<dt>lprm: error on opening queue to spooler</dt>
+
+<dd>ローカル・マシン上の <strong>lpsched</strong> への接続に失敗しました。 これは通常、ブート時に開始したプリンター・サーバーが非活動状態にあるか、
+またはハングしていることを意味しています。 プリンター・スプーラー・デーモン <strong>/usr/lib/lp/lpsched</strong> が実行中であるか確認してください。</dd>
+
+
+<dt>lprm: Can't send message to the LP print service</dt>
+
+<dd></dd>
+
+
+<dt>lprm: Can't receive message from the LP print service</dt>
+
+<dd>これら 2 つのメッセージは、
+LP プリント・サービスが停止したことを示しています。 システム管理者の援助を得てください。</dd>
+
+
+<dt>lprm: Received unexpected message from the LP print service</dt>
+
+<dd>ソフトウェアにエラーがある可能性があります。 システム管理者の援助を得てください。</dd>
+
+
+<dt>lprm: Can't cancel request</dt>
+
+<dd>他のユーザーの印刷要求を除去する許可が与えられていません。</dd>
+
+</dl>
+</section>
+
+</div></div>

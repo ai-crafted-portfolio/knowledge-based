@@ -1,0 +1,183 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたデバイスまたはデバイス・タイプが受け入れられる接続を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Lsconn</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80490" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> <em>親の名前</em> | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80417" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> <em>親クラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80510" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a><em>親サブクラス</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80522" target="_blank" rel="noopener noreferrer"><strong>T </strong></a><em>親タイプ</em> ] } { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80478" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>子の名前</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80466" target="_blank" rel="noopener noreferrer"><strong>-k (K) </strong></a><em>子接続キー</em> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80429" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80440" target="_blank" rel="noopener noreferrer"><strong>-F (R) </strong></a><em>フォーマット</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80460" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80454" target="_blank" rel="noopener noreferrer"><strong>-H </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsconn</strong> コマンドは、
+<strong>-p</strong><em> ParentName</em> フラグと一緒に使用した場合、
+<strong>-l</strong><em> ChildName</em> フラグで指定したデバイスを接続できる親デバイスの接続位置、
+または <strong>-k</strong><em> ChildConnectionKey</em> フラグで指定した接続タイプのデバイスが接続できる親デバイスの接続位置を表示します。 <strong>-k</strong> フラグおよび <strong>-l</strong> フラグを使わない場合、
+<strong>lsconn</strong> コマンドは、
+指定された親デバイス上で接続される子デバイスの位置に関する情報を表示します。</p>
+ <p><strong>-p</strong><em> ParentName</em> フラグを使わない場合、
+<strong>-c</strong><em> ParentClass</em>、<strong>-s</strong><em> ParentSubclass</em>、
+<strong>-t</strong><em> ParentType</em> フラグの 1 つまたは全部の組み合わせを使って、
+事前定義された親デバイスを一意的に識別しなければなりません。</p>
+ <p>事前定義接続オブジェクト・クラスからデフォルトの出力を表示することもできます。
+デフォルトの出力とは、
+接続位置 (または、子が指定されていなければ接続位置と接続キー) のことです。 デフォルトの出力を表示しなければ、
+<em>Format</em> パラメーターを使ってユーザー指定のフォーマットで出力を表示できます。
+この場合 Format パラメーターは、
+<strong>-F</strong><em> Format</em> フラグを使用して、
+欄名を非英数字または空白文字で区切った引用符付きのリストです。 <strong>-H</strong> フラグを使うと、
+欄の上にヘッダーを挿入できます。</p>
+ <p>フラグは、コマンド・ラインで使用するか、
+指定した <strong>-f</strong> <em>File</em> フラグ内で使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em> ParentClass</em></td>
+
+<td>事前定義デバイス・オブジェクト・クラス内で有効な親デバイスのクラス名を指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80490" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td><em>File</em> パラメーターから必要なフラグを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em> フォーマット</em></td>
+
+<td>ユーザー指定のフォーマットで出力をフォーマットします。この場合、<em>Format</em> パラメーターは、
+非英数字または空白文字で区切られているか終了している、
+定義済み接続オブジェクト・クラスからの列名の引用符付きリストです。 セパレーターとして空白文字が使用されると、
+<strong>lsconn</strong> コマンドは位置合わせされた列に出力を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td>出力される列の上にヘッダーを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>コマンドの使用メッセージを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong><em> ChildConnectionKey</em></td>
+
+<td>子デバイスのサブクラスを識別する接続キーを指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80478" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong><em> ChildName</em></td>
+
+<td>使用可能な子デバイスの論理名を指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80466" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> ParentName</em></td>
+
+<td>カスタマイズ・デバイス・オブジェクト・クラスから、
+親デバイスの論理名を指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80417" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80510" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>と一緒には使用できません。 または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80522" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> フラグ。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> ParentSubclass</em></td>
+
+<td>事前定義デバイス・オブジェクト・クラス内で有効な親デバイスのサブクラスを指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80490" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> ParentType</em></td>
+
+<td>事前定義デバイス・オブジェクト・クラスから有効な親デバイスのデバイス・タイプを指定します。 このフラグは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsconn.html#lsconn__row-d3e80490" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> フラグと一緒には使用できません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>sa2</code> <span>IBM</span>8-PortEIA-232/RS-422A(PCI)アダプタで、RS-232デバイスの接続が可能なすべての接続場所をリストアップするには、次のように入力します：<div><div><pre><code>lsconn -p sa2 -k rs232</code></pre></div><div></div></div>システムは、以下のものと同様の、可能な接続を表示します。<div><div><pre><code>0
+1
+2
+3
+4
+5
+6
+7</code></pre></div><div></div></div></li>
+
+<li><code>sa2</code> <span>IBM</span> 8 ポート EIA-232/RS-422A (PCI) アダプター上のすべての可能な接続ロケーションおよび接続タイプをリストするには、次のように入力します。<div><div><pre><code>lsconn -p sa2</code></pre></div><div></div></div>システムは、以下のようなメッセージを表示します。<div><div><pre><code>0 rs232
+1 rs232
+2 rs232
+3 rs232
+4 rs232
+5 rs232
+6 rs232
+7 rs232
+0 rs422
+1 rs422
+2 rs422
+3 rs422
+4 rs422
+5 rs422
+6 rs422
+7 rs422</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/lsconn</strong></td>
+
+<td>コマンド・ファイルを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,645 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>テキスト・ファイルを印刷用に PostScript 形式に変換します。</p>
+</section>
+<section><h2>構文</h2> <p><strong>エンスクリプト</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e82997" target="_blank" rel="noopener noreferrer"><strong>-1</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83003" target="_blank" rel="noopener noreferrer"><strong>-2</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83009" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83015" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83024" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83030" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83036" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83042" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83051" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83063" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83075" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83082" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83088" target="_blank" rel="noopener noreferrer"><strong>-K</strong></a><strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83094" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83100" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a><em> ヘッダー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83111" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a><em> フォント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83127" target="_blank" rel="noopener noreferrer"><strong>-f0</strong></a><strong></strong><em> コードセット</em><strong> :</strong><em> フォント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83145" target="_blank" rel="noopener noreferrer"><strong>-f1</strong></a><strong></strong><em> コードセット</em><strong> :</strong><em> フォント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83163" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em> 出力</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83180" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <em>Hfont</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83199" target="_blank" rel="noopener noreferrer"><strong>-F0</strong></a><strong></strong><em> コードセット</em><strong> :</strong><em> フォント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83217" target="_blank" rel="noopener noreferrer"><strong>-F1</strong></a><strong></strong><em> コードセット</em><strong> :</strong><em> フォント</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83236" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a><em> 行数</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83250" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a> <em>MediaName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83264" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> <em>CodesetName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e82934" target="_blank" rel="noopener noreferrer"><em>SpoolerOptions</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__i3y62b0emil" target="_blank" rel="noopener noreferrer"><em>ファイル</em></a>... ]</p>
+</section>
+<section><h2>説明</h2> <p><strong>enscript</strong> コマンドは、テキスト・ファイルを読み取り、それを PostScript フォーマットに変換し、そのファイルを PostScript プリンターで印刷するためにスプールします。 このコマンドを使用すると、フォント、見出し、限定フォーマット・オプション、スプーリング・オプションを指定できます。</p>
+ <p>次に例を示します。</p>
+ <div> <div><div><pre><code>enscript -daleph bubble.txt</code></pre></div><div></div></div></div>
+ <p>は、aleph というプリンター上で <strong>bubble.txt</strong> ファイルを印刷します。</p>
+ <div> <div><div><pre><code>enscript -2r finder.c</code></pre></div><div></div></div></div>
+ <p>は、デフォルトのプリンターで <strong>finder.c</strong> ファイルの二段組の横長リストを印刷します。</p>
+ <p><strong>ENSCRIPT</strong> 環境変数は、デフォルトの指定に使用されます。 <strong>ENSCRIPT</strong> の値は、引数がコマンド・ラインに表示される前に、引数の文字列として解釈されます。 次に例を示します。</p>
+ <div> <div><div><pre><code>ENSCRIPT='-fTimes-Roman8' </code></pre></div><div></div></div></div>
+ <p>これにより、デフォルトの本体の書体のサイズとフォントを 8 ポイントの Times Roman に設定します。</p>
+ <p><strong>psdit</strong> コマンドと <strong>enscript</strong> コマンドに対する各種メディア・サイズを含む情報は、ファイル
+<strong>/usr/lib/ps/MediaSizes</strong> に入っています。</p>
+ <p><strong>MediaSizes</strong> ファイルの各エントリーに必要な情報は、 TranScriptで使用される PostScript プリンターに一致する <strong>PostScript Printer Description</strong>( <strong>PPD</strong>) ファイルから取得できます。 <strong>PPD</strong> ファイルは Adobe Systems, Incorporated から入手できます。 <strong>PPD</strong> ファイルから取り出されたサイズは、ポイントと呼ばれるプリンターの尺度で表示されます。 プリンターの 1 ポイントは、1 インチの 1/72 です。</p>
+ <p>ASCII 文字の <strong>*</strong> (アスタリスク) で始まる <strong>MediaSizes</strong> ファイル内の行は、
+コマンド・ラインで <strong>enscript</strong> コマンドおよび <strong>psdit</strong> コマンドに提供されているメディア・サイズ名に一致する場合、すべて無視されます。</p>
+ <p><strong>MediaSizes</strong> ファイルの各エントリーには、8 つまたは 9 つのフィールドが含まれます。 最初の 8 つのフィールドは、すべてのエントリーに必須です。 9 番目のフィールドはオプションです。 フィールドはホワイト・スペースで区切られます。 各エントリーのフィールドは、次のとおりです。</p>
+ 
+<div><div><table><thead><tr><th><div>フィールド名</div></th>
+<th><div>説明</div></th>
+</tr>
+
+</thead>
+<tbody><tr><td>EntryName</td>
+
+<td><strong>enscript</strong> コマンドまたは <strong>psdit</strong> コマンドを使って、<strong>-M</strong> フラグで指定されるメディア名と照合する文字列が入っています。</td>
+</tr>
+<tr><td>MediaWidth</td>
+<td>ポイント数で表したメディアの幅を指定します。</td>
+</tr>
+<tr><td>MediaDepth</td>
+<td>ポイント数で表したメディアの上下幅を指定します。</td>
+</tr>
+
+<tr><td>ImageableLLX</td>
+<td>ポイント数で表したイメージ可能な左下隅の x 座標を指定します。</td>
+</tr>
+<tr><td>ImageableLLY</td>
+<td>ポイント数で表したイメージ可能な左下隅の y 座標を指定します。</td>
+</tr>
+<tr><td>ImageableURX</td>
+<td>ポイント数で表したイメージ可能な右上隅の x 座標を指定します。</td>
+</tr>
+<tr><td>ImageableURY</td>
+<td>ポイント数で表したイメージ可能な右上隅の y 座標を指定します。</td>
+</tr>
+<tr><td>PageRegionName</td>
+<td>イメージ可能域のサイズを識別するために、特定のプリンターの PostScript シーケンスを指定します。</td>
+</tr>
+<tr><td>PaperTrayName</td>
+<td>特定のプリンターが特定の用紙/メディア・トレイを選択するための PostScript シーケンスを指定します。 このフィールドはオプションです。<div><div>
+        <div>
+          <div><span>注:</span> シーケンスは、複数の PostScript 演算子または両方の単語にすることができます。PageRegionNameフィールドおよびPaperTrayName設定します。 このようなシーケンスを指定するには、ASCII キャラクターの " (二重引用符) を使用して、シーケンス全体を区切ります。</div>
+        </div>
+      </div></div>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+ <p>次の表は、<strong>MediaSizes</strong> ファイルのフィールド・エントリーの例です。</p>
+ 
+<div><div><table><thead><tr><th><div>名前</div></th>
+
+<th><div>フィールド値</div></th>
+</tr>
+</thead>
+<tbody><tr><td>Letter</td>
+<td><dl><dt>幅</dt>
+<dd>612</dd>
+
+<dt>Depth</dt>
+<dd>792</dd>
+
+<dt>llx</dt>
+<dd>18</dd>
+<dt>lly</dt>
+
+<dd>17</dd>
+<dt>urx</dt>
+<dd>597</dd>
+<dt>ury</dt>
+<dd>776</dd>
+
+<dt>ページ- 領域- 名</dt>
+<dd>Letter</dd>
+
+<dt>用紙名/トレイ名</dt>
+<dd>Letter</dd>
+
+</dl>
+</td>
+</tr>
+<tr><td>Legal</td>
+
+<td><dl><dt>幅</dt>
+<dd>612</dd>
+<dt>Depth</dt>
+<dd>1008</dd>
+
+<dt>llx</dt>
+<dd>18</dd>
+<dt>lly</dt>
+
+<dd>17</dd>
+<dt>urx</dt>
+<dd>597</dd>
+<dt>ury</dt>
+<dd>992</dd>
+
+<dt>ページ- 領域- 名</dt>
+<dd>Legal</dd>
+
+<dt>用紙名/トレイ名</dt>
+<dd>Legal</dd>
+
+</dl>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><strong>PostScript フォント情報</strong></p>
+ <p>「 PostScript フォント (トランスクリプト用)」テーブルには、enscript コマンドに使用できるフォントが表示されます。 フォント名は、<strong>-F</strong> および <strong>-f</strong><strong> encscipt</strong> コマンド・フラグで指定します。 英字は大文字と小文字が区別されます。</p>
+ 
+<div><span>PostScript フォント (トランスクリプト用)</span><div><table><thead><tr><th><div>フォント名</div></th>
+<th><div>フォント・ファミリー</div></th>
+</tr>
+</thead>
+<tbody><tr><td>AvantGarde-Book</td>
+
+<td>AvantGarde</td>
+</tr>
+<tr><td>AvantGarde-Demi</td>
+
+<td>AvantGarde</td>
+</tr>
+<tr><td>AvantGarde-DemiOblique</td>
+
+<td>AvantGarde</td>
+</tr>
+<tr><td>AvantGarde-BookOblique</td>
+
+<td>AvantGarde</td>
+</tr>
+<tr><td>Bookman-Demi</td>
+<td>Bookman</td>
+</tr>
+<tr><td>Bookman-DemiItalic</td>
+<td>Bookman</td>
+</tr>
+<tr><td>Bookman-Light</td>
+<td>Bookman</td>
+
+</tr>
+<tr><td>Bookman-LightItalic</td>
+<td>Bookman</td>
+
+</tr>
+<tr><td>Courier</td>
+<td>Courier</td>
+</tr>
+<tr>
+<td>Courier-Bold</td>
+<td>Courier</td>
+</tr>
+<tr><td>Courier-BoldOblique</td>
+<td>Courier</td>
+</tr>
+<tr><td>Courier-Oblique</td>
+<td>Courier</td>
+</tr>
+<tr><td>Garamond-Bold</td>
+
+<td>Garamond</td>
+</tr>
+<tr><td>Garamond-BoldItalic</td>
+
+<td>Garamond</td>
+</tr>
+<tr><td>Garamond-Light</td>
+<td>Garamond</td>
+</tr>
+<tr><td>Garamond-LightItalic</td>
+<td>Garamond</td>
+</tr>
+<tr><td>Helvetica</td>
+<td>Helvetica</td>
+
+</tr>
+<tr><td>Helvetica-Bold</td>
+<td>Helvetica</td>
+</tr>
+
+<tr><td>Helvetica-Oblique</td>
+<td>Helvetica</td>
+</tr>
+<tr>
+<td>Helvetica-BoldOblique</td>
+<td>Helvetica</td>
+</tr>
+<tr>
+<td>Helvetica-Narrow</td>
+<td>Helvetica</td>
+</tr>
+<tr>
+<td>Helvetica-Narrow-Bold</td>
+<td>Helvetica</td>
+</tr>
+<tr>
+<td>Helvetica-Narrow-BoldOblique</td>
+<td>Helvetica</td>
+
+</tr>
+<tr><td>Helvetica-Narrow-Oblique</td>
+<td>Helvetica</td>
+
+</tr>
+<tr><td>LubalinGraph-Book</td>
+<td>Lubalin</td>
+</tr>
+
+<tr><td>LubalinGraph-BookOblique</td>
+<td>Lubalin</td>
+
+</tr>
+<tr><td>LubalinGraph-Demi</td>
+<td>Lubalin</td>
+</tr>
+
+<tr><td>LubalinGraph-DemiOblique</td>
+<td>Lubalin</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead><tr><th><div>フォント名</div></th>
+<th><div>フォント・ファミリー</div></th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Miryam-Iso</td>
+<td>Miryam Iso</td>
+</tr>
+<tr><td>Miryam-IsoBold</td>
+
+<td>Miryam Iso</td>
+</tr>
+<tr><td>Miryam-IsoBoldItalic</td>
+<td>Miryam Iso</td>
+
+</tr>
+<tr><td>Miryam-IsoItalic</td>
+<td>Miryam Iso</td>
+</tr>
+<tr><td>NarkissimIso</td>
+<td>Narkissim
+Iso</td>
+</tr>
+
+<tr><td>NarkissimIso-Bold</td>
+<td>Narkissim
+Iso</td>
+</tr>
+<tr><td>NarkissimIso-BoldItalic</td>
+
+<td>Narkissim
+Iso</td>
+</tr>
+<tr><td>NarkissimIso-Italic</td>
+<td>Narkissim
+Iso</td>
+</tr>
+<tr><td>NarkissTamIso</td>
+<td>Narkiss Tam Iso</td>
+</tr>
+<tr><td>NarkissTamIso-Bold</td>
+<td>Narkiss Tam Iso</td>
+
+</tr>
+<tr><td>NarkissTamIso-BoldItalic</td>
+<td>Narkiss Tam Iso</td>
+</tr>
+<tr><td>NarkissTamIso-Italic</td>
+<td>Narkiss Tam Iso</td>
+
+</tr>
+<tr><td>NewCenturySchlbk</td>
+<td>NewCentury</td>
+</tr>
+<tr><td>NewCenturySchlbk-Bold</td>
+<td>NewCentury</td>
+
+</tr>
+<tr><td>NewCenturySchlbk-Italic</td>
+<td>NewCentury</td>
+</tr>
+<tr><td>NewCenturySchlbk-Roman</td>
+<td>NewCentury</td>
+
+</tr>
+<tr><td>Optima</td>
+<td>Optima</td>
+</tr>
+<tr><td>Optima-Bold</td>
+
+<td>Optima</td>
+</tr>
+<tr><td>Optima-BoldOblique</td>
+<td>Optima</td>
+</tr>
+
+<tr><td>Optima-Oblique</td>
+<td>Optima</td>
+</tr>
+<tr><td>Palatino-Bold</td>
+
+<td>Palatino</td>
+</tr>
+<tr><td>Palatino-BoldItalic</td>
+<td>Palatino</td>
+
+</tr>
+<tr><td>Palatino-Italic</td>
+<td>Palatino</td>
+</tr>
+<tr><td>Palatino-Roman</td>
+
+<td>Palatino</td>
+</tr>
+<tr><td>Rokaa</td>
+<td>Rokaa</td>
+</tr>
+<tr><td>Rokaa-Bold</td>
+<td>Rokaa</td>
+
+</tr>
+<tr><td>Rokaa-BoldItalic</td>
+<td>Rokaa</td>
+</tr>
+<tr><td>Rokaa-Italic</td>
+
+<td>Rokaa</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+ 
+<div><div><table><thead><tr><th><div>フォント名</div></th>
+<th><div>フォント・ファミリー</div></th>
+</tr>
+</thead>
+<tbody><tr><td>設定</td>
+
+<td>設定</td>
+</tr>
+<tr><td>Setting-Bold</td>
+<td>設定</td>
+</tr>
+<tr>
+<td>Setting-BoldItalic</td>
+<td>設定</td>
+</tr>
+<tr><td>Setting-Italic</td>
+
+<td>設定</td>
+</tr>
+<tr><td>ShalomIso</td>
+<td>ShalomIso Iso</td>
+</tr>
+<tr>
+<td>ShalomIso-Bold</td>
+<td>ShalomIso Iso</td>
+</tr>
+<tr><td>ShalomIso-BoldItalic</td>
+
+<td>ShalomIso Iso</td>
+</tr>
+<tr><td>ShalomIso-Italic</td>
+<td>ShalomIso Iso</td>
+</tr>
+<tr><td>Souvenir-Demi</td>
+<td>Souvenir</td>
+</tr>
+<tr><td>Souvenir-DemiItalic</td>
+
+<td>Souvenir</td>
+</tr>
+<tr><td>Souvenir-Light</td>
+<td>Souvenir</td>
+</tr>
+<tr>
+<td>Souvenir-LightItalic</td>
+<td>Souvenir</td>
+</tr>
+<tr><td>Times-Bold</td>
+
+<td>Times</td>
+</tr>
+<tr><td>Times-BoldItalic</td>
+<td>Times</td>
+</tr>
+<tr>
+<td>Times-Italic</td>
+<td>Times</td>
+
+</tr>
+<tr><td>Times-Roman</td>
+<td>Times</td>
+</tr>
+<tr><td>Typing</td>
+<td>Typing</td>
+</tr>
+<tr><td>Typing-Bold</td>
+
+<td>Typing</td>
+</tr>
+<tr><td>Typing-BoldItalic</td>
+<td>Typing</td>
+</tr>
+
+<tr><td>Typing-Italic</td>
+<td>Typing</td>
+</tr>
+<tr><td>シンボル</td>
+<td>(なし)</td>
+</tr>
+<tr><td>ZapfChancery-MediumItalic</td>
+
+<td>Zapf</td>
+</tr>
+<tr><td>ZapfDingbats</td>
+<td>(なし)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><em>SpoolerOptions</em></td>
+
+<td>印刷ファイルをスプールするためのオプションを提供します。 <em>SpoolerOptions</em> フラグには次のフラグがあります。<dl><dt>{<strong>-d</strong> | <strong>-P</strong>}<em>キュー</em></dt>
+<dd>出力を指定したキューに入れます。</dd>
+<dt><strong>-n</strong><em>数値</em></dt>
+<dd>指定した数のコピーを作成します。 デフォルトは 1 です。</dd>
+<dt><strong>T</strong><em>タイトル</em></dt>
+<dd>最初のバナー・ページに使用するジョブ・タイトルを設定します。</dd>
+<dt><em>File</em></dt>
+<dd>PostScript フォーマットに変換するテキスト・ファイルを指定します。 このパラメーターをブランクのままにすると、<strong>enscript</strong> コマンドは標準入力から読み取ります。</dd>
+
+</dl>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>-1</strong></td>
+<td>1 段組に設定します (デフォルト)。</td>
+</tr>
+
+<tr><td><strong>-2</strong></td>
+<td>2 段組に設定します。</td>
+</tr>
+<tr><td><strong>-c</strong></td>
+
+<td>ページ幅より長い行を切り捨てます。 通常、長い行はそのページの次の行に折り返されます。</td>
+</tr>
+<tr><td><strong>-g</strong></td>
+
+<td>このフラグを指定しても何も実行されませんが、<strong>-g</strong> フラグは下位互換性を保つために引き続き使用できるようになっています。</td>
+</tr>
+<tr>
+<td><strong>-k</strong></td>
+<td>用紙をあらかじめフィードできるようにします (プリンターがサポートしている場合)。 これによって、ページ間でプリンターを作動させられるので、単純なドキュメント (1 つのフォントでプログラムのリストを作成するなど) をいくらか速く印刷することができます。</td>
+
+</tr>
+<tr><td><strong>-l</strong></td>
+<td>ライン・プリンターをシミュレートして、ページを 66 行の長さにし、ヘッダーを省略します。</td>
+</tr>
+<tr><td><strong>-m</strong></td>
+<td>ファイルが印刷された後に、メールを送信します。</td>
+</tr>
+
+<tr><td><strong> -o</strong></td>
+<td><strong>enscript</strong> コマンドがあるフォントのセット内で文字を見つけることができなければ、その文字を表示します。</td>
+</tr>
+<tr>
+<td><strong>-q</strong></td>
+<td><strong>enscript</strong> コマンドに実行中の内容を報告させないようにします。 <strong>enscript</strong> コマンドは、ページ数、送信先、省略された文字などに関して報告を行いません。 致命的エラーだけは、標準エラー出力に報告されます。</td>
+</tr>
+<tr><td><strong>-r</strong></td>
+<td>出力を 90 度回転させます (横長モード)。 このフラグは、幅広いページを必要とする出力や、<strong>-2</strong> フラグと一緒に使用するプログラム・リストの作成などに使用します。 次の例は、プログラム・リストを作成する方法を示しています。<div> <div><div><pre><code>enscript -2r File . . . </code></pre></div><div></div></div></div>
+</td>
+</tr>
+<tr><td><strong>-B</strong></td>
+<td>ページ見出しを省略します。</td>
+
+</tr>
+<tr><td><strong>-G</strong></td>
+<td>装飾モードで印刷します。ページ見出し、日付、ページ番号が目立つスタイルで印刷されます (パフォーマンスは多少低下します)。</td>
+</tr>
+<tr><td><strong>-K</strong></td>
+
+<td>ページをあらかじめフィードする機能を使用不可にします (デフォルト)。</td>
+</tr>
+<tr><td><strong>-R</strong></td>
+<td>ポートレイト・モード (回転しない) で印刷します。これはデフォルトです。</td>
+</tr>
+<tr><td><strong>-b</strong><em>ヘッダー</em></td>
+<td>ページ見出しに使用する文字列を <em>Header</em> 変数の値に設定します。 デフォルトのヘッダーは、ファイル名、最終修正日、およびページ番号から構成されています。</td>
+
+</tr>
+<tr><td><strong>「-f」</strong><em>フォント</em></td>
+<td>各ページの本文に使用されるフォントを設定します。 2 段組の回転モードが使用されない場合のデフォルトは、Courier10 で、使用される場合のデフォルトは Courier7 となります。<div><div>
+        <div>
+          <div><span>注:</span><ol><li>PostScript フォント名（Times-Roman、 Times-BoldItalic, Helvetica、Courier など）。</li>
+<li>ポイント・サイズ (1 ポイント = 1/72 インチ)。 フォントは次のように設定されます。Courier-Bold8 は 8 ポイントの Courier Bold で、Helvetica12 は 12 ポイントの Helvetica を表します。</li>
+</ol>
+ </div>
+        </div>
+      </div></div>
+</td>
+</tr>
+<tr><td><strong>-f0</strong><em> コード・セット</em><strong>:</strong><em>フォント</em></td>
+<td>PostScript ファイルに書き込まれる文字コード・セット名、および各ページの本文に使用される SBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル <strong>/usr/lib/ps/transcript.conf</strong> によって決まります。</td>
+
+</tr>
+<tr><td><strong>-f1</strong><em> コード・セット</em><strong>:</strong><em>フォント</em></td>
+<td>PostScript ファイルに書き込まれる文字コード・セット名と、各ページの本文に使用される MBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル <strong>/usr/lib/ps/transcript.conf</strong> によって決まります。</td>
+
+</tr>
+<tr><td><strong>P-</strong><em>アウト</em></td>
+<td>PostScript ファイルが、印刷のためにスプールされるのではなく、指定されたファイルに書き込まれるようにします。 特殊なケースとして、次のように入力すると、 PostScript ファイルが標準出力に送信されます。<div> <div><div><pre><code>-p -</code></pre></div><div></div></div></div>
+</td>
+</tr>
+
+<tr><td><strong>-F (R)</strong><em>フォント</em></td>
+<td>ページ見出しに使用されるフォントを設定します。 デフォルトは Courier Bold10 です。<div><div>
+        <div>
+          <div><span>注:</span> フォント仕様には、次の 2 つの部分があります。<ul><li>PostScript フォント名（Times-Roman、 Times-BoldItalic, Helvetica、Courier など）。</li>
+<li>ポイント・サイズ (1 ポイント = 1/72 インチ)。 フォントは次のように設定されます。Courier-Bold8 は 8 ポイントの Courier Bold で、Helvetica12 は 12 ポイントの Helvetica を表します。</li>
+</ul>
+</div>
+        </div>
+      </div></div>
+</td>
+</tr>
+<tr><td><strong>-F0</strong><em> コード・セット</em><strong>:</strong><em>フォント</em></td>
+<td>PostScript ファイルに書き込まれる文字コード・セット名、および各ページのヘッダーに使用される SBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル <strong>/usr/lib/ps/transcript.conf</strong> によって決まります。</td>
+
+</tr>
+<tr><td><strong>-F1</strong><em> コード・セット</em><strong>:</strong><em>フォント</em></td>
+<td>これは、 PostScript ファイルに書き込まれる文字コード・セット名と、各ページのヘッダーに使用される MBCS フォントを設定します。 デフォルト値は、各ロケールの構成ファイル <strong>/usr/lib/ps/transcript.conf</strong> によって決まります。</td>
+
+</tr>
+<tr><td><strong>-L (L)</strong><em>線</em></td>
+<td>1 ページに印刷する最大行数を設定します。 <strong>エンスクリプト</strong> コマンドは通常、ポイント・サイズに基づいてページに書き込む行数を計算します。 ( <strong>-L (L)</strong> フラグによって要求されたページ当たりの書き込み数よりも少ない場合があります。)</td>
+</tr>
+<tr><td><strong>-M</strong><em> メディア名</em></td>
+<td>紙のイメージ可能区域の量を決定するのに使用されるメディア名を指定します。 提供される名前は、<strong>MediaSizes</strong> ファイルのエントリーと一致します。 以下に例を示します。-M legalイメージ可能な領域としてリーガル・サイズの紙を要求します。 このフラグを使用しない場合、デフォルトのサイズは文字サイズで、幅は 8.5 インチ、奥行きは 11.0 インチ (21.6 セント) です。 27.9 セントの幅。 deep)。</td>
+
+</tr>
+<tr><td><strong>-X</strong><em> コードセット名</em></td>
+
+<td>入力データのコード・セットを指定します。 デフォルトでは、入力コード・セットは <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_bostechref/nl_langinfo.html" target="_blank" rel="noopener noreferrer"><strong>nl_langinfo</strong></a> サブルーチンによって決定されます。 このフラグが使用される場合、コード・セットは <em>CodesetName</em> によって決定されます。</td>
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>各国文字サポート</h2> <p>フォント内で見つからない文字はすべて ? (疑問符) で置き換えられます。 (疑問符)。 見つからなかった文字の完全なリストを表示するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/enscript.html#enscript__row-d3e83042" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> フラグを使用します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/NLSvec.html" target="_blank" rel="noopener noreferrer"><strong>NLSVEC</strong></a> ファイルは、文字変換に関する情報を提供します。</p>
+</section>
+<section><h2>環境変数</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>enscript</strong></td>
+<td><strong>enscript</strong> コマンドで使用されるオプションの文字列を指定します。</td>
+</tr>
+<tr><td><strong>LPDEST</strong></td>
+<td>プリンターの送り先を指定します。 <strong>-d</strong> スプーラー・オプションは、この環境変数を指定変更します。</td>
+</tr>
+<tr>
+<td><strong>PLIBDIR</strong></td>
+<td><strong>enscript</strong> コマンド・プロローグおよびフォント・メトリック・ファイルのために、<strong>/usr/lib/ps</strong> ディレクトリーの代わりに使用するディレクトリーのパス名を指定します。</td>
+</tr>
+<tr><td><strong>PSTEMPDIR (P)</strong></td>
+<td>スプールされた一時ファイルの <strong>/var/tmp</strong> ディレクトリーの代わりに使用する一時ディレクトリーのパスを指定します。</td>
+
+</tr>
+<tr><td><strong>トランスクリプト</strong></td>
+<td>MBCS 処理のために構成ファイル <strong>/usr/lib/ps/transcript.conf</strong> の代わりに使用するファイルの絶対パス名を指定します。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>/usr/lib/ps/*.afm</strong></td>
+<td>Adobe Font Metrics (AFM) ファイルが入っています。</td>
+</tr>
+<tr>
+<td><strong>/usr/lib/ps/font.map</strong></td>
+<td>フォント名とその省略形のリストが入っています。</td>
+</tr>
+<tr><td><strong>/usr/lib/ps/enscript.pro</strong></td>
+<td><strong>enscript</strong> コマンド・ファイルのためのプロローグが入っています。</td>
+</tr>
+
+<tr><td><strong>/usr/lib/ps/MediaSizes</strong></td>
+
+<td>メディア・サイズに使用されるデフォルト・ファイルが入っています。</td>
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+</div></div>

@@ -1,0 +1,213 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>フォルダーの内容を圧縮して 1 つのファイルに入れます。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>packf [ +Folder ] [ Messages ] [ -file File ]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>packf</span> フォルダー内のメッセージを、指定されたファイルに圧縮します。 デフォルトでは、<span>packf</span> コマンドは現行フォルダーのメッセージを圧縮して <span>msgbox</span> ファイルに入れます。 このファイルが存在しない場合、システムはファイルを作成するかどうか確認するプロンプトを表示します。 ファイルの各メッセージは、4 つの Ctrl-A 文字と改行文字 1 文字で区切られます。</p>
+ <div>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>inc</span> コマンドを使用して、圧縮されたメッセージをアンパックすることができます。</div>
+        </div>
+      </div></div>
+
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-file</span> ファイル</td>
+
+<td>圧縮したメッセージを入れるファイルを指定します。 デフォルトは <span>./msgbox</span> ファイルです。 このファイルが存在する場合は、<span>packf</span> コマンドはメッセージをファイルの最後に追加します。 このファイルが存在しない場合、システムはファイルを作成するかどうか確認するプロンプトを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>+</span>フォルダー</td>
+
+<td>パックするメッセージが入っているフォルダーを識別します。</td>
+
+</tr>
+
+<tr>
+<td><span>-help</span></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<div>
+<div><div>
+        <div>
+          <div><span>注:</span> メッセージ・ハンドラー (MH) の場合、このフラグ名は完全な形で指定しなければなりません。</div>
+        </div>
+      </div></div>
+
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td>メッセージ</td>
+
+<td>圧縮するメッセージを指定します。 Messages パラメーターには、複数のメッセージを指定したり、メッセージの範囲を指定したり、単一メッセージを指定できます。 複数のメッセージが指定された場合、パックされた最初のメッセージが現行メッセージになります。 以下の参照を使ってメッセージを指定します。<dl>
+<dt>Number</dt>
+
+<dd>メッセージ番号。 複数のメッセージを指定するときは、それぞれの番号をスペースで区切ります。 範囲を指定するときは、その範囲の最初と最後の値をハイフンで区切ります。</dd>
+
+
+<dt>sequence</dt>
+
+<dd>ユーザーが指定するメッセージ・グループ。 認識される値には以下のものが含まれます。<dl>
+<dt><code>all</code></dt>
+
+<dd>フォルダー内のすべてのメッセージ。 これはデフォルトです。</dd>
+
+
+<dt><code>cur</code> または <code>.</code> (ピリオド)</dt>
+
+<dd>現行メッセージ。</dd>
+
+
+<dt><code>first</code></dt>
+
+<dd>フォルダー内の最初のメッセージ</dd>
+
+
+<dt><code>last</code></dt>
+
+<dd>フォルダー内の最後のメッセージ</dd>
+
+
+<dt><code>next</code></dt>
+
+<dd>現行メッセージの次のメッセージ。</dd>
+
+
+<dt><code>prev</code></dt>
+
+<dd>現行メッセージの直前のメッセージ</dd>
+
+</dl>
+</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>プロファイル・エントリー</h2> <p>以下のエントリーが UserMhDirectory<span>/.mh_profile</span> ファイルに入力されます。</p>
+ 
+<div><div><table><caption><span>表 1. プロファイル・エントリー</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>Current-Folder:</code></td>
+
+<td>デフォルトの現行フォルダーを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Msg-Protect:</code></td>
+
+<td>新しいメッセージ・ファイルの保護レベルを設定します。</td>
+
+</tr>
+
+<tr>
+<td><code>Path:</code></td>
+
+<td>ユーザーの MH ディレクトリーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div>
+<dl>
+
+<dt>アテンション RBAC ユーザー</dt>
+
+<dd>hello</dd>
+
+
+</dl>
+
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>現行フォルダー内のすべてのメッセージをパックし、結果のテキストを <span>schedule</span> ファイルに入れるには、次のように入力します。<div><code>packf  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/packf.html#packf__row-d3e69502" target="_blank" rel="noopener noreferrer">-file </a>schedule</code></div>システムは、次のようなメッセージで応答します。<div>
+<div><div><pre><code>Create file "/home/mary/schedule"?</code></pre></div><div></div></div><code>y</code> を入力するとファイルが作成されます。</div>
+</li>
+
+<li><code>3</code> から <code>7</code> までの範囲のメッセージを <span>test</span> フォルダーから既存の <span>msgbox</span> ファイルにパックするには、次のように入力します。<div><code>packf  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/packf.html#packf__row-d3e69516" target="_blank" rel="noopener noreferrer">+</a>test 3-7</code></div>システムは、コマンドが完了すると <code>shell</code> プロンプトを表示します。</li>
+
+<li><span>inbox</span> フォルダー内の現行メッセージ、最初のメッセージ、および最後のメッセージを既存の <span>msgbox</span> ファイルにパックするには、次のように入力します。<div>
+<div><div><pre><code>packf cur first last</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>$HOME/.mh_profile</span></td>
+
+<td>MH ユーザー・プロファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/bin/packf</span></td>
+
+<td><span>packf</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

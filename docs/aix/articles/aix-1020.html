@@ -1,0 +1,121 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>次のメッセージを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>next</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/next.html#next__row-d3e13998" target="_blank" rel="noopener noreferrer"><strong>+</strong></a><em>フォルダー </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/next.html#next__row-d3e14006" target="_blank" rel="noopener noreferrer"><strong>-header </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/next.html#next__row-d3e14023" target="_blank" rel="noopener noreferrer"><strong>-noheader </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/next.html#next__row-d3e14038" target="_blank" rel="noopener noreferrer"><strong>-showproc</strong></a><em> CommandString </em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/next.html#next__row-d3e14029" target="_blank" rel="noopener noreferrer"><strong>-noshowproc </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>next</strong> コマンドは、メッセージ・ハンドラー (MH) フォルダーにファイルされている次のメッセージにシステムが割り当てる番号を表示します。 <strong>next</strong> コマンドは、<strong> next</strong>
+値をメッセージとして指定した <strong>show</strong> コマンドと同じです。</p>
+ <p><strong>next</strong> コマンドは <strong>show</strong>
+プログラムにリンクし、スイッチを <strong>showproc</strong> プログラムに渡します。 <strong>next</strong> 値にリンクし、そのリンクに <strong>next</strong> 以外の名前を付ける場合、リンクは <strong>next</strong> コマンドではなく、<strong>show</strong>
+コマンドと同様に機能します。</p>
+ <p><strong>show</strong> コマンドは認識されないフラグを、リストを行うプログラムに渡します。 <strong>next</strong> コマンドは、いくつかのフラグをリストするプログラムに渡します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>+</strong><em>フォルダー</em></td>
+
+<td>表示したいメッセージが入っているフォルダーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-header</strong></td>
+
+<td>表示対象のメッセージについて 1 行の記述を表示します。 記述には、フォルダー名とメッセージ番号が含まれます。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>これは、コマンド構文、使用可能なスイッチ (トグル)、およびバージョン情報をリストします。<p></p><blockquote><span>“</span><strong>注:</strong> MH の場合は、このフラグ名を省略することはできません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-ヘッダーなし</strong></td>
+
+<td>表示する各メッセージを 1 行での記述で表示するのを抑制します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノショウプロック</strong></td>
+
+<td>リスト作成を行うため <strong>/usr/bin/cat</strong> ファイルを使用します。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ショープロック</strong><em> CommandString</em></td>
+
+<td>指定されたコマンド・ストリングを使用してリスト作成を行います。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行フォルダー内の次のメッセージを表示するには、次のように入力します。<div> <div><div><pre><code>next</code></pre></div><div></div></div>システムは、次のようなメッセージで応答します。<div><div><pre><code>(Message schedule: 10)</code></pre></div><div></div></div>メッセージのテキストも表示されます。 この例では、次のメッセージがあります。10現行フォルダー内schedule次のメッセージです。</div>
+</li>
+
+<li><span></span>次のメッセージを表示するには、次のようにします。project次のように入力します。<div>next  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/next.html#next__row-d3e13998" target="_blank" rel="noopener noreferrer">+</a>project</div>システムはメッセージのテキストと以下のようなヘッダーを表示して応答します。<div> <div><div><pre><code>(Message project: 5)</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>$HOME/.mh_profile</strong></td>
+
+<td>ユーザーの MH プロファイルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/bin/next</strong></td>
+
+<td><strong> next</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

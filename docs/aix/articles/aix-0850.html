@@ -1,0 +1,257 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>lvm pbuf チューナブル・パラメーターを管理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lvmo</span></span> <span><span>-v</span></span> <span><span>名称</span></span> <span><span>-o</span></span> <span><span>チューナブル</span></span> [ =<span><span>新しい値</span></span> ]</p>
+ <p><span><span>lvmo</span></span><span><span>-a</span></span> [ <span><span>-v</span></span><span><span> vgname</span></span> ]</p>
+ <p><span><span>lvmo</span></span> <span><span>-L</span></span> [ <span><span>チューナブル</span></span> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lvmo</span></span> コマンドは、pbuf チューニング・パラメーターを設定または表示します。 等号は、特定のチューナブル・パラメーターを、指定値に設定するために使用できます。 等号を使用しない場合は、
+チューナブルの値が表示されます。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <strong>lvmo</strong> コマンドを誤用すると、パフォーマンスが低下したり、オペレーティング・システムの障害が発生したりする可能性があります。</div>
+        </div>
+      </div></div>
+ <div><strong>lvmo -a</strong> コマンドは、pbuf およびブロック入出力の統計情報を生成します。 pbuf およびブロック入出力レポートには、次のラベルがついています。<div><div><table><thead>
+<tr>
+<th><div>ラベル</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>vgname</code></td>
+
+<td><span><span>-v</span></span> オプションで指定されたボリューム・グループ名。</td>
+
+</tr>
+
+<tr>
+<td><code>pv_pbuf_count</code></td>
+
+<td>ボリューム・グループに物理ボリュームが追加されたときに追加される pbuf の数。</td>
+
+</tr>
+
+<tr>
+<td><code>total_vg_pbufs</code></td>
+
+<td>ボリューム・グループに使用可能な pbuf の現在の合計数。</td>
+
+</tr>
+
+<tr>
+<td><code>max_vg_pbuf_count</code></td>
+
+<td>ボリューム・グループに割り当てることができる pbuf の最大数。</td>
+
+</tr>
+
+<tr>
+<td><code>pervg_blocked_io_count</code></td>
+
+<td>ボリューム・グループのフリー pbuf が不足しているためにブロックされた入出力の数。</td>
+
+</tr>
+
+<tr>
+<td><code>pv_min_pbuf</code></td>
+
+<td>任意のボリューム・グループに物理ボリュームが追加されたときに追加される pbuf の最小数。</td>
+
+</tr>
+
+<tr>
+<td><code>global_blocked_io_count</code></td>
+
+<td>すべてのボリューム・グループについて、
+フリー pbuf が不足しているためにブロックされた入出力の数。</td>
+
+</tr>
+
+<tr>
+<td><code>aio_cache_pbuf_count</code></td>
+
+<td>ボリューム・グループの aio_cache 論理ボリュームに使用可能な pbufs の現在の総数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span></td>
+
+<td>すべてのチューナブル・パラメーターの値を表示します (<span><span>tunable</span></span> = <span><span>value</span></span> のペアで 1 行に 1 つずつ)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-o</span></span> <span><span>チューナブル</span></span> [=<span><span>新しい値</span></span> ]</td>
+
+<td>値を表示するか、<span><span>Tunable</span></span> を <span><span>NewValue</span></span> に設定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-L</span></span> [ <span><span>チューナブル</span></span> ]</td>
+
+<td>1 つまたはすべてのチューナブル・パラメーターの特性を、次のフォーマットで 1 行に 1 つずつリストします。<div><div><pre><code>NAME                      CUR    DEF    BOOT   MIN    MAX    UNIT   TYPE 
+     DEPENDENCIES 
+-------------------------------------------------------------------------
+global_blocked_io_count    0      0     n/a     0      0             S 
+     pervg_blocked_io_count 
+-------------------------------------------------------------------------
+max_vg_pbufs              16384  n/a    n/a   16384    none          S 
+     max_vg_pbuf_count 
+     pv_min_pbuf
+     pv_pbuf_count
+     total_vg_pbufs
+-------------------------------------------------------------------------
+max_vg_pbuf_count          0      0      n/a    0      none          M 
+     max_vg_pbufs
+     pv_min_pbuf
+     pv_pbuf_count
+     total_vg_pbufs
+-------------------------------------------------------------------------
+pervg_blocked_io_count     0      0      n/a    0      0             S
+     global_blocked_io_count
+------------------------------------------------------------------------- 
+pv_min_pbuf               512    512     n/a    0      none          D
+     max_vg_pbufs
+     max_vg_pbuf_count
+     pv_pbuf_count
+     total_vg_pbufs
+-------------------------------------------------------------------------
+pv_pbuf_count             512    512    n/a     1      16384         D
+     max_vg_pbufs
+     max_vg_pbuf_count
+     pv_min_pbuf
+     total_vg_pbufs
+-------------------------------------------------------------------------
+total_vg_pbufs            512    n/a    n/a     0      0             S
+     max_vg_pbufs
+     max_vg_pbuf_count
+     pv_min_pbuf
+     pv_pbuf_count
+-------------------------------------------------------------------------
+... 
+where: 
+    n/a means parameter not supported by the current platform or kernel
+Parameter types:
+    S = Static: cannot be changed
+    D = Dynamic: can be freely changed
+    B = Bosboot: can only be changed using bosboot and reboot
+    R = Reboot: can only be changed during reboot
+    C = Connect: changes are only effective for future socket connections
+    M = Mount: changes are only effective for future mountings
+    I = Incremental: can only be incremented
+    d = deprecated: deprecated and cannot be changed
+Value conventions:
+    K = Kilo: 2^10       G = Giga: 2^30       P = Peta: 2^50      
+    M = Mega: 2^20       T = Tera: 2^40       E = Exa: 2^60  </code></pre></div><div></div></div></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>チューナブル・パラメーター</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>pv_pbuf_count</span></span></td>
+
+<td>ボリューム・グループに物理ボリュームが追加されたときに追加される pbuf の数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>max_vg_pbuf_count</span></span></td>
+
+<td>ボリューム・グループに割り当てることができる pbuf の最大数。 <strong>注</strong>: この値を有効にするには、
+ボリューム・グループをいったんオフに変更し、再度オンに変更する必要があります。 この値は rootvg には影響しません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>pv_min_pbuf</span></span></td>
+
+<td>任意のボリューム・グループに物理ボリュームが追加されたときに追加される pbuf の最小数。 <strong>注:</strong> この値を変更するには、<strong>ioo</strong> コマンドを使用します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>aio_cache_pbuf_count</span></span></td>
+
+<td>ボリューム・グループの aio_cache 論理ボリュームに割り当てられた pbufs の総数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>workQ_size</span></span></td>
+
+<td>ボリューム・グループ内の論理ボリュームの入出力要求を追跡するために使用するハッシュ・テーブルのサイズ。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、正常終了の場合はゼロを戻し、そのほかの場合はゼロ以外の値を戻します。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、root 権限が必要です。</p>
+ <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>pv_pbuf_count</code> の値を表示するには、次のように入力します。<div><div><pre><code>lvmo -v rootvg -o pv_pbuf_count</code></pre></div><div></div></div></li>
+
+<li><code>pv_pbuf_count</code> の値を 2048 に設定するには、次のように入力します。<div><div><pre><code>lvmo -v rootvg -o pv_pbuf_count=2048</code></pre></div><div></div></div></li>
+
+<li>pbuf およびブロックされた入出力に関する統計情報を生成するには、次のように入力します。<div><div><pre><code>lvmo -a</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><strong>/usr/sbin/lvmo</strong></p>
+</section>
+
+</div></div>

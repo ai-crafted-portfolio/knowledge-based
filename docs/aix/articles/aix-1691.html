@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>BNU プログラムを使用したリモート・システムへのファイル転送呼び出しを開始します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uudemon.hour</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>/usr/sbin/uucp/uudemon.hour</strong> コマンドは、
+基本ネットワーク・ユーティリティー (BNU) で使用されるシェル・プロシージャーです。 <strong>uudemon.hour</strong> コマンドは、
+<strong>Poll</strong> ファイル、
+<strong>uudemon.poll</strong> コマンド、
+<strong>/var/spool/cron/crontabs/uucp</strong> ファイルとともに使用して、
+リモート・システムの呼び出しを開始します。</p>
+ <p><strong>uudemon.hour</strong> コマンドは、以下のプログラムを呼び出します。
+これらのプログラムは、指定された周期でシステム間でファイル転送を行うときに使用します。</p>
+ <ul>
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uusched.html#uusched" target="_blank" rel="noopener noreferrer"><strong>uusched</strong></a> デーモンは、最初にローカル・システム上のスプーリング・ディレクトリーで、指定されたリモート・システムに転送されていないコマンド・ファイルを検索してから、それらのファイルの転送をスケジュールします。</li>
+
+<li><span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uuxqt.html#uuxqt" target="_blank" rel="noopener noreferrer"><strong>uuxqt</strong></a> デーモンは、スプーリング・ディレクトリーで、ローカル・システムに転送されたが、そのシステムでまだ処理されていない実行ファイルを検索します。</li>
+
+</ul>
+ <p><strong>cron</strong> デーモンに対し、
+指定した周期で <strong>uudemon.hour</strong> コマンドを実行するように指示します。 <strong>uudemon.hour</strong> コマンドを実行する頻度は、
+ローカル・マシンが開始するファイル転送処理の量によって決まります。 ローカル・システム上のユーザーが多数のファイル転送を開始する場合、
+ユーザーは 1 時間に何回 <strong>cron</strong> デーモンに <strong>uudemon.hour</strong> コマンドを開始させるかを指定します。 ローカル・システム上で開始されるファイル転送が少ないときは、
+4 時間に 1 回程度の割合で開始するように指定してください。</p>
+ <div><strong>uudemon.hour</strong> コマンドを自動的に実行させるには、
+<strong>/var/spool/cron/crontabs/uucp</strong> ファイルの <strong>uudemon.hour</strong> コマンド・ラインの先頭からコメント文字 (#) を除去します。<div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>uudemon.hour</strong> コマンドは、通常はコマンド行には入力しませんが、 <strong>cron</strong> デーモンによって実行されます。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>uudemon.hour</strong> コマンドを自動的に実行させるには、
+<strong>/var/spool/cron/crontabs/uucp</strong> ファイルを編集し、
+<strong>uudemon.hour</strong> コマンド・ラインの先頭にあるコメント文字 (#) を除去します。 変更:</p>
+ <div> <div><div><pre><code>#25,55 * * * * /usr/bin/sh -c "/usr/sbin/uucp/uudemon.hour &gt;  /dev/null"</code></pre></div><div></div></div></div>
+ <p>to:--&gt;</p>
+ <div> <div><div><pre><code>25,55 * * * * /usr/bin/sh -c "/usr/sbin/uucp/uudemon.hour &gt;  /dev/null"</code></pre></div><div></div></div></div>
+ <p>この25,55表記は分を表し, 4 つのアスタリスク (* * * *) は、それぞれ、時間、日、月、および曜日を表すプレースホルダーです。 したがって、この行は、 <strong>cron</strong> デーモンに対して、 <strong>uudemon.hour</strong> コマンドを時間の 25 分後、および時間の 55 分後 (例えば、8:25 と 8:55 a.m) に実行するように指示します。 この場合も 9:25 および 9:55 a.mです。 そして毎日 1 時間おきに</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span>これらの実行間隔はデフォルトです。 これらを変更すれば、<strong>cron</strong> デーモンが <strong>uudemon.hour</strong> コマンドを実行する時刻を、サイトの必要に応じて変更することができます。 例えば、 <strong>uudemon.hour</strong> コマンドを 4 時間ごとに 1 回実行するには、 <strong>time-interval</strong> フィールドに数字の <code>4</code> を入力します。</li>
+
+<li><span></span> <strong>uudemon.hour</strong> コマンドのランタイムを変更する場合は、 <strong>uudemon.hour</strong> コマンドを実行する 5 分前から 10 分前にリモート・システムをポーリングするように、 <strong>uudemon.poll</strong> コマンドのランタイムも変更する必要があります。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/uucp/uudemon.hour</strong></td>
+
+<td><strong>uudemon.hour</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Poll</strong></td>
+
+<td>BNU プログラムがリモート・システムにポーリングしてタスクを開始する時刻を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/cron/crontabs/uucp</strong></td>
+
+<td><strong>uudemon.hour</strong> コマンド、および <strong>uudemon.poll</strong> コマンドを含む、<strong>cron</strong> デーモン用の BNU ジョブをスケジュールします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,125 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>印刷ジョブを取り消します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>qcan</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qcan.html#qcan__row-d3e120052" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qcan.html#qcan__row-d3e120041" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a> <em>JobNumber</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qcan.html#qcan__row-d3e120030" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> <em>プリンター</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>qcan</strong> コマンドは特定のジョブ番号または印刷キュー内のすべてのジョブを取り消します。</p>
+ <p>System Management Interface Tool (SMIT) の <strong>smit qcan</strong> 高速パスを使用してこのコマンドを実行することもできます。</p>
+ <p><strong>qstatus</strong> は、重複した 3 桁のジョブ番号を示して、ローカル・キューの管理を向上させるように拡張されています。 <strong>-W</strong> フラグを <strong>enq</strong>、<strong>qchk</strong>、<strong>lpstat</strong>、および <strong>lpq</strong> 状況コマンドと共に使用して、ジョブ番号の桁数をさらに多くして表示することができます。</p>
+ <p>キュー表示が重複した 3 桁のジョブ番号を示す場合は、<strong>qchk -W</strong> を使用してさらに高い精度でジョブ番号をリストしてください。 そうすると、特定のジョブを取り消すことができます。</p>
+ <p>例:qchkジョブ番号を表示する123その間に二度qchk -Wジョブ番号を表示します。1123および2123. ジョブ番号 2123 を取り消したい場合は、次のように指定します。qcan -x 123を使用すると、 <strong>qdaemon</strong> は、その内部リストで最初に見つかった一致するジョブ番号を取り消します。これは、以下のようになります。1123<strong>-W (W)</strong> フラグが提供する追加情報を使用して、特定のジョブ番号を取り消すことができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-P</strong><em> プリンター</em></td>
+
+<td>すべてのジョブまたは選択したジョブ番号を取り消す <em>Printer</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> JobNumber</em></td>
+
+<td><em>JobNumber</em> 変数で指定されたジョブ番号のみを取り消すことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>すべてのジョブまたは指定されたプリンターに関するすべてのジョブを取り消します。 root ユーザー権限がある場合は、そのキュー上のすべてのジョブが削除されます。 root ユーザー権限がない場合は、ユーザーが実行要求したジョブのみが取り消されます。 このフラグは、ローカル印刷ジョブに対してのみ有効です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>プリンターでキューに入れられているすべてのジョブを取り消すlp0次のように入力します。<div>qcan  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qcan.html#qcan__row-d3e120052" target="_blank" rel="noopener noreferrer">-X</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qcan.html#qcan__row-d3e120030" target="_blank" rel="noopener noreferrer">-P</a> lp0</div>
+</li>
+
+<li>ジョブ番号を取り消す123ジョブがどのプリンターにあっても、次のように入力します。<div>qcan  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/q_commands/qcan.html#qcan__row-d3e120041" target="_blank" rel="noopener noreferrer">-x</a> 123</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/qdaemon</strong></td>
+
+<td><strong>qdaemon</strong> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/qdir/*</strong></td>
+
+<td>ジョブ記述ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/lpd/stat/*</strong></td>
+
+<td>デバイスの状況に関する情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/qdaemon/*</strong></td>
+
+<td>キューに入れられたファイルの一時コピーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig</strong></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/qconfig.bin</strong></td>
+
+<td><strong>/etc/qconfig</strong> ファイルの要約されたバイナリー・バージョンが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

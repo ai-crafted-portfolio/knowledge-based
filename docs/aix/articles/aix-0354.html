@@ -1,0 +1,251 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>ファイルを変換してコピーします。</p>
+</section>
+<section><h2>構文</h2> <p><strong>dd</strong>[<em>bs=BlockSize</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19607" target="_blank" rel="noopener noreferrer"><strong>[</strong></a><em>cbs=BlockSize</em>]<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19588" target="_blank" rel="noopener noreferrer"><strong>。</strong></a></p>
+ <p>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19630" target="_blank" rel="noopener noreferrer"><strong>凸 = </strong></a>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer">ascii </a> |<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer">block</a>|<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer">ebcdic</a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e5" target="_blank" rel="noopener noreferrer">ibm</a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ee" target="_blank" rel="noopener noreferrer">unblock </a>]</p>
+ <p>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e8" target="_blank" rel="noopener noreferrer">lcase </a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ea" target="_blank" rel="noopener noreferrer">ucase </a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e6" target="_blank" rel="noopener noreferrer">iblock </a>]</p>
+ <p>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e9" target="_blank" rel="noopener noreferrer">noerror </a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922eb" target="_blank" rel="noopener noreferrer">swab </a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ec" target="_blank" rel="noopener noreferrer">sync </a>]</p>
+ <p>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e6" target="_blank" rel="noopener noreferrer">oblock </a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a101930da" target="_blank" rel="noopener noreferrer">notrunc </a>]][<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19619" target="_blank" rel="noopener noreferrer"><strong>カウント =</strong></a></p>
+ <p><em>InputBlocks</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19821" target="_blank" rel="noopener noreferrer"><strong>ファイル</strong></a><em>入力ファイル</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19832" target="_blank" rel="noopener noreferrer"><strong>fskip=</strong></a></p>
+ <p><em>SkipEOFs</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19846" target="_blank" rel="noopener noreferrer"><strong>ibs=</strong></a><em>入力ブロックサイズ</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer"><strong>もし</strong></a></p>
+ <p><em>InFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19865" target="_blank" rel="noopener noreferrer"><strong>obs=</strong></a><em>出力ブロックサイズ</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer"><strong>の</strong></a></p>
+ <p><em>OutFile</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19884" target="_blank" rel="noopener noreferrer"><strong>シーク</strong></a><em>レコード番号</em> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19896" target="_blank" rel="noopener noreferrer"><strong>スキップ</strong></a></p>
+ <p><em>SkipInputBlocks</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19907" target="_blank" rel="noopener noreferrer"><strong>span=</strong></a><em>はい｜いいえ</em> ]</p>
+ <p><strong>dd</strong> [ <em>オプション</em><strong>=</strong><em>値</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>dd</strong> コマンドは、
+<em>InFile</em> パラメーターまたは標準入力を読み取って指定された変換を行い、
+変換したデータを <em>OutFile</em> パラメーターまたは標準出力にコピーします。 入力および出力ブロック・サイズを指定して、
+物理的な未加工の入出力 (ロウ I/O) を使用できます。<div><div>
+        <div>
+          <div><span>注:</span> <em>ブロック</em> という用語は、1 回の操作で <strong>dd</strong> コマンドによって読み書きされるデータの量を指し、必ずしもディスク・ブロックと同じサイズではありません。</div>
+        </div>
+      </div></div>
+</div>
+ <p>サイズを指定する場合は、バイト数で指定します。 最後に <strong>w</strong>、<strong>b</strong>、または <strong>k</strong> が付いている数字は、それぞれ、2 倍、512 倍、
+または 1024 倍することを示します。<strong>x</strong> または <strong>*</strong> (アスタリスク) で区切った数字の対は積を表します。 カウント・パラメーターは、バイト数<em>ではなく</em> 、
+コピーするブロックの数を要求します。</p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer"><strong>conv=ascii</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer"><strong>conv=ebcdic</strong></a> フラグに関連した文字セット・マッピングは、相補的な操作です。 この 2 つのフラグは、ASCII 文字と、
+ほとんどのワークステーションとキー・パンチに使われる EBCDIC 文字のサブセットとをマップします。</p>
+ <p><strong>ブロック</strong>、 <strong>unblock</strong>、 <strong>ascii</strong>、 <strong>ebcdic</strong>、または <strong>ibm</strong> 変換のいずれかを指定する場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19607" target="_blank" rel="noopener noreferrer"><strong>cbs</strong></a> パラメーター値を使用してください。 <strong>unblock</strong> パラメーターまたは <strong>ascii</strong> パラメーターを指定すると、
+<strong>dd</strong> コマンドにより固定長から可変長への変換が実行されます。 それ以外の場合は、可変長から固定長への変換が実行されます。 <strong>cbs</strong> パラメーターは固定長を決定します。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <strong>cbs</strong> パラメーター値が最小入力ブロックより小さい値に指定されると、変換されたブロックは切り捨てられます。</div>
+        </div>
+      </div></div>
+ <p>処理の終了時に、<strong>dd</strong> コマンドは全体および部分的な入力ブロックと出力ブロックの数を報告します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol><li>通常、必要なのは、出力ファイルへの書き込みアクセスだけです。 ただし、出力ファイルが直接アクセス装置上になく、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19884" target="_blank" rel="noopener noreferrer"><strong>seek</strong></a> フラグを使用する場合は、ファイルへの読み取りアクセス権も必要です。</li>
+<li><strong>dd</strong> コマンドは、 <strong>conv=ascii</strong> または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ee" target="_blank" rel="noopener noreferrer"><strong>conv=unblock</strong></a> フラグが設定された状態で変換する場合にのみ改行文字を挿入します。 <strong>conv=ebcdic</strong>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e5" target="_blank" rel="noopener noreferrer"><strong>conv=ibm</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer"><strong>conv=block</strong></a> フラグが設定された状態で変換する場合にのみ埋め込みます。</li>
+<li>可能な場合はいつでも、 <strong>dd</strong> コマンドの代わりに <a href="https://www.ibm.com/docs/ja/ssw_aix_73/b_commands/backup.html" target="_blank" rel="noopener noreferrer"><strong>backup</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tar.html" target="_blank" rel="noopener noreferrer"><strong>tar</strong></a>、または <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cpio.html" target="_blank" rel="noopener noreferrer"><strong>cpio</strong></a> コマンドを使用して、ファイルをテープにコピーしてください。 これらのコマンドは、テープ・デバイスで使用するようになっています。 磁気テープ装置の使用について詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/rmt.html" target="_blank" rel="noopener noreferrer"><strong>rmt</strong></a> スペシャル・ファイルを参照してください。</li>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19588" target="_blank" rel="noopener noreferrer"><strong>bs</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19846" target="_blank" rel="noopener noreferrer"><strong>ibs</strong></a> 、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19865" target="_blank" rel="noopener noreferrer"><strong>obs</strong></a> フラグで指定するブロック・サイズ値は、常に、使用するメディアの物理ブロック・サイズの倍数でなければなりません。</li>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ec" target="_blank" rel="noopener noreferrer"><strong>conv=sync</strong></a> フラグを指定すると、 <strong>dd</strong> コマンドは、部分入力ブロックにヌルを埋め込みます。 したがって、
+いずれかの読み取りで (<strong>ibs</strong> フラグで指定された) データのフル・ブロックを受信しない場合、
+<strong>dd</strong> コマンドはデータ・ストリームの途中に NULL を挿入します。 パイプからの読み取りの場合、この挿入はよく発生します。</li>
+<li><strong>bs</strong> フラグのみを指定して、
+<strong>sync</strong>、<strong>noerror</strong>、
+または <strong>notrunc</strong> 以外の変換を指定しない場合、
+各入力ブロックからのデータは、個別の出力ブロックとして書き込まれます。
+読み取りでフル・ブロックに満たないブロックが戻されて、
+<strong>sync</strong> が指定されていない場合、
+結果として出力ブロックのサイズは入力ブロックと同じになります。 <strong>bs</strong> フラグを指定しない場合、または <strong>sync</strong>、<strong>noerror</strong>、
+<strong>notrunc</strong> 以外の変換を指定した場合は、入力の終わりに到達するまで、入力が処理され、フルサイズの出力ブロック内に収集されます。</li>
+</ol>
+ </div>
+        </div>
+      </div></div>
+<p><strong>デバイス全体のスパン</strong></p>
+ <div>入力ファイルが出力デバイスの物理サイズより大きい場合は、<strong>dd</strong> を使用してデバイス全体をスパンすることができます。<div><div>
+        <div>
+          <div><span>注:</span> ブロック・サイズ <em>bs</em> をデバイスの物理サイズの正確な倍数として指定する場合は注意が必要です。不適切なブロック・サイズを指定すると、データの不整合またはオーバーラップが発生するためです。</div>
+        </div>
+      </div></div>
+</div>
+ <p>InFile と OutFile パラメーターのいずれかが stdin または stdout である場合は、<strong>dd</strong> によるデバイス全体のスパンは行われません。</p>
+ <p>出力デバイスがフルの場合には、書き込み時に、<strong>dd</strong> が次のデバイスにプロンプトを出すような方法でスパンが行われます。 入力デバイスからの読み取り時に、デバイスの読み取りが終了していなくても、
+データが入力デバイスから完全に読み取られている場合は、<strong>dd</strong> が次のデバイスにプロンプトを出します。 この場合、終了するには、'n' を押さなければならないことがあります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><em>bs</em><strong>=ブロックサイズ</strong></td>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19846" target="_blank" rel="noopener noreferrer"><strong>ibs</strong></a> および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19865" target="_blank" rel="noopener noreferrer"><strong>obs</strong></a> フラグを置き換え、入力ブロック・サイズと出力ブロック・サイズの両方を指定します。 <strong>bs</strong> フラグで指定するブロック・サイズの値は必ず、
+使用されるメディアの物理ブロック・サイズの倍数でなければなりません。</td>
+</tr>
+<tr><td><strong>cbs=</strong><em>ブロックサイズ</em></td>
+<td>可変長から固定長への変換、および固定長から可変長への変換 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer"><strong>conv=block</strong></a>など) の変換ブロック・サイズを指定します。</td>
+</tr>
+
+<tr><td><em>count</em><strong>=入力ブロック</strong></td>
+
+<td><em>InputBlocks</em> 変数で指定された入力ブロックの数だけをコピーします。</td>
+</tr>
+<tr><td><strong>conv=</strong><em> 変換</em><strong>,</strong>....</td>
+<td>1 つ以上の変換オプションを指定します。 複数の変換を指定する場合はコンマで区切ってください。 指定できるオプションを次に示します。<dl><dt><strong>ASCII</strong></dt>
+<dd>EBCDIC を ASCII に変換します。 このオプションは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer"><strong>ebcdic</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e5" target="_blank" rel="noopener noreferrer"><strong>ibm</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer"><strong>block</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ee" target="_blank" rel="noopener noreferrer"><strong>unblock</strong></a> オプションとは互換性がありません。</dd>
+<dt><strong>BLOCK</strong></dt>
+<dd>可変長レコードを固定長に変換します。 長さは変換ブロック・サイズ (cbs) によって決定されます。 このオプションは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer"><strong>ascii</strong></a>、 <strong>ebcdic</strong>、 <strong>ibm</strong>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ee" target="_blank" rel="noopener noreferrer"><strong>unblock</strong></a> オプションとは互換性がありません。</dd>
+<dt><strong>EBCDIC</strong></dt>
+<dd>ASCII を標準 EBCDIC に変換します。 このオプションは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer"><strong>ascii</strong></a>、 <strong>ibm</strong>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer"><strong>block</strong></a>、および <strong>unblock</strong> オプションとは互換性がありません。</dd>
+<dt><strong>ibm</strong></dt>
+
+<dd>ASCIIを<span>IBM</span>版のEBCDICに変換する。 このオプションは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer"><strong>ascii</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer"><strong>ebcdic</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer"><strong>block</strong></a>、および <strong>unblock</strong> オプションとは互換性がありません。</dd>
+<dt><strong>iblock</strong>、<strong> oblock</strong></dt>
+<dd>直接アクセス・デバイスでの読み取りエラーまたは書き込みエラーから生じるデータの損失を最小限にとどめます。 <strong>イブロック</strong>変数を指定し、ブロック読み出し中にエラーが発生した場合（ブロックサ イズが512または'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19846" target="_blank" rel="noopener noreferrer"><strong>ibs=</strong></a>'<em>入力ブロックサイズ</em>変数で指定されたサイズ）、'<strong>dd</strong>コマ ンドはより小さいサイズ単位でデータブロックの再読み込みを試みる。 <strong>dd</strong> コマンドが入力デバイスのセクター・サイズを判別できる場合は、
+損傷を受けたブロックを一度に 1 セクターずつ読み取ります。 判別できない場合は、一度に 512 バイトずつ読み取ります。 入力ブロック・サイズ (<strong>ibs</strong>) は、
+この再試行のときのサイズの倍数でなければなりません。 このオプションは、読み取りエラーに関連するデータの損失を 1 セクターにおさえます。 <strong>oblock</strong> 変換も出力に対して同じように機能します。</dd>
+<dt><strong>LCASE</strong></dt>
+<dd>英文字をすべて小文字にします。</dd>
+
+<dt><strong>NOERROR</strong></dt>
+<dd>エラーの発生時に処理を停止しません。</dd>
+<dt><strong>notrunc</strong></dt>
+<dd>出力ファイルを切り捨てません。 出力への書き出しが明示的でないブロックは保存されます。</dd>
+<dt><strong>UCASE</strong></dt>
+<dd>英文字をすべて大文字にします。</dd>
+<dt><strong>綿棒 (swab)</strong></dt>
+
+<dd>バイトの対をすべてスワップします。</dd>
+<dt><strong>sync</strong></dt>
+<dd>すべての入力ブロックを <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19846" target="_blank" rel="noopener noreferrer"><strong>ibs</strong></a> 値まで埋め込みます。</dd>
+
+<dt><strong>非ブロック</strong></dt>
+<dd>固定長ブロックを可変長に変換します。 長さは変換ブロック・サイズ (cbs) によって決定されます。 このオプションは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer"><strong>ascii</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer"><strong>ebcdic</strong></a>、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e5" target="_blank" rel="noopener noreferrer"><strong>ibm</strong></a>、および <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e1" target="_blank" rel="noopener noreferrer"><strong>block</strong></a> オプションと互換性がありません。</dd>
+</dl>
+</td>
+</tr>
+<tr>
+<td><em>files</em><strong>=入力ファイル</strong></td>
+<td>入力ファイルの <em>InputFiles</em> 変数の値によって指定されたファイルの数を、
+終了前にコピーします (入力が磁気テープ、または類似デバイスである場合にのみ有効です)。</td>
+</tr>
+<tr><td><strong>fskip=</strong><em>スキップ</em></td>
+<td>コピーを開始する前に、
+<em>SkipEOFs</em> 変数によって指定されたファイル終わり文字の数をスキップします。
+この <em>SkipEOFs</em> 変数は、マルチファイルの磁気テープ上での位置決めに役立ちます。</td>
+
+</tr>
+<tr><td><strong>ibs=</strong><em>入力ブロックサイズ</em></td>
+<td>入力ブロック・サイズを指定します。デフォルトは 512 バイトまたは 1 ブロックです。 <strong>ibs</strong> フラグで指定するブロック・サイズの値は、必ず、
+使用中のメディアの物理ブロック・サイズの倍数でなければなりません。</td>
+</tr>
+<tr><td><strong>もし</strong><em>インファイル</em></td>
+<td>入力ファイル名を指定します。標準入力がデフォルト値です。</td>
+</tr>
+<tr><td><strong>obs=</strong><em>出力ブロックサイズ</em></td>
+<td>出力ブロック・サイズを指定します。デフォルトは 512 バイトまたは 1 ブロックです。 <strong>obs</strong> フラグで指定するブロック・サイズの値は、必ず、
+使用中のメディアの物理ブロック・サイズの倍数でなければなりません。</td>
+</tr>
+<tr><td><strong>の</strong><em>アウトファイル</em></td>
+<td>出力ファイル名を指定します。標準出力がデフォルト値です。</td>
+</tr>
+<tr><td><em>seek</em><strong>=レコード番号</strong></td>
+<td>コピー前に、<em>RecordNumber</em> 変数によって指定されたレコードを出力ファイルの最初から探します。</td>
+</tr>
+<tr><td><em>skip</em><strong>=入力ブロックをスキップする</strong></td>
+
+<td>コピーを開始する前に、入力ブロックの指定された <em>SkipInputBlocks</em> 値をスキップします。</td>
+</tr>
+<tr><td><strong>スパン =</strong><em>yes|no</em></td>
+<td>デバイス間のスパンを許可する (指定されている場合)yes指定されている場合はデフォルトとして機能します。no詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__spanxdev01" target="_blank" rel="noopener noreferrer">複数のデバイスにわたるスパンニング</a>を参照してください。</td>
+
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr>
+<td><strong>0</strong></td>
+<td>入力ファイルは正常にコピーされました。</td>
+
+</tr>
+<tr><td><strong>&gt;0</strong></td>
+<td>エラーが発生しました。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</section>
+<section><h2>例</h2> <ol><li>ASCII テキスト・ファイルを EBCDIC に変換するには、次のように入力します。<div>dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer">if=text.ascii </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer">of=text.ebcdic </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer">conv=ebcdic</a></div>このコマンドは、text.asciiファイルから EBCDIC への表現、EBCDIC バージョンの保管text.ebcdicを適用します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>conv=ebcdic</strong> パラメーターを指定すると、 <strong>dd</strong> コマンドは ASCII ^ (曲折アクセント記号) 文字を未使用の EBCDIC 文字 (9A 16 進数) に変換し、ASCII ~ (波形記号) を EBCDIC ^ (NOT 記号) に変換します。</div>
+        </div>
+      </div></div>
+</li>
+<li>可変長レコードである ASCII ファイル <strong>/etc/passwd</strong> を、
+132 バイトの固定長 EBCDIC レコードのファイルに変換するには、次のように入力します。<div>dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer">if=/etc/passwd</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19607" target="_blank" rel="noopener noreferrer">cbs=132</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e2" target="_blank" rel="noopener noreferrer">conv=ebcdic</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer">of=/tmp/passwd.ebcdic</a></div>
+</li>
+<li>各レコードが 132 バイトの EBCDIC ファイルを
+小文字の可変長 ASCII 行に変換するには、次のように入力します。<div>dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer">if=/tmp/passwd.ebcdic</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19607" target="_blank" rel="noopener noreferrer">cbs=132</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a10193107" target="_blank" rel="noopener noreferrer">conv=ascii</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer">of=/tmp/passwd.ascii</a></div>
+</li>
+<li>可変長レコード ASCII ファイル <strong>/etc/passwd</strong> を、EBCDIC の <span>IBM</span> バージョンの 132 バイト固定長レコードのファイルに変換するには、次のように入力します。<div>dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer">if=/etc/passwd</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19607" target="_blank" rel="noopener noreferrer">cbs=132</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922e5" target="_blank" rel="noopener noreferrer">conv=ibm</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer">of=/tmp/passwd.ibm</a></div>
+</li>
+<li>1KB ブロックのテープから、2KB のブロックを
+使用する別のテープにブロックをコピーするには、
+次のように入力します。<div>dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer">if=/dev/rmt0</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19846" target="_blank" rel="noopener noreferrer">ibs=1024</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19865" target="_blank" rel="noopener noreferrer">obs=2048</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer">of=/dev/rmt1</a></div>
+</li>
+<li><strong>dd</strong> コマンドをフィルターとして使用するには、次のように入力します。<div>ls -l | dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ea" target="_blank" rel="noopener noreferrer">conv=ucase</a></div>このコマンドにより、現行ディレクトリーの長いリストが大文字で表示されます。<div><div>
+        <div>
+          <div><span>注:</span> デフォルトのブロック・サイズを変更することにより、9348 磁気テープ装置モデル 12 に対する <strong>dd</strong> コマンドおよび <strong>cpio</strong> コマンドのパフォーマンスを向上させることができます。 ブロック・サイズを変更するには、次のように <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chdev.html" target="_blank" rel="noopener noreferrer"><strong>chdev</strong></a> コマンドを使用します。<div><div><pre><code>chdev -l Device_name -a block_size=32k</code></pre></div><div></div></div></div>
+        </div>
+      </div></div>
+</li>
+<li>36 ブロック (512 バイト/ブロック) を使用して、
+3.5 インチで 1.4MB のディスケットへ効率よく転送するには、次のように入力します。<div>dd  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19857" target="_blank" rel="noopener noreferrer">if=Filename</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19876" target="_blank" rel="noopener noreferrer">of=/dev/rfd0</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__row-d3e19588" target="_blank" rel="noopener noreferrer">bs=36b</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dd.html#dd__a138922ec" target="_blank" rel="noopener noreferrer">conv=sync</a></div>
+ <p>このコマンドは、<em>Filename</em> パラメーターの値を一度に 1 シリンダーずつディスケット・デバイスに書き込みます。 このconv=syncディスクから読み取る場合、およびファイル・サイズがディスケット・ブロック・サイズの倍数でない場合に必要です。 <strong>dd</strong> コマンドへの入力がファイルではなく、
+パイプである場合は、これを行わないでください。
+そうすると、ほとんどの入力で、最後のブロックの代わりに NULL が埋め込まれます。</p>
+</li>
+<li>ブロック・サイズが 720b ブロックに設定されている入力ファイルから、
+ブロックを 1.44MB サイズのディスケットにコピーするには、次のように入力します。<div>dd if=testfile of=/dev/fd0 bs=720b conv=sync</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> 入力ファイルが出力装置の物理サイズより大きい場合、dd は別の装置を求めるプロンプトを出します。</div>
+        </div>
+      </div></div>
+</li>
+<li>ブロック・サイズが 32k ブロックに設定されている入力ファイルから、
+ブロックをテープにコピーするには、次のように入力します。<div>dd if=inputfile of=/dev/rmt0 bs=32k conv=sync</div>
+</li>
+<li>ブロック・サイズが 32k ブロックに設定されている現行ディレクトリーのファイルに、
+データのブロックをテープからコピーするには、次のように入力します。<div>dd if=/dev/rmt0 of=outfile bs=32k conv=sync</div>
+</li>
+<li>ブロック・サイズが 720b ブロックに設定されている入力ファイルから、
+ブロックを 1.44MB サイズのディスケットにコピーするには、次のように入力します。<div><div><pre><code>dd if=testfile of=/dev/fd0 bs=720b conv=sync span=yes</code></pre></div><div></div></div> <div><div>
+        <div>
+          <div><span>注:</span> 入力ファイルが出力装置の物理サイズより大きい場合、 <strong>dd</strong> は別の装置を入力するようプロンプトを出します。</div>
+        </div>
+      </div></div>
+</li>
+<li>ブロック・サイズが 32k ブロックに設定されている入力ファイルから、
+ブロックをテープにコピーするには、次のように入力します。<div><div><pre><code>dd if=inputfile of=/dev/rmt0 bs=32k conv=sync span=yes</code></pre></div><div></div></div></li>
+<li>ブロック・サイズが 32k に設定されているテープから、
+データのブロックを現行ディレクトリー内のファイルにコピーするには、次のように入力します。<div><div><pre><code>dd if=dev/rmt0 of=outfile bs=32k conv=sync span=yes</code></pre></div><div></div></div></li>
+</ol>
+</section>
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><strong>/usr/bin/dd</strong></td>
+<td><strong>dd</strong> コマンドが入っています。</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+</div></div>

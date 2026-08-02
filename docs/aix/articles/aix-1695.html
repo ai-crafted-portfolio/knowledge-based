@@ -1,0 +1,137 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>デバッグ・モードを用いて指定されたリモート・システムと接続します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ウーキック</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uukick.html#uukick__row-d3e158934" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em>デバッグレベル </em>]<em> SystemName</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uukick</strong> コマンドは、デバッグ・モードを使って、
+<em>SystemName</em> パラメーターで指定されたリモート・システムに接続します。 デバッグ・モードでは、基本ネットワーク・ユーティリティー (BNU) によるファイルのリモート・マシンへの転送や接続をモニターできます。</p>
+ <p><strong>uukick</strong> コマンドは、指定されたリモート・システムに実際に接続する <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico" target="_blank" rel="noopener noreferrer"><strong>uucico</strong></a> デーモンを開始します。 <strong>uucico</strong> デーモンは、デバッグ出力を作成します。
+ユーザーはこのデバッグ出力を使用して、リモート・システムへの接続、リモート・ログインの実行、
+およびファイルを転送する際の進行状況をモニターできます。</p>
+ <p>デバッグ出力は、ローカル・システムの画面上でスクロールされます。 システムがこの情報を表示し終わったら、割り込みキーを押してプロンプトの表示状態に戻ってください。</p>
+ <div><div>
+        <div>
+          <div><span>要件:</span> <strong>uukick</strong> コマンドを発行するときは、 <strong>/usr/lib/uucp</strong> ディレクトリーに入っていなければなりません。あるいは、絶対パス名を指定してコマンドを発行しなければなりません。 <strong>/usr/sbin/uucp/uukick</strong>。</div>
+        </div>
+      </div></div>
+ <div><div>
+        <div>
+          <div><span>ヒント:</span> <strong>uukick</strong> コマンドは、 <strong>/usr/lib/uucp</strong> ディレクトリーに保管されるシェル・スクリプトです。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-x</strong><em>デバッグレベル</em></td>
+
+<td>コマンドによって画面上に表示される詳細なデバッグ情報の量のデフォルトをオーバーライドします。 <em>DebugLevel</em> 変数の有効範囲は、0 から 9 で、デフォルトは 5 です。 数値が大きいほど、最終レポートの詳細が表示されます。 <strong>-x</strong> フラグを使用しない場合、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico" target="_blank" rel="noopener noreferrer"><strong>uucico</strong></a> デーモンはデフォルト・レベルで始動され、中程度の量の情報を生成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uucico.html#uucico" target="_blank" rel="noopener noreferrer"><strong>uucico</strong></a> デーモンの操作の進行状況に関する情報の詳細の量を変更するには、 <strong>-x</strong> フラグを使用して、より高いデバッグ・レベルまたはより低いデバッグ・レベルを指定します。 例えば、次のように入力します。</p>
+ <div>uukick  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uukick.html#uukick__row-d3e158934" target="_blank" rel="noopener noreferrer">-x</a>9 hera</div>
+ <p>これは、システムに接続しようとしているときに <strong>uucico</strong> デーモンが機能する方法について可能な限り多くの情報を生成するように <strong>uukick</strong> コマンドに指示します。heraまたは、次のように入力します。</p>
+ <div>uukick  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uukick.html#uukick__row-d3e158934" target="_blank" rel="noopener noreferrer">-x</a>3 hera</div>
+ <p>この場合は、接続について、デフォルトよりも少ない情報量を生成するように、コマンドに指示します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/uucp/uukick</strong></td>
+
+<td><strong>uukick</strong> シェル・スクリプトが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp</strong></td>
+
+<td>BNU 用の構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Devices</strong></td>
+
+<td>使用可能なデバイスについての情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Dialcodes</strong></td>
+
+<td>ダイヤル・コードの省略形が記述されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Dialers</strong></td>
+
+<td>接続についての初期接続手順を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Permissions</strong></td>
+
+<td>リモート・システム用のアクセス権限を記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Systems</strong></td>
+
+<td>アクセス可能なリモート・システムを記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucp/*</strong></td>
+
+<td>転送されるファイルおよび転送統計情報を記録するファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/uucppublic/*</strong></td>
+
+<td>転送されたファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

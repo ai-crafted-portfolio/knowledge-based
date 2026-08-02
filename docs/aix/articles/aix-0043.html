@@ -1,0 +1,940 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>拡張アカウンティング・サブシステム</span> データ・レポートを生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>acctrpt</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7135" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> <span><span>ファイル名</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7150" target="_blank" rel="noopener noreferrer"><span><span>-F</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7299" target="_blank" rel="noopener noreferrer"><span><span>-U</span></span></a> <span><span>UID</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7157" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>GID</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7248" target="_blank" rel="noopener noreferrer"><span><span>-P</span></span></a> <span><span>projID</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7073" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>コマンド</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7030" target="_blank" rel="noopener noreferrer"><span><span>-b</span></span></a> <span><span>開始時刻</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7092" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a> <span><span>終了時刻</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7261" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>プロジェクト・ファイル</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7241" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> ]</p>
+ <p><span><span>acctrpt</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7135" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a><span><span> ファイル名］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7150" target="_blank" rel="noopener noreferrer"><span><span>-F</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7169" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span></a><span><span> リソース</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7030" target="_blank" rel="noopener noreferrer"><span><span>-b</span></span></a><span><span> 開始時間］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7092" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a><span><span> 終了時刻］</span></span></p>
+ <p><span><span>acctrpt</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7135" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a><span><span> ファイル名］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7150" target="_blank" rel="noopener noreferrer"><span><span>-F</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7273" target="_blank" rel="noopener noreferrer"><span><span>-T</span></span></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7030" target="_blank" rel="noopener noreferrer"><span><span>-b</span></span></a><span><span> 開始時間］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7092" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a><span><span> 終了時刻］</span></span></p>
+ <p><span><span>acctrpt</span></span> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7085" target="_blank" rel="noopener noreferrer"><span><span>-c</span></span></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7311" target="_blank" rel="noopener noreferrer"><span><span>-x</span></span></a> }[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7135" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a><span><span> ファイル名］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7261" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a><span><span> プロジェクトファイル］</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7241" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a> ]</p>
+ <p><span><span>acctrpt</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7030" target="_blank" rel="noopener noreferrer"><span><span>-b</span></span></a> <span><span>開始時刻</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7092" target="_blank" rel="noopener noreferrer"><span><span>-e</span></span></a> <span><span>終了時刻</span></span>] [ [ [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7299" target="_blank" rel="noopener noreferrer"><span><span>-U</span></span></a> <span><span>UID</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7157" target="_blank" rel="noopener noreferrer"><span><span>-G</span></span></a> <span><span>GID</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7073" target="_blank" rel="noopener noreferrer"><span><span>-C</span></span></a> <span><span>コマンド</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7017" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> <em>WPAR</em>] ] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7169" target="_blank" rel="noopener noreferrer"><span><span>-L</span></span></a> <span><span>リソース</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7017" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> <em>WPAR</em>] ] ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7241" target="_blank" rel="noopener noreferrer"><span><span>-n</span></span></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctrpt.html#acctrpt__row-d3e7135" target="_blank" rel="noopener noreferrer"><span><span>-f</span></span></a> <span><span>ファイル名</span></span> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>acctrpt</span></span> コマンドは、 <span>拡張アカウンティング</span> 統計を表示します。 <span>拡張アカウンティング・サブシステム</span> は、プロセス・アカウンティング、 <span>LPAR</span> アカウンティング、およびトランザクション・アカウンティングをサポートします。</p>
+ <p>プロセスのアカウンティングの場合は、ユーザーは、プロジェクト別、グループ別、ユーザー別、コマンド別、または
+これらの 4 つの識別子を組み合わせたもの別にアカウンティング・レポートを生成することができます。 コマンド引数 <span><span>-U</span></span>、 <span><span>-G</span></span>、 <span><span>-P</span></span>、および <span><span>-C</span></span> コマンド引数は、プロセス・アカウンティング・レポートを生成するために使用されます。 これらの引数を指定する順序により、データがレポートに表示される順序が影響を受けます。 例えば、 <span><span>acctrpt -U
+ALL -P ALL</span></span> コマンドは、最初に UID でソートし、次にプロジェクトでソートします。</p>
+ <div><span>LPAR</span> アカウンティングの場合、ユーザーは、リソース (プロセッサー、メモリー、ファイル・システム、ディスク、ネットワーク・インターフェースなど) のシステム・レベルの使用を記述するアカウンティング・レポートを生成できます。 システム・リソースのアカウンティング統計情報を収集するために、システムのア
+カウンティング・インターバルを使用可能にする必要があります。 <span><span>-L</span></span> コマンド引数は、 <span>LPAR</span> アカウンティング・レポートを生成するために使用します。<div><div>
+        <div>
+          <div><span>注:</span> <span><span>-L</span></span> 引数は OS イメージ・レベルの統計を提供するため、 <span>LPAR</span> システム以外のシステムでも使用できます。</div>
+        </div>
+      </div></div>
+   </div>
+ <p>トランザクション・アカウンティングの場合は、ユーザーは、アプリケーション・トランザクションを
+記述するアカウンティング・レポートを生成できます。 トランザクション・レポートは、トランザクション・リソース使用要件などのスケジューリング情報とアカウンティング情報を提供します。 これらのレポートが利用するデータは、アプリケーション応答および測定 API で
+装備されたアプリケーションが生成したデータです。 <span><span>-T</span></span> コマンド引数は、トランザクション・アカウンティング・レポートを生成するために使用されます。</p>
+ <p><span><span>-U</span></span>、 <span><span>-G</span></span>、 <span><span>-P</span></span>、 <span><span>-C</span></span>、 <span><span>-L</span></span>、および <span><span>-T</span></span> コマンド引数が指定されていない場合は、個々のプロセス・アカウンティング・レコードが表示されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-@</span></span><em> ウォーパー</em></td>
+
+<td>レポートを生成する <span>ワークロード・パーティション</span> を指定します。<p>ワークロード区画内で実行する場合、-@ オプションはサポートされません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-b</span></span><span><span> 開始時間</span></span></td>
+
+<td>インターバルの開始時刻を指定します。 <span><span>begin_time</span></span> パラメーターは、<span><span>MMDDhhmmyy</span></span> 形式
+の 10 文字で構成される文字列です。この場合、<span><span>MM</span></span> は月、
+<span><span>DD</span></span> は日、<span><span>hh</span></span> は時刻、<span><span>mm</span></span> は分、<span><span>yy</span></span> はその年の下 2 桁です。 文字はすべて数字です。 <span><span>begin_time</span></span> を指定しない場合は、<span><span>end_time</span></span> 前に
+書き込まれたすべての検出済みレコードがレポート対象となります。 <span><span>end_time</span></span> も <span><span>begin_time</span></span> も指定しない場合は、すべてのレコードがレポート対象となります。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-C</span></span> <span><span>コマンド</span></span></td>
+
+<td>指定されたコマンドのプロセス・アカウンティング統計情報を表示します。 コンマで区切られたリストを使用して、複数のコマンド名を指定することができます。 基本コマンド名の先頭 12 文字のみがレポート対象となります。 すべてのコマンドを表示するには、 <span><span>-C ALL</span></span>を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-c</span></span></td>
+
+<td>人間が読める形式でプロジェクト定義を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-e</span></span> <span><span>終了時刻</span></span></td>
+
+<td>インターバルの終了時刻を指定します。 <span><span>end_time</span></span> パラメーターは、<span><span>MMDDhhmmyy</span></span> 形式
+の 10 文字で構成される文字列です。この場合、<span><span>MM</span></span> は月、<span><span>DD</span></span> は日
+、<span><span>hh</span></span> は時刻、<span><span>mm</span></span> は分、<span><span>yy</span></span> はその年の下 2 桁です。 文字はすべて数字です。 <span><span>end_time</span></span> を指定しない場合は、<span><span>begin_time</span></span> 後に書き込まれた
+すべての検出レコードがレポート対象となります。 <span><span>end_time</span></span> も <span><span>begin_time</span></span> も指定しない場合は、すべてのレコードがレポート対象となります。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-f</span></span> <span><span>ファイル名</span></span></td>
+
+<td>使用するアカウンティング・データ・ファイルのパス名を指定します。 コンマで区切られたリストを
+使用して、複数のファイルを指定することができます。 <span><span>-f</span></span> フラグが指定されていない場合は、デフォルトで <span><span>/var/aacct/aacctdata</span></span> ファイルが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-F</span></span></td>
+
+<td>指定されたアカウンティング・データ・ファイルに関する情報を表示します。 このレポートには、アカウンティング・データ・ファイルが生成されたシステムの
+ホスト名、区画名、マシン・モデル、およびシリアル番号が含まれます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-G</span></span> <span><span>GID</span></span></td>
+
+<td>指定された GID のプロセス・アカウンティング統計情報を表示します。 コンマで区切られたリストを使用して、複数の GID を指定することができます。 すべての GID を表示するには、 <span><span>-G ALL</span></span>を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-L</span></span> <span><span>リソース</span></span></td>
+
+<td>指定されたリソースの <span>LPAR</span> アカウンティング統計を表示します。 <span><span>resource</span></span> パラメーターは、以下の値の 1 つでなければなりません。<dl>
+<dt>cpumem</dt>
+
+<dd>CPU およびメモリーの統計情報</dd>
+
+
+<dt>filesys</dt>
+
+<dd>ファイルシステムの統計情報</dd>
+
+
+<dt>netif</dt>
+
+<dd>ネットワーク・インターフェースの統計情報</dd>
+
+
+<dt>ディスク</dt>
+
+<dd>ディスクの統計情報</dd>
+
+
+<dt>vtarget</dt>
+
+<dd>VSCSI ターゲットの統計情報</dd>
+
+
+<dt>vclient</dt>
+
+<dd>VSCSI クライアントの統計情報</dd>
+
+
+<dt>すべて</dt>
+
+<dd>すべての <span>LPAR</span> リソース統計</dd>
+
+</dl><span><span>-L</span></span> 引数は、 <span><span>-U</span></span>、 <span><span>-P</span></span>、 <span><span>-G</span></span>、 <span><span>-C</span></span>、または <span><span>-T</span></span> フラグと一緒に指定することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span></td>
+
+<td>ID を数値で表示します。 デフォルトでは、名前が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-P</span></span> <span><span>projID</span></span></td>
+
+<td>指定されたプロジェクト ID のプロセス・アカウンティング統計情報を表示します。 コンマで区切られたリストを使用して、複数のプロジェクト ID を指定することができます。 すべてのプロジェクトを表示するには、 <span><span>-P ALL</span></span>を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span> <span><span>プロジェクト・ファイル</span></span></td>
+
+<td>トランザクション・レコードに関連したプロジェクトを解決のに使用するプロジェクト定義ファイルを指定します。 <span><span>-p</span></span> が指定されていない場合、プロジェクトは現在ロードされているプロジェクトを使用して解決されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-T</span></span></td>
+
+<td>トランザクション・アカウンティング統計情報を表示します。 <span><span>-T</span></span> 引数は、 <span><span>-U</span></span>、 <span><span>-P</span></span>、 <span><span>-G</span></span>、 <span><span>-C</span></span>、または <span><span>-L</span></span> フラグと一緒に指定することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-U</span></span><span><span> ユイド</span></span></td>
+
+<td>指定された UID のプロセス・アカウンティング統計情報を表示します。 コンマで区切られたリストを使用して、複数の UID を指定することができます。 すべての UID を表示するには、 <span><span>-U ALL</span></span>を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-x</span></span></td>
+
+<td>プロジェクト定義をプロジェクト定義ファイル形式で表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>/var/aacct/acctdata</span></span> データ・ファイルからファイル・ヘッダー・レポートを生成するには、次のように入力します。<div><div><pre><code>acctrpt -F -f /var/aacct/acctdata</code></pre></div><div></div></div></li>
+
+<li><span><span>/var/aacct/acctdata</span></span> データ・ファイルからユーザー別プロセス・アカウンティング・レポートを生成するには、次のように入力します。<div><div><pre><code>acctrpt -U ALL -f /var/aacct/acctdata</code></pre></div><div></div></div></li>
+
+<li><span><span>/var/aacct/acctdata</span></span> データ・ファイルからユーザー ID <code>256</code> 、ユーザー ID <code>257</code> 、およびコマンド <span><span>uname</span></span> のプロセス・アカウンティング・レポートを生成するには、次のように入力します。<div><div><pre><code>acctrpt -U 256 257 -C uname -f /var/aacct/acctdata</code></pre></div><div></div></div></li>
+
+<li>プロジェクト別およびユーザー別に<span><span>/var/aacct/acctdata</span></span> データ・ファイルからプロセス・アカウンティング・レポートを生成するには、次のように入力します。<div><div><pre><code>acctrpt -P ALL -U ALL -f /var/aacct/acctdata</code></pre></div><div></div></div></li>
+
+<li><span><span>/var/aacct/acctdata</span></span> データ・ファイルから CPU とメモリーの統計情報を生成するには、次のように入力します。<div><div><pre><code>acctrpt -L cpumem -f /var/aacct/acctdata</code></pre></div><div></div></div></li>
+
+<li>アカウンティング・レコードに関連付けられているプロジェクト定義を表示するには、次のように入力します。<div><div><pre><code>acctrpt -c -f /var/aacct/acctdata</code></pre></div><div></div></div>次のような情報が表示されます。<div><div><pre><code>PROJNAME        PROJID   AGGR       ORIGIN
+
+
+System          0        ENABLED    LOCAL</code></pre></div><div></div></div></li>
+
+<li>関連 ID を数値で表示するには、次のように入力します。<div><div><pre><code>acctrpt -P ALL -f /var/aacct/acctdata -n</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>標準出力</h2> <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-f</span></span> オプションに基づいて、ファイル・ヘッダー・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>File Name</span></span></td>
+
+<td>アカウンティング・データ・ファイルの絶対パス名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>Open Date</span></span></td>
+
+<td>データ・ファイル内の最初のトランザクション・レコードのタイム・スタンプ。</td>
+
+</tr>
+
+<tr>
+<td><span><span>Last Close Date</span></span></td>
+
+<td>データ・ファイル内の最後のトランザクション・レコードのタイム・スタンプ。</td>
+
+</tr>
+
+<tr>
+<td><span><span>Host Name</span></span></td>
+
+<td>データ・ファイルが生成されたホスト。</td>
+
+</tr>
+
+<tr>
+<td><span><span>パーティション名</span></span></td>
+
+<td>データ・ファイルが生成された区画。</td>
+
+</tr>
+
+<tr>
+<td><span><span>Partition ID</span></span></td>
+
+<td>データ・ファイルが生成された区画番号。</td>
+
+</tr>
+
+<tr>
+<td><span><span>System Model</span></span></td>
+
+<td>データ・ファイルが生成されたシステム・モデル。</td>
+
+</tr>
+
+<tr>
+<td><span><span>System ID</span></span></td>
+
+<td>データ・ファイルが生成されたシステム・シリアル番号。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、1 つ以上の <span><span>-P</span></span>、 <span><span>-G</span></span>、 <span><span>-U</span></span>、または <span><span>-C</span></span> オプションに基づいて、プロセス・アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>PROJID (プログラム ID)</span></span></td>
+
+<td>プロジェクト名 (プロジェクト ID)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>UID</span></span></td>
+
+<td>ユーザー名 (ユーザー ID)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>グループID</span></span></td>
+
+<td>グループ名 (グループ ID)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>cmd</span></span></td>
+
+<td>実行されたコマンドのベース名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>CPU</span></span></td>
+
+<td>CPU 時間 (秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LFILE (ファイル)</span></span></td>
+
+<td>ローカル・ファイル入出力 (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>DFILE (ファイル)</span></span></td>
+
+<td>その他のファイル入出力 (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LSocket</span></span></td>
+
+<td>ローカル・ソケット入出力 (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>Rソケット</span></span></td>
+
+<td>その他のソケット入出力 (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>DMEM (D)</span></span></td>
+
+<td>ディスク・ページのページ秒数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>PMEM (P)</span></span></td>
+
+<td>実ページのページ秒数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>VMEM (M)</span></span></td>
+
+<td>仮想メモリーのページ秒数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div>この <span><span>-L cpumem</span></span> オプションに基づいて、この <span><span>acctrpt</span></span> コマンドは「CPUおよびメモリの LDAP アカウンティング」レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>アイドル</span></span></td>
+
+<td>CPU アイドル時間 (秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>入出力待機</span></span></td>
+
+<td>CPU 入出力の待ち時間 (秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>SPROC (S)</span></span></td>
+
+<td>システム処理時間 (秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>UPROC (U)</span></span></td>
+
+<td>ユーザー処理時間 (秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>INTR (ポインター)</span></span></td>
+
+<td>割り込み時間 (秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>入出力</span></span></td>
+
+<td>入出力の回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>PSPIN (P)</span></span></td>
+
+<td>ページ・スワップインの回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>PSPOUT</span></span></td>
+
+<td>ページ・スワップアウトの回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>LGPGUTIL (L)</span></span></td>
+
+<td>ラージ・ページ・プールの平均使用率。</td>
+
+</tr>
+
+<tr>
+<td><span><span>プゲート</span></span></td>
+
+<td>平均ページング率 (1 秒当たり)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>PMEMUTIL (P)</span></span></td>
+
+<td><span>LPAR</span> に割り振られている物理メモリーの平均量 (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>入出力 (IOMEMUTIL)</span></span></td>
+
+<td>入出力メモリー・ライセンスの平均使用率 (MB 単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-L filesys</span></span> オプションに基づいて、ファイル・システム <span>LPAR</span> アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>装置名</span></span></td>
+
+<td>デバイス名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>MOUNTPT (モジュール)</span></span></td>
+
+<td>マウント・ポイント名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>FSTYPE (F)</span></span></td>
+
+<td>ファイルシステムのタイプ。</td>
+
+</tr>
+
+<tr>
+<td><span><span>RDWR (R)</span></span></td>
+
+<td>読み取りと書き込みの回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>オープン</span></span></td>
+
+<td>ファイル・オープンの回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>作成</span></span></td>
+
+<td>ファイル作成の回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>ロック</span></span></td>
+
+<td>ファイル・ロックの回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>XFERS</span></span></td>
+
+<td>転送されたデータ (MB 単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-L netif</span></span> オプションに基づいて、ネットワーク・インターフェースの <span>LPAR</span> アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>NETIFNAME (名前)</span></span></td>
+
+<td>ネットワーク・インターフェース名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>ヌミオ</span></span></td>
+
+<td>入出力の回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>XFERS</span></span></td>
+
+<td>転送されたデータ (MB 単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-L disk</span></span> オプションに基づいて、ディスクの <span>LPAR</span> アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>ディスク名</span></span></td>
+
+<td>ディスク名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>BLKSZ (B)</span></span></td>
+
+<td>ディスク・ブロックのサイズ (バイト単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>XFERS</span></span></td>
+
+<td>ディスク転送の回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>読み取り</span></span></td>
+
+<td>ディスクからの読み取り回数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>書き込み</span></span></td>
+
+<td>ディスクへの書き込み回数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-L vtarget</span></span> オプションに基づいて、VSCSI ターゲットの <span>LPAR</span> アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>CLIENT#</span></span></td>
+
+<td>クライアントの区画番号。</td>
+
+</tr>
+
+<tr>
+<td><span><span>サーバー ID</span></span></td>
+
+<td>サーバー装置 ID。</td>
+
+</tr>
+
+<tr>
+<td><span><span>単位 ID</span></span></td>
+
+<td>デバイス論理装置 ID。</td>
+
+</tr>
+
+<tr>
+<td><span><span>BYTESIN (バイト数)</span></span></td>
+
+<td>入力されたデータ (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>BYTESOUT (バイト数)</span></span></td>
+
+<td>出力されたデータ (MB 単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-L vclient</span></span> オプションに基づいて、VSCSI クライアント <span>LPAR</span> アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>CLIENT#</span></span></td>
+
+<td>クライアントの区画番号。</td>
+
+</tr>
+
+<tr>
+<td><span><span>サーバー ID</span></span></td>
+
+<td>サーバー装置 ID。</td>
+
+</tr>
+
+<tr>
+<td><span><span>単位 ID</span></span></td>
+
+<td>デバイス論理装置 ID。</td>
+
+</tr>
+
+<tr>
+<td><span><span>BYTESIN (バイト数)</span></span></td>
+
+<td>入力されたデータ (MB 単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>BYTESOUT (バイト数)</span></span></td>
+
+<td>出力されたデータ (MB 単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><span><span>acctrpt</span></span> コマンドは、 <span><span>-T</span></span> オプションに基づいて、トランザクション・アカウンティング・レポートに以下の値を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>PROJID (プログラム ID)</span></span></td>
+
+<td>プロジェクト名 (プロジェクト ID)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>CNT (R)</span></span></td>
+
+<td>アカウンティング・レポートの行ごとに集計されたトランザクション・レコード数。</td>
+
+</tr>
+
+<tr>
+<td><span><span>クラス</span></span></td>
+
+<td>アカウント・クラス。</td>
+
+</tr>
+
+<tr>
+<td><span><span>グループ</span></span></td>
+
+<td>アプリケーション・グループ名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>name</span></span></td>
+
+<td>アプリケーション名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>トランザクション</span></span></td>
+
+<td>トランザクション名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>USER</span></span></td>
+
+<td>ユーザー名。</td>
+
+</tr>
+
+<tr>
+<td><span><span>response</span></span></td>
+
+<td>応答時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>待機中</span></span></td>
+
+<td>キュー時間 (ミリ秒単位)。</td>
+
+</tr>
+
+<tr>
+<td><span><span>USER</span></span></td>
+
+<td>CPU 時間 (ミリ秒単位)。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>-@</strong> フラグを指定すると、 <strong>Acctrprt</strong> コマンドは、プロセス・アカウンティング・レポートおよび LPAR アカウンティング・レポートに <span>ワークロード・パーティション</span> 名を表示します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>-U</span></span>、 <span><span>-G</span></span>、 <span><span>-P</span></span> 、および <span><span>-C</span></span> によって表示される一部のトランザクション・レコードは集約できません。 例えば、トランザク
+ション ID <code>TRID_agg_proc</code> に属するトランザクション・レコードは
+、グループ ID およびコマンド名では集計ができません。これは、これらの
+トランザクション・レコードがそれぞれのフィールドを持っていないためです。 このようなレコードの場合、 <span><span>acctrpt</span></span> コマンドは、コマンド名フィールドに <code>*</code> (アスタリスク) 文字を表示し、グループ ID フィールドに <code>-2</code> の値を表示します。 これは、これらのレコードの集計が行われず、呼び出し側がコマンド名で検索する必要があることを示します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>/usr/bin/acctrpt</span></span></td>
+
+<td><span><span>acctrpt</span></span> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/var/aacct/acctdata</span></span></td>
+
+<td>デフォルトのアカウンティング・データ・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

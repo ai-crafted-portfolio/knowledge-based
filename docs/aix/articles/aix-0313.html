@@ -1,0 +1,99 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>/etc/vfs</strong> ファイル内のエントリーを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>crvfs</strong><em> VFSEntry</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>crvfs</strong> コマンドは、 <em>VFSEntry</em> パラメーター内のフィールドを指定して、 <strong>/etc/vfs</strong> ファイル・エントリーを追加します。 <em>VFSEntry</em> パラメーターは、
+<em>VFSName:VFSNumber:MountHelper:FileSystemHelper
+</em> の各フィールドで構成されます。</p>
+ <p><em>VFSEntry</em> パラメーターの全フィールドが必須ですが、
+対応するヘルパーがない場合は、<em>MountHelper</em> フィールドおよび
+<em>FileSystemHelper</em> フィールドに予約語「none」を指定できます。 すべての引数が適切であり、かつこのコマンド・ラインに指定された <em>VFSName</em> または
+<em>VFSNumber</em> のいずれも存在していない場合、
+<strong>/etc/vfs</strong> ファイル内に新しいエントリーが作成されます。</p>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>VFSEntry (VFSEntry)</em></td>
+
+<td>次のフォーマットで文字列を指定します。<em>VFSName</em><strong>:</strong><em>VFSNumber</em><strong>:</strong><em>MountHelper</em><strong>:</strong><em>FileSystemHelper</em><dl>
+<dt><em>VFSName (VFSName)</em></dt>
+
+<dd>仮想ファイルシステムのタイプ名を指定します。</dd>
+
+</dl>
+  <dl>
+<dt><em>vfsNumber</em></dt>
+
+<dd>カーネルにより認識される仮想ファイルシステム・タイプの内部番号を指定します。</dd>
+
+</dl>
+  <dl>
+<dt><em>MountHelper</em></dt>
+
+<dd>指定したタイプのファイルシステムをマウントする時に使用するバックエンド名を指定します。</dd>
+
+</dl>
+  <dl>
+<dt><em>FileSystemHelper</em></dt>
+
+<dd>指定したタイプのファイルシステム上で操作を実行するために、
+ファイルシステム特有のコマンドによって使用されるバックエンド名を指定します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <p>新規 vfs エントリーを作成するには、以下のようにします。newvfs次のように入力します。</p>
+ <div> <div><div><pre><code>crvfs "newvfs:4:none:/etc/helpers/newvfshelper"</code></pre></div><div></div></div></div>
+ <p>これにより、newvfs項目。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>仮想ファイルシステムのタイプに関する記述が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

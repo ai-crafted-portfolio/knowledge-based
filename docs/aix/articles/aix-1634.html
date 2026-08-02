@@ -1,0 +1,239 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>トラステッド・エディターをフルスクリーン表示で提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>TVI</strong> [ <strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140372" target="_blank" rel="noopener noreferrer"><strong>L</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140400" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140409" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>数値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140353" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> [ <em>サブコマンド</em> ] ] [ <em>ファイル</em> ... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>tvi</strong> コマンドは、<strong>tvi</strong> エディター、
+すなわち <strong>vi</strong> エディターのトラステッド・バージョンを呼び出し、
+<em>File</em> パラメーターで指定した 1 つ以上のファイルを編集します。 ファイルは指定した順序で編集します。 ユーザーがファイル名を入力しないと、コマンドは、テキストを作成できる新しいファイルをオープンしますが、テキストをファイルに保存する場合は、<strong>:w</strong> <em>File</em> のように保管コマンドにファイル名を追加するプロンプトが表示されます。 詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__eg" target="_blank" rel="noopener noreferrer">例</a> 」セクションを参照してください。</p>
+ <p><strong>tvi</strong> エディターを開始して <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140182" target="_blank" rel="noopener noreferrer">コマンド・モード</a> のままにし、テキストを追加または変更するには、テキスト入力モードを開始する必要があります。 テキスト入力モードを開始するサブコマンドについては、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140200" target="_blank" rel="noopener noreferrer">テキスト入力モード</a> の説明を参照してください。 テキスト入力モードを出るには、<strong>Esc</strong> キーを押します。 これでコマンド・モードに戻り、そこで <strong>:w</strong> コマンドのいずれかを使用してファイルに<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">テキストを保存</a> し、<strong>:q</strong> コマンドなどを使用して <strong>tvi</strong> エディターを<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">終了</a>できます。</p>
+ <p><strong>tvi</strong> コマンドを使用して始動されるフルスクリーン・エディターは <strong>ex</strong> エディターに基づいているので、ユーザーは <strong>tvi</strong> エディター内の <strong>ex</strong> サブコマンドを使用できます。 サブコマンドは表示画面上のカーソル位置で機能します。</p>
+ <p><strong>tvi</strong> エディターは、ユーザーが編集バッファー内で編集中のファイルのコピーを作成します。 ファイルの内容は変更を保管しない限り変更されません。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span></span> <strong>vi</strong> エディターのいくつかの機能は、 <strong>tvi</strong> エディターではサポートされません。 <strong>vi</strong> エディターについての説明を参照しても、<strong>-r</strong> フラグ、
+<strong>-t</strong> フラグ、シェル、エスケープ、ユーザー定義マクロ、キー・マッピング、
+<strong>vi</strong> オプションの永久設定は、
+<strong>tvi</strong> エディターではサポートされていないことに注意してください。</div>
+        </div>
+      </div></div>
+<p><strong>tvi エディターの制約</strong></p>
+ <p><strong> tvi</strong> エディターの最大の制約は 1 バイト文字と想定されています。 制約は以下のとおりです。</p>
+ <ul>
+<li>グローバル・コマンド・リスト当たり 256 文字まで。</li>
+
+<li>1 つのシェル・エスケープ・コマンドには 2048 文字まで。</li>
+
+<li>1 つの文字列値オプションには 128 文字まで。</li>
+
+<li>1 つのタグ名には 30 文字まで。</li>
+
+<li>524,230 行が暗黙的に強制される。</li>
+
+<li>合計 2048 文字で 128 マップ・マクロ。</li>
+
+</ul>
+<p><strong>編集モード</strong></p>
+ <p><strong>tvi</strong> エディターは、次のモードで稼働します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>コマンド・モード</strong></td>
+
+<td><strong>tvi</strong> エディターはコマンド・モードで始動します。 テキスト入力モードでテキストの訂正だけを行うサブコマンドを除いて、
+すべてのサブコマンドを呼び出すことができます。 サブコマンドの説明を参照するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__a30f03e" target="_blank" rel="noopener noreferrer">tvi エディターのサブコマンド</a>のトピックを参照してください。 コマンド・モードから呼び出すことができないサブコマンドを識別するには、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">入力モードでのテキストの変更</a>」を参照してください。 <strong>tvi</strong> エディターは、
+サブコマンド・モードやその他のモードが終了するときにコマンド・モードに戻ります。 部分サブコマンドを取り消すには Esc キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><strong>テキスト入力モード</strong></td>
+
+<td><strong>tvi</strong> エディターは、テキストの追加または変更を行う許可コマンドを使用する際はテキスト入力モードになります。 テキスト入力モードを開始するサブコマンドのリストについては、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">ファイルへのテキストの追加</a> 」およびコマンド・モードから <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">テキストを変更する</a> サブコマンドを参照してください。 <strong>C</strong> サブコマンドおよび <strong>c</strong><strong><em>x</em></strong> サブコマンド。 上記のサブコマンドのうちの 1 つを入力した後は、
+テキスト入力モードで機能するサブコマンドのうちのどれを使用しても、編集を行うことができます。 サブコマンドの説明を参照するには、<span>“</span>tvi エディターのサブコマンド<span>”</span>内のトピックを参照してください。 テキスト入力モードからコマンド・モードに戻るには、
+通常の終了の場合は Esc キーを、<strong>INTERRUPT</strong> シグナルを作成する
+場合は Ctrl+C キーを押します。</td>
+
+</tr>
+
+<tr>
+<td><strong>最下行モード</strong></td>
+
+<td>サブコマンドには、画面の最下行に表示された入力を読み取るものもあります。 このようなサブコマンドには、: (コロン)、/ (スラッシュ)、? (疑問符)。 最初の文字を入力すると、<strong>tvi</strong> エディターはカーソルを最下行において残りのコマンド文字を入力できるようにします。 サブコマンドを実行するには、Enter キーを押します。 サブコマンドを取り消すには、Ctrl+C キーを押して <strong>INTERRUPT</strong> シグナルを作成します。 最下行モードの入力に : (コロン) を使用する場合、カウントを指定するコマンドの前に使用すると、
+以下の文字は特別の意味を持ちます。<dl>
+<dt>%</dt>
+
+<dd>カーソル位置に関係なくすべての行</dd>
+
+
+<dt>$</dt>
+
+<dd>最終行</dd>
+
+
+<dt>.</dt>
+
+<dd>現行行</dd>
+
+</dl>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>tvi エディターのカスタマイズ</strong></p>
+ <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">『vi エディター・オプションの設定』</a>の指示に従って、<strong>tvi</strong> エディターを一時的にカスタマイズできます。 『vi オプションの永続設定』のセクションは、<strong>tvi</strong> エディターには適用され<em>ません</em>。</p>
+<p><strong>tvi エディター用のサブコマンド</strong></p>
+ <p><strong>tvi</strong> エディターに適用可能な <strong>vi</strong> エディター・サブコマンドに関する情報を要約すると、
+以下のようになります。</p>
+ <ul>
+<li><a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">vi General</a> サブコマンドの構文。</li>
+
+<li>画面を調整するための <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">vi サブコマンド</a> 。</li>
+
+<li><strong>vi</strong> エディターを使用したテキストの<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">編集</a>。</li>
+
+<li><strong>vi</strong> エディター内での <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">シェル・コマンドの入力</a>は、<strong>tvi</strong> エディターではサポートされ<em>ません</em>。</li>
+
+<li><strong>vi</strong> エディターを使用した<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">ファイルの操作</a>。</li>
+
+<li><strong>vi</strong> エディターの割り込みと終了の<a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">サブコマンド</a>。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-c [</strong><em>サブコマンド</em><strong>]</strong></td>
+
+<td>編集開始前に、<strong>ex</strong> エディター・サブコマンドを実行します。 このサブコマンドは、行指向型のテキスト・エディターを提供します。 次のように、 <em>サブコマンド</em> ・パラメーターにヌル・オペランドが入力された場合-c ''エディターは、ファイルの最後の行にカーソルを置きます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>LISP モードでエディターに入ります。 このモードではエディターは LISP コード用に適切なインデントを付け、
+<strong>(</strong>,<strong>)</strong>、<strong> {</strong>,<strong> }</strong>、<strong> [[</strong> や <strong>]]</strong> などのサブコマンドは LISP に合うように修正されます。 上記のサブコマンドは、指定された LISP 関数にカーソル位置を合わせます。 LISP サブコマンドの詳細については、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/v_commands/vi.html" target="_blank" rel="noopener noreferrer">文、段落、およびセクションへの移動</a>」を参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td><strong>readonly</strong> オプションを設定し、ファイルの上書きを防止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w </strong><em>数値</em></td>
+
+<td>デフォルトのウィンドウ・サイズを <em>Number</em> パラメーターで指定された値に設定します。 これは低速回線上でエディターを使用する際に便利です。</td>
+
+</tr>
+
+<tr>
+<td><strong>+ [</strong><em>サブコマンド</em><strong>]</strong></td>
+
+<td><strong>-c</strong> サブコマンドと同じです。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドはすべてのユーザーに対して実行 (x) アクセス権を与え、
+<strong>トラステッド・コンピューティング・ベース</strong>属性を持たなければなりません。</p>
+ <p>監査イベントは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>イベント</div></th>
+
+<th><div>情報</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>TVI</strong></td>
+
+<td>ファイル名</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>トラステッド・エディターを呼び出して編集するには、以下のようにします。plansファイル、タイプ:<div> <div><div><pre><code>tvi plans</code></pre></div><div></div></div>このコマンドは <strong>tvi</strong> エディターをコマンド・モードに入れます。 テキストを追加または変更するには、テキスト入力モードに入るか、
+またはコマンド・モードで受け入れられるコマンドを使用する必要があります。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/tvi.html#tvi__row-d3e140200" target="_blank" rel="noopener noreferrer">テキスト入力モード</a>の説明を参照してください。</div>
+</li>
+
+<li><strong>tvi</strong> エディターで作成したテキストを保管するには、Esc キーを押してテキスト入力モードを終了してから、保存コマンド <strong>:w</strong>、<strong>:w</strong><em> File</em>、または <strong>:w!</strong><em> File</em> のいずれかを入力します。例えば、次のようになります。<div> <div><div><pre><code>:w plans</code></pre></div><div></div></div>この例では、次のようなファイル名を使用します。plansこれは、ファイル名を指定せずに <strong>tvi</strong> コマンドを指定した場合に必要です。 ファイル名が既に指定されている場合は、
+<strong>:w</strong> コマンドは <em>File</em> パラメーターを必要としません。 既存のファイルを上書きしたい場合は、<strong>:w!</strong><em>File</em> コマンドを使用して、<em>File</em> パラメーターを使用して上書きするファイルを指定します。</div>
+  <p>ファイル名を付けずに無名のファイルを保管しようとすると、次のメッセージが表示されます。</p>
+  <div> <div><div><pre><code>No current filename</code></pre></div><div></div></div>このときは、ファイル名を付けて <strong>:w</strong> コマンドをもう一度入力してください。</div>
+</li>
+
+<li>テキスト入力モードの <strong>tvi</strong> エディターを出るには、
+Esc キーを押してコマンド・モードに入り、次のように入力します。<div> <div><div><pre><code>:q!</code></pre></div><div></div></div>エディターが既にコマンド・モードになっている場合は、終了 (<strong>q!</strong>) を指定する前に Esc キーを押す必要はありません。 コマンドで表示されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/tvi</strong></td>
+
+<td><strong>tvi</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

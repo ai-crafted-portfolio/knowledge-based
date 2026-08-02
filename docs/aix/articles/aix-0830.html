@@ -1,0 +1,175 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>現在または保留中のセキュリティー・モード構成および鍵タイプをフォーマットされた出力に表示します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><span>lssecmode</span> [ ] [ | <span>-p</span> <span>-d</span> <span>-D</span> delim ] [ ] [ ] [ ] [ ]。 <span>-x</span> <span>-T</span> <span>-V</span> <span>-h</span> </p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>lssecmode</span> コマンドは、現在または保留中のセキュリティー・モード構成および鍵タイプに関する情報を表示します。 この情報は、コンプライアンス・モード、公開鍵または秘密鍵のタイプ、およびデフォルトの対称鍵タイプで構成されています。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> フラグを指定しない場合は、現在のセキュリティー構成モードと鍵タイプが表示されます。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-d</span></td>
+
+<td>区切り文字フォーマットの出力を表示します。 デフォルトの区切り文字はコロン (:) です。<p><span>-D</span> フラグを使用して、デフォルトの区切り文字を変更することができます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-D</span> デリム</td>
+
+<td>フォーマットされた出力で使用される区切り文字を指定します。<p>デフォルトでは、出力の区切り文字としてコロン (:) 文字が使用されます。 このフラグを使用して、1 つ以上の文字を含む別の区切り文字で出力をフォーマットすることができます。 例えば、出力データに既にコロンが含まれている場合にデフォルトの区切り文字を使用すると、混乱を招くことがあります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td>コマンドの使用法を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td>保留中のセキュリティー・モード構成および鍵タイプを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span></td>
+
+<td>コマンドのトレース・メッセージを標準出力に書き込みます。</td>
+
+</tr>
+
+<tr>
+<td><span>-V</span></td>
+
+<td>コマンドの詳細メッセージを標準出力に書き出します。</td>
+
+</tr>
+
+<tr>
+<td><span>-x</span></td>
+
+<td>ヘッダー情報を表示してはならないことを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>終了状況</h2>
+
+<dl>
+
+<dt>0</dt>
+
+<dd>成功。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>引数の欠落エラー。</dd>
+
+
+
+<dt>2</dt>
+
+<dd>無効なオプションのエラー。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>API エラー。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>現在のセキュリティー構成モードおよび鍵タイプを表示するには、次のコマンドを入力します。<div><div><pre><code># lssecmode
+</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>Current Security Mode Configuration
+Compliance Mode : none
+Asymmetric Key Type : rsa512
+Symmetric Key Type : default</code></pre></div><div></div></div></li>
+
+<li>保留中のセキュリティー構成モードおよび鍵タイプを表示するには、次のコマンドを入力します。<div><div><pre><code># lssecmode -p
+</code></pre></div><div></div></div>保留中のセキュリティー構成モードがなく、ステージング・ファイルが存在しない場合、次の出力が表示されます。<div><div><pre><code>2650-384 There are no pending configuration available</code></pre></div><div></div></div></li>
+
+<li>区切り文字 <code>::</code> で出力をフォーマットするには、次のコマンドを入力します。<div><div><pre><code># lssecmode -D "::"
+</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>Current Security Mode Configuration
+Compliance Mode :: none
+Asymmetric Key Type :: rsa512
+Symmetric Key Type :: default</code></pre></div><div></div></div></li>
+
+<li>保留中のセキュリティー構成モードおよび鍵タイプをコマンドの詳細メッセージと共に、ヘッダー情報なしに表示するには、次のコマンドを入力します。<div><div><pre><code># lssecmode -p -x -V -D "::" -T</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>Invoked with parameters: -p -x -V -D :: -T
+Invoking lssecmode to get the pending security mode and key types....
+No header information required..
+Compliance Mode :: none
+Asymmetric Key Type :: rsa512
+Symmetric Key Type :: default
+Checking lssecmode log file size and backup if necessary....
+No log file exist. No backup is needed</code></pre></div><div></div></div>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ロケーション</h2>
+
+<dl>
+
+<dt><span>/opt/rsct/bin/lssecmode</span></dt>
+
+<dd><span>lssecmode</span> コマンドが入っています。</dd>
+
+
+</dl>
+
+</section>
+
+</div></div>

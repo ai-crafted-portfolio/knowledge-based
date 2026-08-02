@@ -1,0 +1,43 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ある権限に対する現行ユーザー・セッションを検査します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ckauth</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ckauth.html#ckauth__row-d3e118891" target="_blank" rel="noopener noreferrer"><strong>-A</strong></a>] { <em>AuthName</em> [,<em>AuthName</em>] ...}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ckauth</strong> コマンドは、<strong>ckauth</strong> コマンドを呼び出すプロセスが、
+<em>AuthName</em> パラメーターに指定された権限を持っているかどうか判別します。 このコマンドは、権限の検査を必要とするシェル・スクリプトで使用されます。 <strong>ckauth</strong> では、コンマで区切ったリストを使用して、単一の権限または複数の権限を指定することができます。 呼び出しプロセスがリストにある権限のいずれかを持っていれば、<strong>ckauth</strong> コマンドは 0 を戻します。 <strong>-A</strong> オプションを指定した場合、
+呼び出しプロセスがリストにある権限をすべて持っているときに、<strong>ckauth</strong> コマンドは 0 を戻します。 失敗すると、ゼロ以外の値が戻されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-A</strong></td>
+
+<td>呼び出しプロセスがリストにある権限をすべて持っているか検査します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>既存のユーザー・セッションに以下のものがあるかどうかを判別します。aix.fs.manage許可については、以下のコマンドを使用します。<div><div><pre><code>$ ckauth aix.fs.manage
+$ echo $?
+0</code></pre></div><div></div></div></li>
+
+<li>既存のユーザー・セッションに以下の両方があるかどうかを判別します。aix.security.userおよびaix.security.group許可については、以下のコマンドを使用します。<div><div><pre><code>$ ckauth -A aix.security.user,aix.security.group
+$ echo $?
+0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

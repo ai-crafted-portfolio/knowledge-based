@@ -1,0 +1,735 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ネットワーク・ファイルシステム (NFS) およびリモート・プロシージャー・コール (RPC) の呼び出しに関する統計情報を表示します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>/usr/sbin/nfsstat</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17859" target="_blank" rel="noopener noreferrer"><strong>-@</strong></a> <em>WparName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17908" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17923" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e18029" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e18011" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e18023" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17994" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17995" target="_blank" rel="noopener noreferrer"><strong>I</strong></a>] ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e18047" target="_blank" rel="noopener noreferrer"><span><span>-4</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e18071" target="_blank" rel="noopener noreferrer"><strong>-z</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e18035" target="_blank" rel="noopener noreferrer"><strong>T</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17902" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsstat.html#nfsstat__row-d3e17929" target="_blank" rel="noopener noreferrer"><span><span>-g</span></span></a> ]</p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>nfsstat</strong> コマンドは、
+カーネルに対する NFS およびリモート・プロシージャー・コール (RPC) インターフェースに関する統計情報を表示します。 また、このコマンドを使用してこの情報を再初期化することができます。 フラグを指定しない場合、デフォルトは <strong>nfsstat -csnr</strong> コマンドです。 このオプションを指定した場合、コマンドはすべての情報を表示しますが、再初期化は行いません。</p>
+
+<p><strong>RPC サーバー情報</strong></p>
+
+<p>サーバー RPC ディスプレイには次のフィールドが含まれます。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>calls</td>
+
+<td>受信した RPC 呼び出しの合計数。 この数値には、フラグ <span><span>-4</span></span> が使用された場合の NFS バージョン4の呼び出しも含まれます。 それ以外
+の場合は、バージョン 2 とバージョン 3 の合計のみが表示されます。</td>
+
+</tr>
+
+<tr>
+<td>badcalls</td>
+
+<td>RPC レイヤーがリジェクトした呼び出しの合計数。 この数値には、フラグ <span><span>-4</span></span> が使用された場合の NFS バージョン4の呼び出しも含まれます。 それ以外
+の場合は、バージョン 2 とバージョン 3 の合計のみが表示されます。</td>
+
+</tr>
+
+<tr>
+<td>nullrecv</td>
+
+<td>受信しようとしたときに RPC 呼び出しが使用可能でなかった回数。</td>
+
+</tr>
+
+<tr>
+<td>badlen</td>
+
+<td>最小サイズの RPC 呼び出しより短い RPC 呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>xdrcall</td>
+
+<td>XDR によるデコードができなかったヘッダーを持つ RPC 呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>dupchecks</td>
+
+<td>重複する要求キャッシュで検索した RPC 呼び出しの回数。</td>
+
+</tr>
+
+<tr>
+<td>dupreqs</td>
+
+<td>検出された重複する RPC 呼び出しの回数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><strong>RPC クライアント情報</strong></p>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>calls</td>
+
+<td>送信された RPC 呼び出しの合計数。</td>
+
+</tr>
+
+<tr>
+<td>badcalls</td>
+
+<td>RPC レイヤーがリジェクトした呼び出しの合計数。</td>
+
+</tr>
+
+<tr>
+<td>badxid</td>
+
+<td>サーバーからの返信が未解決の呼び出しと一致しなかった回数。</td>
+
+</tr>
+
+<tr>
+<td>timeouts</td>
+
+<td>サーバーからの返信を待つ間に呼び出しがタイムアウトになった回数。</td>
+
+</tr>
+
+<tr>
+<td>newcreds</td>
+
+<td>認証情報を最新化しなければならなかった回数。</td>
+
+</tr>
+
+<tr>
+<td>badverfs</td>
+
+<td>応答における正しくない検査子のために呼び出しが失敗した回数。</td>
+
+</tr>
+
+<tr>
+<td>timers</td>
+
+<td>計算されたタイムアウト値が、呼び出しに対して指定されている最小タイムアウト値と同じかそれより大きかった回数。</td>
+
+</tr>
+
+<tr>
+<td>cantconn</td>
+
+<td>サーバーへの接続が失敗したために呼び出しが失敗した回数。</td>
+
+</tr>
+
+<tr>
+<td>nomem</td>
+
+<td>メモリーの割り当てが失敗したために呼び出しが失敗した回数。</td>
+
+</tr>
+
+<tr>
+<td>interrupts</td>
+
+<td>呼び出しが完了前にシグナルによって割り込まれた回数。</td>
+
+</tr>
+
+<tr>
+<td>retrans</td>
+
+<td>サーバーからの返信を待つ間にタイムアウトが起こったため、呼び出しを再送しなければならなかった回数。 これは、RPC コネクションレス・トランスポートにしか適用できません。</td>
+
+</tr>
+
+<tr>
+<td>dupchecks</td>
+
+<td>重複する要求キャッシュでルックアップした RPC 呼び出しの数。</td>
+
+</tr>
+
+<tr>
+<td>dupreqs</td>
+
+<td>検出された重複する RPC 呼び出しの数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+<p><strong>NFS サーバー情報</strong></p>
+
+<p>NFS サーバーは、受信した NFS 呼び出しの数を表示します。calls) 拒否されました (badcalls)、および作成されたさまざまな種類の呼び出しのカウントとパーセント。</p>
+
+<p><strong>NFS クライアント情報</strong></p>
+
+<p>表示される NFS クライアント情報には、送信された呼び出しと拒否された呼び出しの数、および CLIENT ハンドルが受信された回数 (clgets)、クライアント・ハンドルに未使用の項目がなかった回数 (clatoomany)、およびさまざまな種類の呼び出しのカウントと、それぞれのパーセント。</p>
+
+<p><strong>NFS レジストリー・デーモン情報</strong></p>
+
+<p>NFS レジストリー・デーモン表示は、クライアントおよびサーバーからの、UID/GID 名とストリング名を
+変換する要求の回数を表示します。</p>
+
+<p><strong>-m 情報</strong></p>
+
+<p><strong>-m</strong> フラグは、
+<strong>mount</strong> オプションで設定する <strong>mount</strong> フラグの情報、
+システム内部の <strong>mount</strong> フラグの情報、
+およびその他の <strong>mount</strong> 情報を表示します。 詳しくは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mount.html" target="_blank" rel="noopener noreferrer"><strong>mount</strong></a> コマンドを参照してください。</p>
+
+<p>次の <strong>mount</strong> オプションは、<strong>mount</strong> フラグで設定します。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>auth</td>
+
+<td>次の値のいずれかを指定します。<dl>
+
+<dt>none</dt>
+
+<dd>認証なし。</dd>
+
+
+
+<dt>unix</dt>
+
+<dd><span>UNIX</span> スタイルの認証 (UID、GID)。</dd>
+
+
+
+<dt>des</dt>
+
+<dd>des スタイル認証 (暗号化されたタイム・スタンプ)。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>hard</td>
+
+<td>ハード・マウント。</td>
+
+</tr>
+
+<tr>
+<td>soft</td>
+
+<td>ソフト・マウント。</td>
+
+</tr>
+
+<tr>
+<td>intr</td>
+
+<td>ハード・マウントで割り込みが許可されています。</td>
+
+</tr>
+
+<tr>
+<td>nointr</td>
+
+<td>ハード・マウントで割り込みが許可されていません。</td>
+
+</tr>
+
+<tr>
+<td>noac</td>
+
+<td>クライアントが属性をキャッシュしていません。</td>
+
+</tr>
+
+<tr>
+<td>rsize</td>
+
+<td>バッファー・サイズをバイト単位で読み取ります。</td>
+
+</tr>
+
+<tr>
+<td>wsize</td>
+
+<td>バッファー・サイズをバイト単位で書き込みます。</td>
+
+</tr>
+
+<tr>
+<td>retrans</td>
+
+<td>NFS 再送。</td>
+
+</tr>
+
+<tr>
+<td>nocto</td>
+
+<td>クローズとオープン間の整合性がありません。</td>
+
+</tr>
+
+<tr>
+<td>llock</td>
+
+<td>ローカル・ロックが使用中です (ロック・マネージャーがありません)。</td>
+
+</tr>
+
+<tr>
+<td>grpid</td>
+
+<td>グループ ID 継承。</td>
+
+</tr>
+
+<tr>
+<td>vers</td>
+
+<td>NFS バージョン。</td>
+
+</tr>
+
+<tr>
+<td>proto</td>
+
+<td>プロトコル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>次の <strong>mount</strong> オプションは、システム内部のものです。</p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>printed</td>
+
+<td>応答メッセージを出力しません。</td>
+
+</tr>
+
+<tr>
+<td>down</td>
+
+<td>サーバーをダウンします。</td>
+
+</tr>
+
+<tr>
+<td>dynamic</td>
+
+<td>動的転送サイズの調整。</td>
+
+</tr>
+
+<tr>
+<td>link</td>
+
+<td>サーバーがリンクをサポートします。</td>
+
+</tr>
+
+<tr>
+<td>symlink</td>
+
+<td>サーバーがシンボリック・リンクをサポートします。</td>
+
+</tr>
+
+<tr>
+<td>readdir</td>
+
+<td><strong>readdirplus</strong> のかわりに <strong>readdir</strong> を使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><strong>-t 情報</strong></p>
+
+<div><span><span>-t</span></span> フラグは、 NFS ID マッピング・サブシステムの変換要求に関連する情報を表示します。<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><code>ids_to_strings</code></td>
+
+<td>ID からストリングへの変換要求の回数。</td>
+
+</tr>
+
+<tr>
+<td>s<code>trings_to_ids</code></td>
+
+<td>ストリングから ID への変換要求の回数。</td>
+
+</tr>
+
+<tr>
+<td><code>resolve_errors</code></td>
+
+<td>欠落データが原因で失敗した、変換要求の回数。</td>
+
+</tr>
+
+<tr>
+<td><code>badowners</code></td>
+
+<td>無効な入力が原因で失敗した、変換要求の回数。</td>
+
+</tr>
+
+<tr>
+<td><code>cache_hits</code></td>
+
+<td>変換キャッシュによって処理された変換要求の回数。</td>
+
+</tr>
+
+<tr>
+<td><code>cache_misses</code></td>
+
+<td>変換キャッシュによって処理されなかった変換要求の回数。</td>
+
+</tr>
+
+<tr>
+<td><code>cache_entries</code></td>
+
+<td>変換キャッシュ内のエントリーの数。</td>
+
+</tr>
+
+<tr>
+<td><code>cache_recycles</code></td>
+
+<td>期限切れ変換キャッシュ内のエントリーの数。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-@</strong> <em>WparName</em></td>
+
+<td>指定されたワークロード区画の統計情報を表示します。 <strong>-@</strong> フラグは、<strong>nfsstat</strong> コマンドがグローバル区画で実行される場合にのみ使用できます。 <strong>nfsstat</strong> コマンドがワークロード区画から実行されたときに <strong>-@</strong> フラグが指定されていない場合は、現行ワークロード区画の統計情報が表示されます。 <strong>nfsstat</strong> コマンドがグローバル区画から実行されたときに <strong>-@</strong> フラグが指定されていない場合は、すべてのアクティブなワークロード区画 (およびグローバル区画) の合計統計情報が表示されます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>-@</strong> <em>WparName</em> フラグを <strong>-m</strong> フラグと一緒に使用すると、 <strong>nfsstat</strong> コマンドは、指定されたワークロード・パーティションの代わりにグローバル・パーティションの統計を表示します。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>NFS バージョン 4 サーバーの追加統計情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>クライアント情報を表示します。 クライアント・サイドの NFS および RPC 情報だけを表示します。 ユーザーは、レポートをクライアント・データだけに制限できます。 <strong>nfsstat</strong> コマンドは、クライアントが送信およびリジェクトした RPC 呼び出しおよび NFS 呼び出しの数に関する情報を提供します。 クライアントの NFS 情報または RPC 情報だけを表示するには、このフラグを <strong>-n</strong> オプションまたは <strong>-r</strong> オプションと組み合わせて指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>NFS バージョン 4 の代行に関する情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-g</span></span></td>
+
+<td>RPCSEC_GSS 情報を表示します。 RPCSEC_GSS 情報セクションには次が含まれます。<dl>
+
+<dt>activegss</dt>
+
+<dd>アクティブな RPCSEC_GSS コンテキスト</dd>
+
+
+
+<dt>discardgss</dt>
+
+<dd>廃棄された RPCSEC_GSS メッセージ</dd>
+
+
+
+<dt>krb5est</dt>
+
+<dd>確立された krb5 コンテキスト</dd>
+
+
+
+<dt>krb5iest</dt>
+
+<dd>確立された krb5i コンテキスト</dd>
+
+
+
+<dt>krb5pest</dt>
+
+<dd>確立された <span><span>krb5p</span></span> コンテキスト</dd>
+
+
+
+<dt>expgss</dt>
+
+<dd>期限切れ RPCSEC_GSS コンテキスト</dd>
+
+
+
+<dt>badaccept</dt>
+
+<dd>gss_accept_sec_context 失敗</dd>
+
+
+
+<dt>badverify</dt>
+
+<dd>gss_verify_mic 失敗</dd>
+
+
+
+<dt>badgetmic</dt>
+
+<dd>gss_get_mic 失敗</dd>
+
+
+
+<dt>badwrap</dt>
+
+<dd>gss_wrap 失敗</dd>
+
+
+
+<dt>badunwrap</dt>
+
+<dd>gss_unwrap 失敗</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>マウントされている NFS ファイルシステムごとの統計情報を、サーバー名、マウント・フラグ、現在の読み取りサイズおよび書き込みサイズ、再送数、および動的再送に使用したタイマーと一緒に表示します。<div><div>
+        <div>
+          <div><span>注:</span> <strong>nfsstat</strong> コマンドの使用時に <strong>-m</strong> オプションを指定すると、常にグローバル区画の統計情報が得られます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td><strong>-m</strong> と一緒に使用すると、サーバーの IP アドレスも出力されます。 このフラグは、<strong>-m</strong> フラグと一緒に指定された場合のみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>NFS 情報を表示します。 クライアントとサーバーの両方の NFS 情報を出力します。 NFS クライアント情報または NFS サーバー情報のいずれかだけを出力するには、
+このフラグを <strong>-c</strong> オプションや <strong>-s</strong> オプションと組み合わせて指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>RPC 情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>サーバー情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>NFS ID マッピング・サブシステムの変換要求に関連する統計情報を表示します。 NFS クライアントまたはサーバー情報のみを印刷するには、 <span><span>-c</span></span> および <span><span>-s</span></span> オプションと組み合わせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-4</strong></td>
+
+<td><strong>-c</strong>、<strong>-n</strong>、<strong>-s</strong>、
+または <strong>-z</strong> の各フラグと組み合わせると、既存の NFS バージョン 2 とバージョン 3 のデータに追加して、NFS バージョン 4 のクライアントまたはサーバーの情報が含まれます。 このオプションがない場合、出力はバージョン5.3より前の<span>AIX</span>バージョンの<strong>nfsstat</strong>コマンドの出力と同じになる。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>統計情報を再初期化します。 このフラグは root ユーザー専用であり、上記のフラグとともに指定し、特定の統計情報を出力後、ゼロにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>クライアントが送信およびリジェクトした RPC と NFS の呼び出し回数に関する情報を表示するには、
+次のように入力します。<div>
+<div><div><pre><code>nfsstat -c</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>クライアントの NFS 呼び出し関連情報を表示して出力するには、次のように入力します。<div>
+<div><div><pre><code>nfsstat -cn</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>NFS マウント・ファイルシステムのそれぞれの統計情報を表示します。<div>
+<div><div><pre><code>nfsstat -m</code></pre></div><div></div></div>
+</div>
+</li>
+
+
+<li>クライアントとサーバーの RPC 呼び出しに関連する情報を表示して出力するには、次のように入力します。<div>
+<div><div><pre><code>nfsstat -r</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>サーバーが受信およびリジェクトした RPC と NFS の呼び出し回数に関する情報を表示するには、
+次のように入力します。<div>
+<div><div><pre><code>nfsstat -s</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>すべての呼び出しに関する情報をクライアントとサーバー上でリセットしてゼロにするには、
+次のように入力します。<div>
+<div><div><pre><code>nfsstat -z</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>-z</strong> フラグを使用するには、root ユーザー権限が必要です。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</li>
+
+<li>ワークロード区画 <strong>abc</strong> の NFS クライアント統計情報を表示するには、次のように入力します。<div>
+<div><div><pre><code>nfsstat -@ abc -cn</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+
+</section>
+
+</div></div>

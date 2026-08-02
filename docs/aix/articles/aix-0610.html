@@ -1,0 +1,115 @@
+<div class="official-dom"><div><section><h2>目的</h2> <p>HP LaserJet シリーズのプリンター用に <span>troff</span> コマンド出力を後処理します。</p>
+</section>
+<section><h2>構文</h2> <div>
+<div><div><pre><code>hplj [ -F Directory ] [ -quietly] [ -landscape ] [ File ... ]</code></pre></div><div></div></div>
+</div>
+</section>
+<section><h2>説明</h2> <p><span>hplj</span> コマンドは、Hewlett-Packard LaserJet シリーズのプリンターに出力できるように、<span>troff</span> コマンドの出力を処理します。</p>
+ <p>オプションとして 1 つ以上のファイルを指定すると、<span>hplj</span> コマンドはそのファイルを処理します。 ファイルを指定しなければ、標準入力を解釈するフィルターとして機能します。 File パラメーターは、HP Laser Jet シリーズ・プリンターに出力するときに <span>hplj</span> コマンドが処理するファイルを指定します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span>hplj</span> コマンドは、K カートリッジまたは Text-Equations カートリッジ (プリンターにインストールされている場合) を使用できます。 (Text-Equations カートリッジ、HP 部品番号 C2053A #C07 は、K カートリッジに優先して使用されます)。 また、デフォルト・フォント・ファイルはどちらかのカートリッジが装着されているものと想定します。 K カートリッジがない場合は、ダウンロードされたビットマップ・フォントを使用してください。 これを行うには、HP プリンターのフォント・ディレクトリー (<span>/usr/lib/font/devhplj</span>) で <strong><code>no_cart</code></strong> シェル・スクリプトを実行します。</div>
+        </div>
+      </div></div>
+ <p>実際はマウントされていないのに、どちらかのカートリッジがマウントされているとフォント・ファイルが想定すると、出力が不正確になることがあります。 また、K カートリッジか Text-Equations カートリッジの他にも別のカートリッジやソフト・フォントが装着されている場合も、出力が不正確になることがあります。</p>
+ <p><span>hplj</span> コマンドの機能は、<span>/usr/lib/font/devhplj</span>  ファイル内の <span>.out</span> で終わるファイルによって左右されます。 これらのファイルが正しく設定されていなければ、このコマンドは正しい出力を生成しません。 詳しくは、「 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/filesreference/troff_Font.html" target="_blank" rel="noopener noreferrer"><span>troff</span></a> フォント・ファイル・フォーマットの資料」を参照してください。</p>
+</section>
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-F</span>ディレクトリー</td>
+
+<td>指定されたディレクトリーをフォント・ファイルの検索場所として識別します。 デフォルトでは、 <span>hplj</span> コマンドは <span>/usr/lib/font/devhplj</span> ディレクトリーでフォント・ファイルを探します。</td>
+
+</tr>
+
+<tr>
+<td><span>-quietly</span></td>
+
+<td>致命的でないエラー・メッセージは、すべて表示されないようにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+  
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody><tr><td><span>-landscape</span></td>
+<td>指定したファイルを横長形式 (ランドスケープ) で出力します。 横長ページの向きは、通常の読みかたで、ページの幅がその長さよりも大きくなるように設定されます。 デフォルトでは、<span>hplj</span> コマンドを縦長方向に出力します。<div>
+<div><div>
+        <div>
+          <div><span>注:</span> 横長形式は、Hewlett-Packard Jet II プリンター上のメモ Courier フォントにしか使用できません。 したがって、<span>troff</span> 文書は Courier フォントでフォーマットする必要があります。 そのためには、<span>troff</span> 入力ファイルの先頭に次の行を挿入します。<div>
+<div><div><pre><code>.fp 1 C
+.fp 2 C
+.fp 3 CB</code></pre></div><div></div></div>
+</div>
+<p>Courier フォントはフォント位置 <code>#1</code> &amp; <code>#2</code> にロードされ、Courier-Bold は位置 <code>#3</code>にロードされます。</p>
+
+</div>
+        </div>
+      </div></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol><li><span>lp</span> コマンドを使用して、 <code>foo</code> という名前の <span>troff</span> ファイルを <code>hp</code> という名前のプリンターで印刷するには、次のように入力します。<div>
+<div><div><pre><code>troff -mm -Thplj foo | hplj | lp -dhp -o -dp</code></pre></div><div></div></div>
+</div>
+</li>
+<li><span>qprt</span> コマンドを使用して、 <code>boo</code> という名前の <span>troff</span> ファイルを <code>hp</code> という名前のプリンターで印刷するには、次のように入力します。<div>
+<div><div><pre><code>troff -mm -Thplj boo | hplj | qprt -dp -Php</code></pre></div><div></div></div>
+</div>
+
+<div>
+<div><div>
+        <div>
+          <div><span>注:</span> 上記 2 つの例では、<span>-dp</span> フラグは、プリンターのデータをパススルー (未変更) モードでプリンターに送ります。</div>
+        </div>
+      </div></div>
+
+</div>
+</li>
+</ol>
+</section>
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/lib/font/devhpl/*.out</span></td>
+
+<td>フォント・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+</div></div>

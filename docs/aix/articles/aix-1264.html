@@ -1,0 +1,187 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>実行中のプロセスの優先順位を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>renice</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/renice.html#renice__row-d3e141639" target="_blank" rel="noopener noreferrer"><strong>-n </strong></a><em>増分 </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/renice.html#renice__row-d3e141633" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a><em> </em>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/renice.html#renice__row-d3e141650" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/renice.html#renice__row-d3e141656" target="_blank" rel="noopener noreferrer"><strong>-u </strong></a>] <em>ID ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>renice</strong> コマンドは、実行中の 1 つまたは複数のプロセスの nice の値を変更します。 <em>nice の値</em> とは、プロセスのシステム・スケジューリング優先順位を表す 10 進値です。 デフォルトでは、対象となるプロセスをプロセス ID で指定します。 プロセス・グループを指定すると、要求はそのプロセス・グループ内のすべてのプロセスに適用されます。</p>
+ <p>nice の値は、インプリメンテーションに依存した方法で決定されます。 要求した増分によって、実行されたユーティリティーの nice の値が、インストールに依存する上下限を超える場合は、超過した値に対する制限値が適用されます。</p>
+ <p>ユーザーに root ユーザー権限がなければ、再設定できるのは自分自身のプロセスの優先順位のみで、0 から 20 までの範囲内で、20 を最下位の優先順位として、優先順位を大きくすることしかできません。 root ユーザー権限があれば、任意のプロセスの優先順位を変更し、優先順位を -20 から 20 までの範囲内の値に設定できます。 指定した <em>Increment</em> により、以下のようにプロセスの順位が変更されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong> から <strong>20</strong></td>
+
+<td>基本優先順位より遅い指定プロセスを実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>0</strong></td>
+
+<td>指定プロセスの優先順位を基本スケジューリング優先順位に設定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-20</strong> から <strong>-1</strong></td>
+
+<td>基本優先順位より速い指定プロセスを実行します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p><strong>renice</strong> コマンドは、これらの値をカーネルが実際に使用する値にマップします。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span></span>root ユーザー権限を持っていない場合は、プロセスの nice の値を大きくすることはできません (最初に優先順位を低くした場合でも)。</li>
+
+<li><span></span> <strong>renice</strong> コマンドを使用して、一定の優先順位で実行するようにプロセスを変更することはできません。 これを行うには、<strong>setpriority</strong> システム・コールを使用します。</li>
+
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-g</strong></td>
+
+<td>すべての ID を無符号の 10 進整数によるプロセス・グループ ID として解釈します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 増分</em></td>
+
+<td>プロセスの nice の値に追加する数値を指定します。 <em>Increment</em> の値には、-20 から 20 までの 10 進整数しか入れることができません。 正の増分値を指定すると、nice の値が小さくなります。 負の増分値を指定する場合は、該当する特権が必要になり、nice の値が高くなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>すべての ID を無符号整数によるプロセス・グループ ID として解釈します。 -p フラグは、ほかのフラグを指定しない場合のデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>すべての ID をユーザー名または数値によるユーザー ID として解釈します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>プロセス ID 987 および 32 のスケジューリング優先順位が低くなるようにシステムのスケジューリング優先順位を変更するには、次のように入力します。<div>
+<div><div><pre><code>renice -n 5 -p 987 32</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span></span>グループ ID 324 および 76 がより高いスケジューリング優先順位を持つようにシステム・スケジューリング優先順位を変更するには (ユーザーがそれを行うための適切な特権を持っている場合)、次のように入力します。<div> <div><div><pre><code>renice -n -4 -g 324 76</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>システム・スケジューリング優先順位を変更して、数字のユーザー ID 8 およびユーザーsas優先順位が低い場合は、次のように入力します<div>
+<div><div><pre><code>renice -n 4 -u 8 sas</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/renice</strong></td>
+
+<td><strong>renice</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザー名をユーザー ID にマップします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

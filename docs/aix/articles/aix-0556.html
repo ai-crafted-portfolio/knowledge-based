@@ -1,0 +1,140 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>curt</span>、<span>splat</span>、<span>tprof</span> の各コマンドをオフライン・モードで実行するために必要なすべての情報を収集します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>GenSyms</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133813" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133756" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133762" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133774" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133819" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133768" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133789" target="_blank" rel="noopener noreferrer"><strong>私は</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133807" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133795" target="_blank" rel="noopener noreferrer"><strong>-k (K)</strong></a> <em>カーネル</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133780" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> <em>ファイル</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133747" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> <em>バイナリー</em>[,<em>バイナリー</em>[,...]]] <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__gensyms_bigp" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> PID[,PID[,...]]]</span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_commands/gensyms.html#gensyms__row-d3e133832" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> <em>パス</em>]</p>
+</section>
+
+<section><h2>説明</h2> <div><span>gensyms</span> コマンドは、<span>curt</span>、<span>splat</span>、<span>tprof</span> の各コマンドがオフライン・モードで動作するのに必要な、名前からアドレスへのマッピング情報を収集します。 収集される情報には、以下の項目が含まれます。<ul>
+<li>すべてのロード済みカーネル・エクステンションのリスト。</li>
+
+<li>すべてのロード済み共有ライブラリーのリスト。</li>
+
+<li>すべてのロード済みプロセスのリスト。</li>
+
+<li><strong>/unix</strong>、すべてのカーネル・エクステンション、ライブラリー、およびプロセスに対応するすべてのオブジェクト・ファイルでは、<span>stripnm</span> コマンドの出力が収集されます。</li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-b</strong> <em>バイナリー</em></td>
+
+<td>シンボルの検索対象のバイナリーのオプショナル・リストを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ソース・ファイル名が出力されるのを抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td>物理ボリュームおよび論理ボリュームのデバイス情報を収集します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>シンボル名をデコードします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>ヘルプ・メッセージを出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong> <em>file</em></td>
+
+<td>指定したファイルからシンボルを読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>シンボルのバイナリー命令を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong> <em>カーネル</em></td>
+
+<td>カーネル・イメージの名前を指定します (デフォルトは <strong>/unix</strong>)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>シンボルのソース行番号を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td>アドレスの代わりにオフセットを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> pid[、pid[、...]]</td>
+
+<td>指定されたプロセスによってロードされた従属モジュールのシンボルを出力します。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td><span>-k</span> フラグおよび <span>-b</span> フラグによって指定されたファイルのシンボルだけを検出します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong> <em>パス</em></td>
+
+<td>検索パス・リストを指定します。このリストはバイナリーの検索に使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<ol>
+<li>ユーザー・プログラム・テストのプロファイルを使用して、<span>tprof</span> コマンドをオフライン・モードで実行するために必要な情報を収集するには、次のコマンドを入力します。<div><div><pre><code>gensyms &gt; test.syms</code></pre></div><div></div></div></li>
+
+<li>指定されたプロセス ID およびその従属プロセスに関する情報を収集するには、次のコマンドを入力します。<div><div><pre><code>gensyms -P pid &gt; test.syms</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

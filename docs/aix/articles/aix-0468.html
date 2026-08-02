@@ -1,0 +1,121 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>troff</strong> コマンドの数式テキストをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>EQN</strong> [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86247" target="_blank" rel="noopener noreferrer">-d 年</a></strong><em> Delimiter1Delimiter2</em> ] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86297" target="_blank" rel="noopener noreferrer">「-f」</a></strong><em> フォント</em> ] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86315" target="_blank" rel="noopener noreferrer">P-</a></strong><em> 数値</em> ] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86324" target="_blank" rel="noopener noreferrer">-s</a></strong><em> サイズ</em> ] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86339" target="_blank" rel="noopener noreferrer">-T (T)</a></strong><em> 名前</em> ] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86361" target="_blank" rel="noopener noreferrer">— </a></strong>] [ <em>ファイル</em> ... | <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86354" target="_blank" rel="noopener noreferrer">- </a></strong>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>eqn</strong> コマンドは、フォトタイプセッターまたはそれと同等のデバイス上に数式テキストを作成するための <strong>troff</strong> プリプロセッサーです。 次に示すように、<strong>eqn</strong> コマンドの出力は普通は <strong>troff</strong> コマンドにパイプ接続されます。</p>
+ <p><strong>EQN</strong> [<em>フラグ</em>...] <em>ファイル</em>... <strong>| トロフ</strong> [<em>フラグ</em>...] <strong>|</strong> [<em>タイプセッター</em>]</p>
+ <p><strong>eqn</strong> コマンドは、<em>File</em>  パラメーターによって指定されたファイルを読み込みます。 - (ハイフン) が最終パラメーターに指定されている場合は、このコマンドは標準入力を読み込みます。 <strong>.EQ</strong> マクロで始まる行により、数式テキストの開始を表します。 また、<strong>.EN</strong> マクロで始まる行により、数式テキストの終了を表します。 これらの行は、<strong>troff</strong> コマンドでは変更されないので、例えば、センタリングやナンバリングなどの補足的なフォーマット化機能を備えるようマクロ・パッケージで定義することができます。</p>
+<p><strong>キーワード </strong></p>
+ <p>次のキーワードは <strong>eqn</strong> コマンドと <strong>neqn</strong> コマンドの両方によって認識されます。</p>
+ <div> <div><div><pre><code>above      dot       gsize      over       tdefine
+back       dotdot    hat        pile       tilde
+bar        down      italic     rcol       to
+bold       dyad      lcol       right      under
+ceiling    fat       left       roman      up
+ccol       floor     lineup     rpile      vec
+col        font      lpile      size  
+cpile      from      mark       sqrt  
+define     fwd       matrix     sub
+delim      gfont     ndefine    sup</code></pre></div><div></div></div></div>
+ <p><strong>eqn</strong> コマンドによって認識されるキーワードは、スペース、タブ、改行文字、中括弧、二重引用符、ティルド、脱字記号などとは別に設定できます。 { } (中括弧) は、グループ化に使用します。X などの単一文字を使用して、中括弧で囲んだ複雑な構造の
+代わりにすることができます。 ~ (ティルド) は出力でのフル・スペースを表し、^ (脱字記号) はハーフ・スペースを表します。</p>
+ <p>添え字と肩文字は、キーワード <strong>sub</strong> と <strong>sup</strong> で作成します。 分数はキーワード <strong>over</strong> を使って作成します。 平方根はキーワード <strong>sqrt</strong> で作成します。</p>
+ <p>下限/上限は、キーワード <strong>from</strong> と <strong>to</strong> で作成します。 正しい高さの区切り文字 (左右の大括弧や中括弧など) は、キーワード <strong>left</strong> と <strong>right</strong> で作成します。 キーワード <strong>left</strong> と <strong>right</strong> の後に指定できる文字は、中括弧、大括弧、縦線、最高と最低を示す <strong>c</strong> と <strong>f</strong>、まったく何もないことを示す <strong> “ ”</strong> (二重引用符) (右側のみの括弧に便利) です。 <strong>left</strong> 文字にはそれに対応する <strong>right</strong> 文字は必要ありませんが、<strong>right</strong> 文字はそれに対応する <strong>left</strong> 文字がなければなりません。</p>
+ <p>垂直方向のリスト (積み上げ) は、<strong>pile</strong>、<strong>lpile</strong>、<strong>cpile</strong>、<strong>rpile</strong> の各キーワードで作成されます。 積上げは、任意の数のエレメントで作成できます。 キーワード <strong>lpile</strong> は左そろえ、キーワード <strong>pile</strong> およびキーワード <strong>cpile</strong> は中央そろえ (ただし、行間スペースが異なる)、キーワード <strong>rpile</strong> は右そろえです。 マトリックスはキーワード <strong>matrix</strong> で作成されます。 さらに、列を右そろえにするキーワード <strong>rcol</strong> があります。</p>
+ <p>区別的発音符は、<strong>dot</strong>、<strong>dotdot</strong>、<strong>hat</strong>、<strong>tilde</strong>、<strong>bar</strong>、<strong>vec</strong>、<strong>dyad</strong>、<strong>under</strong> の各キーワードで作成されます。</p>
+ <p>ポイント・サイズとフォントは、<strong>size</strong><em> Number</em> (または <strong>size +/-</strong><em>Number</em>)、<strong>roman</strong>、<strong>italic</strong>、<strong>bold</strong>、および <strong>font</strong><em> Number</em> の各キーワードで変更できます。 <strong>gsize</strong> <em>Number</em> キーワードと <strong>gfont</strong><em> Number</em> キーワードを使用するか、コマンド・ラインの <strong>-s</strong><em>Number</em> フラグと <strong>-f</strong><em>Number</em> フラグを使用すると、ドキュメント全体でポイント・サイズとフォントを変更できます。</p>
+ <p>通常、添え字と肩文字は、元のサイズから 3 ポイント減らされます。 これは、コマンド・ラインの <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/eqn.html#eqn__row-d3e86315" target="_blank" rel="noopener noreferrer">P-</a></strong><em>数値</em> フラグを使用して変更できます。</p>
+ <p>連続表示するパラメーターを縦方向に整列させることができます。 キーワード <strong>mark</strong> を最初の数式の希望する整列ポイントの前に置いて、キーワード <strong>lineup</strong> をその後の数式で縦に整列する場所に置きます。</p>
+ <p><strong>define</strong> キーワードを使うと、省略表現を定義したり、既存のキーワードの再定義ができます。次に例を示します。</p>
+ <div> <div><div><pre><code>define  Thing%Replacement%</code></pre></div><div></div></div></div>
+ <p>上記の例は、<em>Thing</em> という新しいトークンを定義しています。このトークンは、その後表示される際に常に <em>Replacement</em> に置き換えられます。 % (パーセント記号) は、<em>Replacement</em> 内に含まれていない文字であれば何でもかまいません。</p>
+ <p><strong>sum</strong>、<strong>int</strong>、<strong>inf</strong> のようなキーワードと、<strong>&gt;=</strong>、<strong>!=</strong>、および <strong>-&gt;</strong> などの省略形が認識されます。 ギリシャ文字は、<strong>alpha</strong> や <strong>GAMMA</strong> のように望ましい大文字/小文字で表示されます。 <strong>sin</strong>、<strong>cos</strong>、<strong>log</strong> などの数学関係の語は、自動的に Roman 体となります。 二重剣標を作成する <strong>&amp;#xa5;(dd</strong> のような <strong>troff</strong> コマンドの四文字エスケープは、どこでも使用できます。 <strong>“ ”</strong> (二重引用符) で囲まれた文字列は、処理されないまま渡されます。 これによって、キーワードをテキストとして入力でき、常に <strong>troff</strong> コマンドと通信するのに使用できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em>デリミタ1デリミタ2</em></td>
+
+<td>2 つの ASCII 文字 <em>Delimiter1</em> と <em>Delimiter2</em> を <strong>.EQ</strong> マクロと <strong>.EN</strong> マクロで囲まれた入力に加えて、<strong>eqn</strong> コマンドで処理するテキストの区切り文字として設定します。 これらの区切り文字の間のテキストは、<strong>eqn</strong> コマンドへの入力として扱われます。<p></p><blockquote><span>“</span><strong>注:</strong> ファイル内で、 <strong>delim</strong><em> Delimiter1Delimiter2</em>コマンドを使用して、 <strong>eqn</strong> テキストの区切り文字を設定することもできます。 これらの区切り文字は、<strong>delim off</strong> コマンドでオフにすることができます。 <strong>.EQ</strong> マクロと <strong>.EN</strong>  マクロの間にないすべてのテキストは、処理されずにパスされます。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>「-f」</strong><em>フォント</em></td>
+
+<td><strong>eqn</strong> コマンドで処理した全テキストのフォントを、
+<em>Font</em> 変数で指定した値に変更します。 <em>Font</em> の値 (フォント名または位置) は、1 文字または 2 文字の ASCII 文字でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em>数値</em></td>
+
+<td>添え字と肩文字のサイズを指定のポイント数分縮小します (デフォルトは 3)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>サイズ</em></td>
+
+<td><strong>eqn</strong> コマンドで処理した全テキストのポイント・サイズを、<em>Size</em> 変数で指定した値に変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong><em>名前</em></td>
+
+<td>指定のプリンターへの出力を準備します。 フォトタイプセッターまたはそれと同等のデバイスの端末名によって、<em>Name</em> 変数が与えられます。 デフォルトは <strong>ibm3816</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong></td>
+
+<td>入力を標準入力から強制的に読み取ります。</td>
+
+</tr>
+
+<tr>
+<td><strong>—</strong></td>
+
+<td>(二重ダッシュ) フラグの終わりを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/share/lib/pub/eqnchar</strong></td>
+
+<td>特殊キャラクターの定義が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

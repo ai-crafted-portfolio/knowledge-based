@@ -1,0 +1,103 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>LIPS III モードの Canon LASER SHOT 向けに <strong>troff</strong> コマンドの出力を処理します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>カノン</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/canonls.html#canonls__row-d3e65577" target="_blank" rel="noopener noreferrer"><strong>-例</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/canonls.html#canonls__row-d3e65593" target="_blank" rel="noopener noreferrer"><strong>-エム</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/canonls.html#canonls__row-d3e65609" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a><em>ディレクトリー</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/canonls.html#canonls__row-d3e65623" target="_blank" rel="noopener noreferrer"><strong>-静かに。</strong></a><strong></strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/canonls.html#canonls__row-d3e65629" target="_blank" rel="noopener noreferrer"><strong>-ウグ</strong></a><em>ファイル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/canonls.html#canonls__row-d3e65643" target="_blank" rel="noopener noreferrer"><strong>-うーん</strong></a><em>ファイル</em> ] [ <em>ファイル</em> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>canonls</strong> コマンドは、
+LIPS III モードの Canon LASER SHOT 向けに <strong>troff</strong> コマンドの出力を処理します。 このコマンドは、日本語サポート専用です。</p>
+ <p><strong>canonls</strong> コマンドは、
+<em>File</em> パラメーターで指定した 1 つ以上のファイルを処理します。 ファイルを指定しないと、<strong>canonls</strong> コマンドは、標準入力から読み取ります。</p>
+ <p><strong>canonls</strong> コマンドは、<strong>/usr/lib/font/devcanonls</strong> ディレクトリー内にあってコマンド名の最後に <strong>.out</strong> が付いているフォント・ファイルを使用します。 そのフォント・ファイルを提供しない限り、<strong>canonls</strong> コマンドは、正しい出力を生成しません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-eg</strong><em>ファイル</em></td>
+
+<td><span>IBM</span>日本語拡張文字セットのゴシックフォントを指定します。 <strong>canonls</strong> コマンドは、デフォルトでは <strong>/usr/lib/X11/fonts/JP/IBM_JPN23G.snf</strong> ファイルに入っているゴシック・フォントを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-em</strong><em>ファイル</em></td>
+
+<td><span>IBM</span> 日本語拡張文字セットの明朝フォントを指定します。 <strong>canonls</strong> コマンドは、デフォルトでは <strong>/usr/lib/X11/fonts/JP/IBM_JPN23.snf</strong> ファイルに入っている明朝フォントを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong><em>ディレクトリー</em></td>
+
+<td>フォント・ファイルを検索する場所としてディレクトリー名を指定します。 <strong>canonls</strong> コマンドは、デフォルトでは <strong>/usr/lib/font/devvcanonls</strong> ディレクトリー内でフォント・ファイルを検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>静かに (-quietly)</strong></td>
+
+<td>致命的でないエラー・メッセージは、すべて表示されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ug</strong><em>ファイル</em></td>
+
+<td>日本語のユーザー定義文字のゴシック・フォントを指定します。 <strong>canonls</strong> コマンドは、デフォルトでは <strong>/usr/lib/X11/fonts/JP/IBM_JPN23G.snf</strong> ファイルに入っているゴシック・フォントを使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-um</strong><em>ファイル</em></td>
+
+<td>日本語のユーザー定義文字の明朝フォントを指定します。 <strong>canonls</strong> コマンドは、デフォルトでは <strong>/usr/lib/X11/fonts/JP/IBM_JPN23.snf</strong> ファイルに入っているゴシック・フォントを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>以下を処理します。reportsCanon レーザー・ショットプリンター用のファイルの場合は、次のように入力します。</p>
+ <div> <div><div><pre><code>troff reports |canonls | qprt -dp</code></pre></div><div></div></div></div>
+ <p><strong>canonls</strong> コマンドは、まず、<strong>troff</strong> コマンドの出力を処理してから、ファイルを印刷キューに送信します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/lib/font/devcanonls/*.out</strong></td>
+
+<td>フォント・ファイルが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

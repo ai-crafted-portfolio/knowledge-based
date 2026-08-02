@@ -1,0 +1,195 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>指定されたユーザーのシステム識別を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>ID</strong> [<span><span>user</span></span>]</p>
+ <p><span><span>id</span></span> <strong>-G</strong> [ <strong>-n</strong> ] [ <em>ユーザー</em> ]</p>
+ <p><span><span>id</span></span> <strong>-g</strong> [ <strong>-n</strong> <strong>l </strong> | [ <strong>-n</strong> <strong>-r</strong> ] [ <em>ユーザー</em> ]</p>
+ <p><span><span>id</span></span> <strong>-u </strong>[<strong>-n</strong> <strong>l</strong>| [<strong> -n</strong> <strong>r</strong>] [<em>ユーザー</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>id</strong> コマンドは、指定されたユーザーのシステム識別 (ID) を含むメッセージを標準出力に書き出します。システム ID は、ユーザーとユーザー・グループをシステムに対して識別する番号です。 システム ID は、システムがユーザーとユーザー・グループを識別するための番号です。 <strong>id</strong> コマンドは、該当する場合に以下の情報を書き込みます。</p>
+ <ul>
+<li><span></span>ユーザー名と実ユーザー ID</li>
+
+<li><span></span>ユーザーのグループの名前と実グループ ID</li>
+
+<li><span></span>ユーザーの補足グループおよび補足グループ ID の名前<p>補足グループ情報は、システムがサポートする複数ユーザー・グループについてのみ、また指定したユーザーが補足グループに属している場合にのみ書き込まれます。</p>
+</li>
+
+</ul>
+ <p><strong>id</strong> コマンドは、その <strong>id</strong> コマンドを呼び出したユーザーに対してのみ、実効ユーザー ID と実効グループ ID も書き込みます。 ( <strong>ID</strong> コマンドで<em> ユーザー</em> パラメーターを指定すると、実効 ID は実 ID と同一であると想定されます。) 呼び出し元のユーザーの実効 ID と実 ID が異なるときには、<strong>id</strong> コマンドは該当する場合に以下の実効 ID 情報を書き込みます。</p>
+ <ul>
+<li><span></span>有効ユーザー名および有効ユーザー ID</li>
+
+<li><span></span>有効ユーザーのグループ名および有効グループ ID</li>
+
+</ul>
+ <p><span><span>id</span></span> コマンドを <span><span>-l</span></span> オプションと一緒に指定すると、ログイン UID が表示されます。 ログイン ID は、セッションへのログイン時
+のシステム・クリデンシャルを示します。 ログイン UID は、実際にログインしたユーザーのユーザー ID (数値) を示します。 ログイン UID は、システムにログインしたユーザーおよび未変更のままの
+クリデンシャルを保持するユーザーの UID と同じです。 例えば、ユーザーが <span><span>su</span></span> コマンドを実行すると、ユーザーの UID が変更され、ログイン UID は同じままです。</p>
+ <p><strong>id</strong> コマンドが失敗に終わるのは
+、指定されたユーザーが存在しないか、またはこのコマンドがユーザー情報または
+グループ情報を読み取れない場合です。</p>
+</section>
+
+<section><h2>フラグ</h2> <p><strong>id</strong> コマンドが書き込むメッセージの内容とフォーマットは、以下のフラグで変更できます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-G</strong></td>
+
+<td><strong>id</strong> コマンドが実効 ID、実 ID、補足グループ ID のみを
+書き込むように指定します。 実効 ID、実 ID、または補足 ID に複数のエントリーがある場合
+は、スペースで区切って同じ行に出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td><strong>id</strong> コマンドが実効グループ ID のみを書き込むように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td><strong>id</strong> コマンドが実効ユーザー ID のみを書き込むように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><strong>id</strong> コマンドが実効 ID ではなく実 ID を書き込むように指定します。 このフラグは、実グループ ID を書き込む <strong>-g</strong> フラグ、または
+実ユーザー ID を書き込む <strong>-u</strong> フラグのいずれかと一緒に
+呼び出せます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>id</strong> コマンドを <strong>-G</strong> フラ
+グ、<strong>-g</strong> フラグ、また
+は <strong>-u</strong> フラグと共に指定する場合は、このコマンドが
+ID 番号ではなく名前を出力することを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td><span><span>id</span></span> コマンドが、実 ID または実効 ID の代わりにログイン ID を書き込むことを指定します。 このフラグは、ログイン UID を書き込むために <span><span>-u</span></span> フラグを使用するか、ログイン・ユーザーの 1 次グループ ID を書き込むために <span><span>-g</span></span> フラグを使用して呼び出すことができます。 <span><span>username</span></span> が <span><span>-l</span></span> オプションと共に渡されると、 <span><span>id</span></span> コマンドは、ログイン ID の詳細ではなく、ユーザー名の ID の詳細を表示します。</td>
+
+</tr>
+
+<tr>
+<td><em>User</em></td>
+
+<td><strong>id</strong> コマンドにユーザーのログイン名を指定します。 ユーザーを指定しないと、<strong>id</strong> コマンドの呼び出し元であるユーザーがデフォルトになります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このプログラムを、トラステッド・コンピューティング・ベースに通常のユーザー・プログラムとしてインストールしてください。</p>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>現行ユーザーのすべてのシステム ID を表示するには、次のように入力します。<div> <div><div><pre><code>id</code></pre></div><div></div></div><strong>id</strong> コマンドの出力は以下のフォーマットで表示されます。<div><div><pre><code>uid=1544(sah) gid=300(build) euid=0(root) egid=9(printq) groups=0(system),10(audit)</code></pre></div><div></div></div>この例では、ユーザーはユーザー名を持っています。sahID 番号が1544; 1 次グループ名buildID 番号が300; 有効なユーザー名:rootID 番号が0; 有効なグループ名:printqID 番号が9; および以下の 2 つの補足グループ名systemおよびaudit、ID 番号付き0および10、それぞれ。</div>
+</li>
+
+<li><span></span>現行ユーザーのすべてのグループ ID 番号を表示するには、次のように入力します。<div> <div><div><pre><code>id -G</code></pre></div><div></div></div>以下のフォーマットで出力されます。<div><div><pre><code>0 10 300 9</code></pre></div><div></div></div><strong>-G</strong> フラグはユーザーのグループ ID のみを書き込みます。 この例では、ユーザーsahシステムのメンバーです (0)、audit (10)、build (300)、および printq (9) グループ。</div>
+</li>
+
+<li><span></span>現行ユーザーのすべてのグループ名を表示するには、次のように入力します。<div> <div><div><pre><code>id -Gn</code></pre></div><div></div></div>以下のフォーマットで出力されます。<div><div><pre><code>system audit build printq</code></pre></div><div></div></div><strong>-n</strong> フラグは ID 番号ではなく名前のみを書き込みます。</div>
+</li>
+
+<li><span></span>現行ユーザーの実グループ名を表示するには、次のように入力します。<div> <div><div><pre><code>id -gnr</code></pre></div><div></div></div>以下のフォーマットで出力されます。<div><div><pre><code>build</code></pre></div><div></div></div></div>
+</li>
+
+<li>root としてログインし、ユーザー <span><span>sah</span></span>に対して <span><span>su</span></span> コマンドを実行した後にログイン UID を表示するには、次のように入力します。<div> <div><div><pre><code>id -lu</code></pre></div><div></div></div>以下のフォーマットで出力されます。<div><div><pre><code>0</code></pre></div><div></div></div></div>
+</li>
+
+<li>実際にログインしたユーザーの 1 次グループ名を表示するには、次のように入力します。<div> <div><div><pre><code>id -lgn</code></pre></div><div></div></div>以下のフォーマットで出力されます。<div><div><pre><code>system</code></pre></div><div></div></div></div>
+</li>
+
+<li>実際にログインしたユーザーの 1 次グループ ID を表示するには、次のように入力します。<div> <div><div><pre><code>id -lg</code></pre></div><div></div></div>以下のフォーマットで出力されます。<div><div><pre><code>0</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/id</strong></td>
+
+<td><strong>id</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

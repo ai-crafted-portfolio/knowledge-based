@@ -1,0 +1,235 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ソース・ファイル内でオブジェクトを探すために使用するタグ・ファイルを作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Cタグ </strong>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139600" target="_blank" rel="noopener noreferrer"><strong>-ウー </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139624" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139544" target="_blank" rel="noopener noreferrer"><strong>-B </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139553" target="_blank" rel="noopener noreferrer"><strong>-F (R) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139535" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139576" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139585" target="_blank" rel="noopener noreferrer"><strong>-</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139594" target="_blank" rel="noopener noreferrer"><strong>T</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139606" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139615" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/ctags.html#ctags__row-d3e139562" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a><em>TagsFile </em>] <em>ファイル</em>. ..</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ctags</strong> コマンドは、指定された C、Pascal、FORTRAN、yacc、lex、および LISP の各ソース・ファイルから、ex エディターおよび vi エディターで使用できるタグ・ファイルを作成します。 タグ・ファイルは、ソース・ファイル内のプログラム言語に特定のオブジェクト (関数および型定義など) のロケーターから構成されます。 ロケーターは、オブジェクト名、オブジェクト名が定義されているファイル、およびオブジェクト定義の検索に使用できる基本正規表現または行番号のいずれかから構成されます。 指定子は、その行の別のフィールドにスペースまたはタブで区切って指定されます。 タグ・ファイルを使用すると、ex および vi はこれらのオブジェクト定義を素早く見つけ出すことができます。</p>
+ <p><strong>ctags</strong> コマンドでは、以下のファイル名接尾部がサポートされています。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>.c</strong></td>
+
+<td>この接尾部の付いたファイルは C 言語のソース・コードとして扱われ、C ルーチンおよびマクロの定義が検索されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.h</strong></td>
+
+<td>この接尾部の付いたファイルは C 言語のソース・コードとして扱われ、C ルーチンおよびマクロの定義が検索されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.f</strong></td>
+
+<td>この接尾部の付いたファイルは FORTRAN 言語のソース・コードとして扱われます。</td>
+
+</tr>
+
+<tr>
+<td><strong>.l</strong></td>
+
+<td>この接尾部の付いたファイルは、スペース以外の最初の文字が <strong>[</strong> (左大括弧)、<strong>(</strong> (左小括弧)、または <strong>;</strong> (セミコロン) の場合に、LISP 言語のソース・ファイルとして扱われます。 それ以外の場合には、lex 言語のソース・コードとして扱われます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>上記以外の接尾部が付いたファイルは、最初に Pascal または FORTRAN のルーチン定義が入っているかどうかが調べられます。 どちらも入っていなければ、C 言語のソース・コードとして再度処理されます。 <strong>のないファイル。</strong> (ドット) 接尾部は、C 言語のソース・コードとして処理されます。</p>
+ <p><strong>main</strong> タグは、C プログラム内では特別な方法で処理されます。 ファイル名に接頭部として <strong>M</strong> を付け、末尾の <strong>.c</strong> (付いている場合) を除去し、ファイル名の前に指定されているパスを除去したものがこのタグとなります。 このため、複数のプログラムが保管されているディレクトリー内で、<strong>ctags</strong> を使用すると便利です。</p>
+ <div><blockquote><span>“</span><strong>注:</strong><ol>
+<li><span></span>キーワードの認識 <strong>関数</strong>、 <strong>サブルーチン</strong>のアドレス指定、および FORTRAN コードと Pascal コードの <strong>プロシージャー</strong> は、ブロック構造体を無視します。 同じ名前の Pascal プロシージャーが 2 つ存在する場合、たとえ別々のブロック内にあっても <strong>ctags</strong> コマンドが不適切な実行結果を生成することがあります。</li>
+
+<li><span></span> <strong>ctags</strong> コマンドは、 <strong>#if</strong> および <strong>#ifdef</strong> ステートメントを認識しません。</li>
+
+<li><span></span> <strong>-B</strong> オプションと <strong>-F</strong> オプションの両方を指定した場合は、最後に指定したオプションが優先されます。</li>
+
+<li><span></span> <strong>-x</strong> オプションは、タグ・ファイルを作成するオプション (<strong>-a</strong>、 <strong>-u</strong>、または <strong>-f</strong>) よりも優先されます。</li>
+
+<li><span></span> <strong>-v</strong> オプションを指定すると、 <strong>-x</strong> オプションが暗黙指定されます。</li>
+
+<li><span></span> <strong>ctags</strong> コマンドの出力は、常にオブジェクト ID でソートされます。</li>
+
+</ol>
+<span>”</span></blockquote>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>タグ・ファイルに追加します。 タグ・ファイルに追加した後、<strong>ctags</strong> はこのファイルをソートします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td><strong>ctags</strong> に逆方向の検索パターン (?. . .?) を使用させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-F</strong></td>
+
+<td><strong>ctags</strong> にフォワード検索パターン (/. を使用させます。 ./)。 これはデフォルトの検索パターンです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> TagsFile</em></td>
+
+<td>デフォルトの <strong>tags</strong> ファイルではなく、 <em>TagsFile</em> によって指定された名前のタグ・ファイルを作成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><strong>ctags</strong> でマクロ定義用のタグを作成しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td><strong>ctags</strong> で、オブジェクト定義の検索に使用される基本正規表現の代わりに型定義用の行番号を生成するようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>型定義用のタグを作成します。 デフォルトでは、準拠する標準に基づき、このフラグがオンになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>タグ内で指定されているファイルを更新します。つまり、指定されたファイルへの参照がすべて削除され、新しい値がファイルに追加されます。 このフラグを指定すると、コマンドの処理が遅くなることがあります。 (通常は、単にタグ・ファイルを再構築する方が処理が速くなります。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>vgrind</strong> コマンドで使用されるフォーマットの索引を標準出力上に生成します。 このリストには、関数名、ファイル名、およびページ番号 (1 ページ 64 行と想定) が
+入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td><strong>ctags</strong> に、診断警告メッセージを抑制させます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td><strong>ctags</strong> コマンドに、オブジェクト名、各オブジェクトが定義されているファイルのファイル名と行番号、およびその行のテキストが記述されているリストを表示させます。 これは簡潔で読みやすい関数の索引を提供します。 このフラグを指定すると、<strong>ctags</strong> コマンドではタグ・ファイルの作成、更新、追加は行われませんが、標準出力への書き出しは実行されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>ctags</strong> コマンドの出力を、C 言語ソース・ファイル <strong>x.c</strong>、 <strong>y.c</strong>、および <strong>z.c</strong>の標準出力に書き込むには、次のように入力します。<div> <div><div><pre><code>ctags -x x.c y.c z.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>現行ディレクトリー内のすべての C 言語ソース・ファイルに対して <strong>foo_tags</strong> という名前のタグ・ファイルを作成するには、次のように入力します。<div> <div><div><pre><code>ctags -f foo_tags *</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>C 言語ソース・ファイル <strong>zip.c</strong>の <strong>foo_tags</strong> タグ・ファイルに、タイプ定義を含むタグを追加するには、次のように入力します。<div> <div><div><pre><code>ctags -utf foo_tags zip.c</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>ユーザ /bin/more/tags</strong></td>
+
+<td>出力タグ・ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

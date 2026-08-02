@@ -1,0 +1,267 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>既にバックアップを取っているファイルシステムを、リモート・マシンのデバイスからローカル・マシンへコピーします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>復元</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176740" target="_blank" rel="noopener noreferrer"><strong>-b (B)</strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176776" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176791" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176938" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176982" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176990" target="_blank" rel="noopener noreferrer"><strong>T </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e177005" target="_blank" rel="noopener noreferrer"><strong>-v (V) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e177022" target="_blank" rel="noopener noreferrer"><strong>-y (Y) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e177011" target="_blank" rel="noopener noreferrer"><strong>-x (X) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176944" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176967" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176754" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a><em>マシン</em><strong>:</strong><em>装置</em> [ <em>FileSystem ... </em>] [ <em>ファイル </em>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rrestore</strong> コマンドは、i ノードのバックアップを使用して、リモート・マシンのデバイスからローカル・マシン上のファイルシステムへバージョン 3 を復元します。 <strong>rrestore</strong> コマンドは、リモート・マシン上にサーバーを作成し、これをバックアップ・メディアとして使用します。</p>
+ <p><strong>rrestore</strong> コマンドは、ファイルシステムのバックアップが i ノードにより作成された場合に、作成されたバックアップ・フォーマットだけを受け入れます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span></span>このコマンドを実行するには、ユーザーに root 権限が必要です。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-b</strong><em>数値</em></td>
+
+<td>1 回の入力操作で読み取るブロック数を指定します。 このフラグを指定しない場合、<strong>rrestore</strong> コマンドにより、選択した物理デバイスに適切なデフォルト値が選択されます。 <em>Number</em> 変数の値が大きいほど、テープ・デバイスからの物理転送量が多くなります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em>マシン</em><strong>:</strong><em>デバイス</em></td>
+
+<td>リモート・マシンの入力デバイスを指定します。 特定のデバイスから入力するには、<em>Device</em> 変数にファイル名 (<strong>/dev/rmt0</strong> ファイルなど) を指定してください。 テープ・デバイスの使用について詳しくは、<strong>rmt</strong> スペシャル・ファイルを参照してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td><em>File</em> パラメーターで指定されたディレクトリーに入っているファイルではなく実ディレクトリーだけを復元します。 このオプションは、<strong>-r</strong> フラグまたは <strong>-R</strong> フラグが指定されている場合は無視されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>対話モードを開始します。 このフラグを使用すれば、<em> File</em> パラメーターで表されたディレクトリーから選択したファイルだけを復元することができます。 <strong>-i</strong> フラグ用のサブコマンドは、下記のとおりです。<dl>
+<dt><strong>ls</strong> [<em>ディレクトリー</em>]</dt>
+
+<dd><em>Directory</em> パラメーターに指定されたディレクトリー名の後に
+/ (スラッシュ) が付けられた場合には、そのディレクトリー内のディレクトリー名を表示し、
+ディレクトリー名の前に * (アスタリスク) を付けて復元するファイルを表示します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e177005" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a> フラグを使用すると、各ファイルおよびディレクトリーの i ノード番号も表示されます。 <em>Directory1</em> パラメーターを指定しないと、現行ディレクトリーが使用されます。</dd>
+
+
+<dt><strong>cd</strong><em> ディレクトリー</em></dt>
+
+<dd>現行ディレクトリーを <em>Directory</em> パラメーターに変更します。</dd>
+
+
+<dt><strong>pwd</strong></dt>
+
+<dd>現行ディレクトリーの絶対パス名を表示します。</dd>
+
+
+<dt><strong>add</strong> [<em>ファイル</em>]</dt>
+
+<dd>復元する <em>File</em> パラメーターを指定します。 <em>File</em> パラメーターがディレクトリーの場合は、そのディレクトリーとそのすべてのファイルが復元されます ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176776" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> フラグが使用されていない場合)。 復元されるファイルは、
+<strong>ls</strong> サブコマンドにより名前の前に * (アスタリスク) を付けて表示されます。 <em>File</em> パラメーターを指定しないと、現行ディレクトリーが使用されます。</dd>
+
+
+<dt><strong>delete</strong> [<em>ファイル</em>]</dt>
+
+<dd>復元時に無視すべき <em>File</em> パラメーターを指定します。 <em>File</em> パラメーターがディレクトリーの場合、ディレクトリーとそのすべてのファイルは復元されません ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176776" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> フラグが使用されていない場合)。 <em>File</em> パラメーターを指定しないと、現行ディレクトリーが使用されます。</dd>
+
+
+<dt><strong>extract</strong></dt>
+
+<dd><strong>ls</strong> サブコマンドを使用して、名前の前に * (アスタリスク) が付けられた場合に表示されるファイルをすべて復元します。</dd>
+
+
+<dt><strong>setmodes</strong></dt>
+
+<dd>バックアップ・メディアに入っている復元ファイルのオーナー、モード、回数の情報を使用せずに、これらを設定します。</dd>
+
+
+<dt><strong>verbose</strong></dt>
+
+<dd><strong>ls</strong> サブコマンドで復元されるファイルすべての i ノード番号を表示します。 ファイルが復元されると、各ファイルの情報も表示されます。 <strong>verbose</strong> サブコマンドを再度呼び出すと、<strong>verbose</strong> がオフになります。</dd>
+
+
+<dt><strong>help</strong></dt>
+
+<dd>サブコマンドの要約を表示します。</dd>
+
+
+<dt><strong>quit</strong></dt>
+
+<dd>要求されたファイルがすべて復元されていなくても、<strong>rrestore</strong> コマンドの実行を即座に終了します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>パス名ではなく、i ノード番号を使用してファイルを復元します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ファイルシステム全体を復元します。<div><div>
+        <div>
+          <div><span>重要:</span> よく注意してこの手順に従わないと、ファイルシステム全体を破壊してしまうことがあります。 (レベル 0) のフル・バックアップを復元する場合には、<strong>mkfs</strong> コマンドを実行して、復元を行う前に空のファイルシステムを作成してください。 例えば、レベル 2 の増分バックアップを復元するには、<strong>mkfs</strong> コマンドを実行して、該当のレベル 0 のバックアップを復元し、次にレベル 1 のバックアップを復元し、最後にレベル 2 のバックアップを復元してください。 安全に対する予防措置として、それぞれのバックアップ・レベルを復元したら、<strong>fsck</strong> コマンドを実行してください。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td><strong>rrestore</strong> コマンドでファイルシステム全体を復元する際に、バックアップ・メディアの複数のボリューム・セットの中から特定のボリュームを要求します。 <strong>-R</strong> フラグを使用すると、<strong>rrestore</strong> コマンドを中断、再開することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em>数値</em></td>
+
+<td>複数のバックアップ・メディアから復元するバックアップを指定します。 番号は 1 から始まります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>バックアップを作成したファイルの目次を表示します。 <strong>rrestore</strong> コマンドは、ファイル名を表示します。 この名前は、バックアップが作成されたファイルシステムのルート (<strong> /</strong>) ディレクトリーに対する相対名です。 ただし、ルート (<strong>/</strong>) ディレクトリーのみは例外です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>復元が進行するにつれて、その進行状況を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>個々に指定されたファイルを復元します。 名前が指定されていない場合には、そのメディア上の全ファイルが復元されます。 名前は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176990" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> フラグによって示される名前と同じ形式でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td><strong>rrestore</strong> コマンドの実行時にテープのエラーが発生しても、復元を中止するかどうかを尋ねないように指定します。 <strong>rrestore</strong> コマンドは、可能な限り不良ブロックをスキップしようとします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-?</strong></td>
+
+<td>使用法のメッセージを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>リモート磁気テープ装置からファイルをリストするには、次のように入力します。<div>rrestore  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176754" target="_blank" rel="noopener noreferrer">-f</a>machine1:/dev/rmt0  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176990" target="_blank" rel="noopener noreferrer">-t</a> </div>このコマンドは、以下のものから情報を読み取ります。/dev/rmt0リモート上の装置machine1. ファイル名が表示されます。</li>
+
+<li><span></span>ファイルをリストアするには、次のように入力します。<div>rrestore  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e177011" target="_blank" rel="noopener noreferrer">-x </a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rrestore.html#rrestore__row-d3e176754" target="_blank" rel="noopener noreferrer">-f</a>machine1:/dev/rmt0 /home/mike/file1 </div>このコマンドは、/home/mike/file1上のバックアップ・メディアからのファイル/dev/rmt0 リモート上の装置 machine1.</li>
+
+<li><span></span>ディレクトリー内のすべてのファイルを復元するには、次のように入力します。<div> <div><div><pre><code>rrestore -fhost:/dev/rmt0 -x /home/mike</code></pre></div><div></div></div>このコマンドは、ディレクトリーを復元します。/home/mikeおよびそれに含まれるすべてのファイル。</div>
+</li>
+
+<li><span></span>ディレクトリー内のファイルではなくディレクトリーを復元するには、次のように入力します。<div> <div><div><pre><code>rrestore -fhost:/dev/rmt0 -x -h /home/mike</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>マルチバックアップ・メディア上の特定のバックアップからディレクトリー内のすべてのファイルをリストアするには、次のように入力します。<div> <div><div><pre><code>rrestore -s3 -fhost:/dev/rmt0.1 -x /home/mike</code></pre></div><div></div></div>このコマンドは、/home/mikeバックアップ・メディア上の 3 番目のバックアップからのディレクトリーとそれに含まれるすべてのファイル。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/dev/rfd0</strong></td>
+
+<td>デフォルトの復元デバイスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/rrestore</strong></td>
+
+<td><strong>rrestore</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

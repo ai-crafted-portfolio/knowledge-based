@@ -1,0 +1,137 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>仮想プリンターの属性のフォーマットと編集の方法を提供します。</p>
+</section>
+
+<section><h2>構文</h2> <div>
+<div><div><pre><code>pioattred -q PrintQueueName -d QueueDeviceName [ -o Action] [ -a Attribute]</code></pre></div><div></div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><span>pioattred</span> コマンドは、仮想プリンターの属性をフォーマットし、属性を編集する方法を提供します。 具体的には、プリンター定義ファイル内の属性は、 <code>and/or</code> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/p_commands/pioattred.html#pioattred__row-d3e81642" target="_blank" rel="noopener noreferrer"><span>-o</span></a> フラグで指定されたアクションに従って編集することができます。 フォーマットされた属性は、標準出力 <code>stdout</code> に書き込まれます。 属性は、 VISUAL 環境変数で指定されたエディターで編集されます。 仮想プリンターの定義ファイルは、<span>/var/spool/lpd/pio/@local/custom/*</span> ディレクトリーにあるものと想定されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span> 
+Attribute</td>
+
+<td>仮想プリンターの定義ファイルの属性名を指定して、フォーマットまたは編集を行います。 このフラグは、何度も指定できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span> QueueDeviceName</td>
+
+<td>仮想プリンター定義の QueueDeviceName スプーラーを指定して、フォーマットまたは編集を行います。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span> アクション</td>
+
+<td><span>pioattred</span> コマンドが仮想プリンター定義に対して実行する必要があるアクションを指定します。 このフラグを省略した場合、<span>pioattred</span> コマンドは 0 (ゼロ) の値を想定します。<dl>
+
+<dt>0</dt>
+
+<dd>指定された属性をフォーマットします。 その結果は <code>stdout</code> に行きます。</dd>
+
+
+
+<dt>1</dt>
+
+<dd>指定された 1 つ以上の属性をフォーマットして編集します。 VISUAL 環境変数で指定されたエディターを使用します。 VISUAL 環境変数にエディターが指定されていない場合、vi エディターを使用します。 属性を編集中にエラーが起きた場合には、そのエラーのある属性を一時ファイルに保管し、エラーを示す戻りコードを戻します。</dd>
+
+
+</dl>
+
+<p>以下の値は、属性の編集後にエラー戻りコードが戻された場合に使用されます。</p>
+
+<dl>
+
+<dt>2</dt>
+
+<dd>属性を再編集します。 仮想プリンター定義は、エラーが発生したときに残されていた状態です。</dd>
+
+
+
+<dt>3</dt>
+
+<dd>エラーを無視し、編集した属性を仮想プリンターの定義に保管します。</dd>
+
+
+
+<dt>4</dt>
+
+<dd>クリーンアップして、<span>pioattred</span> コマンドの開始前の状態にしておきます。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span> PrintQueueName</td>
+
+<td>仮想プリンター定義の PrintQueueName スプーラーを指定して、フォーマットまたは編集を行います。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>queue: quedev 仮想プリンター定義内の <code>ci</code> 属性および <code>sh</code> 属性をフォーマットするには、次のように入力します。<div>
+<div><div><pre><code>pioattred -q queue -d quedev -o 0 -a ci -a sh</code></pre></div><div></div></div>または<div><div><pre><code>pioattred -q queue -d quedev -a ci -a sh</code></pre></div><div></div></div></div>
+</li>
+
+<li>queue: quedev 仮想プリンター定義内のすべての属性をフォーマットするには、次のように入力します。<div>
+<div><div><pre><code>pioattred -q queue -d quedev -o 0</code></pre></div><div></div></div>または<div><div><pre><code>pioattred -q queue -d quedev</code></pre></div><div></div></div></div>
+</li>
+
+<li>queue: quedev 仮想プリンター定義の <code>st</code> 属性を編集するには、次のように入力します。<div>
+<div><div><pre><code>pioattred -q queue -d quedev -o 1 -a st</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/pioattred</span></td>
+
+<td><span>pioattred</span> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

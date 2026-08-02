@@ -1,0 +1,117 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>グループ・サービス・ネーム・サーバーの情報を取得します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>hagsns</span></span> [<span><span>-h</span></span> <span><span>ホスト</span></span>] [<span><span>-c</span></span>] <span><span>-g</span></span> <span><span>group_name</span></span></p>
+ <p><span><span>hagsns</span></span> [<span><span>-h</span></span> <span><span>ホスト</span></span>] <span>[<span><span>-c</span></span>] </span><span><span>-s</span></span> <span><span>subsystem_name</span></span></p>
+ <p><span><span>hagsns</span></span> [<span><span>-h</span></span> <span><span>ホスト</span></span>] <span>[<span><span>-c</span></span>] </span><span><span>-p</span></span> <span><span>subsystem_pid</span></span></p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>hagsns</span></span> コマンドを使用して、グループ・サービス・ネーム・サーバーの状況を照会します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-c</dt>
+
+<dd>出力を「English_only」に強制します。 <span><span>-c</span></span> フラグが指定されていない場合は、デーモンのロケールが出力に使用されます。</dd>
+
+
+<dt>-<span><span>グループ名</span></span></dt>
+
+<dd>状況を入手するサブシステムのグループを指定します。 サブシステム・オブジェクト・クラスに <span><span>group_name</span></span> 変数が入っていなければ、このコマンドは失敗します。</dd>
+
+
+<dt>-<span><span>ホスト</span></span></dt>
+
+<dd>ネームサーバーのステータスを取得するホストを指定します。</dd>
+
+
+<dt>--p <span><span>subsystem_pid</span></span></dt>
+
+<dd>ネームサーバーのステータスを取得する <span><span>subsystem_pid</span></span> の特定のインスタンスを指定します。</dd>
+
+
+<dt>-<span><span>サブシステム名</span></span></dt>
+
+<dd>状況を入手するサブシステムを指定します。 <span><span>subsystem_name</span></span> 変数には
+実際のサブシステム名か、サブシステムの同義名を指定します。 サブシステム・オブジェクト・クラスに <span><span>subsystem_name</span></span> 変数が入っていなければ、このコマンドは失敗します。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>デーモン名</span></span></dt>
+
+<dd>デーモンがログ・ファイルに名前を付け、<span>AIX</span>エラー・ログでメッセージを識別するために使用する名前を指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、 <span><span>root</span></span> 権限が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常終了したことを示します。</dd>
+
+
+<dt><span><span>ゼロ以外の値</span></span></dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは PSSP 環境のみで有効です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>このコマンドは、必要な場合はエラー・メッセージを標準エラーに書き込みます。</p>
+</section>
+
+<section><h2>例</h2> <div>グループ・サービス・サブシステムからドメイン情報を取得するには、次のように入力します。<div><div><pre><code>hagsns -c -s cthags</code></pre></div><div></div></div>または<div><div><pre><code>hagsns -s cthags</code></pre></div><div></div></div></div>
+ <div>出力は次のようになります。<div><div><pre><code>HA GS NameServer Status
+NodeID=1.16, pid=14460, domainID=6.14, NS established,CodeLevel=GSLevel(DRL=8)
+NS state=kCertain, protocolInProgress=kNoProtocol,outstandingBroadcast=KNoBcast
+Process started on Jun 19 18:34:20, (10d 20:19:22) ago, HB connection took (19:14:9).
+Initial NS certainty on Jun 20 13:48:45, (10d 1:4:57) ago, taking (0:0:15).
+Our current epoch of Jun 23 13:05:19 started on (7d 1:48:23), ago.
+Number of UP nodes: 12
+List of UP nodes: 0 1 5 6 7 8 9 11 17 19 23 26</code></pre></div><div></div></div></div>
+ <p>この例で、 <span><span>domainID=6.14</span></span> は、ノード 6 がネーム・サーバー (NS) ノードであることを意味します。 ドメイン ID はノード番号と具体化番号から成ります。 具体化番号は整数で、グループ・サービス・デーモンが始動するたびに値 1 が加算されます。 <span><span>NS established</span></span> は、ネーム・サーバーが確立されたことを意味します。</p>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/hagsns</dt>
+
+<dd><span><span>hagsns</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt><span><span>/var/ha/log/hags_</span></span><span><span>nodenum</span></span>_<span><span>instnum</span></span>。<span><span> 「syspar_name」</span></span></dt>
+
+<dd>ノード上の <span><span>hagsd</span></span> デーモンのログが入っています。</dd>
+
+
+<dt><span><span>/var/ha/log/hags.</span></span><span><span>syspar_name</span></span>_<span><span>nodenum</span></span>_<span><span>instnum</span></span>。<span><span>syspar_name</span></span></dt>
+
+<dd>コントロール・ワークステーション上の各 <span><span>hagsd</span></span> デーモンのログが入っています。</dd>
+
+</dl>
+ <div>ファイル名には次の変数が含まれています。<ul>
+<li><span><span>nodenum</span></span> は、デーモンが稼働しているノードのノード番号です。</li>
+
+<li><span><span>instnum</span></span> は、デーモンのインスタンス番号です。</li>
+
+<li><span><span>syspar_name</span></span> は、デーモンが稼働しているシステム区画の名前です。</li>
+
+</ul>
+</div>
+</section>
+
+</div></div>

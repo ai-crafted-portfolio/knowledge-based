@@ -1,0 +1,72 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>UUID (汎用固有 ID) を生成します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<div>
+<div><div><pre><code>uuid_get [ -n count ] [ -o outfile ] [ -c ]</code></pre></div><div></div></div>
+</div>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><span>uuid_get</span> コマンドは UUID を生成します。 <span>uuid_get</span> コマンドはデフォルトで、UUID を 16 進ストリング表記で生成します。 <span>uuid_get</span> コマンドを <span>-c</span> オプションと一緒に使用すると、UUID をソース・コード表記で生成できます。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+<div>
+<dl>
+
+<dt>-n count</dt>
+
+<dd>count パラメーターに指定された数の UUID を生成します。 <span>count</span> パラメーターの値は、ゼロより大きくなければなりません。</dd>
+
+
+
+<dt>-o outfile</dt>
+
+<dd>生成された UUID を、<span>outfile</span> パラメーターで指定された出力ファイルにリダイレクトします。</dd>
+
+
+
+<dt>-c</dt>
+
+<dd>UUID を C プログラミング・ソース・コード表記で生成します。</dd>
+
+
+</dl>
+
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>UUID を 16 進ストリング表記で生成するには、次のコマンドを実行します。<div><div><pre><code>#uuid_get</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>6ae84954-9ef6-11e6-8003-3a0ea8d2f402</code></pre></div><div></div></div></li>
+
+<li>UUID を C プログラミング・ソース・コード表記で生成するには、次のコマンドを実行します。<div><div><pre><code>#uuid_get -c</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>{ 0xd966286a,
+  0x9ef6,
+  0x11e6,
+  0x8004,
+  {0x3a, 0x0e, 0xa8, 0xd2, 0xf4, 0x02} };
+</code></pre></div><div></div></div></li>
+
+<li>1 つのコマンドを使用して 5 つの UUID を生成するには、次のコマンドを実行します。<div><div><pre><code># ./uuid_gen -n 5</code></pre></div><div></div></div>次の例に示すような出力が表示されます。<div><div><pre><code>ba4dae20-f6d7-11e5-8007-3a0ea8d2f402
+ba4daf56-f6d7-11e5-8007-3a0ea8d2f402
+ba4dafe2-f6d7-11e5-8007-3a0ea8d2f402
+ba4db06e-f6d7-11e5-8007-3a0ea8d2f402
+ba4db0fa-f6d7-11e5-8007-3a0ea8d2f402</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+</div></div>

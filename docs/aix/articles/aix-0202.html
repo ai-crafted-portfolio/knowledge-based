@@ -1,0 +1,162 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルまたはディレクトリーのグループ所有権を変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Chgrp</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85548" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85554" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85599" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>]<em> グループ</em> { <em>ファイル ... </em>| <em>ディレクトリー </em>... }</p>
+ <p><strong>Chgrp</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85599" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85548" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85560" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85572" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chgrp.html#chgrp__row-d3e85584" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] <em>グループ</em> { <em>ファイル</em>... | <em>ディレクトリー</em>... }</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chgrp</strong> コマンドは、<em> File</em> または <span><span>
+Directory</span></span> パラメーターによって指定されたファイルまたはディレクトリーのグループを、<em>
+Group</em> パラメーターによって指定されたグループに変更します。 <em>Group</em> パラメーターの値は、グループ・データベースからのグループ名または数字のグループ ID にすることができます。 シンボリック・リンクが検出されたとき、<strong>-h</strong> フラグまたは <strong>-P</strong> フラグを指定していないと、<strong>chgrp</strong> コマンドは、そのリンク自体のグループ所有権ではなく、リンクが指すファイルまたはディレクトリーのグループ所有権を変更します。</p>
+ <p><strong>-H</strong>、<strong>-L</strong>
+および <strong>-P</strong> フラグは互いに排他的ですが、複数指定してもエラーとはみなされません。 コマンドが表示する動作は、最後に指定したフラグで決定されます。</p>
+ <p><strong>-h</strong> フラグを指定した場合は、<strong>chgrp</strong> コマンド
+では逆効果を生じ、リンク自体のグループ所有権を変更しますが、リンクが指している
+ファイルやディレクトリーのグループ所有権は変更しません。</p>
+ <p><strong>-h</strong> フラグと <strong>-R</strong> フラグの両方を指定すると、<strong>chgrp</strong> コマンドは、指定したディレクトリーを再帰的に下降し、シンボリック・リンクが検出されると、そのリンクが指すファイルまたはディレクトリーのグループ所有権ではなく、リンク自体のグループ所有権が変更されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>使用法メッセージを除き、すべてのエラー・メッセージが表示されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>検出されたシンボリック・リンクが指すファイルまたはディレクトリーのグループ所有権ではなく、そのシンボリック・リンクのグループ所有権を変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td><strong>-R</strong> オプションを指定し、タイプ・ディレクトリーのファイルを参照しているシンボリック・リンクをコマンド・ラインで指定すると、<strong>chgrp</strong>
+コマンドはシンボリック・リンクが参照しているディレクトリーのグループおよびその下のファイル階層にあるすべてのファイルを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td><strong>-R</strong>
+オプションを指定し、タイプ・ディレクトリーのファイルを参照しているシンボリック・リンクをコマンド・ラインで指定、またはファイル階層の横断中に検出すると、<strong>chgrp</strong>
+コマンドはシンボリック・リンクが参照しているディレクトリーのグループおよびその下のファイル階層にあるすべてのファイルを変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><strong>-R</strong>
+オプションを指定し、シンボリック・リンクをコマンド・ラインで指定、またはファイル階層の横断中に検出した場合、システムがこの操作をサポートしていれば、<strong>chgrp</strong>
+コマンドは、シンボリック・リンクのグループ ID
+を変更します。 <strong>chgrp</strong>
+ユーティリティーは、ファイル階層のその他のいかなる部分へのシンボリック・リンクにも従いません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>ディレクトリーを再帰的に下降し、指定したグループ ID をそれぞれのファイルごとに設定します。 シンボリック・リンクが検出され、そのリンクがディレクトリーを指す場合、そのディレクトリーのグループ所有権は変更されるが、ディレクトリーはそれ以上横断されません。 <strong>-h</strong>、<strong>-H</strong>、<strong>-L</strong> または <strong>-P</strong>
+フラグも指定されていない場合に、シンボリック・リンクが検出され、そのリンクがあるディレクトリーを指す場合、そのディレクトリーのグループ所有権は変更されるが、ディレクトリーはそれ以上横断されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルまたはディレクトリーのグループ所有権を変更するには、以下のようにします。proposals へ staff:<div> <div><div><pre><code>chgrp staff proposals</code></pre></div><div></div></div>グループ・アクセス許可proposals以下に適用されます。staff証明書。</div>
+</li>
+
+<li><span></span>ディレクトリーのグループ所有権を変更するには、以下のようにします。proposals, その下にあるすべてのファイルとサブディレクトリーの staff:<div> <div><div><pre><code>chgrp -R staff proposals</code></pre></div><div></div></div>グループ・アクセス許可proposalsその下にあるすべてのファイルおよびサブディレクトリーに適用されます。staff証明書。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chgrp</strong></td>
+
+<td><strong>chgrp</strong> コマンド</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>すべての既知グループを識別するファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,150 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンドをインストールします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/bin/install</strong> [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12377" target="_blank" rel="noopener noreferrer"><strong>C</strong></a> <em>DirectoryA</em>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12407" target="_blank" rel="noopener noreferrer"><strong>F</strong></a> <em>DirectoryB</em>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12451" target="_blank" rel="noopener noreferrer"><strong>I</strong></a>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12463" target="_blank" rel="noopener noreferrer"><strong>分</strong></a>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12484" target="_blank" rel="noopener noreferrer"><strong>分</strong></a> <em>モード</em>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12539" target="_blank" rel="noopener noreferrer"><strong>オー</strong></a> <em>所有者</em>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12440" target="_blank" rel="noopener noreferrer"><strong>G </strong></a><em>グループ</em>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12556" target="_blank" rel="noopener noreferrer"><strong>S</strong></a>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12492" target="_blank" rel="noopener noreferrer"><strong>N </strong></a><em>DirectoryC</em>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12522" target="_blank" rel="noopener noreferrer"><strong>O</strong></a>] [<strong>-</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12550" target="_blank" rel="noopener noreferrer"><strong>S</strong></a>] <em>ファイル</em> [<em>ディレクトリー。</em>.. ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>install</strong> コマンドは、指定したファイルをファイルシステム内の特定の場所にインストールします。 このコマンドは、makefile 内で最も多く使用されます。 <strong>install</strong> コマンドは、ファイルを置き換えるときに、各ファイルを該当するディレクトリーにコピー (または移動) します。
+これにより、<strong>cp</strong> コマンドおよび <strong>mv</strong> コマンドの動作に基づいて、元のオーナーおよび許可を保存します。 また、宛先をオーナーの <strong>bin</strong> およびグループの <strong>bin</strong> に変更しようとします。 <strong>-O</strong><em> Owner</em> フラグおよび <strong>-G</strong><em> Group</em> フラグを使用すると、別のオーナーまたはグループを指定できます。 <strong>install</strong> コマンドは、置換または作成されるファイルと、そのファイルの宛先を示すメッセージを正確に出力します。</p>
+ <p><strong>-O</strong> または <strong>-G</strong> フラグを使用して、インストールされたファイルの所有権を指定する場合には、スーパーユーザーである必要があります。</p>
+ <p><em>Directory</em> パラメーターを指定しないと、<strong>install</strong> コマンドは一連のデフォルトのディレクトリー内で (<strong>/usr/bin</strong>、<strong>/etc</strong>、
+および <strong>/usr/lib</strong> の順に) <em>File</em> パラメーターと同じ名前のファイルを検索します。 このコマンドは、一致するファイルを初めて検出すると、これを <em>File</em> パラメーターによって上書きし、実行内容を表示するメッセージを出します。 一致するファイルが検出されなかった場合は、<strong>install</strong> コマンドはそのことを知らせるメッセージを表示し、それ以上は何も実行しません。 <em>File</em> パラメーターが現行ディレクトリーに存在しない場合は、<strong>install</strong> コマンドはエラー・メッセージを表示し、ゼロ以外の値を戻して終了します。</p>
+ <p>ディレクトリーをコマンド・ラインで指定すると、<strong>install</strong> コマンドは、デフォルトのディレクトリーを検索する前に指定されたディレクトリーを検索します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-c</strong><em> DirectoryA</em></td>
+
+<td>新しいコマンド・ファイルが <em>DirectoryA</em> という変数に存在しない場合に限り、そのコマンド・ファイルをその場所にインストールします。 その場所に既に <em>File</em> のコピーがある場合は、メッセージを発行し、ファイルを上書きしないで終了します。 このフラグは、単独で使用することも、
+<strong>-s</strong>、<strong>-M</strong>、<strong> -O</strong>、<strong>-G</strong>、<strong>-S</strong> の各フラグと共に使用することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> DirectoryB</em></td>
+
+<td><em>File</em> が既に存在しているかどうかにかかわらず、<em>File</em> を <em>DirectoryB</em> に強制的にインストールします。 インストールするファイルがまだ存在しない場合は、このコマンドは新しいファイルの許可コードとオーナーをそれぞれ <strong>755</strong> と <strong>bin</strong> に設定します。 このフラグは、単独で使用することも、<strong>-o</strong>、<strong>-s、-M、-O、-G、</strong> または <strong>-S</strong> の各フラグと共に使用することもできます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong><em> グループ</em></td>
+
+<td>宛先ファイルに対して異なるグループを指定します。 デフォルト・グループは <strong>bin</strong>です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>デフォルトのディレクトリーのリストを無視し、コマンド・ラインに指定されたディレクトリーだけを検索します。 このフラグを <strong>-c、-f</strong>、<strong>-m</strong> の各フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td><em>File</em> パラメーターをコピーしないでディレクトリーに移動します。 このフラグを <strong>-c</strong>、<strong>-f</strong>、<strong>-i</strong>、<strong>-n</strong> の各フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> モード</em></td>
+
+<td>宛先ファイルのモードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> DirectoryC</em></td>
+
+<td>検索済みディレクトリー内に <em>File</em> パラメーターがない場合、<em>DirectoryC</em> 変数にそのパラメーターをインストールし、
+ファイルの許可およびオーナーをそれぞれ <strong>755</strong> および <strong>bin</strong> に設定します。 このフラグを <strong>-c</strong>、<strong>-f</strong>、<strong>-m</strong> の各フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong> -o</strong></td>
+
+<td><em>File</em> パラメーターの古いコピーを同じディレクトリー内の <strong>OLD</strong><em>File</em> というファイルにコピーすることにより保管します。 このフラグは、<strong>-c</strong> フラグと一緒には使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O (O)</strong><em> 所有者</em></td>
+
+<td>宛先ファイルに対して異なるオーナーを指定します。 デフォルトのオーナーは <strong>bin</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>エラー・メッセージ以外は何も表示しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong></td>
+
+<td>インストール後にバイナリー・ファイルを削除します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>デフォルト・ディレクトリーの 1 つに既に存在するコマンドを置き換えるには、次のように入力します。<div> <div><div><pre><code>install fixit</code></pre></div><div></div></div>これにより、<strong>/usr/bin</strong>、<strong>/etc</strong>、<strong>/usr/lib</strong> のいずれかのディレクトリーに <strong>fixit</strong> ファイルが検出されると、
+このファイルは置き換えられます。 検出されない場合は、<strong>fixit</strong> ファイルはインストールされません。 例えば、<strong>/usr/bin/fixit</strong> というファイルが存在する場合は、このファイルは現行ディレクトリーにある <strong>fixit</strong> ファイルに置き換えられます。</div>
+</li>
+
+<li><span></span>指定されたディレクトリーまたはデフォルト・ディレクトリーに既に存在するコマンドを置き換え、古いバージョンを保持するには、次のように入力します。<div>install  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12522" target="_blank" rel="noopener noreferrer">-o</a> fixit /etc /usr/games</div>これにより、<strong>fixit</strong> ファイルが <strong>/etc</strong> ディレクトリーまたは <strong>/usr/games</strong> ディレクトリー、
+あるいはデフォルトのディレクトリーのいずれかで検出された場合は、このファイルは置き換えられます。 検出されない場合は、<strong>fixit</strong> ファイルはインストールされません。 このファイルが置き換えられると、古くなったバージョンはファイル名が <strong>OLDfixit</strong> に変更されて、検出元のディレクトリーに保存されます。</li>
+
+<li><span></span>指定されたディレクトリーに既に存在するコマンドを置き換えるには、次のように入力します。<div>install  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12451" target="_blank" rel="noopener noreferrer">-i</a> fixit /home/jim/bin /home/joan/bin /usr/games</div>このコマンドにより、<strong>fixit</strong> ファイルが <strong>/home/jim/bin</strong>、<strong>/home/joan/bin</strong>、
+<strong>/usr/games</strong> のいずれかのディレクトリーで検出された場合は、このファイルが置き換えられます。 検出されない場合は、ファイルはインストールされません。</li>
+
+<li><span></span>デフォルト・ディレクトリーで見つかったコマンドを置き換えるか、または指定されたディレクトリーが見つからない場合にそのディレクトリーにインストールするには、次のように入力します。<div>install  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12492" target="_blank" rel="noopener noreferrer">-n</a> /usr/bin fixit</div>このコマンドにより、<strong>fixit</strong> ファイルがデフォルトのディレクトリーのいずれかで検出された場合、このファイルは置き換えられます。 検出されない場合、このファイルは  <strong>/usr/bin/fixit</strong> としてインストールされます。</li>
+
+<li><span></span>新規コマンドをインストールするには、次のように入力します。<div>install  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12377" target="_blank" rel="noopener noreferrer">-c</a> /usr/bin fixit</div>これにより、<strong>fixit</strong> ファイルのコピーが <strong>/usr/bin/fixit</strong> としてインストールされ、新しいコマンドが作成されます。
+ただし、このファイルがまだ存在していない場合に限られます。</li>
+
+<li><span></span>コマンドが既に存在しているかどうかに関係なく、指定されたディレクトリーにコマンドをインストールするには、次のように入力します。<div>install  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12407" target="_blank" rel="noopener noreferrer">-f</a> /usr/bin  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12522" target="_blank" rel="noopener noreferrer">-o</a>  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/install.html#install__row-d3e12550" target="_blank" rel="noopener noreferrer">-s</a> fixit</div><strong>fixit</strong> ファイルは、それが既に存在するかどうかにかかわらず、<strong>/usr/bin/fixit</strong> として強制的にインストールされます。 古いバージョンは、それが存在する場合は、<strong>/usr/bin/OLDfixit</strong> (<strong>-o</strong> フラグの実行結果) に移動することにより保存されます。 新しいコマンドのインストール先を通知するメッセージは、表示されません (<strong>-s</strong> フラグの実行結果)。</li>
+
+</ol>
+</section>
+
+<section><h2>互換性</h2> <p>Berkeley Software Distribution (BSD) との互換性を保つために、2 つの <strong>install</strong> コマンドが用意されています。 <strong>installbsd</strong> コマンドを参照してください。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/install</strong></td>
+
+<td><strong>install</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

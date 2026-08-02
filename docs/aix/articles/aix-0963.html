@@ -1,0 +1,201 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>ホスト上で TCP/IP を始動するために必要な値を設定します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mktcpip</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161641" target="_blank" rel="noopener noreferrer"><strong>-S (S) </strong></a><em>インターフェース</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161582" target="_blank" rel="noopener noreferrer">-h</a><em> ホスト名</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161528" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a><em> 住所</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161600" target="_blank" rel="noopener noreferrer"><strong>I</strong></a><em> インターフェース</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161650" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161611" target="_blank" rel="noopener noreferrer"><strong>-m (M)</strong></a><em> サブネット・マスク</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161630" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>リングスピード</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161657" target="_blank" rel="noopener noreferrer"><strong>T </strong></a><em>ケーブル・タイプ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161571" target="_blank" rel="noopener noreferrer"><strong>- </strong></a><em>デフォルト・ゲートウェイ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161619" target="_blank" rel="noopener noreferrer"><strong>N</strong></a><em> 名前サーバー・アドレス</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161560" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em> ドメイン</em> ] ] [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161539" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><em> サブチャネル</em> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mktcpip.html#mktcpip__row-d3e161549" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em> 目的地</em> ] }</p>
+</section>
+
+<section><h2>説明</h2> <div><strong>mktcpip</strong> コマンドは、ホスト・マシン上で TCP/IP を使うための必要最小値を設定します。 この値は、構成データベースに書かれます。<div><div>
+        <div>
+          <div><span>注:</span> <strong>mktcpip</strong> コマンドは現在、 IPv4 のみをサポートしています。</div>
+        </div>
+      </div></div><strong>mktcpip</strong> コマンドの基本的な機能は次のとおりです。</div>
+ <ul>
+<li><span></span>構成データベースと実行中のマシンの両方でホスト名を設定します。</li>
+
+<li><span></span>構成データベース内のインターフェースの IP アドレスの設定。</li>
+
+<li><span></span> <strong>/etc/hosts</strong> ファイルにホスト名と IP アドレスのエントリーを作成します。</li>
+
+<li><span></span>ネーム・サーバーのドメイン・ネームと IP アドレスの設定 (該当する場合)。</li>
+
+<li><span></span>サブネットワーク・マスクの設定 (該当する場合)。</li>
+
+<li><span></span>該当する場合は、構成データベースと実行中のマシンの両方に静的経路を追加します。</li>
+
+<li><span></span>指定された TCP/IP デーモンを開始しています。</li>
+
+</ul>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit mktcpip</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> アドレス</em></td>
+
+<td>ホストの IP アドレスを設定します。 ドット 10 進表記でアドレスを指定します。 ホスト上の各ネットワーク・インターフェースは、それぞれ固有の IP アドレスが必要です。 IP アドレスを設定する標準形式は、次のとおりです。<div> <div><div><pre><code>127.10.31.2</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> サブチャネル</em></td>
+
+<td><span>System/370</span> チャネル・アダプターのサブチャネル・アドレスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong><em> 宛先</em></td>
+
+<td>静的経路用の宛先アドレスを設定します。 ドット 10 進表記でアドレスを指定します。 静的経路用の宛先アドレスを設定する標準形式は、次のとおりです。<div> <div><div><pre><code>192.9.52.1</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> ドメイン</em></td>
+
+<td>ホスト・マシンで使用されるサブドメイン・ネームを指定します。 サブドメイン・ネームは次の形式で指定する必要があります。<div>
+<div><div><pre><code>subdomain.subdomain.rootdomain</code></pre></div><div></div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong><em> DefaultGateway</em></td>
+
+<td>デフォルトのゲートウェイ・アドレスを経路指定テーブルに追加します。 ドット 10 進表記でアドレスを指定します。 下記は、デフォルトのゲートウェイ・アドレスを設定する標準形式です。<div> <div><div><pre><code>192.9.52.0</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> HostName</em></td>
+
+<td>ホストの名前を設定します。 ドメインの命名システムを使用する場合は、ドメインとすべてのサブドメインが指定されなければなりません。 ホスト名を設定する標準形式は、次のとおりです。<div> <div><div><pre><code>hostname</code></pre></div><div></div></div></div>
+  <p>ドメイン命名システムでホスト名を設定する標準形式は、次のとおりです。</p>
+  <div> <div><div><pre><code>hostname.subdomain.subdomain.rootdomain</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong><em> インターフェース</em></td>
+
+<td>例えば次のような特定のネットワーク・インターフェースを指定します。<div> <div><div><pre><code>tr0</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong><em> SubnetMask</em></td>
+
+<td>経路指定で適切なサブネットワークを決める際にゲートウェイが使用するマスクを指定します。 サブネット・マスクは、IP アドレス内の場合と同じ 4 バイトのセットです。 サブネット・マスクは、ネットワークおよびサブネットワーク・アドレスのビット位置に対応する高ビット (1s) と、ホスト・アドレスのビット位置に対応する低ビット (0s) で構成されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> NameServerAddress</em></td>
+
+<td>適切ならば、ホストがネーム・レゾリューションに使用するネーム・サーバーの IP アドレスを指定します。 アドレスは、次のようにドット 10 進表記で入力します。<div> <div><div><pre><code>127.1.0.1</code></pre></div><div></div></div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> RingSpeed</em></td>
+
+<td>トークンリング・アダプターのリング速度を指定します。 <em>RingSpeed</em> 変数の有効な値は、4 Mbps か 16 Mbps です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-S</strong><em> インターフェース</em></td>
+
+<td>System Management Interface Tool (SMIT) ディスプレイの情報を検索します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>TCP/IP デーモンを始動します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> CableType</em></td>
+
+<td>標準イーサネットまたは IEEE 802.3 イーサネット・ネットワークのケーブル・サイズを指定します。 <em>CableType</em> 変数の有効な値は、THICK ケーブルには <strong>dix</strong>、THIN ケーブルには <strong>bnc</strong>、該当なしの場合には <strong>N/A</strong> です。 <strong>-t</strong><em> CableType</em> フラグは、標準イーサネットの場合にのみ使用してください。en) および IEEE 802.3 イーサネット (et) インターフェース。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>TCP/IP を始動するために必要な値を設定するには、次のように入力します。</p>
+ <div> <div><div><pre><code>mktcpip -h fred.austin.century.com -a 192.9.200.4 -i en0 \
+-n 192.9.200.1 -d austin.century.com -s</code></pre></div><div></div></div></div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <strong>mktcpip</strong> コマンドは、初めて TCP/IP を最小限に構成する場合にのみ使用してください。 以降の構成変更については、<strong>smitty configtcp</strong> 高速パスを使用します。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/mktcpip</strong></td>
+
+<td><strong>mktcpip</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/resolv.conf</strong></td>
+
+<td>デフォルトのシステム構成データベースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/hosts</strong></td>
+
+<td>ホスト名と IP アドレスのエントリーが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

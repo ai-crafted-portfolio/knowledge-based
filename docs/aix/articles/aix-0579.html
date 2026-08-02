@@ -1,0 +1,211 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>グループ・サービス・サブシステムを始動します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>grpsvcsctrl</span></span> { <span><span>-a</span></span> │ <span><span>-s</span></span> │ <span><span>-k</span></span> │ <span><span>-d</span></span> │ <span><span>-c</span></span> │ <span><span>-u</span></span> │ <span><span>-t</span></span> │ <span><span>-o</span></span> │ <span><span>-h</span></span> }</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>grpsvcsctrl</span></span> コマンドは、グループ・サービス・サブシステムを開始します。 この制御スクリプトは、グループ・サービスに必要なサブシステムの操作を制御します。 これらのサブシステムは、システム・リソース・コントローラー (SRC) の制御下にあり、 <span><span>grpsvcs</span></span>と呼ばれるサブシステム・グループに属します。 各サブシステムには、デーモンが関連付けられています。 操作上の視点から、グループ・サービス・サブシステム・グループは次のように編成されています。<dl>
+<dt>サブシステム</dt>
+
+<dd>グループ・サービス</dd>
+
+
+<dt>サブシステム・グループ</dt>
+
+<dd><span><span>grpsvcs</span></span></dd>
+
+
+<dt>SRC サブシステム</dt>
+
+<dd><span><span>grpsvcs</span></span> - <span><span>hagsd</span></span> デーモンに関連付けられています。 ノード上のサブシステム名は <span><span>grpsvcs</span></span>です。 各ノード上の <span><span>grpsvcs</span></span> サブシステムは、そのノードが属するクラスターに関連付けられます。</dd>
+
+
+<dt>デーモン</dt>
+
+<dd><span><span>hagsd</span></span> -大部分のグループ・サービス機能を提供します。</dd>
+
+</dl>
+</div>
+ <p><span><span>grpsvcsctrl</span></span> スクリプトは、通常、コマンド行からは実行されません。 このスクリプトは、通常、クラスターのインストール時に startup コマンドによって呼び出されます。</p>
+ <div><span><span>grpsvcsctrl</span></span> スクリプトは、グループ・サービス・サブシステムを操作するためのさまざまな制御を提供します。<ul>
+<li>サブシステムの追加、開始、停止、削除およびクリーンアップ</li>
+
+<li>トレースのオンおよびオフ</li>
+
+</ul>これらの機能を実行する前に、スクリプトは、現行のクラスター名を入手します。</div>
+ <div><strong>サブシステムの追加:</strong> <span><span>-a</span></span> フラグを指定すると、制御スクリプトは <span><span>mkssys</span></span> コマンドを使用して、グループ・サービス・サブシステムを SRC に追加します。 制御スクリプトは次のように動作します。<ol>
+<li><span><span>grpsvcs</span></span> サブシステムが停止していることを確認します。</li>
+
+<li>これは、このクラスターの <span><span>grpsvcs</span></span> サブシステムのポート番号をグローバル・オブジェクト・データ・マネージャー (ODM) から取得し、そのポート番号が <span><span>/etc/services</span></span> ファイルに設定されていることを確認します。 ポート番号の有効範囲は 10000 から 10100 まで (両方の値が含まれる) です。</li>
+
+<li><span><span>/etc/services</span></span> ファイルに入力されるサービス名は、 <span><span>grpsvcs.</span></span><span><span>cluster_name</span></span>です。</li>
+
+<li><span><span>grpsvcs</span></span> サブシステムを SRC から除去します (まだ存在している場合)。</li>
+
+<li><span><span>grpsvcs</span></span> サブシステムを SRC に追加します。 クラスター名は、 <span><span>mkssys</span></span> コマンドのデーモン・パラメーターとして構成されます。</li>
+
+</ol>
+</div>
+ <p><strong>サブシステムの開始:</strong> <span><span>-s</span></span> フラグが指定されている場合、制御スクリプトは <span><span>startsrc</span></span> コマンドを使用して、グループ・サービス・サブシステム <span><span>grpsvcs</span></span>を開始します。</p>
+ <p><strong>サブシステムの停止:</strong> <span><span>-k</span></span> フラグが指定されている場合、制御スクリプトは <span><span>stopsrc</span></span> コマンドを使用して、グループ・サービス・サブシステム <span><span>grpsvcs</span></span>を停止します。</p>
+ <div><strong>サブシステムの削除:</strong> <span><span>-d</span></span> フラグを指定すると、制御スクリプトは <span><span>rmssys</span></span> コマンドを使用して、SRC からグループ・サービス・サブシステムを除去します。 制御スクリプトは次のように動作します。<ol>
+<li><span><span>grpsvcs</span></span> サブシステムが停止していることを確認します。</li>
+
+<li><span><span>rmssys</span></span> コマンドを使用して、 <span><span>grpsvcs</span></span> サブシステムを SRC から除去します。</li>
+
+<li><span><span>/etc/services
+file</span></span>からポート番号を除去します。</li>
+
+</ol>
+</div>
+ <div><strong>サブシステムのクリーンアップ:</strong> <span><span>-c</span></span> フラグが指定されている場合、制御スクリプトは、すべてのシステム区画のグループ・サービス・サブシステムを停止し、SRC から除去します。 制御スクリプトは次のように動作します。<ol>
+<li><span><span>stopsrc -g grpsvcs</span></span> コマンドを使用して、すべての区画のサブシステム・グループ内のサブシステムのすべてのインスタンスを停止します。</li>
+
+<li><span><span>rmssys</span></span> コマンドを使用して、すべての区画内のサブシステム・グループ内のサブシステムのすべてのインスタンスを SRC から除去します。</li>
+
+</ol>
+</div>
+ <p><strong>トレースをオンにする:</strong> <span><span>-t</span></span> フラグを指定すると、制御スクリプトは <span><span>traceson</span></span> コマンドを使用して、 <span><span>hagsd</span></span> デーモンのトレースをオンにします。</p>
+ <p><strong>トレースをオフにする:</strong> <span><span>-o</span></span> フラグを指定すると、制御スクリプトは <span><span>tracesoff</span></span> コマンドを使用して、 <span><span>hagsd</span></span> デーモンのトレースをオフにします (デフォルト・レベルに戻します)。</p>
+ <p><span><span>Logging:</span></span> グループ・サービス・デーモンは、実行中に、 <span><span>/var/ha/log</span></span> ディレクトリー内のログ・ファイルにエントリーを書き込むことによって、操作とエラーに関する情報を提供します。</p>
+ <p>各デーモンは、ログ・サイズを事前に設定された行数に制限しています。 デフォルトは 5000 行です。 この制限に達すると、デーモンは現在のログ・ファイルの名前にストリング <span><span>.bak</span></span> を追加し、新しいログを開始します。 <span><span>.bak</span></span> バージョンが既に存在する場合は、現行ログの名前が変更される前に削除されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>サブシステムを追加します。</dd>
+
+
+<dt>-s</dt>
+
+<dd>サブシステムを始動します。</dd>
+
+
+<dt>-k</dt>
+
+<dd>サブシステムを停止します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>サブシステムを削除します。</dd>
+
+
+<dt>-c</dt>
+
+<dd>サブシステムをクリーンアップします (つまり、すべてのシステム区画のサブシステムを削除します)。</dd>
+
+
+<dt>-u</dt>
+
+<dd>すべての区画からグループ・サービス・サブシステムを除去します。</dd>
+
+
+<dt>-t</dt>
+
+<dd>サブシステムのトレースをオンにします。</dd>
+
+
+<dt>-o</dt>
+
+<dd>サブシステムのトレースをオフにします。</dd>
+
+
+<dt>-h</dt>
+
+<dd>スクリプトの使用方法の文を標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>root</span></span>の実効ユーザー ID を使用して実行している必要があります。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt>1</dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このスクリプトは、 HACMP 環境でのみ有効です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>このコマンドは、エラー・メッセージを (必要に応じて) 標準エラーに書き込みます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>グループ・サービス・サブシステムを SRC に追加するには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -a</code></pre></div><div></div></div></div>
+</li>
+
+<li>グループ・サービス・サブシステムを開始するには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -s</code></pre></div><div></div></div></div>
+</li>
+
+<li>グループ・サービス・サブシステムを停止するには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -k</code></pre></div><div></div></div></div>
+</li>
+
+<li>グループ・サービス・サブシステムを SRC から削除するには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -d</code></pre></div><div></div></div></div>
+</li>
+
+<li>グループ・サービス・サブシステムをクリーンアップするには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -c</code></pre></div><div></div></div></div>
+</li>
+
+<li>グループ・サービス・デーモン <span><span>hagsd</span></span>のトレースをオンにするには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -t</code></pre></div><div></div></div></div>
+</li>
+
+<li>グループ・サービス・デーモン <span><span>hagsd</span></span>のトレースをオフにするには、次のように入力します。<div> <div><div><pre><code>grpsvcsctrl -o</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <div> <dl>
+<dt>/opt/rsct/bin/grpsvcsctrl</dt>
+
+<dd><span><span>grpsvcsctrl</span></span> スクリプトが含まれています。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt>/var/ha/log/grpsvcs_<span><span>nodenum</span></span>_<span><span>instnum</span></span>。<span><span>クラスター名</span></span></dt>
+
+<dd>ノード上の <span><span>hagsd</span></span> デーモンのログが入っています。</dd>
+
+</dl>
+ <div>ファイル名の変数は次のとおりです。<dl>
+
+<dt><span><span>ノデナム</span></span></dt>
+
+<dd>デーモンが稼働しているノード番号。</dd>
+
+
+<dt><span><span>インスタンス番号</span></span></dt>
+
+<dd>デーモンのインスタンス番号。</dd>
+
+
+<dt><span><span>クラスター名</span></span></dt>
+
+<dd>デーモンが稼働しているクラスターの名前。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>実行の特性</h2><p>このコマンドは、Reliable Scalable Cluster Technology (RSCT) ファイルセットの一部です。</p>
+</section>
+
+</div></div>

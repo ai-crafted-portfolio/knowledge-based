@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>毎月または定期的にアカウンティングを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/acct/monacct</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/monacct.html#monacct__row-d3e170155" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <em>数値</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>monacct</strong> コマンドは、毎月または定期的にアカウントを実行します。 この間隔は <strong>crontab</strong> ファイル内に設定します。 <strong>cron</strong> デーモンを設定して、<strong>monacct</strong> コマンドを毎月または指定された期間ごとに一度ずつ実行することができます。 <strong>monacct</strong> の「例」では、このコマンドを <strong>cron</strong> デーモンと併用する場合の設定方法を示しています。 <strong>cron</strong> ファイルの設定方法の詳細については、<strong>crontab</strong> コマンドを参照してください。</p>
+ <p><em>Number</em> パラメーターは、アカウントを処理する月または期間を示します。 <em>Number</em> パラメーターのデフォルト値は当月です。 <strong>monacct</strong> コマンドは、<strong>/var/adm/acct/fiscal</strong> ファイルに要約ファイルを作成し、日付レポートが追加される累積要約 <strong>/var/adm/acct/sum</strong> ファイル内で要約ファイルを再開します。</p>
+ <p></p><blockquote><span>“</span><strong>注:</strong> 分散環境の複数のノード間でアカウント・ファイルを共有してはなりません。 各ノードに、いろいろなアカウント・ファイルの独自のコピーがなくてはなりません。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-X</strong></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を処理します。 また、<strong>-X</strong> フラグを使用すると、<strong>monacct</strong> コマンドが、<strong>/var/adm/acct/sum</strong> および <strong>/var/adm/acct/fiscal</strong> ディレクトリーではなく、<strong>/var/adm/acct/sumx</strong> および <strong>/var/adm/acct/fiscalx</strong> ディレクトリーを使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは管理グループのメンバーのみに実行 (x) アクセス権限を与えます。</p>
+</section>
+
+<section><h2>例</h2> <p>自動的に毎月アカウンティング・レポートを作成するには、
+<strong>/var/spool/cron/crontabs/root</strong> ファイルに次のように追加します。</p>
+ <div> <div><div><pre><code>15 5 1 * * /usr/sbin/acct/monacct </code></pre></div><div></div></div></div>
+ <p>この例は、<strong>cron</strong> デーモンが読み取って実行する命令を示しています。 <strong>monacct</strong> コマンドは 5:15 に実行されます (15 5) 各月の最初の日 (1)。 このコマンドは、通常 <strong>cron</strong> デーモンに与えられるアカウンティング命令の 1 つにすぎません。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct</strong></td>
+
+<td>アカウンティング・コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/fiscal</strong></td>
+
+<td>アカウンティング・データ・ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/acct/sum</strong></td>
+
+<td>累積日次アカウント・レコード。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/spool/cron/crontabs</strong></td>
+
+<td><strong>cron</strong> デーモンが定期的に実行するコマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

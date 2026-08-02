@@ -1,0 +1,134 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>最後に実行されたコマンドの情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lastcomm</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lastcomm.html#lastcomm__row-d3e39011" target="_blank" rel="noopener noreferrer"><span><span>-X</span></span></a> ] [ <em>コマンド</em> ] [ <em>名前</em> ] [ <em>端末</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lastcomm</strong> コマンドは、<strong>/var/adm/pacct</strong> 要約ファイルに記録されている、以前に実行されたすべてのコマンドを、最新のものから順に表示します。 <strong>/usr/sbin/acct/startup</strong> コマンドを実行した後でなければ、<strong>lastcomm</strong> コマンドを実行できません。</p>
+ <p><strong>lastcomm</strong> コマンドが表示するリストには、次の制限を指定することができます。</p>
+ <ul>
+<li><em>Command</em> パラメーターによって指定されたコマンド。</li>
+
+<li><em>Name </em> パラメーターによって指定されたユーザーによって実行されたコマンド。</li>
+
+<li><em>Terminal </em> パラメーターによって指定された端末からのコマンド。<p>端末は完全な名前を指定することも、tty として短縮することもできます。 例えば、以下のいずれかを指定できます。tty0端末または0terminal.</p>
+</li>
+
+</ul>
+ <p>各プロセスについて、次の情報が表示されます。</p>
+ <ul>
+<li>プロセスを実行したユーザーの名前。</li>
+
+<li>コマンドが実行されたときにアカウンティング機能が収集したすべてのフラグ。 次のフラグが有効です。<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>S</strong></td>
+
+<td>root ユーザーがコマンドを実行しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>F</strong></td>
+
+<td>コマンドが fork の後で実行されましたが、その後のサブルーチンの実行はありませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>C</strong></td>
+
+<td>コマンド PDP-11 互換モードで実行されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>D</strong></td>
+
+<td>コマンドはコア・ファイルを生成して終了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>x</strong></td>
+
+<td>コマンドはシグナルを発信して終了されました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</li>
+
+<li>プロセスを呼び出したコマンドの名前。</li>
+
+<li>プロセスによって使用された CPU 時間の秒数。</li>
+
+<li>プロセスが開始された時刻。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-X</span></span></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を印刷します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>/var/adm/pacct</strong> ファイルに記録されている、
+以前に実行されたすべてのコマンドの情報を表示するには、次のように入力します。<div> <div><div><pre><code>lastcomm</code></pre></div><div></div></div></div>
+</li>
+
+<li>以下の名前のコマンドに関する情報を表示します。a.outによって実行されるrootユーザーttyd0次のコマンドを入力します。<div> <div><div><pre><code>lastcomm a.out root ttyd0</code></pre></div><div></div></div></div>
+</li>
+
+<li>ユーザー名を切り捨てずに、 <span><span>/var/adm/pacct</span></span> ファイルに記録されている以前に実行されたすべてのコマンドに関する情報を表示するには、次のように入力します。<div><div><pre><code>lastcomm -X</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/lastcomm</strong></td>
+
+<td><strong>lastcomm</strong> コマンドへのパス。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/adm/pacct</strong></td>
+
+<td>現在のアカウント要約ファイルが入っているディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

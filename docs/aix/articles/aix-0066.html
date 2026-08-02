@@ -1,0 +1,829 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>Active Memory Expansion Planning and Advisory Tool <span>amepat</span> は、Active Memory Expansion (AME) 情報を報告し、統計は、既存のワークロードでの Active Memory Expansion の使用を計画する際に役立つアドバイザリー・レポートも提供します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>amepat [{{[-c max_ame_cpuusage% ] | [-C max_ame_cpuusage  ]}|[  -e startexpfactor [ :stopexpfactor [ :incexpfactor ]  ]]}][ -F ][{[-t tgt_expmem_size]|[ -a ]}]
+[ -n num_entries  ] [-m min_mem_gain  ] [-u minucomp_poolsize  ]
+[-v ] [-M] [ -N ] [-O proc=processor implementation ] [{ [-P recfile  ] | [  Duration ] | [  Interval Samples ]}]</code></pre></div><div></div></div>
+<div><div><pre><code>amepat [ -N ] [-R recfile ] {[Duration] | [ Interval Samples]}</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2>
+
+<div>Active Memory Expansion Planning and Advisory Tool <span>amepat</span> は、以下の 2 つの主要な機能を提供します。<ol>
+<li>ワークロード計画- <span>amepat</span> を実行して、Active Memory Expansion からメリットを得られるワークロードを判別することができます。また、ワークロードに対して可能な Active Memory Expansion 構成のリストを提供することもできます。</li>
+
+<li>モニター-Active Memory Expansion が使用可能になっている場合、 <span>amepat</span> ツールを使用して、ワークロードおよび Active Memory Expansion のパフォーマンス統計をモニターすることができます。</li>
+
+</ol>
+</div>
+
+<div><span>amepat</span> は、次の 2 つの異なるモードで開始することができます。<ol>
+<li><span>記録</span>モードでは、<span>amepat</span> はシステム構成とさまざまなパフォーマンス統計をユーザー指定の記録ファイルに記録します。</li>
+
+<li><span>「レポート作成」</span> モードでは、 <span>amepat</span> コマンドは、リアルタイムで、またはユーザー指定の記録ファイルから収集されたシステム構成およびパフォーマンス統計を分析して、ワークロード使用状況および計画レポートを生成します。</li>
+
+</ol>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注：</span>このツールは、<span>AIXバージョン6.1の 6100-04 テクノロジー・レベル</span><code>-SP2</code>リリース以降で利用可能です。</div>
+        </div>
+      </div></div>
+
+<dl>
+
+<dt>ワークロード・プランニング</dt>
+
+<dd><p>既存のワークロードに Active Memory Expansion を使用することを検討する際に、 <span>amepat</span> を使用して、ワークロードに可能な Active Memory Expansion 構成に関するガイダンスを提供することができます。 <span>amepat</span> が、Active Memory Expansion を使用していない既存のワークロードと並行して実行される場合、 <span>amepat</span> は、ユーザーが構成可能なワークロード期間にわたって、メモリー使用量、メモリー参照パターン、およびデータ圧縮性をモニターします。 次に、このツールは、ワークロードに対して可能な Active Memory Expansion 構成のリストを含むレポートを生成します。 このツールには、さまざまな Active Memory Expansion 構成に対するプロセッサー使用率の影響の見積もりが含まれています。</p>
+
+<p>この <span>amepat</span> コマンドは<span>、 AIX</span>、 6.1、およびそれ以降のバージョンでサポートされているすべてのバージョンの IBM® Power® サーバーで実行できます。</p>
+
+<p><span>amepat</span> を実行してワークロード計画を立てるときには、主要な考慮事項が 2 つあります。その 2 つとは、ツールの実行時刻とツールの実行期間です。 ツールから最良の結果を得るには、ワークロードのピーク使用率の間にツールを実行する必要があります。 それにより、ツールは必ずワークロードの使用率のピークとメモリー使用量の情報を取り込むことができます。</p>
+
+<p><span>amepat</span> を使用してワークロード計画用のレポートを生成するためには、<span>amepat</span> の開始時にモニター期間を指定する必要があります。</p>
+
+<p>Active Memory Expansion をまだ使用していないワークロードで <span>amepat</span> を使用するだけでなく、Active Memory Expansion が既に使用可能になっている LPAR でも <span>amepat</span> を実行できます。 このモードで使用すると、 <span>amepat</span> は、ワークロードに対して考えられる他の Active Memory Expansion 構成のレポートを提供します。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>amepat</span> では、ワークロード計画を実行するために特権アクセスが必要です。 必要な特権なしでユーザーがツールを開始すると、ワークロード計画機能は使用不可になります ( <span>-N</span> フラグは暗黙的にオンになります)。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+</dl>
+
+<dl>
+
+<dt>モニター</dt>
+
+<dd><p><span>amepat</span> は (ワークロード計画機能を使用不可にして)、
+プロセッサーおよびメモリー使用率統計のモニターに使用することもできます。 このモニター機能を使用すると、 <span>amepat</span> はプロセッサーおよびメモリーの使用率統計を収集するだけで、ワークロード計画のレポートを生成するために必要な追加データを収集しません。 したがって、Active Memory Expansion モデリングおよびアドバイザリー・レポートは生成されません。</p>
+
+<p><span>amepat</span> が期間または間隔を指定せずに開始されると、<span>amepat</span> はデフォルトで機能のみをモニターし、<span>amepat</span> は LPAR のメモリー、プロセッサー使用率のスナップショットを報告します。</p>
+
+<p><span>amepat</span> 期間を指定して開始し、 <span>-N</span> フラグを使用してモニターのみの機能で実行することができます。 <span>-N</span> フラグはこのツールのワークロード計画機能を使用不可にするため、ワークロード計画のためのデータ収集プロセスとレポート作成が使用不可になります。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 記録モードとレポート・モードは、どちらも <span>-N</span> フラグを使用して開始できます。 <span>-N</span> フラグは、Active Memory Expansion が使用可能なマシンと使用不可のマシンの両方でサポートされます。</div>
+        </div>
+      </div></div>
+
+</dd>
+
+
+
+<dt>amepat レポート</dt>
+
+<dd><p>以下に、 <span>amepat</span> ツールによって表示されるレポートの 6 つの異なるセクションを示します。</p>
+
+<dl>
+
+<dt>コマンド情報セクション</dt>
+
+<dd><p>コマンド情報セクションには、 <span>amepat</span> ツールに渡される引数、呼び出し時刻、システムがモニターされる合計時間、および収集されたサンプルの数に関する詳細が表示されます。</p>
+
+</dd>
+
+
+
+<dt>システム構成セクション</dt>
+
+<dd><p>システム構成セクションには、システム構成の詳細情報が表示されます。 以下の表は、報告される情報の完全リストです。</p>
+
+<div>
+
+<div><div><table><caption><span>表 1. システム構成セクション</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>区画名</td>
+
+<td><span>amepat</span> を開始したノード名</td>
+
+</tr>
+
+<tr>
+<td>プロセッサー実装モード</td>
+
+<td>プロセッサー実装モード。 このフィールドには、<span>POWER8</span>、<span>POWER9</span>、または<span>Power10</span> を指定できる。</td>
+
+</tr>
+
+<tr>
+<td>論理 CPU の数</td>
+
+<td>区画内で構成されてアクティブになっている論理プロセッサーの総数。</td>
+
+</tr>
+
+<tr>
+<td>プロセッサーのライセンス済みキャパシティー</td>
+
+<td>区画のライセンス済みキャパシティー。物理プロセッサー数の単位で表されます。<div><div>
+        <div>
+          <div><span>注:</span> 物理プロセッサー装置は、例えば 0.5 個の物理プロセッサーのように、小数部にすることもできます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>プロセッサーの最大数。 容量</td>
+
+<td>この区画が、物理プロセッサーの数の単位で表される最大容量<div><div>
+        <div>
+          <div><span>注:</span> 物理プロセッサー装置は、例えば 0.5 個の物理プロセッサーのように、小数部にすることもできます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>True メモリー</td>
+
+<td>実際のメモリーは、この LPAR 用に構成されている実際の物理メモリーまたは論理メモリーを表します。</td>
+
+</tr>
+
+<tr>
+<td>SMT Threads</td>
+
+<td>この区画内に構成されている SMT スレッドの数。 値は 1、2、4、または 8 のいずれかです。<div><div>
+        <div>
+          <div><span>注:</span> プロセッサー当たりの SMT スレッドの最大数は、Power Architecture に基づいています。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>共有プロセッサー・モード</td>
+
+<td>この区画に対して共有プロセッサー・モードが構成されているかどうかを示します。 可能な値は以下のとおりです。<dl>
+
+<dt>無効</dt>
+
+<dd>共有プロセッサー・モードは構成されていません。</dd>
+
+
+
+<dt>有効 (上限付き)</dt>
+
+<dd>共用プロセッサー・モードが上限付きモードで使用可能になっており、実行されています。</dd>
+
+
+
+<dt>有効 (上限なし)</dt>
+
+<dd>共用プロセッサー・モードが上限なしモードで使用可能になっており、実行されています。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td>Active Memory Sharing</td>
+
+<td>Active Memory Sharing が <span>有効</span> であるか <span>無効</span> であるかを示します。</td>
+
+</tr>
+
+<tr>
+<td>Active Memory Expansion</td>
+
+<td>Active Memory Expansion が <span>有効</span> であるか <span>無効</span> であるかを示します。</td>
+
+</tr>
+
+<tr>
+<td>ターゲット拡張メモリー・サイズ</td>
+
+<td>この LPAR のターゲット拡張メモリー・サイズ (MB) を示します。 ターゲット拡張メモリー・サイズは、ターゲット・メモリー拡張係数で乗算された真のメモリー・サイズです。<div><div>
+        <div>
+          <div><span>注:</span> これは、Active Memory Expansion が使用可能になっている場合にのみ表示されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>ターゲット・メモリー拡張係数</td>
+
+<td>LPAR 用に構成されているターゲット・メモリー拡張係数を示します。<div><div>
+        <div>
+          <div><span>注:</span> これは、Active Memory Expansion が使用可能になっている場合にのみ表示されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</dd>
+
+
+
+<dt>「System Resource Statistics」(システム・リソース統計)</dt>
+
+<dd><p>システム・リソース統計は、CPU/メモリーの観点からシステム・リソースの使用状況の詳細を提供します。 以下の表は、システム・リソース使用率に関連するさまざまな統計を示しています。</p>
+
+<div>
+
+<div><div><table><caption><span>表 2. 「System Resource Statistics」(システム・リソース統計)</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>CPU UTIL (CPU 使用率)</td>
+
+<td>いくつかの物理プロセッサーの単位での区画のプロセッサー使用率。 最大キャパシティーに対する使用率のパーセンテージも報告されます。<div><div>
+        <div>
+          <div><span>注:</span> Active Memory Expansion が使用可能な場合、メモリー圧縮または圧縮解除によるプロセッサー使用率も含まれます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>仮想メモリー・サイズ</td>
+
+<td>アクティブ仮想メモリー・サイズ (MB)。 True Memory サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+<tr>
+<td>使用中のメモリー (True Memory In-Use)</td>
+
+<td>これは、LPAR の実物理 (または論理) メモリーの量 (MB) です。 True Memory サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+<tr>
+<td>固定メモリー (pinned memory)</td>
+
+<td>これは、ピンされたメモリー・サイズ (MB) を示します。 True Memory サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+<tr>
+<td>ファイル・キャッシュ・サイズ</td>
+
+<td>これは、非計算ファイル・キャッシュ・サイズを MB 単位で表します。 True Memory サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+<tr>
+<td>使用可能メモリー</td>
+
+<td>これは、アプリケーション実行に使用可能なメモリー・サイズ (MB) を示します。 True Memory サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>amepat</span> が期間または間隔を指定して実行された場合、すべての使用状況メトリックの平均値、最小値、および最大値が表示されます。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</dd>
+
+
+
+<dt>「Active Memory Expansion Statistics」(Active Memory Expansion 統計)</dt>
+
+<dd><p>Active Memory Expansion 統計は、Active Memory Expansion 統計に関する詳細を提供します。 このセクションは、LPAR に対して Active Memory Expansion が有効になっている場合にのみ表示されます。 以下の表では、報告される各種統計について説明します。</p>
+
+<div>
+
+<div><div><table><caption><span>表 3. 「Active Memory Expansion Statistics」(Active Memory Expansion 統計)</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>AME プロセッサー使用量</td>
+
+<td>Active Memory Expansion アクティビティーのプロセッサー使用率 (物理プロセッサー単位)。 これは、メモリー圧縮アクティビティーに使用される処理容量を示します。 最大キャパシティーに対する使用率のパーセンテージも報告されます。</td>
+
+</tr>
+
+<tr>
+<td>圧縮メモリー</td>
+
+<td>圧縮されている仮想メモリーの合計量。 これは MB 単位で測定されます。 ターゲット拡張メモリー・サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+<tr>
+<td>圧縮率</td>
+
+<td>これは、メモリー内のデータの圧縮率を示します。 圧縮率が大きいほど、データは小さなサイズに圧縮されることを示しています。 例えば、4 KB のデータを 1 KB に圧縮できる場合、その圧縮率は 4.0 になります。</td>
+
+</tr>
+
+<tr>
+<td>不足メモリー・サイズ</td>
+
+<td>LPAR の拡張メモリーの不足のサイズ (MB)。 これは、LPAR にメモリー不足がある場合にのみ表示されます。 ターゲット拡張メモリー・サイズに対するパーセンテージも報告されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 「Active Memory Expansion 統計」セクションは、ツールが Active Memory Expansion 対応マシンで開始された場合にのみ表示されます。 また、ツールが期間または間隔で開始されたときの統計の平均値、最小値、および最大値も表示されます。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</dd>
+
+
+
+<dt>Active Memory Expansion Modeled Statistics</dt>
+
+<dd><p>Active Memory Expansion モデル統計は、Active Memory Expansion のモデル統計に関する詳細を提供します。 以下の表で、モデル統計についての情報を提供します。</p>
+
+<div>
+
+<div><div><table><caption><span>表 4. 拡張モデル化統計量</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>モデル化された拡張メモリー・サイズ</td>
+
+<td>モデル統計の作成に使用される拡張メモリーのサイズを示します。</td>
+
+</tr>
+
+<tr>
+<td>平均圧縮率</td>
+
+<td>ワークロードのメモリー内データの平均圧縮率を示します。 この圧縮率は、モデル統計を作成するために使用されます。</td>
+
+</tr>
+
+<tr>
+<td>モデル化拡張係数</td>
+
+<td>モデル・ターゲット・メモリー拡張係数を示します。</td>
+
+</tr>
+
+<tr>
+<td>モデル化された True Memory サイズ</td>
+
+<td>モデル True Memory サイズ (実物理メモリーまたは論理メモリー) を示します。</td>
+
+</tr>
+
+<tr>
+<td>モデル化されたメモリー・ゲイン</td>
+
+<td>これは、報告されたモデル拡張係数に対して Active Memory Expansion を使用可能にすることによって区画が獲得できるメモリー量を表します。</td>
+
+</tr>
+
+<tr>
+<td>AME プロセッサー使用量見積もり</td>
+
+<td>これは、指定された構成の Active Memory Expansion アクティビティーに使用されるプロセッサーの見積もりを表します。 メモリー圧縮アクティビティーに使用される処理キャパシティー量を見積もります。 プロセッサー使用量は、
+物理プロセッサー単位で報告されます。 最大キャパシティーに対する使用率のパーセンテージも報告されます。<div><div>
+        <div>
+          <div><span>注:</span> これは単なる見積もりであり、ガイダンスとしてのみ使用する必要があります。 実際の使用量は、ワークロードに応じて増減することができます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td>モデル化された実装</td>
+
+<td>モデル化が完了したプロセッサー実装を示します。 これは、 <span>–O</span> proc オプションが使用されている場合にのみ使用可能です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> このセクションは、 <span>-N </span> フラグが使用されておらず、特権ユーザーによって実行された場合にのみ表示されます。 モデル化された統計を生成するには、オペレーティング・システムが特定のシミュレーション操作を実行する必要があります。そのため、モニターの実際の所要時間は、ユーザー指定のモニター時間よりも長くなる可能性があります。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</dd>
+
+
+
+<dt>推奨</dt>
+
+<dd><p>この推奨は、現在実行中のワークロードに最適な利点を提供する Active Memory Expansion 構成に関する詳細を提供します。</p>
+
+<p>推奨は、ワークロードのモニター期間中の動作に基づいて純粋に行われるため、提供される推奨はガイダンスとしてのみ使用できます。 実際の統計は、ワークロードのリアルタイムの実際の動作を基に変化する可能性があります。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> Active Memory Expansion Modeled Statistics and Recommendation は、ワークロード計画に使用されます。 <span>-N</span> が指定されている場合は、これらのレポートは両方とも表示されません。 Active Memory Expansion 統計情報は、Active Memory Expansion 対応システムで実行されている場合にのみ報告されます。</div>
+        </div>
+      </div></div>
+
+<p><span>amepat</span> コマンドは、System Management Interface Tool (SMIT) <code> smit amepat</code> 高速パスを使用できます。</p>
+
+<p>このコマンドは、WPAR 内に制限されます。 Duration も Interval も指定せずに <span>amepat</span> が開始されると、使用率統計 (システム、AME) に平均値、最小値、最大値は表示されません。 単に現行値を表示します。 プロセッサー使用率は、
+システム・ブート時刻からの平均のみを表示します。</p>
+
+<p>AIX® 7.3以降、デフォルトでは、アクティブメモリ拡張機能は、システム構成に基づいて最適なページサイズモードを選択します。 デフォルトで、<span>amepat</span> コマンドはページ・サイズ・モードを複製し、正しいページ・サイズを使用してワークロードをモデル化しようとします。 <span>Power10</span> プロセッサー・ベースのサーバー以降、デフォルトでは、 <span>amepat</span> コマンドは 64 KB ページが使用可能であることを前提としてワークロードをモデル化します。</p>
+
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 5. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-a</span></td>
+
+<td>Active Memory Expansion モデル化統計情報の拡張メモリー・サイズを自動調整するよう指定します。 このオプションが選択されると、ワークロードの現在のメモリー使用量 (使用可能メモリー・サイズを除く) を基にモデル拡張メモリー・サイズが推測されます。<div><div>
+        <div>
+          <div><span>注:</span> <span>-a</span> オプションと <span>-t</span> オプションは相互に排他的です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span> max_ame_cpuusage% （最大使用CPU数</td>
+
+<td>モデル化された統計および推奨を生成するために使用される Active Memory Expansion プロセッサーの最大使用量をパーセンテージで指定します。<div><div>
+        <div>
+          <div><span>注:</span> 使用されるデフォルトの最大値は 15% です。 <span>-C</span> オプションと <span>-c</span> オプションを一緒に指定することはできません。 <span>-c</span> オプションと <span>-e </span> オプションは相互に排他的です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-C</span> max_ame_cpuusage (max_ame_cpuusage)</td>
+
+<td>モデル化された統計および推奨を作成するために使用される物理プロセッサーの数に関して、Active Memory Expansion プロセッサーの最大使用量を指定します。<div><div>
+        <div>
+          <div><span>注:</span> <span>-C</span> オプションと <span>-c</span> オプションを一緒に指定することはできません。 <span>-C</span> オプションと <span>-e</span> オプションを同時に指定することはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span> 開始指数: 停止指数 :終了指数</td>
+
+<td>Active Memory Expansion モデル統計セクションで報告される拡張係数の範囲を指定します。<dl>
+
+<dt><code>Startexpfactor</code></dt>
+
+<dd>開始拡張係数。 <span>-e</span> を使用した場合、このフィールドは必須です。</dd>
+
+
+
+<dt><code>Stopexpfactor</code></dt>
+
+<dd>停止拡張係数。 指定されていない場合は、開始拡張係数のみでモデル統計が生成されます。</dd>
+
+
+
+<dt><code>incexpfactor</code></dt>
+
+<dd>増分拡張係数。 許可される範囲は 0.01-1.0です。 デフォルトは 0.5です。 増分拡張係数を指定するには、停止拡張係数を指定する必要があります。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>-e</span> オプションを <span>-C</span> または <span>-c</span> オプションと組み合わせることはできません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span></td>
+
+<td>これは、ページ・サイズが 4 KB のみのワークロードをモデル化します。</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span> 最小メンバー・ゲイン </td>
+
+<td>最小メモリー・ゲインを指定します。 この値は、MB 単位で指定されます。 この値は、モデル化統計で報告される可能性のあるさまざまな拡張係数を判別するために使用され、生成される推奨にも影響を与えます。</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span></td>
+
+<td>ワークロードのモデリング時に 64 KB ページを 4 KB チャンクに分割せずに、64 KB ページ全体を圧縮します。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> 項目数</td>
+
+<td>モデル統計に表示する必要のあるエントリー数を指定します。<div><div>
+        <div>
+          <div><span>注:</span> <code>incexpfactor</code> が指定された <span>-e</span> の場合、 <span>-n</span> 値は無視されます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-N</span></td>
+
+<td>Active Memory Expansion モデリング (ワークロード計画機能) を使用不可にする</td>
+
+</tr>
+
+<tr>
+<td><span>-O</span> proc=プロセッサー実装</td>
+
+<td>モデル化が完了したプロセッサー実装を指定します。 以下のプロセッサー・バージョンを指定できます。<ul>
+<li>P8 または p8</li>
+
+<li>P9 または p9</li>
+
+<li>P10 または p10</li>
+
+<li>ALL または all (現行の AME でサポートされているすべてのプロセッサーを表示します)</li>
+
+</ul>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>-O</span> オプションは、 <span>–R</span> オプションと一緒に指定することはできません。 また、プロセッサー実装を 1 つのみ指定することもできます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span> レコード・ファイル</td>
+
+<td>指定された記録ファイルを処理し、レポートを生成します。</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span> レコード・ファイル</td>
+
+<td>指定された記録ファイルに Active Memory Expansion データを記録します。 記録されたデータは、後で <span>-P</span> オプションを使用して後処理することができます。<div><div>
+        <div>
+          <div><span>注:</span> <span>-R</span>と組み合わせることができるのは、 <span>-N</span> オプションのみです。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> の tgt_expmem_size</td>
+
+<td>モデル・ターゲット拡張メモリー・サイズを指定します。 これを指定すると、ツールは計算されたサイズではなく、モデル化のためにユーザーが指定したサイズを使用します。<div><div>
+        <div>
+          <div><span>注:</span> <span>-t</span> オプションと <span>-a</span> オプションは相互に排他的です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> minuncompressedpoolsize (minuncompressedpoolsize)</td>
+
+<td>最小圧縮解除プール・サイズ (MB) を指定します。 この値は、モデル統計を作成するためにツールで計算された値をオーバーライドします。<div><div>
+        <div>
+          <div><span>注:</span> このフラグは、Active Memory Expansion が使用不可になっている場合にのみ使用できます。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>詳細ロギングを使用可能にします。 指定されている場合、<span>amepat_yyyymmddhmm.log</span> という名前の詳細ログ・ファイルが生成されます。ここで、<code>yyyymmddhmm</code> は呼び出し時刻を示します。<div><div>
+        <div>
+          <div><span>注:</span> 詳細ログには、収集されたさまざまなサンプルに関する詳細情報も含まれているため、ファイルはツールによって生成された出力よりも大きくなります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>Duration</span></td>
+
+<td>「期間」は、レポートを生成する前にツールがシステムをモニターする必要がある合計時間を表します。<div><div>
+        <div>
+          <div><span>注:</span> 期間が指定されている場合、間隔/サンプルを指定することはできません。 Interval と Samples は、ツールによって自動的に判別されます。 実際のモニター時間は、ワークロードのメモリー使用率とアクセス・パターンを基に指定された期間より長くなる可能性があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>Interval</span> サンプル</td>
+
+<td>間隔はサンプリング時間の長さを表します。 サンプルは、収集する必要があるサンプルの数を表します。<div><div>
+        <div>
+          <div><span>注:</span> 間隔サンプルが指定されている場合、期間は (間隔 x サンプル) として自動的に計算されます。 実際のモニター時間は、ワークロードのメモリー使用率とアクセス・パターンを基に指定された期間より長くなる可能性があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+<div><div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>amepat</span> コマンドを実行すると、デフォルトでモデル化されたプロセッサーは、それが実行されるプロセッサー実装と同じになります。</li>
+
+<li>AME が使用可能である場合は、<span>-O proc</span> オプションを使用して、<span>amepat</span> コマンドが実行されているプロセッサー実装以降のプロセッサーをモデル化できます。</li>
+
+<li><span>amepat</span> コマンドは、モデル化の動作を変更するときに役立つ特定フラグ (<span>-e</span> フラグなど) について最小値と最大値を指定します。 指定された値は、<span>amepat</span> コマンドによる推奨値と見なされます。 <span>amepat</span> コマンドは、実行中にコマンドによって決定された許容範囲内に値がない場合、これらの値をオーバーライドします。</li>
+
+</ol>
+</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2>
+
+<div>
+
+<div><div><table><caption><span>表 6. 終了状況</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>コマンドは正常に終了しました。</td>
+
+</tr>
+
+<tr>
+<td><span>0 より大きい</span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+<div><div>
+        <div>
+          <div><span>重要:</span> RBAC ユーザー: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。</div>
+        </div>
+      </div></div>
+
+</section>
+
+<section><h2>例</h2> <ol>
+<li>Active Memory Expansion モニターのみのレポートを表示するには、次のように入力します。<div><div><pre><code>amepat</code></pre></div><div></div></div></li>
+
+<li>8 分間のサンプリング間隔と 2 サンプルを使用して 16 分間のワークロードをモニターするには、ワークロード計画のレポートを生成します。次のように入力します。<div><div><pre><code>amepat 8 2</code></pre></div><div></div></div></li>
+
+<li>16 分間の期間にわたってワークロードをモニターし、 1.5 から 3 の間のモデル化されたメモリー拡張係数を持つワークロード計画の Active Memory Expansion レポートを 0.5 増分係数で生成するには、次のように入力します。<div><div><pre><code>amepat –e 1.50:3.00:0.5 16</code></pre></div><div></div></div></li>
+
+<li>16 分間の期間にわたってワークロードをモニターし、ワークロード計画用の Active Memory Expansion レポートを生成し、モデル化された AME プロセッサー使用率を 30% にキャッピングするには、次のように入力します。<div><div><pre><code>amepat –c 30 16</code></pre></div><div></div></div></li>
+
+<li>16 分間の期間、ワークロードをモニターし、1000 MB のモデル化されたメモリー・ゲインを開始して、ワークロード計画用の Active Memory Expansion レポートを生成するには、次のように入力します。<div><div><pre><code>amepat –m 1000 16</code></pre></div><div></div></div></li>
+
+<li>16 分間の期間にわたってワークロードをモニターし、最小非圧縮プール・サイズ 2000 MB をモデル化することによってワークロード計画用の Active Memory Expansion レポートを生成するには、次のように入力します。<div><div><pre><code>amepat –u 2000 16 </code></pre></div><div></div></div></li>
+
+<li><span>amepat</span> の記録モードを使用して記録ファイルを生成し、各種フィルターを使用してレポートを生成するには、次のように入力します。<p>60 分の期間のレコード。</p>
+
+<div><div><pre><code>amepat -R myrecord_amepat 60</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> 記録モードは、それ自体をバックグラウンド・プロセスに切り替えます。</div>
+        </div>
+      </div></div>
+
+<p>ワークロード計画用のレポートを生成する</p>
+
+<div><div><pre><code>amepat -P myrecord_amepat</code></pre></div><div></div></div>
+<p>モデル化されたメモリー拡張係数の範囲が 2 から 4 の間で、 0.5 の差分係数を使用して、ワークロード計画のレポートを生成します。</p>
+
+<div><div><pre><code>amepat -e 2.0:4.0:0.5 -P myrecord_amepat</code></pre></div><div></div></div>
+<p>モニター・レポートのみを生成</p>
+
+<div><div><pre><code>amepat -N -P myrecord_amepat</code></pre></div><div></div></div></li>
+
+<li>ワークロード計画機能を使用不可にして 30 分間システムをモニターするには、次のように入力します。<div><div><pre><code>amepat -N 30</code></pre></div><div></div></div></li>
+
+<li>ワークロードを 60 分間の期間モニターし、プロセッサー実装 P8 にモデル化するには、次のコマンドを入力します。<div><div><pre><code>amepat –O proc=P8  60</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+</div></div>

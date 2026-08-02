@@ -1,0 +1,529 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>論理ボリュームの特性だけを変更します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>論理ボリュームの特性を変更する</strong></p>
+ <p><strong>チャルヴ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94084" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a><em> 位置</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94121" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a><em> 不良ブロック</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94143" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em> スケジュール</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__chlvbr" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> <em>PreferredRead</em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94180" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a><em> レンジ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94218" target="_blank" rel="noopener noreferrer"><strong>-L</strong></a><em> ラベル</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94298" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a> <strong>y｜n</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94337" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a><em> 許可</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94372" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a><em> リロケート</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94401" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> 厳しい</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94436" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><em> タイプ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94487" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><em> アッパーバウンド</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94502" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a><em> ベリファイ</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94525" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a><em> ミラーライトの一貫性</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94564" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em> 最大</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94447" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <strong>O｜F</strong> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94479" target="_blank" rel="noopener noreferrer"><strong>-U</strong></a><em> ユーザーID</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94209" target="_blank" rel="noopener noreferrer"><strong>-G</strong></a><em> グループID</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94363" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a><em> モード</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94230" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> <em>コピーN</em><strong>=</strong><em>ミラープール</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94268" target="_blank" rel="noopener noreferrer"><strong>-M</strong></a> <em>コプン</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94311" target="_blank" rel="noopener noreferrer"><strong>-O </strong></a> { <strong>y</strong> | <strong>n</strong> }] <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__chlv-rowk" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> <strong>y</strong> | <strong>n</strong> ]</span> <em>論理ボリューム</em> ...</p>
+<p><strong>論理ボリュームの名前を変更する</strong></p>
+ <div><strong>chlv</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94283" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>newlogicalvolume logicalvolume</em><div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>ログ論理ボリュームの名前を変更するには、
+そのログを使用する各ファイルシステム上で <strong>chfs -a </strong><em>log=LVName</em> を実行する必要があります。</li>
+
+<li>論理ボリュームにファイルシステムがマウントされている場合、そのファイルシステムは、JFS2 ファイルシステムである場合にのみ、新しい論理ボリューム名を用いて自動的に更新されます。 その他のすべてのファイルシステム・タイプの場合は、新しい論理ボリューム名を用いてファイルシステムを更新するために、<strong>chlv</strong> コマンドの完了後に <strong>unmount</strong> および <strong>mount</strong> オプションを実行する必要があります。</li>
+
+<li>論理ボリュームの不良ブロック再配置ポリシーは、4 KB ブロックの物理ボリュームで作成されたボリューム・グループではサポートされません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>説明</h2> <p><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94084" target="_blank" rel="noopener noreferrer"><strong>a</strong></a>、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94180" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a>、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94401" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94487" target="_blank" rel="noopener noreferrer"><strong> -u</strong></a>フラグによる変更は、新しいパーティションが割り当てられるか、パーティションが削除されるときにのみ有効になる。 その他のフラグは、ただちに有効になります。</p>
+ <p>論理ボリュームの名前を変更するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94283" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> フラグを使用し、 <em>newlogicalvolume</em> パラメーターを使用して新しい論理ボリューム名を表します。 この構文では、他のフラグを使用しないでください。</p>
+ <div>変更される論理ボリュームが入っている <em>ボリューム・グループ</em> が大きな vg フォーマットになっている場合、<strong>U</strong>、<strong>G</strong>、および <strong>P</strong> フラグを使用して、それぞれ特殊デバイス・ファイルの所有権、グループおよび許可を設定することができます。 root ユーザーのみがこれらの値を設定することができます。 <em>ボリューム・グループ</em> をエクスポートする場合、 <span>importvg</span> コマンドで <strong>R</strong> フラグを指定すると、インポート時にこれらの値を復元できます。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>論理ボリュームに対して行った変更は、
+ファイルシステムに反映されません。 ファイルシステム特性を変更するには、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs" target="_blank" rel="noopener noreferrer"><strong>chfs</strong></a> コマンドを使用します。</li>
+
+<li>このコマンドを使用するには、root ユーザー権限を持っているか、あるいは <strong>system</strong> グループのメンバーでなければなりません。</li>
+
+<li>あるディスクに同時にアクセスする複数のアクティブ・ノードを使用した並行セットアップでは、Mirror Write Consistency (MWC) と Bad Block Relocation (BBR) はサポートされません。 この 2 つのオプションは、このタイプの並行セットアップでは使用不可にしなくてはなりません。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</div>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit chlv</strong> 高速パスを使用しても実行できます。</p>
+ <p>PowerHA クラスター内でのこのコマンドの動作については、「 PowerHA SystemMirror® Administration Guide 7.1 」の「Administering a PowerHA® cluster」セクションを参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>ストライピングされた論理ボリュームの特性を
+変更するときは、<strong>-d</strong> フラグおよび <strong>-e</strong> フラグは
+無効です。</li>
+
+<li>スナップショット・ボリューム・グループ内、またはスナップショット・ボリューム・グループを持つボリューム・グループ内の論理ボリュームの特性を変更する場合、フラグ <strong>-a</strong>、<strong>-b</strong>、<strong>-d</strong>、<strong>-e</strong>、<strong>-G</strong>、<strong>-k</strong>、<strong>-o</strong>、<strong>-P</strong>、<strong>-r</strong>、<strong>-t</strong>、<strong>-U</strong>、<strong>-u</strong>、<strong>-v</strong>、<strong>-w</strong>、<strong>-x</strong>、および <strong>-s</strong> は無効です。</li>
+
+<li><strong>-b</strong>、 <strong>-o</strong>、 <strong>-p</strong>、 <strong>-v</strong>、 <strong>-w</strong>、 <strong>-T</strong>、および <strong>-M</strong> フラグを指定して <span>chlv</span> コマンドを実行するには、論理ボリュームをクローズする必要があります。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong><em> 位置</em></td>
+
+<td>物理ボリューム間の割り当てポリシー (物理ボリューム上の論理区画の位置) を設定します。 <em>position</em> 変数は、
+以下のいずれかによって表されます。<dl>
+<dt>m</dt>
+
+<dd>各物理ボリュームの外部中央部分に論理区画を割り当てます。 これがデフォルトの位置です。</dd>
+
+
+<dt>c</dt>
+
+<dd>各物理ボリュームの中央部分に論理区画を割り当てます。</dd>
+
+
+<dt>e</dt>
+
+<dd>各物理ボリュームの外側の端の部分に論理区画を割り当てます。</dd>
+
+
+<dt>ie</dt>
+
+<dd>各物理ボリュームの内側の端の部分に論理区画を割り当てます。</dd>
+
+
+<dt>im</dt>
+
+<dd>各物理ボリュームの内部中央部分に論理区画を割り当てます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong><em> 不良ブロック</em></td>
+
+<td>不良ブロック再配置ポリシーを設定します。 <em>badblocks</em> 変数は、以下のいずれかによって表されます。<dl>
+<dt>y</dt>
+
+<dd>不良ブロックの再配置を実行します。</dd>
+
+
+<dt>n</dt>
+
+<dd>不良ブロックの再配置の実行を禁止します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong><em> スケジュール</em></td>
+
+<td>複数の論理区画が書き込まれるときに、スケジューリング・ポリシーを設定します。 ストライピングされた lv をミラーリングするには、並列または順次を使用しなければなりません。 <em>schedule</em> 変数は、以下のいずれかによって表されます。<dl>
+
+<dt>p</dt>
+
+<dd>並列スケジューリング・ポリシーを設定します。</dd>
+
+
+
+<dt>ps</dt>
+
+<dd>順次読み取りポリシーによる並列書き込み。 すべてのミラーは並列に書き込まれますが、
+最初のミラーが使用可能な場合には常に最初のミラーから読み取られます。</dd>
+
+
+
+<dt>pr</dt>
+
+<dd>並列書き込みラウンドロビン読み取り。 このポリシーは、すべてのミラーにまたがってさらに論理ボリュームへの読み取りを広げようとする試みを除いては、
+並列ポリシーと類似しています。</dd>
+
+
+
+<dt>s</dt>
+
+<dd>順次スケジューリング・ポリシーを設定します。<p>並列厳密性または順次厳密性のポリシーを指定する場合は、
+超厳密性には <strong>s</strong> を設定してください。</p>
+</dd>
+
+
+</dl>
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>-R</strong> フラグは、 <strong>-d</strong> フラグの読み取りポリシーを上書きします。 優先コピーが使用可能でない場合、読み取りはスケジューリング・ポリシーに従います。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong> <em>PreferredRead</em></td>
+
+
+<td>論理ボリュームの優先読み取りコピーを変更します。 優先コピーが使用可能な場合、常に優先コピーから読み取りを行います。 優先コピーが使用可能でない場合、読み取りは論理ボリュームのスケジューリング・ポリシーに従います。 <em>PreferredRead</em> 変数は、0 から 3 の範囲の値に設定できます。 <em>PreferredRead</em> 変数を 0 に設定すると、論理ボリュームの優先読み取りコピーが使用不可になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> 範囲</em></td>
+
+<td>物理ボリューム間の割り当てポリシー (最良の割り当てができるボリュームを使用して、物理ボリュームの数を、物理ボリューム間に渡って拡張する) を設定します。 <em>range</em> 変数の値は、 <em>upperbound</em> 変数 ( <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chlv.html#chlv__row-d3e94487" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> フラグで設定) によって制限され、以下のいずれかによって表されます。<dl>
+<dt>x</dt>
+
+<dd>物理ボリュームの最大数に論理区画を割り当てます。</dd>
+
+
+<dt>m</dt>
+
+<dd>物理ボリューム間の最小数に論理区画を割り当てます。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-G</strong> <em>グループ ID</em></td>
+
+<td>論理ボリューム・スペシャル・ファイルのグループ ID を指定します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>k</strong> y</td>
+
+<td>論理ボリュームのデータ暗号化オプションを変更します。 ベスト・プラクティスとして、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hdcryptmgr.html" target="_blank" rel="noopener noreferrer"><span>hdcryptmgr</span></a> コマンドを使用して、論理ボリュームの暗号化オプションを変更する必要があります。 このフラグに指定できる値は以下のとおりです。<dl>
+
+<dt>y</dt>
+
+<dd>論理ボリュームのデータ暗号化オプションは有効です。 論理ボリュームにアクセスするには、論理ボリュームの 1 次鍵が初期化されていなければなりません。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/h_commands/hdcryptmgr.html" target="_blank" rel="noopener noreferrer"><span>hdcryptmgr
+plain2crypt</span></a> コマンドを使用して、論理ボリュームの 1 次キーを初期化し、論理ボリュームのデータを暗号化します。</dd>
+
+
+
+<dt>n</dt>
+
+<dd>論理ボリュームのデータ暗号化オプションは無効です。 <span>hdcryptmgr
+crypt2plain</span> を使用して、論理ボリュームの暗号化されたデータを暗号化解除します。</dd>
+
+
+</dl>
+<div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>論理ボリュームのデータ暗号化オプションを有効にするには、その前にボリューム・グループ・レベルでデータ暗号化オプションが有効になっていなければなりません。</li>
+
+<li><span>-k</span> フラグは、アクティブなブート、ダンプ、ページング、および <code>aio_cache</code> 論理ボリューム・タイプではサポートされません。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong> <em>ラベル</em></td>
+
+<td>論理ボリューム・ラベルを設定します。 <em>label</em> 変数の最大サイズは 127 文字です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong> <em>コピーN</em>=<em>ミラープール</em></td>
+
+<td>論理ボリュームのコピーに対してミラー・プールを有効にします。 N はコピー番号 (1、2、または 3) です。 ミラー・プールは、<em>copyN</em>=<em>mirrorpool</em> パラメーターを使用して
+コピーに割り当てられます。 論理ボリュームの各コピーに対してミラー・プールを指定してください。 複数の <em>copyN</em>=<em>mirrorpool</em> ペアを指定するには、
+複数の <strong>-m</strong> <em>copyN</em>=<em>mirrorpool</em> フラグを指定してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong> <em>コピー</em></td>
+
+<td>この論理ボリューム用に指定されたコピー上でミラー・プールを無効にします。 <strong>copyn</strong> 変数は、コピー番号 (1、2、または 3) です。 この変数は、ミラー・プールを使用不可にするコピーを指定します。 複数のコピー上でミラー・プールを使用不可にするには、
+複数の <strong>-M </strong> copyn フラグを指定してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> 新しい論理ボリューム</em></td>
+
+<td>論理ボリュームの名前を、 <em>newlogicalvolume</em> 変数<em>で指定された名前に変更します。</em> 論理ボリューム名は、システム共通の固有の名前で、1 から 15 文字までの範囲です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o y｜n</strong></td>
+
+<td>重複入出力のシリアライゼーションをオン/オフにします。 シリアライズをオンにした場合、1 ブロック範囲での入出力の重複は許されず、任意の 1 時点にブロック範囲内の入出力が 1 つだけ処理されます。 ファイル・システムやデータベースなどのほとんどのアプリケーションはシリアライゼーションを行うため、シリアライゼーションを行う必要があります。off。新しい論理ボリュームの省略時の値は次のとおりです。off.</td>
+
+</tr>
+
+<tr>
+<td>- <strong>O</strong> y｜n</td>
+
+<td>論理ボリュームの無限再試行オプションを変更します。<dl>
+<dt><strong>n</strong></dt>
+
+<dd>論理ボリュームの無限再試行オプションを使用不可にします。 論理ボリューム上で失敗した入出力は再試行されません。</dd>
+
+
+<dt><strong>y</strong></dt>
+
+<dd>論理ボリュームの無限再試行オプションを使用可能にします。 失敗した入出力要求は、成功するまで再試行されます。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>アクティブ・ミラーリング書き込みの整合性が設定されている場合、LV に対する無限再試行オプションは無視されます。 アクティブ・ミラーリング書き込みの整合性をオンにした状態で論理ボリュームのために働くようにするには、無限再試行オプションをボリューム・グループ・レベルで使用可能にする必要があります。</li>
+
+<li>無限再試行オプションは GLVM 環境ではサポートされません。</li>
+
+</ol>
+ </div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>許可</em></td>
+
+<td>アクセス権を読み取り/書き込み、または読み取り専用に設定します。 <em>permission</em> 変数は、以下のいずれかによって表されます。<dl>
+<dt>w</dt>
+
+<dd>アクセス権を読み取り/書き込みに設定します。</dd>
+
+
+<dt>r</dt>
+
+<dd>アクセス権を読み取り専用に設定します。</dd>
+
+</dl>
+ <div><div>
+        <div>
+          <div><span>注:</span> JFS ファイルシステムを読み取り専用論理ボリュームにマウントすることはサポートされていません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong> <em>モード</em></td>
+
+<td>論理ボリューム・スペシャル・ファイルのアクセス権 (ファイル・モード) を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong> <em>再配置</em></td>
+
+<td>再編成フラグを設定して、再編成中の論理ボリュームの再配置を許可または禁止します。 <em>relocate</em> 変数は、
+以下のいずれかによって表されます。<dl>
+<dt>y</dt>
+
+<dd>再編成時の論理ボリュームの再配置を許可します。 論理ボリュームがストライプ化されると、<strong>chlv</strong> コマンドを実行しても再配置フラグを <strong>y</strong> に変更できません。</dd>
+
+
+<dt>n</dt>
+
+<dd>再編成時の論理ボリュームの再配置を禁止します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong> <em>厳密</em></td>
+
+<td>厳密な割り当てポリシーを決定します。 同じ物理ボリュームを共有できるように、または共有できないように、論理区画のコピーを割り当てることができます。 <em>strict</em> 変数は、以下のいずれかによって表されます。<dl>
+
+<dt>y</dt>
+
+<dd>厳密な割り当てポリシーを設定します。したがって、論理区画のコピーは、同一物理ボリュームを共有することはできません。</dd>
+
+
+
+<dt>n</dt>
+
+<dd>厳密な割り当てポリシーを設定しません。したがって、論理区画のコピーは、同一物理ボリュームを共有できます。</dd>
+
+
+
+<dt>s</dt>
+
+<dd>超厳密割り当てポリシーを設定して、
+1 つのミラー用に割り当てられた区画が、
+別のミラーからの区画を持つ物理ボリュームと共有できないようにします。</dd>
+
+
+</dl>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 非非常に厳密な論理ボリュームを非常に厳密な論理ボリュームに変更する場合は、 <strong>-u</strong> フラグを使用する必要があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong><em> タイプ</em></td>
+
+<td>論理ボリュームのタイプを設定します。 最大サイズは、31 文字です。 論理ボリュームがストライプ化されると、<em>type</em> を boot に変更できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T O｜F</strong></td>
+
+<td><span>-T O</span> オプションは、論理ボリューム制御ブロックが論理ボリュームの最初のブロックを占有しないことを示します。 したがって、スペースがアプリケーション・データに使用できます。 アプリケーションは、このタイプの論理ボリュームを <span>IOCINFO</span>
+<code>ioctl</code> 操作で識別できます。 論理ボリュームのデバイス・サブタイプは <code>DS_LVZ</code> です。<p>このオプションを指定せずに作成した論理ボリュームのデバイス・サブタイプは <code>DS_LV</code> です。</p>
+<div><div>
+        <div>
+          <div><span>ヒント:</span> <span>-T</span> フラグは、報告されたサブタイプ以外の論理ボリュームの動作を変更しません。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> ユーザー ID</em></td>
+
+<td>論理ボリューム・スペシャル・ファイルのユーザー ID を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong> <em>上界</em></td>
+
+<td>新規割り当てに対して物理ボリュームの最大数を設定します。 <em>upperbound</em> 変数の値は、1 から物理ボリュームの合計数の間で指定します。 極度の厳密さを使用する場合、
+上限は、ミラー・コピーごとに許される物理ボリュームの最大数を示します。 ストライプ済み論理ボリュームを使用する場合、上限は <em>stripewidth</em> の倍数でなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong> <em>検証</em></td>
+
+<td>論理ボリュームに対する書き込み検査状態を設定します。 これにより、論理ボリュームに対するすべての書き込みは、書き込み後の読み取りによる検査を受けるか、受けないかのどちらかになります。 <em>verify</em> 変数は、以下のいずれかによって表されます。<dl>
+<dt>y</dt>
+
+<dd>論理ボリュームに対するすべての書き込みは、書き込み後に読み取り検査されます。</dd>
+
+
+<dt>n</dt>
+
+<dd>論理ボリュームに対するすべての書き込みは、書き込み後に読み取り検査されません。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> ミラー書き込み一貫性</em></td>
+
+<td><dl>
+<dt>y または a</dt>
+
+<dd><em>アクティブ</em>・ミラー書き込み整合をオンにし、
+通常の入出力処理をする際に、論理ボリュームのミラー・コピーにおけるデータの整合性を保証します。</dd>
+
+
+<dt>p</dt>
+
+<dd><em>パッシブ</em>・ミラー書き込み整合をオンにし、
+システム割り込み後にボリューム・グループを同期化する際に、
+ミラー・コピーにおけるデータの整合性を保証します。<div><div>
+        <div>
+          <div><span>注:</span> この機能は、 <strong>big</strong> タイプおよび <strong>スケーラブル</strong> ・タイプのボリューム・グループでのみ使用可能です。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+<dt>n</dt>
+
+<dd>ミラー書き込み整合を行いません。 <strong>syncvg</strong>  コマンドの <strong>-f</strong> フラグを参照してください。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong><em> 最大</em></td>
+
+<td>論理ボリュームに割り当てることのできる論理区画の最大数を設定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>論理ボリュームの物理ボリューム間割り当てポリシーを変更するlv01次のように入力します。<div><div><pre><code>chlv   -e m 
+lv01</code></pre></div><div></div></div>物理間ボリューム割り当てポリシーは最小に設定されます。</li>
+
+<li>論理ボリュームのタイプを変更するlv03次のように入力します。<div><div><pre><code>chlv   -t copy  lv03</code></pre></div><div></div></div></li>
+
+<li>論理ボリュームの許可を変更するにはlv03読み取り専用の場合は、次のように入力します。<div><div><pre><code>chlv   -p r  lv03</code></pre></div><div></div></div>論理ボリュームlv03読み取り専用権限が付与されました。</li>
+
+<li>タイプを以下のように変更します。pagingおよび論理ボリュームの物理ボリュームの最大数lv03次のように入力します。<div><div><pre><code>chlv  -t paging  -u 10 lv03</code></pre></div><div></div></div>論理ボリュームのタイプの変更はすぐに有効になりますが、
+最大物理ボリュームの変更は、新規割り当てを行うまで有効になりません。</li>
+
+<li>論理ボリュームの割り振り特性を変更するlv07次のように入力します。<div><div><pre><code>chlv  -a e  -e x  -r y  -s n  -u 5 lv07 </code></pre></div><div></div></div> </li>
+
+<li>論理ボリュームの <em>PreferredRead</em> コピーを変更するには、次のようにします。testlv以下のように入力します。<div><div><pre><code>chlv -R 3 testlv</code></pre></div><div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin</strong></td>
+
+<td><strong>chlv</strong> コマンドが置かれているディレクトリー。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

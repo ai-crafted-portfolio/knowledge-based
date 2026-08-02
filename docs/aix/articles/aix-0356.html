@@ -1,0 +1,283 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステムの連続フリー・スペースを増やします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>defragfs</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__row-d3e20904" target="_blank" rel="noopener noreferrer"><strong>-q</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__row-d3e20910" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__row-d3e20928" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__defragfs_f" target="_blank" rel="noopener noreferrer"><strong>-f</strong></a> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__defragfs_v" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__defragfs_y" target="_blank" rel="noopener noreferrer"><strong>-y</strong></a>]] { <em>Device</em> | <em>FileSystem</em> }</p>
+</section>
+
+<section><h2>説明</h2><p><strong>defragfs</strong> コマンドは、ファイルの割り当てをディスク上で分散させずに連続的になるように再編成して、ファイルシステムの連続的なフリー・スペースを増やします。 <em>Device</em> 変数を指定して、デフラグを行うファイルシステムを指定することができます。
+この変数は、論理ボリュームのパス名 (例えば <strong>/dev/hd4</strong> など) です。 また、<em>FileSystem</em> 変数を使用して指定することもできます。
+この変数は <strong>/etc/filesystems</strong> ファイル内のマウント・ポイントです。</p>
+<p><strong>defragfs</strong> コマンドは、フラグメント化され圧縮されたファイルシステムを対象にしています。 ただし、<strong>defragfs</strong> コマンドを使用することにより、フラグメント化されていないファイルシステム内で連続的なフリー・スペースを増やすこともできます。</p>
+<p>このコマンドを正常に実行するには、ファイルシステムを読み取り/書き込みでマウントしなければなりません。 <strong>-q</strong> フラグ、<strong>-r</strong> フラグ、または <strong>-s</strong>
+フラグを使用すると、フラグメント化レポートが生成されます。 これらのフラグを指定しても、ファイルシステムは変更されません。</p>
+<p><strong>defragfs</strong> コマンドは、スナップショット・ストレージ・オブジェクトへコピーする必要があるデータの量のため、スナップショットを使用する拡張ジャーナル・ファイルシステム (JFS2) より遅くなります。 <strong>defragfs</strong> コマンドは、スナップショットがあると
+警告メッセージを出します。 <strong>snapshot</strong> コマンドは、スナップショットの削除に使用でき、
+その後 <strong>defragfs</strong> コマンドの完了後に
+新しいスナップショットの作成に再度使用することができます。</p>
+<p>JFS2 ファイルシステムでは、 <strong>-f</strong> フラグを <span>defragfs</span> コマンドと一緒に指定して、隣接するデータ・エクステントを再配置してから結合することにより、ファイルシステムをデフラグすることができます。 さらに、<strong>-v</strong> フラグを指定すると、<span>defragfs</span> コマンドは、<span>defragfs</span> コマンド実行の前後でファイルシステムのフラグメントを表示します。 <strong>-f</strong>、<strong>-v</strong>、および <strong>-y</strong> の各フラグは、JFS2 ファイルシステムでのみ使用できます。 <strong>-v</strong> フラグは <strong>-f</strong> フラグとのみ併用できます。</p>
+<p><strong>-f</strong> フラグを指定して <span>defragfs</span> コマンドを使用すると、実行に時間がかかります。 <span>defragfs</span> コマンドは保守の時間帯に実行することをお勧めします。</p>ファイルシステム・アクティビティーはいずれも、フラグメント解消プロセスのパフォーマンスを低下させるおそれがあります。<p>論理ボリュームの一部または全体がソリッド・ステート・ドライブ (SSD) 上にあるようなファイルシステムのパフォーマンスは、<span>defragfs</span> コマンドによって大幅に改善されない場合があります。</p>
+<p>内部スナップショットがシステムに存在する場合、<span>defragfs</span> コマンドは実行できません。 <span>defragfs</span> コマンドは、 <strong>-f</strong> フラグを指定して <span>defragfs</span> コマンドを実行しない限り、システム内に外部スナップショットが存在する場合に警告メッセージを発行します。 <span>defragfs</span> コマンドを <strong>-f</strong> フラグ指定で実行する場合、<span>defragfs</span> コマンドを外部スナップショットを使用して実行することはできません。 <span>defragfs</span> コマンドは、スナップショット・ストレージ・オブジェクトにコピーしなければならないデータ量が原因で、スナップショットを使用する JFS2 ファイルシステムでは実行に時間がかかります。 <span>snapshot</span> コマンドを使用してスナップショットを削除し、<span>defragfs</span> コマンドの完了後に再度 <span>snapshot</span> コマンドを使用して新しいスナップショットを作成することができます。</p>
+<p><span>defragfs</span> コマンドは、他のファイルシステムとログ・ボリュームを共有しないファイルシステム上で実行すると、パフォーマンスが向上します。 <span>defragfs</span> コマンドを他のファイルシステムとログ・ボリュームを共有するファイルシステムで実行すると、<span>defragfs</span> コマンドは警告を表示し、確認を要求します。 <span>defragfs</span> コマンドを <strong>-y</strong> フラグ指定で実行すると、警告は抑止されます。 <strong>-y</strong> フラグは <strong>-f</strong> フラグとのみ併用できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>ファイルシステム内の各ファイルのデータ・エクステントを再配置および結合します。 このプロセスは、ファイルシステム・フリー・スペースの隣接性よりもファイル編成を優先します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>ファイルシステムの現在の状態を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>ファイルシステムの現在の状態と、 <strong>-q</strong>、 <strong>-r</strong> 、または <strong>-s</strong> フラグを指定せずに <span>defragfs</span> コマンドを実行した場合に生じる状態を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>ファイルシステム内のフラグメント化を報告します。 このオプションを使用すると、
+<span>defragfs</span> は、
+パフォーマンスを低下させる可能性があるファイルシステム内のメタデータをパススルーします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>フラグメント解消操作の開始時と終了時に、ファイルシステムのフラグメント化率 (%) を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-y</strong></td>
+
+<td>複数のファイルシステムが現在、同じログ・ボリュームを使用してマウントされている場合に、<span>defragfs</span> コマンドによって表示される警告メッセージを抑止します。 警告メッセージが抑止されると、<span>defragfs</span> コマンド操作は中断なしに続行されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <strong>-v</strong> および <strong>-y</strong> フラグは、 <strong>-f</strong> フラグと一緒にのみ使用できます。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>出力</h2> <div>JFS ファイルシステムでは、<span>defragfs</span> コマンドによって報告されるメッセージの定義は以下のようになります。<dl>
+
+<dt>Number of free fragments</dt>
+
+<dd>ファイルシステム内の、空きフラグメントの数。</dd>
+
+
+
+<dt>Number of allocated fragments</dt>
+
+<dd>ファイルシステム内の、割り当てられたフラグメントの数。</dd>
+
+
+
+<dt>Number of free spaces shorter than a block</dt>
+
+<dd>ファイルシステム内の、1 ブロックより短いフリー・スペースの数。 1 フリー・スペースは、割り当てられていない連続したフラグメントの 1 セットを指します。</dd>
+
+
+
+<dt>Number of free fragments in short free spaces</dt>
+
+<dd>すべての短いフリー・スペース内の、フラグメントの合計数。 1 つの短いフリー・スペースは、
+1 ブロックより短いものを指します。</dd>
+
+
+
+<dt>Number of fragments moved</dt>
+
+<dd>移動したフラグメントの合計数。</dd>
+
+
+
+<dt>Number of logical blocks moved</dt>
+
+<dd>移動した論理ブロックの合計数。</dd>
+
+
+
+<dt>Number of allocation attempts</dt>
+
+<dd>フリー・フラグメントが再割り当てされた回数。</dd>
+
+
+
+<dt>Number of exact matches</dt>
+
+<dd>移動されるフラグメントがいくつかのフリー・スペースに正確に適合する回数。</dd>
+
+
+
+<dt>Total number of fragments</dt>
+
+<dd>ファイルシステム内の、フラグメントの合計数。</dd>
+
+
+
+<dt>Number of fragments that may be migrated</dt>
+
+<dd>デフラグ時に移動されるフラグメントの数。</dd>
+
+
+
+<dt>File system is in percent fragmented</dt>
+
+<dd>ファイルシステムがフラグメント化されている割合を、パーセンテージ (%) で表示します。</dd>
+
+
+</dl>
+</div>
+ <div>JFS2 ファイルシステムでは、<span>defragfs</span> コマンドによって報告されるメッセージの定義は以下のようになります。<dl>
+
+<dt>Total allocation groups</dt>
+
+<dd>ファイルシステム内の、割り振りグループの数。 割り振りグループは、
+ファイルシステム上のスペースをチャンク (大きい塊) に分割します。 割り振りグループでは、
+入出力パフォーマンスの良いメソッドとして知られている JFS2 リソース割り当てポリシー
+を使用できます。</dd>
+
+
+
+<dt>Allocation groups defragmented</dt>
+
+<dd>デフラグされた割り振りグループの数。</dd>
+
+
+
+<dt>Allocation groups skipped - entirely free</dt>
+
+<dd>完全にフリーであるためスキップされた割り振りグループの数。</dd>
+
+
+
+<dt>Allocation groups skipped - too few free blocks</dt>
+
+<dd>割り当てブロック内に再割り当てのためのフリー・ブロックがほとんどないため、
+スキップされた割り振りグループの数。</dd>
+
+
+
+<dt>Allocation groups skipped - contains a large contiguous free space</dt>
+
+<dd>デフラグの必要が無い、大きな連続したフリー・スペースを含むためにスキップされた
+割り振りグループの数。</dd>
+
+
+
+<dt>Allocation groups are candidates for defragmenting</dt>
+
+<dd>デフラグに適する割り振りグループの数。</dd>
+
+
+
+<dt>Average number of free runs in candidate allocation groups</dt>
+
+<dd>デフラグに適するとされる割り振りグループを対象とする、
+1 割り振りグループごとのフリー実行 (free run) の平均回数。 1 フリー実行は、
+割り当てられていない、連続したブロックの 1 セットを指します。</dd>
+
+
+
+<dt>Total number of blocks</dt>
+
+<dd>ファイルシステム内の、ブロックの合計数。</dd>
+
+
+
+<dt>Number of blocks that may be migrated</dt>
+
+<dd>デフラグ時に移動されるブロックの数。</dd>
+
+
+
+<dt>File system is in percent fragmented</dt>
+
+<dd>ファイルシステムがフラグメント化されている割合を、パーセンテージ (%) で表示します。</dd>
+
+
+
+<dt>ファイルシステム内のフラグメント化の割合: percentage</dt>
+
+<dd><span>defragfs</span> コマンド実行前後でのファイルシステムのフラグメント化率 (%)。 次の例は、ファイルシステムのフラグメント化率 (%) を示しています。<div><div><pre><code># defragfs -fv /exampleFS
+File fragmentation before defrag: 100.00%
+File fragmentation after defrag: 0.00%</code></pre></div><div></div></div></dd>
+
+
+</dl>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>/dev/lv00</strong> 論理ボリューム上にある <strong>/data1</strong> ファイルシステムをデフラグするには、次のように入力します。<div>
+<div><div><pre><code>defragfs /dev/lv00</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span></span>マウント・ポイントを指定して <strong>/data1</strong> ファイルシステムをデフラグするには、次のように入力します。<div>
+<div><div><pre><code>defragfs /data1</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><span></span>現在の状況とデフラグ後の状況を示すレポートを <strong>/data1</strong> ファイルシステムに生成するには、次のように入力します。<div>defragfs  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/defragfs.html#defragfs__row-d3e20910" target="_blank" rel="noopener noreferrer">-r</a> /data1</div>
+</li>
+
+<li>ファイルシステム <strong>/data1</strong> 内のフラグメント化についてのレポートを
+生成するには、次のように入力します。<div><div><pre><code>defragfs -s /data1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

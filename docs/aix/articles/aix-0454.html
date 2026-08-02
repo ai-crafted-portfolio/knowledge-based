@@ -1,0 +1,534 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>暫定修正</span> マネージャーを開始します。このマネージャーは、システム暫定修正をインストール、除去、リスト、および検査します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>emgr -l [ -L Label | -n interimfixNumber | -u VUID ] [-v{1|2|3|4} ] [ -X ] [-a path] </code></pre></div><div></div></div>
+<div><div><pre><code>emgr -e interimfixPackage | -f ListFile [-w Directory ] [ -b | -k | -I ] [ -p ] [ -q ] [ -m ] [ -o ] [ -X ] [-a path]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -i interimfixPackage | -f ListFile [ -w Directory ] [ -C ] [ -p ] [ -q ] [ -X ] [ -a path ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -C -i interimfixPackage | -f ListFile [ -w Directory ] [ -p ] [ -q ] [ -X ] [ -a path ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -C -L Label [ -p ] [ -q ] [ -X ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -r -L Label | -n interimfixNumber | -u VUID | -f ListFile [-w Directory ] [-a path] [ -b | -k | -I ] [ -p ] [ -q ] [ -X ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -c [ -L Label | -n interimfixNumber | -u VUID | -f ListFile ] [ -w Directory ] [-a path] [-v{1|2|3} ] [ -X ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -M | -U [ -L Label | -n interimfixNumber | -u VUID | -f ListFile ] [ -w Directory ] [-a path] [ -X ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -R interimfixLabel [ -w Directory ] [-a path] [ -X ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -P [ Package ] [-a path] [ -X ]</code></pre></div><div></div></div>
+<div><div><pre><code>emgr -d -e interimfixPackage | -f ListFile [-w Directory ] [-v{1|2|3} ]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>emgr</span>（<span>暫定修正</span>マネージャ）コマンドは、システムの暫定修正をインストールし、管理するために使用することができます。 <span>暫定修正</span>マネージャは、「<span>epkg</span>コマンドで作成されたパッケージをインストールし、<span>暫定修正</span>情報を含むデータベースを管理します。 <span>emgr</span> コマンドは以下の操作を実行します。</p>
+ <ul>
+<li><span>暫定修正</span> パッケージのインストール</li>
+
+<li><span>暫定修正</span> の削除</li>
+
+<li><span>暫定修正</span> リスト</li>
+
+<li><span>暫定修正</span> 検査</li>
+
+<li><span>暫定修正</span> のマウント</li>
+
+<li><span>暫定修正</span> のアンマウント</li>
+
+<li>パッケージのロックの表示</li>
+
+<li>インストール済み <span>暫定修正</span> 強制除去</li>
+
+</ul>
+ <div> <div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li><span>暫定修正</span>マネージャーによってロックされているファイルセットを (「<span>installp</span>、「<span>install_all_updates</span>、または smit 「<span>update_all</span>コマンドを使用して) 更新しようとすると、どのファイルセットがロックされているかを示すメッセージが表示される。 ファイルセットのインストールが阻害された理由を示す通知がないことがある。 <span>lslpp</span> コマンドは、EFIXLOCKED 状態にある、ロックされているすべてのファイルセットを表示します。</li>
+
+<li>暫定的な修正またはサービスの更新によって更新されたライブラリまたは実行可能プログラムであって、アクティブなプロセスで使用中のものは、そのプロセスが再起動されない限り、そのプロセスに反映されません。 たとえば、kshを変更するアップデートは、すでに実行されているkshプロセスに変更を反映させない。 同様に、「<span>libc.a</span>ライブラリの更新は、すでに実行中のプロセスには反映されない。 さらに、ライブラリを使用しているプロセスで、ライブラリの更新後に同じライブラリの「<span>dlopen</span>操作を行った場合、再起動しないと不整合が発生する可能性がある。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</div>
+
+<dl>
+
+<dt>Ifix の参照</dt>
+
+<dd><p><span>暫定修正</span> を参照する方法は、以下のとおりです。</p>
+
+<dl>
+
+<dt>ラベルによる参照</dt>
+
+<dd>特定のシステムにインストールされる<span>各暫定修正プログラム</span>には、固有の<span>暫定修正プログラム</span>ラベルがあります。 この<span>中間修正</span>ラベルは、すべての異なるデータベース・オブジェクトを結びつける一意のキーである。 <span>中間修正</span>をラベルで参照するには、「<span>-L</span>フラグのパラメータとしてラベルを渡す。 たとえば、ラベル「<code>ABC123</code>」の<span>中間フィックス</span>に対してチェック・オペレーションを実行するには、次のように入力する：<div><div><pre><code>emgr -cL ABC123</code></pre></div><div></div></div></dd>
+
+
+
+<dt>Ifix ID による参照</dt>
+
+<dd>特定のシステムにインストールされている各 <span>暫定修正</span> には、 <span>暫定修正</span> ID があります。 <span>暫定修正</span> ID は、単に <span>暫定修正</span> が <span>暫定修正</span> データベースにリストされている順序番号です。 このオプションは、中間<span>フィックス</span>のリストに基づいて中間フィックスの操作を行う場合に便利です。 <span>emgr</span>コマンドは、<span>中間フィックス</span>IDを<span>中間フィックス</span>ラベルに変換してから、指定された操作を実行する。 IDで<span>中間修正</span>を参照するには、「<span>-n</span>フラグのパラメータとしてIDを渡す。<div><div>
+        <div>
+          <div><span>注:</span> Ifix ID は、暫定修正が削除されて追加されるにつれて変更される可能性があります。 <span>-l</span>フラグを使用して、特定の<span>暫定修正プログラム</span>またはすべての暫定修正プログラムをリストアップし、現在の<span>暫定修正プログラム</span>ID番号を常に確認してください。</div>
+        </div>
+      </div></div>例えば、ID が 1 の最初の <span>暫定修正</span> に対して検査操作を実行するには、次のように入力します。<div><div><pre><code>emgr -cn1</code></pre></div><div></div></div></dd>
+
+
+
+<dt>VUID による参照</dt>
+
+<dd><span>暫定修正</span> パッケージはどのエンティティーによっても正式に追跡されないため、同じ <span>暫定修正</span> ラベルが複数の <span>暫定修正</span> パッケージに使用される可能性があります。 しかし、'<span>emgr</span>コマンドは、同じ<span>暫定修正</span>ラベルを持つ複数の<span>暫定</span>修正を同時にインストールすることを受け付けません。 VUID (仮想的に固有の ID) を使用して、同じ <span>暫定修正</span> ラベルを持つパッケージを区別することができます。 <span>emgr</span>コマンドは、指定された操作を実行する前に、VUIDを<span>暫定的なフィックス・</span>ラベルに変換する。 例えば、VUIDが'<code>000775364C00020316020703</code>に等しいインストール済みの<span>暫定修正</span>を一覧表示するには、次のように入力します：<div><div><pre><code>emgr -l -u 000775364C00020316020703</code></pre></div><div></div></div>
+<div><div>
+        <div>
+          <div><span>注:</span> VUID は、 <span>暫定修正</span> のインストールおよび削除のプレビュー・フェーズで表示されます。 VUID は、<span>-v</span> フラグを使用して
+詳細レベル 3 でリストする場合も表示されます。</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</dd>
+
+
+
+<dt>Ifix ロギング</dt>
+
+<dd><p>下記の操作は、<span>emgr</span> コマンド・ログ・ファイル
+<span>/var/adm/ras/emgr.log</span> に記録されます。</p>
+
+<ul>
+<li>インストール</li>
+
+<li>除去</li>
+
+<li>検査</li>
+
+<li>マウント</li>
+
+<li>アンマウント</li>
+
+<li>強制除去</li>
+
+</ul>
+
+</dd>
+
+
+
+<dt>installp による暫定修正の自動削除の有効化</dt>
+
+<dd><p>暫定修正は、APAR参照番号を含むAPAR参照ファイルを「<span>epkg</span>コマンドでパッケージ化することができる。 APAR参照番号により、'<span>installp</span>は中間修正を、その修正が出荷されたすべての技術レベルのAPARにマッピングすることができる。 <span>installp</span>、適用される技術レベル、サービスパック、またはPTFに暫定修正が含まれていると判断した場合、「<span>installp</span>アップデートを適用する前に暫定修正を自動的に削除する。</p>
+
+<p>中間修正の自動削除が有効になっている場合、「<span>emgr</span>コマンドは中間修正のインストール中に次のようなメッセージを表示します：</p>
+
+<div>
+<div><div><pre><code>ATTENTION: Interim fix is enabled for automatic removal by installp.</code></pre></div><div></div></div>
+</div>
+
+</dd>
+
+
+
+<dt>並行更新</dt>
+
+<dd><p><span>emgr</span>コマンドは、コンカレント・アップデートと呼ばれる新しい種類の<span>暫定的な修正プログラム</span>のインストールをサポートします。 この形式の<span>暫定修正</span>は、<span>AIX</span>カーネルまたはそのカーネル拡張の1つに修正を加えるもので、システム・メモリに直接適用できるため、システムを再起動する必要はない。 このようにシステム・メモリに直接パッチを当てることで、ディスク上にあるシステムの現在のカーネルを含むファイルを変更することなく、カーネルの変更を安全に評価・テストすることができる。 <span>-C</span>フラグを使用して、同時更新によってもたらされた変更をディスクにコミットすることを選択しない限り、システムメモリに適用された同時更新は、システム再起動後も持続しません。 並行更新は、同じモジュールの別のパッチに直接適用することができます。 既存のパッチを除去する必要はありません。 ただし、ロードするモジュールのバージョンは 1 つのみでなければなりません。 また、REBOOT_REQUIRED 状態では暫定修正の並行更新操作 (メモリー内またはディスク上) は、システムがリブートするまで実行できません。</p>
+
+<p><span>emgr</span>コマンドは、NIMシン・サーバー（ディスクレスまたはデータレス・クライアント）のインメモリー同時更新をサポートする。 シンサーバーはオペレーティングシステムファイルを他のクライアントと共有しているため(<span>/usr</span>ディレクトリは読み取り専用)、同時更新をディスクにコミットする(<span>-C</span>フラグ)オプション'<span>emgr</span>はシンサーバーでは無効である。</p>
+
+<div><div>
+        <div>
+          <div><span>注：</span>シンサーバーの共有オペレーティングシステムファイルをディスクにパッチする必要がある場合、シンサーバーにサービスを提供するNIMマスター上のSPOTリソースに暫定的な修正が適用される可能性がある。 SPOTへの中間修正のインストールについては、『インストール・ガイド』の「SPOTリソースへの中間修正のインストール」セクション、またはNIMマスターの「<span>/usr/lpp/bos.sysmgt/nim/README</span>ファイル（NIM IFIX/EMGRセクション）を参照してください。</div>
+        </div>
+      </div></div>
+
+<p><span>/usr</span>ファイルシステムはシンサーバーでは読み取り専用なので、'<span>emgr</span>データベースはシンサーバーの'<span>/var/emgrdata</span>ディレクトリに配置される。</p>
+
+<p>bosbootやファイルシステム拡張など、特定の「<span>emgr</span>操作はシンサーバー環境ではサポートできない。 その結果、次の「<span>emgr</span>フラグは、シンサーバー環境ではサポートされない： 「<span>-C</span>、「<span>-e</span>、「<span>-I</span>、「<span>-k</span>、「<span>–X</span>。 また、「<span>–b</span>フラグは、再起動を必要とする暫定的な修正のためにbosbootプロセスをスキップするもので、シンサーバーではbosboot操作がサポートされていないため、該当する場合は常に使用される。</p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span>-a</span> <span><span>パス</span></span></td>
+
+<td>インストールのための代替ディレクトリー・パスを指定します。<div><div>
+        <div>
+          <div><span>注：</span>'<span>-a</span>フラグは、'<span>emgr</span>コマンドの '<span>-e</span>フラグと '<span>-a</span>フラグが、'<span>中間修正</span> のインストール時に使用された場合にのみ、'<span>中間修正</span>削除時に機能する。 <span>-e</span>および '<span>-a</span>フラグを使用して<span>暫定修正</span>をインストールしなかった 場合、'<span>emgr</span>コマンドは代替ディレクトリパスから暫定修正を完全には 削除しない。<div>回避策として、以下のコマンドを使用して、代替ディレクトリーにインストールされている <span>暫定修正</span> を削除します。<div><div><pre><code>chroot /alt_inst /usr/sbin/emgr -r -L efix_label</code></pre></div><div></div></div></div>
+ </div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-b</span></td>
+
+<td><span>emgr</span>コマンドは、再起動を必要とする暫定的な修正について、通常の<span>AIX</span>'<span>bosboot</span>プロセスをスキップする。</td>
+
+</tr>
+
+<tr>
+<td><span>-c</span></td>
+
+<td>検査操作を指定します。 <span>emgr</span>コマンドに対して、指定された '<span>中間修正</span>または暫定的なフィックスに対するチェック操作を実行するよう指示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-C</span></td>
+
+<td>同時更新を含む<span>暫定的な修正</span>をディスクにコミットする。 このオプションは、'<span>-i</span>オプションとともに使うか、'<span>-i</span>オプションで<span>暫定的な修正</span>を施した後に使う。 これにより、並行更新がシステムのリブート後にも持続します。<p>同時アップデートがコミットされた後、削除されると、そのモジュールに対する他のパッチが存在するかどうかに関係なく、モジュールは元のパッチ未適用の状態に戻される。 モジュールの既存のパッチはコミットの実行時にすべて除去されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-d</span></td>
+
+<td>目次およびトポロジーを表示します。 このオプションは、'<span>-v</span>フラグとともに冗長性出力を表示するのに便利である。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span> interimfixPackage</td>
+
+<td><span>暫定修正</span> パッケージ・ファイルのパスを指定し、 <span>暫定修正</span> パッケージをインストールします。 <span>中間修正</span>パッケージファイルは「<span>epkg</span>コマンドで作成され、16ビットの圧縮拡張子「<span>.Z</span>」で終わっていなければならない。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span> ListFile</td>
+
+<td>以下のリストのいずれかを含むファイルを指定する：<ul>
+<li>インストール操作に関するパッケージのロケーションのリスト (1 行に 1 つずつ)</li>
+
+<li>除去、マウント、アンマウント、および検査操作の <span>暫定修正</span> ラベルのリスト (1 行に 1 つ)</li>
+
+</ul><span>emgr</span> コマンドは、ブランク行または最初の非空白文字が
+<code>#</code> 文字の行をすべて無視します。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> interimfixPackage</td>
+
+<td>同時更新を含む<span>暫定修正</span>パッケージファイルのパスを指定し、同時更新をシステムメモリに適用します。 この更新は、<span>-C</span> フラグを使用しない限り、システムのリブート後は持続しません。<p><span>-i</span> フラグを使用して、並行更新を同じモジュールの別の更新に適用することもできます。 このような並行更新を「フォローオン」(後続の並行更新) と呼びます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-I</span></td>
+
+<td><span>bosboot</span>コマンドの '<span>-I</span>フラグを使用して、<span>AIX</span>'<span>bosboot</span>用の低レベルデバッガを実行する。</td>
+
+</tr>
+
+<tr>
+<td><span>-k</span></td>
+
+<td><span>bosboot</span>コマンドの '<span>-D</span>フラグを使用して、<span>AIX</span>の'<span>bosboot</span>中に低レベルデバッガをロードする。</td>
+
+</tr>
+
+<tr>
+<td><span>-l</span></td>
+
+<td><span>emgr</span>コマンドに、指定された '<span>中間修正</span>または中間フィックスに対してリスト操作を実行するよう指示する。</td>
+
+</tr>
+
+<tr>
+<td><span>-L</span> ラベル</td>
+
+<td><span>暫定修正</span> ラベルによってこの操作の <span>暫定修正</span> を選択します。</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span></td>
+
+<td><span>emgr</span> コマンドがマウント・インストールを実行するようにします。 <span>中間修正</span>がマウント・インストールされると、<span>中間修正</span>ファイルはターゲット・ファイルの上にマウントされます。</td>
+
+</tr>
+
+<tr>
+<td><span>-M</span></td>
+
+<td><span>emgr</span>コマンドに、'<span>-m</span>フラグを使ってマウントインストールされた<span>暫定フィックス</span>または暫定フィックスをマウントするように指示する。 <span>-M</span>フラグは、「<span>-m</span>フラグを使用してインストールされ、 「<span>-U</span>フラグによってアンマウントされるか、システムをリブート するなどの他の手段によってアンマウントさ<span>れた暫定修正</span>をマウントする ために使用できる。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span> interimfixID</td>
+
+<td><span>暫定修正</span> ID を指定して、この操作の <span>暫定修正</span> を選択します。</td>
+
+</tr>
+
+<tr>
+<td><span>-o</span></td>
+
+<td><span>暫定修正</span> インストール済み環境が既存のパッケージを上書きできることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-p</span></td>
+
+<td><span>emgr</span> コマンドがインストールまたは除去のプレビューを実行するようにします。 プレビューはすべての検査操作で実行されますが、変更は行われません。</td>
+
+</tr>
+
+<tr>
+<td><span>-P</span>[パッケージ]</td>
+
+<td>パッケージ・ビュー操作を指定します。これにより、 <span>暫定修正</span> マネージャーによってロックされているすべてのパッケージ、そのインストーラー、およびロック・ラベルが表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span></td>
+
+<td>エラーおよび重大な警告以外のすべての出力を抑止します。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td><span>emgr</span>コマンドに、指定された<span>暫定フィックス</span>または暫定フィックスの削除を指示する。<p>アクティブなパッチを除去すると、モジュールに既存のパッチがある場合はそのパッチが復元されます。 事前にパッチが存在しない場合、モジュールは元のパッチ未適用の状態に戻される。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-R</span> ラベル</td>
+
+<td><span>emgr</span> コマンドが強制除去操作を実行するようにします。 This option removes <span>中間修正</span> data and package locks associated with the <span>中間修正</span> label without removing <span>中間修正</span> files, running any remove scripts, or boot processing. このオプションは、一度に1つの<span>中間修正</span>にのみ使用できる。 <span>中間フィックス</span>のラベルは、対象となる<span>中間フィックス</span>を識別するために必要です。<div><div>
+        <div>
+          <div><span>注意:</span><ul>
+<li>この<span>中間固定</span>除去の方法は、緊急処置と見なされなければならない。 この方法ではターゲット・システムに不整合が発生する可能性があるため、強制削除の方法は、他のすべての<span>中間修正</span>の削除方法が失敗した場合にのみ使用する必要があります。</li>
+
+<li>インストールされている暫定修正を削除するには、標準の削除プロセス (<span>-r</span>フラグ) を使用します。 緊急時の手順では、<span>-R</span> フラグを使用してラベルを強制除去することができます。 <span>-R</span> フラグでは、ラベルを除去するために <span>-F</span> フラグが必要です。 <span>-F</span>フラグと「<span>-R</span>フラグ（たとえば「<code>emgr -FR ifix_label</code>）を同時に指定した場合、強制削除オプションは中間修正ファイル、保存データ、削除スクリプトの実行を一切削除しません。 このオプションは、標準の除去プロセスが実行できない場合にのみ使用してください。</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> 
+VUID</td>
+
+<td>VUIDを指定して、この操作の <span>暫定修正</span> を選択します。</td>
+
+</tr>
+
+<tr>
+<td><span>-U</span></td>
+
+<td><span>emgr</span>コマンドに、'<span>-m</span>フラグを使ってマウントインストールされている<span>暫定フィックス</span>または暫定フィックスをアンマウントするように指示する。</td>
+
+</tr>
+
+<tr>
+<td>-<span>-v{1|2|3}</span></td>
+
+<td><span>-v{1|2|3}</span> フラグは、リスト操作の詳細レベル、または検査操作の検査レベルを指定します。 <span>-v4</span> フラグは、リスト操作のコロン区切りの出力を表示します。 <span>-v</span>フラグの有効レベルは<span>1</span>、<span>2</span>、<span>3</span>、<span>4</span>であり、「<span>-v4</span>フラグは「<span>-l</span>フラグでのみサポートされる。</td>
+
+</tr>
+
+<tr>
+<td><span>-w</span> ディレクトリ</td>
+
+<td><span>emgr</span> コマンドがデフォルトの
+<span>/tmp</span> ディレクトリーの代わりに指定の作業ディレクトリーを使用するようにします。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span></td>
+
+<td>要求された <span>emgr</span>
+操作を実行するのに十分なスペースがないファイルシステムの拡張を試みます。 このオプションは、<span>暫定修正</span>パッケージと'<span>emgr</span>コマンドによって提供される利用可能なスペースとサイズの見積もりに基づいて、ファイルシステムを拡張する。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>-X</span> フラグが使用される場合でも、
+インストール時に使用可能なディスク・スペースが使い果たされる可能性があります。 インストール時に他のファイルが同じファイルシステム内で作成または拡張されている場合は、
+この可能性が高くなります。</li>
+
+<li>リモート・ファイルシステムは、
+<span>emgr</span> コマンドを使用して拡張することはできません。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt><span>0</span></dt>
+
+<dd>すべての <span>emgr</span> コマンド操作が正常に完了しました。</dd>
+
+
+<dt><span>&gt;0</span></dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><code>aix.system.install</code> 権限を持つシステム管理者またはユーザーは、マルチレベル・セキュア (MLS) システムで <span>emgr</span> コマンドを実行できます。 Ifix データ、保存ファイル、および一時ファイルは、root ユーザーのみがアクセス可能です。</p>
+
+<p>権限 <code>aix.system.install.list</code> を持つ非rootユーザーは、現在 <code>efixes</code>インストールされているパッケージを一覧表示するコマンド <span>emgr</span> を実行できます。 非rootユーザーが認証 <code>aix.system.install</code> を持っている場合、インストールや削除を行うことができます <code>efixes</code>。</p>
+ <p><span>emgr</span> コマンドは、システムから、サポートされる
+MD5 生成コマンドを探します。 見つかると、<span>emgr</span> コマンドは
+MD5 チェックサムをユーザーに表示します。 ユーザーはこのMD5合計を安全なソースとクロスチェックする。 MD5 生成コマンドが見つからない場合は、<span>emgr</span> コマンドはその後の
+処置をとりません。</p>
+ <p>ユーザーは、EMGR_MD5_CMD シェル変数をエクスポートすることによって
+MD5 コマンドへのパスを強制的に設定できます。 この変数には、MD5を生成するコマンドの絶対パスを格納しなければならない。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span><ul>
+<li>この機能は、 <span>暫定修正</span> 管理の元のリリースではサポートされていません。 ユーザーは、「<code>bos.rte.install</code>最新レベルに更新することにより、<span>暫定的な修正</span>管理の最新レベルに更新することを推奨する。</li>
+
+<li><p>Trusted Execution (TE) ポリシーが <code>TSD_LOCK</code> ポリシーまたは <code>TSD_FILE_LOCK</code> ポリシーと一緒にオンになっていると、<span>emgr</span> コマンドは失敗します。 インストールを続行するには、<code>TSD_LOCK</code> ポリシーまたは <code>TSD_FILE_LOCK</code> ポリシーをオフにしてください。 <span>emgr</span> コマンドは、 <code>TSD_LOCK</code> ポリシーまたは <code>TSD_FILE_LOCK</code> ポリシー以外の TE ポリシーを使用して正常に実行されます。</p>
+
+<p>また、TE ポリシーがオンになっていると、サポートされる <span>emgr</span> コマンドのインスタンスは 1 つだけです。</p>
+
+</li>
+
+</ul>
+
+</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>games.020303.epkg.Z</code>」という<span>中間修正</span>パッケージのインストールをプレビューするには、以下のコマンドを入力する：<div><div><pre><code>emgr -p -e games.020303.epkg.Z</code></pre></div><div></div></div></li>
+
+<li><code>games.020303.epkg.Z</code>」と呼ばれる<span>暫定修正</span>パッケージをインストールし、追加のスペースが必要な場合にファイルシステムを自動的に拡張するには、以下のコマンドを入力する：<div><div><pre><code>emgr -X -e games.020303.epkg.Z</code></pre></div><div></div></div></li>
+
+<li>システム上のすべての暫定修正をリストするには、次のコマンドを入力します。<div><div><pre><code>emgr -l</code></pre></div><div></div></div></li>
+
+<li>システム上のすべての暫定修正をコロンで区切ってリストするには、次のコマンドを入力します。<div><div><pre><code>emgr -l -v4</code></pre></div><div></div></div></li>
+
+<li>ラベル「<code>games</code>」を持つ<span>中間修正</span>のレベル3リストを作成するには、以下のコマンドを 入力します：<div><div><pre><code>emgr -lv3 -L games</code></pre></div><div></div></div></li>
+
+<li>ラベル「<code>games</code>」の<span>暫定修正</span>を削除するには、以下のコマンドを入力する：<div><div><pre><code>emgr -r -L games</code></pre></div><div></div></div></li>
+
+<li>ファイル「<span>/tmp/myfixes</span>」の<span>暫定修正</span>ラベルの削除をプレビューするには、以下のコマンドを入力する：<div><div><pre><code>emgr -rp -f /tmp/myfixes</code></pre></div><div></div></div></li>
+
+<li>すべての暫定修正を検査レベル 2 で検査するには、次のコマンドを入力します。<div><div><pre><code>emgr -cv2</code></pre></div><div></div></div></li>
+
+<li><span>暫定修正</span> ID 番号 3 を検査レベル 1 (デフォルトの検査レベル) で検査するには、次のコマンドを入力します。<div><div><pre><code>emgr -c -n3</code></pre></div><div></div></div></li>
+
+<li>VUIDが「<code>000775364C00020316020703</code>」で検証レベルが3の<span>暫定修正</span>をチェックするには、次のコマンドを入力する：<div><div><pre><code>emgr -u 000775364C00020316020703 -c -v3</code></pre></div><div></div></div></li>
+
+<li>ロックされているすべてのパッケージとその <span>暫定修正</span> ラベルをリストするには、次のコマンドを入力します。<div><div><pre><code>emgr -P</code></pre></div><div></div></div></li>
+
+<li><span>installp</span>パッケージ「<code>bos.rte.lvm</code>ロックしたすべての<span>中間修正</span>ラベルをリストアップするには、次のコマンドを入力します：<div><div><pre><code>emgr -P bos.rte.lvm</code></pre></div><div></div></div></li>
+
+<li><code>games.020303.epkg.Z</code>」という<span>中間修正</span>パッケージをマウント・インストールし、<span>AIX</span>の「<span>bosboot</span>抑制するには、以下のコマンドを入力します：<div><div><pre><code>emgr -e games.020303.epkg.Z -mb</code></pre></div><div></div></div></li>
+
+<li><span>-m</span>オプションを使ってシステムにマウントインストールされているすべての<span>中間修正</span>ファイルをマウントするには、以下のコマンドを入力する：<div><div><pre><code>emgr -M</code></pre></div><div></div></div></li>
+
+<li><span>暫定修正</span>ラベル「<code>games</code>」に関連付けられたすべての<span>暫定修正</span>ファイルをアンマウントするには、次のコマンドを入力します：<div><div><pre><code>emgr -U -L games</code></pre></div><div></div></div></li>
+
+<li><code>kernelmod.031007.epkg.Z</code>」と呼ばれる<span>暫定的な修正</span>パッケージと同時更新をシステムメモリに適用するには、次のコマンドを入力します：<div><div><pre><code>emgr -i kernelmod.031007.epkg.Z</code></pre></div><div></div></div></li>
+
+<li><span>暫定修正</span>ラベル「<code>kernelmod</code>」に関連する同時アップデートをディスクにコミットするには、次のコマンドを入力します：<div><div><pre><code>emgr -C -L kernelmod</code></pre></div><div></div></div></li>
+
+<li><code>kernelmod2.031007.epkg.Z</code>名前の<span>暫定修正</span>パッケージをシステムメモリに同時更新を適用し、同時更新をディスクにコミットするには、次のコマンドを入力します：<div><div><pre><code>emgr -i kernelmod2.031007.epkg.Z -C</code></pre></div><div></div></div></li>
+
+<li><span>暫定修正</span>パッケージ「<code>test.102403.epkg.Z</code>」のレベル3の冗長性出力を表示するには、以下のコマンドを入力する：<div><div><pre><code>emgr -v3 -d test.102403.epkg.Z</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/emgr</span></td>
+
+<td><span>emgr</span>コマンドを含む</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/emgrdata/DBS/ifix.db</span></td>
+
+<td><span>暫定修正</span> ヘッダー・データベースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/emgrdata/DBS/files.db</span></td>
+
+<td><span>暫定修正</span> ファイル・データベースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/emgrdata/DBS/pkglck.db</span></td>
+
+<td>パッケージ・ロック・データベースを含む</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/emgrdata/DBS/prereq.db</span></td>
+
+<td>前提条件データベースが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/emgrdata/DBS/e2eprereq.db</span></td>
+
+<td><span>暫定修正</span> 前提条件データベースが含まれています。</td>
+
+</tr>
+
+<tr>
+<td><span>/usr/emgrdata/DBS/aparref.db</span></td>
+
+<td>APAR 参照ファイル・データベースが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

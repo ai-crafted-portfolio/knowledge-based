@@ -1,0 +1,139 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート・システムから使用可能なリソースをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dfshares</strong>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dfshares.html#dfshares__row-d3e25370" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <em>FileSystemType</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dfshares.html#dfshares__row-d3e25382" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dfshares.html#dfshares__row-d3e25402" target="_blank" rel="noopener noreferrer"><em>Server</em></a>... ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dfshares</strong> コマンドは、ネットワーク・ファイルシステム (NFS) を介してホストに
+使用可能にされたリソースについての情報を提供します。 <strong>dfshares</strong> コマンドは、
+ヘッダー行と、その後にフィールドの区切り文字としてスペースを含んだ行のリストを出力します。</p>
+ <div>各リソースについて、次のフィールドが表示されます。<dl>
+<dt>RESOURCE</dt>
+
+<dd>server:path のフォームでエクスポートされたリソース名を表示します。</dd>
+
+
+<dt>SERVER</dt>
+
+<dd>リソースを提供しているマシンを表示します。</dd>
+
+
+<dt>ACCESS</dt>
+
+<dd>そのクライアント・システムに与えられたアクセス権限を表示します。 しかし、<strong>dfshares</strong>
+は NFS リソースについてはこの情報を判別できないため、そのフィールドにハイフン (-) を転送します。</dd>
+
+
+<dt>TRANSPORT</dt>
+
+<dd>共有するリソースへのトランスポート・プロバイダーを表示します。 しかし、<strong>dfshares</strong>
+は NFS リソースについてはこの情報を判別できないため、そのフィールドにハイフン (-) を転送します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-F</strong> <em>FileSystemType</em></td>
+
+<td>ファイルシステムのタイプを指定します。 ファイルシステム <strong>nfs</strong> タイプ
+のみサポートされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>dfshares</strong> の出力で、ヘッダー行を表示しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>サーバー</em></td>
+
+<td>ローカル・マシンにリソースを提供したネットワーク上のシステムを
+表します。 このパラメーターを指定しない場合は、<strong>dfshares</strong> コマンドは、
+ローカル・システム自体についての情報を出力します。 <strong>dfshares</strong> には、
+複数のサーバー名を指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>nfs</strong> タイプのファイルシステムについてシステム mercury 上の
+リソース情報を出力するには、次のように入力します。<div><div><pre><code>dfshares -F nfs mercury</code></pre></div><div></div></div></li>
+
+<li>システム上のリソース情報をヘッダー無しで出力するには、次のように入力します。<div><div><pre><code>dfshares -hF nfs</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/dfshares</strong></td>
+
+<td>汎用の System V <strong>dfshares</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/fs/nfs/dfshares</strong></td>
+
+<td>タイプ <strong>nfs</strong> のファイルシステム用の System V <strong>dfshares</strong>
+コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>既知の仮想ファイルシステムのインプリメンテーションについての記述が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

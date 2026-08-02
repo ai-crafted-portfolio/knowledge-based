@@ -1,0 +1,85 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p><strong>xmpeek</strong> コマンドを使用すると、任意のホストに照会して、その <strong>xmtopas</strong> デーモンの状況について問い合わせることができます。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>XmPeek</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmpeek.html#xmpeek__row-d3e40109" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmpeek.html#xmpeek__row-d3e40115" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmpeek.html#xmpeek__row-d3e40124" target="_blank" rel="noopener noreferrer"><em>ホスト名</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xmpeek</strong> コマンドは、現在 <strong>xmtopas</strong> デーモンで定義済みの計測データ (統計セット) を持つデータ・コンシューマーを一覧表示したり、<strong>xmtopas</strong> デーモンが認識しているデータ・コンシューマーをすべて一覧表示したりするために使用されます。 また、この <strong>xmpeek</strong> コマンドは、ある特定のホストについてすべての使用可能な SPMI 統計情報を印刷するためにも使用されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>このフラグが指定されると、デーモンが認識しているデータ・コンシューマーごとに 1 行ずつリストされます。 このフラグが使用されていない場合は、現在このデーモンで定義済みの計測データ (統計セット) を持つデータ・コンシューマーのみがリストされます。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>リモート・ホストの入手可能な統計をすべてリストします。 このフラグはオプションです。</td>
+
+</tr>
+
+<tr>
+<td><em>hostname</em></td>
+
+<td>ホスト名が指定されると、指定されたホスト上のデーモンが要求されます。 ホスト名が指定されない場合は、ローカル・ホスト上のデーモンが要求されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p><strong>xmpeek</strong> プログラムからの出力の例を示します。</p>
+ <div> <div><div><pre><code>Statistics for xmtopas daemon on *** birte ***
+Instruments currently defined:    1
+Instruments currently active:     1
+Remote monitors currently known:  2
+--Instruments--- Values  Packets
+                                Internet Protocol
+Defined Active  Active  Sent        Address      Port Hostname
+------- ------- ------- ------- ---------------- ---- ----------
+1       1       16      3,344   129.49.115.208   3885 xtra</code></pre></div><div></div></div></div>
+ <p><strong>xmpeek</strong> からの出力には、以下の 2 つの形式があります。</p>
+ <p>1 番目の形式は、<strong>xmtopas</strong> デーモンがデータ・コンシューマー・プログラムを何もフィードしていないことを知らせる 1 行です。 この形式は、デーモンで統計セットが定義されておらず、コマンド・フラグが指定されていない場合に使用されます。</p>
+ <p>2 番目の形式には、少なくとも前の例で示される情報と同様な情報は含まれます。ただし、<strong>-a</strong> フラグが使用されている場合、またはデーモンで定義済みの計測データ (統計セット) をデータ・コンシューマーが少なくとも 1 つ持っている場合のみ、ホスト <strong>xtra</strong> 上のデータ・コンシューマーに対して 1 明細行が表示されます。 <strong>xmpeek</strong> は Remote Statistics Interface (RSI) API を使用してデーモンと連絡を取るため、それ自体がデータ・コンシューマーとして表示されることに注意してください。 そのため、出力には常に少なくとも 1 つの既知のモニターが表示されます。</p>
+ <p>固定出力には、デーモンが稼働中のホストの名前が最初に表示されます。 次の 3 行には、デーモンの現在の状況がすべて表示されます。 上の例では、計測データが 1 つだけ定義されており、現在アクティブであることが分かります。 また、2 つのデータ・コンシューマーがデーモンに認識されていますが、そのうちの 1 つだけが <strong>birte</strong> 内のデーモンで定義済みの計測データを持っていることも分かります。 明らかに、この出力は <strong>-a</strong> フラグなしで作成されたものです。</p>
+ <p>活動状況がより多い例として、<strong>xmpeek</strong> からの出力例を以下に示します。 この出力は、次のコマンドを使用して作成されたものです。</p>
+ <div> <div><div><pre><code>xmpeek -a birte </code></pre></div><div></div></div></div>
+ <p>一部の明細行には、定義済みの計測データがゼロと表示されていることに注意してください。 そのような明細行は、データ・コンシューマーから <strong>are_you_there</strong> メッセージを受け取ったが、状態が定義されたことがないか、
+または以前の定義済み状態が消去されたことを示します。</p>
+ <div> <div><div><pre><code>Statistics for smeared daemon on *** birte ***
+   Instruments currently defined:    16
+   Instruments currently active:     14
+   Remote monitors currently known:   6
+--Instruments--- Values Packets   Internet Protocol
+ Defined Active  Active  Sent         Address      Port  Hostname
+   8       8       35    10,232    129.49.115.203  4184   birte
+   6       4       28     8,322    129.49.246.14   3211   umbra
+   0       0        0         0    129.49.115.208  3861   xtra
+   1       1       16     3,332    129.49.246.14   3219   umbra
+   0       0        0         0    129.49.115.203  4209   birte
+   1       1       16       422    129.49.115.208  3874   xtra
+------- ------- ------- ----------
+  16      14       95    22,308</code></pre></div><div></div></div></div>
+ <p>同じホスト名が 2 回以上表示される場合があることに注意してください。 これは、<strong>xmperf</strong> のすべての実行中のコピーとその他のすべてのアクティブなデータ・コンシューマー・プログラムがカウントされ、別個のデータ・コンシューマーとして取り扱われるためです。それぞれは、<strong>xmpeek</strong> の出力に示されているように、UDP パケット用に使用されるポート番号によって識別されます。</p>
+ <p>2 番目の明細行は、ホスト <strong>umbra</strong> 上の 1 つの特定のモニターに 6 つの計測データが定義されているが、4 つのみがアクティブであることを示しています。 これは、リモート <strong>xmperf</strong> コンソールがオープンされていたが、現在はクローズされている場合に起こる可能性があります。 <strong>xmperf</strong> コンソールをクローズすると、<strong>xmperf</strong> メインウィンドウの「モニター」メニューのままになり、コンソールの計測データの定義はデータ・サプライヤー・デーモンのテーブル内にそのまま残りますが、計測データは非アクティブになります。</p>
+</section>
+
+</div></div>

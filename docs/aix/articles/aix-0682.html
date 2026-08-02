@@ -1,0 +1,137 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><strong>keylist</strong> は秘密鍵の鍵ストア内の鍵ストア・ラベルをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>keylist</strong> [<strong>-S</strong> <em>
+servicename</em>] [<strong>-v</strong> | <strong>-c</strong>] [<strong>-p</strong> <em>privatekeystore</em>] [<em>
+username</em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>keylist</strong> コマンドは秘密鍵の鍵ストア内の鍵ストア・ラベルをリストします。 <strong>-S</strong> オプションで、
+鍵ストア内のラベルをリストするときに使用するエンド・エンティティー・サービスおよびライブラリーを指定します。 使用可能なサービスは、<strong>/usr/lib/security/pki/ca.cfg</strong> に定義されています。 <strong>keylist</strong> は、<strong>-S</strong> を指定しないで起動されると、
+<strong>ローカル</strong>であるデフォルト・サービスを使用します。 <strong>
+/usr/lib/security/pki/ ca.cfg</strong> ファイルにエントリーを持たないサービス名を指定するとエラーになります。 ユーザーはオプションで秘密鍵の鍵ストアのロケーションを入力できます。 このロケーションを指定しない場合は、デフォルト・ロケーションが使用されます。 <strong>-c</strong> オプションを指定すると、
+ラベルに一致する鍵ストア・オブジェクトのタイプが 1 文字のシンボルで指定されます。 鍵ストア・オブジェクトのタイプを指示するシンボルは次のとおりです。</p>
+ <p>P = Public Key (公開鍵)</p>
+ <p>p = Private Key (秘密鍵)</p>
+ <p>T = Trusted Key (トラステッド鍵)</p>
+ <p>S = Secret Key (秘密鍵)</p>
+ <p>C = Certificate (証明書)</p>
+ <p>t = Trusted Certificate (トラステッド証明書)</p>
+ <p>U = Useful Certificate (便利な証明書)</p>
+ <p><strong>-v</strong> オプションを使用すると、
+ラベルに対応するオブジェクトのタイプが省略されないバージョンで指定されます (例えば、
+Public Key、Secret Key)。</p>
+ <p>必要な場合は、ユーザーに対して、基本サービスの鍵ストアのパスワードを求めるプロンプトが出されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-S</strong> <em>サービス名</em></td>
+
+<td>使用するサービス・モジュールを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> 秘密鍵ストア</em></td>
+
+<td>鍵ストアのロケーションを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細モードで出力するように指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>簡潔に出力されるように指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>引数</strong></p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>ユーザー名</em></td>
+
+<td>キー・ラベルを照会する<span>AIX</span>ユーザーを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p></p>
+</section>
+
+<section><h2>終了状況</h2> <p></p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>0</td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td>&gt;0</td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>これは特権 (set-UID root) コマンドです。</p>
+ <p>鍵ストアの内容をリストするには、
+ユーザーは秘密鍵の鍵ストアのパスワードを知っていなければなりません。</p>
+ <p><code>Root</code> およびグループ・セキュリティーに属する起動側は、
+誰の鍵ストアでもリストすることが許可されています。 ただし、鍵ストアへのパスワードを知っていなければ、この操作を正常に完了することはできません。</p>
+ <p>特権のないユーザーは、自らが所有する鍵ストアのみリストすることが許可されています。</p>
+<p><strong>AUDIT</strong></p>
+ <p>このコマンドは、以下のイベント情報を記録します。</p>
+ <p>キー・リスト &lt;<em>ユーザー名</em>&gt;</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>鍵ストア <strong>/var/security/pki/keys/bob</strong> 内のラベルをリストするには、
+次のように入力します。<div><div><pre><code>$ keylist -c -p /var/pki/security/keys/bob bob 
+PpC label1 
+PpC label2</code></pre></div><div></div></div></li>
+
+<li>ラベル/オブジェクトを詳細モードでリストするには、次のように入力します。<div><div><pre><code>$ keylist -v -p /var/pki/security/keys/bob bob</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <p><strong>/usr/lib/security/pki/policy.cfg</strong></p>
+ <p><strong>/usr/lib/security/pki/ca.cfg</strong></p>
+</section>
+
+</div></div>

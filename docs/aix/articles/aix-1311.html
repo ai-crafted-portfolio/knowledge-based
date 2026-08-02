@@ -1,0 +1,54 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>フィルター規則をフィルター・テーブルから除去します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>rmfilt -v 4|6</strong><strong> -n fid</strong> | <strong>all</strong><strong> [-f</strong> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>rmfilt</strong> コマンドは、フィルター規則テーブルからフィルター規則を除去するのに使用します。 このコマンドによるアクションは、<strong>mkfilt</strong> コマンドが実行されるまで、IP セキュリティー・サブシステムには影響しません。 このコマンドの IPsec フィルター規則は、 <span><span>genfilt</span></span> コマンドまたは「仮想プライベート・ネットワーク」サブメニューの IPsec smit (IP バージョン 4 または IP バージョン 6) を使用して構成することができます。</p>
+ <p><strong>rmfilt</strong> コマンドは、フィルター規則テーブルからフィルター規則を除去します。 除去できるのは、手動フィルター規則のみです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>自動生成されたフィルター・ルールを強制的に削除します。 <strong>「-f」</strong> フラグは <strong>-n すべて</strong> と連動して、IP バージョン 4 のルール番号 1 を除くすべてのフィルター・ルール (ユーザー定義および自動生成のフィルター・ルール) を削除します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>フィルター規則テーブルから除去したいフィルター規則の ID です。 IP バージョン 4 の場合、値 <strong>1</strong> はこのフラグには無効です。この値は、予約済みフィルター規則です。 <strong>all</strong> を指定すると、
+<strong>-f</strong> フラグが指定されるまでは、ユーザー定義のフィルター規則がすべて除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>除去する必要のあるフィルター規則の IP バージョンを示します。 値 <strong>4</strong> は IP バージョン 4 を指定します。 値 <strong>6</strong> は IP バージョン 6 を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p><strong>アテンション RBAC ユーザー</strong>: このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+</div></div>

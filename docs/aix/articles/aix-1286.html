@@ -1,0 +1,90 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>RIP ゲートウェイを照会します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>RipQuery</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150153" target="_blank" rel="noopener noreferrer"><strong>-1</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150160" target="_blank" rel="noopener noreferrer"><strong>-2</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150167" target="_blank" rel="noopener noreferrer"><strong>-</strong>[<strong>a5</strong></a>] <em>認証鍵</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon/row-d3e8879" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/netpmon.html#netpmon/row-d3e8879" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> <em>DEST</em><strong>[</strong><strong>/</strong><em>マスク</em><strong>]</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150213" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150235" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150270" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/ripquery.html#ripquery__row-d3e150283" target="_blank" rel="noopener noreferrer"><strong>-w (W)</strong></a> <em>時間</em> ] <em>ゲートウェイ</em>...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>ripquery</strong> コマンドは、RIP <em>ゲートウェイ</em> に認識
+されてい
+るすべての経路指定を RIP <strong>REQUEST</strong> または <strong>POLL</strong> コマンドを送信して要求する場合に使用されます。 戻された経路指定パケットに入っているルーティング情報は、数値と記号で表示されます。 <strong>ripquery</strong> コマンドは、ネットワーク管理ではなく、<em>ゲートウェイ</em> をデバッグするためのツールとして使用されるのを目的とします。 SNMP は、ネットワーク管理の優先プロトコルです。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-1</strong></td>
+
+<td>照会をバージョン 1 パケットとして送信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-2</strong></td>
+
+<td>照会をバージョン 2 パケットとして送信します (デフォルト)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong> [ <strong>a5</strong> ] <em>認証キー</em></td>
+
+<td>照会に使用する認証パスワードを指定します。 <strong>-a</strong> を指定すると認証タイプ SIMPLE が使用され、<strong>-5</strong> を指定すると認証タイプ MD5 が使用されます。その他の場合は、デフォルトの認証タイプ NONE が使用されます。 着信パケットの認証フィールドが表示されますが、妥当性は検査されません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>シンボル名を判別するために、応答ホストのアドレスが調べられないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong><em> dest</em><strong>[</strong><strong>/</strong><em>マスク</em><strong>]</strong></td>
+
+<td>これを指定すると、照会が、完全な経路指定テーブルではなく、指定された <em>dest/mask</em> に対して行われます。 オプションのマスクの指定は、
+バージョン 2 の照会を暗黙指定します。 特定の出力先に関して、最大 23 までの要求を 1 つのパケットの中に組み込むことができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>経路指定テーブルの情報を要求するのに RIP <strong>POLL</strong> コマンドを使用します。 これはデフォルトです。 RIP <strong>POLL</strong> コマンドへの応答がないと、
+RIP <strong>REQUEST</strong> コマンドが試行されます。 <strong>gated</strong> は、RIP を介して得たすべての経路を表示して <strong>POLL</strong> コマンドに応答します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>RIP <strong>REQUEST</strong> コマンドを使用して、 <em>ゲートウェイ</em>のルーティング・テーブルから情報を要求します。 RIP <strong>POLL</strong> コマンドとは異なり、すべての<em>ゲートウェイ</em> で RIP <strong>REQUEST</strong> をサポートする必要があります。 RIP <strong>REQUEST</strong> コマンドへの応答がないと、RIP <strong>POLL</strong> コマンドが試行されます。 <strong>gated</strong> は、指定したインターフェースを介して告知したすべての経路を表示して <strong>REQUEST</strong> コマンドに応答します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td><strong>ripquery</strong> に関するバージョン情報が表示されてから、<em>ゲートウェイ</em> が照会されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 時刻</em></td>
+
+<td><em>ゲートウェイ</em> からの最初の応答の待ち時間を秒単位で指定します。 デフォルト値は 5 秒です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

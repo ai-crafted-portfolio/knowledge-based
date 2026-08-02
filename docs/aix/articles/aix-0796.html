@@ -1,0 +1,564 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>インストール済みのソフトウェア・プロダクトをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LSLPP</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86690" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <em>パス</em> | <strong>すべて</strong> } ] { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86554" target="_blank" rel="noopener noreferrer"><strong>-d 年 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86568" target="_blank" rel="noopener noreferrer"><strong>-E (E) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86574" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86583" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86598" target="_blank" rel="noopener noreferrer"><strong>I </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86617" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86623" target="_blank" rel="noopener noreferrer"><strong>-L (L) </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86678" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86499" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86545" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86604" target="_blank" rel="noopener noreferrer"><strong>-J </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86684" target="_blank" rel="noopener noreferrer"><strong>-q (Q) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86592" target="_blank" rel="noopener noreferrer"><strong>-I (I) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86641" target="_blank" rel="noopener noreferrer"><strong>-O (O) </strong></a>{ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__e088d38002joyc" target="_blank" rel="noopener noreferrer"><strong>R </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__e088d38040joyc" target="_blank" rel="noopener noreferrer"><strong>S </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__e088d38078joyc" target="_blank" rel="noopener noreferrer"><strong>U </strong></a>] } ] [ <em>FilesetName ...</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86517" target="_blank" rel="noopener noreferrer"><span><span>-b</span></span></a> <span><span>ファイル</span></span> | <strong>すべて</strong> ]</p>
+ <p><strong>LSLPP</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86690" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <em>パス</em> | <strong>すべて</strong> } ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86740" target="_blank" rel="noopener noreferrer"><strong>-w (W) </strong></a>[<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86545" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a><strong></strong> ] [<strong></strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86684" target="_blank" rel="noopener noreferrer"><strong>-q (Q) </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86641" target="_blank" rel="noopener noreferrer"><strong>-O (O) </strong></a>{ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__e088d38002joyc" target="_blank" rel="noopener noreferrer"><strong>R </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__e088d38040joyc" target="_blank" rel="noopener noreferrer"><strong>S </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__e088d38078joyc" target="_blank" rel="noopener noreferrer"><strong>U </strong></a>] } ] [ <em>FileName ...</em> | <strong>すべて</strong> ]</p>
+ <p><strong>lslpp</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86690" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <em>パス</em> | <strong>ALL</strong> }] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86623" target="_blank" rel="noopener noreferrer"><strong> -L</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86545" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86728" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a>]</p>
+ <p><strong>lslpp</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86690" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <em>パス</em> | <strong>ALL</strong> }] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86703" target="_blank" rel="noopener noreferrer"><strong> -S</strong></a> [<strong>A</strong>|<strong>O</strong>]</p>
+ <p><strong>lslpp</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86690" target="_blank" rel="noopener noreferrer"><strong>-R</strong></a> { <em>パス</em> | <strong>ALL</strong> }] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lslpp.html#lslpp__row-d3e86560" target="_blank" rel="noopener noreferrer"><strong> -e</strong></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lslpp</strong> コマンドは、
+インストールされているファイルセットまたはファイルセットの更新に関する情報を表示します。 <em>FilesetName</em> パラメーターは、ソフトウェア・プロダクト名です。 <span><span>File</span></span> パラメーターは、ファイルセット・リストとして使用するバンドル・ファイルを指定します。</p>
+ <p><strong>-l</strong> (小文字の L) フラグだけを入力すると、
+<strong>lslpp</strong> コマンドは、
+フォーマット済みファイルセットに対して指定されているインストール済みファイルセットの最新レベルを表示します。 フォーマット済みファイルセットの場合は、基本レベル・ファイルセットが表示されます。 <strong>-l</strong> フラグと共に <strong>-a</strong> を入力すると、
+<strong>lslpp</strong> コマンドは指定された <em>FilesetName</em> 用のインストール済みのすべてのファイルセットに関する情報を表示します。 <strong>-I</strong> (大文字の i) フラグと <strong>-l</strong> (小文字の L) を組み合わせると、
+<strong>lslpp</strong> コマンドの出力を基本レベルのファイルセットに制限するように指定できます。</p>
+ <p><span><span>lslpp</span></span> コマンドと <strong>compare_report</strong> コマンドは両方とも、システムにインストールされている暫定修正に関する情報を表示します。 <span><span>lslpp -L</span></span> または <span><span>lslpp
+-Lc</span></span> コマンド、および <span><span>lslpp -e</span></span> コマンドは、root で実行する必要があります。 戻された暫定修正情報は、 <span><span>compare_report</span></span> コマンドによって使用されます。 この情報には、暫定修正ラベルとレベル値が含まれています。 暫定修正ラベルはファイルセット名と等価であり、
+そのレベルは暫定修正がパッケージされた時刻 (<span><span>YY.MM.DD.HHMMSS</span></span>、ここで <span><span>YY </span></span> は年、<span><span>MM</span></span> は月、<span><span>DD</span></span> は日、<span><span>HH</span></span> は時、<span><span>MM</span></span> は分、そして <span><span>SS</span></span> は秒を示す) をベースにしています。 非 root ユーザーがこれらのコマンドを実行する場合は、ソフトウェア・プロダクトおよびレベルのみが戻され、暫定修正情報は含まれません。 root ユーザーが <span><span>lslpp -e</span></span> コマンドおよび <span><span>lslpp -L</span></span> コマンドを実行すると、暫定修正情報を表示できます。</p>
+ <p><strong>-d</strong>、
+<strong>-f</strong>、
+<strong>-h</strong>、
+<strong>-i</strong>、
+<strong>-l</strong> (小文字の L)、
+<strong>-L</strong>、
+<strong>-p</strong> の各フラグは、
+それぞれ異なる種類の出力情報を要求します。</p>
+ <p><strong>-a</strong>、
+<strong>-c</strong>、
+<strong>-J</strong>、
+<strong>-q</strong> の各フラグは、
+レポートに表示される情報の量とフォーマットを指定します。</p>
+ <p><strong>-O</strong> フラグは、
+データがファイルセットの指定した部分からくるように指定します。 これは、ルート部分の <strong>-Or</strong>、共有部分の <strong>-Os</strong>、
+または<strong>ユーザー</strong>部分の <strong>-Ou</strong> のいずれかになります。</p>
+ <p><em>FilesetName</em> パラメーターのデフォルトの値は <strong>all</strong> で、
+すべてのインストール済みソフトウェア・プロダクトに関する情報が表示されます。 パターン・マッチング文字 (* (アスタリスク) や? など) (疑問符) は、 <em>FilesetName</em> パラメーターで有効です。 これらの文字を ' (単一引用符)
+で囲む必要はありません。 ただし、単一引用符を使用すると、
+現行ディレクトリーの内容を検索できなくなります。</p>
+</section>
+
+<section><h2>出力値</h2> <p><strong>lslpp</strong> コマンドの出力のほとんどは、説明がなくても理解可能です。 別フィールドには、定義が必要なデータも存在します。 以下のセクションでは、出力フィールドで使用される用語を定義します。</p>
+<p><strong>状態値</strong></p>
+ <p><strong>lslpp</strong> 出力の <strong>state</strong> フィールドは、
+システム上のファイルセットの状態を示します。 このフィールドは次の値をとります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>State</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>APPLIED</strong></td>
+
+<td>指定されたファイルセットはシステムにインストールされます。 <strong>APPLIED</strong> 状態は、
+<strong>installp</strong> コマンドを使用してファイルセットを拒否し、
+ファイルセットの以前のレベルを復元できることを意味します。 この状態は、バージョン 4 のファイルセット更新とバージョン 3.2 の移行済みファイルセットにのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>APPLYING</strong></td>
+
+<td>指定されたファイルセットを適用しようとしましたが、
+正常終了せず、クリーンアップは実行されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>BROKEN</strong></td>
+
+<td>指定されたファイルセット更新は破損しており、
+再インストールしなければ使用できません。</td>
+
+</tr>
+
+<tr>
+<td><strong>COMMITTED</strong></td>
+
+<td>指定されたファイルセットはシステムにインストールされます。 <strong>COMMITTED</strong> 状態は、
+このレベルのソフトウェアに対するコミットメントが行われたことを意味します。 コミットされたファイルセット更新は拒否できませんが、
+コミットされたファイルセットの基本レベルとその更新は (状態に関係なく) <strong>installp</strong> コマンドにより除去または撤去できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>EFIXLOCKED</strong></td>
+
+<td>指定されたファイルセットはシステムにインストールされ、 <span>暫定修正</span> マネージャー ( <strong>emgr</strong> コマンド) によってロックされています。</td>
+
+</tr>
+
+<tr>
+<td><strong>OBSOLETE</strong></td>
+
+<td>指定されたファイルセットはオペレーティング・システムの旧バージョンと共にインストールされていますが、
+再パッケージ (名前変更) された新しいバージョンに置き換えられています。 このファイルセットに属するファイルの一部が、
+再パッケージされたファイルセットからのバージョンに置き換えられています。</td>
+
+</tr>
+
+<tr>
+<td><strong>COMMITTING</strong></td>
+
+<td>指定されたファイルセットをコミットしようとしましたが、
+正常終了せず、クリーンアップは実行されませんでした。</td>
+
+</tr>
+
+<tr>
+<td><strong>REJECTING</strong></td>
+
+<td>指定されたファイルセットを拒否しようとしましたが、
+正常終了せず、クリーンアップは実行されませんでした。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>アクション値</strong></p>
+ <p><strong>lslpp</strong> 出力の <strong>action</strong> フィールドは、
+ファイルセットに対して行われたインストール・アクションを識別します。 このフィールドは次の値をとります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>アクション</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>APPLY</strong></td>
+
+<td>指定されたファイルセットを適用しようとしました。</td>
+
+</tr>
+
+<tr>
+<td><strong>cleanup</strong></td>
+
+<td>指定されたファイルセットをクリーンアップしようとしました。</td>
+
+</tr>
+
+<tr>
+<td><strong>COMMIT</strong></td>
+
+<td>指定されたファイルセットをコミットしようとしました。</td>
+
+</tr>
+
+<tr>
+<td><strong>REJECT</strong></td>
+
+<td>指定されたファイルセットを拒否しようとしました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>状況値</strong></p>
+ <p><strong>lslpp</strong> 出力の <strong>status</strong> フィールドは、
+インストール・アクションのヒストリー内の最終的な状況を識別します。 このフィールドは次の値をとります。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>状況</div></th>
+
+<th><div>定義</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>BROKEN</strong></td>
+
+<td>指定されたアクションの実行後、ファイルセットは破損状態のままです。</td>
+
+</tr>
+
+<tr>
+<td><strong>取り消し済み</strong></td>
+
+<td>指定されたアクションは終了前に取り消されました。</td>
+
+</tr>
+
+<tr>
+<td><strong>完了</strong></td>
+
+<td>ファイルセットは正常にコミットされました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>別のフラグと組み合わせて指定すると、
+指定したファイルセットに関する<strong>すべての</strong>情報が表示されます。 このフラグは、<strong>-l</strong> フラグと組み合わせた場合はすべての更新を表示し、
+<strong>-h</strong> フラグと組み合わせた場合はすべてのヒストリーを表示します。 このフラグを <strong>-f</strong> フラグと共に指定することはできません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-b</span></span> <span><span>ファイル</span></span></td>
+
+<td>ファイルセット名を検索するためのバンドル・ファイルを指定します。 バンドルにリストされているファイルセットは、次に、<em>FilesetName</em>
+パラメーターとして明示的に指定された場合と同じようにリストされます。 installp の動作を真似るために、installp のイメージ名は、自動的にワイルドカード化されます。 例えば、<code>I:bos.abc</code> というバンドル・ファイル・エントリーは、<code>bos.abc*</code>
+が <em>FilesetName</em> パラメーターとして指定された場合と同じように動作します。<div><div>
+        <div>
+          <div><span>注:</span> これにより、 <code>bos.abcdef</code>の結果が返される場合もあります。</div>
+        </div>
+      </div></div>ファイルが、既知のバンドル・ロケーションのいずれにもない場合は、
+拡張子を含むフルパスおよびファイル名を指定する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>情報をコロンで区切ったリストとして表示します。 このフラグを <strong>-J</strong> フラグと共に指定することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>指定したソフトウェアに依存するファイルセットが表示されます。 依存するファイルセットとは、
+指定したソフトウェアが前提条件、
+相互必要条件、
+if 条件またはインストール済みの条件となるファイルセットです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>システムにインストールされているすべての <span>暫定修正</span> を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-E</strong></td>
+
+<td>ライセンス契約をリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td>指定したファイルセットのインストール時にシステムに追加されるファイルの名前を表示します。 このフラグを <strong>-a</strong> フラグと共に指定することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>指定したファイルセットのインストールおよび更新に関するヒストリー情報を表示します。 このフラグを <strong>-J</strong> フラグと共に使用することはできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>(大文字の i) 入力をソフトウェア・プロダクトに制限します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>指定したファイルセットのプロダクト情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-J</strong></td>
+
+<td>出力を System Management Interface Tool (SMIT) コマンドに適したフォーマットで生成して、
+出力をリストします。 このフラグは、<strong>-l</strong> フラグ (小文字の L) および <strong>-L</strong> フラグと一緒にのみ指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>(小文字の L) 指定したファイルセットの名前、
+最新レベル、状態、および説明を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td>指定されたファイルセットの名前、最新レベル、状態、タイプ、および説明を表示します。 部分情報 (<strong>usr</strong>、
+<strong>root</strong>、
+および <strong>share</strong>) は、
+同じリストに統合されます。 フォーマット済みファイルセットの場合は、
+指定したファイルセットの最新保守レベルまたはテクノロジー・レベルが表示されます。 また、このフラグを指定すると、保守レベルまたはテクノロジー・レベルの最上位にインストールされているサブシステムの選択的修正がリストされます。 RPM イメージおよび ISMP
+イメージもリストされます。<p><strong>-c</strong> フラグと組み合わせると、installp イメージとともに使用したときの <strong>Type</strong> フィールドに違いがあります。 ブランク値は更新のない installp イメージを示します。 値 <strong>F</strong> は更新のある installp イメージを示します。</p>
+<p><strong>-c</strong> フラグを組み合わせると、ファイルセットのビルド日付がある場合はそれも表示されます。この日付は <strong>yyww</strong> の形式で年と週によって指定されます (例えば、0852)。 追加フィールドは <strong>-Lc</strong> 出力を使用して表示され、これらは出力のヘッダーとして示されます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>ファイルセットのうち指定した部分に関する情報がリストされます。 <strong>-O</strong> フラグを指定しなければ、
+すべての部分に関する情報がリストされます。 このオプションは、<strong>nim</strong> コマンドと共に使用して、
+ディスクレスまたはデータレス・ワークステーションに関するソフトウェア・プロダクト情報をリストするように設計されています。 このフラグと共に次のフラグを使用できます。<dl>
+<dt><strong>-r</strong></dt>
+
+<dd>ルート部分に関する情報をリストすることを示します。</dd>
+
+
+<dt><strong>-s</strong></dt>
+
+<dd><strong>/usr/share</strong> 部分に関する情報をリストすることを示します。</dd>
+
+
+<dt><strong>-u</strong></dt>
+
+<dd><strong>/usr</strong> 部分に関する情報をリストすることを示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>指定したファイルセットに関する必要条件の情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>列見出しの表示が抑制されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong> { <em>パス</em> | <strong>ALL</strong> }</td>
+
+<td>ユーザー指定のインストール・ロケーションを示します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>S</strong><strong> [</strong><strong> A|O］</strong></td>
+
+<td>自動インストールされたファイルセットのリストおよび任意指定でインストールされたファイルセットのリストを表示します。 <strong>-S</strong>
+フラグの後に <strong>A</strong>
+が続く場合は、自動インストールされたファイルセットのみがリストされます。 <strong>-S</strong>
+フラグの後に <strong>O</strong> が続く場合は、任意指定でインストールされたファイルセットのみがリストされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>ベンダー・データベース (ISMP 製品情報が入っている) にある情報のみを表示します。 このフラグは、<strong>-L</strong>
+フラグおよび <strong>-c</strong> フラグの両方と一緒に使用された場合にのみ有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong></td>
+
+<td>このファイルを所有するファイルセットをリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>次の相互排他フラグのいずれか 1 つを指定する必要があります。
+<strong>-d</strong>、<strong>-e</strong>、<strong>-E</strong>、<strong>-f</strong>、<strong>-h</strong>、<strong>-i</strong>、<strong>-l</strong>、<strong>-L</strong>、<strong>-p</strong>、<strong>-s</strong> および <strong>-w</strong>。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>すべての <strong>bos.rte</strong> ファイルセットの最新レベルのインストール済みファイルセットのインストール状態をリストするには、次のように入力します。<div> <div><div><pre><code>lslpp -l "bos.rte.*"</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ファイルセット <strong>bos.rte.filesystem</strong>の基本レベルおよび更新のインストール状態をリストするには、次のように入力します。<div> <div><div><pre><code>lslpp -La bos.rte.filesystem</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>bos.net</strong> ソフトウェア・パッケージ内のすべてのファイルセットのインストール履歴情報をリストするには、次のように入力します。<div> <div><div><pre><code>lslpp -ha 'bos.net.*'</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>bos.rte.lvm</strong> ファイルセットのすべてのファイルの名前をリストするには、次のように入力します。<div> <div><div><pre><code>lslpp -f bos.rte.lvm</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>installp</strong>を所有するファイルセットをリストするには、次のように入力します。<div> <div><div><pre><code>lslpp -w /usr/sbin/installp</code></pre></div><div></div></div>次のような出力が表示されます。<div><div><pre><code>File                               Fileset                
+  Type
+-----------------------------------------------------------------
+/usr/sbin/installp                 bos.rte.install          File</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下を含むすべてのファイル名を所有するファイル・セットをリストします。installp、タイプ:<div> <div><div><pre><code>lslpp -w "*installp*"</code></pre></div><div></div></div>次のような出力が表示されます。<div><div><pre><code>File                               Fileset                
+  Type
+-----------------------------------------------------------------
+/usr/sbin/installp                 bos.rte.install          File
+/usr/clvm/sbin/linstallpv          prpq.clvm                File
+/usr/lpp/bos.sysmgt/nim/methods/c_installp
+                                   bos.sysmgt.nim.client    File</code></pre></div><div></div></div></div>
+</li>
+
+<li>在庫データベース内のすべてのファイルを表示するには、次のように入力します。<div> <div><div><pre><code>lslpp -w</code></pre></div><div></div></div></div>
+</li>
+
+<li>RPM <code>cdrecord</code>
+イメージのインストール状態を表示するには、次のように入力します。<div> <div><div><pre><code>lslpp -L cdrecord</code></pre></div><div></div></div></div>
+</li>
+
+<li><span><span>/usr/sys/inst.data/sys_bundles/Server.bnd</span></span>にあるサーバー・バンドルに含まれているすべてのファイルセットのインストール状態を表示するには、次のように入力します。<div><div><pre><code>lslpp -L -b Server</code></pre></div><div></div></div>または:<div><div><pre><code>lslpp -L -b /usr/sys/inst.data/sys_bundles/Server.bnd</code></pre></div><div></div></div> </li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/objrepos/history</strong></td>
+
+<td>ルート上のすべてのソフトウェア・プロダクトのインストールと更新に関するヒストリー情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/history</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストールと更新に関するヒストリー情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/history</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストールと更新に関するヒストリー情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/lpp</strong></td>
+
+<td>ルート上のすべてのソフトウェア・プロダクトのインストール情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/lpp</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストール情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/lpp</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストール情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/product</strong></td>
+
+<td>ルート上のすべてのソフトウェア・プロダクトのインストールと更新の情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/product</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストールと更新の情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/product</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のすべてのソフトウェア・プロダクトのインストールと更新の情報を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/objrepos/inventory</strong></td>
+
+<td>ルート上のソフトウェア・プロダクト内のファイルの名前と位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/objrepos/inventory</strong></td>
+
+<td><strong>/usr</strong> ファイルシステム上のソフトウェア・プロダクトの中のファイルの名前および位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/share/lib/objrepos/inventory</strong></td>
+
+<td><strong>/usr/share</strong> ファイルシステム上のソフトウェア・プロダクトの中のファイルの名前および位置を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>/usr/sys/inst.data/sys_bundles/
+and /usr/sys/inst.data/user_bundles/</span></span></td>
+
+<td>バンドル・ファイルの既知のロケーション。 バンドル・ファイルの拡張子は <span><span>.bnd</span></span> でなければなりません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

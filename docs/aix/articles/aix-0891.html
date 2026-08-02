@@ -1,0 +1,98 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>CIFS 資格情報を <span><span>/etc/cifs_fs/cifscred</span></span> ファイルに追加して、保管された資格情報を使用して CIFS 共有を将来マウントできるようにします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>mkcifscred</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkcifscred.html#mkcifscred__row-d3e128293" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> <span><span>RemoteHost</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkcifscred.html#mkcifscred__row-d3e128311" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> <span><span>ユーザー</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkcifscred.html#mkcifscred__row-d3e128302" target="_blank" rel="noopener noreferrer"><span><span>-p</span></span></a> <span><span>パスワード</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>mkcifscred</span></span> コマンドは、サーバー名とユーザー名を入力として受け取り、パスワードの入力を求めるプロンプトを出します。 パスワードは暗号化され、資格情報は <span><span>cifscred</span></span> ファイルに保管されます。 CIFS サーバーへのマウント時に <span><span>-p</span></span> オプションを使用してパスワードが渡されない場合、資格情報は <span><span>cifscred</span></span> ファイルから取得されます。または、資格情報が <span><span>cifscred</span></span>に存在しない場合は、パスワードの入力を求めるプロンプトが出され、非表示の入力として読み込まれます。</p>
+ <p>証明書は server/user/password のセットとして保管されます。 同一のサーバーに対する複数の証明書は、異なったユーザー名については許可されます。 同じユーザー名の異なったサーバーに対する複数の証明書セットもまた許可されます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-h</span></span> <span><span>RemoteHost</span></span></td>
+
+<td>リモート・ホスト (CIFS サーバー) の名前を指定します。 これは、ホスト名、IP アドレス、または完全修飾のドメイン名として提供することも可能です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span> <span><span>パスワード</span></span></td>
+
+<td>特定のリモート・ホストの特定ユーザーのためのパスワードを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span> <span><span>ユーザー</span></span></td>
+
+<td>所定のリモート・ホストに対するアクセスを定義中の証明書のあるユーザー名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>user1</code> に対する証明書を追加して <code>server1</code> にマウントするには、次のように入力します。<div><div><pre><code>mkcifscred -h server1 -u user1</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <p><span><span>/usr/sbin/mkcifscred</span></span></p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>/etc/cifs_fs/cifscred</span></span></td>
+
+<td>CIFS 証明書を保管します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

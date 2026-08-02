@@ -1,0 +1,76 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>データベースに格納されているネーム・サービス情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>LsNamsv</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnamsv.html#lsnamsv__row-d3e88986" target="_blank" rel="noopener noreferrer"><strong>-C</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnamsv.html#lsnamsv__row-d3e88992" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a><strong>"</strong><em>属性リスト ..</em>.<strong>"</strong> } [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lsnamsv.html#lsnamsv__row-d3e89019" target="_blank" rel="noopener noreferrer"><strong>-Z </strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lsnamsv</strong> 高水準コマンドは、
+<strong>/etc/resolv.conf</strong> ファイルのみから、
+カスタマイズされた TCP/IP ベースのネーム・サービス情報を表示します。 ネーム・サーバー・データベースからの情報は表示されません。 このコマンドは、カスタマイズされたすべてのネーム・サービス情報、または選択されたネーム・サービス属性情報を、構成データベースから取り出します。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) <strong>smit lsnamerslv</strong> 高速パスを使用して実行することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-C</strong></td>
+
+<td>カスタマイズされたすべてのネーム・サービス構成情報を取り出すように指定します。</td>
+
+</tr>
+
+<tr>
+<td>- <strong>S "</strong><em> 属性リスト</em>.<em>.</em>. <strong>"</strong></td>
+
+<td>選択された属性セットがシステム構成データベースから取り出されるように指定します。 次の属性を選択できます。<dl>
+<dt><em>ドメイン (domain)</em></dt>
+
+<dd>ドメイン名</dd>
+
+
+<dt><em>ネーム・サーバー</em><strong></strong></dt>
+
+<dd>小数点付き 10 進数フォーマットによるネーム・サーバーの IP アドレス</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-Z</strong></td>
+
+<td>コロン・フォーマットで出力するように指定します。 このフラグは、SMIT 運用インターフェースから <strong>lsnamsv</strong> コマンドを呼び出すときに使用されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>カスタマイズされたすべてのネーム・サービス構成情報を小数点付き 10 進数形式でリストするには、次のコマンドを入力します。<div> <div><div><pre><code>lsnamsv -C</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>選択した属性をリストするには、次のコマンドを入力します。<div> <div><div><pre><code>lsnamsv -S "domain nameserver"</code></pre></div><div></div></div><strong>-S</strong> フラグは後に続く引用符付きリストに表示対象の属性リストが入っていることを示します。</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

@@ -1,0 +1,222 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リモート・プロシージャー・コール (RPC) サーバーの状況を報告します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt>統計のリストを表示するには</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176386" target="_blank" rel="noopener noreferrer"><strong>-m (M) </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176426" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a><em> </em>] [<em>ホスト</em> ]</p>
+
+</dd>
+
+
+
+<dt>登録済み RPC プログラムのリストを表示するには</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176417" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>[ <em>ホスト</em> ]</p>
+
+</dd>
+
+
+
+<dt>宛先レポート・トランスポート</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176443" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>transport Host Prognum </em>[ <em>Versnum</em> ]</p>
+
+</dd>
+
+
+
+<dt>エントリーのリストを表示するには</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo </strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176375" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> [ <strong>-T </strong><em>transport </em>] <em> ホスト・プログヌム </em><em>Versnum</em></p>
+
+</dd>
+
+
+
+<dt>UDP を使用してプログラム状況を報告する</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176394" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>PortNum</em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176451" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a><strong> </strong><em> ホスト Prognum</em> [<em> Versnum</em> ]</p>
+
+</dd>
+
+
+
+<dt>TCP を使用してプログラム状況を報告する</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo</strong> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176394" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>PortNum</em>] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176434" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a><strong> </strong><em> Host Prognum</em> [<em> Versnum</em> ]</p>
+
+</dd>
+
+
+
+<dt>報告先プログラムの状況</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176345" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em> ServAddress</em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176443" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a> <em>transport Host Prognum </em>[ <em>Versnum</em> ]</p>
+
+</dd>
+
+
+
+<dt>指定されたプログラム・バージョンを実行しているすべてのホストを表示するには</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176351" target="_blank" rel="noopener noreferrer"><strong>-b</strong></a> ] [ <strong>-T </strong><em>transport </em>] <em> Prognum </em><em>Versnum</em></p>
+
+</dd>
+
+
+
+<dt>サービスの登録を削除するには</dt>
+
+<dd><p><strong>/usr/bin/rpcinfo</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176345" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176369" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a> ] [ <strong>-T (T) </strong><em>トランスポート </em>] <em>プログヌム  </em><em>ヴェルスヌム</em></p>
+
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2> <p><strong>rpcinfo</strong> コマンドは RPC サーバーへの RPC コールを行い、サーバーの状況を報告します。 例えば、サーバーが使用可能な状態で待機しているか、または使用不可かどうかを報告します。</p>
+ <p>プログラム・パラメーターには名前または数値を指定できます。 バージョンを指定すると、<strong>rpcinfo</strong> コマンドは、指定されたプログラムのそのバージョンをコールしようとします。 それ以外の場合、 <strong>rpcinfo</strong> コマンドは、指定されたプログラムのすべての登録済みバージョン番号を、バージョン 0 (ゼロ) を呼び出してから、登録された各バージョンを呼び出そうとします。 (バージョン 0 は存在しないと想定されます。 存在する場合、 <strong>rpcinfo</strong> コマンドは、代わりに非常に高いバージョン番号を呼び出して、この情報を取得しようとします。)</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>ホストの完全な IP アドレスとポート番号を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong></td>
+
+<td>指定したプログラム番号およびバージョン番号のプロシージャー 0 への RPC ブロードキャストを行い、
+応答するホストをすべて報告します。 <em>トランスポート</em> を指定すると、その要求が指定した <em>トランスポート</em> 上でのみブロードキャストされます。 ブロードキャストがどの <em>トランスポート</em> によってもサポートされない場合は、エラー・メッセージが出力されます。 ブロードキャスト (<strong>-b</strong> フラグ) の使用は、
+他のシステムに逆効果を与えることがあるので制限されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d</strong></td>
+
+<td>指定したプログラム番号およびバージョン番号についての RPC サービスに関する登録を削除します。 トランスポートを使用する場合は、そのトランスポート上でのみ行われるサービスを抹消します。それ以外の場合は、サービスを登録したすべてのトランスポートで行われるサービスを抹消してください。 このオプションを実行できるのは、root ユーザーだけです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>指定したホストに、指定したプログラム番号およびバージョン番号を持つエントリーのリストを表示します。 エントリーは、リモートの <strong>portmap</strong> デーモンに接続するときに使用するのと同じプロトコル・ファミリーで、すべてのトランスポートに対して戻されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>指定したホストに、ポート・マップ操作統計情報のテーブルを表示します。 テーブルには、ポート・マップ (AIX バージョン 2、3、および 4) の各バージョンの統計情報、各プロシージャーが要求され、正常にサービスを提供された回数、作成されたリモート・コール要求の数とタイプ、およびハンドルされた RPC アドレス検索についての情報が含まれます。 この情報は、ホストでの RPC アクティビティーをモニターするときに使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong><em> ポート番号</em></td>
+
+<td>ポート・マップによって指定されるポート番号の代わりに、 <strong>-t</strong> および <strong>-u</strong> オプションのポート番号として <em>Portnum</em> パラメーターを使用します。 <strong>-n</strong> オプションを使用すると、サービスのアドレスを検索するためのリモート・ポート・マップへの呼び出しをする必要はありません。 このオプションは、<strong>-a</strong> オプションによって取って代わられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>ポート・マップ・プロトコルのバージョン 2 を使用して、ホストで <strong>portmap</strong> サービスを照会して、登録されているすべての RPC プログラムのリストを表示します。 ホストを指定しない場合は、ローカル・ホストがデフォルトになります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>登録されているすべての RPC プログラムの簡単なリストを、ホストに表示します。 ホストを指定しない場合、デフォルトはローカル・ホストです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>TCP を使用して、指定されたホスト上で、プログラム番号のプロシージャー 0 に対する RPC 呼び出しを行い、応答が受信されたかどうかを報告します。 3 番目の構文に示されるように <strong>-T</strong> オプションを使用すると、このオプションは廃止されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong></td>
+
+<td>サービスを要求するトランスポートを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-u</strong></td>
+
+<td>指定されたホスト上で、UDP を使用してプログラム番号のプロシージャー 0 に対する RPC 呼び出しを行い、応答が受信されたかどうかを報告します。 3 番目の構文に示されるように <strong>-T</strong> オプションを使用すると、このオプションは廃止されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ローカル・マシンに登録されているすべての RPC サービスを表示するには、次のように入力します。<div>rpcinfo  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176417" target="_blank" rel="noopener noreferrer">-p</a></div>
+</li>
+
+<li><span></span>特定のマシンに登録されているすべての RPC サービスを表示するには、次のように入力します。<div>rpcinfo  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176417" target="_blank" rel="noopener noreferrer">-p</a> zelda</div>この例では、 <strong>rpcinfo</strong> コマンドは、次の名前のマシンに登録されているすべての RPC サービスを表示します。zelda.</li>
+
+<li><span></span>特定のバージョンの特定のサーバーを実行しているローカル・ネットワーク上のすべてのマシンを表示するには、次のように入力します。<div>rpcinfo  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176351" target="_blank" rel="noopener noreferrer">-b</a> ypserv 2</div>この例では、 <strong>rpcinfo</strong> コマンドは、バージョンを実行しているすべてのマシンのリストを表示します。2<strong>ypserv</strong> デーモンの</li>
+
+<li><span></span>サービスの登録を削除するには、以下のように入力します。<div>rpcinfo  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176369" target="_blank" rel="noopener noreferrer">-d</a> sprayd 1</div>この例では、 <strong>rpcinfo</strong> コマンドはバージョンを削除します。1<strong>sprayd</strong> デーモンの</li>
+
+<li>IP アドレス 127.0.0.1、プログラム 100003、およびバージョン 3 が指定されたホストが TCP 上でポート 2049 を listen しているかどうかをチェックするには、次のように入力します。<div>rpcinfo <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176345" target="_blank" rel="noopener noreferrer">-a</a> 127.0.0.1.8.1 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/r_commands/rpcinfo.html#rpcinfo__row-d3e176443" target="_blank" rel="noopener noreferrer">-T</a> tcp 100003 3</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/services</strong></td>
+
+<td>インターネット・ネットワーク全体で使用できる各サービスのエントリーが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

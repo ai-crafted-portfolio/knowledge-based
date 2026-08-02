@@ -1,0 +1,70 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span><span>/etc/cifs_fs/cifscred</span></span> ファイルに保管されているサーバー項目またはユーザー項目をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lscifscred</span></span> [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lscifscred.html#lscifscred__row-d3e77724" target="_blank" rel="noopener noreferrer"><span><span>-h</span></span></a> <span><span>RemoteHost</span></span>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lscifscred.html#lscifscred__row-d3e77733" target="_blank" rel="noopener noreferrer"><span><span>-u</span></span></a> <span><span>ユーザー</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>lscifscred</span></span> コマンドは、 <span><span>/etc/cifs_fs/cifscred</span></span> ファイルにパスワードが保管されているすべてのサーバー項目またはユーザー項目をリストします。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>-h</span></span> <span><span>RemoteHost</span></span></td>
+
+<td>指定されたリモート・ホスト (CIFS サーバー) のみにマッチングする証明書をリストします。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span> <span><span>ユーザー</span></span></td>
+
+<td>指定されたユーザー名のみにマッチングする証明書をリストします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span><span>0</span></span></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><span><span>&gt;0</span></span></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><code>server1</code> と名付けられているサーバー上のすべてのサーバー項目またはユーザー項目をリストするには、次のように入力します。<div><div><pre><code>lscifscred -h server1 </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><span><span>/usr/sbin/lscifscred</span></span></p>
+</section>
+
+</div></div>

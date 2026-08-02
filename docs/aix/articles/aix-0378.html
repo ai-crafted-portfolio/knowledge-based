@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<div> <p></p>
+</div>
+
+<section><h2>目的</h2> <p>前の診断結果を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>diagrpt</strong> [[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diagrpt.html#diagrpt__row-d3e28444" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a>] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diagrpt.html#diagrpt__row-d3e28453" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a> <em>mmddyy</em>] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diagrpt.html#diagrpt__row-d3e28461" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a>] | [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diagrpt.html#diagrpt__row-d3e28467" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a>]]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>diagrpt</strong> コマンドは、前の診断セッションの結果を表示します。 表示できる結果には、3 つのタイプがあります。</p>
+ <ul>
+<li><strong>/etc/lpp/diagnostic/data</strong> ディレクトリーに保管された診断結果ファイル。</li>
+
+<li>診断イベント・ログ情報。</li>
+
+<li>CHRP システム上の NVRAM に保管された診断結果。</li>
+
+</ul>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong> -o</strong></td>
+
+<td><strong>/etc/lpp/diagnostics/data</strong> ディレクトリーに保管された最後の診断結果ファイルを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong><em> 年月日</em></td>
+
+<td>指定された日以降に記録されたすべての診断結果ファイルを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-a</strong></td>
+
+<td>診断イベント・ログのロング・バージョンを表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>診断イベント・ログのショート・バージョンを表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>1999 年 1 月 31 日以降の以前の診断結果ファイルをすべてリストするには、次のように入力します。<div> <div><div><pre><code>/usr/lpp/diagnostics/bin/diagrpt -s 013199</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>診断イベント・ログの短いバージョンを表示するには、次のように入力します。<div> <div><div><pre><code>/usr/lpp/diagnostics/bin/diagrpt -r</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td>/<strong>usr</strong>/<strong>lpp</strong>/<strong>診断</strong>/<strong>bin</strong>/<strong>diagrpt</strong></td>
+
+<td><strong>diagrpt</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

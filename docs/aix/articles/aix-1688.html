@@ -1,0 +1,77 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>電子メールによる送信で使用されたバイナリー・ファイルをデコードします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uudecode</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uudecode.html#uudecode__row-d3e157097" target="_blank" rel="noopener noreferrer"><strong>-o</strong></a><em>OutputFile</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/u_commands/uudecode.html#uudecode__row-d3e157127" target="_blank" rel="noopener noreferrer"><em>InFile</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uudecode
+</strong> コマンドは、エンコードされたファイルを読み取り、メーラーが追加した先頭行と末尾行を取り除き、
+指定されたモードと名前によって元のファイルを再作成します。 ファイルをデコードすると、その結果は自動的にファイルに保管されます。 出力ファイル名が <strong>-o</strong> フラグで指定されていないならば、
+ファイル名は、最初に <strong>uuencode</strong> コマンドに指定されたリモート・ファイル引数と同じです。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-o</strong> <em>OutputFile</em></td>
+
+<td>入力データに含まれるパス名の代わりに使用される出力ファイル名を指定します。 <em>OutputFile</em>として <strong>/dev/stdout</strong> を指定することにより、 <strong>uudecode</strong> の出力を標準出力に送ることができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>InFile</em></td>
+
+<td>デコードするファイルの名前を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p>ファイルをデコードするには/tmp/conこれは、以下のコマンドでエンコードされたローカル・システム上にあります。</p>
+ <div> <div><div><pre><code>uuencode /usr/lib/boot/unix pigmy.goat &gt; /tmp/con</code></pre></div><div></div></div></div>
+ <p>以下のように入力します。</p>
+ <div> <div><div><pre><code>uudecode /tmp/con</code></pre></div><div></div></div></div>
+ <p>ファイルpigmy.goat元のエンコード・ファイルと同じになります。/usr/lib/boot/unix.</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/uudecode</strong></td>
+
+<td><strong>uudecode</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

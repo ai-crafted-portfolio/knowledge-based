@@ -1,0 +1,551 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルシステム上のスペースに関する情報を報告します。 この文書では、<span>AIX</span> <strong>df</strong>コマンドと<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__systemvdf" target="_blank" rel="noopener noreferrer">System V バージョン<strong>df</strong></a>の について説明する。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>自由度</strong> [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23920" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] | [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23896" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23914" target="_blank" rel="noopener noreferrer"><strong>-M (M)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23890" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23975" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23981" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] ] <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__df-rowc" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__df-rowbigt" target="_blank" rel="noopener noreferrer"><strong>-T (T)</strong></a> { <code>local</code> | <code>remote</code> | <code>vfstype</code>} ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__-S_flag" target="_blank" rel="noopener noreferrer"><strong>-S (S)</strong></a> { K | 分 | G | T 値 | P } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__df-rowbigf" target="_blank" rel="noopener noreferrer"><strong>-F (R)</strong></a> {output1 output2 output3 (出力 1 出力 2 出力 3) …} ]</span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23902" target="_blank" rel="noopener noreferrer"><strong>-k</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23908" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23884" target="_blank" rel="noopener noreferrer"><strong>-g</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e23960" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [<em>FileSystem </em>... | <em>File...</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>df</strong> コマンドは、ファイルシステム上の合計スペースと使用可能なスペースの情報を表示します。 <em>FileSystem</em> パラメーターは、ファイルシステムが置かれているデバイスの名前、ファイルシステムがマウントされているディレクトリー、またはファイルシステムの相対パス名を指定します。 <em>File</em> パラメーターには、ファイルまたはマウント・ポイントでないディレクトリーを指定します。 <em>File</em> パラメーターを指定すると、
+<strong>df</strong> コマンドはそのファイルまたはディレクトリーが置かれているファイルシステムの情報を表示します。 <em>FileSystem</em> または <em>File</em> パラメーターを指定しない場合、<strong>df</strong> コマンドは現在マウントされているすべてのファイルシステムの情報を表示します。 ファイルシステム統計情報は、デフォルトではブロック単位 (512 バイト/ブロック) で表示されます。</p>
+ <div><strong>df</strong> コマンドは、<strong>statfs</strong> システム呼び出しからファイルシステムのスペースに関する統計情報を入手しますが、 <strong>-s</strong> フラグを指定すると、仮想ファイルシステム (VFS) 固有のファイルシステム・ヘルパーから統計情報を入手します。 <strong>-s</strong> フラグで引数を指定していないために、ヘルパーが統計情報を入手できなかった場合は、<strong>statfs</strong> システム呼び出しの統計情報が使用されます。 <strong>df</strong> コマンドの実行中にファイルシステムが変更されるなどのある種の例外的な状況では、<strong>df</strong> コマンドが表示する統計が正確でないことがあります。<div><div>
+        <div>
+          <div><span>注:</span> ネットワーク・ファイル・システム (NFS) などの一部のリモート・ファイル・システムは、 <strong>df</strong> コマンドが必要とするすべての情報を提供するわけではありません。 <strong>df</strong> コマンドは、
+サーバーから提供されなかった統計についてはブランクを出力します。</div>
+        </div>
+      </div></div>
+</div>
+ <p><strong>df</strong> コマンドは、NFSv4 ファイルシステムを完全には
+サポートしません。 ブロックおよびスペース情報の抽出
+には、<strong>nfs4cl</strong> コマンドを使用してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><span>-c</span></td>
+
+<td>コロンで区切られたフォーマットで出力を表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-F</span> { output1 output2 output3 ...}</td>
+
+<td>出力パラメーターの見出しで指定された値のみを表示します。 デフォルトでは、ファイルシステムの見出しとブロック割り振りの見出しが常にオンになっています。<div>次の値は、見出しの値として許容されます。<dl>
+
+<dt>%m</dt>
+
+<dd>マウント済み</dd>
+
+
+
+<dt>%u</dt>
+
+<dd>使用</dd>
+
+
+
+<dt>%z</dt>
+
+<dd>使用済みパーセンテージ</dd>
+
+
+
+<dt>%f</dt>
+
+<dd>無料</dd>
+
+
+
+<dt>%l</dt>
+
+<dd>使用済み I ノード</dd>
+
+
+
+<dt>%n</dt>
+
+<dd>空き I ノード</dd>
+
+
+
+<dt>%p</dt>
+
+<dd>使用済み I ノードのパーセンテージ</dd>
+
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>GB ブロックのユニットで統計情報を表示します。 各ユニットのバイトでの値は非常に高いため、
+ファイルシステムの統計情報についての出力値は、浮動小数点を使用した数になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>ファイルシステム用に使用された inode の数、および使用中の inode のパーセンテージを表示します。 指定されたファイルシステムがマウントされている場合は、デフォルトでこの情報が出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>ファイルシステムのブロックの合計数、使用されているスペース、フリー・スペース、使用されているスペースの割合のパーセント、マウント・ポイントなどの情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>ブロック単位 (1024 バイト/ブロック) で統計を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>MB ブロックのユニットで統計情報を表示します。 各ユニットのバイトでの値は非常に高いため、
+ファイルシステムの統計情報についての出力値は、浮動小数点を使用した数になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong></td>
+
+<td>ファイルシステムのマウント・ポイント情報を 2 番目の列に表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td>ファイルシステムの情報を POSIX 移送可能フォーマットで表示します。<p><strong>-P</strong> フラグを指定すると、ヘッダー行が次のように表示されます。</p>
+  <div> <div><div><pre><code>Filesystem 512-blocks Used Available Capacity Mounted on\n</code></pre></div><div></div></div></div>
+  <p><strong>-P</strong> フラグとともに <strong>-k</strong>、<strong>-m</strong>、
+または <strong>-g</strong> フラグを指定すると、
+<strong>-P</strong> フラグとともにどのフラグが使用されているかによって、
+列見出しの 512-blocks がそれぞれのユニットに置き換えられます。</p>
+  <p>ファイルシステム統計情報は、次の順序で 1 行に表示されます。</p>
+  <p><em>FileSystem, TotalSpace, UsedSpace, FreeSpace, UsedPercentage, MountPoint</em></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>コマンド・ライン引数でアンマウント済み JFS または拡張 JFS ファイルシステムの統計を表示します。 引数が指定されていない場合、 <span><span>-s</span></span> フラグは無効です。 引数によって指定されたファイルシステムが現在マウントされているか、または引数がファイルである場合、 <span><span>-s</span></span> フラグはその特定の引数には影響しません。 アンマウント済みファイルシステムの統計を収集するには、引数は JFS または拡張 JFS ファイルシステムのマウント・ポイントまたはデバイスであり、そのファイルシステムは <strong>/etc/filesystems </strong>にリストされている必要があります。また、ユーザーはそのデバイスに対して読み取りアクセス権を持っていなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><span>-S</span> { K | M | G | T | P }</td>
+
+<td>これは、<strong>-S</strong> フラグで指定されたパラメーターに従って単位で統計を表示します。 文字 K が <strong>-S</strong> フラグで指定されている場合、統計は 1024 バイト・ブロックの単位で表示されます。 文字 M が <strong>-S</strong> フラグで指定されている場合、統計はメガバイトの単位で表示されます。 文字 G が <strong>-S</strong> フラグで指定されている場合、統計はギガバイトの単位で表示されます。 文字 T が <strong>-S</strong> フラグで指定されている場合、統計はテラバイトの単位で表示されます。 文字 P が <strong>-S</strong> フラグで指定されている場合、統計はペタバイトの単位で表示されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>割り当て済みの合計スペースを示す数値を出力に含めます。</td>
+
+</tr>
+
+<tr>
+<td><span>-T</span> { <code>local</code> | <code>remote</code> | <code>vfstype</code> }</td>
+
+<td>ファイルシステムのタイプで出力にフィルターを掛けます。 このフラグには次のいずれかのパラメーターを指定できます。<dl>
+
+<dt>ローカル</dt>
+
+<dd>ジャーナル・ファイルシステム (JFS) および拡張ジャーナル・ファイルシステム (JFS2) のファイルシステムのみを表示します。</dd>
+
+
+
+<dt>リモート</dt>
+
+<dd>ローカル以外のファイルシステムをすべて表示します。</dd>
+
+
+
+<dt>vfstype</dt>
+
+<dd>特定の仮想ファイルシステム (VFS) (例えば JFS、JFS2、ネットワーク・ファイルシステム・バージョン 4 (NFSv4) など) のファイルシステムのみを表示します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>指定されたファイルシステムに関するすべての情報を表示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div><strong>-m</strong> および <strong>-g</strong> フラグで指定されている出力パラメーターの値は、
+最も近い小数第 2 位に丸められます。 <strong>-k</strong>、<strong>-m</strong>、
+および <strong>-g</strong> フラグで、すべてまたはいずれか 2 つのフラグが指定された場合は、
+最後に指定されたものが有効になります。</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>マウントされているすべてのファイルシステムに関する情報を表示するには、
+次のように入力します。<div> <div><div><pre><code>df</code></pre></div><div></div></div>システムで <strong>/</strong>、<strong>/usr</strong>、<strong>/site</strong>、<strong>/usr/venus</strong> といった各ファイルシステムがマウントされている場合は、<strong>df</strong> コマンドからの出力は次のようなものになります。<div><div><pre><code>
+Filesystem 512-blocks Free   %Used   Iused  %Iused  Mounted on
+/dev/hd0    19368     9976    48%     4714    5%     /
+/dev/hd1    24212     4808    80%     5031   19%     /usr
+/dev/hd2     9744     9352     4%     1900    4%     /site
+/dev/hd3     3868     3856     0%      986    0%     /usr/venus </code></pre></div><div></div></div></div>
+</li>
+
+<li>/test ファイルシステムに関する情報を 1024 バイトのブロックで表示するには、
+次のように入力します。<div><div><pre><code>df -k /test</code></pre></div><div></div></div> <div><div><pre><code>Filesystem    1024 blocks    Free    %Used   Iused  %Iused  Mounted on 
+/dev/lv11         16384     15824       4%      18      1%  /tmp/ravi1</code></pre></div><div></div></div>これにより、ファイルシステムの統計情報が 1024 バイトのディスク・ブロックで表示されます。</li>
+
+<li>/test ファイルシステムに関する情報を MB ブロックで表示するには、
+次のように入力します。<div><div><pre><code>df -m /test</code></pre></div><div></div></div> <div><div><pre><code>Filesystem    MB blocks    Free    %Used    Iused  %Iused  Mounted on 
+/dev/lv11       16.00     15.46       4%       18      1%  /tmp/ravi1</code></pre></div><div></div></div>これにより、
+ファイルシステムの統計情報が、最も近い小数第 2 位に丸められ、MB ディスク・ブロック
+で表示されます。</li>
+
+<li><strong>/test</strong> ファイルシステムに関する情報を
+GB ブロックで表示するには、次のように入力します。<div><div><pre><code>df -g /test</code></pre></div><div></div></div>   <div><div><pre><code>Filesystem    GB blocks   Free     %Used    Iused  %Iused  Mounted on 
+/dev/lv11          0.02   0.02        0%       18      1%  /tmp/ravi1</code></pre></div><div></div></div>これにより、
+ファイルシステムの統計情報が、最も近い小数第 2 位に丸められ、GB ディスク・ブロック
+で表示されます。</li>
+
+<li>現行ディレクトリーが置かれているファイルシステムの、
+使用可能スペースを表示するには、次のように入力します。<div> <div><div><pre><code>cd/
+df .</code></pre></div><div></div></div>このコマンドからの出力は次のようなものになります。<div><div><pre><code>Device   512-blocks  free   %used   iused   %iused  Mounted on
+/dev/hd4    19368    9976    48%     4714    5%     / </code></pre></div><div></div></div></div>
+</li>
+
+<li>出力をコロンで区切られたフォーマットで表示するには、次のように入力します。<div><div><pre><code>df -c</code></pre></div><div></div></div>出力は以下の例のようになります。<div><div><pre><code>Filesystem:512-blocks:Free:%Used:Iused:%Iused:Mounted on
+/dev/hd4:491520:113168:77%:9930:42%:/
+/dev/hd2:5046272:27696:100%:43014:86%:/usr</code></pre></div><div></div></div></li>
+
+<li>ローカルにマウントされているすべてのファイルシステムに関する情報を表示するには、次のように入力します。<div><div><pre><code>df -T local</code></pre></div><div></div></div>出力は以下の例のようになります。<div><div><pre><code>Filesystem    512-blocks      Free  %Used    Iused %Iused Mounted on
+/dev/hd4          5898240   2104184   65%    16390     7%  /
+/dev/hd2          7602176   1698696   78%    56001    23%  /usr
+/dev/hd9var       3014656   2190976   28%    10987     5%  /var
+/dev/hd3          2883584   2137928   26%     1213     1%  /tmp
+/dev/hd1          655360    645240    2%     1727     3%   /home
+/dev/hd11admin    262144    261384    1%        5     1%   /admin
+/proc                  -         -    -         -     -    /proc
+/dev/hd10opt      786432    362672   54%     8926    18%   /opt
+/dev/livedump     524288    523552    1%        4     1%   /var/adm/ras/livedump
+/aha                   -         -    -       328     2%   /aha</code></pre></div><div></div></div></li>
+
+<li>すべての JFS2 ファイルシステムに関する情報を表示するには、次のように入力します。<div><div><pre><code>df -T jfs2</code></pre></div><div></div></div>出力は以下の例のようになります。<div><div><pre><code>Filesystem     512-blocks      Free %Used    Iused %Iused Mounted on
+/dev/hd4          5898240   2104184   65%    16390     7%  /
+/dev/hd2          7602176   1698696   78%    56001    23%  /usr
+/dev/hd9var       3014656   2190976   28%    10987     5%  /var
+/dev/hd3          2883584   2137928   26%     1213     1%  /tmp
+/dev/hd1          655360    645240    2%     1727     3%   /home
+/dev/hd11admin    262144    261384    1%        5     1%   /admin
+/dev/hd10opt      786432    362672   54%     8926    18%   /opt
+/dev/livedump     524288    523552    1%        4     1%   /var/adm/ras/livedump</code></pre></div><div></div></div></li>
+
+<li>すべての JFS2 ファイルシステムに関する <code>free</code>、 <code>used</code>、および <code>mounted
+on</code> 情報を表示するには、次のように入力します。<div><div><pre><code>df -T jfs2 -F %f %u %m</code></pre></div><div></div></div>出力は以下の例のようになります。<div><div><pre><code>Filesystem    512-blocks      Free %Used    Mounted on
+/dev/hd4         5898240   2104184   65%    /
+/dev/hd2         7602176   1698696   78%    /usr
+/dev/hd9var      3014656   2190976   28%    /var
+/dev/hd3         2883584   2137928   26%    /tmp
+/dev/hd1          655360    645240    2%    /home
+/dev/hd11admin     262144    261384        /admin
+/dev/hd10opt      786432    362672         /opt
+/dev/livedump     524288    523552        /var/adm/ras/livedump</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>仮想ファイルシステムのタイプに関する記述が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>System V df コマンド</h2>
+<p><strong>目的</strong></p>
+
+<p>フリーのディスク・ブロックおよびファイルの数を報告します。</p>
+
+<p><strong>構文</strong></p>
+
+<p><strong>/usr/sysv/bin/df</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24236" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24282" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24242" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24248" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24288" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] ] | [ [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24276" target="_blank" rel="noopener noreferrer"><strong>I</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24300" target="_blank" rel="noopener noreferrer"><strong>-v (V)</strong></a> ] ] | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24294" target="_blank" rel="noopener noreferrer"><strong>T</strong></a> ] ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24332" target="_blank" rel="noopener noreferrer"><em>FileSystem</em></a> ...] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/df.html#df__row-d3e24317" target="_blank" rel="noopener noreferrer"><em>File</em></a> ...]</p>
+
+<p><strong>description</strong></p>
+
+<p><strong>df</strong> コマンドは、ファイルシステム上の合計スペースと使用可能なスペースの情報を表示します。 ファイルシステムの統計情報は、
+512 バイト・ブロックのユニットで表示されます。</p>
+
+<p><strong>flags</strong></p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>デフォルトの操作を行い、マウント・ポイント、デバイス名、フリー・ブロックの数、および
+使用された inode (ファイル) の数を出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong></td>
+
+<td>フリー・ファイルの数のみを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong></td>
+
+<td>すべての <strong>statvfs</strong> 構造を出力します。 このオプションは、<strong>-a</strong>、
+<strong>-e</strong>、<strong>-i</strong>、<strong>-n</strong>、
+<strong>-t</strong>、および <strong>-v</strong> オプションを指定変更します。 使用
+可能な数、合計数、およびフリー・ブロックの数が 512 バイトブロックで報告されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i</strong></td>
+
+<td>inode の合計数、フリー inode の数、使用された inode の数、および使用中の inode の
+パーセンテージ (%) を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>ローカル・ファイルシステムについてのみ報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ファイルシステムのタイプを出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>割り当てられたブロック数の合計を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>使用され、フリーであるブロックの数とともに、使用されたブロックのパーセンテージ (%) を
+報告します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p><strong>パラメーター</strong></p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>File</em></td>
+
+<td><em>File</em> パラメーターには、ファイルまたはマウント・ポイントでないディレクトリーを指定します。 <em>File</em> パラメーターを指定すると、
+<strong>df</strong> コマンドはそのファイルまたはディレクトリーが置かれているファイルシステムの情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><em>FileSystem</em></td>
+
+<td><em>FileSystem</em> パラメーターは、ファイルシステムが置かれているデバイスの名前、ファイルシステムがマウントされているディレクトリー、またはファイルシステムの相対パス名を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <em>FileSystem</em> または <em>File</em> パラメーターを指定しないと、 <strong>df</strong> コマンドは現在マウントされているすべてのファイルシステムの情報を表示します。</div>
+        </div>
+      </div></div>
+
+<p><strong>終了状況</strong></p>
+
+<dl>
+
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+
+</dl>
+
+<p><strong>例</strong></p>
+
+<ol>
+<li>マウントされているすべてのファイルシステムに関する情報を表示するには、
+次のように入力します。<div><div><pre><code>/usr/sysv/bin/df</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>/              (/dev/hd4       ):     19656 blocks    1504 files
+/usr           (/dev/hd2       ):   1139904 blocks   20254 files
+/var           (/dev/hd9var    ):     23096 blocks     512 files
+/tmp           (/dev/hd3       ):      2464 blocks     204 files
+/home          (/dev/hd1       ):     44208 blocks     146 files
+/proc          (/proc          ):         0 blocks       0 files
+/opt           (/dev/hd10opt   ):     13880 blocks     310 files</code></pre></div><div></div></div></li>
+
+<li>現行ディレクトリーが置かれているファイルシステムについての情報を表示するには、
+次のように入力します。<div><div><pre><code>/usr/sysv/bin/df .</code></pre></div><div></div></div></li>
+
+<li>すべてのマウントされたファイルシステム内の inode の合計数、フリーの inode の数、
+および使用可能な inode の数を表示するには、次のように表示します。<div><div><pre><code>/usr/sysv/bin/df -i</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Mount Dir  Filesystem      iused    avail    itotal  %iused
+/          /dev/hd4         1504     6688      8192     19%
+/usr       /dev/hd2        20254   127202    147456     14%
+/var       /dev/hd9var       512     3584      4096     13%
+/tmp       /dev/hd3          204     5940      6144      4%
+/home      /dev/hd1          146    14190     14336      2%
+/proc      /proc               0        0         0       0
+/opt       /dev/hd10opt      310     5834      6144      6%</code></pre></div><div></div></div></li>
+
+<li><strong>/tmp</strong> ファイルシステム上のブロックの合計数、使用されたブロックの数、
+およびフリー・ブロックの数を表示するには、次のように入力します。<div><div><pre><code>/usr/sysv/bin/df -v /tmp</code></pre></div><div></div></div></li>
+
+<li>ファイルシステムのタイプを表示するには、次のように入力します。<div><div><pre><code>/usr/sysv/bin/df -n</code></pre></div><div></div></div></li>
+
+<li>すべてのローカル・ファイルシステム上の inode 情報を表示するには、次のように入力します。<div><div><pre><code>/usr/sysv/bin/df -i -l</code></pre></div><div></div></div></li>
+
+<li>すべてのファイルシステム上の statvfs 構造情報を表示するには、次のように入力します。<div><div><pre><code>/usr/sysv/bin/df -g</code></pre></div><div></div></div></li>
+
+<li>ファイルシステム上のフリー・ファイルの数を表示するには、次のように入力します。<div><div><pre><code>/usr/sysv/bin/df -e</code></pre></div><div></div></div></li>
+
+</ol>
+
+<p><strong>ファイル</strong></p>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sysv/bin/df</strong></td>
+
+<td>System V  <strong>df</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステム情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

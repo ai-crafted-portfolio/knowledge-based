@@ -1,0 +1,156 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p><span>dpid2</span> Distributed
+Protocol Interface - SNMP マルチプレクサー・プロトコル (DPI-SMUX) コンバーター・デーモンをバックグラウンド・プロセスとして開始します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>dpid2</span></span> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dpid2.html#dpid2__row-d3e45490" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> [<span><span>レベル</span></span>]]</p>
+</section>
+
+<section><h2>説明</h2> <p><span>dpid2</span> コマンドは、
+<span>dpid2</span> DPI-SMUX コンバーター・デーモンを開始します。 このコマンドは、root 権限を持つユーザーまたはシステム・グループのメンバーのみが発行できます。</p>
+ <p><span>dpid2</span> DPI-SMUX コンバーター・デーモンは、RFC 1592 で定義された標準の Simple Network Management Protocol (SNMP) DPI バージョン 2.0、および RFC 1227 で定義された SNMP SMUX プロトコルおよび管理情報ベース (MIB) に準拠しています。</p>
+ <p><span>dpid2</span> デーモンは、SMUX コンバーターに対して DPI 2.0 として動作します。 <span>/usr/sbin/hostmibd</span>などのDPIサブエージェントが<span>AIX</span>SNMPバージョン1エージェントと通信するために使用される。 コンバーターは、
+DPI2 メッセージを SMUX プロトコル・メッセージに変更し、その逆もまた同じです。 <span>dpid2</span> デーモン自体は、
+SMUX のピアとしてインプリメントされます。 これは、 <span><span>snmpd</span></span> エージェントの一部である SMUX サーバーの TCP ポート 199 に接続します。 DPI2 サブエージェント (例えば、 <span>/usr/sbin/hostmibd</span>) に対しては、 <span>dpid2</span> デーモンは DPI2 エージェントのように動作します。 これは、DPI2 サブエージェントからの接続要求を、
+任意の TCP ポート上で listen します。 このポート番号は、MIB変数dpiPortForTCP1.3.6.1.4.1.2.2.1.1.1）を通して、「<span>dpid2</span>デーモンが「<span><span>snmpd</span></span>エージェントに登録する。 DPI2サブエージェントは、dpiPortForTCP.01.3.6.1.4.1.2.2.1.1.1.0)インスタンスの get-request クエリを '<span><span>snmpd</span></span>エージェントに送信することで、'<span><span>snmpd</span></span>エージェントからこのポート番号を学習する。 DPI2 サブエージェントは、DPI2 エージェントが listen している TCP ポート番号を認識した後、そのポートへの接続を試みます。</p>
+ <p><span>dpid2</span> デーモンは通常、
+<span>/etc/rc.tcpip</span> シェル・スクリプトが呼び出された際、
+システムの起動中に実行されます。</p>
+ <p><span>dpid2</span> デーモンは、
+System Resource Controller (SRC) を使用して制御される必要があります。 dpid2 のコマンド・ラインでの入力は
+推奨されません。</p>
+ <div><span>dpid2</span> デーモンを操作するには、次の SRC コマンドを使用します。<dl>
+
+<dt>startsrc</dt>
+
+<dd>サブシステム、サブシステムのグループ、サブサーバーのいずれかを始動します。</dd>
+
+
+<dt>stopsrc</dt>
+
+<dd>サブシステム、サブシステムのグループ、あるいはサブサーバーを停止します。</dd>
+
+
+<dt>refresh</dt>
+
+<dd>サブシステムまたはサブシステムのグループに、適切な構成ファイルを再読み取りさせます。</dd>
+
+
+<dt>lssrc</dt>
+
+<dd>サブシステム、サブシステムのグループ、
+あるいはサブサーバーのトレースの状況を取得します。</dd>
+
+</dl>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>snmpdv3</span></span> エージェント自体は DPI2 エージェントとして機能し、 dpiPortForTCP.0 TCP ポートで listen します。 したがって、 <span><span>snmpdv3</span></span> エージェントを使用する場合は、 <span>dpid2</span> デーモンは必要ありません。 したがって、 <span>dpid2</span> デーモンはシステム始動時には実行されず、 <span>/etc/rc.tcpip</span> 内の <span>dpid2</span> 行はコメント化されます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-d</span> <span><span>レベル</span></span></td>
+
+<td>トレースまたはデバッグのレベルを指定します。<dl>
+<dt>8</dt>
+
+<dd>DPI レベル 1</dd>
+
+
+<dt>16</dt>
+
+<dd>DPI レベル 2</dd>
+
+
+<dt>32</dt>
+
+<dd>内部レベル 1</dd>
+
+
+<dt>64</dt>
+
+<dd>内部レベル 2</dd>
+
+
+<dt>128</dt>
+
+<dd>内部レベル 3</dd>
+
+</dl>複数トレース・レベルの番号を付加します。<div><div>
+        <div>
+          <div><span>注:</span> <span>-d</span> フラグが指定されているが、レベル番号が指定されていない場合、デフォルト・レベルは 56 です。 <span>-d</span> フラグを指定しないと、デフォルトのデバッグ・レベルは 0 となります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span>dpid2</span> デーモンを開始するには、次のようなコマンドを入力します。<div><div><pre><code>startsrc -s dpid2 -a "-f /tmp/dpid2.log"</code></pre></div><div></div></div>このコマンドは、
+<span>dpid2</span> デーモンを開始し、
+デバッグ・レベル 0 で情報を <span>/tmp/dpid2.log</span> ファイルへログを記録します。</li>
+
+<li>通常の方法で <span>dpid2</span> デーモンを停止するには、次のコマンドを入力します。<div><div><pre><code>stopsrc -s dpid2</code></pre></div><div></div></div>このコマンドは、
+<span>dpid2</span> デーモンを停止させます。 <span>-s</span> フラグは、後に続くサブシステムを停止させることを指定します。</li>
+
+<li><span>dpid2</span> デーモンから簡略状況を入手するには、次のコマンドを入力します。<div><div><pre><code>lssrc -s dpid2</code></pre></div><div></div></div>このコマンドにより、デーモン名、デーモンのプロセス ID、デーモンの状態 (アクティブか、非アクティブか) が戻されます。</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/snmpd.conf</span></td>
+
+<td><span><span>snmpd</span></span> バージョン 1 エージェント構成ファイルに SMUX ピア項目を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/snmpd.peers</span></td>
+
+<td>SMUX のピアの構成を指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/mib.defs</span></td>
+
+<td>SNMP エージェントおよびマネージャーが認識して処理する必要のある MIB 変数が定義されています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

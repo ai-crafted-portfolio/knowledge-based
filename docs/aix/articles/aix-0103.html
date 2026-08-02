@@ -1,0 +1,212 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>自動マウント・ポイントをマウントします。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>automount [ -m ] [ -n ] [  -v ] [  -t duration ] [  -i interval ] [  -f file ] [  -s timeout  ] [ -D name=value ] ... [ -d value ]</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2> <p><span>automount</span> コマンドは、<span>AutoFS</span> の管理ツールとして使用されます。 それは <span>AutoFS</span> マウント・ポイントをインストールし、<span>automount</span> マップを各マウント・ポイントに関連付けます。 <span>AutoFS</span> ファイル・システムは、その中のディレクトリーへのアクセスをモニターし、 <span>automountd</span> デーモンに通知します。 デーモンはマップを使用してファイル・システムを見つけ、それを <span>AutoFS</span> ファイル・システム内の参照点にマウントします。</p>
+ <p>以前の <span>automount</span> の動作では、 <span>automount</span> コマンドを実行する前に、 <span>COMPAT_AUTOMOUNT</span> 環境変数が任意の値に設定されているかどうかを指定できます。 現在の動作は、<span>AIX</span> 5.00でデフォルトの動作となった。</p>
+ <p>ファイル・システムが適切な間隔 (デフォルトでは 10 分) 内にアクセスされない場合、 <span>automountd</span> デーモンはファイル・システムをアンマウントします。</p>
+ <p><code>SRC</code>デーモンが <span>automountd</span> 起動していない場合、この <span>automount</span> コマンドは を使用してデーモンを起動しようとします。</p>
+
+<dl>
+
+<dt>マップ</dt>
+
+<dd><div>自動マウント・マップは、アクセス時に自動的にマウントされるマウント・ポイントと、それらのマウント・ポイントの上に何をマウントする必要があるかを指定します。 <span>/etc/auto_master</span> マップ・ファイルは、 キーと呼ばれる初期マウント・ポイントと、それにマウントされるリモート・ファイル・システムを決定する対応するマップを指定します。 <span>/etc/auto_master</span> ファイルのフォーマットは次のとおりです。<div><div><pre><code>/key    map</code></pre></div><div></div></div></div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>/etc/auto_master</span> ファイルは、 <span>automount</span> コマンドが最初に実行されるときにのみ読み取られます。 変更内容は、コマンドを <span>automount</span> 再度実行するまで反映されません。</div>
+        </div>
+      </div></div>
+
+<p>最も一般的なマップは、直接マップ、間接マップ、およびホスト・マップです。</p>
+
+<div>直接マップでは <span>/etc/auto_master</span> ファイルに特殊キー (/-) が必要で、そのマップは次のフォーマットのファイルです。<div><div><pre><code>/directkey     [-options]    server:/dir</code></pre></div><div></div></div></div>
+
+<p>ユーザーが <span>/directkey</span> ディレクトリーにアクセスすると、<span>automountd</span> デーモンは <span>/directkey</span> に <span>server:/dir</span> をマウントします。</p>
+
+<div>間接マップのフォーマットは次のとおりです。<div><div><pre><code>indirectkey    [-options]    server:/dir</code></pre></div><div></div></div></div>
+
+<p>ユーザーが <span>/key/indirectkey</span> ディレクトリーにアクセスすると、<span>automountd</span> デーモンは <span>/key/indirectkey</span> に <span>server:/dir</span> をマウントします。</p>
+
+<p>ホスト・マップでは、 <span>/etc/auto_master</span> ファイル内に特別なマップ (-hosts) が必要です。 <span>automountd</span> デーモンは、 <span>/etc/hosts</span> ファイルにリストされているすべてのサーバーの <span>/key</span> ディレクトリーの下にサブディレクトリーを作成します。 ユーザーが <span>/key/server</span> ディレクトリーにアクセスすると、 <span>automountd</span> デーモンは、サーバーのエクスポートされたディレクトリーを <span>/key/server</span> ディレクトリーにマウントします。</p>
+
+</dd>
+
+
+
+<dt>代替マップ・ロケーション</dt>
+
+<dd><div>自動マウント・マップは、NIS および LDAP サーバーでも探索されます。 <span>automount</span> コマンドは、 <span>/etc/irs.conf</span> ファイル内の自動マウント項目が変更されていない限り、デフォルトでローカル・システム上のファイルとしてマップを検索します。 次に例を示します。<div><div><pre><code>automount nis_ldap</code></pre></div><div></div></div></div>
+
+<div>空白で区切ったリストを使用することで、使用順に複数のネームサービスを指定することができます。 たとえば、 LDAP のマップを最初に使用し、その後にローカルファイルを使用するように指定する場合、自動マウントのエントリは次のようになります：<div><div><pre><code>automount nis_ldap files</code></pre></div><div></div></div></div>
+
+<p>自動マウント項目の有効な値は、 <code>files</code>、 <code>nis</code>、および <code>nis_ldap</code>です。</p>
+
+</dd>
+
+
+</dl>
+ </section>
+
+<section><h2>フラグ</h2>
+
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-d</span> Value</td>
+
+<td><span>automount</span>AutoFS 拡張機能およびデーモンのデバッグレベルを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-D</span> 名前=値</td>
+
+<td>環境変数とその値を指定します。 <span>-D</span> フラグを複数回使用することによって、複数の環境変数を指定できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-f</span>file</td>
+
+<td>使用する新規マスター・マップ・ファイルを指定します。 デフォルトは <span>/etc/auto_master</span>です。</td>
+
+</tr>
+
+<tr>
+<td><span>-i</span> 間隔</td>
+
+<td>非アクティブ autofs がマウントされたディレクトリーが存在する時間を秒単位で指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span></td>
+
+<td>自動マウントのマップのために NIS を検索しないように指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-n</span></td>
+
+<td>nobrowse オプションを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> timeout
+</td>
+
+<td>マウントに時間がかかりすぎる場合、新規プロセスが fork されるまでの時間を秒単位で指定します。 最小値は 30 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-t</span> 期間</td>
+
+<td>auto アンマウント・プロセスが作業を再開するまでスリープする時間を秒単位で指定します。 最小値は 21 です。 デフォルト値は 120 です。 最大値は 600 です。</td>
+
+</tr>
+
+<tr>
+<td><span>-v</span></td>
+
+<td>これは、詳細状況と警告メッセージを標準出力に出力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+<section><h2>NameFS マウント条件</h2>
+
+<div>以下の条件が満たされる場合、デーモンは <span>automountd</span>NFS マウントではなく、Name File System ( NameFS ) マウントを作成します：<ul>
+<li>この <span>automountd</span> マップエントリは、ネストされていないマウントポイントを指定しています。</li>
+
+<li>起動時に <code>automountd</code> 、サーバーのIPアドレスがローカルアドレスに解決されます。</li>
+
+<li>指定されたディレクトリパスは、システム上にローカルで存在します。</li>
+
+</ul>
+<div><div>
+        <div>
+          <div><code>namefs</code><span>注：</span> サービス IP アドレスを使用する PowerHA 環境において、クラスタのサービス IP が起動前に <code>automountd</code> ローカルノードに割り当てられている場合、そのサービス IP を参照する自動マウントマップのエントリは、を使用してマウントされます。 その後、サービスのIPアドレスが別のノードにフェイルオーバーした場合でも、マウントは <code>namefs</code> 自動的にフェイルオーバー先のノードにリダイレクトされません。 この問題を回避するには、ローカルノードにクラスタサービスのIPアドレスが割り当てられる前に を <code>automountd</code> 起動しておくか、サービスのIPアドレスのフェイルオーバーが発生した後に を <code>automountd</code> 再起動してください。</div>
+        </div>
+      </div></div>
+</div>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li><span>LocalOpts</span>マウントポイントを自動的にマウントするために、, <span>LocalCaching</span>, および <span>Server</span> 環境変数を指定するには、次のコマンドを入力してください：<div><div><pre><code>automount -D LocalOpts=-rsize=16384,wsize=16384,timeo=15    \
+-D LocalCaching=-rsize=16384,wsize=16384,timeo=15 -D Server=autoserver</code></pre></div><div></div></div></li>
+
+<li>デフォルトのファイル (<span>/etc/auto_master</span>) の代わりにマスターマップファイル (<span>/etc/myFile</span>) を使用するには、次のコマンドを入力してください：<div><div><pre><code>automount -f /etc/myFile</code></pre></div><div></div></div></li>
+
+<li>以下のコマンドを入力して、デーモンの <span>automount</span> 間隔時間を5分、タイムアウト値を30秒、実行時間を1分に設定します：<div><div><pre><code>automount -i 300 -s 30 -t 60</code></pre></div><div></div></div></li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/auto_master</span></td>
+
+<td>初期自動マウント・キーの作成には、デフォルトのマップ・ファイルが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/hosts</span></td>
+
+<td>自動マウント・ホスト・マップで使用されるサーバーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/irs.conf</span></td>
+
+<td>自動マウント・マップの位置を指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

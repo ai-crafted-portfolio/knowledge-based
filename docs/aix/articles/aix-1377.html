@@ -1,0 +1,246 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>リソース・クラスに対するアクションを実行します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>runact</span></span> <span><span>-s</span></span> 」<span><span>selection_string</span></span>" [ <span><span>-N</span></span> { <span><span>node_file</span></span> | <span><span>"-"</span></span> }] [<span><span>-f</span></span> <span><span>resource_data_input_file</span></span>] [<span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class アクション</span></span> [<span><span>in_element</span></span><span><span>=</span></span><span><span>value</span></span>...] [<span><span>rsp_element</span></span>...]</p>
+ <p><span><span>runact
+-r</span></span> [<span><span>-f</span></span> <span><span>resource_data_input_file</span></span>] [<span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_handle action</span></span> <span>[<span><span>in_element</span></span><span><span>=</span></span><span><span>value</span></span>...]</span> [<span><span>rsp_element</span></span>...]</p>
+ <p><span><span>runact</span></span> <span><span>-c</span></span> [<span><span>-f</span></span> <span><span>resource_data_input_file</span></span>] [<span><span>-n</span></span> <span><span>node_name</span></span>] [<span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class アクション</span></span> [<span><span>in_element</span></span><span><span>=</span></span><span><span>value</span></span>...] [<span><span>rsp_element</span></span>...]</p>
+ <p><span><span>runact</span></span> <span><span>-C</span></span> <span><span>domain_name</span></span>... [<span><span>-f</span></span> <span><span>resource_data_input_file</span></span>] [<span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span>] [<span><span>-x</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>resource_class action</span></span> [<span><span>in_element</span></span><span><span>=</span></span><span><span>値</span></span>...] [<span><span>rsp_element</span></span>...]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>runact</span></span> コマンドは、指定されたリソース・クラスに対して指定されたアクションを RMC サブシステムが実行することを要求します。</p>
+ <p><span><span>selection_string</span></span>に複数のノード名を指定する代わりに、 <span><span>-N</span></span> <span><span>node_file</span></span> フラグを使用して、ノード名がファイル内にあることを示すことができます。 標準入力からノード名を読み取るには、 <span><span>-N
+"-"</span></span> を使用します。</p>
+ <p>このコマンドを実行する前に、 <span><span>lsactdef</span></span> コマンドを使用して、このリソース・クラスでサポートされるリソース・クラス・アクションをリストしてください。 また、 <span><span>lsactdef</span></span> コマンドを使用して、アクションの呼び出し時に指定する必要がある必須の入力アクション・エレメントをリストします。 <span><span>lsactdef</span></span> コマンドは、各入力エレメントのデータ・タイプも識別します。 各入力に対して指定する値は、そのデータ・タイプに一致したものでなければなりません。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-c</dt>
+
+<dd>リソース・クラスに対してアクションを起動します。<p>管理サーバーで定義されているすべてのピア・ドメイン上のグローバル・リソース・クラスに対してクラス・アクションを起動するには、
+<strong>CT_MANAGEMENT_SCOPE=3</strong> を設定し、<strong>-c</strong> フラグを使用します。</p>
+</dd>
+
+
+<dt>--C <span><span>ドメイン名...</span></span></dt>
+
+<dd>管理サーバーで定義されている 1 つ以上の RSCT ピア・ドメイン上のグローバル・リソース・クラスに対してクラス・アクションを起動します。 グローバル・クラスは、ドメインに関する情報が入っているリソース・クラスのピア・ドメインおよび管理ドメインで使用されます。</dd>
+
+
+<dt>--f <span><span>resource_data_input_file</span></span></dt>
+
+<dd>リソースのアクション入力の要素と値が含まれているファイルの名前を指定します。 この入力ファイルのテンプレートを生成するには、 <span><span>-i</span></span> フラグを指定して <span><span>lsactdef</span></span> コマンドを使用します。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更する場合は、 <span><span>-D</span></span> フラグを使用します。</dd>
+
+
+<dt>--D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外の区切り文字を指定します。 例えば、表示されるデータにコロンが含まれている場合です。 このフラグを使用して、1 つ以上の文字からなる区切り文字を指定します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>「長い」フォーマット (1 行ごとに 1 つのエントリー) を指定します。 これは、デフォルトの表示形式です。</dd>
+
+
+<dt>-<em>ノード名</em></dt>
+
+<dd>クラス・アクションを実行するノードの名前を指定します。 このフラグは、必ず、<strong>-c</strong> フラグと一緒に使用します。</dd>
+
+
+<dt>--N <span>{</span> <span><span>node_file</span></span> <span>│</span>"-"<span>}</span></dt>
+
+<dd>ファイルまたは標準入力からノード名を読み取ることを指定します。 ノード名がファイル内にあることを示すには、 <span><span>-N</span></span> <span><span>node_file</span></span> を使用します。<ul>
+<li><span><span>node_file</span></span> では 1 行に 1 つのノード名を指定します。</li>
+
+<li>1 桁目の番号記号 (<span><span>#</span></span>) は、その行がコメントであることを示します。</li>
+
+<li>ノード名の前のブランク文字はすべて無視されます。</li>
+
+<li>ノード名の後の文字はすべて無視されます。</li>
+
+</ul>標準入力からノード名を読み取るには、 <span><span>-N "-"</span></span> を使用します。<p>CT_MANAGEMENT_SCOPE 環境変数は、クラスターの有効範囲を決定します。 CT_MANAGEMENT_SCOPE が設定されていない場合、コマンドにとって有効な範囲になるまで、最初に管理ドメイン有効範囲 (存在する場合) を選択し、次にピア・ドメイン有効範囲 (存在する場合) を選択し、次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合に CT_MANAGEMENT_SCOPE が設定されていないと、このコマンドは管理ドメインに適用されます。 このコマンドをピア・ドメインに適用する場合は、CT_MANAGEMENT_SCOPE を <span><span>2</span></span>に設定してください。</p>
+</dd>
+
+
+<dt>--r<em>"resource_handle</em>"</dt>
+
+<dd>リソース・ハンドルを指定します。 リソース・ハンドルは次のフォーマットで指定する必要があります。<div><div><pre><code>"0xnnnn 0xnnnn 0xnnnnnnnn 0xnnnnnnnn 0xnnnnnnnn 0xnnnnnnnn"</code></pre></div><div></div></div>ここで n は、16 進数の文字です。 このフラグを使用して、リソースに対し、<em>resource_handle</em> に一致するアクションを呼び出します。</dd>
+
+
+<dt>--s<em>"selection_string</em>"</dt>
+
+<dd>選択文字列を指定します。 選択文字列はすべて、
+二重または単一の引用符で囲まなければなりません。 選択文字列の中に二重引用符が含まれている場合は、選択文字列全体を単一の引用符で囲んでください。 次に例を示します。<div><div><pre><code>    -s 'Name == "testing"'
+    -s 'Name ?= "test"'</code></pre></div><div></div></div>永続属性のみを選択文字列にリストすることができます。 選択文字列を指定する方法については、「Administering RSCT」を参照してください。</dd>
+
+
+<dt>-t</dt>
+
+<dd>表形式を指定します。 属性ごとにそれぞれ別個の列に表示され、1 行に 1 個のリソースが表示されます。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダー印刷を抑制します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 ソフトウェア・サービスの編成の使用の場合のみです。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>処置</span></span></dt>
+
+<dd>起動するアクションの名前を指定します。</dd>
+
+
+<dt><span><span>要素内</span></span>=<span><span>値</span></span><span>…</span></dt>
+
+<dd>アクション入力要素の名前と値を指定します。 <span><span>-f</span></span> フラグを使用する場合は、コマンド行に <span><span>in_element</span></span><span><span>=</span></span><span><span>value</span></span> のペアを入力しないでください。<p><span><span>in_element</span></span> は、入力となる構造化データ要素名のいずれかです。 指定されたアクションの定義済み構造化データ (SD) 入力エレメントごとに、1 つの <span><span>in_element_n</span></span><span><span>=</span></span><span><span>値</span></span> ペアが必要です。 特定のリソース・クラスおよびアクションの入力エレメントをリストするには、 <span><span>lsactdef</span></span> を <span><span>-s
+i</span></span> フラグと一緒に使用します。 <span><span>lsactdef -i</span></span> を使用して、入力ファイル・テンプレートを生成します。このテンプレートは、適切な編集を行った後、入力ファイルとして使用できます。</p>
+  <p><span><span>value</span></span> は、指定した要素に該当するデータ・タイプでなければなりません。 例えば、 <span><span>NodeNumber</span></span> が <span><span>uint32</span></span> データ型として定義されている場合は、正の数値を入力します。</p>
+</dd>
+
+
+<dt><span><span>リソース・クラス</span></span></dt>
+
+<dd>アクションを起動する対象となるリソース・クラスの名前を指定します。</dd>
+
+
+<dt><span><span>リソース・ハンドル</span></span></dt>
+
+<dd>アクションを起動する対象となるリソースおよびクラスのリソース・ハンドルを指定します。</dd>
+
+
+<dt><span><span>RSP_ 要素</span></span></dt>
+
+<dd>1 つ以上のアクション応答構造化データ要素の名前を指定します。 1 つ以上の要素名を指定すると、それらの要素だけが指定した順序で表示されます。 要素名を指定しない場合は、応答のすべての要素が表示されます。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドには、 <span><span>root</span></span> 権限が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>不正なコマンド・ライン入力に基づく RMC により、エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>CT_CONTACT 環境変数をホスト名または IP アドレスに設定すると、
+コマンドは指定されたホストの RMC (Resource Monitoring and Control) デーモンにアクセスします。 この環境変数を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 コマンドにより表示または変更されるリソースまたはリソース・クラスは、
+接続が確立されたシステム上で探されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>RMC デーモンがリソースおよびリソース・クラスをモニターし、制御するための
+セッションに使用する管理有効範囲を指定します。 この管理有効範囲により、リソースおよびリソース・クラスをモニターおよび制御できる候補ターゲット・ノードのセットが決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+  <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、'<span>AIX</span> 用の '<span>Reliable Scalable Cluster Technology（RSCT）</span>ファイルセットの一部である。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。</p>
+ <p>コマンド出力とすべての詳細メッセージは、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>リソース・クラス '<span><span>IBM.Example</span></span> の<strong>TestClassAction</strong>リソース・クラス・アクションを呼び出すには、次のように入力します：<div><div><pre><code>runact -c IBM.Example TestClassAction Int32=99</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>Resource Class Action Response for: TestClassAction
+sd_element 1:
+   Int32 = 99</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/runact</dt>
+
+<dd><span><span>runact</span></span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+</div></div>

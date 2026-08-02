@@ -1,0 +1,69 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>使用可能な仮想共有ディスクを活動化します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>resumevsd </span></span>[<span><span>-p</span></span> | <span><span>-b</span></span> | <span><span>-l</span></span> <span><span>server_list</span></span>] {<span><span>-a</span></span> | <span><span> vsd_name</span></span> ...}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>resumevsd</strong> コマンドは、指定した仮想共有ディスクを延期状態から
+活動状態にします。 仮想共有ディスクは引き続き使用可能です。 仮想共有ディスクが延期状態のために
+保留中であった読み取りおよび書き込み要求は再開されます。</p>
+ <p>このコマンドは、System Management Interface Tool (SMIT) を使用して実行できます。 SMIT を使用するには、以下のように入力します。</p>
+ <div><div><pre><code>smit vsd_mgmt</code></pre></div><div></div></div> <p>さらに、<strong>Resume a Virtual Shared Disk</strong> オプションを選択します。</p>
+ <p>通常の環境では、このコマンドを発行すべきではありません。 リカバリー可能仮想共有ディスク・サブシステムは
+このコマンドを使用して、制御された方法により共有ディスクを管理します。 このコマンドを
+発行する場合、結果は予測不能です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> <dl>
+<dt><strong>-p</strong></dt>
+
+<dd>グローバル・ボリューム・グループに対して定義された 1 次サーバー・ノードがアクティブ・サーバーとなるように指定します。 <span><span>-p</span></span> フラグは CVSD には無効です。</dd>
+
+
+<dt><strong>-b</strong></dt>
+
+<dd>グローバル・ボリューム・グループに対して定義された 2 次サーバー・ノードが
+アクティブ・サーバーとなるように指定します。 <span><span>-b</span></span> フラグは CVSD には無効です。</dd>
+
+
+<dt><strong>-a</strong></dt>
+
+<dd>定義済みの仮想共有ディスクがすべて再開されるように指定します。</dd>
+
+
+<dt>-l</dt>
+
+<dd><span><span>server_list</span></span> をドライバーに渡します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> <dl>
+<dt><span><span>VSAM 名</span></span></dt>
+
+<dd>仮想共有ディスクを指定します。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、 <span><span>root</span></span> 権限が必要です。</p>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインでオンラインのノードから実行する必要があります。 オンラインのピア・ドメインに移動するには <strong>startrpdomain</strong> コマンドを使用します。 既存のピア・ドメイン内で、オンラインの特定ノードに移動するには <strong>startrpnode</strong>
+コマンドを使用します。 RSCT ピア・ドメインの作成と管理の詳細については、「<em>RSCT Administration Guide</em>」を参照してください。</p>
+ <p>通常の環境では、このコマンドを発行すべきではありません。 リカバリー可能仮想共有ディスク・サブシステムは
+このコマンドを使用して、制御された方法により共有ディスクを管理します。 このコマンドを
+発行する場合、結果は予測不能です。</p>
+</section>
+
+<section><h2>例</h2> <p>仮想共有ディスク <strong>vsd1vg1n1</strong> を延期状態から活動状態に
+するには次のように入力します。</p>
+ <div><div><pre><code>resumevsd vsd1vg1n1</code></pre></div><div></div></div></section>
+
+<section><h2>場所</h2> <p><span><span>/opt/rsct/vsd/bin/resumevsd</span></span></p>
+</section>
+
+</div></div>

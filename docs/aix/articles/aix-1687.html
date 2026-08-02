@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>BNU と TCP/IP 間の通信を処理します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>uucpd</strong> デーモンは、コマンド・ラインから始動できません。 <strong>inetd</strong> デーモンによって始動されます。</p>
+ <p><strong>uucpd</strong></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>uucpd</strong> デーモンは、基本ネットワーク・ユーティリティー (BNU) プログラムでリンクされたシステムのユーザーが、
+トークンリング、イーサネット、または他のネットワークでリンクされた他のシステムと TCP/IP 接続を行うための内部プログラムです。</p>
+ <p><strong>uucpd</strong> デーモンは、<strong>inetd</strong> デーモンのサブサーバーです。 BNU プログラムが TCP/IP システムを通信用に使用するためには、
+<strong>uucpd</strong> デーモンがネットワーク化されたすべてのシステム上でバックグラウンド・プロセスとして実行中でなければなりません。 <strong>UUUPD</strong> デーモンが実行されていない場合は、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/network/tcpip_daemons_inetd.html" target="_blank" rel="noopener noreferrer">再構成</a> <strong>Inetd</strong> デーモンが <strong>UUUPD</strong> デーモンを開始します。 <strong>uucpd</strong> デーモンが実行中かどうかは、
+<strong>netstat</strong> コマンドを使用して確認します。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/hosts</strong></td>
+
+<td>TCP/IP が使用するホスト名テーブルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/inetd.conf</strong></td>
+
+<td><strong>inetd</strong> デーモンの構成が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/services</strong> ファイル</td>
+
+<td>TCP/IP が使用するソケット割り当てが定義されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin /uucpd (/uucpd)</strong></td>
+
+<td><strong>uucpd</strong> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Devices</strong></td>
+
+<td>使用可能なデバイスについての情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Permissions </strong></td>
+
+<td>リモート・システム用のアクセス権限を記述します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/uucp/Systems</strong></td>
+
+<td>アクセス可能なリモート・システムを記述します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

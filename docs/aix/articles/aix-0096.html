@@ -1,0 +1,620 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>定義された基準に従って、分析のための監査レコードを選択します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>auditselect</strong> { <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/auditselect.html#auditselect__row-d3e42240" target="_blank" rel="noopener noreferrer"><strong>-e</strong></a><strong> "</strong><em>式</em><strong>"</strong> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/auditselect.html#auditselect__row-d3e42255" target="_blank" rel="noopener noreferrer"> <strong>-f</strong></a> <em>ファイル</em>} [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/auditselect.html#auditselect__row-d3e42266" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> ] [ <em>Trail</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>auditselect</strong> コマンドは監査サブシステムの一部です。 このコマンドは、ビン・ファイルの処理用のバックエンド・コマンドとして <strong>/etc/security/audit/bincmds</strong> ファイル内に構成されていれば、<strong>auditbin</strong> デーモンによって呼び出されます。</p>
+ <p><strong>auditselect</strong> コマンドは、識別された基準に一致する監査レコードを選択して、それらのレコードを標準出力に書き出します。 <strong>auditselect</strong> コマンドを使うと、監査証跡をフィルターに掛けて、分析用に特定のレコードを取得したり、長期保管用に特定のレコードを選択することができます。 コマンドは、<em>Trail</em>  パラメーターで指定されたファイルまたは標準入力から、ストリーム入力またはビン入力を取り込みます。 <strong>$bin</strong> 文字列を <em>Trail</em> パラメーターの値として指定した場合、<strong>auditselect</strong> コマンドが呼び出されると <strong>auditbin</strong> デーモンが現行ビン・ファイルのパス名を置換します。 選択基準は、式として入力するか、または <strong>-f</strong> フラグで指定されたファイルから入力できます。 ビン・ファイルが圧縮されていれば、<strong>auditselect</strong> コマンドは処理の前にファイルをアンパックします。</p>
+ <p>ストリーム・データの場合は、<strong>auditstream</strong> コマンドと <strong>auditselect</strong> コマンドの両方を <strong>/etc/security/audit/streamcmds</strong> ファイル内に構成するか、または両方のコマンドをコマンド・ラインから入力します。</p>
+
+<p>AIX_AUDITBUFSZ 環境変数は、<span>auditselect</span> 監査レコードのバッファー済み書き込み操作を可能にします。 バッファー済み書き込みオプションは、多数の監査レコードを生成するハイパフォーマンス・アプリケーションに役立ちます。</p>
+
+<p>AIX_AUDITBUFSZ 環境変数は、8192 バイトから 67 MB の範囲の 10 進数値および 16 進数値を受け入れます。 許される値の範囲外にあるその他の正の値はいずれも、最も近い値に基づき、範囲の始めまたは範囲の終わりのどちらかに四捨五入されます。 この変数値が設定されていないか、あるいはこの変数に負の値または非数値が割り当てられている場合、AIX_AUDITBUFSZ 変数は無視されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-e (E)</strong><strong> "</strong><em>式</em><strong>"</strong></td>
+
+<td>選択基準を定義します。 <em>Expression</em> パラメーターは、単一の項、または論理演算子で結合された複数の項から成っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong><em> ファイル</em></td>
+
+<td>選択基準が入っている <em>File</em> を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-m</strong></td>
+
+<td>record 拡張子を持った出力監査レコードを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>式の作成</h2> <p>有効な式は、単一の項、または論理演算子で結合された複数の項から成っています。</p>
+<p><strong>論理演算子</strong></p>
+ <p>論理演算子を使うと、1 つの式の中で複数の項を使うことができます。 複数の論理演算子を含む式の計算には通常の優先度のルールが適用され、括弧を使って計算の順序を変えることができます。 有効な論理演算子は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>&amp;&amp;</strong></td>
+
+<td>(And) 式term1 &amp;&amp; term2term1 と term2 の両方が true の場合は true (選択済み) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>||</strong></td>
+
+<td>(Or) 式term1 || term2term1 または term2 のいずれかが true の場合は true (選択済み) です。</td>
+
+</tr>
+
+<tr>
+<td><strong>!</strong></td>
+
+<td>(Not) 式!term1term1 が true でない場合は true (選択済み) です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>利用条件</strong></p>
+ <p>式の個々の項のフォーマットは次のようになります。</p>
+ <div> <div><div><pre><code>Field Relational_Operator Value</code></pre></div><div></div></div></div>
+<p><strong>フィールド</strong></p>
+ <p>フィールドは、各レコードの監査ヘッダー内の情報に対応します。 フィールド用の有効な値は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+
+<td>監査イベントの名前。以下に例を示します。FILE_Open.</td>
+
+</tr>
+
+<tr>
+<td>command</td>
+
+<td>監査イベントを生成したコマンドの名前</td>
+
+</tr>
+
+<tr>
+<td>result</td>
+
+<td>監査イベントの状況。 以下の値resultフィールドは次のいずれかでなければなりません。<ul>
+<li><strong>OK</strong></li>
+
+<li><strong>FAIL</strong></li>
+
+<li><strong>失敗: PRIV</strong></li>
+
+<li><strong>承認に失敗</strong></li>
+
+<li><strong>アクセスに失敗しました</strong></li>
+
+<li><strong>FAIL_DAC</strong> 任意アクセス制御 (DAC) が拒否されたために、イベントで障害が起こったことを指示します。 アクセス制御リスト (ACL) は情報リポジトリーの 1 つの形式で、
+共有のリソース/オブジェクトに対するアクセス権に関連するデータが含まれます。 ACL は、DAC 機構でカテゴリー化されます。</li>
+
+</ul>
+  <p><strong>FAIL</strong> は、その他のすべてのエラー・コードに一致します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>login</td>
+
+<td>監査イベントを生成したプロセスのログイン・ユーザーの ID</td>
+
+</tr>
+
+<tr>
+<td>real</td>
+
+<td>監査イベントを生成したプロセスの実ユーザーの ID</td>
+
+</tr>
+
+<tr>
+<td>pid</td>
+
+<td>監査イベントを生成したプロセスの ID</td>
+
+</tr>
+
+<tr>
+<td>ppid</td>
+
+<td>監査イベントを生成したプロセスの親の ID</td>
+
+</tr>
+
+<tr>
+<td>tid</td>
+
+<td>イベントを生成したカーネル・スレッドの ID</td>
+
+</tr>
+
+<tr>
+<td>time</td>
+
+<td>監査イベントが生成された時刻</td>
+
+</tr>
+
+<tr>
+<td>date</td>
+
+<td>監査イベントが生成された日付</td>
+
+</tr>
+
+<tr>
+<td>host</td>
+
+<td>レコードを生成したマシンのホスト名。 予約名 <strong>UNKNOWN</strong> を使用すれば、<strong>/etc/security/audit/hosts</strong>  ファイルにリストされていない、すべてのマシンにマッチさせることができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>関係演算子</strong></p>
+ <p>関係演算子は、監査レコード内のフィールドを指定された値と比較するときに使います。 有効な関係演算子は次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>==</strong></td>
+
+<td>等しい</td>
+
+</tr>
+
+<tr>
+<td><strong>!=</strong></td>
+
+<td>等しくない</td>
+
+</tr>
+
+<tr>
+<td><strong>&lt;</strong></td>
+
+<td>より小さい</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;</strong></td>
+
+<td>より大きい</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;=</strong></td>
+
+<td>より大きいか等しい</td>
+
+</tr>
+
+<tr>
+<td><strong>&lt;=</strong></td>
+
+<td>よりも小さいか等しい</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+<p><strong>有効な項 (Valid Terms)</strong></p>
+ <p>有効な項は、フィールド、関係演算子、および値から成っています。 また、必ずしも個々のフィールドにすべての関係演算子と値が有効なわけではありません。 有効な組み合わせは次のとおりです。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>有効な演算子</div></th>
+
+<th><div>有効な値</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>event</td>
+
+<td>= =, ! =</td>
+
+<td>Text string audit event name</td>
+
+</tr>
+
+<tr>
+<td>result</td>
+
+<td>= =, ! =</td>
+
+<td>Text string audit status codes</td>
+
+</tr>
+
+<tr>
+<td>command</td>
+
+<td>= =, ! =</td>
+
+<td>Text string command name</td>
+
+</tr>
+
+<tr>
+<td>pid</td>
+
+<td>all</td>
+
+<td>Decimal integer process ID</td>
+
+</tr>
+
+<tr>
+<td>ppid</td>
+
+<td>all</td>
+
+<td>Decimal integer process ID</td>
+
+</tr>
+
+<tr>
+<td>login</td>
+
+<td>all</td>
+
+<td>Decimal integer user ID</td>
+
+</tr>
+
+<tr>
+<td>login</td>
+
+<td>= =, ! =</td>
+
+<td>Text string user name</td>
+
+</tr>
+
+<tr>
+<td>real</td>
+
+<td>all</td>
+
+<td>Decimal integer user ID</td>
+
+</tr>
+
+<tr>
+<td>real</td>
+
+<td>= =, ! =</td>
+
+<td>Text string user name</td>
+
+</tr>
+
+<tr>
+<td>tid</td>
+
+<td>all</td>
+
+<td>Decimal integer thread ID</td>
+
+</tr>
+
+<tr>
+<td>time</td>
+
+<td>all</td>
+
+<td>String in the format specified by the current locale</td>
+
+</tr>
+
+<tr>
+<td>date</td>
+
+<td>all</td>
+
+<td>String in the format specified by the current locale</td>
+
+</tr>
+
+<tr>
+<td>host</td>
+
+<td>= =, ! =</td>
+
+<td>Text string host name or 16 character cpu ID</td>
+
+</tr>
+
+<tr>
+<td>priv</td>
+
+<td>= =, ! =</td>
+
+<td>Privilege name</td>
+
+</tr>
+
+<tr>
+<td>sl</td>
+
+<td>= =, ! =</td>
+
+<td>Sensitivity label name</td>
+
+</tr>
+
+<tr>
+<td>tl</td>
+
+<td>= =, ! =</td>
+
+<td>Integrity label name</td>
+
+</tr>
+
+<tr>
+<td>role</td>
+
+<td>= =, ! =</td>
+
+<td>Role name</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アクセス制御</strong></p>
+ <p>このコマンドに対する実行 (x) アクセス権は、root ユーザーと監査グループのメンバーにのみ与えてください。 コマンドは、<strong>setuid</strong> で root ユーザーに設定され、<strong>trusted computing base</strong> 属性を持っていなければなりません。</p>
+<p><strong>RBAC 環境および </strong></p>
+ <p>このコマンドは特権操作を実装しているため、特権操作を行うことができます。 特権ユーザーのみが、
+このような特権操作を実行できます。 このコマンドに関連した特権と許可のリストを見るには、<strong>/etc/security/privcmds</strong> データベースを参照してください。</p>
+</section>
+
+<section><h2>例</h2><p><strong>構成</strong></p>
+ <ol>
+<li>ビンに収集されたデータ・レコードのうち、USER_SU または USER_Login 監査イベントに一致するレコードを選択するには、次のように入力して、<strong>auditselect</strong> コマンドを <strong>/etc/security/audit/bincmds</strong> ファイルに追加します。<div>
+<div><div><pre><code>/usr/sbin/auditselect -e "event== USER_SU || event== \
+USER_Login" $bin &gt;&gt; /audit/trail.login</code></pre></div><div></div></div>監査が使用可能になっている間、ユーザー・セッションが開始されるたびに、レコードが現行ビン・ファイルから読み取られ、<strong>/audit/trail.login</strong> ファイルに書き込まれます。</div>
+</li>
+
+<li>ストリームで収集されたデータ・レコードのうち、失敗したユーザー・ログインに一致するレコードを選択するには、次のように入力して、<strong>auditselect</strong> コマンドを <strong>/etc/security/audit/streamcmds</strong> ファイルの <strong>auditstream</strong> スタンザに追加します。<div>
+<div><div><pre><code>/usr/sbin/auditstream -c authentication | \
+/usr/sbin/auditselect -e "event == \
+USER_Login &amp;&amp; result == FAIL" | \
+/usr/sbin/auditpr -t 2 -v &gt;&gt; /dev/lpr2</code></pre></div><div></div></div>ハードコピー監査証跡を生成するために、失敗した確認イベントのレコードが <strong>/dev/lpr2</strong> ライン・プリンターに書き込まれます。</div>
+</li>
+
+</ol>
+<p><strong>確認イベントまたはログイン・イベントの選択</strong></p>
+ <ol>
+<li>確認エラーに関係するすべてのイベントを監査証跡ファイルから検索するには、次のように入力します。<div>
+<div><div><pre><code>/usr/sbin/auditselect -e "result == FAIL_AUTH"
+/audit/oldtrail | /usr/sbin/auditpr -t -helt -v</code></pre></div><div></div></div>確認が否認されたために失敗したイベントのレコードが表示されます。 ヘッダー・タイトルは一度だけ表示され、続いてイベント、ログイン ID、時刻の各フィールドと、監査証跡が表示されます。</div>
+</li>
+
+<li>以下の場合に生成される監査レコードを選択します。smith1987 年 5 月の第 1 週の基本労働時間中にログインするには、次のように入力します。<div>/usr/sbin/auditselect  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/auditselect.html#auditselect__row-d3e42255" target="_blank" rel="noopener noreferrer">-f </a>/aaa/bbb \<br>
+/audit/trail1987 | /usr/sbin/auditpr</div>この/aaa/bbbファイルに次の行が含まれている必要があります。<div>
+<div><div><pre><code> command == login &amp;&amp; login == smith &amp;&amp; 
+ time &gt;= 08:00:00 &amp;&amp; time &lt;= 17:00:00 &amp;&amp; 
+ date &gt;= 05/01/87 &amp;&amp; date &lt;= 05/05/87</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+<p><strong>文字列の比較</strong></p>
+ <ol>
+<li>監査イベントの名前を以下のものと比較するには、USER_Loginストリング,次のいずれかを入力してください。<div>
+<div><div><pre><code>"event == USER_Login"
+ 
+"event != USER_Login"</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li><strong>passwd</strong> コマンドにより監査イベントが生成されたことを調べるには、次を使用します。<div>
+<div><div><pre><code>"command == passwd"</code></pre></div><div></div></div><strong>passwd</strong> コマンドにより監査イベントが生成されなかったことを調べるには、次を使用します。<div><div><pre><code>"command != passwd"</code></pre></div><div></div></div></div>
+</li>
+
+<li>監査状況を以下のものと比較します。OK結果ストリング,次のように入力します。<div>
+<div><div><pre><code>"result == OK"</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>監査イベントを生成したプロセスのログイン ID または実ユーザー ID を特定のユーザー ID (ユーザー ID) と比較する014またはユーザー名carol)、以下のいずれかを入力します。<div>
+<div><div><pre><code>"login == 014"
+"login != carol"
+"login == 014 || login != carol"
+"real == carol"</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>監査イベントを生成したプロセスの ID またはプロセスの親を、プロセス ID と比較します。2006以下のいずれかを入力します。<div>
+<div><div><pre><code>"pid == 2006"
+"pid != 2006"
+"ppid ==  2006" </code></pre></div><div></div></div>
+</div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> ログイン・ユーザー ID、実ユーザー ID、およびプロセス ID は、非等価演算子 ( <strong>&lt; =</strong>、 <strong>&gt; =</strong>、 <strong>&lt;</strong>、 <strong>&gt;</strong> ) と比較できますが、通常はこれを行う必要はありません。</div>
+        </div>
+      </div></div>
+</li>
+
+<li>監査イベントが生成された時刻を以下と比較する08:03:00時刻ストリングの場合は、以下のいずれかを入力します。<div>
+<div><div><pre><code>"time == 08:03:00"
+"time != 08:03:00"
+"time &lt;  08:03:00"
+"time &lt;= 08:03:00"
+"time &gt;  08:03:00"
+"time &gt;= 08:03:00"</code></pre></div><div></div></div>指定された比較に適合する監査レコードが選択されます。08:03:00時刻ストリング。 時刻文字列は、現行ロケールで指定されたフォーマットに一致していなければなりません。</div>
+</li>
+
+<li>監査イベントが生成された日付を以下のものと比較する05/05/89日付ストリングには、以下のいずれかを入力します。<div>
+<div><div><pre><code>"date == 05/03/89"
+"date != 05/03/89"
+"date &lt;  05/03/89"
+"date &lt;= 05/03/89"
+"date &gt;  05/03/89"
+"date &gt;= 05/03/89" </code></pre></div><div></div></div>指定された比較に適合する監査レコードが選択されます。05/05/89日付ストリング。 日付文字列は、現行ロケールで指定されたフォーマットに一致していなければなりません。</div>
+</li>
+
+</ol>
+<div><div>
+        <div>
+          <div><span>注:</span> <span>auditselect</span> コマンドは、リカバリー・モードの -r フラグをサポートしていません。</div>
+        </div>
+      </div></div>
+
+<p><strong>監査レコードのバッファー済み書き込みオプション</strong></p>
+
+<ol>
+<li>BIN モードで開始されたサブシステムの監査用に 520000 バイトのバッファー・サイズで監査レコードに対してバッファー済み書き込みオプションを使用するには、次のコマンドを入力します。<div><div><pre><code>export AIX_AUDITBUFSZ=520000
+/usr/sbin/auditselect -e "event== USER_SU || event==USER_Login" $bin &gt;&gt; /audit/trail.login </code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/auditselect</strong></td>
+
+<td><strong>auditselect</strong> コマンドのパスを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/rc</strong></td>
+
+<td>システム初期化コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/config</strong></td>
+
+<td>監査システム構成情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/events</strong></td>
+
+<td>システムの監査イベントが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/objects</strong></td>
+
+<td>監査対象オブジェクト (ファイル) の監査イベントが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/bincmds</strong></td>
+
+<td>auditbin バックエンド・コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/streamcmds</strong></td>
+
+<td>auditstream コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/security/audit/hosts</strong></td>
+
+<td>ホスト名マッピング用の CPU ID が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

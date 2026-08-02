@@ -1,0 +1,209 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>指定されたメディア上のボリューム・グループ・バックアップの内容をリストまたは復元します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>lssavevg</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98395" target="_blank" rel="noopener noreferrer"><strong>-b</strong> <em>ブロック</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98460" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong> <em>装置</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98380" target="_blank" rel="noopener noreferrer"><strong>-a 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98427" target="_blank" rel="noopener noreferrer"><strong>「-c」</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98481" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98531" target="_blank" rel="noopener noreferrer"><strong>N</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98537" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98556" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98439" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong> <em>パス</em></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98410" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98454" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98508" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98562" target="_blank" rel="noopener noreferrer"><strong>V 値</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssavevg.html#lssavevg__row-d3e98597" target="_blank" rel="noopener noreferrer"><em>ファイル・リスト</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>lssavevg</strong> コマンドは、テープ、ファイル、CD-ROM、またはその他のソースからのボリューム・グループ・バックアップの内容をリストし、有効なバックアップ・ソースからのファイルの復元のために使用できます。 <strong>lssavevg</strong> コマンドは、複数の CD、DVD、USB ディスク、またはテープなどのマルチボリューム・バックアップにも機能します。</p>
+ <p><strong>lssavevg -r</strong> コマンドおよび <strong>restorevgfiles</strong> コマンドは同等な操作を実行し、交換可能であると見なされます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td><strong>-b</strong> <em>block</em> フラグで定義されたように、テープ・バックアップの物理ブロック・サイズを検査します。 バックアップの読み取りの必要に応じて、ブロック・サイズを変更できます。 <strong>-a</strong> フラグが有効なのは、テープ・バックアップが使用された場合のみです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-b</strong> <em>ブロック</em></td>
+
+<td><em>blocks</em> パラメーターによって定義されたように、1 回の入力操作で読み取る 512 バイト単位のブロック数を指定します。 <em>blocks</em> パラメーターが指定されない場合、読み取るブロックのデフォルト値は 100 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-B</strong></td>
+
+<td>ボリューム・グループ・バックアップ・ログを <strong>stdout</strong> に表示します。<div>このフラグは、過去 256 のバックアップを表示します (概要を表示)。 ログは alog フォーマットで、
+<strong>/var/adm/ras/vgbackuplog</strong> に保管されます。 ログの各行には、セミコロンで区切られたファイルまたはデバイス名、バックアップを作成する際に使用されたコマンド、バックアップの日付、圧縮サイズ、フルサイズ、および推奨保守レベルまたはテクノロジー・レベル (ある場合) がリストされます。<div><div>
+        <div>
+          <div><span>注:</span> 縮小サイズは、すべてのファイル・システム上のデータのサイズです。 フルサイズは、各ファイルシステムの合計サイズです (未使用 + データ)。</div>
+        </div>
+      </div></div>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong></td>
+
+<td>コロンで区切られた出力を生成します。 このフラグは、<strong>-l</strong> フラグおよび <strong>-L</strong> フラグと共に指定した場合のみ機能します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-d 年</strong> <em>パス</em></td>
+
+<td>ファイルが復元されるディレクトリー・パスを <em>path</em> パラメーターで定義されたように指定します。 <strong>-d</strong> パラメーターを使用しない場合には、現在の作業ディレクトリーが使用されます。 これは、現在の作業ディレクトリーが root の場合に問題となります。 root の代わりに、一時フォルダーに書き込むことをお勧めします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-D</strong></td>
+
+<td>デバッグ出力を生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong> <em>デバイス</em></td>
+
+<td>バックアップ (ファイル、テープ、CD-ROM、またはその他のソース) を含むデバイスのタイプを <em>device</em> パラメーターで定義されたように指定します。 <strong>-f</strong> が指定されない場合、<em>device</em> のデフォルトは <strong>/dev/rmt0</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>ボリューム・グループ・バックアップに関する有効な情報を表示します。<p>このフラグには、<strong>-f</strong> <em>device</em> フラグが必要です。 このフラグを指定すると、<strong>lssavevg</strong> は、ボリューム・グループ、バックアップ
+作成日時、バックアップ・システムの uname 出力、OS レベル、推奨保守レベルまたはテクノロジー・レベル、
+バックアップ・サイズ (メガバイト)、バックアップ圧縮サイズ (メガバイト) などの情報を表示します。 圧縮サイズは、すべてのファイルシステム上のデータのサイズです。 フルサイズは、各ファイルシステムの合計サイズです (未使用 + データ)。 また、<strong>-l</strong> フラグは、"<strong>lsvg -l</strong> <em>vgname</em>" の実行時と同じように、バックアップ・ボリューム・グループの論理ボリュームおよびファイルシステム情報も表示します。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td><strong>mksysb</strong> バックアップのみに関する lpp ファイルセット情報を表示します。<p>このフラグには、<strong>-f</strong> <em>device</em> フラグが必要です。
+このフラグは、稼働中のバックアップ・システムで "<strong>lslpp -l</strong>" を実行
+した際に生成される情報と同じ情報を表示します。 このフラグは、<strong>mksysb</strong> 以外で作成されたボリューム・グループ・バックアップ
+に関する出力は生成しません。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td>ACL、PCL、または拡張属性を復元しません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td><em>file-list</em> パラメーターで定義されたようにバックアップ・ファイルを復元するために指定します。 <em>file-list</em> パラメーターが指定されない場合、バックアップ中のすべてのファイルが復元されます。 <strong>-r</strong> フラグが使用されない場合、<strong>lssavevg</strong> コマンドを実行すると、指定したバックアップ内のファイルのみがリストされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>バックアップ・ソースがユーザー・ボリューム・グループであって rootvg ではないことを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-V</strong></td>
+
+<td>テープ・バックアップを検証します。<p>このフラグには、<strong>-f</strong> <em>device</em> フラグが必要です。
+このフラグは、磁気テープ装置のみに使用します。 <strong>-V</strong> フラグを指定すると、<strong>lssavevg</strong> は、
+ボリューム・グループ・バックアップ上の各ファイルのヘッダーの読み易さを検証し、
+発生したエラーを <strong>stderr</strong> に表示します。</p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><em>ファイル・リスト</em></td>
+
+<td>復元されるファイルのリストを識別します。 このパラメーターは <strong>-r</strong> フラグが指定される場合にのみ使用されます。 現行ディレクトリーに関連するファイルの絶対パスは、スペースで区切ったリストに指定する必要があります。 特に指定されない限り、指定されたディレクトリー中のすべてのファイルが復元されます。 ディレクトリー中のすべてのファイルを復元する場合には、root の代わりに一時フォルダーに書き込むことをお勧めします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>デフォルト・デバイス <strong>/dev/rmt0</strong> 上のシステム・バックアップの内容をリストするには、次のコマンドを入力します。<div><div><pre><code>lssavevg</code></pre></div><div></div></div></li>
+
+<li>デバイス <strong>/dev/cd1</strong> 上のシステム・バックアップの内容をリストするには、次のコマンドを入力します。<div><div><pre><code>lssavevg -f /dev/cd1</code></pre></div><div></div></div></li>
+
+<li>rootvg ではないユーザー・ボリューム・グループである、デバイス <strong>/dev/cd1</strong> 上のシステム・バックアップの内容をリストするには、次のコマンドを入力します。<div><div><pre><code>lssavevg -f /dev/cd1 -s</code></pre></div><div></div></div></li>
+
+<li>デバイス <strong>/dev/cd1</strong> 上のシステム・バックアップから <strong>/etc/filesystems</strong> を復元するには、次のコマンドを入力します。<div><div><pre><code>lssavevg -f /dev/cd1 -r ./etc/filesystems</code></pre></div><div></div></div></li>
+
+<li>デバイス <strong>/dev/cd1</strong> 上の rootvg ではないバックアップの <strong>/myfs/test</strong> ディレクトリー中のすべてのファイルを復元し、復元されたファイルを <strong>/data/myfiles</strong> に書き込むには、次のコマンドを入力します。<div><div><pre><code>lssavevg -f /dev/cd1 -r -s -d /data/myfiles ./myfs/test</code></pre></div><div></div></div></li>
+
+<li>デバイス <strong>/dev/rmt0</strong> にある <strong>mksysb</strong> バックアップ・テープに関する lpp 情報をコロンで区切って表示するには、次のコマンドを入力します。<div><div><pre><code>lssavevg -Lc -f /dev/rmt0</code></pre></div><div></div></div></li>
+
+<li>ボリューム・グループ・バックアップ・ログを <strong>stdout</strong> に表示するには、次のコマンドを入力します。<div><div><pre><code>lssavevg -B</code></pre></div><div></div></div></li>
+
+<li><strong>/tmp/mybackup</strong> にあるバックアップに関するボリューム・グループおよび汎用バックアップ・データをリストするには、次のコマンドを入力します。<div><div><pre><code>lssavevg -l -f /tmp/mybackup</code></pre></div><div></div></div></li>
+
+<li><strong>/dev/rmt0</strong> にあるボリューム・グループ・バックアップ・テープ上の各ヘッダーの読み易さを検証するには、次のコマンドを入力します。<div><div><pre><code>lssavevg -V -f /dev/rmt0</code></pre></div><div></div></div></li>
+
+<li>デバイス <strong>/dev/usbms0</strong> 上のシステム・バックアップの内容をリストするには、次のコマンドを入力します。<div><div><pre><code>lssavevg –f /dev/usbms0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/lssavevg</strong></td>
+
+<td><strong>lssavevg</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

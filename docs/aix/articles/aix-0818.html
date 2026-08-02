@@ -1,0 +1,415 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>1 つ以上の応答に関する情報をリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>lsresponse</span></span> [<span><span>-a</span></span>] [ <span><span>-C</span></span> | <span><span>-l</span></span> | <span><span>-t</span></span> | <span><span>-d</span></span> | <span><span>-D</span></span> <span><span>delimiter</span></span> ] [<span><span>-A</span></span>] [<span><span>-q</span></span>] <span>[<span><span>-U</span></span>]</span> [<span><span>-x</span></span> ] [ <strong>-b</strong> ] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] [<span><span>response1</span></span>[<span><span>,</span></span><span><span>response2</span></span><span><span>,</span></span>...] <span><span>:</span></span><span><span>ノード名</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <div><span><span>lsresponse</span></span> コマンドは、定義された応答に関する以下の情報をリストします。<div><div><table><thead>
+<tr>
+<th><div>フィールド</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>ResponseName</td>
+
+<td>応答の名前。</td>
+
+</tr>
+
+<tr>
+<td>ノード</td>
+
+<td>応答のロケーション。</td>
+
+</tr>
+
+<tr>
+<td>アクション</td>
+
+<td>アクションの名前。</td>
+
+</tr>
+
+<tr>
+<td>DaysOfWeek</td>
+
+<td><p>アクションを実行できる曜日。 <span><span>DaysOfWeek</span></span> と <span><span>TimeOfDay</span></span> を合わせて、アクションを実行できる間隔を定義します。</p>
+ <p>日の値は、正符号 (<span><span>+</span></span>) で区切ることも、ハイフン (<span><span>-</span></span>) で区切った日の範囲として表示することもできます。 複数の <span><span>DaysOfWeek</span></span> 値はコンマ (<span><span>,</span></span>) で区切ります。 <span><span>DaysOfWeek</span></span> 値の数は、 <span><span>TimeOfDay</span></span> 値の数と一致している必要があります。 各曜日の値は次のとおりです。</p>
+ <div> <dl>
+<dt>1</dt>
+
+<dd>日曜日</dd>
+
+
+<dt>2</dt>
+
+<dd>月曜日</dd>
+
+
+<dt>3</dt>
+
+<dd>火曜日</dd>
+
+
+<dt>4</dt>
+
+<dd>水曜日</dd>
+
+
+<dt>5</dt>
+
+<dd>木曜日</dd>
+
+
+<dt>6</dt>
+
+<dd>金曜日</dd>
+
+
+<dt>7</dt>
+
+<dd>土曜日</dd>
+
+</dl>
+</div>
+</td>
+
+</tr>
+
+<tr>
+<td>TimeOfDay</td>
+
+<td><p><span><span>Action</span></span> を実行できる時刻範囲。開始時刻と、それに続くハイフンで区切られた終了時刻で構成されます。 <span><span>DaysOfWeek</span></span> と <span><span>TimeOfDay</span></span> を合わせて、アクションを実行できる間隔を定義します。</p>
+  <p>時刻は 24 時間形式 (HHMM) で、最初の 2 桁は時を、最後の 2 桁は分を表します。 複数の <span><span>TimeOfDay</span></span> 値はコンマ (<span><span>,</span></span>) で区切ります。 <span><span>DaysOfWeek</span></span> 値の数は、 <span><span>TimeOfDay</span></span> 値の数と一致している必要があります。</p>
+</td>
+
+</tr>
+
+<tr>
+<td>ActionScript</td>
+
+<td>アクションで実行されるスクリプトまたはコマンド。</td>
+
+</tr>
+
+<tr>
+<td>ReturnCode</td>
+
+<td><span><span>ActionScript</span></span>の予期される戻りコード。</td>
+
+</tr>
+
+<tr>
+<td>CheckReturnCode</td>
+
+<td><span><span>ActionScript</span></span> の実際の戻りコードが、予期される戻りコードと比較されるかどうかを示します。 値は、 <span><span>y</span></span> (yes) および <span><span>n</span></span> (no) です。</td>
+
+</tr>
+
+<tr>
+<td>EventType</td>
+
+<td>実行するように定義されたアクションを起動するイベントの種類。イベント、リアーム・イベント、または両方です。</td>
+
+</tr>
+
+<tr>
+<td>StandardOut</td>
+
+<td>標準出力を監査ログに送信するかどうかを示します。 値は、 <span><span>y</span></span> (yes) および <span><span>n</span></span> (no) です。</td>
+
+</tr>
+
+<tr>
+<td>EnvironmentVars</td>
+
+<td>アクションが実行される前に設定される環境変数を示します。</td>
+
+</tr>
+
+<tr>
+<td>UndefRes</td>
+
+<td>モニター対象リソースが未定義になった場合に、アクションを実行するかどうかを示します。 値は、 <span><span>y</span></span> (yes) および <span><span>n</span></span> (no) です。</td>
+
+</tr>
+
+<tr>
+<td>Locked</td>
+
+<td>リソースがロックされるかアンロックされるかを示します。</td>
+
+</tr>
+
+<tr>
+<td>EventBatching</td>
+
+<td>応答アクションがイベント・バッチ処理をサポートしているかどうかを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p>すべての応答名のリストを取得するには、応答名を指定せずに <span><span>lsresponse</span></span> コマンドを単独で実行します。 すべての応答名のリストが返されます。 この場合のデフォルトの形式は表形式です。</p>
+ <p>応答名の後にノード名を指定すると、そのノードに定義されている応答だけが表示されます。 コロン (<span><span>:</span></span>) の後にノード名を指定して、ノード上のすべての応答をリストします。 このノード名は、CT_MANAGEMENT_SCOPE 環境変数によって決められている管理有効範囲内のノードです。 管理有効範囲は、応答をリストするノードのリストを決定します。 Local 有効範囲の場合には、ローカル・ノードの応答のみがリストされます。 それ以外の場合には、ドメイン内のすべてのノードの応答がリストされます。</p>
+ <p>すべての応答名に関するすべての情報を表示するには、 <span><span>lsresponse</span></span> コマンドで <span><span>-A</span></span> フラグを指定します。 <span><span>-A</span></span> フラグを使用すると、応答名が指定されていない場合に、応答に関するすべての情報がリストされます。 すべての応答に関するすべての情報が表示される場合には、長形式がデフォルト・フォーマットです。</p>
+ <p>複数の応答を指定した場合、応答情報はその応答が入力された順序でリストされます。</p>
+<p>システムにクラスター・システム・マネージメント (CSM) がインストールされている場合は、CSM 定義のノード・グループをノード名の値として使用して、複数のノードを参照できます。 CSM ノード・グループの処理と CSM <strong>nodegrp</strong> コマンドの使用については、「CSM: Administration Guide」および「CSM: Command and Technical Reference」を参照してください。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>-a</dt>
+
+<dd>このコマンドをクラスター内のすべてのノードに適用することを指定します。 クラスター有効範囲は、
+CT_MANAGEMENT_SCOPE 環境変数によって決定されます。 この環境変数が設定されていない場合、
+コマンドにとって有効な有効範囲になるまで、
+最初に管理ドメイン有効範囲 (存在する場合) を選択し、
+次にピア・ドメイン有効範囲 (存在する場合) を選択し、
+次にローカル有効範囲を選択します。 コマンドは、最初に見つかった有効な有効範囲に対して、1 回実行されます。 例えば、管理ドメインとピア・ドメインの両方が存在する場合、CT_MANAGEMENT_SCOPE が設定されていない <span><span>lsresponse
+-a</span></span> は管理ドメインをリストします。 この場合、ピア・ドメインをリストするには、CT_MANAGEMENT_SCOPE を 2 に設定します。</dd>
+
+
+<dt>-A</dt>
+
+<dd>応答のすべての属性を表示します。</dd>
+
+
+<dt>-b</dt>
+
+<dd>イベント・バッチ処理をサポートする応答のみを表示します。</dd>
+
+
+<dt>-C</dt>
+
+<dd>応答とそのアクションの 1 つを作成するために使用できる <strong>mkresponse</strong> コマンドを表示します。 複数の応答を指定した場合、それぞれの <strong>mkresponse</strong> コマンドが別々の行に表示されます。 このフラグは、応答が指定されていない場合には無視されます。 このフラグを設定すると、<strong>-l</strong> フラグが無効になります。</dd>
+
+
+<dt>-d</dt>
+
+<dd>区切り文字により書式設定された出力を指定します。 デフォルトの区切り文字はコロン (:) です。 デフォルトの区切り文字を変更する場合は、 <span><span>–D</span></span> フラグを使用します。</dd>
+
+
+<dt>--D <span><span>デリミタ</span></span></dt>
+
+<dd>指定した区切り文字により書式設定された出力を指定します。 このフラグを使用して、デフォルトのコロン (:) 以外を指定します。 例えば、表示されるデータにコロンが含まれている場合、このフラグを使用して、1 つ以上の文字の別の区切り文字を指定します。</dd>
+
+
+<dt>-l</dt>
+
+<dd>応答情報を別々の行に表示します (長形式)。</dd>
+
+
+<dt>-q</dt>
+
+<dd><span><span>response</span></span> が存在しない場合にエラーを返しません。</dd>
+
+
+<dt>-t</dt>
+
+<dd>応答情報を別々の列に表示します (テーブル形式)。</dd>
+
+
+<dt>-U</dt>
+
+<dd>リソースがロックされるかどうかを指定します。</dd>
+
+
+<dt>-x</dt>
+
+<dd>ヘッダー印刷を抑制します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>レスポンス1</span></span><span><span>,</span></span><span><span>レスポンス2</span></span><span><span>,</span></span>...]</dt>
+
+<dd>このパラメーターには、応答名または応答名を示すサブストリングを指定できます。 複数の応答名を指定できます。 サブストリングである場合には、そのサブストリングが含まれている
+定義済みの応答名がリストされます。</dd>
+
+
+<dt><span><span>ノード名</span></span></dt>
+
+<dd>応答が定義されているノードを指定します。 <span><span>node_name</span></span> を指定しないと、ローカル・ノードが使用されます。 <span><span>node_name</span></span> は、CT_MANAGEMENT_SCOPE 環境変数が決定する範囲内のノードです。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>ユーザーが <span><span>lsresponse</span></span>を実行するには、 <span><span>IBM.EventResponse</span></span> リソース・クラスの読み取り権限が必要です。 権限は、相手のシステムのアクセス制御リスト (ACL) ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「<em>Administering RSCT</em>」ガイドを参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>環境変数</h2> <dl>
+<dt>CT_CONTACT</dt>
+
+<dd>Resource Monitoring and Control (RMC) デーモンとのセッションが発生するシステムを決定します。 CT_CONTACT をホスト名または IP アドレスに設定すると、コマンドは指定されたホストの RMC デーモンにアクセスします。 CT_CONTACT を設定しないと、コマンドは、そのコマンドが実行されているローカル・システムの RMC デーモンにアクセスします。 RMC デーモン・セッションのターゲットおよび管理有効範囲によって、処理されるリソース・クラスまたはリソースが決定されます。</dd>
+
+
+<dt>CT_IP_AUTHENT</dt>
+
+<dd>CT_IP_AUTHENT 環境変数が存在する場合、RMC デーモンは、IP ベース・ネットワーク認証を使用して、CT_CONTACT 環境変数が設定されている IP アドレスで指定されたシステム上の RMC デーモンにアクセスします。 CT_IP_AUTHENT は、CT_CONTACT が IP アドレスに設定されている場合にのみ意味を持ちます。ドメイン・ネーム・システム (DNS) サービスには依存しません。</dd>
+
+
+<dt>CT_MANAGEMENT_SCOPE</dt>
+
+<dd>イベント応答リソース・マネージャー (ERRM) のリソースの処理で、RMC デーモンとのセッションに使用する管理有効範囲を指定します。 管理有効範囲は、リソースを処理できる、可能なターゲット・ノードのセットを決定します。 有効な値は以下のとおりです。<dl>
+<dt>0</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>1</dt>
+
+<dd><em>local</em> 有効範囲を指定します。</dd>
+
+
+<dt>2</dt>
+
+<dd><em>peer domain</em> (ピア・ドメイン) 有効範囲を指定します。</dd>
+
+
+<dt>3</dt>
+
+<dd><em>management domain</em> (管理ドメイン) 有効範囲を指定します。</dd>
+
+</dl>
+ <p>この環境変数が<em>設定されていない</em> 場合は、<em>local</em> 有効範囲が使用されます。</p>
+</dd>
+
+</dl>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用の<span>Reliable Scalable Cluster Technology(RSCT)</span>ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>すべての応答をリストするには、次のコマンドを実行します。<div><div><pre><code>lsresponse </code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>ResponseName
+"E-mail root anytime"
+"E-mail root first shift"
+"Critical notifications"  
+"Generate SNMP trap" 
+</code></pre></div><div></div></div></li>
+
+<li>どのリソースがロックされているのかを確認するには、次のコマンドを実行します。<div><div><pre><code>lsresponse -U</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>ResponseName                   Node      Locked 
+"Broadcast event on-shift"     "nodeA"   "No"   
+"E-mail root off-shift"        "nodeA"   "No"  
+"E-mail root anytime"          "nodeA"   "No"  
+"Log event anytime"            "nodeA"   "No"
+"Informational notifications"  "nodeA"   "No"
+"Warning notifications"        "nodeA"   "No"  
+"Critical notifications"       "nodeA"   "No"
+"Generate SNMP trap"           "nodeA"   "No"</code></pre></div><div></div></div></li>
+
+<li>応答「Critical notifications」に関する一般情報をリストするには、次のコマンドを実行します。<div><div><pre><code>lsresponse "Critical notifications"</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>ResponseName     = "Critical notifications"
+Node             = "nodeA"
+Action           = "Log Critical Event"
+DaysOfWeek       = 1+2+7
+TimeOfDay        = 0000-2400
+ActionScript     = "/opt/rsct/bin/logevent /tmp/criticalEvents"                                       
+ReturnCode       = 0
+CheckReturnCode  = "y"
+EventType        = "b"
+StandardOut      = "y"
+EnvironmentVars  = '"Env1=5","Env=10"'
+UndefRes         = "n"
+
+ResponseName     = "Critical notifications"
+Node             = "nodeA"
+Action           = "E-mail root"
+DaysOfWeek       = 6+2,6+2,6+5
+TimeOfDay        = 1700-2400,0000-0800,0000-2400
+ActionScript     = "/opt/rsct/bin/notifyevent root"
+ReturnCode       = 0
+CheckReturnCode  = "y"
+EventType        = "b"
+StandardOut      = "y"
+EnvironmentVars  = ""
+UndefRes         = "n"
+
+</code></pre></div><div></div></div></li>
+
+<li>応答「Critical notifications」を作成するコマンドを、そのアクションの 1 つと共に表示するには、次のコマンドを実行します。<div><div><pre><code>lsresponse -C "Critical notifications"</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>mkresponse -n "Log Critical Event" -d 1+2+7 -t 0000-2400 \
+-s "usr/sbin/rsct/bin/logevent /tmp/criticalEvents"  \
+-e b -r 0 "Critical notifications"</code></pre></div><div></div></div></li>
+
+<li>名前にストリング <span><span>E-mail</span></span> が含まれているすべての応答をリストするには、次のコマンドを実行します。<div><div><pre><code>lsresponse "E-mail"</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>ResponseName = "E-mail root anytime"
+Action       = "E-mail root"
+⋮
+ResponseName = "E-mail root first shift"
+Action       = "E-mail root"</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt>/opt/rsct/bin/lsresponse</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+</div></div>

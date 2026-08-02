@@ -1,0 +1,168 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>プリンター・スプーリング・システムのシステム管理機能を実行します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>qadm {  -G } | { [  -D Printer ] [  -K Printer ] [  -U Printer ] [  -X Printer ] }</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2>
+
+<p><span>qadm</span> コマンドは <span>enq</span> コマンドへのフロントエンド・コマンドです。 このコマンドはプリンター、キュー、およびスプーリング・システムの起動や停止のほか、ジョブの取り消しも行います。 また、<span>qadm</span> コマンドは、要求されたフラグを <span>enq</span> コマンドが実行できるフォーマットに変換します。</p>
+
+
+<p><span>qadm</span> コマンドは、ローカル印刷ジョブについてのみ機能します。 リモート印刷はサポートされません。</p>
+
+<div><div>
+        <div>
+          <div><span>注：</span>このコマンドを実行するには、rootユーザー権限を持っているか、「<code>printq</code>グループに属していなければならない。</div>
+        </div>
+      </div></div>
+
+<p>このコマンドは、System Management Interface Tool (SMIT) <code>smit
+qadm</code> 高速パスを使用して実行することもできます。</p>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-D</span> プリンター</td>
+
+<td>Printer 変数で指定したプリンターを起動します。 <span>qdaemon</span> プロセスはデバイスへのジョブの送信を停止します。 <code>qchk -P
+Printer</code>コマンドを入力すると、Printerは'<span>-D</span>フラグのPrinter変数と一致し、デバイスがダウンしていることを報告する。 <span>qadm</span> コマンドを使用すると、プリンターを停止する前に現行ジョブを終了できます。</td>
+
+</tr>
+
+<tr>
+<td><span>-G</span></td>
+
+<td>非強制的にキューイング・システムを切断します。 このフラグは、すべてのキューの現在実行中のジョブがすべて終了してから <span>qdaemon</span> プロセスを一時的に中断させます。 このフラグを使用することは、キュー内でハングするジョブなどの問題を引き起こすことなく、システムを停止させる唯一の方法です。</td>
+
+</tr>
+
+<tr>
+<td><span>-K</span> プリンター</td>
+
+<td>Printer 変数で指定したプリンターを切断します。すべての現行ジョブがただちに終了します。 ジョブはそのままキュー内に残り、プリンターが元通り立ち上がると再び実行されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-U</span> プリンター</td>
+
+<td>Printer 変数で指定したプリンターを切断します。 <span>qdaemon</span> プロセスは再びジョブをプリンターに送信します。 <code>qchk -P
+Printer</code>コマンドを入力すると、Printerは'<span>-U</span>フラグのPrinter変数と一致し、デバイスの準備ができたことを報告する。</td>
+
+</tr>
+
+<tr>
+<td><span>-X</span> プリンター</td>
+
+<td>コマンドを実行したユーザーのジョブをすべて取り消します。 root ユーザー特権を持つユーザー、または printq グループのメンバーであるユーザーの場合は、そのキュー・システム上のすべてのジョブが取り消されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+  </div>
+
+<div><div>
+        <div>
+          <div><span>注:</span> <span>-U</span> フラグと <span>-D</span> フラグがともに使用された場合には、<span>-U</span> フラグの方が優先順位が高くなります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<div>
+<div><div>
+        <div>
+          <div><span>RBAC ユーザーへの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+
+</div>
+
+</section>
+
+<section><h2>例</h2> <ol>
+<li>キューイング・システムを非強制的に切断するには、次のように入力します。<div><div><pre><code>qadm  -G</code></pre></div><div></div></div></li>
+
+<li>プリンター <code>lp0</code> 上の特定のユーザーのジョブをすべて取り消すか、root ユーザー権限を持っている場合にプリンター <code>lp0</code> のすべてのジョブを取り消すには、次のように入力します。<div><div><pre><code>qadm  -X lp0</code></pre></div><div></div></div></li>
+
+<li>キュー <code>lp0</code> に接続されたプリンター <code>lpd0</code> を接続するには、次のように入力します。<div><div><pre><code>qadm  -U lp0:lpd0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/qdaemon</span></td>
+
+<td><span>qdaemon</span> デーモンが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/spool/lpd/qdir/*</span></td>
+
+<td>ジョブ記述ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/spool/lpd/stat/*</span></td>
+
+<td>デバイスの状況に関する情報が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/spool/qdaemon/*</span></td>
+
+<td>キューに入れられたファイルの一時コピーが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/qconfig</span></td>
+
+<td>構成ファイルが入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/qconfig.bin</span></td>
+
+<td><span>/etc/qconfig</span> ファイルの要約されたバイナリー・バージョンが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

@@ -1,0 +1,134 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>このシステムの最新のインストール・レベル (テクノロジー・レベル、保守レベル、および Service Pack) をレポートします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>OS レベル</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/oslevel.html#oslevel__row-d3e68109" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>レベル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/oslevel.html#oslevel__row-d3e68130" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>レベル</em> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/oslevel.html#oslevel__row-d3e68143" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/oslevel.html#oslevel__row-d3e68161" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/oslevel.html#oslevel__row-d3e68167" target="_blank" rel="noopener noreferrer"><strong>-s</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/o_commands/oslevel.html#oslevel__row-d3e68121" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>oslevel</strong> コマンドは、システムにインストールされたすべてのファイルセットのサブセットを使用して、オペレーティング・システムのテクノロジー・レベルと Service Pack を報告します。 これらのファイルセットには、基本オペレーティング・システム (BOS)、基本デバイス、基本プリンター、および X11 があります。</p>
+ <p><strong>oslevel</strong> コマンドはテクノロジー・レベルと Service Pack についての情報も表示します。
+例えば、指定されたテクノロジー・レベルまたは Service Pack にないファイルセットはどれかといった情報です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-l</strong><em> レベル</em><strong></strong></td>
+
+<td><em>Level</em> パラメーターで指定したテクノロジー・レベルまたは Service Pack よりも以前のファイルセットをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-f</strong></td>
+
+<td><strong>oslevel</strong> コマンドがこの操作のためのキャッシュを強制的に再作成するようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-g</strong> <em>レベル</em><strong></strong></td>
+
+<td><em>Level</em> パラメーターで指定したテクノロジー・レベルまたは Service Pack より以降のファイルセットをリストします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>既知のテクノロジー・レベル (<strong>
+-r</strong> フラグを使用時) または Service Pack (<strong>
+-s</strong> フラグを使用時) の名前をリストします。これらは、<strong>-l</strong> または <strong>-g</strong> フラグを使用して指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>すべてのフラグをテクノロジー・レベルに適用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>すべてのフラグを Service Pack に適用します。 返されるサービス・パック・レベルは、6100-00-01-0748 フォーマットです。ここで、6100 は基本レベル 6.1.0.0 、00 はテクノロジー・レベル 0、01 は Service Pack 1、および 0748 はビルド・シーケンス ID を表します。これは、現行レベルに適用できる有効なテクノロジー・レベルおよびサービス・パックを判別するために使用されます。 以前のビルド・シーケンス ID を使用してテクノロジー・レベルまたは Service Pack を適用しようとすると、失敗します。</td>
+
+
+</tr>
+
+</tbody>
+</table></div>
+</div>フラグを指定しない場合、基本システム・ソフトウェアは、 <strong>oslevel</strong> コマンドの出力にリストされているレベル以上になります。</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>システムの基本レベルを判別するには、次のように入力します。<div> <div><div><pre><code>oslevel</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>6.1.0.0</code></pre></div><div></div></div></div>
+</li>
+
+<li>システム上の<span>AIX</span>の現在のバージョンで到達した最高技術レベルを調べるには、次のように入力する：<div><div><pre><code>oslevel -r</code></pre></div><div></div></div></li>
+
+<li>システム上の、知られているすべてのテクノロジー・レベルをリストするには、次のように入力します。<div><div><pre><code>oslevel -rq</code></pre></div><div></div></div>戻されるレベルは、[ <strong>-r -l </strong>]
+または [<strong> -r -g </strong>] フラグを指定して使用可能であり、以下と類似しています。<div><div><pre><code>Known Recommended Maintenance Levels
+------------------------------------
+5300-02
+5300-01
+5300-00
+</code></pre></div><div></div></div></li>
+
+<li><span>AIX</span> バージョン 5.3 テクノロジー・レベル 1 より下のソフトウェアをリストするには、次のように入力します。<div><div><pre><code>oslevel -r -l 5300-01</code></pre></div><div></div></div></li>
+
+<li><span>AIX</span> バージョン 5.3 テクノロジー・レベル 1 より新しいレベルのソフトウェアをリストするには、次のように入力します。<div><div><pre><code>oslevel -r -g 5300-01</code></pre></div><div></div></div></li>
+
+<li>システムの現行テクノロジー・レベルに対して、到達している最高の Service Pack を判別するには、次のように入力します。<div><div><pre><code>oslevel -s</code></pre></div><div></div></div></li>
+
+<li>システム上の既知の Service Pack をリストするには、次のように入力します。<div><div><pre><code>oslevel -sq</code></pre></div><div></div></div>戻されるそのレベルは、[ <strong>-s -l </strong>]
+または [<strong> -s -g </strong>] フラグを指定して使用可能であり、以下と類似しています。<div><div><pre><code>Known Service Packs
+-------------------
+6100-00-02-0750
+6100-00-01-0748
+6100-00-00-0000
+</code></pre></div><div></div></div></li>
+
+<li><span>AIX バージョン 6.1</span> テクノロジー・レベル 0、サービス・パック 1 より下のソフトウェアをリストするには、次のように入力します。<div><div><pre><code>oslevel -s -l 6100-00-01-0748</code></pre></div><div></div></div></li>
+
+<li><span>AIX バージョン 6.1</span> テクノロジー・レベル 0、Service Pack 1 より後のレベルのソフトウェアをリストするには、次のように入力します。<div><div><pre><code>oslevel -s -g 6100-00-01-0748</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/oslevel</strong></td>
+
+<td><strong>oslevel</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

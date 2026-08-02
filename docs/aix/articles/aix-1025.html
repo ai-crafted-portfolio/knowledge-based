@@ -1,0 +1,151 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>クライアントからのファイルシステム操作の要求に対してサービスを提供します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/nfsd</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15130" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15205" target="_blank" rel="noopener noreferrer"><strong>-p</strong></a> { <em>tcp</em> | <em>udp</em> }] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15136" target="_blank" rel="noopener noreferrer"><strong>-c</strong></a> <em>max_connections</em> ] <span>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15145" target="_blank" rel="noopener noreferrer"><span><span>-gp</span></span></a> <span><span>on
+| off</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15169" target="_blank" rel="noopener noreferrer"><span><span>-gpx</span></span></a> <span><span>count</span></span> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15160" target="_blank" rel="noopener noreferrer"><span><span>-gpbypass</span></span></a> ] </span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15232" target="_blank" rel="noopener noreferrer"><strong>-w</strong></a> <em>max_write_size</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15223" target="_blank" rel="noopener noreferrer"><strong>-r</strong></a> <em>max_read_size</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15241" target="_blank" rel="noopener noreferrer"><span><span>-root directory</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15266" target="_blank" rel="noopener noreferrer"><span><span>-public directory</span></span></a> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15187" target="_blank" rel="noopener noreferrer"><em>nservers</em></a></p>
+ <p><span><span>/usr/sbin/nfsd</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15280" target="_blank" rel="noopener noreferrer"><span><span>-getnodes</span></span></a></p>
+ <p><span><span>/usr/sbin/nfsd</span></span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/n_commands/nfsd.html#nfsd__row-d3e15286" target="_blank" rel="noopener noreferrer"><span><span>-getreplicas</span></span></a></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>nfsd</strong> デーモンはサーバー上で実行し、ファイルシステム操作に対するクライアントの要求を処理します。</p>
+ <p>各デーモンは、一度に 1 つずつ要求を処理します。 サーバーが処理すると予測されるロードに基づいてスレッドの最大数を割り当ててください。</p>
+ <p><strong>nfsd</strong> デーモンは、
+次のシステム・リソース・コントローラー (<strong>SRC</strong>) コマンドを使用して始動および停止されます。</p>
+ <div> <div><div><pre><code>startsrc -s nfsd</code></pre></div><div></div></div>  <div><div><pre><code>stopsrc -s nfsd</code></pre></div><div></div></div></div>
+ <p>SRC コマンドで始動するデーモンの数を変更するには、<strong>chnfs</strong> コマンドを使用します。 SRC で制御するデーモンのパラメーターを変更する場合は、<strong>chssys</strong> コマンドを使用します。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> <span><span>nfsd</span></span> デーモンの数がクライアントにサービスを提供するのに十分でない場合は、非べき等の操作エラーがクライアントに戻されます。 例えば、クライアントがディレクトリーを除去すると、サーバー上のディレクトリーが除去されても、<code>ENOENT</code> エラーが戻されます。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-a</strong></td>
+
+<td>UDP および TCP トランスポートが処理されることを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-c</strong><em> 最大接続数</em><strong></strong></td>
+
+<td>NFS サーバーで許可される TCP 接続の最大数を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-gp オン|オフ</strong></td>
+
+<td>NFSv4 猶予期間の使用可能化を制御します。 可能な値は <code>on</code> または <code>off</code>です。 <span><span>-gp</span></span> オプションが指定されていない場合、猶予期間はデフォルトで使用不可になります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-バイパス</strong></td>
+
+<td>NFSv4 猶予期間のバイパスを制御します。 このオプションを指定すると、 <span><span>-gp</span></span> オプションの指定方法に関係なく、猶予期間はバイパスされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-gpx</strong> <span><span>カウント</span></span></td>
+
+<td>NFSv4 猶予期間の自動延長を制御します。 <span><span>count
+</span></span> パラメーターは、猶予期間に対する自動延長の総数を指定します。 <span><span>-gpx</span></span> オプションを指定しない場合、許可される自動拡張の数はデフォルトで <code>1</code>になります。 1 回の延長で、 NFSv4 リース期間の長さを超える猶予期間を延長することはできません。 NFSv4 サブシステムは、ランタイム・メトリック (最後に成功した
+NFSv4 再利用操作の時間など) を使用して、進行中の状態の再利用を検出し、
+与えられた反復回数の期間の範囲を限度に猶予期間を延長します。</td>
+
+</tr>
+
+<tr>
+<td><em>サーバー</em></td>
+
+<td>NFS サーバーが処理できる複数の要求の最大数を指定します。 この並行性は、NFS サーバー内のスレッドの動的管理によって、最大限まで達成されます。 デフォルトの最大数は 3891 です。 <strong>chnfs</strong>、<strong>chssys</strong>、または <strong>nfso</strong> コマンドを使用して、最大数を変更します。 デフォルトの最大設定値の変更は、サーバーのパフォーマンスを制約する可能性
+があるため、お勧めできません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong> <em>tcp</em> または <strong>-p</strong> <em>udp</em></td>
+
+<td>UDP と TCP をともに、NFS クライアントにトランスポートします (デフォルト)。 UDP か TCP しか指定できません。 例えば、<strong>-p</strong> <em>tcp</em> が使用されると、NFS サーバーは TCP プロトコルを使用して、NFS クライアント要求のみを受信します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong><em> 最大読み取りサイズ</em><strong></strong></td>
+
+<td>NFS バージョン 3 のファイル読み取り要求に対して許可される最大サイズを指定します。 デフォルトおよび最大許容値は 64K です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-w</strong><em> 最大書き込みサイズ</em><strong></strong></td>
+
+<td>NFS バージョン 3 のファイル書き込み要求に対して許可される最大サイズを指定します。 デフォルトおよび最大許容値は 64K です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-root directory</span></span></td>
+
+<td>ルート・ノード NFS バージョン 4 エクスポート・ファイルシステムになるべきディレクトリーを指定します。 デフォルトでは、ルート・ノードは <span><span>/</span></span>です。 ルート・ノードが <span><span>/</span></span>以外のものに設定されている場合は、 <span><span>chnfs
+-r</span></span> を使用して、ノードを <span><span>/</span></span>にリセットします。 このフラグは、 <span><span>nfsd</span></span> の実行中にルート・ノードを変更するために使用できますが、ファイル・システムが現在エクスポートされていない場合に限ります。 このフラグは、将来のリリースで除去される可能性があります。 代わりに <span><span>chnfs
+-r</span></span> を使用してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-public directory</span></span></td>
+
+<td>NFS バージョン 4 エクスポート・ファイルシステムのパブリック・ノードになるべきディレクトリーを指定します。 デフォルトでは、パブリック・ノードはルート・ノードと同じです。 このフラグは、 <span><span>nfsd</span></span> の実行中にパブリック・ノードを変更するために使用できます。 パブリック・ノードは、ルート・ノードの子孫でなければなりません。 このフラグは、将来のリリースで除去される可能性があります。 代わりに <span><span>chnfs
+-p</span></span> を使用してください。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-getnodes</span></span></td>
+
+<td>NFS バージョン 4 サーバーの、現行ルート・ノードおよびパブリック・ノードを
+表示します。 このオプションが原因で、NFS サーバー・デーモンが始動することはあ
+りません。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-getreplicas</span></span></td>
+
+<td>現在の複製使用可能化モードを表示します。 <span><span>nfsroot</span></span>にレプリカが指定されている場合は、それらが表示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span> <strong>src</strong> コマンドを使用して <strong>nfsd</strong> デーモンを始動するには、次のように入力します。<div> <div><div><pre><code>startsrc -s nfsd</code></pre></div><div></div></div>この例では、startsrc -s nfsdエントリーは、スクリプトに指定された数のデーモンを開始します。</div>
+</li>
+
+<li><span></span>システムで実行中のデーモンの数を変更するには、次のように入力します。<div> <div><div><pre><code>chssys -s nfsd -a 6</code></pre></div><div></div></div>この例では、chssysの数を変更します。nfsdシステム上で実行されているデーモン6.</div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

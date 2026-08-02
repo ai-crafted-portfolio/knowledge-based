@@ -1,0 +1,157 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>Common Information Model (CIM) クラスおよび Common Manageability Programming Interface (CMPI) プロバイダーを RMC に登録します。</p>
+</section>
+
+<section><h2>構文</h2> <p>クラスを登録するには、次のように入力します。</p>
+ <p><span><span>mkcimreg</span></span> [<span><span>-I</span></span><span><span> インクルードディレクトリ］</span></span> [<span><span>-f</span></span>][<span><span>-h</span></span><span><span>定義ファイル</span></span>...</p>
+ <p>プロバイダーを登録するには、次のように入力します。</p>
+ <p><span><span>mkcimreg</span></span> [<span><span>-I</span></span><span><span> インクルードディレクトリ］</span></span> [<span><span>-p</span></span><span><span> プロバイダーディレクトリ］</span></span> [<span><span>-h</span></span>] <span><span>registration_file</span></span>...</p>
+ <p>CIM スキーマをコンパイルするには、次のように入力します。</p>
+ <p><span><span>mkcimreg</span></span> [<span><span>-I</span></span> <span><span>include_directory ...</span></span>] <span><span>-b</span></span><span><span> schema_path</span></span> [<span><span>-h</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>mkcimreg</span></span> コマンドは、Common Information Model (CIM) クラスおよび Common Manageability Programming Interface (CMPI) プロバイダーを Resource Monitoring and Control (RMC) サブシステムに登録します。 このコマンドを使用して、1 つ以上のクラス定義ファイルまたはプロバイダー登録ファイルを指定することができます。 検索パスにディレクトリーを追加するには、 <span><span>-I</span></span> フラグを使用します。 <span><span>mkcimreg</span></span> からの出力には、CIM リソース・マネージャーが CIM クラスを処理するために必要とするファイルの名前が含まれています。</p>
+<p><strong>クラスの登録</strong></p>
+ <div><span><span>-f</span></span> フラグを使用してクラスをアップグレードする場合 (つまり、クラス定義が何らかの形で変更された場合)、アップグレードされたクラスのサブクラスであるすべてのクラスを再登録して、新しいクラスに導入された変更がそのサブクラスに伝搬されるようにする必要があります。 変更は親から子へと伝搬されるため、この作業は「降順」に実行してください。 階層は次のとおりです。<div><div><pre><code>------------------
+Hardware_Component
+------------------
+        ↑
+        |
+------------------
+Hardware_Adapter
+------------------
+        ↑
+        |
+------------------
+Hardware_Ethernet
+------------------</code></pre></div><div></div></div>例えば、 <span><span>mkcimreg -f</span></span>を使用して <span><span>Hardware_Component</span></span> をアップグレードする場合、 <span><span>Hardware_Adapter</span></span> と <span><span>Hardware_Ethernet</span></span> の両方をこの順序で後で登録する必要があります。</div>
+ </section>
+
+<section><h2>クラスを登録した後に:</h2> <p>RMC を再始動する必要があります。</p>
+<p><strong>RMC の再始動</strong></p>
+ <div>CIM クラスの登録プロセスの最終ステップとして、RMC サブシステムを再始動する必要があります。 実行するコマンド・シーケンスは、次のとおりです。<ol>
+<li>RMC サブシステムをシャットダウンするには、次のように入力します。<div><div><pre><code>/opt/rsct/bin/rmcctrl -k</code></pre></div><div></div></div><strong>RMC をシャットダウンする場合の注意:</strong><p>シャットダウン時に残っている RMC 依存のリソース・モニターは、非活動化されます。 高可用性を確保するため、またはその他の重大なシステム機能を使用するために RMC またはそのいずれかのリソース・マネージャーに依存する環境は、一時的に使用不可になる場合があります。</p>
+</li>
+
+<li>以下のコマンドが <span><span>ctrmc</span></span> の状況を「作動不能」としてリストするまで待ちます。<div><div><pre><code>			
+lssrc -s ctrmc</code></pre></div><div></div></div>	</li>
+
+<li>CIM リソース・マネージャーをシャットダウンし、それが停止したことを確認します。<div><div><pre><code>stopsrc -s IBM.CIMRM
+lssrc -s IBM.CIMRM</code></pre></div><div></div></div>	</li>
+
+<li>RMC サブシステムを再始動するには、次のように入力します。<div><div><pre><code>/opt/rsct/bin/rmcctrl -A</code></pre></div><div></div></div></li>
+
+</ol>
+</div>
+<p><strong>プロバイダーの登録</strong></p>
+ <p><span><span>-p</span></span> フラグは、コマンド行の登録ファイルにプロバイダー登録情報が含まれていることを示します。 プロバイダー・ライブラリーのディレクトリーは、このフラグのパラメーターであると想定されます。 プロバイダー・ライブラリー名は、 <span><span>ProviderName</span></span> プロパティーの先頭に <span><span>lib</span></span> を付加する CMPI/Pegasus 規則に従います。 例えば、プロパティー <span><span>ProviderName=Linux_Processor</span></span> を持つプロバイダーは、 <span><span>ProviderDirectory</span></span> の <span><span>libLinux_Processor.so</span></span>という名前で検索されます。 登録ファイルで明示的に宣言されていないプロバイダーが必要とする補助ライブラリーは、コマンド行で指定されたディレクトリー、または <span><span>/usr/lib</span></span> や <span><span>/lib</span></span>などの標準システム・ディレクトリーのいずれかになければなりません。</p>
+<p><strong>スキーマのコンパイル</strong></p>
+ <p>CIM リソース・マネージャーには、CIM スキーマのバージョン 2.9 が付属しています。 上位バージョンにアップグレードする場合は、 <span><span>-b</span></span> フラグを使用します。 スキーマ・ファイル (<span><span>CIM_Schema</span></span><span><span>version</span></span><span><span>.mof</span></span>) は、このフラグにパラメーターとして渡す必要があります。 このファイルには、CIM スキーマ全体が含まれています。通常は、他のスキーマ MOF ファイルを取り込む一連の <span><span>#include</span></span> ステートメントの形式です。</p>
+ <p>CIM スキーマが <span><span>-b</span></span> フラグを指定してコンパイルされると、 <span><span>mkcimreg</span></span> はスキーマ管理対象オブジェクト・フォーマット (MOF) ファイルにさらにアクセスする必要がなくなります。 <span><span>mkcimreg</span></span> によって以前のバージョンの CIM スキーマに対して登録されたユーザー・クラスを再登録する必要があります。これにより、新しいバージョンのスキーマからの変更が派生クラスに反映されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>--Iは <span><span>include_directory</span></span>...</dt>
+
+<dd>検索する 1 つ以上の追加のディレクトリーを指定します。</dd>
+
+
+<dt>-f</dt>
+
+<dd>既存のクラス登録データを、クラス定義ファイル内で提供されている定義で上書きします。</dd>
+
+
+<dt>--p<span><span> プロバイダー・ディレクトリ</span></span></dt>
+
+<dd>プロバイダー・ライブラリーへのパスを指定します。</dd>
+
+
+<dt>--b <span><span>schema_path</span></span></dt>
+
+<dd>CIM スキーマ・ファイルをコンパイルします。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>definition_file</span></span>...</dt>
+
+<dd>1 つ以上のクラス定義ファイルを指定します。</dd>
+
+
+<dt><span><span>registration_file</span></span>...</dt>
+
+<dd>1 つ以上のプロバイダー登録ファイルを指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドには、 <span><span>root</span></span> 権限が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドが正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>内部コマンド・エラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース (CLI) スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに間違ったフラグが指定されました。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに不正なパラメーターが指定されました。</dd>
+
+
+<dt>5</dt>
+
+<dd>クラス登録エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>登録が済んでいないクラスから派生したクラスは登録できません。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは、<span>AIX</span>拡張パックの「<span><span>rsct.exp</span></span>パッケージの「<span><span>rsct.exp.cimrm</span></span>ファイルセットの一部である。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p><span> <span><span>-T</span></span> フラグが指定されている場合、このコマンドのトレース・メッセージは標準エラーに書き込まれます。</span></p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>クラス定義ファイルが <span><span>$CIMDEFS</span></span> ディレクトリーにある場合に <span><span>Linux_ComputerSystem</span></span> CIM クラスを登録するには、次のように入力します。<div><div><pre><code>mkcimreg $CIMDEFS/Linux_ComputerSystem.mof</code></pre></div><div></div></div>このクラスの CMPI プロバイダーも登録する必要があります。</li>
+
+<li>登録ファイルが <span><span>$CIMDEFS</span></span> ディレクトリーにあり、プロバイダー・ライブラリーが <span><span>$CMPIHOME</span></span> ディレクトリーにある場合に CMPI プロバイダーを登録するには、次のように入力します。<div><div><pre><code>mkcimreg -p $CMPIHOME $CIMDEFS/Linux_ComputerSystemRegistration.mof</code></pre></div><div></div></div> </li>
+
+<li>CIM スキーマのバージョン 2.12 をコンパイルするには、次のように入力します。<div><div><pre><code>mkcimreg -I $SCHEMA_DIR -b CIM_Schema2.12.mof </code></pre></div><div></div></div>スキーマ MOF ファイルの検索パスを示す <span><span>$SCHEMA_DIR</span></span>は必須ではありませんが、コマンドの実行元の現行作業ディレクトリーに MOF ファイルがない場合は、 <span><span>mkcimreg</span></span> が必要な MOF ファイルを見つけるのに役立ちます。</li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2><p><strong>/opt/rsct/bin/mkcimreg</strong></p>
+ </section>
+
+</div></div>

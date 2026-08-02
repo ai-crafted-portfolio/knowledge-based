@@ -1,0 +1,86 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>すべての有効なグループ名のリストを表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dispgid</strong></p>
+</section>
+
+<section><h2>説明</h2> <div><strong>dispgid</strong> コマンドは、
+システム上のすべてのグループ名のリストを (1 行につき 1 つの名前で) 表示するのに使用できます。 このコマンド用のパラメーターはありません。 データの検索のため、次のファイルが読み取り専用モードでアクセスされます。<ul>
+<li><strong>/etc/passwd </strong></li>
+
+<li><strong>/etc/group</strong></li>
+
+<li><strong>/etc/security/user</strong></li>
+
+<li><strong>/etc/security/limits</strong></li>
+
+<li><strong>/etc/security/group</strong></li>
+
+<li><strong>/etc/security/environ</strong></li>
+
+</ul>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>マシン内のすべての有効なグループをリストするには、<strong>dispgid</strong> コマンドを次のように入力します。<div><div><pre><code>dispgid</code></pre></div><div></div></div>出力は次のようになります。<div><div><pre><code>system 
+staff 
+bin 
+sys 
+adm 
+uucp 
+mail 
+security 
+cron 
+printq 
+audit 
+ecs 
+nobody 
+usr 
+perf</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/dispgid </strong></td>
+
+<td><strong>dispgid</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group </strong></td>
+
+<td>グループ情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

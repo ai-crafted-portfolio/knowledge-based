@@ -1,0 +1,129 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>コマンドの経過時間、ユーザー時間、システム実行時間を秒単位で報告します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>Timex</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/timex.html#timex__row-d3e90549" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/timex.html#timex__row-d3e90555" target="_blank" rel="noopener noreferrer"><strong>P- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/t_commands/timex.html#timex__row-d3e90627" target="_blank" rel="noopener noreferrer"><strong>-s </strong></a>] <em>コマンド</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>timex</strong> コマンドは、コマンドの経過時間、ユーザー時間、システム実行時間を秒単位で報告します。 フラグを指定すると、<strong>timex</strong> コマンドとそのすべての子に関するプロセス・アカウンティング・データをリストまたは要約します。 <em>Command</em> は、システム内の任意の実行可能ファイルの名前です。 また、実行間隔中の合計システム稼働状況を報告します。 出力は標準エラーに書き出されます。 システムは <strong>/var/adm/pacct</strong> ファイルを使用して、コマンドに対応するプロセス・レコードを選択し、同じユーザー ID、ワークステーション ID、実行時間ウィンドウを持つバックグラウンド・プロセスを組み込みます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong> -o</strong></td>
+
+<td>コマンドおよびそのすべての子によって、読み取りまたは書き込みされた合計ブロック数と転送された合計文字数を報告します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>コマンドおよびそのすべての子に関するプロセス・アカウンティング・レコードをリストします。 読み取りまたは書き込みされたブロック数と転送された文字数が報告されます。 <strong>-p</strong> フラグは、
+<strong>acctcom</strong> コマンドで定義された <strong>f</strong>、
+<strong>h</strong>、<strong>k</strong>、<strong>m</strong>、
+<strong>r</strong>、<strong>t</strong> 引数を使って他のデータ項目を修正します。<dl>
+<dt>-f</dt>
+
+<dd>出力内の fork/exec フラグおよびシステム終了状況列を表示します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>通常のメモリー・サイズではなく、
+プロセスが消費できる CPU 時間の合計の小数部 (ホグ係数) を示します。</dd>
+
+
+<dt>-k</dt>
+
+<dd>メモリー・サイズではなく、
+合計の kcore 分 (実行時の分ごとに、
+使用されるキロバイト・セグメントのメモリー測定) を示します。</dd>
+
+
+<dt>-m</dt>
+
+<dd>平均のメイン・メモリーのサイズを示します。 これはデフォルトです。 <strong>-h</strong> フラグまたは <strong>-k</strong> フラグを使用すると、
+<strong>-m</strong> フラグはオフになります。</dd>
+
+
+<dt>-r</dt>
+
+<dd>CPU ファクターを表示します。</dd>
+
+
+<dt>-t</dt>
+
+<dd>個別のシステムおよびユーザー CPU 時間を示します。</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-s</strong></td>
+
+<td>コマンドの実行中の合計システム稼働状況を報告します。 <strong>sar</strong> コマンド内にリストされるすべてのデータ項目が報告されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <div><div>
+        <div>
+          <div><strong>-o</strong>または<strong> -p</strong>フラグを使用するには、<span>注：</span>会計をオンにする必要がある。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>ls</strong> コマンドにより読み取られた合計ブロック数と転送された合計文字数を報告するには、次のように入力します。<div> <div><div><pre><code>timex -o ls</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>ps</strong> コマンドのプロセス・アカウンティング・レコードをリストするには、次のように入力します。<div> <div><div><pre><code>timex -p ps -fe</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>ls</strong> コマンドの実行の合計システム稼働状況を報告するには、次のように入力します。<div> <div><div><pre><code>timex -s ls</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/var/adm/pacct</strong></td>
+
+<td>コマンドに対応するレコードを選択するときに使用します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

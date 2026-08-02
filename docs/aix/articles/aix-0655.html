@@ -1,0 +1,520 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ホストシステムに現在インストールされているマイクロコードまたはバイタル・プロダクト・データ（VPD）を調査する。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>invscout [ -v ] [ -m  machine_type_and_model ] [ -s  serial_number ] [ -q ]
+</code></pre></div><div></div></div>
+<div><div><pre><code>invscout [ -u [ mask] ] [ -e ] [ -r ] [ -m  machine_type_and_model ] [ -s  serial_number ] [ -catl microcode_catalog_path ] [ -q ]
+</code></pre></div><div></div></div>
+<div><div><pre><code>invscout [ -U | -UF [ mask] ] [ -e ] [ -m  achine_type_and_model ] [ -s  serial_number ] [ -catl microcode_catalog_path] [ -fl microcode_file_path] [ -q ]
+</code></pre></div><div></div></div>
+<div><div><pre><code>invscout [ -h | -g ]
+</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2>
+
+<p><span>invscout</span> コマンドは、インベントリー・スカウト (Inventory Scout) プロセスのスタンドアロン・バージョンの 1 つのインスタンスを実行します。 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscoutd.html#invscoutd" target="_blank" rel="noopener noreferrer"><span>invscoutd</span></a>コマンドは、クライアントまたはサーバー・バージョンのサーバー・デーモン側を起動する。</p>
+
+<p>Inventory Scoutプロセスは、以下の2つの調査タイプをサポートしています：</p>
+
+<ul>
+<li>マイクロコード調査</li>
+
+<li>VPD調査 ( '<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__row-d3e21202" target="_blank" rel="noopener noreferrer"><span>-v</span></a>)</li>
+
+</ul>
+
+<dl>
+
+<dt>マイクロコード調査</dt>
+
+<dd><p>マイクロコード調査は、インベントリスカウトプロセス、デバイス、およびアダプタのサポートされているシステムに対して現在インストールされているマイクロコードに関するホストシステムのデータを収集します。 次の表は、マイクロコード・サーベイが収集するデータタイプと、データが保存されるファイルについて説明しています：</p>
+
+
+<div><div><table><caption><span>表 1. 収集されるデータとマイクロコード調査で作成されるファイル</span></caption><thead>
+<tr>
+<th><div>ファイル</div></th>
+
+<th><div>保管されるデータ</div></th>
+
+<th><div>関連付けられているフラグ</div></th>
+
+<th><div>表示およびプリント方式</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer"> マイクロコード調査のアップロードファイル</a></td>
+
+<td>収集されたマイクロコードレベルと利用可能な最新のレベルの比較。</td>
+
+<td>なし。 マイクロコード調査アップロード・ファイルを作成するには、フラグを指定せずに <span>invscout</span> コマンドを使用します。</td>
+
+
+<td>インターネットで Web サーバーにアップロードします。</td>
+
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer">マイクロコード更新結果書式付きテキストレポートファイル</a></td>
+
+<td>このデータには、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer"> マイクロコード調査アップロードファイル</a>に記録されている情報のサブセットが含まれている。 このサブセットには、次の情報が含まれています。<ul>
+<li><span>invscout</span>コマンドの実行そのものに関する情報。</li>
+
+<li>それぞれのデバイスにインストールされていたマイクロコードの以前のレベル。</li>
+
+<li>各デバイスにインストールされているマイクロコードのレベル。</li>
+
+<li>各デバイスで利用可能なマイクロコードの最新レベル。</li>
+
+<li>各デバイスについて、マイクロコードを最新のレベルに更新しようとした結果。</li>
+
+</ul>
+</td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__row-d3e21276" target="_blank" rel="noopener noreferrer"><span>-U</span></a>オプションを使用して、Microcode Update Results Formatted Text Report File を作成します。</td>
+
+<td>モニター上に表示または出力します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer">マイクロコード調査結果書式付きテキストレポートファイル</a></td>
+
+<td>このデータには、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer"> マイクロコード調査アップロードファイル</a>に記録されている情報のサブセットが含まれている。 このサブセットには、次の情報が含まれています。<ul>
+<li><span>invscout</span>コマンドの実行そのものに関する情報。</li>
+
+<li>各デバイスにインストールされているマイクロコードのレベル。</li>
+
+<li>各デバイスで利用可能なマイクロコードの最新レベル。</li>
+
+<li>ダウンロードされた catalog.mic ファイルに従って適用できる、それぞれのデバイスに対する推奨アクション。</li>
+
+</ul>
+</td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__row-d3e21350" target="_blank" rel="noopener noreferrer"><span>-u</span></a>フラグを使って、「<span>invscout</span>コマンドを開始した画面にファイルを送る。</td>
+
+<td>モニター上に表示または出力します。</td>
+
+</tr>
+
+<tr>
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer">マイクロコード調査書式付きテキストレポートファイル</a><div><div>
+        <div>
+          <div><span>注意:</span> Microcode Survey Formatted Text Report File は推奨されません。 代わりに、<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer">マイクロコード調査結果書式付きテキストレポートファイル</a>を使用してください。</div>
+        </div>
+      </div></div>
+</td>
+
+<td>このデータには、マイクロコード調査アップロードファイルに記録されている情報のサブセットが含まれている。 このサブセットには、次の情報が含まれています。<ul>
+<li><span>invscout</span>コマンドの実行そのものに関する情報。</li>
+
+<li>各デバイスにインストールされているマイクロコードのレベル。</li>
+
+</ul>
+</td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__row-d3e21214" target="_blank" rel="noopener noreferrer"><span>-r</span></a>フラグを使って、「<span>invscout</span>コマンドを開始した画面にファイルを送る。<div><div>
+        <div>
+          <div><span>注意</span> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__row-d3e21214" target="_blank" rel="noopener noreferrer"><span>-r</span></a>フラグは非推奨。 代わりに「<span>–u</span>オプションを使用する。</div>
+        </div>
+      </div></div>
+</td>
+
+<td>モニター上に表示または出力します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+<p>過去のレポートには、以下のファイルに関する情報が掲載されている：</p>
+
+<ul>
+<li>システム・ライセンス内部コード</li>
+
+<li>サービス・マイクロコード</li>
+
+<li>デバイスおよびアダプター・マイクロコード</li>
+
+</ul>
+
+</dd>
+
+
+
+<dt>VPDサーベイ(-v)</dt>
+
+<dd>VPDサーベイは、システムのVPDを<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer"> VPDサーベイアップロードファイル</a>に保存し、インターネットを通じてウェブサーバーにアップロードすることができる。 CGIはファイルをリポジトリに転送し、操作のステータスを示すウェブページを作成する。</dd>
+
+<dd>VPD 調査の場合、定様式テキスト・レポートはありません。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>-v</span></td>
+
+<td>調査または連結タイプを VPD に設定します (デフォルトはマイクロコード)。 このオプションは、ユーザーグループ'<code>system</code>または'<code>invscout</code>に属するユーザーのみサポートされています。</td>
+
+</tr>
+
+<tr>
+<td><span>-r</span></td>
+
+<td>マイクロコードサーベイの場合、フォーマットされたテキストレポートファイルのコピーを、コマンドが開始されたスクリーンに送信する。 <span>-v</span> フラグまたは <span>-c</span> フラグが使用されている場合、このフラグは無視されます。<div><div>
+        <div>
+          <div><span>注意:</span> このフラグは推奨されません。 代わりに「<span>–u</span>オプションを使用する。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-m</span> machine_type_and_model
+</td>
+
+<td>VPD調査の場合、この情報を使用または必要とするホストに対して、ホストプラットフォームのマシンタイプとモデルの入力を許可する。</td>
+
+</tr>
+
+<tr>
+<td><span>-s</span> 
+serial_number</td>
+
+<td>VPD 調査の場合は、ホストのホスト・シリアル番号を入力し、この情報を使用する、または必要とするホストに渡します。</td>
+
+</tr>
+
+<tr>
+<td><span>-catl</span>  マイクロコード・カタログ・パス</td>
+
+<td><a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__microcode" target="_blank" rel="noopener noreferrer">マイクロコードカタログファイル</a>のデフォルトの場所を上書きする。</td>
+
+</tr>
+
+<tr>
+<td><span>-g</span></td>
+
+<td>このコマンドおよび現在使用中の論理データベースのバージョンを表示します。</td>
+
+</tr>
+
+<tr>
+<td><span>-q</span></td>
+
+<td>ほとんどのランタイムメッセージを抑制する。</td>
+
+</tr>
+
+<tr>
+<td><span>-h</span></td>
+
+<td>ヘルプ (使用方法) ステートメントを生成します。 このフラグを使用した場合、その他のすべてのフラグは無視されます。</td>
+
+</tr>
+
+<tr>
+<td><span>-U</span> マスク</td>
+
+<td>利用可能なマイクロコードアップデートでデバイスを更新します。 このフラグでは、システムに次の項目が存在していることが要求されます。<ul>
+<li>有効なマイクロコード・カタログ・ファイル</li>
+
+<li>有効なマイクロコード・イメージ</li>
+
+</ul>
+<p>マスクの有効なオプションには、以下の値の組み合わせがある：</p>
+<ul>
+<li><span>L</span>、<span>l</span>：最新</li>
+
+<li><span>C</span>,<span>c</span>：電流</li>
+
+<li><span>P</span>、<span>P</span>前</li>
+
+<li><span>A</span>,<span>a</span>: 利用可能</li>
+
+<li><span>オー</span>、<span>オー</span>：結果</li>
+
+<li><span>D</span>,<span>d</span>：説明</li>
+
+<li><span>E</span>,<span>e</span>：効果</li>
+
+<li><span>S</span>,<span>s</span>：提案されたアクション</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-UF</span> マスク</td>
+
+<td>利用可能なマイクロコードアップデートでデバイスとシステムファームウェアを更新します。 このフラグでは、システムに次の項目が存在していることが要求されます。<ul>
+<li>有効なマイクロコード・カタログ・ファイル</li>
+
+<li>有効なマイクロコード・イメージ</li>
+
+</ul>このフラグはシステムを再起動させるかもしれない。<p>マスクの有効なオプションには、以下の値の組み合わせがある：</p>
+
+<ul>
+<li><span>L</span>、<span>l</span>：最新</li>
+
+<li><span>C</span>,<span>c</span>：電流</li>
+
+<li><span>P</span>、<span>P</span>前</li>
+
+<li><span>A</span>,<span>a</span>: 利用可能</li>
+
+<li><span>オー</span>、<span>オー</span>：結果</li>
+
+<li><span>D</span>,<span>d</span>：説明</li>
+
+<li><span>E</span>,<span>e</span>：効果</li>
+
+<li><span>S</span>,<span>s</span>：提案されたアクション</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-u</span> マスク</td>
+
+<td>マイクロコード更新が使用可能なハードウェアを識別する定様式テキスト・レポートを生成します。 このフラグでは、有効なカタログ・ファイルがシステムに存在していることが要求されます。<p>マスクの有効なオプションには、以下の値の組み合わせがある：</p>
+
+<ul>
+<li><span>L</span>、<span>l</span>：最新</li>
+
+<li><span>C</span>,<span>c：</span>電流</li>
+
+<li><span>P</span>、<span>P</span>前</li>
+
+<li><span>A</span>,<span>a</span>: 利用可能</li>
+
+<li><span>オー</span>、<span>オー</span>：結果</li>
+
+<li><span>D</span>,<span>d</span>：説明</li>
+
+<li><span>E</span>,<span>e</span>：効果</li>
+
+<li><span>S</span>,<span>s</span>：提案されたアクション</li>
+
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td><span>-fl</span> マイクロコード・ファイル・パス</td>
+
+<td>マイクロコード・ファイルのデフォルト・パス名を変更します。 これらのファイルは「<span>.rpm</span>形式で保存される。 このオプションはrootユーザー専用です。</td>
+
+</tr>
+
+<tr>
+<td><span>-e</span></td>
+
+<td><span>–U</span> または <span>-u</span> フラグとともに使用する必要がある。 <span>-e</span> フラグは、コール・ホーム・クラウド・コネクト（CHCC）から最新のマイクロコード・カタログ・ファイルをダウンロードし、フィックス・セントラル・データベースからマイクロコードの更新を取得します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>0</span></td>
+
+<td>正常終了したことを示します。</td>
+
+</tr>
+
+<tr>
+<td><span>ゼロ以外</span></td>
+
+<td>エラーが発生したことを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>エラーが発生した場合、コマンドは<a href="https://www.ibm.com/docs/ja/ssw_aix_73/i_commands/invscout.html#sdinvscout__filessec" target="_blank" rel="noopener noreferrer">エラーログ</a>を書き込む。</p>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドはrootが所有し、どのユーザーでも実行できるように「<span>setuid</span>ビットを<span>ONにし</span>てインストールされる。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>マイクロコード・サーベイを 1 回実行し、結果をフォーマットされたテキスト・レポート・ファイルとアップロード・ファイルに送信するには、次のコマンドを入力します：<div>
+<div><div><pre><code>invscout</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>VPDサーベイを1回実行し、結果をアップロードファイルに送信するには、以下のコマンドを入力する：<div>
+<div><div><pre><code>invscout -v</code></pre></div><div></div></div>
+</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/usr/sbin/invscout</span></td>
+
+<td><span>invscout</span>コマンドを含む。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout</span> ホスト <span>.mup</span></td>
+
+<td>マイクロコード調査アップロード・ファイル。 host変数は、ファイルで表されるシステムのホスト名である。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/</span>ホスト <span>.vup</span></td>
+
+<td>VPD 調査アップロード・ファイル。 host変数は、ファイルで表されるシステムのホスト名である。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.con.mup</span></td>
+
+<td>マイクロコード調査連結アップロード・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.con.vup</span></td>
+
+<td>VPD 調査連結アップロード・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.err</span></td>
+
+<td>コマンドにエラーが発生した場合、エラーログが書き込まれる。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.mic.con.inp</span></td>
+
+<td>マイクロコード調査連結入力ディレクトリー。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.mrp</span></td>
+
+<td>マイクロコード調査定様式テキスト・レポート・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscoup/invs.murp</span></td>
+
+<td>マイクロコード更新結果の定様式テキスト・レポート・ファイル。 このファイルは、正常に適用されたハードウェアアップデートを識別します。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.murrp</span></td>
+
+<td>マイクロコード調査の結果の定様式テキスト・レポート・ファイル。 このファイルは、更新が使用可能なハードウェアを識別します。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invs.vpd.con.inp</span></td>
+
+<td>VPD 調査連結入力ディレクトリー</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/invscout.log</span></td>
+
+<td>ログ・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/microcode</span></td>
+
+<td>マイクロコード関連アクションのディレクトリー。 マイクロコード・カタログ・ファイルの
+デフォルト位置。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/microcode/catalog.mic</span></td>
+
+<td>デフォルトのマイクロコード・カタログ・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><span>/var/adm/invscout/tmp</span></td>
+
+<td><span>invscout</span>コマンドの一時ファイルを保持する。 このディレクトリー内のすべてのファイルは、このコマンドの毎回の実行開始時に削除されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

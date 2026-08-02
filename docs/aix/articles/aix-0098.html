@@ -1,0 +1,108 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>役割ベースのアクセス制御 (RBAC) の特権コマンドを制御された方法で実行します。</p>
+</section>
+
+<section><h2>構文</h2>
+<div><div><pre><code>authexec RBACcommandName</code></pre></div><div></div></div></section>
+
+<section><h2>説明</h2><p><span>authexec</span> コマンドは、RBAC 特権コマンドを実行します。 <span>authexec</span> が発行されると、ユーザーはRBAC特権コマンド・データベースの RBACcommandNameという RBACコマンドの <span>authroles</span> 属性で定義されているロールに対して認証される。</p>
+<p><span>authexec</span> コマンドは、 <span>/usr/sbin/</span>にあります。</p>
+<p><span>authexec</span> を呼び出すユーザーは、ターゲット・コマンド、RBACcommandName を呼び出すのに十分な権限を持っている必要があります。 認証済みユーザーは、呼び出し側ユーザーと同じであってはなりません。 認証を正常に渡すには、認証を行うユーザーが有効な非ブランク・パスワードも持っている必要があります。 どのロールについても、ユーザーを複数回認証することはできません。 RBAC 特権コマンドに対して、最大 16 のロールを構成することができます。</p>
+<p>特権コマンド・データベース内の <span>authexec</span> 属性を持つ特権コマンドは、シェルから直接実行することも、プログラム内で exec サブルーチンを使用して実行することもできません。 このようなコマンドは、必ず <span>authexec</span> コマンドを使用して呼び出す必要があります。</p>
+<p>コマンド RBACcommandName が root 使用可能 RBAC システム内の root によって呼び出された場合は、このメカニズムは実施されません。</p>
+</section>
+
+<section><h2>パラメーター</h2>
+<div><div><table><caption><span>表 1. パラメーター</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td>RBACcommandName</td>
+
+
+<td>フラグやパラメーターを含めて、実行すべき RBAC ターゲット・コマンドを指定します。 ターゲット・コマンド RBACcommandNameの絶対パスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<dl>
+
+<dt>アクセス制御</dt>
+
+<dd>すべてのユーザーがこのコマンドを呼び出すことができます。</dd>
+
+
+</dl>
+
+</section>
+
+<section><h2>例</h2> <p>コマンド <span>usr/sbin/shutdown</span> が <span>authroles</span> 属性を使用しての認証済み実行に対応している場合、シャットダウン・コマンドを許可されているユーザーは、以下を実行できます。</p>
+ <div><span>authexec /usr/sbin/shutdown</span></div>
+ <p>以下の例は、 <span>authrole</span> 属性を使用して認証済み実行が可能になっている <span>usr/sbin/shutdown</span> コマンドを示しています。</p>
+ <div><code>/usr/sbin/shutdown:<br>
+accessauths=aix.system.boot.shutdown<br>
+innateprivs=PV_AZ_ROOT,PV_DAC_O,PV_DAC_R,PV_DAC_W,<br>
+PV_DAC_X,PV_PROC_PRIV,PV_PROC_SIG <br>
+secflags=FSF_EPS<br>
+authroles=isso,so,sa</code></div>
+ <p><span>shutdown</span> コマンドを実行する前に、 <span>authroles</span> 属性にリストされている 3 つのロールのいずれかを持つ 3 つの別個のユーザーを認証する必要があります。 この例では、 <span>authroles</span> 属性で <span>isso</span>、 <span>so</span>、および <span>sa</span> ロールを指定します。 このコマンドには、 <span>shutdown</span> コマンドを呼び出すためのアクセス許可 <code>aix.system.boot.shutdown</code> が必要です。 この許可は一般に <span>so</span> ロールと関連付けられています。 <span>shutdown</span> コマンドを呼び出すユーザー以外で、ロール <span>so</span> を持つユーザーは、<span>isso</span> および <span>sa</span> ロールを持つユーザーとは別に、このコマンドを正常に実行するための認証を受ける必要があります。</p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><caption><span>表 2. ファイル</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span>/etc/security/users</span></td>
+
+<td>ユーザーの拡張属性が入っています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/roles</span></td>
+
+<td>このファイルには、役割の属性が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/authorizations</span></td>
+
+<td>このファイルには、許可の属性が含まれています。</td>
+
+</tr>
+
+<tr>
+<td><span>/etc/security/privcmds</span></td>
+
+<td>このファイルには、RBAC 特権コマンドの属性が含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

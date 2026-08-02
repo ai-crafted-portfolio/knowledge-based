@@ -1,0 +1,111 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>キャッシュ・ファイルシステムのロギングを制御します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>キャッシュフロッグ</strong> [ <strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cachefslog.html#cachefslog__row-d3e63898" target="_blank" rel="noopener noreferrer">-f</a></strong><em>ログファイル</em> |<strong><a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cachefslog.html#cachefslog__row-d3e63909" target="_blank" rel="noopener noreferrer">-h</a></strong> ] <em>Cachefs_Mount_Point</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>cachefslog</strong> コマンドは、CacheFS 統計がログに記録される場所を表示します。 このコマンドはオプションで、CacheFS 統計がログに記録される場所を設定するか、
+あるいは <em>Cachefs_Mount_Point</em> で指定されたキャッシュのロギングを停止します。 <em>Cachefs_Mount_Point</em> 引数は、
+キャッシュ・ファイルシステムのマウント・ポイントです。 <em>Cachefs_Mount_Point</em> と同じキャッシュの下にキャッシュされている、
+すべてのファイルシステムがログに記録されます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-f </strong><em>LogFile</em></td>
+
+<td>使用するログ・ファイルを指定します。<div><div>
+        <div>
+          <div><span>注:</span> このフラグを使用するには、root 権限が必要です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>ロギングを停止します。<div><div>
+        <div>
+          <div><span>注:</span> このフラグを使用するには、root 権限が必要です。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>次のような終了値が戻されます。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>成功</td>
+
+</tr>
+
+<tr>
+<td><strong>非ゼロ</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ディレクトリー <strong>/home/sam</strong> がログに記録されているかどうか確認するには、
+次のように入力します。<div><div><pre><code>cachefslog /home/sam</code></pre></div><div></div></div> <div>システムは、次のように表示します。<div><div><pre><code>not logged: /home/sam</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>/home/sam</strong> の <em>logfile</em> を <strong>/var/tmp/samlog</strong>に変更するには、次のように入力します。<div><div><pre><code>cachefslog -f /var/tmp/samlog /home/sam</code></pre></div><div></div></div> <div>システムは、次のように表示します。<div><div><pre><code>/var/tmp/samlog: /home/sam</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>/home/sam ディレクトリー</strong>のロギングを停止するには、次のように入力します。<div><div><pre><code>cachefslog -h /home/sam</code></pre></div><div></div></div> <div>システムは、次のように表示します。<div><div><pre><code>not logged: /home/sam</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/cachefslog</strong></td>
+
+<td><strong>cachefslog</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

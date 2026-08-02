@@ -1,0 +1,180 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>グループ・サービス・グループの vote 情報を取得します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span>hagsvote</span> [<span>-h</span> ホスト] [<span>-l</span>] [<span>-a</span> 引数] [<span>-c</span>] <span>-g</span> group_name</p>
+ <p><span>hagsvote</span> [<span>-h</span> ホスト] [<span>-l</span>] [<span>-a</span> 引数] [<span>-c</span>] <span>-s</span> subsystem_name</p>
+ <p><span>hagsvote</span> [<span>-h</span> ホスト] [<span>-l</span>] [<span>-a</span> 引数] [<span>-c</span>] <span>-p</span> subsystem_pid</p>
+</section>
+
+<section><h2>説明</h2> <p><span>hagsvote</span> コマンドは、グループ・サービスの投票プロトコルの状況を照会するために使用します。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt><span>-a</span></dt>
+
+<dd>グループ・サービスのグループ名を指定します。 グループ名は、 <span>-g</span> フラグの名前とは異なります。 こちらの場合、このグループは、プロトコルを結合するためのクライアントの最初の呼び出しによって作成されたものです。</dd>
+
+
+<dt><span>-c</span></dt>
+
+<dd>グループ・サービス voting 情報の標準出力を要求します。 出力はインストールされた言語ロケールにかかわらず、英語で表示されます。 <span>-c</span> が指定されていない場合、デーモンのロケールが出力に使用されます。</dd>
+
+
+<dt><span>-g</span> グループ名</dt>
+
+<dd>状況を入手するサブシステムのグループを指定します。 group_name 変数がサブシステム・オブジェクト・クラスに含まれていない場合、コマンドは失敗します。</dd>
+
+
+<dt><span>-h</span>Host</dt>
+
+<dd>状況を取得中のホスト名を指定します。</dd>
+
+
+<dt><span>-l</span></dt>
+
+<dd><code>long</code> 形式の詳細出力を要求します。</dd>
+
+
+<dt><span>-p</span> サブシステム PID (subsystem_pid)</dt>
+
+<dd>投票を取得する subsystem_pid 変数の特定のインスタンスを指定します。</dd>
+
+
+<dt><span>-s</span> サブシステム名</dt>
+
+<dd>vote を行うサブシステムを指定します。 subsystem_name 変数には、実際のサブシステム名またはサブシステムの同義語名を指定できます。 subsystem_name 変数がサブシステム・オブジェクト・クラスに含まれていない場合、コマンドは失敗します。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt>daemon_name</dt>
+
+<dd>デーモンがログ・ファイルに名前を付け、<span>AIX</span>エラー・ログでメッセージを識別するために使用する名前を指定します。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p>このコマンドを実行するには、 <span>root</span> 特権が必要です。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt><span>0</span></dt>
+
+<dd>コマンドの正常終了を示します。</dd>
+
+
+<dt><span>ゼロ以外</span></dt>
+
+<dd>エラーが発生したことを示します。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは PSSP 環境のみで有効です。</p>
+</section>
+
+<section><h2>標準出力</h2> <p>このコマンドは、エラー・メッセージを (必要に応じて) 標準エラーに書き込みます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>このコマンドは、必要な場合はエラー・メッセージを標準エラーに書き込みます。</p>
+</section>
+
+<section><h2>例</h2> <div> <ol>
+<li>グループ <code>theSourceGroup</code> の投票プロトコルの状況に関する情報を長形式で表示するには、次のように入力します。<div><div><pre><code>hagsvote -ls cthags -a theSourceGroup (locale-dependent)</code></pre></div><div></div></div>
+<div>出力は、以下のようになります。<div><div><pre><code>Number of groups: 4
+Group name [theSourceGroup] GL node [26] voting data:
+GL in phase [1] of n-phase protocol of type [Join].
+Local voting data:
+Number of providers: 1
+Number of providers not yet voted: 1 (vote not submitted).
+Given vote: [No vote value] Default vote: [No vote value]
+ProviderID Voted? Failed? Conditional?
+[101/26] No No Yes
+Global voting data:
+Number providers not yet voted: 1
+Given vote: [No vote value] Default vote: [No vote value]
+Nodes that have voted: []
+Nodes that have not voted: [26]</code></pre></div><div></div></div></div>
+
+<div>出力の最初の行は、グループの総数が 4 であることを意味します。 2 行目は、グループ名とグループ・リーダー・ノード (この場合は 26) を示します。 その後の行に次の voting データが続きます。<ul>
+<li>グループ・リーダーは、n フェーズ・プロトコルのフェーズ 1 にあります。</li>
+
+<li>プロトコルは Joined プロトコルです。</li>
+
+<li>ローカル・ノードについて、1 つのプロバイダーがあり、まだ vote (断定) していないプロバイダーの数は 1 です。</li>
+
+<li>デフォルトの vote 値は指定されておらず、また vote 値も指定されていません。</li>
+
+<li>行 <code>ProviderID Voted? Failed? Conditional?</code>の下の <code>[101/16] No No
+Yes</code>は、プロバイダー ID が <code>101/26</code>であり、まだ投票されておらず、失敗していないが、投票を待機している (そのため条件付き) ことを意味します。</li>
+
+</ul>
+</div>
+
+<div>その後で、出力はグローバルの voting ステータスを示しています。<ul>
+<li>まだ vote していないプロバイダー数は 1 です。</li>
+
+<li>vote 値はまだ指定されておらず、デフォルトの vote 値はありません。</li>
+
+<li>投票したノードはありません。</li>
+
+<li>vote していないノードは、ノード 26 です。</li>
+
+</ul>
+</div>
+</li>
+
+<li>次の例では、ノード 26 がグループ・リーダー・ノードであることを除いて、出力の各行の意味は最初の例と同じです。<div><div><pre><code>hagsvote -ls cthags -a theSourceGroup -c (canonical form)</code></pre></div><div></div></div>
+<div>出力は、以下のようになります。<div><div><pre><code>Number of groups: 4
+Group Name: theSourceGroup
+GL Node: 26 (I am GL)
+Current phase number of an n-phase protocol: 1
+Protocol name: [Join]
+Local voting data:
+Number of local providers: 1
+Number of local providers not yet voted: 1 (vote not submitted)
+Given vote: [No vote value] Default vote: [No vote value]Global voting data:
+Number of nodes in group: 1
+Number of global providers not yet voted: 1
+Given vote: [No vote value] Default vote: [No vote value]
+Nodes that have voted: []
+Nodes that have not voted: [26]</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+ </div>
+</section>
+
+<section><h2>ロケーション</h2> <dl>
+<dt><span>/opt/rsct/bin/hagsvote</span></dt>
+
+<dd><span>hagsvote</span> コマンドが入っています。</dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <dl>
+<dt><span>/var/ha/log/hags_</span>nodenum_instnum。 システム名</dt>
+
+<dd>ノード上の <span>hagsd</span> デーモンのログが入っています。</dd>
+
+
+<dt><code><span>/var/ha/log/hags.</span>syspar_name_nodenum_instnum.syspar_name</code></dt>
+
+<dd>コントロール・ワークステーション上の各 <span>hagsd</span> デーモンのログが入っています。</dd>
+
+</dl>
+ <div>ファイル名には次の変数が含まれています。<ul>
+<li>nodenum は、デーモンが実行されているノード番号です。</li>
+
+<li>instnum は、デーモンのインスタンス番号です。</li>
+
+<li>syspar_name は、デーモンが実行されているシステム区画の名前です。</li>
+
+</ul>
+</div>
+</section>
+
+</div></div>

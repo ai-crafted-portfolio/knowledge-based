@@ -1,0 +1,267 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>プリンターへの出力のために、ウィンドウ・ダンプ・ファイルをフォーマットします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>XPR</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e42865" target="_blank" rel="noopener noreferrer"><strong>-追加</strong></a><em> FileName </em>[  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43083" target="_blank" rel="noopener noreferrer"><strong>-ノフ </strong></a>] |  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43101" target="_blank" rel="noopener noreferrer"><strong>-出力 </strong></a><em>FileName </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43068" target="_blank" rel="noopener noreferrer"><strong>-横長 </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43120" target="_blank" rel="noopener noreferrer"><strong>-縦長 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e42879" target="_blank" rel="noopener noreferrer"><strong>-コンパクト </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e42890" target="_blank" rel="noopener noreferrer"><strong>-カットオフ</strong></a><em> レベル </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e42989" target="_blank" rel="noopener noreferrer"><strong>-density (密度)</strong></a><em> ドピ </em>]  [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e42997" target="_blank" rel="noopener noreferrer"><strong>-グレー </strong></a>{ <strong>2 </strong>| <strong>3 </strong>| <strong>4 </strong>} ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43040" target="_blank" rel="noopener noreferrer"><strong>-ヘッダー</strong></a><em> ストリング </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43048" target="_blank" rel="noopener noreferrer"><strong>-高さ</strong><em> インチ</em> </a>] [<em> </em> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43074" target="_blank" rel="noopener noreferrer"><strong>-左</strong></a><em> インチ </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43095" target="_blank" rel="noopener noreferrer"><strong>-noposition </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43112" target="_blank" rel="noopener noreferrer"><strong>-プレーン</strong></a><em> PlaneNumber </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43126" target="_blank" rel="noopener noreferrer"><strong>-プシフィグ </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43136" target="_blank" rel="noopener noreferrer"><strong>-レポート</strong></a><strong> </strong>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43145" target="_blank" rel="noopener noreferrer"><strong>-RV </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43151" target="_blank" rel="noopener noreferrer"><strong>-スケール</strong></a><em> スケール </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43165" target="_blank" rel="noopener noreferrer"><strong>-分割 </strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43176" target="_blank" rel="noopener noreferrer"><strong>-トップ</strong></a><em> インチ </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43185" target="_blank" rel="noopener noreferrer"><strong>-トレーラー</strong></a><em> ストリング </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43193" target="_blank" rel="noopener noreferrer"><strong>-幅</strong></a><em> インチ </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e42901" target="_blank" rel="noopener noreferrer"><strong>-デバイス</strong></a><em> 装置 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xpr.html#xpr__row-d3e43056" target="_blank" rel="noopener noreferrer"><em>ImageFile </em></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xpr</strong> コマンドは、<strong>xwd</strong> ユーティリティーによって生成されたウィンドウ・ダンプ・ファイルを入力として使用し、このダンプ・ファイルをハードウェアでサポートされているすべてのプリンターに出力するためにフォーマットします。 ファイル引数を指定しなければ、<strong>xpr</strong> コマンドは標準入力を使用します。 デフォルトでは <strong>xpr</strong> コマンドは出力ページ上に可能な限り大きなウィンドウを出力します。</p>
+ <p><strong>xpr</strong> コマンドのオプションを使用すると、ヘッダーやトレーラーを追加し、マージンを指定し、スケールや方向を調整し、複数のウィンドウ・ダンプを単一の出力ファイルに追加することができます。 出力は、
+<strong>-output</strong> フラグが指定されていない限り標準出力です。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-アペンド</strong><em> FileName</em></td>
+
+<td>ウィンドウを追加するファイル (以前に <strong>xpr</strong> コマンドによって作成されている) の名前を指定します。 (このフラグは、 PostScript プリンターではサポートされません。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-コンパクト</strong></td>
+
+<td>ホワイト・ピクセルが多いウィンドウを小さく表示するために、簡単なラン・レングス・エンコード法を使います。 このフラグを指定するとホワイト・スペースは圧縮されますが、ブランク・スペースは圧縮されないので、反転表示ウィンドウでは有効ではありません。<p>(このフラグは、PostScript,LIPS II+、およびLIPSIII出力のみをサポートする)</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-cutoff</strong><em> レベル</em></td>
+
+<td>LaserJet プリンター上でモノクローム出力用にカラーが黒または白にマップされる際の輝度を変更します。 <em>Level</em> 変数は、全輝度に対するパーセントで表されます。 小数部も使用できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-device</strong><em> デバイス</em></td>
+
+<td>ファイルが印刷されるデバイスを指定します。 <strong>xpr</strong> コマンドでは下記のプリンターがサポートされています。<dl>
+<dt><strong>3812</strong> または <strong>pp</strong></dt>
+
+<dd><span>IBM</span> PP3812</dd>
+
+
+<dt><strong>4207</strong></dt>
+
+<dd>Proprinter</dd>
+
+
+<dt><strong>5201</strong></dt>
+
+<dd><span>IBM</span> Quietwriter 1 モデル 2</dd>
+
+
+<dt><strong>5202</strong></dt>
+
+<dd><span>IBM</span> 静止プログラム 2</dd>
+
+
+<dt><strong>jprinter (jprinter)</strong></dt>
+
+<dd><span>IBM</span> 日本語プリンター (日本語データ・ストリーム)</dd>
+
+
+<dt><strong>イジェット</strong></dt>
+
+<dd>HP LaserJet および <span>IBM</span> レーザー・プリンター</dd>
+
+
+<dt><strong>PS</strong></dt>
+
+<dd>PostScript プリンター (これがデフォルトです)</dd>
+
+
+<dt><strong>lips2</strong></dt>
+
+<dd>Canon LaserShot LIPS II+ モード</dd>
+
+
+<dt><strong>lips3</strong></dt>
+
+<dd>Canon LaserShot LIPS III モード</dd>
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-密度</strong><em> Dpi</em></td>
+
+<td>HP プリンターで使用する 1 インチ当たりのドット (dpi) 密度を指定します。 デフォルト値は 300 dpi です。 300、150、100、75 dpi が指定できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Gray</strong><em> 数値</em><strong></strong></td>
+
+<td>白黒イメージへのマッピングではなく、カラー・イメージへのグレースケール変換を指定します。 <em>Number</em> 変数に、下記のいずれかの値を指定しなければなりません。<dl>
+<dt><strong>※2</strong></dt>
+
+<dd>2 x 2 の変換</dd>
+
+
+<dt><strong>3</strong></dt>
+
+<dd>3 x 3 の変換</dd>
+
+
+<dt><strong>4</strong></dt>
+
+<dd>4 x 4 の変換</dd>
+
+</dl>
+  <p>これにより、変換時のイメージの有効幅および高さが、それぞれ 2 倍、3 倍および 4 倍になります。</p>
+  <p></p><blockquote><span>“</span><strong>注:</strong> このオプションは、 PostScript プリンターにのみ有効です。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-header</strong><em> ストリング</em></td>
+
+<td>ウィンドウの上に表示されるヘッダー文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-height</strong><em> インチ</em></td>
+
+<td>1 ページの中のウィンドウの高さの最大値を指定します。</td>
+
+</tr>
+
+<tr>
+<td><em>ImageFile</em></td>
+
+<td>捕そくしたイメージのビットマップが入ったファイルです。 <em>ImageFile</em> パラメーターを指定しなければ、<strong>xpr</strong> コマンドは標準入力を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>横長</strong></td>
+
+<td>ウィンドウをランドスケープ・モードで出力します。 (ディスプレイでは、ウィンドウを縦よりも横の方を長くしています。) デフォルトではウィンドウは、長い方の辺が用紙の長い方の辺に出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-left</strong><em> インチ</em></td>
+
+<td>左マージンをインチで指定します。 小数部も使用できます。 デフォルトでは、このフラグを指定すると、ウィンドウはページの中央に出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-noff (-noff)</strong></td>
+
+<td><strong>-append</strong> フラグと一緒に指定すると、ウィンドウが以前のウィンドウと同じページに表示されます。 (このフラグは、 PostScript プリンターではサポートされません。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-ノンポジション</strong></td>
+
+<td>LaserJet プリンター用に、ヘッダー、トレーラー、およびイメージの位置決めコマンドの生成をバイパスさせます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-出力</strong><em> FileName</em></td>
+
+<td>出力ファイル名を指定します。 このオプションを指定しなければ、<strong>xpr</strong> コマンドは標準出力を使用します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-プレーン</strong><em>プレーン番号</em></td>
+
+<td>どのビット・プレーンをイメージ内で使用するかを指定します。 デフォルトでは、イメージ全体が使用され、カラー輝度に基づいて値が黒および白にマップされます。 このオプションは、LaserJet プリンターではサポートされません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-縦長</strong></td>
+
+<td>ウィンドウをポートレイト・モードで出力します。 (ディスプレイでは、ウィンドウを横よりも縦の方を長くしています。) デフォルトではウィンドウは、長い方の辺が用紙の長い方の辺に出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-プスフィグ</strong><em></em></td>
+
+<td>PostScript ピクチャーをページの中央に変換しないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-report</strong></td>
+
+<td>ウィンドウの <em>ImageFile</em> パラメーターについての統計情報を標準エラーに出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-RV</strong></td>
+
+<td>ウィンドウを反転表示で出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-scale</strong><em> スケール</em></td>
+
+<td>ページ上のウィンドウのサイズを変更します。 PostScript プリンターは、ウィンドウ・ピクセル・マップ内の各ビットを、指定されたサイズのグリッドに変換できます。 例えば、各ビットを 3 × 3 のグリッドに変換できます。 3 x 3 のグリッドを指定するには、 <strong>-scale 3</strong>と入力します。 デフォルトでは、ウィンドウは、指定された方向のページに収まる最大のスケールで印刷されます。 縦横比は、デバイスが指定されていなければ変更できます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-split</strong><em> 数値</em></td>
+
+<td>ウィンドウを複数ページに分割して出力します。 このファンクションは、ウィンドウが大きすぎてプリンターに過剰な負荷をかけ、ページの出力を正常に行えない場合に必要となります。 (このフラグは、 PostScript プリンターまたは HP Laserjet プリンターではサポートされていません。)</td>
+
+</tr>
+
+<tr>
+<td><strong>-top</strong><em> インチ</em></td>
+
+<td>ウィンドウの上マージンをインチで指定します。 小数部も使用できます。 デフォルトでは、このフラグを指定すると、ウィンドウはページの中央に出力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-trailer</strong><em> ストリング</em></td>
+
+<td>ウィンドウの下に表示されるトレーラー文字列を指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-width</strong><em> インチ</em></td>
+
+<td>ページの最大幅を指定します。<p></p><blockquote><span>“</span><strong>注:</strong> 4207, 5201, 5202 プリンターのイメージは、<strong>xwd</strong> ユーティリティーを使って、XYPixmap または XYBitmap フォーマットで記録しなければなりません。 XYPixmap イメージは、しきい値アルゴリズムを使ってビットマップに変換されます。 HP Laserjet プリンターの場合、複数面イメージは ZPixmap フォーマットで記録されなければなりません。 単一面イメージは、XYPixmap、
+XYBitmap、ZPixmap のいずれのフォーマットでもかまいません。<span>”</span></blockquote>
+<p></p>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

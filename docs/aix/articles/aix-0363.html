@@ -1,0 +1,55 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>デバイスを命名します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>devnm</strong><em> パス</em> ...</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>devnm</strong> コマンドは、<em>Path</em> パラメーターを読み取って、<em>Path</em> パラメーターがパスが常駐する、マウントされたファイルシステムに関連するスペシャル・ファイルを識別し、そのスペシャル・ファイルの名前を標準出力に書き出します。 各 <em>Path</em> パラメーターは絶対パス名でなければなりません。</p>
+ <p><strong>devnm</strong> コマンドは通常、<strong>/etc/rc</strong> コマンド・ファイルがルート・デバイスのマウント・テーブル・エントリーを作成するときに使用されます。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> このコマンドは、ローカル・ファイル・システム専用です。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>ファイルが入っているデバイスを確認するには、次のように入力します。<div> <div><div><pre><code>devnm /diskette0/bob/textfile</code></pre></div><div></div></div>ここには, 専用保守ツール・ユーザー・インターフェースが使用する特殊装置/diskette0/bob/textfile<strong> </strong>ファイルは常駐しています。 ディスケットがディスク装置として取り付けられている場合には,/diskette0device, <strong>devnm</strong> コマンドは以下を表示します。<div><div><pre><code>fd0 /diskette0/bob/textfile
+rfd0 /diskette0/bob/textfile</code></pre></div><div></div></div>これは、/diskette0/bob/textfileファイルは <strong>/dev/fd0</strong> ディスケット・ドライブにあります。</div>
+</li>
+
+<li>ファイルシステムが置かれているデバイスを確認するには、
+次のように入力します。<div> <div><div><pre><code>devnm /</code></pre></div><div></div></div>これによって、ルート・ファイルシステム (/) が置かれているデバイスの名前が表示されます。 画面には、次のリストが表示されます。<div><div><pre><code>hd0 /</code></pre></div><div></div></div>これは、ルート・ファイルシステム (/) が <strong>/dev/hd0</strong> デバイスに置かれていることを意味します。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/dev</strong></td>
+
+<td>ディレクトリーを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/sbin/devnm</strong></td>
+
+<td><strong>devnm</strong> コマンドが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

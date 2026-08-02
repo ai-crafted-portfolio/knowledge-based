@@ -1,0 +1,81 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ソフトウェア・パッケージを <strong>installp</strong> フォーマットで作成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>mkinstallp</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkinstallp.html#mkinstallp__row-d3e139620" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a><em>BaseDirectory</em> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkinstallp.html#mkinstallp__row-d3e139629" target="_blank" rel="noopener noreferrer"><strong>-T</strong></a><em>TemplateFile</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkinstallp</strong>コマンドは、ユーザーが<span>AIX</span>用の独自のソフトウェアパッケージを作成することを可能にする。 <strong>mkinstallp</strong>
+コマンドで作成されたパッケージは、<strong>installp</strong> フォーマットで、<strong>installp</strong>
+コマンドを使ってインストールまたは除去できます。</p>
+ <p><strong>mkinstallp</strong> コマンドによってパッケージされるファイルは、
+ルート・ビルド・ディレクトリーと相対的なファイルの位置が
+インストール後のファイルの宛先と同一であるようなディレクトリー構造であることが必要です。 例えば、 <strong>/usr/bin/</strong><em>somecommand</em> が <strong>mkinstallp</strong> パッケージを介してインストールされる場合、 <strong>mkinstallp</strong> コマンドを実行する場合、 <em>somecommand</em> パラメーターは、 <em>buildroot</em><strong>/usr/bin</strong> ディレクトリーになければなりません。</p>
+ <p>パッケージの内容が正しいディレクトリー構造に配置された後に、<strong>mkinstallp</strong>
+コマンドにより基本パッケージ・データを入力するようプロンプトが出されます。 このデータには、パッケージするファイルのパッケージ名、必要条件、説明その他が含まれます。 次に <strong>mkinstallp</strong>
+コマンドは、ユーザーからの応答を基にしたテンプレート・ファイルを生成します。 コマンド・ライン・プロンプトが出されないようにするために、
+テンプレート・ファイルを直接ユーザーが作成および編集し、<strong>-T</strong>
+フラグを付けて <strong>mkinstallp</strong> コマンドに渡すことができます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-d</strong> <em>BaseDirectory</em></td>
+
+<td>パッケージするファイルを含むルート・ビルド・ディレクトリーを指定します。 指定しない場合は、現在の作業ディレクトリーが使用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-T</strong> <em>TemplateFile</em></td>
+
+<td><strong>mkinstallp</strong>
+コマンドに渡されるテンプレート・ファイルの絶対パス名を指定します。 指定しない場合は、<strong>mkinstallp</strong>
+コマンドはパッケージ情報を入力するようプロンプトを出し、ユーザー応答を基にした新規テンプレート・ファイルを作成します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <div><div>
+        <div>
+          <div><span>注:</span> テンプレート・ファイルを保管するために、 <em>BaseDirectory</em> にある <strong>.info</strong> ディレクトリーを使用しないでください。 <strong>mkinstallp</strong> コマンドを実行するときにテンプレート・ファイルが削除される場合があります。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>例</h2> <p>以下の例では、ルート・ビルド・ディレクトリーとして <strong>/tmp/packages</strong>
+を使用して <strong>/usr/bin/foo</strong> ファイルをパッケージする方法を説明します。</p>
+ <div>最初に、コマンド・ラインで次のように入力してディレクトリー構造を作成します。<div><div><pre><code>mkdir -p /tmp/packages/usr/bin</code></pre></div><div></div></div>次に、以下のように入力して <strong>/usr/bin/foo</strong> ファイルを作成します。<div><div><pre><code>touch /tmp/packages/usr/bin/foo</code></pre></div><div></div></div></div>
+ <div>次に、以下のように入力して、<strong>mkinstallp</strong> コマンドを使用してパッケージを作成します。<div><div><pre><code>mkinstallp -d /tmp/packages</code></pre></div><div></div></div></div>
+ <p>これ以外の例については、<strong>/usr/lpp/bos/README.MKINSTALLP</strong>
+ファイルを参照してください。</p>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/mkinstallp</strong></td>
+
+<td><strong>mkinstallp</strong> コマンドへのパスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

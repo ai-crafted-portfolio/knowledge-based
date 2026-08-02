@@ -1,0 +1,74 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>QoS をサポートするようにシステムを構成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/mkqos</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkqos.html#mkqos__row-d3e152135" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkqos.html#mkqos__row-d3e152147" target="_blank" rel="noopener noreferrer"><strong>-N (N)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/m_commands/mkqos.html#mkqos__row-d3e152123" target="_blank" rel="noopener noreferrer"><strong>-B</strong></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>mkqos</strong> コマンドは、サービス品質 (QoS) をサポートするようにシステムを構成します。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-B</strong></td>
+
+<td>現在およびシステムの次の再始動時に <strong>/etc/rc.qos</strong> ファイルを実行するために、
+<strong>inittab</strong> ファイルにエントリーを追加します。 このフラグはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-I</strong></td>
+
+<td>システムの次の再始動時に <strong>/etc/rc.qos</strong> ファイルを実行するために、
+<strong>inttab</strong> ファイルにエントリーを追加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-N</strong></td>
+
+<td>QoS デーモンを始動するために <strong>/etc/rc.qos</strong> ファイルを実行します。 この方法で起動させると、次のシステム再起動時まで QoS デーモンは実行します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>初期タブ</strong></td>
+
+<td>システムの初期化プロセスを制御します。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/rc.qos</strong></td>
+
+<td>QoS デーモンの始動スクリプトが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

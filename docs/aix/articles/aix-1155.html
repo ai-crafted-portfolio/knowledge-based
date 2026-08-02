@@ -1,0 +1,142 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ピア・ドメインに定義するノードを準備します。</p>
+</section>
+
+<section><h2>構文</h2> <p><span><span>preprpnode</span></span> [<span><span>-k</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>] <span><span>node_name1</span></span> [<span><span>node_name2</span></span> ... ]</p>
+ <p><span><span>preprpnode</span></span> <span><span>-f</span></span> | <span><span>-F</span></span> { <span><span>file_name</span></span> | <span><span>"–"</span></span> } [<span><span>-k</span></span>] [<span><span>-h</span></span>] [<span><span>-TV</span></span>]</p>
+</section>
+
+<section><h2>説明</h2> <p><span><span>preprpnode</span></span> コマンドは、ピア・ドメインに定義できるように、コマンドが実行されるノード上でセキュリティーを準備します。 これにより、このノードでピア・ドメイン操作を実行できます。ノードが <span><span>mkrpdomain</span></span> または <span><span>addrpnode</span></span> コマンドを使用してピア・ドメインに参加するには、その前にピア・ドメイン操作を実行する必要があります。</p>
+ <p><span><span>mkrpdomain</span></span> コマンドをノードで発行する前に、 <span><span>mkrpdomain</span></span> コマンドをパラメーターとして実行するノードの名前を使用して、新しいピア・ドメインに定義する各ノードで <span><span>preprpnode</span></span> コマンドを実行する必要があります。 これにより、 <span><span>mkrpdomain</span></span> ノードに、新規ノードごとにピア・ドメイン構成を作成し、追加のセキュリティーをセットアップするために必要な権限が付与されます。</p>
+ <p><span><span>addrpnode</span></span> コマンドをノードで発行する前に、パラメーターとしてすべてのオンライン・ノードの名前を使用して、追加する各ノードで <span><span>preprpnode</span></span> コマンドを実行する必要があります。 これによりオンライン・ノードは、新しいノードに必要な操作を実行する権限が与えられます。</p>
+ <div><span><span>preprpnode</span></span> コマンドは、以下を実行します。<ol>
+<li>コマンドに指定されたノード名の公開鍵をトラステッド・ホスト・リストに追加することにより、これらのノード名にトラストを確立します。</li>
+
+<li>Resource Monitoring and Control (RMC) アクセス制御リスト (ACL) ファイルを変更し、
+このノード上のピア・ドメイン・リソースを、
+ピア・ドメイン内の他のノードからアクセスできるようにします。 これにより、ノードでピア・ドメイン操作を行うことが可能になります。 これらのアクセス変更を有効にするため、RMC サブシステムがリフレッシュされます。</li>
+
+<li>RMC リモート接続を使用可能にします。</li>
+
+</ol>
+</div>
+ <p>ピア・ドメインに定義されるノードが既に管理ドメイン内にある場合は、
+公開鍵を交換する必要はありません。 <span><span>-k</span></span> フラグを使用して、このステップを省略できます。</p>
+</section>
+
+<section><h2>フラグ</h2> <dl>
+<dt>--f <span>|</span> -F <span>{</span> <span><span>ファイル名</span></span> <span>|</span>"-"<span>}</span></dt>
+
+<dd><span><span>file_name</span></span> からノード名のリストを読み取ります。 ファイルの行ごとに 1 つのノード名がスキャンされます。 ポンド記号 (<span><span>#</span></span>) は、行の残りの部分 (または <span><span>#</span></span> が 1 桁目にある場合は行全体) がコメントであることを示します。<p>入力ファイルとして <span><span>STDIN</span></span> を指定するには、 <span><span>-f "-"</span></span> または <span><span>-F
+"-"</span></span> を使用します。</p>
+</dd>
+
+
+<dt>-k</dt>
+
+<dd>コマンドが公開鍵を交換すべきでないことを指定します。</dd>
+
+
+<dt>-h</dt>
+
+<dd>コマンドの使用ステートメント (使用法) を標準出力に書き込みます。</dd>
+
+
+<dt>-T</dt>
+
+<dd>コマンドのトレース・メッセージを標準エラーに書き込みます。 これは、ソフトウェア保守部門専用の機能です。</dd>
+
+
+<dt>-V</dt>
+
+<dd>コマンドの詳細メッセージを標準出力に書き込みます。</dd>
+
+</dl>
+</section>
+
+<section><h2>パラメーター</h2> <dl>
+<dt><span><span>node_name1</span></span> [<span><span>node_name2</span></span> ... ]</dt>
+
+<dd>そこからのピア・ドメイン・コマンドを受け付けることができるノードを指定します。 通常、これはピア・ドメインを形成するときに <span><span>mkrpdomain</span></span> コマンドを実行するノードの名前です。 ピア・ドメインに
+追加する時に、これは現在ピア・ドメイン内でオンラインになっているノードのリストです。 ノード名は IP アドレスか、DNS ホスト名の長いものまたは短いものです。 ノード名は IP アドレスに解決する必要があります。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2> <p><span><span>preprpnode</span></span> コマンドのユーザーには、アクセス制御リスト (ACL) ファイルへの書き込み許可が必要です。 許可は ACL ファイルに指定します。 ACL ファイルおよびその変更方法について詳しくは、「<em>
+RSCT: Administration Guide</em>」を参照してください。</p>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に実行されました。</dd>
+
+
+<dt>1</dt>
+
+<dd>RMC 内でエラーが発生しました。</dd>
+
+
+<dt>2</dt>
+
+<dd>コマンド・ライン・インターフェース・スクリプトでエラーが発生しました。</dd>
+
+
+<dt>3</dt>
+
+<dd>コマンド・ラインに指定されたフラグが正しくありません。</dd>
+
+
+<dt>4</dt>
+
+<dd>コマンド・ラインに指定されたパラメーターが正しくありません。</dd>
+
+
+<dt>5</dt>
+
+<dd>コマンド・ライン入力の間違いが原因のエラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>制約事項</h2> <p>このコマンドは、ピア・ドメインに定義されているノードで実行する必要があります。</p>
+</section>
+
+<section><h2>実行の特性</h2> <p>このコマンドは<span>AIX</span>用のReliable Scalable Cluster Technology(RSCT)ファイルセットの一部です。</p>
+</section>
+
+<section><h2>標準入力</h2> <p><span><span>-f
+"-"</span></span> <span>または <span><span>-F "-"</span></span></span> フラグを指定すると、このコマンドは標準入力から 1 つ以上のノード名を読み取ります。</p>
+</section>
+
+<section><h2>標準出力</h2> <p><span><span>-h</span></span> フラグを指定すると、このコマンドの使用状況ステートメントが標準出力に書き込まれます。 詳細メッセージはすべて、標準出力に書き込まれます。</p>
+</section>
+
+<section><h2>標準エラー</h2> <p>トレース・メッセージはすべて、標準エラーに書き込まれます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span><span>mkrpdomain</span></span> が <span><span>nodeA</span></span>から発行されるとします。 新しいピア・ドメイン <span><span>ApplDomain</span></span>に定義する <span><span>nodeB</span></span>、 <span><span>nodeC</span></span>、および <span><span>nodeD</span></span> を準備するには、 <span><span>nodeB</span></span>、 <span><span>nodeC</span></span>、および <span><span>nodeD</span></span>で以下のコマンドを実行します。<div><div><pre><code>preprpnode nodeA</code></pre></div><div></div></div></li>
+
+<li><span><span>nodeA</span></span> および <span><span>nodeB</span></span> が <span><span>ApplDomain</span></span>でオンラインであるとします。 既存のドメインに追加する <span><span>nodeC</span></span> を準備するには、 <span><span>nodeC</span></span>で次のコマンドを実行します。<div><div><pre><code>preprpnode nodeA nodeB</code></pre></div><div></div></div>  <div>あるいは、以下の内容の <span><span>onlineNodes</span></span> というファイルを作成します。<div><div><pre><code>nodeA 
+nodeB</code></pre></div><div></div></div>次に、 <span><span>nodeC</span></span>で次のコマンドを実行します。<div><div><pre><code>preprpnode -f onlineNodes</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>場所</h2> <dl>
+<dt>/opt/rsct/bin/preprpnode</dt>
+
+<dd></dd>
+
+</dl>
+</section>
+
+<section><h2>ファイル</h2> <p>アクセス制御リスト (ACL) ファイル ( <span><span>/var/ct/cfg/ctrmc.acls</span></span> ) が変更されます。 このファイルがない場合は、作成されます。</p>
+</section>
+
+</div></div>

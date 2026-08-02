@@ -1,0 +1,91 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>ネットワーク・デバイス・ドライバー (NDD) に対してコマンドを出します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>nddctl</strong> { <strong>-r</strong> } <em>デバイス</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>nddctl</strong> コマンドにより、ユーザーは実行時に NDD デバイスを
+制御することができます (つまり、ネットワーク接続の中断を伴う、
+デバイス・ドライバーの再構成を行う必要がありません)。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-r</strong></td>
+
+<td>NDD デバイスに対し、実行時にリンク属性 (スピードおよび二重) を再ネゴシエーションするよう強制します。<div><div>
+        <div>
+          <div><span>注:</span> リンクの再ネゴシエーションを強制すると、デバイスのリセットが必要になります。これにより、デバイスの再初期化中にネットワーク接続が失われ、数秒続く可能性があります。</div>
+        </div>
+      </div></div>
+</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>device</em></td>
+
+<td>指定されたコマンドを実行する対象となる NDD デバイスを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>デバイス <code>ent0</code> に対し、実行時にリンク属性を再ネゴシエーションするよう強制するには、
+次のように入力します。<div><div><pre><code>nddctl -r ent0</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ロケーション</h2> <p><strong>/usr/sbin</strong></p>
+</section>
+
+</div></div>

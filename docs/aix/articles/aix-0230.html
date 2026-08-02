@@ -1,0 +1,178 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ファイルに関連付けられたオーナーまたはグループを変更します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>チャウン</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101379" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101385" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101430" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a>] <em>所有者 </em>[ <strong>:</strong><em>グループ </em>] { <em>ファイル ... </em>| <em>ディレクトリー ... </em>}</p>
+ <p><strong>チャウン</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101430" target="_blank" rel="noopener noreferrer"><strong>-R </strong></a> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101379" target="_blank" rel="noopener noreferrer"><strong>「-f」 </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101391" target="_blank" rel="noopener noreferrer"><strong>-H</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101403" target="_blank" rel="noopener noreferrer"><strong>-L (L)</strong></a> | <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chown.html#chown__row-d3e101415" target="_blank" rel="noopener noreferrer"><strong>-P</strong></a> ] <em>所有者 </em>[ <strong>:</strong><em>グループ </em>] { <em>ファイル ... </em>| <em>ディレクトリー ... </em>}</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>chown</strong> コマンドは、<em> File</em> または <span><span>
+Directory</span></span> パラメーターによって指定されたファイルまたはディレクトリーの所有者を、<em>
+Owner</em> パラメーターによって指定されたユーザーに変更します。 <em>Owner</em> パラメーターの値は、ユーザー・データベースからのユーザー名または数字のユーザー ID にすることができます。 オプションで、グループを指定することもできます。 <em>Group</em> パラメーターの値は、グループ・データベースからのグループ名または数字のグループ ID にすることができます。</p>
+ <p>ファイルのオーナーを変更できるのは、root ユーザーだけです。 ファイルのグループを変更できるのは、root ユーザーである場合またはそのファイルを所有している場合だけです。 ファイルを所有していても root ユーザーでない場合は、ユーザーが所属するグループだけ変更できます。</p>
+ <p><strong>-H</strong>、<strong>-L</strong>
+および <strong>-P</strong> フラグは互いに排他的ですが、複数指定してもエラーとはみなされません。 コマンドが表示する動作は、最後に指定したフラグで決定されます。</p>
+ <p>シンボリック・リンクがあった場合にユーザーが <strong>-h</strong> フラグを指定していない場合は、<strong>chown</strong> コマンドはリンクのオーナーではなく、リンクが指し示すファイルまたはディレクトリーのオーナーを変更します。</p>
+ <p><strong>-h</strong> フラグを指定すると、<strong>chown</strong> コマンド
+では逆効果を生じ、リンク自体の所有権を変更しますが、リンクが指しているファイルやディレクトリーの
+所有権は変更しません。</p>
+ <p><strong>-R</strong> フラグを指定すると、<strong>chown</strong> コマンドは指定した一群のディレクトリーを下方に向かって再帰的に処理します。</p>
+ <p><strong>-h</strong> フラグと <strong>-R</strong> フラグの両方を指定する
+と、<strong>chown</strong> コマンドは指定されたディレクトリーを下方に向かって
+再帰的に処理し、シンボリック・リンクが検出されると、リンク自体の所有権は変更されますが、リンクが
+指しているファイルまたはディレクトリーの所有権は変更されません。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong></td>
+
+<td>使用法メッセージを除き、すべてのエラー・メッセージが表示されないようにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td>検出されたシンボリック・リンクが指すファイルまたはディレクトリーの所有権ではなく、そのシンボリック・リンクの所有権を変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-H</strong></td>
+
+<td><strong>-R</strong>
+オプションを指定し、タイプ・ディレクトリーのファイルを参照しているシンボリック・リンクをコマンド・ラインで指定すると、<strong>chown</strong>
+コマンドはシンボリック・リンクが参照しているディレクトリーおよびその下のファイル階層にあるすべてのファイルのユーザー ID
+を (指定されている場合はグループ ID も) 変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-L</strong></td>
+
+<td><strong>-R</strong>
+オプションを指定し、タイプ・ディレクトリーのファイルを参照しているシンボリック・リンクをコマンド・ラインで指定、またはファイル階層の横断中に検出した場合は、<strong>chown</strong>
+コマンドはシンボリック・リンクが参照しているディレクトリーおよびその下のファイル階層にあるすべてのファイルのユーザー ID を (指定されている場合はグループ ID も) 変更します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-P</strong></td>
+
+<td><strong>-R</strong>
+オプションを指定し、シンボリック・リンクをコマンド・ラインで指定、またはファイル階層の横断中に検出した場合、システムがその操作をサポートしていれば、<strong>chown</strong>
+コマンドは、シンボリック・リンクの所有者 ID を (指定されている場合はグループ ID も) 変更します。 <strong>chown</strong>
+コマンドは、ファイル階層のその他のいかなる部分へのシンボリック・リンクにも従いません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-R</strong></td>
+
+<td>ディレクトリーを下方に向かって再帰的に処理し、各ファイルの所有権を変更します。 シンボリック・リンクがあったときに、そのリンクがディレクトリーを指し示す場合、そのディレクトリーの所有権は変更されますが、ディレクトリーはそれ以上処理されません。 <strong>-h</strong>、<strong>-H</strong>、<strong>-L</strong> または <strong>-P</strong>
+フラグも指定されていない場合に、シンボリック・リンクが検出され、そのリンクがあるディレクトリーを指す場合、そのディレクトリーのグループ所有権は変更されるが、ディレクトリーはそれ以上横断されません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>コマンドは正常に実行され、要求された変更はすべて完了しました。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2><p><strong>アクセス制御</strong></p>
+ <p>このプログラムを、トラステッド・コンピューティング・ベースに通常のユーザー・プログラムとしてインストールしてください。</p>
+ <p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>ファイルの所有者を変更するには program.c:  <div> <div><div><pre><code>chown jim program.c</code></pre></div><div></div></div>ユーザー・アクセス許可 program.c現在の適用先 jim所有者としてjim<strong>chmod</strong> コマンドを使用して、他のユーザーのアクセスを許可または拒否できます。program.c. </div>
+</li>
+
+<li><span></span>ディレクトリー内のすべてのファイルの所有者とグループを変更する/tmp/src所有者へjohnおよびグループbuild:<div> <div><div><pre><code>chown -R john:build /tmp/src</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/chown</strong></td>
+
+<td><strong>chown</strong> コマンド</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/group</strong></td>
+
+<td>グループ ID の入っているファイル</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/passwd</strong></td>
+
+<td>ユーザー ID の入っているファイル</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

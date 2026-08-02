@@ -1,0 +1,207 @@
+<div class="official-dom"><div>
+<div></div>
+
+<section><h2>目的</h2> <p>システムでユーザーが実行中のジョブをリストします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>whodo</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whodo.html#whodo__row-d3e20149" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whodo.html#whodo__row-d3e20156" target="_blank" rel="noopener noreferrer"><strong>-l</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whodo.html#whodo__row-d3e20200" target="_blank" rel="noopener noreferrer"><span><span>-X</span></span></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whodo.html#whodo__row-d3e20217" target="_blank" rel="noopener noreferrer"><em>ユーザー</em></a> ]</p>
+</section>
+
+<section><h2>説明</h2> <p>子プロセスだけでなく、その端末用のすべてのプロセスに関する情報を印刷します。</p>
+ <p>デフォルトでは、コマンドがアクティブなログ・ユーザーごとに作成した出力には、
+端末名、ユーザー ID、ログイン日時が含まれます。 先頭には、日付、時間、およびマシン名が出力されます。 この情報の後に、
+そのユーザー ID に関連するアクティブ・プロセスのレコードが続きます。 各レコードには、
+端末名、プロセス ID、使用された CPU 時間 (分と秒) およびプロセス名が含まれます。</p>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-h</strong></td>
+
+<td>出力に印刷される見出しを抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-l</strong></td>
+
+<td>詳細フォームの出力を作成します。 システムの現行アクティビティーの要約が印刷されます。 要約には、下記の内容が含まれます。<dl>
+<dt>ユーザー</dt>
+
+<dd>ログインしているユーザー</dd>
+
+
+<dt>tty</dt>
+
+<dd>ユーザーがオンにしている tty の名前</dd>
+
+
+<dt>login@</dt>
+
+<dd>ユーザーがログインした日時</dd>
+
+
+<dt>アイドル</dt>
+
+<dd>プログラムを最後に端末から読み込もうとしてからの時間 (分)</dd>
+
+
+<dt>JCPU</dt>
+
+<dd>すべてのプロセスとその子が端末上で使用したシステム装置時間</dd>
+
+
+<dt>PCPU</dt>
+
+<dd>現在アクティブなプロセスが使用したシステム装置時間</dd>
+
+
+<dt>what</dt>
+
+<dd>現行プロセスの名前とパラメーター。</dd>
+
+</dl>要約の見出し行には、現在の日時、システムが始動してからの経過時間、および
+そのシステムにログインしたユーザー数が表示されます。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-X</span></span></td>
+
+<td>最初の 8 文字に切り捨てることをせずに、各ユーザー名の使用可能なすべての文字を印刷します。 また、ユーザー名は出力の最後の列に移動されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>User</em></td>
+
+<td>出力を、<em>User</em> で指定したユーザーに関連するすべてのセッションのみに制限します。 <span>
+複数のユーザー名を同時に指定することはできません。</span></td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><strong>whodo</strong> コマンドが、フラグやパラメーターを指定せずに、ホスト "linguist" で起動されると、
+出力は以下のようになります。<div><div><pre><code>Sun Jul 28 16:27:12 2002
+linguist
+
+lft0	jeffg	8:15
+         ?	4136	 0:00	dtlogin
+         ?	3408	 4:55	dtsession
+         ?	2072	 4:37	dtwm
+         ?	17310	 0:00	dtexec
+         ?	20904	 5:53	dtterm
+     pts/0	22454	 0:00	ksh
+     pts/0	4360	 0:07	ksh
+     pts/0	25788	 0:00	whodo
+         ?	23672	 0:00	dtexec
+         ?	27536	 0:00	dtterm
+     pts/3	21508	 0:00	ksh
+         ?	23888	 0:00	dtexec
+         ?	24384	 2:49	dtterm
+     pts/2	24616	 0:00	ksh
+     pts/2	25002	 0:04	ksh
+     pts/2	26110	 0:00	ksh
+         ?	25276	 0:00	dtexec
+         ?	27090	 0:31	dtterm
+     pts/1	24232	 0:00	ksh
+     pts/1	23316	 0:01	ksh
+         ?	12566	 4:23	dtfile
+         ?	21458	 1:35	dtfile
+
+pts/0	jeffg	8:16
+     pts/0	22454	 0:00	ksh
+     pts/0	4360	 0:07	ksh
+     pts/0	25788	 0:00	whodo
+
+pts/1	jeffg	17:8
+     pts/1	24232	 0:00	ksh
+     pts/1	23316	 0:01	ksh
+
+pts/2	jeffg	17:20
+     pts/2	24616	 0:00	ksh
+     pts/2	25002	 0:04	ksh
+     pts/2	26110	 0:00	ksh
+
+pts/3	root	16:26
+     pts/3	21508	 0:00	ksh</code></pre></div><div></div></div></li>
+
+<li>ホスト言語リストでコマンド <span><span>whodo -l</span></span> を実行すると、以下の出力が生成されます。<div><div><pre><code>  04:33PM   up 20 day(s), 22 hr(s), 51 mins(s)  5 user(s)
+User     tty          login@       idle      JCPU      PCPU what
+jeffg    lft0        08Jul02   21day(s)                     /usr/sbin/getty /de
+jeffg    pts/0       08Jul02                14:00         7 whodo -l 
+jeffg    pts/1       16Jul02   10day(s)        44         9 /usr/bin/ksh 
+jeffg    pts/2       12Jul02         11      8:39         4 /usr/bin/ksh 
+root     pts/3       04:26PM          7                     -ksh </code></pre></div><div></div></div></li>
+
+<li>ホスト kq11 でコマンド <span><span>whodo -lX</span></span> を実行すると、以下の出力が生成されます。<div><div><pre><code>  12:50AM   up 3 day(s),  1 hr(s), 41 mins(s)  4 user(s)
+ tty          login@       idle      JCPU      PCPU what             User
+ tty0        Wed11PM    2day(s)                     -ksh             root
+ pts/0       12:12AM                                tn 0             root
+ pts/1       12:20AM                                whodo -lX        long_username_greater_than_eight_characters
+ pts/2       Fri05AM    2day(s)                     -ksh             root
+</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/whodo</strong></td>
+
+<td><strong>whodo</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/utmp</strong></td>
+
+<td>ユーザーのリストが入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

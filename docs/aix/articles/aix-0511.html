@@ -1,0 +1,708 @@
+<div class="official-dom"><div>
+<div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-分析_asm_csects</strong></td>
+
+<td>アセンブリーで書かれた csects を分析します (使用するときは、-1 および -3 フェーズの両方で指定する必要があります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エクストラセーフ分析</strong></td>
+
+<td>手書きアセンブリー・コードを含む非標準 csects の分析を試みません (使用するときは、-1 および -3 フェーズの両方で指定する必要があります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-無視情報</strong></td>
+
+<td>コンパイル時に <strong>-qfdpr</strong> オプションを使用して作成された <strong>.info</strong> セクションを無視します (使用するときは、-1 および -3 フェーズの両方で指定する必要があります)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-align </strong><em>バイト</em></td>
+
+<td>頻繁に実行されるコードを、指定されたバイト数に基づいて位置合わせをします。これは、コード・プリフェッチ・バッファー率を改善することが目的です。 このオプションを省略すると、<strong>fdpr</strong> コマンドは、変数のデフォルト・バイト数を使用してコードの位置合わせを行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-lr_opt</strong></td>
+
+<td>頻繁に実行されるプロシージャー内のリンク・レジスターの保管と復元を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-bt_csect_anchor_removal</strong></td>
+
+<td>コードに含まれるブランチ・テーブルの使用に関連したロード命令を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-デッドコード除去</strong></td>
+
+<td>到達不能コードを除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-選択的インライン</strong></td>
+
+<td>単一ドメイン呼び出しサイトから頻繁に呼び出される関数について、選択的インライン化を行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>-sid_装甲</strong> <em>パーセント</em></td>
+
+<td>選択的インライン最適化における支配ファクターとしてパーセンテージを設定します。 可能な範囲は、50 から 100 です (<strong>-selective_inline</strong> フラグを使用する場合のみ適用可能)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-inline_small_funcs</strong> <em>サイズ</em></td>
+
+<td>バイト数で指定されたサイズより小さいか等しいすべての関数をインライン化します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-inline_hot_funcs</strong> <em>パーセント</em></td>
+
+<td>指定されたパーセンテージより実行頻度が大きいか等しいすべての関数をインライン化します。 入力できるパーセント範囲は、0 から 100 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-インライン</strong></td>
+
+<td><strong>-selective_inline</strong> を使用して <strong>-inline_small_funcs 12</strong> を実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-hco_resched (Hco_resched)</strong></td>
+
+<td>頻繁に実行されるコードの命令を、まれにしか実行されないコード域に再配置します (可能な場合)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-dcbt_opt</strong></td>
+
+<td><strong>dcbt</strong> 命令を挿入してデータ・キャッシュのパフォーマンスを改善します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-キルドレッグス</strong></td>
+
+<td>頻繁に実行される関数呼び出しの後に<em>終了させられる</em> (上書きされる) レジスターの保管および復元を除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-TB</strong></td>
+
+<td>リオーダーされたコードでトレースバック・テーブルを再構成させます。 <strong>-tb</strong> オプションを省略すると、Try &amp; Catch メカニズムを使用する C++ アプリケーションでは、トレースバック・テーブルが自動的に復元されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ピーシー</strong></td>
+
+<td>リオーダーされたコードで CSECT の境界を保持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-頁</strong></td>
+
+<td>リオーダーされたコードで関数の境界を保持します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-RD</strong></td>
+
+<td>静的データのリオーダーを実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-dpnf</strong> <em>係数</em></td>
+
+<td>データ配置正規化要因 (0 または 1)。0 を設定すると静的変数がそのサイズに無関係にリオーダーされ、1 を設定するとサイズの小さい変数から配置されます (<strong>-RD</strong> フラグを使用する場合のみ適用可能)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-dpht</strong> <em>しきい値</em></td>
+
+<td>データ配置頻度しきい値 (0 または 1)。0 を設定すると静的変数が制御フローに基づいて大規模グループにリオーダーされ、1 を設定すると変数はそれぞれのアクセス頻度に基づいて非常に小規模のグループにリオーダーされます (<strong>
+-RD</strong> フラグを使用する場合のみ適用可能)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ビルド</strong></td>
+
+<td>拡張データ・リオーダー用の DCG (データ接続性グラフ) を作成します (<strong>-RD</strong> フラグ使用する場合のみ適用可能)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-トクロード</strong></td>
+
+<td>tocload 最適化を実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-reduce_toc</strong><em> 除去係数</em></td>
+
+<td>除去ファクター (0 または 1) に基づいて、TOC エントリーの除去を実行します。0 を設定すると非アクセス TOC エントリーのみ除去され、1 を設定するとすべての非エクスポート TOC エントリーが除去されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ストリップ</strong></td>
+
+<td>出力ファイルをストリップします (作成されたものがある場合)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ptrgl_opt</strong></td>
+
+<td>レジスターを介した間接呼び出し命令を直接ジャンプと置き換えることによって、最適化します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-no_ptrgl_r11</strong></td>
+
+<td>_ptrgl CSECT の R11 ロード命令の除去を実行しません (デフォルトで <strong>-ptrgl_r11</strong> 最適化が適用されます)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O</strong></td>
+
+<td>ブランチ予測ビットの設定、ブランチの折り畳み、および NOOP 命令の除去を行ってコードのリオーダーを実行します。 デフォルトで <strong>-O</strong> フラグが適用されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O2</strong></td>
+
+<td>アグレッシブでないすべての最適化フラグをオンにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O3</strong></td>
+
+<td>アグレッシブなすべての最適化フラグをオンにします。</td>
+
+</tr>
+
+<tr>
+<td><strong>-O4</strong></td>
+
+<td>アグレッシブなすべての最適化フラグをオンにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+
+<section><h2>目的</h2> <p>ユーザー・レベルのリンク後アプリケーション・プログラムの実行時間と実メモリーの使用率を改善するためのパフォーマンス調整ユーティリティー。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>最も一般的な使用方法: </strong></p>
+ <p><strong>fdpr</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103879" target="_blank" rel="noopener noreferrer"><strong>-p</strong> <em>ProgramFile</em></a> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103959" target="_blank" rel="noopener noreferrer"><strong>-x</strong></a><em>WorkloadCommand</em></p>
+<p><strong>詳細な使用法: </strong></p>
+ <p><strong>fdpr</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103879" target="_blank" rel="noopener noreferrer"><strong>-p</strong> <em>ProgramFile</em></a>[<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103829" target="_blank" rel="noopener noreferrer"><strong>-M</strong> <em>SegNum</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103852" target="_blank" rel="noopener noreferrer"><strong>-fd</strong></a> <em>Fdesc</em>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103867" target="_blank" rel="noopener noreferrer"><strong>-o</strong> <em>OutputFile</em></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103887" target="_blank" rel="noopener noreferrer"><strong>-armember</strong> <em>ArchiveMemberList</em></a>] [OptimizationFlags] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103901" target="_blank" rel="noopener noreferrer"><strong>-map</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103910" target="_blank" rel="noopener noreferrer"><strong>-disasm</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103919" target="_blank" rel="noopener noreferrer"><strong>-disasm_data</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103928" target="_blank" rel="noopener noreferrer"><strong>-disasm_bss</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103937" target="_blank" rel="noopener noreferrer"><strong>-profcount</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103947" target="_blank" rel="noopener noreferrer"><strong>-quiet</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103953" target="_blank" rel="noopener noreferrer"><strong>-v</strong></a>] [<strong>-1 |-2</strong>|<strong>-3 | -12</strong>|<strong>-23 | -123</strong>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103959" target="_blank" rel="noopener noreferrer"><strong>-x</strong> <em>WorkloadCommand</em></a></p>
+<p><strong>最適化フラグ</strong></p>
+ <p>[ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104117" target="_blank" rel="noopener noreferrer"><strong>-tb (T)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104126" target="_blank" rel="noopener noreferrer"><strong>-PC</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104132" target="_blank" rel="noopener noreferrer"><strong>-pp (P)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104217" target="_blank" rel="noopener noreferrer"><strong>-O (O)</strong></a> ][ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104227" target="_blank" rel="noopener noreferrer"><strong>-O2</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104233" target="_blank" rel="noopener noreferrer"><strong>-O3</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104239" target="_blank" rel="noopener noreferrer"><strong>-O4</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104044" target="_blank" rel="noopener noreferrer"><strong>-selective_inline</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104050" target="_blank" rel="noopener noreferrer"><strong>-シドファック</strong> <em>パーセント</em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104062" target="_blank" rel="noopener noreferrer"><strong>-inline_small_funcs</strong> <em>サイズ</em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104071" target="_blank" rel="noopener noreferrer"><strong>-inline_hot_funcs</strong> <em>パーセント</em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104093" target="_blank" rel="noopener noreferrer"><strong>Hco_resched (再送信)</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104108" target="_blank" rel="noopener noreferrer"><strong>-killed_regs (K)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104026" target="_blank" rel="noopener noreferrer"><strong>-lr_opt</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104015" target="_blank" rel="noopener noreferrer"><strong>-位置合わせ</strong> <em>バイト数</em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104138" target="_blank" rel="noopener noreferrer"><strong>-RD (R)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104144" target="_blank" rel="noopener noreferrer"><strong>-dpnf</strong> <em>因子</em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104156" target="_blank" rel="noopener noreferrer"><strong>-dpht (D)</strong> <em>しきい値</em></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104168" target="_blank" rel="noopener noreferrer"><strong>-build_dcg</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104179" target="_blank" rel="noopener noreferrer"><strong>-トクロアド</strong></a> ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104201" target="_blank" rel="noopener noreferrer"><strong>-ptrgl_opt</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104207" target="_blank" rel="noopener noreferrer"><strong>-no_ptrgl_r11</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104099" target="_blank" rel="noopener noreferrer"><strong>-dcbt_OPT</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104003" target="_blank" rel="noopener noreferrer"><strong>-ignore_info</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104038" target="_blank" rel="noopener noreferrer"><strong>-dead_code_removal</strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104032" target="_blank" rel="noopener noreferrer"><strong>-bt_csect_anchor_removal</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104194" target="_blank" rel="noopener noreferrer"><strong> -ストリップ</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103991" target="_blank" rel="noopener noreferrer"><strong>-analyse_asm_csects</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e103997" target="_blank" rel="noopener noreferrer"><strong>-extra_safe_analysis</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104081" target="_blank" rel="noopener noreferrer"><strong>-インライン</strong></a>] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/f_commands/fdpr.html#fdpr__row-d3e104185" target="_blank" rel="noopener noreferrer"><strong>-reduce_toc</strong> <em>リモート係数</em></a>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>fdpr</strong> コマンド (Feedback Directed Program Restructuring) は、ユーザー・レベルのアプリケーション・プログラムの実行時間と実メモリーの使用率の改良を促進できるパフォーマンス調整ユーティリティーです。 <strong>fdpr</strong> プログラムは、一般的なワークロードでプログラムを使用している
+間にそのプログラムの動作に関する情報を収集することによって、プログラムの実行可能イメージ
+を最適化してから、そのワークロードに対して最適化された新しいバージョンのプログラム
+を作成します。 <strong>fdpr</strong> によって新しく作成されるプログラムは、一般に以前よりも実行が速く、実メモリーの使用量が減少します。</p>
+ <div><div>
+        <div>
+          <div><span>重要:</span> <strong>fdpr</strong> コマンドは、拡張最適化手法をプログラムに適用します。その結果、プログラムが予期したとおりに動作しなくなる可能性があります。このツールを使用して最適化されたプログラムは十分に注意して使用する必要があり、少なくとも以下を使用して厳密に再テストする必要があります。 予期される機能を検証するために元のプログラムをテストするのに使用されたものと同じテスト・スイート。 最適化されたプログラムはサポートされません。</div>
+        </div>
+      </div></div>
+ <p><strong>fdpr</strong> コマンドは、最適化実行可能プログラムを次の 3 つのフェーズで作成します。</p>
+ <ul>
+<li>フェーズ 1 (<strong>-1</strong> フラグ): インスツルメント実行可能プログラムと空のテンプレート・プロファイル・ファイルを作成します。</li>
+
+<li>フェーズ 2 (<strong>-2</strong> フラグ): インスツルメント・プログラムを実行してプロファイル・データを更新します。</li>
+
+<li>フェーズ 3 (<strong>-3</strong> フラグ): 最適化実行可能プログラム・ファイルを生成します。</li>
+
+</ul>
+ <div>この 3 つのフェーズは、別々に実行したり、部分的にまたはすべてを組み合わせて実行できますが、
+順番どおりに (つまり、<strong>-1</strong>、<strong>-2</strong>、
+<strong>-3</strong> の順、または <strong>-12</strong>、
+<strong>-3</strong> の順に) 実行する必要があります。 デフォルトの設定では、3 つのフェーズすべてが実行されます。<div><div>
+        <div>
+          <div><span>注:</span> フェーズ 1 で作成され、フェーズ 2 で実行されるインスツルメンテーションされた実行可能プログラムは、通常、元のプログラムの数倍の速度で実行されます。 インスツルメント化プログラムに必要な実行時間が増えるため、実行可能プログラムは実行時間を最小限に抑えるような方法で起動する必要がありますが、必要なコード領域は従来通り完全に実行されます。 また、<strong>fdpr</strong> コマンドのユーザーは、プログラムの時間に左右される部分をできる限りなくすようにしてください。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-1</strong>、<strong>-2</strong>、 <strong>-3</strong></td>
+
+<td>実行するフェーズを指定します。 デフォルトの設定は 3 つのフェーズすべて (<strong>-123</strong>) です。 各フェーズを別個に実行する場合は、連続するフェーズが必要な中間ファイルにアクセスできるように、<strong>-s</strong> フラグを使用する必要があります。 各フェーズは順番通りに (例えば、<strong>-1</strong>、<strong>-2</strong>、<strong>-3</strong> の順、または <strong>-1</strong>、<strong>-23</strong> の順で)、実行されなければなりません。 <strong>-2</strong> のフラグは、<strong>-x</strong> の起動フラグと一緒に
+使用する必要があります。</td>
+
+</tr>
+
+<tr>
+<td><strong>-M</strong><em> SegNum</em></td>
+
+<td>プロファイルを作成するために共有メモリーのマップ先を指定します。 デフォルトは <strong>0x30000000</strong>です。 最適化されるプログラム、または <strong>-x</strong> フラグで起動される
+ワークロード・コマンド文字列によって、競合する共有メモリー・アドレスが使用される場合は、
+代替共有メモリー・アドレスを指定します。 標準的な代替値は、 <strong>0x40000000</strong>、 <strong>0x50000000</strong>、... です。 最大 <strong>0xC0000000</strong>)。</td>
+
+</tr>
+
+<tr>
+<td><strong>-エフディー</strong> <em>フデスク</em></td>
+
+<td>上記の共有メモリー領域にマップする<strong>プロファイル</strong>・ファイル
+に対し、どのファイル・ディスクリプター番号を使用するかを指定します。 <em>Fdesc</em> の
+デフォルトは 1999 に設定されています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-o</strong><em> OutFile</em></td>
+
+<td>最適化プログラムからの出力ファイルの名前を指定します。 デフォルトは、<em>program</em><strong>.fdpr</strong> です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong><em> ProgramFile</em></td>
+
+<td>最適化の対象となる、実行可能プログラム・ファイルの名前、あるいは、
+共有オブジェクト/実行可能プログラムが入っている共有オブジェクト・ファイル、
+または共有ライブラリーの名前が入ります。 このプログラムは、ストリップされていない実行可能プログラムでなければなりません。</td>
+
+</tr>
+
+<tr>
+<td><strong>-アームメンバー</strong><em> ArchiveMemberList</em></td>
+
+<td><strong>-p</strong> フラグで指定した共有アーカイブ・ファイル内の、最適化するアーカイブ・メンバーのリスト。 <strong>-armember</strong> が指定されていない場合は、アーカイブ・ファイルのすべてのメンバーが最適化されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-マップ</strong></td>
+
+<td>それぞれの古いアドレス -&gt; 新規アドレスをもつ基本ブロックと静的変数のマップを、
+サフィックスが <strong>.mapper</strong> のファイルに出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-われめ</strong></td>
+
+<td>出力の最適化インスツルメント・プログラムの逆アセンブルされたテキスト・セクションを、
+サフィックスが <strong>.dis_text</strong> のファイルに出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-disasm_data。</strong></td>
+
+<td>出力の最適化インスツルメント・プログラムの逆アセンブルされたデータ・セクションを、サフィックスが <strong>.dis_data</strong> のファイルに出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-disasm_bssさん</strong></td>
+
+<td>出力の最適化インスツルメント・プログラムの逆アセンブルされた bss セクションを、サフィックスが <strong>.dis_bss</strong> のファイルに出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-プロファイル・カウント</strong></td>
+
+<td>プロファイル作成カウンターを、サフィックスが <strong>.ncounts</strong> のファイルに出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-quiet</strong></td>
+
+<td>quiet 出力モード。</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>詳細出力。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong> <em>WorkloadCommand</em></td>
+
+<td>インスツルメント化プログラムの起動に使用するコマンドを指定します。 <strong>-x</strong> フラグの後のすべての引数は、起動のために使用されます。 したがって、<strong>-x</strong> フラグはコマンド・ラインの最後になければなりません。 <strong>-2</strong> フラグを使用するときは、<strong>-x</strong> フラグが必要になります。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>最適化フラグ</h2></section>
+
+<section><h2>最適化</h2> <p><strong>fdpr</strong> コマンドは、ブランチ予測ビットの設定、ブランチの折り畳み、コードの位置合わせ、および冗長 NOOP 命令の除去という最適化とともに、最大限レベルのコード・リオーダー最適化をデフォルトで実行します。 <strong>-pc</strong> フラグは、CSECT の境界を維持しながらコード全体をリオーダーするため、デフォルトのコード・リオーダーに比べ、パフォーマンスの改善度が小さくなる場合があります。 同様に <strong>-pp</strong> フラグも、プロシージャーの境界を維持しながらコード全体を
+リオーダーします。</p>
+ <p>実行可能プログラム・ファイル全体への追加最適化も、上記の最適化フラグを使用して行うことができます。</p>
+ <p><strong>qfdpr</strong> <span>IBM</span>xlコンパイラー・フラグでビルドされた実行ファイルには、<strong>fdpr</strong>が並び替えられたプログラムを生成するのに役立つ情報が含まれている。 <strong>
+-qfdpr</strong> オプションを使用してコンパイルされなかったモジュールは、記号テーブル内の
+コンパイラー・シグニチャーに基づいてリオーダーされます。</p>
+ <p>リオーダーするプログラムを作成するときに、静的リンクを使用すると、
+さらにパフォーマンスを高めることができます。 <strong>fdpr</strong> プログラムでは
+指定した実行可能プログラム内の命令がリオーダーされるだけなので、プログラムによって
+呼び出される動的にリンクされた共有ライブラリー・ルーチンは最適化されません。 これらのライブラリー・ルーチンを実行可能プログラムに静的にリンクすると、
+プログラム内の命令とプログラムに使用されるすべてのライブラリー・ルーチンを
+最適化することができます。 静的にリンクされるプログラムを構築する方法には、このほかにも長所と短所があります。</p>
+</section>
+
+<section><h2>出力ファイル</h2> <p><strong>fdpr</strong> コマンドによって作成されるすべてのファイルは、
+<strong>-x</strong> フラグで指定したワークロード・コマンドを実行して作成される
+ファイルを除き、現行ディレクトリーに保管されます。 最適化プロセスの間に、オリジナル・プログラムは名称変更されて保存され、最終フェーズが完了するとオリジナル・プログラム名に復元されるだけです。</p>
+ <p>プログラムを実行するためのスクリプトによって、プログラムの実行前に作業ディレクトリー
+が変更されることがあるので、<strong>fdpr</strong> コマンドによって作成される
+プロファイル・ファイルでは、現行ディレクトリーの完全な名前が明示的に使用されます。</p>
+ <p><strong>fdpr</strong> コマンドによって作成または使用される
+ファイルは次のとおりです。</p>
+ 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>プログラム</em></td>
+
+<td>最適化されるストリップされていない実行可能プログラムの名前。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.save</strong></td>
+
+<td>オリジナルの実行可能プログラムの保管バージョン。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.nprof</strong></td>
+
+<td>プロファイルのファイル名。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr</strong></td>
+
+<td>プログラムのインスツルメント化バージョンの名前。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr</strong></td>
+
+<td>最適化された実行可能出力ファイルのデフォルト名。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.dis_text</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-disasm</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.dis_text</strong></td>
+
+<td>最適化フェーズ後に <strong>-disasm</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.dis_data</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-disasm_data</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.dis_data</strong></td>
+
+<td>最適化フェーズ後に <strong>-disasm_data</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.dis_bss</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-disasm_bss</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.dis_bss</strong></td>
+
+<td>最適化フェーズ後に <strong>-disasm_bss</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.mapper</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-map</strong> フラグによって作成されたデフォルトの ASCII フォーマットのマッピング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.mapper</strong></td>
+
+<td>最適化フェーズ後に <strong>-map</strong> フラグによって作成されたデフォルトの ASCII フォーマットのマッピング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.ncounts</strong></td>
+
+<td><strong>-profcount</strong> フラグによって作成されたデフォルトの ASCII フォーマットのプロファイル・カウンター・ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>拡張デバッグ機能</h2> <p>最適化されたプログラムに対してある程度のデバッグ機能を有効にするために、 <strong>FDPR</strong> は、 <strong>.text</strong> セクションで行われた変更を反映するようにシンボル・テーブルを更新します。</p>
+ <p><strong>FDPR</strong>の再配列中に再配置されたシンボルのアドレスを指定するシンボル・テーブル内の入力フィールドは、 <strong>.text</strong> セクション内の新しいアドレスを指すように変更されます。</p>
+ <p>さらに、再配列中に関数またはファイルが分割される場合、 <strong>FDPR</strong> は、分割された関数/ファイルの新しい部分ごとに、シンボル・テーブルに新しいエントリーを作成します。 同じ機能のこのような新規部分には、以下の命名規則に従って、記号テーブル内の新しいシンボル名が付けられます。</p>
+ <div> <div><div><pre><code>&lt;original function name&gt;__fdpr_&lt;function's part number&gt;</code></pre></div><div></div></div></div>
+ <p>コードのリオーダー後、すべての新規エントリーに接尾辞として <code>__fdpr_</code> 文字列が付けられます。</p>
+ <div>例: 機能「main」は、もともとは記号テーブルに次のエントリーを持っていました。<div><div><pre><code>  [Index] m   Value       Scn     Aux   Sclass    Type    Name
+   [456]  m  0x00000230    2       1     0x02    0x0000   .main
+</code></pre></div><div></div></div></div>
+ <div>コードのリオーダー後に機能 <code>main</code> が 3 分割されると、この機能は、次のように、記号テーブル内に 3 エントリー (分割された部分ごとに 1 つずつ) を持つことになります。<div><div><pre><code>  [Index] m   Value       Scn     Aux   Sclass    Type    Name
+   [456]  m  0x00000304    2       1     0x02    0x0000   .main
+  [1447]  m  0x00003328    2       1     0x02    0x0000   .main__fdpr_1
+  [1453]  m  0x000033b4    2       1     0x02    0x0000   .main__fdpr_2
+</code></pre></div><div></div></div></div>
+</section>
+
+<section><h2>例</h2> <p>次の各例は、<strong>fdpr</strong> コマンドの典型的な使用方法です。</p>
+ <ol>
+<li>この例では、3 つのフェーズをすべて実行できます。 この例では以下のようにします。test1ストリップされていない実行可能ファイルです。test2呼び出すシェル・スクリプトです。test1現行作業ディレクトリーは<strong> /tmp/fdpr</strong>です。<div> <div><div><pre><code>test2 script file:
+
+# code to exercise test1
+test1 -expand 100 -root $PATH file.jpg -quit
+# the end of test2</code></pre></div><div></div></div><strong>fdpr</strong> コマンドを (デフォルトの最適化を使用して) 次のように
+実行します。<div><div><pre><code>fdpr -p test1 -x test2</code></pre></div><div></div></div>これにより、
+新たにリオーダーされた実行可能ファイル <strong>test1.fdpr</strong> が生成されます。</div>
+</li>
+
+<li>各フェーズを一度に 1 つずつ実行するには、<strong>fdpr</strong> のフェーズ 1 を
+実行します。<div> <div><div><pre><code>fdpr -1 -p test1</code></pre></div><div></div></div>このコマンド文字列は、<code>test1.instr</code> という名前のインスツルメント化バージョンと、空のテンプレート・プロファイル・ファイル <code>test1.nprof</code> を作成します。</div>
+ <p>フェーズ 2 を実行するには、次のように入力します。</p>
+ <div> <div><div><pre><code>fdpr -2 -p test1 -x test2</code></pre></div><div></div></div>このコマンド・ストリングは、スクリプト・ファイルを実行します。test2トレース/アニメーション設定されたバージョンを実行するtest1プロファイル・データを収集します。</div>
+  <p>フェーズ 3 を実行するには、次のように入力します。</p>
+  <div> <div><div><pre><code>fdpr -3 -p test1</code></pre></div><div></div></div>これにより、もう一度、新たにリオーダーされた
+実行可能ファイル <strong>test1.fdpr</strong> が生成されます。</div>
+</li>
+
+<li>最初の 2 つのフェーズに続けてフェーズ 3 を実行するには、次のように、フェーズ 1 と 2 を実行します。<div> <div><div><pre><code>fdpr -12 -p test1 -x test2</code></pre></div><div></div></div>フェーズ 3 を最適化レベル 3 で実行します。<div><div><pre><code>fdpr -3 -O3 -p test1</code></pre></div><div></div></div></div>
+</li>
+
+<li><strong>fdpr</strong> 最適化プログラムを実行中にエラーが発生した場合は、<strong>dbx</strong> コマンドを次のように使用して、どのプロシージャーでエラーが発生したかを判別できます。<div> <div><div><pre><code>dbx program.fdpr</code></pre></div><div></div></div>これにより、次のような出力が作成されます。<div><div><pre><code>Type 'help' for help.
+reading symbolic information ...warning: no source compiled with -g
+ 
+[using memory image in core]
+ 
+Segmentation fault in proc_d at 0x10000634
+0x10000634 (???) 98640000        stb   r3,0x0(r4)
+(dbx)</code></pre></div><div></div></div> </div>
+  <p>スタック・トレースバックは、プログラムが現行位置にどのように到着したかを判別するために使用するもので、次のように作成します。</p>
+  <div> <div><div><pre><code>(dbx) where</code></pre></div><div></div></div>これにより、次のような出力が生成されます。<div><div><pre><code>proc_d(0x0) at 0x10000634
+proc_c(0x0) at 0x10000604
+proc_b(0x0) at 0x100005d0
+proc_a(0x0) at 0x1000059c
+main(0x2, 0x2ff7fba4) at 0x1000055c
+(dbx)</code></pre></div><div></div></div></div>
+</li>
+
+<li>また、<strong>dbx</strong> サブコマンド <strong>stepi</strong> を使用すると、
+リオーダー後の実行可能プログラムの命令を次のように 1 つのステップでたどることができます。<div> <div><div><pre><code>(dbx) stepi</code></pre></div><div></div></div>これにより、次のような出力が生成されます。<div><div><pre><code>stopped in proc_d at 0x1000061c
+0x1000061c (???) 9421ffc0       stwu   r1,-64(r1)
+(dbx)</code></pre></div><div></div></div>この例では、 <strong>dbx</strong> は、プログラムがルーチン内で停止したことを示します。proc_dアドレス0x1000061c再配列されたテキスト・セクションに表示されます。</div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>実行の特性</h2> <p>ソフトウェア製品/オプション：<em><span>AIX</span>Performance Aide/ Local Performance Analysis &amp; Control Commands</em>。</p>
+ <p>標準準拠: なし。</p>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/fdpr</strong></td>
+
+<td><strong>fdpr</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em></td>
+
+<td>最適化されるストリップされていない実行可能プログラムの名前。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.save</strong></td>
+
+<td>オリジナルの実行可能プログラムの保管バージョン。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.nprof</strong></td>
+
+<td>プロファイルのファイル名。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr</strong></td>
+
+<td>プログラムのインスツルメント化バージョンの名前。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr</strong></td>
+
+<td>最適化された実行可能出力ファイルのデフォルト名。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.dis_text</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-disasm</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.dis_text</strong></td>
+
+<td>最適化フェーズ後に <strong>-disasm</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.dis_data</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-disasm_data</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.dis_data</strong></td>
+
+<td>最適化フェーズ後に <strong>-disasm_data</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.dis_bss</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-disasm_bss</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.dis_bss</strong></td>
+
+<td>最適化フェーズ後に <strong>-disasm_bss</strong> フラグによって作成されたデフォルトの ASCII フォーマットの逆アセンブリー・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.instr.mapper</strong></td>
+
+<td>インスツルメント・フェーズ後に <strong>-map</strong> フラグによって作成されたデフォルトの ASCII フォーマットのマッピング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.fdpr.mapper</strong></td>
+
+<td>最適化フェーズ後に <strong>-map</strong> フラグによって作成されたデフォルトの ASCII フォーマットのマッピング・ファイル。</td>
+
+</tr>
+
+<tr>
+<td><em>プログラム</em><strong>.ncounts</strong></td>
+
+<td><strong>-profcount</strong> フラグによって作成されたデフォルトの ASCII フォーマットのプロファイル・カウンター・ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

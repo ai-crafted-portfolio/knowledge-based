@@ -1,0 +1,82 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>ディスク使用アカウンティングを開始します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>/usr/sbin/acct/dodisk</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dodisk.html#dodisk__row-d3e43233" target="_blank" rel="noopener noreferrer"><strong>-X</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dodisk.html#dodisk__row-d3e43221" target="_blank" rel="noopener noreferrer"><strong>-o </strong></a>] [ <em>ファイル ... </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dodisk</strong> コマンドは、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/diskusg.html#diskusg" target="_blank" rel="noopener noreferrer"><strong>diskusg</strong></a> コマンドと <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctdisk.html" target="_blank" rel="noopener noreferrer"><strong>acctdisk</strong></a> コマンドを呼び出すことによって、ディスク使用アカウンティングを開始します。 <strong>-o</strong> フラグを <strong>dodisk</strong> コマンドと一緒に指定すると、 <a href="https://www.ibm.com/docs/ja/ssw_aix_73/a_commands/acctdisk.html" target="_blank" rel="noopener noreferrer"><strong>acctdusg</strong></a> コマンドを使用して、ログイン・ディレクトリーによるディスク・アカウンティングのより徹底的で低速のバージョンが開始されます。 通常、<strong>cron</strong> デーモンが <strong>dodisk</strong> コマンドを実行します。</p>
+ <p><strong>dodisk</strong> コマンドは、デフォルトでは、属性 <strong>account=true</strong> が入っている <strong> /etc/filesystems</strong> ファイル内にスタンザを持つ指定ファイルについてのみディスク・アカウンティングを行います。 <em>File</em> パラメーターでファイル名を指定すると、それらのファイルについてのみディスク・アカウンティングが行われます。</p>
+ <p><strong>-o</strong> フラグを指定しない場合、<em>File</em> パラメーターにはマウント可能なファイルシステムのスペシャル・ファイル名を入れる必要があります。 <strong>-o</strong> フラグと <em>File</em> パラメーターの両方を指定した場合、それらのファイルはマウントされたファイルシステムのマウント・ポイントでなければなりません。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> 分散環境の複数のノード間でアカウント・ファイルを共有してはなりません。 各ノードに、いろいろなアカウント・ファイルの独自のコピーがなくてはなりません。</div>
+        </div>
+      </div></div>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong> -o</strong></td>
+
+<td><strong>diskusg</strong> コマンドではなく <strong>acctdusg</strong> コマンドを呼び出して、ログイン・ディレクトリー別のディスク・アカウンティングを開始します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-X</strong></td>
+
+<td>各ユーザー名は、最初の 8 文字に切り捨てられずに、使用可能なすべての文字が処理されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <p>アクセス制御: このコマンドは、<strong>adm</strong> グループのメンバーのみに実行 (x) アクセス権限を与えます。</p>
+</section>
+
+<section><h2>例</h2> <ol>
+<li>自動ディスク使用アカウンティングを始動するには、<strong>/var/spool/cron/crontabs/root </strong>ファイルに次のように追加します。<div><div><pre><code>0 2 * * 4 /usr/sbin/acct/dodisk </code></pre></div><div></div></div>この例は、<strong>cron</strong> デーモンが読み取って実行する命令を示しています。 <strong>dodisk</strong> コマンドは、2 a.mに実行されます。(0 2) 毎木曜日 (4)。 このコマンドは、通常 <strong>cron</strong> デーモンに与えられるアカウンティング命令の 1 つにすぎません。 標準的な <strong>cron</strong> アカウンティング項目について詳しくは、「 <span><em>オペレーティング・システムおよびデバイス管理</em></span> 」の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/osmanagement/accounting_setup.htm" target="_blank" rel="noopener noreferrer">「アカウンティング・システムのセットアップ」</a> を参照してください。</li>
+
+<li>8 文字より長いユーザー名のシステムでディスク使用アカウンティングを実行するには、
+<strong>/var/spool/cron/crontabs/root</strong> ファイルに次の行を追加します。<div><div><pre><code>0 2 * * 4 /usr/sbin/acct/dodisk -X</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/sbin/acct</strong></td>
+
+<td>アカウンティング・コマンドへのパス。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>ファイルシステムに関する情報が入っています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

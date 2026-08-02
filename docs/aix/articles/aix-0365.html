@@ -1,0 +1,139 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>マウントされたリソースの情報を表示します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>dfmounts</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dfmounts.html#dfmounts__row-d3e24547" target="_blank" rel="noopener noreferrer"><strong>-F</strong></a> <em>fstype</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dfmounts.html#dfmounts__row-d3e24559" target="_blank" rel="noopener noreferrer"><strong>-h</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/d_commands/dfmounts.html#dfmounts__row-d3e24579" target="_blank" rel="noopener noreferrer"><em>サーバー</em></a> ...]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>dfmounts</strong> コマンドは、ネットワーク・ファイルシステム (NFS) を介して
+クライアントによってリモート側でマウントされたローカル・システムを印刷します。 また、リソースをマウントしたクライアントのリストも出力します。 <strong>dfmounts</strong> コマンドは、ヘッダーと、フィールド内でその後に続く、空白文字で区切られたリソース情報のリストを出力します。</p>
+ <div>各リソースについて、次のフィールドが表示されます。<dl>
+<dt>RESOURCE</dt>
+
+<dd>NFS については、ハイフン (-) でマークされています。</dd>
+
+
+<dt>SERVER</dt>
+
+<dd>リソースがマウントされていたマシンを示します。</dd>
+
+
+<dt>PATHNAME</dt>
+
+<dd>共有リソースのパスを示します。</dd>
+
+
+<dt>CLIENTS</dt>
+
+<dd>現在マウントされているリソースを持つシステムの、コンマ (,) で区切ったリスト。</dd>
+
+</dl>
+</div>
+</section>
+
+<section><h2>フラグ</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>-F</strong> <em>fstype</em></td>
+
+<td>ファイルシステムのタイプ (fstype) を指定します。 <strong>nfs</strong> タイプのファイルシステムのみがサポートされています。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong></td>
+
+<td><strong>dfmounts</strong> の出力で、ヘッダー行を表示しません。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>パラメーター</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><em>サーバー</em></td>
+
+<td>ローカル・システムにリソースを使用可能にした、
+ネットワーク上のシステムを表します。 <em>Server</em> は、
+マシンから利用可能にされたリソースを、
+各リソースを使用している現在のクライアントとともに出力します。 このパラメーターを指定しない場合は、
+<strong>dfmounts</strong> コマンドは、サーバーがローカル・システムであると
+想定した情報を出力します。 <strong>dfmounts</strong> コマンドには、
+複数のサーバー名を指定できます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <dl>
+<dt>0</dt>
+
+<dd>コマンドは正常に完了しました。</dd>
+
+
+<dt>&gt;0</dt>
+
+<dd>エラーが発生しました。</dd>
+
+</dl>
+</section>
+
+<section><h2>セキュリティー</h2></section>
+
+<section><h2>例</h2> <ol>
+<li>ファイルシステム・タイプ <strong>nfs</strong> について、システム「mercury」上のマウントされたリソースの情報を出力するには、次のように入力します。<div><div><pre><code>dfmounts -F nfs mercury </code></pre></div><div></div></div></li>
+
+<li>ファイルシステム・タイプ <strong>nfs</strong> について、システム上のマウントされたリソースの情報をヘッダーなしで出力するには、次のように入力します。<div><div><pre><code>dfmounts -hF nfs</code></pre></div><div></div></div></li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>/usr/bin/dfmounts</strong></td>
+
+<td>汎用の System V <strong>dfmounts</strong> コマンドが入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/lib/fs/nfs/dfmounts</strong></td>
+
+<td>nfs 用の System V <strong>dfmounts</strong> コマンドが
+入っています。</td>
+
+</tr>
+
+<tr>
+<td><strong>/etc/vfs</strong></td>
+
+<td>既知の仮想ファイルシステム実装についての記述が含まれています。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+</div></div>

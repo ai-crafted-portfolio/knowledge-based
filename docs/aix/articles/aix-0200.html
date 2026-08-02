@@ -1,0 +1,747 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2>
+
+<p>ファイルシステムの属性を変更します。</p>
+
+</section>
+
+<section><h2>構文</h2>
+
+<p><strong>チャフズ</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83651" target="_blank" rel="noopener noreferrer"><strong>-n</strong></a> <em>NodeName</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83641" target="_blank" rel="noopener noreferrer"><strong>-m</strong></a> <em>NewMountPoint</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83698" target="_blank" rel="noopener noreferrer"><strong>-u</strong></a> <em>MountGroup</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83612" target="_blank" rel="noopener noreferrer"><strong>-A </strong></a>{ <strong>はい </strong> | <strong>いいえ </strong> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83663" target="_blank" rel="noopener noreferrer"><strong>-p </strong></a>{ <strong>ロー </strong>| <strong>rw </strong> } ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83680" target="_blank" rel="noopener noreferrer"><strong>-t</strong></a> { <strong>はい</strong> | <strong>いいえ</strong> } ] [<a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row_a" target="_blank" rel="noopener noreferrer"><strong>-a</strong></a> <em>属性</em><strong>=</strong><em>価値</em> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/chfs.html#chfs__row-d3e83629" target="_blank" rel="noopener noreferrer"><strong>-d</strong></a> <em>属性</em> ] <em>FileSystem</em></p>
+
+</section>
+
+<section><h2>説明</h2>
+
+<p><strong>chfs</strong> コマンドは、ファイルシステムの属性を変更します。 新しいマウント・ポイント、自動マウント、許可、およびファイルシステム・サイズを設定または変更することができます。 <em>FileSystem</em> パラメーターには、マウント・ポイントとして表されたファイルシステムの名前を指定します。</p>
+
+<p>ファイルシステム属性のいくつかは、ファイルシステムの作成時に設定され、変更できないものもあります。 ジャーナル・ファイルシステム (JFS) の場合、この種の属性にはフラグメント・サイズ、ブロック・サイズ、i ノード当たりのバイト数、圧縮、および最小ファイルシステム・サイズがあります。 拡張ジャーナル・ファイルシステム (JFS2) の場合、ブロック・サイズは変更できません。</p>
+
+<p><strong>chfs</strong> コマンドは、ファイルシステムにとって意味のない属性も受け入れます。 属性は <span>/etc/filesystems</span> ファイルに保存されますが、ファイルシステムは属性に影響を与えません。 追加の属性は制限される必要があります。 <span>/etc/filesystems</span> ファイル内のスタンザの合計サイズは、512 バイトを
+超えてはいけません。 サイズがこの限度を超えると、スタンザは認識されなくなります。</p>
+
+<p><strong>chfs</strong> コマンドは、コマンドが理解できない <span><span>Attribute=Value</span></span> のペアをすべて無視しますが、<strong>/etc/filesystems</strong> ファイル適切なスタンザにそれらを追加します。</p>
+
+<p><span><span>Example:</span></span></p>
+
+<div><div><pre><code>chfs -a abcd=1G /</code></pre></div><div></div></div>
+<p>これは、<strong>/etc/filesystems</strong> ファイル内の root スタンザで、新規 <strong>abcd</strong> 属性を <strong>1G</strong> の値に設定します。</p>
+
+</section>
+
+<section><h2>フラグ</h2>
+
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><span><span>-a</span></span> <span><span>属性 = 値</span></span></td>
+
+<td>仮想ファイルシステム・タイプに応じて、<span><span>Attribute=Value</span></span> の対を
+指定します。 複数の属性 = 値のペアを指定するには、複数の <span><span>-a</span></span> <span><span>属性 = 値</span></span> パラメーターを指定します。<p>以下の属性または値の組は、ジャーナル・ファイルシステム (JFS) に固有のものです。</p>
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a copy=Copy#</dt>
+
+<dd><span><span>splitcopy</span></span> 属性と共に使用されるときに分割するミラー・コピーを
+指定します。 デフォルト・コピーは 2 番目のコピーです。 有効な値は 1、2、または 3 です。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a log=LVName</dt>
+
+<dd>これは、使用される既存ログのファイルシステム・ロギング論理ボリューム名の絶対パス名を指定します。 このファイルシステムのログ・デバイスは、このファイルシステムと同じボリューム・グループに属していなければなりません。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a size=NewSize</dt>
+
+<dd>ジャーナル・ファイルシステムのサイズを指定します。 サイズは、512 バイト・ブロック、メガバイトまたはギガバイト単位で指定できます。 Value が接尾部 M であれば、その値の単位はメガバイトであると解釈されます。 Value が接尾部 G であれば、その値の単位はギガバイトであると解釈されます。 値が + で始まる場合は、
+ファイルシステムのサイズを指定の量だけ増加させるよう要求していると解釈されます。 指定したサイズが物理区画サイズで等分に分割できなければ、等分に分割できる近似値に切り上げられます。<p>ファイルシステムが存在するボリューム・グループは、最大論理ボリューム・サイズを定義し、
+さらにファイルシステムのサイズを制限します。</p>
+
+<div>JFS ファイルシステムの最大サイズは、そのフラグメント・サイズと <span><span>nbpi</span></span> 値によって決まります。 これらの値により、次のサイズ制限が適用されます。<div><div><pre><code>  NBPI  Minimum AG Size    Fragment Size        Maximum Size (GB)
+   512         8        512, 1024, 2048, 4096          8
+  1024         8        512, 1024, 2048, 4096         16
+  2048         8        512, 1024, 2048, 4096         32
+  4096         8        512, 1024, 2048, 4096         64
+  8192         8        512, 1024, 2048, 4096        128
+ 16384         8             1024, 2048, 4096        256
+ 32768        16                   2048, 4096        512
+ 65536        32                         4096       1024
+131072        64                         4096       1024</code></pre></div><div></div></div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a splitcopy=NewMountPointName</dt>
+
+<dd>ファイルシステムのミラー化されたコピーを分割し、
+新しいマウント・ポイントにそれを読み取り専用にマウントします。 これにより、ファイルシステムのコピーには、バックアップの目的で使用できる整合性を持った、
+JFS メタデータが与えられます。 ユーザー・データの保全性は保証されません。そのため、この処置を講じるときは、
+ファイルシステムの活動を最小限にとどめてください。 オンライン分割ミラー・コピーとして指定できるのは、1 つのコピーだけです。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-a</span></span> <span><span>属性 = 値</span></span></td>
+
+<td>以下の属性または値の組は、拡張ジャーナル・ファイルシステム (JFS2) に固有のものです。</td>
+
+</tr>
+
+<tr>
+<td></td>
+
+<td><dl>
+
+<dt>-a ea=v2</dt>
+
+<dd>JFS2 ファイルシステム拡張属性 (ea) フォーマットを変換します。 V1 フォーマットを使用して
+いる JFS2 ファイルシステムは、V2 フォーマットを使用するものに変換できます。 こうして変換されたファイルシステム
+は、さらに変換して v1 に戻すことはできません。 この変換は、オンデマンド方法で行われます。
+つまり、拡張属性または ACL の書き込みが行われると、
+そのファイル・オブジェクトの変換が行われます。 v2 フォーマットには、NFS4 ACL に対するサポート
+だけでなく、拡張が容易な名前付き拡張属性に対するサポートも用意されて
+います。 v1フォーマットは、<span>AIX</span>の以前のリリースと互換性があります。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a efs=yes</dt>
+
+<dd>ファイルシステムを暗号化ファイルシステム (EFS) に変換します。<p><strong>chfs</strong> コマンドは、現在のファイルシステムを EFS ファイルシステムに変更します。 EFS ファイルシステムが有効になると、<strong>ea</strong> 属性が自動的に変換され、
+スケーラブル拡張属性 (<strong>v2</strong>) を格納できるようになります。 システム上で <span>efsenable</span> コマンドを実行していない場合、このコマンドは失敗します。</p><strong>制約事項</strong>: <strong>chfs</strong> コマンドで、
+次のファイルシステム (マウント・ポイント) を EFS に変換することはできません。
+ブート中にセキュリティー・インフラストラクチャー (カーネル・エクステンション、ライブラリーなど) を使用できないからです。<ul>
+<li><strong>/</strong></li>
+
+<li><strong>/usr</strong></li>
+
+<li><strong>/var</strong></li>
+
+<li><strong>/opt</strong></li>
+
+</ul>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a freeze = { timeout | 0 | off }</dt>
+
+<dd><span><span>timeout</span></span>の値に応じて、ファイル・システムを凍結または解凍する必要があることを指定します。 ファイルシステムを凍結すると、そのファイルシステムとほぼ同じディスク・イメージが作成され、ディスクにすべてのダーティー・ファイルシステム・メタデータとユーザー・データが書き込まれます。 この凍結状態ではファイルシステムは読み取り専用になり、このファイルシステムやその内容を変更しようとしても、凍結状態が終了するまで待たなければなりません。 <span><span>timeout</span></span> の値は、 <code>0</code>、 <code>off</code>、または正数のいずれかでなければなりません。 正数を指定すると、ファイルシステムは最大 <span><span>timeout</span></span> 秒まで凍結されます。 <span><span>timeout</span></span> が <code>0</code> または <code>off</code>の場合、ファイル・システムは解凍され、変更を進めることができます。<p><strong>
+注意</strong>: 基本ファイルシステム (<strong>/</strong>、<strong>
+/usr</strong>、<strong>/var</strong>、<strong>/tmp</strong>) を凍結すると、
+予想外の動作が起こる場合があります。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a lff=yes</dt>
+
+<dd>これは、ラージ・ファイルおよびラージ・ファイルシステムをサポートするようにファイルシステムを変換します。 デフォルトでは、JFS2 ファイルシステムの最大サイズは 32 TB であり、ファイルの最大サイズは 16 TB です。 <span>lff</span> 属性の値が <strong>yes</strong>に設定されている場合、 JFS2 ファイルシステムの最大可能サイズは 4 PB で、最大可能ファイル・サイズは 4 PB です。 さらに、'<span>lff</span>属性が<strong>yes</strong> に設定されている場合、ファイルシステムはAIX® 7.3 以降でのみマウントできる。<div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li><span>lff</span> 属性の値を <strong>yes</strong> に設定した後は、その値は変更できません。</li>
+
+<li><span>lff</span> 属性は、4096 バイトの集合ブロック・サイズを持つファイルシステム上でのみサポートされます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a [ log | logname ]=LVName</dt>
+
+<dd><div>これは、使用される既存ログのファイルシステム・ロギング論理ボリューム名の絶対パス名を指定します。 このファイルシステムのログ・デバイスは、このファイルシステムと同じボリューム・グループに属していなければなりません。 キーワード INLINE を使用して、
+JFS2 ファイルシステムを持つ論理ボリュームにログを入れるように指定できます。 このオプションを使用するには、INLINE ログを使用して JFS2 ファイルシステムを作成しておく必要があります。 このオプションでは、ファイルシステムが入っている論理ボリュームの名前が変更されても、ログが認識されるよう
+に、<strong>/etc/filesystems</strong> ファイルを更新します。<div><div>
+        <div>
+          <div><span>注:</span> OUTLINE ログを使用するファイルシステムの場合、論理ボリュームが適切にフォーマットされ、論理ボリュームのタイプが jfs2logであれば、このオプションを使用してアウトライン・ログをある論理ボリュームから別の論理ボリュームに変更することができます。 アウトライン・ログを変更するために <span><span>chfs</span></span> が呼び出された時点でファイル・システムがマウントされている場合、 <span><span>/etc/filesystems</span></span> ファイルには変更が表示されますが、ファイル・システムの次のマウント ( <span><span>umount</span></span> 操作またはシステム・クラッシュおよびリカバリーの後) までは、実際のログは変更されません。 INLINE ログを使用するファイルシステムの場合、
+このオプションは INLINE ログと OUTLINE ログの切り替えをサポートしません。 現在のところ、inlinelog から outlinelog (またはその逆) に切り替えるには、
+ファイルシステムを除去してから再作成する必要があります。<div>リリース <span>AIX 5L</span> および <span>AIX 5.1</span>では、ファイルシステムが inlinelog を使用している場合、ログ・エントリーは <strong>/etc/filesystems</strong> ファイル内のファイルシステムと同じです。<div><div><pre><code>/j2.1:         
+dev             = /dev/fslv00         
+vfs             = jfs2         
+log             = /dev/fslv00         
+mount           = false         
+account         = false</code></pre></div><div></div></div></div>しかし、 <span>AIX 5.2</span> 以降のリリースでは、ファイルシステムがインライン・ログを使用している場合、ログ・エントリーは <strong>/etc/filesystems</strong> ファイルのキーワード INLINE になります。<div><div><pre><code>/j2.23:         
+dev             = /dev/fslv04         
+vfs             = jfs2         
+log             = INLINE         
+mount           = false         
+options         = rw         
+account         = false</code></pre></div><div></div></div>ファイル・システムが <span>AIX 5L</span> または <span>AIX 5.1</span>で作成され、後で <span>AIX 5.2</span> 以降のリリースにアップグレードされた場合、 <span><span>chfs</span></span> を使用して <strong>/etc/filesystems</strong> ファイル内の inlinelog 名を変更することができます。</div>
+        </div>
+      </div></div>
+</div>
+
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>--alogshuffle={INLINE |logdevicename}。</dt>
+
+<dd>指定されたログを使用するようにファイル・システムを設定します。 指定されたログ・デバイスは、現在のログ・デバイスと同じボリューム・グループ内になければなりません。 <strong>logshuffle = INLINE</strong>を指定すると、論理ボリュームが拡張されて、ファイルシステムのデフォルト・サイズ (ファイルシステムの0.4%、最大 2047 MB) のインライン・ログ・デバイスが作成されます。 アウトライン・ログ・デバイスを指定しても、論理ボリュームは縮小されません。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a logsize=LogSize</dt>
+
+<dd>INLINE ログのサイズを MB 単位で指定します。 入力サイズは、正の値である
+必要があります。 インライン・ログ・サイズが 1 より大か等しい場合は、入力サイズは整数である必要が
+あります。 入力が 1 より小で、0 より大か等しい浮動小数点値である
+場合は、入力サイズは無視され、デフォルトのインライン・ログ・サイズが
+取られます。 値が + (正符号) で始まっている
+場合は、INLINE ログ・サイズを指定された量だけ大きくする要求として
+解釈されます。 値が - (負符号) で始まっている
+場合は、INLINE ログ・サイズを指定された量だけ小さくする要求として
+解釈されます。<p>INLINE ログが使用されていない場合は、入力は
+無視されます。 INLINE ログ・サイズは、ファイルシステムのサイズの 10% を超えることはできませんし、2047 M バイトより
+大きくすることはできません。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a managed={yes | no}</dt>
+
+<dd>JFS2 ファイルシステム上のデータ管理アプリケーション・プログラミング・インターフェース (DMAPI) を有効にします。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a maxext=Value</dt>
+
+<dd>ファイルシステム・ブロック内のファイル・エクステントの最大サイズを指定します。 ゼロ値は、JFS2 のデフォルトの最大値を使用する必要があることを指定します。 0 未満の値、またはサポートされる最大エクステント・サイズ 16777215 を超える値は無効です。 既存のファイル・エクステントは、この変更の影響を受けませんので注意してください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a mountguard={yes | no}</dt>
+
+<dd><span>PowerHA® SystemMirror®</span> またはその他のクラスタリング環境でサポートされない並行マウントが行われないようにファイル・システムを保護します。 mountguard が有効な場合、ファイルシステムが他のノードまたはシステムにマウントされるように見えても、そのファイルシステムはマウントできません。 mountguard 設定を一時的に無効にするには、<strong>mount</strong> コマンドの <strong>noguard</strong> オプションを参照してください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a options = mountOptions</dt>
+
+<dd><span><span>chfs</span></span> コマンドに渡す <span><span>mount</span></span> オプションを指定します。 有効なオプションのリストについては、<strong>mount</strong> コマンドを参照してください。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a reclaim={normal | fast}</dt>
+
+<dd><code>normal</code> オプションが選択されると、<span>reclaim</span> コマンドは可能な限り多くのファイルシステムをパックします。 <span>reclaim</span> コマンドは、フリー・スペースの最大の連続チャンクを見つけ、可能な限り再利用処理を行います。 これにより、システム内の他の場所で、再利用処理が行われたフリー・スペースが再利用可能になります。 <span>ただし、<code>normal</code> オプションを <span>reclaim</span> コマンドに使用すると、ファイルシステムはフリーズ状態になります。 そのため、大量のデータがパックされる場合、フリーズ時間は著しく長くなる可能性があります。</span><p><code>fast</code> オプションを選択すると、<span>reclaim</span> コマンドは、フリー・スペースの最大の連続チャンクを見つけ、可能な限り再利用処理を行います。 これにより、システム内の他の場所で、再利用処理が行われたフリー・スペースが再利用可能になります。</p>
+<p><span>reclaim</span> コマンドで回復されるフリー・スペース量を正確に判別することはできません。 実際にスペースをレクラメーション処理する <span>chfs</span> コマンドを実行する前に、レクラメーション処理されるスペースの概算見積もりを得るには、まず <code>lvmstat –v &lt;volume group&gt; –e</code>を実行してから、 <span>chfs</span> コマンドの終了後に <code>lvmstat –v &lt;volume group&gt; –r</code>を実行する必要があります。</p>
+<p>最初の <span>lvmstat</span> コマンドが静的コレクションをそのボリューム・グループで有効にし、2 番目のコマンドが記録された統計を表示します。</p>
+<p>ファイルシステム内のすべてのディスクで、再利用操作がサポートされている必要があります。 再利用操作は実際のファイルシステム・サイズを変更しません。 reclaim オプションは、ファイルシステムにスナップショットがある場合は指定できません。
+また、ライブ・アップデートが実行中の場合や、ファイルシステムが読み取り専用である場合は実行できません。 reclaim オプションは、ファイルシステムのサイズ変更操作とは併用できません。 このコマンドが進行中の場合、ライブ・アップデートは開始されません。</p>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a refreeze={timeout}</dt>
+
+<dd>凍結したファイルシステムのタイムアウトをリセットすることを指定します。 <span><span>timeout</span></span> は、指定された値にリセットされます。 ファイル・システムは引き続き凍結する必要があります ( <span>-a freeze</span> オプションまたは <span><span>fscntl</span></span> インターフェースを使用)。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a size=NewSize</dt>
+
+<dd>これは、拡張ジャーナル・ファイルシステムのサイズを 512 バイト・ブロック、メガバイト、ギガバイト、テラバイト、またはペタバイトで指定します。 size 属性の値の接尾部が M である場合、その値の単位はメガバイトであると解釈されます。 size 属性の値の接尾部が G である場合、その値の単位はギガバイトであると解釈されます。 size 属性の値の接尾部が T である場合、その値の単位はテラバイトであると解釈されます。 size 属性の値の接尾部が P である場合、その値の単位はペタバイトであると解釈されます。 size 属性の値が + で始まる場合、その値はファイルシステム・サイズを指定の量だけ増やすための要求として解釈されます。 size 属性の値が - で始まる場合、その値はファイルシステム・サイズを指定の量だけ減らすための要求として解釈されます。<p>指定されたサイズが + または - で始まってはいないが、ファイルシステムの
+現行サイズより大または小である場合も、それはファイルシステム・サイズの増大要求または縮小
+要求です。</p>
+<p>ファイル・システムに <span><span>inlinelog</span></span>がある場合、 <span><span>inlinelog</span></span> のサイズは、新規ファイル・システムのサイズに基づいて再計算されます。 指定したサイズが物理区画サイズで等分に分割できなければ、等分に分割できる近似値に切り上げられます。 ストライプ済みの論理ボリューム上に
+ファイルシステムがある場合、新規ファイルシステムのサイズは概数にされ、物理区画サイズとストライプ幅を掛けた数の倍数の中で
+最も近い数値となります。 ストライプ幅は、ストライプ論理ボリュームを形成するハード・ディスクの数です。</p>
+<p>ファイルシステムがあるボリューム・グループにより、最大論理ボリューム・サイズが定義され、ファイルシステム・サイズが制限されます。 ファイルシステムの最大サイズは、以下のようにファイルシステム・ブロック・サイズによって決定されます。</p>
+<div><div><pre><code>fs block size (byte)        MAX fssize
+===========================================
+512                          4 TB
+1024                         8 TB
+2048                        16 TB
+4096                        32 TB (lff=no) / 4 PB (lff=yes)</code></pre></div><div></div></div></dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>32 TB を超えるサイズのファイルシステムを使用するには、<span>lff</span> 属性の値を <strong>yes</strong> に設定する必要があります。</li>
+
+<li><span>lff</span> 属性は、4096 バイトの集合ブロック・サイズを持つファイルシステム上でのみサポートされます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+<p>ファイルシステム・サイズの縮小要求が正常に実行されるのは、要求されたファイルシステム・サイズに応じて、論理ボリュームが元の LV サイズ以下の場合です。</p>
+
+<p><span><span>size</span></span> と <span><span>logsize</span></span> の両方の属性を 1 つの <span><span>chfs</span></span> 要求で指定して、ファイル・システムとその <span><span>inlinelog</span></span> サイズをサイズ変更することができます。</p>
+
+<div><div>
+        <div>
+          <div><span>注:</span> 縮小操作中に、ファイル・システムがかなりの時間フリーズする可能性があります。 アプリケーションへの影響を最小限にするには、ワークロードが小さい間に、ファイルシステムを少量に縮小してください。</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><dl>
+
+<dt>-a vix={yes|no}</dt>
+
+<dd>ファイルシステム内に連続する 16 KB の空きエクステントがない場合に、
+デフォルトの 16 KB より小さい i ノード・エクステントをファイルシステムが割り当てることが可能かどうかを指定します。 小さいフリー・エクステントに対してファイル・システムを使用可能にした後は、以前のバージョンの <span>AIX</span> でそのファイル・システムにアクセスすることはできず、マーキングを除去することもできません。<dl>
+
+<dt>はい</dt>
+
+<dd>ファイルシステムは、可変長 i ノード・エクステントを割り振ることができます。</dd>
+
+
+
+<dt>いいえ</dt>
+
+<dd>ファイルシステムは、i ノード・エクステントにデフォルトのサイズ 16 KB を使用する
+必要があります。 ファイルシステムに既に可変長 i ノード・エクステントが含まれている場合は、この指定は効力を持ちません。</dd>
+
+
+</dl>
+</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td> </td>
+
+<td><div><div>
+        <div>
+          <div><span>注:</span><ol>
+<li>JFS2 は、
+結果として生じるファイルシステムのサイズに影響を与えるような nbpi 値やフラグメント・サイズ値を持ちません。</li>
+
+<li>要求されたサイズが物理区画サイズより小さい場合は、ファイルシステムは圧縮
+できません。 少なくとも 1 つの物理区画サイズでなければ、縮小要求の対象にはなりえません。</li>
+
+<li>スナップショットを持つファイルシステムは、圧縮できません。</li>
+
+<li>ファイルシステムの縮小操作時は、ファイルシステムへの書き込み操作が断続的に制限されることがあります。</li>
+
+<li>拡張操作が実行されているときは、ファイルシステムにアクセスできません。 インライン・ログのある大きなファイルシステムは、数分間使用できない場合があります。 インライン・ログを再フォーマットする必要があります。</li>
+
+<li>新しいファイル・システム・サイズが指定されているが、その <span><span>inlinelog</span></span> サイズが指定されていない場合、新しい <span><span>logsize</span></span> は、指定された拡張/縮小されたファイル・システム・サイズに基づいて比例して調整 (拡張/縮小) されます。 ログ・サイズの増減は、ファイルシステム・サイズの
+増減の 40% を超えることは
+できません。</li>
+
+<li>新しいファイル・システム・サイズが指定されず、 <span><span>inlinelog</span></span>が存在する場合、新しい <span><span>logsize</span></span> が指定されると、新しいログ・サイズを含むようにファイル・システム・サイズが変更される可能性があります。</li>
+
+<li><span>df</span> コマンドによって報告される解放されたスペースは、ファイルシステムのフラグメント化のために <span><span>shrinkFS</span></span> 要求によって切り捨てられる可能性のあるスペースを必要としません。 フラグメント化されたファイルシステムは、切り捨てられるオブジェクトを領域から移動するための十分なフリー・スペースがなく、 <span><span>shrinkFS</span></span> がファイルシステムのデフラグを実行しない場合は、縮小されないことがあります。 この場合、<span>chfs</span> コマンドは失敗し、戻りコード 28 (ENOSPC) が表示されます。</li>
+
+<li><span>maxext</span> 属性は、ファイルシステムが新しいリリースでこの属性を指定して作成されていたとしても、古いリリースでは無視されます。</li>
+
+<li>AIX 7.2 テクノロジー・レベル 1 以降では、 <span>chfs</span> コマンドを実行して区画を解放すると、解放された区画でスペース再利用プロセスが開始されます。</li>
+
+</ol>
+
+</div>
+        </div>
+      </div></div>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-A</span></span></td>
+
+<td>自動マウント用の属性を指定します。<dl>
+
+<dt>はい</dt>
+
+<dd>ファイルシステムは、システム再起動時に自動的にマウントされます。</dd>
+
+
+
+<dt>いいえ</dt>
+
+<dd>ファイルシステムは、システム再起動時にマウントされません。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-d</span></span> <span><span>属性</span></span></td>
+
+<td>指定された属性を、指定されたファイル・システムの <span><span>/etc/filesystems</span></span> ファイルから削除します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-m</span></span> <span><span>NewMountPoint</span></span></td>
+
+<td>指定されたファイルシステムに新しいマウント・ポイントを
+指定します。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-n</span></span> <em>NodeName</em></td>
+
+<td>指定したファイルシステムのノード名を指定します。 <span><span>/etc/filesystems</span></span> ファイル内のノード名属性は、新しい名前で更新されます。 ノード名属性は、NFS (ネットワーク・ファイルシステム) 仮想ファイルシステム・タイプなどの一定のリモート仮想ファイルシステム・タイプに固有の属性です。</td>
+
+</tr>
+
+<tr>
+<td><span><span>-p</span></span></td>
+
+<td>ファイルシステムの許可を設定します。<dl>
+
+<dt>ro</dt>
+
+<dd>読み取り専用許可を指定します。</dd>
+
+
+
+<dt>rw</dt>
+
+<dd>読み取り/書き込み許可を指定します。</dd>
+
+
+</dl>
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-t</span></span></td>
+
+<td>指定されたファイルシステムのアカウンティング属性を
+設定します。<dl>
+
+<dt>はい</dt>
+
+<dd>ファイルシステムのアカウントは、アカウント・サブシステムによって処理されます。</dd>
+
+
+
+<dt>いいえ</dt>
+
+<dd>ファイルシステムのアカウントは、アカウント・サブシステムによって処理されません。この値がデフォルトです。</dd>
+
+
+</dl>
+
+</td>
+
+</tr>
+
+<tr>
+<td><span><span>-u</span></span> <span><span>MountGroup</span></span></td>
+
+<td>マウント・グループを指定します。 マウント・グループは、関連する複数のマウント対象を 1 つのグループとしてまとめるときに使用します。これにより、複数のマウント対象を個別にではなく一度にマウントすることができます。 例えば、特定のテストの実行にあたって、幾つかのスクラッチ・ファイルシステムを
+いつでも一緒にマウントする必要がある場合は、それらのスクラッチ・ファイルシステムは、それぞれを
+<code>test</code> マウント・グループに配置できます。 これらはすべて、 <span><span>mount -t</span></span> <code>test</code> コマンドなどの単一のコマンドでマウントすることができます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</section>
+
+<section><h2>セキュリティー</h2>
+
+<p><strong>アクセス制御</strong></p>
+
+<p>このコマンドを実行できるのは、root ユーザーまたは<strong>システム</strong>・グループのメンバーのみです。</p>
+
+<p><strong>RBAC ユーザーへの注意</strong>: このコマンドは特権命令を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限および特権について詳しくは、「<em>セキュリティー</em>」の『特権コマンド・データベース』を参照してください。 このコマンドに関連した特権および権限のリストについては、<strong>lssecattr</strong> コマンドまたは <strong>getcmdattr</strong> サブコマンドの項を参照してください。</p>
+
+</section>
+
+<section><h2>例</h2>
+
+<ol>
+<li>ファイル・システムのサイズを変更するには、以下のようにします。/testジャーナル・ファイルシステムの場合は、次のように入力します。<div>
+<div><div><pre><code>chfs  -a size=24576 /test</code></pre></div><div></div></div>このコマンドは, システムのサイズを変更します。/test24576 個の 512 バイト・ブロックまたは 12MB (以前はこれより大きくなかった場合) にジャーナル処理されたファイル・システム。</div>
+</li>
+
+<li>サイズを大きくするには、以下のようにします。/testジャーナル・ファイルシステムの場合は、次のように入力します。<div>
+<div><div><pre><code>chfs  -a size=+8192 /test</code></pre></div><div></div></div>このコマンドは, システムのサイズを増やします。/test8192 個の 512 バイト・ブロック、または 4 MB のジャーナル・ファイルシステム。</div>
+</li>
+
+<li>JFS2 ファイルシステムを NFS4 ACL をサポートできるバージョンに変換する
+場合は、次のように入力します。<div>
+<div><div><pre><code>chfs -a ea=v2 /test</code></pre></div><div></div></div>
+</div>
+</li>
+
+<li>ファイルシステムのマウント・ポイントを変更するには、次のように入力します。<div>
+<div><div><pre><code>chfs  -m /test2 /test</code></pre></div><div></div></div>このコマンドは, 次のものからファイル・システムのマウント・ポイントを変更します。/testへ/test2.</div>
+</li>
+
+<li>ファイルシステムからアカウント属性を削除するには、
+次のように入力します。<div>
+<div><div><pre><code>chfs -d account /home</code></pre></div><div></div></div>このコマンドは、ファイルシステム <strong>/home</strong> からアカウント属性を除去します。 アカウンティング属性は、以下から削除されます。/home:<strong>/etc/filesystems</strong> ファイルのスタンザ。</div>
+</li>
+
+<li>ミラー化されたファイルシステムのコピーを分割して、
+それをオンライン・バックアップとして使用するために読み取り専用にマウントするには、
+次のように入力します。<div>
+<div><div><pre><code>chfs -a splitcopy=/backup -a copy=2 /testfs</code></pre></div><div></div></div>これにより、 <span><span>/testfs</span></span> の読み取り専用コピーが <span><span>/backup</span></span>にマウントされます。</div>
+</li>
+
+<li><span><span>/test</span></span> ジャーナル・ファイルシステムのファイルシステム・サイズを変更するには、次のように入力します。<div>
+<div><div><pre><code>chfs -a size=64M /test</code></pre></div><div></div></div>このコマンドは、 <span><span>/test</span></span> ジャーナル・ファイルシステムのサイズを 64MB に変更します (以前はこれ以下であった場合)。</div>
+</li>
+
+<li><span><span>/test</span></span> JFS2 ファイルシステムのサイズを減らすには、次のように入力します。<div>
+<div><div><pre><code>chfs  -a size=-16M /test</code></pre></div><div></div></div>このコマンドは、 <span><span>/test</span></span> JFS2 ファイルシステムのサイズを 16MB削減します。</div>
+</li>
+
+<li>ファイルシステムを凍結するには、次のように入力します。<div>
+<div><div><pre><code>chfs  -a freeze=60 /adl</code></pre></div><div></div></div>このコマンドは、 <span><span>/adl</span></span> ファイル・システムを最大 60 秒間フリーズします。</div>
+</li>
+
+<li>ファイルシステムを解凍するには、次のように入力します。<div>
+<div><div><pre><code>chfs  -a freeze=off /zml</code></pre></div><div></div></div>このコマンドは、 <span><span>/zml</span></span> ファイル・システムを解凍します。</div>
+</li>
+
+</ol>
+
+</section>
+
+<section><h2>ファイル</h2>
+
+<div>
+
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/etc/filesystems</strong></td>
+
+<td>既知のファイルシステムをリストし、その特性を定義します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+
+</div>
+
+</section>
+
+</div></div>

@@ -1,0 +1,208 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>X サーバー内のキー・マップを変更します。</p>
+</section>
+
+<section><h2>構文</h2><p><strong>xmodmap</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39898" target="_blank" rel="noopener noreferrer"><strong>-表示</strong></a><em> 表示 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39906" target="_blank" rel="noopener noreferrer"><strong>-e (E)</strong></a> <em> 式 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39914" target="_blank" rel="noopener noreferrer"><strong>-文法 </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39925" target="_blank" rel="noopener noreferrer"><strong>-ヘルプ </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39934" target="_blank" rel="noopener noreferrer"><strong>N</strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39943" target="_blank" rel="noopener noreferrer"><strong>-pk (K) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39949" target="_blank" rel="noopener noreferrer"><strong>-プケ </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39958" target="_blank" rel="noopener noreferrer"><strong>-午後 </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39964" target="_blank" rel="noopener noreferrer"><strong>-pp (P) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39970" target="_blank" rel="noopener noreferrer"><strong>-静かに </strong></a>|  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/x_commands/xmodmap.html#xmodmap__row-d3e39976" target="_blank" rel="noopener noreferrer"><strong>-詳細 </strong></a>] [ <em>FileName </em>]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>xmodmap</strong> コマンドは、クライアント・アプリケーションがイベント・キー・コードをキー記号へ変換するために使用するキーボード修飾子マップおよびキー・マップ・テーブルを編集および表示します。 このコマンドは通常、セッション始動スクリプトから実行し、キーボードの構成をユーザーの好みに合わせます。</p>
+ <p>キー・コード式が評価されるたびに、サーバーはすべてのクライアントに <strong>MappingNotify</strong> イベントを生成します。 変更はまとめて一回でバッチ処理される必要があります。 キーボード入力を受け取っても <strong>MappingNotify</strong> イベントを無視するとクライアントは、キーボード・マッピングの変更にまったく気付きません。</p>
+ <p><em>FileName</em> パラメーターは、実行される <strong>xmodmap</strong> コマンド式を含むファイルを指定します。 このファイルは通常、ユーザーのホーム・ディレクトリーに <strong>.xmodmaprc</strong> という名前で保管されています。 ファイルが指定されなければ、<strong>stdin</strong> を入力とします。</p>
+ <p><strong>xmodmap</strong> コマンド・プログラムは式のリストを読み取り、実行を試みる前にすべての式を解析します。 これによって、名前が矛盾していないかどうかを心配することなく、本来の形で再定義されるキー・シンボルを参照することができます。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>追加</strong></td>
+
+<td>行が読み取られるたびにキー・シンボル名が評価されます。 これによってキーが再割り当てされたかどうかを心配することなく修飾子からキーを除去することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>追加</strong><em> ModifierName</em><strong> =</strong><em> KeySymbolName...</em></td>
+
+<td>与えられたキー・シンボルを指定された修飾子マップに追加します。 キー・シンボル名は、キーをスワップする式を書きやすくするために、すべての入力式が読み取られた後に評価されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>クリア</strong><em> ModifierName</em></td>
+
+<td>与えられた修飾子の修飾子マップの中のすべてのエントリーを除去します。このとき有効な名前は <strong>Shift</strong>、<strong>Lock</strong>、<strong>Control</strong>、<strong>Mod1</strong>、<strong>Mod2</strong>、<strong>Mod3</strong>、<strong>Mod4</strong>、<strong>Mod5</strong> です (他のすべての名前と異なり、修飾子名では英大文字と小文字の区別はありません)。 例えば、<strong>clear Lock</strong> は <strong>shift lock</strong> 修飾子にバインドされたすべてのキーを除去します。</td>
+
+</tr>
+
+<tr>
+<td><strong>キーコード</strong><em> Number</em><strong> =</strong><em> KeySymbolName</em>...</td>
+
+<td>キー・シンボルのリストを指定されたキー・コードに割り当てます。このキー・コードは、10 進数、16 進数、または 8 進数で指定したり、<strong>/usr/lpp/X11/Xamples/demos</strong> ディレクトリーにある <strong>xev</strong> プログラムを実行して判別することができます。 通常は与えられたコードに対してキー記号が 1 つだけ割り当てられます。</td>
+
+</tr>
+
+<tr>
+<td><strong>キーシム</strong><em> KeySymbolName</em><strong> =</strong><em> KeySymbolName</em>...</td>
+
+<td>左辺の <em>KeySymbolName</em> はマッチング・キー・コードに変換され、対応する<strong>キー・コード</strong>式のセットを実行するために使用されます。 keysym 名のリストは、keysym データベース <strong>/usr/lib/X11/XKeysymDB</strong> あるいはヘッダー・ファイル <strong>X11/keysymdef.h</strong> (<em>XK_</em>  接頭部なし) にあります。 複数キーに同一の keysym をバインドしているときは、この式はマッチング・キー・コードに対して実行されることに注意してください。</td>
+
+</tr>
+
+<tr>
+<td><strong>pointer = デフォルト</strong></td>
+
+<td>ポインター・マップをデフォルト設定へ戻します (ボタン 1 によって 1 のコードが、ボタン 2 によって 2 のコードが設定され、... というように設定されます)。</td>
+
+</tr>
+
+<tr>
+<td><strong>ポインター =</strong><em> Button1 Button2 Button3</em>...</td>
+
+<td>ポインター・マップを設定して、指定されたボタン・コードを入れます。 リストは必ず最初の物理ボタンから始められます。</td>
+
+</tr>
+
+<tr>
+<td><strong>取り除く</strong><em> ModifierName</em><strong> =</strong><em> KeySymbolName</em>...</td>
+
+<td>与えられた keysym を含むキーすべてを指定された修飾子マップから除去します。 <strong>add</strong> とは異なり、keysym 名は、その行が読み取られるものとして評価されます。 これは、再配置されたかどうかにかかわらず修飾子からのキーを除去できるようにします。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+ <p>「!」で始まる行 (感嘆符) はコメントと見なされます。</p>
+ <p>修飾子キーのバインドを変更したい場合も、そのキーを適切な修飾子マップから除去する必要があります。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-display</strong><em> 表示</em></td>
+
+<td>使用するホストとディスプレイを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-e</strong><em> 式</em></td>
+
+<td>実行する式を指定します。 コマンド・ラインからいくつでも式を指定することができます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-文法</strong></td>
+
+<td><strong>-e</strong><em> Expressions</em> フラグを付けてファイルの中で使用する、式の文法について説明するヘルプ・メッセージを、標準エラー上に出力します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-help</strong></td>
+
+<td>コマンド・ライン引数の簡単な説明を、標準エラー上に出力します。 <strong>xmodmap</strong> コマンドに、処理されない引数が与えられた場合、この動作を必ず実行します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-n</strong></td>
+
+<td><strong>xmodmap</strong> コマンドによってマッピングを変更しないこと、ただしこのフラグを指定したときには何が行われるかを表示することを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ピーケー</strong></td>
+
+<td>現在のキー・マップ・テーブルを標準出力へ出力することを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ペケ</strong></td>
+
+<td>現在のキー・マップ・テーブルを、<strong>xmodmap</strong> で戻される式のフォーマットで標準出力へ出力することを示します。 このフラグは X11R5 に固有のものです。</td>
+
+</tr>
+
+<tr>
+<td><strong>午後</strong></td>
+
+<td>現在の修飾子マップを標準出力へ出力することを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-頁</strong></td>
+
+<td>現在のポインター・マップを標準出力へ出力することを示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-quiet</strong></td>
+
+<td>詳細ログをオフにします。 これはデフォルトです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-verbose</strong></td>
+
+<td>入力を解析しながら、<strong>xmodmap</strong> コマンドがログ情報を出力することを示します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>以下のコマンドは、生成されるボタン・コードを反転して、1 次ボタンが 3 ボタン・ポインターの左手の人差し指を使用して押されるようにします。<div> <div><div><pre><code>xmodmap -e "pointer = 1 2 3 4 5"</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>以下のコマンドは、メタを複数言語キー (「作成文字」というラベルが付けられることもあります) に付加します。 またこれは、メタ・キーを必要とするアプリケーションにはキー・コードだけが必要であって、キー・マップ・テーブルの最初の欄にあるキー記号は必要としない、という事実に基づいています。 これは、Multi_key (デフォルト修飾子マップを含む) を検索するアプリケーションはいかなる変更も通知しないという意味になります。<div> <div><div><pre><code>keysym Multi_key = Multi_key Meta_L</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>コンマとピリオドのキーをシフトしたときに、より小文字とより大文字を自動的に生成するには、以下のスクリプトを使用して、コンマとピリオドのバインディングをリセットします。<div> <div><div><pre><code>!
+! make shift-, be &lt; and shift-. be &gt;
+!
+keysym comma = comma less
+keysym period = period greater</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>コントロール・ロック・キーとシフト・ロック・キーの位置を交換するには、以下のスクリプトを使用します。<div> <div><div><pre><code>!
+! Swap Caps_Lock and Control_L
+!
+remove Lock = Caps_Lock
+remove Control = Control_L
+keysym Control_L = Caps_Lock
+keysym Caps_Lock = Control_L
+add Lock = Caps_Lock
+add Control = Control_L</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>

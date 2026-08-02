@@ -1,0 +1,275 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>外部参照の C および C++ の流れ図を生成します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>CFlow</strong> [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73374" target="_blank" rel="noopener noreferrer"><strong>-d 年</strong></a><em> 数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73535" target="_blank" rel="noopener noreferrer"><strong>-I (I)</strong></a><em> ディレクトリー </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73382" target="_blank" rel="noopener noreferrer"><strong>-i _ (I) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73391" target="_blank" rel="noopener noreferrer"><strong>-i P (I) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73397" target="_blank" rel="noopener noreferrer"><strong>-i x (I) </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73511" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a><em>オプション </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73403" target="_blank" rel="noopener noreferrer"><strong>- </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73409" target="_blank" rel="noopener noreferrer"><strong>-MA </strong></a>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73553" target="_blank" rel="noopener noreferrer"><strong>-U (U)</strong></a><em> 名前 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73418" target="_blank" rel="noopener noreferrer"><strong>-Nd (N)</strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73432" target="_blank" rel="noopener noreferrer"><strong>-Nl (N)</strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73446" target="_blank" rel="noopener noreferrer"><strong>-Nn (N)</strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73460" target="_blank" rel="noopener noreferrer"><strong>-Nt (N)</strong></a><em>数値 </em>] [  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/c_commands/cflow.html#cflow__row-d3e73488" target="_blank" rel="noopener noreferrer"><strong>-D</strong></a><em> 名前</em>[<strong>=</strong><em>定義 </em>] ] <em>ファイル ...</em></p>
+</section>
+
+<section><h2>説明</h2> <p><strong>cflow</strong> コマンドは、C、C++、<strong>yacc</strong>、<strong>lex</strong>、アセンブラー、オブジェクト・ファイルを分析し、これらの外部参照図を標準出力に出力します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注：</strong> <strong>cflow</strong>コマンドによるC++言語ファイルの処理には、<span>IBM</span>C Set++Compiler/6000パッケージが必要です。<span>”</span></blockquote>
+<p></p>
+ <p><strong>cflow</strong> コマンドは、接尾部が <strong>.y</strong>、<strong>.l</strong>、および<strong> .c</strong> のファイルを <strong>yacc</strong> コマンド、<strong>lex</strong> コマンド、および <strong>cpp</strong> コマンドに送信して処理します。 次に、<strong>lint</strong> コマンドの変更された最初のパスにより、<strong>yacc</strong>、<strong>lex</strong>、および <strong>cpp</strong> 出力、または任意の <strong>.i</strong> ファイルが処理されます。 <strong>cflow</strong> コマンドは、接尾部が <strong>.C</strong> のファイルを C Set++ Compiler に送信します。</p>
+ <p><strong>cflow</strong> コマンドは、接尾部が <strong>.s</strong> のファイルをアセンブルし、情報を記号テーブルから抽出します (<strong>.o</strong> ファイルの場合と同様に)。 <strong>cflow</strong> コマンドは、この出力から外部参照図を生成して標準出力に書き出します。</p>
+ <p>各出力行で次の情報が示されます (左から右への順に)。</p>
+ <ul>
+<li><span></span>ネストのレベルを示すのに十分なタブが後に続く行番号</li>
+
+<li><span></span>グローバルの名前、コロン、およびその定義です。</li>
+
+</ul>
+ <p>通常、グローバル名は、外部としては定義されない関数であり、その先頭はアンダーライン文字ではありません (<strong>-i_</strong> および <strong>-i</strong> 組み込みフラグを参照)。</p>
+ <p>C および C++ ソース・ファイルから抽出された情報の場合、定義は、抽象型宣言 (例えば、char *)、不等号括弧で囲んだソース・ファイル名、および定義が検出された行番号からなります。 オブジェクト・ファイルから抽出された定義には、ファイル名、および <strong>.text</strong>  や <strong>.data</strong> のような記号のロケーション・カウンターが入っています。 <strong>cflow</strong>  コマンドは、C スタイルの外部名の先頭にあるアンダーライン文字を削除します。</p>
+ <p><strong>cflow</strong> コマンドが一度名前を表示したあとは、その名前の参照では、定義を検出できる場所の <strong>cflow</strong> 行番号のみが示されます。 未定義参照の場合、<strong> cflow</strong> は &lt;&gt; (不等号括弧) のみを表示します。</p>
+ <p>ネスト・レベルが深すぎて使用可能スペースに表示できなくなるときは、<strong>cflow</strong> コマンドから <strong>pr</strong> コマンドに出力をパイプ接続してください。その場合、<strong>-e</strong> フラグを使用して、それぞれのタブ停止位置で 8 スペース未満にタブ拡張を圧縮します。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> <strong>cflow</strong> コマンドによって生成される行番号が、 <strong>lex</strong> ファイルおよび <strong>yacc</strong> ファイルと一致するようにするには、次のようにします。 <strong>.l</strong> または <strong>.y</strong> ファイルを <strong>cflow</strong> コマンドに送信する必要があります。<span>”</span></blockquote>
+<p></p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> 数値</em></td>
+
+<td>流れ図がカットオフされる深さを 10 進整数で設定します。 デフォルトでは、これは大きい数になります。 カットオフの深さは、負の整数には設定しないでください。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i _ (-i)</strong></td>
+
+<td>アンダーライン文字で始まる名前を組み込みます。 デフォルトでは、これらの関数 (および、<strong>-ix</strong> フラグを使用するときは対応するデータも) が除外されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i p (-i p)</strong></td>
+
+<td>ANSI 関数プロトタイプを使用不可にします。 デフォルト・オプションでは、未定義関数情報に使用可能なプロトタイプ宣言が入力されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-i x (-i x)</strong></td>
+
+<td>外部データ記号と静的データ記号を組み込みます。 デフォルトでは、関数のみを組み込みます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>呼び出された関数でソートされた、各関数の呼び出し元を表示する反転リストを生成します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-ma</strong></td>
+
+<td>ANSI モードを指定します。 <strong>cflow</strong> コマンドは、このモードでは ANSI C コードを予期します。 デフォルトの操作モードは拡張モードです。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nd</strong><em>数値</em></td>
+
+<td>寸法テーブルのサイズを <em>Number</em> パラメーターに変更します。 <em>Number</em> 値のデフォルトは 2000 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nl</strong><em>数値</em></td>
+
+<td>タイプ・ノードの数を <em>Number</em> パラメーターに変更します。 <em>Number</em> 値のデフォルトは 8000 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nn</strong><em>数値</em></td>
+
+<td>記号テーブルのサイズを <em>Number</em> パラメーターに変更します。 <em>Number</em> 値のデフォルトは 1500 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-Nt</strong><em>数値</em></td>
+
+<td>ツリー・ノードの数を <em>Number</em> パラメーターに変更します。 <em>Number</em> 値のデフォルトは 1000 です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+ <p><strong>cflow</strong> コマンドは、
+以下の <strong>cpp</strong> コマンド (マクロ・プリプロセッサー) のフラグも認識します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-D</strong><em> 名前</em>[<strong>=</strong><em>定義</em>]</td>
+
+<td><strong>#define</strong> ステートメントによって定義されるかのように、 <em>Name</em> パラメーターを定義します。 デフォルトの <em>Definition</em> は 1 です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong><em>オプション</em></td>
+
+<td><strong>-q</strong><em>Option</em> をプリプロセッサーに渡します。 例:-qmbcs現行ロケールで指定されたマルチバイト・モードを設定します。-qidirfirst<strong>#include</strong><strong> file_name</strong> ディレクティブに含まれているファイルの検索順序を変更します。</td>
+
+</tr>
+
+<tr>
+<td>-<strong>I</strong><em> ディレクトリー</em></td>
+
+<td>指定された <em>Directory</em> を、 <strong>cflow</strong> プログラムが <strong>#include</strong> ファイルを検索するディレクトリーのリストに追加します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-U</strong><em> 名前</em></td>
+
+<td><em>Name</em> パラメーターのすべての初期定義を除去します。この <em>Name</em> は、特定のプリプロセッサーで事前定義された予約済み記号です。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>終了状況</h2> <p>このコマンドは、以下の終了値を戻します。</p>
+ 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+
+<td>正常終了。</td>
+
+</tr>
+
+<tr>
+<td><strong>&gt;0</strong></td>
+
+<td>エラーが発生しました。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</section>
+
+<section><h2>例</h2> <ol>
+<li><span></span>プログラムを構成するこれらの C ファイルのデフォルト・フロー・グラフを生成するには、次のように入力します。<div> <div><div><pre><code>cflow timeout.c kill.c error.c </code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>関数のネスト・レベルが単一の <strong>cflow</strong> グラフを作成するには、次のように入力します。<div> <div><div><pre><code>cflow -d1 resam.c pptp.c ptpt.c rrr.c whn.c</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>lex</strong> プログラムの <strong>cflow</strong> グラフを生成するには、次のように入力します。<div> <div><div><pre><code>cflow scan.l</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span> <strong>yacc</strong> プログラムの <strong>cflow</strong> グラフを生成するには、次のように入力します。<div> <div><div><pre><code>cflow yaccfile.y</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>例 2 で使用されている C ファイル内の各関数の呼び出し元を示す反転リストを生成するには、次のように入力します。<div> <div><div><pre><code>cflow -r resam.c pptp.c ptpt.c rrr.c whn.c</code></pre></div><div></div></div></div>
+</li>
+
+</ol>
+</section>
+
+<section><h2>ファイル</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>/usr/ccs/bin/cflow</strong></td>
+
+<td><strong>cflow</strong> コマンド用のドライバー。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/cflow1</strong></td>
+
+<td><strong>cflow</strong> コマンドにとって実行可能。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/dag</strong></td>
+
+<td><strong>cflow</strong> コマンドにとって実行可能。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/flip</strong></td>
+
+<td><strong>cflow</strong> コマンドにとって実行可能。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/lpfx</strong></td>
+
+<td><strong>cflow</strong> コマンドにとって実行可能。</td>
+
+</tr>
+
+<tr>
+<td><strong>/usr/ccs/lib/nmf</strong></td>
+
+<td><strong>cflow</strong> コマンドにとって実行可能。</td>
+
+</tr>
+
+<tr>
+<td><strong>/var/tmp/cf.*</strong></td>
+
+<td><strong>cflow</strong> コマンドで作成される一時ファイル。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+</div></div>

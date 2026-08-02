@@ -1,0 +1,85 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p><span>ネットワーク情報サービス</span> (<span>国家情報院</span>) マップ内の指定されたキーの値を表示します。</p>
+</section>
+
+<section><h2>構文</h2>
+<dl>
+
+<dt><span>NIS</span> マップのキー値を表示するには</dt>
+
+<dd><div><div><pre><code>/usr/bin/ypmatch [  -d Domain ] [  -k ] [  -t ] Key... MapName</code></pre></div><div></div></div>
+</dd>
+
+
+
+<dt><span>NIS</span> マップ・ニックネーム・テーブルを表示するには</dt>
+
+<dd><div><div><pre><code>/usr/bin/ypmatch -x</code></pre></div><div></div></div>
+</dd>
+
+
+</dl>
+</section>
+
+<section><h2>説明</h2>
+<p><strong>YpMatch</strong> コマンドは、 <span>ネットワーク情報サービス</span> (<span>国家情報院</span>) マップ内の 1 つ以上のキーに関連付けられた値を表示します。 検索したいマップの名前またはニックネームのいずれかを指定するには <em>MapName</em> パラメーターを使用してください。</p>
+
+<p><em>Key</em> パラメーター内に複数のキーを指定すると、システムはすべてのキーを同じマップ内で検索します。 パターン・マッチングが使用できないため、各キーの大文字と小文字の区別および長さを正確に合わせてください。 指定したキーと一致するものが見つからなかった場合は、システムは診断メッセージを表示します。</p>
+</section>
+
+<section><h2>フラグ</h2>
+<div>
+
+<div><div><table><caption><span>表 1. フラグ</span></caption><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-d</strong><em> ドメイン</em></td>
+
+<td>デフォルト・ドメイン以外のドメインを指定します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-k</strong></td>
+
+<td>キーの値を表示する前に、キーの後にコロンを付けて表示します。 これは、値の中でキーが重複しない場合、またはキーの指定が多すぎて出力が分かりにくくなるような場合に有効です。</td>
+
+</tr>
+
+<tr>
+<td><strong>-t</strong></td>
+
+<td>ニックネームをマップ名に変換することを禁止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-x</strong></td>
+
+<td>マップ・ニックネーム・テーブルを表示します。 これによって、コマンドが認識している (<em>MapName</em> パラメーターで指定されたとおりの) ニックネームがリストされ、各ニックネームに関連するマップ名が示されます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2>
+<p>特定のキーに関連する値を表示するには、下記のように入力します。</p>
+
+<div>ypmatch  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/ypmatch.html#ypmatch__row-d3e55375" target="_blank" rel="noopener noreferrer">-d </a>ibm  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/y_commands/ypmatch.html#ypmatch__row-d3e55383" target="_blank" rel="noopener noreferrer">-k </a>host1 hosts</div>
+
+<p>この例では、 <strong>YpMatch</strong> コマンドは、以下の値を表示します。host1からのキーhostsマップibmします。</p>
+</section>
+
+</div></div>

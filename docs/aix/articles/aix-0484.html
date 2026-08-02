@@ -1,0 +1,94 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2> <p>フィルター規則をエクスポート・ファイルにエクスポートします。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>拡張ファイル</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expfilt.html#expfilt__row-d3e93896" target="_blank" rel="noopener noreferrer"><strong>P-</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expfilt.html#expfilt__row-d3e93902" target="_blank" rel="noopener noreferrer"><strong>-Q (Q)</strong></a> ] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expfilt.html#expfilt__row-d3e93911" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> ] [ <strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expfilt.html#expfilt__row-d3e93928" target="_blank" rel="noopener noreferrer">-v (V)</a> 4</strong> | <strong>6</strong> ] <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expfilt.html#expfilt__row-d3e93874" target="_blank" rel="noopener noreferrer"><strong>「-f」</strong></a> <em>ディレクトリー</em> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/e_commands/expfilt.html#expfilt__row-d3e93882" target="_blank" rel="noopener noreferrer"><strong>-</strong></a> <em>ファイル ID リスト</em> ]</p>
+</section>
+
+<section><h2>説明</h2> <p><strong>expfilt</strong> コマンドは、フィルター規則を、
+エクスポート・テキスト・ファイル (1 つ以上) にエクスポートする場合に使用します。
+この規則は、<strong>impfilt</strong> コマンドで使用できます。 これは、複数のマシンに、類似した規則を定義したい場合は便利です。</p>
+ <div><div>
+        <div>
+          <div><span>注:</span> あるマシンのフィルター記述は、別のマシンでは意味がないか、誤解を招く可能性があります。 このフィールドはエクスポートされません。</div>
+        </div>
+      </div></div>
+ <p>このコマンドの IPsec フィルター規則は、<span>genfilt</span> コマンドまたは IPsec smit (IP バージョン 4 または IP バージョン 6) を使用して構成することができます。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead>
+<tr>
+<th><div>項目</div></th>
+
+<th><div>説明</div></th>
+
+</tr>
+
+</thead>
+<tbody>
+<tr>
+<td><strong>-f</strong><em> ディレクトリー</em></td>
+
+<td>エクスポートされるテキスト・ファイルを作成するディレクトリーを指定します。 ディレクトリーがない場合は、作成されます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-</strong><em> ファイル ID リスト</em></td>
+
+<td>エクスポートしたいフィルター規則の ID を表示します。 フィルター・ルール ID は、「<strong>,</strong>」または「<strong>-</strong>」で区切ることができます。 このフラグを使用しない場合は、該当する IP バージョンのフィルター規則テーブルに定義されているすべてのフィルター規則がエクスポートされます。</td>
+
+</tr>
+
+<tr>
+<td><strong>-p</strong></td>
+
+<td>事前定義規則を許可します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-q</strong></td>
+
+<td>抑止モードを指定します。 <strong>stdout</strong> への出力を抑止します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-r</strong></td>
+
+<td>未加工モードを指定します。 フィルター規則を現状のままエクスポートし、
+ルールに関する指示を変えたりはしません。 このフラグは、
+フィルター規則を現状のままエクスポートしたりインポートしたりする場合に使用します。
+例えば、他のマシンに構成を保管したり、その複製を作成したりする場合です。<p><strong>-r</strong> フラグを指定すると、トラフィックの方向が保存されます。 例えば、ホスト 10.0.0.1 に、
+10.0.0.2 からのインバウンド・トラフィックを許可するという規則があるとすると、
+expfilt に -r フラグを指定することにより、同じフィルター規則が書き込まれます。</p>
+  <p><strong>-r</strong> フラグを省略すると、
+エクスポート・ファイルの方向がインバウンドからアウトバウンドに切り替えられます。</p>
+</td>
+
+</tr>
+
+<tr>
+<td><strong>-v</strong></td>
+
+<td>エクスポートしたいフィルター規則の IP バージョン。 値 <strong>4</strong> は、IP バージョン 4 を指定し、値 6 は IP バージョン <strong>6</strong> を指定します。 このフラグを使用しない場合は、IP バージョン 4 と IP バージョン 6 の両方の規則がエクスポートされます。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>セキュリティー</h2> <div><div><div>
+        <div>
+          <div><span>RBAC ユーザーの注意:</span> このコマンドは特権操作を実行できます。 特権命令を実行できるのは特権ユーザーのみです。 権限と特権の詳細については、<span>セキュリティ</span>の <a href="https://www.ibm.com/docs/ja/ssw_aix_73/security/rbac_priv_cmd_db.html" target="_blank" rel="noopener noreferrer">特権コマンドデータベース</a>を参照してください。 このコマンドに関連する特権と権限のリストについては、'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/l_commands/lssecattr.html" target="_blank" rel="noopener noreferrer"><span>lssecattr</span></a>コマンドまたは'<a href="https://www.ibm.com/docs/ja/ssw_aix_73/g_bostechref/getcmdattr.html" target="_blank" rel="noopener noreferrer"><span>getcmdattr</span></a>サブコマンドを参照のこと。</div>
+        </div>
+      </div></div>
+</div>
+</section>
+
+</div></div>

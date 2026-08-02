@@ -1,0 +1,83 @@
+<div class="official-dom"><div>
+<section><h2>目的</h2><p>ユーザーをユーザー ID または別名で識別します。</p>
+</section>
+
+<section><h2>構文</h2> <p><strong>whois</strong> [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20507" target="_blank" rel="noopener noreferrer"><strong>-h </strong></a><em>HostName </em>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20477" target="_blank" rel="noopener noreferrer"><strong>. </strong></a>| <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20486" target="_blank" rel="noopener noreferrer"><strong>! </strong></a>] [ <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20495" target="_blank" rel="noopener noreferrer"><strong>* </strong></a>] <em>Name </em>[ <strong>.. </strong>の場合</p>
+ <p><strong>whois</strong> <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20501" target="_blank" rel="noopener noreferrer"><strong>とは？</strong></a></p>
+</section>
+
+<section><h2>説明</h2><p><strong>/usr/bin/whois</strong> コマンドは、ユーザー名ディレクトリーを検索し、ユーザー ID または <em>Name</em> パラメーターに指定したニックネームに関する情報を表示します。 <strong>whois</strong> コマンドは、ARPANET ホストに到達しようとします。internic.netここでは、ユーザー名データベースを調べて情報を入手します。 <strong>whois</strong> コマンドは、ARPANET 上のユーザーだけに使用されなければなりません。 <strong>whois</strong> コマンドの詳しい情報および最近の変更内容については、RFC 812 を参照してください。</p>
+ <p></p><blockquote><span>“</span><span></span><strong>注:</strong> ネットワークが ARPANET などの国別ネットワーク上にある場合、ホスト名は次のようにハードコーディングされます。internic.net.<span>”</span></blockquote>
+<p></p>
+ <p><em>「名前」</em> [ <strong>. .</strong> ] パラメーターは、ディレクトリー検索を実行するユーザー ID、ホスト名、ネットワーク・アドレス、またはニックネームを表します。 <strong>whois</strong> コマンドは、オプションの前のストリングに一致する任意の名前のワイルドカード検索を実行します。 (3 つのピリオド)。</p>
+</section>
+
+<section><h2>フラグ</h2> <div> 
+<div><div><table><thead> <tr> <th><div>項目</div></th>
+ <th><div>説明</div></th>
+ </tr>
+ </thead>
+<tbody>
+<tr>
+<td><strong>.</strong></td>
+
+<td><em>Name</em> パラメーターに指定した名前について、名前だけの検索を強制的に行います。</td>
+
+</tr>
+
+<tr>
+<td><strong>!</strong></td>
+
+<td><em>Name</em> パラメーターに指定したニックネームまたはハンドル ID に関するヘルプ情報を表示します。</td>
+
+</tr>
+
+<tr>
+<td><strong>*</strong></td>
+
+<td>グループまたは組織のメンバーシップ・リスト全体を表示します。 メンバーが多い場合には、かなりの時間がかかります。</td>
+
+</tr>
+
+<tr>
+<td><strong>?</strong></td>
+
+<td>ARPANET ホストからのヘルプを要求します。</td>
+
+</tr>
+
+<tr>
+<td><strong>-h</strong><em> HostName</em></td>
+
+<td>代替ホスト名を指定します。 ARPANET 上のデフォルト・ホスト名は次のとおりです。internic.net。他の主要な ARPANET ユーザー名データベースに連絡することができます。nic.ddn.mil<strong>-h</strong><em> HostName</em> フラグを指定します。</td>
+
+</tr>
+
+</tbody>
+</table></div>
+</div>
+</div>
+</section>
+
+<section><h2>例</h2> <p></p>
+ <ol>
+<li><span></span>Smith という名前の ARPANET 登録ユーザーに関する情報を表示するには、次のように入力します。<div> <div><div><pre><code>whois Smith</code></pre></div><div></div></div></div>
+</li>
+
+<li><span></span>ハンドルHオブジェクトを使用する ARPANET 登録ユーザーに関する情報を表示するには、次のように入力します。<div>whois  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20486" target="_blank" rel="noopener noreferrer">!</a>Hobo</div>
+</li>
+
+<li><span></span>John Smith という名前の ARPANET 登録ユーザーに関する情報を表示するには、次のように入力します。<div>whois  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20477" target="_blank" rel="noopener noreferrer">.</a>Smith, John</div>
+</li>
+
+<li><span></span>名前またはハンドルが文字 HEN で始まる ARPANET 登録ユーザーに関する情報を表示するには、次のように入力します。<div>whois HEN ...</div>
+</li>
+
+<li><strong>whois</strong> コマンドに関するヘルプ情報を得るには、
+下記のように入力します。<div>whois  <a href="https://www.ibm.com/docs/ja/ssw_aix_73/w_commands/whois.html#whois__row-d3e20501" target="_blank" rel="noopener noreferrer">?</a></div>
+</li>
+
+</ol>
+</section>
+
+</div></div>
